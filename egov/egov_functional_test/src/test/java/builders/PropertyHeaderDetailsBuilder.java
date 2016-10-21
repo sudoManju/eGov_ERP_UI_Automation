@@ -1,0 +1,28 @@
+package builders;
+
+import entities.PropertyHeaderDetails;
+
+public class PropertyHeaderDetailsBuilder {
+
+    PropertyHeaderDetails propertyHeaderDetails = new PropertyHeaderDetails();
+
+    public PropertyHeaderDetailsBuilder() {
+
+        propertyHeaderDetails.setPropertyType("Residential");
+        propertyHeaderDetails.setCategoryOfOwnership("Private");
+    }
+
+    public PropertyHeaderDetails build() {
+        return propertyHeaderDetails;
+    }
+
+    public PropertyHeaderDetailsBuilder withPropertyType(String propertyType) {
+        propertyHeaderDetails.setPropertyType(propertyType);
+        return this;
+    }
+
+    public PropertyHeaderDetailsBuilder withCategoryOfOwnership(String categoryOfOwnership) {
+        propertyHeaderDetails.setCategoryOfOwnership(categoryOfOwnership);
+        return this;
+    }
+}
