@@ -26,8 +26,7 @@ public class LoginPage extends BasePage {
 
 
         waitForElementToBeClickable(submitButton, webDriver);
-        emailTextBox.clear();
-        emailTextBox.sendKeys(loginDetails.getLoginId());
+        enterText(emailTextBox, loginDetails.getLoginId());
 //        waitForElementVisibility(By.id("login-iframeame"), webDriver);
 //        webDriver.switchTo().frame(webDriver.findElement(By.id("login-iframe")));
 //        JavascriptExecutor executor = (JavascriptExecutor) webDriver;
@@ -36,8 +35,7 @@ public class LoginPage extends BasePage {
 //        executor.executeScript(String.format("document.getElementById('login_password').value='%s';", loginDetails.getPassword()));
 
         waitForElementToBeClickable(submitButton, webDriver);
-        passwordTextBox.clear();
-        passwordTextBox.sendKeys(loginDetails.getPassword());
+        enterText(passwordTextBox, loginDetails.getPassword());
 
 //        jsClick(submitButton, webDriver);
 //        Thread.sleep(5000);

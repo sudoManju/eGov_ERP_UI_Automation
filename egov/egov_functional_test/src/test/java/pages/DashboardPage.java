@@ -23,8 +23,7 @@ public class DashboardPage extends BasePage {
 
     public void chooseToCreateNewProperty() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchTreeTextBox.clear();
-        searchTreeTextBox.sendKeys("Create New Property");
+        enterText(searchTreeTextBox, "Create New Property");
         waitForElementToBeVisible(createNewPropertyLink, driver);
 
         createNewPropertyLink.click();

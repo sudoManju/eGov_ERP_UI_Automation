@@ -83,4 +83,9 @@ public class BasePage {
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", elementToBringIntoView);
         }
     }
+
+    protected void enterText(WebElement webElement, String emailAddress) {
+        webElement.clear();
+        webElement.sendKeys(emailAddress);
+    }
 }

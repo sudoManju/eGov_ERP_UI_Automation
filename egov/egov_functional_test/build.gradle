@@ -63,6 +63,7 @@ dependencies {
     compile('org.seleniumhq.selenium:selenium-java:2.52.0')
     compile('org.apache.poi:poi:3.13')
     compile('org.apache.poi:poi-ooxml:3.13')
+    compile group: 'com.jayway.awaitility', name: 'awaitility', version: '1.7.0'
 
 
 }
@@ -79,7 +80,6 @@ task runInParallel() {
         runCucumberTests()
     }
 }
-
 
 
 def runCucumberTests() {

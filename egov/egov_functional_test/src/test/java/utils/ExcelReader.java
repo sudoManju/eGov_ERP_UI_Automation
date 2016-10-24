@@ -21,6 +21,9 @@ public class ExcelReader {
     Sheet addressDetailsSheet;
     Sheet assessmentDetailsSheet;
     Sheet amenitiesSheet;
+    Sheet constructionTypeDetailsSheet;
+    Sheet floorDetailsSheet;
+    Sheet approvalDetailsSheet;
 
 
     public ExcelReader() throws IOException, InvalidFormatException {
@@ -33,6 +36,9 @@ public class ExcelReader {
         addressDetailsSheet = workbook.getSheet("addressDetails");
         assessmentDetailsSheet = workbook.getSheet("assessmentDetails");
         amenitiesSheet = workbook.getSheet("amenities");
+        constructionTypeDetailsSheet = workbook.getSheet("constructionTypeDetails");
+        floorDetailsSheet = workbook.getSheet("floorDetails");
+        approvalDetailsSheet = workbook.getSheet("approvalDetails");
     }
 
     private Row readDataRow(Sheet fromSheet, String dataId) {
@@ -54,7 +60,7 @@ public class ExcelReader {
 
         int physicalNumberOfCells = sheet.getRow(0).getPhysicalNumberOfCells();
         for (int cellNumber = 0; cellNumber < physicalNumberOfCells; cellNumber++) {
-            if (sheet.getRow(0).getCell(cellNumber).toString().contains(header))
+            if (sheet.getRow(0).getCell(cellNumber).toString().equalsIgnoreCase(header))
                 return cellNumber;
         }
 
@@ -149,17 +155,16 @@ public class ExcelReader {
         occupancyCertificateNumberCell.setCellType(Cell.CELL_TYPE_STRING);
         Cell registrationDocNumberCell = getCellData(assessmentDetailsSheet, dataRow, "registrationDocNumber");
         registrationDocNumberCell.setCellType(Cell.CELL_TYPE_STRING);
-        Date registrationDocDateCell = getCellData(assessmentDetailsSheet, dataRow, "registrationDocDate").getDateCellValue();
         String extentOfSite = extentOfSiteCell.getStringCellValue();
         String occupancyCertificateNumber = occupancyCertificateNumberCell.getStringCellValue();
         String registrationDocNumber = registrationDocNumberCell.getStringCellValue();
-        String registrationDocDate = registrationDocDateCell.toString();
+        Date registrationDocDate = getCellData(assessmentDetailsSheet, dataRow, "registrationDocDate").getDateCellValue();
 
         return new AssessmentDetailsBuilder().withReasonForCreation(reasonForCreation)
                 .withExtentOfSite(extentOfSite)
                 .withOccupancyCertificateNumber(occupancyCertificateNumber)
                 .withRegistrationDocNumber(registrationDocNumber)
-                .withRegistrationDocDate(new SimpleDateFormat("dd/mm/yy").format(new Date())).build();
+                .withRegistrationDocDate(new SimpleDateFormat("dd/MM/yy").format(registrationDocDate)).build();
 
 
     }
@@ -183,5 +188,81 @@ public class ExcelReader {
                 .hasWaterTap(waterTap)
                 .hasWaterHarvesting(waterHarvesting)
                 .hasCableConnection(cableConnection).build();
+    }
+
+    public ConstructionTypeDetails getConstructionTypeDetails(String constructionTypeDetailsDataId) {
+        Row dataRow = readDataRow(constructionTypeDetailsSheet, constructionTypeDetailsDataId);
+
+        String floorType = getCellData(constructionTypeDetailsSheet, dataRow, "floorType").getStringCellValue();
+        String roofType = getCellData(constructionTypeDetailsSheet, dataRow, "roofType").getStringCellValue();
+        String woodType = getCellData(constructionTypeDetailsSheet, dataRow, "woodType").getStringCellValue();
+        String wallType = getCellData(constructionTypeDetailsSheet, dataRow, "wallType").getStringCellValue();
+
+        return new ConstructionTypeDetailsBuilder().withFloorType(floorType)
+                .withRoofType(roofType)
+                .withWallType(wallType)
+                .withWoodType(woodType).build();
+    }
+
+    public FloorDetails getFloorDetails(String floorDetailsDataId) {
+        Row dataRow = readDataRow(floorDetailsSheet, floorDetailsDataId);
+
+        String floorNumber = getCellData(floorDetailsSheet, dataRow, "floorNumber").getStringCellValue();
+        String classificationOfBuilding = getCellData(floorDetailsSheet, dataRow, "classificationOfBuilding").getStringCellValue();
+        String natureOfUsage = getCellData(floorDetailsSheet, dataRow, "natureOfUsage").getStringCellValue();
+        String firmName = getCellData(floorDetailsSheet, dataRow, "firmName").getStringCellValue();
+        String occupancy = getCellData(floorDetailsSheet, dataRow, "occupancy").getStringCellValue();
+        String occupantName = getCellData(floorDetailsSheet, dataRow, "occupantName").getStringCellValue();
+        Date constructionDate = getCellData(floorDetailsSheet, dataRow, "constructionDate").getDateCellValue();
+        Date effectiveFromDate = getCellData(floorDetailsSheet, dataRow, "effectiveFromDate").getDateCellValue();
+        String unstructuredLand = getCellData(floorDetailsSheet, dataRow, "unstructuredLand").getStringCellValue();
+
+        Cell lengthCell = getCellData(floorDetailsSheet, dataRow, "length");
+        lengthCell.setCellType(Cell.CELL_TYPE_STRING);
+        Cell breadthCell = getCellData(floorDetailsSheet, dataRow, "breadth");
+        breadthCell.setCellType(Cell.CELL_TYPE_STRING);
+
+        String length = lengthCell.getStringCellValue();
+        String breadth = breadthCell.getStringCellValue();
+
+//        getCellData(constructionTypeDetailsSheet, dataRow, "plinthArea");
+        Cell buildingPermissionNumberCell = getCellData(floorDetailsSheet, dataRow, "buildingPermissionNumber");
+        buildingPermissionNumberCell.setCellType(Cell.CELL_TYPE_STRING);
+        Cell plinthAreaInBuildingPlanCell = getCellData(floorDetailsSheet, dataRow, "plinthAreaInBuildingPlan");
+        plinthAreaInBuildingPlanCell.setCellType(Cell.CELL_TYPE_STRING);
+
+        String buildingPermissionNumber = buildingPermissionNumberCell.getStringCellValue();
+        Date buildingPermissionDate = getCellData(floorDetailsSheet, dataRow, "buildingPermissionDate").getDateCellValue();
+        String plinthAreaInBuildingPlan = plinthAreaInBuildingPlanCell.getStringCellValue();
+
+        return new FloorDetailsBuilder().withFloorNumber(floorNumber)
+                .withClassificationOfBuilding(classificationOfBuilding)
+                .withNatureOfUsage(natureOfUsage)
+                .withFirmName(firmName)
+                .withOccupancy(occupancy)
+                .withOccupantName(occupantName)
+                .withConstructionDate(new SimpleDateFormat("dd/MM/yy").format(constructionDate))
+                .withEffectiveFromDate(new SimpleDateFormat("dd/MM/yy").format(effectiveFromDate))
+                .withUnstructuredLand(unstructuredLand)
+                .withLength(length)
+                .withBreadth(breadth)
+                .withBuildingPermissionNumber(buildingPermissionNumber)
+                .withBuildingPermissionDate(new SimpleDateFormat("dd/MM/yy").format(buildingPermissionDate))
+                .withPlinthAreaInBuildingPlan(plinthAreaInBuildingPlan)
+                .build();
+    }
+
+    public ApprovalDetails getApprovalDetails(String approvalDetailsDataId) {
+        Row dataRow = readDataRow(approvalDetailsSheet, approvalDetailsDataId);
+        String approverDepartment = getCellData(approvalDetailsSheet, dataRow, "approverDepartment").getStringCellValue();
+        String approverDesignation = getCellData(approvalDetailsSheet, dataRow, "approverDesignation").getStringCellValue();
+        String approver = getCellData(approvalDetailsSheet, dataRow, "approver").getStringCellValue();
+        String approverRemarks = getCellData(approvalDetailsSheet, dataRow, "approverRemarks").getStringCellValue();
+
+        return new ApprovalDetailsBuilder()
+                .withApproverDepartment(approverDepartment)
+                .withApproverDesignation(approverDesignation)
+                .withApprover(approver)
+                .withApproverRemarks(approverRemarks).build();
     }
 }

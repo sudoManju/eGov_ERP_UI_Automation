@@ -1,10 +1,14 @@
 package pages;
 
 import entities.*;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
+
+import static com.jayway.awaitility.Awaitility.await;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class PropertyDetailsPage extends BasePage {
 
@@ -95,6 +99,79 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "propertyDetail.cable")
     private WebElement cableConnectionCheckbox;
 
+    @FindBy(id = "floorTypeId")
+    private WebElement floorTypeSelection;
+
+    @FindBy(id = "roofTypeId")
+    private WebElement roofTypeSelection;
+
+    @FindBy(id = "wallTypeId")
+    private WebElement wallTypeSelection;
+
+    @FindBy(id = "woodTypeId")
+    private WebElement woodTypeSelection;
+
+    @FindBy(id = "floorNo")
+    private WebElement floorNumberSelection;
+
+    @FindBy(id = "floorConstType")
+    private WebElement classificationOfBuildingSelection;
+
+    @FindBy(id = "floorUsage")
+    private WebElement natureOfUsageSelection;
+
+    @FindBy(id = "firmName")
+    private WebElement firmNameTextBox;
+
+    @FindBy(id = "floorOccupation")
+    private WebElement occupancySelection;
+
+    @FindBy(id = "occupantName")
+    private WebElement occupantNameTextBox;
+
+    @FindBy(id = "propertyDetail.floorDetailsProxy[0].constructionDate")
+    private WebElement constructionDateTextBox;
+
+    @FindBy(id = "propertyDetail.floorDetailsProxy[0].occupancyDate")
+    private WebElement effectiveFromDateTextBox;
+
+    @FindBy(id = "unstructuredLand")
+    private WebElement unstructuredLandSelection;
+
+    @FindBy(id = "builtUpArealength")
+    private WebElement lengthTextBox;
+
+    @FindBy(id = "builtUpAreabreadth")
+    private WebElement breadthTextBox;
+
+    @FindBy(id = "builtUpArea")
+    private WebElement plinthAreaTextBox;
+
+    @FindBy(id = "propertyDetail.floorDetailsProxy[0].buildingPermissionNo")
+    private WebElement buildingPermissionNumberTextBox;
+
+    @FindBy(id = "propertyDetail.floorDetailsProxy[0].buildingPermissionDate")
+    private WebElement buildingPermissionDateTextBox;
+
+    @FindBy(id = "propertyDetail.floorDetailsProxy[0].buildingPlanPlinthArea.area")
+    private WebElement plinthAreaInBuildingPlanTextBox;
+
+
+    @FindBy(id = "approverDepartment")
+    private WebElement approverDepartmentSelection;
+
+    @FindBy(id = "approverDesignation")
+    private WebElement approverDesignationSelection;
+
+    @FindBy(id = "approverPositionId")
+    private WebElement approverSelection;
+
+    @FindBy(id = "approverComments")
+    private WebElement approverRemarksTextArea;
+
+    @FindBy(id = "Forward")
+    private WebElement forwardButton;
+
 
     public PropertyDetailsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -109,6 +186,7 @@ public class PropertyDetailsPage extends BasePage {
 
         waitForElementToBeClickable(propertyTypeSelection, webDriver);
         System.out.println("After category selection ---" + new Select(propertyTypeSelection).getOptions().size());
+        await().atMost(5, SECONDS).until(() -> new Select(propertyTypeSelection).getOptions().size() > 1);
         new Select(propertyTypeSelection).selectByVisibleText(propertyHeaderDetails.getPropertyType());
     }
 
@@ -116,11 +194,11 @@ public class PropertyDetailsPage extends BasePage {
         waitForElementToBeClickable(mobileNumberTextBox, webDriver);
 
         mobileNumberTextBox.sendKeys(ownerDetails.getMobileNumber());
-        ownerNameTextBox.sendKeys(ownerDetails.getOwnerName());
         new Select(genderSelection).selectByVisibleText(ownerDetails.getGender().toUpperCase());
-        emailIdTextBox.sendKeys(ownerDetails.getEmailAddress());
+        enterText(emailIdTextBox, ownerDetails.getEmailAddress());
+        enterText(ownerNameTextBox, ownerDetails.getOwnerName());
         new Select(guardianRelationSelection).selectByVisibleText(ownerDetails.getGuardianRelation());
-        guardianTextBox.sendKeys(ownerDetails.getGuardianName());
+        enterText(guardianTextBox, ownerDetails.getGuardianName());
     }
 
     public void enterPropertyAddressDetails(PropertyAddressDetails addressDetails) {
@@ -157,5 +235,49 @@ public class PropertyDetailsPage extends BasePage {
     private void selectAmenityIfRequired(WebElement element, Boolean hasAmenity) {
         if (hasAmenity && !element.isSelected())
             element.click();
+    }
+
+    public void enterConstructionTypeDetails(ConstructionTypeDetails constructionTypeDetails) {
+        new Select(floorTypeSelection).selectByVisibleText(constructionTypeDetails.getFloorType());
+        new Select(roofTypeSelection).selectByVisibleText(constructionTypeDetails.getRoofType());
+        new Select(woodTypeSelection).selectByVisibleText(constructionTypeDetails.getWoodType());
+        new Select(wallTypeSelection).selectByVisibleText(constructionTypeDetails.getWallType());
+    }
+
+    public void enterFloorDetails(FloorDetails floorDetails) {
+        new Select(floorNumberSelection).selectByVisibleText(floorDetails.getFloorNumber());
+        new Select(classificationOfBuildingSelection).selectByVisibleText(floorDetails.getClassificationOfBuilding());
+        new Select(natureOfUsageSelection).selectByVisibleText(floorDetails.getNatureOfUsage());
+        firmNameTextBox.sendKeys(floorDetails.getFirmName());
+        new Select(occupancySelection).selectByVisibleText(floorDetails.getOccupancy());
+        occupantNameTextBox.sendKeys(floorDetails.getOccupantName());
+
+        constructionDateTextBox.sendKeys(floorDetails.getConstructionDate());
+        constructionDateTextBox.sendKeys(Keys.TAB);
+
+        effectiveFromDateTextBox.sendKeys(floorDetails.getEffectiveFromDate());
+        effectiveFromDateTextBox.sendKeys(Keys.TAB);
+
+        new Select(unstructuredLandSelection).selectByVisibleText(floorDetails.getUnstructuredLand());
+
+        lengthTextBox.sendKeys(floorDetails.getLength());
+        breadthTextBox.sendKeys(floorDetails.getBreadth());
+//        plinthAreaTextBox.sendKeys(floorDetails.getPlinthArea());
+
+        buildingPermissionNumberTextBox.sendKeys(floorDetails.getBuildingPermissionNumber());
+        buildingPermissionDateTextBox.sendKeys(floorDetails.getBuildingPermissionDate());
+        plinthAreaInBuildingPlanTextBox.sendKeys(floorDetails.getPlinthAreaInBuildingPlan());
+    }
+
+    public void enterApprovalDetails(ApprovalDetails approvalDetails) {
+        new Select(approverDepartmentSelection).selectByVisibleText(approvalDetails.getApproverDepartment());
+        new Select(approverDesignationSelection).selectByVisibleText(approvalDetails.getApproverDesignation());
+        await().atMost(10, SECONDS).until(() -> new Select(approverSelection).getOptions().size() > 1);
+        new Select(approverSelection).selectByVisibleText(approvalDetails.getApprover());
+        approverRemarksTextArea.sendKeys(approvalDetails.getApproverRemarks());
+    }
+
+    public void forward() {
+        forwardButton.click();
     }
 }

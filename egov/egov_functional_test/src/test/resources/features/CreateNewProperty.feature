@@ -16,11 +16,14 @@ Feature: Create New Property
     And he enters amenities as <amenitiesDetails>
     And he enters construction type details as <constructionTypeDetails>
     And he enters floor details as <floorDetails>
-    And he enter approval details as <approvalDetails>
+    And he enters approval details as <approvalDetails>
+    And he forwards the details
+
+    Then the property gets registered
 
     Examples:
       | loginAs         | propertyHeaderDetails | ownerDetails | propertyAddressDetails | assessmentDetails     | amenitiesDetails | constructionTypeDetails | floorDetails | approvalDetails |
-      | juniorAssistant | residentialPrivate    | bimal        | addressOne             | assessmentNewProperty | all              | defaultConstructionType | firstFloor   | revenue         |
+      | juniorAssistant | residentialPrivate    | bimal        | addressOne             | assessmentNewProperty | all              | defaultConstructionType | firstFloor   | defaultApprover |
 
 
 

@@ -1,5 +1,6 @@
 package steps;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.*;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -73,6 +74,44 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
                 e.printStackTrace();
             }
             pageStore.get(PropertyDetailsPage.class).selectAmenities(amenities);
+        });
+        And("^he enters construction type details as (\\w+)$", (String constructionTypeDetailsDataId) -> {
+            ConstructionTypeDetails constructionTypeDetails = null;
+            try {
+                constructionTypeDetails = new ExcelReader().getConstructionTypeDetails(constructionTypeDetailsDataId);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InvalidFormatException e) {
+                e.printStackTrace();
+            }
+            pageStore.get(PropertyDetailsPage.class).enterConstructionTypeDetails(constructionTypeDetails);
+        });
+        And("^he enters floor details as (\\w+)$", (String floorDetailsDataId) -> {
+            FloorDetails floorDetails = null;
+
+            try {
+                floorDetails = new ExcelReader().getFloorDetails(floorDetailsDataId);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InvalidFormatException e) {
+                e.printStackTrace();
+            }
+
+            pageStore.get(PropertyDetailsPage.class).enterFloorDetails(floorDetails);
+        });
+        And("^he enters approval details as (\\w+)$", (String approvalDetailsDataId) -> {
+            ApprovalDetails approvalDetails = null;
+            try {
+                approvalDetails = new ExcelReader().getApprovalDetails(approvalDetailsDataId);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InvalidFormatException e) {
+                e.printStackTrace();
+            }
+            pageStore.get(PropertyDetailsPage.class).enterApprovalDetails(approvalDetails);
+        });
+        And("^he forwards the details$", () -> {
+            pageStore.get(PropertyDetailsPage.class).forward();
         });
     }
 }
