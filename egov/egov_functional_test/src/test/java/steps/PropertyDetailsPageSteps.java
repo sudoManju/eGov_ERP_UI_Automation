@@ -4,6 +4,7 @@ import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.*;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import pages.PropertyAcknowledgementPage;
 import pages.PropertyDetailsPage;
 import utils.ExcelReader;
 
@@ -113,5 +114,23 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
         And("^he forwards the details$", () -> {
             pageStore.get(PropertyDetailsPage.class).forward();
         });
+        And("^he forwards for approval to (.*)$", (String approvalDetailsDataId) -> {
+            ApprovalDetails approvalDetails = null;
+            try {
+                approvalDetails = new ExcelReader().getApprovalDetails(approvalDetailsDataId);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InvalidFormatException e) {
+                e.printStackTrace();
+            }
+            pageStore.get(PropertyDetailsPage.class).enterApprovalDetails(approvalDetails);
+            pageStore.get(PropertyDetailsPage.class).forward();
+        });
+        And("^he approved the property with remarks \"([^\"]*)\"$", (String remarks) -> {
+            // Write code here that turns the phrase above into concrete actions
+            pageStore.get(PropertyDetailsPage.class).enterApproverRemarks(remarks);
+            pageStore.get(PropertyDetailsPage.class).approve();
+        });
+
     }
 }

@@ -6,6 +6,7 @@ import cucumber.api.java.Before;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import utils.Properties;
+import utils.ScenarioContext;
 
 import java.io.IOException;
 
@@ -13,6 +14,7 @@ public class StartingSteps extends BaseSteps {
 
     @Before
     public void beforeScenario() throws IOException {
+        scenarioContext = new ScenarioContext();
         pageStore = new PageStore();
         pageStore.getDriver().get(Properties.url);
         pageStore.getDriver().manage().window().maximize();

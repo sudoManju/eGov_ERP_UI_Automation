@@ -7,7 +7,7 @@ Feature: Create New Property
 
   @Sanity
   Scenario Outline: Registered user creating a new property in the system
-    Given user is logged in with details of <loginAs>
+    Given juniorAssistant logs in
     When he chooses to create new property
     And he enters property header details as <propertyHeaderDetails>
     And he enters owner details for the first owner as <ownerDetails>
@@ -16,14 +16,49 @@ Feature: Create New Property
     And he enters amenities as <amenitiesDetails>
     And he enters construction type details as <constructionTypeDetails>
     And he enters floor details as <floorDetails>
-    And he enters approval details as <approvalDetails>
-    And he forwards the details
+    And he forwards for approval to billCollector
+    Then property details get saved successfully
 
-    Then the property gets registered
+    And current user closes acknowledgement
+    And current user logs out
+
+    When billCollector logs in
+    And chooses to act upon the above application
+    And he forwards for approval to revenueInspector
+    And current user closes acknowledgement
+    And current user logs out
+
+    When revenueInspector logs in
+    And chooses to act upon the above application
+    And he forwards for approval to revenueOfficer
+    And current user closes acknowledgement
+    And current user logs out
+
+    When revenueOfficer logs in
+    And chooses to act upon the above application
+    And he forwards for approval to commissioner
+    And current user closes acknowledgement
+    And current user logs out
+
+    When commissioner logs in
+    And chooses to act upon the above application
+    And he approved the property with remarks "property approved"
+
+
+#    When he logs
+#    When user is logged in with details of billCollector
+
 
     Examples:
-      | loginAs         | propertyHeaderDetails | ownerDetails | propertyAddressDetails | assessmentDetails     | amenitiesDetails | constructionTypeDetails | floorDetails | approvalDetails |
-      | juniorAssistant | residentialPrivate    | bimal        | addressOne             | assessmentNewProperty | all              | defaultConstructionType | firstFloor   | defaultApprover |
+      | propertyHeaderDetails | ownerDetails | propertyAddressDetails | assessmentDetails     | amenitiesDetails | constructionTypeDetails | floorDetails |
+      | residentialPrivate    | bimal        | addressOne             | assessmentNewProperty | all              | defaultConstructionType | firstFloor   |
+
+
+
+
+
+
+
 
 
 

@@ -92,8 +92,10 @@ public class ExcelReader {
         idCell.setCellType(Cell.CELL_TYPE_STRING);
         String id = idCell.getStringCellValue();
         String password = getCellData(registeredUserSheet, dataRow, "password").getStringCellValue();
+        boolean hasZone = getCellData(registeredUserSheet, dataRow, "hasZone").getBooleanCellValue();
 
-        return new LoginDetailsBuilder().withLoginId(id).withPassword(password).build();
+        return new LoginDetailsBuilder().withLoginId(id).withPassword(password)
+                .withHasZone(hasZone).build();
     }
 
 

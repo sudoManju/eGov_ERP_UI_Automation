@@ -9,5 +9,11 @@ public class DashboardSteps extends BaseSteps implements En {
         When("^he chooses to create new property$", () -> {
             pageStore.get(DashboardPage.class).chooseToCreateNewProperty();
         });
+        And("^current user logs out$", () -> {
+            pageStore.get(DashboardPage.class).logOut();
+        });
+        And("^chooses to act upon the above application$", () -> {
+            pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
+        });
     }
 }

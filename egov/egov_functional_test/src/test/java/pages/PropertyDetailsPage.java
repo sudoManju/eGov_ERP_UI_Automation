@@ -172,6 +172,9 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "Forward")
     private WebElement forwardButton;
 
+    @FindBy(id = "Approve")
+    private WebElement approveButton;
+
 
     public PropertyDetailsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -193,10 +196,10 @@ public class PropertyDetailsPage extends BasePage {
     public void enterOwnerDetails(OwnerDetails ownerDetails) {
         waitForElementToBeClickable(mobileNumberTextBox, webDriver);
 
-        mobileNumberTextBox.sendKeys(ownerDetails.getMobileNumber());
+        enterText(mobileNumberTextBox, ownerDetails.getMobileNumber());
+        enterText(ownerNameTextBox, ownerDetails.getOwnerName());
         new Select(genderSelection).selectByVisibleText(ownerDetails.getGender().toUpperCase());
         enterText(emailIdTextBox, ownerDetails.getEmailAddress());
-        enterText(ownerNameTextBox, ownerDetails.getOwnerName());
         new Select(guardianRelationSelection).selectByVisibleText(ownerDetails.getGuardianRelation());
         enterText(guardianTextBox, ownerDetails.getGuardianName());
     }
@@ -271,13 +274,24 @@ public class PropertyDetailsPage extends BasePage {
 
     public void enterApprovalDetails(ApprovalDetails approvalDetails) {
         new Select(approverDepartmentSelection).selectByVisibleText(approvalDetails.getApproverDepartment());
+        await().atMost(10, SECONDS).until(() -> new Select(approverDesignationSelection).getOptions().size() > 1);
         new Select(approverDesignationSelection).selectByVisibleText(approvalDetails.getApproverDesignation());
         await().atMost(10, SECONDS).until(() -> new Select(approverSelection).getOptions().size() > 1);
         new Select(approverSelection).selectByVisibleText(approvalDetails.getApprover());
-        approverRemarksTextArea.sendKeys(approvalDetails.getApproverRemarks());
+        enterApproverRemarks(approvalDetails.getApproverRemarks());
     }
+
+    public void enterApproverRemarks(String approverRemarks) {
+        approverRemarksTextArea.sendKeys(approverRemarks);
+    }
+
 
     public void forward() {
         forwardButton.click();
+    }
+
+
+    public void approve() {
+        approveButton.click();
     }
 }

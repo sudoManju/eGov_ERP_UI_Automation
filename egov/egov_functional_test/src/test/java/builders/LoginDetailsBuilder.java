@@ -23,4 +23,9 @@ public class LoginDetailsBuilder {
     public LoginDetails build(){
         return loginDetails;
     }
+
+    public LoginDetailsBuilder withHasZone(boolean hasZone) {
+        loginDetails.setHasZone(hasZone);
+        return this;
+    }
 }

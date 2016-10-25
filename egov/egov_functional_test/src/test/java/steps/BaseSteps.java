@@ -6,6 +6,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.Augmenter;
+import utils.ScenarioContext;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +14,8 @@ import java.io.IOException;
 public class BaseSteps {
 
     protected static PageStore pageStore;
+
+    protected static ScenarioContext scenarioContext;
 
     protected void takeScreenShot(String screenshotName) throws IOException {
         WebDriver augment = new Augmenter().augment(pageStore.getDriver());

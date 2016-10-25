@@ -84,8 +84,8 @@ public class BasePage {
         }
     }
 
-    protected void enterText(WebElement webElement, String emailAddress) {
+    protected void enterText(WebElement webElement, String value) {
         webElement.clear();
-        webElement.sendKeys(emailAddress);
+        webElement.sendKeys(value);
     }
 }
