@@ -13,6 +13,8 @@ Feature: Create New Property
     And he enters owner details for the first owner as <ownerDetails>
     And he enters property address details as <propertyAddressDetails>
     And he enters assessment details as <assessmentDetails>
+
+
     And he enters amenities as <amenitiesDetails>
     And he enters construction type details as <constructionTypeDetails>
     And he enters floor details as <floorDetails>
@@ -43,10 +45,26 @@ Feature: Create New Property
     When commissioner logs in
     And chooses to act upon the above application
     And he approved the property with remarks "property approved"
+    And current user closes acknowledgement
+
+    And chooses to act upon the above assessment
+    And he does a digital signature
+#
+    Then he is notified that "Notice Generated Successfully"
+
+    When commissioner closes acknowledgement
+    And current user logs out
+
+    And juniorAssistant logs in
+    And chooses to act upon the above assessment
+    And he generates a notice
+
+#    Then the notice is generated successfuly
 
 
-#    When he logs
-#    When user is logged in with details of billCollector
+
+
+
 
 
     Examples:
@@ -54,7 +72,8 @@ Feature: Create New Property
       | residentialPrivate    | bimal        | addressOne             | assessmentNewProperty | all              | defaultConstructionType | firstFloor   |
 
 
-
+  Scenario: addition
+    Given juniorAssitant logs in
 
 
 

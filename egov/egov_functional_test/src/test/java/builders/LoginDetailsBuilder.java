@@ -7,8 +7,8 @@ public class LoginDetailsBuilder {
     LoginDetails loginDetails = new LoginDetails();
 
     public LoginDetailsBuilder() {
-        loginDetails.setLoginId("tosukeshk@gmail.com");
-        loginDetails.setPassword("passw0rd");
+        loginDetails.setLoginId("944177");
+        loginDetails.setPassword("kurnool");
     }
 
     public LoginDetailsBuilder withLoginId(String loginId){

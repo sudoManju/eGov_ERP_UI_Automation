@@ -96,6 +96,7 @@ public class ExcelReader {
 
         return new LoginDetailsBuilder().withLoginId(id).withPassword(password)
                 .withHasZone(hasZone).build();
+
     }
 
 

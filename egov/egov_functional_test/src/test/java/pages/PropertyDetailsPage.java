@@ -175,6 +175,12 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "Approve")
     private WebElement approveButton;
 
+    @FindBy(id = "Sign")
+    private WebElement signButton;
+
+    @FindBy(id = "Generate Notice")
+    private WebElement generateNotice;
+
 
     public PropertyDetailsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -293,5 +299,13 @@ public class PropertyDetailsPage extends BasePage {
 
     public void approve() {
         approveButton.click();
+    }
+
+    public void digitallySign() {
+        signButton.click();
+    }
+
+    public void generateNotice() {
+        generateNotice.click();
     }
 }

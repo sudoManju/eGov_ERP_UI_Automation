@@ -44,6 +44,7 @@ public class DashboardPage extends BasePage {
     }
 
     private void switchToNewlyOpenedWindow() {
+        await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() > 1);
         for (String winHandle : driver.getWindowHandles()) {
             driver.switchTo().window(winHandle);
         }

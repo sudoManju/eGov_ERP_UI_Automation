@@ -131,6 +131,12 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
             pageStore.get(PropertyDetailsPage.class).enterApproverRemarks(remarks);
             pageStore.get(PropertyDetailsPage.class).approve();
         });
+        And("^he does a digital signature$", () -> {
+            pageStore.get(PropertyDetailsPage.class).digitallySign();
+        });
+        And("^he generates a notice$", () -> {
+          pageStore.get(PropertyDetailsPage.class).generateNotice();
+        });
 
     }
 }

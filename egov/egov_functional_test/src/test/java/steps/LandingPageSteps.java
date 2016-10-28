@@ -1,10 +1,9 @@
 package steps;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.LoginDetails;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import pages.LandingPage;
+import pages.HomePage;
 import utils.ExcelReader;
 
 import java.io.IOException;
@@ -20,7 +19,7 @@ public class LandingPageSteps extends BaseSteps implements En {
             } catch (InvalidFormatException e) {
                 e.printStackTrace();
             }
-            pageStore.get(LandingPage.class).loginAs(loginDetails);
+            pageStore.get(HomePage.class).loginAs(loginDetails);
         });
         Given("^(.*) logs in$", (String currentUser) -> {
             LoginDetails loginDetails = null;
@@ -31,7 +30,7 @@ public class LandingPageSteps extends BaseSteps implements En {
             } catch (InvalidFormatException e) {
                 e.printStackTrace();
             }
-            pageStore.get(LandingPage.class).loginAs(loginDetails);
+            pageStore.get(HomePage.class).loginAs(loginDetails);
 
         });
     }

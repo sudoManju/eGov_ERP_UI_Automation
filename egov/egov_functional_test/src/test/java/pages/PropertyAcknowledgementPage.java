@@ -18,6 +18,10 @@ public class PropertyAcknowledgementPage extends BasePage {
     @FindBy(css = "input[value='Close'][type='button']")
     private WebElement closeButton;
 
+    @FindBy(linkText = "Close")
+    private WebElement closeLink;
+
+
     public PropertyAcknowledgementPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -40,4 +44,15 @@ public class PropertyAcknowledgementPage extends BasePage {
         }
     }
 
+    public String getSignatureNotification() {
+        return driver.findElement(By.cssSelector("div.panel-title")).getText();
+    }
+
+    public void closeFromCommisionersLogin() {
+        closeLink.click();
+        await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
+        for (String winHandle : driver.getWindowHandles()) {
+            driver.switchTo().window(winHandle);
+        }
+    }
 }

@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class LandingPage extends BasePage {
+public class HomePage extends BasePage {
     private WebDriver driver;
 
     @FindBy(id = "j_username")
@@ -21,7 +21,7 @@ public class LandingPage extends BasePage {
     @FindBy(id = "locationId")
     private WebElement locationSelection;
 
-    public LandingPage(WebDriver driver) {
+    public HomePage(WebDriver driver) {
         this.driver = driver;
     }
 
