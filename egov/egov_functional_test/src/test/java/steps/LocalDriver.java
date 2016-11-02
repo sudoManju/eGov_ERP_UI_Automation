@@ -17,6 +17,7 @@ public class LocalDriver {
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         if (browser.equals("firefox")) {
+            System.setProperty("webdriver.gecko.driver", "src/test/java/geckodriver");
             return new FirefoxDriver();
         }
 
