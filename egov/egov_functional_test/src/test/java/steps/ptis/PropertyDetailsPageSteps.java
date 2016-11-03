@@ -1,11 +1,10 @@
-package steps;
+package steps.ptis;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
-import entities.*;
+import entities.ptis.*;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import pages.PropertyAcknowledgementPage;
-import pages.PropertyDetailsPage;
+import pages.ptis.PropertyDetailsPage;
+import steps.BaseSteps;
 import utils.ExcelReader;
 
 import java.io.IOException;
@@ -16,7 +15,7 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
 
             PropertyHeaderDetails propertyHeaderDetails = null;
             try {
-                propertyHeaderDetails = new ExcelReader().getPropertyHeaderDetails(propertyDetailsDataId);
+                propertyHeaderDetails = new ExcelReader(ptisTestDataFileName).getPropertyHeaderDetails(propertyDetailsDataId);
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (InvalidFormatException e) {
@@ -29,7 +28,7 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
             OwnerDetails ownerDetails = null;
 
             try {
-                ownerDetails = new ExcelReader().getOwnerDetails(ownerDetailsDataId);
+                ownerDetails = new ExcelReader(ptisTestDataFileName).getOwnerDetails(ownerDetailsDataId);
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (InvalidFormatException e) {
@@ -42,7 +41,7 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
             PropertyAddressDetails addressDetails = null;
 
             try {
-                addressDetails = new ExcelReader().getPropertyAddressDetails(addressDetailsDataId);
+                addressDetails = new ExcelReader(ptisTestDataFileName).getPropertyAddressDetails(addressDetailsDataId);
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (InvalidFormatException e) {
@@ -55,7 +54,7 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
             // Write code here that turns the phrase above into concrete actions
             AssessmentDetails assessmentDetails = null;
             try {
-                assessmentDetails = new ExcelReader().getAssessmentDetails(assessmentDetailsDataId);
+                assessmentDetails = new ExcelReader(ptisTestDataFileName).getAssessmentDetails(assessmentDetailsDataId);
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (InvalidFormatException e) {
@@ -68,7 +67,7 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
             Amenities amenities = null;
 
             try {
-                amenities = new ExcelReader().getAmenties(amenitiesDataId);
+                amenities = new ExcelReader(ptisTestDataFileName).getAmenties(amenitiesDataId);
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (InvalidFormatException e) {
@@ -79,7 +78,7 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
         And("^he enters construction type details as (\\w+)$", (String constructionTypeDetailsDataId) -> {
             ConstructionTypeDetails constructionTypeDetails = null;
             try {
-                constructionTypeDetails = new ExcelReader().getConstructionTypeDetails(constructionTypeDetailsDataId);
+                constructionTypeDetails = new ExcelReader(ptisTestDataFileName).getConstructionTypeDetails(constructionTypeDetailsDataId);
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (InvalidFormatException e) {
@@ -91,7 +90,7 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
             FloorDetails floorDetails = null;
 
             try {
-                floorDetails = new ExcelReader().getFloorDetails(floorDetailsDataId);
+                floorDetails = new ExcelReader(ptisTestDataFileName).getFloorDetails(floorDetailsDataId);
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (InvalidFormatException e) {
@@ -103,7 +102,7 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
         And("^he enters approval details as (\\w+)$", (String approvalDetailsDataId) -> {
             ApprovalDetails approvalDetails = null;
             try {
-                approvalDetails = new ExcelReader().getApprovalDetails(approvalDetailsDataId);
+                approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approvalDetailsDataId);
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (InvalidFormatException e) {
@@ -117,7 +116,7 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
         And("^he forwards for approval to (.*)$", (String approvalDetailsDataId) -> {
             ApprovalDetails approvalDetails = null;
             try {
-                approvalDetails = new ExcelReader().getApprovalDetails(approvalDetailsDataId);
+                approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approvalDetailsDataId);
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (InvalidFormatException e) {

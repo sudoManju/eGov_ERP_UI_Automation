@@ -1,6 +1,6 @@
-package builders;
+package builders.ptis;
 
-import entities.PropertyHeaderDetails;
+import entities.ptis.PropertyHeaderDetails;
 
 public class PropertyHeaderDetailsBuilder {
 

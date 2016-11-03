@@ -1,4 +1,4 @@
-package entities;
+package entities.ptis;
 
 public class OwnerDetails {
 

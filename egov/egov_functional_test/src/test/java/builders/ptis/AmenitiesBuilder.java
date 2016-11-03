@@ -1,6 +1,6 @@
-package builders;
+package builders.ptis;
 
-import entities.Amenities;
+import entities.ptis.Amenities;
 
 public class AmenitiesBuilder {
 

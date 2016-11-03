@@ -50,16 +50,16 @@ public class LocalDriver {
 
     private void setChromeDriverBasedOnOperatingSystem() {
         if (isWindows()) {
-            System.setProperty("webdriver.chrome.driver", "src/test/java/chromedriver.exe");
+            System.setProperty("webdriver.chrome.driver", "src/test/java/drivers/chromedriver.exe");
             return;
         }
         if (isMac()) {
-            System.setProperty("webdriver.chrome.driver", "src/test/java/chromedriver");
+            System.setProperty("webdriver.chrome.driver", "src/test/java/drivers/chromedriver");
             return;
         }
 
         if (isLinux()) {
-            System.setProperty("webdriver.chrome.driver", "src/test/java/chromedriver_linux");
+            System.setProperty("webdriver.chrome.driver", "src/test/java/drivers/chromedriver_linux");
             return;
 
         }
@@ -67,16 +67,16 @@ public class LocalDriver {
 
     private void setFirefoxDriverBasedOnOperatingSystem() {
         if (isWindows()) {
-            System.setProperty("webdriver.gecko.driver", "src/test/java/geckodriver.exe");
+            System.setProperty("webdriver.gecko.driver", "src/test/java/drivers/geckodriver.exe");
             return;
         }
         if (isMac()) {
-            System.setProperty("webdriver.gecko.driver", "src/test/java/geckodriver");
+            System.setProperty("webdriver.gecko.driver", "src/test/java/drivers/geckodriver");
             return;
         }
 
         if (isLinux()) {
-            System.setProperty("webdriver.gecko.driver", "src/test/java/geckodriver_linux");
+            System.setProperty("webdriver.gecko.driver", "src/test/java/drivers/geckodriver_linux");
             return;
 
         }

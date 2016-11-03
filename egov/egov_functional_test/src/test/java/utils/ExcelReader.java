@@ -1,7 +1,9 @@
 package utils;
 
-import builders.*;
+import builders.LoginDetailsBuilder;
+import builders.ptis.*;
 import entities.*;
+import entities.ptis.*;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 
@@ -26,8 +28,8 @@ public class ExcelReader {
     Sheet approvalDetailsSheet;
 
 
-    public ExcelReader() throws IOException, InvalidFormatException {
-        String excelFilePath = "TestData.xlsx";
+    public ExcelReader(String testData) throws IOException, InvalidFormatException {
+        String excelFilePath = testData + ".xlsx";
         InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream(excelFilePath);
         workbook = WorkbookFactory.create(resourceAsStream);
         registeredUserSheet = workbook.getSheet("registeredUserDetails");

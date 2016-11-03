@@ -1,6 +1,6 @@
-package builders;
+package builders.ptis;
 
-import entities.ConstructionTypeDetails;
+import entities.ptis.ConstructionTypeDetails;
 
 public class ConstructionTypeDetailsBuilder {
 

@@ -1,6 +1,6 @@
-package builders;
+package builders.ptis;
 
-import entities.PropertyAddressDetails;
+import entities.ptis.PropertyAddressDetails;
 
 public class AddressDetailsBuilder {
 

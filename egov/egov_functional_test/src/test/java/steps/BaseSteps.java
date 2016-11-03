@@ -16,6 +16,7 @@ public class BaseSteps {
     protected static PageStore pageStore;
 
     protected static ScenarioContext scenarioContext;
+    protected String ptisTestDataFileName = "PTISTestData";
 
     protected void takeScreenShot(String screenshotName) throws IOException {
         WebDriver augment = new Augmenter().augment(pageStore.getDriver());

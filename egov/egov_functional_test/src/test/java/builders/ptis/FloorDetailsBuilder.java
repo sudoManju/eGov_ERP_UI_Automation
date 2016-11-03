@@ -1,6 +1,6 @@
-package builders;
+package builders.ptis;
 
-import entities.FloorDetails;
+import entities.ptis.FloorDetails;
 
 public class FloorDetailsBuilder {
 

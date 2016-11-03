@@ -1,6 +1,6 @@
-package builders;
+package builders.ptis;
 
-import entities.ApprovalDetails;
+import entities.ptis.ApprovalDetails;
 
 public class ApprovalDetailsBuilder {
     ApprovalDetails approvalDetails = new ApprovalDetails();

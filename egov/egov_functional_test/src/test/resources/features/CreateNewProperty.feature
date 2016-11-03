@@ -72,10 +72,6 @@ Feature: Create New Property
       | residentialPrivate    | bimal        | addressOne             | assessmentNewProperty | all              | defaultConstructionType | firstFloor   |
 
 
-  Scenario: addition
-    Given juniorAssitant logs in
-
-
 
 
 

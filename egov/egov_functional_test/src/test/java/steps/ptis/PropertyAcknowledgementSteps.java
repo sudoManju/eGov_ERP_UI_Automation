@@ -1,9 +1,9 @@
-package steps;
+package steps.ptis;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import org.junit.Assert;
-import pages.PropertyAcknowledgementPage;
+import pages.ptis.PropertyAcknowledgementPage;
+import steps.BaseSteps;
 
 
 public class PropertyAcknowledgementSteps extends BaseSteps implements En {

@@ -1,6 +1,6 @@
-package builders;
+package builders.ptis;
 
-import entities.AssessmentDetails;
+import entities.ptis.AssessmentDetails;
 
 public class AssessmentDetailsBuilder {
 

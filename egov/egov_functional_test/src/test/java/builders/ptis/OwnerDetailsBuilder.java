@@ -1,6 +1,6 @@
-package builders;
+package builders.ptis;
 
-import entities.OwnerDetails;
+import entities.ptis.OwnerDetails;
 
 public class OwnerDetailsBuilder {
 
