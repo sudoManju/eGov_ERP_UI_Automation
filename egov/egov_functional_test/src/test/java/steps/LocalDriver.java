@@ -17,7 +17,7 @@ public class LocalDriver {
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         if (browser.equals("firefox")) {
-            System.setProperty("webdriver.gecko.driver", "src/test/java/geckodriver");
+            setFirefoxDriverBasedOnOperatingSystem();
             return new FirefoxDriver();
         }
 
@@ -60,6 +60,23 @@ public class LocalDriver {
 
         if (isLinux()) {
             System.setProperty("webdriver.chrome.driver", "src/test/java/chromedriver_linux");
+            return;
+
+        }
+    }
+
+    private void setFirefoxDriverBasedOnOperatingSystem() {
+        if (isWindows()) {
+            System.setProperty("webdriver.gecko.driver", "src/test/java/geckodriver.exe");
+            return;
+        }
+        if (isMac()) {
+            System.setProperty("webdriver.gecko.driver", "src/test/java/geckodriver");
+            return;
+        }
+
+        if (isLinux()) {
+            System.setProperty("webdriver.gecko.driver", "src/test/java/geckodriver_linux");
             return;
 
         }
