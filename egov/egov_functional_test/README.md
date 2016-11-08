@@ -1,4 +1,4 @@
-# [eGov Functional Tests]
+# eGov Functional Tests
 
 This project contains automated functional tests for different egov modules. The tech stack used for the project are:
 1. **Cucumber-jvm** as testing framework for writing test scenarios in BDD format
