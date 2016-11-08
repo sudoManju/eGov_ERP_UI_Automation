@@ -27,10 +27,7 @@ public class HomePage extends BasePage {
     }
 
     public void loginAs(LoginDetails loginDetails) {
-//        userNameTextBox.clear();
-        userNameTextBox.sendKeys(Keys.TAB);
         userNameTextBox.sendKeys(loginDetails.getLoginId());
-        userNameTextBox.click();
         passwordTextBox.sendKeys(loginDetails.getPassword());
         if (loginDetails.getHasZone())
             waitForElementToBeVisible(locationSelection, driver);

@@ -61,29 +61,6 @@ public class BasePage {
     }
 
 
-    protected String randomEmail() {
-        String random = RandomStringUtils.randomAlphabetic(8);
-        return random.toLowerCase() + "@tv.com";
-    }
-
-    protected void enterText(String textToBeEntered, WebElement textBox) {
-        textBox.clear();
-        textBox.sendKeys(textToBeEntered);
-    }
-
-    protected String getSelectedOption(WebElement element) {
-        String selectedOption = element.getAttribute("value");
-//        Select select = new Select(element);
-//        selectedOption = select.getFirstSelectedOption().getText();
-        return selectedOption;
-    }
-
-    protected void getElementIntoView(WebElement elementToBringIntoView, WebDriver driver) {
-        if (elementToBringIntoView.isEnabled()) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", elementToBringIntoView);
-        }
-    }
-
     protected void enterText(WebElement webElement, String value) {
         webElement.clear();
         webElement.sendKeys(value);

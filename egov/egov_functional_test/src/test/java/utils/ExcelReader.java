@@ -1,8 +1,10 @@
 package utils;
 
 import builders.LoginDetailsBuilder;
+import builders.collections.ChequeDetailsBuilder;
 import builders.ptis.*;
 import entities.*;
+import entities.collections.ChequeDetails;
 import entities.ptis.*;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
@@ -27,6 +29,8 @@ public class ExcelReader {
     Sheet floorDetailsSheet;
     Sheet approvalDetailsSheet;
 
+    Sheet chequeDetailsSheet;
+
 
     public ExcelReader(String testData) throws IOException, InvalidFormatException {
         String excelFilePath = testData + ".xlsx";
@@ -41,6 +45,8 @@ public class ExcelReader {
         constructionTypeDetailsSheet = workbook.getSheet("constructionTypeDetails");
         floorDetailsSheet = workbook.getSheet("floorDetails");
         approvalDetailsSheet = workbook.getSheet("approvalDetails");
+
+        chequeDetailsSheet = workbook.getSheet("chequeDetails");
     }
 
     private Row readDataRow(Sheet fromSheet, String dataId) {
@@ -269,5 +275,24 @@ public class ExcelReader {
                 .withApproverDesignation(approverDesignation)
                 .withApprover(approver)
                 .withApproverRemarks(approverRemarks).build();
+    }
+
+    public ChequeDetails getChequeDetails(String chequeDetailsDataId) {
+        Row dataRow = readDataRow(chequeDetailsSheet, chequeDetailsDataId);
+        Cell chequeNumberCell = getCellData(chequeDetailsSheet, dataRow, "chequeNumber");
+        chequeNumberCell.setCellType(Cell.CELL_TYPE_STRING);
+        String chequeNumber = chequeNumberCell.getStringCellValue();
+        Cell bankNameCell = getCellData(chequeDetailsSheet, dataRow, "bankName");
+        bankNameCell.setCellType(Cell.CELL_TYPE_STRING);
+        String bankName = bankNameCell.getStringCellValue();
+        String paidBy = getCellData(chequeDetailsSheet, dataRow, "paidBy").getStringCellValue();
+
+
+        return new ChequeDetailsBuilder()
+                .withChequeNumber(chequeNumber)
+                .withBankName(bankName)
+                .withPaidBy(paidBy)
+                .withChequeDate(new SimpleDateFormat("dd/MM/yyyy").format(new Date())).build();
+
     }
 }

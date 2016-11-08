@@ -59,6 +59,8 @@ Feature: Create New Property
     And chooses to act upon the above assessment
     And he generates a notice
 
+
+
 #    Then the notice is generated successfuly
 
 
@@ -71,6 +73,10 @@ Feature: Create New Property
       | propertyHeaderDetails | ownerDetails | propertyAddressDetails | assessmentDetails     | amenitiesDetails | constructionTypeDetails | floorDetails |
       | residentialPrivate    | bimal        | addressOne             | assessmentNewProperty | all              | defaultConstructionType | firstFloor   |
 
+
+
+
+    
 
 
 

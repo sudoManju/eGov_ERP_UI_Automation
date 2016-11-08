@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
@@ -19,6 +18,9 @@ public class DashboardPage extends BasePage {
 
     @FindBy(linkText = "Create New Property")
     private WebElement createNewPropertyLink;
+
+    @FindBy(linkText = "Property Tax")
+    private WebElement propertyTaxLink;
 
     @FindBy(className = "profile-name")
     private WebElement profileNameLink;
@@ -35,12 +37,16 @@ public class DashboardPage extends BasePage {
 
     public void chooseToCreateNewProperty() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
-        enterText(searchTreeTextBox, "Create New Property");
+        searchFor("Create New Property");
         waitForElementToBeVisible(createNewPropertyLink, driver);
 
         createNewPropertyLink.click();
 
         switchToNewlyOpenedWindow();
+    }
+
+    private void searchFor(String value) {
+        enterText(searchTreeTextBox, value);
     }
 
     private void switchToNewlyOpenedWindow() {
@@ -73,5 +79,13 @@ public class DashboardPage extends BasePage {
                 return applicationRow;
         }
         throw new RuntimeException("No application row found for -- " + applicationNumber);
+    }
+
+    public void chooseToCollectTaxes() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Property Tax");
+        waitForElementToBeVisible(propertyTaxLink, driver);
+        propertyTaxLink.click();
+        switchToNewlyOpenedWindow();
     }
 }
