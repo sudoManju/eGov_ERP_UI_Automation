@@ -19,6 +19,8 @@ public class HomePageSteps extends BaseSteps implements En {
             } catch (InvalidFormatException e) {
                 e.printStackTrace();
             }
+            if (System.getProperty("env").equalsIgnoreCase("qa"))
+                loginDetails.setPassword("eGov@123");
             pageStore.get(HomePage.class).loginAs(loginDetails);
 
         });

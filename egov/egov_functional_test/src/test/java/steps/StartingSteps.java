@@ -29,6 +29,6 @@ public class StartingSteps extends BaseSteps {
         }
 
         pageStore.pages.clear();
-//        pageStore.destroy();
+        pageStore.destroy();
     }
 }

@@ -35,7 +35,6 @@ public class PageStore {
 
     public void destroy() {
         webDriver.quit();
-
     }
 
     public WebDriver getDriver() {
