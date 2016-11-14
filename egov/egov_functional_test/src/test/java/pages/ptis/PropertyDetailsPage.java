@@ -189,13 +189,9 @@ public class PropertyDetailsPage extends BasePage {
 
 
     public void enterPropertyHeader(PropertyHeaderDetails propertyHeaderDetails) {
-
-        System.out.println("Before category selection ---" + new Select(propertyTypeSelection).getOptions().size());
         waitForElementToBeClickable(categoryOfOwnershipSelection, webDriver);
         new Select(categoryOfOwnershipSelection).selectByVisibleText(propertyHeaderDetails.getCategoryOfOwnership());
 
-        waitForElementToBeClickable(propertyTypeSelection, webDriver);
-        System.out.println("After category selection ---" + new Select(propertyTypeSelection).getOptions().size());
         await().atMost(5, SECONDS).until(() -> new Select(propertyTypeSelection).getOptions().size() > 1);
         new Select(propertyTypeSelection).selectByVisibleText(propertyHeaderDetails.getPropertyType());
     }
@@ -206,6 +202,8 @@ public class PropertyDetailsPage extends BasePage {
         enterText(mobileNumberTextBox, ownerDetails.getMobileNumber());
         enterText(ownerNameTextBox, ownerDetails.getOwnerName());
         new Select(genderSelection).selectByVisibleText(ownerDetails.getGender().toUpperCase());
+
+        waitForElementToBeClickable(emailIdTextBox, webDriver);
         enterText(emailIdTextBox, ownerDetails.getEmailAddress());
         new Select(guardianRelationSelection).selectByVisibleText(ownerDetails.getGuardianRelation());
         enterText(guardianTextBox, ownerDetails.getGuardianName());
@@ -216,8 +214,6 @@ public class PropertyDetailsPage extends BasePage {
 
         new Select(localitySelection).selectByVisibleText(addressDetails.getLocality());
         new Select(zoneNumberSelection).selectByVisibleText(addressDetails.getZoneNumber());
-//        new Select(wardNumberSelection).selectByVisibleText(addressDetails.getWardNumber());
-//        new Select(blockNumberSelection).selectByVisibleText(addressDetails.getBlockNumber());
         new Select(electionWardSeletion).selectByVisibleText(addressDetails.getElectionWard());
 
         doorNumberTextBox.sendKeys(addressDetails.getDoorNumber());

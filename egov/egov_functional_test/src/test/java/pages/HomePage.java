@@ -1,6 +1,7 @@
 package pages;
 
 import entities.LoginDetails;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -29,9 +30,18 @@ public class HomePage extends BasePage {
     public void loginAs(LoginDetails loginDetails) {
         userNameTextBox.sendKeys(loginDetails.getLoginId());
         passwordTextBox.sendKeys(loginDetails.getPassword());
-        if (loginDetails.getHasZone())
-            waitForElementToBeVisible(locationSelection, driver);
+
+        waitForElementToBeClickable(signInButton, driver);
+        if (loginDetails.getHasZone()
+                && !isElementPresentAndDisplayed(By.id(locationSelection.getAttribute("id")), driver))
+            signInButton.click();
+
         waitForElementToBeClickable(signInButton, driver);
         signInButton.click();
+
+//        if (isElementPresentAndDisplayed(By.id(signInButton.getAttribute("id")), driver)) {
+//            waitForElementToBeClickable(signInButton, driver);
+//            signInButton.click();
+//        }
     }
 }
