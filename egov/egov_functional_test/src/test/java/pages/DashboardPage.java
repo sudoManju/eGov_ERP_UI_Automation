@@ -42,18 +42,11 @@ public class DashboardPage extends BasePage {
 
         createNewPropertyLink.click();
 
-        switchToNewlyOpenedWindow();
+        switchToNewlyOpenedWindow(driver);
     }
 
     private void searchFor(String value) {
         enterText(searchTreeTextBox, value);
-    }
-
-    private void switchToNewlyOpenedWindow() {
-        await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() > 1);
-        for (String winHandle : driver.getWindowHandles()) {
-            driver.switchTo().window(winHandle);
-        }
     }
 
     public void logOut() {
@@ -64,14 +57,14 @@ public class DashboardPage extends BasePage {
 
     public void openApplication(String applicationNumber) {
         getApplicationRowFor(applicationNumber).click();
-        switchToNewlyOpenedWindow();
+        switchToNewlyOpenedWindow(driver);
     }
 
     private WebElement getApplicationRowFor(String applicationNumber) {
         waitForElementToBeVisible(driver.findElement(By.id("worklist")), driver);
         waitForElementToBeVisible(officialInboxTable, driver);
 
-        await().atMost(5, SECONDS).until(() -> officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
+        await().atMost(10, SECONDS).until(() -> officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
         List<WebElement> applicationRows = officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
         System.out.println("total number of rows -- " + applicationRows.size());
         for (WebElement applicationRow : applicationRows) {
@@ -86,6 +79,6 @@ public class DashboardPage extends BasePage {
         searchFor("Property Tax");
         waitForElementToBeVisible(propertyTaxLink, driver);
         propertyTaxLink.click();
-        switchToNewlyOpenedWindow();
+        switchToNewlyOpenedWindow(driver);
     }
 }

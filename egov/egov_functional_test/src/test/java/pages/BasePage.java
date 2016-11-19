@@ -1,10 +1,12 @@
 package pages;
 
-import org.apache.commons.lang.RandomStringUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.Properties;
+
+import static com.jayway.awaitility.Awaitility.await;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class BasePage {
 
@@ -64,5 +66,12 @@ public class BasePage {
     protected void enterText(WebElement webElement, String value) {
         webElement.clear();
         webElement.sendKeys(value);
+    }
+
+    protected void switchToNewlyOpenedWindow(WebDriver driver) {
+        await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() > 1);
+        for (String winHandle : driver.getWindowHandles()) {
+            driver.switchTo().window(winHandle);
+        }
     }
 }

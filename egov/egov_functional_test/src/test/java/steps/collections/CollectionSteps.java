@@ -13,15 +13,7 @@ import java.io.IOException;
 public class CollectionSteps extends BaseSteps implements En {
     public CollectionSteps() {
         And("^he pays using cheque with details as (\\w+)$", (String chequeDetailsDataName) -> {
-            ChequeDetails chequeDetails = null;
-            try {
-                chequeDetails = new ExcelReader(collectionsTestDataFileName).getChequeDetails(chequeDetailsDataName);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InvalidFormatException e) {
-                e.printStackTrace();
-            }
-
+            ChequeDetails chequeDetails = new ExcelReader(collectionsTestDataFileName).getChequeDetails(chequeDetailsDataName);
             pageStore.get(CollectionsPage.class).enterChequeDetails(chequeDetails);
         });
     }

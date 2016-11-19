@@ -56,4 +56,8 @@ public class PropertyAcknowledgementPage extends BasePage {
             driver.switchTo().window(winHandle);
         }
     }
+
+    public void cancelPrint() {
+        driver.findElement(By.className("cancel")).click();
+    }
 }

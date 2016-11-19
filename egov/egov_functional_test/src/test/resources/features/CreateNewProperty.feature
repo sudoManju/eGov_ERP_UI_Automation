@@ -8,8 +8,10 @@ Feature: Create New Property
   @Sanity
   Scenario Outline: Registered user creating a new property in the system
     Given juniorAssistant logs in
+
     When he chooses to create new property
     And he enters property header details as <propertyHeaderDetails>
+
     And he enters owner details for the first owner as <ownerDetails>
     And he enters property address details as <propertyAddressDetails>
     And he enters assessment details as <assessmentDetails>
@@ -59,27 +61,6 @@ Feature: Create New Property
     And chooses to act upon the above assessment
     And he generates a notice
 
-
-
-#    Then the notice is generated successfuly
-
-
-
-
-
-
-
     Examples:
       | propertyHeaderDetails | ownerDetails | propertyAddressDetails | assessmentDetails     | amenitiesDetails | constructionTypeDetails | floorDetails |
       | residentialPrivate    | bimal        | addressOne             | assessmentNewProperty | all              | defaultConstructionType | firstFloor   |
-
-
-
-
-
-
-
-
-
-
-

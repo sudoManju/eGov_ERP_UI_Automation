@@ -32,10 +32,16 @@ public class ExcelReader {
     Sheet chequeDetailsSheet;
 
 
-    public ExcelReader(String testData) throws IOException, InvalidFormatException {
+    public ExcelReader(String testData) {
         String excelFilePath = testData + ".xlsx";
         InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream(excelFilePath);
-        workbook = WorkbookFactory.create(resourceAsStream);
+        try {
+            workbook = WorkbookFactory.create(resourceAsStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InvalidFormatException e) {
+            e.printStackTrace();
+        }
         registeredUserSheet = workbook.getSheet("registeredUserDetails");
         propertyHeaderDetailsSheet = workbook.getSheet("propertyHeaderDetails");
         ownerDetailsSheet = workbook.getSheet("ownerDetails");
@@ -101,6 +107,7 @@ public class ExcelReader {
         String id = idCell.getStringCellValue();
         String password = getCellData(registeredUserSheet, dataRow, "password").getStringCellValue();
         boolean hasZone = getCellData(registeredUserSheet, dataRow, "hasZone").getBooleanCellValue();
+
 
         return new LoginDetailsBuilder().withLoginId(id).withPassword(password)
                 .withHasZone(hasZone).build();

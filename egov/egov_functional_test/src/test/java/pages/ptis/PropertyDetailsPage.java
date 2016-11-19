@@ -1,6 +1,7 @@
 package pages.ptis;
 
 import entities.ptis.*;
+import org.junit.Assert;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -277,11 +278,24 @@ public class PropertyDetailsPage extends BasePage {
 
     public void enterApprovalDetails(ApprovalDetails approvalDetails) {
         new Select(approverDepartmentSelection).selectByVisibleText(approvalDetails.getApproverDepartment());
-        await().atMost(10, SECONDS).until(() -> new Select(approverDesignationSelection).getOptions().size() > 1);
-        new Select(approverDesignationSelection).selectByVisibleText(approvalDetails.getApproverDesignation());
-        await().atMost(10, SECONDS).until(() -> new Select(approverSelection).getOptions().size() > 1);
-        new Select(approverSelection).selectByVisibleText(approvalDetails.getApprover());
+//        await().atMost(10, SECONDS).until(() -> new Select(approverDesignationSelection).getOptions().size() > 1);
+//        new Select(approverDesignationSelection).selectByVisibleText(approvalDetails.getApproverDesignation());
+
+        selectAndConfirm(approvalDetails.getApproverDesignation(), approverDesignationSelection);
+        selectAndConfirm(approvalDetails.getApprover(), approverSelection);
         enterApproverRemarks(approvalDetails.getApproverRemarks());
+    }
+
+    private void selectAndConfirm(String value, WebElement webElement) {
+        await().atMost(10, SECONDS).until(() -> new Select(webElement).getOptions().size() > 1);
+        new Select(webElement).selectByVisibleText(value);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+//        String selectedOption = new Select(webElement).getFirstSelectedOption().getText();
+//        Assert.assertEquals(value, selectedOption);
     }
 
     public void enterApproverRemarks(String approverRemarks) {

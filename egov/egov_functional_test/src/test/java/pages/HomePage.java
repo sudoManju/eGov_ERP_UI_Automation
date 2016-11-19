@@ -30,18 +30,11 @@ public class HomePage extends BasePage {
     public void loginAs(LoginDetails loginDetails) {
         userNameTextBox.sendKeys(loginDetails.getLoginId());
         passwordTextBox.sendKeys(loginDetails.getPassword());
-
-        waitForElementToBeClickable(signInButton, driver);
-        if (loginDetails.getHasZone()
-                && !isElementPresentAndDisplayed(By.id(locationSelection.getAttribute("id")), driver))
-            signInButton.click();
-
+        if (loginDetails.getHasZone()) {
+            waitForElementToBeVisible(locationSelection, driver);
+        }
         waitForElementToBeClickable(signInButton, driver);
         signInButton.click();
-
-//        if (isElementPresentAndDisplayed(By.id(signInButton.getAttribute("id")), driver)) {
-//            waitForElementToBeClickable(signInButton, driver);
-//            signInButton.click();
-//        }
+//        jsClick(signInButton, driver);
     }
 }
