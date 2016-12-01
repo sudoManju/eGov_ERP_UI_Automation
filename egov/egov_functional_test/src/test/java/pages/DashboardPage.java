@@ -1,5 +1,6 @@
 package pages;
 
+import org.codehaus.groovy.runtime.powerassert.SourceText;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -30,6 +31,9 @@ public class DashboardPage extends BasePage {
 
     @FindBy(id = "official_inbox")
     private WebElement officialInboxTable;
+
+    @FindBy(linkText = "Miscellaneous Receipt")
+        private WebElement miscellaneousReceipt;
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -80,5 +84,15 @@ public class DashboardPage extends BasePage {
         waitForElementToBeVisible(propertyTaxLink, driver);
         propertyTaxLink.click();
         switchToNewlyOpenedWindow(driver);
+    }
+
+    public void createMiscellenous() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchTreeTextBox.click();
+        searchTreeTextBox.sendKeys("Miscellaneous Receipt");
+        miscellaneousReceipt.click();
+        switchToNewlyOpenedWindow(driver);
+
+
     }
 }
