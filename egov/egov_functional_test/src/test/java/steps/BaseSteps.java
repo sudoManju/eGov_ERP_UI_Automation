@@ -13,9 +13,9 @@ import java.io.IOException;
 
 public class BaseSteps {
 
-    protected static PageStore pageStore;
+    public static PageStore pageStore;
 
-    protected static ScenarioContext scenarioContext;
+    public static ScenarioContext scenarioContext;
     protected String ptisTestDataFileName = "PTISTestData";
     protected String collectionsTestDataFileName = "CollectionsTestData";
 
