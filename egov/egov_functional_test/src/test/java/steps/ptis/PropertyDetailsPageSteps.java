@@ -1,5 +1,6 @@
 package steps.ptis;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.ptis.*;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -67,6 +68,24 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
         And("^he generates a notice$", () -> {
             pageStore.get(PropertyDetailsPage.class).generateNotice();
 
+        });
+        And("^user enters the data entry information$", () -> {
+            String applicationParticularsDetails = "applicantInfo" ;
+            String connectionDetails = "connectionInfo";
+            String feeDetails = "feeInfo";
+
+            ApplicantInfo applicantInfo = new ExcelReader(ptisTestDataFileName).getApplicantInfo(applicationParticularsDetails);
+            pageStore.get(PropertyDetailsPage.class).enterApplicationInfo(applicantInfo);
+
+            ConnectionInfo connectionInfo = new ExcelReader(ptisTestDataFileName).getConnectionInfo(connectionDetails);
+            pageStore.get(PropertyDetailsPage.class).enterConnectionInfo(connectionInfo);
+
+            FeeInfo feeInfo = new ExcelReader(ptisTestDataFileName).getFeeInfo(feeDetails);
+            pageStore.get(PropertyDetailsPage.class).enterFeeInfo(feeInfo);
+
+        });
+        And("^finally user will submit the application$", () -> {
+            pageStore.get(PropertyDetailsPage.class).chooseToSubmit();
         });
 
     }

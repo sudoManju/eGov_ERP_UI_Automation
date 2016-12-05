@@ -30,6 +30,9 @@ public class ExcelReader {
     Sheet approvalDetailsSheet;
 
     Sheet chequeDetailsSheet;
+    Sheet applicantParticularsSheet;
+    Sheet connectionDetailsSheet;
+    Sheet feeDetailsSheet;
 
 
     public ExcelReader(String testData) {
@@ -53,6 +56,10 @@ public class ExcelReader {
         approvalDetailsSheet = workbook.getSheet("approvalDetails");
 
         chequeDetailsSheet = workbook.getSheet("chequeDetails");
+        applicantParticularsSheet = workbook.getSheet("applicantParticulars");
+        connectionDetailsSheet = workbook.getSheet("connectionDetails");
+        feeDetailsSheet = workbook.getSheet("feeDetails");
+
     }
 
     private Row readDataRow(Sheet fromSheet, String dataId) {
@@ -300,6 +307,112 @@ public class ExcelReader {
                 .withBankName(bankName)
                 .withPaidBy(paidBy)
                 .withChequeDate(new SimpleDateFormat("dd/MM/yyyy").format(new Date())).build();
+
+    }
+
+    public ApplicantInfo getApplicantInfo(String applicationParticularsDetails){
+        Row dataRow = readDataRow(applicantParticularsSheet , applicationParticularsDetails);
+
+        Cell assessmentNumberCell = getCellData(applicantParticularsSheet, dataRow, "assessmentNumber");
+        assessmentNumberCell.setCellType(Cell.CELL_TYPE_STRING);
+        String assessmentNumber = assessmentNumberCell.getStringCellValue();
+
+        Cell hscNumberCell = getCellData(applicantParticularsSheet, dataRow, "hscNumber");
+        hscNumberCell.setCellType(Cell.CELL_TYPE_STRING);
+        String hscNumber = hscNumberCell.getStringCellValue();
+
+        Cell connectionDateCell = getCellData(applicantParticularsSheet, dataRow, "connectionDate");
+        connectionDateCell.setCellType(Cell.CELL_TYPE_STRING);
+        String connectionDate = connectionDateCell.getStringCellValue();
+
+        return new ApplicantInfoBuilder()
+                .withPTAssessmentNumber(assessmentNumber)
+                .withHSCNumber(hscNumber)
+                .withConnectionDate(connectionDate)
+                .build();
+
+    }
+
+    public ConnectionInfo getConnectionInfo(String connectionDetails){
+        Row dataRow = readDataRow(connectionDetailsSheet , connectionDetails);
+
+        Cell waterSourceTypeCell = getCellData(connectionDetailsSheet, dataRow, "waterSourceType");
+        waterSourceTypeCell.setCellType(Cell.CELL_TYPE_STRING);
+        String waterSourceType = waterSourceTypeCell.getStringCellValue();
+
+        String connectionType = getCellData(connectionDetailsSheet , dataRow ,"connectionType").getStringCellValue();
+        String propertyType = getCellData(connectionDetailsSheet , dataRow ,"propertyType").getStringCellValue();
+        String category = getCellData(connectionDetailsSheet , dataRow ,"category").getStringCellValue();
+        String usageType = getCellData(connectionDetailsSheet , dataRow ,"usageType").getStringCellValue();
+
+        Cell hscPipeSizeCell = getCellData(connectionDetailsSheet, dataRow, "hscPipeSize");
+        hscPipeSizeCell.setCellType(Cell.CELL_TYPE_STRING);
+        String hscPipeSize = hscPipeSizeCell.getStringCellValue();
+
+        Cell sumpCapacityCell = getCellData(connectionDetailsSheet, dataRow, "sumpCapacity");
+        sumpCapacityCell.setCellType(Cell.CELL_TYPE_STRING);
+        String sumpCapacity = sumpCapacityCell.getStringCellValue();
+
+        Cell noOfPersonsCell = getCellData(connectionDetailsSheet, dataRow, "noOfPersons");
+        noOfPersonsCell.setCellType(Cell.CELL_TYPE_STRING);
+        String noOfPersons = noOfPersonsCell.getStringCellValue();
+
+        return new ConnectionInfoBuilder()
+                .withWaterSourceType(waterSourceType)
+                .withConnectionType(connectionType)
+                .withPropertyType(propertyType)
+                .withCategory(category)
+                .withUsageType(usageType)
+                .withHSCPipeSize(hscPipeSize)
+                .withSumpCapacity(sumpCapacity)
+                .withNoOfPersons(noOfPersons)
+                .build();
+    }
+
+    public FeeInfo getFeeInfo(String feeDetails){
+
+        Row dataRow = readDataRow(feeDetailsSheet , feeDetails);
+
+        Cell monthlyFeesCell = getCellData(feeDetailsSheet, dataRow, "monthlyfees");
+        monthlyFeesCell.setCellType(Cell.CELL_TYPE_STRING);
+        String monthlyFees = monthlyFeesCell.getStringCellValue();
+
+        Cell donationChargesCell = getCellData(feeDetailsSheet, dataRow, "donationCharges");
+        donationChargesCell.setCellType(Cell.CELL_TYPE_STRING);
+        String donationCharges = donationChargesCell.getStringCellValue();
+
+        Cell meterCostCell = getCellData(feeDetailsSheet, dataRow, "meterCost");
+        meterCostCell.setCellType(Cell.CELL_TYPE_STRING);
+        String meterCost = meterCostCell.getStringCellValue();
+
+        String meterName = getCellData(feeDetailsSheet , dataRow , "meterName").getStringCellValue();
+
+        Cell meterSINoCell = getCellData(feeDetailsSheet, dataRow, "meterSINo");
+        meterSINoCell.setCellType(Cell.CELL_TYPE_STRING);
+        String meterSINo = meterSINoCell.getStringCellValue();
+
+        Cell previousReadingCell = getCellData(feeDetailsSheet, dataRow, "previousReading");
+        previousReadingCell.setCellType(Cell.CELL_TYPE_STRING);
+        String previousReading = previousReadingCell.getStringCellValue();
+
+        Cell lastReadingDateCell = getCellData(feeDetailsSheet, dataRow, "lastReadingDate");
+        lastReadingDateCell.setCellType(Cell.CELL_TYPE_STRING);
+        String lastReadingDate = lastReadingDateCell.getStringCellValue();
+
+        Cell currentReadingCell = getCellData(feeDetailsSheet, dataRow, "currentReading");
+        currentReadingCell.setCellType(Cell.CELL_TYPE_STRING);
+        String currentReading = currentReadingCell.getStringCellValue();
+
+        return new FeeInfoBuilder()
+                .withMonthlyfees(monthlyFees)
+                .withDoantionCharges(donationCharges)
+                .withMeterCost(meterCost)
+                .withMeterName(meterName)
+                .withMeterSINo(meterSINo)
+                .withPreviousReading(previousReading)
+                .withLastReadingDate(lastReadingDate)
+                .withCurrentReading(currentReading)
+                .build();
 
     }
 }

@@ -64,3 +64,15 @@ Feature: Create New Property
     Examples:
       | propertyHeaderDetails | ownerDetails | propertyAddressDetails | assessmentDetails     | amenitiesDetails | constructionTypeDetails | floorDetails |
       | residentialPrivate    | bimal        | addressOne             | assessmentNewProperty | all              | defaultConstructionType | firstFloor   |
+
+
+
+    Scenario: Registerd user submiting the data screen
+      Given admin logs in
+      When user chooses to data entry screen
+      And user enters the data entry information
+      And finally user will submit the application
+      And user will see the successfull page and view the details
+      And user will close the data entry page
+      And current user logs out
+

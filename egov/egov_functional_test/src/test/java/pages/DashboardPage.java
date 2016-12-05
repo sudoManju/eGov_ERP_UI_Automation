@@ -31,6 +31,9 @@ public class DashboardPage extends BasePage {
     @FindBy(id = "official_inbox")
     private WebElement officialInboxTable;
 
+    @FindBy(linkText = "Data Entry Screen")
+    private WebElement dataEntryScreenLinkText;
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -79,6 +82,17 @@ public class DashboardPage extends BasePage {
         searchFor("Property Tax");
         waitForElementToBeVisible(propertyTaxLink, driver);
         propertyTaxLink.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    //It choose the data entry screen from dashboard
+    public void chooseToCreateNewDataEntryScreen(){
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Data Entry Screen");
+        waitForElementToBeVisible(dataEntryScreenLinkText, driver);
+
+        dataEntryScreenLinkText.click();
+
         switchToNewlyOpenedWindow(driver);
     }
 }

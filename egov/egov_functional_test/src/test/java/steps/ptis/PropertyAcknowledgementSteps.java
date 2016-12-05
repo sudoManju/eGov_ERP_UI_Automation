@@ -1,6 +1,5 @@
 package steps.ptis;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import org.junit.Assert;
 import pages.ptis.PropertyAcknowledgementPage;
@@ -32,5 +31,12 @@ public class PropertyAcknowledgementSteps extends BaseSteps implements En {
         And("^he cancels the print$", () -> {
             pageStore.get(PropertyAcknowledgementPage.class).cancelPrint();
         });
+        And("^user will see the successfull page and view the details$", () -> {
+            pageStore.get(PropertyAcknowledgementPage.class).toViewSubmissionPage();
+        });
+        And("^user will close the data entry page$", () -> {
+            pageStore.get(PropertyAcknowledgementPage.class).toCloseDataEntryPage();
+        });
+
     }
 }

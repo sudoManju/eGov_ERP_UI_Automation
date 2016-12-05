@@ -9,6 +9,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
+import java.security.PrivateKey;
+import java.util.concurrent.PriorityBlockingQueue;
+
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -183,6 +186,66 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "Generate Notice")
     private WebElement generateNotice;
 
+    @FindBy(id = "propertyIdentifier")
+    private WebElement assessmentNumberTextBox;
+
+    @FindBy(id = "consumerCodeData")
+    private WebElement hscNumberTextBox;
+
+    @FindBy(id = "executionDate")
+    private WebElement connectionDateTextBox;
+
+    @FindBy(id = "waterSource")
+    private WebElement waterSourceTypeSelectBox;
+
+    @FindBy(id = "connectionType")
+    private WebElement connectionTypeSelectBox;
+
+    @FindBy(id = "propertyType")
+    private WebElement propertyTypeSelectBox;
+
+    @FindBy(id = "connectionCategorie")
+    private WebElement categorySelectBox;
+
+    @FindBy(id = "usageType")
+    private WebElement usageTypeSelectBox;
+
+    @FindBy(id = "pipeSize")
+    private WebElement hscPipeSizeSelectBox;
+
+    @FindBy(id = "sumpCapacity")
+    private WebElement sumpCapacityTextBox;
+
+    @FindBy(id = "numberOfPerson")
+    private WebElement noOfPersonsTextBox;
+
+    @FindBy(id = "monthlyFee")
+    private WebElement monthlyFeeTextBox;
+
+    @FindBy(id = "existingConnection.donationCharges")
+    private WebElement donationChargesTextBox;
+
+    @FindBy(id = "existmeterCost")
+    private WebElement meterCostTextBox;
+
+    @FindBy(id = "existmeterName")
+    private WebElement meterNameTextBox;
+
+    @FindBy(id = "existmeterNo")
+    private WebElement meterSINoTextBox;
+
+    @FindBy(id = "previousReading")
+    private WebElement previousReadingTextBox;
+
+    @FindBy(id = "existreadingDate")
+    private WebElement lastReadingDateTextBox;
+
+    @FindBy(id = "currentcurrentReading")
+    private WebElement currentReadingTextBox;
+
+    @FindBy(id = "Create")
+    private WebElement submitButton;
+
 
     public PropertyDetailsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -318,5 +381,62 @@ public class PropertyDetailsPage extends BasePage {
 
     public void generateNotice() {
         generateNotice.click();
+    }
+
+    public void enterApplicationInfo(ApplicantInfo applicantInfo){
+
+        waitForElementToBeClickable(assessmentNumberTextBox, webDriver);
+        enterText(assessmentNumberTextBox, applicantInfo.getPtAssessmentNumber());
+
+        waitForElementToBeClickable(hscNumberTextBox, webDriver);
+        enterText(hscNumberTextBox, applicantInfo.getHscNumber());
+
+        waitForElementToBeClickable(connectionDateTextBox, webDriver);
+        enterText(connectionDateTextBox, applicantInfo.getConnectionDate());
+    }
+
+    public void enterConnectionInfo(ConnectionInfo connectionInfo){
+
+        waitForElementToBeClickable(waterSourceTypeSelectBox, webDriver);
+        new Select(waterSourceTypeSelectBox).selectByVisibleText(connectionInfo.getWaterSourceType());
+
+        new Select(connectionTypeSelectBox).selectByVisibleText(connectionInfo.getConnectionType());
+
+        new Select(propertyTypeSelectBox).selectByVisibleText(connectionInfo.getPropertyType());
+
+        new Select(categorySelectBox).selectByVisibleText(connectionInfo.getCategory());
+
+        new Select(usageTypeSelectBox).selectByVisibleText(connectionInfo.getUsageType());
+
+        new Select(hscPipeSizeSelectBox).selectByVisibleText(connectionInfo.getHscPipeSize());
+
+        enterText(sumpCapacityTextBox, connectionInfo.getSumpCapacity());
+
+        enterText(noOfPersonsTextBox, connectionInfo.getNoOfPersons());
+    }
+
+    public void enterFeeInfo(FeeInfo feeInfo){
+
+        waitForElementToBeClickable(monthlyFeeTextBox, webDriver);
+        enterText(monthlyFeeTextBox, feeInfo.getMonthlyFees());
+
+        enterText(donationChargesTextBox, feeInfo.getDonationCharges());
+
+        enterText(meterCostTextBox, feeInfo.getMeterCost());
+
+        enterText(meterNameTextBox, feeInfo.getMeterName());
+
+        enterText(meterSINoTextBox, feeInfo.getMeterSINo());
+
+        enterText(previousReadingTextBox, feeInfo.getPreviousReading());
+
+        enterText(lastReadingDateTextBox, feeInfo.getLastReadingDate());
+
+        enterText(currentReadingTextBox, feeInfo.getCurrentReading());
+    }
+
+    public void chooseToSubmit(){
+        waitForElementToBeClickable(submitButton, webDriver);
+        submitButton.click();
     }
 }
