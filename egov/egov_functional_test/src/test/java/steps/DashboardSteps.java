@@ -27,8 +27,6 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).createMiscellenous();
         });
 
-
-
         When("^he chooses to addition alteration$", () -> {
             // Write code here that turns the phrase above into concrete actions
             pageStore.get(DashboardPage.class).chooseToAdditionAlteration();
@@ -38,6 +36,8 @@ public class DashboardSteps extends BaseSteps implements En {
            pageStore.get(DashboardPage.class).chooseToCreateDataEntry();
         });
 
-
+        When("^he chooses to create new spillover estimate$", () -> {
+        pageStore.get(DashboardPage.class).createSpilloverEstimate();
+        });
     }
 }

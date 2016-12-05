@@ -26,6 +26,9 @@ public class DashboardPage extends BasePage {
     @FindBy(className = "profile-name")
     private WebElement profileNameLink;
 
+    @FindBy(linkText = "Create Spillover Estimate")
+    private WebElement createSpilloverEstimate;
+
     @FindBy(linkText = "Sign Out")
     private WebElement signOutLink;
 
@@ -101,21 +104,28 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-        public void chooseToCreateDataEntry() {
-            waitForElementToBeClickable(searchTreeTextBox, driver);
-            searchFor("Data Entry Screen");
-            waitForElementToBeVisible(dataEntryScreen, driver);
-            dataEntryScreen.click();
-            switchToNewlyOpenedWindow(driver);
-        }
+    public void chooseToCreateDataEntry() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Data Entry Screen");
+        waitForElementToBeVisible(dataEntryScreen, driver);
+        dataEntryScreen.click();
+        switchToNewlyOpenedWindow(driver);
+    }
 
-        public void chooseToAdditionAlteration() {
-            waitForElementToBeClickable(searchTreeTextBox, driver);
-            searchFor("Addition/Alteration of Assessment");
-            waitForElementToBeVisible(additionAlterationLink, driver);
-            additionAlterationLink.click();
-            switchToNewlyOpenedWindow(driver);
+    public void chooseToAdditionAlteration() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Addition/Alteration of Assessment");
+        waitForElementToBeVisible(additionAlterationLink, driver);
+        additionAlterationLink.click();
+        switchToNewlyOpenedWindow(driver);
+    }
 
-
+        public void createSpilloverEstimate()
+    {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Create Spillover Estimate");
+        waitForElementToBeVisible(createSpilloverEstimate, driver);
+        createSpilloverEstimate.click();
+        switchToNewlyOpenedWindow(driver);
     }
 }

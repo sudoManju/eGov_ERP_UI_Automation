@@ -16,7 +16,6 @@ public class PropertyDetailsPage extends BasePage {
 
     private WebDriver webDriver;
 
-
     @FindBy(id = "propTypeCategoryId")
     private WebElement propertyTypeSelection;
 
