@@ -1,8 +1,9 @@
 package utils;
 
-import pages.ptis.EditPropertyAcknowledgementPage;
-
-public class ScenarioContext {
+/**
+ * Created by bimal on 14/11/16.
+ */
+public class AdditionalAlteration {
 
     private String applicationNumber;
 
@@ -24,11 +25,10 @@ public class ScenarioContext {
         this.applicationNumber = applicationNumber;
     }
 
-//    public void getAssessmentNumber(EditPropertyAcknowledgementPage assessmentNumber) {
-//        {return assessmentNumber;}
-//
-//            public void setAssessmentNumber (String assessmentNumber)
-//        {this.assessmentNumber = assessmentNumber;   }
-
+    public void enterAdditionalAlteration(AdditionalAlteration additionalAlteration) {this.assessmentNumber = assessmentNumber;
     }
 
+    public void enterAdditionalAlteration(String assementNumber) {
+
+    }
+}

@@ -64,3 +64,59 @@ Feature: Create New Property
     Examples:
       | propertyHeaderDetails | ownerDetails | propertyAddressDetails | assessmentDetails     | amenitiesDetails | constructionTypeDetails | floorDetails |
       | residentialPrivate    | bimal        | addressOne             | assessmentNewProperty | all              | defaultConstructionType | firstFloor   |
+
+
+
+
+
+#  @Sanity
+    Scenario: Registered user create property through data entry screen
+
+    Given superuser logs in
+    When he chooses to create data entry
+    And he creates a new assessment for a private residential property
+
+    @Sanity
+    Scenario Outline: Registered user Update existing property
+    Given juniorAssistant logs in
+    When he chooses to addition alteration
+      And he searches for assessment with number "1016042569"
+     And he updates assessment details as <editAssessmentDetails>
+      And he enters amenities as <amenitiesDetails>
+#      And he enters Construction Details as <ConstructionTypes1>
+      And he enters Floor Details as <editFloorDetails>
+      And he forwards for approval to billCollector
+#      Then edit property details get saved successfully
+      And current user closes edit acknowledgement
+      And current user logs out
+
+#      When billCollector logs in
+
+
+
+      Examples:
+        |  editAssessmentDetails         |     amenitiesDetails |          editFloorDetails |
+        |  assessmentAdditionProperty    |        all            |         firstFloorAdditionaltaration|
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> Stashed changes

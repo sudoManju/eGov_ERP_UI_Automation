@@ -30,6 +30,8 @@ public class ExcelReader {
     Sheet approvalDetailsSheet;
 
     Sheet chequeDetailsSheet;
+    Sheet editAssessmentDetailsSheet;
+    Sheet editFloorDetailsSheet;
 
 
     public ExcelReader(String testData) {
@@ -53,6 +55,8 @@ public class ExcelReader {
         approvalDetailsSheet = workbook.getSheet("approvalDetails");
 
         chequeDetailsSheet = workbook.getSheet("chequeDetails");
+        editAssessmentDetailsSheet = workbook.getSheet("editAssessmentDetails") ;
+        editFloorDetailsSheet = workbook.getSheet("editFloorDetails") ;
     }
 
     private Row readDataRow(Sheet fromSheet, String dataId) {
@@ -300,6 +304,101 @@ public class ExcelReader {
                 .withBankName(bankName)
                 .withPaidBy(paidBy)
                 .withChequeDate(new SimpleDateFormat("dd/MM/yyyy").format(new Date())).build();
+
+
+    }
+
+
+    public EditAssessmentDetails getEditAssessmentDetails(String assessmentDetailsDataName) {
+    Row dataRow = readDataRow(editAssessmentDetailsSheet, assessmentDetailsDataName ) ;
+        Cell extentOfSiteCell = getCellData(editAssessmentDetailsSheet, dataRow, "extentOfSite");
+        extentOfSiteCell.setCellType(Cell.CELL_TYPE_STRING);
+        String extentOfSite = extentOfSiteCell.getStringCellValue();
+        Cell occupancyCertificateNumberCell = getCellData(editAssessmentDetailsSheet, dataRow, "occupancyCertificateNumber");
+        occupancyCertificateNumberCell.setCellType(Cell.CELL_TYPE_STRING);
+        String occupancyCertificateNumber = occupancyCertificateNumberCell.getStringCellValue();
+
+
+           return new  EditAssessmentDetailsBuilder()
+                   .withExtentOfSite(extentOfSite)
+                   .withOccupancyCertificateNumber(occupancyCertificateNumber)
+                   .build();
+
+    }
+
+    public EditFloorDetails getEditFloorDetails(String floordetailsDataName) {
+        Row dataRow = readDataRow(editFloorDetailsSheet, floordetailsDataName);
+        Cell editfloorNumberCell = getCellData(editFloorDetailsSheet, dataRow, "editfloorNumber");
+        editfloorNumberCell.setCellType(Cell.CELL_TYPE_STRING);
+        String editfloorNumber = editfloorNumberCell.getStringCellValue();
+        Cell editclassificationOfBuildingCell = getCellData(editFloorDetailsSheet, dataRow, "editclassificationOfBuilding");
+        editclassificationOfBuildingCell.setCellType(Cell.CELL_TYPE_STRING);
+        String editclassificationOfBuilding = editclassificationOfBuildingCell.getStringCellValue();
+        Cell editnatureOfUsageCell = getCellData(editFloorDetailsSheet, dataRow, "editnatureOfUsage");
+        editnatureOfUsageCell.setCellType(Cell.CELL_TYPE_STRING);
+        String editnatureOfUsage = editnatureOfUsageCell.getStringCellValue();
+
+
+        Cell editoccupancyCell = getCellData(editFloorDetailsSheet, dataRow, "editoccupancy");
+        editoccupancyCell.setCellType(Cell.CELL_TYPE_STRING);
+        String editoccupancy = editoccupancyCell.getStringCellValue();
+
+        Cell editoccupantNameCell =getCellData(editFloorDetailsSheet, dataRow, "editoccupantName");
+        editoccupantNameCell.setCellType(Cell.CELL_TYPE_STRING);
+        String editoccupantName =editoccupantNameCell.getStringCellValue();
+
+        Cell editconstructionDateCell =getCellData(editFloorDetailsSheet, dataRow, "editconstructionDate");
+        editconstructionDateCell.setCellType(Cell.CELL_TYPE_STRING);
+        String editconstructionDate = editconstructionDateCell.getStringCellValue();
+
+        Cell editeffectiveFromDateCell =getCellData(editFloorDetailsSheet, dataRow, "editeffectiveFromDate");
+        editeffectiveFromDateCell.setCellType(Cell.CELL_TYPE_STRING);
+        String editeffectiveFromDate = editeffectiveFromDateCell.getStringCellValue();
+
+        Cell editunstructuredLandCell = getCellData(editFloorDetailsSheet, dataRow, "editunstructuredLand");
+        editunstructuredLandCell.setCellType(Cell.CELL_TYPE_STRING);
+        String editunstructuredLand = editunstructuredLandCell.getStringCellValue();
+
+        Cell editlengthCell = getCellData(editFloorDetailsSheet, dataRow, "editlength");
+        editlengthCell.setCellType(Cell.CELL_TYPE_STRING);
+        String editlength = editlengthCell.getStringCellValue();
+
+        Cell editbreadthCell = getCellData(editFloorDetailsSheet, dataRow, "editbreadth");
+        editbreadthCell.setCellType(Cell.CELL_TYPE_STRING);
+        String editbreadth = editbreadthCell.getStringCellValue();
+
+        Cell editbuildingPermissionNumberCell = getCellData(editFloorDetailsSheet, dataRow, "editbuildingPermissionNumber");
+        editbuildingPermissionNumberCell.setCellType(Cell.CELL_TYPE_STRING);
+        String editbuildingPermissionNumber = editbuildingPermissionNumberCell.getStringCellValue();
+
+        Cell editbuildingPermissionDateCell = getCellData(editFloorDetailsSheet, dataRow, "editbuildingPermissionDate");
+        editbuildingPermissionDateCell.setCellType(Cell.CELL_TYPE_STRING);
+        String editbuildingPermissionDate = editbuildingPermissionDateCell.getStringCellValue();
+
+        Cell editplinthAreaInBuildingPlanCell = getCellData(editFloorDetailsSheet, dataRow, "editplinthAreaInBuildingPlan");
+        editplinthAreaInBuildingPlanCell.setCellType(Cell.CELL_TYPE_STRING);
+        String editplinthAreaInBuildingPlan = editplinthAreaInBuildingPlanCell.getStringCellValue();
+
+
+
+
+        return new EditFloorDetailsBuilder()
+                    .withEditFloorNumber(editfloorNumber)
+                    .withEditclassificationOfBuilding(editclassificationOfBuilding)
+                    .withEditnatureOfUsage(editnatureOfUsage)
+                    .withEditoccupancy(editoccupancy)
+                    .withEditoccupantName(editoccupantName)
+                    .withEditconstructionDate(editconstructionDate)
+                    .withEditeffectiveFromDate(editeffectiveFromDate)
+                    .withEditunstructuredLand(editunstructuredLand)
+                    .withEditlength(editlength)
+                    .withEditbreadth(editbreadth)
+                    .withEditbuildingPermissionNumber(editbuildingPermissionNumber)
+                    .withEditbuildingPermissionDate(editbuildingPermissionDate)
+                    .withEditplinthAreaInBuildingPlan(editplinthAreaInBuildingPlan)
+
+                .build();
+
 
     }
 }
