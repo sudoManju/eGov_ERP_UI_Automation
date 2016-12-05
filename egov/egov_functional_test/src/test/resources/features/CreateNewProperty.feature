@@ -8,7 +8,6 @@ Feature: Create New Property
   @Sanity
   Scenario Outline: Registered user creating a new property in the system
     Given juniorAssistant logs in
-
     When he chooses to create new property
     And he enters property header details as <propertyHeaderDetails>
 
@@ -64,3 +63,21 @@ Feature: Create New Property
     Examples:
       | propertyHeaderDetails | ownerDetails | propertyAddressDetails | assessmentDetails     | amenitiesDetails | constructionTypeDetails | floorDetails |
       | residentialPrivate    | bimal        | addressOne             | assessmentNewProperty | all              | defaultConstructionType | firstFloor   |
+
+
+
+@Sanity
+Scenario: Registered user checking the data entry screen
+
+
+  Given Admin logs in
+  When he chooses to Data Entry Screen
+
+  And he enter all the credential details
+
+  And the property tax bill be created
+
+  And current user closes acknowledgement
+  And current user logs out
+
+

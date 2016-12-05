@@ -28,8 +28,12 @@ public class ExcelReader {
     Sheet constructionTypeDetailsSheet;
     Sheet floorDetailsSheet;
     Sheet approvalDetailsSheet;
-
     Sheet chequeDetailsSheet;
+    Sheet applicantParticularsSheet;
+    Sheet connectionDetailsSheet;
+    Sheet feeDetailsSheet;
+    Sheet searchDetailsSheet;
+
 
 
     public ExcelReader(String testData) {
@@ -51,7 +55,10 @@ public class ExcelReader {
         constructionTypeDetailsSheet = workbook.getSheet("constructionTypeDetails");
         floorDetailsSheet = workbook.getSheet("floorDetails");
         approvalDetailsSheet = workbook.getSheet("approvalDetails");
-
+        applicantParticularsSheet = workbook.getSheet("applicantParticulars");
+        connectionDetailsSheet = workbook.getSheet("connectionDetails");
+        feeDetailsSheet = workbook.getSheet("feeDetails");
+        searchDetailsSheet = workbook.getSheet("searchDetails");
         chequeDetailsSheet = workbook.getSheet("chequeDetails");
     }
 
@@ -114,14 +121,69 @@ public class ExcelReader {
 
     }
 
+    public SearchDetails getSearchDetails(String searchId){
+        Row dataRow = readDataRow(searchDetailsSheet, searchId);
+        SearchDetails searchDetails = new SearchDetails();
+
+        switch (searchId){
+            case "searchWithAssessmentNumber":
+                Cell assessmentNumberCell = getCellData(searchDetailsSheet, dataRow, "searchValue");
+                assessmentNumberCell.setCellType(Cell.CELL_TYPE_STRING);
+                String assessmentNumber = assessmentNumberCell.getStringCellValue();
+
+                searchDetails =  new SearchDetailsBuilder()
+                        .withAssessmentNumber(assessmentNumber)
+                        .build();
+
+                break;
+            case "searchWithMobileNumber":
+                Cell mobileNumberCell = getCellData(searchDetailsSheet, dataRow, "searchValue");
+                mobileNumberCell.setCellType(Cell.CELL_TYPE_STRING);
+                String mobileNumber = mobileNumberCell.getStringCellValue();
+
+                searchDetails =  new SearchDetailsBuilder()
+                        .withMobileNumber(mobileNumber)
+                        .build();
+
+                break;
+
+            case "searchWithDoorNumber":
+                String doorNumber = getCellData(searchDetailsSheet, dataRow, "searchValue").getStringCellValue();
+
+                searchDetails = new SearchDetailsBuilder()
+                        .withDoorNumber(doorNumber)
+                        .build();
+
+                break;
+
+            case "searchWithZoneAndWardNumber":
+                String value = getCellData(searchDetailsSheet, dataRow, "searchValue").getStringCellValue();
+                String[] values = value.split(";");
+                String zone = values[0];
+                String ward = values[1];
+
+                searchDetails = new SearchDetailsBuilder()
+                        .withZoneNumber(zone)
+                        .withWardNumber(ward)
+                        .build();
+
+                break;
+
+        }
+        return searchDetails;
+    }
+
+
 
     public PropertyHeaderDetails getPropertyHeaderDetails(String propertyDetailsDataId) {
         Row dataRow = readDataRow(propertyHeaderDetailsSheet, propertyDetailsDataId);
         String propertyType = getCellData(propertyHeaderDetailsSheet, dataRow, "propertyType").getStringCellValue();
         String categoryOfOwnership = getCellData(propertyHeaderDetailsSheet, dataRow, "categoryOfOwnership").getStringCellValue();
 
-        return new PropertyHeaderDetailsBuilder().withPropertyType(propertyType)
-                .withCategoryOfOwnership(categoryOfOwnership).build();
+        return new PropertyHeaderDetailsBuilder()
+                .withPropertyType(propertyType)
+                .withCategoryOfOwnership(categoryOfOwnership)
+                .build();
     }
 
     public OwnerDetails getOwnerDetails(String ownerDetailsDataId) {
@@ -301,5 +363,65 @@ public class ExcelReader {
                 .withPaidBy(paidBy)
                 .withChequeDate(new SimpleDateFormat("dd/MM/yyyy").format(new Date())).build();
 
+    }
+
+    public ApplicantDetails getApplicantDetails(String applicantDetailsDataId){
+        Row dataRow = readDataRow(applicantParticularsSheet, applicantDetailsDataId);
+
+        Cell assessmentNumberCell = getCellData(applicantParticularsSheet, dataRow, "assessmentNumber");
+        assessmentNumberCell.setCellType(Cell.CELL_TYPE_STRING);
+        String assessmentNumber = assessmentNumberCell.getStringCellValue();
+
+        Cell hscNumberCell = getCellData(applicantParticularsSheet, dataRow, "hscNumber");
+        hscNumberCell.setCellType(Cell.CELL_TYPE_STRING);
+        String hscNumber = hscNumberCell.getStringCellValue();
+
+        Cell connectionDateCell = getCellData(applicantParticularsSheet, dataRow, "connectionDate");
+        connectionDateCell.setCellType(Cell.CELL_TYPE_STRING);
+        String connectionDate = connectionDateCell.getStringCellValue();
+
+        return new ApplicantDetailsBuilder()
+                .withAssessmentNumber(assessmentNumber)
+                .withHscNumber(hscNumber)
+                .withConnectionDate(connectionDate).build();
+    }
+
+    public ConnectionDetails getConnectionDetails(String connectionDetailsDataId){
+        Row dataRow = readDataRow(connectionDetailsSheet, connectionDetailsDataId);
+
+        String waterSourceType = getCellData(connectionDetailsSheet, dataRow, "waterSourceType").getStringCellValue();
+        String connectionType = getCellData(connectionDetailsSheet, dataRow, "connectionType").getStringCellValue();
+        String propertyType = getCellData(connectionDetailsSheet, dataRow, "propertyType").getStringCellValue();
+        String category = getCellData(connectionDetailsSheet, dataRow, "category").getStringCellValue();
+        String usageType = getCellData(connectionDetailsSheet, dataRow, "usageType").getStringCellValue();
+
+       String hscPipelineSize = getCellData(connectionDetailsSheet, dataRow, "hscPipilineSize").getStringCellValue();
+
+        return new ConnectionDetailsBuilder()
+                .withWaterSourceType(waterSourceType)
+                .withConnectionType(connectionType)
+                .withPropertyType(propertyType)
+                .withCategory(category)
+                .withUsageType(usageType)
+                .withHscPipeSize(hscPipelineSize)
+                .build();
+
+    }
+
+    public FeeDetails getFeeDetails(String feeDetailsDataId){
+        Row dataRow = readDataRow(feeDetailsSheet, feeDetailsDataId);
+
+        Cell monthlyFeeCell = getCellData(feeDetailsSheet, dataRow, "monthlyFee");
+        monthlyFeeCell.setCellType(Cell.CELL_TYPE_STRING);
+        String monthlyFee = monthlyFeeCell.getStringCellValue();
+
+        Cell donationChargesCell = getCellData(feeDetailsSheet, dataRow, "donationCharges");
+        donationChargesCell.setCellType(Cell.CELL_TYPE_STRING);
+        String donationCharges = donationChargesCell.getStringCellValue();
+
+        return new FeeDetailsBuilder()
+                .withMonthlyFee(monthlyFee)
+                .withDonationCharges(donationCharges)
+                .build();
     }
 }

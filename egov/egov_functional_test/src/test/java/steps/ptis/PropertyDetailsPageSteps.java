@@ -1,5 +1,6 @@
 package steps.ptis;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.ptis.*;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -68,6 +69,54 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
             pageStore.get(PropertyDetailsPage.class).generateNotice();
 
         });
+        And("^the property tax bill be created$", () -> {
+            pageStore.get(PropertyDetailsPage.class).create();
+        });
+        And("^he enter all the credential details$", () -> {
+           String applicantDetailsDataId = "applicantDetails";
+           String connectionDetailsDataId = "connectionType";
+           String feeDetailsDataId = "feeType";
+
+           ApplicantDetails applicantDetails = new ExcelReader(ptisTestDataFileName).getApplicantDetails(applicantDetailsDataId);
+            pageStore.get(PropertyDetailsPage.class).enterApplicantDetails(applicantDetails);
+
+            ConnectionDetails connectionDetails = new ExcelReader(ptisTestDataFileName).getConnectionDetails(connectionDetailsDataId);
+            pageStore.get(PropertyDetailsPage.class).enterConnectionDetails(connectionDetails);
+
+            FeeDetails feeDetails = new ExcelReader(ptisTestDataFileName).getFeeDetails(feeDetailsDataId);
+            pageStore.get(PropertyDetailsPage.class).enterFeeDetails(feeDetails);
+
+
+        });
+        And("^he search property with assessment number$", () -> {
+            String searchId = "searchWithAssessmentNumber";
+
+            SearchDetails searchDetails = new ExcelReader(ptisTestDataFileName).getSearchDetails(searchId);
+            pageStore.get(PropertyDetailsPage.class).enterSearchDetailsOfAssessmentNumber(searchDetails);
+        });
+        And("^he check total number of records found$", () -> {
+            pageStore.get(PropertyDetailsPage.class).checkNoOfRecords();
+        });
+        And("^he search property with door number$", () -> {
+           String searchId = "searchWithDoorNumber";
+
+           SearchDetails searchDetails = new ExcelReader(ptisTestDataFileName).getSearchDetails(searchId);
+           pageStore.get(PropertyDetailsPage.class).enterSearchDetailsOfDoorNumber(searchDetails);
+
+        });
+        And("^he search property with mobile number$", () -> {
+            String searchId = "searchWithMobileNumber";
+
+            SearchDetails searchDetails = new ExcelReader(ptisTestDataFileName).getSearchDetails(searchId);
+            pageStore.get(PropertyDetailsPage.class).enterSearchDetailsOfMobileNumber(searchDetails);
+        });
+        And("^he search property with zone and ward number$", () -> {
+            String searchId = "searchWithZoneAndWardNumber";
+
+            SearchDetails searchDetails = new ExcelReader(ptisTestDataFileName).getSearchDetails(searchId);
+            pageStore.get(PropertyDetailsPage.class).enterSearchDetailsOfZoneAndWardNumber(searchDetails);
+        });
+
 
     }
 }

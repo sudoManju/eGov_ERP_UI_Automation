@@ -19,6 +19,12 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Create New Property")
     private WebElement createNewPropertyLink;
 
+    @FindBy(linkText = "Data Entry Screen")
+    private WebElement dataEntryScreenLink;
+
+    @FindBy(linkText = "Search Property")
+    private WebElement searchPropertyLink;
+
     @FindBy(linkText = "Property Tax")
     private WebElement propertyTaxLink;
 
@@ -35,12 +41,32 @@ public class DashboardPage extends BasePage {
         this.driver = driver;
     }
 
+    public void chooseToSearchProperty(){
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("search property");
+        waitForElementToBeVisible(searchPropertyLink, driver);
+
+        searchPropertyLink.click();
+
+        switchToNewlyOpenedWindow(driver);
+    }
+
     public void chooseToCreateNewProperty() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("Create New Property");
         waitForElementToBeVisible(createNewPropertyLink, driver);
 
         createNewPropertyLink.click();
+
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseToDataEntryScreen(){
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Data Entry Screen");
+        waitForElementToBeVisible(dataEntryScreenLink, driver);
+
+        dataEntryScreenLink.click();
 
         switchToNewlyOpenedWindow(driver);
     }

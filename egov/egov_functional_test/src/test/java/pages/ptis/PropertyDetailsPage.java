@@ -20,6 +20,9 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "propTypeCategoryId")
     private WebElement propertyTypeSelection;
 
+    @FindBy(id = "upicNo")
+    private WebElement propertyAssessmentNo;
+
     @FindBy(id = "propTypeId")
     private WebElement categoryOfOwnershipSelection;
 
@@ -183,6 +186,71 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "Generate Notice")
     private WebElement generateNotice;
 
+    @FindBy(id = "Create")
+    private WebElement create;
+
+    @FindBy(id = "propertyIdentifier")
+    private WebElement assessmentNumberTextBox;
+
+    @FindBy(id = "consumerCodeData")
+    private WebElement hscNumberTextBox;
+
+    @FindBy(id = "executionDate")
+    private WebElement connectionDateTextBox;
+
+    @FindBy(id = "waterSource")
+    private WebElement waterSourceSelection;
+
+    @FindBy(id = "connectionType")
+    private WebElement connectionTypeSelection;
+
+    @FindBy(id = "propertyType")
+    private WebElement propertyType1Selection;
+
+    @FindBy(id = "connectionCategorie")
+    private WebElement categorySelection;
+
+    @FindBy(id = "usageType")
+    private WebElement usageTypeSelection;
+
+    @FindBy(id = "pipeSize")
+    private WebElement pipeSizeSelection;
+
+    @FindBy(name = "existingConnection.monthlyFee")
+    private WebElement monthlyFeeTextBox;
+
+    @FindBy(id = "existingConnection.donationCharges")
+    private WebElement donationChargesTextBox;
+
+    @FindBy(id = "assessmentNum")
+    private WebElement assessmentNumTextBox;
+
+    @FindBy(id = "searchByassmentno")
+    private WebElement searchButtonByAssmentNo;
+
+    @FindBy(className = "pagelinks")
+    private WebElement recordsFound;
+
+    @FindBy(id ="doorNo")
+    private WebElement doorNoTextBox;
+
+    @FindBy(id ="mobileNumber")
+    private WebElement mobileNoTextBox;
+
+    @FindBy(id="searchDoorno")
+    private WebElement searchButtonByDoorNo;
+
+    @FindBy(id="searchMobileno")
+    private WebElement searchButtonByMobileNo;
+
+    @FindBy(id="zoneId")
+    private WebElement zoneId;
+
+    @FindBy(id = "wardId")
+    private WebElement wardId;
+
+    @FindBy(id = "searchByBndry")
+    private WebElement searchButtonByZoneAndWard;
 
     public PropertyDetailsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -190,6 +258,7 @@ public class PropertyDetailsPage extends BasePage {
 
 
     public void enterPropertyHeader(PropertyHeaderDetails propertyHeaderDetails) {
+
         waitForElementToBeClickable(categoryOfOwnershipSelection, webDriver);
         new Select(categoryOfOwnershipSelection).selectByVisibleText(propertyHeaderDetails.getCategoryOfOwnership());
 
@@ -276,6 +345,37 @@ public class PropertyDetailsPage extends BasePage {
         plinthAreaInBuildingPlanTextBox.sendKeys(floorDetails.getPlinthAreaInBuildingPlan());
     }
 
+    public void enterApplicantDetails(ApplicantDetails applicantDetails){
+        waitForElementToBeClickable(assessmentNumberTextBox, webDriver);
+        enterText(assessmentNumberTextBox, applicantDetails.getAssessmentNumber());
+
+        waitForElementToBeClickable(hscNumberTextBox, webDriver);
+        enterText(hscNumberTextBox, applicantDetails.getHscNumber());
+
+        waitForElementToBeClickable(connectionDateTextBox, webDriver);
+        enterText(connectionDateTextBox, applicantDetails.getConnectionDate());
+    }
+
+    public void enterConnectionDetails(ConnectionDetails connectionDetails){
+        waitForElementToBeClickable(waterSourceSelection, webDriver);
+
+        new Select(waterSourceSelection).selectByVisibleText(connectionDetails.getWaterSourceType());
+        new Select(propertyType1Selection).selectByVisibleText(connectionDetails.getPropertyType());
+        new Select(categorySelection).selectByVisibleText(connectionDetails.getCategory());
+        new Select(connectionTypeSelection).selectByVisibleText(connectionDetails.getConnectionType());
+        new Select(usageTypeSelection).selectByVisibleText(connectionDetails.getUsageType());
+        new Select(pipeSizeSelection).selectByVisibleText(connectionDetails.getHscPipeSize());
+
+    }
+
+    public void enterFeeDetails(FeeDetails feeDetails){
+        waitForElementToBeClickable(monthlyFeeTextBox, webDriver);
+        enterText(monthlyFeeTextBox, feeDetails.getMonthlyFee());
+
+        waitForElementToBeClickable(donationChargesTextBox, webDriver);
+        enterText(donationChargesTextBox, feeDetails.getDonationCharges());
+    }
+
     public void enterApprovalDetails(ApprovalDetails approvalDetails) {
         new Select(approverDepartmentSelection).selectByVisibleText(approvalDetails.getApproverDepartment());
 //        await().atMost(10, SECONDS).until(() -> new Select(approverDesignationSelection).getOptions().size() > 1);
@@ -307,6 +407,10 @@ public class PropertyDetailsPage extends BasePage {
         forwardButton.click();
     }
 
+    public void create(){
+        create.click();
+    }
+
 
     public void approve() {
         approveButton.click();
@@ -318,5 +422,46 @@ public class PropertyDetailsPage extends BasePage {
 
     public void generateNotice() {
         generateNotice.click();
+    }
+
+    public void enterSearchDetailsOfAssessmentNumber(SearchDetails searchDetails) {
+        waitForElementToBeClickable(assessmentNumTextBox, webDriver);
+        enterText(assessmentNumTextBox, searchDetails.getSearchValue1());
+
+        searchButtonByAssmentNo.click();
+    }
+
+    public void checkNoOfRecords() {
+       waitForElementToBeVisible(recordsFound,webDriver);
+       int noOfRecords = Integer.parseInt(recordsFound.getText());
+
+        if(noOfRecords > 0){
+            System.out.println("Records Founds:" + noOfRecords);
+        }
+        else
+            System.out.println("No records founds");
+    }
+
+    public void enterSearchDetailsOfDoorNumber(SearchDetails searchDetails) {
+        waitForElementToBeClickable(doorNoTextBox, webDriver);
+        enterText(doorNoTextBox, searchDetails.getSearchValue1());
+
+        searchButtonByDoorNo.click();
+    }
+
+    public void enterSearchDetailsOfMobileNumber(SearchDetails searchDetails) {
+        waitForElementToBeClickable(mobileNoTextBox, webDriver);
+        enterText(mobileNoTextBox, searchDetails.getSearchValue1());
+
+        searchButtonByMobileNo.click();
+    }
+
+    public void enterSearchDetailsOfZoneAndWardNumber(SearchDetails searchDetails) {
+        waitForElementToBeClickable(zoneId, webDriver);
+
+        new Select(zoneId).selectByVisibleText(searchDetails.getSearchValue1());
+        new Select(wardId).selectByVisibleText(searchDetails.getSearchValue2());
+
+       searchButtonByZoneAndWard.click();
     }
 }

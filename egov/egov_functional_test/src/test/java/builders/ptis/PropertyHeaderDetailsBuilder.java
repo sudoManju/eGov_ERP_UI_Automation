@@ -25,4 +25,6 @@ public class PropertyHeaderDetailsBuilder {
         propertyHeaderDetails.setCategoryOfOwnership(categoryOfOwnership);
         return this;
     }
+
+
 }
