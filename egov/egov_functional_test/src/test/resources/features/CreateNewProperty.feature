@@ -80,13 +80,13 @@ Feature: Create New Property
     Scenario Outline: Registered user Update existing property
     Given juniorAssistant logs in
     When he chooses to addition alteration
-      And he searches for assessment with number "1016042569"
+      And he searches for assessment with number "1016023929"
      And he updates assessment details as <editAssessmentDetails>
       And he enters amenities as <amenitiesDetails>
 #      And he enters Construction Details as <ConstructionTypes1>
       And he enters Floor Details as <editFloorDetails>
       And he forwards for approval to billCollector
-#      Then edit property details get saved successfully
+      Then edit property details get saved successfully
       And current user closes edit acknowledgement
       And current user logs out
 
@@ -97,6 +97,7 @@ Feature: Create New Property
       Examples:
         |  editAssessmentDetails         |     amenitiesDetails |          editFloorDetails |
         |  assessmentAdditionProperty    |        all            |         firstFloorAdditionaltaration|
+
 
 
 

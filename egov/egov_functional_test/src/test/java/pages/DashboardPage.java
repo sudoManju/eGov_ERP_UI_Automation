@@ -35,6 +35,13 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Miscellaneous Receipt")
         private WebElement miscellaneousReceipt;
 
+    @FindBy(linkText = "Data Entry Screen")
+    private WebElement dataEntryScreen;
+
+    @FindBy(linkText = "Addition/Alteration of Assessment")
+    private WebElement additionAlterationLink;
+
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -92,6 +99,22 @@ public class DashboardPage extends BasePage {
         searchTreeTextBox.sendKeys("Miscellaneous Receipt");
         miscellaneousReceipt.click();
         switchToNewlyOpenedWindow(driver);
+    }
+
+        public void chooseToCreateDataEntry() {
+            waitForElementToBeClickable(searchTreeTextBox, driver);
+            searchFor("Data Entry Screen");
+            waitForElementToBeVisible(dataEntryScreen, driver);
+            dataEntryScreen.click();
+            switchToNewlyOpenedWindow(driver);
+        }
+
+        public void chooseToAdditionAlteration() {
+            waitForElementToBeClickable(searchTreeTextBox, driver);
+            searchFor("Addition/Alteration of Assessment");
+            waitForElementToBeVisible(additionAlterationLink, driver);
+            additionAlterationLink.click();
+            switchToNewlyOpenedWindow(driver);
 
 
     }

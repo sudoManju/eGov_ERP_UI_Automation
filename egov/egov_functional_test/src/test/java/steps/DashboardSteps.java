@@ -26,5 +26,13 @@ public class DashboardSteps extends BaseSteps implements En {
             // Write code here that turns the phrase above into concrete actions
             pageStore.get(DashboardPage.class).createMiscellenous();
         });
+
+
+        When("^he chooses to addition alteration$", () -> {
+            // Write code here that turns the phrase above into concrete actions
+            pageStore.get(DashboardPage.class).chooseToAdditionAlteration();
+        });
+
+
     }
 }
