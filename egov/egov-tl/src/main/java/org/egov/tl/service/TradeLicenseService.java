@@ -40,7 +40,22 @@
 
 package org.egov.tl.service;
 
+import static org.egov.tl.utils.Constants.BUTTONAPPROVE;
+import static org.egov.tl.utils.Constants.BUTTONREJECT;
+
+import java.math.BigDecimal;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
+import org.egov.commons.CFinancialYear;
+import org.egov.commons.service.CFinancialYearService;
 import org.egov.eis.entity.Assignment;
 import org.egov.infra.admin.master.entity.Module;
 import org.egov.infra.admin.master.service.ModuleService;
@@ -54,6 +69,7 @@ import org.egov.tl.entity.LicenseDemand;
 import org.egov.tl.entity.NatureOfBusiness;
 import org.egov.tl.entity.TradeLicense;
 import org.egov.tl.entity.WorkflowBean;
+import org.egov.tl.entity.dto.SearchForm;
 import org.egov.tl.utils.Constants;
 import org.egov.tl.utils.LicenseUtils;
 import org.hibernate.Criteria;
@@ -61,16 +77,6 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.text.Format;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static org.egov.tl.utils.Constants.BUTTONAPPROVE;
-import static org.egov.tl.utils.Constants.BUTTONREJECT;
 
 @Transactional(readOnly = true)
 public class TradeLicenseService extends AbstractLicenseService<TradeLicense> {
@@ -87,6 +93,8 @@ public class TradeLicenseService extends AbstractLicenseService<TradeLicense> {
     @Autowired
     private ModuleService moduleService;
 
+    @Autowired
+    private CFinancialYearService cFinancialYearService;
 
     @Override
     protected NatureOfBusiness getNatureOfBusiness() {
@@ -110,25 +118,29 @@ public class TradeLicenseService extends AbstractLicenseService<TradeLicense> {
 
     @Override
     protected LicenseAppType getLicenseApplicationTypeForRenew() {
-        return licenseAppTypeService.getLicenseAppTypeByName("Renew");
+        return licenseAppTypeService.getLicenseAppTypeByName(Constants.RENEWAL_LIC_APPTYPE);
     }
 
     @Override
     protected LicenseAppType getLicenseApplicationType() {
-        return licenseAppTypeService.getLicenseAppTypeByName("New");
+        return licenseAppTypeService.getLicenseAppTypeByName(Constants.NEW_LIC_APPTYPE);
     }
 
     @Transactional
     public void updateTradeLicense(final TradeLicense license, final WorkflowBean workflowBean) {
         licenseRepository.save(license);
         tradeLicenseSmsAndEmailService.sendSmsAndEmail(license, workflowBean.getWorkFlowAction());
-        updateIndexService.updateTradeLicenseIndexes(license);
+        licenseApplicationIndexService.createOrUpdateLicenseApplicationIndex(license);
     }
 
     @Transactional
     public void updateStatusInWorkFlowProgress(TradeLicense license, final String workFlowAction) {
-        if (BUTTONAPPROVE.equals(workFlowAction)) {
 
+        final BigDecimal currentDemandAmount = recalculateLicenseFee(license.getCurrentDemand());
+        final BigDecimal recalDemandAmount = calculateFeeAmount(license);
+        final Assignment userAssignment = assignmentService.getPrimaryAssignmentForUser(securityUtils.getCurrentUser().getId());
+        final Assignment wfInitiator = getWorkflowInitiator(license);
+        if (BUTTONAPPROVE.equals(workFlowAction)) {
             if (license.getLicenseAppType() != null
                     && !license.getLicenseAppType().getName().equals(Constants.RENEWAL_LIC_APPTYPE)) {
                 validityService.applyLicenseValidity(license);
@@ -136,35 +148,49 @@ public class TradeLicenseService extends AbstractLicenseService<TradeLicense> {
                     license.setLicenseNumber(licenseNumberUtils.generateLicenseNumber());
             }
             license.setActive(true);
-            license = (TradeLicense) licenseUtils.applicationStatusChange(license,
-                    Constants.APPLICATION_STATUS_COLLECTION_CODE);
+            if (license.getCurrentDemand().getBaseDemand().compareTo(license.getCurrentDemand().getAmtCollected()) == -1
+                    || license.getCurrentDemand().getBaseDemand().compareTo(license.getCurrentDemand().getAmtCollected()) == 0)
+                license = (TradeLicense) licenseUtils.applicationStatusChange(license,
+                        Constants.APPLICATION_STATUS_APPROVED_CODE);
+            else
+                license = (TradeLicense) licenseUtils.applicationStatusChange(license,
+                        Constants.APPLICATION_STATUS_SECONDCOLLECTION_CODE);
+
         }
-        if (BUTTONAPPROVE.equals(workFlowAction) || Constants.BUTTONFORWARD.equals(workFlowAction)
-                && license.getState().getValue().contains(Constants.WF_STATE_SANITORY_INSPECTOR_APPROVAL_PENDING)) {
-            license.setStatus(licenseStatusService.getLicenseStatusByCode("UWF"));
-            if (Constants.BUTTONFORWARD.equals(workFlowAction) && license.getEgwStatus() != null
-                    && license.getEgwStatus().getCode().equals(Constants.APPLICATION_STATUS_CREATED_CODE))
+        if (BUTTONAPPROVE.equals(workFlowAction) || Constants.BUTTONFORWARD.equals(workFlowAction)) {
+            license.setStatus(licenseStatusService.getLicenseStatusByCode(Constants.STATUS_UNDERWORKFLOW));
+            if (license.getState().getValue().equals(Constants.WF_REVENUECLERK_APPROVED))
                 license = (TradeLicense) licenseUtils.applicationStatusChange(license,
                         Constants.APPLICATION_STATUS_INSPE_CODE);
+            if (license.getState().getValue().equals(Constants.WORKFLOW_STATE_REJECTED))
+                license = (TradeLicense) licenseUtils.applicationStatusChange(license,
+                        Constants.APPLICATION_STATUS_CREATED_CODE);
         }
+
         if (Constants.GENERATECERTIFICATE.equals(workFlowAction)) {
-            license.setStatus(licenseStatusService.getLicenseStatusByCode("ACT"));
+            license.setStatus(licenseStatusService.getLicenseStatusByCode(Constants.STATUS_ACTIVE));
             // setting license to non-legacy, old license number will be the only tracking
             // to check a license created as legacy or new hereafter.
             license.setLegacy(false);
             license = (TradeLicense) licenseUtils.applicationStatusChange(license,
                     Constants.APPLICATION_STATUS_GENECERT_CODE);
         }
-        if (BUTTONREJECT.equals(workFlowAction)
-                && license.getState().getValue().contains(Constants.WORKFLOW_STATE_REJECTED))
+        if (BUTTONREJECT.equals(workFlowAction))
             if (license.getLicenseAppType() != null
-                    && license.getLicenseAppType().getName().equals(Constants.RENEWAL_LIC_APPTYPE)) {
-                license.setStatus(licenseStatusService.getLicenseStatusByCode("ACT"));
+                    && license.getLicenseAppType().getName().equals(Constants.RENEWAL_LIC_APPTYPE))
+                license.setStatus(licenseStatusService.getLicenseStatusByCode(Constants.STATUS_ACTIVE));
+            else if (wfInitiator.equals(userAssignment)) {
+                license.setStatus(licenseStatusService.getLicenseStatusByCode(Constants.STATUS_CANCELLED));
+                license = (TradeLicense) licenseUtils.applicationStatusChange(license,
+                        Constants.APPLICATION_STATUS_CANCELLED);
             } else {
-                license.setStatus(licenseStatusService.getLicenseStatusByCode("CAN"));
+                license.setStatus(licenseStatusService.getLicenseStatusByCode(Constants.STATUS_REJECTED));
+                license = (TradeLicense) licenseUtils.applicationStatusChange(license,
+                        Constants.APPLICATION_STATUS_REJECTED);
             }
         if (null != license && null != license.getState()
-                && license.getState().getValue().contains(Constants.WF_STATE_SANITORY_INSPECTOR_APPROVAL_PENDING))
+                && license.getState().getValue().contains(Constants.WF_REVENUECLERK_APPROVED)
+                && recalDemandAmount.compareTo(currentDemandAmount) == 1)
             updateDemandForChangeTradeArea(license);
     }
 
@@ -240,37 +266,54 @@ public class TradeLicenseService extends AbstractLicenseService<TradeLicense> {
         return licenseList;
     }
 
-    public List<TradeLicense> searchTradeLicense(final String applicationNumber, final String licenseNumber,
-            final String oldLicenseNumber, final Long categoryId, final Long subCategoryId, final String tradeTitle,
-            final String tradeOwnerName, final String propertyAssessmentNo, final String mobileNo, final Boolean isCancelled) {
+    public List<SearchForm> searchTradeLicense(final SearchForm searchForm) {
         final Criteria searchCriteria = entityQueryService.getSession().createCriteria(TradeLicense.class);
         searchCriteria.createAlias("licensee", "licc").createAlias("category", "cat")
                 .createAlias("tradeName", "subcat").createAlias("status", "licstatus");
 
-        if (StringUtils.isNotBlank(applicationNumber))
-            searchCriteria.add(Restrictions.eq("applicationNumber", applicationNumber).ignoreCase());
-        if (StringUtils.isNotBlank(licenseNumber))
-            searchCriteria.add(Restrictions.eq("licenseNumber", licenseNumber).ignoreCase());
-        if (StringUtils.isNotBlank(oldLicenseNumber))
-            searchCriteria.add(Restrictions.eq("oldLicenseNumber", oldLicenseNumber).ignoreCase());
-        if (categoryId != null && categoryId != -1)
-            searchCriteria.add(Restrictions.eq("cat.id", categoryId));
-        if (subCategoryId != null && subCategoryId != -1)
-            searchCriteria.add(Restrictions.eq("subcat.id", subCategoryId));
-        if (tradeTitle != null && !tradeTitle.isEmpty())
-            searchCriteria.add(Restrictions.eq("nameOfEstablishment", tradeTitle).ignoreCase());
-        if (StringUtils.isNotBlank(tradeOwnerName))
-            searchCriteria.add(Restrictions.eq("licc.applicantName", tradeOwnerName).ignoreCase());
-        if (StringUtils.isNotBlank(propertyAssessmentNo))
-            searchCriteria.add(Restrictions.eq("assessmentNo", propertyAssessmentNo).ignoreCase());
-        if (StringUtils.isNotBlank(mobileNo))
-            searchCriteria.add(Restrictions.eq("licc.mobilePhoneNumber", mobileNo));
-        if (isCancelled != null && isCancelled.equals(Boolean.TRUE))
+        if (StringUtils.isNotBlank(searchForm.getApplicationNumber()))
+            searchCriteria.add(Restrictions.eq("applicationNumber", searchForm.getApplicationNumber()).ignoreCase());
+        if (StringUtils.isNotBlank(searchForm.getLicenseNumber()))
+            searchCriteria.add(Restrictions.eq("licenseNumber", searchForm.getLicenseNumber()).ignoreCase());
+        if (StringUtils.isNotBlank(searchForm.getOldLicenseNumber()))
+            searchCriteria.add(Restrictions.eq("oldLicenseNumber", searchForm.getOldLicenseNumber()).ignoreCase());
+        if (searchForm.getCategoryId() != null)
+            searchCriteria.add(Restrictions.eq("cat.id", searchForm.getCategoryId()));
+        if (searchForm.getSubCategoryId() != null)
+            searchCriteria.add(Restrictions.eq("subcat.id", searchForm.getSubCategoryId()));
+        if (searchForm.getTradeTitle() != null && !searchForm.getTradeTitle().isEmpty())
+            searchCriteria.add(Restrictions.eq("nameOfEstablishment", searchForm.getTradeTitle()).ignoreCase());
+        if (StringUtils.isNotBlank(searchForm.getTradeOwnerName()))
+            searchCriteria.add(Restrictions.eq("licc.applicantName", searchForm.getTradeOwnerName()).ignoreCase());
+        if (StringUtils.isNotBlank(searchForm.getPropertyAssessmentNo()))
+            searchCriteria.add(Restrictions.eq("assessmentNo", searchForm.getPropertyAssessmentNo()).ignoreCase());
+        if (StringUtils.isNotBlank(searchForm.getMobileNo()))
+            searchCriteria.add(Restrictions.eq("licc.mobilePhoneNumber", searchForm.getMobileNo()));
+        if (searchForm.getStatusId() != null)
+            searchCriteria.add(Restrictions.eq("status.id", searchForm.getStatusId()));
+        if (searchForm.getIsCancelled() != null && searchForm.getIsCancelled().equals(Boolean.TRUE))
             searchCriteria.add(Restrictions.eq("licstatus.statusCode", StringUtils.upperCase("CAN")));
         else
             searchCriteria.add(Restrictions.ne("licstatus.statusCode", StringUtils.upperCase("CAN")));
         searchCriteria.add(Restrictions.isNotNull("applicationNumber"));
         searchCriteria.addOrder(Order.asc("id"));
-        return searchCriteria.list();
+        final String currentUserRoles = securityUtils.getCurrentUser().getRoles().toString();
+        final List<SearchForm> finalList = new LinkedList<>();
+
+        for (final License license : (List<License>) searchCriteria.list()) {
+            String ownerName;
+            if (license.getState() != null) {
+                final List<Assignment> assignmentList = assignmentService
+                        .getAssignmentsForPosition(license.getState().getOwnerPosition().getId(), new Date());
+                ownerName = !assignmentList.isEmpty() ? assignmentList.get(0).getEmployee().getName()
+                        : license.getLastModifiedBy().getName();
+            } else
+                ownerName = license.getLastModifiedBy().getName();
+
+            final CFinancialYear financialYear = cFinancialYearService.getFinancialYearByDate(license.getDateOfExpiry());
+            final String expiryYear = financialYear != null ? financialYear.getFinYearRange() : "";
+            finalList.add(new SearchForm(license, currentUserRoles, ownerName, expiryYear));
+        }
+        return finalList;
     }
 }

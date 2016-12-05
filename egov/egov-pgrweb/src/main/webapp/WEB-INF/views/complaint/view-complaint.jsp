@@ -44,6 +44,8 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn" %>
+<%@taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
+
 <c:if test="${not empty message}">
 	<div class="alert alert-success" role="alert">${message}</div>
 </c:if>
@@ -106,15 +108,20 @@
 					<div class="col-md-3 col-xs-6 add-margin view-content" id="ct-dept">
 						<c:out value="${complaint.department.name}"></c:out>
 					</div>
-					<div class="col-md-3 col-xs-6 add-margin"><spring:message code="lbl.filedVia" /></div>
-					<div class="col-md-3 col-xs-6 add-margin view-content" id="ct-filedvia">
-						<c:out value="${complaint.receivingMode}"/></div>
+					<div class="col-md-3 col-xs-6 add-margin"><spring:message code="lbl.nextescalation.date" /></div>
+					<div class="col-md-3 col-xs-6 add-margin view-content" id="ct-nextescalation">
+						<fmt:formatDate value="${complaint.escalationDate}" var="nextEscalationDate" pattern="dd-MM-yyyy HH:mm"/>
+						<c:out value="${nextEscalationDate}"/>
+					</div> 
 				</div>
 				<div class="row add-border">
 					<div class="col-md-3 col-xs-6 add-margin"><spring:message code="lbl.complaintType" /></div>
 					<div class="col-md-3 col-xs-6 add-margin view-content" id="ct-type">
 						<c:out value="${complaint.complaintType.name}"></c:out>
 					</div>
+					<div class="col-md-3 col-xs-6 add-margin"><spring:message code="lbl.filedVia" /></div>
+					<div class="col-md-3 col-xs-6 add-margin view-content" id="ct-filedvia">
+						<c:out value="${complaint.receivingMode}"/></div>
 				</div>
 				<div class="row add-border">
 					<div class="col-md-3 col-xs-6 add-margin"><spring:message code="lbl.compDetails" /></div>
@@ -134,15 +141,15 @@
 									<c:choose>
 										<c:when test="${(file.contentType == 'image/jpg') || (file.contentType == 'image/jpeg')|| (file.contentType == 'image/gif')|| 
 										(file.contentType == 'image/png')}">
-										<a href="/pgr/complaint/downloadfile/${file.fileStoreId}"
+										<a href="../downloadfile/${file.fileStoreId}"
 												data-gallery> <img class="img-width add-margin"
-												src="/pgr/complaint/downloadfile/${file.fileStoreId}" /></a>
+												src="../downloadfile/${file.fileStoreId}" /></a>
 										</c:when>
 										<c:otherwise>
-											<a href="/pgr/complaint/downloadfile/${file.fileStoreId}"
+											<a href="../downloadfile/${file.fileStoreId}"
 												data-gallery> <video class="img-width add-margin"controls="controls"
-													src="/pgr/complaint/downloadfile/${file.fileStoreId}">
-													<source	src="/pgr/complaint/downloadfile/${file.fileStoreId}"
+													src="../downloadfile/${file.fileStoreId}">
+													<source	src="../downloadfile/${file.fileStoreId}"
 														type="video/mp4" /></video></a>
 										</c:otherwise>
 									</c:choose>

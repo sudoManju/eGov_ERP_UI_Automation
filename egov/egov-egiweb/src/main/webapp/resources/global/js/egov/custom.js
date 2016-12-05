@@ -37,6 +37,7 @@
  *
  *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
+var openedWindows = [];
 $(document).ready(function()
 {
 	// jQuery plugin to prevent double submission of forms
@@ -148,10 +149,20 @@ $(document).ready(function()
 	var elements = document.querySelectorAll('input,select,textarea');
 
 	for(var i = 0; i<elements.length; i++){
-	    elements[i].addEventListener('invalid', function () {
-    	off = (elements[0].offsetTop + 50);
-    	$('html, body').animate({scrollTop: off }, 0);
-	    });
+		 if(elements[i].addEventListener){
+			 elements[i].addEventListener('invalid', function () {
+				 offsettoinvalid();
+			 });
+		 }else if(elements[i].attachEvent){
+			 elements[i].attachEvent('invalid', function () {
+				 offsettoinvalid();
+			 });
+		 }
+	}
+	
+	function offsettoinvalid(){
+		off = (elements[0].offsetTop + 50);
+		$('html, body').animate({scrollTop: off }, 0);
 	}
 	
 	try{
@@ -202,6 +213,13 @@ $(document).ready(function()
 
 	    return false;
 		
+	});
+	
+	$('.signout').click(function(){
+		$.each( openedWindows, function( i, val ) {
+			var window = val;
+			window.close();
+		});
 	});
 	
 });

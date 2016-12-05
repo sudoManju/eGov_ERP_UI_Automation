@@ -65,15 +65,20 @@ public class BaseRegisterResultAdaptor implements JsonSerializer<BaseRegisterRes
                 null != baseRegisterResultObj.getDoorNo() ? baseRegisterResultObj.getDoorNo().toString() : "");
         jsonObject.addProperty("categoryType",
                 null != baseRegisterResultObj.getCategoryType() ? baseRegisterResultObj.getCategoryType() : "");
+        jsonObject.addProperty("waterSource", baseRegisterResultObj.getWaterSource());
+        jsonObject.addProperty("usageType",
+                null != baseRegisterResultObj.getUsageType() ? baseRegisterResultObj.getUsageType() : "");
+        jsonObject.addProperty("pipeSize",
+                null != baseRegisterResultObj.getPipeSize() ? baseRegisterResultObj.getPipeSize() : "");
         jsonObject.addProperty("period",
                 null != baseRegisterResultObj.getPeriod() ? baseRegisterResultObj.getPeriod() : "");
         jsonObject.addProperty("arrears", baseRegisterResultObj.getArrears());
         jsonObject.addProperty("current", baseRegisterResultObj.getCurrent());
+        jsonObject.addProperty("totalDemand", baseRegisterResultObj.getTotalDemand());
         jsonObject.addProperty("arrearsCollection", baseRegisterResultObj.getArrearsCollection());
         jsonObject.addProperty("currentCollection", baseRegisterResultObj.getCurrentCollection());
-        jsonObject.addProperty("penalty",
-                null != baseRegisterResultObj.getPenalty() ? baseRegisterResultObj.getPenalty().toString() : "");
-        jsonObject.addProperty("totalDemand", baseRegisterResultObj.getTotalDemand());
+        jsonObject.addProperty("totalCollection", baseRegisterResultObj.getTotalCollection());
+        jsonObject.addProperty("monthlyRate", baseRegisterResultObj.getMonthlyRate());
         return jsonObject;
     }
 
