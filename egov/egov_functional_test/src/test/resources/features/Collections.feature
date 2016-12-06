@@ -14,3 +14,16 @@ Feature: Collection
     And he chooses to pay tax
     And he pays using cheque with details as defaultChequeDetails
 
+
+    Scenario: System should be able to create Miscellaneous receipt
+
+      Given juniorAssistant logs in
+      When he chooses to create Miscellaneous receipt
+
+      And he enters Miscellaneous header
+
+
+
+
+
+

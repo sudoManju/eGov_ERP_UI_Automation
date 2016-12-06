@@ -87,6 +87,31 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
         And("^finally user will submit the application$", () -> {
             pageStore.get(PropertyDetailsPage.class).chooseToSubmit();
         });
+        And("^he enter all the water connection details$", () -> {
+            String applicationParticularsDetails = "applicantInfo1" ;
+            String connectionDetails = "connectionInfo1";
+            String enclosedDocumentDetails = "enclosedInfo";
+            String approveDetails = "engineer";
+
+            ApplicantInfo applicantInfo = new ExcelReader(ptisTestDataFileName).getApplicantInfo(applicationParticularsDetails);
+            pageStore.get(PropertyDetailsPage.class).enterWaterConectionInfo(applicantInfo);
+
+            ConnectionInfo connectionInfo = new ExcelReader(ptisTestDataFileName).getConnectionInfo(connectionDetails);
+            pageStore.get(PropertyDetailsPage.class).enterConnectionInfo(connectionInfo);
+
+            EnclosedDocument enclosedDocument = new ExcelReader(ptisTestDataFileName).getDocumentInfo(enclosedDocumentDetails);
+            pageStore.get(PropertyDetailsPage.class).enterDocumentInfo(enclosedDocument);
+
+            ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approveDetails);
+            pageStore.get(PropertyDetailsPage.class).enterWaterApprovalDetails(approvalDetails);
+
+        });
+        And("^user need to enter the date and get the report details$", () -> {
+            String vltReportInfo = "report1";
+
+            VLTReport vltReport =  new ExcelReader(ptisTestDataFileName).getVLTReportInfo(vltReportInfo);
+            pageStore.get(PropertyDetailsPage.class).enterVLTReportDetails(vltReport);
+        });
 
     }
 }

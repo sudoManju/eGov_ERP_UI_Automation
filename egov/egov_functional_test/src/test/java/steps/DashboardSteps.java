@@ -22,8 +22,20 @@ public class DashboardSteps extends BaseSteps implements En {
         When("^he chooses to collect taxes$", () -> {
             pageStore.get(DashboardPage.class).chooseToCollectTaxes();
         });
+
         When("^user chooses to data entry screen$", () -> {
             pageStore.get(DashboardPage.class).chooseToCreateNewDataEntryScreen();
+        });
+        When("^he chooses to create Miscellaneous receipt$", () -> {
+                // Write code here that turns the phrase above into concrete actions
+                pageStore.get(DashboardPage.class).createMiscellenous();
+
+        });
+        And("^he chooses to apply for new water connection$", () -> {
+            pageStore.get(DashboardPage.class).chooseToCreateNewWaterConnection();
+        });
+        And("^user chooses to find the daily collection vlt reports$", () -> {
+            pageStore.get(DashboardPage.class).chooseToFindDailyVLTReports();
         });
     }
 }

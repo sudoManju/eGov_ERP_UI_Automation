@@ -1,5 +1,6 @@
 package pages;
 
+import org.codehaus.groovy.runtime.powerassert.SourceText;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -31,8 +32,18 @@ public class DashboardPage extends BasePage {
     @FindBy(id = "official_inbox")
     private WebElement officialInboxTable;
 
-    @FindBy(linkText = "Data Entry Screen")
+    @FindBy(xpath = "//html/body/div[3]/div[2]/div/ul/li[2]/a")
     private WebElement dataEntryScreenLinkText;
+
+    @FindBy(linkText = "Miscellaneous Receipt")
+    private WebElement miscellaneousReceipt;
+
+    @FindBy(linkText = "Apply for New Connection")
+    private WebElement applyForNewWaterConnection;
+
+    @FindBy(linkText = "Daily collection report(VLT)")
+    private WebElement vltReport;
+
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -85,14 +96,44 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
+
     //It choose the data entry screen from dashboard
-    public void chooseToCreateNewDataEntryScreen(){
+    public void chooseToCreateNewDataEntryScreen() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("Data Entry Screen");
         waitForElementToBeVisible(dataEntryScreenLinkText, driver);
 
         dataEntryScreenLinkText.click();
 
+        switchToNewlyOpenedWindow(driver);}
+
+    public void createMiscellenous() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchTreeTextBox.click();
+        searchTreeTextBox.sendKeys("Miscellaneous Receipt");
+        miscellaneousReceipt.click();
+        switchToNewlyOpenedWindow(driver);
+
+
+    }
+
+    public void chooseToCreateNewWaterConnection(){
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Apply for New Connection");
+        waitForElementToBeVisible(applyForNewWaterConnection, driver);
+
+        applyForNewWaterConnection.click();
+        switchToNewlyOpenedWindow(driver);
+
+    }
+
+    public void chooseToFindDailyVLTReports(){
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Daily Collection Report(VLT)");
+        waitForElementToBeVisible(vltReport, driver);
+
+        vltReport.click();
         switchToNewlyOpenedWindow(driver);
     }
 }
+
