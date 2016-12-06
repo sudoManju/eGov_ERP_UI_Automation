@@ -1,5 +1,6 @@
 package pages;
 
+import org.codehaus.groovy.runtime.powerassert.SourceText;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -36,6 +37,12 @@ public class DashboardPage extends BasePage {
 
     @FindBy(id = "official_inbox")
     private WebElement officialInboxTable;
+
+    @FindBy(linkText = "Miscellaneous Receipt")
+        private WebElement miscellaneousReceipt;
+
+    @FindBy(linkText = "Apply for New Connection")
+    private WebElement applyForNewWaterConnectionLink;
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -105,6 +112,26 @@ public class DashboardPage extends BasePage {
         searchFor("Property Tax");
         waitForElementToBeVisible(propertyTaxLink, driver);
         propertyTaxLink.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void createMiscellenous() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchTreeTextBox.click();
+        searchTreeTextBox.sendKeys("Miscellaneous Receipt");
+        miscellaneousReceipt.click();
+        switchToNewlyOpenedWindow(driver);
+
+
+    }
+
+    public void chooseToApplyForConnection() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("apply for new connection");
+        waitForElementToBeVisible(applyForNewWaterConnectionLink,driver);
+
+        applyForNewWaterConnectionLink.click();
+
         switchToNewlyOpenedWindow(driver);
     }
 }

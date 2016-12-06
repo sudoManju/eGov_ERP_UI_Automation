@@ -190,7 +190,7 @@ public class PropertyDetailsPage extends BasePage {
     private WebElement create;
 
     @FindBy(id = "propertyIdentifier")
-    private WebElement assessmentNumberTextBox;
+    private WebElement assessmentNumberTextBox1;
 
     @FindBy(id = "consumerCodeData")
     private WebElement hscNumberTextBox;
@@ -231,19 +231,19 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(className = "pagelinks")
     private WebElement recordsFound;
 
-    @FindBy(id ="doorNo")
+    @FindBy(id = "doorNo")
     private WebElement doorNoTextBox;
 
-    @FindBy(id ="mobileNumber")
+    @FindBy(id = "mobileNumber")
     private WebElement mobileNoTextBox;
 
-    @FindBy(id="searchDoorno")
+    @FindBy(id = "searchDoorno")
     private WebElement searchButtonByDoorNo;
 
-    @FindBy(id="searchMobileno")
+    @FindBy(id = "searchMobileno")
     private WebElement searchButtonByMobileNo;
 
-    @FindBy(id="zoneId")
+    @FindBy(id = "zoneId")
     private WebElement zoneId;
 
     @FindBy(id = "wardId")
@@ -252,6 +252,64 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "searchByBndry")
     private WebElement searchButtonByZoneAndWard;
 
+    @FindBy(id = "upicNo")
+    private WebElement assessmentNumberTextBox;
+
+    @FindBy(id = "Create")
+    private WebElement createButton;
+
+    @FindBy(id = "assessmentNum")
+    private WebElement assessmentTextbox;
+
+    @FindBy(id = "assessmentform_search")
+    private WebElement searchButton;
+
+    @FindBy(name = "assessmentNum")
+    private WebElement searchAssessmentTextBox;
+
+    @FindBy(id = "certificationNumber")
+    private WebElement editOccupancyTextBox;
+
+    @FindBy(id = "occupantname")
+    private WebElement editoccupantNameTextBox;
+
+    @FindBy(id = "propertyDetail.floorDetailsProxy[%#floorsstatus.index].constructionDate")
+    private WebElement editconstructionDateTextBox;
+
+    @FindBy(id = "propertyDetail.floorDetailsProxy[%#floorsstatus.index].occupancyDate")
+    private WebElement editeffectiveFromDateTextBox;
+
+    @FindBy(id = "applicationDocs0documentNumber")
+    private WebElement documentNum1Box;
+
+    @FindBy(id = "applicationDocs0documentDate")
+    private WebElement documentDate1Box;
+
+    @FindBy(id = "applicationDocs1documentNumber")
+    private  WebElement documentNum2Box;
+
+    @FindBy(id ="applicationDocs1documentDate")
+    private WebElement documentDate2Box;
+
+    @FindBy(id ="applicationDocs3documentNumber")
+    private WebElement documentNum3Box;
+
+    @FindBy(id = "applicationDocs3documentDate")
+    private WebElement documentDate3Box;
+
+    @FindBy(id = "approvalDepartment")
+    private WebElement approvalWaterDept;
+
+    @FindBy(id = "approvalDesignation")
+    private WebElement approvalWaterDesig;
+
+    @FindBy(id = "approvalPosition")
+    private WebElement approvalWaterPos;
+
+    @FindBy(id = "approvalComent")
+    private WebElement approvalWaterComment;
+
+
     public PropertyDetailsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -259,9 +317,13 @@ public class PropertyDetailsPage extends BasePage {
 
     public void enterPropertyHeader(PropertyHeaderDetails propertyHeaderDetails) {
 
+
+        System.out.println("Before category selection ---" + new Select(propertyTypeSelection).getOptions().size());
         waitForElementToBeClickable(categoryOfOwnershipSelection, webDriver);
         new Select(categoryOfOwnershipSelection).selectByVisibleText(propertyHeaderDetails.getCategoryOfOwnership());
 
+        waitForElementToBeClickable(propertyTypeSelection, webDriver);
+        System.out.println("After category selection ---" + new Select(propertyTypeSelection).getOptions().size());
         await().atMost(5, SECONDS).until(() -> new Select(propertyTypeSelection).getOptions().size() > 1);
         new Select(propertyTypeSelection).selectByVisibleText(propertyHeaderDetails.getPropertyType());
     }
@@ -272,8 +334,6 @@ public class PropertyDetailsPage extends BasePage {
         enterText(mobileNumberTextBox, ownerDetails.getMobileNumber());
         enterText(ownerNameTextBox, ownerDetails.getOwnerName());
         new Select(genderSelection).selectByVisibleText(ownerDetails.getGender().toUpperCase());
-
-        waitForElementToBeClickable(emailIdTextBox, webDriver);
         enterText(emailIdTextBox, ownerDetails.getEmailAddress());
         new Select(guardianRelationSelection).selectByVisibleText(ownerDetails.getGuardianRelation());
         enterText(guardianTextBox, ownerDetails.getGuardianName());
@@ -345,18 +405,18 @@ public class PropertyDetailsPage extends BasePage {
         plinthAreaInBuildingPlanTextBox.sendKeys(floorDetails.getPlinthAreaInBuildingPlan());
     }
 
-    public void enterApplicantDetails(ApplicantDetails applicantDetails){
-        waitForElementToBeClickable(assessmentNumberTextBox, webDriver);
-        enterText(assessmentNumberTextBox, applicantDetails.getAssessmentNumber());
+    public void enterApplicantDetails(ApplicantDetails applicantDetails) {
+        waitForElementToBeClickable(assessmentNumberTextBox1, webDriver);
+        enterText(assessmentNumberTextBox1, applicantDetails.getAssessmentNumber());
 
-        waitForElementToBeClickable(hscNumberTextBox, webDriver);
-        enterText(hscNumberTextBox, applicantDetails.getHscNumber());
-
-        waitForElementToBeClickable(connectionDateTextBox, webDriver);
-        enterText(connectionDateTextBox, applicantDetails.getConnectionDate());
+//        waitForElementToBeClickable(hscNumberTextBox, webDriver);
+//        enterText(hscNumberTextBox, applicantDetails.getHscNumber());
+//
+//        waitForElementToBeClickable(connectionDateTextBox, webDriver);
+//        enterText(connectionDateTextBox, applicantDetails.getConnectionDate());
     }
 
-    public void enterConnectionDetails(ConnectionDetails connectionDetails){
+    public void enterConnectionDetails(ConnectionDetails connectionDetails) {
         waitForElementToBeClickable(waterSourceSelection, webDriver);
 
         new Select(waterSourceSelection).selectByVisibleText(connectionDetails.getWaterSourceType());
@@ -368,7 +428,7 @@ public class PropertyDetailsPage extends BasePage {
 
     }
 
-    public void enterFeeDetails(FeeDetails feeDetails){
+    public void enterFeeDetails(FeeDetails feeDetails) {
         waitForElementToBeClickable(monthlyFeeTextBox, webDriver);
         enterText(monthlyFeeTextBox, feeDetails.getMonthlyFee());
 
@@ -378,39 +438,30 @@ public class PropertyDetailsPage extends BasePage {
 
     public void enterApprovalDetails(ApprovalDetails approvalDetails) {
         new Select(approverDepartmentSelection).selectByVisibleText(approvalDetails.getApproverDepartment());
-//        await().atMost(10, SECONDS).until(() -> new Select(approverDesignationSelection).getOptions().size() > 1);
-//        new Select(approverDesignationSelection).selectByVisibleText(approvalDetails.getApproverDesignation());
-
-        selectAndConfirm(approvalDetails.getApproverDesignation(), approverDesignationSelection);
-        selectAndConfirm(approvalDetails.getApprover(), approverSelection);
+        await().atMost(10, SECONDS).until(() -> new Select(approverDesignationSelection).getOptions().size() > 1);
+        new Select(approverDesignationSelection).selectByVisibleText(approvalDetails.getApproverDesignation());
+        await().atMost(10, SECONDS).until(() -> new Select(approverSelection).getOptions().size() > 1);
+        new Select(approverSelection).selectByVisibleText(approvalDetails.getApprover());
         enterApproverRemarks(approvalDetails.getApproverRemarks());
     }
 
-    private void selectAndConfirm(String value, WebElement webElement) {
-        await().atMost(10, SECONDS).until(() -> new Select(webElement).getOptions().size() > 1);
-        new Select(webElement).selectByVisibleText(value);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-//        String selectedOption = new Select(webElement).getFirstSelectedOption().getText();
-//        Assert.assertEquals(value, selectedOption);
+    public void enterApprovalDetailsForWater(ApprovalDetails approvalDetails) {
+        new Select(approvalWaterDept).selectByVisibleText(approvalDetails.getApproverDepartment());
+        await().atMost(10, SECONDS).until(() -> new Select(approvalWaterDesig).getOptions().size() > 1);
+        new Select(approvalWaterDesig).selectByVisibleText(approvalDetails.getApproverDesignation());
+        await().atMost(10, SECONDS).until(() -> new Select(approvalWaterPos).getOptions().size() > 1);
+        new Select(approvalWaterPos).selectByVisibleText(approvalDetails.getApprover());
+        enterApproverRemarks(approvalDetails.getApproverRemarks());
     }
 
     public void enterApproverRemarks(String approverRemarks) {
-        approverRemarksTextArea.sendKeys(approverRemarks);
+        approvalWaterComment.sendKeys(approverRemarks);
     }
 
 
     public void forward() {
         forwardButton.click();
     }
-
-    public void create(){
-        create.click();
-    }
-
 
     public void approve() {
         approveButton.click();
@@ -432,13 +483,12 @@ public class PropertyDetailsPage extends BasePage {
     }
 
     public void checkNoOfRecords() {
-       waitForElementToBeVisible(recordsFound,webDriver);
-       int noOfRecords = Integer.parseInt(recordsFound.getText());
+        waitForElementToBeVisible(recordsFound, webDriver);
+        int noOfRecords = Integer.parseInt(recordsFound.getText());
 
-        if(noOfRecords > 0){
+        if (noOfRecords > 0) {
             System.out.println("Records Founds:" + noOfRecords);
-        }
-        else
+        } else
             System.out.println("No records founds");
     }
 
@@ -462,6 +512,72 @@ public class PropertyDetailsPage extends BasePage {
         new Select(zoneId).selectByVisibleText(searchDetails.getSearchValue1());
         new Select(wardId).selectByVisibleText(searchDetails.getSearchValue2());
 
-       searchButtonByZoneAndWard.click();
+        searchButtonByZoneAndWard.click();
+    }
+
+    public void enterAssessmentNumber(String assessmentNumber) {
+        assessmentNumberTextBox.sendKeys(assessmentNumber);
+    }
+
+    public void create() {
+        createButton.click();
+    }
+
+    public void searchAssessmentNumber(String assessmentNum) {
+        searchAssessmentTextBox.sendKeys(assessmentNum);
+    }
+
+    public void search() {
+        searchButton.click();
+    }
+
+    public void enterEditAssessmentDetails(EditAssessmentDetails assessmentDetails) {
+        // waitForElementToBeClickable(extentOfSiteTextBox, webDriver);
+        extentOfSiteTextBox.clear();
+        extentOfSiteTextBox.sendKeys(assessmentDetails.getExtentOfSite());
+
+        editOccupancyTextBox.sendKeys(assessmentDetails.getOccupancyCertificateNumber());
+
+
+    }
+
+    public void enterEditFloorDetails(EditFloorDetails floorDetails) {
+        new Select(floorNumberSelection).selectByVisibleText(floorDetails.getEditfloorNumber());
+        new Select(classificationOfBuildingSelection).selectByVisibleText(floorDetails.getEditclassificationOfBuilding());
+        new Select(natureOfUsageSelection).selectByVisibleText(floorDetails.getEditnatureOfUsage());
+
+
+        new Select(occupancySelection).selectByVisibleText(floorDetails.getEditoccupancy());
+        editoccupantNameTextBox.sendKeys(floorDetails.getEditoccupantName());
+        editconstructionDateTextBox.sendKeys(floorDetails.getEditconstructionDate());
+        editconstructionDateTextBox.sendKeys(Keys.TAB);
+
+        editeffectiveFromDateTextBox.sendKeys(floorDetails.getEditeffectiveFromDate());
+        editeffectiveFromDateTextBox.sendKeys(Keys.TAB);
+        new Select(unstructuredLandSelection).selectByVisibleText(floorDetails.getEditunstructuredLand());
+        lengthTextBox.sendKeys(floorDetails.getEditlength());
+        breadthTextBox.sendKeys(floorDetails.getEditbreadth());
+        buildingPermissionNumberTextBox.sendKeys(floorDetails.getEditbuildingPermissionNumber());
+        buildingPermissionDateTextBox.sendKeys(floorDetails.getEditbuildingPermissionDate());
+        buildingPermissionDateTextBox.sendKeys(Keys.TAB);
+        plinthAreaInBuildingPlanTextBox.sendKeys(floorDetails.getEditplinthAreaInBuildingPlan());
+
+    }
+
+    public void enterEnclosedDocumentsDetails(EnclosedDocuments enclosedDocuments) {
+
+        waitForElementToBeClickable(documentNum1Box, webDriver);
+        documentNum1Box.sendKeys(enclosedDocuments.getDocumentNumber1());
+        waitForElementToBeClickable(documentNum2Box, webDriver);
+        documentNum2Box.sendKeys(enclosedDocuments.getDocumentNumber2());
+        waitForElementToBeClickable(documentNum3Box, webDriver);
+        documentNum3Box.sendKeys(enclosedDocuments.getDocumentNumber3());
+        waitForElementToBeClickable(documentDate1Box, webDriver);
+      enterText(documentDate1Box,enclosedDocuments.getDocumentDate1());
+        waitForElementToBeClickable(documentDate2Box, webDriver);
+        enterText(documentDate2Box,enclosedDocuments.getDocumentDate2());
+        waitForElementToBeClickable(documentDate3Box, webDriver);
+        enterText(documentDate3Box,enclosedDocuments.getDocumentDate2());
+
     }
 }

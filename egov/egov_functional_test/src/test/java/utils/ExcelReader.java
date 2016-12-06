@@ -33,6 +33,9 @@ public class ExcelReader {
     Sheet connectionDetailsSheet;
     Sheet feeDetailsSheet;
     Sheet searchDetailsSheet;
+    Sheet editAssessmentDetailsSheet;
+    Sheet editFloorDetailsSheet;
+    Sheet enclosedDocumentSheet;
 
 
 
@@ -60,6 +63,9 @@ public class ExcelReader {
         feeDetailsSheet = workbook.getSheet("feeDetails");
         searchDetailsSheet = workbook.getSheet("searchDetails");
         chequeDetailsSheet = workbook.getSheet("chequeDetails");
+        editAssessmentDetailsSheet = workbook.getSheet("editAssessmentDetails") ;
+        editFloorDetailsSheet = workbook.getSheet("editFloorDetails") ;
+        enclosedDocumentSheet = workbook.getSheet("enclosedDocumentsDetails");
     }
 
     private Row readDataRow(Sheet fromSheet, String dataId) {
@@ -363,6 +369,101 @@ public class ExcelReader {
                 .withPaidBy(paidBy)
                 .withChequeDate(new SimpleDateFormat("dd/MM/yyyy").format(new Date())).build();
 
+
+    }
+
+
+    public EditAssessmentDetails getEditAssessmentDetails(String assessmentDetailsDataName) {
+    Row dataRow = readDataRow(editAssessmentDetailsSheet, assessmentDetailsDataName ) ;
+        Cell extentOfSiteCell = getCellData(editAssessmentDetailsSheet, dataRow, "extentOfSite");
+        extentOfSiteCell.setCellType(Cell.CELL_TYPE_STRING);
+        String extentOfSite = extentOfSiteCell.getStringCellValue();
+        Cell occupancyCertificateNumberCell = getCellData(editAssessmentDetailsSheet, dataRow, "occupancyCertificateNumber");
+        occupancyCertificateNumberCell.setCellType(Cell.CELL_TYPE_STRING);
+        String occupancyCertificateNumber = occupancyCertificateNumberCell.getStringCellValue();
+
+
+           return new  EditAssessmentDetailsBuilder()
+                   .withExtentOfSite(extentOfSite)
+                   .withOccupancyCertificateNumber(occupancyCertificateNumber)
+                   .build();
+
+    }
+
+    public EditFloorDetails getEditFloorDetails(String floordetailsDataName) {
+        Row dataRow = readDataRow(editFloorDetailsSheet, floordetailsDataName);
+        Cell editfloorNumberCell = getCellData(editFloorDetailsSheet, dataRow, "editfloorNumber");
+        editfloorNumberCell.setCellType(Cell.CELL_TYPE_STRING);
+        String editfloorNumber = editfloorNumberCell.getStringCellValue();
+        Cell editclassificationOfBuildingCell = getCellData(editFloorDetailsSheet, dataRow, "editclassificationOfBuilding");
+        editclassificationOfBuildingCell.setCellType(Cell.CELL_TYPE_STRING);
+        String editclassificationOfBuilding = editclassificationOfBuildingCell.getStringCellValue();
+        Cell editnatureOfUsageCell = getCellData(editFloorDetailsSheet, dataRow, "editnatureOfUsage");
+        editnatureOfUsageCell.setCellType(Cell.CELL_TYPE_STRING);
+        String editnatureOfUsage = editnatureOfUsageCell.getStringCellValue();
+
+
+        Cell editoccupancyCell = getCellData(editFloorDetailsSheet, dataRow, "editoccupancy");
+        editoccupancyCell.setCellType(Cell.CELL_TYPE_STRING);
+        String editoccupancy = editoccupancyCell.getStringCellValue();
+
+        Cell editoccupantNameCell =getCellData(editFloorDetailsSheet, dataRow, "editoccupantName");
+        editoccupantNameCell.setCellType(Cell.CELL_TYPE_STRING);
+        String editoccupantName =editoccupantNameCell.getStringCellValue();
+
+        Cell editconstructionDateCell =getCellData(editFloorDetailsSheet, dataRow, "editconstructionDate");
+        editconstructionDateCell.setCellType(Cell.CELL_TYPE_STRING);
+        String editconstructionDate = editconstructionDateCell.getStringCellValue();
+
+        Cell editeffectiveFromDateCell =getCellData(editFloorDetailsSheet, dataRow, "editeffectiveFromDate");
+        editeffectiveFromDateCell.setCellType(Cell.CELL_TYPE_STRING);
+        String editeffectiveFromDate = editeffectiveFromDateCell.getStringCellValue();
+
+        Cell editunstructuredLandCell = getCellData(editFloorDetailsSheet, dataRow, "editunstructuredLand");
+        editunstructuredLandCell.setCellType(Cell.CELL_TYPE_STRING);
+        String editunstructuredLand = editunstructuredLandCell.getStringCellValue();
+
+        Cell editlengthCell = getCellData(editFloorDetailsSheet, dataRow, "editlength");
+        editlengthCell.setCellType(Cell.CELL_TYPE_STRING);
+        String editlength = editlengthCell.getStringCellValue();
+
+        Cell editbreadthCell = getCellData(editFloorDetailsSheet, dataRow, "editbreadth");
+        editbreadthCell.setCellType(Cell.CELL_TYPE_STRING);
+        String editbreadth = editbreadthCell.getStringCellValue();
+
+        Cell editbuildingPermissionNumberCell = getCellData(editFloorDetailsSheet, dataRow, "editbuildingPermissionNumber");
+        editbuildingPermissionNumberCell.setCellType(Cell.CELL_TYPE_STRING);
+        String editbuildingPermissionNumber = editbuildingPermissionNumberCell.getStringCellValue();
+
+        Cell editbuildingPermissionDateCell = getCellData(editFloorDetailsSheet, dataRow, "editbuildingPermissionDate");
+        editbuildingPermissionDateCell.setCellType(Cell.CELL_TYPE_STRING);
+        String editbuildingPermissionDate = editbuildingPermissionDateCell.getStringCellValue();
+
+        Cell editplinthAreaInBuildingPlanCell = getCellData(editFloorDetailsSheet, dataRow, "editplinthAreaInBuildingPlan");
+        editplinthAreaInBuildingPlanCell.setCellType(Cell.CELL_TYPE_STRING);
+        String editplinthAreaInBuildingPlan = editplinthAreaInBuildingPlanCell.getStringCellValue();
+
+
+
+
+        return new EditFloorDetailsBuilder()
+                    .withEditFloorNumber(editfloorNumber)
+                    .withEditclassificationOfBuilding(editclassificationOfBuilding)
+                    .withEditnatureOfUsage(editnatureOfUsage)
+                    .withEditoccupancy(editoccupancy)
+                    .withEditoccupantName(editoccupantName)
+                    .withEditconstructionDate(editconstructionDate)
+                    .withEditeffectiveFromDate(editeffectiveFromDate)
+                    .withEditunstructuredLand(editunstructuredLand)
+                    .withEditlength(editlength)
+                    .withEditbreadth(editbreadth)
+                    .withEditbuildingPermissionNumber(editbuildingPermissionNumber)
+                    .withEditbuildingPermissionDate(editbuildingPermissionDate)
+                    .withEditplinthAreaInBuildingPlan(editplinthAreaInBuildingPlan)
+
+                .build();
+
+
     }
 
     public ApplicantDetails getApplicantDetails(String applicantDetailsDataId){
@@ -422,6 +523,49 @@ public class ExcelReader {
         return new FeeDetailsBuilder()
                 .withMonthlyFee(monthlyFee)
                 .withDonationCharges(donationCharges)
+                .build();
+    }
+
+    public EnclosedDocuments getEnclosedDocumentsDetails(String enclosedDocumentsDataId) {
+        Row dataRow = readDataRow(enclosedDocumentSheet , enclosedDocumentsDataId);
+
+//        Cell documentNo1Cell = getCellData(enclosedDocumentSheet, dataRow, "documentNum1");
+//        documentNo1Cell.setCellType(Cell.CELL_TYPE_STRING);
+//        String documentNo1 = documentNo1Cell.getStringCellValue();
+//
+//        Cell documentNo2Cell = getCellData(enclosedDocumentSheet, dataRow, "documentNum2");
+//        documentNo2Cell.setCellType(Cell.CELL_TYPE_STRING);
+//        String documentNo2 = documentNo2Cell.getStringCellValue();
+//
+//        Cell documentNo3Cell = getCellData(enclosedDocumentSheet, dataRow, "documentNum3");
+//        documentNo3Cell.setCellType(Cell.CELL_TYPE_STRING);
+//        String documentNo3 = documentNo3Cell.getStringCellValue();
+//
+        Cell documentDate1Cell = getCellData(enclosedDocumentSheet, dataRow, "documentDate1");
+        documentDate1Cell.setCellType(Cell.CELL_TYPE_STRING);
+        String documentDate1 = documentDate1Cell.getStringCellValue();
+
+        Cell documentDate2Cell = getCellData(enclosedDocumentSheet, dataRow, "documentDate2");
+        documentDate2Cell.setCellType(Cell.CELL_TYPE_STRING);
+        String documentDate2 = documentDate2Cell.getStringCellValue();
+
+        Cell documentDate3Cell = getCellData(enclosedDocumentSheet, dataRow, "documentDate3");
+        documentDate3Cell.setCellType(Cell.CELL_TYPE_STRING);
+        String documentDate3 = documentDate3Cell.getStringCellValue();
+
+
+        String documentNo1 = getCellData(enclosedDocumentSheet, dataRow, "documentNum1").getStringCellValue();
+        String documentNo2 = getCellData(enclosedDocumentSheet, dataRow, "documentNum2").getStringCellValue();
+        String documentNo3 = getCellData(enclosedDocumentSheet, dataRow, "documentNum3").getStringCellValue();
+
+
+        return new EnclosedDocumentsBuilder()
+                .withDocumentNumber1(documentNo1)
+                .withDocumentNumber2(documentNo2)
+                .withDocumentNumber3(documentNo3)
+                .withDocumentDate1(documentDate1)
+                .withDocumentDate2(documentDate2)
+                .withDocumentDate3(documentDate3)
                 .build();
     }
 }

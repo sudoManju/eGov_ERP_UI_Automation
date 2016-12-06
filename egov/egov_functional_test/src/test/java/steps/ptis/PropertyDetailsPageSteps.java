@@ -75,16 +75,20 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
         And("^he enter all the credential details$", () -> {
            String applicantDetailsDataId = "applicantDetails";
            String connectionDetailsDataId = "connectionType";
-           String feeDetailsDataId = "feeType";
+           String enclosedDocumentsDataId = "enclosedDocuments";
+           String approvalDetailsDataId = "engineer";
 
            ApplicantDetails applicantDetails = new ExcelReader(ptisTestDataFileName).getApplicantDetails(applicantDetailsDataId);
             pageStore.get(PropertyDetailsPage.class).enterApplicantDetails(applicantDetails);
 
-            ConnectionDetails connectionDetails = new ExcelReader(ptisTestDataFileName).getConnectionDetails(connectionDetailsDataId);
-            pageStore.get(PropertyDetailsPage.class).enterConnectionDetails(connectionDetails);
+           ConnectionDetails connectionDetails = new ExcelReader(ptisTestDataFileName).getConnectionDetails(connectionDetailsDataId);
+           pageStore.get(PropertyDetailsPage.class).enterConnectionDetails(connectionDetails);
 
-            FeeDetails feeDetails = new ExcelReader(ptisTestDataFileName).getFeeDetails(feeDetailsDataId);
-            pageStore.get(PropertyDetailsPage.class).enterFeeDetails(feeDetails);
+           EnclosedDocuments enclosedDocuments = new ExcelReader(ptisTestDataFileName).getEnclosedDocumentsDetails(enclosedDocumentsDataId);
+           pageStore.get(PropertyDetailsPage.class).enterEnclosedDocumentsDetails(enclosedDocuments);
+
+            ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approvalDetailsDataId);
+            pageStore.get(PropertyDetailsPage.class).enterApprovalDetailsForWater(approvalDetails);
 
 
         });
