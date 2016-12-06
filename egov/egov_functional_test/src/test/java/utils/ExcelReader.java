@@ -1,5 +1,6 @@
 package utils;
 
+import builders.EstimateHeaderDetailsBuilder;
 import builders.LoginDetailsBuilder;
 import builders.collections.ChequeDetailsBuilder;
 import builders.ptis.*;
@@ -28,7 +29,6 @@ public class ExcelReader {
     Sheet constructionTypeDetailsSheet;
     Sheet floorDetailsSheet;
     Sheet approvalDetailsSheet;
-
     Sheet chequeDetailsSheet;
     Sheet applicantParticularsSheet;
     Sheet connectionDetailsSheet;
@@ -40,6 +40,12 @@ public class ExcelReader {
     Sheet enclosedDocumentsSheet;
 
     Sheet vltReportSheet;
+
+    Sheet registeredUserDetailsSheet;
+    Sheet estimateHeaderDetailsSheet;
+    Sheet financialHeaderDetailsSheet;
+    Sheet workHeaderDetailsSheet;
+    Sheet adminSanctionHeaderDetailsSheet;
 
 
 
@@ -73,8 +79,15 @@ public class ExcelReader {
         editAssessmentDetailsSheet = workbook.getSheet("editAssessmentDetails") ;
         editFloorDetailsSheet = workbook.getSheet("editFloorDetails") ;
 
+
         enclosedDocumentsSheet = workbook.getSheet("enclosedDocuments");
         vltReportSheet = workbook.getSheet("vltReport");
+
+        registeredUserDetailsSheet = workbook.getSheet("registeredUserDetails");
+        estimateHeaderDetailsSheet = workbook.getSheet("estimateHeaderDetails");
+        financialHeaderDetailsSheet = workbook.getSheet("financialHeaderDetails");
+        workHeaderDetailsSheet = workbook.getSheet("workHeaderDetails");
+        adminSanctionHeaderDetailsSheet = workbook.getSheet("adminSanctionHeaderDetails");
 
     }
 
@@ -136,6 +149,30 @@ public class ExcelReader {
                 .withHasZone(hasZone).build();
 
     }
+
+    //works management module line estimate
+    public EstimateHeaderDetailsBuilder getEstimateHeaderDetails(String EstimateDetailsDataId) {
+        Row dataRow = readDataRow(estimateHeaderDetailsSheet, EstimateDetailsDataId);
+        String Date = getCellData(estimateHeaderDetailsSheet, dataRow, "Date").getStringCellValue();
+        String Subject = getCellData(estimateHeaderDetailsSheet, dataRow, "Subject").getStringCellValue();
+        String RequirementNumber = getCellData(estimateHeaderDetailsSheet, dataRow, "RequirementNumber").getStringCellValue();
+        String Description = getCellData(estimateHeaderDetailsSheet, dataRow, "Description ").getStringCellValue();
+        String ElectionWard = getCellData(estimateHeaderDetailsSheet, dataRow, "ElectionWard").getStringCellValue();
+        String Location = getCellData(estimateHeaderDetailsSheet, dataRow, "Location").getStringCellValue();
+        String WorkCategory = getCellData(estimateHeaderDetailsSheet, dataRow, "WorkCategory").getStringCellValue();
+        String Beneficiary = getCellData(estimateHeaderDetailsSheet, dataRow, "Beneficiary").getStringCellValue();
+        String NatureOfWork = getCellData(estimateHeaderDetailsSheet, dataRow, "NatureOfWork").getStringCellValue();
+        String TypeOfWork = getCellData(estimateHeaderDetailsSheet, dataRow, "TypeOfWork").getStringCellValue();
+        String SubTypeOfWork = getCellData(estimateHeaderDetailsSheet, dataRow, "SubTypeOfWork").getStringCellValue();
+        String ModeOfEntrustment = getCellData(estimateHeaderDetailsSheet, dataRow, "ModeOfEntrustment").getStringCellValue();
+
+    return new EstimateHeaderDetailsBuilder().withDate(Date).withSubject(Subject).withRequirementNumber(RequirementNumber)
+            .withDiscription(Description).withElectionWard(ElectionWard).withLocation(Location).withWorkCategory(WorkCategory)
+            .withBeneficiary(Beneficiary).withNatureOfWork(NatureOfWork).withTypeOfWork(TypeOfWork).withSubTypeOfWork(SubTypeOfWork)
+            .withModeOfEntrustment(ModeOfEntrustment).build();
+    }
+
+    //end of works management module line estimate
 
 
     public PropertyHeaderDetails getPropertyHeaderDetails(String propertyDetailsDataId) {

@@ -85,22 +85,55 @@ Feature: Create New Property
     Given superuser logs in
     When he chooses to create data entry
     And he creates a new assessment for a private residential property
+      Then dataEntry Details saved successfully
 
     @Sanity
     Scenario Outline: Registered user Update existing property
-    Given juniorAssistant logs in
-    When he chooses to addition alteration
-      And he searches for assessment with number "1016042569"
-     And he updates assessment details as <editAssessmentDetails>
-      And he enters amenities as <amenitiesDetails>
+#    Given juniorAssistant logs in
+#    When he chooses to addition alteration
+#      And he searches for assessment with number "1016084436"
+#     And he updates assessment details as <editAssessmentDetails>
+#      And he enters amenities as <amenitiesDetails>
 #      And he enters Construction Details as <ConstructionTypes1>
-      And he enters Floor Details as <editFloorDetails>
-      And he forwards for approval to billCollector
+#      And he enters Floor Details as <editFloorDetails>
+#      And he forwards for approval to billCollector
 #      Then edit property details get saved successfully
-      And current user closes edit acknowledgement
+#      And current user logs out
+
+      When billCollector logs in
+      And choose to Quick search property by assessmentNumber
+      And he forwards for approval to revenueInspector
+      And current user closes acknowledgement
       And current user logs out
 
-#      When billCollector logs in
+      When revenueInspector logs in
+      And chooses to act upon the above application
+      And he forwards for approval to revenueOfficer
+      And current user closes acknowledgement
+      And current user logs out
+
+      When revenueOfficer logs in
+      And chooses to act upon the above application
+      And he forwards for approval to commissioner
+      And current user closes acknowledgement
+      And current user logs out
+
+      When commissioner logs in
+      And chooses to act upon the above application
+      And he approved the property with remarks "property approved"
+      And current user closes acknowledgement
+
+      And chooses to act upon the above assessment
+      And he does a digital signature
+#
+      Then he is notified that "Notice Generated Successfully"
+
+      When commissioner closes acknowledgement
+      And current user logs out
+
+      And juniorAssistant logs in
+      And chooses to act upon the above assessment
+      And he generates a notice
 
 
 
@@ -108,3 +141,28 @@ Feature: Create New Property
         |  editAssessmentDetails         |     amenitiesDetails |          editFloorDetails |
         |  assessmentAdditionProperty    |        all            |         firstFloorAdditionaltaration|
 
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> 40482717f06ba1cb28cfc3a7c6d3347aa1d0ac09

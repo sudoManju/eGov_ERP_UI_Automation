@@ -20,7 +20,6 @@ public class PropertyDetailsPage extends BasePage {
 
     private WebDriver webDriver;
 
-
     @FindBy(id = "propTypeCategoryId")
     private WebElement propertyTypeSelection;
 
@@ -503,7 +502,11 @@ public class PropertyDetailsPage extends BasePage {
     public void enterAssessmentNumber(String assessmentNumber) {assessmentNumberTextBox.sendKeys(assessmentNumber);
     }
 
-    public void create() {createButton.click(); }
+    public void create()
+
+    {   waitForElementToBeClickable(createButton, webDriver);
+        createButton.click();
+    }
 
     public void searchAssessmentNumber(String assessmentNum) {searchAssessmentTextBox.sendKeys(assessmentNum);}
 
@@ -511,7 +514,7 @@ public class PropertyDetailsPage extends BasePage {
     }
 
     public void enterEditAssessmentDetails(EditAssessmentDetails assessmentDetails) {
-       // waitForElementToBeClickable(extentOfSiteTextBox, webDriver);
+     //  waitForElementToBeClickable(extentOfSiteTextBox, webDriver);
         extentOfSiteTextBox.clear();
         extentOfSiteTextBox.sendKeys(assessmentDetails.getExtentOfSite());
 

@@ -20,7 +20,7 @@ public class EditPropertyAcknowledgementPage {
 
     private WebDriver driver;
 
-    @FindBy(css = "input[value='Close'][type='button']")
+    @FindBy(id = "button2")
     private WebElement closeButton;
 
     public void close() {
@@ -32,9 +32,11 @@ public class EditPropertyAcknowledgementPage {
     }
 
     public String getApplicationNumber() {
-
-        return "1016041190";
+        List<WebElement> elements = driver.findElement(By.tagName("table")).findElement(By.tagName("tbody"))
+                .findElement(By.tagName("tr")).findElement(By.tagName("td")).findElements(By.tagName("span"));
+        return elements.get(1).getText();
     }
+
 }
 
 
