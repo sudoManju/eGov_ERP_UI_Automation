@@ -21,16 +21,21 @@ public class CollectionAcknowledgementPage extends BasePage {
     @FindBy(id = "challan.challanNumber")
     private WebElement challanNumber;
 
-    @FindBy(id = "buttonclose2")
+    @FindBy(css = "input[value='Close'][type='button']")
     private WebElement closeButton;
+
+    @FindBy(xpath = ".//*[@id='actionMessages']/ul/li")
+    private WebElement number;
 
     public String getChallanNumber() {
 
-        String num = challanNumber.getCssValue("challan.challanNumber");
+        String num = number.getText();
+        int i = num.lastIndexOf(' ');
+        String number = num.substring(i+1);
 
-        System.out.println("Challan Number"+ num);
+        System.out.println("Challan Number"+ number);
 
-        return num;
+        return number;
     }
 
     public void close() {
