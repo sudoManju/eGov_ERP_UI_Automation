@@ -39,10 +39,13 @@ public class DashboardPage extends BasePage {
     private WebElement officialInboxTable;
 
     @FindBy(linkText = "Miscellaneous Receipt")
-        private WebElement miscellaneousReceipt;
+    private WebElement miscellaneousReceipt;
 
     @FindBy(linkText = "Apply for New Connection")
     private WebElement applyForNewWaterConnectionLink;
+
+    @FindBy(linkText = "Create Challan")
+    private WebElement createChallanLink;
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -132,6 +135,16 @@ public class DashboardPage extends BasePage {
 
         applyForNewWaterConnectionLink.click();
 
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void createChallan() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Create Challan");
+
+        waitForElementToBeVisible(createChallanLink, driver);
+
+        createChallanLink.click();
         switchToNewlyOpenedWindow(driver);
     }
 }

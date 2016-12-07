@@ -38,5 +38,8 @@ public class DashboardSteps extends BaseSteps implements En {
         And("^he chooses to apply for new connection$", () -> {
             pageStore.get(DashboardPage.class).chooseToApplyForConnection();
         });
+        When("^he chooses to create Challan$", () -> {
+            pageStore.get(DashboardPage.class).createChallan();
+        });
     }
 }

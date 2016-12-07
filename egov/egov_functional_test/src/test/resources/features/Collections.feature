@@ -24,6 +24,14 @@ Feature: Collection
 
 
 
+  Scenario: System should be able to Create Challan
+
+    Given juniorAssistant logs in
+    When he chooses to create Challan
+    And he enters challan details
+
+    And he stores the challan number and closes acknowledgement
+    And current user logs out
 
 
 

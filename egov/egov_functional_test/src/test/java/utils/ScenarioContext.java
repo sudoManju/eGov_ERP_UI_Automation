@@ -8,6 +8,16 @@ public class ScenarioContext {
 
     private String assessmentNumber;
 
+    private String challanNumber;
+
+    public String getChallanNumber() {
+        return challanNumber;
+    }
+
+    public void setChallanNumber(String challanNumber) {
+        this.challanNumber = challanNumber;
+    }
+
     public String getAssessmentNumber() {
         return assessmentNumber;
     }

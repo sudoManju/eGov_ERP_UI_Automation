@@ -1,11 +1,15 @@
 package pages.collections;
 
+import entities.collections.ChallanHeaderDetails;
 import entities.collections.ChequeDetails;
+import entities.ptis.ApprovalDetails;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class CollectionsPage extends BasePage {
 
@@ -24,14 +28,50 @@ public class CollectionsPage extends BasePage {
     @FindBy(id = "bankName")
     private WebElement bankNameInput;
 
-    @FindBy(id = "instrumentChequeAmount")
-    private WebElement amountTextBox;
+    @FindBy( id="billDetailslist[0].creditAmountDetail")
+    private WebElement challanAmountTextBox;
 
     @FindBy(id = "paidBy")
     private WebElement paidByTextBox;
 
     @FindBy(id = "totalamounttobepaid")
     private WebElement amountToBePaidLabel;
+
+    @FindBy(id = "challanDate")
+    private WebElement challanDateTextBox;
+
+    @FindBy(id = "payeeName")
+    private WebElement payeeNameTextBox;
+
+    @FindBy(id = "payeeAddress")
+    private WebElement payeeAddressTextBox;
+
+    @FindBy(id = "referenceDesc")
+    private WebElement narrationTextBox;
+
+    @FindBy(id = "serviceCategoryId")
+    private WebElement serviceCategoryBox;
+
+    @FindBy(id = "serviceId")
+    private  WebElement serviceTypeBox;
+
+    @FindBy(id = "billDetailslist[0].creditAmountDetail")
+    private WebElement amountTextBox;
+
+    @FindBy(id = "approverDeptId")
+    private WebElement approverDeptBox;
+
+    @FindBy(id = "designationId")
+    private WebElement approverDesignationBox;
+
+    @FindBy(id = "positionUser")
+    private WebElement approverBox;
+
+    @FindBy(id = "CHALLAN_NEW")
+    private WebElement createChallanButton;
+
+    @FindBy(id = "totalcramount")
+    private WebElement totalAmount;
 
 
     public CollectionsPage(WebDriver driver) {
@@ -58,5 +98,37 @@ public class CollectionsPage extends BasePage {
 
 
         enterText(amountTextBox, amountToBePaidLabel.getAttribute("value").split("\\.")[0]);
+    }
+
+    public void enterChallanHeader(ChallanHeaderDetails challanHeaderDetails) {
+
+        waitForElementToBeClickable(challanDateTextBox, driver);
+        challanDateTextBox.clear();
+        challanDateTextBox.sendKeys(challanHeaderDetails.getDate());
+        waitForElementToBeClickable(payeeNameTextBox, driver);
+        payeeNameTextBox.sendKeys(challanHeaderDetails.getPayeeName());
+        waitForElementToBeClickable(payeeAddressTextBox, driver);
+        payeeAddressTextBox.sendKeys(challanHeaderDetails.getPayeeAddress());
+        waitForElementToBeClickable(narrationTextBox, driver);
+        narrationTextBox.sendKeys(challanHeaderDetails.getNarration());
+
+        new Select(serviceCategoryBox).selectByVisibleText(challanHeaderDetails.getServiceCategory());
+        new Select(serviceTypeBox).selectByVisibleText(challanHeaderDetails.getServiceType());
+
+        waitForElementToBeClickable(challanAmountTextBox,driver);
+        challanAmountTextBox.click();
+        challanAmountTextBox.clear();
+        challanAmountTextBox.sendKeys(challanHeaderDetails.getAmount());
+    }
+
+    public void enterApprovalDetails(ApprovalDetails approverDetails) {
+
+        waitForElementToBeClickable(approverDeptBox, driver);
+        new Select(approverDeptBox).selectByVisibleText(approverDetails.getApproverDepartment());
+        new Select(approverDesignationBox).selectByVisibleText(approverDetails.getApproverDesignation());
+        new Select(approverBox).selectByVisibleText(approverDetails.getApprover());
+
+        createChallanButton.click();
+        driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
     }
 }

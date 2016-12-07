@@ -1,9 +1,11 @@
 package utils;
 
 import builders.LoginDetailsBuilder;
+import builders.collections.ChallanHeaderDetailsBuilder;
 import builders.collections.ChequeDetailsBuilder;
 import builders.ptis.*;
 import entities.*;
+import entities.collections.ChallanHeaderDetails;
 import entities.collections.ChequeDetails;
 import entities.ptis.*;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -36,7 +38,7 @@ public class ExcelReader {
     Sheet editAssessmentDetailsSheet;
     Sheet editFloorDetailsSheet;
     Sheet enclosedDocumentSheet;
-
+    Sheet challanHeaderDetailsSheet;
 
 
     public ExcelReader(String testData) {
@@ -66,6 +68,7 @@ public class ExcelReader {
         editAssessmentDetailsSheet = workbook.getSheet("editAssessmentDetails") ;
         editFloorDetailsSheet = workbook.getSheet("editFloorDetails") ;
         enclosedDocumentSheet = workbook.getSheet("enclosedDocumentsDetails");
+        challanHeaderDetailsSheet = workbook.getSheet("challanHeaderDetails");
     }
 
     private Row readDataRow(Sheet fromSheet, String dataId) {
@@ -343,13 +346,14 @@ public class ExcelReader {
         String approverDepartment = getCellData(approvalDetailsSheet, dataRow, "approverDepartment").getStringCellValue();
         String approverDesignation = getCellData(approvalDetailsSheet, dataRow, "approverDesignation").getStringCellValue();
         String approver = getCellData(approvalDetailsSheet, dataRow, "approver").getStringCellValue();
-        String approverRemarks = getCellData(approvalDetailsSheet, dataRow, "approverRemarks").getStringCellValue();
+//        String approverRemarks = getCellData(approvalDetailsSheet, dataRow, "approverRemarks").getStringCellValue();
 
         return new ApprovalDetailsBuilder()
                 .withApproverDepartment(approverDepartment)
                 .withApproverDesignation(approverDesignation)
                 .withApprover(approver)
-                .withApproverRemarks(approverRemarks).build();
+//                .withApproverRemarks(approverRemarks)
+                 .build();
     }
 
     public ChequeDetails getChequeDetails(String chequeDetailsDataId) {
@@ -567,5 +571,34 @@ public class ExcelReader {
                 .withDocumentDate2(documentDate2)
                 .withDocumentDate3(documentDate3)
                 .build();
+    }
+
+    public ChallanHeaderDetails getChallanHeader(String challanheaderid) {
+
+        Row dataRow = readDataRow(challanHeaderDetailsSheet, challanheaderid);
+
+        Cell dateCell = getCellData(challanHeaderDetailsSheet, dataRow, "date");
+        dateCell.setCellType(Cell.CELL_TYPE_STRING);
+        String date = dateCell.getStringCellValue();
+        String payeeName = getCellData(challanHeaderDetailsSheet, dataRow, "payeeName").getStringCellValue();
+        String payeeAddress = getCellData(challanHeaderDetailsSheet,dataRow,"payeeAddress").getStringCellValue();
+        String narration = getCellData(challanHeaderDetailsSheet,dataRow,"narration").getStringCellValue();
+        String serviceCategory = getCellData(challanHeaderDetailsSheet,dataRow,"serviceCategory").getStringCellValue();
+        String sericeType = getCellData(challanHeaderDetailsSheet,dataRow,"serviceType").getStringCellValue();
+
+        Cell amountCell = getCellData(challanHeaderDetailsSheet, dataRow, "amount");
+        amountCell.setCellType(Cell.CELL_TYPE_STRING);
+        String amount = amountCell.getStringCellValue();
+
+        return new ChallanHeaderDetailsBuilder()
+                .withDate(date)
+                .withPayeeName(payeeName)
+                .withPayeeAddress(payeeAddress)
+                .withNarration(narration)
+                .withServiceCategory(serviceCategory)
+                .withServiceType(sericeType)
+                .withAmount(amount)
+                .build();
+
     }
 }
