@@ -16,7 +16,7 @@ public class AdditionSteps extends BaseSteps implements En {
     public AdditionSteps(){
         And("^he searches for assessment with number \"([^\"]*)\"$", (String arg0) -> {
 
-            pageStore.get(PropertyDetailsPage.class).searchAssessmentNumber("1016042569");
+            pageStore.get(PropertyDetailsPage.class).searchAssessmentNumber("1016084436");
             pageStore.get(PropertyDetailsPage.class).search();
 
 
@@ -40,6 +40,7 @@ public class AdditionSteps extends BaseSteps implements En {
             pageStore.get(PropertyDetailsPage.class).enterEditFloorDetails(floorDetails);
 
         });
+
 
 
     }

@@ -32,20 +32,41 @@ public class DashboardPage extends BasePage {
     @FindBy(className = "profile-name")
     private WebElement profileNameLink;
 
+    @FindBy(linkText = "Create Spillover Estimate")
+    private WebElement createSpilloverEstimate;
+
     @FindBy(linkText = "Sign Out")
     private WebElement signOutLink;
 
     @FindBy(id = "official_inbox")
     private WebElement officialInboxTable;
 
+    @FindBy(xpath = "//html/body/div[3]/div[2]/div/ul/li[2]/a")
+    private WebElement dataEntryScreenLinkText;
+
     @FindBy(linkText = "Miscellaneous Receipt")
     private WebElement miscellaneousReceipt;
 
     @FindBy(linkText = "Apply for New Connection")
+<<<<<<< HEAD
     private WebElement applyForNewWaterConnectionLink;
 
     @FindBy(linkText = "Create Challan")
     private WebElement createChallanLink;
+=======
+    private WebElement applyForNewWaterConnection;
+
+    @FindBy(linkText = "Daily collection report(VLT)")
+    private WebElement vltReport;
+
+
+    @FindBy(linkText = "Data Entry Screen")
+    private WebElement dataEntryScreen;
+
+    @FindBy(linkText = "Addition/Alteration of Assessment")
+    private WebElement additionAlterationLink;
+
+>>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -118,14 +139,67 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
+
+    //It choose the data entry screen from dashboard
+    public void chooseToCreateNewDataEntryScreen() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Data Entry Screen");
+        waitForElementToBeVisible(dataEntryScreenLinkText, driver);
+
+        dataEntryScreenLinkText.click();
+
+        switchToNewlyOpenedWindow(driver);}
+
     public void createMiscellenous() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchTreeTextBox.click();
         searchTreeTextBox.sendKeys("Miscellaneous Receipt");
         miscellaneousReceipt.click();
         switchToNewlyOpenedWindow(driver);
+    }
 
+    public void chooseToCreateDataEntry() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Data Entry Screen");
+        waitForElementToBeVisible(dataEntryScreen, driver);
+        dataEntryScreen.click();
+        switchToNewlyOpenedWindow(driver);
+    }
 
+    public void chooseToAdditionAlteration() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Addition/Alteration of Assessment");
+        waitForElementToBeVisible(additionAlterationLink, driver);
+        additionAlterationLink.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+        public void createSpilloverEstimate()
+    {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Create Spillover Estimate");
+        waitForElementToBeVisible(createSpilloverEstimate, driver);
+        createSpilloverEstimate.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseToCreateNewWaterConnection(){
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Apply for New Connection");
+        waitForElementToBeVisible(applyForNewWaterConnection, driver);
+
+        applyForNewWaterConnection.click();
+        switchToNewlyOpenedWindow(driver);
+
+    }
+
+    public void chooseToFindDailyVLTReports(){
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Daily Collection Report(VLT)");
+        waitForElementToBeVisible(vltReport, driver);
+
+        vltReport.click();
+        switchToNewlyOpenedWindow(driver);
     }
 
     public void chooseToApplyForConnection() {
@@ -148,3 +222,4 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 }
+

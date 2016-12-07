@@ -69,6 +69,7 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
             pageStore.get(PropertyDetailsPage.class).generateNotice();
 
         });
+<<<<<<< HEAD
         And("^the property tax bill be created$", () -> {
             pageStore.get(PropertyDetailsPage.class).create();
         });
@@ -121,6 +122,51 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
             pageStore.get(PropertyDetailsPage.class).enterSearchDetailsOfZoneAndWardNumber(searchDetails);
         });
 
+=======
+        And("^user enters the data entry information$", () -> {
+            String applicationParticularsDetails = "applicantInfo" ;
+            String connectionDetails = "connectionInfo";
+            String feeDetails = "feeInfo";
+
+            ApplicantInfo applicantInfo = new ExcelReader(ptisTestDataFileName).getApplicantInfo(applicationParticularsDetails);
+            pageStore.get(PropertyDetailsPage.class).enterApplicationInfo(applicantInfo);
+
+            ConnectionInfo connectionInfo = new ExcelReader(ptisTestDataFileName).getConnectionInfo(connectionDetails);
+            pageStore.get(PropertyDetailsPage.class).enterConnectionInfo(connectionInfo);
+
+            FeeInfo feeInfo = new ExcelReader(ptisTestDataFileName).getFeeInfo(feeDetails);
+            pageStore.get(PropertyDetailsPage.class).enterFeeInfo(feeInfo);
+
+        });
+        And("^finally user will submit the application$", () -> {
+            pageStore.get(PropertyDetailsPage.class).chooseToSubmit();
+        });
+        And("^he enter all the water connection details$", () -> {
+            String applicationParticularsDetails = "applicantInfo1" ;
+            String connectionDetails = "connectionInfo1";
+            String enclosedDocumentDetails = "enclosedInfo";
+            String approveDetails = "engineer";
+
+            ApplicantInfo applicantInfo = new ExcelReader(ptisTestDataFileName).getApplicantInfo(applicationParticularsDetails);
+            pageStore.get(PropertyDetailsPage.class).enterWaterConectionInfo(applicantInfo);
+
+            ConnectionInfo connectionInfo = new ExcelReader(ptisTestDataFileName).getConnectionInfo(connectionDetails);
+            pageStore.get(PropertyDetailsPage.class).enterConnectionInfo(connectionInfo);
+
+            EnclosedDocument enclosedDocument = new ExcelReader(ptisTestDataFileName).getDocumentInfo(enclosedDocumentDetails);
+            pageStore.get(PropertyDetailsPage.class).enterDocumentInfo(enclosedDocument);
+
+            ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approveDetails);
+            pageStore.get(PropertyDetailsPage.class).enterWaterApprovalDetails(approvalDetails);
+
+        });
+        And("^user need to enter the date and get the report details$", () -> {
+            String vltReportInfo = "report1";
+
+            VLTReport vltReport =  new ExcelReader(ptisTestDataFileName).getVLTReportInfo(vltReportInfo);
+            pageStore.get(PropertyDetailsPage.class).enterVLTReportDetails(vltReport);
+        });
+>>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
 
     }
 }

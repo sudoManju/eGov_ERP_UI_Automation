@@ -9,13 +9,16 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
+import java.security.PrivateKey;
+import java.util.concurrent.PriorityBlockingQueue;
+import java.util.concurrent.TimeUnit;
+
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class PropertyDetailsPage extends BasePage {
 
     private WebDriver webDriver;
-
 
     @FindBy(id = "propTypeCategoryId")
     private WebElement propertyTypeSelection;
@@ -161,7 +164,6 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "propertyDetail.floorDetailsProxy[0].buildingPlanPlinthArea.area")
     private WebElement plinthAreaInBuildingPlanTextBox;
 
-
     @FindBy(id = "approverDepartment")
     private WebElement approverDepartmentSelection;
 
@@ -186,11 +188,16 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "Generate Notice")
     private WebElement generateNotice;
 
+<<<<<<< HEAD
     @FindBy(id = "Create")
     private WebElement create;
 
     @FindBy(id = "propertyIdentifier")
     private WebElement assessmentNumberTextBox1;
+=======
+//    @FindBy(id = "propertyIdentifier")
+//    private WebElement assessmentNumberTextBox;
+>>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
 
     @FindBy(id = "consumerCodeData")
     private WebElement hscNumberTextBox;
@@ -199,6 +206,7 @@ public class PropertyDetailsPage extends BasePage {
     private WebElement connectionDateTextBox;
 
     @FindBy(id = "waterSource")
+<<<<<<< HEAD
     private WebElement waterSourceSelection;
 
     @FindBy(id = "connectionType")
@@ -217,11 +225,38 @@ public class PropertyDetailsPage extends BasePage {
     private WebElement pipeSizeSelection;
 
     @FindBy(name = "existingConnection.monthlyFee")
+=======
+    private WebElement waterSourceTypeSelectBox;
+
+    @FindBy(id = "connectionType")
+    private WebElement connectionTypeSelectBox;
+
+    @FindBy(id = "propertyType")
+    private WebElement propertyTypeSelectBox;
+
+    @FindBy(id = "connectionCategorie")
+    private WebElement categorySelectBox;
+
+    @FindBy(id = "usageType")
+    private WebElement usageTypeSelectBox;
+
+    @FindBy(id = "pipeSize")
+    private WebElement hscPipeSizeSelectBox;
+
+    @FindBy(id = "sumpCapacity")
+    private WebElement sumpCapacityTextBox;
+
+    @FindBy(id = "numberOfPerson")
+    private WebElement noOfPersonsTextBox;
+
+    @FindBy(id = "monthlyFee")
+>>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
     private WebElement monthlyFeeTextBox;
 
     @FindBy(id = "existingConnection.donationCharges")
     private WebElement donationChargesTextBox;
 
+<<<<<<< HEAD
     @FindBy(id = "assessmentNum")
     private WebElement assessmentNumTextBox;
 
@@ -253,6 +288,30 @@ public class PropertyDetailsPage extends BasePage {
     private WebElement searchButtonByZoneAndWard;
 
     @FindBy(id = "upicNo")
+=======
+    @FindBy(id = "existmeterCost")
+    private WebElement meterCostTextBox;
+
+    @FindBy(id = "existmeterName")
+    private WebElement meterNameTextBox;
+
+    @FindBy(id = "existmeterNo")
+    private WebElement meterSINoTextBox;
+
+    @FindBy(id = "previousReading")
+    private WebElement previousReadingTextBox;
+
+    @FindBy(id = "existreadingDate")
+    private WebElement lastReadingDateTextBox;
+
+    @FindBy(id = "currentcurrentReading")
+    private WebElement currentReadingTextBox;
+
+    @FindBy(id = "Create")
+    private WebElement submitButton;
+
+    @FindBy(id ="upicNo")
+>>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
     private WebElement assessmentNumberTextBox;
 
     @FindBy(id = "Create")
@@ -279,6 +338,7 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "propertyDetail.floorDetailsProxy[%#floorsstatus.index].occupancyDate")
     private WebElement editeffectiveFromDateTextBox;
 
+<<<<<<< HEAD
     @FindBy(id = "applicationDocs0documentNumber")
     private WebElement documentNum1Box;
 
@@ -308,6 +368,52 @@ public class PropertyDetailsPage extends BasePage {
 
     @FindBy(id = "approvalComent")
     private WebElement approvalWaterComment;
+=======
+    @FindBy(id = "propertyIdentifier")
+    private WebElement waterConnAssesmentNumber;
+
+    @FindBy(id = "applicationDocs0documentNumber")
+    private WebElement documentNo1TextBox;
+
+    @FindBy(id = "applicationDocs0documentDate")
+    private WebElement documentDate1TextBox;
+
+    @FindBy(id = "applicationDocs1documentNumber")
+    private  WebElement documentNo2TextBox;
+
+    @FindBy(id ="applicationDocs1documentDate")
+    private WebElement documentDate2TextBox;
+
+    @FindBy(id ="applicationDocs3documentNumber")
+    private WebElement documentNo3TextBox;
+
+    @FindBy(id = "applicationDocs3documentDate")
+    private WebElement documentDate3TextBox;
+
+    @FindBy(id = "file0id")
+    private WebElement browse1Button;
+
+    @FindBy(id = "approvalDepartment")
+    private WebElement approvalWaterDept;
+
+    @FindBy(id = "approvalDesignation")
+    private WebElement approvalWaterDesig;
+
+    @FindBy(id = "approvalPosition")
+    private WebElement approvalWaterPos;
+
+    @FindBy(id = "approvalComent")
+    private WebElement approvalWaterComment;
+
+    @FindBy(id = "fromDate")
+    private WebElement vltFromDate;
+
+    @FindBy(id = "toDate")
+    private WebElement vltToDate;
+
+    @FindBy(id = "dailyCollectionReportSearchVLT")
+    private WebElement vltReportSearch;
+>>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
 
 
     public PropertyDetailsPage(WebDriver webDriver) {
@@ -475,6 +581,7 @@ public class PropertyDetailsPage extends BasePage {
         generateNotice.click();
     }
 
+<<<<<<< HEAD
     public void enterSearchDetailsOfAssessmentNumber(SearchDetails searchDetails) {
         waitForElementToBeClickable(assessmentNumTextBox, webDriver);
         enterText(assessmentNumTextBox, searchDetails.getSearchValue1());
@@ -497,6 +604,72 @@ public class PropertyDetailsPage extends BasePage {
         enterText(doorNoTextBox, searchDetails.getSearchValue1());
 
         searchButtonByDoorNo.click();
+=======
+    public void enterApplicationInfo(ApplicantInfo applicantInfo){
+
+        waitForElementToBeClickable(assessmentNumberTextBox, webDriver);
+        enterText(assessmentNumberTextBox, applicantInfo.getPtAssessmentNumber());
+
+        waitForElementToBeClickable(hscNumberTextBox, webDriver);
+        enterText(hscNumberTextBox, applicantInfo.getHscNumber());
+
+        waitForElementToBeClickable(connectionDateTextBox, webDriver);
+        enterText(connectionDateTextBox, applicantInfo.getConnectionDate());
+    }
+
+    public void enterConnectionInfo(ConnectionInfo connectionInfo){
+
+        waitForElementToBeClickable(waterSourceTypeSelectBox, webDriver);
+        new Select(waterSourceTypeSelectBox).selectByVisibleText(connectionInfo.getWaterSourceType());
+
+        new Select(connectionTypeSelectBox).selectByVisibleText(connectionInfo.getConnectionType());
+
+        new Select(propertyTypeSelectBox).selectByVisibleText(connectionInfo.getPropertyType());
+
+        new Select(categorySelectBox).selectByVisibleText(connectionInfo.getCategory());
+
+        new Select(usageTypeSelectBox).selectByVisibleText(connectionInfo.getUsageType());
+
+        new Select(hscPipeSizeSelectBox).selectByVisibleText(connectionInfo.getHscPipeSize());
+
+        enterText(sumpCapacityTextBox, connectionInfo.getSumpCapacity());
+
+        enterText(noOfPersonsTextBox, connectionInfo.getNoOfPersons());
+    }
+
+    public void enterFeeInfo(FeeInfo feeInfo){
+
+        waitForElementToBeClickable(monthlyFeeTextBox, webDriver);
+        enterText(monthlyFeeTextBox, feeInfo.getMonthlyFees());
+
+        enterText(donationChargesTextBox, feeInfo.getDonationCharges());
+
+        enterText(meterCostTextBox, feeInfo.getMeterCost());
+
+        enterText(meterNameTextBox, feeInfo.getMeterName());
+
+        enterText(meterSINoTextBox, feeInfo.getMeterSINo());
+
+        enterText(previousReadingTextBox, feeInfo.getPreviousReading());
+
+        enterText(lastReadingDateTextBox, feeInfo.getLastReadingDate());
+
+        enterText(currentReadingTextBox, feeInfo.getCurrentReading());
+    }
+
+    public void chooseToSubmit(){
+        waitForElementToBeClickable(submitButton, webDriver);
+        submitButton.click();
+    }
+
+    public void enterAssessmentNumber(String assessmentNumber) {assessmentNumberTextBox.sendKeys(assessmentNumber);
+    }
+
+    public void create()
+
+    {   waitForElementToBeClickable(createButton, webDriver);
+        createButton.click();
+>>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
     }
 
     public void enterSearchDetailsOfMobileNumber(SearchDetails searchDetails) {
@@ -532,7 +705,11 @@ public class PropertyDetailsPage extends BasePage {
     }
 
     public void enterEditAssessmentDetails(EditAssessmentDetails assessmentDetails) {
+<<<<<<< HEAD
         // waitForElementToBeClickable(extentOfSiteTextBox, webDriver);
+=======
+     //  waitForElementToBeClickable(extentOfSiteTextBox, webDriver);
+>>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
         extentOfSiteTextBox.clear();
         extentOfSiteTextBox.sendKeys(assessmentDetails.getExtentOfSite());
 
@@ -564,6 +741,7 @@ public class PropertyDetailsPage extends BasePage {
 
     }
 
+<<<<<<< HEAD
     public void enterEnclosedDocumentsDetails(EnclosedDocuments enclosedDocuments) {
 
         waitForElementToBeClickable(documentNum1Box, webDriver);
@@ -581,3 +759,72 @@ public class PropertyDetailsPage extends BasePage {
 
     }
 }
+=======
+    }
+
+    public void enterWaterConectionInfo(ApplicantInfo applicantInfo){
+
+        waitForElementToBeClickable(waterConnAssesmentNumber, webDriver);
+        enterText(waterConnAssesmentNumber, applicantInfo.getPtAssessmentNumber());
+
+    }
+    public void enterDocumentInfo(EnclosedDocument enclosedDocument){
+
+        waitForElementToBeClickable(documentNo1TextBox, webDriver);
+        enterText(documentNo1TextBox, enclosedDocument.getDocumentN01());
+
+        waitForElementToBeClickable(documentNo2TextBox, webDriver);
+        enterText(documentNo2TextBox, enclosedDocument.getDocumentN02());
+
+        waitForElementToBeClickable(documentNo3TextBox, webDriver);
+        enterText(documentNo3TextBox, enclosedDocument.getDocumentN03());
+
+        waitForElementToBeClickable(documentDate1TextBox, webDriver);
+        enterText(documentDate1TextBox, enclosedDocument.getDocumentDate1());
+
+        waitForElementToBeClickable(documentDate2TextBox, webDriver);
+        enterText(documentDate2TextBox, enclosedDocument.getDocumentDate2());
+
+        waitForElementToBeClickable(documentDate3TextBox, webDriver);
+        enterText(documentDate3TextBox, enclosedDocument.getDocumentDate3());
+
+        waitForElementToBeClickable(browse1Button, webDriver);
+        browse1Button.click();
+
+       
+
+    }
+
+    public void enterWaterApprovalDetails(ApprovalDetails approvalDetails){
+
+
+        waitForElementToBeClickable(approvalWaterDept, webDriver);
+        new Select(approvalWaterDept).selectByVisibleText(approvalDetails.getApproverDepartment());
+
+        waitForElementToBeClickable(approvalWaterDesig, webDriver);
+        new Select(approvalWaterDesig).selectByVisibleText(approvalDetails.getApproverDesignation());
+
+        waitForElementToBeClickable(approvalWaterPos, webDriver);
+        new Select(approvalWaterPos).selectByVisibleText(approvalDetails.getApprover());
+
+
+        waitForElementToBeClickable(approvalWaterComment, webDriver);
+        enterText(approvalWaterComment, approvalDetails.getApproverRemarks());
+
+
+
+    }
+
+    public void enterVLTReportDetails(VLTReport vltReport){
+
+        waitForElementToBeClickable(vltFromDate, webDriver);
+        enterText(vltFromDate, vltReport.getFromDate());
+
+        waitForElementToBeClickable(vltToDate, webDriver);
+        enterText(vltToDate, vltReport.getToDate());
+
+        waitForElementToBeClickable(vltReportSearch, webDriver);
+        vltReportSearch.click();
+    }
+}
+>>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498

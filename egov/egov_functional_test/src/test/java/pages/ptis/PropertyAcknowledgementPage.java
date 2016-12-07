@@ -22,6 +22,12 @@ public class PropertyAcknowledgementPage extends BasePage {
     @FindBy(linkText = "Close")
     private WebElement closeLink;
 
+    @FindBy(id = "view")
+    private WebElement assessmentViewButton;
+
+    @FindBy(className = "btn btn-default")
+    private WebElement assessmentCloseButton;
+
 
     public PropertyAcknowledgementPage(WebDriver driver) {
         this.driver = driver;
@@ -59,5 +65,15 @@ public class PropertyAcknowledgementPage extends BasePage {
 
     public void cancelPrint() {
         driver.findElement(By.className("cancel")).click();
+    }
+
+    public void toViewSubmissionPage(){
+        waitForElementToBeClickable(assessmentViewButton , driver);
+        assessmentViewButton.click();
+    }
+
+    public void toCloseDataEntryPage(){
+        waitForElementToBeClickable(assessmentCloseButton , driver);
+        assessmentCloseButton.click();
     }
 }

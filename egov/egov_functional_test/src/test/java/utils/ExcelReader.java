@@ -1,5 +1,6 @@
 package utils;
 
+import builders.EstimateHeaderDetailsBuilder;
 import builders.LoginDetailsBuilder;
 import builders.collections.ChallanHeaderDetailsBuilder;
 import builders.collections.ChequeDetailsBuilder;
@@ -34,11 +35,26 @@ public class ExcelReader {
     Sheet applicantParticularsSheet;
     Sheet connectionDetailsSheet;
     Sheet feeDetailsSheet;
+<<<<<<< HEAD
     Sheet searchDetailsSheet;
+=======
+
+>>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
     Sheet editAssessmentDetailsSheet;
     Sheet editFloorDetailsSheet;
     Sheet enclosedDocumentSheet;
     Sheet challanHeaderDetailsSheet;
+
+    Sheet enclosedDocumentsSheet;
+
+    Sheet vltReportSheet;
+
+    Sheet registeredUserDetailsSheet;
+    Sheet estimateHeaderDetailsSheet;
+    Sheet financialHeaderDetailsSheet;
+    Sheet workHeaderDetailsSheet;
+    Sheet adminSanctionHeaderDetailsSheet;
+
 
 
     public ExcelReader(String testData) {
@@ -65,10 +81,30 @@ public class ExcelReader {
         feeDetailsSheet = workbook.getSheet("feeDetails");
         searchDetailsSheet = workbook.getSheet("searchDetails");
         chequeDetailsSheet = workbook.getSheet("chequeDetails");
+
+        applicantParticularsSheet = workbook.getSheet("applicantParticulars");
+        connectionDetailsSheet = workbook.getSheet("connectionDetails");
+        feeDetailsSheet = workbook.getSheet("feeDetails");
+
+
         editAssessmentDetailsSheet = workbook.getSheet("editAssessmentDetails") ;
         editFloorDetailsSheet = workbook.getSheet("editFloorDetails") ;
+<<<<<<< HEAD
         enclosedDocumentSheet = workbook.getSheet("enclosedDocumentsDetails");
         challanHeaderDetailsSheet = workbook.getSheet("challanHeaderDetails");
+=======
+
+
+        enclosedDocumentsSheet = workbook.getSheet("enclosedDocuments");
+        vltReportSheet = workbook.getSheet("vltReport");
+
+        registeredUserDetailsSheet = workbook.getSheet("registeredUserDetails");
+        estimateHeaderDetailsSheet = workbook.getSheet("estimateHeaderDetails");
+        financialHeaderDetailsSheet = workbook.getSheet("financialHeaderDetails");
+        workHeaderDetailsSheet = workbook.getSheet("workHeaderDetails");
+        adminSanctionHeaderDetailsSheet = workbook.getSheet("adminSanctionHeaderDetails");
+
+>>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
     }
 
     private Row readDataRow(Sheet fromSheet, String dataId) {
@@ -130,6 +166,7 @@ public class ExcelReader {
 
     }
 
+<<<<<<< HEAD
     public SearchDetails getSearchDetails(String searchId){
         Row dataRow = readDataRow(searchDetailsSheet, searchId);
         SearchDetails searchDetails = new SearchDetails();
@@ -182,6 +219,31 @@ public class ExcelReader {
         return searchDetails;
     }
 
+=======
+    //works management module line estimate
+    public EstimateHeaderDetailsBuilder getEstimateHeaderDetails(String EstimateDetailsDataId) {
+        Row dataRow = readDataRow(estimateHeaderDetailsSheet, EstimateDetailsDataId);
+        String Date = getCellData(estimateHeaderDetailsSheet, dataRow, "Date").getStringCellValue();
+        String Subject = getCellData(estimateHeaderDetailsSheet, dataRow, "Subject").getStringCellValue();
+        String RequirementNumber = getCellData(estimateHeaderDetailsSheet, dataRow, "RequirementNumber").getStringCellValue();
+        String Description = getCellData(estimateHeaderDetailsSheet, dataRow, "Description ").getStringCellValue();
+        String ElectionWard = getCellData(estimateHeaderDetailsSheet, dataRow, "ElectionWard").getStringCellValue();
+        String Location = getCellData(estimateHeaderDetailsSheet, dataRow, "Location").getStringCellValue();
+        String WorkCategory = getCellData(estimateHeaderDetailsSheet, dataRow, "WorkCategory").getStringCellValue();
+        String Beneficiary = getCellData(estimateHeaderDetailsSheet, dataRow, "Beneficiary").getStringCellValue();
+        String NatureOfWork = getCellData(estimateHeaderDetailsSheet, dataRow, "NatureOfWork").getStringCellValue();
+        String TypeOfWork = getCellData(estimateHeaderDetailsSheet, dataRow, "TypeOfWork").getStringCellValue();
+        String SubTypeOfWork = getCellData(estimateHeaderDetailsSheet, dataRow, "SubTypeOfWork").getStringCellValue();
+        String ModeOfEntrustment = getCellData(estimateHeaderDetailsSheet, dataRow, "ModeOfEntrustment").getStringCellValue();
+
+    return new EstimateHeaderDetailsBuilder().withDate(Date).withSubject(Subject).withRequirementNumber(RequirementNumber)
+            .withDiscription(Description).withElectionWard(ElectionWard).withLocation(Location).withWorkCategory(WorkCategory)
+            .withBeneficiary(Beneficiary).withNatureOfWork(NatureOfWork).withTypeOfWork(TypeOfWork).withSubTypeOfWork(SubTypeOfWork)
+            .withModeOfEntrustment(ModeOfEntrustment).build();
+    }
+
+    //end of works management module line estimate
+>>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
 
 
     public PropertyHeaderDetails getPropertyHeaderDetails(String propertyDetailsDataId) {
@@ -470,8 +532,13 @@ public class ExcelReader {
 
     }
 
+<<<<<<< HEAD
     public ApplicantDetails getApplicantDetails(String applicantDetailsDataId){
         Row dataRow = readDataRow(applicantParticularsSheet, applicantDetailsDataId);
+=======
+    public ApplicantInfo getApplicantInfo(String applicationParticularsDetails){
+        Row dataRow = readDataRow(applicantParticularsSheet , applicationParticularsDetails);
+>>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
 
         Cell assessmentNumberCell = getCellData(applicantParticularsSheet, dataRow, "assessmentNumber");
         assessmentNumberCell.setCellType(Cell.CELL_TYPE_STRING);
@@ -485,6 +552,7 @@ public class ExcelReader {
         connectionDateCell.setCellType(Cell.CELL_TYPE_STRING);
         String connectionDate = connectionDateCell.getStringCellValue();
 
+<<<<<<< HEAD
         return new ApplicantDetailsBuilder()
                 .withAssessmentNumber(assessmentNumber)
                 .withHscNumber(hscNumber)
@@ -503,11 +571,47 @@ public class ExcelReader {
        String hscPipelineSize = getCellData(connectionDetailsSheet, dataRow, "hscPipilineSize").getStringCellValue();
 
         return new ConnectionDetailsBuilder()
+=======
+        return new ApplicantInfoBuilder()
+                .withPTAssessmentNumber(assessmentNumber)
+                .withHSCNumber(hscNumber)
+                .withConnectionDate(connectionDate)
+                .build();
+
+    }
+
+    public ConnectionInfo getConnectionInfo(String connectionDetails){
+        Row dataRow = readDataRow(connectionDetailsSheet , connectionDetails);
+
+        Cell waterSourceTypeCell = getCellData(connectionDetailsSheet, dataRow, "waterSourceType");
+        waterSourceTypeCell.setCellType(Cell.CELL_TYPE_STRING);
+        String waterSourceType = waterSourceTypeCell.getStringCellValue();
+
+        String connectionType = getCellData(connectionDetailsSheet , dataRow ,"connectionType").getStringCellValue();
+        String propertyType = getCellData(connectionDetailsSheet , dataRow ,"propertyType").getStringCellValue();
+        String category = getCellData(connectionDetailsSheet , dataRow ,"category").getStringCellValue();
+        String usageType = getCellData(connectionDetailsSheet , dataRow ,"usageType").getStringCellValue();
+
+        Cell hscPipeSizeCell = getCellData(connectionDetailsSheet, dataRow, "hscPipeSize");
+        hscPipeSizeCell.setCellType(Cell.CELL_TYPE_STRING);
+        String hscPipeSize = hscPipeSizeCell.getStringCellValue();
+
+        Cell sumpCapacityCell = getCellData(connectionDetailsSheet, dataRow, "sumpCapacity");
+        sumpCapacityCell.setCellType(Cell.CELL_TYPE_STRING);
+        String sumpCapacity = sumpCapacityCell.getStringCellValue();
+
+        Cell noOfPersonsCell = getCellData(connectionDetailsSheet, dataRow, "noOfPersons");
+        noOfPersonsCell.setCellType(Cell.CELL_TYPE_STRING);
+        String noOfPersons = noOfPersonsCell.getStringCellValue();
+
+        return new ConnectionInfoBuilder()
+>>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
                 .withWaterSourceType(waterSourceType)
                 .withConnectionType(connectionType)
                 .withPropertyType(propertyType)
                 .withCategory(category)
                 .withUsageType(usageType)
+<<<<<<< HEAD
                 .withHscPipeSize(hscPipelineSize)
                 .build();
 
@@ -519,11 +623,27 @@ public class ExcelReader {
         Cell monthlyFeeCell = getCellData(feeDetailsSheet, dataRow, "monthlyFee");
         monthlyFeeCell.setCellType(Cell.CELL_TYPE_STRING);
         String monthlyFee = monthlyFeeCell.getStringCellValue();
+=======
+                .withHSCPipeSize(hscPipeSize)
+                .withSumpCapacity(sumpCapacity)
+                .withNoOfPersons(noOfPersons)
+                .build();
+    }
+
+    public FeeInfo getFeeInfo(String feeDetails){
+
+        Row dataRow = readDataRow(feeDetailsSheet , feeDetails);
+
+        Cell monthlyFeesCell = getCellData(feeDetailsSheet, dataRow, "monthlyfees");
+        monthlyFeesCell.setCellType(Cell.CELL_TYPE_STRING);
+        String monthlyFees = monthlyFeesCell.getStringCellValue();
+>>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
 
         Cell donationChargesCell = getCellData(feeDetailsSheet, dataRow, "donationCharges");
         donationChargesCell.setCellType(Cell.CELL_TYPE_STRING);
         String donationCharges = donationChargesCell.getStringCellValue();
 
+<<<<<<< HEAD
         return new FeeDetailsBuilder()
                 .withMonthlyFee(monthlyFee)
                 .withDonationCharges(donationCharges)
@@ -567,10 +687,80 @@ public class ExcelReader {
                 .withDocumentNumber1(documentNo1)
                 .withDocumentNumber2(documentNo2)
                 .withDocumentNumber3(documentNo3)
+=======
+        Cell meterCostCell = getCellData(feeDetailsSheet, dataRow, "meterCost");
+        meterCostCell.setCellType(Cell.CELL_TYPE_STRING);
+        String meterCost = meterCostCell.getStringCellValue();
+
+        String meterName = getCellData(feeDetailsSheet , dataRow , "meterName").getStringCellValue();
+
+        Cell meterSINoCell = getCellData(feeDetailsSheet, dataRow, "meterSINo");
+        meterSINoCell.setCellType(Cell.CELL_TYPE_STRING);
+        String meterSINo = meterSINoCell.getStringCellValue();
+
+        Cell previousReadingCell = getCellData(feeDetailsSheet, dataRow, "previousReading");
+        previousReadingCell.setCellType(Cell.CELL_TYPE_STRING);
+        String previousReading = previousReadingCell.getStringCellValue();
+
+        Cell lastReadingDateCell = getCellData(feeDetailsSheet, dataRow, "lastReadingDate");
+        lastReadingDateCell.setCellType(Cell.CELL_TYPE_STRING);
+        String lastReadingDate = lastReadingDateCell.getStringCellValue();
+
+        Cell currentReadingCell = getCellData(feeDetailsSheet, dataRow, "currentReading");
+        currentReadingCell.setCellType(Cell.CELL_TYPE_STRING);
+        String currentReading = currentReadingCell.getStringCellValue();
+
+        return new FeeInfoBuilder()
+                .withMonthlyfees(monthlyFees)
+                .withDoantionCharges(donationCharges)
+                .withMeterCost(meterCost)
+                .withMeterName(meterName)
+                .withMeterSINo(meterSINo)
+                .withPreviousReading(previousReading)
+                .withLastReadingDate(lastReadingDate)
+                .withCurrentReading(currentReading)
+                .build();
+
+    }
+
+    public EnclosedDocument getDocumentInfo(String enclosedDocumentDetails){
+
+        Row dataRow = readDataRow(enclosedDocumentsSheet , enclosedDocumentDetails);
+
+        Cell documentNo1Cell = getCellData(enclosedDocumentsSheet, dataRow, "documentNo1");
+        documentNo1Cell.setCellType(Cell.CELL_TYPE_STRING);
+        String documentNo1 = documentNo1Cell.getStringCellValue();
+
+        Cell documentNo2Cell = getCellData(enclosedDocumentsSheet, dataRow, "documentNo2");
+        documentNo2Cell.setCellType(Cell.CELL_TYPE_STRING);
+        String documentNo2 = documentNo2Cell.getStringCellValue();
+
+        Cell documentNo3Cell = getCellData(enclosedDocumentsSheet, dataRow, "documentNo3");
+        documentNo3Cell.setCellType(Cell.CELL_TYPE_STRING);
+        String documentNo3 = documentNo3Cell.getStringCellValue();
+
+        Cell documentDate1Cell = getCellData(enclosedDocumentsSheet, dataRow, "documentDate1");
+        documentDate1Cell.setCellType(Cell.CELL_TYPE_STRING);
+        String documentDate1 = documentDate1Cell.getStringCellValue();
+
+        Cell documentDate2Cell = getCellData(enclosedDocumentsSheet, dataRow, "documentDate2");
+        documentDate2Cell.setCellType(Cell.CELL_TYPE_STRING);
+        String documentDate2 = documentDate2Cell.getStringCellValue();
+
+        Cell documentDate3Cell = getCellData(enclosedDocumentsSheet, dataRow, "documentDate3");
+        documentDate3Cell.setCellType(Cell.CELL_TYPE_STRING);
+        String documentDate3 = documentDate3Cell.getStringCellValue();
+
+        return new EnclosedDocumentBuilder()
+                .withDocumentNo1(documentNo1)
+                .withDocumentNo2(documentNo2)
+                .withDocumentNo3(documentNo3)
+>>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
                 .withDocumentDate1(documentDate1)
                 .withDocumentDate2(documentDate2)
                 .withDocumentDate3(documentDate3)
                 .build();
+<<<<<<< HEAD
     }
 
     public ChallanHeaderDetails getChallanHeader(String challanheaderid) {
@@ -600,5 +790,30 @@ public class ExcelReader {
                 .withAmount(amount)
                 .build();
 
+=======
+
+    }
+
+    public VLTReport getVLTReportInfo(String vltReport){
+
+        Row dataRow = readDataRow(vltReportSheet , vltReport);
+
+        Cell fromDateCell = getCellData(vltReportSheet, dataRow, "fromDate");
+        fromDateCell.setCellType(Cell.CELL_TYPE_STRING);
+        String fromDate = fromDateCell.getStringCellValue();
+
+        Cell toDateCell = getCellData(vltReportSheet, dataRow, "toDate");
+        toDateCell.setCellType(Cell.CELL_TYPE_STRING);
+        String toDate = toDateCell.getStringCellValue();
+
+        return new VLTReportBuilder()
+                .withFromDate(fromDate)
+                .withToDate(toDate)
+                .build();
+
+
+
+
+>>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
     }
 }
