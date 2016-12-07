@@ -3,6 +3,9 @@
 build
 gradle
 .idea
+.xlsx
+.xlsx#
+.exe
 
 
 
