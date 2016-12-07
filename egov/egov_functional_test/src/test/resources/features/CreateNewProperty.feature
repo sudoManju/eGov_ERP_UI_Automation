@@ -67,7 +67,6 @@ Feature: Create New Property
 
 
 
-<<<<<<< HEAD
 @Sanity
 Scenario: Registered user checking the data entry screen
 
@@ -78,7 +77,7 @@ Scenario: Registered user checking the data entry screen
   And he enter all the credential details
 
   And the property tax bill be created
-=======
+
     Scenario: Registerd user submiting the data screen
       Given admin logs in
       When user chooses to data entry screen
@@ -89,7 +88,7 @@ Scenario: Registered user checking the data entry screen
       And current user logs out
 
 
->>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
+
 
   And current user closes acknowledgement
   And current user logs out
@@ -107,7 +106,7 @@ Scenario: Registered user checking the data entry screen
 
     @Sanity
     Scenario Outline: Registered user Update existing property
-<<<<<<< HEAD
+
     Given juniorAssistant logs in
     When he chooses to addition alteration
       And he searches for assessment with number "1016042569"
@@ -121,7 +120,7 @@ Scenario: Registered user checking the data entry screen
       And current user logs out
 
       When billCollector logs in
-=======
+
 #    Given juniorAssistant logs in
 #    When he chooses to addition alteration
 #      And he searches for assessment with number "1016084436"
@@ -167,7 +166,7 @@ Scenario: Registered user checking the data entry screen
       And juniorAssistant logs in
       And chooses to act upon the above assessment
       And he generates a notice
->>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
+
 
 
 
@@ -175,8 +174,6 @@ Scenario: Registered user checking the data entry screen
         |  editAssessmentDetails         |     amenitiesDetails |          editFloorDetails |
         |  assessmentAdditionProperty    |        all            |         firstFloorAdditionaltaration|
 
-<<<<<<< HEAD
-=======
 
 
 
@@ -197,9 +194,3 @@ Scenario: Registered user checking the data entry screen
 
 
 
-
-
-<<<<<<< HEAD
-=======
->>>>>>> 40482717f06ba1cb28cfc3a7c6d3347aa1d0ac09
->>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498

@@ -69,104 +69,71 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
             pageStore.get(PropertyDetailsPage.class).generateNotice();
 
         });
-<<<<<<< HEAD
+
         And("^the property tax bill be created$", () -> {
             pageStore.get(PropertyDetailsPage.class).create();
         });
         And("^he enter all the credential details$", () -> {
-           String applicantDetailsDataId = "applicantDetails";
-           String connectionDetailsDataId = "connectionType";
-           String enclosedDocumentsDataId = "enclosedDocuments";
-           String approvalDetailsDataId = "engineer";
 
-           ApplicantDetails applicantDetails = new ExcelReader(ptisTestDataFileName).getApplicantDetails(applicantDetailsDataId);
-            pageStore.get(PropertyDetailsPage.class).enterApplicantDetails(applicantDetails);
+            And("^he search property with assessment number$", () -> {
+                String searchId = "searchWithAssessmentNumber";
 
-           ConnectionDetails connectionDetails = new ExcelReader(ptisTestDataFileName).getConnectionDetails(connectionDetailsDataId);
-           pageStore.get(PropertyDetailsPage.class).enterConnectionDetails(connectionDetails);
+                SearchDetails searchDetails = new ExcelReader(ptisTestDataFileName).getSearchDetails(searchId);
+                pageStore.get(PropertyDetailsPage.class).enterSearchDetailsOfAssessmentNumber(searchDetails);
+            });
+            And("^he check total number of records found$", () -> {
+                pageStore.get(PropertyDetailsPage.class).checkNoOfRecords();
+            });
+            And("^he search property with door number$", () -> {
+                String searchId = "searchWithDoorNumber";
 
-           EnclosedDocuments enclosedDocuments = new ExcelReader(ptisTestDataFileName).getEnclosedDocumentsDetails(enclosedDocumentsDataId);
-           pageStore.get(PropertyDetailsPage.class).enterEnclosedDocumentsDetails(enclosedDocuments);
+                SearchDetails searchDetails = new ExcelReader(ptisTestDataFileName).getSearchDetails(searchId);
+                pageStore.get(PropertyDetailsPage.class).enterSearchDetailsOfDoorNumber(searchDetails);
 
-            ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approvalDetailsDataId);
-            pageStore.get(PropertyDetailsPage.class).enterApprovalDetailsForWater(approvalDetails);
+            });
+            And("^he search property with mobile number$", () -> {
+                String searchId = "searchWithMobileNumber";
 
+                SearchDetails searchDetails = new ExcelReader(ptisTestDataFileName).getSearchDetails(searchId);
+                pageStore.get(PropertyDetailsPage.class).enterSearchDetailsOfMobileNumber(searchDetails);
+            });
+            And("^he search property with zone and ward number$", () -> {
+                String searchId = "searchWithZoneAndWardNumber";
 
-        });
-        And("^he search property with assessment number$", () -> {
-            String searchId = "searchWithAssessmentNumber";
+                SearchDetails searchDetails = new ExcelReader(ptisTestDataFileName).getSearchDetails(searchId);
+                pageStore.get(PropertyDetailsPage.class).enterSearchDetailsOfZoneAndWardNumber(searchDetails);
+            });
 
-            SearchDetails searchDetails = new ExcelReader(ptisTestDataFileName).getSearchDetails(searchId);
-            pageStore.get(PropertyDetailsPage.class).enterSearchDetailsOfAssessmentNumber(searchDetails);
-        });
-        And("^he check total number of records found$", () -> {
-            pageStore.get(PropertyDetailsPage.class).checkNoOfRecords();
-        });
-        And("^he search property with door number$", () -> {
-           String searchId = "searchWithDoorNumber";
+            And("^finally user will submit the application$", () -> {
+                pageStore.get(PropertyDetailsPage.class).chooseToSubmit();
+            });
+//        And("^he enter all the water connection details$", () -> {
+//            String applicationParticularsDetails = "applicantInfo1" ;
+//            String connectionDetails = "connectionInfo1";
+//            String enclosedDocumentDetails = "enclosedInfo";
+//            String approveDetails = "engineer";
+//
+//            ApplicantInfo applicantInfo = new ExcelReader(ptisTestDataFileName).getApplicantInfo(applicationParticularsDetails);
+//            pageStore.get(PropertyDetailsPage.class).enterWaterConectionInfo(applicantInfo);
+//
+//            ConnectionInfo connectionInfo = new ExcelReader(ptisTestDataFileName).getConnectionInfo(connectionDetails);
+//            pageStore.get(PropertyDetailsPage.class).enterConnectionInfo(connectionInfo);
+//
+//            EnclosedDocument enclosedDocument = new ExcelReader(ptisTestDataFileName).getDocumentInfo(enclosedDocumentDetails);
+//            pageStore.get(PropertyDetailsPage.class).enterDocumentInfo(enclosedDocument);
+//
+//            ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approveDetails);
+//            pageStore.get(PropertyDetailsPage.class).enterWaterApprovalDetails(approvalDetails);
+//
+//        });
+            And("^user need to enter the date and get the report details$", () -> {
+                String vltReportInfo = "report1";
 
-           SearchDetails searchDetails = new ExcelReader(ptisTestDataFileName).getSearchDetails(searchId);
-           pageStore.get(PropertyDetailsPage.class).enterSearchDetailsOfDoorNumber(searchDetails);
+                VLTReport vltReport = new ExcelReader(ptisTestDataFileName).getVLTReportInfo(vltReportInfo);
+                pageStore.get(PropertyDetailsPage.class).enterVLTReportDetails(vltReport);
+            });
 
-        });
-        And("^he search property with mobile number$", () -> {
-            String searchId = "searchWithMobileNumber";
-
-            SearchDetails searchDetails = new ExcelReader(ptisTestDataFileName).getSearchDetails(searchId);
-            pageStore.get(PropertyDetailsPage.class).enterSearchDetailsOfMobileNumber(searchDetails);
-        });
-        And("^he search property with zone and ward number$", () -> {
-            String searchId = "searchWithZoneAndWardNumber";
-
-            SearchDetails searchDetails = new ExcelReader(ptisTestDataFileName).getSearchDetails(searchId);
-            pageStore.get(PropertyDetailsPage.class).enterSearchDetailsOfZoneAndWardNumber(searchDetails);
-        });
-
-=======
-        And("^user enters the data entry information$", () -> {
-            String applicationParticularsDetails = "applicantInfo" ;
-            String connectionDetails = "connectionInfo";
-            String feeDetails = "feeInfo";
-
-            ApplicantInfo applicantInfo = new ExcelReader(ptisTestDataFileName).getApplicantInfo(applicationParticularsDetails);
-            pageStore.get(PropertyDetailsPage.class).enterApplicationInfo(applicantInfo);
-
-            ConnectionInfo connectionInfo = new ExcelReader(ptisTestDataFileName).getConnectionInfo(connectionDetails);
-            pageStore.get(PropertyDetailsPage.class).enterConnectionInfo(connectionInfo);
-
-            FeeInfo feeInfo = new ExcelReader(ptisTestDataFileName).getFeeInfo(feeDetails);
-            pageStore.get(PropertyDetailsPage.class).enterFeeInfo(feeInfo);
 
         });
-        And("^finally user will submit the application$", () -> {
-            pageStore.get(PropertyDetailsPage.class).chooseToSubmit();
-        });
-        And("^he enter all the water connection details$", () -> {
-            String applicationParticularsDetails = "applicantInfo1" ;
-            String connectionDetails = "connectionInfo1";
-            String enclosedDocumentDetails = "enclosedInfo";
-            String approveDetails = "engineer";
-
-            ApplicantInfo applicantInfo = new ExcelReader(ptisTestDataFileName).getApplicantInfo(applicationParticularsDetails);
-            pageStore.get(PropertyDetailsPage.class).enterWaterConectionInfo(applicantInfo);
-
-            ConnectionInfo connectionInfo = new ExcelReader(ptisTestDataFileName).getConnectionInfo(connectionDetails);
-            pageStore.get(PropertyDetailsPage.class).enterConnectionInfo(connectionInfo);
-
-            EnclosedDocument enclosedDocument = new ExcelReader(ptisTestDataFileName).getDocumentInfo(enclosedDocumentDetails);
-            pageStore.get(PropertyDetailsPage.class).enterDocumentInfo(enclosedDocument);
-
-            ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approveDetails);
-            pageStore.get(PropertyDetailsPage.class).enterWaterApprovalDetails(approvalDetails);
-
-        });
-        And("^user need to enter the date and get the report details$", () -> {
-            String vltReportInfo = "report1";
-
-            VLTReport vltReport =  new ExcelReader(ptisTestDataFileName).getVLTReportInfo(vltReportInfo);
-            pageStore.get(PropertyDetailsPage.class).enterVLTReportDetails(vltReport);
-        });
->>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
-
     }
 }

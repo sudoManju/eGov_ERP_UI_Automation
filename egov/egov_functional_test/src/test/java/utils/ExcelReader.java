@@ -35,20 +35,13 @@ public class ExcelReader {
     Sheet applicantParticularsSheet;
     Sheet connectionDetailsSheet;
     Sheet feeDetailsSheet;
-<<<<<<< HEAD
     Sheet searchDetailsSheet;
-=======
-
->>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
     Sheet editAssessmentDetailsSheet;
     Sheet editFloorDetailsSheet;
     Sheet enclosedDocumentSheet;
     Sheet challanHeaderDetailsSheet;
-
     Sheet enclosedDocumentsSheet;
-
     Sheet vltReportSheet;
-
     Sheet registeredUserDetailsSheet;
     Sheet estimateHeaderDetailsSheet;
     Sheet financialHeaderDetailsSheet;
@@ -89,10 +82,10 @@ public class ExcelReader {
 
         editAssessmentDetailsSheet = workbook.getSheet("editAssessmentDetails") ;
         editFloorDetailsSheet = workbook.getSheet("editFloorDetails") ;
-<<<<<<< HEAD
+
         enclosedDocumentSheet = workbook.getSheet("enclosedDocumentsDetails");
         challanHeaderDetailsSheet = workbook.getSheet("challanHeaderDetails");
-=======
+
 
 
         enclosedDocumentsSheet = workbook.getSheet("enclosedDocuments");
@@ -104,7 +97,7 @@ public class ExcelReader {
         workHeaderDetailsSheet = workbook.getSheet("workHeaderDetails");
         adminSanctionHeaderDetailsSheet = workbook.getSheet("adminSanctionHeaderDetails");
 
->>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
+
     }
 
     private Row readDataRow(Sheet fromSheet, String dataId) {
@@ -166,7 +159,7 @@ public class ExcelReader {
 
     }
 
-<<<<<<< HEAD
+
     public SearchDetails getSearchDetails(String searchId){
         Row dataRow = readDataRow(searchDetailsSheet, searchId);
         SearchDetails searchDetails = new SearchDetails();
@@ -219,7 +212,7 @@ public class ExcelReader {
         return searchDetails;
     }
 
-=======
+
     //works management module line estimate
     public EstimateHeaderDetailsBuilder getEstimateHeaderDetails(String EstimateDetailsDataId) {
         Row dataRow = readDataRow(estimateHeaderDetailsSheet, EstimateDetailsDataId);
@@ -243,7 +236,7 @@ public class ExcelReader {
     }
 
     //end of works management module line estimate
->>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
+
 
 
     public PropertyHeaderDetails getPropertyHeaderDetails(String propertyDetailsDataId) {
@@ -532,13 +525,9 @@ public class ExcelReader {
 
     }
 
-<<<<<<< HEAD
+
     public ApplicantDetails getApplicantDetails(String applicantDetailsDataId){
         Row dataRow = readDataRow(applicantParticularsSheet, applicantDetailsDataId);
-=======
-    public ApplicantInfo getApplicantInfo(String applicationParticularsDetails){
-        Row dataRow = readDataRow(applicantParticularsSheet , applicationParticularsDetails);
->>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
 
         Cell assessmentNumberCell = getCellData(applicantParticularsSheet, dataRow, "assessmentNumber");
         assessmentNumberCell.setCellType(Cell.CELL_TYPE_STRING);
@@ -552,32 +541,11 @@ public class ExcelReader {
         connectionDateCell.setCellType(Cell.CELL_TYPE_STRING);
         String connectionDate = connectionDateCell.getStringCellValue();
 
-<<<<<<< HEAD
+
         return new ApplicantDetailsBuilder()
                 .withAssessmentNumber(assessmentNumber)
                 .withHscNumber(hscNumber)
                 .withConnectionDate(connectionDate).build();
-    }
-
-    public ConnectionDetails getConnectionDetails(String connectionDetailsDataId){
-        Row dataRow = readDataRow(connectionDetailsSheet, connectionDetailsDataId);
-
-        String waterSourceType = getCellData(connectionDetailsSheet, dataRow, "waterSourceType").getStringCellValue();
-        String connectionType = getCellData(connectionDetailsSheet, dataRow, "connectionType").getStringCellValue();
-        String propertyType = getCellData(connectionDetailsSheet, dataRow, "propertyType").getStringCellValue();
-        String category = getCellData(connectionDetailsSheet, dataRow, "category").getStringCellValue();
-        String usageType = getCellData(connectionDetailsSheet, dataRow, "usageType").getStringCellValue();
-
-       String hscPipelineSize = getCellData(connectionDetailsSheet, dataRow, "hscPipilineSize").getStringCellValue();
-
-        return new ConnectionDetailsBuilder()
-=======
-        return new ApplicantInfoBuilder()
-                .withPTAssessmentNumber(assessmentNumber)
-                .withHSCNumber(hscNumber)
-                .withConnectionDate(connectionDate)
-                .build();
-
     }
 
     public ConnectionInfo getConnectionInfo(String connectionDetails){
@@ -605,30 +573,17 @@ public class ExcelReader {
         String noOfPersons = noOfPersonsCell.getStringCellValue();
 
         return new ConnectionInfoBuilder()
->>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
+
                 .withWaterSourceType(waterSourceType)
                 .withConnectionType(connectionType)
                 .withPropertyType(propertyType)
                 .withCategory(category)
                 .withUsageType(usageType)
-<<<<<<< HEAD
-                .withHscPipeSize(hscPipelineSize)
-                .build();
-
-    }
-
-    public FeeDetails getFeeDetails(String feeDetailsDataId){
-        Row dataRow = readDataRow(feeDetailsSheet, feeDetailsDataId);
-
-        Cell monthlyFeeCell = getCellData(feeDetailsSheet, dataRow, "monthlyFee");
-        monthlyFeeCell.setCellType(Cell.CELL_TYPE_STRING);
-        String monthlyFee = monthlyFeeCell.getStringCellValue();
-=======
                 .withHSCPipeSize(hscPipeSize)
-                .withSumpCapacity(sumpCapacity)
-                .withNoOfPersons(noOfPersons)
                 .build();
+
     }
+
 
     public FeeInfo getFeeInfo(String feeDetails){
 
@@ -637,57 +592,12 @@ public class ExcelReader {
         Cell monthlyFeesCell = getCellData(feeDetailsSheet, dataRow, "monthlyfees");
         monthlyFeesCell.setCellType(Cell.CELL_TYPE_STRING);
         String monthlyFees = monthlyFeesCell.getStringCellValue();
->>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
+
 
         Cell donationChargesCell = getCellData(feeDetailsSheet, dataRow, "donationCharges");
         donationChargesCell.setCellType(Cell.CELL_TYPE_STRING);
         String donationCharges = donationChargesCell.getStringCellValue();
 
-<<<<<<< HEAD
-        return new FeeDetailsBuilder()
-                .withMonthlyFee(monthlyFee)
-                .withDonationCharges(donationCharges)
-                .build();
-    }
-
-    public EnclosedDocuments getEnclosedDocumentsDetails(String enclosedDocumentsDataId) {
-        Row dataRow = readDataRow(enclosedDocumentSheet , enclosedDocumentsDataId);
-
-//        Cell documentNo1Cell = getCellData(enclosedDocumentSheet, dataRow, "documentNum1");
-//        documentNo1Cell.setCellType(Cell.CELL_TYPE_STRING);
-//        String documentNo1 = documentNo1Cell.getStringCellValue();
-//
-//        Cell documentNo2Cell = getCellData(enclosedDocumentSheet, dataRow, "documentNum2");
-//        documentNo2Cell.setCellType(Cell.CELL_TYPE_STRING);
-//        String documentNo2 = documentNo2Cell.getStringCellValue();
-//
-//        Cell documentNo3Cell = getCellData(enclosedDocumentSheet, dataRow, "documentNum3");
-//        documentNo3Cell.setCellType(Cell.CELL_TYPE_STRING);
-//        String documentNo3 = documentNo3Cell.getStringCellValue();
-//
-        Cell documentDate1Cell = getCellData(enclosedDocumentSheet, dataRow, "documentDate1");
-        documentDate1Cell.setCellType(Cell.CELL_TYPE_STRING);
-        String documentDate1 = documentDate1Cell.getStringCellValue();
-
-        Cell documentDate2Cell = getCellData(enclosedDocumentSheet, dataRow, "documentDate2");
-        documentDate2Cell.setCellType(Cell.CELL_TYPE_STRING);
-        String documentDate2 = documentDate2Cell.getStringCellValue();
-
-        Cell documentDate3Cell = getCellData(enclosedDocumentSheet, dataRow, "documentDate3");
-        documentDate3Cell.setCellType(Cell.CELL_TYPE_STRING);
-        String documentDate3 = documentDate3Cell.getStringCellValue();
-
-
-        String documentNo1 = getCellData(enclosedDocumentSheet, dataRow, "documentNum1").getStringCellValue();
-        String documentNo2 = getCellData(enclosedDocumentSheet, dataRow, "documentNum2").getStringCellValue();
-        String documentNo3 = getCellData(enclosedDocumentSheet, dataRow, "documentNum3").getStringCellValue();
-
-
-        return new EnclosedDocumentsBuilder()
-                .withDocumentNumber1(documentNo1)
-                .withDocumentNumber2(documentNo2)
-                .withDocumentNumber3(documentNo3)
-=======
         Cell meterCostCell = getCellData(feeDetailsSheet, dataRow, "meterCost");
         meterCostCell.setCellType(Cell.CELL_TYPE_STRING);
         String meterCost = meterCostCell.getStringCellValue();
@@ -755,13 +665,12 @@ public class ExcelReader {
                 .withDocumentNo1(documentNo1)
                 .withDocumentNo2(documentNo2)
                 .withDocumentNo3(documentNo3)
->>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
+
                 .withDocumentDate1(documentDate1)
                 .withDocumentDate2(documentDate2)
                 .withDocumentDate3(documentDate3)
                 .build();
-<<<<<<< HEAD
-    }
+  }
 
     public ChallanHeaderDetails getChallanHeader(String challanheaderid) {
 
@@ -790,7 +699,7 @@ public class ExcelReader {
                 .withAmount(amount)
                 .build();
 
-=======
+
 
     }
 
@@ -814,6 +723,6 @@ public class ExcelReader {
 
 
 
->>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
+
     }
 }

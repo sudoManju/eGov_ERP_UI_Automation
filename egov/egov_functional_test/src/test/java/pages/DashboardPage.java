@@ -48,12 +48,12 @@ public class DashboardPage extends BasePage {
     private WebElement miscellaneousReceipt;
 
     @FindBy(linkText = "Apply for New Connection")
-<<<<<<< HEAD
+
     private WebElement applyForNewWaterConnectionLink;
 
     @FindBy(linkText = "Create Challan")
     private WebElement createChallanLink;
-=======
+
     private WebElement applyForNewWaterConnection;
 
     @FindBy(linkText = "Daily collection report(VLT)")
@@ -66,7 +66,6 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Addition/Alteration of Assessment")
     private WebElement additionAlterationLink;
 
->>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;

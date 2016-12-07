@@ -188,16 +188,16 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "Generate Notice")
     private WebElement generateNotice;
 
-<<<<<<< HEAD
+
     @FindBy(id = "Create")
     private WebElement create;
 
     @FindBy(id = "propertyIdentifier")
     private WebElement assessmentNumberTextBox1;
-=======
+
 //    @FindBy(id = "propertyIdentifier")
 //    private WebElement assessmentNumberTextBox;
->>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
+
 
     @FindBy(id = "consumerCodeData")
     private WebElement hscNumberTextBox;
@@ -206,7 +206,7 @@ public class PropertyDetailsPage extends BasePage {
     private WebElement connectionDateTextBox;
 
     @FindBy(id = "waterSource")
-<<<<<<< HEAD
+
     private WebElement waterSourceSelection;
 
     @FindBy(id = "connectionType")
@@ -225,7 +225,7 @@ public class PropertyDetailsPage extends BasePage {
     private WebElement pipeSizeSelection;
 
     @FindBy(name = "existingConnection.monthlyFee")
-=======
+
     private WebElement waterSourceTypeSelectBox;
 
     @FindBy(id = "connectionType")
@@ -250,13 +250,13 @@ public class PropertyDetailsPage extends BasePage {
     private WebElement noOfPersonsTextBox;
 
     @FindBy(id = "monthlyFee")
->>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
+
     private WebElement monthlyFeeTextBox;
 
     @FindBy(id = "existingConnection.donationCharges")
     private WebElement donationChargesTextBox;
 
-<<<<<<< HEAD
+
     @FindBy(id = "assessmentNum")
     private WebElement assessmentNumTextBox;
 
@@ -287,8 +287,8 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "searchByBndry")
     private WebElement searchButtonByZoneAndWard;
 
-    @FindBy(id = "upicNo")
-=======
+
+
     @FindBy(id = "existmeterCost")
     private WebElement meterCostTextBox;
 
@@ -311,7 +311,6 @@ public class PropertyDetailsPage extends BasePage {
     private WebElement submitButton;
 
     @FindBy(id ="upicNo")
->>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
     private WebElement assessmentNumberTextBox;
 
     @FindBy(id = "Create")
@@ -338,7 +337,7 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "propertyDetail.floorDetailsProxy[%#floorsstatus.index].occupancyDate")
     private WebElement editeffectiveFromDateTextBox;
 
-<<<<<<< HEAD
+
     @FindBy(id = "applicationDocs0documentNumber")
     private WebElement documentNum1Box;
 
@@ -357,18 +356,6 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "applicationDocs3documentDate")
     private WebElement documentDate3Box;
 
-    @FindBy(id = "approvalDepartment")
-    private WebElement approvalWaterDept;
-
-    @FindBy(id = "approvalDesignation")
-    private WebElement approvalWaterDesig;
-
-    @FindBy(id = "approvalPosition")
-    private WebElement approvalWaterPos;
-
-    @FindBy(id = "approvalComent")
-    private WebElement approvalWaterComment;
-=======
     @FindBy(id = "propertyIdentifier")
     private WebElement waterConnAssesmentNumber;
 
@@ -413,7 +400,7 @@ public class PropertyDetailsPage extends BasePage {
 
     @FindBy(id = "dailyCollectionReportSearchVLT")
     private WebElement vltReportSearch;
->>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
+
 
 
     public PropertyDetailsPage(WebDriver webDriver) {
@@ -581,7 +568,6 @@ public class PropertyDetailsPage extends BasePage {
         generateNotice.click();
     }
 
-<<<<<<< HEAD
     public void enterSearchDetailsOfAssessmentNumber(SearchDetails searchDetails) {
         waitForElementToBeClickable(assessmentNumTextBox, webDriver);
         enterText(assessmentNumTextBox, searchDetails.getSearchValue1());
@@ -604,7 +590,8 @@ public class PropertyDetailsPage extends BasePage {
         enterText(doorNoTextBox, searchDetails.getSearchValue1());
 
         searchButtonByDoorNo.click();
-=======
+    }
+
     public void enterApplicationInfo(ApplicantInfo applicantInfo){
 
         waitForElementToBeClickable(assessmentNumberTextBox, webDriver);
@@ -662,15 +649,10 @@ public class PropertyDetailsPage extends BasePage {
         submitButton.click();
     }
 
-    public void enterAssessmentNumber(String assessmentNumber) {assessmentNumberTextBox.sendKeys(assessmentNumber);
-    }
+//    public void enterAssessmentNumber(String assessmentNumber) {assessmentNumberTextBox.sendKeys(assessmentNumber);
+//    }
 
-    public void create()
 
-    {   waitForElementToBeClickable(createButton, webDriver);
-        createButton.click();
->>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
-    }
 
     public void enterSearchDetailsOfMobileNumber(SearchDetails searchDetails) {
         waitForElementToBeClickable(mobileNoTextBox, webDriver);
@@ -705,11 +687,11 @@ public class PropertyDetailsPage extends BasePage {
     }
 
     public void enterEditAssessmentDetails(EditAssessmentDetails assessmentDetails) {
-<<<<<<< HEAD
+
         // waitForElementToBeClickable(extentOfSiteTextBox, webDriver);
-=======
+
      //  waitForElementToBeClickable(extentOfSiteTextBox, webDriver);
->>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
+
         extentOfSiteTextBox.clear();
         extentOfSiteTextBox.sendKeys(assessmentDetails.getExtentOfSite());
 
@@ -741,7 +723,7 @@ public class PropertyDetailsPage extends BasePage {
 
     }
 
-<<<<<<< HEAD
+
     public void enterEnclosedDocumentsDetails(EnclosedDocuments enclosedDocuments) {
 
         waitForElementToBeClickable(documentNum1Box, webDriver);
@@ -757,10 +739,7 @@ public class PropertyDetailsPage extends BasePage {
         waitForElementToBeClickable(documentDate3Box, webDriver);
         enterText(documentDate3Box,enclosedDocuments.getDocumentDate2());
 
-    }
-}
-=======
-    }
+        }
 
     public void enterWaterConectionInfo(ApplicantInfo applicantInfo){
 
@@ -827,4 +806,3 @@ public class PropertyDetailsPage extends BasePage {
         vltReportSearch.click();
     }
 }
->>>>>>> 2256981a4bb263d19c81a9a32b7c999df22ea498
