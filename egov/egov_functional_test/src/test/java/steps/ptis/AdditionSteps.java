@@ -1,13 +1,13 @@
 package steps.ptis;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
-import entities.ptis.Amenities;
 import entities.ptis.EditAssessmentDetails;
 import entities.ptis.EditFloorDetails;
 import pages.ptis.PropertyDetailsPage;
 import steps.BaseSteps;
 import utils.ExcelReader;
+
+import static javax.swing.UIManager.get;
 
 /**
  * Created by bimal on 16/11/16.
@@ -16,7 +16,7 @@ public class AdditionSteps extends BaseSteps implements En {
     public AdditionSteps(){
         And("^he searches for assessment with number \"([^\"]*)\"$", (String arg0) -> {
 
-            pageStore.get(PropertyDetailsPage.class).searchAssessmentNumber("1016084436");
+            pageStore.get(PropertyDetailsPage.class).searchAssessmentNumber(scenarioContext.getDataScreenAssessmentNumber());
             pageStore.get(PropertyDetailsPage.class).search();
 
 

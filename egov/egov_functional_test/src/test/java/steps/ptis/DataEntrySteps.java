@@ -49,7 +49,6 @@ public class DataEntrySteps extends BaseSteps implements En {
         });
     }
 
-    private String get6DigitRandomInt() {
-        return String.valueOf((100000 + RandomUtils.nextInt(900000)));
+    private String get6DigitRandomInt() {return String.valueOf((100000 + RandomUtils.nextInt(900000)));
     }
 }

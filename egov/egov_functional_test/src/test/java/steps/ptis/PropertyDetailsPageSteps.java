@@ -60,7 +60,7 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
         });
 
         And("^he approved the property with remarks \"([^\"]*)\"$", (String remarks) -> {
-            pageStore.get(PropertyDetailsPage.class).enterApproverRemarks(remarks);
+//            pageStore.get(PropertyDetailsPage.class).enterApproverRemarks(remarks);
             pageStore.get(PropertyDetailsPage.class).approve();
         });
         And("^he does a digital signature$", () -> {

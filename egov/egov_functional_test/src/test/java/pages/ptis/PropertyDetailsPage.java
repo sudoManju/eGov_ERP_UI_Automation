@@ -168,8 +168,8 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "approverPositionId")
     private WebElement approverSelection;
 
-    @FindBy(id = "approverComments")
-    private WebElement approverRemarksTextArea;
+//    @FindBy(name="approverComments")
+//    private WebElement approverRemarksTextArea;
 
     @FindBy(id = "Forward")
     private WebElement forwardButton;
@@ -515,21 +515,28 @@ public class PropertyDetailsPage extends BasePage {
         new Select(approverDesignationSelection).selectByVisibleText(approvalDetails.getApproverDesignation());
         await().atMost(10, SECONDS).until(() -> new Select(approverSelection).getOptions().size() > 1);
         new Select(approverSelection).selectByVisibleText(approvalDetails.getApprover());
-        enterApproverRemarks(approvalDetails.getApproverRemarks());
+     //   enterApproverRemarks(approvalDetails.getApproverRemarks());
     }
 
-    public void enterApprovalDetailsForWater(ApprovalDetails approvalDetails) {
-        new Select(approvalWaterDept).selectByVisibleText(approvalDetails.getApproverDepartment());
-        await().atMost(10, SECONDS).until(() -> new Select(approvalWaterDesig).getOptions().size() > 1);
-        new Select(approvalWaterDesig).selectByVisibleText(approvalDetails.getApproverDesignation());
-        await().atMost(10, SECONDS).until(() -> new Select(approvalWaterPos).getOptions().size() > 1);
-        new Select(approvalWaterPos).selectByVisibleText(approvalDetails.getApprover());
-        enterApproverRemarks(approvalDetails.getApproverRemarks());
-    }
+//    public void enterApprovalDetailsForWater(ApprovalDetails approvalDetails) {
+//        new Select(approvalWaterDept).selectByVisibleText(approvalDetails.getApproverDepartment());
+//        await().atMost(10, SECONDS).until(() -> new Select(approvalWaterDesig).getOptions().size() > 1);
+//        new Select(approvalWaterDesig).selectByVisibleText(approvalDetails.getApproverDesignation());
+//        await().atMost(10, SECONDS).until(() -> new Select(approvalWaterPos).getOptions().size() > 1);
+//        new Select(approvalWaterPos).selectByVisibleText(approvalDetails.getApprover());
+//      //  enterApproverRemarks(approvalDetails.getApproverRemarks());
+//    }
 
-    public void enterApproverRemarks(String approverRemarks) {
-        approverRemarksTextArea.sendKeys(approverRemarks);
-    }
+//    public void enterApproverRemarks(String approverRemarks) {
+//        approverRemarksTextArea.sendKeys(approverRemarks);
+//    }
+
+
+
+//    public void enterApproverRemarks(String approverRemarks) {
+//        approverRemarksTextArea.sendKeys(approverRemarks);
+//    }
+
 
 
     public void forward() {
@@ -715,7 +722,9 @@ public class PropertyDetailsPage extends BasePage {
         editeffectiveFromDateTextBox.sendKeys(floorDetails.getEditeffectiveFromDate());
         editeffectiveFromDateTextBox.sendKeys(Keys.TAB);
         new Select(unstructuredLandSelection).selectByVisibleText(floorDetails.getEditunstructuredLand());
+        lengthTextBox.clear();
         lengthTextBox.sendKeys(floorDetails.getEditlength());
+        breadthTextBox.clear();
         breadthTextBox.sendKeys(floorDetails.getEditbreadth());
         buildingPermissionNumberTextBox.sendKeys(floorDetails.getEditbuildingPermissionNumber());
         buildingPermissionDateTextBox.sendKeys(floorDetails.getEditbuildingPermissionDate());

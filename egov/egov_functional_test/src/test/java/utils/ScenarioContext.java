@@ -8,6 +8,8 @@ public class ScenarioContext {
 
     private String assessmentNumber;
 
+    private String   dataScreenAssessmentNumber;
+
     private String challanNumber = "12/2016-17/43";
 
     public String getChallanNumber() {
@@ -34,11 +36,13 @@ public class ScenarioContext {
         this.applicationNumber = applicationNumber;
     }
 
-//    public void getAssessmentNumber(EditPropertyAcknowledgementPage assessmentNumber) {
-//        {return assessmentNumber;}
-//
-//            public void setAssessmentNumber (String assessmentNumber)
-//        {this.assessmentNumber = assessmentNumber;   }
+    public String getDataScreenAssessmentNumber() {
+        return dataScreenAssessmentNumber;
+    }
+
+    public void setDataScreenAssessmentNumber(String dataScreenAssessmentNumber) {
+        this.dataScreenAssessmentNumber = dataScreenAssessmentNumber;
+    }
 
     }
 
