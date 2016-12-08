@@ -528,7 +528,7 @@ public class PropertyDetailsPage extends BasePage {
     }
 
     public void enterApproverRemarks(String approverRemarks) {
-        approvalWaterComment.sendKeys(approverRemarks);
+        approverRemarksTextArea.sendKeys(approverRemarks);
     }
 
 

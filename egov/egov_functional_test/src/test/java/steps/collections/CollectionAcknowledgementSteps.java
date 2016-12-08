@@ -5,6 +5,8 @@ import cucumber.api.java8.En;
 import pages.collections.CollectionAcknowledgementPage;
 import steps.BaseSteps;
 
+
+
 /**
  * Created by karthik on 7/12/16.
  */
@@ -15,6 +17,9 @@ public class CollectionAcknowledgementSteps extends BaseSteps implements En {
             scenarioContext.setChallanNumber(challanNumber);
 
             pageStore.get(CollectionAcknowledgementPage.class).close();
+        });
+        And("^he closes the acknowledgement$", () -> {
+           pageStore.get(CollectionAcknowledgementPage.class).close();
         });
     }
 }

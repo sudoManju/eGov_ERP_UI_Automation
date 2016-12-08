@@ -1,6 +1,5 @@
 package pages;
 
-import org.codehaus.groovy.runtime.powerassert.SourceText;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -64,6 +63,10 @@ public class DashboardPage extends BasePage {
 
     @FindBy(linkText = "Apply for Additional Connection")
     private WebElement additionalNewWaterConnection;
+
+    @FindBy(linkText = "Challan Receipt")
+    private WebElement challanReceiptLink;
+
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -217,6 +220,17 @@ public class DashboardPage extends BasePage {
         additionalNewWaterConnection.click();
         switchToNewlyOpenedWindow(driver);
 
+    }
+
+    public void chooseToSearchForChallanReceipt() {
+
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("challan receipt");
+
+        waitForElementToBeVisible(challanReceiptLink,driver);
+        challanReceiptLink.click();
+
+        switchToNewlyOpenedWindow(driver);
     }
 }
 

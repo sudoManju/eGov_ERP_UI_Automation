@@ -24,6 +24,12 @@ public class CollectionAcknowledgementPage extends BasePage {
     @FindBy(css = "input[value='Close'][type='button']")
     private WebElement closeButton;
 
+    @FindBy(linkText = "Close")
+    private WebElement closeLink;
+
+    @FindBy(id = "buttonprint")
+    private WebElement printButton;
+
     @FindBy(xpath = ".//*[@id='actionMessages']/ul/li")
     private WebElement number;
 
@@ -39,8 +45,8 @@ public class CollectionAcknowledgementPage extends BasePage {
     }
 
     public void close() {
-        waitForElementToBeClickable(closeButton,driver);
-        closeButton.click();
+
+        closeLink.click();
         await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
         for (String winHandle : driver.getWindowHandles()) {
             driver.switchTo().window(winHandle);

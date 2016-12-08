@@ -73,6 +73,20 @@ public class CollectionsPage extends BasePage {
     @FindBy(id = "totalcramount")
     private WebElement totalAmount;
 
+    @FindBy(id = "CHALLAN_VALIDATE")
+    private WebElement validateChallan;
+
+    @FindBy(id = "challanNumber")
+    private WebElement challanNumberTextBox;
+
+    @FindBy(id = "totalamounttobepaid")
+    private WebElement amountToBePaid;
+
+    @FindBy(id = "instrHeaderCash.instrumentAmount")
+    private WebElement amountToBePaidBox;
+
+    @FindBy(id = "button2")
+    private WebElement payButton;
 
     public CollectionsPage(WebDriver driver) {
         this.driver = driver;
@@ -130,5 +144,30 @@ public class CollectionsPage extends BasePage {
 
         createChallanButton.click();
         driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
+    }
+
+    public void validateChallan() {
+        waitForElementToBeClickable(validateChallan,driver);
+        validateChallan.click();
+    }
+
+    public void enterChallanNumber(String number) {
+        waitForElementToBeClickable(challanNumberTextBox, driver);
+        challanNumberTextBox.sendKeys(number);
+
+        WebElement webElement = driver.findElement(By.xpath(""));
+        webElement.sendKeys(Keys.TAB);
+    }
+
+    public void payAmount() {
+
+        waitForElementToBeVisible(amountToBePaid, driver);
+        String amount = amountToBePaid.getText();
+
+        amountToBePaid.click();
+        amountToBePaid.sendKeys(amount);
+
+        payButton.click();
+        switchToNewlyOpenedWindow(driver);
     }
 }

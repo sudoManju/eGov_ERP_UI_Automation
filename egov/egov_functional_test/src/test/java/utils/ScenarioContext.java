@@ -8,7 +8,7 @@ public class ScenarioContext {
 
     private String assessmentNumber;
 
-    private String challanNumber;
+    private String challanNumber = "12/2016-17/43";
 
     public String getChallanNumber() {
         return challanNumber;

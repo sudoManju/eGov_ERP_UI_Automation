@@ -76,6 +76,12 @@ public class DashboardSteps extends BaseSteps implements En {
         And("^user chooses to apply for new additional water connection$", () -> {
             pageStore.get(DashboardPage.class).chooseToAdditionalWaterConnection();
         });
+        And("^chooses to act upon the above challan$", () -> {
+            pageStore.get(DashboardPage.class).openApplication(scenarioContext.getChallanNumber());
+        });
+        And("^he search for challan receipt$", () -> {
+            pageStore.get(DashboardPage.class).chooseToSearchForChallanReceipt();
+        });
     }
 }
 

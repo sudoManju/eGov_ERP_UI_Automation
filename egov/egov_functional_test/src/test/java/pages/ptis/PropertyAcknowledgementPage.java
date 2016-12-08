@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -44,6 +45,7 @@ public class PropertyAcknowledgementPage extends BasePage {
     }
 
     public void close() {
+
         closeButton.click();
         await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
         for (String winHandle : driver.getWindowHandles()) {

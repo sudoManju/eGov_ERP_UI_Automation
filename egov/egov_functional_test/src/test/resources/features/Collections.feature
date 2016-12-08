@@ -33,5 +33,17 @@ Feature: Collection
     And he stores the challan number and closes acknowledgement
     And current user logs out
 
+ Scenario: check for senior assistant
+
+    When seniorAssistant logs in
+    And chooses to act upon the above challan
+    And he validate the challan
+    And he closes the acknowledgement
+
+    And he search for challan receipt
+    And he search for challan number
+    And he pay using cash
+    And he closes the acknowledgement
+    And current user logs out
 
 
