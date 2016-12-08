@@ -48,17 +48,13 @@ public class DashboardPage extends BasePage {
     private WebElement miscellaneousReceipt;
 
     @FindBy(linkText = "Apply for New Connection")
-
-    private WebElement applyForNewWaterConnectionLink;
+    private WebElement applyForNewWaterConnection;
 
     @FindBy(linkText = "Create Challan")
     private WebElement createChallanLink;
 
-    private WebElement applyForNewWaterConnection;
-
     @FindBy(linkText = "Daily collection report(VLT)")
     private WebElement vltReport;
-
 
     @FindBy(linkText = "Data Entry Screen")
     private WebElement dataEntryScreen;
@@ -66,6 +62,8 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Addition/Alteration of Assessment")
     private WebElement additionAlterationLink;
 
+    @FindBy(linkText = "Apply for Additional Connection")
+    private WebElement additionalNewWaterConnection;
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -201,24 +199,24 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-    public void chooseToApplyForConnection() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("apply for new connection");
-        waitForElementToBeVisible(applyForNewWaterConnectionLink,driver);
-
-        applyForNewWaterConnectionLink.click();
-
-        switchToNewlyOpenedWindow(driver);
-    }
-
     public void createChallan() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("Create Challan");
 
         waitForElementToBeVisible(createChallanLink, driver);
-
         createChallanLink.click();
+
         switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseToAdditionalWaterConnection(){
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Apply for Additional Connection");
+        waitForElementToBeVisible(additionalNewWaterConnection, driver);
+
+        additionalNewWaterConnection.click();
+        switchToNewlyOpenedWindow(driver);
+
     }
 }
 

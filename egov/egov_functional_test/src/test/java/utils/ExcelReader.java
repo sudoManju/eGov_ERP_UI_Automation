@@ -47,6 +47,7 @@ public class ExcelReader {
     Sheet financialHeaderDetailsSheet;
     Sheet workHeaderDetailsSheet;
     Sheet adminSanctionHeaderDetailsSheet;
+    Sheet fieldInseptionDetailsForWaterConnectionSheet;
 
 
 
@@ -79,14 +80,11 @@ public class ExcelReader {
         connectionDetailsSheet = workbook.getSheet("connectionDetails");
         feeDetailsSheet = workbook.getSheet("feeDetails");
 
-
         editAssessmentDetailsSheet = workbook.getSheet("editAssessmentDetails") ;
         editFloorDetailsSheet = workbook.getSheet("editFloorDetails") ;
 
         enclosedDocumentSheet = workbook.getSheet("enclosedDocumentsDetails");
         challanHeaderDetailsSheet = workbook.getSheet("challanHeaderDetails");
-
-
 
         enclosedDocumentsSheet = workbook.getSheet("enclosedDocuments");
         vltReportSheet = workbook.getSheet("vltReport");
@@ -96,7 +94,7 @@ public class ExcelReader {
         financialHeaderDetailsSheet = workbook.getSheet("financialHeaderDetails");
         workHeaderDetailsSheet = workbook.getSheet("workHeaderDetails");
         adminSanctionHeaderDetailsSheet = workbook.getSheet("adminSanctionHeaderDetails");
-
+        fieldInseptionDetailsForWaterConnectionSheet = workbook.getSheet("fieldInseptionDetailsForWaterConnection");
 
     }
 
@@ -109,7 +107,6 @@ public class ExcelReader {
         }
         throw new RuntimeException("No data found with this identifier: " + dataId);
     }
-
 
     private Cell getCellData(Sheet fromSheet, Row dataRow, String header) {
         return dataRow.getCell(getCellNumberWithHeader(fromSheet, header), Row.CREATE_NULL_AS_BLANK);
@@ -237,8 +234,6 @@ public class ExcelReader {
 
     //end of works management module line estimate
 
-
-
     public PropertyHeaderDetails getPropertyHeaderDetails(String propertyDetailsDataId) {
         Row dataRow = readDataRow(propertyHeaderDetailsSheet, propertyDetailsDataId);
         String propertyType = getCellData(propertyHeaderDetailsSheet, dataRow, "propertyType").getStringCellValue();
@@ -309,8 +304,6 @@ public class ExcelReader {
                 .withOccupancyCertificateNumber(occupancyCertificateNumber)
                 .withRegistrationDocNumber(registrationDocNumber)
                 .withRegistrationDocDate(new SimpleDateFormat("dd/MM/yy").format(registrationDocDate)).build();
-
-
     }
 
     public Amenities getAmenties(String amenitiesDataId) {
@@ -401,13 +394,11 @@ public class ExcelReader {
         String approverDepartment = getCellData(approvalDetailsSheet, dataRow, "approverDepartment").getStringCellValue();
         String approverDesignation = getCellData(approvalDetailsSheet, dataRow, "approverDesignation").getStringCellValue();
         String approver = getCellData(approvalDetailsSheet, dataRow, "approver").getStringCellValue();
-//        String approverRemarks = getCellData(approvalDetailsSheet, dataRow, "approverRemarks").getStringCellValue();
 
         return new ApprovalDetailsBuilder()
                 .withApproverDepartment(approverDepartment)
                 .withApproverDesignation(approverDesignation)
                 .withApprover(approver)
-//                .withApproverRemarks(approverRemarks)
                  .build();
     }
 
@@ -421,14 +412,11 @@ public class ExcelReader {
         String bankName = bankNameCell.getStringCellValue();
         String paidBy = getCellData(chequeDetailsSheet, dataRow, "paidBy").getStringCellValue();
 
-
         return new ChequeDetailsBuilder()
                 .withChequeNumber(chequeNumber)
                 .withBankName(bankName)
                 .withPaidBy(paidBy)
                 .withChequeDate(new SimpleDateFormat("dd/MM/yyyy").format(new Date())).build();
-
-
     }
 
 
@@ -441,12 +429,10 @@ public class ExcelReader {
         occupancyCertificateNumberCell.setCellType(Cell.CELL_TYPE_STRING);
         String occupancyCertificateNumber = occupancyCertificateNumberCell.getStringCellValue();
 
-
-           return new  EditAssessmentDetailsBuilder()
+        return new  EditAssessmentDetailsBuilder()
                    .withExtentOfSite(extentOfSite)
                    .withOccupancyCertificateNumber(occupancyCertificateNumber)
                    .build();
-
     }
 
     public EditFloorDetails getEditFloorDetails(String floordetailsDataName) {
@@ -460,7 +446,6 @@ public class ExcelReader {
         Cell editnatureOfUsageCell = getCellData(editFloorDetailsSheet, dataRow, "editnatureOfUsage");
         editnatureOfUsageCell.setCellType(Cell.CELL_TYPE_STRING);
         String editnatureOfUsage = editnatureOfUsageCell.getStringCellValue();
-
 
         Cell editoccupancyCell = getCellData(editFloorDetailsSheet, dataRow, "editoccupancy");
         editoccupancyCell.setCellType(Cell.CELL_TYPE_STRING);
@@ -502,9 +487,6 @@ public class ExcelReader {
         editplinthAreaInBuildingPlanCell.setCellType(Cell.CELL_TYPE_STRING);
         String editplinthAreaInBuildingPlan = editplinthAreaInBuildingPlanCell.getStringCellValue();
 
-
-
-
         return new EditFloorDetailsBuilder()
                     .withEditFloorNumber(editfloorNumber)
                     .withEditclassificationOfBuilding(editclassificationOfBuilding)
@@ -519,14 +501,10 @@ public class ExcelReader {
                     .withEditbuildingPermissionNumber(editbuildingPermissionNumber)
                     .withEditbuildingPermissionDate(editbuildingPermissionDate)
                     .withEditplinthAreaInBuildingPlan(editplinthAreaInBuildingPlan)
-
-                .build();
-
-
+                    .build();
     }
 
-
-    public ApplicantDetails getApplicantDetails(String applicantDetailsDataId){
+    public ApplicantInfo getApplicantInfo(String applicantDetailsDataId){
         Row dataRow = readDataRow(applicantParticularsSheet, applicantDetailsDataId);
 
         Cell assessmentNumberCell = getCellData(applicantParticularsSheet, dataRow, "assessmentNumber");
@@ -541,10 +519,9 @@ public class ExcelReader {
         connectionDateCell.setCellType(Cell.CELL_TYPE_STRING);
         String connectionDate = connectionDateCell.getStringCellValue();
 
-
-        return new ApplicantDetailsBuilder()
-                .withAssessmentNumber(assessmentNumber)
-                .withHscNumber(hscNumber)
+        return new ApplicantInfoBuilder()
+                .withPTAssessmentNumber(assessmentNumber)
+                .withHSCNumber(hscNumber)
                 .withConnectionDate(connectionDate).build();
     }
 
@@ -572,18 +549,22 @@ public class ExcelReader {
         noOfPersonsCell.setCellType(Cell.CELL_TYPE_STRING);
         String noOfPersons = noOfPersonsCell.getStringCellValue();
 
-        return new ConnectionInfoBuilder()
+        Cell reasonForConnection = getCellData(connectionDetailsSheet, dataRow, "reasonForAdditionalConn");
+        reasonForConnection.setCellType(Cell.CELL_TYPE_STRING);
+        String connectionReason = reasonForConnection.getStringCellValue();
 
+        return new ConnectionInfoBuilder()
                 .withWaterSourceType(waterSourceType)
                 .withConnectionType(connectionType)
                 .withPropertyType(propertyType)
                 .withCategory(category)
                 .withUsageType(usageType)
                 .withHSCPipeSize(hscPipeSize)
+                .withSumpCapacity(sumpCapacity)
+                .withNoOfPersons(noOfPersons)
+                .withReasonForAdditionalConnection(connectionReason)
                 .build();
-
     }
-
 
     public FeeInfo getFeeInfo(String feeDetails){
 
@@ -592,7 +573,6 @@ public class ExcelReader {
         Cell monthlyFeesCell = getCellData(feeDetailsSheet, dataRow, "monthlyfees");
         monthlyFeesCell.setCellType(Cell.CELL_TYPE_STRING);
         String monthlyFees = monthlyFeesCell.getStringCellValue();
-
 
         Cell donationChargesCell = getCellData(feeDetailsSheet, dataRow, "donationCharges");
         donationChargesCell.setCellType(Cell.CELL_TYPE_STRING);
@@ -630,7 +610,6 @@ public class ExcelReader {
                 .withLastReadingDate(lastReadingDate)
                 .withCurrentReading(currentReading)
                 .build();
-
     }
 
     public EnclosedDocument getDocumentInfo(String enclosedDocumentDetails){
@@ -665,7 +644,6 @@ public class ExcelReader {
                 .withDocumentNo1(documentNo1)
                 .withDocumentNo2(documentNo2)
                 .withDocumentNo3(documentNo3)
-
                 .withDocumentDate1(documentDate1)
                 .withDocumentDate2(documentDate2)
                 .withDocumentDate3(documentDate3)
@@ -698,9 +676,6 @@ public class ExcelReader {
                 .withServiceType(sericeType)
                 .withAmount(amount)
                 .build();
-
-
-
     }
 
     public VLTReport getVLTReportInfo(String vltReport){
@@ -719,10 +694,46 @@ public class ExcelReader {
                 .withFromDate(fromDate)
                 .withToDate(toDate)
                 .build();
+    }
 
+    public FieldInspectionDetails getFieldInspectionInfo(String inspectionInfo){
 
+        Row dataRow = readDataRow(fieldInseptionDetailsForWaterConnectionSheet , inspectionInfo);
 
+        String material =  getCellData(fieldInseptionDetailsForWaterConnectionSheet, dataRow, "material").getStringCellValue();
 
+        Cell quantityCell = getCellData(fieldInseptionDetailsForWaterConnectionSheet, dataRow, "quantity");
+        quantityCell.setCellType(Cell.CELL_TYPE_STRING);
+        String quantity = quantityCell.getStringCellValue();
 
+        Cell measurementCell = getCellData(fieldInseptionDetailsForWaterConnectionSheet, dataRow, "unitOfMeasurement");
+        measurementCell.setCellType(Cell.CELL_TYPE_STRING);
+        String measurement = measurementCell.getStringCellValue();
+
+        Cell rateCell = getCellData(fieldInseptionDetailsForWaterConnectionSheet, dataRow, "rate");
+        rateCell.setCellType(Cell.CELL_TYPE_STRING);
+        String rate = rateCell.getStringCellValue();
+
+        Cell existingPipelineCell = getCellData(fieldInseptionDetailsForWaterConnectionSheet, dataRow, "existingDistributionPipeline");
+        existingPipelineCell.setCellType(Cell.CELL_TYPE_STRING);
+        String existingPipeline = existingPipelineCell.getStringCellValue();
+
+        Cell pipelineDistanceCell = getCellData(fieldInseptionDetailsForWaterConnectionSheet, dataRow, "pipelineToHomeDistance");
+        pipelineDistanceCell.setCellType(Cell.CELL_TYPE_STRING);
+        String pipelineDistance = pipelineDistanceCell.getStringCellValue();
+
+        Cell estimationChargesCell = getCellData(fieldInseptionDetailsForWaterConnectionSheet, dataRow, "estimationCharges");
+        estimationChargesCell.setCellType(Cell.CELL_TYPE_STRING);
+        String estimationCharges = estimationChargesCell.getStringCellValue();
+
+        return new FieldInspectionDetailsBuilder()
+                .withMaterial(material)
+                .withQuantity(quantity)
+                .withUnitOfMeasurement(measurement)
+                .withRate(rate)
+                .withExistingDistributionPipeLine(existingPipeline)
+                .withPipelineToHomeDistance(pipelineDistance)
+                .withEstimationCharges(estimationCharges)
+                .build();
     }
 }

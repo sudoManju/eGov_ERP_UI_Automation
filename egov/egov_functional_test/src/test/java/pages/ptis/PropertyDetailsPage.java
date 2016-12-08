@@ -1,17 +1,12 @@
 package pages.ptis;
 
 import entities.ptis.*;
-import org.junit.Assert;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
-
-import java.security.PrivateKey;
-import java.util.concurrent.PriorityBlockingQueue;
-import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -188,7 +183,6 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "Generate Notice")
     private WebElement generateNotice;
 
-
     @FindBy(id = "Create")
     private WebElement create;
 
@@ -198,7 +192,6 @@ public class PropertyDetailsPage extends BasePage {
 //    @FindBy(id = "propertyIdentifier")
 //    private WebElement assessmentNumberTextBox;
 
-
     @FindBy(id = "consumerCodeData")
     private WebElement hscNumberTextBox;
 
@@ -206,27 +199,9 @@ public class PropertyDetailsPage extends BasePage {
     private WebElement connectionDateTextBox;
 
     @FindBy(id = "waterSource")
-
-    private WebElement waterSourceSelection;
-
-    @FindBy(id = "connectionType")
-    private WebElement connectionTypeSelection;
-
-    @FindBy(id = "propertyType")
-    private WebElement propertyType1Selection;
-
-    @FindBy(id = "connectionCategorie")
-    private WebElement categorySelection;
-
-    @FindBy(id = "usageType")
-    private WebElement usageTypeSelection;
-
-    @FindBy(id = "pipeSize")
-    private WebElement pipeSizeSelection;
-
-    @FindBy(name = "existingConnection.monthlyFee")
-
     private WebElement waterSourceTypeSelectBox;
+
+    //@FindBy(name = "existingConnection.monthlyFee")
 
     @FindBy(id = "connectionType")
     private WebElement connectionTypeSelectBox;
@@ -250,12 +225,10 @@ public class PropertyDetailsPage extends BasePage {
     private WebElement noOfPersonsTextBox;
 
     @FindBy(id = "monthlyFee")
-
     private WebElement monthlyFeeTextBox;
 
     @FindBy(id = "existingConnection.donationCharges")
     private WebElement donationChargesTextBox;
-
 
     @FindBy(id = "assessmentNum")
     private WebElement assessmentNumTextBox;
@@ -286,8 +259,6 @@ public class PropertyDetailsPage extends BasePage {
 
     @FindBy(id = "searchByBndry")
     private WebElement searchButtonByZoneAndWard;
-
-
 
     @FindBy(id = "existmeterCost")
     private WebElement meterCostTextBox;
@@ -401,7 +372,47 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "dailyCollectionReportSearchVLT")
     private WebElement vltReportSearch;
 
+    @FindBy(id = "app-appcodo")
+    private WebElement consumerNumberTextBox;
 
+    @FindBy(id = "submitButtonId")
+    private WebElement consumerSearchButton;
+
+    @FindBy(id = "connectionReason")
+    private WebElement reasonForNewConnection;
+
+    @FindBy(id = "Forward")
+    private WebElement additionalForwardButton;
+
+    @FindBy(id = "applicationNumber")
+    private WebElement additionalApplicationNumber;
+
+    @FindBy(linkText = "Close")
+    private WebElement additionalCloseButton;
+
+    @FindBy(id = "estimationDetails0itemDescription")
+    private WebElement fieldInspectionMaterial;
+
+    @FindBy(id = "estimationDetails0quantity")
+    private WebElement fieldInspectionQuantity;
+
+    @FindBy(id = "estimationDetails0unitOfMeasurement")
+    private WebElement fieldInspectionMeasureUnit;
+
+    @FindBy(id = "estimationDetails0unitRate")
+    private WebElement fieldInspectionRate;
+
+    @FindBy(id = "existingPipeline")
+    private WebElement fieldInspectionExistingPipeline;
+
+    @FindBy(id = "pipelineDistance")
+    private WebElement fieldInspectionPipelineDistance;
+
+    @FindBy(id = "estimationCharges")
+    private WebElement fieldInspectionEstimationCharges;
+
+    @FindBy(id = "Submit")
+    private WebElement fieldInspectionSubmitButton;
 
     public PropertyDetailsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -498,37 +509,6 @@ public class PropertyDetailsPage extends BasePage {
         plinthAreaInBuildingPlanTextBox.sendKeys(floorDetails.getPlinthAreaInBuildingPlan());
     }
 
-    public void enterApplicantDetails(ApplicantDetails applicantDetails) {
-        waitForElementToBeClickable(assessmentNumberTextBox1, webDriver);
-        enterText(assessmentNumberTextBox1, applicantDetails.getAssessmentNumber());
-
-//        waitForElementToBeClickable(hscNumberTextBox, webDriver);
-//        enterText(hscNumberTextBox, applicantDetails.getHscNumber());
-//
-//        waitForElementToBeClickable(connectionDateTextBox, webDriver);
-//        enterText(connectionDateTextBox, applicantDetails.getConnectionDate());
-    }
-
-    public void enterConnectionDetails(ConnectionDetails connectionDetails) {
-        waitForElementToBeClickable(waterSourceSelection, webDriver);
-
-        new Select(waterSourceSelection).selectByVisibleText(connectionDetails.getWaterSourceType());
-        new Select(propertyType1Selection).selectByVisibleText(connectionDetails.getPropertyType());
-        new Select(categorySelection).selectByVisibleText(connectionDetails.getCategory());
-        new Select(connectionTypeSelection).selectByVisibleText(connectionDetails.getConnectionType());
-        new Select(usageTypeSelection).selectByVisibleText(connectionDetails.getUsageType());
-        new Select(pipeSizeSelection).selectByVisibleText(connectionDetails.getHscPipeSize());
-
-    }
-
-    public void enterFeeDetails(FeeDetails feeDetails) {
-        waitForElementToBeClickable(monthlyFeeTextBox, webDriver);
-        enterText(monthlyFeeTextBox, feeDetails.getMonthlyFee());
-
-        waitForElementToBeClickable(donationChargesTextBox, webDriver);
-        enterText(donationChargesTextBox, feeDetails.getDonationCharges());
-    }
-
     public void enterApprovalDetails(ApprovalDetails approvalDetails) {
         new Select(approverDepartmentSelection).selectByVisibleText(approvalDetails.getApproverDepartment());
         await().atMost(10, SECONDS).until(() -> new Select(approverDesignationSelection).getOptions().size() > 1);
@@ -604,7 +584,7 @@ public class PropertyDetailsPage extends BasePage {
         enterText(connectionDateTextBox, applicantInfo.getConnectionDate());
     }
 
-    public void enterConnectionInfo(ConnectionInfo connectionInfo){
+    public void enterNewWaterConnectionInfo(ConnectionInfo connectionInfo){
 
         waitForElementToBeClickable(waterSourceTypeSelectBox, webDriver);
         new Select(waterSourceTypeSelectBox).selectByVisibleText(connectionInfo.getWaterSourceType());
@@ -622,6 +602,29 @@ public class PropertyDetailsPage extends BasePage {
         enterText(sumpCapacityTextBox, connectionInfo.getSumpCapacity());
 
         enterText(noOfPersonsTextBox, connectionInfo.getNoOfPersons());
+
+    }
+
+    public void enterAdditionalWaterConnectionInfo(ConnectionInfo connectionInfo){
+
+        waitForElementToBeClickable(waterSourceTypeSelectBox, webDriver);
+        new Select(waterSourceTypeSelectBox).selectByVisibleText(connectionInfo.getWaterSourceType());
+
+        new Select(connectionTypeSelectBox).selectByVisibleText(connectionInfo.getConnectionType());
+
+        new Select(propertyTypeSelectBox).selectByVisibleText(connectionInfo.getPropertyType());
+
+        new Select(categorySelectBox).selectByVisibleText(connectionInfo.getCategory());
+
+        new Select(usageTypeSelectBox).selectByVisibleText(connectionInfo.getUsageType());
+
+        new Select(hscPipeSizeSelectBox).selectByVisibleText(connectionInfo.getHscPipeSize());
+
+        enterText(sumpCapacityTextBox, connectionInfo.getSumpCapacity());
+
+        enterText(noOfPersonsTextBox, connectionInfo.getNoOfPersons());
+        enterText(reasonForNewConnection, connectionInfo.getReasonForAdditionalConnection());
+
     }
 
     public void enterFeeInfo(FeeInfo feeInfo){
@@ -651,8 +654,6 @@ public class PropertyDetailsPage extends BasePage {
 
 //    public void enterAssessmentNumber(String assessmentNumber) {assessmentNumberTextBox.sendKeys(assessmentNumber);
 //    }
-
-
 
     public void enterSearchDetailsOfMobileNumber(SearchDetails searchDetails) {
         waitForElementToBeClickable(mobileNoTextBox, webDriver);
@@ -723,24 +724,6 @@ public class PropertyDetailsPage extends BasePage {
 
     }
 
-
-    public void enterEnclosedDocumentsDetails(EnclosedDocuments enclosedDocuments) {
-
-        waitForElementToBeClickable(documentNum1Box, webDriver);
-        documentNum1Box.sendKeys(enclosedDocuments.getDocumentNumber1());
-        waitForElementToBeClickable(documentNum2Box, webDriver);
-        documentNum2Box.sendKeys(enclosedDocuments.getDocumentNumber2());
-        waitForElementToBeClickable(documentNum3Box, webDriver);
-        documentNum3Box.sendKeys(enclosedDocuments.getDocumentNumber3());
-        waitForElementToBeClickable(documentDate1Box, webDriver);
-      enterText(documentDate1Box,enclosedDocuments.getDocumentDate1());
-        waitForElementToBeClickable(documentDate2Box, webDriver);
-        enterText(documentDate2Box,enclosedDocuments.getDocumentDate2());
-        waitForElementToBeClickable(documentDate3Box, webDriver);
-        enterText(documentDate3Box,enclosedDocuments.getDocumentDate2());
-
-        }
-
     public void enterWaterConectionInfo(ApplicantInfo applicantInfo){
 
         waitForElementToBeClickable(waterConnAssesmentNumber, webDriver);
@@ -769,13 +752,9 @@ public class PropertyDetailsPage extends BasePage {
 
         waitForElementToBeClickable(browse1Button, webDriver);
         browse1Button.click();
-
-       
-
     }
 
     public void enterWaterApprovalDetails(ApprovalDetails approvalDetails){
-
 
         waitForElementToBeClickable(approvalWaterDept, webDriver);
         new Select(approvalWaterDept).selectByVisibleText(approvalDetails.getApproverDepartment());
@@ -786,11 +765,9 @@ public class PropertyDetailsPage extends BasePage {
         waitForElementToBeClickable(approvalWaterPos, webDriver);
         new Select(approvalWaterPos).selectByVisibleText(approvalDetails.getApprover());
 
-
-        waitForElementToBeClickable(approvalWaterComment, webDriver);
-        enterText(approvalWaterComment, approvalDetails.getApproverRemarks());
-
-
+        waitForElementToBeClickable(additionalForwardButton, webDriver);
+        additionalForwardButton.click();
+        switchToNewlyOpenedWindow(webDriver);
 
     }
 
@@ -804,5 +781,51 @@ public class PropertyDetailsPage extends BasePage {
 
         waitForElementToBeClickable(vltReportSearch, webDriver);
         vltReportSearch.click();
+    }
+
+    public void enterConsumerNumber(String consumerNumber){
+
+        waitForElementToBeClickable(consumerNumberTextBox, webDriver);
+        enterText(consumerNumberTextBox, consumerNumber);
+
+        waitForElementToBeClickable(consumerSearchButton, webDriver);
+        consumerSearchButton.click();
+        switchToNewlyOpenedWindow(webDriver);
+    }
+
+    public String findAdditionalApplicationNumber(){
+        waitForElementToBeClickable(additionalApplicationNumber, webDriver);
+        String number = additionalApplicationNumber.getText();
+        //System.out.println("========================================="+number);
+        waitForElementToBeClickable(additionalCloseButton, webDriver);
+        additionalCloseButton.click();
+        switchToNewlyOpenedWindow(webDriver);
+        return number;
+    }
+
+    public void enterFieldInspectionInfo(FieldInspectionDetails fieldInspectionDetails){
+        waitForElementToBeClickable(fieldInspectionMaterial, webDriver);
+        enterText(fieldInspectionMaterial , fieldInspectionDetails.getMaterial());
+
+        waitForElementToBeClickable(fieldInspectionQuantity, webDriver);
+        enterText(fieldInspectionQuantity , fieldInspectionDetails.getQuantity());
+
+        waitForElementToBeClickable(fieldInspectionMeasureUnit, webDriver);
+        enterText(fieldInspectionMeasureUnit , fieldInspectionDetails.getUnitOfMeasurement());
+
+        waitForElementToBeClickable(fieldInspectionRate, webDriver);
+        enterText(fieldInspectionRate , fieldInspectionDetails.getRate());
+
+        waitForElementToBeClickable(fieldInspectionExistingPipeline, webDriver);
+        enterText(fieldInspectionExistingPipeline , fieldInspectionDetails.getExistingDistributionPipeline());
+
+        waitForElementToBeClickable(fieldInspectionPipelineDistance, webDriver);
+        enterText(fieldInspectionPipelineDistance , fieldInspectionDetails.getPipelineToHomeDistance());
+
+        waitForElementToBeClickable(fieldInspectionEstimationCharges, webDriver);
+        enterText(fieldInspectionEstimationCharges , fieldInspectionDetails.getEstimationCharges());
+
+        waitForElementToBeClickable(fieldInspectionSubmitButton, webDriver);
+        fieldInspectionSubmitButton.click();
     }
 }

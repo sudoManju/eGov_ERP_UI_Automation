@@ -49,6 +49,11 @@ public class ConnectionInfoBuilder {
         return this;
     }
 
+    public ConnectionInfoBuilder withReasonForAdditionalConnection(String reason) {
+        connectionInfo.setReasonForAdditionalConnection(reason);
+        return this;
+    }
+
     public ConnectionInfo build(){
         return connectionInfo;
     }

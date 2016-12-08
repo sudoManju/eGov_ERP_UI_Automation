@@ -13,6 +13,7 @@ public class ConnectionInfo {
     private String hscPipeSize;
     private String sumpCapacity;
     private String noOfPersons;
+    private String reasonForAdditionalConnection;
 
     public String getWaterSourceType() {
         return waterSourceType;
@@ -76,5 +77,13 @@ public class ConnectionInfo {
 
     public void setNoOfPersons(String noOfPersons) {
         this.noOfPersons = noOfPersons;
+    }
+
+    public String getReasonForAdditionalConnection() {
+        return reasonForAdditionalConnection;
+    }
+
+    public void setReasonForAdditionalConnection(String reasonForAdditionalConnection) {
+        this.reasonForAdditionalConnection = reasonForAdditionalConnection;
     }
 }
