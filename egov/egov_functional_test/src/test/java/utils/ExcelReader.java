@@ -394,13 +394,13 @@ public class ExcelReader {
         String approverDepartment = getCellData(approvalDetailsSheet, dataRow, "approverDepartment").getStringCellValue();
         String approverDesignation = getCellData(approvalDetailsSheet, dataRow, "approverDesignation").getStringCellValue();
         String approver = getCellData(approvalDetailsSheet, dataRow, "approver").getStringCellValue();
-      String approverRemarks = getCellData(approvalDetailsSheet, dataRow, "approverRemarks").getStringCellValue();
+      //String approverRemarks = getCellData(approvalDetailsSheet, dataRow, "approverRemarks").getStringCellValue();
 
         return new ApprovalDetailsBuilder()
                 .withApproverDepartment(approverDepartment)
                 .withApproverDesignation(approverDesignation)
                 .withApprover(approver)
-                .withApproverRemarks(approverRemarks)
+                //.withApproverRemarks(approverRemarks)
                 .build();
     }
 

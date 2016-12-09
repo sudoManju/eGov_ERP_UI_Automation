@@ -132,6 +132,7 @@ public class CollectionsPage extends BasePage {
         waitForElementToBeClickable(challanAmountTextBox,driver);
         challanAmountTextBox.click();
         challanAmountTextBox.clear();
+        waitForElementToBeClickable(challanAmountTextBox,driver);
         challanAmountTextBox.sendKeys(challanHeaderDetails.getAmount());
     }
 
