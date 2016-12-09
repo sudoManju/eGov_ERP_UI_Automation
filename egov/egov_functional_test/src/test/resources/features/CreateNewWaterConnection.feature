@@ -30,7 +30,7 @@ Feature: To create a new water connection
 
     When juniorAssistant logs in
     And chooses to act upon the above application
-    And user will generate the receipt
+    And user will click on the generate receipt
     Then user will search for the recent application
 
     Examples:

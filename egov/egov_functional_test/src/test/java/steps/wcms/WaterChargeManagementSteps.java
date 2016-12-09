@@ -3,6 +3,7 @@ package steps.wcms;
 import cucumber.api.java8.En;
 import entities.ptis.*;
 import pages.ptis.PropertyDetailsPage;
+import pages.wcms.WaterChargeManagementPage;
 import steps.BaseSteps;
 import utils.ExcelReader;
 
@@ -23,16 +24,16 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             String approveDetails = "engineer";
 
             ApplicantInfo applicantInfo = new ExcelReader(ptisTestDataFileName).getApplicantInfo(applicationParticularsDetails);
-            pageStore.get(PropertyDetailsPage.class).enterWaterConectionInfo(applicantInfo);
+            pageStore.get(WaterChargeManagementPage.class).enterWaterConectionAssessmentNumber(applicantInfo);
 
             ConnectionInfo connectionInfo = new ExcelReader(ptisTestDataFileName).getConnectionInfo(connectionDetails);
-            pageStore.get(PropertyDetailsPage.class).enterNewWaterConnectionInfo(connectionInfo);
+            pageStore.get(WaterChargeManagementPage.class).enterNewWaterConnectionInfo(connectionInfo);
 
             EnclosedDocument enclosedDocument = new ExcelReader(ptisTestDataFileName).getDocumentInfo(enclosedDocumentDetails);
-            pageStore.get(PropertyDetailsPage.class).enterDocumentInfo(enclosedDocument);
+            pageStore.get(WaterChargeManagementPage.class).enterDocumentInfo(enclosedDocument);
 
             ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approveDetails);
-            pageStore.get(PropertyDetailsPage.class).enterWaterApprovalDetails(approvalDetails);
+            pageStore.get(WaterChargeManagementPage.class).enterWaterApprovalDetails(approvalDetails);
 
         });
 
@@ -45,16 +46,16 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             String approveDetails = "engineer";
 
             ConnectionInfo connectionInfo = new ExcelReader(ptisTestDataFileName).getConnectionInfo(connectionDetails);
-            pageStore.get(PropertyDetailsPage.class).enterAdditionalWaterConnectionInfo(connectionInfo);
+            pageStore.get(WaterChargeManagementPage.class).enterAdditionalWaterConnectionInfo(connectionInfo);
 
             ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approveDetails);
-            pageStore.get(PropertyDetailsPage.class).enterWaterApprovalDetails(approvalDetails);
+            pageStore.get(WaterChargeManagementPage.class).enterWaterApprovalDetails(approvalDetails);
 
         });
 
         And("^user will enter the field inspection details as (\\w+)$", (String inspectionInfo) -> {
             FieldInspectionDetails fieldInspectionDetails = new ExcelReader(ptisTestDataFileName).getFieldInspectionInfo(inspectionInfo);
-            pageStore.get(PropertyDetailsPage.class).enterFieldInspectionInfo(fieldInspectionDetails);
+            pageStore.get(WaterChargeManagementPage.class).enterFieldInspectionInfo(fieldInspectionDetails);
         });
     }
 }

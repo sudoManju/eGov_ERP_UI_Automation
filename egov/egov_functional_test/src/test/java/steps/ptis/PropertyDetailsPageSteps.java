@@ -13,6 +13,7 @@ import java.io.IOException;
 
 public class PropertyDetailsPageSteps extends BaseSteps implements En {
     public PropertyDetailsPageSteps() {
+
         And("^he enters property header details as (\\w+)$", (String propertyDetailsDataId) -> {
             PropertyHeaderDetails propertyHeaderDetails = new ExcelReader(ptisTestDataFileName).getPropertyHeaderDetails(propertyDetailsDataId);
             pageStore.get(PropertyDetailsPage.class).enterPropertyHeader(propertyHeaderDetails);
