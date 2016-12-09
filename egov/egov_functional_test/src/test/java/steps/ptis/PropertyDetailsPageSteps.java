@@ -110,61 +110,12 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
             });
         });
 
-        And("^user need to enter the date and get the report details$", () -> {
-            String vltReportInfo = "report1";
-
-            VLTReport vltReport = new ExcelReader(ptisTestDataFileName).getVLTReportInfo(vltReportInfo);
-            pageStore.get(PropertyDetailsPage.class).enterVLTReportDetails(vltReport);
-        });
-
-        And("^user will enter the details of the new water connection$", () -> {
-
-            String applicationParticularsDetails = "applicantInfo1" ;
-            String connectionDetails = "connectionInfo";
-            String enclosedDocumentDetails = "enclosedInfo";
-            String approveDetails = "engineer";
-
-            ApplicantInfo applicantInfo = new ExcelReader(ptisTestDataFileName).getApplicantInfo(applicationParticularsDetails);
-            pageStore.get(PropertyDetailsPage.class).enterWaterConectionInfo(applicantInfo);
-
-            ConnectionInfo connectionInfo = new ExcelReader(ptisTestDataFileName).getConnectionInfo(connectionDetails);
-            pageStore.get(PropertyDetailsPage.class).enterNewWaterConnectionInfo(connectionInfo);
-
-            EnclosedDocument enclosedDocument = new ExcelReader(ptisTestDataFileName).getDocumentInfo(enclosedDocumentDetails);
-            pageStore.get(PropertyDetailsPage.class).enterDocumentInfo(enclosedDocument);
-
-            ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approveDetails);
-            pageStore.get(PropertyDetailsPage.class).enterWaterApprovalDetails(approvalDetails);
-
-        });
-
-        And("^user will enter the consumer number as (\\w+)$", (String consumerNumber) -> {
-            pageStore.get(PropertyDetailsPage.class).enterConsumerNumber(consumerNumber);
-        });
-
-        And("^user will enter the details of the new additional water connection$", () -> {
-            String connectionDetails = "connectionInfo1";
-            String approveDetails = "engineer";
-
-            ConnectionInfo connectionInfo = new ExcelReader(ptisTestDataFileName).getConnectionInfo(connectionDetails);
-            pageStore.get(PropertyDetailsPage.class).enterAdditionalWaterConnectionInfo(connectionInfo);
-
-            ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approveDetails);
-            pageStore.get(PropertyDetailsPage.class).enterWaterApprovalDetails(approvalDetails);
-
-        });
         Then("^user will get the application number and closes the form$", () -> {
-//            String applicationNumber = pageStore.get(PropertyDetailsPage.class).findAdditionalApplicationNumber();
             String applicationNumber = pageStore.get(PropertyDetailsPage.class).findAdditionalApplicationNumber();
             scenarioContext.setApplicationNumber(applicationNumber);
         });
-        And("^user will enter the field inspection details as (\\w+)$", (String inspectionInfo) -> {
-
-            FieldInspectionDetails fieldInspectionDetails = new ExcelReader(ptisTestDataFileName).getFieldInspectionInfo(inspectionInfo);
-            pageStore.get(PropertyDetailsPage.class).enterFieldInspectionInfo(fieldInspectionDetails);
 
 
-        });
 
     }
 }

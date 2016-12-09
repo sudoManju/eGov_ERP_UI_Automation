@@ -8,3 +8,4 @@ Feature: To find the daily collection reports
     Given juniorAssistant logs in
     And user chooses to find the daily collection vlt reports
     And user need to enter the date and get the report details
+    And current user logs out
