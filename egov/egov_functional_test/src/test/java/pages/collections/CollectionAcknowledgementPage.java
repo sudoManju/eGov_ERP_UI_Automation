@@ -1,6 +1,7 @@
 package pages.collections;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -46,10 +47,8 @@ public class CollectionAcknowledgementPage extends BasePage {
 
     public void close() {
 
-        waitForElementToBeClickable(closeButton,driver);
         closeButton.click();
         await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
-        switchToNewlyOpenedWindow(driver);
         for (String winHandle : driver.getWindowHandles()) {
             driver.switchTo().window(winHandle);
         }

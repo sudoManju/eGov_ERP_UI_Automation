@@ -33,8 +33,6 @@ Feature: Collection
     And he stores the challan number and closes acknowledgement
     And current user logs out
 
- Scenario: check for senior assistant
-
     When seniorAssistant logs in
     And chooses to act upon the above challan
     And he validate the challan

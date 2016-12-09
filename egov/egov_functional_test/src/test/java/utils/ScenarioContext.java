@@ -10,7 +10,8 @@ public class ScenarioContext {
 
     private String   dataScreenAssessmentNumber;
 
-    private String challanNumber = "12/2016-17/43";
+    private String challanNumber;
+
 
     public String getChallanNumber() {
         return challanNumber;

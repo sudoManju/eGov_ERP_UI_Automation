@@ -394,13 +394,14 @@ public class ExcelReader {
         String approverDepartment = getCellData(approvalDetailsSheet, dataRow, "approverDepartment").getStringCellValue();
         String approverDesignation = getCellData(approvalDetailsSheet, dataRow, "approverDesignation").getStringCellValue();
         String approver = getCellData(approvalDetailsSheet, dataRow, "approver").getStringCellValue();
-      //String approverRemarks = getCellData(approvalDetailsSheet, dataRow, "approverRemarks").getStringCellValue();
+        String approverRemarks = getCellData(approvalDetailsSheet, dataRow, "approverRemarks").getStringCellValue();
+
 
         return new ApprovalDetailsBuilder()
                 .withApproverDepartment(approverDepartment)
                 .withApproverDesignation(approverDesignation)
                 .withApprover(approver)
-                //.withApproverRemarks(approverRemarks)
+                .withApproverRemarks(approverRemarks)
                 .build();
     }
 
@@ -736,6 +737,19 @@ public class ExcelReader {
                 .withExistingDistributionPipeLine(existingPipeline)
                 .withPipelineToHomeDistance(pipelineDistance)
                 .withEstimationCharges(estimationCharges)
+                .build();
+    }
+
+    public ApprovalDetails getApprovalDetailsOfChallan(String approverId) {
+        Row dataRow = readDataRow(approvalDetailsSheet, approverId);
+        String approverDepartment = getCellData(approvalDetailsSheet, dataRow, "approverDepartment").getStringCellValue();
+        String approverDesignation = getCellData(approvalDetailsSheet, dataRow, "approverDesignation").getStringCellValue();
+        String approver = getCellData(approvalDetailsSheet, dataRow, "approver").getStringCellValue();
+
+        return new ApprovalDetailsBuilder()
+                .withApproverDepartment(approverDepartment)
+                .withApproverDesignation(approverDesignation)
+                .withApprover(approver)
                 .build();
     }
 }
