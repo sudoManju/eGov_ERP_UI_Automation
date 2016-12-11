@@ -67,6 +67,8 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Challan Receipt")
     private WebElement challanReceiptLink;
 
+    @FindBy(linkText = "Daily collection report(PT)")
+    private WebElement ptReport;
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -230,6 +232,15 @@ public class DashboardPage extends BasePage {
         waitForElementToBeVisible(challanReceiptLink,driver);
         challanReceiptLink.click();
 
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseForDailyCollectionPTReports(){
+
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Daily collection report(PT)");
+        waitForElementToBeVisible(ptReport, driver);
+        ptReport.click();
         switchToNewlyOpenedWindow(driver);
     }
 }

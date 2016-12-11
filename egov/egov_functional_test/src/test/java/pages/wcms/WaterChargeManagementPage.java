@@ -1,6 +1,8 @@
 package pages.wcms;
 
 import entities.ptis.*;
+import entities.wcms.EnclosedDocument;
+import entities.wcms.FieldInspectionDetails;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

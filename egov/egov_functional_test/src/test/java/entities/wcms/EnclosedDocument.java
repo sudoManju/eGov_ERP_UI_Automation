@@ -1,4 +1,4 @@
-package entities.ptis;
+package entities.wcms;
 
 /**
  * Created by vinaykumar on 5/12/16.

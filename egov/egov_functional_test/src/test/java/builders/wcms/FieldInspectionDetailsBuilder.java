@@ -1,6 +1,6 @@
-package builders.ptis;
+package builders.wcms;
 
-import entities.ptis.FieldInspectionDetails;
+import entities.wcms.FieldInspectionDetails;
 
 /**
  * Created by vinaykumar on 8/12/16.

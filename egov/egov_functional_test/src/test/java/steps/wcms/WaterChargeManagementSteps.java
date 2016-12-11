@@ -2,12 +2,12 @@ package steps.wcms;
 
 import cucumber.api.java8.En;
 import entities.ptis.*;
+import entities.wcms.EnclosedDocument;
+import entities.wcms.FieldInspectionDetails;
 import pages.ptis.PropertyDetailsPage;
 import pages.wcms.WaterChargeManagementPage;
 import steps.BaseSteps;
 import utils.ExcelReader;
-
-import static steps.BaseSteps.pageStore;
 
 /**
  * Created by vinaykumar on 9/12/16.
@@ -57,5 +57,6 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             FieldInspectionDetails fieldInspectionDetails = new ExcelReader(ptisTestDataFileName).getFieldInspectionInfo(inspectionInfo);
             pageStore.get(WaterChargeManagementPage.class).enterFieldInspectionInfo(fieldInspectionDetails);
         });
+
     }
 }

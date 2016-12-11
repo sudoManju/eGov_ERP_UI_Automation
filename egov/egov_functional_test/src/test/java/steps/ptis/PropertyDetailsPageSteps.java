@@ -12,6 +12,7 @@ import utils.ExcelReader;
 import java.io.IOException;
 
 public class PropertyDetailsPageSteps extends BaseSteps implements En {
+
     public PropertyDetailsPageSteps() {
 
         And("^he enters property header details as (\\w+)$", (String propertyDetailsDataId) -> {
@@ -115,8 +116,5 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
             String applicationNumber = pageStore.get(PropertyDetailsPage.class).findAdditionalApplicationNumber();
             scenarioContext.setApplicationNumber(applicationNumber);
         });
-
-
-
     }
 }

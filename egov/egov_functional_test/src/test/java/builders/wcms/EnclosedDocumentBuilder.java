@@ -1,6 +1,6 @@
-package builders.ptis;
+package builders.wcms;
 
-import entities.ptis.EnclosedDocument;
+import entities.wcms.EnclosedDocument;
 
 /**
  * Created by vinaykumar on 5/12/16.

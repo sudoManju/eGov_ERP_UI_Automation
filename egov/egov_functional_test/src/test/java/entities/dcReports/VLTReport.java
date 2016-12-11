@@ -1,4 +1,4 @@
-package entities.ptis;
+package entities.dcReports;
 
 /**
  * Created by vinaykumar on 6/12/16.

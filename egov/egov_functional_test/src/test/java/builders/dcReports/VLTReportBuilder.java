@@ -1,6 +1,6 @@
-package builders.ptis;
+package builders.dcReports;
 
-import entities.ptis.VLTReport;
+import entities.dcReports.VLTReport;
 
 /**
  * Created by vinaykumar on 6/12/16.

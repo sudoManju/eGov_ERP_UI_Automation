@@ -282,15 +282,6 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "approvalComent")
     private WebElement approvalWaterComment;
 
-    @FindBy(id = "fromDate")
-    private WebElement vltFromDate;
-
-    @FindBy(id = "toDate")
-    private WebElement vltToDate;
-
-    @FindBy(id = "dailyCollectionReportSearchVLT")
-    private WebElement vltReportSearch;
-
     @FindBy(id = "app-appcodo")
     private WebElement consumerNumberTextBox;
 
@@ -309,7 +300,6 @@ public class PropertyDetailsPage extends BasePage {
     public PropertyDetailsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
-
 
     public void enterPropertyHeader(PropertyHeaderDetails propertyHeaderDetails) {
 
@@ -530,22 +520,16 @@ public class PropertyDetailsPage extends BasePage {
     public void enterEditAssessmentDetails(EditAssessmentDetails assessmentDetails) {
 
         // waitForElementToBeClickable(extentOfSiteTextBox, webDriver);
-
-     //  waitForElementToBeClickable(extentOfSiteTextBox, webDriver);
-
         extentOfSiteTextBox.clear();
         extentOfSiteTextBox.sendKeys(assessmentDetails.getExtentOfSite());
 
         editOccupancyTextBox.sendKeys(assessmentDetails.getOccupancyCertificateNumber());
-
-
     }
 
     public void enterEditFloorDetails(EditFloorDetails floorDetails) {
         new Select(floorNumberSelection).selectByVisibleText(floorDetails.getEditfloorNumber());
         new Select(classificationOfBuildingSelection).selectByVisibleText(floorDetails.getEditclassificationOfBuilding());
         new Select(natureOfUsageSelection).selectByVisibleText(floorDetails.getEditnatureOfUsage());
-
 
         new Select(occupancySelection).selectByVisibleText(floorDetails.getEditoccupancy());
         editoccupantNameTextBox.sendKeys(floorDetails.getEditoccupantName());
@@ -564,18 +548,6 @@ public class PropertyDetailsPage extends BasePage {
         buildingPermissionDateTextBox.sendKeys(Keys.TAB);
         plinthAreaInBuildingPlanTextBox.sendKeys(floorDetails.getEditplinthAreaInBuildingPlan());
 
-    }
-
-    public void enterVLTReportDetails(VLTReport vltReport){
-
-        waitForElementToBeClickable(vltFromDate, webDriver);
-        enterText(vltFromDate, vltReport.getFromDate());
-
-        waitForElementToBeClickable(vltToDate, webDriver);
-        enterText(vltToDate, vltReport.getToDate());
-
-        waitForElementToBeClickable(vltReportSearch, webDriver);
-        vltReportSearch.click();
     }
 
     public void enterConsumerNumber(String consumerNumber){

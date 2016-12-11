@@ -4,11 +4,19 @@ import builders.EstimateHeaderDetailsBuilder;
 import builders.LoginDetailsBuilder;
 import builders.collections.ChallanHeaderDetailsBuilder;
 import builders.collections.ChequeDetailsBuilder;
+import builders.dcReports.PTReportBuilder;
+import builders.dcReports.VLTReportBuilder;
 import builders.ptis.*;
+import builders.wcms.EnclosedDocumentBuilder;
+import builders.wcms.FieldInspectionDetailsBuilder;
 import entities.*;
 import entities.collections.ChallanHeaderDetails;
 import entities.collections.ChequeDetails;
+import entities.dcReports.PTReport;
+import entities.dcReports.VLTReport;
 import entities.ptis.*;
+import entities.wcms.EnclosedDocument;
+import entities.wcms.FieldInspectionDetails;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 
@@ -48,6 +56,7 @@ public class ExcelReader {
     Sheet workHeaderDetailsSheet;
     Sheet adminSanctionHeaderDetailsSheet;
     Sheet fieldInseptionDetailsForWaterConnectionSheet;
+    Sheet ptReportSheet;
 
 
 
@@ -88,6 +97,7 @@ public class ExcelReader {
 
         enclosedDocumentsSheet = workbook.getSheet("enclosedDocuments");
         vltReportSheet = workbook.getSheet("vltReport");
+        ptReportSheet = workbook.getSheet("ptReport");
 
         registeredUserDetailsSheet = workbook.getSheet("registeredUserDetails");
         estimateHeaderDetailsSheet = workbook.getSheet("estimateHeaderDetails");
@@ -95,6 +105,7 @@ public class ExcelReader {
         workHeaderDetailsSheet = workbook.getSheet("workHeaderDetails");
         adminSanctionHeaderDetailsSheet = workbook.getSheet("adminSanctionHeaderDetails");
         fieldInseptionDetailsForWaterConnectionSheet = workbook.getSheet("fieldInseptionDetailsForWaterConnection");
+
 
     }
 
@@ -750,6 +761,24 @@ public class ExcelReader {
                 .withApproverDepartment(approverDepartment)
                 .withApproverDesignation(approverDesignation)
                 .withApprover(approver)
+                .build();
+    }
+
+    public PTReport getPTReportInfo(String ptReport){
+
+        Row dataRow = readDataRow(ptReportSheet , ptReport);
+
+        Cell fromDateCell = getCellData(ptReportSheet, dataRow, "fromDate");
+        fromDateCell.setCellType(Cell.CELL_TYPE_STRING);
+        String fromDate = fromDateCell.getStringCellValue();
+
+        Cell toDateCell = getCellData(ptReportSheet, dataRow, "toDate");
+        toDateCell.setCellType(Cell.CELL_TYPE_STRING);
+        String toDate = toDateCell.getStringCellValue();
+
+        return new PTReportBuilder()
+                .withFromDate(fromDate)
+                .withToDate(toDate)
                 .build();
     }
 }

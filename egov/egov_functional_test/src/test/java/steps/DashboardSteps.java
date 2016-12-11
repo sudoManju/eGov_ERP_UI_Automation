@@ -83,6 +83,9 @@ public class DashboardSteps extends BaseSteps implements En {
         And("^he search for challan receipt$", () -> {
             pageStore.get(DashboardPage.class).chooseToSearchForChallanReceipt();
         });
+        And("^user chooses to find the daily collection pt reports$", () -> {
+            pageStore.get(DashboardPage.class).chooseForDailyCollectionPTReports();
+        });
     }
 }
 
