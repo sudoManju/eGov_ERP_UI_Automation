@@ -42,7 +42,6 @@ public class ExcelReader {
     Sheet chequeDetailsSheet;
     Sheet applicantParticularsSheet;
     Sheet connectionDetailsSheet;
-    Sheet feeDetailsSheet;
     Sheet searchDetailsSheet;
     Sheet editAssessmentDetailsSheet;
     Sheet editFloorDetailsSheet;
@@ -81,13 +80,11 @@ public class ExcelReader {
         approvalDetailsSheet = workbook.getSheet("approvalDetails");
         applicantParticularsSheet = workbook.getSheet("applicantParticulars");
         connectionDetailsSheet = workbook.getSheet("connectionDetails");
-        feeDetailsSheet = workbook.getSheet("feeDetails");
         searchDetailsSheet = workbook.getSheet("searchDetails");
         chequeDetailsSheet = workbook.getSheet("chequeDetails");
 
         applicantParticularsSheet = workbook.getSheet("applicantParticulars");
         connectionDetailsSheet = workbook.getSheet("connectionDetails");
-        feeDetailsSheet = workbook.getSheet("feeDetails");
 
         editAssessmentDetailsSheet = workbook.getSheet("editAssessmentDetails") ;
         editFloorDetailsSheet = workbook.getSheet("editFloorDetails") ;
@@ -577,52 +574,6 @@ public class ExcelReader {
                 .withSumpCapacity(sumpCapacity)
                 .withNoOfPersons(noOfPersons)
                 .withReasonForAdditionalConnection(connectionReason)
-                .build();
-    }
-
-    public FeeInfo getFeeInfo(String feeDetails){
-
-        Row dataRow = readDataRow(feeDetailsSheet , feeDetails);
-
-        Cell monthlyFeesCell = getCellData(feeDetailsSheet, dataRow, "monthlyfees");
-        monthlyFeesCell.setCellType(Cell.CELL_TYPE_STRING);
-        String monthlyFees = monthlyFeesCell.getStringCellValue();
-
-        Cell donationChargesCell = getCellData(feeDetailsSheet, dataRow, "donationCharges");
-        donationChargesCell.setCellType(Cell.CELL_TYPE_STRING);
-        String donationCharges = donationChargesCell.getStringCellValue();
-
-        Cell meterCostCell = getCellData(feeDetailsSheet, dataRow, "meterCost");
-        meterCostCell.setCellType(Cell.CELL_TYPE_STRING);
-        String meterCost = meterCostCell.getStringCellValue();
-
-        String meterName = getCellData(feeDetailsSheet , dataRow , "meterName").getStringCellValue();
-
-        Cell meterSINoCell = getCellData(feeDetailsSheet, dataRow, "meterSINo");
-        meterSINoCell.setCellType(Cell.CELL_TYPE_STRING);
-        String meterSINo = meterSINoCell.getStringCellValue();
-
-        Cell previousReadingCell = getCellData(feeDetailsSheet, dataRow, "previousReading");
-        previousReadingCell.setCellType(Cell.CELL_TYPE_STRING);
-        String previousReading = previousReadingCell.getStringCellValue();
-
-        Cell lastReadingDateCell = getCellData(feeDetailsSheet, dataRow, "lastReadingDate");
-        lastReadingDateCell.setCellType(Cell.CELL_TYPE_STRING);
-        String lastReadingDate = lastReadingDateCell.getStringCellValue();
-
-        Cell currentReadingCell = getCellData(feeDetailsSheet, dataRow, "currentReading");
-        currentReadingCell.setCellType(Cell.CELL_TYPE_STRING);
-        String currentReading = currentReadingCell.getStringCellValue();
-
-        return new FeeInfoBuilder()
-                .withMonthlyfees(monthlyFees)
-                .withDoantionCharges(donationCharges)
-                .withMeterCost(meterCost)
-                .withMeterName(meterName)
-                .withMeterSINo(meterSINo)
-                .withPreviousReading(previousReading)
-                .withLastReadingDate(lastReadingDate)
-                .withCurrentReading(currentReading)
                 .build();
     }
 

@@ -195,12 +195,6 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "executionDate")
     private WebElement connectionDateTextBox;
 
-    @FindBy(id = "monthlyFee")
-    private WebElement monthlyFeeTextBox;
-
-    @FindBy(id = "existingConnection.donationCharges")
-    private WebElement donationChargesTextBox;
-
     @FindBy(id = "assessmentNum")
     private WebElement assessmentNumTextBox;
 
@@ -230,24 +224,6 @@ public class PropertyDetailsPage extends BasePage {
 
     @FindBy(id = "searchByBndry")
     private WebElement searchButtonByZoneAndWard;
-
-    @FindBy(id = "existmeterCost")
-    private WebElement meterCostTextBox;
-
-    @FindBy(id = "existmeterName")
-    private WebElement meterNameTextBox;
-
-    @FindBy(id = "existmeterNo")
-    private WebElement meterSINoTextBox;
-
-    @FindBy(id = "previousReading")
-    private WebElement previousReadingTextBox;
-
-    @FindBy(id = "existreadingDate")
-    private WebElement lastReadingDateTextBox;
-
-    @FindBy(id = "currentcurrentReading")
-    private WebElement currentReadingTextBox;
 
     @FindBy(id = "Create")
     private WebElement submitButton;
@@ -455,26 +431,6 @@ public class PropertyDetailsPage extends BasePage {
 
         waitForElementToBeClickable(connectionDateTextBox, webDriver);
         enterText(connectionDateTextBox, applicantInfo.getConnectionDate());
-    }
-
-    public void enterFeeInfo(FeeInfo feeInfo){
-
-        waitForElementToBeClickable(monthlyFeeTextBox, webDriver);
-        enterText(monthlyFeeTextBox, feeInfo.getMonthlyFees());
-
-        enterText(donationChargesTextBox, feeInfo.getDonationCharges());
-
-        enterText(meterCostTextBox, feeInfo.getMeterCost());
-
-        enterText(meterNameTextBox, feeInfo.getMeterName());
-
-        enterText(meterSINoTextBox, feeInfo.getMeterSINo());
-
-        enterText(previousReadingTextBox, feeInfo.getPreviousReading());
-
-        enterText(lastReadingDateTextBox, feeInfo.getLastReadingDate());
-
-        enterText(currentReadingTextBox, feeInfo.getCurrentReading());
     }
 
     public void chooseToSubmit(){
