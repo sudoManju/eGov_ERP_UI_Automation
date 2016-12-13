@@ -1,5 +1,6 @@
 package steps.wcms;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.ptis.*;
 import entities.wcms.EnclosedDocument;
@@ -53,10 +54,29 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
 
         });
 
+        Then("^user will get the application number and closes the form$", () -> {
+            String applicationNumber = pageStore.get(PropertyDetailsPage.class).findAdditionalApplicationNumber();
+            scenarioContext.setApplicationNumber(applicationNumber);
+        });
+
         And("^user will enter the field inspection details as (\\w+)$", (String inspectionInfo) -> {
             FieldInspectionDetails fieldInspectionDetails = new ExcelReader(ptisTestDataFileName).getFieldInspectionInfo(inspectionInfo);
             pageStore.get(WaterChargeManagementPage.class).enterFieldInspectionInfo(fieldInspectionDetails);
         });
+
+        And("^user will click on the generate estimation notice$", () -> {
+            pageStore.get(WaterChargeManagementPage.class).clickOnGenerateNotice();
+        });
+
+        And("^user will click on collect charges and collect the money form the customer & closes it$", () -> {
+            pageStore.get(WaterChargeManagementPage.class).clickOnCollectCharges();
+            pageStore.get(WaterChargeManagementPage.class).toReceiveAmount();
+            pageStore.get(WaterChargeManagementPage.class).closeReceipt();
+        });
+        Then("^user will filter the application based upon the connection details as (\\w+)$", (String connectionType) -> {
+            pageStore.get(WaterChargeManagementPage.class).searchWaterConnectionApplications(connectionType);
+        });
+
 
     }
 }

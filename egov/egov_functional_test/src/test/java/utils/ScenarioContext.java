@@ -45,5 +45,5 @@ public class ScenarioContext {
         this.dataScreenAssessmentNumber = dataScreenAssessmentNumber;
     }
 
-    }
+}
 

@@ -9,6 +9,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
+import static com.jayway.awaitility.Awaitility.await;
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 /**
  * Created by vinaykumar on 9/12/16.
  */
@@ -64,6 +67,12 @@ public class WaterChargeManagementPage extends BasePage {
     @FindBy(id = "file0id")
     private WebElement browse1Button;
 
+    @FindBy(id = "file1id")
+    private WebElement browse2Button;
+
+    @FindBy(id = "file3id")
+    private WebElement browse3Button;
+
     @FindBy(id = "approvalDepartment")
     private WebElement approvalWaterDepartment;
 
@@ -105,6 +114,33 @@ public class WaterChargeManagementPage extends BasePage {
 
     @FindBy(id = "Submit")
     private WebElement fieldInspectionSubmitButton;
+
+    @FindBy(id = "Generate Estimation Notice")
+    private WebElement generateEstimationNoticeButton;
+
+    @FindBy(id = "moduleName")
+    private WebElement searchApplicationService;
+
+    @FindBy(id = "applicationType")
+    private WebElement searchApplicationType;
+
+    @FindBy(id = "searchapplication")
+    private WebElement searchApplicationButton;
+
+    @FindBy(id = "payBtn")
+    private WebElement collectFeesButton;
+
+    @FindBy(id = "totalamounttobepaid")
+    private WebElement totalAmount;
+
+    @FindBy(id = "instrHeaderCash.instrumentAmount")
+    private WebElement amountToBePaidTextBox;
+
+    @FindBy(id = "button2")
+    private WebElement payButton;
+
+    @FindBy(id = "buttonClose")
+    private WebElement closeReceiptButton;
 
     public WaterChargeManagementPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -157,7 +193,14 @@ public class WaterChargeManagementPage extends BasePage {
         enterText(documentDate3TextBox, enclosedDocument.getDocumentDate3());
 
         waitForElementToBeClickable(browse1Button, webDriver);
-        browse1Button.click();
+        browse1Button.sendKeys("/home/vinaykumar/State Bank of India.pdf");
+
+        waitForElementToBeClickable(browse2Button, webDriver);
+        browse2Button.sendKeys("/home/vinaykumar/State Bank of India.pdf");
+
+        waitForElementToBeClickable(browse3Button, webDriver);
+        browse3Button.sendKeys("/home/vinaykumar/State Bank of India.pdf");
+
     }
 
     public void enterWaterApprovalDetails(ApprovalDetails approvalDetails){
@@ -222,5 +265,57 @@ public class WaterChargeManagementPage extends BasePage {
 
         waitForElementToBeClickable(fieldInspectionSubmitButton, webDriver);
         fieldInspectionSubmitButton.click();
+
+        switchToNewlyOpenedWindow(webDriver);
+    }
+
+    public void clickOnGenerateNotice(){
+
+        waitForElementToBeClickable(generateEstimationNoticeButton , webDriver);
+        generateEstimationNoticeButton.click();
+        switchToNewlyOpenedWindow(webDriver);
+        webDriver.close();
+        await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
+        for (String winHandle : webDriver.getWindowHandles()) {
+            webDriver.switchTo().window(winHandle);
+        }
+    }
+
+    public void searchWaterConnectionApplications(String connectionType){
+        waitForElementToBeClickable(searchApplicationService , webDriver);
+        new Select(searchApplicationService).selectByVisibleText("Water Tax");
+        waitForElementToBeClickable(searchApplicationType , webDriver);
+        new Select(searchApplicationType).selectByVisibleText(connectionType.replaceAll("_"," "));
+        waitForElementToBeClickable(searchApplicationButton , webDriver);
+        searchApplicationButton.click();
+
+    }
+
+    public void clickOnCollectCharges(){
+
+        waitForElementToBeClickable(collectFeesButton, webDriver);
+        collectFeesButton.click();
+        switchToNewlyOpenedWindow(webDriver);
+
+    }
+
+    public void toReceiveAmount(){
+        waitForElementToBeClickable(totalAmount , webDriver);
+        waitForElementToBeClickable(amountToBePaidTextBox , webDriver);
+        String amount = totalAmount.getText();
+        System.out.println("=========================" +amount);;
+        amountToBePaidTextBox = totalAmount;
+        amountToBePaidTextBox.sendKeys(amountToBePaidTextBox.getText());
+
+
+        waitForElementToBeClickable(payButton , webDriver);
+        payButton.click();
+        switchToNewlyOpenedWindow(webDriver);
+    }
+
+    public void closeReceipt(){
+        waitForElementToBeClickable(closeReceiptButton , webDriver);
+        closeReceiptButton.click();
+
     }
 }

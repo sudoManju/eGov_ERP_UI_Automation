@@ -78,4 +78,13 @@ public class PropertyAcknowledgementPage extends BasePage {
         waitForElementToBeClickable(assessmentCloseButton , driver);
         assessmentCloseButton.click();
     }
+
+    public void toCloseAdditionalConnectionPage(){
+
+        closeLink.click();
+        await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
+        for (String winHandle : driver.getWindowHandles()) {
+            driver.switchTo().window(winHandle);
+        }
+    }
 }

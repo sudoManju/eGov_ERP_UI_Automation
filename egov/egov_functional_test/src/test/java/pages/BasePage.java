@@ -69,7 +69,7 @@ public class BasePage {
     }
 
     protected void switchToNewlyOpenedWindow(WebDriver driver) {
-        await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() > 1);
+        await().atMost(10, SECONDS).until(() -> driver.getWindowHandles().size() > 1);
         for (String winHandle : driver.getWindowHandles()) {
             driver.switchTo().window(winHandle);
         }

@@ -40,6 +40,9 @@ public class DashboardPage extends BasePage {
     @FindBy(id = "official_inbox")
     private WebElement officialInboxTable;
 
+    @FindBy(id = "aplicationSearchResults")
+    private WebElement applicationSearchTable;
+
     @FindBy(xpath = "//html/body/div[3]/div[2]/div/ul/li[2]/a")
     private WebElement dataEntryScreenLinkText;
 
@@ -69,6 +72,13 @@ public class DashboardPage extends BasePage {
 
     @FindBy(linkText = "Daily collection report(PT)")
     private WebElement ptReport;
+
+    @FindBy(linkText = "Search Application")
+    private WebElement searchApplication;
+
+    private WebElement appRow1;
+
+
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -242,6 +252,38 @@ public class DashboardPage extends BasePage {
         waitForElementToBeVisible(ptReport, driver);
         ptReport.click();
         switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseForSearchApplication(){
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Search Application");
+        waitForElementToBeVisible(searchApplication, driver);
+        searchApplication.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void openSearchApplication(String applicationNumber) {
+        appRow1 = getSearchApplicationRowFor(applicationNumber);
+        waitForElementToBeClickable(appRow1 , driver);
+        System.out.println(appRow1.getText());
+        appRow1.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    private WebElement getSearchApplicationRowFor(String applicationNumber) {
+        waitForElementToBeVisible(driver.findElement(By.id("searchResultDiv")), driver);
+        waitForElementToBeVisible(applicationSearchTable, driver);
+
+        await().atMost(10, SECONDS).until(() -> applicationSearchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
+        List<WebElement> applicationRows = applicationSearchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
+        System.out.println("total number of rows -- " + applicationRows.size());
+
+        for (WebElement applicationRow1 : applicationRows) {
+            if (applicationRow1.findElements(By.tagName("td")).get(1).getText().contains(applicationNumber))
+                return applicationRow1;
+        }
+
+        throw new RuntimeException("No application row found for -- " + applicationNumber);
     }
 }
 

@@ -111,10 +111,5 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
                 pageStore.get(PropertyDetailsPage.class).chooseToSubmit();
             });
         });
-
-        Then("^user will get the application number and closes the form$", () -> {
-            String applicationNumber = pageStore.get(PropertyDetailsPage.class).findAdditionalApplicationNumber();
-            scenarioContext.setApplicationNumber(applicationNumber);
-        });
     }
 }

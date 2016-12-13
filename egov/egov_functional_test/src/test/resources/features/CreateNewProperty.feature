@@ -83,7 +83,6 @@ Feature: Create New Property
 
     Scenario: Registered user Update existing property
 
-
       Given commissioner logs in
       When he chooses to create data entry
       And he creates a new assessment for a private residential property

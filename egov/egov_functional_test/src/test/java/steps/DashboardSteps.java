@@ -16,9 +16,9 @@ public class DashboardSteps extends BaseSteps implements En {
         });
 
         And("^chooses to act upon the above application$", () -> {
-            pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
+            //pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
 
-           // pageStore.get(DashboardPage.class).openApplication("15450-2016-EY");
+            pageStore.get(DashboardPage.class).openApplication("15513-2016-RN");
         });
 
         And("^chooses to act upon the above assessment$", () -> {
@@ -85,6 +85,12 @@ public class DashboardSteps extends BaseSteps implements En {
         });
         And("^user chooses to find the daily collection pt reports$", () -> {
             pageStore.get(DashboardPage.class).chooseForDailyCollectionPTReports();
+        });
+        Then("^user will search for the recent application$", () -> {
+            pageStore.get(DashboardPage.class).chooseForSearchApplication();
+        });
+        And("^user chooses to act upon the above application in search applications$", () -> {
+            pageStore.get(DashboardPage.class).openSearchApplication("15512-2016-AI");
         });
     }
 }

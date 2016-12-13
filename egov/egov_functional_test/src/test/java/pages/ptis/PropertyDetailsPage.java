@@ -522,7 +522,10 @@ public class PropertyDetailsPage extends BasePage {
         //System.out.println("========================================="+number);
         waitForElementToBeClickable(additionalCloseButton, webDriver);
         additionalCloseButton.click();
-        switchToNewlyOpenedWindow(webDriver);
+        await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
+        for (String winHandle : webDriver.getWindowHandles()) {
+            webDriver.switchTo().window(winHandle);
+        }
         return number;
     }
 }
