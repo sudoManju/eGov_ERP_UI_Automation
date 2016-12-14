@@ -304,6 +304,7 @@ public class PropertyDetailsPage extends BasePage {
         enterText(mobileNumberTextBox, ownerDetails.getMobileNumber());
         enterText(ownerNameTextBox, ownerDetails.getOwnerName());
         new Select(genderSelection).selectByVisibleText(ownerDetails.getGender().toUpperCase());
+        waitForElementToBeClickable(emailIdTextBox , webDriver);
         enterText(emailIdTextBox, ownerDetails.getEmailAddress());
         new Select(guardianRelationSelection).selectByVisibleText(ownerDetails.getGuardianRelation());
         enterText(guardianTextBox, ownerDetails.getGuardianName());
