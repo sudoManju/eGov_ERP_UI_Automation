@@ -1,8 +1,8 @@
 Feature: To create a new water connection
 
   As a registered user of the system
-  I want to be able to create a new water connection
-  So that the property records are up to date.
+  I want to create a new as well as additional water connection
+  So that the connection records are up to date.
 
   @WIP
   Scenario Outline: applying for new water connection
