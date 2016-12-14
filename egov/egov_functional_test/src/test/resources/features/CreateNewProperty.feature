@@ -77,8 +77,6 @@ Feature: Create New Property
 
     # ADDITION ALTERATION SCREEN #
 
-    @Sanity
-
     Scenario: Registered user Update existing property
 
       Given commissioner logs in
@@ -95,7 +93,6 @@ Feature: Create New Property
       And current user closes acknowledgement
       And current user logs out
 
-  @Sanity
     Scenario: Registered user create property through data entry screen
 
     Given superuser logs in
