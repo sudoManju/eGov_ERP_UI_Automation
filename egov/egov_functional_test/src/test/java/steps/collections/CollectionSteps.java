@@ -8,6 +8,7 @@ import entities.ptis.ApprovalDetails;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import pages.DashboardPage;
 import pages.collections.CollectionsPage;
+import pages.ptis.PropertyAcknowledgementPage;
 import steps.BaseSteps;
 import utils.ExcelReader;
 

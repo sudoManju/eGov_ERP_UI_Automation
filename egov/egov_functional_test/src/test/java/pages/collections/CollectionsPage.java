@@ -88,6 +88,9 @@ public class CollectionsPage extends BasePage {
     @FindBy(id = "button2")
     private WebElement payButton;
 
+    @FindBy(id ="input[value='Approve All Collections'][type='submit']")
+    private WebElement approveCollectionButton;
+
     public CollectionsPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -171,4 +174,6 @@ public class CollectionsPage extends BasePage {
         payButton.click();
         switchToNewlyOpenedWindow(driver);
     }
+
+
 }

@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.jayway.awaitility.Awaitility.await;
@@ -42,6 +43,12 @@ public class DashboardPage extends BasePage {
 
     @FindBy(id = "aplicationSearchResults")
     private WebElement applicationSearchTable;
+
+    @FindBy(id = "official_inbox_wrapper")
+    private WebElement inboxTable;
+
+    @FindBy(id = "official_drafts")
+    private WebElement officialDraftsTable;
 
     @FindBy(xpath = "//html/body/div[3]/div[2]/div/ul/li[2]/a")
     private WebElement dataEntryScreenLinkText;
@@ -291,6 +298,50 @@ public class DashboardPage extends BasePage {
         waitForElementToBeVisible(draftsLink, driver);
         draftsLink.click();
 
+    }
+
+    public void openCollection() {
+        getCollectionRow().click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    private WebElement getCollectionRow() {
+//        waitForElementToBeVisible(driver.findElement(By.id("drafts")), driver);
+        waitForElementToBeVisible(officialDraftsTable, driver);
+
+        await().atMost(10, SECONDS).until(() -> officialDraftsTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
+        List<WebElement> applicationRows = officialDraftsTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
+        System.out.println("total number of rows -- " + applicationRows.size());
+        List<WebElement> propertyTaxList = new ArrayList<>();
+
+       for (WebElement applicationRow : applicationRows) {
+            if (applicationRow.findElements(By.tagName("td")).get(4).getText().contains("Property Tax-944177-Zone-1"))
+                propertyTaxList.add(applicationRow);
+       }
+       return propertyTaxList.get(0);
+
+//       throw new RuntimeException("No application row found for -- ");
+
+    }
+
+    public WebElement getReceiptRow() {
+        waitForElementToBeVisible(driver.findElement(By.id("worklist")), driver);
+        waitForElementToBeVisible(officialInboxTable, driver);
+        await().atMost(10, SECONDS).until(() -> officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
+        List<WebElement> applicationRows = officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
+        System.out.println("total number of rows -- " + applicationRows.size());
+        List<WebElement> propertyTaxList = new ArrayList<>();
+
+        for (WebElement applicationRow : applicationRows) {
+            if (applicationRow.findElements(By.tagName("td")).get(4).getText().contains("Property Tax-944177-Zone-1"))
+                propertyTaxList.add(applicationRow);
+        }
+        return propertyTaxList.get(0);
+    }
+
+    public void openReceipt(){
+        getReceiptRow().click();
+        switchToNewlyOpenedWindow(driver);
     }
 }
 

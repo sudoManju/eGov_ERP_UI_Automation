@@ -94,7 +94,6 @@ Feature: Create New Property
       Given juniorAssistant logs in
       When he chooses to addition alteration
       And he searches for assessment with number "1016084436"
-
       And current user closes acknowledgement
       And current user logs out
 

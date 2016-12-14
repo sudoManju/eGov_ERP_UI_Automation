@@ -97,6 +97,13 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).openDrafts();
 
         });
+        And("^he open application from drafts items$", () -> {
+            pageStore.get(DashboardPage.class).openCollection();
+        });
+        And("^he chooses to act upon on receipt$", () -> {
+            pageStore.get(DashboardPage.class).openReceipt();
+        });
+
     }
 }
 

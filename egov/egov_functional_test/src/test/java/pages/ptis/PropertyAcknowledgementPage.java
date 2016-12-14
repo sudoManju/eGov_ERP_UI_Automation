@@ -45,7 +45,7 @@ public class PropertyAcknowledgementPage extends BasePage {
     }
 
     public void close() {
-
+        waitForElementToBeVisible(closeButton,driver);
         closeButton.click();
         await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
         for (String winHandle : driver.getWindowHandles()) {

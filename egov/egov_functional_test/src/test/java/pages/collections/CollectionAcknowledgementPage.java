@@ -1,9 +1,6 @@
 package pages.collections;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
 
@@ -34,6 +31,12 @@ public class CollectionAcknowledgementPage extends BasePage {
     @FindBy(xpath = ".//*[@id='actionMessages']/ul/li")
     private WebElement number;
 
+    @FindBy(css = "input[value='Submit All Collections'][type='submit']")
+    private WebElement submitAllCollectionsButton;
+
+    @FindBy(id ="input[value='Approve All Collections'][type='submit']")
+    private WebElement approveCollectionButton;
+
     public String getChallanNumber() {
 
         String num = number.getText();
@@ -45,12 +48,26 @@ public class CollectionAcknowledgementPage extends BasePage {
         return number;
     }
 
-    public void close() {
+    public void submitAllCollections() throws Exception {
 
-        closeButton.click();
-        await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
-        for (String winHandle : driver.getWindowHandles()) {
-            driver.switchTo().window(winHandle);
-        }
+        test_Scroll_Page_To_Bottom();
+        waitForElementToBeClickable(submitAllCollectionsButton,driver);
+        submitAllCollectionsButton.click();
+    }
+
+
+    public void test_Scroll_Page_To_Bottom() throws Exception {
+//        init();
+
+//        driver.navigate().to("http://www.alexa.com/topsites/countries;15/LU");
+
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        jse.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+    }
+
+    public void approveCollection() throws Exception {
+        test_Scroll_Page_To_Bottom();
+        waitForElementToBeClickable(approveCollectionButton,driver);
+        approveCollectionButton.click();
     }
 }

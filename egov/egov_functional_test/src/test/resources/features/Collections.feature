@@ -10,13 +10,21 @@ Feature: Collection
     Given juniorAssistant logs in
     When he chooses to collect taxes
 
-    And he chooses to collect tax for "1016000123"
+    And he chooses to collect tax for "1016000054"
     And he chooses to pay tax
     And he pays using cheque with details as defaultChequeDetails
 
-    And current user closes acknowledgement
+    And he closes the acknowledgement
     And he clicks on drafts
-    And he open from application from draft items
+    And he open application from drafts items
+    And he submit all collections
+    And current user logs out
+
+    When adm_manager logs in
+    And he chooses to act upon on receipt
+    And he approves the receipt
+    And current user logs out
+
 
 
 
