@@ -1,14 +1,17 @@
 package pages.ptis;
 
 import entities.ptis.*;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
 import static com.jayway.awaitility.Awaitility.await;
+import static java.lang.Enum.valueOf;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class PropertyDetailsPage extends BasePage {
@@ -279,9 +282,6 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy (name="instrHeaderCash.instrumentAmount")
     private WebElement properAmountToBePaid;
 
-    @FindBy(id = "button2")
-    private WebElement payButton;
-
     public PropertyDetailsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -540,16 +540,16 @@ public class PropertyDetailsPage extends BasePage {
 
     public void payCash() {
 
+        waitForElementToBeClickable(propertyAmountPaid, webDriver);
+        waitForElementToBeClickable(properAmountToBePaid, webDriver);
 
-        waitForElementToBeVisible(propertyAmountPaid, webDriver);
-        String amount = propertyAmountPaid.getText();
+        String amount = propertyAmountPaid.getAttribute("value");
+        String[] finalAmount = amount.split("\\.");
+        properAmountToBePaid.sendKeys(finalAmount[0]);
 
-        //properAmountToBePaid.click();
-        waitForElementToBeVisible(properAmountToBePaid, webDriver);
-        properAmountToBePaid.sendKeys(amount);
+        properAmountToBePaid.sendKeys(Keys.CONTROL + "t");
+        properAmountToBePaid.sendKeys(Keys.ENTER);
 
-        payButton.click();
         switchToNewlyOpenedWindow(webDriver);
-
     }
 }

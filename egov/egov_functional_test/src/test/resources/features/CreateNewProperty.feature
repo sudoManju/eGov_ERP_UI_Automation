@@ -78,7 +78,7 @@ Feature: Create New Property
 
     # ADDITION ALTERATION SCREEN #
 
-    Scenario: Registered user Update existing property1
+    Scenario Outline: : Registered user Update existing property
 
       Given commissioner logs in
       When he chooses to create data entry
@@ -87,22 +87,6 @@ Feature: Create New Property
       And he choose to add edit DCB
       And he choose to close the dataentry acknowledgement screen
       And current user logs out
-
-      When juniorAssistant logs in
-      When he chooses to addition alteration
-      And he searches for assessment with number "1016084436"
-      And current user closes acknowledgement
-      And current user logs out
-
-#    Scenario: Registered user create property through data entry screen
-#
-#    Given superuser logs in
-#    When he chooses to create data entry
-#    And he creates a new assessment for a private residential property
-#    Then dataEntry Details saved successfully
-
-  @WIP
-    Scenario Outline: Registered user Update existing property
 
       Given juniorAssistant logs in
       When he chooses to addition alteration
@@ -149,12 +133,12 @@ Feature: Create New Property
       And juniorAssistant logs in
       And chooses to act upon the above assessment
       And he generates a notice
-
       Examples:
         |  editAssessmentDetails         |     amenitiesDetails |          editFloorDetails |
         |  assessmentAdditionProperty    |        all            |         firstFloorAdditionaltaration|
 
-      @WIP
+
+      @Sanity
       Scenario: Register Choose to do title Transfer
 
         Given commissioner logs in
@@ -170,6 +154,7 @@ Feature: Create New Property
         And he searches for assessment with number "1016042569"
         And he chooses to pay tax
         And he pay tax using Cash
+        And current user logs out
 
 
 
