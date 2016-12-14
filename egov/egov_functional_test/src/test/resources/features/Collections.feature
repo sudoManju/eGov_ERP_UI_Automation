@@ -10,11 +10,10 @@ Feature: Collection
     Given juniorAssistant logs in
     When he chooses to collect taxes
 
-    And he chooses to collect tax for "1016000054"
+    And he chooses to collect tax for "1016000057"
     And he chooses to pay tax
     And he pays using cheque with details as defaultChequeDetails
 
-    And he closes the acknowledgement
     And he clicks on drafts
     And he open application from drafts items
     And he submit all collections

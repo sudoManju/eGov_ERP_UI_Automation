@@ -19,6 +19,8 @@ public class CollectionSteps extends BaseSteps implements En {
         And("^he pays using cheque with details as (\\w+)$", (String chequeDetailsDataName) -> {
             ChequeDetails chequeDetails = new ExcelReader(collectionsTestDataFileName).getChequeDetails(chequeDetailsDataName);
             pageStore.get(CollectionsPage.class).enterChequeDetails(chequeDetails);
+
+            pageStore.get(PropertyAcknowledgementPage.class).close();
         });
 
         And("^he enters challan details$", () -> {

@@ -23,6 +23,9 @@ public class PropertyAcknowledgementPage extends BasePage {
     @FindBy(linkText = "Close")
     private WebElement closeLink;
 
+    @FindBy(id = "buttonClose")
+    private WebElement propertyCloseButton;
+
     @FindBy(id = "view")
     private WebElement assessmentViewButton;
 

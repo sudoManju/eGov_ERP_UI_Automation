@@ -115,6 +115,7 @@ public class CollectionsPage extends BasePage {
 
 
         enterText(amountTextBox, amountToBePaidLabel.getAttribute("value").split("\\.")[0]);
+        payButton.click();
     }
 
     public void enterChallanHeader(ChallanHeaderDetails challanHeaderDetails) {
@@ -132,9 +133,6 @@ public class CollectionsPage extends BasePage {
         new Select(serviceCategoryBox).selectByVisibleText(challanHeaderDetails.getServiceCategory());
         new Select(serviceTypeBox).selectByVisibleText(challanHeaderDetails.getServiceType());
 
-        waitForElementToBeClickable(challanAmountTextBox,driver);
-        challanAmountTextBox.click();
-        challanAmountTextBox.clear();
         waitForElementToBeClickable(challanAmountTextBox,driver);
         challanAmountTextBox.sendKeys(challanHeaderDetails.getAmount());
     }
@@ -159,8 +157,7 @@ public class CollectionsPage extends BasePage {
         waitForElementToBeClickable(challanNumberTextBox, driver);
         challanNumberTextBox.sendKeys(number);
 
-        WebElement webElement = driver.findElement(By.xpath(""));
-        webElement.sendKeys(Keys.TAB);
+        challanNumberTextBox.sendKeys(Keys.TAB);
     }
 
     public void payAmount() {
