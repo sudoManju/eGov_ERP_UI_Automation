@@ -37,9 +37,9 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).chooseToSearchProperty();
         });
 
-//        When("^he chooses to create Miscellaneous receipt$", () -> {
-//            pageStore.get(DashboardPage.class).createMiscellenous();
-//      });
+      When("^he chooses to create Miscellaneous receipt$", () -> {
+           pageStore.get(DashboardPage.class).createMiscellenous();
+     });
 
         When("^he chooses to create Challan$", () -> {
             pageStore.get(DashboardPage.class).createChallan();
@@ -49,11 +49,7 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).chooseToCreateNewDataEntryScreen();
         });
 
-//        When("^he chooses to create Miscellaneous receipt$", () -> {
-//                // Write code here that turns the phrase above into concrete actions
-//                pageStore.get(DashboardPage.class).createMiscellenous();
-//
-//            });
+
 
         And("^user chooses to apply for new water connection$", () -> {
             pageStore.get(DashboardPage.class).chooseToCreateNewWaterConnection();
@@ -109,6 +105,7 @@ public class DashboardSteps extends BaseSteps implements En {
             // Write code here that turns the phrase above into concrete actions
             pageStore.get(DashboardPage.class).choosePropertyTaxCollection();
         });
+
     }
 }
 

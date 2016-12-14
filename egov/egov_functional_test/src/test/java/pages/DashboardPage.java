@@ -92,6 +92,7 @@ public class DashboardPage extends BasePage {
     private WebElement collectPropertyTax;
 
 
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
