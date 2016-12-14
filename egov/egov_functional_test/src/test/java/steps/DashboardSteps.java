@@ -83,6 +83,7 @@ public class DashboardSteps extends BaseSteps implements En {
         And("^he search for challan receipt$", () -> {
             pageStore.get(DashboardPage.class).chooseToSearchForChallanReceipt();
         });
+
         And("^user chooses to find the daily collection pt reports$", () -> {
             pageStore.get(DashboardPage.class).chooseForDailyCollectionPTReports();
         });
@@ -91,6 +92,10 @@ public class DashboardSteps extends BaseSteps implements En {
         });
         And("^user chooses to act upon the above application in search applications$", () -> {
             pageStore.get(DashboardPage.class).openSearchApplication("15512-2016-AI");
+
+        And("^he clicks on drafts$", () -> {
+            pageStore.get(DashboardPage.class).openDrafts();
+
         });
     }
 }

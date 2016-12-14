@@ -21,5 +21,8 @@ public class CollectionAcknowledgementSteps extends BaseSteps implements En {
         And("^he closes the acknowledgement$", () -> {
            pageStore.get(CollectionAcknowledgementPage.class).close();
         });
+        And("^he submit all collections$", () -> {
+
+        });
     }
 }

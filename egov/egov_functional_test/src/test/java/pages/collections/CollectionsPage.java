@@ -55,7 +55,7 @@ public class CollectionsPage extends BasePage {
     @FindBy(id = "serviceId")
     private  WebElement serviceTypeBox;
 
-    @FindBy(id = "billDetailslist[0].creditAmountDetail")
+    @FindBy(id = "instrumentChequeAmount")
     private WebElement amountTextBox;
 
     @FindBy(id = "approverDeptId")

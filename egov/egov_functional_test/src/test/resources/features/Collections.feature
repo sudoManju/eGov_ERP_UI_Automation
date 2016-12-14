@@ -10,9 +10,15 @@ Feature: Collection
     Given juniorAssistant logs in
     When he chooses to collect taxes
 
-    And he chooses to collect tax for "1016053938"
+    And he chooses to collect tax for "1016000123"
     And he chooses to pay tax
     And he pays using cheque with details as defaultChequeDetails
+
+    And current user closes acknowledgement
+    And he clicks on drafts
+    And he open from application from draft items
+
+
 
 
     Scenario: System should be able to create Miscellaneous receipt

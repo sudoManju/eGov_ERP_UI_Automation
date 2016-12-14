@@ -40,6 +40,7 @@ public class CollectionSteps extends BaseSteps implements En {
             pageStore.get(CollectionsPage.class).payAmount();
         });
 
+
     }
 
 }

@@ -78,6 +78,9 @@ public class DashboardPage extends BasePage {
 
     private WebElement appRow1;
 
+    @FindBy(css = "li[class='dropdown'] a[data-original-title ='Drafts']")
+    private WebElement draftsLink;
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -282,6 +285,12 @@ public class DashboardPage extends BasePage {
         }
 
         throw new RuntimeException("No application row found for -- " + applicationNumber);
+    }
+
+    public void openDrafts(){
+        waitForElementToBeVisible(draftsLink, driver);
+        draftsLink.click();
+
     }
 }
 
