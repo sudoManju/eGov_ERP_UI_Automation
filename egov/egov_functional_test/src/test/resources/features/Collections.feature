@@ -4,6 +4,7 @@ Feature: Collection
   I want to be able to collect taxes
   So that the property records are up to date.
 
+  @Sanity
   Scenario: System should be able to collect taxes
 
     Given juniorAssistant logs in
@@ -30,7 +31,7 @@ Feature: Collection
       When he chooses to create Miscellaneous receipt
       And he enters Miscellaneous header
 
-  @WIP
+  @Sanity
   Scenario: System should be able to Create Challan
 
     Given juniorAssistant logs in

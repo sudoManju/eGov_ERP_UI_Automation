@@ -65,6 +65,7 @@ Feature: Create New Property
 
     # DATA ENTRY SCREEN #
 
+  @Sanity
     Scenario: Registered user create property through data entry screen
 
       Given commissioner logs in
@@ -77,7 +78,7 @@ Feature: Create New Property
 
     # ADDITION ALTERATION SCREEN #
 
-    Scenario: Registered user Update existing property
+    Scenario: Registered user Update existing property1
 
       Given commissioner logs in
       When he chooses to create data entry
@@ -93,12 +94,12 @@ Feature: Create New Property
       And current user closes acknowledgement
       And current user logs out
 
-    Scenario: Registered user create property through data entry screen
-
-    Given superuser logs in
-    When he chooses to create data entry
-    And he creates a new assessment for a private residential property
-    Then dataEntry Details saved successfully
+#    Scenario: Registered user create property through data entry screen
+#
+#    Given superuser logs in
+#    When he chooses to create data entry
+#    And he creates a new assessment for a private residential property
+#    Then dataEntry Details saved successfully
 
   @WIP
     Scenario Outline: Registered user Update existing property
