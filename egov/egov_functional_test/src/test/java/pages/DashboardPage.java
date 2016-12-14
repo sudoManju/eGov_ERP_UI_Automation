@@ -78,8 +78,6 @@ public class DashboardPage extends BasePage {
 
     private WebElement appRow1;
 
-
-
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }

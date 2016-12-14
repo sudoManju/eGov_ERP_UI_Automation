@@ -16,9 +16,9 @@ public class DashboardSteps extends BaseSteps implements En {
         });
 
         And("^chooses to act upon the above application$", () -> {
-            //pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
+            pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
 
-            pageStore.get(DashboardPage.class).openApplication("15513-2016-RN");
+            //pageStore.get(DashboardPage.class).openApplication("15513-2016-RN");
         });
 
         And("^chooses to act upon the above assessment$", () -> {

@@ -316,6 +316,10 @@ public class WaterChargeManagementPage extends BasePage {
     public void closeReceipt(){
         waitForElementToBeClickable(closeReceiptButton , webDriver);
         closeReceiptButton.click();
+        await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
+        for (String winHandle : webDriver.getWindowHandles()) {
+            webDriver.switchTo().window(winHandle);
+        }
 
     }
 }
