@@ -92,6 +92,7 @@ public class DashboardSteps extends BaseSteps implements En {
         });
         And("^user chooses to act upon the above application in search applications$", () -> {
             pageStore.get(DashboardPage.class).openSearchApplication("15512-2016-AI");
+        });
 
         And("^he clicks on drafts$", () -> {
             pageStore.get(DashboardPage.class).openDrafts();
