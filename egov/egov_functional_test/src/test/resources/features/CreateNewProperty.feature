@@ -6,7 +6,6 @@ Feature: Create New Property
 
   # CREATE NEW PROPERTY SCREEN #
 
-  @Sanity
   Scenario Outline: Registered user creating a new property in the system
     Given juniorAssistant logs in
 
@@ -66,7 +65,6 @@ Feature: Create New Property
 
     # DATA ENTRY SCREEN #
 
-    @Sanity
     Scenario: Registered user create property through data entry screen
 
       Given commissioner logs in
@@ -80,8 +78,8 @@ Feature: Create New Property
     # ADDITION ALTERATION SCREEN #
 
     @Sanity
-    Scenario Outline: Registered user Update existing property
 
+    Scenario: Registered user Update existing property
 
       Given commissioner logs in
       When he chooses to create data entry
@@ -90,6 +88,23 @@ Feature: Create New Property
       And he choose to add edit DCB
       And he choose to close the dataentry acknowledgement screen
       And current user logs out
+
+      When juniorAssistant logs in
+      When he chooses to addition alteration
+      And he searches for assessment with number "1016084436"
+      And current user closes acknowledgement
+      And current user logs out
+
+  @Sanity
+    Scenario: Registered user create property through data entry screen
+
+    Given superuser logs in
+    When he chooses to create data entry
+    And he creates a new assessment for a private residential property
+    Then dataEntry Details saved successfully
+
+  @WIP
+    Scenario Outline: Registered user Update existing property
 
       Given juniorAssistant logs in
       When he chooses to addition alteration

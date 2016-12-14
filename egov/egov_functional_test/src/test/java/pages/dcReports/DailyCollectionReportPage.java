@@ -3,10 +3,14 @@ package pages.dcReports;
 import entities.dcReports.PTReport;
 import entities.dcReports.VLTReport;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
+
+import static com.jayway.awaitility.Awaitility.await;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * Created by vinaykumar on 11/12/16.
@@ -33,6 +37,9 @@ public class DailyCollectionReportPage extends BasePage {
     @FindBy(id = "dailyCollectionReportSearch")
     private WebElement ptReportSearch;
 
+    @FindBy(linkText = "Close")
+    private WebElement dcCloseButton;
+
     public void enterVLTReportDetails(VLTReport vltReport){
 
         //waitForElementToBeClickable(vltFromDate, webDriver);
@@ -51,4 +58,5 @@ public class DailyCollectionReportPage extends BasePage {
         enterText(ptToDate, ptReport.getToDate());
         ptReportSearch.click();
     }
+
 }

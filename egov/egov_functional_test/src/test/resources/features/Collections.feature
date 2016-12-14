@@ -4,7 +4,6 @@ Feature: Collection
   I want to be able to collect taxes
   So that the property records are up to date.
 
-
   Scenario: System should be able to collect taxes
 
     Given juniorAssistant logs in
@@ -24,18 +23,14 @@ Feature: Collection
     And he approves the receipt
     And current user logs out
 
-
-
-
-
-    Scenario: System should be able to create Miscellaneous receipt
+  @WIP
+  Scenario: System should be able to create Miscellaneous receipt
 
       Given juniorAssistant logs in
       When he chooses to create Miscellaneous receipt
       And he enters Miscellaneous header
 
-
-
+  @WIP
   Scenario: System should be able to Create Challan
 
     Given juniorAssistant logs in

@@ -4,6 +4,7 @@ import cucumber.api.java8.En;
 import entities.dcReports.PTReport;
 import entities.dcReports.VLTReport;
 import pages.dcReports.DailyCollectionReportPage;
+import pages.ptis.PropertyAcknowledgementPage;
 import steps.BaseSteps;
 import utils.ExcelReader;
 
@@ -20,6 +21,7 @@ public class DailyCollectionReportSteps extends BaseSteps implements En {
 
             VLTReport vltReport = new ExcelReader(ptisTestDataFileName).getVLTReportInfo(vltReportInfo);
             pageStore.get(DailyCollectionReportPage.class).enterVLTReportDetails(vltReport);
+            pageStore.get(PropertyAcknowledgementPage.class).toCloseAdditionalConnectionPage();
         });
 
         And("^user need to enter the date to get the pt report details$", () -> {
@@ -27,6 +29,8 @@ public class DailyCollectionReportSteps extends BaseSteps implements En {
 
             PTReport ptReport = new ExcelReader(ptisTestDataFileName).getPTReportInfo(ptReportInfo);
             pageStore.get(DailyCollectionReportPage.class).enterPTReportDetails(ptReport);
+            pageStore.get(PropertyAcknowledgementPage.class).toCloseAdditionalConnectionPage();
+
         });
     }
 }
