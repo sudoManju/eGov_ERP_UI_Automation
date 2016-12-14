@@ -80,8 +80,8 @@ Feature: Create New Property
     # ADDITION ALTERATION SCREEN #
 
     @Sanity
+    Scenario Outline: Registered user Update existing property
 
-    Scenario: Registered user Update existing property
 
       Given commissioner logs in
       When he chooses to create data entry
@@ -90,26 +90,6 @@ Feature: Create New Property
       And he choose to add edit DCB
       And he choose to close the dataentry acknowledgement screen
       And current user logs out
-
-      Given juniorAssistant logs in
-      When he chooses to addition alteration
-      And he searches for assessment with number "1016084436"
-      And current user closes acknowledgement
-      And current user logs out
-
-
-
-
-  @Sanity
-    Scenario: Registered user create property through data entry screen
-
-    Given superuser logs in
-    When he chooses to create data entry
-    And he creates a new assessment for a private residential property
-    Then dataEntry Details saved successfully
-
-    @Sanity
-    Scenario Outline: Registered user Update existing property
 
       Given juniorAssistant logs in
       When he chooses to addition alteration
@@ -161,8 +141,22 @@ Feature: Create New Property
         |  editAssessmentDetails         |     amenitiesDetails |          editFloorDetails |
         |  assessmentAdditionProperty    |        all            |         firstFloorAdditionaltaration|
 
+      @WIP
+      Scenario: Register Choose to do title Transfer
 
+        Given commissioner logs in
+        When he chooses to create data entry
+        And he creates a new assessment for a private residential property
+        Then dataEntry Details saved successfully
+        And he choose to add edit DCB
+        And he choose to close the dataentry acknowledgement screen
+        And current user logs out
 
+        Given juniorAssistant logs in
+        When he chooses to collect tax of property
+        And he searches for assessment with number "1016042569"
+        And he chooses to pay tax
+        And he pay tax using Cash
 
 
 

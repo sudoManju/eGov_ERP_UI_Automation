@@ -273,6 +273,15 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(linkText = "Close")
     private WebElement additionalCloseButton;
 
+    @FindBy(name = "totalamounttobepaid")
+    private WebElement propertyAmountPaid;
+
+    @FindBy (name="instrHeaderCash.instrumentAmount")
+    private WebElement properAmountToBePaid;
+
+    @FindBy(id = "button2")
+    private WebElement payButton;
+
     public PropertyDetailsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -527,5 +536,20 @@ public class PropertyDetailsPage extends BasePage {
             webDriver.switchTo().window(winHandle);
         }
         return number;
+    }
+
+    public void payCash() {
+
+
+        waitForElementToBeVisible(propertyAmountPaid, webDriver);
+        String amount = propertyAmountPaid.getText();
+
+        //properAmountToBePaid.click();
+        waitForElementToBeVisible(properAmountToBePaid, webDriver);
+        properAmountToBePaid.sendKeys(amount);
+
+        payButton.click();
+        switchToNewlyOpenedWindow(webDriver);
+
     }
 }

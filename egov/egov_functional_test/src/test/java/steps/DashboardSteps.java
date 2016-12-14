@@ -105,6 +105,10 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).openReceipt();
         });
 
+        When("^he chooses to collect tax of property$", () -> {
+            // Write code here that turns the phrase above into concrete actions
+            pageStore.get(DashboardPage.class).choosePropertyTaxCollection();
+        });
     }
 }
 

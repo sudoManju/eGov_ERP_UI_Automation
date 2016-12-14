@@ -88,6 +88,10 @@ public class DashboardPage extends BasePage {
     @FindBy(css = "li[class='dropdown'] a[data-original-title ='Drafts']")
     private WebElement draftsLink;
 
+    @FindBy(linkText = "Collect Tax")
+    private WebElement collectPropertyTax;
+
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -343,5 +347,15 @@ public class DashboardPage extends BasePage {
         getReceiptRow().click();
         switchToNewlyOpenedWindow(driver);
     }
+    public void choosePropertyTaxCollection() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Collect Tax");
+        waitForElementToBeVisible(collectPropertyTax, driver);
+        collectPropertyTax.click();
+        switchToNewlyOpenedWindow(driver);
+
+
+    }
+
 }
 
