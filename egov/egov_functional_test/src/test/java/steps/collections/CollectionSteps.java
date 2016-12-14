@@ -21,6 +21,7 @@ public class CollectionSteps extends BaseSteps implements En {
             pageStore.get(CollectionsPage.class).enterChequeDetails(chequeDetails);
 
             pageStore.get(PropertyAcknowledgementPage.class).close();
+
         });
 
         And("^he enters challan details$", () -> {
