@@ -550,20 +550,10 @@ public class PropertyDetailsPage extends BasePage {
 
         String amount = propertyAmountPaid.getAttribute("value");
         String[] finalAmount = amount.split("\\.");
-        waitForElementToBeClickable(properAmountToBePaid, webDriver);
         properAmountToBePaid.sendKeys(finalAmount[0]);
 
         properAmountToBePaid.sendKeys(Keys.CONTROL + "t");
         properAmountToBePaid.sendKeys(Keys.ENTER);
-        waitForElementToBeVisible(propertyAmountPaid, webDriver);
-
-      //  String amount = propertyAmountPaid.getText();
-
-
-        System.out.println("amount"+amount);
-
-        waitForElementToBeVisible(properAmountToBePaid, webDriver);
-        enterText(properAmountToBePaid,amount);
 
         switchToNewlyOpenedWindow(webDriver);
     }
