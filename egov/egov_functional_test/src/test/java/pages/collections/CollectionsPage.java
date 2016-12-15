@@ -160,6 +160,7 @@ public class CollectionsPage extends BasePage {
         new Select(approverBox).selectByVisibleText(approverDetails.getApprover());
 
         createChallanButton.click();
+        //challanAmountTextBox.sendKeys("50");
         driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
     }
 
