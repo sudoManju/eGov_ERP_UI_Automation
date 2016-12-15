@@ -29,6 +29,8 @@ public class HomePage extends BasePage {
     }
 
     public void loginAs(LoginDetails loginDetails) {
+
+        driver.navigate().refresh();
         userNameTextBox.sendKeys(loginDetails.getLoginId());
         passwordTextBox.sendKeys(loginDetails.getPassword());
         passwordTextBox.sendKeys(Keys.CONTROL + "t");
