@@ -346,7 +346,9 @@ public class DashboardPage extends BasePage {
     }
 
     public void openReceipt(){
-        getReceiptRow().click();
+        appRow1 = getReceiptRow();
+        waitForElementToBeClickable(appRow1 , driver);
+        appRow1.click();
         switchToNewlyOpenedWindow(driver);
     }
     public void choosePropertyTaxCollection() {
