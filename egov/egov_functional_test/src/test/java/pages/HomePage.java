@@ -31,7 +31,7 @@ public class HomePage extends BasePage {
     public void loginAs(LoginDetails loginDetails) {
         userNameTextBox.sendKeys(loginDetails.getLoginId());
         passwordTextBox.sendKeys(loginDetails.getPassword());
-        passwordTextBox.sendKeys(Keys.TAB);
+        passwordTextBox.sendKeys(Keys.CONTROL + "t");
         passwordTextBox.sendKeys(Keys.ENTER);
 //        waitForElementToBeClickable(signInButton, driver);
 //        signInButton.click();

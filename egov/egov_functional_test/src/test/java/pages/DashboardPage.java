@@ -134,6 +134,7 @@ public class DashboardPage extends BasePage {
     public void logOut() {
         waitForElementToBeVisible(profileNameLink, driver);
         profileNameLink.click();
+        waitForElementToBeVisible(signOutLink , driver);
         signOutLink.click();
     }
 

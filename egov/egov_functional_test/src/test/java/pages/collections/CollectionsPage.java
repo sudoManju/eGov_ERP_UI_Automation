@@ -143,6 +143,8 @@ public class CollectionsPage extends BasePage {
         functionTab.sendKeys(Keys.CONTROL + "t");
 
         challanAmountTextBox.clear();
+        challanAmountTextBox.sendKeys(Keys.CONTROL + "a");
+        challanAmountTextBox.sendKeys(Keys.DELETE);
         challanAmountTextBox.sendKeys("500");
 
     }
