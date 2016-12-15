@@ -5,7 +5,9 @@ import entities.collections.ChequeDetails;
 import entities.ptis.ApprovalDetails;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasePage;
 
 import java.util.List;
@@ -28,7 +30,7 @@ public class CollectionsPage extends BasePage {
     @FindBy(id = "bankName")
     private WebElement bankNameInput;
 
-    @FindBy( id="billDetailslist[0].creditAmountDetail")
+    @FindBy(id = "billDetailslist[0].creditAmountDetail")
     private WebElement challanAmountTextBox;
 
     @FindBy(id = "paidBy")
@@ -133,8 +135,12 @@ public class CollectionsPage extends BasePage {
         new Select(serviceCategoryBox).selectByVisibleText(challanHeaderDetails.getServiceCategory());
         new Select(serviceTypeBox).selectByVisibleText(challanHeaderDetails.getServiceType());
 
-        waitForElementToBeClickable(challanAmountTextBox,driver);
+        waitForElementToBeClickable(challanAmountTextBox ,driver);
+        challanAmountTextBox.click();
+        challanAmountTextBox.sendKeys(Keys.CONTROL + "a");
+        challanAmountTextBox.sendKeys(Keys.DELETE);
         challanAmountTextBox.sendKeys(challanHeaderDetails.getAmount());
+
     }
 
     public void enterApprovalDetails(ApprovalDetails approverDetails) {

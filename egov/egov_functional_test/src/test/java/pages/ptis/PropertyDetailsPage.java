@@ -550,6 +550,7 @@ public class PropertyDetailsPage extends BasePage {
 
         String amount = propertyAmountPaid.getAttribute("value");
         String[] finalAmount = amount.split("\\.");
+        waitForElementToBeClickable(properAmountToBePaid, webDriver);
         properAmountToBePaid.sendKeys(finalAmount[0]);
 
         properAmountToBePaid.sendKeys(Keys.CONTROL + "t");

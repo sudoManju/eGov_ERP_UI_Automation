@@ -17,7 +17,8 @@ public class HomePage extends BasePage {
     @FindBy(id = "j_password")
     private WebElement passwordTextBox;
 
-    @FindBy(id = "signin-action")
+    //@FindBy(id = "signin-action")
+    @FindBy(css = ".btn.btn-custom.btn-block.btn-login.signin-submit")
     private WebElement signInButton;
 
     @FindBy(id = "locationId")
