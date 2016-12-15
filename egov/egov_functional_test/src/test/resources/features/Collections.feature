@@ -10,7 +10,7 @@ Feature: Collection
     Given juniorAssistant logs in
     When he chooses to collect taxes
 
-    And he chooses to collect tax for "1016000157"
+    And he chooses to collect tax for "1016000062"
     And he chooses to pay tax
     And he pays using cheque with details as defaultChequeDetails
 
