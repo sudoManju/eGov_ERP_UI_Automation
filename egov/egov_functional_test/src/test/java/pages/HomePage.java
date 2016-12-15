@@ -8,6 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
 public class HomePage extends BasePage {
     private WebDriver driver;
 
@@ -17,8 +19,8 @@ public class HomePage extends BasePage {
     @FindBy(id = "j_password")
     private WebElement passwordTextBox;
 
-    //@FindBy(id = "signin-action")
-    @FindBy(css = ".btn.btn-custom.btn-block.btn-login.signin-submit")
+    @FindBy(id = "signin-action")
+    //@FindBy(css = ".btn.btn-custom.btn-block.btn-login.signin-submit")
     private WebElement signInButton;
 
     @FindBy(id = "locationId")
@@ -30,12 +32,12 @@ public class HomePage extends BasePage {
 
     public void loginAs(LoginDetails loginDetails) {
 
-        driver.navigate().refresh();
         userNameTextBox.sendKeys(loginDetails.getLoginId());
         passwordTextBox.sendKeys(loginDetails.getPassword());
         passwordTextBox.sendKeys(Keys.CONTROL + "t");
         passwordTextBox.sendKeys(Keys.ENTER);
 //        waitForElementToBeClickable(signInButton, driver);
 //        signInButton.click();
+
     }
 }
