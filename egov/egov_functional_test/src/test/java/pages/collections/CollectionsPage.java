@@ -4,7 +4,9 @@ import entities.collections.ChallanHeaderDetails;
 import entities.collections.ChequeDetails;
 import entities.ptis.ApprovalDetails;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -56,6 +58,9 @@ public class CollectionsPage extends BasePage {
 
     @FindBy(id = "serviceId")
     private  WebElement serviceTypeBox;
+
+    @FindBy(id = "functionId")
+    private WebElement functionTab;
 
     @FindBy(id = "instrumentChequeAmount")
     private WebElement amountTextBox;
@@ -134,12 +139,11 @@ public class CollectionsPage extends BasePage {
 
         new Select(serviceCategoryBox).selectByVisibleText(challanHeaderDetails.getServiceCategory());
         new Select(serviceTypeBox).selectByVisibleText(challanHeaderDetails.getServiceType());
+        serviceTypeBox.sendKeys(Keys.CONTROL + "t");
+        functionTab.sendKeys(Keys.CONTROL + "t");
 
-        waitForElementToBeClickable(challanAmountTextBox ,driver);
-        challanAmountTextBox.click();
-        challanAmountTextBox.sendKeys(Keys.CONTROL + "a");
-        challanAmountTextBox.sendKeys(Keys.DELETE);
-        challanAmountTextBox.sendKeys(challanHeaderDetails.getAmount());
+        challanAmountTextBox.clear();
+        challanAmountTextBox.sendKeys("500");
 
     }
 
