@@ -91,6 +91,9 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Collect Tax")
     private WebElement collectPropertyTax;
 
+    @FindBy(linkText = "Apply for Closure of Connection")
+    private WebElement closureConnection;
+
 
 
     public DashboardPage(WebDriver driver) {
@@ -357,8 +360,14 @@ public class DashboardPage extends BasePage {
         waitForElementToBeVisible(collectPropertyTax, driver);
         collectPropertyTax.click();
         switchToNewlyOpenedWindow(driver);
+    }
 
-
+    public void chooseToApplyForClosureConnection(){
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Apply for Closure of Connection");
+        waitForElementToBeVisible(closureConnection , driver);
+        closureConnection.click();
+        switchToNewlyOpenedWindow(driver);
     }
 
 }

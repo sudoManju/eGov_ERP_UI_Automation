@@ -15,6 +15,9 @@ import pages.BasePage;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static com.jayway.awaitility.Awaitility.await;
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 public class CollectionsPage extends BasePage {
 
     private WebDriver driver;
@@ -111,9 +114,9 @@ public class CollectionsPage extends BasePage {
         chequeDateTextBox.sendKeys(Keys.TAB);
         bankNameInput.sendKeys(chequeDetails.getBankName());
 
-        driver.findElement(By.id("bankcodescontainer"))
+        await().atMost(10, SECONDS).until(() -> driver.findElement(By.id("bankcodescontainer"))
                 .findElements(By.cssSelector("ul li"))
-                .get(0).click();
+                .get(0).click());
 
 //        amountTextBox.sendKeys(amountToBePaidLabel.getText());
         paidByTextBox.sendKeys(chequeDetails.getPaidBy());

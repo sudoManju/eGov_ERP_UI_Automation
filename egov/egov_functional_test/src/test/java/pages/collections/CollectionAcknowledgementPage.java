@@ -51,6 +51,7 @@ public class CollectionAcknowledgementPage extends BasePage {
     public void submitAllCollections() throws Exception {
 
         test_Scroll_Page_To_Bottom();
+
         waitForElementToBeClickable(submitAllCollectionsButton,driver);
         submitAllCollectionsButton.click();
     }

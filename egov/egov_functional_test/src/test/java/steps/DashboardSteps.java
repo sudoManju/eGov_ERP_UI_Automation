@@ -105,6 +105,9 @@ public class DashboardSteps extends BaseSteps implements En {
             // Write code here that turns the phrase above into concrete actions
             pageStore.get(DashboardPage.class).choosePropertyTaxCollection();
         });
+        And("^user search to apply for closure of connection$", () -> {
+            pageStore.get(DashboardPage.class).chooseToApplyForClosureConnection();
+        });
 
     }
 }
