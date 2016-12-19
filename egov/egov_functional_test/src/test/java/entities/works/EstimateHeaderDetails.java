@@ -1,23 +1,19 @@
-package entities;
+package entities.works;
 
-import builders.EstimateHeaderDetailsBuilder;
 
-/**
- * Created by manjunatha-lap on 12/5/2016.
- */
-public class EstimateHeaderDetails extends EstimateHeaderDetailsBuilder {
-   private String Date;
-   private String Subject;
-   private String RequirementNumber;
-   private String Description;
-   private String ElectionWard;
-   private String Location;
-   private String WorkCategory;
-   private String Beneficiary;
-   private String NatureOfWork;
-   private String TypeOfWork;
-   private String SubTypeOfWork;
-   private String ModeOfEntrustment;
+public class EstimateHeaderDetails {
+    private String Date;
+    private String Subject;
+    private String RequirementNumber;
+    private String Description;
+    private String ElectionWard;
+    private String Location;
+    private String WorkCategory;
+    private String Beneficiary;
+    private String NatureOfWork;
+    private String TypeOfWork;
+    private String SubTypeOfWork;
+    private String ModeOfEntrustment;
 
     public String getDate() { return Date; }
 

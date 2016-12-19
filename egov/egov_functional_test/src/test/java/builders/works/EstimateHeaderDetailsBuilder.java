@@ -1,10 +1,8 @@
-package builders;
+package builders.works;
 
-import entities.EstimateHeaderDetails;
 
-/**
- * Created by manjunatha-lap on 12/5/2016.
- */
+import entities.works.EstimateHeaderDetails;
+
 public class EstimateHeaderDetailsBuilder
 {
     EstimateHeaderDetails estimateHeaderDetails = new EstimateHeaderDetails();
@@ -40,7 +38,7 @@ public class EstimateHeaderDetailsBuilder
         estimateHeaderDetails.setRequirementNumber(requirement);
         return this;
     }
-    public EstimateHeaderDetailsBuilder withDiscription(String description)
+    public EstimateHeaderDetailsBuilder withDescription(String description)
     {
         estimateHeaderDetails.setDescription(description);
         return this;

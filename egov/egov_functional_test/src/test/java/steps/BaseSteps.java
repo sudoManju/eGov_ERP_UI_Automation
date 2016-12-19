@@ -1,6 +1,8 @@
 package steps;
 
 
+import cucumber.api.PendingException;
+import cucumber.api.java.en.And;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -18,11 +20,12 @@ public class BaseSteps {
     public static ScenarioContext scenarioContext;
     protected String ptisTestDataFileName = "PTISTestData";
     protected String collectionsTestDataFileName = "CollectionsTestData";
-    protected String lineEstimateTestDataFileName = "LineEstimateTestData";
+    protected String lineEstimateTestDataFileName = "lineEstimateTestData";
 
     protected void takeScreenShot(String screenshotName) throws IOException {
         WebDriver augment = new Augmenter().augment(pageStore.getDriver());
         File file = ((TakesScreenshot) augment).getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(file, new File(screenshotName + ".jpg"));
     }
+
 }

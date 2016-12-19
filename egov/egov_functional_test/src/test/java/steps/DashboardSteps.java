@@ -109,6 +109,7 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).chooseToApplyForClosureConnection();
         });
 
+
     }
 }
 

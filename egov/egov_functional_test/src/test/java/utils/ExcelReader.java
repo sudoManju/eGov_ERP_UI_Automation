@@ -1,6 +1,5 @@
 package utils;
 
-import builders.EstimateHeaderDetailsBuilder;
 import builders.LoginDetailsBuilder;
 import builders.collections.ChallanHeaderDetailsBuilder;
 import builders.collections.ChequeDetailsBuilder;
@@ -9,6 +8,7 @@ import builders.dcReports.VLTReportBuilder;
 import builders.ptis.*;
 import builders.wcms.EnclosedDocumentBuilder;
 import builders.wcms.FieldInspectionDetailsBuilder;
+import builders.works.EstimateHeaderDetailsBuilder;
 import entities.*;
 import entities.collections.ChallanHeaderDetails;
 import entities.collections.ChequeDetails;
@@ -17,6 +17,7 @@ import entities.dcReports.VLTReport;
 import entities.ptis.*;
 import entities.wcms.EnclosedDocument;
 import entities.wcms.FieldInspectionDetails;
+import entities.works.EstimateHeaderDetails;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 
@@ -61,6 +62,7 @@ public class ExcelReader {
 
     public ExcelReader(String testData) {
         String excelFilePath = testData + ".xlsx";
+        System.out.println(excelFilePath);
         InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream(excelFilePath);
         try {
             workbook = WorkbookFactory.create(resourceAsStream);
@@ -217,29 +219,40 @@ public class ExcelReader {
         return searchDetails;
     }
 
-
-    //works management module line estimate
-    public EstimateHeaderDetailsBuilder getEstimateHeaderDetails(String EstimateDetailsDataId) {
+    public EstimateHeaderDetails getEstimateHeaderDetails(String EstimateDetailsDataId) {
         Row dataRow = readDataRow(estimateHeaderDetailsSheet, EstimateDetailsDataId);
-        String Date = getCellData(estimateHeaderDetailsSheet, dataRow, "Date").getStringCellValue();
-        String Subject = getCellData(estimateHeaderDetailsSheet, dataRow, "Subject").getStringCellValue();
-        String RequirementNumber = getCellData(estimateHeaderDetailsSheet, dataRow, "RequirementNumber").getStringCellValue();
-        String Description = getCellData(estimateHeaderDetailsSheet, dataRow, "Description ").getStringCellValue();
-        String ElectionWard = getCellData(estimateHeaderDetailsSheet, dataRow, "ElectionWard").getStringCellValue();
-        String Location = getCellData(estimateHeaderDetailsSheet, dataRow, "Location").getStringCellValue();
-        String WorkCategory = getCellData(estimateHeaderDetailsSheet, dataRow, "WorkCategory").getStringCellValue();
-        String Beneficiary = getCellData(estimateHeaderDetailsSheet, dataRow, "Beneficiary").getStringCellValue();
-        String NatureOfWork = getCellData(estimateHeaderDetailsSheet, dataRow, "NatureOfWork").getStringCellValue();
-        String TypeOfWork = getCellData(estimateHeaderDetailsSheet, dataRow, "TypeOfWork").getStringCellValue();
-        String SubTypeOfWork = getCellData(estimateHeaderDetailsSheet, dataRow, "SubTypeOfWork").getStringCellValue();
-        String ModeOfEntrustment = getCellData(estimateHeaderDetailsSheet, dataRow, "ModeOfEntrustment").getStringCellValue();
+        Cell dateCell = getCellData(estimateHeaderDetailsSheet, dataRow, "date");
+        dateCell.setCellType(Cell.CELL_TYPE_STRING);
+        String Date  = dateCell.getStringCellValue();
+        String Subject = getCellData(estimateHeaderDetailsSheet, dataRow, "subject").getStringCellValue();
+        String RequirementNumber = getCellData(estimateHeaderDetailsSheet, dataRow, "requirementNumber").getStringCellValue();
+        String Description = getCellData(estimateHeaderDetailsSheet, dataRow, "description ").getStringCellValue();
+        Cell electionWardCell = getCellData(estimateHeaderDetailsSheet, dataRow, "electionWard ");
+        electionWardCell.setCellType(Cell.CELL_TYPE_STRING);
+        String ElectionWard  = electionWardCell.getStringCellValue();
+////        String Location = getCellData(estimateHeaderDetailsSheet, dataRow, "location").getStringCellValue();
+//        String WorkCategory = getCellData(estimateHeaderDetailsSheet, dataRow, "workCategory").getStringCellValue();
+//        String Beneficiary = getCellData(estimateHeaderDetailsSheet, dataRow, "beneficiary").getStringCellValue();
+//        String NatureOfWork = getCellData(estimateHeaderDetailsSheet, dataRow, "natureOfWork").getStringCellValue();
+//        String TypeOfWork = getCellData(estimateHeaderDetailsSheet, dataRow, "typeOfWork").getStringCellValue();
+//        String SubTypeOfWork = getCellData(estimateHeaderDetailsSheet, dataRow, "subTypeOfWork").getStringCellValue();
+//        String ModeOfEntrustment = getCellData(estimateHeaderDetailsSheet, dataRow, "modeOfEntrustment").getStringCellValue();
 
-    return new EstimateHeaderDetailsBuilder().withDate(Date).withSubject(Subject).withRequirementNumber(RequirementNumber)
-            .withDiscription(Description).withElectionWard(ElectionWard).withLocation(Location).withWorkCategory(WorkCategory)
-            .withBeneficiary(Beneficiary).withNatureOfWork(NatureOfWork).withTypeOfWork(TypeOfWork).withSubTypeOfWork(SubTypeOfWork)
-            .withModeOfEntrustment(ModeOfEntrustment).build();
+        return new EstimateHeaderDetailsBuilder()
+                 .withDate(Date)
+                 .withSubject(Subject)
+                 .withRequirementNumber(RequirementNumber)
+                 .withDescription(Description)
+                 .withElectionWard(ElectionWard)
+////                 .withLocation(Location)
+//                 .withWorkCategory(WorkCategory)
+//                 .withBeneficiary(Beneficiary)
+//                 .withNatureOfWork(NatureOfWork)
+//                 .withTypeOfWork(TypeOfWork)
+//                 .withSubTypeOfWork(SubTypeOfWork)
+//                 .withModeOfEntrustment(ModeOfEntrustment)
+                 .build();
     }
-
     //end of works management module line estimate
 
     public PropertyHeaderDetails getPropertyHeaderDetails(String propertyDetailsDataId) {
