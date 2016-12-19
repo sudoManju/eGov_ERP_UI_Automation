@@ -3,11 +3,14 @@ package pages.wcms;
 import entities.ptis.*;
 import entities.wcms.EnclosedDocument;
 import entities.wcms.FieldInspectionDetails;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
+
+import java.util.List;
 
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -141,6 +144,21 @@ public class WaterChargeManagementPage extends BasePage {
 
     @FindBy(id = "buttonClose")
     private WebElement closeReceiptButton;
+
+    @FindBy(id = "temporary")
+    private WebElement temporaryRadioButton;
+
+    @FindBy(id = "permanent")
+    private WebElement permanentRadioButton;
+
+    @FindBy(id = "closeconnectionreason")
+    private WebElement closureConnectionReason;
+
+    @FindBy(id = "official_inbox")
+    private WebElement officialInboxTable;
+
+    @FindBy(id = "Forward")
+    private WebElement forwardButton;
 
     public WaterChargeManagementPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -320,6 +338,42 @@ public class WaterChargeManagementPage extends BasePage {
         for (String winHandle : webDriver.getWindowHandles()) {
             webDriver.switchTo().window(winHandle);
         }
+    }
 
+    public void enterDetailsOfClosureConnection(String closureType){
+
+        if(closureType.equalsIgnoreCase("Temporary")){
+            waitForElementToBeClickable(temporaryRadioButton , webDriver);
+            jsClick(temporaryRadioButton ,webDriver);
+        }
+        else {
+            waitForElementToBeClickable(permanentRadioButton , webDriver);
+            jsClick(permanentRadioButton ,webDriver);
+        }
+        waitForElementToBeClickable(closureConnectionReason , webDriver);
+        closureConnectionReason.sendKeys("Not Required");
+    }
+
+    public void selectApplication(String consumerNumber ){
+        getApplicationRow(consumerNumber).click();
+        switchToNewlyOpenedWindow(webDriver);
+    }
+
+    public WebElement getApplicationRow(String consumerNumber){
+        waitForElementToBeVisible(webDriver.findElement(By.id("worklist")), webDriver);
+        waitForElementToBeVisible(officialInboxTable, webDriver);
+
+        await().atMost(10, SECONDS).until(() -> officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
+        List<WebElement> applicationRows = officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
+        System.out.println("total number of rows -- " + applicationRows.size());
+        for (WebElement applicationRow : applicationRows) {
+            if (applicationRow.findElements(By.tagName("td")).get(4).getText().contains(consumerNumber))
+                return applicationRow;
+        }
+        throw new RuntimeException("No application row found for -- " + consumerNumber);
+    }
+
+    public void forward() {
+        forwardButton.click();
     }
 }

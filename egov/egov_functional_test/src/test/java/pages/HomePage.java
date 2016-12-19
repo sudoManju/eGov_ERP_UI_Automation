@@ -6,9 +6,12 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class HomePage extends BasePage {
     private WebDriver driver;
@@ -26,18 +29,28 @@ public class HomePage extends BasePage {
     @FindBy(id = "locationId")
     private WebElement locationSelection;
 
+    @FindBy(id = "locationId")
+    private WebElement zoneSelect;
+
     public HomePage(WebDriver driver) {
         this.driver = driver;
     }
 
     public void loginAs(LoginDetails loginDetails) {
 
+        driver.navigate().refresh();
         userNameTextBox.sendKeys(loginDetails.getLoginId());
         passwordTextBox.sendKeys(loginDetails.getPassword());
-        passwordTextBox.sendKeys(Keys.CONTROL + "t");
-        passwordTextBox.sendKeys(Keys.ENTER);
-//        waitForElementToBeClickable(signInButton, driver);
-//        signInButton.click();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
+//        try{
+//            waitForElementToBeVisible(zoneSelect , driver);
+//        }
+//        catch (Exception e){
+//            System.out.println(e);
+//        }
+
+        waitForElementToBeClickable(signInButton, driver);
+        signInButton.click();
     }
 }

@@ -44,7 +44,5 @@ public class PropertyAcknowledgementSteps extends BaseSteps implements En {
         And("^user closes acknowledgement form$", () -> {
             pageStore.get(PropertyAcknowledgementPage.class).toCloseAdditionalConnectionPage();
         });
-
-
     }
 }
