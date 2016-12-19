@@ -38,19 +38,12 @@ public class HomePage extends BasePage {
 
     public void loginAs(LoginDetails loginDetails) {
 
-        driver.navigate().refresh();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         userNameTextBox.sendKeys(loginDetails.getLoginId());
         passwordTextBox.sendKeys(loginDetails.getPassword());
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
-//        try{
-//            waitForElementToBeVisible(zoneSelect , driver);
-//        }
-//        catch (Exception e){
-//            System.out.println(e);
-//        }
-
-        waitForElementToBeClickable(signInButton, driver);
-        signInButton.click();
+        WebElement signform = driver.findElement(By.id("signform"));
+        waitForElementToBeClickable(signform, driver);
+        signform.submit();
     }
 }
