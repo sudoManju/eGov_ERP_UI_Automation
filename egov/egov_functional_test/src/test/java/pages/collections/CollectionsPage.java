@@ -145,7 +145,7 @@ public class CollectionsPage extends BasePage {
         serviceTypeBox.sendKeys(Keys.CONTROL + "t");
         functionTab.sendKeys(Keys.CONTROL + "t");
 
-        challanAmountTextBox.clear();
+        //challanAmountTextBox.clear();
         challanAmountTextBox.sendKeys(Keys.CONTROL + "a");
         challanAmountTextBox.sendKeys(Keys.DELETE);
         challanAmountTextBox.sendKeys("500");

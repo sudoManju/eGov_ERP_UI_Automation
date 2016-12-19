@@ -4,6 +4,7 @@ Feature: To close a water connection either Temporary or Permanent
   I want to close a new water connection
   So that the connection records are up to date.
 
+  @WIP
   Scenario Outline: To Apply for Closure of Connection Temporarily
 
 #    Given juniorAssistant logs in

@@ -39,13 +39,10 @@ public class CollectionAcknowledgementPage extends BasePage {
 
     public String getChallanNumber() {
 
-        String num = number.getText();
-        int i = num.lastIndexOf(' ');
-        String number = num.substring(i+1);
+        String num = challanNumber.getAttribute("value");
+        System.out.println("Challan Number"+ num);
 
-        System.out.println("Challan Number"+ number);
-
-        return number;
+        return num;
     }
 
     public void submitAllCollections() throws Exception {
