@@ -5,7 +5,7 @@ gradle
 .idea
 .xlsx#
 .exe
-.~lock.PTISTestData.xlsx#
+.~lock*
 
 
 
