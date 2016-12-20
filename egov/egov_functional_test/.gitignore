@@ -6,6 +6,7 @@ gradle
 .xlsx#
 .exe
 .~lock*
-
+.ipr
+.iws
 
 

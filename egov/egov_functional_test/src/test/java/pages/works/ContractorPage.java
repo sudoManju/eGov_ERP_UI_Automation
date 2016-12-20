@@ -19,6 +19,9 @@ public class ContractorPage extends BasePage
     @FindBy(linkText = "Create Contractor")
     private WebElement createContractorLink;
 
+    @FindBy(linkText = "View/Modify Contractor")
+    private WebElement viewContractorlink;
+
     @FindBy(id = "code")
     private WebElement contractorCode;
 
@@ -36,6 +39,16 @@ public class ContractorPage extends BasePage
 
     @FindBy(id = "saveButton")
     private WebElement saveButton;
+
+    @FindBy(xpath = "//*[@id='department']")
+    private WebElement contractorDepartment;
+
+    @FindBy(id = "status")
+    private WebElement contractorStatus;
+
+    @FindBy(id = "searchButton")
+    private WebElement contractorSearchButton;
+
 
     public ContractorPage(WebDriver driver) {
         this.driver = driver;
@@ -59,16 +72,36 @@ public class ContractorPage extends BasePage
     public void entersContractorMasterData()
     {
         waitForElementToBeClickable(contractorCode, driver);
-        contractorCode.sendKeys("1010");
+        contractorCode.sendKeys("1100");
         waitForElementToBeClickable(contractorName, driver);
-        contractorName.sendKeys("Manoj");
+        contractorName.sendKeys("A");
         waitForElementToBeClickable(department, driver);
         new Select(department).selectByVisibleText("ENGINEERING");
         waitForElementToBeClickable(status, driver);
         new Select(status).selectByVisibleText("Active");
         waitForElementToBeClickable(fromDate, driver);
-        fromDate.sendKeys("16122016");
+        fromDate.sendKeys("20/12/2016");
 
         saveButton.click();
     }
+
+    public void viewContractor()
+    {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("View/Modify Contractor");
+        waitForElementToBeVisible(viewContractorlink, driver);
+        viewContractorlink.click();
+    }
+
+    public void searchContractor()
+    {
+        waitForElementToBeClickable(contractorDepartment, driver);
+        new Select(contractorDepartment).selectByVisibleText("ENGINEERING");
+        waitForElementToBeClickable(contractorStatus, driver);
+        new Select(contractorStatus).selectByVisibleText("Active");
+        waitForElementToBeClickable(contractorSearchButton, driver);
+        contractorSearchButton.click();
+    }
+
+
 }

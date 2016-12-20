@@ -16,5 +16,11 @@ public class ContractorSteps extends BaseSteps implements En {
         And("^he enters the contractor master data$", () -> {
             pageStore.get(ContractorPage.class).entersContractorMasterData();
         });
+        And("^he chooses for view or modify contractor$", () -> {
+            pageStore.get(ContractorPage.class).viewContractor();
+        });
+        And("^he search for contractor$", () -> {
+         pageStore.get(ContractorPage.class).searchContractor();
+        });
     }
 }
