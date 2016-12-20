@@ -138,7 +138,7 @@ Feature: Create New Property
         |  assessmentAdditionProperty    |        all            |         firstFloorAdditionaltaration|
 
 
-      @WIP
+      @Sanity
       Scenario: Register Choose to do title Transfer
 
         Given commissioner logs in

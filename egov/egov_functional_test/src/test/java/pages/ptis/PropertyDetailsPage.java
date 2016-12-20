@@ -1,10 +1,7 @@
 package pages.ptis;
 
 import entities.ptis.*;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
@@ -553,12 +550,9 @@ public class PropertyDetailsPage extends BasePage {
         String[] finalAmount = amount.split("\\.");
         properAmountToBePaid.sendKeys(finalAmount[0]);
 
-//        WebElement receipt = webDriver.findElement(By.id("receipt"));
-//        waitForElementToBeClickable(receipt, webDriver);
-//        receipt.submit();
-
-        properAmountToBePaid.sendKeys(Keys.CONTROL + "t");
-        properAmountToBePaid.sendKeys(Keys.ENTER);
+        WebElement element = webDriver.findElement(By.id("button2"));
+        JavascriptExecutor executor = (JavascriptExecutor)webDriver;
+        executor.executeScript("arguments[0].click();", element);
 
         switchToNewlyOpenedWindow(webDriver);
     }
