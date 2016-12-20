@@ -2,6 +2,7 @@ package pages.works;
 
 
 import entities.works.EstimateHeaderDetails;
+import entities.works.FinancialDetails;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -61,7 +62,14 @@ public class SpillOverEstimatePage extends BasePage
     @FindBy(className = "datepicker-days")
     private WebElement dateTable;
 
+    @FindBy(id = "fund")
+    private WebElement fundBox;
 
+    @FindBy(id = "function")
+    private WebElement functionBox;
+
+    @FindBy(id = "budgetHead")
+    private WebElement budgetHeadBox;
 
 
     public void enterEstimateHeaderDetails(EstimateHeaderDetails estimateHeaderDetails) {
@@ -112,4 +120,16 @@ public class SpillOverEstimatePage extends BasePage
     }
 
     public SpillOverEstimatePage(WebDriver webDriver){this.webDriver = webDriver;}
+
+    public void enterFinancialDetails(FinancialDetails financialDetails) {
+
+        waitForElementToBeClickable(fundBox,webDriver);
+        new Select(fundBox).selectByVisibleText(financialDetails.getFund());
+
+        waitForElementToBeClickable(functionBox,webDriver);
+        new Select(functionBox).selectByVisibleText(financialDetails.getFunction());
+
+        waitForElementToBeClickable(budgetHeadBox,webDriver);
+        new Select(budgetHeadBox).selectByVisibleText(financialDetails.getBudgetHead());
+    }
 }

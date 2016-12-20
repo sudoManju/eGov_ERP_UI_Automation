@@ -9,6 +9,7 @@ import builders.ptis.*;
 import builders.wcms.EnclosedDocumentBuilder;
 import builders.wcms.FieldInspectionDetailsBuilder;
 import builders.works.EstimateHeaderDetailsBuilder;
+import builders.works.FinancialDetailsBuilder;
 import entities.*;
 import entities.collections.ChallanHeaderDetails;
 import entities.collections.ChequeDetails;
@@ -18,6 +19,7 @@ import entities.ptis.*;
 import entities.wcms.EnclosedDocument;
 import entities.wcms.FieldInspectionDetails;
 import entities.works.EstimateHeaderDetails;
+import entities.works.FinancialDetails;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 
@@ -52,11 +54,12 @@ public class ExcelReader {
     Sheet vltReportSheet;
     Sheet registeredUserDetailsSheet;
     Sheet estimateHeaderDetailsSheet;
-    Sheet financialHeaderDetailsSheet;
+    Sheet financialDetailsSheet;
     Sheet workHeaderDetailsSheet;
     Sheet adminSanctionHeaderDetailsSheet;
     Sheet fieldInseptionDetailsForWaterConnectionSheet;
     Sheet ptReportSheet;
+
 
 
 
@@ -100,7 +103,7 @@ public class ExcelReader {
 
         registeredUserDetailsSheet = workbook.getSheet("registeredUserDetails");
         estimateHeaderDetailsSheet = workbook.getSheet("estimateHeaderDetails");
-        financialHeaderDetailsSheet = workbook.getSheet("financialHeaderDetails");
+        financialDetailsSheet = workbook.getSheet("financialDetails");
         workHeaderDetailsSheet = workbook.getSheet("workHeaderDetails");
         adminSanctionHeaderDetailsSheet = workbook.getSheet("adminSanctionHeaderDetails");
         fieldInseptionDetailsForWaterConnectionSheet = workbook.getSheet("fieldInseptionDetailsForWaterConnection");
@@ -747,6 +750,22 @@ public class ExcelReader {
         return new PTReportBuilder()
                 .withFromDate(fromDate)
                 .withToDate(toDate)
+                .build();
+    }
+
+
+    public FinancialDetails getFinancialDetails(String financialDetailsDataId) {
+
+        Row dataRow = readDataRow(financialDetailsSheet, financialDetailsDataId);
+
+        String fund = getCellData(financialDetailsSheet, dataRow, "fund").getStringCellValue();
+        String function = getCellData(financialDetailsSheet, dataRow, "function").getStringCellValue();
+        String budgetHead = getCellData(financialDetailsSheet, dataRow, "budgetHead").getStringCellValue();
+
+        return new FinancialDetailsBuilder()
+                .withFund(fund)
+                .withFunction(function)
+                .withBudgetHead(budgetHead)
                 .build();
     }
 }

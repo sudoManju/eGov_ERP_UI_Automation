@@ -4,6 +4,7 @@ import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.works.EstimateHeaderDetails;
 
+import entities.works.FinancialDetails;
 import pages.works.SpillOverEstimatePage;
 import steps.BaseSteps;
 import utils.ExcelReader;
@@ -21,11 +22,12 @@ public class SpillOverEstimateSteps extends BaseSteps implements En {
 
             pageStore.get(SpillOverEstimatePage.class).enterEstimateHeaderDetails(estimateHeaderDetails);
         });
-        And("^he enters financial header details as (\\w+)$", (String financialDetailsDataId) -> {
-//            EstimateHeaderDetails estimateHeaderDetails = new ExcelReader(lineEstimateTestDataFileName).getFinancialDetails(financialDetailsDataId);
-//
-//            pageStore.get(SpillOverEstimatePage.class).enterFinancialDetails(estimateHeaderDetails);
+        And("^he enters financial details as (\\w+)$", (String financialDetailsDataId) -> {
+           FinancialDetails financialDetails = new ExcelReader(lineEstimateTestDataFileName).getFinancialDetails(financialDetailsDataId);
+
+            pageStore.get(SpillOverEstimatePage.class).enterFinancialDetails(financialDetails);
         });
+
     }
 
 
