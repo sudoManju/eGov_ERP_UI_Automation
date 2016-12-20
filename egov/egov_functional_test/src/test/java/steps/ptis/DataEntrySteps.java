@@ -41,11 +41,6 @@ public class DataEntrySteps extends BaseSteps implements En {
 
             pageStore.get(PropertyDetailsPage.class).create();
 
-
-
-
-
-
         });
     }
 

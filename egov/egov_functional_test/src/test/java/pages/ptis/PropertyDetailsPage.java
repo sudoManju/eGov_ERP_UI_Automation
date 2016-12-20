@@ -10,6 +10,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
+import java.util.concurrent.TimeUnit;
+
 import static com.jayway.awaitility.Awaitility.await;
 import static java.lang.Enum.valueOf;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -285,7 +287,6 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(css = "input[value='Pay'][type='submit']")
     private WebElement payButton;
 
-
     public PropertyDetailsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -551,6 +552,10 @@ public class PropertyDetailsPage extends BasePage {
         String amount = propertyAmountPaid.getAttribute("value");
         String[] finalAmount = amount.split("\\.");
         properAmountToBePaid.sendKeys(finalAmount[0]);
+
+//        WebElement receipt = webDriver.findElement(By.id("receipt"));
+//        waitForElementToBeClickable(receipt, webDriver);
+//        receipt.submit();
 
         properAmountToBePaid.sendKeys(Keys.CONTROL + "t");
         properAmountToBePaid.sendKeys(Keys.ENTER);

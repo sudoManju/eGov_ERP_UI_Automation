@@ -138,7 +138,7 @@ Feature: Create New Property
         |  assessmentAdditionProperty    |        all            |         firstFloorAdditionaltaration|
 
 
-      @Sanity
+      @WIP
       Scenario: Register Choose to do title Transfer
 
         Given commissioner logs in
@@ -151,7 +151,7 @@ Feature: Create New Property
 
         Given juniorAssistant logs in
         When he chooses to collect tax of property
-        And he searches for assessment with number "1016042569"
+        And he searches for assessment with number "1016000077"
         And he chooses to pay tax
         And he pay tax using Cash
         And current user logs out
