@@ -226,17 +226,21 @@ public class ExcelReader {
         String Date  = dateCell.getStringCellValue();
         String Subject = getCellData(estimateHeaderDetailsSheet, dataRow, "subject").getStringCellValue();
         String RequirementNumber = getCellData(estimateHeaderDetailsSheet, dataRow, "requirementNumber").getStringCellValue();
-        String Description = getCellData(estimateHeaderDetailsSheet, dataRow, "description ").getStringCellValue();
-        Cell electionWardCell = getCellData(estimateHeaderDetailsSheet, dataRow, "electionWard ");
+        String Description = getCellData(estimateHeaderDetailsSheet, dataRow, "description").getStringCellValue();
+        Cell electionWardCell = getCellData(estimateHeaderDetailsSheet, dataRow, "electionWard");
         electionWardCell.setCellType(Cell.CELL_TYPE_STRING);
         String ElectionWard  = electionWardCell.getStringCellValue();
-////        String Location = getCellData(estimateHeaderDetailsSheet, dataRow, "location").getStringCellValue();
-//        String WorkCategory = getCellData(estimateHeaderDetailsSheet, dataRow, "workCategory").getStringCellValue();
-//        String Beneficiary = getCellData(estimateHeaderDetailsSheet, dataRow, "beneficiary").getStringCellValue();
-//        String NatureOfWork = getCellData(estimateHeaderDetailsSheet, dataRow, "natureOfWork").getStringCellValue();
-//        String TypeOfWork = getCellData(estimateHeaderDetailsSheet, dataRow, "typeOfWork").getStringCellValue();
-//        String SubTypeOfWork = getCellData(estimateHeaderDetailsSheet, dataRow, "subTypeOfWork").getStringCellValue();
-//        String ModeOfEntrustment = getCellData(estimateHeaderDetailsSheet, dataRow, "modeOfEntrustment").getStringCellValue();
+        Cell locationCell = getCellData(estimateHeaderDetailsSheet, dataRow, "location");
+        locationCell.setCellType(Cell.CELL_TYPE_STRING);
+        String location = locationCell.getStringCellValue();
+        String WorkCategory = getCellData(estimateHeaderDetailsSheet, dataRow, "workCategory").getStringCellValue();
+        Cell beneficiaryCell = getCellData(estimateHeaderDetailsSheet, dataRow, "beneficiary");
+        beneficiaryCell.setCellType(Cell.CELL_TYPE_STRING);
+        String Beneficiary = beneficiaryCell.getStringCellValue();
+        String NatureOfWork = getCellData(estimateHeaderDetailsSheet, dataRow, "natureOfWork").getStringCellValue();
+        String TypeOfWork = getCellData(estimateHeaderDetailsSheet, dataRow, "typeOfWork").getStringCellValue();
+        String SubTypeOfWork = getCellData(estimateHeaderDetailsSheet, dataRow, "subTypeOfWork").getStringCellValue();
+        String ModeOfEntrustment = getCellData(estimateHeaderDetailsSheet, dataRow, "modeOfEntrustment").getStringCellValue();
 
         return new EstimateHeaderDetailsBuilder()
                  .withDate(Date)
@@ -244,13 +248,13 @@ public class ExcelReader {
                  .withRequirementNumber(RequirementNumber)
                  .withDescription(Description)
                  .withElectionWard(ElectionWard)
-////                 .withLocation(Location)
-//                 .withWorkCategory(WorkCategory)
-//                 .withBeneficiary(Beneficiary)
-//                 .withNatureOfWork(NatureOfWork)
-//                 .withTypeOfWork(TypeOfWork)
-//                 .withSubTypeOfWork(SubTypeOfWork)
-//                 .withModeOfEntrustment(ModeOfEntrustment)
+                 .withLocation(location)
+                 .withWorkCategory(WorkCategory)
+                 .withBeneficiary(Beneficiary)
+                 .withNatureOfWork(NatureOfWork)
+                 .withTypeOfWork(TypeOfWork)
+                 .withSubTypeOfWork(SubTypeOfWork)
+                 .withModeOfEntrustment(ModeOfEntrustment)
                  .build();
     }
     //end of works management module line estimate

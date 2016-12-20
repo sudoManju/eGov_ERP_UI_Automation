@@ -2,11 +2,18 @@ package pages.works;
 
 
 import entities.works.EstimateHeaderDetails;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by manjunatha-lap on 14/12/2016.
@@ -51,19 +58,57 @@ public class SpillOverEstimatePage extends BasePage
     @FindBy(id = "modeOfAllotment")
     private WebElement modeOfEntrustment;
 
+    @FindBy(className = "datepicker-days")
+    private WebElement dateTable;
+
+
+
+
     public void enterEstimateHeaderDetails(EstimateHeaderDetails estimateHeaderDetails) {
-//        waitForElementToBeClickable(date, webDriver);
-//        new Select(date).selectByVisibleText(estimateHeaderDetails.getDate());
+        waitForElementToBeClickable(date, webDriver);
+        date.click();
+        enterText(date,estimateHeaderDetails.getDate());
+        date.sendKeys(Keys.TAB);
+
         waitForElementToBeClickable(subject, webDriver);
         enterText(subject, estimateHeaderDetails.getSubject());
+
         waitForElementToBeClickable(reference, webDriver);
         enterText(reference, estimateHeaderDetails.getRequirementNumber());
+
         waitForElementToBeClickable(description, webDriver);
         enterText(description, estimateHeaderDetails.getDescription());
+
         waitForElementToBeClickable(wardInput, webDriver);
-        enterText(wardInput, estimateHeaderDetails.getElectionWard());
-        waitForElementToBeClickable(location, webDriver);
+        wardInput.sendKeys(estimateHeaderDetails.getElectionWard());
+
+        waitForElementToBeVisible( webDriver.findElement(By.className("tt-dropdown-menu")),webDriver);
+        WebElement dropdown = webDriver.findElement(By.className("tt-dropdown-menu"));
+        dropdown.click();
+
+        waitForElementToBeClickable(location,webDriver);
         new Select(location).selectByVisibleText(estimateHeaderDetails.getLocation());
+
+        waitForElementToBeClickable(workCategory,webDriver);
+        new Select(workCategory).selectByVisibleText(estimateHeaderDetails.getWorkCategory());
+
+        waitForElementToBeClickable(beneficiary,webDriver);
+        new Select(beneficiary).selectByVisibleText(estimateHeaderDetails.getBeneficiary());
+
+        waitForElementToBeClickable(natureOfWork,webDriver);
+        new Select(natureOfWork).selectByVisibleText(estimateHeaderDetails.getNatureOfWork());
+
+        waitForElementToBeClickable(typeofwork,webDriver);
+        new Select(typeofwork).selectByVisibleText(estimateHeaderDetails.getTypeOfWork());
+
+        waitForElementToBeClickable(subTypeOfWork,webDriver);
+        subTypeOfWork.click();
+        subTypeOfWork.click();
+        new Select(subTypeOfWork).selectByVisibleText(estimateHeaderDetails.getSubTypeOfWork());
+
+        waitForElementToBeClickable(modeOfEntrustment,webDriver);
+        new Select(modeOfEntrustment).selectByVisibleText(estimateHeaderDetails.getModeOfEntrustment());
+
     }
 
     public SpillOverEstimatePage(WebDriver webDriver){this.webDriver = webDriver;}
