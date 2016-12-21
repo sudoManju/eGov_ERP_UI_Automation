@@ -6,6 +6,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
+import java.util.Calendar;
+
+import static com.jayway.awaitility.Awaitility.await;
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 /**
  * Created by manjunatha-lap on 16/12/2016.
  */
@@ -34,7 +39,7 @@ public class ContractorPage extends BasePage
     @FindBy(id = "statusDescyui-rec0")
     private WebElement status;
 
-    @FindBy(id = "statusDescyui-rec0")
+    @FindBy(className = "selectmultilinewk")
     private WebElement fromDate;
 
     @FindBy(id = "saveButton")
@@ -49,6 +54,11 @@ public class ContractorPage extends BasePage
     @FindBy(id = "searchButton")
     private WebElement contractorSearchButton;
 
+    @FindBy(css = "input[id='closeButton'][value='Close']")
+    private WebElement closeButton;
+
+    String min = String.valueOf(Calendar.getInstance().get(Calendar.MINUTE));
+    String hour = String.valueOf(Calendar.getInstance().get(Calendar.HOUR));
 
     public ContractorPage(WebDriver driver) {
         this.driver = driver;
@@ -72,9 +82,10 @@ public class ContractorPage extends BasePage
     public void entersContractorMasterData()
     {
         waitForElementToBeClickable(contractorCode, driver);
-        contractorCode.sendKeys("1100");
+        String code = (min+hour);
+        contractorCode.sendKeys(code);
         waitForElementToBeClickable(contractorName, driver);
-        contractorName.sendKeys("A");
+        contractorName.sendKeys("Egovernments");
         waitForElementToBeClickable(department, driver);
         new Select(department).selectByVisibleText("ENGINEERING");
         waitForElementToBeClickable(status, driver);
@@ -82,8 +93,11 @@ public class ContractorPage extends BasePage
         waitForElementToBeClickable(fromDate, driver);
         fromDate.sendKeys("20/12/2016");
 
+        waitForElementToBeClickable(saveButton,driver);
         saveButton.click();
     }
+
+
 
     public void viewContractor()
     {
@@ -104,4 +118,13 @@ public class ContractorPage extends BasePage
     }
 
 
+    public void close() {
+        waitForElementToBeVisible(closeButton,driver);
+        closeButton.click();
+
+        await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
+        for (String winHandle : driver.getWindowHandles()) {
+            driver.switchTo().window(winHandle);
+        }
+    }
 }

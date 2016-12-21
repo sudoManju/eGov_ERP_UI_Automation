@@ -3,15 +3,23 @@ Feature: Create Contractors in the Masters
   I want able to create Contractors
 
 #  Create Contractor
-  @WIP
+
+  @Sanity
+
   Scenario: Create Contractors
+
     When assistantEngineer logs in
     And he chooses to create contractor
     And he enters the contractor master data
+    And he close the acknowledgement
+    And current user logs out
 
 #    View/Modify Contractor
+
   @WIP
+
   Scenario: View or Modify Contractor
+
     When assistantEngineer logs in
     And he chooses for view or modify contractor
     And he search for contractor
