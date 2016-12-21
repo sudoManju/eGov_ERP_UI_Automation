@@ -11,7 +11,7 @@ import java.io.IOException;
 public class HomePageSteps extends BaseSteps implements En {
     public HomePageSteps() {
         Given("^(.*) logs in$", (String currentUser) -> {
-            LoginDetails loginDetails = new ExcelReader(ptisTestDataFileName).getLoginDetails(currentUser);
+            LoginDetails loginDetails = new ExcelReader(loginTestDataFileName).getLoginDetails(currentUser);
             if (System.getProperty("env").equalsIgnoreCase("qa"))
                 loginDetails.setPassword("eGov@123");
             pageStore.get(HomePage.class).loginAs(loginDetails);

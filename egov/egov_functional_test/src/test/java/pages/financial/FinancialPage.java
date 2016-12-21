@@ -1,7 +1,6 @@
 package pages.financial;
 
 import entities.ptis.ApprovalDetails;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,7 +11,6 @@ import pages.BasePage;
 import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
-import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * Created by vinaykumar on 20/12/16.
@@ -49,13 +47,22 @@ public class FinancialPage extends BasePage {
     private WebElement totalCreditAmount;
 
     @FindBy(id = "subLedgerlist[0].glcode.id")
-    private WebElement ledgerAccount;
+    private WebElement ledgerAccount1;
+
+    @FindBy(id = "subLedgerlist[1].glcode.id")
+    private WebElement ledgerAccount2;
 
     @FindBy(id = "subLedgerlist[0].detailType.id")
-    private WebElement ledgerType;
+    private WebElement ledgerType1;
+
+    @FindBy(id = "subLedgerlist[1].detailType.id")
+    private WebElement ledgerType2;
 
     @FindBy(id = "subLedgerlist[0].detailCode")
-    private WebElement ledgerCode;
+    private WebElement ledgerCode1;
+
+    @FindBy(id = "subLedgerlist[1].detailCode")
+    private WebElement ledgerCode2;
 
     @FindBy(id = "approverDepartment")
     private WebElement approverDepartment;
@@ -69,14 +76,14 @@ public class FinancialPage extends BasePage {
     @FindBy(id = "Forward")
     private WebElement forwardButton;
 
-    @FindBy(id = "subLedgerlist[0].detailKey")
-    private WebElement ledgerName;
+    @FindBy(id = "subLedgerlist[0].amount")
+    private WebElement ledgerAmount1;
 
-    @FindBy(id = "subLedgerlist[0].search")
-    private WebElement ledgerSearch;
+    @FindBy(id = "subLedgerlist[1].amount")
+    private WebElement ledgerAmount2;
 
-    @FindBy(linkText = "KMC001")
-    private WebElement ledgerList1;
+    @FindBy(xpath = "/egi/resources/erp2/images/add.png")
+    private WebElement ledgerAdd;
 
     public void enterJournalVoucherDetails(){
 
@@ -85,27 +92,38 @@ public class FinancialPage extends BasePage {
         new Select(voucherDepartment).selectByVisibleText("ACCOUNTS");
         new Select(voucherFunction).selectByVisibleText("12th Finance Commission");
 
-        enterText(accountCode1 , "2101001");
-        accountCode1.sendKeys(Keys.TAB);
+        accountCode1.sendKeys("2101001" , Keys.TAB);
         enterText(debitAmount1 , "100");
 
-        enterText(accountCode2 , "3501001");
-        accountCode2.sendKeys(Keys.TAB);
+        accountCode2.sendKeys("3501001" , Keys.TAB);
         enterText(creditAmount , "100");
-        totalCreditAmount.click();
 
-        new Select(ledgerAccount).selectByVisibleText("2101001");
-        new Select(ledgerType).selectByVisibleText("contractor");
-        ledgerSearch.click();
-        switchToNewlyOpenedWindow(webDriver);
-        ledgerList1.click();
+        new Select(ledgerAccount1).selectByVisibleText("2101001");
+        new Select(ledgerType1).selectByVisibleText("contractor");
+        ledgerCode1.sendKeys("KMC001");
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        ledgerCode1.sendKeys(Keys.ENTER);
+        ledgerAmount1.sendKeys("100");
+
+        ledgerAdd.click();
+
+        new Select(ledgerAccount2).selectByVisibleText("3501001");
+        new Select(ledgerType2).selectByVisibleText("contractor");
+        ledgerCode2.sendKeys("KMC001");
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        ledgerCode2.sendKeys(Keys.ENTER);
+        ledgerAmount2.sendKeys("100");
     }
 
     public void enterFinanceApprovalDetails(ApprovalDetails approvalDetails){
-
-        for (String winHandle : webDriver.getWindowHandles()) {
-            webDriver.switchTo().window(winHandle);
-        }
 
         new Select(approverDepartment).selectByVisibleText(approvalDetails.getApproverDepartment());
         new Select(approverDesignation).selectByVisibleText(approvalDetails.getApproverDesignation());

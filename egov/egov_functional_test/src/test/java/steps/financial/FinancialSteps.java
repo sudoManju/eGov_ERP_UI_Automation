@@ -1,5 +1,6 @@
 package steps.financial;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.ptis.ApprovalDetails;
 import pages.financial.FinancialPage;
@@ -14,12 +15,12 @@ public class FinancialSteps extends BaseSteps implements En {
 
     public FinancialSteps() {
 
-        And("^user will enter the journal voucher details$", () -> {
+        And("^user will enter the journal voucher details as (\\w+)$", (String voucherType) -> {
             String approveDetails = "accountOfficer";
             pageStore.get(FinancialPage.class).enterJournalVoucherDetails();
 
             ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approveDetails);
-            pageStore.get(FinancialPage.class).enterFinanceApprovalDetails(approvalDetails);
+            pageStore.get(FinancialPage.class).enterFinanceApprovalDetails(approvalDetails);;
         });
     }
 }

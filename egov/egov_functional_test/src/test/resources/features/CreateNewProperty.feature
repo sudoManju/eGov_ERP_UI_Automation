@@ -78,7 +78,7 @@ Feature: Create New Property
 
     # ADDITION ALTERATION SCREEN #
   
-  @Sanity
+  @WIP
     Scenario Outline: Registered user Update existing property
 
       Given commissioner logs in
