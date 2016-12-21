@@ -41,6 +41,9 @@ public class SpillOverEstimateSteps extends BaseSteps implements En {
 
             pageStore.get(SpillOverEstimatePage.class).enterTechnicalSanctionDetails(technicalSanctionDetails);
         });
+        And("^he saves the file and closes the acknowledgement$", () -> {
+           pageStore.get(SpillOverEstimatePage.class).saveAndClose();
+        });
 
     }
 

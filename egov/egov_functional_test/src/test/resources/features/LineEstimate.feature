@@ -13,7 +13,8 @@ Scenario Outline: Create Spillover Line Estimate
     And he enters work details as <workDetails>
     And he enters administration sanction details as <adminSanctionDetails>
     And he enters technical sanction details as <technicalSanctionDetails>
-#    Then spillover estimate created successfully
+    And he saves the file and closes the acknowledgement
+    And current user logs out
     Examples:
       | estimateHeaderDetails |financialDetails|workDetails|adminSanctionDetails|technicalSanctionDetails|
       | header                |financial       |work       |admin               |technical               |

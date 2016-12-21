@@ -13,7 +13,11 @@ import pages.BasePage;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
+
+import static com.jayway.awaitility.Awaitility.await;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * Created by manjunatha-lap on 14/12/2016.
@@ -120,6 +124,9 @@ public class SpillOverEstimatePage extends BasePage
 
     @FindBy(css = "input[id ='Save'][type ='submit']")
     private WebElement saveButton;
+
+    @FindBy(linkText = "Close")
+    private WebElement closeButton;
 
 
     public void enterEstimateHeaderDetails(EstimateHeaderDetails estimateHeaderDetails) {
@@ -247,10 +254,19 @@ public class SpillOverEstimatePage extends BasePage
         waitForElementToBeClickable(designationBox,webDriver);
         new Select(designationBox).selectByVisibleText(technicalSanctionDetails.getTechnicalSanctionAuthority());
 
+    }
 
+    public void saveAndClose() {
 
-        waitForElementToBeVisible(saveButton,webDriver);
+        waitForElementToBeVisible(saveButton, webDriver);
         saveButton.click();
 
+        waitForElementToBeVisible(closeButton, webDriver);
+        closeButton.click();
+
+        await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
+        for (String winHandle : webDriver.getWindowHandles()) {
+            webDriver.switchTo().window(winHandle);
+        }
     }
 }
