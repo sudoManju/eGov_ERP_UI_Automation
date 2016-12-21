@@ -1,8 +1,7 @@
 package pages.works;
 
 
-import entities.works.EstimateHeaderDetails;
-import entities.works.FinancialDetails;
+import entities.works.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -71,6 +70,57 @@ public class SpillOverEstimatePage extends BasePage
     @FindBy(id = "budgetHead")
     private WebElement budgetHeadBox;
 
+    @FindBy(id =  "lineEstimateDetails0.nameOfWork")
+    private WebElement nameOfWorkTextBox;
+
+    @FindBy(id = "estimateNumber0")
+    private WebElement absEstimateNumTextBox;
+
+    @FindBy(id = "estimateAmount0")
+    private WebElement estimateAmountTextBox;
+
+    @FindBy(id = "lineEstimateDetails0.projectCode.code")
+    private WebElement WINTextBox;
+
+    @FindBy(id = "actualEstimateAmount0")
+    private WebElement actualAmountTextBox;
+
+    @FindBy(id = "grossAmountBilled0")
+    private WebElement grossAmountTextBox;
+
+    @FindBy(id = "quantity0")
+    private WebElement quantityTextBox;
+
+    @FindBy(id = "lineEstimateDetails0.uom")
+    private WebElement UOMBox;
+
+    @FindBy(id = "quantity")
+    private WebElement expectedOutcomeTextBox;
+
+    @FindBy(css = "input[id ='isWorkOrderCreated'][type = 'checkbox']")
+    private WebElement workOrderCreatedCheckBox;
+
+    @FindBy(css = "input[id ='isBillsCreated'][type = 'checkbox']")
+    private WebElement isBillCreatedCheckBox;
+
+    @FindBy(id = "adminSanctionNumber")
+    private WebElement adminSanctionNumberTextBox;
+
+    @FindBy(id = "adminSanctionDate")
+    private WebElement adminSanctionDateBox;
+
+    @FindBy(id ="technicalSanctionNumber")
+    private WebElement technicalSanctionNumberTextBox;
+
+    @FindBy(id = "technicalSanctionDate")
+    private WebElement technicalSanctionDateTextBox;
+
+    @FindBy(id = "designation")
+    private WebElement designationBox;
+
+    @FindBy(css = "input[id ='Save'][type ='submit']")
+    private WebElement saveButton;
+
 
     public void enterEstimateHeaderDetails(EstimateHeaderDetails estimateHeaderDetails) {
         waitForElementToBeClickable(date, webDriver);
@@ -131,5 +181,76 @@ public class SpillOverEstimatePage extends BasePage
 
         waitForElementToBeClickable(budgetHeadBox,webDriver);
         new Select(budgetHeadBox).selectByVisibleText(financialDetails.getBudgetHead());
+    }
+
+    public void enterWorkDetails(WorkDetails workDetails) {
+
+        waitForElementToBeClickable(workOrderCreatedCheckBox,webDriver);
+        selectWorksIfCreated(workOrderCreatedCheckBox, workDetails.getWorksorderCreated());
+
+        waitForElementToBeClickable(isBillCreatedCheckBox,webDriver);
+        selectWorksIfCreated(isBillCreatedCheckBox, workDetails.getBillsCreated());
+
+        waitForElementToBeClickable(nameOfWorkTextBox,webDriver);
+        enterText(nameOfWorkTextBox,workDetails.getNameOfWork());
+
+        waitForElementToBeClickable(absEstimateNumTextBox,webDriver);
+        enterText(absEstimateNumTextBox,workDetails.getAbstractEstimateNumber());
+
+        waitForElementToBeClickable(estimateAmountTextBox,webDriver);
+        enterText(estimateAmountTextBox,workDetails.getEstimatedAmount());
+
+        waitForElementToBeClickable(WINTextBox,webDriver);
+        enterText(WINTextBox,workDetails.getWorkIdentificationNumber());
+
+        waitForElementToBeClickable(actualAmountTextBox,webDriver);
+        enterText(actualAmountTextBox,workDetails.getActualEstimateAmount());
+
+        waitForElementToBeClickable(grossAmountTextBox,webDriver);
+        enterText(grossAmountTextBox,workDetails.getGrossAmountBilled());
+
+        waitForElementToBeClickable(quantityTextBox,webDriver);
+        enterText(quantityTextBox,workDetails.getQuantity());
+
+        waitForElementToBeClickable(UOMBox,webDriver);
+        new Select(UOMBox).selectByVisibleText(workDetails.getUom());
+
+        waitForElementToBeClickable(expectedOutcomeTextBox,webDriver);
+        enterText(expectedOutcomeTextBox,workDetails.getExpectedOutcome());
+    }
+
+    private void selectWorksIfCreated(WebElement element, Boolean hasCreated) {
+        if (hasCreated && !element.isSelected())
+            element.click();
+    }
+
+    public void enterAdminSanctionDetails(AdminSanctionDetails adminSanctionDetails) {
+
+        waitForElementToBeClickable(adminSanctionNumberTextBox,webDriver);
+        enterText(adminSanctionNumberTextBox,adminSanctionDetails.getAdministrationSanctionNumber());
+
+        waitForElementToBeClickable(adminSanctionDateBox,webDriver);
+        adminSanctionDateBox.click();
+        enterText(adminSanctionDateBox,adminSanctionDetails.getAdminSanctionDate());
+        adminSanctionDateBox.sendKeys(Keys.TAB);
+    }
+
+    public void enterTechnicalSanctionDetails(TechnicalSanctionDetails technicalSanctionDetails) {
+
+        waitForElementToBeClickable(technicalSanctionNumberTextBox,webDriver);
+        enterText(technicalSanctionNumberTextBox, technicalSanctionDetails.getTechnicalSanctionNumber());
+
+        waitForElementToBeClickable(technicalSanctionDateTextBox,webDriver);
+        enterText(technicalSanctionDateTextBox,technicalSanctionDetails.getTechnicalSanctionDate());
+        technicalSanctionDateTextBox.sendKeys(Keys.TAB);
+
+        waitForElementToBeClickable(designationBox,webDriver);
+        new Select(designationBox).selectByVisibleText(technicalSanctionDetails.getTechnicalSanctionAuthority());
+
+
+
+        waitForElementToBeVisible(saveButton,webDriver);
+        saveButton.click();
+
     }
 }

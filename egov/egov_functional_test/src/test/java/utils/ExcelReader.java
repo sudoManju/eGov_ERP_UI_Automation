@@ -8,8 +8,8 @@ import builders.dcReports.VLTReportBuilder;
 import builders.ptis.*;
 import builders.wcms.EnclosedDocumentBuilder;
 import builders.wcms.FieldInspectionDetailsBuilder;
-import builders.works.EstimateHeaderDetailsBuilder;
-import builders.works.FinancialDetailsBuilder;
+import builders.works.*;
+import cucumber.api.java8.Da;
 import entities.*;
 import entities.collections.ChallanHeaderDetails;
 import entities.collections.ChequeDetails;
@@ -18,8 +18,7 @@ import entities.dcReports.VLTReport;
 import entities.ptis.*;
 import entities.wcms.EnclosedDocument;
 import entities.wcms.FieldInspectionDetails;
-import entities.works.EstimateHeaderDetails;
-import entities.works.FinancialDetails;
+import entities.works.*;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 
@@ -55,11 +54,12 @@ public class ExcelReader {
     Sheet registeredUserDetailsSheet;
     Sheet estimateHeaderDetailsSheet;
     Sheet financialDetailsSheet;
-    Sheet financialHeaderDetailsSheet;
-    Sheet workHeaderDetailsSheet;
-    Sheet adminSanctionHeaderDetailsSheet;
+
+    Sheet workDetailsSheet;
+    Sheet adminSanctionDetailsSheet;
     Sheet fieldInseptionDetailsForWaterConnectionSheet;
     Sheet ptReportSheet;
+    Sheet technicalSanctionDetailsSheet;
 
 
 
@@ -105,10 +105,10 @@ public class ExcelReader {
         registeredUserDetailsSheet = workbook.getSheet("registeredUserDetails");
         estimateHeaderDetailsSheet = workbook.getSheet("estimateHeaderDetails");
         financialDetailsSheet = workbook.getSheet("financialDetails");
-        workHeaderDetailsSheet = workbook.getSheet("workHeaderDetails");
-        adminSanctionHeaderDetailsSheet = workbook.getSheet("adminSanctionHeaderDetails");
+        workDetailsSheet = workbook.getSheet("workDetails");
+        adminSanctionDetailsSheet = workbook.getSheet("adminSanctionDetails");
         fieldInseptionDetailsForWaterConnectionSheet = workbook.getSheet("fieldInseptionDetailsForWaterConnection");
-
+        technicalSanctionDetailsSheet = workbook.getSheet("technicalSanctionDetails");
 
     }
 
@@ -770,5 +770,82 @@ public class ExcelReader {
                 .withFunction(function)
                 .withBudgetHead(budgetHead)
                 .build();
+    }
+
+    public WorkDetails getWorkDetails(String workDetailsDataId) {
+
+        Row dataRow = readDataRow(workDetailsSheet, workDetailsDataId);
+
+        boolean worksCreated = getCellData(workDetailsSheet, dataRow, "worksOrderCreated").getBooleanCellValue();
+        boolean billCreated = getCellData(workDetailsSheet, dataRow, "isBillCreated").getBooleanCellValue();
+        String nameOfWork = getCellData(workDetailsSheet, dataRow, "nameOfWork").getStringCellValue();
+        String abstractEstimateNumber = getCellData(workDetailsSheet, dataRow, "abstractEstimateNumber").getStringCellValue();
+        Cell estimateAmountCell = getCellData(workDetailsSheet, dataRow, "estimatedAmount");
+        estimateAmountCell.setCellType(Cell.CELL_TYPE_STRING);
+        String estimateAmount = estimateAmountCell.getStringCellValue();
+        String WIN = getCellData(workDetailsSheet, dataRow, "workIdentificationNumber").getStringCellValue();
+        Cell actualEstimateAmountCell = getCellData(workDetailsSheet, dataRow, "actualEstimateAmount");
+        actualEstimateAmountCell.setCellType(Cell.CELL_TYPE_STRING);
+        String actualEstimateAmount = actualEstimateAmountCell.getStringCellValue();
+        Cell grossAmountBilledCell = getCellData(workDetailsSheet, dataRow, "grossAmountBilled");
+        grossAmountBilledCell.setCellType(Cell.CELL_TYPE_STRING);
+        String grossAmountBilled = grossAmountBilledCell.getStringCellValue();
+        Cell quantityCell = getCellData(workDetailsSheet, dataRow, "quantity");
+        quantityCell.setCellType(Cell.CELL_TYPE_STRING);
+        String quantity = quantityCell.getStringCellValue();
+        String uom = getCellData(workDetailsSheet, dataRow, "uom").getStringCellValue();
+        String expectedOutcome = getCellData(workDetailsSheet, dataRow, "expectedOutcome").getStringCellValue();
+
+        return new WorkDetailsBuilder()
+                .withWorksOrderCreated(worksCreated)
+                .withBillsCreated(billCreated)
+                .withNameOfWork(nameOfWork)
+                .withAbstarctEstimateNumber(abstractEstimateNumber)
+                .withEstimatedAmount(estimateAmount)
+                .withWorkIdentificationNumber(WIN)
+                .withActualEstimateAmount(actualEstimateAmount)
+                .withGrossAmountBilled(grossAmountBilled)
+                .withQuantity(quantity)
+                .withUOM(uom)
+                .withExpectedOutcome(expectedOutcome)
+                .build();
+
+    }
+
+    public AdminSanctionDetails getAdminSanctionDetails(String adminSanctionDetailsDataId) {
+
+        Row dataRow = readDataRow(adminSanctionDetailsSheet, adminSanctionDetailsDataId);
+
+        String AdminstrativeSanctionNumber = getCellData(adminSanctionDetailsSheet, dataRow, "administrativeSanctionNumber").getStringCellValue();
+
+        Cell dateCell = getCellData(adminSanctionDetailsSheet, dataRow, "adminSanctionDate");
+        dateCell.setCellType(Cell.CELL_TYPE_STRING);
+        String Date  = dateCell.getStringCellValue();
+
+        return new AdminSanctionDetailsBuilder()
+                .withAdministrationSanctionNumber(AdminstrativeSanctionNumber)
+                .withAdminSanctionDate(Date)
+                .build();
+
+    }
+
+    public TechnicalSanctionDetails getTechnicalSanctionDetails(String technicalSanctionDetailsDataId) {
+
+        Row dataRow = readDataRow(technicalSanctionDetailsSheet, technicalSanctionDetailsDataId);
+
+        String TechnicalSanctionNumber = getCellData(technicalSanctionDetailsSheet, dataRow, "technicalSanctionNumber").getStringCellValue();
+
+        Cell dateCell = getCellData(technicalSanctionDetailsSheet, dataRow, "technicalSanctionDate");
+        dateCell.setCellType(Cell.CELL_TYPE_STRING);
+        String Date  = dateCell.getStringCellValue();
+
+        String TechnicalSanctionAuthority = getCellData(technicalSanctionDetailsSheet, dataRow, "technicalSanctionAuthority").getStringCellValue();
+
+        return new TechnicalSanctionDetailsBuilder()
+                .withTechnicalSanctionNumber(TechnicalSanctionNumber)
+                .withTechnicalSanctionDate(Date)
+                .withTechnicalSanctionAuthority(TechnicalSanctionAuthority)
+                .build();
+
     }
 }

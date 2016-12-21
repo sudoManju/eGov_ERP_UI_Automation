@@ -10,9 +10,10 @@ Scenario Outline: Create Spillover Line Estimate
     When he chooses to create new spillover estimate
     And he enters estimate header details as <estimateHeaderDetails>
     And he enters financial details as <financialDetails>
-#    And he enters work header details as <workHeaderDetails>
-#    And he enters administration sanction header details as <adminSanctionHeaderDetails>
+    And he enters work details as <workDetails>
+    And he enters administration sanction details as <adminSanctionDetails>
+    And he enters technical sanction details as <technicalSanctionDetails>
 #    Then spillover estimate created successfully
     Examples:
-      | estimateHeaderDetails |financialDetails|
-      | header                |financial       |
+      | estimateHeaderDetails |financialDetails|workDetails|adminSanctionDetails|technicalSanctionDetails|
+      | header                |financial       |work       |admin               |technical               |

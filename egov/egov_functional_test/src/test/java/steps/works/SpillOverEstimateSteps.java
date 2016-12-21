@@ -2,9 +2,8 @@ package steps.works;
 
 import cucumber.api.PendingException;
 import cucumber.api.java8.En;
-import entities.works.EstimateHeaderDetails;
+import entities.works.*;
 
-import entities.works.FinancialDetails;
 import pages.works.SpillOverEstimatePage;
 import steps.BaseSteps;
 import utils.ExcelReader;
@@ -26,6 +25,21 @@ public class SpillOverEstimateSteps extends BaseSteps implements En {
            FinancialDetails financialDetails = new ExcelReader(lineEstimateTestDataFileName).getFinancialDetails(financialDetailsDataId);
 
             pageStore.get(SpillOverEstimatePage.class).enterFinancialDetails(financialDetails);
+        });
+        And("^he enters work details as (\\w+)$", (String workDetailsDataId) -> {
+            WorkDetails workDetails = new ExcelReader(lineEstimateTestDataFileName).getWorkDetails(workDetailsDataId);
+
+            pageStore.get(SpillOverEstimatePage.class).enterWorkDetails(workDetails);
+        });
+        And("^he enters administration sanction details as (\\w+)$", (String adminSanctionDetailsDataId) -> {
+            AdminSanctionDetails adminSanctionDetails = new ExcelReader(lineEstimateTestDataFileName).getAdminSanctionDetails(adminSanctionDetailsDataId);
+
+            pageStore.get(SpillOverEstimatePage.class).enterAdminSanctionDetails(adminSanctionDetails);
+        });
+        And("^he enters technical sanction details as (\\w+)$", (String technicalSanctionDetailsDataId) -> {
+           TechnicalSanctionDetails technicalSanctionDetails = new ExcelReader(lineEstimateTestDataFileName).getTechnicalSanctionDetails(technicalSanctionDetailsDataId);
+
+            pageStore.get(SpillOverEstimatePage.class).enterTechnicalSanctionDetails(technicalSanctionDetails);
         });
 
     }
