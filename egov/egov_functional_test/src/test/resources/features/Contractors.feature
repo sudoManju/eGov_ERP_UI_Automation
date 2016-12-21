@@ -16,10 +16,14 @@ Feature: Create Contractors in the Masters
 
 #    View/Modify Contractor
 
-  @WIP
+  @Sanity
 
   Scenario: View or Modify Contractor
 
     When assistantEngineer logs in
     And he chooses for view or modify contractor
     And he search for contractor
+    And he select the required contractor
+    And modifies the required contractor
+    And he close the acknowledgement
+    And current user logs out

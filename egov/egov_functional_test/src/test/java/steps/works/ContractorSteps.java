@@ -25,5 +25,11 @@ public class ContractorSteps extends BaseSteps implements En {
         And("^he close the acknowledgement$", () -> {
            pageStore.get(ContractorPage.class).close();
         });
+        And("^he select the required contractor$", () -> {
+            pageStore.get(ContractorPage.class).select();
+        });
+        And("^modifies the required contractor$", () -> {
+            pageStore.get(ContractorPage.class).modify();
+        });
     }
 }

@@ -1,5 +1,6 @@
 package pages.works;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -7,6 +8,7 @@ import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
 import java.util.Calendar;
+import java.util.List;
 
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -39,7 +41,7 @@ public class ContractorPage extends BasePage
     @FindBy(id = "statusDescyui-rec0")
     private WebElement status;
 
-    @FindBy(className = "selectmultilinewk")
+    @FindBy(name = "actionContractorDetails[0].validity.startDate")
     private WebElement fromDate;
 
     @FindBy(id = "saveButton")
@@ -56,6 +58,18 @@ public class ContractorPage extends BasePage
 
     @FindBy(css = "input[id='closeButton'][value='Close']")
     private WebElement closeButton;
+
+    @FindBy(id = "contractorName")
+     private WebElement searchContractorNameBox;
+
+    @FindBy(id = "currentRow")
+    private WebElement contractorsListTable;
+
+    @FindBy(css = "input[value='Modify'][type='submit']")
+    private WebElement modifyButton;
+
+    @FindBy(id = "name")
+    private WebElement modifyNameBox;
 
     String min = String.valueOf(Calendar.getInstance().get(Calendar.MINUTE));
     String hour = String.valueOf(Calendar.getInstance().get(Calendar.HOUR));
@@ -85,7 +99,7 @@ public class ContractorPage extends BasePage
         String code = (min+hour);
         contractorCode.sendKeys(code);
         waitForElementToBeClickable(contractorName, driver);
-        contractorName.sendKeys("Egovernments");
+        contractorName.sendKeys("testers");
         waitForElementToBeClickable(department, driver);
         new Select(department).selectByVisibleText("ENGINEERING");
         waitForElementToBeClickable(status, driver);
@@ -105,14 +119,13 @@ public class ContractorPage extends BasePage
         searchFor("View/Modify Contractor");
         waitForElementToBeVisible(viewContractorlink, driver);
         viewContractorlink.click();
+        switchToNewlyOpenedWindow(driver);
     }
 
     public void searchContractor()
     {
-        waitForElementToBeClickable(contractorDepartment, driver);
-        new Select(contractorDepartment).selectByVisibleText("ENGINEERING");
-        waitForElementToBeClickable(contractorStatus, driver);
-        new Select(contractorStatus).selectByVisibleText("Active");
+        waitForElementToBeClickable(searchContractorNameBox,driver);
+        searchContractorNameBox.sendKeys("testers");
         waitForElementToBeClickable(contractorSearchButton, driver);
         contractorSearchButton.click();
     }
@@ -126,5 +139,28 @@ public class ContractorPage extends BasePage
         for (String winHandle : driver.getWindowHandles()) {
             driver.switchTo().window(winHandle);
         }
+    }
+
+    public void select() {
+        waitForElementToBeVisible(contractorsListTable,driver);
+        List<WebElement> totalRows = contractorsListTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
+        System.out.println("Rows:"+totalRows.size());
+        WebElement requiredRow = totalRows.get(totalRows.size()-1);
+        WebElement element = requiredRow.findElements(By.tagName("td")).get(0).findElement(By.id("radio"));
+        jsClick(element,driver);
+
+        waitForElementToBeVisible(modifyButton,driver);
+        modifyButton.click();
+    }
+
+    public void modify() {
+
+        waitForElementToBeVisible(modifyNameBox,driver);
+        modifyNameBox.click();
+        modifyNameBox.clear();
+        modifyNameBox.sendKeys("auto-testers");
+
+        waitForElementToBeVisible(modifyButton,driver);
+        modifyButton.click();
     }
 }
