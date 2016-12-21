@@ -78,7 +78,7 @@ Feature: Create New Property
 
     # ADDITION ALTERATION SCREEN #
 
-    Scenario Outline: : Registered user Update existing property
+    Scenario Outline: Registered user Update existing property
 
       Given commissioner logs in
       When he chooses to create data entry
