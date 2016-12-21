@@ -12,6 +12,7 @@ import pages.BasePage;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -129,6 +130,8 @@ public class SpillOverEstimatePage extends BasePage
     private WebElement closeButton;
 
 
+    String transactionRefNo = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
+
     public void enterEstimateHeaderDetails(EstimateHeaderDetails estimateHeaderDetails) {
         waitForElementToBeClickable(date, webDriver);
         date.click();
@@ -202,13 +205,15 @@ public class SpillOverEstimatePage extends BasePage
         enterText(nameOfWorkTextBox,workDetails.getNameOfWork());
 
         waitForElementToBeClickable(absEstimateNumTextBox,webDriver);
-        enterText(absEstimateNumTextBox,workDetails.getAbstractEstimateNumber());
+        String abstractIdNumber = (workDetails.getAbstractEstimateNumber() + transactionRefNo) ;
+        enterText(absEstimateNumTextBox,abstractIdNumber);
 
         waitForElementToBeClickable(estimateAmountTextBox,webDriver);
         enterText(estimateAmountTextBox,workDetails.getEstimatedAmount());
 
         waitForElementToBeClickable(WINTextBox,webDriver);
-        enterText(WINTextBox,workDetails.getWorkIdentificationNumber());
+        String workIdNumber = (workDetails.getWorkIdentificationNumber() + transactionRefNo );
+        enterText(WINTextBox,workIdNumber);
 
         waitForElementToBeClickable(actualAmountTextBox,webDriver);
         enterText(actualAmountTextBox,workDetails.getActualEstimateAmount());
@@ -234,7 +239,8 @@ public class SpillOverEstimatePage extends BasePage
     public void enterAdminSanctionDetails(AdminSanctionDetails adminSanctionDetails) {
 
         waitForElementToBeClickable(adminSanctionNumberTextBox,webDriver);
-        enterText(adminSanctionNumberTextBox,adminSanctionDetails.getAdministrationSanctionNumber());
+        String adminSanctionId = (adminSanctionDetails.getAdministrationSanctionNumber() + transactionRefNo);
+        enterText(adminSanctionNumberTextBox,adminSanctionId);
 
         waitForElementToBeClickable(adminSanctionDateBox,webDriver);
         adminSanctionDateBox.click();
@@ -245,7 +251,8 @@ public class SpillOverEstimatePage extends BasePage
     public void enterTechnicalSanctionDetails(TechnicalSanctionDetails technicalSanctionDetails) {
 
         waitForElementToBeClickable(technicalSanctionNumberTextBox,webDriver);
-        enterText(technicalSanctionNumberTextBox, technicalSanctionDetails.getTechnicalSanctionNumber());
+        String technicalSanctionId = (technicalSanctionDetails.getTechnicalSanctionNumber() + transactionRefNo);
+        enterText(technicalSanctionNumberTextBox, technicalSanctionId);
 
         waitForElementToBeClickable(technicalSanctionDateTextBox,webDriver);
         enterText(technicalSanctionDateTextBox,technicalSanctionDetails.getTechnicalSanctionDate());
