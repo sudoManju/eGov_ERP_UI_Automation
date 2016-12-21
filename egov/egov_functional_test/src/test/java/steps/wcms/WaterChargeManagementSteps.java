@@ -87,7 +87,5 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             pageStore.get(WaterChargeManagementPage.class).selectApplication(consumerNumber);
             pageStore.get(WaterChargeManagementPage.class).forward();
         });
-
-
     }
 }

@@ -6,6 +6,6 @@ public class Properties {
 
     public static final String url = propertiesReader.getUrl();
 
-    public static final long waitTime = 20;
+    public static final long waitTime = 10;
 
 }

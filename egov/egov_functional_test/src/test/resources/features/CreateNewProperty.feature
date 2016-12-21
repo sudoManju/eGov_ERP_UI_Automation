@@ -77,7 +77,8 @@ Feature: Create New Property
       And current user logs out
 
     # ADDITION ALTERATION SCREEN #
-
+  
+  @Sanity
     Scenario Outline: Registered user Update existing property
 
       Given commissioner logs in
@@ -134,8 +135,8 @@ Feature: Create New Property
       And chooses to act upon the above assessment
       And he generates a notice
       Examples:
-        |  editAssessmentDetails         |     amenitiesDetails |          editFloorDetails |
-        |  assessmentAdditionProperty    |        all            |         firstFloorAdditionaltaration|
+        |  editAssessmentDetails         |     amenitiesDetails |  editFloorDetails            |
+        |  assessmentAdditionProperty    |        all           |  firstFloorAdditionaltaration|
 
 
       @Sanity

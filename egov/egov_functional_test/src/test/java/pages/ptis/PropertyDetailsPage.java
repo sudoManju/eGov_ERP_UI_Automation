@@ -306,8 +306,14 @@ public class PropertyDetailsPage extends BasePage {
         enterText(mobileNumberTextBox, ownerDetails.getMobileNumber());
         enterText(ownerNameTextBox, ownerDetails.getOwnerName());
         new Select(genderSelection).selectByVisibleText(ownerDetails.getGender().toUpperCase());
-        waitForElementToBeClickable(emailIdTextBox , webDriver);
-        enterText(emailIdTextBox, ownerDetails.getEmailAddress());
+
+        WebElement element = webDriver.findElement(By.id("emailId"));
+        JavascriptExecutor executor = (JavascriptExecutor)webDriver;
+        executor.executeScript("arguments[0].click();", element);
+        enterText(element, ownerDetails.getEmailAddress());
+
+//        waitForElementToBeClickable(emailIdTextBox , webDriver);
+//        enterText(emailIdTextBox, ownerDetails.getEmailAddress());
         new Select(guardianRelationSelection).selectByVisibleText(ownerDetails.getGuardianRelation());
         enterText(guardianTextBox, ownerDetails.getGuardianName());
     }
@@ -546,9 +552,9 @@ public class PropertyDetailsPage extends BasePage {
         waitForElementToBeClickable(propertyAmountPaid, webDriver);
         waitForElementToBeClickable(properAmountToBePaid, webDriver);
 
-        String amount = propertyAmountPaid.getAttribute("value");
-        String[] finalAmount = amount.split("\\.");
-        properAmountToBePaid.sendKeys(finalAmount[0]);
+//        String amount = propertyAmountPaid.getAttribute("value").split("\\.")[0];
+//        String[] finalAmount = amount.split("\\.");
+        properAmountToBePaid.sendKeys(propertyAmountPaid.getAttribute("value").split("\\.")[0]);
 
         WebElement element = webDriver.findElement(By.id("button2"));
         JavascriptExecutor executor = (JavascriptExecutor)webDriver;

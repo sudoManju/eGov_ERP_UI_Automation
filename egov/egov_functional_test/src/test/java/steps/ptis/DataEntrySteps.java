@@ -28,6 +28,7 @@ public class DataEntrySteps extends BaseSteps implements En {
 
             pageStore.get(PropertyDetailsPage.class)
                     .enterOwnerDetails(new ExcelReader(ptisTestDataFileName).getOwnerDetails("bimal"));
+
             pageStore.get(PropertyDetailsPage.class)
                     .enterPropertyAddressDetails(new ExcelReader(ptisTestDataFileName).getPropertyAddressDetails("addressOne"));
             pageStore.get(PropertyDetailsPage.class)

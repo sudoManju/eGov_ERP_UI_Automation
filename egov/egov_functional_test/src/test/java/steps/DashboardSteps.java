@@ -108,6 +108,9 @@ public class DashboardSteps extends BaseSteps implements En {
         And("^user search to apply for closure of connection$", () -> {
             pageStore.get(DashboardPage.class).chooseToApplyForClosureConnection();
         });
+        And("^search for the create journal voucher$", () -> {
+            pageStore.get(DashboardPage.class).chooseToApplyForJournalVoucher();
+        });
 
 
     }

@@ -56,6 +56,15 @@ public class PropertyAcknowledgementPage extends BasePage {
         }
     }
 
+    public void close1() {
+        waitForElementToBeClickable(propertyCloseButton,driver);
+        propertyCloseButton.click();
+        await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
+        for (String winHandle : driver.getWindowHandles()) {
+            driver.switchTo().window(winHandle);
+        }
+    }
+
     public String getSignatureNotification() {
         return driver.findElement(By.cssSelector("div.panel-title")).getText();
     }

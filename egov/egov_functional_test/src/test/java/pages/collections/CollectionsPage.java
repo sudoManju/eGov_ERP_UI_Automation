@@ -4,12 +4,8 @@ import entities.collections.ChallanHeaderDetails;
 import entities.collections.ChequeDetails;
 import entities.ptis.ApprovalDetails;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.*;
 import pages.BasePage;
 
 import java.util.List;
@@ -112,8 +108,8 @@ public class CollectionsPage extends BasePage {
         chequeNumberTextBox.sendKeys(chequeDetails.getChequeNumber());
         chequeDateTextBox.sendKeys(chequeDetails.getChequeDate());
         chequeDateTextBox.sendKeys(Keys.TAB);
-        bankNameInput.sendKeys(chequeDetails.getBankName());
-
+        enterText(bankNameInput, chequeDetails.getBankName());
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         await().atMost(10, SECONDS).until(() -> driver.findElement(By.id("bankcodescontainer"))
                 .findElements(By.cssSelector("ul li"))
                 .get(0).click());
@@ -142,10 +138,9 @@ public class CollectionsPage extends BasePage {
 
         new Select(serviceCategoryBox).selectByVisibleText(challanHeaderDetails.getServiceCategory());
         new Select(serviceTypeBox).selectByVisibleText(challanHeaderDetails.getServiceType());
+
         serviceTypeBox.sendKeys(Keys.CONTROL + "t");
         functionTab.sendKeys(Keys.CONTROL + "t");
-
-        //challanAmountTextBox.clear();
         challanAmountTextBox.sendKeys(Keys.CONTROL + "a");
         challanAmountTextBox.sendKeys(Keys.DELETE);
         challanAmountTextBox.sendKeys("500");

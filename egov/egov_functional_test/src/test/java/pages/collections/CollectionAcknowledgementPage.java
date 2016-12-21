@@ -47,9 +47,12 @@ public class CollectionAcknowledgementPage extends BasePage {
 
     public void submitAllCollections() throws Exception {
 
-        test_Scroll_Page_To_Bottom();
+        //test_Scroll_Page_To_Bottom();
+        WebElement element = driver.findElement(By.id("input[value='Submit All Collections'][type='submit']"));
+        JavascriptExecutor executor = (JavascriptExecutor)driver;
+        executor.executeScript("arguments[0].click();", element);
 
-        waitForElementToBeClickable(submitAllCollectionsButton,driver);
+        //waitForElementToBeClickable(submitAllCollectionsButton,driver);
         submitAllCollectionsButton.click();
     }
 
@@ -64,8 +67,14 @@ public class CollectionAcknowledgementPage extends BasePage {
     }
 
     public void approveCollection() throws Exception {
-        test_Scroll_Page_To_Bottom();
-        waitForElementToBeClickable(approveCollectionButton,driver);
-        approveCollectionButton.click();
+        //test_Scroll_Page_To_Bottom();
+
+        driver.manage().window().maximize();
+        WebElement element = driver.findElement(By.id("input[value='Approve All Collections'][type='submit']"));
+        JavascriptExecutor executor = (JavascriptExecutor)driver;
+        executor.executeScript("arguments[0].click();", element);
+
+//        waitForElementToBeClickable(approveCollectionButton,driver);
+//        approveCollectionButton.click();
     }
 }

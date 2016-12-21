@@ -95,6 +95,8 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Apply for Closure of Connection")
     private WebElement closureConnection;
 
+    @FindBy(linkText = "Create Journal Voucher")
+    private WebElement createJournalVoucher;
 
 
     public DashboardPage(WebDriver driver) {
@@ -371,5 +373,12 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
+    public void chooseToApplyForJournalVoucher(){
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Create Journal Voucher");
+        waitForElementToBeClickable(createJournalVoucher ,driver);
+        createJournalVoucher.click();
+        switchToNewlyOpenedWindow(driver);
+    }
 }
 
