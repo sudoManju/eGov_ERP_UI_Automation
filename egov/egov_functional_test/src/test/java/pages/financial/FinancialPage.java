@@ -97,6 +97,9 @@ public class FinancialPage extends BasePage {
     @FindBy(id = "official_inbox")
     private WebElement officialInboxTable;
 
+    @FindBy(id = "Approve")
+    private WebElement approveButton;
+
     public FinancialPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -146,16 +149,18 @@ public class FinancialPage extends BasePage {
         new Select(approverDepartment).selectByVisibleText(approvalDetails.getApproverDepartment());
         new Select(approverDesignation).selectByVisibleText(approvalDetails.getApproverDesignation());
         new Select(approverPosition).selectByVisibleText(approvalDetails.getApprover());
-
         forwardButton.click();
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    }
+
+    public String getVoucherNumber(){
 
         webDriver.switchTo().activeElement();
-        WebDriverWait webDriverWait = new WebDriverWait(webDriver,10);
+        WebDriverWait webDriverWait = new WebDriverWait(webDriver,5);
+
+        webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("div[class~='bootbox-alert'] div[class^='bootbox-body']")));
+        WebElement voucherNumber = webDriver.findElement(By.cssSelector("div[class~='bootbox-alert'] div[class^='bootbox-body']"));
+        String number = voucherNumber.getText();
+
         webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("div[class~='bootbox-alert'] button[class^='btn']")));
         WebElement element = webDriver.findElement(By.cssSelector("div[class~='bootbox-alert'] button[class^='btn']"));
         element.click();
@@ -165,6 +170,7 @@ public class FinancialPage extends BasePage {
         for (String winHandle : webDriver.getWindowHandles()) {
             webDriver.switchTo().window(winHandle);
         }
+        return number.split("\\ ")[1];
     }
 
     public void openVoucher(String voucherNumber){
@@ -179,7 +185,7 @@ public class FinancialPage extends BasePage {
 
         await().atMost(10, SECONDS).until(() -> officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
         List<WebElement> voucherRows = officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-        System.out.println("total number of rows -- " + voucherRows.size());
+
         for (WebElement voucherRow : voucherRows) {
             if (voucherRow.findElements(By.tagName("td")).get(4).getText().contains(voucherNumber))
                 return voucherRow;
@@ -187,5 +193,20 @@ public class FinancialPage extends BasePage {
         throw new RuntimeException("No voucher row found for -- " + voucherNumber);
     }
 
+    public void approvalPage(){
+        waitForElementToBeClickable(approveButton , webDriver);
+        approveButton.click();
+    }
+
+    public void closePage(){
+        switchToNewlyOpenedWindow(webDriver);
+        List<WebElement> closeElements = webDriver.findElements(By.className("button"));
+        closeElements.get(1).click();
+
+        await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
+        for (String winHandle : webDriver.getWindowHandles()) {
+            webDriver.switchTo().window(winHandle);
+        }
+    }
 
 }

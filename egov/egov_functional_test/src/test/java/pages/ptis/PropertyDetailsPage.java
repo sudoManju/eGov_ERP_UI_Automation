@@ -552,8 +552,6 @@ public class PropertyDetailsPage extends BasePage {
         waitForElementToBeClickable(propertyAmountPaid, webDriver);
         waitForElementToBeClickable(properAmountToBePaid, webDriver);
 
-//        String amount = propertyAmountPaid.getAttribute("value").split("\\.")[0];
-//        String[] finalAmount = amount.split("\\.");
         properAmountToBePaid.sendKeys(propertyAmountPaid.getAttribute("value").split("\\.")[0]);
 
         WebElement element = webDriver.findElement(By.id("button2"));

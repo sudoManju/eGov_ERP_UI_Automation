@@ -12,6 +12,15 @@ public class ScenarioContext {
 
     private String challanNumber;
 
+    private String voucherNumber;
+
+    public String getVoucherNumber() {
+        return voucherNumber;
+    }
+
+    public void setVoucherNumber(String voucherNumber) {
+        this.voucherNumber = voucherNumber;
+    }
 
     public String getChallanNumber() {
         return challanNumber;

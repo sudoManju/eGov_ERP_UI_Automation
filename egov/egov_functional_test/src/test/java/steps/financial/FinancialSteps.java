@@ -15,20 +15,30 @@ public class FinancialSteps extends BaseSteps implements En {
 
     public FinancialSteps() {
 
-        And("^user will enter the journal voucher details as (\\w+) & (\\w+)$", (String voucherType , String accountCode ) -> {
+        And("^officer will enter the journal voucher details as (\\w+) & (\\w+)$", (String voucherType , String accountCode ) -> {
             pageStore.get(FinancialPage.class).enterJournalVoucherDetails(voucherType , accountCode);
         });
 
-        And("^user will enter the approval details as (\\w+)$", (String approveOfficer) -> {
+        And("^officer will enter the approval details as (\\w+)$", (String approveOfficer) -> {
             ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approveOfficer);
             pageStore.get(FinancialPage.class).enterFinanceApprovalDetails(approvalDetails);
         });
 
-        Then("^the officer will click on the voucher number$", (String voucherNumber) -> {
-            pageStore.get(FinancialPage.class).openVoucher(voucherNumber);
+        And("^officer will get the voucher number and closes it$", () -> {
+            String voucherNumber = pageStore.get(FinancialPage.class).getVoucherNumber();
+            scenarioContext.setVoucherNumber(voucherNumber);
         });
 
-        And("^officer will approve and transfer to (\\w+)$", () -> {
+        Then("^the officer will click on the voucher number$", () -> {
+            pageStore.get(FinancialPage.class).openVoucher(scenarioContext.getVoucherNumber());
+        });
+
+        And("^officer will closes the acknowledgement page$", () -> {
+            pageStore.get(FinancialPage.class).closePage();
+        });
+
+        And("^officer click on approval of the voucher$", () -> {
+            pageStore.get(FinancialPage.class).approvalPage();
         });
     }
 }
