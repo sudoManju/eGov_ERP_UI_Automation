@@ -37,3 +37,11 @@ Feature: Create/view/modify Milestone template
   @WIP
 
   Scenario: modify milestone template
+
+    Given assis_Engineer logs in
+    And he chooses to modify milestone template
+    And he enters the details for search
+    And he select the required template for modification
+    And he modifies the template and closes the acknowledgement
+    And current user logs out
+

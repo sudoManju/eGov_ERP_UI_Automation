@@ -59,6 +59,12 @@ public class MilestoneTemplatePage extends BasePage {
     @FindBy(xpath = "(//*[@id='currentRow']/tbody/tr/td/a)[last()]")
     private WebElement requiredRowForView;
 
+    @FindBy(css = "input[value='Modify'][type='button']")
+    private WebElement modifyButton;
+
+    @FindBy(css = "input[value='Modify'][type='submit']")
+    private WebElement modifyButtonAfterModication;
+
     public MilestoneTemplatePage(WebDriver driver) {
         this.driver = driver;
     }
@@ -112,8 +118,6 @@ public class MilestoneTemplatePage extends BasePage {
         }
     }
 
-
-
     public void enterMilestoneTemplateDetailsForView() {
 
         waitForElementToBeVisible(typeOfWorkForViewBox,driver);
@@ -123,10 +127,64 @@ public class MilestoneTemplatePage extends BasePage {
         searchButton.click();
     }
 
-    public void searchForRequiredTemplate() {
+    public void selectTheRequiredTemplate() {
         waitForElementToBeVisible(searchTable,driver);
 
         requiredRowForView.click();
 
+    }
+
+    public void selectTheRequiredTemplateToModify() {
+        waitForElementToBeVisible(searchTable,driver);
+        List<WebElement> totalRows = searchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
+        System.out.println("Rows:"+totalRows.size());
+        WebElement requiredRow = totalRows.get(totalRows.size()-1);
+        WebElement element = requiredRow.findElements(By.tagName("td")).get(0).findElement(By.id("radio"));
+        jsClick(element,driver);
+
+        waitForElementToBeClickable(modifyButton,driver);
+        modifyButton.click();
+
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void modifyTheMileStoneTemplateSelected() {
+
+        waitForElementToBeVisible(stageTable,driver);
+        List<WebElement>totalRows = stageTable.findElement(By.tagName("tr")).findElements(By.tagName("td"));
+
+        WebElement stagePercentageTextBox = totalRows.get(2).findElement(By.className("selectamountwk"));
+        stagePercentageTextBox.clear();
+        stagePercentageTextBox.sendKeys("80");
+
+        waitForElementToBeVisible(addTemplateActivityButton,driver);
+        addTemplateActivityButton.click();
+        WebElement requiredRow = stageTable.findElements(By.tagName("tr")).get(1);
+
+        WebElement stageOrderTextBox2 =  requiredRow.findElements(By.tagName("td")).get(0).findElement(By.id("stageOrderNoyui-rec1"));
+        stageOrderTextBox2.sendKeys("2");
+
+        WebElement stageDescriptionTextBox2 = requiredRow.findElements(By.tagName("td")).get(1).findElement(By.id("descriptionyui-rec1"));
+        stageDescriptionTextBox2.sendKeys("Testing for modification");
+
+        WebElement stagePercentageTextBox2 = requiredRow.findElements(By.tagName("td")).get(2).findElement(By.id("percentageyui-rec1"));
+        stagePercentageTextBox2.sendKeys("20");
+
+        modifyButtonAfterModication.click();
+
+        closeButton.click();
+
+        for (String winHandle : driver.getWindowHandles()) {
+            driver.switchTo().window(winHandle);
+        }
+
+
+        waitForElementToBeVisible(typeOfWorkForViewBox,driver);
+        new Select(typeOfWorkForViewBox).selectByVisibleText("--------Select--------");
+
+        waitForElementToBeClickable(searchButton,driver);
+        searchButton.click();
+
+        close();
     }
 }

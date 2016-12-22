@@ -104,6 +104,9 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "View Milestone Template")
     private WebElement viewMilestoneTemplateLink;
 
+    @FindBy(linkText = "Modify Milestone Template")
+    private WebElement modifyMilestoneTemplateLink;
+
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -400,6 +403,14 @@ public class DashboardPage extends BasePage {
         searchFor("View milestone template");
         waitForElementToBeClickable(viewMilestoneTemplateLink,driver);
         viewMilestoneTemplateLink.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseToModifyMilestoneTemplate() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Modify milestone template");
+        waitForElementToBeClickable(modifyMilestoneTemplateLink,driver);
+        modifyMilestoneTemplateLink.click();
         switchToNewlyOpenedWindow(driver);
     }
 }
