@@ -3,11 +3,16 @@ package pages.financial;
 import entities.ptis.ApprovalDetails;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasePage;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import static com.jayway.awaitility.Awaitility.await;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 
 /**
@@ -83,11 +88,18 @@ public class FinancialPage extends BasePage {
     @FindBy(xpath = ".//*[@id='egov_yui_add_image']")
     private List<WebElement> addList;
 
-    @FindBy(className = "btn btn-primary")
+    @FindBy(css = "'div[class~='bootbox-alert'] button[class^='btn']'")
     private WebElement okButton;
 
     @FindBy(id = "button2")
     private WebElement closeButton;
+
+    @FindBy(id = "official_inbox")
+    private WebElement officialInboxTable;
+
+    public FinancialPage(WebDriver webDriver) {
+        this.webDriver = webDriver;
+    }
 
     public void enterJournalVoucherDetails(String voucherType , String accountCode){
 
@@ -136,11 +148,44 @@ public class FinancialPage extends BasePage {
         new Select(approverPosition).selectByVisibleText(approvalDetails.getApprover());
 
         forwardButton.click();
-        //switchToNewlyOpenedWindow(webDriver);
-        webDriver.switchTo().alert().accept();
-        okButton.click();
-        closeButton.click();
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
+        webDriver.switchTo().activeElement();
+        WebDriverWait webDriverWait = new WebDriverWait(webDriver,10);
+        webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("div[class~='bootbox-alert'] button[class^='btn']")));
+        WebElement element = webDriver.findElement(By.cssSelector("div[class~='bootbox-alert'] button[class^='btn']"));
+        element.click();
+
+        closeButton.click();
+        await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
+        for (String winHandle : webDriver.getWindowHandles()) {
+            webDriver.switchTo().window(winHandle);
+        }
     }
+
+    public void openVoucher(String voucherNumber){
+        WebElement element = getVoucherRow(voucherNumber);
+        element.click();
+        switchToNewlyOpenedWindow(webDriver);
+    }
+
+    private WebElement getVoucherRow(String voucherNumber) {
+        waitForElementToBeVisible(webDriver.findElement(By.id("worklist")), webDriver);
+        waitForElementToBeVisible(officialInboxTable, webDriver);
+
+        await().atMost(10, SECONDS).until(() -> officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
+        List<WebElement> voucherRows = officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
+        System.out.println("total number of rows -- " + voucherRows.size());
+        for (WebElement voucherRow : voucherRows) {
+            if (voucherRow.findElements(By.tagName("td")).get(4).getText().contains(voucherNumber))
+                return voucherRow;
+        }
+        throw new RuntimeException("No voucher row found for -- " + voucherNumber);
+    }
+
 
 }
