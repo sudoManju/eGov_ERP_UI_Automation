@@ -157,6 +157,12 @@ public class FinancialPage extends BasePage {
         webDriver.switchTo().activeElement();
         WebDriverWait webDriverWait = new WebDriverWait(webDriver,10);
 
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("div[class~='bootbox-alert'] div[class^='bootbox-body']")));
         WebElement voucherNumber = webDriver.findElement(By.cssSelector("div[class~='bootbox-alert'] div[class^='bootbox-body']"));
         String number = voucherNumber.getText();

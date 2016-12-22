@@ -1,7 +1,7 @@
 Feature: To create a Financial Transactions
 
   @Sanity
-  Scenario Outline: To create the financial journal vouchers
+  Scenario Outline: To create the financial journal vouchers type General
 
     Given accountsOfficer logs in
     And search for the create journal voucher
