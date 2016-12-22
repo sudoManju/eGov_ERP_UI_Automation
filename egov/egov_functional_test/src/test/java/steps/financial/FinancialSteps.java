@@ -15,12 +15,12 @@ public class FinancialSteps extends BaseSteps implements En {
 
     public FinancialSteps() {
 
-        And("^user will enter the journal voucher details as (\\w+)$", (String voucherType) -> {
-            String approveDetails = "accountOfficer";
-            pageStore.get(FinancialPage.class).enterJournalVoucherDetails();
-
-            ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approveDetails);
-            pageStore.get(FinancialPage.class).enterFinanceApprovalDetails(approvalDetails);;
+        And("^user will enter the journal voucher details as (\\w+) & (\\w+)$", (String voucherType , String accountCode ) -> {
+            pageStore.get(FinancialPage.class).enterJournalVoucherDetails(voucherType , accountCode);
+        });
+        And("^user will enter the approval details as (\\w+)$", (String approveOfficer) -> {
+            ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approveOfficer);
+            pageStore.get(FinancialPage.class).enterFinanceApprovalDetails(approvalDetails);
         });
     }
 }

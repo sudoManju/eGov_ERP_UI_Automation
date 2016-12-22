@@ -1,16 +1,14 @@
 package pages.financial;
 
 import entities.ptis.ApprovalDetails;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static com.jayway.awaitility.Awaitility.await;
 
 /**
  * Created by vinaykumar on 20/12/16.
@@ -41,7 +39,7 @@ public class FinancialPage extends BasePage {
     private WebElement debitAmount1;
 
     @FindBy(id = "billDetailslist[1].creditAmountDetail")
-    private WebElement creditAmount;
+    private WebElement creditAmount2;
 
     @FindBy(id = "totalcramount")
     private WebElement totalCreditAmount;
@@ -82,40 +80,48 @@ public class FinancialPage extends BasePage {
     @FindBy(id = "subLedgerlist[1].amount")
     private WebElement ledgerAmount2;
 
-    @FindBy(xpath = "/egi/resources/erp2/images/add.png")
-    private WebElement ledgerAdd;
+    @FindBy(xpath = ".//*[@id='egov_yui_add_image']")
+    private List<WebElement> addList;
 
-    public void enterJournalVoucherDetails(){
+    @FindBy(className = "btn btn-primary")
+    private WebElement okButton;
 
-        new Select(voucherSubType).selectByVisibleText("General");
+    @FindBy(id = "button2")
+    private WebElement closeButton;
+
+    public void enterJournalVoucherDetails(String voucherType , String accountCode){
+
+        new Select(voucherSubType).selectByVisibleText(voucherType);
         new Select(fundId).selectByVisibleText("Municipal Fund");
-        new Select(voucherDepartment).selectByVisibleText("ACCOUNTS");
-        new Select(voucherFunction).selectByVisibleText("12th Finance Commission");
+        new Select(voucherDepartment).selectByVisibleText("PUBLIC HEALTH AND SANITATION");
+        new Select(voucherFunction).selectByVisibleText("Public Health");
 
-        accountCode1.sendKeys("2101001" , Keys.TAB);
+        accountCode1.sendKeys(accountCode.split("\\_")[0],  Keys.TAB);
         enterText(debitAmount1 , "100");
 
-        accountCode2.sendKeys("3501001" , Keys.TAB);
-        enterText(creditAmount , "100");
+        accountCode2.sendKeys(accountCode.split("\\_")[1] , Keys.TAB);
+        enterText(creditAmount2 , "100");
 
-        new Select(ledgerAccount1).selectByVisibleText("2101001");
+        new Select(ledgerAccount1).selectByVisibleText(accountCode.split("\\_")[0]);
         new Select(ledgerType1).selectByVisibleText("contractor");
         ledgerCode1.sendKeys("KMC001");
+
         try {
-            TimeUnit.SECONDS.sleep(1);
+            TimeUnit.SECONDS.sleep(2);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         ledgerCode1.sendKeys(Keys.ENTER);
         ledgerAmount1.sendKeys("100");
 
-        ledgerAdd.click();
+        addList.get(2).click();
 
-        new Select(ledgerAccount2).selectByVisibleText("3501001");
+        new Select(ledgerAccount2).selectByVisibleText(accountCode.split("\\_")[1]);
         new Select(ledgerType2).selectByVisibleText("contractor");
         ledgerCode2.sendKeys("KMC001");
+
         try {
-            Thread.sleep(10000);
+            TimeUnit.SECONDS.sleep(2);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -128,6 +134,12 @@ public class FinancialPage extends BasePage {
         new Select(approverDepartment).selectByVisibleText(approvalDetails.getApproverDepartment());
         new Select(approverDesignation).selectByVisibleText(approvalDetails.getApproverDesignation());
         new Select(approverPosition).selectByVisibleText(approvalDetails.getApprover());
+
+        forwardButton.click();
+        //switchToNewlyOpenedWindow(webDriver);
+        webDriver.switchTo().alert().accept();
+        okButton.click();
+        closeButton.click();
 
     }
 
