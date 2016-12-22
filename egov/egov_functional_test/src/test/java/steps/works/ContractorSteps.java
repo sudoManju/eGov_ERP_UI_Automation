@@ -31,5 +31,6 @@ public class ContractorSteps extends BaseSteps implements En {
         And("^modifies the required contractor$", () -> {
             pageStore.get(ContractorPage.class).modify();
         });
+
     }
 }

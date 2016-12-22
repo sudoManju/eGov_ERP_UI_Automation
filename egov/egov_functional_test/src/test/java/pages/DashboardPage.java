@@ -98,6 +98,9 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Create Journal Voucher")
     private WebElement createJournalVoucher;
 
+    @FindBy(linkText = "Create Milestone Template")
+    private WebElement createMilestoneTemplateLink;
+
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -378,6 +381,14 @@ public class DashboardPage extends BasePage {
         searchFor("Create Journal Voucher");
         waitForElementToBeClickable(createJournalVoucher ,driver);
         createJournalVoucher.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseToCreateMilestoneTemplate() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Create milestone template");
+        waitForElementToBeClickable(createMilestoneTemplateLink,driver);
+        createMilestoneTemplateLink.click();
         switchToNewlyOpenedWindow(driver);
     }
 }

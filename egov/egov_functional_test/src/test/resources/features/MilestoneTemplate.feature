@@ -4,9 +4,15 @@ Feature: Create/view/modify Milestone template
 
   #Creating a milestone template
 
-  @WIP
+  @Sanity
 
   Scenario: Create milestone template
+
+    Given assis_Engineer logs in
+    And he chooses to create milestone template
+    And he enters the milestone template creation details
+    And he save the file and closes the acknowledgement
+    And current user logs out
 
 
 
