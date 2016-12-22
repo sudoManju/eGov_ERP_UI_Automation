@@ -290,13 +290,12 @@ public class PropertyDetailsPage extends BasePage {
 
     public void enterPropertyHeader(PropertyHeaderDetails propertyHeaderDetails) {
 
-        System.out.println("Before category selection ---" + new Select(propertyTypeSelection).getOptions().size());
-        waitForElementToBeClickable(categoryOfOwnershipSelection, webDriver);
         new Select(categoryOfOwnershipSelection).selectByVisibleText(propertyHeaderDetails.getCategoryOfOwnership());
-
-        waitForElementToBeClickable(propertyTypeSelection, webDriver);
-        System.out.println("After category selection ---" + new Select(propertyTypeSelection).getOptions().size());
-        await().atMost(5, SECONDS).until(() -> new Select(propertyTypeSelection).getOptions().size() > 1);
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         new Select(propertyTypeSelection).selectByVisibleText(propertyHeaderDetails.getPropertyType());
     }
 
@@ -556,6 +555,11 @@ public class PropertyDetailsPage extends BasePage {
 
         WebElement element = webDriver.findElement(By.id("button2"));
         JavascriptExecutor executor = (JavascriptExecutor)webDriver;
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         executor.executeScript("arguments[0].click();", element);
 
         switchToNewlyOpenedWindow(webDriver);
