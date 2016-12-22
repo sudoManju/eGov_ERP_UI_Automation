@@ -47,6 +47,18 @@ public class MilestoneTemplatePage extends BasePage {
     @FindBy(css = "input[id='closeButton'][value='Close']")
     private WebElement closeButton;
 
+    @FindBy(xpath = ".//*[@id='workType']")
+    private WebElement typeOfWorkForViewBox;
+
+    @FindBy(css = "input[value='Search'][type='submit']")
+    private WebElement searchButton;
+
+    @FindBy(id = "currentRow")
+    private WebElement searchTable;
+
+    @FindBy(xpath = "(//*[@id='currentRow']/tbody/tr/td/a)[last()]")
+    private WebElement requiredRowForView;
+
     public MilestoneTemplatePage(WebDriver driver) {
         this.driver = driver;
     }
@@ -85,17 +97,36 @@ public class MilestoneTemplatePage extends BasePage {
 
     }
 
-    public void saveAndClose() {
-        waitForElementToBeClickable(saveButton,driver);
+    public void save() {
+        waitForElementToBeClickable(saveButton, driver);
         saveButton.click();
+    }
 
-        waitForElementToBeVisible(closeButton,driver);
+    public void close(){
+        waitForElementToBeVisible(closeButton, driver);
         closeButton.click();
 
         await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
-        for (String winHandle :driver.getWindowHandles()) {
+        for (String winHandle : driver.getWindowHandles()) {
             driver.switchTo().window(winHandle);
         }
+    }
+
+
+
+    public void enterMilestoneTemplateDetailsForView() {
+
+        waitForElementToBeVisible(typeOfWorkForViewBox,driver);
+        new Select(typeOfWorkForViewBox).selectByVisibleText("Roads, Drains, Bridges and Flyovers");
+
+        waitForElementToBeClickable(searchButton,driver);
+        searchButton.click();
+    }
+
+    public void searchForRequiredTemplate() {
+        waitForElementToBeVisible(searchTable,driver);
+
+        requiredRowForView.click();
 
     }
 }

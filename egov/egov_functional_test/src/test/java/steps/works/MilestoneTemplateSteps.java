@@ -20,7 +20,20 @@ public class MilestoneTemplateSteps extends BaseSteps implements En {
           pageStore.get(MilestoneTemplatePage.class).enterMilestoneTemplateDetails();
        });
        And("^he save the file and closes the acknowledgement$", () -> {
-           pageStore.get(MilestoneTemplatePage.class).saveAndClose();
+           pageStore.get(MilestoneTemplatePage.class).save();
+           pageStore.get(MilestoneTemplatePage.class).close();
+       });
+       And("^he chooses to view milestone template$", () -> {
+          pageStore.get(DashboardPage.class).chooseToViewMilestoneTemplate();
+       });
+       And("^he enters the details for search$", () -> {
+          pageStore.get(MilestoneTemplatePage.class).enterMilestoneTemplateDetailsForView();
+       });
+       And("^he selects the required template$", () -> {
+           pageStore.get(MilestoneTemplatePage.class).searchForRequiredTemplate();
+       });
+       And("^he views and closes the acknowledgement$", () -> {
+           pageStore.get(MilestoneTemplatePage.class).close();
        });
    }
 }

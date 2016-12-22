@@ -19,10 +19,16 @@ Feature: Create/view/modify Milestone template
 
   #View a milestone template
 
-  @WIP
+  @Sanity
 
   Scenario: view milestone template
 
+    Given assis_Engineer logs in
+    And he chooses to view milestone template
+    And he enters the details for search
+    And he selects the required template
+    And he views and closes the acknowledgement
+    And current user logs out
 
 
 
