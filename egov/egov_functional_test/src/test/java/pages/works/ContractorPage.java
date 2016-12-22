@@ -96,6 +96,7 @@ public class ContractorPage extends BasePage
     public void entersContractorMasterData()
     {
         waitForElementToBeClickable(contractorCode, driver);
+
         String code = (min+hour);
         contractorCode.sendKeys(code);
         waitForElementToBeClickable(contractorName, driver);
