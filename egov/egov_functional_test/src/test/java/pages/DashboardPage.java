@@ -107,6 +107,17 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Modify Milestone Template")
     private WebElement modifyMilestoneTemplateLink;
 
+    @FindBy(linkText = "Create Letter of Acceptance")
+    private WebElement createLOALink;
+
+    @FindBy(id = "btnsearch")
+    private WebElement searchEstimateButton;
+
+    @FindBy(xpath = "(//*[@id='resultTable']/tbody/tr/td/input)[1]")
+    private WebElement estimateRadioButton;
+
+    @FindBy(id = "btncreateloa")
+    private WebElement createLOAButton;
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -409,9 +420,24 @@ public class DashboardPage extends BasePage {
     public void chooseToModifyMilestoneTemplate() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("Modify milestone template");
-        waitForElementToBeClickable(modifyMilestoneTemplateLink,driver);
+        waitForElementToBeClickable(modifyMilestoneTemplateLink, driver);
         modifyMilestoneTemplateLink.click();
         switchToNewlyOpenedWindow(driver);
+    }
+    public void chooseToCreateLOA() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Create Letter of Acceptance");
+        waitForElementToBeClickable(createLOALink, driver);
+        createLOALink.click();
+        switchToNewlyOpenedWindow(driver);
+
+        waitForElementToBeClickable(searchEstimateButton, driver);
+        searchEstimateButton.click();
+        waitForElementToBeClickable(estimateRadioButton, driver);
+        estimateRadioButton.click();
+
+        waitForElementToBeClickable(createLOAButton, driver);
+        createLOAButton.click();
     }
 }
 
