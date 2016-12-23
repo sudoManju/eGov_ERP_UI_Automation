@@ -172,12 +172,12 @@ public class MilestoneTemplatePage extends BasePage {
 
         modifyButtonAfterModication.click();
 
+        waitForElementToBeClickable(closeButton , driver);
         closeButton.click();
 
         for (String winHandle : driver.getWindowHandles()) {
             driver.switchTo().window(winHandle);
         }
-
 
         waitForElementToBeVisible(typeOfWorkForViewBox,driver);
         new Select(typeOfWorkForViewBox).selectByVisibleText("--------Select--------");
