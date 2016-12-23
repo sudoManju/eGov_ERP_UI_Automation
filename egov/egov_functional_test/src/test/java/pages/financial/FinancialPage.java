@@ -171,7 +171,7 @@ public class FinancialPage extends BasePage {
     public String getVoucherNumber(){
 
         webDriver.switchTo().activeElement();
-        WebDriverWait webDriverWait = new WebDriverWait(webDriver,10);
+        WebDriverWait webDriverWait = new WebDriverWait(webDriver,15);
 
         try {
             TimeUnit.SECONDS.sleep(5);
