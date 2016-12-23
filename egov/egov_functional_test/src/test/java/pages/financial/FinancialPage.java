@@ -117,7 +117,7 @@ public class FinancialPage extends BasePage {
 
         new Select(voucherSubType).selectByVisibleText(voucherType);
         waitForElementToBeClickable(voucherPartyName , webDriver);
-        enterText(voucherPartyName , "voucher");
+        voucherPartyName.sendKeys("voucher");
         new Select(fundId).selectByVisibleText("Municipal Fund");
         new Select(voucherDepartment).selectByVisibleText(department.replaceAll("_" , " "));
         new Select(voucherFunction).selectByVisibleText(function.replaceAll("_" , " "));
