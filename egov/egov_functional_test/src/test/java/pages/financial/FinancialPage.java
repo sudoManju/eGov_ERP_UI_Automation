@@ -100,11 +100,17 @@ public class FinancialPage extends BasePage {
     @FindBy(id = "Approve")
     private WebElement approveButton;
 
+    @FindBy(id = "searchBtn")
+    private WebElement billSearch;
+
+    @FindBy(className = "actionMessage")
+    private WebElement forwardMessage;
+
     public FinancialPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
 
-    public void enterJournalVoucherDetails(String voucherType , String accountCode){
+    public void enterJournalVoucherDetails(String voucherType , String accountCode , String department ,   String function){
 
         new Select(voucherSubType).selectByVisibleText(voucherType);
         new Select(fundId).selectByVisibleText("Municipal Fund");
@@ -167,6 +173,7 @@ public class FinancialPage extends BasePage {
         WebElement voucherNumber = webDriver.findElement(By.cssSelector("div[class~='bootbox-alert'] div[class^='bootbox-body']"));
         String number = voucherNumber.getText();
 
+
         webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("div[class~='bootbox-alert'] button[class^='btn']")));
         WebElement element = webDriver.findElement(By.cssSelector("div[class~='bootbox-alert'] button[class^='btn']"));
         element.click();
@@ -176,7 +183,7 @@ public class FinancialPage extends BasePage {
         for (String winHandle : webDriver.getWindowHandles()) {
             webDriver.switchTo().window(winHandle);
         }
-        return number.split("\\ ")[1];
+        return number;
     }
 
     public void openVoucher(String voucherNumber){
@@ -204,8 +211,12 @@ public class FinancialPage extends BasePage {
         approveButton.click();
     }
 
-    public void closePage(){
+    public String closePage(){
         switchToNewlyOpenedWindow(webDriver);
+
+        waitForElementToBeClickable(forwardMessage , webDriver);
+        String forwardMessageText = forwardMessage.getText();
+
         List<WebElement> closeElements = webDriver.findElements(By.className("button"));
         closeElements.get(1).click();
 
@@ -213,5 +224,13 @@ public class FinancialPage extends BasePage {
         for (String winHandle : webDriver.getWindowHandles()) {
             webDriver.switchTo().window(winHandle);
         }
+        return forwardMessageText;
+    }
+
+    public void billPayments(){
+        new Select(fundId).selectByVisibleText("Municipal Fund");
+        waitForElementToBeClickable(billSearch , webDriver);
+        billSearch.click();
+        switchToNewlyOpenedWindow(webDriver);
     }
 }

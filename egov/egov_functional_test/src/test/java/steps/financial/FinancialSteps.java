@@ -3,6 +3,7 @@ package steps.financial;
 import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.ptis.ApprovalDetails;
+import org.junit.Assert;
 import pages.financial.FinancialPage;
 import pages.wcms.WaterChargeManagementPage;
 import steps.BaseSteps;
@@ -15,8 +16,11 @@ public class FinancialSteps extends BaseSteps implements En {
 
     public FinancialSteps() {
 
-        And("^officer will enter the journal voucher details as (\\w+) & (\\w+)$", (String voucherType , String accountCode ) -> {
-            pageStore.get(FinancialPage.class).enterJournalVoucherDetails(voucherType , accountCode);
+        And("^officer will enter the journal voucher details as (\\w+) & (\\w+) (\\w+) (\\w+)$", (String voucherType ,
+                                                                                                  String accountCode ,
+                                                                                                  String department  ,
+                                                                                                  String function) -> {
+            pageStore.get(FinancialPage.class).enterJournalVoucherDetails(voucherType , accountCode , department , function);
         });
 
         And("^officer will enter the approval details as (\\w+)$", (String approveOfficer) -> {
@@ -24,21 +28,32 @@ public class FinancialSteps extends BaseSteps implements En {
             pageStore.get(FinancialPage.class).enterFinanceApprovalDetails(approvalDetails);
         });
 
-        And("^officer will get the voucher number and closes it$", () -> {
+        And("^officer will get successful voucher created and closes it \"([^\"]*)\"$", (String expectedMessage) -> {
             String voucherNumber = pageStore.get(FinancialPage.class).getVoucherNumber();
-            scenarioContext.setVoucherNumber(voucherNumber);
+            scenarioContext.setVoucherNumber(voucherNumber.split("\\ ")[1]);
+            Assert.assertEquals(voucherNumber.split("\\ ")[2], expectedMessage );
         });
 
         Then("^the officer will click on the voucher number$", () -> {
             pageStore.get(FinancialPage.class).openVoucher(scenarioContext.getVoucherNumber());
         });
 
-        And("^officer will closes the acknowledgement page$", () -> {
-            pageStore.get(FinancialPage.class).closePage();
+        And("^officer will closes the acknowledgement page \"([^\"]*)\"$", (String expectedMessage) -> {
+            String actualMessage = pageStore.get(FinancialPage.class).closePage();
+
+            if(expectedMessage.equals("forwarded")){
+            Assert.assertEquals(actualMessage.split("\\ ")[3] , expectedMessage);
+            }
+            else {
+                Assert.assertEquals(actualMessage.split("\\ ")[4] , expectedMessage);
+            }
         });
 
         And("^officer click on approval of the voucher$", () -> {
             pageStore.get(FinancialPage.class).approvalPage();
+        });
+        Then("^officer will modify the results depending upon the fund$", () -> {
+            pageStore.get(FinancialPage.class).billPayments();
         });
     }
 }

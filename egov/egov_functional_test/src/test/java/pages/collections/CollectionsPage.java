@@ -137,6 +137,8 @@ public class CollectionsPage extends BasePage {
         narrationTextBox.sendKeys(challanHeaderDetails.getNarration());
 
         new Select(serviceCategoryBox).selectByVisibleText(challanHeaderDetails.getServiceCategory());
+        serviceTypeBox.click();
+        serviceTypeBox.click();
         new Select(serviceTypeBox).selectByVisibleText(challanHeaderDetails.getServiceType());
 
         serviceTypeBox.sendKeys(Keys.CONTROL + "t");

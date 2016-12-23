@@ -119,6 +119,9 @@ public class DashboardPage extends BasePage {
     @FindBy(id = "btncreateloa")
     private WebElement createLOAButton;
 
+    @FindBy(linkText = "Bill Payment")
+    private WebElement voucherBillPayment;
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -271,7 +274,6 @@ public class DashboardPage extends BasePage {
 
         additionalNewWaterConnection.click();
         switchToNewlyOpenedWindow(driver);
-
     }
 
     public void chooseToSearchForChallanReceipt() {
@@ -438,6 +440,14 @@ public class DashboardPage extends BasePage {
 
         waitForElementToBeClickable(createLOAButton, driver);
         createLOAButton.click();
+    }
+
+    public void selectForVoucherBill(){
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Bill Payment");
+        waitForElementToBeClickable(voucherBillPayment ,driver);
+        voucherBillPayment.click();
+        switchToNewlyOpenedWindow(driver);
     }
 }
 

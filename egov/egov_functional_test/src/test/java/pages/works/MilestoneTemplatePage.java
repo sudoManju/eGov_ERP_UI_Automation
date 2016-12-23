@@ -173,6 +173,7 @@ public class MilestoneTemplatePage extends BasePage {
         modifyButtonAfterModication.click();
 
         waitForElementToBeClickable(closeButton , driver);
+
         closeButton.click();
 
         for (String winHandle : driver.getWindowHandles()) {

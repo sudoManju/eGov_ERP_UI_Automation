@@ -17,12 +17,10 @@ public class DashboardSteps extends BaseSteps implements En {
 
         And("^chooses to act upon the above application$", () -> {
             pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
-
             //pageStore.get(DashboardPage.class).openApplication("15513-2016-RN");
         });
 
         And("^chooses to act upon the above assessment$", () -> {
-            // Write code here that turns the phrase above into concrete actions
             pageStore.get(DashboardPage.class).openApplication(scenarioContext.getAssessmentNumber());
         });
 
@@ -37,9 +35,9 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).chooseToSearchProperty();
         });
 
-      When("^he chooses to create Miscellaneous receipt$", () -> {
+        When("^he chooses to create Miscellaneous receipt$", () -> {
            pageStore.get(DashboardPage.class).createMiscellenous();
-     });
+        });
 
         When("^he chooses to create Challan$", () -> {
             pageStore.get(DashboardPage.class).createChallan();
@@ -48,8 +46,6 @@ public class DashboardSteps extends BaseSteps implements En {
         When("^user chooses to data entry screen$", () -> {
             pageStore.get(DashboardPage.class).chooseToCreateNewDataEntryScreen();
         });
-
-
 
         And("^user chooses to apply for new water connection$", () -> {
             pageStore.get(DashboardPage.class).chooseToCreateNewWaterConnection();
@@ -76,6 +72,7 @@ public class DashboardSteps extends BaseSteps implements En {
         And("^chooses to act upon the above challan$", () -> {
             pageStore.get(DashboardPage.class).openApplication(scenarioContext.getChallanNumber());
         });
+
         And("^he search for challan receipt$", () -> {
             pageStore.get(DashboardPage.class).chooseToSearchForChallanReceipt();
         });
@@ -83,9 +80,11 @@ public class DashboardSteps extends BaseSteps implements En {
         And("^user chooses to find the daily collection pt reports$", () -> {
             pageStore.get(DashboardPage.class).chooseForDailyCollectionPTReports();
         });
+
         Then("^user will search for the recent application$", () -> {
             pageStore.get(DashboardPage.class).chooseForSearchApplication();
         });
+
         And("^user chooses to act upon the above application in search applications$", () -> {
             pageStore.get(DashboardPage.class).openSearchApplication("15512-2016-AI");
         });
@@ -102,14 +101,19 @@ public class DashboardSteps extends BaseSteps implements En {
         });
 
         When("^he chooses to collect tax of property$", () -> {
-            // Write code here that turns the phrase above into concrete actions
             pageStore.get(DashboardPage.class).choosePropertyTaxCollection();
         });
+
         And("^user search to apply for closure of connection$", () -> {
             pageStore.get(DashboardPage.class).chooseToApplyForClosureConnection();
         });
-        And("^search for the create journal voucher$", () -> {
+
+        And("^officer search for the create journal voucher$", () -> {
             pageStore.get(DashboardPage.class).chooseToApplyForJournalVoucher();
+        });
+
+        And("^officer search for the bill payment$", () -> {
+            pageStore.get(DashboardPage.class).selectForVoucherBill();
         });
 
     }
