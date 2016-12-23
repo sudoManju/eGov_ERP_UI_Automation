@@ -30,6 +30,9 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Property Tax")
     private WebElement propertyTaxLink;
 
+    @FindBy(linkText = "Collect Charges")
+    private WebElement collectChargesLink;
+
     @FindBy(className = "profile-name")
     private WebElement profileNameLink;
 
@@ -442,11 +445,19 @@ public class DashboardPage extends BasePage {
         createLOAButton.click();
     }
 
-    public void selectForVoucherBill(){
+
+    public void selectForVoucherBill() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("Bill Payment");
-        waitForElementToBeClickable(voucherBillPayment ,driver);
+        waitForElementToBeClickable(voucherBillPayment, driver);
         voucherBillPayment.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+    public void chooseTopayWaterCharge() {
+        waitForElementToBeClickable(searchTreeTextBox,driver);
+        searchFor("Collect Charges");
+        waitForElementToBeVisible(collectChargesLink, driver);
+        collectChargesLink.click();
         switchToNewlyOpenedWindow(driver);
     }
 }

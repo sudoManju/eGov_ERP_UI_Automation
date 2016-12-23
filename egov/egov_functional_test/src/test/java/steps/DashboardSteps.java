@@ -111,6 +111,9 @@ public class DashboardSteps extends BaseSteps implements En {
         And("^officer search for the create journal voucher$", () -> {
             pageStore.get(DashboardPage.class).chooseToApplyForJournalVoucher();
         });
+        When("^he chosses to collect water charges$", () -> {
+            pageStore.get(DashboardPage.class).chooseTopayWaterCharge();
+        });
 
         And("^officer search for the bill payment$", () -> {
             pageStore.get(DashboardPage.class).selectForVoucherBill();

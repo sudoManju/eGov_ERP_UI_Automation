@@ -10,7 +10,7 @@ Feature: Collection
     Given juniorAssistant logs in
     When he chooses to collect taxes
 
-    And he chooses to collect tax for "1016000062"
+    And he chooses to collect tax for "1016000698"
     And he chooses to pay tax
     And he pays using cheque with details as defaultChequeDetails
 
@@ -51,5 +51,15 @@ Feature: Collection
     And he pay using cash
     And he closes the acknowledgement
     And current user logs out
+
+    @WIP
+    Scenario: System Should be able to collect water Charges
+
+      Given juniorAssistant logs in
+      When he chosses to collect water charges
+      And he chooses to collect water charge for "1016000989"
+      And he chooses to pay water charge
+      And he pays using cheque with details as defaultChequeDetails
+
 
 

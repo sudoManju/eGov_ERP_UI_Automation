@@ -43,7 +43,12 @@ public class CollectionSteps extends BaseSteps implements En {
         And("^he pay using cash$", () -> {
             pageStore.get(CollectionsPage.class).payAmount();
         });
-
+        And("^he chooses to collect water charge for \"([^\"]*)\"$", (String consumerNumber) -> {
+            pageStore.get(CollectionsPage.class).collectChargeFor(consumerNumber);
+        });
+        And("^he chooses to pay water charge$", () -> {
+            pageStore.get(CollectionsPage.class).collectCharge();
+        });
 
 
     }

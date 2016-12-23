@@ -97,6 +97,15 @@ public class CollectionsPage extends BasePage {
     @FindBy(id ="input[value='Approve All Collections'][type='submit']")
     private WebElement approveCollectionButton;
 
+    @FindBy(id = "app-appcodo")
+    private  WebElement consumerNumberTextBox;
+
+    @FindBy(id = "submitButtonId")
+    private WebElement submitButton;
+
+    @FindBy(id = "payBtn")
+    private WebElement collectWaterCharge;
+
     public CollectionsPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -185,5 +194,17 @@ public class CollectionsPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
+
+    public void collectChargeFor(String consumerNumber) {
+        consumerNumberTextBox.sendKeys(consumerNumber);
+        submitButton.click();
+
+    }
+
+    public void collectCharge() {
+        collectWaterCharge.click();
+
+
+    }
 
 }
