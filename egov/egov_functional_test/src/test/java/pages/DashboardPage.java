@@ -113,6 +113,9 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Create Letter of Acceptance")
     private WebElement createLOALink;
 
+    @FindBy(linkText = "Create New License")
+    private WebElement createTradeLicense;
+
     @FindBy(id = "btnsearch")
     private WebElement searchEstimateButton;
 
@@ -398,6 +401,7 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
+
     public void chooseToApplyForJournalVoucher(){
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("Create Journal Voucher");
@@ -454,10 +458,17 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
     public void chooseTopayWaterCharge() {
-        waitForElementToBeClickable(searchTreeTextBox,driver);
+        waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("Collect Charges");
         waitForElementToBeVisible(collectChargesLink, driver);
         collectChargesLink.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+    public void chooseToCreateNewLicense() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Create New License");
+        waitForElementToBeVisible(createTradeLicense, driver);
+        createTradeLicense.click();
         switchToNewlyOpenedWindow(driver);
     }
 }

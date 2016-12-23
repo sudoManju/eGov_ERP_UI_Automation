@@ -77,10 +77,9 @@ Feature: Create New Property
       And current user logs out
 
     # ADDITION ALTERATION SCREEN #
-  
+
   @WIP
     Scenario Outline: Registered user Update existing property
-
       Given commissioner logs in
       When he chooses to create data entry
       And he creates a new assessment for a private residential property

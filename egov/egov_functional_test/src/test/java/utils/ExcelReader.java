@@ -6,6 +6,7 @@ import builders.collections.ChequeDetailsBuilder;
 import builders.dcReports.PTReportBuilder;
 import builders.dcReports.VLTReportBuilder;
 import builders.ptis.*;
+import builders.tradeLicense.TradeOwnerDetailsBuilder;
 import builders.wcms.EnclosedDocumentBuilder;
 import builders.wcms.FieldInspectionDetailsBuilder;
 import builders.works.*;
@@ -16,6 +17,7 @@ import entities.collections.ChequeDetails;
 import entities.dcReports.PTReport;
 import entities.dcReports.VLTReport;
 import entities.ptis.*;
+import entities.tradeLicense.TradeOwnerDetails;
 import entities.wcms.EnclosedDocument;
 import entities.wcms.FieldInspectionDetails;
 import entities.works.*;
@@ -54,14 +56,12 @@ public class ExcelReader {
     Sheet registeredUserDetailsSheet;
     Sheet estimateHeaderDetailsSheet;
     Sheet financialDetailsSheet;
-
     Sheet workDetailsSheet;
     Sheet adminSanctionDetailsSheet;
     Sheet fieldInseptionDetailsForWaterConnectionSheet;
     Sheet ptReportSheet;
     Sheet technicalSanctionDetailsSheet;
-
-
+    Sheet tradeOwnerDetailsSheet;
 
 
     public ExcelReader(String testData) {
@@ -109,7 +109,7 @@ public class ExcelReader {
         adminSanctionDetailsSheet = workbook.getSheet("adminSanctionDetails");
         fieldInseptionDetailsForWaterConnectionSheet = workbook.getSheet("fieldInseptionDetailsForWaterConnection");
         technicalSanctionDetailsSheet = workbook.getSheet("technicalSanctionDetails");
-
+        tradeOwnerDetailsSheet = workbook.getSheet("tradeOwnerDetails");
     }
 
     private Row readDataRow(Sheet fromSheet, String dataId) {
@@ -848,4 +848,16 @@ public class ExcelReader {
                 .build();
 
     }
+
+    public TradeOwnerDetails getTradeOwnerDetails(String tradeOwnerDetailsDataId){
+            Row dataRow = readDataRow(tradeOwnerDetailsSheet, tradeOwnerDetailsDataId);
+            Cell aadhaarNumberCell = getCellData(tradeOwnerDetailsSheet, dataRow, "aadhaarNumber");
+            aadhaarNumberCell.setCellType(Cell.CELL_TYPE_STRING);
+            String  aadhaarNumber = aadhaarNumberCell.getStringCellValue();
+
+            return new TradeOwnerDetailsBuilder()
+                    .withAadhaarNumber(aadhaarNumber).build();
+
+
+        }
 }
