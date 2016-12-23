@@ -1,7 +1,7 @@
 Feature: To create a Financial Transactions
 
   @Sanity
-  Scenario Outline: To create the financial journal voucher type General
+  Scenario Outline: To create the financial journal voucher with type General
 
     Given accountsOfficer logs in
     And officer search for the create journal voucher
@@ -34,8 +34,8 @@ Feature: To create a Financial Transactions
 
 
 
-  @WIP
-  Scenario Outline: To create the financial journal voucher type works
+  @Sanity
+  Scenario Outline: To create the financial journal voucher with type expense
 
     Given accountsOfficer logs in
     And officer search for the create journal voucher
@@ -59,12 +59,12 @@ Feature: To create a Financial Transactions
     And commissioner logs in
     Then the officer will click on the voucher number
     And officer click on approval of the voucher
-    And officer will closes the acknowledgement page "forwarded"
+    And officer will closes the acknowledgement page "approved"
     And current user logs out
 
     Examples:
-      |voucher type| account code    | approval officer1 | approval officer2 |  approval officer3 | department |function              |
-      |General     | 2101001_3501001 | accountOfficer1   | accountOfficer2   |  commissioner      | ACCOUNTS   |12th_Finance_Commission|
+      |voucher type| account code    | approval officer1 | approval officer2 |  approval officer3 | department                    |function      |
+      |Expense     | 2101001_3501003 | accountOfficer1   | accountOfficer2   |  commissioner      | PUBLIC_HEALTH_AND_SANITATION   |Public_Health |
 
 
 

@@ -106,6 +106,9 @@ public class FinancialPage extends BasePage {
     @FindBy(className = "actionMessage")
     private WebElement forwardMessage;
 
+    @FindBy(id = "voucherTypeBean.partyName")
+    private WebElement voucherPartyName;
+
     public FinancialPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -113,9 +116,11 @@ public class FinancialPage extends BasePage {
     public void enterJournalVoucherDetails(String voucherType , String accountCode , String department ,   String function){
 
         new Select(voucherSubType).selectByVisibleText(voucherType);
+        waitForElementToBeClickable(voucherPartyName , webDriver);
+        enterText(voucherPartyName , "voucher");
         new Select(fundId).selectByVisibleText("Municipal Fund");
-        new Select(voucherDepartment).selectByVisibleText("PUBLIC HEALTH AND SANITATION");
-        new Select(voucherFunction).selectByVisibleText("Public Health");
+        new Select(voucherDepartment).selectByVisibleText(department.replaceAll("_" , " "));
+        new Select(voucherFunction).selectByVisibleText(function.replaceAll("_" , " "));
 
         accountCode1.sendKeys(accountCode.split("\\_")[0],  Keys.TAB);
         enterText(debitAmount1 , "100");
@@ -135,19 +140,24 @@ public class FinancialPage extends BasePage {
         ledgerCode1.sendKeys(Keys.ENTER);
         ledgerAmount1.sendKeys("100");
 
-        addList.get(2).click();
-
-        new Select(ledgerAccount2).selectByVisibleText(accountCode.split("\\_")[1]);
-        new Select(ledgerType2).selectByVisibleText("contractor");
-        ledgerCode2.sendKeys("KMC001");
-
-        try {
-            TimeUnit.SECONDS.sleep(2);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if(voucherType.equalsIgnoreCase("Expense")){
+            System.out.println("========================");;
         }
-        ledgerCode2.sendKeys(Keys.ENTER);
-        ledgerAmount2.sendKeys("100");
+        else {
+            addList.get(2).click();
+
+            new Select(ledgerAccount2).selectByVisibleText(accountCode.split("\\_")[1]);
+            new Select(ledgerType2).selectByVisibleText("contractor");
+            ledgerCode2.sendKeys("KMC001");
+
+            try {
+                TimeUnit.SECONDS.sleep(2);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            ledgerCode2.sendKeys(Keys.ENTER);
+            ledgerAmount2.sendKeys("100");
+        }
     }
 
     public void enterFinanceApprovalDetails(ApprovalDetails approvalDetails){

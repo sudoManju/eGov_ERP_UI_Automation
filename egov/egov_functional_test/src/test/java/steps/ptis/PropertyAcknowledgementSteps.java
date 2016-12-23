@@ -8,6 +8,7 @@ import steps.BaseSteps;
 
 
 public class PropertyAcknowledgementSteps extends BaseSteps implements En {
+
     public PropertyAcknowledgementSteps() {
         Then("^property details get saved successfully", () -> {
             String acknowledgementMessage = pageStore.get(PropertyAcknowledgementPage.class).getAcknowledgementMessage();
@@ -21,7 +22,6 @@ public class PropertyAcknowledgementSteps extends BaseSteps implements En {
             pageStore.get(PropertyAcknowledgementPage.class).close();
         });
         Then("^he is notified that \"([^\"]*)\"$", (String expectedMessage) -> {
-            // Write code here that turns the phrase above into concrete actions
             String acknowledgementMessage = pageStore.get(PropertyAcknowledgementPage.class).getSignatureNotification();
             Assert.assertEquals(expectedMessage, acknowledgementMessage);
         });
