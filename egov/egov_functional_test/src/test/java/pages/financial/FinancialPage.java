@@ -164,25 +164,19 @@ public class FinancialPage extends BasePage {
 
         new Select(approverDepartment).selectByVisibleText(approvalDetails.getApproverDepartment());
         new Select(approverDesignation).selectByVisibleText(approvalDetails.getApproverDesignation());
+        waitForElementToBeVisible(approverPosition , webDriver);
         new Select(approverPosition).selectByVisibleText(approvalDetails.getApprover());
         forwardButton.click();
     }
 
     public String getVoucherNumber(){
+        switchToNewlyOpenedWindow(webDriver);
 
-        webDriver.switchTo().activeElement();
-        WebDriverWait webDriverWait = new WebDriverWait(webDriver,15);
-
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        WebDriverWait webDriverWait = new WebDriverWait(webDriver,50);
 
         webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("div[class~='bootbox-alert'] div[class^='bootbox-body']")));
         WebElement voucherNumber = webDriver.findElement(By.cssSelector("div[class~='bootbox-alert'] div[class^='bootbox-body']"));
         String number = voucherNumber.getText();
-
 
         webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("div[class~='bootbox-alert'] button[class^='btn']")));
         WebElement element = webDriver.findElement(By.cssSelector("div[class~='bootbox-alert'] button[class^='btn']"));

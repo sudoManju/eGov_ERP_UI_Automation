@@ -150,12 +150,20 @@ public class CollectionsPage extends BasePage {
         serviceTypeBox.click();
         new Select(serviceTypeBox).selectByVisibleText(challanHeaderDetails.getServiceType());
 
-        serviceTypeBox.sendKeys(Keys.CONTROL + "t");
-        functionTab.sendKeys(Keys.CONTROL + "t");
-        challanAmountTextBox.sendKeys(Keys.CONTROL + "a");
-        challanAmountTextBox.sendKeys(Keys.DELETE);
-        challanAmountTextBox.sendKeys("500");
 
+        try{
+        waitForElementToBePresent(By.id("billDetailslist[0].creditAmountDetail") , driver);
+        WebElement element = driver.findElement(By.id("billDetailslist[0].creditAmountDetail"));
+        element.clear();
+        waitForElementToBePresent(By.id("billDetailslist[0].creditAmountDetail") , driver);
+        element.sendKeys("500");
+        waitForElementToBePresent(By.id("billDetailslist[0].creditAmountDetail") , driver);
+        element.sendKeys(Keys.ENTER);}
+        catch (StaleElementReferenceException e ){
+            WebElement element = driver.findElement(By.id("billDetailslist[0].creditAmountDetail"));
+            element.clear();
+            element.sendKeys("500");
+        }
     }
 
     public void enterApprovalDetails(ApprovalDetails approverDetails) {
@@ -164,9 +172,8 @@ public class CollectionsPage extends BasePage {
         new Select(approverDeptBox).selectByVisibleText(approverDetails.getApproverDepartment());
         new Select(approverDesignationBox).selectByVisibleText(approverDetails.getApproverDesignation());
         new Select(approverBox).selectByVisibleText(approverDetails.getApprover());
-
+        
         createChallanButton.click();
-        //challanAmountTextBox.sendKeys("50");
         driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
     }
 
