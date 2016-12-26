@@ -11,6 +11,11 @@ public class FinancialJournalVoucherDetailsBuilder {
 
     FinancialJournalVoucherDetails financialJournalVoucherDetails = new FinancialJournalVoucherDetails();
 
+    public FinancialJournalVoucherDetailsBuilder withDate(String date){
+        financialJournalVoucherDetails.setDate(date);
+        return this;
+    }
+
     public FinancialJournalVoucherDetailsBuilder withVoucherType(String voucherType){
         financialJournalVoucherDetails.setVoucherType(voucherType);
         return this;

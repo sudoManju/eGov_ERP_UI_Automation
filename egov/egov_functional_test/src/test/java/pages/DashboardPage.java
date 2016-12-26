@@ -475,7 +475,6 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-
     public void selectForVoucherBill() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("Bill Payment");
@@ -483,6 +482,7 @@ public class DashboardPage extends BasePage {
         voucherBillPayment.click();
         switchToNewlyOpenedWindow(driver);
     }
+
     public void chooseTopayWaterCharge() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("Collect Charges");
@@ -490,6 +490,7 @@ public class DashboardPage extends BasePage {
         collectChargesLink.click();
         switchToNewlyOpenedWindow(driver);
     }
+
     public void chooseToCreateNewLicense() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("Create New License");

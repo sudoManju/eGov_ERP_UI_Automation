@@ -67,10 +67,24 @@ Feature: To create a Financial Transactions
 
 
   @WIP
-  Scenario: To perform a bill payment for journal voucher
+  Scenario Outline: To create a voucher of date in june as well paying the bill
 
     Given accountsOfficer logs in
+    And officer search for the create journal voucher
+    And officer will enter the journal voucher details as <voucher details>
+    And officer will enter the approval details as <approval officer1>
+    And officer will get successful voucher created and closes it "Created"
+
     And officer search for the bill payment
-    Then officer will modify the results depending upon the fund
+    Then officer will modify the results depending upon the fund and date as <date>
+    And officer will act upon the above voucher
+
+    And officer will check the verify the voucher nnumber
+    And current user logs out
+
+
+    Examples:
+      |voucher details|  approval officer1 | date       |
+      |voucherDate    |  accountOfficer1   | 30_06_2016 |
 
 

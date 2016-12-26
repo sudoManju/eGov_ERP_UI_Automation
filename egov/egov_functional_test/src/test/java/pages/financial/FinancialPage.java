@@ -9,6 +9,10 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasePage;
 
+import java.awt.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -110,12 +114,53 @@ public class FinancialPage extends BasePage {
     @FindBy(id = "voucherTypeBean.partyName")
     private WebElement voucherPartyName;
 
+    @FindBy(id = "voucherDate")
+    private WebElement voucherDate;
+
+    @FindBy(id = "Create And Approve")
+    private WebElement createAndApprove;
+
+    @FindBy(linkText = "Expense Bill")
+    private WebElement expenseBillSearch;
+
+    @FindBy(name = "contingentList[0].isSelected")
+    private WebElement firstVoucher;
+
+    @FindBy(name = "contingentList[1].isSelected")
+    private WebElement secondVoucher;
+
+    @FindBy(id = "generatePayment")
+    private WebElement generatePayment;
+
+    @FindBy(linkText = "Bill Details")
+    private WebElement billDetails;
+
+    @FindBy(linkText = "Payment Details")
+    private WebElement paymentDetails;
+
+    @FindBy(name = "billList[0].billVoucherNumber")
+    private WebElement voucherNumberToVerify;
+
+    @FindBy(id = "fromDate")
+    private WebElement billFromDate;
+
+    @FindBy(id = "toDate")
+    private WebElement billToDate;
+
+    private String juneDate;
+
     public FinancialPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
 
     public void enterJournalVoucherDetails(FinancialJournalVoucherDetails financialJournalVoucherDetails){
 
+        juneDate = "30/06/2016";
+        if(juneDate.equals(financialJournalVoucherDetails.getDate())){
+            voucherDate.clear();
+            juneDate = financialJournalVoucherDetails.getDate();
+            voucherDate.sendKeys(financialJournalVoucherDetails.getDate() , Keys.TAB);
+        }
         new Select(voucherSubType).selectByVisibleText(financialJournalVoucherDetails.getVoucherType());
         if(!financialJournalVoucherDetails.getVoucherType().equals("General")){
             waitForElementToBeClickable(voucherPartyName , webDriver);
@@ -126,10 +171,10 @@ public class FinancialPage extends BasePage {
         new Select(voucherDepartment).selectByVisibleText(financialJournalVoucherDetails.getDepartment());
         new Select(voucherFunction).selectByVisibleText(financialJournalVoucherDetails.getFunction());
 
-        accountCode1.sendKeys(financialJournalVoucherDetails.getAccountCode1(),  Keys.TAB);
+        accountCode1.sendKeys(financialJournalVoucherDetails.getAccountCode1(),Keys.TAB);
         enterText(debitAmount1 , "100");
 
-        accountCode2.sendKeys(financialJournalVoucherDetails.getAccountCode2(), Keys.TAB);
+        accountCode2.sendKeys(financialJournalVoucherDetails.getAccountCode2(),Keys.TAB);
         enterText(creditAmount2 , "100");
 
         WebElement element = webDriver.findElement(By.id("subLedgerlist[0].glcode.id"));
@@ -167,12 +212,22 @@ public class FinancialPage extends BasePage {
         }
     }
 
-    public void enterFinanceApprovalDetails(ApprovalDetails approvalDetails){
+    public void enterFinanceApprovalDetails(ApprovalDetails approvalDetails) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+        String juneDate2 = "30/06/2016";
+        Date date1 = sdf.parse(juneDate2);
+        Date date2 = sdf.parse(juneDate);
+
+        if(date1.equals(date2)){
+            createAndApprove.click();
+        }
+        else{
         new Select(approverDepartment).selectByVisibleText(approvalDetails.getApproverDepartment());
         new Select(approverDesignation).selectByVisibleText(approvalDetails.getApproverDesignation());
         waitForElementToBeVisible(approverPosition , webDriver);
         new Select(approverPosition).selectByVisibleText(approvalDetails.getApprover());
         forwardButton.click();
+        }
     }
 
     public String getVoucherNumber(){
@@ -237,10 +292,43 @@ public class FinancialPage extends BasePage {
         return forwardMessageText;
     }
 
-    public void billPayments(){
+    public void billPayments(String date){
+        billFromDate.sendKeys(date.replaceAll("_" , "/"));
+        billToDate.sendKeys(date.replaceAll("_" , "/"));
         new Select(fundId).selectByVisibleText("Municipal Fund");
         waitForElementToBeClickable(billSearch , webDriver);
         billSearch.click();
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         switchToNewlyOpenedWindow(webDriver);
+        expenseBillSearch.click();
+    }
+
+    public void actOnAboveVoucher(){
+        waitForElementToBeClickable(firstVoucher , webDriver);
+        jsClickCheckbox(firstVoucher , webDriver);
+        if ( !firstVoucher.isSelected() )
+        {
+            firstVoucher.click();
+        }
+        try {
+            TimeUnit.SECONDS.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        waitForElementToBeClickable(generatePayment , webDriver);
+        generatePayment.click();
+        switchToNewlyOpenedWindow(webDriver);
+    }
+
+    public String verifyVoucher(){
+        billDetails.click();
+        waitForElementToBeVisible(voucherNumberToVerify , webDriver);
+        String voucherNumber = voucherNumberToVerify.getText();
+        paymentDetails.click();
+        return voucherNumber;
     }
 }

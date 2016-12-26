@@ -865,6 +865,7 @@ public class ExcelReader {
 
     public FinancialJournalVoucherDetails getJournalVoucherDetails(String voucher){
         Row dataRow = readDataRow(financialJournalVoucherSheet, voucher);
+        String date = getCellData(financialJournalVoucherSheet, dataRow, "voucherDate").getStringCellValue();
         String voucherType = getCellData(financialJournalVoucherSheet, dataRow, "voucherType").getStringCellValue();
 
         Cell code1 = getCellData(financialJournalVoucherSheet, dataRow, "accountCode1");
@@ -879,6 +880,7 @@ public class ExcelReader {
         String function = getCellData(financialJournalVoucherSheet, dataRow, "function").getStringCellValue();
 
         return new FinancialJournalVoucherDetailsBuilder()
+                .withDate(date)
                 .withVoucherType(voucherType)
                 .withAccountCode1(accountCode1)
                 .withAccountCode2(accountCode2)

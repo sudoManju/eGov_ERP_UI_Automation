@@ -10,6 +10,8 @@ import pages.financial.FinancialPage;
 import steps.BaseSteps;
 import utils.ExcelReader;
 
+import java.text.ParseException;
+
 /**
  * Created by vinaykumar on 20/12/16.
  */
@@ -24,12 +26,17 @@ public class FinancialSteps extends BaseSteps implements En {
 
         And("^officer will enter the approval details as (\\w+)$", (String approveOfficer) -> {
             ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approveOfficer);
-            pageStore.get(FinancialPage.class).enterFinanceApprovalDetails(approvalDetails);
+            try {
+                pageStore.get(FinancialPage.class).enterFinanceApprovalDetails(approvalDetails);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         });
 
         And("^officer will get successful voucher created and closes it \"([^\"]*)\"$", (String expectedMessage) -> {
             String voucherNumber = pageStore.get(FinancialPage.class).getVoucherNumber();
             scenarioContext.setVoucherNumber(voucherNumber.split("\\ ")[1]);
+            System.out.println("==============================="+voucherNumber.split("\\ ")[1]);
             Assert.assertEquals(voucherNumber.split("\\ ")[2], expectedMessage );
         });
 
@@ -51,8 +58,18 @@ public class FinancialSteps extends BaseSteps implements En {
         And("^officer click on approval of the voucher$", () -> {
             pageStore.get(FinancialPage.class).approvalPage();
         });
-        Then("^officer will modify the results depending upon the fund$", () -> {
-            pageStore.get(FinancialPage.class).billPayments();
+
+        Then("^officer will modify the results depending upon the fund and date as (\\w+)$", (String date) -> {
+            pageStore.get(FinancialPage.class).billPayments(date);
+        });
+
+        And("^officer will act upon the above voucher$", () -> {
+            pageStore.get(FinancialPage.class).actOnAboveVoucher();
+        });
+
+        And("^officer will check the verify the voucher nnumber$", () -> {
+            String voucher = pageStore.get(FinancialPage.class).verifyVoucher();
+            Assert.assertEquals(voucher , scenarioContext.getVoucherNumber());
         });
     }
 }
