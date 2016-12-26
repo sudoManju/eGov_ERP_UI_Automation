@@ -127,7 +127,7 @@ public class DashboardPage extends BasePage {
 
     @FindBy(linkText = "Bill Payment")
     private WebElement voucherBillPayment;
-    
+
     @FindBy(linkText = "Search/View LOA")
     private WebElement viewLOA;
 
