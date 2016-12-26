@@ -2,10 +2,11 @@ package steps.financial;
 
 import cucumber.api.PendingException;
 import cucumber.api.java8.En;
+import entities.financial.FinancialJournalVoucherDetails;
 import entities.ptis.ApprovalDetails;
+import entities.wcms.FieldInspectionDetails;
 import org.junit.Assert;
 import pages.financial.FinancialPage;
-import pages.wcms.WaterChargeManagementPage;
 import steps.BaseSteps;
 import utils.ExcelReader;
 
@@ -16,11 +17,9 @@ public class FinancialSteps extends BaseSteps implements En {
 
     public FinancialSteps() {
 
-        And("^officer will enter the journal voucher details as (\\w+) & (\\w+) (\\w+) (\\w+)$", (String voucherType ,
-                                                                                                  String accountCode ,
-                                                                                                  String department  ,
-                                                                                                  String function) -> {
-            pageStore.get(FinancialPage.class).enterJournalVoucherDetails(voucherType , accountCode , department , function);
+        And("^officer will enter the journal voucher details as (\\w+)$", (String voucher) -> {
+            FinancialJournalVoucherDetails financialJournalVoucherDetails = new ExcelReader(financialTestDataFileName).getJournalVoucherDetails(voucher);
+            pageStore.get(FinancialPage.class).enterJournalVoucherDetails(financialJournalVoucherDetails);
         });
 
         And("^officer will enter the approval details as (\\w+)$", (String approveOfficer) -> {

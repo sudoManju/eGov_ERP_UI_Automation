@@ -1,6 +1,7 @@
 package pages.ptis;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -48,8 +49,15 @@ public class PropertyAcknowledgementPage extends BasePage {
     }
 
     public void close() {
-        waitForElementToBeClickable(closeButton,driver);
-        closeButton.click();
+        try {
+            waitForElementToBeClickable(closeButton,driver);
+            closeButton.click();
+        }
+        catch (StaleElementReferenceException e){
+            WebElement element = driver.findElement(By.cssSelector("input[value='Close'][type='button']"));
+            waitForElementToBeClickable(element , driver);
+            element.click();
+        }
         await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
         for (String winHandle : driver.getWindowHandles()) {
             driver.switchTo().window(winHandle);

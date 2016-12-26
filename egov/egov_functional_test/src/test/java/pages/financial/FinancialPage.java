@@ -1,5 +1,6 @@
 package pages.financial;
 
+import entities.financial.FinancialJournalVoucherDetails;
 import entities.ptis.ApprovalDetails;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -113,40 +114,46 @@ public class FinancialPage extends BasePage {
         this.webDriver = webDriver;
     }
 
-    public void enterJournalVoucherDetails(String voucherType , String accountCode , String department ,   String function){
+    public void enterJournalVoucherDetails(FinancialJournalVoucherDetails financialJournalVoucherDetails){
 
-        new Select(voucherSubType).selectByVisibleText(voucherType);
-        waitForElementToBeClickable(voucherPartyName , webDriver);
-        voucherPartyName.sendKeys("voucher");
+        new Select(voucherSubType).selectByVisibleText(financialJournalVoucherDetails.getVoucherType());
+        if(!financialJournalVoucherDetails.getVoucherType().equals("General")){
+            waitForElementToBeClickable(voucherPartyName , webDriver);
+            voucherPartyName.sendKeys("voucher");
+        }
+
         new Select(fundId).selectByVisibleText("Municipal Fund");
-        new Select(voucherDepartment).selectByVisibleText(department.replaceAll("_" , " "));
-        new Select(voucherFunction).selectByVisibleText(function.replaceAll("_" , " "));
+        new Select(voucherDepartment).selectByVisibleText(financialJournalVoucherDetails.getDepartment());
+        new Select(voucherFunction).selectByVisibleText(financialJournalVoucherDetails.getFunction());
 
-        accountCode1.sendKeys(accountCode.split("\\_")[0],  Keys.TAB);
+        accountCode1.sendKeys(financialJournalVoucherDetails.getAccountCode1(),  Keys.TAB);
         enterText(debitAmount1 , "100");
 
-        accountCode2.sendKeys(accountCode.split("\\_")[1] , Keys.TAB);
+        accountCode2.sendKeys(financialJournalVoucherDetails.getAccountCode2(), Keys.TAB);
         enterText(creditAmount2 , "100");
 
-        new Select(ledgerAccount1).selectByVisibleText(accountCode.split("\\_")[0]);
+        WebElement element = webDriver.findElement(By.id("subLedgerlist[0].glcode.id"));
+        List<WebElement> webElementList = element.findElements(By.tagName("option"));
+
+        ledgerAccount1.click();
+        new Select(ledgerAccount1).selectByVisibleText(webElementList.get(1).getText());
         new Select(ledgerType1).selectByVisibleText("contractor");
         ledgerCode1.sendKeys("KMC001");
 
         try {
             TimeUnit.SECONDS.sleep(2);
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
         ledgerCode1.sendKeys(Keys.ENTER);
         ledgerAmount1.sendKeys("100");
 
-        if(voucherType.equalsIgnoreCase("Expense")){
-            System.out.println("========================");;
-        }
-        else {
+        if(webElementList.size()>2){
             addList.get(2).click();
 
-            new Select(ledgerAccount2).selectByVisibleText(accountCode.split("\\_")[1]);
+            ledgerAccount2.click();
+            new Select(ledgerAccount2).selectByVisibleText(webElementList.get(1).getText());
             new Select(ledgerType2).selectByVisibleText("contractor");
             ledgerCode2.sendKeys("KMC001");
 
@@ -161,7 +168,6 @@ public class FinancialPage extends BasePage {
     }
 
     public void enterFinanceApprovalDetails(ApprovalDetails approvalDetails){
-
         new Select(approverDepartment).selectByVisibleText(approvalDetails.getApproverDepartment());
         new Select(approverDesignation).selectByVisibleText(approvalDetails.getApproverDesignation());
         waitForElementToBeVisible(approverPosition , webDriver);
@@ -172,7 +178,7 @@ public class FinancialPage extends BasePage {
     public String getVoucherNumber(){
         switchToNewlyOpenedWindow(webDriver);
 
-        WebDriverWait webDriverWait = new WebDriverWait(webDriver,50);
+        WebDriverWait webDriverWait = new WebDriverWait(webDriver,5);
 
         webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("div[class~='bootbox-alert'] div[class^='bootbox-body']")));
         WebElement voucherNumber = webDriver.findElement(By.cssSelector("div[class~='bootbox-alert'] div[class^='bootbox-body']"));

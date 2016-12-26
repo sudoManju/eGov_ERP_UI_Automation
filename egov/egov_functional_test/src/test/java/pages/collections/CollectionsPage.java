@@ -167,7 +167,6 @@ public class CollectionsPage extends BasePage {
         serviceTypeBox.click();
         new Select(serviceTypeBox).selectByVisibleText(challanHeaderDetails.getServiceType());
 
-
         try{
         waitForElementToBePresent(By.id("billDetailslist[0].creditAmountDetail") , driver);
         WebElement element = driver.findElement(By.id("billDetailslist[0].creditAmountDetail"));

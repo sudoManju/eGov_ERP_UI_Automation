@@ -5,6 +5,7 @@ import builders.collections.ChallanHeaderDetailsBuilder;
 import builders.collections.ChequeDetailsBuilder;
 import builders.dcReports.PTReportBuilder;
 import builders.dcReports.VLTReportBuilder;
+import builders.financial.FinancialJournalVoucherDetailsBuilder;
 import builders.ptis.*;
 import builders.tradeLicense.TradeOwnerDetailsBuilder;
 import builders.wcms.EnclosedDocumentBuilder;
@@ -16,6 +17,7 @@ import entities.collections.ChallanHeaderDetails;
 import entities.collections.ChequeDetails;
 import entities.dcReports.PTReport;
 import entities.dcReports.VLTReport;
+import entities.financial.FinancialJournalVoucherDetails;
 import entities.ptis.*;
 import entities.tradeLicense.TradeOwnerDetails;
 import entities.wcms.EnclosedDocument;
@@ -62,6 +64,7 @@ public class ExcelReader {
     Sheet ptReportSheet;
     Sheet technicalSanctionDetailsSheet;
     Sheet tradeOwnerDetailsSheet;
+    Sheet financialJournalVoucherSheet;
 
 
     public ExcelReader(String testData) {
@@ -110,6 +113,7 @@ public class ExcelReader {
         fieldInseptionDetailsForWaterConnectionSheet = workbook.getSheet("fieldInseptionDetailsForWaterConnection");
         technicalSanctionDetailsSheet = workbook.getSheet("technicalSanctionDetails");
         tradeOwnerDetailsSheet = workbook.getSheet("tradeOwnerDetails");
+        financialJournalVoucherSheet = workbook.getSheet("journalVoucherDetails");
     }
 
     private Row readDataRow(Sheet fromSheet, String dataId) {
@@ -850,14 +854,36 @@ public class ExcelReader {
     }
 
     public TradeOwnerDetails getTradeOwnerDetails(String tradeOwnerDetailsDataId){
-            Row dataRow = readDataRow(tradeOwnerDetailsSheet, tradeOwnerDetailsDataId);
-            Cell aadhaarNumberCell = getCellData(tradeOwnerDetailsSheet, dataRow, "aadhaarNumber");
-            aadhaarNumberCell.setCellType(Cell.CELL_TYPE_STRING);
-            String  aadhaarNumber = aadhaarNumberCell.getStringCellValue();
+        Row dataRow = readDataRow(tradeOwnerDetailsSheet, tradeOwnerDetailsDataId);
+        Cell aadhaarNumberCell = getCellData(tradeOwnerDetailsSheet, dataRow, "aadhaarNumber");
+        aadhaarNumberCell.setCellType(Cell.CELL_TYPE_STRING);
+        String  aadhaarNumber = aadhaarNumberCell.getStringCellValue();
 
-            return new TradeOwnerDetailsBuilder()
+        return new TradeOwnerDetailsBuilder()
                     .withAadhaarNumber(aadhaarNumber).build();
+    }
 
+    public FinancialJournalVoucherDetails getJournalVoucherDetails(String voucher){
+        Row dataRow = readDataRow(financialJournalVoucherSheet, voucher);
+        String voucherType = getCellData(financialJournalVoucherSheet, dataRow, "voucherType").getStringCellValue();
 
-        }
+        Cell code1 = getCellData(financialJournalVoucherSheet, dataRow, "accountCode1");
+        code1.setCellType(Cell.CELL_TYPE_STRING);
+        String  accountCode1 = code1.getStringCellValue();
+
+        Cell code2 = getCellData(financialJournalVoucherSheet, dataRow, "accountCode2");
+        code2.setCellType(Cell.CELL_TYPE_STRING);
+        String  accountCode2 = code2.getStringCellValue();
+
+        String department = getCellData(financialJournalVoucherSheet, dataRow, "department").getStringCellValue();
+        String function = getCellData(financialJournalVoucherSheet, dataRow, "function").getStringCellValue();
+
+        return new FinancialJournalVoucherDetailsBuilder()
+                .withVoucherType(voucherType)
+                .withAccountCode1(accountCode1)
+                .withAccountCode2(accountCode2)
+                .withDepartment(department)
+                .withFunction(function)
+                .build();
+    }
 }

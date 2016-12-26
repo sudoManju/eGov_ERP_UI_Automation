@@ -5,7 +5,7 @@ Feature: To create a Financial Transactions
 
     Given accountsOfficer logs in
     And officer search for the create journal voucher
-    And officer will enter the journal voucher details as <voucher type> & <account code> <department> <function>
+    And officer will enter the journal voucher details as <voucher details>
     And officer will enter the approval details as <approval officer1>
     And officer will get successful voucher created and closes it "Created"
     And current user logs out
@@ -29,9 +29,8 @@ Feature: To create a Financial Transactions
     And current user logs out
 
     Examples:
-    |voucher type| account code    | approval officer1 | approval officer2 |  approval officer3 | department |function               |
-    |General     | 2101001_3501001 | accountOfficer1   | accountOfficer2   |  commissioner      | ACCOUNTS   |12th_Finance_Commission|
-
+    |voucher details|  approval officer1 | approval officer2 |  approval officer3 |
+    |voucher1       |  accountOfficer1   | accountOfficer2   |  commissioner      |
 
 
   @Sanity
@@ -39,7 +38,7 @@ Feature: To create a Financial Transactions
 
     Given accountsOfficer logs in
     And officer search for the create journal voucher
-    And officer will enter the journal voucher details as <voucher type> & <account code> <department> <function>
+    And officer will enter the journal voucher details as <voucher details>
     And officer will enter the approval details as <approval officer1>
     And officer will get successful voucher created and closes it "Created"
     And current user logs out
@@ -63,9 +62,8 @@ Feature: To create a Financial Transactions
     And current user logs out
 
     Examples:
-      |voucher type| account code    | approval officer1 | approval officer2 |  approval officer3 | department                    |function      |
-      |Expense     | 2101001_3501003 | accountOfficer1   | accountOfficer2   |  commissioner      | PUBLIC_HEALTH_AND_SANITATION   |Public_Health |
-
+      |voucher details| approval officer1 | approval officer2 |  approval officer3 |
+      |voucher2       |  accountOfficer1  | accountOfficer2   |  commissioner      |
 
 
   @WIP
