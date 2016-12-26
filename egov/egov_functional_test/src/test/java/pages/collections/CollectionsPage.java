@@ -106,6 +106,10 @@ public class CollectionsPage extends BasePage {
     @FindBy(id = "payBtn")
     private WebElement collectWaterCharge;
 
+    @FindBy(css = "input[id='instrHeaderCash.instrumentAmount'][type='text']")
+    private WebElement payAmountFillingTextBox;
+
+
     public CollectionsPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -128,10 +132,23 @@ public class CollectionsPage extends BasePage {
 //        JavascriptExecutor jse = (JavascriptExecutor) driver;
 //        jse.executeScript(String.format("document.getElementById('instrumentChequeAmount').value = '%s';", amountToBePaidLabel.getText()));
 
+//        driver.manage().timeouts().implicitlyWait(15,TimeUnit.SECONDS);
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         enterText(amountTextBox, amountToBePaidLabel.getAttribute("value").split("\\.")[0]);
         payButton.click();
-    }
+
+//        driver.manage().timeouts().implicitlyWait(15,TimeUnit.SECONDS);
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+   }
 
     public void enterChallanHeader(ChallanHeaderDetails challanHeaderDetails) {
 
@@ -192,14 +209,17 @@ public class CollectionsPage extends BasePage {
     public void payAmount() {
 
         waitForElementToBeVisible(amountToBePaid, driver);
-        String amount = amountToBePaid.getText();
 
-        amountToBePaid.click();
-        amountToBePaid.sendKeys(amount);
+        String amount = amountToBePaid.getAttribute("value");
+        System.out.println("================"+amount);
+        String actualAmount = amount.split("\\.")[0];
+        payAmountFillingTextBox.click();
+        payAmountFillingTextBox.sendKeys(actualAmount);
 
         payButton.click();
         switchToNewlyOpenedWindow(driver);
     }
+
 
 
     public void collectChargeFor(String consumerNumber) {

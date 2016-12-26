@@ -4,6 +4,7 @@ import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.works.*;
 
+import org.junit.Assert;
 import pages.works.SpillOverEstimatePage;
 import steps.BaseSteps;
 import utils.ExcelReader;
@@ -42,7 +43,8 @@ public class SpillOverEstimateSteps extends BaseSteps implements En {
             pageStore.get(SpillOverEstimatePage.class).enterTechnicalSanctionDetails(technicalSanctionDetails);
         });
         And("^he saves the file and closes the acknowledgement$", () -> {
-           pageStore.get(SpillOverEstimatePage.class).saveAndClose();
+           String reqMsg = pageStore.get(SpillOverEstimatePage.class).saveAndClose();
+           Assert.assertEquals(reqMsg,"successfully.");
         });
 
     }

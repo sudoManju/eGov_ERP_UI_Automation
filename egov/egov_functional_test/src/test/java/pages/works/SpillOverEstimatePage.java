@@ -2,6 +2,7 @@ package pages.works;
 
 
 import entities.works.*;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -128,6 +129,9 @@ public class SpillOverEstimatePage extends BasePage
 
     @FindBy(linkText = "Close")
     private WebElement closeButton;
+
+    @FindBy(xpath = ".//*[@id='main']/div/div/div/div/div")
+     private WebElement creationMsg;
 
 
     String transactionRefNo = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
@@ -263,10 +267,15 @@ public class SpillOverEstimatePage extends BasePage
 
     }
 
-    public void saveAndClose() {
+    public String saveAndClose() {
 
         waitForElementToBeVisible(saveButton, webDriver);
         saveButton.click();
+
+        waitForElementToBeVisible(creationMsg,webDriver);
+        String msg =creationMsg.getText();
+        String reqMsg = (msg.split("\\ ")[5]);
+
 
         waitForElementToBeVisible(closeButton, webDriver);
         closeButton.click();
@@ -275,5 +284,7 @@ public class SpillOverEstimatePage extends BasePage
         for (String winHandle : webDriver.getWindowHandles()) {
             webDriver.switchTo().window(winHandle);
         }
+
+        return reqMsg;
     }
 }
