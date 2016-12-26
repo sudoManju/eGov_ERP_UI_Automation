@@ -22,4 +22,3 @@ Feature: Creating Work Order for the Line estimate
     And he choose to modify letter of acceptance
     And he search for LOA for modify
     And current user logs out
-
