@@ -20,7 +20,20 @@ public class LetterOfAcceptanceSteps extends BaseSteps implements En
           pageStore.get(LetterOfAcceptancePage.class).enterLOAdetails();
         });
         Then("^he save the file and view the LOA pdf$", () -> {
-          pageStore.get(LetterOfAcceptancePage.class).saveAndClose();
+          String number = pageStore.get(LetterOfAcceptancePage.class).saveAndClose();
+          scenarioContext.setWorkNumber(number);
+        });
+        And("^he choose to view Letter of Acceptance$", () -> {
+            pageStore.get(DashboardPage.class).chooseToViewLOA();
+        });
+        And("^he search for LOA$", () -> {
+            pageStore.get(LetterOfAcceptancePage.class).searchForLOA(scenarioContext.getWorkNumber());
+        });
+        And("^he choose to modify letter of acceptance$", () -> {
+            pageStore.get(DashboardPage.class).chooseToModifyLOA();
+        });
+        And("^he search for LOA for modify$", () -> {
+            pageStore.get(LetterOfAcceptancePage.class).searchForLOAModify(scenarioContext.getWorkNumber());
         });
     }
 }

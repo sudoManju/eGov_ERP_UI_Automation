@@ -127,6 +127,12 @@ public class DashboardPage extends BasePage {
 
     @FindBy(linkText = "Bill Payment")
     private WebElement voucherBillPayment;
+    
+    @FindBy(linkText = "Search/View LOA")
+    private WebElement viewLOA;
+
+    @FindBy(linkText = "Modify LOA")
+    private WebElement modifyLOALink;
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -447,6 +453,26 @@ public class DashboardPage extends BasePage {
 
         waitForElementToBeClickable(createLOAButton, driver);
         createLOAButton.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseToModifyLOA() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchTreeTextBox.clear();
+        searchFor("Modify LOA");
+        waitForElementToBeClickable(modifyLOALink, driver);
+        modifyLOALink.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseToViewLOA()
+    {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchTreeTextBox.clear();
+        searchFor("Search/View LOA");
+        waitForElementToBeClickable(viewLOA, driver);
+        viewLOA.click();
+        switchToNewlyOpenedWindow(driver);
     }
 
 

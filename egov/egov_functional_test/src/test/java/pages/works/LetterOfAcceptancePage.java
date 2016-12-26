@@ -38,6 +38,9 @@ public class LetterOfAcceptancePage extends BasePage
     @FindBy(id = "contractorSearch")
     private WebElement firmName;
 
+    @FindBy(css = "div[class='alert text-center'][style='color:green;']")
+    private WebElement loaNumber;
+
 //    @FindBy(xpath = "//*[@id='createLetterOfAcceptanceForm']/div[1]/div/div[1]/div[3]/div[6]/div[1]/div/span[2]/i")
 //    private WebElement addFirm;
 //
@@ -65,11 +68,38 @@ public class LetterOfAcceptancePage extends BasePage
     @FindBy(id = "save")
     private WebElement saveButton;
 
-    @FindBy(xpath = "//*[@id='closeButton']")
+    @FindBy(linkText = "View LOA PDF")
+    private WebElement viewLOAPDF;
+
+    @FindBy(id = "closeButton")
     private WebElement closeButton;
 
-    @FindBy(linkText = "View LOA PDF")
-            private WebElement viewLOAPDF;
+    @FindBy(linkText = "Close")
+    private WebElement closeLink;
+
+    @FindBy(css = "button[id='btnsearch'][type='button']")
+    private WebElement searchLOAButton;
+
+    @FindBy(xpath = ".//*[@id='workOrderNumber']")
+    private WebElement workOrderNumber;
+
+    @FindBy(xpath = "(//*[@id='resultTable']/tbody/tr/td/input)[1]")
+     private WebElement selectLOA;
+
+    @FindBy(id = "btnmodifyloa")
+     private WebElement modifyLOAbutton;
+
+    @FindBy(id = "revisedValue")
+    private WebElement revisedValue;
+
+    @FindBy(id = "modify")
+     private WebElement modifyButton;
+
+    @FindBy(id = "actionDropdown")
+     private WebElement actionDropdown;
+
+    @FindBy(xpath = "//*[@id='workOrder']/div[2]/div/a[1]")
+     private WebElement closeViewLOA;
 
     String RandomString = RandomStringUtils.randomAlphanumeric(5).toUpperCase();
 
@@ -107,19 +137,72 @@ public class LetterOfAcceptancePage extends BasePage
         new Select(engineerIncharge).selectByVisibleText("A.P.Sreenivasulu - Assistant Engineer");
     }
 
-    public void saveAndClose() {
+    public String saveAndClose() {
             waitForElementToBeVisible(saveButton, driver);
             saveButton.click();
 
-            waitForElementToBeClickable(viewLOAPDF, driver);
-            viewLOAPDF.click();
+//            waitForElementToBeClickable(viewLOAPDF, driver);
+//            viewLOAPDF.click();
 
-//            await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
-//            for (String winHandle : driver.getWindowHandles()) {
-//                driver.switchTo().window(winHandle);
-//            }
-//
-//        waitForElementToBeVisible(closeButton, driver);
-//        closeButton.click();
+        waitForElementToBeVisible(loaNumber,driver);
+        String loaText = loaNumber.getText();
+        String workNumber = (loaText.split("\\ ")[5]);
+
+        waitForElementToBeVisible(closeButton, driver);
+        closeButton.click();
+
+        await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
+        for (String winHandle : driver.getWindowHandles()) {
+            driver.switchTo().window(winHandle);
+        }
+
+        return workNumber;
+    }
+
+    public void searchForLOA(String number) {
+        waitForElementToBeClickable(workOrderNumber, driver);
+        workOrderNumber.sendKeys(number);
+        waitForElementToBeClickable(searchLOAButton, driver);
+        searchLOAButton.click();
+        waitForElementToBeClickable(actionDropdown, driver);
+        new Select(actionDropdown).selectByVisibleText("View LOA");
+        switchToNewlyOpenedWindow(driver);
+        waitForElementToBeClickable(closeViewLOA, driver);
+        closeViewLOA.click();
+        for (String winHandle : driver.getWindowHandles()) {
+            driver.switchTo().window(winHandle);
+        }
+            waitForElementToBeVisible(closeLink, driver);
+            closeLink.click();
+
+            for (String winHandle : driver.getWindowHandles()) {
+            driver.switchTo().window(winHandle);
+        }
+    }
+
+    public void close() {
+        waitForElementToBeVisible(closeButton,driver);
+        closeButton.click();
+
+        await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
+        for (String winHandle : driver.getWindowHandles()) {
+            driver.switchTo().window(winHandle);
+        }
+    }
+
+    public void searchForLOAModify(String number) {
+        waitForElementToBeClickable(workOrderNumber, driver);
+        workOrderNumber.sendKeys(number);
+        waitForElementToBeClickable(searchLOAButton, driver);
+        searchLOAButton.click();
+        waitForElementToBeClickable(selectLOA, driver);
+        selectLOA.click();
+        waitForElementToBeClickable(modifyLOAbutton, driver);
+        modifyLOAbutton.click();
+        waitForElementToBeClickable(revisedValue, driver);
+        revisedValue.sendKeys("8");
+        waitForElementToBeClickable(modifyButton, driver);
+        modifyButton.click();
+        close();
     }
 }
