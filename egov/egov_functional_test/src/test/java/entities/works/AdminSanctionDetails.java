@@ -7,6 +7,16 @@ public class AdminSanctionDetails {
 
     String administrationSanctionNumber;
     String adminSanctionDate;
+    String adminSanctionAuthority;
+
+
+    public String getAdminSanctionAuthority() {
+        return adminSanctionAuthority;
+    }
+
+    public void setAdminSanctionAuthority(String adminSanctionAuthority) {
+        this.adminSanctionAuthority = adminSanctionAuthority;
+    }
 
     public String getAdministrationSanctionNumber() {
         return administrationSanctionNumber;

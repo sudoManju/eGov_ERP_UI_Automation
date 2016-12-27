@@ -22,6 +22,12 @@ public class AdminSanctionDetailsBuilder {
         return this;
     }
 
+    public AdminSanctionDetailsBuilder withAdminSanctionAuthority(String sanctionAuthority)
+    {
+        adminSanctionDetails.setAdminSanctionAuthority(sanctionAuthority);
+        return this;
+    }
+
     public AdminSanctionDetails build(){
         return adminSanctionDetails;
     }

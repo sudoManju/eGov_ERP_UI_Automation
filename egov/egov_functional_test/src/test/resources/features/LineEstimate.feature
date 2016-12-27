@@ -3,7 +3,7 @@ Feature: Create Spillover Line Estimate
   I want to be able to create a spillover estimate
 
 
- @WIP
+ @Sanity
 Scenario Outline: Create Spillover Line Estimate
 
     Given assis_Engineer logs in

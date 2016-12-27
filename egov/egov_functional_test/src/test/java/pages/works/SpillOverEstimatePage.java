@@ -115,6 +115,9 @@ public class SpillOverEstimatePage extends BasePage
     @FindBy(id = "adminSanctionDate")
     private WebElement adminSanctionDateBox;
 
+    @FindBy(id = "adminSanctionBy")
+    private WebElement adminSanctionAuthorityTextBox;
+
     @FindBy(id ="technicalSanctionNumber")
     private WebElement technicalSanctionNumberTextBox;
 
@@ -132,7 +135,6 @@ public class SpillOverEstimatePage extends BasePage
 
     @FindBy(xpath = ".//*[@id='main']/div/div/div/div/div")
      private WebElement creationMsg;
-
 
     String transactionRefNo = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
 
@@ -250,6 +252,10 @@ public class SpillOverEstimatePage extends BasePage
         adminSanctionDateBox.click();
         enterText(adminSanctionDateBox,adminSanctionDetails.getAdminSanctionDate());
         adminSanctionDateBox.sendKeys(Keys.TAB);
+
+        waitForElementToBeClickable(adminSanctionAuthorityTextBox,webDriver);
+        adminSanctionAuthorityTextBox.sendKeys(adminSanctionDetails.getAdminSanctionAuthority());
+
     }
 
     public void enterTechnicalSanctionDetails(TechnicalSanctionDetails technicalSanctionDetails) {

@@ -830,9 +830,13 @@ public class ExcelReader {
         dateCell.setCellType(Cell.CELL_TYPE_STRING);
         String Date  = dateCell.getStringCellValue();
 
+        String AdminstrativeSanctionAuthority = getCellData(adminSanctionDetailsSheet,dataRow,"administrativeSanctionAuthority").getStringCellValue();
+
+
         return new AdminSanctionDetailsBuilder()
                 .withAdministrationSanctionNumber(AdminstrativeSanctionNumber)
                 .withAdminSanctionDate(Date)
+                .withAdminSanctionAuthority(AdminstrativeSanctionAuthority)
                 .build();
 
     }
