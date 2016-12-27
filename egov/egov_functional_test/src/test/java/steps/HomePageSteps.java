@@ -1,8 +1,10 @@
 package steps;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.LoginDetails;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import pages.BasePage;
 import pages.HomePage;
 import utils.ExcelReader;
 
@@ -16,6 +18,10 @@ public class HomePageSteps extends BaseSteps implements En {
                 loginDetails.setPassword("eGov@123");
             pageStore.get(HomePage.class).loginAs(loginDetails);
 
+        });
+        And("^he will notifies that \"([^\"]*)\"$", (String expectedMessage) -> {
+            String actualMessage = scenarioContext.getActualMessage();
+            pageStore.get(BasePage.class).isSuccesful(expectedMessage,actualMessage);
         });
     }
 

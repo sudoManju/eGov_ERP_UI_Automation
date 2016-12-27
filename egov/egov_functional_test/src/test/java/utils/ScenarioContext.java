@@ -16,12 +16,32 @@ public class ScenarioContext {
 
     private String workNumber;
 
+    private String loaNumber;
+
+    private String actualMessage;
+
     public String getWorkNumber() {
         return workNumber;
     }
 
     public void setWorkNumber(String workNumber) {
         this.workNumber = workNumber;
+
+    public String getLoaNumber() {
+        return loaNumber;
+    }
+
+    public String getActualMessage() {
+        return actualMessage;
+    }
+
+    public void setActualMessage(String actualMessage) {
+        this.actualMessage = actualMessage;
+    }
+
+    public void setLoaNumber(String loaNumber) {
+        this.loaNumber = loaNumber;
+
     }
 
     public String getVoucherNumber() {

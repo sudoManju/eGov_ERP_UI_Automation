@@ -276,6 +276,8 @@ public class SpillOverEstimatePage extends BasePage
         String msg =creationMsg.getText();
         String reqMsg = (msg.split("\\ ")[5]);
 
+        System.out.println(reqMsg);
+
 
         waitForElementToBeVisible(closeButton, webDriver);
         closeButton.click();

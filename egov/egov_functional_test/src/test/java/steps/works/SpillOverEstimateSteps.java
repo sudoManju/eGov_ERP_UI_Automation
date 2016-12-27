@@ -5,6 +5,7 @@ import cucumber.api.java8.En;
 import entities.works.*;
 
 import org.junit.Assert;
+import pages.BasePage;
 import pages.works.SpillOverEstimatePage;
 import steps.BaseSteps;
 import utils.ExcelReader;
@@ -44,7 +45,7 @@ public class SpillOverEstimateSteps extends BaseSteps implements En {
         });
         And("^he saves the file and closes the acknowledgement$", () -> {
            String reqMsg = pageStore.get(SpillOverEstimatePage.class).saveAndClose();
-           Assert.assertEquals(reqMsg,"successfully.");
+            scenarioContext.setActualMessage(reqMsg);
         });
 
     }

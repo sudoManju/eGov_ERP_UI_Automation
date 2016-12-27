@@ -8,6 +8,7 @@ Feature: To create a Financial Transactions
     And officer will enter the journal voucher details as <voucher details>
     And officer will enter the approval details as <approval officer1>
     And officer will get successful voucher created and closes it "Created"
+    And he will notifies that "Created"
     And current user logs out
 
     And assistantExaminer logs in

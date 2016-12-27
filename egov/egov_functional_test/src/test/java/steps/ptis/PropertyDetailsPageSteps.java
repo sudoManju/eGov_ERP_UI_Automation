@@ -67,6 +67,9 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
         });
         And("^he does a digital signature$", () -> {
             pageStore.get(PropertyDetailsPage.class).digitallySign();
+
+            String acknowledgementMessage = pageStore.get(PropertyAcknowledgementPage.class).getSignatureNotification();
+            scenarioContext.setActualMessage(acknowledgementMessage);
         });
         And("^he generates a notice$", () -> {
             pageStore.get(PropertyDetailsPage.class).generateNotice();

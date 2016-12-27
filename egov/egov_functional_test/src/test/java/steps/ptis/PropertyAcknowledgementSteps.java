@@ -21,10 +21,6 @@ public class PropertyAcknowledgementSteps extends BaseSteps implements En {
             scenarioContext.setAssessmentNumber(assessmentNumber);
             pageStore.get(PropertyAcknowledgementPage.class).close();
         });
-        Then("^he is notified that \"([^\"]*)\"$", (String expectedMessage) -> {
-            String acknowledgementMessage = pageStore.get(PropertyAcknowledgementPage.class).getSignatureNotification();
-            Assert.assertEquals(expectedMessage, acknowledgementMessage);
-        });
         When("^commissioner closes acknowledgement$", () -> {
            pageStore.get(PropertyAcknowledgementPage.class).closeFromCommisionersLogin();
         });

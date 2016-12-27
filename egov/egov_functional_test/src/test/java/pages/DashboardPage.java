@@ -134,6 +134,10 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Modify LOA")
     private WebElement modifyLOALink;
 
+    @FindBy(linkText = "Create Milestone")
+    private WebElement createMilestoneLink;
+
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -496,6 +500,14 @@ public class DashboardPage extends BasePage {
         searchFor("Create New License");
         waitForElementToBeVisible(createTradeLicense, driver);
         createTradeLicense.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseForCreateMilestone() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("create milestone");
+        waitForElementToBeVisible(createMilestoneLink,driver);
+        createMilestoneLink.click();
         switchToNewlyOpenedWindow(driver);
     }
 }

@@ -38,6 +38,7 @@ public class FinancialSteps extends BaseSteps implements En {
             String voucherNumber = pageStore.get(FinancialPage.class).getVoucherNumber();
             scenarioContext.setVoucherNumber(voucherNumber.split("\\ ")[1]);
             Assert.assertEquals(voucherNumber.split("\\ ")[2], expectedMessage );
+            scenarioContext.setActualMessage(voucherNumber.split("\\ ")[2]);
         });
 
         Then("^the officer will click on the voucher number$", () -> {

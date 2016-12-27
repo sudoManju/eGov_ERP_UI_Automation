@@ -1,9 +1,11 @@
 package pages;
 
+import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.Properties;
+import utils.ScenarioContext;
 
 import java.util.concurrent.TimeUnit;
 
@@ -75,5 +77,9 @@ public class BasePage {
         for (String winHandle : driver.getWindowHandles()) {
             driver.switchTo().window(winHandle);
         }
+    }
+
+    public void isSuccesful(String expectedMessage,String actualMessage){
+        Assert.assertEquals(expectedMessage,actualMessage);
     }
 }

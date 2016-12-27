@@ -219,8 +219,6 @@ public class CollectionsPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-
-
     public void collectChargeFor(String consumerNumber) {
         consumerNumberTextBox.sendKeys(consumerNumber);
         submitButton.click();
