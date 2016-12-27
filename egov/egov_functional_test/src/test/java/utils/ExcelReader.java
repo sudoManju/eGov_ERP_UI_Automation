@@ -5,6 +5,7 @@ import builders.collections.ChallanHeaderDetailsBuilder;
 import builders.collections.ChequeDetailsBuilder;
 import builders.dcReports.PTReportBuilder;
 import builders.dcReports.VLTReportBuilder;
+import builders.financial.FinancialBankDetailsBuilder;
 import builders.financial.FinancialJournalVoucherDetailsBuilder;
 import builders.ptis.*;
 import builders.tradeLicense.TradeOwnerDetailsBuilder;
@@ -17,6 +18,7 @@ import entities.collections.ChallanHeaderDetails;
 import entities.collections.ChequeDetails;
 import entities.dcReports.PTReport;
 import entities.dcReports.VLTReport;
+import entities.financial.FinancialBankDetails;
 import entities.financial.FinancialJournalVoucherDetails;
 import entities.ptis.*;
 import entities.tradeLicense.TradeOwnerDetails;
@@ -65,6 +67,7 @@ public class ExcelReader {
     Sheet technicalSanctionDetailsSheet;
     Sheet tradeOwnerDetailsSheet;
     Sheet financialJournalVoucherSheet;
+    Sheet financialBankDetailsSheet;
 
 
     public ExcelReader(String testData) {
@@ -114,6 +117,7 @@ public class ExcelReader {
         technicalSanctionDetailsSheet = workbook.getSheet("technicalSanctionDetails");
         tradeOwnerDetailsSheet = workbook.getSheet("tradeOwnerDetails");
         financialJournalVoucherSheet = workbook.getSheet("journalVoucherDetails");
+        financialBankDetailsSheet = workbook.getSheet("financialBankDetails");
     }
 
     private Row readDataRow(Sheet fromSheet, String dataId) {
@@ -886,6 +890,18 @@ public class ExcelReader {
                 .withAccountCode2(accountCode2)
                 .withDepartment(department)
                 .withFunction(function)
+                .build();
+    }
+
+    public FinancialBankDetails getFinancialBankDetails(String bankDetails){
+        Row dataRow = readDataRow(financialBankDetailsSheet, bankDetails);
+
+        String bankName = getCellData(financialBankDetailsSheet, dataRow, "bankName").getStringCellValue();
+        String accountNumber = getCellData(financialBankDetailsSheet, dataRow, "accountNumber").getStringCellValue();
+
+        return new FinancialBankDetailsBuilder()
+                .withBankName(bankName)
+                .withAccountNumber(accountNumber)
                 .build();
     }
 }

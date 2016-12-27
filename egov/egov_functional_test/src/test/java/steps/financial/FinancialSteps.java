@@ -2,6 +2,7 @@ package steps.financial;
 
 import cucumber.api.PendingException;
 import cucumber.api.java8.En;
+import entities.financial.FinancialBankDetails;
 import entities.financial.FinancialJournalVoucherDetails;
 import entities.ptis.ApprovalDetails;
 import entities.wcms.FieldInspectionDetails;
@@ -36,7 +37,6 @@ public class FinancialSteps extends BaseSteps implements En {
         And("^officer will get successful voucher created and closes it \"([^\"]*)\"$", (String expectedMessage) -> {
             String voucherNumber = pageStore.get(FinancialPage.class).getVoucherNumber();
             scenarioContext.setVoucherNumber(voucherNumber.split("\\ ")[1]);
-            System.out.println("==============================="+voucherNumber.split("\\ ")[1]);
             Assert.assertEquals(voucherNumber.split("\\ ")[2], expectedMessage );
         });
 
@@ -60,16 +60,22 @@ public class FinancialSteps extends BaseSteps implements En {
         });
 
         Then("^officer will modify the results depending upon the fund and date as (\\w+)$", (String date) -> {
-            pageStore.get(FinancialPage.class).billPayments(date);
+            pageStore.get(FinancialPage.class).billSearch(date);
         });
 
         And("^officer will act upon the above voucher$", () -> {
             pageStore.get(FinancialPage.class).actOnAboveVoucher();
         });
 
-        And("^officer will check the verify the voucher nnumber$", () -> {
+        And("^officer will verify the voucher number$", () -> {
             String voucher = pageStore.get(FinancialPage.class).verifyVoucher();
             Assert.assertEquals(voucher , scenarioContext.getVoucherNumber());
+        });
+
+        And("^officer will enter the bank details$", () -> {
+            String bankDetails = "SBI";
+            FinancialBankDetails financialBankDetails = new ExcelReader(financialTestDataFileName).getFinancialBankDetails(bankDetails);
+            pageStore.get(FinancialPage.class).billPayment(financialBankDetails);
         });
     }
 }

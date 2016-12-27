@@ -1,5 +1,6 @@
 package pages.financial;
 
+import entities.financial.FinancialBankDetails;
 import entities.financial.FinancialJournalVoucherDetails;
 import entities.ptis.ApprovalDetails;
 import org.openqa.selenium.*;
@@ -138,7 +139,7 @@ public class FinancialPage extends BasePage {
     @FindBy(linkText = "Payment Details")
     private WebElement paymentDetails;
 
-    @FindBy(name = "billList[0].billVoucherNumber")
+    @FindBy(name = "billList[0].billVoucherId")
     private WebElement voucherNumberToVerify;
 
     @FindBy(id = "fromDate")
@@ -147,7 +148,13 @@ public class FinancialPage extends BasePage {
     @FindBy(id = "toDate")
     private WebElement billToDate;
 
-    private String juneDate;
+    @FindBy(id = "bankbranch")
+    private WebElement bankBranch;
+
+    @FindBy(id = "bankaccount")
+    private WebElement bankAccount;
+
+    private String juneDate = "00";
 
     public FinancialPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -155,12 +162,12 @@ public class FinancialPage extends BasePage {
 
     public void enterJournalVoucherDetails(FinancialJournalVoucherDetails financialJournalVoucherDetails){
 
-        juneDate = "30/06/2016";
-        if(juneDate.equals(financialJournalVoucherDetails.getDate())){
-            voucherDate.clear();
-            juneDate = financialJournalVoucherDetails.getDate();
-            voucherDate.sendKeys(financialJournalVoucherDetails.getDate() , Keys.TAB);
+        if(financialJournalVoucherDetails.getDate().split("\\/")[1].equals("06")){
+            juneDate = "06";
         }
+
+        voucherDate.clear();
+        voucherDate.sendKeys(financialJournalVoucherDetails.getDate() , Keys.TAB);
         new Select(voucherSubType).selectByVisibleText(financialJournalVoucherDetails.getVoucherType());
         if(!financialJournalVoucherDetails.getVoucherType().equals("General")){
             waitForElementToBeClickable(voucherPartyName , webDriver);
@@ -171,15 +178,19 @@ public class FinancialPage extends BasePage {
         new Select(voucherDepartment).selectByVisibleText(financialJournalVoucherDetails.getDepartment());
         new Select(voucherFunction).selectByVisibleText(financialJournalVoucherDetails.getFunction());
 
-        accountCode1.sendKeys(financialJournalVoucherDetails.getAccountCode1(),Keys.TAB);
+        accountCode1.sendKeys(financialJournalVoucherDetails.getAccountCode1());
+        accountCode1.sendKeys(Keys.TAB);
         enterText(debitAmount1 , "100");
 
-        accountCode2.sendKeys(financialJournalVoucherDetails.getAccountCode2(),Keys.TAB);
+        accountCode2.sendKeys(financialJournalVoucherDetails.getAccountCode2());
+        accountCode2.sendKeys(Keys.TAB);
         enterText(creditAmount2 , "100");
 
         WebElement element = webDriver.findElement(By.id("subLedgerlist[0].glcode.id"));
         List<WebElement> webElementList = element.findElements(By.tagName("option"));
 
+        waitForElementToBeClickable(ledgerAccount1 , webDriver);
+        ledgerAccount1.sendKeys(Keys.PAGE_DOWN);
         ledgerAccount1.click();
         new Select(ledgerAccount1).selectByVisibleText(webElementList.get(1).getText());
         new Select(ledgerType1).selectByVisibleText("contractor");
@@ -213,15 +224,12 @@ public class FinancialPage extends BasePage {
     }
 
     public void enterFinanceApprovalDetails(ApprovalDetails approvalDetails) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
-        String juneDate2 = "30/06/2016";
-        Date date1 = sdf.parse(juneDate2);
-        Date date2 = sdf.parse(juneDate);
-
-        if(date1.equals(date2)){
+        if(juneDate.contains("06")){
             createAndApprove.click();
+            juneDate = "00";
         }
         else{
+            waitForElementToBeClickable(approverDepartment ,webDriver);
         new Select(approverDepartment).selectByVisibleText(approvalDetails.getApproverDepartment());
         new Select(approverDesignation).selectByVisibleText(approvalDetails.getApproverDesignation());
         waitForElementToBeVisible(approverPosition , webDriver);
@@ -233,7 +241,7 @@ public class FinancialPage extends BasePage {
     public String getVoucherNumber(){
         switchToNewlyOpenedWindow(webDriver);
 
-        WebDriverWait webDriverWait = new WebDriverWait(webDriver,5);
+        WebDriverWait webDriverWait = new WebDriverWait(webDriver,10);
 
         webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("div[class~='bootbox-alert'] div[class^='bootbox-body']")));
         WebElement voucherNumber = webDriver.findElement(By.cssSelector("div[class~='bootbox-alert'] div[class^='bootbox-body']"));
@@ -292,32 +300,26 @@ public class FinancialPage extends BasePage {
         return forwardMessageText;
     }
 
-    public void billPayments(String date){
+    public void billSearch(String date){
         billFromDate.sendKeys(date.replaceAll("_" , "/"));
         billToDate.sendKeys(date.replaceAll("_" , "/"));
         new Select(fundId).selectByVisibleText("Municipal Fund");
         waitForElementToBeClickable(billSearch , webDriver);
         billSearch.click();
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            TimeUnit.SECONDS.sleep(5);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         switchToNewlyOpenedWindow(webDriver);
         expenseBillSearch.click();
     }
 
     public void actOnAboveVoucher(){
         waitForElementToBeClickable(firstVoucher , webDriver);
-        jsClickCheckbox(firstVoucher , webDriver);
         if ( !firstVoucher.isSelected() )
         {
             firstVoucher.click();
-        }
-        try {
-            TimeUnit.SECONDS.sleep(10);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
         waitForElementToBeClickable(generatePayment , webDriver);
         generatePayment.click();
@@ -326,9 +328,17 @@ public class FinancialPage extends BasePage {
 
     public String verifyVoucher(){
         billDetails.click();
-        waitForElementToBeVisible(voucherNumberToVerify , webDriver);
+        waitForElementToBeClickable(voucherNumberToVerify , webDriver);
         String voucherNumber = voucherNumberToVerify.getText();
+
         paymentDetails.click();
+
         return voucherNumber;
+    }
+
+    public void billPayment(FinancialBankDetails financialBankDetails){
+        new Select(bankBranch).selectByVisibleText(financialBankDetails.getBankName());
+        waitForElementToBeClickable(bankAccount , webDriver);
+        new Select(bankAccount).selectByVisibleText(financialBankDetails.getAccountNumber());
     }
 }
