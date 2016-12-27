@@ -26,7 +26,8 @@ public class ScenarioContext {
 
     public void setWorkNumber(String workNumber) {
         this.workNumber = workNumber;
-
+    }
+    
     public String getLoaNumber() {
         return loaNumber;
     }
