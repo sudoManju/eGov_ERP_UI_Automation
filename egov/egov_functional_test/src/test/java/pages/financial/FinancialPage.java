@@ -191,7 +191,8 @@ public class FinancialPage extends BasePage {
 
         waitForElementToBeClickable(ledgerAccount1 , webDriver);
         ledgerAccount1.sendKeys(Keys.PAGE_DOWN);
-        ledgerAccount1.click();
+//        ledgerAccount1.click();
+        waitForElementToBeClickable(ledgerAccount1 , webDriver);
         new Select(ledgerAccount1).selectByVisibleText(webElementList.get(1).getText());
         new Select(ledgerType1).selectByVisibleText("contractor");
         ledgerCode1.sendKeys("KMC001");
