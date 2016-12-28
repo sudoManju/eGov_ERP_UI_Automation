@@ -35,10 +35,9 @@ public class FinancialSteps extends BaseSteps implements En {
             }
         });
 
-        And("^officer will get successful voucher created and closes it \"([^\"]*)\"$", (String expectedMessage) -> {
+        And("^officer will get successful voucher created and closes it$", () -> {
             String voucherNumber = pageStore.get(FinancialPage.class).getVoucherNumber();
             scenarioContext.setVoucherNumber(voucherNumber.split("\\ ")[1]);
-            Assert.assertEquals(voucherNumber.split("\\ ")[2], expectedMessage );
             scenarioContext.setActualMessage(voucherNumber.split("\\ ")[2]);
         });
 
@@ -46,15 +45,15 @@ public class FinancialSteps extends BaseSteps implements En {
             pageStore.get(FinancialPage.class).openVoucher(scenarioContext.getVoucherNumber());
         });
 
-        And("^officer will closes the acknowledgement page \"([^\"]*)\"$", (String expectedMessage) -> {
+        And("^officer will closes the acknowledgement page$", () -> {
             String actualMessage = pageStore.get(FinancialPage.class).closePage();
 
-//            if(expectedMessage.equals("forwarded")){
-//            Assert.assertEquals(actualMessage.split("\\ ")[3] , expectedMessage);
-//            }
-//            else {
-//                Assert.assertEquals(actualMessage.split("\\ ")[4] , expectedMessage);
-//            }
+            if(actualMessage.split("\\ ")[3].equals("forwarded")){
+                scenarioContext.setActualMessage(actualMessage.split("\\ ")[3]);
+            }
+            else {
+                scenarioContext.setActualMessage(actualMessage.split("\\ ")[4]);
+            }
         });
 
         And("^officer click on approval of the voucher$", () -> {
@@ -90,9 +89,10 @@ public class FinancialSteps extends BaseSteps implements En {
             pageStore.get(FinancialPage.class).enterExpenseApprovalDetails(approvalDetails);
         });
 
-        And("^officer will closes the expense acknowledgement page \"([^\"]*)\"$", (String expectedMessage) -> {
+        And("^officer will closes the expense acknowledgement page$", () -> {
             String expenseBillNumber = pageStore.get(FinancialPage.class).closesTheExpensePage();
             scenarioContext.setVoucherNumber(expenseBillNumber.split("\\ ")[2]);
+            scenarioContext.setActualMessage(expenseBillNumber.split("\\ ")[3]);
         });
     }
 }

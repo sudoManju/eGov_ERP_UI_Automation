@@ -228,17 +228,18 @@ public class FinancialPage extends BasePage {
         new Select(voucherFunction).selectByVisibleText(financialJournalVoucherDetails.getFunction());
 
         accountCode1.sendKeys(financialJournalVoucherDetails.getAccountCode1());
-        accountCode1.sendKeys(Keys.TAB);
+        WebElement dropdown = webDriver.findElement(By.className("yui-ac-highlight"));
+        dropdown.click();
+
         enterText(debitAmount1 , "100");
 
         accountCode2.sendKeys(financialJournalVoucherDetails.getAccountCode2());
-        accountCode2.sendKeys(Keys.TAB);
+        WebElement dropdown1 = webDriver.findElement(By.className("yui-ac-highlight"));
+        dropdown1.click();
+
         enterText(creditAmount2 , "100");
 
-        waitForElementToBeClickable(ledgerAccount1 , webDriver);
-        ledgerAccount1.sendKeys(Keys.PAGE_DOWN);
         ledgerAccount1.click();
-
         WebElement element = webDriver.findElement(By.id("subLedgerlist[0].glcode.id"));
         List<WebElement> webElementList = element.findElements(By.tagName("option"));
 
@@ -247,7 +248,7 @@ public class FinancialPage extends BasePage {
         ledgerCode1.sendKeys("KMC001");
 
         try {
-            TimeUnit.SECONDS.sleep(2);
+            TimeUnit.SECONDS.sleep(3);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -311,6 +312,7 @@ public class FinancialPage extends BasePage {
     }
 
     public void openVoucher(String voucherNumber){
+        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         WebElement element = getVoucherRow(voucherNumber);
         element.click();
         switchToNewlyOpenedWindow(webDriver);
@@ -392,14 +394,11 @@ public class FinancialPage extends BasePage {
     public void createNewExpenseBill(FinancialExpenseBillDetails financialExpenseBillDetails){
         new Select(expenseFund).selectByVisibleText(financialExpenseBillDetails.getExpenseFund());
         new Select(expenseDepartment).selectByVisibleText(financialExpenseBillDetails.getExpenseDeparment());
+
         expenseFunction.sendKeys(financialExpenseBillDetails.getExpenseFunction());
-        try {
-            TimeUnit.SECONDS.sleep(2);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        expenseFunction.sendKeys(Keys.ARROW_DOWN);
-        expenseFunction.sendKeys(Keys.ENTER);
+        waitForElementToBeVisible( webDriver.findElement(By.className("tt-dropdown-menu")),webDriver);
+        WebElement dropdown = webDriver.findElement(By.className("tt-dataset-0"));
+        dropdown.click();
 
         waitForElementToBeClickable(expenseBillSubType , webDriver);
         new Select(expenseBillSubType).selectByVisibleText(financialExpenseBillDetails.getExpenseBillSubType());
@@ -407,8 +406,8 @@ public class FinancialPage extends BasePage {
 
         expenseAccountCodeDebit.sendKeys(financialExpenseBillDetails.getExpenseAccountCodeDebit());
         waitForElementToBeVisible( webDriver.findElement(By.className("tt-highlight")),webDriver);
-        WebElement dropdown = webDriver.findElement(By.className("tt-highlight"));
-        dropdown.click();
+        WebElement dropDown1 = webDriver.findElement(By.className("tt-highlight"));
+        dropDown1.click();
         expenseDebitAmount.sendKeys("100");
 
         expenseAccountCodeCredit.sendKeys(financialExpenseBillDetails.getExpenseAccountCodeCredit());
@@ -426,19 +425,27 @@ public class FinancialPage extends BasePage {
     }
 
     public void enterExpenseApprovalDetails(ApprovalDetails approvalDetails){
+
         waitForElementToBeClickable(expenseApprovalDepartment ,webDriver);
         new Select(expenseApprovalDepartment).selectByVisibleText(approvalDetails.getApproverDepartment());
-        waitForElementToBeClickable(expenseApprovalDesignation ,webDriver);
-        new Select(expenseApprovalDesignation).selectByVisibleText(approvalDetails.getApproverDesignation());
+
+        try{
+            waitForElementToBeClickable(expenseApprovalDesignation ,webDriver);
+            new Select(expenseApprovalDesignation).selectByVisibleText(approvalDetails.getApproverDesignation());
+        }
+        catch (StaleElementReferenceException e){
+            WebElement element = webDriver .findElement(By.id("approvalDesignation"));
+            new Select(element).selectByVisibleText(approvalDetails.getApproverDesignation());
+        }
+
         waitForElementToBeVisible(expenseApprovalPosition , webDriver);
         new Select(expenseApprovalPosition).selectByVisibleText(approvalDetails.getApprover());
+
         forwardButton.click();
         switchToNewlyOpenedWindow(webDriver);
     }
 
     public String closesTheExpensePage(){
-
-        //waitForElementToBeVisible(expenseCreatedMessage , webDriver);
         String message = expenseCreatedMessage.getText();
 
         closeButton.click();

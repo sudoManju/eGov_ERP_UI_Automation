@@ -466,7 +466,7 @@ public class DashboardPage extends BasePage {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchTreeTextBox.clear();
         searchFor("Modify LOA");
-        waitForElementToBeClickable(modifyLOALink, driver);
+        waitForElementToBeVisible(modifyLOALink, driver);
         modifyLOALink.click();
         switchToNewlyOpenedWindow(driver);
     }

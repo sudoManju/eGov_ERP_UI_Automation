@@ -7,26 +7,29 @@ Feature: To create a Financial Transactions
     And officer search for the create journal voucher
     And officer will enter the journal voucher details as <voucher details>
     And officer will enter the approval details as <approval officer1>
-    And officer will get successful voucher created and closes it "Created"
-    And he will notifies that "Created"
+    And officer will get successful voucher created and closes it
+    And user will notifies that "Created"
     And current user logs out
 
     And assistantExaminer logs in
     Then the officer will click on the voucher number
     And officer will enter the approval details as <approval officer2>
-    And officer will closes the acknowledgement page "forwarded"
+    And officer will closes the acknowledgement page
+    And user will notifies that "forwarded"
     And current user logs out
 
     And examiner logs in
     Then the officer will click on the voucher number
     And officer will enter the approval details as <approval officer3>
-    And officer will closes the acknowledgement page "forwarded"
+    And officer will closes the acknowledgement page
+    And user will notifies that "forwarded"
     And current user logs out
 
     And commissioner logs in
     Then the officer will click on the voucher number
     And officer click on approval of the voucher
-    And officer will closes the acknowledgement page "approved"
+    And officer will closes the acknowledgement page
+    And user will notifies that "approved"
     And current user logs out
 
     Examples:
@@ -41,25 +44,29 @@ Feature: To create a Financial Transactions
     And officer search for the create journal voucher
     And officer will enter the journal voucher details as <voucher details>
     And officer will enter the approval details as <approval officer1>
-    And officer will get successful voucher created and closes it "Created"
+    And officer will get successful voucher created and closes it
+    And user will notifies that "Created"
     And current user logs out
 
     And assistantExaminer logs in
     Then the officer will click on the voucher number
     And officer will enter the approval details as <approval officer2>
-    And officer will closes the acknowledgement page "forwarded"
+    And officer will closes the acknowledgement page
+    And user will notifies that "forwarded"
     And current user logs out
 
     And examiner logs in
     Then the officer will click on the voucher number
     And officer will enter the approval details as <approval officer3>
-    And officer will closes the acknowledgement page "forwarded"
+    And officer will closes the acknowledgement page
+    And user will notifies that "forwarded"
     And current user logs out
 
     And commissioner logs in
     Then the officer will click on the voucher number
     And officer click on approval of the voucher
-    And officer will closes the acknowledgement page "approved"
+    And officer will closes the acknowledgement page
+    And user will notifies that "approved"
     And current user logs out
 
     Examples:
@@ -74,7 +81,8 @@ Feature: To create a Financial Transactions
     And officer search for the create journal voucher
     And officer will enter the journal voucher details as <voucher details>
     And officer will enter the approval details as <approval officer1>
-    And officer will get successful voucher created and closes it "Created"
+    And officer will get successful voucher created and closes it
+    And user will notifies that "Created"
 
     And officer search for the bill payment
     Then officer will modify the results depending upon the fund and date as <date>
@@ -83,25 +91,21 @@ Feature: To create a Financial Transactions
 #    And officer will verify the voucher number
 
     And officer will enter the bank details
-    And officer will enter the approval details as <approval officer1>
-    And current user logs out
-
-    And assistantExaminer logs in
-    Then the officer will click on the voucher number
     And officer will enter the approval details as <approval officer2>
-    And officer will closes the acknowledgement page "forwarded"
     And current user logs out
 
     And examiner logs in
     Then the officer will click on the voucher number
     And officer will enter the approval details as <approval officer3>
-    And officer will closes the acknowledgement page "forwarded"
+    And officer will closes the acknowledgement page
+    And user will notifies that "forwarded"
     And current user logs out
 
     And commissioner logs in
     Then the officer will click on the voucher number
     And officer click on approval of the voucher
-    And officer will closes the acknowledgement page "approved"
+    And officer will closes the acknowledgement page
+    And user will notifies that "approved"
     And current user logs out
 
     Examples:
@@ -116,19 +120,22 @@ Feature: To create a Financial Transactions
     And officer will search for the new expense bill
     And officer will the expense bill details as <bill details>
     And officer will enter the expense approval details as <approval officer1>
-    And officer will closes the expense acknowledgement page "Created"
+    And officer will closes the expense acknowledgement page
+    And user will notifies that "created"
     And current user logs out
 
     Then examiner logs in
     Then the officer will click on the voucher number
     And officer will enter the expense approval details as <approval officer2>
-    And officer will closes the expense acknowledgement page "Created"
+    And officer will closes the expense acknowledgement page
+    And user will notifies that "created"
     And current user logs out
 
     And commissioner logs in
     Then the officer will click on the voucher number
     And officer click on approval of the voucher
-    And officer will closes the expense acknowledgement page "approved"
+    And officer will closes the expense acknowledgement page
+    And user will notifies that "approved"
     And current user logs out
 
     Examples:

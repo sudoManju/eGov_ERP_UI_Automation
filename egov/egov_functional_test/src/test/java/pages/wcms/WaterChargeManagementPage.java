@@ -278,8 +278,8 @@ public class WaterChargeManagementPage extends BasePage {
         waitForElementToBeClickable(fieldInspectionPipelineDistance, webDriver);
         enterText(fieldInspectionPipelineDistance , fieldInspectionDetails.getPipelineToHomeDistance());
 
-        waitForElementToBeClickable(fieldInspectionEstimationCharges, webDriver);
-        enterText(fieldInspectionEstimationCharges , fieldInspectionDetails.getEstimationCharges());
+//        waitForElementToBeClickable(fieldInspectionEstimationCharges, webDriver);
+//        enterText(fieldInspectionEstimationCharges , fieldInspectionDetails.getEstimationCharges());
 
         waitForElementToBeClickable(fieldInspectionSubmitButton, webDriver);
         fieldInspectionSubmitButton.click();

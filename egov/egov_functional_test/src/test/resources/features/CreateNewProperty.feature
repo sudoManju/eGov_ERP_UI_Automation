@@ -125,7 +125,7 @@ Feature: Create New Property
       And chooses to act upon the above assessment
       And he does a digital signature
 
-      Then he is notified that "Notice Generated Successfully"
+#      Then he is notified that "Notice Generated Successfully"
 
       When commissioner closes acknowledgement
       And current user logs out

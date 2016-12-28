@@ -19,10 +19,9 @@ public class HomePageSteps extends BaseSteps implements En {
             pageStore.get(HomePage.class).loginAs(loginDetails);
 
         });
-        And("^he will notifies that \"([^\"]*)\"$", (String expectedMessage) -> {
+        And("^user will notifies that \"([^\"]*)\"$", (String expectedMessage) -> {
             String actualMessage = scenarioContext.getActualMessage();
             pageStore.get(BasePage.class).isSuccesful(expectedMessage,actualMessage);
         });
     }
-
 }
