@@ -32,14 +32,21 @@ Scenario Outline: Create Estimate
    And he enters estimate header details as <estimateHeaderDetails>
    And he enters financial details as <financialDetails>
    And he enters work details as for <workDetails>
-   And he enters approver details as <approverDetails>
+   And he enters approver details as <approverDetails1>
    And he forwards to DEE and closes the acknowledgement
    And user will notifies that "successfully"
    And current user logs out
 
-   
+   Given deputyExecutiveEngineer logs in
+   And he clicks on estimate and opens the application
+   And he enters approver details as <approverDetails2>
+   And he submit the application
+   And user will notifies that "forwarded"
+   And current user logs out
+
+
 
    Examples:
-   |estimateHeaderDetails|financialDetails    |workDetails     |approverDetails          |
-   |Estimate_1           |EstimateFinancial_1 |EstimateWork_1  |deputyExecutiveEngineer  |
+   |estimateHeaderDetails|financialDetails    |workDetails     |approverDetails1         |approverDetails2|
+   |Estimate_1           |EstimateFinancial_1 |EstimateWork_1  |deputyExecutiveEngineer  |SuperIntendent  |
 

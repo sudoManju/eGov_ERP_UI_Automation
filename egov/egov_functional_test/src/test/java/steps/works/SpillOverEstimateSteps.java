@@ -67,6 +67,15 @@ public class SpillOverEstimateSteps extends BaseSteps implements En {
 
             pageStore.get(SpillOverEstimatePage.class).close();
         });
+        And("^he clicks on estimate and opens the application$", () -> {
+            pageStore.get(SpillOverEstimatePage.class).openApplication(scenarioContext.getEstimateNumber());
+        });
+        And("^he submit the application$", () -> {
+           String actualMsg = pageStore.get(SpillOverEstimatePage.class).submit();
+           scenarioContext.setActualMessage(actualMsg);
+
+           pageStore.get(SpillOverEstimatePage.class).close();
+        });
 
     }
 

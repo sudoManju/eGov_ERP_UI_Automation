@@ -15,6 +15,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -159,6 +160,15 @@ public class SpillOverEstimatePage extends BasePage
 
     @FindBy(css = "input[id='Forward'][type='submit']")
     private WebElement forwardButton;
+
+    @FindBy(css = "li[role='presentation'] a[data-now^='Estimate']")
+    private WebElement estimateLink;
+
+    @FindBy(id = "official_inbox_wrapper")
+    private WebElement workListTable;
+
+    @FindBy(css = "input[id='Submit'][type='submit']")
+     private WebElement submitButton;
 
     String transactionRefNo = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
 
@@ -367,7 +377,7 @@ public class SpillOverEstimatePage extends BasePage
 
         waitForElementToBeVisible(creationMsg,webDriver);
         String Msg = creationMsg.getText();
-        System.out.println(Msg);String number =  Msg.substring(Msg.lastIndexOf(" ")+1);
+        String number =  Msg.substring(Msg.lastIndexOf(" ")+1);
         String num = number.substring(0, number.length()-1);
 
         System.out.println(num);
@@ -391,5 +401,31 @@ public class SpillOverEstimatePage extends BasePage
         for (String winHandle : webDriver.getWindowHandles()) {
             webDriver.switchTo().window(winHandle);
         }
+    }
+
+    public void openApplication(String estimateNumber) {
+        waitForElementToBeVisible(estimateLink,webDriver);
+        estimateLink.click();
+
+        List<WebElement> totalRows = workListTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
+        System.out.println("\n"+totalRows.size());
+        for (WebElement applicationRow : totalRows) {
+            if (applicationRow.findElements(By.tagName("td")).get(4).getText().contains(estimateNumber))
+                applicationRow.click();
+                break;
+        }
+
+        switchToNewlyOpenedWindow(webDriver);
+    }
+
+
+    public String submit() {
+        waitForElementToBeClickable(submitButton,webDriver);
+        submitButton.click();
+
+        String msg = creationMsg.getText();
+        String reqMsg = msg.split("\\ ")[7];
+
+        return reqMsg;
     }
 }
