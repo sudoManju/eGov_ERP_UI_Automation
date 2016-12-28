@@ -196,6 +196,11 @@ public class SpillOverEstimatePage extends BasePage
         new Select(functionBox).selectByVisibleText(financialDetails.getFunction());
 
         waitForElementToBeClickable(budgetHeadBox,webDriver);
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         new Select(budgetHeadBox).selectByVisibleText(financialDetails.getBudgetHead());
     }
 
@@ -224,9 +229,10 @@ public class SpillOverEstimatePage extends BasePage
         waitForElementToBeClickable(actualAmountTextBox,webDriver);
         enterText(actualAmountTextBox,workDetails.getActualEstimateAmount());
 
-        waitForElementToBeClickable(grossAmountTextBox,webDriver);
-        enterText(grossAmountTextBox,workDetails.getGrossAmountBilled());
-
+       if(workDetails.getBillsCreated().equals(Boolean.TRUE)) {
+           waitForElementToBeClickable(grossAmountTextBox, webDriver);
+           enterText(grossAmountTextBox, workDetails.getGrossAmountBilled());
+       }
         waitForElementToBeClickable(quantityTextBox,webDriver);
         enterText(quantityTextBox,workDetails.getQuantity());
 
