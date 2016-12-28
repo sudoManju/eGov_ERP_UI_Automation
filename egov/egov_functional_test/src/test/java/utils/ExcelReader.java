@@ -9,6 +9,7 @@ import builders.financial.FinancialBankDetailsBuilder;
 import builders.financial.FinancialExpenseBillDetailsBuilder;
 import builders.financial.FinancialJournalVoucherDetailsBuilder;
 import builders.ptis.*;
+import builders.tradeLicense.TradeLocationDetailsBuilder;
 import builders.tradeLicense.TradeOwnerDetailsBuilder;
 import builders.wcms.EnclosedDocumentBuilder;
 import builders.wcms.FieldInspectionDetailsBuilder;
@@ -23,6 +24,7 @@ import entities.financial.FinancialBankDetails;
 import entities.financial.FinancialExpenseBillDetails;
 import entities.financial.FinancialJournalVoucherDetails;
 import entities.ptis.*;
+import entities.tradeLicense.TradeLocationDetails;
 import entities.tradeLicense.TradeOwnerDetails;
 import entities.wcms.EnclosedDocument;
 import entities.wcms.FieldInspectionDetails;
@@ -68,6 +70,7 @@ public class ExcelReader {
     Sheet ptReportSheet;
     Sheet technicalSanctionDetailsSheet;
     Sheet tradeOwnerDetailsSheet;
+    Sheet tradeLocationDetailsSheet;
     Sheet financialJournalVoucherSheet;
     Sheet financialBankDetailsSheet;
     Sheet financialExpenseBillDetailsSheet;
@@ -119,6 +122,7 @@ public class ExcelReader {
         fieldInseptionDetailsForWaterConnectionSheet = workbook.getSheet("fieldInseptionDetailsForWaterConnection");
         technicalSanctionDetailsSheet = workbook.getSheet("technicalSanctionDetails");
         tradeOwnerDetailsSheet = workbook.getSheet("tradeOwnerDetails");
+        tradeLocationDetailsSheet =workbook.getSheet("tradeLocationDetails");
         financialJournalVoucherSheet = workbook.getSheet("journalVoucherDetails");
         financialBankDetailsSheet = workbook.getSheet("financialBankDetails");
         financialExpenseBillDetailsSheet = workbook.getSheet("financialExpenseBillDetails");
@@ -871,9 +875,55 @@ public class ExcelReader {
         aadhaarNumberCell.setCellType(Cell.CELL_TYPE_STRING);
         String  aadhaarNumber = aadhaarNumberCell.getStringCellValue();
 
+        Cell mobileNumberCell = getCellData(tradeOwnerDetailsSheet, dataRow, "mobileNumber");
+        mobileNumberCell.setCellType(Cell.CELL_TYPE_STRING);
+        String  mobileNumber = mobileNumberCell.getStringCellValue();
+
+        Cell tradeOwnerNameCell = getCellData(tradeOwnerDetailsSheet, dataRow, "tradeOwnerName");
+        tradeOwnerNameCell.setCellType(Cell.CELL_TYPE_STRING);
+        String tradeOwnerName = tradeOwnerNameCell.getStringCellValue();
+
+        Cell fatherSpouseNameCell = getCellData(tradeOwnerDetailsSheet, dataRow, "fatherSpouseName");
+        fatherSpouseNameCell.setCellType(Cell.CELL_TYPE_STRING);
+        String fatherSpouseName = fatherSpouseNameCell.getStringCellValue();
+
+        Cell emailIdCell = getCellData(tradeOwnerDetailsSheet, dataRow, "emailId");
+        emailIdCell.setCellType(Cell.CELL_TYPE_STRING);
+        String emailId = emailIdCell.getStringCellValue();
+
+        Cell tradeOwnerAddressCell = getCellData(tradeOwnerDetailsSheet, dataRow, "tradeOwnerAddress");
+        tradeOwnerAddressCell.setCellType(Cell.CELL_TYPE_STRING);
+        String tradeOwnerAddress = tradeOwnerAddressCell.getStringCellValue();
+
+
         return new TradeOwnerDetailsBuilder()
-                    .withAadhaarNumber(aadhaarNumber).build();
+                    .withAadhaarNumber(aadhaarNumber)
+                    .withMobileNumber(mobileNumber)
+                    .withTradeOwnerName(tradeOwnerName)
+                    .withFatherSpouseName(fatherSpouseName)
+                    .withEmailId(emailId)
+                    .withTradeOwnerAddress(tradeOwnerAddress)
+                    .build();
+
     }
+
+    public TradeLocationDetails getTradeLocationDetails(String tradeLocationDetailsDataId) {
+        Row dataRow = readDataRow(tradeLocationDetailsSheet, tradeLocationDetailsDataId);
+
+        Cell propertyAssessmentDetailsCell = getCellData(tradeLocationDetailsSheet, dataRow, "propertyAssessmentDetails");
+        propertyAssessmentDetailsCell.setCellType(Cell.CELL_TYPE_STRING);
+        String propertyAssessmentDetails = propertyAssessmentDetailsCell.getStringCellValue();
+
+        Cell ownershipTypeCell = getCellData(tradeLocationDetailsSheet, dataRow, "ownershipType");
+        ownershipTypeCell.setCellType(Cell.CELL_TYPE_STRING);
+        String ownershipType = ownershipTypeCell.getStringCellValue();
+
+        return new TradeLocationDetailsBuilder()
+                .withpropertyAssessmentNumber(propertyAssessmentDetails)
+                .withownershipType(ownershipType)
+                .build();
+    }
+
 
     public FinancialJournalVoucherDetails getJournalVoucherDetails(String voucher){
         Row dataRow = readDataRow(financialJournalVoucherSheet, voucher);

@@ -1,9 +1,13 @@
 package pages.tradeLicense;
 
+import entities.tradeLicense.TradeLocationDetails;
 import entities.tradeLicense.TradeOwnerDetails;
+import org.jsoup.select.Evaluator;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
 /**
@@ -15,12 +19,51 @@ public class TradeLicensePage extends BasePage {
     @FindBy(id = "adhaarId")
     private WebElement aadhaarNumberTextBox;
 
+    @FindBy(id = "mobilePhoneNumber")
+    private WebElement mobileNumberTextBox;
+
+    @FindBy (id = "applicantName")
+    private WebElement tradeOwnerNameTextBox;
+
+    @FindBy (id = "fatherOrSpouseName")
+    private WebElement fatherSpouseNameTextBox;
+
+    @FindBy (id = "emailId")
+    private WebElement emailIDTextBox;
+
+    @FindBy (id = "licenseeAddress")
+    private WebElement tradeOwnerAddressTextBox;
+
+    @FindBy (id = "propertyNo")
+    private WebElement propertyAssessmentNumberTextBox;
+
+    @FindBy (id = "ownershipType")
+    private WebElement OwnershipTypeDropBox;
+
     public TradeLicensePage(WebDriver webDriver) {this.webDriver = webDriver;
     }
     public void entertradeOwnerDetails(TradeOwnerDetails tradeOwnerDetails) {
         waitForElementToBeClickable(aadhaarNumberTextBox , webDriver);
 
         enterText(aadhaarNumberTextBox, tradeOwnerDetails.getAadhaarNumber());
+        enterText(mobileNumberTextBox, tradeOwnerDetails.getMobileNumber());
+        enterText(tradeOwnerNameTextBox, tradeOwnerDetails.getTradeOwnerName());
+        enterText(fatherSpouseNameTextBox,tradeOwnerDetails.getFatherSpouseName());
+        enterText(emailIDTextBox, tradeOwnerDetails.getEmailId());
+        enterText(tradeOwnerAddressTextBox, tradeOwnerDetails.getTradeOwnerAddress());
+
+
+
+    }
+
+    public void entertradeLocationDetails(TradeLocationDetails tradelocationDetails) {
+        waitForElementToBeClickable(propertyAssessmentNumberTextBox, webDriver);
+
+        enterText(propertyAssessmentNumberTextBox, tradelocationDetails.getpropertyAssessmentNumber());
+        propertyAssessmentNumberTextBox.sendKeys(Keys.TAB);
+        waitForElementToBeClickable(OwnershipTypeDropBox, webDriver);
+        new Select(OwnershipTypeDropBox).selectByVisibleText(tradelocationDetails.getownershipType());
+
 
     }
 }

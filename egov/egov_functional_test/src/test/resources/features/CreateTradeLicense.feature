@@ -11,14 +11,14 @@ Feature: Create New Property
     Given creator logs in
     When he chooses to create new License
     And he enters trade owner details of new license <tradeDetailsData>
-#    And he enters trade location details of new license
+    And he enters trade location details of new license <tradeLocationData>
 #    And he enters trade details of new license
 #    And he enters Agreement Details of new license
 #    Then he saved new trade license successfully
 
   Examples:
-    |   tradeDetailsData         |
-    |   ownerDetailsTradeLicense |
+    |   tradeDetailsData         |       tradeLocationData |
+    |   ownerDetailsTradeLicense |       locationDetailsTradeLicense |
 
 
 
