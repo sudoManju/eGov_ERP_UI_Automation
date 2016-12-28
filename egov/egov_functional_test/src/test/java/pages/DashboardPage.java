@@ -134,14 +134,11 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Modify LOA")
     private WebElement modifyLOALink;
 
-<<<<<<< HEAD
     @FindBy(linkText = "Create Milestone")
     private WebElement createMilestoneLink;
 
-=======
     @FindBy(linkText = "New Create Expense Bill")
     private WebElement createExpenseBill;
->>>>>>> [PHOENIX-5868] Completed the creation of  new expense bill
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
