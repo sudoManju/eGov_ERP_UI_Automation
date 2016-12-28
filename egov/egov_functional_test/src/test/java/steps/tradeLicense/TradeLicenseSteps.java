@@ -2,6 +2,7 @@ package steps.tradeLicense;
 
 import cucumber.api.PendingException;
 import cucumber.api.java8.En;
+import entities.tradeLicense.TradeDetails;
 import entities.tradeLicense.TradeLocationDetails;
 import entities.tradeLicense.TradeOwnerDetails;
 import pages.tradeLicense.TradeLicensePage;
@@ -23,6 +24,13 @@ public class TradeLicenseSteps extends BaseSteps implements En {
             // Write code here that turns the phrase above into concrete actions
            TradeLocationDetails tradelocationDetails = new ExcelReader(tradeLicenseTestDataFileName).getTradeLocationDetails(tradeLocationData);
             pageStore.get(TradeLicensePage.class).entertradeLocationDetails(tradelocationDetails);
+
+        });
+        And("^he enters trade details of new license (\\w+)$", (String tradeDetailsData) -> {
+            // Write code here that turns the phrase above into concrete actions
+
+            TradeDetails tradedetails = new ExcelReader(tradeLicenseTestDataFileName).getTradeDetails(tradeDetailsData);
+            pageStore.get(TradeLicensePage.class).entertradeDetails(tradedetails);
 
         });
 

@@ -11,6 +11,7 @@ import builders.financial.FinancialJournalVoucherDetailsBuilder;
 import builders.ptis.*;
 import builders.tradeLicense.TradeLocationDetailsBuilder;
 import builders.tradeLicense.TradeOwnerDetailsBuilder;
+import builders.tradeLicense.TradeDetailsBuilder;
 import builders.wcms.EnclosedDocumentBuilder;
 import builders.wcms.FieldInspectionDetailsBuilder;
 import builders.works.*;
@@ -24,6 +25,7 @@ import entities.financial.FinancialBankDetails;
 import entities.financial.FinancialExpenseBillDetails;
 import entities.financial.FinancialJournalVoucherDetails;
 import entities.ptis.*;
+import entities.tradeLicense.TradeDetails;
 import entities.tradeLicense.TradeLocationDetails;
 import entities.tradeLicense.TradeOwnerDetails;
 import entities.wcms.EnclosedDocument;
@@ -74,6 +76,7 @@ public class ExcelReader {
     Sheet financialJournalVoucherSheet;
     Sheet financialBankDetailsSheet;
     Sheet financialExpenseBillDetailsSheet;
+    Sheet tradeDetailsSheet;
 
 
     public ExcelReader(String testData) {
@@ -126,6 +129,7 @@ public class ExcelReader {
         financialJournalVoucherSheet = workbook.getSheet("journalVoucherDetails");
         financialBankDetailsSheet = workbook.getSheet("financialBankDetails");
         financialExpenseBillDetailsSheet = workbook.getSheet("financialExpenseBillDetails");
+        tradeDetailsSheet = workbook.getSheet("tradeDetails");
     }
 
     private Row readDataRow(Sheet fromSheet, String dataId) {
@@ -986,6 +990,51 @@ public class ExcelReader {
                 .withBillSubType(billSubType)
                 .withExpenseAccountDebit(accountCodeDebit)
                 .withExpenseAccountCredit(accountCodeCredit)
+                .build();
+    }
+
+    public TradeDetails getTradeDetails(String tradeDetailsData) {
+        Row dataRow = readDataRow(tradeDetailsSheet, tradeDetailsData);
+
+        Cell tradeTitleCell = getCellData(tradeDetailsSheet, dataRow, "tradeTitle");
+        tradeTitleCell.setCellType(Cell.CELL_TYPE_STRING);
+        String  tradeTitle = tradeTitleCell.getStringCellValue();
+
+        Cell tradeTypeCell = getCellData(tradeDetailsSheet, dataRow, "tradeType");
+        tradeTypeCell.setCellType(Cell.CELL_TYPE_STRING);
+        String  tradeType = tradeTypeCell.getStringCellValue();
+
+        Cell tradeCategoryCell = getCellData(tradeDetailsSheet, dataRow, "tradeCategory");
+        tradeCategoryCell.setCellType(Cell.CELL_TYPE_STRING);
+        String  tradeCategory = tradeCategoryCell.getStringCellValue();
+
+        Cell tradeSubCategoryCell = getCellData(tradeDetailsSheet, dataRow, "tradeCategory");
+        tradeSubCategoryCell.setCellType(Cell.CELL_TYPE_STRING);
+        String  tradeSubCategory = tradeSubCategoryCell.getStringCellValue();
+
+        Cell tradeAreaWeightOfPremisesCell = getCellData(tradeDetailsSheet, dataRow, "tradeAreaWeightOfPremises");
+        tradeAreaWeightOfPremisesCell.setCellType(Cell.CELL_TYPE_STRING);
+        String  tradeAreaWeightOfPremises = tradeAreaWeightOfPremisesCell.getStringCellValue();
+
+        Cell remarksCell = getCellData(tradeDetailsSheet, dataRow, "remarks");
+        remarksCell.setCellType(Cell.CELL_TYPE_STRING);
+        String  remarks = remarksCell.getStringCellValue();
+
+        Cell tradeCommencementDateCell = getCellData(tradeDetailsSheet, dataRow, "TradeCommencementDate");
+        tradeCommencementDateCell.setCellType(Cell.CELL_TYPE_STRING);
+        String tradeCommencementDate = tradeCommencementDateCell.getStringCellValue();
+
+
+
+
+        return new TradeDetailsBuilder()
+                .withtradeTitle(tradeTitle)
+                .withtradeType(tradeType)
+                .withtradeCategory(tradeCategory)
+                .withtradeSubCategory(tradeSubCategory)
+                .withtradeAreaWeightOfPremises(tradeAreaWeightOfPremises)
+                .withremarks(remarks)
+                .withtradeCommencementDate(tradeCommencementDate)
                 .build();
     }
 }
