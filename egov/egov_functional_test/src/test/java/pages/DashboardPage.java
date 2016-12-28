@@ -134,9 +134,14 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Modify LOA")
     private WebElement modifyLOALink;
 
+<<<<<<< HEAD
     @FindBy(linkText = "Create Milestone")
     private WebElement createMilestoneLink;
 
+=======
+    @FindBy(linkText = "New Create Expense Bill")
+    private WebElement createExpenseBill;
+>>>>>>> [PHOENIX-5868] Completed the creation of  new expense bill
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -506,8 +511,15 @@ public class DashboardPage extends BasePage {
     public void chooseForCreateMilestone() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("create milestone");
-        waitForElementToBeVisible(createMilestoneLink,driver);
+        waitForElementToBeVisible(createMilestoneLink, driver);
         createMilestoneLink.click();
+    }
+
+    public void toCreateNewExpenseBill(){
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("New Create Expense Bill");
+        waitForElementToBeVisible(createExpenseBill , driver);
+        createExpenseBill.click();
         switchToNewlyOpenedWindow(driver);
     }
 }

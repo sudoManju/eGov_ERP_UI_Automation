@@ -109,3 +109,32 @@ Feature: To create a Financial Transactions
       |voucherDateJune    |  accountOfficer1   | 30_06_2016 | accountOfficer2   |  commissioner      |
 
 
+  @Sanity
+  Scenario Outline: To create a new expense bill
+
+    Given accountsOfficer logs in
+    And officer will search for the new expense bill
+    And officer will the expense bill details as <bill details>
+    And officer will enter the expense approval details as <approval officer1>
+    And officer will closes the expense acknowledgement page "Created"
+    And current user logs out
+
+    Then examiner logs in
+    Then the officer will click on the voucher number
+    And officer will enter the expense approval details as <approval officer2>
+    And officer will closes the expense acknowledgement page "Created"
+    And current user logs out
+
+    And commissioner logs in
+    Then the officer will click on the voucher number
+    And officer click on approval of the voucher
+    And officer will closes the expense acknowledgement page "approved"
+    And current user logs out
+
+    Examples:
+    | bill details | approval officer1 | approval officer2 |
+    | expenseBill  | accountOfficer3   | commissioner1     |
+
+
+
+

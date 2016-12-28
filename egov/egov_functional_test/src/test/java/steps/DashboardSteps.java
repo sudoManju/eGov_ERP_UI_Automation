@@ -3,6 +3,7 @@ package steps;
 import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import pages.DashboardPage;
+import pages.wcms.WaterChargeManagementPage;
 
 public class DashboardSteps extends BaseSteps implements En {
     public DashboardSteps() {
@@ -107,11 +108,11 @@ public class DashboardSteps extends BaseSteps implements En {
         And("^user search to apply for closure of connection$", () -> {
             pageStore.get(DashboardPage.class).chooseToApplyForClosureConnection();
         });
+
         When("^he chooses to create new License$", () -> {
             // Write code here that turns the phrase above into concrete actions
            pageStore.get(DashboardPage.class).chooseToCreateNewLicense();
         });
-
 
         And("^officer search for the create journal voucher$", () -> {
             pageStore.get(DashboardPage.class).chooseToApplyForJournalVoucher();
@@ -123,10 +124,14 @@ public class DashboardSteps extends BaseSteps implements En {
         And("^officer search for the bill payment$", () -> {
             pageStore.get(DashboardPage.class).selectForVoucherBill();
         });
+
         And("^he chooses to create milestone$", () -> {
            pageStore.get(DashboardPage.class).chooseForCreateMilestone();
         });
 
+        And("^officer will search for the new expense bill$", () -> {
+            pageStore.get(DashboardPage.class).toCreateNewExpenseBill();
+        });
     }
 }
 

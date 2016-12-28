@@ -6,6 +6,7 @@ import builders.collections.ChequeDetailsBuilder;
 import builders.dcReports.PTReportBuilder;
 import builders.dcReports.VLTReportBuilder;
 import builders.financial.FinancialBankDetailsBuilder;
+import builders.financial.FinancialExpenseBillDetailsBuilder;
 import builders.financial.FinancialJournalVoucherDetailsBuilder;
 import builders.ptis.*;
 import builders.tradeLicense.TradeOwnerDetailsBuilder;
@@ -19,6 +20,7 @@ import entities.collections.ChequeDetails;
 import entities.dcReports.PTReport;
 import entities.dcReports.VLTReport;
 import entities.financial.FinancialBankDetails;
+import entities.financial.FinancialExpenseBillDetails;
 import entities.financial.FinancialJournalVoucherDetails;
 import entities.ptis.*;
 import entities.tradeLicense.TradeOwnerDetails;
@@ -68,6 +70,7 @@ public class ExcelReader {
     Sheet tradeOwnerDetailsSheet;
     Sheet financialJournalVoucherSheet;
     Sheet financialBankDetailsSheet;
+    Sheet financialExpenseBillDetailsSheet;
 
 
     public ExcelReader(String testData) {
@@ -118,6 +121,7 @@ public class ExcelReader {
         tradeOwnerDetailsSheet = workbook.getSheet("tradeOwnerDetails");
         financialJournalVoucherSheet = workbook.getSheet("journalVoucherDetails");
         financialBankDetailsSheet = workbook.getSheet("financialBankDetails");
+        financialExpenseBillDetailsSheet = workbook.getSheet("financialExpenseBillDetails");
     }
 
     private Row readDataRow(Sheet fromSheet, String dataId) {
@@ -906,6 +910,32 @@ public class ExcelReader {
         return new FinancialBankDetailsBuilder()
                 .withBankName(bankName)
                 .withAccountNumber(accountNumber)
+                .build();
+    }
+
+    public FinancialExpenseBillDetails getFinancialExpenseBillDetails(String expenseBill){
+        Row dataRow = readDataRow(financialExpenseBillDetailsSheet, expenseBill);
+
+        String fund = getCellData(financialExpenseBillDetailsSheet, dataRow, "fund").getStringCellValue();
+        String department = getCellData(financialExpenseBillDetailsSheet, dataRow, "department").getStringCellValue();
+        String function = getCellData(financialExpenseBillDetailsSheet, dataRow, "function").getStringCellValue();
+        String billSubType = getCellData(financialExpenseBillDetailsSheet, dataRow, "billSubType").getStringCellValue();
+
+        Cell code1 = getCellData(financialExpenseBillDetailsSheet, dataRow, "accountCodeDebit");
+        code1.setCellType(Cell.CELL_TYPE_STRING);
+        String  accountCodeDebit = code1.getStringCellValue();
+
+        Cell code2 = getCellData(financialExpenseBillDetailsSheet, dataRow, "accountCodeCredit");
+        code2.setCellType(Cell.CELL_TYPE_STRING);
+        String  accountCodeCredit = code2.getStringCellValue();
+
+        return new FinancialExpenseBillDetailsBuilder()
+                .withExpenseFund(fund)
+                .withExpenseDepartment(department)
+                .withExpenseFunction(function)
+                .withBillSubType(billSubType)
+                .withExpenseAccountDebit(accountCodeDebit)
+                .withExpenseAccountCredit(accountCodeCredit)
                 .build();
     }
 }
