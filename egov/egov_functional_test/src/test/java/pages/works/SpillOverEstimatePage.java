@@ -371,8 +371,9 @@ public class SpillOverEstimatePage extends BasePage
         new Select(approverDesignation).selectByVisibleText(approverDetails.getApproverDesignation());
     }
     catch (StaleElementReferenceException e){
-        waitForElementToBeClickable(approverDesignation,webDriver);
-        new Select(approverDesignation).selectByVisibleText(approverDetails.getApproverDesignation());
+        WebElement element1 = webDriver.findElement(By.id("approvalDesignation"));
+        waitForElementToBeClickable(element1, webDriver);
+        new Select(element1).selectByVisibleText(approverDetails.getApprover());
     }
 
     try {
@@ -380,8 +381,9 @@ public class SpillOverEstimatePage extends BasePage
         new Select(approver).selectByVisibleText(approverDetails.getApprover());
       }
     catch (StaleElementReferenceException e ){
-        waitForElementToBeClickable(approver, webDriver);
-        new Select(approver).selectByVisibleText(approverDetails.getApprover());
+        WebElement element2 = webDriver.findElement(By.id("approvalPosition"));
+        waitForElementToBeClickable(element2, webDriver);
+        new Select(element2).selectByVisibleText(approverDetails.getApprover());
      }
 
      waitForElementToBeClickable(approverComment,webDriver);
