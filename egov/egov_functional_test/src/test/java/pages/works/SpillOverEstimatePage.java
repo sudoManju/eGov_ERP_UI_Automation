@@ -298,7 +298,7 @@ public class SpillOverEstimatePage extends BasePage
 
         waitForElementToBeClickable(adminSanctionDateBox,webDriver);
         adminSanctionDateBox.click();
-        enterText(adminSanctionDateBox,adminSanctionDetails.getAdminSanctionDate());
+        enterText(adminSanctionDateBox,dtf.format(localDate));
         adminSanctionDateBox.sendKeys(Keys.TAB);
 
         waitForElementToBeClickable(adminSanctionAuthorityTextBox,webDriver);
@@ -313,7 +313,7 @@ public class SpillOverEstimatePage extends BasePage
         enterText(technicalSanctionNumberTextBox, technicalSanctionId);
 
         waitForElementToBeClickable(technicalSanctionDateTextBox,webDriver);
-        enterText(technicalSanctionDateTextBox,technicalSanctionDetails.getTechnicalSanctionDate());
+        enterText(technicalSanctionDateTextBox,dtf.format(localDate));
         technicalSanctionDateTextBox.sendKeys(Keys.TAB);
 
         waitForElementToBeClickable(designationBox,webDriver);
