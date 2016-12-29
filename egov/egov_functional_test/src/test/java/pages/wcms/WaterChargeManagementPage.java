@@ -4,6 +4,7 @@ import entities.ptis.*;
 import entities.wcms.EnclosedDocument;
 import entities.wcms.FieldInspectionDetails;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -278,9 +279,6 @@ public class WaterChargeManagementPage extends BasePage {
         waitForElementToBeClickable(fieldInspectionPipelineDistance, webDriver);
         enterText(fieldInspectionPipelineDistance , fieldInspectionDetails.getPipelineToHomeDistance());
 
-//        waitForElementToBeClickable(fieldInspectionEstimationCharges, webDriver);
-//        enterText(fieldInspectionEstimationCharges , fieldInspectionDetails.getEstimationCharges());
-
         waitForElementToBeClickable(fieldInspectionSubmitButton, webDriver);
         fieldInspectionSubmitButton.click();
 
@@ -320,14 +318,13 @@ public class WaterChargeManagementPage extends BasePage {
     public void toReceiveAmount(){
         waitForElementToBeClickable(totalAmount , webDriver);
         waitForElementToBeClickable(amountToBePaidTextBox , webDriver);
-        String amount = totalAmount.getText();
-        System.out.println("=========================" +amount);;
-        amountToBePaidTextBox = totalAmount;
-        amountToBePaidTextBox.sendKeys(amountToBePaidTextBox.getText());
+        String amount = totalAmount.getAttribute("value");
 
+        amountToBePaidTextBox.sendKeys(amount.split("\\.")[0]);
 
-        waitForElementToBeClickable(payButton , webDriver);
-        payButton.click();
+        WebElement element = webDriver.findElement(By.id("button2"));
+        JavascriptExecutor executor = (JavascriptExecutor)webDriver;
+        executor.executeScript("arguments[0].click();", element);
         switchToNewlyOpenedWindow(webDriver);
     }
 

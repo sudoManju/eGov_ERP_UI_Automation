@@ -555,11 +555,6 @@ public class PropertyDetailsPage extends BasePage {
 
         WebElement element = webDriver.findElement(By.id("button2"));
         JavascriptExecutor executor = (JavascriptExecutor)webDriver;
-        try {
-            TimeUnit.SECONDS.sleep(2);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         executor.executeScript("arguments[0].click();", element);
 
         switchToNewlyOpenedWindow(webDriver);

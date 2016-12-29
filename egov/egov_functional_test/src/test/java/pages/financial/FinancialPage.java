@@ -11,10 +11,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasePage;
 
-import java.awt.*;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -239,16 +236,21 @@ public class FinancialPage extends BasePage {
 
         enterText(creditAmount2 , "100");
 
-        ledgerAccount1.click();
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         WebElement element = webDriver.findElement(By.id("subLedgerlist[0].glcode.id"));
         List<WebElement> webElementList = element.findElements(By.tagName("option"));
 
-        new Select(ledgerAccount1).selectByVisibleText(webElementList.get(1).getText());
+        String name = webElementList.get(1).getText();
+        new Select(ledgerAccount1).selectByVisibleText(name);
         new Select(ledgerType1).selectByVisibleText("contractor");
         ledgerCode1.sendKeys("KMC001");
 
         try {
-            TimeUnit.SECONDS.sleep(3);
+            TimeUnit.SECONDS.sleep(2);
         } catch (Exception e) {
             e.printStackTrace();
         }

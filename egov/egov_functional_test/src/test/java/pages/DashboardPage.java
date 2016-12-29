@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -325,8 +326,10 @@ public class DashboardPage extends BasePage {
     public void openSearchApplication(String applicationNumber) {
         appRow1 = getSearchApplicationRowFor(applicationNumber);
         waitForElementToBeClickable(appRow1 , driver);
+        JavascriptExecutor executor = (JavascriptExecutor)driver;
+        executor.executeScript("arguments[0].click();", appRow1);
         System.out.println(appRow1.getText());
-        appRow1.click();
+//        appRow1.click();
         switchToNewlyOpenedWindow(driver);
     }
 
@@ -336,7 +339,7 @@ public class DashboardPage extends BasePage {
 
         await().atMost(10, SECONDS).until(() -> applicationSearchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
         List<WebElement> applicationRows = applicationSearchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-        System.out.println("total number of rows -- " + applicationRows.size());
+//        System.out.println("total number of rows -- " + applicationRows.size());
 
         for (WebElement applicationRow1 : applicationRows) {
             if (applicationRow1.findElements(By.tagName("td")).get(1).getText().contains(applicationNumber))

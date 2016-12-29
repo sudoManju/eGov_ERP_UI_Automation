@@ -59,7 +59,7 @@ Feature: To create a new water connection
 
     Examples:
       |consumer number| inspection details | connection details    |
-      |1016000071     | inspectionInfo     | Additional_connection |
+      |1016001779     | inspectionInfo     | Additional_connection |
 
 
 
