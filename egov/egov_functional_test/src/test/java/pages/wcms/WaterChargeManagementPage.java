@@ -161,6 +161,9 @@ public class WaterChargeManagementPage extends BasePage {
     @FindBy(id = "Forward")
     private WebElement forwardButton;
 
+    @FindBy(linkText = "Close")
+    private WebElement closeSearchApplication;
+
     public WaterChargeManagementPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -331,7 +334,8 @@ public class WaterChargeManagementPage extends BasePage {
     public void closeReceipt(){
         waitForElementToBeClickable(closeReceiptButton , webDriver);
         closeReceiptButton.click();
-        await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
+
+        await().atMost(10, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
         for (String winHandle : webDriver.getWindowHandles()) {
             webDriver.switchTo().window(winHandle);
         }
@@ -372,5 +376,13 @@ public class WaterChargeManagementPage extends BasePage {
 
     public void forward() {
         forwardButton.click();
+    }
+
+    public void closesSearchApplicationPage(){
+        closeSearchApplication.click();
+        await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
+        for (String winHandle : webDriver.getWindowHandles()) {
+            webDriver.switchTo().window(winHandle);
+        }
     }
 }

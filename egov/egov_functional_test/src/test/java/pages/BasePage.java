@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.Properties;
 import utils.ScenarioContext;
 
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
@@ -80,6 +81,10 @@ public class BasePage {
     }
 
     public void isSuccesful(String expectedMessage,String actualMessage){
-        Assert.assertEquals(expectedMessage,actualMessage);
+
+        Boolean found = Arrays.asList(actualMessage.split(" ")).contains(expectedMessage);
+        Assert.assertTrue(found);
+
+//        Assert.assertEquals(expectedMessage,actualMessage);
     }
 }

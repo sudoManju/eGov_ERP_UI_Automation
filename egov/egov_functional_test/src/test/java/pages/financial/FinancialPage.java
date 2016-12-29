@@ -457,4 +457,19 @@ public class FinancialPage extends BasePage {
         }
         return message;
     }
+
+    public String closesSuccessfullPaymentPage(){
+        switchToNewlyOpenedWindow(webDriver);
+
+        WebElement element = webDriver.findElement(By.xpath(".//*[@id='payment']/div[1]/table/tbody/tr/td/div/table/tbody/tr/td/div/div[1]/span/table/tbody/tr[5]/td[3]"));
+        String billNumber = element.getText();
+        waitForElementToBeClickable(closeButton , webDriver);
+        closeButton.click();
+        System.out.println("===================="+billNumber);
+        await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
+        for (String winHandle : webDriver.getWindowHandles()) {
+            webDriver.switchTo().window(winHandle);
+        }
+        return billNumber;
+    }
 }

@@ -28,6 +28,7 @@ Feature: To create a new water connection
     And user will click on collect charges and collect the money form the customer & closes it
     And current user logs out
 
+
     Examples:
       | connection details | inspection details |
       | New_connection     | inspectionInfo     |
@@ -55,11 +56,12 @@ Feature: To create a new water connection
     And user will filter the application based upon the connection details as <connection details>
     And user chooses to act upon the above application in search applications
     And user will click on collect charges and collect the money form the customer & closes it
+    And user closes the search application page
     And current user logs out
 
     Examples:
       |consumer number| inspection details | connection details    |
-      |1016001779     | inspectionInfo     | Additional_connection |
+      |1016001776     | inspectionInfo     | Additional_connection |
 
 
 

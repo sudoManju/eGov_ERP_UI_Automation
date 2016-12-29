@@ -38,7 +38,7 @@ public class FinancialSteps extends BaseSteps implements En {
         And("^officer will get successful voucher created and closes it$", () -> {
             String voucherNumber = pageStore.get(FinancialPage.class).getVoucherNumber();
             scenarioContext.setVoucherNumber(voucherNumber.split("\\ ")[1]);
-            scenarioContext.setActualMessage(voucherNumber.split("\\ ")[2]);
+            scenarioContext.setActualMessage(voucherNumber);
         });
 
         Then("^the officer will click on the voucher number$", () -> {
@@ -47,13 +47,8 @@ public class FinancialSteps extends BaseSteps implements En {
 
         And("^officer will closes the acknowledgement page$", () -> {
             String actualMessage = pageStore.get(FinancialPage.class).closePage();
+            scenarioContext.setActualMessage(actualMessage);
 
-            if(actualMessage.split("\\ ")[3].equals("forwarded")){
-                scenarioContext.setActualMessage(actualMessage.split("\\ ")[3]);
-            }
-            else {
-                scenarioContext.setActualMessage(actualMessage.split("\\ ")[4]);
-            }
         });
 
         And("^officer click on approval of the voucher$", () -> {
@@ -93,6 +88,11 @@ public class FinancialSteps extends BaseSteps implements En {
             String expenseBillNumber = pageStore.get(FinancialPage.class).closesTheExpensePage();
             scenarioContext.setVoucherNumber(expenseBillNumber.split("\\ ")[2]);
             scenarioContext.setActualMessage(expenseBillNumber.split("\\ ")[3]);
+        });
+
+        And("^officer will closes the successfull payment page$", () -> {
+            String billNUmber = pageStore.get(FinancialPage.class).closesSuccessfullPaymentPage();
+            scenarioContext.setVoucherNumber(billNUmber);
         });
     }
 }

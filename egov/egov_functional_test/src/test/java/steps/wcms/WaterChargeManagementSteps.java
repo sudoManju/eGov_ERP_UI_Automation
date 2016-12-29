@@ -73,9 +73,11 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             pageStore.get(WaterChargeManagementPage.class).toReceiveAmount();
             pageStore.get(WaterChargeManagementPage.class).closeReceipt();
         });
+
         Then("^user will filter the application based upon the connection details as (\\w+)$", (String connectionType) -> {
             pageStore.get(WaterChargeManagementPage.class).searchWaterConnectionApplications(connectionType);
         });
+
         And("^user will enter the closure connection detials as (\\w+)$", (String closureType) -> {
             String approveDetails = "engineer";
             pageStore.get(WaterChargeManagementPage.class).enterDetailsOfClosureConnection(closureType);
@@ -83,9 +85,14 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approveDetails);
             pageStore.get(WaterChargeManagementPage.class).enterWaterApprovalDetails(approvalDetails);
         });
+
         And("^chooses to act upon the application number as (\\w+)$", (String consumerNumber) -> {
             pageStore.get(WaterChargeManagementPage.class).selectApplication(consumerNumber);
             pageStore.get(WaterChargeManagementPage.class).forward();
+        });
+
+        And("^user closes the search application page$", () -> {
+            pageStore.get(WaterChargeManagementPage.class).closesSearchApplicationPage();
         });
     }
 }

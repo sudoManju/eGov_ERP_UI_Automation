@@ -74,7 +74,7 @@ Feature: To create a Financial Transactions
       |voucher2       |  accountOfficer1  | accountOfficer2   |  commissioner      |
 
 
-  @WIP
+  @Sanity
   Scenario Outline: To create a voucher of date in june as well paying the bill
 
     Given accountsOfficer logs in
@@ -88,10 +88,9 @@ Feature: To create a Financial Transactions
     Then officer will modify the results depending upon the fund and date as <date>
     And officer will act upon the above voucher
 
-#    And officer will verify the voucher number
-
     And officer will enter the bank details
     And officer will enter the approval details as <approval officer2>
+    And officer will closes the successfull payment page
     And current user logs out
 
     And examiner logs in
