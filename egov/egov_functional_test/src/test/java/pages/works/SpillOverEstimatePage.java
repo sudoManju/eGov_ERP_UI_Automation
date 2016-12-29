@@ -172,7 +172,9 @@ public class SpillOverEstimatePage extends BasePage
     @FindBy(css = "input[id='Approve'][type = 'submit']")
      private WebElement approveButton;
 
-    String transactionRefNo = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
+    String num1 = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
+    String num = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
+    String transactionRefNo = num1+num;
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     LocalDate localDate = LocalDate.now();
 
