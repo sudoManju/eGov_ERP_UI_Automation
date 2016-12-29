@@ -44,8 +44,10 @@ public class SpillOverEstimateSteps extends BaseSteps implements En {
             pageStore.get(SpillOverEstimatePage.class).enterTechnicalSanctionDetails(technicalSanctionDetails);
         });
         And("^he saves the file and closes the acknowledgement$", () -> {
-           String reqMsg = pageStore.get(SpillOverEstimatePage.class).saveAndClose();
-            scenarioContext.setActualMessage(reqMsg);
+            pageStore.get(SpillOverEstimatePage.class).saveAndClose();
+            String actualMsg = pageStore.get(SpillOverEstimatePage.class).successMessage();
+            scenarioContext.setActualMessage(actualMsg);
+            pageStore.get(SpillOverEstimatePage.class).close();
         });
         And("^he enters approver details as (\\w+)$", (String approverDetailsDataId) -> {
          ApproverDetails approverDetails = new ExcelReader(lineEstimateTestDataFileName).getApprovalDetailsForEstimate(approverDetailsDataId);
@@ -62,7 +64,7 @@ public class SpillOverEstimateSteps extends BaseSteps implements En {
             String number = pageStore.get(SpillOverEstimatePage.class).forwardToDEE();
             scenarioContext.setEstimateNumber(number);
 
-            String Message = pageStore.get(SpillOverEstimatePage.class).successMessage(2);
+            String Message = pageStore.get(SpillOverEstimatePage.class).successMessage();
             scenarioContext.setActualMessage(Message);
 
             pageStore.get(SpillOverEstimatePage.class).close();
@@ -76,7 +78,7 @@ public class SpillOverEstimateSteps extends BaseSteps implements En {
         And("^he submit the application to superIntendent$", () -> {
             pageStore.get(SpillOverEstimatePage.class).submit();
 
-            String actualMsg = pageStore.get(SpillOverEstimatePage.class).successMessage(7);
+            String actualMsg = pageStore.get(SpillOverEstimatePage.class).successMessage();
             scenarioContext.setActualMessage(actualMsg);
 
             pageStore.get(SpillOverEstimatePage.class).close();
@@ -84,7 +86,7 @@ public class SpillOverEstimateSteps extends BaseSteps implements En {
         And("^he submit the application to commissioner$", () -> {
             pageStore.get(SpillOverEstimatePage.class).submit();
 
-            String actualMsg = pageStore.get(SpillOverEstimatePage.class).successMessage(8);
+            String actualMsg = pageStore.get(SpillOverEstimatePage.class).successMessage();
             scenarioContext.setActualMessage(actualMsg);
 
             pageStore.get(SpillOverEstimatePage.class).close();
@@ -92,7 +94,7 @@ public class SpillOverEstimateSteps extends BaseSteps implements En {
         And("^he submit the application to assis_Engineer$", () -> {
             pageStore.get(SpillOverEstimatePage.class).submit();
 
-            String actualMsg = pageStore.get(SpillOverEstimatePage.class).successMessage(14);
+            String actualMsg = pageStore.get(SpillOverEstimatePage.class).successMessage();
             scenarioContext.setActualMessage(actualMsg);
 
             pageStore.get(SpillOverEstimatePage.class).close();
@@ -103,7 +105,7 @@ public class SpillOverEstimateSteps extends BaseSteps implements En {
         And("^he approves the application$", () -> {
             pageStore.get(SpillOverEstimatePage.class).approve();
 
-            String actualMsg = pageStore.get(SpillOverEstimatePage.class).successMessage(2);
+            String actualMsg = pageStore.get(SpillOverEstimatePage.class).successMessage();
             scenarioContext.setActualMessage(actualMsg);
 
             pageStore.get(SpillOverEstimatePage.class).close();

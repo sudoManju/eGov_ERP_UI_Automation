@@ -323,27 +323,10 @@ public class SpillOverEstimatePage extends BasePage
 
     }
 
-    public String saveAndClose() {
+    public void saveAndClose() {
 
         waitForElementToBeVisible(saveButton, webDriver);
         saveButton.click();
-
-        waitForElementToBeVisible(creationMsg,webDriver);
-        String msg =creationMsg.getText();
-        String reqMsg = (msg.split("\\ ")[5]);
-
-        System.out.println(reqMsg);
-
-
-        waitForElementToBeVisible(closeButton, webDriver);
-        closeButton.click();
-
-        await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
-        for (String winHandle : webDriver.getWindowHandles()) {
-            webDriver.switchTo().window(winHandle);
-        }
-
-        return reqMsg;
     }
 
     public void enterWorkDetailsforestimate(WorkDetails workDetails) {
@@ -406,12 +389,11 @@ public class SpillOverEstimatePage extends BasePage
          return num;
     }
 
-    public String successMessage(int i){
+    public String successMessage(){
         waitForElementToBeVisible(creationMsg,webDriver);
         String msg =creationMsg.getText();
-        String reqMsg = (msg.split("\\ ")[i]);
-        System.out.println(reqMsg);
-        return reqMsg;
+        System.out.println(msg);
+        return msg;
     }
 
     public void close() {

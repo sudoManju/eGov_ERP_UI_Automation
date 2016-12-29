@@ -34,7 +34,7 @@ Feature: Create/view/modify Milestone template
 
   #Modify a milestone template
 
-  @Sanity
+  @Sanity1
 
   Scenario: modify milestone template
 
