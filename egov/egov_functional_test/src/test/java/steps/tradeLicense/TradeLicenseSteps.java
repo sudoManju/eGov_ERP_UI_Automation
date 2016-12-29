@@ -33,6 +33,20 @@ public class TradeLicenseSteps extends BaseSteps implements En {
             pageStore.get(TradeLicensePage.class).entertradeDetails(tradedetails);
 
         });
+        And("^he search existing application number$", () -> {
+            // Write code here that turns the phrase above into concrete actions
+            pageStore.get(TradeLicensePage.class).enterApplicationNumber();
+            pageStore.get(TradeLicensePage.class).clickOnSearchButton();
+        });
+        And("^he choose to collectfees$", () -> {
+            // Write code here that turns the phrase above into concrete actions
+            pageStore.get(TradeLicensePage.class).chooseCollectFees();
+        });
+        And("^he choose to payTax of applicationNumber$", () -> {
+            // Write code here that turns the phrase above into concrete actions
+            pageStore.get(TradeLicensePage.class).chooseToPayTaxOfApplicationNumber();
+        });
+
 
     }
 }

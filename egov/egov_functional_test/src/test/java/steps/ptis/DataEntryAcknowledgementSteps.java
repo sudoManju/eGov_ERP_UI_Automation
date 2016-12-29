@@ -25,9 +25,6 @@ public class DataEntryAcknowledgementSteps extends BaseSteps implements En {
         String dataentryassessmentNumber = pageStore.get(DataEntryAcknowledgementPage.class).getAssessmentNumber();
         scenarioContext.setDataScreenAssessmentNumber(dataentryassessmentNumber);
 
-
-
-
         String assessmentNumber = pageStore.get(DataEntryAcknowledgementPage.class).getAssessmentNumber();
         System.out.println(assessmentNumber);
         scenarioContext.setAssessmentNumber(assessmentNumber);
@@ -51,4 +48,6 @@ public class DataEntryAcknowledgementSteps extends BaseSteps implements En {
 
 
     }
+
+
 }

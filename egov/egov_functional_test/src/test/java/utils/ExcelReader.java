@@ -1011,7 +1011,7 @@ public class ExcelReader {
         tradeCategoryCell.setCellType(Cell.CELL_TYPE_STRING);
         String tradeCategory = tradeCategoryCell.getStringCellValue();
 
-        Cell tradeSubCategoryCell = getCellData(tradeDetailsSheet, dataRow, "tradeCategory");
+        Cell tradeSubCategoryCell = getCellData(tradeDetailsSheet, dataRow, "tradeSubCategory");
         tradeSubCategoryCell.setCellType(Cell.CELL_TYPE_STRING);
         String tradeSubCategory = tradeSubCategoryCell.getStringCellValue();
 

@@ -3,13 +3,13 @@ package pages.tradeLicense;
 import entities.tradeLicense.TradeDetails;
 import entities.tradeLicense.TradeLocationDetails;
 import entities.tradeLicense.TradeOwnerDetails;
-import org.jsoup.select.Evaluator;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
+
+import static com.jayway.awaitility.Awaitility.await;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * Created by bimal on 20/12/16.
@@ -50,7 +50,7 @@ public class TradeLicensePage extends BasePage {
     @FindBy (id = "category")
     private WebElement TradeCategoryDropBox;
 
-    @FindBy (css = "select2-subCategory-container")
+    @FindBy (id = "select2-subCategory-container")
     private WebElement tradeSubCategoryDropBox;
 
     @FindBy (id = "tradeArea_weight")
@@ -64,6 +64,32 @@ public class TradeLicensePage extends BasePage {
 
     @FindBy (id = "btnsave")
     private WebElement saveButton;
+
+    @FindBy (className = "select2-search__field")
+    private WebElement searchBox;
+
+    @FindBy (id = "close")
+    private WebElement closeButton;
+
+    @FindBy (id = "applicationNumber")
+    private WebElement applicationNumberTextBox;
+
+    @FindBy (id = "searchtree")
+    private WebElement searchTreeBox;
+
+    @FindBy (id = "btnsearch")
+    private WebElement searchButton;
+
+    @FindBy (id = "recordActions")
+    private WebElement collectFeeDropBox;
+
+    @FindBy (id = "instrHeaderCash.instrumentAmount")
+    private WebElement amountTextBox;
+
+    @FindBy (id = "totalamounttobepaid")
+    private WebElement totalAmountReceived;
+
+    String tradeApplicationNumber;
 
     public TradeLicensePage(WebDriver webDriver) {this.webDriver = webDriver;
     }
@@ -92,15 +118,71 @@ public class TradeLicensePage extends BasePage {
         new Select(TradeTypeDropBox).selectByVisibleText(tradedetails.gettradeType());
         new Select(TradeCategoryDropBox).selectByVisibleText(tradedetails.getTradeCategory());
 
-        waitForElementToBeClickable(tradeSubCategoryDropBox, webDriver);
+//       Search value from DropDown by searching value using Search field.
 
-        new Select(tradeSubCategoryDropBox).selectByVisibleText(tradedetails.gettradeSubCategory());
-        new Select(TradeAreaWeightOfPremises).selectByVisibleText(tradedetails.gettradeAreaWeightOfPremises());
+        try{
+            waitForElementToBeClickable(tradeSubCategoryDropBox, webDriver);
+            tradeSubCategoryDropBox.click();
+        }
+        catch (StaleElementReferenceException e){
+            WebElement element = webDriver.findElement(By.id("select2-subCategory-container"));
+            element.click();
+        }
+        waitForElementToBeVisible(searchBox , webDriver);
+        searchBox.sendKeys(tradedetails.gettradeSubCategory());
+        WebElement element = webDriver.findElement(By.cssSelector(".select2-results__option.select2-results__option--highlighted"));
+        element.click();
+
+
+        enterText(TradeAreaWeightOfPremises, tradedetails.gettradeAreaWeightOfPremises());
         enterText(remarksTextBox, tradedetails.getremarks());
         enterText(tradeCommencementDateTextBox, tradedetails.gettradeCommencementDate());
-
         waitForElementToBeClickable(saveButton, webDriver);
         saveButton.click();
+
+//      To Copy Application number
+        element = webDriver.findElement(By.cssSelector(".col-sm-3.col-xs-6.add-margin.view-content"));
+        tradeApplicationNumber= element.getText();
+
+        waitForElementToBeVisible(closeButton, webDriver);
+        closeButton.click();
+        await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
+        for (String winHandle : webDriver.getWindowHandles()) {
+            webDriver.switchTo().window(winHandle);
+        }
+
+        waitForElementToBeClickable(searchTreeBox, webDriver);
+        searchTreeBox.clear();
+
+    }
+
+//   paste the coppied code
+    public void enterApplicationNumber() {
+        waitForElementToBeVisible(applicationNumberTextBox, webDriver);
+        String number = tradeApplicationNumber;
+        enterText(applicationNumberTextBox , number);
+    }
+
+
+    public void clickOnSearchButton() {
+
+        waitForElementToBeClickable(searchButton, webDriver);
+        searchButton.click();
+    }
+
+    public void chooseCollectFees() {
+        waitForElementToBeClickable(collectFeeDropBox , webDriver);
+        new Select(collectFeeDropBox).selectByVisibleText("Collect Fees");
+        switchToNewlyOpenedWindow(webDriver);
+    }
+
+
+    public void chooseToPayTaxOfApplicationNumber() {
+        switchToNewlyOpenedWindow(webDriver);
+
+        waitForElementToBeClickable(amountTextBox , webDriver);
+        enterText(amountTextBox , totalAmountReceived.getAttribute("value").split("\\.")[0]);
+
 
     }
 }

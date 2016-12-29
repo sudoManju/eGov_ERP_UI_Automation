@@ -135,6 +135,10 @@ public class DashboardSteps extends BaseSteps implements En {
         And("^officer will search for the new expense bill$", () -> {
             pageStore.get(DashboardPage.class).toCreateNewExpenseBill();
         });
+        And("^he choose to search trade license$", () -> {
+            // Write code here that turns the phrase above into concrete actions
+           pageStore.get(DashboardPage.class).searchTradeLicense();
+        });
     }
 }
 

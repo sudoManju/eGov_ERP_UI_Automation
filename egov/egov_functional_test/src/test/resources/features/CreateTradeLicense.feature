@@ -6,7 +6,7 @@ Feature: Create New Property
 
   # CREATE NEW LICENSE #
 
-  @WIP
+  @Sanity
   Scenario Outline: Registered user creating a new license in the system
     Given creator logs in
     When he chooses to create new License
@@ -14,11 +14,35 @@ Feature: Create New Property
     And he enters trade location details of new license <tradeLocationData>
     And he enters trade details of new license <tradeDetailsData1>
 #    And he enters Agreement Details of new license
-#    Then he saved new trade license successfully
+    And current user logs out
 
   Examples:
     |   tradeDetailsData         |       tradeLocationData           |            tradeDetailsData1    |
     |   ownerDetailsTradeLicense |       locationDetailsTradeLicense |          tradeDetailsTradeLicense |
+
+
+    # SEARCH TRADE LICENSE #
+
+    @Sanity
+    Scenario Outline: Register User search application using search trade
+      Given creator logs in
+      When he chooses to create new License
+      And he enters trade owner details of new license <tradeDetailsData>
+      And he enters trade location details of new license <tradeLocationData>
+      And he enters trade details of new license <tradeDetailsData1>
+
+      And he choose to search trade license
+      And he search existing application number
+      And he choose to collectfees
+      And he choose to payTax of applicationNumber
+
+
+
+      Examples:
+        |   tradeDetailsData         |       tradeLocationData           |            tradeDetailsData1    |
+        |   ownerDetailsTradeLicense |       locationDetailsTradeLicense |          tradeDetailsTradeLicense |
+
+
 
 
 
