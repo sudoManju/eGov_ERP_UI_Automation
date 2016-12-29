@@ -3,16 +3,15 @@ package pages.works;
 
 import entities.works.*;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -170,7 +169,13 @@ public class SpillOverEstimatePage extends BasePage
     @FindBy(css = "input[id='Submit'][type='submit']")
      private WebElement submitButton;
 
+    @FindBy(css = "input[id='Approve'][type = 'submit']")
+     private WebElement approveButton;
+
     String transactionRefNo = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    LocalDate localDate = LocalDate.now();
+
 
     public void enterEstimateHeaderDetails(EstimateHeaderDetails estimateHeaderDetails) {
         String check = date.getAttribute("maxlength");
@@ -361,11 +366,23 @@ public class SpillOverEstimatePage extends BasePage
      waitForElementToBeClickable(approverDepartment,webDriver);
      new Select(approverDepartment).selectByVisibleText(approverDetails.getApproverDepartment());
 
-     waitForElementToBeClickable(approverDesignation,webDriver);
-     new Select(approverDesignation).selectByVisibleText(approverDetails.getApproverDesignation());
+    try {
+        waitForElementToBeClickable(approverDesignation,webDriver);
+        new Select(approverDesignation).selectByVisibleText(approverDetails.getApproverDesignation());
+    }
+    catch (StaleElementReferenceException e){
+        waitForElementToBeClickable(approverDesignation,webDriver);
+        new Select(approverDesignation).selectByVisibleText(approverDetails.getApproverDesignation());
+    }
 
-     waitForElementToBeClickable(approver,webDriver);
-     new Select(approver).selectByVisibleText(approverDetails.getApprover());
+    try {
+        waitForElementToBeClickable(approver, webDriver);
+        new Select(approver).selectByVisibleText(approverDetails.getApprover());
+      }
+    catch (StaleElementReferenceException e ){
+        waitForElementToBeClickable(approver, webDriver);
+        new Select(approver).selectByVisibleText(approverDetails.getApprover());
+     }
 
      waitForElementToBeClickable(approverComment,webDriver);
      enterText(approverComment,approverDetails.getApproverComment());
@@ -385,10 +402,10 @@ public class SpillOverEstimatePage extends BasePage
          return num;
     }
 
-    public String successMessage(){
+    public String successMessage(int i){
         waitForElementToBeVisible(creationMsg,webDriver);
         String msg =creationMsg.getText();
-        String reqMsg = (msg.split("\\ ")[2]);
+        String reqMsg = (msg.split("\\ ")[i]);
         System.out.println(reqMsg);
         return reqMsg;
     }
@@ -418,14 +435,35 @@ public class SpillOverEstimatePage extends BasePage
         switchToNewlyOpenedWindow(webDriver);
     }
 
-
-    public String submit() {
-        waitForElementToBeClickable(submitButton,webDriver);
+    public void submit() {
+        waitForElementToBeClickable(submitButton, webDriver);
         submitButton.click();
+    }
 
-        String msg = creationMsg.getText();
-        String reqMsg = msg.split("\\ ")[7];
+    public void adminSanctionNumber() {
+        waitForElementToBeClickable(adminSanctionNumberTextBox,webDriver);
+        adminSanctionNumberTextBox.sendKeys("ASN"+transactionRefNo);
+    }
 
-        return reqMsg;
+
+    public void detailsForApprove() {
+        waitForElementToBeVisible(estimateAmountTextBox,webDriver);
+        String amount = estimateAmountTextBox.getText();
+        String actualAmount = amount.split("\\.")[0];
+        waitForElementToBeClickable(actualAmountTextBox,webDriver);
+        actualAmountTextBox.sendKeys(actualAmount);
+
+        waitForElementToBeClickable(technicalSanctionNumberTextBox,webDriver);
+        technicalSanctionNumberTextBox.sendKeys("TSN"+transactionRefNo);
+        waitForElementToBeClickable(technicalSanctionDateTextBox,webDriver);
+        technicalSanctionDateTextBox.sendKeys(dtf.format(localDate));
+        technicalSanctionDateTextBox.sendKeys(Keys.TAB);
+
+        approverComment.sendKeys("Approved");
+    }
+
+    public void approve() {
+        waitForElementToBeClickable(approveButton,webDriver);
+        approveButton.click();
     }
 }

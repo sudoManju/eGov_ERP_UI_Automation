@@ -62,7 +62,7 @@ public class SpillOverEstimateSteps extends BaseSteps implements En {
             String number = pageStore.get(SpillOverEstimatePage.class).forwardToDEE();
             scenarioContext.setEstimateNumber(number);
 
-            String Message = pageStore.get(SpillOverEstimatePage.class).successMessage();
+            String Message = pageStore.get(SpillOverEstimatePage.class).successMessage(2);
             scenarioContext.setActualMessage(Message);
 
             pageStore.get(SpillOverEstimatePage.class).close();
@@ -70,11 +70,43 @@ public class SpillOverEstimateSteps extends BaseSteps implements En {
         And("^he clicks on estimate and opens the application$", () -> {
             pageStore.get(SpillOverEstimatePage.class).openApplication(scenarioContext.getEstimateNumber());
         });
-        And("^he submit the application$", () -> {
-           String actualMsg = pageStore.get(SpillOverEstimatePage.class).submit();
-           scenarioContext.setActualMessage(actualMsg);
+        And("^he enters the AdminSanctionNumber$", () -> {
+           pageStore.get(SpillOverEstimatePage.class).adminSanctionNumber();
+        });
+        And("^he submit the application to superIntendent$", () -> {
+            pageStore.get(SpillOverEstimatePage.class).submit();
 
-           pageStore.get(SpillOverEstimatePage.class).close();
+            String actualMsg = pageStore.get(SpillOverEstimatePage.class).successMessage(7);
+            scenarioContext.setActualMessage(actualMsg);
+
+            pageStore.get(SpillOverEstimatePage.class).close();
+        });
+        And("^he submit the application to commissioner$", () -> {
+            pageStore.get(SpillOverEstimatePage.class).submit();
+
+            String actualMsg = pageStore.get(SpillOverEstimatePage.class).successMessage(8);
+            scenarioContext.setActualMessage(actualMsg);
+
+            pageStore.get(SpillOverEstimatePage.class).close();
+        });
+        And("^he submit the application to assis_Engineer$", () -> {
+            pageStore.get(SpillOverEstimatePage.class).submit();
+
+            String actualMsg = pageStore.get(SpillOverEstimatePage.class).successMessage(14);
+            scenarioContext.setActualMessage(actualMsg);
+
+            pageStore.get(SpillOverEstimatePage.class).close();
+        });
+        And("^he enters the details for approve$", () -> {
+            pageStore.get(SpillOverEstimatePage.class).detailsForApprove();
+        });
+        And("^he approves the application$", () -> {
+            pageStore.get(SpillOverEstimatePage.class).approve();
+
+            String actualMsg = pageStore.get(SpillOverEstimatePage.class).successMessage(2);
+            scenarioContext.setActualMessage(actualMsg);
+
+            pageStore.get(SpillOverEstimatePage.class).close();
         });
 
     }

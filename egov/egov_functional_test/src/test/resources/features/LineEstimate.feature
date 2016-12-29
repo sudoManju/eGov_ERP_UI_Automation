@@ -24,7 +24,7 @@ Scenario Outline: Create Spillover Line Estimate
 
 
 
- @WIP
+ @Sanity
 Scenario Outline: Create Estimate
 
    Given assis_Engineer logs in
@@ -40,13 +40,33 @@ Scenario Outline: Create Estimate
    Given deputyExecutiveEngineer logs in
    And he clicks on estimate and opens the application
    And he enters approver details as <approverDetails2>
-   And he submit the application
+   And he submit the application to superIntendent
    And user will notifies that "forwarded"
    And current user logs out
 
+   Given superIntendent logs in
+   And he clicks on estimate and opens the application
+   And he enters approver details as <approverDetails3>
+   And he submit the application to commissioner
+   And user will notifies that "forwarded"
+   And current user logs out
 
+   Given commissioner logs in
+   And he clicks on estimate and opens the application
+   And he enters the AdminSanctionNumber
+   And he enters approver details as <approverDetails4>
+   And he submit the application to assis_Engineer
+   And user will notifies that "forwarded"
+   And current user logs out
+
+   Given assis_Engineer logs in
+   And he clicks on estimate and opens the application
+   And he enters the details for approve
+   And he approves the application
+   And user will notifies that "done"
+   And current user logs out
 
    Examples:
-   |estimateHeaderDetails|financialDetails    |workDetails     |approverDetails1         |approverDetails2|
-   |Estimate_1           |EstimateFinancial_1 |EstimateWork_1  |deputyExecutiveEngineer  |SuperIntendent  |
+   |estimateHeaderDetails|financialDetails    |workDetails     |approverDetails1         |approverDetails2|approverDetails3|approverDetails4|
+   |Estimate_1           |EstimateFinancial_1 |EstimateWork_1  |deputyExecutiveEngineer  |SuperIntendent  |commissioner    |assis_Engineer  |
 
