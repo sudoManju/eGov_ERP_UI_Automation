@@ -75,9 +75,11 @@ public class ExcelReader {
     Sheet tradeLocationDetailsSheet;
     Sheet financialJournalVoucherSheet;
     Sheet financialBankDetailsSheet;
+
     Sheet financialExpenseBillDetailsSheet;
     Sheet tradeDetailsSheet;
 
+    Sheet approverDetailsSheet;
 
     public ExcelReader(String testData) {
         String excelFilePath = testData + ".xlsx";
@@ -122,6 +124,7 @@ public class ExcelReader {
         financialDetailsSheet = workbook.getSheet("financialDetails");
         workDetailsSheet = workbook.getSheet("workDetails");
         adminSanctionDetailsSheet = workbook.getSheet("adminSanctionDetails");
+        approverDetailsSheet = workbook.getSheet("approvalDetails");
         fieldInseptionDetailsForWaterConnectionSheet = workbook.getSheet("fieldInseptionDetailsForWaterConnection");
         technicalSanctionDetailsSheet = workbook.getSheet("technicalSanctionDetails");
         tradeOwnerDetailsSheet = workbook.getSheet("tradeOwnerDetails");
@@ -998,33 +1001,31 @@ public class ExcelReader {
 
         Cell tradeTitleCell = getCellData(tradeDetailsSheet, dataRow, "tradeTitle");
         tradeTitleCell.setCellType(Cell.CELL_TYPE_STRING);
-        String  tradeTitle = tradeTitleCell.getStringCellValue();
+        String tradeTitle = tradeTitleCell.getStringCellValue();
 
         Cell tradeTypeCell = getCellData(tradeDetailsSheet, dataRow, "tradeType");
         tradeTypeCell.setCellType(Cell.CELL_TYPE_STRING);
-        String  tradeType = tradeTypeCell.getStringCellValue();
+        String tradeType = tradeTypeCell.getStringCellValue();
 
         Cell tradeCategoryCell = getCellData(tradeDetailsSheet, dataRow, "tradeCategory");
         tradeCategoryCell.setCellType(Cell.CELL_TYPE_STRING);
-        String  tradeCategory = tradeCategoryCell.getStringCellValue();
+        String tradeCategory = tradeCategoryCell.getStringCellValue();
 
         Cell tradeSubCategoryCell = getCellData(tradeDetailsSheet, dataRow, "tradeCategory");
         tradeSubCategoryCell.setCellType(Cell.CELL_TYPE_STRING);
-        String  tradeSubCategory = tradeSubCategoryCell.getStringCellValue();
+        String tradeSubCategory = tradeSubCategoryCell.getStringCellValue();
 
         Cell tradeAreaWeightOfPremisesCell = getCellData(tradeDetailsSheet, dataRow, "tradeAreaWeightOfPremises");
         tradeAreaWeightOfPremisesCell.setCellType(Cell.CELL_TYPE_STRING);
-        String  tradeAreaWeightOfPremises = tradeAreaWeightOfPremisesCell.getStringCellValue();
+        String tradeAreaWeightOfPremises = tradeAreaWeightOfPremisesCell.getStringCellValue();
 
         Cell remarksCell = getCellData(tradeDetailsSheet, dataRow, "remarks");
         remarksCell.setCellType(Cell.CELL_TYPE_STRING);
-        String  remarks = remarksCell.getStringCellValue();
+        String remarks = remarksCell.getStringCellValue();
 
         Cell tradeCommencementDateCell = getCellData(tradeDetailsSheet, dataRow, "TradeCommencementDate");
         tradeCommencementDateCell.setCellType(Cell.CELL_TYPE_STRING);
         String tradeCommencementDate = tradeCommencementDateCell.getStringCellValue();
-
-
 
 
         return new TradeDetailsBuilder()
@@ -1035,6 +1036,22 @@ public class ExcelReader {
                 .withtradeAreaWeightOfPremises(tradeAreaWeightOfPremises)
                 .withremarks(remarks)
                 .withtradeCommencementDate(tradeCommencementDate)
+                .build();
+    }
+
+    public ApproverDetails getApprovalDetailsForEstimate(String approverDetailsDataId) {
+        Row dataRow = readDataRow(approverDetailsSheet, approverDetailsDataId);
+
+        String approverDept = getCellData(approverDetailsSheet, dataRow, "approverDepartment").getStringCellValue();
+        String approverDesig = getCellData(approverDetailsSheet, dataRow, "approverDesignation").getStringCellValue();
+        String approver = getCellData(approverDetailsSheet, dataRow, "approver").getStringCellValue();
+        String comment = getCellData(approverDetailsSheet, dataRow, "approverRemarks").getStringCellValue();
+
+        return new ApproverDetailsBuilder()
+                .withApproverDepartment(approverDept)
+                .withApproverDesignation(approverDesig)
+                .withApprover(approver)
+                .withApproverComment(comment)
                 .build();
     }
 }

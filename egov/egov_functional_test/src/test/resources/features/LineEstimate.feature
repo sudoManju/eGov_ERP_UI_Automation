@@ -21,3 +21,25 @@ Scenario Outline: Create Spillover Line Estimate
       |SpilloverEstimate_1    |SpillOverFinancial_1 |SpillWork_1|admin               |technical               |
       |SpilloverEstimate_2    |SpillOverFinancial_2 |SpillWork_2|admin               |technical               |
       |SpilloverEstimate_3    |SpillOverFinancial_3 |SpillWork_3|admin               |technical               |
+
+
+
+ @WIP
+Scenario Outline: Create Estimate
+
+   Given assis_Engineer logs in
+   When he chooses to create new estimate
+   And he enters estimate header details as <estimateHeaderDetails>
+   And he enters financial details as <financialDetails>
+   And he enters work details as for <workDetails>
+   And he enters approver details as <approverDetails>
+   And he forwards to DEE and closes the acknowledgement
+   And user will notifies that "successfully"
+   And current user logs out
+
+   
+
+   Examples:
+   |estimateHeaderDetails|financialDetails    |workDetails     |approverDetails          |
+   |Estimate_1           |EstimateFinancial_1 |EstimateWork_1  |deputyExecutiveEngineer  |
+

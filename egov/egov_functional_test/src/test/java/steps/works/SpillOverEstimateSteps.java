@@ -47,6 +47,26 @@ public class SpillOverEstimateSteps extends BaseSteps implements En {
            String reqMsg = pageStore.get(SpillOverEstimatePage.class).saveAndClose();
             scenarioContext.setActualMessage(reqMsg);
         });
+        And("^he enters approver details as (\\w+)$", (String approverDetailsDataId) -> {
+         ApproverDetails approverDetails = new ExcelReader(lineEstimateTestDataFileName).getApprovalDetailsForEstimate(approverDetailsDataId);
+
+            pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
+
+        });
+        And("^he enters work details as for (\\w+)$", (String workDetailsDataId) -> {
+            WorkDetails workDetails = new ExcelReader(lineEstimateTestDataFileName).getWorkDetails(workDetailsDataId);
+
+            pageStore.get(SpillOverEstimatePage.class).enterWorkDetailsforestimate(workDetails);
+        });
+        And("^he forwards to DEE and closes the acknowledgement$", () -> {
+            String number = pageStore.get(SpillOverEstimatePage.class).forwardToDEE();
+            scenarioContext.setEstimateNumber(number);
+
+            String Message = pageStore.get(SpillOverEstimatePage.class).successMessage();
+            scenarioContext.setActualMessage(Message);
+
+            pageStore.get(SpillOverEstimatePage.class).close();
+        });
 
     }
 

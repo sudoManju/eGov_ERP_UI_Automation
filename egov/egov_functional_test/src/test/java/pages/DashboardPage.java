@@ -141,6 +141,10 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "New Create Expense Bill")
     private WebElement createExpenseBill;
 
+    @FindBy(linkText = "Create Estimate")
+    private WebElement createEstimateLink;
+
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -520,6 +524,14 @@ public class DashboardPage extends BasePage {
         searchFor("New Create Expense Bill");
         waitForElementToBeVisible(createExpenseBill , driver);
         createExpenseBill.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseForCreateEstimate() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("create estimate");
+        waitForElementToBeVisible(createEstimateLink,driver);
+        createEstimateLink.click();
         switchToNewlyOpenedWindow(driver);
     }
 }

@@ -20,6 +20,8 @@ public class ScenarioContext {
 
     private String actualMessage;
 
+    private String estimateNumber;
+
     public String getWorkNumber() {
         return workNumber;
     }
@@ -85,5 +87,12 @@ public class ScenarioContext {
         this.dataScreenAssessmentNumber = dataScreenAssessmentNumber;
     }
 
+    public String getEstimateNumber() {
+        return estimateNumber;
+    }
+
+    public void setEstimateNumber(String estimateNumber) {
+        this.estimateNumber = estimateNumber;
+    }
 }
 

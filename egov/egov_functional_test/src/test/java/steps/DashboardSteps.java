@@ -128,6 +128,9 @@ public class DashboardSteps extends BaseSteps implements En {
         And("^he chooses to create milestone$", () -> {
            pageStore.get(DashboardPage.class).chooseForCreateMilestone();
         });
+        When("^he chooses to create new estimate$", () -> {
+           pageStore.get(DashboardPage.class).chooseForCreateEstimate();
+        });
 
         And("^officer will search for the new expense bill$", () -> {
             pageStore.get(DashboardPage.class).toCreateNewExpenseBill();

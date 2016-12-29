@@ -136,13 +136,40 @@ public class SpillOverEstimatePage extends BasePage
     @FindBy(xpath = ".//*[@id='main']/div/div/div/div/div")
      private WebElement creationMsg;
 
+    @FindBy(id ="tempLineEstimateDetails0.nameOfWork")
+     private WebElement estimateNameOfWorkBox;
+
+    @FindBy(id ="tempLineEstimateDetails0.estimateAmount")
+     private WebElement estimateEstimateAmountBox;
+
+    @FindBy(id = "tempLineEstimateDetails0.uom")
+     private WebElement estimateUOMBox;
+
+    @FindBy(id = "approvalDepartment")
+    private WebElement approverDepartment;
+
+    @FindBy(id = "approvalDesignation")
+    private WebElement approverDesignation;
+
+    @FindBy(id = "approvalPosition")
+    private WebElement approver;
+
+    @FindBy(id = "approvalComent")
+    private WebElement approverComment;
+
+    @FindBy(css = "input[id='Forward'][type='submit']")
+    private WebElement forwardButton;
+
     String transactionRefNo = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
 
     public void enterEstimateHeaderDetails(EstimateHeaderDetails estimateHeaderDetails) {
-        waitForElementToBeClickable(date, webDriver);
-        date.click();
-        enterText(date,estimateHeaderDetails.getDate());
-        date.sendKeys(Keys.TAB);
+        String check = date.getAttribute("maxlength");
+        if(check.equals("10")) {
+            waitForElementToBeClickable(date, webDriver);
+            date.click();
+            enterText(date, estimateHeaderDetails.getDate());
+            date.sendKeys(Keys.TAB);
+        }
 
         waitForElementToBeClickable(subject, webDriver);
         enterText(subject, estimateHeaderDetails.getSubject());
@@ -300,5 +327,69 @@ public class SpillOverEstimatePage extends BasePage
         }
 
         return reqMsg;
+    }
+
+    public void enterWorkDetailsforestimate(WorkDetails workDetails) {
+        waitForElementToBeClickable(estimateNameOfWorkBox,webDriver);
+        enterText(estimateNameOfWorkBox,workDetails.getNameOfWork());
+
+        waitForElementToBeClickable(estimateEstimateAmountBox,webDriver);
+        enterText(estimateEstimateAmountBox,workDetails.getEstimatedAmount());
+
+        waitForElementToBeClickable(quantityTextBox,webDriver);
+        enterText(quantityTextBox,workDetails.getQuantity());
+
+        waitForElementToBeClickable(estimateUOMBox,webDriver);
+        estimateUOMBox.click();
+        new Select(estimateUOMBox).selectByVisibleText(workDetails.getUom());
+
+        waitForElementToBeClickable(expectedOutcomeTextBox,webDriver);
+        enterText(expectedOutcomeTextBox,workDetails.getExpectedOutcome());
+    }
+
+    public void enterApproverDetails(ApproverDetails approverDetails) {
+     waitForElementToBeClickable(approverDepartment,webDriver);
+     new Select(approverDepartment).selectByVisibleText(approverDetails.getApproverDepartment());
+
+     waitForElementToBeClickable(approverDesignation,webDriver);
+     new Select(approverDesignation).selectByVisibleText(approverDetails.getApproverDesignation());
+
+     waitForElementToBeClickable(approver,webDriver);
+     new Select(approver).selectByVisibleText(approverDetails.getApprover());
+
+     waitForElementToBeClickable(approverComment,webDriver);
+     enterText(approverComment,approverDetails.getApproverComment());
+    }
+
+    public String forwardToDEE() {
+     waitForElementToBeClickable(forwardButton,webDriver);
+     forwardButton.click();
+
+        waitForElementToBeVisible(creationMsg,webDriver);
+        String Msg = creationMsg.getText();
+        System.out.println(Msg);String number =  Msg.substring(Msg.lastIndexOf(" ")+1);
+        String num = number.substring(0, number.length()-1);
+
+        System.out.println(num);
+
+         return num;
+    }
+
+    public String successMessage(){
+        waitForElementToBeVisible(creationMsg,webDriver);
+        String msg =creationMsg.getText();
+        String reqMsg = (msg.split("\\ ")[2]);
+        System.out.println(reqMsg);
+        return reqMsg;
+    }
+
+    public void close() {
+        waitForElementToBeVisible(closeButton, webDriver);
+        closeButton.click();
+
+        await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
+        for (String winHandle : webDriver.getWindowHandles()) {
+            webDriver.switchTo().window(winHandle);
+        }
     }
 }
