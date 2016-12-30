@@ -28,7 +28,7 @@ public class SpillOverEstimatePage extends BasePage
 {
     private WebDriver webDriver;
 
-    @FindBy(id = "lineEstimateDate")
+    @FindBy(xpath = ".//*[@id='lineEstimateDate']")
     private WebElement date;
 
     @FindBy(id = "subject")

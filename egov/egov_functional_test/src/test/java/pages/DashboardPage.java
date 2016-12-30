@@ -534,6 +534,7 @@ public class DashboardPage extends BasePage {
         searchFor("create estimate");
         waitForElementToBeVisible(createEstimateLink, driver);
         createEstimateLink.click();
+        switchToNewlyOpenedWindow(driver);
     }
     public void searchTradeLicense() {
         waitForElementToBeClickable(searchTreeTextBox, driver);

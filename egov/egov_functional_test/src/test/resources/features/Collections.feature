@@ -31,7 +31,7 @@ Feature: Collection
       When he chooses to create Miscellaneous receipt
       And he enters Miscellaneous header
 
-  @Sanity
+  @WIP
   Scenario: System should be able to Create Challan
 
     Given juniorAssistant logs in
