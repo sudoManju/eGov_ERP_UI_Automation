@@ -65,15 +65,26 @@ public class MilestoneTemplatePage extends BasePage {
     @FindBy(css = "input[value='Modify'][type='submit']")
     private WebElement modifyButtonAfterModication;
 
+    @FindBy(xpath = ".//*[@id='msgsDiv']/ul/li/span")
+    private WebElement creationMsg;
+
+    @FindBy(xpath = ".//*[@id='milestoneTemplate-searchDetails']/div[4]/div[1]/div[2]/span[2]/a[5]")
+    private WebElement lastPageLink;
     public MilestoneTemplatePage(WebDriver driver) {
         this.driver = driver;
+    }
+
+    public String successMessage(){
+        String msg = creationMsg.getText();
+        return msg;
     }
 
     public void enterMilestoneTemplateDetails() {
 
      waitForElementToBeVisible(templateCodeBox,driver);
      String templateCode = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
-     templateCodeBox.sendKeys("TC"+templateCode);
+     String templateCode1 = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
+     templateCodeBox.sendKeys("TC"+templateCode+templateCode1);
 
      waitForElementToBeClickable(templateNameTextBox,driver);
      templateNameTextBox.sendKeys("testing");
@@ -135,6 +146,8 @@ public class MilestoneTemplatePage extends BasePage {
     }
 
     public void selectTheRequiredTemplateToModify() {
+        waitForElementToBeVisible(lastPageLink,driver);
+        lastPageLink.click();
         waitForElementToBeVisible(searchTable,driver);
         List<WebElement> totalRows = searchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
         System.out.println("Rows:"+totalRows.size());
@@ -171,14 +184,15 @@ public class MilestoneTemplatePage extends BasePage {
         stagePercentageTextBox2.sendKeys("20");
 
         modifyButtonAfterModication.click();
+    }
 
+    public void closeMultiple(){
         waitForElementToBeClickable(closeButton , driver);
-
         closeButton.click();
 
         for (String winHandle : driver.getWindowHandles()) {
             if(driver.switchTo().window(winHandle).getTitle().equals("eGov Works Search Milestone Template")){
-               break;
+                break;
             }
         }
 

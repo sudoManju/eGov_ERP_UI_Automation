@@ -21,6 +21,8 @@ public class MilestoneTemplateSteps extends BaseSteps implements En {
        });
        And("^he save the file and closes the acknowledgement$", () -> {
            pageStore.get(MilestoneTemplatePage.class).save();
+           String msg = pageStore.get(MilestoneTemplatePage.class).successMessage();
+           scenarioContext.setActualMessage(msg);
            pageStore.get(MilestoneTemplatePage.class).close();
        });
        And("^he chooses to view milestone template$", () -> {
@@ -43,6 +45,9 @@ public class MilestoneTemplateSteps extends BaseSteps implements En {
        });
        And("^he modifies the template and closes the acknowledgement$", () -> {
            pageStore.get(MilestoneTemplatePage.class).modifyTheMileStoneTemplateSelected();
+           String msg = pageStore.get(MilestoneTemplatePage.class).successMessage();
+           scenarioContext.setActualMessage(msg);
+           pageStore.get(MilestoneTemplatePage.class).closeMultiple();
        });
 
    }
