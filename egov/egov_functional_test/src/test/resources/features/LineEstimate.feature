@@ -24,7 +24,7 @@ Scenario Outline: Create Spillover Line Estimate
 
 
 
- @Sanity
+ @Sanity5
 Scenario Outline: Create Estimate
 
    Given assis_Engineer logs in

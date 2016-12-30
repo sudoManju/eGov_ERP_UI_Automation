@@ -351,25 +351,26 @@ public class SpillOverEstimatePage extends BasePage
      waitForElementToBeClickable(approverDepartment,webDriver);
      new Select(approverDepartment).selectByVisibleText(approverDetails.getApproverDepartment());
 
-    try {
-        waitForElementToBeClickable(approverDesignation,webDriver);
-        new Select(approverDesignation).selectByVisibleText(approverDetails.getApproverDesignation());
+   for (int i=0;i<4;i++) {
+       try {
+           waitForElementToBeClickable(approverDesignation, webDriver);
+           new Select(approverDesignation).selectByVisibleText(approverDetails.getApproverDesignation());
+       } catch (StaleElementReferenceException e) {
+           WebElement element1 = webDriver.findElement(By.id("approvalDesignation"));
+           waitForElementToBeClickable(element1, webDriver);
+           new Select(element1).selectByVisibleText(approverDetails.getApprover());
+       }
+   }
+   for (int i=0;i<4;i++) {
+            try {
+                waitForElementToBeClickable(approver, webDriver);
+                new Select(approver).selectByVisibleText(approverDetails.getApprover());
+            } catch (StaleElementReferenceException e) {
+                WebElement element2 = webDriver.findElement(By.id("approvalPosition"));
+                waitForElementToBeClickable(element2, webDriver);
+                new Select(element2).selectByVisibleText(approverDetails.getApprover());
+            }
     }
-    catch (StaleElementReferenceException e){
-        WebElement element1 = webDriver.findElement(By.id("approvalDesignation"));
-        waitForElementToBeClickable(element1, webDriver);
-        new Select(element1).selectByVisibleText(approverDetails.getApprover());
-    }
-
-    try {
-        waitForElementToBeClickable(approver, webDriver);
-        new Select(approver).selectByVisibleText(approverDetails.getApprover());
-      }
-    catch (StaleElementReferenceException e ){
-        WebElement element2 = webDriver.findElement(By.id("approvalPosition"));
-        waitForElementToBeClickable(element2, webDriver);
-        new Select(element2).selectByVisibleText(approverDetails.getApprover());
-     }
 
      waitForElementToBeClickable(approverComment,webDriver);
      enterText(approverComment,approverDetails.getApproverComment());
