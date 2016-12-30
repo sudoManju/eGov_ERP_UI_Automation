@@ -2,7 +2,7 @@ Feature: Creating Work Order for the Line estimate
   As a registered user of the system
   I want to create/search/modify Letter of Acceptance
 
-  @Sanity
+  @WIP
   Scenario: Create Letter of Acceptance
 
 #  Creating Letter of Acceptance

@@ -236,11 +236,6 @@ public class FinancialPage extends BasePage {
 
         enterText(creditAmount2 , "100");
 
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         WebElement element = webDriver.findElement(By.id("subLedgerlist[0].glcode.id"));
         List<WebElement> webElementList = element.findElements(By.tagName("option"));
 
@@ -249,13 +244,9 @@ public class FinancialPage extends BasePage {
         new Select(ledgerType1).selectByVisibleText("contractor");
         ledgerCode1.sendKeys("KMC001");
 
-        try {
-            TimeUnit.SECONDS.sleep(2);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        ledgerCode1.sendKeys(Keys.ENTER);
+        WebElement kmcCLass = webDriver.findElement(By.className("yui-ac-highlight"));
+        waitForElementToBeClickable(kmcCLass , webDriver);
+        kmcCLass.click();
         ledgerAmount1.sendKeys("100");
 
         if(webElementList.size()>2){
@@ -266,12 +257,9 @@ public class FinancialPage extends BasePage {
             new Select(ledgerType2).selectByVisibleText("contractor");
             ledgerCode2.sendKeys("KMC001");
 
-            try {
-                TimeUnit.SECONDS.sleep(2);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            ledgerCode2.sendKeys(Keys.ENTER);
+            WebElement kmcCLass1 = webDriver.findElement(By.className("yui-ac-highlight"));
+            waitForElementToBeClickable(kmcCLass1 , webDriver);
+            kmcCLass.click();
             ledgerAmount2.sendKeys("100");
         }
     }
@@ -467,7 +455,7 @@ public class FinancialPage extends BasePage {
         String billNumber = element.getText();
         waitForElementToBeClickable(closeButton , webDriver);
         closeButton.click();
-        System.out.println("===================="+billNumber);
+//        System.out.println("===================="+billNumber);
         await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
         for (String winHandle : webDriver.getWindowHandles()) {
             webDriver.switchTo().window(winHandle);
