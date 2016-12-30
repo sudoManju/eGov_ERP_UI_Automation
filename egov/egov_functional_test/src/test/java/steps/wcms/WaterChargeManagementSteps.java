@@ -92,7 +92,23 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
         });
 
         And("^user closes the search application page$", () -> {
-            pageStore.get(WaterChargeManagementPage.class).closesSearchApplicationPage();
+            pageStore.get(WaterChargeManagementPage.class).closeSearchApplicationPage();
+        });
+
+        And("^user will approve the application with sanction number", () -> {
+            pageStore.get(WaterChargeManagementPage.class).commissionerApprove();
+        });
+
+        And("^user will provide the digital signature$", () -> {
+            pageStore.get(WaterChargeManagementPage.class).commissionerSignature();
+        });
+
+        And("^the user will generate the work order$", () -> {
+            pageStore.get(WaterChargeManagementPage.class).generateWorkOrder();
+        });
+
+        And("^user will perform the execution of tap$", () -> {
+            pageStore.get(WaterChargeManagementPage.class).executeTap();
         });
     }
 }

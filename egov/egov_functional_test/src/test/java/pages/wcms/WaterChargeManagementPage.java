@@ -164,6 +164,22 @@ public class WaterChargeManagementPage extends BasePage {
     @FindBy(linkText = "Close")
     private WebElement closeSearchApplication;
 
+    @FindBy(id = "approvalNumber")
+    private WebElement sanctionNumber;
+
+    @FindBy(id = "Approve")
+    private WebElement commissionerApprove;
+
+    @FindBy(id = "Sign")
+    private WebElement digitalSignature;
+
+    @FindBy(id = "Generate WorkOrder")
+    private WebElement generateWorkOrder;
+
+    @FindBy(id = "Execute Tap")
+    private WebElement executeTap;
+
+
     public WaterChargeManagementPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -334,8 +350,18 @@ public class WaterChargeManagementPage extends BasePage {
     public void closeReceipt(){
         waitForElementToBeClickable(closeReceiptButton , webDriver);
         closeReceiptButton.click();
+    }
+    public void closeSearchApplicationPage(){
+        for (String winHandle : webDriver.getWindowHandles()) {
+            String title = webDriver.switchTo().window(winHandle).getCurrentUrl();
+            if(title.equals("http://kurnool-uat.egovernments.org/wtms/elastic/appSearch/")){
+                break;
+            }
+        }
+        waitForElementToBeClickable(closeSearchApplication , webDriver);
+        closeSearchApplication.click();
 
-        await().atMost(10, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
+        await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
         for (String winHandle : webDriver.getWindowHandles()) {
             webDriver.switchTo().window(winHandle);
         }
@@ -360,7 +386,7 @@ public class WaterChargeManagementPage extends BasePage {
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    public WebElement getApplicationRow(String consumerNumber){
+    private WebElement getApplicationRow(String consumerNumber){
         waitForElementToBeVisible(webDriver.findElement(By.id("worklist")), webDriver);
         waitForElementToBeVisible(officialInboxTable, webDriver);
 
@@ -378,11 +404,53 @@ public class WaterChargeManagementPage extends BasePage {
         forwardButton.click();
     }
 
-    public void closesSearchApplicationPage(){
+    private void closePage(){
         closeSearchApplication.click();
+
         await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
         for (String winHandle : webDriver.getWindowHandles()) {
             webDriver.switchTo().window(winHandle);
         }
+    }
+
+    public void commissionerApprove(){
+
+        waitForElementToBeClickable(sanctionNumber , webDriver);
+        sanctionNumber.sendKeys("12345");
+        waitForElementToBeClickable(commissionerApprove , webDriver);
+        commissionerApprove.click();
+
+        switchToNewlyOpenedWindow(webDriver);
+        closePage();
+    }
+
+    public void commissionerSignature(){
+        waitForElementToBeClickable(digitalSignature , webDriver);
+        digitalSignature.click();
+
+        switchToNewlyOpenedWindow(webDriver);
+        closePage();
+    }
+
+    public void generateWorkOrder(){
+
+        waitForElementToBeClickable(generateWorkOrder , webDriver);
+        generateWorkOrder.click();
+
+        switchToNewlyOpenedWindow(webDriver);
+        webDriver.close();
+        await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
+        for (String winHandle : webDriver.getWindowHandles()) {
+            webDriver.switchTo().window(winHandle);
+        }
+    }
+
+    public void executeTap(){
+
+        waitForElementToBeClickable(executeTap , webDriver);
+        executeTap.click();
+
+        switchToNewlyOpenedWindow(webDriver);
+        closePage();
     }
 }

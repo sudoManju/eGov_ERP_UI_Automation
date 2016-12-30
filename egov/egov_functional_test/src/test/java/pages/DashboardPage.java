@@ -334,8 +334,6 @@ public class DashboardPage extends BasePage {
         waitForElementToBeClickable(appRow1 , driver);
         JavascriptExecutor executor = (JavascriptExecutor)driver;
         executor.executeScript("arguments[0].click();", appRow1);
-        System.out.println(appRow1.getText());
-//        appRow1.click();
         switchToNewlyOpenedWindow(driver);
     }
 
