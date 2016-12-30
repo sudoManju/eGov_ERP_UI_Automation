@@ -140,6 +140,8 @@ public class MilestoneTemplatePage extends BasePage {
 
     public void selectTheRequiredTemplate() {
         waitForElementToBeVisible(searchTable,driver);
+        waitForElementToBeVisible(lastPageLink,driver);
+        lastPageLink.click();
 
         requiredRowForView.click();
 
