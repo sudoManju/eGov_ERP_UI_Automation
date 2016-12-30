@@ -177,7 +177,9 @@ public class MilestoneTemplatePage extends BasePage {
         closeButton.click();
 
         for (String winHandle : driver.getWindowHandles()) {
-            driver.switchTo().window(winHandle);
+            if(driver.switchTo().window(winHandle).getTitle().equals("eGov Works Search Milestone Template")){
+               break;
+            }
         }
 
         waitForElementToBeVisible(typeOfWorkForViewBox,driver);
