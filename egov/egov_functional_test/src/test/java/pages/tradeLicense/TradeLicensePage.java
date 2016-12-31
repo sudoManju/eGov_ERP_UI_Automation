@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
 import static com.jayway.awaitility.Awaitility.await;
+import static java.lang.Enum.valueOf;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
@@ -89,6 +90,15 @@ public class TradeLicensePage extends BasePage {
     @FindBy (id = "totalamounttobepaid")
     private WebElement totalAmountReceived;
 
+    @FindBy (xpath = ".//*[@id='button2']")
+    private WebElement tradePayButton;
+
+    @FindBy (id = "oldLicenseNumber")
+    private WebElement oldTradeLicense;
+
+
+
+
     String tradeApplicationNumber;
 
     public TradeLicensePage(WebDriver webDriver) {this.webDriver = webDriver;
@@ -120,15 +130,14 @@ public class TradeLicensePage extends BasePage {
 
 //       Search value from DropDown by searching value using Search field.
 
-        try{
+        try {
             waitForElementToBeClickable(tradeSubCategoryDropBox, webDriver);
             tradeSubCategoryDropBox.click();
-        }
-        catch (StaleElementReferenceException e){
+        } catch (StaleElementReferenceException e) {
             WebElement element = webDriver.findElement(By.id("select2-subCategory-container"));
             element.click();
         }
-        waitForElementToBeVisible(searchBox , webDriver);
+        waitForElementToBeVisible(searchBox, webDriver);
         searchBox.sendKeys(tradedetails.gettradeSubCategory());
         WebElement element = webDriver.findElement(By.cssSelector(".select2-results__option.select2-results__option--highlighted"));
         element.click();
@@ -139,20 +148,25 @@ public class TradeLicensePage extends BasePage {
         enterText(tradeCommencementDateTextBox, tradedetails.gettradeCommencementDate());
         waitForElementToBeClickable(saveButton, webDriver);
         saveButton.click();
+    }
 
 //      To Copy Application number
-        element = webDriver.findElement(By.cssSelector(".col-sm-3.col-xs-6.add-margin.view-content"));
-        tradeApplicationNumber= element.getText();
 
-        waitForElementToBeVisible(closeButton, webDriver);
-        closeButton.click();
-        await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
-        for (String winHandle : webDriver.getWindowHandles()) {
-            webDriver.switchTo().window(winHandle);
-        }
 
-        waitForElementToBeClickable(searchTreeBox, webDriver);
-        searchTreeBox.clear();
+        public void copyApplicationNumber() {
+
+            WebElement element= webDriver.findElement(By.cssSelector(".col-sm-3.col-xs-6.add-margin.view-content"));
+            tradeApplicationNumber= element.getText() ;
+
+            waitForElementToBeVisible(closeButton, webDriver);
+            closeButton.click();
+            await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
+            for (String winHandle : webDriver.getWindowHandles()) {
+                webDriver.switchTo().window(winHandle);
+            }
+
+            waitForElementToBeClickable(searchTreeBox, webDriver);
+            searchTreeBox.clear();
 
     }
 
@@ -184,6 +198,20 @@ public class TradeLicensePage extends BasePage {
         enterText(amountTextBox , totalAmountReceived.getAttribute("value").split("\\.")[0]);
 
 
+        waitForElementToBeClickable(tradePayButton, webDriver);
+        tradePayButton.click();
+
+//        webDriver.close();
+//        switchToNewlyOpenedWindow(webDriver);
+//        TO BE CONTINUE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     }
+
+    public void chooseOldTradeLicnese() {
+
+        waitForElementToBeClickable(oldTradeLicense, webDriver);
+        enterText(oldTradeLicense,"TL/08373/2016");
+    }
+
+
 }
 

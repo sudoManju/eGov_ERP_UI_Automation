@@ -147,6 +147,9 @@ public class DashboardPage extends BasePage {
     @FindBy (linkText = "Search Trade License")
     private WebElement searchTrade;
 
+    @FindBy (linkText = "Create Legacy License")
+    private WebElement searchLegencyTrade;
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -539,6 +542,14 @@ public class DashboardPage extends BasePage {
         searchFor("Search Trade License");
         waitForElementToBeVisible(searchTrade , driver);
         searchTrade.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void searchLegencyTradeLicense() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Create Legacy License");
+        waitForElementToBeVisible(searchLegencyTrade , driver);
+        searchLegencyTrade.click();
         switchToNewlyOpenedWindow(driver);
     }
 }

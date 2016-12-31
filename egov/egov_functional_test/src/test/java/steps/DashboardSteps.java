@@ -139,6 +139,10 @@ public class DashboardSteps extends BaseSteps implements En {
             // Write code here that turns the phrase above into concrete actions
            pageStore.get(DashboardPage.class).searchTradeLicense();
         });
+        When("^he choose to create legency trade license$", () -> {
+            // Write code here that turns the phrase above into concrete actions
+            pageStore.get(DashboardPage.class).searchLegencyTradeLicense();
+        });
     }
 }
 

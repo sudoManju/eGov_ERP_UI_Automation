@@ -13,6 +13,7 @@ Feature: Create New Property
     And he enters trade owner details of new license <tradeDetailsData>
     And he enters trade location details of new license <tradeLocationData>
     And he enters trade details of new license <tradeDetailsData1>
+    And he copy trade application number
 #    And he enters Agreement Details of new license
     And current user logs out
 
@@ -23,13 +24,14 @@ Feature: Create New Property
 
     # SEARCH TRADE LICENSE #
 
-    @Sanity
+    @WIP
     Scenario Outline: Register User search application using search trade
       Given creator logs in
       When he chooses to create new License
       And he enters trade owner details of new license <tradeDetailsData>
       And he enters trade location details of new license <tradeLocationData>
       And he enters trade details of new license <tradeDetailsData1>
+      And he copy trade application number
 
       And he choose to search trade license
       And he search existing application number
@@ -42,6 +44,19 @@ Feature: Create New Property
         |   tradeDetailsData         |       tradeLocationData           |            tradeDetailsData1    |
         |   ownerDetailsTradeLicense |       locationDetailsTradeLicense |          tradeDetailsTradeLicense |
 
+
+      @WIP
+      Scenario Outline: Register user create legacy trade license
+        Given creator logs in
+        When he choose to create legency trade license
+        And he enters old license number
+        And he enters trade owner details of new license <tradeDetailsData>
+        And he enters trade location details of new license <tradeLocationData>
+        And he enters trade details of new license <tradeDetailsData1>
+
+        Examples:
+          |   tradeDetailsData         |       tradeLocationData           |            tradeDetailsData1    |
+          |   ownerDetailsTradeLicense |       locationDetailsTradeLicense |          tradeDetailsTradeLicense |
 
 
 
