@@ -227,22 +227,19 @@ public class FinancialPage extends BasePage {
         accountCode1.sendKeys(financialJournalVoucherDetails.getAccountCode1());
         WebElement dropdown = webDriver.findElement(By.className("yui-ac-highlight"));
         dropdown.click();
-
         enterText(debitAmount1 , "100");
 
         accountCode2.sendKeys(financialJournalVoucherDetails.getAccountCode2());
         WebElement dropdown1 = webDriver.findElement(By.className("yui-ac-highlight"));
         dropdown1.click();
-
         enterText(creditAmount2 , "100");
 
-        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
         WebElement element = webDriver.findElement(By.id("subLedgerlist[0].glcode.id"));
+        element.click();
+        waitForElementToBePresent(By.className("yui-dt-dropdown") , webDriver);
         List<WebElement> webElementList = element.findElements(By.tagName("option"));
 
-        String name = webElementList.get(1).getText();
-        new Select(ledgerAccount1).selectByVisibleText(name);
+        new Select(ledgerAccount1).selectByVisibleText(webElementList.get(1).getText());
         new Select(ledgerType1).selectByVisibleText("contractor");
         ledgerCode1.sendKeys("KMC001");
 
@@ -421,13 +418,13 @@ public class FinancialPage extends BasePage {
         waitForElementToBeClickable(expenseApprovalDepartment ,webDriver);
         new Select(expenseApprovalDepartment).selectByVisibleText(approvalDetails.getApproverDepartment());
 
-        for (int i=0;i<4;i++) {
-            try{
-                waitForElementToBeClickable(expenseApprovalDesignation ,webDriver);
+        for(int i = 0 ; i <= 4 ; i++){
+
+            try {
+                waitForElementToBeClickable(expenseApprovalDesignation, webDriver);
                 new Select(expenseApprovalDesignation).selectByVisibleText(approvalDetails.getApproverDesignation());
-            }
-            catch (StaleElementReferenceException e){
-                WebElement element = webDriver .findElement(By.id("approvalDesignation"));
+            } catch (StaleElementReferenceException e) {
+                WebElement element = webDriver.findElement(By.id("approvalDesignation"));
                 new Select(element).selectByVisibleText(approvalDetails.getApproverDesignation());
             }
         }
