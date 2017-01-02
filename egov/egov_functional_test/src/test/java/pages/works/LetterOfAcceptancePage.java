@@ -101,6 +101,16 @@ public class LetterOfAcceptancePage extends BasePage
     @FindBy(xpath = "//*[@id='workOrder']/div[2]/div/a[1]")
      private WebElement closeViewLOA;
 
+    @FindBy(xpath = ".//*[@id='btnsearch']")
+      private WebElement searchButton;
+
+    @FindBy(xpath = ".//*[@id='resultTable']/tbody/tr[1]/td[1]/input")
+      private WebElement reqFileLink;
+
+    @FindBy(id = "btncreateloa")
+      private WebElement createLOAButton;
+
+
     String RandomString = RandomStringUtils.randomAlphanumeric(5).toUpperCase();
 
     public void enterLOAdetails()
@@ -169,15 +179,21 @@ public class LetterOfAcceptancePage extends BasePage
         switchToNewlyOpenedWindow(driver);
         waitForElementToBeClickable(closeViewLOA, driver);
         closeViewLOA.click();
+
+        for (String winHandle : driver.getWindowHandles()) {
+            String title = driver.switchTo().window(winHandle).getCurrentUrl();
+            if(title.equals("http://kurnool-uat.egovernments.org/egworks/searchletterofacceptance/searchform")){
+                break;
+            }
+        }
+        waitForElementToBeVisible(closeLink,driver);
+        closeLink.click();
+
+        await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
         for (String winHandle : driver.getWindowHandles()) {
             driver.switchTo().window(winHandle);
         }
-            waitForElementToBeVisible(closeLink, driver);
-            closeLink.click();
 
-            for (String winHandle : driver.getWindowHandles()) {
-            driver.switchTo().window(winHandle);
-        }
     }
 
     public void close() {
@@ -204,5 +220,17 @@ public class LetterOfAcceptancePage extends BasePage
         waitForElementToBeClickable(modifyButton, driver);
         modifyButton.click();
         close();
+    }
+
+    public void searchForApplication() {
+
+        waitForElementToBeVisible(searchButton,driver);
+        searchButton.click();
+
+        waitForElementToBeVisible(reqFileLink,driver);
+        jsClick(reqFileLink,driver);
+
+        waitForElementToBeVisible(createLOAButton,driver);
+        createLOAButton.click();
     }
 }

@@ -35,5 +35,8 @@ public class LetterOfAcceptanceSteps extends BaseSteps implements En
         And("^he search for LOA for modify$", () -> {
             pageStore.get(LetterOfAcceptancePage.class).searchForLOAModify(scenarioContext.getWorkNumber());
         });
+        And("^he select the required application$", () -> {
+           pageStore.get(LetterOfAcceptancePage.class).searchForApplication();
+        });
     }
 }

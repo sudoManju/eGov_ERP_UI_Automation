@@ -461,15 +461,6 @@ public class DashboardPage extends BasePage {
         waitForElementToBeClickable(createLOALink, driver);
         createLOALink.click();
         switchToNewlyOpenedWindow(driver);
-
-        waitForElementToBeClickable(searchEstimateButton, driver);
-        searchEstimateButton.click();
-        waitForElementToBeClickable(estimateRadioButton, driver);
-        estimateRadioButton.click();
-
-        waitForElementToBeClickable(createLOAButton, driver);
-        createLOAButton.click();
-        switchToNewlyOpenedWindow(driver);
     }
 
     public void chooseToModifyLOA() {
