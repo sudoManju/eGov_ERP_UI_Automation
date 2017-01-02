@@ -12,10 +12,12 @@ Feature: Creating Work Order for the Line estimate
     And he select the required application
     And he enters the mandatory details
     Then he save the file and view the LOA pdf
+    And user will notifies that "successfully"
 
     And he choose to view Letter of Acceptance
     And he search for LOA
 
     And he choose to modify letter of acceptance
     And he search for LOA for modify
+    And user will notifies that "successfully"
     And current user logs out

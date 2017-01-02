@@ -148,25 +148,15 @@ public class LetterOfAcceptancePage extends BasePage
     }
 
     public String saveAndClose() {
-            waitForElementToBeVisible(saveButton, driver);
-            saveButton.click();
 
-//            waitForElementToBeClickable(viewLOAPDF, driver);
-//            viewLOAPDF.click();
+     waitForElementToBeVisible(saveButton, driver);
+     saveButton.click();
 
-        waitForElementToBeVisible(loaNumber,driver);
-        String loaText = loaNumber.getText();
-        String workNumber = (loaText.split("\\ ")[5]);
+     waitForElementToBeVisible(loaNumber,driver);
+     String loaText = loaNumber.getText();
+     String workNumber = (loaText.split("\\ ")[5]);
 
-        waitForElementToBeVisible(closeButton, driver);
-        closeButton.click();
-
-        await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
-        for (String winHandle : driver.getWindowHandles()) {
-            driver.switchTo().window(winHandle);
-        }
-
-        return workNumber;
+     return workNumber;
     }
 
     public void searchForLOA(String number) {
@@ -219,7 +209,6 @@ public class LetterOfAcceptancePage extends BasePage
         revisedValue.sendKeys("8");
         waitForElementToBeClickable(modifyButton, driver);
         modifyButton.click();
-        close();
     }
 
     public void searchForApplication() {
@@ -232,5 +221,10 @@ public class LetterOfAcceptancePage extends BasePage
 
         waitForElementToBeVisible(createLOAButton,driver);
         createLOAButton.click();
+    }
+
+    public String successMessage(){
+        String msg = loaNumber.getText();
+        return msg;
     }
 }

@@ -71,6 +71,9 @@ public class ContractorPage extends BasePage
     @FindBy(id = "name")
     private WebElement modifyNameBox;
 
+    @FindBy(xpath = ".//*[@id='msgsDiv']/ul/li/span")
+    private WebElement creationMsg;
+
     String min = String.valueOf(Calendar.getInstance().get(Calendar.MINUTE));
     String hour = String.valueOf(Calendar.getInstance().get(Calendar.HOUR));
 
@@ -163,5 +166,12 @@ public class ContractorPage extends BasePage
 
         waitForElementToBeVisible(modifyButton,driver);
         modifyButton.click();
+    }
+
+    public String successMessage() {
+        waitForElementToBeVisible(creationMsg,driver);
+        String msg =creationMsg.getText();
+        System.out.println(msg);
+        return msg;
     }
 }

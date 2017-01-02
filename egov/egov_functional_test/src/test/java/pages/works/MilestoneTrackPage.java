@@ -17,7 +17,7 @@ public class MilestoneTrackPage extends BasePage {
 
     private WebDriver driver;
 
-    @FindBy(id = "btnsearch")
+    @FindBy(xpath = ".//*[@id='btnsearch']")
     private WebElement searchButton;
 
     @FindBy(id = "resultTable_wrapper")
@@ -83,52 +83,14 @@ public class MilestoneTrackPage extends BasePage {
 
         WebElement stagePercentage = requiredRow.findElements(By.tagName("td")).get(2).findElement(By.name("activities[0].percentage"));
         stagePercentage.sendKeys("50");
-        stagePercentage.sendKeys(Keys.TAB);
 
-        WebElement stageScheduleDate = requiredRow.findElements(By.tagName("td")).get(3).findElement(By.name("activities[0].scheduleStartDate"));
-        clickOnCurrentDate();
-        //stageScheduleDate.sendKeys(date);
-        stageScheduleDate.sendKeys(Keys.TAB);
+        WebElement stageScheduleStartDate = requiredRow.findElements(By.tagName("td")).get(3).findElement(By.name("activities[0].scheduleStartDate"));
+        stageScheduleStartDate.sendKeys(date);
+        stageScheduleStartDate.sendKeys(Keys.TAB);
 
-
-        WebElement stageCompletionDate = requiredRow.findElements(By.tagName("td")).get(4).findElement(By.name("activities[0].scheduleEndDate"));
-        stageCompletionDate.sendKeys(date);
-        stageCompletionDate.sendKeys(Keys.TAB);
-
-        waitForElementToBeVisible(addRowButton,driver);
-        addRowButton.click();
-
-        WebElement requiredRow1 = milestoneStageTbl.findElements(By.tagName("tr")).get(1);
-
-        WebElement stageDescription1 = requiredRow1.findElements(By.tagName("td")).get(1).findElement(By.name("activities[1].description"));
-        stageDescription1.sendKeys("Stage 2");
-
-        WebElement stagePercentage1 = requiredRow1.findElements(By.tagName("td")).get(2).findElement(By.name("activities[1].percentage"));
-        stagePercentage1.sendKeys("50");
-
-        WebElement stageScheduleDate1 = requiredRow1.findElements(By.tagName("td")).get(3).findElement(By.name("activities[1].scheduleStartDate"));
-        stageScheduleDate1.sendKeys("28/12/2016");
-        stageScheduleDate1.sendKeys(Keys.TAB);
-
-        WebElement stageCompletionDate1 = requiredRow1.findElements(By.tagName("td")).get(4).findElement(By.name("activities[1].scheduleEndDate"));
-        stageCompletionDate1.sendKeys("02/01/2017");
-        stageCompletionDate1.sendKeys(Keys.TAB);
-
+        WebElement stageScheduleEndDate = requiredRow.findElements(By.tagName("td")).get(4).findElement(By.name("activities0.scheduleEndDate"));
+        stageScheduleEndDate.sendKeys(date);
 
     }
 
-    public void clickOnCurrentDate()throws StaleElementReferenceException{
-        int i,j = 0;
-        List<WebElement> rowsPresent = calenderForm.findElement(By.tagName("table")).findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-        System.out.println("Rows:"+rowsPresent.size());
-
-        for ( i=0;i<rowsPresent.size();i++){
-           for ( j=0; j < rowsPresent.get(i).findElements(By.tagName("td")).size(); j++){
-               if(rowsPresent.get(i).findElements(By.tagName("td")).get(j).getAttribute("class").equals("active day")) {
-                   rowsPresent.get(i).findElements(By.tagName("td")).get(j).click();
-                   break;
-               }
-           }
-        }
-    }
 }

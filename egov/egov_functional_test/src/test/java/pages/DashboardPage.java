@@ -511,6 +511,7 @@ public class DashboardPage extends BasePage {
         searchFor("create milestone");
         waitForElementToBeVisible(createMilestoneLink, driver);
         createMilestoneLink.click();
+        switchToNewlyOpenedWindow(driver);
     }
 
     public void toCreateNewExpenseBill(){
