@@ -110,13 +110,13 @@ public class DashboardSteps extends BaseSteps implements En {
         });
 
         When("^he chooses to create new License$", () -> {
-            // Write code here that turns the phrase above into concrete actions
            pageStore.get(DashboardPage.class).chooseToCreateNewLicense();
         });
 
         And("^officer search for the create journal voucher$", () -> {
             pageStore.get(DashboardPage.class).chooseToApplyForJournalVoucher();
         });
+
         When("^he chosses to collect water charges$", () -> {
             pageStore.get(DashboardPage.class).chooseTopayWaterCharge();
         });
@@ -128,6 +128,7 @@ public class DashboardSteps extends BaseSteps implements En {
         And("^he chooses to create milestone$", () -> {
            pageStore.get(DashboardPage.class).chooseForCreateMilestone();
         });
+
         When("^he chooses to create new estimate$", () -> {
            pageStore.get(DashboardPage.class).chooseForCreateEstimate();
         });
@@ -135,8 +136,8 @@ public class DashboardSteps extends BaseSteps implements En {
         And("^officer will search for the new expense bill$", () -> {
             pageStore.get(DashboardPage.class).toCreateNewExpenseBill();
         });
+
         And("^he choose to search trade license$", () -> {
-            // Write code here that turns the phrase above into concrete actions
            pageStore.get(DashboardPage.class).searchTradeLicense();
         });
         When("^he choose to create legency trade license$", () -> {

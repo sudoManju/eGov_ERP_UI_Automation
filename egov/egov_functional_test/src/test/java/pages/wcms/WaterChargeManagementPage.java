@@ -179,6 +179,9 @@ public class WaterChargeManagementPage extends BasePage {
     @FindBy(id = "Execute Tap")
     private WebElement executeTap;
 
+    @FindBy(id = "Generate Acknowledgement")
+    private WebElement generateAcknowledgement;
+
 
     public WaterChargeManagementPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -352,6 +355,7 @@ public class WaterChargeManagementPage extends BasePage {
         closeReceiptButton.click();
     }
     public void closeSearchApplicationPage(){
+
         for (String winHandle : webDriver.getWindowHandles()) {
             String title = webDriver.switchTo().window(winHandle).getCurrentUrl();
             if(title.equals("http://kurnool-uat.egovernments.org/wtms/elastic/appSearch/")){
@@ -407,7 +411,7 @@ public class WaterChargeManagementPage extends BasePage {
     private void closePage(){
         closeSearchApplication.click();
 
-        await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
+        await().atMost(10, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
         for (String winHandle : webDriver.getWindowHandles()) {
             webDriver.switchTo().window(winHandle);
         }
@@ -452,5 +456,28 @@ public class WaterChargeManagementPage extends BasePage {
 
         switchToNewlyOpenedWindow(webDriver);
         closePage();
+    }
+
+    public void commissionerClosureApprove(){
+
+        waitForElementToBeClickable(commissionerApprove , webDriver);
+        commissionerApprove.click();
+
+        switchToNewlyOpenedWindow(webDriver);
+        closePage();
+    }
+
+    public void toGenerateAcknowledgement(){
+
+        waitForElementToBeClickable(generateAcknowledgement , webDriver);
+        generateAcknowledgement.click();
+
+        switchToNewlyOpenedWindow(webDriver);
+        webDriver.close();
+
+        await().atMost(10, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
+        for (String winHandle : webDriver.getWindowHandles()) {
+            webDriver.switchTo().window(winHandle);
+        }
     }
 }

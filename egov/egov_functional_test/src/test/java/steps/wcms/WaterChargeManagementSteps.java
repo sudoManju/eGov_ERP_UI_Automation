@@ -39,7 +39,8 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
         });
 
         And("^user will enter the consumer number as (\\w+)$", (String consumerNumber) -> {
-            pageStore.get(PropertyDetailsPage.class).enterConsumerNumber(consumerNumber);
+            scenarioContext.setApplicationNumber(consumerNumber);
+            pageStore.get(PropertyDetailsPage.class).enterConsumerNumber(scenarioContext.getApplicationNumber());
         });
 
         And("^user will enter the details of the new additional water connection$", () -> {
@@ -78,7 +79,7 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             pageStore.get(WaterChargeManagementPage.class).searchWaterConnectionApplications(connectionType);
         });
 
-        And("^user will enter the closure connection detials as (\\w+)$", (String closureType) -> {
+        And("^user will enter the closure connection details as (\\w+)$", (String closureType) -> {
             String approveDetails = "engineer";
             pageStore.get(WaterChargeManagementPage.class).enterDetailsOfClosureConnection(closureType);
 
@@ -86,8 +87,8 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             pageStore.get(WaterChargeManagementPage.class).enterWaterApprovalDetails(approvalDetails);
         });
 
-        And("^chooses to act upon the application number as (\\w+)$", (String consumerNumber) -> {
-            pageStore.get(WaterChargeManagementPage.class).selectApplication(consumerNumber);
+        And("^chooses to act upon the above closure application$", () -> {
+            pageStore.get(WaterChargeManagementPage.class).selectApplication(scenarioContext.getApplicationNumber());
             pageStore.get(WaterChargeManagementPage.class).forward();
         });
 
@@ -109,6 +110,13 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
 
         And("^user will perform the execution of tap$", () -> {
             pageStore.get(WaterChargeManagementPage.class).executeTap();
+        });
+
+        And("^user will approve the closure application$", () -> {
+            pageStore.get(WaterChargeManagementPage.class).commissionerClosureApprove();
+        });
+        And("^user will click on the generate acknowledge ment$", () -> {
+            pageStore.get(WaterChargeManagementPage.class).toGenerateAcknowledgement();
         });
     }
 }

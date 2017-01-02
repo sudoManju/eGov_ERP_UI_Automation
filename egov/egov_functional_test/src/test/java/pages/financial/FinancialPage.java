@@ -236,6 +236,8 @@ public class FinancialPage extends BasePage {
 
         enterText(creditAmount2 , "100");
 
+        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
         WebElement element = webDriver.findElement(By.id("subLedgerlist[0].glcode.id"));
         List<WebElement> webElementList = element.findElements(By.tagName("option"));
 
