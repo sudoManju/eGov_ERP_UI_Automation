@@ -1,4 +1,4 @@
-Feature: Create New Property
+Feature: Create Trade License
 
   As a register user of the system
   I want to be able to Create New Trade License
