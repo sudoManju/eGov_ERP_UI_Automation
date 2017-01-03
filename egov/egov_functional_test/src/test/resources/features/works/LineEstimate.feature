@@ -4,7 +4,7 @@ Feature: Create Spillover Line Estimate
 
 
  @Sanity
-Scenario Outline: Create Spillover Line Estimate
+Scenario Outline: Create Spillover Line estimate
 
     Given assis_Engineer logs in
     When he chooses to create new spillover estimate
