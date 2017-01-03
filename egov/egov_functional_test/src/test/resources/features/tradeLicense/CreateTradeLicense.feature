@@ -36,7 +36,9 @@ Feature: Create Trade License
       And he choose to search trade license
       And he search existing application number
       And he choose to collectfees
-      And he choose to payTax of applicationNumber
+#      And he choose to payTax of applicationNumber
+#      And he search Trade License using application
+     # And chooses to act upon trade application
 
 
 
@@ -53,6 +55,7 @@ Feature: Create Trade License
         And he enters trade owner details of new license <tradeDetailsData>
         And he enters trade location details of new license <tradeLocationData>
         And he enters trade details of new license <tradeDetailsData1>
+
 
         Examples:
           |   tradeDetailsData         |       tradeLocationData           |            tradeDetailsData1    |

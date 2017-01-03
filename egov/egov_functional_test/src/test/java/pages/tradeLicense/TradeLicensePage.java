@@ -90,11 +90,14 @@ public class TradeLicensePage extends BasePage {
     @FindBy (id = "totalamounttobepaid")
     private WebElement totalAmountReceived;
 
-    @FindBy (xpath = ".//*[@id='button2']")
-    private WebElement tradePayButton;
+//    @FindBy (id = "button2']")
+//    private WebElement tradePayButton;
 
     @FindBy (id = "oldLicenseNumber")
     private WebElement oldTradeLicense;
+
+    @FindBy (id = "buttonClose")
+    private WebElement printClose;
 
 
 
@@ -197,13 +200,19 @@ public class TradeLicensePage extends BasePage {
         waitForElementToBeClickable(amountTextBox , webDriver);
         enterText(amountTextBox , totalAmountReceived.getAttribute("value").split("\\.")[0]);
 
+        WebElement element = webDriver.findElement(By.id("button2"));
+        JavascriptExecutor executor = (JavascriptExecutor)webDriver;
+        executor.executeScript("arguments[0].click();", element);
 
-        waitForElementToBeClickable(tradePayButton, webDriver);
-        tradePayButton.click();
+        waitForElementToBeClickable(printClose, webDriver);
+        printClose.click();
 
-//        webDriver.close();
-//        switchToNewlyOpenedWindow(webDriver);
-//        TO BE CONTINUE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        switchToNewlyOpenedWindow(webDriver);
+        webDriver.close();
+
+        switchToNewlyOpenedWindow(webDriver);
+        webDriver.close();
+
     }
 
     public void chooseOldTradeLicnese() {
