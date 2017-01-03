@@ -29,7 +29,7 @@ public class CollectionAcknowledgementPage extends BasePage {
     private WebElement printButton;
 
     @FindBy(xpath = ".//*[@id='actionMessages']/ul/li")
-    private WebElement number;
+    private WebElement creationMsg;
 
     @FindBy(css = "input[value='Submit All Collections'][type='submit']")
     private WebElement submitAllCollectionsButton;
@@ -47,12 +47,7 @@ public class CollectionAcknowledgementPage extends BasePage {
 
     public void submitAllCollections() throws Exception {
 
-        //test_Scroll_Page_To_Bottom();
-        WebElement element = driver.findElement(By.id("input[value='Submit All Collections'][type='submit']"));
-        JavascriptExecutor executor = (JavascriptExecutor)driver;
-        executor.executeScript("arguments[0].click();", element);
-
-        //waitForElementToBeClickable(submitAllCollectionsButton,driver);
+        waitForElementToBeVisible(submitAllCollectionsButton,driver);
         submitAllCollectionsButton.click();
     }
 
@@ -76,5 +71,22 @@ public class CollectionAcknowledgementPage extends BasePage {
 
 //        waitForElementToBeClickable(approveCollectionButton,driver);
 //        approveCollectionButton.click();
+    }
+
+    public void close() {
+        waitForElementToBeVisible(closeButton,driver);
+        closeButton.click();
+
+        await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
+        for (String winHandle : driver.getWindowHandles()) {
+            driver.switchTo().window(winHandle);
+        }
+    }
+
+    public String successMessage() {
+        waitForElementToBeVisible(creationMsg,driver);
+        String msg =creationMsg.getText();
+        System.out.println(msg);
+        return msg;
     }
 }

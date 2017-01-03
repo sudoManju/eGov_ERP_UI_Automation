@@ -21,6 +21,8 @@ public class CollectionsPage extends BasePage {
     @FindBy(id = "chequeradiobutton")
     private WebElement chequeModeofPaymentRadio;
 
+    @FindBy(id = "ddradiobutton")
+    private WebElement ddModeofPaymentRadio;
 
     @FindBy(id = "instrumentChequeNumber")
     private WebElement chequeNumberTextBox;
@@ -106,9 +108,20 @@ public class CollectionsPage extends BasePage {
     @FindBy(id = "payBtn")
     private WebElement collectWaterCharge;
 
-    @FindBy(css = "input[id='instrHeaderCash.instrumentAmount'][type='text']")
-    private WebElement payAmountFillingTextBox;
+    @FindBy(css = "input[id='instrumentChequeAmount'][type='text']")
+    private WebElement payAmountBoxForCheque;
 
+    @FindBy(css = "input[id='instrHeaderCash.instrumentAmount'][type='text']")
+    private WebElement payAmountBoxForCash;
+
+    @FindBy(id = "challan.challanNumber")
+    private WebElement challanNumber;
+
+    @FindBy(xpath = ".//*[@id='actionMessages']/ul/li/span")
+    private WebElement creationMsg;
+
+    @FindBy(xpath = ".//*[@id='buttonclose2']")
+    private WebElement closeButton;
 
     public CollectionsPage(WebDriver driver) {
         this.driver = driver;
@@ -154,7 +167,8 @@ public class CollectionsPage extends BasePage {
 
         waitForElementToBeClickable(challanDateTextBox, driver);
         challanDateTextBox.clear();
-        challanDateTextBox.sendKeys(challanHeaderDetails.getDate());
+        challanDateTextBox.sendKeys("02/01/2017");
+        challanDateTextBox.sendKeys(Keys.TAB);
         waitForElementToBeClickable(payeeNameTextBox, driver);
         payeeNameTextBox.sendKeys(challanHeaderDetails.getPayeeName());
         waitForElementToBeClickable(payeeAddressTextBox, driver);
@@ -167,19 +181,17 @@ public class CollectionsPage extends BasePage {
         serviceTypeBox.click();
         new Select(serviceTypeBox).selectByVisibleText(challanHeaderDetails.getServiceType());
 
-        try{
-        waitForElementToBePresent(By.id("billDetailslist[0].creditAmountDetail") , driver);
-        WebElement element = driver.findElement(By.id("billDetailslist[0].creditAmountDetail"));
-        element.clear();
-        waitForElementToBePresent(By.id("billDetailslist[0].creditAmountDetail") , driver);
-        element.sendKeys("500");
-        waitForElementToBePresent(By.id("billDetailslist[0].creditAmountDetail") , driver);
-        element.sendKeys(Keys.ENTER);}
-        catch (StaleElementReferenceException e ){
-            WebElement element = driver.findElement(By.id("billDetailslist[0].creditAmountDetail"));
-            element.clear();
-            element.sendKeys("500");
-        }
+       for (int i=0;i<4;i++) {
+           try {
+               WebElement element = driver.findElement(By.id("billDetailslist[0].creditAmountDetail"));
+               element.clear();
+               element.sendKeys("500");
+           } catch (StaleElementReferenceException e) {
+               WebElement element = driver.findElement(By.id("billDetailslist[0].creditAmountDetail"));
+               element.clear();
+               element.sendKeys("500");
+           }
+       }
     }
 
     public void enterApprovalDetails(ApprovalDetails approverDetails) {
@@ -187,10 +199,13 @@ public class CollectionsPage extends BasePage {
         waitForElementToBeClickable(approverDeptBox, driver);
         new Select(approverDeptBox).selectByVisibleText(approverDetails.getApproverDepartment());
         new Select(approverDesignationBox).selectByVisibleText(approverDetails.getApproverDesignation());
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         new Select(approverBox).selectByVisibleText(approverDetails.getApprover());
-        
-        createChallanButton.click();
-        driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
+
     }
 
     public void validateChallan() {
@@ -205,15 +220,68 @@ public class CollectionsPage extends BasePage {
         challanNumberTextBox.sendKeys(Keys.TAB);
     }
 
-    public void payAmount() {
+    public void payAmount(String method) {
 
         waitForElementToBeVisible(amountToBePaid, driver);
-
         String amount = amountToBePaid.getAttribute("value");
-        System.out.println("================"+amount);
         String actualAmount = amount.split("\\.")[0];
-        payAmountFillingTextBox.click();
-        payAmountFillingTextBox.sendKeys(actualAmount);
+        System.out.println("\n"+actualAmount);
+
+        switch (method){
+            case "cash" :
+
+                waitForElementToBeClickable(payAmountBoxForCash,driver);
+                payAmountBoxForCash.sendKeys(actualAmount);
+
+                break;
+
+            case "cheque" :
+
+                waitForElementToBeClickable(chequeModeofPaymentRadio,driver);
+                jsClick(chequeModeofPaymentRadio,driver);
+                waitForElementToBeVisible(chequeNumberTextBox,driver);
+                chequeNumberTextBox.sendKeys("123456");
+                waitForElementToBeClickable(chequeDateTextBox,driver);
+                chequeDateTextBox.sendKeys("02/01/2017");
+                waitForElementToBeClickable(bankNameInput,driver);
+                bankNameInput.sendKeys("102");
+
+                driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+                await().atMost(10, SECONDS).until(() -> driver.findElement(By.id("bankcodescontainer"))
+                        .findElements(By.cssSelector("ul li"))
+                        .get(0).click());
+
+                bankNameInput.sendKeys(Keys.TAB);
+
+                waitForElementToBeClickable(payAmountBoxForCheque,driver);
+                payAmountBoxForCheque.sendKeys(actualAmount);
+
+                break;
+
+            case "dd" :
+
+                waitForElementToBeClickable(ddModeofPaymentRadio,driver);
+                jsClick(ddModeofPaymentRadio,driver);
+
+                waitForElementToBeVisible(chequeNumberTextBox,driver);
+                chequeNumberTextBox.sendKeys("123456");
+                waitForElementToBeClickable(chequeDateTextBox,driver);
+                chequeDateTextBox.sendKeys("02/01/2017");
+                waitForElementToBeClickable(bankNameInput,driver);
+                bankNameInput.sendKeys("102");
+
+                driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+                await().atMost(10, SECONDS).until(() -> driver.findElement(By.id("bankcodescontainer"))
+                        .findElements(By.cssSelector("ul li"))
+                        .get(0).click());
+
+                waitForElementToBeClickable(payAmountBoxForCheque,driver);
+                payAmountBoxForCheque.sendKeys(actualAmount);
+
+                break;
+
+        }
+
 
         payButton.click();
         switchToNewlyOpenedWindow(driver);
@@ -227,8 +295,36 @@ public class CollectionsPage extends BasePage {
 
     public void collectCharge() {
         collectWaterCharge.click();
+    }
 
+    public String generateChallan() {
+
+        waitForElementToBeClickable(createChallanButton,driver);
+        createChallanButton.click();
+
+        waitForElementToBeVisible(challanNumber,driver);
+        String number = challanNumber.getAttribute("value");
+
+        return number;
 
     }
 
+    public String successMessage() {
+
+        waitForElementToBeVisible(creationMsg,driver);
+        String msg = creationMsg.getText();
+        System.out.println("\n"+msg);
+
+        return msg;
+    }
+
+    public void close(){
+        waitForElementToBeClickable(closeButton,driver);
+        closeButton.click();
+
+        await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
+        for (String winHandle : driver.getWindowHandles()) {
+            driver.switchTo().window(winHandle);
+        }
+    }
 }

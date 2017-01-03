@@ -3,6 +3,7 @@ package steps.collections;
 import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import pages.collections.CollectionAcknowledgementPage;
+import pages.collections.CollectionsPage;
 import pages.ptis.PropertyAcknowledgementPage;
 import steps.BaseSteps;
 
@@ -16,7 +17,11 @@ public class CollectionAcknowledgementSteps extends BaseSteps implements En {
         And("^he stores the challan number and closes acknowledgement$", () -> {
             String challanNumber = (pageStore.get(CollectionAcknowledgementPage.class).getChallanNumber()) ;
             scenarioContext.setChallanNumber(challanNumber);
-            pageStore.get(PropertyAcknowledgementPage.class).close();
+
+            String msg = pageStore.get(CollectionAcknowledgementPage.class).successMessage();
+            scenarioContext.setActualMessage(msg);
+
+            pageStore.get(CollectionAcknowledgementPage.class).close();
         });
 
         And("^he submit all collections$", () -> {

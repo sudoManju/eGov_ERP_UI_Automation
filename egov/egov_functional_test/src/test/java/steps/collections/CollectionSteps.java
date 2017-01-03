@@ -20,7 +20,9 @@ public class CollectionSteps extends BaseSteps implements En {
             ChequeDetails chequeDetails = new ExcelReader(collectionsTestDataFileName).getChequeDetails(chequeDetailsDataName);
             pageStore.get(CollectionsPage.class).enterChequeDetails(chequeDetails);
 
+            pageStore.get(PropertyAcknowledgementPage.class).cancelPrint();
             pageStore.get(PropertyAcknowledgementPage.class).close();
+
 
         });
 
@@ -36,18 +38,34 @@ public class CollectionSteps extends BaseSteps implements En {
         });
         And("^he validate the challan$", () -> {
            pageStore.get(CollectionsPage.class).validateChallan();
+
+            String msg = pageStore.get(CollectionsPage.class).successMessage();
+            scenarioContext.setActualMessage(msg);
+
+            pageStore.get(CollectionsPage.class).close();
+
         });
         And("^he search for challan number$", () -> {
             pageStore.get(CollectionsPage.class).enterChallanNumber(scenarioContext.getChallanNumber());
         });
-        And("^he pay using cash$", () -> {
-            pageStore.get(CollectionsPage.class).payAmount();
-        });
+
         And("^he chooses to collect water charge for \"([^\"]*)\"$", (String consumerNumber) -> {
             pageStore.get(CollectionsPage.class).collectChargeFor(consumerNumber);
         });
         And("^he chooses to pay water charge$", () -> {
             pageStore.get(CollectionsPage.class).collectCharge();
+        });
+        And("^he create challan and closes acknowledgement$", () -> {
+            String challanNumber = pageStore.get(CollectionsPage.class).generateChallan();
+            scenarioContext.setChallanNumber(challanNumber);
+
+            String msg = pageStore.get(CollectionsPage.class).successMessage();
+            scenarioContext.setActualMessage(msg);
+
+            pageStore.get(CollectionsPage.class).close();
+        });
+        And("^he pay using (\\w+)$", (String paymentMethod) -> {
+            pageStore.get(CollectionsPage.class).payAmount(paymentMethod);
         });
 
 

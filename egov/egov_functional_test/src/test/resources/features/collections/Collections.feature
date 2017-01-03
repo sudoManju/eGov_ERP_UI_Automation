@@ -9,7 +9,7 @@ Feature: Collection
 
     Given juniorAssistant logs in
     When he chooses to collect taxes
-    And he chooses to collect tax for "1016000039"
+    And he chooses to collect tax for "1016000083"
 
     And he chooses to pay tax
     And he pays using cheque with details as defaultChequeDetails
@@ -24,6 +24,7 @@ Feature: Collection
     And he approves the receipt
     And current user logs out
 
+
   @WIP
   Scenario: System should be able to create Miscellaneous receipt
 
@@ -31,28 +32,37 @@ Feature: Collection
       When he chooses to create Miscellaneous receipt
       And he enters Miscellaneous header
 
+
+
+  @Sanity
+  Scenario Outline: System should be able to Create Challan
+
+   Given juniorAssistant logs in
+   And he chooses to create Challan
+   And he enters challan details
+   And he create challan and closes acknowledgement
+   And user will notifies that "successfully"
+   And current user logs out
+
+   Given seniorAssistant logs in
+   And chooses to act upon the above challan
+   And he validate the challan
+   And user will notifies that "Validated"
+
+   And he search for challan receipt
+   And he search for challan number
+   And he pay using <paymentMethod>
+   And he closes the acknowledgement
+   And current user logs out
+
+ Examples:
+  |paymentMethod|
+  |cash         |
+  |cheque       |
+  |dd           |
+
+
   @WIP
-  Scenario: System should be able to Create Challan
-
-    Given juniorAssistant logs in
-    When he chooses to create Challan
-    And he enters challan details
-
-    And he stores the challan number and closes acknowledgement
-    And current user logs out
-
-    When seniorAssistant logs in
-    And chooses to act upon the above challan
-    And he validate the challan
-    And he closes the acknowledgement
-
-    And he search for challan receipt
-    And he search for challan number
-    And he pay using cash
-    And he closes the acknowledgement
-    And current user logs out
-
-    @WIP
     Scenario: System Should be able to collect water Charges
 
       Given juniorAssistant logs in
