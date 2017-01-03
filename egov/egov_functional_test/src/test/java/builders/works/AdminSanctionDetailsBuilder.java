@@ -27,7 +27,6 @@ public class AdminSanctionDetailsBuilder {
         adminSanctionDetails.setAdminSanctionAuthority(sanctionAuthority);
         return this;
     }
-
     public AdminSanctionDetails build(){
         return adminSanctionDetails;
     }

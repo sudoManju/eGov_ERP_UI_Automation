@@ -1,10 +1,9 @@
-Feature: Create Spillover Line Estimate
+Feature: Create a Line Estimates
   As a registered user of the system
-  I want to be able to create a spillover estimate
-
+  I want to be able to create a Regular/Spillover estimates
 
  @Sanity
-Scenario Outline: Create Spillover Line estimate
+Scenario Outline: Create Spillover Line Estimate
 
     Given assis_Engineer logs in
     When he chooses to create new spillover estimate
@@ -16,6 +15,7 @@ Scenario Outline: Create Spillover Line estimate
     And he saves the file and closes the acknowledgement
     And user will notifies that "successfully."
     And current user logs out
+
     Examples:
       | estimateHeaderDetails |financialDetails     |workDetails|adminSanctionDetails|technicalSanctionDetails|
       |SpilloverEstimate_1    |SpillOverFinancial_1 |SpillWork_1|admin               |technical               |
@@ -25,7 +25,7 @@ Scenario Outline: Create Spillover Line estimate
 
 
  @Sanity
-Scenario Outline: Create Estimate
+Scenario Outline: Create Regular Estimate
 
    Given assis_Engineer logs in
    When he chooses to create new estimate
