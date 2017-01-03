@@ -234,8 +234,13 @@ public class FinancialPage extends BasePage {
         dropdown1.click();
         enterText(creditAmount2 , "100");
 
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         WebElement element = webDriver.findElement(By.id("subLedgerlist[0].glcode.id"));
-        element.click();
         waitForElementToBePresent(By.className("yui-dt-dropdown") , webDriver);
         List<WebElement> webElementList = element.findElements(By.tagName("option"));
 

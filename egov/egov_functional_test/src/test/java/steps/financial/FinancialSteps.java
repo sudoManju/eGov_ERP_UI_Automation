@@ -94,5 +94,11 @@ public class FinancialSteps extends BaseSteps implements En {
             String billNUmber = pageStore.get(FinancialPage.class).closesSuccessfullPaymentPage();
             scenarioContext.setVoucherNumber(billNUmber);
         });
+
+        And("^officer will get successful BAN NUMBER created and closes it$", () -> {
+            String voucherNumber = pageStore.get(FinancialPage.class).getVoucherNumber();
+            scenarioContext.setVoucherNumber(voucherNumber.split("\\ ")[1]);
+            scenarioContext.setActualMessage(voucherNumber.split("\\:")[1]);
+        });
     }
 }
