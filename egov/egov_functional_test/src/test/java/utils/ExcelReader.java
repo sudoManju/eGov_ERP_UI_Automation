@@ -945,6 +945,10 @@ public class ExcelReader {
         code2.setCellType(Cell.CELL_TYPE_STRING);
         String  accountCode2 = code2.getStringCellValue();
 
+        Cell code3 = getCellData(financialJournalVoucherSheet, dataRow, "accountCode3");
+        code3.setCellType(Cell.CELL_TYPE_STRING);
+        String  accountCode3 = code3.getStringCellValue();
+
         String department = getCellData(financialJournalVoucherSheet, dataRow, "department").getStringCellValue();
         String function = getCellData(financialJournalVoucherSheet, dataRow, "function").getStringCellValue();
 
@@ -953,6 +957,7 @@ public class ExcelReader {
                 .withVoucherType(voucherType)
                 .withAccountCode1(accountCode1)
                 .withAccountCode2(accountCode2)
+                .withAccountCode3(accountCode3)
                 .withDepartment(department)
                 .withFunction(function)
                 .build();

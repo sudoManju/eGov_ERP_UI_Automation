@@ -41,6 +41,12 @@ public class FinancialJournalVoucherDetailsBuilder {
         return this;
     }
 
+    public FinancialJournalVoucherDetailsBuilder withAccountCode3(String accountCode3){
+        financialJournalVoucherDetails.setAccountCode3(accountCode3);
+        return this;
+    }
+
+
     public FinancialJournalVoucherDetails build(){
         return financialJournalVoucherDetails;
     }

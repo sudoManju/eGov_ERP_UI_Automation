@@ -144,11 +144,17 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Create Estimate")
     private WebElement createEstimateLink;
 
-    @FindBy (linkText = "Search Trade License")
+    @FindBy(linkText = "Search Trade License")
     private WebElement searchTrade;
 
-    @FindBy (linkText = "Create Legacy License")
+    @FindBy(linkText = "Create Legacy License")
     private WebElement searchLegencyTrade;
+
+    @FindBy(linkText = "Modify Detailed Code")
+    private WebElement modifyDetailedCode;
+
+    @FindBy(linkText = "Create Remittance Recovery")
+    private WebElement createRemittanceRecovery;
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -542,6 +548,22 @@ public class DashboardPage extends BasePage {
         searchFor("Create Legacy License");
         waitForElementToBeVisible(searchLegencyTrade , driver);
         searchLegencyTrade.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseToModifyDetailedCode(){
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Modify detailed Code");
+        waitForElementToBeVisible(modifyDetailedCode , driver);
+        modifyDetailedCode.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void createRemittanceRecovery(){
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Create Remittance Recovery");
+        waitForElementToBeVisible(createRemittanceRecovery , driver);
+        createRemittanceRecovery.click();
         switchToNewlyOpenedWindow(driver);
     }
 }

@@ -140,9 +140,18 @@ public class DashboardSteps extends BaseSteps implements En {
         And("^he choose to search trade license$", () -> {
            pageStore.get(DashboardPage.class).searchTradeLicense();
         });
+
         When("^he choose to create legency trade license$", () -> {
             // Write code here that turns the phrase above into concrete actions
             pageStore.get(DashboardPage.class).searchLegencyTradeLicense();
+        });
+
+        And("^user search for the modify detailed code$", () -> {
+            pageStore.get(DashboardPage.class).chooseToModifyDetailedCode();
+        });
+
+        And("^officer will search for the Create Remittance Recovery$", () -> {
+            pageStore.get(DashboardPage.class).createRemittanceRecovery();
         });
     }
 }

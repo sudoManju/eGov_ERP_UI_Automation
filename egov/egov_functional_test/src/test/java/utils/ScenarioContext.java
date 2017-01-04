@@ -1,7 +1,5 @@
 package utils;
 
-import pages.ptis.EditPropertyAcknowledgementPage;
-
 public class ScenarioContext {
 
     private String applicationNumber;
@@ -21,6 +19,16 @@ public class ScenarioContext {
     private String actualMessage;
 
     private String estimateNumber;
+
+    private int isRemittance;
+
+    public int getIsRemittance() {
+        return isRemittance;
+    }
+
+    public void setIsRemittance(int isRemittance) {
+        this.isRemittance = isRemittance;
+    }
 
     public String getWorkNumber() {
         return workNumber;

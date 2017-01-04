@@ -44,11 +44,17 @@ public class FinancialPage extends BasePage {
     @FindBy(id = "billDetailslist[1].glcodeDetail")
     private WebElement accountCode2;
 
+    @FindBy(id = "billDetailslist[2].glcodeDetail")
+    private WebElement accountCode3;
+
     @FindBy(id = "billDetailslist[0].debitAmountDetail")
     private WebElement debitAmount1;
 
     @FindBy(id = "billDetailslist[1].creditAmountDetail")
     private WebElement creditAmount2;
+
+    @FindBy(id = "billDetailslist[2].creditAmountDetail")
+    private WebElement creditAmount3;
 
     @FindBy(id = "totalcramount")
     private WebElement totalCreditAmount;
@@ -101,11 +107,17 @@ public class FinancialPage extends BasePage {
     @FindBy(id = "official_inbox")
     private WebElement officialInboxTable;
 
+    @FindBy(className = "yui-dt-data")
+    private WebElement remittanceBillTable;
+
     @FindBy(id = "Approve")
     private WebElement approveButton;
 
     @FindBy(id = "searchBtn")
     private WebElement billSearch;
+
+    @FindBy(id = "search")
+    private WebElement remittanceBillSearch;
 
     @FindBy(className = "actionMessage")
     private WebElement forwardMessage;
@@ -151,6 +163,9 @@ public class FinancialPage extends BasePage {
 
     @FindBy(id = "bankaccount")
     private WebElement bankAccount;
+
+    @FindBy(id = "bank")
+    private WebElement bankBranch1;
 
     @FindBy(id = "fund")
     private WebElement expenseFund;
@@ -199,6 +214,24 @@ public class FinancialPage extends BasePage {
 
     @FindBy(css = ".panel-title.text-center")
     private WebElement expenseCreatedMessage;
+
+    @FindBy(id = "glCode")
+    private WebElement glCode;
+
+    @FindBy(id = "Search")
+    private WebElement modifyAndSearch;
+
+    @FindBy(id = "chartOfAccounts_accountDetailTypeList")
+    private WebElement accountDetailType;
+
+    @FindBy(id = "recoveryId")
+    private WebElement recoveryId;
+
+    @FindBy(id = "genPayment")
+    private WebElement remittancePayment;
+
+    @FindBy(css = "input[type='text'][id='vouchernumber']")
+    private WebElement BPVNumber;
 
     private String juneDate = "00";
 
@@ -385,6 +418,12 @@ public class FinancialPage extends BasePage {
         new Select(bankAccount).selectByVisibleText(financialBankDetails.getAccountNumber());
     }
 
+    public void billRemittancePayment(FinancialBankDetails financialBankDetails){
+        new Select(bankBranch1).selectByVisibleText(financialBankDetails.getBankName());
+        waitForElementToBeClickable(bankAccount , webDriver);
+        new Select(bankAccount).selectByVisibleText(financialBankDetails.getAccountNumber());
+    }
+
     public void createNewExpenseBill(FinancialExpenseBillDetails financialExpenseBillDetails){
         new Select(expenseFund).selectByVisibleText(financialExpenseBillDetails.getExpenseFund());
         new Select(expenseDepartment).selectByVisibleText(financialExpenseBillDetails.getExpenseDeparment());
@@ -459,11 +498,133 @@ public class FinancialPage extends BasePage {
         String billNumber = element.getText();
         waitForElementToBeClickable(closeButton , webDriver);
         closeButton.click();
-//        System.out.println("===================="+billNumber);
         await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
         for (String winHandle : webDriver.getWindowHandles()) {
             webDriver.switchTo().window(winHandle);
         }
         return billNumber;
+    }
+
+    public void enterAccountCodeToModify(String code){
+        waitForElementToBeClickable(glCode , webDriver);
+        enterText(glCode, code);
+
+        waitForElementToBeClickable(modifyAndSearch , webDriver);
+        modifyAndSearch.click();
+
+        switchToNewlyOpenedWindow(webDriver);
+    }
+
+    public void toModifyTheGLCodeAccount(){
+        List<WebElement> element = accountDetailType.findElements(By.tagName("option"));
+        if(!element.get(5).isSelected()){
+            element.get(5).click();
+        }
+
+        webDriver.findElement(By.cssSelector(".buttonsubmit")).click();
+        switchToNewlyOpenedWindow(webDriver);
+        webDriver.findElement(By.cssSelector("input[type='button'][value='Close']")).click();
+
+        await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
+        for (String winHandle : webDriver.getWindowHandles()) {
+            webDriver.switchTo().window(winHandle);
+        }
+    }
+
+    public void enterRemittanceVoucherDetails(FinancialJournalVoucherDetails financialJournalVoucherDetails){
+
+        if(financialJournalVoucherDetails.getDate().split("\\/")[1].equals("06")){
+            juneDate = "06";
+        }
+
+        voucherDate.clear();
+        voucherDate.sendKeys(financialJournalVoucherDetails.getDate() , Keys.TAB);
+        new Select(voucherSubType).selectByVisibleText(financialJournalVoucherDetails.getVoucherType());
+        if(!financialJournalVoucherDetails.getVoucherType().equals("General")){
+            waitForElementToBeClickable(voucherPartyName , webDriver);
+            voucherPartyName.sendKeys("voucher");
+        }
+
+        new Select(fundId).selectByVisibleText("Municipal Fund");
+        new Select(voucherDepartment).selectByVisibleText(financialJournalVoucherDetails.getDepartment());
+        new Select(voucherFunction).selectByVisibleText(financialJournalVoucherDetails.getFunction());
+
+        accountCode1.sendKeys(financialJournalVoucherDetails.getAccountCode1());
+        WebElement dropdown = webDriver.findElement(By.className("yui-ac-highlight"));
+        dropdown.click();
+        enterText(debitAmount1 , "1000");
+
+        accountCode2.sendKeys(financialJournalVoucherDetails.getAccountCode2());
+        WebElement dropdown1 = webDriver.findElement(By.className("yui-ac-highlight"));
+        dropdown1.click();
+        enterText(creditAmount2 , "800");
+
+        if(!financialJournalVoucherDetails.getAccountCode3().isEmpty()){
+            addList.get(1).click();
+            accountCode3.sendKeys(financialJournalVoucherDetails.getAccountCode3());
+            WebElement dropdown2 = webDriver.findElement(By.className("yui-ac-highlight"));
+            dropdown2.click();
+            enterText(creditAmount3 , "200");
+        }
+
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        WebElement element = webDriver.findElement(By.id("subLedgerlist[0].glcode.id"));
+        waitForElementToBePresent(By.className("yui-dt-dropdown") , webDriver);
+        List<WebElement> webElementList = element.findElements(By.tagName("option"));
+
+        new Select(ledgerAccount1).selectByVisibleText(webElementList.get(1).getText());
+        new Select(ledgerType1).selectByVisibleText("contractor");
+        ledgerCode1.sendKeys("KMC001");
+
+        WebElement kmcCLass = webDriver.findElement(By.className("yui-ac-highlight"));
+        waitForElementToBeClickable(kmcCLass , webDriver);
+        kmcCLass.click();
+        ledgerAmount1.sendKeys("1000");
+
+        if(webElementList.size()>2){
+            addList.get(3).click();
+
+            ledgerAccount2.click();
+            new Select(ledgerAccount2).selectByVisibleText(webElementList.get(2).getText());
+            new Select(ledgerType2).selectByVisibleText("Employee");
+            ledgerCode2.sendKeys("946800");
+
+            WebElement kmcClass1 = webDriver.findElement(By.className("yui-ac-highlight"));
+            waitForElementToBeClickable(kmcClass1 , webDriver);
+            kmcClass1.click();
+            ledgerAmount2.sendKeys("200");
+        }
+    }
+
+    public void searchRemittanceBill(){
+        new Select(recoveryId).selectByVisibleText("3502002-GPF –Employees on Deputation");
+        new Select(fundId).selectByVisibleText("Municipal Fund");
+        remittanceBillSearch.click();
+    }
+
+    public void selectRemittanceBIll(String remittanceBill){
+        int rowNumber = Integer.parseInt(getRemmittanceBill(remittanceBill).getText());
+        WebElement element = webDriver.findElement(By.id("listRemitBean["+(rowNumber-1)+"].chkremit"));
+        element.click();
+        remittancePayment.click();
+        switchToNewlyOpenedWindow(webDriver);
+    }
+
+    private WebElement getRemmittanceBill(String applicationNumber) {
+
+        await().atMost(10, SECONDS).until(() -> remittanceBillTable.findElements(By.tagName("tr")).size() > 1);
+        List<WebElement> applicationRows = remittanceBillTable.findElements(By.tagName("tr"));
+        System.out.println("total number of rows -- " + applicationRows.size());
+        for (WebElement applicationRow : applicationRows) {
+            if (applicationRow.findElements(By.tagName("td")).get(1).
+                            findElement(By.className("yui-dt-liner")).findElement(By.tagName("label")).getText().contains(applicationNumber))
+                return applicationRow.findElements(By.tagName("td")).get(0).findElement(By.className("yui-dt-liner"));
+        }
+        throw new RuntimeException("No application row found for -- " + applicationNumber);
     }
 }

@@ -48,7 +48,10 @@ public class FinancialSteps extends BaseSteps implements En {
         And("^officer will closes the acknowledgement page$", () -> {
             String actualMessage = pageStore.get(FinancialPage.class).closePage();
             scenarioContext.setActualMessage(actualMessage);
-
+            if(scenarioContext.getIsRemittance() == 1) {
+                scenarioContext.setVoucherNumber(actualMessage.split("\\n")[0].split("\\ ")[7] + "-CASH");
+                scenarioContext.setIsRemittance(0);
+            }
         });
 
         And("^officer click on approval of the voucher$", () -> {
@@ -72,6 +75,14 @@ public class FinancialSteps extends BaseSteps implements En {
             String bankDetails = "SBI";
             FinancialBankDetails financialBankDetails = new ExcelReader(financialTestDataFileName).getFinancialBankDetails(bankDetails);
             pageStore.get(FinancialPage.class).billPayment(financialBankDetails);
+        });
+
+        And("^officer will enter the remittance bank details$", () -> {
+            String bankDetails = "SBI1";
+            FinancialBankDetails financialBankDetails = new ExcelReader(financialTestDataFileName).getFinancialBankDetails(bankDetails);
+            pageStore.get(FinancialPage.class).billRemittancePayment(financialBankDetails);
+            scenarioContext.setIsRemittance(1);
+
         });
 
         And("^officer will the expense bill details as (\\w+)$", (String expenseBill) -> {
@@ -99,6 +110,24 @@ public class FinancialSteps extends BaseSteps implements En {
             String voucherNumber = pageStore.get(FinancialPage.class).getVoucherNumber();
             scenarioContext.setVoucherNumber(voucherNumber.split("\\ ")[1]);
             scenarioContext.setActualMessage(voucherNumber.split("\\:")[1]);
+        });
+
+        And("^user will enter the account code to modify as (\\w+)$", (String glCode) -> {
+            pageStore.get(FinancialPage.class).enterAccountCodeToModify(glCode);
+        });
+
+        And("^user will map the account code to particular$", () -> {
+            pageStore.get(FinancialPage.class).toModifyTheGLCodeAccount();
+        });
+
+        And("^officer will enter the remittance details as (\\w+)$", (String voucher) -> {
+            FinancialJournalVoucherDetails financialJournalVoucherDetails = new ExcelReader(financialTestDataFileName).getJournalVoucherDetails(voucher);
+            pageStore.get(FinancialPage.class).enterRemittanceVoucherDetails(financialJournalVoucherDetails);
+        });
+
+        And("^officer will search for remittance bills$", () -> {
+            pageStore.get(FinancialPage.class).searchRemittanceBill();
+            pageStore.get(FinancialPage.class).selectRemittanceBIll(scenarioContext.getVoucherNumber());
         });
     }
 }

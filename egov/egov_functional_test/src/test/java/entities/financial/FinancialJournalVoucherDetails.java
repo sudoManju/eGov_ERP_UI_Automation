@@ -8,6 +8,7 @@ public class FinancialJournalVoucherDetails {
     private String voucherType;
     private String accountCode1;
     private String accountCode2;
+    private String accountCode3;
     private String department;
     private String function;
     private String date;
@@ -58,5 +59,13 @@ public class FinancialJournalVoucherDetails {
 
     public void setFunction(String function) {
         this.function = function;
+    }
+
+    public String getAccountCode3() {
+        return accountCode3;
+    }
+
+    public void setAccountCode3(String accountCode3) {
+        this.accountCode3 = accountCode3;
     }
 }
