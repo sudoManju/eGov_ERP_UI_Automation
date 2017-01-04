@@ -34,7 +34,7 @@ Feature: Collection
 
 
 
-  @Sanity
+  @Sanity3
   Scenario Outline: System should be able to Create Challan
 
    Given juniorAssistant logs in
@@ -60,7 +60,6 @@ Feature: Collection
   |cash         |
   |cheque       |
   |dd           |
-
 
   @WIP
     Scenario: System Should be able to collect water Charges

@@ -253,6 +253,12 @@ public class CollectionsPage extends BasePage {
 
                 bankNameInput.sendKeys(Keys.TAB);
 
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
                 waitForElementToBeClickable(payAmountBoxForCheque,driver);
                 payAmountBoxForCheque.sendKeys(actualAmount);
 

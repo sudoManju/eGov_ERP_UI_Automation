@@ -74,8 +74,8 @@ public class ContractorPage extends BasePage
     @FindBy(xpath = ".//*[@id='msgsDiv']/ul/li/span")
     private WebElement creationMsg;
 
-    String min = String.valueOf(Calendar.getInstance().get(Calendar.MINUTE));
-    String hour = String.valueOf(Calendar.getInstance().get(Calendar.HOUR));
+    String min = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
+    String hour = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
 
     public ContractorPage(WebDriver driver) {
         this.driver = driver;
