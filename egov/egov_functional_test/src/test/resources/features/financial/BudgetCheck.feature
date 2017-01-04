@@ -1,6 +1,6 @@
 Feature: To create a new Journal voucher according to the budget check
 
-  @Financial
+  @Sanity
   Scenario Outline: To create the financial journal voucher with type expense and budget check
 
     Given accountsOfficer logs in
