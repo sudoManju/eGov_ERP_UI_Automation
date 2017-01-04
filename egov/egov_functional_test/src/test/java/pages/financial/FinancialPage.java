@@ -257,7 +257,9 @@ public class FinancialPage extends BasePage {
         new Select(voucherDepartment).selectByVisibleText(financialJournalVoucherDetails.getDepartment());
         new Select(voucherFunction).selectByVisibleText(financialJournalVoucherDetails.getFunction());
 
+        waitForElementToBeClickable(accountCode1, webDriver);
         accountCode1.sendKeys(financialJournalVoucherDetails.getAccountCode1());
+
         WebElement dropdown = webDriver.findElement(By.className("yui-ac-highlight"));
         dropdown.click();
         enterText(debitAmount1 , "100");
