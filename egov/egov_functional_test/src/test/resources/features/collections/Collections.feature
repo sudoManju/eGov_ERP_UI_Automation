@@ -34,7 +34,7 @@ Feature: Collection
 
 
 
-  @Sanity3
+  @Sanity
   Scenario Outline: System should be able to Create Challan
 
    Given juniorAssistant logs in

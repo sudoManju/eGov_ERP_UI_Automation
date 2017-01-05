@@ -2,6 +2,7 @@ package steps.works;
 
 import cucumber.api.PendingException;
 import cucumber.api.java8.En;
+import pages.DashboardPage;
 import pages.works.MilestoneTrackPage;
 import steps.BaseSteps;
 
@@ -20,6 +21,26 @@ public class MilestoneTrackSteps extends BaseSteps implements En {
             scenarioContext.setLoaNumber(number);
 
             pageStore.get(MilestoneTrackPage.class).enterMilestoneDetails();
+        });
+        And("^he save the file and close$", () -> {
+            pageStore.get(MilestoneTrackPage.class).save();
+
+            String actualMsg = pageStore.get(MilestoneTrackPage.class).successMessage();
+            scenarioContext.setActualMessage(actualMsg);
+
+            pageStore.get(MilestoneTrackPage.class).close();
+        });
+        And("^he chooses to track milestone$", () -> {
+           pageStore.get(DashboardPage.class).chooseToTrackMileStone();
+        });
+        And("^he search application using loa number$", () -> {
+            pageStore.get(MilestoneTrackPage.class).searchUsingLoa(scenarioContext.getLoaNumber());
+        });
+        And("^he select the application$", () -> {
+            pageStore.get(MilestoneTrackPage.class).selectApplication();
+        });
+        And("^he enters the milestone details$", () -> {
+            pageStore.get(MilestoneTrackPage.class).enterTrackMilestoneDetails();
         });
     }
 }

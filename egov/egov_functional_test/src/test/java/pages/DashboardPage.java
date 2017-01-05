@@ -156,6 +156,9 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Create Remittance Recovery")
     private WebElement createRemittanceRecovery;
 
+    @FindBy(linkText = "Track Milestone")
+    private WebElement trackMilestoneLink;
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -564,6 +567,15 @@ public class DashboardPage extends BasePage {
         searchFor("Create Remittance Recovery");
         waitForElementToBeVisible(createRemittanceRecovery , driver);
         createRemittanceRecovery.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseToTrackMileStone() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchTreeTextBox.clear();
+        searchFor("Track Milestone");
+        waitForElementToBeVisible(trackMilestoneLink,driver);
+        trackMilestoneLink.click();
         switchToNewlyOpenedWindow(driver);
     }
 }

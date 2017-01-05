@@ -1,14 +1,25 @@
 package pages.works;
 
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.ISODateTimeFormat;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasePage;
 
+import javax.print.DocFlavor;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import static com.jayway.awaitility.Awaitility.await;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * Created by karthik on 26/12/16.
@@ -40,6 +51,21 @@ public class MilestoneTrackPage extends BasePage {
 
     @FindBy(xpath = ".//*[@id='resultTable']/tbody/tr[1]/td[1]/input")
     private WebElement radioButton;
+
+    @FindBy(xpath = ".//*[@id='save']")
+    private WebElement saveButton;
+
+    @FindBy(id = "successMessage")
+    private WebElement creationMsg;
+
+    @FindBy(css = "input[value='Close'][type='submit']")
+    private WebElement closeButton;
+
+    @FindBy(css = "input[id='workOrderNumber'][type='text']")
+    private WebElement loaNumberTextBox;
+
+    @FindBy(id = "btntrackmilestone")
+    private WebElement trackMilestoneButton;
 
     public MilestoneTrackPage(WebDriver driver) {this.driver = driver;}
 
@@ -73,7 +99,16 @@ public class MilestoneTrackPage extends BasePage {
     public void enterMilestoneDetails() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String date = sdf.format(new Date());
-        System.out.println(date);
+        Date dt = new Date();
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(dt);
+        c.add(Calendar.DATE, 30);
+        String date1 = sdf.format(c.getTime());
+        c.add(Calendar.DATE, 1);
+        String date2 = sdf.format(c.getTime());
+        c.add(Calendar.DATE, 30);
+        String date3 = sdf.format(c.getTime());
 
         waitForElementToBeVisible(milestoneStageTbl,driver);
         WebElement requiredRow = milestoneStageTbl.findElements(By.tagName("tr")).get(0);
@@ -86,11 +121,121 @@ public class MilestoneTrackPage extends BasePage {
 
         WebElement stageScheduleStartDate = requiredRow.findElements(By.tagName("td")).get(3).findElement(By.name("activities[0].scheduleStartDate"));
         stageScheduleStartDate.sendKeys(date);
-        stageScheduleStartDate.sendKeys(Keys.TAB);
+        stageScheduleStartDate.clear();
+        stageScheduleStartDate.sendKeys(date);
 
-        WebElement stageScheduleEndDate = requiredRow.findElements(By.tagName("td")).get(4).findElement(By.name("activities0.scheduleEndDate"));
-        stageScheduleEndDate.sendKeys(date);
+        WebElement stageScheduleEndDate = requiredRow.findElements(By.tagName("td")).get(4).findElement(By.name("activities[0].scheduleEndDate"));
+        stageScheduleEndDate.sendKeys(date1);
+        stageScheduleEndDate.clear();
+        stageScheduleEndDate.sendKeys(date1);
+
+        waitForElementToBeClickable(addRowButton,driver);
+        addRowButton.click();
+
+        WebElement requiredRow1 = milestoneStageTbl.findElements(By.tagName("tr")).get(1);
+
+        WebElement stageOrderNo1 = driver.findElement(By.xpath("(//*[@id='stageOrderNo'])[2]"));
+        stageOrderNo1.sendKeys("2");
+
+        WebElement stageDescription1 = requiredRow1.findElements(By.tagName("td")).get(1).findElement(By.name("activities[1].description"));
+        stageDescription1.sendKeys("Stage 2");
+
+        WebElement stagePercentage1 = requiredRow1.findElements(By.tagName("td")).get(2).findElement(By.name("activities[1].percentage"));
+        stagePercentage1.sendKeys("50");
+
+        WebElement stageScheduleStartDate1 = requiredRow1.findElements(By.tagName("td")).get(3).findElement(By.name("activities[1].scheduleStartDate"));
+        stageScheduleStartDate1.sendKeys(date2);
+        stageScheduleStartDate1.clear();
+        stageScheduleStartDate1.sendKeys(date2);
+
+        WebElement stageScheduleEndDate1 = requiredRow1.findElements(By.tagName("td")).get(4).findElement(By.name("activities[1].scheduleEndDate"));
+        stageScheduleEndDate1.sendKeys(date3);
+        stageScheduleEndDate1.clear();
+        stageScheduleEndDate1.sendKeys(date3);
 
     }
+
+    public void save() {
+        waitForElementToBeClickable(saveButton,driver);
+        saveButton.click();
+    }
+
+    public String successMessage(){
+        waitForElementToBeVisible(creationMsg,driver);
+        String msg = creationMsg.getText();
+        System.out.println("\n"+msg);
+        return msg;
+    }
+
+    public void close(){
+        waitForElementToBeClickable(closeButton,driver);
+        closeButton.click();
+
+        await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
+        for (String winHandle : driver.getWindowHandles()) {
+            driver.switchTo().window(winHandle);
+        }
+    }
+
+    public void searchUsingLoa(String number) {
+        waitForElementToBeVisible(loaNumberTextBox,driver);
+        loaNumberTextBox.sendKeys(number);
+
+        waitForElementToBeClickable(searchButton,driver);
+        searchButton.click();
+    }
+
+    public void selectApplication() {
+        waitForElementToBeClickable(radioButton,driver);
+        jsClick(radioButton,driver);
+
+        waitForElementToBeClickable(trackMilestoneButton,driver);
+        trackMilestoneButton.click();
+    }
+
+    public void enterTrackMilestoneDetails() {
+        WebElement element1 = driver.findElement(By.id("tblmilestone"));
+        WebElement status1 = element1.findElement(By.name("trackMilestone[0].activities[0].status"));
+        WebElement element2 = element1.findElement(By.className("scheduleEndDate_0"));
+
+        waitForElementToBeVisible(status1,driver);
+        new Select(status1).selectByVisibleText("COMPLETED");
+
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        WebElement completionDateBox1 = element1.findElement(By.name("trackMilestone[0].activities[0].completionDate"));
+        completionDateBox1.sendKeys(element2.getText(),Keys.TAB , Keys.ARROW_DOWN);
+        WebElement status2 = element1.findElement(By.name("trackMilestone[0].activities[1].status"));
+
+        waitForElementToBeVisible(status2,driver);
+        new Select(status2).selectByVisibleText("COMPLETED");
+
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date dt = new Date();
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(dt);
+        c.add(Calendar.DATE, 62);
+        String date1 = sdf.format(c.getTime());
+
+
+        WebElement completionDateBox2 = element1.findElement(By.name("trackMilestone[0].activities[1].completionDate"));
+        completionDateBox2.sendKeys(date1);
+        completionDateBox2.sendKeys(Keys.TAB);
+
+        WebElement reasonForDelayTextBox = element1.findElement(By.name("trackMilestone[0].activities[1].remarks"));
+        reasonForDelayTextBox.sendKeys("testing");
+    }
+
 
 }
