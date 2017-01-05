@@ -313,10 +313,7 @@ public class WaterChargeManagementPage extends BasePage {
         generateEstimationNoticeButton.click();
         switchToNewlyOpenedWindow(webDriver);
         webDriver.close();
-        await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
-        for (String winHandle : webDriver.getWindowHandles()) {
-            webDriver.switchTo().window(winHandle);
-        }
+        switchToPreviouslyOpenedWindow(webDriver);
     }
 
     public void searchWaterConnectionApplications(String connectionType){
@@ -365,10 +362,7 @@ public class WaterChargeManagementPage extends BasePage {
         waitForElementToBeClickable(closeSearchApplication , webDriver);
         closeSearchApplication.click();
 
-        await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
-        for (String winHandle : webDriver.getWindowHandles()) {
-            webDriver.switchTo().window(winHandle);
-        }
+        switchToPreviouslyOpenedWindow(webDriver);
     }
 
     public void enterDetailsOfClosureConnection(String closureType){
@@ -411,10 +405,7 @@ public class WaterChargeManagementPage extends BasePage {
     private void closePage(){
         closeSearchApplication.click();
 
-        await().atMost(10, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
-        for (String winHandle : webDriver.getWindowHandles()) {
-            webDriver.switchTo().window(winHandle);
-        }
+        switchToPreviouslyOpenedWindow(webDriver);
     }
 
     public void commissionerApprove(){
@@ -443,10 +434,7 @@ public class WaterChargeManagementPage extends BasePage {
 
         switchToNewlyOpenedWindow(webDriver);
         webDriver.close();
-        await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
-        for (String winHandle : webDriver.getWindowHandles()) {
-            webDriver.switchTo().window(winHandle);
-        }
+        switchToPreviouslyOpenedWindow(webDriver);
     }
 
     public void executeTap(){
@@ -475,9 +463,6 @@ public class WaterChargeManagementPage extends BasePage {
         switchToNewlyOpenedWindow(webDriver);
         webDriver.close();
 
-        await().atMost(10, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
-        for (String winHandle : webDriver.getWindowHandles()) {
-            webDriver.switchTo().window(winHandle);
-        }
+        switchToPreviouslyOpenedWindow(webDriver);
     }
 }

@@ -333,10 +333,9 @@ public class FinancialPage extends BasePage {
         element.click();
 
         closeButton.click();
-        await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
-        for (String winHandle : webDriver.getWindowHandles()) {
-            webDriver.switchTo().window(winHandle);
-        }
+
+        switchToPreviouslyOpenedWindow(webDriver);
+
         return number;
     }
 
@@ -375,10 +374,7 @@ public class FinancialPage extends BasePage {
         List<WebElement> closeElements = webDriver.findElements(By.className("button"));
         closeElements.get(1).click();
 
-        await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
-        for (String winHandle : webDriver.getWindowHandles()) {
-            webDriver.switchTo().window(winHandle);
-        }
+        switchToPreviouslyOpenedWindow(webDriver);
         return forwardMessageText;
     }
 
@@ -475,6 +471,9 @@ public class FinancialPage extends BasePage {
             }
         }
 
+        WebElement element = webDriver.findElement(By.id("approvalDesignation"));
+        new Select(element).selectByVisibleText(approvalDetails.getApproverDesignation());
+
         waitForElementToBeVisible(expenseApprovalPosition , webDriver);
         new Select(expenseApprovalPosition).selectByVisibleText(approvalDetails.getApprover());
 
@@ -486,10 +485,7 @@ public class FinancialPage extends BasePage {
         String message = expenseCreatedMessage.getText();
 
         closeButton.click();
-        await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
-        for (String winHandle : webDriver.getWindowHandles()) {
-            webDriver.switchTo().window(winHandle);
-        }
+        switchToPreviouslyOpenedWindow(webDriver);
         return message;
     }
 
@@ -500,10 +496,9 @@ public class FinancialPage extends BasePage {
         String billNumber = element.getText();
         waitForElementToBeClickable(closeButton , webDriver);
         closeButton.click();
-        await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
-        for (String winHandle : webDriver.getWindowHandles()) {
-            webDriver.switchTo().window(winHandle);
-        }
+
+        switchToPreviouslyOpenedWindow(webDriver);
+
         return billNumber;
     }
 
@@ -527,10 +522,7 @@ public class FinancialPage extends BasePage {
         switchToNewlyOpenedWindow(webDriver);
         webDriver.findElement(By.cssSelector("input[type='button'][value='Close']")).click();
 
-        await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
-        for (String winHandle : webDriver.getWindowHandles()) {
-            webDriver.switchTo().window(winHandle);
-        }
+        switchToPreviouslyOpenedWindow(webDriver);
     }
 
     public void enterRemittanceVoucherDetails(FinancialJournalVoucherDetails financialJournalVoucherDetails){
@@ -610,14 +602,14 @@ public class FinancialPage extends BasePage {
     }
 
     public void selectRemittanceBIll(String remittanceBill){
-        int rowNumber = Integer.parseInt(getRemmittanceBill(remittanceBill).getText());
+        int rowNumber = Integer.parseInt(getRemittanceBill(remittanceBill).getText());
         WebElement element = webDriver.findElement(By.id("listRemitBean["+(rowNumber-1)+"].chkremit"));
         element.click();
         remittancePayment.click();
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    private WebElement getRemmittanceBill(String applicationNumber) {
+    private WebElement getRemittanceBill(String applicationNumber) {
 
         await().atMost(10, SECONDS).until(() -> remittanceBillTable.findElements(By.tagName("tr")).size() > 1);
         List<WebElement> applicationRows = remittanceBillTable.findElements(By.tagName("tr"));
