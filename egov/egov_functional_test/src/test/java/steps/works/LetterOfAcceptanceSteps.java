@@ -48,5 +48,11 @@ public class LetterOfAcceptanceSteps extends BaseSteps implements En
         And("^he select the required application$", () -> {
            pageStore.get(LetterOfAcceptancePage.class).searchForApplication();
         });
+        And("^he select the required spillover estimate from search results$", () -> {
+           pageStore.get(LetterOfAcceptancePage.class).searchForSpilloverEstimate();
+        });
+        And("^he enters the mandatory details for creating LOA$", () -> {
+            pageStore.get(LetterOfAcceptancePage.class).entersSpilloverLOADetails();
+        });
     }
 }
