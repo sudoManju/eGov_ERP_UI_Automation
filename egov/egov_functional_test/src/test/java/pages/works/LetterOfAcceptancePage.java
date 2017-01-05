@@ -179,10 +179,7 @@ public class LetterOfAcceptancePage extends BasePage
         waitForElementToBeVisible(closeLink,driver);
         closeLink.click();
 
-        await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
-        for (String winHandle : driver.getWindowHandles()) {
-            driver.switchTo().window(winHandle);
-        }
+        switchToPreviouslyOpenedWindow(driver);
 
     }
 
@@ -190,10 +187,7 @@ public class LetterOfAcceptancePage extends BasePage
         waitForElementToBeVisible(closeButton,driver);
         closeButton.click();
 
-        await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
-        for (String winHandle : driver.getWindowHandles()) {
-            driver.switchTo().window(winHandle);
-        }
+        switchToPreviouslyOpenedWindow(driver);
     }
 
     public void searchForLOAModify(String number) {

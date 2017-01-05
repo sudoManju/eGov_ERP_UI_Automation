@@ -401,10 +401,7 @@ public class SpillOverEstimatePage extends BasePage
         waitForElementToBeVisible(closeButton, webDriver);
         closeButton.click();
 
-        await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
-        for (String winHandle : webDriver.getWindowHandles()) {
-            webDriver.switchTo().window(winHandle);
-        }
+        switchToPreviouslyOpenedWindow(webDriver);
     }
 
     public void openApplication(String estimateNumber) {

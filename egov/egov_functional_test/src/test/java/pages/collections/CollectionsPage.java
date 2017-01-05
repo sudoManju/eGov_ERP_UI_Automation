@@ -328,9 +328,6 @@ public class CollectionsPage extends BasePage {
         waitForElementToBeClickable(closeButton,driver);
         closeButton.click();
 
-        await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
-        for (String winHandle : driver.getWindowHandles()) {
-            driver.switchTo().window(winHandle);
-        }
+        switchToPreviouslyOpenedWindow(driver);
     }
 }

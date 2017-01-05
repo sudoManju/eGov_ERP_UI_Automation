@@ -171,10 +171,7 @@ public class MilestoneTrackPage extends BasePage {
         waitForElementToBeClickable(closeButton,driver);
         closeButton.click();
 
-        await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
-        for (String winHandle : driver.getWindowHandles()) {
-            driver.switchTo().window(winHandle);
-        }
+        switchToPreviouslyOpenedWindow(driver);
     }
 
     public void searchUsingLoa(String number) {
