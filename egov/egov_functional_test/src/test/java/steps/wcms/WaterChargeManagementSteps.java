@@ -118,5 +118,16 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
         And("^user will click on the generate acknowledge ment$", () -> {
             pageStore.get(WaterChargeManagementPage.class).toGenerateAcknowledgement();
         });
+        And("^user will enter the details of the change of use water connection$", () -> {
+            String connectionDetails = "changeOfUse";
+            String approveDetails = "engineer";
+
+            ConnectionInfo connectionInfo = new ExcelReader(ptisTestDataFileName).getConnectionInfo(connectionDetails);
+            pageStore.get(WaterChargeManagementPage.class).changeOfUseWaterConnectionInfo(connectionInfo);
+
+            ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approveDetails);
+            pageStore.get(WaterChargeManagementPage.class).enterWaterApprovalDetails(approvalDetails);
+
+        });
     }
 }

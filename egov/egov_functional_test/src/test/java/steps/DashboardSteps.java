@@ -18,7 +18,7 @@ public class DashboardSteps extends BaseSteps implements En {
 
         And("^chooses to act upon the above application$", () -> {
             pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
-//            pageStore.get(DashboardPage.class).openApplication("16178-2016-FV");
+//            pageStore.get(DashboardPage.class).openApplication("00189-2017-DW");
         });
 
         And("^chooses to act upon the above assessment$", () -> {
@@ -152,6 +152,9 @@ public class DashboardSteps extends BaseSteps implements En {
 
         And("^officer will search for the Create Remittance Recovery$", () -> {
             pageStore.get(DashboardPage.class).createRemittanceRecovery();
+        });
+        And("^user search to apply for change of use for existing connection$", () -> {
+            pageStore.get(DashboardPage.class).chooseToChangeOfUse();
         });
     }
 }

@@ -1,15 +1,16 @@
-Feature: To create a new water connection
+Feature: To modify the usage of existing connection
 
   As a registered user of the system
-  I want to create a new water connection
+  I want to modify the existing water connection details
   So that the connection records are up to date.
 
   @WIP
-  Scenario Outline: applying for new water connection
+  Scenario Outline: To modify the usage of existing connection
 
     Given juniorAssistant logs in
-    And user chooses to apply for new water connection
-    And user will enter the details of the new water connection
+    And user search to apply for change of use for existing connection
+    And user will enter the consumer number as <consumer number>
+    And user will enter the details of the change of use water connection
     Then user will get the application number and closes the form
     And current user logs out
 
@@ -56,11 +57,7 @@ Feature: To create a new water connection
 
 
     Examples:
-      | connection details | inspection details |
-      | New_connection     | inspectionInfo     |
-
-
-
-
+      | connection details | inspection details | consumer number |
+      | Change_of_use      | inspectionInfo     | 1016043502      |
 
 

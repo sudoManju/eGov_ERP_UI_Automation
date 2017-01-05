@@ -8,7 +8,6 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -158,6 +157,9 @@ public class DashboardPage extends BasePage {
 
     @FindBy(linkText = "Track Milestone")
     private WebElement trackMilestoneLink;
+
+    @FindBy(linkText = "Apply for Change of Use")
+    private WebElement changeOfUse;
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -353,7 +355,7 @@ public class DashboardPage extends BasePage {
         waitForElementToBeVisible(driver.findElement(By.id("searchResultDiv")), driver);
         waitForElementToBeVisible(applicationSearchTable, driver);
 
-        await().atMost(10, SECONDS).until(() -> applicationSearchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
+//        await().atMost(10, SECONDS).until(() -> applicationSearchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
         List<WebElement> applicationRows = applicationSearchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
 //        System.out.println("total number of rows -- " + applicationRows.size());
 
@@ -574,8 +576,15 @@ public class DashboardPage extends BasePage {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchTreeTextBox.clear();
         searchFor("Track Milestone");
-        waitForElementToBeVisible(trackMilestoneLink,driver);
+        waitForElementToBeVisible(trackMilestoneLink, driver);
         trackMilestoneLink.click();
+    }
+
+    public void chooseToChangeOfUse(){
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Apply for Change of Use");
+        waitForElementToBeVisible(changeOfUse , driver);
+        changeOfUse.click();
         switchToNewlyOpenedWindow(driver);
     }
 }

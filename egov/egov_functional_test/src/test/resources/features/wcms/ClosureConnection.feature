@@ -1,7 +1,7 @@
 Feature: To close a water connection either Temporary or Permanent
 
   As a registered user of the system
-  I want to close a new water connection
+  I want to close a water connection
   So that the connection records are up to date.
 
   @WIP

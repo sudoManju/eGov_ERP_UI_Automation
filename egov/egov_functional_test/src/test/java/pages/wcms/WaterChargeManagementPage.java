@@ -465,4 +465,14 @@ public class WaterChargeManagementPage extends BasePage {
 
         switchToPreviouslyOpenedWindow(webDriver);
     }
+
+    public void changeOfUseWaterConnectionInfo(ConnectionInfo connectionInfo){
+        new Select(propertyTypeSelectBox).selectByVisibleText(connectionInfo.getPropertyType());
+        new Select(hscPipeSizeSelectBox).selectByVisibleText(connectionInfo.getHscPipeSize());
+        enterText(sumpCapacityTextBox, connectionInfo.getSumpCapacity());
+        enterText(noOfPersonsTextBox, connectionInfo.getNoOfPersons());
+        new Select(usageTypeSelectBox).selectByVisibleText(connectionInfo.getUsageType());
+        enterText(reasonForNewConnection, connectionInfo.getReasonForAdditionalConnection());
+    }
+
 }
