@@ -5,7 +5,7 @@ Feature: Create/view of Milestone/Track Milestone
 
  #create/track milestone
 
-  @Sanity
+  @WIP
   Scenario Outline: Create/view of Milestone/Track Milestone
 
     Given assis_Engineer logs in
