@@ -2,10 +2,12 @@ package steps.works;
 
 import cucumber.api.PendingException;
 import cucumber.api.java8.En;
+import entities.works.ApproverDetails;
 import pages.DashboardPage;
 import pages.works.MilestoneTrackPage;
 import pages.works.SpillOverEstimatePage;
 import steps.BaseSteps;
+import utils.ExcelReader;
 
 /**
  * Created by karthik on 26/12/16.
@@ -53,18 +55,7 @@ public class MilestoneTrackSteps extends BaseSteps implements En {
 
            pageStore.get(MilestoneTrackPage.class).createContractorBill();
         });
-        And("^he enter details for contractor bill$", () -> {
-            pageStore.get(MilestoneTrackPage.class).enterContractorBillDetails();
-        });
-        And("^he forwards it$", () -> {
-            String billNumber = pageStore.get(MilestoneTrackPage.class).forwardToDEEContractorBill();
-            scenarioContext.setContractorBillNumber(billNumber);
 
-           String actualMessage =  pageStore.get(MilestoneTrackPage.class).successMessage1();
-           scenarioContext.setActualMessage(actualMessage);
-
-            pageStore.get(MilestoneTrackPage.class).close();
-        });
         And("^he chooses to act upon on contractorBillNumber$", () -> {
             pageStore.get(DashboardPage.class).openApplication(scenarioContext.getContractorBillNumber());
         });
@@ -75,6 +66,37 @@ public class MilestoneTrackSteps extends BaseSteps implements En {
            scenarioContext.setActualMessage(actualMsg);
 
             pageStore.get(MilestoneTrackPage.class).close();
+        });
+        And("^he enters contractor details for part bill (\\w+)$", (String approverDetailsDataId) -> {
+
+            pageStore.get(MilestoneTrackPage.class).enterContractorBillDetails("part");
+
+            ApproverDetails approverDetails = new ExcelReader(lineEstimateTestDataFileName).getApprovalDetailsForEstimate(approverDetailsDataId);
+            pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
+
+            String billNumber = pageStore.get(MilestoneTrackPage.class).forwardToDEEContractorBill();
+            scenarioContext.setContractorBillNumber(billNumber);
+
+            String actualMessage =  pageStore.get(MilestoneTrackPage.class).successMessage1();
+            scenarioContext.setActualMessage(actualMessage);
+
+            pageStore.get(MilestoneTrackPage.class).close();
+
+        });
+        And("^he enters contractor details for full bill (\\w+)$", (String approverDetailsDataId) -> {
+            pageStore.get(MilestoneTrackPage.class).enterContractorBillDetails("full");
+
+            ApproverDetails approverDetails = new ExcelReader(lineEstimateTestDataFileName).getApprovalDetailsForEstimate(approverDetailsDataId);
+            pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
+
+            String billNumber = pageStore.get(MilestoneTrackPage.class).forwardToDEEContractorBill();
+            scenarioContext.setContractorBillNumber(billNumber);
+
+            String actualMessage =  pageStore.get(MilestoneTrackPage.class).successMessage1();
+            scenarioContext.setActualMessage(actualMessage);
+
+            pageStore.get(MilestoneTrackPage.class).close();
+
         });
     }
 }

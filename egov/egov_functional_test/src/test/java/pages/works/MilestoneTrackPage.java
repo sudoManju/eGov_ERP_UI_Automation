@@ -291,7 +291,7 @@ public class MilestoneTrackPage extends BasePage {
         createContractorBillButton.click();
     }
 
-    public void enterContractorBillDetails() {
+    public void enterContractorBillDetails(String billType) {
         String num1 = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
         String num = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
         String transactionRefNo = num1+num;
@@ -305,9 +305,20 @@ public class MilestoneTrackPage extends BasePage {
         c.add(Calendar.DATE,62);
         String date1 = sdf.format(c.getTime());
 
-        waitForElementToBeVisible(billTypeBox,driver);
-        new Select(billTypeBox).selectByVisibleText("Final Bill");
+       switch (billType){
+           case "part":
+               waitForElementToBeVisible(billTypeBox,driver);
+               new Select(billTypeBox).selectByVisibleText("Part Bill");
+               break;
 
+           case "full":
+               waitForElementToBeVisible(billTypeBox,driver);
+               new Select(billTypeBox).selectByVisibleText("Final Bill");
+               waitForElementToBeVisible(completionDateTextBox,driver);
+               completionDateTextBox.sendKeys(date1, Keys.TAB);
+               break;
+
+       }
         waitForElementToBeClickable(mbRefNoTextBox,driver);
         mbRefNoTextBox.sendKeys("MB"+transactionRefNo);
 
@@ -319,9 +330,6 @@ public class MilestoneTrackPage extends BasePage {
 
         waitForElementToBeClickable(mbDateTextBox,driver);
         mbDateTextBox.sendKeys(date, Keys.TAB);
-
-        waitForElementToBeClickable(completionDateTextBox,driver);
-        completionDateTextBox.sendKeys(date1, Keys.TAB);
 
         waitForElementToBeClickable(debitAmountTextBox,driver);
         debitAmountTextBox.sendKeys("1000");
