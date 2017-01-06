@@ -28,7 +28,6 @@ public class StartingSteps extends BaseSteps {
             scenario.embed(screenshot, "image/png");
         }
 
-
         pageStore.pages.clear();
         pageStore.destroy();
 

@@ -24,6 +24,16 @@ public class ScenarioContext {
 
     private int isRemittance;
 
+    private String contractorBillNumber;
+
+    public String getContractorBillNumber() {
+        return contractorBillNumber;
+    }
+
+    public void setContractorBillNumber(String contractorBillNumber) {
+        this.contractorBillNumber = contractorBillNumber;
+    }
+
     public int getIsRemittance() {
         return isRemittance;
     }

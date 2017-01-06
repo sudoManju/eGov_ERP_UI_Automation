@@ -58,6 +58,9 @@ public class MilestoneTrackPage extends BasePage {
     @FindBy(id = "successMessage")
     private WebElement creationMsg;
 
+    @FindBy(xpath = ".//*[@id='page-container']/div/div[1]/div[1]")
+    private WebElement creationMsg1;
+
     @FindBy(css = "input[value='Close'][type='submit']")
     private WebElement closeButton;
 
@@ -67,9 +70,54 @@ public class MilestoneTrackPage extends BasePage {
     @FindBy(id = "btntrackmilestone")
     private WebElement trackMilestoneButton;
 
+    @FindBy(css = "input[id = 'adminSanctionFromDate'][type = 'text']")
+    private WebElement adminSanctionDateTextBox;
+
+    @FindBy(id = "btncreateloa")
+    private WebElement createContractorBillButton;
+
+    @FindBy(id = "billtype")
+    private WebElement billTypeBox;
+
+    @FindBy(id = "mbRefNo")
+    private WebElement mbRefNoTextBox;
+
+    @FindBy(id = "fromPageNo")
+    private WebElement fromPageNoTextBox;
+
+    @FindBy(id = "toPageNo")
+    private WebElement toPageNoTextBox;
+
+    @FindBy(css = "input[id='mbDate'][type='text']")
+    private WebElement mbDateTextBox;
+
+    @FindBy(css = "input[id='workCompletionDate'][type='text']")
+    private WebElement completionDateTextBox;
+
+    @FindBy(css = "input[id='debitamount'][type='text']")
+    private WebElement debitAmountTextBox;
+
+    @FindBy(css = "input[id='Forward'][type='submit']")
+    private WebElement forwardButton;
+
+    @FindBy(id = "official_inbox")
+    private WebElement workListTable;
+
+    @FindBy(id = "approvalComent")
+    private WebElement approvalCommentBox;
+
+    @FindBy(css = "input[value='Approve'][type='submit']")
+    private WebElement approveButton;
+
     public MilestoneTrackPage(WebDriver driver) {this.driver = driver;}
 
     public void search() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String date = sdf.format(new Date());
+
+        waitForElementToBeClickable(adminSanctionDateTextBox,driver);
+        adminSanctionDateTextBox.sendKeys(date, Keys.TAB);
+
         waitForElementToBeVisible(searchButton,driver);
         searchButton.click();
     }
@@ -85,6 +133,9 @@ public class MilestoneTrackPage extends BasePage {
         waitForElementToBeVisible(radioButton,driver);
         jsClick(radioButton,driver);
 
+    }
+
+    public void createMilestone(){
         waitForElementToBeVisible(createMilestoneButton,driver);
         createMilestoneButton.click();
     }
@@ -235,4 +286,75 @@ public class MilestoneTrackPage extends BasePage {
     }
 
 
+    public void createContractorBill() {
+        waitForElementToBeClickable(createContractorBillButton,driver);
+        createContractorBillButton.click();
+    }
+
+    public void enterContractorBillDetails() {
+        String num1 = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
+        String num = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
+        String transactionRefNo = num1+num;
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String date = sdf.format(new Date());
+        Date dt = new Date();
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(dt);
+        c.add(Calendar.DATE,62);
+        String date1 = sdf.format(c.getTime());
+
+        waitForElementToBeVisible(billTypeBox,driver);
+        new Select(billTypeBox).selectByVisibleText("Final Bill");
+
+        waitForElementToBeClickable(mbRefNoTextBox,driver);
+        mbRefNoTextBox.sendKeys("MB"+transactionRefNo);
+
+        waitForElementToBeClickable(fromPageNoTextBox,driver);
+        fromPageNoTextBox.sendKeys("1");
+
+        waitForElementToBeClickable(toPageNoTextBox,driver);
+        toPageNoTextBox.sendKeys("10");
+
+        waitForElementToBeClickable(mbDateTextBox,driver);
+        mbDateTextBox.sendKeys(date, Keys.TAB);
+
+        waitForElementToBeClickable(completionDateTextBox,driver);
+        completionDateTextBox.sendKeys(date1, Keys.TAB);
+
+        waitForElementToBeClickable(debitAmountTextBox,driver);
+        debitAmountTextBox.sendKeys("1000");
+
+    }
+
+    public String forwardToDEEContractorBill() {
+        waitForElementToBeClickable(forwardButton,driver);
+        forwardButton.click();
+
+        waitForElementToBeVisible(creationMsg1,driver);
+        String text = creationMsg1.getText();
+
+        String billNumber = text.split("\\ ")[2];
+        System.out.println("\n"+billNumber);
+
+        return billNumber;
+    }
+
+    public String successMessage1(){
+        waitForElementToBeVisible(creationMsg1,driver);
+        String msg = creationMsg1.getText();
+
+        System.out.println(msg);
+        return msg;
+    }
+
+
+    public void approve() {
+        waitForElementToBeVisible(approvalCommentBox,driver);
+        approvalCommentBox.sendKeys("Approved");
+
+        waitForElementToBeClickable(approveButton,driver);
+        approveButton.click();
+    }
 }

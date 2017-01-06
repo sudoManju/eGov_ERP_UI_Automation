@@ -24,8 +24,8 @@ Scenario Outline: Create Spillover Line Estimate
 
 
 
- @Sanity
-Scenario Outline: Create Regular Estimate
+  @Sanity
+  Scenario Outline: Create Regular Estimate
 
    Given assis_Engineer logs in
    When he chooses to create new estimate

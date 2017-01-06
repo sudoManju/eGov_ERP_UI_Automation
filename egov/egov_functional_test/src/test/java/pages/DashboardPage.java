@@ -155,7 +155,6 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Create Remittance Recovery")
     private WebElement createRemittanceRecovery;
 
-
     @FindBy(linkText = "Track Milestone")
     private WebElement trackMilestoneLink;
 
@@ -165,6 +164,8 @@ public class DashboardPage extends BasePage {
     @FindBy (linkText = "Create Preamble")
     private WebElement createPreamble;
 
+    @FindBy(linkText = "Create Contractor Bill")
+    private WebElement createContractorBillLink;
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -603,13 +604,24 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-    public void createDataEntryScreenForWater(){
+    public void createDataEntryScreenForWater() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("Data Entry Screen");
         List<WebElement> dataEntryList = driver.findElements(By.linkText("Data Entry Screen"));
         waitForElementToBeVisible(dataEntryList.get(1), driver);
         dataEntryList.get(1).click();
         switchToNewlyOpenedWindow(driver);
+
     }
+
+    public void createContractorBill() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchTreeTextBox.clear();
+        searchFor("create contractor bill");
+        waitForElementToBeVisible(createContractorBillLink,driver);
+        createContractorBillLink.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
 }
 

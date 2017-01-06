@@ -4,6 +4,7 @@ import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import pages.DashboardPage;
 import pages.works.MilestoneTrackPage;
+import pages.works.SpillOverEstimatePage;
 import steps.BaseSteps;
 
 /**
@@ -15,6 +16,8 @@ public class MilestoneTrackSteps extends BaseSteps implements En {
             pageStore.get(MilestoneTrackPage.class).search();
 
             pageStore.get(MilestoneTrackPage.class).select();
+
+            pageStore.get(MilestoneTrackPage.class).createMilestone();
         });
         And("^he stores the loa number and enters details$", () -> {
             String number = pageStore.get(MilestoneTrackPage.class).getLoaNumber();
@@ -41,6 +44,37 @@ public class MilestoneTrackSteps extends BaseSteps implements En {
         });
         And("^he enters the milestone details$", () -> {
             pageStore.get(MilestoneTrackPage.class).enterTrackMilestoneDetails();
+        });
+        And("^he chooses to create contractor bill$", () -> {
+            pageStore.get(DashboardPage.class).createContractorBill();
+        });
+        And("^he select the required file$", () -> {
+           pageStore.get(MilestoneTrackPage.class).select();
+
+           pageStore.get(MilestoneTrackPage.class).createContractorBill();
+        });
+        And("^he enter details for contractor bill$", () -> {
+            pageStore.get(MilestoneTrackPage.class).enterContractorBillDetails();
+        });
+        And("^he forwards it$", () -> {
+            String billNumber = pageStore.get(MilestoneTrackPage.class).forwardToDEEContractorBill();
+            scenarioContext.setContractorBillNumber(billNumber);
+
+           String actualMessage =  pageStore.get(MilestoneTrackPage.class).successMessage1();
+           scenarioContext.setActualMessage(actualMessage);
+
+            pageStore.get(MilestoneTrackPage.class).close();
+        });
+        And("^he chooses to act upon on contractorBillNumber$", () -> {
+            pageStore.get(DashboardPage.class).openApplication(scenarioContext.getContractorBillNumber());
+        });
+        And("^he approves the bill$", () -> {
+           pageStore.get(MilestoneTrackPage.class).approve();
+
+           String actualMsg = pageStore.get(MilestoneTrackPage.class).successMessage1();
+           scenarioContext.setActualMessage(actualMsg);
+
+            pageStore.get(MilestoneTrackPage.class).close();
         });
     }
 }
