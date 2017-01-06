@@ -24,7 +24,7 @@ Scenario Outline: Create Spillover Line Estimate
 
 
 
-  @karthik1
+  @Sanity
   Scenario Outline: Create Regular Estimate
 
    Given assis_Engineer logs in
