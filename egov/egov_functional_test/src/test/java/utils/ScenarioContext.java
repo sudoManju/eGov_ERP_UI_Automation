@@ -20,6 +20,8 @@ public class ScenarioContext {
 
     private String estimateNumber;
 
+    private String preambleNumber;
+
     private int isRemittance;
 
     public int getIsRemittance() {
@@ -101,6 +103,10 @@ public class ScenarioContext {
 
     public void setEstimateNumber(String estimateNumber) {
         this.estimateNumber = estimateNumber;
+    }
+
+    public void setPreambleNumber(String preambleNumber) {
+        this.preambleNumber = preambleNumber;
     }
 }
 

@@ -3,6 +3,7 @@ package utils;
 import builders.LoginDetailsBuilder;
 import builders.collections.ChallanHeaderDetailsBuilder;
 import builders.collections.ChequeDetailsBuilder;
+import builders.councilManagement.PreambleDetailsBuilder;
 import builders.dcReports.PTReportBuilder;
 import builders.dcReports.VLTReportBuilder;
 import builders.financial.FinancialBankDetailsBuilder;
@@ -19,6 +20,7 @@ import cucumber.api.java8.Da;
 import entities.*;
 import entities.collections.ChallanHeaderDetails;
 import entities.collections.ChequeDetails;
+import entities.councilManagement.CreatePreambleDetails;
 import entities.dcReports.PTReport;
 import entities.dcReports.VLTReport;
 import entities.financial.FinancialBankDetails;
@@ -80,6 +82,7 @@ public class ExcelReader {
     Sheet tradeDetailsSheet;
 
     Sheet approverDetailsSheet;
+    Sheet createPreambleDetailsSheet;
 
     public ExcelReader(String testData) {
         String excelFilePath = testData + ".xlsx";
@@ -133,6 +136,7 @@ public class ExcelReader {
         financialBankDetailsSheet = workbook.getSheet("financialBankDetails");
         financialExpenseBillDetailsSheet = workbook.getSheet("financialExpenseBillDetails");
         tradeDetailsSheet = workbook.getSheet("tradeDetails");
+        createPreambleDetailsSheet = workbook.getSheet("createPreamble");
     }
 
     private Row readDataRow(Sheet fromSheet, String dataId) {
@@ -1058,5 +1062,30 @@ public class ExcelReader {
                 .withApprover(approver)
                 .withApproverComment(comment)
                 .build();
+    }
+
+    public CreatePreambleDetails getCreatePreambleDetails(String createPreambleData) {
+        Row dataRow = readDataRow(createPreambleDetailsSheet, createPreambleData);
+
+        Cell departmentCell = getCellData(createPreambleDetailsSheet, dataRow, "department");
+        departmentCell.setCellType(Cell.CELL_TYPE_STRING);
+        String preambleDepartment = departmentCell.getStringCellValue();
+
+        Cell amountCell = getCellData(createPreambleDetailsSheet, dataRow,"amount");
+        amountCell.setCellType(Cell.CELL_TYPE_STRING);
+        String amount = amountCell.getStringCellValue();
+
+        Cell gistOfPreambleCell = getCellData(createPreambleDetailsSheet,dataRow,"gistOfPreamble");
+        gistOfPreambleCell.setCellType(Cell.CELL_TYPE_STRING);
+        String gistOfPreamble = gistOfPreambleCell.getStringCellValue();
+
+
+        return  new PreambleDetailsBuilder()
+                .withPreambleDepartment(preambleDepartment)
+                .withSanctionAmount(amount)
+                .withGistOfPreamble(gistOfPreamble)
+                .build();
+
+
     }
 }

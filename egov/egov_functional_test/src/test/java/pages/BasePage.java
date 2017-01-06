@@ -15,6 +15,8 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class BasePage {
 
+    private String preambleNumber;
+
     protected void waitForElementVisibility(By locator, WebDriver webDriver) {
         WebDriverWait wait = new WebDriverWait(webDriver, Properties.waitTime);
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
@@ -94,4 +96,5 @@ public class BasePage {
 
 //        Assert.assertEquals(expectedMessage,actualMessage);
     }
+
 }

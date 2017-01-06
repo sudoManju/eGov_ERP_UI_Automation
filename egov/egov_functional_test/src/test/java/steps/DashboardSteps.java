@@ -153,8 +153,14 @@ public class DashboardSteps extends BaseSteps implements En {
         And("^officer will search for the Create Remittance Recovery$", () -> {
             pageStore.get(DashboardPage.class).createRemittanceRecovery();
         });
+
         And("^user search to apply for change of use for existing connection$", () -> {
             pageStore.get(DashboardPage.class).chooseToChangeOfUse();
+        });
+
+        When("^he choose to create preamble$", () -> {
+            pageStore.get(DashboardPage.class).choosesToCreatePreamble();
+
         });
     }
 }

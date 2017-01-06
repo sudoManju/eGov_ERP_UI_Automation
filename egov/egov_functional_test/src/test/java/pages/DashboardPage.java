@@ -155,11 +155,16 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Create Remittance Recovery")
     private WebElement createRemittanceRecovery;
 
+
     @FindBy(linkText = "Track Milestone")
     private WebElement trackMilestoneLink;
 
     @FindBy(linkText = "Apply for Change of Use")
     private WebElement changeOfUse;
+
+    @FindBy (linkText = "Create Preamble")
+    private WebElement createPreamble;
+
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -572,6 +577,7 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
+
     public void chooseToTrackMileStone() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchTreeTextBox.clear();
@@ -587,5 +593,15 @@ public class DashboardPage extends BasePage {
         changeOfUse.click();
         switchToNewlyOpenedWindow(driver);
     }
+
+    public void choosesToCreatePreamble() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Create Preamble");
+        waitForElementToBeClickable(createPreamble, driver);
+        createPreamble.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+
 }
 
