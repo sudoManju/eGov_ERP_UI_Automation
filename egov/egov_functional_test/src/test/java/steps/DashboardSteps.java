@@ -160,11 +160,13 @@ public class DashboardSteps extends BaseSteps implements En {
 
         When("^he choose to create preamble$", () -> {
             pageStore.get(DashboardPage.class).choosesToCreatePreamble();
+        });
 
+        And("^user search to data entry screen for water$", () -> {
+            pageStore.get(DashboardPage.class).createDataEntryScreenForWater();
         });
     }
 }
-
 
 
 

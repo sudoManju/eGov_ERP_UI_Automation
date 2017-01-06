@@ -584,6 +584,7 @@ public class DashboardPage extends BasePage {
         searchFor("Track Milestone");
         waitForElementToBeVisible(trackMilestoneLink, driver);
         trackMilestoneLink.click();
+        switchToNewlyOpenedWindow(driver);
     }
 
     public void chooseToChangeOfUse(){
@@ -602,6 +603,13 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-
+    public void createDataEntryScreenForWater(){
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Data Entry Screen");
+        List<WebElement> dataEntryList = driver.findElements(By.linkText("Data Entry Screen"));
+        waitForElementToBeVisible(dataEntryList.get(1), driver);
+        dataEntryList.get(1).click();
+        switchToNewlyOpenedWindow(driver);
+    }
 }
 

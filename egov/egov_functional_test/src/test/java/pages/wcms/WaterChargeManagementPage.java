@@ -182,6 +182,21 @@ public class WaterChargeManagementPage extends BasePage {
     @FindBy(id = "Generate Acknowledgement")
     private WebElement generateAcknowledgement;
 
+    @FindBy(id = "monthlyFee")
+    private WebElement monthlyFees;
+
+    @FindBy(id = "existingConnection.donationCharges")
+    private WebElement donationCharges;
+
+    @FindBy(id = "Create")
+    private WebElement createDataEntryScreen;
+
+    @FindBy(id = "consumerCodeData")
+    private WebElement hscNumber;
+
+    @FindBy(id = "executionDate")
+    private WebElement dataEntryExecutionDate;
+
 
     public WaterChargeManagementPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -473,6 +488,22 @@ public class WaterChargeManagementPage extends BasePage {
         enterText(noOfPersonsTextBox, connectionInfo.getNoOfPersons());
         new Select(usageTypeSelectBox).selectByVisibleText(connectionInfo.getUsageType());
         enterText(reasonForNewConnection, connectionInfo.getReasonForAdditionalConnection());
+    }
+
+    public void enterWaterDataEntryDetails(ApplicantInfo applicantInfo){
+        waitForElementToBeClickable(waterConnectionAssesmentNumberTextBox, webDriver);
+        enterText(waterConnectionAssesmentNumberTextBox, applicantInfo.getPtAssessmentNumber());
+        enterText(hscNumber , applicantInfo.getHscNumber());
+        enterText(dataEntryExecutionDate , applicantInfo.getConnectionDate());
+    }
+
+    public void estimationFeeDetails(){
+
+        enterText(monthlyFees ,"1000");
+        enterText(donationCharges , "100");
+
+        createDataEntryScreen.click();
+
     }
 
 }

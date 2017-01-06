@@ -54,7 +54,6 @@ Feature: To create a new water connection
     And user closes the search application page
     And current user logs out
 
-
     Examples:
       | connection details | inspection details |
       | New_connection     | inspectionInfo     |

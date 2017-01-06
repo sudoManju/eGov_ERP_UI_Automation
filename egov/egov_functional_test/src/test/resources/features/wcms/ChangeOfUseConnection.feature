@@ -55,7 +55,6 @@ Feature: To modify the usage of existing connection
     And user closes the search application page
     And current user logs out
 
-
     Examples:
       | connection details | inspection details | consumer number |
       | Change_of_use      | inspectionInfo     | 1016043502      |
