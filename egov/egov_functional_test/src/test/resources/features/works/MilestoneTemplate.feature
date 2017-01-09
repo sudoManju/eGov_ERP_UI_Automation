@@ -16,8 +16,6 @@ Feature: Create/view/modify Milestone template
     And current user logs out
 
 
-
-
   #View a milestone template
 
   @Sanity
