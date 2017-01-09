@@ -491,6 +491,8 @@ public class WaterChargeManagementPage extends BasePage {
     }
 
     public void enterWaterDataEntryDetails(ApplicantInfo applicantInfo){
+        WebElement connectionType2 = webDriver.findElement(By.id("applicationType2"));
+        connectionType2.click();
         waitForElementToBeClickable(waterConnectionAssesmentNumberTextBox, webDriver);
         enterText(waterConnectionAssesmentNumberTextBox, applicantInfo.getPtAssessmentNumber());
         enterText(hscNumber , applicantInfo.getHscNumber());
@@ -503,7 +505,18 @@ public class WaterChargeManagementPage extends BasePage {
         enterText(donationCharges , "100");
 
         createDataEntryScreen.click();
+        switchToNewlyOpenedWindow(webDriver);
 
     }
 
+    public String closesTheDataEntryPage(){
+
+        WebElement successMessage = webDriver.findElement(By.cssSelector(".main-content>table>tbody>tr>td>strong"));
+
+        webDriver.close();
+        switchToPreviouslyOpenedWindow(webDriver);
+
+        System.out.println("==================="+successMessage.getText());
+        return successMessage.getText();
+    }
 }

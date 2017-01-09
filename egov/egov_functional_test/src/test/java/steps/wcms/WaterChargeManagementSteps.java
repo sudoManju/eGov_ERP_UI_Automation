@@ -144,6 +144,10 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
 
             pageStore.get(WaterChargeManagementPage.class).estimationFeeDetails();
 
+        });
+        And("^user will notify the successfull creation of data entry screen as \"([^\"]*)\"$", (String arg0) -> {
+            String message = pageStore.get(WaterChargeManagementPage.class).closesTheDataEntryPage();
+            scenarioContext.setActualMessage(message);
 
         });
     }
