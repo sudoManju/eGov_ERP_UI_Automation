@@ -230,7 +230,6 @@ public class TradeLicensePage extends BasePage {
         waitForElementToBeClickable(amount1 , webDriver);
         amount1.clear();
         enterText(amount1, legencyDetails.getAmount1());
-
     }
 }
 

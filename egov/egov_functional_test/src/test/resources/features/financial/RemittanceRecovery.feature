@@ -14,28 +14,28 @@ Feature: To create a new remittance recovery
     And officer will enter the remittance details as <voucher details>
     And officer will enter the approval details as <approval officer1>
     And officer will get successful voucher created and closes it
-    And user will notifies that "Created"
+    Then user will be notified by "Created"
     And current user logs out
 
     And assistantExaminer logs in
     Then the officer will click on the voucher number
     And officer will enter the approval details as <approval officer2>
     And officer will closes the acknowledgement page
-    And user will notifies that "forwarded"
+    Then user will be notified by "forwarded"
     And current user logs out
 
     And examiner logs in
     Then the officer will click on the voucher number
     And officer will enter the approval details as <approval officer3>
     And officer will closes the acknowledgement page
-    And user will notifies that "forwarded"
+    Then user will be notified by "forwarded"
     And current user logs out
 
     And commissioner logs in
     Then the officer will click on the voucher number
     And officer click on approval of the voucher
     And officer will closes the acknowledgement page
-    And user will notifies that "approved"
+    Then user will be notified by "approved"
     And current user logs out
 
     Given accountsOfficer logs in
@@ -44,21 +44,21 @@ Feature: To create a new remittance recovery
     And officer will enter the remittance bank details
     And officer will enter the approval details as <approval officer2>
     And officer will closes the acknowledgement page
-    And user will notifies that "forwarded"
+    Then user will be notified by "forwarded"
     And current user logs out
 
     And examiner logs in
     Then the officer will click on the voucher number
     And officer will enter the approval details as <approval officer3>
     And officer will closes the acknowledgement page
-    And user will notifies that "forwarded"
+    Then user will be notified by "forwarded"
     And current user logs out
 
     And commissioner logs in
     Then the officer will click on the voucher number
     And officer click on approval of the voucher
     And officer will closes the acknowledgement page
-    And user will notifies that "approved"
+    Then user will be notified by "approved"
     And current user logs out
 
     Examples:

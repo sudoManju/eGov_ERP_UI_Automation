@@ -12,7 +12,7 @@ Feature: Create/view/modify Milestone template
     And he chooses to create milestone template
     And he enters the milestone template creation details
     And he save the file and closes the acknowledgement
-    And user will notifies that "successfully"
+    Then user will be notified by "successfully"
     And current user logs out
 
 
@@ -42,6 +42,6 @@ Feature: Create/view/modify Milestone template
     And he enters the details for search
     And he select the required template for modification
     And he modifies the template and closes the acknowledgement
-    And user will notifies that "successfully"
+    Then user will be notified by "successfully"
     And current user logs out
 

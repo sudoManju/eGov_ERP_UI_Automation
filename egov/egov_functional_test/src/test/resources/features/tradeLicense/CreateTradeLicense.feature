@@ -62,7 +62,7 @@ Feature: Create Trade License
 
 
         Examples:
-          |   tradeDetailsData         |       tradeLocationData           |            tradeDetailsData1    |    legencyDetailsData |
+          |   tradeDetailsData         |       tradeLocationData           |            tradeDetailsData1    |   legencyDetailsData|
           |   ownerDetailsTradeLicense |       locationDetailsTradeLicense |        tradeDetailsTradeLicense |     legencyTrade    |
 
 

@@ -41,13 +41,13 @@ Feature: Collection
    And he chooses to create Challan
    And he enters challan details
    And he create challan and closes acknowledgement
-   And user will notifies that "successfully"
+   Then user will be notified by "successfully"
    And current user logs out
 
    Given seniorAssistant logs in
    And chooses to act upon the above challan
    And he validate the challan
-   And user will notifies that "Validated"
+   Then user will be notified by "Validated"
 
    And he search for challan receipt
    And he search for challan number

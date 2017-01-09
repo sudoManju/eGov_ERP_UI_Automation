@@ -13,7 +13,7 @@ Feature: Create Spillover Estimate/Create LOA for Spillover
     And he enters administration sanction details as <adminSanctionDetails>
     And he enters technical sanction details as <technicalSanctionDetails>
     And he saves the file and closes the acknowledgement
-    And user will notifies that "successfully."
+    Then user will be notified by "successfully."
     And current user logs out
 
     Examples:
@@ -37,5 +37,5 @@ Feature: Create Spillover Estimate/Create LOA for Spillover
 
      And he choose to modify letter of acceptance
      And he search for LOA for modify
-     And user will notifies that "successfully"
+     Then user will be notified by "successfully"
      And current user logs out

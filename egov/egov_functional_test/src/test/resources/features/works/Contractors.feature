@@ -11,7 +11,7 @@ Feature: Create Contractors in the Masters
     When assistantEngineer logs in
     And he chooses to create contractor
     And he enters the contractor master data
-    And user will notifies that "successfully"
+    Then user will be notified by "successfully"
     And he close the acknowledgement
     And current user logs out
 
@@ -26,6 +26,6 @@ Feature: Create Contractors in the Masters
     And he search for contractor
     And he select the required contractor
     And modifies the required contractor
-    And user will notifies that "successfully"
+    Then user will be notified by "successfully"
     And he close the acknowledgement
     And current user logs out
