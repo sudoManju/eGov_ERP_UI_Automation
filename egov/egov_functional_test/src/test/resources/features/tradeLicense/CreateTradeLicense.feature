@@ -36,9 +36,9 @@ Feature: Create Trade License
       And he choose to search trade license
       And he search existing application number
       And he choose to collectfees
-#      And he choose to payTax of applicationNumber
-#      And he search Trade License using application
-     # And chooses to act upon trade application
+      And he choose to payTax of applicationNumber
+#     And he search Trade License using application
+#     And chooses to act upon trade application
 
 
 
@@ -47,19 +47,23 @@ Feature: Create Trade License
         |   ownerDetailsTradeLicense |       locationDetailsTradeLicense |          tradeDetailsTradeLicense |
 
 
+       # CREATE LEGENCY TRADE LICENSE #
+
       @WIP
-      Scenario Outline: Register user create legacy trade license
+        Scenario Outline: Register user create legacy trade license
         Given creator logs in
         When he choose to create legency trade license
         And he enters old license number
         And he enters trade owner details of new license <tradeDetailsData>
         And he enters trade location details of new license <tradeLocationData>
         And he enters trade details of new license <tradeDetailsData1>
+        And he enters fee details of legency trade license <legencyDetailsData>
+
 
 
         Examples:
-          |   tradeDetailsData         |       tradeLocationData           |            tradeDetailsData1    |
-          |   ownerDetailsTradeLicense |       locationDetailsTradeLicense |          tradeDetailsTradeLicense |
+          |   tradeDetailsData         |       tradeLocationData           |            tradeDetailsData1    |    legencyDetailsData |
+          |   ownerDetailsTradeLicense |       locationDetailsTradeLicense |        tradeDetailsTradeLicense |     legencyTrade    |
 
 
 

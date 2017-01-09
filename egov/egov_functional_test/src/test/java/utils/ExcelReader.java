@@ -10,6 +10,7 @@ import builders.financial.FinancialBankDetailsBuilder;
 import builders.financial.FinancialExpenseBillDetailsBuilder;
 import builders.financial.FinancialJournalVoucherDetailsBuilder;
 import builders.ptis.*;
+import builders.tradeLicense.LegencyDetailsBuilder;
 import builders.tradeLicense.TradeLocationDetailsBuilder;
 import builders.tradeLicense.TradeOwnerDetailsBuilder;
 import builders.tradeLicense.TradeDetailsBuilder;
@@ -27,6 +28,7 @@ import entities.financial.FinancialBankDetails;
 import entities.financial.FinancialExpenseBillDetails;
 import entities.financial.FinancialJournalVoucherDetails;
 import entities.ptis.*;
+import entities.tradeLicense.LegencyDetails;
 import entities.tradeLicense.TradeDetails;
 import entities.tradeLicense.TradeLocationDetails;
 import entities.tradeLicense.TradeOwnerDetails;
@@ -83,6 +85,7 @@ public class ExcelReader {
 
     Sheet approverDetailsSheet;
     Sheet createPreambleDetailsSheet;
+    Sheet legencyDetailsSheet;
 
     public ExcelReader(String testData) {
         String excelFilePath = testData + ".xlsx";
@@ -137,6 +140,7 @@ public class ExcelReader {
         financialExpenseBillDetailsSheet = workbook.getSheet("financialExpenseBillDetails");
         tradeDetailsSheet = workbook.getSheet("tradeDetails");
         createPreambleDetailsSheet = workbook.getSheet("createPreamble");
+        legencyDetailsSheet = workbook.getSheet("legencyDetails");
     }
 
     private Row readDataRow(Sheet fromSheet, String dataId) {
@@ -1086,6 +1090,19 @@ public class ExcelReader {
                 .withGistOfPreamble(gistOfPreamble)
                 .build();
 
+
+    }
+
+    public LegencyDetails getLegencyDetails(String legencyDetailsData) {
+
+        Row dataRow = readDataRow(legencyDetailsSheet, legencyDetailsData);
+        Cell amount1Cell = getCellData(legencyDetailsSheet, dataRow, "amount1");
+        amount1Cell.setCellType(Cell.CELL_TYPE_STRING);
+        String amount1 = amount1Cell.getStringCellValue();
+
+        return new LegencyDetailsBuilder()
+                    .withAmount1(amount1)
+                    .build();
 
     }
 }

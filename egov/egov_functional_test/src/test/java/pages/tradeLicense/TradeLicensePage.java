@@ -1,5 +1,6 @@
 package pages.tradeLicense;
 
+import entities.tradeLicense.LegencyDetails;
 import entities.tradeLicense.TradeDetails;
 import entities.tradeLicense.TradeLocationDetails;
 import entities.tradeLicense.TradeOwnerDetails;
@@ -98,6 +99,9 @@ public class TradeLicensePage extends BasePage {
 
     @FindBy (id = "buttonClose")
     private WebElement printClose;
+
+    @FindBy (name = "legacyInstallmentwiseFees[201104]")
+    private WebElement amount1;
 
 
 
@@ -220,7 +224,13 @@ public class TradeLicensePage extends BasePage {
         waitForElementToBeClickable(oldTradeLicense, webDriver);
         enterText(oldTradeLicense,"TL/08373/2016");
     }
+   // enterText(aadhaarNumberTextBox, tradeOwnerDetails.getAadhaarNumber());
 
+    public void enterlegencyDetails(LegencyDetails legencyDetails) {
+        waitForElementToBeClickable(amount1 , webDriver);
+        amount1.clear();
+        enterText(amount1, legencyDetails.getAmount1());
 
+    }
 }
 
