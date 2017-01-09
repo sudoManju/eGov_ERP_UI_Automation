@@ -1100,8 +1100,33 @@ public class ExcelReader {
         amount1Cell.setCellType(Cell.CELL_TYPE_STRING);
         String amount1 = amount1Cell.getStringCellValue();
 
+        Cell amount2Cell = getCellData(legencyDetailsSheet, dataRow, "amount2");
+        amount2Cell.setCellType(Cell.CELL_TYPE_STRING);
+        String amount2 = amount2Cell.getStringCellValue();
+
+        Cell amount3Cell = getCellData(legencyDetailsSheet, dataRow, "amount3");
+        amount3Cell.setCellType(Cell.CELL_TYPE_STRING);
+        String amount3 = amount3Cell.getStringCellValue();
+
+        Cell amount4Cell = getCellData(legencyDetailsSheet, dataRow, "amount4");
+        amount4Cell.setCellType(Cell.CELL_TYPE_STRING);
+        String amount4 = amount4Cell.getStringCellValue();
+
+        Cell amount5Cell = getCellData(legencyDetailsSheet, dataRow, "amount5");
+        amount5Cell.setCellType(Cell.CELL_TYPE_STRING);
+        String amount5 = amount5Cell.getStringCellValue();
+
+        Cell amount6Cell = getCellData(legencyDetailsSheet, dataRow, "amount6");
+        amount6Cell.setCellType(Cell.CELL_TYPE_STRING);
+        String amount6 = amount6Cell.getStringCellValue();
+
         return new LegencyDetailsBuilder()
                     .withAmount1(amount1)
+                    .withAmount2(amount2)
+                    .withAmount3(amount3)
+                    .withAmount4(amount4)
+                    .withAmount5(amount5)
+                    .withAmount6(amount6)
                     .build();
 
     }

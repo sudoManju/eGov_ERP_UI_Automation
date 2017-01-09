@@ -4,6 +4,7 @@ import entities.tradeLicense.LegencyDetails;
 import entities.tradeLicense.TradeDetails;
 import entities.tradeLicense.TradeLocationDetails;
 import entities.tradeLicense.TradeOwnerDetails;
+import groovy.ui.Console;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
@@ -103,6 +104,38 @@ public class TradeLicensePage extends BasePage {
     @FindBy (name = "legacyInstallmentwiseFees[201104]")
     private WebElement amount1;
 
+    @FindBy (name = "legacyInstallmentwiseFees[201204]")
+    private WebElement amount2;
+
+    @FindBy (name = "legacyInstallmentwiseFees[201304]")
+    private WebElement amount3;
+
+    @FindBy (name = "legacyInstallmentwiseFees[201404]")
+    private WebElement amount4;
+
+    @FindBy (name = "legacyInstallmentwiseFees[201504]")
+    private WebElement amount5;
+
+    @FindBy (name = "legacyInstallmentwiseFees[201604]")
+    private WebElement amount6;
+
+    @FindBy (id = "enterTradeLicense-enterExisting_legacyFeePayStatus_201104_")
+    private WebElement checkBox1;
+
+    @FindBy (id = "enterTradeLicense-enterExisting_legacyFeePayStatus_201204_")
+    private WebElement checkBox2;
+
+    @FindBy (id = "enterTradeLicense-enterExisting_legacyFeePayStatus_201304_")
+    private WebElement checkBox3;
+
+    @FindBy (id = "enterTradeLicense-enterExisting_legacyFeePayStatus_201404_")
+    private WebElement checkBox4;
+
+    @FindBy (id = "enterTradeLicense-enterExisting_legacyFeePayStatus_201504_")
+    private WebElement checkBox5;
+
+    @FindBy (id = "enterTradeLicense-enterExisting_legacyFeePayStatus_201604_")
+    private WebElement checkBox6;
 
 
 
@@ -230,6 +263,35 @@ public class TradeLicensePage extends BasePage {
         waitForElementToBeClickable(amount1 , webDriver);
         amount1.clear();
         enterText(amount1, legencyDetails.getAmount1());
+            amount1.sendKeys(Keys.TAB);
+            jsClickCheckbox(checkBox1, webDriver);
+
+            amount2.clear();
+            waitForElementToBeClickable(amount2, webDriver);
+            enterText(amount2, legencyDetails.getAmount2());
+            jsClickCheckbox(checkBox2, webDriver);
+
+            amount3.clear();
+            waitForElementToBeClickable(amount3, webDriver);
+            enterText(amount3, legencyDetails.getAmount3());
+            jsClickCheckbox(checkBox3, webDriver);
+
+            amount4.clear();
+            waitForElementToBeClickable(amount4, webDriver);
+            enterText(amount4, legencyDetails.getAmount4());
+            jsClickCheckbox(checkBox4, webDriver);
+
+            amount5.clear();
+            waitForElementToBeClickable(amount5, webDriver);
+            enterText(amount5, legencyDetails.getAmount5());
+            jsClickCheckbox(checkBox5, webDriver);
+
+            amount6.clear();
+            waitForElementToBeClickable(amount6, webDriver);
+            enterText(amount6, legencyDetails.getAmount6());
+            jsClickCheckbox(checkBox6, webDriver);
+
+
     }
 }
 

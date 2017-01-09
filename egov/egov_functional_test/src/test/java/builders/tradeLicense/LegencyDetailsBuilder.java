@@ -16,7 +16,33 @@ public class LegencyDetailsBuilder {
         return this;
     }
 
+    public LegencyDetailsBuilder withAmount2(String amount2) {
+        legencyDetails.setAmount2(amount2);
+        return this;
+    }
+
+    public LegencyDetailsBuilder withAmount3(String amount3) {
+        legencyDetails.setAmount3(amount3);
+        return this;
+    }
+
+    public LegencyDetailsBuilder withAmount4(String amount4) {
+        legencyDetails.setAmount4(amount4);
+        return this;
+    }
+
+    public LegencyDetailsBuilder withAmount5(String amount5) {
+        legencyDetails.setAmount5(amount5);
+        return this;
+    }
+
+    public LegencyDetailsBuilder withAmount6(String amount6) {
+        legencyDetails.setAmount1(amount6);
+        return this;
+    }
     public LegencyDetails build(){
         return legencyDetails;
     }
+
+
 }
