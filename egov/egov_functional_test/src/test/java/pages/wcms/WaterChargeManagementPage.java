@@ -506,7 +506,6 @@ public class WaterChargeManagementPage extends BasePage {
 
         createDataEntryScreen.click();
         switchToNewlyOpenedWindow(webDriver);
-
     }
 
     public String closesTheDataEntryPage(){

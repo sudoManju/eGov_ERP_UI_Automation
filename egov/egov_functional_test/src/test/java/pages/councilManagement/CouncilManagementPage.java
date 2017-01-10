@@ -48,8 +48,7 @@ public class CouncilManagementPage extends BasePage {
 
     //@FindBy (className = "col-sm-3 add-margin view-content")
     //private WebElement preambleNumber;
-
-
+    
     public void enterCreatePreambleDetails(CreatePreambleDetails createPreambleDetails) {
         new Select(preambleDepartment).selectByVisibleText(createPreambleDetails.getPreambleDepartment());
         enterText(sanctionAmount, createPreambleDetails.getAmount());
@@ -77,7 +76,7 @@ public class CouncilManagementPage extends BasePage {
 
     public String getPreambleNumber() {
 
-        List<WebElement> elements= (List) webDriver.findElements(By.cssSelector(".col-sm-3.add-margin.view-content"));
+        List<WebElement> elements= webDriver.findElements(By.cssSelector(".col-sm-3.add-margin.view-content"));
         isDisplayed(elements.get(0));
         return elements.get(1).getText();
 

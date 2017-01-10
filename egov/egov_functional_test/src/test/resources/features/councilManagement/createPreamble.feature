@@ -13,7 +13,7 @@ Feature: create preamble
     When he choose to create preamble
     And he enters create preamble details as <details>
     And he will enter the approval details as <approval officer2>
-    # And he copies preamble number and closes the acknowledgement
+    And he copies preamble number and closes the acknowledgement
 
 
   Examples:

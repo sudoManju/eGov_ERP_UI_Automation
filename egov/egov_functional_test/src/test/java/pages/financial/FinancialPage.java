@@ -460,19 +460,17 @@ public class FinancialPage extends BasePage {
         waitForElementToBeClickable(expenseApprovalDepartment ,webDriver);
         new Select(expenseApprovalDepartment).selectByVisibleText(approvalDetails.getApproverDepartment());
 
-        for(int i = 0 ; i <= 4 ; i++){
-
-            try {
-                waitForElementToBeClickable(expenseApprovalDesignation, webDriver);
-                new Select(expenseApprovalDesignation).selectByVisibleText(approvalDetails.getApproverDesignation());
-            } catch (StaleElementReferenceException e) {
-                WebElement element = webDriver.findElement(By.id("approvalDesignation"));
-                new Select(element).selectByVisibleText(approvalDetails.getApproverDesignation());
+        for(int i = 0 ; i <= 10 ; i++) {
+            if (!webDriver.findElement(By.id("approvalDesignation")).getText().equalsIgnoreCase(approvalDetails.getApproverDesignation())) {
+                try {
+                    waitForElementToBeClickable(expenseApprovalDesignation, webDriver);
+                    new Select(expenseApprovalDesignation).selectByVisibleText(approvalDetails.getApproverDesignation());
+                } catch (StaleElementReferenceException e) {
+                    WebElement element = webDriver.findElement(By.id("approvalDesignation"));
+                    new Select(element).selectByVisibleText(approvalDetails.getApproverDesignation());
+                }
             }
         }
-
-        WebElement element = webDriver.findElement(By.id("approvalDesignation"));
-        new Select(element).selectByVisibleText(approvalDetails.getApproverDesignation());
 
         waitForElementToBeVisible(expenseApprovalPosition , webDriver);
         new Select(expenseApprovalPosition).selectByVisibleText(approvalDetails.getApprover());
