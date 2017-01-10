@@ -74,6 +74,21 @@ public class ContractorPage extends BasePage
     @FindBy(xpath = ".//*[@id='msgsDiv']/ul/li/span")
     private WebElement creationMsg;
 
+    @FindBy(id = "correspondenceAddress")
+    private WebElement correspondenceAddress;
+
+    @FindBy(id = "panNumber")
+    private WebElement panNumber;
+
+    @FindBy(id = "bank")
+    private WebElement bankAction;
+
+    @FindBy(id = "ifscCode")
+    private WebElement ifscCode;
+
+    @FindBy(xpath = "//*[@id='exemptionForm']")
+     private WebElement exemptionFormAction;
+
     String min = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
     String hour = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
 
@@ -100,22 +115,30 @@ public class ContractorPage extends BasePage
     {
         waitForElementToBeClickable(contractorCode, driver);
 
-        String code = (min+hour);
-        contractorCode.sendKeys(code);
+        String code = (min);
+        contractorCode.sendKeys("KMC"+code);
         waitForElementToBeClickable(contractorName, driver);
-        contractorName.sendKeys("testers");
+        contractorName.sendKeys("Rishad Reddy");
+        waitForElementToBeClickable(correspondenceAddress, driver);
+        correspondenceAddress.sendKeys("A.P.State Agro industries Development Corporation Ltd., ATP");
+        waitForElementToBeClickable(panNumber, driver);
+        panNumber.sendKeys("PANUM"+(hour+hour)+"P");
+        waitForElementToBeClickable(bankAction, driver);
+        new Select(bankAction).selectByVisibleText("STATE BANK OF MYSORE");
+        waitForElementToBeClickable(ifscCode, driver);
+        ifscCode.sendKeys("IFSC"+min+hour);
+        waitForElementToBeClickable(exemptionFormAction, driver);
+        new Select(exemptionFormAction).selectByVisibleText("EARNEST MONEY DEPOSIT");
         waitForElementToBeClickable(department, driver);
         new Select(department).selectByVisibleText("ENGINEERING");
         waitForElementToBeClickable(status, driver);
         new Select(status).selectByVisibleText("Active");
         waitForElementToBeClickable(fromDate, driver);
-        fromDate.sendKeys("20/12/2016");
+        fromDate.sendKeys("10/01/2017");
 
         waitForElementToBeClickable(saveButton,driver);
         saveButton.click();
     }
-
-
 
     public void viewContractor()
     {
@@ -129,11 +152,10 @@ public class ContractorPage extends BasePage
     public void searchContractor()
     {
         waitForElementToBeClickable(searchContractorNameBox,driver);
-        searchContractorNameBox.sendKeys("testers");
+        searchContractorNameBox.sendKeys("Contractor123");
         waitForElementToBeClickable(contractorSearchButton, driver);
         contractorSearchButton.click();
     }
-
 
     public void close() {
         waitForElementToBeVisible(closeButton,driver);
@@ -159,7 +181,7 @@ public class ContractorPage extends BasePage
         waitForElementToBeVisible(modifyNameBox,driver);
         modifyNameBox.click();
         modifyNameBox.clear();
-        modifyNameBox.sendKeys("auto-testers");
+        modifyNameBox.sendKeys("Contractor 123");
 
         waitForElementToBeVisible(modifyButton,driver);
         modifyButton.click();

@@ -253,6 +253,15 @@ public class SpillOverEstimatePage extends BasePage
         waitForElementToBeClickable(workOrderCreatedCheckBox,webDriver);
         selectWorksIfCreated(workOrderCreatedCheckBox, workDetails.getWorksorderCreated());
 
+//        JavascriptExecutor js;
+//        if (webDriver instanceof JavascriptExecutor) {
+//            js = (JavascriptExecutor)webDriver;
+//        } else {
+//            throw new IllegalStateException("This driver cannot run JavaScript.");
+//        }
+//
+//        WebElement element = (WebElement)js.executeScript("$('#isWorkOrderCreated').trigger('click');")
+
         waitForElementToBeClickable(isBillCreatedCheckBox,webDriver);
         selectWorksIfCreated(isBillCreatedCheckBox, workDetails.getBillsCreated());
 
