@@ -118,5 +118,9 @@ public class ScenarioContext {
     public void setPreambleNumber(String preambleNumber) {
         this.preambleNumber = preambleNumber;
     }
+
+    public String getPreambleNumber() {
+        return preambleNumber;
+    }
 }
 

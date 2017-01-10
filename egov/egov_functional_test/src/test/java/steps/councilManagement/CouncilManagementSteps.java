@@ -27,11 +27,15 @@ public class CouncilManagementSteps extends BaseSteps implements En {
         });
         And("^he copies preamble number and closes the acknowledgement$", () -> {
             String PreambleNumber = pageStore.get(CouncilManagementPage.class).getPreambleNumber();
-            System.out.println("================================"+PreambleNumber);
-
             scenarioContext.setPreambleNumber(PreambleNumber);
             String Status= pageStore.get(CouncilManagementPage.class).getStatus();
             Assert.assertTrue(Status.contains("CREATED"));
+        });
+        And("^he approves the preamble number$", () -> {
+          String Status= pageStore.get(CouncilManagementPage.class).approve();
+      //    Assert.assertTrue(Status.contains("APPROVED"));
+            scenarioContext.setActualMessage(Status);
+
         });
 
 

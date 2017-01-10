@@ -5,12 +5,16 @@ import entities.ptis.ApprovalDetails;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasePage;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
+import static java.awt.SystemColor.window;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
@@ -46,14 +50,16 @@ public class CouncilManagementPage extends BasePage {
     @FindBy (id = "Forward")
     private WebElement forwardButton;
 
-    //@FindBy (className = "col-sm-3 add-margin view-content")
-    //private WebElement preambleNumber;
-    
+    @FindBy (id = "Approve")
+    private WebElement approve;
+
+    public CouncilManagementPage(WebDriver webDriver){this.webDriver=webDriver;}
+
     public void enterCreatePreambleDetails(CreatePreambleDetails createPreambleDetails) {
         new Select(preambleDepartment).selectByVisibleText(createPreambleDetails.getPreambleDepartment());
         enterText(sanctionAmount, createPreambleDetails.getAmount());
         enterText(gistOfPreamble, createPreambleDetails.getGistOfPreamble());
-        attachment.sendKeys("E:\\Test Cases\\Login credentials.txt");
+        attachment.sendKeys("D:\\Automation\\eGov\\egov\\egov_functional_test\\src\\test\\resources\\Login credentials.txt");
         Select sel=new Select(wards);
         List<WebElement> selval=sel.getOptions();
         for(int i=0;i<selval.size();i++)
@@ -71,19 +77,27 @@ public class CouncilManagementPage extends BasePage {
         await().atMost(10, SECONDS).until(() -> new Select(approverSelection).getOptions().size() > 1);
         new Select(approverSelection).selectByVisibleText(approvalDetails.getApprover());
         forwardButton.click();
-
     }
 
     public String getPreambleNumber() {
-
-        List<WebElement> elements= webDriver.findElements(By.cssSelector(".col-sm-3.add-margin.view-content"));
-        isDisplayed(elements.get(0));
-        return elements.get(1).getText();
-
+        List<WebElement> elements=webDriver.findElements(By.cssSelector(".col-sm-3.add-margin.view-content"));
+        return elements.get(0).getText();
     }
 
     public String getStatus() {
+        List<WebElement> elements=webDriver.findElements(By.cssSelector(".col-sm-3.add-margin.view-content"));
+        String ele=elements.get(1).getText();
+        webDriver.close();
+        switchToPreviouslyOpenedWindow(webDriver);
+        return ele;
+    }
 
-        return webDriver.findElement(By.xpath("html/body/div[1]/div/div/div/div[1]/div[2]/div[1]/div[4]")).getText();
+    public String approve() {
+        approve.click();
+        List<WebElement> elements=webDriver.findElements(By.cssSelector(".col-sm-3.add-margin.view-content"));
+        String ele=elements.get(1).getText();
+        webDriver.close();
+        switchToPreviouslyOpenedWindow(webDriver);
+        return ele;
     }
 }
