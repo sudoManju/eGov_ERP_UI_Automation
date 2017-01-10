@@ -73,7 +73,6 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
         });
         And("^he generates a notice$", () -> {
             pageStore.get(PropertyDetailsPage.class).generateNotice();
-
         });
 
         And("^the property tax bill be created$", () -> {

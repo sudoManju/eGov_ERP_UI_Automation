@@ -28,10 +28,7 @@ public class DataEntryAcknowledgementSteps extends BaseSteps implements En {
         String assessmentNumber = pageStore.get(DataEntryAcknowledgementPage.class).getAssessmentNumber();
         System.out.println(assessmentNumber);
         scenarioContext.setAssessmentNumber(assessmentNumber);
-
     }
-
-
 
     @And("^he choose to add edit DCB$")
     public void heChooseToAddEditDCB() throws Throwable {

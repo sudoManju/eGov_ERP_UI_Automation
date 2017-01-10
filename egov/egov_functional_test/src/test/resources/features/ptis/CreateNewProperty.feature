@@ -6,6 +6,7 @@ Feature: Create New Property
 
   # CREATE NEW PROPERTY SCREEN #
 
+  @Sanity
   Scenario Outline: Registered user creating a new property in the system
     Given juniorAssistant logs in
 
@@ -50,7 +51,7 @@ Feature: Create New Property
     And chooses to act upon the above assessment
     And he does a digital signature
 
-    And he will notifies that "Notice Generated Successfully"
+    Then user will be notified by "Successfully"
 
     When commissioner closes acknowledgement
     And current user logs out
@@ -58,6 +59,7 @@ Feature: Create New Property
     And juniorAssistant logs in
     And chooses to act upon the above assessment
     And he generates a notice
+    And current user logs out
 
     Examples:
       | propertyHeaderDetails | ownerDetails | propertyAddressDetails | assessmentDetails     | amenitiesDetails | constructionTypeDetails | floorDetails |

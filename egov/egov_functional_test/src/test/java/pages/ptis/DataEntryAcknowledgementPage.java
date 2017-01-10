@@ -73,8 +73,6 @@ import static java.util.concurrent.TimeUnit.SECONDS;
         waitForElementToBeVisible(dataEntryAcknowledgement, driver);
         String genericAssessmentNumber =  dataEntryAcknowledgement.getText().replaceAll("[^0-9]" , "");
         return genericAssessmentNumber;
-
-
     }
 
     public void close() {
@@ -84,8 +82,6 @@ import static java.util.concurrent.TimeUnit.SECONDS;
             driver.switchTo().window(winHandle);
         }
     }
-
-
     public void dataentryCloseButton() {
         dataentryCloseButton.click();
         await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);

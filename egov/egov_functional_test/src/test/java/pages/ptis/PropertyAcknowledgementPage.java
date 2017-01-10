@@ -45,7 +45,7 @@ public class PropertyAcknowledgementPage extends BasePage {
     public String getApplicationNumber() {
         List<WebElement> elements = driver.findElement(By.tagName("table")).findElement(By.tagName("tbody"))
                 .findElement(By.tagName("tr")).findElement(By.tagName("td")).findElements(By.tagName("span"));
-        return elements.get(0).getText();
+        return elements.get(1).getText();
     }
 
     public void close() {

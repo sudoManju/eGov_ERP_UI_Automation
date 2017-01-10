@@ -19,13 +19,13 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
 
         And("^user will enter the details of the new water connection$", () -> {
 
-            String applicationParticularsDetails = "applicantInfo1";
+            String applicationParticularsDetails = scenarioContext.getAssessmentNumber();
             String connectionDetails = "connectionInfo";
             String enclosedDocumentDetails = "enclosedInfo";
             String approveDetails = "engineer";
 
-            ApplicantInfo applicantInfo = new ExcelReader(ptisTestDataFileName).getApplicantInfo(applicationParticularsDetails);
-            pageStore.get(WaterChargeManagementPage.class).enterWaterConectionAssessmentNumber(applicantInfo);
+//            ApplicantInfo applicantInfo = new ExcelReader(ptisTestDataFileName).getApplicantInfo(applicationParticularsDetails);
+            pageStore.get(WaterChargeManagementPage.class).enterWaterConectionAssessmentNumber(applicationParticularsDetails);
 
             ConnectionInfo connectionInfo = new ExcelReader(ptisTestDataFileName).getConnectionInfo(connectionDetails);
             pageStore.get(WaterChargeManagementPage.class).enterNewWaterConnectionInfo(connectionInfo);

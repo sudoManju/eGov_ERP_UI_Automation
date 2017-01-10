@@ -412,6 +412,9 @@ public class PropertyDetailsPage extends BasePage {
 
     public void generateNotice() {
         generateNotice.click();
+        switchToNewlyOpenedWindow(webDriver);
+        webDriver.close();
+        switchToPreviouslyOpenedWindow(webDriver);
     }
 
     public void enterSearchDetailsOfAssessmentNumber(SearchDetails searchDetails) {

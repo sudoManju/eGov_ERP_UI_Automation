@@ -3,14 +3,13 @@ package pages.wcms;
 import entities.ptis.*;
 import entities.wcms.EnclosedDocument;
 import entities.wcms.FieldInspectionDetails;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import static com.jayway.awaitility.Awaitility.await;
@@ -197,14 +196,19 @@ public class WaterChargeManagementPage extends BasePage {
     @FindBy(id = "executionDate")
     private WebElement dataEntryExecutionDate;
 
+    @FindBy(name = "fromDate")
+    private WebElement searchApplicationDate;
+
 
     public WaterChargeManagementPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
 
-    public void enterWaterConectionAssessmentNumber(ApplicantInfo applicantInfo){
+//    public void enterWaterConectionAssessmentNumber(ApplicantInfo applicantInfo){
+    public void enterWaterConectionAssessmentNumber(String applicationParticularsDetails){
         waitForElementToBeClickable(waterConnectionAssesmentNumberTextBox, webDriver);
-        enterText(waterConnectionAssesmentNumberTextBox, applicantInfo.getPtAssessmentNumber());
+//        enterText(waterConnectionAssesmentNumberTextBox, applicantInfo.getPtAssessmentNumber());
+        enterText(waterConnectionAssesmentNumberTextBox, applicationParticularsDetails);
     }
 
     public void enterNewWaterConnectionInfo(ConnectionInfo connectionInfo){
@@ -249,13 +253,13 @@ public class WaterChargeManagementPage extends BasePage {
         enterText(documentDate3TextBox, enclosedDocument.getDocumentDate3());
 
         waitForElementToBeClickable(browse1Button, webDriver);
-        browse1Button.sendKeys("/home/vinaykumar/State Bank of India.pdf");
+        browse1Button.sendKeys(System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx");
 
         waitForElementToBeClickable(browse2Button, webDriver);
-        browse2Button.sendKeys("/home/vinaykumar/State Bank of India.pdf");
+        browse2Button.sendKeys(System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx");
 
         waitForElementToBeClickable(browse3Button, webDriver);
-        browse3Button.sendKeys("/home/vinaykumar/State Bank of India.pdf");
+        browse3Button.sendKeys(System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx");
 
     }
 
@@ -336,9 +340,13 @@ public class WaterChargeManagementPage extends BasePage {
         new Select(searchApplicationService).selectByVisibleText("Water Tax");
         waitForElementToBeClickable(searchApplicationType , webDriver);
         new Select(searchApplicationType).selectByVisibleText(connectionType.replaceAll("_"," "));
+
+        waitForElementToBeClickable(searchApplicationDate , webDriver);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        searchApplicationDate.sendKeys(sdf.format(new Date()) , Keys.TAB);
+
         waitForElementToBeClickable(searchApplicationButton , webDriver);
         searchApplicationButton.click();
-
     }
 
     public void clickOnCollectCharges(){
