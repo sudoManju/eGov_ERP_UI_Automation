@@ -19,14 +19,9 @@ public class PropertiesReader {
     }
 
 
-    public String getEstimateBookingUrl() {
-        return prop.getProperty("estimateBookingUrl");
+    public String getServiceListUrl() {
+        return prop.getProperty("serviceListUrl");
     }
-
-    public String getCreateBookingUrl() {
-        return prop.getProperty("createBookingUrl");
-    }
-
 
 }
 
