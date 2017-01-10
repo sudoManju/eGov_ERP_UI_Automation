@@ -59,14 +59,13 @@ public class CouncilManagementPage extends BasePage {
         new Select(preambleDepartment).selectByVisibleText(createPreambleDetails.getPreambleDepartment());
         enterText(sanctionAmount, createPreambleDetails.getAmount());
         enterText(gistOfPreamble, createPreambleDetails.getGistOfPreamble());
-        attachment.sendKeys("/home/vinaykumar/State Bank of India.pdf");
+        attachment.sendKeys(System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx");
         Select sel=new Select(wards);
         List<WebElement> selval=sel.getOptions();
         for(int i=0;i<selval.size();i++)
         {
             sel.selectByIndex(i);
         }
-
     }
 
     public void enterApproverDetails(ApprovalDetails approvalDetails) {
