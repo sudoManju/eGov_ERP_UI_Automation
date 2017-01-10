@@ -22,7 +22,6 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             String applicationParticularsDetails = scenarioContext.getAssessmentNumber();
             String connectionDetails = "connectionInfo";
             String enclosedDocumentDetails = "enclosedInfo";
-            String approveDetails = "engineer";
 
 //            ApplicantInfo applicantInfo = new ExcelReader(ptisTestDataFileName).getApplicantInfo(applicationParticularsDetails);
             pageStore.get(WaterChargeManagementPage.class).enterWaterConectionAssessmentNumber(applicationParticularsDetails);
@@ -32,10 +31,11 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
 
             EnclosedDocument enclosedDocument = new ExcelReader(ptisTestDataFileName).getDocumentInfo(enclosedDocumentDetails);
             pageStore.get(WaterChargeManagementPage.class).enterDocumentInfo(enclosedDocument);
+        });
 
-            ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approveDetails);
+        And("^user enter the water management approval details as (\\w+)$", (String approvalOfficer) -> {
+            ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approvalOfficer);
             pageStore.get(WaterChargeManagementPage.class).enterWaterApprovalDetails(approvalDetails);
-
         });
 
         And("^user will enter the consumer number as (\\w+)$", (String consumerNumber) -> {
@@ -145,10 +145,15 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             pageStore.get(WaterChargeManagementPage.class).estimationFeeDetails();
 
         });
+
         And("^user will notify the successfull creation of data entry screen as \"([^\"]*)\"$", (String arg0) -> {
             String message = pageStore.get(WaterChargeManagementPage.class).closesTheDataEntryPage();
             scenarioContext.setActualMessage(message);
 
+        });
+
+        And("^user will closes the acknowledgement form$", () -> {
+            pageStore.get(WaterChargeManagementPage.class).closePage();
         });
     }
 }

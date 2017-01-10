@@ -425,9 +425,8 @@ public class WaterChargeManagementPage extends BasePage {
         forwardButton.click();
     }
 
-    private void closePage(){
+    public void closePage(){
         closeSearchApplication.click();
-
         switchToPreviouslyOpenedWindow(webDriver);
     }
 

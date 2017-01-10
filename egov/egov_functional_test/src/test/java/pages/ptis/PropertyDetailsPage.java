@@ -539,7 +539,6 @@ public class PropertyDetailsPage extends BasePage {
     public String findAdditionalApplicationNumber(){
         waitForElementToBeClickable(additionalApplicationNumber, webDriver);
         String number = additionalApplicationNumber.getText();
-        //System.out.println("========================================="+number);
         waitForElementToBeClickable(additionalCloseButton, webDriver);
         additionalCloseButton.click();
 

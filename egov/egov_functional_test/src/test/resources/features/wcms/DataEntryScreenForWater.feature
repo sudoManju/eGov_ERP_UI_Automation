@@ -11,5 +11,5 @@ Feature: To create a data entry screen for the water charge management services
     And user search to data entry screen for water
     And user will enter the details of data entry screen for water charges
     And user will notify the successfull creation of data entry screen as "Successfully"
-    And user will notifies that "Successfully"
+    And user will be notified by "Successfully"
     And current user logs out
