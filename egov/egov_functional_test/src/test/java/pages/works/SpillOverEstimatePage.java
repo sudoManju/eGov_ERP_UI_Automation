@@ -352,13 +352,16 @@ public class SpillOverEstimatePage extends BasePage
      new Select(approverDepartment).selectByVisibleText(approverDetails.getApproverDepartment());
 
    for (int i=0;i<4;i++) {
-       try {
-           waitForElementToBeClickable(approverDesignation, webDriver);
-           new Select(approverDesignation).selectByVisibleText(approverDetails.getApproverDesignation());
-       } catch (StaleElementReferenceException e) {
-           WebElement element1 = webDriver.findElement(By.id("approvalDesignation"));
-           waitForElementToBeClickable(element1, webDriver);
-           new Select(element1).selectByVisibleText(approverDetails.getApprover());
+       if (!webDriver.findElement(By.id("approvalDesignation")).getText().equalsIgnoreCase(approverDetails.getApproverDesignation()))
+       {
+           try {
+               waitForElementToBeClickable(approverDesignation, webDriver);
+               new Select(approverDesignation).selectByVisibleText(approverDetails.getApproverDesignation());
+           } catch (StaleElementReferenceException e) {
+               WebElement element1 = webDriver.findElement(By.id("approvalDesignation"));
+               waitForElementToBeClickable(element1, webDriver);
+               new Select(element1).selectByVisibleText(approverDetails.getApprover());
+           }
        }
    }
    for (int i=0;i<4;i++) {

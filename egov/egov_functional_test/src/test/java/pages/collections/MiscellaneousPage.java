@@ -53,10 +53,5 @@ public class MiscellaneousPage extends BasePage{
         payButton.click();
 
 
-
-
-
-
-
     }
 }

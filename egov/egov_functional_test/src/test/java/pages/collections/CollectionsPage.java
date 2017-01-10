@@ -181,15 +181,18 @@ public class CollectionsPage extends BasePage {
         serviceTypeBox.click();
         new Select(serviceTypeBox).selectByVisibleText(challanHeaderDetails.getServiceType());
 
-       for (int i=0;i<4;i++) {
-           try {
-               WebElement element = driver.findElement(By.id("billDetailslist[0].creditAmountDetail"));
-               element.clear();
-               element.sendKeys("500");
-           } catch (StaleElementReferenceException e) {
-               WebElement element = driver.findElement(By.id("billDetailslist[0].creditAmountDetail"));
-               element.clear();
-               element.sendKeys("500");
+        for (int i = 0; i < 4; i++) {
+            if (!driver.findElement(By.id("billDetailslist[0].creditAmountDetail")).getText().equalsIgnoreCase(challanHeaderDetails.getAmount()))
+            {
+                try {
+                    WebElement element = driver.findElement(By.id("billDetailslist[0].creditAmountDetail"));
+                    element.clear();
+                    element.sendKeys("500");
+                } catch (StaleElementReferenceException e) {
+                    WebElement element = driver.findElement(By.id("billDetailslist[0].creditAmountDetail"));
+                    element.clear();
+                    element.sendKeys("500");
+                }
            }
        }
     }
@@ -200,7 +203,7 @@ public class CollectionsPage extends BasePage {
         new Select(approverDeptBox).selectByVisibleText(approverDetails.getApproverDepartment());
         new Select(approverDesignationBox).selectByVisibleText(approverDetails.getApproverDesignation());
         try {
-            TimeUnit.SECONDS.sleep(5);
+            TimeUnit.SECONDS.sleep(3);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -252,12 +255,6 @@ public class CollectionsPage extends BasePage {
                         .get(0).click());
 
                 bankNameInput.sendKeys(Keys.TAB);
-
-                try {
-                    Thread.sleep(10000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
 
                 waitForElementToBeClickable(payAmountBoxForCheque,driver);
                 payAmountBoxForCheque.sendKeys(actualAmount);

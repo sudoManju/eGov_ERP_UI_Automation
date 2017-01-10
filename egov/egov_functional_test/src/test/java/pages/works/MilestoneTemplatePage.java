@@ -83,7 +83,7 @@ public class MilestoneTemplatePage extends BasePage {
 
      waitForElementToBeVisible(templateCodeBox,driver);
      String templateCode = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
-     String templateCode1 = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
+     String templateCode1 = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
      templateCodeBox.sendKeys("TC"+templateCode+templateCode1);
 
      waitForElementToBeClickable(templateNameTextBox,driver);
