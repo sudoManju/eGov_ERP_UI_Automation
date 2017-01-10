@@ -1,5 +1,3 @@
-
-
 Feature: create preamble
 
   As a Registered user of the system
@@ -7,6 +5,7 @@ Feature: create preamble
 
   # Create Preamble #
 
+  @Sanity
   Scenario Outline: Register user choose to create Preamble
 
     Given councilCreator logs in
@@ -22,8 +21,6 @@ Feature: create preamble
     And user will be notified by "APPROVED"
     And current user logs out
 
-
-
   Examples:
   |details| approval officer2 |
-  |abc    | commissioner1   |
+  |abc    | commissioner1     |

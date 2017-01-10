@@ -59,7 +59,7 @@ public class CouncilManagementPage extends BasePage {
         new Select(preambleDepartment).selectByVisibleText(createPreambleDetails.getPreambleDepartment());
         enterText(sanctionAmount, createPreambleDetails.getAmount());
         enterText(gistOfPreamble, createPreambleDetails.getGistOfPreamble());
-        attachment.sendKeys("D:\\Automation\\eGov\\egov\\egov_functional_test\\src\\test\\resources\\Login credentials.txt");
+        attachment.sendKeys("/home/vinaykumar/State Bank of India.pdf");
         Select sel=new Select(wards);
         List<WebElement> selval=sel.getOptions();
         for(int i=0;i<selval.size();i++)
@@ -68,7 +68,6 @@ public class CouncilManagementPage extends BasePage {
         }
 
     }
-
 
     public void enterApproverDetails(ApprovalDetails approvalDetails) {
         new Select(approverDepartmentSelection).selectByVisibleText(approvalDetails.getApproverDepartment());
