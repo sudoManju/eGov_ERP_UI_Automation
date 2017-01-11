@@ -252,8 +252,8 @@ public class DashboardPage extends BasePage {
 
     public void createMiscellenous() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchTreeTextBox.click();
-        searchTreeTextBox.sendKeys("Miscellaneous Receipt");
+        searchFor("miscellaneous receipt");
+        waitForElementToBeVisible(miscellaneousReceipt,driver);
         miscellaneousReceipt.click();
         switchToNewlyOpenedWindow(driver);
     }

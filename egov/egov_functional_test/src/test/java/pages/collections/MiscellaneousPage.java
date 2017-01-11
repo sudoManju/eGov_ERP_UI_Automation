@@ -27,7 +27,7 @@ public class MiscellaneousPage extends BasePage{
     @FindBy(id = "serviceId")
     private WebElement serviceTypeIDropDown;
 
-    @FindBy(id = "billCreditDetailslist[0].creditAmountDetail")
+    @FindBy(css = "input[type='text'][id='billCreditDetailslist[0].creditAmountDetail']")
     private  WebElement receiptHeadsAmount;
 
     @FindBy(id = "button2")
@@ -46,11 +46,12 @@ public class MiscellaneousPage extends BasePage{
 //        waitForElementToBeClickable(serviceTypeIDropDown,driver);
         if(serviceTypeIDropDown.isDisplayed())
         new Select(serviceTypeIDropDown).selectByIndex(1);
+
         if(receiptHeadsAmount.isDisplayed())
         receiptHeadsAmount.click();
         receiptHeadsAmount.clear();
         receiptHeadsAmount.sendKeys("655");
-        payButton.click();
+       // payButton.click();
 
 
     }
