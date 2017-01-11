@@ -68,7 +68,7 @@ public class MilestoneTemplatePage extends BasePage {
     @FindBy(xpath = ".//*[@id='msgsDiv']/ul/li/span")
     private WebElement creationMsg;
 
-    @FindBy(xpath = ".//*[@id='milestoneTemplate-searchDetails']/div[4]/div[1]/div[2]/span[2]/a[5]")
+    @FindBy(xpath = "(.//*[@id='milestoneTemplate-searchDetails']/div[4]/div[1]/div[2]/span[2]/a)[last()]")
     private WebElement lastPageLink;
     public MilestoneTemplatePage(WebDriver driver) {
         this.driver = driver;

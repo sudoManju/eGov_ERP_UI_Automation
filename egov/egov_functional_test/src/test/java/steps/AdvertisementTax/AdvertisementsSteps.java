@@ -20,6 +20,8 @@ public class AdvertisementsSteps extends BaseSteps implements En {
 
         And("^he enters details for advertisement creation$", () -> {
            pageStore.get(AdvertisementsPage.class).enterAdvertisementDetails();
+
+           pageStore.get(AdvertisementsPage.class).enterPermissionDetails();
         });
     }
 

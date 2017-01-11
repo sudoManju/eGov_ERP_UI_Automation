@@ -31,11 +31,15 @@ public class AdvertisementsPage extends BasePage {
     @FindBy(id = "propertyType")
     private WebElement propertyTypeBox;
 
+    @FindBy(css = "input[id='applicationDate'][type='text']")
+    private WebElement applicationDateBox;
+
 
 
     public AdvertisementsPage(WebDriver driver){
        this.driver = driver;
     }
+
 
     public void enterAdvertisementDetails() {
         waitForElementToBeVisible(categoryBox,driver);
@@ -55,5 +59,10 @@ public class AdvertisementsPage extends BasePage {
 
         waitForElementToBeClickable(propertyTypeBox,driver);
         new Select(propertyTypeBox).selectByVisibleText("GOVERNMENT");
+    }
+
+    public void enterPermissionDetails() {
+
+
     }
 }
