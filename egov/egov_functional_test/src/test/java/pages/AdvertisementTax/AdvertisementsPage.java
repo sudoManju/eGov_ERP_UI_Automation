@@ -1,10 +1,16 @@
 package pages.AdvertisementTax;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
+
+import java.security.Key;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by karthik on 11/1/17.
@@ -34,7 +40,18 @@ public class AdvertisementsPage extends BasePage {
     @FindBy(css = "input[id='applicationDate'][type='text']")
     private WebElement applicationDateBox;
 
+    @FindBy(css = "input[id='permissionstartdate'][type='text']")
+    private WebElement permissionStartDateBox;
 
+    @FindBy(css = "input[id='permissionenddate'][type='text']")
+    private WebElement permissionEndDateBox;
+
+    @FindBy(id = "advertisementParticular")
+    private WebElement adParticularTextBox;
+
+
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    String date = sdf.format(new Date());
 
     public AdvertisementsPage(WebDriver driver){
        this.driver = driver;
@@ -62,7 +79,17 @@ public class AdvertisementsPage extends BasePage {
     }
 
     public void enterPermissionDetails() {
+         waitForElementToBeClickable(applicationDateBox,driver);
+         applicationDateBox.sendKeys(date, Keys.TAB);
 
+         waitForElementToBeClickable(adParticularTextBox,driver);
+         adParticularTextBox.sendKeys("For elections");
 
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        c.add(Calendar.DATE, 30);
+
+        waitForElementToBeClickable(permissionStartDateBox,driver);
+        permissionStartDateBox.sendKeys();
     }
 }
