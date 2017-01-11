@@ -115,10 +115,10 @@ public class ContractorPage extends BasePage
     {
         waitForElementToBeClickable(contractorCode, driver);
 
-        String code = (min);
+        String code = (min+hour);
         contractorCode.sendKeys("KMC"+code);
         waitForElementToBeClickable(contractorName, driver);
-        contractorName.sendKeys("Rishad Reddy");
+        contractorName.sendKeys("tester");
         waitForElementToBeClickable(correspondenceAddress, driver);
         correspondenceAddress.sendKeys("A.P.State Agro industries Development Corporation Ltd., ATP");
         waitForElementToBeClickable(panNumber, driver);
@@ -152,7 +152,7 @@ public class ContractorPage extends BasePage
     public void searchContractor()
     {
         waitForElementToBeClickable(searchContractorNameBox,driver);
-        searchContractorNameBox.sendKeys("Contractor123");
+        searchContractorNameBox.sendKeys("tester");
         waitForElementToBeClickable(contractorSearchButton, driver);
         contractorSearchButton.click();
     }

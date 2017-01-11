@@ -1,5 +1,6 @@
 package steps.ptis;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.ptis.EditAssessmentDetails;
 import entities.ptis.EditFloorDetails;
@@ -40,8 +41,6 @@ public class AdditionSteps extends BaseSteps implements En {
             pageStore.get(PropertyDetailsPage.class).enterEditFloorDetails(floorDetails);
 
         });
-
-
 
     }
 
