@@ -2,11 +2,18 @@ package builders;
 
 import entities.ServiceTypeRequest;
 
+
 /**
- * Created by soumyaghosh on 10/01/17.
+ * Created by soumyaghosh on 25/08/16.
  */
 public class ServiceTypeRequestBuilder {
-    public ServiceTypeRequest build() {
-        return null;
+
+    ServiceTypeRequest request = new ServiceTypeRequest();
+
+    public ServiceTypeRequestBuilder() {
+        request.setJurisdiction_id("1234");
     }
+
+    public ServiceTypeRequest build(){ return request; }
+
 }
