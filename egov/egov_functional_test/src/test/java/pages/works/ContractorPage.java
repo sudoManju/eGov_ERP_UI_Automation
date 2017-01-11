@@ -90,7 +90,8 @@ public class ContractorPage extends BasePage
      private WebElement exemptionFormAction;
 
     String min = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
-    String hour = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
+    String hour = String.valueOf(Calendar.getInstance().get(Calendar.MINUTE));
+    String min1 = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
 
     public ContractorPage(WebDriver driver) {
         this.driver = driver;
@@ -115,7 +116,7 @@ public class ContractorPage extends BasePage
     {
         waitForElementToBeClickable(contractorCode, driver);
 
-        String code = (min+hour);
+        String code = (min+hour+min1);
         contractorCode.sendKeys("KMC"+code);
         waitForElementToBeClickable(contractorName, driver);
         contractorName.sendKeys("tester");
@@ -136,8 +137,8 @@ public class ContractorPage extends BasePage
         waitForElementToBeClickable(fromDate, driver);
         fromDate.sendKeys("10/01/2017");
 
-        waitForElementToBeClickable(saveButton,driver);
-        saveButton.click();
+//        waitForElementToBeClickable(saveButton,driver);
+//        saveButton.click();
     }
 
     public void viewContractor()

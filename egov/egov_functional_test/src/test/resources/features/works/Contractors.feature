@@ -11,9 +11,9 @@ Feature: Create Contractors in the Masters
     When assistantEngineer logs in
     And he chooses to create contractor
     And he enters the contractor master data
-    Then user will be notified by "successfully"
-    And he close the acknowledgement
-    And current user logs out
+#    Then user will be notified by "successfully"
+#    And he close the acknowledgement
+#    And current user logs out
 
 #    View/Modify Contractor
 

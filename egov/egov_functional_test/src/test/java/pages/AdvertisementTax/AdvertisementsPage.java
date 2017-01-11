@@ -1,5 +1,6 @@
 package pages.AdvertisementTax;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,6 +12,7 @@ import java.security.Key;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by karthik on 11/1/17.
@@ -49,6 +51,47 @@ public class AdvertisementsPage extends BasePage {
     @FindBy(id = "advertisementParticular")
     private WebElement adParticularTextBox;
 
+    @FindBy(id = "advertisementDuration")
+    private WebElement advertismentDurationBox;
+
+    @FindBy(id = "locality")
+    private WebElement localityBox;
+
+    @FindBy(id = "address")
+    private WebElement addressTextBox;
+
+    @FindBy(css = "input[id='measurement'][type='text']")
+    private WebElement measurementTextBox;
+
+    @FindBy(id = "unitOfMeasure")
+    private WebElement measurementTypeBox;
+
+    @FindBy(css = "input[id='taxAmount'][type='text']")
+    private WebElement taxAmountTextBox;
+
+    @FindBy(id = "ownerDetail")
+    private WebElement ownerDetailsTextBox;
+
+    @FindBy(id = "Forward")
+    private WebElement forwardButton;
+
+    @FindBy(xpath = ".//*[@id='advertisementSuccessform']/div/div/div")
+    private WebElement creationMsg;
+
+    @FindBy(linkText = "Close")
+     private WebElement closeLink;
+
+    @FindBy(css = "li[role='presentation'] a[data-now^='Advertisement']")
+    private WebElement advertisementLink;
+
+    @FindBy(id = "official_inbox_wrapper")
+    private WebElement workListTable;
+
+    @FindBy(id = "approvalComent")
+    private WebElement commentBox;
+
+    @FindBy(id = "Approve")
+    private WebElement approveButton;
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     String date = sdf.format(new Date());
@@ -85,11 +128,105 @@ public class AdvertisementsPage extends BasePage {
          waitForElementToBeClickable(adParticularTextBox,driver);
          adParticularTextBox.sendKeys("For elections");
 
+        waitForElementToBeClickable(ownerDetailsTextBox,driver);
+        ownerDetailsTextBox.sendKeys("Bhartiya janatha party");
+
         Calendar c = Calendar.getInstance();
         c.setTime(new Date());
-        c.add(Calendar.DATE, 30);
-
+        c.add(Calendar.DATE, 7);
+        String date1 = sdf.format(c.getTime());
         waitForElementToBeClickable(permissionStartDateBox,driver);
-        permissionStartDateBox.sendKeys();
+        permissionStartDateBox.sendKeys(date1, Keys.TAB);
+
+        c.add(Calendar.DATE, 30);
+        String date2 = sdf.format(c.getTime());
+        waitForElementToBeClickable(permissionEndDateBox,driver);
+        permissionEndDateBox.sendKeys(date2, Keys.TAB);
+
+        waitForElementToBeClickable(advertismentDurationBox,driver);
+        new Select(advertismentDurationBox).selectByVisibleText("MONTH");
+    }
+
+    public void enterLocalityDetails() {
+        waitForElementToBeClickable(localityBox,driver);
+        new Select(localityBox).selectByVisibleText("Avanthi Nagar");
+
+        waitForElementToBeClickable(addressTextBox,driver);
+        addressTextBox.sendKeys("footover Bridge, mainroad, Avanthi Nagar");
+    }
+
+
+    public void enterStructureDetails() {
+        waitForElementToBeClickable(measurementTextBox,driver);
+        measurementTextBox.sendKeys("20");
+
+        waitForElementToBeClickable(measurementTypeBox,driver);
+        new Select(measurementTypeBox).selectByVisibleText("SQ.FT");
+
+        waitForElementToBeClickable(taxAmountTextBox,driver);
+        taxAmountTextBox.sendKeys("10");
+    }
+
+
+    public String forward() {
+        waitForElementToBeClickable(forwardButton,driver);
+        forwardButton.click();
+
+        String Msg = creationMsg.getText();
+        String applicationNumber = Msg.substring(Msg.lastIndexOf(" ")+1);
+        System.out.println(applicationNumber);
+
+        return applicationNumber;
+    }
+
+
+    public String successMessage() {
+
+        String msg = creationMsg.getText();
+        return msg;
+    }
+
+    public void close() {
+     waitForElementToBeVisible(closeLink,driver);
+     closeLink.click();
+
+     switchToPreviouslyOpenedWindow(driver);
+    }
+
+
+    public void selectAdvertisementTag(String applicationNumber) {
+        waitForElementToBeVisible(advertisementLink,driver);
+        advertisementLink.click();
+
+        List<WebElement> totalRows = workListTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
+        System.out.println("\n"+totalRows.size());
+        for (WebElement applicationRow : totalRows) {
+            if (applicationRow.findElements(By.tagName("td")).get(4).getText().contains(applicationNumber))
+                applicationRow.click();
+            break;
+        }
+
+        switchToNewlyOpenedWindow(driver);
+    }
+
+
+    public void approverComment() {
+        waitForElementToBeClickable(commentBox,driver);
+        commentBox.sendKeys("Approved");
+    }
+
+    public void approve() {
+        waitForElementToBeClickable(approveButton,driver);
+        approveButton.click();
+    }
+
+    public String getAdvertisementNumber() {
+        waitForElementToBeVisible(creationMsg,driver);
+        String number = creationMsg.getText();
+
+        String applicationNumber = number.substring(number.lastIndexOf(" ")+1);
+        System.out.println(applicationNumber);
+
+        return applicationNumber;
     }
 }
