@@ -53,7 +53,7 @@ public class LegacyAdvertisementsSteps extends BaseSteps implements En {
             scenarioContext.setActualMessage(actualMsg);
 
             String url = "http://kurnool-uat.egovernments.org/adtax/hoarding/findhoarding-for-update";
-//            pageStore.get(AdvertisementsPage.class).closeMultipleWindows(url);
+            pageStore.get(AdvertisementsPage.class).closeMultipleWindows(url);
         });
 
     }

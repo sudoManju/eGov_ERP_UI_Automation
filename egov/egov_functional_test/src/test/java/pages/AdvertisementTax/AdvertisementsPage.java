@@ -165,15 +165,8 @@ public class AdvertisementsPage extends BasePage {
         waitForElementToBeClickable(measurementTypeBox, driver);
         new Select(measurementTypeBox).selectByVisibleText("SQ.FT");
 
-        for(int i =0;i<4;i++) {
-            try {
-             waitForElementToBeClickable(taxAmountTextBox, driver);
-             taxAmountTextBox.sendKeys("10");
-         } catch (StaleElementReferenceException e) {
-             waitForElementToBeClickable(taxAmountTextBox, driver);
-             taxAmountTextBox.sendKeys("10");
-         }
-       }
+        waitForElementToBeClickable(taxAmountTextBox, driver);
+        taxAmountTextBox.sendKeys("10");
     }
 
 
