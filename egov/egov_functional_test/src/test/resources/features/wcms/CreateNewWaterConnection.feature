@@ -4,10 +4,8 @@ Feature: To create a new water connection
   I want to create a new water connection
   So that the connection records are up to date.
 
-  @Sanity
-  Scenario Outline: applying for new water connection
+  Background:It will run the data entry screen of property tax
 
-    #  Creating a Data Entry Screen For Property Tax  #
     Given commissioner logs in
     When he chooses to create data entry
     And he creates a new assessment for a private residential property
@@ -16,7 +14,8 @@ Feature: To create a new water connection
     And he choose to close the dataentry acknowledgement screen
     And current user logs out
 
-    #  Creating a New Water Connection based on Data Entry Screen Number  #
+  @Sanity
+  Scenario Outline: applying for new water connection
 
     Given juniorAssistant logs in
     And user chooses to apply for new water connection

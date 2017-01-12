@@ -67,7 +67,7 @@ Feature: Create New Property
 
     # DATA ENTRY SCREEN #
 
-  @Sanity
+  @Sanity1
     Scenario: Registered user create property through data entry screen
 
       Given commissioner logs in

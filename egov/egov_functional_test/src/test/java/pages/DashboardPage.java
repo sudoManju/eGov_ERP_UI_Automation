@@ -179,6 +179,9 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Update Legacy Advertisements")
     private WebElement updateLegacyAdvertisementLink;
 
+    @FindBy(linkText = "Create Voucher")
+    private WebElement createExpenseBillVoucher;
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -373,7 +376,7 @@ public class DashboardPage extends BasePage {
         waitForElementToBeVisible(driver.findElement(By.id("searchResultDiv")), driver);
         waitForElementToBeVisible(applicationSearchTable, driver);
 
-//        await().atMost(10, SECONDS).until(() -> applicationSearchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
+        await().atMost(10, SECONDS).until(() -> applicationSearchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
         List<WebElement> applicationRows = applicationSearchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
 //        System.out.println("total number of rows -- " + applicationRows.size());
 
@@ -660,11 +663,20 @@ public class DashboardPage extends BasePage {
     }
 
     public void chooseToUpdateLegacyAdvertisements() {
-        waitForElementToBeClickable(searchTreeTextBox,driver);
+        waitForElementToBeClickable(searchTreeTextBox, driver);
         searchTreeTextBox.clear();
         searchFor("update legacy advertisement");
-        waitForElementToBeVisible(updateLegacyAdvertisementLink,driver);
+        waitForElementToBeVisible(updateLegacyAdvertisementLink, driver);
         updateLegacyAdvertisementLink.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void createExpenseBillVoucher(){
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchTreeTextBox.clear();
+        searchFor("Create Voucher");
+        waitForElementToBeVisible(createExpenseBillVoucher,driver);
+        createExpenseBillVoucher.click();
         switchToNewlyOpenedWindow(driver);
     }
 }

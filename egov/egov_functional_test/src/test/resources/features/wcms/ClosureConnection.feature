@@ -9,7 +9,7 @@ Feature: To close a water connection either Temporary or Permanent
 
     Given juniorAssistant logs in
     And user search to apply for closure of connection
-    And user will enter the consumer number as <consumer number>
+    And user will enter the consumer number
     And user will enter the closure connection details as <closure type>
     And user closes acknowledgement form
     And current user logs out
@@ -33,8 +33,8 @@ Feature: To close a water connection either Temporary or Permanent
 
 
     Examples:
-    | closure type | consumer number |
-    | Temporary    | 1016000074      |
+    | closure type |
+    | Temporary    |
 
 
   @WIP
@@ -42,7 +42,7 @@ Feature: To close a water connection either Temporary or Permanent
 
     Given juniorAssistant logs in
     And user search to apply for closure of connection
-    And user will enter the consumer number as <consumer number>
+    And user will enter the consumer number
     And user will enter the closure connection details as <closure type>
     And user closes acknowledgement form
     And current user logs out
@@ -66,5 +66,5 @@ Feature: To close a water connection either Temporary or Permanent
 
 
     Examples:
-      | closure type | consumer number |
-      | Permanent    | 1016000046      |
+      | closure type |
+      | Permanent    |

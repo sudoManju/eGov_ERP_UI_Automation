@@ -260,29 +260,17 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "approvalComent")
     private WebElement approvalWaterComment;
 
-    @FindBy(id = "app-appcodo")
-    private WebElement consumerNumberTextBox;
-
-    @FindBy(id = "submitButtonId")
-    private WebElement consumerSearchButton;
-
     @FindBy(id = "Forward")
     private WebElement additionalForwardButton;
 
-    @FindBy(id = "applicationNumber")
-    private WebElement additionalApplicationNumber;
-
-    @FindBy(linkText = "Close")
-    private WebElement additionalCloseButton;
+    @FindBy(css = "input[value='Pay'][type='submit']")
+    private WebElement payButton;
 
     @FindBy(css = "input[type='text'][name = 'totalamounttobepaid']")
     private WebElement propertyAmountPaid;
 
     @FindBy (css = "input[type='text'][name='instrHeaderCash.instrumentAmount']")
-    private WebElement properAmountToBePaid;
-
-    @FindBy(css = "input[value='Pay'][type='submit']")
-    private WebElement payButton;
+    private WebElement propertyAmountToBePaid;
 
     public PropertyDetailsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -526,33 +514,12 @@ public class PropertyDetailsPage extends BasePage {
 
     }
 
-    public void enterConsumerNumber(String consumerNumber){
-
-        waitForElementToBeClickable(consumerNumberTextBox, webDriver);
-        enterText(consumerNumberTextBox, consumerNumber);
-
-        waitForElementToBeClickable(consumerSearchButton, webDriver);
-        consumerSearchButton.click();
-        switchToNewlyOpenedWindow(webDriver);
-    }
-
-    public String findAdditionalApplicationNumber(){
-        waitForElementToBeClickable(additionalApplicationNumber, webDriver);
-        String number = additionalApplicationNumber.getText();
-        waitForElementToBeClickable(additionalCloseButton, webDriver);
-        additionalCloseButton.click();
-
-        switchToPreviouslyOpenedWindow(webDriver);
-
-        return number;
-    }
-
     public void payCash() {
 
         waitForElementToBeClickable(propertyAmountPaid, webDriver);
-        waitForElementToBeClickable(properAmountToBePaid, webDriver);
+        waitForElementToBeClickable(propertyAmountToBePaid, webDriver);
 
-        properAmountToBePaid.sendKeys(propertyAmountPaid.getAttribute("value").split("\\.")[0]);
+        propertyAmountToBePaid.sendKeys(propertyAmountPaid.getAttribute("value").split("\\.")[0]);
 
         WebElement element = webDriver.findElement(By.id("button2"));
         JavascriptExecutor executor = (JavascriptExecutor)webDriver;

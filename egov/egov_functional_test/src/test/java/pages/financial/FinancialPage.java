@@ -233,6 +233,9 @@ public class FinancialPage extends BasePage {
     @FindBy(css = "input[type='text'][id='vouchernumber']")
     private WebElement BPVNumber;
 
+    @FindBy(id = "expType")
+    private WebElement billType;
+
     private String juneDate = "00";
 
     public FinancialPage(WebDriver webDriver) {
@@ -618,5 +621,35 @@ public class FinancialPage extends BasePage {
                 return applicationRow.findElements(By.tagName("td")).get(0).findElement(By.className("yui-dt-liner"));
         }
         throw new RuntimeException("No application row found for -- " + applicationNumber);
+    }
+
+    public void filterCreateVoucherBill(String applicationNumber){
+        new Select(billType).selectByVisibleText("Expense");
+        webDriver.findElement(By.id("billNumber")).sendKeys(applicationNumber);
+        webDriver.findElement(By.cssSelector(".buttonsubmit")).click();
+
+        getExpenseVoucherRow(applicationNumber).click();
+        switchToNewlyOpenedWindow(webDriver);
+    }
+
+    private WebElement getExpenseVoucherRow(String applicationNumber){
+        WebElement element = webDriver.findElement(By.className("tablebottom"));
+        List<WebElement> elements = element.findElements(By.className("setborder"));
+
+        for (WebElement applicationRow : elements) {
+            if (applicationRow.findElements(By.tagName("td")).get(1).getText().contains(applicationNumber))
+                return applicationRow.findElements(By.tagName("td")).get(1);
+        }
+        throw new RuntimeException("No application row found for -- " + applicationNumber);
+    }
+
+    public String closesExpenseVoucherPage(){
+
+        WebElement element = webDriver.findElement(By.className("actionMessage"));
+        waitForElementToBeVisible(element , webDriver);
+        String msg = element.getText();
+        closeButton.click();
+        switchToPreviouslyOpenedWindow(webDriver);
+        return msg;
     }
 }

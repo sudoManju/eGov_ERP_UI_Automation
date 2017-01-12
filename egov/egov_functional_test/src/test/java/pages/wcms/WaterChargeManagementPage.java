@@ -11,6 +11,7 @@ import pages.BasePage;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -199,16 +200,26 @@ public class WaterChargeManagementPage extends BasePage {
     @FindBy(name = "fromDate")
     private WebElement searchApplicationDate;
 
+    @FindBy(id = "applicationNumber")
+    private WebElement additionalApplicationNumber;
+
+    @FindBy(linkText = "Close")
+    private WebElement additionalCloseButton;
+
+    @FindBy(id = "app-appcodo")
+    private WebElement consumerNumberTextBox;
+
+    @FindBy(id = "submitButtonId")
+    private WebElement consumerSearchButton;
+
 
     public WaterChargeManagementPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
 
-//    public void enterWaterConectionAssessmentNumber(ApplicantInfo applicantInfo){
-    public void enterWaterConectionAssessmentNumber(String applicationParticularsDetails){
+    public void enterWaterConectionAssessmentNumber(ApplicantInfo applicantInfo){
         waitForElementToBeClickable(waterConnectionAssesmentNumberTextBox, webDriver);
-//        enterText(waterConnectionAssesmentNumberTextBox, applicantInfo.getPtAssessmentNumber());
-        enterText(waterConnectionAssesmentNumberTextBox, applicationParticularsDetails);
+        enterText(waterConnectionAssesmentNumberTextBox, applicantInfo.getPtAssessmentNumber());
     }
 
     public void enterNewWaterConnectionInfo(ConnectionInfo connectionInfo){
@@ -349,12 +360,14 @@ public class WaterChargeManagementPage extends BasePage {
         searchApplicationButton.click();
     }
 
-    public void clickOnCollectCharges(){
-
+    public String clickOnCollectCharges(){
+        WebElement applicationNumber = webDriver.findElement(By.xpath(".//*[@id='page-container']/div[1]/div[2]/div[2]/div[4]"));
+        waitForElementToBeVisible(applicationNumber , webDriver);
+        String number = applicationNumber.getText();
         waitForElementToBeClickable(collectFeesButton, webDriver);
         collectFeesButton.click();
         switchToNewlyOpenedWindow(webDriver);
-
+        return number;
     }
 
     public void toReceiveAmount(){
@@ -413,7 +426,6 @@ public class WaterChargeManagementPage extends BasePage {
 
         await().atMost(10, SECONDS).until(() -> officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
         List<WebElement> applicationRows = officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-        System.out.println("total number of rows -- " + applicationRows.size());
         for (WebElement applicationRow : applicationRows) {
             if (applicationRow.findElements(By.tagName("td")).get(4).getText().contains(consumerNumber))
                 return applicationRow;
@@ -522,7 +534,28 @@ public class WaterChargeManagementPage extends BasePage {
         webDriver.close();
         switchToPreviouslyOpenedWindow(webDriver);
 
-        System.out.println("==================="+successMessage.getText());
         return successMessage.getText();
+    }
+
+    public String findAdditionalApplicationNumber(){
+        waitForElementToBeClickable(additionalApplicationNumber, webDriver);
+        String number = additionalApplicationNumber.getText();
+        waitForElementToBeClickable(additionalCloseButton, webDriver);
+        additionalCloseButton.click();
+
+        switchToPreviouslyOpenedWindow(webDriver);
+
+        return number;
+    }
+
+
+    public void enterConsumerNumber(String consumerNumber){
+
+        waitForElementToBeClickable(consumerNumberTextBox, webDriver);
+        enterText(consumerNumberTextBox, consumerNumber);
+
+        waitForElementToBeClickable(consumerSearchButton, webDriver);
+        consumerSearchButton.click();
+        switchToNewlyOpenedWindow(webDriver);
     }
 }

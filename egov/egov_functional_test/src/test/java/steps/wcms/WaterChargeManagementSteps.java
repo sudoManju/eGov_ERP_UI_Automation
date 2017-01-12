@@ -10,6 +10,8 @@ import pages.wcms.WaterChargeManagementPage;
 import steps.BaseSteps;
 import utils.ExcelReader;
 
+import java.io.IOException;
+
 /**
  * Created by vinaykumar on 9/12/16.
  */
@@ -19,12 +21,13 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
 
         And("^user will enter the details of the new water connection$", () -> {
 
-            String applicationParticularsDetails = scenarioContext.getAssessmentNumber();
+//            String applicationParticularsDetails = scenarioContext.getAssessmentNumber();
+            String applicationParticularsDetails = "applicantInfo";
             String connectionDetails = "connectionInfo";
             String enclosedDocumentDetails = "enclosedInfo";
 
-//            ApplicantInfo applicantInfo = new ExcelReader(ptisTestDataFileName).getApplicantInfo(applicationParticularsDetails);
-            pageStore.get(WaterChargeManagementPage.class).enterWaterConectionAssessmentNumber(applicationParticularsDetails);
+            ApplicantInfo applicantInfo = new ExcelReader(ptisTestDataFileName).getApplicantInfo(applicationParticularsDetails);
+            pageStore.get(WaterChargeManagementPage.class).enterWaterConectionAssessmentNumber(applicantInfo);
 
             ConnectionInfo connectionInfo = new ExcelReader(ptisTestDataFileName).getConnectionInfo(connectionDetails);
             pageStore.get(WaterChargeManagementPage.class).enterNewWaterConnectionInfo(connectionInfo);
@@ -38,9 +41,13 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             pageStore.get(WaterChargeManagementPage.class).enterWaterApprovalDetails(approvalDetails);
         });
 
-        And("^user will enter the consumer number as (\\w+)$", (String consumerNumber) -> {
-            scenarioContext.setApplicationNumber(consumerNumber);
-            pageStore.get(PropertyDetailsPage.class).enterConsumerNumber(scenarioContext.getApplicationNumber());
+        And("^user will enter the consumer number$", () -> {
+
+            String applicationParticularsDetails = "additionalConnection";
+
+            ApplicantInfo applicantInfo = new ExcelReader(ptisTestDataFileName).getApplicantInfo(applicationParticularsDetails);
+            pageStore.get(WaterChargeManagementPage.class).enterConsumerNumber(applicantInfo.getPtAssessmentNumber());
+            scenarioContext.setApplicationNumber(applicantInfo.getPtAssessmentNumber());
         });
 
         And("^user will enter the details of the new additional water connection$", () -> {
@@ -56,7 +63,7 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
         });
 
         Then("^user will get the application number and closes the form$", () -> {
-            String applicationNumber = pageStore.get(PropertyDetailsPage.class).findAdditionalApplicationNumber();
+            String applicationNumber = pageStore.get(WaterChargeManagementPage.class).findAdditionalApplicationNumber();
             scenarioContext.setApplicationNumber(applicationNumber);
         });
 
@@ -70,9 +77,15 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
         });
 
         And("^user will click on collect charges and collect the money form the customer & closes it$", () -> {
-            pageStore.get(WaterChargeManagementPage.class).clickOnCollectCharges();
+            String consumerNumber = pageStore.get(WaterChargeManagementPage.class).clickOnCollectCharges();
             pageStore.get(WaterChargeManagementPage.class).toReceiveAmount();
             pageStore.get(WaterChargeManagementPage.class).closeReceipt();
+
+            try {
+                new ExcelReader(ptisTestDataFileName).writeDataIntoExcel(consumerNumber, "additionalConnection" , "assessmentNumber");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
 
         Then("^user will filter the application based upon the connection details as (\\w+)$", (String connectionType) -> {
@@ -154,6 +167,22 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
 
         And("^user will closes the acknowledgement form$", () -> {
             pageStore.get(WaterChargeManagementPage.class).closePage();
+        });
+
+        And("^write data into excel$", () -> {
+            try {
+                new ExcelReader(ptisTestDataFileName).writeDataIntoExcel("message" , "actualMessage" , "message1");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });
+
+        And("^user will enter the closure consumer number$", () -> {
+            String applicationParticularsDetails = "additionalConnection";
+
+            ApplicantInfo applicantInfo = new ExcelReader(ptisTestDataFileName).getApplicantInfo(applicationParticularsDetails);
+            pageStore.get(WaterChargeManagementPage.class).enterConsumerNumber(applicantInfo.getPtAssessmentNumber());
         });
     }
 }

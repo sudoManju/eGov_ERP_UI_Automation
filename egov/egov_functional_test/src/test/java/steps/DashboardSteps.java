@@ -18,7 +18,7 @@ public class DashboardSteps extends BaseSteps implements En {
 
         And("^chooses to act upon the above application$", () -> {
             pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
-//            pageStore.get(DashboardPage.class).openApplication("00189-2017-DW");
+//            pageStore.get(DashboardPage.class).openApplication("00531-2017-UY");
         });
 
         And("^chooses to act upon the above assessment$", () -> {
@@ -165,9 +165,15 @@ public class DashboardSteps extends BaseSteps implements En {
         And("^user search to data entry screen for water$", () -> {
             pageStore.get(DashboardPage.class).createDataEntryScreenForWater();
         });
+
         And("^he chooses to act upon the above preamble number$", () -> {
             pageStore.get(DashboardPage.class).openApplication(scenarioContext.getPreambleNumber());
         });
+
+        And("^officer will search for the Create Voucher for expense bill$", () -> {
+            pageStore.get(DashboardPage.class).createExpenseBillVoucher();
+        });
+
     }
 }
 

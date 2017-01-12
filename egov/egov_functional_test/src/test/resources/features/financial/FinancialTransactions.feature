@@ -137,9 +137,39 @@ Feature: To create a Financial Transactions
     Then user will be notified by "approved"
     And current user logs out
 
+    Given accountsOfficer logs in
+    And officer will search for the Create Voucher for expense bill
+    And officer will filter the bill according to the type
+    And officer will enter the approval details as <approval officer3>
+    And officer will set the new expense voucher number and closes it
+    Then user will be notified by "forwarded"
+    And current user logs out
+
+    And assistantExaminer logs in
+    Then the officer will click on the voucher number
+    And officer will enter the approval details as <approval officer4>
+    And officer will closes the acknowledgement page
+    Then user will be notified by "forwarded"
+    And current user logs out
+
+    And examiner logs in
+    Then the officer will click on the voucher number
+    And officer will enter the approval details as <approval officer5>
+    And officer will closes the acknowledgement page
+    Then user will be notified by "forwarded"
+    And current user logs out
+
+    And commissioner logs in
+    Then the officer will click on the voucher number
+    And officer click on approval of the voucher
+    And officer will closes the acknowledgement page
+    Then user will be notified by "approved"
+    And current user logs out
+
+
     Examples:
-    | bill details | approval officer1 | approval officer2 |
-    | expenseBill  | accountOfficer3   | commissioner1     |
+    | bill details | approval officer1 | approval officer2 | approval officer3 | approval officer4 | approval officer5 |
+    | expenseBill  | accountOfficer3   | commissioner1     | accountOfficer1   | accountOfficer2   | commissioner      |
 
 
 

@@ -38,6 +38,8 @@ import entities.works.*;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 
+import java.awt.*;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -86,6 +88,7 @@ public class ExcelReader {
     Sheet approverDetailsSheet;
     Sheet createPreambleDetailsSheet;
     Sheet legencyDetailsSheet;
+    Sheet dataFromWebSheet;
 
     public ExcelReader(String testData) {
         String excelFilePath = testData + ".xlsx";
@@ -141,6 +144,7 @@ public class ExcelReader {
         tradeDetailsSheet = workbook.getSheet("tradeDetails");
         createPreambleDetailsSheet = workbook.getSheet("createPreamble");
         legencyDetailsSheet = workbook.getSheet("legencyDetails");
+        dataFromWebSheet = workbook.getSheet("dataFromWeb");
     }
 
     private Row readDataRow(Sheet fromSheet, String dataId) {
@@ -569,7 +573,12 @@ public class ExcelReader {
                     .build();
     }
 
-    public ApplicantInfo getApplicantInfo(String applicantDetailsDataId){
+    public synchronized ApplicantInfo getApplicantInfo(String applicantDetailsDataId){
+
+        Thread t = Thread.currentThread();
+        String name = t.getName();
+        System.out.println("name=" + name);
+
         Row dataRow = readDataRow(applicantParticularsSheet, applicantDetailsDataId);
 
         Cell assessmentNumberCell = getCellData(applicantParticularsSheet, dataRow, "assessmentNumber");
@@ -1129,5 +1138,22 @@ public class ExcelReader {
                     .withAmount6(amount6)
                     .build();
 
+    }
+
+    public synchronized void writeDataIntoExcel(String message , String dataName , String columnName) throws IOException {
+
+        Thread t = Thread.currentThread();
+        String name = t.getName();
+        System.out.println("name=" + name);
+
+        Row dataRow = readDataRow(applicantParticularsSheet, dataName);
+
+        Cell data =getCellData(applicantParticularsSheet, dataRow, columnName);
+        data.setCellType(Cell.CELL_TYPE_STRING);
+        data.setCellValue(message);
+
+        FileOutputStream fileOut = new FileOutputStream(System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx");
+        workbook.write(fileOut);
+        fileOut.close();
     }
 }

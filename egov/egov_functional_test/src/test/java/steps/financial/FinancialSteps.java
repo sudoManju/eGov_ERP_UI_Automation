@@ -43,6 +43,7 @@ public class FinancialSteps extends BaseSteps implements En {
 
         Then("^the officer will click on the voucher number$", () -> {
             pageStore.get(FinancialPage.class).openVoucher(scenarioContext.getVoucherNumber());
+//            pageStore.get(FinancialPage.class).openVoucher("1/EJV/00003083/01/2016-17");
         });
 
         And("^officer will closes the acknowledgement page$", () -> {
@@ -128,6 +129,17 @@ public class FinancialSteps extends BaseSteps implements En {
         And("^officer will search for remittance bills$", () -> {
             pageStore.get(FinancialPage.class).searchRemittanceBill();
             pageStore.get(FinancialPage.class).selectRemittanceBIll(scenarioContext.getVoucherNumber());
+        });
+
+        And("^officer will filter the bill according to the type$", () -> {
+            pageStore.get(FinancialPage.class).filterCreateVoucherBill(scenarioContext.getVoucherNumber());
+//            pageStore.get(FinancialPage.class).filterCreateVoucherBill("PHS/EJV/3456/2016-17");
+        });
+
+        And("^officer will set the new expense voucher number and closes it$", () -> {
+            String expenseVoucherMessage = pageStore.get(FinancialPage.class).closesExpenseVoucherPage();
+            scenarioContext.setVoucherNumber(expenseVoucherMessage.split("\\ ")[4].split("\\.")[0]);
+            scenarioContext.setActualMessage(expenseVoucherMessage);
         });
     }
 }
