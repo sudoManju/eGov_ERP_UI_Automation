@@ -60,7 +60,7 @@ public class AdvertisementsSteps extends BaseSteps implements En {
             String actualMsg = pageStore.get(AdvertisementsPage.class).successMessage();
             scenarioContext.setActualMessage(actualMsg);
 
-            pageStore.get(AdvertisementsPage.class).close();
+            //pageStore.get(AdvertisementsPage.class).close();
         });
         And("^he chooses to search advertisement$", () -> {
            pageStore.get(DashboardPage.class).chooseToSearchAdvertisement();
@@ -69,8 +69,10 @@ public class AdvertisementsSteps extends BaseSteps implements En {
             pageStore.get(AdvertisementsPage.class).searchAndSelect(scenarioContext.getApplicationNumber());
         });
         And("^he view and close the acknowledgement$", () -> {
-            pageStore.get(AdvertisementsPage.class).closeMultipleWindows();
+            String url = "http://kurnool-uat.egovernments.org/adtax/hoarding/adtax-search";
+            pageStore.get(AdvertisementsPage.class).closeMultipleWindows(url);
         });
+
     }
 
 }

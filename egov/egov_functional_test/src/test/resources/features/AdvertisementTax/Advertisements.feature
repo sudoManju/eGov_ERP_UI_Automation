@@ -24,3 +24,7 @@ Scenario: Create/Search advertisments
    And he search and select the required advertisement
    And he view and close the acknowledgement
    And current user logs out
+
+
+
+

@@ -173,7 +173,11 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Search Advertisement")
     private WebElement searchAdvertisementLink;
 
+    @FindBy(linkText = "Create Legacy Advertisement")
+    private WebElement createLegacyAdvertisementLink;
 
+    @FindBy(linkText = "Update Legacy Advertisements")
+    private WebElement updateLegacyAdvertisementLink;
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -644,6 +648,23 @@ public class DashboardPage extends BasePage {
         searchFor("search advertisement");
         waitForElementToBeVisible(searchAdvertisementLink,driver);
         searchAdvertisementLink.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseForCreateLegacyAdvertisements() {
+        waitForElementToBeClickable(searchTreeTextBox,driver);
+        searchFor("create legacy advertisement");
+        waitForElementToBeVisible(createLegacyAdvertisementLink,driver);
+        createLegacyAdvertisementLink.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseToUpdateLegacyAdvertisements() {
+        waitForElementToBeClickable(searchTreeTextBox,driver);
+        searchTreeTextBox.clear();
+        searchFor("update legacy advertisement");
+        waitForElementToBeVisible(updateLegacyAdvertisementLink,driver);
+        updateLegacyAdvertisementLink.click();
         switchToNewlyOpenedWindow(driver);
     }
 }

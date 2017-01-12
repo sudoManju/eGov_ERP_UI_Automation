@@ -254,13 +254,13 @@ public class AdvertisementsPage extends BasePage {
        switchToNewlyOpenedWindow(driver);
     }
 
-    public void closeMultipleWindows() {
+    public void closeMultipleWindows(String url) {
 
         waitForElementToBeVisible(closeLink,driver);
         closeLink.click();
 
         for (String winHandle : driver.getWindowHandles()) {
-            if(driver.switchTo().window(winHandle).getCurrentUrl().equals("http://kurnool-uat.egovernments.org/adtax/hoarding/adtax-search")){
+            if(driver.switchTo().window(winHandle).getCurrentUrl().equals(url)){
                 break;
             }
         }
