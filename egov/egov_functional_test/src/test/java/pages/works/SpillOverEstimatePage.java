@@ -360,10 +360,8 @@ public class SpillOverEstimatePage extends BasePage
      waitForElementToBeClickable(approverDepartment,webDriver);
      new Select(approverDepartment).selectByVisibleText(approverDetails.getApproverDepartment());
 
-   for (int i=0;i<4;i++) {
-       if (!webDriver.findElement(By.id("approvalDesignation")).getText().equalsIgnoreCase(approverDetails.getApproverDesignation()))
-       {
-           try {
+     for (int i=0;i<4;i++) {
+         try {
                waitForElementToBeClickable(approverDesignation, webDriver);
                new Select(approverDesignation).selectByVisibleText(approverDetails.getApproverDesignation());
            } catch (StaleElementReferenceException e) {
@@ -371,8 +369,8 @@ public class SpillOverEstimatePage extends BasePage
                waitForElementToBeClickable(element1, webDriver);
                new Select(element1).selectByVisibleText(approverDetails.getApprover());
            }
-       }
-   }
+     }
+
    for (int i=0;i<4;i++) {
             try {
                 waitForElementToBeClickable(approver, webDriver);
