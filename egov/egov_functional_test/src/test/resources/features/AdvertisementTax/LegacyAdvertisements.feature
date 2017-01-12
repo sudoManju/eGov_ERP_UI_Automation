@@ -16,5 +16,6 @@ Scenario: Create/Update LegacyAdvertisements
   And he chooses to update legacy advertisements
   And he search for required file by application number
   And he update the legacy advertisement and close the acknowledgement
+  Then user will be notified by "updated"
   And current user logs out
 

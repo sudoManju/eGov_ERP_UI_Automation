@@ -48,8 +48,12 @@ public class LegacyAdvertisementsSteps extends BaseSteps implements En {
         And("^he update the legacy advertisement and close the acknowledgement$", () -> {
             pageStore.get(LegacyAdvertisementsPage.class).update();
             pageStore.get(LegacyAdvertisementsPage.class).submit();
+
+            String actualMsg = pageStore.get(LegacyAdvertisementsPage.class).successMessage();
+            scenarioContext.setActualMessage(actualMsg);
+
             String url = "http://kurnool-uat.egovernments.org/adtax/hoarding/findhoarding-for-update";
-            pageStore.get(AdvertisementsPage.class).closeMultipleWindows(url);
+//            pageStore.get(AdvertisementsPage.class).closeMultipleWindows(url);
         });
 
     }

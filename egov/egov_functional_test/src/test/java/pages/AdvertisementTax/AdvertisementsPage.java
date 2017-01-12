@@ -1,9 +1,6 @@
 package pages.AdvertisementTax;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
@@ -162,14 +159,21 @@ public class AdvertisementsPage extends BasePage {
 
 
     public void enterStructureDetails() {
-        waitForElementToBeClickable(measurementTextBox,driver);
+        waitForElementToBeClickable(measurementTextBox, driver);
         measurementTextBox.sendKeys("20");
 
-        waitForElementToBeClickable(measurementTypeBox,driver);
+        waitForElementToBeClickable(measurementTypeBox, driver);
         new Select(measurementTypeBox).selectByVisibleText("SQ.FT");
 
-        waitForElementToBeClickable(taxAmountTextBox,driver);
-        taxAmountTextBox.sendKeys("10");
+        for(int i =0;i<4;i++) {
+            try {
+             waitForElementToBeClickable(taxAmountTextBox, driver);
+             taxAmountTextBox.sendKeys("10");
+         } catch (StaleElementReferenceException e) {
+             waitForElementToBeClickable(taxAmountTextBox, driver);
+             taxAmountTextBox.sendKeys("10");
+         }
+       }
     }
 
 
