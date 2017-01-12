@@ -8,7 +8,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
-import java.security.Key;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -92,6 +91,12 @@ public class AdvertisementsPage extends BasePage {
 
     @FindBy(id = "Approve")
     private WebElement approveButton;
+
+    @FindBy(css = "input[id='hoardingnumber'][type='text']")
+    private WebElement hoardingNumberTextBox;
+
+    @FindBy(id = "search")
+    private WebElement submitButton;
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     String date = sdf.format(new Date());
@@ -228,5 +233,38 @@ public class AdvertisementsPage extends BasePage {
         System.out.println(applicationNumber);
 
         return applicationNumber;
+    }
+
+    public void searchAndSelect(String number) {
+      waitForElementToBeVisible(hoardingNumberTextBox,driver);
+      hoardingNumberTextBox.sendKeys(number);
+
+      waitForElementToBeClickable(submitButton,driver);
+      submitButton.click();
+
+        try {
+            Thread.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+       WebElement dropDownBox = driver.findElement(By.id("adtaxdropdown"));
+       new Select(dropDownBox).selectByVisibleText("View");
+
+       switchToNewlyOpenedWindow(driver);
+    }
+
+    public void closeMultipleWindows() {
+
+        waitForElementToBeVisible(closeLink,driver);
+        closeLink.click();
+
+        for (String winHandle : driver.getWindowHandles()) {
+            if(driver.switchTo().window(winHandle).getCurrentUrl().equals("http://kurnool-uat.egovernments.org/adtax/hoarding/adtax-search")){
+                break;
+            }
+        }
+
+        close();
     }
 }

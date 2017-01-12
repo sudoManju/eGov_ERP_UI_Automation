@@ -170,6 +170,11 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Create Advertisement")
     private WebElement createAdvertisementLink;
 
+    @FindBy(linkText = "Search Advertisement")
+    private WebElement searchAdvertisementLink;
+
+
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -631,6 +636,14 @@ public class DashboardPage extends BasePage {
         searchFor("create advertisement");
         waitForElementToBeVisible(createAdvertisementLink,driver);
         createAdvertisementLink.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseToSearchAdvertisement() {
+        waitForElementToBeClickable(searchTreeTextBox,driver);
+        searchFor("search advertisement");
+        waitForElementToBeVisible(searchAdvertisementLink,driver);
+        searchAdvertisementLink.click();
         switchToNewlyOpenedWindow(driver);
     }
 }

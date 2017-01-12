@@ -4,7 +4,7 @@ Feature: Create/search Advertisement
 
 @WIP
 
-Scenario: Create/search advertisments
+Scenario: Create/Search advertisments
 
    Given creator logs in
    And he chooses to create advertisement
@@ -17,4 +17,10 @@ Scenario: Create/search advertisments
    And he clicks on advertisement and opens the application
    And he approves the advertisement application
    Then user will be notified by "approved"
+   And current user logs out
+
+   Given creator logs in
+   And he chooses to search advertisement
+   And he search and select the required advertisement
+   And he view and close the acknowledgement
    And current user logs out
