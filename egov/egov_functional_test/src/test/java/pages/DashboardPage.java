@@ -683,6 +683,7 @@ public class DashboardPage extends BasePage {
         searchFor("Create Voucher");
         waitForElementToBeVisible(createExpenseBillVoucher, driver);
         createExpenseBillVoucher.click();
+        switchToNewlyOpenedWindow(driver);
     }
 
     public void chooseToCollectAdvTax() {
