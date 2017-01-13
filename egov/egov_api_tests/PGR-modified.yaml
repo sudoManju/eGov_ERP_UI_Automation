@@ -1,0 +1,656 @@
+swagger: '2.0'
+info:
+  version: 0.0.0
+  title: eGov mSeva (Public Service API)
+host: phoenix-qa.egovernments.org
+schemes:
+  - https
+basePath: '/v1/[API endpoint]'
+paths:
+  /services:
+    get:
+      summary: Service List
+      description: >
+        Provides a list of acceptable service request types and their associated
+        service codes. These request types can be unique to each tenant.
+      parameters:
+        - name: request_info
+          in: body
+          description: Commmon Request info for the Services.
+          required: true
+          schema:
+            $ref: '#/definitions/RequestInfo'
+        - name: jurisdiction_id
+          in: query
+          description: Unique id for for a tenant.
+          required: true
+          type: string
+          format: varchar
+      tags:
+        - Service List
+      responses:
+        '200':
+          description: service definition
+          schema:
+            $ref: '#/definitions/ServiceRes'
+        '400':
+          description: jurisdiction_id was not provided or General service error
+          schema:
+            $ref: '#/definitions/ErrorRes'
+        '404':
+          description: jurisdiction_id provided was not found
+          schema:
+            $ref: '#/definitions/ErrorRes'
+    post:
+      summary: Create Service
+      description: To create a new service.
+      parameters:
+        - name: service
+          in: body
+          description: Details for the new Service .
+          required: true
+          schema:
+            $ref: '#/definitions/ServiceReq'
+        - name: jurisdiction_id
+          in: query
+          description: Unique id for tenant.
+          required: true
+          type: string
+          format: varchar
+      tags:
+        - Service
+      responses:
+        '201':
+          description: service created
+          schema:
+            $ref: '#/definitions/ServiceRes'
+        '400':
+          description: jurisdiction_id was not provided or General service error
+          schema:
+            $ref: '#/definitions/ErrorRes'
+        '404':
+          description: jurisdiction_id provided was not found
+          schema:
+            $ref: '#/definitions/ErrorRes'
+            
+  '/services/{service_code}':
+    put:
+      summary: Update Service
+      description: To update an existing service.
+      parameters:
+        - name: jurisdiction_id
+          in: query
+          description: Unique id for ulb.
+          required: true
+          type: string
+          format: varchar
+        - name: service_code
+          in: path
+          description: Unique service code for service to be updated .
+          required: true
+          type: string
+          format: varchar
+        - name: service
+          in: body
+          description: Request header for the new Service Request.
+          required: true
+          schema:
+            $ref: '#/definitions/ServiceReq'
+      tags:
+        - Service
+      responses:
+        '200':
+          description: service updated
+          schema:
+            $ref: '#/definitions/ServiceRes'
+        '400':
+          description: jurisdiction_id was not provided or General service error
+          schema:
+            $ref: '#/definitions/ErrorRes'
+        '404':
+          description: jurisdiction_id provided was not found
+          schema:
+            $ref: '#/definitions/ErrorRes'
+    get:
+      summary: Service Definiton
+      description: >
+        Define attributes associated with a service code. These attributes can
+        be unique to the city/jurisdiction.
+      parameters:
+        - name: jurisdiction_id
+          in: query
+          description: Unique id for city.
+          required: true
+          type: string
+          format: varchar
+        - name: service_code
+          in: path
+          description: service code value.
+          required: true
+          type: string
+          format: varchar
+        - name: request_info
+          in: body
+          description: Request header for the Service Definition.
+          required: true
+          schema:
+            $ref: '#/definitions/RequestInfo'
+      tags:
+        - Service Details
+      responses:
+        '200':
+          description: Service Definition
+          schema:
+            $ref: '#/definitions/ServiceDefinitionRes'
+        '400':
+          description: >-
+            service_code or jurisdiction_id was not provided or General service
+            error
+          schema:
+            $ref: '#/definitions/ErrorRes'
+        '404':
+          description: service_code or jurisdiction_id provided were not found
+          schema:
+            $ref: '#/definitions/ErrorRes'
+            
+  /requests:
+    post:
+      summary: Create service requests
+      description: To Create new service requests.
+      parameters:
+        - name: jurisdiction_id
+          in: query
+          description: Unique id for city.
+          required: true
+          type: string
+          format: varchar
+        - name: service_request
+          in: body
+          description: The  service request.
+          required: true
+          schema:
+            $ref: '#/definitions/ServiceRequestReq'
+      tags:
+        - Service Request
+      responses:
+        '201':
+          description: Service Request Created
+          schema:
+            $ref: '#/definitions/ServiceRequestRes'
+        '400':
+          description: >-
+            service_code or jurisdiction_id was not provided or General service
+            error
+          schema:
+            $ref: '#/definitions/ErrorRes'
+        '404':
+          description: service_code or jurisdiction_id provided were not found
+          schema:
+            $ref: '#/definitions/ErrorRes'
+    get:
+      summary: Query multiple request
+      description: Return service request details.
+      parameters:
+        - name: request_info
+          in: body
+          description: Request header for the service request details.
+          required: true
+          schema:
+            $ref: '#/definitions/RequestInfo'
+        - name: jurisdiction_id
+          in: query
+          description: Unique id for ulb.
+          required: true
+          type: string
+          format: varchar
+        - name: service_request_id
+          in: query
+          description: service Request.
+          required: false
+          type: string
+          format: varchar
+        - name: service_code
+          in: query
+          description: >-
+            Specify the service type by calling the unique ID of the
+            service_code.
+          required: false
+          type: string
+          format: varchar
+        - name: start_date
+          in: query
+          description: Earliest datetime to include in search.
+          required: false
+          type: string
+          format: varchar
+        - name: end_date
+          in: query
+          description: Latest datetime to include in search.
+          required: false
+          type: string
+          format: varchar
+        - name: status
+          in: query
+          description: >-
+            Allows one to search for requests which have a specific status. This
+            defaults to all statuses; can be declared multiple times, comma
+            delimited;
+          required: false
+          type: string
+          format: varchar
+        - name: last_modified_since
+          in: query
+          description: last modified date for the given service_request.
+          required: false
+          type: string
+          format: varchar
+      tags:
+        - Service Request
+      responses:
+        '200':
+          description: service_requests
+          schema:
+            $ref: '#/definitions/ServiceRequestRes'
+        '400':
+          description: >-
+            service_request_id or jurisdiction_id was not provided or General
+            service error
+          schema:
+            $ref: '#/definitions/ErrorRes'
+        '404':
+          description: service_request_id or jurisdiction_id provided were not found
+          schema:
+            $ref: '#/definitions/ErrorRes'
+            
+  '/requests/{service_request_id}':
+    put:
+      summary: Update service requests
+      description: To Update new service requests.
+      parameters:
+        - name: jurisdiction_id
+          in: query
+          description: Unique id for city.
+          required: true
+          type: string
+          format: varchar
+        - name: service_request_id
+          in: path
+          description: service code value.
+          required: true
+          type: string
+          format: varchar
+        - name: request
+          in: body
+          description: The  service request.
+          required: true
+          schema:
+            $ref: '#/definitions/ServiceRequestReq'
+      tags:
+        - Service Request
+      responses:
+        '201':
+          description: Service Request Updated
+          schema:
+            $ref: '#/definitions/ServiceRequestRes'
+        '400':
+          description: >-
+            service_code or jurisdiction_id was not provided or General service
+            error
+          schema:
+            $ref: '#/definitions/ErrorRes'
+        '404':
+          description: service_code or jurisdiction_id provided were not found
+          schema:
+            $ref: '#/definitions/ErrorRes'
+            
+definitions:
+  Service:
+    type: object
+    properties:
+      service_code:
+        type: string
+        description: The unique identifier for Service
+      service_name:
+        type: string
+        description: Service name.
+      description:
+        type: string
+        description: Services description.
+      metadata:
+        type: boolean
+        description: Whether service meta data is present
+      type:
+        type: string
+        description: realtime (Currently we only support real time srevices)
+      keywords:
+        type: string
+        description: tags for this service
+      group:
+        type: string
+        description: Group associated to service
+    required:
+      - service_code
+      - service_name
+      
+      
+  Value:
+    type: object
+    properties:
+      key:
+        type: string
+        description: >-
+          The unique identifier associated with an option for singlevaluelist or
+          multivaluelist.
+      name:
+        type: string
+        description: >-
+          The human readable title of an option for singlevaluelist or
+          multivaluelist.
+          
+  Attribute:
+    type: object
+    properties:
+      variable:
+        type: boolean
+        description: Denotes whether user input is required or not
+      code:
+        type: string
+        description: A unique identifier for the attribute
+      datatype:
+        type: string
+        description: Denotes the type of field used for user input.
+      required:
+        type: boolean
+        description: Indicates if input from user is required.
+      datatype_description:
+        type: string
+        description: A description of the datatype which helps the user provide their input
+      values:
+        type: array
+        items:
+          $ref: '#/definitions/Value'
+    required:
+      - code
+          
+  AttributeValue:
+    type: object
+    properties:
+      code:
+        type: string
+        description: >-
+          The unique identifier associated with an option for singlevaluelist or
+          multivaluelist.
+      value:
+        type: string
+        description: >-
+          The human readable title of an option for singlevaluelist or
+          multivaluelist.
+    required:
+      - code
+          
+  ServiceDefinition:
+    description: >-
+      Extra meta data about the service, present only if metadata is true for a
+      service
+    type: object
+    properties:
+      service_code:
+        type: string
+        description: >-
+          Returns the service_code associated with the definition, the same one
+          submitted for this call.
+      attributes:
+        type: array
+        items:
+          $ref: '#/definitions/Attribute'
+    required:
+      - service_code
+      
+  ServiceRequest:
+    type: object
+    description: Service request raised by the citizen
+    required:
+      - service_code
+      - description
+      - phone
+    properties:
+      service_request_id:
+        type: string
+        readOnly: true
+        description: The unique ID of the service request created.
+      status:
+        type: boolean
+        description: The current status of the service request.
+      status_details:
+        type: string
+        description: >-
+          Explanation of why status was changed to current state or more details
+          on current status than conveyed with status alone.
+        enum:
+         - REGISTERED
+         - FORWARDED
+         - REJECTED
+         - COMPLETED
+         - WITHDRAWN
+         - REOPENED
+         - PROCESSING
+      service_name:
+        type: string
+        description: The human readable name of the service request type.
+      service_code:
+        type: string
+        description: The unique identifier for the service request type.
+      description:
+        type: string
+        description: A full description of the request or report submitted.
+      agency_responsible:
+        type: string
+        description: >-
+          The agency responsible for fulfilling or otherwise addressing the
+          service request.
+      service_notice:
+        type: string
+        description: >-
+          Information about the action expected to fulfill the request or
+          otherwise address the information reported.
+      requested_datetime:
+        type: string
+        format: date-time
+        description: The date and time when the service request was made.
+      updated_datetime:
+        type: string
+        format: date-time
+        description: >-
+          The date and time when the service request was last modified. For
+          requests with status=closed, this will be the date the request was
+          closed.
+      expected_datetime:
+        type: string
+        format: date-time
+        description: >-
+          The date and time when the service request can be expected to be
+          fulfilled. This may be based on a service-specific service level
+          agreement.
+      address:
+        type: string
+        description: Human readable address or description of location.
+      address_id:
+        type: string
+        description: >-
+          The internal address ID used by a jurisdictions master address
+          repository or other addressing system.
+      zipcode:
+        type: integer
+        description: The postal code for the location of the service request.
+      lat:
+        type: integer
+        description: Latitude of the location.
+      long:
+        type: integer
+        description: Longitude of location.
+      media_url:
+        type: string
+        description: 'A URL to media associated with the request, eg an image.'
+      first_name:
+        type: string
+        description: The given name of the person submitting the request.
+      last_name:
+        type: string
+        description: The family name of the person submitting the request.
+      phone:
+        type: string
+        description: The phone number of the person submitting the request.
+      email:
+        type: string
+        description: The email address of the person submitting the request.
+      device_id:
+        type: string
+        description: >-
+          The unique device ID of the device submitting the request. This is
+          usually only used for mobile devices.
+      account_id:
+        type: string
+        description: >-
+          The unique ID for the user account of the person submitting the
+          request.
+      values:
+        type: array
+        items:
+          $ref: '#/definitions/AttributeValue'
+          
+  ServiceReq:
+    properties:
+      RequestInfo:
+        $ref: '#/definitions/RequestInfo'
+      Service:
+        $ref: '#/definitions/Service'
+    type: object
+    
+  ServiceRes:
+    properties:
+      ResposneInfo:
+        $ref: '#/definitions/ResponseInfo'
+      Services:
+        type: array
+        items:
+          $ref: '#/definitions/Service'
+    type: object
+    
+  ServiceDefinitionRes:
+    properties:
+      ResposneInfo:
+        $ref: '#/definitions/ResponseInfo'
+      ServiceDefinition:
+        $ref: '#/definitions/ServiceDefinition'
+    type: object
+        
+  ServiceRequestReq:
+    properties:
+      RequestInfo:
+        $ref: '#/definitions/RequestInfo'
+      ServiceRequest:
+        $ref: '#/definitions/ServiceRequest'
+    type: object
+
+  ServiceRequestRes:
+    properties:
+      ResposneInfo:
+        $ref: '#/definitions/ResponseInfo'
+      ServiceRequests:
+        type: array
+        items:
+          $ref: '#/definitions/ServiceRequest'
+    type: object
+
+  ErrorRes:
+    properties:
+      ResposneInfo:
+        $ref: '#/definitions/ResponseInfo'
+      Error:
+        $ref: '#/definitions/Error'
+    type: object
+    
+
+  RequestInfo:
+    type: object
+    properties:
+      api_id:
+        type: string
+        description: unique API ID
+      ver:
+        type: string
+        description: API version
+      ts:
+        type: string
+        format: date-time
+        description: >-
+          response timestamp YYYY-MM-DDThh:mm:ss+/-nn:nn (timezone defaulted to
+          +5.30)
+      action:
+        type: string
+        description: api action like GET/POST/PUT/DELETE in case of http calls
+      did:
+        type: string
+        description: device UUID from which API is called
+      key:
+        type: string
+        description: API key (dynamic)
+      msg_id:
+        type: string
+        description: 'unique request message id, UUID, for handling API idempotency'
+      requester_id:
+        type: string
+        description: UserId of the user calling
+      auth_token:
+        type: string
+        description: //session/jwt/saml token/oauth token
+    required:
+      - api_id
+      - ver
+      - ts
+      
+  ResponseInfo:
+    type: object
+    properties:
+      api_id:
+        type: string
+        description: unique API ID
+      ver:
+        type: string
+        description: API version
+      ts:
+        type: string
+        format: date-time
+        description: >-
+          response timestamp YYYY-MM-DDThh:mm:ss+/-nn:nn (timezone defaulted to
+          +5.30)
+      res_msg_id:
+        type: string
+        description: unique response message id (UUID)
+      msg_id:
+        type: string
+        description: message id of the request
+      status:
+        type: string
+        description: 'status of request e.g. successful, failed etc'
+    required:
+      - api_id
+      - ver
+      - ts
+      - status
+      
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      description:
+        type: string
+      filelds:
+        type: object
+    required:
+      - code
+      - message
