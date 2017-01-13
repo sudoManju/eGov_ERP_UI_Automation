@@ -182,6 +182,9 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Create Voucher")
     private WebElement createExpenseBillVoucher;
 
+    @FindBy(linkText = "Collect Advertisement Tax")
+    private WebElement collectAdvertisementTaxLink;
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -671,12 +674,19 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-    public void createExpenseBillVoucher(){
+    public void createExpenseBillVoucher() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchTreeTextBox.clear();
         searchFor("Create Voucher");
-        waitForElementToBeVisible(createExpenseBillVoucher,driver);
+        waitForElementToBeVisible(createExpenseBillVoucher, driver);
         createExpenseBillVoucher.click();
+    }
+
+    public void chooseToCollectAdvTax() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Collect Advertisement Tax");
+        waitForElementToBeVisible(collectAdvertisementTaxLink, driver);
+        collectAdvertisementTaxLink.click();
         switchToNewlyOpenedWindow(driver);
     }
 }

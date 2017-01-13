@@ -95,6 +95,27 @@ public class AdvertisementsPage extends BasePage {
     @FindBy(id = "search")
     private WebElement submitButton;
 
+    @FindBy(css = "input[value= 'Advertisement'][type= 'radio']")
+    private WebElement searchType;
+
+    @FindBy(id = "hoardingnumber")
+    private WebElement advertisementNumber;
+
+    @FindBy(id = "search")
+    private WebElement searchAdvertisementButton;
+
+    @FindBy(css = "button[class= 'btn btn-xs btn-secondary collect-hoardingWiseFee'][type= 'button']")
+    private WebElement collectButton;
+
+    @FindBy(id = "totalamounttobepaid")
+     private WebElement totalamounttobepaid;
+
+    @FindBy(id = "instrHeaderCash.instrumentAmount")
+     private WebElement amount;
+
+    @FindBy(css = "input[id ='button2'] [value ='Pay']")
+     private WebElement payButton;
+
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     String date = sdf.format(new Date());
 
@@ -263,5 +284,29 @@ public class AdvertisementsPage extends BasePage {
         }
 
         close();
+    }
+
+    public void searchByAdvertisementNumber(String adervtisementNumber) {
+        waitForElementToBeClickable(searchType, driver);
+        searchType.click();
+        waitForElementToBeClickable(advertisementNumber, driver);
+        advertisementNumber.sendKeys(adervtisementNumber);
+        waitForElementToBeClickable(searchAdvertisementButton, driver);
+        searchAdvertisementButton.click();
+
+    }
+
+    public void collectAdvertisementTax() {
+        waitForElementToBeClickable(collectButton, driver);
+        collectButton.click();
+        switchToNewlyOpenedWindow(driver);
+        waitForElementToBeVisible(totalamounttobepaid, driver);
+        String Amount = totalamounttobepaid.getText();
+        System.out.println(Amount);
+        waitForElementToBeClickable(amount, driver);
+        amount.sendKeys(Amount);
+        waitForElementToBeClickable(payButton, driver);
+        payButton.click();
+
     }
 }

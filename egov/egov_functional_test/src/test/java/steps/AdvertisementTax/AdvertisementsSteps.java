@@ -71,6 +71,16 @@ public class AdvertisementsSteps extends BaseSteps implements En {
         And("^he view and close the acknowledgement$", () -> {
             String url = "http://kurnool-uat.egovernments.org/adtax/hoarding/adtax-search";
             pageStore.get(AdvertisementsPage.class).closeMultipleWindows(url);
+//            pageStore.get(AdvertisementsPage.class).closeMultipleWindows();
+        });
+        And("^he choose to collect advertisement tax by advertisement wise$", () -> {
+            pageStore.get(DashboardPage.class).chooseToCollectAdvTax();
+        });
+        And("^he search advertisement by advertisement number$", () -> {
+            pageStore.get(AdvertisementsPage.class).searchByAdvertisementNumber(scenarioContext.getApplicationNumber());
+        });
+        And("^he choose advertisement for collecting advertisement tax$", () -> {
+            pageStore.get(AdvertisementsPage.class).collectAdvertisementTax();
         });
 
     }
