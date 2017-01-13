@@ -226,7 +226,7 @@ public class AdvertisementsPage extends BasePage {
         waitForElementToBeVisible(creationMsg,driver);
         String number = creationMsg.getText();
 
-        String applicationNumber = number.substring(number.lastIndexOf(" ")+1);
+        String applicationNumber = (number.split("\\ "))[8];
         System.out.println(applicationNumber);
 
         return applicationNumber;

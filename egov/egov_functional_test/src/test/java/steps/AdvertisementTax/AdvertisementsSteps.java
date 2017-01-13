@@ -60,7 +60,7 @@ public class AdvertisementsSteps extends BaseSteps implements En {
             String actualMsg = pageStore.get(AdvertisementsPage.class).successMessage();
             scenarioContext.setActualMessage(actualMsg);
 
-            //pageStore.get(AdvertisementsPage.class).close();
+            pageStore.get(AdvertisementsPage.class).close();
         });
         And("^he chooses to search advertisement$", () -> {
            pageStore.get(DashboardPage.class).chooseToSearchAdvertisement();
