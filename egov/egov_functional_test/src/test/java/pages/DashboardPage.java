@@ -185,6 +185,9 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Collect Advertisement Tax")
     private WebElement collectAdvertisementTaxLink;
 
+    @FindBy(linkText = "Create Agency")
+    private WebElement createAgencyLink;
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -687,6 +690,14 @@ public class DashboardPage extends BasePage {
         searchFor("Collect Advertisement Tax");
         waitForElementToBeVisible(collectAdvertisementTaxLink, driver);
         collectAdvertisementTaxLink.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseToCreateAdvertisementAgency() {
+        waitForElementToBeClickable(searchTreeTextBox,driver);
+        searchFor("create agency");
+        waitForElementToBeVisible(createAgencyLink,driver);
+        createAgencyLink.click();
         switchToNewlyOpenedWindow(driver);
     }
 }

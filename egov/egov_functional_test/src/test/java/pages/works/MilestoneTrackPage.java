@@ -219,6 +219,7 @@ public class MilestoneTrackPage extends BasePage {
     }
 
     public void close(){
+        waitForElementToBeVisible(closeButton,driver);
         waitForElementToBeClickable(closeButton,driver);
         closeButton.click();
 

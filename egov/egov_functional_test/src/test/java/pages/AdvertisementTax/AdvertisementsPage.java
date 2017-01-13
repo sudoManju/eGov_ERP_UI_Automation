@@ -107,13 +107,13 @@ public class AdvertisementsPage extends BasePage {
     @FindBy(css = "button[class= 'btn btn-xs btn-secondary collect-hoardingWiseFee'][type= 'button']")
     private WebElement collectButton;
 
-    @FindBy(id = "totalamounttobepaid")
+    @FindBy(css = "input[id='totalamounttobepaid'][type='text']")
      private WebElement totalamounttobepaid;
 
     @FindBy(id = "instrHeaderCash.instrumentAmount")
      private WebElement amount;
 
-    @FindBy(css = "input[id ='button2'] [value ='Pay']")
+    @FindBy(css = "input[type='submit'][value ='Pay']")
      private WebElement payButton;
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -301,12 +301,17 @@ public class AdvertisementsPage extends BasePage {
         collectButton.click();
         switchToNewlyOpenedWindow(driver);
         waitForElementToBeVisible(totalamounttobepaid, driver);
-        String Amount = totalamounttobepaid.getText();
+        String AmountNum = totalamounttobepaid.getAttribute("value");
+        String Amount = AmountNum.split("\\.")[0];
         System.out.println(Amount);
         waitForElementToBeClickable(amount, driver);
         amount.sendKeys(Amount);
         waitForElementToBeClickable(payButton, driver);
-        payButton.click();
+        payButton.submit();
 
+    }
+
+    public void enterAgencyDetails() {
+        
     }
 }

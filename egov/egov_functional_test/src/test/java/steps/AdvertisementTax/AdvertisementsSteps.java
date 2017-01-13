@@ -82,6 +82,12 @@ public class AdvertisementsSteps extends BaseSteps implements En {
         And("^he choose advertisement for collecting advertisement tax$", () -> {
             pageStore.get(AdvertisementsPage.class).collectAdvertisementTax();
         });
+        And("^he chooses to create advertisement agency$", () -> {
+            pageStore.get(DashboardPage.class).chooseToCreateAdvertisementAgency();
+        });
+        And("^he enter details for agency creation$", () -> {
+           pageStore.get(AdvertisementsPage.class).enterAgencyDetails();
+        });
 
     }
 

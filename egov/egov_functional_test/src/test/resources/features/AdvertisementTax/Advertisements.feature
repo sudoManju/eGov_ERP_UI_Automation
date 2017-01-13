@@ -33,3 +33,15 @@ Scenario: Advertisments Create/Search/Collect Tax
 #  And he chooses to search advertisement
 #  And he search and select the required advertisement
 #  And he view and close the acknowledgement
+
+
+@WIP
+
+Scenario: Create/Search agency
+
+   Given admin logs in
+   And he chooses to create advertisement agency
+   And he enter details for agency creation
+
+
+
