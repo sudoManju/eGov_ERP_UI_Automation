@@ -241,13 +241,8 @@ public class TradeLicensePage extends BasePage {
         JavascriptExecutor executor = (JavascriptExecutor)webDriver;
         executor.executeScript("arguments[0].click();", element);
 
-        waitForElementToBeClickable(printClose, webDriver);
-        printClose.click();
-
-        switchToNewlyOpenedWindow(webDriver);
         webDriver.close();
-
-        switchToNewlyOpenedWindow(webDriver);
+//        switchToPreviouslyOpenedWindow(webDriver);
         webDriver.close();
 
     }
