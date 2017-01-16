@@ -29,12 +29,6 @@ public class DataEntryAcknowledgementSteps extends BaseSteps implements En {
 
         String assessmentNumber = pageStore.get(DataEntryAcknowledgementPage.class).getAssessmentNumber();
         scenarioContext.setAssessmentNumber(assessmentNumber);
-
-        try {
-            new ExcelReader(ptisTestDataFileName).writeDataIntoExcel(assessmentNumber , "applicantInfo" , "assessmentNumber");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @And("^he choose to add edit DCB$")
@@ -47,8 +41,6 @@ public class DataEntryAcknowledgementSteps extends BaseSteps implements En {
     @And("^he choose to close the dataentry acknowledgement screen$")
     public void heChooseToCloseTheDataentryAcknowledgementScreen() throws Throwable {
         pageStore.get(DataEntryAcknowledgementPage.class).close();
-
-
     }
 
 

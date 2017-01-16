@@ -295,9 +295,10 @@ public class PropertyDetailsPage extends BasePage {
         new Select(genderSelection).selectByVisibleText(ownerDetails.getGender().toUpperCase());
 
         WebElement element = webDriver.findElement(By.id("emailId"));
-        JavascriptExecutor executor = (JavascriptExecutor)webDriver;
-        executor.executeScript("arguments[0].click();", element);
-        enterText(element, ownerDetails.getEmailAddress());
+//        JavascriptExecutor executor = (JavascriptExecutor)webDriver;
+//        executor.executeScript("arguments[0].click();", element);
+        element.sendKeys(ownerDetails.getEmailAddress());
+//        enterText(element, ownerDetails.getEmailAddress());
 
 //        waitForElementToBeClickable(emailIdTextBox , webDriver);
 //        enterText(emailIdTextBox, ownerDetails.getEmailAddress());

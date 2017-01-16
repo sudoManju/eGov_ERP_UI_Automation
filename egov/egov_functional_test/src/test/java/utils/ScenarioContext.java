@@ -26,6 +26,16 @@ public class ScenarioContext {
 
     private String contractorBillNumber;
 
+    private String consumerNumber;
+
+    public String getConsumerNumber() {
+        return consumerNumber;
+    }
+
+    public void setConsumerNumber(String consumerNumber) {
+        this.consumerNumber = consumerNumber;
+    }
+
     public String getContractorBillNumber() {
         return contractorBillNumber;
     }

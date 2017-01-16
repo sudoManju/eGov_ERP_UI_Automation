@@ -25,61 +25,70 @@ Feature: To create a new water connection
     And current user logs out
 
     When assistantEngineer logs in
-    And chooses to act upon the above application
-    And user will enter the field inspection details as <inspection details>
-    And user closes acknowledgement form
+    And user will choose the above application and enter the field inspection details as <inspectionDetails> and closes the acknowledgement form
+#    And chooses to act upon the above application
+#    And user will enter the field inspection details as <inspectionDetails>
+#    And user will closes the acknowledgement form
     And current user logs out
 
     When juniorAssistant logs in
-    And chooses to act upon the above application
-    And user will click on the generate estimation notice
+    And user will choose the above application and click on the generate estimation notice
+#    And chooses to act upon the above application
+#    And user will click on the generate estimation notice
     Then user will search for the recent application
-    Then user will filter the application based upon the connection details as <connection details>
-    And user chooses to act upon the above application in search applications
-    And user will click on collect charges and collect the money form the customer & closes it
-    And user closes the search application page
+    And user will choose the above application based on connection details as <connectionDetails> and collects money
+#    Then user will filter the application based upon the connection details as <connectionDetails>
+#    And user chooses to act upon the above application in search applications
+#    And user will click on collect charges and collect the money form the customer & closes it
+#    And user closes the search application page
     And current user logs out
 
     When assistantEngineer logs in
-    And chooses to act upon the above application
-    And user enter the water management approval details as <approvalOfficer2>
-    And user will closes the acknowledgement form
+    And user will choose the above application and enter the approval details as <approvalOfficer2>
+#    And chooses to act upon the above application
+#    And user enter the water management approval details as <approvalOfficer2>
+#    And user will closes the acknowledgement form
     And current user logs out
 
     When deputyExecutiveEngineer logs in
-    And chooses to act upon the above application
-    And user enter the water management approval details as <approvalOfficer3>
-    And user will closes the acknowledgement form
+    And user will choose the above application and enter the approval details as <approvalOfficer3>
+#    And chooses to act upon the above application
+#    And user enter the water management approval details as <approvalOfficer3>
+#    And user will closes the acknowledgement form
     And current user logs out
 
     And commissioner logs in
-    And chooses to act upon the above application
-    And user will approve the application with sanction number
-    And chooses to act upon the above application
-    And user will provide the digital signature
+    And user will choose the above application to approve and provides the digital signature
+#    And chooses to act upon the above application
+#    And user will approve the application with sanction number
+#    And chooses to act upon the above application
+#    And user will provide the digital signature
     And current user logs out
 
     And juniorAssistant logs in
-    And chooses to act upon the above application
-    And the user will generate the work order
+    And user will choose the above application and click on generate the work order
+#    And chooses to act upon the above application
+#    And the user will generate the work order
     And current user logs out
 
     Then assistantEngineer logs in
-    And chooses to act upon the above application
-    And user will perform the execution of tap
+    And user will choose the above application and click on to perform the execution of tap
+#    And chooses to act upon the above application
+#    And user will perform the execution of tap
     And current user logs out
 
     When juniorAssistant logs in
     Then user will search for the recent application
-    And user will filter the application based upon the connection details as <connection details>
-    And user chooses to act upon the above application in search applications
-    And user will click on collect charges and collect the money form the customer & closes it
-    And user closes the search application page
+    And user will choose the above appilcation based on connection details as <connectionDetails> and collects money
+#    And user will filter the application based upon the connection details as <connectionDetails>
+#    And user chooses to act upon the above application in search applications
+#    And user will click on collect charges and collect the money form the customer & closes it
+#    And user closes the search application page
     And current user logs out
 
     Examples:
-      | connection details | inspection details | approvalOfficer1 | approvalOfficer2        | approvalOfficer3 |
-      | New_connection     | inspectionInfo     | engineer         | deputyExecutiveEngineer | commissioner1    |
+      | connectionDetails | inspectionDetails | approvalOfficer1 | approvalOfficer2        | approvalOfficer3 |
+      | New_connection    | inspectionInfo    | engineer         | deputyExecutiveEngineer | commissioner1    |
 
 
 

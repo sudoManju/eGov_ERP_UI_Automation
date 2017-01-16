@@ -217,9 +217,9 @@ public class WaterChargeManagementPage extends BasePage {
         this.webDriver = webDriver;
     }
 
-    public void enterWaterConectionAssessmentNumber(ApplicantInfo applicantInfo){
+    public void enterWaterConectionAssessmentNumber(String number){
         waitForElementToBeClickable(waterConnectionAssesmentNumberTextBox, webDriver);
-        enterText(waterConnectionAssesmentNumberTextBox, applicantInfo.getPtAssessmentNumber());
+        enterText(waterConnectionAssesmentNumberTextBox, number);
     }
 
     public void enterNewWaterConnectionInfo(ConnectionInfo connectionInfo){
@@ -378,8 +378,9 @@ public class WaterChargeManagementPage extends BasePage {
         amountToBePaidTextBox.sendKeys(amount.split("\\.")[0]);
 
         WebElement element = webDriver.findElement(By.id("button2"));
-        JavascriptExecutor executor = (JavascriptExecutor)webDriver;
-        executor.executeScript("arguments[0].click();", element);
+        jsClick(element , webDriver);
+//        JavascriptExecutor executor = (JavascriptExecutor)webDriver;
+//        executor.executeScript("arguments[0].click();", element);
         switchToNewlyOpenedWindow(webDriver);
     }
 
