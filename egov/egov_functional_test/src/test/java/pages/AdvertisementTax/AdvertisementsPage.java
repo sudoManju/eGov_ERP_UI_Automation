@@ -38,6 +38,9 @@ public class AdvertisementsPage extends BasePage {
     @FindBy(css = "input[id='applicationDate'][type='text']")
     private WebElement applicationDateBox;
 
+    @FindBy(id = "agencyTypeAhead")
+    private WebElement agency;
+
     @FindBy(css = "input[id='permissionstartdate'][type='text']")
     private WebElement permissionStartDateBox;
 
@@ -104,8 +107,11 @@ public class AdvertisementsPage extends BasePage {
     @FindBy(id = "search")
     private WebElement searchAdvertisementButton;
 
-    @FindBy(css = "button[class= 'btn btn-xs btn-secondary collect-hoardingWiseFee'][type= 'button']")
+    @FindBy(xpath = "//*[@id='adtax_search']/tbody/tr[1]/td[7]/button")
     private WebElement collectButton;
+
+    @FindBy(xpath = "//*[@id='adtax_search']/tbody/tr[4]/td[5]/button")
+    private WebElement agencyWisecollectButton;
 
     @FindBy(css = "input[id='totalamounttobepaid'][type='text']")
      private WebElement totalamounttobepaid;
@@ -115,6 +121,12 @@ public class AdvertisementsPage extends BasePage {
 
     @FindBy(css = "input[type='submit'][value ='Pay']")
      private WebElement payButton;
+
+    @FindBy(id = "agencyWiseCollectionListSelected[0]")
+     private WebElement selectAdvertisement;
+
+    @FindBy(id = "agencysearch")
+     private WebElement collectFeeButton;
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     String date = sdf.format(new Date());
@@ -147,6 +159,11 @@ public class AdvertisementsPage extends BasePage {
     public void enterPermissionDetails() {
          waitForElementToBeClickable(applicationDateBox,driver);
          applicationDateBox.sendKeys(date, Keys.TAB);
+
+//         advertisement creating by agency wise
+
+//         waitForElementToBeClickable(agency, driver);
+//         new Select(agency).selectByVisibleText("ANAND CINI COMPLEX");
 
          waitForElementToBeClickable(adParticularTextBox,driver);
          adParticularTextBox.sendKeys("For elections");
@@ -307,11 +324,57 @@ public class AdvertisementsPage extends BasePage {
         waitForElementToBeClickable(amount, driver);
         amount.sendKeys(Amount);
         waitForElementToBeClickable(payButton, driver);
-        payButton.submit();
-
+//        payButton.submit();
+        jsClick(payButton, driver);
     }
 
     public void enterAgencyDetails() {
         
+    }
+
+    public void searchByAgency() {
+        WebElement selectElement = driver.findElement(By.id("categories"));
+        Select categories = new Select(selectElement);
+        List<WebElement> allOptions = categories.getOptions();
+        int count = allOptions.size();
+        System.out.println(count);
+        categories.selectByIndex(3);
+        searchAdvertisementButton.click();
+        agencyWisecollectButton.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void selectsAgency() {
+
+        if(selectAdvertisement.isSelected())
+        {
+            System.out.println("Checkbox is already selected");
+        }
+        else {
+            waitForElementToBeClickable(selectAdvertisement, driver);
+            selectAdvertisement.click();
+            waitForElementToBeClickable(collectFeeButton, driver);
+            collectFeeButton.click();
+        }
+    }
+
+    public void collectAdvertisementTaxByAgency() {
+        waitForElementToBeVisible(totalamounttobepaid, driver);
+        String AmountNum = totalamounttobepaid.getAttribute("value");
+        String Amount = AmountNum.split("\\.")[0];
+        System.out.println(Amount);
+        waitForElementToBeClickable(amount, driver);
+        amount.sendKeys(Amount);
+        waitForElementToBeClickable(payButton, driver);
+//        payButton.submit();
+        jsClick(payButton, driver);
+
+        for (String winHandle : driver.getWindowHandles()) {
+            String title = driver.switchTo().window(winHandle).getCurrentUrl();
+            if(title.equals("http://kurnool-uat.egovernments.org/adtax/hoarding/search")){
+                break;
+            }
+        }
+        switchToPreviouslyOpenedWindow(driver);
     }
 }
