@@ -375,6 +375,7 @@ public class SpillOverEstimatePage extends BasePage
    for (int i=0;i<4;i++) {
             try {
                 waitForElementToBeClickable(approver, webDriver);
+                approver.click();
                 new Select(approver).selectByVisibleText(approverDetails.getApprover());
             } catch (StaleElementReferenceException e) {
                 WebElement element2 = webDriver.findElement(By.id("approvalPosition"));
