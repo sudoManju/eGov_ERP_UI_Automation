@@ -188,6 +188,9 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Create Agency")
     private WebElement createAgencyLink;
 
+    @FindBy(linkText = "Upload Estimate Photographs")
+    private WebElement uploadEstimatePhotographslink;
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -699,6 +702,14 @@ public class DashboardPage extends BasePage {
         searchFor("create agency");
         waitForElementToBeVisible(createAgencyLink,driver);
         createAgencyLink.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseToUploadPhoto() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Upload Estimate Photographs");
+        waitForElementToBeClickable(uploadEstimatePhotographslink, driver);
+        uploadEstimatePhotographslink.click();
         switchToNewlyOpenedWindow(driver);
     }
 }
