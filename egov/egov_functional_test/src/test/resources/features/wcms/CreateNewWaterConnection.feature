@@ -79,7 +79,7 @@ Feature: To create a new water connection
 
     When juniorAssistant logs in
     Then user will search for the recent application
-    And user will choose the above appilcation based on connection details as <connectionDetails> and collects money
+    And user will choose the above application based on connection details as <connectionDetails> and collects money
 #    And user will filter the application based upon the connection details as <connectionDetails>
 #    And user chooses to act upon the above application in search applications
 #    And user will click on collect charges and collect the money form the customer & closes it
