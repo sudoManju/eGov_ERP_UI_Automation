@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -376,6 +377,12 @@ public class WaterChargeManagementPage extends BasePage {
         String amount = totalAmount.getAttribute("value");
 
         amountToBePaidTextBox.sendKeys(amount.split("\\.")[0]);
+
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         WebElement element = webDriver.findElement(By.id("button2"));
         jsClick(element , webDriver);

@@ -44,11 +44,11 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
 
         And("^user will enter the consumer number$", () -> {
 
-            String applicationParticularsDetails = "additionalConnection";
+//            String applicationParticularsDetails = "additionalConnection";
 
-            ApplicantInfo applicantInfo = new ExcelReader(ptisTestDataFileName).getApplicantInfo(applicationParticularsDetails);
-            pageStore.get(WaterChargeManagementPage.class).enterConsumerNumber(applicantInfo.getPtAssessmentNumber());
-            scenarioContext.setApplicationNumber(applicantInfo.getPtAssessmentNumber());
+//            ApplicantInfo applicantInfo = new ExcelReader(ptisTestDataFileName).getApplicantInfo(applicationParticularsDetails);
+            pageStore.get(WaterChargeManagementPage.class).enterConsumerNumber(scenarioContext.getConsumerNumber());
+            scenarioContext.setApplicationNumber(scenarioContext.getConsumerNumber());
         });
 
         And("^user will enter the details of the new additional water connection$", () -> {
@@ -216,8 +216,13 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
 
         });
 
-        And("^user will choose the above application based on connection details as (\\w+) and collects money$", (String connectionDetails) -> {
-//            Then("^user will filter the application based upon the connection details as (\\w+)$", (String connectionType) -> {
+        And("^user will search the recent application based on connection details as (\\w+) and collects money$", (String connectionDetails) -> {
+
+//            Then("^user will search for the recent application$", () -> {
+                pageStore.get(DashboardPage.class).chooseForSearchApplication();
+//            });
+
+// Then("^user will filter the application based upon the connection details as (\\w+)$", (String connectionType) -> {
                 pageStore.get(WaterChargeManagementPage.class).searchWaterConnectionApplications(connectionDetails);
 //            });
 //            And("^user chooses to act upon the above application in search applications$", () -> {
