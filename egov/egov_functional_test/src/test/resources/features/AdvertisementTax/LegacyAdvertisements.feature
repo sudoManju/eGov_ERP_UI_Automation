@@ -3,7 +3,7 @@ Feature: Create/Update LegacyAdvertisements
   I am able to create/update legacyAdvertisements
 
 
-@WIP
+@Sanity
 
 Scenario: Create/Update LegacyAdvertisements
 

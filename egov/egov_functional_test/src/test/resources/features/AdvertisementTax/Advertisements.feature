@@ -7,6 +7,7 @@ Feature: Create/search Advertisement
 Scenario: Advertisements Create/Search/Collect Tax
 
 #  Create Advertisements
+
    Given creator logs in
    And he chooses to create advertisement
    And he enters details for advertisement creation
@@ -30,20 +31,20 @@ Scenario: Advertisements Create/Search/Collect Tax
 
 # Collect Advertisement Tax
 
-  Given creator logs in
-  And he choose to collect advertisement tax by advertisement wise
-  And he search advertisement by advertisement number
-  And he choose advertisement for collecting advertisement tax
-  And current user logs out
-
-
-#  Collect Advertisement Tax by Agency wise
-  Given creator logs in
-  And he choose to collect advertisement tax by advertisement wise
-  And he choose to collect advertisement tax by agency wise
-  And he selects the agency for Tax/Fees collection
-  And he choose to collect advertisement tax
-  And current user logs out
+#  Given creator logs in
+#  And he choose to collect advertisement tax by advertisement wise
+#  And he search advertisement by advertisement number
+#  And he choose advertisement for collecting advertisement tax
+#  And current user logs out
+#
+#
+##  Collect Advertisement Tax by Agency wise
+#  Given creator logs in
+#  And he choose to collect advertisement tax by advertisement wise
+#  And he choose to collect advertisement tax by agency wise
+#  And he selects the agency for Tax/Fees collection
+#  And he choose to collect advertisement tax
+#  And current user logs out
 
 
   @WIP

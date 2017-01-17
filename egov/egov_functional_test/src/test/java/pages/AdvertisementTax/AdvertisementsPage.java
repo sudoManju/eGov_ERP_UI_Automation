@@ -206,8 +206,17 @@ public class AdvertisementsPage extends BasePage {
         waitForElementToBeClickable(measurementTypeBox, driver);
         new Select(measurementTypeBox).selectByVisibleText("SQ.FT");
 
-        waitForElementToBeClickable(taxAmountTextBox, driver);
-        taxAmountTextBox.sendKeys("10");
+      for(int i=0;i<4;i++){
+          try {
+              waitForElementToBeClickable(taxAmountTextBox, driver);
+              taxAmountTextBox.clear();
+              taxAmountTextBox.sendKeys("10");
+          }catch (StaleElementReferenceException e){
+              WebElement element = driver.findElement(By.cssSelector("input[id='taxAmount'][type='text']"));
+              element.clear();
+              element.sendKeys("10");
+          }
+      }
     }
 
 
