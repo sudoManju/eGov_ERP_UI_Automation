@@ -16,6 +16,10 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).logOut();
         });
 
+        And("^chooses to act upon the above create application$", () -> {
+            pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
+        });
+
         And("^chooses to act upon the above application$", () -> {
             pageStore.get(DashboardPage.class).openApplication(scenarioContext.getAssessmentNumber());
         });
@@ -175,6 +179,7 @@ public class DashboardSteps extends BaseSteps implements En {
         And("^he choose to upload estimate photo$", () -> {
             pageStore.get(DashboardPage.class).chooseToUploadPhoto();
         });
+
 
     }
 }

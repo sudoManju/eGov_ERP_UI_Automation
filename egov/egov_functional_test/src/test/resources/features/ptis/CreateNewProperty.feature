@@ -20,9 +20,7 @@ Feature: Create New Property
     And he enters construction type details as <constructionTypeDetails>
     And he enters floor details as <floorDetails>
     And he forwards for approval to billCollector
-    Then property details get saved successfully
-
-    And current user closes acknowledgement
+    Then create property details get saved successfully
     And current user logs out
 
     When billCollector logs in
@@ -46,7 +44,7 @@ Feature: Create New Property
     When commissioner logs in
     And chooses to act upon the above application
     And he approved the property with remarks "property approved"
-    And current user closes acknowledgement
+    Then create property details get saved successfully
 
     And chooses to act upon the above assessment
     And he does a digital signature
@@ -56,10 +54,10 @@ Feature: Create New Property
     When commissioner closes acknowledgement
     And current user logs out
 
-    And juniorAssistant logs in
-    And chooses to act upon the above assessment
-    And he generates a notice
-    And current user logs out
+#    And juniorAssistant logs in
+#    And chooses to act upon the above assessment
+#    And he generates a notice
+#    And current user logs out
 
     Examples:
       | propertyHeaderDetails | ownerDetails | propertyAddressDetails | assessmentDetails     | amenitiesDetails | constructionTypeDetails | floorDetails |

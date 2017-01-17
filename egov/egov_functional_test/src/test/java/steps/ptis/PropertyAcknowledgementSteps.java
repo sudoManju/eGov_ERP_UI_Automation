@@ -16,6 +16,14 @@ public class PropertyAcknowledgementSteps extends BaseSteps implements En {
             String applicationNumber = pageStore.get(PropertyAcknowledgementPage.class).getApplicationNumber();
             scenarioContext.setApplicationNumber(applicationNumber);
         });
+
+        Then("^create property details get saved successfully$", () -> {
+            String assessmentNumber = pageStore.get(PropertyAcknowledgementPage.class).getApplicationNumber();
+            System.out.println("\n"+assessmentNumber);
+            scenarioContext.setAssessmentNumber(assessmentNumber);
+            pageStore.get(PropertyAcknowledgementPage.class).close();
+        });
+
         And("^current user closes acknowledgement$", () -> {
 //            String assessmentNumber = pageStore.get(PropertyAcknowledgementPage.class).getApplicationNumber();
 //            scenarioContext.setAssessmentNumber(assessmentNumber);
@@ -40,5 +48,6 @@ public class PropertyAcknowledgementSteps extends BaseSteps implements En {
         And("^user closes acknowledgement form$", () -> {
             pageStore.get(PropertyAcknowledgementPage.class).toCloseAdditionalConnectionPage();
         });
+
     }
 }

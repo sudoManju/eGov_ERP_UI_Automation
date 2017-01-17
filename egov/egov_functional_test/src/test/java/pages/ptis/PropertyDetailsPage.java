@@ -31,6 +31,9 @@ public class PropertyDetailsPage extends BasePage {
     private WebElement aadharNoTextBox;
 
     @FindBy(id = "mobileNumber")
+    private WebElement newMobileNumberTextBox;
+
+    @FindBy(id = "mobileNumber")
     private WebElement mobileNumberTextBox;
 
     @FindBy(id = "ownerName")
@@ -292,9 +295,9 @@ public class PropertyDetailsPage extends BasePage {
     }
 
     public void enterOwnerDetails(OwnerDetails ownerDetails) {
-        waitForElementToBeClickable(mobileNumberTextBox, webDriver);
+        waitForElementToBeClickable(newMobileNumberTextBox, webDriver);
 
-//        enterText(mobileNumberTextBox, ownerDetails.getMobileNumber());
+        enterText(newMobileNumberTextBox, ownerDetails.getMobileNumber());
         mobileNumberTextBox.sendKeys("94488"+(min+min1));
         enterText(ownerNameTextBox, ownerDetails.getOwnerName());
         new Select(genderSelection).selectByVisibleText(ownerDetails.getGender().toUpperCase());
