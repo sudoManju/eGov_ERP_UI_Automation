@@ -245,7 +245,7 @@ public class DashboardPage extends BasePage {
         waitForElementToBeVisible(driver.findElement(By.id("worklist")), driver);
         waitForElementToBeVisible(officialInboxTable, driver);
 
-        await().atMost(10, SECONDS).until(() -> officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
+        await().atMost(20, SECONDS).until(() -> officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
         List<WebElement> applicationRows = officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
         System.out.println("total number of rows -- " + applicationRows.size());
         for (WebElement applicationRow : applicationRows) {

@@ -166,7 +166,6 @@ Feature: To create a Financial Transactions
     Then user will be notified by "approved"
     And current user logs out
 
-
     Examples:
     | bill details | approval officer1 | approval officer2 | approval officer3 | approval officer4 | approval officer5 |
     | expenseBill  | accountOfficer3   | commissioner1     | accountOfficer1   | accountOfficer2   | commissioner      |

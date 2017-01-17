@@ -109,7 +109,7 @@ Feature: To create a new water connection
     And user will choose the above application and click on the generate estimation notice
 #    And chooses to act upon the above application
 #    And user will click on the generate estimation notice
-    And user will search the recent application based on connection details as <connectionDetails> and collects money
+    And user will search the recent application based on connection details as <connectionDetails1> and collects money
 #    Then user will search for the recent application
 #    And user will filter the application based upon the connection details as <connectionDetails>
 #    And user chooses to act upon the above application in search applications
@@ -151,7 +151,7 @@ Feature: To create a new water connection
     And current user logs out
 
     When juniorAssistant logs in
-    And user will search the recent application based on connection details as <connectionDetails> and collects money
+    And user will search the recent application based on connection details as <connectionDetails1> and collects money
 #    Then user will search for the recent application
 #    And user will filter the application based upon the connection details as <connection details>
 #    And user chooses to act upon the above application in search applications
@@ -160,8 +160,8 @@ Feature: To create a new water connection
     And current user logs out
 
     Examples:
-      | connectionDetails | inspectionDetails | approvalOfficer1 | approvalOfficer2        | approvalOfficer3 |approvalOfficer4        | approvalOfficer5 |
-      | New_connection    | inspectionInfo    | engineer         | deputyExecutiveEngineer | commissioner1    |deputyExecutiveEngineer | commissioner1    |
+      | connectionDetails |connectionDetails1   | inspectionDetails | approvalOfficer1 | approvalOfficer2        | approvalOfficer3 |approvalOfficer4        | approvalOfficer5 |
+      | New_connection    |Additional_connection| inspectionInfo    | engineer         | deputyExecutiveEngineer | commissioner1    |deputyExecutiveEngineer | commissioner1    |
 
 
 
