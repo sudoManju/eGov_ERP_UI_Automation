@@ -313,15 +313,16 @@ public class ExcelReader {
 
     public OwnerDetails getOwnerDetails(String ownerDetailsDataId) {
         Row dataRow = readDataRow(ownerDetailsSheet, ownerDetailsDataId);
-        Cell mobileNumberCell = getCellData(ownerDetailsSheet, dataRow, "mobileNumber");
-        mobileNumberCell.setCellType(Cell.CELL_TYPE_STRING);
-        String mobileNumber = mobileNumberCell.getStringCellValue();
+//        Cell mobileNumberCell = getCellData(ownerDetailsSheet, dataRow, "mobileNumber");
+//        mobileNumberCell.setCellType(Cell.CELL_TYPE_STRING);
+//        String mobileNumber = mobileNumberCell.getStringCellValue();
         String ownerName = getCellData(ownerDetailsSheet, dataRow, "ownerName").getStringCellValue();
         String gender = getCellData(ownerDetailsSheet, dataRow, "gender").getStringCellValue();
         String emailAddress = getCellData(ownerDetailsSheet, dataRow, "emailAddress").getStringCellValue();
         String guardianRelation = getCellData(ownerDetailsSheet, dataRow, "guardianRelation").getStringCellValue();
         String guardian = getCellData(ownerDetailsSheet, dataRow, "guardian").getStringCellValue();
-        return new OwnerDetailsBuilder().withMobileNumber(mobileNumber)
+        return new OwnerDetailsBuilder()
+                //.withMobileNumber(mobileNumber)
                 .withOwnerName(ownerName)
                 .withGender(gender)
                 .withEmailAddress(emailAddress)

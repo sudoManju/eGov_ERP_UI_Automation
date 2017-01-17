@@ -17,8 +17,8 @@ public class PropertyAcknowledgementSteps extends BaseSteps implements En {
             scenarioContext.setApplicationNumber(applicationNumber);
         });
         And("^current user closes acknowledgement$", () -> {
-            String assessmentNumber = pageStore.get(PropertyAcknowledgementPage.class).getApplicationNumber();
-            scenarioContext.setAssessmentNumber(assessmentNumber);
+//            String assessmentNumber = pageStore.get(PropertyAcknowledgementPage.class).getApplicationNumber();
+//            scenarioContext.setAssessmentNumber(assessmentNumber);
             pageStore.get(PropertyAcknowledgementPage.class).close();
         });
         When("^commissioner closes acknowledgement$", () -> {

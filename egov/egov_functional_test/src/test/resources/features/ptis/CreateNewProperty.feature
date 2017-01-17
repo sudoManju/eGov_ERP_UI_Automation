@@ -80,7 +80,7 @@ Feature: Create New Property
 
     # ADDITION ALTERATION SCREEN #
 
-  @WIP
+  @Sanity
     Scenario Outline: Registered user Update existing property
       Given commissioner logs in
       When he chooses to create data entry
@@ -127,14 +127,14 @@ Feature: Create New Property
       And chooses to act upon the above assessment
       And he does a digital signature
 
-#      Then he is notified that "Notice Generated Successfully"
-
       When commissioner closes acknowledgement
       And current user logs out
 
       And juniorAssistant logs in
       And chooses to act upon the above assessment
       And he generates a notice
+      And current user logs out
+
       Examples:
         |  editAssessmentDetails         |     amenitiesDetails |  editFloorDetails            |
         |  assessmentAdditionProperty    |        all           |  firstFloorAdditionaltaration|

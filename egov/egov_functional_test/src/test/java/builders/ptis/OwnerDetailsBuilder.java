@@ -9,10 +9,10 @@ public class OwnerDetailsBuilder {
     public OwnerDetailsBuilder() {
     }
 
-    public OwnerDetailsBuilder withMobileNumber(String mobileNumber) {
-        ownerDetails.setMobileNumber(mobileNumber);
-        return this;
-    }
+//    public OwnerDetailsBuilder withMobileNumber(String mobileNumber) {
+//        ownerDetails.setMobileNumber(mobileNumber);
+//        return this;
+//    }
 
     public OwnerDetailsBuilder withOwnerName(String ownerName) {
         ownerDetails.setOwnerName(ownerName);

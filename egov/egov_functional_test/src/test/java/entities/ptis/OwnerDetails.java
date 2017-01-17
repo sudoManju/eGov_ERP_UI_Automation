@@ -2,20 +2,20 @@ package entities.ptis;
 
 public class OwnerDetails {
 
-    private String mobileNumber;
+  //  private String mobileNumber;
     private String ownerName;
     private String gender;
     private String emailAddress;
     private String guardianRelation;
     private String guardianName;
 
-    public String getMobileNumber() {
-        return mobileNumber;
-    }
+//    public String getMobileNumber() {
+//        return mobileNumber;
+//    }
 
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
-    }
+  //  public void setMobileNumber(String mobileNumber) {
+//        this.mobileNumber = mobileNumber;
+//    }
 
     public String getOwnerName() {
         return ownerName;

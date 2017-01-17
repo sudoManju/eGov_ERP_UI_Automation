@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
+import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
@@ -272,6 +273,9 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy (css = "input[type='text'][name='instrHeaderCash.instrumentAmount']")
     private WebElement propertyAmountToBePaid;
 
+    String min = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
+    String min1 = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
+
     public PropertyDetailsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -290,7 +294,8 @@ public class PropertyDetailsPage extends BasePage {
     public void enterOwnerDetails(OwnerDetails ownerDetails) {
         waitForElementToBeClickable(mobileNumberTextBox, webDriver);
 
-        enterText(mobileNumberTextBox, ownerDetails.getMobileNumber());
+//        enterText(mobileNumberTextBox, ownerDetails.getMobileNumber());
+        mobileNumberTextBox.sendKeys("94488"+(min+min1));
         enterText(ownerNameTextBox, ownerDetails.getOwnerName());
         new Select(genderSelection).selectByVisibleText(ownerDetails.getGender().toUpperCase());
 
