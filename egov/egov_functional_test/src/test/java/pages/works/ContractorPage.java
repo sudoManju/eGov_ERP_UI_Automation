@@ -89,6 +89,27 @@ public class ContractorPage extends BasePage
     @FindBy(xpath = "//*[@id='exemptionForm']")
      private WebElement exemptionFormAction;
 
+    @FindBy(id = "contactPerson")
+     private WebElement contactPerson;
+
+    @FindBy(id = "email")
+     private WebElement email;
+
+    @FindBy(id = "mobileNumber")
+    private WebElement mobileNumber;
+
+    @FindBy(id = "bankAccount")
+     private WebElement bankAccount;
+
+    @FindBy(id = "tinNumber")
+     private WebElement tinNumber;
+
+    @FindBy(id = "gradeNameyui-rec0")
+    private WebElement contractorClass;
+
+    @FindBy(id = "registrationNumberyui-rec0")
+     private WebElement registrationNumber;
+
     String min = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
     String hour = String.valueOf(Calendar.getInstance().get(Calendar.MINUTE));
     String min1 = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
@@ -116,27 +137,41 @@ public class ContractorPage extends BasePage
     {
         waitForElementToBeClickable(contractorCode, driver);
 
-        String code = (min+hour+min1);
-        contractorCode.sendKeys("KMC"+code);
+        String code = (min+min1);
+        String Name = "KMC"+code;
+        contractorCode.sendKeys(Name);
         waitForElementToBeClickable(contractorName, driver);
-        contractorName.sendKeys("tester");
+        contractorName.sendKeys(Name);
         waitForElementToBeClickable(correspondenceAddress, driver);
-        correspondenceAddress.sendKeys("A.P.State Agro industries Development Corporation Ltd., ATP");
+        correspondenceAddress.sendKeys("A P State Agro industries Development Corporation Ltd ATP");
         waitForElementToBeClickable(panNumber, driver);
+        waitForElementToBeClickable(contactPerson, driver);
+        contactPerson.sendKeys("Name");
+        waitForElementToBeClickable(email, driver);
+        email.sendKeys(Name+"@egov.org");
+        waitForElementToBeClickable(mobileNumber, driver);
+        mobileNumber.sendKeys("99887"+(min+hour));
         panNumber.sendKeys("PANUM"+(hour+hour)+"P");
+        waitForElementToBeClickable(tinNumber, driver);
+        tinNumber.sendKeys(min+hour);
         waitForElementToBeClickable(bankAction, driver);
         new Select(bankAction).selectByVisibleText("STATE BANK OF MYSORE");
         waitForElementToBeClickable(ifscCode, driver);
         ifscCode.sendKeys("IFSC"+min+hour);
+        waitForElementToBeClickable(bankAccount, driver);
+        bankAccount.sendKeys(min+hour+min1);
         waitForElementToBeClickable(exemptionFormAction, driver);
         new Select(exemptionFormAction).selectByVisibleText("EARNEST MONEY DEPOSIT");
         waitForElementToBeClickable(department, driver);
         new Select(department).selectByVisibleText("ENGINEERING");
+        waitForElementToBeClickable(registrationNumber, driver);
+        registrationNumber.sendKeys("0123"+code);
+        waitForElementToBeClickable(contractorClass, driver);
+        new Select(contractorClass).selectByVisibleText("Class-I");
         waitForElementToBeClickable(status, driver);
         new Select(status).selectByVisibleText("Active");
         waitForElementToBeClickable(fromDate, driver);
-        fromDate.sendKeys("10/01/2017");
-
+        fromDate.sendKeys("17/01/2017");
         waitForElementToBeClickable(saveButton,driver);
         saveButton.click();
     }
