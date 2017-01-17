@@ -368,6 +368,7 @@ public class SpillOverEstimatePage extends BasePage
            } catch (StaleElementReferenceException e) {
                WebElement element1 = webDriver.findElement(By.id("approvalDesignation"));
                waitForElementToBeClickable(element1, webDriver);
+               element1.click();
                new Select(element1).selectByVisibleText(approverDetails.getApprover());
            }
      }
@@ -380,6 +381,7 @@ public class SpillOverEstimatePage extends BasePage
             } catch (StaleElementReferenceException e) {
                 WebElement element2 = webDriver.findElement(By.id("approvalPosition"));
                 waitForElementToBeClickable(element2, webDriver);
+                element2.click();
                 new Select(element2).selectByVisibleText(approverDetails.getApprover());
             }
     }

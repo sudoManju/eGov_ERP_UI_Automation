@@ -4,28 +4,28 @@ Feature: Create Contractors in the Masters
 
 #  Create Contractor
 
-  @Sanity
+  @WIP
 
   Scenario: Create Contractors
 
     When assistantEngineer logs in
     And he chooses to create contractor
     And he enters the contractor master data
-#    Then user will be notified by "successfully"
-#    And he close the acknowledgement
-#    And current user logs out
+    Then user will be notified by "successfully"
+    And he close the acknowledgement
+    And current user logs out
 
 #    View/Modify Contractor
 
-  @Sanity
+  @WIP
 
   Scenario: View or Modify Contractor
 
     When assistantEngineer logs in
     And he chooses for view or modify contractor
     And he search for contractor
-    And he select the required contractor
-    And modifies the required contractor
-    Then user will be notified by "successfully"
-    And he close the acknowledgement
-    And current user logs out
+#    And he select the required contractor
+#    And modifies the required contractor
+#    Then user will be notified by "successfully"
+#    And he close the acknowledgement
+#    And current user logs out

@@ -20,7 +20,8 @@ Scenario: Advertisements Create/Search/Collect Tax
   Then user will be notified by "approved"
   And current user logs out
 
-  #  Search Advertisements
+#  Search Advertisements
+
   Given creator logs in
   And he chooses to search advertisement
   And he search and select the required advertisement
@@ -28,11 +29,13 @@ Scenario: Advertisements Create/Search/Collect Tax
   And current user logs out
 
 # Collect Advertisement Tax
+
   Given creator logs in
   And he choose to collect advertisement tax by advertisement wise
   And he search advertisement by advertisement number
   And he choose advertisement for collecting advertisement tax
   And current user logs out
+
 
 #  Collect Advertisement Tax by Agency wise
   Given creator logs in

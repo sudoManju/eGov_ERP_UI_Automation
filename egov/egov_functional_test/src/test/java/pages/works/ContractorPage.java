@@ -137,8 +137,8 @@ public class ContractorPage extends BasePage
         waitForElementToBeClickable(fromDate, driver);
         fromDate.sendKeys("10/01/2017");
 
-//        waitForElementToBeClickable(saveButton,driver);
-//        saveButton.click();
+        waitForElementToBeClickable(saveButton,driver);
+        saveButton.click();
     }
 
     public void viewContractor()

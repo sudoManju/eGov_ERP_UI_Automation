@@ -128,6 +128,9 @@ public class AdvertisementsPage extends BasePage {
     @FindBy(id = "agencysearch")
      private WebElement collectFeeButton;
 
+    @FindBy(css = "input[type ='button'][value='Close']")
+     private WebElement closeButton;
+
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     String date = sdf.format(new Date());
 
@@ -303,6 +306,20 @@ public class AdvertisementsPage extends BasePage {
         close();
     }
 
+    public void closeMultiple(String url){
+
+        waitForElementToBeClickable(closeButton, driver);
+        closeButton.click();
+
+        for (String winHandle : driver.getWindowHandles()) {
+            if(driver.switchTo().window(winHandle).getCurrentUrl().equals(url)){
+                break;
+            }
+        }
+
+        close();
+    }
+
     public void searchByAdvertisementNumber(String adervtisementNumber) {
         waitForElementToBeClickable(searchType, driver);
         searchType.click();
@@ -366,15 +383,6 @@ public class AdvertisementsPage extends BasePage {
         waitForElementToBeClickable(amount, driver);
         amount.sendKeys(Amount);
         waitForElementToBeClickable(payButton, driver);
-//        payButton.submit();
         jsClick(payButton, driver);
-
-        for (String winHandle : driver.getWindowHandles()) {
-            String title = driver.switchTo().window(winHandle).getCurrentUrl();
-            if(title.equals("http://kurnool-uat.egovernments.org/adtax/hoarding/search")){
-                break;
-            }
-        }
-        switchToPreviouslyOpenedWindow(driver);
     }
 }
