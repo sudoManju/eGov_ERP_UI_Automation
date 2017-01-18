@@ -19,7 +19,6 @@ public class PropertyAcknowledgementSteps extends BaseSteps implements En {
 
         Then("^create property details get saved successfully$", () -> {
             String assessmentNumber = pageStore.get(PropertyAcknowledgementPage.class).getApplicationNumber();
-            System.out.println("\n"+assessmentNumber);
             scenarioContext.setAssessmentNumber(assessmentNumber);
             pageStore.get(PropertyAcknowledgementPage.class).close();
         });

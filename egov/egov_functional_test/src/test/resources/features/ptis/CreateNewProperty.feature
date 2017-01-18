@@ -54,10 +54,10 @@ Feature: Create New Property
     When commissioner closes acknowledgement
     And current user logs out
 
-#    And juniorAssistant logs in
-#    And chooses to act upon the above assessment
-#    And he generates a notice
-#    And current user logs out
+    And juniorAssistant logs in
+    And chooses to act upon the above assessment
+    And he generates a notice
+    And current user logs out
 
     Examples:
       | propertyHeaderDetails | ownerDetails | propertyAddressDetails | assessmentDetails     | amenitiesDetails | constructionTypeDetails | floorDetails |
