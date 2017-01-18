@@ -43,6 +43,7 @@ public class DataEntrySteps extends BaseSteps implements En {
             pageStore.get(PropertyDetailsPage.class).create();
 
         });
+
     }
 
     private String get6DigitRandomInt() {return String.valueOf((100000 + RandomUtils.nextInt(900000)));

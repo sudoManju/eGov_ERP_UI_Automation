@@ -28,6 +28,8 @@ public class ScenarioContext {
 
     private String consumerNumber;
 
+    private String agendaNumber;
+
     public String getConsumerNumber() {
         return consumerNumber;
     }
@@ -131,6 +133,10 @@ public class ScenarioContext {
 
     public String getPreambleNumber() {
         return preambleNumber;
+    }
+
+    public void setAgendaNumber(String agendaNumber) {
+        this.agendaNumber = agendaNumber;
     }
 }
 

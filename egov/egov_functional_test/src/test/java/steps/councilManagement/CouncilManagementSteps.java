@@ -33,9 +33,23 @@ public class CouncilManagementSteps extends BaseSteps implements En {
         });
         And("^he approves the preamble number$", () -> {
           String Status= pageStore.get(CouncilManagementPage.class).approve();
-      //    Assert.assertTrue(Status.contains("APPROVED"));
             scenarioContext.setActualMessage(Status);
 
+        });
+
+        And("^he choose to create agenda for the above preamble$", () -> {
+            String preambleNumber;
+            preambleNumber = scenarioContext.getPreambleNumber();
+            pageStore.get(CouncilManagementPage.class).enterCreateAgendaDetails(preambleNumber);
+        });
+        And("^he enters create agenda details as (\\w+)$", (String createAgendaData) -> {
+            CreatePreambleDetails createPreambleDetails=new ExcelReader(councilManagementTestDataFileName).getCreateAgendaDetails(createAgendaData);
+            pageStore.get(CouncilManagementPage.class).enterCreateAgenda(createPreambleDetails);
+        });
+        And("^he copies agenda number and closes the acknowledgement$", () -> {
+            String AgendaNumber = pageStore.get(CouncilManagementPage.class).getAgendaNumber();
+            scenarioContext.setAgendaNumber(AgendaNumber);
+            System.out.println("Agenda Number"+AgendaNumber);
         });
 
 

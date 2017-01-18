@@ -89,6 +89,7 @@ public class ExcelReader {
     Sheet createPreambleDetailsSheet;
     Sheet legencyDetailsSheet;
     Sheet dataFromWebSheet;
+    Sheet createAgendaSheet;
 
     public ExcelReader(String testData) {
         String excelFilePath = testData + ".xlsx";
@@ -145,6 +146,7 @@ public class ExcelReader {
         createPreambleDetailsSheet = workbook.getSheet("createPreamble");
         legencyDetailsSheet = workbook.getSheet("legencyDetails");
         dataFromWebSheet = workbook.getSheet("dataFromWeb");
+        createAgendaSheet = workbook.getSheet("createAgenda");
     }
 
     private Row readDataRow(Sheet fromSheet, String dataId) {
@@ -1139,5 +1141,22 @@ public class ExcelReader {
                     .withAmount6(amount6)
                     .build();
 
+    }
+
+    public CreatePreambleDetails getCreateAgendaDetails(String createAgendaData) {
+        Row dataRow = readDataRow(createAgendaSheet, createAgendaData);
+
+        Cell preambleNumberCell =getCellData(createAgendaSheet, dataRow,"preambleNumber");
+        preambleNumberCell.setCellType(Cell.CELL_TYPE_STRING);
+        String preambleNumber=preambleNumberCell.getStringCellValue();
+
+        Cell committeeTypeCell =getCellData(createAgendaSheet, dataRow,"committeeType");
+        committeeTypeCell.setCellType(Cell.CELL_TYPE_STRING);
+        String committeeType=committeeTypeCell.getStringCellValue();
+
+        return new PreambleDetailsBuilder()
+                .withPreambleNumber(preambleNumber)
+                .withCommitteeType(committeeType)
+                .build();
     }
 }

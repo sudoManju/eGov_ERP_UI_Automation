@@ -180,6 +180,12 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).chooseToUploadPhoto();
         });
 
+        When("^he choose to create agenda$", () -> {
+            pageStore.get(DashboardPage.class).createAgenda();
+        });
+        When("^he choose to create meeting$", () -> {
+            pageStore.get(DashboardPage.class).createMeeting();
+        });
 
     }
 }

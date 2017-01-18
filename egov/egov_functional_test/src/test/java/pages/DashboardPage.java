@@ -191,6 +191,11 @@ public class DashboardPage extends BasePage {
 
     @FindBy(linkText = "Upload Estimate Photographs")
     private WebElement uploadEstimatePhotographslink;
+    @FindBy(linkText = "Create Agenda")
+    private WebElement createAgenda;
+
+    @FindBy(linkText = "Create Meeting invitation")
+    private WebElement createMeetingLink;
 
     @FindBy(linkText = "Search Agency")
     private WebElement searchAgencyLink;
@@ -720,6 +725,21 @@ public class DashboardPage extends BasePage {
         searchFor("Upload Estimate Photographs");
         waitForElementToBeClickable(uploadEstimatePhotographslink, driver);
         uploadEstimatePhotographslink.click();
+    }
+    public void createAgenda() {
+        waitForElementToBeClickable(searchTreeTextBox,driver);
+        searchFor("Create Agenda");
+        waitForElementToBeClickable(createAgenda,driver);
+        createAgenda.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void createMeeting() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchTreeTextBox.clear();
+        searchFor("Create Meeting invitation");
+        waitForElementToBeClickable(createMeetingLink, driver);
+        createMeetingLink.click();
         switchToNewlyOpenedWindow(driver);
     }
 

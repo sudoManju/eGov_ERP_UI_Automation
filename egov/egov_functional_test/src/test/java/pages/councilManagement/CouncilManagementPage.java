@@ -53,6 +53,19 @@ public class CouncilManagementPage extends BasePage {
     @FindBy (id = "Approve")
     private WebElement approve;
 
+    @FindBy (id = "preambleNumber")
+    private WebElement preambleNumberTextBox;
+
+    @FindBy (id = "btnsearch")
+    private WebElement searchbutton;
+
+    @FindBy (id = "committeeType")
+    private WebElement committeeTypeSelect;
+
+    @FindBy (id = "btnsave")
+    private WebElement saveButton;
+
+
     public CouncilManagementPage(WebDriver webDriver){this.webDriver=webDriver;}
 
     public void enterCreatePreambleDetails(CreatePreambleDetails createPreambleDetails) {
@@ -97,5 +110,27 @@ public class CouncilManagementPage extends BasePage {
         webDriver.close();
         switchToPreviouslyOpenedWindow(webDriver);
         return ele;
+    }
+
+
+    public void enterCreateAgenda(CreatePreambleDetails createPreambleDetails) {
+        searchbutton.click();
+        List<WebElement> ele = webDriver.findElements(By.cssSelector(".btn.btn-xs.btn-secondary.add"));
+        jsClick(ele.get(0) , webDriver);
+        new Select(committeeTypeSelect).selectByVisibleText(createPreambleDetails.getCommitteeType());
+        jsClick(saveButton, webDriver);
+    }
+
+    public void enterCreateAgendaDetails(String preambleNumber) {
+        waitForElementToBeClickable(preambleNumberTextBox, webDriver);
+        enterText(preambleNumberTextBox, preambleNumber);
+    }
+
+    public String getAgendaNumber() {
+        List<WebElement> elements= webDriver.findElements(By.cssSelector(".col-sm-3.add-margin.view-content"));
+        String agendaNumber = elements.get(2).getText();
+        webDriver.close();
+        switchToPreviouslyOpenedWindow(webDriver);
+        return agendaNumber;
     }
 }

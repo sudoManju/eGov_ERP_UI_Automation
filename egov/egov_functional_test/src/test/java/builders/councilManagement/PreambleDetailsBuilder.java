@@ -23,7 +23,20 @@ public class PreambleDetailsBuilder {
         return this;
     }
 
+    public PreambleDetailsBuilder withPreambleNumber(String preambleNumber)
+    {
+        createPreambleDetails.setPreambleNumber(preambleNumber);
+        return this;
+    }
+
+    public PreambleDetailsBuilder withCommitteeType(String committeeType) {
+        createPreambleDetails.setCommitteeType(committeeType);
+        return this;
+    }
+
     public CreatePreambleDetails build() {
         return createPreambleDetails;
     }
+
+
 }

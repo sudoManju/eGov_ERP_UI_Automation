@@ -18,9 +18,23 @@ Feature: create preamble
     When commissioner logs in
     And he chooses to act upon the above preamble number
     And he approves the preamble number
-    And user will be notified by "APPROVED"
+    #And user will be notified by "APPROVED"
     And current user logs out
 
+    # Create Agenda #
+
+    Given councilClerk logs in
+    When he choose to create agenda
+    And he choose to create agenda for the above preamble
+    And he enters create agenda details as <committee>
+    And he copies agenda number and closes the acknowledgement
+
+    # Create Meeting #
+
+    When he choose to create meeting
+
+
+
   Examples:
-  |details| approval officer2 |
-  |abc    | commissioner1     |
+  |details| approval officer2 | committee    |
+  |abc    | commissioner1     | createAgenda |
