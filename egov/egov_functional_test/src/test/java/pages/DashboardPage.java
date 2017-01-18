@@ -756,6 +756,7 @@ public class DashboardPage extends BasePage {
         searchFor("search agency");
         waitForElementToBeClickable(searchAgencyLink, driver);
         searchAgencyLink.click();
+        switchToNewlyOpenedWindow(driver);
     }
 
     public void enterAttendance() {
