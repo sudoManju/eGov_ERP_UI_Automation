@@ -1,7 +1,9 @@
 Feature: create preamble
 
   As a Registered user of the system
-  i want to create Preamble
+  i want to create Preamble, create agenda, create meeting invitation
+  enter the attendance for the meeting and create MOM
+
 
   # Create Preamble #
 
@@ -32,9 +34,17 @@ Feature: create preamble
     # Create Meeting #
 
     When he choose to create meeting
+    And he choose to create meeting invitation for the above agenda
+    And he enters meeting details as <meetingDetails>
+    And he copies meeting number and closes the acknowledgement
+
+    # Enter Attendance #
+
+    When he choose to enter attendance
+    And he enters above meeting number to enter attendance
 
 
 
   Examples:
-  |details| approval officer2 | committee    |
-  |abc    | commissioner1     | createAgenda |
+  |details| approval officer2 | committee    |meetingDetails |
+  |abc    | commissioner1     | createAgenda |councilMeeting |

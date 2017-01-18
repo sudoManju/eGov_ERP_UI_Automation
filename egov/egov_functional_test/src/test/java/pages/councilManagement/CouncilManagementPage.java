@@ -65,6 +65,27 @@ public class CouncilManagementPage extends BasePage {
     @FindBy (id = "btnsave")
     private WebElement saveButton;
 
+    @FindBy (id = "agendaNumber")
+    private WebElement agendaNumberTextBox;
+
+    @FindBy (id = "meetingDate")
+    private WebElement meetingDateText;
+
+    @FindBy (id = "meetingTime")
+    private WebElement meetingTimeSelect;
+
+    @FindBy (id = "meetingLocation")
+    private  WebElement meetingLocationText;
+
+    @FindBy (id = "buttonSubmit")
+    private WebElement createButton;
+
+    @FindBy (linkText = "Close")
+    private WebElement CloseButton;
+
+    @FindBy (id = "meetingNumber")
+    private WebElement meetingNumberText;
+
 
     public CouncilManagementPage(WebDriver webDriver){this.webDriver=webDriver;}
 
@@ -132,5 +153,42 @@ public class CouncilManagementPage extends BasePage {
         webDriver.close();
         switchToPreviouslyOpenedWindow(webDriver);
         return agendaNumber;
+    }
+
+    public void enterCreateMeetingDetails(String agendaNumber) {
+        waitForElementToBeClickable(agendaNumberTextBox, webDriver);
+        enterText(agendaNumberTextBox, agendaNumber);
+        searchbutton.click();
+        List<WebElement> elements= webDriver.findElements(By.cssSelector(".btn.btn-xs.btn-secondary.view"));
+        waitForElementToBeClickable(elements.get(0),webDriver);
+        jsClick(elements.get(0), webDriver);
+        switchToNewlyOpenedWindow(webDriver);
+    }
+
+    public void enterCouncilMeetingDetails(CreatePreambleDetails createMeetingData) {
+        waitForElementToBeClickable(meetingDateText, webDriver);
+        enterText(meetingDateText, createMeetingData.getcouncilMeetingDate());
+        new Select(meetingTimeSelect).selectByVisibleText(createMeetingData.getCouncilMeetingTime());
+        enterText(meetingLocationText, createMeetingData.getCouncilMeetingPlace());
+        jsClick(createButton, webDriver);
+    }
+
+
+    public String getMeetingNumber() {
+        List<WebElement> elements = webDriver.findElements(By.cssSelector(".col-sm-3.add-margin.view-content"));
+        String meetingNumber = elements.get(1).getText();
+        System.out.println("meeting number "+meetingNumber);
+        CloseButton.click();
+        switchToNewlyOpenedWindow(webDriver);
+        webDriver.close();
+        switchToPreviouslyOpenedWindow(webDriver);
+        return meetingNumber;
+    }
+
+    public void enterMeetingNumber(String meetingNumber) {
+        waitForElementToBeClickable(meetingNumberText, webDriver);
+        enterText(meetingNumberText, meetingNumber);
+        searchbutton.click();
+
     }
 }

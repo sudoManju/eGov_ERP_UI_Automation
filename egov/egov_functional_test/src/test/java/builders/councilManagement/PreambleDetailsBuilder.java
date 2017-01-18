@@ -34,9 +34,23 @@ public class PreambleDetailsBuilder {
         return this;
     }
 
+    public PreambleDetailsBuilder withCouncilMeetingDate(String meetingDate) {
+        createPreambleDetails.setCouncilMeetingDate(meetingDate);
+        return this;
+    }
+    public PreambleDetailsBuilder withCouncilMeetingTime(String meetingTime) {
+        createPreambleDetails.setCouncilMeetingTime(meetingTime);
+        return this;
+    }
+    public PreambleDetailsBuilder withCouncilMeetingPlace(String meetingPlace) {
+        createPreambleDetails.setCouncilMeetingPlace(meetingPlace);
+        return this;
+    }
+
     public CreatePreambleDetails build() {
         return createPreambleDetails;
     }
+
 
 
 }

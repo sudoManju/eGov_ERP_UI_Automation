@@ -38,8 +38,7 @@ public class CouncilManagementSteps extends BaseSteps implements En {
         });
 
         And("^he choose to create agenda for the above preamble$", () -> {
-            String preambleNumber;
-            preambleNumber = scenarioContext.getPreambleNumber();
+            String preambleNumber = scenarioContext.getPreambleNumber();
             pageStore.get(CouncilManagementPage.class).enterCreateAgendaDetails(preambleNumber);
         });
         And("^he enters create agenda details as (\\w+)$", (String createAgendaData) -> {
@@ -49,7 +48,22 @@ public class CouncilManagementSteps extends BaseSteps implements En {
         And("^he copies agenda number and closes the acknowledgement$", () -> {
             String AgendaNumber = pageStore.get(CouncilManagementPage.class).getAgendaNumber();
             scenarioContext.setAgendaNumber(AgendaNumber);
-            System.out.println("Agenda Number"+AgendaNumber);
+        });
+        And("^he choose to create meeting invitation for the above agenda$", () -> {
+            String agendaNumber = scenarioContext.getAgendaNumber();
+            pageStore.get(CouncilManagementPage.class).enterCreateMeetingDetails(agendaNumber);
+        });
+        And("^he enters meeting details as (\\w+)$", (String createMeetingDetails) -> {
+            CreatePreambleDetails createMeetingData=new ExcelReader(councilManagementTestDataFileName).getCreateMeetingDetails(createMeetingDetails);
+            pageStore.get(CouncilManagementPage.class).enterCouncilMeetingDetails(createMeetingData);
+        });
+        And("^he copies meeting number and closes the acknowledgement$", () -> {
+            String meetingNumber = pageStore.get(CouncilManagementPage.class).getMeetingNumber();
+            scenarioContext.setMeetingNumber(meetingNumber);
+        });
+        And("^he enters above meeting number to enter attendance$", () -> {
+            String meetingNumber = scenarioContext.getMeetingNumber();
+            pageStore.get(CouncilManagementPage.class).enterMeetingNumber(meetingNumber);
         });
 
 

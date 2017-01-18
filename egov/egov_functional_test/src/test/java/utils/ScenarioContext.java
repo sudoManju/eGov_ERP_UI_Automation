@@ -30,6 +30,8 @@ public class ScenarioContext {
 
     private String agendaNumber;
 
+    private String meetingNumber;
+
     public String getConsumerNumber() {
         return consumerNumber;
     }
@@ -137,6 +139,15 @@ public class ScenarioContext {
 
     public void setAgendaNumber(String agendaNumber) {
         this.agendaNumber = agendaNumber;
+    }
+
+    public String getAgendaNumber() { return agendaNumber; }
+
+
+    public void setMeetingNumber(String meetingNumber) { this.meetingNumber = meetingNumber; }
+
+    public String getMeetingNumber() {
+        return meetingNumber;
     }
 }
 

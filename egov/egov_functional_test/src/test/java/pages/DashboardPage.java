@@ -191,14 +191,19 @@ public class DashboardPage extends BasePage {
 
     @FindBy(linkText = "Upload Estimate Photographs")
     private WebElement uploadEstimatePhotographslink;
+
     @FindBy(linkText = "Create Agenda")
     private WebElement createAgenda;
 
     @FindBy(linkText = "Create Meeting invitation")
     private WebElement createMeetingLink;
 
+
     @FindBy(linkText = "Search Agency")
     private WebElement searchAgencyLink;
+
+    @FindBy(linkText = "Enter Attendance")
+    private WebElement enterAttendanceLink;
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -743,12 +748,22 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
+
     public void chooseToSearchAdvertisementAgency() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchTreeTextBox.clear();
         searchFor("search agency");
-        waitForElementToBeClickable(searchAgencyLink,driver);
+        waitForElementToBeClickable(searchAgencyLink, driver);
         searchAgencyLink.click();
+    }
+
+    public void enterAttendance() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchTreeTextBox.clear();
+        searchFor("Enter Attendance");
+        waitForElementToBeClickable(enterAttendanceLink,driver);
+        enterAttendanceLink.click();
+
         switchToNewlyOpenedWindow(driver);
     }
 }

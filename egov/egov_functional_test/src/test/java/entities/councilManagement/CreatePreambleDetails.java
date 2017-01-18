@@ -12,6 +12,9 @@ public class CreatePreambleDetails {
     private String createPreambleDetails;
     private String preambleNumber;
     private String committeeType;
+    private String councilMeetingDate;
+    private String councilMeetingTime;
+    private String councilMeetingPlace;
 
     public void setPreambleDepartment(String preambleDepartment) {
         this.preambleDepartment = preambleDepartment;
@@ -52,5 +55,29 @@ public class CreatePreambleDetails {
 
     public void setCommitteeType(String committeeType) {
         this.committeeType = committeeType;
+    }
+
+    public void setCouncilMeetingDate(String councilMeetingDate) {
+        this.councilMeetingDate = councilMeetingDate;
+    }
+
+    public void setCouncilMeetingTime(String councilMeetingTime) {
+        this.councilMeetingTime = councilMeetingTime;
+    }
+
+    public void setCouncilMeetingPlace(String councilMeetingPlace) {
+        this.councilMeetingPlace = councilMeetingPlace;
+    }
+
+
+    public String getcouncilMeetingDate() { return councilMeetingDate; }
+
+
+    public String getCouncilMeetingTime() {
+        return councilMeetingTime;
+    }
+
+    public String getCouncilMeetingPlace() {
+        return councilMeetingPlace;
     }
 }

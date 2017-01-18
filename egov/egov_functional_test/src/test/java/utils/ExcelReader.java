@@ -90,6 +90,7 @@ public class ExcelReader {
     Sheet legencyDetailsSheet;
     Sheet dataFromWebSheet;
     Sheet createAgendaSheet;
+    Sheet createMeetingSheet;
 
     public ExcelReader(String testData) {
         String excelFilePath = testData + ".xlsx";
@@ -147,6 +148,7 @@ public class ExcelReader {
         legencyDetailsSheet = workbook.getSheet("legencyDetails");
         dataFromWebSheet = workbook.getSheet("dataFromWeb");
         createAgendaSheet = workbook.getSheet("createAgenda");
+        createMeetingSheet = workbook.getSheet("createMeeting");
     }
 
     private Row readDataRow(Sheet fromSheet, String dataId) {
@@ -1146,17 +1148,36 @@ public class ExcelReader {
     public CreatePreambleDetails getCreateAgendaDetails(String createAgendaData) {
         Row dataRow = readDataRow(createAgendaSheet, createAgendaData);
 
-        Cell preambleNumberCell =getCellData(createAgendaSheet, dataRow,"preambleNumber");
-        preambleNumberCell.setCellType(Cell.CELL_TYPE_STRING);
-        String preambleNumber=preambleNumberCell.getStringCellValue();
-
         Cell committeeTypeCell =getCellData(createAgendaSheet, dataRow,"committeeType");
         committeeTypeCell.setCellType(Cell.CELL_TYPE_STRING);
         String committeeType=committeeTypeCell.getStringCellValue();
 
         return new PreambleDetailsBuilder()
-                .withPreambleNumber(preambleNumber)
                 .withCommitteeType(committeeType)
                 .build();
+    }
+
+    public CreatePreambleDetails getCreateMeetingDetails(String createMeetingDetails) {
+        Row dataRow = readDataRow(createMeetingSheet, createMeetingDetails);
+
+        Cell meetingDateCell =getCellData(createMeetingSheet, dataRow, "meetingDate");
+        meetingDateCell.setCellType(Cell.CELL_TYPE_STRING);
+        String meetingDate=meetingDateCell.getStringCellValue();
+
+        Cell meetingTimeCell =getCellData(createMeetingSheet, dataRow, "meetingTime");
+        meetingTimeCell.setCellType(Cell.CELL_TYPE_STRING);
+        String meetingTime=meetingTimeCell.getStringCellValue();
+
+        Cell meetingPlaceCell =getCellData(createMeetingSheet, dataRow, "meetingPlace");
+        meetingPlaceCell.setCellType(Cell.CELL_TYPE_STRING);
+        String meetingPlace=meetingPlaceCell.getStringCellValue();
+
+        return new PreambleDetailsBuilder()
+                .withCouncilMeetingDate(meetingDate)
+                .withCouncilMeetingTime(meetingTime)
+                .withCouncilMeetingPlace(meetingPlace)
+                .build();
+
+
     }
 }
