@@ -65,7 +65,7 @@ Feature: Create New Property
 
     # DATA ENTRY SCREEN #
 
-  @Sanity1
+  @Sanity
     Scenario: Registered user create property through data entry screen
 
       Given commissioner logs in
@@ -138,7 +138,7 @@ Feature: Create New Property
         |  assessmentAdditionProperty    |        all           |  firstFloorAdditionaltaration|
 
 
-      @Sanity
+      @WIP
       Scenario: Register Choose to do title Transfer
 
         Given commissioner logs in

@@ -4,6 +4,7 @@ import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.ptis.*;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import pages.DashboardPage;
 import pages.ptis.PropertyAcknowledgementPage;
 import pages.ptis.PropertyDetailsPage;
 import steps.BaseSteps;
@@ -112,6 +113,9 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
             And("^finally user will submit the application$", () -> {
                 pageStore.get(PropertyDetailsPage.class).chooseToSubmit();
             });
+        });
+        And("^chooses to act upon the above application$", () -> {
+           pageStore.get(DashboardPage.class).openApplication(scenarioContext.getAssessmentNumber());
         });
     }
 }
