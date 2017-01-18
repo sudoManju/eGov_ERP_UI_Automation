@@ -43,8 +43,9 @@ public class MiscellaneousPage extends BasePage{
         narrationTextBox.sendKeys("Narration");
         payeeAddressTextBox.sendKeys("Bangalore");
         new Select(serviceCategoryDropDown).selectByVisibleText("Entry Fees");
-//        waitForElementToBeClickable(serviceTypeIDropDown,driver);
-        if(serviceTypeIDropDown.isDisplayed())
+
+        serviceTypeIDropDown.click();
+        serviceTypeIDropDown.click();
         new Select(serviceTypeIDropDown).selectByIndex(1);
 
         if(receiptHeadsAmount.isDisplayed())

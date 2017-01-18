@@ -131,8 +131,43 @@ public class AdvertisementsPage extends BasePage {
     @FindBy(css = "input[type ='button'][value='Close']")
      private WebElement closeButton;
 
+    @FindBy(css = "input[type='text'][id='agencycode']")
+    private WebElement agencyCodeTextBox;
+
+    @FindBy(css = "input[type='text'][id='agencyname']")
+    private WebElement agencyNameTextBox;
+
+    @FindBy(css = "input[type='text'][id='depositAmount']")
+    private WebElement depositAmountTextBox;
+
+    @FindBy(css = "input[type='text'][id='mobilenumber']")
+    private WebElement mobileNumberTextBox;
+
+    @FindBy(id = "status_dropdown")
+    private WebElement statusDropDownBox;
+
+    @FindBy(xpath = ".//*[@id='agencyform']/div[2]/div/button[1]")
+    private WebElement submitAgencyDetailsButton;
+
+    @FindBy(xpath = ".//*[@id='agencysuccess']/div[1]")
+    private WebElement agencyCreationMessage;
+
+    @FindBy(xpath = ".//*[@id='agencysuccess']/div[3]/div/button[2]")
+    private WebElement closeAgencyCreation;
+
+    @FindBy(xpath = ".//*[@id='agencysuccess']/div[2]/div/button")
+    private WebElement closeAgencySearch;
+
+    @FindBy(id = "agencies")
+    private WebElement searchAgencyBox;
+
+    @FindBy(xpath = ".//*[@id='agencysearch']/div[2]/div/button[2]")
+    private WebElement viewButton;
+
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     String date = sdf.format(new Date());
+    String min = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
+    String min1 = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
 
     public AdvertisementsPage(WebDriver driver){
        this.driver = driver;
@@ -350,12 +385,27 @@ public class AdvertisementsPage extends BasePage {
         waitForElementToBeClickable(amount, driver);
         amount.sendKeys(Amount);
         waitForElementToBeClickable(payButton, driver);
-//        payButton.submit();
         jsClick(payButton, driver);
     }
 
-    public void enterAgencyDetails() {
-        
+    public String enterAgencyDetails() {
+       waitForElementToBeVisible(agencyCodeTextBox,driver);
+       agencyCodeTextBox.sendKeys("AC"+min+min1);
+
+       waitForElementToBeClickable(agencyNameTextBox,driver);
+       String name = "Test"+min;
+       agencyNameTextBox.sendKeys(name);
+
+       waitForElementToBeClickable(depositAmountTextBox,driver);
+       depositAmountTextBox.sendKeys("1000");
+
+       waitForElementToBeClickable(mobileNumberTextBox,driver);
+       mobileNumberTextBox.sendKeys("9885"+min+min+min);
+
+       waitForElementToBeClickable(statusDropDownBox,driver);
+       new Select(statusDropDownBox).selectByVisibleText("ACTIVE");
+
+       return name;
     }
 
     public void searchByAgency() {
@@ -394,4 +444,39 @@ public class AdvertisementsPage extends BasePage {
         waitForElementToBeClickable(payButton, driver);
         jsClick(payButton, driver);
     }
+
+    public void submit() {
+      waitForElementToBeVisible(submitAgencyDetailsButton,driver);
+      submitAgencyDetailsButton.click();
+    }
+
+    public String agencyCreationMessage(){
+        String message = agencyCreationMessage.getText();
+        return message;
+    }
+
+    public void CloseAgency(){
+         waitForElementToBeClickable(closeAgencyCreation,driver);
+        closeAgencyCreation.click();
+
+        switchToPreviouslyOpenedWindow(driver);
+    }
+
+    public void searchAgency(String name) {
+
+      waitForElementToBeVisible(searchAgencyBox,driver);
+      searchAgencyBox.click();
+      new Select(searchAgencyBox).selectByVisibleText(name);
+
+      waitForElementToBeClickable(viewButton,driver);
+      viewButton.click();
+    }
+    public void CloseAgencySearch(){
+        waitForElementToBeClickable(closeAgencySearch,driver);
+        closeAgencySearch.click();
+
+        switchToPreviouslyOpenedWindow(driver);
+    }
+
+
 }

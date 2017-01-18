@@ -87,7 +87,8 @@ public class AdvertisementsSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).chooseToCreateAdvertisementAgency();
         });
         And("^he enter details for agency creation$", () -> {
-           pageStore.get(AdvertisementsPage.class).enterAgencyDetails();
+           String name = pageStore.get(AdvertisementsPage.class).enterAgencyDetails();
+           scenarioContext.setApplicationNumber(name);
         });
         And("^he choose to collect advertisement tax by agency wise$", () -> {
             pageStore.get(AdvertisementsPage.class).searchByAgency();
@@ -99,6 +100,23 @@ public class AdvertisementsSteps extends BaseSteps implements En {
             pageStore.get(AdvertisementsPage.class).collectAdvertisementTaxByAgency();
             pageStore.get(AdvertisementsPage.class).closeMultiple("http://kurnool-uat.egovernments.org/adtax/hoarding/search");
 
+        });
+        And("^he submit the details and closes acknowledgement$", () -> {
+           pageStore.get(AdvertisementsPage.class).submit();
+
+           String message = pageStore.get(AdvertisementsPage.class).agencyCreationMessage();
+           scenarioContext.setActualMessage(message);
+
+           pageStore.get(AdvertisementsPage.class).CloseAgency();
+        });
+        And("^he chooses to search advertisement agency$", () -> {
+         pageStore.get(DashboardPage.class).chooseToSearchAdvertisementAgency();
+        });
+        And("^he enter details for search agency$", () -> {
+           pageStore.get(AdvertisementsPage.class).searchAgency(scenarioContext.getApplicationNumber());
+        });
+        And("^he view and closes the acknowledgement$", () -> {
+           pageStore.get(AdvertisementsPage.class).CloseAgencySearch();
         });
 
     }

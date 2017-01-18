@@ -16,21 +16,21 @@ Feature: Create regular estimate/Create LOA for estimate/Create-Track milestone/
     Then user will be notified by "successfully"
     And current user logs out
 
-    Given deputyExecutiveEngineer logs in
+    And deputyExecutiveEngineer logs in
     And he clicks on estimate and opens the application
     And he enters approver details as <approverDetails2>
     And he submit the application to superIntendent
     Then user will be notified by "forwarded"
     And current user logs out
 
-    Given superIntendent logs in
+    And superIntendent logs in
     And he clicks on estimate and opens the application
     And he enters approver details as <approverDetails3>
     And he submit the application to commissioner
     Then user will be notified by "forwarded"
     And current user logs out
 
-    Given commissioner logs in
+    And commissioner logs in
     And he clicks on estimate and opens the application
     And he enters the AdminSanctionNumber
     And he enters approver details as <approverDetails4>
@@ -38,7 +38,7 @@ Feature: Create regular estimate/Create LOA for estimate/Create-Track milestone/
     Then user will be notified by "forwarded"
     And current user logs out
 
-    Given assis_Engineer logs in
+    And assis_Engineer logs in
     And he clicks on estimate and opens the application
     And he enters the details for approve
     And he approves the application
@@ -96,13 +96,13 @@ Feature: Create regular estimate/Create LOA for estimate/Create-Track milestone/
     Then user will be notified by "successfully"
     And current user logs out
 
-    Given deputyExecutiveEngineer logs in
+    And deputyExecutiveEngineer logs in
     And he chooses to act upon on contractorBillNumber
     And he approves the bill
     Then user will be notified by "approved"
     And current user logs out
 
-    Given assis_Engineer logs in
+    And assis_Engineer logs in
     And he chooses to create contractor bill
     And he search application using loa number
     And he select the required file
@@ -110,7 +110,7 @@ Feature: Create regular estimate/Create LOA for estimate/Create-Track milestone/
     Then user will be notified by "successfully"
     And current user logs out
 
-    Given deputyExecutiveEngineer logs in
+    And deputyExecutiveEngineer logs in
     And he chooses to act upon on contractorBillNumber
     And he approves the bill
     Then user will be notified by "approved"

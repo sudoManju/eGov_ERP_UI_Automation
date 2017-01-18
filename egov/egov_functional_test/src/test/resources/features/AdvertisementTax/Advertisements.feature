@@ -2,7 +2,7 @@ Feature: Create/search Advertisement
   As a registered user of the system
   I am able to create/search Advertisements
 
-@Sanity1
+@Sanity
 
 Scenario: Advertisements Create/Search/Collect Tax
 
@@ -15,15 +15,15 @@ Scenario: Advertisements Create/Search/Collect Tax
    Then user will be notified by "successfully"
    And current user logs out
 
-  Given commissioner logs in
-  And he clicks on advertisement and opens the application
-  And he approves the advertisement application
-  Then user will be notified by "approved"
-  And current user logs out
+   And commissioner logs in
+   And he clicks on advertisement and opens the application
+   And he approves the advertisement application
+   Then user will be notified by "approved"
+   And current user logs out
 
 #  Search Advertisements
 
-  Given creator logs in
+  And creator logs in
   And he chooses to search advertisement
   And he search and select the required advertisement
   And he view and close the acknowledgement
@@ -31,14 +31,15 @@ Scenario: Advertisements Create/Search/Collect Tax
 
 # Collect Advertisement Tax
 
-  Given creator logs in
+  And creator logs in
   And he choose to collect advertisement tax by advertisement wise
   And he search advertisement by advertisement number
   And he choose advertisement for collecting advertisement tax
   And current user logs out
-#
-#
-##  Collect Advertisement Tax by Agency wise
+
+
+#  Collect Advertisement Tax by Agency wise
+
 #  Given creator logs in
 #  And he choose to collect advertisement tax by advertisement wise
 #  And he choose to collect advertisement tax by agency wise
@@ -47,13 +48,20 @@ Scenario: Advertisements Create/Search/Collect Tax
 #  And current user logs out
 
 
-  @WIP
+@WIP
 
 Scenario: Create/Search agency
 
    Given admin logs in
    And he chooses to create advertisement agency
    And he enter details for agency creation
+   And he submit the details and closes acknowledgement
+   Then user will be notified by "created"
+
+   And he chooses to search advertisement agency
+   And he enter details for search agency
+   And he view and closes the acknowledgement
+   And current user logs out
 
 
 
