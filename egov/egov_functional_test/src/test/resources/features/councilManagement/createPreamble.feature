@@ -20,7 +20,7 @@ Feature: create preamble
     When commissioner logs in
     And he chooses to act upon the above preamble number
     And he approves the preamble number
-    #And user will be notified by "APPROVED"
+    And user will be notified by "APPROVED"
     And current user logs out
 
     # Create Agenda #
@@ -30,6 +30,7 @@ Feature: create preamble
     And he choose to create agenda for the above preamble
     And he enters create agenda details as <committee>
     And he copies agenda number and closes the acknowledgement
+    And user will be notified by "APPROVED"
 
     # Create Meeting #
 

@@ -191,4 +191,9 @@ public class CouncilManagementPage extends BasePage {
         searchbutton.click();
 
     }
+
+    public String getTitle() {
+        WebElement ele= webDriver.findElement(By.className("title2"));
+        return ele.getText();
+    }
 }

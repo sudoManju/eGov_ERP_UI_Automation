@@ -64,6 +64,7 @@ public class CouncilManagementSteps extends BaseSteps implements En {
         And("^he enters above meeting number to enter attendance$", () -> {
             String meetingNumber = scenarioContext.getMeetingNumber();
             pageStore.get(CouncilManagementPage.class).enterMeetingNumber(meetingNumber);
+            Assert.assertNotNull(meetingNumber);
         });
 
 
