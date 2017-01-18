@@ -30,7 +30,7 @@ public class PhysicalProgressTrackerPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-//    public void uploadEstimatePhotos() {
-//        browseFiles.sendKeys(System.getProperty("user.dir") + "E:/backupAutomation/eGov/egov/egov_functional_test/src/test/resources/During.PNG");
-//    }
+    public void uploadEstimatePhotos() {
+        browseFiles.sendKeys(System.getProperty("user.dir") + "E:/backupAutomation/eGov/egov/egov_functional_test/src/test/resources/During.PNG");
+    }
 }

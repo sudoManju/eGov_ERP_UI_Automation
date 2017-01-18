@@ -263,6 +263,8 @@ public class TradeLicensePage extends BasePage {
 
             amount2.clear();
             waitForElementToBeClickable(amount2, webDriver);
+            jsClick(amount2 , webDriver);
+            amount2.sendKeys(legencyDetails.getAmount2());
             enterText(amount2, legencyDetails.getAmount2());
             jsClickCheckbox(checkBox2, webDriver);
 
