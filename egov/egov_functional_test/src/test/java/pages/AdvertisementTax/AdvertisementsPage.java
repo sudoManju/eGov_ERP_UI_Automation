@@ -89,7 +89,7 @@ public class AdvertisementsPage extends BasePage {
     @FindBy(id = "approvalComent")
     private WebElement commentBox;
 
-    @FindBy(id = "Approve")
+    @FindBy(xpath = "//*[@id='Approve']")
     private WebElement approveButton;
 
     @FindBy(css = "input[id='hoardingnumber'][type='text']")

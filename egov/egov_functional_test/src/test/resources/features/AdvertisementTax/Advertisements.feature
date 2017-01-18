@@ -2,7 +2,7 @@ Feature: Create/search Advertisement
   As a registered user of the system
   I am able to create/search Advertisements
 
-@WIP
+@Sanity1
 
 Scenario: Advertisements Create/Search/Collect Tax
 
@@ -31,11 +31,11 @@ Scenario: Advertisements Create/Search/Collect Tax
 
 # Collect Advertisement Tax
 
-#  Given creator logs in
-#  And he choose to collect advertisement tax by advertisement wise
-#  And he search advertisement by advertisement number
-#  And he choose advertisement for collecting advertisement tax
-#  And current user logs out
+  Given creator logs in
+  And he choose to collect advertisement tax by advertisement wise
+  And he search advertisement by advertisement number
+  And he choose advertisement for collecting advertisement tax
+  And current user logs out
 #
 #
 ##  Collect Advertisement Tax by Agency wise
