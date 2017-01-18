@@ -3,6 +3,7 @@ package utils;
 import builders.LoginDetailsBuilder;
 import builders.collections.ChallanHeaderDetailsBuilder;
 import builders.collections.ChequeDetailsBuilder;
+import builders.collections.PaymentMethodBuilder;
 import builders.councilManagement.PreambleDetailsBuilder;
 import builders.dcReports.PTReportBuilder;
 import builders.dcReports.VLTReportBuilder;
@@ -21,6 +22,7 @@ import cucumber.api.java8.Da;
 import entities.*;
 import entities.collections.ChallanHeaderDetails;
 import entities.collections.ChequeDetails;
+import entities.collections.PaymentMethod;
 import entities.councilManagement.CreatePreambleDetails;
 import entities.dcReports.PTReport;
 import entities.dcReports.VLTReport;
@@ -92,6 +94,8 @@ public class ExcelReader {
     Sheet createAgendaSheet;
     Sheet createMeetingSheet;
 
+    Sheet paymentMethodSheet;
+
     public ExcelReader(String testData) {
         String excelFilePath = testData + ".xlsx";
 //        System.out.println(excelFilePath);
@@ -149,6 +153,7 @@ public class ExcelReader {
         dataFromWebSheet = workbook.getSheet("dataFromWeb");
         createAgendaSheet = workbook.getSheet("createAgenda");
         createMeetingSheet = workbook.getSheet("createMeeting");
+        paymentMethodSheet = workbook.getSheet("paymentMethod");
     }
 
     private Row readDataRow(Sheet fromSheet, String dataId) {
@@ -1160,17 +1165,17 @@ public class ExcelReader {
     public CreatePreambleDetails getCreateMeetingDetails(String createMeetingDetails) {
         Row dataRow = readDataRow(createMeetingSheet, createMeetingDetails);
 
-        Cell meetingDateCell =getCellData(createMeetingSheet, dataRow, "meetingDate");
+        Cell meetingDateCell = getCellData(createMeetingSheet, dataRow, "meetingDate");
         meetingDateCell.setCellType(Cell.CELL_TYPE_STRING);
-        String meetingDate=meetingDateCell.getStringCellValue();
+        String meetingDate = meetingDateCell.getStringCellValue();
 
-        Cell meetingTimeCell =getCellData(createMeetingSheet, dataRow, "meetingTime");
+        Cell meetingTimeCell = getCellData(createMeetingSheet, dataRow, "meetingTime");
         meetingTimeCell.setCellType(Cell.CELL_TYPE_STRING);
-        String meetingTime=meetingTimeCell.getStringCellValue();
+        String meetingTime = meetingTimeCell.getStringCellValue();
 
-        Cell meetingPlaceCell =getCellData(createMeetingSheet, dataRow, "meetingPlace");
+        Cell meetingPlaceCell = getCellData(createMeetingSheet, dataRow, "meetingPlace");
         meetingPlaceCell.setCellType(Cell.CELL_TYPE_STRING);
-        String meetingPlace=meetingPlaceCell.getStringCellValue();
+        String meetingPlace = meetingPlaceCell.getStringCellValue();
 
         return new PreambleDetailsBuilder()
                 .withCouncilMeetingDate(meetingDate)
@@ -1178,6 +1183,23 @@ public class ExcelReader {
                 .withCouncilMeetingPlace(meetingPlace)
                 .build();
 
+    }
 
+
+    public PaymentMethod getPaymentMethodDetails(String paymentMethod) {
+        Row dataRow = readDataRow(paymentMethodSheet, paymentMethod);
+
+               Cell chequeNumberCell = getCellData(paymentMethodSheet, dataRow, "dd/chequeNum");
+               chequeNumberCell.setCellType(Cell.CELL_TYPE_STRING);
+               String chequeNumber = chequeNumberCell.getStringCellValue();
+
+               Cell bankNameCell = getCellData(paymentMethodSheet, dataRow, "bankName");
+               bankNameCell.setCellType(Cell.CELL_TYPE_STRING);
+               String bankName = bankNameCell.getStringCellValue();
+
+        return new PaymentMethodBuilder()
+                .withChequeNumber(chequeNumber)
+                .withBankName(bankName)
+                .build();
     }
 }

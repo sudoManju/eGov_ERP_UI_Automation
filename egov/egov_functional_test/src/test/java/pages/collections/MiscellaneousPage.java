@@ -1,11 +1,19 @@
 package pages.collections;
 
+import entities.collections.PaymentMethod;
+import org.omg.CORBA.TIMEOUT;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
+
+import java.util.concurrent.TimeUnit;
+
+import static com.jayway.awaitility.Awaitility.await;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * Created by soumyaghosh on 01/12/16.
@@ -30,12 +38,27 @@ public class MiscellaneousPage extends BasePage{
     @FindBy(css = "input[type='text'][id='billCreditDetailslist[0].creditAmountDetail']")
     private  WebElement receiptHeadsAmount;
 
-    @FindBy(id = "button2")
+    @FindBy(css = "input[type='text'][name='instrumentProxyList[0].instrumentNumber']")
+    private WebElement chequeNumberTextBox;
+
+    @FindBy(css = "input[type='radio'][id='chequeradiobutton']")
+    private WebElement chequeModeRadioButton;
+
+    @FindBy(css = "input[type='text'][id='instrumentDate']")
+    private WebElement chequeDateTextBox;
+
+    @FindBy(css = "input[type='text'][name='instrumentProxyList[0].bankId.name']")
+    private WebElement bankNameTextBox;
+
+    @FindBy(xpath = ".//*[@id='instrumentChequeAmount']")
+    private WebElement amountTextBox;
+
+    @FindBy(css = "input[type='submit'][value='Pay']")
     private WebElement payButton;
 
-
-
-
+    public MiscellaneousPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void enterMiscellaneousDetails() {
 
@@ -43,17 +66,55 @@ public class MiscellaneousPage extends BasePage{
         narrationTextBox.sendKeys("Narration");
         payeeAddressTextBox.sendKeys("Bangalore");
         new Select(serviceCategoryDropDown).selectByVisibleText("Entry Fees");
-
+        serviceTypeIDropDown.click();
         serviceTypeIDropDown.click();
         serviceTypeIDropDown.click();
         new Select(serviceTypeIDropDown).selectByIndex(1);
 
-        if(receiptHeadsAmount.isDisplayed())
-        receiptHeadsAmount.click();
-        receiptHeadsAmount.clear();
-        receiptHeadsAmount.sendKeys("655");
-       // payButton.click();
+        for (int i = 0; i < 4; i++) {
+            if (receiptHeadsAmount.isDisplayed())
+                try {
+                    receiptHeadsAmount.click();
+                    receiptHeadsAmount.clear();
+                    receiptHeadsAmount.sendKeys("655");
+                } catch (StaleElementReferenceException e) {
+                    receiptHeadsAmount.click();
+                    receiptHeadsAmount.clear();
+                    receiptHeadsAmount.sendKeys("655");
+                }
+        }
+    }
 
+    public void enterPaymentDetails(PaymentMethod paymentmethod, String mode) {
 
+        switch (mode){
+
+            case "cash":
+
+                break;
+
+            case "cheque":
+
+                waitForElementToBeClickable(chequeModeRadioButton,driver);
+                chequeModeRadioButton.click();
+
+                waitForElementToBeVisible(chequeNumberTextBox,driver);
+                chequeNumberTextBox.sendKeys(paymentmethod.getChequeNumber());
+
+                waitForElementToBeClickable(chequeDateTextBox,driver);
+                chequeDateTextBox.sendKeys("18/01/2017");
+
+                waitForElementToBeClickable(bankNameTextBox,driver);
+                bankNameTextBox.sendKeys(paymentmethod.getBankName());
+                await().atMost(10, SECONDS).until(() -> driver.findElement(By.id("bankcodescontainer"))
+                        .findElements(By.cssSelector("ul li"))
+                        .get(0).click());
+
+                waitForElementToBeClickable(amountTextBox,driver);
+                amountTextBox.sendKeys("655");
+        }
+
+        waitForElementToBeClickable(payButton,driver);
+        payButton.click();
     }
 }

@@ -26,12 +26,18 @@ Feature: Collection
 
 
   @WIP
-  Scenario: System should be able to create Miscellaneous receipt
+  Scenario Outline: System should be able to create Miscellaneous receipt
 
       Given juniorAssistant logs in
       When he chooses to create Miscellaneous receipt
       And he enters Miscellaneous header
 
+      And he pays using <paymentMethod>
+
+Examples:
+    |paymentMethod    |
+    |cash             |
+    |cheque           |
 
 
   @WIP
