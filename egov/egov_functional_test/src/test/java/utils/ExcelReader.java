@@ -92,7 +92,7 @@ public class ExcelReader {
 
     public ExcelReader(String testData) {
         String excelFilePath = testData + ".xlsx";
-        System.out.println(excelFilePath);
+//        System.out.println(excelFilePath);
         InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream(excelFilePath);
         try {
             workbook = WorkbookFactory.create(resourceAsStream);
@@ -1139,22 +1139,5 @@ public class ExcelReader {
                     .withAmount6(amount6)
                     .build();
 
-    }
-
-    public synchronized void writeDataIntoExcel(String message , String dataName , String columnName) throws IOException {
-
-        Thread t = Thread.currentThread();
-        String name = t.getName();
-        System.out.println("name=" + name);
-
-        Row dataRow = readDataRow(applicantParticularsSheet, dataName);
-
-        Cell data =getCellData(applicantParticularsSheet, dataRow, columnName);
-        data.setCellType(Cell.CELL_TYPE_STRING);
-        data.setCellValue(message);
-
-        FileOutputStream fileOut = new FileOutputStream(System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx");
-        workbook.write(fileOut);
-        fileOut.close();
     }
 }

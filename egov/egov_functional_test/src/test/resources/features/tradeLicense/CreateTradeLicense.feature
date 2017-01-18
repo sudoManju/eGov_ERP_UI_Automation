@@ -59,8 +59,6 @@ Feature: Create Trade License
         And he enters trade details of new license <tradeDetailsData1>
         And he enters fee details of legency trade license <legencyDetailsData>
 
-
-
         Examples:
           |   tradeDetailsData         |       tradeLocationData           |            tradeDetailsData1    |   legencyDetailsData|
           |   ownerDetailsTradeLicense |       locationDetailsTradeLicense |        tradeDetailsTradeLicense |     legencyTrade    |

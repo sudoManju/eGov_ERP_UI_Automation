@@ -14,7 +14,7 @@ Feature: To create a new water connection
     And he choose to close the dataentry acknowledgement screen
     And current user logs out
 
-  @WIP
+  @Sanity
   Scenario Outline: applying for new water connection
 
     Given juniorAssistant logs in
