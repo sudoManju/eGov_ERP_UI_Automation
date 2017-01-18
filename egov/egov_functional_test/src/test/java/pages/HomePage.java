@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.sql.Time;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -28,7 +29,7 @@ public class HomePage extends BasePage {
     @FindBy(id = "locationId")
     private WebElement locationSelection;
 
-    @FindBy(id = "locationId")
+    @FindBy(css = ".form-control.style-form.valid")
     private WebElement zoneSelect;
 
     public HomePage(WebDriver driver) {
@@ -41,8 +42,16 @@ public class HomePage extends BasePage {
         userNameTextBox.sendKeys(loginDetails.getLoginId());
         passwordTextBox.sendKeys(loginDetails.getPassword());
 
-        WebElement signform = driver.findElement(By.id("signform"));
-        waitForElementToBeClickable(signform, driver);
-        signform.submit();
+        if(loginDetails.getHasZone()){
+            try {
+                TimeUnit.SECONDS.sleep(2);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        WebElement signForm = driver.findElement(By.id("signform"));
+        waitForElementToBeClickable(signForm, driver);
+        signForm.submit();
     }
 }

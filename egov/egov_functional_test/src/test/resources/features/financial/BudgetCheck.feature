@@ -1,6 +1,6 @@
 Feature: To create a new Journal voucher according to the budget check
 
-  @Sanity
+  @WIP
   Scenario Outline: To create the financial journal voucher with type expense and budget check
 
     Given accountsOfficer logs in
@@ -11,7 +11,7 @@ Feature: To create a new Journal voucher according to the budget check
     Then user will be notified by "BANo"
     And current user logs out
 
-    And assistantExaminer logs in
+    And accountsOfficer logs in
     Then the officer will click on the voucher number
     And officer will enter the approval details as <approval officer2>
     And officer will closes the acknowledgement page
@@ -34,6 +34,6 @@ Feature: To create a new Journal voucher according to the budget check
 
     Examples:
       |voucher details   | approval officer1 | approval officer2 |  approval officer3 |
-      |budgetCheck       |  accountOfficer1  | accountOfficer2   |  commissioner      |
+      |budgetCheck       |  accountOfficer1a  | accountOfficer2   |  commissioner      |
 
 

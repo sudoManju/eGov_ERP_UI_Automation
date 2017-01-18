@@ -20,9 +20,9 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
         });
 
-        And("^chooses to act upon the above application$", () -> {
-            pageStore.get(DashboardPage.class).openApplication(scenarioContext.getAssessmentNumber());
-        });
+//        And("^chooses to act upon the above application$", () -> {
+//            pageStore.get(DashboardPage.class).openApplication(scenarioContext.getAssessmentNumber());
+//        });
 
         And("^chooses to act upon the above assessment$", () -> {
             pageStore.get(DashboardPage.class).openApplication(scenarioContext.getAssessmentNumber());
@@ -85,13 +85,13 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).chooseForDailyCollectionPTReports();
         });
 
-        Then("^user will search for the recent application$", () -> {
-            pageStore.get(DashboardPage.class).chooseForSearchApplication();
-        });
+//        Then("^user will search for the recent application$", () -> {
+//            pageStore.get(DashboardPage.class).chooseForSearchApplication();
+//        });
 
-        And("^user chooses to act upon the above application in search applications$", () -> {
-            pageStore.get(DashboardPage.class).openSearchApplication(scenarioContext.getApplicationNumber());
-        });
+//        And("^user chooses to act upon the above application in search applications$", () -> {
+//            pageStore.get(DashboardPage.class).openSearchApplication(scenarioContext.getApplicationNumber());
+//        });
 
         And("^he clicks on drafts$", () -> {
             pageStore.get(DashboardPage.class).openDrafts();

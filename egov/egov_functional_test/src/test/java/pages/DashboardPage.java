@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -384,6 +385,12 @@ public class DashboardPage extends BasePage {
     private WebElement getSearchApplicationRowFor(String applicationNumber) {
         waitForElementToBeVisible(driver.findElement(By.id("searchResultDiv")), driver);
         waitForElementToBeVisible(applicationSearchTable, driver);
+
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         await().atMost(10, SECONDS).until(() -> applicationSearchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
         List<WebElement> applicationRows = applicationSearchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));

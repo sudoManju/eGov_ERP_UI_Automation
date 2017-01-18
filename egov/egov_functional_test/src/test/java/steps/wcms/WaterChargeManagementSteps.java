@@ -22,12 +22,9 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
 
         And("^user will enter the details of the new water connection$", () -> {
 
-//            String applicationParticularsDetails = scenarioContext.getAssessmentNumber();
-//            String applicationParticularsDetails = "applicantInfo";
             String connectionDetails = "connectionInfo";
             String enclosedDocumentDetails = "enclosedInfo";
 
-//            ApplicantInfo applicantInfo = new ExcelReader(ptisTestDataFileName).getApplicantInfo(applicationParticularsDetails);
             pageStore.get(WaterChargeManagementPage.class).enterWaterConectionAssessmentNumber(scenarioContext.getAssessmentNumber());
 
             ConnectionInfo connectionInfo = new ExcelReader(ptisTestDataFileName).getConnectionInfo(connectionDetails);
@@ -44,9 +41,6 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
 
         And("^user will enter the consumer number$", () -> {
 
-//            String applicationParticularsDetails = "additionalConnection";
-
-//            ApplicantInfo applicantInfo = new ExcelReader(ptisTestDataFileName).getApplicantInfo(applicationParticularsDetails);
             pageStore.get(WaterChargeManagementPage.class).enterConsumerNumber(scenarioContext.getConsumerNumber());
             scenarioContext.setApplicationNumber(scenarioContext.getConsumerNumber());
         });
@@ -68,31 +62,6 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             scenarioContext.setApplicationNumber(applicationNumber);
         });
 
-        And("^user will enter the field inspection details as (\\w+)$", (String inspectionInfo) -> {
-            FieldInspectionDetails fieldInspectionDetails = new ExcelReader(ptisTestDataFileName).getFieldInspectionInfo(inspectionInfo);
-            pageStore.get(WaterChargeManagementPage.class).enterFieldInspectionInfo(fieldInspectionDetails);
-        });
-
-        And("^user will click on the generate estimation notice$", () -> {
-            pageStore.get(WaterChargeManagementPage.class).clickOnGenerateNotice();
-        });
-
-        And("^user will click on collect charges and collect the money form the customer & closes it$", () -> {
-            String consumerNumber = pageStore.get(WaterChargeManagementPage.class).clickOnCollectCharges();
-            pageStore.get(WaterChargeManagementPage.class).toReceiveAmount();
-            pageStore.get(WaterChargeManagementPage.class).closeReceipt();
-
-            try {
-                new ExcelReader(ptisTestDataFileName).writeDataIntoExcel(consumerNumber, "additionalConnection" , "assessmentNumber");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-
-        Then("^user will filter the application based upon the connection details as (\\w+)$", (String connectionType) -> {
-            pageStore.get(WaterChargeManagementPage.class).searchWaterConnectionApplications(connectionType);
-        });
-
         And("^user will enter the closure connection details as (\\w+)$", (String closureType) -> {
             String approveDetails = "engineer";
             pageStore.get(WaterChargeManagementPage.class).enterDetailsOfClosureConnection(closureType);
@@ -104,26 +73,6 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
         And("^chooses to act upon the above closure application$", () -> {
             pageStore.get(WaterChargeManagementPage.class).selectApplication(scenarioContext.getApplicationNumber());
             pageStore.get(WaterChargeManagementPage.class).forward();
-        });
-
-        And("^user closes the search application page$", () -> {
-            pageStore.get(WaterChargeManagementPage.class).closeSearchApplicationPage();
-        });
-
-        And("^user will approve the application with sanction number", () -> {
-            pageStore.get(WaterChargeManagementPage.class).commissionerApprove();
-        });
-
-        And("^user will provide the digital signature$", () -> {
-            pageStore.get(WaterChargeManagementPage.class).commissionerSignature();
-        });
-
-        And("^the user will generate the work order$", () -> {
-            pageStore.get(WaterChargeManagementPage.class).generateWorkOrder();
-        });
-
-        And("^user will perform the execution of tap$", () -> {
-            pageStore.get(WaterChargeManagementPage.class).executeTap();
         });
 
         And("^user will approve the closure application$", () -> {
@@ -166,19 +115,6 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
 
         });
 
-        And("^user will closes the acknowledgement form$", () -> {
-            pageStore.get(WaterChargeManagementPage.class).closePage();
-        });
-
-//        And("^write data into excel$", () -> {
-//            try {
-//                new ExcelReader(ptisTestDataFileName).writeDataIntoExcel("message" , "actualMessage" , "message1");
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//        });
-
         And("^user will enter the closure consumer number$", () -> {
             String applicationParticularsDetails = "additionalConnection";
 
@@ -188,121 +124,91 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
 
         And("^user will choose the above application and enter the field inspection details as (\\w+) and closes the acknowledgement form$", (String inspectionDetails) -> {
 
-//            And("^chooses to act upon the above application$", () -> {
+            // Choose To Act on above application
                 pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
-//            pageStore.get(DashboardPage.class).openApplication("00531-2017-UY");
-//            });
 
-//            And("^user will enter the field inspection details as (\\w+)$", (String inspectionInfo) -> {
+            // User will enter the field inspection details
                 FieldInspectionDetails fieldInspectionDetails = new ExcelReader(ptisTestDataFileName).getFieldInspectionInfo(inspectionDetails);
                 pageStore.get(WaterChargeManagementPage.class).enterFieldInspectionInfo(fieldInspectionDetails);
-//            });
 
-//            And("^user will closes the acknowledgement form$", () -> {
+            // User will closes the acknowledgement form
                 pageStore.get(WaterChargeManagementPage.class).closePage();
-//            });
         });
 
         And("^user will choose the above application and click on the generate estimation notice$", () -> {
 
-//            And("^chooses to act upon the above application$", () -> {
+            // Choose To Act on above application
                 pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
-//            pageStore.get(DashboardPage.class).openApplication("00531-2017-UY");
-//            });
 
-//            And("^user will click on the generate estimation notice$", () -> {
+            // User will click on the generate estimation notice
                 pageStore.get(WaterChargeManagementPage.class).clickOnGenerateNotice();
-//            });
-
         });
 
         And("^user will search the recent application based on connection details as (\\w+) and collects money$", (String connectionDetails) -> {
 
-//            Then("^user will search for the recent application$", () -> {
+            // User will search for the recent application
                 pageStore.get(DashboardPage.class).chooseForSearchApplication();
-//            });
 
-// Then("^user will filter the application based upon the connection details as (\\w+)$", (String connectionType) -> {
+            // User will filter the application based upon the connection details
                 pageStore.get(WaterChargeManagementPage.class).searchWaterConnectionApplications(connectionDetails);
-//            });
-//            And("^user chooses to act upon the above application in search applications$", () -> {
-                pageStore.get(DashboardPage.class).openSearchApplication(scenarioContext.getApplicationNumber());
-//            });
 
-//            And("^user will click on collect charges and collect the money form the customer & closes it$", () -> {
+            // User chooses to act upon the above application in search applications
+                pageStore.get(DashboardPage.class).openSearchApplication(scenarioContext.getApplicationNumber());
+
+            // User will click on collect charges and collect the money form the customer & closes it
                 String consumerNumber = pageStore.get(WaterChargeManagementPage.class).clickOnCollectCharges();
                 pageStore.get(WaterChargeManagementPage.class).toReceiveAmount();
                 pageStore.get(WaterChargeManagementPage.class).closeReceipt();
                 scenarioContext.setConsumerNumber(consumerNumber);
 
-//            });
-
-//            And("^user closes the search application page$", () -> {
+            // User closes the search application page
                 pageStore.get(WaterChargeManagementPage.class).closeSearchApplicationPage();
-//            });
-
         });
 
         And("^user will choose the above application and enter the approval details as (\\w+)$", (String approvalOfficer) -> {
 
-//            And("^chooses to act upon the above application$", () -> {
+            // Choose To Act on above application
                 pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
-//            pageStore.get(DashboardPage.class).openApplication("00531-2017-UY");
-//            });
 
-//            And("^user enter the water management approval details as (\\w+)$", (String approvalOfficer) -> {
+            // User enter the water management approval details
                 ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approvalOfficer);
                 pageStore.get(WaterChargeManagementPage.class).enterWaterApprovalDetails(approvalDetails);
-//            });
 
-//            And("^user will closes the acknowledgement form$", () -> {
+            // User will closes the acknowledgement form
                 pageStore.get(WaterChargeManagementPage.class).closePage();
-//            });
         });
 
         And("^user will choose the above application to approve and provides the digital signature$", () -> {
 
-//            And("^chooses to act upon the above application$", () -> {
+            // Choose To Act on above application
                 pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
-//            pageStore.get(DashboardPage.class).openApplication("00531-2017-UY");
-//            });
 
-//            And("^user will approve the application with sanction number", () -> {
+            // User will approve the application with sanction number
                 pageStore.get(WaterChargeManagementPage.class).commissionerApprove();
-//            });
 
-//            And("^chooses to act upon the above application$", () -> {
+            // Choose To Act on above application
                 pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
-//            pageStore.get(DashboardPage.class).openApplication("00531-2017-UY");
-//            });
 
-//            And("^user will provide the digital signature$", () -> {
+            // User will provide the digital signature
                 pageStore.get(WaterChargeManagementPage.class).commissionerSignature();
-//            });
         });
 
         And("^user will choose the above application and click on generate the work order$", () -> {
 
-//            And("^chooses to act upon the above application$", () -> {
+            // Choose To Act on above application
                 pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
-//            pageStore.get(DashboardPage.class).openApplication("00531-2017-UY");
-//            });
 
-//            And("^the user will generate the work order$", () -> {
+            // User will generate the work order
                 pageStore.get(WaterChargeManagementPage.class).generateWorkOrder();
-//            });
         });
 
         And("^user will choose the above application and click on to perform the execution of tap$", () -> {
 
-//            And("^chooses to act upon the above application$", () -> {
+             // Choose To Act on above application
                 pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
-//            pageStore.get(DashboardPage.class).openApplication("00531-2017-UY");
-//            });
 
-//            And("^user will perform the execution of tap$", () -> {
+            // User will perform the execution of tap
                 pageStore.get(WaterChargeManagementPage.class).executeTap();
-//            });
 
         });
     }
