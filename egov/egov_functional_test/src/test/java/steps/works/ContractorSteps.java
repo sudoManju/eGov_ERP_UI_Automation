@@ -14,7 +14,8 @@ public class ContractorSteps extends BaseSteps implements En {
             pageStore.get(ContractorPage.class).chooseToCreateContractor();
         });
         And("^he enters the contractor master data$", () -> {
-            pageStore.get(ContractorPage.class).entersContractorMasterData();
+           String name =  pageStore.get(ContractorPage.class).entersContractorMasterData();
+            scenarioContext.setApplicationNumber(name);
             String msg = pageStore.get(ContractorPage.class).successMessage();
             scenarioContext.setActualMessage(msg);
         });
@@ -22,7 +23,7 @@ public class ContractorSteps extends BaseSteps implements En {
             pageStore.get(ContractorPage.class).viewContractor();
         });
         And("^he search for contractor$", () -> {
-         pageStore.get(ContractorPage.class).searchContractor();
+         pageStore.get(ContractorPage.class).searchContractor(scenarioContext.getApplicationNumber());
         });
         And("^he close the acknowledgement$", () -> {
            pageStore.get(ContractorPage.class).close();

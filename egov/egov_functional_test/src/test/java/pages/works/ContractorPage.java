@@ -68,7 +68,7 @@ public class ContractorPage extends BasePage
     @FindBy(css = "input[value='Modify'][type='submit']")
     private WebElement modifyButton;
 
-    @FindBy(id = "name")
+    @FindBy(css = "input[type='text'][name='contactPerson']")
     private WebElement modifyNameBox;
 
     @FindBy(xpath = ".//*[@id='msgsDiv']/ul/li/span")
@@ -133,10 +133,9 @@ public class ContractorPage extends BasePage
         switchToNewlyOpenedWindow(driver);
     }
 
-    public void entersContractorMasterData()
+    public String entersContractorMasterData()
     {
         waitForElementToBeClickable(contractorCode, driver);
-
         String code = (min+min1);
         String Name = "KMC"+code;
         contractorCode.sendKeys(Name);
@@ -150,8 +149,8 @@ public class ContractorPage extends BasePage
         waitForElementToBeClickable(email, driver);
         email.sendKeys(Name+"@egov.org");
         waitForElementToBeClickable(mobileNumber, driver);
-        mobileNumber.sendKeys("99887"+(min+hour));
-        panNumber.sendKeys("PANUM"+(hour+hour)+"P");
+        mobileNumber.sendKeys("9988"+(min+min+min));
+        panNumber.sendKeys("PANUM2803P");
         waitForElementToBeClickable(tinNumber, driver);
         tinNumber.sendKeys(min+hour);
         waitForElementToBeClickable(bankAction, driver);
@@ -174,21 +173,24 @@ public class ContractorPage extends BasePage
         fromDate.sendKeys("17/01/2017");
         waitForElementToBeClickable(saveButton,driver);
         saveButton.click();
+
+        return Name;
     }
 
     public void viewContractor()
     {
         waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchTreeTextBox.clear();
         searchFor("View/Modify Contractor");
         waitForElementToBeVisible(viewContractorlink, driver);
         viewContractorlink.click();
         switchToNewlyOpenedWindow(driver);
     }
 
-    public void searchContractor()
+    public void searchContractor(String name)
     {
         waitForElementToBeClickable(searchContractorNameBox,driver);
-        searchContractorNameBox.sendKeys("tester");
+        searchContractorNameBox.sendKeys(name);
         waitForElementToBeClickable(contractorSearchButton, driver);
         contractorSearchButton.click();
     }
@@ -217,7 +219,7 @@ public class ContractorPage extends BasePage
         waitForElementToBeVisible(modifyNameBox,driver);
         modifyNameBox.click();
         modifyNameBox.clear();
-        modifyNameBox.sendKeys("Contractor 123");
+        modifyNameBox.sendKeys("Testing");
 
         waitForElementToBeVisible(modifyButton,driver);
         modifyButton.click();
