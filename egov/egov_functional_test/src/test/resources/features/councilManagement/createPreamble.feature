@@ -43,7 +43,10 @@ Feature: create preamble
 
     When he choose to enter attendance
     And he enters above meeting number to enter attendance
+    And he choose to edit attendance details
+    And he finalize attendance details and comes to home page
 
+    
 
 
   Examples:

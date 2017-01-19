@@ -66,6 +66,12 @@ public class CouncilManagementSteps extends BaseSteps implements En {
             pageStore.get(CouncilManagementPage.class).enterMeetingNumber(meetingNumber);
             Assert.assertNotNull(meetingNumber);
         });
+        And("^he choose to edit attendance details$", () -> {
+            pageStore.get(CouncilManagementPage.class).enterAttendanceDetails();
+        });
+        And("^he finalize attendance details and comes to home page$", () -> {
+            pageStore.get(CouncilManagementPage.class).finalizeAttendance();
+        });
 
 
     }
