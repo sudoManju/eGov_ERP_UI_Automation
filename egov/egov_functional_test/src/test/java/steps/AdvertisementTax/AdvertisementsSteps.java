@@ -119,6 +119,7 @@ public class AdvertisementsSteps extends BaseSteps implements En {
         And("^he view and closes the acknowledgement$", () -> {
            pageStore.get(AdvertisementsPage.class).CloseAgencySearch();
         });
+
         And("^he enters details for advertisement creation with agency$", () -> {
             pageStore.get(AdvertisementsPage.class).enterAdvertisementDetails();
 
@@ -133,6 +134,13 @@ public class AdvertisementsSteps extends BaseSteps implements En {
             ApproverDetails approverDetails = new ExcelReader(lineEstimateTestDataFileName).getApprovalDetailsForEstimate(approverDetailsDataId);
 
             pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
+        });
+
+        And("^he search for advertisement for deactivate$", () -> {
+            pageStore.get(AdvertisementsPage.class).searchAdvertisementForDeactivate();
+        });
+        And("^he deactivates the advertisement with remarks and date$", () -> {
+            pageStore.get(AdvertisementsPage.class).deactivatesAdvertisement();
         });
 
     }

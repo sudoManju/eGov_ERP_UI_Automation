@@ -212,6 +212,9 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Apply for Re-Connection")
     private WebElement applyForReConnection;
 
+    @FindBy(linkText = "Deactivate Advertisement")
+    private WebElement deactivateAdvertisementLink;
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -793,11 +796,18 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-    public void chooseReConnection(){
+    public void chooseReConnection() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("Apply for Re-Connection");
         waitForElementToBeClickable(applyForReConnection, driver);
         applyForReConnection.click();
+    }
+
+    public void chooseToDeactivateAdv() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Deactivate Advertisement");
+        waitForElementToBeClickable(deactivateAdvertisementLink, driver);
+        deactivateAdvertisementLink.click();
         switchToNewlyOpenedWindow(driver);
     }
 }

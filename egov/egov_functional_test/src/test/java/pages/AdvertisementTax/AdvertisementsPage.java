@@ -170,6 +170,21 @@ public class AdvertisementsPage extends BasePage {
     @FindBy(xpath = ".//*[@id='agencysearch']")
      private WebElement collectFeeButton;
 
+    @FindBy(id = "searchrecord")
+     private WebElement submitButtonForDeactive;
+
+    @FindBy(xpath = "//*[@id='adtax_searchrecord']/tbody/tr[1]/td[8]/button")
+     private WebElement deactivateButton;
+
+    @FindBy(id = "deactivation_remarks")
+     private WebElement deactivationRemarks;
+
+    @FindBy(id = "deactiveDate")
+     private WebElement deactiveDate;
+
+    @FindBy(id = "deactivation")
+     private WebElement deactivateSubmitButton;
+
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     String date = sdf.format(new Date());
     String min = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
@@ -354,8 +369,8 @@ public class AdvertisementsPage extends BasePage {
       waitForElementToBeVisible(hoardingNumberTextBox,driver);
       hoardingNumberTextBox.sendKeys(number);
 
-      waitForElementToBeClickable(submitButton,driver);
-      submitButton.click();
+      waitForElementToBeClickable(deactivateSubmitButton,driver);
+      deactivateSubmitButton.click();
 
         try {
             Thread.sleep(1);
@@ -497,6 +512,13 @@ public class AdvertisementsPage extends BasePage {
         switchToPreviouslyOpenedWindow(driver);
     }
 
+    public void searchAdvertisementForDeactivate() {
+        waitForElementToBeClickable(submitButtonForDeactive, driver);
+        submitButtonForDeactive.click();
+        waitForElementToBeClickable(deactivateButton, driver);
+        deactivateButton.click();
+        switchToNewlyOpenedWindow(driver);
+    }
 
     public void selectAdvertisementAgency() {
      waitForElementToBeVisible(collectAdvertisementTaxButton,driver);
@@ -508,5 +530,15 @@ public class AdvertisementsPage extends BasePage {
 
      waitForElementToBeClickable(collectFeeButton,driver);
      collectFeeButton.click();
+    }
+
+    public void deactivatesAdvertisement() {
+        waitForElementToBeClickable(deactivationRemarks, driver);
+        deactivationRemarks.sendKeys("Deactivate the Advertisement");
+        waitForElementToBeClickable(deactiveDate, driver);
+        deactiveDate.sendKeys("19/01/2017");
+        waitForElementToBeClickable(deactivateSubmitButton, driver);
+        deactivateSubmitButton.click();
+        switchToNewlyOpenedWindow(driver);
     }
 }

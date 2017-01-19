@@ -82,5 +82,10 @@ Scenario: Create/Search/Collect Tax AdvertisementWise
 
 
 
+  @WIP
+  Scenario: Deactivate Advertisement
 
-
+    Given admin logs in
+    And he choose to deactivate the advertisement
+    And he search for advertisement for deactivate
+    And he deactivates the advertisement with remarks and date
