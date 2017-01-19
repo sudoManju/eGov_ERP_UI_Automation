@@ -86,6 +86,12 @@ public class CouncilManagementPage extends BasePage {
     @FindBy (id = "meetingNumber")
     private WebElement meetingNumberText;
 
+    @FindBy (id = "committeechk")
+    private WebElement committeechkCheckBox;
+
+    @FindBy (id = "finalizeAttendanceBtn")
+    private WebElement finalizeAttendanceBtn;
+
 
     public CouncilManagementPage(WebDriver webDriver){this.webDriver=webDriver;}
 
@@ -96,7 +102,7 @@ public class CouncilManagementPage extends BasePage {
         attachment.sendKeys(System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx");
         Select sel=new Select(wards);
         List<WebElement> selval=sel.getOptions();
-        for(int i=0;i<selval.size();i++)
+        for(int i=0;i<3;i++)
         {
             sel.selectByIndex(i);
         }
@@ -192,8 +198,22 @@ public class CouncilManagementPage extends BasePage {
 
     }
 
-    public String getTitle() {
-        WebElement ele= webDriver.findElement(By.className("title2"));
-        return ele.getText();
+    public void enterAttendanceDetails() {
+        List<WebElement> elements= webDriver.findElements(By.className("dropchange"));
+        new Select(elements.get(0)).selectByVisibleText("Edit");
+        switchToNewlyOpenedWindow(webDriver);
+    }
+
+    public void finalizeAttendance() {
+        committeechkCheckBox.click();
+        finalizeAttendanceBtn.click();
+        webDriver.switchTo().activeElement();
+        WebDriverWait webDriverWait = new WebDriverWait(webDriver,10);
+        webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("div[class~='modal-footer'] button[data-bb-handler~='confirm']")));
+        WebElement element=webDriver.findElement(By.cssSelector("div[class~='modal-footer'] button[data-bb-handler~='confirm']"));
+        element.click();
+        webDriver.close();
+        switchToNewlyOpenedWindow(webDriver);
+        webDriver.close();
     }
 }

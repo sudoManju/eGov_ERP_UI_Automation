@@ -763,7 +763,6 @@ public class DashboardPage extends BasePage {
         searchFor("Enter Attendance");
         waitForElementToBeClickable(enterAttendanceLink,driver);
         enterAttendanceLink.click();
-
         switchToNewlyOpenedWindow(driver);
     }
 }
