@@ -31,7 +31,7 @@ Scenario: Advertisements Create/Search/Collect Tax
 
 # Collect Advertisement Tax
 
-  And creator logs in
+  Given creator logs in
   And he choose to collect advertisement tax by advertisement wise
   And he search advertisement by advertisement number
   And he choose advertisement for collecting advertisement tax
@@ -40,13 +40,12 @@ Scenario: Advertisements Create/Search/Collect Tax
 
 #  Collect Advertisement Tax by Agency wise
 
-#  Given creator logs in
-#  And he choose to collect advertisement tax by advertisement wise
-#  And he choose to collect advertisement tax by agency wise
-#  And he selects the agency for Tax/Fees collection
-#  And he choose to collect advertisement tax
-#  And current user logs out
-
+  Given creator logs in
+  And he choose to collect advertisement tax by advertisement wise
+  And he choose to collect advertisement tax by agency wise
+  And he selects the agency for Tax/Fees collection
+  And he choose to collect advertisement tax
+  And current user logs out
 
 @WIP
 
