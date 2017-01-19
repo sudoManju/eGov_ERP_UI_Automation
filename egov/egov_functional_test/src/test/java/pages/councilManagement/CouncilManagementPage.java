@@ -245,9 +245,23 @@ public class CouncilManagementPage extends BasePage {
         waitForElementToBeClickable(resolutionStatusSelect, webDriver);
         resolutionComment.click();
         webDriver.switchTo().activeElement();
+        waitForElementToBeVisible(textEntry, webDriver);
+        enterText(textEntry, councilMOMData.getCouncilMOMResolution());
+        waitForElementToBeVisible(textEntry, webDriver);
         updateButton.click();
         webDriver.switchTo().activeElement();
         new Select(resolutionStatusSelect).selectByVisibleText(councilMOMData.getCouncilMOMAction());
+        waitForElementToBeVisible(resolutionPDFgenerationButton, webDriver);
         resolutionPDFgenerationButton.click();
+        webDriver.switchTo().activeElement();
+        WebDriverWait webDriverWait = new WebDriverWait(webDriver,10);
+        webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("html/body/div[4]/div/div/div[2]/button[2]")));
+        WebElement element=webDriver.findElement(By.xpath("html/body/div[4]/div/div/div[2]/button[2]"));
+        element.click();
+        switchToNewlyOpenedWindow(webDriver);
+        webDriver.close();
+        switchToNewlyOpenedWindow(webDriver);
+        webDriver.close();
+        switchToPreviouslyOpenedWindow(webDriver);
     }
 }
