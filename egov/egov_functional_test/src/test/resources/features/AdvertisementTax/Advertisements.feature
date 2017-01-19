@@ -7,6 +7,8 @@ Feature: Create/search Advertisement
 
 Scenario: Create/Search/Collect Tax Agency wise
 
+    # Create Agency
+
     Given admin logs in
     And he chooses to create advertisement agency
     And he enter details for agency creation
@@ -17,6 +19,8 @@ Scenario: Create/Search/Collect Tax Agency wise
     And he enter details for search agency
     And he view and closes the acknowledgement
     And current user logs out
+
+   # Create Advertisement
 
     And creator logs in
     And he chooses to create advertisement
@@ -32,6 +36,7 @@ Scenario: Create/Search/Collect Tax Agency wise
     And current user logs out
 
   #  Collect Advertisement Tax by Agency wise
+
     And creator logs in
     And he choose to collect advertisement tax by advertisement wise
     And he choose to collect advertisement tax by agency wise

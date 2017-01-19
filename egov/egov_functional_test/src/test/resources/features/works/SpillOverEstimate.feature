@@ -2,7 +2,7 @@ Feature: Create Spillover Estimate/Create LOA for Spillover
   As a registered user of the system
   I want to be able to create Spillover estimate
 
-  @WIP
+  @Sanity
   Scenario Outline: Create Spillover Line Estimate
 
     Given assis_Engineer logs in
