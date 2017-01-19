@@ -273,9 +273,7 @@ public class ExcelReader {
         Cell dateCell = getCellData(estimateHeaderDetailsSheet, dataRow, "date");
         dateCell.setCellType(Cell.CELL_TYPE_STRING);
         String Date  = dateCell.getStringCellValue();
-        String Subject = getCellData(estimateHeaderDetailsSheet, dataRow, "subject").getStringCellValue();
         String RequirementNumber = getCellData(estimateHeaderDetailsSheet, dataRow, "requirementNumber").getStringCellValue();
-        String Description = getCellData(estimateHeaderDetailsSheet, dataRow, "description").getStringCellValue();
         Cell electionWardCell = getCellData(estimateHeaderDetailsSheet, dataRow, "electionWard");
         electionWardCell.setCellType(Cell.CELL_TYPE_STRING);
         String ElectionWard  = electionWardCell.getStringCellValue();
@@ -289,13 +287,11 @@ public class ExcelReader {
         String NatureOfWork = getCellData(estimateHeaderDetailsSheet, dataRow, "natureOfWork").getStringCellValue();
         String TypeOfWork = getCellData(estimateHeaderDetailsSheet, dataRow, "typeOfWork").getStringCellValue();
         String SubTypeOfWork = getCellData(estimateHeaderDetailsSheet, dataRow, "subTypeOfWork").getStringCellValue();
-        String ModeOfEntrustment = getCellData(estimateHeaderDetailsSheet, dataRow, "modeOfEntrustment").getStringCellValue();
+        String ModeOfEntrustment = getCellData(estimateHeaderDetailsSheet, dataRow, "recommendedModeOfEntrustment").getStringCellValue();
 
         return new EstimateHeaderDetailsBuilder()
                  .withDate(Date)
-                 .withSubject(Subject)
                  .withRequirementNumber(RequirementNumber)
-                 .withDescription(Description)
                  .withElectionWard(ElectionWard)
                  .withLocation(location)
                  .withWorkCategory(WorkCategory)
@@ -840,11 +836,6 @@ public class ExcelReader {
         Cell grossAmountBilledCell = getCellData(workDetailsSheet, dataRow, "grossAmountBilled");
         grossAmountBilledCell.setCellType(Cell.CELL_TYPE_STRING);
         String grossAmountBilled = grossAmountBilledCell.getStringCellValue();
-        Cell quantityCell = getCellData(workDetailsSheet, dataRow, "quantity");
-        quantityCell.setCellType(Cell.CELL_TYPE_STRING);
-        String quantity = quantityCell.getStringCellValue();
-        String uom = getCellData(workDetailsSheet, dataRow, "uom").getStringCellValue();
-        String expectedOutcome = getCellData(workDetailsSheet, dataRow, "expectedOutcome").getStringCellValue();
 
         return new WorkDetailsBuilder()
                 .withWorksOrderCreated(worksCreated)
@@ -855,9 +846,6 @@ public class ExcelReader {
                 .withWorkIdentificationNumber(WIN)
                 .withActualEstimateAmount(actualEstimateAmount)
                 .withGrossAmountBilled(grossAmountBilled)
-                .withQuantity(quantity)
-                .withUOM(uom)
-                .withExpectedOutcome(expectedOutcome)
                 .build();
 
     }

@@ -7,4 +7,4 @@ Feature: Upload/View estimate photographs
     Given assis_Engineer logs in
     And he choose to upload estimate photo
     And he search for estimate in estimate search result
-#    And he upload the estimate photos for physical progress track
+    And he upload the estimate photos for physical progress track

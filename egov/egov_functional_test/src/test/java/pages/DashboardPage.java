@@ -730,6 +730,7 @@ public class DashboardPage extends BasePage {
         searchFor("Upload Estimate Photographs");
         waitForElementToBeClickable(uploadEstimatePhotographslink, driver);
         uploadEstimatePhotographslink.click();
+        switchToNewlyOpenedWindow(driver);
     }
     public void createAgenda() {
         waitForElementToBeClickable(searchTreeTextBox,driver);

@@ -31,14 +31,8 @@ public class SpillOverEstimatePage extends BasePage
     @FindBy(xpath = ".//*[@id='lineEstimateDate']")
     private WebElement date;
 
-    @FindBy(id = "subject")
-    private WebElement subject;
-
     @FindBy(id = "reference")
     private WebElement reference;
-
-    @FindBy(id = "description")
-    private WebElement description;
 
     @FindBy(id = "wardInput")
     private WebElement wardInput;
@@ -93,15 +87,6 @@ public class SpillOverEstimatePage extends BasePage
 
     @FindBy(id = "grossAmountBilled0")
     private WebElement grossAmountTextBox;
-
-    @FindBy(id = "quantity0")
-    private WebElement quantityTextBox;
-
-    @FindBy(id = "lineEstimateDetails0.uom")
-    private WebElement UOMBox;
-
-    @FindBy(id = "quantity")
-    private WebElement expectedOutcomeTextBox;
 
     @FindBy(css = "input[id ='isWorkOrderCreated'][type = 'checkbox']")
     private WebElement workOrderCreatedCheckBox;
@@ -188,14 +173,8 @@ public class SpillOverEstimatePage extends BasePage
             date.sendKeys(Keys.TAB);
         }
 
-        waitForElementToBeClickable(subject, webDriver);
-        enterText(subject, estimateHeaderDetails.getSubject());
-
         waitForElementToBeClickable(reference, webDriver);
-        enterText(reference, estimateHeaderDetails.getRequirementNumber());
-
-        waitForElementToBeClickable(description, webDriver);
-        enterText(description, estimateHeaderDetails.getDescription());
+        reference.sendKeys(estimateHeaderDetails.getRequirementNumber());
 
         waitForElementToBeClickable(wardInput, webDriver);
         wardInput.sendKeys(estimateHeaderDetails.getElectionWard());
@@ -286,14 +265,6 @@ public class SpillOverEstimatePage extends BasePage
            waitForElementToBeClickable(grossAmountTextBox, webDriver);
            enterText(grossAmountTextBox, workDetails.getGrossAmountBilled());
        }
-        waitForElementToBeClickable(quantityTextBox,webDriver);
-        enterText(quantityTextBox,workDetails.getQuantity());
-
-        waitForElementToBeClickable(UOMBox,webDriver);
-        new Select(UOMBox).selectByVisibleText(workDetails.getUom());
-
-        waitForElementToBeClickable(expectedOutcomeTextBox,webDriver);
-        enterText(expectedOutcomeTextBox,workDetails.getExpectedOutcome());
     }
 
     private void selectWorksIfCreated(WebElement element, Boolean hasCreated) {
@@ -344,16 +315,6 @@ public class SpillOverEstimatePage extends BasePage
 
         waitForElementToBeClickable(estimateEstimateAmountBox,webDriver);
         enterText(estimateEstimateAmountBox,workDetails.getEstimatedAmount());
-
-        waitForElementToBeClickable(quantityTextBox,webDriver);
-        enterText(quantityTextBox,workDetails.getQuantity());
-
-        waitForElementToBeClickable(estimateUOMBox,webDriver);
-        estimateUOMBox.click();
-        new Select(estimateUOMBox).selectByVisibleText(workDetails.getUom());
-
-        waitForElementToBeClickable(expectedOutcomeTextBox,webDriver);
-        enterText(expectedOutcomeTextBox,workDetails.getExpectedOutcome());
     }
 
     public void enterApproverDetails(ApproverDetails approverDetails) {
