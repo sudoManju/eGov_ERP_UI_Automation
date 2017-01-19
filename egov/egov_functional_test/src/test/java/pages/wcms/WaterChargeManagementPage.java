@@ -4,6 +4,7 @@ import entities.ptis.*;
 import entities.wcms.EnclosedDocument;
 import entities.wcms.FieldInspectionDetails;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
@@ -183,6 +184,9 @@ public class WaterChargeManagementPage extends BasePage {
     @FindBy(id = "Generate Acknowledgement")
     private WebElement generateAcknowledgement;
 
+    @FindBy(id = "Generate Reconnection Ack")
+    private WebElement generateReConnectionAcknowledgement;
+
     @FindBy(id = "monthlyFee")
     private WebElement monthlyFees;
 
@@ -213,6 +217,8 @@ public class WaterChargeManagementPage extends BasePage {
     @FindBy(id = "submitButtonId")
     private WebElement consumerSearchButton;
 
+    @FindBy(id = "reConnectionReason")
+    private WebElement reConnectionReason;
 
     public WaterChargeManagementPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -241,7 +247,6 @@ public class WaterChargeManagementPage extends BasePage {
         enterText(sumpCapacityTextBox, connectionInfo.getSumpCapacity());
 
         enterText(noOfPersonsTextBox, connectionInfo.getNoOfPersons());
-
     }
 
     public void enterDocumentInfo(EnclosedDocument enclosedDocument){
@@ -272,11 +277,9 @@ public class WaterChargeManagementPage extends BasePage {
 
         waitForElementToBeClickable(browse3Button, webDriver);
         browse3Button.sendKeys(System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx");
-
     }
 
     public void enterWaterApprovalDetails(ApprovalDetails approvalDetails){
-
         waitForElementToBeClickable(approvalWaterDepartment, webDriver);
         new Select(approvalWaterDepartment).selectByVisibleText(approvalDetails.getApproverDepartment());
 
@@ -289,7 +292,6 @@ public class WaterChargeManagementPage extends BasePage {
         waitForElementToBeClickable(additionalForwardButton, webDriver);
         additionalForwardButton.click();
         switchToNewlyOpenedWindow(webDriver);
-
     }
 
     public void enterAdditionalWaterConnectionInfo(ConnectionInfo connectionInfo){
@@ -339,7 +341,6 @@ public class WaterChargeManagementPage extends BasePage {
     }
 
     public void clickOnGenerateNotice(){
-
         waitForElementToBeClickable(generateEstimationNoticeButton , webDriver);
         generateEstimationNoticeButton.click();
         switchToNewlyOpenedWindow(webDriver);
@@ -385,11 +386,6 @@ public class WaterChargeManagementPage extends BasePage {
     }
 
     public void closeReceipt(){
-
-//        WebElement element = webDriver.findElement(By.id("buttonclose"));
-//        waitForElementToBeClickable(element , webDriver);
-//        element.click();
-////        jsClick(element , webDriver);
         waitForElementToBeClickable(closeReceiptButton , webDriver);
         closeReceiptButton.click();
     }
@@ -407,7 +403,10 @@ public class WaterChargeManagementPage extends BasePage {
         switchToPreviouslyOpenedWindow(webDriver);
     }
 
-    public void enterDetailsOfClosureConnection(String closureType){
+    public String enterDetailsOfClosureConnection(String closureType){
+
+        WebElement acknowledgementNumber = webDriver.findElement(By.id("applicationNumber"));
+        String number = acknowledgementNumber.getText();
 
         if(closureType.equalsIgnoreCase("Temporary")){
             waitForElementToBeClickable(temporaryRadioButton , webDriver);
@@ -419,6 +418,7 @@ public class WaterChargeManagementPage extends BasePage {
         }
         waitForElementToBeClickable(closureConnectionReason , webDriver);
         closureConnectionReason.sendKeys("Not Required");
+        return number;
     }
 
     public void selectApplication(String consumerNumber ){
@@ -440,11 +440,14 @@ public class WaterChargeManagementPage extends BasePage {
     }
 
     public void forward() {
+        waitForElementToBeClickable(forwardButton , webDriver);
         forwardButton.click();
+        switchToNewlyOpenedWindow(webDriver);
     }
 
     public void closePage(){
-        closeSearchApplication.click();
+//        closeSearchApplication.click();
+        jsClick(closeSearchApplication , webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
     }
 
@@ -508,18 +511,20 @@ public class WaterChargeManagementPage extends BasePage {
 
     public void changeOfUseWaterConnectionInfo(ConnectionInfo connectionInfo){
         new Select(propertyTypeSelectBox).selectByVisibleText(connectionInfo.getPropertyType());
+        waitForElementToBeVisible(hscPipeSizeSelectBox , webDriver);
         new Select(hscPipeSizeSelectBox).selectByVisibleText(connectionInfo.getHscPipeSize());
         enterText(sumpCapacityTextBox, connectionInfo.getSumpCapacity());
         enterText(noOfPersonsTextBox, connectionInfo.getNoOfPersons());
         new Select(usageTypeSelectBox).selectByVisibleText(connectionInfo.getUsageType());
         enterText(reasonForNewConnection, connectionInfo.getReasonForAdditionalConnection());
+        new Select(hscPipeSizeSelectBox).selectByVisibleText(connectionInfo.getHscPipeSize());
     }
 
-    public void enterWaterDataEntryDetails(ApplicantInfo applicantInfo){
-        WebElement connectionType2 = webDriver.findElement(By.id("applicationType2"));
-        connectionType2.click();
+    public void enterWaterDataEntryDetails(ApplicantInfo applicantInfo , String assessmentNumber){
+//        WebElement connectionType2 = webDriver.findElement(By.id("applicationType2"));
+//        connectionType2.click();
         waitForElementToBeClickable(waterConnectionAssesmentNumberTextBox, webDriver);
-        enterText(waterConnectionAssesmentNumberTextBox, applicantInfo.getPtAssessmentNumber());
+        enterText(waterConnectionAssesmentNumberTextBox, assessmentNumber);
         enterText(hscNumber , applicantInfo.getHscNumber());
         enterText(dataEntryExecutionDate , applicantInfo.getConnectionDate());
     }
@@ -536,11 +541,12 @@ public class WaterChargeManagementPage extends BasePage {
     public String closesTheDataEntryPage(){
 
         WebElement successMessage = webDriver.findElement(By.cssSelector(".main-content>table>tbody>tr>td>strong"));
+        String message = successMessage.getText();
 
         webDriver.close();
         switchToPreviouslyOpenedWindow(webDriver);
 
-        return successMessage.getText();
+        return message;
     }
 
     public String findAdditionalApplicationNumber(){
@@ -563,5 +569,24 @@ public class WaterChargeManagementPage extends BasePage {
         waitForElementToBeClickable(consumerSearchButton, webDriver);
         consumerSearchButton.click();
         switchToNewlyOpenedWindow(webDriver);
+    }
+
+    public String enterReConnectionDetails(){
+        WebElement acknowledgementNumber = webDriver.findElement(By.id("applicationNumber"));
+        String number = acknowledgementNumber.getText();
+        waitForElementToBeClickable(reConnectionReason , webDriver);
+        reConnectionReason.sendKeys("Required Again");
+        return number;
+    }
+
+    public void toGenerateReConnectionAcknowledgement(){
+
+        waitForElementToBeClickable(generateReConnectionAcknowledgement , webDriver);
+        generateReConnectionAcknowledgement.click();
+
+        switchToNewlyOpenedWindow(webDriver);
+        webDriver.close();
+
+        switchToPreviouslyOpenedWindow(webDriver);
     }
 }

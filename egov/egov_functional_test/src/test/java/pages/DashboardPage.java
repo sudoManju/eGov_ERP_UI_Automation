@@ -198,7 +198,6 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Create Meeting invitation")
     private WebElement createMeetingLink;
 
-
     @FindBy(linkText = "Search Agency")
     private WebElement searchAgencyLink;
 
@@ -209,6 +208,9 @@ public class DashboardPage extends BasePage {
 
     @FindBy(linkText = "Create Council MOM")
     private WebElement createCouncilMOMlink;
+
+    @FindBy(linkText = "Apply for Re-Connection")
+    private WebElement applyForReConnection;
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -426,7 +428,6 @@ public class DashboardPage extends BasePage {
     public void openDrafts(){
         waitForElementToBeVisible(draftsLink, driver);
         draftsLink.click();
-
     }
 
     public void openCollection() {
@@ -739,6 +740,7 @@ public class DashboardPage extends BasePage {
         uploadEstimatePhotographslink.click();
         switchToNewlyOpenedWindow(driver);
     }
+
     public void createAgenda() {
         waitForElementToBeClickable(searchTreeTextBox,driver);
         searchFor("Create Agenda");
@@ -755,7 +757,6 @@ public class DashboardPage extends BasePage {
         createMeetingLink.click();
         switchToNewlyOpenedWindow(driver);
     }
-
 
     public void chooseToSearchAdvertisementAgency() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
@@ -789,6 +790,14 @@ public class DashboardPage extends BasePage {
         searchFor("Transfer Ownership");
         waitForElementToBeClickable(transferOwnershipLink, driver);
         transferOwnershipLink.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseReConnection(){
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Apply for Re-Connection");
+        waitForElementToBeClickable(applyForReConnection, driver);
+        applyForReConnection.click();
         switchToNewlyOpenedWindow(driver);
     }
 }

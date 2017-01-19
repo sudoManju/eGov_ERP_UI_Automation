@@ -12,21 +12,23 @@ Feature: To create a new Journal voucher according to the budget check
     And current user logs out
 
     And accountsOfficer logs in
-    Then the officer will click on the voucher number
+    And he clicks on drafts
+    And the officer will click on the voucher number
     And officer will enter the approval details as <approval officer2>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
-    And examiner logs in
-    Then the officer will click on the voucher number
+    And accountOfficer logs in
+    And he clicks on drafts
+    And the officer will click on the voucher number
     And officer will enter the approval details as <approval officer3>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
     And commissioner logs in
-    Then the officer will click on the voucher number
+    And the officer will click on the voucher number
     And officer click on approval of the voucher
     And officer will closes the acknowledgement page
     Then user will be notified by "approved"

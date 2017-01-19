@@ -85,14 +85,6 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).chooseForDailyCollectionPTReports();
         });
 
-//        Then("^user will search for the recent application$", () -> {
-//            pageStore.get(DashboardPage.class).chooseForSearchApplication();
-//        });
-
-//        And("^user chooses to act upon the above application in search applications$", () -> {
-//            pageStore.get(DashboardPage.class).openSearchApplication(scenarioContext.getApplicationNumber());
-//        });
-
         And("^he clicks on drafts$", () -> {
             pageStore.get(DashboardPage.class).openDrafts();
 
@@ -176,6 +168,7 @@ public class DashboardSteps extends BaseSteps implements En {
         And("^officer will search for the Create Voucher for expense bill$", () -> {
             pageStore.get(DashboardPage.class).createExpenseBillVoucher();
         });
+
         And("^he choose to upload estimate photo$", () -> {
             pageStore.get(DashboardPage.class).chooseToUploadPhoto();
         });
@@ -194,6 +187,10 @@ public class DashboardSteps extends BaseSteps implements En {
         });
         When("^he choose to create council MOM$", () -> {
             pageStore.get(DashboardPage.class).createCouncilMOM();
+        });
+
+        And("^user search to apply for re-connection$", () -> {
+            pageStore.get(DashboardPage.class).chooseReConnection();
         });
 
 

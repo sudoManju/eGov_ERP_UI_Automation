@@ -103,6 +103,7 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
                 SearchDetails searchDetails = new ExcelReader(ptisTestDataFileName).getSearchDetails(searchId);
                 pageStore.get(PropertyDetailsPage.class).enterSearchDetailsOfMobileNumber(searchDetails);
             });
+
             And("^he search property with zone and ward number$", () -> {
                 String searchId = "searchWithZoneAndWardNumber";
 
