@@ -95,7 +95,9 @@ public class ExcelReader {
     Sheet createMeetingSheet;
 
     Sheet paymentMethodSheet;
+
     Sheet createCouncilMOMSheet;
+    Sheet registrationDetailsSheet;
 
     public ExcelReader(String testData) {
         String excelFilePath = testData + ".xlsx";
@@ -156,6 +158,7 @@ public class ExcelReader {
         createMeetingSheet = workbook.getSheet("createMeeting");
         paymentMethodSheet = workbook.getSheet("paymentMethod");
         createCouncilMOMSheet = workbook.getSheet("createCouncilMOM");
+        registrationDetailsSheet = workbook.getSheet("registrationDetails");
     }
 
     private Row readDataRow(Sheet fromSheet, String dataId) {
@@ -1137,7 +1140,6 @@ public class ExcelReader {
                     .withAmount5(amount5)
                     .withAmount6(amount6)
                     .build();
-
     }
 
     public CreatePreambleDetails getCreateAgendaDetails(String createAgendaData) {
@@ -1209,4 +1211,32 @@ public class ExcelReader {
                 .withCouncilMOMAction(actionTaken)
                 .build();
     }
+   public RegistrationDetails getRegistrationDetails(String registrationDetailsDataId){
+       Row dataRow = readDataRow(registrationDetailsSheet, registrationDetailsDataId);
+       Cell sellerExecutantNameCell = getCellData(registrationDetailsSheet, dataRow, "sellerExecutantName");
+       sellerExecutantNameCell.setCellType(Cell.CELL_TYPE_STRING);
+       String sellerExecutantName = sellerExecutantNameCell.getStringCellValue();
+
+       Cell buyerClaimantNameCell = getCellData(registrationDetailsSheet, dataRow, "buyerClaimantName");
+       buyerClaimantNameCell.setCellType(Cell.CELL_TYPE_STRING);
+       String  buyerClaimantName = buyerClaimantNameCell.getStringCellValue();
+
+       Cell doorNoCell = getCellData(registrationDetailsSheet, dataRow, "doorNo");
+       doorNoCell.setCellType(Cell.CELL_TYPE_STRING);
+       String  doorNo = doorNoCell.getStringCellValue();
+
+       Cell propertyAddressCell = getCellData(registrationDetailsSheet, dataRow, "propertyAddress");
+       propertyAddressCell.setCellType(Cell.CELL_TYPE_STRING);
+       String  propertyAddress = propertyAddressCell.getStringCellValue();
+
+       return new RegistrationDetailsBuilder()
+               .withSellerExecutantName(sellerExecutantName)
+               .withBuyerClaimantName(buyerClaimantName)
+               .withDoorNo(doorNo)
+               .withPropertyAddress(propertyAddress)
+               .build();
+   }
+
+
 }
+

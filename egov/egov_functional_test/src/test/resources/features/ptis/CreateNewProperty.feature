@@ -139,7 +139,7 @@ Feature: Create New Property
 
 
       @WIP
-      Scenario: Register Choose to do title Transfer
+      Scenario Outline: Register Choose to do title Transfer
 
         Given commissioner logs in
         When he chooses to create data entry
@@ -154,7 +154,20 @@ Feature: Create New Property
         And he searches for assessment with number "1016000077"
         And he chooses to pay tax
         And he pay tax using Cash
-        And current user logs out
+
+        And he choose to do transfer ownership
+        And he searches for assessment with number "1016042569"
+        And he chooses Registration already done button
+        And he enters registration details for the property <registrationDetails>
+
+
+
+
+        Examples:
+
+         |registrationDetails|
+         |register           |
+
 
 
 

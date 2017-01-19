@@ -204,6 +204,8 @@ public class DashboardPage extends BasePage {
 
     @FindBy(linkText = "Enter Attendance")
     private WebElement enterAttendanceLink;
+    @FindBy(linkText = "Transfer Ownership")
+    private WebElement transferOwnershipLink;
 
     @FindBy(linkText = "Create Council MOM")
     private WebElement createCouncilMOMlink;
@@ -301,6 +303,7 @@ public class DashboardPage extends BasePage {
 
     public void chooseToCreateDataEntry() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchTreeTextBox.clear();
         searchFor("Data Entry Screen");
         waitForElementToBeVisible(dataEntryScreen, driver);
         dataEntryScreen.click();
@@ -767,17 +770,25 @@ public class DashboardPage extends BasePage {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchTreeTextBox.clear();
         searchFor("Enter Attendance");
-        waitForElementToBeClickable(enterAttendanceLink,driver);
+        waitForElementToBeClickable(enterAttendanceLink, driver);
         enterAttendanceLink.click();
         switchToNewlyOpenedWindow(driver);
     }
 
     public void createCouncilMOM() {
-        waitForElementToBeClickable(searchTreeTextBox,driver);
+        waitForElementToBeClickable(searchTreeTextBox, driver);
         searchTreeTextBox.clear();
         searchFor("Create Council MOM");
         waitForElementToBeClickable(createCouncilMOMlink, driver);
         createCouncilMOMlink.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+    public void createTransferOwnership() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchTreeTextBox.clear();
+        searchFor("Transfer Ownership");
+        waitForElementToBeClickable(transferOwnershipLink, driver);
+        transferOwnershipLink.click();
         switchToNewlyOpenedWindow(driver);
     }
 }

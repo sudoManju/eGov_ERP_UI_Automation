@@ -179,6 +179,9 @@ public class DashboardSteps extends BaseSteps implements En {
         And("^he choose to upload estimate photo$", () -> {
             pageStore.get(DashboardPage.class).chooseToUploadPhoto();
         });
+        And("^he choose to do transfer ownership$", () -> {
+            pageStore.get(DashboardPage.class).createTransferOwnership();
+        });
 
         When("^he choose to create agenda$", () -> {
             pageStore.get(DashboardPage.class).createAgenda();
