@@ -38,8 +38,8 @@ public class AdvertisementsPage extends BasePage {
     @FindBy(css = "input[id='applicationDate'][type='text']")
     private WebElement applicationDateBox;
 
-    @FindBy(id = "agencyTypeAhead")
-    private WebElement agency;
+    @FindBy(css = "input[id='agencyTypeAhead'][type='text']")
+    private WebElement agencyTextBox;
 
     @FindBy(css = "input[id='permissionstartdate'][type='text']")
     private WebElement permissionStartDateBox;
@@ -125,9 +125,6 @@ public class AdvertisementsPage extends BasePage {
     @FindBy(id = "agencyWiseCollectionListSelected[0]")
      private WebElement selectAdvertisement;
 
-    @FindBy(id = "agencysearch")
-     private WebElement collectFeeButton;
-
     @FindBy(css = "input[type ='button'][value='Close']")
      private WebElement closeButton;
 
@@ -164,6 +161,15 @@ public class AdvertisementsPage extends BasePage {
     @FindBy(xpath = ".//*[@id='agencysearch']/div[2]/div/button[2]")
     private WebElement viewButton;
 
+    @FindBy(xpath = ".//*[@id='adtax_search']/tbody/tr/td[5]/button")
+    private WebElement collectAdvertisementTaxButton;
+
+    @FindBy(css = "input[id='selectAll'][type='checkbox']")
+    private WebElement selectAllCheckBox;
+
+    @FindBy(xpath = ".//*[@id='agencysearch']")
+     private WebElement collectFeeButton;
+
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     String date = sdf.format(new Date());
     String min = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
@@ -194,17 +200,44 @@ public class AdvertisementsPage extends BasePage {
         new Select(propertyTypeBox).selectByVisibleText("GOVERNMENT");
     }
 
-    public void enterPermissionDetails() {
+    public void enterPermissionDetails(String agencyName) {
          waitForElementToBeClickable(applicationDateBox,driver);
          applicationDateBox.sendKeys(date, Keys.TAB);
 
-//         advertisement creating by agency wise
-
-//         waitForElementToBeClickable(agency, driver);
-//         new Select(agency).selectByVisibleText("ANAND CINI COMPLEX");
+         waitForElementToBeClickable(agencyTextBox, driver);
+         agencyTextBox.sendKeys(agencyName);
+         waitForElementToBeVisible( driver.findElement(By.className("tt-dropdown-menu")),driver);
+         WebElement dropdown = driver.findElement(By.className("tt-dropdown-menu"));
+         dropdown.click();
 
          waitForElementToBeClickable(adParticularTextBox,driver);
          adParticularTextBox.sendKeys("For elections");
+
+        waitForElementToBeClickable(ownerDetailsTextBox,driver);
+        ownerDetailsTextBox.sendKeys("Bhartiya janatha party");
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        c.add(Calendar.DATE, 7);
+        String date1 = sdf.format(c.getTime());
+        waitForElementToBeClickable(permissionStartDateBox,driver);
+        permissionStartDateBox.sendKeys(date1, Keys.TAB);
+
+        c.add(Calendar.DATE, 30);
+        String date2 = sdf.format(c.getTime());
+        waitForElementToBeClickable(permissionEndDateBox,driver);
+        permissionEndDateBox.sendKeys(date2, Keys.TAB);
+
+        waitForElementToBeClickable(advertismentDurationBox,driver);
+        new Select(advertismentDurationBox).selectByVisibleText("MONTH");
+    }
+
+    public void enterPermissionDetails1(){
+        waitForElementToBeClickable(applicationDateBox,driver);
+        applicationDateBox.sendKeys(date, Keys.TAB);
+
+        waitForElementToBeClickable(adParticularTextBox,driver);
+        adParticularTextBox.sendKeys("For elections");
 
         waitForElementToBeClickable(ownerDetailsTextBox,driver);
         ownerDetailsTextBox.sendKeys("Bhartiya janatha party");
@@ -408,33 +441,19 @@ public class AdvertisementsPage extends BasePage {
        return name;
     }
 
-    public void searchByAgency() {
-        WebElement selectElement = driver.findElement(By.id("categories"));
-        Select categories = new Select(selectElement);
-        List<WebElement> allOptions = categories.getOptions();
-        int count = allOptions.size();
-        System.out.println(count);
-        categories.selectByIndex(3);
-        searchAdvertisementButton.click();
-        agencyWisecollectButton.click();
-        switchToNewlyOpenedWindow(driver);
+    public void searchByAgency(String name) {
+       waitForElementToBeVisible(agencyTextBox,driver);
+       agencyTextBox.click();
+       agencyTextBox.sendKeys(name);
+       waitForElementToBeVisible( driver.findElement(By.className("tt-dropdown-menu")),driver);
+       WebElement dropdown = driver.findElement(By.className("tt-dropdown-menu"));
+       dropdown.click();
+
+       waitForElementToBeClickable(searchAdvertisementButton, driver);
+       searchAdvertisementButton.click();
     }
 
-    public void selectsAgency() {
-
-        if(selectAdvertisement.isSelected())
-        {
-            System.out.println("Checkbox is already selected");
-        }
-        else {
-            waitForElementToBeClickable(selectAdvertisement, driver);
-            selectAdvertisement.click();
-            waitForElementToBeClickable(collectFeeButton, driver);
-            collectFeeButton.click();
-        }
-    }
-
-    public void collectAdvertisementTaxByAgency() {
+     public void collectAdvertisementTaxByAgency() {
         waitForElementToBeVisible(totalamounttobepaid, driver);
         String AmountNum = totalamounttobepaid.getAttribute("value");
         String Amount = AmountNum.split("\\.")[0];
@@ -479,4 +498,15 @@ public class AdvertisementsPage extends BasePage {
     }
 
 
+    public void selectAdvertisementAgency() {
+     waitForElementToBeVisible(collectAdvertisementTaxButton,driver);
+     collectAdvertisementTaxButton.click();
+     switchToNewlyOpenedWindow(driver);
+
+     waitForElementToBeVisible(selectAllCheckBox,driver);
+     selectAllCheckBox.click();
+
+     waitForElementToBeClickable(collectFeeButton,driver);
+     collectFeeButton.click();
+    }
 }

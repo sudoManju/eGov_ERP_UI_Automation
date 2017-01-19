@@ -24,7 +24,7 @@ public class AdvertisementsSteps extends BaseSteps implements En {
         And("^he enters details for advertisement creation$", () -> {
            pageStore.get(AdvertisementsPage.class).enterAdvertisementDetails();
 
-           pageStore.get(AdvertisementsPage.class).enterPermissionDetails();
+           pageStore.get(AdvertisementsPage.class).enterPermissionDetails1();
 
            pageStore.get(AdvertisementsPage.class).enterLocalityDetails();
 
@@ -88,13 +88,14 @@ public class AdvertisementsSteps extends BaseSteps implements En {
         });
         And("^he enter details for agency creation$", () -> {
            String name = pageStore.get(AdvertisementsPage.class).enterAgencyDetails();
-           scenarioContext.setApplicationNumber(name);
+           scenarioContext.setAssessmentNumber(name);
         });
         And("^he choose to collect advertisement tax by agency wise$", () -> {
-            pageStore.get(AdvertisementsPage.class).searchByAgency();
+            pageStore.get(AdvertisementsPage.class).searchByAgency(scenarioContext.getAssessmentNumber());
+
         });
         And("^he selects the agency for Tax/Fees collection$", () -> {
-            pageStore.get(AdvertisementsPage.class).selectsAgency();
+            pageStore.get(AdvertisementsPage.class).selectAdvertisementAgency();
         });
         And("^he choose to collect advertisement tax$", () -> {
             pageStore.get(AdvertisementsPage.class).collectAdvertisementTaxByAgency();
@@ -113,10 +114,25 @@ public class AdvertisementsSteps extends BaseSteps implements En {
          pageStore.get(DashboardPage.class).chooseToSearchAdvertisementAgency();
         });
         And("^he enter details for search agency$", () -> {
-           pageStore.get(AdvertisementsPage.class).searchAgency(scenarioContext.getApplicationNumber());
+           pageStore.get(AdvertisementsPage.class).searchAgency(scenarioContext.getAssessmentNumber());
         });
         And("^he view and closes the acknowledgement$", () -> {
            pageStore.get(AdvertisementsPage.class).CloseAgencySearch();
+        });
+        And("^he enters details for advertisement creation with agency$", () -> {
+            pageStore.get(AdvertisementsPage.class).enterAdvertisementDetails();
+
+            pageStore.get(AdvertisementsPage.class).enterPermissionDetails(scenarioContext.getAssessmentNumber());
+
+            pageStore.get(AdvertisementsPage.class).enterLocalityDetails();
+
+            pageStore.get(AdvertisementsPage.class).enterStructureDetails();
+
+            String approverDetailsDataId = "commissioner";
+
+            ApproverDetails approverDetails = new ExcelReader(lineEstimateTestDataFileName).getApprovalDetailsForEstimate(approverDetailsDataId);
+
+            pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
         });
 
     }

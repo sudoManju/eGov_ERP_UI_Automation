@@ -711,6 +711,7 @@ public class DashboardPage extends BasePage {
 
     public void chooseToCollectAdvTax() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchTreeTextBox.clear();
         searchFor("Collect Advertisement Tax");
         waitForElementToBeVisible(collectAdvertisementTaxLink, driver);
         collectAdvertisementTaxLink.click();

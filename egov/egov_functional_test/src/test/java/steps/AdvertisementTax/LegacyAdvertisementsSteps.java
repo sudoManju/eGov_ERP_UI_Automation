@@ -20,7 +20,7 @@ public class LegacyAdvertisementsSteps extends BaseSteps implements En {
         And("^he enters details for legacy advertisement creation$", () -> {
             pageStore.get(AdvertisementsPage.class).enterAdvertisementDetails();
 
-            pageStore.get(AdvertisementsPage.class).enterPermissionDetails();
+            pageStore.get(AdvertisementsPage.class).enterPermissionDetails1();
 
             pageStore.get(AdvertisementsPage.class).enterLocalityDetails();
 

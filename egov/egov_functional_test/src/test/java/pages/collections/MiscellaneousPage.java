@@ -10,6 +10,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
@@ -66,10 +68,10 @@ public class MiscellaneousPage extends BasePage{
         narrationTextBox.sendKeys("Narration");
         payeeAddressTextBox.sendKeys("Bangalore");
         new Select(serviceCategoryDropDown).selectByVisibleText("Entry Fees");
-        serviceTypeIDropDown.click();
-        serviceTypeIDropDown.click();
-        serviceTypeIDropDown.click();
-        new Select(serviceTypeIDropDown).selectByIndex(1);
+
+        waitForElementToBeVisible(serviceTypeIDropDown , driver);
+        new Select(serviceTypeIDropDown).getOptions().get(1);
+//        new Select(serviceTypeIDropDown).selectByIndex(1);
 
         for (int i = 0; i < 4; i++) {
             if (receiptHeadsAmount.isDisplayed())
@@ -78,14 +80,18 @@ public class MiscellaneousPage extends BasePage{
                     receiptHeadsAmount.clear();
                     receiptHeadsAmount.sendKeys("655");
                 } catch (StaleElementReferenceException e) {
-                    receiptHeadsAmount.click();
-                    receiptHeadsAmount.clear();
-                    receiptHeadsAmount.sendKeys("655");
+                   WebElement element1 = driver.findElement(By.cssSelector("input[type='text'][id='billCreditDetailslist[0].creditAmountDetail']"));
+                    element1.click();
+                    element1.clear();
+                    element1.sendKeys("655");
                 }
-        }
+          }
     }
 
     public void enterPaymentDetails(PaymentMethod paymentmethod, String mode) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String date = sdf.format(new Date());
 
         switch (mode){
 
@@ -102,7 +108,7 @@ public class MiscellaneousPage extends BasePage{
                 chequeNumberTextBox.sendKeys(paymentmethod.getChequeNumber());
 
                 waitForElementToBeClickable(chequeDateTextBox,driver);
-                chequeDateTextBox.sendKeys("18/01/2017");
+                chequeDateTextBox.sendKeys(date);
 
                 waitForElementToBeClickable(bankNameTextBox,driver);
                 bankNameTextBox.sendKeys(paymentmethod.getBankName());
