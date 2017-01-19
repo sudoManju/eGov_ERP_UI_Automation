@@ -51,6 +51,7 @@ Feature: create preamble
     When he choose to create council MOM
     And he choose to create council MOM for the meeting number
     And he enters details to create MOM as <MOMdeatils>
+    And user will be notified by "APPROVED"
     And current user logs out
 
 
