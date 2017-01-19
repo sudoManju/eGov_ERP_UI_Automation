@@ -189,6 +189,9 @@ public class DashboardSteps extends BaseSteps implements En {
         When("^he choose to enter attendance$", () -> {
            pageStore.get(DashboardPage.class).enterAttendance();
         });
+        When("^he choose to create council MOM$", () -> {
+            pageStore.get(DashboardPage.class).createCouncilMOM();
+        });
 
 
     }

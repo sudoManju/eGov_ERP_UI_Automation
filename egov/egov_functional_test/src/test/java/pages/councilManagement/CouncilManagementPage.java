@@ -92,6 +92,20 @@ public class CouncilManagementPage extends BasePage {
     @FindBy (id = "finalizeAttendanceBtn")
     private WebElement finalizeAttendanceBtn;
 
+    @FindBy (xpath = ".//*[@id='showModal']")
+    private WebElement resolutionComment;
+
+    @FindBy (id = "resolutionStatus")
+    private WebElement resolutionStatusSelect;
+
+    @FindBy (id = "buttonFinalSubmit")
+    private WebElement resolutionPDFgenerationButton;
+
+    @FindBy(xpath = ".//*[@id='textarea-updatedcontent']")
+    private WebElement textEntry;
+
+    @FindBy (xpath = ".//*[@id='textarea-btnupdate']")
+    private WebElement updateButton;
 
     public CouncilManagementPage(WebDriver webDriver){this.webDriver=webDriver;}
 
@@ -215,5 +229,25 @@ public class CouncilManagementPage extends BasePage {
         webDriver.close();
         switchToNewlyOpenedWindow(webDriver);
         webDriver.close();
+        switchToPreviouslyOpenedWindow(webDriver);
+    }
+
+    public void searchMeetingNumber(String meetingNumber) {
+        enterText(meetingNumberText, meetingNumber);
+        searchbutton.click();
+        List<WebElement> elements= webDriver.findElements(By.cssSelector(".btn.btn-xs.btn-secondary.view"));
+        jsClick(elements.get(0),webDriver);
+        switchToNewlyOpenedWindow(webDriver);
+
+    }
+
+    public void enterCouncilMOMDetails(CreatePreambleDetails councilMOMData) {
+        waitForElementToBeClickable(resolutionStatusSelect, webDriver);
+        resolutionComment.click();
+        webDriver.switchTo().activeElement();
+        updateButton.click();
+        webDriver.switchTo().activeElement();
+        new Select(resolutionStatusSelect).selectByVisibleText(councilMOMData.getCouncilMOMAction());
+        resolutionPDFgenerationButton.click();
     }
 }

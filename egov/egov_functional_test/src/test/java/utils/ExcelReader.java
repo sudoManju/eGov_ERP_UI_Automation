@@ -95,6 +95,7 @@ public class ExcelReader {
     Sheet createMeetingSheet;
 
     Sheet paymentMethodSheet;
+    Sheet createCouncilMOMSheet;
 
     public ExcelReader(String testData) {
         String excelFilePath = testData + ".xlsx";
@@ -154,6 +155,7 @@ public class ExcelReader {
         createAgendaSheet = workbook.getSheet("createAgenda");
         createMeetingSheet = workbook.getSheet("createMeeting");
         paymentMethodSheet = workbook.getSheet("paymentMethod");
+        createCouncilMOMSheet = workbook.getSheet("createCouncilMOM");
     }
 
     private Row readDataRow(Sheet fromSheet, String dataId) {
@@ -1188,6 +1190,23 @@ public class ExcelReader {
         return new PaymentMethodBuilder()
                 .withChequeNumber(chequeNumber)
                 .withBankName(bankName)
+                .build();
+    }
+
+    public CreatePreambleDetails getCouncilMOMDetails(String councilMOMData) {
+        Row dataRow = readDataRow(createCouncilMOMSheet,councilMOMData);
+
+        Cell resolutionCommentCell= getCellData(createCouncilMOMSheet, dataRow,"resolutionComments");
+        resolutionCommentCell.setCellType(Cell.CELL_TYPE_STRING);
+        String resolutionComment= resolutionCommentCell.getStringCellValue();
+
+        Cell actionTakenCell= getCellData(createCouncilMOMSheet, dataRow, "actionTaken");
+        actionTakenCell.setCellType(Cell.CELL_TYPE_STRING);
+        String actionTaken= actionTakenCell.getStringCellValue();
+
+        return new PreambleDetailsBuilder()
+                .withCouncilMOMResolution(resolutionComment)
+                .withCouncilMOMAction(actionTaken)
                 .build();
     }
 }

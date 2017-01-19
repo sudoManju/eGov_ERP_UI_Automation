@@ -15,6 +15,8 @@ public class CreatePreambleDetails {
     private String councilMeetingDate;
     private String councilMeetingTime;
     private String councilMeetingPlace;
+    private String councilMOMResolution;
+    private String councilMOMAction;
 
     public void setPreambleDepartment(String preambleDepartment) {
         this.preambleDepartment = preambleDepartment;
@@ -79,5 +81,21 @@ public class CreatePreambleDetails {
 
     public String getCouncilMeetingPlace() {
         return councilMeetingPlace;
+    }
+
+    public void setCouncilMOMResolution(String councilMOMResolution) {
+        this.councilMOMResolution = councilMOMResolution;
+    }
+
+    public void setCouncilMOMAction(String councilMOMAction) {
+        this.councilMOMAction = councilMOMAction;
+    }
+
+    public String getCouncilMOMResolution() {
+        return councilMOMResolution;
+    }
+
+    public String getCouncilMOMAction() {
+        return councilMOMAction;
     }
 }

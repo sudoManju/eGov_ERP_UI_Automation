@@ -46,9 +46,14 @@ Feature: create preamble
     And he choose to edit attendance details
     And he finalize attendance details and comes to home page
 
-    
+    # Create Council MOM #
+
+    When he choose to create council MOM
+    And he choose to create council MOM for the meeting number
+    And he enters details to create MOM as <MOMdeatils>
+    And current user logs out
 
 
   Examples:
-  |details| approval officer2 | committee    |meetingDetails |
-  |abc    | commissioner1     | createAgenda |councilMeeting |
+  |details| approval officer2 | committee    |meetingDetails |MOMdeatils|
+  |abc    | commissioner1     | createAgenda |councilMeeting |councilMOM |

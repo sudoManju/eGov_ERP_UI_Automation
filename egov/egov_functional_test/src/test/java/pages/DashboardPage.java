@@ -205,6 +205,9 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Enter Attendance")
     private WebElement enterAttendanceLink;
 
+    @FindBy(linkText = "Create Council MOM")
+    private WebElement createCouncilMOMlink;
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -766,6 +769,15 @@ public class DashboardPage extends BasePage {
         searchFor("Enter Attendance");
         waitForElementToBeClickable(enterAttendanceLink,driver);
         enterAttendanceLink.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void createCouncilMOM() {
+        waitForElementToBeClickable(searchTreeTextBox,driver);
+        searchTreeTextBox.clear();
+        searchFor("Create Council MOM");
+        waitForElementToBeClickable(createCouncilMOMlink, driver);
+        createCouncilMOMlink.click();
         switchToNewlyOpenedWindow(driver);
     }
 }

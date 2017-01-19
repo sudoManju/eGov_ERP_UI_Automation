@@ -71,6 +71,16 @@ public class CouncilManagementSteps extends BaseSteps implements En {
         });
         And("^he finalize attendance details and comes to home page$", () -> {
             pageStore.get(CouncilManagementPage.class).finalizeAttendance();
+
+        });
+        And("^he choose to create council MOM for the meeting number$", () -> {
+           String meetingNumber= scenarioContext.getMeetingNumber();
+           pageStore.get(CouncilManagementPage.class).searchMeetingNumber(meetingNumber);
+        });
+        And("^he enters details to create MOM as (\\w+)$", (String councilMOMData) -> {
+            CreatePreambleDetails councilMOMDetails=new ExcelReader(councilManagementTestDataFileName).getCouncilMOMDetails(councilMOMData);
+            pageStore.get(CouncilManagementPage.class).enterCouncilMOMDetails(councilMOMDetails);
+
         });
 
 

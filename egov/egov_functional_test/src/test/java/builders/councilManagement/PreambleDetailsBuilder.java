@@ -47,6 +47,16 @@ public class PreambleDetailsBuilder {
         return this;
     }
 
+    public PreambleDetailsBuilder withCouncilMOMResolution(String resolutionComment) {
+        createPreambleDetails.setCouncilMOMResolution(resolutionComment);
+        return this;
+    }
+
+    public PreambleDetailsBuilder withCouncilMOMAction(String actionTaken) {
+        createPreambleDetails.setCouncilMOMAction(actionTaken);
+        return this;
+    }
+
     public CreatePreambleDetails build() {
         return createPreambleDetails;
     }
