@@ -220,6 +220,18 @@ public class WaterChargeManagementPage extends BasePage {
     @FindBy(id = "reConnectionReason")
     private WebElement reConnectionReason;
 
+    @FindBy(id = "editDCB")
+    private WebElement addEditDCB;
+
+    @FindBy(id = "actualAmount")
+    private WebElement dcbActualAmount;
+
+    @FindBy(id = "actualCollection")
+    private WebElement dcbActualCollection;
+
+    @FindBy(id = "submitButtonId")
+    private WebElement dcbSubmit;
+
     public WaterChargeManagementPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -587,6 +599,41 @@ public class WaterChargeManagementPage extends BasePage {
         switchToNewlyOpenedWindow(webDriver);
         webDriver.close();
 
+        switchToPreviouslyOpenedWindow(webDriver);
+    }
+
+    public void closeWaterCollectionReceipt(){
+        switchToNewlyOpenedWindow(webDriver);
+        webDriver.close();
+    }
+
+    public void clickOnAddEditDCB(){
+        waitForElementToBeClickable(addEditDCB , webDriver);
+        addEditDCB.click();
+        switchToNewlyOpenedWindow(webDriver);
+    }
+
+    public void enterDetailsOfDCB(){
+
+        waitForElementToBeClickable(dcbActualAmount , webDriver);
+        enterText(dcbActualAmount , "100");
+
+        waitForElementToBeClickable(dcbActualCollection , webDriver);
+        enterText(dcbActualCollection , "100");
+
+        waitForElementToBeClickable(dcbSubmit , webDriver);
+        dcbSubmit.click();
+        switchToNewlyOpenedWindow(webDriver);
+    }
+
+    public void closesDCBPage(){
+        WebElement element = webDriver.findElement(By.xpath("html/body/div[1]/div/table/tbody/tr[1]/td/strong"));
+        waitForElementToBeVisible(element , webDriver);
+        String msg = element.getText();
+
+        WebElement element1 = webDriver.findElement(By.id("button2"));
+        waitForElementToBeClickable(element1 , webDriver);
+        element1.click();
         switchToPreviouslyOpenedWindow(webDriver);
     }
 }

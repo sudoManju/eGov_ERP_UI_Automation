@@ -49,7 +49,7 @@ public class CollectionSteps extends BaseSteps implements En {
             pageStore.get(CollectionsPage.class).enterChallanNumber(scenarioContext.getChallanNumber());
         });
 
-        And("^he chooses to collect water charge for \"([^\"]*)\"$", (String consumerNumber) -> {
+        And("^he chooses to collect water charge for (\\w+)$", (String consumerNumber) -> {
             pageStore.get(CollectionsPage.class).collectChargeFor(consumerNumber);
         });
         And("^he chooses to pay water charge$", () -> {

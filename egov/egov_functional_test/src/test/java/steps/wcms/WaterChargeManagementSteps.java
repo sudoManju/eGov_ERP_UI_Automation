@@ -260,5 +260,22 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             pageStore.get(WaterChargeManagementPage.class).toGenerateReConnectionAcknowledgement();
 
         });
+
+        And("^he closes the payment acknowledgement$", () -> {
+            pageStore.get(WaterChargeManagementPage.class).closeWaterCollectionReceipt();
+
+        });
+
+        And("^user will click on the add/edit dcb$", () -> {
+            pageStore.get(WaterChargeManagementPage.class).clickOnAddEditDCB();
+        });
+
+        And("^user will enter the details of DCB$", () -> {
+            pageStore.get(WaterChargeManagementPage.class).enterDetailsOfDCB();
+        });
+
+        And("^user will close the dcb form$", () -> {
+            pageStore.get(WaterChargeManagementPage.class).closesDCBPage();
+        });
     }
 }
