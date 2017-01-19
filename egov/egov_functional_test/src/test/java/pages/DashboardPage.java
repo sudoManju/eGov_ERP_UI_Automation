@@ -215,6 +215,9 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Deactivate Advertisement")
     private WebElement deactivateAdvertisementLink;
 
+    @FindBy(linkText = "Property Mutation Fee")
+    private WebElement propertyMutationFeeLink;
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -809,6 +812,16 @@ public class DashboardPage extends BasePage {
         waitForElementToBeClickable(deactivateAdvertisementLink, driver);
         deactivateAdvertisementLink.click();
         switchToNewlyOpenedWindow(driver);
+    }
+    public void chooseToPayMutationFee() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Property Mutation Fee");
+        waitForElementToBeClickable(propertyMutationFeeLink, driver);
+        propertyMutationFeeLink.click();
+        switchToNewlyOpenedWindow(driver);
+
+
+
     }
 }
 

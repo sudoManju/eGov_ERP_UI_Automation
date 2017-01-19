@@ -159,8 +159,28 @@ Feature: Create New Property
         And he searches for assessment with number "1016042569"
         And he chooses Registration already done button
         And he enters registration details for the property <registrationDetails>
+        And he enters enclosure details
 
 
+        And he forwards for approval to billCollector
+        Then edit property details get saved successfully
+        And current user logs out
+
+        When billCollector logs in
+        And chooses to act upon the above application
+        And he forwards for approval to revenueInspector
+        And current user closes acknowledgement
+        And current user logs out
+
+        When revenueInspector logs in
+        And chooses to act upon the above application
+        And he forwards for approval to revenueOfficer
+        And current user closes acknowledgement
+        And current user logs out
+
+        Given juniorAssistant logs in
+        When he chooses mutation fee
+        And he searches for the assessment with mutation assessment number
 
 
         Examples:

@@ -29,9 +29,13 @@ public class TransferSteps extends BaseSteps implements En {
             RegistrationDetails registrationDetails = new ExcelReader(ptisTestDataFileName).getRegistrationDetails(registrationDetailsDataId);
             pageStore.get(TransferDetailsPage.class).enterRegistrationDetails(registrationDetails);
         });
+        And("^he enters enclosure details$", () -> {
+           pageStore.get(TransferDetailsPage.class).enterEnclosureDetails();
+        });
+        And("^he searches for the assessment with mutation assessment number \"([^\"]*)\"$",() -> {
+            pageStore.get(TransferDetailsPage.class).searchAssessmentNumber(scenarioContext.getMutationAssessmentNumber());
 
-
-
+        });
 
 
     }

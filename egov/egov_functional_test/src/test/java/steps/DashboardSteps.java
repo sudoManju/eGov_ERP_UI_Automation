@@ -189,6 +189,9 @@ public class DashboardSteps extends BaseSteps implements En {
         When("^he choose to create council MOM$", () -> {
             pageStore.get(DashboardPage.class).createCouncilMOM();
         });
+        When("^he chooses mutation fee$", () -> {
+            pageStore.get(DashboardPage.class).chooseToPayMutationFee();
+        });
 
         And("^user search to apply for re-connection$", () -> {
             pageStore.get(DashboardPage.class).chooseReConnection();
