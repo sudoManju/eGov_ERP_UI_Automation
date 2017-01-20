@@ -11,10 +11,7 @@ import builders.financial.FinancialBankDetailsBuilder;
 import builders.financial.FinancialExpenseBillDetailsBuilder;
 import builders.financial.FinancialJournalVoucherDetailsBuilder;
 import builders.ptis.*;
-import builders.tradeLicense.LegencyDetailsBuilder;
-import builders.tradeLicense.TradeLocationDetailsBuilder;
-import builders.tradeLicense.TradeOwnerDetailsBuilder;
-import builders.tradeLicense.TradeDetailsBuilder;
+import builders.tradeLicense.*;
 import builders.wcms.EnclosedDocumentBuilder;
 import builders.wcms.FieldInspectionDetailsBuilder;
 import builders.works.*;
@@ -30,10 +27,7 @@ import entities.financial.FinancialBankDetails;
 import entities.financial.FinancialExpenseBillDetails;
 import entities.financial.FinancialJournalVoucherDetails;
 import entities.ptis.*;
-import entities.tradeLicense.LegencyDetails;
-import entities.tradeLicense.TradeDetails;
-import entities.tradeLicense.TradeLocationDetails;
-import entities.tradeLicense.TradeOwnerDetails;
+import entities.tradeLicense.*;
 import entities.wcms.EnclosedDocument;
 import entities.wcms.FieldInspectionDetails;
 import entities.works.*;
@@ -98,6 +92,7 @@ public class ExcelReader {
 
     Sheet createCouncilMOMSheet;
     Sheet registrationDetailsSheet;
+    Sheet licenseClosureSheet;
 
     public ExcelReader(String testData) {
         String excelFilePath = testData + ".xlsx";
@@ -159,6 +154,7 @@ public class ExcelReader {
         paymentMethodSheet = workbook.getSheet("paymentMethod");
         createCouncilMOMSheet = workbook.getSheet("createCouncilMOM");
         registrationDetailsSheet = workbook.getSheet("registrationDetails");
+        licenseClosureSheet = workbook.getSheet("licenseClosure");
     }
 
     private Row readDataRow(Sheet fromSheet, String dataId) {
@@ -1297,6 +1293,26 @@ public class ExcelReader {
                .withdePartmentGuidelinesValue(departmentGuidelinesValue)
                .build();
    }
+
+
+    public LicenseClosureDetails getDetailsForClosure(String closureData) {
+       Row dataRow = readDataRow(licenseClosureSheet,closureData);
+
+       Cell statusCell = getCellData(licenseClosureSheet, dataRow, "status");
+       statusCell.setCellType(Cell.CELL_TYPE_STRING);
+       String status=statusCell.getStringCellValue();
+
+       Cell tradeCategoryCell = getCellData(licenseClosureSheet, dataRow, "tradeCategory");
+       tradeCategoryCell.setCellType(Cell.CELL_TYPE_STRING);
+       String tradeCategory=tradeCategoryCell.getStringCellValue();
+
+       return new LicenseClosureDetailsBuilder()
+               .withStatusDetails(status)
+               .withTradeCategory(tradeCategory)
+               .build();
+
+
+    }
 
 
 }

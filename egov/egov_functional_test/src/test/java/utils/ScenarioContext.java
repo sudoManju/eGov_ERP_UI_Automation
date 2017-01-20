@@ -31,6 +31,8 @@ public class ScenarioContext {
     private String agendaNumber;
 
     private String meetingNumber;
+    
+    private String licenseNumber;
 
     public String getConsumerNumber() {
         return consumerNumber;
@@ -151,5 +153,13 @@ public class ScenarioContext {
     }
 
 
+    public void setLicenseNumber(String licenseNumber) {
+        this.licenseNumber = licenseNumber;
+    }
+
+
+    public String getLicenseNumber() {
+        return licenseNumber;
+    }
 }
 

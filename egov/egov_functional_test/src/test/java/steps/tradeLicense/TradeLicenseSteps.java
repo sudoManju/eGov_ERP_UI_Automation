@@ -2,10 +2,10 @@ package steps.tradeLicense;
 
 import cucumber.api.PendingException;
 import cucumber.api.java8.En;
-import entities.tradeLicense.LegencyDetails;
-import entities.tradeLicense.TradeDetails;
-import entities.tradeLicense.TradeLocationDetails;
-import entities.tradeLicense.TradeOwnerDetails;
+import cucumber.api.java8.Tr;
+import entities.ptis.ApprovalDetails;
+import entities.tradeLicense.*;
+import pages.ptis.PropertyDetailsPage;
 import pages.tradeLicense.TradeLicensePage;
 import steps.BaseSteps;
 import utils.ExcelReader;
@@ -59,6 +59,23 @@ public class TradeLicenseSteps extends BaseSteps implements En {
             // Write code here that turns the phrase above into concrete actions
             LegencyDetails legencyDetails = new ExcelReader(tradeLicenseTestDataFileName).getLegencyDetails(legencyDetailsData);
             pageStore.get(TradeLicensePage.class).enterlegencyDetails(legencyDetails);
+        });
+        And("^he choose a trade license for closure as (\\w+)$", (String ClosureData) -> {
+           LicenseClosureDetails closureDetails=new ExcelReader(tradeLicenseTestDataFileName).getDetailsForClosure(ClosureData);
+            pageStore.get(TradeLicensePage.class).enterDetailsForClosure(closureDetails);
+            String licenseNumber= pageStore.get(TradeLicensePage.class).getLicenseNumber();
+            scenarioContext.setLicenseNumber(licenseNumber);
+        });
+        And("^he closes the acknowledgement page$", () -> {
+            pageStore.get(TradeLicensePage.class).closeAcknowledgement();
+        });
+        And("^he approves the closure$", () -> {
+            pageStore.get(TradeLicensePage.class).closureApproval();
+        });
+        And("^he forwards for approver (.*)$", (String approvalDetailsDataId) -> {
+            ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approvalDetailsDataId);
+            pageStore.get(TradeLicensePage.class).enterApprovalDetails(approvalDetails);
+            pageStore.get(TradeLicensePage.class).forward();
         });
 
 

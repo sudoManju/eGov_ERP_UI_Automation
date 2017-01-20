@@ -64,5 +64,33 @@ Feature: Create Trade License
           |   ownerDetailsTradeLicense |       locationDetailsTradeLicense |        tradeDetailsTradeLicense |     legencyTrade    |
 
 
+   # Trade License Closure #
+
+
+    @WIP
+    Scenario Outline: Registered user choose for trade license closure
+    Given creator logs in
+    When he choose to do trade license closure
+    And he choose a trade license for closure as <closure>
+    And he forwards for approver sanitaryInspector
+    And he closes the acknowledgement page
+    And current user logs out
+
+    When sanitaryInspector logs in
+    And he choose to act upon the above licence number
+    And he forwards for approver commissioner
+    And he closes the acknowledgement
+    And current user logs out
+
+    When commissioner logs in
+    And he choose to act upon the above licence number
+    And he approves the closure
+    And he closes the acknowledgement
+    And current user logs out
+
+
+        Examples:
+        |closure          |
+        |licenceForClosure|
 
 

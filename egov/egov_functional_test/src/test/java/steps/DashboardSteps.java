@@ -112,7 +112,7 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).chooseToApplyForJournalVoucher();
         });
 
-        When("^user search for the collect water charges$", () -> {
+        When("^he chosses to collect water charges$", () -> {
             pageStore.get(DashboardPage.class).chooseTopayWaterCharge();
         });
 
@@ -199,6 +199,12 @@ public class DashboardSteps extends BaseSteps implements En {
 
         And("^he choose to deactivate the advertisement$", () -> {
             pageStore.get(DashboardPage.class).chooseToDeactivateAdv();
+        });
+        When("^he choose to do trade license closure$", () -> {
+            pageStore.get(DashboardPage.class).searchTradeLicense();
+        });
+        And("^he choose to act upon the above licence number$", () -> {
+            pageStore.get(DashboardPage.class).openApplication(scenarioContext.getLicenseNumber());
         });
     }
 }
