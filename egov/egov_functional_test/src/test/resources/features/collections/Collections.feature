@@ -67,14 +67,14 @@ Examples:
   |cheque       |
   |dd           |
 
-  @WIP
-    Scenario: System Should be able to collect water Charges
-
-      Given juniorAssistant logs in
-      When he chosses to collect water charges
-      And he chooses to collect water charge for "1016000989"
-#      And he chooses to pay water charge
-      And he pays using cheque with details as defaultChequeDetails
+#  @WIP
+#    Scenario: System Should be able to collect water Charges
+#
+#      Given juniorAssistant logs in
+#      When he chosses to collect water charges
+#      And he chooses to collect water charge for "1016000989"
+##      And he chooses to pay water charge
+#      And he pays using cheque with details as defaultChequeDetails
 
 
 

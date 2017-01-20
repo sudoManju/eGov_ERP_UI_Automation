@@ -41,8 +41,9 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
 
         And("^user will enter the consumer number$", () -> {
 
-            pageStore.get(WaterChargeManagementPage.class).enterConsumerNumber(scenarioContext.getConsumerNumber());
-            scenarioContext.setApplicationNumber(scenarioContext.getConsumerNumber());
+            pageStore.get(WaterChargeManagementPage.class).enterConsumerNumber("1016042158");
+//            pageStore.get(WaterChargeManagementPage.class).enterConsumerNumber(scenarioContext.getConsumerNumber());
+//            scenarioContext.setApplicationNumber(scenarioContext.getConsumerNumber());
         });
 
         And("^user will enter the details of the new additional water connection$", () -> {
@@ -262,7 +263,7 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
         });
 
         And("^he closes the payment acknowledgement$", () -> {
-            pageStore.get(WaterChargeManagementPage.class).closeWaterCollectionReceipt();
+            pageStore.get(WaterChargeManagementPage.class).closeReceipt();
 
         });
 
@@ -276,6 +277,33 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
 
         And("^user will close the dcb form$", () -> {
             pageStore.get(WaterChargeManagementPage.class).closesDCBPage();
+        });
+
+        And("^user will pay the water charges with mode as (\\w+)$", (String mode) -> {
+            // User will click on Collect Charges Button
+            pageStore.get(WaterChargeManagementPage.class).collectWaterCharges();
+
+            // User will pay the charges based on the mode
+            pageStore.get(WaterChargeManagementPage.class).paymentWithMode(mode);
+        });
+
+        Given("^user will visit the online payment link$", () -> {
+            pageStore.get(WaterChargeManagementPage.class).onlinePaymentLink();
+        });
+
+        And("^user will enter the consumer number and click on pay in online website$", () -> {
+            pageStore.get(WaterChargeManagementPage.class).enterOnlineConsumerNumber("1016042176");
+//            pageStore.get(WaterChargeManagementPage.class).enterOnlineConsumerNumber(scenarioContext.getConsumerNumber());
+
+            pageStore.get(WaterChargeManagementPage.class).clickOnOnlinePayButton();
+        });
+
+        And("^user will select the bank to pay the charges$", () -> {
+            pageStore.get(WaterChargeManagementPage.class).selectBankDetails();
+        });
+
+        And("^user will enter the card details$", () -> {
+            pageStore.get(WaterChargeManagementPage.class).enterCardDetails();
         });
     }
 }

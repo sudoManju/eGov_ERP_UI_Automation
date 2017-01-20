@@ -36,6 +36,7 @@ public class CollectionSteps extends BaseSteps implements En {
             ApprovalDetails approverDetails = new ExcelReader(collectionsTestDataFileName).getApprovalDetailsOfChallan(approverId);
             pageStore.get(CollectionsPage.class).enterApprovalDetails(approverDetails);
         });
+
         And("^he validate the challan$", () -> {
            pageStore.get(CollectionsPage.class).validateChallan();
 

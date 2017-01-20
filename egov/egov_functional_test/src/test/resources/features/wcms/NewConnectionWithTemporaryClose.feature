@@ -1,4 +1,6 @@
-Feature: To create a following connections
+Feature: To create a flow of water management connections and applying a temporary closure
+
+  This feature includes the creation of following connections
             1) New Connection
             2) Additional Connection
             3) Change Of Use Connection

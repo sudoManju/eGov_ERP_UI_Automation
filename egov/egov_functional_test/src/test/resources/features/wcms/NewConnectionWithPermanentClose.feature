@@ -1,4 +1,6 @@
-Feature: To create a following connections
+Feature: To create a flow of water management connections and applying a permanent closure
+
+  This feature includes the creation of following connections
             1) New Connection
             2) Additional Connection
             3) Change Of Use Connection
@@ -15,7 +17,7 @@ Feature: To create a following connections
     And current user logs out
 
   @Sanity
-  Scenario Outline: This Scenario Includes New Connection , Additional Connection , Change Of Use Connection ,
+  Scenario Outline: This Scenario Includon of New Connection , Additional Connection , Change Of Use Connection ,
                     Closing a Connection Permanently
 
     Given juniorAssistant logs in
