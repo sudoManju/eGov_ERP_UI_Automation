@@ -1,5 +1,6 @@
 package pages.collections;
 
+import com.gargoylesoftware.htmlunit.javascript.host.Window;
 import entities.collections.ChallanHeaderDetails;
 import entities.collections.ChequeDetails;
 import entities.ptis.ApprovalDetails;
@@ -122,6 +123,56 @@ public class CollectionsPage extends BasePage {
 
     @FindBy(xpath = ".//*[@id='buttonclose2']")
     private WebElement closeButton;
+
+    @FindBy(id = "assessmentNum")
+    private WebElement assessmentNumberField;
+
+    @FindBy(id = "assessmentform_search")
+    private WebElement assessmentFormSearchButton;
+
+    @FindBy(id = "taxEnsureCheckbox")
+    private WebElement onlinePageCheckBox;
+
+    @FindBy(id = "PayTax")
+    private WebElement payTaxButton;
+
+    @FindBy(id = "updatePaytax")
+    private WebElement updatePayTaxButton;
+    
+    @FindBy(css = ".btn.btn-xs.btn-secondary.collect-hoardingWiseFee")
+    private WebElement onlinePayButton;
+
+    @FindBy(className = "justbold")
+    private List<WebElement> totalOnlineAmount;
+
+    @FindBy(id = "paymentAmount")
+    private WebElement totalOnlineAmountToBePaid;
+
+    @FindBy(name = "radioButton1")
+    private WebElement axisBankRadio;
+
+    @FindBy(id = "checkbox")
+    private WebElement termsAndConditionsCheckBox;
+
+    @FindBy(xpath = "html/body/center/table[6]/tbody/tr[3]/td/table/tbody/tr/td[3]/a/img")
+    private WebElement masterCardImage;
+
+    @FindBy(id = "CardNumber")
+    private WebElement cardNumber;
+
+    @FindBy(id = "CardMonth")
+    private WebElement cardMonth;
+
+    @FindBy(id = "CardYear")
+    private WebElement cardYear;
+
+    @FindBy(id = "Securecode")
+    private WebElement cvvNumber;
+
+    @FindBy(id = "Paybutton")
+    private WebElement onlineCardPaymentButton;
+
+
 
     public CollectionsPage(WebDriver driver) {
         this.driver = driver;
@@ -326,5 +377,57 @@ public class CollectionsPage extends BasePage {
         closeButton.click();
 
         switchToPreviouslyOpenedWindow(driver);
+    }
+
+    public void propertyTaxOnlinePaymentLink() {
+        driver.navigate().to("http://kurnool-uat.egovernments.org/ptis/citizen/search/search-searchByAssessmentForm.action");
+    }
+
+
+    public void enerterAssessmentNumber(String assessmentNumber) {
+        waitForElementToBeClickable(assessmentNumberField,driver);
+        assessmentNumberField.sendKeys(assessmentNumber);
+        assessmentFormSearchButton.click();
+        onlinePageCheckBox.click();
+        payTaxButton.click();
+        updatePayTaxButton.click();
+
+    }
+
+    public void enterAmountAndPayOnline() {
+        waitForElementToBeVisible(totalOnlineAmount.get(1) , driver);
+        String amount = totalOnlineAmount.get(1).getText();
+
+        waitForElementToBeClickable(totalOnlineAmountToBePaid , driver);
+        totalOnlineAmountToBePaid.sendKeys(amount.split("\\.")[0]);
+
+        waitForElementToBeClickable(axisBankRadio , driver);
+        jsClick(axisBankRadio ,driver);
+
+        waitForElementToBeClickable(termsAndConditionsCheckBox , driver);
+        termsAndConditionsCheckBox.click();
+
+        waitForElementToBeClickable(payButton , driver);
+        payButton.click();
+
+        waitForElementToBeClickable(masterCardImage , driver);
+        masterCardImage.click();
+    }
+
+    public void enterCarddetailsAndPay() {
+        waitForElementToBeClickable(cardNumber , driver);
+        cardNumber.sendKeys("512345678912346");
+
+        waitForElementToBeClickable(cardMonth , driver);
+        cardMonth.sendKeys("04");
+
+        waitForElementToBeClickable(cardYear ,driver);
+        cardYear.sendKeys("17");
+
+        waitForElementToBeClickable(cvvNumber , driver);
+        cvvNumber.sendKeys("123");
+
+        waitForElementToBeClickable(onlineCardPaymentButton , driver);
+        onlineCardPaymentButton.click();
     }
 }

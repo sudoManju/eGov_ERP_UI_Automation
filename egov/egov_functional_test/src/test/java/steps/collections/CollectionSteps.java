@@ -68,6 +68,20 @@ public class CollectionSteps extends BaseSteps implements En {
         And("^he pay using (\\w+)$", (String paymentMethod) -> {
             pageStore.get(CollectionsPage.class).payAmount(paymentMethod);
         });
+        Given("^User will Visit Property Tax onlinepayent link$", () -> {
+            pageStore.get(CollectionsPage.class).propertyTaxOnlinePaymentLink();
+
+        });
+        And("^User will enter Assessment Number and click on search button$", () -> {
+            pageStore.get(CollectionsPage.class).enerterAssessmentNumber("1016094329");
+//            pageStore.get(CollectionsPage.class).enerterAssessmentNumber(scenarioContext.getAssessmentNumber());
+        });
+        And("^user will fill amount and select the AXIS Bank Payment Gateway and click on PayOnline$", () -> {
+            pageStore.get(CollectionsPage.class).enterAmountAndPayOnline();
+        });
+        And("^user will select the card, enter all the details and click on pay now button$", () -> {
+           pageStore.get(CollectionsPage.class).enterCarddetailsAndPay();
+        });
 
 
     }
