@@ -818,9 +818,15 @@ public class DashboardPage extends BasePage {
         waitForElementToBeClickable(propertyMutationFeeLink, driver);
         propertyMutationFeeLink.click();
         switchToNewlyOpenedWindow(driver);
+    }
 
-
-
+    public void choosesToSearchReceipt() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("search receipt");
+        WebElement searchReceiptLink = driver.findElement(By.linkText("Search Receipts"));
+        waitForElementToBeClickable(searchReceiptLink,driver);
+        searchReceiptLink.click();
+        switchToNewlyOpenedWindow(driver);
     }
 }
 

@@ -31,8 +31,7 @@ public class CollectionAcknowledgementPage extends BasePage {
     @FindBy(xpath = ".//*[@id='actionMessages']/ul/li")
     private WebElement creationMsg;
 
-    @FindBy(css = "input[value='Submit All Collections'][type='submit']")
-    private WebElement submitAllCollectionsButton;
+
 
     @FindBy(id ="input[value='Approve All Collections'][type='submit']")
     private WebElement approveCollectionButton;
@@ -45,11 +44,6 @@ public class CollectionAcknowledgementPage extends BasePage {
         return num;
     }
 
-    public void submitAllCollections() throws Exception {
-
-        waitForElementToBeVisible(submitAllCollectionsButton,driver);
-        submitAllCollectionsButton.click();
-    }
 
 
     public void test_Scroll_Page_To_Bottom() throws Exception {

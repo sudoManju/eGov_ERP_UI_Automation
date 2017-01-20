@@ -358,7 +358,9 @@ public class AdvertisementsPage extends BasePage {
 
     public void approve() {
         waitForElementToBeClickable(approveButton,driver);
-        approveButton.click();
+        WebElement element = driver.findElement(By.xpath("//*[@id='Approve']"));
+        JavascriptExecutor executor = (JavascriptExecutor)driver;
+        executor.executeScript("arguments[0].click();", element);
     }
 
     public String getAdvertisementNumber() {
