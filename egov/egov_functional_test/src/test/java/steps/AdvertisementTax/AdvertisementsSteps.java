@@ -141,6 +141,12 @@ public class AdvertisementsSteps extends BaseSteps implements En {
         });
         And("^he deactivates the advertisement with remarks and date$", () -> {
             pageStore.get(AdvertisementsPage.class).deactivatesAdvertisement();
+            String message =  pageStore.get(AdvertisementsPage.class).successMessageForDeactivation();
+            scenarioContext.setActualMessage(message);
+        });
+        And("^user closes the acknowledgement pages$", () -> {
+            String url ="http://kurnool-uat.egovernments.org/adtax/deactivate/search";
+            pageStore.get(AdvertisementsPage.class).closeMultipleWindowsForDeactivateadvertisement(url);
         });
 
     }

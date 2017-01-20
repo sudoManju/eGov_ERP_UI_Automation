@@ -83,10 +83,6 @@ Scenario: Create/Search/Collect Tax AdvertisementWise
 
 
 
-
-
-
-
   @WIP
   Scenario: Deactivate Advertisement
 
@@ -94,3 +90,6 @@ Scenario: Create/Search/Collect Tax AdvertisementWise
     And he choose to deactivate the advertisement
     And he search for advertisement for deactivate
     And he deactivates the advertisement with remarks and date
+    Then user will be notified by "Deactivated"
+    And user closes the acknowledgement pages
+    And current user logs out

@@ -77,6 +77,9 @@ public class AdvertisementsPage extends BasePage {
     @FindBy(xpath = ".//*[@id='advertisementSuccessform']/div/div/div")
     private WebElement creationMsg;
 
+    @FindBy(xpath = ".//*[@id='statusinactivesuccess']/div/div/div")
+    private WebElement creationMsgForDeactivation;
+
     @FindBy(linkText = "Close")
      private WebElement closeLink;
 
@@ -184,6 +187,9 @@ public class AdvertisementsPage extends BasePage {
 
     @FindBy(id = "deactivation")
      private WebElement deactivateSubmitButton;
+
+    @FindBy(xpath = ".//*[@id='statusinactivesuccess']/div/div[2]/div/button")
+     private WebElement closeButtonOfDeactivateSuccessPage;
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     String date = sdf.format(new Date());
@@ -540,5 +546,24 @@ public class AdvertisementsPage extends BasePage {
         waitForElementToBeClickable(deactivateSubmitButton, driver);
         deactivateSubmitButton.click();
         switchToNewlyOpenedWindow(driver);
+    }
+
+    public String successMessageForDeactivation(){
+        String message = creationMsgForDeactivation.getText();
+        System.out.println("\n"+message);
+        return message;
+    }
+
+    public void closeMultipleWindowsForDeactivateadvertisement(String url) {
+        waitForElementToBeClickable(closeButtonOfDeactivateSuccessPage,driver);
+        closeButtonOfDeactivateSuccessPage.click();
+
+        for (String winHandle : driver.getWindowHandles()) {
+            if(driver.switchTo().window(winHandle).getCurrentUrl().equals(url)){
+                break;
+            }
+        }
+
+        close();
     }
 }
