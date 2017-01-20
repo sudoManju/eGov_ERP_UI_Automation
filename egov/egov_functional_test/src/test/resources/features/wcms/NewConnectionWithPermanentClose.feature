@@ -6,7 +6,19 @@ Feature: To create a flow of water management connections and applying a permane
             3) Change Of Use Connection
             4) Closing a Connection Permanently
 
-  Background:It will run the data entry screen of property tax
+  Background:It will run the data entry screen of property tax as wee as logo uploading
+
+    #######################################################
+            # Egovernments logo uploading #
+    #######################################################
+    Given admin logs in
+    And user will search for city setup
+    And user will select the municipality info to upload the image
+    And current user logs out
+
+    #########################################################################
+          # It will run the data entry screen of property tax #
+    #########################################################################
 
     Given commissioner logs in
     When he chooses to create data entry

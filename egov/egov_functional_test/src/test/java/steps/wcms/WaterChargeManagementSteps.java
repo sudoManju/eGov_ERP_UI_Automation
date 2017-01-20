@@ -312,5 +312,6 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
         And("^user will click on the generate receipt$", () -> {
             pageStore.get(WaterChargeManagementPage.class).onlineGenerateReceipt();
         });
+
     }
 }

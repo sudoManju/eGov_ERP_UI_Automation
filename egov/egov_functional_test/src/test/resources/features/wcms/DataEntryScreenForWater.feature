@@ -1,4 +1,4 @@
-Feature: To create a data entry screen for the water charge management services
+Feature: To create a data entry screen for the water charge management services as well as logo uploading
 
   As a registered user of the system
   I want to create a data entry screen

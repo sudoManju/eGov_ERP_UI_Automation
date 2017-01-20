@@ -1,6 +1,18 @@
 Feature: To collect water charges in different mode payments
 
-  Background:It will run the data entry screen of property tax
+  Background:It will run the data entry screen of property tax as wee as logo uploading
+
+    #######################################################
+            # Egovernments logo uploading #
+    #######################################################
+    Given admin logs in
+    And user will search for city setup
+    And user will select the municipality info to upload the image
+    And current user logs out
+
+    #########################################################################
+          # It will run the data entry screen of property tax #
+    #########################################################################
 
     Given commissioner logs in
     When he chooses to create data entry
@@ -57,7 +69,6 @@ Feature: To collect water charges in different mode payments
     And user search for the collect water charges
     And user will enter the consumer number
     And user will pay the water charges with mode as <paymentMode>
-#    And he pays using cheque with details as defaultChequeDetails
     And he closes the payment acknowledgement
     And current user logs out
 

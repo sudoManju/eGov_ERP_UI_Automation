@@ -200,11 +200,25 @@ public class DashboardSteps extends BaseSteps implements En {
         And("^he choose to deactivate the advertisement$", () -> {
             pageStore.get(DashboardPage.class).chooseToDeactivateAdv();
         });
+
         When("^he choose to do trade license closure$", () -> {
             pageStore.get(DashboardPage.class).searchTradeLicense();
         });
+
         And("^he choose to act upon the above licence number$", () -> {
             pageStore.get(DashboardPage.class).openApplication(scenarioContext.getLicenseNumber());
+        });
+
+        And("^user search for the collect water charges$", () -> {
+            pageStore.get(DashboardPage.class).chooseToCollectWaterCharges();
+        });
+
+        And("^user will search for city setup$", () -> {
+            pageStore.get(DashboardPage.class).chooseToCitySetup();
+        });
+
+        And("^user will select the municipality info to upload the image$", () -> {
+            pageStore.get(DashboardPage.class).selectMunicipalityInfo();
         });
     }
 }

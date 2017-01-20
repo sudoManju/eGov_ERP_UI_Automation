@@ -48,8 +48,6 @@ public class DashboardPage extends BasePage {
     @FindBy(id = "official_inbox")
     private WebElement officialInboxTable;
 
-
-
     @FindBy(id = "official_inbox_wrapper")
     private WebElement inboxTable;
 
@@ -219,6 +217,23 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Property Mutation Fee")
     private WebElement propertyMutationFeeLink;
 
+    @FindBy(linkText = "Collect Charges")
+    private WebElement collectWaterCharges;
+
+    @FindBy(linkText = "City Setup")
+    private WebElement citySetup;
+
+    @FindBy(xpath = ".//*[@id='settingstab']/li[2]/a")
+    private WebElement municipalityInfo;
+
+    @FindBy(id = "logo")
+    private WebElement logoBrowse;
+
+    @FindBy(id = "submitform")
+    private WebElement logoSubmitForm;
+
+    @FindBy(xpath = ".//*[@id='cityForm']/div[2]/div/button[3]")
+    private WebElement closeButton;
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -402,32 +417,6 @@ public class DashboardPage extends BasePage {
         searchApplication.click();
         switchToNewlyOpenedWindow(driver);
     }
-
-//    public void openSearchApplication(String applicationNumber) {
-//        appRow1 = getSearchApplicationRowFor(applicationNumber);
-//        waitForElementToBeVisible(appRow1 , driver);
-//        jsClick(appRow1 , driver);
-////        JavascriptExecutor executor = (JavascriptExecutor)driver;
-////        executor.executeScript("arguments[0].click();", appRow1);
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    private WebElement getSearchApplicationRowFor(String applicationNumber) {
-//
-//        waitForElementToBeVisible(driver.findElement(By.id("searchResultDiv")), driver);
-//        waitForElementToBeVisible(applicationSearchTable, driver);
-//
-////        await().atMost(20, SECONDS).until(() -> applicationSearchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
-//        List<WebElement> applicationRows = applicationSearchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-//        System.out.println("total number of rows -- " + applicationRows.size());
-//
-//        for (WebElement applicationRow1 : applicationRows) {
-//            if (applicationRow1.findElements(By.tagName("td")).get(1).getText().contains(applicationNumber))
-//                return applicationRow1;
-//        }
-//
-//        throw new RuntimeException("No application row found for -- " + applicationNumber);
-//    }
 
     public void openDrafts(){
         waitForElementToBeVisible(draftsLink, driver);
@@ -824,9 +813,42 @@ public class DashboardPage extends BasePage {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("search receipt");
         WebElement searchReceiptLink = driver.findElement(By.linkText("Search Receipts"));
-        waitForElementToBeClickable(searchReceiptLink,driver);
+        waitForElementToBeClickable(searchReceiptLink, driver);
         searchReceiptLink.click();
         switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseToCollectWaterCharges(){
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Collect Charges");
+        waitForElementToBeClickable(collectWaterCharges, driver);
+        collectWaterCharges.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseToCitySetup(){
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("City Setup");
+        waitForElementToBeClickable(citySetup, driver);
+        citySetup.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void selectMunicipalityInfo(){
+
+        waitForElementToBeClickable(municipalityInfo , driver);
+        municipalityInfo.click();
+
+        waitForElementToBeVisible(logoBrowse , driver);
+        logoBrowse.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
+
+        waitForElementToBeClickable(logoSubmitForm , driver);
+        logoSubmitForm.click();
+
+        driver.switchTo().activeElement();
+        waitForElementToBeClickable(closeButton , driver);
+        closeButton.click();
+        switchToPreviouslyOpenedWindow(driver);
     }
 }
 

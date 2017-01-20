@@ -254,6 +254,9 @@ public class WaterChargeManagementPage extends BasePage {
     @FindBy(name = "consumerCode")
     private WebElement onlineConsumerCode;
 
+    @FindBy(id = "cashradiobutton")
+    private WebElement cashRadio;
+
     @FindBy(id = "searchapprvedapplication")
     private WebElement onlineSearchApplication;
 
@@ -456,6 +459,8 @@ public class WaterChargeManagementPage extends BasePage {
     }
 
     public void toReceiveAmount(){
+        waitForElementToBeClickable(cashRadio , webDriver);
+        jsClick(cashRadio ,webDriver);
         waitForElementToBeClickable(totalAmount , webDriver);
         waitForElementToBeClickable(amountToBePaidTextBox , webDriver);
         String amount = totalAmount.getAttribute("value");
@@ -730,6 +735,8 @@ public class WaterChargeManagementPage extends BasePage {
 
             case "cash" :
 
+                waitForElementToBeClickable(cashRadio , webDriver);
+                jsClick(cashRadio ,webDriver);
                 waitForElementToBeClickable(amountToBePaidTextBox,webDriver);
                 amountToBePaidTextBox.sendKeys(actualAmount);
 
