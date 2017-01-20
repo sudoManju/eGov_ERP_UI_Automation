@@ -155,10 +155,10 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).chooseForSearchApplication();
 
             // User will filter the application based upon the connection details
-            pageStore.get(WaterChargeManagementPage.class).searchWaterConnectionApplications(connectionDetails);
+            pageStore.get(WaterChargeManagementPage.class).searchWaterConnectionApplications(connectionDetails ,scenarioContext.getApplicationNumber() );
 
             // User chooses to act upon the above application in search applications
-            pageStore.get(DashboardPage.class).openSearchApplication(scenarioContext.getApplicationNumber());
+            pageStore.get(WaterChargeManagementPage.class).openSearchApplication(scenarioContext.getApplicationNumber());
 
             // User will click on collect charges and collect the money form the customer & closes it
             pageStore.get(WaterChargeManagementPage.class).clickOnCollectCharges();

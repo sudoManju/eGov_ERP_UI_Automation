@@ -5,6 +5,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +48,7 @@ public class DashboardPage extends BasePage {
     @FindBy(id = "official_inbox")
     private WebElement officialInboxTable;
 
-    @FindBy(id = "aplicationSearchResults")
-    private WebElement applicationSearchTable;
+
 
     @FindBy(id = "official_inbox_wrapper")
     private WebElement inboxTable;
@@ -217,6 +218,7 @@ public class DashboardPage extends BasePage {
 
     @FindBy(linkText = "Property Mutation Fee")
     private WebElement propertyMutationFeeLink;
+
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -401,35 +403,31 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-    public void openSearchApplication(String applicationNumber) {
-        appRow1 = getSearchApplicationRowFor(applicationNumber);
-        waitForElementToBeClickable(appRow1 , driver);
-        JavascriptExecutor executor = (JavascriptExecutor)driver;
-        executor.executeScript("arguments[0].click();", appRow1);
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void openSearchApplication(String applicationNumber) {
+//        appRow1 = getSearchApplicationRowFor(applicationNumber);
+//        waitForElementToBeVisible(appRow1 , driver);
+//        jsClick(appRow1 , driver);
+////        JavascriptExecutor executor = (JavascriptExecutor)driver;
+////        executor.executeScript("arguments[0].click();", appRow1);
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
-    private WebElement getSearchApplicationRowFor(String applicationNumber) {
-        waitForElementToBeVisible(driver.findElement(By.id("searchResultDiv")), driver);
-        waitForElementToBeVisible(applicationSearchTable, driver);
-
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        await().atMost(20, SECONDS).until(() -> applicationSearchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
-        List<WebElement> applicationRows = applicationSearchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
+//    private WebElement getSearchApplicationRowFor(String applicationNumber) {
+//
+//        waitForElementToBeVisible(driver.findElement(By.id("searchResultDiv")), driver);
+//        waitForElementToBeVisible(applicationSearchTable, driver);
+//
+////        await().atMost(20, SECONDS).until(() -> applicationSearchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
+//        List<WebElement> applicationRows = applicationSearchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
 //        System.out.println("total number of rows -- " + applicationRows.size());
-
-        for (WebElement applicationRow1 : applicationRows) {
-            if (applicationRow1.findElements(By.tagName("td")).get(1).getText().contains(applicationNumber))
-                return applicationRow1;
-        }
-
-        throw new RuntimeException("No application row found for -- " + applicationNumber);
-    }
+//
+//        for (WebElement applicationRow1 : applicationRows) {
+//            if (applicationRow1.findElements(By.tagName("td")).get(1).getText().contains(applicationNumber))
+//                return applicationRow1;
+//        }
+//
+//        throw new RuntimeException("No application row found for -- " + applicationNumber);
+//    }
 
     public void openDrafts(){
         waitForElementToBeVisible(draftsLink, driver);
@@ -804,6 +802,7 @@ public class DashboardPage extends BasePage {
         searchFor("Apply for Re-Connection");
         waitForElementToBeClickable(applyForReConnection, driver);
         applyForReConnection.click();
+        switchToNewlyOpenedWindow(driver);
     }
 
     public void chooseToDeactivateAdv() {

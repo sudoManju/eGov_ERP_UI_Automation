@@ -177,7 +177,6 @@ Feature: To create a flow of water management connections and applying a permane
     And user will choose the above closure application and click on generate acknowledgement
     And current user logs out
 
-
     Examples:
       | connectionDetails |connectionDetails1   |connectionDetails2| inspectionDetails | approvalOfficer1 | approvalOfficer2        | approvalOfficer3 |approvalOfficer4        | approvalOfficer5 | closureType1|
       | New_connection    |Additional_connection|Change_of_use     | inspectionInfo    | engineer         | deputyExecutiveEngineer | commissioner1    |deputyExecutiveEngineer | commissioner1    | Permanent   |

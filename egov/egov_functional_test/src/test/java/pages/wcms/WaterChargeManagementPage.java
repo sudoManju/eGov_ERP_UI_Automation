@@ -206,6 +206,9 @@ public class WaterChargeManagementPage extends BasePage {
     @FindBy(id = "applicationNumber")
     private WebElement additionalApplicationNumber;
 
+    @FindBy(name = "applicationNumber")
+    private WebElement applicationSearchBox;
+
     @FindBy(linkText = "Close")
     private WebElement additionalCloseButton;
 
@@ -292,6 +295,14 @@ public class WaterChargeManagementPage extends BasePage {
 
     @FindBy(id = "btnGenerateReceipt")
     private WebElement onlineGenerateReceipt;
+
+    @FindBy(id = "consumerCode")
+    private WebElement reConnectionConsumerCode;
+
+    @FindBy(id = "aplicationSearchResults")
+    private WebElement applicationSearchTable;
+
+    private WebElement appRow1;
 
     public WaterChargeManagementPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -421,11 +432,14 @@ public class WaterChargeManagementPage extends BasePage {
         switchToPreviouslyOpenedWindow(webDriver);
     }
 
-    public void searchWaterConnectionApplications(String connectionType){
+    public void searchWaterConnectionApplications(String connectionType , String applicationNumber){
         waitForElementToBeClickable(searchApplicationService , webDriver);
         new Select(searchApplicationService).selectByVisibleText("Water Tax");
         waitForElementToBeClickable(searchApplicationType , webDriver);
         new Select(searchApplicationType).selectByVisibleText(connectionType.replaceAll("_"," "));
+
+        waitForElementToBeClickable(applicationSearchBox , webDriver);
+        applicationSearchBox.sendKeys(applicationNumber);
 
         waitForElementToBeClickable(searchApplicationDate , webDriver);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -525,7 +539,8 @@ public class WaterChargeManagementPage extends BasePage {
         waitForElementToBeClickable(sanctionNumber , webDriver);
         sanctionNumber.sendKeys("12345");
         waitForElementToBeClickable(commissionerApprove , webDriver);
-        commissionerApprove.click();
+        jsClick(commissionerApprove ,webDriver);
+//        commissionerApprove.click();
 
         switchToNewlyOpenedWindow(webDriver);
         closePage();
@@ -542,7 +557,8 @@ public class WaterChargeManagementPage extends BasePage {
     public void generateWorkOrder(){
 
         waitForElementToBeClickable(generateWorkOrder , webDriver);
-        generateWorkOrder.click();
+        jsClick(generateWorkOrder , webDriver);
+//        generateWorkOrder.click();
 
         switchToNewlyOpenedWindow(webDriver);
         webDriver.close();
@@ -627,7 +643,8 @@ public class WaterChargeManagementPage extends BasePage {
         waitForElementToBeClickable(additionalApplicationNumber, webDriver);
         String number = additionalApplicationNumber.getText();
         waitForElementToBeClickable(additionalCloseButton, webDriver);
-        additionalCloseButton.click();
+        jsClick(additionalCloseButton, webDriver);
+//        additionalCloseButton.click();
 
         switchToPreviouslyOpenedWindow(webDriver);
 
@@ -849,5 +866,29 @@ public class WaterChargeManagementPage extends BasePage {
         closeReceiptButton.click();
 
         switchToPreviouslyOpenedWindow(webDriver);
+    }
+
+    public void openSearchApplication(String applicationNumber) {
+        appRow1 = getSearchApplicationRowFor(applicationNumber);
+        waitForElementToBeClickable(appRow1 , webDriver);
+        jsClick(appRow1 , webDriver);
+        switchToNewlyOpenedWindow(webDriver);
+    }
+
+    private WebElement getSearchApplicationRowFor(String applicationNumber) {
+
+//        waitForElementToBeVisible(webDriver.findElement(By.id("searchResultDiv")), webDriver);
+//        waitForElementToBeVisible(applicationSearchTable, webDriver);
+
+//        await().atMost(20, SECONDS).until(() -> applicationSearchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
+        List<WebElement> applicationRows = applicationSearchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
+//        System.out.println("total number of rows -- " + applicationRows.size());
+
+        for (WebElement applicationRow1 : applicationRows) {
+            if (applicationRow1.findElements(By.tagName("td")).get(1).getText().contains(applicationNumber))
+                return applicationRow1;
+        }
+
+        throw new RuntimeException("No application row found for -- " + applicationNumber);
     }
 }
