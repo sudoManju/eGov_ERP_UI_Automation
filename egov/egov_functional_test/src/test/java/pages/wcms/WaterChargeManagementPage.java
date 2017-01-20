@@ -287,6 +287,12 @@ public class WaterChargeManagementPage extends BasePage {
     @FindBy(id = "Paybutton")
     private WebElement onlineCardPaymentButton;
 
+    @FindBy(id = "paymentInfo")
+    private WebElement onlinePaymentSuccessMessage;
+
+    @FindBy(id = "btnGenerateReceipt")
+    private WebElement onlineGenerateReceipt;
+
     public WaterChargeManagementPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -429,14 +435,10 @@ public class WaterChargeManagementPage extends BasePage {
         searchApplicationButton.click();
     }
 
-    public String clickOnCollectCharges(){
-        WebElement applicationNumber = webDriver.findElement(By.xpath(".//*[@id='page-container']/div[1]/div[2]/div[2]/div[4]"));
-        waitForElementToBeVisible(applicationNumber , webDriver);
-        String number = applicationNumber.getText();
+    public void clickOnCollectCharges(){
         waitForElementToBeClickable(collectFeesButton, webDriver);
         collectFeesButton.click();
         switchToNewlyOpenedWindow(webDriver);
-        return number;
     }
 
     public void toReceiveAmount(){
@@ -547,13 +549,18 @@ public class WaterChargeManagementPage extends BasePage {
         switchToPreviouslyOpenedWindow(webDriver);
     }
 
-    public void executeTap(){
+    public String executeTap(){
+
+        WebElement applicationNumber = webDriver.findElement(By.xpath(".//*[@id='page-container']/div[1]/div[2]/div[2]/div[4]"));
+        waitForElementToBeVisible(applicationNumber , webDriver);
+        String number = applicationNumber.getText();
 
         waitForElementToBeClickable(executeTap , webDriver);
         executeTap.click();
 
         switchToNewlyOpenedWindow(webDriver);
         closePage();
+        return number;
     }
 
     public void commissionerClosureApprove(){
@@ -805,10 +812,10 @@ public class WaterChargeManagementPage extends BasePage {
     public void enterCardDetails(){
 
         waitForElementToBeClickable(cardNumber , webDriver);
-        cardNumber.sendKeys("512345678912346");
+        cardNumber.sendKeys("5123456789012346");
 
         waitForElementToBeClickable(cardMonth , webDriver);
-        cardMonth.sendKeys("04");
+        cardMonth.sendKeys("05");
 
         waitForElementToBeClickable(cardYear ,webDriver);
         cardYear.sendKeys("17");
@@ -818,5 +825,29 @@ public class WaterChargeManagementPage extends BasePage {
 
         waitForElementToBeClickable(onlineCardPaymentButton , webDriver);
         onlineCardPaymentButton.click();
+    }
+
+    public String onlinePaymentSuccess(){
+
+        waitForElementToBeVisible(onlinePaymentSuccessMessage , webDriver);
+        String msg = onlinePaymentSuccessMessage.getText();
+        return msg;
+    }
+
+    public void onlineGenerateReceipt(){
+        waitForElementToBeClickable(onlineGenerateReceipt , webDriver);
+        onlineGenerateReceipt.click();
+
+        waitForElementToBeClickable(closeReceiptButton , webDriver);
+        if(closeReceiptButton.isDisplayed()){
+            webDriver.close();
+        }
+    }
+
+    public void closeCollectChargesReceipt(){
+        waitForElementToBeClickable(closeReceiptButton , webDriver);
+        closeReceiptButton.click();
+
+        switchToPreviouslyOpenedWindow(webDriver);
     }
 }

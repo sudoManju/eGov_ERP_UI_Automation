@@ -40,10 +40,8 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
         });
 
         And("^user will enter the consumer number$", () -> {
-
-            pageStore.get(WaterChargeManagementPage.class).enterConsumerNumber("1016042158");
-//            pageStore.get(WaterChargeManagementPage.class).enterConsumerNumber(scenarioContext.getConsumerNumber());
-//            scenarioContext.setApplicationNumber(scenarioContext.getConsumerNumber());
+            pageStore.get(WaterChargeManagementPage.class).enterConsumerNumber(scenarioContext.getConsumerNumber());
+            scenarioContext.setApplicationNumber(scenarioContext.getConsumerNumber());
         });
 
         And("^user will enter the details of the new additional water connection$", () -> {
@@ -163,10 +161,9 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).openSearchApplication(scenarioContext.getApplicationNumber());
 
             // User will click on collect charges and collect the money form the customer & closes it
-            String consumerNumber = pageStore.get(WaterChargeManagementPage.class).clickOnCollectCharges();
+            pageStore.get(WaterChargeManagementPage.class).clickOnCollectCharges();
             pageStore.get(WaterChargeManagementPage.class).toReceiveAmount();
             pageStore.get(WaterChargeManagementPage.class).closeReceipt();
-            scenarioContext.setConsumerNumber(consumerNumber);
 
             // User closes the search application page
             pageStore.get(WaterChargeManagementPage.class).closeSearchApplicationPage();
@@ -215,7 +212,8 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
 
             // User will perform the execution of tap
-            pageStore.get(WaterChargeManagementPage.class).executeTap();
+            String number = pageStore.get(WaterChargeManagementPage.class).executeTap();
+            scenarioContext.setConsumerNumber(number);
 
         });
 
@@ -263,8 +261,7 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
         });
 
         And("^he closes the payment acknowledgement$", () -> {
-            pageStore.get(WaterChargeManagementPage.class).closeReceipt();
-
+            pageStore.get(WaterChargeManagementPage.class).closeCollectChargesReceipt();
         });
 
         And("^user will click on the add/edit dcb$", () -> {
@@ -292,8 +289,9 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
         });
 
         And("^user will enter the consumer number and click on pay in online website$", () -> {
-            pageStore.get(WaterChargeManagementPage.class).enterOnlineConsumerNumber("1016042176");
-//            pageStore.get(WaterChargeManagementPage.class).enterOnlineConsumerNumber(scenarioContext.getConsumerNumber());
+//            pageStore.get(WaterChargeManagementPage.class).enterOnlineConsumerNumber("1016042176");
+            pageStore.get(WaterChargeManagementPage.class).enterOnlineConsumerNumber(scenarioContext.getConsumerNumber());
+
 
             pageStore.get(WaterChargeManagementPage.class).clickOnOnlinePayButton();
         });
@@ -304,6 +302,15 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
 
         And("^user will enter the card details$", () -> {
             pageStore.get(WaterChargeManagementPage.class).enterCardDetails();
+        });
+
+        And("^user will get the successful acknowledgement form$", () -> {
+            String msg = pageStore.get(WaterChargeManagementPage.class).onlinePaymentSuccess();
+            scenarioContext.setActualMessage(msg);
+        });
+
+        And("^user will click on the generate receipt$", () -> {
+            pageStore.get(WaterChargeManagementPage.class).onlineGenerateReceipt();
         });
     }
 }

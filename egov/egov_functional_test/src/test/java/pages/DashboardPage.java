@@ -419,7 +419,7 @@ public class DashboardPage extends BasePage {
             e.printStackTrace();
         }
 
-        await().atMost(10, SECONDS).until(() -> applicationSearchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
+        await().atMost(20, SECONDS).until(() -> applicationSearchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
         List<WebElement> applicationRows = applicationSearchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
 //        System.out.println("total number of rows -- " + applicationRows.size());
 
