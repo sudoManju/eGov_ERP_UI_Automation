@@ -375,16 +375,11 @@ public class AdvertisementsPage extends BasePage {
       waitForElementToBeVisible(hoardingNumberTextBox,driver);
       hoardingNumberTextBox.sendKeys(number);
 
-      waitForElementToBeClickable(deactivateSubmitButton,driver);
-      deactivateSubmitButton.click();
-
-        try {
-            Thread.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+     waitForElementToBeClickable(submitButton,driver);
+     submitButton.click();
 
        WebElement dropDownBox = driver.findElement(By.id("adtaxdropdown"));
+       waitForElementToBeVisible(dropDownBox,driver);
        new Select(dropDownBox).selectByVisibleText("View");
 
        switchToNewlyOpenedWindow(driver);
@@ -518,7 +513,9 @@ public class AdvertisementsPage extends BasePage {
         switchToPreviouslyOpenedWindow(driver);
     }
 
-    public void searchAdvertisementForDeactivate() {
+    public void searchAdvertisementForDeactivate(String number) {
+        waitForElementToBeVisible(hoardingNumberTextBox,driver);
+        hoardingNumberTextBox.sendKeys(number);
         waitForElementToBeClickable(submitButtonForDeactive, driver);
         submitButtonForDeactive.click();
         waitForElementToBeClickable(deactivateButton, driver);
@@ -542,7 +539,7 @@ public class AdvertisementsPage extends BasePage {
         waitForElementToBeClickable(deactivationRemarks, driver);
         deactivationRemarks.sendKeys("Deactivate the Advertisement");
         waitForElementToBeClickable(deactiveDate, driver);
-        deactiveDate.sendKeys("19/01/2017");
+        deactiveDate.sendKeys(date);
         waitForElementToBeClickable(deactivateSubmitButton, driver);
         deactivateSubmitButton.click();
         switchToNewlyOpenedWindow(driver);

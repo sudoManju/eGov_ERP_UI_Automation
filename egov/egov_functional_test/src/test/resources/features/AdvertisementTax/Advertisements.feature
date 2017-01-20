@@ -3,7 +3,7 @@ Feature: Create/search Advertisement
   I am able to create/search Advertisements
 
 
-@Sanity
+@WIP
 
 Scenario: Create/Search/Collect Tax Agency wise
 
@@ -47,7 +47,7 @@ Scenario: Create/Search/Collect Tax Agency wise
 
 
 
-@Sanity
+@WIP
 
 Scenario: Create/Search/Collect Tax AdvertisementWise
 
@@ -80,16 +80,10 @@ Scenario: Create/Search/Collect Tax AdvertisementWise
   And he choose advertisement for collecting advertisement tax
   And current user logs out
 
-
-
-
-  @WIP
-  Scenario: Deactivate Advertisement
-
-    Given admin logs in
-    And he choose to deactivate the advertisement
-    And he search for advertisement for deactivate
-    And he deactivates the advertisement with remarks and date
-    Then user will be notified by "Deactivated"
-    And user closes the acknowledgement pages
-    And current user logs out
+  And admin logs in
+  And he choose to deactivate the advertisement
+  And he search for advertisement for deactivate
+  And he deactivates the advertisement with remarks and date
+  Then user will be notified by "Deactivated"
+  And user closes the acknowledgement pages
+  And current user logs out

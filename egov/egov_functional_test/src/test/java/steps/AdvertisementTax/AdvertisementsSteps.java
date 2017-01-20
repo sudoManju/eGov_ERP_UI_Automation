@@ -137,7 +137,7 @@ public class AdvertisementsSteps extends BaseSteps implements En {
         });
 
         And("^he search for advertisement for deactivate$", () -> {
-            pageStore.get(AdvertisementsPage.class).searchAdvertisementForDeactivate();
+            pageStore.get(AdvertisementsPage.class).searchAdvertisementForDeactivate(scenarioContext.getApplicationNumber());
         });
         And("^he deactivates the advertisement with remarks and date$", () -> {
             pageStore.get(AdvertisementsPage.class).deactivatesAdvertisement();
