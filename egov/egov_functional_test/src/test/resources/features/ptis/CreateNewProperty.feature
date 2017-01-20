@@ -138,7 +138,9 @@ Feature: Create New Property
         |  assessmentAdditionProperty    |        all           |  firstFloorAdditionaltaration|
 
 
-      @WIP
+      # TRANSFER OF OWNERSHIP SCREEN #
+
+      @Sanity
       Scenario Outline: Register Choose to do title Transfer
 
         Given commissioner logs in
@@ -181,7 +183,30 @@ Feature: Create New Property
         Given juniorAssistant logs in
         When he chooses mutation fee
         And he searches for the assessment with mutation assessment number
+        And he pay tax using Cash
+        And current user logs out
 
+        When revenueOfficer logs in
+        And chooses to act upon the above application
+        And he forwards for approval to commissioner
+        And current user closes acknowledgement
+        And current user logs out
+
+        When commissioner logs in
+        And chooses to act upon the above application
+        And he approved the property with remarks "property approved"
+        And current user closes acknowledgement
+
+        And chooses to act upon the above assessment
+        And he does a digital signature
+
+        When commissioner closes acknowledgement
+        And current user logs out
+
+        And juniorAssistant logs in
+        And chooses to act upon the above assessment
+        And he generate title transfer notice
+        And current user logs out
 
         Examples:
 

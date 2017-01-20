@@ -17,6 +17,7 @@ public class TransferDetailsPage extends BasePage {
     private WebDriver webdriver;
 
     public TransferDetailsPage (WebDriver webdriver) {
+
         this.webdriver = webdriver;
     }
 
@@ -80,13 +81,16 @@ public class TransferDetailsPage extends BasePage {
     @FindBy (className = "buttonsubmit")
     private WebElement payFeeButton;
 
+    @FindBy (id = "Generate Title Transfer Notice")
+    private WebElement titleTransferNoticeTextBox;
+
     public void chooseRegistrationAlreadyDone() {
+
         waitForElementToBeClickable(registrationAlreadyDoneButton, webdriver);
         registrationAlreadyDoneButton.click();
     }
-
-
     public void enterRegistrationDetails(RegistrationDetails registrationDetails) {
+
         waitForElementToBeClickable(transferMobileNumber, webdriver);
         transferMobileNumber.sendKeys("2299087661");
         transferMobileNumber.sendKeys(Keys.TAB);
@@ -108,10 +112,7 @@ public class TransferDetailsPage extends BasePage {
         enterText(partiesConsiderationValueTextBox, registrationDetails.getPartiesConsiderationValue());
         enterText(departmentGuidelinesValueTextBox, registrationDetails.getDepartmentGuidelinesValue());
         departmentGuidelinesValueTextBox.sendKeys(Keys.TAB);
-
     }
-
-
     public void enterEnclosureDetails() {
 
         WebElement document1 = webdriver.findElement(By.id("save_documents_0__uploads"));
@@ -128,10 +129,17 @@ public class TransferDetailsPage extends BasePage {
     }
 
     public void searchAssessmentNumber(String mutationAssessmentNumber) {
+
         searchMutationTextBox.sendKeys(mutationAssessmentNumber);
-
         waitForElementToBeClickable(payFeeButton, webdriver);
+        payFeeButton.click();
+    }
 
+    public void generateTitleTransferNotice() {
 
+        titleTransferNoticeTextBox.click();
+        switchToNewlyOpenedWindow(webdriver);
+        webdriver.close();
+        switchToPreviouslyOpenedWindow(webdriver);
     }
 }

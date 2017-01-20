@@ -17,7 +17,7 @@ public class EditpropertyAcknowledgmentSteps {
     @Then("^edit property details get saved successfully$")
     public void editPropertyDetailsGetSavedSuccessfully() throws Throwable {
 //        String assessmentNumber = pageStore.get(PropertyAcknowledgementPage.class).getApplicationNumber();
-//        scenarioContext.setAssessmentNumber(assessmentNumber);
+ //       scenarioContext.setAssessmentNumber(assessmentNumber);
       pageStore.get(PropertyAcknowledgementPage.class).close();
 
 

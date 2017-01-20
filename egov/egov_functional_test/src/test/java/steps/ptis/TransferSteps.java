@@ -32,9 +32,12 @@ public class TransferSteps extends BaseSteps implements En {
         And("^he enters enclosure details$", () -> {
            pageStore.get(TransferDetailsPage.class).enterEnclosureDetails();
         });
-        And("^he searches for the assessment with mutation assessment number \"([^\"]*)\"$",() -> {
-            pageStore.get(TransferDetailsPage.class).searchAssessmentNumber(scenarioContext.getMutationAssessmentNumber());
+        And("^he searches for the assessment with mutation assessment number$",() -> {
+            pageStore.get(TransferDetailsPage.class).searchAssessmentNumber(scenarioContext.getAssessmentNumber());
 
+        });
+        And("^he generate title transfer notice$", () -> {
+            pageStore.get(TransferDetailsPage.class).generateTitleTransferNotice();
         });
 
 

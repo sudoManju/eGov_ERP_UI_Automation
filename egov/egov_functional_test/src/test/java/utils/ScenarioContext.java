@@ -32,8 +32,6 @@ public class ScenarioContext {
 
     private String meetingNumber;
 
-    private String mutationAssessmentNumber;
-
     public String getConsumerNumber() {
         return consumerNumber;
     }
@@ -152,12 +150,6 @@ public class ScenarioContext {
         return meetingNumber;
     }
 
-    public String getMutationAssessmentNumber() {
-        return mutationAssessmentNumber;
-    }
 
-    public void setMutationAssessmentNumber(String mutationAssessmentNumber) {
-        this.mutationAssessmentNumber = mutationAssessmentNumber;
-    }
 }
 
