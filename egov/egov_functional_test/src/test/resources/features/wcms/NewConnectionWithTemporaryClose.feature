@@ -7,7 +7,7 @@ Feature: To create a flow of water management connections and applying a tempora
             4) Closing a Connection Temporarily
             5) Applying for the Re-Connection
 
-  Background:It will run the data entry screen of property tax as wee as logo uploading
+  Background:It will run the data entry screen of property tax as well as logo uploading
 
     #######################################################
             # Egovernments logo uploading #

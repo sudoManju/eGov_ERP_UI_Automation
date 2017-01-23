@@ -6,7 +6,7 @@ public class ScenarioContext {
 
     private String assessmentNumber;
 
-    private String   dataScreenAssessmentNumber;
+    private String dataScreenAssessmentNumber;
 
     private String challanNumber;
 
@@ -33,6 +33,26 @@ public class ScenarioContext {
     private String meetingNumber;
     
     private String licenseNumber;
+
+    private String user;
+
+    private String previousUser;
+
+    public String getPreviousUser() {
+        return previousUser;
+    }
+
+    public void setPreviousUser(String previousUser) {
+        this.previousUser = previousUser;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
 
     public String getConsumerNumber() {
         return consumerNumber;

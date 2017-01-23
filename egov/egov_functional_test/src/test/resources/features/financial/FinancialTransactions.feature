@@ -1,6 +1,6 @@
 Feature: To create a Financial Transactions
 
-  @WIP
+  @Sanity
   Scenario Outline: To create the financial journal voucher with type General
 
     Given accountsOfficer logs in
@@ -11,21 +11,23 @@ Feature: To create a Financial Transactions
     Then user will be notified by "Created"
     And current user logs out
 
-    And assistantExaminer logs in
+    And the next user will be logged in
     Then the officer will click on the voucher number
     And officer will enter the approval details as <approval officer2>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
-    And examiner logs in
+#    And examiner logs in
+    And the next user will be logged in
     Then the officer will click on the voucher number
     And officer will enter the approval details as <approval officer3>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
-    And commissioner logs in
+#    And commissioner logs in
+    And the next user will be logged in
     Then the officer will click on the voucher number
     And officer click on approval of the voucher
     And officer will closes the acknowledgement page
@@ -34,10 +36,10 @@ Feature: To create a Financial Transactions
 
     Examples:
     |voucher details|  approval officer1 | approval officer2 |  approval officer3 |
-    |voucher1       |  accountOfficer1a   | accountOfficer2   |  commissioner      |
+    |voucher1       |  accountOfficer1a  | accountOfficer2   |  commissioner      |
 
 
-  @WIP
+  @Sanity
   Scenario Outline: To create the financial journal voucher with type expense
 
     Given accountsOfficer logs in
@@ -48,21 +50,24 @@ Feature: To create a Financial Transactions
     Then user will be notified by "Created"
     And current user logs out
 
-    And assistantExaminer logs in
+#    And assistantExaminer logs in
+    And the next user will be logged in
     Then the officer will click on the voucher number
     And officer will enter the approval details as <approval officer2>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
-    And examiner logs in
+#    And examiner logs in
+    And the next user will be logged in
     Then the officer will click on the voucher number
     And officer will enter the approval details as <approval officer3>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
-    And commissioner logs in
+#    And commissioner logs in
+    And the next user will be logged in
     Then the officer will click on the voucher number
     And officer click on approval of the voucher
     And officer will closes the acknowledgement page
@@ -74,7 +79,7 @@ Feature: To create a Financial Transactions
       |voucher2       |  accountOfficer1a | accountOfficer2   |  commissioner      |
 
 
-  @WIP
+  @Sanity
   Scenario Outline: To create a voucher of date in june as well paying the bill
 
     Given accountsOfficer logs in
@@ -93,14 +98,16 @@ Feature: To create a Financial Transactions
     And officer will closes the successfull payment page
     And current user logs out
 
-    And examiner logs in
+#    And examiner logs in
+    And the next user will be logged in
     Then the officer will click on the voucher number
     And officer will enter the approval details as <approval officer3>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
-    And commissioner logs in
+#    And commissioner logs in
+    And the next user will be logged in
     Then the officer will click on the voucher number
     And officer click on approval of the voucher
     And officer will closes the acknowledgement page
@@ -112,7 +119,7 @@ Feature: To create a Financial Transactions
       |voucherDateJune    |  accountOfficer1   | 30_06_2016 | accountOfficer2   |  commissioner      |
 
 
-  @WIP
+  @Sanity
   Scenario Outline: To create a new expense bill
 
     Given accountsOfficer logs in
@@ -123,14 +130,16 @@ Feature: To create a Financial Transactions
     Then user will be notified by "created"
     And current user logs out
 
-    Then examiner logs in
+#    Then examiner logs in
+    And the next user will be logged in
     Then the officer will click on the voucher number
     And officer will enter the expense approval details as <approval officer2>
     And officer will closes the expense acknowledgement page
     Then user will be notified by "created"
     And current user logs out
 
-    And commissioner logs in
+#    And commissioner logs in
+    And the next user will be logged in
     Then the officer will click on the voucher number
     And officer click on approval of the voucher
     And officer will closes the expense acknowledgement page
@@ -145,21 +154,24 @@ Feature: To create a Financial Transactions
     Then user will be notified by "forwarded"
     And current user logs out
 
-    And assistantExaminer logs in
+#    And assistantExaminer logs in
+    And the next user will be logged in
     Then the officer will click on the voucher number
     And officer will enter the approval details as <approval officer4>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
-    And examiner logs in
+#    And examiner logs in
+    And the next user will be logged in
     Then the officer will click on the voucher number
     And officer will enter the approval details as <approval officer5>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
-    And commissioner logs in
+#    And commissioner logs in
+    And the next user will be logged in
     Then the officer will click on the voucher number
     And officer click on approval of the voucher
     And officer will closes the acknowledgement page

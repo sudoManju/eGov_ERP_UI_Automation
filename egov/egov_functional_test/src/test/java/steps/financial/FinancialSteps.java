@@ -8,6 +8,7 @@ import entities.financial.FinancialJournalVoucherDetails;
 import entities.ptis.ApprovalDetails;
 import entities.wcms.FieldInspectionDetails;
 import org.junit.Assert;
+import pages.DashboardPage;
 import pages.financial.FinancialPage;
 import steps.BaseSteps;
 import utils.ExcelReader;
@@ -29,7 +30,8 @@ public class FinancialSteps extends BaseSteps implements En {
         And("^officer will enter the approval details as (\\w+)$", (String approveOfficer) -> {
             ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approveOfficer);
             try {
-                pageStore.get(FinancialPage.class).enterFinanceApprovalDetails(approvalDetails);
+                String userName = pageStore.get(FinancialPage.class).enterFinanceApprovalDetails(approvalDetails);
+                scenarioContext.setUser(userName.split("\\ ")[0]);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -38,17 +40,34 @@ public class FinancialSteps extends BaseSteps implements En {
         And("^officer will get successful voucher created and closes it$", () -> {
             String voucherNumber = pageStore.get(FinancialPage.class).getVoucherNumber();
             scenarioContext.setVoucherNumber(voucherNumber.split("\\ ")[1]);
+//            scenarioContext.setUser(voucherNumber.split("\\ ")[9]);
             scenarioContext.setActualMessage(voucherNumber);
+
+            String profileName = pageStore.get(DashboardPage.class).getProfileName();
+            if(profileName.contains(scenarioContext.getUser().split("\\ ")[0])){
+                scenarioContext.setPreviousUser("yes");
+            }
+//            if(userName.contains(voucherNumber.split("\\ ")[9])){
+//                scenarioContext.setPreviousUser("yes");
+//            }
         });
 
         Then("^the officer will click on the voucher number$", () -> {
-            pageStore.get(FinancialPage.class).openVoucher(scenarioContext.getVoucherNumber());
-//            pageStore.get(FinancialPage.class).openVoucher("1/EJV/00003083/01/2016-17");
+            if(scenarioContext.getPreviousUser().equalsIgnoreCase("yes")){
+                pageStore.get(FinancialPage.class).openVoucherFromDrafts(scenarioContext.getVoucherNumber());
+                scenarioContext.setPreviousUser("no");
+            }
+            else {
+                pageStore.get(FinancialPage.class).openVoucher(scenarioContext.getVoucherNumber());
+            }
         });
 
         And("^officer will closes the acknowledgement page$", () -> {
             String actualMessage = pageStore.get(FinancialPage.class).closePage();
             scenarioContext.setActualMessage(actualMessage);
+//            if(!actualMessage.split("\\ ")[4].equalsIgnoreCase("approved")) {
+//                scenarioContext.setUser(actualMessage.split("\\ ")[5] + actualMessage.split("\\ ")[6]);
+//            }
             if(scenarioContext.getIsRemittance() == 1) {
                 scenarioContext.setVoucherNumber(actualMessage.split("\\n")[0].split("\\ ")[7] + "-CASH");
                 scenarioContext.setIsRemittance(0);
@@ -93,13 +112,19 @@ public class FinancialSteps extends BaseSteps implements En {
 
         And("^officer will enter the expense approval details as (\\w+)$", (String approveOfficer) -> {
             ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approveOfficer);
-            pageStore.get(FinancialPage.class).enterExpenseApprovalDetails(approvalDetails);
+            String userName = pageStore.get(FinancialPage.class).enterExpenseApprovalDetails(approvalDetails);
+            scenarioContext.setUser(userName.split("\\ ")[0]);
         });
 
         And("^officer will closes the expense acknowledgement page$", () -> {
             String expenseBillNumber = pageStore.get(FinancialPage.class).closesTheExpensePage();
             scenarioContext.setVoucherNumber(expenseBillNumber.split("\\ ")[2]);
             scenarioContext.setActualMessage(expenseBillNumber.split("\\ ")[3]);
+
+            String profileName = pageStore.get(DashboardPage.class).getProfileName();
+            if(profileName.contains(scenarioContext.getUser().split("\\ ")[0])){
+                scenarioContext.setPreviousUser("yes");
+            }
         });
 
         And("^officer will closes the successfull payment page$", () -> {
@@ -111,6 +136,10 @@ public class FinancialSteps extends BaseSteps implements En {
             String voucherNumber = pageStore.get(FinancialPage.class).getVoucherNumber();
             scenarioContext.setVoucherNumber(voucherNumber.split("\\ ")[1]);
             scenarioContext.setActualMessage(voucherNumber.split("\\:")[1]);
+            String profileName = pageStore.get(DashboardPage.class).getProfileName();
+            if(profileName.contains(scenarioContext.getUser().split("\\ ")[0])){
+                scenarioContext.setPreviousUser("yes");
+            }
         });
 
         And("^user will enter the account code to modify as (\\w+)$", (String glCode) -> {

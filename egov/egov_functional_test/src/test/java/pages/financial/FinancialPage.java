@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasePage;
 
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -236,6 +237,14 @@ public class FinancialPage extends BasePage {
     @FindBy(id = "expType")
     private WebElement billType;
 
+    @FindBy(css = "li[class='dropdown'] a[data-original-title ='Drafts']")
+    private WebElement draftsLink;
+
+    @FindBy(id = "official_drafts")
+    private WebElement officialDraftsTable;
+
+    private List<WebElement> voucherRows;
+
     private String juneDate = "00";
 
     public FinancialPage(WebDriver webDriver) {
@@ -306,7 +315,8 @@ public class FinancialPage extends BasePage {
         }
     }
 
-    public void enterFinanceApprovalDetails(ApprovalDetails approvalDetails) throws ParseException {
+    public String enterFinanceApprovalDetails(ApprovalDetails approvalDetails) throws ParseException {
+        String userName = "";
         if(juneDate.contains("06")){
             createAndApprove.click();
             juneDate = "00";
@@ -316,10 +326,18 @@ public class FinancialPage extends BasePage {
         new Select(approverDepartment).selectByVisibleText(approvalDetails.getApproverDepartment());
         waitForElementToBeClickable(approverDesignation ,webDriver);
         new Select(approverDesignation).selectByVisibleText(approvalDetails.getApproverDesignation());
-        waitForElementToBeVisible(approverPosition , webDriver);
-        new Select(approverPosition).selectByVisibleText(approvalDetails.getApprover());
+        waitForElementToBeClickable(approverPosition  ,webDriver);
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+                e.printStackTrace();
+        }
+        Select approverPos = new Select(approverPosition);
+        userName = approverPos.getOptions().get(1).getText();
+        approverPos.getOptions().get(1).click();
         forwardButton.click();
         }
+        return userName;
     }
 
     public String getVoucherNumber(){
@@ -344,17 +362,34 @@ public class FinancialPage extends BasePage {
 
     public void openVoucher(String voucherNumber){
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        WebElement element = getVoucherRow(voucherNumber);
+        WebElement element = getVoucherRow(voucherNumber , "no");
         element.click();
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    private WebElement getVoucherRow(String voucherNumber) {
-        waitForElementToBeVisible(webDriver.findElement(By.id("worklist")), webDriver);
-        waitForElementToBeVisible(officialInboxTable, webDriver);
+    public void openVoucherFromDrafts(String voucherNumber){
+        waitForElementToBeClickable(draftsLink , webDriver);
+        draftsLink.click();
+        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        WebElement element = getVoucherRow(voucherNumber , "yes");
+        element.click();
+        switchToNewlyOpenedWindow(webDriver);
+    }
 
-        await().atMost(10, SECONDS).until(() -> officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
-        List<WebElement> voucherRows = officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
+    private WebElement getVoucherRow(String voucherNumber , String draft) {
+
+        if(draft.equalsIgnoreCase("yes")){
+            waitForElementToBeVisible(officialDraftsTable, webDriver);
+            await().atMost(10, SECONDS).until(() -> officialDraftsTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
+            voucherRows = officialDraftsTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
+        }
+        else {
+//            waitForElementToBeVisible(webDriver.findElement(By.id("worklist")), webDriver);
+            waitForElementToBeVisible(officialInboxTable, webDriver);
+
+            await().atMost(10, SECONDS).until(() -> officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
+            voucherRows = officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
+        }
 
         for (WebElement voucherRow : voucherRows) {
             if (voucherRow.findElements(By.tagName("td")).get(4).getText().contains(voucherNumber))
@@ -458,7 +493,7 @@ public class FinancialPage extends BasePage {
         expensePopulate.click();
     }
 
-    public void enterExpenseApprovalDetails(ApprovalDetails approvalDetails){
+    public String enterExpenseApprovalDetails(ApprovalDetails approvalDetails){
 
         waitForElementToBeClickable(expenseApprovalDepartment ,webDriver);
         new Select(expenseApprovalDepartment).selectByVisibleText(approvalDetails.getApproverDepartment());
@@ -475,11 +510,21 @@ public class FinancialPage extends BasePage {
             }
         }
 
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         waitForElementToBeVisible(expenseApprovalPosition , webDriver);
-        new Select(expenseApprovalPosition).selectByVisibleText(approvalDetails.getApprover());
+        Select approverPos = new Select(expenseApprovalPosition);
+        String userName = approverPos.getOptions().get(1).getText();
+        approverPos.getOptions().get(1).click();
+
+//        new Select(expenseApprovalPosition).selectByVisibleText(approvalDetails.getApprover());
 
         forwardButton.click();
         switchToNewlyOpenedWindow(webDriver);
+        return userName;
     }
 
     public String closesTheExpensePage(){
@@ -487,6 +532,7 @@ public class FinancialPage extends BasePage {
 
         closeButton.click();
         switchToPreviouslyOpenedWindow(webDriver);
+
         return message;
     }
 

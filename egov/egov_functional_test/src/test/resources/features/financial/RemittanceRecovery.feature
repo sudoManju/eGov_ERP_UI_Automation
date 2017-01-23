@@ -1,6 +1,6 @@
 Feature: To create a new remittance recovery
 
-  @WIP
+  @Sanity
   Scenario Outline: To create the remittance recovery with expense type
 
     Given admin logs in
@@ -17,21 +17,24 @@ Feature: To create a new remittance recovery
     Then user will be notified by "Created"
     And current user logs out
 
-    And assistantExaminer logs in
+#    And assistantExaminer logs in
+    And the next user will be logged in
     Then the officer will click on the voucher number
     And officer will enter the approval details as <approval officer2>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
-    And examiner logs in
+#    And examiner logs in
+    And the next user will be logged in
     Then the officer will click on the voucher number
     And officer will enter the approval details as <approval officer3>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
-    And commissioner logs in
+#    And commissioner logs in
+    And the next user will be logged in
     Then the officer will click on the voucher number
     And officer click on approval of the voucher
     And officer will closes the acknowledgement page

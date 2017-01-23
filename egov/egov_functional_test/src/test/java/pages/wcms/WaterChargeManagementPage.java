@@ -606,13 +606,22 @@ public class WaterChargeManagementPage extends BasePage {
 
     public void changeOfUseWaterConnectionInfo(ConnectionInfo connectionInfo){
         new Select(propertyTypeSelectBox).selectByVisibleText(connectionInfo.getPropertyType());
-        waitForElementToBeVisible(hscPipeSizeSelectBox , webDriver);
-        new Select(hscPipeSizeSelectBox).selectByVisibleText(connectionInfo.getHscPipeSize());
+        for(int i = 0 ; i <= 10 ; i++) {
+            if (!webDriver.findElement(By.id("pipeSize")).getText().equalsIgnoreCase(connectionInfo.getHscPipeSize())){
+        try {
+            waitForElementToBeVisible(hscPipeSizeSelectBox , webDriver);
+            new Select(hscPipeSizeSelectBox).selectByVisibleText(connectionInfo.getHscPipeSize());
+        }catch (StaleElementReferenceException e){
+            WebElement element = webDriver.findElement(By.id("pipeSize"));
+            waitForElementToBeVisible(element , webDriver);
+            new Select(element).selectByVisibleText(connectionInfo.getHscPipeSize());
+            }
+            }
+        }
         enterText(sumpCapacityTextBox, connectionInfo.getSumpCapacity());
         enterText(noOfPersonsTextBox, connectionInfo.getNoOfPersons());
         new Select(usageTypeSelectBox).selectByVisibleText(connectionInfo.getUsageType());
         enterText(reasonForNewConnection, connectionInfo.getReasonForAdditionalConnection());
-        new Select(hscPipeSizeSelectBox).selectByVisibleText(connectionInfo.getHscPipeSize());
     }
 
     public void enterWaterDataEntryDetails(ApplicantInfo applicantInfo , String assessmentNumber){

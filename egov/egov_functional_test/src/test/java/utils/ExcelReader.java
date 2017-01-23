@@ -161,7 +161,8 @@ public class ExcelReader {
         Iterator<Row> rowIterator = fromSheet.rowIterator();
         while (rowIterator.hasNext()) {
             Row row = rowIterator.next();
-            if (row.getCell(0).getStringCellValue().equals(dataId))
+            if (row.getCell(0).getStringCellValue().equalsIgnoreCase(dataId))
+//            if (row.getCell(0).getStringCellValue().equals(dataId))
                 return row;
         }
         throw new RuntimeException("No data found with this identifier: " + dataId);

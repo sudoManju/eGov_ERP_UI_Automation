@@ -850,5 +850,10 @@ public class DashboardPage extends BasePage {
         closeButton.click();
         switchToPreviouslyOpenedWindow(driver);
     }
+
+    public String getProfileName(){
+        waitForElementToBeVisible(profileNameLink , driver);
+        return profileNameLink.getText();
+    }
 }
 
