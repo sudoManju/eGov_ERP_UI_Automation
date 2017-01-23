@@ -238,10 +238,15 @@ public class MiscellaneousPage extends BasePage{
     }
 
     public void selectRequiredReceipt() {
-      WebElement lastPageLink = driver.findElement(By.xpath(".//*[@id='searchReceipt-search']/div[4]/span/a[4]"));
-      waitForElementToBeVisible(lastPageLink,driver);
-      JavascriptExecutor executor = (JavascriptExecutor)driver;
-      executor.executeScript("arguments[0].click();", lastPageLink);
+
+        List<WebElement> totalPages = driver.findElements(By.xpath(".//*[@id='searchReceipt-search']/div[4]/span/a"));
+
+        if(totalPages.size()>0) {
+             WebElement lastPageLink = driver.findElement(By.xpath(".//*[@id='searchReceipt-search']/div[4]/span/a["+(totalPages.size()-1)+"]"));
+             waitForElementToBeVisible(lastPageLink,driver);
+             JavascriptExecutor executor = (JavascriptExecutor)driver;
+             executor.executeScript("arguments[0].click();", lastPageLink);
+        }
 
       List<WebElement> totalRows = driver.findElements(By.xpath(".//*[@id='selectedReceipts']"));
       WebElement requiredRow = totalRows.get(totalRows.size()-1);
