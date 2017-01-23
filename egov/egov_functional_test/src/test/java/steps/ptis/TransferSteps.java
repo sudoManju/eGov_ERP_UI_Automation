@@ -1,6 +1,5 @@
 package steps.ptis;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.ptis.RegistrationDetails;
 import pages.ptis.PropertyAcknowledgementPage;
@@ -8,8 +7,6 @@ import pages.ptis.PropertyDetailsPage;
 import pages.ptis.TransferDetailsPage;
 import steps.BaseSteps;
 import utils.ExcelReader;
-
-import static steps.BaseSteps.pageStore;
 
 /**
  * Created by bimal on 13/12/16.
@@ -39,6 +36,8 @@ public class TransferSteps extends BaseSteps implements En {
         And("^he generate title transfer notice$", () -> {
             pageStore.get(TransferDetailsPage.class).generateTitleTransferNotice();
         });
+
+
 
 
     }

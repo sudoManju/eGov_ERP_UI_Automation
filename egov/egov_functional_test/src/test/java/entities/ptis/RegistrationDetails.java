@@ -23,6 +23,7 @@ public class RegistrationDetails {
         private String departmentGuidelinesValue;
 
 
+
     public String getSellerExecutantName() {
         return sellerExecutantName;
     }
@@ -151,4 +152,6 @@ public class RegistrationDetails {
     public void setDepartmentGuidelinesValue(String departmentGuidelinesValue) {
         this.departmentGuidelinesValue = departmentGuidelinesValue;
     }
+
+
 }

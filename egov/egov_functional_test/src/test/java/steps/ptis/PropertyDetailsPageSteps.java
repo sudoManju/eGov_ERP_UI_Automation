@@ -118,5 +118,6 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
         And("^chooses to act upon the above application$", () -> {
            pageStore.get(DashboardPage.class).openApplication(scenarioContext.getAssessmentNumber());
         });
+
     }
 }

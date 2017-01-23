@@ -201,7 +201,7 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "executionDate")
     private WebElement connectionDateTextBox;
 
-    @FindBy(id = "assessmentNum")
+    @FindBy(xpath = ".//*[@id='assessmentNum']")
     private WebElement assessmentNumTextBox;
 
     @FindBy(id = "searchByassmentno")

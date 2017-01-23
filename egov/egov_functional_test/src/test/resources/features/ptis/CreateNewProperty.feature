@@ -214,6 +214,20 @@ Feature: Create New Property
          |register           |
 
 
+          # SEARCH PROPERTY BY ASSESSMENT NUMBER #
+
+         @WIP
+         Scenario: Register user search property by assessment number
+
+           Given juniorAssistant logs in
+           And he chooses to search property
+           And he enter all the credential details
+
+
+
+
+
+
 
 
 

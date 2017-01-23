@@ -84,6 +84,9 @@ public class TransferDetailsPage extends BasePage {
     @FindBy (id = "Generate Title Transfer Notice")
     private WebElement titleTransferNoticeTextBox;
 
+    @FindBy (id = "assessmentNum")
+    private WebElement searchAssessmentNumberTextBox;
+
     public void chooseRegistrationAlreadyDone() {
 
         waitForElementToBeClickable(registrationAlreadyDoneButton, webdriver);
@@ -142,4 +145,6 @@ public class TransferDetailsPage extends BasePage {
         webdriver.close();
         switchToPreviouslyOpenedWindow(webdriver);
     }
+
+
 }

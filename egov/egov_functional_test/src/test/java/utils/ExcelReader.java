@@ -97,6 +97,7 @@ public class ExcelReader {
     Sheet licenseClosureSheet;
     Sheet grievancesContactDetailsSheet;
 
+
     public ExcelReader(String testData) {
         String excelFilePath = testData + ".xlsx";
 //        System.out.println(excelFilePath);
@@ -159,6 +160,7 @@ public class ExcelReader {
         registrationDetailsSheet = workbook.getSheet("registrationDetails");
         licenseClosureSheet = workbook.getSheet("licenseClosure");
         grievancesContactDetailsSheet = workbook.getSheet("contactInfo");
+
     }
 
     private Row readDataRow(Sheet fromSheet, String dataId) {
@@ -1279,6 +1281,7 @@ public class ExcelReader {
        String  departmentGuidelinesValue = departmentGuidelinesValueCell.getStringCellValue();
 
 
+
        return new RegistrationDetailsBuilder()
                .withSellerExecutantName(sellerExecutantName)
                .withBuyerClaimantName(buyerClaimantName)
@@ -1346,5 +1349,6 @@ public class ExcelReader {
                 .withCitizenAddress(citizenAddress)
                 .build();
     }
+
 }
 
