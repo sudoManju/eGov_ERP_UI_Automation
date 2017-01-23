@@ -2,7 +2,6 @@ package pages.tradeLicense;
 
 import entities.ptis.ApprovalDetails;
 import entities.tradeLicense.*;
-import groovy.ui.Console;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
@@ -11,7 +10,6 @@ import pages.BasePage;
 import java.util.List;
 
 import static com.jayway.awaitility.Awaitility.await;
-import static java.lang.Enum.valueOf;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
@@ -164,6 +162,9 @@ public class TradeLicensePage extends BasePage {
     @FindBy(id = "Forward")
     private WebElement forwardButton;
 
+    @FindBy(id = "Generate Certificate")
+    private WebElement generateCertificateButton;
+
 
     String tradeApplicationNumber;
 
@@ -208,7 +209,6 @@ public class TradeLicensePage extends BasePage {
         WebElement element = webDriver.findElement(By.cssSelector(".select2-results__option.select2-results__option--highlighted"));
         element.click();
 
-
         enterText(TradeAreaWeightOfPremises, tradedetails.gettradeAreaWeightOfPremises());
         enterText(remarksTextBox, tradedetails.getremarks());
         enterText(tradeCommencementDateTextBox, tradedetails.gettradeCommencementDate());
@@ -216,31 +216,18 @@ public class TradeLicensePage extends BasePage {
         saveButton.click();
     }
 
-//      To Copy Application number
 
+    public String getApplicationNumber() {
+        List<WebElement> elements=webDriver.findElements(By.cssSelector(".col-sm-3.col-xs-6.add-margin.view-content"));
+        String appNum = elements.get(0).getText();
+        webDriver.close();
+        switchToPreviouslyOpenedWindow(webDriver);
+        return appNum;
+        }
 
-        public void copyApplicationNumber() {
-
-            WebElement element= webDriver.findElement(By.cssSelector(".col-sm-3.col-xs-6.add-margin.view-content"));
-            tradeApplicationNumber= element.getText() ;
-
-            waitForElementToBeVisible(closeButton, webDriver);
-            closeButton.click();
-            await().atMost(5, SECONDS).until(() -> webDriver.getWindowHandles().size() == 1);
-            for (String winHandle : webDriver.getWindowHandles()) {
-                webDriver.switchTo().window(winHandle);
-            }
-
-            waitForElementToBeClickable(searchTreeBox, webDriver);
-            searchTreeBox.clear();
-
-    }
-
-//   paste the coppied code
-    public void enterApplicationNumber() {
+    public void enterApplicationNumber(String applicationNumber) {
         waitForElementToBeVisible(applicationNumberTextBox, webDriver);
-        String number = tradeApplicationNumber;
-        enterText(applicationNumberTextBox , number);
+        enterText(applicationNumberTextBox , applicationNumber);
     }
 
 
@@ -268,8 +255,10 @@ public class TradeLicensePage extends BasePage {
         executor.executeScript("arguments[0].click();", element);
 
         webDriver.close();
-//        switchToPreviouslyOpenedWindow(webDriver);
+        switchToNewlyOpenedWindow(webDriver);
         webDriver.close();
+        switchToPreviouslyOpenedWindow(webDriver);
+        webDriver.navigate().refresh();
 
     }
 
@@ -278,10 +267,10 @@ public class TradeLicensePage extends BasePage {
         waitForElementToBeClickable(oldTradeLicense, webDriver);
         enterText(oldTradeLicense,"TL/08373/2016");
     }
-   // enterText(aadhaarNumberTextBox, tradeOwnerDetails.getAadhaarNumber());
 
     public void enterlegencyDetails(LegencyDetails legencyDetails) {
-        waitForElementToBeClickable(amount1 , webDriver);
+       amount1.isDisplayed();
+        waitForElementToBeClickable(amount1, webDriver);
         amount1.clear();
         enterText(amount1, legencyDetails.getAmount1());
             amount1.sendKeys(Keys.TAB);
@@ -314,6 +303,7 @@ public class TradeLicensePage extends BasePage {
             enterText(amount6, legencyDetails.getAmount6());
             jsClickCheckbox(checkBox6, webDriver);
 
+            saveButton.click();
 
     }
 
@@ -355,6 +345,12 @@ public class TradeLicensePage extends BasePage {
 
     public void forward() {
         forwardButton.click();
+    }
+
+    public void generateLicenseCertificate() {
+        waitForElementToBeClickable(generateCertificateButton, webDriver);
+        generateCertificateButton.click();
+
     }
 }
 

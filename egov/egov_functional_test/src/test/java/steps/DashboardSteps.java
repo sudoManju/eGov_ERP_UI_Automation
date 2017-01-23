@@ -209,6 +209,7 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).openApplication(scenarioContext.getLicenseNumber());
         });
 
+
         And("^user search for the collect water charges$", () -> {
             pageStore.get(DashboardPage.class).chooseToCollectWaterCharges();
         });
@@ -219,6 +220,11 @@ public class DashboardSteps extends BaseSteps implements En {
 
         And("^user will select the municipality info to upload the image$", () -> {
             pageStore.get(DashboardPage.class).selectMunicipalityInfo();
+        });
+
+        And("^he choose to act upon the above application number$", () -> {
+           pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
+
         });
     }
 }

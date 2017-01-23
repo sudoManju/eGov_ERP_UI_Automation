@@ -37,7 +37,7 @@ public class LegencyDetailsBuilder {
     }
 
     public LegencyDetailsBuilder withAmount6(String amount6) {
-        legencyDetails.setAmount1(amount6);
+        legencyDetails.setAmount6(amount6);
         return this;
     }
     public LegencyDetails build(){

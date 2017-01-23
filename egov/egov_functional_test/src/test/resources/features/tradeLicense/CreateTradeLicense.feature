@@ -14,7 +14,6 @@ Feature: Create Trade License
     And he enters trade location details of new license <tradeLocationData>
     And he enters trade details of new license <tradeDetailsData1>
     And he copy trade application number
-#    And he enters Agreement Details of new license
     And current user logs out
 
   Examples:
@@ -22,9 +21,9 @@ Feature: Create Trade License
     |   ownerDetailsTradeLicense |       locationDetailsTradeLicense |          tradeDetailsTradeLicense |
 
 
-    # SEARCH TRADE LICENSE #
+    # Create Trade License with work flow #
 
-    @WIP
+    @Sanity
     Scenario Outline: Register User search application using search trade
       Given creator logs in
       When he chooses to create new License
@@ -37,8 +36,27 @@ Feature: Create Trade License
       And he search existing application number
       And he choose to collectfees
       And he choose to payTax of applicationNumber
-#     And he search Trade License using application
-#     And chooses to act upon trade application
+      And he choose to act upon the above application number
+      And he forwards for approver sanitaryInspector
+      And he closes the acknowledgement
+      And current user logs out
+
+      When sanitaryInspector logs in
+      And he choose to act upon the above application number
+      And he forwards for approver commissioner
+      And he closes the acknowledgement
+      And current user logs out
+
+      When commissioner logs in
+      And he choose to act upon the above application number
+      And he approves the closure
+      And he closes the acknowledgement
+      And current user logs out
+
+      When creator logs in
+      And he choose to act upon the above application number
+      And he generates the license certificate
+
 
 
 
@@ -59,6 +77,7 @@ Feature: Create Trade License
         And he enters trade details of new license <tradeDetailsData1>
         And he enters fee details of legency trade license <legencyDetailsData>
 
+
         Examples:
           |   tradeDetailsData         |       tradeLocationData           |            tradeDetailsData1    |   legencyDetailsData|
           |   ownerDetailsTradeLicense |       locationDetailsTradeLicense |        tradeDetailsTradeLicense |     legencyTrade    |
@@ -67,7 +86,7 @@ Feature: Create Trade License
    # Trade License Closure #
 
 
-    @WIP
+    @Sanity
     Scenario Outline: Registered user choose for trade license closure
     Given creator logs in
     When he choose to do trade license closure
