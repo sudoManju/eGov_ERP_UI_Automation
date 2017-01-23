@@ -79,6 +79,9 @@ public class MiscellaneousPage extends BasePage{
     @FindBy(css = "input[id='fromDate'][type='text']")
     private WebElement fromDateTextBox;
 
+    @FindBy(css = "input[id='toDate'][type='text']")
+    private WebElement toDateTextBox;
+
     @FindBy(css = "input[value = 'Search'][type='submit']")
     private WebElement searchButton;
 
@@ -87,6 +90,27 @@ public class MiscellaneousPage extends BasePage{
 
     @FindBy(id = "reasonForCancellation")
     private WebElement reasonForCancellationTextBox;
+
+    @FindBy(id = "bankBranchMaster")
+    private WebElement bankNameBox;
+
+    @FindBy(id = "accountNumberId")
+    private WebElement bankAccountNumberBox;
+
+    @FindBy(id = "paymentMode")
+    private WebElement paymentModeBox;
+
+    @FindBy(xpath = ".//*[@id='receiptIds']")
+    private WebElement receiptCheckBox;
+
+    @FindBy(css = "input[id='remittanceDate'][type='text']")
+    private WebElement remitDateTextBox;
+
+    @FindBy(css = "input[value='Remit to Bank'][type='submit']")
+    private WebElement remitToBankButton;
+
+    @FindBy(className = "mainheading")
+    private WebElement successMessageTextOfRemittance;
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     String date = sdf.format(new Date());
@@ -283,6 +307,53 @@ public class MiscellaneousPage extends BasePage{
         waitForElementToBeVisible(cancelReceiptSuccessMessage,driver);
         String message = cancelReceiptSuccessMessage.getText();
 
+        return message;
+    }
+
+    public void enterBankDetails() {
+        waitForElementToBeVisible(bankNameBox, driver);
+        new Select(bankNameBox).selectByVisibleText("STATE BANK OF HYDERABAD-KMC Complex Kurnool");
+
+        waitForElementToBeClickable(bankAccountNumberBox, driver);
+        new Select(bankAccountNumberBox).selectByVisibleText("62007226282");
+
+        waitForElementToBeClickable(paymentModeBox, driver);
+        new Select(paymentModeBox).selectByVisibleText("cheque/dd");
+
+        waitForElementToBeClickable(fromDateTextBox,driver);
+        fromDateTextBox.sendKeys(date);
+
+        waitForElementToBeClickable(toDateTextBox,driver);
+        toDateTextBox.sendKeys(date);
+
+        waitForElementToBeClickable(searchButton, driver);
+        searchButton.click();
+
+        waitForElementToBeVisible(receiptCheckBox,driver);
+        jsClick(receiptCheckBox,driver);
+
+        receiptCheckBox.sendKeys(Keys.TAB);
+
+        List<WebElement> allDates=driver.findElements(By.xpath(".//div[@class='datepicker-days']//td"));
+
+        for(WebElement ele:allDates)
+        {
+            String date=ele.getAttribute("class");
+
+            if(date.equalsIgnoreCase("active day"))
+            {
+                ele.click();
+                break;
+            }
+
+        }
+
+        waitForElementToBeClickable(remitToBankButton,driver);
+        remitToBankButton.click();
+    }
+
+    public String successMessageOfRemittance() {
+        String message = successMessageTextOfRemittance.getText();
         return message;
     }
 }

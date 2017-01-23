@@ -191,6 +191,12 @@ public class AdvertisementsPage extends BasePage {
     @FindBy(xpath = ".//*[@id='statusinactivesuccess']/div/div[2]/div/button")
      private WebElement closeButtonOfDeactivateSuccessPage;
 
+    @FindBy(css = "input[id='cashradiobutton'][type='radio']")
+     private WebElement cashRadioButton;
+
+    @FindBy(css = "input[id = 'chequeradiobutton'][type='radio']")
+     private WebElement chequeRadioButton;
+
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     String date = sdf.format(new Date());
     String min = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
@@ -429,6 +435,11 @@ public class AdvertisementsPage extends BasePage {
         waitForElementToBeClickable(collectButton, driver);
         collectButton.click();
         switchToNewlyOpenedWindow(driver);
+
+        waitForElementToBeClickable(chequeRadioButton,driver);
+        jsClick(chequeRadioButton,driver);
+        waitForElementToBeVisible(cashRadioButton,driver);
+        jsClick(cashRadioButton,driver);
         waitForElementToBeVisible(totalamounttobepaid, driver);
         String AmountNum = totalamounttobepaid.getAttribute("value");
         String Amount = AmountNum.split("\\.")[0];

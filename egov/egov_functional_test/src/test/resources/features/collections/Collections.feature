@@ -25,7 +25,8 @@ Feature: Collection
     And current user logs out
 
 
-  @Sanity
+@Sanity
+
   Scenario Outline: System should be able to create Miscellaneous receipt
 
       Given juniorAssistant logs in
@@ -46,7 +47,7 @@ Feature: Collection
 
 @Sanity
 
-Scenario: System should be able to cancel receipt
+  Scenario: System should be able to cancel receipt
 
   Given juniorAssistant logs in
   And he clicks on drafts
@@ -67,6 +68,17 @@ Scenario: System should be able to cancel receipt
   And he selects the required receipt
   And he cancel the receipt
   Then user will be notified by "Cancelled"
+  And user closes the acknowledgement
+  And current user logs out
+
+@Sanity
+
+  Scenario: Remittance of receipt
+
+  Given adm_manager_1 logs in
+  And he chooses to bank remittance
+  And he select the required file with bank details
+  Then user will be notified by "successfully"
   And user closes the acknowledgement
   And current user logs out
 
@@ -96,6 +108,12 @@ Scenario: System should be able to cancel receipt
   |cash         |
   |cheque       |
   |dd           |
+
+
+
+
+
+
 
 #  @WIP
 #    Scenario: System Should be able to collect water Charges

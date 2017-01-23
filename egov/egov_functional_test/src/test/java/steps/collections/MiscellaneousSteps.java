@@ -52,5 +52,14 @@ public class MiscellaneousSteps extends BaseSteps implements En {
            String message = pageStore.get(MiscellaneousPage.class).cancelReceipt();
            scenarioContext.setActualMessage(message);
         });
+        And("^he chooses to bank remittance$", () -> {
+           pageStore.get(DashboardPage.class).chooseToBankRemittance();
+        });
+        And("^he select the required file with bank details$", () -> {
+           pageStore.get(MiscellaneousPage.class).enterBankDetails();
+
+           String actualMessage = pageStore.get(MiscellaneousPage.class).successMessageOfRemittance();
+           scenarioContext.setActualMessage(actualMessage);
+        });
     }
 }

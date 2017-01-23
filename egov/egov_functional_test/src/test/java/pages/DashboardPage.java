@@ -235,6 +235,9 @@ public class DashboardPage extends BasePage {
     @FindBy(xpath = ".//*[@id='cityForm']/div[2]/div/button[3]")
     private WebElement closeButton;
 
+    @FindBy(linkText = "Bank Remittance")
+    private WebElement bankRemittanceLink;
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -851,9 +854,20 @@ public class DashboardPage extends BasePage {
         switchToPreviouslyOpenedWindow(driver);
     }
 
-    public String getProfileName(){
-        waitForElementToBeVisible(profileNameLink , driver);
+
+    public String getProfileName() {
+        waitForElementToBeVisible(profileNameLink, driver);
         return profileNameLink.getText();
+    }
+
+
+    public void chooseToBankRemittance() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("bank remittance");
+        waitForElementToBeClickable(bankRemittanceLink,driver);
+        bankRemittanceLink.click();
+        switchToNewlyOpenedWindow(driver);
+
     }
 }
 
