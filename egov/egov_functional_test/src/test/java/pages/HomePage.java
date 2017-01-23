@@ -54,4 +54,8 @@ public class HomePage extends BasePage {
         waitForElementToBeClickable(signForm, driver);
         signForm.submit();
     }
+
+    public void visitWebsite() {
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    }
 }

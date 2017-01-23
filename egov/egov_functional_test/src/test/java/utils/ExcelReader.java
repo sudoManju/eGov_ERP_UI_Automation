@@ -10,6 +10,7 @@ import builders.dcReports.VLTReportBuilder;
 import builders.financial.FinancialBankDetailsBuilder;
 import builders.financial.FinancialExpenseBillDetailsBuilder;
 import builders.financial.FinancialJournalVoucherDetailsBuilder;
+import builders.grievances.CreateComplaintDetailsBuilder;
 import builders.ptis.*;
 import builders.tradeLicense.*;
 import builders.wcms.EnclosedDocumentBuilder;
@@ -26,6 +27,7 @@ import entities.dcReports.VLTReport;
 import entities.financial.FinancialBankDetails;
 import entities.financial.FinancialExpenseBillDetails;
 import entities.financial.FinancialJournalVoucherDetails;
+import entities.grievances.CreateComplaintDetails;
 import entities.ptis.*;
 import entities.tradeLicense.*;
 import entities.wcms.EnclosedDocument;
@@ -93,6 +95,7 @@ public class ExcelReader {
     Sheet createCouncilMOMSheet;
     Sheet registrationDetailsSheet;
     Sheet licenseClosureSheet;
+    Sheet grievancesContactDetailsSheet;
 
     public ExcelReader(String testData) {
         String excelFilePath = testData + ".xlsx";
@@ -155,6 +158,7 @@ public class ExcelReader {
         createCouncilMOMSheet = workbook.getSheet("createCouncilMOM");
         registrationDetailsSheet = workbook.getSheet("registrationDetails");
         licenseClosureSheet = workbook.getSheet("licenseClosure");
+        grievancesContactDetailsSheet = workbook.getSheet("contactInfo");
     }
 
     private Row readDataRow(Sheet fromSheet, String dataId) {
@@ -1316,5 +1320,31 @@ public class ExcelReader {
     }
 
 
+    public CreateComplaintDetails getCitizenContactDetails(String contactInfo) {
+        Row dataRow = readDataRow(grievancesContactDetailsSheet,contactInfo);
+
+        Cell citizenNameCell= getCellData(grievancesContactDetailsSheet, dataRow, "citizenName");
+        citizenNameCell.setCellType(Cell.CELL_TYPE_STRING);
+        String citizenName=citizenNameCell.getStringCellValue();
+
+        Cell citizenMobNoCell= getCellData(grievancesContactDetailsSheet, dataRow, "mobNo");
+        citizenMobNoCell.setCellType(Cell.CELL_TYPE_STRING);
+        String citizenMobNo= citizenMobNoCell.getStringCellValue();
+
+        Cell emailIdCell= getCellData(grievancesContactDetailsSheet, dataRow, "emailId");
+        emailIdCell.setCellType(Cell.CELL_TYPE_STRING);
+        String emailId= emailIdCell.getStringCellValue();
+
+        Cell citizenAddressCell= getCellData(grievancesContactDetailsSheet, dataRow, "address");
+        citizenAddressCell.setCellType(Cell.CELL_TYPE_STRING);
+        String citizenAddress= citizenAddressCell.getStringCellValue();
+
+        return new CreateComplaintDetailsBuilder()
+                .withCitizenName(citizenName)
+                .withCitizenMobNo(citizenMobNo)
+                .withEmailId(emailId)
+                .withCitizenAddress(citizenAddress)
+                .build();
+    }
 }
 

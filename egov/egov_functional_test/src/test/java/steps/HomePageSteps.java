@@ -25,11 +25,16 @@ public class HomePageSteps extends BaseSteps implements En {
             pageStore.get(BasePage.class).isSuccesful(expectedMessage,actualMessage);
         });
 
+
         And("^the next user will be logged in$", () -> {
             LoginDetails loginDetails = new ExcelReader(loginTestDataFileName).getLoginDetails(scenarioContext.getUser());
             if (System.getProperty("env").equalsIgnoreCase("qa"))
                 loginDetails.setPassword("eGov@123");
             pageStore.get(HomePage.class).loginAs(loginDetails);
+        });
+
+        Given("^user log on to the website$", () -> {
+            pageStore.get(HomePage.class).visitWebsite();
         });
     }
 }
