@@ -24,7 +24,7 @@ Feature: Create Trade License
     # Create Trade License with work flow #
 
     @Sanity
-    Scenario Outline: Register User search application using search trade
+    Scenario Outline: Register User create trade license with work flow
       Given creator logs in
       When he chooses to create new License
       And he enters trade owner details of new license <tradeDetailsData>

@@ -269,10 +269,10 @@ public class TradeLicensePage extends BasePage {
     }
 
     public void enterlegencyDetails(LegencyDetails legencyDetails) {
-       amount1.isDisplayed();
         waitForElementToBeClickable(amount1, webDriver);
         amount1.clear();
-        enterText(amount1, legencyDetails.getAmount1());
+        jsClick(amount1, webDriver);
+        amount1.sendKeys(legencyDetails.getAmount1());
             amount1.sendKeys(Keys.TAB);
             jsClickCheckbox(checkBox1, webDriver);
 
