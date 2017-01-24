@@ -1,10 +1,11 @@
 package pages.AdvertisementTax;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
+
 
 /**
  * Created by karthik on 12/1/17.
@@ -37,6 +38,21 @@ public class LegacyAdvertisementsPage extends BasePage {
     @FindBy(css = "input[id='advertisement.taxPaidForCurrentYear1'][type='radio']")
     private WebElement taxForYearYesRadioButton;
 
+    @FindBy(css = "input[id='advertisementNumber'][type='text']")
+    private WebElement advertisementNumberBox;
+
+    @FindBy(css = "input[id='hoardingnumber'][type='text']")
+    private WebElement hoardingNumberTextBox;
+
+    @FindBy(id = "renewalsearch")
+    private WebElement renewalSearchButton;
+
+    @FindBy(id = "renewdropdown")
+    private WebElement renewalDropDownBox;
+
+    @FindBy(id = "Forward")
+    private WebElement forwardButton;
+
     public LegacyAdvertisementsPage (WebDriver driver){
         this.driver = driver;
     }
@@ -53,10 +69,11 @@ public class LegacyAdvertisementsPage extends BasePage {
         submitButton.click();
 
         String number = creationMsg.getText();
-        String num = number.substring(number.lastIndexOf(" ")+1);
-        System.out.println("\n"+num);
+        String num = number.split("\\ ")[6];
+        String num1 = num.substring(0, num.length()-1);
+        System.out.println("\n"+num1);
 
-        return num;
+        return num1;
     }
 
     public String successMessage() {
@@ -73,8 +90,8 @@ public class LegacyAdvertisementsPage extends BasePage {
 
     public void searchFile(String applicationNumber) {
 
-        waitForElementToBeClickable(permissionNumberTextBox,driver);
-        permissionNumberTextBox.sendKeys(applicationNumber);
+       waitForElementToBeClickable(advertisementNumberBox,driver);
+       advertisementNumberBox.sendKeys(applicationNumber);
 
         waitForElementToBeClickable(searchButton,driver);
         searchButton.click();
@@ -96,4 +113,22 @@ public class LegacyAdvertisementsPage extends BasePage {
        pendingTaxTextBox.sendKeys("0");
 
     }
+
+    public void searchFileForRenewal(String applicationNumber) {
+
+        waitForElementToBeVisible(hoardingNumberTextBox,driver);
+        hoardingNumberTextBox.sendKeys(applicationNumber);
+
+        waitForElementToBeClickable(renewalSearchButton,driver);
+        renewalSearchButton.click();
+    }
+
+    public void requestForRenewal() {
+        waitForElementToBeVisible(renewalDropDownBox,driver);
+        new Select(renewalDropDownBox).selectByVisibleText("Adtax Renewal");
+
+        switchToNewlyOpenedWindow(driver);
+    }
+
+
 }

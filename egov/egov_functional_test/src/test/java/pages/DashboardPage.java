@@ -238,6 +238,9 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Bank Remittance")
     private WebElement bankRemittanceLink;
 
+    @FindBy(linkText = "Advertisement Renewal")
+    private WebElement renewalAdvertisementLink;
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -868,6 +871,15 @@ public class DashboardPage extends BasePage {
         bankRemittanceLink.click();
         switchToNewlyOpenedWindow(driver);
 
+    }
+
+    public void choosesToRenewalAdvertisement() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchTreeTextBox.clear();
+        searchFor("renewal");
+        waitForElementToBeClickable(renewalAdvertisementLink,driver);
+        renewalAdvertisementLink.click();
+        switchToNewlyOpenedWindow(driver);
     }
 }
 

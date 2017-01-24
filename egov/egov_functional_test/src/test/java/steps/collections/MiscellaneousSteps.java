@@ -61,5 +61,6 @@ public class MiscellaneousSteps extends BaseSteps implements En {
            String actualMessage = pageStore.get(MiscellaneousPage.class).successMessageOfRemittance();
            scenarioContext.setActualMessage(actualMessage);
         });
+
     }
 }

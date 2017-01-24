@@ -2,10 +2,13 @@ package steps.AdvertisementTax;
 
 import cucumber.api.PendingException;
 import cucumber.api.java8.En;
+import entities.works.ApproverDetails;
 import pages.AdvertisementTax.AdvertisementsPage;
 import pages.AdvertisementTax.LegacyAdvertisementsPage;
 import pages.DashboardPage;
+import pages.works.SpillOverEstimatePage;
 import steps.BaseSteps;
+import utils.ExcelReader;
 
 /**
  * Created by karthik on 12/1/17.
@@ -54,6 +57,34 @@ public class LegacyAdvertisementsSteps extends BaseSteps implements En {
 
             String url = "http://kurnool-uat.egovernments.org/adtax/hoarding/findhoarding-for-update";
             pageStore.get(AdvertisementsPage.class).closeMultipleWindows(url);
+        });
+        And("^he chooses to renewal advertisement$", () -> {
+           pageStore.get(DashboardPage.class).choosesToRenewalAdvertisement();
+        });
+        And("^he search for required file by application number for renewal$", () -> {
+            pageStore.get(LegacyAdvertisementsPage.class).searchFileForRenewal(scenarioContext.getApplicationNumber());
+        });
+        And("^he request for renewal and forward to commissioner$", () -> {
+            pageStore.get(LegacyAdvertisementsPage.class).requestForRenewal();
+
+            String approverDetailsDataId = "commissioner";
+
+            ApproverDetails approverDetails = new ExcelReader(lineEstimateTestDataFileName).getApprovalDetailsForEstimate(approverDetailsDataId);
+
+            pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
+
+            String number = pageStore.get(AdvertisementsPage.class).forward();
+            scenarioContext.setApplicationNumber(number);
+
+            String actualMsg = pageStore.get(AdvertisementsPage.class).successMessage();
+            String num = actualMsg.substring(actualMsg.length()-1);
+            scenarioContext.setActualMessage(actualMsg);
+            scenarioContext.setAssessmentNumber(num);
+
+            pageStore.get(AdvertisementsPage.class).closeMultipleWindows("http://kurnool-uat.egovernments.org/adtax/hoarding/renewal-search");
+        });
+        And("^he opens the required application$", () -> {
+            pageStore.get(AdvertisementsPage.class).selectAdvertisementTag(scenarioContext.getAssessmentNumber());
         });
 
     }
