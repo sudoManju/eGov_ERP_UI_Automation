@@ -30,14 +30,13 @@ Feature: To create a flow of water management connections and applying a tempora
     And current user logs out
 
   @Sanity
-  Scenario Outline: This Scenario Includes New Connection , Additional Connection , Change Of Use Connection ,
-                    Closing a Connection Temporarily and Applying for the Re-Connection
+  Scenario Outline: This Scenario Includes New Connection , Additional Connection , Change Of Use Connection , Closing a Connection Temporarily and Applying for the Re-Connection
 
     Given juniorAssistant logs in
     And user chooses to apply for new water connection
     And user will enter the details of the new water connection
     And user enter the water management approval details as <approvalOfficer1>
-    Then user will get the application number and closes the form
+    And user will get the application number and closes the form
     And current user logs out
 
     When assistantEngineer logs in

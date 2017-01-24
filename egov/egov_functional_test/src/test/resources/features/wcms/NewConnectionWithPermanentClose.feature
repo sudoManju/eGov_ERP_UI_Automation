@@ -29,8 +29,7 @@ Feature: To create a flow of water management connections and applying a permane
     And current user logs out
 
   @Sanity
-  Scenario Outline: This Scenario Includon of New Connection , Additional Connection , Change Of Use Connection ,
-                    Closing a Connection Permanently
+  Scenario Outline: This Scenario Includon of New Connection , Additional Connection , Change Of Use Connection , Closing a Connection Permanently
 
     Given juniorAssistant logs in
     And user chooses to apply for new water connection

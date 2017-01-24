@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
 
+import java.util.List;
+
 /**
  * Created by manjunatha-lap on 16/01/2017.
  */
@@ -19,8 +21,14 @@ public class PhysicalProgressTrackerPage extends BasePage {
     @FindBy(xpath = "//*[@id='resultTable']/tbody/tr[1]/td[6]/a")
     private WebElement uploadPhotoLink;
 
-    @FindBy(xpath = "//*[@id='estimatePhotographs']/div[3]/div/div/div[2]/div/div/div/a")
-    private WebElement browseFiles;
+    @FindBy(css = "#before")
+    private WebElement browseFile1;
+
+    @FindBy(css = "#during")
+    private WebElement browseFile2;
+
+    @FindBy(css = "#after")
+    private WebElement browseFile3;
 
     public void searchEstimate() {
         waitForElementToBeClickable(searchEstimateButton, driver);
@@ -30,7 +38,9 @@ public class PhysicalProgressTrackerPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-    public void uploadEstimatePhotos() {
-        browseFiles.sendKeys(System.getProperty("user.dir") + "E:/backupAutomation/eGov/egov/egov_functional_test/src/test/resources/During.PNG");
+    public void uploadEstimatePhotos(){
+        browseFile1.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
+        browseFile2.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
+        browseFile3.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
     }
 }

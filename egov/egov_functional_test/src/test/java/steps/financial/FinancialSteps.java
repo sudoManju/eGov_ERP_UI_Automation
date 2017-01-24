@@ -136,6 +136,7 @@ public class FinancialSteps extends BaseSteps implements En {
             String voucherNumber = pageStore.get(FinancialPage.class).getVoucherNumber();
             scenarioContext.setVoucherNumber(voucherNumber.split("\\ ")[1]);
             scenarioContext.setActualMessage(voucherNumber.split("\\:")[1]);
+
             String profileName = pageStore.get(DashboardPage.class).getProfileName();
             if(profileName.contains(scenarioContext.getUser().split("\\ ")[0])){
                 scenarioContext.setPreviousUser("yes");

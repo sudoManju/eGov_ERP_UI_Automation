@@ -6,6 +6,8 @@ import cucumber.api.java8.En;
 import pages.works.PhysicalProgressTrackerPage;
 import steps.BaseSteps;
 
+import java.awt.*;
+
 /**
  * Created by manjunatha-lap on 16/01/2017.
  */
@@ -17,7 +19,7 @@ public class PhysicalProgressTrackerSteps extends BaseSteps implements En{
             pageStore.get(PhysicalProgressTrackerPage.class).searchEstimate();
         });
         And("^he upload the estimate photos for physical progress track$", () -> {
-           pageStore.get(PhysicalProgressTrackerPage.class).uploadEstimatePhotos();
+                pageStore.get(PhysicalProgressTrackerPage.class).uploadEstimatePhotos();
         });
     }
 }
