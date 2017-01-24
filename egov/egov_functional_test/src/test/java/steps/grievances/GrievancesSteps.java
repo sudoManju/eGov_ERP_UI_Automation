@@ -23,6 +23,9 @@ public class GrievancesSteps extends BaseSteps implements En {
             CreateComplaintDetails createComplaintDetails= new ExcelReader(grievanceTestDataFileName).getGrievanceDetails(grievanceDetails);
             pageStore.get(GrievancesPage.class).enterGrievanceDetails(createComplaintDetails);
         });
+        When("^he choose to register complaint with his login$", () -> {
+            pageStore.get(GrievancesPage.class).getRegisterComplaintPage();
+        });
 
     }
 }

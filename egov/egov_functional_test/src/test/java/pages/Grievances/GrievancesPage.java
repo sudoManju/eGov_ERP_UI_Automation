@@ -49,6 +49,15 @@ public class GrievancesPage extends BasePage {
     @FindBy(id = "triggerFile")
     private WebElement uploadPhotoButton;
 
+    @FindBy(linkText = "New Request")
+    private WebElement newRequestLink;
+
+    @FindBy(linkText = "Grievance Redressal")
+    private WebElement registerGrievanceLink;
+
+    @FindBy(xpath = ".//*[@id='section-newrequest-1']/div[2]/header/div/a")
+    private WebElement registerComplaint;
+
     public GrievancesPage (WebDriver webDriver) {this.webDriver= webDriver;}
 
     public void openCreateGrievancePage() {
@@ -76,5 +85,15 @@ public class GrievancesPage extends BasePage {
     enterText(locationLandmarkText, createComplaintDetails.getLocationLandmark());
     createGrievanceButton.click();
 
+    }
+
+    public void getRegisterComplaintPage() {
+    newRequestLink.click();
+//    registerComplaintLink.isEnabled();
+    waitForElementToBeClickable(registerComplaintLink,webDriver);
+    jsClick(registerComplaintLink,webDriver);
+    waitForElementToBeClickable(registerComplaint, webDriver);
+    registerComplaint.click();
+    switchToNewlyOpenedWindow(webDriver);
     }
 }

@@ -17,3 +17,17 @@ Feature: Register Complaint
     Examples:
     |contactDetails |grievanceDetails |
     |contactInfo    |grievanceDetails |
+
+
+  @WIP
+
+  Scenario Outline: Register a Complaint with Citizen Login
+
+    Given citizen logs in
+    When he choose to register complaint with his login
+    And he choose to enter grievance details as <grievanceDetails>
+
+
+    Examples:
+    |grievanceDetails|
+    |grievanceDetails|
