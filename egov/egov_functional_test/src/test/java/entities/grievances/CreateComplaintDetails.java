@@ -9,6 +9,11 @@ public class CreateComplaintDetails {
     private String citizenMobNo;
     private String emailId;
     private String citizenAddress;
+    private String grievanceCategory;
+    private String grievanceType;
+    private String grievanceDetails;
+    private String grievanceLocation;
+    private String locationLandmark;
 
 
     public void setCitizenname(String citizenname) {
@@ -41,5 +46,45 @@ public class CreateComplaintDetails {
 
     public String getcitizenAddress() {
         return citizenAddress;
+    }
+
+    public void setGrievanceCategory(String grievanceCategory) {
+        this.grievanceCategory = grievanceCategory;
+    }
+
+    public void setGrievanceType(String grievanceType) {
+        this.grievanceType = grievanceType;
+    }
+
+    public void setGrievanceDetails(String grievanceDetails) {
+        this.grievanceDetails = grievanceDetails;
+    }
+
+    public void setGrievanceLocation(String grievanceLocation) {
+        this.grievanceLocation = grievanceLocation;
+    }
+
+    public void setLocationLandmark(String locationLandmark) {
+        this.locationLandmark = locationLandmark;
+    }
+
+    public String getGrievanceCategory() {
+        return grievanceCategory;
+    }
+
+    public String getGrievanceType() {
+        return grievanceType;
+    }
+
+    public String getGrievanceDetails() {
+        return grievanceDetails;
+    }
+
+    public String getGrievanceLocation() {
+        return grievanceLocation;
+    }
+
+    public String getLocationLandmark() {
+        return locationLandmark;
     }
 }

@@ -19,6 +19,10 @@ public class GrievancesSteps extends BaseSteps implements En {
            CreateComplaintDetails createComplaintDetails=new ExcelReader(grievanceTestDataFileName).getCitizenContactDetails(contactInfo);
            pageStore.get(GrievancesPage.class).enterCitizenContactDetails(createComplaintDetails);
         });
+        And("^he choose to enter grievance details as (\\w+)$", (String grievanceDetails) -> {
+            CreateComplaintDetails createComplaintDetails= new ExcelReader(grievanceTestDataFileName).getGrievanceDetails(grievanceDetails);
+            pageStore.get(GrievancesPage.class).enterGrievanceDetails(createComplaintDetails);
+        });
 
     }
 }

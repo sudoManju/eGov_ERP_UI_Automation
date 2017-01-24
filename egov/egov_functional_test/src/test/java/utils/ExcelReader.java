@@ -99,6 +99,7 @@ public class ExcelReader {
 
 //    Grievances Sheets
     Sheet grievancesContactDetailsSheet;
+    Sheet grievanceDetailsSheet;
     Sheet approverDetailsSheet;
 
 
@@ -172,7 +173,7 @@ public class ExcelReader {
 
 //        Grievances sheets
         grievancesContactDetailsSheet = workbook.getSheet("contactInfo");
-
+        grievanceDetailsSheet = workbook.getSheet("grievanceDetails");
 
     }
 
@@ -1369,5 +1370,38 @@ public class ExcelReader {
 
         return null;
     }
+
+    public CreateComplaintDetails getGrievanceDetails(String grievanceDetails) {
+    Row dataRow= readDataRow(grievanceDetailsSheet,grievanceDetails);
+
+    Cell grievanceCategoryCell = getCellData(grievanceDetailsSheet, dataRow,"grievanceCategory");
+    grievanceCategoryCell.setCellType(Cell.CELL_TYPE_STRING);
+    String grievanceCategory= grievanceCategoryCell.getStringCellValue();
+
+    Cell grievanceTypeCell = getCellData(grievanceDetailsSheet, dataRow,"grievanceType");
+    grievanceTypeCell.setCellType(Cell.CELL_TYPE_STRING);
+    String grievanceType=grievanceTypeCell.getStringCellValue();
+
+    Cell grievanceDetailsCell= getCellData(grievanceDetailsSheet, dataRow, "grievanceDetails");
+    grievanceDetailsCell.setCellType(Cell.CELL_TYPE_STRING);
+    String grievanceDetailsText= grievanceDetailsCell.getStringCellValue();
+
+    Cell grievanceLocationCell= getCellData(grievanceDetailsSheet, dataRow, "grievanceLocation");
+    grievanceLocationCell.setCellType(Cell.CELL_TYPE_STRING);
+    String grievanceLocation= grievanceLocationCell.getStringCellValue();
+
+    Cell locationLandmarkCell= getCellData(grievanceDetailsSheet, dataRow, "locationLandmark");
+    locationLandmarkCell.setCellType(Cell.CELL_TYPE_STRING);
+    String locationLandmark= locationLandmarkCell.getStringCellValue();
+
+    return new CreateComplaintDetailsBuilder()
+            .withGrievanceCategory(grievanceCategory)
+            .withGrievanceType(grievanceType)
+            .withGrievanceDetails(grievanceDetailsText)
+            .withGrievanceLocation(grievanceLocation)
+            .withLocationLandmark(locationLandmark)
+            .build();
+
+   }
 }
 

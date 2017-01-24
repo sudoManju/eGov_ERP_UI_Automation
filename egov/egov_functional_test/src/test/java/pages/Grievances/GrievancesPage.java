@@ -4,6 +4,7 @@ import entities.grievances.CreateComplaintDetails;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
 /**
@@ -27,6 +28,27 @@ public class GrievancesPage extends BasePage {
     @FindBy(id = "address")
     private WebElement citizenAddressTextBox;
 
+    @FindBy(id = "complaintTypeCategory")
+    private WebElement complaintTypeCategorySelect;
+
+    @FindBy(id = "complaintType")
+    private WebElement complaintTypeSelect;
+
+    @FindBy(id = "doc")
+    private WebElement grievanceDetailsText;
+
+    @FindBy(id = "location")
+    private WebElement grievanceLocationText;
+
+    @FindBy(id = "landmarkDetails")
+    private WebElement locationLandmarkText;
+
+    @FindBy(className = ".btn.btn-primary")
+    private WebElement createGrievanceButton;
+
+    @FindBy(id = "triggerFile")
+    private WebElement uploadPhotoButton;
+
     public GrievancesPage (WebDriver webDriver) {this.webDriver= webDriver;}
 
     public void openCreateGrievancePage() {
@@ -42,6 +64,17 @@ public class GrievancesPage extends BasePage {
     enterText(mobNoTextBox, createComplaintDetails.getcitizenMobNo());
     enterText(emailIdTextBox, createComplaintDetails.getEmailId());
     enterText(citizenAddressTextBox,createComplaintDetails.getcitizenAddress());
+
+    }
+
+    public void enterGrievanceDetails(CreateComplaintDetails createComplaintDetails) {
+    new Select(complaintTypeCategorySelect).selectByVisibleText(createComplaintDetails.getGrievanceCategory());
+    new Select(complaintTypeSelect).selectByVisibleText(createComplaintDetails.getGrievanceType());
+    enterText(grievanceDetailsText, createComplaintDetails.getGrievanceDetails());
+    uploadPhotoButton.sendKeys(System.getProperty("user.dir") + "/src/test/resources/Mosquito-Menace.jpg");
+    enterText(grievanceLocationText, createComplaintDetails.getGrievanceLocation());
+    enterText(locationLandmarkText, createComplaintDetails.getLocationLandmark());
+    createGrievanceButton.click();
 
     }
 }
