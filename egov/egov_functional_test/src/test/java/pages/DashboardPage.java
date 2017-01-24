@@ -246,6 +246,9 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Create Revision Petition")
     private WebElement createRevisionPetitionLink;
 
+    @FindBy(linkText = "Create Marriage Registration")
+    private WebElement createMarriageRegistrationLink;
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -887,14 +890,20 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-
     public void chooseRevisionPetition() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("Create Revision Petition");
         waitForElementToBeClickable(createRevisionPetitionLink, driver);
         createRevisionPetitionLink.click();
         switchToNewlyOpenedWindow(driver);
+    }
 
+    public void chooseToCreateMarriageRegistration() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Create Marriage Registration");
+        waitForElementToBeClickable(createMarriageRegistrationLink, driver);
+        createMarriageRegistrationLink.click();
+        switchToNewlyOpenedWindow(driver);
     }
 }
 
