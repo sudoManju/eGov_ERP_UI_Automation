@@ -16,7 +16,7 @@ import builders.tradeLicense.*;
 import builders.wcms.EnclosedDocumentBuilder;
 import builders.wcms.FieldInspectionDetailsBuilder;
 import builders.works.*;
-import cucumber.api.java8.Da;
+import cucumber.api.java8.Ro;
 import entities.*;
 import entities.collections.ChallanHeaderDetails;
 import entities.collections.ChequeDetails;
@@ -30,14 +30,13 @@ import entities.financial.FinancialJournalVoucherDetails;
 import entities.grievances.CreateComplaintDetails;
 import entities.ptis.*;
 import entities.tradeLicense.*;
+import entities.tradeLicense.SearchTradeDetails;
 import entities.wcms.EnclosedDocument;
 import entities.wcms.FieldInspectionDetails;
 import entities.works.*;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 
-import java.awt.*;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -75,27 +74,32 @@ public class ExcelReader {
     Sheet fieldInseptionDetailsForWaterConnectionSheet;
     Sheet ptReportSheet;
     Sheet technicalSanctionDetailsSheet;
+
+//     Trade License Sheets
     Sheet tradeOwnerDetailsSheet;
     Sheet tradeLocationDetailsSheet;
+    Sheet tradeDetailsSheet;
+    Sheet legencyDetailsSheet;
+    Sheet licenseClosureSheet;
+    Sheet searchTradeDetailsSheet;
+
     Sheet financialJournalVoucherSheet;
     Sheet financialBankDetailsSheet;
-
     Sheet financialExpenseBillDetailsSheet;
-    Sheet tradeDetailsSheet;
 
-    Sheet approverDetailsSheet;
+//  Council Maanagement Sheets
     Sheet createPreambleDetailsSheet;
-    Sheet legencyDetailsSheet;
-    Sheet dataFromWebSheet;
     Sheet createAgendaSheet;
     Sheet createMeetingSheet;
+    Sheet createCouncilMOMSheet;
 
     Sheet paymentMethodSheet;
-
-    Sheet createCouncilMOMSheet;
+    Sheet dataFromWebSheet;
     Sheet registrationDetailsSheet;
-    Sheet licenseClosureSheet;
+
+//    Grievances Sheets
     Sheet grievancesContactDetailsSheet;
+    Sheet approverDetailsSheet;
 
 
     public ExcelReader(String testData) {
@@ -144,22 +148,31 @@ public class ExcelReader {
         approverDetailsSheet = workbook.getSheet("approvalDetails");
         fieldInseptionDetailsForWaterConnectionSheet = workbook.getSheet("fieldInseptionDetailsForWaterConnection");
         technicalSanctionDetailsSheet = workbook.getSheet("technicalSanctionDetails");
+
+        //        Trade License Sheet Names
         tradeOwnerDetailsSheet = workbook.getSheet("tradeOwnerDetails");
         tradeLocationDetailsSheet =workbook.getSheet("tradeLocationDetails");
+        tradeDetailsSheet = workbook.getSheet("tradeDetails");
+        licenseClosureSheet = workbook.getSheet("licenseClosure");
+        searchTradeDetailsSheet = workbook.getSheet("searchTradeDeatils");
+        legencyDetailsSheet = workbook.getSheet("legencyDetails");
+
+        //        Council management Sheets
+        createPreambleDetailsSheet = workbook.getSheet("createPreamble");
+        createAgendaSheet = workbook.getSheet("createAgenda");
+        createMeetingSheet = workbook.getSheet("createMeeting");
+        createCouncilMOMSheet = workbook.getSheet("createCouncilMOM");
+
         financialJournalVoucherSheet = workbook.getSheet("journalVoucherDetails");
         financialBankDetailsSheet = workbook.getSheet("financialBankDetails");
         financialExpenseBillDetailsSheet = workbook.getSheet("financialExpenseBillDetails");
-        tradeDetailsSheet = workbook.getSheet("tradeDetails");
-        createPreambleDetailsSheet = workbook.getSheet("createPreamble");
-        legencyDetailsSheet = workbook.getSheet("legencyDetails");
         dataFromWebSheet = workbook.getSheet("dataFromWeb");
-        createAgendaSheet = workbook.getSheet("createAgenda");
-        createMeetingSheet = workbook.getSheet("createMeeting");
         paymentMethodSheet = workbook.getSheet("paymentMethod");
-        createCouncilMOMSheet = workbook.getSheet("createCouncilMOM");
         registrationDetailsSheet = workbook.getSheet("registrationDetails");
-        licenseClosureSheet = workbook.getSheet("licenseClosure");
+
+//        Grievances sheets
         grievancesContactDetailsSheet = workbook.getSheet("contactInfo");
+
 
     }
 
@@ -1350,5 +1363,11 @@ public class ExcelReader {
                 .build();
     }
 
+    public SearchTradeDetails getTradeSearchDetails(String searchId) {
+        Row dataRow= readDataRow(searchTradeDetailsSheet, searchId);
+
+
+        return null;
+    }
 }
 

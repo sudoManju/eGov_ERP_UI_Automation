@@ -71,6 +71,10 @@ public class TradeLicenseSteps extends BaseSteps implements En {
         And("^he generates the license certificate$", () -> {
             pageStore.get(TradeLicensePage.class).generateLicenseCertificate();
         });
+        And("^he search trade license with application number$", () -> {
+            String searchId = "searchWithApplicationNumber";
+            SearchTradeDetails searchTradeDetails = new ExcelReader(tradeLicenseTestDataFileName).getTradeSearchDetails(searchId);
+        });
 
 
     }

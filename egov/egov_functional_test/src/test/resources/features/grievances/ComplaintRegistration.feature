@@ -12,6 +12,7 @@ Feature: Register Complaint
     And he choose to enter contact information as <contactDetails>
 
 
+
     Examples:
     |contactDetails |
     |contactInfo    |

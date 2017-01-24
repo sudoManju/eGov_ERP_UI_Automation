@@ -79,7 +79,7 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
         And("^the property tax bill be created$", () -> {
             pageStore.get(PropertyDetailsPage.class).create();
         });
-        And("^he enter all the credential details$", () -> {
+//        And("^he enter all the credential details$", () -> {
 
             And("^he search property with assessment number$", () -> {
                 String searchId = "searchWithAssessmentNumber";
@@ -114,7 +114,7 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
             And("^finally user will submit the application$", () -> {
                 pageStore.get(PropertyDetailsPage.class).chooseToSubmit();
             });
-        });
+//        });
         And("^chooses to act upon the above application$", () -> {
            pageStore.get(DashboardPage.class).openApplication(scenarioContext.getAssessmentNumber());
         });
