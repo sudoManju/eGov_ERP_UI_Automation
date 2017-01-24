@@ -1365,10 +1365,33 @@ public class ExcelReader {
     }
 
     public SearchTradeDetails getTradeSearchDetails(String searchId) {
-        Row dataRow= readDataRow(searchTradeDetailsSheet, searchId);
+        Row dataRow = readDataRow(searchTradeDetailsSheet, searchId);
+        SearchTradeDetails searchTradeDetails = new SearchTradeDetails();
+
+        switch (searchId) {
+            case "searchWithApplicationNumber":
+                Cell applicationNumberCell = getCellData(searchTradeDetailsSheet, dataRow, "searchValue");
+                applicationNumberCell.setCellType(Cell.CELL_TYPE_STRING);
+                String applicationNumber = applicationNumberCell.getStringCellValue();
+
+                searchTradeDetails = new SearchTradeDetailsBuilder()
+                        .withApplicationNumber(applicationNumber)
+                        .build();
+                break;
+
+            case "searchWithLicenseNumber":
+                Cell licenseNumberCell= getCellData(searchTradeDetailsSheet, dataRow, "searchValue");
+                licenseNumberCell.setCellType(Cell.CELL_TYPE_STRING);
+                String licenseNumber= licenseNumberCell.getStringCellValue();
+
+                searchTradeDetails = new SearchTradeDetailsBuilder()
+                        .withLicenseNumber(licenseNumber)
+                        .build();
+                break;
 
 
-        return null;
+        }
+        return searchTradeDetails;
     }
 
     public CreateComplaintDetails getGrievanceDetails(String grievanceDetails) {

@@ -26,6 +26,14 @@ public class GrievancesSteps extends BaseSteps implements En {
         When("^he choose to register complaint with his login$", () -> {
             pageStore.get(GrievancesPage.class).getRegisterComplaintPage();
         });
+        And("^he copies CRN and closes the acknowledgement$", () -> {
+           String CRN= pageStore.get(GrievancesPage.class).getCRN();
+           scenarioContext.setCRN(CRN);
+        });
+        And("^current user sign out$", () -> {
+//            pageStore.get(GrievancesPage.class).signOut();
+        });
+
 
     }
 }

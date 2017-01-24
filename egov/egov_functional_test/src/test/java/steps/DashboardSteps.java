@@ -207,6 +207,7 @@ public class DashboardSteps extends BaseSteps implements En {
 
         And("^he choose to act upon the above licence number$", () -> {
             pageStore.get(DashboardPage.class).openApplication(scenarioContext.getLicenseNumber());
+            System.out.println("Closure License Number"+scenarioContext.getLicenseNumber());
         });
 
 
@@ -226,6 +227,10 @@ public class DashboardSteps extends BaseSteps implements En {
            pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
 
         });
+        And("^choose to act upon the above CRN$", () -> {
+            pageStore.get(DashboardPage.class).openApplication(scenarioContext.getCRN());
+        });
+
 
     }
 }

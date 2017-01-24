@@ -241,6 +241,9 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Advertisement Renewal")
     private WebElement renewalAdvertisementLink;
 
+    @FindBy(xpath = "html/body/div[1]/header/nav/div/div[3]/ul/li[2]/a")
+    private WebElement profileLink;
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -881,5 +884,7 @@ public class DashboardPage extends BasePage {
         renewalAdvertisementLink.click();
         switchToNewlyOpenedWindow(driver);
     }
+
+
 }
 

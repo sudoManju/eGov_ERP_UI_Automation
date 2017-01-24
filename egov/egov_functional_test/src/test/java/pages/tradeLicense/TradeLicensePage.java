@@ -352,5 +352,19 @@ public class TradeLicensePage extends BasePage {
         generateCertificateButton.click();
 
     }
+
+    public void enterApplicationNumberReadingFromExcel(SearchTradeDetails searchId) {
+        waitForElementToBeVisible(applicationNumberTextBox, webDriver);
+        enterText(applicationNumberTextBox, searchId.getApplicationNumber());
+    }
+//    public void checkNoOfRecords() {
+//        waitForElementToBeVisible(recordsFound, webDriver);
+//        int noOfRecords = Integer.parseInt(recordsFound.getText());
+//
+//        if (noOfRecords > 0) {
+//            System.out.println("Records Founds:" + noOfRecords);
+//        } else
+//            System.out.println("No records founds");
+//    }
 }
 

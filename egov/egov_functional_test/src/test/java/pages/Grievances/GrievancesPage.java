@@ -1,6 +1,9 @@
 package pages.Grievances;
 
+import cucumber.api.java.eo.Se;
 import entities.grievances.CreateComplaintDetails;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -43,7 +46,7 @@ public class GrievancesPage extends BasePage {
     @FindBy(id = "landmarkDetails")
     private WebElement locationLandmarkText;
 
-    @FindBy(className = ".btn.btn-primary")
+    @FindBy(id = "create-griev")
     private WebElement createGrievanceButton;
 
     @FindBy(id = "triggerFile")
@@ -52,11 +55,11 @@ public class GrievancesPage extends BasePage {
     @FindBy(linkText = "New Request")
     private WebElement newRequestLink;
 
-    @FindBy(linkText = "Grievance Redressal")
-    private WebElement registerGrievanceLink;
-
     @FindBy(xpath = ".//*[@id='section-newrequest-1']/div[2]/header/div/a")
     private WebElement registerComplaint;
+
+    @FindBy(id = "ctn_no")
+    private WebElement CRNNumber;
 
     public GrievancesPage (WebDriver webDriver) {this.webDriver= webDriver;}
 
@@ -81,7 +84,11 @@ public class GrievancesPage extends BasePage {
     new Select(complaintTypeSelect).selectByVisibleText(createComplaintDetails.getGrievanceType());
     enterText(grievanceDetailsText, createComplaintDetails.getGrievanceDetails());
     uploadPhotoButton.sendKeys(System.getProperty("user.dir") + "/src/test/resources/Mosquito-Menace.jpg");
-    enterText(grievanceLocationText, createComplaintDetails.getGrievanceLocation());
+   // enterText(grievanceLocationText, createComplaintDetails.getGrievanceLocation());
+      enterText(grievanceLocationText, "abbas nagar-m");
+      WebElement dropdown = webDriver.findElement(By.className("tt-highlight"));
+      dropdown.click();
+    grievanceLocationText.sendKeys(Keys.TAB);
     enterText(locationLandmarkText, createComplaintDetails.getLocationLandmark());
     createGrievanceButton.click();
 
@@ -89,11 +96,24 @@ public class GrievancesPage extends BasePage {
 
     public void getRegisterComplaintPage() {
     newRequestLink.click();
-//    registerComplaintLink.isEnabled();
-    waitForElementToBeClickable(registerComplaintLink,webDriver);
-    jsClick(registerComplaintLink,webDriver);
     waitForElementToBeClickable(registerComplaint, webDriver);
     registerComplaint.click();
     switchToNewlyOpenedWindow(webDriver);
     }
+
+    public String getCRN() {
+        waitForElementToBeVisible(CRNNumber, webDriver);
+        String CrnNum=CRNNumber.getText();
+        webDriver.close();
+        switchToPreviouslyOpenedWindow(webDriver);
+        webDriver.close();
+        return CrnNum;
+    }
+
+//    public void signOut() {
+//        waitForElementToBeClickable(profileLink,driver);
+//        profileLink.click();
+//        waitForElementToBeClickable(signOutLink, driver);
+//        signOutLink.click();
+//    }
 }

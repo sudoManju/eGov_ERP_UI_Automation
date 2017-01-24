@@ -26,6 +26,11 @@ Feature: Register Complaint
     Given citizen logs in
     When he choose to register complaint with his login
     And he choose to enter grievance details as <grievanceDetails>
+    And he copies CRN and closes the acknowledgement
+   # And current user sign out
+
+    Given creator logs in
+    And choose to act upon the above CRN
 
 
     Examples:

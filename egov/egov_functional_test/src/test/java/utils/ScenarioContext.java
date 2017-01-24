@@ -38,6 +38,8 @@ public class ScenarioContext {
 
     private String previousUser;
 
+    private String CRN;
+
     public String getPreviousUser() {
         return previousUser;
     }
@@ -180,6 +182,14 @@ public class ScenarioContext {
 
     public String getLicenseNumber() {
         return licenseNumber;
+    }
+
+    public void setCRN(String CRN) {
+        this.CRN = CRN;
+    }
+
+    public String getCRN() {
+        return CRN;
     }
 }
 

@@ -74,6 +74,8 @@ public class TradeLicenseSteps extends BaseSteps implements En {
         And("^he search trade license with application number$", () -> {
             String searchId = "searchWithApplicationNumber";
             SearchTradeDetails searchTradeDetails = new ExcelReader(tradeLicenseTestDataFileName).getTradeSearchDetails(searchId);
+            pageStore.get(TradeLicensePage.class).enterApplicationNumberReadingFromExcel(searchTradeDetails);
+            pageStore.get(TradeLicensePage.class).clickOnSearchButton();
         });
 
 
