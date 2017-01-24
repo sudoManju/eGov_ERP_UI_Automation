@@ -4,7 +4,7 @@ Feature: search property
   I want to be able to search for a property
   So that the property records are up to date.
 
-
+@WIP
 Scenario: Registered user searching a property in the system with assessment number
 
   Given Admin logs in
@@ -16,6 +16,7 @@ Scenario: Registered user searching a property in the system with assessment num
   And current user closes acknowledgement
   And current user logs out
 
+@WIP
 Scenario:  Registered user searching a property in the system with door number
 
   Given Admin logs in
@@ -27,6 +28,7 @@ Scenario:  Registered user searching a property in the system with door number
   And current user closes acknowledgement
   And current user logs out
 
+@WIP
 Scenario: Registered user searching a property in the system with mobile number
 
   Given Admin logs in
@@ -38,6 +40,7 @@ Scenario: Registered user searching a property in the system with mobile number
   And current user closes acknowledgement
   And current user logs out
 
+@WIP
 Scenario: Registered user searching a property in the system with zone and ward number
 
   Given Admin logs in

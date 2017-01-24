@@ -243,6 +243,8 @@ public class DashboardPage extends BasePage {
 
     @FindBy(xpath = "html/body/div[1]/header/nav/div/div[3]/ul/li[2]/a")
     private WebElement profileLink;
+    @FindBy(linkText = "Create Revision Petition")
+    private WebElement createRevisionPetitionLink;
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -886,5 +888,13 @@ public class DashboardPage extends BasePage {
     }
 
 
+    public void chooseRevisionPetition() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Create Revision Petition");
+        waitForElementToBeClickable(createRevisionPetitionLink, driver);
+        createRevisionPetitionLink.click();
+        switchToNewlyOpenedWindow(driver);
+
+    }
 }
 

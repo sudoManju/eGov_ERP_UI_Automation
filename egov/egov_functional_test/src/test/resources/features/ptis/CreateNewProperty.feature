@@ -164,49 +164,49 @@ Feature: Create New Property
         And he enters enclosure details
 
 
-        And he forwards for approval to billCollector
-        Then edit property details get saved successfully
-        And current user logs out
-
-        When billCollector logs in
-        And chooses to act upon the above application
-        And he forwards for approval to revenueInspector
-        And current user closes acknowledgement
-        And current user logs out
-
-        When revenueInspector logs in
-        And chooses to act upon the above application
-        And he forwards for approval to revenueOfficer
-        And current user closes acknowledgement
-        And current user logs out
-
-        Given juniorAssistant logs in
-        When he chooses mutation fee
-        And he searches for the assessment with mutation assessment number
-        And he pay tax using Cash
-        And current user logs out
-
-        When revenueOfficer logs in
-        And chooses to act upon the above application
-        And he forwards for approval to commissioner
-        And current user closes acknowledgement
-        And current user logs out
-
-        When commissioner logs in
-        And chooses to act upon the above application
-        And he approved the property with remarks "property approved"
-        And current user closes acknowledgement
-
-        And chooses to act upon the above assessment
-        And he does a digital signature
-
-        When commissioner closes acknowledgement
-        And current user logs out
-
-        And juniorAssistant logs in
-        And chooses to act upon the above assessment
-        And he generate title transfer notice
-        And current user logs out
+#        And he forwards for approval to billCollector
+#        Then edit property details get saved successfully
+#        And current user logs out
+#
+#        When billCollector logs in
+#        And chooses to act upon the above application
+#        And he forwards for approval to revenueInspector
+#        And current user closes acknowledgement
+#        And current user logs out
+#
+#        When revenueInspector logs in
+#        And chooses to act upon the above application
+#        And he forwards for approval to revenueOfficer
+#        And current user closes acknowledgement
+#        And current user logs out
+#
+#        Given juniorAssistant logs in
+#        When he chooses mutation fee
+#        And he searches for the assessment with mutation assessment number
+#        And he pay tax using Cash
+#        And current user logs out
+#
+#        When revenueOfficer logs in
+#        And chooses to act upon the above application
+#        And he forwards for approval to commissioner
+#        And current user closes acknowledgement
+#        And current user logs out
+#
+#        When commissioner logs in
+#        And chooses to act upon the above application
+#        And he approved the property with remarks "property approved"
+#        And current user closes acknowledgement
+#
+#        And chooses to act upon the above assessment
+#        And he does a digital signature
+#
+#        When commissioner closes acknowledgement
+#        And current user logs out
+#
+#        And juniorAssistant logs in
+#        And chooses to act upon the above assessment
+#        And he generate title transfer notice
+#        And current user logs out
 
         Examples:
 
@@ -214,9 +214,22 @@ Feature: Create New Property
          |register           |
 
 
+        @WIP
+
+        Scenario: Register user choose to do revision petition of property
+
+          Given commissioner logs in
+          When he chooses to create data entry
+          And he creates a new assessment for a private residential property
+          Then dataEntry Details saved successfully
+          And he choose to add edit DCB
+          And he choose to close the dataentry acknowledgement screen
+          And current user logs out
 
 
-
+          Given juniorAssistant logs in
+          When he choose to create revision petition
+          And he searches for assessment with number "1016042569"
 
 
 

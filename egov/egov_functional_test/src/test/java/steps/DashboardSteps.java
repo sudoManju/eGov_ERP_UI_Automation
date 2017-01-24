@@ -231,6 +231,9 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).openApplication(scenarioContext.getCRN());
         });
 
+        When("^he choose to create revision petition$", () -> {
+           pageStore.get(DashboardPage.class).chooseRevisionPetition();
+        });
 
     }
 }
