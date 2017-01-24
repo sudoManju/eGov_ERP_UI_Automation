@@ -363,8 +363,10 @@ public class AdvertisementsPage extends BasePage {
     }
 
     public void approve() {
+//        waitForElementToBeClickable(approveButton,driver);
+//        approveButton.click();
         waitForElementToBeClickable(approveButton,driver);
-        approveButton.sendKeys(Keys.ENTER);
+        commentBox.sendKeys(Keys.TAB, Keys.ENTER);
     }
 
     public String getAdvertisementNumber() {
