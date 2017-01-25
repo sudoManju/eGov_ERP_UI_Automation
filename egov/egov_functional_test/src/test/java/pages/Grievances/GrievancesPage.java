@@ -1,6 +1,5 @@
 package pages.Grievances;
 
-import cucumber.api.java.eo.Se;
 import entities.grievances.CreateComplaintDetails;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -64,6 +63,18 @@ public class GrievancesPage extends BasePage {
     @FindBy(linkText = "Sign out")
     private WebElement signOutLink;
 
+    @FindBy(id = "status")
+    private WebElement selectStatus;
+
+    @FindBy(id = "inc_messge")
+    private WebElement incMessageBox;
+
+    @FindBy(xpath = ".//*[@id='complaintUpdate']/div[6]/div/button[1]")
+    private WebElement submitButton;
+
+    @FindBy(xpath = "html/body/div[1]/div/div[1]/div/div/div[1]/div/strong")
+    private WebElement acknMsg;
+
 
     public GrievancesPage (WebDriver webDriver) {this.webDriver= webDriver;}
 
@@ -119,5 +130,13 @@ public class GrievancesPage extends BasePage {
         profileLink.click();
         waitForElementToBeClickable(signOutLink, webDriver);
         signOutLink.click();
+    }
+
+    public void officialMarkStatus() {
+        new Select(selectStatus).selectByVisibleText("COMPLETED");
+        enterText(incMessageBox, "Completed");
+        submitButton.click();
+//        webDriver.close();
+//        switchToPreviouslyOpenedWindow(webDriver);
     }
 }

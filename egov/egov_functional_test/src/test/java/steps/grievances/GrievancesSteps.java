@@ -3,6 +3,7 @@ package steps.grievances;
 import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.grievances.CreateComplaintDetails;
+import org.junit.Assert;
 import pages.Grievances.GrievancesPage;
 import steps.BaseSteps;
 import utils.ExcelReader;
@@ -33,6 +34,10 @@ public class GrievancesSteps extends BaseSteps implements En {
         And("^current user sign out$", () -> {
             pageStore.get(GrievancesPage.class).signOut();
         });
+        And("^he resolves the issue and mark status as completed$", () -> {
+            pageStore.get(GrievancesPage.class).officialMarkStatus();
+
+    });
 
 
     }

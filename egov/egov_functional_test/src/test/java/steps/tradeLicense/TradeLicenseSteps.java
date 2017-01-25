@@ -5,6 +5,7 @@ import cucumber.api.java8.En;
 import cucumber.api.java8.Tr;
 import entities.ptis.ApprovalDetails;
 import entities.tradeLicense.*;
+import org.apache.commons.lang.math.RandomUtils;
 import pages.ptis.PropertyDetailsPage;
 import pages.tradeLicense.TradeLicensePage;
 import steps.BaseSteps;
@@ -41,15 +42,15 @@ public class TradeLicenseSteps extends BaseSteps implements En {
             pageStore.get(TradeLicensePage.class).chooseToPayTaxOfApplicationNumber();
         });
         And("^he enters old license number$", () -> {
-           pageStore.get(TradeLicensePage.class).chooseOldTradeLicnese();
+            String assessmentNumber = "1016"+ get6DigitRandomInt();
+           pageStore.get(TradeLicensePage.class).chooseOldTradeLicnese(assessmentNumber);
         });
         And("^he copy trade application number$", () -> {
             String applicationNumber = pageStore.get(TradeLicensePage.class).getApplicationNumber();
             scenarioContext.setApplicationNumber(applicationNumber);
         });
         And("^he enters fee details of legency trade license (\\w+)$", (String legencyDetailsData) -> {
-            LegencyDetails legencyDetails = new ExcelReader(tradeLicenseTestDataFileName).getLegencyDetails(legencyDetailsData);
-            pageStore.get(TradeLicensePage.class).enterlegencyDetails(legencyDetails);
+            pageStore.get(TradeLicensePage.class).enterlegencyDetails();
         });
         And("^he choose a trade license for closure as (\\w+)$", (String ClosureData) -> {
            LicenseClosureDetails closureDetails=new ExcelReader(tradeLicenseTestDataFileName).getDetailsForClosure(ClosureData);
@@ -79,5 +80,8 @@ public class TradeLicenseSteps extends BaseSteps implements En {
         });
 
 
+    }
+
+    private String get6DigitRandomInt() {return String.valueOf((100000 + RandomUtils.nextInt(900000)));
     }
 }

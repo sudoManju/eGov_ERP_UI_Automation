@@ -8,13 +8,14 @@ Feature: create preamble
   # Create Preamble #
 
   @Sanity
-  Scenario Outline: Register user choose to create Preamble
+  Scenario Outline: Register user choose to create Preamble, agenda,meeting invitation,attendance and MOM
 
     Given councilCreator logs in
     When he choose to create preamble
     And he enters create preamble details as <details>
     And he will enter the approval details as <approval officer2>
     And he copies preamble number and closes the acknowledgement
+    Then user will be notified by "CREATED"
     And current user logs out
 
     When commissioner logs in

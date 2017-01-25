@@ -26,45 +26,38 @@ public class CouncilManagementSteps extends BaseSteps implements En {
             pageStore.get(CouncilManagementPage.class).enterApproverDetails(approvalDetails);
         });
         And("^he copies preamble number and closes the acknowledgement$", () -> {
-            String PreambleNumber = pageStore.get(CouncilManagementPage.class).getPreambleNumber();
-            scenarioContext.setPreambleNumber(PreambleNumber);
+            scenarioContext.setPreambleNumber(pageStore.get(CouncilManagementPage.class).getPreambleNumber());
             String Status= pageStore.get(CouncilManagementPage.class).getStatus();
-            Assert.assertTrue(Status.contains("CREATED"));
+            scenarioContext.setActualMessage(Status);
         });
         And("^he approves the preamble number$", () -> {
           String Status= pageStore.get(CouncilManagementPage.class).approve();
             scenarioContext.setActualMessage(Status);
-
         });
 
         And("^he choose to create agenda for the above preamble$", () -> {
-            String preambleNumber = scenarioContext.getPreambleNumber();
-            pageStore.get(CouncilManagementPage.class).enterCreateAgendaDetails(preambleNumber);
+            pageStore.get(CouncilManagementPage.class).enterCreateAgendaDetails(scenarioContext.getPreambleNumber());
         });
         And("^he enters create agenda details as (\\w+)$", (String createAgendaData) -> {
             CreatePreambleDetails createPreambleDetails=new ExcelReader(councilManagementTestDataFileName).getCreateAgendaDetails(createAgendaData);
             pageStore.get(CouncilManagementPage.class).enterCreateAgenda(createPreambleDetails);
         });
         And("^he copies agenda number and closes the acknowledgement$", () -> {
-            String AgendaNumber = pageStore.get(CouncilManagementPage.class).getAgendaNumber();
-            scenarioContext.setAgendaNumber(AgendaNumber);
+            scenarioContext.setAgendaNumber(pageStore.get(CouncilManagementPage.class).getAgendaNumber());
         });
         And("^he choose to create meeting invitation for the above agenda$", () -> {
-            String agendaNumber = scenarioContext.getAgendaNumber();
-            pageStore.get(CouncilManagementPage.class).enterCreateMeetingDetails(agendaNumber);
+            pageStore.get(CouncilManagementPage.class).enterCreateMeetingDetails(scenarioContext.getAgendaNumber());
         });
         And("^he enters meeting details as (\\w+)$", (String createMeetingDetails) -> {
             CreatePreambleDetails createMeetingData=new ExcelReader(councilManagementTestDataFileName).getCreateMeetingDetails(createMeetingDetails);
             pageStore.get(CouncilManagementPage.class).enterCouncilMeetingDetails(createMeetingData);
         });
         And("^he copies meeting number and closes the acknowledgement$", () -> {
-            String meetingNumber = pageStore.get(CouncilManagementPage.class).getMeetingNumber();
-            scenarioContext.setMeetingNumber(meetingNumber);
+            scenarioContext.setMeetingNumber(pageStore.get(CouncilManagementPage.class).getMeetingNumber());
         });
         And("^he enters above meeting number to enter attendance$", () -> {
-            String meetingNumber = scenarioContext.getMeetingNumber();
-            pageStore.get(CouncilManagementPage.class).enterMeetingNumber(meetingNumber);
-            Assert.assertNotNull(meetingNumber);
+            pageStore.get(CouncilManagementPage.class).enterMeetingNumber(scenarioContext.getMeetingNumber());
+            Assert.assertNotNull(scenarioContext.getMeetingNumber());
         });
         And("^he choose to edit attendance details$", () -> {
             pageStore.get(CouncilManagementPage.class).enterAttendanceDetails();
@@ -74,8 +67,7 @@ public class CouncilManagementSteps extends BaseSteps implements En {
 
         });
         And("^he choose to create council MOM for the meeting number$", () -> {
-           String meetingNumber= scenarioContext.getMeetingNumber();
-           pageStore.get(CouncilManagementPage.class).searchMeetingNumber(meetingNumber);
+           pageStore.get(CouncilManagementPage.class).searchMeetingNumber(scenarioContext.getMeetingNumber());
         });
         And("^he enters details to create MOM as (\\w+)$", (String councilMOMData) -> {
             CreatePreambleDetails councilMOMDetails=new ExcelReader(councilManagementTestDataFileName).getCouncilMOMDetails(councilMOMData);

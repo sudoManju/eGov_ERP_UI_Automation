@@ -115,8 +115,7 @@ public class CouncilManagementPage extends BasePage {
         enterText(gistOfPreamble, createPreambleDetails.getGistOfPreamble());
         attachment.sendKeys(System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx");
         Select sel=new Select(wards);
-        List<WebElement> selval=sel.getOptions();
-        for(int i=0;i<3;i++)
+        for(int i=1;i<3;i++)
         {
             sel.selectByIndex(i);
         }

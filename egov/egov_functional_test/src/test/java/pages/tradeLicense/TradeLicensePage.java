@@ -262,48 +262,20 @@ public class TradeLicensePage extends BasePage {
 
     }
 
-    public void chooseOldTradeLicnese() {
+    public void chooseOldTradeLicnese(String assessmentNumber) {
 
         waitForElementToBeClickable(oldTradeLicense, webDriver);
-        enterText(oldTradeLicense,"TL/08373/2016");
+        enterText(oldTradeLicense,assessmentNumber);
     }
 
-    public void enterlegencyDetails(LegencyDetails legencyDetails) {
-        waitForElementToBeClickable(amount1, webDriver);
-        amount1.clear();
-        jsClick(amount1, webDriver);
-        amount1.sendKeys(legencyDetails.getAmount1());
-            amount1.sendKeys(Keys.TAB);
-            jsClickCheckbox(checkBox1, webDriver);
+    public void enterlegencyDetails() {
 
-            amount2.clear();
-            waitForElementToBeClickable(amount2, webDriver);
-            jsClick(amount2 , webDriver);
-            amount2.sendKeys(legencyDetails.getAmount2());
-            enterText(amount2, legencyDetails.getAmount2());
-            jsClickCheckbox(checkBox2, webDriver);
+        List<WebElement> elements=webDriver.findElements(By.cssSelector(".form-control.patternvalidation.feeamount"));
 
-            amount3.clear();
-            waitForElementToBeClickable(amount3, webDriver);
-            enterText(amount3, legencyDetails.getAmount3());
-            jsClickCheckbox(checkBox3, webDriver);
+            enterText(elements.get(5),"200");
+            webDriver.switchTo().activeElement();
+            jsClick(webDriver.findElement(By.cssSelector(".btn.btn-primary")), webDriver);
 
-            amount4.clear();
-            waitForElementToBeClickable(amount4, webDriver);
-            enterText(amount4, legencyDetails.getAmount4());
-            jsClickCheckbox(checkBox4, webDriver);
-
-            amount5.clear();
-            waitForElementToBeClickable(amount5, webDriver);
-            enterText(amount5, legencyDetails.getAmount5());
-            jsClickCheckbox(checkBox5, webDriver);
-
-            amount6.clear();
-            waitForElementToBeClickable(amount6, webDriver);
-            enterText(amount6, legencyDetails.getAmount6());
-            jsClickCheckbox(checkBox6, webDriver);
-
-            saveButton.click();
 
     }
 
