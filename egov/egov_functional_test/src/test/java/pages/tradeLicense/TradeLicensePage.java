@@ -165,6 +165,15 @@ public class TradeLicensePage extends BasePage {
     @FindBy(id = "Generate Certificate")
     private WebElement generateCertificateButton;
 
+    @FindBy(xpath = ".//*[@id='button'][@class='button']")
+    private WebElement closeLicensePage;
+
+    @FindBy(id = "licenseNumber")
+    private WebElement licenseNumberBox;
+
+    @FindBy(xpath = ".//*[@id='searchForm']/div[2]/div/button[3]")
+    private WebElement closeSearch;
+
 
     String tradeApplicationNumber;
 
@@ -326,6 +335,28 @@ public class TradeLicensePage extends BasePage {
     public void enterApplicationNumberReadingFromExcel(SearchTradeDetails searchId) {
         waitForElementToBeVisible(applicationNumberTextBox, webDriver);
         enterText(applicationNumberTextBox, searchId.getApplicationNumber());
+    }
+
+    public String getLegacyLicenseNumber() {
+        String licenseNum= webDriver.findElement(By.xpath(".//*[@id='viewTradeLicense']/div[8]/div[1]/div[2]")).getText();
+        closeLicensePage.click();
+        switchToPreviouslyOpenedWindow(webDriver);
+        return licenseNum;
+    }
+
+    public void enterLicenseNumber(String licenseNumber) {
+        enterText(licenseNumberBox, licenseNumber);
+        searchButton.click();
+    }
+
+    public void chooseToRenewLicense() {
+        waitForElementToBeClickable(collectFeeDropBox , webDriver);
+        new Select(collectFeeDropBox).selectByVisibleText("Renew License");
+        switchToNewlyOpenedWindow(webDriver);
+        saveButton.click();
+        closeButton.click();
+        switchToNewlyOpenedWindow(webDriver);
+        searchButton.click();
     }
 //    public void checkNoOfRecords() {
 //        waitForElementToBeVisible(recordsFound, webDriver);

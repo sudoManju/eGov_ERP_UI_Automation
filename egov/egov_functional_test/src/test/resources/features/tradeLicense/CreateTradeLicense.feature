@@ -67,7 +67,7 @@ Feature: Create Trade License
 
        # CREATE LEGENCY TRADE LICENSE #
 
-  @WIP
+  @Sanity
   Scenario Outline: Register user create legacy trade license
     Given creator logs in
     When he choose to create legency trade license
@@ -76,7 +76,8 @@ Feature: Create Trade License
     And he enters trade location details of new license <tradeLocationData>
     And he enters trade details of new license <tradeDetailsData1>
     And he enters fee details of legency trade license
-
+    And he copies the license number and closes the acknowledgement
+    And current user logs out
 
     Examples:
       |   tradeDetailsData         |       tradeLocationData           |            tradeDetailsData1    |   legencyDetailsData|
@@ -112,4 +113,45 @@ Feature: Create Trade License
         |closure          |
         |licenceForClosure|
 
+    @WIP
 
+    Scenario Outline: Renewal of Trade License
+      Given creator logs in
+      When he choose to create legency trade license
+      And he enters old license number
+      And he enters trade owner details of new license <tradeDetailsData>
+      And he enters trade location details of new license <tradeLocationData>
+      And he enters trade details of new license <tradeDetailsData1>
+      And he enters fee details of legency trade license
+      And he copies the license number and closes the acknowledgement
+
+      And he choose to search trade license
+      And he choose to search with license number
+      And he choose to renew trade license
+      And he choose to collectfees
+      And he choose to payTax of applicationNumber
+      And he choose to act upon the above application number
+      And he forwards for approver sanitaryInspector
+      And he closes the acknowledgement
+      And current user logs out
+
+      When sanitaryInspector logs in
+      And he choose to act upon the above application number
+      And he forwards for approver commissioner
+      And he closes the acknowledgement
+      And current user logs out
+
+      When commissioner logs in
+      And he choose to act upon the above application number
+      And he approves the closure
+      And he closes the acknowledgement
+      And current user logs out
+
+      When creator logs in
+      And he choose to act upon the above application number
+      And he generates the license certificate
+
+
+      Examples:
+        |   tradeDetailsData         |       tradeLocationData           |            tradeDetailsData1    |
+        |   ownerDetailsTradeLicense |       locationDetailsTradeLicense |        tradeDetailsTradeLicense |

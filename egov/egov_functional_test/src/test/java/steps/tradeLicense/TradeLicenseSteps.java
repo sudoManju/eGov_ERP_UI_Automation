@@ -78,6 +78,15 @@ public class TradeLicenseSteps extends BaseSteps implements En {
             pageStore.get(TradeLicensePage.class).enterApplicationNumberReadingFromExcel(searchTradeDetails);
             pageStore.get(TradeLicensePage.class).clickOnSearchButton();
         });
+        And("^he copies the license number and closes the acknowledgement$", () -> {
+            scenarioContext.setApplicationNumber(pageStore.get(TradeLicensePage.class).getLegacyLicenseNumber());
+        });
+        And("^he choose to search with license number$", () -> {
+           pageStore.get(TradeLicensePage.class).enterLicenseNumber(scenarioContext.getApplicationNumber());
+        });
+        And("^he choose to renew trade license$", () -> {
+            pageStore.get(TradeLicensePage.class).chooseToRenewLicense();
+        });
 
 
     }
