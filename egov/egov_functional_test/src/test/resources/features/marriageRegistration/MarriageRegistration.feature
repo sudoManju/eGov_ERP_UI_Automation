@@ -5,8 +5,8 @@ Feature: Marriage Registration
   Scenario Outline: Create Marriage Registration
     When juniorAssistant logs in
     And he chooses to create marriage registration
-    And he enters the applicants details as <applicantsInformation>
+    And he enters the applicants details as <applicantsInformation> <applicantsInformation1>
 
     Examples:
-    |applicantsInformation|
-    |generalInfo          |
+    |applicantsInformation     | applicantsInformation1|
+    |generalInfo               | bridegroomInfo        |

@@ -12,8 +12,8 @@ import utils.ExcelReader;
  */
 public class MarriageRegistrationSteps extends BaseSteps implements En {
     public MarriageRegistrationSteps() {
-        And("^he enters the applicants details as (\\w+)$", (String applicantsInformationDataId) -> {
-            MarriageRegistrationInformation marriageRegistrationInformation = new ExcelReader(marriageRegistrationTestDataFileName).getApplicantsInformation(applicantsInformationDataId);
+        And("^he enters the applicants details as (\\w+) (\\w+)$", (String applicantsInformationDataId, String applicantsInformationDataId1) -> {
+            MarriageRegistrationInformation marriageRegistrationInformation = new ExcelReader(marriageRegistrationTestDataFileName).getApplicantsInformation(applicantsInformationDataId, applicantsInformationDataId1);
             pageStore.get(MarriageRegistrationPage.class).enterApplicantsInformation(marriageRegistrationInformation);
         });
     }

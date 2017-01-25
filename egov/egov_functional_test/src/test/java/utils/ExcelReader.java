@@ -1442,7 +1442,7 @@ public class ExcelReader {
 
    }
 
-    public MarriageRegistrationInformation getApplicantsInformation(String applicantsInformation) {
+    public MarriageRegistrationInformation getApplicantsInformation(String applicantsInformation, String applicantsInformation1) {
        Row dataRow = readDataRow(applicantsInformationSheet, applicantsInformation);
 
         Cell registrationUnitCell = getCellData(applicantsInformationSheet, dataRow,"RegistrationUnit");
@@ -1469,56 +1469,56 @@ public class ExcelReader {
         placeOfMarriageCell.setCellType(Cell.CELL_TYPE_STRING);
         String PlaceOfMarriage= placeOfMarriageCell.getStringCellValue();
 
-//        Row dataRow1 = readDataRow(bridegroomInformationSheet, applicantsInformation);
+        Row dataRow1 = readDataRow(bridegroomInformationSheet, applicantsInformation1);
 
-//        Cell FullNameCell = getCellData(bridegroomInformationSheet, dataRow1,"FullName");
-//        FullNameCell.setCellType(Cell.CELL_TYPE_STRING);
-//        String FullName= FullNameCell.getStringCellValue();
-//
-//        Cell FathersMothersNameCell = getCellData(bridegroomInformationSheet, dataRow1,"FathersMothersName");
-//        FathersMothersNameCell.setCellType(Cell.CELL_TYPE_STRING);
-//        String FathersMothersName= FathersMothersNameCell.getStringCellValue();
-//
-//        Cell ReligionCell = getCellData(bridegroomInformationSheet, dataRow1,"Religion");
-//        ReligionCell.setCellType(Cell.CELL_TYPE_STRING);
-//        String Religion= ReligionCell.getStringCellValue();
-//
-//        Cell StatusAtTheTimeMarriageCell = getCellData(bridegroomInformationSheet, dataRow1,"StatusAtTheTimeMarriage");
-//        StatusAtTheTimeMarriageCell.setCellType(Cell.CELL_TYPE_STRING);
-//        String StatusAtTheTimeMarriage= StatusAtTheTimeMarriageCell.getStringCellValue();
-//
-//        Cell ResidenceAddressCell = getCellData(bridegroomInformationSheet, dataRow1,"ResidenceAddress");
-//        ResidenceAddressCell.setCellType(Cell.CELL_TYPE_STRING);
-//        String ResidenceAddress= ResidenceAddressCell.getStringCellValue();
-//
-//        Cell OfficeAddressCell = getCellData(bridegroomInformationSheet, dataRow1,"OfficeAddress");
-//        OfficeAddressCell.setCellType(Cell.CELL_TYPE_STRING);
-//        String OfficeAddress= OfficeAddressCell.getStringCellValue();
-//
-//        Cell phoneNoCell = getCellData(bridegroomInformationSheet, dataRow1,"PhoneNo");
-//        phoneNoCell.setCellType(Cell.CELL_TYPE_STRING);
-//        String PhoneNo= phoneNoCell.getStringCellValue();
-//
-//        Cell OccupationCell = getCellData(bridegroomInformationSheet, dataRow1,"Occupation");
-//        OccupationCell.setCellType(Cell.CELL_TYPE_STRING);
-//        String Occupation= OccupationCell.getStringCellValue();
-//
-//        Cell educationQualificationCell = getCellData(bridegroomInformationSheet, dataRow1,"EducationQualification");
-//        educationQualificationCell.setCellType(Cell.CELL_TYPE_STRING);
-//        String EducationQualification= educationQualificationCell.getStringCellValue();
-//
-//        Cell NationalityCell = getCellData(bridegroomInformationSheet, dataRow1,"Nationality");
-//        NationalityCell.setCellType(Cell.CELL_TYPE_STRING);
-//        String Nationality= NationalityCell.getStringCellValue();
+        Cell FullNameCell = getCellData(bridegroomInformationSheet, dataRow1,"FullName");
+        FullNameCell.setCellType(Cell.CELL_TYPE_STRING);
+        String FullName= FullNameCell.getStringCellValue();
+
+        Cell FathersMothersNameCell = getCellData(bridegroomInformationSheet, dataRow1,"FathersMothersName");
+        FathersMothersNameCell.setCellType(Cell.CELL_TYPE_STRING);
+        String FathersMothersName= FathersMothersNameCell.getStringCellValue();
+
+        Cell ReligionCell = getCellData(bridegroomInformationSheet, dataRow1,"Religion");
+        ReligionCell.setCellType(Cell.CELL_TYPE_STRING);
+        String Religion= ReligionCell.getStringCellValue();
+
+        Cell StatusAtTheTimeMarriageCell = getCellData(bridegroomInformationSheet, dataRow1,"StatusAtTheTimeMarriage");
+        StatusAtTheTimeMarriageCell.setCellType(Cell.CELL_TYPE_STRING);
+        String StatusAtTheTimeMarriage= StatusAtTheTimeMarriageCell.getStringCellValue();
+
+        Cell ResidenceAddressCell = getCellData(bridegroomInformationSheet, dataRow1,"ResidenceAddress");
+        ResidenceAddressCell.setCellType(Cell.CELL_TYPE_STRING);
+        String ResidenceAddress= ResidenceAddressCell.getStringCellValue();
+
+        Cell OfficeAddressCell = getCellData(bridegroomInformationSheet, dataRow1,"OfficeAddress");
+        OfficeAddressCell.setCellType(Cell.CELL_TYPE_STRING);
+        String OfficeAddress= OfficeAddressCell.getStringCellValue();
+
+        Cell phoneNoCell = getCellData(bridegroomInformationSheet, dataRow1,"PhoneNo");
+        phoneNoCell.setCellType(Cell.CELL_TYPE_STRING);
+        String PhoneNo= phoneNoCell.getStringCellValue();
+
+        Cell OccupationCell = getCellData(bridegroomInformationSheet, dataRow1,"Occupation");
+        OccupationCell.setCellType(Cell.CELL_TYPE_STRING);
+        String Occupation= OccupationCell.getStringCellValue();
+
+        Cell educationQualificationCell = getCellData(bridegroomInformationSheet, dataRow1,"EducationQualification");
+        educationQualificationCell.setCellType(Cell.CELL_TYPE_STRING);
+        String EducationQualification= educationQualificationCell.getStringCellValue();
+
+        Cell NationalityCell = getCellData(bridegroomInformationSheet, dataRow1,"Nationality");
+        NationalityCell.setCellType(Cell.CELL_TYPE_STRING);
+        String Nationality= NationalityCell.getStringCellValue();
 
         return new MarriageRegistrationBuilder()
                .withRegistrationUnit(RegistrationUnit)
                 .withStreet(Street).withLocality(Locality)
                 .withCity(City).withVenueOfMarriage(VenueOfMarriage).withPlaceOfMarriage(PlaceOfMarriage)
-//                .withFullName(FullName).withFathersMothersName(FathersMothersName).withReligion(Religion)
-//                .withStatusAtTheTimeMarriage(StatusAtTheTimeMarriage).withStreet(Street).withLocality(Locality)
-//                .withOfficeAddress(OfficeAddress).withPhoneNo(PhoneNo).withOccupation(Occupation)
-//                .withEducationQualification(EducationQualification).withNationality(Nationality)
+                .withFullName(FullName).withFathersMothersName(FathersMothersName).withReligion(Religion)
+                .withStatusAtTheTimeMarriage(StatusAtTheTimeMarriage).withResidenceAddress(ResidenceAddress).withStreet(Street).withLocality(Locality)
+                .withOfficeAddress(OfficeAddress).withPhoneNo(PhoneNo).withOccupation(Occupation)
+                .withEducationQualification(EducationQualification).withNationality(Nationality)
                 .build();
     }
 }

@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
 
+import java.util.List;
+
 /**
  * Created by manjunatha-lap on 24/01/2017.
  */
@@ -16,13 +18,16 @@ public class MarriageRegistrationPage extends BasePage {
     private WebElement registrationUnit;
 
     @FindBy(id = "txt-street")
-    private WebElement street;
+    private List<WebElement> street;
 
     @FindBy(id = "select-locality")
     private WebElement locality;
 
+    @FindBy(id = "txt-locality")
+    private List<WebElement> localityTxt;
+
     @FindBy(id = "txt-city")
-    private WebElement city;
+    private List<WebElement> city;
 
     @FindBy(id = "txt-dateOfMarriage")
     private WebElement dateOfMarriage;
@@ -83,38 +88,38 @@ public class MarriageRegistrationPage extends BasePage {
     public void enterApplicantsInformation(MarriageRegistrationInformation marriageRegistrationInformation) {
         waitForElementToBeClickable(registrationUnit, driver);
         registrationUnit.sendKeys(marriageRegistrationInformation.getRegistrationUnit());
-        waitForElementToBeClickable(street, driver);
-        street.sendKeys(marriageRegistrationInformation.getStreet());
+        waitForElementToBeClickable(street.get(0), driver);
+        street.get(0).sendKeys(marriageRegistrationInformation.getStreet());
         waitForElementToBeClickable(locality, driver);
         locality.sendKeys(marriageRegistrationInformation.getLocality());
-        waitForElementToBeClickable(city, driver);
-        city.sendKeys(marriageRegistrationInformation.getCity());
+        waitForElementToBeClickable(city.get(0), driver);
+        city.get(0).sendKeys(marriageRegistrationInformation.getCity());
         waitForElementToBeClickable(placeOfMarriage, driver);
         placeOfMarriage.sendKeys(marriageRegistrationInformation.getPlaceOfMarriage());
         marriagePhoto.sendKeys(System.getProperty("user.dir")+"\\src\\test\\resources\\logo.jpg");
-//        waitForElementToBeClickable(brideFullName, driver);
-//        brideFullName.sendKeys(marriageRegistrationInformation.getFullName());
-//        waitForElementToBeClickable(brideLastName, driver);
-//        brideLastName.sendKeys("N");
-//        photoUpload.sendKeys(System.getProperty("user.dir")+"\\src\\test\\resources\\logo.jpg");
-//        waitForElementToBeClickable(parentsName, driver);
-//        parentsName.sendKeys(marriageRegistrationInformation.getFathersMothersName());
-//        waitForElementToBeClickable(religion, driver);
-//        religion.sendKeys(marriageRegistrationInformation.getReligion());
-//        waitForElementToBeClickable(ageInYearsAsOnMarriage, driver);
-//        ageInYearsAsOnMarriage.sendKeys("32");
-//        waitForElementToBeClickable(ageInMonthsAsOnMarriage, driver);
-//        ageInMonthsAsOnMarriage.sendKeys("0");
-//        waitForElementToBeClickable(maritalStatus, driver);
-//        maritalStatus.sendKeys(marriageRegistrationInformation.getStatusAtTheTimeMarriage());
-//        waitForElementToBeClickable(residenceAddress, driver);
-//        residenceAddress.sendKeys(marriageRegistrationInformation.getResidenceAddress());
-//        waitForElementToBeClickable(street, driver);
-//        street.sendKeys(marriageRegistrationInformation.getStreet());
-//        waitForElementToBeClickable(locality, driver);
-//        locality.sendKeys(marriageRegistrationInformation.getLocality());
-//        waitForElementToBeClickable(city, driver);
-//        city.sendKeys(marriageRegistrationInformation.getCity());
+        waitForElementToBeClickable(brideFullName, driver);
+        brideFullName.sendKeys(marriageRegistrationInformation.getFullName());
+        waitForElementToBeClickable(brideLastName, driver);
+        brideLastName.sendKeys("N");
+        photoUpload.sendKeys(System.getProperty("user.dir")+"\\src\\test\\resources\\logo.jpg");
+        waitForElementToBeClickable(parentsName, driver);
+        parentsName.sendKeys(marriageRegistrationInformation.getFathersMothersName());
+        waitForElementToBeClickable(religion, driver);
+        religion.sendKeys(marriageRegistrationInformation.getReligion());
+        waitForElementToBeClickable(ageInYearsAsOnMarriage, driver);
+        ageInYearsAsOnMarriage.sendKeys("32");
+        waitForElementToBeClickable(ageInMonthsAsOnMarriage, driver);
+        ageInMonthsAsOnMarriage.sendKeys("0");
+        waitForElementToBeClickable(maritalStatus, driver);
+        maritalStatus.sendKeys(marriageRegistrationInformation.getStatusAtTheTimeMarriage());
+        waitForElementToBeClickable(residenceAddress, driver);
+        residenceAddress.sendKeys(marriageRegistrationInformation.getResidenceAddress());
+        waitForElementToBeClickable(street.get(1), driver);
+        street.get(1).sendKeys(marriageRegistrationInformation.getStreet());
+        waitForElementToBeClickable(localityTxt.get(0), driver);
+        localityTxt.get(0).sendKeys(marriageRegistrationInformation.getLocality());
+        waitForElementToBeClickable(city.get(1), driver);
+        city.get(1).sendKeys(marriageRegistrationInformation.getCity());
 
     }
 }
