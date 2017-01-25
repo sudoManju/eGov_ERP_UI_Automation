@@ -30,7 +30,7 @@ Examples:
 
   Scenario: System should be able to cancel receipt
 
-    Given juniorAssistant logs in
+    Given creator logs in
     And he clicks on drafts
     And he chooses to act upon the above receipt in drafts
     And he submit all collections
