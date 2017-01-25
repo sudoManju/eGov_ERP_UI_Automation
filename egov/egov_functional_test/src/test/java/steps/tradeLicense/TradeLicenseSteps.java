@@ -49,7 +49,7 @@ public class TradeLicenseSteps extends BaseSteps implements En {
             String applicationNumber = pageStore.get(TradeLicensePage.class).getApplicationNumber();
             scenarioContext.setApplicationNumber(applicationNumber);
         });
-        And("^he enters fee details of legency trade license (\\w+)$", (String legencyDetailsData) -> {
+        And("^he enters fee details of legency trade license$", () -> {
             pageStore.get(TradeLicensePage.class).enterlegencyDetails();
         });
         And("^he choose a trade license for closure as (\\w+)$", (String ClosureData) -> {

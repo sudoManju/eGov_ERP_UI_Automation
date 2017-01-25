@@ -35,7 +35,7 @@ public class GrievancesSteps extends BaseSteps implements En {
             pageStore.get(GrievancesPage.class).signOut();
         });
         And("^he resolves the issue and mark status as completed$", () -> {
-            pageStore.get(GrievancesPage.class).officialMarkStatus();
+            scenarioContext.setActualMessage(pageStore.get(GrievancesPage.class).officialMarkStatus());
 
     });
 

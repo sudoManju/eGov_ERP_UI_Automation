@@ -75,6 +75,9 @@ public class GrievancesPage extends BasePage {
     @FindBy(xpath = "html/body/div[1]/div/div[1]/div/div/div[1]/div/strong")
     private WebElement acknMsg;
 
+    @FindBy(xpath = "html/body/div[1]/div/div[3]/div/a")
+    private WebElement closeButton;
+
 
     public GrievancesPage (WebDriver webDriver) {this.webDriver= webDriver;}
 
@@ -118,7 +121,7 @@ public class GrievancesPage extends BasePage {
     public String getCRN() {
         waitForElementToBeVisible(CRNNumber, webDriver);
         String CrnNum=CRNNumber.getText();
-        webDriver.close();
+        closeButton.click();
         switchToPreviouslyOpenedWindow(webDriver);
 //        webDriver.close();
         return CrnNum;
@@ -132,11 +135,13 @@ public class GrievancesPage extends BasePage {
         signOutLink.click();
     }
 
-    public void officialMarkStatus() {
+    public String officialMarkStatus() {
         new Select(selectStatus).selectByVisibleText("COMPLETED");
         enterText(incMessageBox, "Completed");
         submitButton.click();
-//        webDriver.close();
-//        switchToPreviouslyOpenedWindow(webDriver);
+        String success=webDriver.findElement(By.xpath("html/body/div[1]/div/div[1]/div/div/div[1]/div/strong")).getText();
+        closeButton.click();
+        switchToPreviouslyOpenedWindow(webDriver);
+        return success;
     }
 }

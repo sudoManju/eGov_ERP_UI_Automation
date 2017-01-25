@@ -15,7 +15,8 @@ Feature: Register Complaint
     When creator logs in
     And choose to act upon the above CRN
     And he resolves the issue and mark status as completed
-#    And current user logs out
+    And user will be notified by "successfully"
+    And current user logs out
 
 
     Examples:

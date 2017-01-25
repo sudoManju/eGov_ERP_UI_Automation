@@ -107,6 +107,8 @@ public class CouncilManagementPage extends BasePage {
     @FindBy (xpath = ".//*[@id='textarea-btnupdate']")
     private WebElement updateButton;
 
+
+
     public CouncilManagementPage(WebDriver webDriver){this.webDriver=webDriver;}
 
     public void enterCreatePreambleDetails(CreatePreambleDetails createPreambleDetails) {
@@ -138,7 +140,7 @@ public class CouncilManagementPage extends BasePage {
     public String getStatus() {
         List<WebElement> elements=webDriver.findElements(By.cssSelector(".col-sm-3.add-margin.view-content"));
         String ele=elements.get(1).getText();
-        webDriver.close();
+        CloseButton.click();
         switchToPreviouslyOpenedWindow(webDriver);
         return ele;
     }
@@ -147,7 +149,7 @@ public class CouncilManagementPage extends BasePage {
         approve.click();
         List<WebElement> elements=webDriver.findElements(By.cssSelector(".col-sm-3.add-margin.view-content"));
         String ele=elements.get(1).getText();
-        webDriver.close();
+        CloseButton.click();
         switchToPreviouslyOpenedWindow(webDriver);
         return ele;
     }
@@ -169,7 +171,7 @@ public class CouncilManagementPage extends BasePage {
     public String getAgendaNumber() {
         List<WebElement> elements= webDriver.findElements(By.cssSelector(".col-sm-3.add-margin.view-content"));
         String agendaNumber = elements.get(2).getText();
-        webDriver.close();
+        CloseButton.click();
         switchToPreviouslyOpenedWindow(webDriver);
         return agendaNumber;
     }
@@ -199,7 +201,7 @@ public class CouncilManagementPage extends BasePage {
         System.out.println("meeting number "+meetingNumber);
         CloseButton.click();
         switchToNewlyOpenedWindow(webDriver);
-        webDriver.close();
+        CloseButton.click();
         switchToPreviouslyOpenedWindow(webDriver);
         return meetingNumber;
     }
@@ -260,7 +262,7 @@ public class CouncilManagementPage extends BasePage {
         switchToNewlyOpenedWindow(webDriver);
         webDriver.close();
         switchToNewlyOpenedWindow(webDriver);
-        webDriver.close();
+        CloseButton.click();
         switchToPreviouslyOpenedWindow(webDriver);
     }
 }

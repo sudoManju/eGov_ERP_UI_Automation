@@ -23,39 +23,39 @@ Feature: Create Trade License
 
     # Create Trade License with work flow #
 
-    @Sanity
-    Scenario Outline: Register User create trade license with work flow
-      Given creator logs in
-      When he chooses to create new License
-      And he enters trade owner details of new license <tradeDetailsData>
-      And he enters trade location details of new license <tradeLocationData>
-      And he enters trade details of new license <tradeDetailsData1>
-      And he copy trade application number
+  @Sanity
+  Scenario Outline: Register User create trade license with work flow
+    Given creator logs in
+    When he chooses to create new License
+    And he enters trade owner details of new license <tradeDetailsData>
+    And he enters trade location details of new license <tradeLocationData>
+    And he enters trade details of new license <tradeDetailsData1>
+    And he copy trade application number
 
-      And he choose to search trade license
-      And he search existing application number
-      And he choose to collectfees
-      And he choose to payTax of applicationNumber
-      And he choose to act upon the above application number
-      And he forwards for approver sanitaryInspector
-      And he closes the acknowledgement
-      And current user logs out
+    And he choose to search trade license
+    And he search existing application number
+    And he choose to collectfees
+    And he choose to payTax of applicationNumber
+    And he choose to act upon the above application number
+    And he forwards for approver sanitaryInspector
+    And he closes the acknowledgement
+    And current user logs out
 
-      When sanitaryInspector logs in
-      And he choose to act upon the above application number
-      And he forwards for approver commissioner
-      And he closes the acknowledgement
-      And current user logs out
+    When sanitaryInspector logs in
+    And he choose to act upon the above application number
+    And he forwards for approver commissioner
+    And he closes the acknowledgement
+    And current user logs out
 
-      When commissioner logs in
-      And he choose to act upon the above application number
-      And he approves the closure
-      And he closes the acknowledgement
-      And current user logs out
+    When commissioner logs in
+    And he choose to act upon the above application number
+    And he approves the closure
+    And he closes the acknowledgement
+    And current user logs out
 
-      When creator logs in
-      And he choose to act upon the above application number
-      And he generates the license certificate
+    When creator logs in
+    And he choose to act upon the above application number
+    And he generates the license certificate
 
 
 
@@ -67,20 +67,20 @@ Feature: Create Trade License
 
        # CREATE LEGENCY TRADE LICENSE #
 
-      @WIP
-        Scenario Outline: Register user create legacy trade license
-        Given creator logs in
-        When he choose to create legency trade license
-        And he enters old license number
-        And he enters trade owner details of new license <tradeDetailsData>
-        And he enters trade location details of new license <tradeLocationData>
-        And he enters trade details of new license <tradeDetailsData1>
-        And he enters fee details of legency trade license <legencyDetailsData>
+  @WIP
+  Scenario Outline: Register user create legacy trade license
+    Given creator logs in
+    When he choose to create legency trade license
+    And he enters old license number
+    And he enters trade owner details of new license <tradeDetailsData>
+    And he enters trade location details of new license <tradeLocationData>
+    And he enters trade details of new license <tradeDetailsData1>
+    And he enters fee details of legency trade license
 
 
-        Examples:
-          |   tradeDetailsData         |       tradeLocationData           |            tradeDetailsData1    |   legencyDetailsData|
-          |   ownerDetailsTradeLicense |       locationDetailsTradeLicense |        tradeDetailsTradeLicense |     legencyTrade    |
+    Examples:
+      |   tradeDetailsData         |       tradeLocationData           |            tradeDetailsData1    |   legencyDetailsData|
+      |   ownerDetailsTradeLicense |       locationDetailsTradeLicense |        tradeDetailsTradeLicense |     legencyTrade    |
 
 
    # Trade License Closure #
@@ -108,7 +108,7 @@ Feature: Create Trade License
     And current user logs out
 
 
-        Examples:
+      Examples:
         |closure          |
         |licenceForClosure|
 
