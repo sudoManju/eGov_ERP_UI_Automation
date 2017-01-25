@@ -905,5 +905,17 @@ public class DashboardPage extends BasePage {
         createMarriageRegistrationLink.click();
         switchToNewlyOpenedWindow(driver);
     }
+
+    public void chooesForModeOFAssignment(String mode){
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+
+        if(mode.equalsIgnoreCase("cheque")){
+            searchFor("Create Marriage Registration");
+            waitForElementToBeClickable(createMarriageRegistrationLink, driver);
+            createMarriageRegistrationLink.click();
+            switchToNewlyOpenedWindow(driver);
+        }
+
+    }
 }
 

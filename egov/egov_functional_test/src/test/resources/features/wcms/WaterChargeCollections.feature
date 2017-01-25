@@ -1,3 +1,4 @@
+
 Feature: To collect water charges in different mode payments
 
   Background:It will run the data entry screen of property tax as well as logo uploading

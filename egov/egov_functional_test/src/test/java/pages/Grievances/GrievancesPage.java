@@ -49,9 +49,6 @@ public class GrievancesPage extends BasePage {
     @FindBy(id = "create-griev")
     private WebElement createGrievanceButton;
 
-    @FindBy(id = "triggerFile")
-    private WebElement uploadPhotoButton;
-
     @FindBy(linkText = "New Request")
     private WebElement newRequestLink;
 
@@ -60,6 +57,13 @@ public class GrievancesPage extends BasePage {
 
     @FindBy(id = "ctn_no")
     private WebElement CRNNumber;
+
+    @FindBy(css = ".dropdown-toggle")
+    private WebElement profileLink;
+
+    @FindBy(linkText = "Sign out")
+    private WebElement signOutLink;
+
 
     public GrievancesPage (WebDriver webDriver) {this.webDriver= webDriver;}
 
@@ -83,7 +87,6 @@ public class GrievancesPage extends BasePage {
     new Select(complaintTypeCategorySelect).selectByVisibleText(createComplaintDetails.getGrievanceCategory());
     new Select(complaintTypeSelect).selectByVisibleText(createComplaintDetails.getGrievanceType());
     enterText(grievanceDetailsText, createComplaintDetails.getGrievanceDetails());
-    uploadPhotoButton.sendKeys(System.getProperty("user.dir") + "/src/test/resources/Mosquito-Menace.jpg");
    // enterText(grievanceLocationText, createComplaintDetails.getGrievanceLocation());
       enterText(grievanceLocationText, "abbas nagar-m");
       WebElement dropdown = webDriver.findElement(By.className("tt-highlight"));
@@ -106,14 +109,15 @@ public class GrievancesPage extends BasePage {
         String CrnNum=CRNNumber.getText();
         webDriver.close();
         switchToPreviouslyOpenedWindow(webDriver);
-        webDriver.close();
+//        webDriver.close();
         return CrnNum;
     }
 
-//    public void signOut() {
-//        waitForElementToBeClickable(profileLink,driver);
-//        profileLink.click();
-//        waitForElementToBeClickable(signOutLink, driver);
-//        signOutLink.click();
-//    }
+    public void signOut() {
+        waitForElementToBeClickable(profileLink,webDriver);
+        profileLink.click();
+        profileLink.click();
+        waitForElementToBeClickable(signOutLink, webDriver);
+        signOutLink.click();
+    }
 }

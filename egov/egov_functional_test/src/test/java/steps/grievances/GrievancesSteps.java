@@ -31,7 +31,7 @@ public class GrievancesSteps extends BaseSteps implements En {
            scenarioContext.setCRN(CRN);
         });
         And("^current user sign out$", () -> {
-//            pageStore.get(GrievancesPage.class).signOut();
+            pageStore.get(GrievancesPage.class).signOut();
         });
 
 

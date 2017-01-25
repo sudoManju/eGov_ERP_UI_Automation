@@ -12,8 +12,6 @@ Feature: Register Complaint
     And he choose to enter contact information as <contactDetails>
     And he choose to enter grievance details as <grievanceDetails>
 
-
-
     Examples:
     |contactDetails |grievanceDetails |
     |contactInfo    |grievanceDetails |
@@ -27,7 +25,8 @@ Feature: Register Complaint
     When he choose to register complaint with his login
     And he choose to enter grievance details as <grievanceDetails>
     And he copies CRN and closes the acknowledgement
-   # And current user sign out
+    And current user sign out
+#    And current user logs out
 
     Given creator logs in
     And choose to act upon the above CRN
