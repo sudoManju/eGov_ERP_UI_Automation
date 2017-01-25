@@ -112,6 +112,24 @@ public class MiscellaneousPage extends BasePage{
     @FindBy(className = "mainheading")
     private WebElement successMessageTextOfRemittance;
 
+    @FindBy(css = "input[id='bankradiobutton'][type='radio']")
+    private WebElement directBankRadioButton;
+
+    @FindBy(id = "bankBranchMaster")
+    private WebElement bankNameDropBox;
+
+    @FindBy(id = "accountNumberMaster")
+    private WebElement accountNumberDropBox;
+
+    @FindBy(css = "input[id='bankChallanDate'][type='text']")
+    private WebElement challanDateTextBox;
+
+    @FindBy(css = "input[id='instrHeaderBank.transactionNumber'][type='text']")
+    private WebElement referenceNumberTextBox;
+
+    @FindBy(css = "input[id='instrHeaderBank.instrumentAmount'][type='text']")
+    private WebElement directBankAmountTextBox;
+
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     String date = sdf.format(new Date());
 
@@ -202,6 +220,27 @@ public class MiscellaneousPage extends BasePage{
 
                 break;
 
+            case "directBank":
+
+              waitForElementToBeClickable(directBankRadioButton,driver);
+              directBankRadioButton.click();
+
+              waitForElementToBeVisible(referenceNumberTextBox,driver);
+              referenceNumberTextBox.sendKeys(paymentmethod.getChequeNumber());
+
+              waitForElementToBeClickable(challanDateTextBox,driver);
+              challanDateTextBox.sendKeys(date);
+
+              waitForElementToBeClickable(bankNameDropBox,driver);
+              new Select(bankNameDropBox).selectByVisibleText(paymentmethod.getBankName());
+
+              waitForElementToBeClickable(accountNumberDropBox,driver);
+              new Select(accountNumberDropBox).selectByVisibleText(paymentmethod.getAccountNumber());
+
+              waitForElementToBeClickable(directBankAmountTextBox,driver);
+              directBankAmountTextBox.sendKeys("655");
+
+              break;
         }
 
         waitForElementToBeClickable(payButton,driver);

@@ -19,6 +19,11 @@ public class PaymentMethodBuilder {
         return this;
     }
 
+    public PaymentMethodBuilder withAccountNumber(String accountNumber){
+        paymentMethod.setAccountNumber(accountNumber);
+        return this;
+    }
+
     public PaymentMethod build(){
         return paymentMethod;
     }

@@ -1216,9 +1216,14 @@ public class ExcelReader {
                bankNameCell.setCellType(Cell.CELL_TYPE_STRING);
                String bankName = bankNameCell.getStringCellValue();
 
+               Cell accountNumCell = getCellData(paymentMethodSheet, dataRow, "accountNum");
+               accountNumCell.setCellType(Cell.CELL_TYPE_STRING);
+               String accountNum = accountNumCell.getStringCellValue();
+
         return new PaymentMethodBuilder()
                 .withChequeNumber(chequeNumber)
                 .withBankName(bankName)
+                .withAccountNumber(accountNum)
                 .build();
     }
 

@@ -29,7 +29,7 @@ Feature: Collection
 
   Scenario Outline: System should be able to create Miscellaneous receipt
 
-      Given juniorAssistant logs in
+      Given creator logs in
       When he chooses to create Miscellaneous receipt
       And he enters Miscellaneous header
 
@@ -43,6 +43,7 @@ Feature: Collection
     |cash             |
     |cheque           |
     |dd               |
+    |directBank       |
 
 
 @Sanity
@@ -82,7 +83,7 @@ Feature: Collection
   And user closes the acknowledgement
   And current user logs out
 
-  @WIP
+  @Sanity
   Scenario Outline: System should be able to Create Challan
 
    Given juniorAssistant logs in
@@ -92,7 +93,7 @@ Feature: Collection
    Then user will be notified by "successfully"
    And current user logs out
 
-   Given seniorAssistant logs in
+   And seniorAssistant logs in
    And chooses to act upon the above challan
    And he validate the challan
    Then user will be notified by "Validated"
