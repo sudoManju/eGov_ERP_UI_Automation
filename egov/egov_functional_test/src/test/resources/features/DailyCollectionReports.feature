@@ -20,4 +20,3 @@ Feature: To find the daily collection reports
     And current user logs out
 
 
-

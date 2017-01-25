@@ -25,8 +25,7 @@ public class AdditionSteps extends BaseSteps implements En {
 
         And("^he updates assessment details as (\\w+)$", (String assessmentDetailsDataName) -> {
             EditAssessmentDetails assessmentDetails = new ExcelReader(ptisTestDataFileName).getEditAssessmentDetails(assessmentDetailsDataName);
-            pageStore.get(PropertyDetailsPage.class)
-                     .enterEditAssessmentDetails(assessmentDetails);
+            pageStore.get(PropertyDetailsPage.class).enterEditAssessmentDetails(assessmentDetails);
         });
 //        And("^he enters Floor Details as \\w+)>$", (String floordetailsDataName) -> {
 //            // Write code here that turns the phrase above into concrete actions

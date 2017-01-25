@@ -107,6 +107,7 @@ public class ExcelReader {
 //    Marriage Registration
     Sheet applicantsInformationSheet;
     Sheet bridegroomInformationSheet;
+    Sheet revisionPetitionDetailsSheet;
 
 
     public ExcelReader(String testData) {
@@ -176,6 +177,7 @@ public class ExcelReader {
         dataFromWebSheet = workbook.getSheet("dataFromWeb");
         paymentMethodSheet = workbook.getSheet("paymentMethod");
         registrationDetailsSheet = workbook.getSheet("registrationDetails");
+        revisionPetitionDetailsSheet = workbook.getSheet("revisionPetitionDetails");
 
 //        Grievances sheets
         grievancesContactDetailsSheet = workbook.getSheet("contactInfo");
@@ -1484,6 +1486,18 @@ public class ExcelReader {
                 .withOfficeAddress(OfficeAddress).withPhoneNo(PhoneNo).withOccupation(Occupation)
                 .withEducationQualification(EducationQualification).withNationality(Nationality)
                 .build();
+    }
+
+    public RevisionPetitionDetails getRevisionPetitionDetails(String revisionPetitionDataId) {
+        Row dataRow = readDataRow(revisionPetitionDetailsSheet, revisionPetitionDataId);
+        Cell revisionPetitionDetailsCell = getCellData(revisionPetitionDetailsSheet, dataRow, "revisionPetitionDetails");
+        revisionPetitionDetailsCell.setCellType(Cell.CELL_TYPE_STRING);
+        String revisionPetitionDetails = revisionPetitionDetailsCell.getStringCellValue();
+
+        return new RevisionPetitionDetailsBuilder()
+                .withRevisionPetitionDetail(revisionPetitionDetails)
+                .build();
+
     }
 }
 

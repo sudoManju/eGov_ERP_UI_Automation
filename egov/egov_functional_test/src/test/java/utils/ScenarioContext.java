@@ -42,6 +42,8 @@ public class ScenarioContext implements Serializable {
 
     private String CRN;
 
+    private String commAssessmentNumber;
+
     public String getPreviousUser() {
         return previousUser;
     }
@@ -192,6 +194,15 @@ public class ScenarioContext implements Serializable {
 
     public String getCRN() {
         return CRN;
+    }
+
+
+    public String getCommAssessmentNumber() {
+        return commAssessmentNumber;
+    }
+
+    public void setCommAssessmentNumber(String commAssessmentNumber) {
+        this.commAssessmentNumber = commAssessmentNumber;
     }
 }
 
