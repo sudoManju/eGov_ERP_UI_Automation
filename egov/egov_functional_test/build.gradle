@@ -64,8 +64,6 @@ dependencies {
     compile('org.apache.poi:poi:3.13')
     compile('org.apache.poi:poi-ooxml:3.13')
     compile group: 'com.jayway.awaitility', name: 'awaitility', version: '1.7.0'
-//    compile group: 'org.sikuli', name: 'sikuli-api', version: '1.2.0'
-
 }
 
 

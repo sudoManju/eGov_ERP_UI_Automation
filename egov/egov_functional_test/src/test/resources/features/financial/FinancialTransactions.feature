@@ -91,32 +91,34 @@ Feature: To create a Financial Transactions
 
     And officer search for the bill payment
     Then officer will modify the results depending upon the fund and date as <date>
-    And officer will act upon the above voucher
+    And officer will act upon the above voucher with payment mode as <paymentMode>
 
-    And officer will enter the bank details
-    And officer will enter the approval details as <approval officer2>
-    And officer will closes the successfull payment page
-    And current user logs out
-
-#    And examiner logs in
-    And the next user will be logged in
-    Then the officer will click on the voucher number
-    And officer will enter the approval details as <approval officer3>
-    And officer will closes the acknowledgement page
-    Then user will be notified by "forwarded"
-    And current user logs out
-
-#    And commissioner logs in
-    And the next user will be logged in
-    Then the officer will click on the voucher number
-    And officer click on approval of the voucher
-    And officer will closes the acknowledgement page
-    Then user will be notified by "approved"
-    And current user logs out
+#    And officer will enter the bank details
+#    And officer will enter the approval details as <approval officer2>
+#    And officer will closes the successfull payment page
+#    And current user logs out
+#
+##    And examiner logs in
+#    And the next user will be logged in
+#    Then the officer will click on the voucher number
+#    And officer will enter the approval details as <approval officer3>
+#    And officer will closes the acknowledgement page
+#    Then user will be notified by "forwarded"
+#    And current user logs out
+#
+##    And commissioner logs in
+#    And the next user will be logged in
+#    Then the officer will click on the voucher number
+#    And officer click on approval of the voucher
+#    And officer will closes the acknowledgement page
+#    Then user will be notified by "approved"
+#    And current user logs out
 
     Examples:
-      |voucher details    |  approval officer1 | date       | approval officer2 |  approval officer3 |
-      |voucherDateJune    |  accountOfficer1   | 30_06_2016 | accountOfficer2   |  commissioner      |
+      |voucher details    |  approval officer1 | date       | approval officer2 |  approval officer3 | paymentMode        |
+#      |voucherDateJune    |  accountOfficer1   | 30_06_2016 | accountOfficer2   |  commissioner      | cheque             |
+      |voucherDateJune    |  accountOfficer1   | 30_06_2016 | accountOfficer2   |  commissioner      | cash |
+      |voucherDateJune    |  accountOfficer1   | 30_06_2016 | accountOfficer2   |  commissioner      | RTGS               |
 
 
   @Sanity

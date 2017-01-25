@@ -82,8 +82,8 @@ public class FinancialSteps extends BaseSteps implements En {
             pageStore.get(FinancialPage.class).billSearch(date);
         });
 
-        And("^officer will act upon the above voucher$", () -> {
-            pageStore.get(FinancialPage.class).actOnAboveVoucher();
+        And("^officer will act upon the above voucher with payment mode as (\\w+)$", (String paymentMode) -> {
+            pageStore.get(FinancialPage.class).actOnAboveVoucher(paymentMode);
         });
 
         And("^officer will verify the voucher number$", () -> {

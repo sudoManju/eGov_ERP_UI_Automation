@@ -243,6 +243,15 @@ public class FinancialPage extends BasePage {
     @FindBy(id = "official_drafts")
     private WebElement officialDraftsTable;
 
+    @FindBy(id = "paymentModecheque")
+    private WebElement paymentModeCheque;
+
+    @FindBy(id = "paymentModecash")
+    private WebElement paymentModeCash;
+
+    @FindBy(id = "paymentModertgs")
+    private WebElement paymentModeRTGS;
+
     private List<WebElement> voucherRows;
 
     private String juneDate = "00";
@@ -427,15 +436,40 @@ public class FinancialPage extends BasePage {
         expenseBillSearch.click();
     }
 
-    public void actOnAboveVoucher(){
+    public void actOnAboveVoucher(String paymentMode){
         waitForElementToBeClickable(firstVoucher , webDriver);
         if ( !firstVoucher.isSelected() )
         {
             firstVoucher.click();
         }
+        selectModeOfPayment(paymentMode);
+
         waitForElementToBeClickable(generatePayment , webDriver);
         generatePayment.click();
         switchToNewlyOpenedWindow(webDriver);
+    }
+
+    private void selectModeOfPayment(String mode){
+        switch (mode){
+
+            case "cheque" :
+
+                waitForElementToBeClickable(paymentModeCheque , webDriver);
+                jsClick(paymentModeCheque ,webDriver);
+                break;
+
+            case "cash" :
+
+                waitForElementToBeClickable(paymentModeCash,webDriver);
+                jsClick(paymentModeCash,webDriver);
+                break;
+
+            case "RTGS" :
+
+                waitForElementToBeClickable(paymentModeRTGS,webDriver);
+                jsClick(paymentModeRTGS,webDriver);
+                break;
+        }
     }
 
     public String verifyVoucher(){
