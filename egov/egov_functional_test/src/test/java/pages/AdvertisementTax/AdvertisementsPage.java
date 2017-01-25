@@ -360,13 +360,16 @@ public class AdvertisementsPage extends BasePage {
     public void approverComment() {
         waitForElementToBeClickable(commentBox,driver);
         commentBox.sendKeys("Approved");
+        commentBox.sendKeys(Keys.TAB, Keys.ENTER);
     }
 
     public void approve() {
 //        waitForElementToBeClickable(approveButton,driver);
 //        approveButton.click();
-        waitForElementToBeClickable(approveButton,driver);
-        commentBox.sendKeys(Keys.TAB, Keys.ENTER);
+//
+//        if(driver.findElement(By.xpath("//*[@id='Approve']")).isDisplayed()){
+//            approveButton.click();
+//        }
     }
 
     public String getAdvertisementNumber() {
