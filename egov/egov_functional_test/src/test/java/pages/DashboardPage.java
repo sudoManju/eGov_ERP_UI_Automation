@@ -249,6 +249,12 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Create Marriage Registration")
     private WebElement createMarriageRegistrationLink;
 
+    @FindBy(linkText = "Cheque Assignment")
+    private List<WebElement> chequeAssignment;
+
+    @FindBy(linkText = "RTGS Assignment")
+    private WebElement rtgsAssignment;
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -910,12 +916,17 @@ public class DashboardPage extends BasePage {
         waitForElementToBeClickable(searchTreeTextBox, driver);
 
         if(mode.equalsIgnoreCase("cheque")){
-            searchFor("Create Marriage Registration");
-            waitForElementToBeClickable(createMarriageRegistrationLink, driver);
-            createMarriageRegistrationLink.click();
+            searchFor("Cheque Assignment");
+            waitForElementToBeClickable(chequeAssignment.get(0), driver);
+            chequeAssignment.get(0).click();
             switchToNewlyOpenedWindow(driver);
         }
-
+        else {
+            searchFor("RTGS Assignment");
+            waitForElementToBeClickable(rtgsAssignment, driver);
+            rtgsAssignment.click();
+            switchToNewlyOpenedWindow(driver);
+        }
     }
 }
 

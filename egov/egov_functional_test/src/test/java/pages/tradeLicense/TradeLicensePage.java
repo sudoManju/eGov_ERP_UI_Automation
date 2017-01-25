@@ -275,8 +275,6 @@ public class TradeLicensePage extends BasePage {
             enterText(elements.get(5),"200");
             webDriver.switchTo().activeElement();
             jsClick(webDriver.findElement(By.cssSelector(".btn.btn-primary")), webDriver);
-
-
     }
 
     public void enterDetailsForClosure(LicenseClosureDetails closureDetails) {

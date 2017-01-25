@@ -1,6 +1,8 @@
 package utils;
 
-public class ScenarioContext {
+import java.io.*;
+
+public class ScenarioContext implements Serializable {
 
     private String applicationNumber;
 

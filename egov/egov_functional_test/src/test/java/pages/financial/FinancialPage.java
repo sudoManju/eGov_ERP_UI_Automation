@@ -4,6 +4,7 @@ import entities.financial.FinancialBankDetails;
 import entities.financial.FinancialExpenseBillDetails;
 import entities.financial.FinancialJournalVoucherDetails;
 import entities.ptis.ApprovalDetails;
+import org.apache.commons.lang.math.RandomUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -12,7 +13,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasePage;
 
 import java.lang.reflect.Array;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -251,6 +255,24 @@ public class FinancialPage extends BasePage {
 
     @FindBy(id = "paymentModertgs")
     private WebElement paymentModeRTGS;
+
+    @FindBy(name = "voucherNumber")
+    private WebElement voucherNumberSearch;
+
+    @FindBy(id = "bank_branch")
+    private WebElement bankBranch2;
+
+    @FindBy(id = "isSelected0")
+    private WebElement chequeAssignmentBill;
+
+    @FindBy(name = "chequeAssignmentList[0].chequeNumber")
+    private WebElement checkAssignmentNumberBox;
+
+    @FindBy(id = "assignChequeBtn")
+    private WebElement assignChequeButton;
+
+    @FindBy(name = "rtgsdateMap[39]")
+    private WebElement rtgsDate;
 
     private List<WebElement> voucherRows;
 
@@ -732,4 +754,54 @@ public class FinancialPage extends BasePage {
         switchToPreviouslyOpenedWindow(webDriver);
         return msg;
     }
+
+    public void chequeAssignmentBillSearch(String number){
+
+        waitForElementToBeClickable(voucherNumberSearch , webDriver);
+        voucherNumberSearch.sendKeys(number);
+
+        new Select(fundId).selectByVisibleText("Municipal Fund");
+        new Select(bankBranch2).selectByVisibleText("KOTAK MAHINDRA BANK Ucon Plaza Kurnool");
+        new Select(bankAccount).selectByVisibleText("4502205--311010192115--KOTAK MAHINDRA BANK");
+
+        waitForElementToBeClickable(billSearch, webDriver);
+        billSearch.click();
+        switchToNewlyOpenedWindow(webDriver);
+    }
+
+    public void toAssignChequeNumber(String assignment){
+
+        if(assignment.equalsIgnoreCase("cheque")) {
+            waitForElementToBeClickable(chequeAssignmentBill, webDriver);
+            chequeAssignmentBill.click();
+
+            waitForElementToBeClickable(checkAssignmentNumberBox, webDriver);
+            checkAssignmentNumberBox.sendKeys(get6DigitRandomInt());
+        }
+        else {
+
+            waitForElementToBeClickable(chequeAssignmentBill, webDriver);
+            chequeAssignmentBill.click();
+
+            waitForElementToBeClickable(rtgsDate , webDriver);
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            Calendar calobj = Calendar.getInstance();
+            rtgsDate.sendKeys(df.format(calobj.getTime()));
+        }
+
+        waitForElementToBeClickable(assignChequeButton, webDriver);
+        assignChequeButton.click();
+    }
+
+    private String get6DigitRandomInt() {return String.valueOf((100000 + RandomUtils.nextInt(900000)));
+    }
+
+    public String closeAssignmentSuccessPage(){
+        waitForElementToBeVisible(forwardMessage , webDriver);
+        String message = forwardMessage.getText();
+        webDriver.findElement(By.cssSelector(".buttonsubmit")).click();
+        switchToPreviouslyOpenedWindow(webDriver);
+        return message;
+    }
+
 }

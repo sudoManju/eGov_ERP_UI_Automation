@@ -222,6 +222,11 @@ Feature: To create a Financial Transactions
 
     And accountsOfficer logs in
     And officer search for the assignment mode as <assignment>
+    And officer will filter the payment cheque assignment bill
+    And officer will select the bill and enter the details <assignment>
+    And officer will close the successfull assignment page
+    Then user will be notified by "successfully"
+    And current user logs out
 
     Examples:
       |voucher details    |  approval officer1 | date       | approval officer2 |  approval officer3 | paymentMode  | assignment |

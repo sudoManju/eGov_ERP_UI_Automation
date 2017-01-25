@@ -12,7 +12,9 @@ import pages.DashboardPage;
 import pages.financial.FinancialPage;
 import steps.BaseSteps;
 import utils.ExcelReader;
+import utils.ScenarioContext;
 
+import java.io.IOException;
 import java.text.ParseException;
 
 /**
@@ -170,6 +172,19 @@ public class FinancialSteps extends BaseSteps implements En {
             String expenseVoucherMessage = pageStore.get(FinancialPage.class).closesExpenseVoucherPage();
             scenarioContext.setVoucherNumber(expenseVoucherMessage.split("\\ ")[4].split("\\.")[0]);
             scenarioContext.setActualMessage(expenseVoucherMessage);
+        });
+
+        And("^officer will filter the payment cheque assignment bill$", () -> {
+            pageStore.get(FinancialPage.class).chequeAssignmentBillSearch(scenarioContext.getVoucherNumber());
+        });
+
+        And("^officer will select the bill and enter the details (\\w+)$", (String assignmentMode) -> {
+            pageStore.get(FinancialPage.class).toAssignChequeNumber(assignmentMode);
+        });
+
+        And("^officer will close the successfull assignment page$", () -> {
+            String msg = pageStore.get(FinancialPage.class).closeAssignmentSuccessPage();
+            scenarioContext.setActualMessage(msg);
         });
     }
 }
