@@ -16,15 +16,7 @@ import java.io.IOException;
 
 public class CollectionSteps extends BaseSteps implements En {
     public CollectionSteps() {
-        And("^he pays using cheque with details as (\\w+)$", (String chequeDetailsDataName) -> {
-            ChequeDetails chequeDetails = new ExcelReader(collectionsTestDataFileName).getChequeDetails(chequeDetailsDataName);
-            pageStore.get(CollectionsPage.class).enterChequeDetails(chequeDetails);
 
-            pageStore.get(PropertyAcknowledgementPage.class).cancelPrint();
-            pageStore.get(PropertyAcknowledgementPage.class).close();
-
-
-        });
 
         And("^he enters challan details$", () -> {
             String challanheaderid = "challanHeader";
