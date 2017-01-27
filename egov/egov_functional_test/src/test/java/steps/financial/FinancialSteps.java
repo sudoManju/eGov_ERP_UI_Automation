@@ -165,7 +165,6 @@ public class FinancialSteps extends BaseSteps implements En {
 
         And("^officer will filter the bill according to the type$", () -> {
             pageStore.get(FinancialPage.class).filterCreateVoucherBill(scenarioContext.getVoucherNumber());
-//            pageStore.get(FinancialPage.class).filterCreateVoucherBill("PHS/EJV/3456/2016-17");
         });
 
         And("^officer will set the new expense voucher number and closes it$", () -> {
@@ -179,12 +178,16 @@ public class FinancialSteps extends BaseSteps implements En {
         });
 
         And("^officer will select the bill and enter the details (\\w+)$", (String assignmentMode) -> {
-            pageStore.get(FinancialPage.class).toAssignChequeNumber(assignmentMode);
+            pageStore.get(FinancialPage.class).toFillChequeAssignmentDetails(assignmentMode);
         });
 
         And("^officer will close the successfull assignment page$", () -> {
             String msg = pageStore.get(FinancialPage.class).closeAssignmentSuccessPage();
             scenarioContext.setActualMessage(msg);
+        });
+
+        And("^officer will enter the direct bank payment details with (\\w+)$", (String mode) -> {
+            pageStore.get(FinancialPage.class).enterDirectBankPaymentDetails(mode);
         });
     }
 }

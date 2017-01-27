@@ -258,6 +258,9 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Officials Register Grievance")
     private WebElement officialRegisterGrievanceLink;
 
+    @FindBy(linkText = "Direct Bank Payments")
+    private WebElement directBankPayments;
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -915,7 +918,7 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-    public void chooesForModeOFAssignment(String mode){
+    public void chooseForModeOFAssignment(String mode){
         waitForElementToBeClickable(searchTreeTextBox, driver);
 
         if(mode.equalsIgnoreCase("cheque")){
@@ -957,6 +960,21 @@ public class DashboardPage extends BasePage {
                 return applicationRow;
         }
         throw new RuntimeException("No application row found for -- " + crn);
+    }
+    public void chooseForRemittanceAssignment(){
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Cheque Assignment");
+        waitForElementToBeClickable(chequeAssignment.get(1), driver);
+        chequeAssignment.get(1).click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseForDirectBankPayment(){
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Direct Bank Payments");
+        waitForElementToBeClickable(directBankPayments, driver);
+        directBankPayments.click();
+        switchToNewlyOpenedWindow(driver);
     }
 }
 

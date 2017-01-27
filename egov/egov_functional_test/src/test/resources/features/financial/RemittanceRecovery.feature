@@ -64,8 +64,20 @@ Feature: To create a new remittance recovery
     Then user will be notified by "approved"
     And current user logs out
 
+    ###################################################################
+          # Creating check assignment for Remittance Recovery #
+    ###################################################################
+
+    And accountsOfficer logs in
+    And officer will search for the remittance check assignment
+    And officer will filter the payment cheque assignment bill
+    And officer will select the bill and enter the details <assignment>
+    And officer will close the successfull assignment page
+    Then user will be notified by "successfully"
+    And current user logs out
+
     Examples:
-      |voucher details  | approval officer1 | approval officer2 |  approval officer3 |  glCode   |
-      |remittance       |  accountOfficer1  | accountOfficer2   |  commissioner      |  3502002  |
+      |voucher details  | approval officer1 | approval officer2 |  approval officer3 |  glCode   | assignment |
+      |remittance       |  accountOfficer1  | accountOfficer2   |  commissioner      |  3502002  | remittance |
 
 

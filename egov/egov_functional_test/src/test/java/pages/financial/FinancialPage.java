@@ -274,6 +274,39 @@ public class FinancialPage extends BasePage {
     @FindBy(name = "rtgsdateMap[39]")
     private WebElement rtgsDate;
 
+    @FindBy(id = "departmentid")
+    private WebElement remittanceAssignmentDepartment;
+
+    @FindBy(css = "input[type='text'][name='chequeNo']")
+    private WebElement remittanceChequeAssignmentNumber;
+
+    @FindBy(name = "chequeDt")
+    private WebElement remittanceChequeDate;
+
+    @FindBy(name = "inFavourOf")
+    private WebElement remittanceFavour;
+
+    @FindBy(id = "bankId")
+    private WebElement bankPaymentId;
+
+    @FindBy(id = "accountNumber")
+    private WebElement accountNumber;
+
+    @FindBy(id = "amount")
+    private WebElement amountTextBox;
+
+    @FindBy(id = "modeOfPaymentcash")
+    private WebElement bankPaymentCash;
+
+    @FindBy(id = "modeOfPaymentrtgs")
+    private WebElement bankPaymentRTGS;
+
+    @FindBy(id = "commonBean.documentNumber")
+    private WebElement documentNumber;
+
+    @FindBy(id = "documentDate")
+    private WebElement documentDate;
+
     private List<WebElement> voucherRows;
 
     private String juneDate = "00";
@@ -757,8 +790,14 @@ public class FinancialPage extends BasePage {
 
     public void chequeAssignmentBillSearch(String number){
 
-        waitForElementToBeClickable(voucherNumberSearch , webDriver);
-        voucherNumberSearch.sendKeys(number);
+        if(!number.contains("-CASH")) {
+            waitForElementToBeClickable(voucherNumberSearch, webDriver);
+            voucherNumberSearch.sendKeys(number);
+        }
+        else {
+            waitForElementToBeClickable(voucherNumberSearch, webDriver);
+            voucherNumberSearch.sendKeys(number.split("\\-")[0]);
+        }
 
         new Select(fundId).selectByVisibleText("Municipal Fund");
         new Select(bankBranch2).selectByVisibleText("KOTAK MAHINDRA BANK Ucon Plaza Kurnool");
@@ -769,24 +808,52 @@ public class FinancialPage extends BasePage {
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    public void toAssignChequeNumber(String assignment){
+    public void toFillChequeAssignmentDetails(String assignment){
 
-        if(assignment.equalsIgnoreCase("cheque")) {
-            waitForElementToBeClickable(chequeAssignmentBill, webDriver);
-            chequeAssignmentBill.click();
+        switch (assignment){
 
-            waitForElementToBeClickable(checkAssignmentNumberBox, webDriver);
-            checkAssignmentNumberBox.sendKeys(get6DigitRandomInt());
-        }
-        else {
+            case "cheque" :
 
-            waitForElementToBeClickable(chequeAssignmentBill, webDriver);
-            chequeAssignmentBill.click();
+                waitForElementToBeClickable(chequeAssignmentBill, webDriver);
+                chequeAssignmentBill.click();
 
-            waitForElementToBeClickable(rtgsDate , webDriver);
-            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-            Calendar calobj = Calendar.getInstance();
-            rtgsDate.sendKeys(df.format(calobj.getTime()));
+                waitForElementToBeClickable(checkAssignmentNumberBox, webDriver);
+                checkAssignmentNumberBox.sendKeys(get6DigitRandomInt());
+
+                break;
+
+            case "RTGS" :
+
+                waitForElementToBeClickable(chequeAssignmentBill, webDriver);
+                chequeAssignmentBill.click();
+
+                waitForElementToBeClickable(rtgsDate , webDriver);
+                DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                Calendar calobj = Calendar.getInstance();
+                rtgsDate.sendKeys(df.format(calobj.getTime()));
+
+                break;
+
+            case "remittance" :
+
+                waitForElementToBeClickable(chequeAssignmentBill, webDriver);
+                chequeAssignmentBill.click();
+
+                new Select(remittanceAssignmentDepartment).selectByVisibleText("ACCOUNTS");
+
+                waitForElementToBeClickable(remittanceChequeAssignmentNumber , webDriver);
+                remittanceChequeAssignmentNumber.sendKeys(get6DigitRandomInt());
+
+                waitForElementToBeClickable(remittanceChequeDate , webDriver);
+                DateFormat df1 = new SimpleDateFormat("dd/MM/yyyy");
+                Calendar calobj1 = Calendar.getInstance();
+                remittanceChequeDate.sendKeys(df1.format(calobj1.getTime()));
+
+                waitForElementToBeClickable(remittanceFavour , webDriver);
+                remittanceFavour.sendKeys("Testing");
+
+                break;
+
         }
 
         waitForElementToBeClickable(assignChequeButton, webDriver);
@@ -804,4 +871,29 @@ public class FinancialPage extends BasePage {
         return message;
     }
 
+    public void enterDirectBankPaymentDetails(String mode){
+
+        new Select(fundId).selectByVisibleText("Municipal Fund");
+        new Select(voucherDepartment).selectByVisibleText("ENGINEERING");
+        new Select(voucherFunction).selectByVisibleText("Water Supply");
+        new Select(bankPaymentId).selectByVisibleText("KOTAK MAHINDRA BANK Ucon Plaza Kurnool");
+        waitForElementToBeClickable(amountTextBox , webDriver);
+        amountTextBox.sendKeys("100");
+        new Select(accountNumber).selectByVisibleText("4502205--311010192115--KOTAK MAHINDRA BANK");
+
+        switch (mode){
+            case "cheque" :
+                break;
+
+            case "cash" :
+                waitForElementToBeClickable(bankPaymentCash , webDriver);
+                bankPaymentCash.click();
+                break;
+
+            case "RTGS" :
+                waitForElementToBeClickable(bankPaymentRTGS , webDriver);
+                bankPaymentRTGS.click();
+                break;
+        }
+    }
 }

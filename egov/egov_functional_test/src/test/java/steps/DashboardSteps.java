@@ -241,7 +241,15 @@ public class DashboardSteps extends BaseSteps implements En {
         });
 
         And("^officer search for the assignment mode as (\\w+)$", (String assignmentMode) -> {
-            pageStore.get(DashboardPage.class).chooesForModeOFAssignment(assignmentMode);
+            pageStore.get(DashboardPage.class).chooseForModeOFAssignment(assignmentMode);
+        });
+
+        And("^officer will search for the remittance check assignment$", () -> {
+            pageStore.get(DashboardPage.class).chooseForRemittanceAssignment();
+        });
+
+        And("^officer will search for the direct bank payments$", () -> {
+            pageStore.get(DashboardPage.class).chooseForDirectBankPayment();
         });
         When("^he choose to register complaint$", () -> {
             pageStore.get(DashboardPage.class).chooseToRegisterComplaint();
