@@ -21,5 +21,8 @@ public class PhysicalProgressTrackerSteps extends BaseSteps implements En{
         And("^he upload the estimate photos for physical progress track$", () -> {
                 pageStore.get(PhysicalProgressTrackerPage.class).uploadEstimatePhotos();
         });
+        And("^he close the acknowledgement page$", () -> {
+          pageStore.get(PhysicalProgressTrackerPage.class).close();
+        });
     }
 }

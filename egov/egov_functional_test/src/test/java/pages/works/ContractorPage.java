@@ -135,10 +135,10 @@ public class ContractorPage extends BasePage
 
     public String entersContractorMasterData()
     {
-        waitForElementToBeClickable(contractorCode, driver);
+//        waitForElementToBeClickable(contractorCode, driver);
         String code = (min+min1);
         String Name = "KMC"+code;
-        contractorCode.sendKeys(Name);
+//        contractorCode.sendKeys(Name);
         waitForElementToBeClickable(contractorName, driver);
         contractorName.sendKeys(Name);
         waitForElementToBeClickable(correspondenceAddress, driver);

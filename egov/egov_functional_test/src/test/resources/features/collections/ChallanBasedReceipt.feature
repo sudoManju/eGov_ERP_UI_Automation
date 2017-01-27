@@ -4,7 +4,7 @@ Feature: Create/Collect Challan Based Receipt
 
 
 
-@Sanity
+@collect  @Sanity
 
     Scenario Outline: System should be able to Create Challan
 

@@ -5,7 +5,7 @@ Feature: Create/Collect/Remit/Cancel Miscellaneous Receipt
 
 
 
-@Sanity
+@collect @Sanity
 
    Scenario Outline: System should be able to create Miscellaneous receipt
 
@@ -26,7 +26,7 @@ Examples:
   |directBank       |
 
 
-@Sanity
+@collect @Sanity
 
   Scenario: System should be able to cancel receipt
 
@@ -52,7 +52,7 @@ Examples:
     And user closes the acknowledgement
     And current user logs out
 
-@Sanity
+@collect @Sanity
 
   Scenario: Remittance of receipt
 

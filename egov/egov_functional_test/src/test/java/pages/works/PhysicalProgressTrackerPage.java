@@ -30,6 +30,9 @@ public class PhysicalProgressTrackerPage extends BasePage {
     @FindBy(css = "#after")
     private WebElement browseFile3;
 
+    @FindBy(linkText = "Close")
+    private WebElement closeLink;
+
     public void searchEstimate() {
         waitForElementToBeClickable(searchEstimateButton, driver);
         searchEstimateButton.click();
@@ -42,5 +45,20 @@ public class PhysicalProgressTrackerPage extends BasePage {
         browseFile1.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
         browseFile2.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
         browseFile3.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
+    }
+
+    public void close() {
+        waitForElementToBeClickable(closeLink,driver);
+        closeLink.click();
+
+        for (String winHandle : driver.getWindowHandles()) {
+            if(driver.switchTo().window(winHandle).getCurrentUrl().equals("http://kurnool-uat.egovernments.org/egworks/lineestimate/searchlineestimateform")){
+                break;
+            }
+        }
+
+        closeLink.click();
+
+        switchToPreviouslyOpenedWindow(driver);
     }
 }

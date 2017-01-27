@@ -4,7 +4,7 @@ Feature: Create/view/modify Milestone template
 
   #Creating a milestone template
 
-  @Sanity
+  @works     @Sanity
 
   Scenario: Create milestone template
 
@@ -18,7 +18,7 @@ Feature: Create/view/modify Milestone template
 
   #View a milestone template
 
-  @Sanity
+  @works @Sanity
 
   Scenario: view milestone template
 
@@ -33,7 +33,7 @@ Feature: Create/view/modify Milestone template
 
   #Modify a milestone template
 
-  @Sanity
+  @works  @Sanity
 
   Scenario: modify milestone template
 

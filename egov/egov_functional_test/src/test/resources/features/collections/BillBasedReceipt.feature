@@ -14,7 +14,7 @@ Background:It will run the data entry screen of property tax
     And he choose to close the dataentry acknowledgement screen
     And current user logs out
 
-@Sanity
+@collect @Sanity
 
   Scenario Outline: System should be able to collect taxes
 

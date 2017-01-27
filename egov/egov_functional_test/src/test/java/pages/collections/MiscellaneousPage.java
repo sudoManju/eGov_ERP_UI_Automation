@@ -260,7 +260,7 @@ public class MiscellaneousPage extends BasePage{
         List<WebElement> requiredRows = new ArrayList<>();
 
         for(WebElement applicationRow : totalRows ){
-            if(applicationRow.findElements(By.tagName("td")).get(4).getText().contains("Monuments Entry Fees")){
+            if(applicationRow.findElements(By.tagName("td")).get(4).getText().contains("Entry Fees")){
                 requiredRows.add(applicationRow);
             }
         }
