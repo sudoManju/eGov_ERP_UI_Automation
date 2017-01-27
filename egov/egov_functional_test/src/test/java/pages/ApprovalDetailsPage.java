@@ -64,6 +64,10 @@ public class ApprovalDetailsPage extends BasePage {
     @FindBy (id = "approvalPosition")
     private WebElement approvalSelection;
 
+    public ApprovalDetailsPage(WebDriver webDriver) {
+        this.webDriver = webDriver;
+    }
+
     public void enterApprovalDetailsForGrievances(ApprovalDetailsEntity approvalDetails) {
     new Select(approvalDepartmentSelect).selectByVisibleText(approvalDetails.getApproverDepartment());
     new Select(approvalDesignationSelect).selectByVisibleText(approvalDetails.getApproverDesignation());
@@ -71,6 +75,7 @@ public class ApprovalDetailsPage extends BasePage {
     enterText(incMessageTextBox, approvalDetails.getApproverRemarks());
     grievanceSubmit.click();
     closeButton.click();
+        switchToPreviouslyOpenedWindow(webDriver);
     }
 
     public void enterApprovalDetails(ApprovalDetailsEntity approvalDetails) {

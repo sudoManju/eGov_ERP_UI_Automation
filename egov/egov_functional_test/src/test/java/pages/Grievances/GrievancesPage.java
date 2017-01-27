@@ -153,7 +153,7 @@ public class GrievancesPage extends BasePage {
         String CrnNum=CRNNumber.getText();
         closeButton.click();
         switchToPreviouslyOpenedWindow(webDriver);
-        webDriver.navigate().refresh();
+//        webDriver.navigate().refresh();
         waitForElementToBeClickable(draftButton,webDriver);
         draftButton.click();
         return CrnNum;
@@ -161,6 +161,7 @@ public class GrievancesPage extends BasePage {
 
     public void createInOfficial() {
         createGrievanceOfficialButton.click();
+        switchToNewlyOpenedWindow(webDriver);
     }
 
     public void createInCitizen() {

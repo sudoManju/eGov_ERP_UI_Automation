@@ -3,7 +3,6 @@ Feature: Register Complaint
   As a citizen register complaint directly in website
 
   @Sanity
-
   Scenario Outline: Register a Complaint with Citizen Login
 
     Given citizen logs in
@@ -25,7 +24,6 @@ Feature: Register Complaint
     |grievanceDetails|
 
   @WIP
-
   Scenario Outline: Register Complaint anonymously
 
     Given user log on to the website
@@ -39,7 +37,6 @@ Feature: Register Complaint
 
 
   @WIP
-
   Scenario Outline: Official Register Grievance
 
     Given creator logs in
