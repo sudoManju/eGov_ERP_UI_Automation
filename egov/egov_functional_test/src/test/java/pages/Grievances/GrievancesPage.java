@@ -112,8 +112,6 @@ public class GrievancesPage extends BasePage {
     dropdown.click();
     grievanceLocationText.sendKeys(Keys.TAB);
     enterText(locationLandmarkText, createComplaintDetails.getLocationLandmark());
-    createGrievanceButton.click();
-//    createGrievanceOfficialButton.click();
 
     }
 
@@ -159,5 +157,13 @@ public class GrievancesPage extends BasePage {
         waitForElementToBeClickable(draftButton,webDriver);
         draftButton.click();
         return CrnNum;
+    }
+
+    public void createInOfficial() {
+        createGrievanceOfficialButton.click();
+    }
+
+    public void createInCitizen() {
+        createGrievanceButton.click();
     }
 }

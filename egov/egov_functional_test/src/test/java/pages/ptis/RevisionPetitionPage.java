@@ -15,12 +15,12 @@ public class RevisionPetitionPage extends BasePage {
 
     private WebDriver webDriver;
 
-    public RevisionPetitionPage (WebDriver webDriver){
+    public RevisionPetitionPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
 
     @FindBy(id = "assessmentNum")
-    private WebElement  revisionPetitiontextBox;
+    private WebElement revisionPetitiontextBox;
 
     @FindBy(id = "assessmentform_search")
     private WebElement rpSearchButton;
@@ -28,7 +28,7 @@ public class RevisionPetitionPage extends BasePage {
     @FindBy(id = "header_2")
     private WebElement revisionPetitionHeader;
 
-    @FindBy (id = "details")
+    @FindBy(id = "details")
     private WebElement revisionPetitionDetailTextBox;
 
 
@@ -50,4 +50,5 @@ public class RevisionPetitionPage extends BasePage {
     public void enterHearingDetails() {
 //        enterText(
 //    }
+    }
 }

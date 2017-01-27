@@ -55,6 +55,15 @@ public class ApprovalDetailsPage extends BasePage {
     @FindBy(id = "Forward")
     private WebElement forwardButton;
 
+    @FindBy (id = "approvalDepartment")
+    private WebElement approvalDepartmentSelection;
+
+    @FindBy (id = "approvalDesignation")
+    private WebElement approvalDesignationSelection;
+
+    @FindBy (id = "approvalPosition")
+    private WebElement approvalSelection;
+
     public void enterApprovalDetailsForGrievances(ApprovalDetailsEntity approvalDetails) {
     new Select(approvalDepartmentSelect).selectByVisibleText(approvalDetails.getApproverDepartment());
     new Select(approvalDesignationSelect).selectByVisibleText(approvalDetails.getApproverDesignation());
@@ -62,7 +71,6 @@ public class ApprovalDetailsPage extends BasePage {
     enterText(incMessageTextBox, approvalDetails.getApproverRemarks());
     grievanceSubmit.click();
     closeButton.click();
-    switchToPreviouslyOpenedWindow(webDriver);
     }
 
     public void enterApprovalDetails(ApprovalDetailsEntity approvalDetails) {
@@ -73,6 +81,17 @@ public class ApprovalDetailsPage extends BasePage {
         new Select(approverSelection).selectByVisibleText(approvalDetails.getApprover());
         enterText(approverCommentsTextBox, approvalDetails.getApproverRemarks());
     }
+
+    public void enterApproverDetails(ApprovalDetailsEntity approvalDetails) {
+        new Select(approvalDepartmentSelection).selectByVisibleText(approvalDetails.getApproverDepartment());
+        await().atMost(10, SECONDS).until(() -> new Select(approvalDepartmentSelection).getOptions().size() > 1);
+        new Select(approvalDesignationSelection).selectByVisibleText(approvalDetails.getApproverDesignation());
+        await().atMost(10, SECONDS).until(() -> new Select(approvalDesignationSelection).getOptions().size() > 1);
+        new Select(approvalSelection).selectByVisibleText(approvalDetails.getApprover());
+        forwardButton.click();
+    }
+
+
 
     public void forward() {
         forwardButton.click();

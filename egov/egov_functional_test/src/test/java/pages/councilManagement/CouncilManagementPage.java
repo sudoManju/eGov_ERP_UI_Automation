@@ -38,15 +38,6 @@ public class CouncilManagementPage extends BasePage {
     @FindBy (id = "wards")
     private WebElement wards;
 
-    @FindBy (id = "approvalDepartment")
-    private WebElement approverDepartmentSelection;
-
-    @FindBy (id = "approvalDesignation")
-    private WebElement approverDesignationSelection;
-
-    @FindBy (id = "approvalPosition")
-    private WebElement approverSelection;
-
     @FindBy (id = "Forward")
     private WebElement forwardButton;
 
@@ -123,14 +114,7 @@ public class CouncilManagementPage extends BasePage {
         }
     }
 
-    public void enterApproverDetails(ApprovalDetails approvalDetails) {
-        new Select(approverDepartmentSelection).selectByVisibleText(approvalDetails.getApproverDepartment());
-        await().atMost(10, SECONDS).until(() -> new Select(approverDesignationSelection).getOptions().size() > 1);
-        new Select(approverDesignationSelection).selectByVisibleText(approvalDetails.getApproverDesignation());
-        await().atMost(10, SECONDS).until(() -> new Select(approverSelection).getOptions().size() > 1);
-        new Select(approverSelection).selectByVisibleText(approvalDetails.getApprover());
-        forwardButton.click();
-    }
+
 
     public String getPreambleNumber() {
         List<WebElement> elements=webDriver.findElements(By.cssSelector(".col-sm-3.add-margin.view-content"));

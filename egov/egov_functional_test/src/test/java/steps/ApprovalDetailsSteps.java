@@ -20,6 +20,11 @@ public class ApprovalDetailsSteps extends BaseSteps implements En {
             pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approvalDetails);
             pageStore.get(ApprovalDetailsPage.class).forward();
         });
+        And("^he will enter the approval details as (\\w+)$", (String approvalDetailsDataId) -> {
+            ApprovalDetailsEntity approvalDetails=new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsForGrievance(approvalDetailsDataId);
+            pageStore.get(ApprovalDetailsPage.class).enterApproverDetails(approvalDetails);
+
+        });
 
 
     }

@@ -9,6 +9,7 @@ Feature: Register Complaint
     Given citizen logs in
     When he choose to register complaint with his login
     And he choose to enter grievance details as <grievanceDetails>
+    And citizen create grievance
     And he copies CRN and closes the acknowledgement
     And current user sign out
 
@@ -45,6 +46,7 @@ Feature: Register Complaint
     When he choose to register complaint
     And he choose to enter contact information as <contactDetails>
     And he choose to enter grievance details as <grievanceDetails>
+    And official create grievance
     And official copies CRN and closes the acknowledgement
     And choose to act upon the above CRN in his own dratfs
     And he forwards complaint to sanitaryInspector1

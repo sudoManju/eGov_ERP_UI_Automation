@@ -21,10 +21,7 @@ public class CouncilManagementSteps extends BaseSteps implements En {
             CreatePreambleDetails createPreambleDetails= new ExcelReader(councilManagementTestDataFileName).getCreatePreambleDetails(createPreambleData);
             pageStore.get(CouncilManagementPage.class).enterCreatePreambleDetails(createPreambleDetails);
         });
-        And("^he will enter the approval details as (\\w+)$", (String approvalDetailsDataId) -> {
-            ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approvalDetailsDataId);
-            pageStore.get(CouncilManagementPage.class).enterApproverDetails(approvalDetails);
-        });
+
         And("^he copies preamble number and closes the acknowledgement$", () -> {
             scenarioContext.setPreambleNumber(pageStore.get(CouncilManagementPage.class).getPreambleNumber());
             String Status= pageStore.get(CouncilManagementPage.class).getStatus();
