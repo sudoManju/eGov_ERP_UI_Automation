@@ -54,4 +54,6 @@ public class CreateComplaintDetailsBuilder {
     createComplaintDetails.setLocationLandmark(locationLandmark);
     return this;
     }
+
+
 }

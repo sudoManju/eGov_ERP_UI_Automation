@@ -13,6 +13,7 @@ public class CreateComplaintDetails {
     private String grievanceDetails;
     private String grievanceLocation;
     private String locationLandmark;
+    private String processingStatus;
 
 
     public void setCitizenname(String citizenname) {
@@ -80,4 +81,6 @@ public class CreateComplaintDetails {
     public String getLocationLandmark() {
         return locationLandmark;
     }
+
+
 }

@@ -85,6 +85,9 @@ public class GrievancesPage extends BasePage {
     @FindBy(xpath = "html/body/div[3]/header/div/ul/li[2]/a")
     private WebElement draftButton;
 
+    @FindBy(id = "status")
+    private WebElement statusSelect;
+
 
     public GrievancesPage (WebDriver webDriver) {this.webDriver= webDriver;}
 
@@ -167,4 +170,11 @@ public class GrievancesPage extends BasePage {
     public void createInCitizen() {
         createGrievanceButton.click();
     }
+
+    public void getProcessingStatus() {
+        waitForElementToBeClickable(statusSelect, webDriver);
+        new Select(statusSelect).selectByVisibleText("PROCESSING");
+
+    }
+
 }

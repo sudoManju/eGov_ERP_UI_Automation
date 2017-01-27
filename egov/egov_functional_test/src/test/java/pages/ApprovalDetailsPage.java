@@ -75,7 +75,7 @@ public class ApprovalDetailsPage extends BasePage {
     enterText(incMessageTextBox, approvalDetails.getApproverRemarks());
     grievanceSubmit.click();
     closeButton.click();
-        switchToPreviouslyOpenedWindow(webDriver);
+    switchToPreviouslyOpenedWindow(webDriver);
     }
 
     public void enterApprovalDetails(ApprovalDetailsEntity approvalDetails) {

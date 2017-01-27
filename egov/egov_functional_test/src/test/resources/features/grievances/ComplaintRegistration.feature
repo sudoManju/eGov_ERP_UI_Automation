@@ -36,7 +36,7 @@ Feature: Register Complaint
       |contactInfo    |grievanceDetails |
 
 
-  @WIP
+  @Sanity
   Scenario Outline: Official Register Grievance
 
     Given creator logs in
@@ -48,6 +48,19 @@ Feature: Register Complaint
     And choose to act upon the above CRN in his own dratfs
     And he forwards complaint to sanitaryInspector1
     And current user logs out
+
+    When sanitaryInspector logs in
+    And choose to act upon the above CRN
+    And he marks the staus as processing
+    And he forwards complaint to juniorAssistant
+    And current user logs out
+
+    When creator logs in
+    And choose to act upon the above CRN
+    And he resolves the issue and mark status as completed
+    And user will be notified by "successfully"
+    And current user logs out
+
 
     Examples:
       |contactDetails |grievanceDetails |
