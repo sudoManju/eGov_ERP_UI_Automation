@@ -19,4 +19,8 @@ public class SearchTradeDetails {
     public String getApplicationNumber() {
         return applicationNumber;
     }
+
+    public String getLicenseNumber() {
+        return licenseNumber;
+    }
 }

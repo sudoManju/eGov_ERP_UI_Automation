@@ -99,42 +99,6 @@ public class TradeLicensePage extends BasePage {
     @FindBy(id = "buttonClose")
     private WebElement printClose;
 
-    @FindBy(name = "legacyInstallmentwiseFees[201104]")
-    private WebElement amount1;
-
-    @FindBy(name = "legacyInstallmentwiseFees[201204]")
-    private WebElement amount2;
-
-    @FindBy(name = "legacyInstallmentwiseFees[201304]")
-    private WebElement amount3;
-
-    @FindBy(name = "legacyInstallmentwiseFees[201404]")
-    private WebElement amount4;
-
-    @FindBy(name = "legacyInstallmentwiseFees[201504]")
-    private WebElement amount5;
-
-    @FindBy(name = "legacyInstallmentwiseFees[201604]")
-    private WebElement amount6;
-
-    @FindBy(id = "enterTradeLicense-enterExisting_legacyFeePayStatus_201104_")
-    private WebElement checkBox1;
-
-    @FindBy(id = "enterTradeLicense-enterExisting_legacyFeePayStatus_201204_")
-    private WebElement checkBox2;
-
-    @FindBy(id = "enterTradeLicense-enterExisting_legacyFeePayStatus_201304_")
-    private WebElement checkBox3;
-
-    @FindBy(id = "enterTradeLicense-enterExisting_legacyFeePayStatus_201404_")
-    private WebElement checkBox4;
-
-    @FindBy(id = "enterTradeLicense-enterExisting_legacyFeePayStatus_201504_")
-    private WebElement checkBox5;
-
-    @FindBy(id = "enterTradeLicense-enterExisting_legacyFeePayStatus_201604_")
-    private WebElement checkBox6;
-
     @FindBy(id = "status")
     private WebElement statusSelect;
 
@@ -237,11 +201,11 @@ public class TradeLicensePage extends BasePage {
     public void enterApplicationNumber(String applicationNumber) {
         waitForElementToBeVisible(applicationNumberTextBox, webDriver);
         enterText(applicationNumberTextBox , applicationNumber);
+        searchButton.click();
     }
 
 
     public void clickOnSearchButton() {
-
         waitForElementToBeClickable(searchButton, webDriver);
         searchButton.click();
     }
@@ -313,14 +277,6 @@ public class TradeLicensePage extends BasePage {
         approveButton.click();
     }
 
-    public void enterApprovalDetails(ApprovalDetails approvalDetails) {
-        new Select(approverDepartmentSelection).selectByVisibleText(approvalDetails.getApproverDepartment());
-        await().atMost(10, SECONDS).until(() -> new Select(approverDesignationSelection).getOptions().size() > 1);
-        new Select(approverDesignationSelection).selectByVisibleText(approvalDetails.getApproverDesignation());
-        await().atMost(10, SECONDS).until(() -> new Select(approverSelection).getOptions().size() > 1);
-        new Select(approverSelection).selectByVisibleText(approvalDetails.getApprover());
-        enterText(approverCommentsTextBox, approvalDetails.getApproverRemarks());
-    }
 
     public void forward() {
         forwardButton.click();
@@ -335,6 +291,7 @@ public class TradeLicensePage extends BasePage {
     public void enterApplicationNumberReadingFromExcel(SearchTradeDetails searchId) {
         waitForElementToBeVisible(applicationNumberTextBox, webDriver);
         enterText(applicationNumberTextBox, searchId.getApplicationNumber());
+        searchButton.click();
     }
 
     public String getLegacyLicenseNumber() {
@@ -358,14 +315,29 @@ public class TradeLicensePage extends BasePage {
         switchToNewlyOpenedWindow(webDriver);
         searchButton.click();
     }
-//    public void checkNoOfRecords() {
-//        waitForElementToBeVisible(recordsFound, webDriver);
-//        int noOfRecords = Integer.parseInt(recordsFound.getText());
-//
-//        if (noOfRecords > 0) {
-//            System.out.println("Records Founds:" + noOfRecords);
-//        } else
-//            System.out.println("No records founds");
-//    }
+
+    public void checkNoOfRecords() {
+        int numOfRecords= webDriver.findElements(By.className("dropchange")).size();
+        if(numOfRecords>0)
+        {
+            System.out.println("--------Number of records = "+numOfRecords);
+        }
+        else
+        {
+            System.out.println("--------No records found");
+        }
+        closeSearch.click();
+        switchToPreviouslyOpenedWindow(webDriver);
+    }
+
+    public void enterStatus(String status) {
+        waitForElementToBeClickable(statusSelect, webDriver);
+        new Select(statusSelect).selectByVisibleText(status);
+        searchButton.click();
+        WebElement show= webDriver.findElement(By.xpath(".//*[@id='tblSearchTrade_length']/label/select"));
+        waitForElementToBeClickable(show, webDriver);
+        new Select(show).selectByVisibleText("100");
+    }
+
 }
 

@@ -24,10 +24,6 @@ public class CreateComplaintDetailsBuilder {
         return this;
     }
 
-    public CreateComplaintDetailsBuilder withCitizenAddress(String citizenAddress) {
-        createComplaintDetails.setCitizenAddress(citizenAddress);
-        return this;
-    }
 
     public CreateComplaintDetailsBuilder withGrievanceCategory(String grievanceCategory) {
         createComplaintDetails.setGrievanceCategory(grievanceCategory);

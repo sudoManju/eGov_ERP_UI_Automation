@@ -1,6 +1,7 @@
 package steps.grievances;
 
 import cucumber.api.PendingException;
+import cucumber.api.Scenario;
 import cucumber.api.java8.En;
 import entities.grievances.CreateComplaintDetails;
 import org.junit.Assert;
@@ -26,10 +27,12 @@ public class GrievancesSteps extends BaseSteps implements En {
         });
         When("^he choose to register complaint with his login$", () -> {
             pageStore.get(GrievancesPage.class).getRegisterComplaintPage();
+
         });
         And("^he copies CRN and closes the acknowledgement$", () -> {
            String CRN= pageStore.get(GrievancesPage.class).getCRN();
            scenarioContext.setCRN(CRN);
+
         });
         And("^current user sign out$", () -> {
             pageStore.get(GrievancesPage.class).signOut();
@@ -38,6 +41,10 @@ public class GrievancesSteps extends BaseSteps implements En {
             scenarioContext.setActualMessage(pageStore.get(GrievancesPage.class).officialMarkStatus());
 
     });
+        And("^official copies CRN and closes the acknowledgement$", () -> {
+            String CRN= pageStore.get(GrievancesPage.class).getCRNByOfficial();
+            scenarioContext.setCRN(CRN);
+        });
 
 
     }

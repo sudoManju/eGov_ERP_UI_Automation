@@ -27,8 +27,6 @@ public class GrievancesPage extends BasePage {
     @FindBy(id = "email")
     private WebElement emailIdTextBox;
 
-    @FindBy(id = "address")
-    private WebElement citizenAddressTextBox;
 
     @FindBy(id = "complaintTypeCategory")
     private WebElement complaintTypeCategorySelect;
@@ -47,6 +45,9 @@ public class GrievancesPage extends BasePage {
 
     @FindBy(id = "create-griev")
     private WebElement createGrievanceButton;
+
+    @FindBy(xpath = ".//*[@id='complaintform']/div[4]/div/button")
+    private WebElement createGrievanceOfficialButton;
 
     @FindBy(linkText = "New Request")
     private WebElement newRequestLink;
@@ -78,6 +79,12 @@ public class GrievancesPage extends BasePage {
     @FindBy(xpath = "html/body/div[1]/div/div[3]/div/a")
     private WebElement closeButton;
 
+    @FindBy(id = "receivingMode1")
+    private WebElement receivingModeRadio;
+
+    @FindBy(xpath = "html/body/div[3]/header/div/ul/li[2]/a")
+    private WebElement draftButton;
+
 
     public GrievancesPage (WebDriver webDriver) {this.webDriver= webDriver;}
 
@@ -89,25 +96,24 @@ public class GrievancesPage extends BasePage {
     }
 
     public void enterCitizenContactDetails(CreateComplaintDetails createComplaintDetails) {
-    waitForElementToBeClickable(citizenNameTextBox, webDriver);
+    waitForElementToBeClickable(receivingModeRadio, webDriver);
+    receivingModeRadio.click();
     enterText(citizenNameTextBox, createComplaintDetails.getCitizenName());
     enterText(mobNoTextBox, createComplaintDetails.getcitizenMobNo());
     enterText(emailIdTextBox, createComplaintDetails.getEmailId());
-    enterText(citizenAddressTextBox,createComplaintDetails.getcitizenAddress());
-
     }
 
     public void enterGrievanceDetails(CreateComplaintDetails createComplaintDetails) {
     new Select(complaintTypeCategorySelect).selectByVisibleText(createComplaintDetails.getGrievanceCategory());
     new Select(complaintTypeSelect).selectByVisibleText(createComplaintDetails.getGrievanceType());
     enterText(grievanceDetailsText, createComplaintDetails.getGrievanceDetails());
-   // enterText(grievanceLocationText, createComplaintDetails.getGrievanceLocation());
-      enterText(grievanceLocationText, "abbas nagar-m");
-      WebElement dropdown = webDriver.findElement(By.className("tt-highlight"));
-      dropdown.click();
+    enterText(grievanceLocationText, "abbas nagar-m");
+    WebElement dropdown = webDriver.findElement(By.className("tt-highlight"));
+    dropdown.click();
     grievanceLocationText.sendKeys(Keys.TAB);
     enterText(locationLandmarkText, createComplaintDetails.getLocationLandmark());
     createGrievanceButton.click();
+//    createGrievanceOfficialButton.click();
 
     }
 
@@ -123,7 +129,6 @@ public class GrievancesPage extends BasePage {
         String CrnNum=CRNNumber.getText();
         closeButton.click();
         switchToPreviouslyOpenedWindow(webDriver);
-//        webDriver.close();
         return CrnNum;
     }
 
@@ -143,5 +148,16 @@ public class GrievancesPage extends BasePage {
         closeButton.click();
         switchToPreviouslyOpenedWindow(webDriver);
         return success;
+    }
+
+    public String getCRNByOfficial() {
+        waitForElementToBeVisible(CRNNumber, webDriver);
+        String CrnNum=CRNNumber.getText();
+        closeButton.click();
+        switchToPreviouslyOpenedWindow(webDriver);
+        webDriver.navigate().refresh();
+        waitForElementToBeClickable(draftButton,webDriver);
+        draftButton.click();
+        return CrnNum;
     }
 }

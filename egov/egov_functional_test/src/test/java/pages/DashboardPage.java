@@ -255,6 +255,9 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "RTGS Assignment")
     private WebElement rtgsAssignment;
 
+    @FindBy(linkText = "Officials Register Grievance")
+    private WebElement officialRegisterGrievanceLink;
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -927,6 +930,33 @@ public class DashboardPage extends BasePage {
             rtgsAssignment.click();
             switchToNewlyOpenedWindow(driver);
         }
+    }
+
+    public void chooseToRegisterComplaint() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchTreeTextBox.click();
+        enterText(searchTreeTextBox, "Officials Register Grievance");
+        officialRegisterGrievanceLink.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void openApplicationInDrafts(String crn) {
+        getApplicationRowInDratf(crn).click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    private WebElement getApplicationRowInDratf(String crn){
+        waitForElementToBeVisible(driver.findElement(By.id("drafts")), driver);
+        waitForElementToBeVisible(officialDraftsTable, driver);
+
+        await().atMost(20, SECONDS).until(() -> officialDraftsTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
+        List<WebElement> applicationRows = officialDraftsTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
+        System.out.println("total number of rows -- " + applicationRows.size());
+        for (WebElement applicationRow : applicationRows) {
+            if (applicationRow.findElements(By.tagName("td")).get(4).getText().contains(crn))
+                return applicationRow;
+        }
+        throw new RuntimeException("No application row found for -- " + crn);
     }
 }
 

@@ -33,7 +33,6 @@ public class TradeLicenseSteps extends BaseSteps implements En {
         });
         And("^he search existing application number$", () -> {
             pageStore.get(TradeLicensePage.class).enterApplicationNumber(scenarioContext.getApplicationNumber());
-            pageStore.get(TradeLicensePage.class).clickOnSearchButton();
         });
         And("^he choose to collectfees$", () -> {
             pageStore.get(TradeLicensePage.class).chooseCollectFees();
@@ -64,11 +63,7 @@ public class TradeLicenseSteps extends BaseSteps implements En {
         And("^he approves the closure$", () -> {
             pageStore.get(TradeLicensePage.class).closureApproval();
         });
-        And("^he forwards for approver (.*)$", (String approvalDetailsDataId) -> {
-            ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approvalDetailsDataId);
-            pageStore.get(TradeLicensePage.class).enterApprovalDetails(approvalDetails);
-            pageStore.get(TradeLicensePage.class).forward();
-        });
+
         And("^he generates the license certificate$", () -> {
             pageStore.get(TradeLicensePage.class).generateLicenseCertificate();
         });
@@ -76,7 +71,7 @@ public class TradeLicenseSteps extends BaseSteps implements En {
             String searchId = "searchWithApplicationNumber";
             SearchTradeDetails searchTradeDetails = new ExcelReader(tradeLicenseTestDataFileName).getTradeSearchDetails(searchId);
             pageStore.get(TradeLicensePage.class).enterApplicationNumberReadingFromExcel(searchTradeDetails);
-            pageStore.get(TradeLicensePage.class).clickOnSearchButton();
+
         });
         And("^he copies the license number and closes the acknowledgement$", () -> {
             scenarioContext.setApplicationNumber(pageStore.get(TradeLicensePage.class).getLegacyLicenseNumber());
@@ -86,6 +81,18 @@ public class TradeLicenseSteps extends BaseSteps implements En {
         });
         And("^he choose to renew trade license$", () -> {
             pageStore.get(TradeLicensePage.class).chooseToRenewLicense();
+        });
+        And("^he checks total number of records$", () -> {
+           pageStore.get(TradeLicensePage.class).checkNoOfRecords();
+        });
+        And("^he search trade license with license number$", () -> {
+            String searchId = "searchWithLicenseNumber";
+            SearchTradeDetails searchTradeDetails = new ExcelReader(tradeLicenseTestDataFileName).getTradeSearchDetails(searchId);
+            pageStore.get(TradeLicensePage.class).enterLicenseNumber(searchTradeDetails.getLicenseNumber());
+
+        });
+        And("^he search trade license with status \"([^\"]*)\"$", (String status) -> {
+            pageStore.get(TradeLicensePage.class).enterStatus(status);
         });
 
 

@@ -243,6 +243,12 @@ public class DashboardSteps extends BaseSteps implements En {
         And("^officer search for the assignment mode as (\\w+)$", (String assignmentMode) -> {
             pageStore.get(DashboardPage.class).chooesForModeOFAssignment(assignmentMode);
         });
+        When("^he choose to register complaint$", () -> {
+            pageStore.get(DashboardPage.class).chooseToRegisterComplaint();
+        });
+        And("^choose to act upon the above CRN in his own dratfs$", () -> {
+            pageStore.get(DashboardPage.class).openApplicationInDrafts(scenarioContext.getCRN());
+        });
 
     }
 }

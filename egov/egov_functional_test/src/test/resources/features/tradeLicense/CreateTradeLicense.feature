@@ -113,8 +113,9 @@ Feature: Create Trade License
         |closure          |
         |licenceForClosure|
 
-    @WIP
+      # Trade License Renewal #
 
+    @Sanity
     Scenario Outline: Renewal of Trade License
       Given creator logs in
       When he choose to create legency trade license

@@ -1,5 +1,6 @@
 package utils;
 
+import builders.ApprovalDetailsEntityBuilder;
 import builders.LoginDetailsBuilder;
 import builders.collections.ChallanHeaderDetailsBuilder;
 import builders.collections.ChequeDetailsBuilder;
@@ -36,6 +37,7 @@ import entities.tradeLicense.SearchTradeDetails;
 import entities.wcms.EnclosedDocument;
 import entities.wcms.FieldInspectionDetails;
 import entities.works.*;
+import entities.ApprovalDetailsEntity;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 
@@ -1333,15 +1335,11 @@ public class ExcelReader {
         emailIdCell.setCellType(Cell.CELL_TYPE_STRING);
         String emailId= emailIdCell.getStringCellValue();
 
-        Cell citizenAddressCell= getCellData(grievancesContactDetailsSheet, dataRow, "address");
-        citizenAddressCell.setCellType(Cell.CELL_TYPE_STRING);
-        String citizenAddress= citizenAddressCell.getStringCellValue();
 
         return new CreateComplaintDetailsBuilder()
                 .withCitizenName(citizenName)
                 .withCitizenMobNo(citizenMobNo)
                 .withEmailId(emailId)
-                .withCitizenAddress(citizenAddress)
                 .build();
     }
 
@@ -1351,9 +1349,7 @@ public class ExcelReader {
 
         switch (searchId) {
             case "searchWithApplicationNumber":
-                Cell applicationNumberCell = getCellData(searchTradeDetailsSheet, dataRow, "searchValue");
-                applicationNumberCell.setCellType(Cell.CELL_TYPE_STRING);
-                String applicationNumber = applicationNumberCell.getStringCellValue();
+                String applicationNumber = getCellData(searchTradeDetailsSheet, dataRow, "searchValue").getStringCellValue();
 
                 searchTradeDetails = new SearchTradeDetailsBuilder()
                         .withApplicationNumber(applicationNumber)
@@ -1361,9 +1357,8 @@ public class ExcelReader {
                 break;
 
             case "searchWithLicenseNumber":
-                Cell licenseNumberCell= getCellData(searchTradeDetailsSheet, dataRow, "searchValue");
-                licenseNumberCell.setCellType(Cell.CELL_TYPE_STRING);
-                String licenseNumber= licenseNumberCell.getStringCellValue();
+
+                String licenseNumber= getCellData(searchTradeDetailsSheet, dataRow, "searchValue").getStringCellValue();
 
                 searchTradeDetails = new SearchTradeDetailsBuilder()
                         .withLicenseNumber(licenseNumber)
@@ -1378,25 +1373,15 @@ public class ExcelReader {
     public CreateComplaintDetails getGrievanceDetails(String grievanceDetails) {
     Row dataRow= readDataRow(grievanceDetailsSheet,grievanceDetails);
 
-    Cell grievanceCategoryCell = getCellData(grievanceDetailsSheet, dataRow,"grievanceCategory");
-    grievanceCategoryCell.setCellType(Cell.CELL_TYPE_STRING);
-    String grievanceCategory= grievanceCategoryCell.getStringCellValue();
+    String grievanceCategory= getCellData(grievanceDetailsSheet, dataRow,"grievanceCategory").getStringCellValue();
 
-    Cell grievanceTypeCell = getCellData(grievanceDetailsSheet, dataRow,"grievanceType");
-    grievanceTypeCell.setCellType(Cell.CELL_TYPE_STRING);
-    String grievanceType=grievanceTypeCell.getStringCellValue();
+    String grievanceType=getCellData(grievanceDetailsSheet, dataRow,"grievanceType").getStringCellValue();
 
-    Cell grievanceDetailsCell= getCellData(grievanceDetailsSheet, dataRow, "grievanceDetails");
-    grievanceDetailsCell.setCellType(Cell.CELL_TYPE_STRING);
-    String grievanceDetailsText= grievanceDetailsCell.getStringCellValue();
+    String grievanceDetailsText= getCellData(grievanceDetailsSheet, dataRow, "grievanceDetails").getStringCellValue();
 
-    Cell grievanceLocationCell= getCellData(grievanceDetailsSheet, dataRow, "grievanceLocation");
-    grievanceLocationCell.setCellType(Cell.CELL_TYPE_STRING);
-    String grievanceLocation= grievanceLocationCell.getStringCellValue();
+    String grievanceLocation= getCellData(grievanceDetailsSheet, dataRow, "grievanceLocation").getStringCellValue();
 
-    Cell locationLandmarkCell= getCellData(grievanceDetailsSheet, dataRow, "locationLandmark");
-    locationLandmarkCell.setCellType(Cell.CELL_TYPE_STRING);
-    String locationLandmark= locationLandmarkCell.getStringCellValue();
+    String locationLandmark= getCellData(grievanceDetailsSheet, dataRow, "locationLandmark").getStringCellValue();
 
     return new CreateComplaintDetailsBuilder()
             .withGrievanceCategory(grievanceCategory)
@@ -1497,7 +1482,23 @@ public class ExcelReader {
         return new RevisionPetitionDetailsBuilder()
                 .withRevisionPetitionDetail(revisionPetitionDetails)
                 .build();
-
     }
+
+    public ApprovalDetailsEntity getApprovalDetailsForGrievance(String approvalDetailsDataId) {
+        Row dataRow = readDataRow(approvalDetailsSheet, approvalDetailsDataId);
+        String approverDepartment = getCellData(approvalDetailsSheet, dataRow, "approverDepartment").getStringCellValue();
+        String approverDesignation = getCellData(approvalDetailsSheet, dataRow, "approverDesignation").getStringCellValue();
+        String approver = getCellData(approvalDetailsSheet, dataRow, "approver").getStringCellValue();
+        String approverRemarks = getCellData(approvalDetailsSheet, dataRow, "approverRemarks").getStringCellValue();
+
+        return new ApprovalDetailsEntityBuilder()
+                .withApproverDepartment(approverDepartment)
+                .withApproverDesignation(approverDesignation)
+                .withApprover(approver)
+                .withApproverRemarks(approverRemarks)
+                .build();
+    }
+
 }
+
 

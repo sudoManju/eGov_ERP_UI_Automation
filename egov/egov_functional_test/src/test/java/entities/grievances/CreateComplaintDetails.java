@@ -8,7 +8,6 @@ public class CreateComplaintDetails {
     private String citizenName;
     private String citizenMobNo;
     private String emailId;
-    private String citizenAddress;
     private String grievanceCategory;
     private String grievanceType;
     private String grievanceDetails;
@@ -28,9 +27,6 @@ public class CreateComplaintDetails {
         this.emailId = emailId;
     }
 
-    public void setCitizenAddress(String citizenAddress) {
-        this.citizenAddress = citizenAddress;
-    }
 
     public String getCitizenName() {
         return citizenName;
@@ -44,9 +40,6 @@ public class CreateComplaintDetails {
         return emailId;
     }
 
-    public String getcitizenAddress() {
-        return citizenAddress;
-    }
 
     public void setGrievanceCategory(String grievanceCategory) {
         this.grievanceCategory = grievanceCategory;

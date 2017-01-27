@@ -39,4 +39,17 @@ Feature: Register Complaint
 
   @WIP
 
-  Scenario:
+  Scenario Outline: Official Register Grievance
+
+    Given creator logs in
+    When he choose to register complaint
+    And he choose to enter contact information as <contactDetails>
+    And he choose to enter grievance details as <grievanceDetails>
+    And official copies CRN and closes the acknowledgement
+    And choose to act upon the above CRN in his own dratfs
+    And he forwards complaint to sanitaryInspector1
+    And current user logs out
+
+    Examples:
+      |contactDetails |grievanceDetails |
+      |contactInfo    |grievanceDetails |
