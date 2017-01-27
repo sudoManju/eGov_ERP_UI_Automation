@@ -217,7 +217,7 @@ Feature: Create New Property
         # CREATE REVISION PETITION #
 
   @WIP
-  Scenario Outline: Register user choose to do revision petition of property hbh
+  Scenario Outline: Register user choose to do revision petition of property
 
     Given juniorAssistant logs in
     When he chooses to create new property
@@ -278,13 +278,13 @@ Feature: Create New Property
     When commissioner logs in
     And chooses to act upon the above application
     And he choose revision petition header
-    And he enters hearing details
+    And he enters hearing details<hearingDetails>
 
 #    And he approved the property with remarks "property approved"
 
     Examples:
-      | propertyHeaderDetails | ownerDetails | propertyAddressDetails | assessmentDetails     | amenitiesDetails | constructionTypeDetails | floorDetails | revisionPetitionDetails |
-      | residentialPrivate    | bimal        | addressOne             | assessmentNewProperty | all              | defaultConstructionType | firstFloor   |  revisionpetitionBlock  |
+      | propertyHeaderDetails | ownerDetails | propertyAddressDetails | assessmentDetails     | amenitiesDetails | constructionTypeDetails | floorDetails | revisionPetitionDetails |  hearingDetails |
+      | residentialPrivate    | bimal        | addressOne             | assessmentNewProperty | all              | defaultConstructionType | firstFloor   |  revisionpetitionBlock  |  hearingBlock   |
 
 
 

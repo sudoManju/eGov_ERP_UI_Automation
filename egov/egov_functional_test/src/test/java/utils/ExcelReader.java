@@ -110,6 +110,7 @@ public class ExcelReader {
     Sheet applicantsInformationSheet;
     Sheet bridegroomInformationSheet;
     Sheet revisionPetitionDetailsSheet;
+    Sheet hearingDetailsSheet;
 
 
     public ExcelReader(String testData) {
@@ -180,6 +181,7 @@ public class ExcelReader {
         paymentMethodSheet = workbook.getSheet("paymentMethod");
         registrationDetailsSheet = workbook.getSheet("registrationDetails");
         revisionPetitionDetailsSheet = workbook.getSheet("revisionPetitionDetails");
+        hearingDetailsSheet = workbook.getSheet("hearingDetails");
 
 //        Grievances sheets
         grievancesContactDetailsSheet = workbook.getSheet("contactInfo");
@@ -1499,6 +1501,24 @@ public class ExcelReader {
                 .build();
     }
 
+    public HearingDetails getHearingDetails(String hearingDataId) {
+        Row dataRow = readDataRow(hearingDetailsSheet, hearingDataId);
+        Cell hearingDateCell = getCellData(hearingDetailsSheet, dataRow, "hearingDate");
+        hearingDateCell.setCellType(Cell.CELL_TYPE_STRING);
+        String hearingDate = hearingDateCell.getStringCellValue();
+
+        Cell hearingTimeCell = getCellData(hearingDetailsSheet, dataRow, "hearingTime");
+        hearingTimeCell.setCellType(Cell.CELL_TYPE_STRING);
+        String hearingTime = hearingTimeCell.getStringCellValue();
+
+        String venue = getCellData(hearingDetailsSheet, dataRow, "venue").getStringCellValue();
+
+        return new HearingDetailsBuilder()
+                .withHearingDate(hearingDate)
+                .withHearingTime(hearingTime)
+                .withvenue(venue)
+                .build();
+    }
 }
 
 

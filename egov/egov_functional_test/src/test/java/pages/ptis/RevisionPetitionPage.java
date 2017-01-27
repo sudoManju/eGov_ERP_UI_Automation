@@ -1,10 +1,12 @@
 package pages.ptis;
 
 
+import entities.ptis.HearingDetails;
 import entities.ptis.RevisionPetitionDetails;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
 
@@ -31,6 +33,17 @@ public class RevisionPetitionPage extends BasePage {
     @FindBy(id = "details")
     private WebElement revisionPetitionDetailTextBox;
 
+    @FindBy(id = "plannedHearingDtId")
+    private WebElement hearingDateTextBox;
+
+    @FindBy(id = "hearingTime")
+    private WebElement hearingTimeSelection;
+
+    @FindBy(id = "hearingVenue")
+    private WebElement venueTextBox;
+
+    @FindBy(id = "Forward")
+    private WebElement forwardButton;
 
     public void revisionPetitionSearchScreen(String Rpscreen) {
         revisionPetitiontextBox.sendKeys(Rpscreen);
@@ -46,8 +59,13 @@ public class RevisionPetitionPage extends BasePage {
         enterText(revisionPetitionDetailTextBox, revisionPetitionDetails.getRevisionPetitionDetail());
     }
 
-    public void enterHearingDetails() {
-//        enterText(
+    public void enterHearingDetails(HearingDetails hearingDetails) {
+        enterText(hearingDateTextBox,hearingDetails.getHearingDate());
+        new Select(hearingTimeSelection).selectByVisibleText(hearingDetails.getHearingTime());
+        enterText(venueTextBox, hearingDetails.getVenue());
+        forwardButton.click();
+
+
 
        }
 }
