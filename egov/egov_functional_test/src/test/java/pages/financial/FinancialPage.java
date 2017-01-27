@@ -307,6 +307,12 @@ public class FinancialPage extends BasePage {
     @FindBy(id = "documentDate")
     private WebElement documentDate;
 
+    @FindBy(id = "paidTo")
+    private WebElement paidToCustomer;
+
+    @FindBy(id = "closeButton")
+    private WebElement bankCloseButton;
+
     private List<WebElement> voucherRows;
 
     private String juneDate = "00";
@@ -895,5 +901,47 @@ public class FinancialPage extends BasePage {
                 bankPaymentRTGS.click();
                 break;
         }
+
+        waitForElementToBeClickable(paidToCustomer ,webDriver);
+        paidToCustomer.sendKeys("Tester");
+
+        waitForElementToBeClickable(documentNumber ,webDriver);
+        documentNumber.sendKeys("123456");
+
+        waitForElementToBeClickable(documentDate ,webDriver);
+        DateFormat df1 = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar calobj1 = Calendar.getInstance();
+        documentDate.sendKeys(df1.format(calobj1.getTime()));
+
+        waitForElementToBeClickable(accountCode1, webDriver);
+        accountCode1.sendKeys("2101001");
+
+        WebElement dropdown = webDriver.findElement(By.className("yui-ac-highlight"));
+        dropdown.click();
+        enterText(debitAmount1 , "100");
+
+        new Select(ledgerAccount1).selectByVisibleText("2101001");
+        new Select(ledgerType1).selectByVisibleText("contractor");
+        ledgerCode1.sendKeys("KMC001");
+
+        WebElement kmcCLass = webDriver.findElement(By.className("yui-ac-highlight"));
+        waitForElementToBeClickable(kmcCLass , webDriver);
+        kmcCLass.click();
+        ledgerAmount1.sendKeys("100");
+    }
+
+    public String directBankSuccessPage(){
+        switchToNewlyOpenedWindow(webDriver);
+        String msg = forwardMessage.getText();
+        if(msg.contains("Successful")) {
+            waitForElementToBeClickable(bankCloseButton, webDriver);
+            bankCloseButton.click();
+        }
+        else {
+            waitForElementToBeClickable(closeButton ,webDriver);
+            closeButton.click();
+        }
+        switchToPreviouslyOpenedWindow(webDriver);
+        return msg;
     }
 }

@@ -189,5 +189,18 @@ public class FinancialSteps extends BaseSteps implements En {
         And("^officer will enter the direct bank payment details with (\\w+)$", (String mode) -> {
             pageStore.get(FinancialPage.class).enterDirectBankPaymentDetails(mode);
         });
+
+        And("^officer will see the successful voucher creation page and closes it$", () -> {
+            String msg = pageStore.get(FinancialPage.class).directBankSuccessPage();
+            if(msg.contains("Successful")) {
+                scenarioContext.setVoucherNumber(msg.split("\\ ")[8]);
+            }
+            scenarioContext.setActualMessage(msg);
+
+            String profileName = pageStore.get(DashboardPage.class).getProfileName();
+            if(profileName.contains(scenarioContext.getUser().split("\\ ")[0])){
+                scenarioContext.setPreviousUser("yes");
+            }
+        });
     }
 }
