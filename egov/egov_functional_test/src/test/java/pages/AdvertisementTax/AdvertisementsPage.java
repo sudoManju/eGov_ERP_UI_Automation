@@ -1,6 +1,7 @@
 package pages.AdvertisementTax;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
@@ -9,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+//import org.openqa.selenium.common.touch_actions;
 
 /**
  * Created by karthik on 11/1/17.
@@ -92,7 +94,7 @@ public class AdvertisementsPage extends BasePage {
     @FindBy(id = "approvalComent")
     private WebElement commentBox;
 
-    @FindBy(xpath = "//*[@id='Approve']")
+    @FindBy(id = "Approve")
     private WebElement approveButton;
 
     @FindBy(css = "input[id='hoardingnumber'][type='text']")
@@ -360,16 +362,15 @@ public class AdvertisementsPage extends BasePage {
     public void approverComment() {
         waitForElementToBeClickable(commentBox,driver);
         commentBox.sendKeys("Approved");
-        commentBox.sendKeys(Keys.TAB, Keys.ENTER);
+        //commentBox.sendKeys(Keys.TAB, Keys.ENTER);
     }
 
     public void approve() {
-//        waitForElementToBeClickable(approveButton,driver);
-//        approveButton.click();
-//
-//        if(driver.findElement(By.xpath("//*[@id='Approve']")).isDisplayed()){
-//            approveButton.click();
-//        }
+
+        waitForElementToBeVisible(approveButton,driver);
+        waitForElementToBeClickable(approveButton,driver);
+        approveButton.click();
+
     }
 
     public String getAdvertisementNumber() {

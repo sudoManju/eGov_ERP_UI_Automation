@@ -261,6 +261,12 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Direct Bank Payments")
     private WebElement directBankPayments;
 
+    @FindBy(css = "a[href^='/stms']")
+    private WebElement newSewerageConnectionLink;
+
+    @FindBy(linkText = "Collect Sewerage Charges")
+    private WebElement collectSewerageTaxesLink;
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -969,11 +975,28 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-    public void chooseForDirectBankPayment(){
+    public void chooseForDirectBankPayment() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("Direct Bank Payments");
         waitForElementToBeClickable(directBankPayments, driver);
         directBankPayments.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseForNewSewerageConnection() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Apply for new connection");
+        waitForElementToBeClickable(newSewerageConnectionLink,driver);
+        newSewerageConnectionLink.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseToCollectSewerageTax() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchTreeTextBox.clear();
+        searchFor("collect sewerage charges");
+        waitForElementToBeClickable(collectSewerageTaxesLink,driver);
+        collectSewerageTaxesLink.click();
         switchToNewlyOpenedWindow(driver);
     }
 }

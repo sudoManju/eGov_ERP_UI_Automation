@@ -49,5 +49,6 @@ public class RevisionPetitionPage extends BasePage {
 
     public void enterHearingDetails() {
 //        enterText(
-    }
+
+       }
 }
