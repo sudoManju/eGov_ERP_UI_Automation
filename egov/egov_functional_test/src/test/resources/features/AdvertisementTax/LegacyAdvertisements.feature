@@ -3,7 +3,7 @@ Feature: Create/Update LegacyAdvertisements
   I am able to create/update legacyAdvertisements
 
 
-@Sanity0
+@Sanity
 
 Scenario: Create/Update LegacyAdvertisements
 
@@ -20,7 +20,7 @@ Scenario: Create/Update LegacyAdvertisements
   And current user logs out
 
 
-@Sanity0
+@Sanity
 
 Scenario: Create/Renewal LegacyAdvertisements
 

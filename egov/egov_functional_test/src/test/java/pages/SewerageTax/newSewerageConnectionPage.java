@@ -7,6 +7,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
+import java.util.List;
+
 /**
  * Created by karthik on 27/1/17.
  */
@@ -64,6 +66,12 @@ public class newSewerageConnectionPage extends BasePage {
 
     @FindBy(css = "input[value='Close'][type='button']")
     private WebElement closeButton;
+
+    @FindBy(css = "li[role='presentation'] a[data-now='New%20Sewerage%20Connection']")
+    private WebElement newSewerageConnectionLink;
+
+    @FindBy(id = "official_inbox")
+    private WebElement inboxTable;
 
     public newSewerageConnectionPage(WebDriver driver) {
         this.driver = driver;
@@ -153,4 +161,26 @@ public class newSewerageConnectionPage extends BasePage {
 
         close();
     }
+
+    public void SelectSewerageTax() {
+         waitForElementToBeVisible(newSewerageConnectionLink,driver);
+         newSewerageConnectionLink.click();
+    }
+
+    public void selectAboveApplication(String applicationNumber) {
+        waitForElementToBeVisible(inboxTable,driver);
+
+        List<WebElement> totalRows = inboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
+
+        for (WebElement applicationRow : totalRows){
+            if(applicationRow.findElements(By.tagName("td")).get(4).getText().contains(applicationNumber)){
+                applicationRow.click();
+                break;
+            }
+        }
+
+        switchToNewlyOpenedWindow(driver);
+    }
+
+
 }

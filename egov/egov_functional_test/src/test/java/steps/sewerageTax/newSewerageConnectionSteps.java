@@ -48,5 +48,10 @@ public class newSewerageConnectionSteps extends BaseSteps implements En {
 
            pageStore.get(newSewerageConnectionPage.class).closeMultipleWindows("http://kurnool-uat.egovernments.org/stms/collectfee/search");
         });
+        And("^he chooses to act upon above sewerage connection$", () -> {
+           pageStore.get(newSewerageConnectionPage.class).SelectSewerageTax();
+
+           pageStore.get(newSewerageConnectionPage.class).selectAboveApplication(scenarioContext.getApplicationNumber());
+        });
     }
 }

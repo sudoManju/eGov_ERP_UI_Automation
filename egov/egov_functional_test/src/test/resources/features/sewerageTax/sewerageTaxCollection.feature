@@ -27,5 +27,5 @@ Feature: Create new sewerage connection
       And current user logs out
 
       When assistantEngineer logs in
-
+      And he chooses to act upon above sewerage connection
 

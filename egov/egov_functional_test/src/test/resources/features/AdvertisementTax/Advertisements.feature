@@ -3,7 +3,7 @@ Feature: Create/search Advertisement
   I am able to create/search Advertisements
 
 
-@Sanity0
+@Sanity
 
 Scenario: Create/Search/Collect Tax Agency wise
 
@@ -47,7 +47,7 @@ Scenario: Create/Search/Collect Tax Agency wise
 
 
 
-@Sanity0
+@Sanity
 
 Scenario: Create/Search/CollectTax/Deactivate AdvertisementWise
 

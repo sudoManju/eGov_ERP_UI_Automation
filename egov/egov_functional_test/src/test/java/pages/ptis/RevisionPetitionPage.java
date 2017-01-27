@@ -46,7 +46,6 @@ public class RevisionPetitionPage extends BasePage {
         enterText(revisionPetitionDetailTextBox, revisionPetitionDetails.getRevisionPetitionDetail());
     }
 
-
     public void enterHearingDetails() {
 //        enterText(
 
