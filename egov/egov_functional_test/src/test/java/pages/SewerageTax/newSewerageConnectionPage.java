@@ -7,6 +7,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -95,6 +97,9 @@ public class newSewerageConnectionPage extends BasePage {
     @FindBy(id = "Execute Connection")
     private WebElement executeConnectionButton;
 
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    String date = sdf.format(new Date());
+
     public newSewerageConnectionPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -113,7 +118,7 @@ public class newSewerageConnectionPage extends BasePage {
         documentNumberTextBox.sendKeys("123");
 
         waitForElementToBeClickable(documentDateTextBox,driver);
-        documentDateTextBox.sendKeys("27/01/2017");
+        documentDateTextBox.sendKeys(date);
 
         waitForElementToBeClickable(chooseFileButton,driver);
         chooseFileButton.sendKeys(System.getProperty("user.dir") + "/src/test/resources/loginCredentials.txt");
