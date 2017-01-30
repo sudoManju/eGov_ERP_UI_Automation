@@ -277,6 +277,7 @@ public class PropertyDetailsPage extends BasePage {
     private WebElement propertyAmountToBePaid;
 
     @FindBy(xpath = ".//*[@id='createProperty-forward']/div/table/tbody/tr[1]/td/span[2]")
+
     private WebElement commAssessmentNo;
     String min = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
     String min1 = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
@@ -536,4 +537,6 @@ public class PropertyDetailsPage extends BasePage {
 
         switchToNewlyOpenedWindow(webDriver);
     }
+
+
 }

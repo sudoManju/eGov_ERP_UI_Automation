@@ -45,6 +45,27 @@ public class RevisionPetitionPage extends BasePage {
     @FindBy(id = "Forward")
     private WebElement forwardButton;
 
+    @FindBy(id = "approverComments")
+    private WebElement approveRemarkHearingTextBox;
+
+    @FindBy(id = "reasonForModify")
+    private WebElement reasonForModificationDropDown;
+
+    @FindBy(id = "inspectionRemarks")
+    private WebElement inspectionTextBox;
+
+    @FindBy(id = "Approve")
+    private WebElement approveRpbutton;
+
+    @FindBy(id = "Print Endoresement")
+    private WebElement printEndoresementNoticeButton;
+
+    @FindBy(id = "buttonClose")
+    private WebElement PrintCloseButton;
+
+    @FindBy(id = "Print Special Notice")
+    private WebElement printSpecialNotice;
+
     public void revisionPetitionSearchScreen(String Rpscreen) {
         revisionPetitiontextBox.sendKeys(Rpscreen);
         rpSearchButton.click();
@@ -68,4 +89,45 @@ public class RevisionPetitionPage extends BasePage {
 
 
        }
+
+    public void enterApproverRemarks() {
+        waitForElementToBeClickable(approveRemarkHearingTextBox, webDriver);
+        approveRemarkHearingTextBox.sendKeys("ApproverRemarkOfRP");
+
+
+    }
+
+    public void selectReasonForModification() {
+        new Select(reasonForModificationDropDown).selectByIndex(1);
+    }
+
+    public void enterInspectionDetails() {
+        waitForElementToBeClickable(inspectionTextBox, webDriver);
+        inspectionTextBox.sendKeys("Inspection Details of property");
+
+
+
+    }
+
+    public void rpApprove() {
+        waitForElementToBeClickable(approveRpbutton, webDriver);
+        approveRpbutton.click();
+    }
+
+    public void clickPrintEndoresementNotice() {
+        waitForElementToBeClickable(printEndoresementNoticeButton, webDriver);
+        printEndoresementNoticeButton.click();
+
+        waitForElementToBeClickable(PrintCloseButton, webDriver);
+        PrintCloseButton.click();
+        switchToPreviouslyOpenedWindow(webDriver);
+    }
+
+    public void clickOnPrintSpecialNotice() {
+        waitForElementToBeClickable(printSpecialNotice, webDriver);
+        printSpecialNotice.click();
+        switchToNewlyOpenedWindow(webDriver);
+        webDriver.close();
+        switchToPreviouslyOpenedWindow(webDriver);
+    }
 }

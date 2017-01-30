@@ -279,8 +279,55 @@ Feature: Create New Property
     And chooses to act upon the above application
     And he choose revision petition header
     And he enters hearing details<hearingDetails>
+    And current user closes acknowledgement
+    And current user logs out
 
-#    And he approved the property with remarks "property approved"
+    And juniorAssistant logs in
+    And chooses to act upon the above assessment
+    And he choose revision petition header
+    And he enters approver remark
+    And he forwards for approval to revenueInspector
+    And current user closes acknowledgement
+    And current user logs out
+
+    When revenueInspector logs in
+    And chooses to act upon the above application
+    And he enters reason for modification
+    And he choose revision petition header
+    And he enters inspection details
+
+
+    And he forwards for approval to revenueOfficer
+    And current user closes acknowledgement
+    And current user logs out
+
+    When revenueOfficer logs in
+    And chooses to act upon the above application
+    And he choose revision petition header
+    And he enters approver remark
+    And he forwards for approval to commissioner
+    And current user closes acknowledgement
+    And current user logs out
+
+    When commissioner logs in
+    And chooses to act upon the above application
+    And he choose to approve for revision petition
+    And current user closes acknowledgement
+
+    And chooses to act upon the above assessment
+    And he prints endoresement notice
+
+    And chooses to act upon the above assessment
+    And he does a digital signature
+
+    When commissioner closes acknowledgement
+    And current user logs out
+
+    And juniorAssistant logs in
+    And chooses to act upon the above assessment
+    And he generates a print special notice
+    And current user logs out
+
 
     Examples:
       | propertyHeaderDetails | ownerDetails | propertyAddressDetails | assessmentDetails     | amenitiesDetails | constructionTypeDetails | floorDetails | revisionPetitionDetails |  hearingDetails |
