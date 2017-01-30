@@ -137,12 +137,10 @@ Feature: Create New Property
         |  editAssessmentDetails         |     amenitiesDetails |  editFloorDetails            |
         |  assessmentAdditionProperty    |        all           |  firstFloorAdditionaltaration|
 
-
       # TRANSFER OF OWNERSHIP SCREEN #
 
       @Sanity
       Scenario Outline: Register Choose to do title Transfer
-
         Given commissioner logs in
         When he chooses to create data entry
         And he creates a new assessment for a private residential property
@@ -162,7 +160,6 @@ Feature: Create New Property
         And he chooses Registration already done button
         And he enters registration details for the property <registrationDetails>
         And he enters enclosure details
-
 
         And he forwards for approval to billCollector
         Then edit property details get saved successfully
@@ -209,16 +206,13 @@ Feature: Create New Property
         And current user logs out
 
         Examples:
-
-         |registrationDetails|
-         |register           |
-
+          |registrationDetails|
+          |register           |
 
         # CREATE REVISION PETITION #
 
-  @WIP
+  @Sanity
   Scenario Outline: Register user choose to do revision petition of property
-
     Given juniorAssistant logs in
     When he chooses to create new property
     And he enters property header details as <propertyHeaderDetails>
@@ -258,7 +252,6 @@ Feature: Create New Property
 
     And chooses to act upon the above assessment
     And he does a digital signature
-
     Then user will be notified by "Successfully"
 
     When commissioner closes acknowledgement
@@ -296,7 +289,6 @@ Feature: Create New Property
     And he choose revision petition header
     And he enters inspection details
 
-
     And he forwards for approval to revenueOfficer
     And current user closes acknowledgement
     And current user logs out
@@ -327,7 +319,6 @@ Feature: Create New Property
     And chooses to act upon the above assessment
     And he generates a print special notice
     And current user logs out
-
 
     Examples:
       | propertyHeaderDetails | ownerDetails | propertyAddressDetails | assessmentDetails     | amenitiesDetails | constructionTypeDetails | floorDetails | revisionPetitionDetails |  hearingDetails |

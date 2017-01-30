@@ -6,10 +6,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
-
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
-
 import static com.jayway.awaitility.Awaitility.await;
 import static java.lang.Enum.valueOf;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -192,9 +190,6 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "propertyIdentifier")
     private WebElement assessmentNumberTextBox1;
 
-//    @FindBy(id = "propertyIdentifier")
-//    private WebElement assessmentNumberTextBox;
-
     @FindBy(id = "consumerCodeData")
     private WebElement hscNumberTextBox;
 
@@ -287,7 +282,6 @@ public class PropertyDetailsPage extends BasePage {
     }
 
     public void enterPropertyHeader(PropertyHeaderDetails propertyHeaderDetails) {
-
         new Select(categoryOfOwnershipSelection).selectByVisibleText(propertyHeaderDetails.getCategoryOfOwnership());
         try {
             TimeUnit.SECONDS.sleep(2);
@@ -296,34 +290,25 @@ public class PropertyDetailsPage extends BasePage {
         }
         new Select(propertyTypeSelection).selectByVisibleText(propertyHeaderDetails.getPropertyType());
     }
-
     public void enterOwnerDetails(OwnerDetails ownerDetails) {
         waitForElementToBeClickable(newMobileNumberTextBox, webDriver);
-
         enterText(newMobileNumberTextBox, ownerDetails.getMobileNumber());
         mobileNumberTextBox.sendKeys("94488"+(min+min1));
         enterText(ownerNameTextBox, ownerDetails.getOwnerName());
         new Select(genderSelection).selectByVisibleText(ownerDetails.getGender().toUpperCase());
-
         JavascriptExecutor executor = (JavascriptExecutor)webDriver;
         executor.executeScript(String.format("document.getElementById('emailId').setAttribute('value', '%s')", ownerDetails.getEmailAddress()));
-
-
         new Select(guardianRelationSelection).selectByVisibleText(ownerDetails.getGuardianRelation());
         enterText(guardianTextBox, ownerDetails.getGuardianName());
     }
-
     public void enterPropertyAddressDetails(PropertyAddressDetails addressDetails) {
         waitForElementToBeClickable(localitySelection, webDriver);
-
         new Select(localitySelection).selectByVisibleText(addressDetails.getLocality());
         new Select(zoneNumberSelection).selectByVisibleText(addressDetails.getZoneNumber());
         new Select(electionWardSeletion).selectByVisibleText(addressDetails.getElectionWard());
-
         doorNumberTextBox.sendKeys(addressDetails.getDoorNumber());
         pincodeTextBox.sendKeys(addressDetails.getPincode());
     }
-
     public void enterAssessmentDetails(AssessmentDetails assessmentDetails) {
         new Select(reasonForCreationSelection).selectByVisibleText(assessmentDetails.getReasonForCreation());
         extentOfSiteTextBox.sendKeys(assessmentDetails.getExtentOfSite());
@@ -331,7 +316,6 @@ public class PropertyDetailsPage extends BasePage {
         registrationDocNumber.sendKeys(assessmentDetails.getRegistrationDocNumber());
         registrationDocDate.sendKeys(assessmentDetails.getRegistrationDocDate());
     }
-
     public void selectAmenities(Amenities amenities) {
         selectAmenityIfRequired(liftCheckbox, amenities.getLift());
         selectAmenityIfRequired(toiletsCheckbox, amenities.getToilets());
@@ -341,19 +325,16 @@ public class PropertyDetailsPage extends BasePage {
         selectAmenityIfRequired(waterHarvestingCheckbox, amenities.getWaterHarvesting());
         selectAmenityIfRequired(cableConnectionCheckbox, amenities.getCableConnection());
     }
-
     private void selectAmenityIfRequired(WebElement element, Boolean hasAmenity) {
         if (hasAmenity && !element.isSelected())
             element.click();
     }
-
     public void enterConstructionTypeDetails(ConstructionTypeDetails constructionTypeDetails) {
         new Select(floorTypeSelection).selectByVisibleText(constructionTypeDetails.getFloorType());
         new Select(roofTypeSelection).selectByVisibleText(constructionTypeDetails.getRoofType());
         new Select(woodTypeSelection).selectByVisibleText(constructionTypeDetails.getWoodType());
         new Select(wallTypeSelection).selectByVisibleText(constructionTypeDetails.getWallType());
     }
-
     public void enterFloorDetails(FloorDetails floorDetails) {
         new Select(floorNumberSelection).selectByVisibleText(floorDetails.getFloorNumber());
         new Select(classificationOfBuildingSelection).selectByVisibleText(floorDetails.getClassificationOfBuilding());
@@ -361,155 +342,107 @@ public class PropertyDetailsPage extends BasePage {
         firmNameTextBox.sendKeys(floorDetails.getFirmName());
         new Select(occupancySelection).selectByVisibleText(floorDetails.getOccupancy());
         occupantNameTextBox.sendKeys(floorDetails.getOccupantName());
-
         constructionDateTextBox.sendKeys(floorDetails.getConstructionDate());
         constructionDateTextBox.sendKeys(Keys.TAB);
-
         effectiveFromDateTextBox.sendKeys(floorDetails.getEffectiveFromDate());
         effectiveFromDateTextBox.sendKeys(Keys.TAB);
-
         new Select(unstructuredLandSelection).selectByVisibleText(floorDetails.getUnstructuredLand());
-
         lengthTextBox.sendKeys(floorDetails.getLength());
         breadthTextBox.sendKeys(floorDetails.getBreadth());
-//        plinthAreaTextBox.sendKeys(floorDetails.getPlinthArea());
-
         buildingPermissionNumberTextBox.sendKeys(floorDetails.getBuildingPermissionNumber());
         buildingPermissionDateTextBox.sendKeys(floorDetails.getBuildingPermissionDate());
         plinthAreaInBuildingPlanTextBox.sendKeys(floorDetails.getPlinthAreaInBuildingPlan());
     }
-
     public void enterApprovalDetails(ApprovalDetails approvalDetails) {
         new Select(approverDepartmentSelection).selectByVisibleText(approvalDetails.getApproverDepartment());
         await().atMost(10, SECONDS).until(() -> new Select(approverDesignationSelection).getOptions().size() > 1);
         new Select(approverDesignationSelection).selectByVisibleText(approvalDetails.getApproverDesignation());
         await().atMost(10, SECONDS).until(() -> new Select(approverSelection).getOptions().size() > 1);
         new Select(approverSelection).selectByVisibleText(approvalDetails.getApprover());
-     //   enterApproverRemarks(approvalDetails.getApproverRemarks());
     }
-
-
-//    public void enterApproverRemarks(String approverRemarks) {
-//        approverRemarksTextArea.sendKeys(approverRemarks);
-//    }
-
-
     public void forward() {
         forwardButton.click();
     }
-
     public String approve() {
         approveButton.click();
         waitForElementToBeVisible(commAssessmentNo, webDriver);
         return commAssessmentNo.getText();
     }
-
     public void digitallySign() {
         signButton.click();
     }
-
     public void generateNotice() {
         generateNotice.click();
         switchToNewlyOpenedWindow(webDriver);
         webDriver.close();
         switchToPreviouslyOpenedWindow(webDriver);
     }
-
     public void enterSearchDetailsOfAssessmentNumber(SearchDetails searchDetails) {
         waitForElementToBeClickable(assessmentNumTextBox, webDriver);
         enterText(assessmentNumTextBox, searchDetails.getSearchValue1());
-
         searchButtonByAssmentNo.click();
     }
-
     public void checkNoOfRecords() {
         waitForElementToBeVisible(recordsFound, webDriver);
         int noOfRecords = Integer.parseInt(recordsFound.getText());
-
         if (noOfRecords > 0) {
             System.out.println("Records Founds:" + noOfRecords);
         } else
             System.out.println("No records founds");
     }
-
     public void enterSearchDetailsOfDoorNumber(SearchDetails searchDetails) {
         waitForElementToBeClickable(doorNoTextBox, webDriver);
         enterText(doorNoTextBox, searchDetails.getSearchValue1());
-
         searchButtonByDoorNo.click();
     }
-
     public void enterApplicationInfo(ApplicantInfo applicantInfo){
-
         waitForElementToBeClickable(assessmentNumberTextBox, webDriver);
         enterText(assessmentNumberTextBox, applicantInfo.getPtAssessmentNumber());
-
         waitForElementToBeClickable(hscNumberTextBox, webDriver);
         enterText(hscNumberTextBox, applicantInfo.getHscNumber());
-
         waitForElementToBeClickable(connectionDateTextBox, webDriver);
         enterText(connectionDateTextBox, applicantInfo.getConnectionDate());
     }
-
     public void chooseToSubmit(){
         waitForElementToBeClickable(submitButton, webDriver);
         submitButton.click();
     }
-
-//    public void enterAssessmentNumber(String assessmentNumber) {assessmentNumberTextBox.sendKeys(assessmentNumber);
-//    }
-
     public void enterSearchDetailsOfMobileNumber(SearchDetails searchDetails) {
         waitForElementToBeClickable(mobileNoTextBox, webDriver);
         enterText(mobileNoTextBox, searchDetails.getSearchValue1());
-
         searchButtonByMobileNo.click();
     }
-
     public void enterSearchDetailsOfZoneAndWardNumber(SearchDetails searchDetails) {
         waitForElementToBeClickable(zoneId, webDriver);
-
         new Select(zoneId).selectByVisibleText(searchDetails.getSearchValue1());
         new Select(wardId).selectByVisibleText(searchDetails.getSearchValue2());
-
         searchButtonByZoneAndWard.click();
     }
-
     public void enterAssessmentNumber(String assessmentNumber) {
         assessmentNumberTextBox.sendKeys(assessmentNumber);
     }
-
     public void create() {
         createButton.click();
     }
-
     public void searchAssessmentNumber(String assessmentNum) {
         searchAssessmentTextBox.sendKeys(assessmentNum);
     }
-
     public void search() {
         searchButton.click();
     }
-
     public void enterEditAssessmentDetails(EditAssessmentDetails assessmentDetails) {
-
-        // waitForElementToBeClickable(extentOfSiteTextBox, webDriver);
         extentOfSiteTextBox.clear();
         extentOfSiteTextBox.sendKeys(assessmentDetails.getExtentOfSite());
-
         editOccupancyTextBox.sendKeys(assessmentDetails.getOccupancyCertificateNumber());
     }
-
     public void enterEditFloorDetails(EditFloorDetails floorDetails) {
         new Select(floorNumberSelection).selectByVisibleText(floorDetails.getEditfloorNumber());
         new Select(classificationOfBuildingSelection).selectByVisibleText(floorDetails.getEditclassificationOfBuilding());
         new Select(natureOfUsageSelection).selectByVisibleText(floorDetails.getEditnatureOfUsage());
-
         new Select(occupancySelection).selectByVisibleText(floorDetails.getEditoccupancy());
         editoccupantNameTextBox.sendKeys(floorDetails.getEditoccupantName());
         editconstructionDateTextBox.sendKeys(floorDetails.getEditconstructionDate());
         editconstructionDateTextBox.sendKeys(Keys.TAB);
-
         editeffectiveFromDateTextBox.sendKeys(floorDetails.getEditeffectiveFromDate());
         editeffectiveFromDateTextBox.sendKeys(Keys.TAB);
         new Select(unstructuredLandSelection).selectByVisibleText(floorDetails.getEditunstructuredLand());
@@ -521,22 +454,14 @@ public class PropertyDetailsPage extends BasePage {
         buildingPermissionDateTextBox.sendKeys(floorDetails.getEditbuildingPermissionDate());
         buildingPermissionDateTextBox.sendKeys(Keys.TAB);
         plinthAreaInBuildingPlanTextBox.sendKeys(floorDetails.getEditplinthAreaInBuildingPlan());
-
     }
-
     public void payCash() {
-
         waitForElementToBeClickable(propertyAmountPaid, webDriver);
         waitForElementToBeClickable(propertyAmountToBePaid, webDriver);
-
         propertyAmountToBePaid.sendKeys(propertyAmountPaid.getAttribute("value").split("\\.")[0]);
-
         WebElement element = webDriver.findElement(By.id("button2"));
         JavascriptExecutor executor = (JavascriptExecutor)webDriver;
         executor.executeScript("arguments[0].click();", element);
-
         switchToNewlyOpenedWindow(webDriver);
     }
-
-
 }

@@ -12,13 +12,7 @@ import java.util.List;
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-/**
- * Created by bimal on 5/12/16.
- */
-
-
-    public class DataEntryAcknowledgementPage extends BasePage {
-
+public class DataEntryAcknowledgementPage extends BasePage {
 
     private WebDriver driver;
 
@@ -58,23 +52,18 @@ import static java.util.concurrent.TimeUnit.SECONDS;
     @FindBy (id = "addDemand-update_Update")
     private WebElement updateButton;
 
-
-
     public DataEntryAcknowledgementPage(WebDriver driver) {
         this.driver = driver;
     }
 
     public String getdataentryAcknowledgementMessage() {
         return driver.findElement(By.xpath("//table/tbody/tr/td")).getText();
-
     }
-
     public String getAssessmentNumber() {
         waitForElementToBeVisible(dataEntryAcknowledgement, driver);
         String genericAssessmentNumber =  dataEntryAcknowledgement.getText().replaceAll("[^0-9]" , "");
         return genericAssessmentNumber;
     }
-
     public void close() {
         closeButton.click();
         await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
@@ -89,17 +78,10 @@ import static java.util.concurrent.TimeUnit.SECONDS;
             driver.switchTo().window(winHandle);
         }
     }
-
-
     public void geteditDCB() {
-          editDCBButton.click();
-
-
-
+        editDCBButton.click();
     }
-
     public void enterAddDemandDetails() {
-
         waitForElementToBeClickable(installmentDropBox, driver);
         installmentDropBox.isDisplayed();
         new Select(installmentDropBox).selectByVisibleText("2016-2017-2");
@@ -109,7 +91,5 @@ import static java.util.concurrent.TimeUnit.SECONDS;
         unauthorizedPenaltyTextBox.sendKeys("100");
         remarksTextArea.sendKeys("Added 2016-17-2 Demand");
         updateButton.click();
-
-
     }
 }

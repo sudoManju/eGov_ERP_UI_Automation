@@ -18,28 +18,22 @@ public class RevisionPetitionSteps extends BaseSteps implements En{
     public RevisionPetitionSteps() {
 
         And("^he search for assessment from commissioner screen$", () -> {
-
-          pageStore.get(RevisionPetitionPage.class).revisionPetitionSearchScreen(scenarioContext.getCommAssessmentNumber());
-
+            pageStore.get(RevisionPetitionPage.class).revisionPetitionSearchScreen(scenarioContext.getCommAssessmentNumber());
         });
         And("^he enters revision petition details(\\w+)$", (String revisionPetitionDataId ) -> {
-
-          RevisionPetitionDetails revisionPetitionDetails = new ExcelReader(ptisTestDataFileName).getRevisionPetitionDetails(revisionPetitionDataId);
-          pageStore.get(RevisionPetitionPage.class).revisionPetitionBlock(revisionPetitionDetails);
-
+            RevisionPetitionDetails revisionPetitionDetails = new ExcelReader(ptisTestDataFileName).getRevisionPetitionDetails(revisionPetitionDataId);
+            pageStore.get(RevisionPetitionPage.class).revisionPetitionBlock(revisionPetitionDetails);
         });
         And("^he choose revision petition header$", () -> {
-           pageStore.get(RevisionPetitionPage.class).chooseRevisionPetitionHeader();
+            pageStore.get(RevisionPetitionPage.class).chooseRevisionPetitionHeader();
         });
         And("^he enters hearing details(\\w+)$", (String hearingDataId) -> {
             HearingDetails hearingDetails = new ExcelReader(ptisTestDataFileName).getHearingDetails(hearingDataId);
             pageStore.get(RevisionPetitionPage.class).enterHearingDetails(hearingDetails);
-
         });
         And("^he enters approver remark$", () -> {
             pageStore.get(RevisionPetitionPage.class).enterApproverRemarks();
         });
-
         And("^he enters reason for modification$", () -> {
             pageStore.get(RevisionPetitionPage.class).selectReasonForModification();
         });
@@ -55,8 +49,5 @@ public class RevisionPetitionSteps extends BaseSteps implements En{
         And("^he generates a print special notice$", () -> {
             pageStore.get(RevisionPetitionPage.class).clickOnPrintSpecialNotice();
         });
-
     }
-
-
 }

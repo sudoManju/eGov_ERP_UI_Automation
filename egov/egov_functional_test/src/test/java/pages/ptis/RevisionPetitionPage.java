@@ -1,6 +1,5 @@
 package pages.ptis;
 
-
 import entities.ptis.HearingDetails;
 import entities.ptis.RevisionPetitionDetails;
 import org.openqa.selenium.WebDriver;
@@ -9,10 +8,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
-
-/**
- * Created by bimal on 25/1/17.
- */
 public class RevisionPetitionPage extends BasePage {
 
     private WebDriver webDriver;
@@ -70,59 +65,41 @@ public class RevisionPetitionPage extends BasePage {
         revisionPetitiontextBox.sendKeys(Rpscreen);
         rpSearchButton.click();
     }
-
     public void chooseRevisionPetitionHeader() {
         waitForElementToBeClickable(revisionPetitionHeader, webDriver);
         revisionPetitionHeader.click();
     }
-
     public void revisionPetitionBlock(RevisionPetitionDetails revisionPetitionDetails) {
         enterText(revisionPetitionDetailTextBox, revisionPetitionDetails.getRevisionPetitionDetail());
     }
-
     public void enterHearingDetails(HearingDetails hearingDetails) {
         enterText(hearingDateTextBox,hearingDetails.getHearingDate());
         new Select(hearingTimeSelection).selectByVisibleText(hearingDetails.getHearingTime());
         enterText(venueTextBox, hearingDetails.getVenue());
         forwardButton.click();
-
-
-
        }
-
     public void enterApproverRemarks() {
         waitForElementToBeClickable(approveRemarkHearingTextBox, webDriver);
         approveRemarkHearingTextBox.sendKeys("ApproverRemarkOfRP");
-
-
     }
-
     public void selectReasonForModification() {
         new Select(reasonForModificationDropDown).selectByIndex(1);
     }
-
     public void enterInspectionDetails() {
         waitForElementToBeClickable(inspectionTextBox, webDriver);
         inspectionTextBox.sendKeys("Inspection Details of property");
-
-
-
     }
-
     public void rpApprove() {
         waitForElementToBeClickable(approveRpbutton, webDriver);
         approveRpbutton.click();
     }
-
     public void clickPrintEndoresementNotice() {
         waitForElementToBeClickable(printEndoresementNoticeButton, webDriver);
         printEndoresementNoticeButton.click();
-
         waitForElementToBeClickable(PrintCloseButton, webDriver);
         PrintCloseButton.click();
         switchToPreviouslyOpenedWindow(webDriver);
     }
-
     public void clickOnPrintSpecialNotice() {
         waitForElementToBeClickable(printSpecialNotice, webDriver);
         printSpecialNotice.click();

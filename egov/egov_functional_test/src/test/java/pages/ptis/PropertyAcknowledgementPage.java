@@ -6,15 +6,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
-
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class PropertyAcknowledgementPage extends BasePage {
-
 
     private WebDriver driver;
 
@@ -33,7 +30,6 @@ public class PropertyAcknowledgementPage extends BasePage {
     @FindBy(className = "btn btn-default")
     private WebElement assessmentCloseButton;
 
-
     public PropertyAcknowledgementPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -47,7 +43,6 @@ public class PropertyAcknowledgementPage extends BasePage {
                 .findElement(By.tagName("tr")).findElement(By.tagName("td")).findElements(By.tagName("span"));
         return elements.get(1).getText();
     }
-
     public void close() {
         try {
             waitForElementToBeClickable(closeButton,driver);
@@ -63,7 +58,6 @@ public class PropertyAcknowledgementPage extends BasePage {
             driver.switchTo().window(winHandle);
         }
     }
-
     public void close1() {
         waitForElementToBeClickable(propertyCloseButton,driver);
         propertyCloseButton.click();
@@ -72,7 +66,6 @@ public class PropertyAcknowledgementPage extends BasePage {
             driver.switchTo().window(winHandle);
         }
     }
-
     public String getSignatureNotification() {
         return driver.findElement(By.cssSelector("div.panel-title")).getText();
     }
@@ -84,7 +77,6 @@ public class PropertyAcknowledgementPage extends BasePage {
             driver.switchTo().window(winHandle);
         }
     }
-
     public void cancelPrint() {
         driver.findElement(By.className("cancel")).click();
     }
@@ -93,12 +85,10 @@ public class PropertyAcknowledgementPage extends BasePage {
         waitForElementToBeClickable(assessmentViewButton , driver);
         assessmentViewButton.click();
     }
-
     public void toCloseDataEntryPage(){
         waitForElementToBeClickable(assessmentCloseButton , driver);
         assessmentCloseButton.click();
     }
-
     public void toCloseAdditionalConnectionPage(){
         closeLink.click();
         switchToPreviouslyOpenedWindow(driver);
