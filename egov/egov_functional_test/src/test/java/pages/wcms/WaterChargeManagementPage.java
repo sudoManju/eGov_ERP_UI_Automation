@@ -428,8 +428,9 @@ public class WaterChargeManagementPage extends BasePage {
     }
 
     public void clickOnGenerateNotice(){
+        waitForElementToBeVisible(generateEstimationNoticeButton , webDriver);
         waitForElementToBeClickable(generateEstimationNoticeButton , webDriver);
-        generateEstimationNoticeButton.click();
+        jsClick(generateEstimationNoticeButton , webDriver);
         switchToNewlyOpenedWindow(webDriver);
         webDriver.close();
         switchToPreviouslyOpenedWindow(webDriver);

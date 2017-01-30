@@ -208,7 +208,7 @@ public class FinancialSteps extends BaseSteps implements En {
         });
 
         And("^officer will close the successful creation page$", () -> {
-            String message = pageStore.get(FinancialPage.class).closesSuccessfullTransferCreationPage();
+            String message = pageStore.get(FinancialPage.class).closesSuccessfulTransferCreationPage();
             scenarioContext.setActualMessage(message);
         });
     }

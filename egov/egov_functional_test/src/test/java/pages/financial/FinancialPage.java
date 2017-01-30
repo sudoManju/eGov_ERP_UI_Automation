@@ -360,10 +360,13 @@ public class FinancialPage extends BasePage {
         new Select(voucherDepartment).selectByVisibleText(financialJournalVoucherDetails.getDepartment());
         new Select(voucherFunction).selectByVisibleText(financialJournalVoucherDetails.getFunction());
 
+        waitForElementToBeVisible(accountCode1, webDriver);
         waitForElementToBeClickable(accountCode1, webDriver);
         accountCode1.sendKeys(financialJournalVoucherDetails.getAccountCode1());
 
         WebElement dropdown = webDriver.findElement(By.className("yui-ac-highlight"));
+        waitForElementToBeVisible(dropdown , webDriver);
+        waitForElementToBeClickable(dropdown , webDriver);
         dropdown.click();
         enterText(debitAmount1 , "100");
 
@@ -636,8 +639,6 @@ public class FinancialPage extends BasePage {
         String userName = approverPos.getOptions().get(1).getText();
         approverPos.getOptions().get(1).click();
 
-//        new Select(expenseApprovalPosition).selectByVisibleText(approvalDetails.getApprover());
-
         forwardButton.click();
         switchToNewlyOpenedWindow(webDriver);
         return userName;
@@ -706,8 +707,12 @@ public class FinancialPage extends BasePage {
         new Select(voucherDepartment).selectByVisibleText(financialJournalVoucherDetails.getDepartment());
         new Select(voucherFunction).selectByVisibleText(financialJournalVoucherDetails.getFunction());
 
+        waitForElementToBeVisible(accountCode1 ,webDriver);
+        waitForElementToBeClickable(accountCode1 , webDriver);
         accountCode1.sendKeys(financialJournalVoucherDetails.getAccountCode1());
+
         WebElement dropdown = webDriver.findElement(By.className("yui-ac-highlight"));
+        waitForElementToBeClickable(dropdown , webDriver);
         dropdown.click();
         enterText(debitAmount1 , "1000");
 
@@ -934,10 +939,13 @@ public class FinancialPage extends BasePage {
         Calendar calobj1 = Calendar.getInstance();
         documentDate.sendKeys(df1.format(calobj1.getTime()));
 
+        waitForElementToBeVisible(accountCode1 , webDriver);
         waitForElementToBeClickable(accountCode1, webDriver);
         accountCode1.sendKeys("2101001");
 
         WebElement dropdown = webDriver.findElement(By.className("yui-ac-highlight"));
+        waitForElementToBeVisible(dropdown , webDriver);
+        waitForElementToBeClickable(dropdown , webDriver);
         dropdown.click();
         enterText(debitAmount1 , "100");
 
@@ -988,7 +996,7 @@ public class FinancialPage extends BasePage {
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    public String closesSuccessfullTransferCreationPage(){
+    public String closesSuccessfulTransferCreationPage(){
         waitForElementToBeVisible(forwardMessage , webDriver);
         String message = forwardMessage.getText();
 

@@ -37,6 +37,6 @@ Feature: To create a new Journal voucher according to the budget check
 
     Examples:
       |voucher details   | approval officer1 | approval officer2 |  approval officer3 |
-      |budgetCheck       |  accountOfficer1a  | accountOfficer2   |  commissioner      |
+      |budgetCheck       |  accountOfficer1  | accountOfficer2   |  commissioner      |
 
 

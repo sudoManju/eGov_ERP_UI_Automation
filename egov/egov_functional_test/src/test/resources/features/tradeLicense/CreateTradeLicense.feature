@@ -63,7 +63,9 @@ Feature: Create Trade License
       Examples:
         |   tradeDetailsData         |       tradeLocationData           |            tradeDetailsData1    |
         |   ownerDetailsTradeLicense |       locationDetailsTradeLicense |          tradeDetailsTradeLicense |
-
+        |   ownerDetailsTradeLicense |       locationDetailsTradeLicense |          tradeDetailsTradeLicense |
+        |   ownerDetailsTradeLicense |       locationDetailsTradeLicense |          tradeDetailsTradeLicense |
+        |   ownerDetailsTradeLicense |       locationDetailsTradeLicense |          tradeDetailsTradeLicense |
 
        # CREATE LEGENCY TRADE LICENSE #
 

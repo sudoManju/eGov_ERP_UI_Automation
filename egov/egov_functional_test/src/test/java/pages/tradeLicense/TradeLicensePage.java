@@ -4,7 +4,9 @@ import entities.ptis.ApprovalDetails;
 import entities.tradeLicense.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasePage;
 
 import java.util.List;
@@ -273,8 +275,22 @@ public class TradeLicensePage extends BasePage {
     }
 
     public void closureApproval() {
-        enterText(approverRemarkTextBox, "Approved");
-        approveButton.click();
+
+
+        WebElement element = webDriver.findElement(By.id("boundary"));
+        waitForElementToBeVisible(element , webDriver);
+//        System.out.println("=================="+element.getText());
+        for (int i = 0 ; i<=2 ; i++) {
+            if (element.getText().equals(null)) {
+                WebDriverWait webDriverWait = new WebDriverWait(webDriver, 10);
+                webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("boundary")));
+            } else {
+                waitForElementToBeClickable(approverRemarkTextBox , webDriver);
+                enterText(approverRemarkTextBox, "Approved");
+                approveButton.click();
+                break;
+            }
+        }
     }
 
 
@@ -283,9 +299,21 @@ public class TradeLicensePage extends BasePage {
     }
 
     public void generateLicenseCertificate() {
-        waitForElementToBeClickable(generateCertificateButton, webDriver);
-        generateCertificateButton.click();
 
+        WebElement element = webDriver.findElement(By.id("boundary"));
+        waitForElementToBeVisible(element , webDriver);
+//        System.out.println("=================="+element.getText());
+        for (int i = 0 ; i<=2 ; i++) {
+            if (element.getText().equals(null)) {
+                WebDriverWait webDriverWait = new WebDriverWait(webDriver, 10);
+                webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("boundary")));
+            } else {
+                waitForElementToBeClickable(generateCertificateButton, webDriver);
+                generateCertificateButton.click();
+                switchToNewlyOpenedWindow(webDriver);
+                break;
+            }
+        }
     }
 
     public void enterApplicationNumberReadingFromExcel(SearchTradeDetails searchId) {
