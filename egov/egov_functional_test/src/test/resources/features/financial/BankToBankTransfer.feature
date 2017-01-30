@@ -7,5 +7,5 @@ Feature: To transfer payments from one bank to other bank
     And officer will choose the bank to bank transfers
     And officer will enter the bank to bank transfer details
     And officer will close the successful creation page
-    And user will be notified by "Successful"
+    Then user will be notified by "Successful"
     And current user logs out

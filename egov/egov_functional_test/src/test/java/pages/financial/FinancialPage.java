@@ -12,7 +12,6 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasePage;
 
-import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -334,6 +333,27 @@ public class FinancialPage extends BasePage {
     @FindBy(id = "Save_New")
     private WebElement saveButton;
 
+    @FindBy(id = "cbilltab")
+    private WebElement expenseBillTable;
+
+    @FindBy(className = "yui-ac-highlight")
+    private WebElement accountCodeDropdown;
+
+    @FindBy(id = "voucherTypeBean.billNum")
+    private WebElement billNumberFromPreviewScreen;
+
+    @FindBy(css = "input[type='button'][value='Close']")
+    private WebElement closeButtonWithCSS;
+
+    @FindBy(id = "billNumber")
+    private WebElement billNumberTextBox;
+
+    @FindBy(className = "tt-highlight")
+    private WebElement expenseBillAccountCodeDropdown;
+
+    @FindBy(css = ".buttonsubmit")
+    private WebElement submitButton;
+
     private List<WebElement> voucherRows;
 
     private String juneDate = "00";
@@ -364,15 +384,15 @@ public class FinancialPage extends BasePage {
         waitForElementToBeClickable(accountCode1, webDriver);
         accountCode1.sendKeys(financialJournalVoucherDetails.getAccountCode1());
 
-        WebElement dropdown = webDriver.findElement(By.className("yui-ac-highlight"));
-        waitForElementToBeVisible(dropdown , webDriver);
-        waitForElementToBeClickable(dropdown , webDriver);
-        dropdown.click();
+//        WebElement dropdown = webDriver.findElement(By.className("yui-ac-highlight"));
+        waitForElementToBeVisible(accountCodeDropdown, webDriver);
+        waitForElementToBeClickable(accountCodeDropdown, webDriver);
+        accountCodeDropdown.click();
         enterText(debitAmount1 , "100");
 
         accountCode2.sendKeys(financialJournalVoucherDetails.getAccountCode2());
-        WebElement dropdown1 = webDriver.findElement(By.className("yui-ac-highlight"));
-        dropdown1.click();
+//        WebElement dropdown1 = webDriver.findElement(By.className("yui-ac-highlight"));
+        accountCodeDropdown.click();
         enterText(creditAmount2 , "100");
 
         try {
@@ -381,17 +401,17 @@ public class FinancialPage extends BasePage {
             e.printStackTrace();
         }
 
-        WebElement element = webDriver.findElement(By.id("subLedgerlist[0].glcode.id"));
+//        WebElement element = webDriver.findElement(By.id("subLedgerlist[0].glcode.id"));
         waitForElementToBePresent(By.className("yui-dt-dropdown") , webDriver);
-        List<WebElement> webElementList = element.findElements(By.tagName("option"));
+        List<WebElement> webElementList = ledgerAccount1.findElements(By.tagName("option"));
 
         new Select(ledgerAccount1).selectByVisibleText(webElementList.get(1).getText());
         new Select(ledgerType1).selectByVisibleText("contractor");
         ledgerCode1.sendKeys("KMC001");
 
-        WebElement kmcCLass = webDriver.findElement(By.className("yui-ac-highlight"));
-        waitForElementToBeClickable(kmcCLass , webDriver);
-        kmcCLass.click();
+//        WebElement kmcCLass = webDriver.findElement(By.className("yui-ac-highlight"));
+        waitForElementToBeClickable(accountCodeDropdown , webDriver);
+        accountCodeDropdown.click();
         ledgerAmount1.sendKeys("100");
 
         if(webElementList.size()>2){
@@ -402,14 +422,15 @@ public class FinancialPage extends BasePage {
             new Select(ledgerType2).selectByVisibleText("contractor");
             ledgerCode2.sendKeys("KMC001");
 
-            WebElement kmcCLass1 = webDriver.findElement(By.className("yui-ac-highlight"));
-            waitForElementToBeClickable(kmcCLass1 , webDriver);
-            kmcCLass.click();
+//            WebElement kmcCLass1 = webDriver.findElement(By.className("yui-ac-highlight"));
+            waitForElementToBeClickable(accountCodeDropdown , webDriver);
+            accountCodeDropdown.click();
             ledgerAmount2.sendKeys("100");
         }
     }
 
     public String enterFinanceApprovalDetails(ApprovalDetails approvalDetails) throws ParseException {
+
         String userName = "";
         if(juneDate.contains("06")){
             createAndApprove.click();
@@ -421,20 +442,25 @@ public class FinancialPage extends BasePage {
         waitForElementToBeClickable(approverDesignation ,webDriver);
         new Select(approverDesignation).selectByVisibleText(approvalDetails.getApproverDesignation());
         waitForElementToBeClickable(approverPosition  ,webDriver);
+
         try {
             TimeUnit.SECONDS.sleep(2);
         } catch (InterruptedException e) {
                 e.printStackTrace();
         }
+
         Select approverPos = new Select(approverPosition);
         userName = approverPos.getOptions().get(1).getText();
         approverPos.getOptions().get(1).click();
+
         forwardButton.click();
         }
+
         return userName;
     }
 
     public String getVoucherNumber(){
+
         switchToNewlyOpenedWindow(webDriver);
 
         WebDriverWait webDriverWait = new WebDriverWait(webDriver,10);
@@ -454,7 +480,7 @@ public class FinancialPage extends BasePage {
         return number;
     }
 
-    public void openVoucher(String voucherNumber){
+    public void openVoucherFromInbox(String voucherNumber){
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         WebElement element = getVoucherRow(voucherNumber , "no");
         element.click();
@@ -462,6 +488,7 @@ public class FinancialPage extends BasePage {
     }
 
     public void openVoucherFromDrafts(String voucherNumber){
+
         waitForElementToBeClickable(draftsLink , webDriver);
         draftsLink.click();
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -478,7 +505,6 @@ public class FinancialPage extends BasePage {
             voucherRows = officialDraftsTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
         }
         else {
-//            waitForElementToBeVisible(webDriver.findElement(By.id("worklist")), webDriver);
             waitForElementToBeVisible(officialInboxTable, webDriver);
 
             await().atMost(10, SECONDS).until(() -> officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
@@ -521,11 +547,17 @@ public class FinancialPage extends BasePage {
         expenseBillSearch.click();
     }
 
-    public void actOnAboveVoucher(String paymentMode){
-        waitForElementToBeClickable(firstVoucher , webDriver);
-        if ( !firstVoucher.isSelected() )
-        {
-            firstVoucher.click();
+    public void actOnAboveVoucher(String paymentMode ,String voucherNumber){
+
+        WebElement table = webDriver.findElement(By.xpath(".//*[@id='cbilltab']/span/table/tbody/tr[2]/td/div/table/tbody"));
+        voucherRows = table.findElements(By.tagName("tr"));
+
+        for(WebElement applicationRows : voucherRows.subList(1 , voucherRows.size())){
+            if(applicationRows.findElements(By.tagName("td")).get(4).findElements(By.tagName("input")).get(0).getAttribute("value").contains(voucherNumber)){
+                applicationRows.findElements(By.tagName("td")).get(0).findElement(By.cssSelector("input[type='checkbox']")).click();
+                break;
+            }
+
         }
         selectModeOfPayment(paymentMode);
 
@@ -593,15 +625,15 @@ public class FinancialPage extends BasePage {
         expensePayTo.sendKeys("tester");
 
         expenseAccountCodeDebit.sendKeys(financialExpenseBillDetails.getExpenseAccountCodeDebit());
-        waitForElementToBeVisible( webDriver.findElement(By.className("tt-highlight")),webDriver);
-        WebElement dropDown1 = webDriver.findElement(By.className("tt-highlight"));
-        dropDown1.click();
+        waitForElementToBeVisible( expenseBillAccountCodeDropdown,webDriver);
+//        WebElement dropDown1 = webDriver.findElement(By.className("tt-highlight"));
+        expenseBillAccountCodeDropdown.click();
         expenseDebitAmount.sendKeys("100");
 
         expenseAccountCodeCredit.sendKeys(financialExpenseBillDetails.getExpenseAccountCodeCredit());
-        waitForElementToBeVisible( webDriver.findElement(By.className("tt-highlight")),webDriver);
-        WebElement dropdown1 = webDriver.findElement(By.className("tt-highlight"));
-        dropdown1.click();
+        waitForElementToBeVisible( expenseBillAccountCodeDropdown,webDriver);
+//        WebElement dropdown1 = webDriver.findElement(By.className("tt-highlight"));
+        expenseBillAccountCodeDropdown.click();
         expenseCreditAmount.sendKeys("90");
 
         List<WebElement> element1 = expenseNetPayable.findElements(By.tagName("option"));
@@ -634,12 +666,14 @@ public class FinancialPage extends BasePage {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         waitForElementToBeVisible(expenseApprovalPosition , webDriver);
         Select approverPos = new Select(expenseApprovalPosition);
         String userName = approverPos.getOptions().get(1).getText();
         approverPos.getOptions().get(1).click();
 
         forwardButton.click();
+
         switchToNewlyOpenedWindow(webDriver);
         return userName;
     }
@@ -653,7 +687,7 @@ public class FinancialPage extends BasePage {
         return message;
     }
 
-    public String closesSuccessfullPaymentPage(){
+    public String closesSuccessfulPaymentPage(){
         switchToNewlyOpenedWindow(webDriver);
 
         WebElement element = webDriver.findElement(By.xpath(".//*[@id='payment']/div[1]/table/tbody/tr/td/div/table/tbody/tr/td/div/div[1]/span/table/tbody/tr[5]/td[3]"));
@@ -682,9 +716,14 @@ public class FinancialPage extends BasePage {
             element.get(5).click();
         }
 
-        webDriver.findElement(By.cssSelector(".buttonsubmit")).click();
+//        webDriver.findElement(By.cssSelector(".buttonsubmit")).click();
+        waitForElementToBeClickable(submitButton , webDriver);
+        submitButton.click();
         switchToNewlyOpenedWindow(webDriver);
-        webDriver.findElement(By.cssSelector("input[type='button'][value='Close']")).click();
+
+        waitForElementToBeClickable(closeButtonWithCSS , webDriver);
+        closeButtonWithCSS.click();
+//        webDriver.findElement(By.cssSelector("input[type='button'][value='Close']")).click();
 
         switchToPreviouslyOpenedWindow(webDriver);
     }
@@ -711,21 +750,21 @@ public class FinancialPage extends BasePage {
         waitForElementToBeClickable(accountCode1 , webDriver);
         accountCode1.sendKeys(financialJournalVoucherDetails.getAccountCode1());
 
-        WebElement dropdown = webDriver.findElement(By.className("yui-ac-highlight"));
-        waitForElementToBeClickable(dropdown , webDriver);
-        dropdown.click();
+//        WebElement dropdown = webDriver.findElement(By.className("yui-ac-highlight"));
+        waitForElementToBeClickable(accountCodeDropdown , webDriver);
+        accountCodeDropdown.click();
         enterText(debitAmount1 , "1000");
 
         accountCode2.sendKeys(financialJournalVoucherDetails.getAccountCode2());
-        WebElement dropdown1 = webDriver.findElement(By.className("yui-ac-highlight"));
-        dropdown1.click();
+//        WebElement dropdown1 = webDriver.findElement(By.className("yui-ac-highlight"));
+        accountCodeDropdown.click();
         enterText(creditAmount2 , "800");
 
         if(!financialJournalVoucherDetails.getAccountCode3().isEmpty()){
             addList.get(1).click();
             accountCode3.sendKeys(financialJournalVoucherDetails.getAccountCode3());
-            WebElement dropdown2 = webDriver.findElement(By.className("yui-ac-highlight"));
-            dropdown2.click();
+//            WebElement dropdown2 = webDriver.findElement(By.className("yui-ac-highlight"));
+            accountCodeDropdown.click();
             enterText(creditAmount3 , "200");
         }
 
@@ -735,17 +774,17 @@ public class FinancialPage extends BasePage {
             e.printStackTrace();
         }
 
-        WebElement element = webDriver.findElement(By.id("subLedgerlist[0].glcode.id"));
+//        WebElement element = webDriver.findElement(By.id("subLedgerlist[0].glcode.id"));
         waitForElementToBePresent(By.className("yui-dt-dropdown") , webDriver);
-        List<WebElement> webElementList = element.findElements(By.tagName("option"));
+        List<WebElement> webElementList = ledgerAccount1.findElements(By.tagName("option"));
 
         new Select(ledgerAccount1).selectByVisibleText(webElementList.get(1).getText());
         new Select(ledgerType1).selectByVisibleText("contractor");
         ledgerCode1.sendKeys("KMC001");
 
-        WebElement kmcCLass = webDriver.findElement(By.className("yui-ac-highlight"));
-        waitForElementToBeClickable(kmcCLass , webDriver);
-        kmcCLass.click();
+//        WebElement kmcCLass = webDriver.findElement(By.className("yui-ac-highlight"));
+        waitForElementToBeClickable(accountCodeDropdown , webDriver);
+        accountCodeDropdown.click();
         ledgerAmount1.sendKeys("1000");
 
         if(webElementList.size()>2){
@@ -756,9 +795,9 @@ public class FinancialPage extends BasePage {
             new Select(ledgerType2).selectByVisibleText("Employee");
             ledgerCode2.sendKeys("946800");
 
-            WebElement kmcClass1 = webDriver.findElement(By.className("yui-ac-highlight"));
-            waitForElementToBeClickable(kmcClass1 , webDriver);
-            kmcClass1.click();
+//            WebElement kmcClass1 = webDriver.findElement(By.className("yui-ac-highlight"));
+            waitForElementToBeClickable(accountCodeDropdown , webDriver);
+            accountCodeDropdown.click();
             ledgerAmount2.sendKeys("200");
         }
     }
@@ -792,8 +831,12 @@ public class FinancialPage extends BasePage {
 
     public void filterCreateVoucherBill(String applicationNumber){
         new Select(billType).selectByVisibleText("Expense");
-        webDriver.findElement(By.id("billNumber")).sendKeys(applicationNumber);
-        webDriver.findElement(By.cssSelector(".buttonsubmit")).click();
+//        webDriver.findElement(By.id("billNumber")).sendKeys(applicationNumber);
+        billNumberTextBox.sendKeys(applicationNumber);
+
+        waitForElementToBeClickable(submitButton , webDriver);
+        submitButton.click();
+//        webDriver.findElement(By.cssSelector(".buttonsubmit")).click();
 
         getExpenseVoucherRow(applicationNumber).click();
         switchToNewlyOpenedWindow(webDriver);
@@ -812,9 +855,9 @@ public class FinancialPage extends BasePage {
 
     public String closesExpenseVoucherPage(){
 
-        WebElement element = webDriver.findElement(By.className("actionMessage"));
-        waitForElementToBeVisible(element , webDriver);
-        String msg = element.getText();
+//        WebElement element = webDriver.findElement(By.className("actionMessage"));
+        waitForElementToBeVisible(forwardMessage , webDriver);
+        String msg = forwardMessage.getText();
         closeButton.click();
         switchToPreviouslyOpenedWindow(webDriver);
         return msg;
@@ -898,6 +941,7 @@ public class FinancialPage extends BasePage {
     public String closeAssignmentSuccessPage(){
         waitForElementToBeVisible(forwardMessage , webDriver);
         String message = forwardMessage.getText();
+
         webDriver.findElement(By.cssSelector(".buttonsubmit")).click();
         switchToPreviouslyOpenedWindow(webDriver);
         return message;
@@ -943,19 +987,19 @@ public class FinancialPage extends BasePage {
         waitForElementToBeClickable(accountCode1, webDriver);
         accountCode1.sendKeys("2101001");
 
-        WebElement dropdown = webDriver.findElement(By.className("yui-ac-highlight"));
-        waitForElementToBeVisible(dropdown , webDriver);
-        waitForElementToBeClickable(dropdown , webDriver);
-        dropdown.click();
+//        WebElement dropdown = webDriver.findElement(By.className("yui-ac-highlight"));
+        waitForElementToBeVisible(accountCodeDropdown , webDriver);
+        waitForElementToBeClickable(accountCodeDropdown , webDriver);
+        accountCodeDropdown.click();
         enterText(debitAmount1 , "100");
 
         new Select(ledgerAccount1).selectByVisibleText("2101001");
         new Select(ledgerType1).selectByVisibleText("contractor");
         ledgerCode1.sendKeys("KMC001");
 
-        WebElement kmcCLass = webDriver.findElement(By.className("yui-ac-highlight"));
-        waitForElementToBeClickable(kmcCLass , webDriver);
-        kmcCLass.click();
+//        WebElement kmcCLass = webDriver.findElement(By.className("yui-ac-highlight"));
+        waitForElementToBeClickable(accountCodeDropdown , webDriver);
+        accountCodeDropdown.click();
         ledgerAmount1.sendKeys("100");
     }
 

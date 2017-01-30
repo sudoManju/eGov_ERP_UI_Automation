@@ -13,15 +13,15 @@ Feature: To create a voucher through direct bank payments
 
 #    And examiner logs in
     And the next user will be logged in
-    Then the officer will click on the voucher number
-    And officer will enter the approval details as <approval officer2>
+    And the officer will click on the voucher number
+    And officer will enter the approval details as <approvalOfficer2>
     And officer will see the successful voucher creation page and closes it
     Then user will be notified by "forwarded"
     And current user logs out
 
 #    And commissioner logs in
     And the next user will be logged in
-    Then the officer will click on the voucher number
+    And the officer will click on the voucher number
     And officer click on approval of the voucher
     And officer will see the successful voucher creation page and closes it
     Then user will be notified by "approved"
@@ -36,7 +36,7 @@ Feature: To create a voucher through direct bank payments
     And current user logs out
 
     Examples:
-    |paymentMode | approvalOfficer1  | approval officer2 | assignment |
+    |paymentMode | approvalOfficer1  | approvalOfficer2  | assignment |
     |cheque      | accountOfficer2   | commissioner      | cheque     |
     |RTGS        | accountOfficer2   | commissioner      | RTGS       |
 
@@ -54,20 +54,20 @@ Feature: To create a voucher through direct bank payments
 
 #    And examiner logs in
     And the next user will be logged in
-    Then the officer will click on the voucher number
-    And officer will enter the approval details as <approval officer2>
+    And the officer will click on the voucher number
+    And officer will enter the approval details as <approvalOfficer2>
     And officer will see the successful voucher creation page and closes it
     Then user will be notified by "forwarded"
     And current user logs out
 
 #    And commissioner logs in
     And the next user will be logged in
-    Then the officer will click on the voucher number
+    And the officer will click on the voucher number
     And officer click on approval of the voucher
     And officer will see the successful voucher creation page and closes it
     Then user will be notified by "approved"
     And current user logs out
 
     Examples:
-    |paymentMode | approvalOfficer1  | approval officer2 |
+    |paymentMode | approvalOfficer1  | approvalOfficer2  |
     |cash        | accountOfficer2   | commissioner      |

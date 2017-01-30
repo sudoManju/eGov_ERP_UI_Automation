@@ -41,17 +41,13 @@ public class FinancialSteps extends BaseSteps implements En {
 
         And("^officer will get successful voucher created and closes it$", () -> {
             String voucherNumber = pageStore.get(FinancialPage.class).getVoucherNumber();
-            scenarioContext.setVoucherNumber(voucherNumber.split("\\ ")[1]);
-//            scenarioContext.setUser(voucherNumber.split("\\ ")[9]);
-            scenarioContext.setActualMessage(voucherNumber);
+            scenarioContext.setVoucherNumber(voucherNumber.split("\\.")[0].split("\\ ")[1]);
+            scenarioContext.setActualMessage(voucherNumber.split("\\.")[0]);
 
             String profileName = pageStore.get(DashboardPage.class).getProfileName();
             if(profileName.contains(scenarioContext.getUser().split("\\ ")[0])){
                 scenarioContext.setPreviousUser("yes");
             }
-//            if(userName.contains(voucherNumber.split("\\ ")[9])){
-//                scenarioContext.setPreviousUser("yes");
-//            }
         });
 
         Then("^the officer will click on the voucher number$", () -> {
@@ -60,16 +56,14 @@ public class FinancialSteps extends BaseSteps implements En {
                 scenarioContext.setPreviousUser("no");
             }
             else {
-                pageStore.get(FinancialPage.class).openVoucher(scenarioContext.getVoucherNumber());
+                pageStore.get(FinancialPage.class).openVoucherFromInbox(scenarioContext.getVoucherNumber());
             }
         });
 
         And("^officer will closes the acknowledgement page$", () -> {
             String actualMessage = pageStore.get(FinancialPage.class).closePage();
             scenarioContext.setActualMessage(actualMessage);
-//            if(!actualMessage.split("\\ ")[4].equalsIgnoreCase("approved")) {
-//                scenarioContext.setUser(actualMessage.split("\\ ")[5] + actualMessage.split("\\ ")[6]);
-//            }
+
             if(scenarioContext.getIsRemittance() == 1) {
                 scenarioContext.setVoucherNumber(actualMessage.split("\\n")[0].split("\\ ")[7] + "-CASH");
                 scenarioContext.setIsRemittance(0);
@@ -85,7 +79,7 @@ public class FinancialSteps extends BaseSteps implements En {
         });
 
         And("^officer will act upon the above voucher with payment mode as (\\w+)$", (String paymentMode) -> {
-            pageStore.get(FinancialPage.class).actOnAboveVoucher(paymentMode);
+            pageStore.get(FinancialPage.class).actOnAboveVoucher(paymentMode , scenarioContext.getVoucherNumber());
         });
 
         And("^officer will verify the voucher number$", () -> {
@@ -130,7 +124,7 @@ public class FinancialSteps extends BaseSteps implements En {
         });
 
         And("^officer will closes the successfull payment page$", () -> {
-            String billNUmber = pageStore.get(FinancialPage.class).closesSuccessfullPaymentPage();
+            String billNUmber = pageStore.get(FinancialPage.class).closesSuccessfulPaymentPage();
             scenarioContext.setVoucherNumber(billNUmber);
         });
 

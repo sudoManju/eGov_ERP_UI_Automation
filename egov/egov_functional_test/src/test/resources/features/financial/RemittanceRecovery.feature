@@ -9,56 +9,56 @@ Feature: To create a new remittance recovery
     And user will map the account code to particular
     And current user logs out
 
-    Given accountsOfficer logs in
+    And accountsOfficer logs in
     And officer search for the create journal voucher
-    And officer will enter the remittance details as <voucher details>
-    And officer will enter the approval details as <approval officer1>
+    And officer will enter the remittance details as <voucherDetails>
+    And officer will enter the approval details as <approvalOfficer1>
     And officer will get successful voucher created and closes it
     Then user will be notified by "Created"
     And current user logs out
 
 #    And assistantExaminer logs in
     And the next user will be logged in
-    Then the officer will click on the voucher number
-    And officer will enter the approval details as <approval officer2>
+    And the officer will click on the voucher number
+    And officer will enter the approval details as <approvalOfficer2>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
 #    And examiner logs in
     And the next user will be logged in
-    Then the officer will click on the voucher number
-    And officer will enter the approval details as <approval officer3>
+    And the officer will click on the voucher number
+    And officer will enter the approval details as <approvalOfficer3>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
 #    And commissioner logs in
     And the next user will be logged in
-    Then the officer will click on the voucher number
+    And the officer will click on the voucher number
     And officer click on approval of the voucher
     And officer will closes the acknowledgement page
     Then user will be notified by "approved"
     And current user logs out
 
-    Given accountsOfficer logs in
+    And accountsOfficer logs in
     And officer will search for the Create Remittance Recovery
     And officer will search for remittance bills
     And officer will enter the remittance bank details
-    And officer will enter the approval details as <approval officer2>
+    And officer will enter the approval details as <approvalOfficer2>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
     And examiner logs in
-    Then the officer will click on the voucher number
-    And officer will enter the approval details as <approval officer3>
+    And the officer will click on the voucher number
+    And officer will enter the approval details as <approvalOfficer3>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
     And commissioner logs in
-    Then the officer will click on the voucher number
+    And the officer will click on the voucher number
     And officer click on approval of the voucher
     And officer will closes the acknowledgement page
     Then user will be notified by "approved"
@@ -77,7 +77,7 @@ Feature: To create a new remittance recovery
     And current user logs out
 
     Examples:
-      |voucher details  | approval officer1 | approval officer2 |  approval officer3 |  glCode   | assignment |
+      |voucherDetails   | approvalOfficer1  | approvalOfficer2  |  approvalOfficer3  |  glCode   | assignment |
       |remittance       |  accountOfficer1  | accountOfficer2   |  commissioner      |  3502002  | remittance |
 
 

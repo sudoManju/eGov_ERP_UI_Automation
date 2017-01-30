@@ -44,6 +44,16 @@ public class ScenarioContext implements Serializable {
 
     private String commAssessmentNumber;
 
+    private String voucherBillNumber;
+
+    public String getVoucherBillNumber() {
+        return voucherBillNumber;
+    }
+
+    public void setVoucherBillNumber(String voucherBillNumber) {
+        this.voucherBillNumber = voucherBillNumber;
+    }
+
     public String getPreviousUser() {
         return previousUser;
     }
