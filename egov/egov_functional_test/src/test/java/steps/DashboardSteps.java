@@ -251,11 +251,17 @@ public class DashboardSteps extends BaseSteps implements En {
         And("^officer will search for the direct bank payments$", () -> {
             pageStore.get(DashboardPage.class).chooseForDirectBankPayment();
         });
+
         When("^he choose to register complaint$", () -> {
             pageStore.get(DashboardPage.class).chooseToRegisterComplaint();
         });
+
         And("^choose to act upon the above CRN in his own dratfs$", () -> {
             pageStore.get(DashboardPage.class).openApplicationInDrafts(scenarioContext.getCRN());
+        });
+
+        And("^officer will choose the bank to bank transfers$", () -> {
+            pageStore.get(DashboardPage.class).choosesBankToBankTransfers();
         });
 
     }

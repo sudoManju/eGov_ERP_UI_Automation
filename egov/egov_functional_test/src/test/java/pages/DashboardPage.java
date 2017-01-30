@@ -267,6 +267,9 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Collect Sewerage Charges")
     private WebElement collectSewerageTaxesLink;
 
+    @FindBy(linkText = "Bank to Bank Transfer")
+    private WebElement bankToBankTransfer;
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -997,6 +1000,15 @@ public class DashboardPage extends BasePage {
         searchFor("collect sewerage charges");
         waitForElementToBeClickable(collectSewerageTaxesLink,driver);
         collectSewerageTaxesLink.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void choosesBankToBankTransfers(){
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchTreeTextBox.clear();
+        searchFor("Bank to Bank Transfer");
+        waitForElementToBeClickable(bankToBankTransfer,driver);
+        bankToBankTransfer.click();
         switchToNewlyOpenedWindow(driver);
     }
 }

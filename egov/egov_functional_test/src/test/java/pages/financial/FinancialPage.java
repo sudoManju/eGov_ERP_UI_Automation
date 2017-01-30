@@ -313,6 +313,27 @@ public class FinancialPage extends BasePage {
     @FindBy(id = "closeButton")
     private WebElement bankCloseButton;
 
+    @FindBy(id = "fromBankId")
+    private WebElement fromBankId;
+
+    @FindBy(id = "fromAccountNumber")
+    private WebElement fromAccountNumber;
+
+    @FindBy(id = "toFundId")
+    private WebElement toFundId;
+
+    @FindBy(id = "toBankId")
+    private WebElement toBankId;
+
+    @FindBy(id = "toAccountNumber")
+    private WebElement toAccountNumber;
+
+    @FindBy(id = "chequeNum")
+    private WebElement referenceNumber;
+
+    @FindBy(id = "Save_New")
+    private WebElement saveButton;
+
     private List<WebElement> voucherRows;
 
     private String juneDate = "00";
@@ -943,5 +964,37 @@ public class FinancialPage extends BasePage {
         }
         switchToPreviouslyOpenedWindow(webDriver);
         return msg;
+    }
+
+    public void enterBankToBankDetails(){
+
+        new Select(fundId).selectByVisibleText("Municipal Fund");
+        new Select(voucherDepartment).selectByVisibleText("ENGINEERING");
+        new Select(voucherFunction).selectByVisibleText("Water Supply");
+        new Select(fromBankId).selectByVisibleText("KOTAK MAHINDRA BANK Ucon Plaza Kurnool");
+        new Select(fromAccountNumber).selectByVisibleText("4502205--311010192115--KOTAK MAHINDRA BANK");
+        new Select(toFundId).selectByVisibleText("Municipal Fund");
+        new Select(toBankId).selectByVisibleText("KOTAK MAHINDRA BANK Ucon Plaza Kurnool");
+        new Select(toAccountNumber).selectByVisibleText("4502207--311010192123--KOTAK MAHINDRA BANK");
+
+        waitForElementToBeClickable(referenceNumber , webDriver);
+        referenceNumber.sendKeys(get6DigitRandomInt());
+
+        waitForElementToBeClickable(amountTextBox , webDriver);
+        amountTextBox.sendKeys("100");
+
+        waitForElementToBeClickable(saveButton , webDriver);
+        saveButton.click();
+        switchToNewlyOpenedWindow(webDriver);
+    }
+
+    public String closesSuccessfullTransferCreationPage(){
+        waitForElementToBeVisible(forwardMessage , webDriver);
+        String message = forwardMessage.getText();
+
+        waitForElementToBeClickable(bankCloseButton , webDriver);
+        bankCloseButton.click();
+        switchToPreviouslyOpenedWindow(webDriver);
+        return message;
     }
 }

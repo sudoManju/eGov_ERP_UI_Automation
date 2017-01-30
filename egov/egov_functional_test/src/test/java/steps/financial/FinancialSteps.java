@@ -202,5 +202,14 @@ public class FinancialSteps extends BaseSteps implements En {
                 scenarioContext.setPreviousUser("yes");
             }
         });
+
+        And("^officer will enter the bank to bank transfer details$", () -> {
+            pageStore.get(FinancialPage.class).enterBankToBankDetails();
+        });
+
+        And("^officer will close the successful creation page$", () -> {
+            String message = pageStore.get(FinancialPage.class).closesSuccessfullTransferCreationPage();
+            scenarioContext.setActualMessage(message);
+        });
     }
 }
