@@ -273,6 +273,9 @@ public class DashboardPage extends BasePage {
     @FindBy(css = "a[href='/stms/existing/sewerage']")
     private WebElement searchSewerageConnectionLink;
 
+    @FindBy(linkText = "General Revision Petition")
+    private WebElement generalRevisionPetitionLink;
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -1021,6 +1024,14 @@ public class DashboardPage extends BasePage {
        waitForElementToBeClickable(searchSewerageConnectionLink,driver);
        searchSewerageConnectionLink.click();
        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseForGeneralRevisionPetition() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("General Revision Petition");
+        waitForElementToBeClickable(generalRevisionPetitionLink, driver);
+        generalRevisionPetitionLink.click();
+        switchToNewlyOpenedWindow(driver);
     }
 }
 

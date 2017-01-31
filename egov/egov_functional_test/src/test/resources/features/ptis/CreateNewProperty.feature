@@ -325,11 +325,88 @@ Feature: Create New Property
       | residentialPrivate    | bimal        | addressOne             | assessmentNewProperty | all              | defaultConstructionType | firstFloor   |  revisionpetitionBlock  |  hearingBlock   |
 
 
+     # GENERAL REVISION PETITION #
 
+    @Sanity
+    Scenario Outline: Register user choose to do general revision petition of property
 
+    Given commissioner logs in
+    When he chooses to create data entry
+    And he creates a new assessment for a private residential property
+    Then dataEntry Details saved successfully
+    And he choose to add edit DCB
+    And he choose to close the dataentry acknowledgement screen
+    And current user logs out
 
+    Given juniorAssistant logs in
+    When he chooses to collect tax of property
+    And he searches for assessment with number "1016000077"
+    And he chooses to pay tax
+    And he pay tax using Cash
 
+    And he choose to do general revision petition
+    And he searches for assessment with number "1016042569"
 
+    And he choose revision petition header
+    And he enters revision petition details<revisionPetitionDetails>
+    And he forwards for approval to commissioner
+    And current user closes acknowledgement
+    And current user logs out
+    When commissioner logs in
+    And chooses to act upon the above application
+    And he choose revision petition header
+    And he enters hearing details<hearingDetails>
+    And current user closes acknowledgement
+    And current user logs out
+
+    And juniorAssistant logs in
+    And chooses to act upon the above assessment
+    And he choose revision petition header
+    And he enters approver remark
+    And he forwards for approval to revenueInspector
+    And current user closes acknowledgement
+    And current user logs out
+
+    When revenueInspector logs in
+    And chooses to act upon the above application
+    And he enters reason for modification
+    And he choose revision petition header
+    And he enters inspection details
+
+    And he forwards for approval to revenueOfficer
+    And current user closes acknowledgement
+    And current user logs out
+
+    When revenueOfficer logs in
+    And chooses to act upon the above application
+    And he choose revision petition header
+    And he enters approver remark
+    And he forwards for approval to commissioner
+    And current user closes acknowledgement
+    And current user logs out
+
+    When commissioner logs in
+    And chooses to act upon the above application
+    And he choose to approve for revision petition
+    And current user closes acknowledgement
+
+    And chooses to act upon the above assessment
+    And he prints endoresement notice
+
+    And chooses to act upon the above assessment
+    And he does a digital signature
+
+    When commissioner closes acknowledgement
+    And current user logs out
+
+    And juniorAssistant logs in
+    And chooses to act upon the above assessment
+    And he generates a print special notice
+    And current user logs out
+
+    Examples:
+     |revisionPetitionDetails |  hearingDetails |
+     |  revisionpetitionBlock  |  hearingBlock   |
 
 
 
