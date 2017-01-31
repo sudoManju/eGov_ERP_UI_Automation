@@ -263,4 +263,37 @@ public class newSewerageConnectionPage extends BasePage {
         waitForElementToBeClickable(executeConnectionButton,driver);
         executeConnectionButton.click();
     }
+
+    public void searchForAboveSewerageConnection(String number) {
+        waitForElementToBeVisible(applicationNumberTextBox,driver);
+        applicationNumberTextBox.sendKeys("03466-2017-KS");
+
+        waitForElementToBeClickable(searchButton,driver);
+        searchButton.click();
+
+        waitForElementToBeVisible(searchResultsTable,driver);
+        WebElement dropDownAction = searchResultsTable.findElement(By.tagName("tbody")).findElement(By.tagName("tr")).findElements(By.tagName("td")).get(8).findElement(By.className("actiondropdown"));
+        waitForElementToBeClickable(dropDownAction,driver);
+        new Select(dropDownAction).selectByVisibleText("Change number of seats");
+
+    }
+
+    public void increseTheNumberOfClosets() {
+        switchToNewlyOpenedWindow(driver);
+        String url = driver.getCurrentUrl();
+        System.out.println(url);
+        waitForElementToBeVisible(noOfClosetsTextBox,driver);
+        waitForElementToBeClickable(noOfClosetsTextBox,driver);
+        noOfClosetsTextBox.clear();
+        noOfClosetsTextBox.sendKeys("5");
+
+        waitForElementToBeClickable(documentNumberTextBox,driver);
+        documentNumberTextBox.sendKeys("123");
+
+        waitForElementToBeClickable(documentDateTextBox,driver);
+        documentDateTextBox.sendKeys(date);
+
+        waitForElementToBeClickable(chooseFileButton,driver);
+        chooseFileButton.sendKeys(System.getProperty("user.dir") + "/src/test/resources/loginCredentials.txt");
+    }
 }

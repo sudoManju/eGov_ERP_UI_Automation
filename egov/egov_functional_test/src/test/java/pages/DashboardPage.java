@@ -270,6 +270,9 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Bank to Bank Transfer")
     private WebElement bankToBankTransfer;
 
+    @FindBy(css = "a[href='/stms/existing/sewerage']")
+    private WebElement searchSewerageConnectionLink;
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -1010,6 +1013,14 @@ public class DashboardPage extends BasePage {
         waitForElementToBeClickable(bankToBankTransfer,driver);
         bankToBankTransfer.click();
         switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseForSearchSewerageConnection() {
+       waitForElementToBeClickable(searchTreeTextBox, driver);
+       searchFor("search connection");
+       waitForElementToBeClickable(searchSewerageConnectionLink,driver);
+       searchSewerageConnectionLink.click();
+       switchToNewlyOpenedWindow(driver);
     }
 }
 

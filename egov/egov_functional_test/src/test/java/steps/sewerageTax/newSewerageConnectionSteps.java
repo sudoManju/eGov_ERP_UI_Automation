@@ -113,5 +113,21 @@ public class newSewerageConnectionSteps extends BaseSteps implements En {
 
             pageStore.get(newSewerageConnectionPage.class).close();
         });
+        And("^he chooses to search for above sewerage connection$", () -> {
+           pageStore.get(DashboardPage.class).chooseForSearchSewerageConnection();
+        });
+        And("^he search for above sewerage connection$", () -> {
+            pageStore.get(newSewerageConnectionPage.class).searchForAboveSewerageConnection(scenarioContext.getApplicationNumber());
+        });
+        And("^he increses the number of closets$", () -> {
+            pageStore.get(newSewerageConnectionPage.class).increseTheNumberOfClosets();
+
+            String approverDetailsDataId = "assis_Engineer_1";
+
+            ApproverDetails approverDetails = new ExcelReader(lineEstimateTestDataFileName).getApprovalDetailsForEstimate(approverDetailsDataId);
+
+            pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
+
+        });
     }
 }
