@@ -91,6 +91,9 @@ public class newSewerageConnectionPage extends BasePage {
     @FindBy(css = "li[role='presentation'] a[data-now='Change%20In%20Closets']")
     private WebElement changeInClosetsLink;
 
+    @FindBy(css = "li[role='presentation'] a[data-now='Close%20Sewerage%20Connection']")
+    private WebElement closeSewerageConnectionLink;
+
     @FindBy(id = "official_inbox")
     private WebElement inboxTable;
 
@@ -111,6 +114,18 @@ public class newSewerageConnectionPage extends BasePage {
 
     @FindBy(id = "Execute Connection")
     private WebElement executeConnectionButton;
+
+    @FindBy(id = "closeConnectionReason")
+    private WebElement closeConnectionRemarksTextBox;
+
+    @FindBy(xpath = ".//*[@id='sewarageCloseConnectionSuccess']/div/div/div/span[1]")
+    private WebElement getApplicationNumberTextForClosure;
+
+    @FindBy(xpath = ".//*[@id='sewarageCloseConnectionSuccess']/div/div/div/span[2]")
+    private WebElement getSuccessMessageForSewerageConnectionClosure;
+
+    @FindBy(id = "Generate Close Connection Notice")
+    private WebElement generateClosureNoticeButton;
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     String date = sdf.format(new Date());
@@ -336,5 +351,51 @@ public class newSewerageConnectionPage extends BasePage {
     public void selectChangeInClosets() {
          waitForElementToBeClickable(changeInClosetsLink,driver);
         changeInClosetsLink.click();
+    }
+
+    public void searchForSewerageConnectionForClosure(String applicationNumber) {
+        waitForElementToBeVisible(applicationNumberTextBox,driver);
+        applicationNumberTextBox.sendKeys(applicationNumber);
+
+        waitForElementToBeClickable(searchButton,driver);
+        searchButton.click();
+
+        waitForElementToBeVisible(searchResultsTable,driver);
+        WebElement dropDownAction = searchResultsTable.findElement(By.tagName("tbody")).findElement(By.tagName("tr")).findElements(By.tagName("td")).get(1).findElement(By.tagName("a"));
+        String hscNumber = dropDownAction.getText();
+
+        driver.navigate().to("http://kurnool-uat.egovernments.org/stms/transactions/closeConnection/"+hscNumber);
+    }
+
+    public void remarks() {
+        waitForElementToBeVisible(closeConnectionRemarksTextBox,driver);
+        closeConnectionRemarksTextBox.sendKeys("Testing...");
+    }
+
+    public void selectClosureConnection() {
+        waitForElementToBeVisible(closeSewerageConnectionLink,driver);
+        closeSewerageConnectionLink.click();
+    }
+
+    public String getApplicatioNumberForClosure() {
+        waitForElementToBeVisible(getApplicationNumberTextForClosure,driver);
+
+        String num1 = getApplicationNumberTextForClosure.getText().split("\\ ")[5].substring(1,14);
+        System.out.println("\n "+num1);
+
+        return num1;
+    }
+
+    public String getSuccessMessageForClosure() {
+        waitForElementToBeVisible(getSuccessMessageForSewerageConnectionClosure,driver);
+        return getSuccessMessageForSewerageConnectionClosure.getText();
+    }
+
+    public void generateClosureNotice() {
+        waitForElementToBeVisible(generateClosureNoticeButton,driver);
+        generateClosureNoticeButton.click();
+
+        driver.manage().timeouts().implicitlyWait(2,TimeUnit.SECONDS);
+        driver.close();
     }
 }
