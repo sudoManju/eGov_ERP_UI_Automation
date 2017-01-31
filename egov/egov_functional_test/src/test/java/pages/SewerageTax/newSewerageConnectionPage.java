@@ -380,7 +380,7 @@ public class newSewerageConnectionPage extends BasePage {
     public String getApplicatioNumberForClosure() {
         waitForElementToBeVisible(getApplicationNumberTextForClosure,driver);
 
-        String num1 = getApplicationNumberTextForClosure.getText().split("\\ ")[5].substring(1,14);
+        String num1 = getApplicationNumberTextForClosure.getText().split("\\ ")[4].substring(1,14);
         System.out.println("\n "+num1);
 
         return num1;
@@ -397,5 +397,6 @@ public class newSewerageConnectionPage extends BasePage {
 
         driver.manage().timeouts().implicitlyWait(2,TimeUnit.SECONDS);
         driver.close();
+        switchToPreviouslyOpenedWindow(driver);
     }
 }
