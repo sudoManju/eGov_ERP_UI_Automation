@@ -41,6 +41,7 @@ Feature: To create a flow of water management connections and applying a tempora
 
     When assistantEngineer logs in
     And user will choose the above application and enter the field inspection details as <inspectionDetails> and closes the acknowledgement form
+    Then user will be notified by "forwarded"
     And current user logs out
 
     When juniorAssistant logs in
@@ -50,10 +51,12 @@ Feature: To create a flow of water management connections and applying a tempora
 
     When assistantEngineer logs in
     And user will choose the above application and enter the approval details as <approvalOfficer2>
+    Then user will be notified by "forwarded"
     And current user logs out
 
     When deputyExecutiveEngineer logs in
     And user will choose the above application and enter the approval details as <approvalOfficer3>
+    Then user will be notified by "forwarded"
     And current user logs out
 
     And commissioner logs in
@@ -85,6 +88,7 @@ Feature: To create a flow of water management connections and applying a tempora
 
     When assistantEngineer logs in
     And user will choose the above application and enter the field inspection details as <inspectionDetails> and closes the acknowledgement form
+    Then user will be notified by "forwarded"
     And current user logs out
 
     When juniorAssistant logs in
@@ -94,10 +98,12 @@ Feature: To create a flow of water management connections and applying a tempora
 
     When assistantEngineer logs in
     And user will choose the above application and enter the approval details as <approvalOfficer4>
+    Then user will be notified by "forwarded"
     And current user logs out
 
     When deputyExecutiveEngineer logs in
     And user will choose the above application and enter the approval details as <approvalOfficer5>
+    Then user will be notified by "forwarded"
     And current user logs out
 
     And commissioner logs in
@@ -129,6 +135,7 @@ Feature: To create a flow of water management connections and applying a tempora
 
     When assistantEngineer logs in
     And user will choose the above application and enter the field inspection details as <inspectionDetails> and closes the acknowledgement form
+    Then user will be notified by "forwarded"
     And current user logs out
 
     When juniorAssistant logs in
@@ -138,10 +145,12 @@ Feature: To create a flow of water management connections and applying a tempora
 
     When assistantEngineer logs in
     And user will choose the above application and enter the approval details as <approvalOfficer4>
+    Then user will be notified by "forwarded"
     And current user logs out
 
     When deputyExecutiveEngineer logs in
     And user will choose the above application and enter the approval details as <approvalOfficer5>
+    Then user will be notified by "forwarded"
     And current user logs out
 
     And commissioner logs in

@@ -72,7 +72,7 @@ Feature: Create/renewal/closure of sewerage connection
       And he execute connection and closes the acknowledgement
       Then user will be notified by "completed"
       And current user logs out
-
+#
      ########################################################
      #############  change of sewerage connection ###########
      #########################################################
@@ -134,6 +134,7 @@ Feature: Create/renewal/closure of sewerage connection
      And he execute connection for change and closes the acknowledgement
      Then user will be notified by "completed"
      And current user logs out
+
 
 
 

@@ -1,17 +1,13 @@
 package steps.wcms;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.ptis.*;
 import entities.wcms.EnclosedDocument;
 import entities.wcms.FieldInspectionDetails;
 import pages.DashboardPage;
-import pages.ptis.PropertyDetailsPage;
 import pages.wcms.WaterChargeManagementPage;
 import steps.BaseSteps;
 import utils.ExcelReader;
-
-import java.io.IOException;
 
 /**
  * Created by vinaykumar on 9/12/16.
@@ -76,17 +72,7 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approvalOfficer);
             pageStore.get(WaterChargeManagementPage.class).enterWaterApprovalDetails(approvalDetails);
 
-//            pageStore.get(WaterChargeManagementPage.class).forward();
-
         });
-
-//        And("^user will approve the closure application$", () -> {
-//            pageStore.get(WaterChargeManagementPage.class).commissionerClosureApprove();
-//        });
-
-//        And("^user will click on the generate acknowledgement$", () -> {
-//            pageStore.get(WaterChargeManagementPage.class).toGenerateAcknowledgement();
-//        });
 
         And("^user will enter the details of the change of use water connection$", () -> {
             String connectionDetails = "changeOfUse";
@@ -114,7 +100,7 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
 
         });
 
-        And("^user will notify the successfull creation of data entry screen as \"([^\"]*)\"$", (String arg0) -> {
+        And("^user will notify the successful creation of data entry screen as \"([^\"]*)\"$", (String arg0) -> {
             String message = pageStore.get(WaterChargeManagementPage.class).closesTheDataEntryPage();
             scenarioContext.setActualMessage(message);
 
@@ -133,11 +119,13 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
 
             // User will enter the field inspection details
-                FieldInspectionDetails fieldInspectionDetails = new ExcelReader(ptisTestDataFileName).getFieldInspectionInfo(inspectionDetails);
+            FieldInspectionDetails fieldInspectionDetails = new ExcelReader(ptisTestDataFileName).getFieldInspectionInfo(inspectionDetails);
             pageStore.get(WaterChargeManagementPage.class).enterFieldInspectionInfo(fieldInspectionDetails);
 
             // User will closes the acknowledgement form
-            pageStore.get(WaterChargeManagementPage.class).closePage();
+            String message = pageStore.get(WaterChargeManagementPage.class).getAcknowledgementMessage();
+            pageStore.get(WaterChargeManagementPage.class).closeAcknowledgementPage();
+            scenarioContext.setActualMessage(message);
         });
 
         And("^user will choose the above application and click on the generate estimation notice$", () -> {
@@ -179,7 +167,9 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             pageStore.get(WaterChargeManagementPage.class).enterWaterApprovalDetails(approvalDetails);
 
             // User will closes the acknowledgement form
-            pageStore.get(WaterChargeManagementPage.class).closePage();
+            String message = pageStore.get(WaterChargeManagementPage.class).getAcknowledgementMessage();
+            pageStore.get(WaterChargeManagementPage.class).closeAcknowledgementPage();
+            scenarioContext.setActualMessage(message);
         });
 
         And("^user will choose the above application to approve and provides the digital signature$", () -> {
@@ -273,7 +263,8 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
         });
 
         And("^user will close the dcb form$", () -> {
-            pageStore.get(WaterChargeManagementPage.class).closesDCBPage();
+            String message = pageStore.get(WaterChargeManagementPage.class).closesDCBPage();
+            scenarioContext.setActualMessage(message);
         });
 
         And("^user will pay the water charges with mode as (\\w+)$", (String mode) -> {
@@ -289,9 +280,7 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
         });
 
         And("^user will enter the consumer number and click on pay in online website$", () -> {
-//            pageStore.get(WaterChargeManagementPage.class).enterOnlineConsumerNumber("1016042176");
             pageStore.get(WaterChargeManagementPage.class).enterOnlineConsumerNumber(scenarioContext.getConsumerNumber());
-
 
             pageStore.get(WaterChargeManagementPage.class).clickOnOnlinePayButton();
         });

@@ -141,7 +141,7 @@ public class WaterChargeManagementPage extends BasePage {
     private WebElement amountToBePaidTextBox;
 
     @FindBy(id = "button2")
-    private WebElement payButton;
+    private WebElement button2;
 
     @FindBy(id = "buttonClose")
     private WebElement closeReceiptButton;
@@ -305,7 +305,14 @@ public class WaterChargeManagementPage extends BasePage {
     @FindBy(id = "aplicationSearchResults")
     private WebElement applicationSearchTable;
 
+    @FindBy(css = ".panel-title.text-center")
+    private WebElement forwardMessage;
+
     private WebElement appRow1;
+
+    private String message = null;
+
+    SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
 
     public WaterChargeManagementPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -348,13 +355,13 @@ public class WaterChargeManagementPage extends BasePage {
         enterText(documentNo3TextBox, enclosedDocument.getDocumentN03());
 
         waitForElementToBeClickable(documentDate1TextBox, webDriver);
-        enterText(documentDate1TextBox, enclosedDocument.getDocumentDate1());
+        enterText(documentDate1TextBox, currentDate.format(new Date()));
 
         waitForElementToBeClickable(documentDate2TextBox, webDriver);
-        enterText(documentDate2TextBox, enclosedDocument.getDocumentDate2());
+        enterText(documentDate2TextBox, currentDate.format(new Date()));
 
         waitForElementToBeClickable(documentDate3TextBox, webDriver);
-        enterText(documentDate3TextBox, enclosedDocument.getDocumentDate3());
+        enterText(documentDate3TextBox, currentDate.format(new Date()));
 
         waitForElementToBeClickable(browse1Button, webDriver);
         browse1Button.sendKeys(System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx");
@@ -367,6 +374,7 @@ public class WaterChargeManagementPage extends BasePage {
     }
 
     public void enterWaterApprovalDetails(ApprovalDetails approvalDetails){
+
         waitForElementToBeClickable(approvalWaterDepartment, webDriver);
         new Select(approvalWaterDepartment).selectByVisibleText(approvalDetails.getApproverDepartment());
 
@@ -437,6 +445,7 @@ public class WaterChargeManagementPage extends BasePage {
     }
 
     public void searchWaterConnectionApplications(String connectionType , String applicationNumber){
+
         waitForElementToBeClickable(searchApplicationService , webDriver);
         new Select(searchApplicationService).selectByVisibleText("Water Tax");
         waitForElementToBeClickable(searchApplicationType , webDriver);
@@ -446,8 +455,7 @@ public class WaterChargeManagementPage extends BasePage {
         applicationSearchBox.sendKeys(applicationNumber);
 
         waitForElementToBeClickable(searchApplicationDate , webDriver);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        searchApplicationDate.sendKeys(sdf.format(new Date()) , Keys.TAB);
+        searchApplicationDate.sendKeys(currentDate.format(new Date()) , Keys.TAB);
 
         waitForElementToBeClickable(searchApplicationButton , webDriver);
         searchApplicationButton.click();
@@ -462,15 +470,11 @@ public class WaterChargeManagementPage extends BasePage {
     public void toReceiveAmount(){
         waitForElementToBeClickable(cashRadio , webDriver);
         jsClick(cashRadio ,webDriver);
-        waitForElementToBeClickable(totalAmount , webDriver);
-        waitForElementToBeClickable(amountToBePaidTextBox , webDriver);
         String amount = totalAmount.getAttribute("value");
 
         amountToBePaidTextBox.sendKeys(amount.split("\\.")[0]);
-        WebElement element = webDriver.findElement(By.id("button2"));
-        jsClick(element , webDriver);
-//        JavascriptExecutor executor = (JavascriptExecutor)webDriver;
-//        executor.executeScript("arguments[0].click();", element);
+
+        jsClick(button2, webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
@@ -534,8 +538,13 @@ public class WaterChargeManagementPage extends BasePage {
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    public void closePage(){
-//        closeSearchApplication.click();
+    public String getAcknowledgementMessage(){
+        waitForElementToBeVisible(forwardMessage , webDriver);
+        message = forwardMessage.getText();
+        return message;
+    }
+
+    public void closeAcknowledgementPage(){
         jsClick(closeSearchApplication , webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
     }
@@ -546,10 +555,9 @@ public class WaterChargeManagementPage extends BasePage {
         sanctionNumber.sendKeys("12345");
         waitForElementToBeClickable(commissionerApprove , webDriver);
         jsClick(commissionerApprove ,webDriver);
-//        commissionerApprove.click();
 
         switchToNewlyOpenedWindow(webDriver);
-        closePage();
+        closeAcknowledgementPage();
     }
 
     public void commissionerSignature(){
@@ -557,14 +565,13 @@ public class WaterChargeManagementPage extends BasePage {
         digitalSignature.click();
 
         switchToNewlyOpenedWindow(webDriver);
-        closePage();
+        closeAcknowledgementPage();
     }
 
     public void generateWorkOrder(){
 
         waitForElementToBeClickable(generateWorkOrder , webDriver);
         jsClick(generateWorkOrder , webDriver);
-//        generateWorkOrder.click();
 
         switchToNewlyOpenedWindow(webDriver);
         webDriver.close();
@@ -581,7 +588,7 @@ public class WaterChargeManagementPage extends BasePage {
         executeTap.click();
 
         switchToNewlyOpenedWindow(webDriver);
-        closePage();
+        closeAcknowledgementPage();
         return number;
     }
 
@@ -591,7 +598,7 @@ public class WaterChargeManagementPage extends BasePage {
         commissionerApprove.click();
 
         switchToNewlyOpenedWindow(webDriver);
-        closePage();
+        closeAcknowledgementPage();
     }
 
     public void toGenerateAcknowledgement(){
@@ -609,14 +616,14 @@ public class WaterChargeManagementPage extends BasePage {
         new Select(propertyTypeSelectBox).selectByVisibleText(connectionInfo.getPropertyType());
         for(int i = 0 ; i <= 10 ; i++) {
             if (!webDriver.findElement(By.id("pipeSize")).getText().equalsIgnoreCase(connectionInfo.getHscPipeSize())){
-        try {
+                try {
             waitForElementToBeVisible(hscPipeSizeSelectBox , webDriver);
             new Select(hscPipeSizeSelectBox).selectByVisibleText(connectionInfo.getHscPipeSize());
-        }catch (StaleElementReferenceException e){
+                }catch (StaleElementReferenceException e){
             WebElement element = webDriver.findElement(By.id("pipeSize"));
             waitForElementToBeVisible(element , webDriver);
             new Select(element).selectByVisibleText(connectionInfo.getHscPipeSize());
-            }
+                }
             }
         }
         enterText(sumpCapacityTextBox, connectionInfo.getSumpCapacity());
@@ -657,9 +664,9 @@ public class WaterChargeManagementPage extends BasePage {
     public String findAdditionalApplicationNumber(){
         waitForElementToBeClickable(additionalApplicationNumber, webDriver);
         String number = additionalApplicationNumber.getText();
+
         waitForElementToBeClickable(additionalCloseButton, webDriver);
         jsClick(additionalCloseButton, webDriver);
-//        additionalCloseButton.click();
 
         switchToPreviouslyOpenedWindow(webDriver);
 
@@ -715,15 +722,15 @@ public class WaterChargeManagementPage extends BasePage {
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    public void closesDCBPage(){
+    public String closesDCBPage(){
         WebElement element = webDriver.findElement(By.xpath("html/body/div[1]/div/table/tbody/tr[1]/td/strong"));
         waitForElementToBeVisible(element , webDriver);
-        String msg = element.getText();
+        message = element.getText();
 
-        WebElement element1 = webDriver.findElement(By.id("button2"));
-        waitForElementToBeClickable(element1 , webDriver);
-        element1.click();
+        waitForElementToBeClickable(button2, webDriver);
+        button2.click();
         switchToPreviouslyOpenedWindow(webDriver);
+        return message;
     }
 
     public void collectWaterCharges(){
@@ -739,7 +746,6 @@ public class WaterChargeManagementPage extends BasePage {
         waitForElementToBeVisible(totalAmount, webDriver);
         String amount = totalAmount.getAttribute("value");
         String actualAmount = amount.split("\\.")[0];
-//        System.out.println("\n"+actualAmount);
 
         switch (mode){
 
@@ -747,6 +753,7 @@ public class WaterChargeManagementPage extends BasePage {
 
                 waitForElementToBeClickable(cashRadio , webDriver);
                 jsClick(cashRadio ,webDriver);
+
                 waitForElementToBeClickable(amountToBePaidTextBox,webDriver);
                 amountToBePaidTextBox.sendKeys(actualAmount);
 
@@ -756,6 +763,7 @@ public class WaterChargeManagementPage extends BasePage {
 
                 waitForElementToBeClickable(chequeModeOfPaymentRadio,webDriver);
                 jsClick(chequeModeOfPaymentRadio,webDriver);
+
                 waitForElementToBeVisible(chequeNumberTextBox,webDriver);
                 chequeNumberTextBox.sendKeys("123456");
                 waitForElementToBeClickable(chequeDateTextBox,webDriver);
@@ -798,9 +806,7 @@ public class WaterChargeManagementPage extends BasePage {
                 break;
 
         }
-//        payButton.click();
-        WebElement element = webDriver.findElement(By.id("button2"));
-        jsClick(element , webDriver);
+        jsClick(button2, webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
@@ -836,8 +842,8 @@ public class WaterChargeManagementPage extends BasePage {
         waitForElementToBeClickable(termsAndConditionsCheckBox , webDriver);
         termsAndConditionsCheckBox.click();
 
-        waitForElementToBeClickable(payButton , webDriver);
-        payButton.click();
+        waitForElementToBeClickable(button2, webDriver);
+        button2.click();
 
         waitForElementToBeClickable(masterCardImage , webDriver);
         masterCardImage.click();
@@ -864,8 +870,8 @@ public class WaterChargeManagementPage extends BasePage {
     public String onlinePaymentSuccess(){
 
         waitForElementToBeVisible(onlinePaymentSuccessMessage , webDriver);
-        String msg = onlinePaymentSuccessMessage.getText();
-        return msg;
+        message = onlinePaymentSuccessMessage.getText();
+        return message;
     }
 
     public void onlineGenerateReceipt(){
@@ -894,12 +900,7 @@ public class WaterChargeManagementPage extends BasePage {
 
     private WebElement getSearchApplicationRowFor(String applicationNumber) {
 
-//        waitForElementToBeVisible(webDriver.findElement(By.id("searchResultDiv")), webDriver);
-//        waitForElementToBeVisible(applicationSearchTable, webDriver);
-
-//        await().atMost(20, SECONDS).until(() -> applicationSearchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
         List<WebElement> applicationRows = applicationSearchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-//        System.out.println("total number of rows -- " + applicationRows.size());
 
         for (WebElement applicationRow1 : applicationRows) {
             if (applicationRow1.findElements(By.tagName("td")).get(1).getText().contains(applicationNumber))

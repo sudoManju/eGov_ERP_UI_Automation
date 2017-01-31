@@ -23,4 +23,5 @@ Feature: To create a data entry screen for water charges and apply for add/edit 
     And user will click on the add/edit dcb
     And user will enter the details of DCB
     And user will close the dcb form
+    Then user will be notified by "successfully"
     And current user logs out

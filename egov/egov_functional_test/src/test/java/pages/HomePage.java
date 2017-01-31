@@ -38,8 +38,6 @@ public class HomePage extends BasePage {
 
     public void loginAs(LoginDetails loginDetails) {
 
-
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         userNameTextBox.sendKeys(loginDetails.getLoginId());
         passwordTextBox.sendKeys(loginDetails.getPassword());
 
@@ -47,14 +45,6 @@ public class HomePage extends BasePage {
             TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
-
-        if(loginDetails.getHasZone()){
-            try {
-                TimeUnit.SECONDS.sleep(2);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
 
         WebElement signForm = driver.findElement(By.id("signform"));
