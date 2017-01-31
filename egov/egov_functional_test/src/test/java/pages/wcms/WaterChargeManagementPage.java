@@ -318,12 +318,12 @@ public class WaterChargeManagementPage extends BasePage {
         this.webDriver = webDriver;
     }
 
-    public void enterWaterConectionAssessmentNumber(String number){
+    public void enterWaterConnectionAssessmentNumber(String number){
         waitForElementToBeClickable(waterConnectionAssesmentNumberTextBox, webDriver);
         enterText(waterConnectionAssesmentNumberTextBox, number);
     }
 
-    public void enterNewWaterConnectionInfo(ConnectionInfo connectionInfo){
+    public void enterConnectionInfo(ConnectionInfo connectionInfo){
 
         waitForElementToBeClickable(waterSourceTypeSelectBox, webDriver);
         new Select(waterSourceTypeSelectBox).selectByVisibleText(connectionInfo.getWaterSourceType());
@@ -478,7 +478,7 @@ public class WaterChargeManagementPage extends BasePage {
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    public void closeReceipt(){
+    public void closeSuccessfulPaymentReceiptPage(){
         waitForElementToBeClickable(closeReceiptButton , webDriver);
         closeReceiptButton.click();
     }
@@ -514,22 +514,22 @@ public class WaterChargeManagementPage extends BasePage {
         return number;
     }
 
-    public void selectApplication(String consumerNumber ){
+    public void openApplicationFromInbox(String consumerNumber ){
         getApplicationRow(consumerNumber).click();
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    private WebElement getApplicationRow(String consumerNumber){
+    private WebElement getApplicationRow(String applicationNumber){
         waitForElementToBeVisible(webDriver.findElement(By.id("worklist")), webDriver);
         waitForElementToBeVisible(officialInboxTable, webDriver);
 
-        await().atMost(10, SECONDS).until(() -> officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
+        await().atMost(20, SECONDS).until(() -> officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
         List<WebElement> applicationRows = officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
         for (WebElement applicationRow : applicationRows) {
-            if (applicationRow.findElements(By.tagName("td")).get(4).getText().contains(consumerNumber))
+            if (applicationRow.findElements(By.tagName("td")).get(4).getText().contains(applicationNumber))
                 return applicationRow;
         }
-        throw new RuntimeException("No application row found for -- " + consumerNumber);
+        throw new RuntimeException("No application row found for -- " + applicationNumber);
     }
 
     public void forward() {
@@ -560,7 +560,7 @@ public class WaterChargeManagementPage extends BasePage {
         closeAcknowledgementPage();
     }
 
-    public void commissionerSignature(){
+    public void commissionerDigitalSignature(){
         waitForElementToBeClickable(digitalSignature , webDriver);
         digitalSignature.click();
 
@@ -612,7 +612,7 @@ public class WaterChargeManagementPage extends BasePage {
         switchToPreviouslyOpenedWindow(webDriver);
     }
 
-    public void changeOfUseWaterConnectionInfo(ConnectionInfo connectionInfo){
+    public void changeOfUseConnectionInfo(ConnectionInfo connectionInfo){
         new Select(propertyTypeSelectBox).selectByVisibleText(connectionInfo.getPropertyType());
         for(int i = 0 ; i <= 10 ; i++) {
             if (!webDriver.findElement(By.id("pipeSize")).getText().equalsIgnoreCase(connectionInfo.getHscPipeSize())){

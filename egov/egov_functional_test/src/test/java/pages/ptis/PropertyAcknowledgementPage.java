@@ -90,6 +90,8 @@ public class PropertyAcknowledgementPage extends BasePage {
         assessmentCloseButton.click();
     }
     public void toCloseAdditionalConnectionPage(){
+        waitForElementToBeVisible(closeLink , driver);
+        waitForElementToBeClickable(closeLink , driver);
         closeLink.click();
         switchToPreviouslyOpenedWindow(driver);
     }

@@ -120,14 +120,14 @@ Feature: To collect water charges in different mode payments
     And current user logs out
 
     #################################################################################
-            # Collecting the water charges through online #
+                  # Collecting the water charges through online #
     #################################################################################
 
     Given user will visit the online payment link
     And user will enter the consumer number and click on pay in online website
     And user will select the bank to pay the charges
     And user will enter the card details
-    And user will get the successful acknowledgement form
+    And user will get the successful online payment acknowledgement form
     Then user will be notified by "received."
     And user will click on the generate receipt
 
