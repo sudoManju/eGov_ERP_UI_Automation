@@ -129,5 +129,59 @@ public class newSewerageConnectionSteps extends BaseSteps implements En {
             pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
 
         });
+        And("^he forward to assistant engineer for change in closets and closes the acknowledgement$", () -> {
+            pageStore.get(newSewerageConnectionPage.class).forward();
+
+            scenarioContext.setApplicationNumber(pageStore.get(newSewerageConnectionPage.class).getApplicatioNumberForChangeSewerage());
+
+            scenarioContext.setActualMessage(pageStore.get(newSewerageConnectionPage.class).getSuccessMessageForChangeSewerage());
+
+            pageStore.get(newSewerageConnectionPage.class).close();
+        });
+        And("^he chooses to act upon above sewerage connection for change$", () -> {
+            pageStore.get(newSewerageConnectionPage.class).selectChangeInClosets();
+
+            pageStore.get(newSewerageConnectionPage.class).selectAboveApplication(scenarioContext.getApplicationNumber());
+        });
+        And("^he forward to DEE for change and close the acknowledgement$", () -> {
+            String approverDetailsDataId = "DeputyExecutiveEngineer_1";
+
+            ApproverDetails approverDetails = new ExcelReader(lineEstimateTestDataFileName).getApprovalDetailsForEstimate(approverDetailsDataId);
+
+            pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
+
+            pageStore.get(newSewerageConnectionPage.class).forward();
+
+            scenarioContext.setApplicationNumber(pageStore.get(newSewerageConnectionPage.class).getApplicatioNumberForChangeSewerage());
+
+            scenarioContext.setActualMessage(pageStore.get(newSewerageConnectionPage.class).getSuccessMessageForChangeSewerage());
+
+            pageStore.get(newSewerageConnectionPage.class).close();
+        });
+        And("^he closes the sewerageChange acknowledgement$", () -> {
+            scenarioContext.setActualMessage(pageStore.get(newSewerageConnectionPage.class).getSuccessMessageForChangeSewerage());
+
+            pageStore.get(newSewerageConnectionPage.class).close();
+        });
+        And("^he forward to executive engineer for change in closets and closes the acknowledgement$", () -> {
+            String approverDetailsDataId = "Executive_engineer";
+
+            ApproverDetails approverDetails = new ExcelReader(lineEstimateTestDataFileName).getApprovalDetailsForEstimate(approverDetailsDataId);
+
+            pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
+
+            pageStore.get(newSewerageConnectionPage.class).forward();
+
+            scenarioContext.setActualMessage(pageStore.get(newSewerageConnectionPage.class).getSuccessMessageForChangeSewerage());
+
+            pageStore.get(newSewerageConnectionPage.class).close();
+        });
+        And("^he execute connection for change and closes the acknowledgement$", () -> {
+            pageStore.get(newSewerageConnectionPage.class).executeConnection();
+
+            scenarioContext.setActualMessage(pageStore.get(newSewerageConnectionPage.class).getSuccessMessage1ForChangeSewerage());
+
+            pageStore.get(newSewerageConnectionPage.class).close();
+        });
     }
 }

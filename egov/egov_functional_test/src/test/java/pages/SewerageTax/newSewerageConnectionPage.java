@@ -49,6 +49,16 @@ public class newSewerageConnectionPage extends BasePage {
     @FindBy(xpath = ".//*[@id='sewarageConnectionSuccess']/div/div/div/span")
     private WebElement successMessageForSewerageConnectionText1;
 
+    @FindBy(xpath = ".//*[@id='sewarageChangeClosetsSuccess']/div/div/div/span[1]")
+    private WebElement applicationNumberTextForChange;
+
+    @FindBy(xpath = ".//*[@id='sewarageChangeClosetsSuccess']/div/div/div/span[2]")
+    private WebElement getSuccessMessageForChangeSewerageConnectionText;
+
+    @FindBy(xpath = ".//*[@id='sewarageChangeClosetsSuccess']/div/div/div/span")
+    private WebElement successMessageForChangeSewerageConnectionText1;
+
+
     @FindBy(linkText = "Close")
     private WebElement closeLink;
 
@@ -75,6 +85,9 @@ public class newSewerageConnectionPage extends BasePage {
 
     @FindBy(css = "li[role='presentation'] a[data-now='New%20Sewerage%20Connection']")
     private WebElement newSewerageConnectionLink;
+
+    @FindBy(css = "li[role='presentation'] a[data-now='Change%20In%20Closets']")
+    private WebElement changeInClosetsLink;
 
     @FindBy(id = "official_inbox")
     private WebElement inboxTable;
@@ -134,15 +147,34 @@ public class newSewerageConnectionPage extends BasePage {
         return successMessageForSewerageConnectionText.getText();
     }
 
+    public String getSuccessMessageForChangeSewerage() {
+        waitForElementToBeVisible(getSuccessMessageForChangeSewerageConnectionText,driver);
+        return getSuccessMessageForChangeSewerageConnectionText.getText();
+    }
+
     public String getSuccessMessage1() {
         waitForElementToBeVisible(successMessageForSewerageConnectionText1,driver);
         return successMessageForSewerageConnectionText1.getText();
+    }
+
+    public String getSuccessMessage1ForChangeSewerage() {
+        waitForElementToBeVisible(successMessageForChangeSewerageConnectionText1,driver);
+        return successMessageForChangeSewerageConnectionText1.getText();
     }
 
     public String getApplicatioNumber() {
         waitForElementToBeVisible(applicationNumberText,driver);
 
         String num1 = applicationNumberText.getText().split("\\ ")[5].substring(1,14);
+        System.out.println("\n "+num1);
+
+        return num1;
+    }
+
+    public String getApplicatioNumberForChangeSewerage() {
+        waitForElementToBeVisible(applicationNumberTextForChange,driver);
+
+        String num1 = applicationNumberTextForChange.getText().split("\\ ")[5].substring(1,14);
         System.out.println("\n "+num1);
 
         return num1;
@@ -266,20 +298,22 @@ public class newSewerageConnectionPage extends BasePage {
 
     public void searchForAboveSewerageConnection(String number) {
         waitForElementToBeVisible(applicationNumberTextBox,driver);
-        applicationNumberTextBox.sendKeys("03466-2017-KS");
+        applicationNumberTextBox.sendKeys(number);
 
         waitForElementToBeClickable(searchButton,driver);
         searchButton.click();
 
         waitForElementToBeVisible(searchResultsTable,driver);
-        WebElement dropDownAction = searchResultsTable.findElement(By.tagName("tbody")).findElement(By.tagName("tr")).findElements(By.tagName("td")).get(8).findElement(By.className("actiondropdown"));
-        waitForElementToBeClickable(dropDownAction,driver);
-        new Select(dropDownAction).selectByVisibleText("Change number of seats");
-
+        WebElement dropDownAction = searchResultsTable.findElement(By.tagName("tbody")).findElement(By.tagName("tr")).findElements(By.tagName("td")).get(1).findElement(By.tagName("a"));
+        String hscNumber = dropDownAction.getText();
+//        waitForElementToBeClickable(dropDownAction,driver);
+//        new Select(dropDownAction).selectByVisibleText("Change number of seats");
+//        switchToNewlyOpenedWindow(driver);
+//        System.out.println(driver.getTitle());
+        driver.navigate().to("http://kurnool-uat.egovernments.org/stms/transactions/modifyConnection/"+hscNumber);
     }
 
     public void increseTheNumberOfClosets() {
-        switchToNewlyOpenedWindow(driver);
         String url = driver.getCurrentUrl();
         System.out.println(url);
         waitForElementToBeVisible(noOfClosetsTextBox,driver);
@@ -295,5 +329,10 @@ public class newSewerageConnectionPage extends BasePage {
 
         waitForElementToBeClickable(chooseFileButton,driver);
         chooseFileButton.sendKeys(System.getProperty("user.dir") + "/src/test/resources/loginCredentials.txt");
+    }
+
+    public void selectChangeInClosets() {
+         waitForElementToBeClickable(changeInClosetsLink,driver);
+        changeInClosetsLink.click();
     }
 }
