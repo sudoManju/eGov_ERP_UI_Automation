@@ -406,7 +406,9 @@ Feature: Create New Property
 
     Examples:
      |revisionPetitionDetails |  hearingDetails |
-     |  revisionpetitionBlock  |  hearingBlock   |
+     | revisionpetitionBlock  |  hearingBlock   |
+
+
 
 
 
