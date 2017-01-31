@@ -384,14 +384,12 @@ public class FinancialPage extends BasePage {
         waitForElementToBeClickable(accountCode1, webDriver);
         accountCode1.sendKeys(financialJournalVoucherDetails.getAccountCode1());
 
-//        WebElement dropdown = webDriver.findElement(By.className("yui-ac-highlight"));
         waitForElementToBeVisible(accountCodeDropdown, webDriver);
         waitForElementToBeClickable(accountCodeDropdown, webDriver);
         accountCodeDropdown.click();
         enterText(debitAmount1 , "100");
 
         accountCode2.sendKeys(financialJournalVoucherDetails.getAccountCode2());
-//        WebElement dropdown1 = webDriver.findElement(By.className("yui-ac-highlight"));
         accountCodeDropdown.click();
         enterText(creditAmount2 , "100");
 
@@ -401,7 +399,6 @@ public class FinancialPage extends BasePage {
             e.printStackTrace();
         }
 
-//        WebElement element = webDriver.findElement(By.id("subLedgerlist[0].glcode.id"));
         waitForElementToBePresent(By.className("yui-dt-dropdown") , webDriver);
         List<WebElement> webElementList = ledgerAccount1.findElements(By.tagName("option"));
 
@@ -409,7 +406,6 @@ public class FinancialPage extends BasePage {
         new Select(ledgerType1).selectByVisibleText("contractor");
         ledgerCode1.sendKeys("KMC001");
 
-//        WebElement kmcCLass = webDriver.findElement(By.className("yui-ac-highlight"));
         waitForElementToBeClickable(accountCodeDropdown , webDriver);
         accountCodeDropdown.click();
         ledgerAmount1.sendKeys("100");
@@ -422,7 +418,6 @@ public class FinancialPage extends BasePage {
             new Select(ledgerType2).selectByVisibleText("contractor");
             ledgerCode2.sendKeys("KMC001");
 
-//            WebElement kmcCLass1 = webDriver.findElement(By.className("yui-ac-highlight"));
             waitForElementToBeClickable(accountCodeDropdown , webDriver);
             accountCodeDropdown.click();
             ledgerAmount2.sendKeys("100");
@@ -626,13 +621,11 @@ public class FinancialPage extends BasePage {
 
         expenseAccountCodeDebit.sendKeys(financialExpenseBillDetails.getExpenseAccountCodeDebit());
         waitForElementToBeVisible( expenseBillAccountCodeDropdown,webDriver);
-//        WebElement dropDown1 = webDriver.findElement(By.className("tt-highlight"));
         expenseBillAccountCodeDropdown.click();
         expenseDebitAmount.sendKeys("100");
 
         expenseAccountCodeCredit.sendKeys(financialExpenseBillDetails.getExpenseAccountCodeCredit());
         waitForElementToBeVisible( expenseBillAccountCodeDropdown,webDriver);
-//        WebElement dropdown1 = webDriver.findElement(By.className("tt-highlight"));
         expenseBillAccountCodeDropdown.click();
         expenseCreditAmount.sendKeys("90");
 
@@ -716,15 +709,12 @@ public class FinancialPage extends BasePage {
             element.get(5).click();
         }
 
-//        webDriver.findElement(By.cssSelector(".buttonsubmit")).click();
         waitForElementToBeClickable(submitButton , webDriver);
         submitButton.click();
         switchToNewlyOpenedWindow(webDriver);
 
         waitForElementToBeClickable(closeButtonWithCSS , webDriver);
         closeButtonWithCSS.click();
-//        webDriver.findElement(By.cssSelector("input[type='button'][value='Close']")).click();
-
         switchToPreviouslyOpenedWindow(webDriver);
     }
 
@@ -750,20 +740,17 @@ public class FinancialPage extends BasePage {
         waitForElementToBeClickable(accountCode1 , webDriver);
         accountCode1.sendKeys(financialJournalVoucherDetails.getAccountCode1());
 
-//        WebElement dropdown = webDriver.findElement(By.className("yui-ac-highlight"));
         waitForElementToBeClickable(accountCodeDropdown , webDriver);
         accountCodeDropdown.click();
         enterText(debitAmount1 , "1000");
 
         accountCode2.sendKeys(financialJournalVoucherDetails.getAccountCode2());
-//        WebElement dropdown1 = webDriver.findElement(By.className("yui-ac-highlight"));
         accountCodeDropdown.click();
         enterText(creditAmount2 , "800");
 
         if(!financialJournalVoucherDetails.getAccountCode3().isEmpty()){
             addList.get(1).click();
             accountCode3.sendKeys(financialJournalVoucherDetails.getAccountCode3());
-//            WebElement dropdown2 = webDriver.findElement(By.className("yui-ac-highlight"));
             accountCodeDropdown.click();
             enterText(creditAmount3 , "200");
         }
@@ -774,7 +761,6 @@ public class FinancialPage extends BasePage {
             e.printStackTrace();
         }
 
-//        WebElement element = webDriver.findElement(By.id("subLedgerlist[0].glcode.id"));
         waitForElementToBePresent(By.className("yui-dt-dropdown") , webDriver);
         List<WebElement> webElementList = ledgerAccount1.findElements(By.tagName("option"));
 
@@ -782,7 +768,6 @@ public class FinancialPage extends BasePage {
         new Select(ledgerType1).selectByVisibleText("contractor");
         ledgerCode1.sendKeys("KMC001");
 
-//        WebElement kmcCLass = webDriver.findElement(By.className("yui-ac-highlight"));
         waitForElementToBeClickable(accountCodeDropdown , webDriver);
         accountCodeDropdown.click();
         ledgerAmount1.sendKeys("1000");
@@ -795,7 +780,6 @@ public class FinancialPage extends BasePage {
             new Select(ledgerType2).selectByVisibleText("Employee");
             ledgerCode2.sendKeys("946800");
 
-//            WebElement kmcClass1 = webDriver.findElement(By.className("yui-ac-highlight"));
             waitForElementToBeClickable(accountCodeDropdown , webDriver);
             accountCodeDropdown.click();
             ledgerAmount2.sendKeys("200");
@@ -831,12 +815,10 @@ public class FinancialPage extends BasePage {
 
     public void filterCreateVoucherBill(String applicationNumber){
         new Select(billType).selectByVisibleText("Expense");
-//        webDriver.findElement(By.id("billNumber")).sendKeys(applicationNumber);
         billNumberTextBox.sendKeys(applicationNumber);
 
         waitForElementToBeClickable(submitButton , webDriver);
         submitButton.click();
-//        webDriver.findElement(By.cssSelector(".buttonsubmit")).click();
 
         getExpenseVoucherRow(applicationNumber).click();
         switchToNewlyOpenedWindow(webDriver);
@@ -855,12 +837,11 @@ public class FinancialPage extends BasePage {
 
     public String closesExpenseVoucherPage(){
 
-//        WebElement element = webDriver.findElement(By.className("actionMessage"));
         waitForElementToBeVisible(forwardMessage , webDriver);
-        String msg = forwardMessage.getText();
+        String mesage = forwardMessage.getText();
         closeButton.click();
         switchToPreviouslyOpenedWindow(webDriver);
-        return msg;
+        return mesage;
     }
 
     public void chequeAssignmentBillSearch(String number){
@@ -987,7 +968,6 @@ public class FinancialPage extends BasePage {
         waitForElementToBeClickable(accountCode1, webDriver);
         accountCode1.sendKeys("2101001");
 
-//        WebElement dropdown = webDriver.findElement(By.className("yui-ac-highlight"));
         waitForElementToBeVisible(accountCodeDropdown , webDriver);
         waitForElementToBeClickable(accountCodeDropdown , webDriver);
         accountCodeDropdown.click();
@@ -997,7 +977,6 @@ public class FinancialPage extends BasePage {
         new Select(ledgerType1).selectByVisibleText("contractor");
         ledgerCode1.sendKeys("KMC001");
 
-//        WebElement kmcCLass = webDriver.findElement(By.className("yui-ac-highlight"));
         waitForElementToBeClickable(accountCodeDropdown , webDriver);
         accountCodeDropdown.click();
         ledgerAmount1.sendKeys("100");
@@ -1005,8 +984,8 @@ public class FinancialPage extends BasePage {
 
     public String directBankSuccessPage(){
         switchToNewlyOpenedWindow(webDriver);
-        String msg = forwardMessage.getText();
-        if(msg.contains("Successful")) {
+        String message = forwardMessage.getText();
+        if(message.contains("Successful")) {
             waitForElementToBeClickable(bankCloseButton, webDriver);
             bankCloseButton.click();
         }
@@ -1015,7 +994,7 @@ public class FinancialPage extends BasePage {
             closeButton.click();
         }
         switchToPreviouslyOpenedWindow(webDriver);
-        return msg;
+        return message;
     }
 
     public void enterBankToBankDetails(){
