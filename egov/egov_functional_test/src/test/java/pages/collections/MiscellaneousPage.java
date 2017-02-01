@@ -314,7 +314,7 @@ public class MiscellaneousPage extends BasePage{
       List<WebElement> totalRows = driver.findElements(By.xpath(".//*[@id='selectedReceipts']"));
       WebElement requiredRow = totalRows.get(totalRows.size()-1);
       waitForElementToBeVisible(requiredRow,driver);
-      requiredRow.click();
+      jsClick(requiredRow,driver);
 
       waitForElementToBeClickable(cancelReceiptButton,driver);
       cancelReceiptButton.click();

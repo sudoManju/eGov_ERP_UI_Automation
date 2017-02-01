@@ -374,6 +374,9 @@ public class AdvertisementsPage extends BasePage {
     }
 
     public String getAdvertisementNumber() {
+        if(!driver.findElement(By.xpath(".//*[@id='advertisementSuccessform']/div/div/div")).isDisplayed()){
+            approveButton.click();
+        }
         waitForElementToBeVisible(creationMsg,driver);
         String number = creationMsg.getText();
 

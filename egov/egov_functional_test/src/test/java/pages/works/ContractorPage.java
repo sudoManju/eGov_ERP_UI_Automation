@@ -110,6 +110,9 @@ public class ContractorPage extends BasePage
     @FindBy(id = "registrationNumberyui-rec0")
      private WebElement registrationNumber;
 
+    @FindBy(xpath = ".//*[@id='yui-rec0']/td[8]/div/select")
+     private WebElement categoryDropDownBox;
+
     String min = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
     String hour = String.valueOf(Calendar.getInstance().get(Calendar.MINUTE));
     String min1 = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
@@ -165,6 +168,8 @@ public class ContractorPage extends BasePage
         new Select(department).selectByVisibleText("ENGINEERING");
         waitForElementToBeClickable(registrationNumber, driver);
         registrationNumber.sendKeys("0123"+code);
+        waitForElementToBeClickable(categoryDropDownBox,driver);
+        new Select(categoryDropDownBox).selectByVisibleText("Transport");
         waitForElementToBeClickable(contractorClass, driver);
         new Select(contractorClass).selectByVisibleText("Class-I");
         waitForElementToBeClickable(status, driver);

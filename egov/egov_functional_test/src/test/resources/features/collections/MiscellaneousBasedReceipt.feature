@@ -19,9 +19,9 @@ Feature: Create/Collect/Remit/Cancel Miscellaneous Receipt
 Examples:
   |paymentMethod    |
   |cash             |
-  |cheque           |
-  |dd               |
-  |directBank       |
+#  |cheque           |
+#  |dd               |
+#  |directBank       |
 
 
 @collect @Sanity

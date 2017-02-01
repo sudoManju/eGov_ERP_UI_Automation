@@ -12,7 +12,7 @@ Feature: Collection
 #      Given juniorAssistant logs in
 #      When he chosses to collect water charges
 #      And he chooses to collect water charge for "1016000989"
-##      And he chooses to pay water charge
+#      And he chooses to pay water charge
 #      And he pays using cheque with details as defaultChequeDetails
 
 
