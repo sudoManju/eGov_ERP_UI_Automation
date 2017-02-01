@@ -3,7 +3,10 @@ package steps.marriageRegistration;
 import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.marriageRegistration.MarriageRegistrationInformation;
+import entities.works.ApproverDetails;
+import pages.SewerageTax.newSewerageConnectionPage;
 import pages.marriageRegistration.MarriageRegistrationPage;
+import pages.works.SpillOverEstimatePage;
 import steps.BaseSteps;
 import utils.ExcelReader;
 
@@ -25,6 +28,24 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
         });
         And("^he enters the Witnesses Information$", () -> {
             pageStore.get(MarriageRegistrationPage.class).entersWitnessesInformation();
+        });
+        And("^he enters the checklist$", () -> {
+            pageStore.get(MarriageRegistrationPage.class).enterChecklist();
+        });
+        And("^he forward to commissioner and closes the acknowledgement$", () -> {
+            String approverDetailsDataId = "commissioner";
+
+            ApproverDetails approverDetails = new ExcelReader(lineEstimateTestDataFileName).getApprovalDetailsForEstimate(approverDetailsDataId);
+
+            pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
+
+            pageStore.get(newSewerageConnectionPage.class).forward();
+
+            scenarioContext.setApplicationNumber(pageStore.get(MarriageRegistrationPage.class).getApplicationNumber());
+
+            scenarioContext.setActualMessage(pageStore.get(MarriageRegistrationPage.class).getSuccessMessage());
+
+            pageStore.get(MarriageRegistrationPage.class).close();
         });
     }
 }

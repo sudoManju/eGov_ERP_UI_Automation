@@ -72,6 +72,30 @@ public class MarriageRegistrationPage extends BasePage {
     @FindBy(id = "witnesses3.name.firstName")
     private WebElement witnessName4;
 
+    @FindBy(xpath = ".//*[@id='settingstab']/li[3]/a")
+    private WebElement checkListLink;
+
+    @FindBy(id = "file0id")
+    private WebElement memorandumofMarriage;
+
+    @FindBy(id = "ageproofhusbandfile1id")
+    private WebElement birthCertificateForBridegroom;
+
+    @FindBy(id = "ageproofwifefile1id")
+    private WebElement birthCertificateForBride;
+
+    @FindBy(id = "addressproofhusbandfile10id")
+    private WebElement proofofResidenceForBridegroom;
+
+    @FindBy(id = "addressproofwifefile10id")
+    private WebElement proofofResidenceForBride;
+
+    @FindBy(xpath = ".//*[@id='registrationsuccess-form']/div/div[2]/div")
+    private WebElement creationMessage;
+
+    @FindBy(css = "input[type='button'][value='Close']")
+    private WebElement closeButton;
+
     public  MarriageRegistrationPage(WebDriver driver){ this.driver = driver;}
 
     public void enterApplicantsInformation(MarriageRegistrationInformation marriageRegistrationInformation) {
@@ -83,6 +107,8 @@ public class MarriageRegistrationPage extends BasePage {
         locality.sendKeys(marriageRegistrationInformation.getLocality());
         waitForElementToBeClickable(city.get(0), driver);
         city.get(0).sendKeys(marriageRegistrationInformation.getCity());
+        waitForElementToBeClickable(venueOfMarriage, driver);
+        venueOfMarriage.sendKeys(marriageRegistrationInformation.getVenueOfMarriage());
         waitForElementToBeClickable(placeOfMarriage, driver);
         placeOfMarriage.sendKeys(marriageRegistrationInformation.getPlaceOfMarriage());
         marriagePhoto.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
@@ -164,6 +190,11 @@ public class MarriageRegistrationPage extends BasePage {
             witnessLastName.sendKeys("Witness Last Names");
             WebElement relativeName = driver.findElement(By.id("witnesses["+sum+"].relativeName"));
             relativeName.sendKeys("Relative Name");
+            WebElement witnessAge = driver.findElement(By.id("witnesses["+sum+"].age"));
+            witnessAge.sendKeys("35");
+            WebElement residenceAddress = driver.findElement(By.id("witnesses["+sum+"].contactInfo.residenceAddress"));
+            residenceAddress.sendKeys("Residence Address");
+
 
         }
 
@@ -171,5 +202,38 @@ public class MarriageRegistrationPage extends BasePage {
 //        witnessName1.sendKeys("AAAA");
 
 
+    }
+
+    public void enterChecklist() {
+        waitForElementToBeClickable(checkListLink,driver);
+        jsClick(checkListLink,driver);
+
+        memorandumofMarriage.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
+        birthCertificateForBridegroom.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
+        birthCertificateForBride.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
+        proofofResidenceForBridegroom.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
+        proofofResidenceForBride.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
+
+
+    }
+
+    public String getApplicationNumber() {
+         String msg = creationMessage.getText();
+
+         String number = msg.split("\\ ")[6];
+         System.out.println("\n "+number);
+
+         return number;
+    }
+
+    public String getSuccessMessage() {
+        return creationMessage.getText();
+    }
+
+    public void close() {
+        waitForElementToBeClickable(closeButton,driver);
+        closeButton.click();
+
+        switchToPreviouslyOpenedWindow(driver);
     }
 }

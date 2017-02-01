@@ -8,6 +8,10 @@ Feature: Marriage Registration
     And he enters the applicants details as <generalInformation>
     And he enters the bridegroom information as <bridegroomInformation> <brideInformation>
     And he enters the Witnesses Information
+    And he enters the checklist
+    And he forward to commissioner and closes the acknowledgement
+    And current user logs out
+
 
     Examples:
     |generalInformation     | bridegroomInformation|brideInformation|
