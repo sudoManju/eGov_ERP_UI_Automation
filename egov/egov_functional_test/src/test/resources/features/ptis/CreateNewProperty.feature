@@ -191,7 +191,7 @@ Feature: Create New Property
 
         When commissioner logs in
         And chooses to act upon the above application
-        And he approved the property with remarks "property approved"
+        And he approved the property with remarks "property approved" for transfer of ownership
         And current user closes acknowledgement
 
         And chooses to act upon the above assessment

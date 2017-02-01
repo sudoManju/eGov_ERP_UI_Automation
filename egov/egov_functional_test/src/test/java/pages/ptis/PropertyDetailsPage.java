@@ -271,9 +271,14 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy (css = "input[type='text'][name='instrHeaderCash.instrumentAmount']")
     private WebElement propertyAmountToBePaid;
 
-    @FindBy(xpath = ".//*[@id='createProperty-forward']/div/table/tbody/tr[1]/td/span[2]")
-
+    @FindBy(xpath = ".//*[@id='modifyProperty-approve']/div/table/tbody/tr[1]/td/a")
     private WebElement commAssessmentNo;
+
+    @FindBy(xpath = ".//*[@id='approve']/div/table/tbody/tr[1]/td/span[2]")
+    private WebElement commAssessmentNo1;
+
+
+
     String min = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
     String min1 = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
 
@@ -367,6 +372,12 @@ public class PropertyDetailsPage extends BasePage {
         approveButton.click();
         waitForElementToBeVisible(commAssessmentNo, webDriver);
         return commAssessmentNo.getText();
+    }
+
+    public String approveForCreation() {
+        approveButton.click();
+        waitForElementToBeVisible(commAssessmentNo1, webDriver);
+        return commAssessmentNo1.getText();
     }
     public void digitallySign() {
         signButton.click();
