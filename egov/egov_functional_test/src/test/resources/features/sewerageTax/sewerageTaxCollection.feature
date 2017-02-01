@@ -12,7 +12,7 @@ Feature: Create/renewal/closure of sewerage connection
     And he choose to close the dataentry acknowledgement screen
     And current user logs out
 
-@sewerage @Sanity
+@sewerage @WIP
 
   Scenario: create/change/closure of sewerage connection
 
