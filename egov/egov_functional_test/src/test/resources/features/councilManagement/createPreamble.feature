@@ -13,7 +13,7 @@ Feature: create preamble
     Given councilCreator logs in
     When he choose to create preamble
     And he enters create preamble details as <details>
-    And he will enter the approval details as <approval officer2>
+    And he forwards for approver commissioner1
     And he copies preamble number and closes the acknowledgement
     Then user will be notified by "CREATED"
     And current user logs out
@@ -57,5 +57,5 @@ Feature: create preamble
 
 
   Examples:
-  |details| approval officer2 | committee    |meetingDetails |MOMdeatils|
-  |abc    | commissioner1     | createAgenda |councilMeeting |councilMOM |
+  |details| committee    |meetingDetails |MOMdeatils|
+  |abc    | createAgenda |councilMeeting |councilMOM |

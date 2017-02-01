@@ -46,13 +46,13 @@ Feature: Register Complaint
     And official create grievance
     And official copies CRN and closes the acknowledgement
     And choose to act upon the above CRN in his own dratfs
-    And he forwards complaint to sanitaryInspector1
+    And he forwards for approver sanitaryInspector1
     And current user logs out
 
     When sanitaryInspector logs in
     And choose to act upon the above CRN
     And he marks the staus as processing
-    And he forwards complaint to juniorAssistant
+    And he forwards for approver juniorAssistant
     And current user logs out
 
     When creator logs in

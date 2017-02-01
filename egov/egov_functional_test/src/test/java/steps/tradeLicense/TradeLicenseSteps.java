@@ -75,6 +75,7 @@ public class TradeLicenseSteps extends BaseSteps implements En {
         });
         And("^he copies the license number and closes the acknowledgement$", () -> {
             scenarioContext.setApplicationNumber(pageStore.get(TradeLicensePage.class).getLegacyLicenseNumber());
+            System.out.println("Application Number "+scenarioContext.getApplicationNumber());
         });
         And("^he choose to search with license number$", () -> {
            pageStore.get(TradeLicensePage.class).enterLicenseNumber(scenarioContext.getApplicationNumber());

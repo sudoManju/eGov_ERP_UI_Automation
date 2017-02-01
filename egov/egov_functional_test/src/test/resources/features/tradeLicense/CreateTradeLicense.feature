@@ -117,7 +117,7 @@ Feature: Create Trade License
 
       # Trade License Renewal #
 
-    @Sanity
+    @WIP
     Scenario Outline: Renewal of Trade License
       Given creator logs in
       When he choose to create legency trade license
