@@ -23,6 +23,89 @@ public class MarriageRegistrationInformation {
         String EducationQualification;
         String Nationality;
 
+//        String WifeFullName;
+//        String WifeReligion;
+        String WifeStatusAtTheTimeMarriage;
+        String WifeResidenceAddress;
+        String WifeOfficeAddress;
+        String WifePhoneNo;
+        String WifeOccupation;
+        String WifeEducationQualification;
+        String WifeNationality;
+
+//    public String getWifeFullName() {
+//        return WifeFullName;
+//    }
+//
+//    public void setWifeFullName(String wifeFullName) {
+//        WifeFullName = wifeFullName;
+//    }
+//
+//    public String getWifeReligion() {
+//        return WifeReligion;
+//    }
+//
+//    public void setWifeReligion(String wifeReligion) {
+//        WifeReligion = wifeReligion;
+//    }
+
+    public String getWifeStatusAtTheTimeMarriage() {
+        return WifeStatusAtTheTimeMarriage;
+    }
+
+    public void setWifeStatusAtTheTimeMarriage(String wifeStatusAtTheTimeMarriage) {
+        WifeStatusAtTheTimeMarriage = wifeStatusAtTheTimeMarriage;
+    }
+
+    public String getWifeResidenceAddress() {
+        return WifeResidenceAddress;
+    }
+
+    public void setWifeResidenceAddress(String wifeResidenceAddress) {
+        WifeResidenceAddress = wifeResidenceAddress;
+    }
+
+    public String getWifeOfficeAddress() {
+        return WifeOfficeAddress;
+    }
+
+    public void setWifeOfficeAddress(String wifeOfficeAddress) {
+        WifeOfficeAddress = wifeOfficeAddress;
+    }
+
+    public String getWifePhoneNo() {
+        return WifePhoneNo;
+    }
+
+    public void setWifePhoneNo(String wifePhoneNo) {
+        WifePhoneNo = wifePhoneNo;
+    }
+
+    public String getWifeOccupation() {
+        return WifeOccupation;
+    }
+
+    public void setWifeOccupation(String wifeOccupation) {
+        WifeOccupation = wifeOccupation;
+    }
+
+    public String getWifeEducationQualification() {
+        return WifeEducationQualification;
+    }
+
+    public void setWifeEducationQualification(String wifeEducationQualification) {
+        WifeEducationQualification = wifeEducationQualification;
+    }
+
+    public String getWifeNationality() {
+        return WifeNationality;
+    }
+
+    public void setWifeNationality(String wifeNationality) {
+        WifeNationality = wifeNationality;
+    }
+
+
     public String getFullName() {
         return FullName;
     }

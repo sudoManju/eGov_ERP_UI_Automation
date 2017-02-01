@@ -170,7 +170,7 @@ public class ContractorPage extends BasePage
         waitForElementToBeClickable(status, driver);
         new Select(status).selectByVisibleText("Active");
         waitForElementToBeClickable(fromDate, driver);
-        fromDate.sendKeys("17/01/2017");
+        fromDate.sendKeys("31/01/2017");
         waitForElementToBeClickable(saveButton,driver);
         saveButton.click();
 
