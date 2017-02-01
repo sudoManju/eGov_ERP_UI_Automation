@@ -38,7 +38,7 @@ public class HomePage extends BasePage {
 
     public void loginAs(LoginDetails loginDetails) {
 
-        isImageLoaded();
+        //isImageLoaded();
         userNameTextBox.sendKeys(loginDetails.getLoginId());
         passwordTextBox.sendKeys(loginDetails.getPassword());
 
@@ -53,18 +53,18 @@ public class HomePage extends BasePage {
         signForm.submit();
     }
 
-    private void isImageLoaded(){
-        Boolean ImagePresent = (Boolean) ((JavascriptExecutor)driver).executeScript("return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0", logo);
-        for(int i = 0 ; i<= 10 ; i++){
-            if (!ImagePresent){
-                driver.manage().timeouts().implicitlyWait(10 , TimeUnit.SECONDS);
-                driver.navigate().refresh();
-            }
-            else {
-                break;
-            }
-        }
-    }
+//    private void isImageLoaded(){
+//        Boolean ImagePresent = (Boolean) ((JavascriptExecutor)driver).executeScript("return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0", logo);
+//        for(int i = 0 ; i<= 10 ; i++){
+//            if (!ImagePresent){
+//                driver.manage().timeouts().implicitlyWait(10 , TimeUnit.SECONDS);
+//                driver.navigate().refresh();
+//            }
+//            else {
+//                break;
+//            }
+//        }
+//    }
 
     public void visitWebsite() {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);

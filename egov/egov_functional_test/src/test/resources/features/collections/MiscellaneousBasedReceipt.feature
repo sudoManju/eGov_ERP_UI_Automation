@@ -3,11 +3,9 @@ Feature: Create/Collect/Remit/Cancel Miscellaneous Receipt
   I am able to Create/Collect/Remit/Cancel Miscellaneous Receipt
 
 
-
-
 @collect @Sanity
 
-   Scenario Outline: System should be able to create Miscellaneous receipt
+ Scenario Outline: System should be able to create Miscellaneous receipt
 
    Given creator logs in
    When he chooses to create Miscellaneous receipt

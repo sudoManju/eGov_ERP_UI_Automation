@@ -1,5 +1,6 @@
 package pages;
 
+import cucumber.runtime.Timeout;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -464,50 +465,46 @@ public class DashboardPage extends BasePage {
         draftsLink.click();
     }
 
-    public void openCollection() {
-        getCollectionRow().click();
-        switchToNewlyOpenedWindow(driver);
-    }
+    public void openCollection(String tableId) {
+        WebElement table = driver.findElement(By.id(tableId));
 
-    private WebElement getCollectionRow() {
-//        waitForElementToBeVisible(driver.findElement(By.id("drafts")), driver);
-        waitForElementToBeVisible(officialDraftsTable, driver);
+        waitForElementToBeVisible(table,driver);
 
-        await().atMost(10, SECONDS).until(() -> officialDraftsTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
-        List<WebElement> applicationRows = officialDraftsTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-        System.out.println("total number of rows -- " + applicationRows.size());
-        List<WebElement> propertyTaxList = new ArrayList<>();
+        await().atMost(10, SECONDS).until(() -> table.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
+        List<WebElement> totalRows = table.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
+        System.out.println("\n"+totalRows.size());
 
-       for (WebElement applicationRow : applicationRows) {
-            if (applicationRow.findElements(By.tagName("td")).get(4).getText().contains("Property Tax-944177-Zone-1"))
-                propertyTaxList.add(applicationRow);
-       }
-       return propertyTaxList.get(0);
+        List<WebElement> requiredRows = new ArrayList<>();
 
-//       throw new RuntimeException("No application row found for -- ");
-
-    }
-
-    public WebElement getReceiptRow() {
-        waitForElementToBeVisible(driver.findElement(By.id("worklist")), driver);
-        waitForElementToBeVisible(officialInboxTable, driver);
-        await().atMost(10, SECONDS).until(() -> officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
-        List<WebElement> applicationRows = officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-        System.out.println("total number of rows -- " + applicationRows.size());
-        List<WebElement> propertyTaxList = new ArrayList<>();
-
-        for (WebElement applicationRow : applicationRows) {
-            if (applicationRow.findElements(By.tagName("td")).get(4).getText().contains("Property Tax-944177-Zone-1"))
-                propertyTaxList.add(applicationRow);
+        for(WebElement applicationRow : totalRows ){
+            if(applicationRow.findElements(By.tagName("td")).get(4).getText().contains("Property Tax")){
+                requiredRows.add(applicationRow);
+            }
         }
-        return propertyTaxList.get(0);
+        requiredRows.get(0).click();
+
+        switchToNewlyOpenedWindow(driver);
     }
 
-    public void openReceipt(){
-        appRow1 = getReceiptRow();
-        waitForElementToBeClickable(appRow1 , driver);
-        appRow1.click();
-        switchToNewlyOpenedWindow(driver);
+    public void openReceipt(String tableId){
+        WebElement table = driver.findElement(By.id(tableId));
+
+        waitForElementToBeVisible(table,driver);
+
+        await().atMost(10, SECONDS).until(() -> table.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
+        List<WebElement> totalRows = table.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
+        System.out.println("\n"+totalRows.size());
+
+        List<WebElement> requiredRows = new ArrayList<>();
+
+        for(WebElement applicationRow : totalRows ){
+            if(applicationRow.findElements(By.tagName("td")).get(4).getText().contains("Property Tax")){
+                requiredRows.add(applicationRow);
+            }
+        }
+        requiredRows.get(0).click();
+
+       switchToNewlyOpenedWindow(driver);
     }
     public void choosePropertyTaxCollection() {
         waitForElementToBeClickable(searchTreeTextBox, driver);

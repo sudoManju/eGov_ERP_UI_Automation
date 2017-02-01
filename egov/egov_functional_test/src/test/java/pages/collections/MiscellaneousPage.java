@@ -381,14 +381,14 @@ public class MiscellaneousPage extends BasePage{
 
             if(date.equalsIgnoreCase("active day"))
             {
-                ele.click();
+                jsClick(ele,driver);
                 break;
             }
 
         }
 
         waitForElementToBeClickable(remitToBankButton,driver);
-        remitToBankButton.click();
+        jsClick(remitToBankButton,driver);
     }
 
     public String successMessageOfRemittance() {

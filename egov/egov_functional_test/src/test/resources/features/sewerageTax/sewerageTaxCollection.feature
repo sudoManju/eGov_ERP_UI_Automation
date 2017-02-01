@@ -72,7 +72,7 @@ Feature: Create/renewal/closure of sewerage connection
       And he execute connection and closes the acknowledgement
       Then user will be notified by "completed"
       And current user logs out
-#
+
      ########################################################
      #############  change of sewerage connection ###########
      #########################################################
@@ -147,29 +147,29 @@ Feature: Create/renewal/closure of sewerage connection
      Then user will be notified by "forwarded"
      And current user logs out
 
-    When assistantEngineer logs in
-    And he chooses to act upon above sewerage connection for closure
-    And he forwards to DEE for closure and close the acknowledgement
-    Then user will be notified by "forwarded"
-    And current user logs out
+     When assistantEngineer logs in
+     And he chooses to act upon above sewerage connection for closure
+     And he forwards to DEE for closure and close the acknowledgement
+     Then user will be notified by "forwarded"
+     And current user logs out
 
-    When DeputyExecutiveEngineer_1 logs in
-    And he chooses to act upon above sewerage connection for closure
-    And he forwards to executive engineer for closure and close the acknowledgement
-    Then user will be notified by "forwarded"
-    And current user logs out
+     When DeputyExecutiveEngineer_1 logs in
+     And he chooses to act upon above sewerage connection for closure
+     And he forwards to executive engineer for closure and close the acknowledgement
+     Then user will be notified by "forwarded"
+     And current user logs out
 
-    When Executive_engineer logs in
-    And he chooses to act upon above sewerage connection for closure
-    And he approve the above sewerage application
-    And he closes the seweargeClosure acknowledgement
-    Then user will be notified by "successfully"
-    And current user logs out
+     When Executive_engineer logs in
+     And he chooses to act upon above sewerage connection for closure
+     And he approve the above sewerage application
+     And he closes the seweargeClosure acknowledgement
+     Then user will be notified by "successfully"
+     And current user logs out
 
-    When creator logs in
-    And he chooses to act upon above sewerage connection for closure
-    And he generates closure notice
-    And current user logs out
+     When creator logs in
+     And he chooses to act upon above sewerage connection for closure
+     And he generates closure notice
+     And current user logs out
 
 
 
