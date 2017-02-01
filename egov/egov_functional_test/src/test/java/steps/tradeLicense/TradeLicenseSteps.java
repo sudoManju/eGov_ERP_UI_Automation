@@ -60,8 +60,8 @@ public class TradeLicenseSteps extends BaseSteps implements En {
         And("^he closes the acknowledgement page$", () -> {
             pageStore.get(TradeLicensePage.class).closeAcknowledgement();
         });
-        And("^he approves the closure$", () -> {
-            pageStore.get(TradeLicensePage.class).closureApproval();
+        And("^he approves application$", () -> {
+            pageStore.get(TradeLicensePage.class).applicationApproval();
         });
 
         And("^he generates the license certificate$", () -> {
@@ -94,6 +94,9 @@ public class TradeLicenseSteps extends BaseSteps implements En {
         });
         And("^he search trade license with status \"([^\"]*)\"$", (String status) -> {
             pageStore.get(TradeLicensePage.class).enterStatus(status);
+        });
+        And("^he approves the closure$", () -> {
+            pageStore.get(TradeLicensePage.class).closureApproval();
         });
 
 

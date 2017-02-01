@@ -140,6 +140,9 @@ public class TradeLicensePage extends BasePage {
     @FindBy(xpath = ".//*[@id='searchForm']/div[2]/div/button[3]")
     private WebElement closeSearch;
 
+    @FindBy(id = "inactive")
+    private WebElement includeInactiveElementCheck;
+
 
     String tradeApplicationNumber;
 
@@ -203,6 +206,7 @@ public class TradeLicensePage extends BasePage {
     public void enterApplicationNumber(String applicationNumber) {
         waitForElementToBeVisible(applicationNumberTextBox, webDriver);
         enterText(applicationNumberTextBox , applicationNumber);
+        includeInactiveElementCheck.click();
         searchButton.click();
     }
 
@@ -274,7 +278,7 @@ public class TradeLicensePage extends BasePage {
         switchToPreviouslyOpenedWindow(webDriver);
     }
 
-    public void closureApproval() {
+    public void applicationApproval() {
 
 
         WebElement element = webDriver.findElement(By.id("boundary"));
@@ -314,6 +318,8 @@ public class TradeLicensePage extends BasePage {
                 break;
             }
         }
+        webDriver.close();
+        switchToPreviouslyOpenedWindow(webDriver);
     }
 
     public void enterApplicationNumberReadingFromExcel(SearchTradeDetails searchId) {
@@ -367,5 +373,10 @@ public class TradeLicensePage extends BasePage {
         new Select(show).selectByVisibleText("100");
     }
 
+    public void closureApproval() {
+        waitForElementToBeClickable(approverRemarkTextBox , webDriver);
+        enterText(approverRemarkTextBox, "Approved");
+        approveButton.click();
+    }
 }
 

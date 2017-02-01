@@ -49,22 +49,21 @@ Feature: Create Trade License
 
     When commissioner logs in
     And he choose to act upon the above application number
-    And he approves the closure
+    And he approves application
     And he closes the acknowledgement
     And current user logs out
 
     When creator logs in
     And he choose to act upon the above application number
     And he generates the license certificate
+    And current user logs out
+
 
 
 
 
       Examples:
         |   tradeDetailsData         |       tradeLocationData           |            tradeDetailsData1    |
-        |   ownerDetailsTradeLicense |       locationDetailsTradeLicense |          tradeDetailsTradeLicense |
-        |   ownerDetailsTradeLicense |       locationDetailsTradeLicense |          tradeDetailsTradeLicense |
-        |   ownerDetailsTradeLicense |       locationDetailsTradeLicense |          tradeDetailsTradeLicense |
         |   ownerDetailsTradeLicense |       locationDetailsTradeLicense |          tradeDetailsTradeLicense |
 
        # CREATE LEGENCY TRADE LICENSE #
@@ -117,7 +116,7 @@ Feature: Create Trade License
 
       # Trade License Renewal #
 
-    @WIP
+    @Sanity
     Scenario Outline: Renewal of Trade License
       Given creator logs in
       When he choose to create legency trade license
@@ -146,14 +145,14 @@ Feature: Create Trade License
 
       When commissioner logs in
       And he choose to act upon the above application number
-      And he approves the closure
+      And he approves application
       And he closes the acknowledgement
       And current user logs out
 
       When creator logs in
       And he choose to act upon the above application number
       And he generates the license certificate
-
+      And current user logs out
 
       Examples:
         |   tradeDetailsData         |       tradeLocationData           |            tradeDetailsData1    |
