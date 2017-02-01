@@ -889,20 +889,12 @@ public class DashboardPage extends BasePage {
         switchToPreviouslyOpenedWindow(driver);
     }
 
-
-    public String getProfileName() {
-        waitForElementToBeVisible(profileNameLink, driver);
-        return profileNameLink.getText();
-    }
-
-
     public void chooseToBankRemittance() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("bank remittance");
         waitForElementToBeClickable(bankRemittanceLink,driver);
         bankRemittanceLink.click();
         switchToNewlyOpenedWindow(driver);
-
     }
 
     public void choosesToRenewalAdvertisement() {
@@ -973,6 +965,7 @@ public class DashboardPage extends BasePage {
         }
         throw new RuntimeException("No application row found for -- " + crn);
     }
+
     public void chooseForRemittanceAssignment(){
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("Cheque Assignment");

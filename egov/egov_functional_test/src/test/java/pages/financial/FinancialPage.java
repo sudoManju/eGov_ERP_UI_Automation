@@ -426,6 +426,7 @@ public class FinancialPage extends BasePage {
 
     public String enterFinanceApprovalDetails(ApprovalDetails approvalDetails) throws ParseException {
 
+        webDriver.manage().window().maximize();
         String userName = "";
         if(juneDate.contains("06")){
             createAndApprove.click();
@@ -445,7 +446,7 @@ public class FinancialPage extends BasePage {
         }
 
         Select approverPos = new Select(approverPosition);
-        userName = approverPos.getOptions().get(1).getText();
+        userName = approverPos.getOptions().get(1).getText().split("\\ ")[0];
         approverPos.getOptions().get(1).click();
 
         forwardButton.click();
@@ -475,42 +476,42 @@ public class FinancialPage extends BasePage {
         return number;
     }
 
-    public void openVoucherFromInbox(String voucherNumber){
-        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        WebElement element = getVoucherRow(voucherNumber , "no");
+    public void openVoucherFromInboxOrDrafts(String voucherNumber){
+        WebElement element = getVoucherRow(voucherNumber);
         element.click();
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    public void openVoucherFromDrafts(String voucherNumber){
+    private WebElement getVoucherRow(String voucherNumber){
 
-        waitForElementToBeClickable(draftsLink , webDriver);
-        draftsLink.click();
-        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        WebElement element = getVoucherRow(voucherNumber , "yes");
-        element.click();
-        switchToNewlyOpenedWindow(webDriver);
-    }
-
-    private WebElement getVoucherRow(String voucherNumber , String draft) {
-
-        if(draft.equalsIgnoreCase("yes")){
-            waitForElementToBeVisible(officialDraftsTable, webDriver);
-            await().atMost(10, SECONDS).until(() -> officialDraftsTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
-            voucherRows = officialDraftsTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-        }
-        else {
+        try{
             waitForElementToBeVisible(officialInboxTable, webDriver);
 
-            await().atMost(10, SECONDS).until(() -> officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
+            await().atMost(20, SECONDS).until(() -> officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
             voucherRows = officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-        }
 
-        for (WebElement voucherRow : voucherRows) {
-            if (voucherRow.findElements(By.tagName("td")).get(4).getText().contains(voucherNumber))
-                return voucherRow;
+            for (WebElement voucherRow : voucherRows) {
+                if (voucherRow.findElements(By.tagName("td")).get(4).getText().contains(voucherNumber))
+                    return voucherRow;
+            }
+            throw new RuntimeException("No voucher row found in Inbox -- " + voucherNumber);
         }
-        throw new RuntimeException("No voucher row found for -- " + voucherNumber);
+        catch (Exception e){
+
+            waitForElementToBeClickable(draftsLink , webDriver);
+            draftsLink.click();
+
+            webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            waitForElementToBeVisible(officialDraftsTable, webDriver);
+            await().atMost(20, SECONDS).until(() -> officialDraftsTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
+            voucherRows = officialDraftsTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
+
+            for (WebElement voucherRow : voucherRows) {
+                if (voucherRow.findElements(By.tagName("td")).get(4).getText().contains(voucherNumber))
+                    return voucherRow;
+            }
+            throw new RuntimeException("No voucher row found in Inbox and Drafts -- " + voucherNumber);
+        }
     }
 
     public void approvalPage(){

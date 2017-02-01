@@ -19,7 +19,7 @@ Feature: To create a new remittance recovery
 
 #    And assistantExaminer logs in
     And the next user will be logged in
-    And the officer will click on the voucher number
+    And the officer will click on the above voucher number
     And officer will enter the approval details as <approvalOfficer2>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
@@ -27,7 +27,7 @@ Feature: To create a new remittance recovery
 
 #    And examiner logs in
     And the next user will be logged in
-    And the officer will click on the voucher number
+    And the officer will click on the above voucher number
     And officer will enter the approval details as <approvalOfficer3>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
@@ -35,7 +35,7 @@ Feature: To create a new remittance recovery
 
 #    And commissioner logs in
     And the next user will be logged in
-    And the officer will click on the voucher number
+    And the officer will click on the above voucher number
     And officer click on approval of the voucher
     And officer will closes the acknowledgement page
     Then user will be notified by "approved"
@@ -51,14 +51,14 @@ Feature: To create a new remittance recovery
     And current user logs out
 
     And examiner logs in
-    And the officer will click on the voucher number
+    And the officer will click on the above voucher number
     And officer will enter the approval details as <approvalOfficer3>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
     And commissioner logs in
-    And the officer will click on the voucher number
+    And the officer will click on the above voucher number
     And officer click on approval of the voucher
     And officer will closes the acknowledgement page
     Then user will be notified by "approved"

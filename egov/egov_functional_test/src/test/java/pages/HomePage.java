@@ -38,7 +38,7 @@ public class HomePage extends BasePage {
 
     public void loginAs(LoginDetails loginDetails) {
 
-        //isImageLoaded();
+//        isImageLoaded();
         userNameTextBox.sendKeys(loginDetails.getLoginId());
         passwordTextBox.sendKeys(loginDetails.getPassword());
 

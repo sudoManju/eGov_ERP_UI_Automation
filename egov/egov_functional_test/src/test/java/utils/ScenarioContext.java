@@ -38,29 +38,9 @@ public class ScenarioContext implements Serializable {
 
     private String user;
 
-    private String previousUser;
-
     private String CRN;
 
     private String commAssessmentNumber;
-
-    private String voucherBillNumber;
-
-    public String getVoucherBillNumber() {
-        return voucherBillNumber;
-    }
-
-    public void setVoucherBillNumber(String voucherBillNumber) {
-        this.voucherBillNumber = voucherBillNumber;
-    }
-
-    public String getPreviousUser() {
-        return previousUser;
-    }
-
-    public void setPreviousUser(String previousUser) {
-        this.previousUser = previousUser;
-    }
 
     public String getUser() {
         return user;
@@ -116,7 +96,6 @@ public class ScenarioContext implements Serializable {
 
     public void setLoaNumber(String loaNumber) {
         this.loaNumber = loaNumber;
-
     }
 
     public String getVoucherNumber() {
