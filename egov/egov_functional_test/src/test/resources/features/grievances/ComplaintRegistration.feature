@@ -36,8 +36,28 @@ Feature: Register Complaint
       |contactInfo    |grievanceDetails |
 
 
+
   @Sanity
-  Scenario Outline: Official Register Grievance
+  Scenario Outline:  Official Register Grievance
+   Given creator logs in
+   When he choose to register complaint
+   And he choose to enter contact information as <contactDetails>
+   And he choose to enter grievance details as <grievanceDetails>
+   And official create grievance
+   And official copies CRN and closes the acknowledgement
+   And current user logs out
+
+    Examples:
+      |contactDetails |grievanceDetails |
+      |contactInfo    |grievanceDetails |
+
+
+
+
+    
+  @WIP
+
+  Scenario Outline: Official Register Grievance and forwards
 
     Given creator logs in
     When he choose to register complaint
