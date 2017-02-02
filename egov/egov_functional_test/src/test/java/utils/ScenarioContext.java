@@ -42,6 +42,15 @@ public class ScenarioContext implements Serializable {
 
     private String commAssessmentNumber;
 
+    private String registrationNumber;
+
+    public void setRegistrationNumber(String Number){
+        this.registrationNumber = registrationNumber;
+    }
+
+    public String getRegistrationNumber(){
+        return registrationNumber;
+    }
     public String getUser() {
         return user;
     }

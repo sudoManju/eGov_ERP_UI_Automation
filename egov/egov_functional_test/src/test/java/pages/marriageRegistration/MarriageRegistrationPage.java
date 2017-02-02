@@ -96,6 +96,18 @@ public class MarriageRegistrationPage extends BasePage {
     @FindBy(css = "input[type='button'][value='Close']")
     private WebElement closeButton;
 
+    @FindBy(css = "input[id='inboxsearch'][type='text']")
+    private WebElement inboxSearchTextBox;
+
+    @FindBy(id = "official_inbox")
+    private WebElement inboxTable;
+
+    @FindBy(css = "li[role='presentation'] a[data-now='Marriage%20Registration%20%3A%3A%20New%20Registration']")
+    private WebElement marraigeRegistrationsLink;
+
+    @FindBy(id = "Approve")
+    private WebElement approveButton;
+
     public  MarriageRegistrationPage(WebDriver driver){ this.driver = driver;}
 
     public void enterApplicantsInformation(MarriageRegistrationInformation marriageRegistrationInformation) {
@@ -235,5 +247,47 @@ public class MarriageRegistrationPage extends BasePage {
         closeButton.click();
 
         switchToPreviouslyOpenedWindow(driver);
+    }
+
+    public void searchForApplicationInbox(String applicationNumber) {
+        waitForElementToBeVisible(inboxSearchTextBox,driver);
+        inboxSearchTextBox.sendKeys(applicationNumber);
+
+    }
+
+    public void selectAboveApplication(String applicationNumber) {
+        waitForElementToBeVisible(inboxTable,driver);
+        waitForElementToBeClickable(inboxTable,driver);
+
+        List<WebElement> totalRows = inboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
+//        System.out.println("\n "+ totalRows.size());
+
+        for (WebElement applicationRow : totalRows){
+            if(applicationRow.findElements(By.tagName("td")).get(4).getText().contains(applicationNumber)){
+                applicationRow.click();
+                break;
+            }
+        }
+
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void searchForMarriageRegistration() {
+        waitForElementToBeVisible(marraigeRegistrationsLink,driver);
+        marraigeRegistrationsLink.click();
+    }
+
+
+    public void approve() {
+        waitForElementToBeClickable(approveButton,driver);
+        approveButton.click();
+    }
+
+    public String getRegistrationNumber(){
+        String msg = creationMessage.getText();
+        String number = msg.split("\\ ")[7];
+        System.out.println(number);
+
+        return number;
     }
 }
