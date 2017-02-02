@@ -371,12 +371,14 @@ public class AdvertisementsPage extends BasePage {
         waitForElementToBeClickable(approveButton,driver);
         approveButton.click();
 
-    }
+        Boolean isPresent = driver.findElements(By.id("Approve")).size() > 0;
 
-    public String getAdvertisementNumber() {
-        if(!driver.findElement(By.xpath(".//*[@id='advertisementSuccessform']/div/div/div")).isDisplayed()){
+        if(isPresent){
             approveButton.click();
+            System.out.println("success");
         }
+    }
+    public String getAdvertisementNumber() {
         waitForElementToBeVisible(creationMsg,driver);
         String number = creationMsg.getText();
 
