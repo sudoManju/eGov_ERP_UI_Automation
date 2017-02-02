@@ -1023,5 +1023,13 @@ public class DashboardPage extends BasePage {
         generalRevisionPetitionLink.click();
         switchToNewlyOpenedWindow(driver);
     }
+
+    public void chooseToCreateLegacySewerageConnection() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Data entry screen");
+        waitForElementToBeClickable(newSewerageConnectionLink,driver);
+        newSewerageConnectionLink.click();
+        switchToNewlyOpenedWindow(driver);
+    }
 }
 

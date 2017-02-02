@@ -1,5 +1,6 @@
 package steps.sewerageTax;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.works.ApproverDetails;
 import pages.DashboardPage;
@@ -252,6 +253,24 @@ public class newSewerageConnectionSteps extends BaseSteps implements En {
         });
         And("^he generates closure notice$", () -> {
             pageStore.get(newSewerageConnectionPage.class).generateClosureNotice();
+        });
+        And("^he chooses to create a legacy sewerage connection$", () -> {
+           pageStore.get(DashboardPage.class).chooseToCreateLegacySewerageConnection();
+        });
+        And("^he enter details for legacy sewerage connection$", () -> {
+           pageStore.get(newSewerageConnectionPage.class).enterDetailsForLegacySewerageConnection(scenarioContext.getAssessmentNumber());
+        });
+        And("^he submit the application of legacy sewerage connection and closes the acknowledgement$", () -> {
+           pageStore.get(newSewerageConnectionPage.class).submit();
+
+            scenarioContext.setApplicationNumber(pageStore.get(newSewerageConnectionPage.class).getApplicationNumberForLegacyCreation());
+
+            scenarioContext.setAssessmentNumber(pageStore.get(newSewerageConnectionPage.class).getSuccessMessage1());
+
+            pageStore.get(newSewerageConnectionPage.class).close();
+        });
+        And("^he search application and generate demand bill$", () -> {
+           pageStore.get(newSewerageConnectionPage.class).searchAndGenerateDemandBill(scenarioContext.getApplicationNumber());
         });
     }
 }

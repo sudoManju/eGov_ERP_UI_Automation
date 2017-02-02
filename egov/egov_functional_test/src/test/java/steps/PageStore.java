@@ -41,4 +41,5 @@ public class PageStore {
         webDriver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         return webDriver;
     }
+
 }

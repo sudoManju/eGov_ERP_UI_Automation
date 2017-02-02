@@ -12,7 +12,7 @@ Feature: Create/renewal/closure of sewerage connection
     And he choose to close the dataentry acknowledgement screen
     And current user logs out
 
-@sewerage @WIP
+@sewerage @Sanity
 
   Scenario: create/change/closure of sewerage connection
 
@@ -170,6 +170,25 @@ Feature: Create/renewal/closure of sewerage connection
      And he chooses to act upon above sewerage connection for closure
      And he generates closure notice
      And current user logs out
+
+
+
+@sewerage @Sanity
+
+ Scenario: Generate demand bill for legacy sewerage connection
+
+  Given admin logs in
+  And he chooses to create a legacy sewerage connection
+  And he enter details for legacy sewerage connection
+  And he submit the application of legacy sewerage connection and closes the acknowledgement
+  And current user logs out
+
+  When creator logs in
+  And he chooses to search for above sewerage connection
+  And he search application and generate demand bill
+  And current user logs out
+
+
 
 
 

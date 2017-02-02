@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -127,8 +128,28 @@ public class newSewerageConnectionPage extends BasePage {
     @FindBy(id = "Generate Close Connection Notice")
     private WebElement generateClosureNoticeButton;
 
+    @FindBy(css = "input[id='shscNumber'][type='text']")
+    private WebElement hscNumberTextBox;
+
+    @FindBy(css = "input[id='executionDate'][type='text']")
+    private WebElement executionDateTextBox;
+
+    @FindBy(css = "input[id='demandDetailBeanList0actualAmount'][type='text']")
+    private WebElement demandTextBox;
+
+    @FindBy(css = "input[id='demandDetailBeanList0actualCollection'][type='text']")
+    private WebElement collectionTextBox;
+
+    @FindBy(id = "submit")
+    private WebElement submitButton;
+
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    Date dt = new Date();
     String date = sdf.format(new Date());
+
+    String min = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
+    String hour = String.valueOf(Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
+    String min1 = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
 
     public newSewerageConnectionPage(WebDriver driver) {
         this.driver = driver;
@@ -172,6 +193,15 @@ public class newSewerageConnectionPage extends BasePage {
     public String getSuccessMessage1() {
         waitForElementToBeVisible(successMessageForSewerageConnectionText1,driver);
         return successMessageForSewerageConnectionText1.getText();
+    }
+
+    public String getApplicationNumberForLegacyCreation(){
+        waitForElementToBeVisible(successMessageForSewerageConnectionText1,driver);
+
+        String num1 = successMessageForSewerageConnectionText1.getText().split("\\ ")[5].substring(1,14);
+        System.out.println("\n "+num1);
+
+        return num1;
     }
 
     public String getSuccessMessage1ForChangeSewerage() {
@@ -397,6 +427,59 @@ public class newSewerageConnectionPage extends BasePage {
 
         driver.manage().timeouts().implicitlyWait(2,TimeUnit.SECONDS);
         driver.close();
+        switchToPreviouslyOpenedWindow(driver);
+    }
+
+    public void enterDetailsForLegacySewerageConnection(String assessmentNumber) {
+        waitForElementToBeVisible(PTAssessmentNumberTextBox,driver);
+        PTAssessmentNumberTextBox.sendKeys(assessmentNumber);
+
+        waitForElementToBeClickable(hscNumberTextBox,driver);
+        hscNumberTextBox.sendKeys("1016"+hour+hour+min1+min);
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(dt);
+        c.add(Calendar.DATE, -1);
+        String date1 = sdf.format(c.getTime());
+
+        waitForElementToBeClickable(executionDateTextBox,driver);
+        executionDateTextBox.sendKeys(date1);
+
+        waitForElementToBeVisible(demandTextBox,driver);
+        demandTextBox.sendKeys("1000");
+
+        waitForElementToBeClickable(collectionTextBox,driver);
+        collectionTextBox.sendKeys("0");
+
+        waitForElementToBeClickable(propertyTypeDropBox,driver);
+        new Select(propertyTypeDropBox).selectByVisibleText("RESIDENTIAL");
+
+        waitForElementToBeVisible(noOfClosetsTextBox,driver);
+        noOfClosetsTextBox.sendKeys("3");
+    }
+
+    public void submit() {
+        waitForElementToBeClickable(submitButton,driver);
+        submitButton.click();
+    }
+
+    public void searchAndGenerateDemandBill(String number) {
+        waitForElementToBeVisible(applicationNumberTextBox,driver);
+        applicationNumberTextBox.sendKeys(number);
+
+        waitForElementToBeClickable(searchButton,driver);
+        searchButton.click();
+
+        waitForElementToBeVisible(searchResultsTable,driver);
+        WebElement dropDownAction = searchResultsTable.findElement(By.tagName("tbody")).findElement(By.tagName("tr")).findElements(By.tagName("td")).get(1).findElement(By.tagName("a"));
+        String hscNumber = dropDownAction.getText();
+
+        driver.navigate().to("http://kurnool-uat.egovernments.org/stms/reports/generate-sewerage-demand-bill/"+number+"/"+hscNumber);
+
+        driver.manage().timeouts().implicitlyWait(15,TimeUnit.SECONDS);
+
+        driver.close();
+
         switchToPreviouslyOpenedWindow(driver);
     }
 }
