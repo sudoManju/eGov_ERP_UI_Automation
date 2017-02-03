@@ -121,7 +121,8 @@ Feature: Register Complaint
       |grievanceDetails |
 
 
-   @WIP
+   @Sanity
+     
    Scenario Outline: Citizen register a complaint and withdraw it
 
      Given citizen logs in
