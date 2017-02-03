@@ -124,11 +124,6 @@ public class MilestoneTrackPage extends BasePage {
 
     public void select() {
         waitForElementToBeVisible(searchTableForCreate,driver);
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         waitForElementToBeVisible(radioButton,driver);
         jsClick(radioButton,driver);
@@ -250,12 +245,6 @@ public class MilestoneTrackPage extends BasePage {
         waitForElementToBeVisible(status1,driver);
         new Select(status1).selectByVisibleText("COMPLETED");
 
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         WebElement completionDateBox1 = element1.findElement(By.name("trackMilestone[0].activities[0].completionDate"));
         completionDateBox1.sendKeys(element2.getText(),Keys.TAB , Keys.ARROW_DOWN);
         WebElement status2 = element1.findElement(By.name("trackMilestone[0].activities[1].status"));
@@ -263,11 +252,7 @@ public class MilestoneTrackPage extends BasePage {
         waitForElementToBeVisible(status2,driver);
         new Select(status2).selectByVisibleText("COMPLETED");
 
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        await().atMost(1, SECONDS);
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date dt = new Date();

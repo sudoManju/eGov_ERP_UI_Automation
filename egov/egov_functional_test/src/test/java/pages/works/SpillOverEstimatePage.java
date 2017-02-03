@@ -383,17 +383,15 @@ public class SpillOverEstimatePage extends BasePage
     }
 
     public void openApplication(String estimateNumber) {
-        waitForElementToBeVisible(estimateLink,webDriver);
-        estimateLink.click();
 
+        await().atMost(20, SECONDS).until(() -> workListTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
         List<WebElement> totalRows = workListTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-        System.out.println("\n"+totalRows.size());
+        System.out.println("\n" + totalRows.size());
         for (WebElement applicationRow : totalRows) {
             if (applicationRow.findElements(By.tagName("td")).get(4).getText().contains(estimateNumber))
                 applicationRow.click();
                 break;
         }
-
         switchToNewlyOpenedWindow(webDriver);
     }
 
