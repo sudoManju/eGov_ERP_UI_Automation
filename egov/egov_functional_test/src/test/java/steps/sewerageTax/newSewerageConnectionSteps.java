@@ -93,7 +93,6 @@ public class newSewerageConnectionSteps extends BaseSteps implements En {
             pageStore.get(newSewerageConnectionPage.class).close();
         });
         And("^he chooses to act upon above sewerage application$", () -> {
-            pageStore.get(newSewerageConnectionPage.class).searchForApplicationInbox(scenarioContext.getApplicationNumber());
 
             pageStore.get(newSewerageConnectionPage.class).selectAboveApplication(scenarioContext.getApplicationNumber());
         });

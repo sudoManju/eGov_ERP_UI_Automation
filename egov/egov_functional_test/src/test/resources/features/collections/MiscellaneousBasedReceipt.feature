@@ -36,7 +36,7 @@ Examples:
     And user closes the acknowledgement
     And current user logs out
 
-    And adm_manager_1 logs in
+    And adm_manager logs in
     And he chooses to act upon the above receipt in inbox
     And he approves all collections
     Then user will be notified by "Approved"
@@ -54,7 +54,7 @@ Examples:
 
   Scenario: Remittance of receipt
 
-     Given adm_manager_1 logs in
+     Given adm_manager logs in
      And he chooses to bank remittance
      And he select the required file with bank details
      Then user will be notified by "successfully"

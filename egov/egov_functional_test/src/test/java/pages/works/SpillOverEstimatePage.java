@@ -222,11 +222,6 @@ public class SpillOverEstimatePage extends BasePage
         new Select(functionBox).selectByVisibleText(financialDetails.getFunction());
 
         waitForElementToBeClickable(budgetHeadBox,webDriver);
-        try {
-            Thread.sleep(10);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         new Select(budgetHeadBox).selectByVisibleText(financialDetails.getBudgetHead());
     }
 
@@ -384,7 +379,7 @@ public class SpillOverEstimatePage extends BasePage
 
     public void openApplication(String estimateNumber) {
 
-        await().atMost(20, SECONDS).until(() -> workListTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
+        await().atMost(20, SECONDS).until(() -> workListTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 0);
         List<WebElement> totalRows = workListTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
         System.out.println("\n" + totalRows.size());
         for (WebElement applicationRow : totalRows) {

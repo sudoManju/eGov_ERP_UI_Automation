@@ -15,6 +15,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static com.jayway.awaitility.Awaitility.await;
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 /**
  * Created by karthik on 27/1/17.
  */
@@ -282,8 +285,8 @@ public class newSewerageConnectionPage extends BasePage {
         waitForElementToBeVisible(inboxTable,driver);
         waitForElementToBeClickable(inboxTable,driver);
 
+        await().atMost(20, SECONDS).until(() -> inboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 0);
         List<WebElement> totalRows = inboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-//        System.out.println("\n "+ totalRows.size());
 
         for (WebElement applicationRow : totalRows){
             if(applicationRow.findElements(By.tagName("td")).get(4).getText().contains(applicationNumber)){
@@ -313,27 +316,13 @@ public class newSewerageConnectionPage extends BasePage {
         waitForElementToBeClickable(generateEstimationNoticeButton,driver);
         generateEstimationNoticeButton.click();
 
-        try {
-            TimeUnit.SECONDS.sleep(3);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        await().atMost(3, SECONDS);
 
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         driver.close();
         switchToPreviouslyOpenedWindow(driver);
     }
 
-    public void searchForApplicationInbox(String num) {
-        waitForElementToBeVisible(inboxSearchTextBox,driver);
-        inboxSearchTextBox.sendKeys(num);
 
-        try {
-            TimeUnit.SECONDS.sleep(3);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void generateWorkOrder(String num) {
         waitForElementToBeVisible(generateWorkOrderLink,driver);
