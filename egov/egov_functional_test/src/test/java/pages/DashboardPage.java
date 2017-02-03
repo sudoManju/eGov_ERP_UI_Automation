@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -282,6 +283,15 @@ public class DashboardPage extends BasePage {
 
     @FindBy(linkText = "Search Legal Case")
     private WebElement searchLegalCase;
+
+    @FindBy(css = "a[href='/mrs/registration/createdataentry']")
+    private WebElement marriageRegDataEntryLink;
+
+    @FindBy(id = "applicationNum")
+    private WebElement marriageRegApplNum;
+
+    @FindBy(xpath = ".//*[@id='registrationNum']")
+    private WebElement marriageRegNum;
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -1046,12 +1056,26 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-    public void chooseToSearchLegalCase(){
+    public void chooseToSearchLegalCase() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("Search Legal Case");
         waitForElementToBeClickable(searchLegalCase, driver);
         searchLegalCase.click();
         switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseForDataEntry() {
+        String min = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchTreeTextBox.click();
+        searchFor("Data Entry Screen");
+        waitForElementToBeClickable(marriageRegDataEntryLink, driver);
+        marriageRegDataEntryLink.click();
+        switchToNewlyOpenedWindow(driver);
+        waitForElementToBeClickable(marriageRegApplNum, driver);
+        marriageRegApplNum.sendKeys("AN123"+min);
+        waitForElementToBeClickable(marriageRegNum, driver);
+        marriageRegNum.sendKeys("123"+min);
     }
 }
 

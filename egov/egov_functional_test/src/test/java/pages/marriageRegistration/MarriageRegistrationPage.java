@@ -1,12 +1,18 @@
 package pages.marriageRegistration;
 
 import entities.marriageRegistration.MarriageRegistrationInformation;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -108,9 +114,28 @@ public class MarriageRegistrationPage extends BasePage {
     @FindBy(id = "Approve")
     private WebElement approveButton;
 
+    @FindBy(id = "txt-serialNo")
+    private WebElement marriageSerialNum;
+
+    @FindBy(xpath = ".//*[@id='txt-pageNo']")
+    private WebElement marriagePageNum;
+
+    @FindBy(id = "dataEntrySubmit")
+    private WebElement dataEntrySubmitButton;
+
+    @FindBy(id = "file1id")
+    private WebElement memorandumOfMarriage;
+
+    @FindBy(className = "today active day")
+    private WebElement todayDatePicker;
+
     public  MarriageRegistrationPage(WebDriver driver){ this.driver = driver;}
 
     public void enterApplicantsInformation(MarriageRegistrationInformation marriageRegistrationInformation) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String date = sdf.format(new Date());
+
         waitForElementToBeClickable(registrationUnit, driver);
         registrationUnit.sendKeys(marriageRegistrationInformation.getRegistrationUnit());
         waitForElementToBeClickable(street.get(0), driver);
@@ -120,6 +145,9 @@ public class MarriageRegistrationPage extends BasePage {
         waitForElementToBeClickable(city.get(0), driver);
         city.get(0).sendKeys(marriageRegistrationInformation.getCity());
         waitForElementToBeClickable(venueOfMarriage, driver);
+        waitForElementToBeClickable(dateOfMarriage, driver);
+        dateOfMarriage.click();
+        new Select(todayDatePicker).selectByVisibleText("3");
         venueOfMarriage.sendKeys(marriageRegistrationInformation.getVenueOfMarriage());
         waitForElementToBeClickable(placeOfMarriage, driver);
         placeOfMarriage.sendKeys(marriageRegistrationInformation.getPlaceOfMarriage());
@@ -225,8 +253,7 @@ public class MarriageRegistrationPage extends BasePage {
         birthCertificateForBride.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
         proofofResidenceForBridegroom.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
         proofofResidenceForBride.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
-
-
+        memorandumOfMarriage.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
     }
 
     public String getApplicationNumber() {
@@ -289,5 +316,22 @@ public class MarriageRegistrationPage extends BasePage {
         System.out.println(number);
 
         return number;
+    }
+
+    public void enterMarriageRegNum() {
+        String min = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
+        waitForElementToBeClickable(marriageSerialNum, driver);
+        marriageSerialNum.sendKeys("0123"+min);
+        waitForElementToBeClickable(marriagePageNum, driver);
+        marriagePageNum.sendKeys("0123"+min);
+    }
+
+    public void isSuccesful(String expectedMessage,String actualMessage){
+        waitForElementToBeClickable(dataEntrySubmitButton, driver);
+        jsClick(dataEntrySubmitButton, driver);
+//        Boolean found = Arrays.asList(actualMessage.split(" ")).contains(expectedMessage);
+//        Assert.assertTrue(found);
+
+//        Assert.assertEquals(expectedMessage,actualMessage);
     }
 }

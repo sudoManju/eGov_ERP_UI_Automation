@@ -267,6 +267,9 @@ public class DashboardSteps extends BaseSteps implements En {
         And("^he choose to do general revision petition$", () -> {
             pageStore.get(DashboardPage.class).chooseForGeneralRevisionPetition();
         });
+        And("^he chooses data entry in marriage registration$", () -> {
+            pageStore.get(DashboardPage.class).chooseForDataEntry();
+        });
 
         And("^user search for to create the legal case$", () -> {
             pageStore.get(DashboardPage.class).chooseToCreateLegalCase();

@@ -4,6 +4,7 @@ import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.marriageRegistration.MarriageRegistrationInformation;
 import entities.works.ApproverDetails;
+import pages.BasePage;
 import pages.SewerageTax.newSewerageConnectionPage;
 import pages.marriageRegistration.MarriageRegistrationPage;
 import pages.works.SpillOverEstimatePage;
@@ -60,6 +61,14 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
 
            pageStore.get(MarriageRegistrationPage.class).close();
 
+        });
+        And("^he enters the serial and page number$", () -> {
+            pageStore.get(MarriageRegistrationPage.class).enterMarriageRegNum();
+        });
+
+        And("^he submit the data entry and he notified by \"([^\"]*)\"$", (String expectedMessage) -> {
+            String actualMessage = scenarioContext.getActualMessage();
+            pageStore.get(MarriageRegistrationPage.class).isSuccesful(expectedMessage,actualMessage);
         });
 
     }

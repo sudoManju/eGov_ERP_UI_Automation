@@ -91,9 +91,9 @@ public class BasePage {
     protected void switchToPreviouslyOpenedWindow(WebDriver driver) {
         await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
         for (String winHandle : driver.getWindowHandles()) {
-            driver.switchTo().window(winHandle);
-        }
+        driver.switchTo().window(winHandle);
     }
+}
 
     protected String get6DigitRandomInt() {return String.valueOf((100000 + RandomUtils.nextInt(900000)));
     }
@@ -126,6 +126,7 @@ public class BasePage {
     }
 
     public void isSuccesful(String expectedMessage,String actualMessage){
+
 
         Boolean found = Arrays.asList(actualMessage.split(" ")).contains(expectedMessage);
         Assert.assertTrue(found);
