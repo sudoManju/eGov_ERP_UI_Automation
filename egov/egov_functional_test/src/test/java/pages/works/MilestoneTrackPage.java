@@ -112,11 +112,8 @@ public class MilestoneTrackPage extends BasePage {
     public MilestoneTrackPage(WebDriver driver) {this.driver = driver;}
 
     public void search() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String date = sdf.format(new Date());
-
         waitForElementToBeClickable(adminSanctionDateTextBox,driver);
-        adminSanctionDateTextBox.sendKeys(date, Keys.TAB);
+        adminSanctionDateTextBox.sendKeys(getCurrentDate(), Keys.TAB);
 
         waitForElementToBeVisible(searchButton,driver);
         searchButton.click();
@@ -143,18 +140,6 @@ public class MilestoneTrackPage extends BasePage {
     }
 
     public void enterMilestoneDetails() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String date = sdf.format(new Date());
-        Date dt = new Date();
-
-        Calendar c = Calendar.getInstance();
-        c.setTime(dt);
-        c.add(Calendar.DATE, 30);
-        String date1 = sdf.format(c.getTime());
-        c.add(Calendar.DATE, 1);
-        String date2 = sdf.format(c.getTime());
-        c.add(Calendar.DATE, 30);
-        String date3 = sdf.format(c.getTime());
 
         waitForElementToBeVisible(milestoneStageTbl,driver);
         WebElement requiredRow = milestoneStageTbl.findElements(By.tagName("tr")).get(0);
@@ -166,14 +151,14 @@ public class MilestoneTrackPage extends BasePage {
         stagePercentage.sendKeys("50");
 
         WebElement stageScheduleStartDate = requiredRow.findElements(By.tagName("td")).get(3).findElement(By.name("activities[0].scheduleStartDate"));
-        stageScheduleStartDate.sendKeys(date);
+        stageScheduleStartDate.sendKeys(getCurrentDate());
         stageScheduleStartDate.clear();
-        stageScheduleStartDate.sendKeys(date);
+        stageScheduleStartDate.sendKeys(getCurrentDate());
 
         WebElement stageScheduleEndDate = requiredRow.findElements(By.tagName("td")).get(4).findElement(By.name("activities[0].scheduleEndDate"));
-        stageScheduleEndDate.sendKeys(date1);
+        stageScheduleEndDate.sendKeys(getFutureDate(30));
         stageScheduleEndDate.clear();
-        stageScheduleEndDate.sendKeys(date1);
+        stageScheduleEndDate.sendKeys(getFutureDate(30));
 
         waitForElementToBeClickable(addRowButton,driver);
         addRowButton.click();
@@ -190,15 +175,14 @@ public class MilestoneTrackPage extends BasePage {
         stagePercentage1.sendKeys("50");
 
         WebElement stageScheduleStartDate1 = requiredRow1.findElements(By.tagName("td")).get(3).findElement(By.name("activities[1].scheduleStartDate"));
-        stageScheduleStartDate1.sendKeys(date2);
+        stageScheduleStartDate1.sendKeys(getFutureDate(37));
         stageScheduleStartDate1.clear();
-        stageScheduleStartDate1.sendKeys(date2);
+        stageScheduleStartDate1.sendKeys(getFutureDate(37));
 
         WebElement stageScheduleEndDate1 = requiredRow1.findElements(By.tagName("td")).get(4).findElement(By.name("activities[1].scheduleEndDate"));
-        stageScheduleEndDate1.sendKeys(date3);
+        stageScheduleEndDate1.sendKeys(getFutureDate(67));
         stageScheduleEndDate1.clear();
-        stageScheduleEndDate1.sendKeys(date3);
-
+        stageScheduleEndDate1.sendKeys(getFutureDate(67));
     }
 
     public void save() {
@@ -254,17 +238,8 @@ public class MilestoneTrackPage extends BasePage {
 
         await().atMost(1, SECONDS);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date dt = new Date();
-
-        Calendar c = Calendar.getInstance();
-        c.setTime(dt);
-        c.add(Calendar.DATE, 62);
-        String date1 = sdf.format(c.getTime());
-
-
         WebElement completionDateBox2 = element1.findElement(By.name("trackMilestone[0].activities[1].completionDate"));
-        completionDateBox2.sendKeys(date1);
+        completionDateBox2.sendKeys(getFutureDate(62));
         completionDateBox2.sendKeys(Keys.TAB);
 
         WebElement reasonForDelayTextBox = element1.findElement(By.name("trackMilestone[0].activities[1].remarks"));
@@ -282,16 +257,7 @@ public class MilestoneTrackPage extends BasePage {
         String num = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
         String transactionRefNo = num1+num;
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String date = sdf.format(new Date());
-        Date dt = new Date();
-
-        Calendar c = Calendar.getInstance();
-        c.setTime(dt);
-        c.add(Calendar.DATE,62);
-        String date1 = sdf.format(c.getTime());
-
-       switch (billType){
+        switch (billType){
            case "part":
                waitForElementToBeVisible(billTypeBox,driver);
                new Select(billTypeBox).selectByVisibleText("Part Bill");
@@ -301,10 +267,9 @@ public class MilestoneTrackPage extends BasePage {
                waitForElementToBeVisible(billTypeBox,driver);
                new Select(billTypeBox).selectByVisibleText("Final Bill");
                waitForElementToBeVisible(completionDateTextBox,driver);
-               completionDateTextBox.sendKeys(date1, Keys.TAB);
+               completionDateTextBox.sendKeys(getFutureDate(62), Keys.TAB);
                break;
-
-       }
+        }
         waitForElementToBeClickable(mbRefNoTextBox,driver);
         mbRefNoTextBox.sendKeys("MB"+transactionRefNo);
 
@@ -315,7 +280,7 @@ public class MilestoneTrackPage extends BasePage {
         toPageNoTextBox.sendKeys("10");
 
         waitForElementToBeClickable(mbDateTextBox,driver);
-        mbDateTextBox.sendKeys(date, Keys.TAB);
+        mbDateTextBox.sendKeys(getCurrentDate(), Keys.TAB);
 
         waitForElementToBeClickable(debitAmountTextBox,driver);
         debitAmountTextBox.sendKeys("1000");

@@ -24,20 +24,20 @@ Background:It will run the data entry screen of property tax
 
       And he chooses to pay tax
       And he collect tax using <paymentMode>
-      And he closes the acknowledgement
+      And user closes the acknowledgement
 
       And he clicks on drafts
       And he open application from drafts items
       And he submit all collections
       Then user will be notified by "Successfully"
-      And he closes the acknowledgement
+      And user closes the acknowledgement
       And current user logs out
 
       When adm_manager logs in
       And he chooses to act upon on receipt
       And he approves all collections
       Then user will be notified by "Approved"
-      And he closes the acknowledgement
+      And user closes the acknowledgement
       And current user logs out
 
   Examples:

@@ -172,47 +172,9 @@ public class CollectionsPage extends BasePage {
     @FindBy(id = "Paybutton")
     private WebElement onlineCardPaymentButton;
 
-
-
     public CollectionsPage(WebDriver driver) {
         this.driver = driver;
     }
-
-    public void enterChequeDetails(ChequeDetails chequeDetails) {
-        waitForElementToBeClickable(chequeModeofPaymentRadio, driver);
-        jsClick(chequeModeofPaymentRadio, driver);
-//        chequeModeofPaymentRadio.click();
-        chequeNumberTextBox.sendKeys(chequeDetails.getChequeNumber());
-        chequeDateTextBox.sendKeys(chequeDetails.getChequeDate());
-        chequeDateTextBox.sendKeys(Keys.TAB);
-        enterText(bankNameInput, chequeDetails.getBankName());
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        await().atMost(10, SECONDS).until(() -> driver.findElement(By.id("bankcodescontainer"))
-                .findElements(By.cssSelector("ul li"))
-                .get(0).click());
-
-//        amountTextBox.sendKeys(amountToBePaidLabel.getText());
-        paidByTextBox.sendKeys(chequeDetails.getPaidBy());
-//        JavascriptExecutor jse = (JavascriptExecutor) driver;
-//        jse.executeScript(String.format("document.getElementById('instrumentChequeAmount').value = '%s';", amountToBePaidLabel.getText()));
-
-//        driver.manage().timeouts().implicitlyWait(15,TimeUnit.SECONDS);
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        enterText(amountTextBox, amountToBePaidLabel.getAttribute("value").split("\\.")[0]);
-        payButton.click();
-
-//        driver.manage().timeouts().implicitlyWait(15,TimeUnit.SECONDS);
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-   }
 
     public void enterChallanHeader(ChallanHeaderDetails challanHeaderDetails) {
 
@@ -259,7 +221,6 @@ public class CollectionsPage extends BasePage {
             e.printStackTrace();
         }
         new Select(approverBox).selectByVisibleText(approverDetails.getApprover());
-
     }
 
     public void validateChallan() {
@@ -274,77 +235,9 @@ public class CollectionsPage extends BasePage {
         challanNumberTextBox.sendKeys(Keys.TAB);
     }
 
-    public void payAmount(String method) {
-
-        waitForElementToBeVisible(amountToBePaid, driver);
-        String amount = amountToBePaid.getAttribute("value");
-        String actualAmount = amount.split("\\.")[0];
-        System.out.println("\n"+actualAmount);
-
-        switch (method){
-            case "cash" :
-
-                waitForElementToBeClickable(payAmountBoxForCash,driver);
-                payAmountBoxForCash.sendKeys(actualAmount);
-
-                break;
-
-            case "cheque" :
-
-                waitForElementToBeClickable(chequeModeofPaymentRadio,driver);
-                jsClick(chequeModeofPaymentRadio,driver);
-                waitForElementToBeVisible(chequeNumberTextBox,driver);
-                chequeNumberTextBox.sendKeys("123456");
-                waitForElementToBeClickable(chequeDateTextBox,driver);
-                chequeDateTextBox.sendKeys("02/01/2017");
-                waitForElementToBeClickable(bankNameInput,driver);
-                bankNameInput.sendKeys("102");
-
-                driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-                await().atMost(10, SECONDS).until(() -> driver.findElement(By.id("bankcodescontainer"))
-                        .findElements(By.cssSelector("ul li"))
-                        .get(0).click());
-
-                bankNameInput.sendKeys(Keys.TAB);
-
-                waitForElementToBeClickable(payAmountBoxForCheque,driver);
-                payAmountBoxForCheque.sendKeys(actualAmount);
-
-                break;
-
-            case "dd" :
-
-                waitForElementToBeClickable(ddModeofPaymentRadio,driver);
-                jsClick(ddModeofPaymentRadio,driver);
-
-                waitForElementToBeVisible(chequeNumberTextBox,driver);
-                chequeNumberTextBox.sendKeys("123456");
-                waitForElementToBeClickable(chequeDateTextBox,driver);
-                chequeDateTextBox.sendKeys("02/01/2017");
-                waitForElementToBeClickable(bankNameInput,driver);
-                bankNameInput.sendKeys("102");
-
-                driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-                await().atMost(10, SECONDS).until(() -> driver.findElement(By.id("bankcodescontainer"))
-                        .findElements(By.cssSelector("ul li"))
-                        .get(0).click());
-
-                waitForElementToBeClickable(payAmountBoxForCheque,driver);
-                payAmountBoxForCheque.sendKeys(actualAmount);
-
-                break;
-
-        }
-
-
-        payButton.click();
-        switchToNewlyOpenedWindow(driver);
-    }
-
     public void collectChargeFor(String consumerNumber) {
         consumerNumberTextBox.sendKeys(consumerNumber);
         submitButton.click();
-
     }
 
     public void collectCharge() {
@@ -383,7 +276,6 @@ public class CollectionsPage extends BasePage {
         driver.navigate().to("http://kurnool-uat.egovernments.org/ptis/citizen/search/search-searchByAssessmentForm.action");
     }
 
-
     public void enerterAssessmentNumber(String assessmentNumber) {
         waitForElementToBeClickable(assessmentNumberField,driver);
         assessmentNumberField.sendKeys(assessmentNumber);
@@ -391,7 +283,6 @@ public class CollectionsPage extends BasePage {
         onlinePageCheckBox.click();
         payTaxButton.click();
         updatePayTaxButton.click();
-
     }
 
     public void enterAmountAndPayOnline() {

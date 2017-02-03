@@ -10,6 +10,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import static com.jayway.awaitility.Awaitility.await;
+import static java.util.concurrent.TimeUnit.SECONDS;
 //import org.openqa.selenium.common.touch_actions;
 
 /**
@@ -199,8 +202,6 @@ public class AdvertisementsPage extends BasePage {
     @FindBy(css = "input[id = 'chequeradiobutton'][type='radio']")
      private WebElement chequeRadioButton;
 
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    String date = sdf.format(new Date());
     String min = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
     String min1 = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
 
@@ -229,62 +230,32 @@ public class AdvertisementsPage extends BasePage {
         new Select(propertyTypeBox).selectByVisibleText("GOVERNMENT");
     }
 
-    public void enterPermissionDetails(String agencyName) {
+    public void enterPermissionDetails() {
          waitForElementToBeClickable(applicationDateBox,driver);
-         applicationDateBox.sendKeys(date, Keys.TAB);
+         applicationDateBox.sendKeys(getCurrentDate(), Keys.TAB);
 
-         waitForElementToBeClickable(agencyTextBox, driver);
-         agencyTextBox.sendKeys(agencyName);
-         waitForElementToBeVisible( driver.findElement(By.className("tt-dropdown-menu")),driver);
-         WebElement dropdown = driver.findElement(By.className("tt-dropdown-menu"));
-         dropdown.click();
-
-         waitForElementToBeClickable(adParticularTextBox,driver);
+        waitForElementToBeClickable(adParticularTextBox,driver);
          adParticularTextBox.sendKeys("For elections");
 
         waitForElementToBeClickable(ownerDetailsTextBox,driver);
         ownerDetailsTextBox.sendKeys("Bhartiya janatha party");
 
-        Calendar c = Calendar.getInstance();
-        c.setTime(new Date());
-        c.add(Calendar.DATE, 7);
-        String date1 = sdf.format(c.getTime());
         waitForElementToBeClickable(permissionStartDateBox,driver);
-        permissionStartDateBox.sendKeys(date1, Keys.TAB);
+        permissionStartDateBox.sendKeys(getFutureDate(7), Keys.TAB);
 
-        c.add(Calendar.DATE, 30);
-        String date2 = sdf.format(c.getTime());
         waitForElementToBeClickable(permissionEndDateBox,driver);
-        permissionEndDateBox.sendKeys(date2, Keys.TAB);
+        permissionEndDateBox.sendKeys(getFutureDate(37), Keys.TAB);
 
         waitForElementToBeClickable(advertismentDurationBox,driver);
         new Select(advertismentDurationBox).selectByVisibleText("MONTH");
     }
 
-    public void enterPermissionDetails1(){
-        waitForElementToBeClickable(applicationDateBox,driver);
-        applicationDateBox.sendKeys(date, Keys.TAB);
-
-        waitForElementToBeClickable(adParticularTextBox,driver);
-        adParticularTextBox.sendKeys("For elections");
-
-        waitForElementToBeClickable(ownerDetailsTextBox,driver);
-        ownerDetailsTextBox.sendKeys("Bhartiya janatha party");
-
-        Calendar c = Calendar.getInstance();
-        c.setTime(new Date());
-        c.add(Calendar.DATE, 7);
-        String date1 = sdf.format(c.getTime());
-        waitForElementToBeClickable(permissionStartDateBox,driver);
-        permissionStartDateBox.sendKeys(date1, Keys.TAB);
-
-        c.add(Calendar.DATE, 30);
-        String date2 = sdf.format(c.getTime());
-        waitForElementToBeClickable(permissionEndDateBox,driver);
-        permissionEndDateBox.sendKeys(date2, Keys.TAB);
-
-        waitForElementToBeClickable(advertismentDurationBox,driver);
-        new Select(advertismentDurationBox).selectByVisibleText("MONTH");
+    public void enterAgencyDetailsForCreationAdvertisement(String agencyName) {
+        waitForElementToBeClickable(agencyTextBox, driver);
+        agencyTextBox.sendKeys(agencyName);
+        waitForElementToBeVisible(driver.findElement(By.className("tt-dropdown-menu")), driver);
+        WebElement dropdown = driver.findElement(By.className("tt-dropdown-menu"));
+        dropdown.click();
     }
 
     public void enterLocalityDetails() {
@@ -344,9 +315,8 @@ public class AdvertisementsPage extends BasePage {
 
 
     public void selectAdvertisementTag(String applicationNumber) {
-        waitForElementToBeVisible(advertisementLink,driver);
-        advertisementLink.click();
 
+        await().atMost(25, SECONDS).until(() -> workListTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 0);
         List<WebElement> totalRows = workListTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
         System.out.println("\n"+totalRows.size());
         for (WebElement applicationRow : totalRows) {
@@ -561,7 +531,7 @@ public class AdvertisementsPage extends BasePage {
         waitForElementToBeClickable(deactivationRemarks, driver);
         deactivationRemarks.sendKeys("Deactivate the Advertisement");
         waitForElementToBeClickable(deactiveDate, driver);
-        deactiveDate.sendKeys(date);
+        deactiveDate.sendKeys(getCurrentDate());
         waitForElementToBeClickable(deactivateSubmitButton, driver);
         deactivateSubmitButton.click();
         switchToNewlyOpenedWindow(driver);

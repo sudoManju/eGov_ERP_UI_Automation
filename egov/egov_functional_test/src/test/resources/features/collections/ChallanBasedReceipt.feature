@@ -23,7 +23,7 @@ Feature: Create/Collect Challan Based Receipt
          And he search for challan receipt
          And he search for challan number
          And he pay using <paymentMethod>
-         And he closes the acknowledgement
+         And user closes the acknowledgement
          And current user logs out
 
 Examples:

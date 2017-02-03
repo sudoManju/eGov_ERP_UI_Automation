@@ -146,10 +146,6 @@ public class newSewerageConnectionPage extends BasePage {
     @FindBy(id = "submit")
     private WebElement submitButton;
 
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    Date dt = new Date();
-    String date = sdf.format(new Date());
-
     String min = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
     String hour = String.valueOf(Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
     String min1 = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
@@ -172,7 +168,7 @@ public class newSewerageConnectionPage extends BasePage {
         documentNumberTextBox.sendKeys("123");
 
         waitForElementToBeClickable(documentDateTextBox,driver);
-        documentDateTextBox.sendKeys(date);
+        documentDateTextBox.sendKeys(getCurrentDate());
 
         waitForElementToBeClickable(chooseFileButton,driver);
         chooseFileButton.sendKeys(System.getProperty("user.dir") + "/src/test/resources/loginCredentials.txt");
@@ -373,7 +369,7 @@ public class newSewerageConnectionPage extends BasePage {
         documentNumberTextBox.sendKeys("123");
 
         waitForElementToBeClickable(documentDateTextBox,driver);
-        documentDateTextBox.sendKeys(date);
+        documentDateTextBox.sendKeys(getCurrentDate());
 
         waitForElementToBeClickable(chooseFileButton,driver);
         chooseFileButton.sendKeys(System.getProperty("user.dir") + "/src/test/resources/loginCredentials.txt");
@@ -438,13 +434,8 @@ public class newSewerageConnectionPage extends BasePage {
         waitForElementToBeClickable(hscNumberTextBox,driver);
         hscNumberTextBox.sendKeys("1016"+hour+hour+min1+min);
 
-        Calendar c = Calendar.getInstance();
-        c.setTime(dt);
-        c.add(Calendar.DATE, -1);
-        String date1 = sdf.format(c.getTime());
-
         waitForElementToBeClickable(executionDateTextBox,driver);
-        executionDateTextBox.sendKeys(date1);
+        executionDateTextBox.sendKeys(getPreviousDate());
 
         waitForElementToBeVisible(demandTextBox,driver);
         demandTextBox.sendKeys("1000");

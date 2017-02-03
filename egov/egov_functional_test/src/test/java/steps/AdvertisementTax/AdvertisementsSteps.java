@@ -24,7 +24,7 @@ public class AdvertisementsSteps extends BaseSteps implements En {
         And("^he enters details for advertisement creation$", () -> {
            pageStore.get(AdvertisementsPage.class).enterAdvertisementDetails();
 
-           pageStore.get(AdvertisementsPage.class).enterPermissionDetails1();
+           pageStore.get(AdvertisementsPage.class).enterPermissionDetails();
 
            pageStore.get(AdvertisementsPage.class).enterLocalityDetails();
 
@@ -71,7 +71,6 @@ public class AdvertisementsSteps extends BaseSteps implements En {
         And("^he view and close the acknowledgement$", () -> {
             String url = "http://kurnool-uat.egovernments.org/adtax/hoarding/adtax-search";
             pageStore.get(AdvertisementsPage.class).closeMultipleWindows(url);
-//            pageStore.get(AdvertisementsPage.class).closeMultipleWindows();
         });
         And("^he choose to collect advertisement tax by advertisement wise$", () -> {
             pageStore.get(DashboardPage.class).chooseToCollectAdvTax();
@@ -123,7 +122,9 @@ public class AdvertisementsSteps extends BaseSteps implements En {
         And("^he enters details for advertisement creation with agency$", () -> {
             pageStore.get(AdvertisementsPage.class).enterAdvertisementDetails();
 
-            pageStore.get(AdvertisementsPage.class).enterPermissionDetails(scenarioContext.getAssessmentNumber());
+            pageStore.get(AdvertisementsPage.class).enterAgencyDetailsForCreationAdvertisement(scenarioContext.getAssessmentNumber());
+
+            pageStore.get(AdvertisementsPage.class).enterPermissionDetails();
 
             pageStore.get(AdvertisementsPage.class).enterLocalityDetails();
 

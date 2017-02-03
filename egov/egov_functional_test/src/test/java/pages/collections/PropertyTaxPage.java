@@ -90,9 +90,6 @@ public class PropertyTaxPage extends BasePage {
         String amount = totalAmountToBePaidText.getAttribute("value");
         String actualAmount = amount.split("\\.")[0];
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String date = sdf.format(new Date());
-
         switch (paymentMode){
 
             case "cash":
@@ -110,7 +107,7 @@ public class PropertyTaxPage extends BasePage {
                 chequeNumberTextBox.sendKeys(paymentmethod.getChequeNumber());
 
                 waitForElementToBeClickable(chequeDateTextBox,driver);
-                chequeDateTextBox.sendKeys(date);
+                chequeDateTextBox.sendKeys(getCurrentDate());
 
                 waitForElementToBeClickable(bankNameTextBox,driver);
                 bankNameTextBox.sendKeys(paymentmethod.getBankName());
@@ -131,7 +128,7 @@ public class PropertyTaxPage extends BasePage {
                 chequeNumberTextBox.sendKeys(paymentmethod.getChequeNumber());
 
                 waitForElementToBeClickable(chequeDateTextBox,driver);
-                chequeDateTextBox.sendKeys(date);
+                chequeDateTextBox.sendKeys(getCurrentDate());
 
                 waitForElementToBeClickable(bankNameTextBox,driver);
                 bankNameTextBox.sendKeys(paymentmethod.getBankName());
@@ -152,7 +149,7 @@ public class PropertyTaxPage extends BasePage {
                 referenceNumberTextBox.sendKeys(paymentmethod.getChequeNumber());
 
                 waitForElementToBeClickable(challanDateTextBox,driver);
-                challanDateTextBox.sendKeys(date);
+                challanDateTextBox.sendKeys(getCurrentDate());
 
                 waitForElementToBeClickable(bankNameDropBox,driver);
                 new Select(bankNameDropBox).selectByVisibleText(paymentmethod.getBankName());

@@ -4,10 +4,12 @@ import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.collections.ChallanHeaderDetails;
 import entities.collections.ChequeDetails;
+import entities.collections.PaymentMethod;
 import entities.ptis.ApprovalDetails;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import pages.DashboardPage;
 import pages.collections.CollectionsPage;
+import pages.collections.PropertyTaxPage;
 import pages.ptis.PropertyAcknowledgementPage;
 import steps.BaseSteps;
 import utils.ExcelReader;
@@ -58,15 +60,16 @@ public class CollectionSteps extends BaseSteps implements En {
             pageStore.get(CollectionsPage.class).close();
         });
         And("^he pay using (\\w+)$", (String paymentMethod) -> {
-            pageStore.get(CollectionsPage.class).payAmount(paymentMethod);
+            PaymentMethod paymentmethod = new ExcelReader(collectionsTestDataFileName).getPaymentMethodDetails(paymentMethod);
+            pageStore.get(PropertyTaxPage.class).collectTax(paymentmethod,paymentMethod);
         });
         Given("^User will Visit Property Tax onlinepayent link$", () -> {
             pageStore.get(CollectionsPage.class).propertyTaxOnlinePaymentLink();
 
         });
         And("^User will enter Assessment Number and click on search button$", () -> {
-            pageStore.get(CollectionsPage.class).enerterAssessmentNumber("1016094329");
-//            pageStore.get(CollectionsPage.class).enerterAssessmentNumber(scenarioContext.getAssessmentNumber());
+           // pageStore.get(CollectionsPage.class).enerterAssessmentNumber("1016094329");
+            pageStore.get(CollectionsPage.class).enerterAssessmentNumber(scenarioContext.getAssessmentNumber());
         });
         And("^user will fill amount and select the AXIS Bank Payment Gateway and click on PayOnline$", () -> {
             pageStore.get(CollectionsPage.class).enterAmountAndPayOnline();

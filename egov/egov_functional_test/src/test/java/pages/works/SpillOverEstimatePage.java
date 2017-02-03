@@ -163,9 +163,6 @@ public class SpillOverEstimatePage extends BasePage
     String num1 = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
     String num = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
     String transactionRefNo = num1+num;
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    LocalDate localDate = LocalDate.now();
-
 
     public void enterEstimateHeaderDetails(EstimateHeaderDetails estimateHeaderDetails) {
         String check = date.getAttribute("maxlength");
@@ -278,7 +275,7 @@ public class SpillOverEstimatePage extends BasePage
 
         waitForElementToBeClickable(adminSanctionDateBox,webDriver);
         adminSanctionDateBox.click();
-        enterText(adminSanctionDateBox,dtf.format(localDate));
+        enterText(adminSanctionDateBox,getCurrentDate());
         adminSanctionDateBox.sendKeys(Keys.TAB);
 
         waitForElementToBeClickable(adminSanctionAuthorityTextBox,webDriver);
@@ -293,7 +290,7 @@ public class SpillOverEstimatePage extends BasePage
         enterText(technicalSanctionNumberTextBox, technicalSanctionId);
 
         waitForElementToBeClickable(technicalSanctionDateTextBox,webDriver);
-        enterText(technicalSanctionDateTextBox,dtf.format(localDate));
+        enterText(technicalSanctionDateTextBox,getCurrentDate());
         technicalSanctionDateTextBox.sendKeys(Keys.TAB);
 
         waitForElementToBeClickable(designationBox,webDriver);
@@ -411,7 +408,7 @@ public class SpillOverEstimatePage extends BasePage
         waitForElementToBeClickable(technicalSanctionNumberTextBox,webDriver);
         technicalSanctionNumberTextBox.sendKeys("TSN"+transactionRefNo);
         waitForElementToBeClickable(technicalSanctionDateTextBox,webDriver);
-        technicalSanctionDateTextBox.sendKeys(dtf.format(localDate));
+        technicalSanctionDateTextBox.sendKeys(getCurrentDate());
         technicalSanctionDateTextBox.sendKeys(Keys.TAB);
 
         approverComment.sendKeys("Approved");
