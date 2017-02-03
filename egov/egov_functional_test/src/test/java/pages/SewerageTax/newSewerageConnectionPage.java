@@ -313,6 +313,12 @@ public class newSewerageConnectionPage extends BasePage {
         waitForElementToBeClickable(generateEstimationNoticeButton,driver);
         generateEstimationNoticeButton.click();
 
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         driver.close();
         switchToPreviouslyOpenedWindow(driver);
@@ -321,6 +327,12 @@ public class newSewerageConnectionPage extends BasePage {
     public void searchForApplicationInbox(String num) {
         waitForElementToBeVisible(inboxSearchTextBox,driver);
         inboxSearchTextBox.sendKeys(num);
+
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void generateWorkOrder(String num) {

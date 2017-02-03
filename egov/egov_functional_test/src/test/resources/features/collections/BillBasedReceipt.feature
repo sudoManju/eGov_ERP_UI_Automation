@@ -18,7 +18,7 @@ Background:It will run the data entry screen of property tax
 
   Scenario Outline: System should be able to collect taxes
 
-      Given juniorAssistant logs in
+      Given creator logs in
       When he chooses to collect taxes
       And he chooses to collect tax for above assessment number
 

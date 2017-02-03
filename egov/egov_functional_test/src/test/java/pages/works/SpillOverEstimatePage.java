@@ -157,6 +157,9 @@ public class SpillOverEstimatePage extends BasePage
     @FindBy(css = "input[id='Approve'][type = 'submit']")
      private WebElement approveButton;
 
+    @FindBy(id = "inboxsearch")
+     private WebElement searchBox;
+
     String num1 = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
     String num = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
     String transactionRefNo = num1+num;
