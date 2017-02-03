@@ -37,8 +37,8 @@ public class GrievancesSteps extends BaseSteps implements En {
         And("^current user sign out$", () -> {
             pageStore.get(GrievancesPage.class).signOut();
         });
-        And("^he resolves the issue and mark status as completed$", () -> {
-            scenarioContext.setActualMessage(pageStore.get(GrievancesPage.class).officialMarkStatus());
+        And("^he mark status as (\\w+)$", (String status) -> {
+            scenarioContext.setActualMessage(pageStore.get(GrievancesPage.class).officialMarkStatus(status));
 
     });
         And("^official copies CRN and closes the acknowledgement$", () -> {
@@ -60,8 +60,6 @@ public class GrievancesSteps extends BaseSteps implements En {
         And("^he (.*) the complaint$", (String complaintStatus) -> {
             pageStore.get(GrievancesPage.class).withdrawComplaint(complaintStatus);
         });
-
-
 
     }
 }

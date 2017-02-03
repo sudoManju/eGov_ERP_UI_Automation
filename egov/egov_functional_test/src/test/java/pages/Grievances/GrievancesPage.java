@@ -151,9 +151,9 @@ public class GrievancesPage extends BasePage {
         signOutLink.click();
     }
 
-    public String officialMarkStatus() {
-        new Select(selectStatus).selectByVisibleText("COMPLETED");
-        enterText(incMessageBox, "Completed");
+    public String officialMarkStatus(String status) {
+        new Select(selectStatus).selectByVisibleText(status);
+        enterText(incMessageBox, status);
         submitButton.click();
         String success=webDriver.findElement(By.xpath("html/body/div[1]/div/div[1]/div/div/div[1]/div/strong")).getText();
         closeButton.click();
@@ -200,13 +200,6 @@ public class GrievancesPage extends BasePage {
     waitForElementToBeClickable(selectStatus,webDriver);
     new Select(selectStatus).selectByVisibleText(complaintStatus);
     enterText(incMessageBox, complaintStatus);
-    if(complaintStatus.equals("REOPENED"))
-    {
-        List<WebElement> element= webDriver.findElements(By.cssSelector(".fa.fa-star.fa-2x.symbol-filled"));
-//        WebElement element= webDriver.findElement(By.xpath(".//*[@id='complaintUpdate']/div[3]/div[2]/span/div[3]/div[2]/span"));
-//        waitForElementToBeVisible(element,webDriver);
-        element.get(3).click();
-    }
     submitButton.click();
     closeButton.click();
     switchToPreviouslyOpenedWindow(webDriver);

@@ -14,7 +14,7 @@ Feature: Register Complaint
 
     When LightingSuperintendent logs in
     And choose to act upon the above CRN
-    And he resolves the issue and mark status as completed
+    And he mark status as COMPLETED
     And user will be notified by "successfully"
     And current user logs out
 
@@ -79,7 +79,7 @@ Feature: Register Complaint
 
     When LightingSuperintendent logs in
     And choose to act upon the above CRN
-    And he resolves the issue and mark status as completed
+    And he mark status as COMPLETED
     And user will be notified by "successfully"
     And current user logs out
 
@@ -112,7 +112,7 @@ Feature: Register Complaint
 
     When LightingSuperintendent logs in
     And choose to act upon the above CRN
-    And he resolves the issue and mark status as completed
+    And he mark status as COMPLETED
     And user will be notified by "successfully"
     And current user logs out
 
@@ -140,7 +140,7 @@ Feature: Register Complaint
        |grievanceDetails|
 
 
-  @WIP
+  @Sanity
   Scenario Outline: Citizen register a complaint, officer resolves it and citizen reopens the complaint
 
     Given citizen logs in
@@ -152,13 +152,14 @@ Feature: Register Complaint
 
     When LightingSuperintendent logs in
     And choose to act upon the above CRN
-    And he resolves the issue and mark status as completed
+    And he mark status as REJECTED
     And user will be notified by "successfully"
     And current user logs out
 
     When citizen logs in
     And he search complaint in his Inbox
     And he REOPENED the complaint
+    And current user sign out
 
 
     Examples:
