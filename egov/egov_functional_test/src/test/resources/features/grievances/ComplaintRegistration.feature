@@ -12,7 +12,7 @@ Feature: Register Complaint
     And he copies CRN and closes the acknowledgement
     And current user sign out
 
-    When creator logs in
+    When LightingSuperintendent logs in
     And choose to act upon the above CRN
     And he resolves the issue and mark status as completed
     And user will be notified by "successfully"
@@ -42,7 +42,7 @@ Feature: Register Complaint
   Scenario Outline:  Official Register Grievance
 
 
-   Given creator logs in
+   Given LightingSuperintendent logs in
    When he choose to register complaint
    And he choose to enter contact information as <contactDetails>
    And he choose to enter grievance details as <grievanceDetails>
@@ -61,7 +61,7 @@ Feature: Register Complaint
 
   Scenario Outline: Official Register Grievance and forwards
 
-    Given creator logs in
+    Given LightingSuperintendent logs in
     When he choose to register complaint
     And he choose to enter contact information as <contactDetails>
     And he choose to enter grievance details as <grievanceDetails>
@@ -74,10 +74,10 @@ Feature: Register Complaint
     When sanitaryInspector logs in
     And choose to act upon the above CRN
     And he marks the staus as processing
-    And he forwards for approver juniorAssistant
+    And he forwards for approver LightingSuperintendent
     And current user logs out
 
-    When creator logs in
+    When LightingSuperintendent logs in
     And choose to act upon the above CRN
     And he resolves the issue and mark status as completed
     And user will be notified by "successfully"
@@ -99,7 +99,7 @@ Feature: Register Complaint
     And he copies CRN and closes the acknowledgement
     And current user sign out
 
-    When creator logs in
+    When LightingSuperintendent logs in
     And choose to act upon the above CRN
     And he forwards for approver sanitaryInspector1
     And current user logs out
@@ -107,10 +107,10 @@ Feature: Register Complaint
     When sanitaryInspector logs in
     And choose to act upon the above CRN
     And he marks the staus as processing
-    And he forwards for approver juniorAssistant
+    And he forwards for approver LightingSuperintendent
     And current user logs out
 
-    When creator logs in
+    When LightingSuperintendent logs in
     And choose to act upon the above CRN
     And he resolves the issue and mark status as completed
     And user will be notified by "successfully"
@@ -130,7 +130,7 @@ Feature: Register Complaint
      And citizen create grievance
      And he copies CRN and closes the acknowledgement
      And he search complaint in his Inbox
-     And he withdraw the complaint
+     And he WITHDRAWN the complaint
      And current user sign out
 
 
@@ -138,3 +138,29 @@ Feature: Register Complaint
      Examples:
        |grievanceDetails|
        |grievanceDetails|
+
+
+  @WIP
+  Scenario Outline: Citizen register a complaint, officer resolves it and citizen reopens the complaint
+
+    Given citizen logs in
+    When he choose to register complaint with his login
+    And he choose to enter grievance details as <grievanceDetails>
+    And citizen create grievance
+    And he copies CRN and closes the acknowledgement
+    And current user sign out
+
+    When LightingSuperintendent logs in
+    And choose to act upon the above CRN
+    And he resolves the issue and mark status as completed
+    And user will be notified by "successfully"
+    And current user logs out
+
+    When citizen logs in
+    And he search complaint in his Inbox
+    And he REOPENED the complaint
+
+
+    Examples:
+      |grievanceDetails|
+      |grievanceDetails|

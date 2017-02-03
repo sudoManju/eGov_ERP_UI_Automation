@@ -9,6 +9,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
+import java.util.List;
+
 /**
  * Created by tester1 on 1/23/2017.
  */
@@ -96,6 +98,7 @@ public class GrievancesPage extends BasePage {
     private WebElement submitButton;
 
 
+
     public GrievancesPage (WebDriver webDriver) {this.webDriver= webDriver;}
 
     public void openCreateGrievancePage() {
@@ -117,7 +120,7 @@ public class GrievancesPage extends BasePage {
     new Select(complaintTypeCategorySelect).selectByVisibleText(createComplaintDetails.getGrievanceCategory());
     new Select(complaintTypeSelect).selectByVisibleText(createComplaintDetails.getGrievanceType());
     enterText(grievanceDetailsText, createComplaintDetails.getGrievanceDetails());
-    enterText(grievanceLocationText, "abbas nagar-m");
+    enterText(grievanceLocationText, "Aavanthi Nagar");
     WebElement dropdown = webDriver.findElement(By.className("tt-highlight"));
     dropdown.click();
     grievanceLocationText.sendKeys(Keys.TAB);
@@ -193,10 +196,17 @@ public class GrievancesPage extends BasePage {
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    public void withdrawComplaint() {
+    public void withdrawComplaint(String complaintStatus) {
     waitForElementToBeClickable(selectStatus,webDriver);
-    new Select(selectStatus).selectByVisibleText("WITHDRAWN");
-    enterText(incMessageBox, "WITHDRAWN");
+    new Select(selectStatus).selectByVisibleText(complaintStatus);
+    enterText(incMessageBox, complaintStatus);
+    if(complaintStatus.equals("REOPENED"))
+    {
+        List<WebElement> element= webDriver.findElements(By.cssSelector(".fa.fa-star.fa-2x.symbol-filled"));
+//        WebElement element= webDriver.findElement(By.xpath(".//*[@id='complaintUpdate']/div[3]/div[2]/span/div[3]/div[2]/span"));
+//        waitForElementToBeVisible(element,webDriver);
+        element.get(3).click();
+    }
     submitButton.click();
     closeButton.click();
     switchToPreviouslyOpenedWindow(webDriver);

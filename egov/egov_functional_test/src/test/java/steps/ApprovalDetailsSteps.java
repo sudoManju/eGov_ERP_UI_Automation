@@ -17,7 +17,7 @@ public class ApprovalDetailsSteps extends BaseSteps implements En {
 
         And("^he forwards for approver (.*)$", (String approvalDetailsDataId) -> {
             ApprovalDetailsEntity approvalDetails=new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsForGrievance(approvalDetailsDataId);
-            if (approvalDetailsDataId.equals("sanitaryInspector1")  || approvalDetailsDataId.equals("juniorAssistant"))
+            if (approvalDetailsDataId.equals("sanitaryInspector1")  || approvalDetailsDataId.equals("LightingSuperintendent"))
             {
                 pageStore.get(ApprovalDetailsPage.class).enterApprovalDetailsForGrievances(approvalDetails);
                 pageStore.get(ApprovalDetailsPage.class).createGrievance();
