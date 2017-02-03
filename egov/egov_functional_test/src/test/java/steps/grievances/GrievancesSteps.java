@@ -54,7 +54,12 @@ public class GrievancesSteps extends BaseSteps implements En {
         And("^he marks the staus as processing$", () -> {
             pageStore.get(GrievancesPage.class).getProcessingStatus();
         });
-
+        And("^he search complaint in his Inbox$", () -> {
+           pageStore.get(GrievancesPage.class).searchInCitizenInbox(scenarioContext.getCRN());
+        });
+        And("^he withdraw the complaint$", () -> {
+            pageStore.get(GrievancesPage.class).withdrawComplaint();
+        });
 
 
     }

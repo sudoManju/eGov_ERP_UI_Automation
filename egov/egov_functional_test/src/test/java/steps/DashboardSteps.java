@@ -225,7 +225,7 @@ public class DashboardSteps extends BaseSteps implements En {
 
         And("^he choose to act upon the above application number$", () -> {
            pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
-
+            System.out.println("Application Number"+scenarioContext.getApplicationNumber());
         });
 
         And("^choose to act upon the above CRN$", () -> {

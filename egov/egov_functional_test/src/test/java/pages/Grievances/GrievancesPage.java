@@ -70,8 +70,6 @@ public class GrievancesPage extends BasePage {
     @FindBy(id = "inc_messge")
     private WebElement incMessageBox;
 
-    @FindBy(xpath = ".//*[@id='complaintUpdate']/div[6]/div/button[1]")
-    private WebElement submitButton;
 
     @FindBy(xpath = "html/body/div[1]/div/div[1]/div/div/div[1]/div/strong")
     private WebElement acknMsg;
@@ -87,6 +85,15 @@ public class GrievancesPage extends BasePage {
 
     @FindBy(id = "status")
     private WebElement statusSelect;
+
+    @FindBy(xpath = ".//*[@id='inbox-template']/div[1]/div[1]/input")
+    private WebElement searchCitizenInbox;
+
+    @FindBy(xpath = ".//*[@id='inbox-template']/div[2]/section/div[1]/header/div[2]/a/u")
+    private WebElement complaintLink;
+
+    @FindBy(css = "button[type=submit]")
+    private WebElement submitButton;
 
 
     public GrievancesPage (WebDriver webDriver) {this.webDriver= webDriver;}
@@ -177,4 +184,21 @@ public class GrievancesPage extends BasePage {
 
     }
 
+    public void searchInCitizenInbox(String crn) {
+        webDriver.navigate().refresh();
+        waitForElementToBeClickable(searchCitizenInbox,webDriver);
+        enterText(searchCitizenInbox,crn);
+        waitForElementToBeClickable(complaintLink,webDriver);
+        complaintLink.click();
+        switchToNewlyOpenedWindow(webDriver);
+    }
+
+    public void withdrawComplaint() {
+    waitForElementToBeClickable(selectStatus,webDriver);
+    new Select(selectStatus).selectByVisibleText("WITHDRAWN");
+    enterText(incMessageBox, "WITHDRAWN");
+    submitButton.click();
+    closeButton.click();
+    switchToPreviouslyOpenedWindow(webDriver);
+    }
 }

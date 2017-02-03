@@ -38,7 +38,10 @@ Feature: Register Complaint
 
 
   @Sanity
+
   Scenario Outline:  Official Register Grievance
+
+
    Given creator logs in
    When he choose to register complaint
    And he choose to enter contact information as <contactDetails>
@@ -47,15 +50,14 @@ Feature: Register Complaint
    And official copies CRN and closes the acknowledgement
    And current user logs out
 
+
     Examples:
       |contactDetails |grievanceDetails |
       |contactInfo    |grievanceDetails |
 
 
-
-
     
-  @WIP
+  @Sanity
 
   Scenario Outline: Official Register Grievance and forwards
 
@@ -85,3 +87,54 @@ Feature: Register Complaint
     Examples:
       |contactDetails |grievanceDetails |
       |contactInfo    |grievanceDetails |
+
+
+  @WIP
+  Scenario Outline: Citizen register a complaint and official forwards it to next level
+
+    Given citizen logs in
+    When he choose to register complaint with his login
+    And he choose to enter grievance details as <grievanceDetails>
+    And citizen create grievance
+    And he copies CRN and closes the acknowledgement
+    And current user sign out
+
+    When creator logs in
+    And choose to act upon the above CRN
+    And he forwards for approver sanitaryInspector1
+    And current user logs out
+
+    When sanitaryInspector logs in
+    And choose to act upon the above CRN
+    And he marks the staus as processing
+    And he forwards for approver juniorAssistant
+    And current user logs out
+
+    When creator logs in
+    And choose to act upon the above CRN
+    And he resolves the issue and mark status as completed
+    And user will be notified by "successfully"
+    And current user logs out
+
+    Examples:
+      |grievanceDetails |
+      |grievanceDetails |
+
+
+   @WIP
+   Scenario Outline: Citizen register a complaint and withdraw it
+
+     Given citizen logs in
+     When he choose to register complaint with his login
+     And he choose to enter grievance details as <grievanceDetails>
+     And citizen create grievance
+     And he copies CRN and closes the acknowledgement
+     And he search complaint in his Inbox
+     And he withdraw the complaint
+     And current user sign out
+
+
+
+     Examples:
+       |grievanceDetails|
+       |grievanceDetails|

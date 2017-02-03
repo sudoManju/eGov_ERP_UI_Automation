@@ -61,8 +61,6 @@ public class ApprovalDetailsPage extends BasePage {
     @FindBy (id = "approvalDesignation")
     private WebElement approvalDesignationSelection;
 
-    @FindBy (id = "approvalPosition")
-    private WebElement approvalSelection;
 
     public ApprovalDetailsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -73,9 +71,6 @@ public class ApprovalDetailsPage extends BasePage {
     new Select(approvalDesignationSelect).selectByVisibleText(approvalDetails.getApproverDesignation());
     new Select(approvalPositionSelect).selectByVisibleText(approvalDetails.getApprover());
     enterText(incMessageTextBox, approvalDetails.getApproverRemarks());
-    grievanceSubmit.click();
-    closeButton.click();
-    switchToPreviouslyOpenedWindow(webDriver);
     }
 
     public void enterApprovalDetails(ApprovalDetailsEntity approvalDetails) {
@@ -92,13 +87,18 @@ public class ApprovalDetailsPage extends BasePage {
         await().atMost(10, SECONDS).until(() -> new Select(approvalDepartmentSelection).getOptions().size() > 1);
         new Select(approvalDesignationSelection).selectByVisibleText(approvalDetails.getApproverDesignation());
         await().atMost(10, SECONDS).until(() -> new Select(approvalDesignationSelection).getOptions().size() > 1);
-        new Select(approvalSelection).selectByVisibleText(approvalDetails.getApprover());
-        forwardButton.click();
+        new Select(approvalPositionSelect).selectByVisibleText(approvalDetails.getApprover());
     }
 
 
 
     public void forward() {
         forwardButton.click();
+    }
+
+    public void createGrievance() {
+        grievanceSubmit.click();
+        closeButton.click();
+        switchToPreviouslyOpenedWindow(webDriver);
     }
 }
