@@ -27,8 +27,8 @@ public class LegalCaseManagementSteps extends BaseSteps implements En {
         });
 
         And("^user will enter the case file number to search the file$", () -> {
-            pageStore.get(LegalCaseManagementPage.class).searchCaseFile("LC/1016/2016/000026");
-//            pageStore.get(LegalCaseManagementPage.class).searchCaseFile(scenarioContext.getCaseFileNumber());
+//            pageStore.get(LegalCaseManagementPage.class).searchCaseFile("LC/1016/2016/000026");
+            pageStore.get(LegalCaseManagementPage.class).searchCaseFile(scenarioContext.getCaseFileNumber());
 
         });
 
