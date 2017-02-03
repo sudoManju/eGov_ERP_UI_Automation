@@ -1,6 +1,6 @@
 Feature: To transfer payments from one bank to other bank
 
-  @Sanity
+  @Sanity @Finance
   Scenario: To make payment transfers from one bank to other bank
 
     Given accountsOfficer logs in

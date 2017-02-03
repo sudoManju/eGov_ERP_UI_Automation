@@ -12,6 +12,7 @@ import builders.financial.FinancialBankDetailsBuilder;
 import builders.financial.FinancialExpenseBillDetailsBuilder;
 import builders.financial.FinancialJournalVoucherDetailsBuilder;
 import builders.grievances.CreateComplaintDetailsBuilder;
+import builders.lcms.CreateLegalCaseBuilder;
 import builders.marriageRegistration.MarriageRegistrationBuilder;
 import builders.ptis.*;
 import builders.tradeLicense.*;
@@ -30,6 +31,7 @@ import entities.financial.FinancialBankDetails;
 import entities.financial.FinancialExpenseBillDetails;
 import entities.financial.FinancialJournalVoucherDetails;
 import entities.grievances.CreateComplaintDetails;
+import entities.lcms.CreateLegalCase;
 import entities.marriageRegistration.MarriageRegistrationInformation;
 import entities.ptis.*;
 import entities.tradeLicense.*;
@@ -112,6 +114,8 @@ public class ExcelReader {
     Sheet revisionPetitionDetailsSheet;
     Sheet hearingDetailsSheet;
 
+    Sheet createLegalCaseDataSheet;
+
 
     public ExcelReader(String testData) {
         String excelFilePath = testData + ".xlsx";
@@ -190,6 +194,8 @@ public class ExcelReader {
 //        Marriage Registration
         applicantsInformationSheet = workbook.getSheet("applicantsInformation");
         bridegroomInformationSheet = workbook.getSheet("bridegroomInformation");
+
+        createLegalCaseDataSheet = workbook.getSheet("createLegalCaseData");
 
     }
 
@@ -1578,6 +1584,27 @@ public class ExcelReader {
                 .withHearingDate(hearingDate)
                 .withHearingTime(hearingTime)
                 .withvenue(venue)
+                .build();
+    }
+
+    public CreateLegalCase getCreateLegalCaseDetails(String legalCaseData){
+
+        Row dataRow = readDataRow(createLegalCaseDataSheet, legalCaseData);
+
+        String typeOfCourt = getCellData(createLegalCaseDataSheet, dataRow, "typeOfCourt").getStringCellValue();
+        String petitionType = getCellData(createLegalCaseDataSheet, dataRow, "petitionType").getStringCellValue();
+        String courtName = getCellData(createLegalCaseDataSheet, dataRow, "courtName").getStringCellValue();
+        String caseCategory = getCellData(createLegalCaseDataSheet, dataRow, "caseCategory").getStringCellValue();
+        String petitionerName = getCellData(createLegalCaseDataSheet, dataRow, "petitionerName").getStringCellValue();
+        String respondentName = getCellData(createLegalCaseDataSheet, dataRow, "respondentName").getStringCellValue();
+
+        return new CreateLegalCaseBuilder()
+                .withTypeOfCourt(typeOfCourt)
+                .withPetitionType(petitionType)
+                .withCourtName(courtName)
+                .withCaseCategory(caseCategory)
+                .withPetitionerName(petitionerName)
+                .withRespondentName(respondentName)
                 .build();
     }
 }

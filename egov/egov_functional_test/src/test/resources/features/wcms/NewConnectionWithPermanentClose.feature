@@ -11,10 +11,10 @@ Feature: To create a flow of water management connections and applying a permane
     #######################################################
             # Egovernments logo uploading #
     #######################################################
-    Given admin logs in
-    And user will search for city setup
-    And user will select the municipality info to upload the image
-    And current user logs out
+#    Given admin logs in
+#    And user will search for city setup
+#    And user will select the municipality info to upload the image
+#    And current user logs out
 
     #########################################################################
           # It will run the data entry screen of property tax #
@@ -28,7 +28,7 @@ Feature: To create a flow of water management connections and applying a permane
     And he choose to close the dataentry acknowledgement screen
     And current user logs out
 
-  @Sanity
+  @Sanity @WCMS
   Scenario Outline: This Scenario Includon of New Connection , Additional Connection , Change Of Use Connection , Closing a Connection Permanently
 
     Given juniorAssistant logs in

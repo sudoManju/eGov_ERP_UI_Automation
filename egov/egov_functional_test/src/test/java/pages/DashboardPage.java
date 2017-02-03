@@ -277,6 +277,12 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "General Revision Petition")
     private WebElement generalRevisionPetitionLink;
 
+    @FindBy(linkText = "Create Legal Case")
+    private WebElement createLegalCase;
+
+    @FindBy(linkText = "Search Legal Case")
+    private WebElement searchLegalCase;
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -1027,8 +1033,24 @@ public class DashboardPage extends BasePage {
     public void chooseToCreateLegacySewerageConnection() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("Data entry screen");
-        waitForElementToBeClickable(newSewerageConnectionLink,driver);
+        waitForElementToBeClickable(newSewerageConnectionLink, driver);
         newSewerageConnectionLink.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseToCreateLegalCase(){
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Create Legal Case");
+        waitForElementToBeClickable(createLegalCase, driver);
+        createLegalCase.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseToSearchLegalCase(){
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Search Legal Case");
+        waitForElementToBeClickable(searchLegalCase, driver);
+        searchLegalCase.click();
         switchToNewlyOpenedWindow(driver);
     }
 }

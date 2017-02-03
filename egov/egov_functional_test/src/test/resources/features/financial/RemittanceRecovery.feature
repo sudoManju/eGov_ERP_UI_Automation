@@ -1,6 +1,6 @@
 Feature: To create a new remittance recovery
 
-  @Sanity
+  @Sanity @Finance
   Scenario Outline: To create the remittance recovery with expense type
 
     Given admin logs in

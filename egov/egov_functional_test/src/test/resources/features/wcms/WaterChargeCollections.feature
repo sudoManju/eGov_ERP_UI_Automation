@@ -6,10 +6,10 @@ Feature: To collect water charges in different mode payments
     #######################################################
             # Egovernments logo uploading #
     #######################################################
-    Given admin logs in
-    And user will search for city setup
-    And user will select the municipality info to upload the image
-    And current user logs out
+#    Given admin logs in
+#    And user will search for city setup
+#    And user will select the municipality info to upload the image
+#    And current user logs out
 
     #########################################################################
           # It will run the data entry screen of property tax #
@@ -23,7 +23,7 @@ Feature: To collect water charges in different mode payments
     And he choose to close the dataentry acknowledgement screen
     And current user logs out
 
-  @Sanity
+  @Sanity @WCMS
   Scenario Outline: This Scenario Includes creation of New Connection and collecting the charges with different mode of payment
 
     Given juniorAssistant logs in
@@ -80,7 +80,7 @@ Feature: To collect water charges in different mode payments
       | New_connection    | inspectionInfo    | engineer         | deputyExecutiveEngineer |commissioner1   | dd           |
 
 
-  @Sanity
+  @Sanity @WCMS
   Scenario Outline: This Scenario Includes creation of New Connection and collecting the charges through online link
 
     Given juniorAssistant logs in

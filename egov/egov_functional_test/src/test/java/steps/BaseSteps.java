@@ -28,6 +28,7 @@ public class BaseSteps {
     protected String grievanceTestDataFileName = "grievancesTestData";
     protected String marriageRegistrationTestDataFileName = "MarriageRegistrationTestData";
     protected String approvalDetailsTestDataFileName = "approvalDetailsTestData";
+    protected String legalCaseTestDataFileName = "legalCaseTestData";
 
     protected void takeScreenShot(String screenshotName) throws IOException {
         WebDriver augment = new Augmenter().augment(pageStore.getDriver());

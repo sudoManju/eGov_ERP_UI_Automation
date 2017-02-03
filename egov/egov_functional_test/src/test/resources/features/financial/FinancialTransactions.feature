@@ -1,6 +1,6 @@
 Feature: To create a Financial Transactions
 
-  @Sanity
+  @Sanity @Finance
   Scenario Outline: To create the financial journal voucher with type General
 
     Given accountsOfficer logs in
@@ -37,7 +37,7 @@ Feature: To create a Financial Transactions
     |voucher1      |  accountOfficer1a | accountOfficer2  |  commissioner     |
 
 
-  @Sanity
+  @Sanity @Finance
   Scenario Outline: To create the financial journal voucher with type expense
 
     Given accountsOfficer logs in
@@ -77,7 +77,7 @@ Feature: To create a Financial Transactions
       |voucher2      | accountOfficer1a | accountOfficer2  |  commissioner     |
 
 
-  @Sanity
+  @Sanity @Finance
   Scenario Outline: To create a voucher of date in june as well paying the bill
 
     Given accountsOfficer logs in
@@ -119,7 +119,7 @@ Feature: To create a Financial Transactions
       |voucherDateJune    |  accountOfficer1   | 30_06_2016 | accountOfficer2   |  commissioner      | RTGS         |
 
 
-  @Sanity
+  @Sanity @Finance
   Scenario Outline: To create a new expense bill
 
     Given accountsOfficer logs in
@@ -183,7 +183,7 @@ Feature: To create a Financial Transactions
     | expenseBill  | accountOfficer3   | commissioner1     | accountOfficer1   | accountOfficer2   | commissioner     |
 
 
-  @Sanity
+  @Sanity @Finance
   Scenario Outline: To create a voucher of date in june as well paying the bill and checking the assignment
 
     Given accountsOfficer logs in

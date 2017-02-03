@@ -183,6 +183,9 @@ public class FinancialPage extends BasePage {
     @FindBy(id = "billSubType")
     private WebElement expenseBillSubType;
 
+    @FindBy(id = "subLedgerType")
+    private WebElement subLedgerType;
+
     @FindBy(id = "payTo")
     private WebElement expensePayTo;
 
@@ -270,7 +273,7 @@ public class FinancialPage extends BasePage {
     @FindBy(id = "assignChequeBtn")
     private WebElement assignChequeButton;
 
-    @FindBy(name = "rtgsdateMap[39]")
+    @FindBy(css = ".form-control.datepicker")
     private WebElement rtgsDate;
 
     @FindBy(id = "departmentid")
@@ -414,7 +417,7 @@ public class FinancialPage extends BasePage {
             addList.get(2).click();
 
             ledgerAccount2.click();
-            new Select(ledgerAccount2).selectByVisibleText(webElementList.get(1).getText());
+            new Select(ledgerAccount2).selectByVisibleText(webElementList.get(2).getText());
             new Select(ledgerType2).selectByVisibleText("contractor");
             ledgerCode2.sendKeys("KMC001");
 
@@ -618,6 +621,7 @@ public class FinancialPage extends BasePage {
 
         waitForElementToBeClickable(expenseBillSubType , webDriver);
         new Select(expenseBillSubType).selectByVisibleText(financialExpenseBillDetails.getExpenseBillSubType());
+//        new Select(subLedgerType).selectByVisibleText("contractor");
         expensePayTo.sendKeys("tester");
 
         expenseAccountCodeDebit.sendKeys(financialExpenseBillDetails.getExpenseAccountCodeDebit());
@@ -803,7 +807,7 @@ public class FinancialPage extends BasePage {
 
     private WebElement getRemittanceBill(String applicationNumber) {
 
-        await().atMost(10, SECONDS).until(() -> remittanceBillTable.findElements(By.tagName("tr")).size() > 1);
+        await().atMost(20, SECONDS).until(() -> remittanceBillTable.findElements(By.tagName("tr")).size() > 1);
         List<WebElement> applicationRows = remittanceBillTable.findElements(By.tagName("tr"));
         System.out.println("total number of rows -- " + applicationRows.size());
         for (WebElement applicationRow : applicationRows) {
@@ -857,8 +861,9 @@ public class FinancialPage extends BasePage {
         }
 
         new Select(fundId).selectByVisibleText("Municipal Fund");
-        new Select(bankBranch2).selectByVisibleText("KOTAK MAHINDRA BANK Ucon Plaza Kurnool");
-        new Select(bankAccount).selectByVisibleText("4502205--311010192115--KOTAK MAHINDRA BANK");
+        webDriver.manage().timeouts().implicitlyWait(10 , TimeUnit.SECONDS);
+        new Select(bankBranch2).selectByVisibleText("ANDHRA BANK Andhra Bank RTC Busstand");
+        new Select(bankAccount).selectByVisibleText("4502110--110710100009664--ANDHRA BANK");
 
         waitForElementToBeClickable(billSearch, webDriver);
         billSearch.click();
@@ -885,9 +890,10 @@ public class FinancialPage extends BasePage {
                 chequeAssignmentBill.click();
 
                 waitForElementToBeClickable(rtgsDate , webDriver);
-                DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-                Calendar calobj = Calendar.getInstance();
-                rtgsDate.sendKeys(df.format(calobj.getTime()));
+//                DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+//                Calendar calobj = Calendar.getInstance();
+//                rtgsDate.sendKeys(df.format(calobj.getTime()));
+                rtgsDate.sendKeys(getCurrentDate() , Keys.TAB);
 
                 break;
 
@@ -902,9 +908,10 @@ public class FinancialPage extends BasePage {
                 remittanceChequeAssignmentNumber.sendKeys(get6DigitRandomInt());
 
                 waitForElementToBeClickable(remittanceChequeDate , webDriver);
-                DateFormat df1 = new SimpleDateFormat("dd/MM/yyyy");
-                Calendar calobj1 = Calendar.getInstance();
-                remittanceChequeDate.sendKeys(df1.format(calobj1.getTime()));
+//                DateFormat df1 = new SimpleDateFormat("dd/MM/yyyy");
+//                Calendar calobj1 = Calendar.getInstance();
+//                remittanceChequeDate.sendKeys(df1.format(calobj1.getTime()));
+                remittanceChequeDate.sendKeys(getCurrentDate() , Keys.TAB);
 
                 waitForElementToBeClickable(remittanceFavour , webDriver);
                 remittanceFavour.sendKeys("Testing");
@@ -915,9 +922,6 @@ public class FinancialPage extends BasePage {
 
         waitForElementToBeClickable(assignChequeButton, webDriver);
         assignChequeButton.click();
-    }
-
-    private String get6DigitRandomInt() {return String.valueOf((100000 + RandomUtils.nextInt(900000)));
     }
 
     public String closeAssignmentSuccessPage(){
@@ -934,10 +938,10 @@ public class FinancialPage extends BasePage {
         new Select(fundId).selectByVisibleText("Municipal Fund");
         new Select(voucherDepartment).selectByVisibleText("ENGINEERING");
         new Select(voucherFunction).selectByVisibleText("Water Supply");
-        new Select(bankPaymentId).selectByVisibleText("KOTAK MAHINDRA BANK Ucon Plaza Kurnool");
+        new Select(bankPaymentId).selectByVisibleText("ANDHRA BANK Andhra Bank RTC Busstand");
         waitForElementToBeClickable(amountTextBox , webDriver);
         amountTextBox.sendKeys("100");
-        new Select(accountNumber).selectByVisibleText("4502205--311010192115--KOTAK MAHINDRA BANK");
+        new Select(accountNumber).selectByVisibleText("4502110--110710100009664--ANDHRA BANK");
 
         switch (mode){
             case "cheque" :

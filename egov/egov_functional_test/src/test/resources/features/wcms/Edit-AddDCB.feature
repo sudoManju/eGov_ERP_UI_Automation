@@ -14,7 +14,7 @@ Feature: To create a data entry screen for water charges and apply for add/edit 
     And he choose to close the dataentry acknowledgement screen
     And current user logs out
 
-  @Sanity 
+  @Sanity @WCMS
   Scenario: To create a data entry screen and edit/add DCB for the water charges
 
     Given admin logs in

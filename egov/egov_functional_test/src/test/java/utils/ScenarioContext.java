@@ -44,6 +44,9 @@ public class ScenarioContext implements Serializable {
 
     private String registrationNumber;
 
+    private String caseFileNumber;
+
+
     public void setRegistrationNumber(String Number){
         this.registrationNumber = registrationNumber;
     }
@@ -51,6 +54,15 @@ public class ScenarioContext implements Serializable {
     public String getRegistrationNumber(){
         return registrationNumber;
     }
+
+    public String getCaseFileNumber() {
+        return caseFileNumber;
+    }
+
+    public void setCaseFileNumber(String caseFileNumber) {
+        this.caseFileNumber = caseFileNumber;
+    }
+
     public String getUser() {
         return user;
     }

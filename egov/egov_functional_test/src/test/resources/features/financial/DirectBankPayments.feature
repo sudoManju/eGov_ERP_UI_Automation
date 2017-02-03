@@ -1,6 +1,6 @@
 Feature: To create a voucher through direct bank payments
 
-  @Sanity
+  @Sanity @Finance
   Scenario Outline: To create a voucher through direct bank payments with cheque and rtgs modes and also applying the check assignment
 
     Given accountsOfficer logs in
@@ -41,7 +41,7 @@ Feature: To create a voucher through direct bank payments
     |RTGS        | accountOfficer2   | commissioner      | RTGS       |
 
 
-    @Sanity
+    @Sanity @Finance
     Scenario Outline: To create a voucher through direct bank payments with cash mode
 
     Given accountsOfficer logs in

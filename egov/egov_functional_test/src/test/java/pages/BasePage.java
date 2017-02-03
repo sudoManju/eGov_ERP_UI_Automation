@@ -1,5 +1,6 @@
 package pages;
 
+import org.apache.commons.lang.math.RandomUtils;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.pagefactory.ByAll;
@@ -8,7 +9,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.Properties;
 import utils.ScenarioContext;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
@@ -88,6 +93,22 @@ public class BasePage {
         for (String winHandle : driver.getWindowHandles()) {
             driver.switchTo().window(winHandle);
         }
+    }
+
+    protected String get6DigitRandomInt() {return String.valueOf((100000 + RandomUtils.nextInt(900000)));
+    }
+
+    protected String getCurrentDate() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
+    protected String getPreviousDate() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -1);
+        return dateFormat.format(cal.getTime());
     }
 
     public void isSuccesful(String expectedMessage,String actualMessage){

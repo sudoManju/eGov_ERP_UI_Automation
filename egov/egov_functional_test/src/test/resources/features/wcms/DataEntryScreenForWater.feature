@@ -14,7 +14,7 @@ Feature: To create a data entry screen for the water charge management services 
     And he choose to close the dataentry acknowledgement screen
     And current user logs out
 
-  @Sanity
+  @Sanity @WCMS
   Scenario: To create a data entry screen for the water charges
 
     Given admin logs in
