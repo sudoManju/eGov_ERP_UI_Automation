@@ -111,6 +111,20 @@ public class BasePage {
         return dateFormat.format(cal.getTime());
     }
 
+    protected String getFutureDate(int i) {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, i);
+        return dateFormat.format(cal.getTime());
+    }
+
+    protected String getPastDate(int i) {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -i);
+        return dateFormat.format(cal.getTime());
+    }
+
     public void isSuccesful(String expectedMessage,String actualMessage){
 
         Boolean found = Arrays.asList(actualMessage.split(" ")).contains(expectedMessage);
