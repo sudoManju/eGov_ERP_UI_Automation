@@ -241,10 +241,10 @@ public class TradeLicensePage extends BasePage {
 
     }
 
-    public void chooseOldTradeLicnese(String assessmentNumber) {
+    public void chooseOldTradeLicense() {
 
         waitForElementToBeClickable(oldTradeLicense, webDriver);
-        enterText(oldTradeLicense,assessmentNumber);
+        enterText(oldTradeLicense,get6DigitRandomInt());
     }
 
     public void enterlegencyDetails() {

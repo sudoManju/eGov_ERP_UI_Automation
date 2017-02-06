@@ -41,8 +41,7 @@ public class TradeLicenseSteps extends BaseSteps implements En {
             pageStore.get(TradeLicensePage.class).chooseToPayTaxOfApplicationNumber();
         });
         And("^he enters old license number$", () -> {
-            String assessmentNumber = "1016"+ get6DigitRandomInt();
-           pageStore.get(TradeLicensePage.class).chooseOldTradeLicnese(assessmentNumber);
+           pageStore.get(TradeLicensePage.class).chooseOldTradeLicense();
         });
         And("^he copy trade application number$", () -> {
             String applicationNumber = pageStore.get(TradeLicensePage.class).getApplicationNumber();
@@ -100,8 +99,5 @@ public class TradeLicenseSteps extends BaseSteps implements En {
         });
 
 
-    }
-
-    private String get6DigitRandomInt() {return String.valueOf((100000 + RandomUtils.nextInt(900000)));
     }
 }

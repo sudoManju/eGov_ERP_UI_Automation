@@ -140,7 +140,7 @@ public class WaterChargeManagementPage extends BasePage {
     @FindBy(id = "instrHeaderCash.instrumentAmount")
     private WebElement amountToBePaidTextBox;
 
-    @FindBy(id = "button2")
+    @FindBy(css = "input[type='submit'][id='button2']")
     private WebElement button2;
 
     @FindBy(id = "buttonClose")
@@ -474,6 +474,7 @@ public class WaterChargeManagementPage extends BasePage {
 
         amountToBePaidTextBox.sendKeys(amount.split("\\.")[0]);
 
+        waitForElementToBeClickable(button2 , webDriver);
         jsClick(button2, webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }

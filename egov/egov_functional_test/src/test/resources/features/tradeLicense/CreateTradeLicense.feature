@@ -100,13 +100,13 @@ Feature: Create Trade License
     When sanitaryInspector logs in
     And he choose to act upon the above licence number
     And he forwards for approver commissioner
-    And he closes the acknowledgement
+    And he closes the acknowledgement page
     And current user logs out
 
     When commissioner logs in
     And he choose to act upon the above licence number
     And he approves the closure
-    And he closes the acknowledgement
+    And he closes the acknowledgement page
     And current user logs out
 
 
