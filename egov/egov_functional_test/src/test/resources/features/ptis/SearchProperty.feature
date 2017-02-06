@@ -4,7 +4,7 @@ Feature: search property
   I want to be able to search for a property
   So that the property records are up to date.
 
-@WIP
+@Sanity
 Scenario Outline: Registered user searching a property with particular search details
 
   Given Admin logs in
@@ -12,7 +12,6 @@ Scenario Outline: Registered user searching a property with particular search de
   When he chooses to search property
   And he search property with <searchDetails>
   And he check total number of records found
-
   And current user closes acknowledgement
   And current user logs out
 
