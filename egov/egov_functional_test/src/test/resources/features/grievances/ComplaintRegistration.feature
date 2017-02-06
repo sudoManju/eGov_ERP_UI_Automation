@@ -23,20 +23,7 @@ Feature: Register Complaint
     |grievanceDetails|
     |grievanceDetails|
 
-  @WIP
-  Scenario Outline: Register Complaint anonymously
-
-    Given user log on to the website
-    When he choose to register a complaint
-    And he choose to enter contact information as <contactDetails>
-    And he choose to enter grievance details as <grievanceDetails>
-
-    Examples:
-      |contactDetails |grievanceDetails |
-      |contactInfo    |grievanceDetails |
-
-
-
+  
   @Sanity
 
   Scenario Outline:  Official Register Grievance
