@@ -22,7 +22,7 @@ public class ApprovalDetailsSteps extends BaseSteps implements En {
                 pageStore.get(ApprovalDetailsPage.class).enterApprovalDetailsForGrievances(approvalDetails);
                 pageStore.get(ApprovalDetailsPage.class).createGrievance();
             }
-            else if(approvalDetailsDataId.equals("sanitaryInspector") || approvalDetailsDataId.equals("commissioner"))
+            else if(approvalDetailsDataId.equals("sanitaryInspector") || approvalDetailsDataId.equals("commissioner") || approvalDetailsDataId.equals("commissioner2"))
             {
                 pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approvalDetails);
                 pageStore.get(ApprovalDetailsPage.class).forward();

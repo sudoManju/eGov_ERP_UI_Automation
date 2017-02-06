@@ -32,6 +32,7 @@ public class GrievancesSteps extends BaseSteps implements En {
         And("^he copies CRN and closes the acknowledgement$", () -> {
            String CRN= pageStore.get(GrievancesPage.class).getCRN();
            scenarioContext.setCRN(CRN);
+           Assert.assertNotNull(scenarioContext.getCRN());
 
         });
         And("^current user sign out$", () -> {

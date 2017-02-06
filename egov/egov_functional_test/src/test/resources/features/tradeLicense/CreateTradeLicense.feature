@@ -43,7 +43,7 @@ Feature: Create Trade License
 
     When sanitaryInspector logs in
     And he choose to act upon the above application number
-    And he forwards for approver commissioner
+    And he forwards for approver commissioner2
     And he closes the acknowledgement
     And current user logs out
 
