@@ -12,6 +12,13 @@ Feature: Marriage Registration
     And he forward to commissioner and closes the acknowledgement
     And current user logs out
 
+    When creator logs in
+    And he choose to collect marriage registration fee
+    And he search for above application number to collect marriage Registration fee
+    And he collect the charges and closes the acknowledgement
+    And current user logs out
+
+
     When commissioner logs in
     And he choose to act upon the above new marriage application number
     And he approve the new marriage application  and close the acknowledgement

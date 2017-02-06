@@ -129,6 +129,16 @@ public class MarriageRegistrationPage extends BasePage {
     @FindBy(className = "today active day")
     private WebElement todayDatePicker;
 
+    @FindBy(id = "applicationNo")
+    private WebElement applicationNumberTextBox;
+
+    @FindBy(id = "btnregistrationsearch")
+    private WebElement searchRegistrationButton;
+
+    @FindBy(className = "dropchange")
+    private WebElement actionDropDown;
+
+
     public  MarriageRegistrationPage(WebDriver driver){ this.driver = driver;}
 
     public void enterApplicantsInformation(MarriageRegistrationInformation marriageRegistrationInformation) {
@@ -144,10 +154,12 @@ public class MarriageRegistrationPage extends BasePage {
         locality.sendKeys(marriageRegistrationInformation.getLocality());
         waitForElementToBeClickable(city.get(0), driver);
         city.get(0).sendKeys(marriageRegistrationInformation.getCity());
-        waitForElementToBeClickable(venueOfMarriage, driver);
         waitForElementToBeClickable(dateOfMarriage, driver);
-        dateOfMarriage.click();
-        new Select(todayDatePicker).selectByVisibleText("3");
+        dateOfMarriage.clear();
+        dateOfMarriage.sendKeys(getPastDate(35));
+//        dateOfMarriage.click();
+//        new Select(todayDatePicker).selectByVisibleText("6");
+        waitForElementToBeClickable(venueOfMarriage, driver);
         venueOfMarriage.sendKeys(marriageRegistrationInformation.getVenueOfMarriage());
         waitForElementToBeClickable(placeOfMarriage, driver);
         placeOfMarriage.sendKeys(marriageRegistrationInformation.getPlaceOfMarriage());
@@ -326,12 +338,24 @@ public class MarriageRegistrationPage extends BasePage {
         marriagePageNum.sendKeys("0123"+min);
     }
 
-    public void isSuccesful(String expectedMessage,String actualMessage){
+    public void isSuccesful(String expectedMessage,String actualMessage) {
         waitForElementToBeClickable(dataEntrySubmitButton, driver);
         jsClick(dataEntrySubmitButton, driver);
 //        Boolean found = Arrays.asList(actualMessage.split(" ")).contains(expectedMessage);
 //        Assert.assertTrue(found);
 
 //        Assert.assertEquals(expectedMessage,actualMessage);
+    }
+
+    public void searchForMarriageApplicationNumberToCollect(String applicationNumber) {
+        waitForElementToBeVisible(applicationNumberTextBox,driver);
+        applicationNumberTextBox.sendKeys(applicationNumber);
+        searchRegistrationButton.click();
+    }
+
+    public void clickOnCollectDropdown(){
+        waitForElementToBeVisible(actionDropDown,driver);
+        new Select(actionDropDown).selectByVisibleText("Collect Fee");
+        switchToNewlyOpenedWindow(driver);
     }
 }

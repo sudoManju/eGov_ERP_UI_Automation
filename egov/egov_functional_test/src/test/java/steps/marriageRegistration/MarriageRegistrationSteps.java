@@ -5,6 +5,7 @@ import cucumber.api.java8.En;
 import entities.marriageRegistration.MarriageRegistrationInformation;
 import entities.works.ApproverDetails;
 import pages.BasePage;
+import pages.DashboardPage;
 import pages.SewerageTax.newSewerageConnectionPage;
 import pages.marriageRegistration.MarriageRegistrationPage;
 import pages.works.SpillOverEstimatePage;
@@ -68,8 +69,16 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
 
         And("^he submit the data entry and he notified by \"([^\"]*)\"$", (String expectedMessage) -> {
             String actualMessage = scenarioContext.getActualMessage();
-            pageStore.get(MarriageRegistrationPage.class).isSuccesful(expectedMessage,actualMessage);
+            pageStore.get(MarriageRegistrationPage.class).isSuccesful(expectedMessage, actualMessage);
         });
+        And("^he choose to collect marriage registration fee$", () -> {
+            pageStore.get(DashboardPage.class).chooseToCollecteMarriageRegitrationFee();
+        });
+        And("^he search for above application number to collect marriage Registration fee$", () -> {
+            pageStore.get(MarriageRegistrationPage.class).searchForMarriageApplicationNumberToCollect(scenarioContext.getApplicationNumber());
+            pageStore.get(MarriageRegistrationPage.class).clickOnCollectDropdown();
+        });
+
 
     }
 }

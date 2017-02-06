@@ -293,6 +293,9 @@ public class DashboardPage extends BasePage {
     @FindBy(xpath = ".//*[@id='registrationNum']")
     private WebElement marriageRegNum;
 
+    @FindBy(linkText = "Collect Fee")
+    private  WebElement collectMarriageFeeLink;
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -1073,9 +1076,17 @@ public class DashboardPage extends BasePage {
         marriageRegDataEntryLink.click();
         switchToNewlyOpenedWindow(driver);
         waitForElementToBeClickable(marriageRegApplNum, driver);
-        marriageRegApplNum.sendKeys("AN123"+min);
+        marriageRegApplNum.sendKeys("AN123" + min);
         waitForElementToBeClickable(marriageRegNum, driver);
-        marriageRegNum.sendKeys("123"+min);
+        marriageRegNum.sendKeys("123" + min);
+    }
+
+    public void chooseToCollecteMarriageRegitrationFee() {
+            waitForElementToBeClickable(searchTreeTextBox, driver);
+            searchFor("Collect Fee");
+            waitForElementToBeClickable(collectMarriageFeeLink,driver);
+            collectMarriageFeeLink.click();
+            switchToNewlyOpenedWindow(driver);
     }
 }
 
