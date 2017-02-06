@@ -7,9 +7,9 @@ Feature: In this feature the following are created as well as edited
     5. Create/Edit Judgment Implementation
     6. Case Closure
 
-  @WIP
-  Scenario Outline: It includes the creation and edit of Legal Case , Hearings , Interim Order , Judgement ,
-            Judgment Implementation and Case Closure\
+  @Sanity @LCMS
+  Scenario Outline: It includes the creation and edit of Legal Case , Hearings , Interim Order , Judgement,
+            Judgment Implementation and Case Closure
 
     ##########################################################
                   # Creating a Legal Case #
@@ -20,19 +20,117 @@ Feature: In this feature the following are created as well as edited
     And user will enter the legal case details as <legalCaseData>
     And user closes the successful acknowledgement form
     And user will be notified by "successfully."
-    And current user logs out
 
     ##########################################################
                   # Creating a Legal Case #
     ##########################################################
 
-    Given admin logs in
     And user search for the recent legal case file
     And user will enter the case file number to search the file
+    And user will take the corresponding action on above as <action1>
+    And user closes the successful acknowledgement form
+    And user will be notified by "updated"
+
+    #########################################################
+                    # Create Hearings #
+    #########################################################
+
+    And user search for the recent legal case file
+    And user will enter the case file number to search the file
+    And user will take the corresponding action on above as <action2>
+    And user will closes the successful created or updated page
+    And user will be notified by "created"
+
+    #########################################################
+                    # Editing Hearings #
+    #########################################################
+
+    And user search for the recent legal case file
+    And user will enter the case file number to search the file
+    And user will take the corresponding action on above as <action3>
+    And user will closes the successful created or updated page
+    And user will be notified by "updated"
+
+    ########################################################
+                  #  Create Interim Order #
+    ########################################################
+
+    And user search for the recent legal case file
+    And user will enter the case file number to search the file
+    And user will take the corresponding action on above as <action4>
+    And user will closes the successful created or updated page
+    And user will be notified by "Created"
+
+    ########################################################
+                   # Editing Interim Order #
+    ########################################################
+
+    And user search for the recent legal case file
+    And user will enter the case file number to search the file
+    And user will take the corresponding action on above as <action5>
+    And user will closes the successful created or updated page
+    And user will be notified by "updated"
+
+    #########################################################
+                    # Create Judgment #
+    #########################################################
+
+    And user search for the recent legal case file
+    And user will enter the case file number to search the file
+    And user will take the corresponding action on above as <action6>
+    And user will closes the successful created or updated page
+    And user will be notified by "Created"
+
+    #########################################################
+                        # Edit Judgment #
+    #########################################################
+
+    And user search for the recent legal case file
+    And user will enter the case file number to search the file
+    And user will take the corresponding action on above as <action7>
+    And user will closes the successful created or updated page
+    And user will be notified by "updated"
+
+    ########################################################
+              # Create Judgment Implementation #
+    ########################################################
+
+    And user search for the recent legal case file
+    And user will enter the case file number to search the file
+    And user will take the corresponding action on above as <action8>
+    And user will enter the details of judgment implementation details based on <implementationMode>
+    And user will closes the successful created or updated page
+    And user will be notified by "successfully."
+
+    #########################################################
+              # Edit Judgment Implementation #
+    #########################################################
+
+    And user search for the recent legal case file
+    And user will enter the case file number to search the file
+    And user will take the corresponding action on above as <action9>
+    And user will enter the details of judgment implementation details based on <editImplementationMode>
+    And user will closes the successful created or updated page
+    And user will be notified by "successfully."
+
+     #########################################################
+                        # Close Case #
+     #########################################################
+
+    And user search for the recent legal case file
+    And user will enter the case file number to search the file
+    And user will take the corresponding action on above as <action10>
+    And user will closes the successful created or updated page
+    And user will be notified by "closed"
+    And current user logs out
+
 
     Examples:
-    | legalCaseData |
-    | testData1     |
+    | legalCaseData | action1       | action2  | action3      | action4      | action5     | action6  | action7      | action8                | implementationMode | action9                    | editImplementationMode| action10  |
+    | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | Yes                | editJudgmentImplementation | edit_Yes              | closeCase |
+    | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | No_Appeal          | editJudgmentImplementation | edit_No_Appeal        | closeCase |
+    | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | No_Contempt        | editJudgmentImplementation | edit_No_Contempt      | closeCase |
+    | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | InProgress         | editJudgmentImplementation | edit_InProgress       | closeCase |
 
 
 

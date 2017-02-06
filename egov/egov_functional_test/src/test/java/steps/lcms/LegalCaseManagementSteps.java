@@ -27,9 +27,22 @@ public class LegalCaseManagementSteps extends BaseSteps implements En {
         });
 
         And("^user will enter the case file number to search the file$", () -> {
-//            pageStore.get(LegalCaseManagementPage.class).searchCaseFile("LC/1016/2016/000026");
+//            pageStore.get(LegalCaseManagementPage.class).searchCaseFile("LC/1016/2016/000022");
             pageStore.get(LegalCaseManagementPage.class).searchCaseFile(scenarioContext.getCaseFileNumber());
+            System.out.println("==============="+scenarioContext.getCaseFileNumber());
+        });
 
+        And("^user will take the corresponding action on above as (\\w+)$", (String action) -> {
+            pageStore.get(LegalCaseManagementPage.class).clickOnCorrespondingAction(action);
+        });
+
+        And("^user will closes the successful created or updated page$", () -> {
+            String message = pageStore.get(LegalCaseManagementPage.class).closeCreatedOrUpdatedPage();
+            scenarioContext.setActualMessage(message);
+        });
+
+        And("^user will enter the details of judgment implementation details based on (\\w+)$", (String mode) -> {
+            pageStore.get(LegalCaseManagementPage.class).enterJudgmentImplementationDetails(mode);
         });
 
     }
