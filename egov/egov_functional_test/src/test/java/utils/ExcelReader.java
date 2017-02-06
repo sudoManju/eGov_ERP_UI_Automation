@@ -300,9 +300,43 @@ public class ExcelReader {
                 String zone = values[0];
                 String ward = values[1];
 
+                String value1 = getCellData(searchDetailsSheet, dataRow, "searchValue2").getStringCellValue();
+                String[] values1 = value1.split(";");
+                String houseNo = values1[0];
+                String ownerName = values1[1];
+
                 searchDetails = new SearchDetailsBuilder()
                         .withZoneNumber(zone)
                         .withWardNumber(ward)
+                        .withHouseNo(houseNo)
+                        .withOwnerName(ownerName)
+                        .build();
+
+                break;
+
+            case "searchWithOwnerName":
+
+                String value2 = getCellData(searchDetailsSheet, dataRow, "searchValue").getStringCellValue();
+                String[] values2 = value2.split(";");
+                String location = values2[0];
+                String ownerName1 = values2[1];
+
+                searchDetails = new SearchDetailsBuilder()
+                        .withLocation(location)
+                        .withOwnerName(ownerName1)
+                        .build();
+                break;
+
+            case "searchByDemand":
+
+                String value3 = getCellData(searchDetailsSheet, dataRow, "searchValue").getStringCellValue();
+                String[] values3 = value3.split(";");
+                String From = values3[0];
+                String To = values3[1];
+
+                searchDetails = new SearchDetailsBuilder()
+                        .withFrom(From)
+                        .withTo(To)
                         .build();
 
                 break;

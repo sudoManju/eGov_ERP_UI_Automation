@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 import java.util.Calendar;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import static com.jayway.awaitility.Awaitility.await;
 import static java.lang.Enum.valueOf;
@@ -202,11 +203,14 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "searchByassmentno")
     private WebElement searchButtonByAssmentNo;
 
-    @FindBy(className = "pagelinks")
-    private WebElement recordsFound;
-
     @FindBy(id = "doorNo")
     private WebElement doorNoTextBox;
+
+    @FindBy(css = "input[id='zoneform_houseNumBndry'][type='text']")
+    private WebElement houseNumTextBoxForSearch;
+
+    @FindBy(css = "input[id='zoneform_ownerNameBndry'][type='text']")
+    private WebElement ownerNameTextBoxForSearch;
 
     @FindBy(id = "mobileNumber")
     private WebElement mobileNoTextBox;
@@ -277,7 +281,23 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(xpath = ".//*[@id='approve']/div/table/tbody/tr[1]/td/span[2]")
     private WebElement commAssessmentNo1;
 
+    @FindBy(id = "locationId")
+    private WebElement locationBoxForSearch;
 
+    @FindBy(id = "ownerName")
+    private WebElement ownerNameBoxForSearch;
+
+    @FindBy(id = "searchByowner")
+    private WebElement searchButtonForOwner;
+
+    @FindBy(id = "fromDemand")
+    private WebElement fromTextBox;
+
+    @FindBy(id = "toDemand")
+    private WebElement toTextBox;
+
+    @FindBy(id = "searchByDemand")
+    private WebElement searchButtonForDemand;
 
     String min = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
     String min1 = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
@@ -388,24 +408,22 @@ public class PropertyDetailsPage extends BasePage {
         webDriver.close();
         switchToPreviouslyOpenedWindow(webDriver);
     }
-    public void enterSearchDetailsOfAssessmentNumber(SearchDetails searchDetails) {
-        waitForElementToBeClickable(assessmentNumTextBox, webDriver);
-        enterText(assessmentNumTextBox, searchDetails.getSearchValue1());
-        searchButtonByAssmentNo.click();
-    }
     public void checkNoOfRecords() {
-        waitForElementToBeVisible(recordsFound, webDriver);
-        int noOfRecords = Integer.parseInt(recordsFound.getText());
-        if (noOfRecords > 0) {
-            System.out.println("Records Founds:" + noOfRecords);
-        } else
-            System.out.println("No records founds");
+
+        Boolean isPresent = webDriver.findElements(By.id("currentRowObject")).size() > 0;
+
+        if(isPresent){
+            WebElement tableId = webDriver.findElement(By.id("currentRowObject"));
+            waitForElementToBeVisible(tableId,webDriver);
+            List<WebElement> totalRows = tableId.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
+            System.out.println(" total Number of Records of:"+totalRows.size()+"\n");
+        }
+        else {
+            System.out.println(" no records\n");
+        }
+
     }
-    public void enterSearchDetailsOfDoorNumber(SearchDetails searchDetails) {
-        waitForElementToBeClickable(doorNoTextBox, webDriver);
-        enterText(doorNoTextBox, searchDetails.getSearchValue1());
-        searchButtonByDoorNo.click();
-    }
+
     public void enterApplicationInfo(ApplicantInfo applicantInfo){
         waitForElementToBeClickable(assessmentNumberTextBox, webDriver);
         enterText(assessmentNumberTextBox, applicantInfo.getPtAssessmentNumber());
@@ -418,17 +436,7 @@ public class PropertyDetailsPage extends BasePage {
         waitForElementToBeClickable(submitButton, webDriver);
         submitButton.click();
     }
-    public void enterSearchDetailsOfMobileNumber(SearchDetails searchDetails) {
-        waitForElementToBeClickable(mobileNoTextBox, webDriver);
-        enterText(mobileNoTextBox, searchDetails.getSearchValue1());
-        searchButtonByMobileNo.click();
-    }
-    public void enterSearchDetailsOfZoneAndWardNumber(SearchDetails searchDetails) {
-        waitForElementToBeClickable(zoneId, webDriver);
-        new Select(zoneId).selectByVisibleText(searchDetails.getSearchValue1());
-        new Select(wardId).selectByVisibleText(searchDetails.getSearchValue2());
-        searchButtonByZoneAndWard.click();
-    }
+
     public void enterAssessmentNumber(String assessmentNumber) {
         assessmentNumberTextBox.sendKeys(assessmentNumber);
     }
@@ -474,5 +482,54 @@ public class PropertyDetailsPage extends BasePage {
         JavascriptExecutor executor = (JavascriptExecutor)webDriver;
         executor.executeScript("arguments[0].click();", element);
         switchToNewlyOpenedWindow(webDriver);
+    }
+
+    public void searchProperty(SearchDetails searchDetails, String searchType) {
+
+        System.out.println(searchType+" has ");
+
+        switch (searchType){
+
+            case "searchWithAssessmentNumber":
+                waitForElementToBeClickable(assessmentNumTextBox, webDriver);
+                enterText(assessmentNumTextBox, searchDetails.getSearchValue1());
+                searchButtonByAssmentNo.click();
+                break;
+
+            case "searchWithMobileNumber":
+                waitForElementToBeClickable(mobileNoTextBox, webDriver);
+                enterText(mobileNoTextBox, searchDetails.getSearchValue1());
+                searchButtonByMobileNo.click();
+                break;
+
+            case "searchWithDoorNumber":
+                waitForElementToBeClickable(doorNoTextBox, webDriver);
+                enterText(doorNoTextBox, searchDetails.getSearchValue1());
+                searchButtonByDoorNo.click();
+                break;
+
+            case "searchWithZoneAndWardNumber":
+                waitForElementToBeClickable(zoneId, webDriver);
+                new Select(zoneId).selectByVisibleText(searchDetails.getSearchValue1());
+                new Select(wardId).selectByVisibleText(searchDetails.getSearchValue2());
+                enterText(houseNumTextBoxForSearch, searchDetails.getSearchValue3());
+                enterText(ownerNameTextBoxForSearch, searchDetails.getSearchValue4());
+                searchButtonByZoneAndWard.click();
+                break;
+
+            case "searchWithOwnerName":
+                waitForElementToBeClickable(locationBoxForSearch,webDriver);
+                new Select(locationBoxForSearch).selectByVisibleText(searchDetails.getSearchValue3());
+                enterText(ownerNameBoxForSearch,searchDetails.getSearchValue4());
+                searchButtonForOwner.click();
+                break;
+
+            case "searchByDemand":
+                waitForElementToBeClickable(fromTextBox,webDriver);
+                enterText(fromTextBox,searchDetails.getSearchValue3());
+                enterText(toTextBox,searchDetails.getSearchValue4());
+                searchButtonForDemand.click();
+                break;
+        }
     }
 }

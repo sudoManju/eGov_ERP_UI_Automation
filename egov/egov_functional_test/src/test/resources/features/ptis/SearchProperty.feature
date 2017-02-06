@@ -5,49 +5,26 @@ Feature: search property
   So that the property records are up to date.
 
 @WIP
-Scenario: Registered user searching a property in the system with assessment number
+Scenario Outline: Registered user searching a property with particular search details
 
   Given Admin logs in
 
   When he chooses to search property
-  And he search property with assessment number
+  And he search property with <searchDetails>
   And he check total number of records found
 
   And current user closes acknowledgement
   And current user logs out
 
-@WIP
-Scenario:  Registered user searching a property in the system with door number
+  Examples:
 
-  Given Admin logs in
+  |searchDetails              |
+  |searchWithAssessmentNumber |
+  |searchWithMobileNumber     |
+  |searchWithDoorNumber       |
+  |searchWithZoneAndWardNumber|
+  |searchWithOwnerName        |
+  |searchByDemand             |
 
-  When he chooses to search property
-  And he search property with door number
-  And he check total number of records found
 
-  And current user closes acknowledgement
-  And current user logs out
 
-@WIP
-Scenario: Registered user searching a property in the system with mobile number
-
-  Given Admin logs in
-
-  When he chooses to search property
-  And he search property with mobile number
-  And he check total number of records found
-
-  And current user closes acknowledgement
-  And current user logs out
-
-@WIP
-Scenario: Registered user searching a property in the system with zone and ward number
-
-  Given Admin logs in
-
-  When he chooses to search property
-  And he search property with zone and ward number
-  And he check total number of records found
-
-  And current user closes acknowledgement
-  And current user logs out

@@ -69,28 +69,8 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
         And("^the property tax bill be created$", () -> {
             pageStore.get(PropertyDetailsPage.class).create();
         });
-        And("^he search property with assessment number$", () -> {
-            String searchId = "searchWithAssessmentNumber";
-            SearchDetails searchDetails = new ExcelReader(ptisTestDataFileName).getSearchDetails(searchId);
-            pageStore.get(PropertyDetailsPage.class).enterSearchDetailsOfAssessmentNumber(searchDetails);
-        });
         And("^he check total number of records found$", () -> {
             pageStore.get(PropertyDetailsPage.class).checkNoOfRecords();
-        });
-        And("^he search property with door number$", () -> {
-            String searchId = "searchWithDoorNumber";
-            SearchDetails searchDetails = new ExcelReader(ptisTestDataFileName).getSearchDetails(searchId);
-            pageStore.get(PropertyDetailsPage.class).enterSearchDetailsOfDoorNumber(searchDetails);
-        });
-        And("^he search property with mobile number$", () -> {
-            String searchId = "searchWithMobileNumber";
-            SearchDetails searchDetails = new ExcelReader(ptisTestDataFileName).getSearchDetails(searchId);
-            pageStore.get(PropertyDetailsPage.class).enterSearchDetailsOfMobileNumber(searchDetails);
-        });
-        And("^he search property with zone and ward number$", () -> {
-            String searchId = "searchWithZoneAndWardNumber";
-            SearchDetails searchDetails = new ExcelReader(ptisTestDataFileName).getSearchDetails(searchId);
-            pageStore.get(PropertyDetailsPage.class).enterSearchDetailsOfZoneAndWardNumber(searchDetails);
         });
         And("^finally user will submit the application$", () -> {
             pageStore.get(PropertyDetailsPage.class).chooseToSubmit();
@@ -101,6 +81,10 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
         And("^he approved the property with remarks \"([^\"]*)\" for transfer of ownership$", (String arg0) -> {
             String assessmentNo = pageStore.get(PropertyDetailsPage.class).approveForCreation();
             scenarioContext.setCommAssessmentNumber(assessmentNo);
+        });
+        And("^he search property with (\\w+)$", (String searchType) -> {
+            SearchDetails searchDetails = new ExcelReader(ptisTestDataFileName).getSearchDetails(searchType);
+            pageStore.get(PropertyDetailsPage.class).searchProperty(searchDetails,searchType);
         });
     }
 }
