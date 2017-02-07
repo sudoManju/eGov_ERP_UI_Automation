@@ -139,6 +139,13 @@ public class MarriageRegistrationPage extends BasePage {
     @FindBy(className = "dropchange")
     private WebElement actionDropDown;
 
+    @FindBy(xpath = ".//*[@id='registration_table']/tbody/tr/td[10]/button")
+    private WebElement editButton;
+
+    @FindBy(xpath = ".//*[@id='form-updateregistration']/div[2]/div/button")
+    private WebElement updateButton;
+
+
 
     public  MarriageRegistrationPage(WebDriver driver){ this.driver = driver;}
 
@@ -359,5 +366,42 @@ public class MarriageRegistrationPage extends BasePage {
         waitForElementToBeVisible(actionDropDown,driver);
         new Select(actionDropDown).selectByVisibleText("Collect Fee");
         switchToNewlyOpenedWindow(driver);
+    }
+
+
+    public void searchForApplicationToModify(String applicationNumber) {
+        waitForElementToBeVisible(applicationNumberTextBox,driver);
+        applicationNumberTextBox.sendKeys(applicationNumber);
+        searchRegistrationButton.click();
+    }
+
+    public void clickOnEditButton() {
+        waitForElementToBeClickable(editButton,driver);
+        editButton.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void modifyAndUpdateMarriageApplication() {
+        waitForElementToBeClickable(lastName.get(0), driver);
+        lastName.get(0).sendKeys("KHAN");
+        waitForElementToBeClickable(updateButton,driver);
+        updateButton.click();
+
+    }
+
+    public String isSuccesfulForModification() {
+        return creationMessage.getText();
+    }
+
+    public void closeMultipleWindows() {
+        waitForElementToBeClickable(closeButton,driver);
+        closeButton.click();
+        for (String winHandle : driver.getWindowHandles()) {
+            if(driver.switchTo().window(winHandle).getCurrentUrl().equals("http://kurnool-uat.egovernments.org/mrs/registration/searchApproved")){
+                break;
+            }
+        }
+        driver.findElement(By.linkText("Close")).click();
+        switchToPreviouslyOpenedWindow(driver);
     }
 }

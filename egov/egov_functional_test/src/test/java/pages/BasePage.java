@@ -124,7 +124,6 @@ public class BasePage {
         cal.add(Calendar.DATE, -i);
         return dateFormat.format(cal.getTime());
     }
-
     public void isSuccesful(String expectedMessage,String actualMessage){
 
 

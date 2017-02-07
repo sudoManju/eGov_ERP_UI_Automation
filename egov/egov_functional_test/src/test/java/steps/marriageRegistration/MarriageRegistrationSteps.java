@@ -76,9 +76,26 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
         });
         And("^he submit the data entry$", () -> {
             String message = pageStore.get(MarriageRegistrationPage.class).isSuccesful();
-            String number = message.split("\\ ")[7];
+            String number = message.split("\\s")[7];
+            System.out.println("\n"+number);
             scenarioContext.setActualMessage(message);
             scenarioContext.setApplicationNumber(number);
           });
+
+        And("^he search the marrige application$", () -> {
+            pageStore.get(MarriageRegistrationPage.class).searchForApplicationToModify(scenarioContext.getApplicationNumber());
+            pageStore.get(MarriageRegistrationPage.class).clickOnEditButton();
+
+        });
+        And("^he modify application and update it$", () -> {
+            pageStore.get(MarriageRegistrationPage.class).modifyAndUpdateMarriageApplication();
+            String message = pageStore.get(MarriageRegistrationPage.class).isSuccesfulForModification();
+            scenarioContext.setActualMessage(message);
+        });
+        And("^he closes the acknowledgements$", () -> {
+           pageStore.get(MarriageRegistrationPage.class).closeMultipleWindows();
+        });
+
+
     }
 }

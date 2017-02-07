@@ -284,6 +284,9 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Collect Fee")
     private  WebElement collectMarriageFeeLink;
 
+    @FindBy(linkText = "Modify Marriage Registration")
+    private WebElement modifyMarriageRegistrationLink;
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -1050,6 +1053,15 @@ public class DashboardPage extends BasePage {
             waitForElementToBeClickable(collectMarriageFeeLink,driver);
             collectMarriageFeeLink.click();
             switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseToModifyMarriageRegistration() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Modify Marriage Registration");
+        waitForElementToBeClickable(modifyMarriageRegistrationLink, driver);
+        modifyMarriageRegistrationLink.click();
+        switchToNewlyOpenedWindow(driver);
+
     }
 }
 
