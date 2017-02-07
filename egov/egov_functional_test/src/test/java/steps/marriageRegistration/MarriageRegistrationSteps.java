@@ -67,10 +67,6 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
             pageStore.get(MarriageRegistrationPage.class).enterMarriageRegNum();
         });
 
-        And("^he submit the data entry and he notified by \"([^\"]*)\"$", (String expectedMessage) -> {
-            String actualMessage = scenarioContext.getActualMessage();
-            pageStore.get(MarriageRegistrationPage.class).isSuccesful(expectedMessage, actualMessage);
-        });
         And("^he choose to collect marriage registration fee$", () -> {
             pageStore.get(DashboardPage.class).chooseToCollecteMarriageRegitrationFee();
         });
@@ -78,7 +74,11 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
             pageStore.get(MarriageRegistrationPage.class).searchForMarriageApplicationNumberToCollect(scenarioContext.getApplicationNumber());
             pageStore.get(MarriageRegistrationPage.class).clickOnCollectDropdown();
         });
-
-
+        And("^he submit the data entry$", () -> {
+            String message = pageStore.get(MarriageRegistrationPage.class).isSuccesful();
+            String number = message.split("\\ ")[7];
+            scenarioContext.setActualMessage(message);
+            scenarioContext.setApplicationNumber(number);
+          });
     }
 }

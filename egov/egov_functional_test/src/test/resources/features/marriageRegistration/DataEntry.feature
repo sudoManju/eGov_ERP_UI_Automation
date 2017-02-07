@@ -11,7 +11,9 @@ Feature: Create an Data Entry for the Marriage registration
     And he enters the serial and page number
     And he enters the Witnesses Information
     And he enters the checklist
-    And he submit the data entry and he notified by "registered"
+    And he submit the data entry
+    Then user will be notified by "registered"
+    And he closes the acknowledgement
     And current user logs out
 
 

@@ -338,11 +338,13 @@ public class MarriageRegistrationPage extends BasePage {
         marriagePageNum.sendKeys("0123"+min);
     }
 
-    public void isSuccesful(String expectedMessage,String actualMessage) {
+    public String isSuccesful() {
         waitForElementToBeClickable(dataEntrySubmitButton, driver);
         jsClick(dataEntrySubmitButton, driver);
-//        Boolean found = Arrays.asList(actualMessage.split(" ")).contains(expectedMessage);
-//        Assert.assertTrue(found);
+
+        String message = creationMessage.getText();
+
+         return  message;
 
 //        Assert.assertEquals(expectedMessage,actualMessage);
     }
