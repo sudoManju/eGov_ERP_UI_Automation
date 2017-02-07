@@ -17,7 +17,7 @@ public class PropertyTaxSteps extends BaseSteps implements En {
         });
         And("^he collect tax using (\\w+)$", (String paymentMode) -> {
             PaymentMethod paymentmethod = new ExcelReader(collectionsTestDataFileName).getPaymentMethodDetails(paymentMode);
-            pageStore.get(PropertyTaxPage.class).collectTax(paymentmethod,paymentMode);
+            pageStore.get(PropertyTaxPage.class).collectTax(paymentmethod,paymentMode,"Bill");
         });
     }
 }

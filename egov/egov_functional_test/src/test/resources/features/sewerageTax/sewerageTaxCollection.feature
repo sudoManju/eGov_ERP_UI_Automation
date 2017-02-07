@@ -53,7 +53,7 @@ Feature: Create/renewal/closure of sewerage connection
     And current user logs out
 
     When Executive_engineer logs in
-    And he chooses to act upon above sewerage application
+    And he chooses to act upon above sewerage connection
     And he approve the above sewerage application
     And he closes the sewerage acknowledgement
     Then user will be notified by "successfully"
@@ -115,7 +115,7 @@ Feature: Create/renewal/closure of sewerage connection
     And current user logs out
 
     When Executive_engineer logs in
-    And he chooses to act upon above sewerage application
+    And he chooses to act upon above sewerage connection for change
     And he approve the above sewerage application
     And he closes the sewerageChange acknowledgement
     Then user will be notified by "successfully"
@@ -169,6 +169,8 @@ Feature: Create/renewal/closure of sewerage connection
     And he chooses to act upon above sewerage connection for closure
     And he generates closure notice
     And current user logs out
+
+
 
   @SewerageTax @Sanity
   Scenario: Generate demand bill for legacy sewerage connection

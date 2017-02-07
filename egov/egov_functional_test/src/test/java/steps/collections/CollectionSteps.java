@@ -61,7 +61,7 @@ public class CollectionSteps extends BaseSteps implements En {
         });
         And("^he pay using (\\w+)$", (String paymentMethod) -> {
             PaymentMethod paymentmethod = new ExcelReader(collectionsTestDataFileName).getPaymentMethodDetails(paymentMethod);
-            pageStore.get(PropertyTaxPage.class).collectTax(paymentmethod,paymentMethod);
+            pageStore.get(PropertyTaxPage.class).collectTax(paymentmethod,paymentMethod,"challan");
         });
         Given("^User will Visit Property Tax onlinepayent link$", () -> {
             pageStore.get(CollectionsPage.class).propertyTaxOnlinePaymentLink();

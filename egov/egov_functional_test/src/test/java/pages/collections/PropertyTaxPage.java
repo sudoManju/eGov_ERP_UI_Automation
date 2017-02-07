@@ -31,11 +31,17 @@ public class PropertyTaxPage extends BasePage {
     @FindBy(css = "input[id='totalamounttobepaid'][type='text']")
     private WebElement totalAmountToBePaidText;
 
+    @FindBy(css = "input[id='totalamounttobepaid'][type='label']")
+    private WebElement totalAmountToBePaidTextForChallan;
+
     @FindBy(css = "input[id='instrHeaderCash.instrumentAmount'][type='text']")
     private WebElement amountPaidByCashTextBox;
 
     @FindBy(css = "input[value='Pay'][type='submit']")
-    private WebElement payButton;
+    private WebElement payButtonForBill;
+
+    @FindBy(css = "input[value='Pay'][type='button']")
+    private WebElement payButtonForChallan;
 
     @FindBy(css = "input[type='radio'][id='chequeradiobutton']")
     private WebElement chequeModeRadioButton;
@@ -86,11 +92,19 @@ public class PropertyTaxPage extends BasePage {
         payTaxButton.click();
     }
 
-    public void collectTax(PaymentMethod paymentmethod, String paymentMode) {
-        String amount = totalAmountToBePaidText.getAttribute("value");
-        String actualAmount = amount.split("\\.")[0];
+    public void collectTax(PaymentMethod paymentmethod, String paymentMode,String method) {
 
-        switch (paymentMode){
+        String amount, actualAmount;
+
+        if (method.equals("Bill")) {
+            amount = totalAmountToBePaidText.getAttribute("value");
+            actualAmount = amount.split("\\.")[0];
+        } else {
+            amount = totalAmountToBePaidTextForChallan.getAttribute("value");
+            actualAmount = amount.split("\\.")[0];
+        }
+
+        switch (paymentMode) {
 
             case "cash":
 
@@ -100,16 +114,16 @@ public class PropertyTaxPage extends BasePage {
 
             case "cheque":
 
-                waitForElementToBeClickable(chequeModeRadioButton,driver);
-                jsClick(chequeModeRadioButton,driver);
+                waitForElementToBeClickable(chequeModeRadioButton, driver);
+                jsClick(chequeModeRadioButton, driver);
 
-                waitForElementToBeVisible(chequeNumberTextBox,driver);
+                waitForElementToBeVisible(chequeNumberTextBox, driver);
                 chequeNumberTextBox.sendKeys(paymentmethod.getChequeNumber());
 
-                waitForElementToBeClickable(chequeDateTextBox,driver);
+                waitForElementToBeClickable(chequeDateTextBox, driver);
                 chequeDateTextBox.sendKeys(getCurrentDate());
 
-                waitForElementToBeClickable(bankNameTextBox,driver);
+                waitForElementToBeClickable(bankNameTextBox, driver);
                 bankNameTextBox.sendKeys(paymentmethod.getBankName());
                 await().atMost(10, SECONDS).until(() -> driver.findElement(By.id("bankcodescontainer"))
                         .findElements(By.cssSelector("ul li"))
@@ -121,16 +135,16 @@ public class PropertyTaxPage extends BasePage {
 
             case "dd":
 
-                waitForElementToBeClickable(ddRadioButton,driver);
-                jsClick(ddRadioButton,driver);
+                waitForElementToBeClickable(ddRadioButton, driver);
+                jsClick(ddRadioButton, driver);
 
-                waitForElementToBeVisible(chequeNumberTextBox,driver);
+                waitForElementToBeVisible(chequeNumberTextBox, driver);
                 chequeNumberTextBox.sendKeys(paymentmethod.getChequeNumber());
 
-                waitForElementToBeClickable(chequeDateTextBox,driver);
+                waitForElementToBeClickable(chequeDateTextBox, driver);
                 chequeDateTextBox.sendKeys(getCurrentDate());
 
-                waitForElementToBeClickable(bankNameTextBox,driver);
+                waitForElementToBeClickable(bankNameTextBox, driver);
                 bankNameTextBox.sendKeys(paymentmethod.getBankName());
                 await().atMost(10, SECONDS).until(() -> driver.findElement(By.id("bankcodescontainer"))
                         .findElements(By.cssSelector("ul li"))
@@ -142,29 +156,36 @@ public class PropertyTaxPage extends BasePage {
 
             case "directBank1":
 
-                waitForElementToBeClickable(directBankRadioButton,driver);
-                jsClick(directBankRadioButton,driver);
+                waitForElementToBeClickable(directBankRadioButton, driver);
+                jsClick(directBankRadioButton, driver);
 
-                waitForElementToBeVisible(referenceNumberTextBox,driver);
+                waitForElementToBeVisible(referenceNumberTextBox, driver);
                 referenceNumberTextBox.sendKeys(paymentmethod.getChequeNumber());
 
-                waitForElementToBeClickable(challanDateTextBox,driver);
+                waitForElementToBeClickable(challanDateTextBox, driver);
                 challanDateTextBox.sendKeys(getCurrentDate());
 
-                waitForElementToBeClickable(bankNameDropBox,driver);
+                waitForElementToBeClickable(bankNameDropBox, driver);
                 new Select(bankNameDropBox).selectByVisibleText(paymentmethod.getBankName());
 
-                waitForElementToBeClickable(accountNumberDropBox,driver);
+                waitForElementToBeClickable(accountNumberDropBox, driver);
                 new Select(accountNumberDropBox).selectByVisibleText(paymentmethod.getAccountNumber());
 
-                waitForElementToBeClickable(directBankAmountTextBox,driver);
+                waitForElementToBeClickable(directBankAmountTextBox, driver);
                 directBankAmountTextBox.sendKeys(actualAmount);
 
                 break;
 
         }
 
-      waitForElementToBeClickable(payButton,driver);
-      jsClick(payButton,driver);
+        if (method.equals("Bill")) {
+            waitForElementToBeClickable(payButtonForBill, driver);
+            jsClick(payButtonForBill, driver);
+        }
+        else {
+            waitForElementToBeClickable(payButtonForChallan,driver);
+            jsClick(payButtonForChallan,driver);
+        }
     }
+
 }

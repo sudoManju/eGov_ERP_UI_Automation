@@ -351,10 +351,10 @@ public class MiscellaneousPage extends BasePage{
 
     public void enterBankDetails() {
         waitForElementToBeVisible(bankNameBox, driver);
-        new Select(bankNameBox).selectByVisibleText("STATE BANK OF HYDERABAD-KMC Complex Kurnool");
+        new Select(bankNameBox).selectByVisibleText("ANDHRA BANK-Andhra Bank RTC Busstand");
 
         waitForElementToBeClickable(bankAccountNumberBox, driver);
-        new Select(bankAccountNumberBox).selectByVisibleText("62007226282");
+        new Select(bankAccountNumberBox).selectByVisibleText("110710011005899");
 
         waitForElementToBeClickable(paymentModeBox, driver);
         new Select(paymentModeBox).selectByVisibleText("cheque/dd");

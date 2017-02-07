@@ -315,8 +315,10 @@ public class AdvertisementsPage extends BasePage {
 
 
     public void selectAdvertisementTag(String applicationNumber) {
+         waitForElementToBeVisible(advertisementLink,driver);
+         advertisementLink.click();
 
-        await().atMost(25, SECONDS).until(() -> workListTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 0);
+         await().atMost(25, SECONDS).until(() -> workListTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 0);
         List<WebElement> totalRows = workListTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
         System.out.println("\n"+totalRows.size());
         for (WebElement applicationRow : totalRows) {

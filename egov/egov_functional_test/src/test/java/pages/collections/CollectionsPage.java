@@ -273,7 +273,7 @@ public class CollectionsPage extends BasePage {
     }
 
     public void propertyTaxOnlinePaymentLink() {
-        driver.navigate().to("http://kurnool-uat.egovernments.org/ptis/citizen/search/search-searchByAssessmentForm.action");
+        driver.navigate().to("http://kurnool-qa.egovernments.org/ptis/citizen/search/search-searchByAssessmentForm.action");
     }
 
     public void enerterAssessmentNumber(String assessmentNumber) {

@@ -290,7 +290,6 @@ public class newSewerageConnectionPage extends BasePage {
                 break;
             }
         }
-
         switchToNewlyOpenedWindow(driver);
     }
 
