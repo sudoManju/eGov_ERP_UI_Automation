@@ -9,6 +9,7 @@ Feature: Register Complaint
     When he choose to register complaint with his login
     And he choose to enter grievance details as <grievanceDetails>
     And citizen create grievance
+    And user will be notified by "successfully"
     And he copies CRN and closes the acknowledgement
     And current user sign out
 
@@ -30,6 +31,7 @@ Feature: Register Complaint
    And he choose to enter contact information as <contactDetails>
    And he choose to enter grievance details as <grievanceDetails>
    And official create grievance
+   And user will be notified by "successfully"
    And official copies CRN and closes the acknowledgement
    And current user logs out
 
@@ -45,6 +47,7 @@ Feature: Register Complaint
     And he choose to enter contact information as <contactDetails>
     And he choose to enter grievance details as <grievanceDetails>
     And official create grievance
+    And user will be notified by "successfully"
     And official copies CRN and closes the acknowledgement
     And choose to act upon the above CRN in his own dratfs
     And he forwards for approver sanitaryInspector1
@@ -75,6 +78,7 @@ Feature: Register Complaint
     When he choose to register complaint with his login
     And he choose to enter grievance details as <grievanceDetails>
     And citizen create grievance
+    And user will be notified by "successfully"
     And he copies CRN and closes the acknowledgement
     And current user sign out
 
@@ -108,6 +112,7 @@ Feature: Register Complaint
      When he choose to register complaint with his login
      And he choose to enter grievance details as <grievanceDetails>
      And citizen create grievance
+     And user will be notified by "successfully"
      And he copies CRN and closes the acknowledgement
      And he search complaint in his Inbox
      And he WITHDRAWN the complaint
@@ -125,6 +130,7 @@ Feature: Register Complaint
     When he choose to register complaint with his login
     And he choose to enter grievance details as <grievanceDetails>
     And citizen create grievance
+    And user will be notified by "successfully"
     And he copies CRN and closes the acknowledgement
     And current user sign out
 

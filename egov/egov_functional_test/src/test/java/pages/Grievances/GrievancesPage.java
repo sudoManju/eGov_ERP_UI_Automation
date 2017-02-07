@@ -172,13 +172,17 @@ public class GrievancesPage extends BasePage {
         return CrnNum;
     }
 
-    public void createInOfficial() {
+    public String createInOfficial() {
         createGrievanceOfficialButton.click();
         switchToNewlyOpenedWindow(webDriver);
+        WebElement element= webDriver.findElement(By.xpath("html/body/div[1]/div/div[1]/div/div/div[1]/div/strong"));
+        return element.getText();
     }
 
-    public void createInCitizen() {
+    public String createInCitizen() {
         createGrievanceButton.click();
+        WebElement element= webDriver.findElement(By.xpath("html/body/div[1]/div/div[1]/div/div/div[1]/div/strong"));
+        return element.getText();
     }
 
     public void getProcessingStatus() {

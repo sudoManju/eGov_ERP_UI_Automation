@@ -47,10 +47,10 @@ public class GrievancesSteps extends BaseSteps implements En {
             scenarioContext.setCRN(CRN);
         });
         And("^official create grievance$", () -> {
-           pageStore.get(GrievancesPage.class).createInOfficial();
+           scenarioContext.setActualMessage(pageStore.get(GrievancesPage.class).createInOfficial());
         });
         And("^citizen create grievance$", () -> {
-            pageStore.get(GrievancesPage.class).createInCitizen();
+            scenarioContext.setActualMessage(pageStore.get(GrievancesPage.class).createInCitizen());
         });
         And("^he marks the staus as processing$", () -> {
             pageStore.get(GrievancesPage.class).getProcessingStatus();
