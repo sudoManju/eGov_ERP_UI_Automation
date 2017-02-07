@@ -326,9 +326,19 @@ public class newSewerageConnectionPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.close();
-        for (String winHandle : driver.getWindowHandles()) {
-            if(driver.switchTo().window(winHandle).getCurrentUrl().equals("http://kurnool-uat.egovernments.org/stms/transactions/update/"+num)){
-                break;
+        String env = System.getProperty("env");
+        if(env.equals("staging")) {
+            for (String winHandle : driver.getWindowHandles()) {
+                if (driver.switchTo().window(winHandle).getCurrentUrl().equals("http://kurnool-uat.egovernments.org/stms/transactions/update/" + num)) {
+                    break;
+                }
+            }
+        }
+        else if(env.equals("qa")){
+            for (String winHandle : driver.getWindowHandles()) {
+                if (driver.switchTo().window(winHandle).getCurrentUrl().equals("http://kurnool-qa.egovernments.org/stms/transactions/update/" + num)) {
+                    break;
+                }
             }
         }
     }
@@ -339,7 +349,7 @@ public class newSewerageConnectionPage extends BasePage {
         executeConnectionButton.click();
     }
 
-    public void searchForAboveSewerageConnection(String number) {
+    public void searchForAboveSewerageConnection(String number,String action) {
         waitForElementToBeVisible(applicationNumberTextBox,driver);
         applicationNumberTextBox.sendKeys(number);
 
@@ -349,11 +359,13 @@ public class newSewerageConnectionPage extends BasePage {
         waitForElementToBeVisible(searchResultsTable,driver);
         WebElement dropDownAction = searchResultsTable.findElement(By.tagName("tbody")).findElement(By.tagName("tr")).findElements(By.tagName("td")).get(1).findElement(By.tagName("a"));
         String hscNumber = dropDownAction.getText();
-//        waitForElementToBeClickable(dropDownAction,driver);
-//        new Select(dropDownAction).selectByVisibleText("Change number of seats");
-//        switchToNewlyOpenedWindow(driver);
-//        System.out.println(driver.getTitle());
-        driver.navigate().to("http://kurnool-uat.egovernments.org/stms/transactions/modifyConnection/"+hscNumber);
+        String env = System.getProperty("env");
+        if(env.equals("staging")) {
+            driver.navigate().to("http://kurnool-uat.egovernments.org/stms/transactions/" + action + "/" + hscNumber);
+        }
+        else if(env.equals("qa")){
+            driver.navigate().to("http://kurnool-qa.egovernments.org/stms/transactions/" + action + "/" + hscNumber);
+        }
     }
 
     public void increseTheNumberOfClosets() {
@@ -377,20 +389,6 @@ public class newSewerageConnectionPage extends BasePage {
     public void selectChangeInClosets() {
          waitForElementToBeClickable(changeInClosetsLink,driver);
         changeInClosetsLink.click();
-    }
-
-    public void searchForSewerageConnectionForClosure(String applicationNumber) {
-        waitForElementToBeVisible(applicationNumberTextBox,driver);
-        applicationNumberTextBox.sendKeys(applicationNumber);
-
-        waitForElementToBeClickable(searchButton,driver);
-        searchButton.click();
-
-        waitForElementToBeVisible(searchResultsTable,driver);
-        WebElement dropDownAction = searchResultsTable.findElement(By.tagName("tbody")).findElement(By.tagName("tr")).findElements(By.tagName("td")).get(1).findElement(By.tagName("a"));
-        String hscNumber = dropDownAction.getText();
-
-        driver.navigate().to("http://kurnool-uat.egovernments.org/stms/transactions/closeConnection/"+hscNumber);
     }
 
     public void remarks() {
@@ -465,8 +463,14 @@ public class newSewerageConnectionPage extends BasePage {
         WebElement dropDownAction = searchResultsTable.findElement(By.tagName("tbody")).findElement(By.tagName("tr")).findElements(By.tagName("td")).get(1).findElement(By.tagName("a"));
         String hscNumber = dropDownAction.getText();
 
-        driver.navigate().to("http://kurnool-uat.egovernments.org/stms/reports/generate-sewerage-demand-bill/"+number+"/"+hscNumber);
+        String env = System.getProperty("env");
 
+        if(env.equals("staging")) {
+            driver.navigate().to("http://kurnool-uat.egovernments.org/stms/reports/generate-sewerage-demand-bill/" + number + "/" + hscNumber);
+        }
+        else if(env.equals("qa")){
+            driver.navigate().to("http://kurnool-qa.egovernments.org/stms/reports/generate-sewerage-demand-bill/" + number + "/" + hscNumber);
+        }
         driver.manage().timeouts().implicitlyWait(15,TimeUnit.SECONDS);
 
         driver.close();

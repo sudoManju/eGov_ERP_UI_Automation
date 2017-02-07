@@ -112,7 +112,7 @@ public class newSewerageConnectionSteps extends BaseSteps implements En {
            pageStore.get(DashboardPage.class).chooseForSearchSewerageConnection();
         });
         And("^he search for above sewerage connection$", () -> {
-            pageStore.get(newSewerageConnectionPage.class).searchForAboveSewerageConnection(scenarioContext.getApplicationNumber());
+            pageStore.get(newSewerageConnectionPage.class).searchForAboveSewerageConnection(scenarioContext.getApplicationNumber(), "modifyConnection");
         });
         And("^he increses the number of closets$", () -> {
             pageStore.get(newSewerageConnectionPage.class).increseTheNumberOfClosets();
@@ -179,7 +179,7 @@ public class newSewerageConnectionSteps extends BaseSteps implements En {
             pageStore.get(newSewerageConnectionPage.class).close();
         });
         And("^he search for above sewerage application for closure$", () -> {
-           pageStore.get(newSewerageConnectionPage.class).searchForSewerageConnectionForClosure(scenarioContext.getApplicationNumber());
+            pageStore.get(newSewerageConnectionPage.class).searchForAboveSewerageConnection(scenarioContext.getApplicationNumber(), "closeConnection");
         });
         And("^he put remarks and forward the application$", () -> {
             pageStore.get(newSewerageConnectionPage.class).remarks();
