@@ -7,7 +7,7 @@ Feature: create preamble
 
   # Create Preamble #
 
-  @Sanity
+  @Sanity @CouncilManagement
   Scenario Outline: Register user choose to create Preamble, agenda,meeting invitation,attendance and MOM
 
     Given councilCreator logs in
@@ -55,7 +55,9 @@ Feature: create preamble
     And user will be notified by "APPROVED"
     And current user logs out
 
+    Examples:
+      |details| committee    |meetingDetails |MOMdeatils|
+      |abc    | createAgenda |councilMeeting |councilMOM |
 
-  Examples:
-  |details| committee    |meetingDetails |MOMdeatils|
-  |abc    | createAgenda |councilMeeting |councilMOM |
+
+

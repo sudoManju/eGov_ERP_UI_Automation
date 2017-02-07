@@ -4,7 +4,7 @@ Feature: Search Trade License
   I want to be able to search for a trade license
   So that the license records are up to date.
 
-  @Sanity
+  @Sanity @TradeLicense
   Scenario: Registered user search trade license with application number
 
     Given creator logs in
@@ -13,7 +13,7 @@ Feature: Search Trade License
     And he checks total number of records
     And current user logs out
 
-  @Sanity
+  @Sanity @TradeLicense
   Scenario: Registered user search trade license with license number
 
     Given creator logs in
@@ -22,7 +22,7 @@ Feature: Search Trade License
     And he checks total number of records
     And current user logs out
 
-  @Sanity
+  @Sanity @TradeLicense
   Scenario: Registered user search trade license with status
 
     Given creator logs in
@@ -31,7 +31,7 @@ Feature: Search Trade License
     And he checks total number of records
     And current user logs out
 
-  @Sanity
+  @Sanity @TradeLicense
   Scenario: Registered user search trade license with status
 
     Given creator logs in

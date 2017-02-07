@@ -215,14 +215,6 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).chooseToCollectWaterCharges();
         });
 
-        And("^user will search for city setup$", () -> {
-            pageStore.get(DashboardPage.class).chooseToCitySetup();
-        });
-
-        And("^user will select the municipality info to upload the image$", () -> {
-            pageStore.get(DashboardPage.class).selectMunicipalityInfo();
-        });
-
         And("^he choose to act upon the above application number$", () -> {
            pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
             System.out.println("Application Number"+scenarioContext.getApplicationNumber());

@@ -3,9 +3,9 @@ Feature: Create/search Advertisement
   I am able to create/search Advertisements
 
 
-@adTax @Sanity
 
-Scenario: Create/Search/Collect Tax Agency wise
+  @AdvertisementTax @Sanity
+  Scenario: Create/Search/Collect Tax Agency wise
 
     # Create Agency
 
@@ -47,9 +47,8 @@ Scenario: Create/Search/Collect Tax Agency wise
 
 
 
-@adTax  @Sanity
-
-Scenario: Create/Search/CollectTax/Deactivate AdvertisementWise
+  @AdvertisementTax  @Sanity
+  Scenario: Create/Search/CollectTax/Deactivate AdvertisementWise
 
 #  Create Advertisements
 
@@ -68,22 +67,22 @@ Scenario: Create/Search/CollectTax/Deactivate AdvertisementWise
 
 #  Search Advertisements
 
-  And creator logs in
-  And he chooses to search advertisement
-  And he search and select the required advertisement
-  And he view and close the acknowledgement
+    And creator logs in
+    And he chooses to search advertisement
+    And he search and select the required advertisement
+    And he view and close the acknowledgement
 
 # Collect Advertisement Tax
 
-  And he choose to collect advertisement tax by advertisement wise
-  And he search advertisement by advertisement number
-  And he choose advertisement for collecting advertisement tax
-  And current user logs out
+    And he choose to collect advertisement tax by advertisement wise
+    And he search advertisement by advertisement number
+    And he choose advertisement for collecting advertisement tax
+    And current user logs out
 
-  And admin logs in
-  And he choose to deactivate the advertisement
-  And he search for advertisement for deactivate
-  And he deactivates the advertisement with remarks and date
-  Then user will be notified by "Deactivated"
-  And user closes the acknowledgement pages
-  And current user logs out
+    And admin logs in
+    And he choose to deactivate the advertisement
+    And he search for advertisement for deactivate
+    And he deactivates the advertisement with remarks and date
+    Then user will be notified by "Deactivated"
+    And user closes the acknowledgement pages
+    And current user logs out

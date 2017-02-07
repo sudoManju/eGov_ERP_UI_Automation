@@ -487,7 +487,7 @@ public class WaterChargeManagementPage extends BasePage {
 
         for (String winHandle : webDriver.getWindowHandles()) {
             String title = webDriver.switchTo().window(winHandle).getCurrentUrl();
-            if(title.equals("http://kurnool-uat.egovernments.org/wtms/elastic/appSearch/")){
+            if(title.equals("http://kurnool-qa.egovernments.org/wtms/elastic/appSearch/")){
                 break;
             }
         }
@@ -516,6 +516,7 @@ public class WaterChargeManagementPage extends BasePage {
     }
 
     public void openApplicationFromInbox(String consumerNumber ){
+        webDriver.navigate().refresh();
         getApplicationRow(consumerNumber).click();
         switchToNewlyOpenedWindow(webDriver);
     }

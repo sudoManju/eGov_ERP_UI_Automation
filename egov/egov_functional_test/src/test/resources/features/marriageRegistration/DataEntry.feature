@@ -16,7 +16,6 @@ Feature: Create an Data Entry for the Marriage registration
     And he closes the acknowledgement
     And current user logs out
 
-
     Examples:
       |generalInformation     | bridegroomInformation|brideInformation|
       |generalInfo            |    bridegroomInfo    | brideInfo|

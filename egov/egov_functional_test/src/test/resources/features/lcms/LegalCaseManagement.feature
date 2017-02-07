@@ -7,7 +7,7 @@ Feature: In this feature the following are created as well as edited
     5. Create/Edit Judgment Implementation
     6. Case Closure
 
-  @Sanity @LCMS
+  @Sanity @LegalCaseManagement
   Scenario Outline: It includes the creation and edit of Legal Case , Hearings , Interim Order , Judgement,
             Judgment Implementation and Case Closure
 
@@ -123,7 +123,6 @@ Feature: In this feature the following are created as well as edited
     And user will closes the successful created or updated page
     And user will be notified by "closed"
     And current user logs out
-
 
     Examples:
     | legalCaseData | action1       | action2  | action3      | action4      | action5     | action6  | action7      | action8                | implementationMode | action9                    | editImplementationMode| action10  |

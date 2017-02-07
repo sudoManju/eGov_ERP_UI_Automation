@@ -3,18 +3,6 @@ Feature: To collect water charges in different mode payments
 
   Background:It will run the data entry screen of property tax as well as logo uploading
 
-    #######################################################
-            # Egovernments logo uploading #
-    #######################################################
-#    Given admin logs in
-#    And user will search for city setup
-#    And user will select the municipality info to upload the image
-#    And current user logs out
-
-    #########################################################################
-          # It will run the data entry screen of property tax #
-    #########################################################################
-
     Given commissioner logs in
     When he chooses to create data entry
     And he creates a new assessment for a private residential property
@@ -23,7 +11,7 @@ Feature: To collect water charges in different mode payments
     And he choose to close the dataentry acknowledgement screen
     And current user logs out
 
-  @Sanity @WCMS
+  @Sanity @WaterCharges @Smoke
   Scenario Outline: This Scenario Includes creation of New Connection and collecting the charges with different mode of payment
 
     Given juniorAssistant logs in
@@ -76,11 +64,11 @@ Feature: To collect water charges in different mode payments
     Examples:
       | connectionDetails | inspectionDetails | approvalOfficer1 | approvalOfficer2        |approvalOfficer3| paymentMode  |
       | New_connection    | inspectionInfo    | engineer         | deputyExecutiveEngineer |commissioner1   | cash         |
-#      | New_connection    | inspectionInfo    | engineer         | deputyExecutiveEngineer |commissioner1   | cheque       |
-#      | New_connection    | inspectionInfo    | engineer         | deputyExecutiveEngineer |commissioner1   | dd           |
+      | New_connection    | inspectionInfo    | engineer         | deputyExecutiveEngineer |commissioner1   | cheque       |
+      | New_connection    | inspectionInfo    | engineer         | deputyExecutiveEngineer |commissioner1   | dd           |
 
 
-  @Sanity @WCMS
+  @Sanity @WaterCharges @Smoke
   Scenario Outline: This Scenario Includes creation of New Connection and collecting the charges through online link
 
     Given juniorAssistant logs in

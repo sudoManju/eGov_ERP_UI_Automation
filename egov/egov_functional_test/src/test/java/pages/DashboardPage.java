@@ -222,18 +222,6 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Collect Charges")
     private WebElement collectWaterCharges;
 
-    @FindBy(linkText = "City Setup")
-    private WebElement citySetup;
-
-    @FindBy(xpath = ".//*[@id='settingstab']/li[2]/a")
-    private WebElement municipalityInfo;
-
-    @FindBy(id = "logo")
-    private WebElement logoBrowse;
-
-    @FindBy(id = "submitform")
-    private WebElement logoSubmitForm;
-
     @FindBy(xpath = ".//*[@id='cityForm']/div[2]/div/button[3]")
     private WebElement closeButton;
 
@@ -881,31 +869,6 @@ public class DashboardPage extends BasePage {
         waitForElementToBeClickable(collectWaterCharges, driver);
         collectWaterCharges.click();
         switchToNewlyOpenedWindow(driver);
-    }
-
-    public void chooseToCitySetup(){
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("City Setup");
-        waitForElementToBeClickable(citySetup, driver);
-        citySetup.click();
-        switchToNewlyOpenedWindow(driver);
-    }
-
-    public void selectMunicipalityInfo(){
-
-        waitForElementToBeClickable(municipalityInfo , driver);
-        municipalityInfo.click();
-
-        waitForElementToBeVisible(logoBrowse , driver);
-        logoBrowse.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
-
-        waitForElementToBeClickable(logoSubmitForm , driver);
-        logoSubmitForm.click();
-
-        driver.switchTo().activeElement();
-        waitForElementToBeClickable(closeButton , driver);
-        closeButton.click();
-        switchToPreviouslyOpenedWindow(driver);
     }
 
     public void chooseToBankRemittance() {

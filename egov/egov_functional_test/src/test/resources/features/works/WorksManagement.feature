@@ -3,7 +3,7 @@ Feature: Create regular estimate/Create LOA for estimate/Create-Track milestone/
   I want to able Create regular estimate, LOA, Milestone/Track Milestone/Generate Contractor Bill
 
 
-  @works  @Sanity
+  @Works  @Sanity
   Scenario Outline: Create Regular Estimate
 
     Given assis_Engineer logs in
@@ -46,12 +46,11 @@ Feature: Create regular estimate/Create LOA for estimate/Create-Track milestone/
     And current user logs out
 
     Examples:
-      |estimateHeaderDetails|financialDetails    |workDetails     |approverDetails1         |approverDetails2|approverDetails3|approverDetails4|
-      |Estimate_1           |EstimateFinancial_1 |EstimateWork_1  |deputyExecutiveEngineer  |SuperIntendent  |commissioner    |assis_Engineer  |
-      |Estimate_2           |EstimateFinancial_2 |EstimateWork_2  |deputyExecutiveEngineer  |SuperIntendent  |commissioner    |assis_Engineer  |
+      | estimateHeaderDetails | financialDetails    | workDetails    | approverDetails1        | approverDetails2 | approverDetails3 | approverDetails4 |
+      | Estimate_1            | EstimateFinancial_1 | EstimateWork_1 | deputyExecutiveEngineer | SuperIntendent   | commissioner     | assis_Engineer   |
+      | Estimate_2            | EstimateFinancial_2 | EstimateWork_2 | deputyExecutiveEngineer | SuperIntendent   | commissioner     | assis_Engineer   |
 
-  @works @Sanity
-
+  @Works @Sanity
   Scenario: Create Letter of Acceptance
 
     When assis_Engineer logs in
@@ -70,8 +69,7 @@ Feature: Create regular estimate/Create LOA for estimate/Create-Track milestone/
     And current user logs out
 
 
-  @works @Sanity
-
+  @Works @Sanity
   Scenario Outline: Create/view of Milestone/Track Milestone/Generate Contractor bill
 
     Given assis_Engineer logs in
@@ -115,7 +113,6 @@ Feature: Create regular estimate/Create LOA for estimate/Create-Track milestone/
     Then user will be notified by "approved"
     And current user logs out
 
-
     Examples:
-      |approverDetails1       |
-      |deputyExecutiveEngineer|
+      | approverDetails1        |
+      | deputyExecutiveEngineer |

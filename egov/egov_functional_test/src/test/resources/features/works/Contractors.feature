@@ -4,7 +4,7 @@ Feature: Create Contractors in the Masters
 
 #  Create Contractor
 
-  @works @Sanity
+  @Works @Sanity
 
   Scenario: Create Contractors
 

@@ -8,18 +8,6 @@ Feature: To create a flow of water management connections and applying a permane
 
   Background:It will run the data entry screen of property tax as well as logo uploading
 
-    #######################################################
-            # Egovernments logo uploading #
-    #######################################################
-#    Given admin logs in
-#    And user will search for city setup
-#    And user will select the municipality info to upload the image
-#    And current user logs out
-
-    #########################################################################
-          # It will run the data entry screen of property tax #
-    #########################################################################
-
     Given commissioner logs in
     When he chooses to create data entry
     And he creates a new assessment for a private residential property
@@ -28,7 +16,7 @@ Feature: To create a flow of water management connections and applying a permane
     And he choose to close the dataentry acknowledgement screen
     And current user logs out
 
-  @Sanity @WCMS
+  @Sanity @WaterCharges
   Scenario Outline: This Scenario Includon of New Connection , Additional Connection , Change Of Use Connection , Closing a Connection Permanently
 
     Given juniorAssistant logs in

@@ -1,11 +1,9 @@
 Feature: Create/Collect/Remit/Cancel Miscellaneous Receipt
-   As a regeistered user of the system
+   As a registered user of the system
   I am able to Create/Collect/Remit/Cancel Miscellaneous Receipt
 
-
-@collect @Sanity
-
- Scenario Outline: System should be able to create Miscellaneous receipt
+  @Collections @Sanity @Smoke
+  Scenario Outline: System should be able to create Miscellaneous receipt
 
    Given creator logs in
    When he chooses to create Miscellaneous receipt
@@ -15,17 +13,15 @@ Feature: Create/Collect/Remit/Cancel Miscellaneous Receipt
    And current user closes acknowledgement
    And current user logs out
 
+    Examples:
+      |paymentMethod    |
+      |cash             |
+      |cheque           |
+      |dd               |
+      |directBank       |
 
-Examples:
-  |paymentMethod    |
-  |cash             |
-  |cheque           |
-  |dd               |
-  |directBank       |
 
-
-@collect @Sanity
-
+  @Collections @Sanity @Smoke
   Scenario: System should be able to cancel receipt
 
     Given creator logs in
@@ -50,14 +46,16 @@ Examples:
     And user closes the acknowledgement
     And current user logs out
 
-@collect @Sanity
 
+  @Collections @Sanity @Smoke
   Scenario: Remittance of receipt
 
-     Given adm_manager logs in
-     And he chooses to bank remittance
-     And he select the required file with bank details
-     Then user will be notified by "successfully"
-     And user closes the acknowledgement
-     And current user logs out
+    Given adm_manager logs in
+    And he chooses to bank remittance
+    And he select the required file with bank details
+    Then user will be notified by "successfully"
+    And user closes the acknowledgement
+    And current user logs out
+
+
 

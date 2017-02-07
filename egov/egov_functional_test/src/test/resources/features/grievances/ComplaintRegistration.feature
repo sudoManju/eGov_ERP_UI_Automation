@@ -2,7 +2,7 @@ Feature: Register Complaint
 
   As a citizen register complaint directly in website
 
-  @Sanity
+  @Sanity @Grievance
   Scenario Outline: Register a Complaint with Citizen Login
 
     Given citizen logs in
@@ -18,16 +18,12 @@ Feature: Register Complaint
     And user will be notified by "successfully"
     And current user logs out
 
-
     Examples:
-    |grievanceDetails|
-    |grievanceDetails|
+      |grievanceDetails|
+      |grievanceDetails|
 
-  
-  @Sanity
-
+  @Sanity @Grievance
   Scenario Outline:  Official Register Grievance
-
 
    Given LightingSuperintendent logs in
    When he choose to register complaint
@@ -37,15 +33,11 @@ Feature: Register Complaint
    And official copies CRN and closes the acknowledgement
    And current user logs out
 
-
     Examples:
       |contactDetails |grievanceDetails |
       |contactInfo    |grievanceDetails |
 
-
-    
-  @Sanity
-
+  @Sanity @Grievance
   Scenario Outline: Official Register Grievance and forwards
 
     Given LightingSuperintendent logs in
@@ -76,7 +68,7 @@ Feature: Register Complaint
       |contactInfo    |grievanceDetails |
 
 
-  @WIP
+  @WIP @Grievance
   Scenario Outline: Citizen register a complaint and official forwards it to next level
 
     Given citizen logs in
@@ -108,7 +100,7 @@ Feature: Register Complaint
       |grievanceDetails |
 
 
-   @Sanity
+   @Sanity @Grievance
      
    Scenario Outline: Citizen register a complaint and withdraw it
 
@@ -121,14 +113,12 @@ Feature: Register Complaint
      And he WITHDRAWN the complaint
      And current user sign out
 
-
-
      Examples:
        |grievanceDetails|
        |grievanceDetails|
 
 
-  @Sanity
+  @Sanity @Grievance
   Scenario Outline: Citizen register a complaint, officer resolves it and citizen reopens the complaint
 
     Given citizen logs in
@@ -148,7 +138,6 @@ Feature: Register Complaint
     And he search complaint in his Inbox
     And he REOPENED the complaint
     And current user sign out
-
 
     Examples:
       |grievanceDetails|

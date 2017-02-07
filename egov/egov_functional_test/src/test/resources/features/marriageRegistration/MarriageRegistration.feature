@@ -18,13 +18,11 @@ Feature: Marriage Registration
     And he collect the charges and closes the acknowledgement
     And current user logs out
 
-
     When commissioner logs in
     And he choose to act upon the above new marriage application number
     And he approve the new marriage application  and close the acknowledgement
     Then user will be notified by "successfully"
     And current user logs out
-
 
     Examples:
     |generalInformation     | bridegroomInformation|brideInformation|
