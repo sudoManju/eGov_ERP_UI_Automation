@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by manjunatha-lap on 24/01/2017.
@@ -163,7 +164,7 @@ public class MarriageRegistrationPage extends BasePage {
         venueOfMarriage.sendKeys(marriageRegistrationInformation.getVenueOfMarriage());
         waitForElementToBeClickable(placeOfMarriage, driver);
         placeOfMarriage.sendKeys(marriageRegistrationInformation.getPlaceOfMarriage());
-        marriagePhoto.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
+        marriagePhoto.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
     }
 
 
@@ -179,7 +180,7 @@ public class MarriageRegistrationPage extends BasePage {
         lastName.get(0).sendKeys("N");
         waitForElementToBeClickable(lastName.get(1), driver);
         lastName.get(1).sendKeys("P");
-        photoUpload.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
+        photoUpload.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
 
         WebElement parentsNamegb = driver.findElement(By.name(name + ".parentsName"));
         parentsNamegb.sendKeys(marriageRegistrationInformation.getFathersMothersName());
@@ -223,8 +224,7 @@ public class MarriageRegistrationPage extends BasePage {
         WebElement qualificationgb = driver.findElement(By.id(name+".qualification"));
         qualificationgb.sendKeys(marriageRegistrationInformation.getEducationQualification());
 
-        wifePhotoUpload.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
-
+        wifePhotoUpload.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
     }
 
     public void entersWitnessesInformation() {
@@ -260,12 +260,12 @@ public class MarriageRegistrationPage extends BasePage {
         waitForElementToBeClickable(checkListLink,driver);
         jsClick(checkListLink,driver);
 
-        memorandumofMarriage.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
-        birthCertificateForBridegroom.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
-        birthCertificateForBride.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
-        proofofResidenceForBridegroom.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
-        proofofResidenceForBride.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
-        memorandumOfMarriage.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
+        memorandumofMarriage.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
+        birthCertificateForBridegroom.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
+        birthCertificateForBride.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
+        proofofResidenceForBridegroom.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
+        proofofResidenceForBride.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
+        memorandumOfMarriage.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
     }
 
     public String getApplicationNumber() {
