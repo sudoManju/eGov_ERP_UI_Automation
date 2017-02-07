@@ -69,7 +69,14 @@ public class AdvertisementsSteps extends BaseSteps implements En {
             pageStore.get(AdvertisementsPage.class).searchAndSelect(scenarioContext.getApplicationNumber());
         });
         And("^he view and close the acknowledgement$", () -> {
-            String url = "http://kurnool-uat.egovernments.org/adtax/hoarding/adtax-search";
+            String env = System.getProperty("env");
+            String url = null;
+            if(env.equals("staging")) {
+                url = "http://kurnool-uat.egovernments.org/adtax/hoarding/adtax-search";
+            }
+            else if(env.equals("qa")){
+                url = "http://kurnool-qa.egovernments.org/adtax/hoarding/adtax-search";
+            }
             pageStore.get(AdvertisementsPage.class).closeMultipleWindows(url);
         });
         And("^he choose to collect advertisement tax by advertisement wise$", () -> {
@@ -80,7 +87,15 @@ public class AdvertisementsSteps extends BaseSteps implements En {
         });
         And("^he choose advertisement for collecting advertisement tax$", () -> {
             pageStore.get(AdvertisementsPage.class).collectAdvertisementTax();
-            pageStore.get(AdvertisementsPage.class).closeMultiple("http://kurnool-uat.egovernments.org/adtax/hoarding/search");
+            String env = System.getProperty("env");
+            String url = null;
+            if(env.equals("staging")) {
+                url = "http://kurnool-uat.egovernments.org/adtax/hoarding/search";
+            }
+            else if(env.equals("qa")){
+                url = "http://kurnool-qa.egovernments.org/adtax/hoarding/search";
+            }
+            pageStore.get(AdvertisementsPage.class).closeMultiple(url);
         });
         And("^he chooses to create advertisement agency$", () -> {
             pageStore.get(DashboardPage.class).chooseToCreateAdvertisementAgency();
@@ -98,8 +113,15 @@ public class AdvertisementsSteps extends BaseSteps implements En {
         });
         And("^he choose to collect advertisement tax$", () -> {
             pageStore.get(AdvertisementsPage.class).collectAdvertisementTaxByAgency();
-            pageStore.get(AdvertisementsPage.class).closeMultiple("http://kurnool-uat.egovernments.org/adtax/hoarding/search");
-
+            String env = System.getProperty("env");
+            String url = null;
+            if(env.equals("staging")) {
+                url = "http://kurnool-uat.egovernments.org/adtax/hoarding/search";
+            }
+            else if(env.equals("qa")){
+                url = "http://kurnool-qa.egovernments.org/adtax/hoarding/search";
+            }
+            pageStore.get(AdvertisementsPage.class).closeMultiple(url);
         });
         And("^he submit the details and closes acknowledgement$", () -> {
            pageStore.get(AdvertisementsPage.class).submit();
@@ -146,7 +168,14 @@ public class AdvertisementsSteps extends BaseSteps implements En {
             scenarioContext.setActualMessage(message);
         });
         And("^user closes the acknowledgement pages$", () -> {
-            String url ="http://kurnool-uat.egovernments.org/adtax/deactivate/search";
+            String env = System.getProperty("env");
+            String url = null;
+            if(env.equals("staging")) {
+                 url = "http://kurnool-uat.egovernments.org/adtax/deactivate/search";
+            }
+            else if(env.equals("qa")){
+                 url = "http://kurnool-qa.egovernments.org/adtax/deactivate/search";
+            }
             pageStore.get(AdvertisementsPage.class).closeMultipleWindowsForDeactivateadvertisement(url);
         });
 
