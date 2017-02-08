@@ -27,11 +27,11 @@ public class BaseAPITest {
 //        System.out.println("Test output was for --> " + result.getMethod().getMethodName());
 //    }
 
-//    private String getBaseURI(String env) {
-//        if (env.equals("staging"))
-//            return "https://phoenix-qa.egovernments.org";
-//        throw new RuntimeException("not a valid environment");
-//    }
+    private String getBaseURI(String env) {
+        if (env.equals("staging"))
+            return "https://phoenix-qa.egovernments.org";
+        throw new RuntimeException("not a valid environment");
+    }
 
 
 

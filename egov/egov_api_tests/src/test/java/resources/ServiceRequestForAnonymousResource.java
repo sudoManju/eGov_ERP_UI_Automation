@@ -6,11 +6,11 @@ package resources;
 
         import static com.jayway.restassured.RestAssured.given;
 
-        public class ServiceTypeResource {
+        public class ServiceRequestForAnonymousResource {
 
                 public Response serviceTypeValidation(String jsonString) {
                 return given().request().with()
                                 .contentType(ContentType.JSON)
-                                .get("http://phoenix-qa.egovernments.org");
+                                .get("http://localhost:8080/pgr/requests?jurisdictionId=ap.kurnool");
             }
     }
