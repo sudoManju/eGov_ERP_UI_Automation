@@ -103,7 +103,7 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
             String approverDetailsDataId = "commissioner";
             ApproverDetails approverDetails = new ExcelReader(lineEstimateTestDataFileName).getApprovalDetailsForEstimate(approverDetailsDataId);
             pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
-            pageStore.get(newSewerageConnectionPage.class).forward();
+            pageStore.get(NewSewerageConnectionPage.class).forward();
         });
         And("^he get application number and closes acknowledgement$", () -> {
             pageStore.get(MarriageRegistrationPage.class).getApplicationNumber();
