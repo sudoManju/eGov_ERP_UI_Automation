@@ -293,12 +293,12 @@ public class MarriageRegistrationPage extends BasePage {
         proofofResidenceForBride.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
         memorandumOfMarriage.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
 
-        memorandumofMarriage.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
-        birthCertificateForBridegroom.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
-        birthCertificateForBride.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
-        proofofResidenceForBridegroom.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
-        proofofResidenceForBride.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
-        memorandumOfMarriage.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
+        memorandumofMarriage.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
+        birthCertificateForBridegroom.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
+        birthCertificateForBride.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
+        proofofResidenceForBridegroom.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
+        proofofResidenceForBride.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
+        memorandumOfMarriage.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
 //        waitForElementToBeClickable(dataEntrySubmitButton, driver);
 //        jsClick(dataEntrySubmitButton, driver);
     }
@@ -418,7 +418,7 @@ public class MarriageRegistrationPage extends BasePage {
         waitForElementToBeClickable(closeButton, driver);
         closeButton.click();
         for (String winHandle : driver.getWindowHandles()) {
-            if (driver.switchTo().window(winHandle).getCurrentUrl().equals("http://kurnool-uat.egovernments.org/mrs/registration/searchApproved")) {
+            if (driver.switchTo().window(winHandle).getCurrentUrl().equals("http://kurnool-qa.egovernments.org/mrs/registration/searchApproved")) {
                 break;
             }
         }

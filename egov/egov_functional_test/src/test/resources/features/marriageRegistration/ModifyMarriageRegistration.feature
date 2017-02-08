@@ -1,10 +1,7 @@
 Feature: Marriage Registration
   An valid system user can Modify Marriage Registration
 
-  Background: It will run the Data Entry Screen Of Marriage Registration
-
-
-
+  @Marriage @Sanity
   Scenario Outline: Modify Marriage Registration
 
     When commissioner logs in

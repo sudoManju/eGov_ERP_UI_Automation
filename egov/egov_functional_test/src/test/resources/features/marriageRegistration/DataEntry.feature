@@ -2,7 +2,7 @@ Feature: Create an Data Entry for the Marriage registration
   An commissioner can make data entry
   the Marriage registration in the system
 
-  @Marriage @Sanity2
+  @Marriage @Sanity
   Scenario Outline: Data Entry for the Marriage registration
     When commissioner logs in
     And he chooses data entry in marriage registration
