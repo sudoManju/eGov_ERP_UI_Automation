@@ -143,6 +143,9 @@ public class TradeLicensePage extends BasePage {
     @FindBy(id = "inactive")
     private WebElement includeInactiveElementCheck;
 
+    @FindBy(xpath = ".//*[@id='viewTradeLicense']/div/input")
+    private WebElement closeButton1;
+
 
     String tradeApplicationNumber;
 
@@ -377,6 +380,11 @@ public class TradeLicensePage extends BasePage {
         waitForElementToBeClickable(approverRemarkTextBox , webDriver);
         enterText(approverRemarkTextBox, "Approved");
         approveButton.click();
+    }
+
+    public void closeAcknowledgementPage() {
+        webDriver.close();
+        switchToPreviouslyOpenedWindow(webDriver);
     }
 }
 

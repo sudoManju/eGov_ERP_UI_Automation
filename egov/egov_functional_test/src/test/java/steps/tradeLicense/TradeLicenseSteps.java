@@ -97,6 +97,9 @@ public class TradeLicenseSteps extends BaseSteps implements En {
         And("^he approves the closure$", () -> {
             pageStore.get(TradeLicensePage.class).closureApproval();
         });
+        And("^he closes acknowledgement page$", () -> {
+            pageStore.get(TradeLicensePage.class).closeAcknowledgementPage();
+        });
 
 
     }
