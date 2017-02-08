@@ -4,7 +4,6 @@ import entities.financial.FinancialBankDetails;
 import entities.financial.FinancialExpenseBillDetails;
 import entities.financial.FinancialJournalVoucherDetails;
 import entities.ptis.ApprovalDetails;
-import org.apache.commons.lang.math.RandomUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -599,14 +598,18 @@ public class FinancialPage extends BasePage {
     }
 
     public void billPayment(FinancialBankDetails financialBankDetails){
+        bankBranch.click();
         new Select(bankBranch).selectByVisibleText(financialBankDetails.getBankName());
         waitForElementToBeClickable(bankAccount , webDriver);
+        bankAccount.click();
         new Select(bankAccount).selectByVisibleText(financialBankDetails.getAccountNumber());
     }
 
     public void billRemittancePayment(FinancialBankDetails financialBankDetails){
+        bankBranch1.click();
         new Select(bankBranch1).selectByVisibleText(financialBankDetails.getBankName());
         waitForElementToBeClickable(bankAccount , webDriver);
+        bankAccount.click();
         new Select(bankAccount).selectByVisibleText(financialBankDetails.getAccountNumber());
     }
 
@@ -861,8 +864,11 @@ public class FinancialPage extends BasePage {
         }
 
         new Select(fundId).selectByVisibleText("Municipal Fund");
+        webDriver.manage().window().maximize();
         webDriver.manage().timeouts().implicitlyWait(10 , TimeUnit.SECONDS);
+        bankBranch2.click();
         new Select(bankBranch2).selectByVisibleText("ANDHRA BANK Andhra Bank RTC Busstand");
+        bankAccount.click();
         new Select(bankAccount).selectByVisibleText("4502110--110710100009664--ANDHRA BANK");
 
         waitForElementToBeClickable(billSearch, webDriver);
@@ -938,9 +944,11 @@ public class FinancialPage extends BasePage {
         new Select(fundId).selectByVisibleText("Municipal Fund");
         new Select(voucherDepartment).selectByVisibleText("ENGINEERING");
         new Select(voucherFunction).selectByVisibleText("Water Supply");
+        bankPaymentId.click();
         new Select(bankPaymentId).selectByVisibleText("ANDHRA BANK Andhra Bank RTC Busstand");
         waitForElementToBeClickable(amountTextBox , webDriver);
         amountTextBox.sendKeys("100");
+        accountNumber.click();
         new Select(accountNumber).selectByVisibleText("4502110--110710100009664--ANDHRA BANK");
 
         switch (mode){
@@ -1007,10 +1015,14 @@ public class FinancialPage extends BasePage {
         new Select(fundId).selectByVisibleText("Municipal Fund");
         new Select(voucherDepartment).selectByVisibleText("ENGINEERING");
         new Select(voucherFunction).selectByVisibleText("Water Supply");
+        fromBankId.click();
         new Select(fromBankId).selectByVisibleText("KOTAK MAHINDRA BANK Ucon Plaza Kurnool");
+        fromAccountNumber.click();
         new Select(fromAccountNumber).selectByVisibleText("4502205--311010192115--KOTAK MAHINDRA BANK");
         new Select(toFundId).selectByVisibleText("Municipal Fund");
+        toBankId.click();
         new Select(toBankId).selectByVisibleText("KOTAK MAHINDRA BANK Ucon Plaza Kurnool");
+        toAccountNumber.click();
         new Select(toAccountNumber).selectByVisibleText("4502207--311010192123--KOTAK MAHINDRA BANK");
 
         waitForElementToBeClickable(referenceNumber , webDriver);

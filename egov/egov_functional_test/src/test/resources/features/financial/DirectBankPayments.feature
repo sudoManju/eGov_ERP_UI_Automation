@@ -37,7 +37,7 @@ Feature: To create a voucher through direct bank payments
 
     Examples:
     |paymentMode | approvalOfficer1  | approvalOfficer2  | assignment |
-    |cheque      | accountOfficer2   | commissioner      | cheque     |
+#    |cheque      | accountOfficer2   | commissioner      | cheque     |
     |RTGS        | accountOfficer2   | commissioner      | RTGS       |
 
 

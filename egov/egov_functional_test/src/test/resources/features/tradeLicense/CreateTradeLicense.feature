@@ -6,7 +6,7 @@ Feature: Create Trade License
 
   # CREATE NEW LICENSE #
 
-  @Sanity
+  @Sanity @TradeLicense
   Scenario Outline: Registered user creating a new license in the system
     Given creator logs in
     When he chooses to create new License
@@ -21,7 +21,7 @@ Feature: Create Trade License
       | ownerDetailsTradeLicense | locationDetailsTradeLicense | tradeDetailsTradeLicense |
 
   # Create Trade License with work flow #
-  @Sanity
+  @Sanity @TradeLicense
   Scenario Outline: Register User create trade license with work flow
     Given creator logs in
     When he chooses to create new License

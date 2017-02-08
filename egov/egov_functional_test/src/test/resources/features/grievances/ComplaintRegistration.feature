@@ -71,7 +71,7 @@ Feature: Register Complaint
       |contactInfo    |grievanceDetails |
 
 
-  @WIP @Grievance
+  @Sanity @Grievance
   Scenario Outline: Citizen register a complaint and official forwards it to next level
 
     Given citizen logs in

@@ -1,5 +1,6 @@
 package pages.wcms;
 
+import com.gargoylesoftware.htmlunit.javascript.host.canvas.ext.WEBGL_compressed_texture_s3tc;
 import entities.ptis.*;
 import entities.wcms.EnclosedDocument;
 import entities.wcms.FieldInspectionDetails;
@@ -142,6 +143,9 @@ public class WaterChargeManagementPage extends BasePage {
 
     @FindBy(css = "input[type='submit'][id='button2']")
     private WebElement button2;
+
+    @FindBy(css = "input[type='button'][id='button2']")
+    private WebElement editDCBCloseButton;
 
     @FindBy(id = "buttonClose")
     private WebElement closeReceiptButton;
@@ -729,8 +733,8 @@ public class WaterChargeManagementPage extends BasePage {
         waitForElementToBeVisible(element , webDriver);
         message = element.getText();
 
-        waitForElementToBeClickable(button2, webDriver);
-        button2.click();
+        waitForElementToBeClickable(editDCBCloseButton, webDriver);
+        editDCBCloseButton.click();
         switchToPreviouslyOpenedWindow(webDriver);
         return message;
     }
