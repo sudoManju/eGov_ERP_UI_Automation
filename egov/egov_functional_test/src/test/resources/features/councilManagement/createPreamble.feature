@@ -26,7 +26,7 @@ Feature: create preamble
 
     # Create Agenda #
 
-    Given councilClerk logs in
+    Given creator logs in
     When he choose to create agenda
     And he choose to create agenda for the above preamble
     And he enters create agenda details as <committee>
