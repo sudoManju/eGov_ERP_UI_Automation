@@ -21,6 +21,8 @@ Feature: Create New Property
     And he enters floor details as <floorDetails>
     And he forwards for approval to billCollector
     Then create property details get saved successfully
+    And he will copy the application number
+    And user will be notified by "Successfully"
     And current user logs out
 
     When billCollector logs in
@@ -45,12 +47,10 @@ Feature: Create New Property
     And chooses to act upon the above application
     And he approved the property with remarks "property approved"
     Then create property details get saved successfully
-
+    And he will copy the assessment number
+    Then user will be notified by "Successfully"
     And chooses to act upon the above assessment
     And he does a digital signature
-
-    Then user will be notified by "Successfully"
-
     When commissioner closes acknowledgement
     And current user logs out
 
@@ -96,6 +96,7 @@ Feature: Create New Property
     And he enters Floor Details as <editFloorDetails>
     And he forwards for approval to billCollector
     Then edit property details get saved successfully
+    And he will copy application and assessment number
     And current user logs out
 
     When billCollector logs in
@@ -118,7 +119,7 @@ Feature: Create New Property
 
     When commissioner logs in
     And chooses to act upon the above application
-    And he approved the property with remarks "property approved"
+    And he approved the property with remarks addition "property approved"
     And current user closes acknowledgement
 
     And chooses to act upon the above assessment
@@ -406,7 +407,16 @@ Feature: Create New Property
        |revisionPetitionDetails |  hearingDetails |
        | revisionpetitionBlock  |  hearingBlock   |
 
-
+#
+#     @WIP
+#      Scenario Outline: test
+#
+#      And he fetches test data as <testDetails>
+#
+#     Examples:
+#
+#     | testDetails |
+#     | dataValue1  |
 
 
 

@@ -44,6 +44,7 @@ public class PropertyAcknowledgementPage extends BasePage {
         return elements.get(1).getText();
     }
     public void close() {
+
         try {
             waitForElementToBeClickable(closeButton,driver);
             closeButton.click();
@@ -57,6 +58,7 @@ public class PropertyAcknowledgementPage extends BasePage {
         for (String winHandle : driver.getWindowHandles()) {
             driver.switchTo().window(winHandle);
         }
+
     }
     public void close1() {
         waitForElementToBeClickable(propertyCloseButton,driver);
@@ -94,5 +96,16 @@ public class PropertyAcknowledgementPage extends BasePage {
         waitForElementToBeClickable(closeLink , driver);
         closeLink.click();
         switchToPreviouslyOpenedWindow(driver);
+    }
+
+    public String getActualMsg() {
+        WebElement ele=driver.findElement(By.xpath(".//*[@id='createProperty-create']/div/table/tbody/tr[1]/td"));
+        return ele.getText();
+    }
+
+
+    public String getActualMsgAssessment() {
+        WebElement ele=driver.findElement(By.xpath(".//*[@id='createProperty-forward']/div/table/tbody/tr[1]/td"));
+        return ele.getText();
     }
 }

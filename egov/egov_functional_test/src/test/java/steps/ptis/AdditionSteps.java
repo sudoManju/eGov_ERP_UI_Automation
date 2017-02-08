@@ -4,6 +4,7 @@ import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.ptis.EditAssessmentDetails;
 import entities.ptis.EditFloorDetails;
+import pages.ptis.PropertyAcknowledgementPage;
 import pages.ptis.PropertyDetailsPage;
 import steps.BaseSteps;
 import utils.ExcelReader;
@@ -29,5 +30,10 @@ public class AdditionSteps extends BaseSteps implements En {
             EditFloorDetails floorDetails = new ExcelReader(ptisTestDataFileName).getEditFloorDetails(floordetailsDataName);
             pageStore.get(PropertyDetailsPage.class).enterEditFloorDetails(floorDetails);
         });
+        And("^he will copy application and assessment number$", () -> {
+           scenarioContext.setActualMessage(pageStore.get(PropertyDetailsPage.class).getAssessmentApplicationNo());
+            pageStore.get(PropertyAcknowledgementPage.class).close();
+        });
+
     }
 }

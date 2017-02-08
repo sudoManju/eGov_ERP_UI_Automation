@@ -1,7 +1,10 @@
 package steps.ptis;
 
 import cucumber.api.PendingException;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import pages.ptis.EditPropertyAcknowledgementPage;
 import pages.ptis.PropertyAcknowledgementPage;
 import steps.PageStore;
@@ -17,6 +20,7 @@ public class EditpropertyAcknowledgmentSteps {
     @Then("^edit property details get saved successfully$")
     public void editPropertyDetailsGetSavedSuccessfully() throws Throwable {
 
-      pageStore.get(PropertyAcknowledgementPage.class).close();
+
     }
+
 }

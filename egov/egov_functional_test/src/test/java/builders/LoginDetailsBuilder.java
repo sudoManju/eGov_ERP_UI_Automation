@@ -1,6 +1,7 @@
 package builders;
 
 import entities.LoginDetails;
+import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 
 public class LoginDetailsBuilder {
 
@@ -9,6 +10,7 @@ public class LoginDetailsBuilder {
     public LoginDetailsBuilder() {
         loginDetails.setLoginId("944177");
         loginDetails.setPassword("kurnool");
+
     }
 
     public LoginDetailsBuilder withLoginId(String loginId){
@@ -28,4 +30,5 @@ public class LoginDetailsBuilder {
         loginDetails.setHasZone(hasZone);
         return this;
     }
+
 }

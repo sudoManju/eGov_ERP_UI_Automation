@@ -81,6 +81,7 @@ public class ExcelReader {
     Sheet ptReportSheet;
     Sheet technicalSanctionDetailsSheet;
 
+
 //     Trade License Sheets
     Sheet tradeOwnerDetailsSheet;
     Sheet tradeLocationDetailsSheet;
@@ -196,6 +197,7 @@ public class ExcelReader {
         bridegroomInformationSheet = workbook.getSheet("bridegroomInformation");
 
         createLegalCaseDataSheet = workbook.getSheet("createLegalCaseData");
+
 
     }
 
@@ -1636,9 +1638,10 @@ public class ExcelReader {
                 .withTypeOfCourt(typeOfCourt)
                 .withPetitionType(petitionType)
                 .withCourtName(courtName)
-                .withCaseCategory(caseCategory)
                 .withPetitionerName(petitionerName)
-                .withRespondentName(respondentName)
+                .withCaseCategory(caseCategory)
+               .withRespondentName(respondentName)
                 .build();
     }
+
 }

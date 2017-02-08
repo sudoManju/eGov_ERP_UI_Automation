@@ -30,6 +30,7 @@ public class BaseSteps {
     protected String approvalDetailsTestDataFileName = "approvalDetailsTestData";
     protected String legalCaseTestDataFileName = "legalCaseTestData";
 
+
     protected void takeScreenShot(String screenshotName) throws IOException {
         WebDriver augment = new Augmenter().augment(pageStore.getDriver());
         File file = ((TakesScreenshot) augment).getScreenshotAs(OutputType.FILE);

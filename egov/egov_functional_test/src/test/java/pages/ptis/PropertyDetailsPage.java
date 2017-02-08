@@ -275,8 +275,11 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy (css = "input[type='text'][name='instrHeaderCash.instrumentAmount']")
     private WebElement propertyAmountToBePaid;
 
-    @FindBy(xpath = ".//*[@id='modifyProperty-approve']/div/table/tbody/tr[1]/td/a")
+    @FindBy(xpath = ".//*[@id='createProperty-forward']/div/table/tbody/tr[1]/td")
     private WebElement commAssessmentNo;
+
+    @FindBy(xpath = ".//*[@id='modifyProperty-approve']/div/table/tbody/tr[1]/td")
+    private WebElement additionAssessmentNo;
 
     @FindBy(xpath = ".//*[@id='approve']/div/table/tbody/tr[1]/td/span[2]")
     private WebElement commAssessmentNo1;
@@ -531,5 +534,17 @@ public class PropertyDetailsPage extends BasePage {
                 searchButtonForDemand.click();
                 break;
         }
+    }
+
+    public String getAssessmentApplicationNo() {
+        WebElement ele = webDriver.findElement(By.xpath(".//*[@id='modifyProperty-forward']/div[1]"));
+        return ele.getText();
+    }
+
+    public String approveaddition() {
+        approveButton.click();
+        waitForElementToBeVisible(additionAssessmentNo, webDriver);
+        return additionAssessmentNo.getText();
+
     }
 }

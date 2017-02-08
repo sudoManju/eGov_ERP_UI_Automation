@@ -6,6 +6,7 @@ public class LoginDetails {
     private String password;
     private Boolean hasZone;
 
+
     public Boolean getHasZone() {
         return hasZone;
     }
@@ -29,4 +30,6 @@ public class LoginDetails {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }
