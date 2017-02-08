@@ -1,7 +1,7 @@
 Feature: Marriage Registration
   An valid system user can create marriage registration
 
-  @WIP1
+  @Marriage @Sanity1
   Scenario Outline: Create Marriage Registration
     When juniorAssistant logs in
     And he chooses to create marriage registration

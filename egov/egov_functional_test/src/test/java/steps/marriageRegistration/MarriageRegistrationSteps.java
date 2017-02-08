@@ -55,11 +55,8 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
         });
         And("^he approve the new marriage application  and close the acknowledgement$", () -> {
            pageStore.get(MarriageRegistrationPage.class).approve();
-
            scenarioContext.setRegistrationNumber(pageStore.get(MarriageRegistrationPage.class).getRegistrationNumber());
-
            scenarioContext.setActualMessage(pageStore.get(MarriageRegistrationPage.class).getSuccessMessage());
-
            pageStore.get(MarriageRegistrationPage.class).close();
 
         });
@@ -95,7 +92,34 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
         And("^he closes the acknowledgements$", () -> {
            pageStore.get(MarriageRegistrationPage.class).closeMultipleWindows();
         });
-
-
+        And("^he search applications for re issue certificate$", () -> {
+            pageStore.get(MarriageRegistrationPage.class).searchMarriageApplication(scenarioContext.getApplicationNumber());
+        });
+        And("^he selects the application for re issue certificate$", () -> {
+            pageStore.get(MarriageRegistrationPage.class).selectsReIssueCertificate();
+        });
+        And("^he enters the memorandum of marriage$", () -> {
+            pageStore.get(MarriageRegistrationPage.class).entersMemorandumOfMarriage();
+        });
+        And("^he forward to commissioner$", () -> {
+            String approverDetailsDataId = "commissioner";
+            ApproverDetails approverDetails = new ExcelReader(lineEstimateTestDataFileName).getApprovalDetailsForEstimate(approverDetailsDataId);
+            pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
+            pageStore.get(newSewerageConnectionPage.class).forward();
+        });
+        And("^he get application number and closes acknowledgement$", () -> {
+            pageStore.get(MarriageRegistrationPage.class).getApplicationNumber();
+            pageStore.get(MarriageRegistrationPage.class).close();
+        });
+        And("^he re issue the marriage application  and close the acknowledgement$", () -> {
+            pageStore.get(MarriageRegistrationPage.class).approve();
+            pageStore.get(MarriageRegistrationPage.class).searchMarriageApplication(scenarioContext.getApplicationNumber());
+            scenarioContext.setActualMessage(pageStore.get(MarriageRegistrationPage.class).getSuccessMessage());
+            pageStore.get(MarriageRegistrationPage.class).close();
+        });
+        And("^he choose to act upon the above to re issue marriage certificate$", () -> {
+                pageStore.get(MarriageRegistrationPage.class).searchForReIssueRegistration();
+                pageStore.get(MarriageRegistrationPage.class).selectAboveApplication(scenarioContext.getApplicationNumber());
+        });
     }
 }

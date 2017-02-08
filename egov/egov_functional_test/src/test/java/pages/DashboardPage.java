@@ -287,6 +287,9 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Modify Marriage Registration")
     private WebElement modifyMarriageRegistrationLink;
 
+    @FindBy(linkText = "Re Issue Marriage Certifiate")
+    private WebElement reIssueMarriageCertLink;
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -1061,7 +1064,14 @@ public class DashboardPage extends BasePage {
         waitForElementToBeClickable(modifyMarriageRegistrationLink, driver);
         modifyMarriageRegistrationLink.click();
         switchToNewlyOpenedWindow(driver);
+    }
 
+    public void choosesToReIssueCertificate() {
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor("Re Issue Marriage Certifiate");
+        waitForElementToBeClickable(reIssueMarriageCertLink, driver);
+        reIssueMarriageCertLink.click();
+        switchToNewlyOpenedWindow(driver);
     }
 }
 

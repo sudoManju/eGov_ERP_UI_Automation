@@ -112,6 +112,9 @@ public class MarriageRegistrationPage extends BasePage {
     @FindBy(css = "li[role='presentation'] a[data-now='Marriage%20Registration%20%3A%3A%20New%20Registration']")
     private WebElement marraigeRegistrationsLink;
 
+    @FindBy(css = "li[role='presentation'] a[data-now='Marriage%20Registration%20%3A%3A%20Re-Issue']")
+    private WebElement reIssueCertificateTab;
+
     @FindBy(id = "Approve")
     private WebElement approveButton;
 
@@ -145,7 +148,23 @@ public class MarriageRegistrationPage extends BasePage {
     @FindBy(xpath = ".//*[@id='form-updateregistration']/div[2]/div/button")
     private WebElement updateButton;
 
+    @FindBy(id = "applicationNo")
+    private WebElement applicationNo;
 
+    @FindBy(xpath = ".//*[@id='registration_table']/tbody/tr[1]/td[10]/button")
+    private WebElement reIssueCertificateLink;
+
+    @FindBy(id = "txt-firstName")
+    private WebElement firstName;
+
+    @FindBy(id = "txt-residenceAddress")
+    private WebElement residenceAddress;
+
+    @FindBy(id = "txt-officeAddress")
+    private WebElement officeAddress;
+
+    @FindBy(id = "txt-phoneNo")
+    private WebElement phoneNo;
 
     public  MarriageRegistrationPage(WebDriver driver){ this.driver = driver;}
 
@@ -273,14 +292,21 @@ public class MarriageRegistrationPage extends BasePage {
         proofofResidenceForBridegroom.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
         proofofResidenceForBride.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
         memorandumOfMarriage.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
+
+        memorandumofMarriage.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
+        birthCertificateForBridegroom.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
+        birthCertificateForBride.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
+        proofofResidenceForBridegroom.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
+        proofofResidenceForBride.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
+        memorandumOfMarriage.sendKeys(System.getProperty("user.dir") + "\\src\\test\\resources\\logo.jpg");
+//        waitForElementToBeClickable(dataEntrySubmitButton, driver);
+//        jsClick(dataEntrySubmitButton, driver);
     }
 
     public String getApplicationNumber() {
          String msg = creationMessage.getText();
-
-         String number = msg.split("\\ ")[6];
+         String number = msg.split("\\s")[6];
          System.out.println("\n "+number);
-
          return number;
     }
 
@@ -291,7 +317,6 @@ public class MarriageRegistrationPage extends BasePage {
     public void close() {
         waitForElementToBeClickable(closeButton,driver);
         closeButton.click();
-
         switchToPreviouslyOpenedWindow(driver);
     }
 
@@ -346,13 +371,10 @@ public class MarriageRegistrationPage extends BasePage {
     }
 
     public String isSuccesful() {
-        waitForElementToBeClickable(dataEntrySubmitButton, driver);
-        jsClick(dataEntrySubmitButton, driver);
-
+//        waitForElementToBeClickable(dataEntrySubmitButton, driver);
+//        jsClick(dataEntrySubmitButton, driver);
         String message = creationMessage.getText();
-
          return  message;
-
 //        Assert.assertEquals(expectedMessage,actualMessage);
     }
 
@@ -367,7 +389,6 @@ public class MarriageRegistrationPage extends BasePage {
         new Select(actionDropDown).selectByVisibleText("Collect Fee");
         switchToNewlyOpenedWindow(driver);
     }
-
 
     public void searchForApplicationToModify(String applicationNumber) {
         waitForElementToBeVisible(applicationNumberTextBox,driver);
@@ -394,14 +415,54 @@ public class MarriageRegistrationPage extends BasePage {
     }
 
     public void closeMultipleWindows() {
-        waitForElementToBeClickable(closeButton,driver);
+        waitForElementToBeClickable(closeButton, driver);
         closeButton.click();
         for (String winHandle : driver.getWindowHandles()) {
-            if(driver.switchTo().window(winHandle).getCurrentUrl().equals("http://kurnool-uat.egovernments.org/mrs/registration/searchApproved")){
+            if (driver.switchTo().window(winHandle).getCurrentUrl().equals("http://kurnool-uat.egovernments.org/mrs/registration/searchApproved")) {
                 break;
             }
         }
         driver.findElement(By.linkText("Close")).click();
         switchToPreviouslyOpenedWindow(driver);
+
     }
+
+    public void searchMarriageApplication(String applicationNumber) {
+        waitForElementToBeClickable(applicationNo, driver);
+        applicationNo.sendKeys(applicationNumber);
+        searchRegistrationButton.click();
+    }
+
+    public void selectsReIssueCertificate() {
+        waitForElementToBeClickable(reIssueCertificateLink, driver);
+        reIssueCertificateLink.click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void entersMemorandumOfMarriage() {
+        String min = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
+        String min1 = String.valueOf(Calendar.getInstance().get(Calendar.MINUTE));
+        waitForElementToBeClickable(registrationUnit, driver);
+        new Select(registrationUnit).selectByVisibleText("Sarjapur");
+        waitForElementToBeClickable(firstName, driver);
+        firstName.sendKeys("AaZz");
+        waitForElementToBeClickable(residenceAddress, driver);
+        residenceAddress.sendKeys("Kurnool, Andra Pradesh");
+        waitForElementToBeClickable(officeAddress, driver);
+        officeAddress.sendKeys("Kurnool, Andra Pradesh");
+        waitForElementToBeClickable(phoneNo, driver);
+        phoneNo.sendKeys("9876511223");
+    }
+
+    public void searchForReIssueRegistration() {
+        waitForElementToBeClickable(reIssueCertificateTab, driver);
+        reIssueCertificateTab.click();
+    }
+
+    public String forwardReIssueCertificate() {
+        String message = creationMessage.getText();
+        return  message;
+
+    }
+
 }
