@@ -40,7 +40,7 @@
     {
       "id": "4ae8ed2c-ac89-5885-fdac-7d86e297e4b2",
       "headers": "Content-Type: application/json\n",
-      "url": "http://localhost:8080/pgr/requests?jurisdictionId=ap.kurnool",''
+      "url": "http://localhost:8080/pgr/requests?jurisdictionId=ap.kurnool",
       "preRequestScript": null,
       "pathVariables": {},
       "method": "POST",
