@@ -15,26 +15,26 @@ import utils.ExcelReader;
  */
 public class AdvertisementsSteps extends BaseSteps implements En {
 
-    public AdvertisementsSteps(){
+    public AdvertisementsSteps() {
 
         And("^he chooses to create advertisement$", () -> {
             pageStore.get(DashboardPage.class).chooseToCreateAdvertisement();
         });
 
         And("^he enters details for advertisement creation$", () -> {
-           pageStore.get(AdvertisementsPage.class).enterAdvertisementDetails();
+            pageStore.get(AdvertisementsPage.class).enterAdvertisementDetails();
 
-           pageStore.get(AdvertisementsPage.class).enterPermissionDetails();
+            pageStore.get(AdvertisementsPage.class).enterPermissionDetails();
 
-           pageStore.get(AdvertisementsPage.class).enterLocalityDetails();
+            pageStore.get(AdvertisementsPage.class).enterLocalityDetails();
 
-           pageStore.get(AdvertisementsPage.class).enterStructureDetails();
+            pageStore.get(AdvertisementsPage.class).enterStructureDetails();
 
-           String approverDetailsDataId = "commissioner";
+            String approverDetailsDataId = "commissioner";
 
-           ApproverDetails approverDetails = new ExcelReader(lineEstimateTestDataFileName).getApprovalDetailsForEstimate(approverDetailsDataId);
+            ApproverDetails approverDetails = new ExcelReader(lineEstimateTestDataFileName).getApprovalDetailsForEstimate(approverDetailsDataId);
 
-           pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
+            pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
 
         });
         And("^he forwards and closes the acknowledgement$", () -> {
@@ -48,7 +48,7 @@ public class AdvertisementsSteps extends BaseSteps implements En {
 
         });
         And("^he clicks on advertisement and opens the application$", () -> {
-           pageStore.get(AdvertisementsPage.class).selectAdvertisementTag(scenarioContext.getApplicationNumber());
+            pageStore.get(AdvertisementsPage.class).selectAdvertisementTag(scenarioContext.getApplicationNumber());
         });
         And("^he approves the advertisement application$", () -> {
             pageStore.get(AdvertisementsPage.class).approverComment();
@@ -63,21 +63,13 @@ public class AdvertisementsSteps extends BaseSteps implements En {
             pageStore.get(AdvertisementsPage.class).close();
         });
         And("^he chooses to search advertisement$", () -> {
-           pageStore.get(DashboardPage.class).chooseToSearchAdvertisement();
+            pageStore.get(DashboardPage.class).chooseToSearchAdvertisement();
         });
         And("^he search and select the required advertisement$", () -> {
             pageStore.get(AdvertisementsPage.class).searchAndSelect(scenarioContext.getApplicationNumber());
         });
         And("^he view and close the acknowledgement$", () -> {
-            String env = System.getProperty("env");
-            String url = null;
-            if(env.equals("staging")) {
-                url = "http://kurnool-uat.egovernments.org/adtax/hoarding/adtax-search";
-            }
-            else if(env.equals("qa")){
-                url = "http://kurnool-qa.egovernments.org/adtax/hoarding/adtax-search";
-            }
-            pageStore.get(AdvertisementsPage.class).closeMultipleWindows(url);
+            pageStore.get(AdvertisementsPage.class).closeMultipleWindows("/adtax/hoarding/adtax-search");
         });
         And("^he choose to collect advertisement tax by advertisement wise$", () -> {
             pageStore.get(DashboardPage.class).chooseToCollectAdvTax();
@@ -87,22 +79,15 @@ public class AdvertisementsSteps extends BaseSteps implements En {
         });
         And("^he choose advertisement for collecting advertisement tax$", () -> {
             pageStore.get(AdvertisementsPage.class).collectAdvertisementTax();
-            String env = System.getProperty("env");
-            String url = null;
-            if(env.equals("staging")) {
-                url = "http://kurnool-uat.egovernments.org/adtax/hoarding/search";
-            }
-            else if(env.equals("qa")){
-                url = "http://kurnool-qa.egovernments.org/adtax/hoarding/search";
-            }
-            pageStore.get(AdvertisementsPage.class).closeMultiple(url);
+
+            pageStore.get(AdvertisementsPage.class).closeMultiple("/adtax/hoarding/search");
         });
         And("^he chooses to create advertisement agency$", () -> {
             pageStore.get(DashboardPage.class).chooseToCreateAdvertisementAgency();
         });
         And("^he enter details for agency creation$", () -> {
-           String name = pageStore.get(AdvertisementsPage.class).enterAgencyDetails();
-           scenarioContext.setAssessmentNumber(name);
+            String name = pageStore.get(AdvertisementsPage.class).enterAgencyDetails();
+            scenarioContext.setAssessmentNumber(name);
         });
         And("^he choose to collect advertisement tax by agency wise$", () -> {
             pageStore.get(AdvertisementsPage.class).searchByAgency(scenarioContext.getAssessmentNumber());
@@ -113,32 +98,25 @@ public class AdvertisementsSteps extends BaseSteps implements En {
         });
         And("^he choose to collect advertisement tax$", () -> {
             pageStore.get(AdvertisementsPage.class).collectAdvertisementTaxByAgency();
-            String env = System.getProperty("env");
-            String url = null;
-            if(env.equals("staging")) {
-                url = "http://kurnool-uat.egovernments.org/adtax/hoarding/search";
-            }
-            else if(env.equals("qa")){
-                url = "http://kurnool-qa.egovernments.org/adtax/hoarding/search";
-            }
-            pageStore.get(AdvertisementsPage.class).closeMultiple(url);
+
+            pageStore.get(AdvertisementsPage.class).closeMultiple("/adtax/hoarding/search");
         });
         And("^he submit the details and closes acknowledgement$", () -> {
-           pageStore.get(AdvertisementsPage.class).submit();
+            pageStore.get(AdvertisementsPage.class).submit();
 
-           String message = pageStore.get(AdvertisementsPage.class).agencyCreationMessage();
-           scenarioContext.setActualMessage(message);
+            String message = pageStore.get(AdvertisementsPage.class).agencyCreationMessage();
+            scenarioContext.setActualMessage(message);
 
-           pageStore.get(AdvertisementsPage.class).CloseAgency();
+            pageStore.get(AdvertisementsPage.class).CloseAgency();
         });
         And("^he chooses to search advertisement agency$", () -> {
-         pageStore.get(DashboardPage.class).chooseToSearchAdvertisementAgency();
+            pageStore.get(DashboardPage.class).chooseToSearchAdvertisementAgency();
         });
         And("^he enter details for search agency$", () -> {
-           pageStore.get(AdvertisementsPage.class).searchAgency(scenarioContext.getAssessmentNumber());
+            pageStore.get(AdvertisementsPage.class).searchAgency(scenarioContext.getAssessmentNumber());
         });
         And("^he view and closes the acknowledgement$", () -> {
-           pageStore.get(AdvertisementsPage.class).CloseAgencySearch();
+            pageStore.get(AdvertisementsPage.class).CloseAgencySearch();
         });
 
         And("^he enters details for advertisement creation with agency$", () -> {
@@ -164,21 +142,11 @@ public class AdvertisementsSteps extends BaseSteps implements En {
         });
         And("^he deactivates the advertisement with remarks and date$", () -> {
             pageStore.get(AdvertisementsPage.class).deactivatesAdvertisement();
-            String message =  pageStore.get(AdvertisementsPage.class).successMessageForDeactivation();
+            String message = pageStore.get(AdvertisementsPage.class).successMessageForDeactivation();
             scenarioContext.setActualMessage(message);
         });
         And("^user closes the acknowledgement pages$", () -> {
-            String env = System.getProperty("env");
-            String url = null;
-            if(env.equals("staging")) {
-                 url = "http://kurnool-uat.egovernments.org/adtax/deactivate/search";
-            }
-            else if(env.equals("qa")){
-                 url = "http://kurnool-qa.egovernments.org/adtax/deactivate/search";
-            }
-            pageStore.get(AdvertisementsPage.class).closeMultipleWindowsForDeactivateadvertisement(url);
+            pageStore.get(AdvertisementsPage.class).closeMultipleWindowsForDeactivateadvertisement("/adtax/deactivate/search");
         });
-
     }
-
 }

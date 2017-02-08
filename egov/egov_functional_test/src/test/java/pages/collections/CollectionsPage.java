@@ -194,20 +194,9 @@ public class CollectionsPage extends BasePage {
         serviceTypeBox.click();
         new Select(serviceTypeBox).selectByVisibleText(challanHeaderDetails.getServiceType());
 
-        for (int i = 0; i < 4; i++) {
-            if (!driver.findElement(By.id("billDetailslist[0].creditAmountDetail")).getText().equalsIgnoreCase(challanHeaderDetails.getAmount()))
-            {
-                try {
-                    WebElement element = driver.findElement(By.id("billDetailslist[0].creditAmountDetail"));
-                    element.clear();
-                    element.sendKeys("500");
-                } catch (StaleElementReferenceException e) {
-                    WebElement element = driver.findElement(By.id("billDetailslist[0].creditAmountDetail"));
-                    element.clear();
-                    element.sendKeys("500");
-                }
-           }
-       }
+        WebElement element = driver.findElement(By.id("billDetailslist[0].creditAmountDetail"));
+        element.clear();
+        element.sendKeys("500");
     }
 
     public void enterApprovalDetails(ApprovalDetails approverDetails) {
@@ -215,11 +204,8 @@ public class CollectionsPage extends BasePage {
         waitForElementToBeClickable(approverDeptBox, driver);
         new Select(approverDeptBox).selectByVisibleText(approverDetails.getApproverDepartment());
         new Select(approverDesignationBox).selectByVisibleText(approverDetails.getApproverDesignation());
-        try {
-            TimeUnit.SECONDS.sleep(3);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+        waitForElementToBePresent(By.cssSelector("select[id='positionUser'] option[value='180']"),driver);
         new Select(approverBox).selectByVisibleText(approverDetails.getApprover());
     }
 
@@ -245,9 +231,19 @@ public class CollectionsPage extends BasePage {
     }
 
     public String generateChallan() {
-
         waitForElementToBeClickable(createChallanButton,driver);
         createChallanButton.click();
+
+        boolean isPresent = driver.findElements(By.xpath(".//*[@id='challan_error_area']")).size() > 0;
+
+        if(isPresent){
+            WebElement element = driver.findElement(By.id("billDetailslist[0].creditAmountDetail"));
+            element.clear();
+            element.sendKeys("500");
+
+            waitForElementToBeClickable(createChallanButton,driver);
+            createChallanButton.click();
+        }
 
         waitForElementToBeVisible(challanNumber,driver);
         String number = challanNumber.getAttribute("value");

@@ -137,16 +137,26 @@ public class MilestoneTemplatePage extends BasePage {
 
     public void selectTheRequiredTemplate() {
         waitForElementToBeVisible(searchTable,driver);
-        waitForElementToBeVisible(lastPageLink,driver);
-        lastPageLink.click();
+
+        boolean isPresent =  driver.findElements(By.xpath("(.//*[@id='milestoneTemplate-searchDetails']/div[4]/div[1]/div[2]/span[2]/a)[last()]")).size() > 0;
+
+        if(isPresent) {
+            waitForElementToBeVisible(lastPageLink, driver);
+            lastPageLink.click();
+        }
 
         requiredRowForView.click();
-
     }
 
     public void selectTheRequiredTemplateToModify() {
-        waitForElementToBeVisible(lastPageLink,driver);
-        lastPageLink.click();
+
+        boolean isPresent =  driver.findElements(By.xpath("(.//*[@id='milestoneTemplate-searchDetails']/div[4]/div[1]/div[2]/span[2]/a)[last()]")).size() > 0;
+
+        if(isPresent) {
+            waitForElementToBeVisible(lastPageLink, driver);
+            lastPageLink.click();
+        }
+
         waitForElementToBeVisible(searchTable,driver);
         List<WebElement> totalRows = searchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
         System.out.println("Rows:"+totalRows.size());

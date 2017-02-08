@@ -1,7 +1,5 @@
 package pages.lcms;
 
-import com.sun.corba.se.impl.oa.poa.ActiveObjectMap;
-import com.sun.corba.se.impl.util.PackagePrefixChecker;
 import entities.lcms.CreateLegalCase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;

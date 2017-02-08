@@ -37,9 +37,6 @@ public class MiscellaneousPage extends BasePage{
     @FindBy(id = "serviceId")
     private WebElement serviceTypeIDropDown;
 
-    @FindBy(css = "input[type='text'][id='billCreditDetailslist[0].creditAmountDetail']")
-    private  WebElement receiptHeadsAmount;
-
     @FindBy(css = "input[type='text'][name='instrumentProxyList[0].instrumentNumber']")
     private WebElement chequeNumberTextBox;
 
@@ -144,25 +141,19 @@ public class MiscellaneousPage extends BasePage{
         payeeAddressTextBox.sendKeys("Bangalore");
         new Select(serviceCategoryDropDown).selectByVisibleText("Entry Fees");
 
-        waitForElementToBePresent(By.id("serviceId"),driver);
-        waitForElementToBeClickable(serviceTypeIDropDown,driver);
-        serviceTypeIDropDown.click();
-        serviceTypeIDropDown.click();
-        new Select(serviceTypeIDropDown).selectByIndex(1);
+        waitForElementToBePresent(By.cssSelector("select[id='serviceId'] option[value='166']"),driver);
+        new Select(serviceTypeIDropDown).selectByVisibleText("Monuments Entry Fees-MNMENTFEE");
 
-        for (int i = 0; i < 4; i++) {
-            if (receiptHeadsAmount.isDisplayed())
-                try {
-                    receiptHeadsAmount.click();
-                    receiptHeadsAmount.clear();
-                    receiptHeadsAmount.sendKeys("655");
-                } catch (StaleElementReferenceException e) {
-                   WebElement element1 = driver.findElement(By.cssSelector("input[type='text'][id='billCreditDetailslist[0].creditAmountDetail']"));
-                    element1.click();
-                    element1.clear();
-                    element1.sendKeys("655");
-                }
-          }
+        try {
+            WebElement amountBox = driver.findElement(By.cssSelector("input[type='text'][id='billCreditDetailslist[0].creditAmountDetail']"));
+            amountBox.clear();
+            amountBox.sendKeys("655");
+        }
+        catch (StaleElementReferenceException e){
+            WebElement amountBox = driver.findElement(By.cssSelector("input[type='text'][id='billCreditDetailslist[0].creditAmountDetail']"));
+            amountBox.clear();
+            amountBox.sendKeys("655");
+        }
     }
 
     public void enterPaymentDetails(PaymentMethod paymentmethod, String mode) {
@@ -231,11 +222,29 @@ public class MiscellaneousPage extends BasePage{
               waitForElementToBeClickable(challanDateTextBox,driver);
               challanDateTextBox.sendKeys(date);
 
-              waitForElementToBeClickable(bankNameDropBox,driver);
-              new Select(bankNameDropBox).selectByVisibleText(paymentmethod.getBankName());
+              waitForElementToBePresent(By.cssSelector("select[id='bankBranchMaster'] option[value='4']"),driver);
+              try {
+                  waitForElementToBeClickable(bankNameDropBox, driver);
+                  bankNameDropBox.click();
+                  new Select(bankNameDropBox).selectByVisibleText(paymentmethod.getBankName());
+              }
+              catch (StaleElementReferenceException e){
+                  waitForElementToBeClickable(bankNameDropBox, driver);
+                  bankNameDropBox.click();
+                  new Select(bankNameDropBox).selectByVisibleText(paymentmethod.getBankName());
+              }
 
-              waitForElementToBeClickable(accountNumberDropBox,driver);
-              new Select(accountNumberDropBox).selectByVisibleText(paymentmethod.getAccountNumber());
+              waitForElementToBePresent(By.cssSelector("select[id='accountNumberMaster'] option[value='34']"),driver);
+              try {
+                  waitForElementToBeClickable(accountNumberDropBox,driver);
+                  accountNumberDropBox.click();
+                  new Select(accountNumberDropBox).selectByVisibleText(paymentmethod.getAccountNumber());
+              }
+              catch (StaleElementReferenceException e){
+                  waitForElementToBeClickable(accountNumberDropBox,driver);
+                  accountNumberDropBox.click();
+                  new Select(accountNumberDropBox).selectByVisibleText(paymentmethod.getAccountNumber());
+              }
 
               waitForElementToBeClickable(directBankAmountTextBox,driver);
               directBankAmountTextBox.sendKeys("655");
@@ -245,6 +254,7 @@ public class MiscellaneousPage extends BasePage{
 
         waitForElementToBeClickable(payButton,driver);
         payButton.click();
+
     }
 
     public void openAboveReceipt(String tableId) {

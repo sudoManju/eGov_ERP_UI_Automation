@@ -1,12 +1,10 @@
 package steps.marriageRegistration;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.marriageRegistration.MarriageRegistrationInformation;
 import entities.works.ApproverDetails;
-import pages.BasePage;
 import pages.DashboardPage;
-import pages.SewerageTax.newSewerageConnectionPage;
+import pages.sewerageTax.NewSewerageConnectionPage;
 import pages.marriageRegistration.MarriageRegistrationPage;
 import pages.works.SpillOverEstimatePage;
 import steps.BaseSteps;
@@ -41,7 +39,7 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
 
             pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
 
-            pageStore.get(newSewerageConnectionPage.class).forward();
+            pageStore.get(NewSewerageConnectionPage.class).forward();
 
             scenarioContext.setApplicationNumber(pageStore.get(MarriageRegistrationPage.class).getApplicationNumber());
 

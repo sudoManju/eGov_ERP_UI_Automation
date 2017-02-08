@@ -274,23 +274,28 @@ public class AdvertisementsPage extends BasePage {
         waitForElementToBeClickable(measurementTypeBox, driver);
         new Select(measurementTypeBox).selectByVisibleText("SQ.FT");
 
-      for(int i=0;i<4;i++){
-          try {
-              waitForElementToBeClickable(taxAmountTextBox, driver);
-              taxAmountTextBox.clear();
-              taxAmountTextBox.sendKeys("10");
-          }catch (StaleElementReferenceException e){
-              WebElement element = driver.findElement(By.cssSelector("input[id='taxAmount'][type='text']"));
-              element.clear();
-              element.sendKeys("10");
-          }
-      }
+        waitForElementToBeClickable(taxAmountTextBox, driver);
+        taxAmountTextBox.clear();
+        taxAmountTextBox.sendKeys("10");
+
     }
 
 
     public String forward() {
         waitForElementToBeClickable(forwardButton,driver);
         forwardButton.click();
+
+        boolean isPresent = driver.findElements(By.xpath(".//*[@id='advertisementform']/div/div[2]/div/div/div[22]/div/label")).size() > 0;
+
+        if(isPresent){
+            waitForElementToBeClickable(taxAmountTextBox, driver);
+            taxAmountTextBox.clear();
+            taxAmountTextBox.sendKeys("10");
+            System.out.println("success");
+
+            waitForElementToBeClickable(forwardButton,driver);
+            forwardButton.click();
+        }
 
         String Msg = creationMsg.getText();
         String applicationNumber = Msg.substring(Msg.lastIndexOf(" ")+1);
@@ -380,7 +385,7 @@ public class AdvertisementsPage extends BasePage {
         closeLink.click();
 
         for (String winHandle : driver.getWindowHandles()) {
-            if(driver.switchTo().window(winHandle).getCurrentUrl().equals(url)){
+            if(driver.switchTo().window(winHandle).getCurrentUrl().equals(getEnvironmentURL()+url)){
                 break;
             }
         }
@@ -394,7 +399,7 @@ public class AdvertisementsPage extends BasePage {
         closeButton.click();
 
         for (String winHandle : driver.getWindowHandles()) {
-            if(driver.switchTo().window(winHandle).getCurrentUrl().equals(url)){
+            if(driver.switchTo().window(winHandle).getCurrentUrl().equals(getEnvironmentURL()+url)){
                 break;
             }
         }

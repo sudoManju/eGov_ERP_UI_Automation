@@ -55,15 +55,7 @@ public class LegacyAdvertisementsSteps extends BaseSteps implements En {
             String actualMsg = pageStore.get(LegacyAdvertisementsPage.class).successMessage();
             scenarioContext.setActualMessage(actualMsg);
 
-            String env = System.getProperty("env");
-            String url = null;
-            if(env.equals("staging")) {
-                url = "http://kurnool-uat.egovernments.org/adtax/hoarding/findhoarding-for-update";
-            }
-            else if(env.equals("qa")){
-                url = "http://kurnool-qa.egovernments.org/adtax/hoarding/findhoarding-for-update";
-            }
-            pageStore.get(AdvertisementsPage.class).closeMultipleWindows(url);
+            pageStore.get(AdvertisementsPage.class).closeMultipleWindows("/adtax/hoarding/findhoarding-for-update");
         });
         And("^he chooses to renewal advertisement$", () -> {
            pageStore.get(DashboardPage.class).choosesToRenewalAdvertisement();
@@ -88,15 +80,7 @@ public class LegacyAdvertisementsSteps extends BaseSteps implements En {
             scenarioContext.setActualMessage(actualMsg);
             scenarioContext.setAssessmentNumber(num);
 
-            String env = System.getProperty("env");
-            String url = null;
-            if(env.equals("staging")) {
-                url = "http://kurnool-uat.egovernments.org/adtax/hoarding/renewal-search";
-            }
-            else if(env.equals("qa")){
-                url = "http://kurnool-qa.egovernments.org/adtax/hoarding/renewal-search";
-            }
-            pageStore.get(AdvertisementsPage.class).closeMultipleWindows(url);
+            pageStore.get(AdvertisementsPage.class).closeMultipleWindows("/adtax/hoarding/renewal-search");
         });
 
         And("^he opens the required application$", () -> {

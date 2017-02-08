@@ -131,4 +131,16 @@ public class BasePage {
 //        Assert.assertEquals(expectedMessage,actualMessage);
     }
 
+    public String getEnvironmentURL(){
+        String env = System.getProperty("env");
+        String url = null;
+        if(env.equals("staging")) {
+            url = "http://kurnool-uat.egovernments.org";
+        }
+        else if(env.equals("qa")){
+            url = "http://kurnool-qa.egovernments.org";
+        }
+        return url;
+    }
+
 }

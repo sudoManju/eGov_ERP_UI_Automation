@@ -48,7 +48,7 @@ Feature: Create regular estimate/Create LOA for estimate/Create-Track milestone/
     Examples:
       | estimateHeaderDetails | financialDetails    | workDetails    | approverDetails1        | approverDetails2 | approverDetails3 | approverDetails4 |
       | Estimate_1            | EstimateFinancial_1 | EstimateWork_1 | deputyExecutiveEngineer | SuperIntendent   | commissioner     | assis_Engineer   |
-      | Estimate_2            | EstimateFinancial_2 | EstimateWork_2 | deputyExecutiveEngineer | SuperIntendent   | commissioner     | assis_Engineer   |
+      #| Estimate_2            | EstimateFinancial_2 | EstimateWork_2 | deputyExecutiveEngineer | SuperIntendent   | commissioner     | assis_Engineer   |
 
   @Works @Sanity
   Scenario: Create Letter of Acceptance

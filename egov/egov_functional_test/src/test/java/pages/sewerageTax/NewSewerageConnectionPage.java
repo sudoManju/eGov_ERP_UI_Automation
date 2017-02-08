@@ -1,17 +1,13 @@
-package pages.SewerageTax;
+package pages.sewerageTax;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -21,7 +17,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 /**
  * Created by karthik on 27/1/17.
  */
-public class newSewerageConnectionPage extends BasePage {
+public class NewSewerageConnectionPage extends BasePage {
 
     private WebDriver driver;
 
@@ -150,7 +146,7 @@ public class newSewerageConnectionPage extends BasePage {
     String hour = String.valueOf(Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
     String min1 = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
 
-    public newSewerageConnectionPage(WebDriver driver) {
+    public NewSewerageConnectionPage(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -264,7 +260,7 @@ public class newSewerageConnectionPage extends BasePage {
         closeButton.click();
 
         for (String winHandle : driver.getWindowHandles()) {
-            if(driver.switchTo().window(winHandle).getCurrentUrl().equals(s)){
+            if(driver.switchTo().window(winHandle).getCurrentUrl().equals(getEnvironmentURL()+s)){
                 break;
             }
         }
@@ -326,22 +322,13 @@ public class newSewerageConnectionPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.close();
-        String env = System.getProperty("env");
-        if(env.equals("staging")) {
-            for (String winHandle : driver.getWindowHandles()) {
-                if (driver.switchTo().window(winHandle).getCurrentUrl().equals("http://kurnool-uat.egovernments.org/stms/transactions/update/" + num)) {
+
+        for (String winHandle : driver.getWindowHandles()) {
+                if (driver.switchTo().window(winHandle).getCurrentUrl().equals(getEnvironmentURL()+"/stms/transactions/update/" + num)) {
                     break;
                 }
             }
         }
-        else if(env.equals("qa")){
-            for (String winHandle : driver.getWindowHandles()) {
-                if (driver.switchTo().window(winHandle).getCurrentUrl().equals("http://kurnool-qa.egovernments.org/stms/transactions/update/" + num)) {
-                    break;
-                }
-            }
-        }
-    }
 
     public void executeConnection() {
         waitForElementToBeVisible(executeConnectionButton,driver);
@@ -359,13 +346,7 @@ public class newSewerageConnectionPage extends BasePage {
         waitForElementToBeVisible(searchResultsTable,driver);
         WebElement dropDownAction = searchResultsTable.findElement(By.tagName("tbody")).findElement(By.tagName("tr")).findElements(By.tagName("td")).get(1).findElement(By.tagName("a"));
         String hscNumber = dropDownAction.getText();
-        String env = System.getProperty("env");
-        if(env.equals("staging")) {
-            driver.navigate().to("http://kurnool-uat.egovernments.org/stms/transactions/" + action + "/" + hscNumber);
-        }
-        else if(env.equals("qa")){
-            driver.navigate().to("http://kurnool-qa.egovernments.org/stms/transactions/" + action + "/" + hscNumber);
-        }
+        driver.navigate().to(getEnvironmentURL()+"/stms/transactions/" + action + "/" + hscNumber);
     }
 
     public void increseTheNumberOfClosets() {
@@ -463,14 +444,8 @@ public class newSewerageConnectionPage extends BasePage {
         WebElement dropDownAction = searchResultsTable.findElement(By.tagName("tbody")).findElement(By.tagName("tr")).findElements(By.tagName("td")).get(1).findElement(By.tagName("a"));
         String hscNumber = dropDownAction.getText();
 
-        String env = System.getProperty("env");
+        driver.navigate().to(getEnvironmentURL()+"/stms/reports/generate-sewerage-demand-bill/" + number + "/" + hscNumber);
 
-        if(env.equals("staging")) {
-            driver.navigate().to("http://kurnool-uat.egovernments.org/stms/reports/generate-sewerage-demand-bill/" + number + "/" + hscNumber);
-        }
-        else if(env.equals("qa")){
-            driver.navigate().to("http://kurnool-qa.egovernments.org/stms/reports/generate-sewerage-demand-bill/" + number + "/" + hscNumber);
-        }
         driver.manage().timeouts().implicitlyWait(15,TimeUnit.SECONDS);
 
         driver.close();
