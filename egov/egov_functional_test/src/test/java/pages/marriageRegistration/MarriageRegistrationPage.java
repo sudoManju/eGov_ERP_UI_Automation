@@ -371,8 +371,8 @@ public class MarriageRegistrationPage extends BasePage {
     }
 
     public String isSuccesful() {
-//        waitForElementToBeClickable(dataEntrySubmitButton, driver);
-//        jsClick(dataEntrySubmitButton, driver);
+        waitForElementToBeClickable(dataEntrySubmitButton, driver);
+        jsClick(dataEntrySubmitButton, driver);
         String message = creationMessage.getText();
          return  message;
 //        Assert.assertEquals(expectedMessage,actualMessage);
