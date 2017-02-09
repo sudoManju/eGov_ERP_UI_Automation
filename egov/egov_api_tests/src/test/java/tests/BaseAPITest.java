@@ -1,11 +1,14 @@
 package tests;
 
 import com.jayway.restassured.RestAssured;
+import com.jayway.restassured.response.Response;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import spec.*;
+
+import java.util.ArrayList;
 
 public class BaseAPITest {
 
@@ -27,10 +30,19 @@ public class BaseAPITest {
 //        System.out.println("Test output was for --> " + result.getMethod().getMethodName());
 //    }
 
-    private String getBaseURI(String env) {
-        if (env.equals("staging"))
-            return "https://phoenix-qa.egovernments.org";
-        throw new RuntimeException("not a valid environment");
+//    private String getBaseURI(String env) {
+//        if (env.equals("staging"))
+//            return "https://phoenix-qa.egovernments.org";
+//        throw new RuntimeException("not a valid environment");
+//    }
+
+    public boolean isGoodResponse(Response response) {
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        arrayList.add(200);
+        arrayList.add(201);
+        arrayList.add(202);
+        arrayList.add(203);
+        return arrayList.contains(response.getStatusCode());
     }
 
 
@@ -43,4 +55,4 @@ public class BaseAPITest {
 //        return dsl;
 //    }
 
-    }
+}

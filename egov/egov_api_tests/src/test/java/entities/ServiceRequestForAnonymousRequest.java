@@ -131,8 +131,9 @@ public class ServiceRequestForAnonymousRequest {
     }
 
 
-
-
-
-
+    /**
+     * Created by soumyaghosh on 08/02/17.
+     */
+    public static class CreateUserRequest {
+    }
 }
