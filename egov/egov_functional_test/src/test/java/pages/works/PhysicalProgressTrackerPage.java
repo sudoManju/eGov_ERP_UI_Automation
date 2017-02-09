@@ -52,7 +52,7 @@ public class PhysicalProgressTrackerPage extends BasePage {
         closeLink.click();
 
         for (String winHandle : driver.getWindowHandles()) {
-            if(driver.switchTo().window(winHandle).getCurrentUrl().equals("http://kurnool-uat.egovernments.org/egworks/lineestimate/searchlineestimateform")){
+            if(driver.switchTo().window(winHandle).getCurrentUrl().equals(getEnvironmentURL()+"/egworks/lineestimate/searchlineestimateform")){
                 break;
             }
         }
