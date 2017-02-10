@@ -19,6 +19,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
+import static com.jayway.awaitility.Awaitility.waitAtMost;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
@@ -160,10 +161,6 @@ public class SpillOverEstimatePage extends BasePage
     @FindBy(id = "inboxsearch")
      private WebElement searchBox;
 
-    String num1 = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
-    String num = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
-    String transactionRefNo = num1+num;
-
     public void enterEstimateHeaderDetails(EstimateHeaderDetails estimateHeaderDetails) {
         String check = date.getAttribute("maxlength");
         if(check.equals("10")) {
@@ -172,6 +169,9 @@ public class SpillOverEstimatePage extends BasePage
             enterText(date, estimateHeaderDetails.getDate());
             date.sendKeys(Keys.TAB);
         }
+
+        webDriver.findElement(By.id("subject")).sendKeys("Testing");
+        webDriver.findElement(By.id("description")).sendKeys("Testing");
 
         waitForElementToBeClickable(reference, webDriver);
         reference.sendKeys(estimateHeaderDetails.getRequirementNumber());
@@ -243,14 +243,14 @@ public class SpillOverEstimatePage extends BasePage
         enterText(nameOfWorkTextBox,workDetails.getNameOfWork());
 
         waitForElementToBeClickable(absEstimateNumTextBox,webDriver);
-        String abstractIdNumber = (workDetails.getAbstractEstimateNumber() + transactionRefNo) ;
+        String abstractIdNumber = (workDetails.getAbstractEstimateNumber() + get6DigitRandomInt()) ;
         enterText(absEstimateNumTextBox,abstractIdNumber);
 
         waitForElementToBeClickable(estimateAmountTextBox,webDriver);
         enterText(estimateAmountTextBox,workDetails.getEstimatedAmount());
 
         waitForElementToBeClickable(WINTextBox,webDriver);
-        String workIdNumber = (workDetails.getWorkIdentificationNumber() + transactionRefNo );
+        String workIdNumber = (workDetails.getWorkIdentificationNumber() + get6DigitRandomInt());
         enterText(WINTextBox,workIdNumber);
 
         waitForElementToBeClickable(actualAmountTextBox,webDriver);
@@ -270,7 +270,7 @@ public class SpillOverEstimatePage extends BasePage
     public void enterAdminSanctionDetails(AdminSanctionDetails adminSanctionDetails) {
 
         waitForElementToBeClickable(adminSanctionNumberTextBox,webDriver);
-        String adminSanctionId = (adminSanctionDetails.getAdministrationSanctionNumber() + transactionRefNo);
+        String adminSanctionId = (adminSanctionDetails.getAdministrationSanctionNumber() + get6DigitRandomInt());
         enterText(adminSanctionNumberTextBox,adminSanctionId);
 
         waitForElementToBeClickable(adminSanctionDateBox,webDriver);
@@ -286,7 +286,7 @@ public class SpillOverEstimatePage extends BasePage
     public void enterTechnicalSanctionDetails(TechnicalSanctionDetails technicalSanctionDetails) {
 
         waitForElementToBeClickable(technicalSanctionNumberTextBox,webDriver);
-        String technicalSanctionId = (technicalSanctionDetails.getTechnicalSanctionNumber() + transactionRefNo);
+        String technicalSanctionId = (technicalSanctionDetails.getTechnicalSanctionNumber() + get6DigitRandomInt());
         enterText(technicalSanctionNumberTextBox, technicalSanctionId);
 
         waitForElementToBeClickable(technicalSanctionDateTextBox,webDriver);
@@ -376,13 +376,14 @@ public class SpillOverEstimatePage extends BasePage
 
     public void openApplication(String estimateNumber) {
 
-//        try {
-//            TimeUnit.SECONDS.sleep(5);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-        waitForElementToBeVisible(estimateLink,webDriver);
-        estimateLink.click();
+//        webDriver.manage().timeouts().pageLoadTimeout(10,TimeUnit.SECONDS);
+
+        waitForElementToBePresent(By.cssSelector("table[id='official_inbox'] tbody tr[role='row']"),webDriver);
+
+        boolean isPresent = webDriver.findElements(By.cssSelector("li[role='presentation'] a[data-now^='Estimate']")).size() > 0;
+        if(isPresent) {
+            estimateLink.click();
+        }
 
         await().atMost(30, SECONDS).until(() -> workListTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 0);
         List<WebElement> totalRows = workListTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
@@ -402,7 +403,7 @@ public class SpillOverEstimatePage extends BasePage
 
     public void adminSanctionNumber() {
         waitForElementToBeClickable(adminSanctionNumberTextBox,webDriver);
-        adminSanctionNumberTextBox.sendKeys("ASN"+transactionRefNo);
+        adminSanctionNumberTextBox.sendKeys("ASN"+get6DigitRandomInt());
     }
 
 
@@ -414,7 +415,7 @@ public class SpillOverEstimatePage extends BasePage
         actualAmountTextBox.sendKeys(actualAmount);
 
         waitForElementToBeClickable(technicalSanctionNumberTextBox,webDriver);
-        technicalSanctionNumberTextBox.sendKeys("TSN"+transactionRefNo);
+        technicalSanctionNumberTextBox.sendKeys("TSN"+get6DigitRandomInt());
         waitForElementToBeClickable(technicalSanctionDateTextBox,webDriver);
         technicalSanctionDateTextBox.sendKeys(getCurrentDate());
         technicalSanctionDateTextBox.sendKeys(Keys.TAB);

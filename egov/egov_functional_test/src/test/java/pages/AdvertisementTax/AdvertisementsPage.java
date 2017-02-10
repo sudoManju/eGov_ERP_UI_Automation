@@ -202,13 +202,9 @@ public class AdvertisementsPage extends BasePage {
     @FindBy(css = "input[id = 'chequeradiobutton'][type='radio']")
      private WebElement chequeRadioButton;
 
-    String min = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
-    String min1 = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
-
     public AdvertisementsPage(WebDriver driver){
        this.driver = driver;
     }
-
 
     public void enterAdvertisementDetails() {
         waitForElementToBeVisible(categoryBox,driver);
@@ -438,17 +434,17 @@ public class AdvertisementsPage extends BasePage {
 
     public String enterAgencyDetails() {
        waitForElementToBeVisible(agencyCodeTextBox,driver);
-       agencyCodeTextBox.sendKeys("AC"+min+min1);
+       agencyCodeTextBox.sendKeys("AC"+get6DigitRandomInt());
 
        waitForElementToBeClickable(agencyNameTextBox,driver);
-       String name = "Test"+min;
+       String name = "Test"+get6DigitRandomInt();
        agencyNameTextBox.sendKeys(name);
 
        waitForElementToBeClickable(depositAmountTextBox,driver);
        depositAmountTextBox.sendKeys("1000");
 
        waitForElementToBeClickable(mobileNumberTextBox,driver);
-       mobileNumberTextBox.sendKeys("9885"+min+min+min);
+       mobileNumberTextBox.sendKeys("9885"+get6DigitRandomInt());
 
        waitForElementToBeClickable(statusDropDownBox,driver);
        new Select(statusDropDownBox).selectByVisibleText("ACTIVE");

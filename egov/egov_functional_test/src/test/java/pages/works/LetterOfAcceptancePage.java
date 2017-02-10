@@ -121,8 +121,8 @@ public class LetterOfAcceptancePage extends BasePage
     private WebElement agreementDate;
 
     String RandomString = RandomStringUtils.randomAlphanumeric(5).toUpperCase();
-    String num = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
-    String transactionRefNo = num;
+    //String num = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
+//    String transactionRefNo = num;
 
     public void enterLOAdetails()
     {
@@ -251,7 +251,7 @@ public class LetterOfAcceptancePage extends BasePage
     public void entersSpilloverLOADetails()
     {
         waitForElementToBeClickable(LOANumber, driver);
-        LOANumber.sendKeys("LOA/"+transactionRefNo);
+        LOANumber.sendKeys("LOA/"+get6DigitRandomInt());
         waitForElementToBeClickable(fileNumber, driver);
         fileNumber.sendKeys(RandomString);
         waitForElementToBeClickable(fileDate, driver);

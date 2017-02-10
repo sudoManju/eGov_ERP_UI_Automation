@@ -113,10 +113,6 @@ public class ContractorPage extends BasePage
     @FindBy(xpath = ".//*[@id='yui-rec0']/td[8]/div/select")
      private WebElement categoryDropDownBox;
 
-    String min = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
-    String hour = String.valueOf(Calendar.getInstance().get(Calendar.MINUTE));
-    String min1 = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
-
     public ContractorPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -125,8 +121,7 @@ public class ContractorPage extends BasePage
         enterText(searchTreeTextBox, value);
     }
 
-    public void chooseToCreateContractor()
-    {
+    public void chooseToCreateContractor() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("Create Contractor");
         waitForElementToBeVisible(createContractorLink, driver);
@@ -136,12 +131,8 @@ public class ContractorPage extends BasePage
         switchToNewlyOpenedWindow(driver);
     }
 
-    public String entersContractorMasterData()
-    {
-//        waitForElementToBeClickable(contractorCode, driver);
-        String code = (min+min1);
-        String Name = "KMC"+code;
-//        contractorCode.sendKeys(Name);
+    public String entersContractorMasterData() {
+        String Name = "KMC"+get6DigitRandomInt();
         waitForElementToBeClickable(contractorName, driver);
         contractorName.sendKeys(Name);
         waitForElementToBeClickable(correspondenceAddress, driver);
@@ -152,22 +143,22 @@ public class ContractorPage extends BasePage
         waitForElementToBeClickable(email, driver);
         email.sendKeys(Name+"@egov.org");
         waitForElementToBeClickable(mobileNumber, driver);
-        mobileNumber.sendKeys("9988"+(min+min+min));
+        mobileNumber.sendKeys("9988"+get6DigitRandomInt());
         panNumber.sendKeys("PANUM2803P");
         waitForElementToBeClickable(tinNumber, driver);
-        tinNumber.sendKeys(min+hour);
+        tinNumber.sendKeys(get6DigitRandomInt());
         waitForElementToBeClickable(bankAction, driver);
         new Select(bankAction).selectByVisibleText("STATE BANK OF MYSORE");
         waitForElementToBeClickable(ifscCode, driver);
-        ifscCode.sendKeys("IFSC"+min+hour);
+        ifscCode.sendKeys("IFSC"+get6DigitRandomInt());
         waitForElementToBeClickable(bankAccount, driver);
-        bankAccount.sendKeys(min+hour+min1);
+        bankAccount.sendKeys(get6DigitRandomInt());
         waitForElementToBeClickable(exemptionFormAction, driver);
         new Select(exemptionFormAction).selectByVisibleText("EARNEST MONEY DEPOSIT");
         waitForElementToBeClickable(department, driver);
         new Select(department).selectByVisibleText("ENGINEERING");
         waitForElementToBeClickable(registrationNumber, driver);
-        registrationNumber.sendKeys("0123"+code);
+        registrationNumber.sendKeys("0123"+get6DigitRandomInt());
         waitForElementToBeClickable(categoryDropDownBox,driver);
         new Select(categoryDropDownBox).selectByVisibleText("Transport");
         waitForElementToBeClickable(contractorClass, driver);
@@ -182,8 +173,7 @@ public class ContractorPage extends BasePage
         return Name;
     }
 
-    public void viewContractor()
-    {
+    public void viewContractor() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchTreeTextBox.clear();
         searchFor("View/Modify Contractor");

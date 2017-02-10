@@ -70,6 +70,7 @@ public class MilestoneTemplatePage extends BasePage {
 
     @FindBy(xpath = "(.//*[@id='milestoneTemplate-searchDetails']/div[4]/div[1]/div[2]/span[2]/a)[last()]")
     private WebElement lastPageLink;
+
     public MilestoneTemplatePage(WebDriver driver) {
         this.driver = driver;
     }
@@ -82,9 +83,7 @@ public class MilestoneTemplatePage extends BasePage {
     public void enterMilestoneTemplateDetails() {
 
      waitForElementToBeVisible(templateCodeBox,driver);
-     String templateCode = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
-     String templateCode1 = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
-     templateCodeBox.sendKeys("TC"+templateCode+templateCode1);
+     templateCodeBox.sendKeys("TC"+get6DigitRandomInt());
 
      waitForElementToBeClickable(templateNameTextBox,driver);
      templateNameTextBox.sendKeys("testing");
@@ -96,8 +95,7 @@ public class MilestoneTemplatePage extends BasePage {
      new Select(typeOfWorkBox).selectByVisibleText("Roads, Drains, Bridges and Flyovers");
 
      waitForElementToBeClickable(subTypeOfWorkBox,driver);
-     subTypeOfWorkBox.click();
-     subTypeOfWorkBox.click();
+     waitForElementToBePresent(By.cssSelector("select[id='subType'] option[value='5']"),driver);
      new Select(subTypeOfWorkBox).selectByVisibleText("Roads");
 
      waitForElementToBeVisible(addTemplateActivityButton,driver);
@@ -111,7 +109,6 @@ public class MilestoneTemplatePage extends BasePage {
         stageDescriptionTextBox.sendKeys("Testing for Roads");
         WebElement stagePercentageTextBox = totalRows.get(2).findElement(By.className("selectamountwk"));
         stagePercentageTextBox.sendKeys("100");
-
     }
 
     public void save() {

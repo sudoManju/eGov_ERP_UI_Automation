@@ -253,9 +253,6 @@ public class MilestoneTrackPage extends BasePage {
     }
 
     public void enterContractorBillDetails(String billType) {
-        String num1 = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
-        String num = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
-        String transactionRefNo = num1+num;
 
         switch (billType){
            case "part":
@@ -271,7 +268,7 @@ public class MilestoneTrackPage extends BasePage {
                break;
         }
         waitForElementToBeClickable(mbRefNoTextBox,driver);
-        mbRefNoTextBox.sendKeys("MB"+transactionRefNo);
+        mbRefNoTextBox.sendKeys("MB"+get6DigitRandomInt());
 
         waitForElementToBeClickable(fromPageNoTextBox,driver);
         fromPageNoTextBox.sendKeys("1");

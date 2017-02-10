@@ -142,9 +142,9 @@ public class NewSewerageConnectionPage extends BasePage {
     @FindBy(id = "submit")
     private WebElement submitButton;
 
-    String min = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
-    String hour = String.valueOf(Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
-    String min1 = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
+//    String min = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
+//    String hour = String.valueOf(Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
+//    String min1 = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
 
     public NewSewerageConnectionPage(WebDriver driver) {
         this.driver = driver;
@@ -410,7 +410,7 @@ public class NewSewerageConnectionPage extends BasePage {
         PTAssessmentNumberTextBox.sendKeys(assessmentNumber);
 
         waitForElementToBeClickable(hscNumberTextBox,driver);
-        hscNumberTextBox.sendKeys("1016"+hour+hour+min1+min);
+        hscNumberTextBox.sendKeys("1016"+get6DigitRandomInt());
 
         waitForElementToBeClickable(executionDateTextBox,driver);
         executionDateTextBox.sendKeys(getPreviousDate());

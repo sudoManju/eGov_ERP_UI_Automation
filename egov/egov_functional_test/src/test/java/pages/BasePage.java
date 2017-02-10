@@ -142,5 +142,4 @@ public class BasePage {
         }
         return url;
     }
-
 }
