@@ -290,6 +290,7 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Re Issue Marriage Certifiate")
     private WebElement reIssueMarriageCertLink;
 
+
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -1045,7 +1046,7 @@ public class DashboardPage extends BasePage {
         marriageRegDataEntryLink.click();
         switchToNewlyOpenedWindow(driver);
         waitForElementToBeClickable(marriageRegApplNum, driver);
-        marriageRegApplNum.sendKeys("AN123" + min);
+        marriageRegApplNum.sendKeys("A123" + min+"N");
         waitForElementToBeClickable(marriageRegNum, driver);
         marriageRegNum.sendKeys("123" + min);
     }
@@ -1074,4 +1075,3 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 }
-

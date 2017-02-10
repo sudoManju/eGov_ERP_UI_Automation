@@ -46,6 +46,16 @@ public class ScenarioContext implements Serializable {
 
     private String caseFileNumber;
 
+    public String getReIssueApplicationNumber() {
+        return reIssueApplicationNumber;
+    }
+
+    public void setReIssueApplicationNumber(String reIssueApplicationNumber) {
+        this.reIssueApplicationNumber = reIssueApplicationNumber;
+    }
+
+    private String reIssueApplicationNumber;
+
 
     public void setRegistrationNumber(String Number){
         this.registrationNumber = registrationNumber;

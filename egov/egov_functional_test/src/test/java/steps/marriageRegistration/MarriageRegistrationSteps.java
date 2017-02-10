@@ -1,5 +1,6 @@
 package steps.marriageRegistration;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.marriageRegistration.MarriageRegistrationInformation;
 import entities.works.ApproverDetails;
@@ -9,6 +10,7 @@ import pages.marriageRegistration.MarriageRegistrationPage;
 import pages.works.SpillOverEstimatePage;
 import steps.BaseSteps;
 import utils.ExcelReader;
+import utils.ScenarioContext;
 
 /**
  * Created by manjunatha-lap on 24/01/2017.
@@ -76,7 +78,6 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
             scenarioContext.setActualMessage(message);
             scenarioContext.setApplicationNumber(number);
           });
-
         And("^he search the marrige application$", () -> {
             pageStore.get(MarriageRegistrationPage.class).searchForApplicationToModify(scenarioContext.getApplicationNumber());
             pageStore.get(MarriageRegistrationPage.class).clickOnEditButton();
@@ -106,18 +107,20 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
             pageStore.get(NewSewerageConnectionPage.class).forward();
         });
         And("^he get application number and closes acknowledgement$", () -> {
-            pageStore.get(MarriageRegistrationPage.class).getApplicationNumber();
+            String message = pageStore.get(MarriageRegistrationPage.class).getReIssueNumber();
+            String number = message.split("\\s")[5];
+            System.out.println(number);
+            scenarioContext.setActualMessage(message);
+            scenarioContext.setApplicationNumber(number);
             pageStore.get(MarriageRegistrationPage.class).close();
+        });
+        And("^he clicks on re issue marriage certificate and opens the application$", () -> {
+            pageStore.get(MarriageRegistrationPage.class).openApplication(scenarioContext.getApplicationNumber());
         });
         And("^he re issue the marriage application  and close the acknowledgement$", () -> {
             pageStore.get(MarriageRegistrationPage.class).approve();
-            pageStore.get(MarriageRegistrationPage.class).searchMarriageApplication(scenarioContext.getApplicationNumber());
-            scenarioContext.setActualMessage(pageStore.get(MarriageRegistrationPage.class).getSuccessMessage());
-            pageStore.get(MarriageRegistrationPage.class).close();
-        });
-        And("^he choose to act upon the above to re issue marriage certificate$", () -> {
-                pageStore.get(MarriageRegistrationPage.class).searchForReIssueRegistration();
-                pageStore.get(MarriageRegistrationPage.class).selectAboveApplication(scenarioContext.getApplicationNumber());
+            pageStore.get(MarriageRegistrationPage.class).closeApplication();
+//            scenarioContext.setActualMessage(pageStore.get(MarriageRegistrationPage.class).getSuccessMessage());
         });
     }
 }

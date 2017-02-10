@@ -274,7 +274,9 @@ public class DashboardSteps extends BaseSteps implements En {
         And("^he choose to modify marriage registration$", () -> {
             pageStore.get(DashboardPage.class).chooseToModifyMarriageRegistration();
         });
-
+        And("^he chooses for Re-Issue Marriage Certifiate$", () -> {
+            pageStore.get(DashboardPage.class).choosesToReIssueCertificate();
+        });
     }
 }
 

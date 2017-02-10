@@ -1,7 +1,6 @@
 package pages.marriageRegistration;
 
 import entities.marriageRegistration.MarriageRegistrationInformation;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,11 +9,13 @@ import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+
+
+import static com.jayway.awaitility.Awaitility.await;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * Created by manjunatha-lap on 24/01/2017.
@@ -41,7 +42,7 @@ public class MarriageRegistrationPage extends BasePage {
     private WebElement dateOfMarriage;
 
     @FindBy(id = "select-venue")
-    private  WebElement venueOfMarriage;
+    private WebElement venueOfMarriage;
 
     @FindBy(id = "txt-placeofmrg")
     private WebElement placeOfMarriage;
@@ -112,9 +113,6 @@ public class MarriageRegistrationPage extends BasePage {
     @FindBy(css = "li[role='presentation'] a[data-now='Marriage%20Registration%20%3A%3A%20New%20Registration']")
     private WebElement marraigeRegistrationsLink;
 
-    @FindBy(css = "li[role='presentation'] a[data-now='Marriage%20Registration%20%3A%3A%20Re-Issue']")
-    private WebElement reIssueCertificateTab;
-
     @FindBy(id = "Approve")
     private WebElement approveButton;
 
@@ -166,7 +164,21 @@ public class MarriageRegistrationPage extends BasePage {
     @FindBy(id = "txt-phoneNo")
     private WebElement phoneNo;
 
-    public  MarriageRegistrationPage(WebDriver driver){ this.driver = driver;}
+    @FindBy(id = "marriageRegistrationType")
+    private WebElement marriageRegistrationType;
+
+    @FindBy(css = "li[role='presentation'] a[data-now='Marriage%20Registration%20%3A%3A%20Re-Issue']")
+    private WebElement reIssueCertificateTab;
+
+    @FindBy(id = "official_inbox_wrapper")
+    private WebElement workListTable;
+
+    @FindBy(id = "button2")
+    private WebElement closeButton2;
+
+    public MarriageRegistrationPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void enterApplicantsInformation(MarriageRegistrationInformation marriageRegistrationInformation) {
 
@@ -194,8 +206,7 @@ public class MarriageRegistrationPage extends BasePage {
     }
 
 
-    public void enterBrideGroomInformation(MarriageRegistrationInformation marriageRegistrationInformation,String name )
-    {
+    public void enterBrideGroomInformation(MarriageRegistrationInformation marriageRegistrationInformation, String name) {
         WebElement fullName = driver.findElement(By.id(name + ".name.firstName"));
         fullName.sendKeys(marriageRegistrationInformation.getFullName());
 
@@ -244,10 +255,10 @@ public class MarriageRegistrationPage extends BasePage {
         WebElement mobileNogb = driver.findElement(By.id(name + ".contactInfo.mobileNo"));
         mobileNogb.sendKeys(marriageRegistrationInformation.getPhoneNo());
 
-        WebElement occupationgb = driver.findElement(By.id(name+".occupation"));
+        WebElement occupationgb = driver.findElement(By.id(name + ".occupation"));
         occupationgb.sendKeys(marriageRegistrationInformation.getOccupation());
 
-        WebElement qualificationgb = driver.findElement(By.id(name+".qualification"));
+        WebElement qualificationgb = driver.findElement(By.id(name + ".qualification"));
         qualificationgb.sendKeys(marriageRegistrationInformation.getEducationQualification());
 
         wifePhotoUpload.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
@@ -257,20 +268,19 @@ public class MarriageRegistrationPage extends BasePage {
         waitForElementToBeClickable(witnessInfoLink, driver);
         jsClick(witnessInfoLink, driver);
 
-        for(int i=0; i<=3; i++)
-        {
+        for (int i = 0; i <= 3; i++) {
             int res = 0;
-            int sum = i+res;
-            System.out.println(sum);
-            WebElement witnessName = driver.findElement(By.id("witnesses"+sum+".name.firstName"));
+            int sum = i + res;
+//            System.out.println(sum);
+            WebElement witnessName = driver.findElement(By.id("witnesses" + sum + ".name.firstName"));
             witnessName.sendKeys("Witness Names");
-            WebElement witnessLastName = driver.findElement(By.id("witnesses"+sum+".name.lastName"));
+            WebElement witnessLastName = driver.findElement(By.id("witnesses" + sum + ".name.lastName"));
             witnessLastName.sendKeys("Witness Last Names");
-            WebElement relativeName = driver.findElement(By.id("witnesses["+sum+"].relativeName"));
+            WebElement relativeName = driver.findElement(By.id("witnesses[" + sum + "].relativeName"));
             relativeName.sendKeys("Relative Name");
-            WebElement witnessAge = driver.findElement(By.id("witnesses["+sum+"].age"));
+            WebElement witnessAge = driver.findElement(By.id("witnesses[" + sum + "].age"));
             witnessAge.sendKeys("35");
-            WebElement residenceAddress = driver.findElement(By.id("witnesses["+sum+"].contactInfo.residenceAddress"));
+            WebElement residenceAddress = driver.findElement(By.id("witnesses[" + sum + "].contactInfo.residenceAddress"));
             residenceAddress.sendKeys("Residence Address");
 
 
@@ -278,13 +288,11 @@ public class MarriageRegistrationPage extends BasePage {
 
 //        waitForElementToBeClickable(witnessName1, driver);
 //        witnessName1.sendKeys("AAAA");
-
-
     }
 
     public void enterChecklist() {
-        waitForElementToBeClickable(checkListLink,driver);
-        jsClick(checkListLink,driver);
+        waitForElementToBeClickable(checkListLink, driver);
+        jsClick(checkListLink, driver);
 
         memorandumofMarriage.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
         birthCertificateForBridegroom.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
@@ -299,15 +307,13 @@ public class MarriageRegistrationPage extends BasePage {
         proofofResidenceForBridegroom.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
         proofofResidenceForBride.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
         memorandumOfMarriage.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
-//        waitForElementToBeClickable(dataEntrySubmitButton, driver);
-//        jsClick(dataEntrySubmitButton, driver);
     }
 
     public String getApplicationNumber() {
-         String msg = creationMessage.getText();
-         String number = msg.split("\\s")[6];
-         System.out.println("\n "+number);
-         return number;
+        String msg = creationMessage.getText();
+        String number = msg.split("\\s")[6];
+        System.out.println("\n " + number);
+        return number;
     }
 
     public String getSuccessMessage() {
@@ -315,15 +321,21 @@ public class MarriageRegistrationPage extends BasePage {
     }
 
     public void close() {
-        waitForElementToBeClickable(closeButton,driver);
+        waitForElementToBeClickable(closeButton, driver);
         closeButton.click();
+        for (String winHandle : driver.getWindowHandles()) {
+            if (driver.switchTo().window(winHandle).getCurrentUrl().equals(getEnvironmentURL()+"/mrs/registration/reissuecertificate")) {
+                break;
+            }
+        }
+        WebElement closeButton1 = driver.findElement(By.xpath(".//*[@id='page-content']/div/div[3]/div/a"));
+        waitForElementToBeClickable(closeButton1, driver);
+        closeButton1.click();
         switchToPreviouslyOpenedWindow(driver);
     }
-
     public void searchForApplicationInbox(String applicationNumber) {
         waitForElementToBeVisible(inboxSearchTextBox,driver);
         inboxSearchTextBox.sendKeys(applicationNumber);
-
     }
 
     public void selectAboveApplication(String applicationNumber) {
@@ -381,6 +393,8 @@ public class MarriageRegistrationPage extends BasePage {
     public void searchForMarriageApplicationNumberToCollect(String applicationNumber) {
         waitForElementToBeVisible(applicationNumberTextBox,driver);
         applicationNumberTextBox.sendKeys(applicationNumber);
+        waitForElementToBeClickable(marriageRegistrationType, driver);
+        new Select(marriageRegistrationType).selectByVisibleText("REISSUE");
         searchRegistrationButton.click();
     }
 
@@ -426,7 +440,6 @@ public class MarriageRegistrationPage extends BasePage {
         switchToPreviouslyOpenedWindow(driver);
 
     }
-
     public void searchMarriageApplication(String applicationNumber) {
         waitForElementToBeClickable(applicationNo, driver);
         applicationNo.sendKeys(applicationNumber);
@@ -454,15 +467,33 @@ public class MarriageRegistrationPage extends BasePage {
         phoneNo.sendKeys("9876511223");
     }
 
-    public void searchForReIssueRegistration() {
-        waitForElementToBeClickable(reIssueCertificateTab, driver);
-        reIssueCertificateTab.click();
-    }
-
-    public String forwardReIssueCertificate() {
+    public String getReIssueNumber() {
         String message = creationMessage.getText();
         return  message;
-
+//        Assert.assertEquals(expectedMessage,actualMessage);
     }
 
+    public void openApplication(String reIssueApplicationNumber) {
+        waitForElementToBeVisible(reIssueCertificateTab,driver);
+        reIssueCertificateTab.click();
+        System.out.println(reIssueApplicationNumber);
+
+        waitForElementToBePresent(By.cssSelector("table[id='official_inbox'] tbody tr[role='row']"),driver);
+
+        await().atMost(30, SECONDS).until(() -> workListTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 0);
+        List<WebElement> totalRows = workListTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
+        System.out.println("\n" + totalRows.size());
+        for (WebElement applicationRow : totalRows) {
+            if (applicationRow.findElements(By.tagName("td")).get(4).getText().contains(reIssueApplicationNumber))
+                applicationRow.click();
+            break;
+        }
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void closeApplication() {
+        waitForElementToBeClickable(closeButton2, driver);
+        closeButton2.click();
+        switchToPreviouslyOpenedWindow(driver);
+    }
 }
