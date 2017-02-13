@@ -23,13 +23,17 @@ Feature: Create Trade License
   # Create Trade License with work flow #
   @Sanity @TradeLicense
   Scenario Outline: Register User create trade license with work flow
-    Given creator logs in
+
+    Given CSCUser logs in
+#    Given PublicHealthJA logs in
     When he chooses to create new License
     And he enters trade owner details of new license <tradeDetailsData>
     And he enters trade location details of new license <tradeLocationData>
     And he enters trade details of new license <tradeDetailsData1>
     And he copy trade application number
+    And current user logs out
 
+    When PublicHealthJA logs in
     And he choose to search trade license
     And he search existing application number
     And he choose to collectfees
@@ -51,9 +55,10 @@ Feature: Create Trade License
     And he closes the acknowledgement
     And current user logs out
 
-    When creator logs in
+    When PublicHealthJA logs in
     And he choose to act upon the above application number
     And he generates the license certificate
+    And user will be notified by "License"
     And current user logs out
 
     Examples:

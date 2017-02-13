@@ -76,7 +76,7 @@ public class GrievancesPage extends BasePage {
     @FindBy(xpath = "html/body/div[1]/div/div[1]/div/div/div[1]/div/strong")
     private WebElement acknMsg;
 
-    @FindBy(xpath = "html/body/div[1]/div/div[3]/div/a")
+    @FindBy(linkText = "Close")
     private WebElement closeButton;
 
     @FindBy(id = "receivingMode1")
@@ -181,7 +181,7 @@ public class GrievancesPage extends BasePage {
 
     public String createInCitizen() {
         createGrievanceButton.click();
-        WebElement element= webDriver.findElement(By.xpath("html/body/div[1]/div/div[1]/div/div/div[1]/div/strong"));
+        WebElement element= webDriver.findElement(By.xpath(".//*[@id='main']/div[1]/div/div/div[1]/div/strong"));
         return element.getText();
     }
 

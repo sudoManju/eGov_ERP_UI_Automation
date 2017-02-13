@@ -64,7 +64,7 @@ public class TradeLicenseSteps extends BaseSteps implements En {
         });
 
         And("^he generates the license certificate$", () -> {
-            pageStore.get(TradeLicensePage.class).generateLicenseCertificate();
+            scenarioContext.setActualMessage(pageStore.get(TradeLicensePage.class).generateLicenseCertificate());
         });
         And("^he search trade license with application number$", () -> {
             String searchId = "searchWithApplicationNumber";

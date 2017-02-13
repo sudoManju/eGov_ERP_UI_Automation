@@ -305,7 +305,7 @@ public class TradeLicensePage extends BasePage {
         forwardButton.click();
     }
 
-    public void generateLicenseCertificate() {
+    public String generateLicenseCertificate() {
 
         WebElement element = webDriver.findElement(By.id("boundary"));
         waitForElementToBeVisible(element , webDriver);
@@ -321,8 +321,12 @@ public class TradeLicensePage extends BasePage {
                 break;
             }
         }
+        WebElement ele=webDriver.findElement(By.xpath("html/body/div[1]/header/nav/div/div[1]/a/div/span"));
+        String actMsg=ele.getText();
         webDriver.close();
         switchToPreviouslyOpenedWindow(webDriver);
+        return actMsg;
+
     }
 
     public void enterApplicationNumberReadingFromExcel(SearchTradeDetails searchId) {

@@ -96,6 +96,7 @@ public class BasePage {
 }
 
     protected String get6DigitRandomInt() {return String.valueOf((100000 + RandomUtils.nextInt(900000)));
+
     }
 
     protected String getCurrentDate() {
