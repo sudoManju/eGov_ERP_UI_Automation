@@ -35,9 +35,5 @@ public class ApprovalDetailsSteps extends BaseSteps implements En {
             }
 
         });
-
-
-
     }
-
 }

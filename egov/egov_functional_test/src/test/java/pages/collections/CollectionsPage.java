@@ -194,9 +194,16 @@ public class CollectionsPage extends BasePage {
         serviceTypeBox.click();
         new Select(serviceTypeBox).selectByVisibleText(challanHeaderDetails.getServiceType());
 
-        WebElement element = driver.findElement(By.id("billDetailslist[0].creditAmountDetail"));
-        element.clear();
-        element.sendKeys("500");
+        try {
+            WebElement element = driver.findElement(By.id("billDetailslist[0].creditAmountDetail"));
+            element.clear();
+            element.sendKeys("500");
+        }
+        catch (StaleElementReferenceException e){
+            WebElement element = driver.findElement(By.id("billDetailslist[0].creditAmountDetail"));
+            element.clear();
+            element.sendKeys("500");
+        }
     }
 
     public void enterApprovalDetails(ApprovalDetails approverDetails) {
@@ -234,9 +241,9 @@ public class CollectionsPage extends BasePage {
         waitForElementToBeClickable(createChallanButton,driver);
         createChallanButton.click();
 
-        boolean isPresent = driver.findElements(By.xpath(".//*[@id='challan_error_area']")).size() > 0;
+        WebElement isPresent = driver.findElement(By.xpath(".//*[@id='challan_error_area']"));
 
-        if(isPresent){
+        if(isPresent.getText().equals("Please enter credit account details")){
             WebElement element = driver.findElement(By.id("billDetailslist[0].creditAmountDetail"));
             element.clear();
             element.sendKeys("500");
