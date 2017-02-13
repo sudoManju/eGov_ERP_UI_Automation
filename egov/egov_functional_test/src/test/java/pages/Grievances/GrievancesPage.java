@@ -155,7 +155,7 @@ public class GrievancesPage extends BasePage {
         new Select(selectStatus).selectByVisibleText(status);
         enterText(incMessageBox, status);
         submitButton.click();
-        String success=webDriver.findElement(By.xpath("html/body/div[1]/div/div[1]/div/div/div[1]/div/strong")).getText();
+        String success=webDriver.findElement(By.xpath(".//*[@id='main']/div[1]/div/div/div[1]/div/strong")).getText();
         closeButton.click();
         switchToPreviouslyOpenedWindow(webDriver);
         return success;
