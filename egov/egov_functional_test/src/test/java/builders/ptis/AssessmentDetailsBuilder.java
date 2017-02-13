@@ -24,15 +24,8 @@ public class AssessmentDetailsBuilder {
         return this;
     }
 
-    public AssessmentDetailsBuilder withRegistrationDocDate(String registrationDocDate) {
-        assessmentDetails.setRegistrationDocDate(registrationDocDate);
-        return this;
-    }
 
-    public AssessmentDetailsBuilder withRegistrationDocNumber(String registrationDocNumber) {
-        assessmentDetails.setRegistrationDocNumber(registrationDocNumber);
-        return this;
-    }
+
 
     public AssessmentDetails build(){
         return assessmentDetails;

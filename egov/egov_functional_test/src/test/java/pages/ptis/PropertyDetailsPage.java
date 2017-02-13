@@ -80,11 +80,20 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "propertyDetail.occupancyCertificationNo")
     private WebElement occupancyCertificateNumberTextBox;
 
-    @FindBy(id = "regdDocNo")
-    private WebElement registrationDocNumber;
+    @FindBy(id = "assessmentDocumentNames")
+    private WebElement documentTypeDropBox;
 
-    @FindBy(id = "basicProperty.regdDocDate")
-    private WebElement registrationDocDate;
+    @FindBy(id = "docNo")
+    private WebElement deedNoTextBox;
+
+    @FindBy(id = "docDate")
+    private WebElement DeedDateDateBox;
+
+//    @FindBy(id = "regdDocNo")
+//    private WebElement registrationDocNumber;
+
+//    @FindBy(id = "basicProperty.regdDocDate")
+//    private WebElement registrationDocDate;
 
     @FindBy(id = "propertyDetail.lift")
     private WebElement liftCheckbox;
@@ -341,8 +350,8 @@ public class PropertyDetailsPage extends BasePage {
         new Select(reasonForCreationSelection).selectByVisibleText(assessmentDetails.getReasonForCreation());
         extentOfSiteTextBox.sendKeys(assessmentDetails.getExtentOfSite());
         occupancyCertificateNumberTextBox.sendKeys(assessmentDetails.getOccupancyCertificateNumber());
-        registrationDocNumber.sendKeys(assessmentDetails.getRegistrationDocNumber());
-        registrationDocDate.sendKeys(assessmentDetails.getRegistrationDocDate());
+//        registrationDocNumber.sendKeys(assessmentDetails.getRegistrationDocNumber());
+//        registrationDocDate.sendKeys(assessmentDetails.getRegistrationDocDate());
     }
     public void selectAmenities(Amenities amenities) {
         selectAmenityIfRequired(liftCheckbox, amenities.getLift());
@@ -380,7 +389,16 @@ public class PropertyDetailsPage extends BasePage {
         buildingPermissionNumberTextBox.sendKeys(floorDetails.getBuildingPermissionNumber());
         buildingPermissionDateTextBox.sendKeys(floorDetails.getBuildingPermissionDate());
         plinthAreaInBuildingPlanTextBox.sendKeys(floorDetails.getPlinthAreaInBuildingPlan());
+
+
     }
+
+    public void selectDocumentType(DocumentTypeValue documentValue) {
+        new Select(documentTypeDropBox).selectByVisibleText(documentValue.getDocumentType());
+        enterText(deedNoTextBox, documentValue.getDeedNo());
+        enterText(DeedDateDateBox, documentValue.getDeedDate());
+    }
+
     public void enterApprovalDetails(ApprovalDetails approvalDetails) {
         new Select(approverDepartmentSelection).selectByVisibleText(approvalDetails.getApproverDepartment());
         await().atMost(10, SECONDS).until(() -> new Select(approverDesignationSelection).getOptions().size() > 1);
@@ -547,4 +565,6 @@ public class PropertyDetailsPage extends BasePage {
         return additionAssessmentNo.getText();
 
     }
+
+
 }

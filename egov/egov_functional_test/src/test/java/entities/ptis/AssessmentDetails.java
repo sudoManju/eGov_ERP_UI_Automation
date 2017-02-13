@@ -5,8 +5,6 @@ public class AssessmentDetails {
     private String reasonForCreation;
     private String extentOfSite;
     private String occupancyCertificateNumber;
-    private String registrationDocNumber;
-    private String registrationDocDate;
 
     public String getReasonForCreation() {
         return reasonForCreation;
@@ -32,19 +30,4 @@ public class AssessmentDetails {
         this.occupancyCertificateNumber = occupancyCertificateNumber;
     }
 
-    public String getRegistrationDocNumber() {
-        return registrationDocNumber;
-    }
-
-    public void setRegistrationDocNumber(String registrationDocNumber) {
-        this.registrationDocNumber = registrationDocNumber;
-    }
-
-    public String getRegistrationDocDate() {
-        return registrationDocDate;
-    }
-
-    public void setRegistrationDocDate(String registrationDocDate) {
-        this.registrationDocDate = registrationDocDate;
-    }
 }

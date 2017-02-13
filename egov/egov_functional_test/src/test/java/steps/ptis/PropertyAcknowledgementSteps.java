@@ -10,12 +10,12 @@ import steps.BaseSteps;
 public class PropertyAcknowledgementSteps extends BaseSteps implements En {
 
     public PropertyAcknowledgementSteps() {
-        Then("^property details get saved successfully", () -> {
-            String acknowledgementMessage = pageStore.get(PropertyAcknowledgementPage.class).getAcknowledgementMessage();
-            Assert.assertTrue(acknowledgementMessage.contains("Property Data Saved Successfully"));
-            String applicationNumber = pageStore.get(PropertyAcknowledgementPage.class).getApplicationNumber();
-            scenarioContext.setApplicationNumber(applicationNumber);
-        });
+//        Then("^property details get saved successfully", () -> {
+//            String acknowledgementMessage = pageStore.get(PropertyAcknowledgementPage.class).getAcknowledgementMessage();
+//            Assert.assertTrue(acknowledgementMessage.contains("Property Data Saved Successfully"));
+//            String applicationNumber = pageStore.get(PropertyAcknowledgementPage.class).getApplicationNumber();
+//            scenarioContext.setApplicationNumber(applicationNumber);
+//        });
         Then("^create property details get saved successfully$", () -> {
             String assessmentNumber = pageStore.get(PropertyAcknowledgementPage.class).getApplicationNumber();
             scenarioContext.setAssessmentNumber(assessmentNumber);

@@ -18,6 +18,7 @@ public class FloorDetails {
     private String buildingPermissionDate;
     private String plinthAreaInBuildingPlan;
 
+
     public String getEffectiveFromDate() {
         return effectiveFromDate;
     }
@@ -137,4 +138,6 @@ public class FloorDetails {
     public void setConstructionDate(String constructionDate) {
         this.constructionDate = constructionDate;
     }
+
+
 }

@@ -81,6 +81,7 @@ public class FloorDetailsBuilder {
     }
 
 
+
     public FloorDetails build() {
         return floorDetails;
     }

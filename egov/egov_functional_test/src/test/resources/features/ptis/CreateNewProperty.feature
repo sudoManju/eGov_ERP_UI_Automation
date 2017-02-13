@@ -19,6 +19,7 @@ Feature: Create New Property
     And he enters amenities as <amenitiesDetails>
     And he enters construction type details as <constructionTypeDetails>
     And he enters floor details as <floorDetails>
+    And he enters document type details as <documentDetails>
     And he forwards for approval to billCollector
     Then create property details get saved successfully
     And he will copy the application number
@@ -60,8 +61,8 @@ Feature: Create New Property
     And current user logs out
 
     Examples:
-      | propertyHeaderDetails | ownerDetails | propertyAddressDetails | assessmentDetails     | amenitiesDetails | constructionTypeDetails | floorDetails |
-      | residentialPrivate    | bimal        | addressOne             | assessmentNewProperty | all              | defaultConstructionType | firstFloor   |
+      | propertyHeaderDetails | ownerDetails | propertyAddressDetails | assessmentDetails     | amenitiesDetails | constructionTypeDetails | floorDetails | documentDetails |
+      | residentialPrivate    | bimal        | addressOne             | assessmentNewProperty | all              | defaultConstructionType | firstFloor   | documentSelect  |
 
    # DATA ENTRY SCREEN #
   @Sanity @PropertyTax
@@ -223,8 +224,11 @@ Feature: Create New Property
     And he enters amenities as <amenitiesDetails>
     And he enters construction type details as <constructionTypeDetails>
     And he enters floor details as <floorDetails>
+    And he enters document type details as <documentDetails>
     And he forwards for approval to billCollector
     Then create property details get saved successfully
+    And he will copy the application number
+    And user will be notified by "Successfully"
     And current user logs out
 
     When billCollector logs in
@@ -249,11 +253,12 @@ Feature: Create New Property
     And chooses to act upon the above application
     And he approved the property with remarks "property approved"
     Then create property details get saved successfully
+    And he will copy the assessment number
+    Then user will be notified by "Successfully"
 
     And chooses to act upon the above assessment
     And he does a digital signature
-    Then user will be notified by "Successfully"
-
+#    Then user will be notified by "Successfully"
     When commissioner closes acknowledgement
     And current user logs out
 
@@ -321,8 +326,8 @@ Feature: Create New Property
     And current user logs out
 
     Examples:
-      | propertyHeaderDetails | ownerDetails | propertyAddressDetails | assessmentDetails     | amenitiesDetails | constructionTypeDetails | floorDetails | revisionPetitionDetails |  hearingDetails |
-      | residentialPrivate    | bimal        | addressOne             | assessmentNewProperty | all              | defaultConstructionType | firstFloor   |  revisionpetitionBlock  |  hearingBlock   |
+      | propertyHeaderDetails | ownerDetails | propertyAddressDetails | assessmentDetails     | amenitiesDetails | constructionTypeDetails | floorDetails | revisionPetitionDetails |  hearingDetails | documentDetails |
+      | residentialPrivate    | bimal        | addressOne             | assessmentNewProperty | all              | defaultConstructionType | firstFloor   |  revisionpetitionBlock  |  hearingBlock   | documentSelect  |
 
 
     # GENERAL REVISION PETITION #
@@ -407,16 +412,7 @@ Feature: Create New Property
        |revisionPetitionDetails |  hearingDetails |
        | revisionpetitionBlock  |  hearingBlock   |
 
-#
-#     @WIP
-#      Scenario Outline: test
-#
-#      And he fetches test data as <testDetails>
-#
-#     Examples:
-#
-#     | testDetails |
-#     | dataValue1  |
+
 
 
 

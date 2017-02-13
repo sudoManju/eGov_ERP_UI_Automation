@@ -68,6 +68,7 @@ public class ExcelReader {
     Sheet searchDetailsSheet;
     Sheet editAssessmentDetailsSheet;
     Sheet editFloorDetailsSheet;
+    Sheet documentDetailsSheet;
     Sheet enclosedDocumentSheet;
     Sheet challanHeaderDetailsSheet;
     Sheet enclosedDocumentsSheet;
@@ -197,6 +198,7 @@ public class ExcelReader {
         bridegroomInformationSheet = workbook.getSheet("bridegroomInformation");
 
         createLegalCaseDataSheet = workbook.getSheet("createLegalCaseData");
+        documentDetailsSheet = workbook.getSheet("documentDetails");
 
 
     }
@@ -444,18 +446,16 @@ public class ExcelReader {
         extentOfSiteCell.setCellType(Cell.CELL_TYPE_STRING);
         Cell occupancyCertificateNumberCell = getCellData(assessmentDetailsSheet, dataRow, "occupancyCertificateNumber");
         occupancyCertificateNumberCell.setCellType(Cell.CELL_TYPE_STRING);
-        Cell registrationDocNumberCell = getCellData(assessmentDetailsSheet, dataRow, "registrationDocNumber");
-        registrationDocNumberCell.setCellType(Cell.CELL_TYPE_STRING);
+//        Cell registrationDocNumberCell = getCellData(assessmentDetailsSheet, dataRow, "registrationDocNumber");
+//        registrationDocNumberCell.setCellType(Cell.CELL_TYPE_STRING);
         String extentOfSite = extentOfSiteCell.getStringCellValue();
         String occupancyCertificateNumber = occupancyCertificateNumberCell.getStringCellValue();
-        String registrationDocNumber = registrationDocNumberCell.getStringCellValue();
-        Date registrationDocDate = getCellData(assessmentDetailsSheet, dataRow, "registrationDocDate").getDateCellValue();
+
 
         return new AssessmentDetailsBuilder().withReasonForCreation(reasonForCreation)
                 .withExtentOfSite(extentOfSite)
                 .withOccupancyCertificateNumber(occupancyCertificateNumber)
-                .withRegistrationDocNumber(registrationDocNumber)
-                .withRegistrationDocDate(new SimpleDateFormat("dd/MM/yy").format(registrationDocDate)).build();
+                .build();
     }
 
     public Amenities getAmenties(String amenitiesDataId) {
@@ -524,6 +524,7 @@ public class ExcelReader {
         Date buildingPermissionDate = getCellData(floorDetailsSheet, dataRow, "buildingPermissionDate").getDateCellValue();
         String plinthAreaInBuildingPlan = plinthAreaInBuildingPlanCell.getStringCellValue();
 
+
         return new FloorDetailsBuilder().withFloorNumber(floorNumber)
                 .withClassificationOfBuilding(classificationOfBuilding)
                 .withNatureOfUsage(natureOfUsage)
@@ -539,6 +540,20 @@ public class ExcelReader {
                 .withBuildingPermissionDate(new SimpleDateFormat("dd/MM/yy").format(buildingPermissionDate))
                 .withPlinthAreaInBuildingPlan(plinthAreaInBuildingPlan)
                 .build();
+    }
+
+    public DocumentTypeValue getDocumentValue(String documentSelect) {
+       Row dataRow = readDataRow(documentDetailsSheet, documentSelect);
+
+        String documentType = getCellData(documentDetailsSheet, dataRow, "documentType").getStringCellValue();
+        String deedNo = getCellData(documentDetailsSheet, dataRow, "deedNo").getStringCellValue();
+        String deedDate = getCellData(documentDetailsSheet, dataRow, "deedDate").getStringCellValue();
+
+        return new DocumentDetailsBuilder()
+                    .withdocumentType(documentType)
+                    .withDeedNo(deedNo)
+                    .withDeedDate(deedDate)
+                    .build();
     }
 
     public ApprovalDetails getApprovalDetails(String approvalDetailsDataId) {
@@ -1643,5 +1658,6 @@ public class ExcelReader {
                .withRespondentName(respondentName)
                 .build();
     }
+
 
 }

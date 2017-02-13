@@ -18,7 +18,7 @@ public class RevisionPetitionSteps extends BaseSteps implements En{
     public RevisionPetitionSteps() {
 
         And("^he search for assessment from commissioner screen$", () -> {
-            pageStore.get(RevisionPetitionPage.class).revisionPetitionSearchScreen(scenarioContext.getCommAssessmentNumber());
+            pageStore.get(RevisionPetitionPage.class).revisionPetitionSearchScreen(scenarioContext.getAssessmentNumber());
         });
         And("^he enters revision petition details(\\w+)$", (String revisionPetitionDataId ) -> {
             RevisionPetitionDetails revisionPetitionDetails = new ExcelReader(ptisTestDataFileName).getRevisionPetitionDetails(revisionPetitionDataId);

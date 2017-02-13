@@ -1,18 +1,12 @@
 package steps.ptis;
 
-import builders.LoginDetailsBuilder;
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
-import entities.LoginDetails;
 import entities.ptis.*;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import pages.DashboardPage;
 import pages.ptis.PropertyAcknowledgementPage;
 import pages.ptis.PropertyDetailsPage;
 import steps.BaseSteps;
 import utils.ExcelReader;
-
-import java.io.IOException;
 
 public class PropertyDetailsPageSteps extends BaseSteps implements En {
 
@@ -91,6 +85,10 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
         And("^he approved the property with remarks addition \"([^\"]*)\"$", (String arg0) -> {
             String assessmentNo = pageStore.get(PropertyDetailsPage.class).approveaddition();
             scenarioContext.setCommAssessmentNumber(assessmentNo);
+        });
+        And("^he enters document type details as (\\w+)$", (String documentSelect) -> {
+            DocumentTypeValue documentValue = new ExcelReader(ptisTestDataFileName).getDocumentValue(documentSelect);
+           pageStore.get(PropertyDetailsPage.class).selectDocumentType(documentValue);
         });
 
 
