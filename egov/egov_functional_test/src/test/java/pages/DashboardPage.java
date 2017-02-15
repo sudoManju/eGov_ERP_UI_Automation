@@ -104,8 +104,8 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Apply for Closure of Connection")
     private WebElement closureConnection;
 
-    @FindBy(linkText = "Create Journal Voucher")
-    private WebElement createJournalVoucher;
+//    @FindBy(linkText = "Create Journal Voucher")
+//    private WebElement createJournalVoucher;
 
     @FindBy(linkText = "Create Milestone Template")
     private WebElement createMilestoneTemplateLink;
@@ -131,8 +131,8 @@ public class DashboardPage extends BasePage {
     @FindBy(id = "btncreateloa")
     private WebElement createLOAButton;
 
-    @FindBy(linkText = "Bill Payment")
-    private WebElement voucherBillPayment;
+//    @FindBy(linkText = "Bill Payment")
+//    private WebElement voucherBillPayment;
 
     @FindBy(linkText = "Search/View LOA")
     private WebElement viewLOA;
@@ -143,8 +143,8 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Create Milestone")
     private WebElement createMilestoneLink;
 
-    @FindBy(linkText = "New Create Expense Bill")
-    private WebElement createExpenseBill;
+//    @FindBy(linkText = "New Create Expense Bill")
+//    private WebElement createExpenseBill;
 
     @FindBy(linkText = "Create Estimate")
     private WebElement createEstimateLink;
@@ -158,8 +158,8 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Modify Detailed Code")
     private WebElement modifyDetailedCode;
 
-    @FindBy(linkText = "Create Remittance Recovery")
-    private WebElement createRemittanceRecovery;
+//    @FindBy(linkText = "Create Remittance Recovery")
+//    private WebElement createRemittanceRecovery;
 
     @FindBy(linkText = "Track Milestone")
     private WebElement trackMilestoneLink;
@@ -185,8 +185,8 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Update Legacy Advertisements")
     private WebElement updateLegacyAdvertisementLink;
 
-    @FindBy(linkText = "Create Voucher")
-    private WebElement createExpenseBillVoucher;
+//    @FindBy(linkText = "Create Voucher")
+//    private WebElement createExpenseBillVoucher;
 
     @FindBy(linkText = "Collect Advertisement Tax")
     private WebElement collectAdvertisementTaxLink;
@@ -253,8 +253,8 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Officials Register Grievance")
     private WebElement officialRegisterGrievanceLink;
 
-    @FindBy(linkText = "Direct Bank Payments")
-    private WebElement directBankPayments;
+//    @FindBy(linkText = "Direct Bank Payments")
+//    private WebElement directBankPayments;
 
     @FindBy(css = "a[href^='/stms']")
     private WebElement newSewerageConnectionLink;
@@ -262,8 +262,8 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Collect Sewerage Charges")
     private WebElement collectSewerageTaxesLink;
 
-    @FindBy(linkText = "Bank to Bank Transfer")
-    private WebElement bankToBankTransfer;
+//    @FindBy(linkText = "Bank to Bank Transfer")
+//    private WebElement bankToBankTransfer;
 
     @FindBy(css = "a[href='/stms/existing/sewerage']")
     private WebElement searchSewerageConnectionLink;
@@ -541,13 +541,13 @@ public class DashboardPage extends BasePage {
     }
 
 
-    public void chooseToApplyForJournalVoucher(){
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Create Journal Voucher");
-        waitForElementToBeClickable(createJournalVoucher ,driver);
-        createJournalVoucher.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void chooseToApplyForJournalVoucher(){
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchFor("Create Journal Voucher");
+//        waitForElementToBeClickable(createJournalVoucher ,driver);
+//        createJournalVoucher.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
     public void chooseToCreateMilestoneTemplate() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
@@ -599,13 +599,13 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-    public void selectForVoucherBill() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Bill Payment");
-        waitForElementToBeClickable(voucherBillPayment, driver);
-        voucherBillPayment.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void selectForVoucherBill() {
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchFor("Bill Payment");
+//        waitForElementToBeClickable(voucherBillPayment, driver);
+//        voucherBillPayment.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
     public void chooseTopayWaterCharge() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
@@ -631,13 +631,13 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-    public void toCreateNewExpenseBill(){
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("New Create Expense Bill");
-        waitForElementToBeVisible(createExpenseBill , driver);
-        createExpenseBill.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void toCreateNewExpenseBill(){
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchFor("New Create Expense Bill");
+//        waitForElementToBeVisible(createExpenseBill , driver);
+//        createExpenseBill.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
     public void chooseForCreateEstimate() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
@@ -670,13 +670,13 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-    public void createRemittanceRecovery(){
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Create Remittance Recovery");
-        waitForElementToBeVisible(createRemittanceRecovery , driver);
-        createRemittanceRecovery.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void createRemittanceRecovery(){
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchFor("Create Remittance Recovery");
+//        waitForElementToBeVisible(createRemittanceRecovery , driver);
+//        createRemittanceRecovery.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
 
     public void chooseToTrackMileStone() {
@@ -756,14 +756,14 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-    public void createExpenseBillVoucher() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchTreeTextBox.clear();
-        searchFor("Create Voucher");
-        waitForElementToBeVisible(createExpenseBillVoucher, driver);
-        createExpenseBillVoucher.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void createExpenseBillVoucher() {
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchTreeTextBox.clear();
+//        searchFor("Create Voucher");
+//        waitForElementToBeVisible(createExpenseBillVoucher, driver);
+//        createExpenseBillVoucher.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
     public void chooseToCollectAdvTax() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
@@ -967,13 +967,13 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-    public void chooseForDirectBankPayment() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Direct Bank Payments");
-        waitForElementToBeClickable(directBankPayments, driver);
-        directBankPayments.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void chooseForDirectBankPayment() {
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchFor("Direct Bank Payments");
+//        waitForElementToBeClickable(directBankPayments, driver);
+//        directBankPayments.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
     public void chooseForNewSewerageConnection() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
@@ -992,14 +992,14 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-    public void choosesBankToBankTransfers(){
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchTreeTextBox.clear();
-        searchFor("Bank to Bank Transfer");
-        waitForElementToBeClickable(bankToBankTransfer,driver);
-        bankToBankTransfer.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void choosesBankToBankTransfers(){
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchTreeTextBox.clear();
+//        searchFor("Bank to Bank Transfer");
+//        waitForElementToBeClickable(bankToBankTransfer,driver);
+//        bankToBankTransfer.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
     public void chooseForSearchSewerageConnection() {
        waitForElementToBeClickable(searchTreeTextBox, driver);
@@ -1082,22 +1082,24 @@ public class DashboardPage extends BasePage {
     public void chooseScreen(String screenName) {
         //Wait all elements to be visible
         waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor(splitSearchName(screenName));
+        searchFor(screenName);
         waitForElementToBePresent(By.cssSelector(".list a"), driver);
         searchResults.stream().filter(searchResult -> searchResult.getText().equalsIgnoreCase(screenName)).findFirst().get().click();
         switchToNewlyOpenedWindow(driver);
     }
 
     public void chooseScreen(String screenName, String condition) {
+
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor(screenName);
+        waitForElementToBePresent(By.cssSelector(".list a"), driver);
+
         Optional<WebElement> href = searchResults.stream().filter(searchResult -> {
             return searchResult.getText().equals(screenName) && searchResult.getAttribute("href").contains(condition);
         }).findFirst();
         if(href.isPresent()) {
             href.get().click();
         }
-    }
-
-    private String splitSearchName(String screeName){
-        return screeName.replaceAll("_", " ");
+        switchToNewlyOpenedWindow(driver);
     }
 }

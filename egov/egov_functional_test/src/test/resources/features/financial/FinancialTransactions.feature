@@ -4,7 +4,8 @@ Feature: To create a Financial Transactions
   Scenario Outline: To create the financial journal voucher with type General
 
     Given accountsOfficer logs in
-    And officer search for the create journal voucher
+    And user will select the required screen as "Create Journal Voucher"
+#    And officer search for the create journal voucher
     And officer will enter the journal voucher details as <voucherDetails>
     And officer will enter the approval details as <approvalOfficer1>
     And officer will get successful voucher created and closes it
@@ -41,7 +42,8 @@ Feature: To create a Financial Transactions
   Scenario Outline: To create the financial journal voucher with type expense
 
     Given accountsOfficer logs in
-    And officer search for the create journal voucher
+    And user will select the required screen as "Create Journal Voucher"
+#    And officer search for the create journal voucher
     And officer will enter the journal voucher details as <voucherDetails>
     And officer will enter the approval details as <approvalOfficer1>
     And officer will get successful voucher created and closes it
@@ -81,7 +83,8 @@ Feature: To create a Financial Transactions
   Scenario Outline: To create a voucher of date in june as well paying the bill
 
     Given accountsOfficer logs in
-    And officer search for the create journal voucher
+    And user will select the required screen as "Create Journal Voucher"
+#    And officer search for the create journal voucher
     And officer will enter the journal voucher details as <voucherDetails>
     And officer will enter the approval details as <approvalOfficer1>
     And officer will get successful voucher created and closes it
@@ -110,7 +113,8 @@ Feature: To create a Financial Transactions
     And current user logs out
 
     And accountsOfficer logs in
-    And officer search for the bill payment
+    And user will select the required screen as "Bill Payment"
+#    And officer search for the bill payment
     And officer will modify the results depending upon the fund and date as <date>
     And officer will act upon the above voucher with payment mode as <paymentMode>
 
@@ -144,7 +148,8 @@ Feature: To create a Financial Transactions
   Scenario Outline: To create a new expense bill
 
     Given accountsOfficer logs in
-    And officer will search for the new expense bill
+    And user will select the required screen as "New Create Expense Bill"
+#    And officer will search for the new expense bill
     And officer will the expense bill details as <billDetails>
     And officer will enter the expense approval details as <approvalOfficer1>
     And officer will closes the expense acknowledgement page
@@ -168,7 +173,8 @@ Feature: To create a Financial Transactions
     And current user logs out
 
     And accountsOfficer logs in
-    And officer will search for the Create Voucher for expense bill
+    And user will select the required screen as "Create Voucher"
+#    And officer will search for the Create Voucher for expense bill
     And officer will filter the bill according to the type
     And officer will enter the approval details as <approvalOfficer3>
     And officer will set the new expense voucher number and closes it
@@ -208,7 +214,8 @@ Feature: To create a Financial Transactions
   Scenario Outline: To create a voucher of date in june as well paying the bill and checking the assignment
 
     Given accountsOfficer logs in
-    And officer search for the create journal voucher
+    And user will select the required screen as "Create Journal Voucher"
+#    And officer search for the create journal voucher
     And officer will enter the journal voucher details as <voucherDetails>
     And officer will enter the approval details as <approvalOfficer1>
     And officer will get successful voucher created and closes it
@@ -237,7 +244,8 @@ Feature: To create a Financial Transactions
     And current user logs out
 
     And accountsOfficer logs in
-    And officer search for the bill payment
+    And user will select the required screen as "Bill Payment"
+#    And officer search for the bill payment
     And officer will modify the results depending upon the fund and date as <date>
     And officer will act upon the above voucher with payment mode as <paymentMode>
 

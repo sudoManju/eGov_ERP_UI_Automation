@@ -4,7 +4,8 @@ Feature: To create a new Journal voucher according to the budget check
   Scenario Outline: To create the financial journal voucher with type expense and budget check
 
     Given accountsOfficer logs in
-    And officer search for the create journal voucher
+    And user will select the required screen as "Create Journal Voucher"
+#    And officer search for the create journal voucher
     And officer will enter the journal voucher details as <voucherDetails>
     And officer will enter the approval details as <approvalOfficer1>
     And officer will get successful BAN NUMBER created and closes it
