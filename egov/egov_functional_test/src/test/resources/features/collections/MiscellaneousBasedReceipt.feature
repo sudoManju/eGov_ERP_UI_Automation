@@ -6,7 +6,6 @@ Feature: Create/Collect/Remit/Cancel Miscellaneous Receipt
   Scenario Outline: System should be able to create Miscellaneous receipt
 
    Given creator logs in
-  # When he chooses to create Miscellaneous receipt
    And user will select the required screen as "miscellaneous receipt"
    And he enters Miscellaneous header
 
@@ -39,7 +38,6 @@ Feature: Create/Collect/Remit/Cancel Miscellaneous Receipt
     Then user will be notified by "Approved"
     And user closes the acknowledgement
 
-   # And he chooses to search receipts
     And user will select the required screen as "search receipts"
     And he search for required receipt
     And he selects the required receipt
@@ -53,7 +51,6 @@ Feature: Create/Collect/Remit/Cancel Miscellaneous Receipt
   Scenario: Remittance of receipt
 
     Given adm_manager logs in
- #   And he chooses to bank remittance
     And user will select the required screen as "bank remittance"
     And he select the required file with bank details
     Then user will be notified by "successfully"

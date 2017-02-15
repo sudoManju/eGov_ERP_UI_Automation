@@ -11,7 +11,6 @@ Feature: create preamble
   Scenario Outline: Register user choose to create Preamble, agenda,meeting invitation,attendance and MOM
 
     Given councilCreator logs in
-#    When he choose to create preamble
     And user will select the required screen as "Create Preamble"
     And he enters create preamble details as <details>
     And he forwards for approver commissioner1
@@ -28,7 +27,6 @@ Feature: create preamble
     # Create Agenda #
 
     Given creator logs in
-#    When he choose to create agenda
     And user will select the required screen as "Create Agenda"
     And he choose to create agenda for the above preamble
     And he enters create agenda details as <committee>
@@ -37,7 +35,6 @@ Feature: create preamble
 
     # Create Meeting #
 
-#    When he choose to create meeting
     And user will select the required screen as "Create Meeting invitation"
     And he choose to create meeting invitation for the above agenda
     And he enters meeting details as <meetingDetails>
@@ -45,7 +42,6 @@ Feature: create preamble
 
     # Enter Attendance #
 
-#    When he choose to enter attendance
     And user will select the required screen as "Enter Attendance"
     And he enters above meeting number to enter attendance
     And he choose to edit attendance details
@@ -53,7 +49,6 @@ Feature: create preamble
 
     # Create Council MOM #
 
-#    When he choose to create council MOM
     And user will select the required screen as "Create Council MOM"
     And he choose to create council MOM for the meeting number
     And he enters details to create MOM as <MOMdeatils>

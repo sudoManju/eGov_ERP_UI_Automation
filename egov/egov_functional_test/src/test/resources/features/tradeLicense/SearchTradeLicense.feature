@@ -8,7 +8,7 @@ Feature: Search Trade License
   Scenario: Registered user search trade license with application number
 
     Given creator logs in
-    When he choose to search trade license
+    And user will select the required screen as "Search Trade License"
     And he search trade license with application number
     And he checks total number of records
     And current user logs out
@@ -17,7 +17,7 @@ Feature: Search Trade License
   Scenario: Registered user search trade license with license number
 
     Given creator logs in
-    When he choose to search trade license
+    And user will select the required screen as "Search Trade License"
     And he search trade license with license number
     And he checks total number of records
     And current user logs out
@@ -26,7 +26,7 @@ Feature: Search Trade License
   Scenario: Registered user search trade license with status
 
     Given creator logs in
-    When he choose to search trade license
+    And user will select the required screen as "Search Trade License"
     And he search trade license with status "Cancelled"
     And he checks total number of records
     And current user logs out
@@ -35,7 +35,7 @@ Feature: Search Trade License
   Scenario: Registered user search trade license with status
 
     Given creator logs in
-    When he choose to search trade license
+    And user will select the required screen as "Search Trade License"
     And he search trade license with status "Rejected"
     And he checks total number of records
     And current user logs out

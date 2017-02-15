@@ -5,7 +5,6 @@ Feature: Create an Data Entry for the Marriage registration
   @Marriage @Sanity
   Scenario Outline: Data Entry for the Marriage registration
     When commissioner logs in
-   # And he chooses data entry in marriage registration
     And user will select the required screen as "Data Entry Screen" with condition as "mrs"
     And he enters the applicants details as <generalInformation>
     And he enters the bridegroom information as <bridegroomInformation> <brideInformation>
@@ -17,9 +16,8 @@ Feature: Create an Data Entry for the Marriage registration
     And he closes the acknowledgement
     And current user logs out
 
-#        #Re-Issue of Certificate#
+        #Re-Issue of Certificate#
     When juniorAssistant logs in
-  #  And he chooses for Re-Issue Marriage Certifiate
     And user will select the required screen as "Re Issue Marriage Certifiate"
     And he search applications for re issue certificate
     And he selects the application for re issue certificate
@@ -27,7 +25,6 @@ Feature: Create an Data Entry for the Marriage registration
     And he forward to commissioner
     And he get application number and closes acknowledgement
 
-#    And he choose to collect marriage registration fee
     And user will select the required screen as "Collect Fee"
     And he search for above application number to collect marriage Registration fee
     And he collect the charges and closes the acknowledgement

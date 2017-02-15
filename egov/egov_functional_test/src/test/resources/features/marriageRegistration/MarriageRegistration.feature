@@ -4,7 +4,6 @@ Feature: Marriage Registration
   @Marriage @Sanity
   Scenario Outline: Create Marriage Registration
     When juniorAssistant logs in
-#    And he chooses to create marriage registration
     And user will select the required screen as "Create Marriage Registration"
     And he enters the applicants details as <generalInformation>
     And he enters the bridegroom information as <bridegroomInformation> <brideInformation>

@@ -9,7 +9,6 @@ Feature: search property
   Scenario Outline: Registered user searching a property with particular search details
 
     Given Admin logs in
-
     And user will select the required screen as "search property"
     And he search property with <searchDetails>
     And he check total number of records found

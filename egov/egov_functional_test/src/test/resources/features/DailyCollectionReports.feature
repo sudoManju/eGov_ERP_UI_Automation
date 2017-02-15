@@ -8,7 +8,6 @@ Feature: To find the daily collection reports
 
     Given juniorAssistant logs in
     And user will select the required screen as "Daily Collection Report(VLT)"
-#    And user chooses to find the daily collection vlt reports
     And user need to enter the date to get the vlt report details
     And current user logs out
 
@@ -20,7 +19,7 @@ Feature: To find the daily collection reports
   Scenario: To find the daily collection pt reports
 
     Given juniorAssistant logs in
-    And user chooses to find the daily collection pt reports
+    And user will select the required screen as "Daily collection report(PT)"
     And user need to enter the date to get the pt report details
     And current user logs out
 

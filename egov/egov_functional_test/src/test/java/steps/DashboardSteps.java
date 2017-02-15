@@ -24,17 +24,14 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).openApplication(scenarioContext.getChallanNumber());
         });
 
-        And("^user chooses to find the daily collection pt reports$", () -> {
-            pageStore.get(DashboardPage.class).chooseForDailyCollectionPTReports();
-        });
-
         And("^he clicks on drafts$", () -> {
             pageStore.get(DashboardPage.class).openDrafts();
-
         });
+
         And("^he open application from drafts items$", () -> {
             pageStore.get(DashboardPage.class).openCollection("official_drafts");
         });
+
         And("^he chooses to act upon on receipt$", () -> {
             pageStore.get(DashboardPage.class).openReceipt("official_inbox");
         });
@@ -43,20 +40,8 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).chooseTopayWaterCharge();
         });
 
-        And("^user search for the modify detailed code$", () -> {
-            pageStore.get(DashboardPage.class).chooseToModifyDetailedCode();
-        });
-
         And("^he chooses to act upon the above preamble number$", () -> {
             pageStore.get(DashboardPage.class).openApplication(scenarioContext.getPreambleNumber());
-        });
-
-        And("^he choose to do transfer ownership$", () -> {
-            pageStore.get(DashboardPage.class).createTransferOwnership();
-        });
-
-        When("^he chooses mutation fee$", () -> {
-            pageStore.get(DashboardPage.class).chooseToPayMutationFee();
         });
 
         And("^he choose to act upon the above licence number$", () -> {
@@ -71,10 +56,6 @@ public class DashboardSteps extends BaseSteps implements En {
 
         And("^choose to act upon the above CRN$", () -> {
             pageStore.get(DashboardPage.class).openApplication(scenarioContext.getCRN());
-        });
-
-        When("^he choose to create revision petition$", () -> {
-           pageStore.get(DashboardPage.class).chooseRevisionPetition();
         });
 
         And("^officer search for the assignment mode as (\\w+)$", (String assignmentMode) -> {

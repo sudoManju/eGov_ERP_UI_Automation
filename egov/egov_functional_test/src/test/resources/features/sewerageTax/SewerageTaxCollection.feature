@@ -170,8 +170,6 @@ Feature: Create/renewal/closure of sewerage connection
     And he generates closure notice
     And current user logs out
 
-
-
   @SewerageTax @Sanity
   Scenario: Generate demand bill for legacy sewerage connection
 

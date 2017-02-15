@@ -17,7 +17,6 @@ Feature: Marriage Registration
     And current user logs out
 
     When commissioner logs in
-#    And he choose to modify marriage registration
     And user will select the required screen as "Modify Marriage Registration"
     And he search the marrige application
     And he modify application and update it

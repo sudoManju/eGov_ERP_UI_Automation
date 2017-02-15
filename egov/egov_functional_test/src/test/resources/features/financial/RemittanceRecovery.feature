@@ -4,7 +4,7 @@ Feature: To create a new remittance recovery
   Scenario Outline: To create the remittance recovery with expense type
 
     Given admin logs in
-    And user search for the modify detailed code
+    And user will select the required screen as "Modify Detailed Code"
     And user will enter the account code to modify as <glCode>
     And user will map the account code to particular
     And current user logs out

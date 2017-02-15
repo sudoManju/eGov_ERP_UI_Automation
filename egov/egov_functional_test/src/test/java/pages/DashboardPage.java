@@ -27,9 +27,6 @@ public class DashboardPage extends BasePage {
     @FindBy(css = ".list a")
     private List<WebElement> searchResults;
 
-    @FindBy(linkText = "Data Entry Screen")
-    private WebElement dataEntryScreenLink;
-
     @FindBy(linkText = "Collect Charges")
     private WebElement collectChargesLink;
 
@@ -48,12 +45,6 @@ public class DashboardPage extends BasePage {
     @FindBy(id = "official_drafts")
     private WebElement officialDraftsTable;
 
-    @FindBy(xpath = "//html/body/div[3]/div[2]/div/ul/li[2]/a")
-    private WebElement dataEntryScreenLinkText;
-
-    @FindBy(linkText = "Daily collection report(PT)")
-    private WebElement ptReport;
-
     @FindBy(linkText = "Search Application")
     private WebElement searchApplication;
 
@@ -71,26 +62,14 @@ public class DashboardPage extends BasePage {
     @FindBy(id = "btncreateloa")
     private WebElement createLOAButton;
 
-    @FindBy(linkText = "Modify Detailed Code")
-    private WebElement modifyDetailedCode;
-
     @FindBy(linkText = "Search Agency")
     private WebElement searchAgencyLink;
-
-    @FindBy(linkText = "Transfer Ownership")
-    private WebElement transferOwnershipLink;
-
-    @FindBy(linkText = "Property Mutation Fee")
-    private WebElement propertyMutationFeeLink;
 
     @FindBy(xpath = ".//*[@id='cityForm']/div[2]/div/button[3]")
     private WebElement closeButton;
 
     @FindBy(xpath = "html/body/div[1]/header/nav/div/div[3]/ul/li[2]/a")
     private WebElement profileLink;
-
-    @FindBy(linkText = "Create Revision Petition")
-    private WebElement createRevisionPetitionLink;
 
     @FindBy(linkText = "Cheque Assignment")
     private List<WebElement> chequeAssignment;
@@ -101,16 +80,6 @@ public class DashboardPage extends BasePage {
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
-
-//    public void chooseToDataEntryScreen(){
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Data Entry Screen");
-//        waitForElementToBeVisible(dataEntryScreenLink, driver);
-//
-//        dataEntryScreenLink.click();
-//
-//        switchToNewlyOpenedWindow(driver);
-//    }
 
     private void searchFor(String value) {
         enterText(searchTreeTextBox, value);
@@ -140,25 +109,6 @@ public class DashboardPage extends BasePage {
                 return applicationRow;
         }
         throw new RuntimeException("No application row found for -- " + applicationNumber);
-    }
-
-//    public void chooseToCreateNewDataEntryScreen() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Data Entry Screen");
-//        waitForElementToBeVisible(dataEntryScreenLinkText, driver);
-//
-//        dataEntryScreenLinkText.click();
-//
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-    public void chooseForDailyCollectionPTReports(){
-
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Daily collection report(PT)");
-        waitForElementToBeVisible(ptReport, driver);
-        ptReport.click();
-        switchToNewlyOpenedWindow(driver);
     }
 
     public void chooseForSearchApplication(){
@@ -221,39 +171,6 @@ public class DashboardPage extends BasePage {
         searchFor("Collect Charges");
         waitForElementToBeVisible(collectChargesLink, driver);
         collectChargesLink.click();
-        switchToNewlyOpenedWindow(driver);
-    }
-
-    public void chooseToModifyDetailedCode(){
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Modify detailed Code");
-        waitForElementToBeVisible(modifyDetailedCode , driver);
-        modifyDetailedCode.click();
-        switchToNewlyOpenedWindow(driver);
-    }
-
-    public void createTransferOwnership() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchTreeTextBox.clear();
-        searchFor("Transfer Ownership");
-        waitForElementToBeClickable(transferOwnershipLink, driver);
-        transferOwnershipLink.click();
-        switchToNewlyOpenedWindow(driver);
-    }
-
-    public void chooseToPayMutationFee() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Property Mutation Fee");
-        waitForElementToBeClickable(propertyMutationFeeLink, driver);
-        propertyMutationFeeLink.click();
-        switchToNewlyOpenedWindow(driver);
-    }
-
-    public void chooseRevisionPetition() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Create Revision Petition");
-        waitForElementToBeClickable(createRevisionPetitionLink, driver);
-        createRevisionPetitionLink.click();
         switchToNewlyOpenedWindow(driver);
     }
 

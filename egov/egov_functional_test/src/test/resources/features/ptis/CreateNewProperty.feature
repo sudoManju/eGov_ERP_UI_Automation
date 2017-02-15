@@ -8,8 +8,8 @@ Feature: Create New Property
 
   @Sanity @PropertyTax
   Scenario Outline: Registered user creating a new property in the system
-    Given juniorAssistant logs in
 
+    Given juniorAssistant logs in
     And user will select the required screen as "Create New Property"
     And he enters property header details as <propertyHeaderDetails>
     And he enters owner details for the first owner as <ownerDetails>
@@ -155,7 +155,7 @@ Feature: Create New Property
     And he chooses to pay tax
     And he pay tax using Cash
 
-    And he choose to do transfer ownership
+    And user will select the required screen as "Transfer Ownership"
     And he searches for assessment with number "1016042569"
     And he chooses Registration already done button
     And he enters registration details for the property <registrationDetails>
@@ -178,7 +178,7 @@ Feature: Create New Property
     And current user logs out
 
     Given juniorAssistant logs in
-    When he chooses mutation fee
+    And user will select the required screen as "Property Mutation Fee"
     And he searches for the assessment with mutation assessment number
     And he pay tax using Cash
     And current user logs out
@@ -264,7 +264,7 @@ Feature: Create New Property
     And chooses to act upon the above assessment
     And he generates a notice
 
-    When he choose to create revision petition
+    And user will select the required screen as "Create Revision Petition"
     And he search for assessment from commissioner screen
     And he choose revision petition header
     And he enters revision petition details<revisionPetitionDetails>

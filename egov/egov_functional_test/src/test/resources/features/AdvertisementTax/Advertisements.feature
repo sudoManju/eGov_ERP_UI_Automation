@@ -10,7 +10,6 @@ Feature: Create/search Advertisement
     # Create Agency
 
     Given admin logs in
-    #And he chooses to create advertisement agency
     And user will select the required screen as "create agency"
     And he enter details for agency creation
     And he submit the details and closes acknowledgement

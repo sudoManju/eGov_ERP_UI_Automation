@@ -2,8 +2,6 @@ Feature: Create/Update LegacyAdvertisements
   As a registered user of system
   I am able to create/update legacyAdvertisements
 
-
-
   @AdvertisementTax  @Sanity
   Scenario: Create/Update LegacyAdvertisements
 
