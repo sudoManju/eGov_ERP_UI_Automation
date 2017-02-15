@@ -3,9 +3,7 @@ package builders;
 import entities.ServiceRequestForAnonymousRequest;
 
 
-/**
- * Created by soumyaghosh on 25/08/16.
- */
+
 public class ServiceTypeRequestBuilder {
 
     ServiceRequestForAnonymousRequest request = new ServiceRequestForAnonymousRequest();

@@ -1,7 +1,6 @@
 package resources;
 
         import com.jayway.restassured.http.ContentType;
-        import com.jayway.restassured.response.Header;
         import com.jayway.restassured.response.Response;
 
         import static com.jayway.restassured.RestAssured.given;
