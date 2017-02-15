@@ -42,6 +42,7 @@ public class FinancialSteps extends BaseSteps implements En {
         And("^officer will get successful voucher created and closes it$", () -> {
             String voucherNumber = pageStore.get(FinancialPage.class).getVoucherNumber();
             scenarioContext.setVoucherNumber(voucherNumber.split("\\.")[0].split("\\ ")[1]);
+            System.out.println("++++++++++++++++"+voucherNumber.split("\\.")[0].split("\\ ")[1]);
             scenarioContext.setActualMessage(voucherNumber.split("\\.")[0]);
         });
 
@@ -63,8 +64,8 @@ public class FinancialSteps extends BaseSteps implements En {
             pageStore.get(FinancialPage.class).approvalPage();
         });
 
-        Then("^officer will modify the results depending upon the fund and date as (\\w+)$", (String date) -> {
-            pageStore.get(FinancialPage.class).billSearch(date);
+        Then("^officer will modify the results depending upon the fund and date$", () -> {
+            pageStore.get(FinancialPage.class).billSearch();
         });
 
         And("^officer will act upon the above voucher with payment mode as (\\w+)$", (String paymentMode) -> {

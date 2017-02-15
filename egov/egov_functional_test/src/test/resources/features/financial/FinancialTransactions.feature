@@ -80,7 +80,7 @@ Feature: To create a Financial Transactions
 
 
   @Sanity @Finance
-  Scenario Outline: To create a voucher of date in june as well paying the bill
+  Scenario Outline: To create a journal voucher as well as payment with different modes
 
     Given accountsOfficer logs in
     And user will select the required screen as "Create Journal Voucher"
@@ -115,7 +115,7 @@ Feature: To create a Financial Transactions
     And accountsOfficer logs in
     And user will select the required screen as "Bill Payment"
 #    And officer search for the bill payment
-    And officer will modify the results depending upon the fund and date as <date>
+    And officer will modify the results depending upon the fund and date
     And officer will act upon the above voucher with payment mode as <paymentMode>
 
     And officer will enter the bank details
@@ -138,10 +138,10 @@ Feature: To create a Financial Transactions
     And current user logs out
 
     Examples:
-      |voucherDetails     |  approvalOfficer1  | date       | approvalOfficer2  |  approvalOfficer3  | paymentMode  |
-      |voucherDateJune    |  accountOfficer1   | 30_06_2016 | accountOfficer2   |  commissioner      | cheque       |
-      |voucherDateJune    |  accountOfficer1   | 30_06_2016 | accountOfficer2   |  commissioner      | cash         |
-      |voucherDateJune    |  accountOfficer1   | 30_06_2016 | accountOfficer2   |  commissioner      | RTGS         |
+      |voucherDetails     |  approvalOfficer1  | approvalOfficer2  |  approvalOfficer3  | paymentMode  |
+      |voucherDateJune    |  accountOfficer1   | accountOfficer2   |  commissioner      | cheque       |
+      |voucherDateJune    |  accountOfficer1   | accountOfficer2   |  commissioner      | cash         |
+      |voucherDateJune    |  accountOfficer1   | accountOfficer2   |  commissioner      | RTGS         |
 
 
   @Sanity @Finance
@@ -211,7 +211,7 @@ Feature: To create a Financial Transactions
 
 
   @Sanity @Finance
-  Scenario Outline: To create a voucher of date in june as well paying the bill and checking the assignment
+  Scenario Outline: To create a journal voucher as well as payment with different modes along with check assignment
 
     Given accountsOfficer logs in
     And user will select the required screen as "Create Journal Voucher"
@@ -246,7 +246,7 @@ Feature: To create a Financial Transactions
     And accountsOfficer logs in
     And user will select the required screen as "Bill Payment"
 #    And officer search for the bill payment
-    And officer will modify the results depending upon the fund and date as <date>
+    And officer will modify the results depending upon the fund and date
     And officer will act upon the above voucher with payment mode as <paymentMode>
 
     And officer will enter the bank details
@@ -279,8 +279,8 @@ Feature: To create a Financial Transactions
     And current user logs out
 
     Examples:
-      |voucherDetails     |  approvalOfficer1  | date       | approvalOfficer2  |  approvalOfficer3  | paymentMode  | assignment |
-      |voucherDateJune    |  accountOfficer1   | 30_06_2016 | accountOfficer2   |  commissioner      | cheque       | cheque     |
-      |voucherDateJune    |  accountOfficer1   | 30_06_2016 | accountOfficer2   |  commissioner      | RTGS         | RTGS       |
+      |voucherDetails     |  approvalOfficer1  | approvalOfficer2  |  approvalOfficer3  | paymentMode  | assignment |
+      |voucherDateJune    |  accountOfficer1   | accountOfficer2   |  commissioner      | cheque       | cheque     |
+      |voucherDateJune    |  accountOfficer1   | accountOfficer2   |  commissioner      | RTGS         | RTGS       |
 
 

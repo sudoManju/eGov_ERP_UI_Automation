@@ -18,7 +18,8 @@ Feature: To create a data entry screen for the water charge management services 
   Scenario: To create a data entry screen for the water charges
 
     Given admin logs in
-    And user search to data entry screen for water
+    And user will select the required screen as "Data Entry Screen" with condition as "wtms"
+#    And user search to data entry screen for water
     And user will enter the details of data entry screen for water charges
     And user will notify the successful creation of data entry screen as "Successfully"
     And user will be notified by "Successfully"

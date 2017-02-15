@@ -9,6 +9,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
+import java.sql.Time;
+import java.util.concurrent.TimeUnit;
+
 import static com.jayway.awaitility.Awaitility.await;
 
 /**
@@ -65,12 +68,6 @@ public class LegalCaseManagementPage extends BasePage {
 
     @FindBy(xpath = ".//*[@id='legalCaseForm']/div/div/div/div/div/div[3]/div[4]")
     private WebElement caseFileNumber;
-
-    @FindBy(id = "positionEmpName")
-    private WebElement employeeIdTextBox;
-
-    @FindBy(className = "tt-dropdown-menu")
-    private WebElement employeeDropdown;
 
     @FindBy(id = "lcNumber")
     private WebElement lcNumberTextBox;
@@ -180,6 +177,7 @@ public class LegalCaseManagementPage extends BasePage {
 
     public void enterLegalCaseDetails(CreateLegalCase createLegalCase){
 
+        webDriver.manage().window().maximize();
         new Select(courtTypeSelect).selectByVisibleText(createLegalCase.getTypeOfCourt());
         petitionTypeSelect.click();
         new Select(petitionTypeSelect).selectByVisibleText(createLegalCase.getPetitionType());
@@ -188,25 +186,21 @@ public class LegalCaseManagementPage extends BasePage {
 
         waitForElementToBeClickable(caseNumberTextBox , webDriver);
         enterText(caseNumberTextBox , get6DigitRandomInt());
+
+        waitForElementToBeClickable(yearSelect , webDriver);
         new Select(yearSelect).selectByVisibleText("2017");
 
         waitForElementToBeClickable(caseDate , webDriver);
-        caseDate.sendKeys(getPreviousDate() , Keys.TAB);
+        enterText(caseDate , getPreviousDate());
 
         waitForElementToBeClickable(caseTitleTextBox , webDriver);
         enterText(caseTitleTextBox , "Testing");
+
         waitForElementToBeClickable(prayerTextBox , webDriver);
         enterText(prayerTextBox , "Tester");
 
-//        waitForElementToBeClickable(employeeIdTextBox , webDriver);
-//        employeeIdTextBox.sendKeys("944181");
-//
-//        waitForElementToBeVisible(employeeDropdown , webDriver);
-//        employeeDropdown.click();
-
         waitForElementToBeClickable(noticeDate , webDriver);
-        noticeDate.sendKeys(getPreviousDate(), Keys.TAB);
-
+        enterText(noticeDate , getPreviousDate());
 
         waitForElementToBeClickable(petitonerNameTextBox , webDriver);
         enterText(petitonerNameTextBox , createLegalCase.getPetitionerName());
@@ -237,7 +231,7 @@ public class LegalCaseManagementPage extends BasePage {
 
     public void searchCaseFile(String caseFileNumber){
         waitForElementToBeClickable(lcNumberTextBox , webDriver);
-        lcNumberTextBox.sendKeys(caseFileNumber);
+        enterText(lcNumberTextBox , caseFileNumber);
 
         waitForElementToBeClickable(excludeJudgmentImplementationCheckBox , webDriver);
         excludeJudgmentImplementationCheckBox.click();
@@ -326,7 +320,6 @@ public class LegalCaseManagementPage extends BasePage {
                 new Select(additionalActionSelect).selectByVisibleText("Judgment Implementation");
                 switchToNewlyOpenedWindow(webDriver);
 
-
                 break;
 
             case "editJudgmentImplementation" :
@@ -334,7 +327,6 @@ public class LegalCaseManagementPage extends BasePage {
                 waitForElementToBeClickable(additionalActionSelect , webDriver);
                 new Select(additionalActionSelect).selectByVisibleText("Edit Judgment Implementation");
                 switchToNewlyOpenedWindow(webDriver);
-
 
                 break;
 
@@ -371,10 +363,13 @@ public class LegalCaseManagementPage extends BasePage {
         switchToNewlyOpenedWindow(webDriver);
 
         waitForElementToBeClickable(hearingDateTextBox , webDriver);
-        hearingDateTextBox.sendKeys(getPreviousDate() , Keys.TAB);
+        enterText(hearingDateTextBox , getPreviousDate());
 
         waitForElementToBeClickable(purposeOfHearingsTextBox, webDriver);
-        purposeOfHearingsTextBox.sendKeys("Normal Use");
+        enterText(purposeOfHearingsTextBox , getPreviousDate());
+
+        waitForElementToBeClickable(purposeOfHearingsTextBox , webDriver);
+        enterText(purposeOfHearingsTextBox ,"Normal Use");
 
         waitForElementToBeClickable(saveButton , webDriver);
         saveButton.click();
@@ -417,13 +412,13 @@ public class LegalCaseManagementPage extends BasePage {
         new Select(interimOrderTypeSelect).selectByVisibleText("Interim order");
 
         waitForElementToBeClickable(interimOrderDate , webDriver);
-        interimOrderDate.sendKeys(getPreviousDate() , Keys.TAB);
+        enterText(interimOrderDate , getPreviousDate());
 
         waitForElementToBeClickable(interimOrderMPNumberTextBox , webDriver);
-        interimOrderMPNumberTextBox.sendKeys(get6DigitRandomInt());
+        enterText(interimOrderMPNumberTextBox , get6DigitRandomInt());
 
         waitForElementToBeClickable(interimOrderNotesTextArea,webDriver);
-        interimOrderNotesTextArea.sendKeys("Creation Of Interim Order");
+        enterText(interimOrderNotesTextArea ,"Creation Of Interim Order");
 
         waitForElementToBeClickable(saveButton1, webDriver);
         saveButton1.click();
@@ -448,15 +443,16 @@ public class LegalCaseManagementPage extends BasePage {
     private void enterJudgmentDetails(){
 
         waitForElementToBeClickable(judgmentOrderDate , webDriver);
-        judgmentOrderDate.sendKeys(getPreviousDate() , Keys.TAB);
+        enterText(judgmentOrderDate ,getPreviousDate());
 
         waitForElementToBeClickable(judgmentDateSentToZone , webDriver);
-        judgmentDateSentToZone.sendKeys(getPreviousDate() , Keys.TAB);
+        enterText(judgmentDateSentToZone,getPreviousDate());
 
+        waitForElementToBeClickable(judgmentTypeSelect ,webDriver);
         new Select(judgmentTypeSelect).selectByVisibleText("Enquiry");
 
         waitForElementToBeClickable(judgmentDetailsTextArea , webDriver);
-        judgmentDetailsTextArea.sendKeys("Judgment Is Under Process");
+        enterText(judgmentDetailsTextArea ,"Judgment Is Under Process");
 
         waitForElementToBeClickable(saveButton1 , webDriver);
         saveButton1.click();
@@ -484,10 +480,10 @@ public class LegalCaseManagementPage extends BasePage {
             case "Yes" :
 
                 waitForElementToBeClickable(dateOfComplianceTextBox ,webDriver);
-                dateOfComplianceTextBox.sendKeys(getPreviousDate() , Keys.TAB);
+                enterText(dateOfComplianceTextBox ,getPreviousDate());
 
                 waitForElementToBeClickable(complianceReportTextArea, webDriver);
-                complianceReportTextArea.sendKeys("Judgment Implementation");
+                enterText(complianceReportTextArea,"Judgment Implementation");
 
                 waitForElementToBeClickable(saveButton , webDriver);
                 saveButton.click();
@@ -501,13 +497,13 @@ public class LegalCaseManagementPage extends BasePage {
                 new Select(implementationFailureSelect).selectByVisibleText("Appeal");
 
                 waitForElementToBeClickable(appealNumberTextBox , webDriver);
-                appealNumberTextBox.sendKeys(get6DigitRandomInt());
+                enterText(appealNumberTextBox,get6DigitRandomInt());
 
                 waitForElementToBeClickable(appealedDate , webDriver);
-                appealedDate.sendKeys(getPreviousDate() , Keys.TAB);
+                enterText(appealedDate,getPreviousDate());
 
                 waitForElementToBeClickable(appealedFilledByTextBox , webDriver);
-                appealedFilledByTextBox.sendKeys("Tester");
+                enterText(appealedFilledByTextBox ,"Tester");
 
                 waitForElementToBeClickable(saveButton , webDriver);
                 saveButton.click();
@@ -516,15 +512,17 @@ public class LegalCaseManagementPage extends BasePage {
 
             case "No_Contempt" :
 
+                waitForElementToBeClickable(judgmentCompiledNo , webDriver);
                 jsClick(judgmentCompiledNo , webDriver);
 
+                waitForElementToBeClickable(implementationFailureSelect , webDriver);
                 new Select(implementationFailureSelect).selectByVisibleText("Contempt");
 
                 waitForElementToBeClickable(contemptCANumberTextBox , webDriver);
-                contemptCANumberTextBox.sendKeys(get6DigitRandomInt());
+                enterText(contemptCANumberTextBox,get6DigitRandomInt());
 
                 waitForElementToBeClickable(contemptReceivedDate , webDriver);
-                contemptReceivedDate.sendKeys(getPreviousDate() , Keys.TAB);
+                enterText(contemptReceivedDate,getPreviousDate());
 
                 waitForElementToBeClickable(saveButton , webDriver);
                 saveButton.click();
@@ -537,7 +535,7 @@ public class LegalCaseManagementPage extends BasePage {
                 jsClick(judgmentInProgress ,webDriver);
 
                 waitForElementToBeClickable(inProgressDetailsTextArea , webDriver);
-                inProgressDetailsTextArea.sendKeys("Details Of InProgress");
+                enterText(inProgressDetailsTextArea,"Details Of InProgress");
 
                 waitForElementToBeClickable(saveButton , webDriver);
                 saveButton.click();
@@ -566,8 +564,8 @@ public class LegalCaseManagementPage extends BasePage {
 
             case "edit_No_Contempt" :
 
-                waitForElementToBeClickable(contemptReceivedDate , webDriver);
-                contemptReceivedDate.sendKeys(getPreviousDate() , Keys.TAB);
+                waitForElementToBeClickable(contemptCANumberTextBox , webDriver);
+                enterText(contemptCANumberTextBox,get6DigitRandomInt());
 
                 waitForElementToBeClickable(saveButton , webDriver);
                 saveButton.click();
@@ -591,10 +589,10 @@ public class LegalCaseManagementPage extends BasePage {
     private void enterCloseCaseDetails(){
 
         waitForElementToBeClickable(closeDisposalDate ,webDriver);
-        closeDisposalDate.sendKeys(getPreviousDate() , Keys.TAB);
+        enterText(closeDisposalDate,getPreviousDate());
 
         waitForElementToBeClickable(closeDisposalDetailsTextArea ,webDriver);
-        closeDisposalDetailsTextArea.sendKeys("Case is Closed");
+        enterText(closeDisposalDetailsTextArea,"Case is Closed");
 
         waitForElementToBeClickable(saveButton ,webDriver);
         saveButton.click();

@@ -16,7 +16,8 @@ Feature: In this feature the following are created as well as edited
     ##########################################################
 
     Given admin logs in
-    And user search for to create the legal case
+    And user will select the required screen as "Create Legal Case"
+#    And user search for to create the legal case
     And user will enter the legal case details as <legalCaseData>
     And user closes the successful acknowledgement form
     And user will be notified by "successfully."
@@ -25,7 +26,8 @@ Feature: In this feature the following are created as well as edited
                   # Creating a Legal Case #
     ##########################################################
 
-    And user search for the recent legal case file
+    And user will select the required screen as "Search Legal Case"
+#    And user search for the recent legal case file
     And user will enter the case file number to search the file
     And user will take the corresponding action on above as <action1>
     And user closes the successful acknowledgement form
@@ -35,7 +37,8 @@ Feature: In this feature the following are created as well as edited
                     # Create Hearings #
     #########################################################
 
-    And user search for the recent legal case file
+    And user will select the required screen as "Search Legal Case"
+#    And user search for the recent legal case file
     And user will enter the case file number to search the file
     And user will take the corresponding action on above as <action2>
     And user will closes the successful created or updated page
@@ -45,7 +48,8 @@ Feature: In this feature the following are created as well as edited
                     # Editing Hearings #
     #########################################################
 
-    And user search for the recent legal case file
+    And user will select the required screen as "Search Legal Case"
+#    And user search for the recent legal case file
     And user will enter the case file number to search the file
     And user will take the corresponding action on above as <action3>
     And user will closes the successful created or updated page
@@ -55,7 +59,8 @@ Feature: In this feature the following are created as well as edited
                   #  Create Interim Order #
     ########################################################
 
-    And user search for the recent legal case file
+    And user will select the required screen as "Search Legal Case"
+#    And user search for the recent legal case file
     And user will enter the case file number to search the file
     And user will take the corresponding action on above as <action4>
     And user will closes the successful created or updated page
@@ -65,7 +70,8 @@ Feature: In this feature the following are created as well as edited
                    # Editing Interim Order #
     ########################################################
 
-    And user search for the recent legal case file
+    And user will select the required screen as "Search Legal Case"
+#    And user search for the recent legal case file
     And user will enter the case file number to search the file
     And user will take the corresponding action on above as <action5>
     And user will closes the successful created or updated page
@@ -75,7 +81,8 @@ Feature: In this feature the following are created as well as edited
                     # Create Judgment #
     #########################################################
 
-    And user search for the recent legal case file
+    And user will select the required screen as "Search Legal Case"
+#    And user search for the recent legal case file
     And user will enter the case file number to search the file
     And user will take the corresponding action on above as <action6>
     And user will closes the successful created or updated page
@@ -85,7 +92,8 @@ Feature: In this feature the following are created as well as edited
                         # Edit Judgment #
     #########################################################
 
-    And user search for the recent legal case file
+    And user will select the required screen as "Search Legal Case"
+#    And user search for the recent legal case file
     And user will enter the case file number to search the file
     And user will take the corresponding action on above as <action7>
     And user will closes the successful created or updated page
@@ -95,7 +103,8 @@ Feature: In this feature the following are created as well as edited
               # Create Judgment Implementation #
     ########################################################
 
-    And user search for the recent legal case file
+    And user will select the required screen as "Search Legal Case"
+#    And user search for the recent legal case file
     And user will enter the case file number to search the file
     And user will take the corresponding action on above as <action8>
     And user will enter the details of judgment implementation details based on <implementationMode>
@@ -106,7 +115,8 @@ Feature: In this feature the following are created as well as edited
               # Edit Judgment Implementation #
     #########################################################
 
-    And user search for the recent legal case file
+    And user will select the required screen as "Search Legal Case"
+#    And user search for the recent legal case file
     And user will enter the case file number to search the file
     And user will take the corresponding action on above as <action9>
     And user will enter the details of judgment implementation details based on <editImplementationMode>
@@ -117,7 +127,8 @@ Feature: In this feature the following are created as well as edited
                         # Close Case #
      #########################################################
 
-    And user search for the recent legal case file
+    And user will select the required screen as "Search Legal Case"
+#    And user search for the recent legal case file
     And user will enter the case file number to search the file
     And user will take the corresponding action on above as <action10>
     And user will closes the successful created or updated page

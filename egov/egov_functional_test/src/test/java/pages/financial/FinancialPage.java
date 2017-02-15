@@ -442,12 +442,6 @@ public class FinancialPage extends BasePage {
         approverPos.getOptions().get(1).click();
 
         forwardButton.click();
-            try {
-                TimeUnit.SECONDS.sleep(3);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
         return userName;
     }
 
@@ -528,14 +522,21 @@ public class FinancialPage extends BasePage {
         return forwardMessageText;
     }
 
-    public void billSearch(String date){
-        billFromDate.sendKeys(date.replaceAll("_" , "/"));
-        billToDate.sendKeys(date.replaceAll("_" , "/"));
+    public void billSearch(){
+        waitForElementToBeClickable(billFromDate ,webDriver);
+        billFromDate.sendKeys(getCurrentDate());
+
+        waitForElementToBeClickable(billToDate , webDriver);
+        billToDate.sendKeys(getCurrentDate());
+
+        waitForElementToBeClickable(fundId , webDriver);
         new Select(fundId).selectByVisibleText("Municipal Fund");
+
         waitForElementToBeClickable(billSearch , webDriver);
         billSearch.click();
 
         switchToNewlyOpenedWindow(webDriver);
+
         waitForElementToBeClickable(expenseBillSearch , webDriver);
         expenseBillSearch.click();
     }

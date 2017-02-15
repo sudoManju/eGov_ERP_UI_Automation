@@ -66,8 +66,8 @@ public class DashboardPage extends BasePage {
 //    @FindBy(linkText = "Miscellaneous Receipt")
 //    private WebElement miscellaneousReceipt;
 
-    @FindBy(linkText = "Apply for New Connection")
-    private WebElement applyForNewWaterConnection;
+//    @FindBy(linkText = "Apply for New Connection")
+//    private WebElement applyForNewWaterConnection;
 
 //    @FindBy(linkText = "Create Challan")
 //    private WebElement createChallanLink;
@@ -81,8 +81,8 @@ public class DashboardPage extends BasePage {
 //    @FindBy(linkText = "Addition/Alteration of Assessment")
 //    private WebElement additionAlterationLink;
 
-    @FindBy(linkText = "Apply for Additional Connection")
-    private WebElement additionalNewWaterConnection;
+//    @FindBy(linkText = "Apply for Additional Connection")
+//    private WebElement additionalNewWaterConnection;
 
     @FindBy(linkText = "Challan Receipt")
     private WebElement challanReceiptLink;
@@ -101,8 +101,8 @@ public class DashboardPage extends BasePage {
 //    @FindBy(linkText = "Collect Tax")
 //    private WebElement collectPropertyTax;
 
-    @FindBy(linkText = "Apply for Closure of Connection")
-    private WebElement closureConnection;
+//    @FindBy(linkText = "Apply for Closure of Connection")
+//    private WebElement closureConnection;
 
 //    @FindBy(linkText = "Create Journal Voucher")
 //    private WebElement createJournalVoucher;
@@ -164,8 +164,8 @@ public class DashboardPage extends BasePage {
 //    @FindBy(linkText = "Track Milestone")
 //    private WebElement trackMilestoneLink;
 
-    @FindBy(linkText = "Apply for Change of Use")
-    private WebElement changeOfUse;
+//    @FindBy(linkText = "Apply for Change of Use")
+//    private WebElement changeOfUse;
 
 //    @FindBy (linkText = "Create Preamble")
 //    private WebElement createPreamble;
@@ -215,8 +215,8 @@ public class DashboardPage extends BasePage {
 //    @FindBy(linkText = "Create Council MOM")
 //    private WebElement createCouncilMOMlink;
 
-    @FindBy(linkText = "Apply for Re-Connection")
-    private WebElement applyForReConnection;
+//    @FindBy(linkText = "Apply for Re-Connection")
+//    private WebElement applyForReConnection;
 
 //    @FindBy(linkText = "Deactivate Advertisement")
 //    private WebElement deactivateAdvertisementLink;
@@ -224,8 +224,8 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Property Mutation Fee")
     private WebElement propertyMutationFeeLink;
 
-    @FindBy(linkText = "Collect Charges")
-    private WebElement collectWaterCharges;
+//    @FindBy(linkText = "Collect Charges")
+//    private WebElement collectWaterCharges;
 
     @FindBy(xpath = ".//*[@id='cityForm']/div[2]/div/button[3]")
     private WebElement closeButton;
@@ -272,11 +272,11 @@ public class DashboardPage extends BasePage {
 //    @FindBy(linkText = "General Revision Petition")
 //    private WebElement generalRevisionPetitionLink;
 
-    @FindBy(linkText = "Create Legal Case")
-    private WebElement createLegalCase;
+//    @FindBy(linkText = "Create Legal Case")
+//    private WebElement createLegalCase;
 
-    @FindBy(linkText = "Search Legal Case")
-    private WebElement searchLegalCase;
+//    @FindBy(linkText = "Search Legal Case")
+//    private WebElement searchLegalCase;
 
 //    @FindBy(css = "a[href='/mrs/registration/createdataentry']")
 //    private WebElement marriageRegDataEntryLink;
@@ -407,15 +407,15 @@ public class DashboardPage extends BasePage {
 //        switchToNewlyOpenedWindow(driver);
 //    }
 
-    public void chooseToCreateNewWaterConnection(){
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Apply for New Connection");
-        waitForElementToBeVisible(applyForNewWaterConnection, driver);
-
-        applyForNewWaterConnection.click();
-        switchToNewlyOpenedWindow(driver);
-
-    }
+//    public void chooseToCreateNewWaterConnection(){
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchFor("Apply for New Connection");
+//        waitForElementToBeVisible(applyForNewWaterConnection, driver);
+//
+//        applyForNewWaterConnection.click();
+//        switchToNewlyOpenedWindow(driver);
+//
+//    }
 
 //    public void chooseToFindDailyVLTReports(){
 //        waitForElementToBeClickable(searchTreeTextBox, driver);
@@ -436,14 +436,14 @@ public class DashboardPage extends BasePage {
 //        switchToNewlyOpenedWindow(driver);
 //    }
 
-    public void chooseToAdditionalWaterConnection(){
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Apply for Additional Connection");
-        waitForElementToBeVisible(additionalNewWaterConnection, driver);
-
-        additionalNewWaterConnection.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void chooseToAdditionalWaterConnection(){
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchFor("Apply for Additional Connection");
+//        waitForElementToBeVisible(additionalNewWaterConnection, driver);
+//
+//        additionalNewWaterConnection.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
     public void chooseToSearchForChallanReceipt() {
 
@@ -527,13 +527,13 @@ public class DashboardPage extends BasePage {
 //        switchToNewlyOpenedWindow(driver);
 //    }
 
-    public void chooseToApplyForClosureConnection(){
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Apply for Closure of Connection");
-        waitForElementToBeVisible(closureConnection , driver);
-        closureConnection.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void chooseToApplyForClosureConnection(){
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchFor("Apply for Closure of Connection");
+//        waitForElementToBeVisible(closureConnection , driver);
+//        closureConnection.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
 
 //    public void chooseToApplyForJournalVoucher(){
@@ -683,13 +683,13 @@ public class DashboardPage extends BasePage {
 //        switchToNewlyOpenedWindow(driver);
 //    }
 
-    public void chooseToChangeOfUse(){
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Apply for Change of Use");
-        waitForElementToBeVisible(changeOfUse , driver);
-        changeOfUse.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void chooseToChangeOfUse(){
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchFor("Apply for Change of Use");
+//        waitForElementToBeVisible(changeOfUse , driver);
+//        changeOfUse.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
 //    public void choosesToCreatePreamble() {
 //        waitForElementToBeClickable(searchTreeTextBox, driver);
@@ -699,15 +699,15 @@ public class DashboardPage extends BasePage {
 //        switchToNewlyOpenedWindow(driver);
 //    }
 
-    public void createDataEntryScreenForWater() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Data Entry Screen");
-        List<WebElement> dataEntryList = driver.findElements(By.linkText("Data Entry Screen"));
-        waitForElementToBeVisible(dataEntryList.get(1), driver);
-        dataEntryList.get(1).click();
-        switchToNewlyOpenedWindow(driver);
-
-    }
+//    public void createDataEntryScreenForWater() {
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchFor("Data Entry Screen");
+//        List<WebElement> dataEntryList = driver.findElements(By.linkText("Data Entry Screen"));
+//        waitForElementToBeVisible(dataEntryList.get(1), driver);
+//        dataEntryList.get(1).click();
+//        switchToNewlyOpenedWindow(driver);
+//
+//    }
 
 //    public void createContractorBill() {
 //        waitForElementToBeClickable(searchTreeTextBox, driver);
@@ -837,13 +837,13 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-    public void chooseReConnection() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Apply for Re-Connection");
-        waitForElementToBeClickable(applyForReConnection, driver);
-        applyForReConnection.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void chooseReConnection() {
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchFor("Apply for Re-Connection");
+//        waitForElementToBeClickable(applyForReConnection, driver);
+//        applyForReConnection.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
 //    public void chooseToDeactivateAdv() {
 //        waitForElementToBeClickable(searchTreeTextBox, driver);
@@ -869,13 +869,13 @@ public class DashboardPage extends BasePage {
 //        switchToNewlyOpenedWindow(driver);
 //    }
 
-    public void chooseToCollectWaterCharges(){
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Collect Charges");
-        waitForElementToBeClickable(collectWaterCharges, driver);
-        collectWaterCharges.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void chooseToCollectWaterCharges(){
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchFor("Collect Charges");
+//        waitForElementToBeClickable(collectWaterCharges, driver);
+//        collectWaterCharges.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
 //    public void chooseToBankRemittance() {
 //        waitForElementToBeClickable(searchTreeTextBox, driver);
@@ -1020,21 +1020,21 @@ public class DashboardPage extends BasePage {
 //        switchToNewlyOpenedWindow(driver);
 //    }
 
-    public void chooseToCreateLegalCase(){
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Create Legal Case");
-        waitForElementToBeClickable(createLegalCase, driver);
-        createLegalCase.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void chooseToCreateLegalCase(){
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchFor("Create Legal Case");
+//        waitForElementToBeClickable(createLegalCase, driver);
+//        createLegalCase.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
-    public void chooseToSearchLegalCase() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Search Legal Case");
-        waitForElementToBeClickable(searchLegalCase, driver);
-        searchLegalCase.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void chooseToSearchLegalCase() {
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchFor("Search Legal Case");
+//        waitForElementToBeClickable(searchLegalCase, driver);
+//        searchLegalCase.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
 //    public void chooseForDataEntry() {
 //        waitForElementToBeClickable(searchTreeTextBox, driver);
@@ -1083,7 +1083,6 @@ public class DashboardPage extends BasePage {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor(screenName);
         waitForElementToBePresent(By.cssSelector(".list a"), driver);
-
         Optional<WebElement> href = searchResults.stream().filter(searchResult -> {
             return searchResult.getText().equalsIgnoreCase(screenName) && searchResult.getAttribute("href").contains(condition);
         }).findFirst();

@@ -15,7 +15,8 @@ Feature: To collect water charges in different mode payments
   Scenario Outline: This Scenario Includes creation of New Connection and collecting the charges with different mode of payment
 
     Given juniorAssistant logs in
-    And user chooses to apply for new water connection
+    And user will select the required screen as "Apply for New Connection"
+#    And user chooses to apply for new water connection
     And user will enter the details of the new water connection
     And user enter the water management approval details as <approvalOfficer1>
     Then user will get the application number and closes the form
@@ -55,7 +56,8 @@ Feature: To collect water charges in different mode payments
     #################################################################################
 
     Given juniorAssistant logs in
-    And user search for the collect water charges
+    And user will select the required screen as "Collect Charges"
+#    And user search for the collect water charges
     And user will enter the consumer number
     And user will pay the water charges with mode as <paymentMode>
     And he closes the payment acknowledgement
@@ -72,7 +74,8 @@ Feature: To collect water charges in different mode payments
   Scenario Outline: This Scenario Includes creation of New Connection and collecting the charges through online link
 
     Given juniorAssistant logs in
-    And user chooses to apply for new water connection
+    And user will select the required screen as "Apply for New Connection"
+#    And user chooses to apply for new water connection
     And user will enter the details of the new water connection
     And user enter the water management approval details as <approvalOfficer1>
     Then user will get the application number and closes the form

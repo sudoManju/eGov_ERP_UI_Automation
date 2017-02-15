@@ -177,8 +177,5 @@ task generateReport() {
         reportBuilder.generateReports();
         println("\nReport available on: ${reporting.baseDir}/cucumber/feature-overview.html")
     }
-
-
 }
-
 runInSequence.finalizedBy(generateReport)

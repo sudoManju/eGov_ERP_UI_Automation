@@ -18,7 +18,8 @@ Feature: To create a data entry screen for water charges and apply for add/edit 
   Scenario: To create a data entry screen and edit/add DCB for the water charges
 
     Given admin logs in
-    And user search to data entry screen for water
+    And user will select the required screen as "Data Entry Screen" with condition as "wtms"
+#    And user search to data entry screen for water
     And user will enter the details of data entry screen for water charges
     And user will click on the add/edit dcb
     And user will enter the details of DCB

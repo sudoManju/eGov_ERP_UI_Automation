@@ -52,9 +52,9 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).chooseToCreateNewDataEntryScreen();
         });
 
-        And("^user chooses to apply for new water connection$", () -> {
-            pageStore.get(DashboardPage.class).chooseToCreateNewWaterConnection();
-        });
+//        And("^user chooses to apply for new water connection$", () -> {
+//            pageStore.get(DashboardPage.class).chooseToCreateNewWaterConnection();
+//        });
 
 //        And("^user chooses to find the daily collection vlt reports$", () -> {
 //            pageStore.get(DashboardPage.class).chooseToFindDailyVLTReports();
@@ -68,12 +68,23 @@ public class DashboardSteps extends BaseSteps implements En {
 //            pageStore.get(DashboardPage.class).chooseToCreateDataEntry();
 //        });
 
+<<<<<<< HEAD
 //        When("^he chooses to create new spillover estimate$", () -> {
 //            pageStore.get(DashboardPage.class).createSpilloverEstimate();
 //        });
         And("^user chooses to apply for new additional water connection$", () -> {
             pageStore.get(DashboardPage.class).chooseToAdditionalWaterConnection();
         });
+=======
+        When("^he chooses to create new spillover estimate$", () -> {
+            pageStore.get(DashboardPage.class).createSpilloverEstimate();
+        });
+
+//        And("^user chooses to apply for new additional water connection$", () -> {
+//            pageStore.get(DashboardPage.class).chooseToAdditionalWaterConnection();
+//        });
+
+>>>>>>> [5999] Modifying the DashboardPage
         And("^chooses to act upon the above challan$", () -> {
             pageStore.get(DashboardPage.class).openApplication(scenarioContext.getChallanNumber());
         });
@@ -101,9 +112,9 @@ public class DashboardSteps extends BaseSteps implements En {
 //            pageStore.get(DashboardPage.class).choosePropertyTaxCollection();
 //        });
 
-        And("^user search to apply for closure of connection$", () -> {
-            pageStore.get(DashboardPage.class).chooseToApplyForClosureConnection();
-        });
+//        And("^user search to apply for closure of connection$", () -> {
+//            pageStore.get(DashboardPage.class).chooseToApplyForClosureConnection();
+//        });
 
 //        When("^he chooses to create new License$", () -> {
 //           pageStore.get(DashboardPage.class).chooseToCreateNewLicense();
@@ -150,17 +161,17 @@ public class DashboardSteps extends BaseSteps implements En {
 //            pageStore.get(DashboardPage.class).createRemittanceRecovery();
 //        });
 
-        And("^user search to apply for change of use for existing connection$", () -> {
-            pageStore.get(DashboardPage.class).chooseToChangeOfUse();
-        });
+//        And("^user search to apply for change of use for existing connection$", () -> {
+//            pageStore.get(DashboardPage.class).chooseToChangeOfUse();
+//        });
 
 //        When("^he choose to create preamble$", () -> {
 //            pageStore.get(DashboardPage.class).choosesToCreatePreamble();
 //        });
 
-        And("^user search to data entry screen for water$", () -> {
-            pageStore.get(DashboardPage.class).createDataEntryScreenForWater();
-        });
+//        And("^user search to data entry screen for water$", () -> {
+//            pageStore.get(DashboardPage.class).createDataEntryScreenForWater();
+//        });
 
         And("^he chooses to act upon the above preamble number$", () -> {
             pageStore.get(DashboardPage.class).openApplication(scenarioContext.getPreambleNumber());
@@ -194,9 +205,9 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).chooseToPayMutationFee();
         });
 
-        And("^user search to apply for re-connection$", () -> {
-            pageStore.get(DashboardPage.class).chooseReConnection();
-        });
+//        And("^user search to apply for re-connection$", () -> {
+//            pageStore.get(DashboardPage.class).chooseReConnection();
+//        });
 
 //        And("^he choose to deactivate the advertisement$", () -> {
 //            pageStore.get(DashboardPage.class).chooseToDeactivateAdv();
@@ -212,9 +223,9 @@ public class DashboardSteps extends BaseSteps implements En {
         });
 
 
-        And("^user search for the collect water charges$", () -> {
-            pageStore.get(DashboardPage.class).chooseToCollectWaterCharges();
-        });
+//        And("^user search for the collect water charges$", () -> {
+//            pageStore.get(DashboardPage.class).chooseToCollectWaterCharges();
+//        });
 
         And("^he choose to act upon the above application number$", () -> {
            pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
@@ -265,13 +276,20 @@ public class DashboardSteps extends BaseSteps implements En {
 //            pageStore.get(DashboardPage.class).chooseForDataEntry();
 //        });
 
-        And("^user search for to create the legal case$", () -> {
-            pageStore.get(DashboardPage.class).chooseToCreateLegalCase();
-        });
+//        And("^user search for to create the legal case$", () -> {
+//            pageStore.get(DashboardPage.class).chooseToCreateLegalCase();
+//        });
 
-        And("^user search for the recent legal case file$", () -> {
-            pageStore.get(DashboardPage.class).chooseToSearchLegalCase();
-        });
+//        And("^user search for the recent legal case file$", () -> {
+//            pageStore.get(DashboardPage.class).chooseToSearchLegalCase();
+//        });
+
+//        And("^user search for the recent legal case file$", () -> {
+//            pageStore.get(DashboardPage.class).chooseToSearchLegalCase();
+//        });
+//        And("^he choose to modify marriage registration$", () -> {
+//            pageStore.get(DashboardPage.class).chooseToModifyMarriageRegistration();
+//        });
 //        And("^he choose to modify marriage registration$", () -> {
 //            pageStore.get(DashboardPage.class).chooseToModifyMarriageRegistration();
 //        });
