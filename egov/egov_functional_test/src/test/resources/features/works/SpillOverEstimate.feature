@@ -6,7 +6,6 @@ Feature: Create Spillover Estimate/Create LOA for Spillover
   Scenario Outline: Create Spillover Line Estimate
 
     Given assis_Engineer logs in
-    #When he chooses to create new spillover estimate
     And user will select the required screen as "Create Spillover Estimate"
     And he enters estimate header details as <estimateHeaderDetails>
     And he enters financial details as <financialDetails>
@@ -24,19 +23,19 @@ Feature: Create Spillover Estimate/Create LOA for Spillover
       |SpilloverEstimate_3    |SpillOverFinancial_3 |SpillWork_3|admin               |technical               |
 
 
-   @WIP
-    Scenario: Letter of Acceptance for Spillover work
-
-     Given assis_Engineer logs in
-     And he choose to create letter of acceptance
-     And he select the required spillover estimate from search results
-     And he enters the mandatory details for creating LOA
-     Then he save the file and view the LOA pdf
-
-     And he choose to view Letter of Acceptance
-     And he search for LOA
-
-     And he choose to modify letter of acceptance
-     And he search for LOA for modify
-     Then user will be notified by "successfully"
-     And current user logs out
+#   @WIP
+#    Scenario: Letter of Acceptance for Spillover work
+#
+#     Given assis_Engineer logs in
+#     And he choose to create letter of acceptance
+#     And he select the required spillover estimate from search results
+#     And he enters the mandatory details for creating LOA
+#     Then he save the file and view the LOA pdf
+#
+#     And he choose to view Letter of Acceptance
+#     And he search for LOA
+#
+#     And he choose to modify letter of acceptance
+#     And he search for LOA for modify
+#     Then user will be notified by "successfully"
+#     And current user logs out

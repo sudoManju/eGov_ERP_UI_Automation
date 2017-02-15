@@ -7,7 +7,6 @@ I am able to Create/Collect Challan Based Receipt
   Scenario Outline: System should be able to Create Challan
 
     Given juniorAssistant logs in
-   # And he chooses to create Challan
     And user will select the required screen as "Create Challan"
     And he enters challan details
     And he create challan and closes acknowledgement
@@ -19,7 +18,7 @@ I am able to Create/Collect Challan Based Receipt
     And he validate the challan
     Then user will be notified by "Validated"
 
-    And he search for challan receipt
+    And user will select the required screen as "challan receipt"
     And he search for challan number
     And he pay using <paymentMethod>
     And user closes the acknowledgement
@@ -28,8 +27,8 @@ I am able to Create/Collect Challan Based Receipt
     Examples:
       |paymentMethod|
       |cash         |
-      |cheque       |
-      |dd           |
+#      |cheque       |
+#      |dd           |
 
 
 

@@ -20,20 +20,8 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).openApplication(scenarioContext.getAssessmentNumber());
         });
 
-        When("^he chooses to Data Entry Screen$", () -> {
-            pageStore.get(DashboardPage.class).chooseToDataEntryScreen();
-        });
-
-        When("^user chooses to data entry screen$", () -> {
-            pageStore.get(DashboardPage.class).chooseToCreateNewDataEntryScreen();
-        });
-
         And("^chooses to act upon the above challan$", () -> {
             pageStore.get(DashboardPage.class).openApplication(scenarioContext.getChallanNumber());
-        });
-
-        And("^he search for challan receipt$", () -> {
-            pageStore.get(DashboardPage.class).chooseToSearchForChallanReceipt();
         });
 
         And("^user chooses to find the daily collection pt reports$", () -> {

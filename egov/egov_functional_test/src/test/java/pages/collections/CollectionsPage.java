@@ -213,6 +213,7 @@ public class CollectionsPage extends BasePage {
         new Select(approverDesignationBox).selectByVisibleText(approverDetails.getApproverDesignation());
 
         waitForElementToBePresent(By.cssSelector("select[id='positionUser'] option[value='180']"),driver);
+
         new Select(approverBox).selectByVisibleText(approverDetails.getApprover());
     }
 

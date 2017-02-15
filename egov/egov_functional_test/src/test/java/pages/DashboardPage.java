@@ -51,9 +51,6 @@ public class DashboardPage extends BasePage {
     @FindBy(xpath = "//html/body/div[3]/div[2]/div/ul/li[2]/a")
     private WebElement dataEntryScreenLinkText;
 
-    @FindBy(linkText = "Challan Receipt")
-    private WebElement challanReceiptLink;
-
     @FindBy(linkText = "Daily collection report(PT)")
     private WebElement ptReport;
 
@@ -105,15 +102,15 @@ public class DashboardPage extends BasePage {
         this.driver = driver;
     }
 
-    public void chooseToDataEntryScreen(){
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Data Entry Screen");
-        waitForElementToBeVisible(dataEntryScreenLink, driver);
-
-        dataEntryScreenLink.click();
-
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void chooseToDataEntryScreen(){
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchFor("Data Entry Screen");
+//        waitForElementToBeVisible(dataEntryScreenLink, driver);
+//
+//        dataEntryScreenLink.click();
+//
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
     private void searchFor(String value) {
         enterText(searchTreeTextBox, value);
@@ -145,26 +142,15 @@ public class DashboardPage extends BasePage {
         throw new RuntimeException("No application row found for -- " + applicationNumber);
     }
 
-    public void chooseToCreateNewDataEntryScreen() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Data Entry Screen");
-        waitForElementToBeVisible(dataEntryScreenLinkText, driver);
-
-        dataEntryScreenLinkText.click();
-
-        switchToNewlyOpenedWindow(driver);
-    }
-
-    public void chooseToSearchForChallanReceipt() {
-
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("challan receipt");
-
-        waitForElementToBeVisible(challanReceiptLink,driver);
-        challanReceiptLink.click();
-
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void chooseToCreateNewDataEntryScreen() {
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchFor("Data Entry Screen");
+//        waitForElementToBeVisible(dataEntryScreenLinkText, driver);
+//
+//        dataEntryScreenLinkText.click();
+//
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
     public void chooseForDailyCollectionPTReports(){
 

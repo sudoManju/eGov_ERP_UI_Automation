@@ -10,7 +10,6 @@ Feature: Create New Property
   Scenario Outline: Registered user creating a new property in the system
     Given juniorAssistant logs in
 
-#    When he chooses to create new property
     And user will select the required screen as "Create New Property"
     And he enters property header details as <propertyHeaderDetails>
     And he enters owner details for the first owner as <ownerDetails>
@@ -70,7 +69,6 @@ Feature: Create New Property
   Scenario: Registered user create property through data entry screen
 
     Given commissioner logs in
-#    When he chooses to create data entry
     And user will select the required screen as "Data entry screen" with condition as "ptis"
     And he creates a new assessment for a private residential property
     Then dataEntry Details saved successfully
@@ -83,7 +81,6 @@ Feature: Create New Property
   Scenario Outline: Registered user Update existing property
 
     Given commissioner logs in
-#    When he chooses to create data entry
     And user will select the required screen as "Data entry screen" with condition as "ptis"
     And he creates a new assessment for a private residential property
     Then dataEntry Details saved successfully
@@ -92,12 +89,10 @@ Feature: Create New Property
     And current user logs out
 
     Given juniorAssistant logs in
-#    When he chooses to addition alteration
     And user will select the required screen as "Addition/Alteration of Assessment"
     And he searches for assessment with number "1016042569"
     And he updates assessment details as <editAssessmentDetails>
     And he enters amenities as <amenitiesDetails>
- #    And he enters Construction Details as <ConstructionTypes1>
     And he enters Floor Details as <editFloorDetails>
     And he forwards for approval to billCollector
     Then edit property details get saved successfully
@@ -155,7 +150,6 @@ Feature: Create New Property
     And current user logs out
 
     Given juniorAssistant logs in
-#    When he chooses to collect tax of property
     And user will select the required screen as "collect tax"
     And he searches for assessment with number "1016000077"
     And he chooses to pay tax
@@ -220,7 +214,6 @@ Feature: Create New Property
   Scenario Outline: Register user choose to do revision petition of property
 
     Given juniorAssistant logs in
-#    When he chooses to create new property
     And user will select the required screen as "Data entry screen" with condition as "ptis"
     And he enters property header details as <propertyHeaderDetails>
     And he enters owner details for the first owner as <ownerDetails>
@@ -264,7 +257,6 @@ Feature: Create New Property
 
     And chooses to act upon the above assessment
     And he does a digital signature
-#    Then user will be notified by "Successfully"
     When commissioner closes acknowledgement
     And current user logs out
 
@@ -341,7 +333,6 @@ Feature: Create New Property
    Scenario Outline: Register user choose to do general revision petition of property
 
      Given commissioner logs in
-#     When he chooses to create data entry
      And user will select the required screen as "Data entry screen" with condition as "ptis"
      And he creates a new assessment for a private residential property
      Then dataEntry Details saved successfully
@@ -350,13 +341,11 @@ Feature: Create New Property
      And current user logs out
 
      Given juniorAssistant logs in
-#     When he chooses to collect tax of property
      And user will select the required screen as "collect tax"
      And he searches for assessment with number "1016000077"
      And he chooses to pay tax
      And he pay tax using Cash
 
-#     And he choose to do general revision petition
      And user will select the required screen as "General Revision Petition"
      And he searches for assessment with number "1016042569"
 
