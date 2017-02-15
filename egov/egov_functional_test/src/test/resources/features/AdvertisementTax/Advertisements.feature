@@ -10,7 +10,8 @@ Feature: Create/search Advertisement
     # Create Agency
 
     Given admin logs in
-    And he chooses to create advertisement agency
+    #And he chooses to create advertisement agency
+    And user will select the required screen as "create agency"
     And he enter details for agency creation
     And he submit the details and closes acknowledgement
     Then user will be notified by "created"
@@ -23,7 +24,8 @@ Feature: Create/search Advertisement
    # Create Advertisement
 
     And creator logs in
-    And he chooses to create advertisement
+    #And he chooses to create advertisement
+    And user will select the required screen as "create advertisement"
     And he enters details for advertisement creation with agency
     And he forwards and closes the acknowledgement
     Then user will be notified by "successfully"
@@ -38,7 +40,8 @@ Feature: Create/search Advertisement
   #  Collect Advertisement Tax by Agency wise
 
     And creator logs in
-    And he choose to collect advertisement tax by advertisement wise
+#    And he choose to collect advertisement tax by advertisement wise
+    And user will select the required screen as "Collect Advertisement Tax"
     And he choose to collect advertisement tax by agency wise
     And he selects the agency for Tax/Fees collection
     And he choose to collect advertisement tax
@@ -53,7 +56,8 @@ Feature: Create/search Advertisement
 #  Create Advertisements
 
    Given creator logs in
-   And he chooses to create advertisement
+   #And he chooses to create advertisement
+   And user will select the required screen as "create advertisement"
    And he enters details for advertisement creation
    And he forwards and closes the acknowledgement
    Then user will be notified by "successfully"
@@ -68,19 +72,24 @@ Feature: Create/search Advertisement
 #  Search Advertisements
 
     And creator logs in
-    And he chooses to search advertisement
+    #And he chooses to search advertisement
+    And user will select the required screen as "search advertisement"
     And he search and select the required advertisement
     And he view and close the acknowledgement
 
 # Collect Advertisement Tax
 
-    And he choose to collect advertisement tax by advertisement wise
+    #And he choose to collect advertisement tax by advertisement wise
+    And user will select the required screen as "Collect Advertisement Tax"
     And he search advertisement by advertisement number
     And he choose advertisement for collecting advertisement tax
     And current user logs out
 
+# Deactivate Advertisement
+
     And admin logs in
-    And he choose to deactivate the advertisement
+#    And he choose to deactivate the advertisement
+    And user will select the required screen as "Deactivate Advertisement"
     And he search for advertisement for deactivate
     And he deactivates the advertisement with remarks and date
     Then user will be notified by "Deactivated"

@@ -198,9 +198,9 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).chooseReConnection();
         });
 
-        And("^he choose to deactivate the advertisement$", () -> {
-            pageStore.get(DashboardPage.class).chooseToDeactivateAdv();
-        });
+//        And("^he choose to deactivate the advertisement$", () -> {
+//            pageStore.get(DashboardPage.class).chooseToDeactivateAdv();
+//        });
 
         When("^he choose to do trade license closure$", () -> {
             pageStore.get(DashboardPage.class).searchTradeLicense();

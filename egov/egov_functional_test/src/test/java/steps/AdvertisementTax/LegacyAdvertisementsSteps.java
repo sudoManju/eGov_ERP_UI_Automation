@@ -17,9 +17,9 @@ public class LegacyAdvertisementsSteps extends BaseSteps implements En {
 
     public LegacyAdvertisementsSteps(){
 
-        And("^he chooses to create legacy advertisements$", () -> {
-            pageStore.get(DashboardPage.class).chooseForCreateLegacyAdvertisements();
-        });
+//        And("^he chooses to create legacy advertisements$", () -> {
+//            pageStore.get(DashboardPage.class).chooseForCreateLegacyAdvertisements();
+//        });
         And("^he enters details for legacy advertisement creation$", () -> {
             pageStore.get(AdvertisementsPage.class).enterAdvertisementDetails();
 
@@ -40,9 +40,9 @@ public class LegacyAdvertisementsSteps extends BaseSteps implements En {
 
             pageStore.get(LegacyAdvertisementsPage.class).close();
         });
-        And("^he chooses to update legacy advertisements$", () -> {
-          pageStore.get(DashboardPage.class).chooseToUpdateLegacyAdvertisements();
-        });
+//        And("^he chooses to update legacy advertisements$", () -> {
+//          pageStore.get(DashboardPage.class).chooseToUpdateLegacyAdvertisements();
+//        });
         And("^he search for required file by application number$", () -> {
             pageStore.get(LegacyAdvertisementsPage.class).searchFile(scenarioContext.getApplicationNumber());
 
@@ -57,9 +57,9 @@ public class LegacyAdvertisementsSteps extends BaseSteps implements En {
 
             pageStore.get(AdvertisementsPage.class).closeMultipleWindows("/adtax/hoarding/findhoarding-for-update");
         });
-        And("^he chooses to renewal advertisement$", () -> {
-           pageStore.get(DashboardPage.class).choosesToRenewalAdvertisement();
-        });
+//        And("^he chooses to renewal advertisement$", () -> {
+//           pageStore.get(DashboardPage.class).choosesToRenewalAdvertisement();
+//        });
         And("^he search for required file by application number for renewal$", () -> {
             pageStore.get(LegacyAdvertisementsPage.class).searchFileForRenewal(scenarioContext.getApplicationNumber());
         });

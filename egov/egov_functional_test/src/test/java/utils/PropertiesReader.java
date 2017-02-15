@@ -36,6 +36,5 @@ public class PropertiesReader {
         return prop.getProperty("waitTime");
     }
 
-
 }
 

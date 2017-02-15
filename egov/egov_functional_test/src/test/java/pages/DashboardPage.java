@@ -173,26 +173,26 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Create Contractor Bill")
     private WebElement createContractorBillLink;
 
-    @FindBy(linkText = "Create Advertisement")
-    private WebElement createAdvertisementLink;
+//    @FindBy(linkText = "Create Advertisement")
+//    private WebElement createAdvertisementLink;
 
-    @FindBy(linkText = "Search Advertisement")
-    private WebElement searchAdvertisementLink;
+//    @FindBy(linkText = "Search Advertisement")
+//    private WebElement searchAdvertisementLink;
 
-    @FindBy(linkText = "Create Legacy Advertisement")
-    private WebElement createLegacyAdvertisementLink;
+//    @FindBy(linkText = "Create Legacy Advertisement")
+//    private WebElement createLegacyAdvertisementLink;
 
-    @FindBy(linkText = "Update Legacy Advertisements")
-    private WebElement updateLegacyAdvertisementLink;
+//    @FindBy(linkText = "Update Legacy Advertisements")
+//    private WebElement updateLegacyAdvertisementLink;
 
 //    @FindBy(linkText = "Create Voucher")
 //    private WebElement createExpenseBillVoucher;
 
-    @FindBy(linkText = "Collect Advertisement Tax")
-    private WebElement collectAdvertisementTaxLink;
+//    @FindBy(linkText = "Collect Advertisement Tax")
+//    private WebElement collectAdvertisementTaxLink;
 
-    @FindBy(linkText = "Create Agency")
-    private WebElement createAgencyLink;
+//    @FindBy(linkText = "Create Agency")
+//    private WebElement createAgencyLink;
 
     @FindBy(linkText = "Upload Estimate Photographs")
     private WebElement uploadEstimatePhotographslink;
@@ -217,8 +217,8 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Apply for Re-Connection")
     private WebElement applyForReConnection;
 
-    @FindBy(linkText = "Deactivate Advertisement")
-    private WebElement deactivateAdvertisementLink;
+//    @FindBy(linkText = "Deactivate Advertisement")
+//    private WebElement deactivateAdvertisementLink;
 
     @FindBy(linkText = "Property Mutation Fee")
     private WebElement propertyMutationFeeLink;
@@ -232,8 +232,8 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Bank Remittance")
     private WebElement bankRemittanceLink;
 
-    @FindBy(linkText = "Advertisement Renewal")
-    private WebElement renewalAdvertisementLink;
+//    @FindBy(linkText = "Advertisement Renewal")
+//    private WebElement renewalAdvertisementLink;
 
     @FindBy(xpath = "html/body/div[1]/header/nav/div/div[3]/ul/li[2]/a")
     private WebElement profileLink;
@@ -723,38 +723,38 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-    public void chooseToCreateAdvertisement() {
-        waitForElementToBeClickable(searchTreeTextBox,driver);
-        searchFor("create advertisement");
-        waitForElementToBeVisible(createAdvertisementLink,driver);
-        createAdvertisementLink.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void chooseToCreateAdvertisement() {
+//        waitForElementToBeClickable(searchTreeTextBox,driver);
+//        searchFor("create advertisement");
+//        waitForElementToBeVisible(createAdvertisementLink,driver);
+//        createAdvertisementLink.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
-    public void chooseToSearchAdvertisement() {
-        waitForElementToBeClickable(searchTreeTextBox,driver);
-        searchFor("search advertisement");
-        waitForElementToBeVisible(searchAdvertisementLink,driver);
-        searchAdvertisementLink.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void chooseToSearchAdvertisement() {
+//        waitForElementToBeClickable(searchTreeTextBox,driver);
+//        searchFor("search advertisement");
+//        waitForElementToBeVisible(searchAdvertisementLink,driver);
+//        searchAdvertisementLink.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
-    public void chooseForCreateLegacyAdvertisements() {
-        waitForElementToBeClickable(searchTreeTextBox,driver);
-        searchFor("create legacy advertisement");
-        waitForElementToBeVisible(createLegacyAdvertisementLink,driver);
-        createLegacyAdvertisementLink.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void chooseForCreateLegacyAdvertisements() {
+//        waitForElementToBeClickable(searchTreeTextBox,driver);
+//        searchFor("create legacy advertisement");
+//        waitForElementToBeVisible(createLegacyAdvertisementLink,driver);
+//        createLegacyAdvertisementLink.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
-    public void chooseToUpdateLegacyAdvertisements() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchTreeTextBox.clear();
-        searchFor("update legacy advertisement");
-        waitForElementToBeVisible(updateLegacyAdvertisementLink, driver);
-        updateLegacyAdvertisementLink.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void chooseToUpdateLegacyAdvertisements() {
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchTreeTextBox.clear();
+//        searchFor("update legacy advertisement");
+//        waitForElementToBeVisible(updateLegacyAdvertisementLink, driver);
+//        updateLegacyAdvertisementLink.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
 //    public void createExpenseBillVoucher() {
 //        waitForElementToBeClickable(searchTreeTextBox, driver);
@@ -765,22 +765,22 @@ public class DashboardPage extends BasePage {
 //        switchToNewlyOpenedWindow(driver);
 //    }
 
-    public void chooseToCollectAdvTax() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchTreeTextBox.clear();
-        searchFor("Collect Advertisement Tax");
-        waitForElementToBeVisible(collectAdvertisementTaxLink, driver);
-        collectAdvertisementTaxLink.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void chooseToCollectAdvTax() {
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchTreeTextBox.clear();
+//        searchFor("Collect Advertisement Tax");
+//        waitForElementToBeVisible(collectAdvertisementTaxLink, driver);
+//        collectAdvertisementTaxLink.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
-    public void chooseToCreateAdvertisementAgency() {
-        waitForElementToBeClickable(searchTreeTextBox,driver);
-        searchFor("create agency");
-        waitForElementToBeVisible(createAgencyLink,driver);
-        createAgencyLink.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void chooseToCreateAdvertisementAgency() {
+//        waitForElementToBeClickable(searchTreeTextBox,driver);
+//        searchFor("create agency");
+//        waitForElementToBeVisible(createAgencyLink,driver);
+//        createAgencyLink.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
     public void chooseToUploadPhoto() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
@@ -850,13 +850,13 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-    public void chooseToDeactivateAdv() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Deactivate Advertisement");
-        waitForElementToBeClickable(deactivateAdvertisementLink, driver);
-        deactivateAdvertisementLink.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void chooseToDeactivateAdv() {
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchFor("Deactivate Advertisement");
+//        waitForElementToBeClickable(deactivateAdvertisementLink, driver);
+//        deactivateAdvertisementLink.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
     public void chooseToPayMutationFee() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("Property Mutation Fee");
@@ -890,14 +890,14 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-    public void choosesToRenewalAdvertisement() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchTreeTextBox.clear();
-        searchFor("renewal");
-        waitForElementToBeClickable(renewalAdvertisementLink,driver);
-        renewalAdvertisementLink.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void choosesToRenewalAdvertisement() {
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchTreeTextBox.clear();
+//        searchFor("renewal");
+//        waitForElementToBeClickable(renewalAdvertisementLink,driver);
+//        renewalAdvertisementLink.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
     public void chooseRevisionPetition() {
         waitForElementToBeClickable(searchTreeTextBox, driver);

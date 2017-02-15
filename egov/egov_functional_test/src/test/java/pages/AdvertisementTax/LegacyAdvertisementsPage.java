@@ -1,5 +1,6 @@
 package pages.AdvertisementTax;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -53,6 +54,9 @@ public class LegacyAdvertisementsPage extends BasePage {
     @FindBy(id = "Forward")
     private WebElement forwardButton;
 
+    @FindBy(css = "input[id='taxAmount'][type='text']")
+    private WebElement taxAmountTextBox;
+
     public LegacyAdvertisementsPage (WebDriver driver){
         this.driver = driver;
     }
@@ -67,6 +71,18 @@ public class LegacyAdvertisementsPage extends BasePage {
 
         waitForElementToBeClickable(submitButton,driver);
         submitButton.click();
+
+        boolean isPresent = driver.findElements(By.xpath(".//*[@id='advertisementform']/div/div[2]/div/div/div[22]/div/label")).size() > 0;
+
+        if(isPresent){
+            waitForElementToBeClickable(taxAmountTextBox, driver);
+            taxAmountTextBox.clear();
+            taxAmountTextBox.sendKeys("10");
+            System.out.println("success");
+
+            waitForElementToBeClickable(submitButton,driver);
+            submitButton.click();
+        }
 
         String number = creationMsg.getText();
         String num = number.split("\\ ")[6];
