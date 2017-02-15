@@ -7,7 +7,7 @@ Feature: To create a data entry screen for the water charge management services 
   Background:It will run the data entry screen of property tax
 
     Given commissioner logs in
-    When he chooses to create data entry
+    And user will select the required screen as "Data entry screen" with condition as "ptis"
     And he creates a new assessment for a private residential property
     Then dataEntry Details saved successfully
     And he choose to add edit DCB
@@ -19,7 +19,6 @@ Feature: To create a data entry screen for the water charge management services 
 
     Given admin logs in
     And user will select the required screen as "Data Entry Screen" with condition as "wtms"
-#    And user search to data entry screen for water
     And user will enter the details of data entry screen for water charges
     And user will notify the successful creation of data entry screen as "Successfully"
     And user will be notified by "Successfully"

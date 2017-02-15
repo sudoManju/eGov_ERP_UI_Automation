@@ -11,7 +11,6 @@ Feature: To create a new remittance recovery
 
     And accountsOfficer logs in
     And user will select the required screen as "Create Journal Voucher"
-#    And officer search for the create journal voucher
     And officer will enter the remittance details as <voucherDetails>
     And officer will enter the approval details as <approvalOfficer1>
     And officer will get successful voucher created and closes it
@@ -44,7 +43,6 @@ Feature: To create a new remittance recovery
 
     And accountsOfficer logs in
     And user will select the required screen as "Create Remittance Recovery"
-#    And officer will search for the Create Remittance Recovery
     And officer will search for remittance bills
     And officer will enter the remittance bank details
     And officer will enter the approval details as <approvalOfficer2>
@@ -72,7 +70,6 @@ Feature: To create a new remittance recovery
 
     And accountsOfficer logs in
     And user will select the required screen as "Cheque Assignment" with condition as "beforeSearchForRemittance"
-#    And officer will search for the remittance check assignment
     And officer will filter the payment cheque assignment bill
     And officer will select the bill and enter the details <assignment>
     And officer will close the successfull assignment page

@@ -77,6 +77,9 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Modify Detailed Code")
     private WebElement modifyDetailedCode;
 
+    @FindBy(linkText = "Search Agency")
+    private WebElement searchAgencyLink;
+
     @FindBy(linkText = "Transfer Ownership")
     private WebElement transferOwnershipLink;
 
@@ -304,17 +307,8 @@ public class DashboardPage extends BasePage {
         throw new RuntimeException("No application row found for -- " + crn);
     }
 
-    public void chooseForRemittanceAssignment(){
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Cheque Assignment");
-        waitForElementToBeClickable(chequeAssignment.get(1), driver);
-        chequeAssignment.get(1).click();
-        switchToNewlyOpenedWindow(driver);
-    }
-
-
     public void chooseScreen(String screenName) {
-        //Wait all elements to be visible
+
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor(screenName);
         waitForElementToBePresent(By.cssSelector(".list a"), driver);

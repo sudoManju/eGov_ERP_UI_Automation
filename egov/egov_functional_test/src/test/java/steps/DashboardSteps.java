@@ -8,8 +8,6 @@ import pages.wcms.WaterChargeManagementPage;
 
 public class DashboardSteps extends BaseSteps implements En {
     public DashboardSteps() {
-
-
         And("^current user logs out$", () -> {
             pageStore.get(DashboardPage.class).logOut();
         });
@@ -29,6 +27,7 @@ public class DashboardSteps extends BaseSteps implements En {
         When("^user chooses to data entry screen$", () -> {
             pageStore.get(DashboardPage.class).chooseToCreateNewDataEntryScreen();
         });
+
         And("^chooses to act upon the above challan$", () -> {
             pageStore.get(DashboardPage.class).openApplication(scenarioContext.getChallanNumber());
         });
@@ -51,7 +50,6 @@ public class DashboardSteps extends BaseSteps implements En {
         And("^he chooses to act upon on receipt$", () -> {
             pageStore.get(DashboardPage.class).openReceipt("official_inbox");
         });
-
 
         When("^he chosses to collect water charges$", () -> {
             pageStore.get(DashboardPage.class).chooseTopayWaterCharge();
@@ -93,10 +91,6 @@ public class DashboardSteps extends BaseSteps implements En {
 
         And("^officer search for the assignment mode as (\\w+)$", (String assignmentMode) -> {
             pageStore.get(DashboardPage.class).chooseForModeOFAssignment(assignmentMode);
-        });
-
-        And("^officer will search for the remittance check assignment$", () -> {
-            pageStore.get(DashboardPage.class).chooseForRemittanceAssignment();
         });
 
         And("^choose to act upon the above CRN in his own dratfs$", () -> {

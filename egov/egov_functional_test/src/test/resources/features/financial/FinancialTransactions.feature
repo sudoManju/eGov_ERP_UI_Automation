@@ -5,7 +5,6 @@ Feature: To create a Financial Transactions
 
     Given accountsOfficer logs in
     And user will select the required screen as "Create Journal Voucher"
-#    And officer search for the create journal voucher
     And officer will enter the journal voucher details as <voucherDetails>
     And officer will enter the approval details as <approvalOfficer1>
     And officer will get successful voucher created and closes it
@@ -43,7 +42,6 @@ Feature: To create a Financial Transactions
 
     Given accountsOfficer logs in
     And user will select the required screen as "Create Journal Voucher"
-#    And officer search for the create journal voucher
     And officer will enter the journal voucher details as <voucherDetails>
     And officer will enter the approval details as <approvalOfficer1>
     And officer will get successful voucher created and closes it
@@ -84,7 +82,6 @@ Feature: To create a Financial Transactions
 
     Given accountsOfficer logs in
     And user will select the required screen as "Create Journal Voucher"
-#    And officer search for the create journal voucher
     And officer will enter the journal voucher details as <voucherDetails>
     And officer will enter the approval details as <approvalOfficer1>
     And officer will get successful voucher created and closes it
@@ -114,7 +111,6 @@ Feature: To create a Financial Transactions
 
     And accountsOfficer logs in
     And user will select the required screen as "Bill Payment"
-#    And officer search for the bill payment
     And officer will modify the results depending upon the fund and date
     And officer will act upon the above voucher with payment mode as <paymentMode>
 
@@ -149,7 +145,6 @@ Feature: To create a Financial Transactions
 
     Given accountsOfficer logs in
     And user will select the required screen as "New Create Expense Bill"
-#    And officer will search for the new expense bill
     And officer will the expense bill details as <billDetails>
     And officer will enter the expense approval details as <approvalOfficer1>
     And officer will closes the expense acknowledgement page
@@ -215,7 +210,6 @@ Feature: To create a Financial Transactions
 
     Given accountsOfficer logs in
     And user will select the required screen as "Create Journal Voucher"
-#    And officer search for the create journal voucher
     And officer will enter the journal voucher details as <voucherDetails>
     And officer will enter the approval details as <approvalOfficer1>
     And officer will get successful voucher created and closes it
@@ -245,7 +239,6 @@ Feature: To create a Financial Transactions
 
     And accountsOfficer logs in
     And user will select the required screen as "Bill Payment"
-#    And officer search for the bill payment
     And officer will modify the results depending upon the fund and date
     And officer will act upon the above voucher with payment mode as <paymentMode>
 

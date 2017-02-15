@@ -5,7 +5,6 @@ Feature: To create a new Journal voucher according to the budget check
 
     Given accountsOfficer logs in
     And user will select the required screen as "Create Journal Voucher"
-#    And officer search for the create journal voucher
     And officer will enter the journal voucher details as <voucherDetails>
     And officer will enter the approval details as <approvalOfficer1>
     And officer will get successful BAN NUMBER created and closes it

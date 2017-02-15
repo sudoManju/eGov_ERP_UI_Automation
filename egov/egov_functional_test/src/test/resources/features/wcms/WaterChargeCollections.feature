@@ -4,7 +4,7 @@ Feature: To collect water charges in different mode payments
   Background:It will run the data entry screen of property tax as well as logo uploading
 
     Given commissioner logs in
-    When he chooses to create data entry
+    And user will select the required screen as "Data entry screen" with condition as "ptis"
     And he creates a new assessment for a private residential property
     Then dataEntry Details saved successfully
     And he choose to add edit DCB
@@ -16,7 +16,6 @@ Feature: To collect water charges in different mode payments
 
     Given juniorAssistant logs in
     And user will select the required screen as "Apply for New Connection"
-#    And user chooses to apply for new water connection
     And user will enter the details of the new water connection
     And user enter the water management approval details as <approvalOfficer1>
     Then user will get the application number and closes the form
@@ -57,7 +56,6 @@ Feature: To collect water charges in different mode payments
 
     Given juniorAssistant logs in
     And user will select the required screen as "Collect Charges"
-#    And user search for the collect water charges
     And user will enter the consumer number
     And user will pay the water charges with mode as <paymentMode>
     And he closes the payment acknowledgement
@@ -75,7 +73,6 @@ Feature: To collect water charges in different mode payments
 
     Given juniorAssistant logs in
     And user will select the required screen as "Apply for New Connection"
-#    And user chooses to apply for new water connection
     And user will enter the details of the new water connection
     And user enter the water management approval details as <approvalOfficer1>
     Then user will get the application number and closes the form

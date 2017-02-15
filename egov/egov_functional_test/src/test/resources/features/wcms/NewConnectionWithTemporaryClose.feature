@@ -10,7 +10,7 @@ Feature: To create a flow of water management connections and applying a tempora
   Background:It will run the data entry screen of property tax as well as logo uploading
 
     Given commissioner logs in
-    When he chooses to create data entry
+    And user will select the required screen as "Data entry screen" with condition as "ptis"
     And he creates a new assessment for a private residential property
     Then dataEntry Details saved successfully
     And he choose to add edit DCB
@@ -22,7 +22,6 @@ Feature: To create a flow of water management connections and applying a tempora
 
     Given juniorAssistant logs in
     And user will select the required screen as "Apply for New Connection"
-#    And user chooses to apply for new water connection
     And user will enter the details of the new water connection
     And user enter the water management approval details as <approvalOfficer1>
     And user will get the application number and closes the form
@@ -70,7 +69,6 @@ Feature: To create a flow of water management connections and applying a tempora
 
     Given juniorAssistant logs in
     And user will select the required screen as "Apply for Additional Connection"
-#    And user chooses to apply for new additional water connection
     And user will enter the consumer number
     And user will enter the details of the new additional water connection
     Then user will get the application number and closes the form
@@ -118,7 +116,6 @@ Feature: To create a flow of water management connections and applying a tempora
 
     Given juniorAssistant logs in
     And user will select the required screen as "Apply for Change of Use"
-#    And user search to apply for change of use for existing connection
     And user will enter the consumer number
     And user will enter the details of the change of use water connection
     Then user will get the application number and closes the form
@@ -166,7 +163,6 @@ Feature: To create a flow of water management connections and applying a tempora
 
     Given juniorAssistant logs in
     And user will select the required screen as "Apply for Closure of Connection"
-#    And user search to apply for closure of connection
     And user will enter the consumer number
     And user will enter the closure connection details as <closureType>
     And user closes acknowledgement form
@@ -196,7 +192,6 @@ Feature: To create a flow of water management connections and applying a tempora
 
     Given juniorAssistant logs in
     And user will select the required screen as "Apply for Re-Connection"
-#    And user search to apply for re-connection
     And user will enter the consumer number
     And user will enter the re-connection details
     And user closes acknowledgement form

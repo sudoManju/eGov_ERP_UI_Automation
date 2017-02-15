@@ -5,7 +5,7 @@ Feature: Create/renewal/closure of sewerage connection
   Background:It will run the data entry screen of property tax
 
     Given commissioner logs in
-    When he chooses to create data entry
+    And user will select the required screen as "Data entry screen" with condition as "ptis"
     And he creates a new assessment for a private residential property
     Then dataEntry Details saved successfully
     And he choose to add edit DCB
@@ -16,13 +16,11 @@ Feature: Create/renewal/closure of sewerage connection
   Scenario: create/change/closure of sewerage connection
 
     Given creator logs in
-    #And he chooses to create new sewage connection
     And user will select the required screen as "Apply for new connection" with condition as "stms"
     And he create new sewerage connection for above assessment number
     And he forward to assistant engineer and closes the acknowledgement
     Then user will be notified by "forwarded"
 
-    #And he chooses to collect sewerage tax for above application number
     And user will select the required screen as "Collect Sewerage Charges"
     And he search for above application number to collect
     And he collect the charges and closes the acknowledgement
@@ -178,14 +176,12 @@ Feature: Create/renewal/closure of sewerage connection
   Scenario: Generate demand bill for legacy sewerage connection
 
     Given admin logs in
-   # And he chooses to create a legacy sewerage connection
     And user will select the required screen as "Data Entry Screen" with condition as "stms"
     And he enter details for legacy sewerage connection
     And he submit the application of legacy sewerage connection and closes the acknowledgement
     And current user logs out
 
     When creator logs in
-   # And he chooses to search for above sewerage connection
     And user will select the required screen as "search connection" with condition as "stms"
     And he search application and generate demand bill
     And current user logs out

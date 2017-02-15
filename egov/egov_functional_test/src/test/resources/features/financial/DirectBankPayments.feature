@@ -5,7 +5,6 @@ Feature: To create a voucher through direct bank payments
 
     Given accountsOfficer logs in
     And user will select the required screen as "Direct Bank Payments"
-#    And officer will search for the direct bank payments
     And officer will enter the direct bank payment details with <paymentMode>
     And officer will enter the approval details as <approvalOfficer1>
     And officer will see the successful voucher creation page and closes it
@@ -47,7 +46,6 @@ Feature: To create a voucher through direct bank payments
 
     Given accountsOfficer logs in
     And user will select the required screen as "Direct Bank Payments"
-#    And officer will search for the direct bank payments
     And officer will enter the direct bank payment details with <paymentMode>
     And officer will enter the approval details as <approvalOfficer1>
     And officer will see the successful voucher creation page and closes it
