@@ -105,9 +105,9 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).chooseToApplyForClosureConnection();
         });
 
-        When("^he chooses to create new License$", () -> {
-           pageStore.get(DashboardPage.class).chooseToCreateNewLicense();
-        });
+//        When("^he chooses to create new License$", () -> {
+//           pageStore.get(DashboardPage.class).chooseToCreateNewLicense();
+//        });
 
 //        And("^officer search for the create journal voucher$", () -> {
 //            pageStore.get(DashboardPage.class).chooseToApplyForJournalVoucher();
@@ -133,14 +133,14 @@ public class DashboardSteps extends BaseSteps implements En {
 //            pageStore.get(DashboardPage.class).toCreateNewExpenseBill();
 //        });
 
-        And("^he choose to search trade license$", () -> {
-           pageStore.get(DashboardPage.class).searchTradeLicense();
-        });
+//        And("^he choose to search trade license$", () -> {
+//           pageStore.get(DashboardPage.class).searchTradeLicense();
+//        });
 
-        When("^he choose to create legency trade license$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            pageStore.get(DashboardPage.class).searchLegencyTradeLicense();
-        });
+//        When("^he choose to create legency trade license$", () -> {
+//            // Write code here that turns the phrase above into concrete actions
+//            pageStore.get(DashboardPage.class).searchLegencyTradeLicense();
+//        });
 
         And("^user search for the modify detailed code$", () -> {
             pageStore.get(DashboardPage.class).chooseToModifyDetailedCode();
@@ -154,9 +154,9 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).chooseToChangeOfUse();
         });
 
-        When("^he choose to create preamble$", () -> {
-            pageStore.get(DashboardPage.class).choosesToCreatePreamble();
-        });
+//        When("^he choose to create preamble$", () -> {
+//            pageStore.get(DashboardPage.class).choosesToCreatePreamble();
+//        });
 
         And("^user search to data entry screen for water$", () -> {
             pageStore.get(DashboardPage.class).createDataEntryScreenForWater();
@@ -177,19 +177,19 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).createTransferOwnership();
         });
 
-        When("^he choose to create agenda$", () -> {
-            pageStore.get(DashboardPage.class).createAgenda();
-        });
-        When("^he choose to create meeting$", () -> {
-            pageStore.get(DashboardPage.class).createMeeting();
-        });
-        When("^he choose to enter attendance$", () -> {
-           pageStore.get(DashboardPage.class).enterAttendance();
-        });
+//        When("^he choose to create agenda$", () -> {
+//            pageStore.get(DashboardPage.class).createAgenda();
+//        });
+//        When("^he choose to create meeting$", () -> {
+//            pageStore.get(DashboardPage.class).createMeeting();
+//        });
+//        When("^he choose to enter attendance$", () -> {
+//           pageStore.get(DashboardPage.class).enterAttendance();
+//        });
 
-        When("^he choose to create council MOM$", () -> {
-            pageStore.get(DashboardPage.class).createCouncilMOM();
-        });
+//        When("^he choose to create council MOM$", () -> {
+//            pageStore.get(DashboardPage.class).createCouncilMOM();
+//        });
         When("^he chooses mutation fee$", () -> {
             pageStore.get(DashboardPage.class).chooseToPayMutationFee();
         });
@@ -202,9 +202,9 @@ public class DashboardSteps extends BaseSteps implements En {
 //            pageStore.get(DashboardPage.class).chooseToDeactivateAdv();
 //        });
 
-        When("^he choose to do trade license closure$", () -> {
-            pageStore.get(DashboardPage.class).searchTradeLicense();
-        });
+//        When("^he choose to do trade license closure$", () -> {
+//            pageStore.get(DashboardPage.class).searchTradeLicense();
+//        });
 
         And("^he choose to act upon the above licence number$", () -> {
             pageStore.get(DashboardPage.class).openApplication(scenarioContext.getLicenseNumber());
@@ -245,9 +245,9 @@ public class DashboardSteps extends BaseSteps implements En {
 ////            pageStore.get(DashboardPage.class).chooseForDirectBankPayment();
 //        });
 
-        When("^he choose to register complaint$", () -> {
-            pageStore.get(DashboardPage.class).chooseToRegisterComplaint();
-        });
+//        When("^he choose to register complaint$", () -> {
+//            pageStore.get(DashboardPage.class).chooseToRegisterComplaint();
+//        });
 
         And("^choose to act upon the above CRN in his own dratfs$", () -> {
             pageStore.get(DashboardPage.class).openApplicationInDrafts(scenarioContext.getCRN());

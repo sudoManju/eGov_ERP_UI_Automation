@@ -119,8 +119,8 @@ public class DashboardPage extends BasePage {
 //    @FindBy(linkText = "Create Letter of Acceptance")
 //    private WebElement createLOALink;
 
-    @FindBy(linkText = "Create New License")
-    private WebElement createTradeLicense;
+//    @FindBy(linkText = "Create New License")
+//    private WebElement createTradeLicense;
 
     @FindBy(id = "btnsearch")
     private WebElement searchEstimateButton;
@@ -149,11 +149,11 @@ public class DashboardPage extends BasePage {
 //    @FindBy(linkText = "Create Estimate")
 //    private WebElement createEstimateLink;
 
-    @FindBy(linkText = "Search Trade License")
-    private WebElement searchTrade;
+//    @FindBy(linkText = "Search Trade License")
+//    private WebElement searchTrade;
 
-    @FindBy(linkText = "Create Legacy License")
-    private WebElement searchLegencyTrade;
+//    @FindBy(linkText = "Create Legacy License")
+//    private WebElement searchLegencyTrade;
 
     @FindBy(linkText = "Modify Detailed Code")
     private WebElement modifyDetailedCode;
@@ -167,8 +167,8 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Apply for Change of Use")
     private WebElement changeOfUse;
 
-    @FindBy (linkText = "Create Preamble")
-    private WebElement createPreamble;
+//    @FindBy (linkText = "Create Preamble")
+//    private WebElement createPreamble;
 
 //    @FindBy(linkText = "Create Contractor Bill")
 //    private WebElement createContractorBillLink;
@@ -197,22 +197,23 @@ public class DashboardPage extends BasePage {
 //    @FindBy(linkText = "Upload Estimate Photographs")
 //    private WebElement uploadEstimatePhotographslink;
 
-    @FindBy(linkText = "Create Agenda")
-    private WebElement createAgenda;
+//    @FindBy(linkText = "Create Agenda")
+//    private WebElement createAgenda;
 
-    @FindBy(linkText = "Create Meeting invitation")
-    private WebElement createMeetingLink;
+//    @FindBy(linkText = "Create Meeting invitation")
+//    private WebElement createMeetingLink;
 
     @FindBy(linkText = "Search Agency")
     private WebElement searchAgencyLink;
 
-    @FindBy(linkText = "Enter Attendance")
-    private WebElement enterAttendanceLink;
+//    @FindBy(linkText = "Enter Attendance")
+//    private WebElement enterAttendanceLink;
+
     @FindBy(linkText = "Transfer Ownership")
     private WebElement transferOwnershipLink;
 
-    @FindBy(linkText = "Create Council MOM")
-    private WebElement createCouncilMOMlink;
+//    @FindBy(linkText = "Create Council MOM")
+//    private WebElement createCouncilMOMlink;
 
     @FindBy(linkText = "Apply for Re-Connection")
     private WebElement applyForReConnection;
@@ -250,8 +251,8 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "RTGS Assignment")
     private WebElement rtgsAssignment;
 
-    @FindBy(linkText = "Officials Register Grievance")
-    private WebElement officialRegisterGrievanceLink;
+//    @FindBy(linkText = "Officials Register Grievance")
+//    private WebElement officialRegisterGrievanceLink;
 
 //    @FindBy(linkText = "Direct Bank Payments")
 //    private WebElement directBankPayments;
@@ -609,13 +610,13 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-    public void chooseToCreateNewLicense() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Create New License");
-        waitForElementToBeVisible(createTradeLicense, driver);
-        createTradeLicense.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void chooseToCreateNewLicense() {
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchFor("Create New License");
+//        waitForElementToBeVisible(createTradeLicense, driver);
+//        createTradeLicense.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
 //    public void chooseForCreateMilestone() {
 //        waitForElementToBeClickable(searchTreeTextBox, driver);
@@ -640,21 +641,21 @@ public class DashboardPage extends BasePage {
 //        createEstimateLink.click();
 //        switchToNewlyOpenedWindow(driver);
 //    }
-    public void searchTradeLicense() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Search Trade License");
-        waitForElementToBeVisible(searchTrade , driver);
-        searchTrade.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void searchTradeLicense() {
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchFor("Search Trade License");
+//        waitForElementToBeVisible(searchTrade , driver);
+//        searchTrade.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
-    public void searchLegencyTradeLicense() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Create Legacy License");
-        waitForElementToBeVisible(searchLegencyTrade , driver);
-        searchLegencyTrade.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void searchLegencyTradeLicense() {
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchFor("Create Legacy License");
+//        waitForElementToBeVisible(searchLegencyTrade , driver);
+//        searchLegencyTrade.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
     public void chooseToModifyDetailedCode(){
         waitForElementToBeClickable(searchTreeTextBox, driver);
@@ -690,13 +691,13 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-    public void choosesToCreatePreamble() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Create Preamble");
-        waitForElementToBeClickable(createPreamble, driver);
-        createPreamble.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void choosesToCreatePreamble() {
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchFor("Create Preamble");
+//        waitForElementToBeClickable(createPreamble, driver);
+//        createPreamble.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
     public void createDataEntryScreenForWater() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
@@ -784,22 +785,22 @@ public class DashboardPage extends BasePage {
 //        switchToNewlyOpenedWindow(driver);
 //    }
 
-    public void createAgenda() {
-        waitForElementToBeClickable(searchTreeTextBox,driver);
-        searchFor("Create Agenda");
-        waitForElementToBeClickable(createAgenda,driver);
-        createAgenda.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void createAgenda() {
+//        waitForElementToBeClickable(searchTreeTextBox,driver);
+//        searchFor("Create Agenda");
+//        waitForElementToBeClickable(createAgenda,driver);
+//        createAgenda.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
-    public void createMeeting() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchTreeTextBox.clear();
-        searchFor("Create Meeting invitation");
-        waitForElementToBeClickable(createMeetingLink, driver);
-        createMeetingLink.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void createMeeting() {
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchTreeTextBox.clear();
+//        searchFor("Create Meeting invitation");
+//        waitForElementToBeClickable(createMeetingLink, driver);
+//        createMeetingLink.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
     public void chooseToSearchAdvertisementAgency() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
@@ -810,23 +811,23 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-    public void enterAttendance() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchTreeTextBox.clear();
-        searchFor("Enter Attendance");
-        waitForElementToBeClickable(enterAttendanceLink, driver);
-        enterAttendanceLink.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void enterAttendance() {
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchTreeTextBox.clear();
+//        searchFor("Enter Attendance");
+//        waitForElementToBeClickable(enterAttendanceLink, driver);
+//        enterAttendanceLink.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
-    public void createCouncilMOM() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchTreeTextBox.clear();
-        searchFor("Create Council MOM");
-        waitForElementToBeClickable(createCouncilMOMlink, driver);
-        createCouncilMOMlink.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void createCouncilMOM() {
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchTreeTextBox.clear();
+//        searchFor("Create Council MOM");
+//        waitForElementToBeClickable(createCouncilMOMlink, driver);
+//        createCouncilMOMlink.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
     public void createTransferOwnership() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchTreeTextBox.clear();
@@ -926,13 +927,13 @@ public class DashboardPage extends BasePage {
         }
     }
 
-    public void chooseToRegisterComplaint() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchTreeTextBox.click();
-        enterText(searchTreeTextBox, "Officials Register Grievance");
-        officialRegisterGrievanceLink.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void chooseToRegisterComplaint() {
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchTreeTextBox.click();
+//        enterText(searchTreeTextBox, "Officials Register Grievance");
+//        officialRegisterGrievanceLink.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
     public void openApplicationInDrafts(String crn) {
         getApplicationRowInDratf(crn).click();

@@ -175,7 +175,7 @@ public class GrievancesPage extends BasePage {
     public String createInOfficial() {
         createGrievanceOfficialButton.click();
         switchToNewlyOpenedWindow(webDriver);
-        WebElement element= webDriver.findElement(By.xpath("html/body/div[1]/div/div[1]/div/div/div[1]/div/strong"));
+        WebElement element= webDriver.findElement(By.xpath(".//*[@id='main']/div[1]/div/div/div[1]/div/strong"));
         return element.getText();
     }
 

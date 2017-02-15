@@ -9,7 +9,8 @@ Feature: Create Trade License
   @Sanity @TradeLicense
   Scenario Outline: Registered user creating a new license in the system
     Given creator logs in
-    When he chooses to create new License
+    And user will select the required screen as "Create New License"
+#    When he chooses to create new License
     And he enters trade owner details of new license <tradeDetailsData>
     And he enters trade location details of new license <tradeLocationData>
     And he enters trade details of new license <tradeDetailsData1>
@@ -26,7 +27,7 @@ Feature: Create Trade License
 
     Given CSCUser logs in
 #    Given PublicHealthJA logs in
-    When he chooses to create new License
+    And user will select the required screen as "Create New License"
     And he enters trade owner details of new license <tradeDetailsData>
     And he enters trade location details of new license <tradeLocationData>
     And he enters trade details of new license <tradeDetailsData1>
@@ -34,7 +35,8 @@ Feature: Create Trade License
     And current user logs out
 
     When PublicHealthJA logs in
-    And he choose to search trade license
+#    And he choose to search trade license
+    And user will select the required screen as "Search Trade License"
     And he search existing application number
     And he choose to collectfees
     And he choose to payTax of applicationNumber
@@ -70,7 +72,8 @@ Feature: Create Trade License
   @Sanity @TradeLicense
   Scenario Outline: Register user create legacy trade license
     Given creator logs in
-    When he choose to create legency trade license
+#    When he choose to create legency trade license
+    And user will select the required screen as "Create Legacy License"
     And he enters old license number
     And he enters trade owner details of new license <tradeDetailsData>
     And he enters trade location details of new license <tradeLocationData>
@@ -87,7 +90,8 @@ Feature: Create Trade License
   @Sanity @TradeLicense
   Scenario Outline: Registered user choose for trade license closure
     Given creator logs in
-    When he choose to do trade license closure
+#    When he choose to do trade license closure
+    And user will select the required screen as "Search Trade License"
     And he choose a trade license for closure as <closure>
     And he forwards for approver sanitaryInspector
     And he closes the acknowledgement page
@@ -114,7 +118,8 @@ Feature: Create Trade License
   Scenario Outline: Renewal of Trade License
 
     Given creator logs in
-    When he choose to create legency trade license
+#    When he choose to create legency trade license
+    And user will select the required screen as "Create Legacy License"
     And he enters old license number
     And he enters trade owner details of new license <tradeDetailsData>
     And he enters trade location details of new license <tradeLocationData>
@@ -122,7 +127,8 @@ Feature: Create Trade License
     And he enters fee details of legency trade license
     And he copies the license number and closes the acknowledgement
 
-    And he choose to search trade license
+#    And he choose to search trade license
+    And user will select the required screen as "Search Trade License"
     And he choose to search with license number
     And he choose to renew trade license
     And he choose to collectfees

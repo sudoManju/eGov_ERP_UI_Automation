@@ -27,7 +27,8 @@ Feature: Register Complaint
   Scenario Outline:  Official Register Grievance
 
    Given LightingSuperintendent logs in
-   When he choose to register complaint
+#   When he choose to register complaint
+   And user will select the required screen as "Officials Register Grievance" 
    And he choose to enter contact information as <contactDetails>
    And he choose to enter grievance details as <grievanceDetails>
    And official create grievance
@@ -43,7 +44,8 @@ Feature: Register Complaint
   Scenario Outline: Official Register Grievance and forwards
 
     Given LightingSuperintendent logs in
-    When he choose to register complaint
+#    When he choose to register complaint
+    And user will select the required screen as "Officials Register Grievance"
     And he choose to enter contact information as <contactDetails>
     And he choose to enter grievance details as <grievanceDetails>
     And official create grievance
