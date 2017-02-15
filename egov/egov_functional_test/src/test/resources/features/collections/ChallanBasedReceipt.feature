@@ -8,7 +8,8 @@ I am able to Create/Collect Challan Based Receipt
   Scenario Outline: System should be able to Create Challan
 
     Given juniorAssistant logs in
-    And he chooses to create Challan
+   # And he chooses to create Challan
+    And user will select the required screen as "Create Challan"
     And he enters challan details
     And he create challan and closes acknowledgement
     Then user will be notified by "successfully"

@@ -13,9 +13,7 @@ import steps.BaseSteps;
 public class MilestoneTemplateSteps extends BaseSteps implements En {
 
    public MilestoneTemplateSteps(){
-       And("^he chooses to create milestone template$", () -> {
-            pageStore.get(DashboardPage.class).chooseToCreateMilestoneTemplate();
-       });
+
        And("^he enters the milestone template creation details$", () -> {
           pageStore.get(MilestoneTemplatePage.class).enterMilestoneTemplateDetails();
        });
@@ -25,9 +23,7 @@ public class MilestoneTemplateSteps extends BaseSteps implements En {
            scenarioContext.setActualMessage(msg);
            pageStore.get(MilestoneTemplatePage.class).close();
        });
-       And("^he chooses to view milestone template$", () -> {
-          pageStore.get(DashboardPage.class).chooseToViewMilestoneTemplate();
-       });
+
        And("^he enters the details for search$", () -> {
           pageStore.get(MilestoneTemplatePage.class).enterMilestoneTemplateDetailsForView();
        });
@@ -37,9 +33,7 @@ public class MilestoneTemplateSteps extends BaseSteps implements En {
        And("^he views and closes the acknowledgement$", () -> {
            pageStore.get(MilestoneTemplatePage.class).close();
        });
-       And("^he chooses to modify milestone template$", () -> {
-          pageStore.get(DashboardPage.class).chooseToModifyMilestoneTemplate();
-       });
+
        And("^he select the required template for modification$", () -> {
           pageStore.get(MilestoneTemplatePage.class).selectTheRequiredTemplateToModify();
        });

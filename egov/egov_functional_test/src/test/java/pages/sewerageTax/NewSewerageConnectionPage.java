@@ -142,10 +142,6 @@ public class NewSewerageConnectionPage extends BasePage {
     @FindBy(id = "submit")
     private WebElement submitButton;
 
-//    String min = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
-//    String hour = String.valueOf(Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
-//    String min1 = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
-
     public NewSewerageConnectionPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -167,7 +163,7 @@ public class NewSewerageConnectionPage extends BasePage {
         documentDateTextBox.sendKeys(getCurrentDate());
 
         waitForElementToBeClickable(chooseFileButton,driver);
-        chooseFileButton.sendKeys(System.getProperty("user.dir") + "/src/test/resources/loginCredentials.txt");
+        chooseFileButton.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
     }
 
     public void forward() {
@@ -364,7 +360,7 @@ public class NewSewerageConnectionPage extends BasePage {
         documentDateTextBox.sendKeys(getCurrentDate());
 
         waitForElementToBeClickable(chooseFileButton,driver);
-        chooseFileButton.sendKeys(System.getProperty("user.dir") + "/src/test/resources/loginCredentials.txt");
+        chooseFileButton.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
     }
 
     public void selectChangeInClosets() {

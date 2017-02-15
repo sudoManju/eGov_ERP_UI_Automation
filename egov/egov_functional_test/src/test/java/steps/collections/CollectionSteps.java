@@ -57,7 +57,7 @@ public class CollectionSteps extends BaseSteps implements En {
             String msg = pageStore.get(CollectionsPage.class).successMessage();
             scenarioContext.setActualMessage(msg);
 
-          //  pageStore.get(CollectionsPage.class).close();
+            pageStore.get(CollectionsPage.class).close();
         });
         And("^he pay using (\\w+)$", (String paymentMethod) -> {
             PaymentMethod paymentmethod = new ExcelReader(collectionsTestDataFileName).getPaymentMethodDetails(paymentMethod);

@@ -13,9 +13,9 @@ import utils.ExcelReader;
  */
 public class NewSewerageConnectionSteps extends BaseSteps implements En {
     public NewSewerageConnectionSteps(){
-        And("^he chooses to create new sewage connection$", () -> {
-           pageStore.get(DashboardPage.class).chooseForNewSewerageConnection();
-        });
+//        And("^he chooses to create new sewage connection$", () -> {
+//           pageStore.get(DashboardPage.class).chooseForNewSewerageConnection();
+//        });
         And("^he create new sewerage connection for above assessment number$", () -> {
             pageStore.get(NewSewerageConnectionPage.class).createNewConnection(scenarioContext.getAssessmentNumber());
 
@@ -36,9 +36,9 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
             pageStore.get(NewSewerageConnectionPage.class).close();
 
         });
-        And("^he chooses to collect sewerage tax for above application number$", () -> {
-            pageStore.get(DashboardPage.class).chooseToCollectSewerageTax();
-        });
+//        And("^he chooses to collect sewerage tax for above application number$", () -> {
+//            pageStore.get(DashboardPage.class).chooseToCollectSewerageTax();
+//        });
         And("^he search for above application number to collect$", () -> {
             pageStore.get(NewSewerageConnectionPage.class).searchForApplicationNumberToCollect(scenarioContext.getApplicationNumber());
         });
@@ -107,9 +107,9 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
 
             pageStore.get(NewSewerageConnectionPage.class).close();
         });
-        And("^he chooses to search for above sewerage connection$", () -> {
-           pageStore.get(DashboardPage.class).chooseForSearchSewerageConnection();
-        });
+//        And("^he chooses to search for above sewerage connection$", () -> {
+//           pageStore.get(DashboardPage.class).chooseForSearchSewerageConnection();
+//        });
         And("^he search for above sewerage connection$", () -> {
             pageStore.get(NewSewerageConnectionPage.class).searchForAboveSewerageConnection(scenarioContext.getApplicationNumber(), "modifyConnection");
         });
@@ -248,9 +248,9 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
         And("^he generates closure notice$", () -> {
             pageStore.get(NewSewerageConnectionPage.class).generateClosureNotice();
         });
-        And("^he chooses to create a legacy sewerage connection$", () -> {
-           pageStore.get(DashboardPage.class).chooseToCreateLegacySewerageConnection();
-        });
+//        And("^he chooses to create a legacy sewerage connection$", () -> {
+//           pageStore.get(DashboardPage.class).chooseToCreateLegacySewerageConnection();
+//        });
         And("^he enter details for legacy sewerage connection$", () -> {
            pageStore.get(NewSewerageConnectionPage.class).enterDetailsForLegacySewerageConnection(scenarioContext.getAssessmentNumber());
         });

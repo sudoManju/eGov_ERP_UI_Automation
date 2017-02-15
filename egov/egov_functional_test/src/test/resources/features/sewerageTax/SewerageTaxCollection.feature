@@ -16,12 +16,14 @@ Feature: Create/renewal/closure of sewerage connection
   Scenario: create/change/closure of sewerage connection
 
     Given creator logs in
-    And he chooses to create new sewage connection
+    #And he chooses to create new sewage connection
+    And user will select the required screen as "Apply for new connection" with condition as "stms"
     And he create new sewerage connection for above assessment number
     And he forward to assistant engineer and closes the acknowledgement
     Then user will be notified by "forwarded"
 
-    And he chooses to collect sewerage tax for above application number
+    #And he chooses to collect sewerage tax for above application number
+    And user will select the required screen as "Collect Sewerage Charges"
     And he search for above application number to collect
     And he collect the charges and closes the acknowledgement
     And current user logs out
@@ -43,7 +45,7 @@ Feature: Create/renewal/closure of sewerage connection
     And he chooses to act upon above sewerage connection
     And he generates estimation notice for above sewerage application
 
-    And he chooses to collect sewerage tax for above application number
+    And user will select the required screen as "Collect Sewerage Charges"
     And he search for above application number to collect
     And he collect the charges and closes the acknowledgement
 
@@ -77,13 +79,13 @@ Feature: Create/renewal/closure of sewerage connection
      #########################################################
 
     Given creator logs in
-    And he chooses to search for above sewerage connection
+    And user will select the required screen as "search connection" with condition as "stms"
     And he search for above sewerage connection
     And he increses the number of closets
     And he forward to assistant engineer for change in closets and closes the acknowledgement
     Then user will be notified by "forwarded"
 
-    And he chooses to collect sewerage tax for above application number
+    And user will select the required screen as "Collect Sewerage Charges"
     And he search for above application number to collect
     And he collect the charges and closes the acknowledgement
     And current user logs out
@@ -105,7 +107,7 @@ Feature: Create/renewal/closure of sewerage connection
     And he chooses to act upon above sewerage connection for change
     And he generates estimation notice for above sewerage application
 
-    And he chooses to collect sewerage tax for above application number
+    And user will select the required screen as "Collect Sewerage Charges"
     And he search for above application number to collect
     And he collect the charges and closes the acknowledgement
 
@@ -139,7 +141,7 @@ Feature: Create/renewal/closure of sewerage connection
      #########################################################
 
     Given creator logs in
-    And he chooses to search for above sewerage connection
+    And user will select the required screen as "search connection" with condition as "stms"
     And he search for above sewerage application for closure
     And he put remarks and forward the application
     And he forwards for closure and closes the acknowledgement
@@ -176,13 +178,15 @@ Feature: Create/renewal/closure of sewerage connection
   Scenario: Generate demand bill for legacy sewerage connection
 
     Given admin logs in
-    And he chooses to create a legacy sewerage connection
+   # And he chooses to create a legacy sewerage connection
+    And user will select the required screen as "Data Entry Screen" with condition as "stms"
     And he enter details for legacy sewerage connection
     And he submit the application of legacy sewerage connection and closes the acknowledgement
     And current user logs out
 
     When creator logs in
-    And he chooses to search for above sewerage connection
+   # And he chooses to search for above sewerage connection
+    And user will select the required screen as "search connection" with condition as "stms"
     And he search application and generate demand bill
     And current user logs out
 

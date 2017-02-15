@@ -10,18 +10,14 @@ import steps.BaseSteps;
  */
 public class ContractorSteps extends BaseSteps implements En {
     public ContractorSteps() {
-        And("^he chooses to create contractor$", () -> {
-            pageStore.get(ContractorPage.class).chooseToCreateContractor();
-        });
+
         And("^he enters the contractor master data$", () -> {
            String name =  pageStore.get(ContractorPage.class).entersContractorMasterData();
             scenarioContext.setApplicationNumber(name);
             String msg = pageStore.get(ContractorPage.class).successMessage();
             scenarioContext.setActualMessage(msg);
         });
-        And("^he chooses for view or modify contractor$", () -> {
-            pageStore.get(ContractorPage.class).viewContractor();
-        });
+
         And("^he search for contractor$", () -> {
          pageStore.get(ContractorPage.class).searchContractor(scenarioContext.getApplicationNumber());
         });

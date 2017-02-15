@@ -13,9 +13,7 @@ public class LetterOfAcceptanceSteps extends BaseSteps implements En
 {
     public LetterOfAcceptanceSteps()
     {
-        And("^he choose to create letter of acceptance$", () -> {
-           pageStore.get(DashboardPage.class).chooseToCreateLOA();
-        });
+
         And("^he enters the mandatory details$", () -> {
           pageStore.get(LetterOfAcceptancePage.class).enterLOAdetails();
         });
@@ -28,15 +26,11 @@ public class LetterOfAcceptanceSteps extends BaseSteps implements En
 
           pageStore.get(LetterOfAcceptancePage.class).close();
         });
-        And("^he choose to view Letter of Acceptance$", () -> {
-            pageStore.get(DashboardPage.class).chooseToViewLOA();
-        });
+
         And("^he search for LOA$", () -> {
             pageStore.get(LetterOfAcceptancePage.class).searchForLOA(scenarioContext.getWorkNumber());
         });
-        And("^he choose to modify letter of acceptance$", () -> {
-            pageStore.get(DashboardPage.class).chooseToModifyLOA();
-        });
+
         And("^he search for LOA for modify$", () -> {
             pageStore.get(LetterOfAcceptancePage.class).searchForLOAModify(scenarioContext.getWorkNumber());
 

@@ -16,6 +16,8 @@ public class LocalDriver {
         System.out.println("Browser to be tested on --" + browser);
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
+
+
         if (browser.equals("firefox")) {
 
             setFirefoxDriverBasedOnOperatingSystem();

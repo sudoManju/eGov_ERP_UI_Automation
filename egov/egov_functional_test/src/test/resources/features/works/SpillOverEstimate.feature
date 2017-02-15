@@ -6,7 +6,8 @@ Feature: Create Spillover Estimate/Create LOA for Spillover
   Scenario Outline: Create Spillover Line Estimate
 
     Given assis_Engineer logs in
-    When he chooses to create new spillover estimate
+    #When he chooses to create new spillover estimate
+    And user will select the required screen as "Create Spillover Estimate"
     And he enters estimate header details as <estimateHeaderDetails>
     And he enters financial details as <financialDetails>
     And he enters work details as <workDetails>

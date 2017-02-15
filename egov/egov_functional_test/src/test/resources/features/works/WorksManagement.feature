@@ -7,7 +7,8 @@ Feature: Create regular estimate/Create LOA for estimate/Create-Track milestone/
   Scenario Outline: Create Regular Estimate
 
     Given assis_Engineer logs in
-    When he chooses to create new estimate
+  #  When he chooses to create new estimate
+    And user will select the required screen as "create estimate"
     And he enters estimate header details as <estimateHeaderDetails>
     And he enters financial details as <financialDetails>
     And he enters work details as for <workDetails>
@@ -54,16 +55,19 @@ Feature: Create regular estimate/Create LOA for estimate/Create-Track milestone/
   Scenario: Create Letter of Acceptance
 
     When assis_Engineer logs in
-    And he choose to create letter of acceptance
+    #And he choose to create letter of acceptance
+    And user will select the required screen as "Create Letter of Acceptance"
     And he select the required application
     And he enters the mandatory details
     Then he save the file and view the LOA pdf
     Then user will be notified by "successfully"
 
-    And he choose to view Letter of Acceptance
+ #   And he choose to view Letter of Acceptance
+    And user will select the required screen as "Search/View LOA"
     And he search for LOA
 
-    And he choose to modify letter of acceptance
+   # And he choose to modify letter of acceptance
+    And user will select the required screen as "Modify LOA"
     And he search for LOA for modify
     Then user will be notified by "successfully"
     And current user logs out
@@ -73,20 +77,23 @@ Feature: Create regular estimate/Create LOA for estimate/Create-Track milestone/
   Scenario Outline: Create/view of Milestone/Track Milestone/Generate Contractor bill
 
     Given assis_Engineer logs in
-    And he chooses to create milestone
+   # And he chooses to create milestone
+    And user will select the required screen as "create milestone"
     And he search and select the required file
     And he stores the loa number and enters details
     And he save the file and close
     Then user will be notified by "successfully"
 
-    And he chooses to track milestone
+   # And he chooses to track milestone
+    And user will select the required screen as "Track Milestone"
     And he search application using loa number
     And he select the application
     And he enters the milestone details
     And he save the file and close
     Then user will be notified by "successfully"
 
-    And he chooses to create contractor bill
+    #And he chooses to create contractor bill
+    And user will select the required screen as "create contractor bill"
     And he search application using loa number
     And he select the required file
     And he enters contractor details for part bill <approverDetails1>
@@ -100,7 +107,7 @@ Feature: Create regular estimate/Create LOA for estimate/Create-Track milestone/
     And current user logs out
 
     And assis_Engineer logs in
-    And he chooses to create contractor bill
+    And user will select the required screen as "create contractor bill"
     And he search application using loa number
     And he select the required file
     And he enters contractor details for full bill <approverDetails1>

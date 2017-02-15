@@ -35,9 +35,7 @@ public class MilestoneTrackSteps extends BaseSteps implements En {
 
             pageStore.get(MilestoneTrackPage.class).close();
         });
-        And("^he chooses to track milestone$", () -> {
-           pageStore.get(DashboardPage.class).chooseToTrackMileStone();
-        });
+
         And("^he search application using loa number$", () -> {
             pageStore.get(MilestoneTrackPage.class).searchUsingLoa(scenarioContext.getLoaNumber());
         });
@@ -47,9 +45,7 @@ public class MilestoneTrackSteps extends BaseSteps implements En {
         And("^he enters the milestone details$", () -> {
             pageStore.get(MilestoneTrackPage.class).enterTrackMilestoneDetails();
         });
-        And("^he chooses to create contractor bill$", () -> {
-            pageStore.get(DashboardPage.class).createContractorBill();
-        });
+
         And("^he select the required file$", () -> {
            pageStore.get(MilestoneTrackPage.class).select();
 

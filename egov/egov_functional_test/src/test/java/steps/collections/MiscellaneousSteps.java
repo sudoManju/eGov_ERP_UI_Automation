@@ -39,9 +39,7 @@ public class MiscellaneousSteps extends BaseSteps implements En {
            String message = pageStore.get(MiscellaneousPage.class).approveAllCollections();
            scenarioContext.setActualMessage(message);
         });
-        And("^he chooses to search receipts$", () -> {
-           pageStore.get(DashboardPage.class).choosesToSearchReceipt();
-        });
+
         And("^he search for required receipt$", () -> {
             pageStore.get(MiscellaneousPage.class).searchRequiredReceipt();
         });
@@ -52,9 +50,7 @@ public class MiscellaneousSteps extends BaseSteps implements En {
            String message = pageStore.get(MiscellaneousPage.class).cancelReceipt();
            scenarioContext.setActualMessage(message);
         });
-        And("^he chooses to bank remittance$", () -> {
-           pageStore.get(DashboardPage.class).chooseToBankRemittance();
-        });
+
         And("^he select the required file with bank details$", () -> {
            pageStore.get(MiscellaneousPage.class).enterBankDetails();
 

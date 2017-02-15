@@ -29,9 +29,9 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).openApplication(scenarioContext.getAssessmentNumber());
         });
 
-        When("^he chooses to collect taxes$", () -> {
-            pageStore.get(DashboardPage.class).chooseToCollectTaxes();
-        });
+//        When("^he chooses to collect taxes$", () -> {
+//            pageStore.get(DashboardPage.class).chooseToCollectTaxes();
+//        });
 
         When("^he chooses to Data Entry Screen$", () -> {
             pageStore.get(DashboardPage.class).chooseToDataEntryScreen();
@@ -40,13 +40,13 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).chooseToSearchProperty();
         });
 
-        When("^he chooses to create Miscellaneous receipt$", () -> {
-           pageStore.get(DashboardPage.class).createMiscellenous();
-        });
+//        When("^he chooses to create Miscellaneous receipt$", () -> {
+//           pageStore.get(DashboardPage.class).createMiscellenous();
+//        });
 
-        When("^he chooses to create Challan$", () -> {
-            pageStore.get(DashboardPage.class).createChallan();
-        });
+//        When("^he chooses to create Challan$", () -> {
+//            pageStore.get(DashboardPage.class).createChallan();
+//        });
 
         When("^user chooses to data entry screen$", () -> {
             pageStore.get(DashboardPage.class).chooseToCreateNewDataEntryScreen();
@@ -68,9 +68,9 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).chooseToCreateDataEntry();
         });
 
-        When("^he chooses to create new spillover estimate$", () -> {
-            pageStore.get(DashboardPage.class).createSpilloverEstimate();
-        });
+//        When("^he chooses to create new spillover estimate$", () -> {
+//            pageStore.get(DashboardPage.class).createSpilloverEstimate();
+//        });
         And("^user chooses to apply for new additional water connection$", () -> {
             pageStore.get(DashboardPage.class).chooseToAdditionalWaterConnection();
         });
@@ -121,13 +121,13 @@ public class DashboardSteps extends BaseSteps implements En {
 //            pageStore.get(DashboardPage.class).selectForVoucherBill();
 //        });
 
-        And("^he chooses to create milestone$", () -> {
-           pageStore.get(DashboardPage.class).chooseForCreateMilestone();
-        });
+//        And("^he chooses to create milestone$", () -> {
+//           pageStore.get(DashboardPage.class).chooseForCreateMilestone();
+//        });
 
-        When("^he chooses to create new estimate$", () -> {
-           pageStore.get(DashboardPage.class).chooseForCreateEstimate();
-        });
+//        When("^he chooses to create new estimate$", () -> {
+//           pageStore.get(DashboardPage.class).chooseForCreateEstimate();
+//        });
 
 //        And("^officer will search for the new expense bill$", () -> {
 //            pageStore.get(DashboardPage.class).toCreateNewExpenseBill();
@@ -170,9 +170,9 @@ public class DashboardSteps extends BaseSteps implements En {
 //            pageStore.get(DashboardPage.class).createExpenseBillVoucher();
 //        });
 
-        And("^he choose to upload estimate photo$", () -> {
-            pageStore.get(DashboardPage.class).chooseToUploadPhoto();
-        });
+//        And("^he choose to upload estimate photo$", () -> {
+//            pageStore.get(DashboardPage.class).chooseToUploadPhoto();
+//        });
         And("^he choose to do transfer ownership$", () -> {
             pageStore.get(DashboardPage.class).createTransferOwnership();
         });
@@ -225,9 +225,9 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).openApplication(scenarioContext.getCRN());
         });
 
-        And("^he chooses to create marriage registration$", () -> {
-            pageStore.get(DashboardPage.class).chooseToCreateMarriageRegistration();
-        });
+//        And("^he chooses to create marriage registration$", () -> {
+//            pageStore.get(DashboardPage.class).chooseToCreateMarriageRegistration();
+//        });
 
         When("^he choose to create revision petition$", () -> {
            pageStore.get(DashboardPage.class).chooseRevisionPetition();
@@ -261,9 +261,9 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).chooseForGeneralRevisionPetition();
         });
 
-        And("^he chooses data entry in marriage registration$", () -> {
-            pageStore.get(DashboardPage.class).chooseForDataEntry();
-        });
+//        And("^he chooses data entry in marriage registration$", () -> {
+//            pageStore.get(DashboardPage.class).chooseForDataEntry();
+//        });
 
         And("^user search for to create the legal case$", () -> {
             pageStore.get(DashboardPage.class).chooseToCreateLegalCase();
@@ -276,9 +276,9 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).chooseToModifyMarriageRegistration();
         });
 
-        And("^he chooses for Re-Issue Marriage Certifiate$", () -> {
-            pageStore.get(DashboardPage.class).choosesToReIssueCertificate();
-        });
+//        And("^he chooses for Re-Issue Marriage Certifiate$", () -> {
+//            pageStore.get(DashboardPage.class).choosesToReIssueCertificate();
+//        });
 
         And("^user will select the required screen as \"([^\"]*)\"$", (String screenName) -> {
             pageStore.get(DashboardPage.class).chooseScreen(screenName);

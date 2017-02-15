@@ -20,15 +20,6 @@ public class ContractorPage extends BasePage
 {
     private WebDriver driver;
 
-    @FindBy(id = "searchtree")
-    private WebElement searchTreeTextBox;
-
-    @FindBy(linkText = "Create Contractor")
-    private WebElement createContractorLink;
-
-    @FindBy(linkText = "View/Modify Contractor")
-    private WebElement viewContractorlink;
-
     @FindBy(id = "code")
     private WebElement contractorCode;
 
@@ -117,20 +108,6 @@ public class ContractorPage extends BasePage
         this.driver = driver;
     }
 
-    private void searchFor(String value) {
-        enterText(searchTreeTextBox, value);
-    }
-
-    public void chooseToCreateContractor() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Create Contractor");
-        waitForElementToBeVisible(createContractorLink, driver);
-
-        createContractorLink.click();
-
-        switchToNewlyOpenedWindow(driver);
-    }
-
     public String entersContractorMasterData() {
         String Name = "KMC"+get6DigitRandomInt();
         waitForElementToBeClickable(contractorName, driver);
@@ -171,15 +148,6 @@ public class ContractorPage extends BasePage
         saveButton.click();
 
         return Name;
-    }
-
-    public void viewContractor() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchTreeTextBox.clear();
-        searchFor("View/Modify Contractor");
-        waitForElementToBeVisible(viewContractorlink, driver);
-        viewContractorlink.click();
-        switchToNewlyOpenedWindow(driver);
     }
 
     public void searchContractor(String name)

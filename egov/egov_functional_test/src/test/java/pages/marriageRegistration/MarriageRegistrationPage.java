@@ -176,14 +176,22 @@ public class MarriageRegistrationPage extends BasePage {
     @FindBy(id = "button2")
     private WebElement closeButton2;
 
+    @FindBy(id = "applicationNum")
+    private WebElement marriageRegApplNum;
+
+    @FindBy(xpath = ".//*[@id='registrationNum']")
+    private WebElement marriageRegNum;
+
     public MarriageRegistrationPage(WebDriver driver) {
         this.driver = driver;
     }
 
     public void enterApplicantsInformation(MarriageRegistrationInformation marriageRegistrationInformation) {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String date = sdf.format(new Date());
+        waitForElementToBeClickable(marriageRegApplNum, driver);
+        marriageRegApplNum.sendKeys("A"+get6DigitRandomInt());
+        waitForElementToBeClickable(marriageRegNum, driver);
+        marriageRegNum.sendKeys(get6DigitRandomInt());
 
         waitForElementToBeClickable(registrationUnit, driver);
         registrationUnit.sendKeys(marriageRegistrationInformation.getRegistrationUnit());
@@ -196,8 +204,7 @@ public class MarriageRegistrationPage extends BasePage {
         waitForElementToBeClickable(dateOfMarriage, driver);
         dateOfMarriage.clear();
         dateOfMarriage.sendKeys(getPastDate(35));
-//        dateOfMarriage.click();
-//        new Select(todayDatePicker).selectByVisibleText("6");
+
         waitForElementToBeClickable(venueOfMarriage, driver);
         venueOfMarriage.sendKeys(marriageRegistrationInformation.getVenueOfMarriage());
         waitForElementToBeClickable(placeOfMarriage, driver);
@@ -210,9 +217,6 @@ public class MarriageRegistrationPage extends BasePage {
         WebElement fullName = driver.findElement(By.id(name + ".name.firstName"));
         fullName.sendKeys(marriageRegistrationInformation.getFullName());
 
-//        waitForElementToBeClickable(brideFullName, driver);
-//        brideFullName.sendKeys(marriageRegistrationInformation1.getFullName());
-
         waitForElementToBeClickable(lastName.get(0), driver);
         lastName.get(0).sendKeys("N");
         waitForElementToBeClickable(lastName.get(1), driver);
@@ -224,11 +228,6 @@ public class MarriageRegistrationPage extends BasePage {
 
         WebElement religion = driver.findElement((By.id(name + ".religion")));
         religion.sendKeys(marriageRegistrationInformation.getReligion());
-
-//        waitForElementToBeClickable(ageInYearsAsOnMarriage, driver);
-//        ageInYearsAsOnMarriage.sendKeys("32");
-//        waitForElementToBeClickable(ageInMonthsAsOnMarriage, driver);
-//        ageInMonthsAsOnMarriage.sendKeys("0");
 
         WebElement ageInYears = driver.findElement(By.id(name + ".ageInYearsAsOnMarriage"));
         ageInYears.sendKeys("30");
@@ -271,7 +270,7 @@ public class MarriageRegistrationPage extends BasePage {
         for (int i = 0; i <= 3; i++) {
             int res = 0;
             int sum = i + res;
-//            System.out.println(sum);
+
             WebElement witnessName = driver.findElement(By.id("witnesses" + sum + ".name.firstName"));
             witnessName.sendKeys("Witness Names");
             WebElement witnessLastName = driver.findElement(By.id("witnesses" + sum + ".name.lastName"));
@@ -282,12 +281,7 @@ public class MarriageRegistrationPage extends BasePage {
             witnessAge.sendKeys("35");
             WebElement residenceAddress = driver.findElement(By.id("witnesses[" + sum + "].contactInfo.residenceAddress"));
             residenceAddress.sendKeys("Residence Address");
-
-
         }
-
-//        waitForElementToBeClickable(witnessName1, driver);
-//        witnessName1.sendKeys("AAAA");
     }
 
     public void enterChecklist() {
@@ -343,7 +337,6 @@ public class MarriageRegistrationPage extends BasePage {
         waitForElementToBeClickable(inboxTable,driver);
 
         List<WebElement> totalRows = inboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-//        System.out.println("\n "+ totalRows.size());
 
         for (WebElement applicationRow : totalRows){
             if(applicationRow.findElements(By.tagName("td")).get(4).getText().contains(applicationNumber)){
@@ -377,9 +370,9 @@ public class MarriageRegistrationPage extends BasePage {
     public void enterMarriageRegNum() {
         String min = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
         waitForElementToBeClickable(marriageSerialNum, driver);
-        marriageSerialNum.sendKeys("0123"+min);
+        marriageSerialNum.sendKeys(get6DigitRandomInt());
         waitForElementToBeClickable(marriagePageNum, driver);
-        marriagePageNum.sendKeys("0123"+min);
+        marriagePageNum.sendKeys(get6DigitRandomInt());
     }
 
     public String isSuccesful() {
@@ -387,7 +380,6 @@ public class MarriageRegistrationPage extends BasePage {
         jsClick(dataEntrySubmitButton, driver);
         String message = creationMessage.getText();
          return  message;
-//        Assert.assertEquals(expectedMessage,actualMessage);
     }
 
     public void searchForMarriageApplicationNumberToCollect(String applicationNumber) {
@@ -453,8 +445,6 @@ public class MarriageRegistrationPage extends BasePage {
     }
 
     public void entersMemorandumOfMarriage() {
-        String min = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
-        String min1 = String.valueOf(Calendar.getInstance().get(Calendar.MINUTE));
         waitForElementToBeClickable(registrationUnit, driver);
         new Select(registrationUnit).selectByVisibleText("Sarjapur");
         waitForElementToBeClickable(firstName, driver);
@@ -470,7 +460,6 @@ public class MarriageRegistrationPage extends BasePage {
     public String getReIssueNumber() {
         String message = creationMessage.getText();
         return  message;
-//        Assert.assertEquals(expectedMessage,actualMessage);
     }
 
     public void openApplication(String reIssueApplicationNumber) {

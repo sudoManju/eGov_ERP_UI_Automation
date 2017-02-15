@@ -64,9 +64,6 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
             pageStore.get(MarriageRegistrationPage.class).enterMarriageRegNum();
         });
 
-        And("^he choose to collect marriage registration fee$", () -> {
-            pageStore.get(DashboardPage.class).chooseToCollecteMarriageRegitrationFee();
-        });
         And("^he search for above application number to collect marriage Registration fee$", () -> {
             pageStore.get(MarriageRegistrationPage.class).searchForMarriageApplicationNumberToCollect(scenarioContext.getApplicationNumber());
             pageStore.get(MarriageRegistrationPage.class).clickOnCollectDropdown();

@@ -170,9 +170,6 @@ public class SpillOverEstimatePage extends BasePage
             date.sendKeys(Keys.TAB);
         }
 
-        webDriver.findElement(By.id("subject")).sendKeys("Testing");
-        webDriver.findElement(By.id("description")).sendKeys("Testing");
-
         waitForElementToBeClickable(reference, webDriver);
         reference.sendKeys(estimateHeaderDetails.getRequirementNumber());
 
@@ -375,8 +372,6 @@ public class SpillOverEstimatePage extends BasePage
     }
 
     public void openApplication(String estimateNumber) {
-
-//        webDriver.manage().timeouts().pageLoadTimeout(10,TimeUnit.SECONDS);
 
         waitForElementToBePresent(By.cssSelector("table[id='official_inbox'] tbody tr[role='row']"),webDriver);
 

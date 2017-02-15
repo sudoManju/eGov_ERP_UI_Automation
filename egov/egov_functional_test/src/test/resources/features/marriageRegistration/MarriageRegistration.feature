@@ -4,7 +4,8 @@ Feature: Marriage Registration
   @Marriage @Sanity
   Scenario Outline: Create Marriage Registration
     When juniorAssistant logs in
-    And he chooses to create marriage registration
+#    And he chooses to create marriage registration
+    And user will select the required screen as "Create Marriage Registration"
     And he enters the applicants details as <generalInformation>
     And he enters the bridegroom information as <bridegroomInformation> <brideInformation>
     And he enters the Witnesses Information
@@ -13,7 +14,7 @@ Feature: Marriage Registration
     And current user logs out
 
     When creator logs in
-    And he choose to collect marriage registration fee
+    And user will select the required screen as "Collect Fee"
     And he search for above application number to collect marriage Registration fee
     And he collect the charges and closes the acknowledgement
     And current user logs out

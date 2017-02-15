@@ -16,7 +16,8 @@ I am able to Create/Collect Bill Based Receipt
   Scenario Outline: System should be able to collect taxes
 
     Given creator logs in
-    When he chooses to collect taxes
+    #When he chooses to collect taxes
+    And user will select the required screen as "Property Tax"
     And he chooses to collect tax for above assessment number
 
     And he chooses to pay tax
