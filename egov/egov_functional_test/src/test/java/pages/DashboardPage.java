@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
@@ -22,6 +23,9 @@ public class DashboardPage extends BasePage {
 
     @FindBy(id = "searchtree")
     private WebElement searchTreeTextBox;
+
+    @FindBy(css = ".list a")
+    private List<WebElement> searchResults;
 
     @FindBy(linkText = "Create New Property")
     private WebElement createNewPropertyLink;
@@ -68,8 +72,8 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Create Challan")
     private WebElement createChallanLink;
 
-    @FindBy(linkText = "Daily collection report(VLT)")
-    private WebElement vltReport;
+//    @FindBy(linkText = "Daily collection report(VLT)")
+//    private WebElement vltReport;
 
     @FindBy(linkText = "Data Entry Screen")
     private WebElement dataEntryScreen;
@@ -233,6 +237,7 @@ public class DashboardPage extends BasePage {
 
     @FindBy(xpath = "html/body/div[1]/header/nav/div/div[3]/ul/li[2]/a")
     private WebElement profileLink;
+
     @FindBy(linkText = "Create Revision Petition")
     private WebElement createRevisionPetitionLink;
 
@@ -363,8 +368,6 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-
-    //It choose the data entry screen from dashboard
     public void chooseToCreateNewDataEntryScreen() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("Data Entry Screen");
@@ -372,7 +375,8 @@ public class DashboardPage extends BasePage {
 
         dataEntryScreenLinkText.click();
 
-        switchToNewlyOpenedWindow(driver);}
+        switchToNewlyOpenedWindow(driver);
+    }
 
     public void createMiscellenous() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
@@ -399,7 +403,7 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-        public void createSpilloverEstimate()
+    public void createSpilloverEstimate()
     {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("Create Spillover Estimate");
@@ -418,14 +422,14 @@ public class DashboardPage extends BasePage {
 
     }
 
-    public void chooseToFindDailyVLTReports(){
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Daily Collection Report(VLT)");
-        waitForElementToBeVisible(vltReport, driver);
-
-        vltReport.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void chooseToFindDailyVLTReports(){
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchFor("Daily Collection Report(VLT)");
+//        waitForElementToBeVisible(vltReport, driver);
+//
+//        vltReport.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
     public void createChallan() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
@@ -1073,5 +1077,27 @@ public class DashboardPage extends BasePage {
         waitForElementToBeClickable(reIssueMarriageCertLink, driver);
         reIssueMarriageCertLink.click();
         switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseScreen(String screenName) {
+        //Wait all elements to be visible
+        waitForElementToBeClickable(searchTreeTextBox, driver);
+        searchFor(splitSearchName(screenName));
+        waitForElementToBePresent(By.cssSelector(".list a"), driver);
+        searchResults.stream().filter(searchResult -> searchResult.getText().equalsIgnoreCase(screenName)).findFirst().get().click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    public void chooseScreen(String screenName, String condition) {
+        Optional<WebElement> href = searchResults.stream().filter(searchResult -> {
+            return searchResult.getText().equals(screenName) && searchResult.getAttribute("href").contains(condition);
+        }).findFirst();
+        if(href.isPresent()) {
+            href.get().click();
+        }
+    }
+
+    private String splitSearchName(String screeName){
+        return screeName.replaceAll("_", " ");
     }
 }

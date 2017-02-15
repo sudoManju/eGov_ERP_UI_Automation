@@ -17,6 +17,7 @@ public class LocalDriver {
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         if (browser.equals("firefox")) {
+
             setFirefoxDriverBasedOnOperatingSystem();
             return new FirefoxDriver();
         }

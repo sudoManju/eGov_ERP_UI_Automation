@@ -5,7 +5,7 @@ gradle
 .idea
 .xlsx#
 .exe
-.~lock*
+/src/test/resources/.~lock*
 .ipr
 .iws
 egov_functional_test.ipr
@@ -13,3 +13,4 @@ egov_functional_test.iws
 out/
 src/main/
 src/test/groovy/
+.DS_Store

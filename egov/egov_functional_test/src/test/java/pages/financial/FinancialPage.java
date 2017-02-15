@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasePage;
 
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -128,7 +129,7 @@ public class FinancialPage extends BasePage {
     @FindBy(id = "voucherTypeBean.partyName")
     private WebElement voucherPartyName;
 
-    @FindBy(id = "voucherDate")
+    @FindBy(css = "input[type='text'][id='voucherDate']")
     private WebElement voucherDate;
 
     @FindBy(id = "Create And Approve")
@@ -358,7 +359,7 @@ public class FinancialPage extends BasePage {
 
     private List<WebElement> voucherRows;
 
-    private String juneDate = "00";
+    private String userName = "";
 
     public FinancialPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -366,12 +367,6 @@ public class FinancialPage extends BasePage {
 
     public void enterJournalVoucherDetails(FinancialJournalVoucherDetails financialJournalVoucherDetails){
 
-        if(financialJournalVoucherDetails.getDate().split("\\/")[1].equals("06")){
-            juneDate = "06";
-        }
-
-        voucherDate.clear();
-        voucherDate.sendKeys(financialJournalVoucherDetails.getDate() , Keys.TAB);
         new Select(voucherSubType).selectByVisibleText(financialJournalVoucherDetails.getVoucherType());
         if(!financialJournalVoucherDetails.getVoucherType().equals("General")){
             waitForElementToBeClickable(voucherPartyName , webDriver);
@@ -406,7 +401,7 @@ public class FinancialPage extends BasePage {
 
         new Select(ledgerAccount1).selectByVisibleText(webElementList.get(1).getText());
         new Select(ledgerType1).selectByVisibleText("contractor");
-        ledgerCode1.sendKeys("KMC001");
+        ledgerCode1.sendKeys("G Basheer Ahmed");
 
         waitForElementToBeClickable(accountCodeDropdown , webDriver);
         accountCodeDropdown.click();
@@ -418,7 +413,7 @@ public class FinancialPage extends BasePage {
             ledgerAccount2.click();
             new Select(ledgerAccount2).selectByVisibleText(webElementList.get(2).getText());
             new Select(ledgerType2).selectByVisibleText("contractor");
-            ledgerCode2.sendKeys("KMC001");
+            ledgerCode2.sendKeys("G Basheer Ahmed");
 
             waitForElementToBeClickable(accountCodeDropdown , webDriver);
             accountCodeDropdown.click();
@@ -429,12 +424,7 @@ public class FinancialPage extends BasePage {
     public String enterFinanceApprovalDetails(ApprovalDetails approvalDetails) throws ParseException {
 
         webDriver.manage().window().maximize();
-        String userName = "";
-        if(juneDate.contains("06")){
-            createAndApprove.click();
-            juneDate = "00";
-        }
-        else{
+
         waitForElementToBeClickable(approverDepartment ,webDriver);
         new Select(approverDepartment).selectByVisibleText(approvalDetails.getApproverDepartment());
         waitForElementToBeClickable(approverDesignation ,webDriver);
@@ -452,7 +442,11 @@ public class FinancialPage extends BasePage {
         approverPos.getOptions().get(1).click();
 
         forwardButton.click();
-        }
+            try {
+                TimeUnit.SECONDS.sleep(3);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
         return userName;
     }
@@ -542,6 +536,7 @@ public class FinancialPage extends BasePage {
         billSearch.click();
 
         switchToNewlyOpenedWindow(webDriver);
+        waitForElementToBeClickable(expenseBillSearch , webDriver);
         expenseBillSearch.click();
     }
 
@@ -617,9 +612,13 @@ public class FinancialPage extends BasePage {
         new Select(expenseFund).selectByVisibleText(financialExpenseBillDetails.getExpenseFund());
         new Select(expenseDepartment).selectByVisibleText(financialExpenseBillDetails.getExpenseDeparment());
 
+//        expenseFunction.sendKeys("3100" , Keys.TAB);
         expenseFunction.sendKeys(financialExpenseBillDetails.getExpenseFunction());
-        waitForElementToBeVisible( webDriver.findElement(By.className("tt-dropdown-menu")),webDriver);
-        WebElement dropdown = webDriver.findElement(By.className("tt-dataset-0"));
+//        waitForElementToBeVisible( webDriver.findElement(By.className("tt-dropdown-menu")),webDriver);
+        WebElement dropdown = webDriver.findElement(By.xpath(".//*[@id='expensebillheader']/div/div[7]/div[1]/span/span/div"));
+//        WebElement dropdown = webDriver.findElement(By.className("tt-dataset-0"));
+        waitForElementToBeVisible(dropdown,webDriver);
+        waitForElementToBeClickable(dropdown,webDriver);
         dropdown.click();
 
         waitForElementToBeClickable(expenseBillSubType , webDriver);
@@ -728,12 +727,6 @@ public class FinancialPage extends BasePage {
 
     public void enterRemittanceVoucherDetails(FinancialJournalVoucherDetails financialJournalVoucherDetails){
 
-        if(financialJournalVoucherDetails.getDate().split("\\/")[1].equals("06")){
-            juneDate = "06";
-        }
-
-        voucherDate.clear();
-        voucherDate.sendKeys(financialJournalVoucherDetails.getDate() , Keys.TAB);
         new Select(voucherSubType).selectByVisibleText(financialJournalVoucherDetails.getVoucherType());
         if(!financialJournalVoucherDetails.getVoucherType().equals("General")){
             waitForElementToBeClickable(voucherPartyName , webDriver);
@@ -774,7 +767,7 @@ public class FinancialPage extends BasePage {
 
         new Select(ledgerAccount1).selectByVisibleText(webElementList.get(1).getText());
         new Select(ledgerType1).selectByVisibleText("contractor");
-        ledgerCode1.sendKeys("KMC001");
+        ledgerCode1.sendKeys("G Basheer Ahmed");
 
         waitForElementToBeClickable(accountCodeDropdown , webDriver);
         accountCodeDropdown.click();
@@ -896,9 +889,6 @@ public class FinancialPage extends BasePage {
                 chequeAssignmentBill.click();
 
                 waitForElementToBeClickable(rtgsDate , webDriver);
-//                DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-//                Calendar calobj = Calendar.getInstance();
-//                rtgsDate.sendKeys(df.format(calobj.getTime()));
                 rtgsDate.sendKeys(getCurrentDate() , Keys.TAB);
 
                 break;
@@ -914,9 +904,6 @@ public class FinancialPage extends BasePage {
                 remittanceChequeAssignmentNumber.sendKeys(get6DigitRandomInt());
 
                 waitForElementToBeClickable(remittanceChequeDate , webDriver);
-//                DateFormat df1 = new SimpleDateFormat("dd/MM/yyyy");
-//                Calendar calobj1 = Calendar.getInstance();
-//                remittanceChequeDate.sendKeys(df1.format(calobj1.getTime()));
                 remittanceChequeDate.sendKeys(getCurrentDate() , Keys.TAB);
 
                 waitForElementToBeClickable(remittanceFavour , webDriver);
@@ -988,7 +975,7 @@ public class FinancialPage extends BasePage {
 
         new Select(ledgerAccount1).selectByVisibleText("2101001");
         new Select(ledgerType1).selectByVisibleText("contractor");
-        ledgerCode1.sendKeys("KMC001");
+        ledgerCode1.sendKeys("G Basheer Ahmed");
 
         waitForElementToBeClickable(accountCodeDropdown , webDriver);
         accountCodeDropdown.click();
@@ -1011,7 +998,7 @@ public class FinancialPage extends BasePage {
     }
 
     public void enterBankToBankDetails(){
-
+        waitForElementToBeVisible(fundId,webDriver);
         new Select(fundId).selectByVisibleText("Municipal Fund");
         new Select(voucherDepartment).selectByVisibleText("ENGINEERING");
         new Select(voucherFunction).selectByVisibleText("Water Supply");
@@ -1042,6 +1029,7 @@ public class FinancialPage extends BasePage {
 
         waitForElementToBeClickable(bankCloseButton , webDriver);
         bankCloseButton.click();
+
         switchToPreviouslyOpenedWindow(webDriver);
         return message;
     }

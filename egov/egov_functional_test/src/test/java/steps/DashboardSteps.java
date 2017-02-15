@@ -56,9 +56,9 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).chooseToCreateNewWaterConnection();
         });
 
-        And("^user chooses to find the daily collection vlt reports$", () -> {
-            pageStore.get(DashboardPage.class).chooseToFindDailyVLTReports();
-        });
+//        And("^user chooses to find the daily collection vlt reports$", () -> {
+//            pageStore.get(DashboardPage.class).chooseToFindDailyVLTReports();
+//        });
 
         When("^he chooses to addition alteration$", () -> {
             pageStore.get(DashboardPage.class).chooseToAdditionAlteration();
@@ -276,6 +276,9 @@ public class DashboardSteps extends BaseSteps implements En {
         });
         And("^he chooses for Re-Issue Marriage Certifiate$", () -> {
             pageStore.get(DashboardPage.class).choosesToReIssueCertificate();
+        });
+        And("^user will select the required screen as \"([^\"]*)\"$", (String screenName) -> {
+            pageStore.get(DashboardPage.class).chooseScreen(screenName);
         });
     }
 }

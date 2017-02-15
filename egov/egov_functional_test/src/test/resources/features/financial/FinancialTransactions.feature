@@ -86,7 +86,30 @@ Feature: To create a Financial Transactions
     And officer will enter the approval details as <approvalOfficer1>
     And officer will get successful voucher created and closes it
     Then user will be notified by "Created"
+    And current user logs out
 
+    And the next user will be logged in
+    And the officer will click on the above voucher number
+    And officer will enter the approval details as <approvalOfficer2>
+    And officer will closes the acknowledgement page
+    Then user will be notified by "forwarded"
+    And current user logs out
+
+    And the next user will be logged in
+    And the officer will click on the above voucher number
+    And officer will enter the approval details as <approvalOfficer3>
+    And officer will closes the acknowledgement page
+    Then user will be notified by "forwarded"
+    And current user logs out
+
+    And the next user will be logged in
+    And the officer will click on the above voucher number
+    And officer click on approval of the voucher
+    And officer will closes the acknowledgement page
+    Then user will be notified by "approved"
+    And current user logs out
+
+    And accountsOfficer logs in
     And officer search for the bill payment
     And officer will modify the results depending upon the fund and date as <date>
     And officer will act upon the above voucher with payment mode as <paymentMode>
@@ -96,7 +119,6 @@ Feature: To create a Financial Transactions
     And officer will closes the successfull payment page
     And current user logs out
 
-#    And examiner logs in
     And the next user will be logged in
     And the officer will click on the above voucher number
     And officer will enter the approval details as <approvalOfficer3>
@@ -104,7 +126,6 @@ Feature: To create a Financial Transactions
     Then user will be notified by "forwarded"
     And current user logs out
 
-#    And commissioner logs in
     And the next user will be logged in
     And the officer will click on the above voucher number
     And officer click on approval of the voucher
@@ -192,7 +213,30 @@ Feature: To create a Financial Transactions
     And officer will enter the approval details as <approvalOfficer1>
     And officer will get successful voucher created and closes it
     Then user will be notified by "Created"
+    And current user logs out
 
+    And the next user will be logged in
+    And the officer will click on the above voucher number
+    And officer will enter the approval details as <approvalOfficer2>
+    And officer will closes the acknowledgement page
+    Then user will be notified by "forwarded"
+    And current user logs out
+
+    And the next user will be logged in
+    And the officer will click on the above voucher number
+    And officer will enter the approval details as <approvalOfficer3>
+    And officer will closes the acknowledgement page
+    Then user will be notified by "forwarded"
+    And current user logs out
+
+    And the next user will be logged in
+    And the officer will click on the above voucher number
+    And officer click on approval of the voucher
+    And officer will closes the acknowledgement page
+    Then user will be notified by "approved"
+    And current user logs out
+
+    And accountsOfficer logs in
     And officer search for the bill payment
     And officer will modify the results depending upon the fund and date as <date>
     And officer will act upon the above voucher with payment mode as <paymentMode>

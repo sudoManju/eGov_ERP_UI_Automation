@@ -555,7 +555,6 @@ public class AdvertisementsPage extends BasePage {
                 break;
             }
         }
-
         close();
     }
 }
