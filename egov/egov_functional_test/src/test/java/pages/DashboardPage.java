@@ -27,26 +27,14 @@ public class DashboardPage extends BasePage {
     @FindBy(css = ".list a")
     private List<WebElement> searchResults;
 
-//    @FindBy(linkText = "Create New Property")
-//    private WebElement createNewPropertyLink;
-
     @FindBy(linkText = "Data Entry Screen")
     private WebElement dataEntryScreenLink;
-
-//    @FindBy(linkText = "Search Property")
-//    private WebElement searchPropertyLink;
-
-//    @FindBy(linkText = "Property Tax")
-//    private WebElement propertyTaxLink;
 
     @FindBy(linkText = "Collect Charges")
     private WebElement collectChargesLink;
 
     @FindBy(className = "profile-name")
     private WebElement profileNameLink;
-
-//    @FindBy(linkText = "Create Spillover Estimate")
-//    private WebElement createSpilloverEstimate;
 
     @FindBy(linkText = "Sign Out")
     private WebElement signOutLink;
@@ -63,27 +51,6 @@ public class DashboardPage extends BasePage {
     @FindBy(xpath = "//html/body/div[3]/div[2]/div/ul/li[2]/a")
     private WebElement dataEntryScreenLinkText;
 
-//    @FindBy(linkText = "Miscellaneous Receipt")
-//    private WebElement miscellaneousReceipt;
-
-//    @FindBy(linkText = "Apply for New Connection")
-//    private WebElement applyForNewWaterConnection;
-
-//    @FindBy(linkText = "Create Challan")
-//    private WebElement createChallanLink;
-
-//    @FindBy(linkText = "Daily collection report(VLT)")
-//    private WebElement vltReport;
-
-//    @FindBy(linkText = "Data Entry Screen")
-//    private WebElement dataEntryScreen;
-
-//    @FindBy(linkText = "Addition/Alteration of Assessment")
-//    private WebElement additionAlterationLink;
-
-//    @FindBy(linkText = "Apply for Additional Connection")
-//    private WebElement additionalNewWaterConnection;
-
     @FindBy(linkText = "Challan Receipt")
     private WebElement challanReceiptLink;
 
@@ -98,30 +65,6 @@ public class DashboardPage extends BasePage {
     @FindBy(css = "li[class='dropdown'] a[data-original-title ='Drafts']")
     private WebElement draftsLink;
 
-//    @FindBy(linkText = "Collect Tax")
-//    private WebElement collectPropertyTax;
-
-//    @FindBy(linkText = "Apply for Closure of Connection")
-//    private WebElement closureConnection;
-
-//    @FindBy(linkText = "Create Journal Voucher")
-//    private WebElement createJournalVoucher;
-
-//    @FindBy(linkText = "Create Milestone Template")
-//    private WebElement createMilestoneTemplateLink;
-
-//    @FindBy(linkText = "View Milestone Template")
-//    private WebElement viewMilestoneTemplateLink;
-
-//    @FindBy(linkText = "Modify Milestone Template")
-//    private WebElement modifyMilestoneTemplateLink;
-
-//    @FindBy(linkText = "Create Letter of Acceptance")
-//    private WebElement createLOALink;
-
-//    @FindBy(linkText = "Create New License")
-//    private WebElement createTradeLicense;
-
     @FindBy(id = "btnsearch")
     private WebElement searchEstimateButton;
 
@@ -131,110 +74,17 @@ public class DashboardPage extends BasePage {
     @FindBy(id = "btncreateloa")
     private WebElement createLOAButton;
 
-//    @FindBy(linkText = "Bill Payment")
-//    private WebElement voucherBillPayment;
-
-//    @FindBy(linkText = "Search/View LOA")
-//    private WebElement viewLOA;
-
-//    @FindBy(linkText = "Modify LOA")
-//    private WebElement modifyLOALink;
-
-//    @FindBy(linkText = "Create Milestone")
-//    private WebElement createMilestoneLink;
-
-//    @FindBy(linkText = "New Create Expense Bill")
-//    private WebElement createExpenseBill;
-
-//    @FindBy(linkText = "Create Estimate")
-//    private WebElement createEstimateLink;
-
-//    @FindBy(linkText = "Search Trade License")
-//    private WebElement searchTrade;
-
-//    @FindBy(linkText = "Create Legacy License")
-//    private WebElement searchLegencyTrade;
-
     @FindBy(linkText = "Modify Detailed Code")
     private WebElement modifyDetailedCode;
-
-//    @FindBy(linkText = "Create Remittance Recovery")
-//    private WebElement createRemittanceRecovery;
-
-//    @FindBy(linkText = "Track Milestone")
-//    private WebElement trackMilestoneLink;
-
-//    @FindBy(linkText = "Apply for Change of Use")
-//    private WebElement changeOfUse;
-
-//    @FindBy (linkText = "Create Preamble")
-//    private WebElement createPreamble;
-
-//    @FindBy(linkText = "Create Contractor Bill")
-//    private WebElement createContractorBillLink;
-
-//    @FindBy(linkText = "Create Advertisement")
-//    private WebElement createAdvertisementLink;
-
-//    @FindBy(linkText = "Search Advertisement")
-//    private WebElement searchAdvertisementLink;
-
-//    @FindBy(linkText = "Create Legacy Advertisement")
-//    private WebElement createLegacyAdvertisementLink;
-
-//    @FindBy(linkText = "Update Legacy Advertisements")
-//    private WebElement updateLegacyAdvertisementLink;
-
-//    @FindBy(linkText = "Create Voucher")
-//    private WebElement createExpenseBillVoucher;
-
-//    @FindBy(linkText = "Collect Advertisement Tax")
-//    private WebElement collectAdvertisementTaxLink;
-
-//    @FindBy(linkText = "Create Agency")
-//    private WebElement createAgencyLink;
-
-//    @FindBy(linkText = "Upload Estimate Photographs")
-//    private WebElement uploadEstimatePhotographslink;
-
-//    @FindBy(linkText = "Create Agenda")
-//    private WebElement createAgenda;
-
-//    @FindBy(linkText = "Create Meeting invitation")
-//    private WebElement createMeetingLink;
-
-    @FindBy(linkText = "Search Agency")
-    private WebElement searchAgencyLink;
-
-//    @FindBy(linkText = "Enter Attendance")
-//    private WebElement enterAttendanceLink;
 
     @FindBy(linkText = "Transfer Ownership")
     private WebElement transferOwnershipLink;
 
-//    @FindBy(linkText = "Create Council MOM")
-//    private WebElement createCouncilMOMlink;
-
-//    @FindBy(linkText = "Apply for Re-Connection")
-//    private WebElement applyForReConnection;
-
-//    @FindBy(linkText = "Deactivate Advertisement")
-//    private WebElement deactivateAdvertisementLink;
-
     @FindBy(linkText = "Property Mutation Fee")
     private WebElement propertyMutationFeeLink;
 
-//    @FindBy(linkText = "Collect Charges")
-//    private WebElement collectWaterCharges;
-
     @FindBy(xpath = ".//*[@id='cityForm']/div[2]/div/button[3]")
     private WebElement closeButton;
-
-//    @FindBy(linkText = "Bank Remittance")
-//    private WebElement bankRemittanceLink;
-
-//    @FindBy(linkText = "Advertisement Renewal")
-//    private WebElement renewalAdvertisementLink;
 
     @FindBy(xpath = "html/body/div[1]/header/nav/div/div[3]/ul/li[2]/a")
     private WebElement profileLink;
@@ -242,78 +92,15 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Create Revision Petition")
     private WebElement createRevisionPetitionLink;
 
-//    @FindBy(linkText = "Create Marriage Registration")
-//    private WebElement createMarriageRegistrationLink;
-
     @FindBy(linkText = "Cheque Assignment")
     private List<WebElement> chequeAssignment;
 
     @FindBy(linkText = "RTGS Assignment")
     private WebElement rtgsAssignment;
 
-//    @FindBy(linkText = "Officials Register Grievance")
-//    private WebElement officialRegisterGrievanceLink;
-
-//    @FindBy(linkText = "Direct Bank Payments")
-//    private WebElement directBankPayments;
-
-//    @FindBy(css = "a[href^='/stms']")
-//    private WebElement newSewerageConnectionLink;
-
-//    @FindBy(linkText = "Collect Sewerage Charges")
-//    private WebElement collectSewerageTaxesLink;
-
-//    @FindBy(linkText = "Bank to Bank Transfer")
-//    private WebElement bankToBankTransfer;
-
-//    @FindBy(css = "a[href='/stms/existing/sewerage']")
-//    private WebElement searchSewerageConnectionLink;
-
-//    @FindBy(linkText = "General Revision Petition")
-//    private WebElement generalRevisionPetitionLink;
-
-//    @FindBy(linkText = "Create Legal Case")
-//    private WebElement createLegalCase;
-
-//    @FindBy(linkText = "Search Legal Case")
-//    private WebElement searchLegalCase;
-
-//    @FindBy(css = "a[href='/mrs/registration/createdataentry']")
-//    private WebElement marriageRegDataEntryLink;
-
-//    @FindBy(linkText = "Collect Fee")
-//    private  WebElement collectMarriageFeeLink;
-
-//    @FindBy(linkText = "Modify Marriage Registration")
-//    private WebElement modifyMarriageRegistrationLink;
-
-//    @FindBy(linkText = "Re Issue Marriage Certifiate")
-//    private WebElement reIssueMarriageCertLink;
-
-
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
     }
-
-//    public void chooseToSearchProperty(){
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("search property");
-//        waitForElementToBeVisible(searchPropertyLink, driver);
-//
-//        searchPropertyLink.click();
-//
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseToCreateNewProperty() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Create New Property");
-//        waitForElementToBeVisible(createNewPropertyLink, driver);
-//
-//        createNewPropertyLink.click();
-//
-//        switchToNewlyOpenedWindow(driver);
-//    }
 
     public void chooseToDataEntryScreen(){
         waitForElementToBeClickable(searchTreeTextBox, driver);
@@ -355,14 +142,6 @@ public class DashboardPage extends BasePage {
         throw new RuntimeException("No application row found for -- " + applicationNumber);
     }
 
-//    public void chooseToCollectTaxes() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Property Tax");
-//        waitForElementToBeVisible(propertyTaxLink, driver);
-//        propertyTaxLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
     public void chooseToCreateNewDataEntryScreen() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("Data Entry Screen");
@@ -372,78 +151,6 @@ public class DashboardPage extends BasePage {
 
         switchToNewlyOpenedWindow(driver);
     }
-
-//    public void createMiscellenous() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("miscellaneous receipt");
-//        waitForElementToBeVisible(miscellaneousReceipt,driver);
-//        miscellaneousReceipt.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseToCreateDataEntry() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchTreeTextBox.clear();
-//        searchFor("Data Entry Screen");
-//        waitForElementToBeVisible(dataEntryScreen, driver);
-//        dataEntryScreen.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseToAdditionAlteration() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Addition/Alteration of Assessment");
-//        waitForElementToBeVisible(additionAlterationLink, driver);
-//        additionAlterationLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void createSpilloverEstimate()
-//    {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Create Spillover Estimate");
-//        waitForElementToBeVisible(createSpilloverEstimate, driver);
-//        createSpilloverEstimate.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseToCreateNewWaterConnection(){
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Apply for New Connection");
-//        waitForElementToBeVisible(applyForNewWaterConnection, driver);
-//
-//        applyForNewWaterConnection.click();
-//        switchToNewlyOpenedWindow(driver);
-//
-//    }
-
-//    public void chooseToFindDailyVLTReports(){
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Daily Collection Report(VLT)");
-//        waitForElementToBeVisible(vltReport, driver);
-//
-//        vltReport.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void createChallan() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Create Challan");
-//
-//        waitForElementToBeVisible(createChallanLink, driver);
-//        createChallanLink.click();
-//
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseToAdditionalWaterConnection(){
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Apply for Additional Connection");
-//        waitForElementToBeVisible(additionalNewWaterConnection, driver);
-//
-//        additionalNewWaterConnection.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
 
     public void chooseToSearchForChallanReceipt() {
 
@@ -519,88 +226,6 @@ public class DashboardPage extends BasePage {
 
        switchToNewlyOpenedWindow(driver);
     }
-//    public void choosePropertyTaxCollection() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Collect Tax");
-//        waitForElementToBeVisible(collectPropertyTax, driver);
-//        collectPropertyTax.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseToApplyForClosureConnection(){
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Apply for Closure of Connection");
-//        waitForElementToBeVisible(closureConnection , driver);
-//        closureConnection.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-
-//    public void chooseToApplyForJournalVoucher(){
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Create Journal Voucher");
-//        waitForElementToBeClickable(createJournalVoucher ,driver);
-//        createJournalVoucher.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseToCreateMilestoneTemplate() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Create milestone template");
-//        waitForElementToBeClickable(createMilestoneTemplateLink,driver);
-//        createMilestoneTemplateLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseToViewMilestoneTemplate() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("View milestone template");
-//        waitForElementToBeClickable(viewMilestoneTemplateLink,driver);
-//        viewMilestoneTemplateLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseToModifyMilestoneTemplate() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Modify milestone template");
-//        waitForElementToBeClickable(modifyMilestoneTemplateLink, driver);
-//        modifyMilestoneTemplateLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-//    public void chooseToCreateLOA() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Create Letter of Acceptance");
-//        waitForElementToBeClickable(createLOALink, driver);
-//        createLOALink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseToModifyLOA() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchTreeTextBox.clear();
-//        searchFor("Modify LOA");
-//        waitForElementToBeVisible(modifyLOALink, driver);
-//        modifyLOALink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseToViewLOA()
-//    {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchTreeTextBox.clear();
-//        searchFor("Search/View LOA");
-//        waitForElementToBeClickable(viewLOA, driver);
-//        viewLOA.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void selectForVoucherBill() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Bill Payment");
-//        waitForElementToBeClickable(voucherBillPayment, driver);
-//        voucherBillPayment.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
 
     public void chooseTopayWaterCharge() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
@@ -610,53 +235,6 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-//    public void chooseToCreateNewLicense() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Create New License");
-//        waitForElementToBeVisible(createTradeLicense, driver);
-//        createTradeLicense.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseForCreateMilestone() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("create milestone");
-//        waitForElementToBeVisible(createMilestoneLink, driver);
-//        createMilestoneLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void toCreateNewExpenseBill(){
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("New Create Expense Bill");
-//        waitForElementToBeVisible(createExpenseBill , driver);
-//        createExpenseBill.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseForCreateEstimate() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("create estimate");
-//        waitForElementToBeVisible(createEstimateLink, driver);
-//        createEstimateLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-//    public void searchTradeLicense() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Search Trade License");
-//        waitForElementToBeVisible(searchTrade , driver);
-//        searchTrade.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void searchLegencyTradeLicense() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Create Legacy License");
-//        waitForElementToBeVisible(searchLegencyTrade , driver);
-//        searchLegencyTrade.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
     public void chooseToModifyDetailedCode(){
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("Modify detailed Code");
@@ -665,169 +243,6 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-//    public void createRemittanceRecovery(){
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Create Remittance Recovery");
-//        waitForElementToBeVisible(createRemittanceRecovery , driver);
-//        createRemittanceRecovery.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-
-//    public void chooseToTrackMileStone() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchTreeTextBox.clear();
-//        searchFor("Track Milestone");
-//        waitForElementToBeVisible(trackMilestoneLink, driver);
-//        trackMilestoneLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseToChangeOfUse(){
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Apply for Change of Use");
-//        waitForElementToBeVisible(changeOfUse , driver);
-//        changeOfUse.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void choosesToCreatePreamble() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Create Preamble");
-//        waitForElementToBeClickable(createPreamble, driver);
-//        createPreamble.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void createDataEntryScreenForWater() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Data Entry Screen");
-//        List<WebElement> dataEntryList = driver.findElements(By.linkText("Data Entry Screen"));
-//        waitForElementToBeVisible(dataEntryList.get(1), driver);
-//        dataEntryList.get(1).click();
-//        switchToNewlyOpenedWindow(driver);
-//
-//    }
-
-//    public void createContractorBill() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchTreeTextBox.clear();
-//        searchFor("create contractor bill");
-//        waitForElementToBeVisible(createContractorBillLink,driver);
-//        createContractorBillLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseToCreateAdvertisement() {
-//        waitForElementToBeClickable(searchTreeTextBox,driver);
-//        searchFor("create advertisement");
-//        waitForElementToBeVisible(createAdvertisementLink,driver);
-//        createAdvertisementLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseToSearchAdvertisement() {
-//        waitForElementToBeClickable(searchTreeTextBox,driver);
-//        searchFor("search advertisement");
-//        waitForElementToBeVisible(searchAdvertisementLink,driver);
-//        searchAdvertisementLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseForCreateLegacyAdvertisements() {
-//        waitForElementToBeClickable(searchTreeTextBox,driver);
-//        searchFor("create legacy advertisement");
-//        waitForElementToBeVisible(createLegacyAdvertisementLink,driver);
-//        createLegacyAdvertisementLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseToUpdateLegacyAdvertisements() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchTreeTextBox.clear();
-//        searchFor("update legacy advertisement");
-//        waitForElementToBeVisible(updateLegacyAdvertisementLink, driver);
-//        updateLegacyAdvertisementLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void createExpenseBillVoucher() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchTreeTextBox.clear();
-//        searchFor("Create Voucher");
-//        waitForElementToBeVisible(createExpenseBillVoucher, driver);
-//        createExpenseBillVoucher.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseToCollectAdvTax() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchTreeTextBox.clear();
-//        searchFor("Collect Advertisement Tax");
-//        waitForElementToBeVisible(collectAdvertisementTaxLink, driver);
-//        collectAdvertisementTaxLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseToCreateAdvertisementAgency() {
-//        waitForElementToBeClickable(searchTreeTextBox,driver);
-//        searchFor("create agency");
-//        waitForElementToBeVisible(createAgencyLink,driver);
-//        createAgencyLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseToUploadPhoto() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Upload Estimate Photographs");
-//        waitForElementToBeClickable(uploadEstimatePhotographslink, driver);
-//        uploadEstimatePhotographslink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void createAgenda() {
-//        waitForElementToBeClickable(searchTreeTextBox,driver);
-//        searchFor("Create Agenda");
-//        waitForElementToBeClickable(createAgenda,driver);
-//        createAgenda.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void createMeeting() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchTreeTextBox.clear();
-//        searchFor("Create Meeting invitation");
-//        waitForElementToBeClickable(createMeetingLink, driver);
-//        createMeetingLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-    public void chooseToSearchAdvertisementAgency() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchTreeTextBox.clear();
-        searchFor("search agency");
-        waitForElementToBeClickable(searchAgencyLink, driver);
-        searchAgencyLink.click();
-        switchToNewlyOpenedWindow(driver);
-    }
-
-//    public void enterAttendance() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchTreeTextBox.clear();
-//        searchFor("Enter Attendance");
-//        waitForElementToBeClickable(enterAttendanceLink, driver);
-//        enterAttendanceLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void createCouncilMOM() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchTreeTextBox.clear();
-//        searchFor("Create Council MOM");
-//        waitForElementToBeClickable(createCouncilMOMlink, driver);
-//        createCouncilMOMlink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
     public void createTransferOwnership() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchTreeTextBox.clear();
@@ -837,21 +252,6 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-//    public void chooseReConnection() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Apply for Re-Connection");
-//        waitForElementToBeClickable(applyForReConnection, driver);
-//        applyForReConnection.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseToDeactivateAdv() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Deactivate Advertisement");
-//        waitForElementToBeClickable(deactivateAdvertisementLink, driver);
-//        deactivateAdvertisementLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
     public void chooseToPayMutationFee() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("Property Mutation Fee");
@@ -860,40 +260,6 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-//    public void choosesToSearchReceipt() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("search receipt");
-//        WebElement searchReceiptLink = driver.findElement(By.linkText("Search Receipts"));
-//        waitForElementToBeClickable(searchReceiptLink, driver);
-//        searchReceiptLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseToCollectWaterCharges(){
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Collect Charges");
-//        waitForElementToBeClickable(collectWaterCharges, driver);
-//        collectWaterCharges.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseToBankRemittance() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("bank remittance");
-//        waitForElementToBeClickable(bankRemittanceLink,driver);
-//        bankRemittanceLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void choosesToRenewalAdvertisement() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchTreeTextBox.clear();
-//        searchFor("renewal");
-//        waitForElementToBeClickable(renewalAdvertisementLink,driver);
-//        renewalAdvertisementLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
     public void chooseRevisionPetition() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("Create Revision Petition");
@@ -901,14 +267,6 @@ public class DashboardPage extends BasePage {
         createRevisionPetitionLink.click();
         switchToNewlyOpenedWindow(driver);
     }
-
-//    public void chooseToCreateMarriageRegistration() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Create Marriage Registration");
-//        waitForElementToBeClickable(createMarriageRegistrationLink, driver);
-//        createMarriageRegistrationLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
 
     public void chooseForModeOFAssignment(String mode){
         waitForElementToBeClickable(searchTreeTextBox, driver);
@@ -926,14 +284,6 @@ public class DashboardPage extends BasePage {
             switchToNewlyOpenedWindow(driver);
         }
     }
-
-//    public void chooseToRegisterComplaint() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchTreeTextBox.click();
-//        enterText(searchTreeTextBox, "Officials Register Grievance");
-//        officialRegisterGrievanceLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
 
     public void openApplicationInDrafts(String crn) {
         getApplicationRowInDratf(crn).click();
@@ -962,112 +312,6 @@ public class DashboardPage extends BasePage {
         switchToNewlyOpenedWindow(driver);
     }
 
-//    public void chooseForDirectBankPayment() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Direct Bank Payments");
-//        waitForElementToBeClickable(directBankPayments, driver);
-//        directBankPayments.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseForNewSewerageConnection() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Apply for new connection");
-//        waitForElementToBeClickable(newSewerageConnectionLink,driver);
-//        newSewerageConnectionLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseToCollectSewerageTax() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchTreeTextBox.clear();
-//        searchFor("collect sewerage charges");
-//        waitForElementToBeClickable(collectSewerageTaxesLink,driver);
-//        collectSewerageTaxesLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void choosesBankToBankTransfers(){
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchTreeTextBox.clear();
-//        searchFor("Bank to Bank Transfer");
-//        waitForElementToBeClickable(bankToBankTransfer,driver);
-//        bankToBankTransfer.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseForSearchSewerageConnection() {
-//       waitForElementToBeClickable(searchTreeTextBox, driver);
-//       searchFor("search connection");
-//       waitForElementToBeClickable(searchSewerageConnectionLink,driver);
-//       searchSewerageConnectionLink.click();
-//       switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseForGeneralRevisionPetition() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("General Revision Petition");
-//        waitForElementToBeClickable(generalRevisionPetitionLink, driver);
-//        generalRevisionPetitionLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseToCreateLegacySewerageConnection() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Data entry screen");
-//        waitForElementToBeClickable(newSewerageConnectionLink, driver);
-//        newSewerageConnectionLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseToCreateLegalCase(){
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Create Legal Case");
-//        waitForElementToBeClickable(createLegalCase, driver);
-//        createLegalCase.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseToSearchLegalCase() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Search Legal Case");
-//        waitForElementToBeClickable(searchLegalCase, driver);
-//        searchLegalCase.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseForDataEntry() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchTreeTextBox.click();
-//        searchFor("Data Entry Screen");
-//        waitForElementToBeClickable(marriageRegDataEntryLink, driver);
-//        marriageRegDataEntryLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseToCollecteMarriageRegitrationFee() {
-//            waitForElementToBeClickable(searchTreeTextBox, driver);
-//            searchFor("Collect Fee");
-//            waitForElementToBeClickable(collectMarriageFeeLink,driver);
-//            collectMarriageFeeLink.click();
-//            switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void chooseToModifyMarriageRegistration() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Modify Marriage Registration");
-//        waitForElementToBeClickable(modifyMarriageRegistrationLink, driver);
-//        modifyMarriageRegistrationLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-
-//    public void choosesToReIssueCertificate() {
-//        waitForElementToBeClickable(searchTreeTextBox, driver);
-//        searchFor("Re Issue Marriage Certifiate");
-//        waitForElementToBeClickable(reIssueMarriageCertLink, driver);
-//        reIssueMarriageCertLink.click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
 
     public void chooseScreen(String screenName) {
         //Wait all elements to be visible

@@ -109,9 +109,7 @@ public class AdvertisementsSteps extends BaseSteps implements En {
 
             pageStore.get(AdvertisementsPage.class).CloseAgency();
         });
-        And("^he chooses to search advertisement agency$", () -> {
-            pageStore.get(DashboardPage.class).chooseToSearchAdvertisementAgency();
-        });
+
         And("^he enter details for search agency$", () -> {
             pageStore.get(AdvertisementsPage.class).searchAgency(scenarioContext.getAssessmentNumber());
         });
