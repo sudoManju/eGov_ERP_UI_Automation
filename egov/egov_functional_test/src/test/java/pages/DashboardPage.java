@@ -27,14 +27,14 @@ public class DashboardPage extends BasePage {
     @FindBy(css = ".list a")
     private List<WebElement> searchResults;
 
-    @FindBy(linkText = "Create New Property")
-    private WebElement createNewPropertyLink;
+//    @FindBy(linkText = "Create New Property")
+//    private WebElement createNewPropertyLink;
 
     @FindBy(linkText = "Data Entry Screen")
     private WebElement dataEntryScreenLink;
 
-    @FindBy(linkText = "Search Property")
-    private WebElement searchPropertyLink;
+//    @FindBy(linkText = "Search Property")
+//    private WebElement searchPropertyLink;
 
 //    @FindBy(linkText = "Property Tax")
 //    private WebElement propertyTaxLink;
@@ -75,11 +75,11 @@ public class DashboardPage extends BasePage {
 //    @FindBy(linkText = "Daily collection report(VLT)")
 //    private WebElement vltReport;
 
-    @FindBy(linkText = "Data Entry Screen")
-    private WebElement dataEntryScreen;
+//    @FindBy(linkText = "Data Entry Screen")
+//    private WebElement dataEntryScreen;
 
-    @FindBy(linkText = "Addition/Alteration of Assessment")
-    private WebElement additionAlterationLink;
+//    @FindBy(linkText = "Addition/Alteration of Assessment")
+//    private WebElement additionAlterationLink;
 
     @FindBy(linkText = "Apply for Additional Connection")
     private WebElement additionalNewWaterConnection;
@@ -98,8 +98,8 @@ public class DashboardPage extends BasePage {
     @FindBy(css = "li[class='dropdown'] a[data-original-title ='Drafts']")
     private WebElement draftsLink;
 
-    @FindBy(linkText = "Collect Tax")
-    private WebElement collectPropertyTax;
+//    @FindBy(linkText = "Collect Tax")
+//    private WebElement collectPropertyTax;
 
     @FindBy(linkText = "Apply for Closure of Connection")
     private WebElement closureConnection;
@@ -269,8 +269,8 @@ public class DashboardPage extends BasePage {
 //    @FindBy(css = "a[href='/stms/existing/sewerage']")
 //    private WebElement searchSewerageConnectionLink;
 
-    @FindBy(linkText = "General Revision Petition")
-    private WebElement generalRevisionPetitionLink;
+//    @FindBy(linkText = "General Revision Petition")
+//    private WebElement generalRevisionPetitionLink;
 
     @FindBy(linkText = "Create Legal Case")
     private WebElement createLegalCase;
@@ -284,8 +284,8 @@ public class DashboardPage extends BasePage {
 //    @FindBy(linkText = "Collect Fee")
 //    private  WebElement collectMarriageFeeLink;
 
-    @FindBy(linkText = "Modify Marriage Registration")
-    private WebElement modifyMarriageRegistrationLink;
+//    @FindBy(linkText = "Modify Marriage Registration")
+//    private WebElement modifyMarriageRegistrationLink;
 
 //    @FindBy(linkText = "Re Issue Marriage Certifiate")
 //    private WebElement reIssueMarriageCertLink;
@@ -295,25 +295,25 @@ public class DashboardPage extends BasePage {
         this.driver = driver;
     }
 
-    public void chooseToSearchProperty(){
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("search property");
-        waitForElementToBeVisible(searchPropertyLink, driver);
+//    public void chooseToSearchProperty(){
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchFor("search property");
+//        waitForElementToBeVisible(searchPropertyLink, driver);
+//
+//        searchPropertyLink.click();
+//
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
-        searchPropertyLink.click();
-
-        switchToNewlyOpenedWindow(driver);
-    }
-
-    public void chooseToCreateNewProperty() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Create New Property");
-        waitForElementToBeVisible(createNewPropertyLink, driver);
-
-        createNewPropertyLink.click();
-
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void chooseToCreateNewProperty() {
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchFor("Create New Property");
+//        waitForElementToBeVisible(createNewPropertyLink, driver);
+//
+//        createNewPropertyLink.click();
+//
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
     public void chooseToDataEntryScreen(){
         waitForElementToBeClickable(searchTreeTextBox, driver);
@@ -381,22 +381,22 @@ public class DashboardPage extends BasePage {
 //        switchToNewlyOpenedWindow(driver);
 //    }
 
-    public void chooseToCreateDataEntry() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchTreeTextBox.clear();
-        searchFor("Data Entry Screen");
-        waitForElementToBeVisible(dataEntryScreen, driver);
-        dataEntryScreen.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void chooseToCreateDataEntry() {
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchTreeTextBox.clear();
+//        searchFor("Data Entry Screen");
+//        waitForElementToBeVisible(dataEntryScreen, driver);
+//        dataEntryScreen.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
-    public void chooseToAdditionAlteration() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Addition/Alteration of Assessment");
-        waitForElementToBeVisible(additionAlterationLink, driver);
-        additionAlterationLink.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void chooseToAdditionAlteration() {
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchFor("Addition/Alteration of Assessment");
+//        waitForElementToBeVisible(additionAlterationLink, driver);
+//        additionAlterationLink.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
 //    public void createSpilloverEstimate()
 //    {
@@ -519,13 +519,13 @@ public class DashboardPage extends BasePage {
 
        switchToNewlyOpenedWindow(driver);
     }
-    public void choosePropertyTaxCollection() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Collect Tax");
-        waitForElementToBeVisible(collectPropertyTax, driver);
-        collectPropertyTax.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void choosePropertyTaxCollection() {
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchFor("Collect Tax");
+//        waitForElementToBeVisible(collectPropertyTax, driver);
+//        collectPropertyTax.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
     public void chooseToApplyForClosureConnection(){
         waitForElementToBeClickable(searchTreeTextBox, driver);
@@ -1004,13 +1004,13 @@ public class DashboardPage extends BasePage {
 //       switchToNewlyOpenedWindow(driver);
 //    }
 
-    public void chooseForGeneralRevisionPetition() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("General Revision Petition");
-        waitForElementToBeClickable(generalRevisionPetitionLink, driver);
-        generalRevisionPetitionLink.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void chooseForGeneralRevisionPetition() {
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchFor("General Revision Petition");
+//        waitForElementToBeClickable(generalRevisionPetitionLink, driver);
+//        generalRevisionPetitionLink.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
 //    public void chooseToCreateLegacySewerageConnection() {
 //        waitForElementToBeClickable(searchTreeTextBox, driver);
@@ -1053,13 +1053,13 @@ public class DashboardPage extends BasePage {
 //            switchToNewlyOpenedWindow(driver);
 //    }
 
-    public void chooseToModifyMarriageRegistration() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
-        searchFor("Modify Marriage Registration");
-        waitForElementToBeClickable(modifyMarriageRegistrationLink, driver);
-        modifyMarriageRegistrationLink.click();
-        switchToNewlyOpenedWindow(driver);
-    }
+//    public void chooseToModifyMarriageRegistration() {
+//        waitForElementToBeClickable(searchTreeTextBox, driver);
+//        searchFor("Modify Marriage Registration");
+//        waitForElementToBeClickable(modifyMarriageRegistrationLink, driver);
+//        modifyMarriageRegistrationLink.click();
+//        switchToNewlyOpenedWindow(driver);
+//    }
 
 //    public void choosesToReIssueCertificate() {
 //        waitForElementToBeClickable(searchTreeTextBox, driver);

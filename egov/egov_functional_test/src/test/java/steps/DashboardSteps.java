@@ -9,9 +9,9 @@ import pages.wcms.WaterChargeManagementPage;
 public class DashboardSteps extends BaseSteps implements En {
     public DashboardSteps() {
 
-        When("^he chooses to create new property$", () -> {
-            pageStore.get(DashboardPage.class).chooseToCreateNewProperty();
-        });
+//        When("^he chooses to create new property$", () -> {
+//            pageStore.get(DashboardPage.class).chooseToCreateNewProperty();
+//        });
 
         And("^current user logs out$", () -> {
             pageStore.get(DashboardPage.class).logOut();
@@ -36,9 +36,9 @@ public class DashboardSteps extends BaseSteps implements En {
         When("^he chooses to Data Entry Screen$", () -> {
             pageStore.get(DashboardPage.class).chooseToDataEntryScreen();
         });
-        When("^he chooses to search property$", () -> {
-            pageStore.get(DashboardPage.class).chooseToSearchProperty();
-        });
+//        When("^he chooses to search property$", () -> {
+//            pageStore.get(DashboardPage.class).chooseToSearchProperty();
+//        });
 
 //        When("^he chooses to create Miscellaneous receipt$", () -> {
 //           pageStore.get(DashboardPage.class).createMiscellenous();
@@ -60,13 +60,13 @@ public class DashboardSteps extends BaseSteps implements En {
 //            pageStore.get(DashboardPage.class).chooseToFindDailyVLTReports();
 //        });
 
-        When("^he chooses to addition alteration$", () -> {
-            pageStore.get(DashboardPage.class).chooseToAdditionAlteration();
-        });
+//        When("^he chooses to addition alteration$", () -> {
+//            pageStore.get(DashboardPage.class).chooseToAdditionAlteration();
+//        });
 
-        When("^he chooses to create data entry$", () -> {
-            pageStore.get(DashboardPage.class).chooseToCreateDataEntry();
-        });
+//        When("^he chooses to create data entry$", () -> {
+//            pageStore.get(DashboardPage.class).chooseToCreateDataEntry();
+//        });
 
 //        When("^he chooses to create new spillover estimate$", () -> {
 //            pageStore.get(DashboardPage.class).createSpilloverEstimate();
@@ -97,9 +97,9 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).openReceipt("official_inbox");
         });
 
-        When("^he chooses to collect tax of property$", () -> {
-            pageStore.get(DashboardPage.class).choosePropertyTaxCollection();
-        });
+//        When("^he chooses to collect tax of property$", () -> {
+//            pageStore.get(DashboardPage.class).choosePropertyTaxCollection();
+//        });
 
         And("^user search to apply for closure of connection$", () -> {
             pageStore.get(DashboardPage.class).chooseToApplyForClosureConnection();
@@ -257,9 +257,9 @@ public class DashboardSteps extends BaseSteps implements En {
 //            pageStore.get(DashboardPage.class).choosesBankToBankTransfers();
 //        });
 
-        And("^he choose to do general revision petition$", () -> {
-            pageStore.get(DashboardPage.class).chooseForGeneralRevisionPetition();
-        });
+//        And("^he choose to do general revision petition$", () -> {
+//            pageStore.get(DashboardPage.class).chooseForGeneralRevisionPetition();
+//        });
 
 //        And("^he chooses data entry in marriage registration$", () -> {
 //            pageStore.get(DashboardPage.class).chooseForDataEntry();
@@ -272,9 +272,9 @@ public class DashboardSteps extends BaseSteps implements En {
         And("^user search for the recent legal case file$", () -> {
             pageStore.get(DashboardPage.class).chooseToSearchLegalCase();
         });
-        And("^he choose to modify marriage registration$", () -> {
-            pageStore.get(DashboardPage.class).chooseToModifyMarriageRegistration();
-        });
+//        And("^he choose to modify marriage registration$", () -> {
+//            pageStore.get(DashboardPage.class).chooseToModifyMarriageRegistration();
+//        });
 
 //        And("^he chooses for Re-Issue Marriage Certifiate$", () -> {
 //            pageStore.get(DashboardPage.class).choosesToReIssueCertificate();

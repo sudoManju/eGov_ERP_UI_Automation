@@ -5,7 +5,7 @@ Feature: Marriage Registration
   Scenario Outline: Modify Marriage Registration
 
     When commissioner logs in
-    And he chooses data entry in marriage registration
+    And user will select the required screen as "Data Entry Screen" with condition as "mrs"
     And he enters the applicants details as <generalInformation>
     And he enters the bridegroom information as <bridegroomInformation> <brideInformation>
     And he enters the serial and page number
@@ -17,7 +17,8 @@ Feature: Marriage Registration
     And current user logs out
 
     When commissioner logs in
-    And he choose to modify marriage registration
+#    And he choose to modify marriage registration
+    And user will select the required screen as "Modify Marriage Registration"
     And he search the marrige application
     And he modify application and update it
     Then user will be notified by "successfully."

@@ -10,7 +10,8 @@ Feature: Create New Property
   Scenario Outline: Registered user creating a new property in the system
     Given juniorAssistant logs in
 
-    When he chooses to create new property
+#    When he chooses to create new property
+    And user will select the required screen as "Create New Property"
     And he enters property header details as <propertyHeaderDetails>
     And he enters owner details for the first owner as <ownerDetails>
     And he enters property address details as <propertyAddressDetails>
@@ -69,7 +70,8 @@ Feature: Create New Property
   Scenario: Registered user create property through data entry screen
 
     Given commissioner logs in
-    When he chooses to create data entry
+#    When he chooses to create data entry
+    And user will select the required screen as "Data entry screen" with condition as "ptis"
     And he creates a new assessment for a private residential property
     Then dataEntry Details saved successfully
     And he choose to add edit DCB
@@ -81,7 +83,8 @@ Feature: Create New Property
   Scenario Outline: Registered user Update existing property
 
     Given commissioner logs in
-    When he chooses to create data entry
+#    When he chooses to create data entry
+    And user will select the required screen as "Data entry screen" with condition as "ptis"
     And he creates a new assessment for a private residential property
     Then dataEntry Details saved successfully
     And he choose to add edit DCB
@@ -89,7 +92,8 @@ Feature: Create New Property
     And current user logs out
 
     Given juniorAssistant logs in
-    When he chooses to addition alteration
+#    When he chooses to addition alteration
+    And user will select the required screen as "Addition/Alteration of Assessment"
     And he searches for assessment with number "1016042569"
     And he updates assessment details as <editAssessmentDetails>
     And he enters amenities as <amenitiesDetails>
@@ -143,7 +147,7 @@ Feature: Create New Property
   Scenario Outline: Register Choose to do title Transfer
 
     Given commissioner logs in
-    When he chooses to create data entry
+    And user will select the required screen as "data entry screen" with condition as "ptis"
     And he creates a new assessment for a private residential property
     Then dataEntry Details saved successfully
     And he choose to add edit DCB
@@ -151,7 +155,8 @@ Feature: Create New Property
     And current user logs out
 
     Given juniorAssistant logs in
-    When he chooses to collect tax of property
+#    When he chooses to collect tax of property
+    And user will select the required screen as "collect tax"
     And he searches for assessment with number "1016000077"
     And he chooses to pay tax
     And he pay tax using Cash
@@ -215,7 +220,8 @@ Feature: Create New Property
   Scenario Outline: Register user choose to do revision petition of property
 
     Given juniorAssistant logs in
-    When he chooses to create new property
+#    When he chooses to create new property
+    And user will select the required screen as "Data entry screen" with condition as "ptis"
     And he enters property header details as <propertyHeaderDetails>
     And he enters owner details for the first owner as <ownerDetails>
     And he enters property address details as <propertyAddressDetails>
@@ -335,7 +341,8 @@ Feature: Create New Property
    Scenario Outline: Register user choose to do general revision petition of property
 
      Given commissioner logs in
-     When he chooses to create data entry
+#     When he chooses to create data entry
+     And user will select the required screen as "Data entry screen" with condition as "ptis"
      And he creates a new assessment for a private residential property
      Then dataEntry Details saved successfully
      And he choose to add edit DCB
@@ -343,12 +350,14 @@ Feature: Create New Property
      And current user logs out
 
      Given juniorAssistant logs in
-     When he chooses to collect tax of property
+#     When he chooses to collect tax of property
+     And user will select the required screen as "collect tax"
      And he searches for assessment with number "1016000077"
      And he chooses to pay tax
      And he pay tax using Cash
 
-     And he choose to do general revision petition
+#     And he choose to do general revision petition
+     And user will select the required screen as "General Revision Petition"
      And he searches for assessment with number "1016042569"
 
      And he choose revision petition header

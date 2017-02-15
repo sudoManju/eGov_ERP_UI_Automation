@@ -10,7 +10,8 @@ Feature: search property
 
     Given Admin logs in
 
-    When he chooses to search property
+#    When he chooses to search property
+    And user will select the required screen as "search property"
     And he search property with <searchDetails>
     And he check total number of records found
     And current user closes acknowledgement
