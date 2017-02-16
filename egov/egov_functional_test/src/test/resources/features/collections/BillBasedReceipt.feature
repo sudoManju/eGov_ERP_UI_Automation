@@ -23,7 +23,6 @@ I am able to Create/Collect Bill Based Receipt
     And he collect tax using <paymentMode>
     And user closes the acknowledgement
 
-    And he clicks on drafts
     And he open application from drafts items
     And he submit all collections
     Then user will be notified by "Successfully"
@@ -40,7 +39,7 @@ I am able to Create/Collect Bill Based Receipt
     Examples:
       |paymentMode|
       |cash       |
-      |cheque     |
-      |dd         |
-      |directBank1|
+#      |cheque     |
+#      |dd         |
+#      |directBank1|
 

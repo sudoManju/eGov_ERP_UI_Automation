@@ -13,9 +13,6 @@ import utils.ExcelReader;
  */
 public class NewSewerageConnectionSteps extends BaseSteps implements En {
     public NewSewerageConnectionSteps(){
-//        And("^he chooses to create new sewage connection$", () -> {
-//           pageStore.get(DashboardPage.class).chooseForNewSewerageConnection();
-//        });
         And("^he create new sewerage connection for above assessment number$", () -> {
             pageStore.get(NewSewerageConnectionPage.class).createNewConnection(scenarioContext.getAssessmentNumber());
 
@@ -36,9 +33,6 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
             pageStore.get(NewSewerageConnectionPage.class).close();
 
         });
-//        And("^he chooses to collect sewerage tax for above application number$", () -> {
-//            pageStore.get(DashboardPage.class).chooseToCollectSewerageTax();
-//        });
         And("^he search for above application number to collect$", () -> {
             pageStore.get(NewSewerageConnectionPage.class).searchForApplicationNumberToCollect(scenarioContext.getApplicationNumber());
         });
@@ -48,9 +42,7 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
            pageStore.get(NewSewerageConnectionPage.class).closeMultipleWindows("/stms/collectfee/search");
         });
         And("^he chooses to act upon above sewerage connection$", () -> {
-           pageStore.get(NewSewerageConnectionPage.class).SelectSewerageTax();
-
-           pageStore.get(NewSewerageConnectionPage.class).selectAboveApplication(scenarioContext.getApplicationNumber());
+            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
         });
         And("^he approve the above sewerage application$", () -> {
            pageStore.get(NewSewerageConnectionPage.class).approveTheApplication();
@@ -107,9 +99,7 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
 
             pageStore.get(NewSewerageConnectionPage.class).close();
         });
-//        And("^he chooses to search for above sewerage connection$", () -> {
-//           pageStore.get(DashboardPage.class).chooseForSearchSewerageConnection();
-//        });
+
         And("^he search for above sewerage connection$", () -> {
             pageStore.get(NewSewerageConnectionPage.class).searchForAboveSewerageConnection(scenarioContext.getApplicationNumber(), "modifyConnection");
         });
@@ -133,9 +123,8 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
             pageStore.get(NewSewerageConnectionPage.class).close();
         });
         And("^he chooses to act upon above sewerage connection for change$", () -> {
-            pageStore.get(NewSewerageConnectionPage.class).selectChangeInClosets();
+            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
 
-            pageStore.get(NewSewerageConnectionPage.class).selectAboveApplication(scenarioContext.getApplicationNumber());
         });
         And("^he forward to DEE for change and close the acknowledgement$", () -> {
             String approverDetailsDataId = "DeputyExecutiveEngineer_1";
@@ -191,10 +180,7 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
 
         });
         And("^he chooses to act upon above sewerage connection for closure$", () -> {
-           pageStore.get(NewSewerageConnectionPage.class).selectClosureConnection();
-
-           pageStore.get(NewSewerageConnectionPage.class).selectAboveApplication(scenarioContext.getApplicationNumber());
-
+            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
         });
         And("^he forwards to DEE for closure and close the acknowledgement$", () -> {
             String approverDetailsDataId = "DeputyExecutiveEngineer_1";
@@ -248,9 +234,7 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
         And("^he generates closure notice$", () -> {
             pageStore.get(NewSewerageConnectionPage.class).generateClosureNotice();
         });
-//        And("^he chooses to create a legacy sewerage connection$", () -> {
-//           pageStore.get(DashboardPage.class).chooseToCreateLegacySewerageConnection();
-//        });
+
         And("^he enter details for legacy sewerage connection$", () -> {
            pageStore.get(NewSewerageConnectionPage.class).enterDetailsForLegacySewerageConnection(scenarioContext.getAssessmentNumber());
         });

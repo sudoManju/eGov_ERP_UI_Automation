@@ -6,6 +6,7 @@ import entities.works.*;
 
 import org.junit.Assert;
 import pages.BasePage;
+import pages.DashboardPage;
 import pages.works.SpillOverEstimatePage;
 import steps.BaseSteps;
 import utils.ExcelReader;
@@ -70,7 +71,7 @@ public class SpillOverEstimateSteps extends BaseSteps implements En {
             pageStore.get(SpillOverEstimatePage.class).close();
         });
         And("^he clicks on estimate and opens the application$", () -> {
-            pageStore.get(SpillOverEstimatePage.class).openApplication(scenarioContext.getEstimateNumber());
+            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getEstimateNumber());
         });
         And("^he enters the AdminSanctionNumber$", () -> {
            pageStore.get(SpillOverEstimatePage.class).adminSanctionNumber();

@@ -107,12 +107,6 @@ public class MarriageRegistrationPage extends BasePage {
     @FindBy(css = "input[id='inboxsearch'][type='text']")
     private WebElement inboxSearchTextBox;
 
-    @FindBy(id = "official_inbox")
-    private WebElement inboxTable;
-
-    @FindBy(css = "li[role='presentation'] a[data-now='Marriage%20Registration%20%3A%3A%20New%20Registration']")
-    private WebElement marraigeRegistrationsLink;
-
     @FindBy(id = "Approve")
     private WebElement approveButton;
 
@@ -166,9 +160,6 @@ public class MarriageRegistrationPage extends BasePage {
 
     @FindBy(id = "marriageRegistrationType")
     private WebElement marriageRegistrationType;
-
-    @FindBy(css = "li[role='presentation'] a[data-now='Marriage%20Registration%20%3A%3A%20Re-Issue']")
-    private WebElement reIssueCertificateTab;
 
     @FindBy(id = "official_inbox_wrapper")
     private WebElement workListTable;
@@ -327,32 +318,6 @@ public class MarriageRegistrationPage extends BasePage {
         closeButton1.click();
         switchToPreviouslyOpenedWindow(driver);
     }
-    public void searchForApplicationInbox(String applicationNumber) {
-        waitForElementToBeVisible(inboxSearchTextBox,driver);
-        inboxSearchTextBox.sendKeys(applicationNumber);
-    }
-
-    public void selectAboveApplication(String applicationNumber) {
-        waitForElementToBeVisible(inboxTable,driver);
-        waitForElementToBeClickable(inboxTable,driver);
-
-        List<WebElement> totalRows = inboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-
-        for (WebElement applicationRow : totalRows){
-            if(applicationRow.findElements(By.tagName("td")).get(4).getText().contains(applicationNumber)){
-                applicationRow.click();
-                break;
-            }
-        }
-
-        switchToNewlyOpenedWindow(driver);
-    }
-
-    public void searchForMarriageRegistration() {
-        waitForElementToBeVisible(marraigeRegistrationsLink,driver);
-        marraigeRegistrationsLink.click();
-    }
-
 
     public void approve() {
         waitForElementToBeClickable(approveButton,driver);
@@ -460,24 +425,6 @@ public class MarriageRegistrationPage extends BasePage {
     public String getReIssueNumber() {
         String message = creationMessage.getText();
         return  message;
-    }
-
-    public void openApplication(String reIssueApplicationNumber) {
-        waitForElementToBeVisible(reIssueCertificateTab,driver);
-        reIssueCertificateTab.click();
-        System.out.println(reIssueApplicationNumber);
-
-        waitForElementToBePresent(By.cssSelector("table[id='official_inbox'] tbody tr[role='row']"),driver);
-
-        await().atMost(30, SECONDS).until(() -> workListTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 0);
-        List<WebElement> totalRows = workListTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-        System.out.println("\n" + totalRows.size());
-        for (WebElement applicationRow : totalRows) {
-            if (applicationRow.findElements(By.tagName("td")).get(4).getText().contains(reIssueApplicationNumber))
-                applicationRow.click();
-            break;
-        }
-        switchToNewlyOpenedWindow(driver);
     }
 
     public void closeApplication() {

@@ -23,8 +23,7 @@ public class MiscellaneousSteps extends BaseSteps implements En {
             pageStore.get(MiscellaneousPage.class).enterPaymentDetails(paymentmethod, paymentMode);
         });
         And("^he chooses to act upon the above receipt in drafts$", () -> {
-           pageStore.get(MiscellaneousPage.class).openAboveReceipt("official_drafts");
-
+           pageStore.get(DashboardPage.class).openApplicationNew("Entry Fees");
         });
         And("^he submit all collections$", () -> {
           String message =  pageStore.get(MiscellaneousPage.class).submitAllCollections();
@@ -34,7 +33,7 @@ public class MiscellaneousSteps extends BaseSteps implements En {
            pageStore.get(MiscellaneousPage.class).close();
         });
         And("^he chooses to act upon the above receipt in inbox$", () -> {
-            pageStore.get(MiscellaneousPage.class).openAboveReceipt("official_inbox");
+            pageStore.get(DashboardPage.class).openApplicationNew("Entry Fees");
         });
         And("^he approves all collections$", () -> {
            String message = pageStore.get(MiscellaneousPage.class).approveAllCollections();

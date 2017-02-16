@@ -254,28 +254,6 @@ public class MiscellaneousPage extends BasePage{
 
     }
 
-    public void openAboveReceipt(String tableId) {
-
-        WebElement table = driver.findElement(By.id(tableId));
-
-        waitForElementToBeVisible(table,driver);
-
-        await().atMost(10, SECONDS).until(() -> table.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
-        List<WebElement> totalRows = table.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-        System.out.println("\n"+totalRows.size());
-
-        List<WebElement> requiredRows = new ArrayList<>();
-
-        for(WebElement applicationRow : totalRows ){
-            if(applicationRow.findElements(By.tagName("td")).get(4).getText().contains("Entry Fees")){
-                requiredRows.add(applicationRow);
-            }
-        }
-        requiredRows.get(0).click();
-
-        switchToNewlyOpenedWindow(driver);
-    }
-
     public String submitAllCollections() {
         waitForElementToBeVisible(submitAllCollectionsButton,driver);
         WebElement element = driver.findElement(By.cssSelector("input[value = 'Submit All Collections'][type='submit']"));

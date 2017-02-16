@@ -50,8 +50,7 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
             pageStore.get(MarriageRegistrationPage.class).close();
         });
         And("^he choose to act upon the above new marriage application number$", () -> {
-           pageStore.get(MarriageRegistrationPage.class).searchForMarriageRegistration();
-           pageStore.get(MarriageRegistrationPage.class).selectAboveApplication(scenarioContext.getApplicationNumber());
+             pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
         });
         And("^he approve the new marriage application  and close the acknowledgement$", () -> {
            pageStore.get(MarriageRegistrationPage.class).approve();
@@ -78,7 +77,6 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
         And("^he search the marrige application$", () -> {
             pageStore.get(MarriageRegistrationPage.class).searchForApplicationToModify(scenarioContext.getApplicationNumber());
             pageStore.get(MarriageRegistrationPage.class).clickOnEditButton();
-
         });
         And("^he modify application and update it$", () -> {
             pageStore.get(MarriageRegistrationPage.class).modifyAndUpdateMarriageApplication();
@@ -111,13 +109,14 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
             scenarioContext.setApplicationNumber(number);
             pageStore.get(MarriageRegistrationPage.class).close();
         });
-        And("^he clicks on re issue marriage certificate and opens the application$", () -> {
-            pageStore.get(MarriageRegistrationPage.class).openApplication(scenarioContext.getApplicationNumber());
-        });
+
         And("^he re issue the marriage application  and close the acknowledgement$", () -> {
             pageStore.get(MarriageRegistrationPage.class).approve();
             pageStore.get(MarriageRegistrationPage.class).closeApplication();
-//            scenarioContext.setActualMessage(pageStore.get(MarriageRegistrationPage.class).getSuccessMessage());
+        });
+
+        And("^he clicks on re issue marriage certificate and opens the application$", () -> {
+            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
         });
     }
 }

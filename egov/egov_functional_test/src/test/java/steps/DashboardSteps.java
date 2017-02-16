@@ -13,27 +13,23 @@ public class DashboardSteps extends BaseSteps implements En {
         });
 
         And("^chooses to act upon the above create application$", () -> {
-            pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
+            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
         });
 
         And("^chooses to act upon the above assessment$", () -> {
-            pageStore.get(DashboardPage.class).openApplication(scenarioContext.getAssessmentNumber());
+            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getAssessmentNumber());
         });
 
         And("^chooses to act upon the above challan$", () -> {
-            pageStore.get(DashboardPage.class).openApplication(scenarioContext.getChallanNumber());
-        });
-
-        And("^he clicks on drafts$", () -> {
-            pageStore.get(DashboardPage.class).openDrafts();
+            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getChallanNumber());
         });
 
         And("^he open application from drafts items$", () -> {
-            pageStore.get(DashboardPage.class).openCollection("official_drafts");
+            pageStore.get(DashboardPage.class).openApplicationNew("Property Tax");
         });
 
         And("^he chooses to act upon on receipt$", () -> {
-            pageStore.get(DashboardPage.class).openReceipt("official_inbox");
+            pageStore.get(DashboardPage.class).openApplicationNew("Property Tax");
         });
 
         When("^he chosses to collect water charges$", () -> {
@@ -41,21 +37,21 @@ public class DashboardSteps extends BaseSteps implements En {
         });
 
         And("^he chooses to act upon the above preamble number$", () -> {
-            pageStore.get(DashboardPage.class).openApplication(scenarioContext.getPreambleNumber());
+            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getPreambleNumber());
         });
 
         And("^he choose to act upon the above licence number$", () -> {
-            pageStore.get(DashboardPage.class).openApplication(scenarioContext.getLicenseNumber());
+            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getLicenseNumber());
             System.out.println("Closure License Number"+scenarioContext.getLicenseNumber());
         });
 
         And("^he choose to act upon the above application number$", () -> {
-           pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
+           pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
             System.out.println("Application Number"+scenarioContext.getApplicationNumber());
         });
 
         And("^choose to act upon the above CRN$", () -> {
-            pageStore.get(DashboardPage.class).openApplication(scenarioContext.getCRN());
+            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getCRN());
         });
 
         And("^officer search for the assignment mode as (\\w+)$", (String assignmentMode) -> {
@@ -63,7 +59,7 @@ public class DashboardSteps extends BaseSteps implements En {
         });
 
         And("^choose to act upon the above CRN in his own dratfs$", () -> {
-            pageStore.get(DashboardPage.class).openApplicationInDrafts(scenarioContext.getCRN());
+            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getCRN());
         });
 
         And("^user will select the required screen as \"([^\"]*)\"$", (String screenName) -> {

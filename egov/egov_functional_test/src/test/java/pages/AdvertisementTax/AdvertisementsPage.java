@@ -86,13 +86,7 @@ public class AdvertisementsPage extends BasePage {
     private WebElement creationMsgForDeactivation;
 
     @FindBy(linkText = "Close")
-     private WebElement closeLink;
-
-    @FindBy(css = "li[role='presentation'] a[data-now^='Advertisement']")
-    private WebElement advertisementLink;
-
-    @FindBy(id = "official_inbox_wrapper")
-    private WebElement workListTable;
+    private WebElement closeLink;
 
     @FindBy(id = "approvalComent")
     private WebElement commentBox;
@@ -319,24 +313,6 @@ public class AdvertisementsPage extends BasePage {
 
      switchToPreviouslyOpenedWindow(driver);
     }
-
-
-    public void selectAdvertisementTag(String applicationNumber) {
-         waitForElementToBeVisible(advertisementLink,driver);
-         advertisementLink.click();
-
-         await().atMost(25, SECONDS).until(() -> workListTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 0);
-        List<WebElement> totalRows = workListTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-        System.out.println("\n"+totalRows.size());
-        for (WebElement applicationRow : totalRows) {
-            if (applicationRow.findElements(By.tagName("td")).get(4).getText().contains(applicationNumber))
-                applicationRow.click();
-            break;
-        }
-
-        switchToNewlyOpenedWindow(driver);
-    }
-
 
     public void approverComment() {
         waitForElementToBeClickable(commentBox,driver);

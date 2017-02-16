@@ -214,7 +214,7 @@ Feature: Create New Property
   Scenario Outline: Register user choose to do revision petition of property
 
     Given juniorAssistant logs in
-    And user will select the required screen as "Data entry screen" with condition as "ptis"
+    And user will select the required screen as "Create new property" with condition as "ptis"
     And he enters property header details as <propertyHeaderDetails>
     And he enters owner details for the first owner as <ownerDetails>
     And he enters property address details as <propertyAddressDetails>

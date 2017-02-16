@@ -60,7 +60,6 @@ public class NewSewerageConnectionPage extends BasePage {
     @FindBy(xpath = ".//*[@id='sewarageChangeClosetsSuccess']/div/div/div/span")
     private WebElement successMessageForChangeSewerageConnectionText1;
 
-
     @FindBy(linkText = "Close")
     private WebElement closeLink;
 
@@ -84,18 +83,6 @@ public class NewSewerageConnectionPage extends BasePage {
 
     @FindBy(css = "input[value='Close'][type='button']")
     private WebElement closeButton;
-
-    @FindBy(css = "li[role='presentation'] a[data-now='New%20Sewerage%20Connection']")
-    private WebElement newSewerageConnectionLink;
-
-    @FindBy(css = "li[role='presentation'] a[data-now='Change%20In%20Closets']")
-    private WebElement changeInClosetsLink;
-
-    @FindBy(css = "li[role='presentation'] a[data-now='Close%20Sewerage%20Connection']")
-    private WebElement closeSewerageConnectionLink;
-
-    @FindBy(id = "official_inbox")
-    private WebElement inboxTable;
 
     @FindBy(id = "approvalComent")
     private WebElement approverCommentTextBox;
@@ -264,28 +251,6 @@ public class NewSewerageConnectionPage extends BasePage {
         close();
     }
 
-    public void SelectSewerageTax() {
-         waitForElementToBeVisible(newSewerageConnectionLink,driver);
-         newSewerageConnectionLink.click();
-    }
-
-    public void selectAboveApplication(String applicationNumber) {
-        waitForElementToBeVisible(inboxTable,driver);
-        waitForElementToBeClickable(inboxTable,driver);
-
-        await().atMost(20, SECONDS).until(() -> inboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 0);
-        List<WebElement> totalRows = inboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-
-        for (WebElement applicationRow : totalRows){
-            if(applicationRow.findElements(By.tagName("td")).get(4).getText().contains(applicationNumber)){
-                applicationRow.click();
-                break;
-            }
-        }
-        switchToNewlyOpenedWindow(driver);
-    }
-
-
     public void approveTheApplication() {
         waitForElementToBeVisible(approverCommentTextBox,driver);
         approverCommentTextBox.sendKeys("Approved");
@@ -308,8 +273,6 @@ public class NewSewerageConnectionPage extends BasePage {
         driver.close();
         switchToPreviouslyOpenedWindow(driver);
     }
-
-
 
     public void generateWorkOrder(String num) {
         waitForElementToBeVisible(generateWorkOrderLink,driver);
@@ -363,19 +326,9 @@ public class NewSewerageConnectionPage extends BasePage {
         chooseFileButton.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
     }
 
-    public void selectChangeInClosets() {
-         waitForElementToBeClickable(changeInClosetsLink,driver);
-        changeInClosetsLink.click();
-    }
-
     public void remarks() {
         waitForElementToBeVisible(closeConnectionRemarksTextBox,driver);
         closeConnectionRemarksTextBox.sendKeys("Testing...");
-    }
-
-    public void selectClosureConnection() {
-        waitForElementToBeVisible(closeSewerageConnectionLink,driver);
-        closeSewerageConnectionLink.click();
     }
 
     public String getApplicatioNumberForClosure() {

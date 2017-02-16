@@ -1,6 +1,6 @@
 Feature: Create/Collect/Remit/Cancel Miscellaneous Receipt
    As a registered user of the system
-  I am able to Create/Collect/Remit/Cancel Miscellaneous Receipt
+#  I am able to Create/Collect/Remit/Cancel Miscellaneous Receipt
 
   @Collections @Sanity @Smoke
   Scenario Outline: System should be able to create Miscellaneous receipt
@@ -25,7 +25,7 @@ Feature: Create/Collect/Remit/Cancel Miscellaneous Receipt
   Scenario: System should be able to cancel receipt
 
     Given creator logs in
-    And he clicks on drafts
+#    And he clicks on drafts
     And he chooses to act upon the above receipt in drafts
     And he submit all collections
     Then user will be notified by "Submitted"

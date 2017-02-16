@@ -27,8 +27,8 @@ I am able to Create/Collect Challan Based Receipt
     Examples:
       |paymentMethod|
       |cash         |
-#      |cheque       |
-#      |dd           |
+      |cheque       |
+      |dd           |
 
 
 

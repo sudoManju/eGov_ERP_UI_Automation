@@ -146,11 +146,11 @@ public class SpillOverEstimatePage extends BasePage
     @FindBy(css = "input[id='Forward'][type='submit']")
     private WebElement forwardButton;
 
-    @FindBy(css = "li[role='presentation'] a[data-now^='Estimate']")
-    private WebElement estimateLink;
+//    @FindBy(css = "li[role='presentation'] a[data-now^='Estimate']")
+//    private WebElement estimateLink;
 
-    @FindBy(id = "official_inbox_wrapper")
-    private WebElement workListTable;
+//    @FindBy(id = "official_inbox_wrapper")
+//    private WebElement workListTable;
 
     @FindBy(css = "input[id='Submit'][type='submit']")
      private WebElement submitButton;
@@ -346,26 +346,6 @@ public class SpillOverEstimatePage extends BasePage
         String msg =creationMsg.getText();
         System.out.println(msg);
         return msg;
-    }
-
-    public void openApplication(String estimateNumber) {
-
-        waitForElementToBePresent(By.cssSelector("table[id='official_inbox'] tbody tr[role='row']"),webDriver);
-
-        boolean isPresent = webDriver.findElements(By.cssSelector("li[role='presentation'] a[data-now^='Estimate']")).size() > 0;
-        if(isPresent) {
-            estimateLink.click();
-        }
-
-        await().atMost(30, SECONDS).until(() -> workListTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 0);
-        List<WebElement> totalRows = workListTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-        System.out.println("\n" + totalRows.size());
-        for (WebElement applicationRow : totalRows) {
-            if (applicationRow.findElements(By.tagName("td")).get(4).getText().contains(estimateNumber))
-                applicationRow.click();
-                break;
-        }
-        switchToNewlyOpenedWindow(webDriver);
     }
 
     public void adminSanctionNumber() {
