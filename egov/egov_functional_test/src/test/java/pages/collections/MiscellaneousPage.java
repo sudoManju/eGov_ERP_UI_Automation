@@ -127,9 +127,6 @@ public class MiscellaneousPage extends BasePage{
     @FindBy(css = "input[id='instrHeaderBank.instrumentAmount'][type='text']")
     private WebElement directBankAmountTextBox;
 
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    String date = sdf.format(new Date());
-
     public MiscellaneousPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -339,7 +336,7 @@ public class MiscellaneousPage extends BasePage{
         new Select(serviceTypeTextBox).selectByVisibleText("Monuments Entry Fees-MNMENTFEE");
 
         waitForElementToBeClickable(fromDateTextBox,driver);
-        fromDateTextBox.sendKeys(date);
+        fromDateTextBox.sendKeys(getCurrentDate());
 
         waitForElementToBeClickable(searchButton,driver);
         searchButton.click();
@@ -370,10 +367,10 @@ public class MiscellaneousPage extends BasePage{
         new Select(paymentModeBox).selectByVisibleText("cheque/dd");
 
         waitForElementToBeClickable(fromDateTextBox,driver);
-        fromDateTextBox.sendKeys(date);
+        fromDateTextBox.sendKeys(getCurrentDate());
 
         waitForElementToBeClickable(toDateTextBox,driver);
-        toDateTextBox.sendKeys(date);
+        toDateTextBox.sendKeys(getCurrentDate());
 
         waitForElementToBeClickable(searchButton, driver);
         searchButton.click();
@@ -394,9 +391,7 @@ public class MiscellaneousPage extends BasePage{
                 jsClick(ele,driver);
                 break;
             }
-
         }
-
         waitForElementToBeClickable(remitToBankButton,driver);
         jsClick(remitToBankButton,driver);
     }

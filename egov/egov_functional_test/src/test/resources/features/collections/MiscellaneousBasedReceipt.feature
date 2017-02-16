@@ -21,7 +21,7 @@ Feature: Create/Collect/Remit/Cancel Miscellaneous Receipt
       |directBank       |
 
 
-  @Collections @Sanity @Smoke
+  @Collections1 @Sanity @Smoke
   Scenario: System should be able to cancel receipt
 
     Given creator logs in

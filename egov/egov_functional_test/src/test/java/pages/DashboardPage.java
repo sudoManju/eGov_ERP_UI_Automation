@@ -232,4 +232,45 @@ public class DashboardPage extends BasePage {
         }
         switchToNewlyOpenedWindow(driver);
     }
+    public void openApplicationnew(String number)
+    {
+        getApplicationRow(number).click();
+        switchToNewlyOpenedWindow(driver);
+    }
+
+    private WebElement getApplicationRow(String number){
+        List<WebElement> totalRows;
+        try{
+            waitForElementToBeVisible(officialInboxTable, driver);
+            officialInboxTable.click();
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+            await().atMost(20, SECONDS).until(() -> driver.findElement(By.id("official_inbox")).findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
+            totalRows = driver.findElement(By.id("official_inbox")).findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
+            for (WebElement voucherRow : totalRows) {
+                if (voucherRow.findElements(By.tagName("td")).get(4).getText().contains(number))
+                    return voucherRow;
+            }
+            throw new RuntimeException("No voucher row found in Inbox -- " + number);
+        }
+        catch (Exception e){
+            waitForElementToBeClickable(officialDraftsTable , driver);
+            officialDraftsTable.click();
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+            await().atMost(20, SECONDS).until(() -> driver.findElement(By.id("official_drafts")).findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
+            totalRows = driver.findElement(By.id("official_drafts")).findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
+            for (WebElement voucherRow : totalRows) {
+                if (voucherRow.findElements(By.tagName("td")).get(4).getText().contains(number))
+                    return voucherRow;
+            }
+            throw new RuntimeException("No voucher row found in Inbox and Drafts -- " + number);
+        }
+    }
 }

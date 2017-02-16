@@ -24,6 +24,7 @@ public class MiscellaneousSteps extends BaseSteps implements En {
         });
         And("^he chooses to act upon the above receipt in drafts$", () -> {
            pageStore.get(MiscellaneousPage.class).openAboveReceipt("official_drafts");
+
         });
         And("^he submit all collections$", () -> {
           String message =  pageStore.get(MiscellaneousPage.class).submitAllCollections();
