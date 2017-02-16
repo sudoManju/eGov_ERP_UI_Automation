@@ -9,13 +9,13 @@ Feature: Create Contractors in the Masters
   Scenario: Create Contractors
 
     When assistantEngineer logs in
-   # And he chooses to create contractor
     And user will select the required screen as "Create Contractor"
     And he enters the contractor master data
     Then user will be notified by "successfully"
     And he close the acknowledgement
 
-  # And he chooses for view or modify contractor
+    #Modify Contractor
+
     And user will select the required screen as "View/Modify Contractor"
     And he search for contractor
     And he select the required contractor

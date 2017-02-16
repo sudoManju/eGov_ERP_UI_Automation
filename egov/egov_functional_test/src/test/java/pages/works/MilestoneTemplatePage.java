@@ -65,7 +65,7 @@ public class MilestoneTemplatePage extends BasePage {
     @FindBy(css = "input[value='Modify'][type='submit']")
     private WebElement modifyButtonAfterModication;
 
-    @FindBy(xpath = ".//*[@id='msgsDiv']/ul/li/span")
+    @FindBy(css = "div[id='msgsDiv'][class='new-page-header']")
     private WebElement creationMsg;
 
     @FindBy(xpath = "(.//*[@id='milestoneTemplate-searchDetails']/div[4]/div[1]/div[2]/span[2]/a)[last()]")
@@ -76,7 +76,9 @@ public class MilestoneTemplatePage extends BasePage {
     }
 
     public String successMessage(){
+        waitForElementToBeVisible(creationMsg, driver);
         String msg = creationMsg.getText();
+        System.out.println("---------->"+msg);
         return msg;
     }
 

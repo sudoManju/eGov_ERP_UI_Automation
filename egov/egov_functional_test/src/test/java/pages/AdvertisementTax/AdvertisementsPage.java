@@ -79,7 +79,7 @@ public class AdvertisementsPage extends BasePage {
     @FindBy(id = "Forward")
     private WebElement forwardButton;
 
-    @FindBy(xpath = ".//*[@id='advertisementSuccessform']/div/div/div")
+    @FindBy(css = "div[class='panel-title text-center']")
     private WebElement creationMsg;
 
     @FindBy(xpath = ".//*[@id='statusinactivesuccess']/div/div/div")
@@ -298,7 +298,7 @@ public class AdvertisementsPage extends BasePage {
             waitForElementToBeClickable(forwardButton,driver);
             forwardButton.click();
         }
-
+        waitForElementToBeVisible(creationMsg, driver);
         String Msg = creationMsg.getText();
         String applicationNumber = Msg.substring(Msg.lastIndexOf(" ")+1);
         System.out.println(applicationNumber);

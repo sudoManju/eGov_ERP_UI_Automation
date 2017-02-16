@@ -23,19 +23,19 @@ Feature: Create Spillover Estimate/Create LOA for Spillover
       |SpilloverEstimate_3    |SpillOverFinancial_3 |SpillWork_3|admin               |technical               |
 
 
-#   @WIP
-#    Scenario: Letter of Acceptance for Spillover work
-#
-#     Given assis_Engineer logs in
-#     And he choose to create letter of acceptance
-#     And he select the required spillover estimate from search results
-#     And he enters the mandatory details for creating LOA
-#     Then he save the file and view the LOA pdf
-#
-#     And he choose to view Letter of Acceptance
-#     And he search for LOA
-#
-#     And he choose to modify letter of acceptance
-#     And he search for LOA for modify
-#     Then user will be notified by "successfully"
-#     And current user logs out
+   @Works @Sanity
+    Scenario: Letter of Acceptance for Spillover work
+
+     Given assis_Engineer logs in
+     And user will select the required screen as "Create Letter of Acceptance"
+     And he select the required spillover estimate from search results
+     And he enters the mandatory details for creating LOA
+     Then he save the file and view the LOA pdf
+
+     And user will select the required screen as "Search/View LOA"
+     And he search for LOA
+
+     And user will select the required screen as "Modify LOA"
+     And he search for LOA for modify
+     Then user will be notified by "successfully"
+     And current user logs out

@@ -5,11 +5,9 @@ Feature: Create/view/modify Milestone template
   #Creating a milestone template
 
   @Works     @Sanity
-
   Scenario: Create milestone template
 
     Given assis_Engineer logs in
-    #And he chooses to create milestone template
     And user will select the required screen as "Create milestone template"
     And he enters the milestone template creation details
     And he save the file and closes the acknowledgement
@@ -20,31 +18,24 @@ Feature: Create/view/modify Milestone template
   #View a milestone template
 
   @Works @Sanity
-
   Scenario: view milestone template
 
     Given assis_Engineer logs in
-    #And he chooses to view milestone template
     And user will select the required screen as "View milestone template"
     And he enters the details for search
     And he selects the required template
     And he views and closes the acknowledgement
     And current user logs out
 
-
-
   #Modify a milestone template
 
   @Works  @Sanity
-
   Scenario: modify milestone template
 
     Given assis_Engineer logs in
-    #And he chooses to modify milestone template
     And user will select the required screen as "Modify milestone template"
     And he enters the details for search
     And he select the required template for modification
     And he modifies the template and closes the acknowledgement
     Then user will be notified by "successfully"
     And current user logs out
-

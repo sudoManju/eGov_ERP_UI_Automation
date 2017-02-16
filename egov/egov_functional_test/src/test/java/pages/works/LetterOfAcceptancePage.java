@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
 import javax.swing.text.html.CSS;
+import java.security.Key;
 import java.util.Calendar;
 import java.util.List;
 
@@ -41,21 +42,6 @@ public class LetterOfAcceptancePage extends BasePage
 
     @FindBy(css = "div[class='alert text-center'][style='color:green;']")
     private WebElement loaNumber;
-
-//    @FindBy(xpath = "//*[@id='createLetterOfAcceptanceForm']/div[1]/div/div[1]/div[3]/div[6]/div[1]/div/span[2]/i")
-//    private WebElement addFirm;
-//
-//    @FindBy(xpath = "//*[@id='contractorCode']")
-//    private WebElement contractorCode;
-//
-//    @FindBy(id = "department")
-//    private WebElement departmentSearch;
-//
-//    @FindBy(id = "btnsearch")
-//    private WebElement contractorSearch;
-//
-//    @FindBy(xpath = "//*[@id='resultTable']/tbody/tr[1]/td[2]")
-//    private WebElement contractorSearchResult;
 
     @FindBy(id = "contractPeriod")
     private WebElement contractPeriod;
@@ -121,39 +107,24 @@ public class LetterOfAcceptancePage extends BasePage
     private WebElement agreementDate;
 
     String RandomString = RandomStringUtils.randomAlphanumeric(5).toUpperCase();
-    //String num = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
-//    String transactionRefNo = num;
 
     public void enterLOAdetails()
     {
         waitForElementToBeClickable(fileNumber, driver);
         fileNumber.sendKeys(RandomString);
         waitForElementToBeClickable(fileDate, driver);
-        fileDate.sendKeys("22/12/2016"+ Keys.TAB);
-//        waitForElementToBeClickable(tenderPer, driver);
-//        tenderPer.click();
+        fileDate.sendKeys(getCurrentDate()+ Keys.TAB);
         waitForElementToBeClickable(tenderFinalizedPercentage, driver);
-        tenderFinalizedPercentage.sendKeys("12"+Keys.TAB);
+        tenderFinalizedPercentage.sendKeys("5"+Keys.TAB);
         waitForElementToBeClickable(firmName, driver);
         firmName.sendKeys("KMC055");
-//        waitForElementToBeClickable(addFirm, driver);
-//        addFirm.click();
-//        switchToNewlyOpenedWindow(driver);
-//        waitForElementToBeClickable(contractorCode, driver);
-//        contractorCode.sendKeys("KMC055");
         waitForElementToBeVisible( driver.findElement(By.className("tt-dropdown-menu")),driver);
         WebElement dropdown = driver.findElement(By.className("tt-dropdown-menu"));
-        dropdown.click();
-//        waitForElementToBeClickable(departmentSearch, driver);
-//        new Select(departmentSearch).selectByVisibleText("ENGINEERING");
-//        waitForElementToBeClickable(contractorSearch, driver);
-//        contractorSearch.click();
-//        waitForElementToBeClickable(contractorSearchResult, driver);
-//        contractorSearchResult.click();
+        jsClick(dropdown, driver);
         waitForElementToBeClickable(contractPeriod, driver);
-        contractPeriod.sendKeys("200");
+        contractPeriod.sendKeys("400");
         waitForElementToBeClickable(defectLiabilityPeriod, driver);
-        defectLiabilityPeriod.sendKeys("0.5"+Keys.TAB);
+        defectLiabilityPeriod.sendKeys("1"+Keys.TAB);
         waitForElementToBeClickable(engineerIncharge, driver);
         new Select(engineerIncharge).selectByVisibleText("A.P.Sreenivasulu - Assistant Engineer");
     }
@@ -161,12 +132,10 @@ public class LetterOfAcceptancePage extends BasePage
     public String saveAndClose() {
 
      waitForElementToBeVisible(saveButton, driver);
-     saveButton.click();
-
+     jsClick(saveButton, driver);
      waitForElementToBeVisible(loaNumber,driver);
      String loaText = loaNumber.getText();
      String workNumber = (loaText.split("\\ ")[5]);
-
      return workNumber;
     }
 
@@ -217,33 +186,27 @@ public class LetterOfAcceptancePage extends BasePage
     }
 
     public void searchForApplication() {
-
         waitForElementToBeVisible(searchButton,driver);
         searchButton.click();
-
         waitForElementToBeVisible(reqFileLink,driver);
         jsClick(reqFileLink,driver);
-
         waitForElementToBeVisible(createLOAButton,driver);
         createLOAButton.click();
     }
 
     public String successMessage(){
+        waitForElementToBeVisible(loaNumber, driver);
         String msg = loaNumber.getText();
         return msg;
     }
 
     public void searchForSpilloverEstimate() {
-
         waitForElementToBeClickable(spillOverCheck, driver);
         spillOverCheck.click();
-
         waitForElementToBeVisible(searchButton,driver);
         searchButton.click();
-
         waitForElementToBeVisible(reqFileLink,driver);
         jsClick(reqFileLink,driver);
-
         waitForElementToBeVisible(createLOAButton,driver);
         createLOAButton.click();
     }
@@ -253,22 +216,22 @@ public class LetterOfAcceptancePage extends BasePage
         waitForElementToBeClickable(LOANumber, driver);
         LOANumber.sendKeys("LOA/"+get6DigitRandomInt());
         waitForElementToBeClickable(fileNumber, driver);
-        fileNumber.sendKeys(RandomString);
+        fileNumber.sendKeys("FN"+RandomString);
         waitForElementToBeClickable(fileDate, driver);
-        fileDate.sendKeys("05/01/2017"+ Keys.TAB);
+        fileDate.sendKeys(getCurrentDate()+ Keys.TAB);
         waitForElementToBeClickable(tenderFinalizedPercentage, driver);
-        tenderFinalizedPercentage.sendKeys("5"+Keys.TAB);
+        tenderFinalizedPercentage.sendKeys("8"+Keys.TAB);
         waitForElementToBeClickable(agreementDate, driver);
-        agreementDate.sendKeys("05/01/2017"+Keys.TAB);
+        agreementDate.sendKeys(getCurrentDate()+Keys.TAB);
         waitForElementToBeClickable(firmName, driver);
         firmName.sendKeys("KMC055");
         waitForElementToBeVisible( driver.findElement(By.className("tt-dropdown-menu")),driver);
         WebElement dropdown = driver.findElement(By.className("tt-dropdown-menu"));
         dropdown.click();
         waitForElementToBeClickable(contractPeriod, driver);
-        contractPeriod.sendKeys("100");
+        contractPeriod.sendKeys("500");
         waitForElementToBeClickable(defectLiabilityPeriod, driver);
-        defectLiabilityPeriod.sendKeys("0.1"+Keys.TAB);
+        defectLiabilityPeriod.sendKeys("1"+Keys.TAB);
         waitForElementToBeClickable(engineerIncharge, driver);
         new Select(engineerIncharge).selectByVisibleText("A.P.Sreenivasulu - Assistant Engineer");
     }

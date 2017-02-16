@@ -161,6 +161,8 @@ public class SpillOverEstimatePage extends BasePage
     @FindBy(id = "inboxsearch")
      private WebElement searchBox;
 
+    public SpillOverEstimatePage(WebDriver webDriver){this.webDriver = webDriver;}
+
     public void enterEstimateHeaderDetails(EstimateHeaderDetails estimateHeaderDetails) {
         String check = date.getAttribute("maxlength");
         if(check.equals("10")) {
@@ -202,10 +204,7 @@ public class SpillOverEstimatePage extends BasePage
 
         waitForElementToBeClickable(modeOfEntrustment,webDriver);
         new Select(modeOfEntrustment).selectByVisibleText(estimateHeaderDetails.getModeOfEntrustment());
-
     }
-
-    public SpillOverEstimatePage(WebDriver webDriver){this.webDriver = webDriver;}
 
     public void enterFinancialDetails(FinancialDetails financialDetails) {
 
@@ -223,15 +222,6 @@ public class SpillOverEstimatePage extends BasePage
 
         waitForElementToBeClickable(workOrderCreatedCheckBox,webDriver);
         selectWorksIfCreated(workOrderCreatedCheckBox, workDetails.getWorksorderCreated());
-
-//        JavascriptExecutor js;
-//        if (webDriver instanceof JavascriptExecutor) {
-//            js = (JavascriptExecutor)webDriver;
-//        } else {
-//            throw new IllegalStateException("This driver cannot run JavaScript.");
-//        }
-//
-//        WebElement element = (WebElement)js.executeScript("$('#isWorkOrderCreated').trigger('click');")
 
         waitForElementToBeClickable(isBillCreatedCheckBox,webDriver);
         selectWorksIfCreated(isBillCreatedCheckBox, workDetails.getBillsCreated());
@@ -293,12 +283,6 @@ public class SpillOverEstimatePage extends BasePage
         waitForElementToBeClickable(designationBox,webDriver);
         new Select(designationBox).selectByVisibleText(technicalSanctionDetails.getTechnicalSanctionAuthority());
 
-    }
-
-    public void saveAndClose() {
-
-        waitForElementToBeVisible(saveButton, webDriver);
-        saveButton.click();
     }
 
     public void enterWorkDetailsforestimate(WorkDetails workDetails) {
@@ -364,13 +348,6 @@ public class SpillOverEstimatePage extends BasePage
         return msg;
     }
 
-    public void close() {
-        waitForElementToBeVisible(closeButton, webDriver);
-        closeButton.click();
-
-        switchToPreviouslyOpenedWindow(webDriver);
-    }
-
     public void openApplication(String estimateNumber) {
 
         waitForElementToBePresent(By.cssSelector("table[id='official_inbox'] tbody tr[role='row']"),webDriver);
@@ -391,16 +368,10 @@ public class SpillOverEstimatePage extends BasePage
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    public void submit() {
-        waitForElementToBeClickable(submitButton, webDriver);
-        submitButton.click();
-    }
-
     public void adminSanctionNumber() {
         waitForElementToBeClickable(adminSanctionNumberTextBox,webDriver);
         adminSanctionNumberTextBox.sendKeys("ASN"+get6DigitRandomInt());
     }
-
 
     public void detailsForApprove() {
         waitForElementToBeVisible(estimateAmountTextBox,webDriver);
@@ -414,12 +385,27 @@ public class SpillOverEstimatePage extends BasePage
         waitForElementToBeClickable(technicalSanctionDateTextBox,webDriver);
         technicalSanctionDateTextBox.sendKeys(getCurrentDate());
         technicalSanctionDateTextBox.sendKeys(Keys.TAB);
-
         approverComment.sendKeys("Approved");
+    }
+
+    public void saveAndClose() {
+        waitForElementToBeVisible(saveButton, webDriver);
+        saveButton.click();
     }
 
     public void approve() {
         waitForElementToBeClickable(approveButton,webDriver);
         approveButton.click();
+    }
+
+    public void submit() {
+        waitForElementToBeClickable(submitButton, webDriver);
+        submitButton.click();
+    }
+
+    public void close() {
+        waitForElementToBeVisible(closeButton, webDriver);
+        closeButton.click();
+        switchToPreviouslyOpenedWindow(webDriver);
     }
 }
