@@ -2,8 +2,6 @@ Feature: Create/search Advertisement
   As a registered user of the system
   I am able to create/search Advertisements
 
-
-
   @AdvertisementTax @Sanity
   Scenario: Create/Search/Collect Tax Agency wise
 
@@ -43,9 +41,6 @@ Feature: Create/search Advertisement
     And he selects the agency for Tax/Fees collection
     And he choose to collect advertisement tax
     And current user logs out
-
-
-
 
   @AdvertisementTax  @Sanity
   Scenario: Create/Search/CollectTax/Deactivate AdvertisementWise

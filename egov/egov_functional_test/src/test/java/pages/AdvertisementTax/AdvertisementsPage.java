@@ -202,6 +202,9 @@ public class AdvertisementsPage extends BasePage {
     @FindBy(css = "input[id = 'chequeradiobutton'][type='radio']")
      private WebElement chequeRadioButton;
 
+    @FindBy(id = "electionWard")
+    private WebElement electionWardBox;
+
     public AdvertisementsPage(WebDriver driver){
        this.driver = driver;
     }
@@ -260,6 +263,9 @@ public class AdvertisementsPage extends BasePage {
 
         waitForElementToBeClickable(addressTextBox,driver);
         addressTextBox.sendKeys("footover Bridge, mainroad, Avanthi Nagar");
+
+        waitForElementToBeClickable(electionWardBox,driver);
+        new Select(electionWardBox).selectByVisibleText("Election Ward No. 1");
     }
 
 
