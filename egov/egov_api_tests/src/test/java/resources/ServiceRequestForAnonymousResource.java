@@ -10,6 +10,6 @@ package resources;
                 public Response serviceTypeValidation(String jsonString) {
                 return given().request().with()
                                 .contentType(ContentType.JSON)
-                                .post("https://peaceful-headland-36194.herokuapp.com/v1/mSevaAndLA/users?tenant_id=kul.am");
+                                .post("http://localhost:8080/pgrrest/requests?jurisdictionId=kurnool");
             }
     }
