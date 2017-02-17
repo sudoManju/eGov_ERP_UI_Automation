@@ -138,7 +138,7 @@ public class DashboardPage extends BasePage {
             waitForElementToBeVisible(officialInboxTable, driver);
             officialInboxTable.click();
             try {
-                TimeUnit.SECONDS.sleep(3);
+                TimeUnit.SECONDS.sleep(5);
             } catch (InterruptedException e1) {
                 e1.printStackTrace();
             }
@@ -154,7 +154,7 @@ public class DashboardPage extends BasePage {
             waitForElementToBeClickable(officialDraftsTable , driver);
             officialDraftsTable.click();
             try {
-                TimeUnit.SECONDS.sleep(3);
+                TimeUnit.SECONDS.sleep(5);
             } catch (InterruptedException e1) {
                 e1.printStackTrace();
             }

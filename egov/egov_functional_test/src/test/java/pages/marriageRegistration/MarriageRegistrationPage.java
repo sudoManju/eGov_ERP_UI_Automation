@@ -185,11 +185,14 @@ public class MarriageRegistrationPage extends BasePage {
 
     public void enterApplicantsInformation(MarriageRegistrationInformation marriageRegistrationInformation) {
 
-        waitForElementToBeClickable(marriageRegApplNum, driver);
-        marriageRegApplNum.sendKeys("A"+get6DigitRandomInt());
-        waitForElementToBeClickable(marriageRegNum, driver);
-        marriageRegNum.sendKeys(get6DigitRandomInt());
+        Boolean isPresent = driver.findElements(By.id("applicationNum")).size() > 0;
 
+        if(isPresent) {
+            waitForElementToBeClickable(marriageRegApplNum, driver);
+            marriageRegApplNum.sendKeys("A" + get6DigitRandomInt());
+            waitForElementToBeClickable(marriageRegNum, driver);
+            marriageRegNum.sendKeys(get6DigitRandomInt());
+        }
         waitForElementToBeClickable(registrationUnit, driver);
         registrationUnit.sendKeys(marriageRegistrationInformation.getRegistrationUnit());
         waitForElementToBeClickable(street.get(0), driver);
@@ -297,7 +300,6 @@ public class MarriageRegistrationPage extends BasePage {
     public String getApplicationNumber() {
         String msg = creationMessage.getText();
         String number = msg.split("\\s")[6];
-        System.out.println("\n " + number);
         return number;
     }
 
@@ -327,13 +329,10 @@ public class MarriageRegistrationPage extends BasePage {
     public String getRegistrationNumber(){
         String msg = creationMessage.getText();
         String number = msg.split("\\ ")[7];
-        System.out.println(number);
-
         return number;
     }
 
     public void enterMarriageRegNum() {
-        String min = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
         waitForElementToBeClickable(marriageSerialNum, driver);
         marriageSerialNum.sendKeys(get6DigitRandomInt());
         waitForElementToBeClickable(marriagePageNum, driver);
@@ -347,18 +346,20 @@ public class MarriageRegistrationPage extends BasePage {
          return  message;
     }
 
-    public void searchForMarriageApplicationNumberToCollect(String applicationNumber) {
+    public void searchForMarriageApplicationNumberToCollect(String applicationNumber, String type) {
         waitForElementToBeVisible(applicationNumberTextBox,driver);
         applicationNumberTextBox.sendKeys(applicationNumber);
-        waitForElementToBeClickable(marriageRegistrationType, driver);
-        new Select(marriageRegistrationType).selectByVisibleText("REISSUE");
+        if(type.equals("reissue")) {
+            waitForElementToBeClickable(marriageRegistrationType, driver);
+            new Select(marriageRegistrationType).selectByVisibleText("REISSUE");
+        }
         searchRegistrationButton.click();
     }
 
     public void clickOnCollectDropdown(){
-        waitForElementToBeVisible(actionDropDown,driver);
-        new Select(actionDropDown).selectByVisibleText("Collect Fee");
-        switchToNewlyOpenedWindow(driver);
+            waitForElementToBeVisible(actionDropDown, driver);
+            new Select(actionDropDown).selectByVisibleText("Collect Fee");
+            switchToNewlyOpenedWindow(driver);
     }
 
     public void searchForApplicationToModify(String applicationNumber) {

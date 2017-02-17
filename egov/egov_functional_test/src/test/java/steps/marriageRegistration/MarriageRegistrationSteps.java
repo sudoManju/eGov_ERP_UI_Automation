@@ -4,6 +4,7 @@ import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.marriageRegistration.MarriageRegistrationInformation;
 import entities.works.ApproverDetails;
+import org.openqa.selenium.By;
 import pages.DashboardPage;
 import pages.sewerageTax.NewSewerageConnectionPage;
 import pages.marriageRegistration.MarriageRegistrationPage;
@@ -47,30 +48,29 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
 
             scenarioContext.setActualMessage(pageStore.get(MarriageRegistrationPage.class).getSuccessMessage());
 
-            pageStore.get(MarriageRegistrationPage.class).close();
+            pageStore.get(MarriageRegistrationPage.class).closeApplication();
         });
         And("^he choose to act upon the above new marriage application number$", () -> {
              pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
         });
         And("^he approve the new marriage application  and close the acknowledgement$", () -> {
+           pageStore.get(MarriageRegistrationPage.class).enterMarriageRegNum();
            pageStore.get(MarriageRegistrationPage.class).approve();
            scenarioContext.setRegistrationNumber(pageStore.get(MarriageRegistrationPage.class).getRegistrationNumber());
            scenarioContext.setActualMessage(pageStore.get(MarriageRegistrationPage.class).getSuccessMessage());
-           pageStore.get(MarriageRegistrationPage.class).close();
-
+           pageStore.get(MarriageRegistrationPage.class).closeApplication();
         });
         And("^he enters the serial and page number$", () -> {
             pageStore.get(MarriageRegistrationPage.class).enterMarriageRegNum();
         });
 
         And("^he search for above application number to collect marriage Registration fee$", () -> {
-            pageStore.get(MarriageRegistrationPage.class).searchForMarriageApplicationNumberToCollect(scenarioContext.getApplicationNumber());
+            pageStore.get(MarriageRegistrationPage.class).searchForMarriageApplicationNumberToCollect(scenarioContext.getApplicationNumber(),"registration");
             pageStore.get(MarriageRegistrationPage.class).clickOnCollectDropdown();
         });
         And("^he submit the data entry$", () -> {
             String message = pageStore.get(MarriageRegistrationPage.class).isSuccesful();
             String number = message.split("\\s")[7];
-            System.out.println("\n"+number);
             scenarioContext.setActualMessage(message);
             scenarioContext.setApplicationNumber(number);
           });
@@ -104,7 +104,6 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
         And("^he get application number and closes acknowledgement$", () -> {
             String message = pageStore.get(MarriageRegistrationPage.class).getReIssueNumber();
             String number = message.split("\\s")[5];
-            System.out.println(number);
             scenarioContext.setActualMessage(message);
             scenarioContext.setApplicationNumber(number);
             pageStore.get(MarriageRegistrationPage.class).close();
@@ -117,6 +116,10 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
 
         And("^he clicks on re issue marriage certificate and opens the application$", () -> {
             pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
+        });
+        And("^he search for above application number to collect marriage Registration fee for reissue$", () -> {
+            pageStore.get(MarriageRegistrationPage.class).searchForMarriageApplicationNumberToCollect(scenarioContext.getApplicationNumber(), "reissue");
+            pageStore.get(MarriageRegistrationPage.class).clickOnCollectDropdown();
         });
     }
 }
