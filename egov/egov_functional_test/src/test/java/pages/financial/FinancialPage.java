@@ -472,7 +472,7 @@ public class FinancialPage extends BasePage {
         approverPos.getOptions().get(1).click();
 
         forwardButton.click();
-//        if(webDriver.switchTo().alert().getText().)
+        isAlertOpened();
         return userName;
     }
 

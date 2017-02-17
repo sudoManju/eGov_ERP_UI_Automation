@@ -274,7 +274,7 @@ Feature: To create a Financial Transactions
 
     Examples:
       |voucherDetails     |  approvalOfficer1  | approvalOfficer2  |  approvalOfficer3  | paymentMode  | assignment | isPresent | singleOrMultiple |
-      |voucherDateJune    |  accountOfficer1   | accountOfficer2   |  commissioner      | cheque       | cheque     | yes       | single           |
-      |voucherDateJune    |  accountOfficer1   | accountOfficer2   |  commissioner      | RTGS         | RTGS       | yes       | single           |
+      |voucherBillPayment |  accountOfficer1   | accountOfficer2   |  commissioner      | cheque       | cheque     | yes       | single           |
+      |voucherBillPayment |  accountOfficer1   | accountOfficer2   |  commissioner      | RTGS         | RTGS       | yes       | single           |
 
 
