@@ -16,15 +16,9 @@ public class ScenarioContext implements Serializable {
 
     private String actualMessage;
 
-    private String preambleNumber;
-
     private int isRemittance;
 
     private String consumerNumber;
-
-    private String agendaNumber;
-
-    private String meetingNumber;
 
     private String user;
 
@@ -32,7 +26,7 @@ public class ScenarioContext implements Serializable {
 
     private String registrationNumber;
 
-    private String caseFileNumber;
+//    private String caseFileNumber;
 
     public void setRegistrationNumber(String Number){
         this.registrationNumber = Number;
@@ -42,13 +36,13 @@ public class ScenarioContext implements Serializable {
         return registrationNumber;
     }
 
-    public String getCaseFileNumber() {
-        return caseFileNumber;
-    }
-
-    public void setCaseFileNumber(String caseFileNumber) {
-        this.caseFileNumber = caseFileNumber;
-    }
+//    public String getCaseFileNumber() {
+//        return caseFileNumber;
+//    }
+//
+//    public void setCaseFileNumber(String caseFileNumber) {
+//        this.caseFileNumber = caseFileNumber;
+//    }
 
     public String getUser() {
         return user;
@@ -120,27 +114,6 @@ public class ScenarioContext implements Serializable {
 
     public void setDataScreenAssessmentNumber(String dataScreenAssessmentNumber) {
         this.dataScreenAssessmentNumber = dataScreenAssessmentNumber;
-    }
-
-    public void setPreambleNumber(String preambleNumber) {
-        this.preambleNumber = preambleNumber;
-    }
-
-    public String getPreambleNumber() {
-        return preambleNumber;
-    }
-
-    public void setAgendaNumber(String agendaNumber) {
-        this.agendaNumber = agendaNumber;
-    }
-
-    public String getAgendaNumber() { return agendaNumber; }
-
-
-    public void setMeetingNumber(String meetingNumber) { this.meetingNumber = meetingNumber; }
-
-    public String getMeetingNumber() {
-        return meetingNumber;
     }
 
     public String getCommAssessmentNumber() {

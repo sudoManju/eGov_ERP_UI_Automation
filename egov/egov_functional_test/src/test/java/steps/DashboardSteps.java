@@ -37,7 +37,7 @@ public class DashboardSteps extends BaseSteps implements En {
         });
 
         And("^he chooses to act upon the above preamble number$", () -> {
-            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getPreambleNumber());
+            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
         });
 
         And("^he choose to act upon the above licence number$", () -> {

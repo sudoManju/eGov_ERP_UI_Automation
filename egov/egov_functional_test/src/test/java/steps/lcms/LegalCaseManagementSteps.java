@@ -23,13 +23,11 @@ public class LegalCaseManagementSteps extends BaseSteps implements En {
         And("^user closes the successful acknowledgement form$", () -> {
             String messageAndFileNumber = pageStore.get(LegalCaseManagementPage.class).closesAcknowledgementForm();
             scenarioContext.setActualMessage(messageAndFileNumber.split("\\>")[0]);
-            scenarioContext.setCaseFileNumber(messageAndFileNumber.split("\\>")[1]);
+            scenarioContext.setApplicationNumber(messageAndFileNumber.split("\\>")[1]);
         });
 
         And("^user will enter the case file number to search the file$", () -> {
-//            pageStore.get(LegalCaseManagementPage.class).searchCaseFile("LC/1016/2016/000022");
-            pageStore.get(LegalCaseManagementPage.class).searchCaseFile(scenarioContext.getCaseFileNumber());
-            System.out.println("==============="+scenarioContext.getCaseFileNumber());
+            pageStore.get(LegalCaseManagementPage.class).searchCaseFile(scenarioContext.getApplicationNumber());
         });
 
         And("^user will take the corresponding action on above as (\\w+)$", (String action) -> {
