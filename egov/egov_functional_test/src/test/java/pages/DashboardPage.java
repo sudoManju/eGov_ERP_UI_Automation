@@ -41,21 +41,6 @@ public class DashboardPage extends BasePage {
 
     private WebElement appRow1;
 
-    @FindBy(id = "btnsearch")
-    private WebElement searchEstimateButton;
-
-    @FindBy(xpath = "(//*[@id='resultTable']/tbody/tr/td/input)[1]")
-    private WebElement estimateRadioButton;
-
-    @FindBy(id = "btncreateloa")
-    private WebElement createLOAButton;
-
-    @FindBy(linkText = "Search Agency")
-    private WebElement searchAgencyLink;
-
-    @FindBy(xpath = ".//*[@id='cityForm']/div[2]/div/button[3]")
-    private WebElement closeButton;
-
     @FindBy(xpath = "html/body/div[1]/header/nav/div/div[3]/ul/li[2]/a")
     private WebElement profileLink;
 
