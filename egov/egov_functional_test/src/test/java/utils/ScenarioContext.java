@@ -16,8 +16,6 @@ public class ScenarioContext implements Serializable {
 
     private int isRemittance;
 
-    private String consumerNumber;
-
     private String user;
 
     private String registrationNumber;
@@ -36,14 +34,6 @@ public class ScenarioContext implements Serializable {
 
     public void setUser(String user) {
         this.user = user;
-    }
-
-    public String getConsumerNumber() {
-        return consumerNumber;
-    }
-
-    public void setConsumerNumber(String consumerNumber) {
-        this.consumerNumber = consumerNumber;
     }
 
     public int getIsRemittance() {
