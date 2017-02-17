@@ -53,7 +53,8 @@ public class MilestoneTrackSteps extends BaseSteps implements En {
         });
 
         And("^he chooses to act upon on contractorBillNumber$", () -> {
-            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getContractorBillNumber());
+//            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getContractorBillNumber());
+            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
         });
         And("^he approves the bill$", () -> {
            pageStore.get(MilestoneTrackPage.class).approve();
@@ -71,7 +72,8 @@ public class MilestoneTrackSteps extends BaseSteps implements En {
             pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
 
             String billNumber = pageStore.get(MilestoneTrackPage.class).forwardToDEEContractorBill();
-            scenarioContext.setContractorBillNumber(billNumber);
+//            scenarioContext.setContractorBillNumber(billNumber);
+            scenarioContext.setApplicationNumber(billNumber);
 
             String actualMessage =  pageStore.get(MilestoneTrackPage.class).successMessage1();
             scenarioContext.setActualMessage(actualMessage);
@@ -86,7 +88,8 @@ public class MilestoneTrackSteps extends BaseSteps implements En {
             pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
 
             String billNumber = pageStore.get(MilestoneTrackPage.class).forwardToDEEContractorBill();
-            scenarioContext.setContractorBillNumber(billNumber);
+//            scenarioContext.setContractorBillNumber(billNumber);
+            scenarioContext.setApplicationNumber(billNumber);
 
             String actualMessage =  pageStore.get(MilestoneTrackPage.class).successMessage1();
             scenarioContext.setActualMessage(actualMessage);

@@ -14,16 +14,6 @@ import steps.BaseSteps;
  */
 public class CollectionAcknowledgementSteps extends BaseSteps implements En {
     public CollectionAcknowledgementSteps() {
-        And("^he stores the challan number and closes acknowledgement$", () -> {
-            String challanNumber = (pageStore.get(CollectionAcknowledgementPage.class).getChallanNumber()) ;
-            scenarioContext.setChallanNumber(challanNumber);
-
-            String msg = pageStore.get(CollectionAcknowledgementPage.class).successMessage();
-            scenarioContext.setActualMessage(msg);
-
-            pageStore.get(CollectionAcknowledgementPage.class).close();
-        });
-
 
         And("^he closes the acknowledgement$", () -> {
             pageStore.get(PropertyAcknowledgementPage.class).close();

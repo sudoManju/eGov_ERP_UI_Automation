@@ -41,7 +41,7 @@ public class CollectionSteps extends BaseSteps implements En {
 
         });
         And("^he search for challan number$", () -> {
-            pageStore.get(CollectionsPage.class).enterChallanNumber(scenarioContext.getChallanNumber());
+            pageStore.get(CollectionsPage.class).enterChallanNumber(scenarioContext.getApplicationNumber());
         });
 
         And("^he chooses to collect water charge for (\\w+)$", (String consumerNumber) -> {
@@ -52,7 +52,7 @@ public class CollectionSteps extends BaseSteps implements En {
         });
         And("^he create challan and closes acknowledgement$", () -> {
             String challanNumber = pageStore.get(CollectionsPage.class).generateChallan();
-            scenarioContext.setChallanNumber(challanNumber);
+            scenarioContext.setApplicationNumber(challanNumber);
 
             String msg = pageStore.get(CollectionsPage.class).successMessage();
             scenarioContext.setActualMessage(msg);

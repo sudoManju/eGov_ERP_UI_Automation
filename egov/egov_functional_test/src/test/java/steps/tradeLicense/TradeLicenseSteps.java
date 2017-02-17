@@ -54,7 +54,7 @@ public class TradeLicenseSteps extends BaseSteps implements En {
            LicenseClosureDetails closureDetails=new ExcelReader(tradeLicenseTestDataFileName).getDetailsForClosure(ClosureData);
             pageStore.get(TradeLicensePage.class).enterDetailsForClosure(closureDetails);
             String licenseNumber= pageStore.get(TradeLicensePage.class).getLicenseNumber();
-            scenarioContext.setLicenseNumber(licenseNumber);
+            scenarioContext.setApplicationNumber(licenseNumber);
         });
         And("^he closes the acknowledgement page$", () -> {
             pageStore.get(TradeLicensePage.class).closeAcknowledgement();

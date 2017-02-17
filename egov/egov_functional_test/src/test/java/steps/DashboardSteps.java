@@ -21,7 +21,7 @@ public class DashboardSteps extends BaseSteps implements En {
         });
 
         And("^chooses to act upon the above challan$", () -> {
-            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getChallanNumber());
+            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
         });
 
         And("^he open application from drafts items$", () -> {
@@ -41,8 +41,7 @@ public class DashboardSteps extends BaseSteps implements En {
         });
 
         And("^he choose to act upon the above licence number$", () -> {
-            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getLicenseNumber());
-            System.out.println("Closure License Number"+scenarioContext.getLicenseNumber());
+            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
         });
 
         And("^he choose to act upon the above application number$", () -> {
@@ -51,7 +50,9 @@ public class DashboardSteps extends BaseSteps implements En {
         });
 
         And("^choose to act upon the above CRN$", () -> {
-            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getCRN());
+//            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getCRN());
+            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
+
         });
 
         And("^officer search for the assignment mode as (\\w+)$", (String assignmentMode) -> {
@@ -59,7 +60,8 @@ public class DashboardSteps extends BaseSteps implements En {
         });
 
         And("^choose to act upon the above CRN in his own dratfs$", () -> {
-            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getCRN());
+//            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getCRN());
+            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
         });
 
         And("^user will select the required screen as \"([^\"]*)\"$", (String screenName) -> {

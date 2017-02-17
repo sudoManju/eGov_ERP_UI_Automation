@@ -10,35 +10,23 @@ public class ScenarioContext implements Serializable {
 
     private String dataScreenAssessmentNumber;
 
-    private String challanNumber;
-
     private String voucherNumber;
-
-    private String workNumber;
 
     private String loaNumber;
 
     private String actualMessage;
 
-    private String estimateNumber;
-
     private String preambleNumber;
 
     private int isRemittance;
-
-    private String contractorBillNumber;
 
     private String consumerNumber;
 
     private String agendaNumber;
 
     private String meetingNumber;
-    
-    private String licenseNumber;
 
     private String user;
-
-    private String CRN;
 
     private String commAssessmentNumber;
 
@@ -46,19 +34,8 @@ public class ScenarioContext implements Serializable {
 
     private String caseFileNumber;
 
-    public String getReIssueApplicationNumber() {
-        return reIssueApplicationNumber;
-    }
-
-    public void setReIssueApplicationNumber(String reIssueApplicationNumber) {
-        this.reIssueApplicationNumber = reIssueApplicationNumber;
-    }
-
-    private String reIssueApplicationNumber;
-
-
     public void setRegistrationNumber(String Number){
-        this.registrationNumber = registrationNumber;
+        this.registrationNumber = Number;
     }
 
     public String getRegistrationNumber(){
@@ -89,28 +66,12 @@ public class ScenarioContext implements Serializable {
         this.consumerNumber = consumerNumber;
     }
 
-    public String getContractorBillNumber() {
-        return contractorBillNumber;
-    }
-
-    public void setContractorBillNumber(String contractorBillNumber) {
-        this.contractorBillNumber = contractorBillNumber;
-    }
-
     public int getIsRemittance() {
         return isRemittance;
     }
 
     public void setIsRemittance(int isRemittance) {
         this.isRemittance = isRemittance;
-    }
-
-    public String getWorkNumber() {
-        return workNumber;
-    }
-
-    public void setWorkNumber(String workNumber) {
-        this.workNumber = workNumber;
     }
 
     public String getLoaNumber() {
@@ -137,14 +98,6 @@ public class ScenarioContext implements Serializable {
         this.voucherNumber = voucherNumber;
     }
 
-    public String getChallanNumber() {
-        return challanNumber;
-    }
-
-    public void setChallanNumber(String challanNumber) {
-        this.challanNumber = challanNumber;
-    }
-
     public String getAssessmentNumber() {
         return assessmentNumber;
     }
@@ -169,14 +122,6 @@ public class ScenarioContext implements Serializable {
         this.dataScreenAssessmentNumber = dataScreenAssessmentNumber;
     }
 
-    public String getEstimateNumber() {
-        return estimateNumber;
-    }
-
-    public void setEstimateNumber(String estimateNumber) {
-        this.estimateNumber = estimateNumber;
-    }
-
     public void setPreambleNumber(String preambleNumber) {
         this.preambleNumber = preambleNumber;
     }
@@ -197,25 +142,6 @@ public class ScenarioContext implements Serializable {
     public String getMeetingNumber() {
         return meetingNumber;
     }
-
-
-    public void setLicenseNumber(String licenseNumber) {
-        this.licenseNumber = licenseNumber;
-    }
-
-
-    public String getLicenseNumber() {
-        return licenseNumber;
-    }
-
-    public void setCRN(String CRN) {
-        this.CRN = CRN;
-    }
-
-    public String getCRN() {
-        return CRN;
-    }
-
 
     public String getCommAssessmentNumber() {
         return commAssessmentNumber;

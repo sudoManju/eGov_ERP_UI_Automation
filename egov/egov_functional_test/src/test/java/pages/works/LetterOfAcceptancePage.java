@@ -120,7 +120,7 @@ public class LetterOfAcceptancePage extends BasePage
         firmName.sendKeys("KMC055");
         waitForElementToBeVisible( driver.findElement(By.className("tt-dropdown-menu")),driver);
         WebElement dropdown = driver.findElement(By.className("tt-dropdown-menu"));
-        jsClick(dropdown, driver);
+        dropdown.click();
         waitForElementToBeClickable(contractPeriod, driver);
         contractPeriod.sendKeys("400");
         waitForElementToBeClickable(defectLiabilityPeriod, driver);

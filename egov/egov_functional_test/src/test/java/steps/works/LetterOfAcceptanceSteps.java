@@ -19,7 +19,7 @@ public class LetterOfAcceptanceSteps extends BaseSteps implements En
         });
         Then("^he save the file and view the LOA pdf$", () -> {
           String number = pageStore.get(LetterOfAcceptancePage.class).saveAndClose();
-          scenarioContext.setWorkNumber(number);
+          scenarioContext.setApplicationNumber(number);
 
           String actualMsg = pageStore.get(LetterOfAcceptancePage.class).successMessage();
           scenarioContext.setActualMessage(actualMsg);
@@ -28,11 +28,11 @@ public class LetterOfAcceptanceSteps extends BaseSteps implements En
         });
 
         And("^he search for LOA$", () -> {
-            pageStore.get(LetterOfAcceptancePage.class).searchForLOA(scenarioContext.getWorkNumber());
+            pageStore.get(LetterOfAcceptancePage.class).searchForLOA(scenarioContext.getApplicationNumber());
         });
 
         And("^he search for LOA for modify$", () -> {
-            pageStore.get(LetterOfAcceptancePage.class).searchForLOAModify(scenarioContext.getWorkNumber());
+            pageStore.get(LetterOfAcceptancePage.class).searchForLOAModify(scenarioContext.getApplicationNumber());
 
             String actualMsg = pageStore.get(LetterOfAcceptancePage.class).successMessage();
             scenarioContext.setActualMessage(actualMsg);

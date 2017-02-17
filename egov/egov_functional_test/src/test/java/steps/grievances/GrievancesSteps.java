@@ -31,8 +31,10 @@ public class GrievancesSteps extends BaseSteps implements En {
         });
         And("^he copies CRN and closes the acknowledgement$", () -> {
            String CRN= pageStore.get(GrievancesPage.class).getCRN();
-           scenarioContext.setCRN(CRN);
-           Assert.assertNotNull(scenarioContext.getCRN());
+//           scenarioContext.setCRN(CRN);
+            scenarioContext.setApplicationNumber(CRN);
+//           Assert.assertNotNull(scenarioContext.getCRN());
+           Assert.assertNotNull(scenarioContext.getApplicationNumber());
 
         });
         And("^current user sign out$", () -> {
@@ -44,7 +46,8 @@ public class GrievancesSteps extends BaseSteps implements En {
     });
         And("^official copies CRN and closes the acknowledgement$", () -> {
             String CRN= pageStore.get(GrievancesPage.class).getCRNByOfficial();
-            scenarioContext.setCRN(CRN);
+//            scenarioContext.setCRN(CRN);
+            scenarioContext.setApplicationNumber(CRN);
         });
         And("^official create grievance$", () -> {
            scenarioContext.setActualMessage(pageStore.get(GrievancesPage.class).createInOfficial());
@@ -56,7 +59,8 @@ public class GrievancesSteps extends BaseSteps implements En {
             pageStore.get(GrievancesPage.class).getProcessingStatus();
         });
         And("^he search complaint in his Inbox$", () -> {
-           pageStore.get(GrievancesPage.class).searchInCitizenInbox(scenarioContext.getCRN());
+//           pageStore.get(GrievancesPage.class).searchInCitizenInbox(scenarioContext.getCRN());
+           pageStore.get(GrievancesPage.class).searchInCitizenInbox(scenarioContext.getApplicationNumber());
         });
         And("^he (.*) the complaint$", (String complaintStatus) -> {
             pageStore.get(GrievancesPage.class).withdrawComplaint(complaintStatus);
