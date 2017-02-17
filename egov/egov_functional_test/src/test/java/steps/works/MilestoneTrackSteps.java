@@ -15,7 +15,7 @@ import utils.ExcelReader;
 public class MilestoneTrackSteps extends BaseSteps implements En {
     public MilestoneTrackSteps() {
         And("^he search and select the required file$", () -> {
-            pageStore.get(MilestoneTrackPage.class).search();
+            pageStore.get(MilestoneTrackPage.class).search(scenarioContext.getApplicationNumber());
 
             pageStore.get(MilestoneTrackPage.class).select();
 
@@ -23,7 +23,7 @@ public class MilestoneTrackSteps extends BaseSteps implements En {
         });
         And("^he stores the loa number and enters details$", () -> {
             String number = pageStore.get(MilestoneTrackPage.class).getLoaNumber();
-            scenarioContext.setLoaNumber(number);
+            scenarioContext.setAssessmentNumber(number);
 
             pageStore.get(MilestoneTrackPage.class).enterMilestoneDetails();
         });
@@ -37,7 +37,7 @@ public class MilestoneTrackSteps extends BaseSteps implements En {
         });
 
         And("^he search application using loa number$", () -> {
-            pageStore.get(MilestoneTrackPage.class).searchUsingLoa(scenarioContext.getLoaNumber());
+            pageStore.get(MilestoneTrackPage.class).searchUsingLoa(scenarioContext.getAssessmentNumber());
         });
         And("^he select the application$", () -> {
             pageStore.get(MilestoneTrackPage.class).selectApplication();

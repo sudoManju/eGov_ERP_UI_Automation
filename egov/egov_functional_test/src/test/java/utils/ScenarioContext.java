@@ -12,8 +12,6 @@ public class ScenarioContext implements Serializable {
 
     private String voucherNumber;
 
-    private String loaNumber;
-
     private String actualMessage;
 
     private int isRemittance;
@@ -23,8 +21,6 @@ public class ScenarioContext implements Serializable {
     private String user;
 
     private String registrationNumber;
-
-//    private String caseFileNumber;
 
     public void setRegistrationNumber(String Number){
         this.registrationNumber = Number;
@@ -58,20 +54,12 @@ public class ScenarioContext implements Serializable {
         this.isRemittance = isRemittance;
     }
 
-    public String getLoaNumber() {
-        return loaNumber;
-    }
-
     public String getActualMessage() {
         return actualMessage;
     }
 
     public void setActualMessage(String actualMessage) {
         this.actualMessage = actualMessage;
-    }
-
-    public void setLoaNumber(String loaNumber) {
-        this.loaNumber = loaNumber;
     }
 
     public String getVoucherNumber() {

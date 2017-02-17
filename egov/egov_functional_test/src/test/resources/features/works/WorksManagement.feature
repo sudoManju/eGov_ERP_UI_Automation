@@ -51,7 +51,7 @@ Feature: Create regular estimate/Create LOA for estimate/Create-Track milestone/
       | Estimate_2            | EstimateFinancial_2 | EstimateWork_2 | deputyExecutiveEngineer | SuperIntendent   | commissioner     | assis_Engineer   |
 
   @Works @Sanity
-  Scenario: Create Letter of Acceptance
+  Scenario Outline: Create Letter of Acceptance/ Create,Track Milestone/Generate Contractor Bill
 
     When assis_Engineer logs in
     And user will select the required screen as "Create Letter of Acceptance"
@@ -66,13 +66,7 @@ Feature: Create regular estimate/Create LOA for estimate/Create-Track milestone/
     And user will select the required screen as "Modify LOA"
     And he search for LOA for modify
     Then user will be notified by "successfully"
-    And current user logs out
 
-
-  @Works @Sanity
-  Scenario Outline: Create/view of Milestone/Track Milestone/Generate Contractor bill
-
-    Given assis_Engineer logs in
     And user will select the required screen as "create milestone"
     And he search and select the required file
     And he stores the loa number and enters details

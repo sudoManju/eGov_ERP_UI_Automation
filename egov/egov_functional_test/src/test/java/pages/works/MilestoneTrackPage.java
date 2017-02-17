@@ -111,12 +111,12 @@ public class MilestoneTrackPage extends BasePage {
 
     public MilestoneTrackPage(WebDriver driver) {this.driver = driver;}
 
-    public void search() {
-        waitForElementToBeClickable(adminSanctionDateTextBox,driver);
-        adminSanctionDateTextBox.sendKeys(getCurrentDate(), Keys.TAB);
+    public void search(String number) {
 
-        waitForElementToBeVisible(searchButton,driver);
-        searchButton.click();
+     driver.findElement(By.id("workOrderNumber")).sendKeys(number);
+
+     waitForElementToBeVisible(searchButton,driver);
+     searchButton.click();
     }
 
     public void select() {
