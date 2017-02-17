@@ -35,7 +35,6 @@ Feature: Create Trade License
 
 #    When PublicHealthJA logs in
 #    And he choose to search trade license
->>>>>>> [PHOENIX-5854] trade license refactoring
     And user will select the required screen as "Search Trade License"
     And he search existing application number
     And he choose to collectfees
