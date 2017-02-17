@@ -4,7 +4,7 @@ Feature: In this feature we are going to select the multiple files for
   2) Remittance Bill
   3) Assignments
 
-  @OnceInMonth @Finance
+  @OnceInMonth @Finance1
   Scenario Outline: To select the multiple bills from bill payment screen and approving the payment
 
     Given accountsOfficer logs in
@@ -20,7 +20,7 @@ Feature: In this feature we are going to select the multiple files for
       | paymentMode | vouchersType |
       | cheque      | expense      |
 
-  @OnceInMonth @Finance
+  @OnceInMonth @Finance1
   Scenario Outline: To select the multiple remittance recovery application and approving the payment
 
     And accountsOfficer logs in
@@ -35,7 +35,7 @@ Feature: In this feature we are going to select the multiple files for
     | singleOrMultiple  |
     | multiple          |
 
-  @OnceInMonth @Finance
+  @OnceInMonth @Finance1
   Scenario Outline: To select the multiple remittance recovery cheque assignment applications
 
     And accountsOfficer logs in
@@ -50,7 +50,7 @@ Feature: In this feature we are going to select the multiple files for
       | singleOrMultiple  | assignment  |
       | multiple          | remittance  |
 
-  @OnceInMonth @Finance
+  @OnceInMonth @Finance1
   Scenario Outline: To select the multiple cheque and rtgs assignment applications
 
     And accountsOfficer logs in

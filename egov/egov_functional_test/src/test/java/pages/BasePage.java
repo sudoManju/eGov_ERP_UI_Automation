@@ -123,6 +123,15 @@ public class BasePage {
         cal.add(Calendar.DATE, -i);
         return dateFormat.format(cal.getTime());
     }
+
+    protected void maximizeBrowserWindow(WebDriver webDriver){
+        webDriver.manage().window().maximize();
+    }
+
+    protected void refreshBrowserWindow(WebDriver webDriver){
+        webDriver.navigate().refresh();
+    }
+
     public void isSuccesful(String expectedMessage,String actualMessage){
         Boolean found = Arrays.asList(actualMessage.split("\\ ")).contains(expectedMessage);
         Assert.assertTrue(found);

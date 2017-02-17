@@ -7,9 +7,6 @@ import pages.lcms.LegalCaseManagementPage;
 import steps.BaseSteps;
 import utils.ExcelReader;
 
-/**
- * Created by vinaykumar on 2/2/17.
- */
 public class LegalCaseManagementSteps extends BaseSteps implements En {
 
     public LegalCaseManagementSteps() {
@@ -23,10 +20,12 @@ public class LegalCaseManagementSteps extends BaseSteps implements En {
         And("^user closes the successful acknowledgement form$", () -> {
             String messageAndFileNumber = pageStore.get(LegalCaseManagementPage.class).closesAcknowledgementForm();
             scenarioContext.setActualMessage(messageAndFileNumber.split("\\>")[0]);
+            //Here case file number acts as application number
             scenarioContext.setApplicationNumber(messageAndFileNumber.split("\\>")[1]);
         });
 
         And("^user will enter the case file number to search the file$", () -> {
+            //Here case file number acts as application number
             pageStore.get(LegalCaseManagementPage.class).searchCaseFile(scenarioContext.getApplicationNumber());
         });
 
@@ -42,6 +41,5 @@ public class LegalCaseManagementSteps extends BaseSteps implements En {
         And("^user will enter the details of judgment implementation details based on (\\w+)$", (String mode) -> {
             pageStore.get(LegalCaseManagementPage.class).enterJudgmentImplementationDetails(mode);
         });
-
     }
 }

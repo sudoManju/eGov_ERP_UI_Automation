@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.firefox.internal.ProfilesIni;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
@@ -19,9 +21,10 @@ public class LocalDriver {
 
 
         if (browser.equals("firefox")) {
-
+            ProfilesIni profilesIni = new ProfilesIni();
+            FirefoxProfile firefoxProfile = profilesIni.getProfile("firefoxQa");
             setFirefoxDriverBasedOnOperatingSystem();
-            return new FirefoxDriver();
+            return new FirefoxDriver(firefoxProfile);
         }
 
 

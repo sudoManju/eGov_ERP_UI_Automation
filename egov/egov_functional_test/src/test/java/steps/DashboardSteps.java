@@ -8,6 +8,7 @@ import pages.wcms.WaterChargeManagementPage;
 
 public class DashboardSteps extends BaseSteps implements En {
     public DashboardSteps() {
+
         And("^current user logs out$", () -> {
             pageStore.get(DashboardPage.class).logOut();
         });
