@@ -467,7 +467,8 @@ public class WaterChargeManagementPage extends BasePage {
 
     public void clickOnCollectCharges(){
         waitForElementToBeClickable(collectFeesButton, webDriver);
-        collectFeesButton.click();
+        jsClick(collectFeesButton,webDriver);
+//        collectFeesButton.click();
         switchToNewlyOpenedWindow(webDriver);
     }
 
@@ -668,11 +669,13 @@ public class WaterChargeManagementPage extends BasePage {
     }
 
     public String findAdditionalApplicationNumber(){
-        waitForElementToBeClickable(additionalApplicationNumber, webDriver);
-        String number = additionalApplicationNumber.getText();
+//        waitForElementToBeClickable(additionalApplicationNumber, webDriver);
+//        String number = additionalApplicationNumber.getText();
+        String number = webDriver.getCurrentUrl().split("\\=")[1];
 
-        waitForElementToBeClickable(additionalCloseButton, webDriver);
-        jsClick(additionalCloseButton, webDriver);
+//        waitForElementToBeClickable(additionalCloseButton, webDriver);
+//        jsClick(additionalCloseButton, webDriver);
+        webDriver.close();
 
         switchToPreviouslyOpenedWindow(webDriver);
 
