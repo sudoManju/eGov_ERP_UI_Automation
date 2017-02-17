@@ -22,7 +22,7 @@ Feature: Create New Property
     And he enters document type details as <documentDetails>
     And he forwards for approval to billCollector
     Then create property details get saved successfully
-    And he will copy the application number
+    And he will copy the acknowledgement message with application number
     And user will be notified by "Successfully"
     And current user logs out
 
@@ -47,8 +47,8 @@ Feature: Create New Property
     When commissioner logs in
     And chooses to act upon the above application
     And he approved the property with remarks "property approved"
-    Then create property details get saved successfully
-    And he will copy the assessment number
+    Then create property details get saved successfully by generating assesssment number
+    And he will copy the acknowledgement message with assessment number
     Then user will be notified by "Successfully"
     And chooses to act upon the above assessment
     And he does a digital signature

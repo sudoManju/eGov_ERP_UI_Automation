@@ -22,8 +22,6 @@ public class ScenarioContext implements Serializable {
 
     private String user;
 
-    private String commAssessmentNumber;
-
     private String registrationNumber;
 
 //    private String caseFileNumber;
@@ -35,14 +33,6 @@ public class ScenarioContext implements Serializable {
     public String getRegistrationNumber(){
         return registrationNumber;
     }
-
-//    public String getCaseFileNumber() {
-//        return caseFileNumber;
-//    }
-//
-//    public void setCaseFileNumber(String caseFileNumber) {
-//        this.caseFileNumber = caseFileNumber;
-//    }
 
     public String getUser() {
         return user;
@@ -114,14 +104,6 @@ public class ScenarioContext implements Serializable {
 
     public void setDataScreenAssessmentNumber(String dataScreenAssessmentNumber) {
         this.dataScreenAssessmentNumber = dataScreenAssessmentNumber;
-    }
-
-    public String getCommAssessmentNumber() {
-        return commAssessmentNumber;
-    }
-
-    public void setCommAssessmentNumber(String commAssessmentNumber) {
-        this.commAssessmentNumber = commAssessmentNumber;
     }
 }
 

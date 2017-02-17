@@ -17,10 +17,26 @@ public class PropertyAcknowledgementSteps extends BaseSteps implements En {
 //            scenarioContext.setApplicationNumber(applicationNumber);
 //        });
         Then("^create property details get saved successfully$", () -> {
-            String assessmentNumber = pageStore.get(PropertyAcknowledgementPage.class).getApplicationNumber();
-            scenarioContext.setAssessmentNumber(assessmentNumber);
-
+            String applicationNumber = pageStore.get(PropertyAcknowledgementPage.class).getApplicationNumber();
+            scenarioContext.setApplicationNumber(applicationNumber);
         });
+
+        And("^he will copy the acknowledgement message with application number$", () -> {
+            scenarioContext.setActualMessage(pageStore.get(PropertyAcknowledgementPage.class).getActualMsg());
+            pageStore.get(PropertyAcknowledgementPage.class).close();
+        });
+
+        Then("^create property details get saved successfully by generating assesssment number$", () -> {
+            String assessmentNumber =pageStore.get(PropertyAcknowledgementPage.class).getAssessmentNumber();
+            scenarioContext.setAssessmentNumber(assessmentNumber);
+        });
+
+
+        And("^he will copy the acknowledgement message with assessment number$", () -> {
+            scenarioContext.setActualMessage(pageStore.get(PropertyAcknowledgementPage.class).getActualMsgAssessment());
+            pageStore.get(PropertyAcknowledgementPage.class).close();
+        });
+
         And("^current user closes acknowledgement$", () -> {
             pageStore.get(PropertyAcknowledgementPage.class).close();
         });
@@ -38,14 +54,6 @@ public class PropertyAcknowledgementSteps extends BaseSteps implements En {
         });
         And("^user closes acknowledgement form$", () -> {
             pageStore.get(PropertyAcknowledgementPage.class).toCloseAdditionalConnectionPage();
-        });
-        And("^he will copy the application number$", () -> {
-            scenarioContext.setActualMessage(pageStore.get(PropertyAcknowledgementPage.class).getActualMsg());
-                    pageStore.get(PropertyAcknowledgementPage.class).close();
-        });
-        And("^he will copy the assessment number$", () -> {
-            scenarioContext.setActualMessage(pageStore.get(PropertyAcknowledgementPage.class).getActualMsgAssessment());
-            pageStore.get(PropertyAcknowledgementPage.class).close();
         });
 
     }

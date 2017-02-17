@@ -50,9 +50,7 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
             pageStore.get(PropertyDetailsPage.class).forward();
         });
         And("^he approved the property with remarks \"([^\"]*)\"$", (String remarks) -> {
-//          pageStore.get(PropertyDetailsPage.class).enterApproverRemarks(remarks);
-            String assessmentNo = pageStore.get(PropertyDetailsPage.class).approve();
-            scenarioContext.setCommAssessmentNumber(assessmentNo);
+            pageStore.get(PropertyDetailsPage.class).approve();
         });
         And("^he does a digital signature$", () -> {
             pageStore.get(PropertyDetailsPage.class).digitallySign();
@@ -72,11 +70,11 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
             pageStore.get(PropertyDetailsPage.class).chooseToSubmit();
         });
         And("^chooses to act upon the above application$", () -> {
-           pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getAssessmentNumber());
+           pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
         });
         And("^he approved the property with remarks \"([^\"]*)\" for transfer of ownership$", (String arg0) -> {
             String assessmentNo = pageStore.get(PropertyDetailsPage.class).approveForCreation();
-            scenarioContext.setCommAssessmentNumber(assessmentNo);
+            scenarioContext.setAssessmentNumber(assessmentNo);
         });
         And("^he search property with (\\w+)$", (String searchType) -> {
             SearchDetails searchDetails = new ExcelReader(ptisTestDataFileName).getSearchDetails(searchType);
@@ -84,7 +82,7 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
         });
         And("^he approved the property with remarks addition \"([^\"]*)\"$", (String arg0) -> {
             String assessmentNo = pageStore.get(PropertyDetailsPage.class).approveaddition();
-            scenarioContext.setCommAssessmentNumber(assessmentNo);
+            scenarioContext.setAssessmentNumber(assessmentNo);
         });
         And("^he enters document type details as (\\w+)$", (String documentSelect) -> {
             DocumentTypeValue documentValue = new ExcelReader(ptisTestDataFileName).getDocumentValue(documentSelect);
