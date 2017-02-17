@@ -15,9 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
 
-/**
- * Created by vinaykumar on 2/2/17.
- */
+
 public class LegalCaseManagementPage extends BasePage {
 
     private WebDriver webDriver;
