@@ -5,7 +5,7 @@ Feature: To create a Financial Transactions
 
     Given accountsOfficer logs in
     And user will select the required screen as "Create Journal Voucher"
-    And officer will enter the journal voucher details as <voucherDetails>
+    And officer will enter the journal voucher details as <voucherDetails> with subledger <isPresent>
     And officer will enter the approval details as <approvalOfficer1>
     And officer will get successful voucher created and closes it
     Then user will be notified by "Created"
@@ -33,8 +33,9 @@ Feature: To create a Financial Transactions
     And current user logs out
 
     Examples:
-    |voucherDetails|  approvalOfficer1 | approvalOfficer2 |  approvalOfficer3 |
-    |voucher1      |  accountOfficer1a | accountOfficer2  |  commissioner     |
+    |voucherDetails          |  approvalOfficer1 | approvalOfficer2 |  approvalOfficer3 | isPresent |
+    |voucher1                |  accountOfficer1a | accountOfficer2  |  commissioner     | yes       |
+    |voucherWithOutSubledger |  accountOfficer1a | accountOfficer2  |  commissioner     | no        |
 
 
   @Sanity @Finance
@@ -42,7 +43,7 @@ Feature: To create a Financial Transactions
 
     Given accountsOfficer logs in
     And user will select the required screen as "Create Journal Voucher"
-    And officer will enter the journal voucher details as <voucherDetails>
+    And officer will enter the journal voucher details as <voucherDetails> with subledger <isPresent>
     And officer will enter the approval details as <approvalOfficer1>
     And officer will get successful voucher created and closes it
     Then user will be notified by "Created"
@@ -73,8 +74,9 @@ Feature: To create a Financial Transactions
     And current user logs out
 
     Examples:
-      |voucherDetails| approvalOfficer1 | approvalOfficer2 |  approvalOfficer3 |
-      |voucher2      | accountOfficer1a | accountOfficer2  |  commissioner     |
+      |voucherDetails          | approvalOfficer1 | approvalOfficer2 |  approvalOfficer3 | isPresent |
+      |voucher2                | accountOfficer1a | accountOfficer2  |  commissioner     | yes       |
+      |voucherWithOutSubledger | accountOfficer1a | accountOfficer2  |  commissioner     | no        |
 
 
   @Sanity @Finance
@@ -82,7 +84,7 @@ Feature: To create a Financial Transactions
 
     Given accountsOfficer logs in
     And user will select the required screen as "Create Journal Voucher"
-    And officer will enter the journal voucher details as <voucherDetails>
+    And officer will enter the journal voucher details as <voucherDetails> with subledger <isPresent>
     And officer will enter the approval details as <approvalOfficer1>
     And officer will get successful voucher created and closes it
     Then user will be notified by "Created"
@@ -134,10 +136,10 @@ Feature: To create a Financial Transactions
     And current user logs out
 
     Examples:
-      |voucherDetails     |  approvalOfficer1  | approvalOfficer2  |  approvalOfficer3  | paymentMode  |
-      |voucherDateJune    |  accountOfficer1   | accountOfficer2   |  commissioner      | cheque       |
-      |voucherDateJune    |  accountOfficer1   | accountOfficer2   |  commissioner      | cash         |
-      |voucherDateJune    |  accountOfficer1   | accountOfficer2   |  commissioner      | RTGS         |
+      |voucherDetails        |  approvalOfficer1  | approvalOfficer2  |  approvalOfficer3  | paymentMode  | isPresent |
+      |voucherBillPayment    |  accountOfficer1   | accountOfficer2   |  commissioner      | cheque       | yes       |
+      |voucherBillPayment    |  accountOfficer1   | accountOfficer2   |  commissioner      | cash         | yes       |
+      |voucherBillPayment    |  accountOfficer1   | accountOfficer2   |  commissioner      | RTGS         | yes       |
 
 
   @Sanity @Finance
@@ -169,7 +171,6 @@ Feature: To create a Financial Transactions
 
     And accountsOfficer logs in
     And user will select the required screen as "Create Voucher"
-#    And officer will search for the Create Voucher for expense bill
     And officer will filter the bill according to the type
     And officer will enter the approval details as <approvalOfficer3>
     And officer will set the new expense voucher number and closes it
@@ -210,7 +211,7 @@ Feature: To create a Financial Transactions
 
     Given accountsOfficer logs in
     And user will select the required screen as "Create Journal Voucher"
-    And officer will enter the journal voucher details as <voucherDetails>
+    And officer will enter the journal voucher details as <voucherDetails> with subledger <isPresent>
     And officer will enter the approval details as <approvalOfficer1>
     And officer will get successful voucher created and closes it
     Then user will be notified by "Created"
@@ -265,15 +266,15 @@ Feature: To create a Financial Transactions
 
     And accountsOfficer logs in
     And officer search for the assignment mode as <assignment>
-    And officer will filter the payment cheque assignment bill
-    And officer will select the bill and enter the details <assignment>
+    And officer will filter the payment cheque assignment bill as <singleOrMultiple>
+    And officer will select the <singleOrMultiple> bill and enter the details <assignment>
     And officer will close the successfull assignment page
     Then user will be notified by "successfully"
     And current user logs out
 
     Examples:
-      |voucherDetails     |  approvalOfficer1  | approvalOfficer2  |  approvalOfficer3  | paymentMode  | assignment |
-      |voucherDateJune    |  accountOfficer1   | accountOfficer2   |  commissioner      | cheque       | cheque     |
-      |voucherDateJune    |  accountOfficer1   | accountOfficer2   |  commissioner      | RTGS         | RTGS       |
+      |voucherDetails     |  approvalOfficer1  | approvalOfficer2  |  approvalOfficer3  | paymentMode  | assignment | isPresent | singleOrMultiple |
+      |voucherDateJune    |  accountOfficer1   | accountOfficer2   |  commissioner      | cheque       | cheque     | yes       | single           |
+      |voucherDateJune    |  accountOfficer1   | accountOfficer2   |  commissioner      | RTGS         | RTGS       | yes       | single           |
 
 

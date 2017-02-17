@@ -43,7 +43,8 @@ Feature: To create a new remittance recovery
 
     And accountsOfficer logs in
     And user will select the required screen as "Create Remittance Recovery"
-    And officer will search for remittance bills
+    And officer will search for <singleOrMultiple> remittance bill
+#    And officer will search for remittance bills
     And officer will enter the remittance bank details
     And officer will enter the approval details as <approvalOfficer2>
     And officer will closes the acknowledgement page
@@ -70,14 +71,14 @@ Feature: To create a new remittance recovery
 
     And accountsOfficer logs in
     And user will select the required screen as "Cheque Assignment" with condition as "beforeSearchForRemittance"
-    And officer will filter the payment cheque assignment bill
-    And officer will select the bill and enter the details <assignment>
+    And officer will filter the payment cheque assignment bill as <singleOrMultiple>
+    And officer will select the <singleOrMultiple> bill and enter the details <assignment>
     And officer will close the successfull assignment page
     Then user will be notified by "successfully"
     And current user logs out
 
     Examples:
-      |voucherDetails   | approvalOfficer1  | approvalOfficer2  |  approvalOfficer3  |  glCode   | assignment |
-      |remittance       |  accountOfficer1  | accountOfficer2   |  commissioner      |  3502002  | remittance |
+      |voucherDetails   | approvalOfficer1  | approvalOfficer2  |  approvalOfficer3  |  glCode   | assignment | singleOrMultiple |
+      |remittance       |  accountOfficer1  | accountOfficer2   |  commissioner      |  3502002  | remittance | single           |
 
 

@@ -1,5 +1,6 @@
 package pages.financial;
 
+import com.gargoylesoftware.htmlunit.javascript.host.canvas.ext.WEBGL_compressed_texture_s3tc;
 import entities.financial.FinancialBankDetails;
 import entities.financial.FinancialExpenseBillDetails;
 import entities.financial.FinancialJournalVoucherDetails;
@@ -11,7 +12,6 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasePage;
 
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -137,6 +137,9 @@ public class FinancialPage extends BasePage {
 
     @FindBy(linkText = "Expense Bill")
     private WebElement expenseBillSearch;
+
+    @FindBy(linkText = "Supplier Bill")
+    private WebElement supplierBillSearch;
 
     @FindBy(name = "contingentList[0].isSelected")
     private WebElement firstVoucher;
@@ -265,7 +268,16 @@ public class FinancialPage extends BasePage {
     private WebElement bankBranch2;
 
     @FindBy(id = "isSelected0")
-    private WebElement chequeAssignmentBill;
+    private WebElement firstBill;
+
+    @FindBy(id = "conSelectAll")
+    private WebElement selectAllBillsFromContractor;
+
+    @FindBy(id = "expSelectAll")
+    private WebElement selectAllBillsFromExpense;
+
+    @FindBy(xpath = ".//*[@id='supSelectAll']/tbody/tr[2]/td//div/table/tbody/tr/th/input")
+    private WebElement selectAllBillsFromSupplier;
 
     @FindBy(name = "chequeAssignmentList[0].chequeNumber")
     private WebElement checkAssignmentNumberBox;
@@ -357,6 +369,21 @@ public class FinancialPage extends BasePage {
     @FindBy(css = ".buttonsubmit")
     private WebElement submitButton;
 
+    @FindBy(id = "Create And Approve")
+    private WebElement createAndApproveButton;
+
+    @FindBy(css = ".btn.btn-primary")
+    private WebElement okButton1;
+
+    @FindBy(id = "availableBalance")
+    private WebElement availableBalanceInBank;
+
+    @FindBy(id = "selectAll")
+    private WebElement selectAllBillsFromRemittanceRecovery;
+
+    @FindBy(id = "selectall")
+    private WebElement selectAllBillsfromAssignmentPage;
+
     private List<WebElement> voucherRows;
 
     private String userName = "";
@@ -365,8 +392,9 @@ public class FinancialPage extends BasePage {
         this.webDriver = webDriver;
     }
 
-    public void enterJournalVoucherDetails(FinancialJournalVoucherDetails financialJournalVoucherDetails){
+    public void enterJournalVoucherDetails(FinancialJournalVoucherDetails financialJournalVoucherDetails , String withOrWithoutSubledger){
 
+        waitForElementToBeClickable(voucherSubType , webDriver);
         new Select(voucherSubType).selectByVisibleText(financialJournalVoucherDetails.getVoucherType());
         if(!financialJournalVoucherDetails.getVoucherType().equals("General")){
             waitForElementToBeClickable(voucherPartyName , webDriver);
@@ -396,28 +424,30 @@ public class FinancialPage extends BasePage {
             e.printStackTrace();
         }
 
-        waitForElementToBePresent(By.className("yui-dt-dropdown") , webDriver);
-        List<WebElement> webElementList = ledgerAccount1.findElements(By.tagName("option"));
+        if(withOrWithoutSubledger.contains("yes")) {
+            waitForElementToBePresent(By.className("yui-dt-dropdown"), webDriver);
+            List<WebElement> webElementList = ledgerAccount1.findElements(By.tagName("option"));
 
-        new Select(ledgerAccount1).selectByVisibleText(webElementList.get(1).getText());
-        new Select(ledgerType1).selectByVisibleText("contractor");
-        ledgerCode1.sendKeys("G Basheer Ahmed");
+            new Select(ledgerAccount1).selectByVisibleText(webElementList.get(1).getText());
+            new Select(ledgerType1).selectByVisibleText("contractor");
+            ledgerCode1.sendKeys("G Basheer Ahmed");
 
-        waitForElementToBeClickable(accountCodeDropdown , webDriver);
-        accountCodeDropdown.click();
-        ledgerAmount1.sendKeys("100");
-
-        if(webElementList.size()>2){
-            addList.get(2).click();
-
-            ledgerAccount2.click();
-            new Select(ledgerAccount2).selectByVisibleText(webElementList.get(2).getText());
-            new Select(ledgerType2).selectByVisibleText("contractor");
-            ledgerCode2.sendKeys("G Basheer Ahmed");
-
-            waitForElementToBeClickable(accountCodeDropdown , webDriver);
+            waitForElementToBeClickable(accountCodeDropdown, webDriver);
             accountCodeDropdown.click();
-            ledgerAmount2.sendKeys("100");
+            ledgerAmount1.sendKeys("100");
+
+            if (webElementList.size() > 2) {
+                addList.get(2).click();
+
+                ledgerAccount2.click();
+                new Select(ledgerAccount2).selectByVisibleText(webElementList.get(2).getText());
+                new Select(ledgerType2).selectByVisibleText("contractor");
+                ledgerCode2.sendKeys("G Basheer Ahmed");
+
+                waitForElementToBeClickable(accountCodeDropdown, webDriver);
+                accountCodeDropdown.click();
+                ledgerAmount2.sendKeys("100");
+            }
         }
     }
 
@@ -442,6 +472,7 @@ public class FinancialPage extends BasePage {
         approverPos.getOptions().get(1).click();
 
         forwardButton.click();
+//        if(webDriver.switchTo().alert().getText().)
         return userName;
     }
 
@@ -522,7 +553,7 @@ public class FinancialPage extends BasePage {
         return forwardMessageText;
     }
 
-    public void billSearch(){
+    public void singleBillSearch(){
         waitForElementToBeClickable(billFromDate ,webDriver);
         billFromDate.sendKeys(getCurrentDate());
 
@@ -539,6 +570,58 @@ public class FinancialPage extends BasePage {
 
         waitForElementToBeClickable(expenseBillSearch , webDriver);
         expenseBillSearch.click();
+    }
+
+    public void multipleBillSearch(String type , String paymentMode){
+
+        waitForElementToBeClickable(fundId , webDriver);
+        new Select(fundId).selectByVisibleText("Municipal Fund");
+
+        waitForElementToBeClickable(voucherDepartment , webDriver);
+        new Select(voucherDepartment).selectByVisibleText("ADMINISTRATION");
+
+        waitForElementToBeClickable(voucherFunction , webDriver);
+        new Select(voucherFunction).selectByVisibleText("General Administration");
+
+        waitForElementToBeClickable(billSearch , webDriver);
+        billSearch.click();
+
+        switchToNewlyOpenedWindow(webDriver);
+
+        switch (type){
+
+            case "expense" :
+                waitForElementToBeClickable(expenseBillSearch , webDriver);
+                expenseBillSearch.click();
+                selectAllBillsAtOneTime(selectAllBillsFromExpense);
+                break;
+
+            case "supplier" :
+                waitForElementToBeClickable(supplierBillSearch , webDriver);
+                supplierBillSearch.click();
+                selectAllBillsAtOneTime(selectAllBillsFromSupplier);
+                break;
+
+            case "contractor" :
+                selectAllBillsAtOneTime(selectAllBillsFromContractor);
+                break;
+        }
+
+        selectModeOfPayment(paymentMode);
+
+        waitForElementToBeClickable(generatePayment , webDriver);
+        generatePayment.click();
+        switchToNewlyOpenedWindow(webDriver);
+    }
+
+    private void selectAllBillsAtOneTime (WebElement element){
+        if(firstBill.isDisplayed()){
+            waitForElementToBeClickable(element, webDriver);
+            element.click();
+        }
+        else {
+            throw new RuntimeException("No voucher rows are found in the web page.......All are Successfully Paid -- ");
+        }
     }
 
     public void actOnAboveVoucher(String paymentMode ,String voucherNumber){
@@ -594,16 +677,31 @@ public class FinancialPage extends BasePage {
     }
 
     public void billPayment(FinancialBankDetails financialBankDetails){
+        webDriver.manage().window().maximize();
+        waitForElementToBeClickable(bankBranch ,webDriver);
         bankBranch.click();
         new Select(bankBranch).selectByVisibleText(financialBankDetails.getBankName());
+
         waitForElementToBeClickable(bankAccount , webDriver);
         bankAccount.click();
         new Select(bankAccount).selectByVisibleText(financialBankDetails.getAccountNumber());
+
+        waitForElementToBeClickable(availableBalanceInBank , webDriver);
+        availableBalanceInBank.click();
+
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void billRemittancePayment(FinancialBankDetails financialBankDetails){
+        waitForElementToBeClickable(bankBranch1  ,webDriver);
         bankBranch1.click();
         new Select(bankBranch1).selectByVisibleText(financialBankDetails.getBankName());
+
         waitForElementToBeClickable(bankAccount , webDriver);
         bankAccount.click();
         new Select(bankAccount).selectByVisibleText(financialBankDetails.getAccountNumber());
@@ -613,11 +711,10 @@ public class FinancialPage extends BasePage {
         new Select(expenseFund).selectByVisibleText(financialExpenseBillDetails.getExpenseFund());
         new Select(expenseDepartment).selectByVisibleText(financialExpenseBillDetails.getExpenseDeparment());
 
-//        expenseFunction.sendKeys("3100" , Keys.TAB);
         expenseFunction.sendKeys(financialExpenseBillDetails.getExpenseFunction());
-//        waitForElementToBeVisible( webDriver.findElement(By.className("tt-dropdown-menu")),webDriver);
-        WebElement dropdown = webDriver.findElement(By.xpath(".//*[@id='expensebillheader']/div/div[7]/div[1]/span/span/div"));
-//        WebElement dropdown = webDriver.findElement(By.className("tt-dataset-0"));
+        waitForElementToBeVisible( webDriver.findElement(By.className("tt-dropdown-menu")),webDriver);
+//        WebElement dropdown = webDriver.findElement(By.xpath(".//*[@id='expensebillheader']/div/div[7]/div[1]/span/span/div"));
+        WebElement dropdown = webDriver.findElement(By.className("tt-dataset-0"));
         waitForElementToBeVisible(dropdown,webDriver);
         waitForElementToBeClickable(dropdown,webDriver);
         dropdown.click();
@@ -789,12 +886,17 @@ public class FinancialPage extends BasePage {
     }
 
     public void searchRemittanceBill(){
+        waitForElementToBeClickable(recoveryId , webDriver);
         new Select(recoveryId).selectByVisibleText("3502002-GPF –Employees on Deputation");
+
+        waitForElementToBeClickable(fundId ,webDriver);
         new Select(fundId).selectByVisibleText("Municipal Fund");
+
+        waitForElementToBeClickable(remittanceBillSearch , webDriver);
         remittanceBillSearch.click();
     }
 
-    public void selectRemittanceBIll(String remittanceBill){
+    public void selectSingleRemittanceBill(String remittanceBill){
         int rowNumber = Integer.parseInt(getRemittanceBill(remittanceBill).getText());
         WebElement element = webDriver.findElement(By.id("listRemitBean["+(rowNumber-1)+"].chkremit"));
         element.click();
@@ -870,14 +972,34 @@ public class FinancialPage extends BasePage {
         switchToNewlyOpenedWindow(webDriver);
     }
 
+    public void chequeAssignmentBillSearch(){
+
+        waitForElementToBeClickable(fundId , webDriver);
+        new Select(fundId).selectByVisibleText("Municipal Fund");
+        webDriver.manage().window().maximize();
+        webDriver.manage().timeouts().implicitlyWait(10 , TimeUnit.SECONDS);
+
+        waitForElementToBeClickable(bankBranch2 , webDriver);
+        bankBranch2.click();
+        new Select(bankBranch2).selectByVisibleText("ANDHRA BANK Andhra Bank RTC Busstand");
+
+        waitForElementToBeClickable(bankAccount,webDriver);
+        bankAccount.click();
+        new Select(bankAccount).selectByVisibleText("4502110--110710100009664--ANDHRA BANK");
+
+        waitForElementToBeClickable(billSearch, webDriver);
+        billSearch.click();
+        switchToNewlyOpenedWindow(webDriver);
+    }
+
     public void toFillChequeAssignmentDetails(String assignment){
 
         switch (assignment){
 
             case "cheque" :
 
-                waitForElementToBeClickable(chequeAssignmentBill, webDriver);
-                chequeAssignmentBill.click();
+                waitForElementToBeClickable(firstBill, webDriver);
+                firstBill.click();
 
                 waitForElementToBeClickable(checkAssignmentNumberBox, webDriver);
                 checkAssignmentNumberBox.sendKeys(get6DigitRandomInt());
@@ -886,8 +1008,8 @@ public class FinancialPage extends BasePage {
 
             case "RTGS" :
 
-                waitForElementToBeClickable(chequeAssignmentBill, webDriver);
-                chequeAssignmentBill.click();
+                waitForElementToBeClickable(firstBill, webDriver);
+                firstBill.click();
 
                 waitForElementToBeClickable(rtgsDate , webDriver);
                 rtgsDate.sendKeys(getCurrentDate() , Keys.TAB);
@@ -896,8 +1018,8 @@ public class FinancialPage extends BasePage {
 
             case "remittance" :
 
-                waitForElementToBeClickable(chequeAssignmentBill, webDriver);
-                chequeAssignmentBill.click();
+                waitForElementToBeClickable(firstBill, webDriver);
+                firstBill.click();
 
                 new Select(remittanceAssignmentDepartment).selectByVisibleText("ACCOUNTS");
 
@@ -1033,5 +1155,132 @@ public class FinancialPage extends BasePage {
 
         switchToPreviouslyOpenedWindow(webDriver);
         return message;
+    }
+
+    public void clickOnCreateAndApprove(){
+        waitForElementToBeClickable(createAndApproveButton , webDriver);
+        createAndApproveButton.click();
+
+        // This method is required on bank details page if there is any less balance
+        // in bank it will open the alert and accepts it and it is not required for other screens
+        isAlertOpened();
+
+        switchToNewlyOpenedWindow(webDriver);
+    }
+
+    private void isAlertOpened(){
+        try
+        {
+            webDriver.switchTo().alert().accept();
+        }
+        catch (NoAlertPresentException Ex)
+        {
+            System.out.println("No Alert is Not Opened");
+        }
+    }
+
+    public String createAndApproveSuccessPage() {
+
+        switchToNewlyOpenedWindow(webDriver);
+
+        WebDriverWait webDriverWait = new WebDriverWait(webDriver,10);
+
+        webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("div[class~='bootbox-alert'] div[class^='bootbox-body']")));
+        WebElement voucherNumber = webDriver.findElement(By.cssSelector("div[class~='bootbox-alert'] div[class^='bootbox-body']"));
+        String message = voucherNumber.getText();
+
+        waitForElementToBeClickable(okButton1 , webDriver);
+        okButton1.click();
+
+        waitForElementToBeClickable(closeButton , webDriver);
+        closeButton.click();
+
+        switchToPreviouslyOpenedWindow(webDriver);
+        return message;
+    }
+
+    public void selectMultipleRemittanceBill() {
+
+        if(webDriver.findElement(By.id("listRemitBean[0].chkremit")).isDisplayed()) {
+            waitForElementToBeClickable(selectAllBillsFromRemittanceRecovery, webDriver);
+            selectAllBillsFromRemittanceRecovery.click();
+        }
+        else {
+            throw new RuntimeException("No Remittance Recovery Bills found");
+        }
+
+        waitForElementToBeClickable(remittancePayment ,webDriver);
+        remittancePayment.click();
+        switchToNewlyOpenedWindow(webDriver);
+    }
+
+    public void toFillMultipleChequeAssignmentDetails(String assignmentMode) {
+
+        switch (assignmentMode){
+
+            case "cheque" :
+
+                if(firstBill.isDisplayed()){
+                    waitForElementToBeClickable(selectAllBillsfromAssignmentPage  ,webDriver);
+                    selectAllBillsfromAssignmentPage.click();
+                }
+                else {
+                    throw new RuntimeException("No Bills are found");
+                }
+                WebElement paymentTable = webDriver.findElement(By.id("paymentTable"));
+                List<WebElement> chequeRows = paymentTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
+
+                for (int i = 0 ; i < (chequeRows.size() -1) ; i++){
+                    WebElement element = webDriver.findElement(By.name("chequeAssignmentList["+i+"].chequeNumber"));
+                    waitForElementToBeClickable(element ,webDriver);
+                    element.sendKeys(get6DigitRandomInt());
+                }
+
+                break;
+
+            case "RTGS" :
+
+                if(firstBill.isDisplayed()){
+                    waitForElementToBeClickable(selectAllBillsfromAssignmentPage  ,webDriver);
+                    selectAllBillsfromAssignmentPage.click();
+                }
+                else {
+                    throw new RuntimeException("No Bills are found");
+                }
+
+                waitForElementToBeClickable(rtgsDate , webDriver);
+                rtgsDate.sendKeys(getCurrentDate() , Keys.TAB);
+
+                break;
+
+            case "remittance" :
+
+                if(firstBill.isDisplayed()){
+                    waitForElementToBeClickable(selectAllBillsfromAssignmentPage  ,webDriver);
+                    selectAllBillsfromAssignmentPage.click();
+                }
+                else {
+                    throw new RuntimeException("No Bills are found");
+                }
+
+                waitForElementToBeClickable(remittanceAssignmentDepartment , webDriver);
+                new Select(remittanceAssignmentDepartment).selectByVisibleText("ACCOUNTS");
+
+                waitForElementToBeClickable(remittanceChequeAssignmentNumber , webDriver);
+                remittanceChequeAssignmentNumber.sendKeys(get6DigitRandomInt());
+
+                waitForElementToBeClickable(remittanceChequeDate , webDriver);
+                remittanceChequeDate.sendKeys(getCurrentDate() , Keys.TAB);
+
+                waitForElementToBeClickable(remittanceFavour , webDriver);
+                remittanceFavour.sendKeys("Testing");
+
+                break;
+
+        }
+
+        waitForElementToBeClickable(assignChequeButton, webDriver);
+        assignChequeButton.click();
+
     }
 }

@@ -29,16 +29,16 @@ Feature: To create a voucher through direct bank payments
 
     And accountsOfficer logs in
     And officer search for the assignment mode as <assignment>
-    And officer will filter the payment cheque assignment bill
-    And officer will select the bill and enter the details <assignment>
+    And officer will filter the payment cheque assignment bill as <singleOrMultiple>
+    And officer will select the <singleOrMultiple> bill and enter the details <assignment>
     And officer will close the successfull assignment page
     Then user will be notified by "successfully"
     And current user logs out
 
     Examples:
-    |paymentMode | approvalOfficer1  | approvalOfficer2  | assignment |
-    |cheque      | accountOfficer2   | commissioner      | cheque     |
-    |RTGS        | accountOfficer2   | commissioner      | RTGS       |
+    |paymentMode | approvalOfficer1  | approvalOfficer2  | assignment | singleOrMultiple |
+    |cheque      | accountOfficer2   | commissioner      | cheque     | single           |
+    |RTGS        | accountOfficer2   | commissioner      | RTGS       | single           |
 
 
     @Sanity @Finance

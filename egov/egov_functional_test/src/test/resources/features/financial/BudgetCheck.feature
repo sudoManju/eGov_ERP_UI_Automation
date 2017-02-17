@@ -5,10 +5,10 @@ Feature: To create a new Journal voucher according to the budget check
 
     Given accountsOfficer logs in
     And user will select the required screen as "Create Journal Voucher"
-    And officer will enter the journal voucher details as <voucherDetails>
+    And officer will enter the journal voucher details as <voucherDetails> with subledger <isPresent>
     And officer will enter the approval details as <approvalOfficer1>
     And officer will get successful BAN NUMBER created and closes it
-    Then user will be notified by "BANo"
+    Then user will be notified by "Budgetary"
     And current user logs out
 
 #    And accountsOfficer logs in
@@ -36,7 +36,7 @@ Feature: To create a new Journal voucher according to the budget check
     And current user logs out
 
     Examples:
-      |voucherDetails    | approvalOfficer1  | approvalOfficer2  |  approvalOfficer3  |
-      |budgetCheck       |  accountOfficer1  | accountOfficer2   |  commissioner      |
+      |voucherDetails           | approvalOfficer1  | approvalOfficer2  |  approvalOfficer3  | isPresent  |
+      |budgetCheckWithSubledger |  accountOfficer1  | accountOfficer2   |  commissioner      | yes        |
 
 
