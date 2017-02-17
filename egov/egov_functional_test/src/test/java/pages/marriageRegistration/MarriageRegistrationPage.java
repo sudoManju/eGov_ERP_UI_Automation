@@ -83,19 +83,19 @@ public class MarriageRegistrationPage extends BasePage {
     @FindBy(xpath = ".//*[@id='settingstab']/li[3]/a")
     private WebElement checkListLink;
 
-    @FindBy(id = "file1id")
+    @FindBy(id = "file2id")
     private WebElement memorandumofMarriage;
 
-    @FindBy(id = "ageproofhusbandfile1id")
+    @FindBy(id = "indvcommonhusbandfile7id")
     private WebElement birthCertificateForBridegroom;
 
-    @FindBy(id = "ageproofwifefile1id")
+    @FindBy(id = "indvcommonwifefile7id")
     private WebElement birthCertificateForBride;
 
-    @FindBy(id = "addressproofhusbandfile10id")
+    @FindBy(id = "addressproofhusbandfile3id")
     private WebElement proofofResidenceForBridegroom;
 
-    @FindBy(id = "addressproofwifefile10id")
+    @FindBy(id = "addressproofwifefile3id")
     private WebElement proofofResidenceForBride;
 
     @FindBy(xpath = ".//*[@id='registrationsuccess-form']/div/div[2]/div")
@@ -172,6 +172,12 @@ public class MarriageRegistrationPage extends BasePage {
 
     @FindBy(xpath = ".//*[@id='registrationNum']")
     private WebElement marriageRegNum;
+
+    @FindBy(id = "ageproofhusbandfile0id")
+    private WebElement ageproofHusband;
+
+    @FindBy(id = "ageproofwifefile0id")
+    private WebElement ageproofWife;
 
     public MarriageRegistrationPage(WebDriver driver) {
         this.driver = driver;
@@ -284,14 +290,8 @@ public class MarriageRegistrationPage extends BasePage {
         birthCertificateForBride.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
         proofofResidenceForBridegroom.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
         proofofResidenceForBride.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
-        memorandumOfMarriage.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
-
-        memorandumofMarriage.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
-        birthCertificateForBridegroom.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
-        birthCertificateForBride.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
-        proofofResidenceForBridegroom.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
-        proofofResidenceForBride.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
-        memorandumOfMarriage.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
+        ageproofHusband.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
+        ageproofWife.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
     }
 
     public String getApplicationNumber() {
@@ -411,7 +411,7 @@ public class MarriageRegistrationPage extends BasePage {
 
     public void entersMemorandumOfMarriage() {
         waitForElementToBeClickable(registrationUnit, driver);
-        new Select(registrationUnit).selectByVisibleText("Sarjapur");
+        new Select(registrationUnit).selectByVisibleText("BTM");
         waitForElementToBeClickable(firstName, driver);
         firstName.sendKeys("AaZz");
         waitForElementToBeClickable(residenceAddress, driver);
