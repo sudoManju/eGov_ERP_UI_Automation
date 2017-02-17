@@ -38,11 +38,6 @@ public class PropertyAcknowledgementPage extends BasePage {
         return driver.findElement(By.xpath("//table/tbody/tr/td")).getText();
     }
 
-    public String getApplicationNumber() {
-        List<WebElement> elements = driver.findElement(By.tagName("table")).findElement(By.tagName("tbody"))
-                .findElement(By.tagName("tr")).findElement(By.tagName("td")).findElements(By.tagName("span"));
-        return elements.get(1).getText();
-    }
     public void close() {
 
         try {
@@ -98,20 +93,22 @@ public class PropertyAcknowledgementPage extends BasePage {
         switchToPreviouslyOpenedWindow(driver);
     }
 
-    public String getActualMsg() {
-        WebElement ele=driver.findElement(By.xpath(".//*[@id='createProperty-create']/div/table/tbody/tr[1]/td"));
-        return ele.getText();
-    }
-
-
-    public String getActualMsgAssessment() {
-        WebElement ele=driver.findElement(By.xpath(".//*[@id='createProperty-forward']/div/table/tbody/tr[1]/td"));
-        return ele.getText();
-    }
-
     public String getAssessmentNumber() {
         List<WebElement> elements = driver.findElement(By.tagName("table")).findElement(By.tagName("tbody"))
                 .findElement(By.tagName("tr")).findElement(By.tagName("td")).findElements(By.tagName("span"));
         return elements.get(1).getText();
+    }
+
+    public String getAssessmentNumberNew(String type){
+
+        WebElement element;
+        if(type.equals("title")){
+            element = driver.findElement(By.xpath(".//*[@id='save']/div[1]/table/tbody/tr[1]/td[2]"));
+        }
+        else {
+            element = driver.findElement(By.xpath(".//*[@id='"+type+"']/div[1]/table/tbody/tr[1]/td"));
+        }
+
+        return element.getText();
     }
 }

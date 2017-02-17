@@ -284,12 +284,6 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy (css = "input[type='text'][name='instrHeaderCash.instrumentAmount']")
     private WebElement propertyAmountToBePaid;
 
-    @FindBy(xpath = ".//*[@id='createProperty-forward']/div/table/tbody/tr[1]/td")
-    private WebElement commAssessmentNo;
-
-    @FindBy(xpath = ".//*[@id='modifyProperty-approve']/div/table/tbody/tr[1]/td")
-    private WebElement additionAssessmentNo;
-
     @FindBy(xpath = ".//*[@id='approve']/div/table/tbody/tr[1]/td/span[2]")
     private WebElement commAssessmentNo1;
 
@@ -420,15 +414,18 @@ public class PropertyDetailsPage extends BasePage {
         waitForElementToBeVisible(commAssessmentNo1, webDriver);
         return commAssessmentNo1.getText();
     }
+
     public void digitallySign() {
         signButton.click();
     }
+
     public void generateNotice() {
         generateNotice.click();
         switchToNewlyOpenedWindow(webDriver);
         webDriver.close();
         switchToPreviouslyOpenedWindow(webDriver);
     }
+
     public void checkNoOfRecords() {
 
         Boolean isPresent = webDriver.findElements(By.id("currentRowObject")).size() > 0;
@@ -445,14 +442,6 @@ public class PropertyDetailsPage extends BasePage {
 
     }
 
-    public void enterApplicationInfo(ApplicantInfo applicantInfo){
-        waitForElementToBeClickable(assessmentNumberTextBox, webDriver);
-        enterText(assessmentNumberTextBox, applicantInfo.getPtAssessmentNumber());
-        waitForElementToBeClickable(hscNumberTextBox, webDriver);
-        enterText(hscNumberTextBox, applicantInfo.getHscNumber());
-        waitForElementToBeClickable(connectionDateTextBox, webDriver);
-        enterText(connectionDateTextBox, applicantInfo.getConnectionDate());
-    }
     public void chooseToSubmit(){
         waitForElementToBeClickable(submitButton, webDriver);
         submitButton.click();
@@ -554,17 +543,8 @@ public class PropertyDetailsPage extends BasePage {
         }
     }
 
-    public String getAssessmentApplicationNo() {
-        WebElement ele = webDriver.findElement(By.xpath(".//*[@id='modifyProperty-forward']/div[1]"));
-        return ele.getText();
-    }
-
-    public String approveaddition() {
+    public void approveaddition() {
+        waitForElementToBeClickable(approveButton,webDriver);
         approveButton.click();
-        waitForElementToBeVisible(additionAssessmentNo, webDriver);
-        return additionAssessmentNo.getText();
-
     }
-
-
 }

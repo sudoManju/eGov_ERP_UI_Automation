@@ -21,6 +21,7 @@ import static steps.BaseSteps.scenarioContext;
  * Created by bimal on 5/12/16.
  */
 public class DataEntryAcknowledgementSteps extends BaseSteps implements En {
+
     @Then("^dataEntry Details saved successfully$")
     public void dataentryDetailsSavedSuccessfully() throws Throwable {
         String acknowledgementMessage = pageStore.get(DataEntryAcknowledgementPage.class).getdataentryAcknowledgementMessage();
@@ -29,6 +30,7 @@ public class DataEntryAcknowledgementSteps extends BaseSteps implements En {
         String assessmentNumber = pageStore.get(DataEntryAcknowledgementPage.class).getAssessmentNumber();
         scenarioContext.setAssessmentNumber(assessmentNumber);
     }
+
     @And("^he choose to add edit DCB$")
     public void heChooseToAddEditDCB() throws Throwable {
         pageStore.get(DataEntryAcknowledgementPage.class).geteditDCB();

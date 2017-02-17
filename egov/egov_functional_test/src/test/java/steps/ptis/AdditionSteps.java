@@ -30,10 +30,10 @@ public class AdditionSteps extends BaseSteps implements En {
             EditFloorDetails floorDetails = new ExcelReader(ptisTestDataFileName).getEditFloorDetails(floordetailsDataName);
             pageStore.get(PropertyDetailsPage.class).enterEditFloorDetails(floorDetails);
         });
-        And("^he will copy application and assessment number$", () -> {
-           scenarioContext.setActualMessage(pageStore.get(PropertyDetailsPage.class).getAssessmentApplicationNo());
-            pageStore.get(PropertyAcknowledgementPage.class).close();
-        });
+//        And("^he will copy application and assessment number$", () -> {
+//           scenarioContext.setActualMessage(pageStore.get(PropertyDetailsPage.class).getAssessmentApplicationNo());
+//            pageStore.get(PropertyAcknowledgementPage.class).close();
+//        });
 
     }
 }

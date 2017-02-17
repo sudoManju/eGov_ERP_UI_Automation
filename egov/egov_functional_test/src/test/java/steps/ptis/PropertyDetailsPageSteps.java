@@ -70,7 +70,7 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
             pageStore.get(PropertyDetailsPage.class).chooseToSubmit();
         });
         And("^chooses to act upon the above application$", () -> {
-           pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
+           pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getAssessmentNumber());
         });
         And("^he approved the property with remarks \"([^\"]*)\" for transfer of ownership$", (String arg0) -> {
             String assessmentNo = pageStore.get(PropertyDetailsPage.class).approveForCreation();
@@ -81,8 +81,7 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
             pageStore.get(PropertyDetailsPage.class).searchProperty(searchDetails,searchType);
         });
         And("^he approved the property with remarks addition \"([^\"]*)\"$", (String arg0) -> {
-            String assessmentNo = pageStore.get(PropertyDetailsPage.class).approveaddition();
-            scenarioContext.setAssessmentNumber(assessmentNo);
+             pageStore.get(PropertyDetailsPage.class).approveaddition();
         });
         And("^he enters document type details as (\\w+)$", (String documentSelect) -> {
             DocumentTypeValue documentValue = new ExcelReader(ptisTestDataFileName).getDocumentValue(documentSelect);

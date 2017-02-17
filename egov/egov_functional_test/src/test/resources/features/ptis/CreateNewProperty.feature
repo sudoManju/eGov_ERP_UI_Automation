@@ -21,9 +21,8 @@ Feature: Create New Property
     And he enters floor details as <floorDetails>
     And he enters document type details as <documentDetails>
     And he forwards for approval to billCollector
-    Then create property details get saved successfully
-    And he will copy the acknowledgement message with application number
-    And user will be notified by "Successfully"
+    And he will copy the acknowledgement message with assessment number createProperty-create
+    Then user will be notified by "Successfully"
     And current user logs out
 
     When billCollector logs in
@@ -48,7 +47,7 @@ Feature: Create New Property
     And chooses to act upon the above application
     And he approved the property with remarks "property approved"
     Then create property details get saved successfully by generating assesssment number
-    And he will copy the acknowledgement message with assessment number
+    And he will copy the acknowledgement message with assessment number createProperty-forward
     Then user will be notified by "Successfully"
     And chooses to act upon the above assessment
     And he does a digital signature
@@ -95,8 +94,8 @@ Feature: Create New Property
     And he enters amenities as <amenitiesDetails>
     And he enters Floor Details as <editFloorDetails>
     And he forwards for approval to billCollector
-    Then edit property details get saved successfully
-    And he will copy application and assessment number
+    And he will copy the acknowledgement message with assessment number modifyProperty-forward
+    Then user will be notified by "successfully"
     And current user logs out
 
     When billCollector logs in
@@ -122,7 +121,7 @@ Feature: Create New Property
     And he approved the property with remarks addition "property approved"
     And current user closes acknowledgement
 
-    And chooses to act upon the above assessment
+     And chooses to act upon the above assessment
     And he does a digital signature
 
     When commissioner closes acknowledgement
@@ -162,7 +161,8 @@ Feature: Create New Property
     And he enters enclosure details
 
     And he forwards for approval to billCollector
-    Then edit property details get saved successfully
+    And he will copy the acknowledgement message with assessment number title
+    And user will be notified by "successfully"
     And current user logs out
 
     When billCollector logs in
@@ -225,15 +225,15 @@ Feature: Create New Property
     And he enters floor details as <floorDetails>
     And he enters document type details as <documentDetails>
     And he forwards for approval to billCollector
-    Then create property details get saved successfully
-    And he will copy the application number
+    And he will copy the acknowledgement message with assessment number createProperty-create
+#   Then create property details get saved successfully
     And user will be notified by "Successfully"
     And current user logs out
 
     When billCollector logs in
-    And chooses to act upon the above application
+   And chooses to act upon the above application
     And he forwards for approval to revenueInspector
-    And current user closes acknowledgement
+   And current user closes acknowledgement
     And current user logs out
 
     When revenueInspector logs in
@@ -251,8 +251,9 @@ Feature: Create New Property
     When commissioner logs in
     And chooses to act upon the above application
     And he approved the property with remarks "property approved"
-    Then create property details get saved successfully
-    And he will copy the assessment number
+    And he will copy the acknowledgement message with assessment number createProperty-forward
+
+#    Then create property details get saved successfully
     Then user will be notified by "Successfully"
 
     And chooses to act upon the above assessment
@@ -271,6 +272,7 @@ Feature: Create New Property
     And he forwards for approval to commissioner
     And current user closes acknowledgement
     And current user logs out
+
     When commissioner logs in
     And chooses to act upon the above application
     And he choose revision petition header
@@ -354,6 +356,7 @@ Feature: Create New Property
      And he forwards for approval to commissioner
      And current user closes acknowledgement
      And current user logs out
+
      When commissioner logs in
      And chooses to act upon the above application
      And he choose revision petition header

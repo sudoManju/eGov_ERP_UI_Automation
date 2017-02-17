@@ -10,21 +10,6 @@ import steps.BaseSteps;
 public class PropertyAcknowledgementSteps extends BaseSteps implements En {
 
     public PropertyAcknowledgementSteps() {
-//        Then("^property details get saved successfully", () -> {
-//            String acknowledgementMessage = pageStore.get(PropertyAcknowledgementPage.class).getAcknowledgementMessage();
-//            Assert.assertTrue(acknowledgementMessage.contains("Property Data Saved Successfully"));
-//            String applicationNumber = pageStore.get(PropertyAcknowledgementPage.class).getApplicationNumber();
-//            scenarioContext.setApplicationNumber(applicationNumber);
-//        });
-        Then("^create property details get saved successfully$", () -> {
-            String applicationNumber = pageStore.get(PropertyAcknowledgementPage.class).getApplicationNumber();
-            scenarioContext.setApplicationNumber(applicationNumber);
-        });
-
-        And("^he will copy the acknowledgement message with application number$", () -> {
-            scenarioContext.setActualMessage(pageStore.get(PropertyAcknowledgementPage.class).getActualMsg());
-            pageStore.get(PropertyAcknowledgementPage.class).close();
-        });
 
         Then("^create property details get saved successfully by generating assesssment number$", () -> {
             String assessmentNumber =pageStore.get(PropertyAcknowledgementPage.class).getAssessmentNumber();
@@ -32,8 +17,11 @@ public class PropertyAcknowledgementSteps extends BaseSteps implements En {
         });
 
 
-        And("^he will copy the acknowledgement message with assessment number$", () -> {
-            scenarioContext.setActualMessage(pageStore.get(PropertyAcknowledgementPage.class).getActualMsgAssessment());
+        And("^he will copy the acknowledgement message with assessment number (.*)$", (String type) -> {
+            String msg = pageStore.get(PropertyAcknowledgementPage.class).getAssessmentNumberNew(type);
+            scenarioContext.setActualMessage(msg);
+            scenarioContext.setAssessmentNumber(msg.substring(msg.lastIndexOf(" ")+1));
+            System.out.println(msg.substring(msg.lastIndexOf(" ")+1));
             pageStore.get(PropertyAcknowledgementPage.class).close();
         });
 
