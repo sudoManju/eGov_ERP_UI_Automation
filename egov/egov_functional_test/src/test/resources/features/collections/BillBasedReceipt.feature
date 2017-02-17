@@ -39,7 +39,7 @@ I am able to Create/Collect Bill Based Receipt
     Examples:
       |paymentMode|
       |cash       |
-#      |cheque     |
-#      |dd         |
-#      |directBank1|
+      |cheque     |
+      |dd         |
+      |directBank1|
 

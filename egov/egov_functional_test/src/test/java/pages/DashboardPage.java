@@ -36,22 +36,10 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Sign Out")
     private WebElement signOutLink;
 
-//    @FindBy(id = "official_inbox")
-//    private WebElement officialInboxTable;
-
-//    @FindBy(id = "official_inbox_wrapper")
-//    private WebElement inboxTable;
-
-//    @FindBy(id = "official_drafts")
-//    private WebElement officialDraftsTable;
-
     @FindBy(linkText = "Search Application")
     private WebElement searchApplication;
 
     private WebElement appRow1;
-
-//    @FindBy(css = "li[class='dropdown'] a[data-original-title ='Drafts']")
-//    private WebElement draftsLink;
 
     @FindBy(id = "btnsearch")
     private WebElement searchEstimateButton;
@@ -98,25 +86,6 @@ public class DashboardPage extends BasePage {
         signOutLink.click();
     }
 
-//    public void openApplication(String applicationNumber) {
-//        getApplicationRowFor(applicationNumber).click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-//
-//    private WebElement getApplicationRowFor(String applicationNumber) {
-//        waitForElementToBeVisible(driver.findElement(By.id("worklist")), driver);
-//        waitForElementToBeVisible(officialInboxTable, driver);
-//
-//        await().atMost(20, SECONDS).until(() -> officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
-//        List<WebElement> applicationRows = officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-//        System.out.println("total number of rows -- " + applicationRows.size());
-//        for (WebElement applicationRow : applicationRows) {
-//            if (applicationRow.findElements(By.tagName("td")).get(4).getText().contains(applicationNumber))
-//                return applicationRow;
-//        }
-//        throw new RuntimeException("No application row found for -- " + applicationNumber);
-//    }
-
     public void chooseForSearchApplication(){
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("Search Application");
@@ -124,53 +93,6 @@ public class DashboardPage extends BasePage {
         searchApplication.click();
         switchToNewlyOpenedWindow(driver);
     }
-
-//    public void openDrafts(){
-//        waitForElementToBeVisible(draftsLink, driver);
-//        draftsLink.click();
-//    }
-//
-//    public void openCollection(String tableId) {
-//        WebElement table = driver.findElement(By.id(tableId));
-//
-//        waitForElementToBeVisible(table,driver);
-//
-//        await().atMost(10, SECONDS).until(() -> table.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
-//        List<WebElement> totalRows = table.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-//        System.out.println("\n"+totalRows.size());
-//
-//        List<WebElement> requiredRows = new ArrayList<>();
-//
-//        for(WebElement applicationRow : totalRows ){
-//            if(applicationRow.findElements(By.tagName("td")).get(4).getText().contains("Property Tax")){
-//                requiredRows.add(applicationRow);
-//            }
-//        }
-//        requiredRows.get(0).click();
-//
-//        switchToNewlyOpenedWindow(driver);
-//    }
-//
-//    public void openReceipt(String tableId){
-//        WebElement table = driver.findElement(By.id(tableId));
-//
-//        waitForElementToBeVisible(table,driver);
-//
-//        await().atMost(10, SECONDS).until(() -> table.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
-//        List<WebElement> totalRows = table.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-//        System.out.println("\n"+totalRows.size());
-//
-//        List<WebElement> requiredRows = new ArrayList<>();
-//
-//        for(WebElement applicationRow : totalRows ){
-//            if(applicationRow.findElements(By.tagName("td")).get(4).getText().contains("Property Tax")){
-//                requiredRows.add(applicationRow);
-//            }
-//        }
-//        requiredRows.get(0).click();
-//
-//       switchToNewlyOpenedWindow(driver);
-//    }
 
     public void chooseTopayWaterCharge() {
         waitForElementToBeClickable(searchTreeTextBox, driver);
@@ -196,25 +118,6 @@ public class DashboardPage extends BasePage {
             switchToNewlyOpenedWindow(driver);
         }
     }
-
-//    public void openApplicationInDrafts(String crn) {
-//        getApplicationRowInDratf(crn).click();
-//        switchToNewlyOpenedWindow(driver);
-//    }
-//
-//    private WebElement getApplicationRowInDratf(String crn){
-//        waitForElementToBeVisible(driver.findElement(By.id("drafts")), driver);
-//        waitForElementToBeVisible(officialDraftsTable, driver);
-//
-//        await().atMost(20, SECONDS).until(() -> officialDraftsTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
-//        List<WebElement> applicationRows = officialDraftsTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-//        System.out.println("total number of rows -- " + applicationRows.size());
-//        for (WebElement applicationRow : applicationRows) {
-//            if (applicationRow.findElements(By.tagName("td")).get(4).getText().contains(crn))
-//                return applicationRow;
-//        }
-//        throw new RuntimeException("No application row found for -- " + crn);
-//    }
 
     public void chooseScreen(String screenName) {
 
