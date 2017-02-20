@@ -1,20 +1,17 @@
 package steps.financial;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.financial.FinancialBankDetails;
 import entities.financial.FinancialExpenseBillDetails;
 import entities.financial.FinancialJournalVoucherDetails;
 import entities.ptis.ApprovalDetails;
-import entities.wcms.FieldInspectionDetails;
 import org.junit.Assert;
 import pages.DashboardPage;
+import pages.financial.JournalVoucherDetailsPage;
 import pages.financial.FinancialPage;
 import steps.BaseSteps;
 import utils.ExcelReader;
-import utils.ScenarioContext;
 
-import java.io.IOException;
 import java.text.ParseException;
 
 /**
@@ -26,7 +23,7 @@ public class FinancialSteps extends BaseSteps implements En {
 
         And("^officer will enter the journal voucher details as (\\w+) with subledger (\\w+)$", (String voucher , String withOrWithoutSubledger) -> {
             FinancialJournalVoucherDetails financialJournalVoucherDetails = new ExcelReader(financialTestDataFileName).getJournalVoucherDetails(voucher);
-            pageStore.get(FinancialPage.class).enterJournalVoucherDetails(financialJournalVoucherDetails , withOrWithoutSubledger);
+            pageStore.get(JournalVoucherDetailsPage.class).enterJournalVoucherDetails(financialJournalVoucherDetails , withOrWithoutSubledger);
         });
 
         And("^officer will enter the approval details as (\\w+)$", (String approveOfficer) -> {
@@ -147,7 +144,6 @@ public class FinancialSteps extends BaseSteps implements En {
         And("^officer will set the new expense voucher number and closes it$", () -> {
             String expenseVoucherMessage = pageStore.get(FinancialPage.class).closesExpenseVoucherPage();
             scenarioContext.setApplicationNumber(expenseVoucherMessage.split("\\ ")[4].split("\\.")[0]);
-            System.out.println("==============="+expenseVoucherMessage);
             scenarioContext.setActualMessage(expenseVoucherMessage);
         });
 

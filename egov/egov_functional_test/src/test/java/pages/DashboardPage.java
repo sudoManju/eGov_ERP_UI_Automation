@@ -39,8 +39,6 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Search Application")
     private WebElement searchApplication;
 
-    private WebElement appRow1;
-
     @FindBy(xpath = "html/body/div[1]/header/nav/div/div[3]/ul/li[2]/a")
     private WebElement profileLink;
 
@@ -138,7 +136,7 @@ public class DashboardPage extends BasePage {
             waitForElementToBeVisible(officialInboxTable, driver);
             officialInboxTable.click();
             try {
-                TimeUnit.SECONDS.sleep(5);
+                TimeUnit.SECONDS.sleep(2);
             } catch (InterruptedException e1) {
                 e1.printStackTrace();
             }
