@@ -4,6 +4,7 @@ package tests.mSevaAndLeaseAndAgreement;
 import builders.CreateUserRequestBuilder;
 import com.jayway.restassured.response.Response;
 import entities.CreateUserRequest;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import resources.ServiceRequestForAnonymousResource;
@@ -22,7 +23,7 @@ public class CreatesAUserTest extends BaseAPITest {
 
         Response response = new ServiceRequestForAnonymousResource().serviceTypeValidation(RequestHelper.getJsonString(request));
 
-        org.junit.Assert.assertTrue("Actual response code " + response.getStatusCode(), isGoodResponse(response));
+        Assert.assertTrue(isGoodResponse(response), "Actual response code " + response.getStatusCode());
 
     }
 
