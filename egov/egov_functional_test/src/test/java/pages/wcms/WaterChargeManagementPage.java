@@ -159,9 +159,6 @@ public class WaterChargeManagementPage extends BasePage {
     @FindBy(id = "closeconnectionreason")
     private WebElement closureConnectionReason;
 
-    @FindBy(id = "official_inbox")
-    private WebElement officialInboxTable;
-
     @FindBy(id = "Forward")
     private WebElement forwardButton;
 
@@ -518,25 +515,6 @@ public class WaterChargeManagementPage extends BasePage {
         waitForElementToBeClickable(closureConnectionReason , webDriver);
         closureConnectionReason.sendKeys("Not Required");
         return number;
-    }
-
-    public void openApplicationFromInbox(String consumerNumber ){
-        webDriver.navigate().refresh();
-        getApplicationRow(consumerNumber).click();
-        switchToNewlyOpenedWindow(webDriver);
-    }
-
-    private WebElement getApplicationRow(String applicationNumber){
-        waitForElementToBeVisible(webDriver.findElement(By.id("worklist")), webDriver);
-        waitForElementToBeVisible(officialInboxTable, webDriver);
-
-        await().atMost(20, SECONDS).until(() -> officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
-        List<WebElement> applicationRows = officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-        for (WebElement applicationRow : applicationRows) {
-            if (applicationRow.findElements(By.tagName("td")).get(4).getText().contains(applicationNumber))
-                return applicationRow;
-        }
-        throw new RuntimeException("No application row found for -- " + applicationNumber);
     }
 
     public void forward() {
