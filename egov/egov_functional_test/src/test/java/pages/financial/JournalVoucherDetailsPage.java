@@ -5,13 +5,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasePage;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class FinancialJournalVoucherDetailsPage extends BasePage {
+public class JournalVoucherDetailsPage extends BasePage {
 
     private WebDriver webDriver;
 
@@ -78,7 +80,10 @@ public class FinancialJournalVoucherDetailsPage extends BasePage {
     @FindBy(id = "subLedgerlist[1].amount")
     private WebElement ledgerAmount2;
 
-    public FinancialJournalVoucherDetailsPage(WebDriver webDriver) {
+    @FindBy(id = "button2")
+    private WebElement closeButton;
+
+    public JournalVoucherDetailsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
 
@@ -206,4 +211,27 @@ public class FinancialJournalVoucherDetailsPage extends BasePage {
             }
         }
     }
+
+    public String getVoucherNumber(){
+
+        switchToNewlyOpenedWindow(webDriver);
+
+        WebDriverWait webDriverWait = new WebDriverWait(webDriver,10);
+
+        webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("div[class~='bootbox-alert'] div[class^='bootbox-body']")));
+        WebElement voucherNumber = webDriver.findElement(By.cssSelector("div[class~='bootbox-alert'] div[class^='bootbox-body']"));
+        String number = voucherNumber.getText();
+
+        webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("div[class~='bootbox-alert'] button[class^='btn']")));
+        WebElement element = webDriver.findElement(By.cssSelector("div[class~='bootbox-alert'] button[class^='btn']"));
+        element.click();
+
+        waitForElementToBeClickable(closeButton ,webDriver);
+        closeButton.click();
+
+        switchToPreviouslyOpenedWindow(webDriver);
+
+        return number;
+    }
+
 }

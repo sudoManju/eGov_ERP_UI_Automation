@@ -44,8 +44,22 @@ public class FinancialExpenseBillDetailsBuilder {
         return this;
     }
 
+    public FinancialExpenseBillDetailsBuilder withExpenseDebitAmount(String expenseDebitAmount){
+        financialExpenseBillDetails.setExpenseDebitAmount(expenseDebitAmount);
+        return this;
+    }
+
+    public FinancialExpenseBillDetailsBuilder withExpenseCreditAmount(String expenseCreditAmount){
+        financialExpenseBillDetails.setExpenseCreditAmount(expenseCreditAmount);
+        return this;
+    }
+
+    public FinancialExpenseBillDetailsBuilder withExpenseNetAmount(String expenseNetAmount){
+        financialExpenseBillDetails.setExpenseNetAmount(expenseNetAmount);
+        return this;
+    }
+
     public FinancialExpenseBillDetails build(){
         return financialExpenseBillDetails;
     }
-
 }

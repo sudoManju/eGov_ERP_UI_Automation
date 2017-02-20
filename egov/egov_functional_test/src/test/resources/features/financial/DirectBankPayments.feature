@@ -5,7 +5,7 @@ Feature: To create a voucher through direct bank payments
 
     Given accountsOfficer logs in
     And user will select the required screen as "Direct Bank Payments"
-    And officer will enter the direct bank payment details with <paymentMode>
+    And officer will enter the direct bank payment details as <bankDetails> with mode as <paymentMode>
     And officer will enter the approval details as <approvalOfficer1>
     And officer will see the successful voucher creation page and closes it
     Then user will be notified by "Successful"
@@ -36,9 +36,9 @@ Feature: To create a voucher through direct bank payments
     And current user logs out
 
     Examples:
-    |paymentMode | approvalOfficer1  | approvalOfficer2  | assignment | singleOrMultiple |
-    |cheque      | accountOfficer2   | commissioner      | cheque     | single           |
-    |RTGS        | accountOfficer2   | commissioner      | RTGS       | single           |
+    | bankDetails       |paymentMode | approvalOfficer1  | approvalOfficer2  | assignment | singleOrMultiple |
+    | directBankDetails |cheque      | accountOfficer2   | commissioner      | cheque     | single           |
+    | directBankDetails |RTGS        | accountOfficer2   | commissioner      | RTGS       | single           |
 
 
     @Sanity @Finance
@@ -46,7 +46,7 @@ Feature: To create a voucher through direct bank payments
 
     Given accountsOfficer logs in
     And user will select the required screen as "Direct Bank Payments"
-    And officer will enter the direct bank payment details with <paymentMode>
+      And officer will enter the direct bank payment details as <bankDetails> with mode as <paymentMode>
     And officer will enter the approval details as <approvalOfficer1>
     And officer will see the successful voucher creation page and closes it
     Then user will be notified by "Successful"
@@ -69,5 +69,5 @@ Feature: To create a voucher through direct bank payments
     And current user logs out
 
     Examples:
-    |paymentMode | approvalOfficer1  | approvalOfficer2  |
-    |cash        | accountOfficer2   | commissioner      |
+    | bankDetails       |paymentMode | approvalOfficer1  | approvalOfficer2  |
+    | directBankDetails |cash        | accountOfficer2   | commissioner      |

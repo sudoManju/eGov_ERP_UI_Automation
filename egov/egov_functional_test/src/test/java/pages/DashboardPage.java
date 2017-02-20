@@ -136,7 +136,7 @@ public class DashboardPage extends BasePage {
             waitForElementToBeVisible(officialInboxTable, driver);
             officialInboxTable.click();
             try {
-                TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(4);
             } catch (InterruptedException e1) {
                 e1.printStackTrace();
             }

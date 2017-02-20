@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
-public class FinancialBankToBankDetailsPage extends BasePage {
+public class BankToBankDetailsPage extends BasePage {
 
     private WebDriver webDriver;
 
@@ -44,7 +44,7 @@ public class FinancialBankToBankDetailsPage extends BasePage {
     @FindBy(id = "Save_New")
     private WebElement saveButton;
 
-    public FinancialBankToBankDetailsPage(WebDriver webDriver) {
+    public BankToBankDetailsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
 

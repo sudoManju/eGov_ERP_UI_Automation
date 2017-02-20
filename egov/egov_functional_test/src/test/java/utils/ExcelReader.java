@@ -8,10 +8,7 @@ import builders.collections.PaymentMethodBuilder;
 import builders.councilManagement.PreambleDetailsBuilder;
 import builders.dcReports.PTReportBuilder;
 import builders.dcReports.VLTReportBuilder;
-import builders.financial.FinancialBankDetailsBuilder;
-import builders.financial.FinancialBankToBankDetailsBuilder;
-import builders.financial.FinancialExpenseBillDetailsBuilder;
-import builders.financial.FinancialJournalVoucherDetailsBuilder;
+import builders.financial.*;
 import builders.grievances.CreateComplaintDetailsBuilder;
 import builders.lcms.CreateLegalCaseBuilder;
 import builders.marriageRegistration.MarriageRegistrationBuilder;
@@ -28,10 +25,7 @@ import entities.collections.PaymentMethod;
 import entities.councilManagement.CreatePreambleDetails;
 import entities.dcReports.PTReport;
 import entities.dcReports.VLTReport;
-import entities.financial.FinancialBankDetails;
-import entities.financial.FinancialBankToBankDetails;
-import entities.financial.FinancialExpenseBillDetails;
-import entities.financial.FinancialJournalVoucherDetails;
+import entities.financial.*;
 import entities.grievances.CreateComplaintDetails;
 import entities.lcms.CreateLegalCase;
 import entities.marriageRegistration.MarriageRegistrationInformation;
@@ -126,6 +120,8 @@ public class ExcelReader {
     Sheet createLegalCaseDataSheet;
     Sheet bankToBankTransferDetailsSheet;
 
+    Sheet directBankPaymentDetailsSheet;
+
     public ExcelReader(String testData) {
         String excelFilePath = testData + ".xlsx";
 //        System.out.println(excelFilePath);
@@ -213,6 +209,7 @@ public class ExcelReader {
         documentDetailsSheet = workbook.getSheet("documentDetails");
 
         bankToBankTransferDetailsSheet = workbook.getSheet("financialBankToBankDetails");
+        directBankPaymentDetailsSheet = workbook.getSheet("directBankPaymentDetails");
     }
 
     private Row readDataRow(Sheet fromSheet, String dataId) {
@@ -1149,6 +1146,18 @@ public class ExcelReader {
         code2.setCellType(Cell.CELL_TYPE_STRING);
         String  accountCodeCredit = code2.getStringCellValue();
 
+        Cell code3 = getCellData(financialExpenseBillDetailsSheet, dataRow, "expenseDebitAmount");
+        code3.setCellType(Cell.CELL_TYPE_STRING);
+        String  expenseDebitAmount = code3.getStringCellValue();
+
+        Cell code4 = getCellData(financialExpenseBillDetailsSheet, dataRow, "expenseCreditAmount");
+        code4.setCellType(Cell.CELL_TYPE_STRING);
+        String  expenseCreditAmount = code4.getStringCellValue();
+
+        Cell code5 = getCellData(financialExpenseBillDetailsSheet, dataRow, "expenseNetAmount");
+        code5.setCellType(Cell.CELL_TYPE_STRING);
+        String  expenseNetAmount = code5.getStringCellValue();
+
         return new FinancialExpenseBillDetailsBuilder()
                 .withExpenseFund(fund)
                 .withExpenseDepartment(department)
@@ -1156,6 +1165,9 @@ public class ExcelReader {
                 .withBillSubType(billSubType)
                 .withExpenseAccountDebit(accountCodeDebit)
                 .withExpenseAccountCredit(accountCodeCredit)
+                .withExpenseDebitAmount(expenseDebitAmount)
+                .withExpenseCreditAmount(expenseCreditAmount)
+                .withExpenseNetAmount(expenseNetAmount)
                 .build();
     }
 
@@ -1735,6 +1747,54 @@ public class ExcelReader {
                 .withToBank(toBank)
                 .withToAccountNumber(toAccountNumber)
                 .withAmount(amount)
+                .build();
+    }
+
+    public DirectBankPaymentDetails getDirectBankPaymentDetails(String directBankDetails) {
+
+        Row dataRow = readDataRow(directBankPaymentDetailsSheet, directBankDetails);
+
+        String fundId = getCellData(directBankPaymentDetailsSheet, dataRow, "fundId").getStringCellValue();
+        String voucherDepartment = getCellData(directBankPaymentDetailsSheet, dataRow, "voucherDepartment").getStringCellValue();
+        String voucherFunction = getCellData(directBankPaymentDetailsSheet, dataRow, "voucherFunction").getStringCellValue();
+        String bankBranch = getCellData(directBankPaymentDetailsSheet, dataRow, "bankBranch").getStringCellValue();
+        String accountNumber = getCellData(directBankPaymentDetailsSheet, dataRow, "accountNumber").getStringCellValue();
+        String ledgerType1 = getCellData(directBankPaymentDetailsSheet, dataRow, "ledgerType1").getStringCellValue();
+        String ledgerCode1 = getCellData(directBankPaymentDetailsSheet, dataRow, "ledgerCode1").getStringCellValue();
+
+        Cell cell1 = getCellData(directBankPaymentDetailsSheet, dataRow, "amount");
+        cell1.setCellType(Cell.CELL_TYPE_STRING);
+        String amount = cell1.getStringCellValue();
+
+        Cell cell2 = getCellData(directBankPaymentDetailsSheet, dataRow, "accountCode1");
+        cell2.setCellType(Cell.CELL_TYPE_STRING);
+        String accountCode1 = cell2.getStringCellValue();
+
+        Cell cell3 = getCellData(directBankPaymentDetailsSheet, dataRow, "debitAmount1");
+        cell3.setCellType(Cell.CELL_TYPE_STRING);
+        String debitAmount1 = cell3.getStringCellValue();
+
+        Cell cell4 = getCellData(directBankPaymentDetailsSheet, dataRow, "ledgerAccount1");
+        cell4.setCellType(Cell.CELL_TYPE_STRING);
+        String ledgerAccount1 = cell4.getStringCellValue();
+
+        Cell cell5 = getCellData(directBankPaymentDetailsSheet, dataRow, "ledgerAmount1");
+        cell5.setCellType(Cell.CELL_TYPE_STRING);
+        String ledgerAmount1 = cell5.getStringCellValue();
+
+        return new DirectBankPaymentDetailsBuilder()
+                .withFundId(fundId)
+                .withVoucherDepartment(voucherDepartment)
+                .withVoucherFunction(voucherFunction)
+                .withBankBranch(bankBranch)
+                .withAccountNumber(accountNumber)
+                .withLedgerType1(ledgerType1)
+                .withLedgerCode1(ledgerCode1)
+                .withAmount(amount)
+                .withAccountCode1(accountCode1)
+                .withDebitAmount1(debitAmount1)
+                .withLedgerAccount1(ledgerAccount1)
+                .withLedgerAmount1(ledgerAmount1)
                 .build();
     }
 }

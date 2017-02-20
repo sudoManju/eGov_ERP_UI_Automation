@@ -1,9 +1,6 @@
 package pages.financial;
 
-import com.gargoylesoftware.htmlunit.javascript.host.canvas.ext.WEBGL_compressed_texture_s3tc;
 import entities.financial.FinancialBankDetails;
-import entities.financial.FinancialExpenseBillDetails;
-import entities.financial.FinancialJournalVoucherDetails;
 import entities.ptis.ApprovalDetails;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -11,14 +8,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasePage;
-
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -35,23 +27,8 @@ public class FinancialPage extends BasePage {
     @FindBy(id = "vouchermis.function")
     private WebElement voucherFunction;
 
-    @FindBy(id = "billDetailslist[0].glcodeDetail")
-    private WebElement accountCode1;
-
-    @FindBy(id = "billDetailslist[0].debitAmountDetail")
-    private WebElement debitAmount1;
-
     @FindBy(id = "totalcramount")
     private WebElement totalCreditAmount;
-
-    @FindBy(id = "subLedgerlist[0].glcode.id")
-    private WebElement ledgerAccount1;
-
-    @FindBy(id = "subLedgerlist[0].detailType.id")
-    private WebElement ledgerType1;
-
-    @FindBy(id = "subLedgerlist[0].detailCode")
-    private WebElement ledgerCode1;
 
     @FindBy(id = "approverDepartment")
     private WebElement approverDepartment;
@@ -64,9 +41,6 @@ public class FinancialPage extends BasePage {
 
     @FindBy(id = "Forward")
     private WebElement forwardButton;
-
-    @FindBy(id = "subLedgerlist[0].amount")
-    private WebElement ledgerAmount1;
 
     @FindBy(css = "'div[class~='bootbox-alert'] button[class^='btn']'")
     private WebElement okButton;
@@ -137,53 +111,11 @@ public class FinancialPage extends BasePage {
     @FindBy(id = "bank")
     private WebElement bankBranch1;
 
-    @FindBy(id = "fund")
-    private WebElement expenseFund;
-
-    @FindBy(id = "department")
-    private WebElement expenseDepartment;
-
-    @FindBy(id = "function")
-    private WebElement expenseFunction;
-
     @FindBy(id = "billSubType")
     private WebElement expenseBillSubType;
 
     @FindBy(id = "subLedgerType")
     private WebElement subLedgerType;
-
-    @FindBy(id = "payTo")
-    private WebElement expensePayTo;
-
-    @FindBy(id = "tempDebitDetails[0].debitGlcode")
-    private WebElement expenseAccountCodeDebit;
-
-    @FindBy(id = "tempCreditDetails[0].creditGlcode")
-    private WebElement expenseAccountCodeCredit;
-
-    @FindBy(id = "tempDebitDetails[0].debitamount")
-    private WebElement expenseDebitAmount;
-
-    @FindBy(id = "tempCreditDetails[0].creditamount")
-    private WebElement expenseCreditAmount;
-
-    @FindBy(id = "netPayableAccountCode")
-    private WebElement expenseNetPayable;
-
-    @FindBy(css = "input[id='netPayableAmount'][type='text']")
-    private WebElement expenseNetAmount;
-
-    @FindBy(id = "populateAccountDetails")
-    private WebElement expensePopulate;
-
-    @FindBy(id = "approvalDepartment")
-    private WebElement expenseApprovalDepartment;
-
-    @FindBy(id = "approvalDesignation")
-    private WebElement expenseApprovalDesignation;
-
-    @FindBy(id = "approvalPosition")
-    private WebElement expenseApprovalPosition;
 
     @FindBy(css = ".panel-title.text-center")
     private WebElement expenseCreatedMessage;
@@ -257,38 +189,11 @@ public class FinancialPage extends BasePage {
     @FindBy(name = "inFavourOf")
     private WebElement remittanceFavour;
 
-    @FindBy(id = "bankId")
-    private WebElement bankPaymentId;
-
-    @FindBy(id = "accountNumber")
-    private WebElement accountNumber;
-
-    @FindBy(id = "amount")
-    private WebElement amountTextBox;
-
-    @FindBy(id = "modeOfPaymentcash")
-    private WebElement bankPaymentCash;
-
-    @FindBy(id = "modeOfPaymentrtgs")
-    private WebElement bankPaymentRTGS;
-
-    @FindBy(id = "commonBean.documentNumber")
-    private WebElement documentNumber;
-
-    @FindBy(id = "documentDate")
-    private WebElement documentDate;
-
-    @FindBy(id = "paidTo")
-    private WebElement paidToCustomer;
-
     @FindBy(id = "closeButton")
     private WebElement bankCloseButton;
 
     @FindBy(id = "cbilltab")
     private WebElement expenseBillTable;
-
-    @FindBy(className = "yui-ac-highlight")
-    private WebElement accountCodeDropdown;
 
     @FindBy(id = "voucherTypeBean.billNum")
     private WebElement billNumberFromPreviewScreen;
@@ -298,9 +203,6 @@ public class FinancialPage extends BasePage {
 
     @FindBy(id = "billNumber")
     private WebElement billNumberTextBox;
-
-    @FindBy(className = "tt-highlight")
-    private WebElement expenseBillAccountCodeDropdown;
 
     @FindBy(css = ".buttonsubmit")
     private WebElement submitButton;
@@ -351,27 +253,6 @@ public class FinancialPage extends BasePage {
 
         isAlertOpened();
         return userName;
-    }
-
-    public String getVoucherNumber(){
-
-        switchToNewlyOpenedWindow(webDriver);
-
-        WebDriverWait webDriverWait = new WebDriverWait(webDriver,10);
-
-        webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("div[class~='bootbox-alert'] div[class^='bootbox-body']")));
-        WebElement voucherNumber = webDriver.findElement(By.cssSelector("div[class~='bootbox-alert'] div[class^='bootbox-body']"));
-        String number = voucherNumber.getText();
-
-        webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("div[class~='bootbox-alert'] button[class^='btn']")));
-        WebElement element = webDriver.findElement(By.cssSelector("div[class~='bootbox-alert'] button[class^='btn']"));
-        element.click();
-
-        clickOnCloseButton();
-
-        switchToPreviouslyOpenedWindow(webDriver);
-
-        return number;
     }
 
     private void clickOnCloseButton(){
@@ -555,92 +436,6 @@ public class FinancialPage extends BasePage {
         maximizeBrowserWindow(webDriver);
         enterBankBranchDetails1(financialBankDetails);
         enterBankAccountDetails(financialBankDetails);
-    }
-
-    public void createNewExpenseBill(FinancialExpenseBillDetails financialExpenseBillDetails){
-        waitForElementToBeVisible(expenseFund , webDriver);
-        new Select(expenseFund).selectByVisibleText(financialExpenseBillDetails.getExpenseFund());
-
-        waitForElementToBeVisible(expenseDepartment , webDriver);
-        new Select(expenseDepartment).selectByVisibleText(financialExpenseBillDetails.getExpenseDeparment());
-
-        waitForElementToBeClickable(expenseFunction , webDriver);
-        expenseFunction.sendKeys(financialExpenseBillDetails.getExpenseFunction());
-        waitForElementToBeVisible( webDriver.findElement(By.className("tt-dropdown-menu")),webDriver);
-//        WebElement dropdown = webDriver.findElement(By.xpath(".//*[@id='expensebillheader']/div/div[7]/div[1]/span/span/div"));
-        WebElement dropdown = webDriver.findElement(By.className("tt-dataset-0"));
-        waitForElementToBeVisible(dropdown,webDriver);
-        waitForElementToBeClickable(dropdown,webDriver);
-        dropdown.click();
-
-        waitForElementToBeClickable(expenseBillSubType , webDriver);
-        new Select(expenseBillSubType).selectByVisibleText(financialExpenseBillDetails.getExpenseBillSubType());
-
-        waitForElementToBeClickable(expensePayTo ,webDriver);
-        expensePayTo.sendKeys("tester");
-
-        waitForElementToBeClickable(expenseAccountCodeDebit ,webDriver);
-        expenseAccountCodeDebit.sendKeys(financialExpenseBillDetails.getExpenseAccountCodeDebit());
-
-        waitForElementToBeVisible( expenseBillAccountCodeDropdown,webDriver);
-        expenseBillAccountCodeDropdown.click();
-
-        waitForElementToBeClickable(expenseDebitAmount ,webDriver);
-        expenseDebitAmount.sendKeys("100");
-
-        waitForElementToBeClickable(expenseAccountCodeCredit , webDriver);
-        expenseAccountCodeCredit.sendKeys(financialExpenseBillDetails.getExpenseAccountCodeCredit());
-
-        waitForElementToBeVisible( expenseBillAccountCodeDropdown,webDriver);
-        expenseBillAccountCodeDropdown.click();
-
-        waitForElementToBeClickable(expenseCreditAmount ,webDriver);
-        expenseCreditAmount.sendKeys("90");
-
-        List<WebElement> element1 = expenseNetPayable.findElements(By.tagName("option"));
-        waitForElementToBeClickable(element1.get(1), webDriver);
-        element1.get(1).click();
-
-        waitForElementToBeClickable(expenseNetAmount ,webDriver);
-        expenseNetAmount.sendKeys("10");
-
-        waitForElementToBeClickable(expensePopulate , webDriver);
-        expensePopulate.click();
-    }
-
-    public String enterExpenseApprovalDetails(ApprovalDetails approvalDetails){
-
-        waitForElementToBeClickable(expenseApprovalDepartment ,webDriver);
-        new Select(expenseApprovalDepartment).selectByVisibleText(approvalDetails.getApproverDepartment());
-
-        for(int i = 0 ; i <= 10 ; i++) {
-            if (!webDriver.findElement(By.id("approvalDesignation")).getText().equalsIgnoreCase(approvalDetails.getApproverDesignation())) {
-                try {
-                    waitForElementToBeClickable(expenseApprovalDesignation, webDriver);
-                    new Select(expenseApprovalDesignation).selectByVisibleText(approvalDetails.getApproverDesignation());
-                } catch (StaleElementReferenceException e) {
-                    WebElement element = webDriver.findElement(By.id("approvalDesignation"));
-                    new Select(element).selectByVisibleText(approvalDetails.getApproverDesignation());
-                }
-            }
-        }
-
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        waitForElementToBeVisible(expenseApprovalPosition , webDriver);
-        Select approverPos = new Select(expenseApprovalPosition);
-        String userName = approverPos.getOptions().get(1).getText();
-
-        waitForElementToBeClickable(approverPos.getOptions().get(1) ,webDriver);
-        approverPos.getOptions().get(1).click();
-
-        clickOnForwardButton();
-        switchToNewlyOpenedWindow(webDriver);
-        return userName;
     }
 
     private void clickOnForwardButton(){
@@ -871,84 +666,6 @@ public class FinancialPage extends BasePage {
         String message = getForwardMessage();
 
         clickOnSubmitButton();
-        switchToPreviouslyOpenedWindow(webDriver);
-        return message;
-    }
-
-    public void enterDirectBankPaymentDetails(String mode){
-
-        waitForElementToBeVisible(fundId ,webDriver);
-        new Select(fundId).selectByVisibleText("Municipal Fund");
-
-        waitForElementToBeVisible(voucherDepartment ,webDriver);
-        new Select(voucherDepartment).selectByVisibleText("ENGINEERING");
-
-        waitForElementToBeVisible(voucherFunction ,webDriver);
-        new Select(voucherFunction).selectByVisibleText("Water Supply");
-
-        waitForElementToBeClickable(bankPaymentId ,webDriver);
-        bankPaymentId.click();
-        new Select(bankPaymentId).selectByVisibleText("ANDHRA BANK Andhra Bank RTC Busstand");
-
-        waitForElementToBeClickable(amountTextBox , webDriver);
-        amountTextBox.sendKeys("100");
-
-        waitForElementToBeClickable(accountNumber ,webDriver);
-        accountNumber.click();
-        new Select(accountNumber).selectByVisibleText("4502110--110710100009664--ANDHRA BANK");
-
-        switch (mode){
-            case "cheque" :
-                break;
-
-            case "cash" :
-                waitForElementToBeClickable(bankPaymentCash , webDriver);
-                bankPaymentCash.click();
-                break;
-
-            case "RTGS" :
-                waitForElementToBeClickable(bankPaymentRTGS , webDriver);
-                bankPaymentRTGS.click();
-                break;
-        }
-
-        waitForElementToBeClickable(paidToCustomer ,webDriver);
-        paidToCustomer.sendKeys("Tester");
-
-        waitForElementToBeClickable(documentNumber ,webDriver);
-        documentNumber.sendKeys("123456");
-
-        waitForElementToBeClickable(documentDate ,webDriver);
-        documentDate.sendKeys(getCurrentDate() , Keys.TAB);
-
-        waitForElementToBeVisible(accountCode1 , webDriver);
-        waitForElementToBeClickable(accountCode1, webDriver);
-        accountCode1.sendKeys("2101001");
-
-        waitForElementToBeVisible(accountCodeDropdown , webDriver);
-        waitForElementToBeClickable(accountCodeDropdown , webDriver);
-        accountCodeDropdown.click();
-        enterText(debitAmount1 , "100");
-
-        new Select(ledgerAccount1).selectByVisibleText("2101001");
-        new Select(ledgerType1).selectByVisibleText("contractor");
-        ledgerCode1.sendKeys("G Basheer Ahmed");
-
-        waitForElementToBeClickable(accountCodeDropdown , webDriver);
-        accountCodeDropdown.click();
-        ledgerAmount1.sendKeys("100");
-    }
-
-    public String directBankSuccessPage(){
-        switchToNewlyOpenedWindow(webDriver);
-
-        String message = getForwardMessage();
-        if(message.contains("Successful")) {
-            clickOnBankCloseButton();
-        }
-        else {
-            clickOnCloseButton();
-        }
         switchToPreviouslyOpenedWindow(webDriver);
         return message;
     }

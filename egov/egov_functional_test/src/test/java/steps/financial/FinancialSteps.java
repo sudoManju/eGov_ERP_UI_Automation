@@ -1,16 +1,11 @@
 package steps.financial;
 
 import cucumber.api.java8.En;
-import entities.financial.FinancialBankDetails;
-import entities.financial.FinancialBankToBankDetails;
-import entities.financial.FinancialExpenseBillDetails;
-import entities.financial.FinancialJournalVoucherDetails;
+import entities.financial.*;
 import entities.ptis.ApprovalDetails;
 import org.junit.Assert;
 import pages.DashboardPage;
-import pages.financial.FinancialBankToBankDetailsPage;
-import pages.financial.FinancialJournalVoucherDetailsPage;
-import pages.financial.FinancialPage;
+import pages.financial.*;
 import steps.BaseSteps;
 import utils.ExcelReader;
 
@@ -25,7 +20,7 @@ public class FinancialSteps extends BaseSteps implements En {
 
         And("^officer will enter the journal voucher details as (\\w+) with subledger (\\w+)$", (String voucher , String withOrWithoutSubledger) -> {
             FinancialJournalVoucherDetails financialJournalVoucherDetails = new ExcelReader(financialTestDataFileName).getJournalVoucherDetails(voucher);
-            pageStore.get(FinancialJournalVoucherDetailsPage.class).enterJournalVoucherDetails(financialJournalVoucherDetails , withOrWithoutSubledger);
+            pageStore.get(JournalVoucherDetailsPage.class).enterJournalVoucherDetails(financialJournalVoucherDetails , withOrWithoutSubledger);
         });
 
         And("^officer will enter the approval details as (\\w+)$", (String approveOfficer) -> {
@@ -39,7 +34,7 @@ public class FinancialSteps extends BaseSteps implements En {
         });
 
         And("^officer will get successful voucher created and closes it$", () -> {
-            String voucherNumber = pageStore.get(FinancialPage.class).getVoucherNumber();
+            String voucherNumber = pageStore.get(JournalVoucherDetailsPage.class).getVoucherNumber();
             scenarioContext.setApplicationNumber(voucherNumber.split("\\.")[0].split("\\ ")[1]);
             scenarioContext.setActualMessage(voucherNumber.split("\\.")[0]);
         });
@@ -94,12 +89,12 @@ public class FinancialSteps extends BaseSteps implements En {
 
         And("^officer will the expense bill details as (\\w+)$", (String expenseBill) -> {
             FinancialExpenseBillDetails financialBill = new ExcelReader(financialTestDataFileName).getFinancialExpenseBillDetails(expenseBill);
-            pageStore.get(FinancialPage.class).createNewExpenseBill(financialBill);
+            pageStore.get(ExpenseDetailsPage.class).createNewExpenseBill(financialBill);
         });
 
         And("^officer will enter the expense approval details as (\\w+)$", (String approveOfficer) -> {
             ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approveOfficer);
-            String userName = pageStore.get(FinancialPage.class).enterExpenseApprovalDetails(approvalDetails);
+            String userName = pageStore.get(ExpenseDetailsPage.class).enterExpenseApprovalDetails(approvalDetails);
             scenarioContext.setUser(userName.split("\\ ")[0]);
         });
 
@@ -115,7 +110,7 @@ public class FinancialSteps extends BaseSteps implements En {
         });
 
         And("^officer will get successful BAN NUMBER created and closes it$", () -> {
-            String voucherNumber = pageStore.get(FinancialPage.class).getVoucherNumber();
+            String voucherNumber = pageStore.get(JournalVoucherDetailsPage.class).getVoucherNumber();
             scenarioContext.setApplicationNumber(voucherNumber.split("\\ ")[1]);
             System.out.println("=========="+voucherNumber);
             scenarioContext.setActualMessage(voucherNumber);
@@ -172,12 +167,13 @@ public class FinancialSteps extends BaseSteps implements En {
             scenarioContext.setActualMessage(msg);
         });
 
-        And("^officer will enter the direct bank payment details with (\\w+)$", (String mode) -> {
-            pageStore.get(FinancialPage.class).enterDirectBankPaymentDetails(mode);
+        And("^officer will enter the direct bank payment details as (\\w+) with mode as (\\w+)$", (String directBankDetails ,String mode) -> {
+            DirectBankPaymentDetails directBankPaymentDetails = new ExcelReader(financialTestDataFileName).getDirectBankPaymentDetails(directBankDetails);
+            pageStore.get(DirectBankPaymentDetailsPage.class).enterDirectBankPaymentDetails(directBankPaymentDetails , mode);
         });
 
         And("^officer will see the successful voucher creation page and closes it$", () -> {
-            String msg = pageStore.get(FinancialPage.class).directBankSuccessPage();
+            String msg = pageStore.get(DirectBankPaymentDetailsPage.class).directBankSuccessPage();
             if(msg.contains("Successful")) {
                 scenarioContext.setApplicationNumber(msg.split("\\ ")[8]);
             }
@@ -186,7 +182,7 @@ public class FinancialSteps extends BaseSteps implements En {
 
         And("^officer will enter the bank to bank transfer details as (\\w+)$", (String bankDetails) -> {
             FinancialBankToBankDetails financialBankToBankDetails = new ExcelReader(financialTestDataFileName).getBankToBankTransferDetails(bankDetails);
-            pageStore.get(FinancialBankToBankDetailsPage.class).enterBankToBankDetails(financialBankToBankDetails);
+            pageStore.get(BankToBankDetailsPage.class).enterBankToBankDetails(financialBankToBankDetails);
         });
 
         And("^officer will close the successful creation page$", () -> {

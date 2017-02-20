@@ -1,8 +1,5 @@
 package entities.financial;
 
-/**
- * Created by vinaykumar on 27/12/16.
- */
 public class FinancialExpenseBillDetails {
 
     private String expenseFund;
@@ -11,6 +8,9 @@ public class FinancialExpenseBillDetails {
     private String expenseBillSubType;
     private String expenseAccountCodeDebit;
     private String expenseAccountCodeCredit;
+    private String expenseDebitAmount;
+    private String expenseCreditAmount;
+    private String expenseNetAmount;
 
     public String getExpenseFund() {
         return expenseFund;
@@ -58,5 +58,29 @@ public class FinancialExpenseBillDetails {
 
     public void setExpenseAccountCodeCredit(String expenseAccountCodeCredit) {
         this.expenseAccountCodeCredit = expenseAccountCodeCredit;
+    }
+
+    public String getExpenseDebitAmount() {
+        return expenseDebitAmount;
+    }
+
+    public void setExpenseDebitAmount(String expenseDebitAmount) {
+        this.expenseDebitAmount = expenseDebitAmount;
+    }
+
+    public String getExpenseCreditAmount() {
+        return expenseCreditAmount;
+    }
+
+    public void setExpenseCreditAmount(String expenseCreditAmount) {
+        this.expenseCreditAmount = expenseCreditAmount;
+    }
+
+    public String getExpenseNetAmount() {
+        return expenseNetAmount;
+    }
+
+    public void setExpenseNetAmount(String expenseNetAmount) {
+        this.expenseNetAmount = expenseNetAmount;
     }
 }
