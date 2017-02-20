@@ -17,66 +17,12 @@ import java.util.concurrent.TimeUnit;
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-/**
- * Created by vinaykumar on 9/12/16.
- */
 public class WaterChargeManagementPage extends BasePage {
 
     private WebDriver webDriver;
 
     @FindBy(id = "propertyIdentifier")
     private WebElement waterConnectionAssesmentNumberTextBox;
-
-    @FindBy(id = "waterSource")
-    private WebElement waterSourceTypeSelectBox;
-
-    @FindBy(id = "connectionType")
-    private WebElement connectionTypeSelectBox;
-
-    @FindBy(id = "propertyType")
-    private WebElement propertyTypeSelectBox;
-
-    @FindBy(id = "connectionCategorie")
-    private WebElement categorySelectBox;
-
-    @FindBy(id = "usageType")
-    private WebElement usageTypeSelectBox;
-
-    @FindBy(id = "pipeSize")
-    private WebElement hscPipeSizeSelectBox;
-
-    @FindBy(id = "sumpCapacity")
-    private WebElement sumpCapacityTextBox;
-
-    @FindBy(id = "numberOfPerson")
-    private WebElement noOfPersonsTextBox;
-
-    @FindBy(id = "applicationDocs0documentNumber")
-    private WebElement documentNo1TextBox;
-
-    @FindBy(id = "applicationDocs0documentDate")
-    private WebElement documentDate1TextBox;
-
-    @FindBy(id = "applicationDocs1documentNumber")
-    private  WebElement documentNo2TextBox;
-
-    @FindBy(id ="applicationDocs1documentDate")
-    private WebElement documentDate2TextBox;
-
-    @FindBy(id ="applicationDocs3documentNumber")
-    private WebElement documentNo3TextBox;
-
-    @FindBy(id = "applicationDocs3documentDate")
-    private WebElement documentDate3TextBox;
-
-    @FindBy(id = "file0id")
-    private WebElement browse1Button;
-
-    @FindBy(id = "file1id")
-    private WebElement browse2Button;
-
-    @FindBy(id = "file3id")
-    private WebElement browse3Button;
 
     @FindBy(id = "approvalDepartment")
     private WebElement approvalWaterDepartment;
@@ -92,33 +38,6 @@ public class WaterChargeManagementPage extends BasePage {
 
     @FindBy(id = "Forward")
     private WebElement additionalForwardButton;
-
-    @FindBy(id = "connectionReason")
-    private WebElement reasonForNewConnection;
-
-    @FindBy(id = "estimationDetails0itemDescription")
-    private WebElement fieldInspectionMaterial;
-
-    @FindBy(id = "estimationDetails0quantity")
-    private WebElement fieldInspectionQuantity;
-
-    @FindBy(id = "estimationDetails0unitOfMeasurement")
-    private WebElement fieldInspectionMeasureUnit;
-
-    @FindBy(id = "estimationDetails0unitRate")
-    private WebElement fieldInspectionRate;
-
-    @FindBy(id = "existingPipeline")
-    private WebElement fieldInspectionExistingPipeline;
-
-    @FindBy(id = "pipelineDistance")
-    private WebElement fieldInspectionPipelineDistance;
-
-    @FindBy(id = "estimationCharges")
-    private WebElement fieldInspectionEstimationCharges;
-
-    @FindBy(id = "Submit")
-    private WebElement fieldInspectionSubmitButton;
 
     @FindBy(id = "Generate Estimation Notice")
     private WebElement generateEstimationNoticeButton;
@@ -149,15 +68,6 @@ public class WaterChargeManagementPage extends BasePage {
 
     @FindBy(id = "buttonClose")
     private WebElement closeReceiptButton;
-
-    @FindBy(id = "temporary")
-    private WebElement temporaryRadioButton;
-
-    @FindBy(id = "permanent")
-    private WebElement permanentRadioButton;
-
-    @FindBy(id = "closeconnectionreason")
-    private WebElement closureConnectionReason;
 
     @FindBy(id = "Forward")
     private WebElement forwardButton;
@@ -324,56 +234,6 @@ public class WaterChargeManagementPage extends BasePage {
         enterText(waterConnectionAssesmentNumberTextBox, number);
     }
 
-    public void enterConnectionInfo(ConnectionInfo connectionInfo){
-
-        waitForElementToBeClickable(waterSourceTypeSelectBox, webDriver);
-        new Select(waterSourceTypeSelectBox).selectByVisibleText(connectionInfo.getWaterSourceType());
-
-        new Select(connectionTypeSelectBox).selectByVisibleText(connectionInfo.getConnectionType());
-
-        new Select(propertyTypeSelectBox).selectByVisibleText(connectionInfo.getPropertyType());
-
-        new Select(categorySelectBox).selectByVisibleText(connectionInfo.getCategory());
-
-        new Select(usageTypeSelectBox).selectByVisibleText(connectionInfo.getUsageType());
-
-        new Select(hscPipeSizeSelectBox).selectByVisibleText(connectionInfo.getHscPipeSize());
-
-        enterText(sumpCapacityTextBox, connectionInfo.getSumpCapacity());
-
-        enterText(noOfPersonsTextBox, connectionInfo.getNoOfPersons());
-    }
-
-    public void enterDocumentInfo(EnclosedDocument enclosedDocument){
-
-        waitForElementToBeClickable(documentNo1TextBox, webDriver);
-        enterText(documentNo1TextBox, enclosedDocument.getDocumentN01());
-
-        waitForElementToBeClickable(documentNo2TextBox, webDriver);
-        enterText(documentNo2TextBox, enclosedDocument.getDocumentN02());
-
-        waitForElementToBeClickable(documentNo3TextBox, webDriver);
-        enterText(documentNo3TextBox, enclosedDocument.getDocumentN03());
-
-        waitForElementToBeClickable(documentDate1TextBox, webDriver);
-        enterText(documentDate1TextBox, currentDate.format(new Date()));
-
-        waitForElementToBeClickable(documentDate2TextBox, webDriver);
-        enterText(documentDate2TextBox, currentDate.format(new Date()));
-
-        waitForElementToBeClickable(documentDate3TextBox, webDriver);
-        enterText(documentDate3TextBox, currentDate.format(new Date()));
-
-        waitForElementToBeClickable(browse1Button, webDriver);
-        browse1Button.sendKeys(System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx");
-
-        waitForElementToBeClickable(browse2Button, webDriver);
-        browse2Button.sendKeys(System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx");
-
-        waitForElementToBeClickable(browse3Button, webDriver);
-        browse3Button.sendKeys(System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx");
-    }
-
     public void enterWaterApprovalDetails(ApprovalDetails approvalDetails){
 
         waitForElementToBeClickable(approvalWaterDepartment, webDriver);
@@ -387,52 +247,6 @@ public class WaterChargeManagementPage extends BasePage {
 
         waitForElementToBeClickable(additionalForwardButton, webDriver);
         additionalForwardButton.click();
-        switchToNewlyOpenedWindow(webDriver);
-    }
-
-    public void enterAdditionalWaterConnectionInfo(ConnectionInfo connectionInfo){
-
-        waitForElementToBeClickable(waterSourceTypeSelectBox, webDriver);
-        new Select(waterSourceTypeSelectBox).selectByVisibleText(connectionInfo.getWaterSourceType());
-
-        new Select(connectionTypeSelectBox).selectByVisibleText(connectionInfo.getConnectionType());
-
-        new Select(propertyTypeSelectBox).selectByVisibleText(connectionInfo.getPropertyType());
-
-        new Select(categorySelectBox).selectByVisibleText(connectionInfo.getCategory());
-
-        new Select(usageTypeSelectBox).selectByVisibleText(connectionInfo.getUsageType());
-
-        new Select(hscPipeSizeSelectBox).selectByVisibleText(connectionInfo.getHscPipeSize());
-
-        enterText(sumpCapacityTextBox, connectionInfo.getSumpCapacity());
-
-        enterText(noOfPersonsTextBox, connectionInfo.getNoOfPersons());
-        enterText(reasonForNewConnection, connectionInfo.getReasonForAdditionalConnection());
-    }
-
-    public void enterFieldInspectionInfo(FieldInspectionDetails fieldInspectionDetails){
-        waitForElementToBeClickable(fieldInspectionMaterial, webDriver);
-        enterText(fieldInspectionMaterial , fieldInspectionDetails.getMaterial());
-
-        waitForElementToBeClickable(fieldInspectionQuantity, webDriver);
-        enterText(fieldInspectionQuantity , fieldInspectionDetails.getQuantity());
-
-        waitForElementToBeClickable(fieldInspectionMeasureUnit, webDriver);
-        enterText(fieldInspectionMeasureUnit , fieldInspectionDetails.getUnitOfMeasurement());
-
-        waitForElementToBeClickable(fieldInspectionRate, webDriver);
-        enterText(fieldInspectionRate , fieldInspectionDetails.getRate());
-
-        waitForElementToBeClickable(fieldInspectionExistingPipeline, webDriver);
-        enterText(fieldInspectionExistingPipeline , fieldInspectionDetails.getExistingDistributionPipeline());
-
-        waitForElementToBeClickable(fieldInspectionPipelineDistance, webDriver);
-        enterText(fieldInspectionPipelineDistance , fieldInspectionDetails.getPipelineToHomeDistance());
-
-        waitForElementToBeClickable(fieldInspectionSubmitButton, webDriver);
-        fieldInspectionSubmitButton.click();
-
         switchToNewlyOpenedWindow(webDriver);
     }
 
@@ -465,7 +279,6 @@ public class WaterChargeManagementPage extends BasePage {
     public void clickOnCollectCharges(){
         waitForElementToBeClickable(collectFeesButton, webDriver);
         jsClick(collectFeesButton,webDriver);
-//        collectFeesButton.click();
         switchToNewlyOpenedWindow(webDriver);
     }
 
@@ -497,24 +310,6 @@ public class WaterChargeManagementPage extends BasePage {
         closeSearchApplication.click();
 
         switchToPreviouslyOpenedWindow(webDriver);
-    }
-
-    public String enterDetailsOfClosureConnection(String closureType){
-
-        WebElement acknowledgementNumber = webDriver.findElement(By.id("applicationNumber"));
-        String number = acknowledgementNumber.getText();
-
-        if(closureType.equalsIgnoreCase("Temporary")){
-            waitForElementToBeClickable(temporaryRadioButton , webDriver);
-            jsClick(temporaryRadioButton ,webDriver);
-        }
-        else {
-            waitForElementToBeClickable(permanentRadioButton , webDriver);
-            jsClick(permanentRadioButton ,webDriver);
-        }
-        waitForElementToBeClickable(closureConnectionReason , webDriver);
-        closureConnectionReason.sendKeys("Not Required");
-        return number;
     }
 
     public void forward() {
@@ -597,29 +392,7 @@ public class WaterChargeManagementPage extends BasePage {
         switchToPreviouslyOpenedWindow(webDriver);
     }
 
-    public void changeOfUseConnectionInfo(ConnectionInfo connectionInfo){
-        new Select(propertyTypeSelectBox).selectByVisibleText(connectionInfo.getPropertyType());
-        for(int i = 0 ; i <= 10 ; i++) {
-            if (!webDriver.findElement(By.id("pipeSize")).getText().equalsIgnoreCase(connectionInfo.getHscPipeSize())){
-                try {
-            waitForElementToBeVisible(hscPipeSizeSelectBox , webDriver);
-            new Select(hscPipeSizeSelectBox).selectByVisibleText(connectionInfo.getHscPipeSize());
-                }catch (StaleElementReferenceException e){
-            WebElement element = webDriver.findElement(By.id("pipeSize"));
-            waitForElementToBeVisible(element , webDriver);
-            new Select(element).selectByVisibleText(connectionInfo.getHscPipeSize());
-                }
-            }
-        }
-        enterText(sumpCapacityTextBox, connectionInfo.getSumpCapacity());
-        enterText(noOfPersonsTextBox, connectionInfo.getNoOfPersons());
-        new Select(usageTypeSelectBox).selectByVisibleText(connectionInfo.getUsageType());
-        enterText(reasonForNewConnection, connectionInfo.getReasonForAdditionalConnection());
-    }
-
     public void enterWaterDataEntryDetails(ApplicantInfo applicantInfo , String assessmentNumber){
-//        WebElement connectionType2 = webDriver.findElement(By.id("applicationType2"));
-//        connectionType2.click();
         waitForElementToBeClickable(waterConnectionAssesmentNumberTextBox, webDriver);
         enterText(waterConnectionAssesmentNumberTextBox, assessmentNumber);
         enterText(hscNumber , applicantInfo.getHscNumber());
@@ -647,12 +420,8 @@ public class WaterChargeManagementPage extends BasePage {
     }
 
     public String findAdditionalApplicationNumber(){
-//        waitForElementToBeClickable(additionalApplicationNumber, webDriver);
-//        String number = additionalApplicationNumber.getText();
         String number = webDriver.getCurrentUrl().split("\\=")[1];
 
-//        waitForElementToBeClickable(additionalCloseButton, webDriver);
-//        jsClick(additionalCloseButton, webDriver);
         webDriver.close();
 
         switchToPreviouslyOpenedWindow(webDriver);
