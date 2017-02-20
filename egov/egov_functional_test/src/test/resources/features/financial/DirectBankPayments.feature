@@ -13,7 +13,7 @@ Feature: To create a voucher through direct bank payments
 
 #    And examiner logs in
     And the next user will be logged in
-    And the officer will click on the above voucher number
+    And he chooses to act upon above application number
     And officer will enter the approval details as <approvalOfficer2>
     And officer will see the successful voucher creation page and closes it
     Then user will be notified by "forwarded"
@@ -21,7 +21,7 @@ Feature: To create a voucher through direct bank payments
 
 #    And commissioner logs in
     And the next user will be logged in
-    And the officer will click on the above voucher number
+    And he chooses to act upon above application number
     And officer click on approval of the voucher
     And officer will see the successful voucher creation page and closes it
     Then user will be notified by "approved"
@@ -54,7 +54,7 @@ Feature: To create a voucher through direct bank payments
 
 #    And examiner logs in
     And the next user will be logged in
-      And the officer will click on the above voucher number
+    And he chooses to act upon above application number
     And officer will enter the approval details as <approvalOfficer2>
     And officer will see the successful voucher creation page and closes it
     Then user will be notified by "forwarded"
@@ -62,7 +62,7 @@ Feature: To create a voucher through direct bank payments
 
 #    And commissioner logs in
     And the next user will be logged in
-      And the officer will click on the above voucher number
+    And he chooses to act upon above application number
     And officer click on approval of the voucher
     And officer will see the successful voucher creation page and closes it
     Then user will be notified by "approved"

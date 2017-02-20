@@ -39,10 +39,6 @@ public class FinancialSteps extends BaseSteps implements En {
             scenarioContext.setActualMessage(voucherNumber.split("\\.")[0]);
         });
 
-        Then("^the officer will click on the above voucher number$", () -> {
-            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
-        });
-
         And("^officer will closes the acknowledgement page$", () -> {
             String actualMessage = pageStore.get(FinancialPage.class).closePage();
             scenarioContext.setActualMessage(actualMessage);

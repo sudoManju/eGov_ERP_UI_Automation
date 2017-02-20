@@ -121,11 +121,6 @@ public class DashboardPage extends BasePage {
         }
         switchToNewlyOpenedWindow(driver);
     }
-    public void openApplicationNew(String number)
-    {
-        getApplicationRow(number).click();
-        switchToNewlyOpenedWindow(driver);
-    }
 
     public void openApplication(String number){
         getApplicationRow(number).click();
