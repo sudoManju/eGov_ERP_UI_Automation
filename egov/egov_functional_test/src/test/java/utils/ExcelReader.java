@@ -53,7 +53,10 @@ import java.util.Iterator;
 public class ExcelReader {
 
     Workbook workbook;
+
     Sheet registeredUserSheet;
+
+//    Property Tax Sheets
     Sheet propertyHeaderDetailsSheet;
     Sheet ownerDetailsSheet;
     Sheet addressDetailsSheet;
@@ -62,48 +65,51 @@ public class ExcelReader {
     Sheet constructionTypeDetailsSheet;
     Sheet floorDetailsSheet;
     Sheet approvalDetailsSheet;
-    Sheet chequeDetailsSheet;
-    Sheet applicantParticularsSheet;
-    Sheet connectionDetailsSheet;
     Sheet searchDetailsSheet;
     Sheet editAssessmentDetailsSheet;
     Sheet editFloorDetailsSheet;
     Sheet documentDetailsSheet;
+    Sheet vltReportSheet;
+    Sheet ptReportSheet;
+    Sheet revisionPetitionDetailsSheet;
+    Sheet hearingDetailsSheet;
+    Sheet registrationDetailsSheet;
+
+    //  Council Maanagement Sheets
+    Sheet createPreambleDetailsSheet;
     Sheet enclosedDocumentSheet;
+    Sheet chequeDetailsSheet;
+    Sheet applicantParticularsSheet;
+    Sheet connectionDetailsSheet;
     Sheet challanHeaderDetailsSheet;
     Sheet enclosedDocumentsSheet;
-    Sheet vltReportSheet;
     Sheet registeredUserDetailsSheet;
     Sheet estimateHeaderDetailsSheet;
     Sheet financialDetailsSheet;
     Sheet workDetailsSheet;
     Sheet adminSanctionDetailsSheet;
     Sheet fieldInseptionDetailsForWaterConnectionSheet;
-    Sheet ptReportSheet;
+
+
     Sheet technicalSanctionDetailsSheet;
-
-
-//     Trade License Sheets
+    //     Trade License Sheets
     Sheet tradeOwnerDetailsSheet;
     Sheet tradeLocationDetailsSheet;
     Sheet tradeDetailsSheet;
     Sheet legencyDetailsSheet;
     Sheet licenseClosureSheet;
-    Sheet searchTradeDetailsSheet;
 
+    Sheet searchTradeDetailsSheet;
     Sheet financialJournalVoucherSheet;
     Sheet financialBankDetailsSheet;
-    Sheet financialExpenseBillDetailsSheet;
 
-//  Council Maanagement Sheets
-    Sheet createPreambleDetailsSheet;
+    Sheet financialExpenseBillDetailsSheet;
     Sheet createAgendaSheet;
     Sheet createMeetingSheet;
-    Sheet createCouncilMOMSheet;
 
+    Sheet createCouncilMOMSheet;
     Sheet paymentMethodSheet;
     Sheet dataFromWebSheet;
-    Sheet registrationDetailsSheet;
 
 //    Grievances Sheets
     Sheet grievancesContactDetailsSheet;
@@ -113,8 +119,7 @@ public class ExcelReader {
 //    Marriage Registration
     Sheet applicantsInformationSheet;
     Sheet bridegroomInformationSheet;
-    Sheet revisionPetitionDetailsSheet;
-    Sheet hearingDetailsSheet;
+
 
     Sheet createLegalCaseDataSheet;
 
@@ -130,6 +135,8 @@ public class ExcelReader {
         } catch (InvalidFormatException e) {
             e.printStackTrace();
         }
+
+//      Property Tax Sheet Names
         registeredUserSheet = workbook.getSheet("registeredUserDetails");
         propertyHeaderDetailsSheet = workbook.getSheet("propertyHeaderDetails");
         ownerDetailsSheet = workbook.getSheet("ownerDetails");
@@ -139,23 +146,29 @@ public class ExcelReader {
         constructionTypeDetailsSheet = workbook.getSheet("constructionTypeDetails");
         floorDetailsSheet = workbook.getSheet("floorDetails");
         approvalDetailsSheet = workbook.getSheet("approvalDetails");
+        searchDetailsSheet = workbook.getSheet("searchDetails");
+        editAssessmentDetailsSheet = workbook.getSheet("editAssessmentDetails") ;
+        editFloorDetailsSheet = workbook.getSheet("editFloorDetails") ;
+        vltReportSheet = workbook.getSheet("vltReport");
+        ptReportSheet = workbook.getSheet("ptReport");
+        registrationDetailsSheet = workbook.getSheet("registrationDetails");
+        revisionPetitionDetailsSheet = workbook.getSheet("revisionPetitionDetails");
+        hearingDetailsSheet = workbook.getSheet("hearingDetails");
+
+
+
         applicantParticularsSheet = workbook.getSheet("applicantParticulars");
         connectionDetailsSheet = workbook.getSheet("connectionDetails");
-        searchDetailsSheet = workbook.getSheet("searchDetails");
         chequeDetailsSheet = workbook.getSheet("chequeDetails");
 
         applicantParticularsSheet = workbook.getSheet("applicantParticulars");
         connectionDetailsSheet = workbook.getSheet("connectionDetails");
 
-        editAssessmentDetailsSheet = workbook.getSheet("editAssessmentDetails") ;
-        editFloorDetailsSheet = workbook.getSheet("editFloorDetails") ;
 
         enclosedDocumentSheet = workbook.getSheet("enclosedDocumentsDetails");
         challanHeaderDetailsSheet = workbook.getSheet("challanHeaderDetails");
 
         enclosedDocumentsSheet = workbook.getSheet("enclosedDocuments");
-        vltReportSheet = workbook.getSheet("vltReport");
-        ptReportSheet = workbook.getSheet("ptReport");
 
         registeredUserDetailsSheet = workbook.getSheet("registeredUserDetails");
         estimateHeaderDetailsSheet = workbook.getSheet("estimateHeaderDetails");
@@ -185,9 +198,6 @@ public class ExcelReader {
         financialExpenseBillDetailsSheet = workbook.getSheet("financialExpenseBillDetails");
         dataFromWebSheet = workbook.getSheet("dataFromWeb");
         paymentMethodSheet = workbook.getSheet("paymentMethod");
-        registrationDetailsSheet = workbook.getSheet("registrationDetails");
-        revisionPetitionDetailsSheet = workbook.getSheet("revisionPetitionDetails");
-        hearingDetailsSheet = workbook.getSheet("hearingDetails");
 
 //        Grievances sheets
         grievancesContactDetailsSheet = workbook.getSheet("contactInfo");
@@ -450,7 +460,6 @@ public class ExcelReader {
 //        registrationDocNumberCell.setCellType(Cell.CELL_TYPE_STRING);
         String extentOfSite = extentOfSiteCell.getStringCellValue();
         String occupancyCertificateNumber = occupancyCertificateNumberCell.getStringCellValue();
-
 
         return new AssessmentDetailsBuilder().withReasonForCreation(reasonForCreation)
                 .withExtentOfSite(extentOfSite)

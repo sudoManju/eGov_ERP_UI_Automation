@@ -89,7 +89,7 @@ Feature: Create New Property
 
     Given juniorAssistant logs in
     And user will select the required screen as "Addition/Alteration of Assessment"
-    And he searches for assessment with number "1016042569"
+    And he searches for assessment with number
     And he updates assessment details as <editAssessmentDetails>
     And he enters amenities as <amenitiesDetails>
     And he enters Floor Details as <editFloorDetails>
@@ -150,12 +150,12 @@ Feature: Create New Property
 
     Given juniorAssistant logs in
     And user will select the required screen as "collect tax"
-    And he searches for assessment with number "1016000077"
+    And he searches for assessment with number
     And he chooses to pay tax
     And he pay tax using Cash
 
     And user will select the required screen as "Transfer Ownership"
-    And he searches for assessment with number "1016042569"
+    And he searches for assessment with number
     And he chooses Registration already done button
     And he enters registration details for the property <registrationDetails>
     And he enters enclosure details
@@ -344,12 +344,12 @@ Feature: Create New Property
 
      Given juniorAssistant logs in
      And user will select the required screen as "collect tax"
-     And he searches for assessment with number "1016000077"
+     And he searches for assessment with number
      And he chooses to pay tax
      And he pay tax using Cash
 
      And user will select the required screen as "General Revision Petition"
-     And he searches for assessment with number "1016042569"
+     And he searches for assessment with number
 
      And he choose revision petition header
      And he enters revision petition details<revisionPetitionDetails>
