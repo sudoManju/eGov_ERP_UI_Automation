@@ -78,7 +78,6 @@ Feature: To create a Financial Transactions
       |voucher2                | accountOfficer1a | accountOfficer2  |  commissioner     | yes       |
       |voucherWithOutSubledger | accountOfficer1a | accountOfficer2  |  commissioner     | no        |
 
-
   @Sanity @Finance
   Scenario Outline: To create a journal voucher as well as payment with different modes
 

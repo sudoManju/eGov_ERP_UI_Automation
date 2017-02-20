@@ -1041,10 +1041,13 @@ public class ExcelReader {
                 .build();
     }
 
-
     public FinancialJournalVoucherDetails getJournalVoucherDetails(String voucher){
+
         Row dataRow = readDataRow(financialJournalVoucherSheet, voucher);
         String voucherType = getCellData(financialJournalVoucherSheet, dataRow, "voucherType").getStringCellValue();
+        String fundId = getCellData(financialJournalVoucherSheet, dataRow, "fund").getStringCellValue();
+        String department = getCellData(financialJournalVoucherSheet, dataRow, "department").getStringCellValue();
+        String function = getCellData(financialJournalVoucherSheet, dataRow, "function").getStringCellValue();
 
         Cell code1 = getCellData(financialJournalVoucherSheet, dataRow, "accountCode1");
         code1.setCellType(Cell.CELL_TYPE_STRING);
@@ -1058,16 +1061,52 @@ public class ExcelReader {
         code3.setCellType(Cell.CELL_TYPE_STRING);
         String  accountCode3 = code3.getStringCellValue();
 
-        String department = getCellData(financialJournalVoucherSheet, dataRow, "department").getStringCellValue();
-        String function = getCellData(financialJournalVoucherSheet, dataRow, "function").getStringCellValue();
+        Cell code4 = getCellData(financialJournalVoucherSheet, dataRow, "debitAmount1");
+        code4.setCellType(Cell.CELL_TYPE_STRING);
+        String  debitAmount1 = code4.getStringCellValue();
+
+        Cell code5 = getCellData(financialJournalVoucherSheet, dataRow, "creditAmount2");
+        code5.setCellType(Cell.CELL_TYPE_STRING);
+        String  creditAmount2 = code5.getStringCellValue();
+
+        Cell code6 = getCellData(financialJournalVoucherSheet, dataRow, "creditAmount3");
+        code6.setCellType(Cell.CELL_TYPE_STRING);
+        String  creditAmount3 = code6.getStringCellValue();
+
+        Cell code7 = getCellData(financialJournalVoucherSheet, dataRow, "ledgerAmount1");
+        code7.setCellType(Cell.CELL_TYPE_STRING);
+        String  ledgerAmount1 = code7.getStringCellValue();
+
+        Cell code8 = getCellData(financialJournalVoucherSheet, dataRow, "ledgerAmount2");
+        code8.setCellType(Cell.CELL_TYPE_STRING);
+        String  ledgerAmount2 = code8.getStringCellValue();
+
+        String ledgerType1 = getCellData(financialJournalVoucherSheet, dataRow, "ledgerType1").getStringCellValue();
+        String ledgerType2 = getCellData(financialJournalVoucherSheet, dataRow, "ledgerType2").getStringCellValue();
+        String ledgerCode1 = getCellData(financialJournalVoucherSheet, dataRow, "ledgerCode1").getStringCellValue();
+
+        Cell code9 = getCellData(financialJournalVoucherSheet, dataRow, "ledgerCode2");
+        code9.setCellType(Cell.CELL_TYPE_STRING);
+        String  ledgerCode2 = code9.getStringCellValue();
+
 
         return new FinancialJournalVoucherDetailsBuilder()
                 .withVoucherType(voucherType)
+                .withFundId(fundId)
                 .withAccountCode1(accountCode1)
                 .withAccountCode2(accountCode2)
                 .withAccountCode3(accountCode3)
                 .withDepartment(department)
                 .withFunction(function)
+                .withDebitAmount1(debitAmount1)
+                .withCreditAmount2(creditAmount2)
+                .withCreditAmount3(creditAmount3)
+                .withLedgerAmount1(ledgerAmount1)
+                .withLedgerAmount2(ledgerAmount2)
+                .withLedgerType1(ledgerType1)
+                .withLedgerType2(ledgerType2)
+                .withLedgerCode1(ledgerCode1)
+                .withLedgerCode2(ledgerCode2)
                 .build();
     }
 
