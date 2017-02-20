@@ -13,10 +13,6 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).logOut();
         });
 
-//        And("^chooses to act upon the above create application$", () -> {
-//            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
-//        });
-
         And("^he open application from drafts items$", () -> {
             pageStore.get(DashboardPage.class).openApplication("Property Tax");
         });
