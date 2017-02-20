@@ -57,15 +57,15 @@ public class FinancialSteps extends BaseSteps implements En {
         });
 
         Then("^officer will modify the results depending upon the fund and date$", () -> {
-            pageStore.get(FinancialPage.class).singleBillSearch();
+            pageStore.get(SelectSingleOrMultipleBillsPage.class).singleBillSearch();
         });
 
         Then("^officer will search the bill based on department and fund with type as (\\w+) with payment mode as (\\w+)$", (String type , String paymentMode) -> {
-            pageStore.get(FinancialPage.class).multipleBillSearch(type , paymentMode);
+            pageStore.get(SelectSingleOrMultipleBillsPage.class).multipleBillSearch(type , paymentMode);
         });
 
         And("^officer will act upon the above voucher with payment mode as (\\w+)$", (String paymentMode) -> {
-            pageStore.get(FinancialPage.class).actOnAboveVoucher(paymentMode , scenarioContext.getApplicationNumber());
+            pageStore.get(SelectSingleOrMultipleBillsPage.class).actOnAboveVoucher(paymentMode , scenarioContext.getApplicationNumber());
         });
 
         And("^officer will verify the voucher number$", () -> {
@@ -127,7 +127,7 @@ public class FinancialSteps extends BaseSteps implements En {
         And("^officer will search for (\\w+) remittance bill$", (String singleOrMultiple) -> {
             pageStore.get(FinancialPage.class).searchRemittanceBill();
             if(singleOrMultiple.equalsIgnoreCase("single")) {
-                pageStore.get(FinancialPage.class).selectSingleRemittanceBill(scenarioContext.getApplicationNumber());
+                pageStore.get(SelectSingleOrMultipleBillsPage.class).selectSingleRemittanceBill(scenarioContext.getApplicationNumber());
             }
             else {
                 pageStore.get(FinancialPage.class).selectMultipleRemittanceBill();
@@ -135,11 +135,11 @@ public class FinancialSteps extends BaseSteps implements En {
         });
 
         And("^officer will filter the bill according to the type$", () -> {
-            pageStore.get(FinancialPage.class).filterCreateVoucherBill(scenarioContext.getApplicationNumber());
+            pageStore.get(ExpenseDetailsPage.class).filterCreateVoucherBill(scenarioContext.getApplicationNumber());
         });
 
         And("^officer will set the new expense voucher number and closes it$", () -> {
-            String expenseVoucherMessage = pageStore.get(FinancialPage.class).closesExpenseVoucherPage();
+            String expenseVoucherMessage = pageStore.get(ExpenseDetailsPage.class).closesExpenseVoucherPage();
             scenarioContext.setApplicationNumber(expenseVoucherMessage.split("\\ ")[4].split("\\.")[0]);
             scenarioContext.setActualMessage(expenseVoucherMessage);
         });

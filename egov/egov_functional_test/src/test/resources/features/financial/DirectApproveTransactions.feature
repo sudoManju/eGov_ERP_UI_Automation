@@ -35,7 +35,7 @@ Feature: In this feature the transactions are related to create and direct appro
 
     Given accountsOfficer logs in
     And user will select the required screen as "Direct Bank Payments"
-    And officer will enter the direct bank payment details with <paymentMode>
+    And officer will enter the direct bank payment details as <bankDetails> with mode as <paymentMode>
     And officer will click on the direct approve button
     And officer will see the successful voucher creation page and closes it
     Then user will be notified by "Successful"
@@ -48,24 +48,24 @@ Feature: In this feature the transactions are related to create and direct appro
     And current user logs out
 
     Examples:
-    | paymentMode | assignment  | singleOrMultiple  |
-    | cheque      | cheque      | single            |
-    | RTGS        | RTGS        | single            |
+    | bankDetails       | paymentMode | assignment  | singleOrMultiple  |
+    | directBankDetails | cheque      | cheque      | single            |
+    | directBankDetails | RTGS        | RTGS        | single            |
 
   @Sanity @Finance
   Scenario Outline: To create a direct bank payments with cash mode
 
     Given accountsOfficer logs in
     And user will select the required screen as "Direct Bank Payments"
-    And officer will enter the direct bank payment details with <paymentMode>
+    And officer will enter the direct bank payment details as <bankDetails> with mode as <paymentMode>
     And officer will click on the direct approve button
     And officer will see the successful voucher creation page and closes it
     Then user will be notified by "Successful"
     And current user logs out
 
     Examples:
-      | paymentMode |
-      | cash        |
+      | bankDetails       | paymentMode |
+      | directBankDetails | cash        |
 
   @Sanity @Finance
   Scenario Outline: To create the direct financial journal voucher with type General
@@ -188,7 +188,7 @@ Feature: In this feature the transactions are related to create and direct appro
 
     And accountsOfficer logs in
     And user will select the required screen as "Create Journal Voucher"
-    And officer will enter the remittance details as <voucherDetails>
+    And officer will enter the journal voucher details as <voucherDetails> with subledger <isPresent>
     And officer will click on the direct approve button
     And officer will get successful voucher created and closes it
     Then user will be notified by "Created"
@@ -208,6 +208,6 @@ Feature: In this feature the transactions are related to create and direct appro
     And current user logs out
 
     Examples:
-    | glCode   | assignment | voucherDetails | singleOrMultiple |
-    | 3502002  | remittance | remittance     | single           |
+    | glCode   | assignment | voucherDetails | singleOrMultiple | isPresent |
+    | 3502002  | remittance | remittance     | single           | yes       |
 

@@ -68,6 +68,21 @@ public class ExpenseDetailsPage extends BasePage {
     @FindBy(id = "Forward")
     private WebElement forwardButton;
 
+    @FindBy(id = "expType")
+    private WebElement billType;
+
+    @FindBy(id = "billNumber")
+    private WebElement billNumberTextBox;
+
+    @FindBy(css = ".buttonsubmit")
+    private WebElement submitButton;
+
+    @FindBy(id = "button2")
+    private WebElement closeButton;
+
+    @FindBy(className = "actionMessage")
+    private WebElement forwardMessage;
+
     public ExpenseDetailsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -159,5 +174,39 @@ public class ExpenseDetailsPage extends BasePage {
 
         switchToNewlyOpenedWindow(webDriver);
         return userName;
+    }
+
+    public void filterCreateVoucherBill(String applicationNumber){
+        new Select(billType).selectByVisibleText("Expense");
+        billNumberTextBox.sendKeys(applicationNumber);
+
+        waitForElementToBeClickable(submitButton , webDriver);
+        submitButton.click();
+
+        getExpenseVoucherRow(applicationNumber).click();
+        switchToNewlyOpenedWindow(webDriver);
+    }
+
+    private WebElement getExpenseVoucherRow(String applicationNumber){
+        WebElement element = webDriver.findElement(By.className("tablebottom"));
+        List<WebElement> elements = element.findElements(By.className("setborder"));
+
+        for (WebElement applicationRow : elements) {
+            if (applicationRow.findElements(By.tagName("td")).get(1).getText().contains(applicationNumber))
+                return applicationRow.findElements(By.tagName("td")).get(1);
+        }
+        throw new RuntimeException("No application row found for -- " + applicationNumber);
+    }
+
+    public String closesExpenseVoucherPage(){
+
+        waitForElementToBeVisible(forwardMessage , webDriver);
+        String message = forwardMessage.getText();
+
+        waitForElementToBeClickable(closeButton ,webDriver);
+        closeButton.click();;
+
+        switchToPreviouslyOpenedWindow(webDriver);
+        return message;
     }
 }
