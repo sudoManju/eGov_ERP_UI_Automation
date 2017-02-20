@@ -39,9 +39,6 @@ public class DashboardPage extends BasePage {
     @FindBy(linkText = "Search Application")
     private WebElement searchApplication;
 
-    @FindBy(xpath = "html/body/div[1]/header/nav/div/div[3]/ul/li[2]/a")
-    private WebElement profileLink;
-
     @FindBy(linkText = "Cheque Assignment")
     private List<WebElement> chequeAssignment;
 
