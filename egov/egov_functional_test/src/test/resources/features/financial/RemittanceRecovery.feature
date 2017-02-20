@@ -11,7 +11,7 @@ Feature: To create a new remittance recovery
 
     And accountsOfficer logs in
     And user will select the required screen as "Create Journal Voucher"
-    And officer will enter the remittance details as <voucherDetails>
+    And officer will enter the journal voucher details as <voucherDetails> with subledger <isPresent>
     And officer will enter the approval details as <approvalOfficer1>
     And officer will get successful voucher created and closes it
     Then user will be notified by "Created"
@@ -78,7 +78,7 @@ Feature: To create a new remittance recovery
     And current user logs out
 
     Examples:
-      |voucherDetails   | approvalOfficer1  | approvalOfficer2  |  approvalOfficer3  |  glCode   | assignment | singleOrMultiple |
-      |remittance       |  accountOfficer1  | accountOfficer2   |  commissioner      |  3502002  | remittance | single           |
+      |voucherDetails | isPresent | approvalOfficer1  | approvalOfficer2  |  approvalOfficer3  |  glCode   | assignment | singleOrMultiple |
+      |remittance     | yes       |  accountOfficer1  | accountOfficer2   |  commissioner      |  3502002  | remittance | single           |
 
 

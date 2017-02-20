@@ -384,43 +384,6 @@ public class FinancialPage extends BasePage {
         // To enter the voucher account details
         enterVoucherAccountDetails(financialJournalVoucherDetails);
 
-//        waitForElementToBeClickable(voucherSubType , webDriver);
-//        new Select(voucherSubType).selectByVisibleText(financialJournalVoucherDetails.getVoucherType());
-//
-//        if(!financialJournalVoucherDetails.getVoucherType().equals("General")){
-//            waitForElementToBeClickable(voucherPartyName , webDriver);
-//            voucherPartyName.sendKeys("voucher");
-//        }
-//
-//        waitForElementToBeClickable(fundId , webDriver);
-//        new Select(fundId).selectByVisibleText("Municipal Fund");
-//
-//        waitForElementToBeClickable(voucherDepartment ,webDriver);
-//        new Select(voucherDepartment).selectByVisibleText(financialJournalVoucherDetails.getDepartment());
-//
-//        waitForElementToBeVisible(voucherFunction ,webDriver);
-//        new Select(voucherFunction).selectByVisibleText(financialJournalVoucherDetails.getFunction());
-
-//        waitForElementToBeVisible(accountCode1, webDriver);
-//        waitForElementToBeClickable(accountCode1, webDriver);
-//        accountCode1.sendKeys(financialJournalVoucherDetails.getAccountCode1());
-//
-//        waitForElementToBeVisible(accountCodeDropdown, webDriver);
-//        waitForElementToBeClickable(accountCodeDropdown, webDriver);
-//        accountCodeDropdown.click();
-//
-//        waitForElementToBeClickable(debitAmount1 , webDriver);
-//        enterText(debitAmount1 , "100");
-//
-//        waitForElementToBeClickable(accountCode2 , webDriver);
-//        accountCode2.sendKeys(financialJournalVoucherDetails.getAccountCode2());
-//
-//        waitForElementToBeClickable(accountCodeDropdown ,webDriver);
-//        accountCodeDropdown.click();
-//
-//        waitForElementToBeClickable(creditAmount2 ,webDriver);
-//        enterText(creditAmount2 , "100");
-
         try {
             TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException e) {
@@ -429,48 +392,6 @@ public class FinancialPage extends BasePage {
 
         // To enter voucher sub ledger details
         enterVoucherSubLedgerDetails(financialJournalVoucherDetails , isSubLedgerPresent);
-
-//        if(withOrWithoutSubledger.contains("yes")) {
-//            waitForElementToBePresent(By.className("yui-dt-dropdown"), webDriver);
-//            List<WebElement> webElementList = ledgerAccount1.findElements(By.tagName("option"));
-//
-//            waitForElementToBeVisible(ledgerAccount1 , webDriver);
-//            new Select(ledgerAccount1).selectByVisibleText(webElementList.get(1).getText());
-//
-//            waitForElementToBeClickable(ledgerAccount1 ,webDriver);
-//            new Select(ledgerType1).selectByVisibleText("contractor");
-//
-//            waitForElementToBeClickable(ledgerCode1 , webDriver);
-//            ledgerCode1.sendKeys("G Basheer Ahmed");
-//
-//            waitForElementToBeClickable(accountCodeDropdown, webDriver);
-//            accountCodeDropdown.click();
-//
-//            waitForElementToBeClickable(ledgerAccount1 ,webDriver);
-//            ledgerAmount1.sendKeys("100");
-//
-//            if (webElementList.size() > 2) {
-//
-//                waitForElementToBeClickable(addList.get(2) ,webDriver);
-//                addList.get(2).click();
-//
-//                waitForElementToBeClickable(ledgerAccount2 ,webDriver);
-//                ledgerAccount2.click();
-//                new Select(ledgerAccount2).selectByVisibleText(webElementList.get(2).getText());
-//
-//                waitForElementToBeVisible(ledgerType2 ,webDriver);
-//                new Select(ledgerType2).selectByVisibleText("contractor");
-//
-//                waitForElementToBeClickable(ledgerCode2 ,webDriver);
-//                ledgerCode2.sendKeys("G Basheer Ahmed");
-//
-//                waitForElementToBeClickable(accountCodeDropdown, webDriver);
-//                accountCodeDropdown.click();
-//
-//                waitForElementToBeClickable(ledgerAmount2 ,webDriver);
-//                ledgerAmount2.sendKeys("100");
-//            }
-//        }
     }
 
     // To enter the Voucher type , fundId , department and function
@@ -486,7 +407,6 @@ public class FinancialPage extends BasePage {
 
         waitForElementToBeClickable(fundId , webDriver);
         new Select(fundId).selectByVisibleText(financialJournalVoucherDetails.getFundId());
-//        new Select(fundId).selectByVisibleText("Municipal Fund");
 
         waitForElementToBeClickable(voucherDepartment ,webDriver);
         new Select(voucherDepartment).selectByVisibleText(financialJournalVoucherDetails.getDepartment());
@@ -507,7 +427,6 @@ public class FinancialPage extends BasePage {
 
         waitForElementToBeClickable(debitAmount1 , webDriver);
         enterText(debitAmount1 , financialJournalVoucherDetails.getDebitAmount1());
-//        enterText(debitAmount1 , "100");
 
         waitForElementToBeClickable(accountCode2 , webDriver);
         accountCode2.sendKeys(financialJournalVoucherDetails.getAccountCode2());
@@ -517,7 +436,6 @@ public class FinancialPage extends BasePage {
 
         waitForElementToBeClickable(creditAmount2 ,webDriver);
         enterText(creditAmount2 ,financialJournalVoucherDetails.getCreditAmount2());
-//        enterText(creditAmount2 , "100");
 
         if(!financialJournalVoucherDetails.getAccountCode3().isEmpty()){
 
@@ -532,13 +450,13 @@ public class FinancialPage extends BasePage {
 
             waitForElementToBeClickable(creditAmount3 ,webDriver);
             enterText(creditAmount3 , financialJournalVoucherDetails.getCreditAmount3());
-//            enterText(creditAmount3 , "200");
         }
     }
 
     private void enterVoucherSubLedgerDetails(FinancialJournalVoucherDetails financialJournalVoucherDetails, String isSubLedgerPresent){
 
         if(isSubLedgerPresent.contains("yes")) {
+
             waitForElementToBePresent(By.className("yui-dt-dropdown"), webDriver);
             List<WebElement> webElementList = ledgerAccount1.findElements(By.tagName("option"));
 
@@ -547,23 +465,26 @@ public class FinancialPage extends BasePage {
 
             waitForElementToBeClickable(ledgerAccount1 ,webDriver);
             new Select(ledgerType1).selectByVisibleText(financialJournalVoucherDetails.getLedgerType1());
-//            new Select(ledgerType1).selectByVisibleText("contractor");
 
             waitForElementToBeClickable(ledgerCode1 , webDriver);
             ledgerCode1.sendKeys(financialJournalVoucherDetails.getLedgerCode1());
-//            ledgerCode1.sendKeys("G Basheer Ahmed");
 
             waitForElementToBeClickable(accountCodeDropdown, webDriver);
             accountCodeDropdown.click();
 
             waitForElementToBeClickable(ledgerAccount1 ,webDriver);
             ledgerAmount1.sendKeys(financialJournalVoucherDetails.getLedgerAmount1());
-//            ledgerAmount1.sendKeys("100");
 
             if (webElementList.size() > 2) {
 
-                waitForElementToBeClickable(addList.get(2) ,webDriver);
-                addList.get(2).click();
+                if (addList.get(3).isDisplayed()){
+                    waitForElementToBeClickable(addList.get(3) ,webDriver);
+                    addList.get(3).click();
+                }
+                else {
+                    waitForElementToBeClickable(addList.get(2) ,webDriver);
+                    addList.get(2).click();
+                }
 
                 waitForElementToBeClickable(ledgerAccount2 ,webDriver);
                 ledgerAccount2.click();
@@ -571,126 +492,18 @@ public class FinancialPage extends BasePage {
 
                 waitForElementToBeVisible(ledgerType2 ,webDriver);
                 new Select(ledgerType2).selectByVisibleText(financialJournalVoucherDetails.getLedgerType2());
-//                new Select(ledgerType2).selectByVisibleText("contractor");
 
                 waitForElementToBeClickable(ledgerCode2 ,webDriver);
                 ledgerCode2.sendKeys(financialJournalVoucherDetails.getLedgerCode2());
-//                ledgerCode2.sendKeys("G Basheer Ahmed");
 
                 waitForElementToBeClickable(accountCodeDropdown, webDriver);
                 accountCodeDropdown.click();
 
                 waitForElementToBeClickable(ledgerAmount2 ,webDriver);
                 ledgerAmount2.sendKeys(financialJournalVoucherDetails.getLedgerAmount2());
-//                ledgerAmount2.sendKeys("100");
             }
         }
 
-    }
-
-    public void enterRemittanceVoucherDetails(FinancialJournalVoucherDetails financialJournalVoucherDetails){
-
-        waitForElementToBeClickable(voucherSubType ,webDriver);
-        new Select(voucherSubType).selectByVisibleText(financialJournalVoucherDetails.getVoucherType());
-
-        if(!financialJournalVoucherDetails.getVoucherType().equals("General")){
-            waitForElementToBeClickable(voucherPartyName , webDriver);
-            voucherPartyName.sendKeys("voucher");
-        }
-
-        waitForElementToBeClickable(fundId ,webDriver);
-        new Select(fundId).selectByVisibleText(financialJournalVoucherDetails.getFundId());
-//        new Select(fundId).selectByVisibleText("Municipal Fund");
-
-        waitForElementToBeClickable(voucherDepartment , webDriver);
-        new Select(voucherDepartment).selectByVisibleText(financialJournalVoucherDetails.getDepartment());
-
-        waitForElementToBeClickable(voucherFunction ,webDriver);
-        new Select(voucherFunction).selectByVisibleText(financialJournalVoucherDetails.getFunction());
-
-        waitForElementToBeVisible(accountCode1 ,webDriver);
-        waitForElementToBeClickable(accountCode1 , webDriver);
-        accountCode1.sendKeys(financialJournalVoucherDetails.getAccountCode1());
-
-        waitForElementToBeClickable(accountCodeDropdown , webDriver);
-        accountCodeDropdown.click();
-        enterText(debitAmount1 , financialJournalVoucherDetails.getDebitAmount1());
-//        enterText(debitAmount1 , "1000");
-
-        accountCode2.sendKeys(financialJournalVoucherDetails.getAccountCode2());
-        accountCodeDropdown.click();
-        enterText(creditAmount2 , financialJournalVoucherDetails.getCreditAmount2());
-//        enterText(creditAmount2 , "800");
-
-        if(!financialJournalVoucherDetails.getAccountCode3().isEmpty()){
-
-            waitForElementToBeClickable(addList.get(1) ,webDriver);
-            addList.get(1).click();
-
-            waitForElementToBeClickable(accountCode3 ,webDriver);
-            accountCode3.sendKeys(financialJournalVoucherDetails.getAccountCode3());
-
-            waitForElementToBeClickable(accountCodeDropdown ,webDriver);
-            accountCodeDropdown.click();
-
-            waitForElementToBeClickable(creditAmount3 ,webDriver);
-            enterText(creditAmount3 ,financialJournalVoucherDetails.getCreditAmount3());
-//            enterText(creditAmount3 , "200");
-        }
-
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        waitForElementToBePresent(By.className("yui-dt-dropdown") , webDriver);
-        List<WebElement> webElementList = ledgerAccount1.findElements(By.tagName("option"));
-
-        waitForElementToBeClickable(ledgerAccount1 ,webDriver);
-        new Select(ledgerAccount1).selectByVisibleText(webElementList.get(1).getText());
-
-        waitForElementToBeClickable(ledgerType1 ,webDriver);
-        new Select(ledgerType1).selectByVisibleText(financialJournalVoucherDetails.getLedgerType1());
-//        new Select(ledgerType1).selectByVisibleText("contractor");
-
-        waitForElementToBeClickable(ledgerCode1 ,webDriver);
-        ledgerCode1.sendKeys(financialJournalVoucherDetails.getLedgerCode1());
-//        ledgerCode1.sendKeys("G Basheer Ahmed");
-
-        waitForElementToBeClickable(accountCodeDropdown , webDriver);
-        accountCodeDropdown.click();
-
-        waitForElementToBeClickable(ledgerAmount1 ,webDriver);
-        ledgerAmount1.sendKeys(financialJournalVoucherDetails.getLedgerAmount1());
-//        ledgerAmount1.sendKeys("1000");
-
-        if(webElementList.size()>2){
-
-            waitForElementToBeClickable(addList.get(3) ,webDriver);
-            addList.get(3).click();
-
-            waitForElementToBeClickable(ledgerAccount2 ,webDriver);
-            ledgerAccount2.click();
-
-            waitForElementToBeClickable(ledgerAccount2 ,webDriver);
-            new Select(ledgerAccount2).selectByVisibleText(webElementList.get(2).getText());
-
-            waitForElementToBeClickable(ledgerType2 ,webDriver);
-            new Select(ledgerType2).selectByVisibleText(financialJournalVoucherDetails.getLedgerType2());
-//            new Select(ledgerType2).selectByVisibleText("Employee");
-
-            waitForElementToBeClickable(ledgerCode2 ,webDriver);
-            ledgerCode2.sendKeys(financialJournalVoucherDetails.getLedgerCode2());
-//            ledgerCode2.sendKeys("946800");
-
-            waitForElementToBeClickable(accountCodeDropdown , webDriver);
-            accountCodeDropdown.click();
-
-            waitForElementToBeClickable(ledgerAmount2 ,webDriver);
-            ledgerAmount2.sendKeys(financialJournalVoucherDetails.getLedgerAmount2());
-//            ledgerAmount2.sendKeys("200");
-        }
     }
 
     public String enterFinanceApprovalDetails(ApprovalDetails approvalDetails) throws ParseException {
@@ -755,8 +568,6 @@ public class FinancialPage extends BasePage {
     public String closePage(){
         switchToNewlyOpenedWindow(webDriver);
 
-//        waitForElementToBeClickable(forwardMessage , webDriver);
-//        String forwardMessageText = forwardMessage.getText();
         String message = getForwardMessage();
 
         List<WebElement> closeElements = webDriver.findElements(By.className("button"));
@@ -945,7 +756,6 @@ public class FinancialPage extends BasePage {
 
         waitForElementToBeClickable(expenseBillSubType , webDriver);
         new Select(expenseBillSubType).selectByVisibleText(financialExpenseBillDetails.getExpenseBillSubType());
-//        new Select(subLedgerType).selectByVisibleText("contractor");
 
         waitForElementToBeClickable(expensePayTo ,webDriver);
         expensePayTo.sendKeys("tester");
@@ -1132,9 +942,6 @@ public class FinancialPage extends BasePage {
 
     public String closesExpenseVoucherPage(){
 
-//        waitForElementToBeVisible(forwardMessage , webDriver);
-//        String message = forwardMessage.getText();
-
         String message = getForwardMessage();
         clickOnCloseButton();
 
@@ -1243,9 +1050,6 @@ public class FinancialPage extends BasePage {
     }
 
     public String closeAssignmentSuccessPage(){
-//        waitForElementToBeVisible(forwardMessage , webDriver);
-//        String message = forwardMessage.getText();
-
         String message = getForwardMessage();
 
         clickOnSubmitButton();
@@ -1320,7 +1124,6 @@ public class FinancialPage extends BasePage {
     public String directBankSuccessPage(){
         switchToNewlyOpenedWindow(webDriver);
 
-//        String message = forwardMessage.getText();
         String message = getForwardMessage();
         if(message.contains("Successful")) {
             clickOnBankCloseButton();
@@ -1379,8 +1182,6 @@ public class FinancialPage extends BasePage {
     }
 
     public String closesSuccessfulTransferCreationPage(){
-//        waitForElementToBeVisible(forwardMessage , webDriver);
-//        String message = forwardMessage.getText();
 
         String message = getForwardMessage();
 
@@ -1511,7 +1312,6 @@ public class FinancialPage extends BasePage {
                 remittanceFavour.sendKeys("Testing");
 
                 break;
-
         }
 
         waitForElementToBeClickable(assignChequeButton, webDriver);

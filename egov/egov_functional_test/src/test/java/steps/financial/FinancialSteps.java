@@ -130,11 +130,6 @@ public class FinancialSteps extends BaseSteps implements En {
             pageStore.get(FinancialPage.class).toModifyTheGLCodeAccount();
         });
 
-        And("^officer will enter the remittance details as (\\w+)$", (String voucher) -> {
-            FinancialJournalVoucherDetails financialJournalVoucherDetails = new ExcelReader(financialTestDataFileName).getJournalVoucherDetails(voucher);
-            pageStore.get(FinancialPage.class).enterRemittanceVoucherDetails(financialJournalVoucherDetails);
-        });
-
         And("^officer will search for (\\w+) remittance bill$", (String singleOrMultiple) -> {
             pageStore.get(FinancialPage.class).searchRemittanceBill();
             if(singleOrMultiple.equalsIgnoreCase("single")) {
