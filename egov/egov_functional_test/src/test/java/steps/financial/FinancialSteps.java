@@ -46,7 +46,7 @@ public class FinancialSteps extends BaseSteps implements En {
         });
 
         Then("^the officer will click on the above voucher number$", () -> {
-            pageStore.get(FinancialPage.class).openVoucherFromInboxOrDrafts(scenarioContext.getApplicationNumber());
+            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
         });
 
         And("^officer will closes the acknowledgement page$", () -> {

@@ -104,9 +104,6 @@ public class FinancialPage extends BasePage {
     @FindBy(id = "button2")
     private WebElement closeButton;
 
-    @FindBy(id = "official_inbox")
-    private WebElement officialInboxTable;
-
     @FindBy(className = "yui-dt-data")
     private WebElement remittanceBillTable;
 
@@ -241,12 +238,6 @@ public class FinancialPage extends BasePage {
 
     @FindBy(id = "expType")
     private WebElement billType;
-
-    @FindBy(css = "li[class='dropdown'] a[data-original-title ='Drafts']")
-    private WebElement draftsLink;
-
-    @FindBy(id = "official_drafts")
-    private WebElement officialDraftsTable;
 
     @FindBy(id = "paymentModecheque")
     private WebElement paymentModeCheque;
@@ -754,48 +745,6 @@ public class FinancialPage extends BasePage {
     private void clickOnCloseButton(){
         waitForElementToBeClickable(closeButton ,webDriver);
         closeButton.click();
-    }
-
-    public void openVoucherFromInboxOrDrafts(String voucherNumber){
-        WebElement element = getVoucherRow(voucherNumber);
-
-        waitForElementToBeClickable(element ,webDriver);
-        element.click();
-
-        switchToNewlyOpenedWindow(webDriver);
-    }
-
-    private WebElement getVoucherRow(String voucherNumber){
-
-        try{
-            waitForElementToBeVisible(officialInboxTable, webDriver);
-
-            await().atMost(20, SECONDS).until(() -> officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
-            voucherRows = officialInboxTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-
-            for (WebElement voucherRow : voucherRows) {
-                if (voucherRow.findElements(By.tagName("td")).get(4).getText().contains(voucherNumber))
-                    return voucherRow;
-            }
-            throw new RuntimeException("No voucher row found in Inbox -- " + voucherNumber);
-        }
-
-        catch (Exception e){
-
-            waitForElementToBeClickable(draftsLink , webDriver);
-            draftsLink.click();
-
-            webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-            waitForElementToBeVisible(officialDraftsTable, webDriver);
-            await().atMost(20, SECONDS).until(() -> officialDraftsTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
-            voucherRows = officialDraftsTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-
-            for (WebElement voucherRow : voucherRows) {
-                if (voucherRow.findElements(By.tagName("td")).get(4).getText().contains(voucherNumber))
-                    return voucherRow;
-            }
-            throw new RuntimeException("No voucher row found in Inbox and Drafts -- " + voucherNumber);
-        }
     }
 
     public void approvalPage(){
