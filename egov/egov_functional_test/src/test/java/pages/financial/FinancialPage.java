@@ -21,12 +21,6 @@ public class FinancialPage extends BasePage {
     @FindBy(id = "fundId")
     private WebElement fundId;
 
-//    @FindBy(id = "vouchermis.departmentid")
-//    private WebElement voucherDepartment;
-
-//    @FindBy(id = "vouchermis.function")
-//    private WebElement voucherFunction;
-
     @FindBy(id = "totalcramount")
     private WebElement totalCreditAmount;
 
@@ -47,9 +41,6 @@ public class FinancialPage extends BasePage {
 
     @FindBy(id = "button2")
     private WebElement closeButton;
-
-//    @FindBy(className = "yui-dt-data")
-//    private WebElement remittanceBillTable;
 
     @FindBy(id = "Approve")
     private WebElement approveButton;
@@ -72,12 +63,6 @@ public class FinancialPage extends BasePage {
     @FindBy(id = "Create And Approve")
     private WebElement createAndApprove;
 
-//    @FindBy(linkText = "Expense Bill")
-//    private WebElement expenseBillSearch;
-
-//    @FindBy(linkText = "Supplier Bill")
-//    private WebElement supplierBillSearch;
-
     @FindBy(name = "contingentList[0].isSelected")
     private WebElement firstVoucher;
 
@@ -95,12 +80,6 @@ public class FinancialPage extends BasePage {
 
     @FindBy(name = "billList[0].billVoucherId")
     private WebElement voucherNumberToVerify;
-
-//    @FindBy(id = "fromDate")
-//    private WebElement billFromDate;
-
-//    @FindBy(id = "toDate")
-//    private WebElement billToDate;
 
     @FindBy(id = "bankbranch")
     private WebElement bankBranch;
@@ -138,18 +117,6 @@ public class FinancialPage extends BasePage {
     @FindBy(css = "input[type='text'][id='vouchernumber']")
     private WebElement BPVNumber;
 
-//    @FindBy(id = "expType")
-//    private WebElement billType;
-
-//    @FindBy(id = "paymentModecheque")
-//    private WebElement paymentModeCheque;
-
-//    @FindBy(id = "paymentModecash")
-//    private WebElement paymentModeCash;
-
-//    @FindBy(id = "paymentModertgs")
-//    private WebElement paymentModeRTGS;
-
     @FindBy(name = "voucherNumber")
     private WebElement voucherNumberSearch;
 
@@ -159,14 +126,8 @@ public class FinancialPage extends BasePage {
     @FindBy(id = "isSelected0")
     private WebElement firstBill;
 
-//    @FindBy(id = "conSelectAll")
-//    private WebElement selectAllBillsFromContractor;
-
     @FindBy(id = "expSelectAll")
     private WebElement selectAllBillsFromExpense;
-
-//    @FindBy(xpath = ".//*[@id='supSelectAll']/tbody/tr[2]/td//div/table/tbody/tr/th/input")
-//    private WebElement selectAllBillsFromSupplier;
 
     @FindBy(name = "chequeAssignmentList[0].chequeNumber")
     private WebElement checkAssignmentNumberBox;
@@ -200,9 +161,6 @@ public class FinancialPage extends BasePage {
 
     @FindBy(css = "input[type='button'][value='Close']")
     private WebElement closeButtonWithCSS;
-
-//    @FindBy(id = "billNumber")
-//    private WebElement billNumberTextBox;
 
     @FindBy(css = ".buttonsubmit")
     private WebElement submitButton;
@@ -277,121 +235,6 @@ public class FinancialPage extends BasePage {
         switchToPreviouslyOpenedWindow(webDriver);
         return message;
     }
-
-//    public void singleBillSearch(){
-//        waitForElementToBeClickable(billFromDate ,webDriver);
-//        billFromDate.sendKeys(getCurrentDate());
-//
-//        waitForElementToBeClickable(billToDate , webDriver);
-//        billToDate.sendKeys(getCurrentDate());
-//
-//        waitForElementToBeClickable(fundId , webDriver);
-//        new Select(fundId).selectByVisibleText("Municipal Fund");
-//
-//        waitForElementToBeClickable(billSearch , webDriver);
-//        billSearch.click();
-//
-//        switchToNewlyOpenedWindow(webDriver);
-//
-//        waitForElementToBeClickable(expenseBillSearch , webDriver);
-//        expenseBillSearch.click();
-//    }
-//
-//    public void multipleBillSearch(String type , String paymentMode){
-//
-//        waitForElementToBeClickable(fundId , webDriver);
-//        new Select(fundId).selectByVisibleText("Municipal Fund");
-//
-//        waitForElementToBeClickable(voucherDepartment , webDriver);
-//        new Select(voucherDepartment).selectByVisibleText("ADMINISTRATION");
-//
-//        waitForElementToBeClickable(voucherFunction , webDriver);
-//        new Select(voucherFunction).selectByVisibleText("General Administration");
-//
-//        waitForElementToBeClickable(billSearch , webDriver);
-//        billSearch.click();
-//
-//        switchToNewlyOpenedWindow(webDriver);
-//
-//        switch (type){
-//
-//            case "expense" :
-//                waitForElementToBeClickable(expenseBillSearch , webDriver);
-//                expenseBillSearch.click();
-//
-//                selectAllBillsAtOneTime(selectAllBillsFromExpense);
-//                break;
-//
-//            case "supplier" :
-//                waitForElementToBeClickable(supplierBillSearch , webDriver);
-//                supplierBillSearch.click();
-//                selectAllBillsAtOneTime(selectAllBillsFromSupplier);
-//                break;
-//
-//            case "contractor" :
-//                selectAllBillsAtOneTime(selectAllBillsFromContractor);
-//                break;
-//        }
-//
-//        selectModeOfPayment(paymentMode);
-//
-//        waitForElementToBeClickable(generatePayment , webDriver);
-//        generatePayment.click();
-//        switchToNewlyOpenedWindow(webDriver);
-//    }
-
-//    private void selectAllBillsAtOneTime (WebElement element){
-//        if(firstBill.isDisplayed()){
-//            waitForElementToBeClickable(element, webDriver);
-//            element.click();
-//        }
-//        else {
-//            throw new RuntimeException("No voucher rows are found in the web page.......All are Successfully Paid -- ");
-//        }
-//    }
-
-//    public void actOnAboveVoucher(String paymentMode ,String voucherNumber){
-//
-//        WebElement table = webDriver.findElement(By.xpath(".//*[@id='cbilltab']/span/table/tbody/tr[2]/td/div/table/tbody"));
-//        voucherRows = table.findElements(By.tagName("tr"));
-//
-//        for(WebElement applicationRows : voucherRows.subList(1 , voucherRows.size())){
-//            if(applicationRows.findElements(By.tagName("td")).get(4).findElements(By.tagName("input")).get(0).getAttribute("value").contains(voucherNumber)){
-//                applicationRows.findElements(By.tagName("td")).get(0).findElement(By.cssSelector("input[type='checkbox']")).click();
-//                break;
-//            }
-//
-//        }
-//        selectModeOfPayment(paymentMode);
-//
-//        waitForElementToBeClickable(generatePayment , webDriver);
-//        generatePayment.click();
-//
-//        switchToNewlyOpenedWindow(webDriver);
-//    }
-
-//    private void selectModeOfPayment(String mode){
-//        switch (mode){
-//
-//            case "cheque" :
-//
-//                waitForElementToBeClickable(paymentModeCheque , webDriver);
-//                jsClick(paymentModeCheque ,webDriver);
-//                break;
-//
-//            case "cash" :
-//
-//                waitForElementToBeClickable(paymentModeCash,webDriver);
-//                jsClick(paymentModeCash,webDriver);
-//                break;
-//
-//            case "RTGS" :
-//
-//                waitForElementToBeClickable(paymentModeRTGS,webDriver);
-//                jsClick(paymentModeRTGS,webDriver);
-//                break;
-//        }
-//    }
 
     public String verifyVoucher(){
 
@@ -510,58 +353,6 @@ public class FinancialPage extends BasePage {
         waitForElementToBeClickable(remittanceBillSearch , webDriver);
         remittanceBillSearch.click();
     }
-
-//    public void selectSingleRemittanceBill(String remittanceBill){
-//        int rowNumber = Integer.parseInt(getRemittanceBill(remittanceBill).getText());
-//        WebElement element = webDriver.findElement(By.id("listRemitBean["+(rowNumber-1)+"].chkremit"));
-//        element.click();
-//
-//        clickOnRemittancePaymentButton();
-//        switchToNewlyOpenedWindow(webDriver);
-//    }
-//
-//    private WebElement getRemittanceBill(String applicationNumber) {
-//
-//        await().atMost(20, SECONDS).until(() -> remittanceBillTable.findElements(By.tagName("tr")).size() > 1);
-//        List<WebElement> applicationRows = remittanceBillTable.findElements(By.tagName("tr"));
-//        System.out.println("total number of rows -- " + applicationRows.size());
-//        for (WebElement applicationRow : applicationRows) {
-//            if (applicationRow.findElements(By.tagName("td")).get(1).
-//                            findElement(By.className("yui-dt-liner")).findElement(By.tagName("label")).getText().contains(applicationNumber))
-//                return applicationRow.findElements(By.tagName("td")).get(0).findElement(By.className("yui-dt-liner"));
-//        }
-//        throw new RuntimeException("No application row found for -- " + applicationNumber);
-//    }
-
-//    public void filterCreateVoucherBill(String applicationNumber){
-//        new Select(billType).selectByVisibleText("Expense");
-//        billNumberTextBox.sendKeys(applicationNumber);
-//
-//        clickOnSubmitButton();
-//
-//        getExpenseVoucherRow(applicationNumber).click();
-//        switchToNewlyOpenedWindow(webDriver);
-//    }
-//
-//    private WebElement getExpenseVoucherRow(String applicationNumber){
-//        WebElement element = webDriver.findElement(By.className("tablebottom"));
-//        List<WebElement> elements = element.findElements(By.className("setborder"));
-//
-//        for (WebElement applicationRow : elements) {
-//            if (applicationRow.findElements(By.tagName("td")).get(1).getText().contains(applicationNumber))
-//                return applicationRow.findElements(By.tagName("td")).get(1);
-//        }
-//        throw new RuntimeException("No application row found for -- " + applicationNumber);
-//    }
-//
-//    public String closesExpenseVoucherPage(){
-//
-//        String message = getForwardMessage();
-//        clickOnCloseButton();
-//
-//        switchToPreviouslyOpenedWindow(webDriver);
-//        return message;
-//    }
 
     private String getForwardMessage(){
         waitForElementToBeVisible(forwardMessage , webDriver);
