@@ -76,10 +76,5 @@ public class LegacyAdvertisementsSteps extends BaseSteps implements En {
 
             pageStore.get(AdvertisementsPage.class).closeMultipleWindows("/adtax/hoarding/renewal-search");
         });
-
-        And("^he opens the required application$", () -> {
-            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getAssessmentNumber());
-        });
-
     }
 }

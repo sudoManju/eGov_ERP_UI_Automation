@@ -163,7 +163,7 @@ public class AdvertisementsPage extends BasePage {
     @FindBy(xpath = ".//*[@id='agencysearch']/div[2]/div/button[2]")
     private WebElement viewButton;
 
-    @FindBy(xpath = ".//*[@id='adtax_search']/tbody/tr/td[5]/button")
+    @FindBy(xpath = ".//*[@id='adtax_search']/tbody/tr/td[6]/button")
     private WebElement collectAdvertisementTaxButton;
 
     @FindBy(css = "input[id='selectAll'][type='checkbox']")

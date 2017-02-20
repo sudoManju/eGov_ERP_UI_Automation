@@ -28,7 +28,7 @@ Feature: Create/search Advertisement
     And current user logs out
 
     And commissioner logs in
-    And he clicks on advertisement and opens the application
+    And he chooses to act upon above application number
     And he approves the advertisement application
     Then user will be notified by "approved"
     And current user logs out
@@ -55,7 +55,7 @@ Feature: Create/search Advertisement
    And current user logs out
 
    And commissioner logs in
-   And he clicks on advertisement and opens the application
+   And he chooses to act upon above application number
    And he approves the advertisement application
    Then user will be notified by "approved"
    And current user logs out

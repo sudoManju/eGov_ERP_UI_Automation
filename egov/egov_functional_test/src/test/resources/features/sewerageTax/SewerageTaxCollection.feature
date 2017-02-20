@@ -27,47 +27,46 @@ Feature: Create/renewal/closure of sewerage connection
     And current user logs out
 
     When assistantEngineer logs in
-    And he chooses to act upon above sewerage connection
+    And he chooses to act upon above application number
     And he forward to DEE and close the acknowledgement
     Then user will be notified by "forwarded"
     And current user logs out
 
     When DeputyExecutiveEngineer_1 logs in
-    And he chooses to act upon above sewerage connection
+    And he chooses to act upon above application number
     And he approve the above sewerage application
     And he closes the sewerage acknowledgement
     Then user will be notified by "successfully"
     And current user logs out
 
     When creator logs in
-    And he chooses to act upon above sewerage connection
+    And he chooses to act upon above application number
     And he generates estimation notice for above sewerage application
-
     And user will select the required screen as "Collect Sewerage Charges"
     And he search for above application number to collect
     And he collect the charges and closes the acknowledgement
 
-    And he chooses to act upon above sewerage connection
+    And he chooses to act upon above application number
     And he forward to executive engineer and closes the acknowledgement
     Then user will be notified by "forwarded"
     And current user logs out
 
     When Executive_engineer logs in
-    And he chooses to act upon above sewerage connection
+    And he chooses to act upon above application number
     And he approve the above sewerage application
     And he closes the sewerage acknowledgement
     Then user will be notified by "successfully"
     And current user logs out
 
     When creator logs in
-    And he chooses to act upon above sewerage connection
+    And he chooses to act upon above application number
     And he generate workOrder for above sewerage connection
     And he forward to assistant engineer and closes the acknowledgement
     Then user will be notified by "forwarded"
     And current user logs out
 
     When assistantEngineer logs in
-    And he chooses to act upon above sewerage connection
+    And he chooses to act upon above application number
     And he execute connection and closes the acknowledgement
     Then user will be notified by "completed"
     And current user logs out
@@ -89,47 +88,47 @@ Feature: Create/renewal/closure of sewerage connection
     And current user logs out
 
     When assistantEngineer logs in
-    And he chooses to act upon above sewerage connection for change
+    And he chooses to act upon above application number
     And he forward to DEE for change and close the acknowledgement
     Then user will be notified by "forwarded"
     And current user logs out
 
     When DeputyExecutiveEngineer_1 logs in
-    And he chooses to act upon above sewerage connection for change
+    And he chooses to act upon above application number
     And he approve the above sewerage application
     And he closes the sewerageChange acknowledgement
     Then user will be notified by "successfully"
     And current user logs out
 
     When creator logs in
-    And he chooses to act upon above sewerage connection for change
+    And he chooses to act upon above application number
     And he generates estimation notice for above sewerage application
 
     And user will select the required screen as "Collect Sewerage Charges"
     And he search for above application number to collect
     And he collect the charges and closes the acknowledgement
 
-    And he chooses to act upon above sewerage connection for change
+    And he chooses to act upon above application number
     And he forward to executive engineer for change in closets and closes the acknowledgement
     Then user will be notified by "forwarded"
     And current user logs out
 
     When Executive_engineer logs in
-    And he chooses to act upon above sewerage connection for change
+    And he chooses to act upon above application number
     And he approve the above sewerage application
     And he closes the sewerageChange acknowledgement
     Then user will be notified by "successfully"
     And current user logs out
 
     When creator logs in
-    And he chooses to act upon above sewerage connection for change
+    And he chooses to act upon above application number
     And he generate workOrder for above sewerage connection
     And he forward to assistant engineer for change in closets and closes the acknowledgement
     Then user will be notified by "forwarded"
     And current user logs out
 
     When assistantEngineer logs in
-    And he chooses to act upon above sewerage connection for change
+    And he chooses to act upon above application number
     And he execute connection for change and closes the acknowledgement
     Then user will be notified by "completed"
     And current user logs out
@@ -147,26 +146,26 @@ Feature: Create/renewal/closure of sewerage connection
     And current user logs out
 
     When assistantEngineer logs in
-    And he chooses to act upon above sewerage connection for closure
+    And he chooses to act upon above application number
     And he forwards to DEE for closure and close the acknowledgement
     Then user will be notified by "forwarded"
     And current user logs out
 
     When DeputyExecutiveEngineer_1 logs in
-    And he chooses to act upon above sewerage connection for closure
+    And he chooses to act upon above application number
     And he forwards to executive engineer for closure and close the acknowledgement
     Then user will be notified by "forwarded"
     And current user logs out
 
     When Executive_engineer logs in
-    And he chooses to act upon above sewerage connection for closure
+    And he chooses to act upon above application number
     And he approve the above sewerage application
     And he closes the seweargeClosure acknowledgement
     Then user will be notified by "successfully"
     And current user logs out
 
     When creator logs in
-    And he chooses to act upon above sewerage connection for closure
+    And he chooses to act upon above application number
     And he generates closure notice
     And current user logs out
 

@@ -33,7 +33,7 @@ public class LegacyAdvertisementsPage extends BasePage {
     @FindBy(id = "search-update")
     private WebElement searchButton;
 
-    @FindBy(xpath = ".//*[@id='search-update-result-table']/tbody/tr/td[6]/span[1]/i")
+    @FindBy(xpath = ".//*[@id='search-update-result-table']/tbody/tr/td[7]/span[1]/i")
     private WebElement updateButton;
 
     @FindBy(css = "input[id='advertisement.taxPaidForCurrentYear1'][type='radio']")

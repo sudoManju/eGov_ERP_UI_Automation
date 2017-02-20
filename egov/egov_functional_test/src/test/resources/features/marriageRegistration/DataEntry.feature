@@ -41,7 +41,7 @@ Feature: Create an Data Entry for the Marriage registration
     And current user logs out
 
     When commissioner logs in
-    And he clicks on re issue marriage certificate and opens the application
+    And he chooses to act upon above application number
     And he re issue the marriage application  and close the acknowledgement
     And current user logs out
 

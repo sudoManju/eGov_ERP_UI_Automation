@@ -19,7 +19,7 @@ Feature: create preamble
     And current user logs out
 
     When commissioner logs in
-    And he chooses to act upon the above preamble number
+    And he chooses to act upon above application number
     And he approves the preamble number
     And user will be notified by "APPROVED"
     And current user logs out

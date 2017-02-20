@@ -39,10 +39,7 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
         And("^he collect the charges and closes the acknowledgement$", () -> {
            pageStore.get(NewSewerageConnectionPage.class).collectCharges();
 
-           pageStore.get(NewSewerageConnectionPage.class).closeMultipleWindows("/stms/collectfee/search");
-        });
-        And("^he chooses to act upon above sewerage connection$", () -> {
-            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
+           pageStore.get(NewSewerageConnectionPage.class).closeMultipleWindows("/mrs/registration/collectmrfee/");
         });
         And("^he approve the above sewerage application$", () -> {
            pageStore.get(NewSewerageConnectionPage.class).approveTheApplication();
@@ -122,10 +119,6 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
 
             pageStore.get(NewSewerageConnectionPage.class).close();
         });
-        And("^he chooses to act upon above sewerage connection for change$", () -> {
-            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
-
-        });
         And("^he forward to DEE for change and close the acknowledgement$", () -> {
             String approverDetailsDataId = "DeputyExecutiveEngineer_1";
 
@@ -178,9 +171,6 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
 
             pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
 
-        });
-        And("^he chooses to act upon above sewerage connection for closure$", () -> {
-            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
         });
         And("^he forwards to DEE for closure and close the acknowledgement$", () -> {
             String approverDetailsDataId = "DeputyExecutiveEngineer_1";

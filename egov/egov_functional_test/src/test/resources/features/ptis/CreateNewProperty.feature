@@ -26,36 +26,37 @@ Feature: Create New Property
     And current user logs out
 
     When billCollector logs in
-    And chooses to act upon the above application
+    And he chooses to act upon above assessment number
     And he forwards for approval to revenueInspector
     And current user closes acknowledgement
     And current user logs out
 
     When revenueInspector logs in
-    And chooses to act upon the above application
+    And he chooses to act upon above assessment number
     And he forwards for approval to revenueOfficer
     And current user closes acknowledgement
     And current user logs out
 
     When revenueOfficer logs in
-    And chooses to act upon the above application
+    And he chooses to act upon above assessment number
     And he forwards for approval to commissioner
     And current user closes acknowledgement
     And current user logs out
 
     When commissioner logs in
-    And chooses to act upon the above application
+    And he chooses to act upon above assessment number
     And he approved the property with remarks "property approved"
     Then create property details get saved successfully by generating assesssment number
     And he will copy the acknowledgement message with assessment number createProperty-forward
     Then user will be notified by "Successfully"
-    And chooses to act upon the above assessment
+
+    And he chooses to act upon above assessment number
     And he does a digital signature
     When commissioner closes acknowledgement
     And current user logs out
 
     And juniorAssistant logs in
-    And chooses to act upon the above assessment
+    And he chooses to act upon above assessment number
     And he generates a notice
     And current user logs out
 
@@ -99,36 +100,36 @@ Feature: Create New Property
     And current user logs out
 
     When billCollector logs in
-    And chooses to act upon the above application
+    And he chooses to act upon above assessment number
     And he forwards for approval to revenueInspector
     And current user closes acknowledgement
     And current user logs out
 
     When revenueInspector logs in
-    And chooses to act upon the above application
+    And he chooses to act upon above assessment number
     And he forwards for approval to revenueOfficer
     And current user closes acknowledgement
     And current user logs out
 
     When revenueOfficer logs in
-    And chooses to act upon the above application
+    And he chooses to act upon above assessment number
     And he forwards for approval to commissioner
     And current user closes acknowledgement
     And current user logs out
 
     When commissioner logs in
-    And chooses to act upon the above application
+    And he chooses to act upon above assessment number
     And he approved the property with remarks addition "property approved"
     And current user closes acknowledgement
 
-     And chooses to act upon the above assessment
+    And he chooses to act upon above assessment number
     And he does a digital signature
 
     When commissioner closes acknowledgement
     And current user logs out
 
     And juniorAssistant logs in
-    And chooses to act upon the above assessment
+    And he chooses to act upon above assessment number
     And he generates a notice
     And current user logs out
 
@@ -166,13 +167,13 @@ Feature: Create New Property
     And current user logs out
 
     When billCollector logs in
-    And chooses to act upon the above application
+    And he chooses to act upon above assessment number
     And he forwards for approval to revenueInspector
     And current user closes acknowledgement
     And current user logs out
 
     When revenueInspector logs in
-    And chooses to act upon the above application
+    And he chooses to act upon above assessment number
     And he forwards for approval to revenueOfficer
     And current user closes acknowledgement
     And current user logs out
@@ -184,24 +185,24 @@ Feature: Create New Property
     And current user logs out
 
     When revenueOfficer logs in
-    And chooses to act upon the above application
+    And he chooses to act upon above assessment number
     And he forwards for approval to commissioner
     And current user closes acknowledgement
     And current user logs out
 
     When commissioner logs in
-    And chooses to act upon the above application
+    And he chooses to act upon above assessment number
     And he approved the property with remarks "property approved" for transfer of ownership
     And current user closes acknowledgement
 
-    And chooses to act upon the above assessment
+    And he chooses to act upon above assessment number
     And he does a digital signature
 
     When commissioner closes acknowledgement
     And current user logs out
 
     And juniorAssistant logs in
-    And chooses to act upon the above assessment
+    And he chooses to act upon above assessment number
     And he generate title transfer notice
     And current user logs out
 
@@ -226,43 +227,40 @@ Feature: Create New Property
     And he enters document type details as <documentDetails>
     And he forwards for approval to billCollector
     And he will copy the acknowledgement message with assessment number createProperty-create
-#   Then create property details get saved successfully
     And user will be notified by "Successfully"
     And current user logs out
 
     When billCollector logs in
-   And chooses to act upon the above application
+    And he chooses to act upon above assessment number
     And he forwards for approval to revenueInspector
-   And current user closes acknowledgement
+    And current user closes acknowledgement
     And current user logs out
 
     When revenueInspector logs in
-    And chooses to act upon the above application
+    And he chooses to act upon above assessment number
     And he forwards for approval to revenueOfficer
     And current user closes acknowledgement
     And current user logs out
 
     When revenueOfficer logs in
-    And chooses to act upon the above application
+    And he chooses to act upon above assessment number
     And he forwards for approval to commissioner
     And current user closes acknowledgement
     And current user logs out
 
     When commissioner logs in
-    And chooses to act upon the above application
+    And he chooses to act upon above assessment number
     And he approved the property with remarks "property approved"
     And he will copy the acknowledgement message with assessment number createProperty-forward
-
-#    Then create property details get saved successfully
     Then user will be notified by "Successfully"
 
-    And chooses to act upon the above assessment
+    And he chooses to act upon above assessment number
     And he does a digital signature
     When commissioner closes acknowledgement
     And current user logs out
 
     And juniorAssistant logs in
-    And chooses to act upon the above assessment
+    And he chooses to act upon above assessment number
     And he generates a notice
 
     And user will select the required screen as "Create Revision Petition"
@@ -274,14 +272,14 @@ Feature: Create New Property
     And current user logs out
 
     When commissioner logs in
-    And chooses to act upon the above application
+    And he chooses to act upon above assessment number
     And he choose revision petition header
     And he enters hearing details<hearingDetails>
     And current user closes acknowledgement
     And current user logs out
 
     And juniorAssistant logs in
-    And chooses to act upon the above assessment
+    And he chooses to act upon above assessment number
     And he choose revision petition header
     And he enters approver remark
     And he forwards for approval to revenueInspector
@@ -289,7 +287,7 @@ Feature: Create New Property
     And current user logs out
 
     When revenueInspector logs in
-    And chooses to act upon the above application
+    And he chooses to act upon above assessment number
     And he enters reason for modification
     And he choose revision petition header
     And he enters inspection details
@@ -299,7 +297,7 @@ Feature: Create New Property
     And current user logs out
 
     When revenueOfficer logs in
-    And chooses to act upon the above application
+    And he chooses to act upon above assessment number
     And he choose revision petition header
     And he enters approver remark
     And he forwards for approval to commissioner
@@ -307,21 +305,21 @@ Feature: Create New Property
     And current user logs out
 
     When commissioner logs in
-    And chooses to act upon the above application
+    And he chooses to act upon above assessment number
     And he choose to approve for revision petition
     And current user closes acknowledgement
 
-    And chooses to act upon the above assessment
+    And he chooses to act upon above assessment number
     And he prints endoresement notice
 
-    And chooses to act upon the above assessment
+    And he chooses to act upon above assessment number
     And he does a digital signature
 
     When commissioner closes acknowledgement
     And current user logs out
 
     And juniorAssistant logs in
-    And chooses to act upon the above assessment
+    And he chooses to act upon above assessment number
     And he generates a print special notice
     And current user logs out
 
@@ -358,14 +356,14 @@ Feature: Create New Property
      And current user logs out
 
      When commissioner logs in
-     And chooses to act upon the above application
+     And he chooses to act upon above assessment number
      And he choose revision petition header
      And he enters hearing details<hearingDetails>
      And current user closes acknowledgement
      And current user logs out
 
      And juniorAssistant logs in
-     And chooses to act upon the above assessment
+     And he chooses to act upon above assessment number
      And he choose revision petition header
      And he enters approver remark
      And he forwards for approval to revenueInspector
@@ -373,7 +371,7 @@ Feature: Create New Property
      And current user logs out
 
      When revenueInspector logs in
-     And chooses to act upon the above application
+     And he chooses to act upon above assessment number
      And he enters reason for modification
      And he choose revision petition header
      And he enters inspection details
@@ -383,7 +381,7 @@ Feature: Create New Property
      And current user logs out
 
      When revenueOfficer logs in
-     And chooses to act upon the above application
+     And he chooses to act upon above assessment number
      And he choose revision petition header
      And he enters approver remark
      And he forwards for approval to commissioner
@@ -391,21 +389,21 @@ Feature: Create New Property
      And current user logs out
 
      When commissioner logs in
-     And chooses to act upon the above application
+     And he chooses to act upon above assessment number
      And he choose to approve for revision petition
      And current user closes acknowledgement
 
-     And chooses to act upon the above assessment
+     And he chooses to act upon above assessment number
      And he prints endoresement notice
 
-     And chooses to act upon the above assessment
+     And he chooses to act upon above assessment number
      And he does a digital signature
 
      When commissioner closes acknowledgement
      And current user logs out
 
      And juniorAssistant logs in
-     And chooses to act upon the above assessment
+     And he chooses to act upon above assessment number
      And he generates a print special notice
      And current user logs out
 

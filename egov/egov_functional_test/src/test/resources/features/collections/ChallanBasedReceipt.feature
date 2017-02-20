@@ -14,7 +14,7 @@ I am able to Create/Collect Challan Based Receipt
     And current user logs out
 
     And seniorAssistant logs in
-    And chooses to act upon the above challan
+    And he chooses to act upon above application number
     And he validate the challan
     Then user will be notified by "Validated"
 

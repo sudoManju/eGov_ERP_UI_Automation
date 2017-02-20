@@ -17,21 +17,21 @@ Feature: Create regular estimate/Create LOA for estimate/Create-Track milestone/
     And current user logs out
 
     And deputyExecutiveEngineer logs in
-    And he clicks on estimate and opens the application
+    And he chooses to act upon above application number
     And he enters approver details as <approverDetails2>
     And he submit the application to superIntendent
     Then user will be notified by "forwarded"
     And current user logs out
 
     And superIntendent logs in
-    And he clicks on estimate and opens the application
+    And he chooses to act upon above application number
     And he enters approver details as <approverDetails3>
     And he submit the application to commissioner
     Then user will be notified by "forwarded"
     And current user logs out
 
     And commissioner logs in
-    And he clicks on estimate and opens the application
+    And he chooses to act upon above application number
     And he enters the AdminSanctionNumber
     And he enters approver details as <approverDetails4>
     And he submit the application to assis_Engineer
@@ -39,7 +39,7 @@ Feature: Create regular estimate/Create LOA for estimate/Create-Track milestone/
     And current user logs out
 
     And assis_Engineer logs in
-    And he clicks on estimate and opens the application
+    And he chooses to act upon above application number
     And he enters the details for approve
     And he approves the application
     Then user will be notified by "done"
@@ -88,7 +88,7 @@ Feature: Create regular estimate/Create LOA for estimate/Create-Track milestone/
     And current user logs out
 
     And deputyExecutiveEngineer logs in
-    And he chooses to act upon on contractorBillNumber
+    And he chooses to act upon above application number
     And he approves the bill
     Then user will be notified by "approved"
     And current user logs out
@@ -102,7 +102,7 @@ Feature: Create regular estimate/Create LOA for estimate/Create-Track milestone/
     And current user logs out
 
     And deputyExecutiveEngineer logs in
-    And he chooses to act upon on contractorBillNumber
+    And he chooses to act upon above application number
     And he approves the bill
     Then user will be notified by "approved"
     And current user logs out

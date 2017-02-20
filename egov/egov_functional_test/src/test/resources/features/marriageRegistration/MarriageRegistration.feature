@@ -19,7 +19,7 @@ Feature: Marriage Registration
     And current user logs out
 
     When commissioner logs in
-    And he choose to act upon the above new marriage application number
+    And he chooses to act upon above application number
     And he approve the new marriage application  and close the acknowledgement
     Then user will be notified by "successfully"
     And current user logs out

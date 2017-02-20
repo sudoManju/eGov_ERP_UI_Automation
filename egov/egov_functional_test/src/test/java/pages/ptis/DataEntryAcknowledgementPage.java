@@ -79,6 +79,8 @@ public class DataEntryAcknowledgementPage extends BasePage {
         }
     }
     public void geteditDCB() {
+        waitForElementToBeVisible(editDCBButton,driver);
+        waitForElementToBeClickable(editDCBButton,driver);
         editDCBButton.click();
     }
     public void enterAddDemandDetails() {

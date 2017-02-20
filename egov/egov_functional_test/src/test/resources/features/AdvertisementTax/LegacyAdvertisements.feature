@@ -33,7 +33,7 @@ Feature: Create/Update LegacyAdvertisements
     And current user logs out
 
     And commissioner logs in
-    And he opens the required application
+    And he chooses to act upon above application number
     And he approves the advertisement application
     Then user will be notified by "Successful"
     And current user logs out

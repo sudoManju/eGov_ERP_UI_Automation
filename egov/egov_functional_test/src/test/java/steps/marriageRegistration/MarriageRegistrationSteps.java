@@ -50,9 +50,6 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
 
             pageStore.get(MarriageRegistrationPage.class).closeApplication();
         });
-        And("^he choose to act upon the above new marriage application number$", () -> {
-             pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
-        });
         And("^he approve the new marriage application  and close the acknowledgement$", () -> {
            pageStore.get(MarriageRegistrationPage.class).enterMarriageRegNum();
            pageStore.get(MarriageRegistrationPage.class).approve();
@@ -112,10 +109,6 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
         And("^he re issue the marriage application  and close the acknowledgement$", () -> {
             pageStore.get(MarriageRegistrationPage.class).approve();
             pageStore.get(MarriageRegistrationPage.class).closeApplication();
-        });
-
-        And("^he clicks on re issue marriage certificate and opens the application$", () -> {
-            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
         });
         And("^he search for above application number to collect marriage Registration fee for reissue$", () -> {
             pageStore.get(MarriageRegistrationPage.class).searchForMarriageApplicationNumberToCollect(scenarioContext.getApplicationNumber(), "reissue");

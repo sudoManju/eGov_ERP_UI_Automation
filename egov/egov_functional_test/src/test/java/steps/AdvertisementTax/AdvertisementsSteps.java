@@ -43,9 +43,7 @@ public class AdvertisementsSteps extends BaseSteps implements En {
             pageStore.get(AdvertisementsPage.class).close();
 
         });
-        And("^he clicks on advertisement and opens the application$", () -> {
-            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
-        });
+;
         And("^he approves the advertisement application$", () -> {
             pageStore.get(AdvertisementsPage.class).approverComment();
             pageStore.get(AdvertisementsPage.class).approve();

@@ -14,7 +14,7 @@ Feature: Register Complaint
     And current user sign out
 
     When LightingSuperintendent logs in
-    And choose to act upon the above CRN
+    And he chooses to act upon above application number
     And he mark status as COMPLETED
     And user will be notified by "successfully"
     And current user logs out
@@ -49,18 +49,18 @@ Feature: Register Complaint
     And official create grievance
     And user will be notified by "successfully"
     And official copies CRN and closes the acknowledgement
-    And choose to act upon the above CRN in his own dratfs
+    And he chooses to act upon above application number
     And he forwards for approver sanitaryInspector1
     And current user logs out
 
     When sanitaryInspector logs in
-    And choose to act upon the above CRN
+    And he chooses to act upon above application number
     And he marks the staus as processing
     And he forwards for approver LightingSuperintendent
     And current user logs out
 
     When LightingSuperintendent logs in
-    And choose to act upon the above CRN
+    And he chooses to act upon above application number
     And he mark status as COMPLETED
     And user will be notified by "successfully"
     And current user logs out
@@ -83,18 +83,18 @@ Feature: Register Complaint
     And current user sign out
 
     When LightingSuperintendent logs in
-    And choose to act upon the above CRN
+    And he chooses to act upon above application number
     And he forwards for approver sanitaryInspector1
     And current user logs out
 
     When sanitaryInspector logs in
-    And choose to act upon the above CRN
+    And he chooses to act upon above application number
     And he marks the staus as processing
     And he forwards for approver LightingSuperintendent
     And current user logs out
 
     When LightingSuperintendent logs in
-    And choose to act upon the above CRN
+    And he chooses to act upon above application number
     And he mark status as COMPLETED
     And user will be notified by "successfully"
     And current user logs out
@@ -135,7 +135,7 @@ Feature: Register Complaint
     And current user sign out
 
     When LightingSuperintendent logs in
-    And choose to act upon the above CRN
+    And he chooses to act upon above application number
     And he mark status as REJECTED
     And user will be notified by "successfully"
     And current user logs out

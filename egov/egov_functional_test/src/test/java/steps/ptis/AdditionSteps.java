@@ -16,8 +16,8 @@ import static javax.swing.UIManager.get;
  */
 public class AdditionSteps extends BaseSteps implements En {
     public AdditionSteps(){
+
 //        And("^he searches for assessment with number \"([^\"]*)\"$", (String arg0) -> {
-//
 //            pageStore.get(PropertyDetailsPage.class).searchAssessmentNumber(scenarioContext.getDataScreenAssessmentNumber());
 //            pageStore.get(PropertyDetailsPage.class).search();
 //        });

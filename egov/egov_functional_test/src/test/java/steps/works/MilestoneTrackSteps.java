@@ -52,10 +52,10 @@ public class MilestoneTrackSteps extends BaseSteps implements En {
            pageStore.get(MilestoneTrackPage.class).createContractorBill();
         });
 
-        And("^he chooses to act upon on contractorBillNumber$", () -> {
-//            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getContractorBillNumber());
-            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
-        });
+//        And("^he chooses to act upon on contractorBillNumber$", () -> {
+////            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getContractorBillNumber());
+//            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
+//        });
         And("^he approves the bill$", () -> {
            pageStore.get(MilestoneTrackPage.class).approve();
 

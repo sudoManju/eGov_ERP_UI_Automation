@@ -63,17 +63,12 @@ public class SpillOverEstimateSteps extends BaseSteps implements En {
         });
         And("^he forwards to DEE and closes the acknowledgement$", () -> {
             String number = pageStore.get(SpillOverEstimatePage.class).forwardToDEE();
-//            scenarioContext.setEstimateNumber(number);
             scenarioContext.setApplicationNumber(number);
 
             String Message = pageStore.get(SpillOverEstimatePage.class).successMessage();
             scenarioContext.setActualMessage(Message);
 
             pageStore.get(SpillOverEstimatePage.class).close();
-        });
-        And("^he clicks on estimate and opens the application$", () -> {
-//            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getEstimateNumber());
-              pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
         });
         And("^he enters the AdminSanctionNumber$", () -> {
            pageStore.get(SpillOverEstimatePage.class).adminSanctionNumber();

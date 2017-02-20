@@ -69,9 +69,9 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
         And("^finally user will submit the application$", () -> {
             pageStore.get(PropertyDetailsPage.class).chooseToSubmit();
         });
-        And("^chooses to act upon the above application$", () -> {
-           pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getAssessmentNumber());
-        });
+//        And("^chooses to act upon the above application$", () -> {
+//           pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getAssessmentNumber());
+//        });
         And("^he approved the property with remarks \"([^\"]*)\" for transfer of ownership$", (String arg0) -> {
             String assessmentNo = pageStore.get(PropertyDetailsPage.class).approveForCreation();
             scenarioContext.setAssessmentNumber(assessmentNo);
