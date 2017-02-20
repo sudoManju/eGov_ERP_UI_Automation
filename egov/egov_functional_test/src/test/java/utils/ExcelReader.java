@@ -9,6 +9,7 @@ import builders.councilManagement.PreambleDetailsBuilder;
 import builders.dcReports.PTReportBuilder;
 import builders.dcReports.VLTReportBuilder;
 import builders.financial.FinancialBankDetailsBuilder;
+import builders.financial.FinancialBankToBankDetailsBuilder;
 import builders.financial.FinancialExpenseBillDetailsBuilder;
 import builders.financial.FinancialJournalVoucherDetailsBuilder;
 import builders.grievances.CreateComplaintDetailsBuilder;
@@ -28,6 +29,7 @@ import entities.councilManagement.CreatePreambleDetails;
 import entities.dcReports.PTReport;
 import entities.dcReports.VLTReport;
 import entities.financial.FinancialBankDetails;
+import entities.financial.FinancialBankToBankDetails;
 import entities.financial.FinancialExpenseBillDetails;
 import entities.financial.FinancialJournalVoucherDetails;
 import entities.grievances.CreateComplaintDetails;
@@ -122,7 +124,7 @@ public class ExcelReader {
 
 
     Sheet createLegalCaseDataSheet;
-
+    Sheet bankToBankTransferDetailsSheet;
 
     public ExcelReader(String testData) {
         String excelFilePath = testData + ".xlsx";
@@ -210,7 +212,7 @@ public class ExcelReader {
         createLegalCaseDataSheet = workbook.getSheet("createLegalCaseData");
         documentDetailsSheet = workbook.getSheet("documentDetails");
 
-
+        bankToBankTransferDetailsSheet = workbook.getSheet("financialBankToBankDetails");
     }
 
     private Row readDataRow(Sheet fromSheet, String dataId) {
@@ -1706,4 +1708,33 @@ public class ExcelReader {
     }
 
 
+    public FinancialBankToBankDetails getBankToBankTransferDetails(String bankDetails) {
+
+        Row dataRow = readDataRow(bankToBankTransferDetailsSheet, bankDetails);
+
+        String fundId = getCellData(bankToBankTransferDetailsSheet, dataRow, "fundId").getStringCellValue();
+        String voucherDepartment = getCellData(bankToBankTransferDetailsSheet, dataRow, "voucherDepartment").getStringCellValue();
+        String voucherFunction = getCellData(bankToBankTransferDetailsSheet, dataRow, "voucherFunction").getStringCellValue();
+        String fromBank = getCellData(bankToBankTransferDetailsSheet, dataRow, "fromBank").getStringCellValue();
+        String fromAccountNumber = getCellData(bankToBankTransferDetailsSheet, dataRow, "fromAccountNumber").getStringCellValue();
+        String toFundId = getCellData(bankToBankTransferDetailsSheet, dataRow, "toFundId").getStringCellValue();
+        String toBank = getCellData(bankToBankTransferDetailsSheet, dataRow, "toBank").getStringCellValue();
+        String toAccountNumber = getCellData(bankToBankTransferDetailsSheet, dataRow, "toAccountNumber").getStringCellValue();
+
+        Cell cell = getCellData(bankToBankTransferDetailsSheet, dataRow, "amount");
+        cell.setCellType(Cell.CELL_TYPE_STRING);
+        String amount = cell.getStringCellValue();
+
+        return new FinancialBankToBankDetailsBuilder()
+                .withFundId(fundId)
+                .withVoucherDepartment(voucherDepartment)
+                .withVoucherFunction(voucherFunction)
+                .withFromBank(fromBank)
+                .withFromAccountNumber(fromAccountNumber)
+                .withToFundId(toFundId)
+                .withToBank(toBank)
+                .withToAccountNumber(toAccountNumber)
+                .withAmount(amount)
+                .build();
+    }
 }

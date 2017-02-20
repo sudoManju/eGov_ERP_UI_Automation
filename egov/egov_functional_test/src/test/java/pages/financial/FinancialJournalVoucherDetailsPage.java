@@ -11,7 +11,7 @@ import pages.BasePage;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class JournalVoucherDetailsPage extends BasePage {
+public class FinancialJournalVoucherDetailsPage extends BasePage {
 
     private WebDriver webDriver;
 
@@ -78,7 +78,7 @@ public class JournalVoucherDetailsPage extends BasePage {
     @FindBy(id = "subLedgerlist[1].amount")
     private WebElement ledgerAmount2;
 
-    public JournalVoucherDetailsPage(WebDriver webDriver) {
+    public FinancialJournalVoucherDetailsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
 

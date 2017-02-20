@@ -284,27 +284,6 @@ public class FinancialPage extends BasePage {
     @FindBy(id = "closeButton")
     private WebElement bankCloseButton;
 
-    @FindBy(id = "fromBankId")
-    private WebElement fromBankId;
-
-    @FindBy(id = "fromAccountNumber")
-    private WebElement fromAccountNumber;
-
-    @FindBy(id = "toFundId")
-    private WebElement toFundId;
-
-    @FindBy(id = "toBankId")
-    private WebElement toBankId;
-
-    @FindBy(id = "toAccountNumber")
-    private WebElement toAccountNumber;
-
-    @FindBy(id = "chequeNum")
-    private WebElement referenceNumber;
-
-    @FindBy(id = "Save_New")
-    private WebElement saveButton;
-
     @FindBy(id = "cbilltab")
     private WebElement expenseBillTable;
 
@@ -882,7 +861,6 @@ public class FinancialPage extends BasePage {
                 remittanceFavour.sendKeys("Testing");
 
                 break;
-
         }
 
         waitForElementToBeClickable(assignChequeButton, webDriver);
@@ -978,47 +956,6 @@ public class FinancialPage extends BasePage {
     private void clickOnBankCloseButton(){
         waitForElementToBeClickable(bankCloseButton, webDriver);
         bankCloseButton.click();
-    }
-
-    public void enterBankToBankDetails(){
-
-        waitForElementToBeVisible(fundId,webDriver);
-        new Select(fundId).selectByVisibleText("Municipal Fund");
-
-        waitForElementToBeVisible(voucherDepartment ,webDriver);
-        new Select(voucherDepartment).selectByVisibleText("ENGINEERING");
-
-        waitForElementToBeVisible(voucherFunction ,webDriver);
-        new Select(voucherFunction).selectByVisibleText("Water Supply");
-
-        waitForElementToBeClickable(fromBankId ,webDriver);
-        fromBankId.click();
-        new Select(fromBankId).selectByVisibleText("KOTAK MAHINDRA BANK Ucon Plaza Kurnool");
-
-        waitForElementToBeClickable(fromAccountNumber ,webDriver);
-        fromAccountNumber.click();
-        new Select(fromAccountNumber).selectByVisibleText("4502205--311010192115--KOTAK MAHINDRA BANK");
-
-        waitForElementToBeVisible(toFundId ,webDriver);
-        new Select(toFundId).selectByVisibleText("Municipal Fund");
-
-        waitForElementToBeClickable(toBankId ,webDriver);
-        toBankId.click();
-        new Select(toBankId).selectByVisibleText("KOTAK MAHINDRA BANK Ucon Plaza Kurnool");
-
-        waitForElementToBeClickable(toAccountNumber ,webDriver);
-        toAccountNumber.click();
-        new Select(toAccountNumber).selectByVisibleText("4502207--311010192123--KOTAK MAHINDRA BANK");
-
-        waitForElementToBeClickable(referenceNumber , webDriver);
-        referenceNumber.sendKeys(get6DigitRandomInt());
-
-        waitForElementToBeClickable(amountTextBox , webDriver);
-        amountTextBox.sendKeys("100");
-
-        waitForElementToBeClickable(saveButton , webDriver);
-        saveButton.click();
-        switchToNewlyOpenedWindow(webDriver);
     }
 
     public String closesSuccessfulTransferCreationPage(){

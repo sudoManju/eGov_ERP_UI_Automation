@@ -2,12 +2,14 @@ package steps.financial;
 
 import cucumber.api.java8.En;
 import entities.financial.FinancialBankDetails;
+import entities.financial.FinancialBankToBankDetails;
 import entities.financial.FinancialExpenseBillDetails;
 import entities.financial.FinancialJournalVoucherDetails;
 import entities.ptis.ApprovalDetails;
 import org.junit.Assert;
 import pages.DashboardPage;
-import pages.financial.JournalVoucherDetailsPage;
+import pages.financial.FinancialBankToBankDetailsPage;
+import pages.financial.FinancialJournalVoucherDetailsPage;
 import pages.financial.FinancialPage;
 import steps.BaseSteps;
 import utils.ExcelReader;
@@ -23,7 +25,7 @@ public class FinancialSteps extends BaseSteps implements En {
 
         And("^officer will enter the journal voucher details as (\\w+) with subledger (\\w+)$", (String voucher , String withOrWithoutSubledger) -> {
             FinancialJournalVoucherDetails financialJournalVoucherDetails = new ExcelReader(financialTestDataFileName).getJournalVoucherDetails(voucher);
-            pageStore.get(JournalVoucherDetailsPage.class).enterJournalVoucherDetails(financialJournalVoucherDetails , withOrWithoutSubledger);
+            pageStore.get(FinancialJournalVoucherDetailsPage.class).enterJournalVoucherDetails(financialJournalVoucherDetails , withOrWithoutSubledger);
         });
 
         And("^officer will enter the approval details as (\\w+)$", (String approveOfficer) -> {
@@ -182,8 +184,9 @@ public class FinancialSteps extends BaseSteps implements En {
             scenarioContext.setActualMessage(msg);
         });
 
-        And("^officer will enter the bank to bank transfer details$", () -> {
-            pageStore.get(FinancialPage.class).enterBankToBankDetails();
+        And("^officer will enter the bank to bank transfer details as (\\w+)$", (String bankDetails) -> {
+            FinancialBankToBankDetails financialBankToBankDetails = new ExcelReader(financialTestDataFileName).getBankToBankTransferDetails(bankDetails);
+            pageStore.get(FinancialBankToBankDetailsPage.class).enterBankToBankDetails(financialBankToBankDetails);
         });
 
         And("^officer will close the successful creation page$", () -> {
