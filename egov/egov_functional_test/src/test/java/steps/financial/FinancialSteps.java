@@ -41,19 +41,19 @@ public class FinancialSteps extends BaseSteps implements En {
 
         And("^officer will get successful voucher created and closes it$", () -> {
             String voucherNumber = pageStore.get(FinancialPage.class).getVoucherNumber();
-            scenarioContext.setVoucherNumber(voucherNumber.split("\\.")[0].split("\\ ")[1]);
+            scenarioContext.setApplicationNumber(voucherNumber.split("\\.")[0].split("\\ ")[1]);
             scenarioContext.setActualMessage(voucherNumber.split("\\.")[0]);
         });
 
         Then("^the officer will click on the above voucher number$", () -> {
-            pageStore.get(FinancialPage.class).openVoucherFromInboxOrDrafts(scenarioContext.getVoucherNumber());
+            pageStore.get(FinancialPage.class).openVoucherFromInboxOrDrafts(scenarioContext.getApplicationNumber());
         });
 
         And("^officer will closes the acknowledgement page$", () -> {
             String actualMessage = pageStore.get(FinancialPage.class).closePage();
             scenarioContext.setActualMessage(actualMessage);
             if(scenarioContext.getIsRemittance() == 1) {
-                scenarioContext.setVoucherNumber(actualMessage.split("\\n")[0].split("\\ ")[7] + "-CASH");
+                scenarioContext.setApplicationNumber(actualMessage.split("\\n")[0].split("\\ ")[7] + "-CASH");
                 scenarioContext.setIsRemittance(0);
             }
         });
@@ -71,12 +71,12 @@ public class FinancialSteps extends BaseSteps implements En {
         });
 
         And("^officer will act upon the above voucher with payment mode as (\\w+)$", (String paymentMode) -> {
-            pageStore.get(FinancialPage.class).actOnAboveVoucher(paymentMode , scenarioContext.getVoucherNumber());
+            pageStore.get(FinancialPage.class).actOnAboveVoucher(paymentMode , scenarioContext.getApplicationNumber());
         });
 
         And("^officer will verify the voucher number$", () -> {
             String voucher = pageStore.get(FinancialPage.class).verifyVoucher();
-            Assert.assertEquals(voucher , scenarioContext.getVoucherNumber());
+            Assert.assertEquals(voucher , scenarioContext.getApplicationNumber());
         });
 
         And("^officer will enter the bank details$", () -> {
@@ -106,18 +106,18 @@ public class FinancialSteps extends BaseSteps implements En {
 
         And("^officer will closes the expense acknowledgement page$", () -> {
             String expenseBillNumber = pageStore.get(FinancialPage.class).closesTheExpensePage();
-            scenarioContext.setVoucherNumber(expenseBillNumber.split("\\ ")[2]);
+            scenarioContext.setApplicationNumber(expenseBillNumber.split("\\ ")[2]);
             scenarioContext.setActualMessage(expenseBillNumber.split("\\ ")[3]);
         });
 
         And("^officer will closes the successfull payment page$", () -> {
             String billNUmber = pageStore.get(FinancialPage.class).closesSuccessfulPaymentPage();
-            scenarioContext.setVoucherNumber(billNUmber);
+            scenarioContext.setApplicationNumber(billNUmber);
         });
 
         And("^officer will get successful BAN NUMBER created and closes it$", () -> {
             String voucherNumber = pageStore.get(FinancialPage.class).getVoucherNumber();
-            scenarioContext.setVoucherNumber(voucherNumber.split("\\ ")[1]);
+            scenarioContext.setApplicationNumber(voucherNumber.split("\\ ")[1]);
             System.out.println("=========="+voucherNumber);
             scenarioContext.setActualMessage(voucherNumber);
         });
@@ -138,7 +138,7 @@ public class FinancialSteps extends BaseSteps implements En {
         And("^officer will search for (\\w+) remittance bill$", (String singleOrMultiple) -> {
             pageStore.get(FinancialPage.class).searchRemittanceBill();
             if(singleOrMultiple.equalsIgnoreCase("single")) {
-                pageStore.get(FinancialPage.class).selectSingleRemittanceBill(scenarioContext.getVoucherNumber());
+                pageStore.get(FinancialPage.class).selectSingleRemittanceBill(scenarioContext.getApplicationNumber());
             }
             else {
                 pageStore.get(FinancialPage.class).selectMultipleRemittanceBill();
@@ -146,19 +146,19 @@ public class FinancialSteps extends BaseSteps implements En {
         });
 
         And("^officer will filter the bill according to the type$", () -> {
-            pageStore.get(FinancialPage.class).filterCreateVoucherBill(scenarioContext.getVoucherNumber());
+            pageStore.get(FinancialPage.class).filterCreateVoucherBill(scenarioContext.getApplicationNumber());
         });
 
         And("^officer will set the new expense voucher number and closes it$", () -> {
             String expenseVoucherMessage = pageStore.get(FinancialPage.class).closesExpenseVoucherPage();
-            scenarioContext.setVoucherNumber(expenseVoucherMessage.split("\\ ")[4].split("\\.")[0]);
+            scenarioContext.setApplicationNumber(expenseVoucherMessage.split("\\ ")[4].split("\\.")[0]);
             System.out.println("==============="+expenseVoucherMessage);
             scenarioContext.setActualMessage(expenseVoucherMessage);
         });
 
         And("^officer will filter the payment cheque assignment bill as (\\w+)$", (String singleOrMultiple) -> {
             if(singleOrMultiple.equalsIgnoreCase("single")) {
-                pageStore.get(FinancialPage.class).chequeAssignmentBillSearch(scenarioContext.getVoucherNumber());
+                pageStore.get(FinancialPage.class).chequeAssignmentBillSearch(scenarioContext.getApplicationNumber());
             }
             else {
                 pageStore.get(FinancialPage.class).chequeAssignmentBillSearch();
@@ -186,7 +186,7 @@ public class FinancialSteps extends BaseSteps implements En {
         And("^officer will see the successful voucher creation page and closes it$", () -> {
             String msg = pageStore.get(FinancialPage.class).directBankSuccessPage();
             if(msg.contains("Successful")) {
-                scenarioContext.setVoucherNumber(msg.split("\\ ")[8]);
+                scenarioContext.setApplicationNumber(msg.split("\\ ")[8]);
             }
             scenarioContext.setActualMessage(msg);
         });

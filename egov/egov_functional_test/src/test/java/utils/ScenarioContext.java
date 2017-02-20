@@ -10,8 +10,6 @@ public class ScenarioContext implements Serializable {
 
     private String dataScreenAssessmentNumber;
 
-    private String voucherNumber;
-
     private String actualMessage;
 
     private int isRemittance;
@@ -50,14 +48,6 @@ public class ScenarioContext implements Serializable {
 
     public void setActualMessage(String actualMessage) {
         this.actualMessage = actualMessage;
-    }
-
-    public String getVoucherNumber() {
-        return voucherNumber;
-    }
-
-    public void setVoucherNumber(String voucherNumber) {
-        this.voucherNumber = voucherNumber;
     }
 
     public String getAssessmentNumber() {
