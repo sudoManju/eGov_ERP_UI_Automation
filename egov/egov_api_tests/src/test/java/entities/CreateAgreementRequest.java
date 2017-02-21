@@ -1,5 +1,8 @@
 package entities;
 
+import entities.Allottee;
+import entities.Asset;
+
 public class CreateAgreementRequest {
 	private String tenant_id;
 	

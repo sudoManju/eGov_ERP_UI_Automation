@@ -1,7 +1,11 @@
 package builders;
 
 
+import entities.Asset;
 import entities.CreateAgreementRequest;
+import entities.Allottee;
+import entities.Asset;
+
 
 
 public class CreateAgreementBuilder {
@@ -9,21 +13,30 @@ public class CreateAgreementBuilder {
 	
 	public CreateAgreementBuilder()
 	{
-		request.setTenant_id("7484");
-		request.setAgreement_id("783shf");
-		request.setAgreement_number("nvjhj78");
+        Allottee allottee = new Allottee();
+        Asset asset = new Asset();
+
+        request.setTenant_id("7484");
+		request.setAgreement_id("9999");
+		request.setAgreement_number("9999xyz");
 		request.setAgreement_date("2017-02-13");
-		request.getAllottee().setName("hfehs");
-		request.getAllottee().setContact_no(7485739);
-		request.getAllottee().setAddress("jcaijhdiajdfieaf naheijfia");
-		request.getAsset().setCategory("nsjdcjsdh");
-		request.getAsset().setName("bawdjaudh");
-		request.getAsset().setLocality("bdhasbdahs");
-		request.getAsset().setStreet("bcjbjanjd");
-        request.getAsset().setZone("sjdxjasicj");
-        request.getAsset().setWard("asnjdhaj");
-        request.getAsset().setBlock("ajsdjISJ");
-        request.getAsset().setElectionward("KJDHJDISi");
+
+        allottee.setName("Sherlok");
+		allottee.setContact_no(987654321);
+		allottee.setAddress("221B Baker Street");
+        request.setAllottee(allottee);
+
+
+        asset.setCategory("A");
+		asset.setName("Sherlok");
+		asset.setLocality("east");
+		asset.setStreet("Bekar Street");
+        asset.setZone("north");
+        asset.setWard("A");
+        asset.setBlock("5th");
+        asset.setElectionward("Z");
+        request.setAsset(asset);
+
         request.setStatus("active");
         request.setNature_of_allotment("shdujshu");
         request.setCommencement_date("2017-02-13");
