@@ -130,13 +130,7 @@ public class DashboardPage extends BasePage {
     private WebElement getApplicationRow(String number){
         List<WebElement> totalRows;
         try{
-//            waitForElementToBeVisible(officialInboxTable, driver);
-//            officialInboxTable.click();
-//            try {
-//                TimeUnit.SECONDS.sleep(4);
-//            } catch (InterruptedException e1) {
-//                e1.printStackTrace();
-//            }
+
             await().atMost(20, SECONDS).until(() -> driver.findElement(By.id("official_inbox")).findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
             totalRows = driver.findElement(By.id("official_inbox")).findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
             for (WebElement voucherRow : totalRows) {
@@ -148,11 +142,7 @@ public class DashboardPage extends BasePage {
         catch (Exception e){
             waitForElementToBeClickable(officialDraftsTable , driver);
             officialDraftsTable.click();
-            try {
-                TimeUnit.SECONDS.sleep(5);
-            } catch (InterruptedException e1) {
-                e1.printStackTrace();
-            }
+
             await().atMost(20, SECONDS).until(() -> driver.findElement(By.id("official_drafts")).findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
             totalRows = driver.findElement(By.id("official_drafts")).findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
             for (WebElement voucherRow : totalRows) {
