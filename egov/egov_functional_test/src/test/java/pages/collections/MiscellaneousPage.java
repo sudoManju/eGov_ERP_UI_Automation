@@ -127,36 +127,31 @@ public class MiscellaneousPage extends BasePage{
     @FindBy(css = "input[id='instrHeaderBank.instrumentAmount'][type='text']")
     private WebElement directBankAmountTextBox;
 
+    @FindBy(className = "subheadnew")
+    private WebElement submissionMessage;
+
     public MiscellaneousPage(WebDriver driver) {
         this.driver = driver;
     }
 
     public void enterMiscellaneousDetails() {
-
-        paidByTextBox.sendKeys("Bimal Kumar");
-        narrationTextBox.sendKeys("Narration");
-        payeeAddressTextBox.sendKeys("Bangalore");
-        new Select(serviceCategoryDropDown).selectByVisibleText("Entry Fees");
-
+        enterText(paidByTextBox,"Bimal kumar",driver);
+        enterText(narrationTextBox,"Narration",driver);
+        enterText(payeeAddressTextBox,"Banglore",driver);
+        selectFromDropDown(serviceCategoryDropDown,"Entry Fees",driver);
         waitForElementToBePresent(By.cssSelector("select[id='serviceId'] option[value='166']"),driver);
-        new Select(serviceTypeIDropDown).selectByVisibleText("Monuments Entry Fees-MNMENTFEE");
-
+        selectFromDropDown(serviceTypeIDropDown,"Monuments Entry Fees-MNMENTFEE",driver);
         try {
             WebElement amountBox = driver.findElement(By.cssSelector("input[type='text'][id='billCreditDetailslist[0].creditAmountDetail']"));
-            amountBox.clear();
-            amountBox.sendKeys("655");
+            enterText(amountBox,"655",driver);
         }
         catch (StaleElementReferenceException e){
             WebElement amountBox = driver.findElement(By.cssSelector("input[type='text'][id='billCreditDetailslist[0].creditAmountDetail']"));
-            amountBox.clear();
-            amountBox.sendKeys("655");
+            enterText(amountBox,"655",driver);
         }
     }
 
     public void enterPaymentDetails(PaymentMethod paymentmethod, String mode) {
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String date = sdf.format(new Date());
 
         switch (mode){
 
@@ -165,159 +160,79 @@ public class MiscellaneousPage extends BasePage{
                 break;
 
             case "cheque":
-
-                waitForElementToBeClickable(chequeModeRadioButton,driver);
-                chequeModeRadioButton.click();
-
-                waitForElementToBeVisible(chequeNumberTextBox,driver);
-                chequeNumberTextBox.sendKeys(paymentmethod.getChequeNumber());
-
-                waitForElementToBeClickable(chequeDateTextBox,driver);
-                chequeDateTextBox.sendKeys(date);
-
+                jsClick(chequeModeRadioButton,driver);
+                enterText(chequeNumberTextBox,paymentmethod.getChequeNumber(),driver);
+                enterDate(chequeDateTextBox,getCurrentDate(),driver);
                 waitForElementToBeClickable(bankNameTextBox,driver);
-                bankNameTextBox.sendKeys(paymentmethod.getBankName());
+                enterText(bankNameTextBox,paymentmethod.getBankName(),driver);
                 await().atMost(10, SECONDS).until(() -> driver.findElement(By.id("bankcodescontainer"))
                         .findElements(By.cssSelector("ul li"))
                         .get(0).click());
-
-                waitForElementToBeClickable(amountTextBox,driver);
-                amountTextBox.sendKeys("655");
-
+                enterText(amountTextBox,"655",driver);
                 break;
 
             case "dd":
-
-               waitForElementToBeClickable(ddModeRadioButton,driver);
-               ddModeRadioButton.click();
-
-                waitForElementToBeVisible(chequeNumberTextBox,driver);
-                chequeNumberTextBox.sendKeys(paymentmethod.getChequeNumber());
-
-                waitForElementToBeClickable(chequeDateTextBox,driver);
-                chequeDateTextBox.sendKeys(date);
-
+                jsClick(ddModeRadioButton,driver);
+                enterText(chequeNumberTextBox,paymentmethod.getChequeNumber(),driver);
+                enterDate(chequeDateTextBox,getCurrentDate(),driver);
                 waitForElementToBeClickable(bankNameTextBox,driver);
-                bankNameTextBox.sendKeys(paymentmethod.getBankName());
+                enterText(bankNameTextBox,paymentmethod.getBankName(),driver);
                 await().atMost(10, SECONDS).until(() -> driver.findElement(By.id("bankcodescontainer"))
                         .findElements(By.cssSelector("ul li"))
                         .get(0).click());
-
-                waitForElementToBeClickable(amountTextBox,driver);
-                amountTextBox.sendKeys("655");
-
+                enterText(amountTextBox,"655",driver);
                 break;
 
             case "directBank":
-
-              waitForElementToBeClickable(directBankRadioButton,driver);
-              directBankRadioButton.click();
-
-              waitForElementToBeVisible(referenceNumberTextBox,driver);
-              referenceNumberTextBox.sendKeys(paymentmethod.getChequeNumber());
-
-              waitForElementToBeClickable(challanDateTextBox,driver);
-              challanDateTextBox.sendKeys(date);
-
-              waitForElementToBePresent(By.cssSelector("select[id='bankBranchMaster'] option[value='4']"),driver);
-              try {
-                  waitForElementToBeClickable(bankNameDropBox, driver);
-                  bankNameDropBox.click();
-                  new Select(bankNameDropBox).selectByVisibleText(paymentmethod.getBankName());
-              }
-              catch (StaleElementReferenceException e){
-                  waitForElementToBeClickable(bankNameDropBox, driver);
-                  bankNameDropBox.click();
-                  new Select(bankNameDropBox).selectByVisibleText(paymentmethod.getBankName());
-              }
-
-              waitForElementToBePresent(By.cssSelector("select[id='accountNumberMaster'] option[value='34']"),driver);
-              try {
-                  waitForElementToBeClickable(accountNumberDropBox,driver);
-                  accountNumberDropBox.click();
-                  new Select(accountNumberDropBox).selectByVisibleText(paymentmethod.getAccountNumber());
-              }
-              catch (StaleElementReferenceException e){
-                  waitForElementToBeClickable(accountNumberDropBox,driver);
-                  accountNumberDropBox.click();
-                  new Select(accountNumberDropBox).selectByVisibleText(paymentmethod.getAccountNumber());
-              }
-
-              waitForElementToBeClickable(directBankAmountTextBox,driver);
-              directBankAmountTextBox.sendKeys("655");
-
+                jsClick(directBankRadioButton,driver);
+                enterText(referenceNumberTextBox,paymentmethod.getChequeNumber(),driver);
+                enterDate(challanDateTextBox,getCurrentDate(),driver);
+            for(int i=0;i<10;i++) {
+                selectFromDropDown(bankNameDropBox, paymentmethod.getBankName(), driver);
+            }
+            for(int i=0;i<10;i++) {
+                selectFromDropDown(accountNumberDropBox, paymentmethod.getAccountNumber(), driver);
+            }
+            enterText(directBankAmountTextBox,"655",driver);
               break;
         }
-
-        waitForElementToBeClickable(payButton,driver);
-        payButton.click();
-
+         clickOnButton(payButton,driver);
     }
 
     public String submitAllCollections() {
-        waitForElementToBeVisible(submitAllCollectionsButton,driver);
-        WebElement element = driver.findElement(By.cssSelector("input[value = 'Submit All Collections'][type='submit']"));
-        JavascriptExecutor executor = (JavascriptExecutor)driver;
-        executor.executeScript("arguments[0].click();", element);
-
-
-        waitForElementToBePresent(By.className("subheadnew"),driver);
-        String message = driver.findElement(By.className("subheadnew")).getText();
-        return message;
+        jsClick(submitAllCollectionsButton,driver);
+        return submissionMessage.getText();
     }
 
     public void close() {
-        waitForElementToBeClickable(closeButton,driver);
-        closeButton.click();
-
+        clickOnButton(closeButton,driver);
         switchToPreviouslyOpenedWindow(driver);
     }
 
-
     public String approveAllCollections() {
-        waitForElementToBeVisible(approveAllCollectionsButton,driver);
-        WebElement element = driver.findElement(By.cssSelector("input[value = 'Approve All Collections'][type = 'submit']"));
-        JavascriptExecutor executor = (JavascriptExecutor)driver;
-        executor.executeScript("arguments[0].click();", element);
-
-        waitForElementToBePresent(By.className("subheadnew"),driver);
-        String message = driver.findElement(By.className("subheadnew")).getText();
-        return message;
+        jsClick(approveAllCollectionsButton,driver);
+        return submissionMessage.getText();
     }
 
     public void selectRequiredReceipt() {
-
         List<WebElement> totalPages = driver.findElements(By.xpath(".//*[@id='searchReceipt-search']/div[4]/span/a"));
 
         if(totalPages.size()>0) {
              WebElement lastPageLink = driver.findElement(By.xpath(".//*[@id='searchReceipt-search']/div[4]/span/a["+(totalPages.size()-1)+"]"));
-             waitForElementToBeVisible(lastPageLink,driver);
-             JavascriptExecutor executor = (JavascriptExecutor)driver;
-             executor.executeScript("arguments[0].click();", lastPageLink);
+            jsClick(lastPageLink,driver);
         }
 
       List<WebElement> totalRows = driver.findElements(By.xpath(".//*[@id='selectedReceipts']"));
       WebElement requiredRow = totalRows.get(totalRows.size()-1);
-      waitForElementToBeVisible(requiredRow,driver);
       jsClick(requiredRow,driver);
-
-      waitForElementToBeClickable(cancelReceiptButton,driver);
-      cancelReceiptButton.click();
+      clickOnButton(cancelReceiptButton,driver);
     }
 
     public void searchRequiredReceipt() {
-        waitForElementToBeVisible(classificationBox,driver);
-        new Select(classificationBox).selectByVisibleText("Miscelleneous Collection");
-
-        waitForElementToBeClickable(serviceTypeTextBox,driver);
-        waitForElementToBePresent(By.xpath(".//*[@id='serviceType']/option[2]"),driver);
-        new Select(serviceTypeTextBox).selectByVisibleText("Monuments Entry Fees-MNMENTFEE");
-
-        waitForElementToBeClickable(fromDateTextBox,driver);
-        fromDateTextBox.sendKeys(getCurrentDate());
-
-        waitForElementToBeClickable(searchButton,driver);
-        searchButton.click();
+        selectFromDropDown(classificationBox,"Miscelleneous Collection",driver);
+        selectFromDropDown(serviceTypeTextBox,"Monuments Entry Fees-MNMENTFEE",driver);
+        enterDate(fromDateTextBox,getCurrentDate(),driver);
+        clickOnButton(searchButton,driver);
     }
 
     public String cancelReceipt() {
@@ -335,27 +250,13 @@ public class MiscellaneousPage extends BasePage{
     }
 
     public void enterBankDetails() {
-        waitForElementToBeVisible(bankNameBox, driver);
-        new Select(bankNameBox).selectByVisibleText("ANDHRA BANK-Andhra Bank RTC Busstand");
-
-        waitForElementToBeClickable(bankAccountNumberBox, driver);
-        new Select(bankAccountNumberBox).selectByVisibleText("110710011005899");
-
-        waitForElementToBeClickable(paymentModeBox, driver);
-        new Select(paymentModeBox).selectByVisibleText("cheque/dd");
-
-        waitForElementToBeClickable(fromDateTextBox,driver);
-        fromDateTextBox.sendKeys(getCurrentDate());
-
-        waitForElementToBeClickable(toDateTextBox,driver);
-        toDateTextBox.sendKeys(getCurrentDate());
-
-        waitForElementToBeClickable(searchButton, driver);
-        searchButton.click();
-
-        waitForElementToBeVisible(receiptCheckBox,driver);
+        selectFromDropDown(bankNameBox,"ANDHRA BANK-Andhra Bank RTC Busstand",driver);
+        selectFromDropDown(bankAccountNumberBox,"110710011005899",driver);
+        selectFromDropDown(paymentModeBox,"cheque/dd",driver);
+        enterDate(fromDateTextBox,getCurrentDate(),driver);
+        enterDate(toDateTextBox,getCurrentDate(),driver);
+        clickOnButton(searchButton,driver);
         jsClick(receiptCheckBox,driver);
-
         receiptCheckBox.sendKeys(Keys.TAB);
 
         List<WebElement> allDates=driver.findElements(By.xpath(".//div[@class='datepicker-days']//td"));
@@ -370,12 +271,10 @@ public class MiscellaneousPage extends BasePage{
                 break;
             }
         }
-        waitForElementToBeClickable(remitToBankButton,driver);
         jsClick(remitToBankButton,driver);
     }
 
     public String successMessageOfRemittance() {
-        String message = successMessageTextOfRemittance.getText();
-        return message;
+        return successMessageTextOfRemittance.getText();
     }
 }

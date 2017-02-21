@@ -3,6 +3,7 @@ package pages.collections;
 import entities.collections.PaymentMethod;
 import org.apache.bcel.generic.SWITCH;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -84,12 +85,12 @@ public class PropertyTaxPage extends BasePage {
     }
 
     public void collectTaxFor(String assessmentNumber) {
-        assessmentNumberTextBox.sendKeys(assessmentNumber);
-        collectTexButton.click();
+        enterText(assessmentNumberTextBox,assessmentNumber,driver);
+        clickOnButton(collectTexButton,driver);
     }
 
     public void payTax() {
-        payTaxButton.click();
+        clickOnButton(payTaxButton,driver);
     }
 
     public void collectTax(PaymentMethod paymentmethod, String paymentMode,String method) {
@@ -108,84 +109,54 @@ public class PropertyTaxPage extends BasePage {
 
             case "cash":
 
-                amountPaidByCashTextBox.sendKeys(actualAmount);
+                 enterText(amountPaidByCashTextBox,actualAmount,driver);
 
                 break;
 
             case "cheque":
 
-                waitForElementToBeClickable(chequeModeRadioButton, driver);
                 jsClick(chequeModeRadioButton, driver);
-
-                waitForElementToBeVisible(chequeNumberTextBox, driver);
-                chequeNumberTextBox.sendKeys(paymentmethod.getChequeNumber());
-
-                waitForElementToBeClickable(chequeDateTextBox, driver);
-                chequeDateTextBox.sendKeys(getCurrentDate());
-
-                waitForElementToBeClickable(bankNameTextBox, driver);
-                bankNameTextBox.sendKeys(paymentmethod.getBankName());
+                enterText(chequeNumberTextBox,paymentmethod.getChequeNumber(),driver);
+                enterText(chequeDateTextBox,getCurrentDate(),driver);
+                enterText(bankNameTextBox,paymentmethod.getBankName(),driver);
                 await().atMost(10, SECONDS).until(() -> driver.findElement(By.id("bankcodescontainer"))
                         .findElements(By.cssSelector("ul li"))
                         .get(0).click());
 
-                amountPaidByChequeTextBox.sendKeys(actualAmount);
+                enterText(amountPaidByChequeTextBox,actualAmount,driver);
 
                 break;
 
             case "dd":
-
-                waitForElementToBeClickable(ddRadioButton, driver);
                 jsClick(ddRadioButton, driver);
-
-                waitForElementToBeVisible(chequeNumberTextBox, driver);
-                chequeNumberTextBox.sendKeys(paymentmethod.getChequeNumber());
-
-                waitForElementToBeClickable(chequeDateTextBox, driver);
-                chequeDateTextBox.sendKeys(getCurrentDate());
-
-                waitForElementToBeClickable(bankNameTextBox, driver);
-                bankNameTextBox.sendKeys(paymentmethod.getBankName());
+                enterText(chequeNumberTextBox,paymentmethod.getChequeNumber(),driver);
+                enterText(chequeDateTextBox,getCurrentDate(),driver);
+                enterText(bankNameTextBox,paymentmethod.getBankName(),driver);
                 await().atMost(10, SECONDS).until(() -> driver.findElement(By.id("bankcodescontainer"))
                         .findElements(By.cssSelector("ul li"))
                         .get(0).click());
 
-                amountPaidByChequeTextBox.sendKeys(actualAmount);
+                enterText(amountPaidByChequeTextBox,actualAmount,driver);
 
                 break;
 
             case "directBank1":
 
-                waitForElementToBeClickable(directBankRadioButton, driver);
-                jsClick(directBankRadioButton, driver);
-
-                waitForElementToBeVisible(referenceNumberTextBox, driver);
-                referenceNumberTextBox.sendKeys(paymentmethod.getChequeNumber());
-
-                waitForElementToBeClickable(challanDateTextBox, driver);
-                challanDateTextBox.sendKeys(getCurrentDate());
-
-                waitForElementToBeClickable(bankNameDropBox, driver);
-                new Select(bankNameDropBox).selectByVisibleText(paymentmethod.getBankName());
-
-                waitForElementToBeClickable(accountNumberDropBox, driver);
-                new Select(accountNumberDropBox).selectByVisibleText(paymentmethod.getAccountNumber());
-
-                waitForElementToBeClickable(directBankAmountTextBox, driver);
-                directBankAmountTextBox.sendKeys(actualAmount);
+                jsClick(directBankRadioButton,driver);
+                enterText(referenceNumberTextBox,paymentmethod.getChequeNumber(),driver);
+                enterDate(challanDateTextBox,getCurrentDate(),driver);
+                selectFromDropDown(bankNameDropBox,paymentmethod.getBankName(),driver);
+                selectFromDropDown(accountNumberDropBox,paymentmethod.getAccountNumber(),driver);
+                enterText(directBankAmountTextBox,actualAmount,driver);
 
                 break;
-
         }
 
         if (method.equals("Bill")) {
-            waitForElementToBeClickable(payButtonForBill, driver);
             jsClick(payButtonForBill, driver);
         }
         else {
-            waitForElementToBeClickable(payButtonForChallan,driver);
             jsClick(payButtonForChallan,driver);
         }
     }
-
 }

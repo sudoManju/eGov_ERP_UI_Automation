@@ -134,95 +134,64 @@ public class NewSewerageConnectionPage extends BasePage {
     }
 
     public void createNewConnection(String assessmentNumber) {
-        waitForElementToBeVisible(PTAssessmentNumberTextBox,driver);
-        PTAssessmentNumberTextBox.sendKeys(assessmentNumber);
-
-        waitForElementToBeClickable(propertyTypeDropBox,driver);
-        new Select(propertyTypeDropBox).selectByVisibleText("RESIDENTIAL");
-
-        waitForElementToBeVisible(noOfClosetsTextBox,driver);
-        noOfClosetsTextBox.sendKeys("3");
-
-        waitForElementToBeClickable(documentNumberTextBox,driver);
-        documentNumberTextBox.sendKeys("123");
-
-        waitForElementToBeClickable(documentDateTextBox,driver);
-        documentDateTextBox.sendKeys(getCurrentDate());
-
-        waitForElementToBeClickable(chooseFileButton,driver);
-        chooseFileButton.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
+        enterText(PTAssessmentNumberTextBox,assessmentNumber,driver);
+        selectFromDropDown(propertyTypeDropBox,"RESIDENTIAL",driver);
+        enterText(noOfClosetsTextBox,"3",driver);
+        enterText(documentNumberTextBox,"123",driver);
+        enterDate(documentDateTextBox,getCurrentDate(),driver);
+        uploadFile(chooseFileButton,System.getProperty("user.dir") + "/src/test/resources/logo.jpg",driver);
     }
 
     public void forward() {
-        waitForElementToBeClickable(forwardButton,driver);
-        forwardButton.click();
+          clickOnButton(forwardButton,driver);
     }
 
     public String getSuccessMessage() {
-        waitForElementToBeVisible(successMessageForSewerageConnectionText,driver);
-        return successMessageForSewerageConnectionText.getText();
+        return getTextFromWeb(successMessageForSewerageConnectionText,driver);
     }
 
     public String getSuccessMessageForChangeSewerage() {
-        waitForElementToBeVisible(getSuccessMessageForChangeSewerageConnectionText,driver);
-        return getSuccessMessageForChangeSewerageConnectionText.getText();
+          return  getTextFromWeb(getSuccessMessageForChangeSewerageConnectionText,driver);
     }
 
     public String getSuccessMessage1() {
-        waitForElementToBeVisible(successMessageForSewerageConnectionText1,driver);
-        return successMessageForSewerageConnectionText1.getText();
+        return getTextFromWeb(successMessageForSewerageConnectionText1,driver);
     }
 
     public String getApplicationNumberForLegacyCreation(){
-        waitForElementToBeVisible(successMessageForSewerageConnectionText1,driver);
-
         String num1 = successMessageForSewerageConnectionText1.getText().split("\\ ")[5].substring(1,14);
-        System.out.println("\n "+num1);
-
         return num1;
     }
 
     public String getSuccessMessage1ForChangeSewerage() {
-        waitForElementToBeVisible(successMessageForChangeSewerageConnectionText1,driver);
-        return successMessageForChangeSewerageConnectionText1.getText();
+        return getTextFromWeb(successMessageForChangeSewerageConnectionText1,driver);
     }
 
     public String getApplicatioNumber() {
         waitForElementToBeVisible(applicationNumberText,driver);
-
         String num1 = applicationNumberText.getText().split("\\ ")[5].substring(1,14);
         System.out.println("\n "+num1);
-
         return num1;
     }
 
     public String getApplicatioNumberForChangeSewerage() {
         waitForElementToBeVisible(applicationNumberTextForChange,driver);
-
         String num1 = applicationNumberTextForChange.getText().split("\\ ")[5].substring(1,14);
         System.out.println("\n "+num1);
-
         return num1;
     }
 
     public void close() {
-      waitForElementToBeClickable(closeLink,driver);
-      closeLink.click();
-
+      clickOnButton(closeLink,driver);
       switchToPreviouslyOpenedWindow(driver);
     }
 
     public void searchForApplicationNumberToCollect(String number) {
-        waitForElementToBeVisible(applicationNumberTextBox,driver);
-        applicationNumberTextBox.sendKeys(number);
-
-        waitForElementToBeClickable(searchButton,driver);
-        searchButton.click();
-
+        enterText(applicationNumberTextBox,number,driver);
+        clickOnButton(searchButton,driver);
         waitForElementToBeVisible(searchResultsTable,driver);
         WebElement dropDownAction = searchResultsTable.findElement(By.tagName("tbody")).findElement(By.tagName("tr")).findElements(By.tagName("td")).get(8).findElement(By.className("actiondropdown"));
-        waitForElementToBeClickable(dropDownAction,driver);
-        new Select(dropDownAction).selectByVisibleText("Collect Fee");
+        selectFromDropDown(dropDownAction,"Collect Fee",driver);
         switchToNewlyOpenedWindow(driver);
     }
 
@@ -230,17 +199,12 @@ public class NewSewerageConnectionPage extends BasePage {
         waitForElementToBeVisible(amountToBePaidText,driver);
         String amount = amountToBePaidText.getAttribute("value");
         String actualAmount = amount.split("\\.")[0];
-
-        waitForElementToBeClickable(amountToBePaidTextBox,driver);
-        amountToBePaidTextBox.sendKeys(actualAmount);
-
-        waitForElementToBeClickable(payButton,driver);
+        enterText(amountToBePaidTextBox,actualAmount,driver);
         jsClick(payButton,driver);
-    }
+     }
 
     public void closeMultipleWindows(String s) {
-        waitForElementToBeVisible(closeButton,driver);
-        closeButton.click();
+        clickOnButton(closeButton,driver);
 
         for (String winHandle : driver.getWindowHandles()) {
             if(driver.switchTo().window(winHandle).getCurrentUrl().equals(getEnvironmentURL()+s)){
@@ -251,37 +215,24 @@ public class NewSewerageConnectionPage extends BasePage {
         close();
     }
 
-    public void approveTheApplication() {
-        waitForElementToBeVisible(approverCommentTextBox,driver);
-        approverCommentTextBox.sendKeys("Approved");
-
-        waitForElementToBeVisible(approveButton,driver);
-        waitForElementToBeClickable(approveButton,driver);
-        approveButton.click();
+    public void approveTheApplication() {;
+        enterText(approverCommentTextBox,"Approved",driver);
+        clickOnButton(approveButton,driver);
     }
 
-    public void generateEstimationNotice() {
-        waitForElementToBeClickable(approverCommentTextBox,driver);
-        approverCommentTextBox.sendKeys("Generated estimate notice");
-
-        waitForElementToBeVisible(generateEstimationNoticeButton,driver);
-        waitForElementToBeClickable(generateEstimationNoticeButton,driver);
-        generateEstimationNoticeButton.click();
-
-        await().atMost(3, SECONDS);
-
-        driver.close();
-        switchToPreviouslyOpenedWindow(driver);
+    public void generateEstimationNotice() {;
+          enterText(approverCommentTextBox,"Generated estimate notice",driver);
+          clickOnButton(generateEstimationNoticeButton,driver);
+          await().atMost(3, SECONDS);
+          driver.close();
+          switchToPreviouslyOpenedWindow(driver);
     }
 
     public void generateWorkOrder(String num) {
-        waitForElementToBeVisible(generateWorkOrderLink,driver);
-        generateWorkOrderLink.click();
-
+        clickOnButton(generateWorkOrderLink,driver);
         switchToNewlyOpenedWindow(driver);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.close();
-
         for (String winHandle : driver.getWindowHandles()) {
                 if (driver.switchTo().window(winHandle).getCurrentUrl().equals(getEnvironmentURL()+"/stms/transactions/update/" + num)) {
                     break;
@@ -290,18 +241,12 @@ public class NewSewerageConnectionPage extends BasePage {
         }
 
     public void executeConnection() {
-        waitForElementToBeVisible(executeConnectionButton,driver);
-        waitForElementToBeClickable(executeConnectionButton,driver);
-        executeConnectionButton.click();
+          clickOnButton(executeConnectionButton,driver);
     }
 
     public void searchForAboveSewerageConnection(String number,String action) {
-        waitForElementToBeVisible(applicationNumberTextBox,driver);
-        applicationNumberTextBox.sendKeys(number);
-
-        waitForElementToBeClickable(searchButton,driver);
-        searchButton.click();
-
+        enterDate(applicationNumberTextBox,number,driver);
+        clickOnButton(searchButton,driver);
         waitForElementToBeVisible(searchResultsTable,driver);
         WebElement dropDownAction = searchResultsTable.findElement(By.tagName("tbody")).findElement(By.tagName("tr")).findElements(By.tagName("td")).get(1).findElement(By.tagName("a"));
         String hscNumber = dropDownAction.getText();
@@ -309,96 +254,57 @@ public class NewSewerageConnectionPage extends BasePage {
     }
 
     public void increseTheNumberOfClosets() {
-        String url = driver.getCurrentUrl();
-        System.out.println(url);
-        waitForElementToBeVisible(noOfClosetsTextBox,driver);
-        waitForElementToBeClickable(noOfClosetsTextBox,driver);
-        noOfClosetsTextBox.clear();
-        noOfClosetsTextBox.sendKeys("5");
-
-        waitForElementToBeClickable(documentNumberTextBox,driver);
-        documentNumberTextBox.sendKeys("123");
-
-        waitForElementToBeClickable(documentDateTextBox,driver);
-        documentDateTextBox.sendKeys(getCurrentDate());
-
-        waitForElementToBeClickable(chooseFileButton,driver);
-        chooseFileButton.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
+        enterText(noOfClosetsTextBox,"5",driver);
+        enterText(documentNumberTextBox,"123",driver);
+        enterDate(documentDateTextBox,getCurrentDate(),driver);;
+        uploadFile(chooseFileButton,System.getProperty("user.dir") + "/src/test/resources/logo.jpg",driver);
     }
 
     public void remarks() {
-        waitForElementToBeVisible(closeConnectionRemarksTextBox,driver);
-        closeConnectionRemarksTextBox.sendKeys("Testing...");
+          enterText(closeConnectionRemarksTextBox,"Testing...",driver);
     }
 
     public String getApplicatioNumberForClosure() {
         waitForElementToBeVisible(getApplicationNumberTextForClosure,driver);
-
         String num1 = getApplicationNumberTextForClosure.getText().split("\\ ")[4].substring(1,14);
         System.out.println("\n "+num1);
-
         return num1;
     }
 
     public String getSuccessMessageForClosure() {
-        waitForElementToBeVisible(getSuccessMessageForSewerageConnectionClosure,driver);
-        return getSuccessMessageForSewerageConnectionClosure.getText();
+        return getTextFromWeb(getSuccessMessageForSewerageConnectionClosure,driver);
     }
 
     public void generateClosureNotice() {
-        waitForElementToBeVisible(generateClosureNoticeButton,driver);
-        generateClosureNoticeButton.click();
-
+        clickOnButton(generateClosureNoticeButton,driver);
         driver.manage().timeouts().implicitlyWait(2,TimeUnit.SECONDS);
         driver.close();
         switchToPreviouslyOpenedWindow(driver);
     }
 
     public void enterDetailsForLegacySewerageConnection(String assessmentNumber) {
-        waitForElementToBeVisible(PTAssessmentNumberTextBox,driver);
-        PTAssessmentNumberTextBox.sendKeys(assessmentNumber);
-
-        waitForElementToBeClickable(hscNumberTextBox,driver);
-        hscNumberTextBox.sendKeys("1016"+get6DigitRandomInt());
-
-        waitForElementToBeClickable(executionDateTextBox,driver);
-        executionDateTextBox.sendKeys(getPreviousDate());
-
-        waitForElementToBeVisible(demandTextBox,driver);
-        demandTextBox.sendKeys("1000");
-
-        waitForElementToBeClickable(collectionTextBox,driver);
-        collectionTextBox.sendKeys("0");
-
-        waitForElementToBeClickable(propertyTypeDropBox,driver);
-        new Select(propertyTypeDropBox).selectByVisibleText("RESIDENTIAL");
-
-        waitForElementToBeVisible(noOfClosetsTextBox,driver);
-        noOfClosetsTextBox.sendKeys("3");
+        enterText(PTAssessmentNumberTextBox,assessmentNumber,driver);
+        enterText(hscNumberTextBox,"1016"+get6DigitRandomInt(),driver);
+        enterText(executionDateTextBox,getPreviousDate(),driver);
+        enterText(demandTextBox,"1000",driver);
+        enterText(collectionTextBox,"0",driver);
+        selectFromDropDown(propertyTypeDropBox,"RESIDENTIAL",driver);
+        enterText(noOfClosetsTextBox,"3",driver);
     }
 
     public void submit() {
-        waitForElementToBeClickable(submitButton,driver);
-        submitButton.click();
+        clickOnButton(submitButton,driver);
     }
 
     public void searchAndGenerateDemandBill(String number) {
-        waitForElementToBeVisible(applicationNumberTextBox,driver);
-        applicationNumberTextBox.sendKeys(number);
-
-        waitForElementToBeClickable(searchButton,driver);
-        searchButton.click();
-
+        enterText(applicationNumberTextBox,number,driver);
+        clickOnButton(searchButton,driver);
         waitForElementToBeVisible(searchResultsTable,driver);
         WebElement dropDownAction = searchResultsTable.findElement(By.tagName("tbody")).findElement(By.tagName("tr")).findElements(By.tagName("td")).get(1).findElement(By.tagName("a"));
         String hscNumber = dropDownAction.getText();
-
         driver.navigate().to(getEnvironmentURL()+"/stms/reports/generate-sewerage-demand-bill/" + number + "/" + hscNumber);
-
         driver.manage().timeouts().implicitlyWait(15,TimeUnit.SECONDS);
-
         driver.close();
-
         switchToPreviouslyOpenedWindow(driver);
     }
 }

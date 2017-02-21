@@ -38,7 +38,8 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
         });
         And("^he collect the charges and closes the acknowledgement$", () -> {
            pageStore.get(NewSewerageConnectionPage.class).collectCharges();
-           pageStore.get(NewSewerageConnectionPage.class).closeMultipleWindows("/mrs/registration/collectmrfee/");
+
+           pageStore.get(NewSewerageConnectionPage.class).closeMultipleWindows("/stms/collectfee/search");
         });
         And("^he approve the above sewerage application$", () -> {
            pageStore.get(NewSewerageConnectionPage.class).approveTheApplication();

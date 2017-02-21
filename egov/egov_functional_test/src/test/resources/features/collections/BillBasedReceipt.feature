@@ -24,17 +24,17 @@ I am able to Create/Collect Bill Based Receipt
     And user closes the acknowledgement
 
     And he open application from drafts items
-#    And he submit all collections
-#    Then user will be notified by "Successfully"
-#    And user closes the acknowledgement
-#    And current user logs out
-#
-#    When adm_manager logs in
-#    And he chooses to act upon on receipt
-#    And he approves all collections
-#    Then user will be notified by "Approved"
-#    And user closes the acknowledgement
-#    And current user logs out
+    And he submit all collections
+    Then user will be notified by "Successfully"
+    And user closes the acknowledgement
+    And current user logs out
+
+    When adm_manager logs in
+    And he chooses to act upon on receipt
+    And he approves all collections
+    Then user will be notified by "Approved"
+    And user closes the acknowledgement
+    And current user logs out
 
     Examples:
       |paymentMode|

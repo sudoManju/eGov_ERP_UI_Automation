@@ -223,9 +223,8 @@ public class AdvertisementsPage extends BasePage {
 
     public void enterAgencyDetailsForCreationAdvertisement(String agencyName) {
         enterText(agencyTextBox,agencyName,driver);
-        waitForElementToBeVisible(driver.findElement(By.className("tt-dropdown-menu")), driver);
         WebElement dropdown = driver.findElement(By.className("tt-dropdown-menu"));
-        dropdown.click();
+        clickOnButton(dropdown,driver);
     }
 
     public void enterLocalityDetails() {
@@ -286,8 +285,8 @@ public class AdvertisementsPage extends BasePage {
         clickOnButton(submitButton,driver);
 
        WebElement dropDownBox = driver.findElement(By.id("adtaxdropdown"));
-        selectFromDropDown(dropDownBox,"View",driver);
-        switchToNewlyOpenedWindow(driver);
+       selectFromDropDown(dropDownBox,"View",driver);
+       switchToNewlyOpenedWindow(driver);
     }
 
     public void closeMultipleWindows(String url) {
@@ -349,12 +348,9 @@ public class AdvertisementsPage extends BasePage {
 
     public void searchByAgency(String name) {
        enterText(agencyTextBox,name,driver);
-
-        waitForElementToBeVisible( driver.findElement(By.className("tt-dropdown-menu")),driver);
-        WebElement dropdown = driver.findElement(By.className("tt-dropdown-menu"));
-        dropdown.click();
-
-        clickOnButton(searchAdvertisementButton,driver);
+       WebElement dropdown = driver.findElement(By.className("tt-dropdown-menu"));
+       clickOnButton(dropdown,driver);
+       clickOnButton(searchAdvertisementButton,driver);
     }
 
      public void collectAdvertisementTaxByAgency() {
