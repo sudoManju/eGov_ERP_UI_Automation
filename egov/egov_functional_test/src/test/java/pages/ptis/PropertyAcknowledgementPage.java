@@ -41,8 +41,9 @@ public class PropertyAcknowledgementPage extends BasePage {
     public void close() {
 
         try {
-            waitForElementToBeClickable(closeButton,driver);
-            closeButton.click();
+//            waitForElementToBeClickable(closeButton,driver);
+//            closeButton.click();
+            clickOnButton(closeButton, driver);
         }
         catch (StaleElementReferenceException e){
             WebElement element = driver.findElement(By.cssSelector("input[value='Close'][type='button']"));
@@ -56,40 +57,47 @@ public class PropertyAcknowledgementPage extends BasePage {
 
     }
     public void close1() {
-        waitForElementToBeClickable(propertyCloseButton,driver);
-        propertyCloseButton.click();
+//        waitForElementToBeClickable(propertyCloseButton,driver);
+//        propertyCloseButton.click();
+        clickOnButton(propertyCloseButton, driver);
         await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
         for (String winHandle : driver.getWindowHandles()) {
             driver.switchTo().window(winHandle);
         }
     }
     public String getSignatureNotification() {
+
         return driver.findElement(By.cssSelector("div.panel-title")).getText();
     }
 
     public void closeFromCommisionersLogin() {
-        closeLink.click();
+//        closeLink.click();
+        clickOnButton(closeLink, driver);
         await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
         for (String winHandle : driver.getWindowHandles()) {
             driver.switchTo().window(winHandle);
         }
     }
     public void cancelPrint() {
+
         driver.findElement(By.className("cancel")).click();
     }
 
     public void toViewSubmissionPage(){
-        waitForElementToBeClickable(assessmentViewButton , driver);
-        assessmentViewButton.click();
+//        waitForElementToBeClickable(assessmentViewButton , driver);
+//        assessmentViewButton.click();
+        clickOnButton(assessmentViewButton, driver);
     }
     public void toCloseDataEntryPage(){
-        waitForElementToBeClickable(assessmentCloseButton , driver);
-        assessmentCloseButton.click();
+//        waitForElementToBeClickable(assessmentCloseButton , driver);
+//        assessmentCloseButton.click();
+        clickOnButton(assessmentCloseButton, driver);
     }
     public void toCloseAdditionalConnectionPage(){
-        waitForElementToBeVisible(closeLink , driver);
-        waitForElementToBeClickable(closeLink , driver);
-        closeLink.click();
+//        waitForElementToBeVisible(closeLink , driver);
+//        waitForElementToBeClickable(closeLink , driver);
+//        closeLink.click();
+        clickOnButton(closeLink, driver);
         switchToPreviouslyOpenedWindow(driver);
     }
 
@@ -102,7 +110,7 @@ public class PropertyAcknowledgementPage extends BasePage {
     public String getAssessmentNumberNew(String type){
 
         WebElement element;
-        if(type.equals("title")){
+        if(type.equals("title")) {
             element = driver.findElement(By.xpath(".//*[@id='save']/div[1]/table/tbody/tr[1]/td[2]"));
         }
         else {

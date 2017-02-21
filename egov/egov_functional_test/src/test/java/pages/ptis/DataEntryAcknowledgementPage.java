@@ -10,6 +10,7 @@ import pages.BasePage;
 import java.util.List;
 
 import static com.jayway.awaitility.Awaitility.await;
+import static java.lang.Enum.valueOf;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class DataEntryAcknowledgementPage extends BasePage {
@@ -24,9 +25,6 @@ public class DataEntryAcknowledgementPage extends BasePage {
 
     @FindBy(xpath = ".//*[@id='createProperty-createDataEntry']/div/table/tbody/tr[1]/td")
     private WebElement dataEntryAcknowledgement;
-
-    @FindBy(name="button2")
-    private WebElement dataentryCloseButton;
 
     @FindBy(id = "editDCB")
     private WebElement editDCBButton;
@@ -65,33 +63,22 @@ public class DataEntryAcknowledgementPage extends BasePage {
         return genericAssessmentNumber;
     }
     public void close() {
-        closeButton.click();
-        await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
-        for (String winHandle : driver.getWindowHandles()) {
-            driver.switchTo().window(winHandle);
-        }
-    }
-    public void dataentryCloseButton() {
-        dataentryCloseButton.click();
+        clickOnButton(closeButton, driver);
         await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
         for (String winHandle : driver.getWindowHandles()) {
             driver.switchTo().window(winHandle);
         }
     }
     public void geteditDCB() {
-        waitForElementToBeVisible(editDCBButton,driver);
-        waitForElementToBeClickable(editDCBButton,driver);
-        editDCBButton.click();
+        clickOnButton(editDCBButton, driver);
     }
     public void enterAddDemandDetails() {
-        waitForElementToBeClickable(installmentDropBox, driver);
-        installmentDropBox.isDisplayed();
-        new Select(installmentDropBox).selectByVisibleText("2016-2017-2");
-        generalTaxTextBox.sendKeys("300");
-        libraryCessTextBox.sendKeys("200");
-        educationCessTextBox.sendKeys("100");
-        unauthorizedPenaltyTextBox.sendKeys("100");
-        remarksTextArea.sendKeys("Added 2016-17-2 Demand");
-        updateButton.click();
+        selectFromDropDown(installmentDropBox, "2016-2017-2" ,driver);
+        enterText(generalTaxTextBox, "300", driver);
+        enterText(libraryCessTextBox, "200", driver);
+        enterText(educationCessTextBox, "100", driver);
+        enterText(unauthorizedPenaltyTextBox, "100", driver);
+        enterText(remarksTextArea, "Added 2016-17-2 Demand", driver);
+        clickOnButton(updateButton, driver);
     }
 }
