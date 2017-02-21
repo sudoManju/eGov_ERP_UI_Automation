@@ -2,7 +2,6 @@ package pages.ptis;
 
 import entities.ptis.*;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
@@ -10,7 +9,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import static com.jayway.awaitility.Awaitility.await;
-import static java.lang.Enum.valueOf;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class PropertyDetailsPage extends BasePage {
@@ -88,12 +86,6 @@ public class PropertyDetailsPage extends BasePage {
 
     @FindBy(id = "docDate")
     private WebElement DeedDateDateBox;
-
-//    @FindBy(id = "regdDocNo")
-//    private WebElement registrationDocNumber;
-
-//    @FindBy(id = "basicProperty.regdDocDate")
-//    private WebElement registrationDocDate;
 
     @FindBy(id = "propertyDetail.lift")
     private WebElement liftCheckbox;
@@ -313,40 +305,39 @@ public class PropertyDetailsPage extends BasePage {
     }
 
     public void enterPropertyHeader(PropertyHeaderDetails propertyHeaderDetails) {
-        new Select(categoryOfOwnershipSelection).selectByVisibleText(propertyHeaderDetails.getCategoryOfOwnership());
+         selectFromDropDown(categoryOfOwnershipSelection, propertyHeaderDetails.getCategoryOfOwnership(),webDriver);
         try {
             TimeUnit.SECONDS.sleep(2);
-        } catch (InterruptedException e) {
+            } catch (InterruptedException e) {
             e.printStackTrace();
-        }
-        new Select(propertyTypeSelection).selectByVisibleText(propertyHeaderDetails.getPropertyType());
+            }
+        selectFromDropDown(propertyTypeSelection, propertyHeaderDetails.getPropertyType(), webDriver);
     }
     public void enterOwnerDetails(OwnerDetails ownerDetails) {
-        waitForElementToBeClickable(newMobileNumberTextBox, webDriver);
-        enterText(newMobileNumberTextBox, ownerDetails.getMobileNumber());
+        enterText(newMobileNumberTextBox, ownerDetails.getMobileNumber(), webDriver);
         mobileNumberTextBox.sendKeys("94488"+(min+min1));
-        enterText(ownerNameTextBox, ownerDetails.getOwnerName());
-        new Select(genderSelection).selectByVisibleText(ownerDetails.getGender().toUpperCase());
+        enterText(ownerNameTextBox, ownerDetails.getOwnerName(), webDriver);
+        selectFromDropDown(genderSelection, ownerDetails.getGender().toUpperCase(), webDriver);
         JavascriptExecutor executor = (JavascriptExecutor)webDriver;
         executor.executeScript(String.format("document.getElementById('emailId').setAttribute('value', '%s')", ownerDetails.getEmailAddress()));
-        new Select(guardianRelationSelection).selectByVisibleText(ownerDetails.getGuardianRelation());
-        enterText(guardianTextBox, ownerDetails.getGuardianName());
+        selectFromDropDown(guardianRelationSelection, ownerDetails.getGuardianRelation(), webDriver);
+        enterText(guardianTextBox, ownerDetails.getGuardianName(), webDriver);
     }
+
     public void enterPropertyAddressDetails(PropertyAddressDetails addressDetails) {
-        waitForElementToBeClickable(localitySelection, webDriver);
-        new Select(localitySelection).selectByVisibleText(addressDetails.getLocality());
-        new Select(zoneNumberSelection).selectByVisibleText(addressDetails.getZoneNumber());
-        new Select(electionWardSeletion).selectByVisibleText(addressDetails.getElectionWard());
-        doorNumberTextBox.sendKeys(addressDetails.getDoorNumber());
-        pincodeTextBox.sendKeys(addressDetails.getPincode());
+        selectFromDropDown(localitySelection,addressDetails.getLocality(), webDriver);
+        selectFromDropDown(zoneNumberSelection, addressDetails.getZoneNumber(), webDriver);
+        selectFromDropDown(electionWardSeletion, addressDetails.getElectionWard(), webDriver);
+        enterText(doorNumberTextBox, addressDetails.getDoorNumber(), webDriver);
+        enterText(pincodeTextBox, addressDetails.getPincode(), webDriver);
     }
+
     public void enterAssessmentDetails(AssessmentDetails assessmentDetails) {
-        new Select(reasonForCreationSelection).selectByVisibleText(assessmentDetails.getReasonForCreation());
-        extentOfSiteTextBox.sendKeys(assessmentDetails.getExtentOfSite());
-        occupancyCertificateNumberTextBox.sendKeys(assessmentDetails.getOccupancyCertificateNumber());
-//        registrationDocNumber.sendKeys(assessmentDetails.getRegistrationDocNumber());
-//        registrationDocDate.sendKeys(assessmentDetails.getRegistrationDocDate());
+        selectFromDropDown(reasonForCreationSelection, assessmentDetails.getReasonForCreation(), webDriver);
+        enterText(extentOfSiteTextBox, assessmentDetails.getExtentOfSite(), webDriver);
+        enterText(occupancyCertificateNumberTextBox, assessmentDetails.getOccupancyCertificateNumber(), webDriver);
     }
+
     public void selectAmenities(Amenities amenities) {
         selectAmenityIfRequired(liftCheckbox, amenities.getLift());
         selectAmenityIfRequired(toiletsCheckbox, amenities.getToilets());
@@ -356,80 +347,72 @@ public class PropertyDetailsPage extends BasePage {
         selectAmenityIfRequired(waterHarvestingCheckbox, amenities.getWaterHarvesting());
         selectAmenityIfRequired(cableConnectionCheckbox, amenities.getCableConnection());
     }
+
     private void selectAmenityIfRequired(WebElement element, Boolean hasAmenity) {
         if (hasAmenity && !element.isSelected())
             element.click();
     }
+
     public void enterConstructionTypeDetails(ConstructionTypeDetails constructionTypeDetails) {
-        new Select(floorTypeSelection).selectByVisibleText(constructionTypeDetails.getFloorType());
-        new Select(roofTypeSelection).selectByVisibleText(constructionTypeDetails.getRoofType());
-        new Select(woodTypeSelection).selectByVisibleText(constructionTypeDetails.getWoodType());
-        new Select(wallTypeSelection).selectByVisibleText(constructionTypeDetails.getWallType());
+        selectFromDropDown(floorTypeSelection, constructionTypeDetails.getFloorType(),webDriver);
+        selectFromDropDown(roofTypeSelection, constructionTypeDetails.getRoofType(), webDriver);
+        selectFromDropDown(woodTypeSelection, constructionTypeDetails.getWoodType(), webDriver);
+        selectFromDropDown(wallTypeSelection, constructionTypeDetails.getWallType(), webDriver);
     }
+
     public void enterFloorDetails(FloorDetails floorDetails) {
-        new Select(floorNumberSelection).selectByVisibleText(floorDetails.getFloorNumber());
-        new Select(classificationOfBuildingSelection).selectByVisibleText(floorDetails.getClassificationOfBuilding());
-        new Select(natureOfUsageSelection).selectByVisibleText(floorDetails.getNatureOfUsage());
-        firmNameTextBox.sendKeys(floorDetails.getFirmName());
-        new Select(occupancySelection).selectByVisibleText(floorDetails.getOccupancy());
-        occupantNameTextBox.sendKeys(floorDetails.getOccupantName());
-        constructionDateTextBox.sendKeys(floorDetails.getConstructionDate());
+        selectFromDropDown(floorNumberSelection, floorDetails.getFloorNumber(), webDriver);
+        selectFromDropDown(classificationOfBuildingSelection, floorDetails.getClassificationOfBuilding(), webDriver);
+        selectFromDropDown(natureOfUsageSelection, floorDetails.getNatureOfUsage(), webDriver);
+//      enterText(firmNameTextBox, floorDetails.getFirmName(), webDriver);
+        selectFromDropDown(occupancySelection, floorDetails.getOccupancy(), webDriver);
+        enterText(occupantNameTextBox, floorDetails.getOccupantName(), webDriver);
+        enterDate(constructionDateTextBox, floorDetails.getConstructionDate(), webDriver);
         constructionDateTextBox.sendKeys(Keys.TAB);
-        effectiveFromDateTextBox.sendKeys(floorDetails.getEffectiveFromDate());
+        enterDate(effectiveFromDateTextBox, floorDetails.getEffectiveFromDate(), webDriver);
         effectiveFromDateTextBox.sendKeys(Keys.TAB);
-        new Select(unstructuredLandSelection).selectByVisibleText(floorDetails.getUnstructuredLand());
-        lengthTextBox.sendKeys(floorDetails.getLength());
-        breadthTextBox.sendKeys(floorDetails.getBreadth());
-        buildingPermissionNumberTextBox.sendKeys(floorDetails.getBuildingPermissionNumber());
-        buildingPermissionDateTextBox.sendKeys(floorDetails.getBuildingPermissionDate());
-        plinthAreaInBuildingPlanTextBox.sendKeys(floorDetails.getPlinthAreaInBuildingPlan());
-
-
+        selectFromDropDown(unstructuredLandSelection, floorDetails.getUnstructuredLand(), webDriver);
+        enterText(lengthTextBox, floorDetails.getLength(), webDriver);
+        enterText(breadthTextBox, floorDetails.getBreadth(),webDriver);
+        enterText(buildingPermissionNumberTextBox, floorDetails.getBuildingPermissionNumber(), webDriver);
+        enterDate(buildingPermissionDateTextBox, floorDetails.getBuildingPermissionDate(), webDriver);
+        enterText(plinthAreaInBuildingPlanTextBox, floorDetails.getPlinthAreaInBuildingPlan(), webDriver);
     }
 
     public void selectDocumentType(DocumentTypeValue documentValue) {
-        new Select(documentTypeDropBox).selectByVisibleText(documentValue.getDocumentType());
-        enterText(deedNoTextBox, documentValue.getDeedNo());
-        enterText(DeedDateDateBox, documentValue.getDeedDate());
+        selectFromDropDown(documentTypeDropBox, documentValue.getDocumentType(), webDriver);
+        enterText(deedNoTextBox, documentValue.getDeedNo(), webDriver);
+        enterDate(DeedDateDateBox, documentValue.getDeedDate(), webDriver);
     }
 
     public void enterApprovalDetails(ApprovalDetails approvalDetails) {
-        new Select(approverDepartmentSelection).selectByVisibleText(approvalDetails.getApproverDepartment());
+        selectFromDropDown(approverDepartmentSelection, approvalDetails.getApproverDepartment(), webDriver);
         await().atMost(10, SECONDS).until(() -> new Select(approverDesignationSelection).getOptions().size() > 1);
-        new Select(approverDesignationSelection).selectByVisibleText(approvalDetails.getApproverDesignation());
+        selectFromDropDown(approverDesignationSelection, approvalDetails.getApproverDesignation(), webDriver);
         await().atMost(10, SECONDS).until(() -> new Select(approverSelection).getOptions().size() > 1);
-        new Select(approverSelection).selectByVisibleText(approvalDetails.getApprover());
+        selectFromDropDown(approverSelection, approvalDetails.getApprover(), webDriver);
     }
-    public void forward() {
-        forwardButton.click();
-    }
-    public void approve() {
 
-        approveButton.click();
-
-    }
+    public void forward() {clickOnButton(forwardButton, webDriver); }
+    public void approve() {clickOnButton(approveButton, webDriver); }
 
     public String approveForCreation() {
-        approveButton.click();
+        clickOnButton(approveButton, webDriver);
         waitForElementToBeVisible(commAssessmentNo1, webDriver);
         return commAssessmentNo1.getText();
     }
 
-    public void digitallySign() {
-        signButton.click();
-    }
+    public void digitallySign() {clickOnButton(signButton, webDriver);}
 
     public void generateNotice() {
-        generateNotice.click();
+        clickOnButton(generateNotice, webDriver);
         switchToNewlyOpenedWindow(webDriver);
         webDriver.close();
         switchToPreviouslyOpenedWindow(webDriver);
     }
 
     public void checkNoOfRecords() {
-
         Boolean isPresent = webDriver.findElements(By.id("currentRowObject")).size() > 0;
-
         if(isPresent){
             WebElement tableId = webDriver.findElement(By.id("currentRowObject"));
             waitForElementToBeVisible(tableId,webDriver);
@@ -439,51 +422,42 @@ public class PropertyDetailsPage extends BasePage {
         else {
             System.out.println(" no records\n");
         }
-
     }
 
-    public void chooseToSubmit(){
-        waitForElementToBeClickable(submitButton, webDriver);
-        submitButton.click();
+    public void chooseToSubmit(){ clickOnButton(submitButton, webDriver); }
+
+    public void enterAssessmentNumber(String assessmentNumber)
+    {
+        enterText(assessmentNumberTextBox, assessmentNumber, webDriver);
     }
 
-    public void enterAssessmentNumber(String assessmentNumber) {
-        assessmentNumberTextBox.sendKeys(assessmentNumber);
-    }
-    public void create() {
-        createButton.click();
-    }
+    public void create() { clickOnButton(createButton, webDriver); }
+
     public void searchAssessmentNumber(String assessmentNum) {
-        searchAssessmentTextBox.sendKeys(assessmentNum);
+        enterText(searchAssessmentTextBox, assessmentNum, webDriver);
     }
-    public void search() {
-        searchButton.click();
-    }
+    public void search() { clickOnButton(searchButton, webDriver); }
+
     public void enterEditAssessmentDetails(EditAssessmentDetails assessmentDetails) {
-        extentOfSiteTextBox.clear();
-        extentOfSiteTextBox.sendKeys(assessmentDetails.getExtentOfSite());
-        editOccupancyTextBox.sendKeys(assessmentDetails.getOccupancyCertificateNumber());
+        enterText(extentOfSiteTextBox, assessmentDetails.getExtentOfSite(), webDriver);
+        enterText(editOccupancyTextBox, assessmentDetails.getOccupancyCertificateNumber(), webDriver);
     }
     public void enterEditFloorDetails(EditFloorDetails floorDetails) {
-        new Select(floorNumberSelection).selectByVisibleText(floorDetails.getEditfloorNumber());
-        new Select(classificationOfBuildingSelection).selectByVisibleText(floorDetails.getEditclassificationOfBuilding());
-        new Select(natureOfUsageSelection).selectByVisibleText(floorDetails.getEditnatureOfUsage());
-        new Select(occupancySelection).selectByVisibleText(floorDetails.getEditoccupancy());
-        editoccupantNameTextBox.sendKeys(floorDetails.getEditoccupantName());
-        editconstructionDateTextBox.sendKeys(floorDetails.getEditconstructionDate());
-        editconstructionDateTextBox.sendKeys(Keys.TAB);
-        editeffectiveFromDateTextBox.sendKeys(floorDetails.getEditeffectiveFromDate());
-        editeffectiveFromDateTextBox.sendKeys(Keys.TAB);
-        new Select(unstructuredLandSelection).selectByVisibleText(floorDetails.getEditunstructuredLand());
-        lengthTextBox.clear();
-        lengthTextBox.sendKeys(floorDetails.getEditlength());
-        breadthTextBox.clear();
-        breadthTextBox.sendKeys(floorDetails.getEditbreadth());
-        buildingPermissionNumberTextBox.sendKeys(floorDetails.getEditbuildingPermissionNumber());
-        buildingPermissionDateTextBox.sendKeys(floorDetails.getEditbuildingPermissionDate());
-        buildingPermissionDateTextBox.sendKeys(Keys.TAB);
-        plinthAreaInBuildingPlanTextBox.sendKeys(floorDetails.getEditplinthAreaInBuildingPlan());
+        selectFromDropDown(floorNumberSelection, floorDetails.getEditfloorNumber(), webDriver);
+        selectFromDropDown(classificationOfBuildingSelection, floorDetails.getEditclassificationOfBuilding(), webDriver);
+        selectFromDropDown(natureOfUsageSelection, floorDetails.getEditnatureOfUsage(), webDriver);
+        selectFromDropDown(occupancySelection, floorDetails.getEditoccupancy(), webDriver);
+        enterText(editoccupantNameTextBox, floorDetails.getEditoccupantName(), webDriver);
+        enterDate(editconstructionDateTextBox, floorDetails.getEditconstructionDate(), webDriver);
+        enterDate(editeffectiveFromDateTextBox, floorDetails.getEditeffectiveFromDate(), webDriver);
+        selectFromDropDown(unstructuredLandSelection, floorDetails.getEditunstructuredLand(),webDriver);
+        enterText(lengthTextBox, floorDetails.getEditlength(), webDriver);
+        enterText(breadthTextBox, floorDetails.getEditbreadth(), webDriver);
+        enterText(buildingPermissionNumberTextBox, floorDetails.getEditbuildingPermissionNumber(),webDriver);
+        enterDate(buildingPermissionDateTextBox, floorDetails.getEditbuildingPermissionDate(), webDriver);
+        enterText(plinthAreaInBuildingPlanTextBox, floorDetails.getEditplinthAreaInBuildingPlan(), webDriver);
     }
+
     public void payCash() {
         waitForElementToBeClickable(propertyAmountPaid, webDriver);
         waitForElementToBeClickable(propertyAmountToBePaid, webDriver);
@@ -495,56 +469,45 @@ public class PropertyDetailsPage extends BasePage {
     }
 
     public void searchProperty(SearchDetails searchDetails, String searchType) {
-
         System.out.println(searchType+" has ");
-
         switch (searchType){
 
             case "searchWithAssessmentNumber":
-                waitForElementToBeClickable(assessmentNumTextBox, webDriver);
-                enterText(assessmentNumTextBox, searchDetails.getSearchValue1());
-                searchButtonByAssmentNo.click();
+                enterText(assessmentNumTextBox, searchDetails.getSearchValue1(), webDriver);
+                clickOnButton(searchButtonByAssmentNo, webDriver);
                 break;
 
             case "searchWithMobileNumber":
-                waitForElementToBeClickable(mobileNoTextBox, webDriver);
-                enterText(mobileNoTextBox, searchDetails.getSearchValue1());
-                searchButtonByMobileNo.click();
+                enterText(mobileNoTextBox, searchDetails.getSearchValue1(), webDriver);
+                clickOnButton(searchButtonByMobileNo, webDriver);
                 break;
 
             case "searchWithDoorNumber":
-                waitForElementToBeClickable(doorNoTextBox, webDriver);
-                enterText(doorNoTextBox, searchDetails.getSearchValue1());
-                searchButtonByDoorNo.click();
+                enterText(doorNoTextBox, searchDetails.getSearchValue1(), webDriver);
+                clickOnButton(searchButtonByDoorNo, webDriver);
                 break;
 
             case "searchWithZoneAndWardNumber":
-                waitForElementToBeClickable(zoneId, webDriver);
-                new Select(zoneId).selectByVisibleText(searchDetails.getSearchValue1());
-                new Select(wardId).selectByVisibleText(searchDetails.getSearchValue2());
-                enterText(houseNumTextBoxForSearch, searchDetails.getSearchValue3());
-                enterText(ownerNameTextBoxForSearch, searchDetails.getSearchValue4());
-                searchButtonByZoneAndWard.click();
+                selectFromDropDown(zoneId, searchDetails.getSearchValue1(), webDriver);
+                selectFromDropDown(wardId, searchDetails.getSearchValue2(), webDriver);
+                enterText(houseNumTextBoxForSearch, searchDetails.getSearchValue3(), webDriver);
+                enterText(ownerNameTextBoxForSearch, searchDetails.getSearchValue4(), webDriver);
+                clickOnButton(searchButtonByZoneAndWard, webDriver);
                 break;
 
             case "searchWithOwnerName":
-                waitForElementToBeClickable(locationBoxForSearch,webDriver);
-                new Select(locationBoxForSearch).selectByVisibleText(searchDetails.getSearchValue3());
-                enterText(ownerNameBoxForSearch,searchDetails.getSearchValue4());
-                searchButtonForOwner.click();
+                selectFromDropDown(locationBoxForSearch, searchDetails.getSearchValue3(), webDriver);
+                enterText(ownerNameBoxForSearch,searchDetails.getSearchValue4(), webDriver);
+                clickOnButton(searchButtonForOwner, webDriver);
                 break;
 
             case "searchByDemand":
-                waitForElementToBeClickable(fromTextBox,webDriver);
-                enterText(fromTextBox,searchDetails.getSearchValue3());
-                enterText(toTextBox,searchDetails.getSearchValue4());
-                searchButtonForDemand.click();
+                enterText(fromTextBox,searchDetails.getSearchValue3(),webDriver);
+                enterText(toTextBox,searchDetails.getSearchValue4(), webDriver);
+                clickOnButton(searchButtonForDemand, webDriver);
                 break;
         }
     }
 
-    public void approveaddition() {
-        waitForElementToBeClickable(approveButton,webDriver);
-        approveButton.click();
-    }
+    public void approveaddition() { clickOnButton(approveButton, webDriver); }
 }

@@ -81,7 +81,8 @@ public class BasePage {
         webElement.clear();
         webElement.sendKeys(value);
     }
-    protected void enterText(WebElement webElement , String value) {
+
+    protected void enterText(WebElement webElement, String value) {
         webElement.clear();
         webElement.sendKeys(value);
     }
