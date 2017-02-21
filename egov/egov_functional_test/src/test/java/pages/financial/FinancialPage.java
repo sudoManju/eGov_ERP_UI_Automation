@@ -189,23 +189,13 @@ public class FinancialPage extends BasePage {
 
         maximizeBrowserWindow(webDriver);
 
-        waitForElementToBeClickable(approverDepartment ,webDriver);
-        new Select(approverDepartment).selectByVisibleText(approvalDetails.getApproverDepartment());
-
-        waitForElementToBeClickable(approverDesignation ,webDriver);
-        new Select(approverDesignation).selectByVisibleText(approvalDetails.getApproverDesignation());
-
-        waitForElementToBeClickable(approverPosition  ,webDriver);
-
-        try {
-            TimeUnit.SECONDS.sleep(2);
-        } catch (InterruptedException e) {
-                e.printStackTrace();
-        }
+        selectFromDropDown(approverDepartment ,approvalDetails.getApproverDepartment() ,webDriver);
+        selectFromDropDown(approverDesignation ,approvalDetails.getApproverDesignation() ,webDriver);
 
         Select approverPos = new Select(approverPosition);
+        await().atMost(10, SECONDS).until(() -> approverPos.getOptions().size() > 1);
         userName = approverPos.getOptions().get(1).getText().split("\\ ")[0];
-        approverPos.getOptions().get(1).click();
+        clickOnButton(approverPos.getOptions().get(1) ,webDriver);
 
         clickOnForwardButton();
 
@@ -214,13 +204,11 @@ public class FinancialPage extends BasePage {
     }
 
     private void clickOnCloseButton(){
-        waitForElementToBeClickable(closeButton ,webDriver);
-        closeButton.click();
+        clickOnButton(closeButton ,webDriver);
     }
 
     public void approvalPage(){
-        waitForElementToBeClickable(approveButton , webDriver);
-        approveButton.click();
+        clickOnButton(approveButton ,webDriver);
     }
 
     public String closePage(){
@@ -238,14 +226,9 @@ public class FinancialPage extends BasePage {
 
     public String verifyVoucher(){
 
-        waitForElementToBeClickable(billDetails ,webDriver);
-        billDetails.click();
-
-        waitForElementToBeClickable(voucherNumberToVerify , webDriver);
-        String voucherNumber = voucherNumberToVerify.getText();
-
-        waitForElementToBeClickable(paymentDetails ,webDriver);
-        paymentDetails.click();
+        clickOnButton(billDetails ,webDriver);
+        String voucherNumber = getTextFromWeb(voucherNumberToVerify , webDriver);
+        clickOnButton(paymentDetails ,webDriver);
 
         return voucherNumber;
     }
@@ -258,21 +241,15 @@ public class FinancialPage extends BasePage {
     }
 
     private void enterBankBranchDetails(FinancialBankDetails financialBankDetails){
-        waitForElementToBeClickable(bankBranch ,webDriver);
-        bankBranch.click();
-        new Select(bankBranch).selectByVisibleText(financialBankDetails.getBankName());
+        selectFromDropDown(bankBranch ,financialBankDetails.getBankName() ,webDriver);
     }
 
     private void enterBankBranchDetails1(FinancialBankDetails financialBankDetails){
-        waitForElementToBeClickable(bankBranch1 ,webDriver);
-        bankBranch1.click();
-        new Select(bankBranch1).selectByVisibleText(financialBankDetails.getBankName());
+        selectFromDropDown(bankBranch1 ,financialBankDetails.getBankName() ,webDriver);
     }
 
     private void enterBankAccountDetails(FinancialBankDetails financialBankDetails){
-        waitForElementToBeClickable(bankAccount , webDriver);
-        bankAccount.click();
-        new Select(bankAccount).selectByVisibleText(financialBankDetails.getAccountNumber());
+        selectFromDropDown(bankAccount ,financialBankDetails.getAccountNumber() ,webDriver);
     }
 
     public void billRemittancePayment(FinancialBankDetails financialBankDetails){
@@ -282,16 +259,12 @@ public class FinancialPage extends BasePage {
     }
 
     private void clickOnForwardButton(){
-        waitForElementToBeClickable(forwardButton ,webDriver);
-        forwardButton.click();
+        clickOnButton(forwardButton ,webDriver);
     }
 
     public String closesTheExpensePage(){
-        waitForElementToBeVisible(expenseCreatedMessage ,webDriver);
-        String message = expenseCreatedMessage.getText();
-
+        String message = getTextFromWeb(expenseCreatedMessage ,webDriver);
         clickOnCloseButton();
-
         switchToPreviouslyOpenedWindow(webDriver);
 
         return message;
@@ -311,12 +284,8 @@ public class FinancialPage extends BasePage {
     }
 
     public void enterAccountCodeToModify(String code){
-        waitForElementToBeClickable(glCode , webDriver);
-        enterText(glCode, code);
-
-        waitForElementToBeClickable(modifyAndSearch , webDriver);
-        modifyAndSearch.click();
-
+        enterText(glCode, code , webDriver);
+        clickOnButton(modifyAndSearch ,webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
@@ -329,77 +298,50 @@ public class FinancialPage extends BasePage {
         }
 
         clickOnSubmitButton();
-
         switchToNewlyOpenedWindow(webDriver);
 
-        waitForElementToBeClickable(closeButtonWithCSS , webDriver);
-        closeButtonWithCSS.click();
-
+        clickOnButton(closeButtonWithCSS ,webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
     }
 
     private void clickOnSubmitButton(){
-        waitForElementToBeClickable(submitButton , webDriver);
-        submitButton.click();
+        clickOnButton(submitButton ,webDriver);
     }
 
     public void searchRemittanceBill(){
-        waitForElementToBeClickable(recoveryId , webDriver);
-        new Select(recoveryId).selectByVisibleText("3502002-GPF –Employees on Deputation");
-
-        waitForElementToBeClickable(fundId ,webDriver);
-        new Select(fundId).selectByVisibleText("Municipal Fund");
-
-        waitForElementToBeClickable(remittanceBillSearch , webDriver);
-        remittanceBillSearch.click();
+        selectFromDropDown(recoveryId ,"3502002-GPF –Employees on Deputation" ,webDriver);
+        selectFromDropDown(fundId , "Municipal Fund" ,webDriver);
+        clickOnButton(remittanceBillSearch , webDriver);
     }
 
     private String getForwardMessage(){
-        waitForElementToBeVisible(forwardMessage , webDriver);
-        return forwardMessage.getText();
+        return getTextFromWeb(forwardMessage , webDriver);
     }
 
     public void chequeAssignmentBillSearch(String number){
-
         if(!number.contains("-CASH")) {
-            waitForElementToBeClickable(voucherNumberSearch, webDriver);
-            voucherNumberSearch.sendKeys(number);
+            enterText(voucherNumberSearch ,number ,webDriver);
         }
         else {
-            waitForElementToBeClickable(voucherNumberSearch, webDriver);
-            voucherNumberSearch.sendKeys(number.split("\\-")[0]);
+            enterText(voucherNumberSearch ,number.split("\\-")[0] ,webDriver);
         }
-
         enterBankDetailsWithFund();
         clickOnBillSearch();
-
         switchToNewlyOpenedWindow(webDriver);
     }
 
     private void enterBankDetailsWithFund(){
-
-        waitForElementToBeClickable(fundId ,webDriver);
-        new Select(fundId).selectByVisibleText("Municipal Fund");
-
-        webDriver.manage().window().maximize();
-        webDriver.manage().timeouts().implicitlyWait(10 , TimeUnit.SECONDS);
-
-        waitForElementToBeClickable(bankBranch2 ,webDriver);
-        bankBranch2.click();
-        new Select(bankBranch2).selectByVisibleText("ANDHRA BANK Andhra Bank RTC Busstand");
-
-        waitForElementToBeClickable(bankAccount ,webDriver);
-        bankAccount.click();
-        new Select(bankAccount).selectByVisibleText("4502110--110710100009664--ANDHRA BANK");
+        maximizeBrowserWindow(webDriver);
+        selectFromDropDown(fundId , "Municipal Fund" , webDriver);
+        selectFromDropDown(bankBranch2 , "ANDHRA BANK Andhra Bank RTC Busstand" , webDriver);
+        selectFromDropDown(bankAccount , "4502110--110710100009664--ANDHRA BANK" , webDriver);
     }
 
     private void clickOnBillSearch(){
-        waitForElementToBeClickable(billSearch, webDriver);
-        billSearch.click();
+        clickOnButton(billSearch , webDriver);
     }
 
     public void chequeAssignmentBillSearch(){
-
         enterBankDetailsWithFund();
         clickOnBillSearch();
         switchToNewlyOpenedWindow(webDriver);
@@ -411,59 +353,37 @@ public class FinancialPage extends BasePage {
 
             case "cheque" :
 
-                waitForElementToBeClickable(firstBill, webDriver);
-                firstBill.click();
-
-                waitForElementToBeClickable(checkAssignmentNumberBox, webDriver);
-                checkAssignmentNumberBox.sendKeys(get6DigitRandomInt());
-
+                clickOnButton(firstBill , webDriver);
+                enterText(checkAssignmentNumberBox ,get6DigitRandomInt() , webDriver);
                 break;
 
             case "RTGS" :
 
-                waitForElementToBeClickable(firstBill, webDriver);
-                firstBill.click();
-
-                waitForElementToBeClickable(rtgsDate , webDriver);
-                rtgsDate.sendKeys(getCurrentDate() , Keys.TAB);
-
+                clickOnButton(firstBill , webDriver);
+                enterDate(rtgsDate , getCurrentDate() , webDriver);
                 break;
 
             case "remittance" :
 
-                waitForElementToBeClickable(firstBill, webDriver);
-                firstBill.click();
-
-                waitForElementToBeVisible(remittanceAssignmentDepartment ,webDriver);
-                new Select(remittanceAssignmentDepartment).selectByVisibleText("ACCOUNTS");
-
-                waitForElementToBeClickable(remittanceChequeAssignmentNumber , webDriver);
-                remittanceChequeAssignmentNumber.sendKeys(get6DigitRandomInt());
-
-                waitForElementToBeClickable(remittanceChequeDate , webDriver);
-                remittanceChequeDate.sendKeys(getCurrentDate() , Keys.TAB);
-
-                waitForElementToBeClickable(remittanceFavour , webDriver);
-                remittanceFavour.sendKeys("Testing");
-
+                clickOnButton(firstBill ,webDriver);
+                selectFromDropDown(remittanceAssignmentDepartment , "ACCOUNTS" , webDriver);
+                enterText(remittanceChequeAssignmentNumber , get6DigitRandomInt() , webDriver);
+                enterText(remittanceChequeDate , getCurrentDate() ,webDriver);
+                enterText(remittanceFavour , "Testing", webDriver);
                 break;
         }
-
-        waitForElementToBeClickable(assignChequeButton, webDriver);
-        assignChequeButton.click();
+        clickOnButton(assignChequeButton ,webDriver);
     }
 
     public String closeAssignmentSuccessPage(){
         String message = getForwardMessage();
-
         clickOnSubmitButton();
         switchToPreviouslyOpenedWindow(webDriver);
         return message;
     }
 
     private void clickOnBankCloseButton(){
-        waitForElementToBeClickable(bankCloseButton, webDriver);
-        bankCloseButton.click();
+        clickOnButton(bankCloseButton ,webDriver);
     }
 
     public String closesSuccessfulTransferCreationPage(){
@@ -476,9 +396,8 @@ public class FinancialPage extends BasePage {
     }
 
     public void clickOnCreateAndApprove(){
-        waitForElementToBeClickable(createAndApproveButton , webDriver);
-        createAndApproveButton.click();
 
+        clickOnButton(createAndApproveButton ,webDriver);
         // This method is required on bank details page if there is any less balance
         // in bank it will open the alert and accepts it and it is not required for other screens
         isAlertOpened();
@@ -498,18 +417,14 @@ public class FinancialPage extends BasePage {
     }
 
     public String createAndApproveSuccessPage() {
-
         switchToNewlyOpenedWindow(webDriver);
-
         WebDriverWait webDriverWait = new WebDriverWait(webDriver,10);
 
         webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("div[class~='bootbox-alert'] div[class^='bootbox-body']")));
         WebElement voucherNumber = webDriver.findElement(By.cssSelector("div[class~='bootbox-alert'] div[class^='bootbox-body']"));
         String message = voucherNumber.getText();
 
-        waitForElementToBeClickable(okButton1 , webDriver);
-        okButton1.click();
-
+        clickOnButton(okButton1 , webDriver);
         clickOnCloseButton();
 
         switchToPreviouslyOpenedWindow(webDriver);
@@ -519,8 +434,7 @@ public class FinancialPage extends BasePage {
     public void selectMultipleRemittanceBill() {
 
         if(webDriver.findElement(By.id("listRemitBean[0].chkremit")).isDisplayed()) {
-            waitForElementToBeClickable(selectAllBillsFromRemittanceRecovery, webDriver);
-            selectAllBillsFromRemittanceRecovery.click();
+            clickOnButton(selectAllBillsFromRemittanceRecovery , webDriver);
         }
         else {
             throw new RuntimeException("No Remittance Recovery Bills found");
@@ -531,8 +445,7 @@ public class FinancialPage extends BasePage {
     }
 
     private void clickOnRemittancePaymentButton(){
-        waitForElementToBeClickable(remittancePayment ,webDriver);
-        remittancePayment.click();
+        clickOnButton(remittancePayment ,webDriver);
     }
 
     public void toFillMultipleChequeAssignmentDetails(String assignmentMode) {
@@ -542,8 +455,7 @@ public class FinancialPage extends BasePage {
             case "cheque" :
 
                 if(firstBill.isDisplayed()){
-                    waitForElementToBeClickable(selectAllBillsfromAssignmentPage  ,webDriver);
-                    selectAllBillsfromAssignmentPage.click();
+                    clickOnButton(selectAllBillsfromAssignmentPage , webDriver);
                 }
                 else {
                     throw new RuntimeException("No Bills are found");
@@ -556,50 +468,33 @@ public class FinancialPage extends BasePage {
                     waitForElementToBeClickable(element ,webDriver);
                     element.sendKeys(get6DigitRandomInt());
                 }
-
                 break;
 
             case "RTGS" :
 
                 if(firstBill.isDisplayed()){
-                    waitForElementToBeClickable(selectAllBillsfromAssignmentPage  ,webDriver);
-                    selectAllBillsfromAssignmentPage.click();
+                    clickOnButton(selectAllBillsfromAssignmentPage , webDriver);
                 }
                 else {
                     throw new RuntimeException("No Bills are found");
                 }
-
-                waitForElementToBeClickable(rtgsDate , webDriver);
-                rtgsDate.sendKeys(getCurrentDate() , Keys.TAB);
-
+                enterDate(rtgsDate , getCurrentDate() , webDriver);
                 break;
 
             case "remittance" :
 
                 if(firstBill.isDisplayed()){
-                    waitForElementToBeClickable(selectAllBillsfromAssignmentPage  ,webDriver);
-                    selectAllBillsfromAssignmentPage.click();
+                    clickOnButton(selectAllBillsfromAssignmentPage ,webDriver);
                 }
                 else {
                     throw new RuntimeException("No Bills are found");
                 }
-
-                waitForElementToBeVisible(remittanceAssignmentDepartment , webDriver);
-                new Select(remittanceAssignmentDepartment).selectByVisibleText("ACCOUNTS");
-
-                waitForElementToBeClickable(remittanceChequeAssignmentNumber , webDriver);
-                remittanceChequeAssignmentNumber.sendKeys(get6DigitRandomInt());
-
-                waitForElementToBeClickable(remittanceChequeDate , webDriver);
-                remittanceChequeDate.sendKeys(getCurrentDate() , Keys.TAB);
-
-                waitForElementToBeClickable(remittanceFavour , webDriver);
-                remittanceFavour.sendKeys("Testing");
-
+                selectFromDropDown(remittanceAssignmentDepartment , "ACCOUNTS" , webDriver);
+                enterText(remittanceChequeAssignmentNumber , get6DigitRandomInt() , webDriver);
+                enterDate(remittanceChequeDate , getCurrentDate() , webDriver);
+                enterText(remittanceFavour , "Testing" , webDriver);
                 break;
         }
-
-        waitForElementToBeClickable(assignChequeButton, webDriver);
-        assignChequeButton.click();
+        clickOnButton(assignChequeButton ,webDriver);
     }
 }

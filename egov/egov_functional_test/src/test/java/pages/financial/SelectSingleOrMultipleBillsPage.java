@@ -12,9 +12,6 @@ import java.util.List;
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-/**
- * Created by vinaykumar on 20/2/17.
- */
 public class SelectSingleOrMultipleBillsPage extends BasePage {
 
     private WebDriver webDriver;
@@ -80,52 +77,35 @@ public class SelectSingleOrMultipleBillsPage extends BasePage {
     }
 
     public void singleBillSearch(){
-        waitForElementToBeClickable(billFromDate ,webDriver);
-        billFromDate.sendKeys(getCurrentDate());
+        enterDate(billFromDate , getCurrentDate() ,webDriver);
+        enterDate(billToDate , getCurrentDate() ,webDriver);
 
-        waitForElementToBeClickable(billToDate , webDriver);
-        billToDate.sendKeys(getCurrentDate());
-
-        waitForElementToBeClickable(fundId , webDriver);
-        new Select(fundId).selectByVisibleText("Municipal Fund");
-
-        waitForElementToBeClickable(billSearch , webDriver);
-        billSearch.click();
+        selectFromDropDown(fundId , "Municipal Fund" , webDriver);
+        clickOnButton(billSearch ,webDriver);
 
         switchToNewlyOpenedWindow(webDriver);
 
-        waitForElementToBeClickable(expenseBillSearch , webDriver);
-        expenseBillSearch.click();
+        clickOnButton(expenseBillSearch , webDriver);
     }
 
     public void multipleBillSearch(String type , String paymentMode){
 
-        waitForElementToBeClickable(fundId , webDriver);
-        new Select(fundId).selectByVisibleText("Municipal Fund");
+        selectFromDropDown(fundId , "Municipal Fund" , webDriver);
+        selectFromDropDown(voucherDepartment , "ADMINISTRATION" , webDriver);
+        selectFromDropDown(voucherFunction , "General Administration" , webDriver);
 
-        waitForElementToBeClickable(voucherDepartment , webDriver);
-        new Select(voucherDepartment).selectByVisibleText("ADMINISTRATION");
-
-        waitForElementToBeClickable(voucherFunction , webDriver);
-        new Select(voucherFunction).selectByVisibleText("General Administration");
-
-        waitForElementToBeClickable(billSearch , webDriver);
-        billSearch.click();
-
+        clickOnButton(billSearch ,webDriver);
         switchToNewlyOpenedWindow(webDriver);
 
         switch (type){
 
             case "expense" :
-                waitForElementToBeClickable(expenseBillSearch , webDriver);
-                expenseBillSearch.click();
-
+                clickOnButton(expenseBillSearch ,webDriver);
                 selectAllBillsAtOneTime(selectAllBillsFromExpense);
                 break;
 
             case "supplier" :
-                waitForElementToBeClickable(supplierBillSearch , webDriver);
-                supplierBillSearch.click();
+                clickOnButton(supplierBillSearch ,webDriver);
                 selectAllBillsAtOneTime(selectAllBillsFromSupplier);
                 break;
 
@@ -135,16 +115,13 @@ public class SelectSingleOrMultipleBillsPage extends BasePage {
         }
 
         selectModeOfPayment(paymentMode);
-
-        waitForElementToBeClickable(generatePayment , webDriver);
-        generatePayment.click();
+        clickOnButton(generatePayment ,webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
     private void selectAllBillsAtOneTime (WebElement element){
         if(firstBill.isDisplayed()){
-            waitForElementToBeClickable(element, webDriver);
-            element.click();
+            clickOnButton(element , webDriver);
         }
         else {
             throw new RuntimeException("No voucher rows are found in the web page.......All are Successfully Paid -- ");
@@ -155,20 +132,14 @@ public class SelectSingleOrMultipleBillsPage extends BasePage {
         switch (mode){
 
             case "cheque" :
-
-                waitForElementToBeClickable(paymentModeCheque , webDriver);
                 jsClick(paymentModeCheque ,webDriver);
                 break;
 
             case "cash" :
-
-                waitForElementToBeClickable(paymentModeCash,webDriver);
                 jsClick(paymentModeCash,webDriver);
                 break;
 
             case "RTGS" :
-
-                waitForElementToBeClickable(paymentModeRTGS,webDriver);
                 jsClick(paymentModeRTGS,webDriver);
                 break;
         }
@@ -188,19 +159,16 @@ public class SelectSingleOrMultipleBillsPage extends BasePage {
         }
         selectModeOfPayment(paymentMode);
 
-        waitForElementToBeClickable(generatePayment , webDriver);
-        generatePayment.click();
-
+        clickOnButton(generatePayment ,webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
     public void selectSingleRemittanceBill(String remittanceBill){
         int rowNumber = Integer.parseInt(getRemittanceBill(remittanceBill).getText());
         WebElement element = webDriver.findElement(By.id("listRemitBean["+(rowNumber-1)+"].chkremit"));
-        element.click();
+        clickOnButton(element , webDriver);
 
-        waitForElementToBeClickable(remittancePayment ,webDriver);
-        remittancePayment.click();
+        clickOnButton(remittancePayment ,webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
@@ -216,5 +184,4 @@ public class SelectSingleOrMultipleBillsPage extends BasePage {
         }
         throw new RuntimeException("No application row found for -- " + applicationNumber);
     }
-
 }

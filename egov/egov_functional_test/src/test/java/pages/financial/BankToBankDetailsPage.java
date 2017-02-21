@@ -4,7 +4,6 @@ import entities.financial.FinancialBankToBankDetails;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
 public class BankToBankDetailsPage extends BasePage {
@@ -50,42 +49,27 @@ public class BankToBankDetailsPage extends BasePage {
 
     public void enterBankToBankDetails(FinancialBankToBankDetails financialBankToBankDetails){
 
-        waitForElementToBeVisible(fundId,webDriver);
-        new Select(fundId).selectByVisibleText(financialBankToBankDetails.getFundId());
+        selectFromDropDown(fundId ,financialBankToBankDetails.getFundId() ,webDriver );
 
-        waitForElementToBeVisible(voucherDepartment ,webDriver);
-        new Select(voucherDepartment).selectByVisibleText(financialBankToBankDetails.getVoucherDepartment());
+        selectFromDropDown(voucherDepartment ,financialBankToBankDetails.getVoucherDepartment(),webDriver);
 
-        waitForElementToBeVisible(voucherFunction ,webDriver);
-        new Select(voucherFunction).selectByVisibleText(financialBankToBankDetails.getVoucherFunction());
+        selectFromDropDown(voucherFunction ,financialBankToBankDetails.getVoucherFunction(),webDriver);
 
-        waitForElementToBeClickable(fromBankId ,webDriver);
-        fromBankId.click();
-        new Select(fromBankId).selectByVisibleText(financialBankToBankDetails.getFromBank());
+        selectFromDropDown(fromBankId ,financialBankToBankDetails.getFromBank(),webDriver);
 
-        waitForElementToBeClickable(fromAccountNumber ,webDriver);
-        fromAccountNumber.click();
-        new Select(fromAccountNumber).selectByVisibleText(financialBankToBankDetails.getFromAccountNumber());
+        selectFromDropDown(fromAccountNumber ,financialBankToBankDetails.getFromAccountNumber(),webDriver);
 
-        waitForElementToBeVisible(toFundId ,webDriver);
-        new Select(toFundId).selectByVisibleText(financialBankToBankDetails.getToFundId());
+        selectFromDropDown(toFundId ,financialBankToBankDetails.getToFundId(),webDriver);
 
-        waitForElementToBeClickable(toBankId ,webDriver);
-        toBankId.click();
-        new Select(toBankId).selectByVisibleText(financialBankToBankDetails.getToBank());
+        selectFromDropDown(toBankId ,financialBankToBankDetails.getToBank(),webDriver);
 
-        waitForElementToBeClickable(toAccountNumber ,webDriver);
-        toAccountNumber.click();
-        new Select(toAccountNumber).selectByVisibleText(financialBankToBankDetails.getToAccountNumber());
+        selectFromDropDown(toAccountNumber ,financialBankToBankDetails.getToAccountNumber(),webDriver);
 
-        waitForElementToBeClickable(referenceNumber , webDriver);
-        referenceNumber.sendKeys(get6DigitRandomInt());
+        enterText(referenceNumber , get6DigitRandomInt() ,webDriver);
 
-        waitForElementToBeClickable(amountTextBox , webDriver);
-        amountTextBox.sendKeys(financialBankToBankDetails.getAmount());
+        enterText(amountTextBox ,financialBankToBankDetails.getAmount() ,webDriver);
 
-        waitForElementToBeClickable(saveButton , webDriver);
-        saveButton.click();
+        clickOnButton(saveButton ,webDriver);
 
         switchToNewlyOpenedWindow(webDriver);
     }

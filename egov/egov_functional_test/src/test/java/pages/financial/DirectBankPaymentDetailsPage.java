@@ -1,11 +1,9 @@
 package pages.financial;
 
 import entities.financial.DirectBankPaymentDetails;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
 public class DirectBankPaymentDetailsPage extends BasePage {
@@ -81,92 +79,58 @@ public class DirectBankPaymentDetailsPage extends BasePage {
 
     public void enterDirectBankPaymentDetails(DirectBankPaymentDetails directBankPaymentDetails , String mode){
 
-        waitForElementToBeVisible(fundId ,webDriver);
-        new Select(fundId).selectByVisibleText(directBankPaymentDetails.getFundId());
+        selectFromDropDown(fundId , directBankPaymentDetails.getFundId() ,webDriver);
+        selectFromDropDown(voucherDepartment , directBankPaymentDetails.getVoucherDepartment() ,webDriver);
+        selectFromDropDown(voucherFunction , directBankPaymentDetails.getVoucherFunction() ,webDriver);
+        selectFromDropDown(bankPaymentId , directBankPaymentDetails.getBankBranch() ,webDriver);
 
-        waitForElementToBeVisible(voucherDepartment ,webDriver);
-        new Select(voucherDepartment).selectByVisibleText(directBankPaymentDetails.getVoucherDepartment());
+        enterText(amountTextBox ,directBankPaymentDetails.getAmount() , webDriver);
 
-        waitForElementToBeVisible(voucherFunction ,webDriver);
-        new Select(voucherFunction).selectByVisibleText(directBankPaymentDetails.getVoucherFunction());
-
-        waitForElementToBeClickable(bankPaymentId ,webDriver);
-        bankPaymentId.click();
-        new Select(bankPaymentId).selectByVisibleText(directBankPaymentDetails.getBankBranch());
-
-        waitForElementToBeClickable(amountTextBox , webDriver);
-        amountTextBox.sendKeys(directBankPaymentDetails.getAmount());
-
-        waitForElementToBeClickable(accountNumber ,webDriver);
-        accountNumber.click();
-        new Select(accountNumber).selectByVisibleText(directBankPaymentDetails.getAccountNumber());
+        selectFromDropDown(accountNumber , directBankPaymentDetails.getAccountNumber() ,webDriver);
 
         switch (mode){
             case "cheque" :
                 break;
 
             case "cash" :
-                waitForElementToBeClickable(bankPaymentCash , webDriver);
-                bankPaymentCash.click();
+                clickOnButton(bankPaymentCash ,webDriver);
                 break;
 
             case "RTGS" :
-                waitForElementToBeClickable(bankPaymentRTGS , webDriver);
-                bankPaymentRTGS.click();
+                clickOnButton(bankPaymentRTGS ,webDriver);
                 break;
         }
 
-        waitForElementToBeClickable(paidToCustomer ,webDriver);
-        paidToCustomer.sendKeys("Tester");
+        enterText(paidToCustomer , "Tester" , webDriver);
+        enterText(documentNumber ,get6DigitRandomInt() , webDriver);
+        enterDate(documentDate , getCurrentDate() , webDriver);
+        enterText(accountCode1 , directBankPaymentDetails.getAccountCode1() , webDriver);
 
-        waitForElementToBeClickable(documentNumber ,webDriver);
-        documentNumber.sendKeys(get6DigitRandomInt());
+        clickOnButton(accountCodeDropdown ,webDriver);
 
-        waitForElementToBeClickable(documentDate ,webDriver);
-        documentDate.sendKeys(getCurrentDate() , Keys.TAB);
+        enterText(debitAmount1 , directBankPaymentDetails.getDebitAmount1() , webDriver);
 
-        waitForElementToBeVisible(accountCode1 , webDriver);
-        waitForElementToBeClickable(accountCode1, webDriver);
-        accountCode1.sendKeys(directBankPaymentDetails.getAccountCode1());
+        selectFromDropDown(ledgerAccount1 , directBankPaymentDetails.getLedgerAccount1() , webDriver);
+        selectFromDropDown(ledgerType1 , directBankPaymentDetails.getLedgerType1() , webDriver);
 
-        waitForElementToBeVisible(accountCodeDropdown , webDriver);
-        waitForElementToBeClickable(accountCodeDropdown , webDriver);
-        accountCodeDropdown.click();
-        enterText(debitAmount1 , directBankPaymentDetails.getDebitAmount1());
+        enterText(ledgerCode1 ,directBankPaymentDetails.getLedgerCode1() ,webDriver );
 
-        waitForElementToBeClickable(ledgerAccount1 ,webDriver);
-        new Select(ledgerAccount1).selectByVisibleText(directBankPaymentDetails.getLedgerAccount1());
+        clickOnButton(accountCodeDropdown ,webDriver);
 
-        waitForElementToBeClickable(ledgerType1 ,webDriver);
-        new Select(ledgerType1).selectByVisibleText(directBankPaymentDetails.getLedgerType1());
-
-        waitForElementToBeClickable(ledgerCode1 ,webDriver);
-        ledgerCode1.sendKeys(directBankPaymentDetails.getLedgerCode1());
-
-        waitForElementToBeVisible(accountCodeDropdown , webDriver);
-        waitForElementToBeClickable(accountCodeDropdown , webDriver);
-        accountCodeDropdown.click();
-
-        waitForElementToBeClickable(ledgerAmount1 ,webDriver);
-        ledgerAmount1.sendKeys(directBankPaymentDetails.getLedgerAmount1());
+        enterText(ledgerAmount1 , directBankPaymentDetails.getLedgerAmount1() , webDriver);
     }
 
     public String directBankSuccessPage(){
         switchToNewlyOpenedWindow(webDriver);
-
-        waitForElementToBeVisible(forwardMessage , webDriver);
-        String message = forwardMessage.getText();
+        String message = getTextFromWeb(forwardMessage , webDriver);
 
         if(message.contains("Successful")) {
-            waitForElementToBeClickable(bankCloseButton, webDriver);
-            bankCloseButton.click();;
+            clickOnButton(bankCloseButton ,webDriver);
         }
         else {
-            waitForElementToBeClickable(closeButton ,webDriver);
-            closeButton.click();;
+            clickOnButton(closeButton ,webDriver);
         }
         switchToPreviouslyOpenedWindow(webDriver);
         return message;
     }
-
 }

@@ -13,6 +13,9 @@ import pages.BasePage;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static com.jayway.awaitility.Awaitility.await;
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 public class ExpenseDetailsPage extends BasePage {
 
     private WebDriver webDriver;
@@ -88,11 +91,9 @@ public class ExpenseDetailsPage extends BasePage {
     }
 
     public void createNewExpenseBill(FinancialExpenseBillDetails financialExpenseBillDetails){
-        waitForElementToBeVisible(expenseFund , webDriver);
-        new Select(expenseFund).selectByVisibleText(financialExpenseBillDetails.getExpenseFund());
 
-        waitForElementToBeVisible(expenseDepartment , webDriver);
-        new Select(expenseDepartment).selectByVisibleText(financialExpenseBillDetails.getExpenseDeparment());
+        selectFromDropDown(expenseFund ,financialExpenseBillDetails.getExpenseFund() , webDriver);
+        selectFromDropDown(expenseDepartment ,financialExpenseBillDetails.getExpenseDeparment() , webDriver);
 
         waitForElementToBeClickable(expenseFunction , webDriver);
         expenseFunction.sendKeys(financialExpenseBillDetails.getExpenseFunction());
@@ -103,85 +104,58 @@ public class ExpenseDetailsPage extends BasePage {
         waitForElementToBeClickable(dropdown,webDriver);
         dropdown.click();
 
-        waitForElementToBeClickable(expenseBillSubType , webDriver);
-        new Select(expenseBillSubType).selectByVisibleText(financialExpenseBillDetails.getExpenseBillSubType());
+        selectFromDropDown(expenseBillSubType ,financialExpenseBillDetails.getExpenseBillSubType() , webDriver);
+        enterText(expensePayTo , "tester" , webDriver);
+        enterText(expenseAccountCodeDebit , financialExpenseBillDetails.getExpenseAccountCodeDebit() , webDriver);
 
-        waitForElementToBeClickable(expensePayTo ,webDriver);
-        expensePayTo.sendKeys("tester");
+        clickOnButton(expenseBillAccountCodeDropdown ,webDriver);
+        enterText(expenseDebitAmount ,financialExpenseBillDetails.getExpenseDebitAmount() ,webDriver);
+        enterText(expenseAccountCodeCredit ,financialExpenseBillDetails.getExpenseAccountCodeCredit() , webDriver);
+        clickOnButton(expenseBillAccountCodeDropdown , webDriver);
 
-        waitForElementToBeClickable(expenseAccountCodeDebit ,webDriver);
-        expenseAccountCodeDebit.sendKeys(financialExpenseBillDetails.getExpenseAccountCodeDebit());
-
-        waitForElementToBeVisible( expenseBillAccountCodeDropdown,webDriver);
-        expenseBillAccountCodeDropdown.click();
-
-        waitForElementToBeClickable(expenseDebitAmount ,webDriver);
-        expenseDebitAmount.sendKeys(financialExpenseBillDetails.getExpenseDebitAmount());
-
-        waitForElementToBeClickable(expenseAccountCodeCredit , webDriver);
-        expenseAccountCodeCredit.sendKeys(financialExpenseBillDetails.getExpenseAccountCodeCredit());
-
-        waitForElementToBeVisible( expenseBillAccountCodeDropdown,webDriver);
-        expenseBillAccountCodeDropdown.click();
-
-        waitForElementToBeClickable(expenseCreditAmount ,webDriver);
-        expenseCreditAmount.sendKeys(financialExpenseBillDetails.getExpenseCreditAmount());
+        enterText(expenseCreditAmount ,financialExpenseBillDetails.getExpenseCreditAmount() , webDriver);
 
         List<WebElement> element1 = expenseNetPayable.findElements(By.tagName("option"));
         waitForElementToBeClickable(element1.get(1), webDriver);
         element1.get(1).click();
 
-        waitForElementToBeClickable(expenseNetAmount ,webDriver);
-        expenseNetAmount.sendKeys(financialExpenseBillDetails.getExpenseNetAmount());
+        enterText(expenseNetAmount ,financialExpenseBillDetails.getExpenseNetAmount() , webDriver );
 
-        waitForElementToBeClickable(expensePopulate , webDriver);
-        expensePopulate.click();
+        clickOnButton(expensePopulate ,webDriver);
     }
 
     public String enterExpenseApprovalDetails(ApprovalDetails approvalDetails){
 
-        waitForElementToBeClickable(expenseApprovalDepartment ,webDriver);
-        new Select(expenseApprovalDepartment).selectByVisibleText(approvalDetails.getApproverDepartment());
+        selectFromDropDown(expenseApprovalDepartment ,approvalDetails.getApproverDepartment() ,webDriver );
 
         for(int i = 0 ; i <= 10 ; i++) {
             if (!webDriver.findElement(By.id("approvalDesignation")).getText().equalsIgnoreCase(approvalDetails.getApproverDesignation())) {
                 try {
-                    waitForElementToBeClickable(expenseApprovalDesignation, webDriver);
-                    new Select(expenseApprovalDesignation).selectByVisibleText(approvalDetails.getApproverDesignation());
+                    selectFromDropDown(expenseApprovalDesignation , approvalDetails.getApproverDesignation() ,webDriver);
                 } catch (StaleElementReferenceException e) {
                     WebElement element = webDriver.findElement(By.id("approvalDesignation"));
-                    new Select(element).selectByVisibleText(approvalDetails.getApproverDesignation());
+                    selectFromDropDown(element ,approvalDetails.getApproverDesignation() , webDriver );
                 }
             }
         }
 
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Select approverPosition = new Select(expenseApprovalPosition);
+        await().atMost(10, SECONDS).until(() -> approverPosition.getOptions().size() > 1);
+        String userName = approverPosition.getOptions().get(1).getText();
+        clickOnButton(approverPosition.getOptions().get(1) , webDriver);
 
-        waitForElementToBeVisible(expenseApprovalPosition , webDriver);
-        waitForElementToBeClickable(expenseApprovalPosition , webDriver);
-        Select approverPos = new Select(expenseApprovalPosition);
-        String userName = approverPos.getOptions().get(1).getText();
-
-        waitForElementToBeClickable(approverPos.getOptions().get(1) ,webDriver);
-        approverPos.getOptions().get(1).click();
-
-        waitForElementToBeClickable(forwardButton ,webDriver);
-        forwardButton.click();
+        clickOnButton(forwardButton , webDriver);
 
         switchToNewlyOpenedWindow(webDriver);
         return userName;
     }
 
     public void filterCreateVoucherBill(String applicationNumber){
-        new Select(billType).selectByVisibleText("Expense");
-        billNumberTextBox.sendKeys(applicationNumber);
 
-        waitForElementToBeClickable(submitButton , webDriver);
-        submitButton.click();
+        selectFromDropDown(billType , "Expense", webDriver);
+        enterText(billNumberTextBox , applicationNumber ,webDriver);
+
+        clickOnButton(submitButton ,webDriver);
 
         getExpenseVoucherRow(applicationNumber).click();
         switchToNewlyOpenedWindow(webDriver);
@@ -200,12 +174,9 @@ public class ExpenseDetailsPage extends BasePage {
 
     public String closesExpenseVoucherPage(){
 
-        waitForElementToBeVisible(forwardMessage , webDriver);
-        String message = forwardMessage.getText();
+        String message = getTextFromWeb(forwardMessage , webDriver);
 
-        waitForElementToBeClickable(closeButton ,webDriver);
-        closeButton.click();;
-
+        clickOnButton(closeButton , webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
         return message;
     }

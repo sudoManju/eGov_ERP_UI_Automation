@@ -9,10 +9,6 @@ import pages.collections.PropertyTaxPage;
 import steps.BaseSteps;
 import utils.ExcelReader;
 
-
-/**
- * Created by soumyaghosh on 01/12/16.
- */
 public class MiscellaneousSteps extends BaseSteps implements En {
     public MiscellaneousSteps() {
         And("^he enters Miscellaneous header$", () -> {

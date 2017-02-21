@@ -195,6 +195,7 @@ public class BasePage {
 
     protected void maximizeBrowserWindow(WebDriver webDriver){
         webDriver.manage().window().maximize();
+        webDriver.manage().timeouts().implicitlyWait(10 , TimeUnit.SECONDS);
     }
 
     protected void refreshBrowserWindow(WebDriver webDriver){

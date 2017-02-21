@@ -13,6 +13,9 @@ import pages.BasePage;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static com.jayway.awaitility.Awaitility.await;
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 public class JournalVoucherDetailsPage extends BasePage {
 
     private WebDriver webDriver;
@@ -88,75 +91,41 @@ public class JournalVoucherDetailsPage extends BasePage {
     }
 
     public void enterJournalVoucherDetails(FinancialJournalVoucherDetails financialJournalVoucherDetails , String isSubLedgerPresent){
-
         enterVoucherDetails(financialJournalVoucherDetails);
-
         enterVoucherAccountDetails(financialJournalVoucherDetails);
-
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         enterVoucherSubLedgerDetails(financialJournalVoucherDetails , isSubLedgerPresent);
     }
 
     private void enterVoucherDetails(FinancialJournalVoucherDetails financialJournalVoucherDetails){
 
-        waitForElementToBeClickable(voucherSubType , webDriver);
-        new Select(voucherSubType).selectByVisibleText(financialJournalVoucherDetails.getVoucherType());
+        selectFromDropDown(voucherSubType , financialJournalVoucherDetails.getVoucherType() ,webDriver);
 
         if(!financialJournalVoucherDetails.getVoucherType().equals("General")){
-            waitForElementToBeClickable(voucherPartyName , webDriver);
-            voucherPartyName.sendKeys("voucher");
+            enterText(voucherPartyName , "Voucher" , webDriver);
         }
 
-        waitForElementToBeClickable(fundId , webDriver);
-        new Select(fundId).selectByVisibleText(financialJournalVoucherDetails.getFundId());
-
-        waitForElementToBeClickable(voucherDepartment ,webDriver);
-        new Select(voucherDepartment).selectByVisibleText(financialJournalVoucherDetails.getDepartment());
-
-        waitForElementToBeVisible(voucherFunction ,webDriver);
-        new Select(voucherFunction).selectByVisibleText(financialJournalVoucherDetails.getFunction());
+        selectFromDropDown(fundId ,financialJournalVoucherDetails.getFundId() ,webDriver );
+        selectFromDropDown(voucherDepartment ,financialJournalVoucherDetails.getDepartment() ,webDriver );
+        selectFromDropDown(voucherFunction ,financialJournalVoucherDetails.getFunction() ,webDriver );
     }
 
     private void enterVoucherAccountDetails(FinancialJournalVoucherDetails financialJournalVoucherDetails){
 
-        waitForElementToBeVisible(accountCode1, webDriver);
-        waitForElementToBeClickable(accountCode1, webDriver);
-        accountCode1.sendKeys(financialJournalVoucherDetails.getAccountCode1());
+        enterText(accountCode1 , financialJournalVoucherDetails.getAccountCode1() ,webDriver);
+        clickOnButton(accountCodeDropdown ,webDriver);
+        enterText(debitAmount1 , financialJournalVoucherDetails.getDebitAmount1() , webDriver);
 
-        waitForElementToBeVisible(accountCodeDropdown, webDriver);
-        waitForElementToBeClickable(accountCodeDropdown, webDriver);
-        accountCodeDropdown.click();
-
-        waitForElementToBeClickable(debitAmount1 , webDriver);
-        enterText(debitAmount1 , financialJournalVoucherDetails.getDebitAmount1());
-
-        waitForElementToBeClickable(accountCode2 , webDriver);
-        accountCode2.sendKeys(financialJournalVoucherDetails.getAccountCode2());
-
-        waitForElementToBeClickable(accountCodeDropdown ,webDriver);
-        accountCodeDropdown.click();
-
-        waitForElementToBeClickable(creditAmount2 ,webDriver);
-        enterText(creditAmount2 ,financialJournalVoucherDetails.getCreditAmount2());
+        enterText(accountCode2 ,financialJournalVoucherDetails.getAccountCode2() , webDriver );
+        clickOnButton(accountCodeDropdown , webDriver);
+        enterText(creditAmount2 ,financialJournalVoucherDetails.getCreditAmount2() , webDriver);
 
         if(!financialJournalVoucherDetails.getAccountCode3().isEmpty()){
 
-            waitForElementToBeClickable(addList.get(1) ,webDriver);
-            addList.get(1).click();
+            clickOnButton(addList.get(1) , webDriver);
 
-            waitForElementToBeClickable(accountCode3 ,webDriver);
-            accountCode3.sendKeys(financialJournalVoucherDetails.getAccountCode3());
-
-            waitForElementToBeClickable(accountCodeDropdown ,webDriver);
-            accountCodeDropdown.click();
-
-            waitForElementToBeClickable(creditAmount3 ,webDriver);
-            enterText(creditAmount3 , financialJournalVoucherDetails.getCreditAmount3());
+            enterText(accountCode3 ,financialJournalVoucherDetails.getAccountCode3() ,webDriver );
+            clickOnButton(accountCodeDropdown ,webDriver);
+            enterText(creditAmount3 , financialJournalVoucherDetails.getCreditAmount3() , webDriver);
         }
     }
 
@@ -167,47 +136,30 @@ public class JournalVoucherDetailsPage extends BasePage {
             waitForElementToBePresent(By.className("yui-dt-dropdown"), webDriver);
             List<WebElement> webElementList = ledgerAccount1.findElements(By.tagName("option"));
 
-            waitForElementToBeVisible(ledgerAccount1 , webDriver);
-            new Select(ledgerAccount1).selectByVisibleText(webElementList.get(1).getText());
+            await().atMost(5, SECONDS).until(() -> webElementList.size() > 1);
 
-            waitForElementToBeClickable(ledgerType1 ,webDriver);
-            new Select(ledgerType1).selectByVisibleText(financialJournalVoucherDetails.getLedgerType1());
+            selectFromDropDown(ledgerAccount1 ,webElementList.get(1).getText() ,webDriver);
+            selectFromDropDown(ledgerType1 ,financialJournalVoucherDetails.getLedgerType1() , webDriver );
 
-            waitForElementToBeClickable(ledgerCode1 , webDriver);
-            ledgerCode1.sendKeys(financialJournalVoucherDetails.getLedgerCode1());
-
-            waitForElementToBeClickable(accountCodeDropdown, webDriver);
-            accountCodeDropdown.click();
-
-            waitForElementToBeClickable(ledgerAmount1 ,webDriver);
-            ledgerAmount1.sendKeys(financialJournalVoucherDetails.getLedgerAmount1());
+            enterText(ledgerCode1 ,financialJournalVoucherDetails.getLedgerCode1() ,webDriver);
+            clickOnButton(accountCodeDropdown ,webDriver);
+            enterText(ledgerAmount1 , financialJournalVoucherDetails.getLedgerAmount1() ,webDriver);
 
             if (webElementList.size() > 2) {
 
                 if (addList.get(3).isDisplayed()){
-                    waitForElementToBeClickable(addList.get(3) ,webDriver);
-                    addList.get(3).click();
+                    clickOnButton(addList.get(3) , webDriver);
                 }
                 else {
-                    waitForElementToBeClickable(addList.get(2) ,webDriver);
-                    addList.get(2).click();
+                    clickOnButton(addList.get(2) , webDriver);
                 }
 
-                waitForElementToBeClickable(ledgerAccount2 ,webDriver);
-                ledgerAccount2.click();
-                new Select(ledgerAccount2).selectByVisibleText(webElementList.get(2).getText());
+                selectFromDropDown(ledgerAccount2 , webElementList.get(2).getText() ,webDriver);
+                selectFromDropDown(ledgerType2 ,financialJournalVoucherDetails.getLedgerType2() ,webDriver );
 
-                waitForElementToBeVisible(ledgerType2 ,webDriver);
-                new Select(ledgerType2).selectByVisibleText(financialJournalVoucherDetails.getLedgerType2());
-
-                waitForElementToBeClickable(ledgerCode2 ,webDriver);
-                ledgerCode2.sendKeys(financialJournalVoucherDetails.getLedgerCode2());
-
-                waitForElementToBeClickable(accountCodeDropdown, webDriver);
-                accountCodeDropdown.click();
-
-                waitForElementToBeClickable(ledgerAmount2 ,webDriver);
-                ledgerAmount2.sendKeys(financialJournalVoucherDetails.getLedgerAmount2());
+                enterText(ledgerCode2 ,financialJournalVoucherDetails.getLedgerCode2() ,webDriver );
+                clickOnButton(accountCodeDropdown , webDriver);
+                enterText(ledgerAmount2 , financialJournalVoucherDetails.getLedgerAmount2() , webDriver);
             }
         }
     }
@@ -226,9 +178,7 @@ public class JournalVoucherDetailsPage extends BasePage {
         WebElement element = webDriver.findElement(By.cssSelector("div[class~='bootbox-alert'] button[class^='btn']"));
         element.click();
 
-        waitForElementToBeClickable(closeButton ,webDriver);
-        closeButton.click();
-
+        clickOnButton(closeButton , webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
 
         return number;
