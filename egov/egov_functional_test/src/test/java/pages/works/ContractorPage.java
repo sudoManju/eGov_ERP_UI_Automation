@@ -110,58 +110,36 @@ public class ContractorPage extends BasePage
 
     public String entersContractorMasterData() {
         String Name = "KMC"+get6DigitRandomInt();
-        waitForElementToBeClickable(contractorName, driver);
-        contractorName.sendKeys(Name);
-        waitForElementToBeClickable(correspondenceAddress, driver);
-        correspondenceAddress.sendKeys("A P State Agro industries Development Corporation Ltd ATP");
-        waitForElementToBeClickable(panNumber, driver);
-        waitForElementToBeClickable(contactPerson, driver);
-        contactPerson.sendKeys("Name");
+        enterText(contractorName, Name, driver);
+        enterText(correspondenceAddress, "A P State Agro industries Development Corporation Ltd ATP", driver);
+        enterText(panNumber, "PAN123456", driver);
+        enterText(contactPerson, Name, driver);
         waitForElementToBeClickable(email, driver);
-        email.sendKeys(Name+"@egov.org");
-        waitForElementToBeClickable(mobileNumber, driver);
-        mobileNumber.sendKeys("9988"+get6DigitRandomInt());
-        panNumber.sendKeys("PANUM2803P");
-        waitForElementToBeClickable(tinNumber, driver);
-        tinNumber.sendKeys(get6DigitRandomInt());
-        waitForElementToBeClickable(bankAction, driver);
-        new Select(bankAction).selectByVisibleText("STATE BANK OF MYSORE");
-        waitForElementToBeClickable(ifscCode, driver);
-        ifscCode.sendKeys("IFSC"+get6DigitRandomInt());
-        waitForElementToBeClickable(bankAccount, driver);
-        bankAccount.sendKeys(get6DigitRandomInt());
-        waitForElementToBeClickable(exemptionFormAction, driver);
-        new Select(exemptionFormAction).selectByVisibleText("EARNEST MONEY DEPOSIT");
-        waitForElementToBeClickable(department, driver);
-        new Select(department).selectByVisibleText("ENGINEERING");
-        waitForElementToBeClickable(registrationNumber, driver);
-        registrationNumber.sendKeys("0123"+get6DigitRandomInt());
-        waitForElementToBeClickable(categoryDropDownBox,driver);
-        new Select(categoryDropDownBox).selectByVisibleText("Transport");
-        waitForElementToBeClickable(contractorClass, driver);
-        new Select(contractorClass).selectByVisibleText("Class-I");
-        waitForElementToBeClickable(status, driver);
-        new Select(status).selectByVisibleText("Active");
-        waitForElementToBeClickable(fromDate, driver);
-        fromDate.sendKeys("31/01/2017");
-        waitForElementToBeClickable(saveButton,driver);
-        saveButton.click();
-
+        enterText(email, Name+"@egov.org", driver);
+        enterText(mobileNumber, "9988"+get6DigitRandomInt(), driver);
+        enterText(tinNumber, get6DigitRandomInt(), driver);
+        selectFromDropDown(bankAction, "STATE BANK OF MYSORE", driver);
+        enterText(ifscCode, "IFSC"+get6DigitRandomInt(), driver);
+        enterText(bankAccount, get6DigitRandomInt(), driver);
+        selectFromDropDown(exemptionFormAction, "EARNEST MONEY DEPOSIT", driver);
+        selectFromDropDown(department, "ENGINEERING", driver);
+        enterDate(registrationNumber, "0123"+get6DigitRandomInt(), driver);
+        selectFromDropDown(categoryDropDownBox, "Transport", driver);
+        selectFromDropDown(contractorClass, "Class-I", driver);
+        selectFromDropDown(status, "Active", driver);
+        enterDate(fromDate, getCurrentDate(), driver);
+        clickOnButton(saveButton, driver);
         return Name;
     }
 
     public void searchContractor(String name)
     {
-        waitForElementToBeClickable(searchContractorNameBox,driver);
-        searchContractorNameBox.sendKeys(name);
-        waitForElementToBeClickable(contractorSearchButton, driver);
-        contractorSearchButton.click();
+        enterText(searchContractorNameBox, name, driver);
+        clickOnButton(contractorSearchButton, driver);
     }
 
     public void close() {
-        waitForElementToBeVisible(closeButton,driver);
-        closeButton.click();
-
+        clickOnButton(closeButton, driver);
         switchToPreviouslyOpenedWindow(driver);
     }
 
@@ -172,26 +150,19 @@ public class ContractorPage extends BasePage
         WebElement requiredRow = totalRows.get(totalRows.size()-1);
         WebElement element = requiredRow.findElements(By.tagName("td")).get(0).findElement(By.id("radio"));
         jsClick(element,driver);
-
-        waitForElementToBeVisible(modifyButton,driver);
-        modifyButton.click();
+        clickOnButton(modifyButton, driver);
     }
 
     public void modify() {
-
-        waitForElementToBeVisible(modifyNameBox,driver);
+        clickOnButton(modifyNameBox, driver);
         modifyNameBox.click();
         modifyNameBox.clear();
-        modifyNameBox.sendKeys("Testing");
-
-        waitForElementToBeVisible(modifyButton,driver);
-        modifyButton.click();
+        enterText(modifyNameBox, "Testing", driver);
+        clickOnButton(modifyButton, driver);
     }
 
     public String successMessage() {
-        waitForElementToBeVisible(creationMsg,driver);
-        String msg =creationMsg.getText();
-        System.out.println(msg);
+        String msg = getTextFromWeb(creationMsg, driver);
         return msg;
     }
 }
