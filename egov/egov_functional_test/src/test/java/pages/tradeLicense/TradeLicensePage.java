@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasePage;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -92,9 +93,6 @@ public class TradeLicensePage extends BasePage {
     @FindBy(id = "totalamounttobepaid")
     private WebElement totalAmountReceived;
 
-//    @FindBy (id = "button2']")
-//    private WebElement tradePayButton;
-
     @FindBy(id = "oldLicenseNumber")
     private WebElement oldTradeLicense;
 
@@ -146,55 +144,50 @@ public class TradeLicensePage extends BasePage {
     @FindBy(xpath = ".//*[@id='viewTradeLicense']/div/input")
     private WebElement closeButton1;
 
+    @FindBy(id = "parentBoundary")
+    private WebElement wardSelect;
 
-    String tradeApplicationNumber;
+    @FindBy(id = "boundary")
+    private WebElement location;
+
 
     public TradeLicensePage(WebDriver webDriver) {this.webDriver = webDriver;
     }
     public void entertradeOwnerDetails(TradeOwnerDetails tradeOwnerDetails) {
-        waitForElementToBeClickable(aadhaarNumberTextBox , webDriver);
-
-        enterText(aadhaarNumberTextBox, tradeOwnerDetails.getAadhaarNumber());
-        enterText(mobileNumberTextBox, tradeOwnerDetails.getMobileNumber());
-        enterText(tradeOwnerNameTextBox, tradeOwnerDetails.getTradeOwnerName());
-        enterText(fatherSpouseNameTextBox,tradeOwnerDetails.getFatherSpouseName());
-        enterText(emailIDTextBox, tradeOwnerDetails.getEmailId());
-        enterText(tradeOwnerAddressTextBox, tradeOwnerDetails.getTradeOwnerAddress());
+        enterText(aadhaarNumberTextBox, tradeOwnerDetails.getAadhaarNumber(),webDriver);
+        enterText(mobileNumberTextBox, tradeOwnerDetails.getMobileNumber(), webDriver);
+        enterText(tradeOwnerNameTextBox, tradeOwnerDetails.getTradeOwnerName(),webDriver);
+        enterText(fatherSpouseNameTextBox,tradeOwnerDetails.getFatherSpouseName(),webDriver);
+        enterText(emailIDTextBox, tradeOwnerDetails.getEmailId(),webDriver);
+        enterText(tradeOwnerAddressTextBox, tradeOwnerDetails.getTradeOwnerAddress(),webDriver);
     }
 
     public void entertradeLocationDetails(TradeLocationDetails tradelocationDetails) {
-        waitForElementToBeClickable(propertyAssessmentNumberTextBox, webDriver);
-        enterText(propertyAssessmentNumberTextBox, tradelocationDetails.getpropertyAssessmentNumber());
-        propertyAssessmentNumberTextBox.sendKeys(Keys.TAB);
-        waitForElementToBeClickable(OwnershipTypeDropBox, webDriver);
-        new Select(OwnershipTypeDropBox).selectByVisibleText(tradelocationDetails.getownershipType());
+        enterText(propertyAssessmentNumberTextBox, tradelocationDetails.getpropertyAssessmentNumber(),webDriver);
+        selectFromDropDown(location,tradelocationDetails.getLocality(), webDriver);
+        location.sendKeys(Keys.TAB);
+        selectFromDropDown(wardSelect,tradelocationDetails.getWard(), webDriver);
+        selectFromDropDown(OwnershipTypeDropBox,tradelocationDetails.getownershipType(),webDriver);
     }
 
     public void entertradeDetails(TradeDetails tradedetails) {
-        waitForElementToBeClickable(tradeTitleTextBox, webDriver);
-        enterText(tradeTitleTextBox, tradedetails.getTradeTitle());
-        new Select(TradeTypeDropBox).selectByVisibleText(tradedetails.gettradeType());
-        new Select(TradeCategoryDropBox).selectByVisibleText(tradedetails.getTradeCategory());
-
-//       Search value from DropDown by searching value using Search field.
-
+        enterText(tradeTitleTextBox, tradedetails.getTradeTitle(),webDriver);
+        selectFromDropDown(TradeTypeDropBox, tradedetails.gettradeType(), webDriver);
+        selectFromDropDown(TradeCategoryDropBox,tradedetails.getTradeCategory(),webDriver);
         try {
-            waitForElementToBeClickable(tradeSubCategoryDropBox, webDriver);
             tradeSubCategoryDropBox.click();
         } catch (StaleElementReferenceException e) {
             WebElement element = webDriver.findElement(By.id("select2-subCategory-container"));
             element.click();
         }
-        waitForElementToBeVisible(searchBox, webDriver);
         searchBox.sendKeys(tradedetails.gettradeSubCategory());
         WebElement element = webDriver.findElement(By.cssSelector(".select2-results__option.select2-results__option--highlighted"));
         element.click();
 
-        enterText(TradeAreaWeightOfPremises, tradedetails.gettradeAreaWeightOfPremises());
-        enterText(remarksTextBox, tradedetails.getremarks());
-        enterText(tradeCommencementDateTextBox, tradedetails.gettradeCommencementDate());
-        waitForElementToBeClickable(saveButton, webDriver);
-        saveButton.click();
+        enterText(TradeAreaWeightOfPremises, tradedetails.gettradeAreaWeightOfPremises(),webDriver);
+        enterText(remarksTextBox, tradedetails.getremarks(),webDriver);
+        enterText(tradeCommencementDateTextBox, tradedetails.gettradeCommencementDate(),webDriver);
+        jsClick(saveButton,webDriver);
     }
 
 
@@ -207,31 +200,20 @@ public class TradeLicensePage extends BasePage {
         }
 
     public void enterApplicationNumber(String applicationNumber) {
-        waitForElementToBeVisible(applicationNumberTextBox, webDriver);
-        enterText(applicationNumberTextBox , applicationNumber);
-        includeInactiveElementCheck.click();
-        searchButton.click();
-    }
-
-
-    public void clickOnSearchButton() {
-        waitForElementToBeClickable(searchButton, webDriver);
-        searchButton.click();
+        enterText(applicationNumberTextBox , applicationNumber, webDriver);
+        jsClick(includeInactiveElementCheck, webDriver);
+        jsClick(searchButton,webDriver);
     }
 
     public void chooseCollectFees() {
-        waitForElementToBeClickable(collectFeeDropBox , webDriver);
-        new Select(collectFeeDropBox).selectByVisibleText("Collect Fees");
+      selectFromDropDown(collectFeeDropBox,"Collect Fees",webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
 
     public void chooseToPayTaxOfApplicationNumber() {
         switchToNewlyOpenedWindow(webDriver);
-
-        waitForElementToBeClickable(amountTextBox , webDriver);
-        enterText(amountTextBox , totalAmountReceived.getAttribute("value").split("\\.")[0]);
-
+        enterText(amountTextBox , totalAmountReceived.getAttribute("value").split("\\.")[0],webDriver);
         WebElement element = webDriver.findElement(By.id("button2"));
         JavascriptExecutor executor = (JavascriptExecutor)webDriver;
         executor.executeScript("arguments[0].click();", element);
@@ -245,28 +227,24 @@ public class TradeLicensePage extends BasePage {
     }
 
     public void chooseOldTradeLicense() {
-
-        waitForElementToBeClickable(oldTradeLicense, webDriver);
-        enterText(oldTradeLicense,get6DigitRandomInt());
+        enterText(oldTradeLicense,get6DigitRandomInt(),webDriver);
     }
 
     public void enterlegencyDetails() {
-
         List<WebElement> elements=webDriver.findElements(By.cssSelector(".form-control.patternvalidation.feeamount"));
 
-            enterText(elements.get(5),"200");
+            enterText(elements.get(5),"200",webDriver);
             webDriver.switchTo().activeElement();
             jsClick(webDriver.findElement(By.cssSelector(".btn.btn-primary")), webDriver);
     }
 
     public void enterDetailsForClosure(LicenseClosureDetails closureDetails) {
-        waitForElementToBeClickable(statusSelect, webDriver);
-        new Select(statusSelect).selectByVisibleText(closureDetails.getStatusDetails());
-        new Select(tradeCategorySelect).selectByVisibleText(closureDetails.getTradeCategory());
-        searchButton.click();
-        waitForElementToBeClickable(collectFeeDropBox , webDriver);
-        new Select(collectFeeDropBox).selectByVisibleText("Closure");
+        selectFromDropDown(statusSelect,closureDetails.getStatusDetails(),webDriver);
+        selectFromDropDown(tradeCategorySelect,closureDetails.getTradeCategory(),webDriver);
+        jsClick(searchButton,webDriver);
+        selectFromDropDown(collectFeeDropBox,"Closure",webDriver);
         switchToNewlyOpenedWindow(webDriver);
+
     }
 
     public String getLicenseNumber() {
@@ -285,16 +263,13 @@ public class TradeLicensePage extends BasePage {
 
 
         WebElement element = webDriver.findElement(By.id("boundary"));
-        waitForElementToBeVisible(element , webDriver);
-//        System.out.println("=================="+element.getText());
         for (int i = 0 ; i<=2 ; i++) {
             if (element.getText().equals(null)) {
                 WebDriverWait webDriverWait = new WebDriverWait(webDriver, 10);
                 webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("boundary")));
             } else {
-                waitForElementToBeClickable(approverRemarkTextBox , webDriver);
-                enterText(approverRemarkTextBox, "Approved");
-                approveButton.click();
+                enterText(approverRemarkTextBox, "Approved",webDriver);
+                jsClick(approveButton,webDriver);
                 break;
             }
         }
@@ -302,21 +277,18 @@ public class TradeLicensePage extends BasePage {
 
 
     public void forward() {
-        forwardButton.click();
+        jsClick(forwardButton,webDriver);
     }
 
     public String generateLicenseCertificate() {
 
         WebElement element = webDriver.findElement(By.id("boundary"));
-        waitForElementToBeVisible(element , webDriver);
-//        System.out.println("=================="+element.getText());
         for (int i = 0 ; i<=2 ; i++) {
             if (element.getText().equals(null)) {
                 WebDriverWait webDriverWait = new WebDriverWait(webDriver, 10);
                 webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("boundary")));
             } else {
-                waitForElementToBeClickable(generateCertificateButton, webDriver);
-                generateCertificateButton.click();
+                jsClick(generateCertificateButton,webDriver);
                 switchToNewlyOpenedWindow(webDriver);
                 break;
             }
@@ -330,31 +302,29 @@ public class TradeLicensePage extends BasePage {
     }
 
     public void enterApplicationNumberReadingFromExcel(SearchTradeDetails searchId) {
-        waitForElementToBeVisible(applicationNumberTextBox, webDriver);
-        enterText(applicationNumberTextBox, searchId.getApplicationNumber());
-        searchButton.click();
+        enterText(applicationNumberTextBox, searchId.getApplicationNumber(),webDriver);
+        jsClick(searchButton, webDriver);
     }
 
     public String getLegacyLicenseNumber() {
         String licenseNum= webDriver.findElement(By.xpath(".//*[@id='viewTradeLicense']/div[8]/div[1]/div[2]")).getText();
-        closeLicensePage.click();
+        jsClick(closeLicensePage,webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
         return licenseNum;
     }
 
     public void enterLicenseNumber(String licenseNumber) {
-        enterText(licenseNumberBox, licenseNumber);
-        searchButton.click();
+        enterText(licenseNumberBox, licenseNumber,webDriver);
+        jsClick(searchButton,webDriver);
     }
 
     public void chooseToRenewLicense() {
-        waitForElementToBeClickable(collectFeeDropBox , webDriver);
-        new Select(collectFeeDropBox).selectByVisibleText("Renew License");
+        selectFromDropDown(collectFeeDropBox,"Renew License",webDriver);
         switchToNewlyOpenedWindow(webDriver);
-        saveButton.click();
-        closeButton.click();
+        jsClick(saveButton,webDriver);
+        jsClick(closeButton, webDriver);
         switchToNewlyOpenedWindow(webDriver);
-        searchButton.click();
+        jsClick(searchButton,webDriver);
     }
 
     public void checkNoOfRecords() {
@@ -367,23 +337,20 @@ public class TradeLicensePage extends BasePage {
         {
             System.out.println("--------No records found");
         }
-        closeSearch.click();
+        jsClick(closeSearch,webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
     }
 
     public void enterStatus(String status) {
-        waitForElementToBeClickable(statusSelect, webDriver);
-        new Select(statusSelect).selectByVisibleText(status);
-        searchButton.click();
+        selectFromDropDown(statusSelect,status,webDriver);
+        jsClick(searchButton, webDriver);
         WebElement show= webDriver.findElement(By.xpath(".//*[@id='tblSearchTrade_length']/label/select"));
-        waitForElementToBeClickable(show, webDriver);
-        new Select(show).selectByVisibleText("100");
+        selectFromDropDown(show,"100",webDriver);
     }
 
     public void closureApproval() {
-        waitForElementToBeClickable(approverRemarkTextBox , webDriver);
-        enterText(approverRemarkTextBox, "Approved");
-        approveButton.click();
+        enterText(approverRemarkTextBox, "Approved",webDriver);
+        jsClick(approveButton,webDriver);
     }
 
     public void closeAcknowledgementPage() {

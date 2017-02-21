@@ -1035,17 +1035,16 @@ public class ExcelReader {
     public TradeLocationDetails getTradeLocationDetails(String tradeLocationDetailsDataId) {
         Row dataRow = readDataRow(tradeLocationDetailsSheet, tradeLocationDetailsDataId);
 
-        Cell propertyAssessmentDetailsCell = getCellData(tradeLocationDetailsSheet, dataRow, "propertyAssessmentDetails");
-        propertyAssessmentDetailsCell.setCellType(Cell.CELL_TYPE_STRING);
-        String propertyAssessmentDetails = propertyAssessmentDetailsCell.getStringCellValue();
-
-        Cell ownershipTypeCell = getCellData(tradeLocationDetailsSheet, dataRow, "ownershipType");
-        ownershipTypeCell.setCellType(Cell.CELL_TYPE_STRING);
-        String ownershipType = ownershipTypeCell.getStringCellValue();
+        String propertyAssessmentDetails = getCellData(tradeLocationDetailsSheet, dataRow, "propertyAssessmentDetails").getStringCellValue();
+        String ownershipType = getCellData(tradeLocationDetailsSheet, dataRow, "ownershipType").getStringCellValue();
+        String locality = getCellData(tradeLocationDetailsSheet, dataRow,"locality").getStringCellValue();
+        String ward = getCellData(tradeLocationDetailsSheet,dataRow,"ward").getStringCellValue();
 
         return new TradeLocationDetailsBuilder()
                 .withpropertyAssessmentNumber(propertyAssessmentDetails)
                 .withownershipType(ownershipType)
+                .withLocality(locality)
+                .withWard(ward)
                 .build();
     }
 
@@ -1174,29 +1173,19 @@ public class ExcelReader {
     public TradeDetails getTradeDetails(String tradeDetailsData) {
         Row dataRow = readDataRow(tradeDetailsSheet, tradeDetailsData);
 
-        Cell tradeTitleCell = getCellData(tradeDetailsSheet, dataRow, "tradeTitle");
-        tradeTitleCell.setCellType(Cell.CELL_TYPE_STRING);
-        String tradeTitle = tradeTitleCell.getStringCellValue();
+        String tradeTitle = getCellData(tradeDetailsSheet, dataRow, "tradeTitle").getStringCellValue();
 
-        Cell tradeTypeCell = getCellData(tradeDetailsSheet, dataRow, "tradeType");
-        tradeTypeCell.setCellType(Cell.CELL_TYPE_STRING);
-        String tradeType = tradeTypeCell.getStringCellValue();
+        String tradeType = getCellData(tradeDetailsSheet, dataRow, "tradeType").getStringCellValue();
 
-        Cell tradeCategoryCell = getCellData(tradeDetailsSheet, dataRow, "tradeCategory");
-        tradeCategoryCell.setCellType(Cell.CELL_TYPE_STRING);
-        String tradeCategory = tradeCategoryCell.getStringCellValue();
+        String tradeCategory = getCellData(tradeDetailsSheet, dataRow, "tradeCategory").getStringCellValue();
 
-        Cell tradeSubCategoryCell = getCellData(tradeDetailsSheet, dataRow, "tradeSubCategory");
-        tradeSubCategoryCell.setCellType(Cell.CELL_TYPE_STRING);
-        String tradeSubCategory = tradeSubCategoryCell.getStringCellValue();
+        String tradeSubCategory = getCellData(tradeDetailsSheet, dataRow, "tradeSubCategory").getStringCellValue();
 
         Cell tradeAreaWeightOfPremisesCell = getCellData(tradeDetailsSheet, dataRow, "tradeAreaWeightOfPremises");
         tradeAreaWeightOfPremisesCell.setCellType(Cell.CELL_TYPE_STRING);
         String tradeAreaWeightOfPremises = tradeAreaWeightOfPremisesCell.getStringCellValue();
 
-        Cell remarksCell = getCellData(tradeDetailsSheet, dataRow, "remarks");
-        remarksCell.setCellType(Cell.CELL_TYPE_STRING);
-        String remarks = remarksCell.getStringCellValue();
+        String remarks = getCellData(tradeDetailsSheet, dataRow, "remarks").getStringCellValue();
 
         Cell tradeCommencementDateCell = getCellData(tradeDetailsSheet, dataRow, "TradeCommencementDate");
         tradeCommencementDateCell.setCellType(Cell.CELL_TYPE_STRING);

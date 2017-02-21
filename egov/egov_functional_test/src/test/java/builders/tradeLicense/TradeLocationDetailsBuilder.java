@@ -21,7 +21,20 @@ public class TradeLocationDetailsBuilder {
         return this;
     }
 
+    public TradeLocationDetailsBuilder withLocality(String locality) {
+        tradeLocationDetails.setLocality(locality);
+        return this;
+    }
+
+    public TradeLocationDetailsBuilder withWard(String ward) {
+        tradeLocationDetails.setWard(ward);
+        return this;
+    }
+
     public TradeLocationDetails build() {
         return tradeLocationDetails;
     }
+
+
+
 }
