@@ -21,7 +21,6 @@ public class PropertyAcknowledgementSteps extends BaseSteps implements En {
             String msg = pageStore.get(PropertyAcknowledgementPage.class).getAssessmentNumberNew(type);
             scenarioContext.setActualMessage(msg);
             scenarioContext.setAssessmentNumber(msg.substring(msg.lastIndexOf(" ")+1));
-            System.out.println(msg.substring(msg.lastIndexOf(" ")+1));
             pageStore.get(PropertyAcknowledgementPage.class).close();
         });
 
