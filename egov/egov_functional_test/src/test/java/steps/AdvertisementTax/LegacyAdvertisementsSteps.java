@@ -35,7 +35,7 @@ public class LegacyAdvertisementsSteps extends BaseSteps implements En {
             String actualMessage = pageStore.get(LegacyAdvertisementsPage.class).successMessage();
             scenarioContext.setActualMessage(actualMessage);
 
-            pageStore.get(LegacyAdvertisementsPage.class).close();
+            pageStore.get(AdvertisementsPage.class).close();
         });
 
         And("^he search for required file by application number$", () -> {

@@ -204,163 +204,94 @@ public class AdvertisementsPage extends BasePage {
     }
 
     public void enterAdvertisementDetails() {
-        waitForElementToBeVisible(categoryBox,driver);
-        new Select(categoryBox).selectByVisibleText("Hoardings");
-
-        waitForElementToBeClickable(subCategoryBox,driver);
-        new Select(subCategoryBox).selectByVisibleText("Foot over Bridges");
-
-        waitForElementToBeClickable(classBox,driver);
-        new Select(classBox).selectByVisibleText("A");
-
-        waitForElementToBeClickable(revenueInspectorBox,driver);
-        new Select(revenueInspectorBox).selectByVisibleText("N Rajesh");
-
-        waitForElementToBeClickable(structureTypeRadioButton,driver);
-        structureTypeRadioButton.click();
-
-        waitForElementToBeClickable(propertyTypeBox,driver);
-        new Select(propertyTypeBox).selectByVisibleText("GOVERNMENT");
+        selectFromDropDown(categoryBox,"Hoardings",driver);
+        selectFromDropDown(subCategoryBox,"Foot over Bridges",driver);
+        selectFromDropDown(classBox,"A",driver);
+        selectFromDropDown(revenueInspectorBox,"N Rajesh",driver);
+        jsClick(structureTypeRadioButton,driver);
+        selectFromDropDown(propertyTypeBox,"GOVERNMENT",driver);
     }
 
     public void enterPermissionDetails() {
-         waitForElementToBeClickable(applicationDateBox,driver);
-         applicationDateBox.sendKeys(getCurrentDate(), Keys.TAB);
-
-        waitForElementToBeClickable(adParticularTextBox,driver);
-         adParticularTextBox.sendKeys("For elections");
-
-        waitForElementToBeClickable(ownerDetailsTextBox,driver);
-        ownerDetailsTextBox.sendKeys("Bhartiya janatha party");
-
-        waitForElementToBeClickable(permissionStartDateBox,driver);
-        permissionStartDateBox.sendKeys(getFutureDate(7), Keys.TAB);
-
-        waitForElementToBeClickable(permissionEndDateBox,driver);
-        permissionEndDateBox.sendKeys(getFutureDate(37), Keys.TAB);
-
-        waitForElementToBeClickable(advertismentDurationBox,driver);
-        new Select(advertismentDurationBox).selectByVisibleText("MONTH");
+        enterDate(applicationDateBox,getCurrentDate(),driver);
+        enterText(adParticularTextBox,"For elections",driver);
+        enterText(ownerDetailsTextBox,"Bhartiya janatha party",driver);
+        enterDate(permissionStartDateBox,getFutureDate(7),driver);
+        enterDate(permissionEndDateBox,getFutureDate(37),driver);
+        selectFromDropDown(advertismentDurationBox,"MONTH",driver);
     }
 
     public void enterAgencyDetailsForCreationAdvertisement(String agencyName) {
-        waitForElementToBeClickable(agencyTextBox, driver);
-        agencyTextBox.sendKeys(agencyName);
+        enterText(agencyTextBox,agencyName,driver);
         waitForElementToBeVisible(driver.findElement(By.className("tt-dropdown-menu")), driver);
         WebElement dropdown = driver.findElement(By.className("tt-dropdown-menu"));
         dropdown.click();
     }
 
     public void enterLocalityDetails() {
-        waitForElementToBeClickable(localityBox,driver);
-        new Select(localityBox).selectByVisibleText("Avanthi Nagar");
-
-        waitForElementToBeClickable(addressTextBox,driver);
-        addressTextBox.sendKeys("footover Bridge, mainroad, Avanthi Nagar");
-
-        waitForElementToBeClickable(electionWardBox,driver);
-        new Select(electionWardBox).selectByVisibleText("Election Ward No. 1");
+        selectFromDropDown(localityBox,"Avanthi Nagar",driver);
+        enterText(addressTextBox,"footover Bridge, mainroad, Avanthi Nagar",driver);
+        selectFromDropDown(electionWardBox,"Election Ward No. 1",driver);
     }
 
 
     public void enterStructureDetails() {
-        waitForElementToBeClickable(measurementTextBox, driver);
-        measurementTextBox.sendKeys("20");
-
-        waitForElementToBeClickable(measurementTypeBox, driver);
-        new Select(measurementTypeBox).selectByVisibleText("SQ.FT");
-
-        waitForElementToBeClickable(taxAmountTextBox, driver);
-        taxAmountTextBox.clear();
-        taxAmountTextBox.sendKeys("10");
-
-    }
-
+          enterText(measurementTextBox,"20",driver);
+          selectFromDropDown(measurementTypeBox,"SQ.FT",driver);
+          enterText(taxAmountTextBox,"10",driver);
+        }
 
     public String forward() {
-        waitForElementToBeClickable(forwardButton,driver);
-        forwardButton.click();
-
-        boolean isPresent = driver.findElements(By.xpath(".//*[@id='advertisementform']/div/div[2]/div/div/div[22]/div/label")).size() > 0;
+       clickOnButton(forwardButton,driver);
+       boolean isPresent = driver.findElements(By.xpath(".//*[@id='advertisementform']/div/div[2]/div/div/div[22]/div/label")).size() > 0;
 
         if(isPresent){
-            waitForElementToBeClickable(taxAmountTextBox, driver);
-            taxAmountTextBox.clear();
-            taxAmountTextBox.sendKeys("10");
-            System.out.println("success");
-
-            waitForElementToBeClickable(forwardButton,driver);
-            forwardButton.click();
+            enterText(taxAmountTextBox,"10",driver);
+            clickOnButton(forwardButton,driver);
         }
-        waitForElementToBeVisible(creationMsg, driver);
-        String Msg = creationMsg.getText();
+        String Msg = getTextFromWeb(creationMsg,driver);
         String applicationNumber = Msg.substring(Msg.lastIndexOf(" ")+1);
-        System.out.println(applicationNumber);
-
         return applicationNumber;
     }
 
-
     public String successMessage() {
-
-        String msg = creationMsg.getText();
-        return msg;
+        return getTextFromWeb(creationMsg,driver);
     }
 
     public void close() {
-     waitForElementToBeVisible(closeLink,driver);
-     closeLink.click();
-
-     switchToPreviouslyOpenedWindow(driver);
+       clickOnButton(closeLink,driver);
+        switchToPreviouslyOpenedWindow(driver);
     }
 
     public void approverComment() {
-        waitForElementToBeClickable(commentBox,driver);
-        commentBox.sendKeys("Approved");
-        //commentBox.sendKeys(Keys.TAB, Keys.ENTER);
+        enterText(commentBox,"Approved",driver);
     }
 
     public void approve() {
-
-        waitForElementToBeVisible(approveButton,driver);
-        waitForElementToBeClickable(approveButton,driver);
-        approveButton.click();
-
+        clickOnButton(approveButton,driver);
         Boolean isPresent = driver.findElements(By.id("Approve")).size() > 0;
-
         if(isPresent){
-            approveButton.click();
-            System.out.println("success");
+            clickOnButton(approveButton,driver);
         }
     }
+
     public String getAdvertisementNumber() {
-        waitForElementToBeVisible(creationMsg,driver);
-        String number = creationMsg.getText();
-
+        String number = getTextFromWeb(creationMsg,driver);
         String applicationNumber = (number.split("\\ "))[8];
-        System.out.println(applicationNumber);
-
         return applicationNumber;
     }
 
     public void searchAndSelect(String number) {
-      waitForElementToBeVisible(hoardingNumberTextBox,driver);
-      hoardingNumberTextBox.sendKeys(number);
-
-     waitForElementToBeClickable(submitButton,driver);
-     submitButton.click();
+        enterText(hoardingNumberTextBox,number,driver);
+        clickOnButton(submitButton,driver);
 
        WebElement dropDownBox = driver.findElement(By.id("adtaxdropdown"));
-       waitForElementToBeVisible(dropDownBox,driver);
-       new Select(dropDownBox).selectByVisibleText("View");
-
-       switchToNewlyOpenedWindow(driver);
+        selectFromDropDown(dropDownBox,"View",driver);
+        switchToNewlyOpenedWindow(driver);
     }
 
     public void closeMultipleWindows(String url) {
-
-        waitForElementToBeVisible(closeLink,driver);
-        closeLink.click();
+        clickOnButton(closeLink,driver);
 
         for (String winHandle : driver.getWindowHandles()) {
             if(driver.switchTo().window(winHandle).getCurrentUrl().equals(getEnvironmentURL()+url)){
@@ -372,9 +303,7 @@ public class AdvertisementsPage extends BasePage {
     }
 
     public void closeMultiple(String url){
-
-        waitForElementToBeClickable(closeButton, driver);
-        closeButton.click();
+        clickOnButton(closeButton,driver);
 
         for (String winHandle : driver.getWindowHandles()) {
             if(driver.switchTo().window(winHandle).getCurrentUrl().equals(getEnvironmentURL()+url)){
@@ -385,152 +314,108 @@ public class AdvertisementsPage extends BasePage {
         close();
     }
 
-    public void searchByAdvertisementNumber(String adervtisementNumber) {
-        waitForElementToBeClickable(searchType, driver);
-        searchType.click();
-        waitForElementToBeClickable(advertisementNumber, driver);
-        advertisementNumber.sendKeys(adervtisementNumber);
-        waitForElementToBeClickable(searchAdvertisementButton, driver);
-        searchAdvertisementButton.click();
-
+    public void searchByAdvertisementNumber(String advertisementNum) {
+        clickOnButton(searchType,driver);
+        enterText(advertisementNumber,advertisementNum,driver);
+        clickOnButton(searchAdvertisementButton,driver);
     }
 
     public void collectAdvertisementTax() {
-        waitForElementToBeClickable(collectButton, driver);
-        collectButton.click();
+        clickOnButton(collectButton,driver);
         switchToNewlyOpenedWindow(driver);
 
-        waitForElementToBeClickable(chequeRadioButton,driver);
         jsClick(chequeRadioButton,driver);
-        waitForElementToBeVisible(cashRadioButton,driver);
+
         jsClick(cashRadioButton,driver);
         waitForElementToBeVisible(totalamounttobepaid, driver);
         String AmountNum = totalamounttobepaid.getAttribute("value");
         String Amount = AmountNum.split("\\.")[0];
-        System.out.println(Amount);
-        waitForElementToBeClickable(amount, driver);
-        amount.sendKeys(Amount);
-        waitForElementToBeClickable(payButton, driver);
+        enterText(amount,Amount,driver);
         jsClick(payButton, driver);
     }
 
     public String enterAgencyDetails() {
-       waitForElementToBeVisible(agencyCodeTextBox,driver);
-       agencyCodeTextBox.sendKeys("AC"+get6DigitRandomInt());
+        enterText(agencyCodeTextBox,"Ac"+get6DigitRandomInt(),driver);
 
-       waitForElementToBeClickable(agencyNameTextBox,driver);
        String name = "Test"+get6DigitRandomInt();
-       agencyNameTextBox.sendKeys(name);
-
-       waitForElementToBeClickable(depositAmountTextBox,driver);
-       depositAmountTextBox.sendKeys("1000");
-
-       waitForElementToBeClickable(mobileNumberTextBox,driver);
-       mobileNumberTextBox.sendKeys("9885"+get6DigitRandomInt());
-
-       waitForElementToBeClickable(statusDropDownBox,driver);
-       new Select(statusDropDownBox).selectByVisibleText("ACTIVE");
+       enterText(agencyNameTextBox,name,driver);
+       enterText(depositAmountTextBox,"1000",driver);
+       enterText(mobileNumberTextBox,"9885"+get6DigitRandomInt(),driver);
+       WebElement element = statusDropDownBox.findElement(By.cssSelector("option[value='ACTIVE']"));
+       clickOnButton(element,driver);
 
        return name;
     }
 
     public void searchByAgency(String name) {
-       waitForElementToBeVisible(agencyTextBox,driver);
-       agencyTextBox.click();
-       agencyTextBox.sendKeys(name);
-       waitForElementToBeVisible( driver.findElement(By.className("tt-dropdown-menu")),driver);
-       WebElement dropdown = driver.findElement(By.className("tt-dropdown-menu"));
-       dropdown.click();
+       enterText(agencyTextBox,name,driver);
 
-       waitForElementToBeClickable(searchAdvertisementButton, driver);
-       searchAdvertisementButton.click();
+        waitForElementToBeVisible( driver.findElement(By.className("tt-dropdown-menu")),driver);
+        WebElement dropdown = driver.findElement(By.className("tt-dropdown-menu"));
+        dropdown.click();
+
+        clickOnButton(searchAdvertisementButton,driver);
     }
 
      public void collectAdvertisementTaxByAgency() {
         waitForElementToBeVisible(totalamounttobepaid, driver);
         String AmountNum = totalamounttobepaid.getAttribute("value");
         String Amount = AmountNum.split("\\.")[0];
-        System.out.println(Amount);
-        waitForElementToBeClickable(amount, driver);
-        amount.sendKeys(Amount);
-        waitForElementToBeClickable(payButton, driver);
+        enterText(amount,Amount,driver);
         jsClick(payButton, driver);
     }
 
     public void submit() {
-      waitForElementToBeVisible(submitAgencyDetailsButton,driver);
-      submitAgencyDetailsButton.click();
+        clickOnButton(submitAgencyDetailsButton,driver);
     }
 
     public String agencyCreationMessage(){
-        String message = agencyCreationMessage.getText();
-        return message;
+        return getTextFromWeb(agencyCreationMessage,driver);
     }
 
     public void CloseAgency(){
-         waitForElementToBeClickable(closeAgencyCreation,driver);
-        closeAgencyCreation.click();
+        clickOnButton(closeAgencyCreation,driver);
 
         switchToPreviouslyOpenedWindow(driver);
     }
 
     public void searchAgency(String name) {
-
-      waitForElementToBeVisible(searchAgencyBox,driver);
-      searchAgencyBox.click();
-      new Select(searchAgencyBox).selectByVisibleText(name);
-
-      waitForElementToBeClickable(viewButton,driver);
-      viewButton.click();
+        selectFromDropDown(searchAgencyBox,name,driver);
+        clickOnButton(viewButton,driver);
     }
     public void CloseAgencySearch(){
-        waitForElementToBeClickable(closeAgencySearch,driver);
-        closeAgencySearch.click();
+          clickOnButton(closeAgencySearch,driver);
 
         switchToPreviouslyOpenedWindow(driver);
     }
 
     public void searchAdvertisementForDeactivate(String number) {
-        waitForElementToBeVisible(hoardingNumberTextBox,driver);
-        hoardingNumberTextBox.sendKeys(number);
-        waitForElementToBeClickable(submitButtonForDeactive, driver);
-        submitButtonForDeactive.click();
-        waitForElementToBeClickable(deactivateButton, driver);
-        deactivateButton.click();
+        enterText(hoardingNumberTextBox,number,driver);
+        clickOnButton(submitButtonForDeactive,driver);
+        clickOnButton(deactivateButton,driver);
         switchToNewlyOpenedWindow(driver);
     }
 
     public void selectAdvertisementAgency() {
-     waitForElementToBeVisible(collectAdvertisementTaxButton,driver);
-     collectAdvertisementTaxButton.click();
+     clickOnButton(collectAdvertisementTaxButton,driver);
      switchToNewlyOpenedWindow(driver);
-
-     waitForElementToBeVisible(selectAllCheckBox,driver);
-     selectAllCheckBox.click();
-
-     waitForElementToBeClickable(collectFeeButton,driver);
-     collectFeeButton.click();
+     clickOnButton(selectAllCheckBox,driver);
+     clickOnButton(collectFeeButton,driver);
     }
 
     public void deactivatesAdvertisement() {
-        waitForElementToBeClickable(deactivationRemarks, driver);
-        deactivationRemarks.sendKeys("Deactivate the Advertisement");
-        waitForElementToBeClickable(deactiveDate, driver);
-        deactiveDate.sendKeys(getCurrentDate());
-        waitForElementToBeClickable(deactivateSubmitButton, driver);
-        deactivateSubmitButton.click();
+        enterText(deactivationRemarks,"Deactivate the Advertisement",driver);
+        enterText(deactiveDate,getCurrentDate(),driver);
+        clickOnButton(deactivateSubmitButton,driver);
         switchToNewlyOpenedWindow(driver);
     }
 
     public String successMessageForDeactivation(){
-        String message = creationMsgForDeactivation.getText();
-        System.out.println("\n"+message);
-        return message;
+        return getTextFromWeb(creationMsgForDeactivation,driver);
     }
 
     public void closeMultipleWindowsForDeactivateadvertisement(String url) {
-        waitForElementToBeClickable(closeButtonOfDeactivateSuccessPage,driver);
-        closeButtonOfDeactivateSuccessPage.click();
+          clickOnButton(closeButtonOfDeactivateSuccessPage,driver);
 
         for (String winHandle : driver.getWindowHandles()) {
             if(driver.switchTo().window(winHandle).getCurrentUrl().equals(url)){

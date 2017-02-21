@@ -66,6 +66,11 @@ public class BasePage {
         }
     }
 
+    protected void enterText(WebElement webElement, String value) {
+        webElement.clear();
+        webElement.sendKeys(value);
+    }
+
     protected void jsClick(WebElement webElement, WebDriver driver) {
         waitForElementToBeVisible(webElement,driver);
         waitForElementToBeClickable(webElement,driver);
@@ -82,28 +87,15 @@ public class BasePage {
         webElement.clear();
         webElement.sendKeys(value);
     }
-
-    protected void enterText(WebElement webElement , String value) {
-        webElement.clear();
-        webElement.sendKeys(value);
-    }
     protected void selectFromDropDown(WebElement webElement,String value,WebDriver driver){
         waitForElementToBeVisible(webElement,driver);
         waitForElementToBeClickable(webElement,driver);
-        webElement.click();
         new Select(webElement).selectByVisibleText(value);
     }
     protected void clickOnButton(WebElement webElement,WebDriver driver){
         waitForElementToBeVisible(webElement,driver);
         waitForElementToBeClickable(webElement,driver);
         webElement.click();
-    }
-
-    protected void enterDate(WebElement webElement , String date , WebDriver driver){
-        waitForElementToBeVisible(webElement , driver);
-        waitForElementToBeClickable(webElement , driver);
-        webElement.clear();
-        webElement.sendKeys(date , Keys.TAB);
     }
 
     protected String getTextFromWeb(WebElement webElement , WebDriver driver){
@@ -115,6 +107,12 @@ public class BasePage {
         waitForElementToBeVisible(element , driver);
         element.sendKeys(filePath);
     }
+      protected void enterDate(WebElement webElement,String date,WebDriver driver){
+          waitForElementToBeVisible(webElement,driver);
+          waitForElementToBeClickable(webElement,driver);
+          webElement.clear();
+          webElement.sendKeys(date,Keys.TAB);
+      }
 
     protected void switchToNewlyOpenedWindow(WebDriver driver) {
         await().atMost(20, SECONDS).until(() -> driver.getWindowHandles().size() > 1);

@@ -9,6 +9,8 @@ import pages.works.SpillOverEstimatePage;
 import steps.BaseSteps;
 import utils.ExcelReader;
 
+import java.util.concurrent.TimeUnit;
+
 
 /**
  * Created by karthik on 11/1/17.
@@ -76,6 +78,7 @@ public class AdvertisementsSteps extends BaseSteps implements En {
         And("^he enter details for agency creation$", () -> {
             String name = pageStore.get(AdvertisementsPage.class).enterAgencyDetails();
             scenarioContext.setAssessmentNumber(name);
+            System.out.println("\n"+name);
         });
         And("^he choose to collect advertisement tax by agency wise$", () -> {
             pageStore.get(AdvertisementsPage.class).searchByAgency(scenarioContext.getAssessmentNumber());

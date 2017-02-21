@@ -7,10 +7,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
-
-/**
- * Created by karthik on 12/1/17.
- */
 public class LegacyAdvertisementsPage extends BasePage {
 
     private WebDriver driver;
@@ -23,9 +19,6 @@ public class LegacyAdvertisementsPage extends BasePage {
 
     @FindBy(xpath = ".//*[@id='advertisementSuccessform']/div/div/div")
     private WebElement creationMsg;
-
-    @FindBy(linkText = "Close")
-    private WebElement closeLink;
 
     @FindBy(css = "input[id='permissionNumber'][type='text']")
     private WebElement permissionNumberTextBox;
@@ -62,89 +55,50 @@ public class LegacyAdvertisementsPage extends BasePage {
     }
 
     public void enterArrearsTaxDetails() {
-
-        waitForElementToBeClickable(pendingTaxTextBox,driver);
-        pendingTaxTextBox.sendKeys("1000");
+        enterText(pendingTaxTextBox,"1000",driver);
     }
 
     public String submit(){
-
-        waitForElementToBeClickable(submitButton,driver);
-        submitButton.click();
+         clickOnButton(submitButton,driver);
 
         boolean isPresent = driver.findElements(By.xpath(".//*[@id='advertisementform']/div/div[2]/div/div/div[22]/div/label")).size() > 0;
 
         if(isPresent){
-            waitForElementToBeClickable(taxAmountTextBox, driver);
-            taxAmountTextBox.clear();
-            taxAmountTextBox.sendKeys("10");
-            System.out.println("success");
-
-            waitForElementToBeClickable(submitButton,driver);
-            submitButton.click();
+            enterText(taxAmountTextBox,"10",driver);
+            clickOnButton(submitButton,driver);
         }
-
-        String number = creationMsg.getText();
+        String number = getTextFromWeb(creationMsg,driver);
         String num = number.split("\\ ")[6];
         String num1 = num.substring(0, num.length()-1);
-        System.out.println("\n"+num1);
-
         return num1;
     }
 
     public String successMessage() {
-        waitForElementToBeVisible(creationMsg,driver);
-        return creationMsg.getText();
-    }
-
-    public void close(){
-         waitForElementToBeClickable(closeLink,driver);
-         closeLink.click();
-
-        switchToPreviouslyOpenedWindow(driver);
+          return  getTextFromWeb(creationMsg,driver);
     }
 
     public void searchFile(String applicationNumber) {
-
-       waitForElementToBeClickable(advertisementNumberBox,driver);
-       advertisementNumberBox.sendKeys(applicationNumber);
-
-        waitForElementToBeClickable(searchButton,driver);
-        searchButton.click();
+         enterText(advertisementNumberBox,applicationNumber,driver);
+         clickOnButton(searchButton,driver);
     }
 
     public void updateLegacyAd(){
-        waitForElementToBeClickable(updateButton,driver);
-        updateButton.click();
-
+        clickOnButton(updateButton,driver);
         switchToNewlyOpenedWindow(driver);
     }
 
     public void update() {
-       waitForElementToBeClickable(taxForYearYesRadioButton,driver);
-       taxForYearYesRadioButton.click();
-
-       waitForElementToBeClickable(pendingTaxTextBox,driver);
-       pendingTaxTextBox.clear();
-       pendingTaxTextBox.sendKeys("0");
-
+        clickOnButton(taxForYearYesRadioButton,driver);
+        enterText(pendingTaxTextBox,"0",driver);
     }
 
     public void searchFileForRenewal(String applicationNumber) {
-
-        waitForElementToBeVisible(hoardingNumberTextBox,driver);
-        hoardingNumberTextBox.sendKeys(applicationNumber);
-
-        waitForElementToBeClickable(renewalSearchButton,driver);
-        renewalSearchButton.click();
+        enterText(hoardingNumberTextBox,applicationNumber,driver);
+        clickOnButton(renewalSearchButton,driver);
     }
 
     public void requestForRenewal() {
-        waitForElementToBeVisible(renewalDropDownBox,driver);
-        new Select(renewalDropDownBox).selectByVisibleText("Adtax Renewal");
-
+        selectFromDropDown(renewalDropDownBox,"Adtax Renewal",driver);
         switchToNewlyOpenedWindow(driver);
     }
-
-
 }
