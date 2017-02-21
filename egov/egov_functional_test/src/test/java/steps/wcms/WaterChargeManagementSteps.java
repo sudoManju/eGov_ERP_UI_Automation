@@ -6,6 +6,7 @@ import entities.ptis.*;
 import entities.wcms.EnclosedDocument;
 import entities.wcms.FieldInspectionDetails;
 import pages.DashboardPage;
+import pages.wcms.WaterChargeCollectionsPage;
 import pages.wcms.WaterChargeManagementPage;
 import pages.wcms.WaterConnectionDetailsPage;
 import steps.BaseSteps;
@@ -282,33 +283,33 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             pageStore.get(WaterChargeManagementPage.class).collectWaterCharges();
 
             // User will pay the charges based on the mode
-            pageStore.get(WaterChargeManagementPage.class).paymentWithMode(mode);
+            pageStore.get(WaterChargeCollectionsPage.class).paymentWithMode(mode);
         });
 
         Given("^user will visit the online payment link$", () -> {
-            pageStore.get(WaterChargeManagementPage.class).onlinePaymentLink();
+            pageStore.get(WaterChargeCollectionsPage.class).onlinePaymentLink();
         });
 
         And("^user will enter the consumer number and click on pay in online website$", () -> {
-            pageStore.get(WaterChargeManagementPage.class).enterOnlineConsumerNumber(scenarioContext.getAssessmentNumber());
-            pageStore.get(WaterChargeManagementPage.class).clickOnOnlinePayButton();
+            pageStore.get(WaterChargeCollectionsPage.class).enterOnlineConsumerNumber(scenarioContext.getAssessmentNumber());
+            pageStore.get(WaterChargeCollectionsPage.class).clickOnOnlinePayButton();
         });
 
         And("^user will select the bank to pay the charges$", () -> {
-            pageStore.get(WaterChargeManagementPage.class).selectBankDetails();
+            pageStore.get(WaterChargeCollectionsPage.class).selectBankDetails();
         });
 
         And("^user will enter the card details$", () -> {
-            pageStore.get(WaterChargeManagementPage.class).enterCardDetails();
+            pageStore.get(WaterChargeCollectionsPage.class).enterCardDetails();
         });
 
         And("^user will get the successful online payment acknowledgement form$", () -> {
-            String msg = pageStore.get(WaterChargeManagementPage.class).onlinePaymentSuccess();
+            String msg = pageStore.get(WaterChargeCollectionsPage.class).onlinePaymentSuccess();
             scenarioContext.setActualMessage(msg);
         });
 
         And("^user will click on the generate receipt$", () -> {
-            pageStore.get(WaterChargeManagementPage.class).onlineGenerateReceipt();
+            pageStore.get(WaterChargeCollectionsPage.class).onlineGenerateReceipt();
         });
     }
 }

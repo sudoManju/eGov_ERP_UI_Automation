@@ -15,7 +15,6 @@ import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
 
-
 public class LegalCaseManagementPage extends BasePage {
 
     private WebDriver webDriver;
@@ -178,60 +177,43 @@ public class LegalCaseManagementPage extends BasePage {
 
         webDriver.manage().window().maximize();
 
-        waitForElementToBeClickable(courtTypeSelect ,webDriver);
-        new Select(courtTypeSelect).selectByVisibleText(createLegalCase.getTypeOfCourt());
+        selectFromDropDown(courtTypeSelect ,createLegalCase.getTypeOfCourt(), webDriver);
 
-        waitForElementToBeClickable(petitionTypeSelect ,webDriver);
-        petitionTypeSelect.click();
-        new Select(petitionTypeSelect).selectByVisibleText(createLegalCase.getPetitionType());
+        selectFromDropDown(petitionTypeSelect ,createLegalCase.getPetitionType(), webDriver);
 
-        waitForElementToBeClickable(courtNameSelect ,webDriver);
-        new Select(courtNameSelect).selectByVisibleText(createLegalCase.getCourtName());
+        selectFromDropDown(courtNameSelect ,createLegalCase.getCourtName(), webDriver);
 
-        waitForElementToBeClickable(caseTypeSelect ,webDriver);
-        new Select(caseTypeSelect).selectByVisibleText(createLegalCase.getCaseCategory());
+        selectFromDropDown(caseTypeSelect ,createLegalCase.getCaseCategory(), webDriver);
 
-        waitForElementToBeClickable(caseNumberTextBox , webDriver);
-        enterText(caseNumberTextBox , get6DigitRandomInt());
+        enterText(caseNumberTextBox , get6DigitRandomInt() , webDriver);
 
-        waitForElementToBeClickable(yearSelect , webDriver);
-        new Select(yearSelect).selectByVisibleText("2017");
+        selectFromDropDown(yearSelect ,"2017", webDriver);
 
-        waitForElementToBeClickable(caseDate , webDriver);
-        enterText(caseDate , getPreviousDate());
-        caseDate.sendKeys(Keys.TAB);
+        enterDate(caseDate , getPreviousDate() ,webDriver);
 
-        waitForElementToBeClickable(caseTitleTextBox , webDriver);
-        enterText(caseTitleTextBox , "Testing");
+        enterText(caseTitleTextBox , "Testing"  ,webDriver);
 
-        waitForElementToBeClickable(prayerTextBox , webDriver);
-        enterText(prayerTextBox , "Tester");
+        enterText(prayerTextBox , "Tester" ,webDriver);
 
-        waitForElementToBeClickable(noticeDate , webDriver);
-        enterText(noticeDate , getPreviousDate());
-        noticeDate.sendKeys(Keys.TAB);
+        enterDate(noticeDate , getPreviousDate() , webDriver);
 
-        waitForElementToBeClickable(petitonerNameTextBox , webDriver);
-        enterText(petitonerNameTextBox , createLegalCase.getPetitionerName());
+        enterText(petitonerNameTextBox , createLegalCase.getPetitionerName() , webDriver);
 
-        waitForElementToBeClickable(respondentNameTextBox , webDriver);
-        enterText(respondentNameTextBox , createLegalCase.getRespondentName());
+        enterText(respondentNameTextBox , createLegalCase.getRespondentName() ,webDriver);
 
-        waitForElementToBeClickable(saveButton , webDriver);
-        saveButton.click();
+        clickOnButton(saveButton ,webDriver);
 
         switchToNewlyOpenedWindow(webDriver);
     }
 
     public String closesAcknowledgementForm(){
-        waitForElementToBeVisible(successMessage , webDriver);
-        message = successMessage.findElements(By.tagName("div")).get(0).getText();
+
+        message = getTextFromWeb(successMessage.findElements(By.tagName("div")).get(0) , webDriver);
 
         waitForElementToBeVisible(caseFileNumber , webDriver);
-        caseFileNo = caseFileNumber.getText();
+        caseFileNo = getTextFromWeb(caseFileNumber , webDriver);
 
-        waitForElementToBeClickable(closeButtonWithLinkText , webDriver);
-        closeButtonWithLinkText.click();
+        clickOnButton(closeButtonWithLinkText , webDriver);
 
         switchToPreviouslyOpenedWindow(webDriver);
 
@@ -239,14 +221,12 @@ public class LegalCaseManagementPage extends BasePage {
     }
 
     public void searchCaseFile(String caseFileNumber){
-        waitForElementToBeClickable(lcNumberTextBox , webDriver);
-        enterText(lcNumberTextBox , caseFileNumber);
 
-        waitForElementToBeClickable(excludeJudgmentImplementationCheckBox , webDriver);
-        excludeJudgmentImplementationCheckBox.click();
+        enterText(lcNumberTextBox , caseFileNumber ,webDriver);
 
-        waitForElementToBeClickable(legalcaseReportSearchButton , webDriver);
-        legalcaseReportSearchButton.click();
+        clickOnButton(excludeJudgmentImplementationCheckBox , webDriver);
+
+        clickOnButton(legalcaseReportSearchButton , webDriver);
     }
 
     public void clickOnCorrespondingAction(String action){
@@ -255,8 +235,8 @@ public class LegalCaseManagementPage extends BasePage {
 
             case "editLegalCase" :
 
-                waitForElementToBeClickable(additionalActionSelect , webDriver);
-                new Select(additionalActionSelect).selectByVisibleText("Edit legalCase");
+                selectFromDropDown(additionalActionSelect ,"Edit legalCase" , webDriver );
+
                 switchToNewlyOpenedWindow(webDriver);
 
                 enterEditLegalCaseDetails();
@@ -265,8 +245,8 @@ public class LegalCaseManagementPage extends BasePage {
 
             case "hearings" :
 
-                waitForElementToBeClickable(additionalActionSelect , webDriver);
-                new Select(additionalActionSelect).selectByVisibleText("Hearings");
+                selectFromDropDown(additionalActionSelect ,"Hearings" , webDriver );
+
                 switchToNewlyOpenedWindow(webDriver);
 
                 clickOnCreateHearings();
@@ -275,8 +255,8 @@ public class LegalCaseManagementPage extends BasePage {
 
             case "editHearings" :
 
-                waitForElementToBeClickable(additionalActionSelect , webDriver);
-                new Select(additionalActionSelect).selectByVisibleText("Hearings");
+                selectFromDropDown(additionalActionSelect ,"Hearings" , webDriver);
+
                 switchToNewlyOpenedWindow(webDriver);
 
                 clickOnEditHearings();
@@ -285,8 +265,8 @@ public class LegalCaseManagementPage extends BasePage {
 
             case "interimOrder" :
 
-                waitForElementToBeClickable(additionalActionSelect , webDriver);
-                new Select(additionalActionSelect).selectByVisibleText("Interim Order");
+                selectFromDropDown(additionalActionSelect ,"Interim Order" , webDriver);
+
                 switchToNewlyOpenedWindow(webDriver);
 
                 clickOnCreateInterimOrder();
@@ -295,8 +275,8 @@ public class LegalCaseManagementPage extends BasePage {
 
             case "editInterim" :
 
-                waitForElementToBeClickable(additionalActionSelect , webDriver);
-                new Select(additionalActionSelect).selectByVisibleText("Interim Order");
+                selectFromDropDown(additionalActionSelect ,"Interim Order" , webDriver);
+
                 switchToNewlyOpenedWindow(webDriver);
 
                 clickOnEditInterimOrder();
@@ -305,8 +285,8 @@ public class LegalCaseManagementPage extends BasePage {
 
             case "judgment" :
 
-                waitForElementToBeClickable(additionalActionSelect , webDriver);
-                new Select(additionalActionSelect).selectByVisibleText("Judgment");
+                selectFromDropDown(additionalActionSelect ,"Judgment" , webDriver);
+
                 switchToNewlyOpenedWindow(webDriver);
 
                 enterJudgmentDetails();
@@ -315,8 +295,8 @@ public class LegalCaseManagementPage extends BasePage {
 
             case "editJudgment" :
 
-                waitForElementToBeClickable(additionalActionSelect , webDriver);
-                new Select(additionalActionSelect).selectByVisibleText("Edit Judgment");
+                selectFromDropDown(additionalActionSelect ,"Edit Judgment" , webDriver);
+
                 switchToNewlyOpenedWindow(webDriver);
 
                 enterEditJudgmentDetails();
@@ -325,24 +305,24 @@ public class LegalCaseManagementPage extends BasePage {
 
             case "judgmentImplementation" :
 
-                waitForElementToBeClickable(additionalActionSelect , webDriver);
-                new Select(additionalActionSelect).selectByVisibleText("Judgment Implementation");
+                selectFromDropDown(additionalActionSelect ,"Judgment Implementation" , webDriver);
+
                 switchToNewlyOpenedWindow(webDriver);
 
                 break;
 
             case "editJudgmentImplementation" :
 
-                waitForElementToBeClickable(additionalActionSelect , webDriver);
-                new Select(additionalActionSelect).selectByVisibleText("Edit Judgment Implementation");
+                selectFromDropDown(additionalActionSelect ,"Edit Judgment Implementation" , webDriver);
+
                 switchToNewlyOpenedWindow(webDriver);
 
                 break;
 
             case "closeCase"  :
 
-                waitForElementToBeClickable(additionalActionSelect , webDriver);
-                new Select(additionalActionSelect).selectByVisibleText("Close Case");
+                selectFromDropDown(additionalActionSelect ,"Close Case" , webDriver);
+
                 switchToNewlyOpenedWindow(webDriver);
 
                 enterCloseCaseDetails();
@@ -352,137 +332,90 @@ public class LegalCaseManagementPage extends BasePage {
 
     private void enterEditLegalCaseDetails(){
 
-        waitForElementToBeClickable(caseTitleTextBox , webDriver);
-        enterText(caseTitleTextBox , "Tester");
+        enterText(caseTitleTextBox , "Tester" , webDriver);
 
-        waitForElementToBeClickable(petitonerNameTextBox , webDriver);
-        enterText(petitonerNameTextBox , "Good Tester");
+        enterText(petitonerNameTextBox , "Good Tester" , webDriver);
 
-        waitForElementToBeClickable(updateButton , webDriver);
-        updateButton.click();
+        clickOnButton(updateButton ,webDriver);
 
         switchToNewlyOpenedWindow(webDriver);
     }
 
     private void clickOnCreateHearings(){
 
-        waitForElementToBeClickable(createHearingsButton , webDriver);
-        createHearingsButton.click();
-
+        clickOnButton(createHearingsButton , webDriver);
         switchToNewlyOpenedWindow(webDriver);
 
-        waitForElementToBeClickable(hearingDateTextBox , webDriver);
-        enterText(hearingDateTextBox , getPreviousDate());
-        hearingDateTextBox.sendKeys(Keys.TAB);
+        enterDate(hearingDateTextBox , getPreviousDate() , webDriver);
+        enterText(purposeOfHearingsTextBox ,"Normal Use"  ,webDriver);
 
-//        waitForElementToBeClickable(purposeOfHearingsTextBox, webDriver);
-//        enterText(purposeOfHearingsTextBox , getPreviousDate());
-
-        waitForElementToBeClickable(purposeOfHearingsTextBox , webDriver);
-        enterText(purposeOfHearingsTextBox ,"Normal Use");
-
-        waitForElementToBeClickable(saveButton , webDriver);
-        saveButton.click();
-
+        clickOnButton(saveButton ,webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
     public String closeCreatedOrUpdatedPage(){
-        waitForElementToBeClickable(successMessage1, webDriver);
-        message = successMessage1.getText();
+        message = getTextFromWeb(successMessage1 , webDriver);
 
-        waitForElementToBeClickable(closeButtonWithLinkText , webDriver);
-        closeButtonWithLinkText.click();
-
+        clickOnButton(closeButtonWithLinkText , webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
         return message;
     }
 
     private void clickOnEditHearings(){
-        waitForElementToBeClickable(editLinkText , webDriver);
-        editLinkText.click();
 
+        clickOnButton(editLinkText ,webDriver);
         switchToNewlyOpenedWindow(webDriver);
 
-        waitForElementToBeClickable(purposeOfHearingsTextBox, webDriver);
-        enterText(purposeOfHearingsTextBox, "General Purpose");
+        enterText(purposeOfHearingsTextBox, "General Purpose" , webDriver);
 
-        waitForElementToBeClickable(saveButton , webDriver);
-        saveButton.click();
+        clickOnButton(saveButton , webDriver);
     }
 
     private void clickOnCreateInterimOrder(){
 
-        waitForElementToBeClickable(createInterimOrderButton , webDriver);
-        createInterimOrderButton.click();
+        clickOnButton(createInterimOrderButton , webDriver);
 
         switchToNewlyOpenedWindow(webDriver);
 
-        waitForElementToBeVisible(interimOrderTypeSelect , webDriver);
-        new Select(interimOrderTypeSelect).selectByVisibleText("Interim order");
+        selectFromDropDown(interimOrderTypeSelect , "Interim order" , webDriver);
 
-        waitForElementToBeClickable(interimOrderDate , webDriver);
-        enterText(interimOrderDate , getPreviousDate());
-        interimOrderDate.sendKeys(Keys.TAB);
+        enterDate(interimOrderDate , getPreviousDate() , webDriver);
+        enterText(interimOrderMPNumberTextBox , get6DigitRandomInt() , webDriver);
 
-        waitForElementToBeClickable(interimOrderMPNumberTextBox , webDriver);
-        enterText(interimOrderMPNumberTextBox , get6DigitRandomInt());
+        enterText(interimOrderNotesTextArea ,"Creation Of Interim Order" , webDriver);
 
-        waitForElementToBeClickable(interimOrderNotesTextArea,webDriver);
-        enterText(interimOrderNotesTextArea ,"Creation Of Interim Order");
-
-        waitForElementToBeClickable(saveButton1, webDriver);
-        saveButton1.click();
-
+        clickOnButton(saveButton1 ,webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
     private void clickOnEditInterimOrder(){
 
-        waitForElementToBeClickable(editLinkText , webDriver);
-        editLinkText.click();
-
+        clickOnButton(editLinkText ,webDriver);
         switchToNewlyOpenedWindow(webDriver);
 
-        waitForElementToBeClickable(interimOrderNotesTextArea,webDriver);
-        enterText(interimOrderNotesTextArea , "Editing Interim Order");
+        enterText(interimOrderNotesTextArea , "Editing Interim Order" , webDriver);
 
-        waitForElementToBeClickable(updateButton , webDriver);
-        updateButton.click();
+        clickOnButton(updateButton ,webDriver);
     }
 
     private void enterJudgmentDetails(){
 
-        waitForElementToBeClickable(judgmentOrderDate , webDriver);
-        enterText(judgmentOrderDate ,getPreviousDate());
-        judgmentOrderDate.sendKeys(Keys.TAB);
+        enterDate(judgmentOrderDate ,getPreviousDate() , webDriver);
+        enterDate(judgmentDateSentToZone,getPreviousDate() , webDriver);
 
-        waitForElementToBeClickable(judgmentDateSentToZone , webDriver);
-        enterText(judgmentDateSentToZone,getPreviousDate());
-        judgmentDateSentToZone.sendKeys(Keys.TAB);
+        selectFromDropDown(judgmentTypeSelect , "Enquiry" ,webDriver);
+        enterText(judgmentDetailsTextArea ,"Judgment Is Under Process" , webDriver);
 
-        waitForElementToBeClickable(judgmentTypeSelect ,webDriver);
-        new Select(judgmentTypeSelect).selectByVisibleText("Enquiry");
-
-        waitForElementToBeClickable(judgmentDetailsTextArea , webDriver);
-        enterText(judgmentDetailsTextArea ,"Judgment Is Under Process");
-
-        waitForElementToBeClickable(saveButton1 , webDriver);
-        saveButton1.click();
-
+        clickOnButton(saveButton1 , webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
     private void enterEditJudgmentDetails(){
 
-        new Select(judgmentTypeSelect).selectByVisibleText("Allowed");
+        selectFromDropDown(judgmentTypeSelect ,"Allowed" ,webDriver );
+        enterText(judgmentDetailsTextArea , "Judgment Is Allowed" , webDriver);
 
-        waitForElementToBeClickable(judgmentDetailsTextArea , webDriver);
-        enterText(judgmentDetailsTextArea , "Judgment Is Allowed");
-
-        waitForElementToBeClickable(updateButton , webDriver);
-        updateButton.click();
-
+        clickOnButton(updateButton , webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
@@ -491,113 +424,66 @@ public class LegalCaseManagementPage extends BasePage {
         switch (mode){
 
             case "Yes" :
-
-                waitForElementToBeClickable(dateOfComplianceTextBox ,webDriver);
-                enterText(dateOfComplianceTextBox ,getPreviousDate());
-                dateOfComplianceTextBox.sendKeys(Keys.TAB);
-
-                waitForElementToBeClickable(complianceReportTextArea, webDriver);
-                enterText(complianceReportTextArea,"Judgment Implementation");
-
-                waitForElementToBeClickable(saveButton , webDriver);
-                saveButton.click();
-
+                enterDate(dateOfComplianceTextBox ,getPreviousDate() , webDriver);
+                enterText(complianceReportTextArea,"Judgment Implementation" , webDriver);
+                clickOnButton(saveButton , webDriver);
                 break;
 
             case "No_Appeal"  :
-
-                waitForElementToBeClickable(judgmentCompiledNo ,webDriver);
                 jsClick(judgmentCompiledNo , webDriver);
 
-                waitForElementToBeClickable(implementationFailureSelect ,webDriver);
-                new Select(implementationFailureSelect).selectByVisibleText("Appeal");
+                selectFromDropDown(implementationFailureSelect , "Appeal" ,webDriver );
+                enterText(appealNumberTextBox,get6DigitRandomInt() , webDriver);
+                enterDate(appealedDate,getPreviousDate() , webDriver);
+                enterText(appealedFilledByTextBox ,"Tester" , webDriver);
 
-                waitForElementToBeClickable(appealNumberTextBox , webDriver);
-                enterText(appealNumberTextBox,get6DigitRandomInt());
-
-                waitForElementToBeClickable(appealedDate , webDriver);
-                enterText(appealedDate,getPreviousDate());
-                appealedDate.sendKeys(Keys.TAB);
-
-                waitForElementToBeClickable(appealedFilledByTextBox , webDriver);
-                enterText(appealedFilledByTextBox ,"Tester");
-
-                waitForElementToBeClickable(saveButton , webDriver);
-                saveButton.click();
-
+                clickOnButton(saveButton , webDriver);
                 break;
 
             case "No_Contempt" :
 
-                waitForElementToBeClickable(judgmentCompiledNo , webDriver);
                 jsClick(judgmentCompiledNo , webDriver);
 
-                waitForElementToBeClickable(implementationFailureSelect , webDriver);
-                new Select(implementationFailureSelect).selectByVisibleText("Contempt");
+                selectFromDropDown(implementationFailureSelect ,"Contempt" , webDriver );
+                enterText(contemptCANumberTextBox,get6DigitRandomInt() , webDriver);
 
-                waitForElementToBeClickable(contemptCANumberTextBox , webDriver);
-                enterText(contemptCANumberTextBox,get6DigitRandomInt());
+                enterDate(contemptReceivedDate,getPreviousDate() , webDriver);
 
-                waitForElementToBeClickable(contemptReceivedDate , webDriver);
-                enterText(contemptReceivedDate,getPreviousDate());
-                contemptReceivedDate.sendKeys(Keys.TAB);
-
-                waitForElementToBeClickable(saveButton , webDriver);
-                saveButton.click();
-
+                clickOnButton(saveButton , webDriver);
                 break;
 
 
             case "InProgress" :
 
                 jsClick(judgmentInProgress ,webDriver);
+                enterText(inProgressDetailsTextArea,"Details Of InProgress" ,webDriver);
 
-                waitForElementToBeClickable(inProgressDetailsTextArea , webDriver);
-                enterText(inProgressDetailsTextArea,"Details Of InProgress");
-
-                waitForElementToBeClickable(saveButton , webDriver);
-                saveButton.click();
-
+                clickOnButton(saveButton , webDriver);
                 break;
 
             // From here we enter the edit details of judgment implementation
             case "edit_Yes" :
-                waitForElementToBeClickable(complianceReportTextArea, webDriver);
-                enterText(complianceReportTextArea ,"Judgment Implementation Edited");
 
-                waitForElementToBeClickable(saveButton , webDriver);
-                saveButton.click();
-
+                enterText(complianceReportTextArea ,"Judgment Implementation Edited" , webDriver);
+                clickOnButton(saveButton , webDriver);
                 break;
 
             case "edit_No_Appeal"  :
 
-                waitForElementToBeClickable(appealedFilledByTextBox , webDriver);
-                enterText(appealedFilledByTextBox , "Tester1");
+                enterText(appealedFilledByTextBox , "Tester1" , webDriver);
 
-                waitForElementToBeClickable(saveButton , webDriver);
-                saveButton.click();
-
+                clickOnButton(saveButton , webDriver);
                 break;
 
             case "edit_No_Contempt" :
 
-                waitForElementToBeClickable(contemptCANumberTextBox , webDriver);
-                enterText(contemptCANumberTextBox,get6DigitRandomInt());
-
-                waitForElementToBeClickable(saveButton , webDriver);
-                saveButton.click();
-
+                enterText(contemptCANumberTextBox,get6DigitRandomInt() , webDriver);
+                clickOnButton(saveButton , webDriver);
                 break;
 
             case "edit_InProgress" :
-
-                waitForElementToBeClickable(inProgressDetailsTextArea , webDriver);
-                enterText(inProgressDetailsTextArea , "Edited details Of InProgress");
-
-                waitForElementToBeClickable(saveButton , webDriver);
-                saveButton.click();
-
+                enterText(inProgressDetailsTextArea , "Edited details Of InProgress" , webDriver);
+                clickOnButton(saveButton , webDriver);
                 break;
         }
 
@@ -605,15 +491,9 @@ public class LegalCaseManagementPage extends BasePage {
     }
 
     private void enterCloseCaseDetails(){
+        enterDate(closeDisposalDate,getPreviousDate() , webDriver);
+        enterText(closeDisposalDetailsTextArea,"Case is Closed" , webDriver);
 
-        waitForElementToBeClickable(closeDisposalDate ,webDriver);
-        enterText(closeDisposalDate,getPreviousDate());
-        closeDisposalDate.sendKeys(Keys.TAB);
-
-        waitForElementToBeClickable(closeDisposalDetailsTextArea ,webDriver);
-        enterText(closeDisposalDetailsTextArea,"Case is Closed");
-
-        waitForElementToBeClickable(saveButton ,webDriver);
-        saveButton.click();
+        clickOnButton(saveButton , webDriver);
     }
 }
