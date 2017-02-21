@@ -146,12 +146,6 @@ public class SpillOverEstimatePage extends BasePage
     @FindBy(css = "input[id='Forward'][type='submit']")
     private WebElement forwardButton;
 
-//    @FindBy(css = "li[role='presentation'] a[data-now^='Estimate']")
-//    private WebElement estimateLink;
-
-//    @FindBy(id = "official_inbox_wrapper")
-//    private WebElement workListTable;
-
     @FindBy(css = "input[id='Submit'][type='submit']")
      private WebElement submitButton;
 
@@ -166,104 +160,78 @@ public class SpillOverEstimatePage extends BasePage
     public void enterEstimateHeaderDetails(EstimateHeaderDetails estimateHeaderDetails) {
         String check = date.getAttribute("maxlength");
         if(check.equals("10")) {
-            waitForElementToBeClickable(date, webDriver);
-            date.click();
-            enterText(date, estimateHeaderDetails.getDate());
-            date.sendKeys(Keys.TAB);
+            enterDate(date, estimateHeaderDetails.getDate(), webDriver);
         }
 
-        waitForElementToBeClickable(reference, webDriver);
-        reference.sendKeys(estimateHeaderDetails.getRequirementNumber());
+        enterText(reference, estimateHeaderDetails.getRequirementNumber(), webDriver);
 
-        waitForElementToBeClickable(wardInput, webDriver);
-        wardInput.sendKeys(estimateHeaderDetails.getElectionWard());
+        enterText(wardInput, estimateHeaderDetails.getElectionWard(), webDriver);
 
-        waitForElementToBeVisible( webDriver.findElement(By.className("tt-dropdown-menu")),webDriver);
         WebElement dropdown = webDriver.findElement(By.className("tt-dropdown-menu"));
-        dropdown.click();
+        clickOnButton(dropdown, webDriver);
 
-        waitForElementToBeClickable(location,webDriver);
-        new Select(location).selectByVisibleText(estimateHeaderDetails.getLocation());
+        selectFromDropDown(location, estimateHeaderDetails.getLocation(), webDriver);
 
-        waitForElementToBeClickable(workCategory,webDriver);
-        new Select(workCategory).selectByVisibleText(estimateHeaderDetails.getWorkCategory());
+        selectFromDropDown(workCategory, estimateHeaderDetails.getWorkCategory(), webDriver);
 
-        waitForElementToBeClickable(beneficiary,webDriver);
-        new Select(beneficiary).selectByVisibleText(estimateHeaderDetails.getBeneficiary());
+        selectFromDropDown(beneficiary, estimateHeaderDetails.getBeneficiary(), webDriver);
 
-        waitForElementToBeClickable(natureOfWork,webDriver);
-        new Select(natureOfWork).selectByVisibleText(estimateHeaderDetails.getNatureOfWork());
+        selectFromDropDown(natureOfWork, estimateHeaderDetails.getNatureOfWork(), webDriver);
 
-        waitForElementToBeClickable(typeofwork,webDriver);
-        new Select(typeofwork).selectByVisibleText(estimateHeaderDetails.getTypeOfWork());
+        selectFromDropDown(typeofwork, estimateHeaderDetails.getTypeOfWork(), webDriver);
 
         waitForElementToBeClickable(subTypeOfWork,webDriver);
         subTypeOfWork.click();
         subTypeOfWork.click();
-        new Select(subTypeOfWork).selectByVisibleText(estimateHeaderDetails.getSubTypeOfWork());
+        selectFromDropDown(subTypeOfWork, estimateHeaderDetails.getSubTypeOfWork(), webDriver);
 
-        waitForElementToBeClickable(modeOfEntrustment,webDriver);
-        new Select(modeOfEntrustment).selectByVisibleText(estimateHeaderDetails.getModeOfEntrustment());
+        selectFromDropDown(modeOfEntrustment, estimateHeaderDetails.getModeOfEntrustment(), webDriver);
     }
 
     public void enterFinancialDetails(FinancialDetails financialDetails) {
 
-        waitForElementToBeClickable(fundBox,webDriver);
-        new Select(fundBox).selectByVisibleText(financialDetails.getFund());
+        selectFromDropDown(fundBox, financialDetails.getFund(), webDriver);
 
-        waitForElementToBeClickable(functionBox,webDriver);
-        new Select(functionBox).selectByVisibleText(financialDetails.getFunction());
+        selectFromDropDown(functionBox, financialDetails.getFunction(), webDriver);
 
-        waitForElementToBeClickable(budgetHeadBox,webDriver);
-        new Select(budgetHeadBox).selectByVisibleText(financialDetails.getBudgetHead());
+        selectFromDropDown(budgetHeadBox, financialDetails.getBudgetHead(), webDriver);
     }
 
     public void enterWorkDetails(WorkDetails workDetails) {
 
-        waitForElementToBeClickable(workOrderCreatedCheckBox,webDriver);
-        selectWorksIfCreated(workOrderCreatedCheckBox, workDetails.getWorksorderCreated());
+        jsClickCheckbox(workOrderCreatedCheckBox, webDriver);
 
-        waitForElementToBeClickable(isBillCreatedCheckBox,webDriver);
-        selectWorksIfCreated(isBillCreatedCheckBox, workDetails.getBillsCreated());
+        jsClickCheckbox(isBillCreatedCheckBox, webDriver);
 
-        waitForElementToBeClickable(nameOfWorkTextBox,webDriver);
-        enterText(nameOfWorkTextBox,workDetails.getNameOfWork());
+        enterText(nameOfWorkTextBox,workDetails.getNameOfWork(), webDriver);
 
-        waitForElementToBeClickable(absEstimateNumTextBox,webDriver);
         String abstractIdNumber = (workDetails.getAbstractEstimateNumber() + get6DigitRandomInt()) ;
-        enterText(absEstimateNumTextBox,abstractIdNumber);
+        enterText(absEstimateNumTextBox,abstractIdNumber, webDriver);
 
-        waitForElementToBeClickable(estimateAmountTextBox,webDriver);
-        enterText(estimateAmountTextBox,workDetails.getEstimatedAmount());
+        enterText(estimateAmountTextBox,workDetails.getEstimatedAmount(), webDriver);
 
-        waitForElementToBeClickable(WINTextBox,webDriver);
         String workIdNumber = (workDetails.getWorkIdentificationNumber() + get6DigitRandomInt());
-        enterText(WINTextBox,workIdNumber);
+        enterText(WINTextBox,workIdNumber, webDriver);
 
-        waitForElementToBeClickable(actualAmountTextBox,webDriver);
-        enterText(actualAmountTextBox,workDetails.getActualEstimateAmount());
+        enterText(actualAmountTextBox,workDetails.getActualEstimateAmount(), webDriver);
 
        if(workDetails.getBillsCreated().equals(Boolean.TRUE)) {
-           waitForElementToBeClickable(grossAmountTextBox, webDriver);
-           enterText(grossAmountTextBox, workDetails.getGrossAmountBilled());
+           enterText(grossAmountTextBox, workDetails.getGrossAmountBilled(), webDriver);
        }
     }
 
-    private void selectWorksIfCreated(WebElement element, Boolean hasCreated) {
-        if (hasCreated && !element.isSelected())
-            element.click();
-    }
+//    private void selectWorksIfCreated(WebElement element, Boolean hasCreated) {
+//        if (hasCreated && !element.isSelected())
+//            element.click();
+//    }
 
     public void enterAdminSanctionDetails(AdminSanctionDetails adminSanctionDetails) {
 
-        waitForElementToBeClickable(adminSanctionNumberTextBox,webDriver);
         String adminSanctionId = (adminSanctionDetails.getAdministrationSanctionNumber() + get6DigitRandomInt());
-        enterText(adminSanctionNumberTextBox,adminSanctionId);
+        enterText(adminSanctionNumberTextBox,adminSanctionId, webDriver);
 
-        waitForElementToBeClickable(adminSanctionDateBox,webDriver);
         adminSanctionDateBox.click();
-        enterText(adminSanctionDateBox,getCurrentDate());
-        adminSanctionDateBox.sendKeys(Keys.TAB);
+        enterDate(adminSanctionDateBox, getCurrentDate(), webDriver);
 
         waitForElementToBeClickable(adminSanctionAuthorityTextBox,webDriver);
         adminSanctionAuthorityTextBox.sendKeys(adminSanctionDetails.getAdminSanctionAuthority());
@@ -271,26 +239,15 @@ public class SpillOverEstimatePage extends BasePage
     }
 
     public void enterTechnicalSanctionDetails(TechnicalSanctionDetails technicalSanctionDetails) {
-
-        waitForElementToBeClickable(technicalSanctionNumberTextBox,webDriver);
         String technicalSanctionId = (technicalSanctionDetails.getTechnicalSanctionNumber() + get6DigitRandomInt());
-        enterText(technicalSanctionNumberTextBox, technicalSanctionId);
-
-        waitForElementToBeClickable(technicalSanctionDateTextBox,webDriver);
-        enterText(technicalSanctionDateTextBox,getCurrentDate());
-        technicalSanctionDateTextBox.sendKeys(Keys.TAB);
-
-        waitForElementToBeClickable(designationBox,webDriver);
-        new Select(designationBox).selectByVisibleText(technicalSanctionDetails.getTechnicalSanctionAuthority());
-
+        enterText(technicalSanctionNumberTextBox, technicalSanctionId, webDriver);
+        enterDate(technicalSanctionDateTextBox, getCurrentDate(), webDriver);
+        selectFromDropDown(designationBox, technicalSanctionDetails.getTechnicalSanctionAuthority(), webDriver);
     }
 
     public void enterWorkDetailsforestimate(WorkDetails workDetails) {
-        waitForElementToBeClickable(estimateNameOfWorkBox,webDriver);
-        enterText(estimateNameOfWorkBox,workDetails.getNameOfWork());
-
-        waitForElementToBeClickable(estimateEstimateAmountBox,webDriver);
-        enterText(estimateEstimateAmountBox,workDetails.getEstimatedAmount());
+        enterText(estimateNameOfWorkBox,workDetails.getNameOfWork(), webDriver);
+        enterText(estimateEstimateAmountBox,workDetails.getEstimatedAmount(), webDriver);
     }
 
     public void enterApproverDetails(ApproverDetails approverDetails) {
@@ -323,8 +280,7 @@ public class SpillOverEstimatePage extends BasePage
             }
     }
 
-     waitForElementToBeClickable(approverComment,webDriver);
-     enterText(approverComment,approverDetails.getApproverComment());
+     enterText(approverComment,approverDetails.getApproverComment(), webDriver);
     }
 
     public String forwardToDEE() {

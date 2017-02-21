@@ -114,5 +114,9 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
             pageStore.get(MarriageRegistrationPage.class).searchForMarriageApplicationNumberToCollect(scenarioContext.getApplicationNumber(), "reissue");
             pageStore.get(MarriageRegistrationPage.class).clickOnCollectDropdown();
         });
+        And("^he collect the registration charges and closes the acknowledgement$", () -> {
+            pageStore.get(NewSewerageConnectionPage.class).collectCharges();
+            pageStore.get(NewSewerageConnectionPage.class).closeMultipleWindows("/mrs/registration/collectmrfee/");
+        });
     }
 }

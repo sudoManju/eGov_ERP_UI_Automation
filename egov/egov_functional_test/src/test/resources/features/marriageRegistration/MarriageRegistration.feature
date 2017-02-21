@@ -15,7 +15,7 @@ Feature: Marriage Registration
     When creator logs in
     And user will select the required screen as "Collect Fee"
     And he search for above application number to collect marriage Registration fee
-    And he collect the charges and closes the acknowledgement
+    And he collect the registration charges and closes the acknowledgement
     And current user logs out
 
     When commissioner logs in
