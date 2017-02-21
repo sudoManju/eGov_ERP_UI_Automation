@@ -108,97 +108,56 @@ public class WaterConnectionDetailsPage extends BasePage {
 
     public void enterConnectionInfo(ConnectionInfo connectionInfo){
 
-        waitForElementToBeClickable(waterSourceTypeSelectBox, webDriver);
-        new Select(waterSourceTypeSelectBox).selectByVisibleText(connectionInfo.getWaterSourceType());
+        selectFromDropDown(waterSourceTypeSelectBox , connectionInfo.getWaterSourceType() , webDriver);
+        selectFromDropDown(connectionTypeSelectBox , connectionInfo.getConnectionType() , webDriver);
+        selectFromDropDown(propertyTypeSelectBox , connectionInfo.getPropertyType() , webDriver);
+        selectFromDropDown(categorySelectBox , connectionInfo.getCategory() , webDriver);
+        selectFromDropDown(usageTypeSelectBox , connectionInfo.getUsageType() , webDriver);
+        selectFromDropDown(hscPipeSizeSelectBox , connectionInfo.getHscPipeSize() , webDriver);
 
-        new Select(connectionTypeSelectBox).selectByVisibleText(connectionInfo.getConnectionType());
-
-        new Select(propertyTypeSelectBox).selectByVisibleText(connectionInfo.getPropertyType());
-
-        new Select(categorySelectBox).selectByVisibleText(connectionInfo.getCategory());
-
-        new Select(usageTypeSelectBox).selectByVisibleText(connectionInfo.getUsageType());
-
-        new Select(hscPipeSizeSelectBox).selectByVisibleText(connectionInfo.getHscPipeSize());
-
-        enterText(sumpCapacityTextBox, connectionInfo.getSumpCapacity());
-
-        enterText(noOfPersonsTextBox, connectionInfo.getNoOfPersons());
+        enterText(sumpCapacityTextBox, connectionInfo.getSumpCapacity() ,webDriver);
+        enterText(noOfPersonsTextBox, connectionInfo.getNoOfPersons() , webDriver);
     }
 
     public void enterDocumentInfo(EnclosedDocument enclosedDocument){
 
-        waitForElementToBeClickable(documentNo1TextBox, webDriver);
-        enterText(documentNo1TextBox, enclosedDocument.getDocumentN01());
+        enterText(documentNo1TextBox, enclosedDocument.getDocumentN01() , webDriver);
+        enterText(documentNo2TextBox, enclosedDocument.getDocumentN02() , webDriver);
+        enterText(documentNo3TextBox, enclosedDocument.getDocumentN03() , webDriver);
 
-        waitForElementToBeClickable(documentNo2TextBox, webDriver);
-        enterText(documentNo2TextBox, enclosedDocument.getDocumentN02());
+        enterDate(documentDate1TextBox, getCurrentDate() ,webDriver);
+        enterDate(documentDate2TextBox, getCurrentDate() , webDriver);
+        enterDate(documentDate3TextBox, getCurrentDate()  ,webDriver);
 
-        waitForElementToBeClickable(documentNo3TextBox, webDriver);
-        enterText(documentNo3TextBox, enclosedDocument.getDocumentN03());
-
-        waitForElementToBeClickable(documentDate1TextBox, webDriver);
-        enterText(documentDate1TextBox, getCurrentDate());
-
-        waitForElementToBeClickable(documentDate2TextBox, webDriver);
-        enterText(documentDate2TextBox, getCurrentDate());
-
-        waitForElementToBeClickable(documentDate3TextBox, webDriver);
-        enterText(documentDate3TextBox, getCurrentDate());
-
-        waitForElementToBeClickable(browse1Button, webDriver);
-        browse1Button.sendKeys(System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx");
-
-        waitForElementToBeClickable(browse2Button, webDriver);
-        browse2Button.sendKeys(System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx");
-
-        waitForElementToBeClickable(browse3Button, webDriver);
-        browse3Button.sendKeys(System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx");
+        uploadFile(browse1Button , System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx" , webDriver );
+        uploadFile(browse2Button , System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx" , webDriver );
+        uploadFile(browse3Button , System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx" , webDriver );
     }
 
     public void enterAdditionalWaterConnectionInfo(ConnectionInfo connectionInfo){
 
-        waitForElementToBeClickable(waterSourceTypeSelectBox, webDriver);
-        new Select(waterSourceTypeSelectBox).selectByVisibleText(connectionInfo.getWaterSourceType());
+        selectFromDropDown(waterSourceTypeSelectBox , connectionInfo.getWaterSourceType() , webDriver);
+        selectFromDropDown(connectionTypeSelectBox , connectionInfo.getConnectionType() , webDriver);
+        selectFromDropDown(propertyTypeSelectBox , connectionInfo.getPropertyType() , webDriver);
+        selectFromDropDown(categorySelectBox , connectionInfo.getCategory() , webDriver);
+        selectFromDropDown(usageTypeSelectBox , connectionInfo.getUsageType() , webDriver);
+        selectFromDropDown(hscPipeSizeSelectBox , connectionInfo.getHscPipeSize() , webDriver);
 
-        new Select(connectionTypeSelectBox).selectByVisibleText(connectionInfo.getConnectionType());
-
-        new Select(propertyTypeSelectBox).selectByVisibleText(connectionInfo.getPropertyType());
-
-        new Select(categorySelectBox).selectByVisibleText(connectionInfo.getCategory());
-
-        new Select(usageTypeSelectBox).selectByVisibleText(connectionInfo.getUsageType());
-
-        new Select(hscPipeSizeSelectBox).selectByVisibleText(connectionInfo.getHscPipeSize());
-
-        enterText(sumpCapacityTextBox, connectionInfo.getSumpCapacity());
-
-        enterText(noOfPersonsTextBox, connectionInfo.getNoOfPersons());
-        enterText(reasonForNewConnection, connectionInfo.getReasonForAdditionalConnection());
+        enterText(sumpCapacityTextBox, connectionInfo.getSumpCapacity() ,webDriver);
+        enterText(noOfPersonsTextBox, connectionInfo.getNoOfPersons() , webDriver);
+        enterText(reasonForNewConnection, connectionInfo.getReasonForAdditionalConnection() ,webDriver);
     }
 
     public void enterFieldInspectionInfo(FieldInspectionDetails fieldInspectionDetails){
-        waitForElementToBeClickable(fieldInspectionMaterial, webDriver);
-        enterText(fieldInspectionMaterial , fieldInspectionDetails.getMaterial());
 
-        waitForElementToBeClickable(fieldInspectionQuantity, webDriver);
-        enterText(fieldInspectionQuantity , fieldInspectionDetails.getQuantity());
+        enterText(fieldInspectionMaterial , fieldInspectionDetails.getMaterial() , webDriver);
+        enterText(fieldInspectionQuantity , fieldInspectionDetails.getQuantity() , webDriver);
+        enterText(fieldInspectionMeasureUnit , fieldInspectionDetails.getUnitOfMeasurement() ,webDriver);
+        enterText(fieldInspectionRate , fieldInspectionDetails.getRate() ,webDriver);
+        enterText(fieldInspectionExistingPipeline , fieldInspectionDetails.getExistingDistributionPipeline() ,webDriver);
+        enterText(fieldInspectionPipelineDistance , fieldInspectionDetails.getPipelineToHomeDistance() ,webDriver);
 
-        waitForElementToBeClickable(fieldInspectionMeasureUnit, webDriver);
-        enterText(fieldInspectionMeasureUnit , fieldInspectionDetails.getUnitOfMeasurement());
-
-        waitForElementToBeClickable(fieldInspectionRate, webDriver);
-        enterText(fieldInspectionRate , fieldInspectionDetails.getRate());
-
-        waitForElementToBeClickable(fieldInspectionExistingPipeline, webDriver);
-        enterText(fieldInspectionExistingPipeline , fieldInspectionDetails.getExistingDistributionPipeline());
-
-        waitForElementToBeClickable(fieldInspectionPipelineDistance, webDriver);
-        enterText(fieldInspectionPipelineDistance , fieldInspectionDetails.getPipelineToHomeDistance());
-
-        waitForElementToBeClickable(fieldInspectionSubmitButton, webDriver);
-        fieldInspectionSubmitButton.click();
-
+        clickOnButton(fieldInspectionSubmitButton , webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
@@ -216,10 +175,11 @@ public class WaterConnectionDetailsPage extends BasePage {
                 }
             }
         }
-        enterText(sumpCapacityTextBox, connectionInfo.getSumpCapacity());
-        enterText(noOfPersonsTextBox, connectionInfo.getNoOfPersons());
-        new Select(usageTypeSelectBox).selectByVisibleText(connectionInfo.getUsageType());
-        enterText(reasonForNewConnection, connectionInfo.getReasonForAdditionalConnection());
+        enterText(sumpCapacityTextBox, connectionInfo.getSumpCapacity() , webDriver);
+        enterText(noOfPersonsTextBox, connectionInfo.getNoOfPersons() , webDriver);
+
+        selectFromDropDown(usageTypeSelectBox ,connectionInfo.getUsageType() , webDriver);
+        enterText(reasonForNewConnection, connectionInfo.getReasonForAdditionalConnection() ,webDriver);
     }
 
     public String enterDetailsOfClosureConnection(String closureType){
@@ -228,15 +188,13 @@ public class WaterConnectionDetailsPage extends BasePage {
         String number = acknowledgementNumber.getText();
 
         if(closureType.equalsIgnoreCase("Temporary")){
-            waitForElementToBeClickable(temporaryRadioButton , webDriver);
             jsClick(temporaryRadioButton ,webDriver);
         }
         else {
-            waitForElementToBeClickable(permanentRadioButton , webDriver);
             jsClick(permanentRadioButton ,webDriver);
         }
-        waitForElementToBeClickable(closureConnectionReason , webDriver);
-        closureConnectionReason.sendKeys("Not Required");
+
+        enterText(closureConnectionReason ,"Not Required" , webDriver );
         return number;
     }
 
