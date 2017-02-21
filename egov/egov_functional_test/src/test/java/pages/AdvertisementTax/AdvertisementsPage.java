@@ -109,7 +109,7 @@ public class AdvertisementsPage extends BasePage {
     @FindBy(id = "search")
     private WebElement searchAdvertisementButton;
 
-    @FindBy(xpath = "//*[@id='adtax_search']/tbody/tr[1]/td[7]/button")
+    @FindBy(xpath = "//*[@id='adtax_search']/tbody/tr[1]/td[9]/button")
     private WebElement collectButton;
 
     @FindBy(xpath = "//*[@id='adtax_search']/tbody/tr[4]/td[5]/button")
@@ -175,7 +175,7 @@ public class AdvertisementsPage extends BasePage {
     @FindBy(id = "searchrecord")
      private WebElement submitButtonForDeactive;
 
-    @FindBy(xpath = "//*[@id='adtax_searchrecord']/tbody/tr[1]/td[8]/button")
+    @FindBy(xpath = "//*[@id='adtax_searchrecord']/tbody/tr[1]/td[10]/button")
      private WebElement deactivateButton;
 
     @FindBy(id = "deactivation_remarks")
