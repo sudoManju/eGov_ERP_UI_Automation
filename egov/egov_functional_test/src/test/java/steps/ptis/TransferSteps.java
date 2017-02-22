@@ -2,6 +2,7 @@ package steps.ptis;
 
 import cucumber.api.java8.En;
 import entities.ptis.RegistrationDetails;
+import excelDataFiles.PtisDataReader;
 import pages.ptis.PropertyAcknowledgementPage;
 import pages.ptis.PropertyDetailsPage;
 import pages.ptis.TransferDetailsPage;
@@ -21,7 +22,7 @@ public class TransferSteps extends BaseSteps implements En {
             pageStore.get(TransferDetailsPage.class).chooseRegistrationAlreadyDone();
         });
         And("^he enters registration details for the property (\\w+)$", (String registrationDetailsDataId) -> {
-            RegistrationDetails registrationDetails = new ExcelReader(ptisTestDataFileName).getRegistrationDetails(registrationDetailsDataId);
+            RegistrationDetails registrationDetails = new PtisDataReader(ptisTestDataFileName).getRegistrationDetails(registrationDetailsDataId);
             pageStore.get(TransferDetailsPage.class).enterRegistrationDetails(registrationDetails);
         });
         And("^he enters enclosure details$", () -> {

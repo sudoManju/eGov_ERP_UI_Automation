@@ -5,6 +5,7 @@ import cucumber.api.java8.En;
 
 import entities.ptis.HearingDetails;
 import entities.ptis.RevisionPetitionDetails;
+import excelDataFiles.PtisDataReader;
 import pages.ptis.RevisionPetitionPage;
 import steps.BaseSteps;
 import excelDataFiles.ExcelReader;
@@ -19,14 +20,14 @@ public class RevisionPetitionSteps extends BaseSteps implements En{
             pageStore.get(RevisionPetitionPage.class).revisionPetitionSearchScreen(scenarioContext.getAssessmentNumber());
         });
         And("^he enters revision petition details(\\w+)$", (String revisionPetitionDataId ) -> {
-            RevisionPetitionDetails revisionPetitionDetails = new ExcelReader(ptisTestDataFileName).getRevisionPetitionDetails(revisionPetitionDataId);
+            RevisionPetitionDetails revisionPetitionDetails = new PtisDataReader(ptisTestDataFileName).getRevisionPetitionDetails(revisionPetitionDataId);
             pageStore.get(RevisionPetitionPage.class).revisionPetitionBlock(revisionPetitionDetails);
         });
         And("^he choose revision petition header$", () -> {
             pageStore.get(RevisionPetitionPage.class).chooseRevisionPetitionHeader();
         });
         And("^he enters hearing details(\\w+)$", (String hearingDataId) -> {
-            HearingDetails hearingDetails = new ExcelReader(ptisTestDataFileName).getHearingDetails(hearingDataId);
+            HearingDetails hearingDetails = new PtisDataReader(ptisTestDataFileName).getHearingDetails(hearingDataId);
             pageStore.get(RevisionPetitionPage.class).enterHearingDetails(hearingDetails);
         });
         And("^he enters approver remark$", () -> {

@@ -4,6 +4,7 @@ import cucumber.api.java8.En;
 import entities.collections.ChallanHeaderDetails;
 import entities.collections.PaymentMethod;
 import entities.ptis.ApprovalDetails;
+import excelDataFiles.CollectionsDataReader;
 import pages.collections.CollectionsPage;
 import pages.collections.PropertyTaxPage;
 import steps.BaseSteps;
@@ -17,7 +18,7 @@ public class CollectionSteps extends BaseSteps implements En {
             String challanheaderid = "challanHeader";
             String approverId = "seniorAssistant";
 
-            ChallanHeaderDetails challanHeaderDetails = new ExcelReader(collectionsTestDataFileName).getChallanHeader(challanheaderid);
+            ChallanHeaderDetails challanHeaderDetails = new CollectionsDataReader(collectionsTestDataFileName).getChallanHeader(challanheaderid);
             pageStore.get(CollectionsPage.class).enterChallanHeader(challanHeaderDetails);
 
             ApprovalDetails approverDetails = new ExcelReader(collectionsTestDataFileName).getApprovalDetailsOfChallan(approverId);
@@ -46,7 +47,7 @@ public class CollectionSteps extends BaseSteps implements En {
             pageStore.get(CollectionsPage.class).close();
         });
         And("^he pay using (\\w+)$", (String paymentMethod) -> {
-            PaymentMethod paymentmethod = new ExcelReader(collectionsTestDataFileName).getPaymentMethodDetails(paymentMethod);
+            PaymentMethod paymentmethod = new CollectionsDataReader(collectionsTestDataFileName).getPaymentMethodDetails(paymentMethod);
             pageStore.get(PropertyTaxPage.class).collectTax(paymentmethod,paymentMethod,"challan");
         });
         Given("^User will Visit Property Tax onlinepayent link$", () -> {

@@ -199,9 +199,9 @@ public class SpillOverEstimatePage extends BasePage
 
     public void enterWorkDetails(WorkDetails workDetails) {
 
-        jsClickCheckbox(workOrderCreatedCheckBox, webDriver);
+        clickOnButton(workOrderCreatedCheckBox, webDriver);
 
-        jsClickCheckbox(isBillCreatedCheckBox, webDriver);
+        clickOnButton(isBillCreatedCheckBox, webDriver);
 
         enterText(nameOfWorkTextBox,workDetails.getNameOfWork(), webDriver);
 

@@ -3,6 +3,7 @@ package steps.works;
 import cucumber.api.java8.En;
 import entities.works.*;
 
+import excelDataFiles.WorksDataReader;
 import pages.works.SpillOverEstimatePage;
 import steps.BaseSteps;
 import excelDataFiles.ExcelReader;
@@ -16,27 +17,27 @@ public class SpillOverEstimateSteps extends BaseSteps implements En {
 
         And("^he enters estimate header details as (\\w+)$", (String estimateHeaderDetailsDataId) -> {
 
-           EstimateHeaderDetails estimateHeaderDetails = new ExcelReader(lineEstimateTestDataFileName).getEstimateHeaderDetails(estimateHeaderDetailsDataId);
+           EstimateHeaderDetails estimateHeaderDetails = new WorksDataReader(lineEstimateTestDataFileName).getEstimateHeaderDetails(estimateHeaderDetailsDataId);
 
             pageStore.get(SpillOverEstimatePage.class).enterEstimateHeaderDetails(estimateHeaderDetails);
         });
         And("^he enters financial details as (\\w+)$", (String financialDetailsDataId) -> {
-           FinancialDetails financialDetails = new ExcelReader(lineEstimateTestDataFileName).getFinancialDetails(financialDetailsDataId);
+           FinancialDetails financialDetails = new WorksDataReader(lineEstimateTestDataFileName).getFinancialDetails(financialDetailsDataId);
 
             pageStore.get(SpillOverEstimatePage.class).enterFinancialDetails(financialDetails);
         });
         And("^he enters work details as (\\w+)$", (String workDetailsDataId) -> {
-            WorkDetails workDetails = new ExcelReader(lineEstimateTestDataFileName).getWorkDetails(workDetailsDataId);
+            WorkDetails workDetails = new WorksDataReader(lineEstimateTestDataFileName).getWorkDetails(workDetailsDataId);
 
             pageStore.get(SpillOverEstimatePage.class).enterWorkDetails(workDetails);
         });
         And("^he enters administration sanction details as (\\w+)$", (String adminSanctionDetailsDataId) -> {
-            AdminSanctionDetails adminSanctionDetails = new ExcelReader(lineEstimateTestDataFileName).getAdminSanctionDetails(adminSanctionDetailsDataId);
+            AdminSanctionDetails adminSanctionDetails = new WorksDataReader(lineEstimateTestDataFileName).getAdminSanctionDetails(adminSanctionDetailsDataId);
 
             pageStore.get(SpillOverEstimatePage.class).enterAdminSanctionDetails(adminSanctionDetails);
         });
         And("^he enters technical sanction details as (\\w+)$", (String technicalSanctionDetailsDataId) -> {
-           TechnicalSanctionDetails technicalSanctionDetails = new ExcelReader(lineEstimateTestDataFileName).getTechnicalSanctionDetails(technicalSanctionDetailsDataId);
+           TechnicalSanctionDetails technicalSanctionDetails = new WorksDataReader(lineEstimateTestDataFileName).getTechnicalSanctionDetails(technicalSanctionDetailsDataId);
 
             pageStore.get(SpillOverEstimatePage.class).enterTechnicalSanctionDetails(technicalSanctionDetails);
         });
@@ -53,7 +54,7 @@ public class SpillOverEstimateSteps extends BaseSteps implements En {
 
         });
         And("^he enters work details as for (\\w+)$", (String workDetailsDataId) -> {
-            WorkDetails workDetails = new ExcelReader(lineEstimateTestDataFileName).getWorkDetails(workDetailsDataId);
+            WorkDetails workDetails = new WorksDataReader(lineEstimateTestDataFileName).getWorkDetails(workDetailsDataId);
 
             pageStore.get(SpillOverEstimatePage.class).enterWorkDetailsforestimate(workDetails);
         });
@@ -104,11 +105,7 @@ public class SpillOverEstimateSteps extends BaseSteps implements En {
 
             pageStore.get(SpillOverEstimatePage.class).close();
         });
-
     }
-
-
-
 }
 
 

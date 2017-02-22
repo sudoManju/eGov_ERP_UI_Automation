@@ -2,6 +2,7 @@ package steps.collections;
 
 import cucumber.api.java8.En;
 import entities.collections.PaymentMethod;
+import excelDataFiles.CollectionsDataReader;
 import pages.collections.PropertyTaxPage;
 import steps.BaseSteps;
 import excelDataFiles.ExcelReader;
@@ -15,7 +16,7 @@ public class PropertyTaxSteps extends BaseSteps implements En {
             pageStore.get(PropertyTaxPage.class).payTax();
         });
         And("^he collect tax using (\\w+)$", (String paymentMode) -> {
-            PaymentMethod paymentmethod = new ExcelReader(collectionsTestDataFileName).getPaymentMethodDetails(paymentMode);
+            PaymentMethod paymentmethod = new CollectionsDataReader(collectionsTestDataFileName).getPaymentMethodDetails(paymentMode);
             pageStore.get(PropertyTaxPage.class).collectTax(paymentmethod,paymentMode,"Bill");
         });
     }

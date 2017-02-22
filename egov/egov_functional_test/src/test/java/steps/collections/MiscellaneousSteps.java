@@ -2,6 +2,7 @@ package steps.collections;
 
 import cucumber.api.java8.En;
 import entities.collections.PaymentMethod;
+import excelDataFiles.CollectionsDataReader;
 import pages.DashboardPage;
 import pages.collections.MiscellaneousPage;
 import steps.BaseSteps;
@@ -13,7 +14,7 @@ public class MiscellaneousSteps extends BaseSteps implements En {
             pageStore.get((MiscellaneousPage.class)).enterMiscellaneousDetails();
         });
         And("^he pays using (\\w+)$", (String paymentMode) -> {
-            PaymentMethod paymentmethod = new ExcelReader(collectionsTestDataFileName).getPaymentMethodDetails(paymentMode);
+            PaymentMethod paymentmethod = new CollectionsDataReader(collectionsTestDataFileName).getPaymentMethodDetails(paymentMode);
             pageStore.get(MiscellaneousPage.class).enterPaymentDetails(paymentmethod, paymentMode);
         });
         And("^he chooses to act upon the above receipt in drafts$", () -> {
