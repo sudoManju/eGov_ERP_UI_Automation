@@ -42,19 +42,19 @@ Feature: Create Trade License
     And he chooses to act upon above application number
 
     And he forwards for approver sanitaryInspector
-    And he closes the acknowledgement
+    And he closes acknowledgement page
     And current user logs out
 
     When sanitaryInspector logs in
     And he chooses to act upon above application number
     And he forwards for approver commissioner
-    And he closes the acknowledgement
+    And he closes acknowledgement page
     And current user logs out
 
     When commissioner logs in
     And he chooses to act upon above application number
     And he approves application
-    And he closes the acknowledgement
+    And he closes acknowledgement page
     And current user logs out
 
     When PublicHealthJA logs in
@@ -131,19 +131,19 @@ Feature: Create Trade License
     And he choose to payTax of applicationNumber
     And he chooses to act upon above application number
     And he forwards for approver sanitaryInspector
-    And he closes the acknowledgement
+    And he closes acknowledgement page
     And current user logs out
 
     When sanitaryInspector logs in
     And he chooses to act upon above application number
     And he forwards for approver commissioner
-    And he closes the acknowledgement
+    And he closes acknowledgement page
     And current user logs out
 
     When commissioner logs in
     And he chooses to act upon above application number
     And he approves application
-    And he closes the acknowledgement
+    And he closes acknowledgement page
     And current user logs out
 
     When creator logs in

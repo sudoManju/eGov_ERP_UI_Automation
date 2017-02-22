@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.w3c.dom.html.HTMLSelectElement;
 import pages.BasePage;
 
 import java.util.List;
@@ -150,6 +151,9 @@ public class TradeLicensePage extends BasePage {
     @FindBy(id = "boundary")
     private WebElement location;
 
+    @FindBy(css = "input[type='button'][value='Close']")
+    private WebElement acknowlwdgementClose;
+
 
     public TradeLicensePage(WebDriver webDriver) {this.webDriver = webDriver;}
 
@@ -164,9 +168,15 @@ public class TradeLicensePage extends BasePage {
 
     public void entertradeLocationDetails(TradeLocationDetails tradelocationDetails) {
         enterText(propertyAssessmentNumberTextBox, tradelocationDetails.getpropertyAssessmentNumber(),webDriver);
-        selectFromDropDown(location,tradelocationDetails.getLocality(), webDriver);
+        propertyAssessmentNumberTextBox.sendKeys(Keys.TAB);
+        List<WebElement> options = location.findElements(By.tagName("option"));
+        for (WebElement option : options) {
+            if (option.isSelected()) {
+                selectFromDropDown(location,option.getText(), webDriver);
+            }
+        }
         location.sendKeys(Keys.TAB);
-        selectFromDropDown(wardSelect,tradelocationDetails.getWard(), webDriver);
+        new Select(wardSelect).selectByIndex(1);
         selectFromDropDown(OwnershipTypeDropBox,tradelocationDetails.getownershipType(),webDriver);
     }
 
@@ -352,7 +362,7 @@ public class TradeLicensePage extends BasePage {
     }
 
     public void closeAcknowledgementPage() {
-        webDriver.close();
+        clickOnButton(acknowlwdgementClose, webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
     }
 }
