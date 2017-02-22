@@ -6,9 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
 
-public class DirectBankPaymentDetailsPage extends BasePage {
-
-    private WebDriver webDriver;
+public class DirectBankPaymentDetailsPage extends FinancialPage {
 
     @FindBy(id = "fundId")
     private WebElement fundId;
@@ -74,7 +72,7 @@ public class DirectBankPaymentDetailsPage extends BasePage {
     private WebElement closeButton;
 
     public DirectBankPaymentDetailsPage(WebDriver webDriver) {
-        this.webDriver = webDriver;
+        super(webDriver);
     }
 
     public void enterDirectBankPaymentDetails(DirectBankPaymentDetails directBankPaymentDetails , String mode){

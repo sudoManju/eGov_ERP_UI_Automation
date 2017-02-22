@@ -12,9 +12,7 @@ import java.util.List;
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-public class SelectSingleOrMultipleBillsPage extends BasePage {
-
-    private WebDriver webDriver;
+public class SelectSingleOrMultipleBillsPage extends FinancialPage {
 
     @FindBy(id = "fromDate")
     private WebElement billFromDate;
@@ -73,7 +71,7 @@ public class SelectSingleOrMultipleBillsPage extends BasePage {
     private List<WebElement> voucherRows;
 
     public SelectSingleOrMultipleBillsPage(WebDriver webDriver) {
-        this.webDriver = webDriver;
+        super(webDriver);;
     }
 
     public void singleBillSearch(){

@@ -16,7 +16,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class FinancialPage extends BasePage {
 
-    private WebDriver webDriver;
+    protected WebDriver webDriver;
 
     @FindBy(id = "fundId")
     private WebElement fundId;

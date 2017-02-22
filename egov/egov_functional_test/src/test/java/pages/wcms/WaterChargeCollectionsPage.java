@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
+import pages.financial.FinancialPage;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -13,9 +14,7 @@ import java.util.concurrent.TimeUnit;
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-public class WaterChargeCollectionsPage extends BasePage{
-
-    private WebDriver webDriver;
+public class WaterChargeCollectionsPage extends WaterChargeManagementPage{
 
     @FindBy(id = "totalamounttobepaid")
     private WebElement totalAmount;
@@ -98,7 +97,7 @@ public class WaterChargeCollectionsPage extends BasePage{
     private String message;
 
     public WaterChargeCollectionsPage(WebDriver webDriver) {
-        this.webDriver = webDriver;
+        super(webDriver);
     }
 
     public void paymentWithMode(String mode){
@@ -167,7 +166,6 @@ public class WaterChargeCollectionsPage extends BasePage{
     }
 
     public void clickOnOnlinePayButton(){
-
         clickOnButton(onlinePayButton , webDriver);
     }
 

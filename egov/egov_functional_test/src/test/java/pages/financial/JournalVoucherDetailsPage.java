@@ -16,9 +16,7 @@ import java.util.concurrent.TimeUnit;
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-public class JournalVoucherDetailsPage extends BasePage {
-
-    private WebDriver webDriver;
+public class JournalVoucherDetailsPage extends FinancialPage {
 
     @FindBy(id = "vType")
     private WebElement voucherSubType;
@@ -87,7 +85,7 @@ public class JournalVoucherDetailsPage extends BasePage {
     private WebElement closeButton;
 
     public JournalVoucherDetailsPage(WebDriver webDriver) {
-        this.webDriver = webDriver;
+        super(webDriver);
     }
 
     public void enterJournalVoucherDetails(FinancialJournalVoucherDetails financialJournalVoucherDetails , String isSubLedgerPresent){

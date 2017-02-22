@@ -127,9 +127,9 @@ Feature: In this feature the following are created as well as edited
     Examples:
     | legalCaseData | action1       | action2  | action3      | action4      | action5     | action6  | action7      | action8                | implementationMode | action9                    | editImplementationMode| action10  |
     | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | Yes                | editJudgmentImplementation | edit_Yes              | closeCase |
-#    | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | No_Appeal          | editJudgmentImplementation | edit_No_Appeal        | closeCase |
-#    | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | No_Contempt        | editJudgmentImplementation | edit_No_Contempt      | closeCase |
-#    | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | InProgress         | editJudgmentImplementation | edit_InProgress       | closeCase |
+    | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | No_Appeal          | editJudgmentImplementation | edit_No_Appeal        | closeCase |
+    | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | No_Contempt        | editJudgmentImplementation | edit_No_Contempt      | closeCase |
+    | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | InProgress         | editJudgmentImplementation | edit_InProgress       | closeCase |
 
 
 

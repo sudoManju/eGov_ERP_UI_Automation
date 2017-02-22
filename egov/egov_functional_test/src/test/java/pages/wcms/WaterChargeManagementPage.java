@@ -19,7 +19,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class WaterChargeManagementPage extends BasePage {
 
-    private WebDriver webDriver;
+    protected WebDriver webDriver;
 
     @FindBy(id = "propertyIdentifier")
     private WebElement waterConnectionAssesmentNumberTextBox;

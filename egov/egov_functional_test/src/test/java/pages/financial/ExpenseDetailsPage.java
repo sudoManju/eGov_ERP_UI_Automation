@@ -16,9 +16,7 @@ import java.util.concurrent.TimeUnit;
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-public class ExpenseDetailsPage extends BasePage {
-
-    private WebDriver webDriver;
+public class ExpenseDetailsPage extends FinancialPage {
 
     @FindBy(id = "fund")
     private WebElement expenseFund;
@@ -87,7 +85,7 @@ public class ExpenseDetailsPage extends BasePage {
     private WebElement forwardMessage;
 
     public ExpenseDetailsPage(WebDriver webDriver) {
-        this.webDriver = webDriver;
+        super(webDriver);
     }
 
     public void createNewExpenseBill(FinancialExpenseBillDetails financialExpenseBillDetails){

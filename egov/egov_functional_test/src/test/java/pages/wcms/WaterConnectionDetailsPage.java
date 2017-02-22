@@ -9,11 +9,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
-import pages.BasePage;
 
-public class WaterConnectionDetailsPage extends BasePage {
-
-    private WebDriver webDriver;
+public class WaterConnectionDetailsPage extends WaterChargeManagementPage {
 
     @FindBy(id = "waterSource")
     private WebElement waterSourceTypeSelectBox;
@@ -103,7 +100,7 @@ public class WaterConnectionDetailsPage extends BasePage {
     private WebElement closureConnectionReason;
 
     public WaterConnectionDetailsPage(WebDriver webDriver) {
-        this.webDriver = webDriver;
+        super(webDriver);
     }
 
     public void enterConnectionInfo(ConnectionInfo connectionInfo){

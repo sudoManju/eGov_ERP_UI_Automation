@@ -6,9 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
 
-public class BankToBankDetailsPage extends BasePage {
-
-    private WebDriver webDriver;
+public class BankToBankDetailsPage extends FinancialPage {
 
     @FindBy(id = "fundId")
     private WebElement fundId;
@@ -44,7 +42,7 @@ public class BankToBankDetailsPage extends BasePage {
     private WebElement saveButton;
 
     public BankToBankDetailsPage(WebDriver webDriver) {
-        this.webDriver = webDriver;
+        super(webDriver);
     }
 
     public void enterBankToBankDetails(FinancialBankToBankDetails financialBankToBankDetails){

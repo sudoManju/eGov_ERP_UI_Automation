@@ -4,6 +4,7 @@ import cucumber.api.java8.En;
 import entities.ptis.*;
 import entities.wcms.EnclosedDocument;
 import entities.wcms.FieldInspectionDetails;
+import excelDataFiles.WaterChargesDataReader;
 import pages.DashboardPage;
 import pages.wcms.WaterChargeCollectionsPage;
 import pages.wcms.WaterChargeManagementPage;
@@ -22,10 +23,10 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
 
             pageStore.get(WaterChargeManagementPage.class).enterWaterConnectionAssessmentNumber(scenarioContext.getAssessmentNumber());
 
-            ConnectionInfo connectionInfo = new ExcelReader(ptisTestDataFileName).getConnectionInfo(connectionDetails);
+            ConnectionInfo connectionInfo = new WaterChargesDataReader(waterChargesTestDataFileName).getConnectionInfo(connectionDetails);
             pageStore.get(WaterConnectionDetailsPage.class).enterConnectionInfo(connectionInfo);
 
-            EnclosedDocument enclosedDocument = new ExcelReader(ptisTestDataFileName).getDocumentInfo(enclosedDocumentDetails);
+            EnclosedDocument enclosedDocument = new WaterChargesDataReader(waterChargesTestDataFileName).getDocumentInfo(enclosedDocumentDetails);
             pageStore.get(WaterConnectionDetailsPage.class).enterDocumentInfo(enclosedDocument);
         });
 
@@ -43,7 +44,7 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             String connectionDetails = "connectionInfo1";
             String approveDetails = "engineer";
 
-            ConnectionInfo connectionInfo = new ExcelReader(ptisTestDataFileName).getConnectionInfo(connectionDetails);
+            ConnectionInfo connectionInfo = new WaterChargesDataReader(waterChargesTestDataFileName).getConnectionInfo(connectionDetails);
             pageStore.get(WaterConnectionDetailsPage.class).enterAdditionalWaterConnectionInfo(connectionInfo);
 
             ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approveDetails);
@@ -77,7 +78,7 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             String connectionDetails = "changeOfUse";
             String approveDetails = "engineer";
 
-            ConnectionInfo connectionInfo = new ExcelReader(ptisTestDataFileName).getConnectionInfo(connectionDetails);
+            ConnectionInfo connectionInfo = new WaterChargesDataReader(waterChargesTestDataFileName).getConnectionInfo(connectionDetails);
             pageStore.get(WaterConnectionDetailsPage.class).changeOfUseConnectionInfo(connectionInfo);
 
             ApprovalDetails approvalDetails = new ExcelReader(ptisTestDataFileName).getApprovalDetails(approveDetails);
@@ -89,10 +90,10 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             String applicationParticularsDetails = "dataEntryInfo";
             String connectionDetails = "dataEntryInfo";
 
-            ApplicantInfo applicantInfo = new ExcelReader(ptisTestDataFileName).getApplicantInfo(applicationParticularsDetails);
+            ApplicantInfo applicantInfo = new WaterChargesDataReader(waterChargesTestDataFileName).getApplicantInfo(applicationParticularsDetails);
             pageStore.get(WaterChargeManagementPage.class).enterWaterDataEntryDetails(applicantInfo , scenarioContext.getAssessmentNumber());
 
-            ConnectionInfo connectionInfo = new ExcelReader(ptisTestDataFileName).getConnectionInfo(connectionDetails);
+            ConnectionInfo connectionInfo = new WaterChargesDataReader(waterChargesTestDataFileName).getConnectionInfo(connectionDetails);
             pageStore.get(WaterConnectionDetailsPage.class).enterConnectionInfo(connectionInfo);
 
             pageStore.get(WaterChargeManagementPage.class).estimationFeeDetails();
@@ -108,7 +109,7 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
         And("^user will enter the closure consumer number$", () -> {
             String applicationParticularsDetails = "additionalConnection";
 
-            ApplicantInfo applicantInfo = new ExcelReader(ptisTestDataFileName).getApplicantInfo(applicationParticularsDetails);
+            ApplicantInfo applicantInfo = new WaterChargesDataReader(waterChargesTestDataFileName).getApplicantInfo(applicationParticularsDetails);
             pageStore.get(WaterChargeManagementPage.class).enterConsumerNumber(applicantInfo.getPtAssessmentNumber());
         });
 
@@ -119,7 +120,7 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
 
 
             // User will enter the field inspection details
-            FieldInspectionDetails fieldInspectionDetails = new ExcelReader(ptisTestDataFileName).getFieldInspectionInfo(inspectionDetails);
+            FieldInspectionDetails fieldInspectionDetails = new WaterChargesDataReader(waterChargesTestDataFileName).getFieldInspectionInfo(inspectionDetails);
             pageStore.get(WaterConnectionDetailsPage.class).enterFieldInspectionInfo(fieldInspectionDetails);
 
             // User will closes the acknowledgement form
