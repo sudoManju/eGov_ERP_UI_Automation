@@ -2,27 +2,24 @@ package steps.tradeLicense;
 
 import cucumber.api.java8.En;
 import entities.tradeLicense.*;
+import excelDataFiles.TradeLicenseDataReader;
 import pages.tradeLicense.TradeLicensePage;
 import steps.BaseSteps;
 import excelDataFiles.ExcelReader;
 
-
-/**
- * Created by bimal on 20/12/16.
- */
 public class TradeLicenseSteps extends BaseSteps implements En {
     public TradeLicenseSteps() {
         And("^he enters trade owner details of new license (\\w+)$", (String tradeDetailsData) -> {
-            TradeOwnerDetails tradeOwnerDetails = new ExcelReader(tradeLicenseTestDataFileName).getTradeOwnerDetails(tradeDetailsData);
+            TradeOwnerDetails tradeOwnerDetails = new TradeLicenseDataReader(tradeLicenseTestDataFileName).getTradeOwnerDetails(tradeDetailsData);
            pageStore.get(TradeLicensePage.class).entertradeOwnerDetails(tradeOwnerDetails);
         });
         And("^he enters trade location details of new license (\\w+)$", (String tradeLocationData) -> {
-            TradeLocationDetails tradelocationDetails = new ExcelReader(tradeLicenseTestDataFileName).getTradeLocationDetails(tradeLocationData);
+            TradeLocationDetails tradelocationDetails = new TradeLicenseDataReader(tradeLicenseTestDataFileName).getTradeLocationDetails(tradeLocationData);
             pageStore.get(TradeLicensePage.class).entertradeLocationDetails(tradelocationDetails);
 
         });
         And("^he enters trade details of new license (\\w+)$", (String tradeDetailsData) -> {
-            TradeDetails tradedetails = new ExcelReader(tradeLicenseTestDataFileName).getTradeDetails(tradeDetailsData);
+            TradeDetails tradedetails = new TradeLicenseDataReader(tradeLicenseTestDataFileName).getTradeDetails(tradeDetailsData);
             pageStore.get(TradeLicensePage.class).entertradeDetails(tradedetails);
 
         });
@@ -46,7 +43,7 @@ public class TradeLicenseSteps extends BaseSteps implements En {
             pageStore.get(TradeLicensePage.class).enterlegencyDetails();
         });
         And("^he choose a trade license for closure as (\\w+)$", (String ClosureData) -> {
-           LicenseClosureDetails closureDetails=new ExcelReader(tradeLicenseTestDataFileName).getDetailsForClosure(ClosureData);
+           LicenseClosureDetails closureDetails=new TradeLicenseDataReader(tradeLicenseTestDataFileName).getDetailsForClosure(ClosureData);
             pageStore.get(TradeLicensePage.class).enterDetailsForClosure(closureDetails);
             String licenseNumber= pageStore.get(TradeLicensePage.class).getLicenseNumber();
             scenarioContext.setApplicationNumber(licenseNumber);
@@ -63,7 +60,7 @@ public class TradeLicenseSteps extends BaseSteps implements En {
         });
         And("^he search trade license with application number$", () -> {
             String searchId = "searchWithApplicationNumber";
-            SearchTradeDetails searchTradeDetails = new ExcelReader(tradeLicenseTestDataFileName).getTradeSearchDetails(searchId);
+            SearchTradeDetails searchTradeDetails = new TradeLicenseDataReader(tradeLicenseTestDataFileName).getTradeSearchDetails(searchId);
             pageStore.get(TradeLicensePage.class).enterApplicationNumberReadingFromExcel(searchTradeDetails);
 
         });
@@ -82,7 +79,7 @@ public class TradeLicenseSteps extends BaseSteps implements En {
         });
         And("^he search trade license with license number$", () -> {
             String searchId = "searchWithLicenseNumber";
-            SearchTradeDetails searchTradeDetails = new ExcelReader(tradeLicenseTestDataFileName).getTradeSearchDetails(searchId);
+            SearchTradeDetails searchTradeDetails = new TradeLicenseDataReader(tradeLicenseTestDataFileName).getTradeSearchDetails(searchId);
             pageStore.get(TradeLicensePage.class).enterLicenseNumber(searchTradeDetails.getLicenseNumber());
 
         });
