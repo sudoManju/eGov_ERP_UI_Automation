@@ -2,44 +2,16 @@ package excelDataFiles;
 
 import builders.ApprovalDetailsEntityBuilder;
 import builders.LoginDetailsBuilder;
-import builders.collections.ChallanHeaderDetailsBuilder;
-import builders.collections.ChequeDetailsBuilder;
-import builders.collections.PaymentMethodBuilder;
-import builders.councilManagement.PreambleDetailsBuilder;
-import builders.dcReports.PTReportBuilder;
-import builders.dcReports.VLTReportBuilder;
-import builders.financial.*;
-import builders.grievances.CreateComplaintDetailsBuilder;
-import builders.marriageRegistration.MarriageRegistrationBuilder;
 import builders.ptis.*;
-import builders.tradeLicense.*;
-import builders.wcms.EnclosedDocumentBuilder;
-import builders.wcms.FieldInspectionDetailsBuilder;
 import builders.works.*;
 import entities.*;
-import entities.collections.ChallanHeaderDetails;
-import entities.collections.ChequeDetails;
-import entities.collections.PaymentMethod;
-import entities.councilManagement.CreatePreambleDetails;
-import entities.dcReports.PTReport;
-import entities.dcReports.VLTReport;
-import entities.financial.*;
-import entities.grievances.CreateComplaintDetails;
-import entities.marriageRegistration.MarriageRegistrationInformation;
 import entities.ptis.*;
-import entities.tradeLicense.*;
-import entities.tradeLicense.SearchTradeDetails;
-import entities.wcms.EnclosedDocument;
-import entities.wcms.FieldInspectionDetails;
 import entities.works.*;
 import entities.ApprovalDetailsEntity;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
-
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Iterator;
 
 public class ExcelReader {
@@ -47,15 +19,11 @@ public class ExcelReader {
     Workbook workbook;
 
     Sheet registeredUserSheet;
-
-    //     Trade License Sheets
-
     Sheet approvalDetailsSheet;
     Sheet approverDetailsSheet;
 
     public ExcelReader(String testData) {
         String excelFilePath = testData + ".xlsx";
-//        System.out.println(excelFilePath);
         InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream(excelFilePath);
         try {
             workbook = WorkbookFactory.create(resourceAsStream);
@@ -64,13 +32,9 @@ public class ExcelReader {
         } catch (InvalidFormatException e) {
             e.printStackTrace();
         }
-
         registeredUserSheet = workbook.getSheet("registeredUserDetails");
         approverDetailsSheet = workbook.getSheet("approvalDetails");
-
-        //        Trade License Sheet Names
         approvalDetailsSheet = workbook.getSheet("approvalDetails");
-
     }
 
     protected Row readDataRow(Sheet fromSheet, String dataId) {
@@ -98,7 +62,6 @@ public class ExcelReader {
         throw new RuntimeException("No cell found for header: " + header);
     }
 
-
     private String getValueFromExcel(Sheet firstSheet, int rowIndex, int columnIndex) {
         Cell cell = firstSheet.getRow(rowIndex).getCell(columnIndex);
         if (cell == null || cell.getCellType() == Cell.CELL_TYPE_BLANK) {
@@ -116,7 +79,6 @@ public class ExcelReader {
                 firstSheet.getRow(0).getCell(columnIndex).toString().contains("current date");
     }
 
-
     public LoginDetails getLoginDetails(String loggedInUserDataId) {
         Row dataRow = readDataRow(registeredUserSheet, loggedInUserDataId);
         Cell idCell = getCellData(registeredUserSheet, dataRow, "id");
@@ -125,15 +87,9 @@ public class ExcelReader {
         String password = getCellData(registeredUserSheet, dataRow, "password").getStringCellValue();
         boolean hasZone = getCellData(registeredUserSheet, dataRow, "hasZone").getBooleanCellValue();
 
-
         return new LoginDetailsBuilder().withLoginId(id).withPassword(password)
                 .withHasZone(hasZone).build();
-
     }
-
-
-
-    //end of works management module line estimate
 
     public ApprovalDetails getApprovalDetails(String approvalDetailsDataId) {
         Row dataRow = readDataRow(approvalDetailsSheet, approvalDetailsDataId);
@@ -141,7 +97,6 @@ public class ExcelReader {
         String approverDesignation = getCellData(approvalDetailsSheet, dataRow, "approverDesignation").getStringCellValue();
         String approver = getCellData(approvalDetailsSheet, dataRow, "approver").getStringCellValue();
         String approverRemarks = getCellData(approvalDetailsSheet, dataRow, "approverRemarks").getStringCellValue();
-
 
         return new ApprovalDetailsBuilder()
                 .withApproverDepartment(approverDepartment)
@@ -177,7 +132,6 @@ public class ExcelReader {
                 .withApprover(approver)
                 .build();
     }
-
 
     public ApproverDetails getApprovalDetailsForEstimate(String approverDetailsDataId) {
         Row dataRow = readDataRow(approverDetailsSheet, approverDetailsDataId);
