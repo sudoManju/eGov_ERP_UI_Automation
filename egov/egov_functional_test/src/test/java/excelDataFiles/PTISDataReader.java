@@ -13,7 +13,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class PtisDataReader extends ExcelReader{
+public class PTISDataReader extends ExcelReader{
 
     Sheet propertyHeaderDetailsSheet;
     Sheet ownerDetailsSheet;
@@ -33,7 +33,7 @@ public class PtisDataReader extends ExcelReader{
     Sheet registrationDetailsSheet;
 
 
-    public PtisDataReader(String testData) {
+    public PTISDataReader(String testData) {
         super(testData);
         propertyHeaderDetailsSheet = workbook.getSheet("propertyHeaderDetails");
         ownerDetailsSheet = workbook.getSheet("ownerDetails");
@@ -52,8 +52,6 @@ public class PtisDataReader extends ExcelReader{
         hearingDetailsSheet = workbook.getSheet("hearingDetails");
         documentDetailsSheet = workbook.getSheet("documentDetails");
     }
-
-
 
     public SearchDetails getSearchDetails(String searchId){
         Row dataRow = readDataRow(searchDetailsSheet, searchId);
@@ -543,5 +541,4 @@ public class PtisDataReader extends ExcelReader{
                 .withvenue(venue)
                 .build();
     }
-
 }

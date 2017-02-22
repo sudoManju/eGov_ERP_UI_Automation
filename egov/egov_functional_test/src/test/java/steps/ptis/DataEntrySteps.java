@@ -1,11 +1,10 @@
 package steps.ptis;
 
 import cucumber.api.java8.En;
-import excelDataFiles.PtisDataReader;
+import excelDataFiles.PTISDataReader;
 import org.apache.commons.lang.math.RandomUtils;
 import pages.ptis.PropertyDetailsPage;
 import steps.BaseSteps;
-import excelDataFiles.ExcelReader;
 
 /**
  * Created by bimal on 16/11/16.
@@ -18,19 +17,19 @@ public class DataEntrySteps extends BaseSteps implements En {
             pageStore.get(PropertyDetailsPage.class).enterAssessmentNumber(assessmentNumber);
 
             pageStore.get(PropertyDetailsPage.class)
-                    .enterPropertyHeader(new PtisDataReader(ptisTestDataFileName).getPropertyHeaderDetails("residentialPrivate"));
+                    .enterPropertyHeader(new PTISDataReader(ptisTestDataFileName).getPropertyHeaderDetails("residentialPrivate"));
             pageStore.get(PropertyDetailsPage.class)
-                    .enterOwnerDetails(new PtisDataReader(ptisTestDataFileName).getOwnerDetails("bimal"));
+                    .enterOwnerDetails(new PTISDataReader(ptisTestDataFileName).getOwnerDetails("bimal"));
             pageStore.get(PropertyDetailsPage.class)
-                    .enterPropertyAddressDetails(new PtisDataReader(ptisTestDataFileName).getPropertyAddressDetails("addressOne"));
+                    .enterPropertyAddressDetails(new PTISDataReader(ptisTestDataFileName).getPropertyAddressDetails("addressOne"));
             pageStore.get(PropertyDetailsPage.class)
-                    .enterAssessmentDetails(new PtisDataReader(ptisTestDataFileName).getAssessmentDetails("assessmentNewProperty"));
+                    .enterAssessmentDetails(new PTISDataReader(ptisTestDataFileName).getAssessmentDetails("assessmentNewProperty"));
             pageStore.get(PropertyDetailsPage.class)
-                    .selectAmenities(new PtisDataReader(ptisTestDataFileName).getAmenties("all"));
+                    .selectAmenities(new PTISDataReader(ptisTestDataFileName).getAmenties("all"));
             pageStore.get(PropertyDetailsPage.class)
-                    .enterConstructionTypeDetails(new PtisDataReader(ptisTestDataFileName).getConstructionTypeDetails("defaultConstructionType"));
+                    .enterConstructionTypeDetails(new PTISDataReader(ptisTestDataFileName).getConstructionTypeDetails("defaultConstructionType"));
             pageStore.get(PropertyDetailsPage.class)
-                    .enterFloorDetails(new PtisDataReader(ptisTestDataFileName).getFloorDetails("firstFloor"));
+                    .enterFloorDetails(new PTISDataReader(ptisTestDataFileName).getFloorDetails("firstFloor"));
             pageStore.get(PropertyDetailsPage.class).create();
         });
     }

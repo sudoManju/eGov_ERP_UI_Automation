@@ -3,10 +3,9 @@ package steps.ptis;
 import cucumber.api.java8.En;
 import entities.ptis.EditAssessmentDetails;
 import entities.ptis.EditFloorDetails;
-import excelDataFiles.PtisDataReader;
+import excelDataFiles.PTISDataReader;
 import pages.ptis.PropertyDetailsPage;
 import steps.BaseSteps;
-import excelDataFiles.ExcelReader;
 
 import static javax.swing.UIManager.get;
 
@@ -21,12 +20,12 @@ public class AdditionSteps extends BaseSteps implements En {
 //            pageStore.get(PropertyDetailsPage.class).search();
 //        });
         And("^he updates assessment details as (\\w+)$", (String assessmentDetailsDataName) -> {
-            EditAssessmentDetails assessmentDetails = new PtisDataReader(ptisTestDataFileName).getEditAssessmentDetails(assessmentDetailsDataName);
+            EditAssessmentDetails assessmentDetails = new PTISDataReader(ptisTestDataFileName).getEditAssessmentDetails(assessmentDetailsDataName);
             pageStore.get(PropertyDetailsPage.class).enterEditAssessmentDetails(assessmentDetails);
         });
         And("^he enters Floor Details as (\\w+)$", (String floordetailsDataName) -> {
             // Write code here that turns the phrase above into concrete actions
-            EditFloorDetails floorDetails = new PtisDataReader(ptisTestDataFileName).getEditFloorDetails(floordetailsDataName);
+            EditFloorDetails floorDetails = new PTISDataReader(ptisTestDataFileName).getEditFloorDetails(floordetailsDataName);
             pageStore.get(PropertyDetailsPage.class).enterEditFloorDetails(floorDetails);
         });
         And("^he searches for assessment with number$", () -> {

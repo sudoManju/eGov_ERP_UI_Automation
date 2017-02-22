@@ -17,9 +17,6 @@ import java.util.List;
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-/**
- * Created by manjunatha-lap on 24/01/2017.
- */
 public class MarriageRegistrationPage extends BasePage {
     public WebDriver driver;
 

@@ -2,7 +2,7 @@ package steps.ptis;
 
 import cucumber.api.java8.En;
 import entities.ptis.*;
-import excelDataFiles.PtisDataReader;
+import excelDataFiles.PTISDataReader;
 import pages.ptis.PropertyAcknowledgementPage;
 import pages.ptis.PropertyDetailsPage;
 import steps.BaseSteps;
@@ -13,31 +13,31 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
     public PropertyDetailsPageSteps() {
 
         And("^he enters property header details as (\\w+)$", (String propertyDetailsDataId) -> {
-            PropertyHeaderDetails propertyHeaderDetails = new PtisDataReader(ptisTestDataFileName).getPropertyHeaderDetails(propertyDetailsDataId);
+            PropertyHeaderDetails propertyHeaderDetails = new PTISDataReader(ptisTestDataFileName).getPropertyHeaderDetails(propertyDetailsDataId);
             pageStore.get(PropertyDetailsPage.class).enterPropertyHeader(propertyHeaderDetails);
         });
         And("^he enters owner details for the first owner as (\\w+)$", (String ownerDetailsDataId) -> {
-            OwnerDetails ownerDetails = new PtisDataReader(ptisTestDataFileName).getOwnerDetails(ownerDetailsDataId);
+            OwnerDetails ownerDetails = new PTISDataReader(ptisTestDataFileName).getOwnerDetails(ownerDetailsDataId);
             pageStore.get(PropertyDetailsPage.class).enterOwnerDetails(ownerDetails);
         });
         And("^he enters property address details as (\\w+)$", (String addressDetailsDataId) -> {
-            PropertyAddressDetails addressDetails = new PtisDataReader(ptisTestDataFileName).getPropertyAddressDetails(addressDetailsDataId);
+            PropertyAddressDetails addressDetails = new PTISDataReader(ptisTestDataFileName).getPropertyAddressDetails(addressDetailsDataId);
             pageStore.get(PropertyDetailsPage.class).enterPropertyAddressDetails(addressDetails);
         });
         And("^he enters assessment details as (\\w+)$", (String assessmentDetailsDataId) -> {
-            AssessmentDetails assessmentDetails = new PtisDataReader(ptisTestDataFileName).getAssessmentDetails(assessmentDetailsDataId);
+            AssessmentDetails assessmentDetails = new PTISDataReader(ptisTestDataFileName).getAssessmentDetails(assessmentDetailsDataId);
             pageStore.get(PropertyDetailsPage.class).enterAssessmentDetails(assessmentDetails);
         });
         And("^he enters amenities as (\\w+)$", (String amenitiesDataId) -> {
-            Amenities amenities = new PtisDataReader(ptisTestDataFileName).getAmenties(amenitiesDataId);
+            Amenities amenities = new PTISDataReader(ptisTestDataFileName).getAmenties(amenitiesDataId);
             pageStore.get(PropertyDetailsPage.class).selectAmenities(amenities);
         });
         And("^he enters construction type details as (\\w+)$", (String constructionTypeDetailsDataId) -> {
-            ConstructionTypeDetails constructionTypeDetails = new PtisDataReader(ptisTestDataFileName).getConstructionTypeDetails(constructionTypeDetailsDataId);
+            ConstructionTypeDetails constructionTypeDetails = new PTISDataReader(ptisTestDataFileName).getConstructionTypeDetails(constructionTypeDetailsDataId);
             pageStore.get(PropertyDetailsPage.class).enterConstructionTypeDetails(constructionTypeDetails);
         });
         And("^he enters floor details as (\\w+)$", (String floorDetailsDataId) -> {
-            FloorDetails floorDetails = new PtisDataReader(ptisTestDataFileName).getFloorDetails(floorDetailsDataId);
+            FloorDetails floorDetails = new PTISDataReader(ptisTestDataFileName).getFloorDetails(floorDetailsDataId);
             pageStore.get(PropertyDetailsPage.class).enterFloorDetails(floorDetails);
         });
         And("^he enters approval details as (\\w+)$", (String approvalDetailsDataId) -> {
@@ -77,14 +77,14 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
             scenarioContext.setAssessmentNumber(assessmentNo);
         });
         And("^he search property with (\\w+)$", (String searchType) -> {
-            SearchDetails searchDetails = new PtisDataReader(ptisTestDataFileName).getSearchDetails(searchType);
+            SearchDetails searchDetails = new PTISDataReader(ptisTestDataFileName).getSearchDetails(searchType);
             pageStore.get(PropertyDetailsPage.class).searchProperty(searchDetails,searchType);
         });
         And("^he approved the property with remarks addition \"([^\"]*)\"$", (String arg0) -> {
              pageStore.get(PropertyDetailsPage.class).approveaddition();
         });
         And("^he enters document type details as (\\w+)$", (String documentSelect) -> {
-            DocumentTypeValue documentValue = new PtisDataReader(ptisTestDataFileName).getDocumentValue(documentSelect);
+            DocumentTypeValue documentValue = new PTISDataReader(ptisTestDataFileName).getDocumentValue(documentSelect);
            pageStore.get(PropertyDetailsPage.class).selectDocumentType(documentValue);
         });
 
