@@ -12,10 +12,10 @@ import pages.BasePage;
 public class TransferDetailsPage extends BasePage {
 
     private WebDriver webdriver;
-
     public TransferDetailsPage (WebDriver webdriver) {
         this.webdriver = webdriver;
     }
+
     @FindBy (id = "REGISTERED TRANSFER")
     private WebElement registrationAlreadyDoneButton;
 
@@ -87,45 +87,45 @@ public class TransferDetailsPage extends BasePage {
         registrationAlreadyDoneButton.click();
     }
     public void enterRegistrationDetails(RegistrationDetails registrationDetails) {
-        waitForElementToBeClickable(transferMobileNumber, webdriver);
-        transferMobileNumber.sendKeys("2299087661");
-        transferMobileNumber.sendKeys(Keys.TAB);
-        waitForElementToBeClickable(sellerExecutantNameTextBox, webdriver);
-        enterText(sellerExecutantNameTextBox, registrationDetails.getSellerExecutantName());
-        enterText(buyerClaimantNameTextBox, registrationDetails.getBuyerClaimantName());
-        enterText(doorNoTextBox, registrationDetails.getDoorNo());
-        enterText(propertyAddressTextBox, registrationDetails.getPropertyAddress());
-        enterText(registeredPlotAreaTextBox, registrationDetails.getRegisteredPlotArea());
-        enterText(registeredPlinthAreaTextBox, registrationDetails.getRegisteredPlinthArea());
-        enterText(eastBoundaryTextBox, registrationDetails.getEastBoundary());
-        enterText(westBoundaryTextBox, registrationDetails.getWestBoundary());
-        enterText(northBoundaryTextBox, registrationDetails.getNorthBoundary());
-        enterText(southBoundaryTextBox, registrationDetails.getSouthBoundary());
-        enterText(sRONameTextBox, registrationDetails.getSroName());
-        new Select(reasonforTransfersection).selectByVisibleText(registrationDetails.getReasonForChange());
-        enterText(registrationDocumentNumberTextBox, registrationDetails.getRegistrationDocumentNumber());
-        enterText(registrationDocumentDateTextBox, registrationDetails.getRegistrationDocumentDate());
-        enterText(partiesConsiderationValueTextBox, registrationDetails.getPartiesConsiderationValue());
-        enterText(departmentGuidelinesValueTextBox, registrationDetails.getDepartmentGuidelinesValue());
-        departmentGuidelinesValueTextBox.sendKeys(Keys.TAB);
+
+        enterText(transferMobileNumber, "2299087661", webdriver);
+        enterText(sellerExecutantNameTextBox, registrationDetails.getSellerExecutantName(), webdriver);
+        enterText(buyerClaimantNameTextBox, registrationDetails.getBuyerClaimantName(), webdriver);
+        enterText(doorNoTextBox, registrationDetails.getDoorNo(), webdriver);
+        enterText(propertyAddressTextBox, registrationDetails.getPropertyAddress(), webdriver);
+        enterText(registeredPlotAreaTextBox, registrationDetails.getRegisteredPlotArea(), webdriver);
+        enterText(registeredPlinthAreaTextBox, registrationDetails.getRegisteredPlinthArea(), webdriver);
+        enterText(eastBoundaryTextBox, registrationDetails.getEastBoundary(), webdriver);
+        enterText(westBoundaryTextBox, registrationDetails.getWestBoundary(), webdriver);
+        enterText(northBoundaryTextBox, registrationDetails.getNorthBoundary(), webdriver);
+        enterText(southBoundaryTextBox, registrationDetails.getSouthBoundary(), webdriver);
+        enterText(sRONameTextBox, registrationDetails.getSroName(), webdriver);
+        selectFromDropDown(reasonforTransfersection, registrationDetails.getReasonForChange(), webdriver);
+        enterText(registrationDocumentNumberTextBox, registrationDetails.getRegistrationDocumentNumber(), webdriver);
+        enterText(registrationDocumentDateTextBox, registrationDetails.getRegistrationDocumentDate(),webdriver);
+        enterText(partiesConsiderationValueTextBox, registrationDetails.getPartiesConsiderationValue(), webdriver);
+        enterText(departmentGuidelinesValueTextBox, registrationDetails.getDepartmentGuidelinesValue(),webdriver);
     }
+
     public void enterEnclosureDetails() {
+
         WebElement document1 = webdriver.findElement(By.id("save_documents_0__uploads"));
-        document1.sendKeys(System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx");
+        uploadFile(document1,System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx",webdriver);
         WebElement document2 = webdriver.findElement(By.id("save_documents_1__uploads"));
-        document2.sendKeys(System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx");
+        uploadFile(document2,System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx",webdriver);
         WebElement document3 = webdriver.findElement(By.id("save_documents_2__uploads"));
-        document3.sendKeys(System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx");
+        uploadFile(document3,System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx",webdriver);
         WebElement document4 = webdriver.findElement(By.id("save_documents_3__uploads"));
-        document4.sendKeys(System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx");
+        uploadFile(document4,System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx",webdriver);
     }
+
     public void searchAssessmentNumber(String mutationAssessmentNumber) {
-        searchMutationTextBox.sendKeys(mutationAssessmentNumber);
-        waitForElementToBeClickable(payFeeButton, webdriver);
-        payFeeButton.click();
+        enterText(searchMutationTextBox, mutationAssessmentNumber, webdriver);
+        clickOnButton(payFeeButton, webdriver);
     }
+
     public void generateTitleTransferNotice() {
-        titleTransferNoticeTextBox.click();
+        clickOnButton(titleTransferNoticeTextBox, webdriver);
         switchToNewlyOpenedWindow(webdriver);
         webdriver.close();
         switchToPreviouslyOpenedWindow(webdriver);

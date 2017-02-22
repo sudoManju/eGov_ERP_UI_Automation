@@ -62,47 +62,49 @@ public class RevisionPetitionPage extends BasePage {
     private WebElement printSpecialNotice;
 
     public void revisionPetitionSearchScreen(String Rpscreen) {
-        revisionPetitiontextBox.sendKeys(Rpscreen);
-        rpSearchButton.click();
+        enterText(revisionPetitiontextBox, Rpscreen, webDriver);
+        clickOnButton(rpSearchButton, webDriver);
     }
+
     public void chooseRevisionPetitionHeader() {
-        waitForElementToBeClickable(revisionPetitionHeader, webDriver);
-        revisionPetitionHeader.click();
+        clickOnButton(revisionPetitionHeader, webDriver);
     }
+
     public void revisionPetitionBlock(RevisionPetitionDetails revisionPetitionDetails) {
-        enterText(revisionPetitionDetailTextBox, revisionPetitionDetails.getRevisionPetitionDetail());
+        enterText(revisionPetitionDetailTextBox, revisionPetitionDetails.getRevisionPetitionDetail(),webDriver);
     }
+
     public void enterHearingDetails(HearingDetails hearingDetails) {
-        enterText(hearingDateTextBox,hearingDetails.getHearingDate());
-        new Select(hearingTimeSelection).selectByVisibleText(hearingDetails.getHearingTime());
-        enterText(venueTextBox, hearingDetails.getVenue());
-        forwardButton.click();
-       }
-    public void enterApproverRemarks() {
-        waitForElementToBeClickable(approveRemarkHearingTextBox, webDriver);
-        approveRemarkHearingTextBox.sendKeys("ApproverRemarkOfRP");
+        enterText(hearingDateTextBox,hearingDetails.getHearingDate(),webDriver);
+        selectFromDropDown(hearingTimeSelection, hearingDetails.getHearingTime(), webDriver);
+        enterText(venueTextBox, hearingDetails.getVenue(), webDriver);
+        clickOnButton(forwardButton, webDriver);
     }
+
+    public void enterApproverRemarks() {
+        enterText(approveRemarkHearingTextBox, "ApproverRemarkOfRP", webDriver);
+    }
+
     public void selectReasonForModification() {
         new Select(reasonForModificationDropDown).selectByIndex(1);
     }
+
     public void enterInspectionDetails() {
-        waitForElementToBeClickable(inspectionTextBox, webDriver);
-        inspectionTextBox.sendKeys("Inspection Details of property");
+        enterText(inspectionTextBox, "Inspection Details of property", webDriver);
     }
+
     public void rpApprove() {
-        waitForElementToBeClickable(approveRpbutton, webDriver);
-        approveRpbutton.click();
+        clickOnButton(approveRpbutton, webDriver);
     }
+
     public void clickPrintEndoresementNotice() {
-        waitForElementToBeClickable(printEndoresementNoticeButton, webDriver);
-        printEndoresementNoticeButton.click();
-        waitForElementToBeClickable(PrintCloseButton, webDriver);
-        PrintCloseButton.click();
+        clickOnButton(printEndoresementNoticeButton, webDriver);
+        clickOnButton(PrintCloseButton, webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
     }
+
     public void clickOnPrintSpecialNotice() {
-        waitForElementToBeClickable(printSpecialNotice, webDriver);
-        printSpecialNotice.click();
+        clickOnButton(printSpecialNotice, webDriver);
         switchToNewlyOpenedWindow(webDriver);
         webDriver.close();
         switchToPreviouslyOpenedWindow(webDriver);

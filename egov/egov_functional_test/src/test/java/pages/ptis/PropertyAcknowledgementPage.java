@@ -41,8 +41,6 @@ public class PropertyAcknowledgementPage extends BasePage {
     public void close() {
 
         try {
-//            waitForElementToBeClickable(closeButton,driver);
-//            closeButton.click();
             clickOnButton(closeButton, driver);
         }
         catch (StaleElementReferenceException e){
@@ -57,8 +55,6 @@ public class PropertyAcknowledgementPage extends BasePage {
 
     }
     public void close1() {
-//        waitForElementToBeClickable(propertyCloseButton,driver);
-//        propertyCloseButton.click();
         clickOnButton(propertyCloseButton, driver);
         await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
         for (String winHandle : driver.getWindowHandles()) {
@@ -71,7 +67,6 @@ public class PropertyAcknowledgementPage extends BasePage {
     }
 
     public void closeFromCommisionersLogin() {
-//        closeLink.click();
         clickOnButton(closeLink, driver);
         await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
         for (String winHandle : driver.getWindowHandles()) {
@@ -84,19 +79,12 @@ public class PropertyAcknowledgementPage extends BasePage {
     }
 
     public void toViewSubmissionPage(){
-//        waitForElementToBeClickable(assessmentViewButton , driver);
-//        assessmentViewButton.click();
         clickOnButton(assessmentViewButton, driver);
     }
     public void toCloseDataEntryPage(){
-//        waitForElementToBeClickable(assessmentCloseButton , driver);
-//        assessmentCloseButton.click();
         clickOnButton(assessmentCloseButton, driver);
     }
     public void toCloseAdditionalConnectionPage(){
-//        waitForElementToBeVisible(closeLink , driver);
-//        waitForElementToBeClickable(closeLink , driver);
-//        closeLink.click();
         clickOnButton(closeLink, driver);
         switchToPreviouslyOpenedWindow(driver);
     }
