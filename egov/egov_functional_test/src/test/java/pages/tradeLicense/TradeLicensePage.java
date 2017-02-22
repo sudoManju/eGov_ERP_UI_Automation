@@ -151,8 +151,8 @@ public class TradeLicensePage extends BasePage {
     private WebElement location;
 
 
-    public TradeLicensePage(WebDriver webDriver) {this.webDriver = webDriver;
-    }
+    public TradeLicensePage(WebDriver webDriver) {this.webDriver = webDriver;}
+
     public void entertradeOwnerDetails(TradeOwnerDetails tradeOwnerDetails) {
         enterText(aadhaarNumberTextBox, tradeOwnerDetails.getAadhaarNumber(),webDriver);
         enterText(mobileNumberTextBox, tradeOwnerDetails.getMobileNumber(), webDriver);
@@ -175,34 +175,33 @@ public class TradeLicensePage extends BasePage {
         selectFromDropDown(TradeTypeDropBox, tradedetails.gettradeType(), webDriver);
         selectFromDropDown(TradeCategoryDropBox,tradedetails.getTradeCategory(),webDriver);
         try {
-            tradeSubCategoryDropBox.click();
+            clickOnButton(tradeSubCategoryDropBox,webDriver);
         } catch (StaleElementReferenceException e) {
             WebElement element = webDriver.findElement(By.id("select2-subCategory-container"));
-            element.click();
+            clickOnButton(element, webDriver);
         }
         searchBox.sendKeys(tradedetails.gettradeSubCategory());
         WebElement element = webDriver.findElement(By.cssSelector(".select2-results__option.select2-results__option--highlighted"));
-        element.click();
-
+        clickOnButton(element, webDriver);
         enterText(TradeAreaWeightOfPremises, tradedetails.gettradeAreaWeightOfPremises(),webDriver);
         enterText(remarksTextBox, tradedetails.getremarks(),webDriver);
         enterText(tradeCommencementDateTextBox, tradedetails.gettradeCommencementDate(),webDriver);
-        jsClick(saveButton,webDriver);
+        clickOnButton(saveButton,webDriver);
     }
 
 
     public String getApplicationNumber() {
         List<WebElement> elements=webDriver.findElements(By.cssSelector(".col-sm-3.col-xs-6.add-margin.view-content"));
         String appNum = elements.get(0).getText();
-        webDriver.close();
+        clickOnButton(closeButton, webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
         return appNum;
         }
 
     public void enterApplicationNumber(String applicationNumber) {
         enterText(applicationNumberTextBox , applicationNumber, webDriver);
-        jsClick(includeInactiveElementCheck, webDriver);
-        jsClick(searchButton,webDriver);
+        jsClickCheckbox(includeInactiveElementCheck, webDriver);
+        clickOnButton(searchButton, webDriver);
     }
 
     public void chooseCollectFees() {
@@ -213,14 +212,13 @@ public class TradeLicensePage extends BasePage {
 
     public void chooseToPayTaxOfApplicationNumber() {
         switchToNewlyOpenedWindow(webDriver);
-        enterText(amountTextBox , totalAmountReceived.getAttribute("value").split("\\.")[0],webDriver);
+        enterText(amountTextBox , totalAmountReceived.getAttribute("value").split("\\.")[0], webDriver);
         WebElement element = webDriver.findElement(By.id("button2"));
         JavascriptExecutor executor = (JavascriptExecutor)webDriver;
         executor.executeScript("arguments[0].click();", element);
-
-        webDriver.close();
+        clickOnButton(printClose, webDriver);
         switchToNewlyOpenedWindow(webDriver);
-        webDriver.close();
+        clickOnButton(closeSearch, webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
         webDriver.navigate().refresh();
 

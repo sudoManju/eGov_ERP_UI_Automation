@@ -8,7 +8,7 @@ Feature: Create Trade License
 
   @Sanity @TradeLicense
   Scenario Outline: Registered user creating a new license in the system
-    Given creator logs in
+    Given PublicHealthJA logs in
     And user will select the required screen as "Create New License"
     And he enters trade owner details of new license <tradeDetailsData>
     And he enters trade location details of new license <tradeLocationData>
@@ -40,6 +40,7 @@ Feature: Create Trade License
     And he choose to collectfees
     And he choose to payTax of applicationNumber
     And he chooses to act upon above application number
+
     And he forwards for approver sanitaryInspector
     And he closes the acknowledgement
     And current user logs out
