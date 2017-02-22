@@ -45,6 +45,12 @@ public class BaseAPITest {
         return arrayList.contains(response.getStatusCode());
     }
 
+    public boolean isNotFound(Response response){
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        arrayList.add(404);
+        return arrayList.contains(response.getStatusCode());
+    }
+
 
 
 //    protected <T extends StartingPointSpec> T given(T dsl) {

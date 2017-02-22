@@ -18,7 +18,6 @@ public class CreateAgreement extends BaseAPITest {
 		    public void CreateAgreementShouldRespondWithSucessStatus() throws IOException{
 		        CreateAgreementRequest request = new CreateAgreementBuilder()
 		                .build();
-
 		        Response response = new CreateAgreementResource().serviceTypeValidation(RequestHelper.getJsonString(request));
 		        Assert.assertTrue(isGoodResponse(response), "Actual response code " + response.getStatusCode());
 
