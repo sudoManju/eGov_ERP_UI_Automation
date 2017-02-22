@@ -76,75 +76,48 @@ public class MilestoneTemplatePage extends BasePage {
     }
 
     public String successMessage(){
-        waitForElementToBeVisible(creationMsg, driver);
-        String msg = creationMsg.getText();
-        System.out.println("---------->"+msg);
+        String msg = getTextFromWeb(creationMsg, driver);
         return msg;
     }
 
     public void enterMilestoneTemplateDetails() {
 
-     waitForElementToBeVisible(templateCodeBox,driver);
-     templateCodeBox.sendKeys("TC"+get6DigitRandomInt());
-
-     waitForElementToBeClickable(templateNameTextBox,driver);
-     templateNameTextBox.sendKeys("testing");
-
-     waitForElementToBeClickable(templateDescriptionTextBox,driver);
-     templateDescriptionTextBox.sendKeys("Test-automation for the project");
-
-     waitForElementToBeClickable(typeOfWorkBox,driver);
-     new Select(typeOfWorkBox).selectByVisibleText("Roads, Drains, Bridges and Flyovers");
-
-     waitForElementToBeClickable(subTypeOfWorkBox,driver);
-     waitForElementToBePresent(By.cssSelector("select[id='subType'] option[value='5']"),driver);
-     new Select(subTypeOfWorkBox).selectByVisibleText("Roads");
-
-     waitForElementToBeVisible(addTemplateActivityButton,driver);
-     addTemplateActivityButton.click();
-
-     waitForElementToBeVisible(stageTable,driver);
+     enterText(templateCodeBox, "TC"+get6DigitRandomInt(), driver);
+     enterText(templateNameTextBox, "Testing", driver);
+     enterText(templateDescriptionTextBox, "Test-automation for the project", driver);
+     selectFromDropDown(typeOfWorkBox, "Roads, Drains, Bridges and Flyovers", driver);
+//     waitForElementToBePresent(By.cssSelector("select[id='subType'] option[value='5']"),driver);
+     selectFromDropDown(subTypeOfWorkBox, "Roads", driver);
+     clickOnButton(addTemplateActivityButton, driver);
      List<WebElement>totalRows = stageTable.findElement(By.tagName("tr")).findElements(By.tagName("td"));
         WebElement stageOrderTextBox = totalRows.get(0).findElement(By.className("slnowk"));
-        stageOrderTextBox.sendKeys("1");
+        enterText(stageOrderTextBox, "1", driver);
         WebElement stageDescriptionTextBox = totalRows.get(1).findElement(By.className("selectmultilinewk"));
-        stageDescriptionTextBox.sendKeys("Testing for Roads");
+        enterText(stageDescriptionTextBox, "Testing for Roads", driver);
         WebElement stagePercentageTextBox = totalRows.get(2).findElement(By.className("selectamountwk"));
-        stagePercentageTextBox.sendKeys("100");
+        enterText(stagePercentageTextBox, "100", driver);
     }
 
     public void save() {
-        waitForElementToBeClickable(saveButton, driver);
-        saveButton.click();
+        clickOnButton(saveButton, driver);
     }
 
     public void close(){
-        waitForElementToBeVisible(closeButton, driver);
-        closeButton.click();
-
+        clickOnButton(closeButton, driver);
         switchToPreviouslyOpenedWindow(driver);
     }
 
     public void enterMilestoneTemplateDetailsForView() {
-
-        waitForElementToBeVisible(typeOfWorkForViewBox,driver);
-        new Select(typeOfWorkForViewBox).selectByVisibleText("Roads, Drains, Bridges and Flyovers");
-
-        waitForElementToBeClickable(searchButton,driver);
-        searchButton.click();
+        selectFromDropDown(typeOfWorkForViewBox, "Roads, Drains, Bridges and Flyovers", driver);
+        clickOnButton(searchButton, driver);
     }
 
     public void selectTheRequiredTemplate() {
-        waitForElementToBeVisible(searchTable,driver);
-
         boolean isPresent =  driver.findElements(By.xpath("(.//*[@id='milestoneTemplate-searchDetails']/div[4]/div[1]/div[2]/span[2]/a)[last()]")).size() > 0;
-
         if(isPresent) {
-            waitForElementToBeVisible(lastPageLink, driver);
-            lastPageLink.click();
+            clickOnButton(lastPageLink, driver);
         }
-
-        requiredRowForView.click();
+        clickOnButton(requiredRowForView, driver);
     }
 
     public void selectTheRequiredTemplateToModify() {
@@ -158,14 +131,11 @@ public class MilestoneTemplatePage extends BasePage {
 
         waitForElementToBeVisible(searchTable,driver);
         List<WebElement> totalRows = searchTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-        System.out.println("Rows:"+totalRows.size());
+//        System.out.println("Rows:"+totalRows.size());
         WebElement requiredRow = totalRows.get(totalRows.size()-1);
         WebElement element = requiredRow.findElements(By.tagName("td")).get(0).findElement(By.id("radio"));
         jsClick(element,driver);
-
-        waitForElementToBeClickable(modifyButton,driver);
-        modifyButton.click();
-
+        clickOnButton(modifyButton, driver);
         switchToNewlyOpenedWindow(driver);
     }
 
@@ -176,40 +146,32 @@ public class MilestoneTemplatePage extends BasePage {
 
         WebElement stagePercentageTextBox = totalRows.get(2).findElement(By.className("selectamountwk"));
         stagePercentageTextBox.clear();
-        stagePercentageTextBox.sendKeys("80");
+        enterText(stagePercentageTextBox, "80", driver);
 
-        waitForElementToBeVisible(addTemplateActivityButton,driver);
-        addTemplateActivityButton.click();
+        clickOnButton(addTemplateActivityButton, driver);
         WebElement requiredRow = stageTable.findElements(By.tagName("tr")).get(1);
 
         WebElement stageOrderTextBox2 =  requiredRow.findElements(By.tagName("td")).get(0).findElement(By.id("stageOrderNoyui-rec1"));
-        stageOrderTextBox2.sendKeys("2");
+        enterText(stageOrderTextBox2, "2", driver);
 
         WebElement stageDescriptionTextBox2 = requiredRow.findElements(By.tagName("td")).get(1).findElement(By.id("descriptionyui-rec1"));
-        stageDescriptionTextBox2.sendKeys("Testing for modification");
+        enterText(stageDescriptionTextBox2, "Testing for modification", driver);
 
         WebElement stagePercentageTextBox2 = requiredRow.findElements(By.tagName("td")).get(2).findElement(By.id("percentageyui-rec1"));
-        stagePercentageTextBox2.sendKeys("20");
-
-        modifyButtonAfterModication.click();
+        enterText(stagePercentageTextBox2, "20", driver);
+        clickOnButton(modifyButtonAfterModication, driver);
     }
 
     public void closeMultiple(){
-        waitForElementToBeClickable(closeButton , driver);
-        closeButton.click();
+        clickOnButton(closeButton, driver);
 
         for (String winHandle : driver.getWindowHandles()) {
             if(driver.switchTo().window(winHandle).getTitle().equals("eGov Works Search Milestone Template")){
                 break;
             }
         }
-
-        waitForElementToBeVisible(typeOfWorkForViewBox,driver);
-        new Select(typeOfWorkForViewBox).selectByVisibleText("--------Select--------");
-
-        waitForElementToBeClickable(searchButton,driver);
-        searchButton.click();
-
+        selectFromDropDown(typeOfWorkForViewBox, "--------Select--------", driver);
+        clickOnButton(searchButton, driver);
         close();
     }
 }

@@ -112,105 +112,67 @@ public class MilestoneTrackPage extends BasePage {
     public MilestoneTrackPage(WebDriver driver) {this.driver = driver;}
 
     public void search(String number) {
-
      driver.findElement(By.id("workOrderNumber")).sendKeys(number);
-
-     waitForElementToBeVisible(searchButton,driver);
-     searchButton.click();
+     clickOnButton(searchButton, driver);
     }
-
     public void select() {
-        waitForElementToBeVisible(searchTableForCreate,driver);
-
-        waitForElementToBeVisible(radioButton,driver);
         jsClick(radioButton,driver);
-
     }
-
     public void createMilestone(){
-        waitForElementToBeVisible(createMilestoneButton,driver);
-        createMilestoneButton.click();
+        clickOnButton(createMilestoneButton, driver);
     }
-
     public String getLoaNumber() {
-        waitForElementToBeVisible(loaNumberBox,driver);
-        String loaNumber = loaNumberBox.getText();
-        System.out.println("\n Number: "+loaNumber);
+        String loaNumber = getTextFromWeb(loaNumberBox, driver);
         return loaNumber;
     }
-
     public void enterMilestoneDetails() {
-
-        waitForElementToBeVisible(milestoneStageTbl,driver);
         WebElement requiredRow = milestoneStageTbl.findElements(By.tagName("tr")).get(0);
-
         WebElement stageDescription = requiredRow.findElements(By.tagName("td")).get(1).findElement(By.name("activities[0].description"));
-        stageDescription.sendKeys("Stage 1");
-
+        enterText(stageDescription, "Stage 1", driver);
         WebElement stagePercentage = requiredRow.findElements(By.tagName("td")).get(2).findElement(By.name("activities[0].percentage"));
-        stagePercentage.sendKeys("50");
-
+        enterText(stagePercentage, "50", driver);
         WebElement stageScheduleStartDate = requiredRow.findElements(By.tagName("td")).get(3).findElement(By.name("activities[0].scheduleStartDate"));
-        stageScheduleStartDate.sendKeys(getCurrentDate());
-        stageScheduleStartDate.clear();
-        stageScheduleStartDate.sendKeys(getCurrentDate());
+        enterDate(stageScheduleStartDate, getCurrentDate(), driver);
+        enterDate(stageScheduleStartDate, getCurrentDate(), driver);
 
         WebElement stageScheduleEndDate = requiredRow.findElements(By.tagName("td")).get(4).findElement(By.name("activities[0].scheduleEndDate"));
-        stageScheduleEndDate.sendKeys(getFutureDate(30));
-        stageScheduleEndDate.clear();
-        stageScheduleEndDate.sendKeys(getFutureDate(30));
-
-        waitForElementToBeClickable(addRowButton,driver);
-        addRowButton.click();
+        enterDate(stageScheduleEndDate, getFutureDate(30), driver);
+        enterDate(stageScheduleEndDate, getFutureDate(30), driver);
+        clickOnButton(addRowButton, driver);
 
         WebElement requiredRow1 = milestoneStageTbl.findElements(By.tagName("tr")).get(1);
-
         WebElement stageOrderNo1 = driver.findElement(By.xpath("(//*[@id='stageOrderNo'])[2]"));
-        stageOrderNo1.sendKeys("2");
-
+        enterText(stageOrderNo1, "2", driver);
         WebElement stageDescription1 = requiredRow1.findElements(By.tagName("td")).get(1).findElement(By.name("activities[1].description"));
-        stageDescription1.sendKeys("Stage 2");
-
+        enterText(stageDescription1, "Stage 2", driver);
         WebElement stagePercentage1 = requiredRow1.findElements(By.tagName("td")).get(2).findElement(By.name("activities[1].percentage"));
-        stagePercentage1.sendKeys("50");
-
+        enterText(stagePercentage1, "50", driver);
         WebElement stageScheduleStartDate1 = requiredRow1.findElements(By.tagName("td")).get(3).findElement(By.name("activities[1].scheduleStartDate"));
-        stageScheduleStartDate1.sendKeys(getFutureDate(37));
-        stageScheduleStartDate1.clear();
-        stageScheduleStartDate1.sendKeys(getFutureDate(37));
+        enterDate(stageScheduleStartDate1, getFutureDate(37), driver);
+        enterDate(stageScheduleStartDate1, getFutureDate(37), driver);
 
         WebElement stageScheduleEndDate1 = requiredRow1.findElements(By.tagName("td")).get(4).findElement(By.name("activities[1].scheduleEndDate"));
-        stageScheduleEndDate1.sendKeys(getFutureDate(67));
-        stageScheduleEndDate1.clear();
-        stageScheduleEndDate1.sendKeys(getFutureDate(67));
+        enterDate(stageScheduleEndDate1, getFutureDate(67), driver);
+        enterDate(stageScheduleEndDate1, getFutureDate(67), driver);
     }
 
     public void save() {
-        waitForElementToBeClickable(saveButton,driver);
-        saveButton.click();
+        clickOnButton(saveButton, driver);
     }
 
     public String successMessage(){
-        waitForElementToBeVisible(creationMsg,driver);
-        String msg = creationMsg.getText();
-        System.out.println("\n"+msg);
+        String msg = getTextFromWeb(creationMsg, driver);
         return msg;
     }
 
     public void close(){
-        waitForElementToBeVisible(closeButton,driver);
-        waitForElementToBeClickable(closeButton,driver);
-        closeButton.click();
-
+        clickOnButton(closeButton, driver);
         switchToPreviouslyOpenedWindow(driver);
     }
 
     public void searchUsingLoa(String number) {
-        waitForElementToBeVisible(loaNumberTextBox,driver);
-        loaNumberTextBox.sendKeys(number);
-
-        waitForElementToBeClickable(searchButton,driver);
-        searchButton.click();
+        enterText(loaNumberTextBox, number, driver);
+        clickOnButton(searchButton,driver);
     }
 
     public void selectApplication() {
@@ -225,92 +187,57 @@ public class MilestoneTrackPage extends BasePage {
         WebElement element1 = driver.findElement(By.id("tblmilestone"));
         WebElement status1 = element1.findElement(By.name("trackMilestone[0].activities[0].status"));
         WebElement element2 = element1.findElement(By.className("scheduleEndDate_0"));
-
-        waitForElementToBeVisible(status1,driver);
-        new Select(status1).selectByVisibleText("COMPLETED");
-
+        selectFromDropDown(status1,"COMPLETED", driver );
         WebElement completionDateBox1 = element1.findElement(By.name("trackMilestone[0].activities[0].completionDate"));
-        completionDateBox1.sendKeys(element2.getText(),Keys.TAB , Keys.ARROW_DOWN);
+        enterText(completionDateBox1, element2.getText(), driver);
+
         WebElement status2 = element1.findElement(By.name("trackMilestone[0].activities[1].status"));
-
-        waitForElementToBeVisible(status2,driver);
-        new Select(status2).selectByVisibleText("COMPLETED");
-
+        selectFromDropDown(status2, "COMPLETED", driver);
         await().atMost(1, SECONDS);
-
         WebElement completionDateBox2 = element1.findElement(By.name("trackMilestone[0].activities[1].completionDate"));
-        completionDateBox2.sendKeys(getFutureDate(62));
-        completionDateBox2.sendKeys(Keys.TAB);
-
+        enterText(completionDateBox2, getFutureDate(62), driver);
         WebElement reasonForDelayTextBox = element1.findElement(By.name("trackMilestone[0].activities[1].remarks"));
-        reasonForDelayTextBox.sendKeys("testing");
+        enterText(reasonForDelayTextBox, "testing", driver);
     }
 
-
     public void createContractorBill() {
-        waitForElementToBeClickable(createContractorBillButton,driver);
-        createContractorBillButton.click();
+        clickOnButton(createContractorBillButton, driver);
     }
 
     public void enterContractorBillDetails(String billType) {
 
         switch (billType){
            case "part":
-               waitForElementToBeVisible(billTypeBox,driver);
-               new Select(billTypeBox).selectByVisibleText("Part Bill");
+               selectFromDropDown(billTypeBox, "Part Bill", driver);
                break;
 
            case "full":
-               waitForElementToBeVisible(billTypeBox,driver);
-               new Select(billTypeBox).selectByVisibleText("Final Bill");
-               waitForElementToBeVisible(completionDateTextBox,driver);
-               completionDateTextBox.sendKeys(getFutureDate(62), Keys.TAB);
+               selectFromDropDown(billTypeBox, "Final Bill", driver);
+               enterDate(completionDateTextBox, getFutureDate(62), driver);
                break;
         }
-        waitForElementToBeClickable(mbRefNoTextBox,driver);
-        mbRefNoTextBox.sendKeys("MB"+get6DigitRandomInt());
 
-        waitForElementToBeClickable(fromPageNoTextBox,driver);
-        fromPageNoTextBox.sendKeys("1");
-
-        waitForElementToBeClickable(toPageNoTextBox,driver);
-        toPageNoTextBox.sendKeys("10");
-
-        waitForElementToBeClickable(mbDateTextBox,driver);
-        mbDateTextBox.sendKeys(getCurrentDate(), Keys.TAB);
-
-        waitForElementToBeClickable(debitAmountTextBox,driver);
-        debitAmountTextBox.sendKeys("1000");
-
+        enterText(mbRefNoTextBox, "MB"+get6DigitRandomInt(), driver);
+        enterText(fromPageNoTextBox, "1", driver);
+        enterText(toPageNoTextBox, "10", driver);
+        enterDate(mbDateTextBox, getCurrentDate(), driver);
+        enterText(debitAmountTextBox, "1000", driver);
     }
 
     public String forwardToDEEContractorBill() {
-        waitForElementToBeClickable(forwardButton,driver);
-        forwardButton.click();
-
-        waitForElementToBeVisible(creationMsg1,driver);
-        String text = creationMsg1.getText();
-
+        clickOnButton(forwardButton, driver);
+        String text = getTextFromWeb(creationMsg1, driver);
         String billNumber = text.split("\\ ")[2];
-        System.out.println("\n"+billNumber);
-
         return billNumber;
     }
 
     public String successMessage1(){
-        waitForElementToBeVisible(creationMsg1,driver);
-        String msg = creationMsg1.getText();
-
-        System.out.println(msg);
+        String msg = getTextFromWeb(creationMsg1, driver);
         return msg;
     }
 
-
     public void approve() {
-        waitForElementToBeVisible(approvalCommentBox,driver);
-        approvalCommentBox.sendKeys("Approved");
-
-        waitForElementToBeClickable(approveButton,driver);
-        approveButton.click();
+        enterText(approvalCommentBox, "Approved", driver);
+        clickOnButton(approveButton, driver);
     }
 }

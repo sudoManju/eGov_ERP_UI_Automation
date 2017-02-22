@@ -34,10 +34,8 @@ public class PhysicalProgressTrackerPage extends BasePage {
     private WebElement closeLink;
 
     public void searchEstimate() {
-        waitForElementToBeClickable(searchEstimateButton, driver);
-        searchEstimateButton.click();
-        waitForElementToBeClickable(uploadPhotoLink, driver);
-        uploadPhotoLink.click();
+        clickOnButton(searchEstimateButton, driver);
+        clickOnButton(uploadPhotoLink, driver);
         switchToNewlyOpenedWindow(driver);
     }
 
@@ -48,17 +46,14 @@ public class PhysicalProgressTrackerPage extends BasePage {
     }
 
     public void close() {
-        waitForElementToBeClickable(closeLink,driver);
-        closeLink.click();
+        clickOnButton(closeLink, driver);
 
         for (String winHandle : driver.getWindowHandles()) {
             if(driver.switchTo().window(winHandle).getCurrentUrl().equals(getEnvironmentURL()+"/egworks/lineestimate/searchlineestimateform")){
                 break;
             }
         }
-
-        closeLink.click();
-
+        clickOnButton(closeLink, driver);
         switchToPreviouslyOpenedWindow(driver);
     }
 }

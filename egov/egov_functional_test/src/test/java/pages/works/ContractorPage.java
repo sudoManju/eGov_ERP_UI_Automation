@@ -112,7 +112,7 @@ public class ContractorPage extends BasePage
         String Name = "KMC"+get6DigitRandomInt();
         enterText(contractorName, Name, driver);
         enterText(correspondenceAddress, "A P State Agro industries Development Corporation Ltd ATP", driver);
-        enterText(panNumber, "PAN123456", driver);
+        enterText(panNumber, "PANUM1234P", driver);
         enterText(contactPerson, Name, driver);
         waitForElementToBeClickable(email, driver);
         enterText(email, Name+"@egov.org", driver);
