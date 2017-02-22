@@ -33,21 +33,10 @@ public class TradeLicenseDataReader extends ExcelReader {
         mobileNumberCell.setCellType(Cell.CELL_TYPE_STRING);
         String  mobileNumber = mobileNumberCell.getStringCellValue();
 
-        Cell tradeOwnerNameCell = getCellData(tradeOwnerDetailsSheet, dataRow, "tradeOwnerName");
-        tradeOwnerNameCell.setCellType(Cell.CELL_TYPE_STRING);
-        String tradeOwnerName = tradeOwnerNameCell.getStringCellValue();
-
-        Cell fatherSpouseNameCell = getCellData(tradeOwnerDetailsSheet, dataRow, "fatherSpouseName");
-        fatherSpouseNameCell.setCellType(Cell.CELL_TYPE_STRING);
-        String fatherSpouseName = fatherSpouseNameCell.getStringCellValue();
-
-        Cell emailIdCell = getCellData(tradeOwnerDetailsSheet, dataRow, "emailId");
-        emailIdCell.setCellType(Cell.CELL_TYPE_STRING);
-        String emailId = emailIdCell.getStringCellValue();
-
-        Cell tradeOwnerAddressCell = getCellData(tradeOwnerDetailsSheet, dataRow, "tradeOwnerAddress");
-        tradeOwnerAddressCell.setCellType(Cell.CELL_TYPE_STRING);
-        String tradeOwnerAddress = tradeOwnerAddressCell.getStringCellValue();
+        String tradeOwnerName = getCellData(tradeOwnerDetailsSheet, dataRow, "tradeOwnerName").getStringCellValue();
+        String fatherSpouseName = getCellData(tradeOwnerDetailsSheet, dataRow, "fatherSpouseName").getStringCellValue();
+        String emailId = getCellData(tradeOwnerDetailsSheet, dataRow, "emailId").getStringCellValue();
+        String tradeOwnerAddress = getCellData(tradeOwnerDetailsSheet, dataRow, "tradeOwnerAddress").getStringCellValue();
 
 
         return new TradeOwnerDetailsBuilder()
@@ -81,11 +70,8 @@ public class TradeLicenseDataReader extends ExcelReader {
         Row dataRow = readDataRow(tradeDetailsSheet, tradeDetailsData);
 
         String tradeTitle = getCellData(tradeDetailsSheet, dataRow, "tradeTitle").getStringCellValue();
-
         String tradeType = getCellData(tradeDetailsSheet, dataRow, "tradeType").getStringCellValue();
-
         String tradeCategory = getCellData(tradeDetailsSheet, dataRow, "tradeCategory").getStringCellValue();
-
         String tradeSubCategory = getCellData(tradeDetailsSheet, dataRow, "tradeSubCategory").getStringCellValue();
 
         Cell tradeAreaWeightOfPremisesCell = getCellData(tradeDetailsSheet, dataRow, "tradeAreaWeightOfPremises");
@@ -111,13 +97,8 @@ public class TradeLicenseDataReader extends ExcelReader {
     public LicenseClosureDetails getDetailsForClosure(String closureData) {
         Row dataRow = readDataRow(licenseClosureSheet,closureData);
 
-        Cell statusCell = getCellData(licenseClosureSheet, dataRow, "status");
-        statusCell.setCellType(Cell.CELL_TYPE_STRING);
-        String status=statusCell.getStringCellValue();
-
-        Cell tradeCategoryCell = getCellData(licenseClosureSheet, dataRow, "tradeCategory");
-        tradeCategoryCell.setCellType(Cell.CELL_TYPE_STRING);
-        String tradeCategory=tradeCategoryCell.getStringCellValue();
+        String status = getCellData(licenseClosureSheet, dataRow, "status").getStringCellValue();
+        String tradeCategory=getCellData(licenseClosureSheet, dataRow, "tradeCategory").getStringCellValue();
 
         return new LicenseClosureDetailsBuilder()
                 .withStatusDetails(status)

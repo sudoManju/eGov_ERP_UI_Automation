@@ -24,17 +24,13 @@ public class CouncilManagementDataReader extends ExcelReader {
     public CreatePreambleDetails getCreatePreambleDetails(String createPreambleData) {
         Row dataRow = readDataRow(createPreambleDetailsSheet, createPreambleData);
 
-        Cell departmentCell = getCellData(createPreambleDetailsSheet, dataRow, "department");
-        departmentCell.setCellType(Cell.CELL_TYPE_STRING);
-        String preambleDepartment = departmentCell.getStringCellValue();
+        String preambleDepartment = getCellData(createPreambleDetailsSheet, dataRow, "department").getStringCellValue();
 
         Cell amountCell = getCellData(createPreambleDetailsSheet, dataRow,"amount");
         amountCell.setCellType(Cell.CELL_TYPE_STRING);
         String amount = amountCell.getStringCellValue();
 
-        Cell gistOfPreambleCell = getCellData(createPreambleDetailsSheet,dataRow,"gistOfPreamble");
-        gistOfPreambleCell.setCellType(Cell.CELL_TYPE_STRING);
-        String gistOfPreamble = gistOfPreambleCell.getStringCellValue();
+        String gistOfPreamble = getCellData(createPreambleDetailsSheet,dataRow,"gistOfPreamble").getStringCellValue();
 
         return  new PreambleDetailsBuilder()
                 .withPreambleDepartment(preambleDepartment)
@@ -46,9 +42,7 @@ public class CouncilManagementDataReader extends ExcelReader {
     public CreatePreambleDetails getCreateAgendaDetails(String createAgendaData) {
         Row dataRow = readDataRow(createAgendaSheet, createAgendaData);
 
-        Cell committeeTypeCell =getCellData(createAgendaSheet, dataRow,"committeeType");
-        committeeTypeCell.setCellType(Cell.CELL_TYPE_STRING);
-        String committeeType=committeeTypeCell.getStringCellValue();
+        String committeeType=getCellData(createAgendaSheet, dataRow,"committeeType").getStringCellValue();
 
         return new PreambleDetailsBuilder()
                 .withCommitteeType(committeeType)
@@ -66,9 +60,7 @@ public class CouncilManagementDataReader extends ExcelReader {
         meetingTimeCell.setCellType(Cell.CELL_TYPE_STRING);
         String meetingTime = meetingTimeCell.getStringCellValue();
 
-        Cell meetingPlaceCell = getCellData(createMeetingSheet, dataRow, "meetingPlace");
-        meetingPlaceCell.setCellType(Cell.CELL_TYPE_STRING);
-        String meetingPlace = meetingPlaceCell.getStringCellValue();
+        String meetingPlace = getCellData(createMeetingSheet, dataRow, "meetingPlace").getStringCellValue();
 
         return new PreambleDetailsBuilder()
                 .withCouncilMeetingDate(meetingDate)
@@ -80,13 +72,8 @@ public class CouncilManagementDataReader extends ExcelReader {
     public CreatePreambleDetails getCouncilMOMDetails(String councilMOMData) {
         Row dataRow = readDataRow(createCouncilMOMSheet,councilMOMData);
 
-        Cell resolutionCommentCell= getCellData(createCouncilMOMSheet, dataRow,"resolutionComments");
-        resolutionCommentCell.setCellType(Cell.CELL_TYPE_STRING);
-        String resolutionComment= resolutionCommentCell.getStringCellValue();
-
-        Cell actionTakenCell= getCellData(createCouncilMOMSheet, dataRow, "actionTaken");
-        actionTakenCell.setCellType(Cell.CELL_TYPE_STRING);
-        String actionTaken= actionTakenCell.getStringCellValue();
+        String resolutionComment= getCellData(createCouncilMOMSheet, dataRow,"resolutionComments").getStringCellValue();
+        String actionTaken= getCellData(createCouncilMOMSheet, dataRow, "actionTaken").getStringCellValue();
 
         return new PreambleDetailsBuilder()
                 .withCouncilMOMResolution(resolutionComment)
