@@ -106,11 +106,11 @@ public class LetterOfAcceptancePage extends BasePage
     @FindBy(id = "workOrderDate")
     private WebElement agreementDate;
 
-    String RandomString = RandomStringUtils.randomAlphanumeric(5).toUpperCase();
+    String RandomString = RandomStringUtils.randomAlphanumeric(3).toUpperCase();
 
     public void enterLOAdetails()
     {
-        enterText(fileNumber, RandomString, driver);
+        enterText(fileNumber, "F/"+RandomString, driver);
         enterDate(fileDate, getCurrentDate(), driver);
         enterText(tenderFinalizedPercentage, "12", driver);
         enterText(firmName, "KMC055", driver);
@@ -165,8 +165,8 @@ public class LetterOfAcceptancePage extends BasePage
 
     public void searchForApplication() {
         clickOnButton(searchButton, driver);
-        clickOnButton(createLOAButton, driver);
         jsClick(reqFileLink,driver);
+        clickOnButton(createLOAButton, driver);
     }
 
     public String successMessage(){

@@ -162,57 +162,36 @@ public class SpillOverEstimatePage extends BasePage
         if(check.equals("10")) {
             enterDate(date, estimateHeaderDetails.getDate(), webDriver);
         }
-
         enterText(reference, estimateHeaderDetails.getRequirementNumber(), webDriver);
-
         enterText(wardInput, estimateHeaderDetails.getElectionWard(), webDriver);
-
         WebElement dropdown = webDriver.findElement(By.className("tt-dropdown-menu"));
         clickOnButton(dropdown, webDriver);
-
         selectFromDropDown(location, estimateHeaderDetails.getLocation(), webDriver);
-
         selectFromDropDown(workCategory, estimateHeaderDetails.getWorkCategory(), webDriver);
-
         selectFromDropDown(beneficiary, estimateHeaderDetails.getBeneficiary(), webDriver);
-
         selectFromDropDown(natureOfWork, estimateHeaderDetails.getNatureOfWork(), webDriver);
-
         selectFromDropDown(typeofwork, estimateHeaderDetails.getTypeOfWork(), webDriver);
-
-        waitForElementToBeClickable(subTypeOfWork,webDriver);
-        subTypeOfWork.click();
+//        subTypeOfWork.click();
         subTypeOfWork.click();
         selectFromDropDown(subTypeOfWork, estimateHeaderDetails.getSubTypeOfWork(), webDriver);
-
         selectFromDropDown(modeOfEntrustment, estimateHeaderDetails.getModeOfEntrustment(), webDriver);
     }
 
     public void enterFinancialDetails(FinancialDetails financialDetails) {
-
         selectFromDropDown(fundBox, financialDetails.getFund(), webDriver);
-
         selectFromDropDown(functionBox, financialDetails.getFunction(), webDriver);
-
         selectFromDropDown(budgetHeadBox, financialDetails.getBudgetHead(), webDriver);
     }
 
     public void enterWorkDetails(WorkDetails workDetails) {
-
         clickOnButton(workOrderCreatedCheckBox, webDriver);
-
         clickOnButton(isBillCreatedCheckBox, webDriver);
-
         enterText(nameOfWorkTextBox,workDetails.getNameOfWork(), webDriver);
-
         String abstractIdNumber = (workDetails.getAbstractEstimateNumber() + get6DigitRandomInt()) ;
         enterText(absEstimateNumTextBox,abstractIdNumber, webDriver);
-
         enterText(estimateAmountTextBox,workDetails.getEstimatedAmount(), webDriver);
-
         String workIdNumber = (workDetails.getWorkIdentificationNumber() + get6DigitRandomInt());
         enterText(WINTextBox,workIdNumber, webDriver);
-
         enterText(actualAmountTextBox,workDetails.getActualEstimateAmount(), webDriver);
 
        if(workDetails.getBillsCreated().equals(Boolean.TRUE)) {
@@ -220,22 +199,11 @@ public class SpillOverEstimatePage extends BasePage
        }
     }
 
-//    private void selectWorksIfCreated(WebElement element, Boolean hasCreated) {
-//        if (hasCreated && !element.isSelected())
-//            element.click();
-//    }
-
     public void enterAdminSanctionDetails(AdminSanctionDetails adminSanctionDetails) {
-
         String adminSanctionId = (adminSanctionDetails.getAdministrationSanctionNumber() + get6DigitRandomInt());
         enterText(adminSanctionNumberTextBox,adminSanctionId, webDriver);
-
-        adminSanctionDateBox.click();
         enterDate(adminSanctionDateBox, getCurrentDate(), webDriver);
-
-        waitForElementToBeClickable(adminSanctionAuthorityTextBox,webDriver);
-        adminSanctionAuthorityTextBox.sendKeys(adminSanctionDetails.getAdminSanctionAuthority());
-
+        enterText(adminSanctionAuthorityTextBox, adminSanctionDetails.getAdminSanctionAuthority(), webDriver);
     }
 
     public void enterTechnicalSanctionDetails(TechnicalSanctionDetails technicalSanctionDetails) {
@@ -251,19 +219,16 @@ public class SpillOverEstimatePage extends BasePage
     }
 
     public void enterApproverDetails(ApproverDetails approverDetails) {
-     waitForElementToBeClickable(approverDepartment,webDriver);
-     new Select(approverDepartment).selectByVisibleText(approverDetails.getApproverDepartment());
+     selectFromDropDown(approverDepartment, approverDetails.getApproverDepartment(), webDriver);
 
      for (int i=0;i<4;i++) {
          try {
-               waitForElementToBeClickable(approverDesignation, webDriver);
-               approverDesignation.click();
-               new Select(approverDesignation).selectByVisibleText(approverDetails.getApproverDesignation());
+               clickOnButton(approverDesignation, webDriver);
+               selectFromDropDown(approverDesignation, approverDetails.getApproverDesignation(), webDriver);
            } catch (StaleElementReferenceException e) {
                WebElement element1 = webDriver.findElement(By.id("approvalDesignation"));
-               waitForElementToBeClickable(element1, webDriver);
-               element1.click();
-               new Select(element1).selectByVisibleText(approverDetails.getApprover());
+               clickOnButton(element1, webDriver);
+               selectFromDropDown(element1, approverDetails.getApprover(), webDriver);
            }
      }
 
@@ -298,9 +263,7 @@ public class SpillOverEstimatePage extends BasePage
     }
 
     public String successMessage(){
-        waitForElementToBeVisible(creationMsg,webDriver);
-        String msg =creationMsg.getText();
-        System.out.println(msg);
+        String msg =getTextFromWeb(creationMsg, webDriver);
         return msg;
     }
 

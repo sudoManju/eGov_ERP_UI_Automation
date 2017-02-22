@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasePage;
 
 import javax.print.DocFlavor;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -136,8 +137,9 @@ public class MilestoneTrackPage extends BasePage {
         enterDate(stageScheduleStartDate, getCurrentDate(), driver);
 
         WebElement stageScheduleEndDate = requiredRow.findElements(By.tagName("td")).get(4).findElement(By.name("activities[0].scheduleEndDate"));
-        enterDate(stageScheduleEndDate, getFutureDate(30), driver);
-        enterDate(stageScheduleEndDate, getFutureDate(30), driver);
+        enterDate(stageScheduleEndDate, getFutureDate(62), driver);
+        enterText(stageScheduleEndDate, getFutureDate(62), driver);
+
         clickOnButton(addRowButton, driver);
 
         WebElement requiredRow1 = milestoneStageTbl.findElements(By.tagName("tr")).get(1);
@@ -148,12 +150,12 @@ public class MilestoneTrackPage extends BasePage {
         WebElement stagePercentage1 = requiredRow1.findElements(By.tagName("td")).get(2).findElement(By.name("activities[1].percentage"));
         enterText(stagePercentage1, "50", driver);
         WebElement stageScheduleStartDate1 = requiredRow1.findElements(By.tagName("td")).get(3).findElement(By.name("activities[1].scheduleStartDate"));
-        enterDate(stageScheduleStartDate1, getFutureDate(37), driver);
-        enterDate(stageScheduleStartDate1, getFutureDate(37), driver);
+        enterDate(stageScheduleStartDate1, getFutureDate(62), driver);
+        enterDate(stageScheduleStartDate1, getFutureDate(62), driver);
 
         WebElement stageScheduleEndDate1 = requiredRow1.findElements(By.tagName("td")).get(4).findElement(By.name("activities[1].scheduleEndDate"));
-        enterDate(stageScheduleEndDate1, getFutureDate(67), driver);
-        enterDate(stageScheduleEndDate1, getFutureDate(67), driver);
+        enterText(stageScheduleEndDate1, getFutureDate(72), driver);
+        enterText(stageScheduleEndDate1, getFutureDate(72), driver);
     }
 
     public void save() {
@@ -190,14 +192,13 @@ public class MilestoneTrackPage extends BasePage {
         selectFromDropDown(status1,"COMPLETED", driver );
         WebElement completionDateBox1 = element1.findElement(By.name("trackMilestone[0].activities[0].completionDate"));
         enterText(completionDateBox1, element2.getText(), driver);
-
         WebElement status2 = element1.findElement(By.name("trackMilestone[0].activities[1].status"));
         selectFromDropDown(status2, "COMPLETED", driver);
         await().atMost(1, SECONDS);
         WebElement completionDateBox2 = element1.findElement(By.name("trackMilestone[0].activities[1].completionDate"));
-        enterText(completionDateBox2, getFutureDate(62), driver);
+        enterDate(completionDateBox2, getFutureDate(82), driver);
         WebElement reasonForDelayTextBox = element1.findElement(By.name("trackMilestone[0].activities[1].remarks"));
-        enterText(reasonForDelayTextBox, "testing", driver);
+        enterText(reasonForDelayTextBox, "Delay", driver);
     }
 
     public void createContractorBill() {
