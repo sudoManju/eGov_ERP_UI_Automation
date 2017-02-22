@@ -14,9 +14,6 @@ import java.util.concurrent.TimeUnit;
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-/**
- * Created by karthik on 27/1/17.
- */
 public class NewSewerageConnectionPage extends BasePage {
 
     private WebDriver driver;
@@ -170,14 +167,12 @@ public class NewSewerageConnectionPage extends BasePage {
     public String getApplicatioNumber() {
         waitForElementToBeVisible(applicationNumberText,driver);
         String num1 = applicationNumberText.getText().split("\\ ")[5].substring(1,14);
-        System.out.println("\n "+num1);
         return num1;
     }
 
     public String getApplicatioNumberForChangeSewerage() {
         waitForElementToBeVisible(applicationNumberTextForChange,driver);
         String num1 = applicationNumberTextForChange.getText().split("\\ ")[5].substring(1,14);
-        System.out.println("\n "+num1);
         return num1;
     }
 
@@ -267,7 +262,6 @@ public class NewSewerageConnectionPage extends BasePage {
     public String getApplicatioNumberForClosure() {
         waitForElementToBeVisible(getApplicationNumberTextForClosure,driver);
         String num1 = getApplicationNumberTextForClosure.getText().split("\\ ")[4].substring(1,14);
-        System.out.println("\n "+num1);
         return num1;
     }
 
