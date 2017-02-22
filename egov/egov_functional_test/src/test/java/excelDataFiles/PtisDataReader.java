@@ -30,6 +30,8 @@ public class PtisDataReader extends ExcelReader{
     Sheet ptReportSheet;
     Sheet revisionPetitionDetailsSheet;
     Sheet hearingDetailsSheet;
+    Sheet registrationDetailsSheet;
+
 
     public PtisDataReader(String testData) {
         super(testData);

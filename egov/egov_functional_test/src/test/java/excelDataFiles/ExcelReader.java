@@ -49,17 +49,8 @@ public class ExcelReader {
 
     Sheet registeredUserSheet;
 
-//    Property Tax Sheets
-    Sheet registrationDetailsSheet;
 
 
-    //  Council Maanagement Sheets
-    Sheet enclosedDocumentSheet;
-    Sheet chequeDetailsSheet;
-    Sheet applicantParticularsSheet;
-    Sheet connectionDetailsSheet;
-    Sheet enclosedDocumentsSheet;
-    Sheet registeredUserDetailsSheet;
 
 
     //     Trade License Sheets
@@ -73,7 +64,6 @@ public class ExcelReader {
 
 
 
-    Sheet dataFromWebSheet;
     Sheet approvalDetailsSheet;
 
 
@@ -100,14 +90,11 @@ public class ExcelReader {
 
 //      Property Tax Sheet Names
 
-        chequeDetailsSheet = workbook.getSheet("chequeDetails");
 
-        enclosedDocumentSheet = workbook.getSheet("enclosedDocumentsDetails");
         registeredUserSheet = workbook.getSheet("registeredUserDetails");
 
 
 
-        registeredUserDetailsSheet = workbook.getSheet("registeredUserDetails");
         approverDetailsSheet = workbook.getSheet("approvalDetails");
 
 
@@ -124,7 +111,6 @@ public class ExcelReader {
         //        Council management Sheets
 
 
-        dataFromWebSheet = workbook.getSheet("dataFromWeb");
 
 //        Grievances sheets
 
@@ -212,23 +198,6 @@ public class ExcelReader {
                 .withApprover(approver)
                 .withApproverRemarks(approverRemarks)
                 .build();
-    }
-
-    public ChequeDetails getChequeDetails(String chequeDetailsDataId) {
-        Row dataRow = readDataRow(chequeDetailsSheet, chequeDetailsDataId);
-        Cell chequeNumberCell = getCellData(chequeDetailsSheet, dataRow, "chequeNumber");
-        chequeNumberCell.setCellType(Cell.CELL_TYPE_STRING);
-        String chequeNumber = chequeNumberCell.getStringCellValue();
-        Cell bankNameCell = getCellData(chequeDetailsSheet, dataRow, "bankName");
-        bankNameCell.setCellType(Cell.CELL_TYPE_STRING);
-        String bankName = bankNameCell.getStringCellValue();
-        String paidBy = getCellData(chequeDetailsSheet, dataRow, "paidBy").getStringCellValue();
-
-        return new ChequeDetailsBuilder()
-                .withChequeNumber(chequeNumber)
-                .withBankName(bankName)
-                .withPaidBy(paidBy)
-                .withChequeDate(new SimpleDateFormat("dd/MM/yyyy").format(new Date())).build();
     }
 
     public ApprovalDetailsEntity getApprovalDetailsForGrievance(String approvalDetailsDataId) {
@@ -361,93 +330,6 @@ public class ExcelReader {
                 .build();
     }
 
-   public RegistrationDetails getRegistrationDetails(String registrationDetailsDataId){
-       Row dataRow = readDataRow(registrationDetailsSheet, registrationDetailsDataId);
-       Cell sellerExecutantNameCell = getCellData(registrationDetailsSheet, dataRow, "sellerExecutantName");
-       sellerExecutantNameCell.setCellType(Cell.CELL_TYPE_STRING);
-       String sellerExecutantName = sellerExecutantNameCell.getStringCellValue();
-
-       Cell buyerClaimantNameCell = getCellData(registrationDetailsSheet, dataRow, "buyerClaimantName");
-       buyerClaimantNameCell.setCellType(Cell.CELL_TYPE_STRING);
-       String  buyerClaimantName = buyerClaimantNameCell.getStringCellValue();
-
-       Cell doorNoCell = getCellData(registrationDetailsSheet, dataRow, "doorNo");
-       doorNoCell.setCellType(Cell.CELL_TYPE_STRING);
-       String  doorNo = doorNoCell.getStringCellValue();
-
-       Cell propertyAddressCell = getCellData(registrationDetailsSheet, dataRow, "propertyAddress");
-       propertyAddressCell.setCellType(Cell.CELL_TYPE_STRING);
-       String  propertyAddress = propertyAddressCell.getStringCellValue();
-
-       Cell registeredPlotAreaCell = getCellData(registrationDetailsSheet, dataRow, "registeredPlotArea");
-       registeredPlotAreaCell.setCellType(Cell.CELL_TYPE_STRING);
-       String  registeredPlotArea = registeredPlotAreaCell.getStringCellValue();
-
-       Cell registeredPlinthAreaCell = getCellData(registrationDetailsSheet, dataRow, "registerPlinthArea");
-       registeredPlinthAreaCell.setCellType(Cell.CELL_TYPE_STRING);
-       String  registeredPlinthArea = registeredPlinthAreaCell.getStringCellValue();
-
-       Cell eastBoundaryCell = getCellData(registrationDetailsSheet, dataRow, "eastBoundary");
-       eastBoundaryCell.setCellType(Cell.CELL_TYPE_STRING);
-       String  eastBoundary = eastBoundaryCell.getStringCellValue();
-
-       Cell westBoundaryCell = getCellData(registrationDetailsSheet, dataRow, "westBoundary");
-       westBoundaryCell.setCellType(Cell.CELL_TYPE_STRING);
-       String  westBoundary = westBoundaryCell.getStringCellValue();
-
-       Cell northBoundaryCell = getCellData(registrationDetailsSheet, dataRow, "northBoundary");
-       northBoundaryCell.setCellType(Cell.CELL_TYPE_STRING);
-       String  northBoundary = northBoundaryCell.getStringCellValue();
-
-       Cell southBoundaryCell = getCellData(registrationDetailsSheet, dataRow, "southBoundary");
-       southBoundaryCell.setCellType(Cell.CELL_TYPE_STRING);
-       String  southBoundary = southBoundaryCell.getStringCellValue();
-
-       Cell sroNameCell = getCellData(registrationDetailsSheet, dataRow, "sroName");
-       sroNameCell.setCellType(Cell.CELL_TYPE_STRING);
-       String  sroName = sroNameCell.getStringCellValue();
-
-       Cell reasonForChangeCell = getCellData(registrationDetailsSheet, dataRow, "reasonForChange");
-       reasonForChangeCell.setCellType(Cell.CELL_TYPE_STRING);
-       String  reasonForChange = reasonForChangeCell.getStringCellValue();
-
-       Cell registrationDocumentNumberCell = getCellData(registrationDetailsSheet, dataRow, "registrationDocumentNumber");
-       registrationDocumentNumberCell.setCellType(Cell.CELL_TYPE_STRING);
-       String  registrationDocumentNumber = registrationDocumentNumberCell.getStringCellValue();
-
-       Cell registrationDocumentDateCell = getCellData(registrationDetailsSheet, dataRow, "registrationDocumentDate");
-       registrationDocumentDateCell.setCellType(Cell.CELL_TYPE_STRING);
-       String  registrationDocumentDate = registrationDocumentDateCell.getStringCellValue();
-
-       Cell partiesConsiderationValueCell = getCellData(registrationDetailsSheet, dataRow, "partiesConsiderationValue");
-       partiesConsiderationValueCell.setCellType(Cell.CELL_TYPE_STRING);
-       String  partiesConsiderationValue = partiesConsiderationValueCell.getStringCellValue();
-
-       Cell departmentGuidelinesValueCell = getCellData(registrationDetailsSheet, dataRow, "departmentGuide");
-       departmentGuidelinesValueCell.setCellType(Cell.CELL_TYPE_STRING);
-       String  departmentGuidelinesValue = departmentGuidelinesValueCell.getStringCellValue();
-
-
-
-       return new RegistrationDetailsBuilder()
-               .withSellerExecutantName(sellerExecutantName)
-               .withBuyerClaimantName(buyerClaimantName)
-               .withDoorNo(doorNo)
-               .withPropertyAddress(propertyAddress)
-               .withRegisteredPlotArea(registeredPlotArea)
-               .withRegisteredPlinthArea(registeredPlinthArea)
-               .withEastBoundary(eastBoundary)
-               .withWestBoundary(westBoundary)
-               .withNorthBoundary(northBoundary)
-               .withSouthBoundary(southBoundary)
-               .withSroName(sroName)
-               .withReasonForChange(reasonForChange)
-               .withRegistrationDocumentNumber(registrationDocumentNumber)
-               .withRegistrationDocumentDate(registrationDocumentDate)
-               .withPartiesConsiderationValue(partiesConsiderationValue)
-               .withdePartmentGuidelinesValue(departmentGuidelinesValue)
-               .build();
-   }
 
 
     public LicenseClosureDetails getDetailsForClosure(String closureData) {
