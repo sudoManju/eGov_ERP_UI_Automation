@@ -3,7 +3,7 @@ Feature: Create/search Advertisement
   I am able to create/search Advertisements
 
   @AdvertisementTax @Sanity
-  Scenario: Create/Search/Collect Tax Agency wise
+  Scenario Outline: Create/Search/Collect Tax Agency wise
 
     # Create Agency
 
@@ -22,7 +22,12 @@ Feature: Create/search Advertisement
 
     And creator logs in
     And user will select the required screen as "create advertisement"
-    And he enters details for advertisement creation with agency
+    And he enters advertisement details as <advertisementDetails>
+    And he enter agency name
+    And he enters permission details as <permissionDetails>
+    And he enters locality details as <localityDetails>
+    And he enters structure details as <structureDetails>
+    And he enter approver details as <approverDetails>
     And he forwards and closes the acknowledgement
     Then user will be notified by "successfully"
     And current user logs out
@@ -42,14 +47,22 @@ Feature: Create/search Advertisement
     And he choose to collect advertisement tax
     And current user logs out
 
+ Examples:
+   |advertisementDetails|permissionDetails|localityDetails|structureDetails|approverDetails|
+   |advertisement1      |permission1      |locality1      |structure1      |commissioner   |
+
   @AdvertisementTax  @Sanity
-  Scenario: Create/Search/CollectTax/Deactivate AdvertisementWise
+  Scenario Outline: Create/Search/CollectTax/Deactivate AdvertisementWise
 
 #  Create Advertisements
 
    Given creator logs in
    And user will select the required screen as "create advertisement"
-   And he enters details for advertisement creation
+   And he enters advertisement details as <advertisementDetails>
+   And he enters permission details as <permissionDetails>
+   And he enters locality details as <localityDetails>
+   And he enters structure details as <structureDetails>
+   And he enter approver details as <approverDetails>
    And he forwards and closes the acknowledgement
    Then user will be notified by "successfully"
    And current user logs out
@@ -83,3 +96,7 @@ Feature: Create/search Advertisement
     Then user will be notified by "Deactivated"
     And user closes the acknowledgement pages
     And current user logs out
+
+Examples:
+    |advertisementDetails|permissionDetails|localityDetails|structureDetails|approverDetails|
+    |advertisement1      |permission1      |locality1      |structure1      |commissioner   |

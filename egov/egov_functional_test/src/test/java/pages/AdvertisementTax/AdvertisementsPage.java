@@ -1,5 +1,9 @@
 package pages.AdvertisementTax;
 
+import entities.advertisementTax.AdvertisementDetails;
+import entities.advertisementTax.LocalityDetails;
+import entities.advertisementTax.PermissionDetails;
+import entities.advertisementTax.StructureDetails;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.support.FindBy;
@@ -203,22 +207,22 @@ public class AdvertisementsPage extends BasePage {
        this.driver = driver;
     }
 
-    public void enterAdvertisementDetails() {
-        selectFromDropDown(categoryBox,"Hoardings",driver);
-        selectFromDropDown(subCategoryBox,"Foot over Bridges",driver);
-        selectFromDropDown(classBox,"A",driver);
-        selectFromDropDown(revenueInspectorBox,"N Rajesh",driver);
+    public void enterAdvertisementDetails1(AdvertisementDetails advertisementDetails) {
+        selectFromDropDown(categoryBox,advertisementDetails.getCategory(),driver);
+        selectFromDropDown(subCategoryBox,advertisementDetails.getSubCategory(),driver);
+        selectFromDropDown(classBox,advertisementDetails.getClassType(),driver);
+        selectFromDropDown(revenueInspectorBox,advertisementDetails.getRevenueInspector(),driver);
         jsClick(structureTypeRadioButton,driver);
-        selectFromDropDown(propertyTypeBox,"GOVERNMENT",driver);
+        selectFromDropDown(propertyTypeBox,advertisementDetails.getPropertyType(),driver);
     }
 
-    public void enterPermissionDetails() {
+    public void enterPermissionDetails1(PermissionDetails permissionDetails) {
         enterDate(applicationDateBox,getCurrentDate(),driver);
-        enterText(adParticularTextBox,"For elections",driver);
-        enterText(ownerDetailsTextBox,"Bhartiya janatha party",driver);
+        enterText(adParticularTextBox,permissionDetails.getAdParticular(),driver);
+        enterText(ownerDetailsTextBox,permissionDetails.getOwner(),driver);
         enterDate(permissionStartDateBox,getFutureDate(7),driver);
         enterDate(permissionEndDateBox,getFutureDate(37),driver);
-        selectFromDropDown(advertismentDurationBox,"MONTH",driver);
+        selectFromDropDown(advertismentDurationBox,permissionDetails.getAdvertisementDuration(),driver);
     }
 
     public void enterAgencyDetailsForCreationAdvertisement(String agencyName) {
@@ -227,18 +231,17 @@ public class AdvertisementsPage extends BasePage {
         clickOnButton(dropdown,driver);
     }
 
-    public void enterLocalityDetails() {
-        selectFromDropDown(localityBox,"Avanthi Nagar",driver);
-        enterText(addressTextBox,"footover Bridge, mainroad, Avanthi Nagar",driver);
-        selectFromDropDown(electionWardBox,"Election Ward No. 1",driver);
+    public void enterLocalityDetails1(LocalityDetails localityDetails) {
+        selectFromDropDown(localityBox,localityDetails.getLocality(),driver);
+        enterText(addressTextBox,localityDetails.getLocalityAddress(),driver);
+        selectFromDropDown(electionWardBox,localityDetails.getElectionWard(),driver);
     }
 
-
-    public void enterStructureDetails() {
-          enterText(measurementTextBox,"20",driver);
-          selectFromDropDown(measurementTypeBox,"SQ.FT",driver);
-          enterText(taxAmountTextBox,"10",driver);
-        }
+    public void enterStructureDetails1(StructureDetails structureDetails) {
+        enterText(measurementTextBox,structureDetails.getMeasurement(),driver);
+        selectFromDropDown(measurementTypeBox,structureDetails.getMeasurementType(),driver);
+        enterText(taxAmountTextBox,structureDetails.getTaxAmount(),driver);
+    }
 
     public String forward() {
        clickOnButton(forwardButton,driver);

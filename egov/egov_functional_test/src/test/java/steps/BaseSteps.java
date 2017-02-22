@@ -30,6 +30,7 @@ public class BaseSteps {
     protected String approvalDetailsTestDataFileName = "approvalDetailsTestData";
     protected String legalCaseTestDataFileName = "legalCaseTestData";
     protected String waterChargesTestDataFileName = "waterChargesTestData";
+    protected String advertisementTestDataFileName = "AdvertisementDetailsTestData";
 
 
     protected void takeScreenShot(String screenshotName) throws IOException {

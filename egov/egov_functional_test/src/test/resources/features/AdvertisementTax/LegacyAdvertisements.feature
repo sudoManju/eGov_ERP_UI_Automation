@@ -3,11 +3,15 @@ Feature: Create/Update LegacyAdvertisements
   I am able to create/update legacyAdvertisements
 
   @AdvertisementTax  @Sanity
-  Scenario: Create/Update LegacyAdvertisements
+  Scenario Outline: Create/Update LegacyAdvertisements
 
     Given creator logs in
     And user will select the required screen as "create legacy advertisement"
-    And he enters details for legacy advertisement creation
+    And he enters advertisement details as <advertisementDetails>
+    And he enters permission details as <permissionDetails>
+    And he enters locality details as <localityDetails>
+    And he enters structure details as <structureDetails>
+    And he enters arrear details
     And he submit the application and closes the acknowledgement
     Then user will be notified by "successfully"
 
@@ -16,13 +20,21 @@ Feature: Create/Update LegacyAdvertisements
     And he update the legacy advertisement and close the acknowledgement
     Then user will be notified by "updated"
     And current user logs out
+  Examples:
+    |advertisementDetails|permissionDetails|localityDetails|structureDetails|
+    |advertisement1      |permission1      |locality1      |structure1      |
+
 
   @AdvertisementTax  @Sanity
-  Scenario: Create/Renewal LegacyAdvertisements
+  Scenario Outline: Create/Renewal LegacyAdvertisements
 
     Given creator logs in
     And user will select the required screen as "create legacy advertisement"
-    And he enters details for legacy advertisement creation
+    And he enters advertisement details as <advertisementDetails>
+    And he enters permission details as <permissionDetails>
+    And he enters locality details as <localityDetails>
+    And he enters structure details as <structureDetails>
+    And he enters arrear details
     And he submit the application and closes the acknowledgement
     Then user will be notified by "successfully"
 
@@ -38,4 +50,7 @@ Feature: Create/Update LegacyAdvertisements
     Then user will be notified by "Successful"
     And current user logs out
 
+ Examples:
+   |advertisementDetails|permissionDetails|localityDetails|structureDetails|
+   |advertisement1      |permission1      |locality1      |structure1      |
 

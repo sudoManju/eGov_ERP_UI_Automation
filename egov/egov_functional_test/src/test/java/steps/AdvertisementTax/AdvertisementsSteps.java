@@ -1,7 +1,13 @@
 package steps.AdvertisementTax;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
+import entities.advertisementTax.AdvertisementDetails;
+import entities.advertisementTax.LocalityDetails;
+import entities.advertisementTax.PermissionDetails;
+import entities.advertisementTax.StructureDetails;
 import entities.works.ApproverDetails;
+import excelDataFiles.AdvertisementTaxDataReader;
 import pages.AdvertisementTax.AdvertisementsPage;
 import pages.works.SpillOverEstimatePage;
 import steps.BaseSteps;
@@ -15,22 +21,6 @@ public class AdvertisementsSteps extends BaseSteps implements En {
 
     public AdvertisementsSteps() {
 
-        And("^he enters details for advertisement creation$", () -> {
-            pageStore.get(AdvertisementsPage.class).enterAdvertisementDetails();
-
-            pageStore.get(AdvertisementsPage.class).enterPermissionDetails();
-
-            pageStore.get(AdvertisementsPage.class).enterLocalityDetails();
-
-            pageStore.get(AdvertisementsPage.class).enterStructureDetails();
-
-            String approverDetailsDataId = "commissioner";
-
-            ApproverDetails approverDetails = new ExcelReader(lineEstimateTestDataFileName).getApprovalDetailsForEstimate(approverDetailsDataId);
-
-            pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
-
-        });
         And("^he forwards and closes the acknowledgement$", () -> {
             String number = pageStore.get(AdvertisementsPage.class).forward();
             scenarioContext.setApplicationNumber(number);
@@ -103,25 +93,6 @@ public class AdvertisementsSteps extends BaseSteps implements En {
         And("^he view and closes the acknowledgement$", () -> {
             pageStore.get(AdvertisementsPage.class).CloseAgencySearch();
         });
-
-        And("^he enters details for advertisement creation with agency$", () -> {
-            pageStore.get(AdvertisementsPage.class).enterAdvertisementDetails();
-
-            pageStore.get(AdvertisementsPage.class).enterAgencyDetailsForCreationAdvertisement(scenarioContext.getAssessmentNumber());
-
-            pageStore.get(AdvertisementsPage.class).enterPermissionDetails();
-
-            pageStore.get(AdvertisementsPage.class).enterLocalityDetails();
-
-            pageStore.get(AdvertisementsPage.class).enterStructureDetails();
-
-            String approverDetailsDataId = "commissioner";
-
-            ApproverDetails approverDetails = new ExcelReader(lineEstimateTestDataFileName).getApprovalDetailsForEstimate(approverDetailsDataId);
-
-            pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
-        });
-
         And("^he search for advertisement for deactivate$", () -> {
             pageStore.get(AdvertisementsPage.class).searchAdvertisementForDeactivate(scenarioContext.getApplicationNumber());
         });
@@ -132,6 +103,30 @@ public class AdvertisementsSteps extends BaseSteps implements En {
         });
         And("^user closes the acknowledgement pages$", () -> {
             pageStore.get(AdvertisementsPage.class).closeMultipleWindowsForDeactivateadvertisement("/adtax/deactivate/search");
+        });
+        And("^he enters advertisement details as (\\w+)$", (String advertisementDetailDataId) -> {
+            AdvertisementDetails advertisementDetails = new AdvertisementTaxDataReader(advertisementTestDataFileName).getAdvertisementDetails(advertisementDetailDataId);
+            pageStore.get(AdvertisementsPage.class).enterAdvertisementDetails1(advertisementDetails);
+
+        });
+        And("^he enters permission details as (\\w+)$", (String permissionDetailsDataId) -> {
+            PermissionDetails permissionDetails = new AdvertisementTaxDataReader(advertisementTestDataFileName).getPermissionDetails(permissionDetailsDataId);
+            pageStore.get(AdvertisementsPage.class).enterPermissionDetails1(permissionDetails);
+        });
+        And("^he enters locality details as (\\w+)$", (String localityDetailsDataId) -> {
+            LocalityDetails localityDetails = new AdvertisementTaxDataReader(advertisementTestDataFileName).getLocalityDetails(localityDetailsDataId);
+            pageStore.get(AdvertisementsPage.class).enterLocalityDetails1(localityDetails);
+        });
+        And("^he enters structure details as (\\w+)$", (String structureDetailsDataId) -> {
+            StructureDetails structureDetails = new AdvertisementTaxDataReader(advertisementTestDataFileName).getStructureDetails(structureDetailsDataId);
+            pageStore.get(AdvertisementsPage.class).enterStructureDetails1(structureDetails);
+        });
+        And("^he enter approver details as (\\w+)$", (String approverDetailsDataId) -> {
+            ApproverDetails approverDetails = new ExcelReader(lineEstimateTestDataFileName).getApprovalDetailsForEstimate(approverDetailsDataId);
+            pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
+        });
+        And("^he enter agency name$", () -> {
+            pageStore.get(AdvertisementsPage.class).enterAgencyDetailsForCreationAdvertisement(scenarioContext.getAssessmentNumber());
         });
     }
 }

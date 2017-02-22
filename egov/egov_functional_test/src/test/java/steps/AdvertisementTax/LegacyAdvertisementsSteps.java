@@ -1,5 +1,6 @@
 package steps.AdvertisementTax;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.works.ApproverDetails;
 import pages.AdvertisementTax.AdvertisementsPage;
@@ -15,17 +16,6 @@ public class LegacyAdvertisementsSteps extends BaseSteps implements En {
 
     public LegacyAdvertisementsSteps(){
 
-      And("^he enters details for legacy advertisement creation$", () -> {
-            pageStore.get(AdvertisementsPage.class).enterAdvertisementDetails();
-
-            pageStore.get(AdvertisementsPage.class).enterPermissionDetails();
-
-            pageStore.get(AdvertisementsPage.class).enterLocalityDetails();
-
-            pageStore.get(AdvertisementsPage.class).enterStructureDetails();
-
-            pageStore.get(LegacyAdvertisementsPage.class).enterArrearsTaxDetails();
-        });
         And("^he submit the application and closes the acknowledgement$", () -> {
             String applicationNumber = pageStore.get(LegacyAdvertisementsPage.class).submit();
             scenarioContext.setApplicationNumber(applicationNumber);
@@ -73,6 +63,9 @@ public class LegacyAdvertisementsSteps extends BaseSteps implements En {
             scenarioContext.setAssessmentNumber(num);
 
             pageStore.get(AdvertisementsPage.class).closeMultipleWindows("/adtax/hoarding/renewal-search");
+        });
+        And("^he enters arrear details$", () -> {
+            pageStore.get(LegacyAdvertisementsPage.class).enterArrearsTaxDetails();
         });
     }
 }
