@@ -100,7 +100,6 @@ public class DashboardPage extends BasePage {
     }
 
     public void chooseScreen(String screenName) {
-
         waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor(screenName);
         waitForElementToBePresent(By.cssSelector(".list a"), driver);
@@ -130,7 +129,6 @@ public class DashboardPage extends BasePage {
     private WebElement getApplicationRow(String number){
         List<WebElement> totalRows;
         try{
-
             await().atMost(20, SECONDS).until(() -> driver.findElement(By.id("official_inbox")).findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
             totalRows = driver.findElement(By.id("official_inbox")).findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
             for (WebElement voucherRow : totalRows) {

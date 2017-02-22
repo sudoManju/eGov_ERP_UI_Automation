@@ -1,14 +1,10 @@
 package steps;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.LoginDetails;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import pages.BasePage;
 import pages.HomePage;
-import utils.ExcelReader;
-
-import java.io.IOException;
+import excelDataFiles.ExcelReader;
 
 public class HomePageSteps extends BaseSteps implements En {
     public HomePageSteps() {

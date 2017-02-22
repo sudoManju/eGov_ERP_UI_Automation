@@ -2,11 +2,10 @@ package steps.ptis;
 
 import cucumber.api.java8.En;
 import entities.ptis.*;
-import pages.DashboardPage;
 import pages.ptis.PropertyAcknowledgementPage;
 import pages.ptis.PropertyDetailsPage;
 import steps.BaseSteps;
-import utils.ExcelReader;
+import excelDataFiles.ExcelReader;
 
 public class PropertyDetailsPageSteps extends BaseSteps implements En {
 

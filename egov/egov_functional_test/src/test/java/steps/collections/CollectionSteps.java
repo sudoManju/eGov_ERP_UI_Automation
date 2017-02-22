@@ -1,20 +1,13 @@
 package steps.collections;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.collections.ChallanHeaderDetails;
-import entities.collections.ChequeDetails;
 import entities.collections.PaymentMethod;
 import entities.ptis.ApprovalDetails;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import pages.DashboardPage;
 import pages.collections.CollectionsPage;
 import pages.collections.PropertyTaxPage;
-import pages.ptis.PropertyAcknowledgementPage;
 import steps.BaseSteps;
-import utils.ExcelReader;
-
-import java.io.IOException;
+import excelDataFiles.ExcelReader;
 
 public class CollectionSteps extends BaseSteps implements En {
     public CollectionSteps() {

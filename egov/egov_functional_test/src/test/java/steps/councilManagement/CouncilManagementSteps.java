@@ -1,16 +1,11 @@
 package steps.councilManagement;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.councilManagement.CreatePreambleDetails;
-import entities.ptis.ApprovalDetails;
-import gherkin.lexer.Da;
 import org.junit.Assert;
-import pages.DashboardPage;
 import pages.councilManagement.CouncilManagementPage;
-import pages.ptis.PropertyDetailsPage;
 import steps.BaseSteps;
-import utils.ExcelReader;
+import excelDataFiles.ExcelReader;
 
 /**
  * Created by tester1 on 1/4/2017.

@@ -6,7 +6,7 @@ import pages.ptis.PropertyAcknowledgementPage;
 import pages.ptis.PropertyDetailsPage;
 import pages.ptis.TransferDetailsPage;
 import steps.BaseSteps;
-import utils.ExcelReader;
+import excelDataFiles.ExcelReader;
 
 /**
  * Created by bimal on 13/12/16.

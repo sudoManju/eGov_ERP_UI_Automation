@@ -1,21 +1,10 @@
 package steps.ptis;
 
-import cucumber.api.PendingException;
-import cucumber.api.Scenario;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java8.En;
-import org.junit.Assert;
 import pages.ptis.DataEntryAcknowledgementPage;
-import pages.ptis.PropertyAcknowledgementPage;
 import steps.BaseSteps;
-import utils.ExcelReader;
-import utils.ScenarioContext;
-
-import java.io.IOException;
-
-import static steps.BaseSteps.pageStore;
-import static steps.BaseSteps.scenarioContext;
 
 /**
  * Created by bimal on 5/12/16.

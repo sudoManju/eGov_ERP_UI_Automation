@@ -1,15 +1,10 @@
 package steps.tradeLicense;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
-import cucumber.api.java8.Tr;
-import entities.ptis.ApprovalDetails;
 import entities.tradeLicense.*;
-import org.apache.commons.lang.math.RandomUtils;
-import pages.ptis.PropertyDetailsPage;
 import pages.tradeLicense.TradeLicensePage;
 import steps.BaseSteps;
-import utils.ExcelReader;
+import excelDataFiles.ExcelReader;
 
 
 /**

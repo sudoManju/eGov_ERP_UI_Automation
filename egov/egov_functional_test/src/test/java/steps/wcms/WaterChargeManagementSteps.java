@@ -1,6 +1,5 @@
 package steps.wcms;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.ptis.*;
 import entities.wcms.EnclosedDocument;
@@ -10,7 +9,7 @@ import pages.wcms.WaterChargeCollectionsPage;
 import pages.wcms.WaterChargeManagementPage;
 import pages.wcms.WaterConnectionDetailsPage;
 import steps.BaseSteps;
-import utils.ExcelReader;
+import excelDataFiles.ExcelReader;
 
 public class WaterChargeManagementSteps extends BaseSteps implements En {
 

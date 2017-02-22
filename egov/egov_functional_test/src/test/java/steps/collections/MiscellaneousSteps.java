@@ -1,13 +1,11 @@
 package steps.collections;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.collections.PaymentMethod;
 import pages.DashboardPage;
 import pages.collections.MiscellaneousPage;
-import pages.collections.PropertyTaxPage;
 import steps.BaseSteps;
-import utils.ExcelReader;
+import excelDataFiles.ExcelReader;
 
 public class MiscellaneousSteps extends BaseSteps implements En {
     public MiscellaneousSteps() {

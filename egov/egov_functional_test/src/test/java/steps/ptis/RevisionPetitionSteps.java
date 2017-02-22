@@ -1,15 +1,13 @@
 package steps.ptis;
 
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 
 import entities.ptis.HearingDetails;
 import entities.ptis.RevisionPetitionDetails;
-import pages.ptis.PropertyDetailsPage;
 import pages.ptis.RevisionPetitionPage;
 import steps.BaseSteps;
-import utils.ExcelReader;
+import excelDataFiles.ExcelReader;
 
 /**
  * Created by bimal on 25/1/17.

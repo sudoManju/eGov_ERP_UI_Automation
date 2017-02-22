@@ -1,17 +1,13 @@
 package steps.marriageRegistration;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.marriageRegistration.MarriageRegistrationInformation;
 import entities.works.ApproverDetails;
-import org.openqa.selenium.By;
-import pages.DashboardPage;
 import pages.sewerageTax.NewSewerageConnectionPage;
 import pages.marriageRegistration.MarriageRegistrationPage;
 import pages.works.SpillOverEstimatePage;
 import steps.BaseSteps;
-import utils.ExcelReader;
-import utils.ScenarioContext;
+import excelDataFiles.ExcelReader;
 
 /**
  * Created by manjunatha-lap on 24/01/2017.

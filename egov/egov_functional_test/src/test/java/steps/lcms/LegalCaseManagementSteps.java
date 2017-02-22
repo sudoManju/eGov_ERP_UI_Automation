@@ -1,11 +1,10 @@
 package steps.lcms;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
+import excelDataFiles.LCMSDataReader;
 import entities.lcms.CreateLegalCase;
 import pages.lcms.LegalCaseManagementPage;
 import steps.BaseSteps;
-import utils.ExcelReader;
 
 public class LegalCaseManagementSteps extends BaseSteps implements En {
 
@@ -13,7 +12,7 @@ public class LegalCaseManagementSteps extends BaseSteps implements En {
 
         And("^user will enter the legal case details as (\\w+)$", (String legalCaseData) -> {
 
-            CreateLegalCase createLegalCase = new ExcelReader(legalCaseTestDataFileName).getCreateLegalCaseDetails(legalCaseData);
+            CreateLegalCase createLegalCase = new LCMSDataReader(legalCaseTestDataFileName).getCreateLegalCaseDetails(legalCaseData);
             pageStore.get(LegalCaseManagementPage.class).enterLegalCaseDetails(createLegalCase);
         });
 

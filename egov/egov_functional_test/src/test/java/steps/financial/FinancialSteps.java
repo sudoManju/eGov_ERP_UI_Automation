@@ -3,23 +3,20 @@ package steps.financial;
 import cucumber.api.java8.En;
 import entities.financial.*;
 import entities.ptis.ApprovalDetails;
+import excelDataFiles.FinanceDataReader;
 import org.junit.Assert;
-import pages.DashboardPage;
 import pages.financial.*;
 import steps.BaseSteps;
-import utils.ExcelReader;
+import excelDataFiles.ExcelReader;
 
 import java.text.ParseException;
 
-/**
- * Created by vinaykumar on 20/12/16.
- */
 public class FinancialSteps extends BaseSteps implements En {
 
     public FinancialSteps() {
 
         And("^officer will enter the journal voucher details as (\\w+) with subledger (\\w+)$", (String voucher , String withOrWithoutSubledger) -> {
-            FinancialJournalVoucherDetails financialJournalVoucherDetails = new ExcelReader(financialTestDataFileName).getJournalVoucherDetails(voucher);
+            FinancialJournalVoucherDetails financialJournalVoucherDetails = new FinanceDataReader(financialTestDataFileName).getJournalVoucherDetails(voucher);
             pageStore.get(JournalVoucherDetailsPage.class).enterJournalVoucherDetails(financialJournalVoucherDetails , withOrWithoutSubledger);
         });
 
@@ -71,20 +68,20 @@ public class FinancialSteps extends BaseSteps implements En {
 
         And("^officer will enter the bank details$", () -> {
             String bankDetails = "SBI";
-            FinancialBankDetails financialBankDetails = new ExcelReader(financialTestDataFileName).getFinancialBankDetails(bankDetails);
+            FinancialBankDetails financialBankDetails = new FinanceDataReader(financialTestDataFileName).getFinancialBankDetails(bankDetails);
             pageStore.get(FinancialPage.class).billPayment(financialBankDetails);
         });
 
         And("^officer will enter the remittance bank details$", () -> {
             String bankDetails = "SBI1";
-            FinancialBankDetails financialBankDetails = new ExcelReader(financialTestDataFileName).getFinancialBankDetails(bankDetails);
+            FinancialBankDetails financialBankDetails = new FinanceDataReader(financialTestDataFileName).getFinancialBankDetails(bankDetails);
             pageStore.get(FinancialPage.class).billRemittancePayment(financialBankDetails);
             scenarioContext.setIsRemittance(1);
 
         });
 
         And("^officer will the expense bill details as (\\w+)$", (String expenseBill) -> {
-            FinancialExpenseBillDetails financialBill = new ExcelReader(financialTestDataFileName).getFinancialExpenseBillDetails(expenseBill);
+            FinancialExpenseBillDetails financialBill = new FinanceDataReader(financialTestDataFileName).getFinancialExpenseBillDetails(expenseBill);
             pageStore.get(ExpenseDetailsPage.class).createNewExpenseBill(financialBill);
         });
 
@@ -164,7 +161,7 @@ public class FinancialSteps extends BaseSteps implements En {
         });
 
         And("^officer will enter the direct bank payment details as (\\w+) with mode as (\\w+)$", (String directBankDetails ,String mode) -> {
-            DirectBankPaymentDetails directBankPaymentDetails = new ExcelReader(financialTestDataFileName).getDirectBankPaymentDetails(directBankDetails);
+            DirectBankPaymentDetails directBankPaymentDetails = new FinanceDataReader(financialTestDataFileName).getDirectBankPaymentDetails(directBankDetails);
             pageStore.get(DirectBankPaymentDetailsPage.class).enterDirectBankPaymentDetails(directBankPaymentDetails , mode);
         });
 
@@ -177,7 +174,7 @@ public class FinancialSteps extends BaseSteps implements En {
         });
 
         And("^officer will enter the bank to bank transfer details as (\\w+)$", (String bankDetails) -> {
-            FinancialBankToBankDetails financialBankToBankDetails = new ExcelReader(financialTestDataFileName).getBankToBankTransferDetails(bankDetails);
+            FinancialBankToBankDetails financialBankToBankDetails = new FinanceDataReader(financialTestDataFileName).getBankToBankTransferDetails(bankDetails);
             pageStore.get(BankToBankDetailsPage.class).enterBankToBankDetails(financialBankToBankDetails);
         });
 

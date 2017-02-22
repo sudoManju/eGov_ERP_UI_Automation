@@ -1,13 +1,11 @@
 package steps.ptis;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.ptis.EditAssessmentDetails;
 import entities.ptis.EditFloorDetails;
-import pages.ptis.PropertyAcknowledgementPage;
 import pages.ptis.PropertyDetailsPage;
 import steps.BaseSteps;
-import utils.ExcelReader;
+import excelDataFiles.ExcelReader;
 
 import static javax.swing.UIManager.get;
 

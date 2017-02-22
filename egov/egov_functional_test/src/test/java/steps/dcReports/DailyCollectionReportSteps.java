@@ -6,7 +6,7 @@ import entities.dcReports.VLTReport;
 import pages.dcReports.DailyCollectionReportPage;
 import pages.ptis.PropertyAcknowledgementPage;
 import steps.BaseSteps;
-import utils.ExcelReader;
+import excelDataFiles.ExcelReader;
 
 
 /**

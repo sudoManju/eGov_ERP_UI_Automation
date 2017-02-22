@@ -1,11 +1,10 @@
 package steps.collections;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.collections.PaymentMethod;
 import pages.collections.PropertyTaxPage;
 import steps.BaseSteps;
-import utils.ExcelReader;
+import excelDataFiles.ExcelReader;
 
 public class PropertyTaxSteps extends BaseSteps implements En {
     public PropertyTaxSteps() {

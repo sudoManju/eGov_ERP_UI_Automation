@@ -1,12 +1,9 @@
 package steps;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.ApprovalDetailsEntity;
 import pages.ApprovalDetailsPage;
-import utils.ExcelReader;
-
-import static com.googlecode.totallylazy.Functions.or;
+import excelDataFiles.ExcelReader;
 
 /**
  * Created by tester1 on 1/26/2017.
