@@ -32,7 +32,6 @@ public class PTISDataReader extends ExcelReader{
     Sheet hearingDetailsSheet;
     Sheet registrationDetailsSheet;
 
-
     public PTISDataReader(String testData) {
         super(testData);
         propertyHeaderDetailsSheet = workbook.getSheet("propertyHeaderDetails");
@@ -132,9 +131,7 @@ public class PTISDataReader extends ExcelReader{
                         .withFrom(From)
                         .withTo(To)
                         .build();
-
                 break;
-
         }
         return searchDetails;
     }

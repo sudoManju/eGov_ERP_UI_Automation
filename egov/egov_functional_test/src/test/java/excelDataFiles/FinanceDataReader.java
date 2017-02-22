@@ -192,7 +192,6 @@ public class FinanceDataReader extends ExcelReader {
                 .build();
     }
 
-
     public FinancialBankToBankDetails getBankToBankTransferDetails(String bankDetails) {
 
         Row dataRow = readDataRow(bankToBankTransferDetailsSheet, bankDetails);

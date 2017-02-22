@@ -123,7 +123,6 @@ public class WorksDataReader extends ExcelReader {
                 .withAdminSanctionDate(Date)
                 .withAdminSanctionAuthority(AdminstrativeSanctionAuthority)
                 .build();
-
     }
 
     public TechnicalSanctionDetails getTechnicalSanctionDetails(String technicalSanctionDetailsDataId) {
@@ -143,6 +142,5 @@ public class WorksDataReader extends ExcelReader {
                 .withTechnicalSanctionDate(Date)
                 .withTechnicalSanctionAuthority(TechnicalSanctionAuthority)
                 .build();
-
     }
 }

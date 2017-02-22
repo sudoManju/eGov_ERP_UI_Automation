@@ -13,7 +13,6 @@ public class CollectionsDataReader extends ExcelReader {
     Sheet paymentMethodSheet;
     Sheet challanHeaderDetailsSheet;
 
-
     public CollectionsDataReader(String testData) {
         super(testData);
         paymentMethodSheet = workbook.getSheet("paymentMethod");
