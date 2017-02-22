@@ -85,7 +85,7 @@ public class PropertyAcknowledgementPage extends BasePage {
         clickOnButton(assessmentCloseButton, driver);
     }
     public void toCloseAdditionalConnectionPage(){
-        clickOnButton(closeLink, driver);
+        jsClick(closeLink, driver);
         switchToPreviouslyOpenedWindow(driver);
     }
 
