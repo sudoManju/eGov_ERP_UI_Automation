@@ -95,8 +95,6 @@ public class ExcelReader {
     Sheet dataFromWebSheet;
 
 //    Grievances Sheets
-    Sheet grievancesContactDetailsSheet;
-    Sheet grievanceDetailsSheet;
     Sheet approverDetailsSheet;
 
 //    Marriage Registration
@@ -165,8 +163,6 @@ public class ExcelReader {
         paymentMethodSheet = workbook.getSheet("paymentMethod");
 
 //        Grievances sheets
-        grievancesContactDetailsSheet = workbook.getSheet("contactInfo");
-        grievanceDetailsSheet = workbook.getSheet("grievanceDetails");
 
 //        Marriage Registration
         applicantsInformationSheet = workbook.getSheet("applicantsInformation");
@@ -1043,30 +1039,6 @@ public class ExcelReader {
 
     }
 
-
-    public CreateComplaintDetails getCitizenContactDetails(String contactInfo) {
-        Row dataRow = readDataRow(grievancesContactDetailsSheet,contactInfo);
-
-        Cell citizenNameCell= getCellData(grievancesContactDetailsSheet, dataRow, "citizenName");
-        citizenNameCell.setCellType(Cell.CELL_TYPE_STRING);
-        String citizenName=citizenNameCell.getStringCellValue();
-
-        Cell citizenMobNoCell= getCellData(grievancesContactDetailsSheet, dataRow, "mobNo");
-        citizenMobNoCell.setCellType(Cell.CELL_TYPE_STRING);
-        String citizenMobNo= citizenMobNoCell.getStringCellValue();
-
-        Cell emailIdCell= getCellData(grievancesContactDetailsSheet, dataRow, "emailId");
-        emailIdCell.setCellType(Cell.CELL_TYPE_STRING);
-        String emailId= emailIdCell.getStringCellValue();
-
-
-        return new CreateComplaintDetailsBuilder()
-                .withCitizenName(citizenName)
-                .withCitizenMobNo(citizenMobNo)
-                .withEmailId(emailId)
-                .build();
-    }
-
     public SearchTradeDetails getTradeSearchDetails(String searchId) {
         Row dataRow = readDataRow(searchTradeDetailsSheet, searchId);
         SearchTradeDetails searchTradeDetails = new SearchTradeDetails();
@@ -1093,29 +1065,6 @@ public class ExcelReader {
         }
         return searchTradeDetails;
     }
-
-    public CreateComplaintDetails getGrievanceDetails(String grievanceDetails) {
-    Row dataRow= readDataRow(grievanceDetailsSheet,grievanceDetails);
-
-    String grievanceCategory= getCellData(grievanceDetailsSheet, dataRow,"grievanceCategory").getStringCellValue();
-
-    String grievanceType=getCellData(grievanceDetailsSheet, dataRow,"grievanceType").getStringCellValue();
-
-    String grievanceDetailsText= getCellData(grievanceDetailsSheet, dataRow, "grievanceDetails").getStringCellValue();
-
-    String grievanceLocation= getCellData(grievanceDetailsSheet, dataRow, "grievanceLocation").getStringCellValue();
-
-    String locationLandmark= getCellData(grievanceDetailsSheet, dataRow, "locationLandmark").getStringCellValue();
-
-    return new CreateComplaintDetailsBuilder()
-            .withGrievanceCategory(grievanceCategory)
-            .withGrievanceType(grievanceType)
-            .withGrievanceDetails(grievanceDetailsText)
-            .withGrievanceLocation(grievanceLocation)
-            .withLocationLandmark(locationLandmark)
-            .build();
-
-   }
 
     public MarriageRegistrationInformation getApplicantsInformation(String applicantsInformation)
     {
