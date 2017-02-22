@@ -4,7 +4,6 @@ Feature: create preamble
   i want to create Preamble, create agenda, create meeting invitation
   enter the attendance for the meeting and create MOM
 
-
   # Create Preamble #
 
   @Sanity @CouncilManagement

@@ -203,14 +203,6 @@ public class FinancialPage extends BasePage {
         return userName;
     }
 
-    private void clickOnCloseButton(){
-        clickOnButton(closeButton ,webDriver);
-    }
-
-    public void approvalPage(){
-        clickOnButton(approveButton ,webDriver);
-    }
-
     public String closePage(){
         switchToNewlyOpenedWindow(webDriver);
 
@@ -258,10 +250,6 @@ public class FinancialPage extends BasePage {
         enterBankAccountDetails(financialBankDetails);
     }
 
-    private void clickOnForwardButton(){
-        clickOnButton(forwardButton ,webDriver);
-    }
-
     public String closesTheExpensePage(){
         String message = getTextFromWeb(expenseCreatedMessage ,webDriver);
         clickOnCloseButton();
@@ -304,18 +292,10 @@ public class FinancialPage extends BasePage {
         switchToPreviouslyOpenedWindow(webDriver);
     }
 
-    private void clickOnSubmitButton(){
-        clickOnButton(submitButton ,webDriver);
-    }
-
     public void searchRemittanceBill(){
         selectFromDropDown(recoveryId ,"3502002-GPF –Employees on Deputation" ,webDriver);
         selectFromDropDown(fundId , "Municipal Fund" ,webDriver);
         clickOnButton(remittanceBillSearch , webDriver);
-    }
-
-    private String getForwardMessage(){
-        return getTextFromWeb(forwardMessage , webDriver);
     }
 
     public void chequeAssignmentBillSearch(String number){
@@ -335,10 +315,6 @@ public class FinancialPage extends BasePage {
         selectFromDropDown(fundId , "Municipal Fund" , webDriver);
         selectFromDropDown(bankBranch2 , "ANDHRA BANK Andhra Bank RTC Busstand" , webDriver);
         selectFromDropDown(bankAccount , "4502110--110710100009664--ANDHRA BANK" , webDriver);
-    }
-
-    private void clickOnBillSearch(){
-        clickOnButton(billSearch , webDriver);
     }
 
     public void chequeAssignmentBillSearch(){
@@ -380,10 +356,6 @@ public class FinancialPage extends BasePage {
         clickOnSubmitButton();
         switchToPreviouslyOpenedWindow(webDriver);
         return message;
-    }
-
-    private void clickOnBankCloseButton(){
-        clickOnButton(bankCloseButton ,webDriver);
     }
 
     public String closesSuccessfulTransferCreationPage(){
@@ -444,10 +416,6 @@ public class FinancialPage extends BasePage {
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    private void clickOnRemittancePaymentButton(){
-        clickOnButton(remittancePayment ,webDriver);
-    }
-
     public void toFillMultipleChequeAssignmentDetails(String assignmentMode) {
 
         switch (assignmentMode){
@@ -497,4 +465,37 @@ public class FinancialPage extends BasePage {
         }
         clickOnButton(assignChequeButton ,webDriver);
     }
+
+    private void clickOnCloseButton(){
+        clickOnButton(closeButton ,webDriver);
+    }
+
+    public void approvalPage(){
+        clickOnButton(approveButton ,webDriver);
+    }
+
+    private void clickOnForwardButton(){
+        clickOnButton(forwardButton ,webDriver);
+    }
+
+    private void clickOnSubmitButton(){
+        clickOnButton(submitButton ,webDriver);
+    }
+
+    private void clickOnBillSearch(){
+        clickOnButton(billSearch , webDriver);
+    }
+
+    private void clickOnBankCloseButton(){
+        clickOnButton(bankCloseButton ,webDriver);
+    }
+
+    private void clickOnRemittancePaymentButton(){
+        clickOnButton(remittancePayment ,webDriver);
+    }
+
+    private String getForwardMessage(){
+        return getTextFromWeb(forwardMessage , webDriver);
+    }
+
 }
