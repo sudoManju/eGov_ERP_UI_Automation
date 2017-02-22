@@ -102,110 +102,131 @@ public class GrievancesPage extends BasePage {
     public GrievancesPage (WebDriver webDriver) {this.webDriver= webDriver;}
 
     public void openCreateGrievancePage() {
-        waitForElementToBeClickable(registerComplaintLink, webDriver);
-        registerComplaintLink.click();
+//        waitForElementToBeClickable(registerComplaintLink, webDriver);
+//        registerComplaintLink.click();
+        clickOnButton(registerComplaintLink,webDriver);
         switchToNewlyOpenedWindow(webDriver);
 
     }
 
     public void enterCitizenContactDetails(CreateComplaintDetails createComplaintDetails) {
-    waitForElementToBeClickable(receivingModeRadio, webDriver);
-    receivingModeRadio.click();
-    enterText(citizenNameTextBox, createComplaintDetails.getCitizenName());
-    enterText(mobNoTextBox, createComplaintDetails.getcitizenMobNo());
-    enterText(emailIdTextBox, createComplaintDetails.getEmailId());
+//    waitForElementToBeClickable(receivingModeRadio, webDriver);
+//    receivingModeRadio.click();
+    clickOnButton(receivingModeRadio,webDriver);
+    enterText(citizenNameTextBox, createComplaintDetails.getCitizenName(), webDriver);
+    enterText(mobNoTextBox, createComplaintDetails.getcitizenMobNo(),webDriver);
+    enterText(emailIdTextBox, createComplaintDetails.getEmailId(), webDriver);
     }
 
     public void enterGrievanceDetails(CreateComplaintDetails createComplaintDetails) {
-    new Select(complaintTypeCategorySelect).selectByVisibleText(createComplaintDetails.getGrievanceCategory());
-    new Select(complaintTypeSelect).selectByVisibleText(createComplaintDetails.getGrievanceType());
-    enterText(grievanceDetailsText, createComplaintDetails.getGrievanceDetails());
-    enterText(grievanceLocationText, "Aavanthi Nagar");
+//    new Select(complaintTypeCategorySelect).selectByVisibleText(createComplaintDetails.getGrievanceCategory());
+    selectFromDropDown(complaintTypeCategorySelect,createComplaintDetails.getGrievanceCategory(), webDriver);
+//    new Select(complaintTypeSelect).selectByVisibleText(createComplaintDetails.getGrievanceType());
+    selectFromDropDown(complaintTypeSelect,createComplaintDetails.getGrievanceType(), webDriver);
+    enterText(grievanceDetailsText, createComplaintDetails.getGrievanceDetails(),webDriver);
+    enterText(grievanceLocationText, createComplaintDetails.getGrievanceLocation(), webDriver);
     WebElement dropdown = webDriver.findElement(By.className("tt-highlight"));
     dropdown.click();
     grievanceLocationText.sendKeys(Keys.TAB);
-    enterText(locationLandmarkText, createComplaintDetails.getLocationLandmark());
+    enterText(locationLandmarkText, createComplaintDetails.getLocationLandmark(), webDriver);
 
     }
 
     public void getRegisterComplaintPage() {
-    newRequestLink.click();
-    waitForElementToBeClickable(registerComplaint, webDriver);
-    registerComplaint.click();
+//    newRequestLink.click();
+    clickOnButton(newRequestLink, webDriver);
+//    waitForElementToBeClickable(registerComplaint, webDriver);
+//    registerComplaint.click();
+    clickOnButton(registerComplaint, webDriver);
     switchToNewlyOpenedWindow(webDriver);
     }
 
     public String getCRN() {
-        waitForElementToBeVisible(CRNNumber, webDriver);
+//        waitForElementToBeVisible(CRNNumber, webDriver);
         String CrnNum=CRNNumber.getText();
-        closeButton.click();
+//        closeButton.click();
+        clickOnButton(closeButton, webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
         return CrnNum;
     }
 
     public void signOut() {
-        waitForElementToBeClickable(profileLink,webDriver);
-        profileLink.click();
-        profileLink.click();
-        waitForElementToBeClickable(signOutLink, webDriver);
-        signOutLink.click();
+//        waitForElementToBeClickable(profileLink,webDriver);
+//        profileLink.click();
+//        profileLink.click();
+        clickOnButton(profileLink, webDriver);
+        clickOnButton(profileLink, webDriver);
+//        waitForElementToBeClickable(signOutLink, webDriver);
+//        signOutLink.click();
+        clickOnButton(signOutLink, webDriver);
     }
 
     public String officialMarkStatus(String status) {
-        new Select(selectStatus).selectByVisibleText(status);
-        enterText(incMessageBox, status);
-        submitButton.click();
+//        new Select(selectStatus).selectByVisibleText(status);
+        selectFromDropDown(selectStatus,status,webDriver);
+        enterText(incMessageBox, status, webDriver);
+//        submitButton.click();
+        clickOnButton(submitButton, webDriver);
         String success=webDriver.findElement(By.xpath(".//*[@id='main']/div[1]/div/div/div[1]/div/strong")).getText();
-        closeButton.click();
+//        closeButton.click();
+        clickOnButton(closeButton, webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
         return success;
     }
 
     public String getCRNByOfficial() {
-        waitForElementToBeVisible(CRNNumber, webDriver);
+//        waitForElementToBeVisible(CRNNumber, webDriver);
         String CrnNum=CRNNumber.getText();
-        closeButton.click();
+//        closeButton.click();
+        clickOnButton(closeButton,webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
 //        webDriver.navigate().refresh();
-        waitForElementToBeClickable(draftButton,webDriver);
-        draftButton.click();
+//        waitForElementToBeClickable(draftButton,webDriver);
+//        draftButton.click();
         return CrnNum;
     }
 
     public String createInOfficial() {
-        createGrievanceOfficialButton.click();
+//        createGrievanceOfficialButton.click();
+        clickOnButton(createGrievanceOfficialButton,webDriver);
         switchToNewlyOpenedWindow(webDriver);
         WebElement element= webDriver.findElement(By.xpath(".//*[@id='main']/div[1]/div/div/div[1]/div/strong"));
         return element.getText();
     }
 
     public String createInCitizen() {
-        createGrievanceButton.click();
+//        createGrievanceButton.click();
+        clickOnButton(createGrievanceButton, webDriver);
         WebElement element= webDriver.findElement(By.xpath(".//*[@id='main']/div[1]/div/div/div[1]/div/strong"));
         return element.getText();
     }
 
     public void getProcessingStatus() {
         waitForElementToBeClickable(statusSelect, webDriver);
-        new Select(statusSelect).selectByVisibleText("PROCESSING");
+        selectFromDropDown(statusSelect, "PROCESSING", webDriver);
+//        new Select(statusSelect).selectByVisibleText("PROCESSING");
 
     }
 
     public void searchInCitizenInbox(String crn) {
         webDriver.navigate().refresh();
-        waitForElementToBeClickable(searchCitizenInbox,webDriver);
-        enterText(searchCitizenInbox,crn);
-        waitForElementToBeClickable(complaintLink,webDriver);
-        complaintLink.click();
+//        waitForElementToBeClickable(searchCitizenInbox,webDriver);
+        enterText(searchCitizenInbox,crn, webDriver);
+//        waitForElementToBeClickable(complaintLink,webDriver);
+//        complaintLink.click();
+        clickOnButton(complaintLink, webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
     public void withdrawComplaint(String complaintStatus) {
-    waitForElementToBeClickable(selectStatus,webDriver);
-    new Select(selectStatus).selectByVisibleText(complaintStatus);
-    enterText(incMessageBox, complaintStatus);
-    submitButton.click();
-    closeButton.click();
+//    waitForElementToBeClickable(selectStatus,webDriver);
+    selectFromDropDown(selectStatus, complaintStatus, webDriver);
+//    new Select(selectStatus).selectByVisibleText(complaintStatus);
+    enterText(incMessageBox, complaintStatus, webDriver);
+    clickOnButton(submitButton, webDriver);
+//    submitButton.click();
+    clickOnButton(closeButton, webDriver);
+//    closeButton.click();
     switchToPreviouslyOpenedWindow(webDriver);
     }
 }
