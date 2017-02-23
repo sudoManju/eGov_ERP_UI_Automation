@@ -170,12 +170,14 @@ public class TradeLicensePage extends BasePage {
         enterText(propertyAssessmentNumberTextBox, tradelocationDetails.getpropertyAssessmentNumber(),webDriver);
         propertyAssessmentNumberTextBox.sendKeys(Keys.TAB);
         List<WebElement> options = location.findElements(By.tagName("option"));
+        await().atMost(10, SECONDS).until(() -> options.size() > 1);
         for (WebElement option : options) {
             if (option.isSelected()) {
                 selectFromDropDown(location,option.getText(), webDriver);
             }
         }
         location.sendKeys(Keys.TAB);
+        await().atMost(10, SECONDS).until(() -> wardSelect.findElements(By.tagName("option")).size() > 1);
         new Select(wardSelect).selectByIndex(1);
         selectFromDropDown(OwnershipTypeDropBox,tradelocationDetails.getownershipType(),webDriver);
     }
@@ -191,7 +193,7 @@ public class TradeLicensePage extends BasePage {
             clickOnButton(element, webDriver);
         }
         searchBox.sendKeys(tradedetails.gettradeSubCategory());
-        WebElement element = webDriver.findElement(By.cssSelector(".select2-results__option.select2-results__option--highlighted"));
+        WebElement element = webDriver.findElement(By.xpath(".//*[@id='select2-subCategory-results']/li"));
         clickOnButton(element, webDriver);
         enterText(TradeAreaWeightOfPremises, tradedetails.gettradeAreaWeightOfPremises(),webDriver);
         enterText(remarksTextBox, tradedetails.getremarks(),webDriver);
