@@ -2,7 +2,6 @@ package excelDataFiles;
 
 import builders.financial.*;
 import entities.financial.*;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
@@ -31,45 +30,22 @@ public class FinanceDataReader extends ExcelReader {
         String department = getCellData(financialJournalVoucherSheet, dataRow, "department").getStringCellValue();
         String function = getCellData(financialJournalVoucherSheet, dataRow, "function").getStringCellValue();
 
-        Cell code1 = getCellData(financialJournalVoucherSheet, dataRow, "accountCode1");
-        code1.setCellType(Cell.CELL_TYPE_STRING);
-        String  accountCode1 = code1.getStringCellValue();
+        String  accountCode1 = convertNumericToString(financialJournalVoucherSheet , dataRow , "accountCode1");
+        String  accountCode2 = convertNumericToString(financialJournalVoucherSheet , dataRow , "accountCode2");
+        String  accountCode3 = convertNumericToString(financialJournalVoucherSheet , dataRow , "accountCode3");
 
-        Cell code2 = getCellData(financialJournalVoucherSheet, dataRow, "accountCode2");
-        code2.setCellType(Cell.CELL_TYPE_STRING);
-        String  accountCode2 = code2.getStringCellValue();
+        String  debitAmount1 = convertNumericToString(financialJournalVoucherSheet , dataRow , "debitAmount1");
+        String  creditAmount2 = convertNumericToString(financialJournalVoucherSheet , dataRow , "creditAmount2");
+        String  creditAmount3 = convertNumericToString(financialJournalVoucherSheet , dataRow , "creditAmount3");
 
-        Cell code3 = getCellData(financialJournalVoucherSheet, dataRow, "accountCode3");
-        code3.setCellType(Cell.CELL_TYPE_STRING);
-        String  accountCode3 = code3.getStringCellValue();
-
-        Cell code4 = getCellData(financialJournalVoucherSheet, dataRow, "debitAmount1");
-        code4.setCellType(Cell.CELL_TYPE_STRING);
-        String  debitAmount1 = code4.getStringCellValue();
-
-        Cell code5 = getCellData(financialJournalVoucherSheet, dataRow, "creditAmount2");
-        code5.setCellType(Cell.CELL_TYPE_STRING);
-        String  creditAmount2 = code5.getStringCellValue();
-
-        Cell code6 = getCellData(financialJournalVoucherSheet, dataRow, "creditAmount3");
-        code6.setCellType(Cell.CELL_TYPE_STRING);
-        String  creditAmount3 = code6.getStringCellValue();
-
-        Cell code7 = getCellData(financialJournalVoucherSheet, dataRow, "ledgerAmount1");
-        code7.setCellType(Cell.CELL_TYPE_STRING);
-        String  ledgerAmount1 = code7.getStringCellValue();
-
-        Cell code8 = getCellData(financialJournalVoucherSheet, dataRow, "ledgerAmount2");
-        code8.setCellType(Cell.CELL_TYPE_STRING);
-        String  ledgerAmount2 = code8.getStringCellValue();
+        String  ledgerAmount1 = convertNumericToString(financialJournalVoucherSheet , dataRow , "ledgerAmount1");
+        String  ledgerAmount2 = convertNumericToString(financialJournalVoucherSheet , dataRow , "ledgerAmount2");
 
         String ledgerType1 = getCellData(financialJournalVoucherSheet, dataRow, "ledgerType1").getStringCellValue();
         String ledgerType2 = getCellData(financialJournalVoucherSheet, dataRow, "ledgerType2").getStringCellValue();
         String ledgerCode1 = getCellData(financialJournalVoucherSheet, dataRow, "ledgerCode1").getStringCellValue();
 
-        Cell code9 = getCellData(financialJournalVoucherSheet, dataRow, "ledgerCode2");
-        code9.setCellType(Cell.CELL_TYPE_STRING);
-        String  ledgerCode2 = code9.getStringCellValue();
+        String  ledgerCode2 = convertNumericToString(financialJournalVoucherSheet , dataRow , "ledgerCode2");
 
         return new FinancialJournalVoucherDetailsBuilder()
                 .withVoucherType(voucherType)
@@ -111,25 +87,12 @@ public class FinanceDataReader extends ExcelReader {
         String function = getCellData(financialExpenseBillDetailsSheet, dataRow, "function").getStringCellValue();
         String billSubType = getCellData(financialExpenseBillDetailsSheet, dataRow, "billSubType").getStringCellValue();
 
-        Cell code1 = getCellData(financialExpenseBillDetailsSheet, dataRow, "accountCodeDebit");
-        code1.setCellType(Cell.CELL_TYPE_STRING);
-        String  accountCodeDebit = code1.getStringCellValue();
+        String  accountCodeDebit = convertNumericToString(financialExpenseBillDetailsSheet , dataRow , "accountCodeDebit");
+        String  accountCodeCredit = convertNumericToString(financialExpenseBillDetailsSheet , dataRow , "accountCodeCredit");
 
-        Cell code2 = getCellData(financialExpenseBillDetailsSheet, dataRow, "accountCodeCredit");
-        code2.setCellType(Cell.CELL_TYPE_STRING);
-        String  accountCodeCredit = code2.getStringCellValue();
-
-        Cell code3 = getCellData(financialExpenseBillDetailsSheet, dataRow, "expenseDebitAmount");
-        code3.setCellType(Cell.CELL_TYPE_STRING);
-        String  expenseDebitAmount = code3.getStringCellValue();
-
-        Cell code4 = getCellData(financialExpenseBillDetailsSheet, dataRow, "expenseCreditAmount");
-        code4.setCellType(Cell.CELL_TYPE_STRING);
-        String  expenseCreditAmount = code4.getStringCellValue();
-
-        Cell code5 = getCellData(financialExpenseBillDetailsSheet, dataRow, "expenseNetAmount");
-        code5.setCellType(Cell.CELL_TYPE_STRING);
-        String  expenseNetAmount = code5.getStringCellValue();
+        String  expenseDebitAmount = convertNumericToString(financialExpenseBillDetailsSheet , dataRow , "expenseDebitAmount");
+        String  expenseCreditAmount = convertNumericToString(financialExpenseBillDetailsSheet , dataRow , "expenseCreditAmount");
+        String  expenseNetAmount = convertNumericToString(financialExpenseBillDetailsSheet , dataRow , "expenseNetAmount");
 
         return new FinancialExpenseBillDetailsBuilder()
                 .withExpenseFund(fund)
@@ -156,25 +119,12 @@ public class FinanceDataReader extends ExcelReader {
         String ledgerType1 = getCellData(directBankPaymentDetailsSheet, dataRow, "ledgerType1").getStringCellValue();
         String ledgerCode1 = getCellData(directBankPaymentDetailsSheet, dataRow, "ledgerCode1").getStringCellValue();
 
-        Cell cell1 = getCellData(directBankPaymentDetailsSheet, dataRow, "amount");
-        cell1.setCellType(Cell.CELL_TYPE_STRING);
-        String amount = cell1.getStringCellValue();
+        String amount = convertNumericToString(directBankPaymentDetailsSheet , dataRow , "amount");
+        String accountCode1 = convertNumericToString(directBankPaymentDetailsSheet , dataRow , "accountCode1");
+        String debitAmount1 = convertNumericToString(directBankPaymentDetailsSheet , dataRow , "debitAmount1");
 
-        Cell cell2 = getCellData(directBankPaymentDetailsSheet, dataRow, "accountCode1");
-        cell2.setCellType(Cell.CELL_TYPE_STRING);
-        String accountCode1 = cell2.getStringCellValue();
-
-        Cell cell3 = getCellData(directBankPaymentDetailsSheet, dataRow, "debitAmount1");
-        cell3.setCellType(Cell.CELL_TYPE_STRING);
-        String debitAmount1 = cell3.getStringCellValue();
-
-        Cell cell4 = getCellData(directBankPaymentDetailsSheet, dataRow, "ledgerAccount1");
-        cell4.setCellType(Cell.CELL_TYPE_STRING);
-        String ledgerAccount1 = cell4.getStringCellValue();
-
-        Cell cell5 = getCellData(directBankPaymentDetailsSheet, dataRow, "ledgerAmount1");
-        cell5.setCellType(Cell.CELL_TYPE_STRING);
-        String ledgerAmount1 = cell5.getStringCellValue();
+        String ledgerAccount1 = convertNumericToString(directBankPaymentDetailsSheet , dataRow , "ledgerAccount1");
+        String ledgerAmount1 = convertNumericToString(directBankPaymentDetailsSheet , dataRow , "ledgerAmount1");
 
         return new DirectBankPaymentDetailsBuilder()
                 .withFundId(fundId)
@@ -204,10 +154,7 @@ public class FinanceDataReader extends ExcelReader {
         String toFundId = getCellData(bankToBankTransferDetailsSheet, dataRow, "toFundId").getStringCellValue();
         String toBank = getCellData(bankToBankTransferDetailsSheet, dataRow, "toBank").getStringCellValue();
         String toAccountNumber = getCellData(bankToBankTransferDetailsSheet, dataRow, "toAccountNumber").getStringCellValue();
-
-        Cell cell = getCellData(bankToBankTransferDetailsSheet, dataRow, "amount");
-        cell.setCellType(Cell.CELL_TYPE_STRING);
-        String amount = cell.getStringCellValue();
+        String amount = convertNumericToString(bankToBankTransferDetailsSheet , dataRow , "amount");
 
         return new FinancialBankToBankDetailsBuilder()
                 .withFundId(fundId)
