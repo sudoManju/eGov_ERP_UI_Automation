@@ -2,6 +2,7 @@ package steps.AdvertisementTax;
 
 import cucumber.api.PendingException;
 import cucumber.api.java8.En;
+import entities.ApprovalDetailsNew;
 import entities.advertisementTax.AdvertisementDetails;
 import entities.advertisementTax.LocalityDetails;
 import entities.advertisementTax.PermissionDetails;
@@ -9,6 +10,7 @@ import entities.advertisementTax.StructureDetails;
 import entities.works.ApproverDetails;
 import excelDataFiles.AdvertisementTaxDataReader;
 import pages.AdvertisementTax.AdvertisementsPage;
+import pages.ApprovalDetailsPage;
 import pages.works.SpillOverEstimatePage;
 import steps.BaseSteps;
 import excelDataFiles.ExcelReader;
@@ -122,8 +124,8 @@ public class AdvertisementsSteps extends BaseSteps implements En {
             pageStore.get(AdvertisementsPage.class).enterStructureDetails1(structureDetails);
         });
         And("^he enter approver details as (\\w+)$", (String approverDetailsDataId) -> {
-            ApproverDetails approverDetails = new ExcelReader(lineEstimateTestDataFileName).getApprovalDetailsForEstimate(approverDetailsDataId);
-            pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
+            ApprovalDetailsNew approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approverDetailsDataId);
+            pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approverDetails);
         });
         And("^he enter agency name$", () -> {
             pageStore.get(AdvertisementsPage.class).enterAgencyDetailsForCreationAdvertisement(scenarioContext.getAssessmentNumber());

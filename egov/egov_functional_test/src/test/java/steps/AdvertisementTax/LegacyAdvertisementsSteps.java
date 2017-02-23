@@ -2,9 +2,11 @@ package steps.AdvertisementTax;
 
 import cucumber.api.PendingException;
 import cucumber.api.java8.En;
+import entities.ApprovalDetailsNew;
 import entities.works.ApproverDetails;
 import pages.AdvertisementTax.AdvertisementsPage;
 import pages.AdvertisementTax.LegacyAdvertisementsPage;
+import pages.ApprovalDetailsPage;
 import pages.works.SpillOverEstimatePage;
 import steps.BaseSteps;
 import excelDataFiles.ExcelReader;
@@ -48,11 +50,10 @@ public class LegacyAdvertisementsSteps extends BaseSteps implements En {
         And("^he request for renewal and forward to commissioner$", () -> {
             pageStore.get(LegacyAdvertisementsPage.class).requestForRenewal();
 
-            String approverDetailsDataId = "commissioner";
+            String approverDetailsDataId = "commissioner1";
 
-            ApproverDetails approverDetails = new ExcelReader(lineEstimateTestDataFileName).getApprovalDetailsForEstimate(approverDetailsDataId);
-
-            pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
+            ApprovalDetailsNew approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approverDetailsDataId);
+            pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approverDetails);
 
             String number = pageStore.get(AdvertisementsPage.class).forward();
             scenarioContext.setApplicationNumber(number);

@@ -49,7 +49,7 @@ Feature: Create/search Advertisement
 
  Examples:
    |advertisementDetails|permissionDetails|localityDetails|structureDetails|approverDetails|
-   |advertisement1      |permission1      |locality1      |structure1      |commissioner   |
+   |advertisement1      |permission1      |locality1      |structure1      |commissioner1  |
 
   @AdvertisementTax  @Sanity
   Scenario Outline: Create/Search/CollectTax/Deactivate AdvertisementWise
@@ -99,4 +99,4 @@ Feature: Create/search Advertisement
 
 Examples:
     |advertisementDetails|permissionDetails|localityDetails|structureDetails|approverDetails|
-    |advertisement1      |permission1      |locality1      |structure1      |commissioner   |
+    |advertisement1      |permission1      |locality1      |structure1      |commissioner1  |

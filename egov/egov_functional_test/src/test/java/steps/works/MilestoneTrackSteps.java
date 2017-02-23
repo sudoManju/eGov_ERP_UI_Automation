@@ -1,7 +1,10 @@
 package steps.works;
 
 import cucumber.api.java8.En;
+import entities.ApprovalDetailsNew;
+import entities.ptis.ApprovalDetails;
 import entities.works.ApproverDetails;
+import pages.ApprovalDetailsPage;
 import pages.works.MilestoneTrackPage;
 import pages.works.SpillOverEstimatePage;
 import steps.BaseSteps;
@@ -66,11 +69,10 @@ public class MilestoneTrackSteps extends BaseSteps implements En {
 
             pageStore.get(MilestoneTrackPage.class).enterContractorBillDetails("part");
 
-            ApproverDetails approverDetails = new ExcelReader(lineEstimateTestDataFileName).getApprovalDetailsForEstimate(approverDetailsDataId);
-            pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
+            ApprovalDetailsNew approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approverDetailsDataId);
+            pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approverDetails);
 
             String billNumber = pageStore.get(MilestoneTrackPage.class).forwardToDEEContractorBill();
-//            scenarioContext.setContractorBillNumber(billNumber);
             scenarioContext.setApplicationNumber(billNumber);
 
             String actualMessage =  pageStore.get(MilestoneTrackPage.class).successMessage1();
@@ -82,11 +84,10 @@ public class MilestoneTrackSteps extends BaseSteps implements En {
         And("^he enters contractor details for full bill (\\w+)$", (String approverDetailsDataId) -> {
             pageStore.get(MilestoneTrackPage.class).enterContractorBillDetails("full");
 
-            ApproverDetails approverDetails = new ExcelReader(lineEstimateTestDataFileName).getApprovalDetailsForEstimate(approverDetailsDataId);
-            pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
+            ApprovalDetailsNew approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approverDetailsDataId);
+            pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approverDetails);
 
             String billNumber = pageStore.get(MilestoneTrackPage.class).forwardToDEEContractorBill();
-//            scenarioContext.setContractorBillNumber(billNumber);
             scenarioContext.setApplicationNumber(billNumber);
 
             String actualMessage =  pageStore.get(MilestoneTrackPage.class).successMessage1();

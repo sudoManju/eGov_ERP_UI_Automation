@@ -1,9 +1,11 @@
 package steps.works;
 
 import cucumber.api.java8.En;
+import entities.ApprovalDetailsNew;
 import entities.works.*;
 
 import excelDataFiles.WorksDataReader;
+import pages.ApprovalDetailsPage;
 import pages.works.SpillOverEstimatePage;
 import steps.BaseSteps;
 import excelDataFiles.ExcelReader;
@@ -48,10 +50,8 @@ public class SpillOverEstimateSteps extends BaseSteps implements En {
             pageStore.get(SpillOverEstimatePage.class).close();
         });
         And("^he enters approver details as (\\w+)$", (String approverDetailsDataId) -> {
-         ApproverDetails approverDetails = new ExcelReader(lineEstimateTestDataFileName).getApprovalDetailsForEstimate(approverDetailsDataId);
-
-            pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
-
+         ApprovalDetailsNew approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approverDetailsDataId);
+         pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approverDetails);
         });
         And("^he enters work details as for (\\w+)$", (String workDetailsDataId) -> {
             WorkDetails workDetails = new WorksDataReader(lineEstimateTestDataFileName).getWorkDetails(workDetailsDataId);
