@@ -2,7 +2,6 @@ package excelDataFiles;
 
 import builders.works.*;
 import entities.works.*;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
@@ -25,20 +24,12 @@ public class WorksDataReader extends ExcelReader {
 
     public EstimateHeaderDetails getEstimateHeaderDetails(String EstimateDetailsDataId) {
         Row dataRow = readDataRow(estimateHeaderDetailsSheet, EstimateDetailsDataId);
-        Cell dateCell = getCellData(estimateHeaderDetailsSheet, dataRow, "date");
-        dateCell.setCellType(Cell.CELL_TYPE_STRING);
-        String Date  = dateCell.getStringCellValue();
+        String Date = convertNumericToString(estimateHeaderDetailsSheet, dataRow, "date");
         String RequirementNumber = getCellData(estimateHeaderDetailsSheet, dataRow, "requirementNumber").getStringCellValue();
-        Cell electionWardCell = getCellData(estimateHeaderDetailsSheet, dataRow, "electionWard");
-        electionWardCell.setCellType(Cell.CELL_TYPE_STRING);
-        String ElectionWard  = electionWardCell.getStringCellValue();
-        Cell locationCell = getCellData(estimateHeaderDetailsSheet, dataRow, "location");
-        locationCell.setCellType(Cell.CELL_TYPE_STRING);
-        String location = locationCell.getStringCellValue();
+        String ElectionWard = convertNumericToString(estimateHeaderDetailsSheet, dataRow, "electionWard");
+        String location = convertNumericToString(estimateHeaderDetailsSheet, dataRow, "location");
         String WorkCategory = getCellData(estimateHeaderDetailsSheet, dataRow, "workCategory").getStringCellValue();
-        Cell beneficiaryCell = getCellData(estimateHeaderDetailsSheet, dataRow, "beneficiary");
-        beneficiaryCell.setCellType(Cell.CELL_TYPE_STRING);
-        String Beneficiary = beneficiaryCell.getStringCellValue();
+        String Beneficiary = convertNumericToString(estimateHeaderDetailsSheet, dataRow, "beneficiary");
         String NatureOfWork = getCellData(estimateHeaderDetailsSheet, dataRow, "natureOfWork").getStringCellValue();
         String TypeOfWork = getCellData(estimateHeaderDetailsSheet, dataRow, "typeOfWork").getStringCellValue();
         String SubTypeOfWork = getCellData(estimateHeaderDetailsSheet, dataRow, "subTypeOfWork").getStringCellValue();
@@ -81,16 +72,10 @@ public class WorksDataReader extends ExcelReader {
         boolean billCreated = getCellData(workDetailsSheet, dataRow, "isBillCreated").getBooleanCellValue();
         String nameOfWork = getCellData(workDetailsSheet, dataRow, "nameOfWork").getStringCellValue();
         String abstractEstimateNumber = getCellData(workDetailsSheet, dataRow, "abstractEstimateNumber").getStringCellValue();
-        Cell estimateAmountCell = getCellData(workDetailsSheet, dataRow, "estimatedAmount");
-        estimateAmountCell.setCellType(Cell.CELL_TYPE_STRING);
-        String estimateAmount = estimateAmountCell.getStringCellValue();
+        String estimateAmount = convertNumericToString(workDetailsSheet, dataRow, "estimatedAmount");
         String WIN = getCellData(workDetailsSheet, dataRow, "workIdentificationNumber").getStringCellValue();
-        Cell actualEstimateAmountCell = getCellData(workDetailsSheet, dataRow, "actualEstimateAmount");
-        actualEstimateAmountCell.setCellType(Cell.CELL_TYPE_STRING);
-        String actualEstimateAmount = actualEstimateAmountCell.getStringCellValue();
-        Cell grossAmountBilledCell = getCellData(workDetailsSheet, dataRow, "grossAmountBilled");
-        grossAmountBilledCell.setCellType(Cell.CELL_TYPE_STRING);
-        String grossAmountBilled = grossAmountBilledCell.getStringCellValue();
+        String actualEstimateAmount = convertNumericToString(workDetailsSheet, dataRow, "actualEstimateAmount");
+        String grossAmountBilled = convertNumericToString(workDetailsSheet, dataRow, "grossAmountBilled");
 
         return new WorkDetailsBuilder()
                 .withWorksOrderCreated(worksCreated)
@@ -102,7 +87,6 @@ public class WorksDataReader extends ExcelReader {
                 .withActualEstimateAmount(actualEstimateAmount)
                 .withGrossAmountBilled(grossAmountBilled)
                 .build();
-
     }
 
     public AdminSanctionDetails getAdminSanctionDetails(String adminSanctionDetailsDataId) {
@@ -111,16 +95,11 @@ public class WorksDataReader extends ExcelReader {
 
         String AdminstrativeSanctionNumber = getCellData(adminSanctionDetailsSheet, dataRow, "administrativeSanctionNumber").getStringCellValue();
 
-        Cell dateCell = getCellData(adminSanctionDetailsSheet, dataRow, "adminSanctionDate");
-        dateCell.setCellType(Cell.CELL_TYPE_STRING);
-        String Date  = dateCell.getStringCellValue();
-
         String AdminstrativeSanctionAuthority = getCellData(adminSanctionDetailsSheet,dataRow,"administrativeSanctionAuthority").getStringCellValue();
 
 
         return new AdminSanctionDetailsBuilder()
                 .withAdministrationSanctionNumber(AdminstrativeSanctionNumber)
-                .withAdminSanctionDate(Date)
                 .withAdminSanctionAuthority(AdminstrativeSanctionAuthority)
                 .build();
     }
@@ -131,15 +110,10 @@ public class WorksDataReader extends ExcelReader {
 
         String TechnicalSanctionNumber = getCellData(technicalSanctionDetailsSheet, dataRow, "technicalSanctionNumber").getStringCellValue();
 
-        Cell dateCell = getCellData(technicalSanctionDetailsSheet, dataRow, "technicalSanctionDate");
-        dateCell.setCellType(Cell.CELL_TYPE_STRING);
-        String Date  = dateCell.getStringCellValue();
-
         String TechnicalSanctionAuthority = getCellData(technicalSanctionDetailsSheet, dataRow, "technicalSanctionAuthority").getStringCellValue();
 
         return new TechnicalSanctionDetailsBuilder()
                 .withTechnicalSanctionNumber(TechnicalSanctionNumber)
-                .withTechnicalSanctionDate(Date)
                 .withTechnicalSanctionAuthority(TechnicalSanctionAuthority)
                 .build();
     }

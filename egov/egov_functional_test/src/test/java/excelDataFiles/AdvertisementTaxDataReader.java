@@ -76,15 +76,9 @@ public class AdvertisementTaxDataReader extends ExcelReader {
     public StructureDetails getStructureDetails(String structureDetailsDataId){
         Row dataRow = readDataRow(structureDetailsSheet,structureDetailsDataId);
 
-        Cell dateCell = getCellData(structureDetailsSheet, dataRow, "measurement");
-        dateCell.setCellType(Cell.CELL_TYPE_STRING);
-        String measurement = dateCell.getStringCellValue();
-
+        String measurement = convertNumericToString(structureDetailsSheet, dataRow,"measurement");
         String measurementType = getCellData(structureDetailsSheet,dataRow,"measurementType").getStringCellValue();
-
-        Cell dateCell1 = getCellData(structureDetailsSheet, dataRow, "taxAmount");
-        dateCell1.setCellType(Cell.CELL_TYPE_STRING);
-        String taxAmount = dateCell1.getStringCellValue();
+        String taxAmount = convertNumericToString(structureDetailsSheet,dataRow,"taxAmount");
 
         return new StructureDetailsBuilder()
                 .withMeasurement(measurement)

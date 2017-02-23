@@ -140,7 +140,6 @@ public class SpillOverEstimatePage extends BasePage {
         selectFromDropDown(beneficiary, estimateHeaderDetails.getBeneficiary(), webDriver);
         selectFromDropDown(natureOfWork, estimateHeaderDetails.getNatureOfWork(), webDriver);
         selectFromDropDown(typeofwork, estimateHeaderDetails.getTypeOfWork(), webDriver);
-//        subTypeOfWork.click();
         subTypeOfWork.click();
         selectFromDropDown(subTypeOfWork, estimateHeaderDetails.getSubTypeOfWork(), webDriver);
         selectFromDropDown(modeOfEntrustment, estimateHeaderDetails.getModeOfEntrustment(), webDriver);
