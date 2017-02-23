@@ -18,7 +18,6 @@ public class ExcelReader {
 
     Sheet registeredUserSheet;
     Sheet approvalDetailsSheet;
-    Sheet approverDetailsSheet;
 
     public ExcelReader(String testData) {
         String excelFilePath = testData + ".xlsx";
@@ -31,7 +30,6 @@ public class ExcelReader {
             e.printStackTrace();
         }
         registeredUserSheet = workbook.getSheet("registeredUserDetails");
-        approverDetailsSheet = workbook.getSheet("approvalDetails");
         approvalDetailsSheet = workbook.getSheet("approvalDetails");
     }
 
