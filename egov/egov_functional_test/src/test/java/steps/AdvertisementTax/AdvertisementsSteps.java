@@ -1,7 +1,7 @@
 package steps.AdvertisementTax;
 
 import cucumber.api.java8.En;
-import entities.ApprovalDetailsNew;
+import entities.ApprovalDetails;
 import entities.advertisementTax.AdvertisementDetails;
 import entities.advertisementTax.LocalityDetails;
 import entities.advertisementTax.PermissionDetails;
@@ -130,7 +130,7 @@ public class AdvertisementsSteps extends BaseSteps implements En {
         });
 
         And("^he enter approver details as (\\w+)$", (String approverDetailsDataId) -> {
-            ApprovalDetailsNew approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approverDetailsDataId);
+            ApprovalDetails approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetails(approverDetailsDataId);
             pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approverDetails);
         });
 

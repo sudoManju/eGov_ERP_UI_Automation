@@ -1,6 +1,6 @@
 package pages.financial;
 
-import entities.ApprovalDetailsNew;
+import entities.ApprovalDetails;
 import entities.financial.FinancialExpenseBillDetails;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -118,17 +118,17 @@ public class ExpenseDetailsPage extends FinancialPage {
         clickOnButton(expensePopulate, webDriver);
     }
 
-    public String enterExpenseApprovalDetails(ApprovalDetailsNew approvalDetailsNew) {
+    public String enterExpenseApprovalDetails(ApprovalDetails approvalDetails) {
 
-        selectFromDropDown(expenseApprovalDepartment, approvalDetailsNew.getApproverDepartment(), webDriver);
+        selectFromDropDown(expenseApprovalDepartment, approvalDetails.getApproverDepartment(), webDriver);
 
         for (int i = 0; i <= 10; i++) {
-            if (!webDriver.findElement(By.id("approvalDesignation")).getText().equalsIgnoreCase(approvalDetailsNew.getApproverDesignation())) {
+            if (!webDriver.findElement(By.id("approvalDesignation")).getText().equalsIgnoreCase(approvalDetails.getApproverDesignation())) {
                 try {
-                    selectFromDropDown(expenseApprovalDesignation, approvalDetailsNew.getApproverDesignation(), webDriver);
+                    selectFromDropDown(expenseApprovalDesignation, approvalDetails.getApproverDesignation(), webDriver);
                 } catch (StaleElementReferenceException e) {
                     WebElement element = webDriver.findElement(By.id("approvalDesignation"));
-                    selectFromDropDown(element, approvalDetailsNew.getApproverDesignation(), webDriver);
+                    selectFromDropDown(element, approvalDetails.getApproverDesignation(), webDriver);
                 }
             }
         }

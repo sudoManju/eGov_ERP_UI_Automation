@@ -1,13 +1,12 @@
 package excelDataFiles;
 
-import builders.ApprovalDetailsEntityBuilder;
+import builders.ApprovalDetailsBuilder;
 import builders.LoginDetailsBuilder;
-import builders.works.*;
 import entities.*;
-import entities.works.*;
-import entities.ApprovalDetailsNew;
+import entities.ApprovalDetails;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
@@ -87,29 +86,28 @@ public class ExcelReader {
                 .withHasZone(hasZone).build();
     }
 
-    public ApprovalDetailsNew getFinanceApprovalDetails(String approvalDetailsDataId) {
+    public ApprovalDetails getFinanceApprovalDetails(String approvalDetailsDataId) {
         Row dataRow = readDataRow(approvalDetailsSheet, approvalDetailsDataId);
         String approverDepartment = getCellData(approvalDetailsSheet, dataRow, "approverDepartment").getStringCellValue();
         String approverDesignation = getCellData(approvalDetailsSheet, dataRow, "approverDesignation").getStringCellValue();
 
-        return new ApprovalDetailsEntityBuilder()
+        return new ApprovalDetailsBuilder()
                 .withApproverDepartment(approverDepartment)
                 .withApproverDesignation(approverDesignation)
                 .build();
     }
 
-    public ApprovalDetailsNew getApprovalDetailsNew(String approvalDetailsDataId) {
+    public ApprovalDetails getApprovalDetails(String approvalDetailsDataId) {
         Row dataRow = readDataRow(approvalDetailsSheet, approvalDetailsDataId);
         String approverDepartment = getCellData(approvalDetailsSheet, dataRow, "approverDepartment").getStringCellValue();
         String approverDesignation = getCellData(approvalDetailsSheet, dataRow, "approverDesignation").getStringCellValue();
         String approver = getCellData(approvalDetailsSheet, dataRow, "approver").getStringCellValue();
         String approverRemarks = getCellData(approvalDetailsSheet, dataRow, "approverRemarks").getStringCellValue();
-        return new ApprovalDetailsEntityBuilder()
+        return new ApprovalDetailsBuilder()
                 .withApproverDepartment(approverDepartment)
                 .withApproverDesignation(approverDesignation)
                 .withApprover(approver)
                 .withApproverRemarks(approverRemarks)
                 .build();
     }
-
 }

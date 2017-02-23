@@ -1,7 +1,7 @@
 package steps.financial;
 
 import cucumber.api.java8.En;
-import entities.ApprovalDetailsNew;
+import entities.ApprovalDetails;
 import entities.financial.*;
 import excelDataFiles.FinanceDataReader;
 import org.junit.Assert;
@@ -21,9 +21,9 @@ public class FinancialSteps extends BaseSteps implements En {
         });
 
         And("^officer will enter the approval details as (\\w+)$", (String approveOfficer) -> {
-            ApprovalDetailsNew approvalDetailsNew = new ExcelReader(approvalDetailsTestDataFileName).getFinanceApprovalDetails(approveOfficer);
+            ApprovalDetails approvalDetails = new ExcelReader(approvalDetailsTestDataFileName).getFinanceApprovalDetails(approveOfficer);
             try {
-                String userName = pageStore.get(FinancialPage.class).enterFinanceApprovalDetails(approvalDetailsNew);
+                String userName = pageStore.get(FinancialPage.class).enterFinanceApprovalDetails(approvalDetails);
                 scenarioContext.setUser(userName);
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -85,8 +85,8 @@ public class FinancialSteps extends BaseSteps implements En {
         });
 
         And("^officer will enter the expense approval details as (\\w+)$", (String approveOfficer) -> {
-            ApprovalDetailsNew approvalDetailsNew = new ExcelReader(approvalDetailsTestDataFileName).getFinanceApprovalDetails(approveOfficer);
-            String userName = pageStore.get(ExpenseDetailsPage.class).enterExpenseApprovalDetails(approvalDetailsNew);
+            ApprovalDetails approvalDetails = new ExcelReader(approvalDetailsTestDataFileName).getFinanceApprovalDetails(approveOfficer);
+            String userName = pageStore.get(ExpenseDetailsPage.class).enterExpenseApprovalDetails(approvalDetails);
             scenarioContext.setUser(userName.split("\\ ")[0]);
         });
 

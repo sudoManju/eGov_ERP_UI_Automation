@@ -1,7 +1,7 @@
 package steps.marriageRegistration;
 
 import cucumber.api.java8.En;
-import entities.ApprovalDetailsNew;
+import entities.ApprovalDetails;
 import entities.marriageRegistration.MarriageRegistrationInformation;
 import excelDataFiles.MarriageRegistrationDataReader;
 import pages.ApprovalDetailsPage;
@@ -33,8 +33,8 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
         And("^he forward to commissioner and closes the acknowledgement$", () -> {
             String approverDetailsDataId = "commissioner1";
 
-            ApprovalDetailsNew approvalDetailsNew = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approverDetailsDataId);
-            pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approvalDetailsNew);
+            ApprovalDetails approvalDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetails(approverDetailsDataId);
+            pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approvalDetails);
 
             pageStore.get(NewSewerageConnectionPage.class).forward();
 
@@ -88,8 +88,8 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
         });
         And("^he forward to commissioner$", () -> {
             String approverDetailsDataId = "commissioner1";
-            ApprovalDetailsNew approvalDetailsNew = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approverDetailsDataId);
-            pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approvalDetailsNew);
+            ApprovalDetails approvalDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetails(approverDetailsDataId);
+            pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approvalDetails);
             pageStore.get(NewSewerageConnectionPage.class).forward();
         });
         And("^he get application number and closes acknowledgement$", () -> {

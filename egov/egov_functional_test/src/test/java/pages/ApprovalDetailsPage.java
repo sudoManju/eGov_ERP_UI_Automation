@@ -1,6 +1,6 @@
 package pages;
 
-import entities.ApprovalDetailsNew;
+import entities.ApprovalDetails;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -64,7 +64,7 @@ public class ApprovalDetailsPage extends BasePage {
         this.webDriver = webDriver;
     }
 
-    public void enterApprovalDetailsForGrievances(ApprovalDetailsNew approvalDetails) {
+    public void enterApprovalDetailsForGrievances(ApprovalDetails approvalDetails) {
 
         new Select(approvalDepartmentSelect).selectByVisibleText(approvalDetails.getApproverDepartment());
         new Select(approvalDesignationSelect).selectByVisibleText(approvalDetails.getApproverDesignation());
@@ -72,33 +72,33 @@ public class ApprovalDetailsPage extends BasePage {
         enterText(incMessageTextBox, approvalDetails.getApproverRemarks(), webDriver);
     }
 
-    public void enterApproverDetails(ApprovalDetailsNew approvalDetailsNew) {
+    public void enterApproverDetails(ApprovalDetails approvalDetails) {
 
-        selectFromDropDown(approverDepartmentSelection, approvalDetailsNew.getApproverDepartment(), webDriver);
+        selectFromDropDown(approverDepartmentSelection, approvalDetails.getApproverDepartment(), webDriver);
         await().atMost(10, SECONDS).until(() -> new Select(approverDesignationSelection).getOptions().size() > 1);
 
-        selectFromDropDown(approverDesignationSelection, approvalDetailsNew.getApproverDesignation(), webDriver);
+        selectFromDropDown(approverDesignationSelection, approvalDetails.getApproverDesignation(), webDriver);
         await().atMost(10, SECONDS).until(() -> new Select(approverSelection).getOptions().size() > 1);
 
-        selectFromDropDown(approverSelection, approvalDetailsNew.getApprover(), webDriver);
+        selectFromDropDown(approverSelection, approvalDetails.getApprover(), webDriver);
 
         if (approverCommentsTextBox.isDisplayed()) {
-            enterText(approverCommentsTextBox, approvalDetailsNew.getApproverRemarks(), webDriver);
+            enterText(approverCommentsTextBox, approvalDetails.getApproverRemarks(), webDriver);
         }
     }
 
-    public void enterApprovalDetails(ApprovalDetailsNew approvalDetailsNew) {
+    public void enterApprovalDetails(ApprovalDetails approvalDetails) {
 
-        selectFromDropDown(approvalDepartmentSelection, approvalDetailsNew.getApproverDepartment(), webDriver);
+        selectFromDropDown(approvalDepartmentSelection, approvalDetails.getApproverDepartment(), webDriver);
         await().atMost(10, SECONDS).until(() -> new Select(approvalDesignationSelection).getOptions().size() > 1);
 
-        selectFromDropDown(approvalDesignationSelection, approvalDetailsNew.getApproverDesignation(), webDriver);
+        selectFromDropDown(approvalDesignationSelection, approvalDetails.getApproverDesignation(), webDriver);
         await().atMost(10, SECONDS).until(() -> new Select(approvalPositionSelect).getOptions().size() > 1);
 
-        selectFromDropDown(approvalPositionSelect, approvalDetailsNew.getApprover(), webDriver);
+        selectFromDropDown(approvalPositionSelect, approvalDetails.getApprover(), webDriver);
 
         if(approverCommentsTextBox.isDisplayed()) {
-            enterText(approvalCommentsTextBox, approvalDetailsNew.getApproverRemarks(), webDriver);
+            enterText(approvalCommentsTextBox, approvalDetails.getApproverRemarks(), webDriver);
         }
     }
 

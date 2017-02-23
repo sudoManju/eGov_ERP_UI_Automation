@@ -1,7 +1,7 @@
 package steps.AdvertisementTax;
 
 import cucumber.api.java8.En;
-import entities.ApprovalDetailsNew;
+import entities.ApprovalDetails;
 import pages.AdvertisementTax.AdvertisementsPage;
 import pages.AdvertisementTax.LegacyAdvertisementsPage;
 import pages.ApprovalDetailsPage;
@@ -46,7 +46,7 @@ public class LegacyAdvertisementsSteps extends BaseSteps implements En {
 
             String approverDetailsDataId = "commissioner1";
 
-            ApprovalDetailsNew approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approverDetailsDataId);
+            ApprovalDetails approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetails(approverDetailsDataId);
             pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approverDetails);
 
             String number = pageStore.get(AdvertisementsPage.class).forward();

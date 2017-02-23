@@ -1,7 +1,7 @@
 package steps.sewerageTax;
 
 import cucumber.api.java8.En;
-import entities.ApprovalDetailsNew;
+import entities.ApprovalDetails;
 import pages.ApprovalDetailsPage;
 import pages.sewerageTax.NewSewerageConnectionPage;
 import steps.BaseSteps;
@@ -14,7 +14,7 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
 
             String approverDetailsDataId = "assis_Engineer_1";
 
-            ApprovalDetailsNew approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approverDetailsDataId);
+            ApprovalDetails approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetails(approverDetailsDataId);
             pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approverDetails);
 
         });
@@ -42,7 +42,7 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
         And("^he forward to DEE and close the acknowledgement$", () -> {
             String approverDetailsDataId = "DeputyExecutiveEngineer_1";
 
-            ApprovalDetailsNew approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approverDetailsDataId);
+            ApprovalDetails approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetails(approverDetailsDataId);
             pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approverDetails);
 
             pageStore.get(NewSewerageConnectionPage.class).forward();
@@ -64,7 +64,7 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
         And("^he forward to executive engineer and closes the acknowledgement$", () -> {
             String approverDetailsDataId = "Executive_engineer";
 
-            ApprovalDetailsNew approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approverDetailsDataId);
+            ApprovalDetails approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetails(approverDetailsDataId);
             pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approverDetails);
 
             pageStore.get(NewSewerageConnectionPage.class).forward();
@@ -78,7 +78,7 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
 
             String approverDetailsDataId = "assis_Engineer_1";
 
-            ApprovalDetailsNew approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approverDetailsDataId);
+            ApprovalDetails approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetails(approverDetailsDataId);
             pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approverDetails);
         });
         And("^he execute connection and closes the acknowledgement$", () -> {
@@ -97,7 +97,7 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
 
             String approverDetailsDataId = "assis_Engineer_1";
 
-            ApprovalDetailsNew approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approverDetailsDataId);
+            ApprovalDetails approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetails(approverDetailsDataId);
             pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approverDetails);
 
         });
@@ -113,7 +113,7 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
         And("^he forward to DEE for change and close the acknowledgement$", () -> {
             String approverDetailsDataId = "DeputyExecutiveEngineer_1";
 
-            ApprovalDetailsNew approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approverDetailsDataId);
+            ApprovalDetails approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetails(approverDetailsDataId);
             pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approverDetails);
 
             pageStore.get(NewSewerageConnectionPage.class).forward();
@@ -132,7 +132,7 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
         And("^he forward to executive engineer for change in closets and closes the acknowledgement$", () -> {
             String approverDetailsDataId = "Executive_engineer";
 
-            ApprovalDetailsNew approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approverDetailsDataId);
+            ApprovalDetails approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetails(approverDetailsDataId);
             pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approverDetails);
 
             pageStore.get(NewSewerageConnectionPage.class).forward();
@@ -156,14 +156,14 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
 
             String approverDetailsDataId = "assis_Engineer_1";
 
-            ApprovalDetailsNew approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approverDetailsDataId);
+            ApprovalDetails approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetails(approverDetailsDataId);
             pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approverDetails);
 
         });
         And("^he forwards to DEE for closure and close the acknowledgement$", () -> {
             String approverDetailsDataId = "DeputyExecutiveEngineer_1";
 
-            ApprovalDetailsNew approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approverDetailsDataId);
+            ApprovalDetails approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetails(approverDetailsDataId);
             pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approverDetails);
 
             pageStore.get(NewSewerageConnectionPage.class).forward();
@@ -186,7 +186,7 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
         And("^he forwards to executive engineer for closure and close the acknowledgement$", () -> {
             String approverDetailsDataId = "Executive_engineer";
 
-            ApprovalDetailsNew approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approverDetailsDataId);
+            ApprovalDetails approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetails(approverDetailsDataId);
             pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approverDetails);
 
             pageStore.get(NewSewerageConnectionPage.class).forward();

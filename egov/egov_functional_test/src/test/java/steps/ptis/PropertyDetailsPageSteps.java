@@ -1,7 +1,7 @@
 package steps.ptis;
 
 import cucumber.api.java8.En;
-import entities.ApprovalDetailsNew;
+import entities.ApprovalDetails;
 import entities.ptis.*;
 import excelDataFiles.PTISDataReader;
 import pages.ApprovalDetailsPage;
@@ -43,11 +43,11 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
             pageStore.get(PropertyDetailsPage.class).enterFloorDetails(floorDetails);
         });
         And("^he enters approval details as (\\w+)$", (String approvalDetailsDataId) -> {
-            ApprovalDetailsNew approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approvalDetailsDataId);
+            ApprovalDetails approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetails(approvalDetailsDataId);
             pageStore.get(ApprovalDetailsPage.class).enterApproverDetails(approverDetails);
         });
         And("^he forwards for approval to (.*)$", (String approvalDetailsDataId) -> {
-            ApprovalDetailsNew approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approvalDetailsDataId);
+            ApprovalDetails approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetails(approvalDetailsDataId);
             pageStore.get(ApprovalDetailsPage.class).enterApproverDetails(approverDetails);
             pageStore.get(PropertyDetailsPage.class).forward();
         });

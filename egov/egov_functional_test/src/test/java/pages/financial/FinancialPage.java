@@ -1,6 +1,6 @@
 package pages.financial;
 
-import entities.ApprovalDetailsNew;
+import entities.ApprovalDetails;
 import entities.financial.FinancialBankDetails;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -186,12 +186,12 @@ public class FinancialPage extends BasePage {
         this.webDriver = webDriver;
     }
 
-    public String enterFinanceApprovalDetails(ApprovalDetailsNew approvalDetailsNew) throws ParseException {
+    public String enterFinanceApprovalDetails(ApprovalDetails approvalDetails) throws ParseException {
 
         maximizeBrowserWindow(webDriver);
 
-        selectFromDropDown(approverDepartment, approvalDetailsNew.getApproverDepartment(), webDriver);
-        selectFromDropDown(approverDesignation, approvalDetailsNew.getApproverDesignation(), webDriver);
+        selectFromDropDown(approverDepartment, approvalDetails.getApproverDepartment(), webDriver);
+        selectFromDropDown(approverDesignation, approvalDetails.getApproverDesignation(), webDriver);
 
         Select approverPos = new Select(approverPosition);
         await().atMost(10, SECONDS).until(() -> approverPos.getOptions().size() > 1);

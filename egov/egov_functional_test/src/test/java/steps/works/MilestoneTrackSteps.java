@@ -1,7 +1,7 @@
 package steps.works;
 
 import cucumber.api.java8.En;
-import entities.ApprovalDetailsNew;
+import entities.ApprovalDetails;
 import pages.ApprovalDetailsPage;
 import pages.works.MilestoneTrackPage;
 import steps.BaseSteps;
@@ -63,7 +63,7 @@ public class MilestoneTrackSteps extends BaseSteps implements En {
 
             pageStore.get(MilestoneTrackPage.class).enterContractorBillDetails("part");
 
-            ApprovalDetailsNew approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approverDetailsDataId);
+            ApprovalDetails approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetails(approverDetailsDataId);
             pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approverDetails);
 
             String billNumber = pageStore.get(MilestoneTrackPage.class).forwardToDEEContractorBill();
@@ -78,7 +78,7 @@ public class MilestoneTrackSteps extends BaseSteps implements En {
         And("^he enters contractor details for full bill (\\w+)$", (String approverDetailsDataId) -> {
             pageStore.get(MilestoneTrackPage.class).enterContractorBillDetails("full");
 
-            ApprovalDetailsNew approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approverDetailsDataId);
+            ApprovalDetails approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetails(approverDetailsDataId);
             pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approverDetails);
 
             String billNumber = pageStore.get(MilestoneTrackPage.class).forwardToDEEContractorBill();

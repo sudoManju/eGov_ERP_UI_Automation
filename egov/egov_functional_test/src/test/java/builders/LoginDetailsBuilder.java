@@ -1,7 +1,6 @@
 package builders;
 
 import entities.LoginDetails;
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 
 public class LoginDetailsBuilder {
 

@@ -1,6 +1,6 @@
 package pages.collections;
 
-import entities.ApprovalDetailsNew;
+import entities.ApprovalDetails;
 import entities.collections.ChallanHeaderDetails;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -189,7 +189,7 @@ public class CollectionsPage extends BasePage {
         }
     }
 
-    public void enterApprovalDetails(ApprovalDetailsNew approverDetails) {
+    public void enterApprovalDetails(ApprovalDetails approverDetails) {
 
         selectFromDropDown(approverDeptBox,approverDetails.getApproverDepartment(),driver);
         await().atMost(10, SECONDS).until(() -> new Select(approverDesignationBox).getOptions().size() > 1);

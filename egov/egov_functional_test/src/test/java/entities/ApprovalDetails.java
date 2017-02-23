@@ -1,6 +1,6 @@
 package entities;
 
-public class ApprovalDetailsNew {
+public class ApprovalDetails {
 
     private String approverDepartment;
     private String approverDesignation;
