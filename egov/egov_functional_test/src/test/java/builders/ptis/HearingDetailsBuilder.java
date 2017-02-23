@@ -2,9 +2,6 @@ package builders.ptis;
 
 import entities.ptis.HearingDetails;
 
-/**
- * Created by bimal on 27/1/17.
- */
 public class HearingDetailsBuilder {
 
     HearingDetails hearingDetails = new HearingDetails();

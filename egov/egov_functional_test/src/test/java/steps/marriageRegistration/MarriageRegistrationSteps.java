@@ -12,6 +12,7 @@ import excelDataFiles.ExcelReader;
 
 public class MarriageRegistrationSteps extends BaseSteps implements En {
     public MarriageRegistrationSteps() {
+
         And("^he enters the applicants details as (\\w+)$", (String generalInformationDataId) -> {
             MarriageRegistrationInformation marriageRegistrationInformation = new MarriageRegistrationDataReader(marriageRegistrationTestDataFileName).getApplicantsInformation(generalInformationDataId);
             pageStore.get(MarriageRegistrationPage.class).enterApplicantsInformation(marriageRegistrationInformation);
@@ -44,18 +45,18 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
             pageStore.get(MarriageRegistrationPage.class).closeApplication();
         });
         And("^he approve the new marriage application  and close the acknowledgement$", () -> {
-           pageStore.get(MarriageRegistrationPage.class).enterMarriageRegNum();
-           pageStore.get(MarriageRegistrationPage.class).approve();
-           scenarioContext.setRegistrationNumber(pageStore.get(MarriageRegistrationPage.class).getRegistrationNumber());
-           scenarioContext.setActualMessage(pageStore.get(MarriageRegistrationPage.class).getSuccessMessage());
-           pageStore.get(MarriageRegistrationPage.class).closeApplication();
+            pageStore.get(MarriageRegistrationPage.class).enterMarriageRegNum();
+            pageStore.get(MarriageRegistrationPage.class).approve();
+            scenarioContext.setRegistrationNumber(pageStore.get(MarriageRegistrationPage.class).getRegistrationNumber());
+            scenarioContext.setActualMessage(pageStore.get(MarriageRegistrationPage.class).getSuccessMessage());
+            pageStore.get(MarriageRegistrationPage.class).closeApplication();
         });
         And("^he enters the serial and page number$", () -> {
             pageStore.get(MarriageRegistrationPage.class).enterMarriageRegNum();
         });
 
         And("^he search for above application number to collect marriage Registration fee$", () -> {
-            pageStore.get(MarriageRegistrationPage.class).searchForMarriageApplicationNumberToCollect(scenarioContext.getApplicationNumber(),"registration");
+            pageStore.get(MarriageRegistrationPage.class).searchForMarriageApplicationNumberToCollect(scenarioContext.getApplicationNumber(), "registration");
             pageStore.get(MarriageRegistrationPage.class).clickOnCollectDropdown();
         });
         And("^he submit the data entry$", () -> {
@@ -63,7 +64,7 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
             String number = message.split("\\s")[7];
             scenarioContext.setActualMessage(message);
             scenarioContext.setApplicationNumber(number);
-          });
+        });
         And("^he search the marrige application$", () -> {
             pageStore.get(MarriageRegistrationPage.class).searchForApplicationToModify(scenarioContext.getApplicationNumber());
             pageStore.get(MarriageRegistrationPage.class).clickOnEditButton();
@@ -74,7 +75,7 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
             scenarioContext.setActualMessage(message);
         });
         And("^he closes the acknowledgements$", () -> {
-           pageStore.get(MarriageRegistrationPage.class).closeMultipleWindows();
+            pageStore.get(MarriageRegistrationPage.class).closeMultipleWindows();
         });
         And("^he search applications for re issue certificate$", () -> {
             pageStore.get(MarriageRegistrationPage.class).searchMarriageApplication(scenarioContext.getApplicationNumber());

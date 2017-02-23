@@ -1,9 +1,6 @@
 package builders.councilManagement;
 import entities.councilManagement.CreatePreambleDetails;
 
-/**
- * Created by tester1 on 1/4/2017.
- */
 public class PreambleDetailsBuilder {
 
     CreatePreambleDetails createPreambleDetails=new CreatePreambleDetails();
@@ -60,7 +57,4 @@ public class PreambleDetailsBuilder {
     public CreatePreambleDetails build() {
         return createPreambleDetails;
     }
-
-
-
 }

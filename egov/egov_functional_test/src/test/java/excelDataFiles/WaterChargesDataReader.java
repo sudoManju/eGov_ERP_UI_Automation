@@ -1,11 +1,11 @@
 package excelDataFiles;
 
-import builders.ptis.ApplicantInfoBuilder;
-import builders.ptis.ConnectionInfoBuilder;
+import builders.wcms.ApplicantInfoBuilder;
+import builders.wcms.ConnectionInfoBuilder;
 import builders.wcms.EnclosedDocumentBuilder;
 import builders.wcms.FieldInspectionDetailsBuilder;
-import entities.ptis.ApplicantInfo;
-import entities.ptis.ConnectionInfo;
+import entities.wcms.ApplicantInfo;
+import entities.wcms.ConnectionInfo;
 import entities.wcms.EnclosedDocument;
 import entities.wcms.FieldInspectionDetails;
 import org.apache.poi.ss.usermodel.Cell;

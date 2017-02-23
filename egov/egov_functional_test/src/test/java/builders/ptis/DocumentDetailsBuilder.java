@@ -2,14 +2,8 @@ package builders.ptis;
 
 import entities.ptis.DocumentTypeValue;
 
-/**
- * Created by bimal on 13/2/17.
- */
 public class DocumentDetailsBuilder {
     DocumentTypeValue documentDetails = new DocumentTypeValue();
-
-    public DocumentDetailsBuilder() {
-    }
 
     public DocumentDetailsBuilder withdocumentType (String documentType){
         documentDetails.setDocumentType(documentType);
@@ -29,5 +23,4 @@ public class DocumentDetailsBuilder {
     public DocumentTypeValue build() {
         return documentDetails;
     }
-
 }

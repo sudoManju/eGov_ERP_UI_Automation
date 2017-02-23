@@ -7,13 +7,8 @@ import excelDataFiles.PTISDataReader;
 import pages.ptis.PropertyDetailsPage;
 import steps.BaseSteps;
 
-import static javax.swing.UIManager.get;
-
-/**
- * Created by bimal on 16/11/16.
- */
 public class AdditionSteps extends BaseSteps implements En {
-    public AdditionSteps(){
+    public AdditionSteps() {
 
 //        And("^he searches for assessment with number \"([^\"]*)\"$", (String arg0) -> {
 //            pageStore.get(PropertyDetailsPage.class).searchAssessmentNumber(scenarioContext.getDataScreenAssessmentNumber());

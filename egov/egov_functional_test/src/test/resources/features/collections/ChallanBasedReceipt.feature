@@ -1,7 +1,7 @@
 Feature: Create/Collect Challan Based Receipt
 
-As a registered user of the system
-I am able to Create/Collect Challan Based Receipt
+  As a registered user of the system
+  I am able to Create/Collect Challan Based Receipt
 
   @Collections  @Sanity @Smoke
   Scenario Outline: System should be able to Create Challan
@@ -25,10 +25,10 @@ I am able to Create/Collect Challan Based Receipt
     And current user logs out
 
     Examples:
-      |paymentMethod|
-      |cash         |
-      |cheque       |
-      |dd           |
+      | paymentMethod |
+      | cash          |
+      | cheque        |
+      | dd            |
 
 
 

@@ -2,9 +2,6 @@ package builders.dcReports;
 
 import entities.dcReports.VLTReport;
 
-/**
- * Created by vinaykumar on 6/12/16.
- */
 public class VLTReportBuilder {
 
     VLTReport vltReport = new VLTReport();

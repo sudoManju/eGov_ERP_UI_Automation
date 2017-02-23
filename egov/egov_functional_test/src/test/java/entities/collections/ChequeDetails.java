@@ -7,7 +7,6 @@ public class ChequeDetails {
     private String bankName;
     private String paidBy;
 
-
     public String getChequeDate() {
         return chequeDate;
     }

@@ -1,22 +1,18 @@
 package entities.works;
 
-/**
- * Created by karthik on 20/12/16.
- */
 public class WorkDetails {
 
     private Boolean worksorderCreated;
     private Boolean billsCreated;
-    String nameOfWork;
-    String abstractEstimateNumber;
-    String estimatedAmount;
-    String workIdentificationNumber;
-    String actualEstimateAmount;
-    String grossAmountBilled;
-    String quantity;
-    String uom;
-    String expectedOutcome;
-
+    private String nameOfWork;
+    private String abstractEstimateNumber;
+    private String estimatedAmount;
+    private String workIdentificationNumber;
+    private String actualEstimateAmount;
+    private String grossAmountBilled;
+    private String quantity;
+    private String uom;
+    private String expectedOutcome;
 
     public Boolean getWorksorderCreated() {
         return worksorderCreated;

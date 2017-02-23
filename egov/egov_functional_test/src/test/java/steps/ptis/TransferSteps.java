@@ -8,9 +8,6 @@ import pages.ptis.PropertyDetailsPage;
 import pages.ptis.TransferDetailsPage;
 import steps.BaseSteps;
 
-/**
- * Created by bimal on 13/12/16.
- */
 public class TransferSteps extends BaseSteps implements En {
     public TransferSteps() {
         And("^he pay tax using Cash$", () -> {
@@ -25,9 +22,9 @@ public class TransferSteps extends BaseSteps implements En {
             pageStore.get(TransferDetailsPage.class).enterRegistrationDetails(registrationDetails);
         });
         And("^he enters enclosure details$", () -> {
-           pageStore.get(TransferDetailsPage.class).enterEnclosureDetails();
+            pageStore.get(TransferDetailsPage.class).enterEnclosureDetails();
         });
-        And("^he searches for the assessment with mutation assessment number$",() -> {
+        And("^he searches for the assessment with mutation assessment number$", () -> {
             pageStore.get(TransferDetailsPage.class).searchAssessmentNumber(scenarioContext.getAssessmentNumber());
         });
         And("^he generate title transfer notice$", () -> {

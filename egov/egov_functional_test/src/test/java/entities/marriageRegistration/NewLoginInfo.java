@@ -1,11 +1,8 @@
 package entities.marriageRegistration;
 
-/**
- * Created by nadir on 2/8/2017.
- */
 public class NewLoginInfo {
- String username;
- String password;
+    private String username;
+    private String password;
 
     public String getUsername() {
         return username;
@@ -22,6 +19,4 @@ public class NewLoginInfo {
     public void setPassword(String password) {
         this.password = password;
     }
-
-
 }

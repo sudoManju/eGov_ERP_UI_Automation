@@ -2,14 +2,9 @@ package builders.ptis;
 
 import entities.ptis.SearchDetails;
 
-/**
- * Created by karthik on 29/11/16.
- */
 public class SearchDetailsBuilder {
 
     SearchDetails searchDetails = new SearchDetails();
-
-    public SearchDetailsBuilder(){}
 
     public SearchDetailsBuilder withAssessmentNumber(String searchValue){
         searchDetails.setSearchValue1(searchValue);
@@ -36,10 +31,6 @@ public class SearchDetailsBuilder {
         return this;
     }
 
-    public SearchDetails build(){
-        return searchDetails;
-    }
-
     public SearchDetailsBuilder withHouseNo(String houseNo){
         searchDetails.setSearchValue3(houseNo);
         return this;
@@ -63,6 +54,10 @@ public class SearchDetailsBuilder {
     public SearchDetailsBuilder withTo(String to){
         searchDetails.setSearchValue4(to);
         return this;
+    }
+
+    public SearchDetails build(){
+        return searchDetails;
     }
 
 }

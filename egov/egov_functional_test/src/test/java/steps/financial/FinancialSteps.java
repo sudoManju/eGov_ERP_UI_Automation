@@ -15,9 +15,9 @@ public class FinancialSteps extends BaseSteps implements En {
 
     public FinancialSteps() {
 
-        And("^officer will enter the journal voucher details as (\\w+) with subledger (\\w+)$", (String voucher , String withOrWithoutSubledger) -> {
+        And("^officer will enter the journal voucher details as (\\w+) with subledger (\\w+)$", (String voucher, String withOrWithoutSubledger) -> {
             FinancialJournalVoucherDetails financialJournalVoucherDetails = new FinanceDataReader(financialTestDataFileName).getJournalVoucherDetails(voucher);
-            pageStore.get(JournalVoucherDetailsPage.class).enterJournalVoucherDetails(financialJournalVoucherDetails , withOrWithoutSubledger);
+            pageStore.get(JournalVoucherDetailsPage.class).enterJournalVoucherDetails(financialJournalVoucherDetails, withOrWithoutSubledger);
         });
 
         And("^officer will enter the approval details as (\\w+)$", (String approveOfficer) -> {
@@ -39,7 +39,7 @@ public class FinancialSteps extends BaseSteps implements En {
         And("^officer will closes the acknowledgement page$", () -> {
             String actualMessage = pageStore.get(FinancialPage.class).closePage();
             scenarioContext.setActualMessage(actualMessage);
-            if(scenarioContext.getIsRemittance() == 1) {
+            if (scenarioContext.getIsRemittance() == 1) {
                 scenarioContext.setApplicationNumber(actualMessage.split("\\n")[0].split("\\ ")[7] + "-CASH");
                 scenarioContext.setIsRemittance(0);
             }
@@ -53,17 +53,17 @@ public class FinancialSteps extends BaseSteps implements En {
             pageStore.get(SelectSingleOrMultipleBillsPage.class).singleBillSearch();
         });
 
-        Then("^officer will search the bill based on department and fund with type as (\\w+) with payment mode as (\\w+)$", (String type , String paymentMode) -> {
-            pageStore.get(SelectSingleOrMultipleBillsPage.class).multipleBillSearch(type , paymentMode);
+        Then("^officer will search the bill based on department and fund with type as (\\w+) with payment mode as (\\w+)$", (String type, String paymentMode) -> {
+            pageStore.get(SelectSingleOrMultipleBillsPage.class).multipleBillSearch(type, paymentMode);
         });
 
         And("^officer will act upon the above voucher with payment mode as (\\w+)$", (String paymentMode) -> {
-            pageStore.get(SelectSingleOrMultipleBillsPage.class).actOnAboveVoucher(paymentMode , scenarioContext.getApplicationNumber());
+            pageStore.get(SelectSingleOrMultipleBillsPage.class).actOnAboveVoucher(paymentMode, scenarioContext.getApplicationNumber());
         });
 
         And("^officer will verify the voucher number$", () -> {
             String voucher = pageStore.get(FinancialPage.class).verifyVoucher();
-            Assert.assertEquals(voucher , scenarioContext.getApplicationNumber());
+            Assert.assertEquals(voucher, scenarioContext.getApplicationNumber());
         });
 
         And("^officer will enter the bank details$", () -> {
@@ -77,7 +77,6 @@ public class FinancialSteps extends BaseSteps implements En {
             FinancialBankDetails financialBankDetails = new FinanceDataReader(financialTestDataFileName).getFinancialBankDetails(bankDetails);
             pageStore.get(FinancialPage.class).billRemittancePayment(financialBankDetails);
             scenarioContext.setIsRemittance(1);
-
         });
 
         And("^officer will the expense bill details as (\\w+)$", (String expenseBill) -> {
@@ -119,10 +118,9 @@ public class FinancialSteps extends BaseSteps implements En {
 
         And("^officer will search for (\\w+) remittance bill$", (String singleOrMultiple) -> {
             pageStore.get(FinancialPage.class).searchRemittanceBill();
-            if(singleOrMultiple.equalsIgnoreCase("single")) {
+            if (singleOrMultiple.equalsIgnoreCase("single")) {
                 pageStore.get(SelectSingleOrMultipleBillsPage.class).selectSingleRemittanceBill(scenarioContext.getApplicationNumber());
-            }
-            else {
+            } else {
                 pageStore.get(FinancialPage.class).selectMultipleRemittanceBill();
             }
         });
@@ -138,19 +136,17 @@ public class FinancialSteps extends BaseSteps implements En {
         });
 
         And("^officer will filter the payment cheque assignment bill as (\\w+)$", (String singleOrMultiple) -> {
-            if(singleOrMultiple.equalsIgnoreCase("single")) {
+            if (singleOrMultiple.equalsIgnoreCase("single")) {
                 pageStore.get(FinancialPage.class).chequeAssignmentBillSearch(scenarioContext.getApplicationNumber());
-            }
-            else {
+            } else {
                 pageStore.get(FinancialPage.class).chequeAssignmentBillSearch();
             }
         });
 
-        And("^officer will select the (\\w+) bill and enter the details (\\w+)$", (String singleOrMultiple , String assignmentMode) -> {
-            if(singleOrMultiple.equalsIgnoreCase("single")) {
+        And("^officer will select the (\\w+) bill and enter the details (\\w+)$", (String singleOrMultiple, String assignmentMode) -> {
+            if (singleOrMultiple.equalsIgnoreCase("single")) {
                 pageStore.get(FinancialPage.class).toFillChequeAssignmentDetails(assignmentMode);
-            }
-            else {
+            } else {
                 pageStore.get(FinancialPage.class).toFillMultipleChequeAssignmentDetails(assignmentMode);
             }
         });
@@ -160,14 +156,14 @@ public class FinancialSteps extends BaseSteps implements En {
             scenarioContext.setActualMessage(msg);
         });
 
-        And("^officer will enter the direct bank payment details as (\\w+) with mode as (\\w+)$", (String directBankDetails ,String mode) -> {
+        And("^officer will enter the direct bank payment details as (\\w+) with mode as (\\w+)$", (String directBankDetails, String mode) -> {
             DirectBankPaymentDetails directBankPaymentDetails = new FinanceDataReader(financialTestDataFileName).getDirectBankPaymentDetails(directBankDetails);
-            pageStore.get(DirectBankPaymentDetailsPage.class).enterDirectBankPaymentDetails(directBankPaymentDetails , mode);
+            pageStore.get(DirectBankPaymentDetailsPage.class).enterDirectBankPaymentDetails(directBankPaymentDetails, mode);
         });
 
         And("^officer will see the successful voucher creation page and closes it$", () -> {
             String msg = pageStore.get(DirectBankPaymentDetailsPage.class).directBankSuccessPage();
-            if(msg.contains("Successful")) {
+            if (msg.contains("Successful")) {
                 scenarioContext.setApplicationNumber(msg.split("\\ ")[8]);
             }
             scenarioContext.setActualMessage(msg);

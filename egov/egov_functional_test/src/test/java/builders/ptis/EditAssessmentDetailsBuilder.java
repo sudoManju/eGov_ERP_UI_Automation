@@ -1,22 +1,13 @@
 package builders.ptis;
 
-
 import entities.ptis.EditAssessmentDetails;
 
-/**
- * Created by bimal on 23/11/16.
- */
 public class EditAssessmentDetailsBuilder {
 
     EditAssessmentDetails editAssesmentDetails = new EditAssessmentDetails();
 
-
     public EditAssessmentDetailsBuilder() {
         editAssesmentDetails.setExtentOfSite("100");
-    }
-
-    public EditAssessmentDetails build() {
-        return editAssesmentDetails;
     }
 
     public EditAssessmentDetailsBuilder withExtentOfSite(String extentOfSite) {
@@ -28,4 +19,9 @@ public class EditAssessmentDetailsBuilder {
         editAssesmentDetails.setOccupancyCertificateNumber(certificateNumber);
         return this;
     }
+
+    public EditAssessmentDetails build() {
+        return editAssesmentDetails;
+    }
+
 }

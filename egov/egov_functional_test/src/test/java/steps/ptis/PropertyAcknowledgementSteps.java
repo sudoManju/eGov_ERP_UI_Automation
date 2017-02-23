@@ -1,26 +1,22 @@
 package steps.ptis;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
-import org.junit.Assert;
 import pages.ptis.PropertyAcknowledgementPage;
 import steps.BaseSteps;
-
 
 public class PropertyAcknowledgementSteps extends BaseSteps implements En {
 
     public PropertyAcknowledgementSteps() {
 
         Then("^create property details get saved successfully by generating assesssment number$", () -> {
-            String assessmentNumber =pageStore.get(PropertyAcknowledgementPage.class).getAssessmentNumber();
+            String assessmentNumber = pageStore.get(PropertyAcknowledgementPage.class).getAssessmentNumber();
             scenarioContext.setAssessmentNumber(assessmentNumber);
         });
-
 
         And("^he will copy the acknowledgement message with assessment number (.*)$", (String type) -> {
             String msg = pageStore.get(PropertyAcknowledgementPage.class).getAssessmentNumberNew(type);
             scenarioContext.setActualMessage(msg);
-            scenarioContext.setAssessmentNumber(msg.substring(msg.lastIndexOf(" ")+1));
+            scenarioContext.setAssessmentNumber(msg.substring(msg.lastIndexOf(" ") + 1));
             pageStore.get(PropertyAcknowledgementPage.class).close();
         });
 
@@ -28,7 +24,7 @@ public class PropertyAcknowledgementSteps extends BaseSteps implements En {
             pageStore.get(PropertyAcknowledgementPage.class).close();
         });
         When("^commissioner closes acknowledgement$", () -> {
-           pageStore.get(PropertyAcknowledgementPage.class).closeFromCommisionersLogin();
+            pageStore.get(PropertyAcknowledgementPage.class).closeFromCommisionersLogin();
         });
         And("^he cancels the print$", () -> {
             pageStore.get(PropertyAcknowledgementPage.class).cancelPrint();
@@ -42,6 +38,5 @@ public class PropertyAcknowledgementSteps extends BaseSteps implements En {
         And("^user closes acknowledgement form$", () -> {
             pageStore.get(PropertyAcknowledgementPage.class).toCloseAdditionalConnectionPage();
         });
-
     }
 }

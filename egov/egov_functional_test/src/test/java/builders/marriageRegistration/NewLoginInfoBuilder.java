@@ -2,9 +2,6 @@ package builders.marriageRegistration;
 
 import entities.marriageRegistration.NewLoginInfo;
 
-/**
- * Created by nadir on 2/8/2017.
- */
 public class NewLoginInfoBuilder extends NewLoginInfo {
     NewLoginInfo objec2 = new NewLoginInfo();
 
@@ -21,8 +18,8 @@ public class NewLoginInfoBuilder extends NewLoginInfo {
         objec2.setPassword(password);
         return this;
     }
-        public NewLoginInfo build(){
+
+    public NewLoginInfo build(){
         return objec2;
     }
-
 }

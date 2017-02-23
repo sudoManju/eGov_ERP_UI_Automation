@@ -1,17 +1,14 @@
 package entities.collections;
 
-/**
- * Created by nadir on 12/6/2016.
- */
 public class ChallanHeaderDetails {
 
-    String date;
-    String payeeName;
-    String payeeAddress;
-    String narration;
-    String serviceCategory;
-    String serviceType;
-    String amount;
+    private String date;
+    private String payeeName;
+    private String payeeAddress;
+    private String narration;
+    private String serviceCategory;
+    private String serviceType;
+    private String amount;
 
     public String getDate() {
         return date;

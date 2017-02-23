@@ -1,37 +1,34 @@
 package entities.marriageRegistration;
 
-/**
- * Created by manjunatha-lap on 24/01/2017.
- */
 public class MarriageRegistrationInformation {
 
-        String RegistrationUnit;
-        String Street;
-        String Locality;
-        String City;
-        String DateOfMarriage;
-        String VenueOfMarriage;
-        String PlaceOfMarriage;
-        String FullName;
-        String FathersMothersName;
-        String Religion;
-        String StatusAtTheTimeMarriage;
-        String ResidenceAddress;
-        String OfficeAddress;
-        String PhoneNo;
-        String Occupation;
-        String EducationQualification;
-        String Nationality;
+    private String RegistrationUnit;
+    private String Street;
+    private String Locality;
+    private String City;
+    private String DateOfMarriage;
+    private String VenueOfMarriage;
+    private String PlaceOfMarriage;
+    private String FullName;
+    private String FathersMothersName;
+    private String Religion;
+    private String StatusAtTheTimeMarriage;
+    private String ResidenceAddress;
+    private String OfficeAddress;
+    private String PhoneNo;
+    private String Occupation;
+    private String EducationQualification;
+    private String Nationality;
 
-//        String WifeFullName;
-//        String WifeReligion;
-        String WifeStatusAtTheTimeMarriage;
-        String WifeResidenceAddress;
-        String WifeOfficeAddress;
-        String WifePhoneNo;
-        String WifeOccupation;
-        String WifeEducationQualification;
-        String WifeNationality;
+    //        private String WifeFullName;
+//        private String WifeReligion;
+    private String WifeStatusAtTheTimeMarriage;
+    private String WifeResidenceAddress;
+    private String WifeOfficeAddress;
+    private String WifePhoneNo;
+    private String WifeOccupation;
+    private String WifeEducationQualification;
+    private String WifeNationality;
 
 //    public String getWifeFullName() {
 //        return WifeFullName;
@@ -104,7 +101,6 @@ public class MarriageRegistrationInformation {
     public void setWifeNationality(String wifeNationality) {
         WifeNationality = wifeNationality;
     }
-
 
     public String getFullName() {
         return FullName;

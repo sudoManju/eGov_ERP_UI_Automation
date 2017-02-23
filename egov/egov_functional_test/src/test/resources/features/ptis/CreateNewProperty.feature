@@ -134,8 +134,8 @@ Feature: Create New Property
     And current user logs out
 
     Examples:
-        |  editAssessmentDetails         |     amenitiesDetails |  editFloorDetails            |
-        |  assessmentAdditionProperty    |        all           |  firstFloorAdditionaltaration|
+      | editAssessmentDetails      | amenitiesDetails | editFloorDetails             |
+      | assessmentAdditionProperty | all              | firstFloorAdditionaltaration |
 
   # TRANSFER OF OWNERSHIP SCREEN #
   @Sanity @PropertyTax
@@ -207,8 +207,8 @@ Feature: Create New Property
     And current user logs out
 
     Examples:
-      |registrationDetails|
-      |register           |
+      | registrationDetails |
+      | register            |
 
   # CREATE REVISION PETITION #
   @Sanity @PropertyTax
@@ -324,92 +324,92 @@ Feature: Create New Property
     And current user logs out
 
     Examples:
-      | propertyHeaderDetails | ownerDetails | propertyAddressDetails | assessmentDetails     | amenitiesDetails | constructionTypeDetails | floorDetails | revisionPetitionDetails |  hearingDetails | documentDetails |
-      | residentialPrivate    | bimal        | addressOne             | assessmentNewProperty | all              | defaultConstructionType | firstFloor   |  revisionpetitionBlock  |  hearingBlock   | documentSelect  |
+      | propertyHeaderDetails | ownerDetails | propertyAddressDetails | assessmentDetails     | amenitiesDetails | constructionTypeDetails | floorDetails | revisionPetitionDetails | hearingDetails | documentDetails |
+      | residentialPrivate    | bimal        | addressOne             | assessmentNewProperty | all              | defaultConstructionType | firstFloor   | revisionpetitionBlock   | hearingBlock   | documentSelect  |
 
 
     # GENERAL REVISION PETITION #
-   @Sanity @PropertyTax
-   Scenario Outline: Register user choose to do general revision petition of property
+  @Sanity @PropertyTax
+  Scenario Outline: Register user choose to do general revision petition of property
 
-     Given commissioner logs in
-     And user will select the required screen as "Data entry screen" with condition as "ptis"
-     And he creates a new assessment for a private residential property
-     Then dataEntry Details saved successfully
-     And he choose to add edit DCB
-     And he choose to close the dataentry acknowledgement screen
-     And current user logs out
+    Given commissioner logs in
+    And user will select the required screen as "Data entry screen" with condition as "ptis"
+    And he creates a new assessment for a private residential property
+    Then dataEntry Details saved successfully
+    And he choose to add edit DCB
+    And he choose to close the dataentry acknowledgement screen
+    And current user logs out
 
-     Given juniorAssistant logs in
-     And user will select the required screen as "collect tax"
-     And he searches for assessment with number
-     And he chooses to pay tax
-     And he pay tax using Cash
+    Given juniorAssistant logs in
+    And user will select the required screen as "collect tax"
+    And he searches for assessment with number
+    And he chooses to pay tax
+    And he pay tax using Cash
 
-     And user will select the required screen as "General Revision Petition"
-     And he searches for assessment with number
+    And user will select the required screen as "General Revision Petition"
+    And he searches for assessment with number
 
-     And he choose revision petition header
-     And he enters revision petition details<revisionPetitionDetails>
-     And he forwards for approval to commissioner
-     And current user closes acknowledgement
-     And current user logs out
+    And he choose revision petition header
+    And he enters revision petition details<revisionPetitionDetails>
+    And he forwards for approval to commissioner
+    And current user closes acknowledgement
+    And current user logs out
 
-     When commissioner logs in
-     And he chooses to act upon above assessment number
-     And he choose revision petition header
-     And he enters hearing details<hearingDetails>
-     And current user closes acknowledgement
-     And current user logs out
+    When commissioner logs in
+    And he chooses to act upon above assessment number
+    And he choose revision petition header
+    And he enters hearing details<hearingDetails>
+    And current user closes acknowledgement
+    And current user logs out
 
-     And juniorAssistant logs in
-     And he chooses to act upon above assessment number
-     And he choose revision petition header
-     And he enters approver remark
-     And he forwards for approval to revenueInspector
-     And current user closes acknowledgement
-     And current user logs out
+    And juniorAssistant logs in
+    And he chooses to act upon above assessment number
+    And he choose revision petition header
+    And he enters approver remark
+    And he forwards for approval to revenueInspector
+    And current user closes acknowledgement
+    And current user logs out
 
-     When revenueInspector logs in
-     And he chooses to act upon above assessment number
-     And he enters reason for modification
-     And he choose revision petition header
-     And he enters inspection details
+    When revenueInspector logs in
+    And he chooses to act upon above assessment number
+    And he enters reason for modification
+    And he choose revision petition header
+    And he enters inspection details
 
-     And he forwards for approval to revenueOfficer
-     And current user closes acknowledgement
-     And current user logs out
+    And he forwards for approval to revenueOfficer
+    And current user closes acknowledgement
+    And current user logs out
 
-     When revenueOfficer logs in
-     And he chooses to act upon above assessment number
-     And he choose revision petition header
-     And he enters approver remark
-     And he forwards for approval to commissioner
-     And current user closes acknowledgement
-     And current user logs out
+    When revenueOfficer logs in
+    And he chooses to act upon above assessment number
+    And he choose revision petition header
+    And he enters approver remark
+    And he forwards for approval to commissioner
+    And current user closes acknowledgement
+    And current user logs out
 
-     When commissioner logs in
-     And he chooses to act upon above assessment number
-     And he choose to approve for revision petition
-     And current user closes acknowledgement
+    When commissioner logs in
+    And he chooses to act upon above assessment number
+    And he choose to approve for revision petition
+    And current user closes acknowledgement
 
-     And he chooses to act upon above assessment number
-     And he prints endoresement notice
+    And he chooses to act upon above assessment number
+    And he prints endoresement notice
 
-     And he chooses to act upon above assessment number
-     And he does a digital signature
+    And he chooses to act upon above assessment number
+    And he does a digital signature
 
-     When commissioner closes acknowledgement
-     And current user logs out
+    When commissioner closes acknowledgement
+    And current user logs out
 
-     And juniorAssistant logs in
-     And he chooses to act upon above assessment number
-     And he generates a print special notice
-     And current user logs out
+    And juniorAssistant logs in
+    And he chooses to act upon above assessment number
+    And he generates a print special notice
+    And current user logs out
 
-     Examples:
-       |revisionPetitionDetails |  hearingDetails |
-       | revisionpetitionBlock  |  hearingBlock   |
+    Examples:
+      | revisionPetitionDetails | hearingDetails |
+      | revisionpetitionBlock   | hearingBlock   |
 
 
 

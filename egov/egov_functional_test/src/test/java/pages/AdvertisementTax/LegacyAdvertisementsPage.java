@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
 public class LegacyAdvertisementsPage extends BasePage {
@@ -50,55 +49,55 @@ public class LegacyAdvertisementsPage extends BasePage {
     @FindBy(css = "input[id='taxAmount'][type='text']")
     private WebElement taxAmountTextBox;
 
-    public LegacyAdvertisementsPage (WebDriver driver){
+    public LegacyAdvertisementsPage(WebDriver driver) {
         this.driver = driver;
     }
 
     public void enterArrearsTaxDetails() {
-        enterText(pendingTaxTextBox,"1000",driver);
+        enterText(pendingTaxTextBox, "1000", driver);
     }
 
-    public String submit(){
-         clickOnButton(submitButton,driver);
+    public String submit() {
+        clickOnButton(submitButton, driver);
 
         boolean isPresent = driver.findElements(By.xpath(".//*[@id='advertisementform']/div/div[2]/div/div/div[22]/div/label")).size() > 0;
 
-        if(isPresent){
-            enterText(taxAmountTextBox,"10",driver);
-            clickOnButton(submitButton,driver);
+        if (isPresent) {
+            enterText(taxAmountTextBox, "10", driver);
+            clickOnButton(submitButton, driver);
         }
-        String number = getTextFromWeb(creationMsg,driver);
+        String number = getTextFromWeb(creationMsg, driver);
         String num = number.split("\\ ")[6];
-        String num1 = num.substring(0, num.length()-1);
+        String num1 = num.substring(0, num.length() - 1);
         return num1;
     }
 
     public String successMessage() {
-          return  getTextFromWeb(creationMsg,driver);
+        return getTextFromWeb(creationMsg, driver);
     }
 
     public void searchFile(String applicationNumber) {
-         enterText(advertisementNumberBox,applicationNumber,driver);
-         clickOnButton(searchButton,driver);
+        enterText(advertisementNumberBox, applicationNumber, driver);
+        clickOnButton(searchButton, driver);
     }
 
-    public void updateLegacyAd(){
-        clickOnButton(updateButton,driver);
+    public void updateLegacyAd() {
+        clickOnButton(updateButton, driver);
         switchToNewlyOpenedWindow(driver);
     }
 
     public void update() {
-        clickOnButton(taxForYearYesRadioButton,driver);
-        enterText(pendingTaxTextBox,"0",driver);
+        clickOnButton(taxForYearYesRadioButton, driver);
+        enterText(pendingTaxTextBox, "0", driver);
     }
 
     public void searchFileForRenewal(String applicationNumber) {
-        enterText(hoardingNumberTextBox,applicationNumber,driver);
-        clickOnButton(renewalSearchButton,driver);
+        enterText(hoardingNumberTextBox, applicationNumber, driver);
+        clickOnButton(renewalSearchButton, driver);
     }
 
     public void requestForRenewal() {
-        selectFromDropDown(renewalDropDownBox,"Adtax Renewal",driver);
+        selectFromDropDown(renewalDropDownBox, "Adtax Renewal", driver);
         switchToNewlyOpenedWindow(driver);
     }
 }

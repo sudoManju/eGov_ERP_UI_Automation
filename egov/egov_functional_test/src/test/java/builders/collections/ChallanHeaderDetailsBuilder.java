@@ -2,9 +2,6 @@ package builders.collections;
 
 import entities.collections.ChallanHeaderDetails;
 
-/**
- * Created by nadir on 12/6/2016.
- */
 public class ChallanHeaderDetailsBuilder {
 
     ChallanHeaderDetails challanHeaderDetails = new ChallanHeaderDetails();

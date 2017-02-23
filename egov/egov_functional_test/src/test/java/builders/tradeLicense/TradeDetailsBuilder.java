@@ -2,15 +2,10 @@ package builders.tradeLicense;
 
 import entities.tradeLicense.TradeDetails;
 
-/**
- * Created by bimal on 28/12/16.
- */
 public class TradeDetailsBuilder {
 
     TradeDetails tradeDetails = new TradeDetails();
 
-    public TradeDetailsBuilder() {
-    }
     public TradeDetailsBuilder withtradeTitle(String tradeTitle){
         tradeDetails.setTradeTitle(tradeTitle);
         return this;
@@ -45,7 +40,6 @@ public class TradeDetailsBuilder {
         tradeDetails.setTradeCommencementDate(tradeCommencementDate);
         return this;
     }
-
 
     public TradeDetails build() {
         return tradeDetails;

@@ -2,17 +2,11 @@ package builders.works;
 
 import entities.works.AdminSanctionDetails;
 
-/**
- * Created by karthik on 20/12/16.
- */
 public class AdminSanctionDetailsBuilder {
 
     AdminSanctionDetails adminSanctionDetails = new AdminSanctionDetails();
 
-    public AdminSanctionDetailsBuilder(){
-
-    }
-    public AdminSanctionDetailsBuilder withAdministrationSanctionNumber(String administrationSanctionNumber){
+    public AdminSanctionDetailsBuilder withAdministrationSanctionNumber(String administrationSanctionNumber) {
         adminSanctionDetails.setAdministrationSanctionNumber(administrationSanctionNumber);
         return this;
     }
@@ -22,12 +16,12 @@ public class AdminSanctionDetailsBuilder {
         return this;
     }
 
-    public AdminSanctionDetailsBuilder withAdminSanctionAuthority(String sanctionAuthority)
-    {
+    public AdminSanctionDetailsBuilder withAdminSanctionAuthority(String sanctionAuthority) {
         adminSanctionDetails.setAdminSanctionAuthority(sanctionAuthority);
         return this;
     }
-    public AdminSanctionDetails build(){
+
+    public AdminSanctionDetails build() {
         return adminSanctionDetails;
     }
 }

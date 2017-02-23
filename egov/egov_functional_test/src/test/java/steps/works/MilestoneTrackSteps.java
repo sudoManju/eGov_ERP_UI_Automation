@@ -7,9 +7,6 @@ import pages.works.MilestoneTrackPage;
 import steps.BaseSteps;
 import excelDataFiles.ExcelReader;
 
-/**
- * Created by karthik on 26/12/16.
- */
 public class MilestoneTrackSteps extends BaseSteps implements En {
     public MilestoneTrackSteps() {
         And("^he search and select the required file$", () -> {
@@ -45,9 +42,9 @@ public class MilestoneTrackSteps extends BaseSteps implements En {
         });
 
         And("^he select the required file$", () -> {
-           pageStore.get(MilestoneTrackPage.class).select();
+            pageStore.get(MilestoneTrackPage.class).select();
 
-           pageStore.get(MilestoneTrackPage.class).createContractorBill();
+            pageStore.get(MilestoneTrackPage.class).createContractorBill();
         });
 
 //        And("^he chooses to act upon on contractorBillNumber$", () -> {
@@ -55,10 +52,10 @@ public class MilestoneTrackSteps extends BaseSteps implements En {
 //            pageStore.get(DashboardPage.class).openApplicationNew(scenarioContext.getApplicationNumber());
 //        });
         And("^he approves the bill$", () -> {
-           pageStore.get(MilestoneTrackPage.class).approve();
+            pageStore.get(MilestoneTrackPage.class).approve();
 
-           String actualMsg = pageStore.get(MilestoneTrackPage.class).successMessage1();
-           scenarioContext.setActualMessage(actualMsg);
+            String actualMsg = pageStore.get(MilestoneTrackPage.class).successMessage1();
+            scenarioContext.setActualMessage(actualMsg);
 
             pageStore.get(MilestoneTrackPage.class).close();
         });
@@ -72,7 +69,7 @@ public class MilestoneTrackSteps extends BaseSteps implements En {
             String billNumber = pageStore.get(MilestoneTrackPage.class).forwardToDEEContractorBill();
             scenarioContext.setApplicationNumber(billNumber);
 
-            String actualMessage =  pageStore.get(MilestoneTrackPage.class).successMessage1();
+            String actualMessage = pageStore.get(MilestoneTrackPage.class).successMessage1();
             scenarioContext.setActualMessage(actualMessage);
 
             pageStore.get(MilestoneTrackPage.class).close();
@@ -87,7 +84,7 @@ public class MilestoneTrackSteps extends BaseSteps implements En {
             String billNumber = pageStore.get(MilestoneTrackPage.class).forwardToDEEContractorBill();
             scenarioContext.setApplicationNumber(billNumber);
 
-            String actualMessage =  pageStore.get(MilestoneTrackPage.class).successMessage1();
+            String actualMessage = pageStore.get(MilestoneTrackPage.class).successMessage1();
             scenarioContext.setActualMessage(actualMessage);
 
             pageStore.get(MilestoneTrackPage.class).close();

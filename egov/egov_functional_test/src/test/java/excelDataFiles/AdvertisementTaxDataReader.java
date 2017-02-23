@@ -91,6 +91,5 @@ public class AdvertisementTaxDataReader extends ExcelReader {
                 .withMeasurementType(measurementType)
                 .withTaxAmount(taxAmount)
                 .build();
-
     }
 }

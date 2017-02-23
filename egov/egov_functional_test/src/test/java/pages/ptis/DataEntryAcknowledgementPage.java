@@ -4,13 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
-import java.util.List;
-
 import static com.jayway.awaitility.Awaitility.await;
-import static java.lang.Enum.valueOf;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class DataEntryAcknowledgementPage extends BasePage {
@@ -29,25 +25,25 @@ public class DataEntryAcknowledgementPage extends BasePage {
     @FindBy(id = "editDCB")
     private WebElement editDCBButton;
 
-    @FindBy (name="demandDetailBeanList[0].installment.id")
+    @FindBy(name = "demandDetailBeanList[0].installment.id")
     private WebElement installmentDropBox;
 
-    @FindBy (name="demandDetailBeanList[0].actualAmount")
+    @FindBy(name = "demandDetailBeanList[0].actualAmount")
     private WebElement generalTaxTextBox;
 
-    @FindBy (name="demandDetailBeanList[1].actualAmount")
+    @FindBy(name = "demandDetailBeanList[1].actualAmount")
     private WebElement libraryCessTextBox;
 
-    @FindBy (name="demandDetailBeanList[2].actualAmount")
+    @FindBy(name = "demandDetailBeanList[2].actualAmount")
     private WebElement educationCessTextBox;
 
-    @FindBy (name="demandDetailBeanList[3].actualAmount")
+    @FindBy(name = "demandDetailBeanList[3].actualAmount")
     private WebElement unauthorizedPenaltyTextBox;
 
-    @FindBy (id="remarks")
+    @FindBy(id = "remarks")
     private WebElement remarksTextArea;
 
-    @FindBy (id = "addDemand-update_Update")
+    @FindBy(id = "addDemand-update_Update")
     private WebElement updateButton;
 
     public DataEntryAcknowledgementPage(WebDriver driver) {
@@ -57,11 +53,13 @@ public class DataEntryAcknowledgementPage extends BasePage {
     public String getdataentryAcknowledgementMessage() {
         return driver.findElement(By.xpath("//table/tbody/tr/td")).getText();
     }
+
     public String getAssessmentNumber() {
         waitForElementToBeVisible(dataEntryAcknowledgement, driver);
-        String genericAssessmentNumber =  dataEntryAcknowledgement.getText().replaceAll("[^0-9]" , "");
+        String genericAssessmentNumber = dataEntryAcknowledgement.getText().replaceAll("[^0-9]", "");
         return genericAssessmentNumber;
     }
+
     public void close() {
         clickOnButton(closeButton, driver);
         await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
@@ -69,11 +67,13 @@ public class DataEntryAcknowledgementPage extends BasePage {
             driver.switchTo().window(winHandle);
         }
     }
+
     public void geteditDCB() {
         clickOnButton(editDCBButton, driver);
     }
+
     public void enterAddDemandDetails() {
-        selectFromDropDown(installmentDropBox, "2016-2017-2" ,driver);
+        selectFromDropDown(installmentDropBox, "2016-2017-2", driver);
         enterText(generalTaxTextBox, "300", driver);
         enterText(libraryCessTextBox, "200", driver);
         enterText(educationCessTextBox, "100", driver);

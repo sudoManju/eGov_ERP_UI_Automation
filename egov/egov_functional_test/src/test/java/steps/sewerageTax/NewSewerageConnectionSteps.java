@@ -7,11 +7,8 @@ import pages.sewerageTax.NewSewerageConnectionPage;
 import steps.BaseSteps;
 import excelDataFiles.ExcelReader;
 
-/**
- * Created by karthik on 27/1/17.
- */
 public class NewSewerageConnectionSteps extends BaseSteps implements En {
-    public NewSewerageConnectionSteps(){
+    public NewSewerageConnectionSteps() {
         And("^he create new sewerage connection for above assessment number$", () -> {
             pageStore.get(NewSewerageConnectionPage.class).createNewConnection(scenarioContext.getAssessmentNumber());
 
@@ -35,12 +32,12 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
             pageStore.get(NewSewerageConnectionPage.class).searchForApplicationNumberToCollect(scenarioContext.getApplicationNumber());
         });
         And("^he collect the charges and closes the acknowledgement$", () -> {
-           pageStore.get(NewSewerageConnectionPage.class).collectCharges();
+            pageStore.get(NewSewerageConnectionPage.class).collectCharges();
 
-           pageStore.get(NewSewerageConnectionPage.class).closeMultipleWindows("/stms/collectfee/search");
+            pageStore.get(NewSewerageConnectionPage.class).closeMultipleWindows("/stms/collectfee/search");
         });
         And("^he approve the above sewerage application$", () -> {
-           pageStore.get(NewSewerageConnectionPage.class).approveTheApplication();
+            pageStore.get(NewSewerageConnectionPage.class).approveTheApplication();
         });
         And("^he forward to DEE and close the acknowledgement$", () -> {
             String approverDetailsDataId = "DeputyExecutiveEngineer_1";
@@ -77,7 +74,7 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
             pageStore.get(NewSewerageConnectionPage.class).close();
         });
         And("^he generate workOrder for above sewerage connection$", () -> {
-           pageStore.get(NewSewerageConnectionPage.class).generateWorkOrder(scenarioContext.getApplicationNumber());
+            pageStore.get(NewSewerageConnectionPage.class).generateWorkOrder(scenarioContext.getApplicationNumber());
 
             String approverDetailsDataId = "assis_Engineer_1";
 
@@ -215,10 +212,10 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
         });
 
         And("^he enter details for legacy sewerage connection$", () -> {
-           pageStore.get(NewSewerageConnectionPage.class).enterDetailsForLegacySewerageConnection(scenarioContext.getAssessmentNumber());
+            pageStore.get(NewSewerageConnectionPage.class).enterDetailsForLegacySewerageConnection(scenarioContext.getAssessmentNumber());
         });
         And("^he submit the application of legacy sewerage connection and closes the acknowledgement$", () -> {
-           pageStore.get(NewSewerageConnectionPage.class).submit();
+            pageStore.get(NewSewerageConnectionPage.class).submit();
 
             scenarioContext.setApplicationNumber(pageStore.get(NewSewerageConnectionPage.class).getApplicationNumberForLegacyCreation());
 
@@ -227,7 +224,7 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
             pageStore.get(NewSewerageConnectionPage.class).close();
         });
         And("^he search application and generate demand bill$", () -> {
-           pageStore.get(NewSewerageConnectionPage.class).searchAndGenerateDemandBill(scenarioContext.getApplicationNumber());
+            pageStore.get(NewSewerageConnectionPage.class).searchAndGenerateDemandBill(scenarioContext.getApplicationNumber());
         });
     }
 }

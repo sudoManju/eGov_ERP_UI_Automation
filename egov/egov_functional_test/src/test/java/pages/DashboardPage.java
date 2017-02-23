@@ -1,19 +1,12 @@
 package pages;
 
-import cucumber.runtime.Timeout;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -27,17 +20,11 @@ public class DashboardPage extends BasePage {
     @FindBy(css = ".list a")
     private List<WebElement> searchResults;
 
-    @FindBy(linkText = "Collect Charges")
-    private WebElement collectChargesLink;
-
     @FindBy(className = "profile-name")
     private WebElement profileNameLink;
 
     @FindBy(linkText = "Sign Out")
     private WebElement signOutLink;
-
-    @FindBy(linkText = "Search Application")
-    private WebElement searchApplication;
 
     @FindBy(linkText = "Cheque Assignment")
     private List<WebElement> chequeAssignment;
@@ -60,34 +47,20 @@ public class DashboardPage extends BasePage {
     }
 
     public void logOut() {
-        clickOnButton(profileNameLink,driver);
-        clickOnButton(signOutLink,driver);
+        clickOnButton(profileNameLink, driver);
+        clickOnButton(signOutLink, driver);
     }
 
-    public void chooseForSearchApplication(){
-        searchFor("Search Application");
-        clickOnButton(searchApplication,driver);
+    public void chooseForModeOFAssignment(String mode) {
 
-        switchToNewlyOpenedWindow(driver);
-    }
-
-    public void chooseTopayWaterCharge() {
-        searchFor("Collect Charges");
-        clickOnButton(collectChargesLink,driver);
-        switchToNewlyOpenedWindow(driver);
-    }
-
-    public void chooseForModeOFAssignment(String mode){
-
-        if(mode.equalsIgnoreCase("cheque")){
+        if (mode.equalsIgnoreCase("cheque")) {
             searchFor("Cheque Assignment");
             waitForElementToBeClickable(chequeAssignment.get(0), driver);
             chequeAssignment.get(0).click();
             switchToNewlyOpenedWindow(driver);
-        }
-        else {
+        } else {
             searchFor("RTGS Assignment");
-            clickOnButton(rtgsAssignment,driver);
+            clickOnButton(rtgsAssignment, driver);
             switchToNewlyOpenedWindow(driver);
         }
     }
@@ -105,20 +78,20 @@ public class DashboardPage extends BasePage {
         Optional<WebElement> href = searchResults.stream().filter(searchResult -> {
             return searchResult.getText().equalsIgnoreCase(screenName) && searchResult.getAttribute("href").contains(condition);
         }).findFirst();
-        if(href.isPresent()) {
+        if (href.isPresent()) {
             href.get().click();
         }
         switchToNewlyOpenedWindow(driver);
     }
 
-    public void openApplication(String number){
+    public void openApplication(String number) {
         getApplicationRow(number).click();
         switchToNewlyOpenedWindow(driver);
     }
 
-    private WebElement getApplicationRow(String number){
+    private WebElement getApplicationRow(String number) {
         List<WebElement> totalRows;
-        try{
+        try {
             await().atMost(20, SECONDS).until(() -> driver.findElement(By.id("official_inbox")).findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
             totalRows = driver.findElement(By.id("official_inbox")).findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
             for (WebElement applicationRow : totalRows) {
@@ -126,9 +99,8 @@ public class DashboardPage extends BasePage {
                     return applicationRow;
             }
             throw new RuntimeException("No voucher row found in Inbox -- " + number);
-        }
-        catch (Exception e){
-            clickOnButton(officialDraftsTable,driver);
+        } catch (Exception e) {
+            clickOnButton(officialDraftsTable, driver);
             await().atMost(20, SECONDS).until(() -> driver.findElement(By.id("official_drafts")).findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
             totalRows = driver.findElement(By.id("official_drafts")).findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
             for (WebElement applicationRow : totalRows) {

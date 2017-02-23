@@ -77,7 +77,7 @@ Feature: To create a new remittance recovery
     And current user logs out
 
     Examples:
-      |voucherDetails | isPresent | approvalOfficer1  | approvalOfficer2  |  approvalOfficer3  |  glCode   | assignment | singleOrMultiple |
-      |remittance     | yes       |  accountOfficer1  | accountOfficer2   |  commissioner      |  3502002  | remittance | single           |
+      | voucherDetails | isPresent | approvalOfficer1 | approvalOfficer2 | approvalOfficer3 | glCode  | assignment | singleOrMultiple |
+      | remittance     | yes       | accountOfficer1  | accountOfficer2  | commissioner     | 3502002 | remittance | single           |
 
 

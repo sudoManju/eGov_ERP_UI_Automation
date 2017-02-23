@@ -32,6 +32,7 @@ public class PropertiesReader {
     public String getUrl() {
         return prop.getProperty("url");
     }
+
     public String getWaitTime() {
         return prop.getProperty("waitTime");
     }

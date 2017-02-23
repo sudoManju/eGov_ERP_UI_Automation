@@ -2,9 +2,6 @@ package builders.grievances;
 
 import entities.grievances.CreateComplaintDetails;
 
-/**
- * Created by tester1 on 1/23/2017.
- */
 public class CreateComplaintDetailsBuilder {
 
     CreateComplaintDetails createComplaintDetails= new CreateComplaintDetails();
@@ -24,7 +21,6 @@ public class CreateComplaintDetailsBuilder {
         return this;
     }
 
-
     public CreateComplaintDetailsBuilder withGrievanceCategory(String grievanceCategory) {
         createComplaintDetails.setGrievanceCategory(grievanceCategory);
         return this;
@@ -40,11 +36,6 @@ public class CreateComplaintDetailsBuilder {
         return this;
     }
 
-    public CreateComplaintDetails build() {
-        return createComplaintDetails;
-    }
-
-
     public CreateComplaintDetailsBuilder withGrievanceLocation(String grievanceLocation) {
     createComplaintDetails.setGrievanceLocation(grievanceLocation);
     return this;
@@ -55,5 +46,7 @@ public class CreateComplaintDetailsBuilder {
     return this;
     }
 
-
+    public CreateComplaintDetails build() {
+        return createComplaintDetails;
+    }
 }

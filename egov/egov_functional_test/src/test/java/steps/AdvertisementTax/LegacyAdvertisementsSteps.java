@@ -8,12 +8,9 @@ import pages.ApprovalDetailsPage;
 import steps.BaseSteps;
 import excelDataFiles.ExcelReader;
 
-/**
- * Created by karthik on 12/1/17.
- */
 public class LegacyAdvertisementsSteps extends BaseSteps implements En {
 
-    public LegacyAdvertisementsSteps(){
+    public LegacyAdvertisementsSteps() {
 
         And("^he submit the application and closes the acknowledgement$", () -> {
             String applicationNumber = pageStore.get(LegacyAdvertisementsPage.class).submit();
@@ -56,7 +53,7 @@ public class LegacyAdvertisementsSteps extends BaseSteps implements En {
             scenarioContext.setApplicationNumber(number);
 
             String actualMsg = pageStore.get(AdvertisementsPage.class).successMessage();
-            String num = actualMsg.substring(actualMsg.length()-1);
+            String num = actualMsg.substring(actualMsg.length() - 1);
             scenarioContext.setActualMessage(actualMsg);
             scenarioContext.setAssessmentNumber(num);
 

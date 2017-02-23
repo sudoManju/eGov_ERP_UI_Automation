@@ -5,15 +5,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
 
-import java.util.List;
-
-/**
- * Created by manjunatha-lap on 16/01/2017.
- */
 public class PhysicalProgressTrackerPage extends BasePage {
 
     private WebDriver driver;
-    public PhysicalProgressTrackerPage(WebDriver driver){this.driver = driver;}
 
     @FindBy(id = "btnsearch")
     private WebElement searchEstimateButton;
@@ -33,13 +27,17 @@ public class PhysicalProgressTrackerPage extends BasePage {
     @FindBy(linkText = "Close")
     private WebElement closeLink;
 
+    public PhysicalProgressTrackerPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
     public void searchEstimate() {
         clickOnButton(searchEstimateButton, driver);
         clickOnButton(uploadPhotoLink, driver);
         switchToNewlyOpenedWindow(driver);
     }
 
-    public void uploadEstimatePhotos(){
+    public void uploadEstimatePhotos() {
         browseFile1.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
         browseFile2.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
         browseFile3.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
@@ -49,7 +47,7 @@ public class PhysicalProgressTrackerPage extends BasePage {
         clickOnButton(closeLink, driver);
 
         for (String winHandle : driver.getWindowHandles()) {
-            if(driver.switchTo().window(winHandle).getCurrentUrl().equals(getEnvironmentURL()+"/egworks/lineestimate/searchlineestimateform")){
+            if (driver.switchTo().window(winHandle).getCurrentUrl().equals(getEnvironmentURL() + "/egworks/lineestimate/searchlineestimateform")) {
                 break;
             }
         }

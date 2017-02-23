@@ -1,10 +1,7 @@
-package builders.ptis;
+package builders.wcms;
 
-import entities.ptis.ConnectionInfo;
+import entities.wcms.ConnectionInfo;
 
-/**
- * Created by vinaykumar on 22/11/16.
- */
 public class ConnectionInfoBuilder {
 
     ConnectionInfo connectionInfo = new ConnectionInfo();
@@ -57,5 +54,4 @@ public class ConnectionInfoBuilder {
     public ConnectionInfo build(){
         return connectionInfo;
     }
-
 }

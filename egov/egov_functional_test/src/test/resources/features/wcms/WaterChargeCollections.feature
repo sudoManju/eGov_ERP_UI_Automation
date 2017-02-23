@@ -1,4 +1,3 @@
-
 Feature: To collect water charges in different mode payments
 
   Background:It will run the data entry screen of property tax as well as logo uploading
@@ -62,10 +61,10 @@ Feature: To collect water charges in different mode payments
     And current user logs out
 
     Examples:
-      | connectionDetails | inspectionDetails | approvalOfficer1 | approvalOfficer2        |approvalOfficer3| paymentMode  |
-      | New_connection    | inspectionInfo    | engineer         | deputyExecutiveEngineer |commissioner1   | cash         |
-      | New_connection    | inspectionInfo    | engineer         | deputyExecutiveEngineer |commissioner1   | cheque       |
-      | New_connection    | inspectionInfo    | engineer         | deputyExecutiveEngineer |commissioner1   | dd           |
+      | connectionDetails | inspectionDetails | approvalOfficer1 | approvalOfficer2        | approvalOfficer3 | paymentMode |
+      | New_connection    | inspectionInfo    | engineer         | deputyExecutiveEngineer | commissioner1    | cash        |
+      | New_connection    | inspectionInfo    | engineer         | deputyExecutiveEngineer | commissioner1    | cheque      |
+      | New_connection    | inspectionInfo    | engineer         | deputyExecutiveEngineer | commissioner1    | dd          |
 
 
   @Sanity @WaterCharges @Smoke
@@ -120,5 +119,5 @@ Feature: To collect water charges in different mode payments
     And user will click on the generate receipt
 
     Examples:
-      | connectionDetails | inspectionDetails | approvalOfficer1 | approvalOfficer2        |approvalOfficer3|
-      | New_connection    | inspectionInfo    | engineer         | deputyExecutiveEngineer |commissioner1   |
+      | connectionDetails | inspectionDetails | approvalOfficer1 | approvalOfficer2        | approvalOfficer3 |
+      | New_connection    | inspectionInfo    | engineer         | deputyExecutiveEngineer | commissioner1    |

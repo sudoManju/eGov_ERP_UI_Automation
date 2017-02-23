@@ -5,8 +5,6 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pages.BasePage;
-import pages.financial.FinancialPage;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -14,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-public class WaterChargeCollectionsPage extends WaterChargeManagementPage{
+public class WaterChargeCollectionsPage extends WaterChargeManagementPage {
 
     @FindBy(id = "totalamounttobepaid")
     private WebElement totalAmount;
@@ -100,29 +98,29 @@ public class WaterChargeCollectionsPage extends WaterChargeManagementPage{
         super(webDriver);
     }
 
-    public void paymentWithMode(String mode){
+    public void paymentWithMode(String mode) {
 
         waitForElementToBeVisible(totalAmount, webDriver);
         String amount = totalAmount.getAttribute("value");
         String actualAmount = amount.split("\\.")[0];
 
-        switch (mode){
+        switch (mode) {
 
-            case "cash" :
+            case "cash":
 
-                jsClick(cashRadio ,webDriver);
-                waitForElementToBeClickable(amountToBePaidTextBox,webDriver);
+                jsClick(cashRadio, webDriver);
+                waitForElementToBeClickable(amountToBePaidTextBox, webDriver);
                 amountToBePaidTextBox.sendKeys(actualAmount);
 
                 break;
 
-            case "cheque" :
+            case "cheque":
 
-                jsClick(chequeModeOfPaymentRadio,webDriver);
+                jsClick(chequeModeOfPaymentRadio, webDriver);
 
-                enterText(chequeNumberTextBox , "123456" , webDriver);
-                enterDate(chequeDateTextBox , "02/01/2017" , webDriver);
-                enterText(bankNameInput , "102" , webDriver);
+                enterText(chequeNumberTextBox, "123456", webDriver);
+                enterDate(chequeDateTextBox, "02/01/2017", webDriver);
+                enterText(bankNameInput, "102", webDriver);
 
                 webDriver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
                 await().atMost(10, SECONDS).until(() -> webDriver.findElement(By.id("bankcodescontainer"))
@@ -131,23 +129,23 @@ public class WaterChargeCollectionsPage extends WaterChargeManagementPage{
 
                 bankNameInput.sendKeys(Keys.TAB);
 
-                enterText(payAmountBoxForCheque , actualAmount , webDriver);
+                enterText(payAmountBoxForCheque, actualAmount, webDriver);
                 break;
 
-            case "dd" :
+            case "dd":
 
-                jsClick(ddModeOfPaymentRadio,webDriver);
+                jsClick(ddModeOfPaymentRadio, webDriver);
 
-                enterText(chequeNumberTextBox , "123456" , webDriver);
-                enterDate(chequeDateTextBox , "02/01/2017" , webDriver);
-                enterText(bankNameInput , "102" , webDriver);
+                enterText(chequeNumberTextBox, "123456", webDriver);
+                enterDate(chequeDateTextBox, "02/01/2017", webDriver);
+                enterText(bankNameInput, "102", webDriver);
 
                 webDriver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
                 await().atMost(10, SECONDS).until(() -> webDriver.findElement(By.id("bankcodescontainer"))
                         .findElements(By.cssSelector("ul li"))
                         .get(0).click());
 
-                enterText(payAmountBoxForCheque , actualAmount , webDriver);
+                enterText(payAmountBoxForCheque, actualAmount, webDriver);
                 break;
 
         }
@@ -155,61 +153,61 @@ public class WaterChargeCollectionsPage extends WaterChargeManagementPage{
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    public void onlinePaymentLink(){
+    public void onlinePaymentLink() {
         webDriver.navigate().to("http://kurnool-qa.egovernments.org/wtms/search/waterSearch/");
     }
 
-    public void enterOnlineConsumerNumber(String consumerNumber){
+    public void enterOnlineConsumerNumber(String consumerNumber) {
 
-        enterText(onlineConsumerCode ,consumerNumber ,webDriver);
-        clickOnButton(onlineSearchApplication , webDriver);
+        enterText(onlineConsumerCode, consumerNumber, webDriver);
+        clickOnButton(onlineSearchApplication, webDriver);
     }
 
-    public void clickOnOnlinePayButton(){
-        clickOnButton(onlinePayButton , webDriver);
+    public void clickOnOnlinePayButton() {
+        clickOnButton(onlinePayButton, webDriver);
     }
 
-    public void selectBankDetails(){
+    public void selectBankDetails() {
 
-        String amount = getTextFromWeb(totalOnlineAmount.get(1) , webDriver);
+        String amount = getTextFromWeb(totalOnlineAmount.get(1), webDriver);
 
-        waitForElementToBeClickable(totalOnlineAmountToBePaid , webDriver);
+        waitForElementToBeClickable(totalOnlineAmountToBePaid, webDriver);
         totalOnlineAmountToBePaid.sendKeys(amount.split("\\.")[0]);
-        jsClick(axisBankRadio ,webDriver);
+        jsClick(axisBankRadio, webDriver);
 
-        clickOnButton(termsAndConditionsCheckBox , webDriver);
-        clickOnButton(button2 ,webDriver);
+        clickOnButton(termsAndConditionsCheckBox, webDriver);
+        clickOnButton(button2, webDriver);
 
-        clickOnButton(masterCardImage ,webDriver);
+        clickOnButton(masterCardImage, webDriver);
     }
 
-    public void enterCardDetails(){
+    public void enterCardDetails() {
 
-        waitForElementToBeClickable(cardNumber , webDriver);
+        waitForElementToBeClickable(cardNumber, webDriver);
         cardNumber.sendKeys("5123456789012346");
 
-        waitForElementToBeClickable(cardMonth , webDriver);
+        waitForElementToBeClickable(cardMonth, webDriver);
         cardMonth.sendKeys("05");
 
-        waitForElementToBeClickable(cardYear ,webDriver);
+        waitForElementToBeClickable(cardYear, webDriver);
         cardYear.sendKeys("17");
 
-        waitForElementToBeClickable(cvvNumber , webDriver);
+        waitForElementToBeClickable(cvvNumber, webDriver);
         cvvNumber.sendKeys("123");
 
-        clickOnButton(onlineCardPaymentButton ,webDriver);
+        clickOnButton(onlineCardPaymentButton, webDriver);
     }
 
-    public String onlinePaymentSuccess(){
-        message = getTextFromWeb(onlinePaymentSuccessMessage , webDriver);
+    public String onlinePaymentSuccess() {
+        message = getTextFromWeb(onlinePaymentSuccessMessage, webDriver);
         return message;
     }
 
-    public void onlineGenerateReceipt(){
+    public void onlineGenerateReceipt() {
 
-        clickOnButton(onlineGenerateReceipt ,webDriver);
-        waitForElementToBeClickable(closeReceiptButton , webDriver);
-        if(closeReceiptButton.isDisplayed()){
+        clickOnButton(onlineGenerateReceipt, webDriver);
+        waitForElementToBeClickable(closeReceiptButton, webDriver);
+        if (closeReceiptButton.isDisplayed()) {
             webDriver.close();
         }
     }

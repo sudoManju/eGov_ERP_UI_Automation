@@ -19,23 +19,23 @@ Feature: Register Complaint
     And current user logs out
 
     Examples:
-      |grievanceDetails|
-      |grievanceDetails|
+      | grievanceDetails |
+      | grievanceDetails |
 
   @Sanity @Grievance
   Scenario Outline:  Official Register Grievance
 
-   Given LightingSuperintendent logs in
-   And user will select the required screen as "Officials Register Grievance"
-   And he choose to enter contact information as <contactDetails>
-   And he choose to enter grievance details as <grievanceDetails>
-   And user will be notified by "successfully"
-   And he copies CRN and closes the acknowledgement
-   And current user logs out
+    Given LightingSuperintendent logs in
+    And user will select the required screen as "Officials Register Grievance"
+    And he choose to enter contact information as <contactDetails>
+    And he choose to enter grievance details as <grievanceDetails>
+    And user will be notified by "successfully"
+    And he copies CRN and closes the acknowledgement
+    And current user logs out
 
     Examples:
-      |contactDetails |grievanceDetails |
-      |contactInfo    |grievanceDetails |
+      | contactDetails | grievanceDetails |
+      | contactInfo    | grievanceDetails |
 
   @Sanity @Grievance
   Scenario Outline: Official Register Grievance and forwards
@@ -64,8 +64,8 @@ Feature: Register Complaint
 
 
     Examples:
-      |contactDetails |grievanceDetails |
-      |contactInfo    |grievanceDetails |
+      | contactDetails | grievanceDetails |
+      | contactInfo    | grievanceDetails |
 
 
   @Sanity @Grievance
@@ -96,26 +96,26 @@ Feature: Register Complaint
     And current user logs out
 
     Examples:
-      |grievanceDetails |
-      |grievanceDetails |
+      | grievanceDetails |
+      | grievanceDetails |
 
 
-   @Sanity @Grievance
-     
-   Scenario Outline: Citizen register a complaint and withdraw it
+  @Sanity @Grievance
 
-     Given citizen logs in
-     When he choose to register complaint with his login
-     And he choose to enter grievance details as <grievanceDetails>
-     And user will be notified by "successfully"
-     And he copies CRN and closes the acknowledgement
-     And he search complaint in his Inbox
-     And he WITHDRAWN the complaint
-     And citizen sign out
+  Scenario Outline: Citizen register a complaint and withdraw it
 
-     Examples:
-       |grievanceDetails|
-       |grievanceDetails|
+    Given citizen logs in
+    When he choose to register complaint with his login
+    And he choose to enter grievance details as <grievanceDetails>
+    And user will be notified by "successfully"
+    And he copies CRN and closes the acknowledgement
+    And he search complaint in his Inbox
+    And he WITHDRAWN the complaint
+    And citizen sign out
+
+    Examples:
+      | grievanceDetails |
+      | grievanceDetails |
 
 
   @Sanity @Grievance
@@ -140,5 +140,5 @@ Feature: Register Complaint
     And citizen sign out
 
     Examples:
-      |grievanceDetails|
-      |grievanceDetails|
+      | grievanceDetails |
+      | grievanceDetails |

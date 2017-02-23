@@ -2,7 +2,6 @@ package entities.ptis;
 
 public class PropertyHeaderDetails {
 
-
     private String propertyType;
     private String categoryOfOwnership;
 
@@ -21,6 +20,4 @@ public class PropertyHeaderDetails {
     public void setCategoryOfOwnership(String categoryOfOwnership) {
         this.categoryOfOwnership = categoryOfOwnership;
     }
-
-
 }

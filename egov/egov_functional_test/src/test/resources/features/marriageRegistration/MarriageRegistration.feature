@@ -25,5 +25,5 @@ Feature: Marriage Registration
     And current user logs out
 
     Examples:
-    |generalInformation     | bridegroomInformation|brideInformation|
-    |generalInfo            |    bridegroomInfo    | brideInfo      |
+      | generalInformation | bridegroomInformation | brideInformation |
+      | generalInfo        | bridegroomInfo        | brideInfo        |

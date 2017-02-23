@@ -1,14 +1,10 @@
 package entities.works;
 
-/**
- * Created by karthik on 20/12/16.
- */
 public class AdminSanctionDetails {
 
-    String administrationSanctionNumber;
-    String adminSanctionDate;
-    String adminSanctionAuthority;
-
+    private String administrationSanctionNumber;
+    private String adminSanctionDate;
+    private String adminSanctionAuthority;
 
     public String getAdminSanctionAuthority() {
         return adminSanctionAuthority;

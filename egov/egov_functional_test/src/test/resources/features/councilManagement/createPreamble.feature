@@ -55,8 +55,8 @@ Feature: create preamble
     And current user logs out
 
     Examples:
-      |details| committee    |meetingDetails |MOMdeatils|
-      |abc    | createAgenda |councilMeeting |councilMOM |
+      | details | committee    | meetingDetails | MOMdeatils |
+      | abc     | createAgenda | councilMeeting | councilMOM |
 
 
 

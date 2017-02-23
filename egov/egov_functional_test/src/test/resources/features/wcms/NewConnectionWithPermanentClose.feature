@@ -1,10 +1,10 @@
 Feature: To create a flow of water management connections and applying a permanent closure
 
   This feature includes the creation of following connections
-            1) New Connection
-            2) Additional Connection
-            3) Change Of Use Connection
-            4) Closing a Connection Permanently
+  1) New Connection
+  2) Additional Connection
+  3) Change Of Use Connection
+  4) Closing a Connection Permanently
 
   Background:It will run the data entry screen of property tax as well as logo uploading
 
@@ -186,8 +186,8 @@ Feature: To create a flow of water management connections and applying a permane
     And current user logs out
 
     Examples:
-      | connectionDetails |connectionDetails1   |connectionDetails2| inspectionDetails | approvalOfficer1 | approvalOfficer2        | approvalOfficer3 |approvalOfficer4        | approvalOfficer5 | closureType1|
-      | New_connection    |Additional_connection|Change_of_use     | inspectionInfo    | engineer         | deputyExecutiveEngineer | commissioner1    |deputyExecutiveEngineer | commissioner1    | Permanent   |
+      | connectionDetails | connectionDetails1    | connectionDetails2 | inspectionDetails | approvalOfficer1 | approvalOfficer2        | approvalOfficer3 | approvalOfficer4        | approvalOfficer5 | closureType1 |
+      | New_connection    | Additional_connection | Change_of_use      | inspectionInfo    | engineer         | deputyExecutiveEngineer | commissioner1    | deputyExecutiveEngineer | commissioner1    | Permanent    |
 
 
 

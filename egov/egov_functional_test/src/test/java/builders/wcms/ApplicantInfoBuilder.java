@@ -1,10 +1,7 @@
-package builders.ptis;
+package builders.wcms;
 
-import entities.ptis.ApplicantInfo;
+import entities.wcms.ApplicantInfo;
 
-/**
- * Created by vinaykumar on 5/12/16.
- */
 public class ApplicantInfoBuilder {
 
     ApplicantInfo applicantInfo = new ApplicantInfo();

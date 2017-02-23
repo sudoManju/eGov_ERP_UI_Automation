@@ -1,32 +1,11 @@
 package pages.works;
-
-
 import entities.works.*;
-import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
-
-import static com.jayway.awaitility.Awaitility.await;
-import static com.jayway.awaitility.Awaitility.waitAtMost;
-import static java.util.concurrent.TimeUnit.SECONDS;
-
-/**
- * Created by manjunatha-lap on 14/12/2016.
- */
-public class SpillOverEstimatePage extends BasePage
-{
+public class SpillOverEstimatePage extends BasePage {
     private WebDriver webDriver;
 
     @FindBy(xpath = ".//*[@id='lineEstimateDate']")
@@ -71,7 +50,7 @@ public class SpillOverEstimatePage extends BasePage
     @FindBy(id = "budgetHead")
     private WebElement budgetHeadBox;
 
-    @FindBy(id =  "lineEstimateDetails0.nameOfWork")
+    @FindBy(id = "lineEstimateDetails0.nameOfWork")
     private WebElement nameOfWorkTextBox;
 
     @FindBy(id = "estimateNumber0")
@@ -104,7 +83,7 @@ public class SpillOverEstimatePage extends BasePage
     @FindBy(id = "adminSanctionBy")
     private WebElement adminSanctionAuthorityTextBox;
 
-    @FindBy(id ="technicalSanctionNumber")
+    @FindBy(id = "technicalSanctionNumber")
     private WebElement technicalSanctionNumberTextBox;
 
     @FindBy(id = "technicalSanctionDate")
@@ -120,34 +99,36 @@ public class SpillOverEstimatePage extends BasePage
     private WebElement closeButton;
 
     @FindBy(xpath = ".//*[@id='main']/div/div/div/div/div")
-     private WebElement creationMsg;
+    private WebElement creationMsg;
 
-    @FindBy(id ="tempLineEstimateDetails0.nameOfWork")
-     private WebElement estimateNameOfWorkBox;
+    @FindBy(id = "tempLineEstimateDetails0.nameOfWork")
+    private WebElement estimateNameOfWorkBox;
 
-    @FindBy(id ="tempLineEstimateDetails0.estimateAmount")
-     private WebElement estimateEstimateAmountBox;
+    @FindBy(id = "tempLineEstimateDetails0.estimateAmount")
+    private WebElement estimateEstimateAmountBox;
 
     @FindBy(id = "tempLineEstimateDetails0.uom")
-     private WebElement estimateUOMBox;
+    private WebElement estimateUOMBox;
 
     @FindBy(css = "input[id='Forward'][type='submit']")
     private WebElement forwardButton;
 
     @FindBy(css = "input[id='Submit'][type='submit']")
-     private WebElement submitButton;
+    private WebElement submitButton;
 
     @FindBy(css = "input[id='Approve'][type = 'submit']")
-     private WebElement approveButton;
+    private WebElement approveButton;
 
     @FindBy(id = "inboxsearch")
-     private WebElement searchBox;
+    private WebElement searchBox;
 
-    public SpillOverEstimatePage(WebDriver webDriver){this.webDriver = webDriver;}
+    public SpillOverEstimatePage(WebDriver webDriver) {
+        this.webDriver = webDriver;
+    }
 
     public void enterEstimateHeaderDetails(EstimateHeaderDetails estimateHeaderDetails) {
         String check = date.getAttribute("maxlength");
-        if(check.equals("10")) {
+        if (check.equals("10")) {
             enterDate(date, estimateHeaderDetails.getDate(), webDriver);
         }
         enterText(reference, estimateHeaderDetails.getRequirementNumber(), webDriver);
@@ -174,22 +155,22 @@ public class SpillOverEstimatePage extends BasePage
     public void enterWorkDetails(WorkDetails workDetails) {
         clickOnButton(workOrderCreatedCheckBox, webDriver);
         clickOnButton(isBillCreatedCheckBox, webDriver);
-        enterText(nameOfWorkTextBox,workDetails.getNameOfWork(), webDriver);
-        String abstractIdNumber = (workDetails.getAbstractEstimateNumber() + get6DigitRandomInt()) ;
-        enterText(absEstimateNumTextBox,abstractIdNumber, webDriver);
-        enterText(estimateAmountTextBox,workDetails.getEstimatedAmount(), webDriver);
+        enterText(nameOfWorkTextBox, workDetails.getNameOfWork(), webDriver);
+        String abstractIdNumber = (workDetails.getAbstractEstimateNumber() + get6DigitRandomInt());
+        enterText(absEstimateNumTextBox, abstractIdNumber, webDriver);
+        enterText(estimateAmountTextBox, workDetails.getEstimatedAmount(), webDriver);
         String workIdNumber = (workDetails.getWorkIdentificationNumber() + get6DigitRandomInt());
-        enterText(WINTextBox,workIdNumber, webDriver);
-        enterText(actualAmountTextBox,workDetails.getActualEstimateAmount(), webDriver);
+        enterText(WINTextBox, workIdNumber, webDriver);
+        enterText(actualAmountTextBox, workDetails.getActualEstimateAmount(), webDriver);
 
-       if(workDetails.getBillsCreated().equals(Boolean.TRUE)) {
-           enterText(grossAmountTextBox, workDetails.getGrossAmountBilled(), webDriver);
-       }
+        if (workDetails.getBillsCreated().equals(Boolean.TRUE)) {
+            enterText(grossAmountTextBox, workDetails.getGrossAmountBilled(), webDriver);
+        }
     }
 
     public void enterAdminSanctionDetails(AdminSanctionDetails adminSanctionDetails) {
         String adminSanctionId = (adminSanctionDetails.getAdministrationSanctionNumber() + get6DigitRandomInt());
-        enterText(adminSanctionNumberTextBox,adminSanctionId, webDriver);
+        enterText(adminSanctionNumberTextBox, adminSanctionId, webDriver);
         enterDate(adminSanctionDateBox, getCurrentDate(), webDriver);
         enterText(adminSanctionAuthorityTextBox, adminSanctionDetails.getAdminSanctionAuthority(), webDriver);
     }
@@ -202,52 +183,52 @@ public class SpillOverEstimatePage extends BasePage
     }
 
     public void enterWorkDetailsforestimate(WorkDetails workDetails) {
-        enterText(estimateNameOfWorkBox,workDetails.getNameOfWork(), webDriver);
-        enterText(estimateEstimateAmountBox,workDetails.getEstimatedAmount(), webDriver);
+        enterText(estimateNameOfWorkBox, workDetails.getNameOfWork(), webDriver);
+        enterText(estimateEstimateAmountBox, workDetails.getEstimatedAmount(), webDriver);
     }
 
     public String forwardToDEE() {
-       clickOnButton(forwardButton,webDriver);
+        clickOnButton(forwardButton, webDriver);
 
-       waitForElementToBeVisible(creationMsg,webDriver);
-       String Msg = creationMsg.getText();
-       String number =  Msg.substring(Msg.lastIndexOf(" ")+1);
-       String num = number.substring(0, number.length()-1);
+        waitForElementToBeVisible(creationMsg, webDriver);
+        String Msg = creationMsg.getText();
+        String number = Msg.substring(Msg.lastIndexOf(" ") + 1);
+        String num = number.substring(0, number.length() - 1);
 
-       return num;
+        return num;
     }
 
-    public String successMessage(){
+    public String successMessage() {
         return getTextFromWeb(creationMsg, webDriver);
     }
 
     public void adminSanctionNumber() {
-        enterText(adminSanctionNumberTextBox,"ASN"+get6DigitRandomInt(),webDriver);
+        enterText(adminSanctionNumberTextBox, "ASN" + get6DigitRandomInt(), webDriver);
     }
 
     public void detailsForApprove() {
-        String amount = getTextFromWeb(estimateAmountTextBox,webDriver);
+        String amount = getTextFromWeb(estimateAmountTextBox, webDriver);
         String actualAmount = amount.split("\\.")[0];
-        enterText(actualAmountTextBox,actualAmount,webDriver);
+        enterText(actualAmountTextBox, actualAmount, webDriver);
 
-        enterText(technicalSanctionNumberTextBox,"TSN"+get6DigitRandomInt(),webDriver);
-        enterDate(technicalSanctionDateTextBox,getCurrentDate(),webDriver);
+        enterText(technicalSanctionNumberTextBox, "TSN" + get6DigitRandomInt(), webDriver);
+        enterDate(technicalSanctionDateTextBox, getCurrentDate(), webDriver);
     }
 
     public void saveAndClose() {
-          clickOnButton(saveButton,webDriver);
+        clickOnButton(saveButton, webDriver);
     }
 
     public void approve() {
-        clickOnButton(approveButton,webDriver);
+        clickOnButton(approveButton, webDriver);
     }
 
     public void submit() {
-        clickOnButton(submitButton,webDriver);
+        clickOnButton(submitButton, webDriver);
     }
 
     public void close() {
-        clickOnButton(closeButton,webDriver);
+        clickOnButton(closeButton, webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
     }
 }

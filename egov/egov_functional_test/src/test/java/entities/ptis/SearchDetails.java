@@ -1,15 +1,11 @@
 package entities.ptis;
 
-/**
- * Created by karthik on 29/11/16.
- */
 public class SearchDetails {
 
-    String searchValue1;
-    String searchValue2;
-    String searchValue3;
-    String searchValue4;
-
+    private String searchValue1;
+    private String searchValue2;
+    private String searchValue3;
+    private String searchValue4;
 
     public String getSearchValue3() {
         return searchValue3;

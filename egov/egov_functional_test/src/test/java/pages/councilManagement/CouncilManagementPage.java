@@ -10,139 +10,130 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasePage;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import static com.jayway.awaitility.Awaitility.await;
-import static java.awt.SystemColor.window;
-import static java.util.concurrent.TimeUnit.SECONDS;
-
-/**
- * Created by tester1 on 1/4/2017.
- */
 public class CouncilManagementPage extends BasePage {
+
     private WebDriver webDriver;
 
-    @FindBy (id = "department")
+    @FindBy(id = "department")
     private WebElement preambleDepartment;
 
-    @FindBy (id = "sanctionAmount")
+    @FindBy(id = "sanctionAmount")
     private WebElement sanctionAmount;
 
-    @FindBy (id = "gistOfPreamble")
+    @FindBy(id = "gistOfPreamble")
     private WebElement gistOfPreamble;
 
-    @FindBy (id = "attachments")
+    @FindBy(id = "attachments")
     private WebElement attachment;
 
-    @FindBy (id = "wards")
+    @FindBy(id = "wards")
     private WebElement wards;
 
-    @FindBy (id = "Forward")
+    @FindBy(id = "Forward")
     private WebElement forwardButton;
 
-    @FindBy (id = "Approve")
+    @FindBy(id = "Approve")
     private WebElement approve;
 
-    @FindBy (id = "preambleNumber")
+    @FindBy(id = "preambleNumber")
     private WebElement preambleNumberTextBox;
 
-    @FindBy (id = "btnsearch")
+    @FindBy(id = "btnsearch")
     private WebElement searchbutton;
 
-    @FindBy (id = "committeeType")
+    @FindBy(id = "committeeType")
     private WebElement committeeTypeSelect;
 
-    @FindBy (id = "btnsave")
+    @FindBy(id = "btnsave")
     private WebElement saveButton;
 
-    @FindBy (id = "agendaNumber")
+    @FindBy(id = "agendaNumber")
     private WebElement agendaNumberTextBox;
 
-    @FindBy (id = "meetingDate")
+    @FindBy(id = "meetingDate")
     private WebElement meetingDateText;
 
-    @FindBy (id = "meetingTime")
+    @FindBy(id = "meetingTime")
     private WebElement meetingTimeSelect;
 
-    @FindBy (id = "meetingLocation")
-    private  WebElement meetingLocationText;
+    @FindBy(id = "meetingLocation")
+    private WebElement meetingLocationText;
 
-    @FindBy (id = "buttonSubmit")
+    @FindBy(id = "buttonSubmit")
     private WebElement createButton;
 
-    @FindBy (linkText = "Close")
+    @FindBy(linkText = "Close")
     private WebElement CloseButton;
 
-    @FindBy (id = "meetingNumber")
+    @FindBy(id = "meetingNumber")
     private WebElement meetingNumberText;
 
-    @FindBy (id = "committeechk")
+    @FindBy(id = "committeechk")
     private WebElement committeechkCheckBox;
 
-    @FindBy (id = "finalizeAttendanceBtn")
+    @FindBy(id = "finalizeAttendanceBtn")
     private WebElement finalizeAttendanceBtn;
 
-    @FindBy (xpath = ".//*[@id='showModal']")
+    @FindBy(xpath = ".//*[@id='showModal']")
     private WebElement resolutionComment;
 
-    @FindBy (id = "resolutionStatus")
+    @FindBy(id = "resolutionStatus")
     private WebElement resolutionStatusSelect;
 
-    @FindBy (id = "buttonFinalSubmit")
+    @FindBy(id = "buttonFinalSubmit")
     private WebElement resolutionPDFgenerationButton;
 
     @FindBy(xpath = ".//*[@id='textarea-updatedcontent']")
     private WebElement textEntry;
 
-    @FindBy (xpath = ".//*[@id='textarea-btnupdate']")
+    @FindBy(xpath = ".//*[@id='textarea-btnupdate']")
     private WebElement updateButton;
 
 
-
-    public CouncilManagementPage(WebDriver webDriver){this.webDriver=webDriver;}
+    public CouncilManagementPage(WebDriver webDriver) {
+        this.webDriver = webDriver;
+    }
 
     public void enterCreatePreambleDetails(CreatePreambleDetails createPreambleDetails) {
-        selectFromDropDown(preambleDepartment,createPreambleDetails.getPreambleDepartment(), webDriver);
+        selectFromDropDown(preambleDepartment, createPreambleDetails.getPreambleDepartment(), webDriver);
         enterText(sanctionAmount, createPreambleDetails.getAmount(), webDriver);
-        enterText(gistOfPreamble, createPreambleDetails.getGistOfPreamble(),webDriver);
-        uploadFile(attachment,System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx",webDriver);
-        Select sel=new Select(wards);
-        for(int i=1;i<3;i++)
-        {
+        enterText(gistOfPreamble, createPreambleDetails.getGistOfPreamble(), webDriver);
+        uploadFile(attachment, System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx", webDriver);
+        Select sel = new Select(wards);
+        for (int i = 1; i < 3; i++) {
             sel.selectByIndex(i);
         }
     }
 
 
-
     public String getPreambleNumber() {
-        List<WebElement> elements=webDriver.findElements(By.cssSelector(".col-sm-3.add-margin.view-content"));
+        List<WebElement> elements = webDriver.findElements(By.cssSelector(".col-sm-3.add-margin.view-content"));
         return elements.get(0).getText();
     }
 
     public String getStatus() {
-        List<WebElement> elements=webDriver.findElements(By.cssSelector(".col-sm-3.add-margin.view-content"));
-        String ele=elements.get(1).getText();
-        clickOnButton(CloseButton,webDriver);
+        List<WebElement> elements = webDriver.findElements(By.cssSelector(".col-sm-3.add-margin.view-content"));
+        String ele = elements.get(1).getText();
+        clickOnButton(CloseButton, webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
         return ele;
     }
 
     public String approve() {
         approve.click();
-        List<WebElement> elements=webDriver.findElements(By.cssSelector(".col-sm-3.add-margin.view-content"));
-        String ele=elements.get(1).getText();
-        clickOnButton(CloseButton,webDriver);
+        List<WebElement> elements = webDriver.findElements(By.cssSelector(".col-sm-3.add-margin.view-content"));
+        String ele = elements.get(1).getText();
+        clickOnButton(CloseButton, webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
         return ele;
     }
 
-
     public void enterCreateAgenda(CreatePreambleDetails createPreambleDetails) {
-        clickOnButton(searchbutton,webDriver);
+        clickOnButton(searchbutton, webDriver);
         List<WebElement> ele = webDriver.findElements(By.cssSelector(".btn.btn-xs.btn-secondary.add"));
-        jsClick(ele.get(0) , webDriver);
-        selectFromDropDown(committeeTypeSelect, createPreambleDetails.getCommitteeType(),webDriver);
+        jsClick(ele.get(0), webDriver);
+        selectFromDropDown(committeeTypeSelect, createPreambleDetails.getCommitteeType(), webDriver);
         jsClick(saveButton, webDriver);
     }
 
@@ -151,7 +142,7 @@ public class CouncilManagementPage extends BasePage {
     }
 
     public String getAgendaNumber() {
-        List<WebElement> elements= webDriver.findElements(By.cssSelector(".col-sm-3.add-margin.view-content"));
+        List<WebElement> elements = webDriver.findElements(By.cssSelector(".col-sm-3.add-margin.view-content"));
         String agendaNumber = elements.get(2).getText();
         clickOnButton(CloseButton, webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
@@ -160,15 +151,15 @@ public class CouncilManagementPage extends BasePage {
 
     public void enterCreateMeetingDetails(String agendaNumber) {
         enterText(agendaNumberTextBox, agendaNumber, webDriver);
-        clickOnButton(searchbutton,webDriver);
-        List<WebElement> elements= webDriver.findElements(By.cssSelector(".btn.btn-xs.btn-secondary.view"));
+        clickOnButton(searchbutton, webDriver);
+        List<WebElement> elements = webDriver.findElements(By.cssSelector(".btn.btn-xs.btn-secondary.view"));
         jsClick(elements.get(0), webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
     public void enterCouncilMeetingDetails(CreatePreambleDetails createMeetingData) {
         enterText(meetingDateText, createMeetingData.getcouncilMeetingDate(), webDriver);
-        selectFromDropDown(meetingTimeSelect, createMeetingData.getCouncilMeetingTime(),webDriver);
+        selectFromDropDown(meetingTimeSelect, createMeetingData.getCouncilMeetingTime(), webDriver);
         enterText(meetingLocationText, createMeetingData.getCouncilMeetingPlace(), webDriver);
         jsClick(createButton, webDriver);
     }
@@ -186,13 +177,13 @@ public class CouncilManagementPage extends BasePage {
 
     public void enterMeetingNumber(String meetingNumber) {
         enterText(meetingNumberText, meetingNumber, webDriver);
-        clickOnButton(searchbutton,webDriver);
+        clickOnButton(searchbutton, webDriver);
 
     }
 
     public void enterAttendanceDetails() {
-        List<WebElement> elements= webDriver.findElements(By.className("dropchange"));
-        selectFromDropDown(elements.get(0),"Edit", webDriver);
+        List<WebElement> elements = webDriver.findElements(By.className("dropchange"));
+        selectFromDropDown(elements.get(0), "Edit", webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
@@ -200,9 +191,9 @@ public class CouncilManagementPage extends BasePage {
         committeechkCheckBox.click();
         clickOnButton(finalizeAttendanceBtn, webDriver);
         webDriver.switchTo().activeElement();
-        WebDriverWait webDriverWait = new WebDriverWait(webDriver,10);
+        WebDriverWait webDriverWait = new WebDriverWait(webDriver, 10);
         webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("div[class~='modal-footer'] button[data-bb-handler~='confirm']")));
-        WebElement element=webDriver.findElement(By.cssSelector("div[class~='modal-footer'] button[data-bb-handler~='confirm']"));
+        WebElement element = webDriver.findElement(By.cssSelector("div[class~='modal-footer'] button[data-bb-handler~='confirm']"));
         element.click();
         webDriver.close();
         switchToNewlyOpenedWindow(webDriver);
@@ -212,9 +203,9 @@ public class CouncilManagementPage extends BasePage {
 
     public void searchMeetingNumber(String meetingNumber) {
         enterText(meetingNumberText, meetingNumber, webDriver);
-        clickOnButton(searchbutton,webDriver);
-        List<WebElement> elements= webDriver.findElements(By.cssSelector(".btn.btn-xs.btn-secondary.view"));
-        jsClick(elements.get(0),webDriver);
+        clickOnButton(searchbutton, webDriver);
+        List<WebElement> elements = webDriver.findElements(By.cssSelector(".btn.btn-xs.btn-secondary.view"));
+        jsClick(elements.get(0), webDriver);
         switchToNewlyOpenedWindow(webDriver);
 
     }
@@ -225,12 +216,12 @@ public class CouncilManagementPage extends BasePage {
         enterText(textEntry, councilMOMData.getCouncilMOMResolution(), webDriver);
         clickOnButton(updateButton, webDriver);
         webDriver.switchTo().activeElement();
-        selectFromDropDown(resolutionStatusSelect,councilMOMData.getCouncilMOMAction(),webDriver);
-        clickOnButton(resolutionPDFgenerationButton,webDriver);
+        selectFromDropDown(resolutionStatusSelect, councilMOMData.getCouncilMOMAction(), webDriver);
+        clickOnButton(resolutionPDFgenerationButton, webDriver);
         webDriver.switchTo().activeElement();
-        WebDriverWait webDriverWait = new WebDriverWait(webDriver,10);
+        WebDriverWait webDriverWait = new WebDriverWait(webDriver, 10);
         webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("html/body/div[4]/div/div/div[2]/button[2]")));
-        WebElement element=webDriver.findElement(By.xpath("html/body/div[4]/div/div/div[2]/button[2]"));
+        WebElement element = webDriver.findElement(By.xpath("html/body/div[4]/div/div/div[2]/button[2]"));
         element.click();
         switchToNewlyOpenedWindow(webDriver);
         webDriver.close();

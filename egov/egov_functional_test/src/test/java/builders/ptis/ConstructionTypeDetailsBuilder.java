@@ -6,9 +6,6 @@ public class ConstructionTypeDetailsBuilder {
 
     ConstructionTypeDetails constructionTypeDetails = new ConstructionTypeDetails();
 
-    public ConstructionTypeDetailsBuilder() {
-    }
-
     public ConstructionTypeDetailsBuilder withFloorType(String floorType) {
         constructionTypeDetails.setFloorType(floorType);
         return this;

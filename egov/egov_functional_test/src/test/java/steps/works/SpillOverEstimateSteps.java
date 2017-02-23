@@ -10,21 +10,18 @@ import pages.works.SpillOverEstimatePage;
 import steps.BaseSteps;
 import excelDataFiles.ExcelReader;
 
-/**
- * Created by karthik on 16/12/16.
- */
 public class SpillOverEstimateSteps extends BaseSteps implements En {
 
     public SpillOverEstimateSteps() {
 
         And("^he enters estimate header details as (\\w+)$", (String estimateHeaderDetailsDataId) -> {
 
-           EstimateHeaderDetails estimateHeaderDetails = new WorksDataReader(lineEstimateTestDataFileName).getEstimateHeaderDetails(estimateHeaderDetailsDataId);
+            EstimateHeaderDetails estimateHeaderDetails = new WorksDataReader(lineEstimateTestDataFileName).getEstimateHeaderDetails(estimateHeaderDetailsDataId);
 
             pageStore.get(SpillOverEstimatePage.class).enterEstimateHeaderDetails(estimateHeaderDetails);
         });
         And("^he enters financial details as (\\w+)$", (String financialDetailsDataId) -> {
-           FinancialDetails financialDetails = new WorksDataReader(lineEstimateTestDataFileName).getFinancialDetails(financialDetailsDataId);
+            FinancialDetails financialDetails = new WorksDataReader(lineEstimateTestDataFileName).getFinancialDetails(financialDetailsDataId);
 
             pageStore.get(SpillOverEstimatePage.class).enterFinancialDetails(financialDetails);
         });
@@ -39,7 +36,7 @@ public class SpillOverEstimateSteps extends BaseSteps implements En {
             pageStore.get(SpillOverEstimatePage.class).enterAdminSanctionDetails(adminSanctionDetails);
         });
         And("^he enters technical sanction details as (\\w+)$", (String technicalSanctionDetailsDataId) -> {
-           TechnicalSanctionDetails technicalSanctionDetails = new WorksDataReader(lineEstimateTestDataFileName).getTechnicalSanctionDetails(technicalSanctionDetailsDataId);
+            TechnicalSanctionDetails technicalSanctionDetails = new WorksDataReader(lineEstimateTestDataFileName).getTechnicalSanctionDetails(technicalSanctionDetailsDataId);
 
             pageStore.get(SpillOverEstimatePage.class).enterTechnicalSanctionDetails(technicalSanctionDetails);
         });
@@ -49,10 +46,12 @@ public class SpillOverEstimateSteps extends BaseSteps implements En {
             scenarioContext.setActualMessage(actualMsg);
             pageStore.get(SpillOverEstimatePage.class).close();
         });
+
         And("^he enters approver details as (\\w+)$", (String approverDetailsDataId) -> {
-         ApprovalDetailsNew approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approverDetailsDataId);
-         pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approverDetails);
+            ApprovalDetailsNew approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approverDetailsDataId);
+            pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approverDetails);
         });
+
         And("^he enters work details as for (\\w+)$", (String workDetailsDataId) -> {
             WorkDetails workDetails = new WorksDataReader(lineEstimateTestDataFileName).getWorkDetails(workDetailsDataId);
 
@@ -68,7 +67,7 @@ public class SpillOverEstimateSteps extends BaseSteps implements En {
             pageStore.get(SpillOverEstimatePage.class).close();
         });
         And("^he enters the AdminSanctionNumber$", () -> {
-           pageStore.get(SpillOverEstimatePage.class).adminSanctionNumber();
+            pageStore.get(SpillOverEstimatePage.class).adminSanctionNumber();
         });
         And("^he submit the application to superIntendent$", () -> {
             pageStore.get(SpillOverEstimatePage.class).submit();

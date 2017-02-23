@@ -4,7 +4,6 @@ import entities.financial.DirectBankPaymentDetails;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pages.BasePage;
 
 public class DirectBankPaymentDetailsPage extends FinancialPage {
 
@@ -75,58 +74,57 @@ public class DirectBankPaymentDetailsPage extends FinancialPage {
         super(webDriver);
     }
 
-    public void enterDirectBankPaymentDetails(DirectBankPaymentDetails directBankPaymentDetails , String mode){
+    public void enterDirectBankPaymentDetails(DirectBankPaymentDetails directBankPaymentDetails, String mode) {
 
-        selectFromDropDown(fundId , directBankPaymentDetails.getFundId() ,webDriver);
-        selectFromDropDown(voucherDepartment , directBankPaymentDetails.getVoucherDepartment() ,webDriver);
-        selectFromDropDown(voucherFunction , directBankPaymentDetails.getVoucherFunction() ,webDriver);
-        selectFromDropDown(bankPaymentId , directBankPaymentDetails.getBankBranch() ,webDriver);
+        selectFromDropDown(fundId, directBankPaymentDetails.getFundId(), webDriver);
+        selectFromDropDown(voucherDepartment, directBankPaymentDetails.getVoucherDepartment(), webDriver);
+        selectFromDropDown(voucherFunction, directBankPaymentDetails.getVoucherFunction(), webDriver);
+        selectFromDropDown(bankPaymentId, directBankPaymentDetails.getBankBranch(), webDriver);
 
-        enterText(amountTextBox ,directBankPaymentDetails.getAmount() , webDriver);
+        enterText(amountTextBox, directBankPaymentDetails.getAmount(), webDriver);
 
-        selectFromDropDown(accountNumber , directBankPaymentDetails.getAccountNumber() ,webDriver);
+        selectFromDropDown(accountNumber, directBankPaymentDetails.getAccountNumber(), webDriver);
 
-        switch (mode){
-            case "cheque" :
+        switch (mode) {
+            case "cheque":
                 break;
 
-            case "cash" :
-                clickOnButton(bankPaymentCash ,webDriver);
+            case "cash":
+                clickOnButton(bankPaymentCash, webDriver);
                 break;
 
-            case "RTGS" :
-                clickOnButton(bankPaymentRTGS ,webDriver);
+            case "RTGS":
+                clickOnButton(bankPaymentRTGS, webDriver);
                 break;
         }
 
-        enterText(paidToCustomer , "Tester" , webDriver);
-        enterText(documentNumber ,get6DigitRandomInt() , webDriver);
-        enterDate(documentDate , getCurrentDate() , webDriver);
-        enterText(accountCode1 , directBankPaymentDetails.getAccountCode1() , webDriver);
+        enterText(paidToCustomer, "Tester", webDriver);
+        enterText(documentNumber, get6DigitRandomInt(), webDriver);
+        enterDate(documentDate, getCurrentDate(), webDriver);
+        enterText(accountCode1, directBankPaymentDetails.getAccountCode1(), webDriver);
 
-        clickOnButton(accountCodeDropdown ,webDriver);
+        clickOnButton(accountCodeDropdown, webDriver);
 
-        enterText(debitAmount1 , directBankPaymentDetails.getDebitAmount1() , webDriver);
+        enterText(debitAmount1, directBankPaymentDetails.getDebitAmount1(), webDriver);
 
-        selectFromDropDown(ledgerAccount1 , directBankPaymentDetails.getLedgerAccount1() , webDriver);
-        selectFromDropDown(ledgerType1 , directBankPaymentDetails.getLedgerType1() , webDriver);
+        selectFromDropDown(ledgerAccount1, directBankPaymentDetails.getLedgerAccount1(), webDriver);
+        selectFromDropDown(ledgerType1, directBankPaymentDetails.getLedgerType1(), webDriver);
 
-        enterText(ledgerCode1 ,directBankPaymentDetails.getLedgerCode1() ,webDriver );
+        enterText(ledgerCode1, directBankPaymentDetails.getLedgerCode1(), webDriver);
 
-        clickOnButton(accountCodeDropdown ,webDriver);
+        clickOnButton(accountCodeDropdown, webDriver);
 
-        enterText(ledgerAmount1 , directBankPaymentDetails.getLedgerAmount1() , webDriver);
+        enterText(ledgerAmount1, directBankPaymentDetails.getLedgerAmount1(), webDriver);
     }
 
-    public String directBankSuccessPage(){
+    public String directBankSuccessPage() {
         switchToNewlyOpenedWindow(webDriver);
-        String message = getTextFromWeb(forwardMessage , webDriver);
+        String message = getTextFromWeb(forwardMessage, webDriver);
 
-        if(message.contains("Successful")) {
-            clickOnButton(bankCloseButton ,webDriver);
-        }
-        else {
-            clickOnButton(closeButton ,webDriver);
+        if (message.contains("Successful")) {
+            clickOnButton(bankCloseButton, webDriver);
+        } else {
+            clickOnButton(closeButton, webDriver);
         }
         switchToPreviouslyOpenedWindow(webDriver);
         return message;

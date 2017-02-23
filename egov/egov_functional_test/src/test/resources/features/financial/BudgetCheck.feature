@@ -36,7 +36,7 @@ Feature: To create a new Journal voucher according to the budget check
     And current user logs out
 
     Examples:
-      |voucherDetails           | approvalOfficer1  | approvalOfficer2  |  approvalOfficer3  | isPresent  |
-      |budgetCheckWithSubledger |  accountOfficer1  | accountOfficer2   |  commissioner      | yes        |
+      | voucherDetails           | approvalOfficer1 | approvalOfficer2 | approvalOfficer3 | isPresent |
+      | budgetCheckWithSubledger | accountOfficer1  | accountOfficer2  | commissioner     | yes       |
 
 

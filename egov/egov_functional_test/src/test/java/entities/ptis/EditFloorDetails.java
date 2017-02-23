@@ -1,8 +1,5 @@
 package entities.ptis;
 
-/**
- * Created by bimal on 28/11/16.
- */
 public class EditFloorDetails {
 
     private String editfloorNumber;
@@ -20,7 +17,6 @@ public class EditFloorDetails {
     private String editbuildingPermissionNumber;
     private String editbuildingPermissionDate;
     private String editplinthAreaInBuildingPlan;
-
 
     public String getEditfloorNumber() {
         return editfloorNumber;

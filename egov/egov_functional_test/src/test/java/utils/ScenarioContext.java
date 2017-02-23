@@ -18,11 +18,11 @@ public class ScenarioContext implements Serializable {
 
     private String registrationNumber;
 
-    public void setRegistrationNumber(String Number){
+    public void setRegistrationNumber(String Number) {
         this.registrationNumber = Number;
     }
 
-    public String getRegistrationNumber(){
+    public String getRegistrationNumber() {
         return registrationNumber;
     }
 

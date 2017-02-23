@@ -1,6 +1,5 @@
 package entities.works;
 
-
 public class EstimateHeaderDetails {
     private String Date;
     private String Subject;

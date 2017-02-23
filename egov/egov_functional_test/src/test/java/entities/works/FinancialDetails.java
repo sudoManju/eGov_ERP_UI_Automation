@@ -1,13 +1,10 @@
 package entities.works;
 
-/**
- * Created by karthik on 19/12/16.
- */
 public class FinancialDetails {
 
-    String fund;
-    String function;
-    String budgetHead;
+    private String fund;
+    private String function;
+    private String budgetHead;
 
     public String getFund() {
         return fund;

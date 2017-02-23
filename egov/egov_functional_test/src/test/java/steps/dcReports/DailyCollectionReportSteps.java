@@ -8,10 +8,6 @@ import pages.dcReports.DailyCollectionReportPage;
 import pages.ptis.PropertyAcknowledgementPage;
 import steps.BaseSteps;
 
-
-/**
- * Created by vinaykumar on 9/12/16.
- */
 public class DailyCollectionReportSteps extends BaseSteps implements En {
 
     public DailyCollectionReportSteps() {

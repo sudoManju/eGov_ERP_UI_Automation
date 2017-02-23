@@ -12,8 +12,8 @@ Feature: In this feature the transactions are related to create and direct appro
     And current user logs out
 
     Examples:
-    | voucherDetails              | isPresent  |
-    | budgetCheckWithSubledger    | yes        |
+      | voucherDetails           | isPresent |
+      | budgetCheckWithSubledger | yes       |
 
   @Sanity @Finance
   Scenario Outline: To create a direct journal voucher with budget check and with out subledger
@@ -27,8 +27,8 @@ Feature: In this feature the transactions are related to create and direct appro
     And current user logs out
 
     Examples:
-      | voucherDetails              | isPresent  |
-      | budgetCheckWithOutSubledger | no         |
+      | voucherDetails              | isPresent |
+      | budgetCheckWithOutSubledger | no        |
 
   @Sanity @Finance
   Scenario Outline: To create direct bank payments with cheque and rtgs modes and also applying the check assignment
@@ -48,9 +48,9 @@ Feature: In this feature the transactions are related to create and direct appro
     And current user logs out
 
     Examples:
-    | bankDetails       | paymentMode | assignment  | singleOrMultiple  |
-    | directBankDetails | cheque      | cheque      | single            |
-    | directBankDetails | RTGS        | RTGS        | single            |
+      | bankDetails       | paymentMode | assignment | singleOrMultiple |
+      | directBankDetails | cheque      | cheque     | single           |
+      | directBankDetails | RTGS        | RTGS       | single           |
 
   @Sanity @Finance
   Scenario Outline: To create a direct bank payments with cash mode
@@ -79,9 +79,9 @@ Feature: In this feature the transactions are related to create and direct appro
     And current user logs out
 
     Examples:
-    | isPresent | voucherDetails           |
-    | no        | voucherWithOutSubledger  |
-    | yes       | voucherWithSubledger     |
+      | isPresent | voucherDetails          |
+      | no        | voucherWithOutSubledger |
+      | yes       | voucherWithSubledger    |
 
   @Sanity @Finance
   Scenario Outline: To create the direct financial journal voucher with type expense
@@ -95,9 +95,9 @@ Feature: In this feature the transactions are related to create and direct appro
     And current user logs out
 
     Examples:
-      | isPresent | voucherDetails           |
-      | no        | voucherWithOutSubledger  |
-      | yes       | voucher2                 |
+      | isPresent | voucherDetails          |
+      | no        | voucherWithOutSubledger |
+      | yes       | voucher2                |
 
   @Sanity @Finance
   Scenario Outline: To create a direct journal voucher as well as payment with different modes
@@ -119,10 +119,10 @@ Feature: In this feature the transactions are related to create and direct appro
     And current user logs out
 
     Examples:
-    | isPresent | voucherDetails     | paymentMode |
-    | yes       | voucherBillPayment | cheque      |
-    | yes       | voucherBillPayment | cash        |
-    | yes       | voucherBillPayment | RTGS        |
+      | isPresent | voucherDetails     | paymentMode |
+      | yes       | voucherBillPayment | cheque      |
+      | yes       | voucherBillPayment | cash        |
+      | yes       | voucherBillPayment | RTGS        |
 
   @Sanity @Finance
   Scenario Outline: To create a direct new expense bill
@@ -142,8 +142,8 @@ Feature: In this feature the transactions are related to create and direct appro
     And current user logs out
 
     Examples:
-    | billDetails  |
-    | expenseBill  |
+      | billDetails |
+      | expenseBill |
 
   @Sanity @Finance
   Scenario Outline: To create a direct journal voucher as well as payment with different modes and also applying check assignment
@@ -208,6 +208,6 @@ Feature: In this feature the transactions are related to create and direct appro
     And current user logs out
 
     Examples:
-    | glCode   | assignment | voucherDetails | singleOrMultiple | isPresent |
-    | 3502002  | remittance | remittance     | single           | yes       |
+      | glCode  | assignment | voucherDetails | singleOrMultiple | isPresent |
+      | 3502002 | remittance | remittance     | single           | yes       |
 

@@ -4,8 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
-import pages.BasePage;
 
 import java.util.List;
 
@@ -71,85 +69,85 @@ public class SelectSingleOrMultipleBillsPage extends FinancialPage {
     private List<WebElement> voucherRows;
 
     public SelectSingleOrMultipleBillsPage(WebDriver webDriver) {
-        super(webDriver);;
+        super(webDriver);
+        ;
     }
 
-    public void singleBillSearch(){
-        enterDate(billFromDate , getCurrentDate() ,webDriver);
-        enterDate(billToDate , getCurrentDate() ,webDriver);
+    public void singleBillSearch() {
+        enterDate(billFromDate, getCurrentDate(), webDriver);
+        enterDate(billToDate, getCurrentDate(), webDriver);
 
-        selectFromDropDown(fundId , "Municipal Fund" , webDriver);
-        clickOnButton(billSearch ,webDriver);
+        selectFromDropDown(fundId, "Municipal Fund", webDriver);
+        clickOnButton(billSearch, webDriver);
 
         switchToNewlyOpenedWindow(webDriver);
 
-        clickOnButton(expenseBillSearch , webDriver);
+        clickOnButton(expenseBillSearch, webDriver);
     }
 
-    public void multipleBillSearch(String type , String paymentMode){
+    public void multipleBillSearch(String type, String paymentMode) {
 
-        selectFromDropDown(fundId , "Municipal Fund" , webDriver);
-        selectFromDropDown(voucherDepartment , "ADMINISTRATION" , webDriver);
-        selectFromDropDown(voucherFunction , "General Administration" , webDriver);
+        selectFromDropDown(fundId, "Municipal Fund", webDriver);
+        selectFromDropDown(voucherDepartment, "ADMINISTRATION", webDriver);
+        selectFromDropDown(voucherFunction, "General Administration", webDriver);
 
-        clickOnButton(billSearch ,webDriver);
+        clickOnButton(billSearch, webDriver);
         switchToNewlyOpenedWindow(webDriver);
 
-        switch (type){
+        switch (type) {
 
-            case "expense" :
-                clickOnButton(expenseBillSearch ,webDriver);
+            case "expense":
+                clickOnButton(expenseBillSearch, webDriver);
                 selectAllBillsAtOneTime(selectAllBillsFromExpense);
                 break;
 
-            case "supplier" :
-                clickOnButton(supplierBillSearch ,webDriver);
+            case "supplier":
+                clickOnButton(supplierBillSearch, webDriver);
                 selectAllBillsAtOneTime(selectAllBillsFromSupplier);
                 break;
 
-            case "contractor" :
+            case "contractor":
                 selectAllBillsAtOneTime(selectAllBillsFromContractor);
                 break;
         }
 
         selectModeOfPayment(paymentMode);
-        clickOnButton(generatePayment ,webDriver);
+        clickOnButton(generatePayment, webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    private void selectAllBillsAtOneTime (WebElement element){
-        if(firstBill.isDisplayed()){
-            clickOnButton(element , webDriver);
-        }
-        else {
+    private void selectAllBillsAtOneTime(WebElement element) {
+        if (firstBill.isDisplayed()) {
+            clickOnButton(element, webDriver);
+        } else {
             throw new RuntimeException("No voucher rows are found in the web page.......All are Successfully Paid -- ");
         }
     }
 
-    private void selectModeOfPayment(String mode){
-        switch (mode){
+    private void selectModeOfPayment(String mode) {
+        switch (mode) {
 
-            case "cheque" :
-                jsClick(paymentModeCheque ,webDriver);
+            case "cheque":
+                jsClick(paymentModeCheque, webDriver);
                 break;
 
-            case "cash" :
-                jsClick(paymentModeCash,webDriver);
+            case "cash":
+                jsClick(paymentModeCash, webDriver);
                 break;
 
-            case "RTGS" :
-                jsClick(paymentModeRTGS,webDriver);
+            case "RTGS":
+                jsClick(paymentModeRTGS, webDriver);
                 break;
         }
     }
 
-    public void actOnAboveVoucher(String paymentMode ,String voucherNumber){
+    public void actOnAboveVoucher(String paymentMode, String voucherNumber) {
 
         WebElement table = webDriver.findElement(By.xpath(".//*[@id='cbilltab']/span/table/tbody/tr[2]/td/div/table/tbody"));
         voucherRows = table.findElements(By.tagName("tr"));
 
-        for(WebElement applicationRows : voucherRows.subList(1 , voucherRows.size())){
-            if(applicationRows.findElements(By.tagName("td")).get(4).findElements(By.tagName("input")).get(0).getAttribute("value").contains(voucherNumber)){
+        for (WebElement applicationRows : voucherRows.subList(1, voucherRows.size())) {
+            if (applicationRows.findElements(By.tagName("td")).get(4).findElements(By.tagName("input")).get(0).getAttribute("value").contains(voucherNumber)) {
                 applicationRows.findElements(By.tagName("td")).get(0).findElement(By.cssSelector("input[type='checkbox']")).click();
                 break;
             }
@@ -157,16 +155,16 @@ public class SelectSingleOrMultipleBillsPage extends FinancialPage {
         }
         selectModeOfPayment(paymentMode);
 
-        clickOnButton(generatePayment ,webDriver);
+        clickOnButton(generatePayment, webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    public void selectSingleRemittanceBill(String remittanceBill){
+    public void selectSingleRemittanceBill(String remittanceBill) {
         int rowNumber = Integer.parseInt(getRemittanceBill(remittanceBill).getText());
-        WebElement element = webDriver.findElement(By.id("listRemitBean["+(rowNumber-1)+"].chkremit"));
-        clickOnButton(element , webDriver);
+        WebElement element = webDriver.findElement(By.id("listRemitBean[" + (rowNumber - 1) + "].chkremit"));
+        clickOnButton(element, webDriver);
 
-        clickOnButton(remittancePayment ,webDriver);
+        clickOnButton(remittancePayment, webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 

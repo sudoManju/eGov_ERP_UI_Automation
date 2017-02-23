@@ -1,8 +1,5 @@
 package entities.financial;
 
-/**
- * Created by vinaykumar on 20/2/17.
- */
 public class FinancialBankToBankDetails {
 
     private String fundId;

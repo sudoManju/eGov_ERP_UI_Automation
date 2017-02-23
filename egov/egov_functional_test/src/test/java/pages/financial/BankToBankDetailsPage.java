@@ -4,7 +4,6 @@ import entities.financial.FinancialBankToBankDetails;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pages.BasePage;
 
 public class BankToBankDetailsPage extends FinancialPage {
 
@@ -45,31 +44,30 @@ public class BankToBankDetailsPage extends FinancialPage {
         super(webDriver);
     }
 
-    public void enterBankToBankDetails(FinancialBankToBankDetails financialBankToBankDetails){
+    public void enterBankToBankDetails(FinancialBankToBankDetails financialBankToBankDetails) {
 
-        selectFromDropDown(fundId ,financialBankToBankDetails.getFundId() ,webDriver );
+        selectFromDropDown(fundId, financialBankToBankDetails.getFundId(), webDriver);
 
-        selectFromDropDown(voucherDepartment ,financialBankToBankDetails.getVoucherDepartment(),webDriver);
+        selectFromDropDown(voucherDepartment, financialBankToBankDetails.getVoucherDepartment(), webDriver);
 
-        selectFromDropDown(voucherFunction ,financialBankToBankDetails.getVoucherFunction(),webDriver);
+        selectFromDropDown(voucherFunction, financialBankToBankDetails.getVoucherFunction(), webDriver);
 
-        selectFromDropDown(fromBankId ,financialBankToBankDetails.getFromBank(),webDriver);
+        selectFromDropDown(fromBankId, financialBankToBankDetails.getFromBank(), webDriver);
 
-        selectFromDropDown(fromAccountNumber ,financialBankToBankDetails.getFromAccountNumber(),webDriver);
+        selectFromDropDown(fromAccountNumber, financialBankToBankDetails.getFromAccountNumber(), webDriver);
 
-        selectFromDropDown(toFundId ,financialBankToBankDetails.getToFundId(),webDriver);
+        selectFromDropDown(toFundId, financialBankToBankDetails.getToFundId(), webDriver);
 
-        selectFromDropDown(toBankId ,financialBankToBankDetails.getToBank(),webDriver);
+        selectFromDropDown(toBankId, financialBankToBankDetails.getToBank(), webDriver);
 
-        selectFromDropDown(toAccountNumber ,financialBankToBankDetails.getToAccountNumber(),webDriver);
+        selectFromDropDown(toAccountNumber, financialBankToBankDetails.getToAccountNumber(), webDriver);
 
-        enterText(referenceNumber , get6DigitRandomInt() ,webDriver);
+        enterText(referenceNumber, get6DigitRandomInt(), webDriver);
 
-        enterText(amountTextBox ,financialBankToBankDetails.getAmount() ,webDriver);
+        enterText(amountTextBox, financialBankToBankDetails.getAmount(), webDriver);
 
-        clickOnButton(saveButton ,webDriver);
+        clickOnButton(saveButton, webDriver);
 
         switchToNewlyOpenedWindow(webDriver);
     }
-
 }

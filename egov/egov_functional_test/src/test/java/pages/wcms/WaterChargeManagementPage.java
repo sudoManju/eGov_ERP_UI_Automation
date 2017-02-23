@@ -1,28 +1,18 @@
 package pages.wcms;
 
-import com.gargoylesoftware.htmlunit.javascript.host.canvas.ext.WEBGL_compressed_texture_s3tc;
-import entities.ptis.*;
-import entities.wcms.EnclosedDocument;
-import entities.wcms.FieldInspectionDetails;
+import entities.wcms.ApplicantInfo;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import static com.jayway.awaitility.Awaitility.await;
-import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class WaterChargeManagementPage extends BasePage {
 
     protected WebDriver webDriver;
 
     @FindBy(id = "propertyIdentifier")
-    private WebElement waterConnectionAssesmentNumberTextBox;;
+    private WebElement waterConnectionAssesmentNumberTextBox;
 
     @FindBy(id = "Forward")
     private WebElement additionalForwardButton;
@@ -152,126 +142,127 @@ public class WaterChargeManagementPage extends BasePage {
         this.webDriver = webDriver;
     }
 
-    public void enterWaterConnectionAssessmentNumber(String number){
-        enterText(waterConnectionAssesmentNumberTextBox, number , webDriver);
+    public void enterWaterConnectionAssessmentNumber(String number) {
+        enterText(waterConnectionAssesmentNumberTextBox, number, webDriver);
     }
 
-    public void clickOnGenerateNotice(){
-        jsClick(generateEstimationNoticeButton , webDriver);
+    public void clickOnGenerateNotice() {
+        jsClick(generateEstimationNoticeButton, webDriver);
         switchToNewlyOpenedWindow(webDriver);
         webDriver.close();
         switchToPreviouslyOpenedWindow(webDriver);
     }
 
-    public void searchWaterConnectionApplications(String connectionType , String applicationNumber){
+    public void searchWaterConnectionApplications(String connectionType, String applicationNumber) {
 
-        selectFromDropDown(searchApplicationService , "Water Tax" ,webDriver);
-        selectFromDropDown(searchApplicationType , connectionType.replaceAll("_"," ") ,webDriver);
+        selectFromDropDown(searchApplicationService, "Water Tax", webDriver);
+        selectFromDropDown(searchApplicationType, connectionType.replaceAll("_", " "), webDriver);
 
-        enterText(applicationSearchBox , applicationNumber , webDriver);
-        enterDate(searchApplicationDate , getCurrentDate() , webDriver);
-        clickOnButton(searchApplicationButton , webDriver);
+        enterText(applicationSearchBox, applicationNumber, webDriver);
+        enterDate(searchApplicationDate, getCurrentDate(), webDriver);
+        clickOnButton(searchApplicationButton, webDriver);
     }
 
-    public void clickOnCollectCharges(){
-        jsClick(collectFeesButton,webDriver);
+    public void clickOnCollectCharges() {
+        jsClick(collectFeesButton, webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    public void toReceiveAmount(){
-        jsClick(cashRadio ,webDriver);
+    public void toReceiveAmount() {
+        jsClick(cashRadio, webDriver);
 
-        waitForElementToBeVisible(totalAmount , webDriver);
+        waitForElementToBeVisible(totalAmount, webDriver);
         String amount = totalAmount.getAttribute("value");
 
-        waitForElementToBeClickable(amountToBePaidTextBox ,webDriver);
+        waitForElementToBeClickable(amountToBePaidTextBox, webDriver);
         amountToBePaidTextBox.sendKeys(amount.split("\\.")[0]);
 
         jsClick(button2, webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    public void closeSuccessfulPaymentReceiptPage(){
+    public void closeSuccessfulPaymentReceiptPage() {
 
-        clickOnButton(closeReceiptButton ,webDriver);
+        clickOnButton(closeReceiptButton, webDriver);
     }
-    public void closeSearchApplicationPage(){
+
+    public void closeSearchApplicationPage() {
 
         for (String winHandle : webDriver.getWindowHandles()) {
             String title = webDriver.switchTo().window(winHandle).getCurrentUrl();
-            if(title.equals("http://kurnool-qa.egovernments.org/wtms/elastic/appSearch/")){
+            if (title.equals("http://kurnool-qa.egovernments.org/wtms/elastic/appSearch/")) {
                 break;
             }
         }
 
-        clickOnButton(closeSearchApplication , webDriver);
+        clickOnButton(closeSearchApplication, webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
     }
 
     public void forward() {
-        clickOnButton(forwardButton , webDriver);
+        clickOnButton(forwardButton, webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    public String getAcknowledgementMessage(){
-        message = getTextFromWeb(forwardMessage , webDriver);
+    public String getAcknowledgementMessage() {
+        message = getTextFromWeb(forwardMessage, webDriver);
         return message;
     }
 
-    public void closeAcknowledgementPage(){
-        jsClick(closeSearchApplication , webDriver);
+    public void closeAcknowledgementPage() {
+        jsClick(closeSearchApplication, webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
     }
 
-    public void commissionerApprove(){
+    public void commissionerApprove() {
 
-        enterText(sanctionNumber , "12345" , webDriver);
-        jsClick(commissionerApprove ,webDriver);
-
-        switchToNewlyOpenedWindow(webDriver);
-        closeAcknowledgementPage();
-    }
-
-    public void commissionerDigitalSignature(){
-        jsClick(digitalSignature , webDriver);
+        enterText(sanctionNumber, "12345", webDriver);
+        jsClick(commissionerApprove, webDriver);
 
         switchToNewlyOpenedWindow(webDriver);
         closeAcknowledgementPage();
     }
 
-    public void generateWorkOrder(){
+    public void commissionerDigitalSignature() {
+        jsClick(digitalSignature, webDriver);
 
-        jsClick(generateWorkOrder , webDriver);
+        switchToNewlyOpenedWindow(webDriver);
+        closeAcknowledgementPage();
+    }
+
+    public void generateWorkOrder() {
+
+        jsClick(generateWorkOrder, webDriver);
 
         switchToNewlyOpenedWindow(webDriver);
         webDriver.close();
         switchToPreviouslyOpenedWindow(webDriver);
     }
 
-    public String executeTap(){
+    public String executeTap() {
 
         WebElement applicationNumber = webDriver.findElement(By.xpath(".//*[@id='page-container']/div[1]/div[2]/div[2]/div[4]"));
-        waitForElementToBeVisible(applicationNumber , webDriver);
+        waitForElementToBeVisible(applicationNumber, webDriver);
         String number = applicationNumber.getText();
 
-        jsClick(executeTap , webDriver);
+        jsClick(executeTap, webDriver);
 
         switchToNewlyOpenedWindow(webDriver);
         closeAcknowledgementPage();
         return number;
     }
 
-    public void commissionerClosureApprove(){
+    public void commissionerClosureApprove() {
 
-        clickOnButton(commissionerApprove , webDriver);
+        clickOnButton(commissionerApprove, webDriver);
 
         switchToNewlyOpenedWindow(webDriver);
         closeAcknowledgementPage();
     }
 
-    public void toGenerateAcknowledgement(){
+    public void toGenerateAcknowledgement() {
 
-        clickOnButton(generateAcknowledgement ,webDriver);
+        clickOnButton(generateAcknowledgement, webDriver);
 
         switchToNewlyOpenedWindow(webDriver);
         webDriver.close();
@@ -279,25 +270,25 @@ public class WaterChargeManagementPage extends BasePage {
         switchToPreviouslyOpenedWindow(webDriver);
     }
 
-    public void enterWaterDataEntryDetails(ApplicantInfo applicantInfo , String assessmentNumber){
-        enterText(waterConnectionAssesmentNumberTextBox, assessmentNumber ,webDriver);
-        enterText(hscNumber , applicantInfo.getHscNumber() , webDriver);
-        enterText(dataEntryExecutionDate , applicantInfo.getConnectionDate() ,webDriver);
+    public void enterWaterDataEntryDetails(ApplicantInfo applicantInfo, String assessmentNumber) {
+        enterText(waterConnectionAssesmentNumberTextBox, assessmentNumber, webDriver);
+        enterText(hscNumber, applicantInfo.getHscNumber(), webDriver);
+        enterText(dataEntryExecutionDate, applicantInfo.getConnectionDate(), webDriver);
     }
 
-    public void estimationFeeDetails(){
+    public void estimationFeeDetails() {
 
-        enterText(monthlyFees ,"1000" , webDriver);
-        enterText(donationCharges , "100" , webDriver);
+        enterText(monthlyFees, "1000", webDriver);
+        enterText(donationCharges, "100", webDriver);
 
-        clickOnButton(createDataEntryScreen ,webDriver);
+        clickOnButton(createDataEntryScreen, webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    public String closesTheDataEntryPage(){
+    public String closesTheDataEntryPage() {
 
         WebElement successMessage = webDriver.findElement(By.cssSelector(".main-content>table>tbody>tr>td>strong"));
-        String message = getTextFromWeb(successMessage , webDriver);
+        String message = getTextFromWeb(successMessage, webDriver);
 
         webDriver.close();
         switchToPreviouslyOpenedWindow(webDriver);
@@ -305,7 +296,7 @@ public class WaterChargeManagementPage extends BasePage {
         return message;
     }
 
-    public String findAdditionalApplicationNumber(){
+    public String findAdditionalApplicationNumber() {
         String number = webDriver.getCurrentUrl().split("\\=")[1];
 
         webDriver.close();
@@ -315,25 +306,25 @@ public class WaterChargeManagementPage extends BasePage {
         return number;
     }
 
-    public void enterConsumerNumber(String consumerNumber){
+    public void enterConsumerNumber(String consumerNumber) {
 
-        enterText(consumerNumberTextBox, consumerNumber , webDriver);
+        enterText(consumerNumberTextBox, consumerNumber, webDriver);
 
-        clickOnButton(consumerSearchButton ,webDriver);
+        clickOnButton(consumerSearchButton, webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    public String enterReConnectionDetails(){
+    public String enterReConnectionDetails() {
         WebElement acknowledgementNumber = webDriver.findElement(By.id("applicationNumber"));
-        String number = getTextFromWeb(acknowledgementNumber , webDriver);
+        String number = getTextFromWeb(acknowledgementNumber, webDriver);
 
-        enterText(reConnectionReason , "Required Again"  ,webDriver );
+        enterText(reConnectionReason, "Required Again", webDriver);
         return number;
     }
 
-    public void toGenerateReConnectionAcknowledgement(){
+    public void toGenerateReConnectionAcknowledgement() {
 
-        clickOnButton(generateReConnectionAcknowledgement ,webDriver);
+        clickOnButton(generateReConnectionAcknowledgement, webDriver);
 
         switchToNewlyOpenedWindow(webDriver);
         webDriver.close();
@@ -341,45 +332,45 @@ public class WaterChargeManagementPage extends BasePage {
         switchToPreviouslyOpenedWindow(webDriver);
     }
 
-    public void clickOnAddEditDCB(){
+    public void clickOnAddEditDCB() {
 
-        clickOnButton(addEditDCB ,webDriver);
+        clickOnButton(addEditDCB, webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    public void enterDetailsOfDCB(){
+    public void enterDetailsOfDCB() {
 
-        enterText(dcbActualAmount , "100" , webDriver);
-        enterText(dcbActualCollection , "100" , webDriver);
+        enterText(dcbActualAmount, "100", webDriver);
+        enterText(dcbActualCollection, "100", webDriver);
 
-        clickOnButton(dcbSubmit ,webDriver);
+        clickOnButton(dcbSubmit, webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    public String closesDCBPage(){
+    public String closesDCBPage() {
         WebElement element = webDriver.findElement(By.xpath("html/body/div[1]/div/table/tbody/tr[1]/td/strong"));
-        message = getTextFromWeb(element , webDriver);
+        message = getTextFromWeb(element, webDriver);
 
-        clickOnButton(editDCBCloseButton , webDriver);
+        clickOnButton(editDCBCloseButton, webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
         return message;
     }
 
-    public void collectWaterCharges(){
+    public void collectWaterCharges() {
 
-        clickOnButton(collectFeesButton , webDriver);
+        clickOnButton(collectFeesButton, webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    public void closeCollectChargesReceipt(){
+    public void closeCollectChargesReceipt() {
 
-        clickOnButton(closeReceiptButton , webDriver);
+        clickOnButton(closeReceiptButton, webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
     }
 
     public void openSearchApplication(String applicationNumber) {
         appRow1 = getSearchApplicationRowFor(applicationNumber);
-        jsClick(appRow1 , webDriver);
+        jsClick(appRow1, webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
@@ -393,5 +384,10 @@ public class WaterChargeManagementPage extends BasePage {
         }
 
         throw new RuntimeException("No application row found for -- " + applicationNumber);
+    }
+
+    public void clickOnForwardButton() {
+        clickOnButton(forwardButton, webDriver);
+        switchToNewlyOpenedWindow(webDriver);
     }
 }

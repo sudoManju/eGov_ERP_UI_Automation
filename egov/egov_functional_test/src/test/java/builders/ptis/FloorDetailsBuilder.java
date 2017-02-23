@@ -6,10 +6,6 @@ public class FloorDetailsBuilder {
 
     FloorDetails floorDetails = new FloorDetails();
 
-    public FloorDetailsBuilder() {
-    }
-
-
     public FloorDetailsBuilder withFloorNumber(String floorNumber) {
         floorDetails.setFloorNumber(floorNumber);
         return this;
@@ -79,8 +75,6 @@ public class FloorDetailsBuilder {
         floorDetails.setPlinthAreaInBuildingPlan(plinthAreaInBuildingPlan);
         return this;
     }
-
-
 
     public FloorDetails build() {
         return floorDetails;

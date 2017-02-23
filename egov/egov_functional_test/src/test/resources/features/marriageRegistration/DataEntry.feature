@@ -46,5 +46,5 @@ Feature: Create an Data Entry for the Marriage registration
     And current user logs out
 
     Examples:
-      |generalInformation     | bridegroomInformation|brideInformation|
-      |generalInfo            |    bridegroomInfo    | brideInfo|
+      | generalInformation | bridegroomInformation | brideInformation |
+      | generalInfo        | bridegroomInfo        | brideInfo        |

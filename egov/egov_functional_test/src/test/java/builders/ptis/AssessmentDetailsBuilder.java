@@ -24,11 +24,7 @@ public class AssessmentDetailsBuilder {
         return this;
     }
 
-
-
-
     public AssessmentDetails build(){
         return assessmentDetails;
     }
-
 }

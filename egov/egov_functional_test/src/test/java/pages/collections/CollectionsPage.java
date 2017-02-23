@@ -1,16 +1,13 @@
 package pages.collections;
 
-import com.gargoylesoftware.htmlunit.javascript.host.Window;
 import entities.ApprovalDetailsNew;
 import entities.collections.ChallanHeaderDetails;
-import entities.collections.ChequeDetails;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.*;
 import pages.BasePage;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -59,7 +56,7 @@ public class CollectionsPage extends BasePage {
     private WebElement serviceCategoryBox;
 
     @FindBy(id = "serviceId")
-    private  WebElement serviceTypeBox;
+    private WebElement serviceTypeBox;
 
     @FindBy(id = "functionId")
     private WebElement functionTab;
@@ -97,11 +94,11 @@ public class CollectionsPage extends BasePage {
     @FindBy(id = "button2")
     private WebElement payButton;
 
-    @FindBy(id ="input[value='Approve All Collections'][type='submit']")
+    @FindBy(id = "input[value='Approve All Collections'][type='submit']")
     private WebElement approveCollectionButton;
 
     @FindBy(id = "app-appcodo")
-    private  WebElement consumerNumberTextBox;
+    private WebElement consumerNumberTextBox;
 
     @FindBy(id = "submitButtonId")
     private WebElement submitButton;
@@ -138,7 +135,7 @@ public class CollectionsPage extends BasePage {
 
     @FindBy(id = "updatePaytax")
     private WebElement updatePayTaxButton;
-    
+
     @FindBy(css = ".btn.btn-xs.btn-secondary.collect-hoardingWiseFee")
     private WebElement onlinePayButton;
 
@@ -177,19 +174,18 @@ public class CollectionsPage extends BasePage {
     }
 
     public void enterChallanHeader(ChallanHeaderDetails challanHeaderDetails) {
-        enterDate(challanDateTextBox,getCurrentDate(),driver);
-        enterText(payeeNameTextBox,challanHeaderDetails.getPayeeName(),driver);
-        enterText(payeeAddressTextBox,challanHeaderDetails.getPayeeAddress(),driver);
-        enterText(narrationTextBox,challanHeaderDetails.getNarration(),driver);
-        selectFromDropDown(serviceCategoryBox,challanHeaderDetails.getServiceCategory(),driver);
-        selectFromDropDown(serviceTypeBox,challanHeaderDetails.getServiceType(),driver);
+        enterDate(challanDateTextBox, getCurrentDate(), driver);
+        enterText(payeeNameTextBox, challanHeaderDetails.getPayeeName(), driver);
+        enterText(payeeAddressTextBox, challanHeaderDetails.getPayeeAddress(), driver);
+        enterText(narrationTextBox, challanHeaderDetails.getNarration(), driver);
+        selectFromDropDown(serviceCategoryBox, challanHeaderDetails.getServiceCategory(), driver);
+        selectFromDropDown(serviceTypeBox, challanHeaderDetails.getServiceType(), driver);
         try {
             challanAmountTextBox.clear();
-            enterText(challanAmountTextBox,"500",driver);
-        }
-        catch (StaleElementReferenceException e){
+            enterText(challanAmountTextBox, "500", driver);
+        } catch (StaleElementReferenceException e) {
             challanAmountTextBox.clear();
-            enterText(challanAmountTextBox,"500",driver);
+            enterText(challanAmountTextBox, "500", driver);
         }
     }
 
@@ -205,65 +201,65 @@ public class CollectionsPage extends BasePage {
     }
 
     public void validateChallan() {
-        clickOnButton(validateChallan,driver);
+        clickOnButton(validateChallan, driver);
     }
 
     public void enterChallanNumber(String number) {
-        enterText(challanNumberTextBox,number,driver);
+        enterText(challanNumberTextBox, number, driver);
         challanNumberTextBox.sendKeys(Keys.TAB);
     }
 
     public String generateChallan() {
-        clickOnButton(createChallanButton,driver);
+        clickOnButton(createChallanButton, driver);
         WebElement isPresent = driver.findElement(By.xpath(".//*[@id='challan_error_area']"));
-        if(isPresent.getText().equals("Please enter credit account details")){
-            enterText(challanAmountTextBox,"500",driver);
-            clickOnButton(createChallanButton,driver);
+        if (isPresent.getText().equals("Please enter credit account details")) {
+            enterText(challanAmountTextBox, "500", driver);
+            clickOnButton(createChallanButton, driver);
         }
-        waitForElementToBeVisible(challanNumber,driver);
+        waitForElementToBeVisible(challanNumber, driver);
         String number = challanNumber.getAttribute("value");
         return number;
     }
 
     public String successMessage() {
-        String msg = getTextFromWeb(creationMsg,driver);
-        System.out.println("\n"+msg);
+        String msg = getTextFromWeb(creationMsg, driver);
+        System.out.println("\n" + msg);
         return msg;
     }
 
-    public void close(){
-        clickOnButton(closeButton,driver);
+    public void close() {
+        clickOnButton(closeButton, driver);
         switchToPreviouslyOpenedWindow(driver);
     }
 
     public void propertyTaxOnlinePaymentLink() {
-        driver.navigate().to(getEnvironmentURL()+"/ptis/citizen/search/search-searchByAssessmentForm.action");
+        driver.navigate().to(getEnvironmentURL() + "/ptis/citizen/search/search-searchByAssessmentForm.action");
     }
 
     public void enterAssessmentNumber(String assessmentNumber) {
-        enterText(assessmentNumberField,assessmentNumber,driver);
-        clickOnButton(assessmentFormSearchButton,driver);
+        enterText(assessmentNumberField, assessmentNumber, driver);
+        clickOnButton(assessmentFormSearchButton, driver);
         onlinePageCheckBox.click();
         payTaxButton.click();
-        clickOnButton(updatePayTaxButton,driver);
+        clickOnButton(updatePayTaxButton, driver);
     }
 
     public void enterAmountAndPayOnline() {
-        waitForElementToBeVisible(totalOnlineAmount.get(1) , driver);
+        waitForElementToBeVisible(totalOnlineAmount.get(1), driver);
         String amount = totalOnlineAmount.get(1).getText();
-        waitForElementToBeClickable(totalOnlineAmountToBePaid , driver);
+        waitForElementToBeClickable(totalOnlineAmountToBePaid, driver);
         totalOnlineAmountToBePaid.sendKeys(amount.split("\\.")[0]);
-        jsClick(axisBankRadio ,driver);
-        jsClickCheckbox(termsAndConditionsCheckBox,driver);
-        clickOnButton(payButton,driver);
-        clickOnButton(masterCardImage,driver);
+        jsClick(axisBankRadio, driver);
+        jsClickCheckbox(termsAndConditionsCheckBox, driver);
+        clickOnButton(payButton, driver);
+        clickOnButton(masterCardImage, driver);
     }
 
     public void enterCarddetailsAndPay() {
-        enterText(cardNumber,"512345678912346",driver);
-        enterText(cardMonth,"04",driver);
-        enterText(cardYear,"17",driver);
-        enterText(cvvNumber,"123",driver);
-        clickOnButton(onlineCardPaymentButton,driver);
+        enterText(cardNumber, "512345678912346", driver);
+        enterText(cardMonth, "04", driver);
+        enterText(cardYear, "17", driver);
+        enterText(cvvNumber, "123", driver);
+        clickOnButton(onlineCardPaymentButton, driver);
     }
 }

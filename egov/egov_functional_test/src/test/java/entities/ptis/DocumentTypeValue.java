@@ -1,8 +1,5 @@
 package entities.ptis;
 
-/**
- * Created by bimal on 13/2/17.
- */
 public class DocumentTypeValue {
 
     private String DocumentType;

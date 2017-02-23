@@ -2,9 +2,6 @@ package builders.works;
 
 import entities.works.TechnicalSanctionDetails;
 
-/**
- * Created by karthik on 20/12/16.
- */
 public class TechnicalSanctionDetailsBuilder {
 
     TechnicalSanctionDetails technicalSanctionDetails = new TechnicalSanctionDetails();

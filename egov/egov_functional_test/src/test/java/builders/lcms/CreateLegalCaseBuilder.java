@@ -1,11 +1,7 @@
 package builders.lcms;
 
-import builders.LoginDetailsBuilder;
 import entities.lcms.CreateLegalCase;
 
-/**
- * Created by vinaykumar on 2/2/17.
- */
 public class CreateLegalCaseBuilder {
 
     CreateLegalCase createLegalCase = new CreateLegalCase();
@@ -43,7 +39,6 @@ public class CreateLegalCaseBuilder {
     public CreateLegalCase build(){
         return createLegalCase;
     }
-
 }
 
 

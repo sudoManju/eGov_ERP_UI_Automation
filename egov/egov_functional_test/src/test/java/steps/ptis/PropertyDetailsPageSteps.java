@@ -80,16 +80,14 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
         });
         And("^he search property with (\\w+)$", (String searchType) -> {
             SearchDetails searchDetails = new PTISDataReader(ptisTestDataFileName).getSearchDetails(searchType);
-            pageStore.get(PropertyDetailsPage.class).searchProperty(searchDetails,searchType);
+            pageStore.get(PropertyDetailsPage.class).searchProperty(searchDetails, searchType);
         });
         And("^he approved the property with remarks addition \"([^\"]*)\"$", (String arg0) -> {
-             pageStore.get(PropertyDetailsPage.class).approveaddition();
+            pageStore.get(PropertyDetailsPage.class).approveaddition();
         });
         And("^he enters document type details as (\\w+)$", (String documentSelect) -> {
             DocumentTypeValue documentValue = new PTISDataReader(ptisTestDataFileName).getDocumentValue(documentSelect);
-           pageStore.get(PropertyDetailsPage.class).selectDocumentType(documentValue);
+            pageStore.get(PropertyDetailsPage.class).selectDocumentType(documentValue);
         });
-
-
     }
 }

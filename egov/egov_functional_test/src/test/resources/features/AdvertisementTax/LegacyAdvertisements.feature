@@ -20,9 +20,10 @@ Feature: Create/Update LegacyAdvertisements
     And he update the legacy advertisement and close the acknowledgement
     Then user will be notified by "updated"
     And current user logs out
-  Examples:
-    |advertisementDetails|permissionDetails|localityDetails|structureDetails|
-    |advertisement1      |permission1      |locality1      |structure1      |
+
+    Examples:
+      | advertisementDetails | permissionDetails | localityDetails | structureDetails |
+      | advertisement1       | permission1       | locality1       | structure1       |
 
 
   @AdvertisementTax  @Sanity
@@ -50,7 +51,7 @@ Feature: Create/Update LegacyAdvertisements
     Then user will be notified by "Successful"
     And current user logs out
 
- Examples:
-   |advertisementDetails|permissionDetails|localityDetails|structureDetails|
-   |advertisement1      |permission1      |locality1      |structure1      |
+    Examples:
+      | advertisementDetails | permissionDetails | localityDetails | structureDetails |
+      | advertisement1       | permission1       | locality1       | structure1       |
 

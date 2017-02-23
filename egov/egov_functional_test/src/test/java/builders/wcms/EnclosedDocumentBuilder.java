@@ -2,9 +2,6 @@ package builders.wcms;
 
 import entities.wcms.EnclosedDocument;
 
-/**
- * Created by vinaykumar on 5/12/16.
- */
 public class EnclosedDocumentBuilder {
 
     EnclosedDocument enclosedDocument = new EnclosedDocument();
@@ -38,7 +35,6 @@ public class EnclosedDocumentBuilder {
         enclosedDocument.setDocumentDate3(documentDate);
         return this;
     }
-
 
     public EnclosedDocument build(){
         return enclosedDocument;

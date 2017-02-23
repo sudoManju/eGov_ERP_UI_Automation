@@ -2,9 +2,6 @@ package builders.financial;
 
 import entities.financial.FinancialExpenseBillDetails;
 
-/**
- * Created by vinaykumar on 27/12/16.
- */
 public class FinancialExpenseBillDetailsBuilder {
 
     FinancialExpenseBillDetails financialExpenseBillDetails = new FinancialExpenseBillDetails();

@@ -1,6 +1,5 @@
 package steps;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.LoginDetails;
 import pages.BasePage;
@@ -25,7 +24,7 @@ public class HomePageSteps extends BaseSteps implements En {
 
         And("^user will be notified by \"([^\"]*)\"$", (String expectedMessage) -> {
             String actualMessage = scenarioContext.getActualMessage();
-            pageStore.get(BasePage.class).isSuccesful(expectedMessage,actualMessage);
+            pageStore.get(BasePage.class).isSuccesful(expectedMessage, actualMessage);
         });
 
         Given("^user log on to the website$", () -> {

@@ -1,12 +1,7 @@
 package builders.financial;
 
-import builders.LoginDetailsBuilder;
-import entities.LoginDetails;
 import entities.financial.FinancialJournalVoucherDetails;
 
-/**
- * Created by vinaykumar on 26/12/16.
- */
 public class FinancialJournalVoucherDetailsBuilder {
 
     FinancialJournalVoucherDetails financialJournalVoucherDetails = new FinancialJournalVoucherDetails();
@@ -90,7 +85,6 @@ public class FinancialJournalVoucherDetailsBuilder {
         financialJournalVoucherDetails.setLedgerCode2(ledgerCode2);
         return this;
     }
-
 
     public FinancialJournalVoucherDetails build(){
         return financialJournalVoucherDetails;

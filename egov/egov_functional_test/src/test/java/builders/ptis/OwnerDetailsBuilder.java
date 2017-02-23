@@ -6,9 +6,6 @@ public class OwnerDetailsBuilder {
 
     OwnerDetails ownerDetails = new OwnerDetails();
 
-    public OwnerDetailsBuilder() {
-    }
-
     public OwnerDetailsBuilder withMobileNumber(String mobileNumber) {
         ownerDetails.setMobileNumber(mobileNumber);
         return this;

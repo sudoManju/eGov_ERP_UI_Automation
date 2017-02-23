@@ -16,13 +16,13 @@ Feature: search property
     And current user logs out
 
     Examples:
-      |searchDetails              |
-      |searchWithAssessmentNumber |
-      |searchWithMobileNumber     |
-      |searchWithDoorNumber       |
-      |searchWithZoneAndWardNumber|
-      |searchWithOwnerName        |
-      |searchByDemand             |
+      | searchDetails               |
+      | searchWithAssessmentNumber  |
+      | searchWithMobileNumber      |
+      | searchWithDoorNumber        |
+      | searchWithZoneAndWardNumber |
+      | searchWithOwnerName         |
+      | searchByDemand              |
 
 
 

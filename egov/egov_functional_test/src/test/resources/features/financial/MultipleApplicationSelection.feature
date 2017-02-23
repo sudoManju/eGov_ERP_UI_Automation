@@ -32,8 +32,8 @@ Feature: In this feature we are going to select the multiple files for
     And current user logs out
 
     Examples:
-    | singleOrMultiple  |
-    | multiple          |
+      | singleOrMultiple |
+      | multiple         |
 
   @OnceInMonth @Finance1
   Scenario Outline: To select the multiple remittance recovery cheque assignment applications
@@ -47,8 +47,8 @@ Feature: In this feature we are going to select the multiple files for
     And current user logs out
 
     Examples:
-      | singleOrMultiple  | assignment  |
-      | multiple          | remittance  |
+      | singleOrMultiple | assignment |
+      | multiple         | remittance |
 
   @OnceInMonth @Finance1
   Scenario Outline: To select the multiple cheque and rtgs assignment applications
@@ -62,9 +62,9 @@ Feature: In this feature we are going to select the multiple files for
     And current user logs out
 
     Examples:
-      | singleOrMultiple  | assignment  |
-      | multiple          | cheque      |
-      | multiple          | RTGS        |
+      | singleOrMultiple | assignment |
+      | multiple         | cheque     |
+      | multiple         | RTGS       |
 
 
 

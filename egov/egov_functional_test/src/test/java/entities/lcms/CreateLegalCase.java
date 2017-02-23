@@ -1,8 +1,5 @@
 package entities.lcms;
 
-/**
- * Created by vinaykumar on 2/2/17.
- */
 public class CreateLegalCase {
 
     private String typeOfCourt;

@@ -1,13 +1,10 @@
 package entities.works;
 
-/**
- * Created by karthik on 20/12/16.
- */
 public class TechnicalSanctionDetails {
 
-    String technicalSanctionNumber;
-    String technicalSanctionDate;
-    String technicalSanctionAuthority;
+    private String technicalSanctionNumber;
+    private String technicalSanctionDate;
+    private String technicalSanctionAuthority;
 
     public String getTechnicalSanctionNumber() {
         return technicalSanctionNumber;

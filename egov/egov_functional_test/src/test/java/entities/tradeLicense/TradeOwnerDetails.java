@@ -1,8 +1,5 @@
 package entities.tradeLicense;
 
-/**
- * Created by bimal on 20/12/16.
- */
 public class TradeOwnerDetails {
 
     private String aadhaarNumber;
@@ -12,10 +9,10 @@ public class TradeOwnerDetails {
     private String emailId;
     private String tradeOwnerAddress;
 
-
     public String getAadhaarNumber() {
         return aadhaarNumber;
     }
+
     public void setAadhaarNumber(String aadhaarNumber) {
         this.aadhaarNumber = aadhaarNumber;
     }
@@ -23,13 +20,15 @@ public class TradeOwnerDetails {
     public String getMobileNumber() {
         return mobileNumber;
     }
-    public void setMobileNumber (String mobileNumber) {
-        this.mobileNumber = mobileNumber; }
 
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
 
     public String getTradeOwnerName() {
         return tradeOwnerName;
     }
+
     public void setTradeOwnerName(String tradeOwnerName) {
         this.tradeOwnerName = tradeOwnerName;
     }
@@ -45,6 +44,7 @@ public class TradeOwnerDetails {
     public String getEmailId() {
         return emailId;
     }
+
     public void setEmailId(String emailId) {
         this.emailId = emailId;
     }
@@ -52,9 +52,8 @@ public class TradeOwnerDetails {
     public String getTradeOwnerAddress() {
         return tradeOwnerAddress;
     }
+
     public void setTradeOwnerAddress(String tradeOwnerAddress) {
         this.tradeOwnerAddress = tradeOwnerAddress;
     }
-
-
 }

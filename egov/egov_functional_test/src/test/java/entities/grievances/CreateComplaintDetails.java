@@ -1,8 +1,5 @@
 package entities.grievances;
 
-/**
- * Created by tester1 on 1/23/2017.
- */
 public class CreateComplaintDetails {
 
     private String citizenName;
@@ -14,7 +11,6 @@ public class CreateComplaintDetails {
     private String grievanceLocation;
     private String locationLandmark;
     private String processingStatus;
-
 
     public void setCitizenname(String citizenname) {
         this.citizenName = citizenname;
@@ -28,7 +24,6 @@ public class CreateComplaintDetails {
         this.emailId = emailId;
     }
 
-
     public String getCitizenName() {
         return citizenName;
     }
@@ -40,7 +35,6 @@ public class CreateComplaintDetails {
     public String getEmailId() {
         return emailId;
     }
-
 
     public void setGrievanceCategory(String grievanceCategory) {
         this.grievanceCategory = grievanceCategory;
@@ -81,6 +75,5 @@ public class CreateComplaintDetails {
     public String getLocationLandmark() {
         return locationLandmark;
     }
-
 
 }

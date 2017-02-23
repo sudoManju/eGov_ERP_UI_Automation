@@ -1,24 +1,24 @@
 Feature: Create/Collect/Remit/Cancel Miscellaneous Receipt
-   As a registered user of the system
-   I am able to Create/Collect/Remit/Cancel Miscellaneous Receipt
+  As a registered user of the system
+  I am able to Create/Collect/Remit/Cancel Miscellaneous Receipt
 
   @Collections @Sanity @Smoke
   Scenario Outline: System should be able to create Miscellaneous receipt
 
-   Given creator logs in
-   And user will select the required screen as "miscellaneous receipt"
-   And he enters Miscellaneous header
+    Given creator logs in
+    And user will select the required screen as "miscellaneous receipt"
+    And he enters Miscellaneous header
 
-   And he pays using <paymentMethod>
-   And current user closes acknowledgement
-   And current user logs out
+    And he pays using <paymentMethod>
+    And current user closes acknowledgement
+    And current user logs out
 
     Examples:
-      |paymentMethod    |
-      |cash             |
-      |cheque           |
-      |dd               |
-      |directBank       |
+      | paymentMethod |
+      | cash          |
+      | cheque        |
+      | dd            |
+      | directBank    |
 
 
   @Collections @Sanity @Smoke

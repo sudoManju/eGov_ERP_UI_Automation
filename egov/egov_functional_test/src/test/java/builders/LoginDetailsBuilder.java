@@ -13,16 +13,17 @@ public class LoginDetailsBuilder {
 
     }
 
-    public LoginDetailsBuilder withLoginId(String loginId){
+    public LoginDetailsBuilder withLoginId(String loginId) {
         loginDetails.setLoginId(loginId);
         return this;
     }
-    public LoginDetailsBuilder withPassword(String password){
+
+    public LoginDetailsBuilder withPassword(String password) {
         loginDetails.setPassword(password);
         return this;
     }
 
-    public LoginDetails build(){
+    public LoginDetails build() {
         return loginDetails;
     }
 
@@ -30,5 +31,4 @@ public class LoginDetailsBuilder {
         loginDetails.setHasZone(hasZone);
         return this;
     }
-
 }

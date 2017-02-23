@@ -1,8 +1,5 @@
 package entities.financial;
 
-/**
- * Created by vinaykumar on 27/12/16.
- */
 public class FinancialBankDetails {
 
     private String bankName;

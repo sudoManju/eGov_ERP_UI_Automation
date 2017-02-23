@@ -1,8 +1,5 @@
 package entities.dcReports;
 
-/**
- * Created by vinaykumar on 6/12/16.
- */
 public class VLTReport {
 
     private String fromDate;

@@ -1,18 +1,16 @@
 package steps.tradeLicense;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.tradeLicense.*;
 import excelDataFiles.TradeLicenseDataReader;
 import pages.tradeLicense.TradeLicensePage;
 import steps.BaseSteps;
-import excelDataFiles.ExcelReader;
 
 public class TradeLicenseSteps extends BaseSteps implements En {
     public TradeLicenseSteps() {
         And("^he enters trade owner details of new license (\\w+)$", (String tradeDetailsData) -> {
             TradeOwnerDetails tradeOwnerDetails = new TradeLicenseDataReader(tradeLicenseTestDataFileName).getTradeOwnerDetails(tradeDetailsData);
-           pageStore.get(TradeLicensePage.class).entertradeOwnerDetails(tradeOwnerDetails);
+            pageStore.get(TradeLicensePage.class).entertradeOwnerDetails(tradeOwnerDetails);
         });
         And("^he enters trade location details of new license (\\w+)$", (String tradeLocationData) -> {
             TradeLocationDetails tradelocationDetails = new TradeLicenseDataReader(tradeLicenseTestDataFileName).getTradeLocationDetails(tradeLocationData);
@@ -32,7 +30,7 @@ public class TradeLicenseSteps extends BaseSteps implements En {
             pageStore.get(TradeLicensePage.class).chooseToPayTaxOfApplicationNumber();
         });
         And("^he enters old license number$", () -> {
-           pageStore.get(TradeLicensePage.class).chooseOldTradeLicense();
+            pageStore.get(TradeLicensePage.class).chooseOldTradeLicense();
         });
         And("^he copy trade application number$", () -> {
             String applicationNumber = pageStore.get(TradeLicensePage.class).getApplicationNumber();
@@ -42,9 +40,9 @@ public class TradeLicenseSteps extends BaseSteps implements En {
             pageStore.get(TradeLicensePage.class).enterlegencyDetails();
         });
         And("^he choose a trade license for closure as (\\w+)$", (String ClosureData) -> {
-           LicenseClosureDetails closureDetails=new TradeLicenseDataReader(tradeLicenseTestDataFileName).getDetailsForClosure(ClosureData);
+            LicenseClosureDetails closureDetails = new TradeLicenseDataReader(tradeLicenseTestDataFileName).getDetailsForClosure(ClosureData);
             pageStore.get(TradeLicensePage.class).enterDetailsForClosure(closureDetails);
-            String licenseNumber= pageStore.get(TradeLicensePage.class).getLicenseNumber();
+            String licenseNumber = pageStore.get(TradeLicensePage.class).getLicenseNumber();
             scenarioContext.setApplicationNumber(licenseNumber);
         });
         And("^he closes the acknowledgement page$", () -> {
@@ -66,16 +64,16 @@ public class TradeLicenseSteps extends BaseSteps implements En {
         });
         And("^he copies the license number and closes the acknowledgement$", () -> {
             scenarioContext.setApplicationNumber(pageStore.get(TradeLicensePage.class).getLegacyLicenseNumber());
-            System.out.println("Application Number "+scenarioContext.getApplicationNumber());
+            System.out.println("Application Number " + scenarioContext.getApplicationNumber());
         });
         And("^he choose to search with license number$", () -> {
-           pageStore.get(TradeLicensePage.class).enterLicenseNumber(scenarioContext.getApplicationNumber());
+            pageStore.get(TradeLicensePage.class).enterLicenseNumber(scenarioContext.getApplicationNumber());
         });
         And("^he choose to renew trade license$", () -> {
             pageStore.get(TradeLicensePage.class).chooseToRenewLicense();
         });
         And("^he checks total number of records$", () -> {
-           pageStore.get(TradeLicensePage.class).checkNoOfRecords();
+            pageStore.get(TradeLicensePage.class).checkNoOfRecords();
         });
         And("^he search trade license with license number$", () -> {
             String searchId = "searchWithLicenseNumber";
@@ -95,7 +93,5 @@ public class TradeLicenseSteps extends BaseSteps implements En {
         And("^he choose action \"([^\"]*)\"$", (String action) -> {
             pageStore.get(TradeLicensePage.class).chooseAction(action);
         });
-
-
     }
 }

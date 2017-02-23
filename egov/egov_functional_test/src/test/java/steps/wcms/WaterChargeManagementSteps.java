@@ -2,7 +2,8 @@ package steps.wcms;
 
 import cucumber.api.java8.En;
 import entities.ApprovalDetailsNew;
-import entities.ptis.*;
+import entities.wcms.ApplicantInfo;
+import entities.wcms.ConnectionInfo;
 import entities.wcms.EnclosedDocument;
 import entities.wcms.FieldInspectionDetails;
 import excelDataFiles.WaterChargesDataReader;
@@ -33,8 +34,10 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
         });
 
         And("^user enter the water management approval details as (\\w+)$", (String approvalOfficer) -> {
-            ApprovalDetailsNew approvalDetailsNew =new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approvalOfficer);
+            ApprovalDetailsNew approvalDetailsNew = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approvalOfficer);
             pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approvalDetailsNew);
+
+            pageStore.get(WaterChargeManagementPage.class).clickOnForwardButton();
 
         });
 
@@ -50,8 +53,10 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             ConnectionInfo connectionInfo = new WaterChargesDataReader(waterChargesTestDataFileName).getConnectionInfo(connectionDetails);
             pageStore.get(WaterConnectionDetailsPage.class).enterAdditionalWaterConnectionInfo(connectionInfo);
 
-            ApprovalDetailsNew approvalDetailsNew =new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approveDetails);
+            ApprovalDetailsNew approvalDetailsNew = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approveDetails);
             pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approvalDetailsNew);
+
+            pageStore.get(WaterChargeManagementPage.class).clickOnForwardButton();
         });
 
         Then("^user will get the application number and closes the form$", () -> {
@@ -63,16 +68,18 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             String approveDetails = "engineer";
             String applicationNumber = pageStore.get(WaterConnectionDetailsPage.class).enterDetailsOfClosureConnection(closureType);
 
-            ApprovalDetailsNew approvalDetailsNew =new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approveDetails);
+            ApprovalDetailsNew approvalDetailsNew = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approveDetails);
             pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approvalDetailsNew);
+            pageStore.get(WaterChargeManagementPage.class).clickOnForwardButton();
             scenarioContext.setApplicationNumber(applicationNumber);
         });
 
         And("^chooses to act upon the above closure application as \"([^\"]*)\"$", (String approvalOfficer) -> {
-              pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
+            pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
 
-            ApprovalDetailsNew approvalDetailsNew =new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approvalOfficer);
+            ApprovalDetailsNew approvalDetailsNew = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approvalOfficer);
             pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approvalDetailsNew);
+            pageStore.get(WaterChargeManagementPage.class).clickOnForwardButton();
         });
 
         And("^user will enter the details of the change of use water connection$", () -> {
@@ -82,9 +89,10 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             ConnectionInfo connectionInfo = new WaterChargesDataReader(waterChargesTestDataFileName).getConnectionInfo(connectionDetails);
             pageStore.get(WaterConnectionDetailsPage.class).changeOfUseConnectionInfo(connectionInfo);
 
-            ApprovalDetailsNew approvalDetailsNew =new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approveDetails);
+            ApprovalDetailsNew approvalDetailsNew = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approveDetails);
             pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approvalDetailsNew);
 
+            pageStore.get(WaterChargeManagementPage.class).clickOnForwardButton();
         });
 
         And("^user will enter the details of data entry screen for water charges$", () -> {
@@ -92,7 +100,7 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             String connectionDetails = "dataEntryInfo";
 
             ApplicantInfo applicantInfo = new WaterChargesDataReader(waterChargesTestDataFileName).getApplicantInfo(applicationParticularsDetails);
-            pageStore.get(WaterChargeManagementPage.class).enterWaterDataEntryDetails(applicantInfo , scenarioContext.getAssessmentNumber());
+            pageStore.get(WaterChargeManagementPage.class).enterWaterDataEntryDetails(applicantInfo, scenarioContext.getAssessmentNumber());
 
             ConnectionInfo connectionInfo = new WaterChargesDataReader(waterChargesTestDataFileName).getConnectionInfo(connectionDetails);
             pageStore.get(WaterConnectionDetailsPage.class).enterConnectionInfo(connectionInfo);
@@ -142,10 +150,10 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
         And("^user will search the recent application based on connection details as (\\w+) and collects money$", (String connectionDetails) -> {
 
             // User will search for the recent application
-            pageStore.get(DashboardPage.class).chooseForSearchApplication();
+            pageStore.get(DashboardPage.class).chooseScreen("Search Application");
 
             // User will filter the application based upon the connection details
-            pageStore.get(WaterChargeManagementPage.class).searchWaterConnectionApplications(connectionDetails ,scenarioContext.getApplicationNumber() );
+            pageStore.get(WaterChargeManagementPage.class).searchWaterConnectionApplications(connectionDetails, scenarioContext.getApplicationNumber());
 
             // User chooses to act upon the above application in search applications
             pageStore.get(WaterChargeManagementPage.class).openSearchApplication(scenarioContext.getApplicationNumber());
@@ -166,8 +174,10 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
 
             // User enter the water management approval details
 
-            ApprovalDetailsNew approvalDetailsNew =new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approvalOfficer);
+            ApprovalDetailsNew approvalDetailsNew = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approvalOfficer);
             pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approvalDetailsNew);
+
+            pageStore.get(WaterChargeManagementPage.class).clickOnForwardButton();
 
             // User will closes the acknowledgement form
             String message = pageStore.get(WaterChargeManagementPage.class).getAcknowledgementMessage();
@@ -204,7 +214,7 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
 
         And("^user will choose the above application and click on to perform the execution of tap$", () -> {
 
-             // Choose To Act on above application
+            // Choose To Act on above application
             pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
 
 
@@ -245,8 +255,9 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             String approveDetails = "engineer";
             String ackNumber = pageStore.get(WaterChargeManagementPage.class).enterReConnectionDetails();
 
-            ApprovalDetailsNew approvalDetailsNew =new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approveDetails);
+            ApprovalDetailsNew approvalDetailsNew = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approveDetails);
             pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approvalDetailsNew);
+            pageStore.get(WaterChargeManagementPage.class).clickOnForwardButton();
             scenarioContext.setApplicationNumber(ackNumber);
         });
 

@@ -2,9 +2,6 @@ package builders.dcReports;
 
 import entities.dcReports.PTReport;
 
-/**
- * Created by vinaykumar on 11/12/16.
- */
 public class PTReportBuilder {
 
     PTReport ptReport = new PTReport();

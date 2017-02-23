@@ -2,90 +2,90 @@ package pages.ptis;
 
 import entities.ptis.RegistrationDetails;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
 public class TransferDetailsPage extends BasePage {
 
     private WebDriver webdriver;
-    public TransferDetailsPage (WebDriver webdriver) {
+
+    public TransferDetailsPage(WebDriver webdriver) {
         this.webdriver = webdriver;
     }
 
-    @FindBy (id = "REGISTERED TRANSFER")
+    @FindBy(id = "REGISTERED TRANSFER")
     private WebElement registrationAlreadyDoneButton;
 
     @FindBy(id = "seller")
     private WebElement sellerExecutantNameTextBox;
 
-    @FindBy (id = "buyer")
+    @FindBy(id = "buyer")
     private WebElement buyerClaimantNameTextBox;
 
-    @FindBy (id = "doorNo")
+    @FindBy(id = "doorNo")
     private WebElement doorNoTextBox;
 
-    @FindBy (id = "address")
+    @FindBy(id = "address")
     private WebElement propertyAddressTextBox;
 
-    @FindBy (id = "mobileNumber")
+    @FindBy(id = "mobileNumber")
     private WebElement transferMobileNumber;
 
-    @FindBy (id = "plotArea")
+    @FindBy(id = "plotArea")
     private WebElement registeredPlotAreaTextBox;
 
-    @FindBy (id = "plinthArea")
+    @FindBy(id = "plinthArea")
     private WebElement registeredPlinthAreaTextBox;
 
-    @FindBy (id = "eastBoundary")
+    @FindBy(id = "eastBoundary")
     private WebElement eastBoundaryTextBox;
 
-    @FindBy (id = "westBoundary")
+    @FindBy(id = "westBoundary")
     private WebElement westBoundaryTextBox;
 
-    @FindBy (id = "northBoundary")
+    @FindBy(id = "northBoundary")
     private WebElement northBoundaryTextBox;
 
-    @FindBy (id = "southBoundary")
+    @FindBy(id = "southBoundary")
     private WebElement southBoundaryTextBox;
 
-    @FindBy (id = "sroName")
+    @FindBy(id = "sroName")
     private WebElement sRONameTextBox;
 
-    @FindBy (id = "transRsnId")
+    @FindBy(id = "transRsnId")
     private WebElement reasonforTransfersection;
 
-    @FindBy (id = "docNum")
+    @FindBy(id = "docNum")
     private WebElement registrationDocumentNumberTextBox;
 
-    @FindBy (id = "deedDate")
+    @FindBy(id = "deedDate")
     private WebElement registrationDocumentDateTextBox;
 
-    @FindBy (id = "partyValue")
+    @FindBy(id = "partyValue")
     private WebElement partiesConsiderationValueTextBox;
 
-    @FindBy (id = "departmentValue")
+    @FindBy(id = "departmentValue")
     private WebElement departmentGuidelinesValueTextBox;
 
-    @FindBy (name = "assessmentNo")
+    @FindBy(name = "assessmentNo")
     private WebElement searchMutationTextBox;
 
-    @FindBy (className = "buttonsubmit")
+    @FindBy(className = "buttonsubmit")
     private WebElement payFeeButton;
 
-    @FindBy (id = "Generate Title Transfer Notice")
+    @FindBy(id = "Generate Title Transfer Notice")
     private WebElement titleTransferNoticeTextBox;
 
-    @FindBy (id = "assessmentNum")
+    @FindBy(id = "assessmentNum")
     private WebElement searchAssessmentNumberTextBox;
 
     public void chooseRegistrationAlreadyDone() {
         waitForElementToBeClickable(registrationAlreadyDoneButton, webdriver);
         registrationAlreadyDoneButton.click();
     }
+
     public void enterRegistrationDetails(RegistrationDetails registrationDetails) {
 
         enterText(transferMobileNumber, "2299087661", webdriver);
@@ -102,21 +102,21 @@ public class TransferDetailsPage extends BasePage {
         enterText(sRONameTextBox, registrationDetails.getSroName(), webdriver);
         selectFromDropDown(reasonforTransfersection, registrationDetails.getReasonForChange(), webdriver);
         enterText(registrationDocumentNumberTextBox, registrationDetails.getRegistrationDocumentNumber(), webdriver);
-        enterText(registrationDocumentDateTextBox, registrationDetails.getRegistrationDocumentDate(),webdriver);
+        enterText(registrationDocumentDateTextBox, registrationDetails.getRegistrationDocumentDate(), webdriver);
         enterText(partiesConsiderationValueTextBox, registrationDetails.getPartiesConsiderationValue(), webdriver);
-        enterText(departmentGuidelinesValueTextBox, registrationDetails.getDepartmentGuidelinesValue(),webdriver);
+        enterText(departmentGuidelinesValueTextBox, registrationDetails.getDepartmentGuidelinesValue(), webdriver);
     }
 
     public void enterEnclosureDetails() {
 
         WebElement document1 = webdriver.findElement(By.id("save_documents_0__uploads"));
-        uploadFile(document1,System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx",webdriver);
+        uploadFile(document1, System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx", webdriver);
         WebElement document2 = webdriver.findElement(By.id("save_documents_1__uploads"));
-        uploadFile(document2,System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx",webdriver);
+        uploadFile(document2, System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx", webdriver);
         WebElement document3 = webdriver.findElement(By.id("save_documents_2__uploads"));
-        uploadFile(document3,System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx",webdriver);
+        uploadFile(document3, System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx", webdriver);
         WebElement document4 = webdriver.findElement(By.id("save_documents_3__uploads"));
-        uploadFile(document4,System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx",webdriver);
+        uploadFile(document4, System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx", webdriver);
     }
 
     public void searchAssessmentNumber(String mutationAssessmentNumber) {

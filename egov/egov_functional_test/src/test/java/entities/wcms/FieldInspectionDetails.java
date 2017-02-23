@@ -1,8 +1,5 @@
 package entities.wcms;
 
-/**
- * Created by vinaykumar on 8/12/16.
- */
 public class FieldInspectionDetails {
 
     private String material;

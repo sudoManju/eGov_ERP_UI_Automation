@@ -29,5 +29,4 @@ public class AssessmentDetails {
     public void setOccupancyCertificateNumber(String occupancyCertificateNumber) {
         this.occupancyCertificateNumber = occupancyCertificateNumber;
     }
-
 }

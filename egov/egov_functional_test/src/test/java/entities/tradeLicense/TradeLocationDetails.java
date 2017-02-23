@@ -1,21 +1,17 @@
 package entities.tradeLicense;
 
-/**
- * Created by bimal on 27/12/16.
- */
 public class TradeLocationDetails {
 
-    String propertyAssessmentNumber;
-    String ownershipType;
-    String locality;
-    String ward;
+    private String propertyAssessmentNumber;
+    private String ownershipType;
+    private String locality;
+    private String ward;
 
     public String getpropertyAssessmentNumber() {
         return propertyAssessmentNumber;  }
 
     public void setPropertyAssessmentNumber(String propertyAssessmentNumber) {
         this.propertyAssessmentNumber = propertyAssessmentNumber;
-
     }
 
     public String getownershipType(){

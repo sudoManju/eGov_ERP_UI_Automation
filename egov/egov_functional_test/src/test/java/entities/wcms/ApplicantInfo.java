@@ -1,11 +1,5 @@
-package entities.ptis;
+package entities.wcms;
 
-import java.util.Date;
-import java.util.stream.Stream;
-
-/**
- * Created by vinaykumar on 22/11/16.
- */
 public class ApplicantInfo {
 
     private String ptAssessmentNumber;

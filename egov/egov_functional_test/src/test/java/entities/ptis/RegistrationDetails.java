@@ -1,28 +1,23 @@
 package entities.ptis;
 
-/**
- * Created by bimal on 18/1/17.
- */
 public class RegistrationDetails {
 
-        private String sellerExecutantName;
-        private String buyerClaimantName;
-        private String doorNo;
-        private String propertyAddress;
-        private String registeredPlotArea;
-        private String registeredPlinthArea;
-        private String eastBoundary;
-        private String westBoundary;
-        private String northBoundary;
-        private String southBoundary;
-        private String sroName;
-        private String reasonForChange;
-        private String registrationDocumentNumber;
-        private String registrationDocumentDate;
-        private String partiesConsiderationValue;
-        private String departmentGuidelinesValue;
-
-
+    private String sellerExecutantName;
+    private String buyerClaimantName;
+    private String doorNo;
+    private String propertyAddress;
+    private String registeredPlotArea;
+    private String registeredPlinthArea;
+    private String eastBoundary;
+    private String westBoundary;
+    private String northBoundary;
+    private String southBoundary;
+    private String sroName;
+    private String reasonForChange;
+    private String registrationDocumentNumber;
+    private String registrationDocumentDate;
+    private String partiesConsiderationValue;
+    private String departmentGuidelinesValue;
 
     public String getSellerExecutantName() {
         return sellerExecutantName;
@@ -152,6 +147,4 @@ public class RegistrationDetails {
     public void setDepartmentGuidelinesValue(String departmentGuidelinesValue) {
         this.departmentGuidelinesValue = departmentGuidelinesValue;
     }
-
-
 }

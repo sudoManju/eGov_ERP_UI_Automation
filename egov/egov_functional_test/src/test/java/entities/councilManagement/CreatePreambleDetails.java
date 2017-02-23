@@ -1,10 +1,6 @@
 package entities.councilManagement;
 
-/**
- * Created by tester1 on 1/4/2017.
- */
 public class CreatePreambleDetails {
-
 
     private String preambleDepartment;
     private String amount;
@@ -21,6 +17,7 @@ public class CreatePreambleDetails {
     public void setPreambleDepartment(String preambleDepartment) {
         this.preambleDepartment = preambleDepartment;
     }
+
     public String getPreambleDepartment() {
         return preambleDepartment;
     }
@@ -28,20 +25,23 @@ public class CreatePreambleDetails {
     public void setAmount(String amount) {
         this.amount = amount;
     }
+
     public String getAmount() {
         return amount;
     }
 
-
     public String getGistOfPreamble() {
         return gistOfPreamble;
     }
+
     public void setGistOfPreamble(String gistOfPreamble) {
         this.gistOfPreamble = gistOfPreamble;
     }
 
+    public String getPreambleNumber() {
+        return preambleNumber;
+    }
 
-    public String getPreambleNumber() { return preambleNumber; }
     public void setPreambleNumber(String preambleNumber) {
         this.preambleNumber = preambleNumber;
     }
@@ -49,7 +49,6 @@ public class CreatePreambleDetails {
     public String build() {
         return createPreambleDetails;
     }
-
 
     public String getCommitteeType() {
         return committeeType;
@@ -72,8 +71,9 @@ public class CreatePreambleDetails {
     }
 
 
-    public String getcouncilMeetingDate() { return councilMeetingDate; }
-
+    public String getcouncilMeetingDate() {
+        return councilMeetingDate;
+    }
 
     public String getCouncilMeetingTime() {
         return councilMeetingTime;

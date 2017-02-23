@@ -37,6 +37,4 @@ public class AddressDetailsBuilder {
     public PropertyAddressDetails build() {
         return addressDetails;
     }
-
-
 }

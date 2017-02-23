@@ -2,9 +2,6 @@ package builders.financial;
 
 import entities.financial.FinancialBankDetails;
 
-/**
- * Created by vinaykumar on 27/12/16.
- */
 public class FinancialBankDetailsBuilder {
 
     FinancialBankDetails financialBankDetails = new FinancialBankDetails();

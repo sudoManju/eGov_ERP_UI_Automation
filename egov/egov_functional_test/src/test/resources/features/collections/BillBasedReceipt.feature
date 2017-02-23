@@ -1,6 +1,6 @@
 Feature: Create/Collect Bill Based Receipt
-As a registered user of the system
-I am able to Create/Collect Bill Based Receipt
+  As a registered user of the system
+  I am able to Create/Collect Bill Based Receipt
 
   Background:It will run the data entry screen of property tax
 
@@ -37,9 +37,9 @@ I am able to Create/Collect Bill Based Receipt
     And current user logs out
 
     Examples:
-      |paymentMode|
-      |cash       |
-      |cheque     |
-      |dd         |
-      |directBank1|
+      | paymentMode |
+      | cash        |
+      | cheque      |
+      | dd          |
+      | directBank1 |
 

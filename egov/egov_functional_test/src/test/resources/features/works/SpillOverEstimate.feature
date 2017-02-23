@@ -17,25 +17,25 @@ Feature: Create Spillover Estimate/Create LOA for Spillover
     And current user logs out
 
     Examples:
-      | estimateHeaderDetails |financialDetails     |workDetails|adminSanctionDetails|technicalSanctionDetails|
-      |SpilloverEstimate_1    |SpillOverFinancial_1 |SpillWork_1|admin               |technical               |
+      | estimateHeaderDetails | financialDetails     | workDetails | adminSanctionDetails | technicalSanctionDetails |
+      | SpilloverEstimate_1   | SpillOverFinancial_1 | SpillWork_1 | admin                | technical                |
 #      |SpilloverEstimate_2    |SpillOverFinancial_2 |SpillWork_2|admin               |technical               |
-      |SpilloverEstimate_3    |SpillOverFinancial_3 |SpillWork_3|admin               |technical               |
+      | SpilloverEstimate_3   | SpillOverFinancial_3 | SpillWork_3 | admin                | technical                |
 
 
-   @Works @Sanity
-    Scenario: Letter of Acceptance for Spillover work
+  @Works @Sanity
+  Scenario: Letter of Acceptance for Spillover work
 
-     Given assis_Engineer logs in
-     And user will select the required screen as "Create Letter of Acceptance"
-     And he select the required spillover estimate from search results
-     And he enters the mandatory details for creating LOA
-     Then he save the file and view the LOA pdf
+    Given assis_Engineer logs in
+    And user will select the required screen as "Create Letter of Acceptance"
+    And he select the required spillover estimate from search results
+    And he enters the mandatory details for creating LOA
+    Then he save the file and view the LOA pdf
 
-     And user will select the required screen as "Search/View LOA"
-     And he search for LOA
+    And user will select the required screen as "Search/View LOA"
+    And he search for LOA
 
-     And user will select the required screen as "Modify LOA"
-     And he search for LOA for modify
-     Then user will be notified by "successfully"
-     And current user logs out
+    And user will select the required screen as "Modify LOA"
+    And he search for LOA for modify
+    Then user will be notified by "successfully"
+    And current user logs out

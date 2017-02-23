@@ -2,17 +2,9 @@ package builders.ptis;
 
 import entities.ptis.EditFloorDetails;
 
-
-
-/**
- * Created by bimal on 28/11/16.
- */
 public class EditFloorDetailsBuilder {
 
     EditFloorDetails editfloorDls = new EditFloorDetails();
-
-    public EditFloorDetailsBuilder() {
-    }
 
     public EditFloorDetailsBuilder withEditFloorNumber(String editfloorNumber) {
         editfloorDls.setEditfloorNumber(editfloorNumber);
@@ -85,8 +77,7 @@ public class EditFloorDetailsBuilder {
     }
 
     public EditFloorDetails build() {return editfloorDls;}
-
-    }
+}
 
 
 

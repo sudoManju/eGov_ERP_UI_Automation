@@ -2,9 +2,6 @@ package builders.wcms;
 
 import entities.wcms.FieldInspectionDetails;
 
-/**
- * Created by vinaykumar on 8/12/16.
- */
 public class FieldInspectionDetailsBuilder {
 
     FieldInspectionDetails fieldInspectionDetails = new FieldInspectionDetails();

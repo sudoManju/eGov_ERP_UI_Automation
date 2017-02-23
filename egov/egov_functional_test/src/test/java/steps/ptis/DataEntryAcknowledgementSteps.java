@@ -6,9 +6,6 @@ import cucumber.api.java8.En;
 import pages.ptis.DataEntryAcknowledgementPage;
 import steps.BaseSteps;
 
-/**
- * Created by bimal on 5/12/16.
- */
 public class DataEntryAcknowledgementSteps extends BaseSteps implements En {
 
     @Then("^dataEntry Details saved successfully$")
@@ -25,6 +22,7 @@ public class DataEntryAcknowledgementSteps extends BaseSteps implements En {
         pageStore.get(DataEntryAcknowledgementPage.class).geteditDCB();
         pageStore.get(DataEntryAcknowledgementPage.class).enterAddDemandDetails();
     }
+
     @And("^he choose to close the dataentry acknowledgement screen$")
     public void heChooseToCloseTheDataentryAcknowledgementScreen() throws Throwable {
         pageStore.get(DataEntryAcknowledgementPage.class).close();

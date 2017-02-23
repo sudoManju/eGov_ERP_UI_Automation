@@ -6,14 +6,9 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
-import java.util.List;
 
-/**
- * Created by tester1 on 1/23/2017.
- */
 public class GrievancesPage extends BasePage {
     private WebDriver webDriver;
 
@@ -60,7 +55,6 @@ public class GrievancesPage extends BasePage {
     private WebElement CRNNumber;
 
 
-
     @FindBy(id = "status")
     private WebElement selectStatus;
 
@@ -91,41 +85,43 @@ public class GrievancesPage extends BasePage {
     @FindBy(css = "button[type=submit]")
     private WebElement submitButton;
 
-    public GrievancesPage (WebDriver webDriver) {this.webDriver= webDriver;}
+    public GrievancesPage(WebDriver webDriver) {
+        this.webDriver = webDriver;
+    }
 
     public void openCreateGrievancePage() {
-        clickOnButton(registerComplaintLink,webDriver);
+        clickOnButton(registerComplaintLink, webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
     public void enterCitizenContactDetails(CreateComplaintDetails createComplaintDetails) {
-    clickOnButton(receivingModeRadio,webDriver);
-    enterText(citizenNameTextBox, createComplaintDetails.getCitizenName(), webDriver);
-    enterText(mobNoTextBox, createComplaintDetails.getcitizenMobNo(),webDriver);
-    enterText(emailIdTextBox, createComplaintDetails.getEmailId(), webDriver);
+        clickOnButton(receivingModeRadio, webDriver);
+        enterText(citizenNameTextBox, createComplaintDetails.getCitizenName(), webDriver);
+        enterText(mobNoTextBox, createComplaintDetails.getcitizenMobNo(), webDriver);
+        enterText(emailIdTextBox, createComplaintDetails.getEmailId(), webDriver);
     }
 
     public String enterGrievanceDetails(CreateComplaintDetails createComplaintDetails) {
-    selectFromDropDown(complaintTypeCategorySelect,createComplaintDetails.getGrievanceCategory(), webDriver);
-    selectFromDropDown(complaintTypeSelect,createComplaintDetails.getGrievanceType(), webDriver);
-    enterText(grievanceDetailsText, createComplaintDetails.getGrievanceDetails(),webDriver);
-    enterText(grievanceLocationText, createComplaintDetails.getGrievanceLocation(), webDriver);
-    WebElement dropdown = webDriver.findElement(By.className("tt-highlight"));
-    dropdown.click();
-    grievanceLocationText.sendKeys(Keys.TAB);
-    enterText(locationLandmarkText, createComplaintDetails.getLocationLandmark(), webDriver);
-    clickOnButton(createGrievanceButton, webDriver);
-    return successMsg.getText();
+        selectFromDropDown(complaintTypeCategorySelect, createComplaintDetails.getGrievanceCategory(), webDriver);
+        selectFromDropDown(complaintTypeSelect, createComplaintDetails.getGrievanceType(), webDriver);
+        enterText(grievanceDetailsText, createComplaintDetails.getGrievanceDetails(), webDriver);
+        enterText(grievanceLocationText, createComplaintDetails.getGrievanceLocation(), webDriver);
+        WebElement dropdown = webDriver.findElement(By.className("tt-highlight"));
+        dropdown.click();
+        grievanceLocationText.sendKeys(Keys.TAB);
+        enterText(locationLandmarkText, createComplaintDetails.getLocationLandmark(), webDriver);
+        clickOnButton(createGrievanceButton, webDriver);
+        return successMsg.getText();
     }
 
     public void getRegisterComplaintPage() {
-    clickOnButton(newRequestLink, webDriver);
-    clickOnButton(registerComplaint, webDriver);
-    switchToNewlyOpenedWindow(webDriver);
+        clickOnButton(newRequestLink, webDriver);
+        clickOnButton(registerComplaint, webDriver);
+        switchToNewlyOpenedWindow(webDriver);
     }
 
     public String getCRN() {
-        String CrnNum=CRNNumber.getText();
+        String CrnNum = CRNNumber.getText();
         clickOnButton(closeButton, webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
         return CrnNum;
@@ -133,10 +129,10 @@ public class GrievancesPage extends BasePage {
 
 
     public String officialMarkStatus(String status) {
-        selectFromDropDown(selectStatus,status,webDriver);
+        selectFromDropDown(selectStatus, status, webDriver);
         enterText(incMessageBox, status, webDriver);
         clickOnButton(submitButton, webDriver);
-        String success=webDriver.findElement(By.xpath(".//*[@id='main']/div[1]/div/div/div[1]/div/strong")).getText();
+        String success = webDriver.findElement(By.xpath(".//*[@id='main']/div[1]/div/div/div[1]/div/strong")).getText();
         clickOnButton(closeButton, webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
         return success;
@@ -148,16 +144,16 @@ public class GrievancesPage extends BasePage {
 
     public void searchInCitizenInbox(String crn) {
         webDriver.navigate().refresh();
-        enterText(searchCitizenInbox,crn, webDriver);
+        enterText(searchCitizenInbox, crn, webDriver);
         clickOnButton(complaintLink, webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
     public void withdrawComplaint(String complaintStatus) {
-    selectFromDropDown(selectStatus, complaintStatus, webDriver);
-    enterText(incMessageBox, complaintStatus, webDriver);
-    clickOnButton(submitButton, webDriver);
-    clickOnButton(closeButton, webDriver);
-    switchToPreviouslyOpenedWindow(webDriver);
+        selectFromDropDown(selectStatus, complaintStatus, webDriver);
+        enterText(incMessageBox, complaintStatus, webDriver);
+        clickOnButton(submitButton, webDriver);
+        clickOnButton(closeButton, webDriver);
+        switchToPreviouslyOpenedWindow(webDriver);
     }
 }

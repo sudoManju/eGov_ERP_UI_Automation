@@ -1,8 +1,5 @@
 package steps;
 
-
-import cucumber.api.PendingException;
-import cucumber.api.java.en.And;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;

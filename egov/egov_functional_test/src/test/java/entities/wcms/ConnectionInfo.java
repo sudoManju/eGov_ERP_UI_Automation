@@ -1,8 +1,5 @@
-package entities.ptis;
+package entities.wcms;
 
-/**
- * Created by vinaykumar on 22/11/16.
- */
 public class ConnectionInfo {
 
     private String waterSourceType;

@@ -1,10 +1,7 @@
 package steps;
 
-import cucumber.api.PendingException;
-import cucumber.api.java8.Da;
 import cucumber.api.java8.En;
 import pages.DashboardPage;
-import pages.wcms.WaterChargeManagementPage;
 
 public class DashboardSteps extends BaseSteps implements En {
     public DashboardSteps() {
@@ -21,10 +18,6 @@ public class DashboardSteps extends BaseSteps implements En {
             pageStore.get(DashboardPage.class).openApplication("Property Tax");
         });
 
-        When("^he chosses to collect water charges$", () -> {
-            pageStore.get(DashboardPage.class).chooseTopayWaterCharge();
-        });
-
         And("^officer search for the assignment mode as (\\w+)$", (String assignmentMode) -> {
             pageStore.get(DashboardPage.class).chooseForModeOFAssignment(assignmentMode);
         });
@@ -34,13 +27,13 @@ public class DashboardSteps extends BaseSteps implements En {
         });
 
         And("^user will select the required screen as \"([^\"]*)\" with condition as \"([^\"]*)\"$", (String screenName, String condition) -> {
-            pageStore.get(DashboardPage.class).chooseScreen(screenName , condition);
+            pageStore.get(DashboardPage.class).chooseScreen(screenName, condition);
         });
+
         And("^he chooses to act upon above (.*)$", (String type) -> {
-            if(type.equals("application number")) {
+            if (type.equals("application number")) {
                 pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
-            }
-            else if(type.equals("assessment number")){
+            } else if (type.equals("assessment number")) {
                 pageStore.get(DashboardPage.class).openApplication(scenarioContext.getAssessmentNumber());
             }
         });

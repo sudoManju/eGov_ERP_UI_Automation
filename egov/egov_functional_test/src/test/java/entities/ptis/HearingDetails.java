@@ -1,8 +1,5 @@
 package entities.ptis;
 
-/**
- * Created by bimal on 27/1/17.
- */
 public class HearingDetails {
     private String hearingDate;
     private String hearingTime;

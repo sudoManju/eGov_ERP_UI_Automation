@@ -7,13 +7,8 @@ public class PropertyHeaderDetailsBuilder {
     PropertyHeaderDetails propertyHeaderDetails = new PropertyHeaderDetails();
 
     public PropertyHeaderDetailsBuilder() {
-
         propertyHeaderDetails.setPropertyType("Residential");
         propertyHeaderDetails.setCategoryOfOwnership("Private");
-    }
-
-    public PropertyHeaderDetails build() {
-        return propertyHeaderDetails;
     }
 
     public PropertyHeaderDetailsBuilder withPropertyType(String propertyType) {
@@ -26,5 +21,7 @@ public class PropertyHeaderDetailsBuilder {
         return this;
     }
 
-
+    public PropertyHeaderDetails build() {
+        return propertyHeaderDetails;
+    }
 }

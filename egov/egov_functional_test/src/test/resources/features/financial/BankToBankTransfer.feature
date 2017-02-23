@@ -11,6 +11,6 @@ Feature: To transfer payments from one bank to other bank
     And current user logs out
 
     Examples:
-    | bankDetails  |
-    | bankDetails1 |
+      | bankDetails  |
+      | bankDetails1 |
 

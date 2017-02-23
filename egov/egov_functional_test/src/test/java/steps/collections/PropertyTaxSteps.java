@@ -5,9 +5,9 @@ import entities.collections.PaymentMethod;
 import excelDataFiles.CollectionsDataReader;
 import pages.collections.PropertyTaxPage;
 import steps.BaseSteps;
-import excelDataFiles.ExcelReader;
 
 public class PropertyTaxSteps extends BaseSteps implements En {
+
     public PropertyTaxSteps() {
         And("^he chooses to collect tax for above assessment number$", () -> {
             pageStore.get((PropertyTaxPage.class)).collectTaxFor(scenarioContext.getAssessmentNumber());
@@ -17,7 +17,7 @@ public class PropertyTaxSteps extends BaseSteps implements En {
         });
         And("^he collect tax using (\\w+)$", (String paymentMode) -> {
             PaymentMethod paymentmethod = new CollectionsDataReader(collectionsTestDataFileName).getPaymentMethodDetails(paymentMode);
-            pageStore.get(PropertyTaxPage.class).collectTax(paymentmethod,paymentMode,"Bill");
+            pageStore.get(PropertyTaxPage.class).collectTax(paymentmethod, paymentMode, "Bill");
         });
     }
 }

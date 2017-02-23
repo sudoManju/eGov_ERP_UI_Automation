@@ -4,20 +4,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
-import java.util.Calendar;
 import java.util.List;
 
-import static com.jayway.awaitility.Awaitility.await;
-import static java.util.concurrent.TimeUnit.SECONDS;
-
-/**
- * Created by manjunatha-lap on 16/12/2016.
- */
-public class ContractorPage extends BasePage
-{
+public class ContractorPage extends BasePage {
     private WebDriver driver;
 
     @FindBy(id = "code")
@@ -51,7 +42,7 @@ public class ContractorPage extends BasePage
     private WebElement closeButton;
 
     @FindBy(id = "contractorName")
-     private WebElement searchContractorNameBox;
+    private WebElement searchContractorNameBox;
 
     @FindBy(id = "currentRow")
     private WebElement contractorsListTable;
@@ -78,52 +69,52 @@ public class ContractorPage extends BasePage
     private WebElement ifscCode;
 
     @FindBy(xpath = "//*[@id='exemptionForm']")
-     private WebElement exemptionFormAction;
+    private WebElement exemptionFormAction;
 
     @FindBy(id = "contactPerson")
-     private WebElement contactPerson;
+    private WebElement contactPerson;
 
     @FindBy(id = "email")
-     private WebElement email;
+    private WebElement email;
 
     @FindBy(id = "mobileNumber")
     private WebElement mobileNumber;
 
     @FindBy(id = "bankAccount")
-     private WebElement bankAccount;
+    private WebElement bankAccount;
 
     @FindBy(id = "tinNumber")
-     private WebElement tinNumber;
+    private WebElement tinNumber;
 
     @FindBy(id = "gradeNameyui-rec0")
     private WebElement contractorClass;
 
     @FindBy(id = "registrationNumberyui-rec0")
-     private WebElement registrationNumber;
+    private WebElement registrationNumber;
 
     @FindBy(xpath = ".//*[@id='yui-rec0']/td[8]/div/select")
-     private WebElement categoryDropDownBox;
+    private WebElement categoryDropDownBox;
 
     public ContractorPage(WebDriver driver) {
         this.driver = driver;
     }
 
     public String entersContractorMasterData() {
-        String Name = "KMC"+get6DigitRandomInt();
+        String Name = "KMC" + get6DigitRandomInt();
         enterText(contractorName, Name, driver);
         enterText(correspondenceAddress, "A P State Agro industries Development Corporation Ltd ATP", driver);
         enterText(panNumber, "PANUM1234P", driver);
         enterText(contactPerson, Name, driver);
         waitForElementToBeClickable(email, driver);
-        enterText(email, Name+"@egov.org", driver);
-        enterText(mobileNumber, "9988"+get6DigitRandomInt(), driver);
+        enterText(email, Name + "@egov.org", driver);
+        enterText(mobileNumber, "9988" + get6DigitRandomInt(), driver);
         enterText(tinNumber, get6DigitRandomInt(), driver);
         selectFromDropDown(bankAction, "STATE BANK OF MYSORE", driver);
-        enterText(ifscCode, "IFSC"+get6DigitRandomInt(), driver);
+        enterText(ifscCode, "IFSC" + get6DigitRandomInt(), driver);
         enterText(bankAccount, get6DigitRandomInt(), driver);
         selectFromDropDown(exemptionFormAction, "EARNEST MONEY DEPOSIT", driver);
         selectFromDropDown(department, "ENGINEERING", driver);
-        enterDate(registrationNumber, "0123"+get6DigitRandomInt(), driver);
+        enterDate(registrationNumber, "0123" + get6DigitRandomInt(), driver);
         selectFromDropDown(categoryDropDownBox, "Transport", driver);
         selectFromDropDown(contractorClass, "Class-I", driver);
         selectFromDropDown(status, "Active", driver);
@@ -132,8 +123,7 @@ public class ContractorPage extends BasePage
         return Name;
     }
 
-    public void searchContractor(String name)
-    {
+    public void searchContractor(String name) {
         enterText(searchContractorNameBox, name, driver);
         clickOnButton(contractorSearchButton, driver);
     }
@@ -144,12 +134,12 @@ public class ContractorPage extends BasePage
     }
 
     public void select() {
-        waitForElementToBeVisible(contractorsListTable,driver);
+        waitForElementToBeVisible(contractorsListTable, driver);
         List<WebElement> totalRows = contractorsListTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-        System.out.println("Rows:"+totalRows.size());
-        WebElement requiredRow = totalRows.get(totalRows.size()-1);
+        System.out.println("Rows:" + totalRows.size());
+        WebElement requiredRow = totalRows.get(totalRows.size() - 1);
         WebElement element = requiredRow.findElements(By.tagName("td")).get(0).findElement(By.id("radio"));
-        jsClick(element,driver);
+        jsClick(element, driver);
         clickOnButton(modifyButton, driver);
     }
 

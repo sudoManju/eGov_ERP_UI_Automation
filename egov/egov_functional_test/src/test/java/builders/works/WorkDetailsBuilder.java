@@ -2,16 +2,9 @@ package builders.works;
 
 import entities.works.WorkDetails;
 
-/**
- * Created by karthik on 20/12/16.
- */
 public class WorkDetailsBuilder {
 
     WorkDetails workDetails = new WorkDetails();
-
-    public WorkDetailsBuilder(){
-
-    }
 
     public WorkDetailsBuilder withWorksOrderCreated(Boolean worksOrderCreated){
         workDetails.setWorksorderCreated(worksOrderCreated);

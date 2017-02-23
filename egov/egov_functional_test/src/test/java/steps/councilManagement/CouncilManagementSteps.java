@@ -6,27 +6,23 @@ import excelDataFiles.CouncilManagementDataReader;
 import org.junit.Assert;
 import pages.councilManagement.CouncilManagementPage;
 import steps.BaseSteps;
-import excelDataFiles.ExcelReader;
 
-/**
- * Created by tester1 on 1/4/2017.
- */
 public class CouncilManagementSteps extends BaseSteps implements En {
     public CouncilManagementSteps() {
 
         And("^he enters create preamble details as (\\w+)$", (String createPreambleData) -> {
-            CreatePreambleDetails createPreambleDetails= new CouncilManagementDataReader(councilManagementTestDataFileName).getCreatePreambleDetails(createPreambleData);
+            CreatePreambleDetails createPreambleDetails = new CouncilManagementDataReader(councilManagementTestDataFileName).getCreatePreambleDetails(createPreambleData);
             pageStore.get(CouncilManagementPage.class).enterCreatePreambleDetails(createPreambleDetails);
         });
 
         And("^he copies preamble number and closes the acknowledgement$", () -> {
             scenarioContext.setApplicationNumber(pageStore.get(CouncilManagementPage.class).getPreambleNumber());
-            String Status= pageStore.get(CouncilManagementPage.class).getStatus();
+            String Status = pageStore.get(CouncilManagementPage.class).getStatus();
             scenarioContext.setActualMessage(Status);
         });
 
         And("^he approves the preamble number$", () -> {
-          String Status= pageStore.get(CouncilManagementPage.class).approve();
+            String Status = pageStore.get(CouncilManagementPage.class).approve();
             scenarioContext.setActualMessage(Status);
         });
 
@@ -35,7 +31,7 @@ public class CouncilManagementSteps extends BaseSteps implements En {
         });
 
         And("^he enters create agenda details as (\\w+)$", (String createAgendaData) -> {
-            CreatePreambleDetails createPreambleDetails=new CouncilManagementDataReader(councilManagementTestDataFileName).getCreateAgendaDetails(createAgendaData);
+            CreatePreambleDetails createPreambleDetails = new CouncilManagementDataReader(councilManagementTestDataFileName).getCreateAgendaDetails(createAgendaData);
             pageStore.get(CouncilManagementPage.class).enterCreateAgenda(createPreambleDetails);
         });
 
@@ -48,7 +44,7 @@ public class CouncilManagementSteps extends BaseSteps implements En {
         });
 
         And("^he enters meeting details as (\\w+)$", (String createMeetingDetails) -> {
-            CreatePreambleDetails createMeetingData=new CouncilManagementDataReader(councilManagementTestDataFileName).getCreateMeetingDetails(createMeetingDetails);
+            CreatePreambleDetails createMeetingData = new CouncilManagementDataReader(councilManagementTestDataFileName).getCreateMeetingDetails(createMeetingDetails);
             pageStore.get(CouncilManagementPage.class).enterCouncilMeetingDetails(createMeetingData);
         });
 
@@ -71,11 +67,11 @@ public class CouncilManagementSteps extends BaseSteps implements En {
         });
 
         And("^he choose to create council MOM for the meeting number$", () -> {
-           pageStore.get(CouncilManagementPage.class).searchMeetingNumber(scenarioContext.getApplicationNumber());
+            pageStore.get(CouncilManagementPage.class).searchMeetingNumber(scenarioContext.getApplicationNumber());
         });
 
         And("^he enters details to create MOM as (\\w+)$", (String councilMOMData) -> {
-            CreatePreambleDetails councilMOMDetails=new CouncilManagementDataReader(councilManagementTestDataFileName).getCouncilMOMDetails(councilMOMData);
+            CreatePreambleDetails councilMOMDetails = new CouncilManagementDataReader(councilManagementTestDataFileName).getCouncilMOMDetails(councilMOMData);
             pageStore.get(CouncilManagementPage.class).enterCouncilMOMDetails(councilMOMDetails);
         });
     }

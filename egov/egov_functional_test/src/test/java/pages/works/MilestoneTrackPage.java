@@ -1,30 +1,12 @@
 package pages.works;
 
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.ISODateTimeFormat;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasePage;
-
-import javax.print.DocFlavor;
-import java.sql.Time;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-/**
- * Created by karthik on 26/12/16.
- */
 public class MilestoneTrackPage extends BasePage {
 
     private WebDriver driver;
@@ -110,22 +92,28 @@ public class MilestoneTrackPage extends BasePage {
     @FindBy(css = "input[value='Approve'][type='submit']")
     private WebElement approveButton;
 
-    public MilestoneTrackPage(WebDriver driver) {this.driver = driver;}
+    public MilestoneTrackPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void search(String number) {
-     driver.findElement(By.id("workOrderNumber")).sendKeys(number);
-     clickOnButton(searchButton, driver);
+        driver.findElement(By.id("workOrderNumber")).sendKeys(number);
+        clickOnButton(searchButton, driver);
     }
+
     public void select() {
-        jsClick(radioButton,driver);
+        jsClick(radioButton, driver);
     }
-    public void createMilestone(){
+
+    public void createMilestone() {
         clickOnButton(createMilestoneButton, driver);
     }
+
     public String getLoaNumber() {
         String loaNumber = getTextFromWeb(loaNumberBox, driver);
         return loaNumber;
     }
+
     public void enterMilestoneDetails() {
         WebElement requiredRow = milestoneStageTbl.findElements(By.tagName("tr")).get(0);
         WebElement stageDescription = requiredRow.findElements(By.tagName("td")).get(1).findElement(By.name("activities[0].description"));
@@ -162,26 +150,26 @@ public class MilestoneTrackPage extends BasePage {
         clickOnButton(saveButton, driver);
     }
 
-    public String successMessage(){
+    public String successMessage() {
         String msg = getTextFromWeb(creationMsg, driver);
         return msg;
     }
 
-    public void close(){
+    public void close() {
         clickOnButton(closeButton, driver);
         switchToPreviouslyOpenedWindow(driver);
     }
 
     public void searchUsingLoa(String number) {
         enterText(loaNumberTextBox, number, driver);
-        clickOnButton(searchButton,driver);
+        clickOnButton(searchButton, driver);
     }
 
     public void selectApplication() {
-        waitForElementToBeClickable(radioButton,driver);
-        jsClick(radioButton,driver);
+        waitForElementToBeClickable(radioButton, driver);
+        jsClick(radioButton, driver);
 
-        waitForElementToBeClickable(trackMilestoneButton,driver);
+        waitForElementToBeClickable(trackMilestoneButton, driver);
         trackMilestoneButton.click();
     }
 
@@ -189,7 +177,7 @@ public class MilestoneTrackPage extends BasePage {
         WebElement element1 = driver.findElement(By.id("tblmilestone"));
         WebElement status1 = element1.findElement(By.name("trackMilestone[0].activities[0].status"));
         WebElement element2 = element1.findElement(By.className("scheduleEndDate_0"));
-        selectFromDropDown(status1,"COMPLETED", driver );
+        selectFromDropDown(status1, "COMPLETED", driver);
         WebElement completionDateBox1 = element1.findElement(By.name("trackMilestone[0].activities[0].completionDate"));
         enterText(completionDateBox1, element2.getText(), driver);
         WebElement status2 = element1.findElement(By.name("trackMilestone[0].activities[1].status"));
@@ -207,18 +195,18 @@ public class MilestoneTrackPage extends BasePage {
 
     public void enterContractorBillDetails(String billType) {
 
-        switch (billType){
-           case "part":
-               selectFromDropDown(billTypeBox, "Part Bill", driver);
-               break;
+        switch (billType) {
+            case "part":
+                selectFromDropDown(billTypeBox, "Part Bill", driver);
+                break;
 
-           case "full":
-               selectFromDropDown(billTypeBox, "Final Bill", driver);
-               enterDate(completionDateTextBox, getFutureDate(62), driver);
-               break;
+            case "full":
+                selectFromDropDown(billTypeBox, "Final Bill", driver);
+                enterDate(completionDateTextBox, getFutureDate(62), driver);
+                break;
         }
 
-        enterText(mbRefNoTextBox, "MB"+get6DigitRandomInt(), driver);
+        enterText(mbRefNoTextBox, "MB" + get6DigitRandomInt(), driver);
         enterText(fromPageNoTextBox, "1", driver);
         enterText(toPageNoTextBox, "10", driver);
         enterDate(mbDateTextBox, getCurrentDate(), driver);
@@ -232,7 +220,7 @@ public class MilestoneTrackPage extends BasePage {
         return billNumber;
     }
 
-    public String successMessage1(){
+    public String successMessage1() {
         String msg = getTextFromWeb(creationMsg1, driver);
         return msg;
     }

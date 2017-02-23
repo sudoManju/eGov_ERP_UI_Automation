@@ -33,9 +33,9 @@ Feature: To create a Financial Transactions
     And current user logs out
 
     Examples:
-    |voucherDetails          |  approvalOfficer1 | approvalOfficer2 |  approvalOfficer3 | isPresent |
-    |voucher1                |  accountOfficer1a | accountOfficer2  |  commissioner     | yes       |
-    |voucherWithOutSubledger |  accountOfficer1a | accountOfficer2  |  commissioner     | no        |
+      | voucherDetails          | approvalOfficer1 | approvalOfficer2 | approvalOfficer3 | isPresent |
+      | voucher1                | accountOfficer1a | accountOfficer2  | commissioner     | yes       |
+      | voucherWithOutSubledger | accountOfficer1a | accountOfficer2  | commissioner     | no        |
 
 
   @Sanity @Finance
@@ -74,9 +74,9 @@ Feature: To create a Financial Transactions
     And current user logs out
 
     Examples:
-      |voucherDetails          | approvalOfficer1 | approvalOfficer2 |  approvalOfficer3 | isPresent |
-      |voucher2                | accountOfficer1a | accountOfficer2  |  commissioner     | yes       |
-      |voucherWithOutSubledger | accountOfficer1a | accountOfficer2  |  commissioner     | no        |
+      | voucherDetails          | approvalOfficer1 | approvalOfficer2 | approvalOfficer3 | isPresent |
+      | voucher2                | accountOfficer1a | accountOfficer2  | commissioner     | yes       |
+      | voucherWithOutSubledger | accountOfficer1a | accountOfficer2  | commissioner     | no        |
 
   @Sanity @Finance
   Scenario Outline: To create a journal voucher as well as payment with different modes
@@ -135,10 +135,10 @@ Feature: To create a Financial Transactions
     And current user logs out
 
     Examples:
-      |voucherDetails        |  approvalOfficer1  | approvalOfficer2  |  approvalOfficer3  | paymentMode  | isPresent |
-      |voucherBillPayment    |  accountOfficer1   | accountOfficer2   |  commissioner      | cheque       | yes       |
-      |voucherBillPayment    |  accountOfficer1   | accountOfficer2   |  commissioner      | cash         | yes       |
-      |voucherBillPayment    |  accountOfficer1   | accountOfficer2   |  commissioner      | RTGS         | yes       |
+      | voucherDetails     | approvalOfficer1 | approvalOfficer2 | approvalOfficer3 | paymentMode | isPresent |
+      | voucherBillPayment | accountOfficer1  | accountOfficer2  | commissioner     | cheque      | yes       |
+      | voucherBillPayment | accountOfficer1  | accountOfficer2  | commissioner     | cash        | yes       |
+      | voucherBillPayment | accountOfficer1  | accountOfficer2  | commissioner     | RTGS        | yes       |
 
 
   @Sanity @Finance
@@ -201,8 +201,8 @@ Feature: To create a Financial Transactions
     And current user logs out
 
     Examples:
-    | billDetails  | approvalOfficer1  | approvalOfficer2  | approvalOfficer3  | approvalOfficer4  | approvalOfficer5 |
-    | expenseBill  | accountOfficer3   | commissioner1     | accountOfficer1   | accountOfficer2   | commissioner     |
+      | billDetails | approvalOfficer1 | approvalOfficer2 | approvalOfficer3 | approvalOfficer4 | approvalOfficer5 |
+      | expenseBill | accountOfficer3  | commissioner1    | accountOfficer1  | accountOfficer2  | commissioner     |
 
 
   @Sanity @Finance
@@ -272,8 +272,8 @@ Feature: To create a Financial Transactions
     And current user logs out
 
     Examples:
-      |voucherDetails     |  approvalOfficer1  | approvalOfficer2  |  approvalOfficer3  | paymentMode  | assignment | isPresent | singleOrMultiple |
-      |voucherBillPayment |  accountOfficer1   | accountOfficer2   |  commissioner      | cheque       | cheque     | yes       | single           |
-      |voucherBillPayment |  accountOfficer1   | accountOfficer2   |  commissioner      | RTGS         | RTGS       | yes       | single           |
+      | voucherDetails     | approvalOfficer1 | approvalOfficer2 | approvalOfficer3 | paymentMode | assignment | isPresent | singleOrMultiple |
+      | voucherBillPayment | accountOfficer1  | accountOfficer2  | commissioner     | cheque      | cheque     | yes       | single           |
+      | voucherBillPayment | accountOfficer1  | accountOfficer2  | commissioner     | RTGS        | RTGS       | yes       | single           |
 
 

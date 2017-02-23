@@ -1,11 +1,5 @@
 package entities.tradeLicense;
 
-
-
-
-/**
- * Created by bimal on 28/12/16.
- */
 public class TradeDetails {
     private String tradeTitle;
     private String tradeType;
@@ -31,7 +25,6 @@ public class TradeDetails {
         this.tradeType = tradeType;
     }
 
-
     public String getTradeCategory() {
         return tradeCategory;
     }
@@ -47,7 +40,6 @@ public class TradeDetails {
     public void setTradeSubCategory(String tradeSubCategory) {
         this.tradeSubCategory = tradeSubCategory;
     }
-
 
     public String gettradeAreaWeightOfPremises() {
         return tradeAreaWeightOfPremises;
@@ -65,8 +57,6 @@ public class TradeDetails {
         this.remarks = remarks;
     }
 
-
-
     public String gettradeCommencementDate() {
         return tradeCommencementDate;
     }
@@ -74,5 +64,4 @@ public class TradeDetails {
     public void setTradeCommencementDate(String tradeCommencementDate) {
         this.tradeCommencementDate = tradeCommencementDate;
     }
-
 }

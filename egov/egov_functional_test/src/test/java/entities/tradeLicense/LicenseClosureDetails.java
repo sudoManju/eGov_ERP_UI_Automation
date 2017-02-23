@@ -1,13 +1,9 @@
 package entities.tradeLicense;
 
-/**
- * Created by tester1 on 1/20/2017.
- */
 public class LicenseClosureDetails {
 
     private String statusDetails;
     private String tradeCategory;
-
 
     public void setStatusDetails(String statusDetails) {
         this.statusDetails = statusDetails;
@@ -20,6 +16,4 @@ public class LicenseClosureDetails {
     }
 
     public String getTradeCategory() { return tradeCategory; }
-
-
 }

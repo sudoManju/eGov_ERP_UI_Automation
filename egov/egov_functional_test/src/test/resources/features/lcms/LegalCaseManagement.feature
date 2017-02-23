@@ -1,15 +1,15 @@
 Feature: In this feature the following are created as well as edited
 
-    1. Create/Edit Legal Case.
-    2. Create/Edit Hearings
-    3. Create/Edit Interim Order
-    4. Create/Edit Judgment
-    5. Create/Edit Judgment Implementation
-    6. Case Closure
+  1. Create/Edit Legal Case.
+  2. Create/Edit Hearings
+  3. Create/Edit Interim Order
+  4. Create/Edit Judgment
+  5. Create/Edit Judgment Implementation
+  6. Case Closure
 
   @Sanity @LegalCaseManagement
   Scenario Outline: It includes the creation and edit of Legal Case , Hearings , Interim Order , Judgement,
-            Judgment Implementation and Case Closure
+  Judgment Implementation and Case Closure
 
     ##########################################################
                   # Creating a Legal Case #
@@ -125,11 +125,11 @@ Feature: In this feature the following are created as well as edited
     And current user logs out
 
     Examples:
-    | legalCaseData | action1       | action2  | action3      | action4      | action5     | action6  | action7      | action8                | implementationMode | action9                    | editImplementationMode| action10  |
-    | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | Yes                | editJudgmentImplementation | edit_Yes              | closeCase |
-    | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | No_Appeal          | editJudgmentImplementation | edit_No_Appeal        | closeCase |
-    | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | No_Contempt        | editJudgmentImplementation | edit_No_Contempt      | closeCase |
-    | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | InProgress         | editJudgmentImplementation | edit_InProgress       | closeCase |
+      | legalCaseData | action1       | action2  | action3      | action4      | action5     | action6  | action7      | action8                | implementationMode | action9                    | editImplementationMode | action10  |
+      | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | Yes                | editJudgmentImplementation | edit_Yes               | closeCase |
+      | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | No_Appeal          | editJudgmentImplementation | edit_No_Appeal         | closeCase |
+      | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | No_Contempt        | editJudgmentImplementation | edit_No_Contempt       | closeCase |
+      | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | InProgress         | editJudgmentImplementation | edit_InProgress        | closeCase |
 
 
 

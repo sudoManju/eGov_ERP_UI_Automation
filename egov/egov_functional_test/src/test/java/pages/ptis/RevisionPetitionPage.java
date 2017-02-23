@@ -71,11 +71,11 @@ public class RevisionPetitionPage extends BasePage {
     }
 
     public void revisionPetitionBlock(RevisionPetitionDetails revisionPetitionDetails) {
-        enterText(revisionPetitionDetailTextBox, revisionPetitionDetails.getRevisionPetitionDetail(),webDriver);
+        enterText(revisionPetitionDetailTextBox, revisionPetitionDetails.getRevisionPetitionDetail(), webDriver);
     }
 
     public void enterHearingDetails(HearingDetails hearingDetails) {
-        enterText(hearingDateTextBox,hearingDetails.getHearingDate(),webDriver);
+        enterText(hearingDateTextBox, hearingDetails.getHearingDate(), webDriver);
         selectFromDropDown(hearingTimeSelection, hearingDetails.getHearingTime(), webDriver);
         enterText(venueTextBox, hearingDetails.getVenue(), webDriver);
         clickOnButton(forwardButton, webDriver);

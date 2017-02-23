@@ -3,12 +3,10 @@ package pages;
 import org.apache.commons.lang.math.RandomUtils;
 import org.junit.Assert;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.pagefactory.ByAll;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.Properties;
-import utils.ScenarioContext;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -67,80 +65,52 @@ public class BasePage {
     }
 
     protected void jsClick(WebElement webElement, WebDriver driver) {
-        waitForElementToBeVisible(webElement,driver);
-        waitForElementToBeClickable(webElement,driver);
+        waitForElementToBeVisible(webElement, driver);
+        waitForElementToBeClickable(webElement, driver);
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", webElement);
     }
+
     protected void jsClickCheckbox(WebElement webElement, WebDriver driver) {
-        waitForElementToBeVisible(webElement,driver);
-        waitForElementToBeClickable(webElement,driver);
+        waitForElementToBeVisible(webElement, driver);
+        waitForElementToBeClickable(webElement, driver);
         ((JavascriptExecutor) driver).executeScript("arguments[0].checked = true;", webElement);
     }
-    protected void enterText(WebElement webElement, String value,WebDriver driver) {
-        waitForElementToBeVisible(webElement,driver);
-        waitForElementToBeClickable(webElement,driver);
+
+    protected void enterText(WebElement webElement, String value, WebDriver driver) {
+        waitForElementToBeVisible(webElement, driver);
+        waitForElementToBeClickable(webElement, driver);
         webElement.clear();
         webElement.sendKeys(value);
     }
 
-//    protected void enterText(WebElement webElement, String value) {
-
-//    protected void jsClick(WebElement webElement, WebDriver webDriver) {
-//        ((JavascriptExecutor) webDriver).executeScript("arguments[0].click();", webElement);
-//    }
-//
-//    protected void jsClickCheckbox(WebElement webElement, WebDriver webDriver) {
-//        ((JavascriptExecutor) webDriver).executeScript("arguments[0].checked = true;", webElement);
-//    }
-//
-//
-//    protected void enterText(WebElement webElement, String value) {
-//        webElement.clear();
-//        webElement.sendKeys(value);
-//    }
-
-//    protected void jsClick(WebElement webElement, WebDriver driver) {
-//        waitForElementToBeVisible(webElement,driver);
-//        waitForElementToBeClickable(webElement,driver);
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", webElement);
-//    }
-//    protected void jsClickCheckbox(WebElement webElement, WebDriver driver) {
-//        waitForElementToBeVisible(webElement,driver);
-//        waitForElementToBeClickable(webElement,driver);
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].checked = true;", webElement);
-//    }
-//    protected void enterText(WebElement webElement, String value,WebDriver driver) {
-//        waitForElementToBeVisible(webElement,driver);
-//        waitForElementToBeClickable(webElement,driver);
-//        webElement.clear();
-//        webElement.sendKeys(value);
-//    }
-    protected void selectFromDropDown(WebElement webElement,String value,WebDriver driver){
-        waitForElementToBeVisible(webElement,driver);
-        waitForElementToBeClickable(webElement,driver);
+    protected void selectFromDropDown(WebElement webElement, String value, WebDriver driver) {
+        waitForElementToBeVisible(webElement, driver);
+        waitForElementToBeClickable(webElement, driver);
         new Select(webElement).selectByVisibleText(value);
     }
-    protected void clickOnButton(WebElement webElement,WebDriver driver){
-        waitForElementToBeVisible(webElement,driver);
-        waitForElementToBeClickable(webElement,driver);
+
+    protected void clickOnButton(WebElement webElement, WebDriver driver) {
+        waitForElementToBeVisible(webElement, driver);
+        waitForElementToBeClickable(webElement, driver);
         webElement.click();
     }
 
-    protected String getTextFromWeb(WebElement webElement , WebDriver driver){
-        waitForElementToBeVisible(webElement , driver);
+    protected String getTextFromWeb(WebElement webElement, WebDriver driver) {
+        waitForElementToBeVisible(webElement, driver);
         return webElement.getText();
     }
 
-    protected void uploadFile(WebElement element , String filePath , WebDriver driver){
-        waitForElementToBeVisible(element , driver);
+    protected void uploadFile(WebElement element, String filePath, WebDriver driver) {
+        waitForElementToBeVisible(element, driver);
         element.sendKeys(filePath);
     }
-      protected void enterDate(WebElement webElement,String date,WebDriver driver){
-          waitForElementToBeVisible(webElement,driver);
-          waitForElementToBeClickable(webElement,driver);
-          webElement.clear();
-          webElement.sendKeys(date,Keys.TAB);
-      }
+
+    protected void enterDate(WebElement webElement, String date, WebDriver driver) {
+        waitForElementToBeVisible(webElement, driver);
+        waitForElementToBeClickable(webElement, driver);
+        webElement.clear();
+        webElement.sendKeys(date, Keys.TAB);
+    }
 
     protected void switchToNewlyOpenedWindow(WebDriver driver) {
         await().atMost(20, SECONDS).until(() -> driver.getWindowHandles().size() > 1);
@@ -152,11 +122,12 @@ public class BasePage {
     protected void switchToPreviouslyOpenedWindow(WebDriver driver) {
         await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
         for (String winHandle : driver.getWindowHandles()) {
-        driver.switchTo().window(winHandle);
+            driver.switchTo().window(winHandle);
         }
     }
 
-    protected String get6DigitRandomInt() {return String.valueOf((100000 + RandomUtils.nextInt(900000)));
+    protected String get6DigitRandomInt() {
+        return String.valueOf((100000 + RandomUtils.nextInt(900000)));
     }
 
     protected String getCurrentDate() {
@@ -186,28 +157,26 @@ public class BasePage {
         return dateFormat.format(cal.getTime());
     }
 
-    protected void maximizeBrowserWindow(WebDriver webDriver){
+    protected void maximizeBrowserWindow(WebDriver webDriver) {
         webDriver.manage().window().maximize();
-        webDriver.manage().timeouts().implicitlyWait(10 , TimeUnit.SECONDS);
+        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
-    protected void refreshBrowserWindow(WebDriver webDriver){
+    protected void refreshBrowserWindow(WebDriver webDriver) {
         webDriver.navigate().refresh();
     }
 
-    public void isSuccesful(String expectedMessage,String actualMessage){
+    public void isSuccesful(String expectedMessage, String actualMessage) {
         Boolean found = Arrays.asList(actualMessage.split("\\ ")).contains(expectedMessage);
         Assert.assertTrue(found);
-//        Assert.assertEquals(expectedMessage,actualMessage);
     }
 
-    protected String getEnvironmentURL(){
+    protected String getEnvironmentURL() {
         String env = System.getProperty("env");
         String url = null;
-        if(env.equals("staging")) {
+        if (env.equals("staging")) {
             url = "http://kurnool-uat.egovernments.org";
-        }
-        else if(env.equals("qa")){
+        } else if (env.equals("qa")) {
             url = "http://kurnool-qa.egovernments.org";
         }
         return url;

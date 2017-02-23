@@ -6,24 +6,20 @@ import excelDataFiles.GrievanceDataReader;
 import org.junit.Assert;
 import pages.Grievances.GrievancesPage;
 import steps.BaseSteps;
-import excelDataFiles.ExcelReader;
 
-/**
- * Created by tester1 on 1/23/2017.
- */
 public class GrievancesSteps extends BaseSteps implements En {
     public GrievancesSteps() {
-        When ("^he choose to register a complaint$", () -> {
+        When("^he choose to register a complaint$", () -> {
             pageStore.get(GrievancesPage.class).openCreateGrievancePage();
         });
 
         And("^he choose to enter contact information as (\\w+)$", (String contactInfo) -> {
-           CreateComplaintDetails createComplaintDetails=new GrievanceDataReader(grievanceTestDataFileName).getCitizenContactDetails(contactInfo);
-           pageStore.get(GrievancesPage.class).enterCitizenContactDetails(createComplaintDetails);
+            CreateComplaintDetails createComplaintDetails = new GrievanceDataReader(grievanceTestDataFileName).getCitizenContactDetails(contactInfo);
+            pageStore.get(GrievancesPage.class).enterCitizenContactDetails(createComplaintDetails);
         });
 
         And("^he choose to enter grievance details as (\\w+)$", (String grievanceDetails) -> {
-            CreateComplaintDetails createComplaintDetails= new GrievanceDataReader(grievanceTestDataFileName).getGrievanceDetails(grievanceDetails);
+            CreateComplaintDetails createComplaintDetails = new GrievanceDataReader(grievanceTestDataFileName).getGrievanceDetails(grievanceDetails);
             scenarioContext.setActualMessage(pageStore.get(GrievancesPage.class).enterGrievanceDetails(createComplaintDetails));
         });
 
@@ -33,9 +29,9 @@ public class GrievancesSteps extends BaseSteps implements En {
         });
 
         And("^he copies CRN and closes the acknowledgement$", () -> {
-           String CRN= pageStore.get(GrievancesPage.class).getCRN();
+            String CRN = pageStore.get(GrievancesPage.class).getCRN();
             scenarioContext.setApplicationNumber(CRN);
-           Assert.assertNotNull(scenarioContext.getApplicationNumber());
+            Assert.assertNotNull(scenarioContext.getApplicationNumber());
         });
 
         And("^he mark status as (\\w+)$", (String status) -> {
@@ -47,12 +43,11 @@ public class GrievancesSteps extends BaseSteps implements En {
         });
 
         And("^he search complaint in his Inbox$", () -> {
-           pageStore.get(GrievancesPage.class).searchInCitizenInbox(scenarioContext.getApplicationNumber());
+            pageStore.get(GrievancesPage.class).searchInCitizenInbox(scenarioContext.getApplicationNumber());
         });
 
         And("^he (.*) the complaint$", (String complaintStatus) -> {
             pageStore.get(GrievancesPage.class).withdrawComplaint(complaintStatus);
         });
-
     }
 }

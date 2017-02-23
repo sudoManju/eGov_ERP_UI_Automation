@@ -18,7 +18,6 @@ public class FloorDetails {
     private String buildingPermissionDate;
     private String plinthAreaInBuildingPlan;
 
-
     public String getEffectiveFromDate() {
         return effectiveFromDate;
     }

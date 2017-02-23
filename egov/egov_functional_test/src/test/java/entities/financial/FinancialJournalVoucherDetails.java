@@ -19,7 +19,6 @@ public class FinancialJournalVoucherDetails {
     private String ledgerCode1;
     private String ledgerCode2;
 
-
     public String getDebitAmount1() {
         return debitAmount1;
     }

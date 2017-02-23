@@ -1,9 +1,5 @@
 package entities.ptis;
 
-
-/**
- * Created by bimal on 23/11/16.
- */
 public class EditAssessmentDetails {
 
     private String extentOfSite;

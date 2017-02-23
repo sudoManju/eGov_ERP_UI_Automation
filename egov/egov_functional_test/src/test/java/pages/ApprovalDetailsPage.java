@@ -15,13 +15,13 @@ public class ApprovalDetailsPage extends BasePage {
     @FindBy(id = "approvalDepartment")
     private WebElement approvalDepartmentSelect;
 
-    @FindBy(id= "approvalDesignation")
+    @FindBy(id = "approvalDesignation")
     private WebElement approvalDesignationSelect;
 
-    @FindBy(id= "approvalPosition")
+    @FindBy(id = "approvalPosition")
     private WebElement approvalPositionSelect;
 
-    @FindBy(id= "inc_messge")
+    @FindBy(id = "inc_messge")
     private WebElement incMessageTextBox;
 
     @FindBy(xpath = ".//*[@id='complaintUpdate']/div[6]/div/button[1]")
@@ -54,10 +54,10 @@ public class ApprovalDetailsPage extends BasePage {
     @FindBy(id = "Forward")
     private WebElement forwardButton;
 
-    @FindBy (id = "approvalDepartment")
+    @FindBy(id = "approvalDepartment")
     private WebElement approvalDepartmentSelection;
 
-    @FindBy (id = "approvalDesignation")
+    @FindBy(id = "approvalDesignation")
     private WebElement approvalDesignationSelection;
 
     public ApprovalDetailsPage(WebDriver webDriver) {
@@ -74,21 +74,17 @@ public class ApprovalDetailsPage extends BasePage {
 
     public void enterApproverDetails(ApprovalDetailsNew approvalDetailsNew) {
 
-        selectFromDropDown(approverDepartmentSelection , approvalDetailsNew.getApproverDepartment() ,webDriver);
+        selectFromDropDown(approverDepartmentSelection, approvalDetailsNew.getApproverDepartment(), webDriver);
         await().atMost(10, SECONDS).until(() -> new Select(approverDesignationSelection).getOptions().size() > 1);
 
-        selectFromDropDown(approverDesignationSelection , approvalDetailsNew.getApproverDesignation() ,webDriver);
+        selectFromDropDown(approverDesignationSelection, approvalDetailsNew.getApproverDesignation(), webDriver);
         await().atMost(10, SECONDS).until(() -> new Select(approverSelection).getOptions().size() > 1);
 
-        selectFromDropDown(approverSelection , approvalDetailsNew.getApprover() ,webDriver);
+        selectFromDropDown(approverSelection, approvalDetailsNew.getApprover(), webDriver);
 
-        if(approverCommentsTextBox.isDisplayed()) {
+        if (approverCommentsTextBox.isDisplayed()) {
             enterText(approverCommentsTextBox, approvalDetailsNew.getApproverRemarks(), webDriver);
         }
-
-//        forward();
-//
-//        switchToNewlyOpenedWindow(webDriver);
     }
 
     public void enterApprovalDetails(ApprovalDetailsNew approvalDetailsNew) {
@@ -104,15 +100,10 @@ public class ApprovalDetailsPage extends BasePage {
         if(approverCommentsTextBox.isDisplayed()) {
             enterText(approvalCommentsTextBox, approvalDetailsNew.getApproverRemarks(), webDriver);
         }
-
-//        forward();
-//
-//        switchToNewlyOpenedWindow(webDriver);
     }
 
-
     public void forward() {
-        clickOnButton(forwardButton , webDriver);
+        clickOnButton(forwardButton, webDriver);
     }
 
     public void createGrievance() {

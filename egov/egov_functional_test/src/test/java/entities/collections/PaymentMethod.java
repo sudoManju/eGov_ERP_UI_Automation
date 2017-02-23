@@ -1,8 +1,5 @@
 package entities.collections;
 
-/**
- * Created by karthik on 18/1/17.
- */
 public class PaymentMethod {
 
     private String chequeNumber;

@@ -99,6 +99,4 @@ public class LocalDriver {
     private boolean isMac() {
         return SystemUtils.IS_OS_MAC;
     }
-
-
 }

@@ -4,11 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
-import java.util.Calendar;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
@@ -131,78 +128,78 @@ public class NewSewerageConnectionPage extends BasePage {
     }
 
     public void createNewConnection(String assessmentNumber) {
-        enterText(PTAssessmentNumberTextBox,assessmentNumber,driver);
-        selectFromDropDown(propertyTypeDropBox,"RESIDENTIAL",driver);
-        enterText(noOfClosetsTextBox,"3",driver);
-        enterText(documentNumberTextBox,"123",driver);
-        enterDate(documentDateTextBox,getCurrentDate(),driver);
-        uploadFile(chooseFileButton,System.getProperty("user.dir") + "/src/test/resources/logo.jpg",driver);
+        enterText(PTAssessmentNumberTextBox, assessmentNumber, driver);
+        selectFromDropDown(propertyTypeDropBox, "RESIDENTIAL", driver);
+        enterText(noOfClosetsTextBox, "3", driver);
+        enterText(documentNumberTextBox, "123", driver);
+        enterDate(documentDateTextBox, getCurrentDate(), driver);
+        uploadFile(chooseFileButton, System.getProperty("user.dir") + "/src/test/resources/logo.jpg", driver);
     }
 
     public void forward() {
-          clickOnButton(forwardButton,driver);
+        clickOnButton(forwardButton, driver);
     }
 
     public String getSuccessMessage() {
-        return getTextFromWeb(successMessageForSewerageConnectionText,driver);
+        return getTextFromWeb(successMessageForSewerageConnectionText, driver);
     }
 
     public String getSuccessMessageForChangeSewerage() {
-          return  getTextFromWeb(getSuccessMessageForChangeSewerageConnectionText,driver);
+        return getTextFromWeb(getSuccessMessageForChangeSewerageConnectionText, driver);
     }
 
     public String getSuccessMessage1() {
-        return getTextFromWeb(successMessageForSewerageConnectionText1,driver);
+        return getTextFromWeb(successMessageForSewerageConnectionText1, driver);
     }
 
-    public String getApplicationNumberForLegacyCreation(){
-        String num1 = successMessageForSewerageConnectionText1.getText().split("\\ ")[5].substring(1,14);
+    public String getApplicationNumberForLegacyCreation() {
+        String num1 = successMessageForSewerageConnectionText1.getText().split("\\ ")[5].substring(1, 14);
         return num1;
     }
 
     public String getSuccessMessage1ForChangeSewerage() {
-        return getTextFromWeb(successMessageForChangeSewerageConnectionText1,driver);
+        return getTextFromWeb(successMessageForChangeSewerageConnectionText1, driver);
     }
 
     public String getApplicatioNumber() {
-        waitForElementToBeVisible(applicationNumberText,driver);
-        String num1 = applicationNumberText.getText().split("\\ ")[5].substring(1,14);
+        waitForElementToBeVisible(applicationNumberText, driver);
+        String num1 = applicationNumberText.getText().split("\\ ")[5].substring(1, 14);
         return num1;
     }
 
     public String getApplicatioNumberForChangeSewerage() {
-        waitForElementToBeVisible(applicationNumberTextForChange,driver);
-        String num1 = applicationNumberTextForChange.getText().split("\\ ")[5].substring(1,14);
+        waitForElementToBeVisible(applicationNumberTextForChange, driver);
+        String num1 = applicationNumberTextForChange.getText().split("\\ ")[5].substring(1, 14);
         return num1;
     }
 
     public void close() {
-      clickOnButton(closeLink,driver);
-      switchToPreviouslyOpenedWindow(driver);
+        clickOnButton(closeLink, driver);
+        switchToPreviouslyOpenedWindow(driver);
     }
 
     public void searchForApplicationNumberToCollect(String number) {
-        enterText(applicationNumberTextBox,number,driver);
-        clickOnButton(searchButton,driver);
-        waitForElementToBeVisible(searchResultsTable,driver);
+        enterText(applicationNumberTextBox, number, driver);
+        clickOnButton(searchButton, driver);
+        waitForElementToBeVisible(searchResultsTable, driver);
         WebElement dropDownAction = searchResultsTable.findElement(By.tagName("tbody")).findElement(By.tagName("tr")).findElements(By.tagName("td")).get(8).findElement(By.className("actiondropdown"));
-        selectFromDropDown(dropDownAction,"Collect Fee",driver);
+        selectFromDropDown(dropDownAction, "Collect Fee", driver);
         switchToNewlyOpenedWindow(driver);
     }
 
     public void collectCharges() {
-        waitForElementToBeVisible(amountToBePaidText,driver);
+        waitForElementToBeVisible(amountToBePaidText, driver);
         String amount = amountToBePaidText.getAttribute("value");
         String actualAmount = amount.split("\\.")[0];
-        enterText(amountToBePaidTextBox,actualAmount,driver);
-        jsClick(payButton,driver);
-     }
+        enterText(amountToBePaidTextBox, actualAmount, driver);
+        jsClick(payButton, driver);
+    }
 
     public void closeMultipleWindows(String s) {
-        clickOnButton(closeButton,driver);
+        clickOnButton(closeButton, driver);
 
         for (String winHandle : driver.getWindowHandles()) {
-            if(driver.switchTo().window(winHandle).getCurrentUrl().equals(getEnvironmentURL()+s)){
+            if (driver.switchTo().window(winHandle).getCurrentUrl().equals(getEnvironmentURL() + s)) {
                 break;
             }
         }
@@ -210,94 +207,96 @@ public class NewSewerageConnectionPage extends BasePage {
         close();
     }
 
-    public void approveTheApplication() {;
-        enterText(approverCommentTextBox,"Approved",driver);
-        clickOnButton(approveButton,driver);
+    public void approveTheApplication() {
+        ;
+        enterText(approverCommentTextBox, "Approved", driver);
+        clickOnButton(approveButton, driver);
     }
 
-    public void generateEstimationNotice() {;
-          enterText(approverCommentTextBox,"Generated estimate notice",driver);
-          clickOnButton(generateEstimationNoticeButton,driver);
-          await().atMost(3, SECONDS);
-          driver.close();
-          switchToPreviouslyOpenedWindow(driver);
+    public void generateEstimationNotice() {
+        ;
+        enterText(approverCommentTextBox, "Generated estimate notice", driver);
+        clickOnButton(generateEstimationNoticeButton, driver);
+        await().atMost(3, SECONDS);
+        driver.close();
+        switchToPreviouslyOpenedWindow(driver);
     }
 
     public void generateWorkOrder(String num) {
-        clickOnButton(generateWorkOrderLink,driver);
+        clickOnButton(generateWorkOrderLink, driver);
         switchToNewlyOpenedWindow(driver);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.close();
         for (String winHandle : driver.getWindowHandles()) {
-                if (driver.switchTo().window(winHandle).getCurrentUrl().equals(getEnvironmentURL()+"/stms/transactions/update/" + num)) {
-                    break;
-                }
+            if (driver.switchTo().window(winHandle).getCurrentUrl().equals(getEnvironmentURL() + "/stms/transactions/update/" + num)) {
+                break;
             }
         }
-
-    public void executeConnection() {
-          clickOnButton(executeConnectionButton,driver);
     }
 
-    public void searchForAboveSewerageConnection(String number,String action) {
-        enterDate(applicationNumberTextBox,number,driver);
-        clickOnButton(searchButton,driver);
-        waitForElementToBeVisible(searchResultsTable,driver);
+    public void executeConnection() {
+        clickOnButton(executeConnectionButton, driver);
+    }
+
+    public void searchForAboveSewerageConnection(String number, String action) {
+        enterDate(applicationNumberTextBox, number, driver);
+        clickOnButton(searchButton, driver);
+        waitForElementToBeVisible(searchResultsTable, driver);
         WebElement dropDownAction = searchResultsTable.findElement(By.tagName("tbody")).findElement(By.tagName("tr")).findElements(By.tagName("td")).get(1).findElement(By.tagName("a"));
         String hscNumber = dropDownAction.getText();
-        driver.navigate().to(getEnvironmentURL()+"/stms/transactions/" + action + "/" + hscNumber);
+        driver.navigate().to(getEnvironmentURL() + "/stms/transactions/" + action + "/" + hscNumber);
     }
 
     public void increseTheNumberOfClosets() {
-        enterText(noOfClosetsTextBox,"5",driver);
-        enterText(documentNumberTextBox,"123",driver);
-        enterDate(documentDateTextBox,getCurrentDate(),driver);
-        uploadFile(chooseFileButton,System.getProperty("user.dir") + "/src/test/resources/logo.jpg",driver);
+        enterText(noOfClosetsTextBox, "5", driver);
+        enterText(documentNumberTextBox, "123", driver);
+        enterDate(documentDateTextBox, getCurrentDate(), driver);
+        uploadFile(chooseFileButton, System.getProperty("user.dir") + "/src/test/resources/logo.jpg", driver);
     }
 
     public void remarks() {
-          enterText(closeConnectionRemarksTextBox,"Testing...",driver);
+        enterText(closeConnectionRemarksTextBox, "Testing...", driver);
     }
 
     public String getApplicatioNumberForClosure() {
-        waitForElementToBeVisible(getApplicationNumberTextForClosure,driver);
-        String num1 = getApplicationNumberTextForClosure.getText().split("\\ ")[4].substring(1,14);
+        waitForElementToBeVisible(getApplicationNumberTextForClosure, driver);
+        String num1 = getApplicationNumberTextForClosure.getText().split("\\ ")[4].substring(1, 14);
         return num1;
     }
 
     public String getSuccessMessageForClosure() {
-        return getTextFromWeb(getSuccessMessageForSewerageConnectionClosure,driver);
+        return getTextFromWeb(getSuccessMessageForSewerageConnectionClosure, driver);
     }
 
     public void generateClosureNotice() {
-        clickOnButton(generateClosureNoticeButton,driver);
-        driver.manage().timeouts().implicitlyWait(2,TimeUnit.SECONDS);
+        clickOnButton(generateClosureNoticeButton, driver);
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         driver.close();
         switchToPreviouslyOpenedWindow(driver);
     }
 
     public void enterDetailsForLegacySewerageConnection(String assessmentNumber) {
-        enterText(PTAssessmentNumberTextBox,assessmentNumber,driver);
-        enterText(hscNumberTextBox,"1016"+get6DigitRandomInt(),driver);
-        enterText(executionDateTextBox,getPreviousDate(),driver);
-        enterText(demandTextBox,"1000",driver);
-        enterText(collectionTextBox,"0",driver);
-        selectFromDropDown(propertyTypeDropBox,"RESIDENTIAL",driver);
-        enterText(noOfClosetsTextBox,"3",driver);
+        enterText(PTAssessmentNumberTextBox, assessmentNumber, driver);
+        enterText(hscNumberTextBox, "1016" + get6DigitRandomInt(), driver);
+        enterText(executionDateTextBox, getPreviousDate(), driver);
+        enterText(demandTextBox, "1000", driver);
+        enterText(collectionTextBox, "0", driver);
+        selectFromDropDown(propertyTypeDropBox, "RESIDENTIAL", driver);
+        enterText(noOfClosetsTextBox, "3", driver);
     }
 
     public void submit() {
-        clickOnButton(submitButton,driver);
+        clickOnButton(submitButton, driver);
     }
 
     public void searchAndGenerateDemandBill(String number) {
-        enterText(applicationNumberTextBox,number,driver);
-        clickOnButton(searchButton,driver);
-        waitForElementToBeVisible(searchResultsTable,driver);
+        enterText(applicationNumberTextBox, number, driver);
+        clickOnButton(searchButton, driver);
+        waitForElementToBeVisible(searchResultsTable, driver);
         WebElement dropDownAction = searchResultsTable.findElement(By.tagName("tbody")).findElement(By.tagName("tr")).findElements(By.tagName("td")).get(1).findElement(By.tagName("a"));
         String hscNumber = dropDownAction.getText();
-        driver.navigate().to(getEnvironmentURL()+"/stms/reports/generate-sewerage-demand-bill/" + number + "/" + hscNumber);
-        driver.manage().timeouts().implicitlyWait(15,TimeUnit.SECONDS);
+        driver.navigate().to(getEnvironmentURL() + "/stms/reports/generate-sewerage-demand-bill/" + number + "/" + hscNumber);
+        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
         driver.close();
         switchToPreviouslyOpenedWindow(driver);
     }
