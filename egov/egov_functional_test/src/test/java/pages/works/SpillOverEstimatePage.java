@@ -131,18 +131,6 @@ public class SpillOverEstimatePage extends BasePage
     @FindBy(id = "tempLineEstimateDetails0.uom")
      private WebElement estimateUOMBox;
 
-    @FindBy(id = "approvalDepartment")
-    private WebElement approverDepartment;
-
-    @FindBy(id = "approvalDesignation")
-    private WebElement approverDesignation;
-
-    @FindBy(id = "approvalPosition")
-    private WebElement approver;
-
-    @FindBy(id = "approvalComent")
-    private WebElement approverComment;
-
     @FindBy(css = "input[id='Forward'][type='submit']")
     private WebElement forwardButton;
 
@@ -218,93 +206,48 @@ public class SpillOverEstimatePage extends BasePage
         enterText(estimateEstimateAmountBox,workDetails.getEstimatedAmount(), webDriver);
     }
 
-    public void enterApproverDetails(ApproverDetails approverDetails) {
-     selectFromDropDown(approverDepartment, approverDetails.getApproverDepartment(), webDriver);
-
-     for (int i=0;i<4;i++) {
-         try {
-               clickOnButton(approverDesignation, webDriver);
-               selectFromDropDown(approverDesignation, approverDetails.getApproverDesignation(), webDriver);
-           } catch (StaleElementReferenceException e) {
-               WebElement element1 = webDriver.findElement(By.id("approvalDesignation"));
-               clickOnButton(element1, webDriver);
-               selectFromDropDown(element1, approverDetails.getApprover(), webDriver);
-           }
-     }
-
-   for (int i=0;i<4;i++) {
-            try {
-                waitForElementToBeClickable(approver, webDriver);
-                approver.click();
-                new Select(approver).selectByVisibleText(approverDetails.getApprover());
-            } catch (StaleElementReferenceException e) {
-                WebElement element2 = webDriver.findElement(By.id("approvalPosition"));
-                waitForElementToBeClickable(element2, webDriver);
-                element2.click();
-                new Select(element2).selectByVisibleText(approverDetails.getApprover());
-            }
-    }
-
-     enterText(approverComment,approverDetails.getApproverComment(), webDriver);
-    }
-
     public String forwardToDEE() {
-     waitForElementToBeClickable(forwardButton,webDriver);
-     forwardButton.click();
+       clickOnButton(forwardButton,webDriver);
 
-        waitForElementToBeVisible(creationMsg,webDriver);
-        String Msg = creationMsg.getText();
-        String number =  Msg.substring(Msg.lastIndexOf(" ")+1);
-        String num = number.substring(0, number.length()-1);
+       waitForElementToBeVisible(creationMsg,webDriver);
+       String Msg = creationMsg.getText();
+       String number =  Msg.substring(Msg.lastIndexOf(" ")+1);
+       String num = number.substring(0, number.length()-1);
 
-        System.out.println(num);
-
-         return num;
+       return num;
     }
 
     public String successMessage(){
-        String msg =getTextFromWeb(creationMsg, webDriver);
-        return msg;
+        return getTextFromWeb(creationMsg, webDriver);
     }
 
     public void adminSanctionNumber() {
-        waitForElementToBeClickable(adminSanctionNumberTextBox,webDriver);
-        adminSanctionNumberTextBox.sendKeys("ASN"+get6DigitRandomInt());
+        enterText(adminSanctionNumberTextBox,"ASN"+get6DigitRandomInt(),webDriver);
     }
 
     public void detailsForApprove() {
-        waitForElementToBeVisible(estimateAmountTextBox,webDriver);
-        String amount = estimateAmountTextBox.getText();
+        String amount = getTextFromWeb(estimateAmountTextBox,webDriver);
         String actualAmount = amount.split("\\.")[0];
-        waitForElementToBeClickable(actualAmountTextBox,webDriver);
-        actualAmountTextBox.sendKeys(actualAmount);
+        enterText(actualAmountTextBox,actualAmount,webDriver);
 
-        waitForElementToBeClickable(technicalSanctionNumberTextBox,webDriver);
-        technicalSanctionNumberTextBox.sendKeys("TSN"+get6DigitRandomInt());
-        waitForElementToBeClickable(technicalSanctionDateTextBox,webDriver);
-        technicalSanctionDateTextBox.sendKeys(getCurrentDate());
-        technicalSanctionDateTextBox.sendKeys(Keys.TAB);
-        approverComment.sendKeys("Approved");
+        enterText(technicalSanctionNumberTextBox,"TSN"+get6DigitRandomInt(),webDriver);
+        enterDate(technicalSanctionDateTextBox,getCurrentDate(),webDriver);
     }
 
     public void saveAndClose() {
-        waitForElementToBeVisible(saveButton, webDriver);
-        saveButton.click();
+          clickOnButton(saveButton,webDriver);
     }
 
     public void approve() {
-        waitForElementToBeClickable(approveButton,webDriver);
-        approveButton.click();
+        clickOnButton(approveButton,webDriver);
     }
 
     public void submit() {
-        waitForElementToBeClickable(submitButton, webDriver);
-        submitButton.click();
+        clickOnButton(submitButton,webDriver);
     }
 
     public void close() {
-        waitForElementToBeVisible(closeButton, webDriver);
-        closeButton.click();
+        clickOnButton(closeButton,webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
     }
 }
