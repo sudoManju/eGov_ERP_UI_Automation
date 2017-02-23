@@ -76,9 +76,6 @@ public class TradeLicensePage extends BasePage {
     @FindBy(id = "applicationNumber")
     private WebElement applicationNumberTextBox;
 
-    @FindBy(id = "searchtree")
-    private WebElement searchTreeBox;
-
     @FindBy(id = "btnsearch")
     private WebElement searchButton;
 
@@ -120,9 +117,6 @@ public class TradeLicensePage extends BasePage {
 
     @FindBy(id = "inactive")
     private WebElement includeInactiveElementCheck;
-
-    @FindBy(xpath = ".//*[@id='viewTradeLicense']/div/input")
-    private WebElement closeButton1;
 
     @FindBy(id = "parentBoundary")
     private WebElement wardSelect;
@@ -197,8 +191,8 @@ public class TradeLicensePage extends BasePage {
         clickOnButton(searchButton, webDriver);
     }
 
-    public void chooseCollectFees() {
-      selectFromDropDown(collectFeeDropBox,"Collect Fees",webDriver);
+    public void chooseAction(String action) {
+      selectFromDropDown(collectFeeDropBox,action,webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
@@ -233,9 +227,6 @@ public class TradeLicensePage extends BasePage {
         selectFromDropDown(statusSelect,closureDetails.getStatusDetails(),webDriver);
         selectFromDropDown(TradeCategoryDropBox,closureDetails.getTradeCategory(),webDriver);
         jsClick(searchButton,webDriver);
-        selectFromDropDown(collectFeeDropBox,"Closure",webDriver);
-        switchToNewlyOpenedWindow(webDriver);
-
     }
 
     public String getLicenseNumber() {
@@ -249,6 +240,7 @@ public class TradeLicensePage extends BasePage {
         webDriver.close();
         switchToPreviouslyOpenedWindow(webDriver);
     }
+// to be removed
 
     public void applicationApproval() {
 
@@ -307,8 +299,6 @@ public class TradeLicensePage extends BasePage {
     }
 
     public void chooseToRenewLicense() {
-        selectFromDropDown(collectFeeDropBox,"Renew License",webDriver);
-        switchToNewlyOpenedWindow(webDriver);
         jsClick(saveButton,webDriver);
         jsClick(closeButton, webDriver);
         switchToNewlyOpenedWindow(webDriver);

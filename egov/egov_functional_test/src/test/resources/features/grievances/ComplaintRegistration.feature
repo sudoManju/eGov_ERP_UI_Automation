@@ -8,10 +8,9 @@ Feature: Register Complaint
     Given citizen logs in
     When he choose to register complaint with his login
     And he choose to enter grievance details as <grievanceDetails>
-    And citizen create grievance
     And user will be notified by "successfully"
     And he copies CRN and closes the acknowledgement
-    And current user sign out
+    And citizen sign out
 
     When LightingSuperintendent logs in
     And he chooses to act upon above application number
@@ -30,9 +29,8 @@ Feature: Register Complaint
    And user will select the required screen as "Officials Register Grievance"
    And he choose to enter contact information as <contactDetails>
    And he choose to enter grievance details as <grievanceDetails>
-   And official create grievance
    And user will be notified by "successfully"
-   And official copies CRN and closes the acknowledgement
+   And he copies CRN and closes the acknowledgement
    And current user logs out
 
     Examples:
@@ -46,9 +44,8 @@ Feature: Register Complaint
     And user will select the required screen as "Officials Register Grievance"
     And he choose to enter contact information as <contactDetails>
     And he choose to enter grievance details as <grievanceDetails>
-    And official create grievance
     And user will be notified by "successfully"
-    And official copies CRN and closes the acknowledgement
+    And he copies CRN and closes the acknowledgement
     And he chooses to act upon above application number
     And he forwards for approver sanitaryInspector1
     And current user logs out
@@ -77,10 +74,9 @@ Feature: Register Complaint
     Given citizen logs in
     When he choose to register complaint with his login
     And he choose to enter grievance details as <grievanceDetails>
-    And citizen create grievance
     And user will be notified by "successfully"
     And he copies CRN and closes the acknowledgement
-    And current user sign out
+    And citizen sign out
 
     When LightingSuperintendent logs in
     And he chooses to act upon above application number
@@ -111,12 +107,11 @@ Feature: Register Complaint
      Given citizen logs in
      When he choose to register complaint with his login
      And he choose to enter grievance details as <grievanceDetails>
-     And citizen create grievance
      And user will be notified by "successfully"
      And he copies CRN and closes the acknowledgement
      And he search complaint in his Inbox
      And he WITHDRAWN the complaint
-     And current user sign out
+     And citizen sign out
 
      Examples:
        |grievanceDetails|
@@ -129,10 +124,9 @@ Feature: Register Complaint
     Given citizen logs in
     When he choose to register complaint with his login
     And he choose to enter grievance details as <grievanceDetails>
-    And citizen create grievance
     And user will be notified by "successfully"
     And he copies CRN and closes the acknowledgement
-    And current user sign out
+    And citizen sign out
 
     When LightingSuperintendent logs in
     And he chooses to act upon above application number
@@ -143,7 +137,7 @@ Feature: Register Complaint
     When citizen logs in
     And he search complaint in his Inbox
     And he REOPENED the complaint
-    And current user sign out
+    And citizen sign out
 
     Examples:
       |grievanceDetails|

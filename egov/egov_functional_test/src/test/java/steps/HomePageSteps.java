@@ -1,5 +1,6 @@
 package steps;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.LoginDetails;
 import pages.BasePage;
@@ -30,5 +31,9 @@ public class HomePageSteps extends BaseSteps implements En {
         Given("^user log on to the website$", () -> {
             pageStore.get(HomePage.class).visitWebsite();
         });
+        And("^citizen sign out$", () -> {
+            pageStore.get(HomePage.class).signOut();
+        });
+
     }
 }

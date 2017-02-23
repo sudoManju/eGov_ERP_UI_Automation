@@ -32,6 +32,12 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "html/body/div[1]/header/nav/div/div[1]/a/img")
     private WebElement logo;
 
+    @FindBy(css = ".dropdown-toggle")
+    private WebElement profileLink;
+
+    @FindBy(linkText = "Sign out")
+    private WebElement signOutLink;
+
     public HomePage(WebDriver driver) {
         this.driver = driver;
     }
@@ -68,5 +74,13 @@ public class HomePage extends BasePage {
 
     public void visitWebsite() {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    }
+
+
+    public void signOut() {
+        clickOnButton(profileLink, driver);
+        clickOnButton(profileLink, driver);
+        clickOnButton(signOutLink, driver);
+
     }
 }

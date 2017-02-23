@@ -37,7 +37,7 @@ Feature: Create Trade License
 #    And he choose to search trade license
     And user will select the required screen as "Search Trade License"
     And he search existing application number
-    And he choose to collectfees
+    And he choose action "Collect Fees"
     And he choose to payTax of applicationNumber
     And he chooses to act upon above application number
 
@@ -90,7 +90,8 @@ Feature: Create Trade License
   Scenario Outline: Registered user choose for trade license closure
     Given creator logs in
     And user will select the required screen as "Search Trade License"
-    And he choose a trade license for closure as <closure>
+    And he choose a trade license for closure as <closureDetails>
+    And he choose action "Closure"
     And he forwards for approver sanitaryInspector
     And he closes the acknowledgement page
     And current user logs out
@@ -108,7 +109,7 @@ Feature: Create Trade License
     And current user logs out
 
     Examples:
-      | closure           |
+      | closureDetails    |
       | licenceForClosure |
 
   # Trade License Renewal #
@@ -126,8 +127,9 @@ Feature: Create Trade License
 
     And user will select the required screen as "Search Trade License"
     And he choose to search with license number
+    And he choose action "Renew License"
     And he choose to renew trade license
-    And he choose to collectfees
+    And he choose action "Collect Fees"
     And he choose to payTax of applicationNumber
     And he chooses to act upon above application number
     And he forwards for approver sanitaryInspector
