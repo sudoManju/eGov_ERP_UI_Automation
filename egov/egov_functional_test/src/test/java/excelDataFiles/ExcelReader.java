@@ -75,7 +75,7 @@ public class ExcelReader {
     }
 
     protected String convertNumericToString(Sheet sheet , Row row , String columnName){
-        Cell cell = getCellData(registeredUserSheet, row, columnName);
+        Cell cell = getCellData(sheet, row, columnName);
         cell.setCellType(Cell.CELL_TYPE_STRING);
         return cell.getStringCellValue();
     }

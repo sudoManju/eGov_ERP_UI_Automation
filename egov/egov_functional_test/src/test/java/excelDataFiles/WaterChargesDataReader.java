@@ -8,7 +8,6 @@ import entities.wcms.ApplicantInfo;
 import entities.wcms.ConnectionInfo;
 import entities.wcms.EnclosedDocument;
 import entities.wcms.FieldInspectionDetails;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
@@ -17,14 +16,14 @@ public class WaterChargesDataReader extends ExcelReader {
     Sheet connectionDetailsSheet;
     Sheet enclosedDocumentsSheet;
     Sheet applicantParticularsSheet;
-    Sheet fieldInseptionDetailsForWaterConnectionSheet;
+    Sheet fieldInspectionDetailsForWaterConnectionSheet;
 
     public WaterChargesDataReader(String testData) {
         super(testData);
         connectionDetailsSheet = workbook.getSheet("connectionDetails");
         enclosedDocumentsSheet = workbook.getSheet("enclosedDocuments");
         applicantParticularsSheet = workbook.getSheet("applicantParticulars");
-        fieldInseptionDetailsForWaterConnectionSheet = workbook.getSheet("fieldInseptionDetailsForWaterConnection");
+        fieldInspectionDetailsForWaterConnectionSheet = workbook.getSheet("fieldInseptionDetailsForWaterConnection");
     }
 
     public ConnectionInfo getConnectionInfo(String connectionDetails){
@@ -91,15 +90,15 @@ public class WaterChargesDataReader extends ExcelReader {
 
     public FieldInspectionDetails getFieldInspectionInfo(String inspectionInfo){
 
-        Row dataRow = readDataRow(fieldInseptionDetailsForWaterConnectionSheet , inspectionInfo);
+        Row dataRow = readDataRow(fieldInspectionDetailsForWaterConnectionSheet, inspectionInfo);
 
-        String material =  getCellData(fieldInseptionDetailsForWaterConnectionSheet, dataRow, "material").getStringCellValue();
-        String quantity = convertNumericToString(fieldInseptionDetailsForWaterConnectionSheet , dataRow , "quantity");
-        String measurement = convertNumericToString(fieldInseptionDetailsForWaterConnectionSheet , dataRow , "unitOfMeasurement");
-        String rate = convertNumericToString(fieldInseptionDetailsForWaterConnectionSheet , dataRow , "rate");
-        String existingPipeline = convertNumericToString(fieldInseptionDetailsForWaterConnectionSheet , dataRow , "existingDistributionPipeline");
-        String pipelineDistance = convertNumericToString(fieldInseptionDetailsForWaterConnectionSheet , dataRow , "pipelineToHomeDistance");
-        String estimationCharges = convertNumericToString(fieldInseptionDetailsForWaterConnectionSheet , dataRow , "estimationCharges");
+        String material =  getCellData(fieldInspectionDetailsForWaterConnectionSheet, dataRow, "material").getStringCellValue();
+        String quantity = convertNumericToString(fieldInspectionDetailsForWaterConnectionSheet, dataRow , "quantity");
+        String measurement = convertNumericToString(fieldInspectionDetailsForWaterConnectionSheet, dataRow , "unitOfMeasurement");
+        String rate = convertNumericToString(fieldInspectionDetailsForWaterConnectionSheet, dataRow , "rate");
+        String existingPipeline = convertNumericToString(fieldInspectionDetailsForWaterConnectionSheet, dataRow , "existingDistributionPipeline");
+        String pipelineDistance = convertNumericToString(fieldInspectionDetailsForWaterConnectionSheet, dataRow , "pipelineToHomeDistance");
+        String estimationCharges = convertNumericToString(fieldInspectionDetailsForWaterConnectionSheet, dataRow , "estimationCharges");
 
         return new FieldInspectionDetailsBuilder()
                 .withMaterial(material)
