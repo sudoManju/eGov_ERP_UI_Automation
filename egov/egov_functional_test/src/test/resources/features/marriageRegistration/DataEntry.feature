@@ -13,7 +13,7 @@ Feature: Create an Data Entry for the Marriage registration
     And he enters the checklist
     And he submit the data entry
     Then user will be notified by "registered"
-    And he closes the acknowledgement
+    And he closes the acknowledgements
     And current user logs out
 
     #Modification of Marriage Registration

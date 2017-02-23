@@ -69,14 +69,6 @@ public class ApprovalDetailsPage extends BasePage {
         enterText(incMessageTextBox, approvalDetails.getApproverRemarks(), webDriver);
     }
 
-//    public void enterApprovalDetailsForGrievances(ApprovalDetailsEntity approvalDetails) {
-//    new Select(approvalDepartmentSelect).selectByVisibleText(approvalDetails.getApproverDepartment());
-//    new Select(approvalDesignationSelect).selectByVisibleText(approvalDetails.getApproverDesignation());
-//    new Select(approvalPositionSelect).selectByVisibleText(approvalDetails.getApprover());
-//    enterText(incMessageTextBox, approvalDetails.getApproverRemarks(), webDriver);
-//    }
-    
-
     public void enterApproverDetails(ApprovalDetailsNew approvalDetailsNew) {
 
         selectFromDropDown(approverDepartmentSelection , approvalDetailsNew.getApproverDepartment() ,webDriver);
@@ -91,11 +83,9 @@ public class ApprovalDetailsPage extends BasePage {
             enterText(approverCommentsTextBox, approvalDetailsNew.getApproverRemarks(), webDriver);
         }
 
-        forward();
-
-        switchToNewlyOpenedWindow(webDriver);
-//        new Select(approverSelection).selectByVisibleText(approvalDetails.getApprover());
-//        enterText(approverCommentsTextBox, approvalDetails.getApproverRemarks(), webDriver);
+//        forward();
+//
+//        switchToNewlyOpenedWindow(webDriver);
     }
 
     public void enterApprovalDetails(ApprovalDetailsNew approvalDetailsNew) {
@@ -108,9 +98,10 @@ public class ApprovalDetailsPage extends BasePage {
 
         selectFromDropDown(approvalPositionSelect , approvalDetailsNew.getApprover() ,webDriver);
 
-        forward();
+//        forward();
+//
+//        switchToNewlyOpenedWindow(webDriver);
 
-        switchToNewlyOpenedWindow(webDriver);
     }
 
     public void forward() {

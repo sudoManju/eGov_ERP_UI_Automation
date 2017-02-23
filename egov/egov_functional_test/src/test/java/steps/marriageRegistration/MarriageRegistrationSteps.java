@@ -1,18 +1,17 @@
 package steps.marriageRegistration;
 
 import cucumber.api.java8.En;
+import entities.ApprovalDetailsNew;
 import entities.marriageRegistration.MarriageRegistrationInformation;
 import entities.works.ApproverDetails;
 import excelDataFiles.MarriageRegistrationDataReader;
+import pages.ApprovalDetailsPage;
 import pages.sewerageTax.NewSewerageConnectionPage;
 import pages.marriageRegistration.MarriageRegistrationPage;
 import pages.works.SpillOverEstimatePage;
 import steps.BaseSteps;
 import excelDataFiles.ExcelReader;
 
-/**
- * Created by manjunatha-lap on 24/01/2017.
- */
 public class MarriageRegistrationSteps extends BaseSteps implements En {
     public MarriageRegistrationSteps() {
         And("^he enters the applicants details as (\\w+)$", (String generalInformationDataId) -> {
@@ -33,11 +32,10 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
             pageStore.get(MarriageRegistrationPage.class).enterChecklist();
         });
         And("^he forward to commissioner and closes the acknowledgement$", () -> {
-            String approverDetailsDataId = "commissioner";
+            String approverDetailsDataId = "commissioner1";
 
-            ApproverDetails approverDetails = new ExcelReader(lineEstimateTestDataFileName).getApprovalDetailsForEstimate(approverDetailsDataId);
-
-            pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
+            ApprovalDetailsNew approvalDetailsNew = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approverDetailsDataId);
+            pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approvalDetailsNew);
 
             pageStore.get(NewSewerageConnectionPage.class).forward();
 
@@ -90,9 +88,9 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
             pageStore.get(MarriageRegistrationPage.class).entersMemorandumOfMarriage();
         });
         And("^he forward to commissioner$", () -> {
-            String approverDetailsDataId = "commissioner";
-            ApproverDetails approverDetails = new ExcelReader(lineEstimateTestDataFileName).getApprovalDetailsForEstimate(approverDetailsDataId);
-            pageStore.get(SpillOverEstimatePage.class).enterApproverDetails(approverDetails);
+            String approverDetailsDataId = "commissioner1";
+            ApprovalDetailsNew approvalDetailsNew = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approverDetailsDataId);
+            pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approvalDetailsNew);
             pageStore.get(NewSewerageConnectionPage.class).forward();
         });
         And("^he get application number and closes acknowledgement$", () -> {
