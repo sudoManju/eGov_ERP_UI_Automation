@@ -1,34 +1,34 @@
 package builders;
 
-import entities.ApprovalDetailsEntity;
+import entities.ApprovalDetailsNew;
 
 public class ApprovalDetailsEntityBuilder {
-    ApprovalDetailsEntity approvalDetails = new ApprovalDetailsEntity();
+    ApprovalDetailsNew approvalDetailsNew = new ApprovalDetailsNew();
 
     public ApprovalDetailsEntityBuilder() {
     }
 
     public ApprovalDetailsEntityBuilder withApproverDepartment(String approverDepartment) {
-        approvalDetails.setApproverDepartment(approverDepartment);
+        approvalDetailsNew.setApproverDepartment(approverDepartment);
         return this;
     }
 
     public ApprovalDetailsEntityBuilder withApproverDesignation(String approverDesignation) {
-        approvalDetails.setApproverDesignation(approverDesignation);
+        approvalDetailsNew.setApproverDesignation(approverDesignation);
         return this;
     }
 
     public ApprovalDetailsEntityBuilder withApprover(String approver) {
-        approvalDetails.setApprover(approver);
+        approvalDetailsNew.setApprover(approver);
         return this;
     }
 
     public ApprovalDetailsEntityBuilder withApproverRemarks(String approverRemarks) {
-        approvalDetails.setApproverRemarks(approverRemarks);
+        approvalDetailsNew.setApproverRemarks(approverRemarks);
         return this;
     }
 
-    public ApprovalDetailsEntity build() {
-        return approvalDetails;
+    public ApprovalDetailsNew build() {
+        return approvalDetailsNew;
     }
 }

@@ -82,6 +82,7 @@ public class BasePage {
         webElement.clear();
         webElement.sendKeys(value);
     }
+
     protected void selectFromDropDown(WebElement webElement,String value,WebDriver driver){
         waitForElementToBeVisible(webElement,driver);
         waitForElementToBeClickable(webElement,driver);
@@ -120,8 +121,8 @@ public class BasePage {
         await().atMost(5, SECONDS).until(() -> driver.getWindowHandles().size() == 1);
         for (String winHandle : driver.getWindowHandles()) {
         driver.switchTo().window(winHandle);
+        }
     }
-}
 
     protected String get6DigitRandomInt() {return String.valueOf((100000 + RandomUtils.nextInt(900000)));
     }
@@ -168,7 +169,7 @@ public class BasePage {
 //        Assert.assertEquals(expectedMessage,actualMessage);
     }
 
-    public String getEnvironmentURL(){
+    protected String getEnvironmentURL(){
         String env = System.getProperty("env");
         String url = null;
         if(env.equals("staging")) {

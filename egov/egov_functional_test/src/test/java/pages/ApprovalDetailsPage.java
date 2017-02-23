@@ -1,6 +1,6 @@
 package pages;
 
-import entities.ApprovalDetailsEntity;
+import entities.ApprovalDetailsNew;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -8,7 +8,6 @@ import org.openqa.selenium.support.ui.Select;
 
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
-
 
 public class ApprovalDetailsPage extends BasePage {
     private WebDriver webDriver;
@@ -37,7 +36,7 @@ public class ApprovalDetailsPage extends BasePage {
     @FindBy(id = "Approve")
     private WebElement approveButton;
 
-    @FindBy(id = "approverComments")
+    @FindBy(css = "textarea[name='approvalComent']")
     private WebElement approverCommentsTextBox;
 
     @FindBy(id = "approverDepartment")
@@ -58,39 +57,55 @@ public class ApprovalDetailsPage extends BasePage {
     @FindBy (id = "approvalDesignation")
     private WebElement approvalDesignationSelection;
 
-
     public ApprovalDetailsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
 
-    public void enterApprovalDetailsForGrievances(ApprovalDetailsEntity approvalDetails) {
-    new Select(approvalDepartmentSelect).selectByVisibleText(approvalDetails.getApproverDepartment());
-    new Select(approvalDesignationSelect).selectByVisibleText(approvalDetails.getApproverDesignation());
-    new Select(approvalPositionSelect).selectByVisibleText(approvalDetails.getApprover());
-    enterText(incMessageTextBox, approvalDetails.getApproverRemarks(),webDriver);
-    }
+    public void enterApprovalDetailsForGrievances(ApprovalDetailsNew approvalDetails) {
 
-    public void enterApprovalDetails(ApprovalDetailsEntity approvalDetails) {
-        new Select(approverDepartmentSelection).selectByVisibleText(approvalDetails.getApproverDepartment());
-        await().atMost(10, SECONDS).until(() -> new Select(approverDesignationSelection).getOptions().size() > 1);
-        new Select(approverDesignationSelection).selectByVisibleText(approvalDetails.getApproverDesignation());
-        await().atMost(10, SECONDS).until(() -> new Select(approverSelection).getOptions().size() > 1);
-        new Select(approverSelection).selectByVisibleText(approvalDetails.getApprover());
-        enterText(approverCommentsTextBox, approvalDetails.getApproverRemarks(),webDriver);
-    }
-
-    public void enterApproverDetails(ApprovalDetailsEntity approvalDetails) {
-        new Select(approvalDepartmentSelection).selectByVisibleText(approvalDetails.getApproverDepartment());
-        await().atMost(10, SECONDS).until(() -> new Select(approvalDepartmentSelection).getOptions().size() > 1);
-        new Select(approvalDesignationSelection).selectByVisibleText(approvalDetails.getApproverDesignation());
-        await().atMost(10, SECONDS).until(() -> new Select(approvalDesignationSelection).getOptions().size() > 1);
+        new Select(approvalDepartmentSelect).selectByVisibleText(approvalDetails.getApproverDepartment());
+        new Select(approvalDesignationSelect).selectByVisibleText(approvalDetails.getApproverDesignation());
         new Select(approvalPositionSelect).selectByVisibleText(approvalDetails.getApprover());
+        enterText(incMessageTextBox, approvalDetails.getApproverRemarks(), webDriver);
+    }
+    
+
+    public void enterApproverDetails(ApprovalDetailsNew approvalDetailsNew) {
+
+        selectFromDropDown(approverDepartmentSelection , approvalDetailsNew.getApproverDepartment() ,webDriver);
+        await().atMost(10, SECONDS).until(() -> new Select(approverDesignationSelection).getOptions().size() > 1);
+
+        selectFromDropDown(approverDesignationSelection , approvalDetailsNew.getApproverDesignation() ,webDriver);
+        await().atMost(10, SECONDS).until(() -> new Select(approverSelection).getOptions().size() > 1);
+
+        selectFromDropDown(approverSelection , approvalDetailsNew.getApprover() ,webDriver);
+
+        if(approverCommentsTextBox.isDisplayed()) {
+            enterText(approverCommentsTextBox, approvalDetailsNew.getApproverRemarks(), webDriver);
+        }
+
+        forward();
+
+        switchToNewlyOpenedWindow(webDriver);
     }
 
+    public void enterApprovalDetails(ApprovalDetailsNew approvalDetailsNew) {
 
+        selectFromDropDown(approvalDepartmentSelection , approvalDetailsNew.getApproverDepartment() ,webDriver);
+        await().atMost(10, SECONDS).until(() -> new Select(approvalDepartmentSelection).getOptions().size() > 1);
+
+        selectFromDropDown(approvalDesignationSelection , approvalDetailsNew.getApproverDesignation() ,webDriver);
+        await().atMost(10, SECONDS).until(() -> new Select(approvalDesignationSelection).getOptions().size() > 1);
+
+        selectFromDropDown(approvalPositionSelect , approvalDetailsNew.getApprover() ,webDriver);
+
+        forward();
+
+        switchToNewlyOpenedWindow(webDriver);
+    }
 
     public void forward() {
-        forwardButton.click();
+        clickOnButton(forwardButton , webDriver);
     }
 
     public void createGrievance() {

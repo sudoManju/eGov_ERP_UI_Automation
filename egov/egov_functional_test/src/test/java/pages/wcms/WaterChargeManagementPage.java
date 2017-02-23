@@ -22,19 +22,7 @@ public class WaterChargeManagementPage extends BasePage {
     protected WebDriver webDriver;
 
     @FindBy(id = "propertyIdentifier")
-    private WebElement waterConnectionAssesmentNumberTextBox;
-
-    @FindBy(id = "approvalDepartment")
-    private WebElement approvalWaterDepartment;
-
-    @FindBy(id = "approvalDesignation")
-    private WebElement approvalWaterDesignation;
-
-    @FindBy(id = "approvalPosition")
-    private WebElement approvalWaterPosition;
-
-    @FindBy(id = "approvalComent")
-    private WebElement approvalWaterComment;
+    private WebElement waterConnectionAssesmentNumberTextBox;;
 
     @FindBy(id = "Forward")
     private WebElement additionalForwardButton;
@@ -166,16 +154,6 @@ public class WaterChargeManagementPage extends BasePage {
 
     public void enterWaterConnectionAssessmentNumber(String number){
         enterText(waterConnectionAssesmentNumberTextBox, number , webDriver);
-    }
-
-    public void enterWaterApprovalDetails(ApprovalDetails approvalDetails){
-
-        selectFromDropDown(approvalWaterDepartment , approvalDetails.getApproverDepartment() ,webDriver);
-        selectFromDropDown(approvalWaterDesignation , approvalDetails.getApproverDesignation() ,webDriver);
-        selectFromDropDown(approvalWaterPosition , approvalDetails.getApprover() ,webDriver);
-
-        clickOnButton(additionalForwardButton , webDriver);
-        switchToNewlyOpenedWindow(webDriver);
     }
 
     public void clickOnGenerateNotice(){

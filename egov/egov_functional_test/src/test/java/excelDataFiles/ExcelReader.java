@@ -5,9 +5,9 @@ import builders.LoginDetailsBuilder;
 import builders.ptis.*;
 import builders.works.*;
 import entities.*;
-import entities.ptis.*;
+import entities.ptis.ApprovalDetails;
 import entities.works.*;
-import entities.ApprovalDetailsEntity;
+import entities.ApprovalDetailsNew;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 import java.io.IOException;
@@ -106,7 +106,18 @@ public class ExcelReader {
                 .build();
     }
 
-    public ApprovalDetailsEntity getApprovalDetailsForGrievance(String approvalDetailsDataId) {
+    public ApprovalDetailsNew getFinanceApprovalDetails(String approvalDetailsDataId) {
+        Row dataRow = readDataRow(approvalDetailsSheet, approvalDetailsDataId);
+        String approverDepartment = getCellData(approvalDetailsSheet, dataRow, "approverDepartment").getStringCellValue();
+        String approverDesignation = getCellData(approvalDetailsSheet, dataRow, "approverDesignation").getStringCellValue();
+
+        return new ApprovalDetailsEntityBuilder()
+                .withApproverDepartment(approverDepartment)
+                .withApproverDesignation(approverDesignation)
+                .build();
+    }
+
+    public ApprovalDetailsNew getApprovalDetailsNew(String approvalDetailsDataId) {
         Row dataRow = readDataRow(approvalDetailsSheet, approvalDetailsDataId);
         String approverDepartment = getCellData(approvalDetailsSheet, dataRow, "approverDepartment").getStringCellValue();
         String approverDesignation = getCellData(approvalDetailsSheet, dataRow, "approverDesignation").getStringCellValue();

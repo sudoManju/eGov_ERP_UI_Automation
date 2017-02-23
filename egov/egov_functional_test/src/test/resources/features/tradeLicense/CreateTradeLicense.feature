@@ -25,7 +25,7 @@ Feature: Create Trade License
   Scenario Outline: Register User create trade license with work flow
 
 #    Given CSCUser logs in
-    Given PublicHealthJA logs in
+    Given PublicHBealthJA logs in
     And user will select the required screen as "Create New License"
     And he enters trade owner details of new license <tradeDetailsData>
     And he enters trade location details of new license <tradeLocationData>

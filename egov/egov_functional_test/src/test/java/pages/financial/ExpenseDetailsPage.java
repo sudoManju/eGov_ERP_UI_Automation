@@ -1,5 +1,6 @@
 package pages.financial;
 
+import entities.ApprovalDetailsNew;
 import entities.financial.FinancialExpenseBillDetails;
 import entities.ptis.ApprovalDetails;
 import org.openqa.selenium.By;
@@ -122,17 +123,17 @@ public class ExpenseDetailsPage extends FinancialPage {
         clickOnButton(expensePopulate ,webDriver);
     }
 
-    public String enterExpenseApprovalDetails(ApprovalDetails approvalDetails){
+    public String enterExpenseApprovalDetails(ApprovalDetailsNew approvalDetailsNew){
 
-        selectFromDropDown(expenseApprovalDepartment ,approvalDetails.getApproverDepartment() ,webDriver );
+        selectFromDropDown(expenseApprovalDepartment ,approvalDetailsNew.getApproverDepartment() ,webDriver );
 
         for(int i = 0 ; i <= 10 ; i++) {
-            if (!webDriver.findElement(By.id("approvalDesignation")).getText().equalsIgnoreCase(approvalDetails.getApproverDesignation())) {
+            if (!webDriver.findElement(By.id("approvalDesignation")).getText().equalsIgnoreCase(approvalDetailsNew.getApproverDesignation())) {
                 try {
-                    selectFromDropDown(expenseApprovalDesignation , approvalDetails.getApproverDesignation() ,webDriver);
+                    selectFromDropDown(expenseApprovalDesignation , approvalDetailsNew.getApproverDesignation() ,webDriver);
                 } catch (StaleElementReferenceException e) {
                     WebElement element = webDriver.findElement(By.id("approvalDesignation"));
-                    selectFromDropDown(element ,approvalDetails.getApproverDesignation() , webDriver );
+                    selectFromDropDown(element ,approvalDetailsNew.getApproverDesignation() , webDriver );
                 }
             }
         }
