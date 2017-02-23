@@ -297,9 +297,6 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "searchByDemand")
     private WebElement searchButtonForDemand;
 
-    String min = String.valueOf(Calendar.getInstance().get(Calendar.MILLISECOND));
-    String min1 = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
-
     public PropertyDetailsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -315,7 +312,7 @@ public class PropertyDetailsPage extends BasePage {
     }
     public void enterOwnerDetails(OwnerDetails ownerDetails) {
         enterText(newMobileNumberTextBox, ownerDetails.getMobileNumber(), webDriver);
-        mobileNumberTextBox.sendKeys("94488"+(min+min1));
+        mobileNumberTextBox.sendKeys("94488"+get6DigitRandomInt());
         enterText(ownerNameTextBox, ownerDetails.getOwnerName(), webDriver);
         selectFromDropDown(genderSelection, ownerDetails.getGender().toUpperCase(), webDriver);
         JavascriptExecutor executor = (JavascriptExecutor)webDriver;

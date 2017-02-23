@@ -16,9 +16,6 @@ import java.util.concurrent.TimeUnit;
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-/**
- * Created by bimal on 20/12/16.
- */
 public class TradeLicensePage extends BasePage {
     private WebDriver webDriver;
 

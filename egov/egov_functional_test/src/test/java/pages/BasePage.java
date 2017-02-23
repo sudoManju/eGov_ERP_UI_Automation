@@ -82,39 +82,10 @@ public class BasePage {
         webElement.clear();
         webElement.sendKeys(value);
     }
-
-//    protected void enterText(WebElement webElement, String value) {
-
-//    protected void jsClick(WebElement webElement, WebDriver webDriver) {
-//        ((JavascriptExecutor) webDriver).executeScript("arguments[0].click();", webElement);
-//    }
-//
-//    protected void jsClickCheckbox(WebElement webElement, WebDriver webDriver) {
-//        ((JavascriptExecutor) webDriver).executeScript("arguments[0].checked = true;", webElement);
-//    }
-//
-//
     protected void enterText(WebElement webElement, String value) {
         webElement.clear();
         webElement.sendKeys(value);
     }
-
-//    protected void jsClick(WebElement webElement, WebDriver driver) {
-//        waitForElementToBeVisible(webElement,driver);
-//        waitForElementToBeClickable(webElement,driver);
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", webElement);
-//    }
-//    protected void jsClickCheckbox(WebElement webElement, WebDriver driver) {
-//        waitForElementToBeVisible(webElement,driver);
-//        waitForElementToBeClickable(webElement,driver);
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].checked = true;", webElement);
-//    }
-//    protected void enterText(WebElement webElement, String value,WebDriver driver) {
-//        waitForElementToBeVisible(webElement,driver);
-//        waitForElementToBeClickable(webElement,driver);
-//        webElement.clear();
-//        webElement.sendKeys(value);
-//    }
     protected void selectFromDropDown(WebElement webElement,String value,WebDriver driver){
         waitForElementToBeVisible(webElement,driver);
         waitForElementToBeClickable(webElement,driver);

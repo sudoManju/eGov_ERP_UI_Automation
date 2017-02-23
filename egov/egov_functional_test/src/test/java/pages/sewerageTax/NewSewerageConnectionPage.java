@@ -251,7 +251,7 @@ public class NewSewerageConnectionPage extends BasePage {
     public void increseTheNumberOfClosets() {
         enterText(noOfClosetsTextBox,"5",driver);
         enterText(documentNumberTextBox,"123",driver);
-        enterDate(documentDateTextBox,getCurrentDate(),driver);;
+        enterDate(documentDateTextBox,getCurrentDate(),driver);
         uploadFile(chooseFileButton,System.getProperty("user.dir") + "/src/test/resources/logo.jpg",driver);
     }
 

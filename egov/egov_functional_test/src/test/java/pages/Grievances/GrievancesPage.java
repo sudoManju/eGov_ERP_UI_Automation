@@ -29,7 +29,6 @@ public class GrievancesPage extends BasePage {
     @FindBy(id = "email")
     private WebElement emailIdTextBox;
 
-
     @FindBy(id = "complaintTypeCategory")
     private WebElement complaintTypeCategorySelect;
 

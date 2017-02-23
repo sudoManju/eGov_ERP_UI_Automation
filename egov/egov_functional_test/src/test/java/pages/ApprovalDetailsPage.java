@@ -10,9 +10,6 @@ import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 
-/**
- * Created by tester1 on 1/26/2017.
- */
 public class ApprovalDetailsPage extends BasePage {
     private WebDriver webDriver;
 
