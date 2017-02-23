@@ -56,34 +56,28 @@ public class DashboardPage extends BasePage {
     }
 
     private void searchFor(String value) {
-        enterText(searchTreeTextBox, value);
+        enterText(searchTreeTextBox, value,driver);
     }
 
     public void logOut() {
-        waitForElementToBeVisible(profileNameLink, driver);
-        profileNameLink.click();
-        waitForElementToBeVisible(signOutLink , driver);
-        signOutLink.click();
+        clickOnButton(profileNameLink,driver);
+        clickOnButton(signOutLink,driver);
     }
 
     public void chooseForSearchApplication(){
-        waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("Search Application");
-        waitForElementToBeVisible(searchApplication, driver);
-        searchApplication.click();
+        clickOnButton(searchApplication,driver);
+
         switchToNewlyOpenedWindow(driver);
     }
 
     public void chooseTopayWaterCharge() {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor("Collect Charges");
-        waitForElementToBeVisible(collectChargesLink, driver);
-        collectChargesLink.click();
+        clickOnButton(collectChargesLink,driver);
         switchToNewlyOpenedWindow(driver);
     }
 
     public void chooseForModeOFAssignment(String mode){
-        waitForElementToBeClickable(searchTreeTextBox, driver);
 
         if(mode.equalsIgnoreCase("cheque")){
             searchFor("Cheque Assignment");
@@ -93,14 +87,12 @@ public class DashboardPage extends BasePage {
         }
         else {
             searchFor("RTGS Assignment");
-            waitForElementToBeClickable(rtgsAssignment, driver);
-            rtgsAssignment.click();
+            clickOnButton(rtgsAssignment,driver);
             switchToNewlyOpenedWindow(driver);
         }
     }
 
     public void chooseScreen(String screenName) {
-        waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor(screenName);
         waitForElementToBePresent(By.cssSelector(".list a"), driver);
         searchResults.stream().filter(searchResult -> searchResult.getText().equalsIgnoreCase(screenName)).findFirst().get().click();
@@ -108,8 +100,6 @@ public class DashboardPage extends BasePage {
     }
 
     public void chooseScreen(String screenName, String condition) {
-
-        waitForElementToBeClickable(searchTreeTextBox, driver);
         searchFor(screenName);
         waitForElementToBePresent(By.cssSelector(".list a"), driver);
         Optional<WebElement> href = searchResults.stream().filter(searchResult -> {
@@ -131,21 +121,19 @@ public class DashboardPage extends BasePage {
         try{
             await().atMost(20, SECONDS).until(() -> driver.findElement(By.id("official_inbox")).findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
             totalRows = driver.findElement(By.id("official_inbox")).findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-            for (WebElement voucherRow : totalRows) {
-                if (voucherRow.findElements(By.tagName("td")).get(4).getText().contains(number))
-                    return voucherRow;
+            for (WebElement applicationRow : totalRows) {
+                if (applicationRow.findElements(By.tagName("td")).get(4).getText().contains(number))
+                    return applicationRow;
             }
             throw new RuntimeException("No voucher row found in Inbox -- " + number);
         }
         catch (Exception e){
-            waitForElementToBeClickable(officialDraftsTable , driver);
-            officialDraftsTable.click();
-
+            clickOnButton(officialDraftsTable,driver);
             await().atMost(20, SECONDS).until(() -> driver.findElement(By.id("official_drafts")).findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
             totalRows = driver.findElement(By.id("official_drafts")).findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-            for (WebElement voucherRow : totalRows) {
-                if (voucherRow.findElements(By.tagName("td")).get(4).getText().contains(number))
-                    return voucherRow;
+            for (WebElement applicationRow : totalRows) {
+                if (applicationRow.findElements(By.tagName("td")).get(4).getText().contains(number))
+                    return applicationRow;
             }
             throw new RuntimeException("No voucher row found in Inbox and Drafts -- " + number);
         }

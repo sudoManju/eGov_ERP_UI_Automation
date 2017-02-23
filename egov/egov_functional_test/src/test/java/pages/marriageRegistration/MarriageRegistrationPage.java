@@ -213,9 +213,9 @@ public class MarriageRegistrationPage extends BasePage {
         WebElement ageInYears = driver.findElement(By.id(name + ".ageInYearsAsOnMarriage"));
         enterText(ageInYears,"30",driver);
         WebElement ageInMonth = driver.findElement(By.id(name + ".ageInMonthsAsOnMarriage"));
-        enterText(ageInMonth,"8");
+        enterText(ageInMonth,"8",driver);
         selectFromDropDown(driver.findElement(By.id(name + ".maritalStatus")),marriageRegistrationInformation.getStatusAtTheTimeMarriage(),driver);
-        enterText(driver.findElement(By.id(name + ".contactInfo.residenceAddress")),marriageRegistrationInformation.getResidenceAddress());
+        enterText(driver.findElement(By.id(name + ".contactInfo.residenceAddress")),marriageRegistrationInformation.getResidenceAddress(),driver);
         enterText(driver.findElement(By.id(name + ".contactInfo.officeAddress")),marriageRegistrationInformation.getOfficeAddress(),driver);
         enterText(driver.findElement(By.name(name + ".locality")),marriageRegistrationInformation.getLocality(),driver);
         enterText(driver.findElement(By.name(name + ".street")),marriageRegistrationInformation.getStreet(),driver);

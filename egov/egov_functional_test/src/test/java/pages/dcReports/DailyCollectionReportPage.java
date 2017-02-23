@@ -41,21 +41,14 @@ public class DailyCollectionReportPage extends BasePage {
     private WebElement dcCloseButton;
 
     public void enterVLTReportDetails(VLTReport vltReport){
-
-        //waitForElementToBeClickable(vltFromDate, webDriver);
-        enterText(vltFromDate, vltReport.getFromDate());
-
-        //waitForElementToBeClickable(vltToDate, webDriver);
-        enterText(vltToDate, vltReport.getToDate());
-
-        //waitForElementToBeClickable(vltReportSearch, webDriver);
+        enterDate(vltFromDate, vltReport.getFromDate(),webDriver);
+        enterDate(vltToDate, vltReport.getToDate(),webDriver);
         vltReportSearch.click();
     }
 
     public void enterPTReportDetails(PTReport ptReport){
-
-        enterText(ptFromDate, ptReport.getFromDate());
-        enterText(ptToDate, ptReport.getToDate());
+        enterDate(ptFromDate, ptReport.getFromDate(),webDriver);
+        enterDate(ptToDate, ptReport.getToDate(),webDriver);
         ptReportSearch.click();
     }
 

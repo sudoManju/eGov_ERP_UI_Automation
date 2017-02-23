@@ -67,7 +67,7 @@ public class ApprovalDetailsPage extends BasePage {
     new Select(approvalDepartmentSelect).selectByVisibleText(approvalDetails.getApproverDepartment());
     new Select(approvalDesignationSelect).selectByVisibleText(approvalDetails.getApproverDesignation());
     new Select(approvalPositionSelect).selectByVisibleText(approvalDetails.getApprover());
-    enterText(incMessageTextBox, approvalDetails.getApproverRemarks());
+    enterText(incMessageTextBox, approvalDetails.getApproverRemarks(),webDriver);
     }
 
     public void enterApprovalDetails(ApprovalDetailsEntity approvalDetails) {
@@ -76,7 +76,7 @@ public class ApprovalDetailsPage extends BasePage {
         new Select(approverDesignationSelection).selectByVisibleText(approvalDetails.getApproverDesignation());
         await().atMost(10, SECONDS).until(() -> new Select(approverSelection).getOptions().size() > 1);
         new Select(approverSelection).selectByVisibleText(approvalDetails.getApprover());
-        enterText(approverCommentsTextBox, approvalDetails.getApproverRemarks());
+        enterText(approverCommentsTextBox, approvalDetails.getApproverRemarks(),webDriver);
     }
 
     public void enterApproverDetails(ApprovalDetailsEntity approvalDetails) {

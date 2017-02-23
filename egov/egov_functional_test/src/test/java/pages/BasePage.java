@@ -82,10 +82,6 @@ public class BasePage {
         webElement.clear();
         webElement.sendKeys(value);
     }
-    protected void enterText(WebElement webElement, String value) {
-        webElement.clear();
-        webElement.sendKeys(value);
-    }
     protected void selectFromDropDown(WebElement webElement,String value,WebDriver driver){
         waitForElementToBeVisible(webElement,driver);
         waitForElementToBeClickable(webElement,driver);
@@ -112,13 +108,6 @@ public class BasePage {
           webElement.clear();
           webElement.sendKeys(date,Keys.TAB);
       }
-//
-//      protected void enterDate(WebElement webElement,String date,WebDriver driver){
-//          waitForElementToBeVisible(webElement,driver);
-//          waitForElementToBeClickable(webElement,driver);
-//          webElement.clear();
-//          webElement.sendKeys(date,Keys.TAB);
-//      }
 
     protected void switchToNewlyOpenedWindow(WebDriver driver) {
         await().atMost(20, SECONDS).until(() -> driver.getWindowHandles().size() > 1);

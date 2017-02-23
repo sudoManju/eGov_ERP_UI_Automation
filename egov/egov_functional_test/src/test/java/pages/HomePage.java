@@ -39,8 +39,8 @@ public class HomePage extends BasePage {
     public void loginAs(LoginDetails loginDetails) {
 
 //        isImageLoaded();
-        userNameTextBox.sendKeys(loginDetails.getLoginId());
-        passwordTextBox.sendKeys(loginDetails.getPassword());
+        enterText(userNameTextBox,loginDetails.getLoginId(),driver);
+        enterText(passwordTextBox,loginDetails.getPassword(),driver);
 
         try {
             TimeUnit.SECONDS.sleep(1);
