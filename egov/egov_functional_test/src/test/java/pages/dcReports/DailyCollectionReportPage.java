@@ -30,20 +30,14 @@ public class DailyCollectionReportPage extends BasePage {
     @FindBy(id = "dailyCollectionReportSearch")
     private WebElement ptReportSearch;
 
-    @FindBy(linkText = "Close")
-    private WebElement dcCloseButton;
+    public DailyCollectionReportPage(WebDriver webDriver) {
+        this.webDriver = webDriver;
+    }
 
     public void enterVLTReportDetails(VLTReport vltReport) {
         enterDate(vltFromDate, vltReport.getFromDate(), webDriver);
         enterDate(vltToDate, vltReport.getToDate(), webDriver);
 
-        //waitForElementToBeClickable(vltFromDate, webDriver);
-        enterText(vltFromDate, vltReport.getFromDate(), webDriver);
-
-        //waitForElementToBeClickable(vltToDate, webDriver);
-        enterText(vltToDate, vltReport.getToDate(), webDriver);
-
-        //waitForElementToBeClickable(vltReportSearch, webDriver);
         vltReportSearch.click();
     }
 
@@ -51,8 +45,6 @@ public class DailyCollectionReportPage extends BasePage {
         enterDate(ptFromDate, ptReport.getFromDate(), webDriver);
         enterDate(ptToDate, ptReport.getToDate(), webDriver);
 
-        enterText(ptFromDate, ptReport.getFromDate(), webDriver);
-        enterText(ptToDate, ptReport.getToDate(), webDriver);
         ptReportSearch.click();
     }
 

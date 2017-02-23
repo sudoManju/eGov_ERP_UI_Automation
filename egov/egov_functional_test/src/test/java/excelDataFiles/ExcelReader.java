@@ -74,11 +74,16 @@ public class ExcelReader {
                 firstSheet.getRow(0).getCell(columnIndex).toString().contains("current date");
     }
 
+    protected String convertNumericToString(Sheet sheet , Row row , String columnName){
+        Cell cell = getCellData(registeredUserSheet, row, columnName);
+        cell.setCellType(Cell.CELL_TYPE_STRING);
+        return cell.getStringCellValue();
+    }
+
     public LoginDetails getLoginDetails(String loggedInUserDataId) {
         Row dataRow = readDataRow(registeredUserSheet, loggedInUserDataId);
-        Cell idCell = getCellData(registeredUserSheet, dataRow, "id");
-        idCell.setCellType(Cell.CELL_TYPE_STRING);
-        String id = idCell.getStringCellValue();
+
+        String id = convertNumericToString(registeredUserSheet , dataRow , "id");
         String password = getCellData(registeredUserSheet, dataRow, "password").getStringCellValue();
         boolean hasZone = getCellData(registeredUserSheet, dataRow, "hasZone").getBooleanCellValue();
 
