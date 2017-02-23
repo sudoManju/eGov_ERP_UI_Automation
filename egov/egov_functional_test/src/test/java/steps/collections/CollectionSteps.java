@@ -1,6 +1,7 @@
 package steps.collections;
 
 import cucumber.api.java8.En;
+import entities.ApprovalDetailsNew;
 import entities.collections.ChallanHeaderDetails;
 import entities.collections.PaymentMethod;
 import entities.ptis.ApprovalDetails;
@@ -21,7 +22,7 @@ public class CollectionSteps extends BaseSteps implements En {
             ChallanHeaderDetails challanHeaderDetails = new CollectionsDataReader(collectionsTestDataFileName).getChallanHeader(challanheaderid);
             pageStore.get(CollectionsPage.class).enterChallanHeader(challanHeaderDetails);
 
-            ApprovalDetails approverDetails = new ExcelReader(collectionsTestDataFileName).getApprovalDetailsOfChallan(approverId);
+            ApprovalDetailsNew approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetailsNew(approverId);
             pageStore.get(CollectionsPage.class).enterApprovalDetails(approverDetails);
         });
 

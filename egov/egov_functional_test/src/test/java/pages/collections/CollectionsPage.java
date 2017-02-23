@@ -1,6 +1,7 @@
 package pages.collections;
 
 import com.gargoylesoftware.htmlunit.javascript.host.Window;
+import entities.ApprovalDetailsNew;
 import entities.collections.ChallanHeaderDetails;
 import entities.collections.ChequeDetails;
 import entities.ptis.ApprovalDetails;
@@ -193,14 +194,15 @@ public class CollectionsPage extends BasePage {
         }
     }
 
-    public void enterApprovalDetails(ApprovalDetails approverDetails) {
-        waitForElementToBeClickable(approverDeptBox, driver);
-        new Select(approverDeptBox).selectByVisibleText(approverDetails.getApproverDepartment());
-        new Select(approverDesignationBox).selectByVisibleText(approverDetails.getApproverDesignation());
-        approverBox.click();
-        approverBox.click();
-        waitForElementToBePresent(By.cssSelector("select[id='positionUser'] option[value='180']"),driver);
-        new Select(approverBox).selectByVisibleText(approverDetails.getApprover());
+    public void enterApprovalDetails(ApprovalDetailsNew approverDetails) {
+
+        selectFromDropDown(approverDeptBox,approverDetails.getApproverDepartment(),driver);
+        await().atMost(10, SECONDS).until(() -> new Select(approverDesignationBox).getOptions().size() > 1);
+
+        selectFromDropDown(approverDesignationBox,approverDetails.getApproverDesignation(),driver);
+        await().atMost(10, SECONDS).until(() -> new Select(approverBox).getOptions().size() > 1);
+
+        selectFromDropDown(approverBox,approverDetails.getApprover(),driver);
     }
 
     public void validateChallan() {

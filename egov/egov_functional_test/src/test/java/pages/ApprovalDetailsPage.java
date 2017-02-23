@@ -91,10 +91,10 @@ public class ApprovalDetailsPage extends BasePage {
     public void enterApprovalDetails(ApprovalDetailsNew approvalDetailsNew) {
 
         selectFromDropDown(approvalDepartmentSelection, approvalDetailsNew.getApproverDepartment(), webDriver);
-        await().atMost(10, SECONDS).until(() -> new Select(approvalDepartmentSelection).getOptions().size() > 1);
+        await().atMost(10, SECONDS).until(() -> new Select(approvalDesignationSelection).getOptions().size() > 1);
 
         selectFromDropDown(approvalDesignationSelection, approvalDetailsNew.getApproverDesignation(), webDriver);
-        await().atMost(10, SECONDS).until(() -> new Select(approvalDesignationSelection).getOptions().size() > 1);
+        await().atMost(10, SECONDS).until(() -> new Select(approvalPositionSelect).getOptions().size() > 1);
 
         selectFromDropDown(approvalPositionSelect, approvalDetailsNew.getApprover(), webDriver);
 
