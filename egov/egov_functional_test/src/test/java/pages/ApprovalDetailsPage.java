@@ -96,10 +96,6 @@ public class ApprovalDetailsPage extends BasePage {
         await().atMost(10, SECONDS).until(() -> new Select(approvalPositionSelect).getOptions().size() > 1);
 
         selectFromDropDown(approvalPositionSelect, approvalDetails.getApprover(), webDriver);
-
-        if(approverCommentsTextBox.isDisplayed()) {
-            enterText(approvalCommentsTextBox, approvalDetails.getApproverRemarks(), webDriver);
-        }
     }
 
     public void forward() {
