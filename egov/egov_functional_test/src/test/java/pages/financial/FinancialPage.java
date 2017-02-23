@@ -2,7 +2,6 @@ package pages.financial;
 
 import entities.ApprovalDetailsNew;
 import entities.financial.FinancialBankDetails;
-import entities.ptis.ApprovalDetails;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;

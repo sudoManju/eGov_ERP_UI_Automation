@@ -3,7 +3,6 @@ package steps.financial;
 import cucumber.api.java8.En;
 import entities.ApprovalDetailsNew;
 import entities.financial.*;
-import entities.ptis.ApprovalDetails;
 import excelDataFiles.FinanceDataReader;
 import org.junit.Assert;
 import pages.financial.*;

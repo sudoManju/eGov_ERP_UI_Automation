@@ -165,15 +165,6 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "propertyDetail.floorDetailsProxy[0].buildingPlanPlinthArea.area")
     private WebElement plinthAreaInBuildingPlanTextBox;
 
-    @FindBy(id = "approverDepartment")
-    private WebElement approverDepartmentSelection;
-
-    @FindBy(id = "approverDesignation")
-    private WebElement approverDesignationSelection;
-
-    @FindBy(id = "approverPositionId")
-    private WebElement approverSelection;
-
     @FindBy(id = "Forward")
     private WebElement forwardButton;
 
@@ -380,14 +371,6 @@ public class PropertyDetailsPage extends BasePage {
         selectFromDropDown(documentTypeDropBox, documentValue.getDocumentType(), webDriver);
         enterText(deedNoTextBox, documentValue.getDeedNo(), webDriver);
         enterDate(DeedDateDateBox, documentValue.getDeedDate(), webDriver);
-    }
-
-    public void enterApprovalDetails(ApprovalDetails approvalDetails) {
-        selectFromDropDown(approverDepartmentSelection, approvalDetails.getApproverDepartment(), webDriver);
-        await().atMost(10, SECONDS).until(() -> new Select(approverDesignationSelection).getOptions().size() > 1);
-        selectFromDropDown(approverDesignationSelection, approvalDetails.getApproverDesignation(), webDriver);
-        await().atMost(10, SECONDS).until(() -> new Select(approverSelection).getOptions().size() > 1);
-        selectFromDropDown(approverSelection, approvalDetails.getApprover(), webDriver);
     }
 
     public void forward() {clickOnButton(forwardButton, webDriver); }

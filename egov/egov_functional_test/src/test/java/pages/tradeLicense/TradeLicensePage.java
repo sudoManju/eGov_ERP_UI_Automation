@@ -1,6 +1,5 @@
 package pages.tradeLicense;
 
-import entities.ptis.ApprovalDetails;
 import entities.tradeLicense.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;

@@ -4,7 +4,6 @@ import cucumber.api.java8.En;
 import entities.ApprovalDetailsNew;
 import entities.collections.ChallanHeaderDetails;
 import entities.collections.PaymentMethod;
-import entities.ptis.ApprovalDetails;
 import excelDataFiles.CollectionsDataReader;
 import pages.collections.CollectionsPage;
 import pages.collections.PropertyTaxPage;

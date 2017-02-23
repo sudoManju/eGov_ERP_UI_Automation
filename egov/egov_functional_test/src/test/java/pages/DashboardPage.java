@@ -56,7 +56,6 @@ public class DashboardPage extends BasePage {
     }
 
     private void searchFor(String value) {
-        enterText(searchTreeTextBox, value,driver);
         enterText(searchTreeTextBox, value, driver);
     }
 

@@ -1,7 +1,6 @@
 package pages.councilManagement;
 
 import entities.councilManagement.CreatePreambleDetails;
-import entities.ptis.ApprovalDetails;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;

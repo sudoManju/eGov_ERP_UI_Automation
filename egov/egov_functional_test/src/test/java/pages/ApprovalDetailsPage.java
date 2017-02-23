@@ -37,6 +37,9 @@ public class ApprovalDetailsPage extends BasePage {
     private WebElement approveButton;
 
     @FindBy(css = "textarea[name='approvalComent']")
+    private WebElement approvalCommentsTextBox;
+
+    @FindBy(css = "textarea[name='approverComments']")
     private WebElement approverCommentsTextBox;
 
     @FindBy(id = "approverDepartment")
@@ -99,7 +102,7 @@ public class ApprovalDetailsPage extends BasePage {
         selectFromDropDown(approvalPositionSelect, approvalDetailsNew.getApprover(), webDriver);
 
         if(approverCommentsTextBox.isDisplayed()) {
-            enterText(approverCommentsTextBox, approvalDetailsNew.getApproverRemarks(), webDriver);
+            enterText(approvalCommentsTextBox, approvalDetailsNew.getApproverRemarks(), webDriver);
         }
 
 //        forward();

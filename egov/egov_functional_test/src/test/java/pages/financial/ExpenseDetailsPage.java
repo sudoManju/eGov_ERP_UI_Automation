@@ -2,7 +2,6 @@ package pages.financial;
 
 import entities.ApprovalDetailsNew;
 import entities.financial.FinancialExpenseBillDetails;
-import entities.ptis.ApprovalDetails;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;

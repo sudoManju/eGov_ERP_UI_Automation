@@ -4,7 +4,6 @@ import com.gargoylesoftware.htmlunit.javascript.host.Window;
 import entities.ApprovalDetailsNew;
 import entities.collections.ChallanHeaderDetails;
 import entities.collections.ChequeDetails;
-import entities.ptis.ApprovalDetails;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.*;

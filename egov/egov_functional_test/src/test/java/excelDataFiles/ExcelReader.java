@@ -2,10 +2,8 @@ package excelDataFiles;
 
 import builders.ApprovalDetailsEntityBuilder;
 import builders.LoginDetailsBuilder;
-import builders.ptis.*;
 import builders.works.*;
 import entities.*;
-import entities.ptis.ApprovalDetails;
 import entities.works.*;
 import entities.ApprovalDetailsNew;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -91,21 +89,6 @@ public class ExcelReader {
                 .withHasZone(hasZone).build();
     }
 
-    public ApprovalDetails getApprovalDetails(String approvalDetailsDataId) {
-        Row dataRow = readDataRow(approvalDetailsSheet, approvalDetailsDataId);
-        String approverDepartment = getCellData(approvalDetailsSheet, dataRow, "approverDepartment").getStringCellValue();
-        String approverDesignation = getCellData(approvalDetailsSheet, dataRow, "approverDesignation").getStringCellValue();
-        String approver = getCellData(approvalDetailsSheet, dataRow, "approver").getStringCellValue();
-        String approverRemarks = getCellData(approvalDetailsSheet, dataRow, "approverRemarks").getStringCellValue();
-
-        return new ApprovalDetailsBuilder()
-                .withApproverDepartment(approverDepartment)
-                .withApproverDesignation(approverDesignation)
-                .withApprover(approver)
-                .withApproverRemarks(approverRemarks)
-                .build();
-    }
-
     public ApprovalDetailsNew getFinanceApprovalDetails(String approvalDetailsDataId) {
         Row dataRow = readDataRow(approvalDetailsSheet, approvalDetailsDataId);
         String approverDepartment = getCellData(approvalDetailsSheet, dataRow, "approverDepartment").getStringCellValue();
@@ -131,32 +114,4 @@ public class ExcelReader {
                 .build();
     }
 
-    public ApprovalDetails getApprovalDetailsOfChallan(String approverId) {
-        Row dataRow = readDataRow(approvalDetailsSheet, approverId);
-        String approverDepartment = getCellData(approvalDetailsSheet, dataRow, "approverDepartment").getStringCellValue();
-        String approverDesignation = getCellData(approvalDetailsSheet, dataRow, "approverDesignation").getStringCellValue();
-        String approver = getCellData(approvalDetailsSheet, dataRow, "approver").getStringCellValue();
-
-        return new ApprovalDetailsBuilder()
-                .withApproverDepartment(approverDepartment)
-                .withApproverDesignation(approverDesignation)
-                .withApprover(approver)
-                .build();
-    }
-
-    public ApproverDetails getApprovalDetailsForEstimate(String approverDetailsDataId) {
-        Row dataRow = readDataRow(approverDetailsSheet, approverDetailsDataId);
-
-        String approverDept = getCellData(approverDetailsSheet, dataRow, "approverDepartment").getStringCellValue();
-        String approverDesig = getCellData(approverDetailsSheet, dataRow, "approverDesignation").getStringCellValue();
-        String approver = getCellData(approverDetailsSheet, dataRow, "approver").getStringCellValue();
-        String comment = getCellData(approverDetailsSheet, dataRow, "approverRemarks").getStringCellValue();
-
-        return new ApproverDetailsBuilder()
-                .withApproverDepartment(approverDept)
-                .withApproverDesignation(approverDesig)
-                .withApprover(approver)
-                .withApproverComment(comment)
-                .build();
-    }
 }
