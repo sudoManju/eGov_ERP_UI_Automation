@@ -26,4 +26,4 @@ Feature: Marriage Registration
 
     Examples:
     |generalInformation     | bridegroomInformation|brideInformation|
-    |generalInfo            |    bridegroomInfo    | brideInfo|
+    |generalInfo            |    bridegroomInfo    | brideInfo      |

@@ -33,7 +33,7 @@ public class MarriageRegistrationPage extends BasePage {
     private List<WebElement> localityTxt;
 
     @FindBy(id = "txt-city")
-    private List<WebElement> city;
+    private WebElement city;
 
     @FindBy(id = "txt-dateOfMarriage")
     private WebElement dateOfMarriage;
@@ -185,79 +185,45 @@ public class MarriageRegistrationPage extends BasePage {
         Boolean isPresent = driver.findElements(By.id("applicationNum")).size() > 0;
 
         if(isPresent) {
-            waitForElementToBeClickable(marriageRegApplNum, driver);
-            marriageRegApplNum.sendKeys("A" + get6DigitRandomInt());
-            waitForElementToBeClickable(marriageRegNum, driver);
-            marriageRegNum.sendKeys(get6DigitRandomInt());
+            enterText(marriageRegApplNum,"A" + get6DigitRandomInt(),driver);
+            enterText(marriageRegNum,get6DigitRandomInt(),driver);
         }
-        waitForElementToBeClickable(registrationUnit, driver);
-        registrationUnit.sendKeys(marriageRegistrationInformation.getRegistrationUnit());
-        waitForElementToBeClickable(street.get(0), driver);
-        street.get(0).sendKeys(marriageRegistrationInformation.getStreet());
-        waitForElementToBeClickable(locality, driver);
-        locality.sendKeys(marriageRegistrationInformation.getLocality());
-        waitForElementToBeClickable(city.get(0), driver);
-        city.get(0).sendKeys(marriageRegistrationInformation.getCity());
-        waitForElementToBeClickable(dateOfMarriage, driver);
-        dateOfMarriage.clear();
-        dateOfMarriage.sendKeys(getPastDate(35));
-
-        waitForElementToBeClickable(venueOfMarriage, driver);
-        venueOfMarriage.sendKeys(marriageRegistrationInformation.getVenueOfMarriage());
-        waitForElementToBeClickable(placeOfMarriage, driver);
-        placeOfMarriage.sendKeys(marriageRegistrationInformation.getPlaceOfMarriage());
-        marriagePhoto.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
+        selectFromDropDown(registrationUnit,marriageRegistrationInformation.getRegistrationUnit(),driver);
+        enterText(street.get(0),marriageRegistrationInformation.getStreet(),driver);
+        selectFromDropDown(locality,marriageRegistrationInformation.getLocality(),driver);
+        enterText(city,marriageRegistrationInformation.getCity(),driver);
+        enterDate(dateOfMarriage,getPastDate(35),driver);
+        selectFromDropDown(venueOfMarriage,marriageRegistrationInformation.getVenueOfMarriage(),driver);
+        enterText(placeOfMarriage,marriageRegistrationInformation.getPlaceOfMarriage(),driver);
+        uploadFile(marriagePhoto,System.getProperty("user.dir")+"/src/test/resources/logo.jpg",driver);
     }
 
 
     public void enterBrideGroomInformation(MarriageRegistrationInformation marriageRegistrationInformation, String name) {
-        WebElement fullName = driver.findElement(By.id(name + ".name.firstName"));
-        fullName.sendKeys(marriageRegistrationInformation.getFullName());
 
-        waitForElementToBeClickable(lastName.get(0), driver);
-        lastName.get(0).sendKeys("N");
-        waitForElementToBeClickable(lastName.get(1), driver);
-        lastName.get(1).sendKeys("P");
-        photoUpload.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
+        enterText(driver.findElement(By.id(name + ".name.firstName")),marriageRegistrationInformation.getFullName(),driver);
 
-        WebElement parentsNamegb = driver.findElement(By.name(name + ".parentsName"));
-        parentsNamegb.sendKeys(marriageRegistrationInformation.getFathersMothersName());
+        enterText(lastName.get(0),"N",driver);
+        enterText(lastName.get(1),"P",driver);
+        uploadFile(photoUpload,System.getProperty("user.dir")+"/src/test/resources/logo.jpg",driver);
 
-        WebElement religion = driver.findElement((By.id(name + ".religion")));
-        religion.sendKeys(marriageRegistrationInformation.getReligion());
+        enterText(driver.findElement(By.name(name + ".parentsName")),marriageRegistrationInformation.getFathersMothersName(),driver);
+        selectFromDropDown(driver.findElement(By.id(name +".religion")),marriageRegistrationInformation.getReligion(),driver);
 
         WebElement ageInYears = driver.findElement(By.id(name + ".ageInYearsAsOnMarriage"));
-        ageInYears.sendKeys("30");
+        enterText(ageInYears,"30",driver);
         WebElement ageInMonth = driver.findElement(By.id(name + ".ageInMonthsAsOnMarriage"));
-        ageInMonth.sendKeys("8");
-
-        WebElement martialStatus = driver.findElement(By.id(name + ".maritalStatus"));
-        martialStatus.sendKeys(marriageRegistrationInformation.getStatusAtTheTimeMarriage());
-
-        WebElement residenceAddress = driver.findElement(By.id(name + ".contactInfo.residenceAddress"));
-        residenceAddress.sendKeys(marriageRegistrationInformation.getResidenceAddress());
-        WebElement officeAddress = driver.findElement(By.id(name + ".contactInfo.officeAddress"));
-        officeAddress.sendKeys(marriageRegistrationInformation.getOfficeAddress());
-
-        WebElement localitygb = driver.findElement(By.name(name + ".locality"));
-        localitygb.sendKeys(marriageRegistrationInformation.getLocality());
-
-        WebElement streetbg = driver.findElement(By.name(name + ".street"));
-        streetbg.sendKeys(marriageRegistrationInformation.getStreet());
-
-        WebElement citygb = driver.findElement(By.name(name + ".city"));
-        citygb.sendKeys(marriageRegistrationInformation.getCity());
-
-        WebElement mobileNogb = driver.findElement(By.id(name + ".contactInfo.mobileNo"));
-        mobileNogb.sendKeys(marriageRegistrationInformation.getPhoneNo());
-
-        WebElement occupationgb = driver.findElement(By.id(name + ".occupation"));
-        occupationgb.sendKeys(marriageRegistrationInformation.getOccupation());
-
-        WebElement qualificationgb = driver.findElement(By.id(name + ".qualification"));
-        qualificationgb.sendKeys(marriageRegistrationInformation.getEducationQualification());
-
-        wifePhotoUpload.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
+        enterText(ageInMonth,"8");
+        selectFromDropDown(driver.findElement(By.id(name + ".maritalStatus")),marriageRegistrationInformation.getStatusAtTheTimeMarriage(),driver);
+        enterText(driver.findElement(By.id(name + ".contactInfo.residenceAddress")),marriageRegistrationInformation.getResidenceAddress());
+        enterText(driver.findElement(By.id(name + ".contactInfo.officeAddress")),marriageRegistrationInformation.getOfficeAddress(),driver);
+        enterText(driver.findElement(By.name(name + ".locality")),marriageRegistrationInformation.getLocality(),driver);
+        enterText(driver.findElement(By.name(name + ".street")),marriageRegistrationInformation.getStreet(),driver);
+        enterText(driver.findElement(By.name(name + ".city")),marriageRegistrationInformation.getCity(),driver);
+        enterText(driver.findElement(By.id(name + ".contactInfo.mobileNo")),marriageRegistrationInformation.getPhoneNo(),driver);
+        enterText(driver.findElement(By.id(name + ".occupation")),marriageRegistrationInformation.getOccupation(),driver);
+        selectFromDropDown(driver.findElement(By.id(name + ".qualification")),marriageRegistrationInformation.getEducationQualification(),driver);
+        uploadFile(wifePhotoUpload,System.getProperty("user.dir")+"/src/test/resources/logo.jpg",driver);
     }
 
     public void entersWitnessesInformation() {
@@ -268,16 +234,11 @@ public class MarriageRegistrationPage extends BasePage {
             int res = 0;
             int sum = i + res;
 
-            WebElement witnessName = driver.findElement(By.id("witnesses" + sum + ".name.firstName"));
-            witnessName.sendKeys("Witness Names");
-            WebElement witnessLastName = driver.findElement(By.id("witnesses" + sum + ".name.lastName"));
-            witnessLastName.sendKeys("Witness Last Names");
-            WebElement relativeName = driver.findElement(By.id("witnesses[" + sum + "].relativeName"));
-            relativeName.sendKeys("Relative Name");
-            WebElement witnessAge = driver.findElement(By.id("witnesses[" + sum + "].age"));
-            witnessAge.sendKeys("35");
-            WebElement residenceAddress = driver.findElement(By.id("witnesses[" + sum + "].contactInfo.residenceAddress"));
-            residenceAddress.sendKeys("Residence Address");
+            enterText(driver.findElement(By.id("witnesses" + sum + ".name.firstName")),"Witness Names",driver);
+            enterText(driver.findElement(By.id("witnesses" + sum + ".name.lastName")),"Witness Last Names",driver);
+            enterText(driver.findElement(By.id("witnesses[" + sum + "].relativeName")),"Relative Name",driver);
+            enterText(driver.findElement(By.id("witnesses[" + sum + "].age")),"35",driver);
+            enterText(driver.findElement(By.id("witnesses[" + sum + "].contactInfo.residenceAddress")),"Residence Address",driver);
         }
     }
 
@@ -285,13 +246,13 @@ public class MarriageRegistrationPage extends BasePage {
         waitForElementToBeClickable(checkListLink, driver);
         jsClick(checkListLink, driver);
 
-        memorandumofMarriage.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
-        birthCertificateForBridegroom.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
-        birthCertificateForBride.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
-        proofofResidenceForBridegroom.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
-        proofofResidenceForBride.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
-        ageproofHusband.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
-        ageproofWife.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
+        uploadFile(memorandumofMarriage,System.getProperty("user.dir")+"/src/test/resources/logo.jpg",driver);
+        uploadFile(birthCertificateForBridegroom,System.getProperty("user.dir")+"/src/test/resources/logo.jpg",driver);
+        uploadFile(birthCertificateForBride,System.getProperty("user.dir")+"/src/test/resources/logo.jpg",driver);
+        uploadFile(proofofResidenceForBridegroom,System.getProperty("user.dir")+"/src/test/resources/logo.jpg",driver);
+        uploadFile(proofofResidenceForBride,System.getProperty("user.dir")+"/src/test/resources/logo.jpg",driver);
+        uploadFile(ageproofHusband,System.getProperty("user.dir")+"/src/test/resources/logo.jpg",driver);
+        uploadFile(ageproofWife,System.getProperty("user.dir")+"/src/test/resources/logo.jpg",driver);
     }
 
     public String getApplicationNumber() {
@@ -301,39 +262,34 @@ public class MarriageRegistrationPage extends BasePage {
     }
 
     public String getSuccessMessage() {
-        return creationMessage.getText();
+        return getTextFromWeb(creationMessage,driver);
     }
 
     public void close() {
-        waitForElementToBeClickable(closeButton, driver);
-        closeButton.click();
+        clickOnButton(closeButton,driver);
         for (String winHandle : driver.getWindowHandles()) {
             if (driver.switchTo().window(winHandle).getCurrentUrl().equals(getEnvironmentURL()+"/mrs/registration/reissuecertificate")) {
                 break;
             }
         }
         WebElement closeButton1 = driver.findElement(By.xpath(".//*[@id='page-content']/div/div[3]/div/a"));
-        waitForElementToBeClickable(closeButton1, driver);
-        closeButton1.click();
+        clickOnButton(closeButton1,driver);
         switchToPreviouslyOpenedWindow(driver);
     }
 
     public void approve() {
-        waitForElementToBeClickable(approveButton,driver);
-        approveButton.click();
+        clickOnButton(approveButton,driver);
     }
 
     public String getRegistrationNumber(){
-        String msg = creationMessage.getText();
+        String msg = getTextFromWeb(creationMessage,driver);
         String number = msg.split("\\ ")[7];
         return number;
     }
 
     public void enterMarriageRegNum() {
-        waitForElementToBeClickable(marriageSerialNum, driver);
-        marriageSerialNum.sendKeys(get6DigitRandomInt());
-        waitForElementToBeClickable(marriagePageNum, driver);
-        marriagePageNum.sendKeys(get6DigitRandomInt());
+        enterText(marriageSerialNum,get6DigitRandomInt(),driver);
+        enterText(marriagePageNum,get6DigitRandomInt(),driver);
     }
 
     public String isSuccesful() {
@@ -344,39 +300,31 @@ public class MarriageRegistrationPage extends BasePage {
     }
 
     public void searchForMarriageApplicationNumberToCollect(String applicationNumber, String type) {
-        waitForElementToBeVisible(applicationNumberTextBox,driver);
-        applicationNumberTextBox.sendKeys(applicationNumber);
+        enterText(applicationNumberTextBox,applicationNumber,driver);
         if(type.equals("reissue")) {
-            waitForElementToBeClickable(marriageRegistrationType, driver);
-            new Select(marriageRegistrationType).selectByVisibleText("REISSUE");
+            selectFromDropDown(marriageRegistrationType,"REISSUE",driver);
         }
         searchRegistrationButton.click();
     }
 
     public void clickOnCollectDropdown(){
-            waitForElementToBeVisible(actionDropDown, driver);
-            new Select(actionDropDown).selectByVisibleText("Collect Fee");
+        selectFromDropDown(actionDropDown,"Collect Fee",driver);
             switchToNewlyOpenedWindow(driver);
     }
 
     public void searchForApplicationToModify(String applicationNumber) {
-        waitForElementToBeVisible(applicationNumberTextBox,driver);
-        applicationNumberTextBox.sendKeys(applicationNumber);
+        enterText(applicationNumberTextBox,applicationNumber,driver);
         searchRegistrationButton.click();
     }
 
     public void clickOnEditButton() {
-        waitForElementToBeClickable(editButton,driver);
-        editButton.click();
+        clickOnButton(editButton,driver);
         switchToNewlyOpenedWindow(driver);
     }
 
     public void modifyAndUpdateMarriageApplication() {
-        waitForElementToBeClickable(lastName.get(0), driver);
-        lastName.get(0).sendKeys("KHAN");
-        waitForElementToBeClickable(updateButton,driver);
-        updateButton.click();
-
+        enterText(lastName.get(0),"Khan",driver);
+        clickOnButton(updateButton,driver);
     }
 
     public String isSuccesfulForModification() {
@@ -384,8 +332,7 @@ public class MarriageRegistrationPage extends BasePage {
     }
 
     public void closeMultipleWindows() {
-        waitForElementToBeClickable(closeButton, driver);
-        closeButton.click();
+        clickOnButton(closeButton,driver);
         for (String winHandle : driver.getWindowHandles()) {
             if (driver.switchTo().window(winHandle).getCurrentUrl().equals("http://kurnool-qa.egovernments.org/mrs/registration/searchApproved")) {
                 break;
@@ -396,28 +343,21 @@ public class MarriageRegistrationPage extends BasePage {
 
     }
     public void searchMarriageApplication(String applicationNumber) {
-        waitForElementToBeClickable(applicationNo, driver);
-        applicationNo.sendKeys(applicationNumber);
-        searchRegistrationButton.click();
+        enterText(applicationNo,applicationNumber,driver);
+        clickOnButton(searchRegistrationButton,driver);
     }
 
     public void selectsReIssueCertificate() {
-        waitForElementToBeClickable(reIssueCertificateLink, driver);
-        reIssueCertificateLink.click();
+        clickOnButton(reIssueCertificateLink,driver);
         switchToNewlyOpenedWindow(driver);
     }
 
     public void entersMemorandumOfMarriage() {
-        waitForElementToBeClickable(registrationUnit, driver);
-        new Select(registrationUnit).selectByVisibleText("BTM");
-        waitForElementToBeClickable(firstName, driver);
-        firstName.sendKeys("AaZz");
-        waitForElementToBeClickable(residenceAddress, driver);
-        residenceAddress.sendKeys("Kurnool, Andra Pradesh");
-        waitForElementToBeClickable(officeAddress, driver);
-        officeAddress.sendKeys("Kurnool, Andra Pradesh");
-        waitForElementToBeClickable(phoneNo, driver);
-        phoneNo.sendKeys("9876511223");
+        selectFromDropDown(registrationUnit,"Main office",driver);
+        enterText(firstName,"Aazz",driver);
+        enterText(residenceAddress,"Kurnool, Andra Pradesh",driver);
+        enterText(officeAddress,"Kurnool, Andra Pradesh",driver);
+        enterText(phoneNo,"9876589596",driver);
     }
 
     public String getReIssueNumber() {
@@ -426,8 +366,8 @@ public class MarriageRegistrationPage extends BasePage {
     }
 
     public void closeApplication() {
-        waitForElementToBeClickable(closeButton2, driver);
-        closeButton2.click();
+        clickOnButton(closeButton2,driver);
         switchToPreviouslyOpenedWindow(driver);
+
     }
 }
