@@ -24,16 +24,16 @@ Feature: Create Trade License
   @Sanity @TradeLicense
   Scenario Outline: Register User create trade license with work flow
 
-#    Given CSCUser logs in
-    Given PublicHBealthJA logs in
+    Given CSCUser logs in
+#    Given PublicHealthJA logs in
     And user will select the required screen as "Create New License"
     And he enters trade owner details of new license <tradeDetailsData>
     And he enters trade location details of new license <tradeLocationData>
     And he enters trade details of new license <tradeDetailsData1>
     And he copy trade application number
-#    And current user logs out
+    And current user logs out
 
-#    When PublicHealthJA logs in
+    When PublicHealthJA logs in
 #    And he choose to search trade license
     And user will select the required screen as "Search Trade License"
     And he search existing application number

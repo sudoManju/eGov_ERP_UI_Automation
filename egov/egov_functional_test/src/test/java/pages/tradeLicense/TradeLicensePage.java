@@ -100,29 +100,11 @@ public class TradeLicensePage extends BasePage {
     @FindBy(id = "status")
     private WebElement statusSelect;
 
-    @FindBy(id = "category")
-    private WebElement tradeCategorySelect;
-
     @FindBy(id = "approverComments")
     private WebElement approverRemarkTextBox;
 
     @FindBy(id = "Approve")
     private WebElement approveButton;
-
-    @FindBy(id = "approverComments")
-    private WebElement approverCommentsTextBox;
-
-    @FindBy(id = "approverDepartment")
-    private WebElement approverDepartmentSelection;
-
-    @FindBy(id = "approverDesignation")
-    private WebElement approverDesignationSelection;
-
-    @FindBy(id = "approverPositionId")
-    private WebElement approverSelection;
-
-    @FindBy(id = "Forward")
-    private WebElement forwardButton;
 
     @FindBy(id = "Generate Certificate")
     private WebElement generateCertificateButton;
@@ -175,6 +157,8 @@ public class TradeLicensePage extends BasePage {
         }
         location.sendKeys(Keys.TAB);
         await().atMost(10, SECONDS).until(() -> wardSelect.findElements(By.tagName("option")).size() > 1);
+        location.sendKeys(Keys.TAB);
+        waitForElementToBeClickable(wardSelect, webDriver);
         new Select(wardSelect).selectByIndex(1);
         selectFromDropDown(OwnershipTypeDropBox,tradelocationDetails.getownershipType(),webDriver);
     }
@@ -247,7 +231,7 @@ public class TradeLicensePage extends BasePage {
 
     public void enterDetailsForClosure(LicenseClosureDetails closureDetails) {
         selectFromDropDown(statusSelect,closureDetails.getStatusDetails(),webDriver);
-        selectFromDropDown(tradeCategorySelect,closureDetails.getTradeCategory(),webDriver);
+        selectFromDropDown(TradeCategoryDropBox,closureDetails.getTradeCategory(),webDriver);
         jsClick(searchButton,webDriver);
         selectFromDropDown(collectFeeDropBox,"Closure",webDriver);
         switchToNewlyOpenedWindow(webDriver);
@@ -283,9 +267,6 @@ public class TradeLicensePage extends BasePage {
     }
 
 
-    public void forward() {
-        jsClick(forwardButton,webDriver);
-    }
 
     public String generateLicenseCertificate() {
 
