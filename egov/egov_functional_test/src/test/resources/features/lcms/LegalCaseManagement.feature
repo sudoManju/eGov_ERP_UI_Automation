@@ -122,14 +122,14 @@ Feature: In this feature the following are created as well as edited
     And user will take the corresponding action on above as <action10>
     And user will closes the successful created or updated page
     And user will be notified by "closed"
-    And current user logs out
+#    And current user logs out
 
     Examples:
       | legalCaseData | action1       | action2  | action3      | action4      | action5     | action6  | action7      | action8                | implementationMode | action9                    | editImplementationMode | action10  |
       | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | Yes                | editJudgmentImplementation | edit_Yes               | closeCase |
-      | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | No_Appeal          | editJudgmentImplementation | edit_No_Appeal         | closeCase |
-      | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | No_Contempt        | editJudgmentImplementation | edit_No_Contempt       | closeCase |
-      | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | InProgress         | editJudgmentImplementation | edit_InProgress        | closeCase |
+#      | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | No_Appeal          | editJudgmentImplementation | edit_No_Appeal         | closeCase |
+#      | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | No_Contempt        | editJudgmentImplementation | edit_No_Contempt       | closeCase |
+#      | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | InProgress         | editJudgmentImplementation | edit_InProgress        | closeCase |
 
 
 
