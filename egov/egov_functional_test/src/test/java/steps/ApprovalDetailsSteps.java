@@ -18,7 +18,7 @@ public class ApprovalDetailsSteps extends BaseSteps implements En {
                 pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approvalDetails);
                 pageStore.get(ApprovalDetailsPage.class).forward();
             } else if (approvalDetailsDataId.equals("commissioner1")) {
-                pageStore.get(ApprovalDetailsPage.class).enterApproverDetails(approvalDetails);
+                pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approvalDetails);
                 pageStore.get(ApprovalDetailsPage.class).forward();
             }
         });

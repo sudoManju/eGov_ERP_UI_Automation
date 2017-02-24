@@ -58,9 +58,7 @@ public class PTISDataReader extends ExcelReader{
 
         switch (searchId){
             case "searchWithAssessmentNumber":
-                Cell assessmentNumberCell = getCellData(searchDetailsSheet, dataRow, "searchValue");
-                assessmentNumberCell.setCellType(Cell.CELL_TYPE_STRING);
-                String assessmentNumber = assessmentNumberCell.getStringCellValue();
+                String assessmentNumber = convertNumericToString(searchDetailsSheet, dataRow, "searchValue");
 
                 searchDetails =  new SearchDetailsBuilder()
                         .withAssessmentNumber(assessmentNumber)
@@ -68,9 +66,7 @@ public class PTISDataReader extends ExcelReader{
 
                 break;
             case "searchWithMobileNumber":
-                Cell mobileNumberCell = getCellData(searchDetailsSheet, dataRow, "searchValue");
-                mobileNumberCell.setCellType(Cell.CELL_TYPE_STRING);
-                String mobileNumber = mobileNumberCell.getStringCellValue();
+                String mobileNumber = convertNumericToString(searchDetailsSheet, dataRow, "searchValue");
 
                 searchDetails =  new SearchDetailsBuilder()
                         .withMobileNumber(mobileNumber)
@@ -149,9 +145,7 @@ public class PTISDataReader extends ExcelReader{
 
     public OwnerDetails getOwnerDetails(String ownerDetailsDataId) {
         Row dataRow = readDataRow(ownerDetailsSheet, ownerDetailsDataId);
-        Cell mobileNumberCell = getCellData(ownerDetailsSheet, dataRow, "mobileNumber");
-        mobileNumberCell.setCellType(Cell.CELL_TYPE_STRING);
-        String mobileNumber = mobileNumberCell.getStringCellValue();
+        String mobileNumber = convertNumericToString(ownerDetailsSheet, dataRow, "mobileNumber");
         String ownerName = getCellData(ownerDetailsSheet, dataRow, "ownerName").getStringCellValue();
         String gender = getCellData(ownerDetailsSheet, dataRow, "gender").getStringCellValue();
         String emailAddress = getCellData(ownerDetailsSheet, dataRow, "emailAddress").getStringCellValue();
@@ -173,12 +167,8 @@ public class PTISDataReader extends ExcelReader{
         String locality = getCellData(addressDetailsSheet, dataRow, "locality").getStringCellValue();
         String zoneNumber = getCellData(addressDetailsSheet, dataRow, "zoneNumber").getStringCellValue();
         String electionWard = getCellData(addressDetailsSheet, dataRow, "electionWard").getStringCellValue();
-        Cell doorNumberCell = getCellData(addressDetailsSheet, dataRow, "doorNumber");
-        doorNumberCell.setCellType(Cell.CELL_TYPE_STRING);
-        String doorNumber = doorNumberCell.getStringCellValue();
-        Cell pincodeCell = getCellData(addressDetailsSheet, dataRow, "pincode");
-        pincodeCell.setCellType(Cell.CELL_TYPE_STRING);
-        String pinCode = pincodeCell.getStringCellValue();
+        String doorNumber = convertNumericToString(addressDetailsSheet, dataRow, "doorNumber");
+        String pinCode = convertNumericToString(addressDetailsSheet, dataRow, "pincode");
 
         return new AddressDetailsBuilder()
                 .withLocality(locality)
@@ -191,14 +181,8 @@ public class PTISDataReader extends ExcelReader{
     public AssessmentDetails getAssessmentDetails(String assessmentDetailsDataId) {
         Row dataRow = readDataRow(assessmentDetailsSheet, assessmentDetailsDataId);
         String reasonForCreation = getCellData(assessmentDetailsSheet, dataRow, "reasonForCreation").getStringCellValue();
-        Cell extentOfSiteCell = getCellData(assessmentDetailsSheet, dataRow, "extentOfSite");
-        extentOfSiteCell.setCellType(Cell.CELL_TYPE_STRING);
-        Cell occupancyCertificateNumberCell = getCellData(assessmentDetailsSheet, dataRow, "occupancyCertificateNumber");
-        occupancyCertificateNumberCell.setCellType(Cell.CELL_TYPE_STRING);
-//        Cell registrationDocNumberCell = getCellData(assessmentDetailsSheet, dataRow, "registrationDocNumber");
-//        registrationDocNumberCell.setCellType(Cell.CELL_TYPE_STRING);
-        String extentOfSite = extentOfSiteCell.getStringCellValue();
-        String occupancyCertificateNumber = occupancyCertificateNumberCell.getStringCellValue();
+        String extentOfSite = convertNumericToString(assessmentDetailsSheet, dataRow, "extentOfSite");
+        String occupancyCertificateNumber = convertNumericToString(assessmentDetailsSheet, dataRow, "occupancyCertificateNumber");
 
         return new AssessmentDetailsBuilder().withReasonForCreation(reasonForCreation)
                 .withExtentOfSite(extentOfSite)
@@ -253,24 +237,11 @@ public class PTISDataReader extends ExcelReader{
         Date constructionDate = getCellData(floorDetailsSheet, dataRow, "constructionDate").getDateCellValue();
         Date effectiveFromDate = getCellData(floorDetailsSheet, dataRow, "effectiveFromDate").getDateCellValue();
         String unstructuredLand = getCellData(floorDetailsSheet, dataRow, "unstructuredLand").getStringCellValue();
-
-        Cell lengthCell = getCellData(floorDetailsSheet, dataRow, "length");
-        lengthCell.setCellType(Cell.CELL_TYPE_STRING);
-        Cell breadthCell = getCellData(floorDetailsSheet, dataRow, "breadth");
-        breadthCell.setCellType(Cell.CELL_TYPE_STRING);
-
-        String length = lengthCell.getStringCellValue();
-        String breadth = breadthCell.getStringCellValue();
-
-//        getCellData(constructionTypeDetailsSheet, dataRow, "plinthArea");
-        Cell buildingPermissionNumberCell = getCellData(floorDetailsSheet, dataRow, "buildingPermissionNumber");
-        buildingPermissionNumberCell.setCellType(Cell.CELL_TYPE_STRING);
-        Cell plinthAreaInBuildingPlanCell = getCellData(floorDetailsSheet, dataRow, "plinthAreaInBuildingPlan");
-        plinthAreaInBuildingPlanCell.setCellType(Cell.CELL_TYPE_STRING);
-
-        String buildingPermissionNumber = buildingPermissionNumberCell.getStringCellValue();
+        String length = convertNumericToString(floorDetailsSheet, dataRow, "length");
+        String breadth = convertNumericToString(floorDetailsSheet, dataRow, "breadth");
+        String buildingPermissionNumber = convertNumericToString(floorDetailsSheet, dataRow, "buildingPermissionNumber");
         Date buildingPermissionDate = getCellData(floorDetailsSheet, dataRow, "buildingPermissionDate").getDateCellValue();
-        String plinthAreaInBuildingPlan = plinthAreaInBuildingPlanCell.getStringCellValue();
+        String plinthAreaInBuildingPlan = convertNumericToString(floorDetailsSheet, dataRow, "plinthAreaInBuildingPlan");
 
 
         return new FloorDetailsBuilder().withFloorNumber(floorNumber)
@@ -306,12 +277,8 @@ public class PTISDataReader extends ExcelReader{
 
     public EditAssessmentDetails getEditAssessmentDetails(String assessmentDetailsDataName) {
         Row dataRow = readDataRow(editAssessmentDetailsSheet, assessmentDetailsDataName ) ;
-        Cell extentOfSiteCell = getCellData(editAssessmentDetailsSheet, dataRow, "extentOfSite");
-        extentOfSiteCell.setCellType(Cell.CELL_TYPE_STRING);
-        String extentOfSite = extentOfSiteCell.getStringCellValue();
-        Cell occupancyCertificateNumberCell = getCellData(editAssessmentDetailsSheet, dataRow, "occupancyCertificateNumber");
-        occupancyCertificateNumberCell.setCellType(Cell.CELL_TYPE_STRING);
-        String occupancyCertificateNumber = occupancyCertificateNumberCell.getStringCellValue();
+        String extentOfSite = convertNumericToString(editAssessmentDetailsSheet, dataRow, "extentOfSite");
+        String occupancyCertificateNumber = convertNumericToString(editAssessmentDetailsSheet, dataRow, "occupancyCertificateNumber");
 
         return new  EditAssessmentDetailsBuilder()
                 .withExtentOfSite(extentOfSite)
@@ -321,55 +288,19 @@ public class PTISDataReader extends ExcelReader{
 
     public EditFloorDetails getEditFloorDetails(String floordetailsDataName) {
         Row dataRow = readDataRow(editFloorDetailsSheet, floordetailsDataName);
-        Cell editfloorNumberCell = getCellData(editFloorDetailsSheet, dataRow, "editfloorNumber");
-        editfloorNumberCell.setCellType(Cell.CELL_TYPE_STRING);
-        String editfloorNumber = editfloorNumberCell.getStringCellValue();
-        Cell editclassificationOfBuildingCell = getCellData(editFloorDetailsSheet, dataRow, "editclassificationOfBuilding");
-        editclassificationOfBuildingCell.setCellType(Cell.CELL_TYPE_STRING);
-        String editclassificationOfBuilding = editclassificationOfBuildingCell.getStringCellValue();
-        Cell editnatureOfUsageCell = getCellData(editFloorDetailsSheet, dataRow, "editnatureOfUsage");
-        editnatureOfUsageCell.setCellType(Cell.CELL_TYPE_STRING);
-        String editnatureOfUsage = editnatureOfUsageCell.getStringCellValue();
-
-        Cell editoccupancyCell = getCellData(editFloorDetailsSheet, dataRow, "editoccupancy");
-        editoccupancyCell.setCellType(Cell.CELL_TYPE_STRING);
-        String editoccupancy = editoccupancyCell.getStringCellValue();
-
-        Cell editoccupantNameCell =getCellData(editFloorDetailsSheet, dataRow, "editoccupantName");
-        editoccupantNameCell.setCellType(Cell.CELL_TYPE_STRING);
-        String editoccupantName =editoccupantNameCell.getStringCellValue();
-
-        Cell editconstructionDateCell =getCellData(editFloorDetailsSheet, dataRow, "editconstructionDate");
-        editconstructionDateCell.setCellType(Cell.CELL_TYPE_STRING);
-        String editconstructionDate = editconstructionDateCell.getStringCellValue();
-
-        Cell editeffectiveFromDateCell =getCellData(editFloorDetailsSheet, dataRow, "editeffectiveFromDate");
-        editeffectiveFromDateCell.setCellType(Cell.CELL_TYPE_STRING);
-        String editeffectiveFromDate = editeffectiveFromDateCell.getStringCellValue();
-
-        Cell editunstructuredLandCell = getCellData(editFloorDetailsSheet, dataRow, "editunstructuredLand");
-        editunstructuredLandCell.setCellType(Cell.CELL_TYPE_STRING);
-        String editunstructuredLand = editunstructuredLandCell.getStringCellValue();
-
-        Cell editlengthCell = getCellData(editFloorDetailsSheet, dataRow, "editlength");
-        editlengthCell.setCellType(Cell.CELL_TYPE_STRING);
-        String editlength = editlengthCell.getStringCellValue();
-
-        Cell editbreadthCell = getCellData(editFloorDetailsSheet, dataRow, "editbreadth");
-        editbreadthCell.setCellType(Cell.CELL_TYPE_STRING);
-        String editbreadth = editbreadthCell.getStringCellValue();
-
-        Cell editbuildingPermissionNumberCell = getCellData(editFloorDetailsSheet, dataRow, "editbuildingPermissionNumber");
-        editbuildingPermissionNumberCell.setCellType(Cell.CELL_TYPE_STRING);
-        String editbuildingPermissionNumber = editbuildingPermissionNumberCell.getStringCellValue();
-
-        Cell editbuildingPermissionDateCell = getCellData(editFloorDetailsSheet, dataRow, "editbuildingPermissionDate");
-        editbuildingPermissionDateCell.setCellType(Cell.CELL_TYPE_STRING);
-        String editbuildingPermissionDate = editbuildingPermissionDateCell.getStringCellValue();
-
-        Cell editplinthAreaInBuildingPlanCell = getCellData(editFloorDetailsSheet, dataRow, "editplinthAreaInBuildingPlan");
-        editplinthAreaInBuildingPlanCell.setCellType(Cell.CELL_TYPE_STRING);
-        String editplinthAreaInBuildingPlan = editplinthAreaInBuildingPlanCell.getStringCellValue();
+        String editfloorNumber = convertNumericToString(editFloorDetailsSheet, dataRow, "editfloorNumber");
+        String editclassificationOfBuilding = convertNumericToString(editFloorDetailsSheet, dataRow, "editclassificationOfBuilding");
+        String editnatureOfUsage = convertNumericToString(editFloorDetailsSheet, dataRow, "editnatureOfUsage");
+        String editoccupancy = convertNumericToString(editFloorDetailsSheet, dataRow, "editoccupancy");
+        String editoccupantName =convertNumericToString(editFloorDetailsSheet, dataRow, "editoccupantName");
+        String editconstructionDate = convertNumericToString(editFloorDetailsSheet, dataRow, "editconstructionDate");
+        String editeffectiveFromDate = convertNumericToString(editFloorDetailsSheet, dataRow, "editeffectiveFromDate");
+        String editunstructuredLand = convertNumericToString(editFloorDetailsSheet, dataRow, "editunstructuredLand");
+        String editlength = convertNumericToString(editFloorDetailsSheet, dataRow, "editlength");
+        String editbreadth = convertNumericToString(editFloorDetailsSheet, dataRow, "editbreadth");
+        String editbuildingPermissionNumber = convertNumericToString(editFloorDetailsSheet, dataRow, "editbuildingPermissionNumber");
+        String editbuildingPermissionDate = convertNumericToString(editFloorDetailsSheet, dataRow, "editbuildingPermissionDate");
+        String editplinthAreaInBuildingPlan = convertNumericToString(editFloorDetailsSheet, dataRow, "editplinthAreaInBuildingPlan");
 
         return new EditFloorDetailsBuilder()
                 .withEditFloorNumber(editfloorNumber)
@@ -390,14 +321,8 @@ public class PTISDataReader extends ExcelReader{
     public VLTReport getVLTReportInfo(String vltReport){
 
         Row dataRow = readDataRow(vltReportSheet , vltReport);
-
-        Cell fromDateCell = getCellData(vltReportSheet, dataRow, "fromDate");
-        fromDateCell.setCellType(Cell.CELL_TYPE_STRING);
-        String fromDate = fromDateCell.getStringCellValue();
-
-        Cell toDateCell = getCellData(vltReportSheet, dataRow, "toDate");
-        toDateCell.setCellType(Cell.CELL_TYPE_STRING);
-        String toDate = toDateCell.getStringCellValue();
+        String fromDate = convertNumericToString(vltReportSheet, dataRow, "fromDate");
+        String toDate = convertNumericToString(vltReportSheet, dataRow, "toDate");
 
         return new VLTReportBuilder()
                 .withFromDate(fromDate)
@@ -408,14 +333,8 @@ public class PTISDataReader extends ExcelReader{
     public PTReport getPTReportInfo(String ptReport){
 
         Row dataRow = readDataRow(ptReportSheet , ptReport);
-
-        Cell fromDateCell = getCellData(ptReportSheet, dataRow, "fromDate");
-        fromDateCell.setCellType(Cell.CELL_TYPE_STRING);
-        String fromDate = fromDateCell.getStringCellValue();
-
-        Cell toDateCell = getCellData(ptReportSheet, dataRow, "toDate");
-        toDateCell.setCellType(Cell.CELL_TYPE_STRING);
-        String toDate = toDateCell.getStringCellValue();
+        String fromDate = convertNumericToString(ptReportSheet, dataRow, "fromDate");
+        String toDate = convertNumericToString(ptReportSheet, dataRow, "toDate");
 
         return new PTReportBuilder()
                 .withFromDate(fromDate)
@@ -424,71 +343,23 @@ public class PTISDataReader extends ExcelReader{
     }
     public RegistrationDetails getRegistrationDetails(String registrationDetailsDataId){
         Row dataRow = readDataRow(registrationDetailsSheet, registrationDetailsDataId);
-        Cell sellerExecutantNameCell = getCellData(registrationDetailsSheet, dataRow, "sellerExecutantName");
-        sellerExecutantNameCell.setCellType(Cell.CELL_TYPE_STRING);
-        String sellerExecutantName = sellerExecutantNameCell.getStringCellValue();
 
-        Cell buyerClaimantNameCell = getCellData(registrationDetailsSheet, dataRow, "buyerClaimantName");
-        buyerClaimantNameCell.setCellType(Cell.CELL_TYPE_STRING);
-        String  buyerClaimantName = buyerClaimantNameCell.getStringCellValue();
-
-        Cell doorNoCell = getCellData(registrationDetailsSheet, dataRow, "doorNo");
-        doorNoCell.setCellType(Cell.CELL_TYPE_STRING);
-        String  doorNo = doorNoCell.getStringCellValue();
-
-        Cell propertyAddressCell = getCellData(registrationDetailsSheet, dataRow, "propertyAddress");
-        propertyAddressCell.setCellType(Cell.CELL_TYPE_STRING);
-        String  propertyAddress = propertyAddressCell.getStringCellValue();
-
-        Cell registeredPlotAreaCell = getCellData(registrationDetailsSheet, dataRow, "registeredPlotArea");
-        registeredPlotAreaCell.setCellType(Cell.CELL_TYPE_STRING);
-        String  registeredPlotArea = registeredPlotAreaCell.getStringCellValue();
-
-        Cell registeredPlinthAreaCell = getCellData(registrationDetailsSheet, dataRow, "registerPlinthArea");
-        registeredPlinthAreaCell.setCellType(Cell.CELL_TYPE_STRING);
-        String  registeredPlinthArea = registeredPlinthAreaCell.getStringCellValue();
-
-        Cell eastBoundaryCell = getCellData(registrationDetailsSheet, dataRow, "eastBoundary");
-        eastBoundaryCell.setCellType(Cell.CELL_TYPE_STRING);
-        String  eastBoundary = eastBoundaryCell.getStringCellValue();
-
-        Cell westBoundaryCell = getCellData(registrationDetailsSheet, dataRow, "westBoundary");
-        westBoundaryCell.setCellType(Cell.CELL_TYPE_STRING);
-        String  westBoundary = westBoundaryCell.getStringCellValue();
-
-        Cell northBoundaryCell = getCellData(registrationDetailsSheet, dataRow, "northBoundary");
-        northBoundaryCell.setCellType(Cell.CELL_TYPE_STRING);
-        String  northBoundary = northBoundaryCell.getStringCellValue();
-
-        Cell southBoundaryCell = getCellData(registrationDetailsSheet, dataRow, "southBoundary");
-        southBoundaryCell.setCellType(Cell.CELL_TYPE_STRING);
-        String  southBoundary = southBoundaryCell.getStringCellValue();
-
-        Cell sroNameCell = getCellData(registrationDetailsSheet, dataRow, "sroName");
-        sroNameCell.setCellType(Cell.CELL_TYPE_STRING);
-        String  sroName = sroNameCell.getStringCellValue();
-
-        Cell reasonForChangeCell = getCellData(registrationDetailsSheet, dataRow, "reasonForChange");
-        reasonForChangeCell.setCellType(Cell.CELL_TYPE_STRING);
-        String  reasonForChange = reasonForChangeCell.getStringCellValue();
-
-        Cell registrationDocumentNumberCell = getCellData(registrationDetailsSheet, dataRow, "registrationDocumentNumber");
-        registrationDocumentNumberCell.setCellType(Cell.CELL_TYPE_STRING);
-        String  registrationDocumentNumber = registrationDocumentNumberCell.getStringCellValue();
-
-        Cell registrationDocumentDateCell = getCellData(registrationDetailsSheet, dataRow, "registrationDocumentDate");
-        registrationDocumentDateCell.setCellType(Cell.CELL_TYPE_STRING);
-        String  registrationDocumentDate = registrationDocumentDateCell.getStringCellValue();
-
-        Cell partiesConsiderationValueCell = getCellData(registrationDetailsSheet, dataRow, "partiesConsiderationValue");
-        partiesConsiderationValueCell.setCellType(Cell.CELL_TYPE_STRING);
-        String  partiesConsiderationValue = partiesConsiderationValueCell.getStringCellValue();
-
-        Cell departmentGuidelinesValueCell = getCellData(registrationDetailsSheet, dataRow, "departmentGuide");
-        departmentGuidelinesValueCell.setCellType(Cell.CELL_TYPE_STRING);
-        String  departmentGuidelinesValue = departmentGuidelinesValueCell.getStringCellValue();
-
-
+        String sellerExecutantName = convertNumericToString(registrationDetailsSheet, dataRow, "sellerExecutantName");
+        String  buyerClaimantName = convertNumericToString(registrationDetailsSheet, dataRow, "buyerClaimantName");
+        String  doorNo = convertNumericToString(registrationDetailsSheet, dataRow, "doorNo");
+        String  propertyAddress = convertNumericToString(registrationDetailsSheet, dataRow, "propertyAddress");
+        String  registeredPlotArea = convertNumericToString(registrationDetailsSheet, dataRow, "registeredPlotArea");
+        String  registeredPlinthArea = convertNumericToString(registrationDetailsSheet, dataRow, "registerPlinthArea");
+        String  eastBoundary = convertNumericToString(registrationDetailsSheet, dataRow, "eastBoundary");
+        String  westBoundary = convertNumericToString(registrationDetailsSheet, dataRow, "westBoundary");
+        String  northBoundary = convertNumericToString(registrationDetailsSheet, dataRow, "northBoundary");
+        String  southBoundary = convertNumericToString(registrationDetailsSheet, dataRow, "southBoundary");
+        String  sroName = convertNumericToString(registrationDetailsSheet, dataRow, "sroName");
+        String  reasonForChange = convertNumericToString(registrationDetailsSheet, dataRow, "reasonForChange");
+        String  registrationDocumentNumber = convertNumericToString(registrationDetailsSheet, dataRow, "registrationDocumentNumber");
+        String  registrationDocumentDate = convertNumericToString(registrationDetailsSheet, dataRow, "registrationDocumentDate");
+        String  partiesConsiderationValue = convertNumericToString(registrationDetailsSheet, dataRow, "partiesConsiderationValue");
+        String  departmentGuidelinesValue = convertNumericToString(registrationDetailsSheet, dataRow, "departmentGuide");
 
         return new RegistrationDetailsBuilder()
                 .withSellerExecutantName(sellerExecutantName)
@@ -511,9 +382,7 @@ public class PTISDataReader extends ExcelReader{
     }
     public RevisionPetitionDetails getRevisionPetitionDetails(String revisionPetitionDataId) {
         Row dataRow = readDataRow(revisionPetitionDetailsSheet, revisionPetitionDataId);
-        Cell revisionPetitionDetailsCell = getCellData(revisionPetitionDetailsSheet, dataRow, "revisionPetitionDetails");
-        revisionPetitionDetailsCell.setCellType(Cell.CELL_TYPE_STRING);
-        String revisionPetitionDetails = revisionPetitionDetailsCell.getStringCellValue();
+        String revisionPetitionDetails = convertNumericToString(revisionPetitionDetailsSheet, dataRow, "revisionPetitionDetails");
 
         return new RevisionPetitionDetailsBuilder()
                 .withRevisionPetitionDetail(revisionPetitionDetails)
@@ -522,14 +391,8 @@ public class PTISDataReader extends ExcelReader{
 
     public HearingDetails getHearingDetails(String hearingDataId) {
         Row dataRow = readDataRow(hearingDetailsSheet, hearingDataId);
-        Cell hearingDateCell = getCellData(hearingDetailsSheet, dataRow, "hearingDate");
-        hearingDateCell.setCellType(Cell.CELL_TYPE_STRING);
-        String hearingDate = hearingDateCell.getStringCellValue();
-
-        Cell hearingTimeCell = getCellData(hearingDetailsSheet, dataRow, "hearingTime");
-        hearingTimeCell.setCellType(Cell.CELL_TYPE_STRING);
-        String hearingTime = hearingTimeCell.getStringCellValue();
-
+        String hearingDate = convertNumericToString(hearingDetailsSheet, dataRow, "hearingDate");
+        String hearingTime = convertNumericToString(hearingDetailsSheet, dataRow, "hearingTime");
         String venue = getCellData(hearingDetailsSheet, dataRow, "venue").getStringCellValue();
 
         return new HearingDetailsBuilder()

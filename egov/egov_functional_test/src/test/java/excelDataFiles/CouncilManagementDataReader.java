@@ -2,7 +2,6 @@ package excelDataFiles;
 
 import builders.councilManagement.PreambleDetailsBuilder;
 import entities.councilManagement.CreatePreambleDetails;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
@@ -25,10 +24,7 @@ public class CouncilManagementDataReader extends ExcelReader {
         Row dataRow = readDataRow(createPreambleDetailsSheet, createPreambleData);
 
         String preambleDepartment = getCellData(createPreambleDetailsSheet, dataRow, "department").getStringCellValue();
-
-        Cell amountCell = getCellData(createPreambleDetailsSheet, dataRow,"amount");
-        amountCell.setCellType(Cell.CELL_TYPE_STRING);
-        String amount = amountCell.getStringCellValue();
+        String amount = convertNumericToString(createPreambleDetailsSheet, dataRow,"amount");
 
         String gistOfPreamble = getCellData(createPreambleDetailsSheet,dataRow,"gistOfPreamble").getStringCellValue();
 
@@ -51,14 +47,8 @@ public class CouncilManagementDataReader extends ExcelReader {
 
     public CreatePreambleDetails getCreateMeetingDetails(String createMeetingDetails) {
         Row dataRow = readDataRow(createMeetingSheet, createMeetingDetails);
-
-        Cell meetingDateCell = getCellData(createMeetingSheet, dataRow, "meetingDate");
-        meetingDateCell.setCellType(Cell.CELL_TYPE_STRING);
-        String meetingDate = meetingDateCell.getStringCellValue();
-
-        Cell meetingTimeCell = getCellData(createMeetingSheet, dataRow, "meetingTime");
-        meetingTimeCell.setCellType(Cell.CELL_TYPE_STRING);
-        String meetingTime = meetingTimeCell.getStringCellValue();
+        String meetingDate = convertNumericToString(createMeetingSheet, dataRow, "meetingDate");
+        String meetingTime = convertNumericToString(createMeetingSheet, dataRow, "meetingTime");
 
         String meetingPlace = getCellData(createMeetingSheet, dataRow, "meetingPlace").getStringCellValue();
 

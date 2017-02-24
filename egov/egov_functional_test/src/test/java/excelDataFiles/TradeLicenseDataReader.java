@@ -2,7 +2,6 @@ package excelDataFiles;
 
 import builders.tradeLicense.*;
 import entities.tradeLicense.*;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
@@ -25,14 +24,9 @@ public class TradeLicenseDataReader extends ExcelReader {
 
     public TradeOwnerDetails getTradeOwnerDetails(String tradeOwnerDetailsDataId){
         Row dataRow = readDataRow(tradeOwnerDetailsSheet, tradeOwnerDetailsDataId);
-        Cell aadhaarNumberCell = getCellData(tradeOwnerDetailsSheet, dataRow, "aadhaarNumber");
-        aadhaarNumberCell.setCellType(Cell.CELL_TYPE_STRING);
-        String  aadhaarNumber = aadhaarNumberCell.getStringCellValue();
 
-        Cell mobileNumberCell = getCellData(tradeOwnerDetailsSheet, dataRow, "mobileNumber");
-        mobileNumberCell.setCellType(Cell.CELL_TYPE_STRING);
-        String  mobileNumber = mobileNumberCell.getStringCellValue();
-
+        String  aadhaarNumber = convertNumericToString(tradeOwnerDetailsSheet, dataRow, "aadhaarNumber");
+        String  mobileNumber = convertNumericToString(tradeOwnerDetailsSheet, dataRow, "mobileNumber");
         String tradeOwnerName = getCellData(tradeOwnerDetailsSheet, dataRow, "tradeOwnerName").getStringCellValue();
         String fatherSpouseName = getCellData(tradeOwnerDetailsSheet, dataRow, "fatherSpouseName").getStringCellValue();
         String emailId = getCellData(tradeOwnerDetailsSheet, dataRow, "emailId").getStringCellValue();
@@ -73,16 +67,9 @@ public class TradeLicenseDataReader extends ExcelReader {
         String tradeType = getCellData(tradeDetailsSheet, dataRow, "tradeType").getStringCellValue();
         String tradeCategory = getCellData(tradeDetailsSheet, dataRow, "tradeCategory").getStringCellValue();
         String tradeSubCategory = getCellData(tradeDetailsSheet, dataRow, "tradeSubCategory").getStringCellValue();
-
-        Cell tradeAreaWeightOfPremisesCell = getCellData(tradeDetailsSheet, dataRow, "tradeAreaWeightOfPremises");
-        tradeAreaWeightOfPremisesCell.setCellType(Cell.CELL_TYPE_STRING);
-        String tradeAreaWeightOfPremises = tradeAreaWeightOfPremisesCell.getStringCellValue();
-
+        String tradeAreaWeightOfPremises = convertNumericToString(tradeDetailsSheet, dataRow, "tradeAreaWeightOfPremises");
         String remarks = getCellData(tradeDetailsSheet, dataRow, "remarks").getStringCellValue();
-
-        Cell tradeCommencementDateCell = getCellData(tradeDetailsSheet, dataRow, "TradeCommencementDate");
-        tradeCommencementDateCell.setCellType(Cell.CELL_TYPE_STRING);
-        String tradeCommencementDate = tradeCommencementDateCell.getStringCellValue();
+        String tradeCommencementDate = convertNumericToString(tradeDetailsSheet, dataRow, "TradeCommencementDate");
 
         return new TradeDetailsBuilder()
                 .withtradeTitle(tradeTitle)

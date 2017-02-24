@@ -2,7 +2,6 @@ package excelDataFiles;
 
 import builders.grievances.CreateComplaintDetailsBuilder;
 import entities.grievances.CreateComplaintDetails;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
@@ -21,10 +20,7 @@ public class GrievanceDataReader extends ExcelReader {
         Row dataRow = readDataRow(grievancesContactDetailsSheet,contactInfo);
 
         String citizenName=getCellData(grievancesContactDetailsSheet, dataRow, "citizenName").getStringCellValue();
-
-        Cell citizenMobNoCell= getCellData(grievancesContactDetailsSheet, dataRow, "mobNo");
-        citizenMobNoCell.setCellType(Cell.CELL_TYPE_STRING);
-        String citizenMobNo= citizenMobNoCell.getStringCellValue();
+        String citizenMobNo= convertNumericToString(grievancesContactDetailsSheet, dataRow, "mobNo");
 
         String emailId= getCellData(grievancesContactDetailsSheet, dataRow, "emailId").getStringCellValue();
 
