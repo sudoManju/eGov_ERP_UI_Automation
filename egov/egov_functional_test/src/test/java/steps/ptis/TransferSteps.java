@@ -1,5 +1,6 @@
 package steps.ptis;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.ptis.RegistrationDetails;
 import excelDataFiles.PTISDataReader;
@@ -30,5 +31,6 @@ public class TransferSteps extends BaseSteps implements En {
         And("^he generate title transfer notice$", () -> {
             pageStore.get(TransferDetailsPage.class).generateTitleTransferNotice();
         });
+
     }
 }

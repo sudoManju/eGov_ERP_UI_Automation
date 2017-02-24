@@ -42,18 +42,21 @@ Feature: Create Trade License
     And he chooses to act upon above application number
 
     And he forwards for approver sanitaryInspector
+    And he confirms to proceed
     And he closes acknowledgement page
     And current user logs out
 
     When sanitaryInspector logs in
     And he chooses to act upon above application number
     And he forwards for approver commissioner
+    And he confirms to proceed
     And he closes acknowledgement page
     And current user logs out
 
     When commissioner logs in
     And he chooses to act upon above application number
     And he approves application
+    And he confirms to proceed
     And he closes acknowledgement page
     And current user logs out
 
@@ -91,20 +94,22 @@ Feature: Create Trade License
     Given creator logs in
     And user will select the required screen as "Search Trade License"
     And he choose a trade license for closure as <closureDetails>
-    And he choose action "Closure"
     And he forwards for approver sanitaryInspector
+    And he confirms to proceed
     And he closes the acknowledgement page
     And current user logs out
 
     When sanitaryInspector logs in
     And he chooses to act upon above application number
     And he forwards for approver commissioner
+    And he confirms to proceed
     And he closes acknowledgement page
     And current user logs out
 
     When commissioner logs in
     And he chooses to act upon above application number
     And he approves the closure
+    And he confirms to proceed
     And he closes acknowledgement page
     And current user logs out
 
@@ -133,18 +138,21 @@ Feature: Create Trade License
     And he choose to payTax of applicationNumber
     And he chooses to act upon above application number
     And he forwards for approver sanitaryInspector
+    And he confirms to proceed
     And he closes acknowledgement page
     And current user logs out
 
     When sanitaryInspector logs in
     And he chooses to act upon above application number
     And he forwards for approver commissioner
+    And he confirms to proceed
     And he closes acknowledgement page
     And current user logs out
 
     When commissioner logs in
     And he chooses to act upon above application number
     And he approves application
+    And he confirms to proceed
     And he closes acknowledgement page
     And current user logs out
 

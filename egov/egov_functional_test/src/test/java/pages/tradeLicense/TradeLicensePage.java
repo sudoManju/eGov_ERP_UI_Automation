@@ -191,6 +191,7 @@ public class TradeLicensePage extends BasePage {
     }
 
     public void chooseAction(String action) {
+        await().atMost(20, SECONDS).until(() -> collectFeeDropBox.isDisplayed());
         selectFromDropDown(collectFeeDropBox, action, webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
@@ -225,6 +226,9 @@ public class TradeLicensePage extends BasePage {
         selectFromDropDown(statusSelect, closureDetails.getStatusDetails(), webDriver);
         selectFromDropDown(TradeCategoryDropBox, closureDetails.getTradeCategory(), webDriver);
         jsClick(searchButton, webDriver);
+//        waitForElementToBeClickable(collectFeeDropBox, webDriver);
+        selectFromDropDown(collectFeeDropBox, "Closure", webDriver);
+        switchToNewlyOpenedWindow(webDriver);
     }
 
     public String getLicenseNumber() {
@@ -265,6 +269,8 @@ public class TradeLicensePage extends BasePage {
                 webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("boundary")));
             } else {
                 jsClick(generateCertificateButton, webDriver);
+                webDriver.switchTo().activeElement();
+                jsClick(webDriver.findElement(By.cssSelector(".btn.btn-danger")), webDriver);
                 switchToNewlyOpenedWindow(webDriver);
                 break;
             }
@@ -327,6 +333,11 @@ public class TradeLicensePage extends BasePage {
     public void closeAcknowledgementPage() {
         clickOnButton(acknowlwdgementClose, webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
+    }
+
+    public void confirmToProceed() {
+        webDriver.switchTo().activeElement();
+        jsClick(webDriver.findElement(By.cssSelector(".btn.btn-danger")), webDriver);
     }
 }
 

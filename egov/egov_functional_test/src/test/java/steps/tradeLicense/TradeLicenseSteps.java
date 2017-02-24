@@ -1,5 +1,6 @@
 package steps.tradeLicense;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.tradeLicense.*;
 import excelDataFiles.TradeLicenseDataReader;
@@ -92,6 +93,9 @@ public class TradeLicenseSteps extends BaseSteps implements En {
         });
         And("^he choose action \"([^\"]*)\"$", (String action) -> {
             pageStore.get(TradeLicensePage.class).chooseAction(action);
+        });
+        And("^he confirms to proceed$", () -> {
+            pageStore.get(TradeLicensePage.class).confirmToProceed();
         });
     }
 }
