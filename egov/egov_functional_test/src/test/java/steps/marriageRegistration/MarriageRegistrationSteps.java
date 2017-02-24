@@ -1,5 +1,6 @@
 package steps.marriageRegistration;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.ApprovalDetails;
 import entities.marriageRegistration.MarriageRegistrationInformation;
@@ -111,6 +112,9 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
         And("^he collect the registration charges and closes the acknowledgement$", () -> {
             pageStore.get(NewSewerageConnectionPage.class).collectCharges();
             pageStore.get(NewSewerageConnectionPage.class).closeMultipleWindows("/mrs/registration/collectmrfee/");
+        });
+        And("^he closes the acknowledgement$", () -> {
+            pageStore.get(MarriageRegistrationPage.class).closeApplication();
         });
     }
 }
