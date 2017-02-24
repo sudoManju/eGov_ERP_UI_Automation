@@ -8,7 +8,6 @@ import entities.advertisementTax.AdvertisementDetails;
 import entities.advertisementTax.LocalityDetails;
 import entities.advertisementTax.PermissionDetails;
 import entities.advertisementTax.StructureDetails;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
