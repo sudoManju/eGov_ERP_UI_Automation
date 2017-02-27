@@ -46,7 +46,7 @@ public class DashboardPage extends BasePage {
 
     public void logOut() {
         clickOnButton(profileNameLink, driver);
-        clickOnButton(signOutLink, driver);
+        jsClick(signOutLink, driver);
     }
 
     public void chooseForModeOFAssignment(String mode) {
