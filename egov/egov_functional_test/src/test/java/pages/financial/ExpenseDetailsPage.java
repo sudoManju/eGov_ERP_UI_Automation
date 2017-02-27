@@ -92,7 +92,6 @@ public class ExpenseDetailsPage extends FinancialPage {
         waitForElementToBeClickable(expenseFunction, webDriver);
         expenseFunction.sendKeys(financialExpenseBillDetails.getExpenseFunction());
         waitForElementToBeVisible(webDriver.findElement(By.className("tt-dropdown-menu")), webDriver);
-//        WebElement dropdown = webDriver.findElement(By.xpath(".//*[@id='expensebillheader']/div/div[7]/div[1]/span/span/div"));
         WebElement dropdown = webDriver.findElement(By.className("tt-dataset-0"));
         waitForElementToBeVisible(dropdown, webDriver);
         waitForElementToBeClickable(dropdown, webDriver);

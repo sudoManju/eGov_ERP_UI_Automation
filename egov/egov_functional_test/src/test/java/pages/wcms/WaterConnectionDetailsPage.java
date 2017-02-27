@@ -126,9 +126,9 @@ public class WaterConnectionDetailsPage extends WaterChargeManagementPage {
         enterDate(documentDate2TextBox, getCurrentDate(), webDriver);
         enterDate(documentDate3TextBox, getCurrentDate(), webDriver);
 
-        uploadFile(browse1Button, System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx", webDriver);
-        uploadFile(browse2Button, System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx", webDriver);
-        uploadFile(browse3Button, System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx", webDriver);
+        uploadFile(browse1Button, System.getProperty("user.dir") + "/src/test/resources/dataFiles/PTISTestData.xlsx", webDriver);
+        uploadFile(browse2Button, System.getProperty("user.dir") + "/src/test/resources/dataFiles/PTISTestData.xlsx", webDriver);
+        uploadFile(browse3Button, System.getProperty("user.dir") + "/src/test/resources/dataFiles/PTISTestData.xlsx", webDriver);
     }
 
     public void enterAdditionalWaterConnectionInfo(ConnectionInfo connectionInfo) {
