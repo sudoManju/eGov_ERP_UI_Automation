@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
@@ -129,9 +130,8 @@ public class JournalVoucherDetailsPage extends FinancialPage {
         if (isSubLedgerPresent.contains("yes")) {
 
             waitForElementToBePresent(By.className("yui-dt-dropdown"), webDriver);
+            await().atMost(5, SECONDS).until(() -> new Select(ledgerAccount1).getOptions().size() > 1);
             List<WebElement> webElementList = ledgerAccount1.findElements(By.tagName("option"));
-
-            await().atMost(5, SECONDS).until(() -> webElementList.size() > 1);
 
             selectFromDropDown(ledgerAccount1, webElementList.get(1).getText(), webDriver);
             selectFromDropDown(ledgerType1, financialJournalVoucherDetails.getLedgerType1(), webDriver);
