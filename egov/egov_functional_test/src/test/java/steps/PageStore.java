@@ -14,6 +14,11 @@ public class PageStore {
 
     public PageStore() {
         webDriver = new LocalDriver().getApplicationDriver();
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         pages = new ArrayList<Object>();
     }
 
