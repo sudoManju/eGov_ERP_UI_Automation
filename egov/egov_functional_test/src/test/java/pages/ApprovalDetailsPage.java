@@ -21,17 +21,14 @@ public class ApprovalDetailsPage extends BasePage {
     @FindBy(id = "approvalPosition")
     private WebElement approvalPositionSelect;
 
-    @FindBy(id = "inc_messge")
-    private WebElement incMessageTextBox;
-
     @FindBy(xpath = ".//*[@id='complaintUpdate']/div[6]/div/button[1]")
     private WebElement grievanceSubmit;
 
     @FindBy(linkText = "Close")
     private WebElement closeButton;
 
-    @FindBy(id = "approverComments")
-    private WebElement approverRemarkTextBox;
+//    @FindBy(css = "textarea[name='approvalComent']")
+//    private WebElement approverRemarkTextBox;
 
     @FindBy(id = "Approve")
     private WebElement approveButton;
@@ -64,14 +61,6 @@ public class ApprovalDetailsPage extends BasePage {
         this.webDriver = webDriver;
     }
 
-    public void enterApprovalDetailsForGrievances(ApprovalDetails approvalDetails) {
-
-        new Select(approvalDepartmentSelect).selectByVisibleText(approvalDetails.getApproverDepartment());
-        new Select(approvalDesignationSelect).selectByVisibleText(approvalDetails.getApproverDesignation());
-        new Select(approvalPositionSelect).selectByVisibleText(approvalDetails.getApprover());
-        enterText(incMessageTextBox, approvalDetails.getApproverRemarks(), webDriver);
-    }
-
     public void enterApproverDetails(ApprovalDetails approvalDetails) {
 
         selectFromDropDown(approverDepartmentSelection, approvalDetails.getApproverDepartment(), webDriver);
@@ -96,6 +85,9 @@ public class ApprovalDetailsPage extends BasePage {
         await().atMost(10, SECONDS).until(() -> new Select(approvalPositionSelect).getOptions().size() > 1);
 
         selectFromDropDown(approvalPositionSelect, approvalDetails.getApprover(), webDriver);
+        if (approvalCommentsTextBox.isDisplayed()) {
+            enterText(approvalCommentsTextBox, approvalDetails.getApproverRemarks(), webDriver);
+        }
     }
 
     public void forward() {
