@@ -19,7 +19,7 @@ public class ExcelReader {
     Sheet approvalDetailsSheet;
 
     public ExcelReader(String testData) {
-        String excelFilePath = testData + ".xlsx";
+        String excelFilePath = "dataFiles/" + testData + ".xlsx";
         InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream(excelFilePath);
         try {
             workbook = WorkbookFactory.create(resourceAsStream);
