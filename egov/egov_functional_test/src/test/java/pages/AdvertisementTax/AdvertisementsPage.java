@@ -99,11 +99,8 @@ public class AdvertisementsPage extends BasePage {
     @FindBy(id = "search")
     private WebElement searchAdvertisementButton;
 
-    @FindBy(xpath = "//*[@id='adtax_search']/tbody/tr[1]/td[9]/button")
+    @FindBy(css = "button[class*='collect']")
     private WebElement collectButton;
-
-    @FindBy(xpath = "//*[@id='adtax_search']/tbody/tr[4]/td[5]/button")
-    private WebElement agencyWisecollectButton;
 
     @FindBy(css = "input[id='totalamounttobepaid'][type='text']")
     private WebElement totalamounttobepaid;
@@ -135,7 +132,7 @@ public class AdvertisementsPage extends BasePage {
     @FindBy(id = "status_dropdown")
     private WebElement statusDropDownBox;
 
-    @FindBy(xpath = ".//*[@id='agencyform']/div[2]/div/button[1]")
+    @FindBy(css = "button[type='submit']")
     private WebElement submitAgencyDetailsButton;
 
     @FindBy(xpath = ".//*[@id='agencysuccess']/div[1]")
@@ -150,16 +147,13 @@ public class AdvertisementsPage extends BasePage {
     @FindBy(id = "agencies")
     private WebElement searchAgencyBox;
 
-    @FindBy(xpath = ".//*[@id='agencysearch']/div[2]/div/button[2]")
+    @FindBy(id = "buttonView")
     private WebElement viewButton;
-
-    @FindBy(xpath = ".//*[@id='adtax_search']/tbody/tr/td[6]/button")
-    private WebElement collectAdvertisementTaxButton;
 
     @FindBy(css = "input[id='selectAll'][type='checkbox']")
     private WebElement selectAllCheckBox;
 
-    @FindBy(xpath = ".//*[@id='agencysearch']")
+    @FindBy(id = "agencysearch")
     private WebElement collectFeeButton;
 
     @FindBy(id = "searchrecord")
@@ -366,6 +360,7 @@ public class AdvertisementsPage extends BasePage {
 
     public void searchAgency(String name) {
         selectFromDropDown(searchAgencyBox, name, driver);
+//        clickOnButton(viewButton, driver);
         clickOnButton(viewButton, driver);
     }
 
@@ -383,7 +378,7 @@ public class AdvertisementsPage extends BasePage {
     }
 
     public void selectAdvertisementAgency() {
-        clickOnButton(collectAdvertisementTaxButton, driver);
+        clickOnButton(collectButton, driver);
         switchToNewlyOpenedWindow(driver);
         clickOnButton(selectAllCheckBox, driver);
         clickOnButton(collectFeeButton, driver);
@@ -404,7 +399,7 @@ public class AdvertisementsPage extends BasePage {
         clickOnButton(closeButtonOfDeactivateSuccessPage, driver);
 
         for (String winHandle : driver.getWindowHandles()) {
-            if (driver.switchTo().window(winHandle).getCurrentUrl().equals(url)) {
+            if (driver.switchTo().window(winHandle).getCurrentUrl().equals(getEnvironmentURL()+url)) {
                 break;
             }
         }
