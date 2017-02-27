@@ -133,7 +133,7 @@ public class NewSewerageConnectionPage extends BasePage {
         enterText(noOfClosetsTextBox, "3", driver);
         enterText(documentNumberTextBox, "123", driver);
         enterDate(documentDateTextBox, getCurrentDate(), driver);
-        uploadFile(chooseFileButton, System.getProperty("user.dir") + "/src/test/resources/logo.jpg", driver);
+        uploadFile(chooseFileButton, System.getProperty("user.dir") + "/src/test/resources/dataFiles/logo.jpg", driver);
     }
 
     public void forward() {
@@ -251,7 +251,7 @@ public class NewSewerageConnectionPage extends BasePage {
         enterText(noOfClosetsTextBox, "5", driver);
         enterText(documentNumberTextBox, "123", driver);
         enterDate(documentDateTextBox, getCurrentDate(), driver);
-        uploadFile(chooseFileButton, System.getProperty("user.dir") + "/src/test/resources/logo.jpg", driver);
+        uploadFile(chooseFileButton, System.getProperty("user.dir") + "/src/test/resources/dataFiles/logo.jpg", driver);
     }
 
     public void remarks() {
