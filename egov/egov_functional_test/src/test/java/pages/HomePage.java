@@ -39,33 +39,13 @@ public class HomePage extends BasePage {
 
     public void loginAs(LoginDetails loginDetails) {
 
-//        isImageLoaded();
         enterText(userNameTextBox, loginDetails.getLoginId(), driver);
         enterText(passwordTextBox, loginDetails.getPassword(), driver);
-
-//        try {
-//            TimeUnit.SECONDS.sleep(1);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
 
         WebElement signForm = driver.findElement(By.id("signform"));
         waitForElementToBeClickable(signForm, driver);
         signForm.submit();
     }
-
-//    private void isImageLoaded(){
-//        Boolean ImagePresent = (Boolean) ((JavascriptExecutor)driver).executeScript("return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0", logo);
-//        for(int i = 0 ; i<= 10 ; i++){
-//            if (!ImagePresent){
-//                driver.manage().timeouts().implicitlyWait(10 , TimeUnit.SECONDS);
-//                driver.navigate().refresh();
-//            }
-//            else {
-//                break;
-//            }
-//        }
-//    }
 
     public void visitWebsite() {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -75,6 +55,5 @@ public class HomePage extends BasePage {
         clickOnButton(profileLink, driver);
         clickOnButton(profileLink, driver);
         clickOnButton(signOutLink, driver);
-
     }
 }
