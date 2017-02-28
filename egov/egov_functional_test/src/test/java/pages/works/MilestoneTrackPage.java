@@ -115,35 +115,48 @@ public class MilestoneTrackPage extends BasePage {
     }
 
     public void enterMilestoneDetails() {
+        waitForElementToBeVisible(milestoneStageTbl,driver);
         WebElement requiredRow = milestoneStageTbl.findElements(By.tagName("tr")).get(0);
+
         WebElement stageDescription = requiredRow.findElements(By.tagName("td")).get(1).findElement(By.name("activities[0].description"));
-        enterText(stageDescription, "Stage 1", driver);
+        stageDescription.sendKeys("Stage 1");
+
         WebElement stagePercentage = requiredRow.findElements(By.tagName("td")).get(2).findElement(By.name("activities[0].percentage"));
-        enterText(stagePercentage, "50", driver);
+        stagePercentage.sendKeys("50");
+
         WebElement stageScheduleStartDate = requiredRow.findElements(By.tagName("td")).get(3).findElement(By.name("activities[0].scheduleStartDate"));
-        enterDate(stageScheduleStartDate, getCurrentDate(), driver);
-        enterDate(stageScheduleStartDate, getCurrentDate(), driver);
+        stageScheduleStartDate.sendKeys(getCurrentDate());
+        stageScheduleStartDate.clear();
+        stageScheduleStartDate.sendKeys(getCurrentDate());
 
         WebElement stageScheduleEndDate = requiredRow.findElements(By.tagName("td")).get(4).findElement(By.name("activities[0].scheduleEndDate"));
-        enterDate(stageScheduleEndDate, getFutureDate(62), driver);
-        enterText(stageScheduleEndDate, getFutureDate(62), driver);
+        stageScheduleEndDate.sendKeys(getFutureDate(30));
+        stageScheduleEndDate.clear();
+        stageScheduleEndDate.sendKeys(getFutureDate(30));
 
-        clickOnButton(addRowButton, driver);
+        waitForElementToBeClickable(addRowButton,driver);
+        addRowButton.click();
 
         WebElement requiredRow1 = milestoneStageTbl.findElements(By.tagName("tr")).get(1);
+
         WebElement stageOrderNo1 = driver.findElement(By.xpath("(//*[@id='stageOrderNo'])[2]"));
-        enterText(stageOrderNo1, "2", driver);
+        stageOrderNo1.sendKeys("2");
+
         WebElement stageDescription1 = requiredRow1.findElements(By.tagName("td")).get(1).findElement(By.name("activities[1].description"));
-        enterText(stageDescription1, "Stage 2", driver);
+        stageDescription1.sendKeys("Stage 2");
+
         WebElement stagePercentage1 = requiredRow1.findElements(By.tagName("td")).get(2).findElement(By.name("activities[1].percentage"));
-        enterText(stagePercentage1, "50", driver);
+        stagePercentage1.sendKeys("50");
+
         WebElement stageScheduleStartDate1 = requiredRow1.findElements(By.tagName("td")).get(3).findElement(By.name("activities[1].scheduleStartDate"));
-        enterDate(stageScheduleStartDate1, getFutureDate(62), driver);
-        enterDate(stageScheduleStartDate1, getFutureDate(62), driver);
+        stageScheduleStartDate1.sendKeys(getFutureDate(37));
+        stageScheduleStartDate1.clear();
+        stageScheduleStartDate1.sendKeys(getFutureDate(37));
 
         WebElement stageScheduleEndDate1 = requiredRow1.findElements(By.tagName("td")).get(4).findElement(By.name("activities[1].scheduleEndDate"));
-        enterText(stageScheduleEndDate1, getFutureDate(72), driver);
-        enterText(stageScheduleEndDate1, getFutureDate(72), driver);
+        stageScheduleEndDate1.sendKeys(getFutureDate(67));
+        stageScheduleEndDate1.clear();
+        stageScheduleEndDate1.sendKeys(getFutureDate(67));
     }
 
     public void save() {
