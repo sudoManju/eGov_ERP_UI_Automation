@@ -7,3 +7,4 @@ gradle
 /src/test/resources/dataFiles/.~lock*
 .ipr
 .iws
+classes/

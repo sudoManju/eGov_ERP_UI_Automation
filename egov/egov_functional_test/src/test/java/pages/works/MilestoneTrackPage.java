@@ -134,6 +134,12 @@ public class MilestoneTrackPage extends BasePage {
         stageScheduleEndDate.clear();
         stageScheduleEndDate.sendKeys(getFutureDate(30));
 
+//        enterDate(stageScheduleEndDate, getFutureDate(52), driver);
+//        stageScheduleEndDate.clear();
+//        enterText(stageScheduleEndDate, getFutureDate(52), driver);
+//        stageScheduleEndDate.clear();
+//        enterText(stageScheduleEndDate, getFutureDate(52), driver);
+
         waitForElementToBeClickable(addRowButton,driver);
         addRowButton.click();
 
@@ -152,11 +158,22 @@ public class MilestoneTrackPage extends BasePage {
         stageScheduleStartDate1.sendKeys(getFutureDate(37));
         stageScheduleStartDate1.clear();
         stageScheduleStartDate1.sendKeys(getFutureDate(37));
+//
+//        WebElement stageScheduleEndDate1 = requiredRow1.findElements(By.tagName("td")).get(4).findElement(By.name("activities[1].scheduleEndDate"));
+//        stageScheduleEndDate1.sendKeys(getFutureDate(67));
+//        stageScheduleEndDate1.clear();
+//        stageScheduleEndDate1.sendKeys(getFutureDate(67));
+
+//        enterDate(stageScheduleStartDate1, getCurrentDate(), driver);
+//        stageScheduleStartDate1.clear();
+//        enterDate(stageScheduleStartDate1, getCurrentDate(), driver);
 
         WebElement stageScheduleEndDate1 = requiredRow1.findElements(By.tagName("td")).get(4).findElement(By.name("activities[1].scheduleEndDate"));
-        stageScheduleEndDate1.sendKeys(getFutureDate(67));
+        enterText(stageScheduleEndDate1, getFutureDate(62), driver);
         stageScheduleEndDate1.clear();
-        stageScheduleEndDate1.sendKeys(getFutureDate(67));
+        enterText(stageScheduleEndDate1, getFutureDate(62), driver);
+        stageScheduleEndDate1.clear();
+        enterText(stageScheduleEndDate1, getFutureDate(62), driver);
     }
 
     public void save() {
