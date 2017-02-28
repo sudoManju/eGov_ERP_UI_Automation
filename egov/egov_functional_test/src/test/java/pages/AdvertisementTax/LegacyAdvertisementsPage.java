@@ -60,7 +60,7 @@ public class LegacyAdvertisementsPage extends BasePage {
     public String submit() {
         clickOnButton(submitButton, driver);
 
-        boolean isPresent = driver.findElements(By.xpath(".//*[@id='advertisementform']/div/div[2]/div/div/div[22]/div/label")).size() > 0;
+        boolean isPresent = driver.findElements(By.id("taxAmount-error")).size() > 0;
 
         if (isPresent) {
             enterText(taxAmountTextBox, "10", driver);

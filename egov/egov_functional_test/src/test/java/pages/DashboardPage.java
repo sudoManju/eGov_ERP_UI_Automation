@@ -96,7 +96,7 @@ public class DashboardPage extends BasePage {
                 if (applicationRow.findElements(By.tagName("td")).get(4).getText().contains(number))
                     return applicationRow;
             }
-            throw new RuntimeException("No voucher row found in Inbox -- " + number);
+            throw new RuntimeException("No application row found in Inbox -- " + number);
         } catch (Exception e) {
             clickOnButton(officialDraftsTable, driver);
             await().atMost(20, SECONDS).until(() -> driver.findElement(By.id("official_drafts")).findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
@@ -105,7 +105,7 @@ public class DashboardPage extends BasePage {
                 if (applicationRow.findElements(By.tagName("td")).get(4).getText().contains(number))
                     return applicationRow;
             }
-            throw new RuntimeException("No voucher row found in Inbox and Drafts -- " + number);
+            throw new RuntimeException("No application row found in Inbox and Drafts -- " + number);
         }
     }
 }

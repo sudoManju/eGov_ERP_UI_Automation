@@ -19,8 +19,8 @@ Feature: Create Spillover Estimate/Create LOA for Spillover
     Examples:
       | estimateHeaderDetails | financialDetails     | workDetails | adminSanctionDetails | technicalSanctionDetails |
       | SpilloverEstimate_1   | SpillOverFinancial_1 | SpillWork_1 | admin                | technical                |
-#      | SpilloverEstimate_2   | SpillOverFinancial_2 | SpillWork_2 | admin                | technical                |
-#      | SpilloverEstimate_3   | SpillOverFinancial_3 | SpillWork_3 | admin                | technical                |
+      | SpilloverEstimate_2   | SpillOverFinancial_2 | SpillWork_2 | admin                | technical                |
+      | SpilloverEstimate_3   | SpillOverFinancial_3 | SpillWork_3 | admin                | technical                |
 
 
   @Works @Sanity
