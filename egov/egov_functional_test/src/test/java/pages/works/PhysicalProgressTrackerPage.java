@@ -38,9 +38,9 @@ public class PhysicalProgressTrackerPage extends BasePage {
     }
 
     public void uploadEstimatePhotos() {
-        browseFile1.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
-        browseFile2.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
-        browseFile3.sendKeys(System.getProperty("user.dir") + "/src/test/resources/logo.jpg");
+        browseFile1.sendKeys(System.getProperty("user.dir") + "/src/test/resources/dataFiles/logo.jpg");
+        browseFile2.sendKeys(System.getProperty("user.dir") + "/src/test/resources/dataFiles/logo.jpg");
+        browseFile3.sendKeys(System.getProperty("user.dir") + "/src/test/resources/dataFiles/logo.jpg");
     }
 
     public void close() {
