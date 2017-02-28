@@ -1,0 +1,10 @@
+.gradle
+.iml
+build
+gradle
+.idea
+.xlsx#
+.exe
+/src/test/resources/.~lock*
+.ipr
+.iws
