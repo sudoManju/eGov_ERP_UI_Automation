@@ -154,7 +154,7 @@ public class WaterChargeCollectionsPage extends WaterChargeManagementPage {
     }
 
     public void onlinePaymentLink() {
-        webDriver.navigate().to("http://kurnool-qa.egovernments.org/wtms/search/waterSearch/");
+        webDriver.navigate().to("http://kurnool-uat.egovernments.org/wtms/search/waterSearch/");
     }
 
     public void enterOnlineConsumerNumber(String consumerNumber) {

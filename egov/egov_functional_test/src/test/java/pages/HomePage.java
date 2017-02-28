@@ -41,7 +41,13 @@ public class HomePage extends BasePage {
 
         enterText(userNameTextBox, loginDetails.getLoginId(), driver);
         enterText(passwordTextBox, loginDetails.getPassword(), driver);
-
+        if(loginDetails.getHasZone()){
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         WebElement signForm = driver.findElement(By.id("signform"));
         waitForElementToBeClickable(signForm, driver);
         signForm.submit();
