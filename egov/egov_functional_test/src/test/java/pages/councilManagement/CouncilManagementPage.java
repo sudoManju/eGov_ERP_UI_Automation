@@ -99,7 +99,7 @@ public class CouncilManagementPage extends BasePage {
         selectFromDropDown(preambleDepartment, createPreambleDetails.getPreambleDepartment(), webDriver);
         enterText(sanctionAmount, createPreambleDetails.getAmount(), webDriver);
         enterText(gistOfPreamble, createPreambleDetails.getGistOfPreamble(), webDriver);
-        uploadFile(attachment, System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx", webDriver);
+        uploadFile(attachment, System.getProperty("user.dir") + "/src/test/resources/dataFiles/PTISTestData.xlsx", webDriver);
         Select sel = new Select(wards);
         for (int i = 1; i < 3; i++) {
             sel.selectByIndex(i);

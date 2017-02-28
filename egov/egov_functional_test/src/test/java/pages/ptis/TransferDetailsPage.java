@@ -110,13 +110,13 @@ public class TransferDetailsPage extends BasePage {
     public void enterEnclosureDetails() {
 
         WebElement document1 = webdriver.findElement(By.id("save_documents_0__uploads"));
-        uploadFile(document1, System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx", webdriver);
+        uploadFile(document1, System.getProperty("user.dir") + "/src/test/resources/dataFiles/PTISTestData.xlsx", webdriver);
         WebElement document2 = webdriver.findElement(By.id("save_documents_1__uploads"));
-        uploadFile(document2, System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx", webdriver);
+        uploadFile(document2, System.getProperty("user.dir") + "/src/test/resources/dataFiles/PTISTestData.xlsx", webdriver);
         WebElement document3 = webdriver.findElement(By.id("save_documents_2__uploads"));
-        uploadFile(document3, System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx", webdriver);
+        uploadFile(document3, System.getProperty("user.dir") + "/src/test/resources/dataFiles/PTISTestData.xlsx", webdriver);
         WebElement document4 = webdriver.findElement(By.id("save_documents_3__uploads"));
-        uploadFile(document4, System.getProperty("user.dir") + "/src/test/resources/PTISTestData.xlsx", webdriver);
+        uploadFile(document4, System.getProperty("user.dir") + "/src/test/resources/dataFiles/PTISTestData.xlsx", webdriver);
     }
 
     public void searchAssessmentNumber(String mutationAssessmentNumber) {
