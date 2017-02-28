@@ -24,14 +24,6 @@ Feature: Marriage Registration
     Then user will be notified by "successfully"
     And current user logs out
 
-    When juniorAssistant logs in
-    And he chooses to act upon above application number
-    And he enters the serial and page number
-    And print the marraige cerificate
-    And current user logs out
-
-
-
     Examples:
       | generalInformation | bridegroomInformation | brideInformation |
       | generalInfo        | bridegroomInfo        | brideInfo        |

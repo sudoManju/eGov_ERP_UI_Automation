@@ -9,6 +9,9 @@ import pages.BasePage;
 
 import java.util.List;
 
+import static com.jayway.awaitility.Awaitility.await;
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 public class MarriageRegistrationPage extends BasePage {
     public WebDriver driver;
 
@@ -168,6 +171,9 @@ public class MarriageRegistrationPage extends BasePage {
     @FindBy(id = "ageproofwifefile0id")
     private WebElement ageproofWife;
 
+    @FindBy(id = "Print Certificate")
+    private  WebElement printCertificateButton;
+
     public MarriageRegistrationPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -187,7 +193,7 @@ public class MarriageRegistrationPage extends BasePage {
         enterDate(dateOfMarriage, getPastDate(35), driver);
         selectFromDropDown(venueOfMarriage, marriageRegistrationInformation.getVenueOfMarriage(), driver);
         enterText(placeOfMarriage, marriageRegistrationInformation.getPlaceOfMarriage(), driver);
-        uploadFile(marriagePhoto, System.getProperty("user.dir") + "/src/test/resources/logo.jpg", driver);
+        uploadFile(marriagePhoto, System.getProperty("user.dir") + "/src/test/resources/dataFiles/logo.jpg", driver);
     }
 
 
@@ -197,7 +203,7 @@ public class MarriageRegistrationPage extends BasePage {
 
         enterText(lastName.get(0), "N", driver);
         enterText(lastName.get(1), "P", driver);
-        uploadFile(photoUpload, System.getProperty("user.dir") + "/src/test/resources/logo.jpg", driver);
+        uploadFile(photoUpload, System.getProperty("user.dir") + "/src/test/resources/dataFiles/logo.jpg", driver);
 
         enterText(driver.findElement(By.name(name + ".parentsName")), marriageRegistrationInformation.getFathersMothersName(), driver);
         selectFromDropDown(driver.findElement(By.id(name + ".religion")), marriageRegistrationInformation.getReligion(), driver);
@@ -215,7 +221,7 @@ public class MarriageRegistrationPage extends BasePage {
         enterText(driver.findElement(By.id(name + ".contactInfo.mobileNo")), marriageRegistrationInformation.getPhoneNo(), driver);
         enterText(driver.findElement(By.id(name + ".occupation")), marriageRegistrationInformation.getOccupation(), driver);
         selectFromDropDown(driver.findElement(By.id(name + ".qualification")), marriageRegistrationInformation.getEducationQualification(), driver);
-        uploadFile(wifePhotoUpload, System.getProperty("user.dir") + "/src/test/resources/logo.jpg", driver);
+        uploadFile(wifePhotoUpload, System.getProperty("user.dir") + "/src/test/resources/dataFiles/logo.jpg", driver);
     }
 
     public void entersWitnessesInformation() {
@@ -238,13 +244,13 @@ public class MarriageRegistrationPage extends BasePage {
         waitForElementToBeClickable(checkListLink, driver);
         jsClick(checkListLink, driver);
 
-        uploadFile(memorandumofMarriage, System.getProperty("user.dir") + "/src/test/resources/logo.jpg", driver);
-        uploadFile(birthCertificateForBridegroom, System.getProperty("user.dir") + "/src/test/resources/logo.jpg", driver);
-        uploadFile(birthCertificateForBride, System.getProperty("user.dir") + "/src/test/resources/logo.jpg", driver);
-        uploadFile(proofofResidenceForBridegroom, System.getProperty("user.dir") + "/src/test/resources/logo.jpg", driver);
-        uploadFile(proofofResidenceForBride, System.getProperty("user.dir") + "/src/test/resources/logo.jpg", driver);
-        uploadFile(ageproofHusband, System.getProperty("user.dir") + "/src/test/resources/logo.jpg", driver);
-        uploadFile(ageproofWife, System.getProperty("user.dir") + "/src/test/resources/logo.jpg", driver);
+        uploadFile(memorandumofMarriage, System.getProperty("user.dir") + "/src/test/resources/dataFiles/logo.jpg", driver);
+        uploadFile(birthCertificateForBridegroom, System.getProperty("user.dir") + "/src/test/resources/dataFiles/logo.jpg", driver);
+        uploadFile(birthCertificateForBride, System.getProperty("user.dir") + "/src/test/resources/dataFiles/logo.jpg", driver);
+        uploadFile(proofofResidenceForBridegroom, System.getProperty("user.dir") + "/src/test/resources/dataFiles/logo.jpg", driver);
+        uploadFile(proofofResidenceForBride, System.getProperty("user.dir") + "/src/test/resources/dataFiles/logo.jpg", driver);
+        uploadFile(ageproofHusband, System.getProperty("user.dir") + "/src/test/resources/dataFiles/logo.jpg", driver);
+        uploadFile(ageproofWife, System.getProperty("user.dir") + "/src/test/resources/dataFiles/logo.jpg", driver);
     }
 
     public String getApplicationNumber() {
@@ -360,6 +366,13 @@ public class MarriageRegistrationPage extends BasePage {
 
     public void closeApplication() {
         clickOnButton(closeButton2, driver);
+        switchToPreviouslyOpenedWindow(driver);
+    }
+
+    public void printMarriageCertificate() {
+        clickOnButton(printCertificateButton,driver);
+        await().atMost(10, SECONDS);
+        driver.close();
         switchToPreviouslyOpenedWindow(driver);
     }
 }
