@@ -4,6 +4,6 @@ build
 gradle
 .idea
 .exe
-/src/test/resources/.~lock*
+/src/test/resources/dataFiles/.~lock*
 .ipr
 .iws

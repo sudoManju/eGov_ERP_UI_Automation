@@ -215,7 +215,7 @@ public class SpillOverEstimatePage extends BasePage {
     }
 
     public void saveAndClose() {
-        clickOnButton(saveButton, webDriver);
+        jsClick(saveButton, webDriver);
     }
 
     public void approve() {
