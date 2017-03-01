@@ -1,6 +1,7 @@
 package pages.tradeLicense;
 
 import entities.tradeLicense.*;
+import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -141,15 +142,21 @@ public class TradeLicensePage extends BasePage {
         enterText(propertyAssessmentNumberTextBox, tradelocationDetails.getpropertyAssessmentNumber(), webDriver);
         propertyAssessmentNumberTextBox.sendKeys(Keys.TAB);
         List<WebElement> options = location.findElements(By.tagName("option"));
-        await().atMost(10, SECONDS).until(() -> options.size() > 1);
-        for (WebElement option : options) {
-            if (option.isSelected()) {
-                selectFromDropDown(location, option.getText(), webDriver);
-            }
-        }
+        await().atMost(20, SECONDS).until(() -> options.size() > 1);
+//        for (WebElement option : options) {
+//            if (option.isDisplayed()) {
+//                selectFromDropDown(location, option.getText(), webDriver);
+////                System.out.println(option.getText());
+//            }
+//        }
         location.sendKeys(Keys.TAB);
-        await().atMost(10, SECONDS).until(() -> wardSelect.findElements(By.tagName("option")).size() > 1);
-        location.sendKeys(Keys.TAB);
+        await().atMost(20, SECONDS).until(() -> wardSelect.findElements(By.tagName("option")).size() > 1);
+
+//        if(wardSelect.findElements(By.tagName("option")).size()>1){
+//            new Select(location).selectByVisibleText("Abbas Nagar-m");
+//            location.sendKeys(Keys.TAB);
+//        }
+//        location.sendKeys(Keys.TAB);
         waitForElementToBeClickable(wardSelect, webDriver);
         new Select(wardSelect).selectByIndex(1);
         selectFromDropDown(OwnershipTypeDropBox, tradelocationDetails.getownershipType(), webDriver);
