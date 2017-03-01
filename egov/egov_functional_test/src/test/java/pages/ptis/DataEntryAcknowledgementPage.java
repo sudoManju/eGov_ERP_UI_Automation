@@ -69,7 +69,7 @@ public class DataEntryAcknowledgementPage extends BasePage {
     }
 
     public void geteditDCB() {
-        clickOnButton(editDCBButton, driver);
+        jsClick(editDCBButton, driver);
     }
 
     public void enterAddDemandDetails() {

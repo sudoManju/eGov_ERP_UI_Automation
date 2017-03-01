@@ -421,7 +421,7 @@ public class PropertyDetailsPage extends BasePage {
     }
 
     public void create() {
-        clickOnButton(createButton, webDriver);
+        jsClick(createButton, webDriver);
     }
 
     public void searchAssessmentNumber(String assessmentNum) {
