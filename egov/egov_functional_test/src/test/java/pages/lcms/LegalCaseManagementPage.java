@@ -197,6 +197,10 @@ public class LegalCaseManagementPage extends BasePage {
 
         enterText(respondentNameTextBox, createLegalCase.getRespondentName(), webDriver);
 
+        if(petitionTypeSelect.getText().equalsIgnoreCase("Select from below")){
+            selectFromDropDown(petitionTypeSelect, createLegalCase.getPetitionType(), webDriver);
+        }
+
         clickOnButton(saveButton, webDriver);
 
         switchToNewlyOpenedWindow(webDriver);
@@ -209,7 +213,7 @@ public class LegalCaseManagementPage extends BasePage {
         waitForElementToBeVisible(caseFileNumber, webDriver);
         caseFileNo = getTextFromWeb(caseFileNumber, webDriver);
 
-        clickOnButton(closeButtonWithLinkText, webDriver);
+        jsClick(closeButtonWithLinkText, webDriver);
 
         switchToPreviouslyOpenedWindow(webDriver);
 
