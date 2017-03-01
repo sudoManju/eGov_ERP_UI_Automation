@@ -6,8 +6,6 @@ public class StructureDetailsBuilder {
 
     StructureDetails structureDetails = new StructureDetails();
 
-    public StructureDetailsBuilder(){}
-
     public StructureDetailsBuilder withMeasurement(String measurement){
         structureDetails.setMeasurement(measurement);
         return this;

@@ -30,8 +30,6 @@ Feature: Marriage Registration
     And print the marraige cerificate
     And current user logs out
 
-
-
     Examples:
       | generalInformation | bridegroomInformation | brideInformation |
       | generalInfo        | bridegroomInfo        | brideInfo        |

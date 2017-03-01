@@ -172,7 +172,7 @@ public class MarriageRegistrationPage extends BasePage {
     private WebElement ageproofWife;
 
     @FindBy(id = "Print Certificate")
-    private  WebElement printCertificateButton;
+    private WebElement printCertificateButton;
 
     public MarriageRegistrationPage(WebDriver driver) {
         this.driver = driver;
@@ -370,7 +370,7 @@ public class MarriageRegistrationPage extends BasePage {
     }
 
     public void printMarriageCertificate() {
-        clickOnButton(printCertificateButton,driver);
+        clickOnButton(printCertificateButton, driver);
         await().atMost(10, SECONDS);
         driver.close();
         switchToPreviouslyOpenedWindow(driver);

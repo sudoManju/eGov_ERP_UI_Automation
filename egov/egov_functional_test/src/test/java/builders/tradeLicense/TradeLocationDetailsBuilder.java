@@ -6,12 +6,12 @@ public class TradeLocationDetailsBuilder {
 
     TradeLocationDetails tradeLocationDetails = new TradeLocationDetails();
 
-    public TradeLocationDetailsBuilder withpropertyAssessmentNumber(String aadhaarNumber){
+    public TradeLocationDetailsBuilder withpropertyAssessmentNumber(String aadhaarNumber) {
         tradeLocationDetails.setPropertyAssessmentNumber(aadhaarNumber);
         return this;
     }
 
-    public TradeLocationDetailsBuilder withownershipType(String ownershipType){
+    public TradeLocationDetailsBuilder withownershipType(String ownershipType) {
         tradeLocationDetails.setOwnershipType((ownershipType));
         return this;
     }

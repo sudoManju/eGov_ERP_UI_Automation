@@ -41,7 +41,7 @@ public class FieldInspectionDetailsBuilder {
         return this;
     }
 
-    public FieldInspectionDetails build(){
+    public FieldInspectionDetails build() {
         return fieldInspectionDetails;
     }
 }

@@ -6,9 +6,6 @@ public class AddressDetailsBuilder {
 
     PropertyAddressDetails addressDetails = new PropertyAddressDetails();
 
-    public AddressDetailsBuilder() {
-    }
-
     public AddressDetailsBuilder withLocality(String locality) {
         addressDetails.setLocality(locality);
         return this;

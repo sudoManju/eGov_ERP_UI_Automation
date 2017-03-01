@@ -6,22 +6,22 @@ public class PaymentMethodBuilder {
 
     PaymentMethod paymentMethod = new PaymentMethod();
 
-    public PaymentMethodBuilder withChequeNumber(String chequeNumber){
+    public PaymentMethodBuilder withChequeNumber(String chequeNumber) {
         paymentMethod.setChequeNumber(chequeNumber);
         return this;
     }
 
-    public PaymentMethodBuilder withBankName(String bankName){
+    public PaymentMethodBuilder withBankName(String bankName) {
         paymentMethod.setBankName(bankName);
         return this;
     }
 
-    public PaymentMethodBuilder withAccountNumber(String accountNumber){
+    public PaymentMethodBuilder withAccountNumber(String accountNumber) {
         paymentMethod.setAccountNumber(accountNumber);
         return this;
     }
 
-    public PaymentMethod build(){
+    public PaymentMethod build() {
         return paymentMethod;
     }
 }

@@ -36,7 +36,7 @@ public class CreateLegalCaseBuilder {
         return this;
     }
 
-    public CreateLegalCase build(){
+    public CreateLegalCase build() {
         return createLegalCase;
     }
 }

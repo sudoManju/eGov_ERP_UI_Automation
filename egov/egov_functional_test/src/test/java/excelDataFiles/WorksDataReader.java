@@ -95,7 +95,7 @@ public class WorksDataReader extends ExcelReader {
 
         String AdminstrativeSanctionNumber = getCellData(adminSanctionDetailsSheet, dataRow, "administrativeSanctionNumber").getStringCellValue();
 
-        String AdminstrativeSanctionAuthority = getCellData(adminSanctionDetailsSheet,dataRow,"administrativeSanctionAuthority").getStringCellValue();
+        String AdminstrativeSanctionAuthority = getCellData(adminSanctionDetailsSheet, dataRow, "administrativeSanctionAuthority").getStringCellValue();
 
 
         return new AdminSanctionDetailsBuilder()

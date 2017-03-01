@@ -54,7 +54,6 @@ public class GrievancesPage extends BasePage {
     @FindBy(id = "ctn_no")
     private WebElement CRNNumber;
 
-
     @FindBy(id = "status")
     private WebElement selectStatus;
 

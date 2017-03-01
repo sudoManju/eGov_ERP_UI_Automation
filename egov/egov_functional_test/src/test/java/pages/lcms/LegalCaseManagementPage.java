@@ -197,7 +197,7 @@ public class LegalCaseManagementPage extends BasePage {
 
         enterText(respondentNameTextBox, createLegalCase.getRespondentName(), webDriver);
 
-        if(petitionTypeSelect.getText().equalsIgnoreCase("Select from below")){
+        if (petitionTypeSelect.getText().equalsIgnoreCase("Select from below")) {
             selectFromDropDown(petitionTypeSelect, createLegalCase.getPetitionType(), webDriver);
         }
 

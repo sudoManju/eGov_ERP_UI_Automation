@@ -124,7 +124,6 @@ public class TradeLicensePage extends BasePage {
     @FindBy(css = "input[type='button'][value='Close']")
     private WebElement acknowlwdgementClose;
 
-
     public TradeLicensePage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -195,7 +194,6 @@ public class TradeLicensePage extends BasePage {
         selectFromDropDown(collectFeeDropBox, action, webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
-
 
     public void chooseToPayTaxOfApplicationNumber() {
         switchToNewlyOpenedWindow(webDriver);

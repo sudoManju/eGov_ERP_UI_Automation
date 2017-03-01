@@ -70,7 +70,6 @@ public class CreatePreambleDetails {
         this.councilMeetingPlace = councilMeetingPlace;
     }
 
-
     public String getcouncilMeetingDate() {
         return councilMeetingDate;
     }

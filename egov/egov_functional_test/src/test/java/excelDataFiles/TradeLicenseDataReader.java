@@ -16,17 +16,17 @@ public class TradeLicenseDataReader extends ExcelReader {
     public TradeLicenseDataReader(String testData) {
         super(testData);
         tradeOwnerDetailsSheet = workbook.getSheet("tradeOwnerDetails");
-        tradeLocationDetailsSheet =workbook.getSheet("tradeLocationDetails");
+        tradeLocationDetailsSheet = workbook.getSheet("tradeLocationDetails");
         tradeDetailsSheet = workbook.getSheet("tradeDetails");
         licenseClosureSheet = workbook.getSheet("licenseClosure");
         searchTradeDetailsSheet = workbook.getSheet("searchTradeDeatils");
     }
 
-    public TradeOwnerDetails getTradeOwnerDetails(String tradeOwnerDetailsDataId){
+    public TradeOwnerDetails getTradeOwnerDetails(String tradeOwnerDetailsDataId) {
         Row dataRow = readDataRow(tradeOwnerDetailsSheet, tradeOwnerDetailsDataId);
 
-        String  aadhaarNumber = convertNumericToString(tradeOwnerDetailsSheet, dataRow, "aadhaarNumber");
-        String  mobileNumber = convertNumericToString(tradeOwnerDetailsSheet, dataRow, "mobileNumber");
+        String aadhaarNumber = convertNumericToString(tradeOwnerDetailsSheet, dataRow, "aadhaarNumber");
+        String mobileNumber = convertNumericToString(tradeOwnerDetailsSheet, dataRow, "mobileNumber");
         String tradeOwnerName = getCellData(tradeOwnerDetailsSheet, dataRow, "tradeOwnerName").getStringCellValue();
         String fatherSpouseName = getCellData(tradeOwnerDetailsSheet, dataRow, "fatherSpouseName").getStringCellValue();
         String emailId = getCellData(tradeOwnerDetailsSheet, dataRow, "emailId").getStringCellValue();
@@ -49,8 +49,8 @@ public class TradeLicenseDataReader extends ExcelReader {
 
         String propertyAssessmentDetails = getCellData(tradeLocationDetailsSheet, dataRow, "propertyAssessmentDetails").getStringCellValue();
         String ownershipType = getCellData(tradeLocationDetailsSheet, dataRow, "ownershipType").getStringCellValue();
-        String locality = getCellData(tradeLocationDetailsSheet, dataRow,"locality").getStringCellValue();
-        String ward = getCellData(tradeLocationDetailsSheet,dataRow,"ward").getStringCellValue();
+        String locality = getCellData(tradeLocationDetailsSheet, dataRow, "locality").getStringCellValue();
+        String ward = getCellData(tradeLocationDetailsSheet, dataRow, "ward").getStringCellValue();
 
         return new TradeLocationDetailsBuilder()
                 .withpropertyAssessmentNumber(propertyAssessmentDetails)
@@ -81,17 +81,19 @@ public class TradeLicenseDataReader extends ExcelReader {
                 .withtradeCommencementDate(tradeCommencementDate)
                 .build();
     }
+
     public LicenseClosureDetails getDetailsForClosure(String closureData) {
-        Row dataRow = readDataRow(licenseClosureSheet,closureData);
+        Row dataRow = readDataRow(licenseClosureSheet, closureData);
 
         String status = getCellData(licenseClosureSheet, dataRow, "status").getStringCellValue();
-        String tradeCategory=getCellData(licenseClosureSheet, dataRow, "tradeCategory").getStringCellValue();
+        String tradeCategory = getCellData(licenseClosureSheet, dataRow, "tradeCategory").getStringCellValue();
 
         return new LicenseClosureDetailsBuilder()
                 .withStatusDetails(status)
                 .withTradeCategory(tradeCategory)
                 .build();
     }
+
     public SearchTradeDetails getTradeSearchDetails(String searchId) {
         Row dataRow = readDataRow(searchTradeDetailsSheet, searchId);
         SearchTradeDetails searchTradeDetails = new SearchTradeDetails();
@@ -107,7 +109,7 @@ public class TradeLicenseDataReader extends ExcelReader {
 
             case "searchWithLicenseNumber":
 
-                String licenseNumber= getCellData(searchTradeDetailsSheet, dataRow, "searchValue").getStringCellValue();
+                String licenseNumber = getCellData(searchTradeDetailsSheet, dataRow, "searchValue").getStringCellValue();
 
                 searchTradeDetails = new SearchTradeDetailsBuilder()
                         .withLicenseNumber(licenseNumber)

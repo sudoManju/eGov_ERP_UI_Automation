@@ -16,8 +16,7 @@ public class MarriageRegistrationDataReader extends ExcelReader {
         bridegroomInformationSheet = workbook.getSheet("bridegroomInformation");
     }
 
-    public MarriageRegistrationInformation getApplicantsInformation(String applicantsInformation)
-    {
+    public MarriageRegistrationInformation getApplicantsInformation(String applicantsInformation) {
         Row dataRow = readDataRow(applicantsInformationSheet, applicantsInformation);
         String RegistrationUnit = convertNumericToString(applicantsInformationSheet, dataRow, "RegistrationUnit");
         String Street = convertNumericToString(applicantsInformationSheet, dataRow, "Street");

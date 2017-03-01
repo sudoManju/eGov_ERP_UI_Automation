@@ -1,6 +1,5 @@
 package steps.tradeLicense;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.tradeLicense.*;
 import excelDataFiles.TradeLicenseDataReader;

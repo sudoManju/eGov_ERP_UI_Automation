@@ -2,9 +2,9 @@ package entities.advertisementTax;
 
 public class LocalityDetails {
 
-   private String locality;
-   private String localityAddress;
-   private String electionWard;
+    private String locality;
+    private String localityAddress;
+    private String electionWard;
 
     public String getLocality() {
         return locality;

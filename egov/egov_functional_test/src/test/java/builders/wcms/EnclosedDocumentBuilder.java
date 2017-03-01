@@ -36,7 +36,7 @@ public class EnclosedDocumentBuilder {
         return this;
     }
 
-    public EnclosedDocument build(){
+    public EnclosedDocument build() {
         return enclosedDocument;
     }
 }

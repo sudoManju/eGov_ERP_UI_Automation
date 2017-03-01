@@ -9,7 +9,6 @@ public class LoginDetailsBuilder {
     public LoginDetailsBuilder() {
         loginDetails.setLoginId("944177");
         loginDetails.setPassword("kurnool");
-
     }
 
     public LoginDetailsBuilder withLoginId(String loginId) {

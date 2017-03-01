@@ -16,7 +16,7 @@ public class PTReportBuilder {
         return this;
     }
 
-    public PTReport build(){
+    public PTReport build() {
         return ptReport;
     }
 }

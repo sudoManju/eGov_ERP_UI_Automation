@@ -6,9 +6,6 @@ public class AssessmentDetailsBuilder {
 
     AssessmentDetails assessmentDetails = new AssessmentDetails();
 
-    public AssessmentDetailsBuilder() {
-    }
-
     public AssessmentDetailsBuilder withReasonForCreation(String reasonForCreation) {
         assessmentDetails.setReasonForCreation(reasonForCreation);
         return this;
@@ -24,7 +21,7 @@ public class AssessmentDetailsBuilder {
         return this;
     }
 
-    public AssessmentDetails build(){
+    public AssessmentDetails build() {
         return assessmentDetails;
     }
 }

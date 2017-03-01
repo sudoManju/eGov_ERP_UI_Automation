@@ -24,11 +24,11 @@ public class CouncilManagementDataReader extends ExcelReader {
         Row dataRow = readDataRow(createPreambleDetailsSheet, createPreambleData);
 
         String preambleDepartment = getCellData(createPreambleDetailsSheet, dataRow, "department").getStringCellValue();
-        String amount = convertNumericToString(createPreambleDetailsSheet, dataRow,"amount");
+        String amount = convertNumericToString(createPreambleDetailsSheet, dataRow, "amount");
 
-        String gistOfPreamble = getCellData(createPreambleDetailsSheet,dataRow,"gistOfPreamble").getStringCellValue();
+        String gistOfPreamble = getCellData(createPreambleDetailsSheet, dataRow, "gistOfPreamble").getStringCellValue();
 
-        return  new PreambleDetailsBuilder()
+        return new PreambleDetailsBuilder()
                 .withPreambleDepartment(preambleDepartment)
                 .withSanctionAmount(amount)
                 .withGistOfPreamble(gistOfPreamble)
@@ -38,7 +38,7 @@ public class CouncilManagementDataReader extends ExcelReader {
     public CreatePreambleDetails getCreateAgendaDetails(String createAgendaData) {
         Row dataRow = readDataRow(createAgendaSheet, createAgendaData);
 
-        String committeeType=getCellData(createAgendaSheet, dataRow,"committeeType").getStringCellValue();
+        String committeeType = getCellData(createAgendaSheet, dataRow, "committeeType").getStringCellValue();
 
         return new PreambleDetailsBuilder()
                 .withCommitteeType(committeeType)
@@ -60,10 +60,10 @@ public class CouncilManagementDataReader extends ExcelReader {
     }
 
     public CreatePreambleDetails getCouncilMOMDetails(String councilMOMData) {
-        Row dataRow = readDataRow(createCouncilMOMSheet,councilMOMData);
+        Row dataRow = readDataRow(createCouncilMOMSheet, councilMOMData);
 
-        String resolutionComment= getCellData(createCouncilMOMSheet, dataRow,"resolutionComments").getStringCellValue();
-        String actionTaken= getCellData(createCouncilMOMSheet, dataRow, "actionTaken").getStringCellValue();
+        String resolutionComment = getCellData(createCouncilMOMSheet, dataRow, "resolutionComments").getStringCellValue();
+        String actionTaken = getCellData(createCouncilMOMSheet, dataRow, "actionTaken").getStringCellValue();
 
         return new PreambleDetailsBuilder()
                 .withCouncilMOMResolution(resolutionComment)

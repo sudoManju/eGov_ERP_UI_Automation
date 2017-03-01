@@ -4,7 +4,7 @@ import entities.tradeLicense.LicenseClosureDetails;
 
 public class LicenseClosureDetailsBuilder {
 
-    LicenseClosureDetails licenseClosureDetails= new LicenseClosureDetails();
+    LicenseClosureDetails licenseClosureDetails = new LicenseClosureDetails();
 
     public LicenseClosureDetailsBuilder withStatusDetails(String status) {
         licenseClosureDetails.setStatusDetails(status);
@@ -16,5 +16,7 @@ public class LicenseClosureDetailsBuilder {
         return this;
     }
 
-    public LicenseClosureDetails build() { return licenseClosureDetails; }
+    public LicenseClosureDetails build() {
+        return licenseClosureDetails;
+    }
 }

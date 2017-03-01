@@ -36,7 +36,7 @@ public class OwnerDetailsBuilder {
         return this;
     }
 
-    public OwnerDetails build(){
+    public OwnerDetails build() {
         return ownerDetails;
     }
 }

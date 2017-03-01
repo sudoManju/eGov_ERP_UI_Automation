@@ -115,7 +115,7 @@ public class MilestoneTrackPage extends BasePage {
     }
 
     public void enterMilestoneDetails() {
-        waitForElementToBeVisible(milestoneStageTbl,driver);
+        waitForElementToBeVisible(milestoneStageTbl, driver);
         WebElement requiredRow = milestoneStageTbl.findElements(By.tagName("tr")).get(0);
 
         WebElement stageDescription = requiredRow.findElements(By.tagName("td")).get(1).findElement(By.name("activities[0].description"));
@@ -140,7 +140,7 @@ public class MilestoneTrackPage extends BasePage {
 //        stageScheduleEndDate.clear();
 //        enterText(stageScheduleEndDate, getFutureDate(52), driver);
 
-        waitForElementToBeClickable(addRowButton,driver);
+        waitForElementToBeClickable(addRowButton, driver);
         addRowButton.click();
 
         WebElement requiredRow1 = milestoneStageTbl.findElements(By.tagName("tr")).get(1);

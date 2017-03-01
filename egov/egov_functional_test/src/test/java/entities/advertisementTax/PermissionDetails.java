@@ -2,9 +2,9 @@ package entities.advertisementTax;
 
 public class PermissionDetails {
 
-  private String adParticular;
-  private String owner;
-  private String advertisementDuration;
+    private String adParticular;
+    private String owner;
+    private String advertisementDuration;
 
     public String getAdParticular() {
         return adParticular;

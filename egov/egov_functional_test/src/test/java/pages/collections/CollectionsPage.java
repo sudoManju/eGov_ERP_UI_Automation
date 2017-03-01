@@ -191,13 +191,13 @@ public class CollectionsPage extends BasePage {
 
     public void enterApprovalDetails(ApprovalDetails approverDetails) {
 
-        selectFromDropDown(approverDeptBox,approverDetails.getApproverDepartment(),driver);
+        selectFromDropDown(approverDeptBox, approverDetails.getApproverDepartment(), driver);
         await().atMost(10, SECONDS).until(() -> new Select(approverDesignationBox).getOptions().size() > 1);
 
-        selectFromDropDown(approverDesignationBox,approverDetails.getApproverDesignation(),driver);
+        selectFromDropDown(approverDesignationBox, approverDetails.getApproverDesignation(), driver);
         await().atMost(10, SECONDS).until(() -> new Select(approverBox).getOptions().size() > 1);
 
-        selectFromDropDown(approverBox,approverDetails.getApprover(),driver);
+        selectFromDropDown(approverBox, approverDetails.getApprover(), driver);
     }
 
     public void validateChallan() {

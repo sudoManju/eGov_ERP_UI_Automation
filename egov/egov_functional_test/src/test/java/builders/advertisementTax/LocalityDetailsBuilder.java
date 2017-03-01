@@ -6,24 +6,25 @@ public class LocalityDetailsBuilder {
 
     LocalityDetails localityDetails = new LocalityDetails();
 
-    public LocalityDetailsBuilder(){}
+    public LocalityDetailsBuilder() {
+    }
 
-    public LocalityDetailsBuilder withLocality(String locality){
+    public LocalityDetailsBuilder withLocality(String locality) {
         localityDetails.setLocality(locality);
         return this;
     }
 
-    public LocalityDetailsBuilder withLocalityAddress(String localityAddress){
+    public LocalityDetailsBuilder withLocalityAddress(String localityAddress) {
         localityDetails.setLocalityAddress(localityAddress);
         return this;
     }
 
-    public LocalityDetailsBuilder withElectionWard(String electionWard){
+    public LocalityDetailsBuilder withElectionWard(String electionWard) {
         localityDetails.setElectionWard(electionWard);
         return this;
     }
 
-    public LocalityDetails build(){
+    public LocalityDetails build() {
         return localityDetails;
     }
 }

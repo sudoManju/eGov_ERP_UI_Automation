@@ -5,21 +5,6 @@ import entities.works.EstimateHeaderDetails;
 public class EstimateHeaderDetailsBuilder {
     EstimateHeaderDetails estimateHeaderDetails = new EstimateHeaderDetails();
 
-    public EstimateHeaderDetailsBuilder() {
-//        estimateHeaderDetails.setDate("18/12/2016");
-//        estimateHeaderDetails.setSubject("CC Road");
-//        estimateHeaderDetails.setRequirementNumber("LoR Number 1");
-//        estimateHeaderDetails.setDescription("Laying of CC Road from Durga");
-//        estimateHeaderDetails.setElectionWard("48");
-//        estimateHeaderDetails.setLocation("Aavanthi Nagar");
-//        estimateHeaderDetails.setWorkCategory("NON SLUM");
-//        estimateHeaderDetails.setBeneficiary("GENERAL");
-//        estimateHeaderDetails.setNatureOfWork("Capital Works");
-//        estimateHeaderDetails.setTypeOfWork("Roads, Drains, Bridges and Flyovers");
-//        estimateHeaderDetails.setSubTypeOfWork("Roads");
-//        estimateHeaderDetails.setModeOfEntrustment("Nomination");
-    }
-
     public EstimateHeaderDetailsBuilder withDate(String date) {
         estimateHeaderDetails.setDate(date);
         return this;

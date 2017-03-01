@@ -6,17 +6,17 @@ public class FinancialBankDetailsBuilder {
 
     FinancialBankDetails financialBankDetails = new FinancialBankDetails();
 
-    public FinancialBankDetailsBuilder withBankName(String bankName){
+    public FinancialBankDetailsBuilder withBankName(String bankName) {
         financialBankDetails.setBankName(bankName);
         return this;
     }
 
-    public FinancialBankDetailsBuilder withAccountNumber(String accountNumber){
+    public FinancialBankDetailsBuilder withAccountNumber(String accountNumber) {
         financialBankDetails.setAccountNumber(accountNumber);
         return this;
     }
 
-    public FinancialBankDetails build(){
+    public FinancialBankDetails build() {
         return financialBankDetails;
     }
 }

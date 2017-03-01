@@ -5,7 +5,7 @@ import entities.lcms.CreateLegalCase;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
-public class LCMSDataReader extends ExcelReader{
+public class LCMSDataReader extends ExcelReader {
 
     Sheet createLegalCaseDataSheet;
 
@@ -14,7 +14,7 @@ public class LCMSDataReader extends ExcelReader{
         createLegalCaseDataSheet = workbook.getSheet("createLegalCaseData");
     }
 
-    public CreateLegalCase getCreateLegalCaseDetails(String legalCaseData){
+    public CreateLegalCase getCreateLegalCaseDetails(String legalCaseData) {
 
         Row dataRow = readDataRow(createLegalCaseDataSheet, legalCaseData);
 

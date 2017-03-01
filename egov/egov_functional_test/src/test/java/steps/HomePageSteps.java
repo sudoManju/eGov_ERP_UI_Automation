@@ -33,6 +33,5 @@ public class HomePageSteps extends BaseSteps implements En {
         And("^citizen sign out$", () -> {
             pageStore.get(HomePage.class).signOut();
         });
-
     }
 }

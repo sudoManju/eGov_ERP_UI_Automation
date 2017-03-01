@@ -6,10 +6,6 @@ public class ChallanHeaderDetailsBuilder {
 
     ChallanHeaderDetails challanHeaderDetails = new ChallanHeaderDetails();
 
-    public ChallanHeaderDetailsBuilder() {
-
-    }
-
     public ChallanHeaderDetailsBuilder withDate(String date){
         challanHeaderDetails.setDate(date);
         return this;

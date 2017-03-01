@@ -6,14 +6,13 @@ import builders.ptis.*;
 import entities.dcReports.PTReport;
 import entities.dcReports.VLTReport;
 import entities.ptis.*;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class PTISDataReader extends ExcelReader{
+public class PTISDataReader extends ExcelReader {
 
     Sheet propertyHeaderDetailsSheet;
     Sheet ownerDetailsSheet;
@@ -42,8 +41,8 @@ public class PTISDataReader extends ExcelReader{
         constructionTypeDetailsSheet = workbook.getSheet("constructionTypeDetails");
         floorDetailsSheet = workbook.getSheet("floorDetails");
         searchDetailsSheet = workbook.getSheet("searchDetails");
-        editAssessmentDetailsSheet = workbook.getSheet("editAssessmentDetails") ;
-        editFloorDetailsSheet = workbook.getSheet("editFloorDetails") ;
+        editAssessmentDetailsSheet = workbook.getSheet("editAssessmentDetails");
+        editFloorDetailsSheet = workbook.getSheet("editFloorDetails");
         vltReportSheet = workbook.getSheet("vltReport");
         ptReportSheet = workbook.getSheet("ptReport");
         registrationDetailsSheet = workbook.getSheet("registrationDetails");
@@ -52,15 +51,15 @@ public class PTISDataReader extends ExcelReader{
         documentDetailsSheet = workbook.getSheet("documentDetails");
     }
 
-    public SearchDetails getSearchDetails(String searchId){
+    public SearchDetails getSearchDetails(String searchId) {
         Row dataRow = readDataRow(searchDetailsSheet, searchId);
         SearchDetails searchDetails = new SearchDetails();
 
-        switch (searchId){
+        switch (searchId) {
             case "searchWithAssessmentNumber":
                 String assessmentNumber = convertNumericToString(searchDetailsSheet, dataRow, "searchValue");
 
-                searchDetails =  new SearchDetailsBuilder()
+                searchDetails = new SearchDetailsBuilder()
                         .withAssessmentNumber(assessmentNumber)
                         .build();
 
@@ -68,7 +67,7 @@ public class PTISDataReader extends ExcelReader{
             case "searchWithMobileNumber":
                 String mobileNumber = convertNumericToString(searchDetailsSheet, dataRow, "searchValue");
 
-                searchDetails =  new SearchDetailsBuilder()
+                searchDetails = new SearchDetailsBuilder()
                         .withMobileNumber(mobileNumber)
                         .build();
 
@@ -276,11 +275,11 @@ public class PTISDataReader extends ExcelReader{
     }
 
     public EditAssessmentDetails getEditAssessmentDetails(String assessmentDetailsDataName) {
-        Row dataRow = readDataRow(editAssessmentDetailsSheet, assessmentDetailsDataName ) ;
+        Row dataRow = readDataRow(editAssessmentDetailsSheet, assessmentDetailsDataName);
         String extentOfSite = convertNumericToString(editAssessmentDetailsSheet, dataRow, "extentOfSite");
         String occupancyCertificateNumber = convertNumericToString(editAssessmentDetailsSheet, dataRow, "occupancyCertificateNumber");
 
-        return new  EditAssessmentDetailsBuilder()
+        return new EditAssessmentDetailsBuilder()
                 .withExtentOfSite(extentOfSite)
                 .withOccupancyCertificateNumber(occupancyCertificateNumber)
                 .build();
@@ -292,7 +291,7 @@ public class PTISDataReader extends ExcelReader{
         String editclassificationOfBuilding = convertNumericToString(editFloorDetailsSheet, dataRow, "editclassificationOfBuilding");
         String editnatureOfUsage = convertNumericToString(editFloorDetailsSheet, dataRow, "editnatureOfUsage");
         String editoccupancy = convertNumericToString(editFloorDetailsSheet, dataRow, "editoccupancy");
-        String editoccupantName =convertNumericToString(editFloorDetailsSheet, dataRow, "editoccupantName");
+        String editoccupantName = convertNumericToString(editFloorDetailsSheet, dataRow, "editoccupantName");
         String editconstructionDate = convertNumericToString(editFloorDetailsSheet, dataRow, "editconstructionDate");
         String editeffectiveFromDate = convertNumericToString(editFloorDetailsSheet, dataRow, "editeffectiveFromDate");
         String editunstructuredLand = convertNumericToString(editFloorDetailsSheet, dataRow, "editunstructuredLand");
@@ -318,9 +317,10 @@ public class PTISDataReader extends ExcelReader{
                 .withEditplinthAreaInBuildingPlan(editplinthAreaInBuildingPlan)
                 .build();
     }
-    public VLTReport getVLTReportInfo(String vltReport){
 
-        Row dataRow = readDataRow(vltReportSheet , vltReport);
+    public VLTReport getVLTReportInfo(String vltReport) {
+
+        Row dataRow = readDataRow(vltReportSheet, vltReport);
         String fromDate = convertNumericToString(vltReportSheet, dataRow, "fromDate");
         String toDate = convertNumericToString(vltReportSheet, dataRow, "toDate");
 
@@ -330,9 +330,9 @@ public class PTISDataReader extends ExcelReader{
                 .build();
     }
 
-    public PTReport getPTReportInfo(String ptReport){
+    public PTReport getPTReportInfo(String ptReport) {
 
-        Row dataRow = readDataRow(ptReportSheet , ptReport);
+        Row dataRow = readDataRow(ptReportSheet, ptReport);
         String fromDate = convertNumericToString(ptReportSheet, dataRow, "fromDate");
         String toDate = convertNumericToString(ptReportSheet, dataRow, "toDate");
 
@@ -341,25 +341,26 @@ public class PTISDataReader extends ExcelReader{
                 .withToDate(toDate)
                 .build();
     }
-    public RegistrationDetails getRegistrationDetails(String registrationDetailsDataId){
+
+    public RegistrationDetails getRegistrationDetails(String registrationDetailsDataId) {
         Row dataRow = readDataRow(registrationDetailsSheet, registrationDetailsDataId);
 
         String sellerExecutantName = convertNumericToString(registrationDetailsSheet, dataRow, "sellerExecutantName");
-        String  buyerClaimantName = convertNumericToString(registrationDetailsSheet, dataRow, "buyerClaimantName");
-        String  doorNo = convertNumericToString(registrationDetailsSheet, dataRow, "doorNo");
-        String  propertyAddress = convertNumericToString(registrationDetailsSheet, dataRow, "propertyAddress");
-        String  registeredPlotArea = convertNumericToString(registrationDetailsSheet, dataRow, "registeredPlotArea");
-        String  registeredPlinthArea = convertNumericToString(registrationDetailsSheet, dataRow, "registerPlinthArea");
-        String  eastBoundary = convertNumericToString(registrationDetailsSheet, dataRow, "eastBoundary");
-        String  westBoundary = convertNumericToString(registrationDetailsSheet, dataRow, "westBoundary");
-        String  northBoundary = convertNumericToString(registrationDetailsSheet, dataRow, "northBoundary");
-        String  southBoundary = convertNumericToString(registrationDetailsSheet, dataRow, "southBoundary");
-        String  sroName = convertNumericToString(registrationDetailsSheet, dataRow, "sroName");
-        String  reasonForChange = convertNumericToString(registrationDetailsSheet, dataRow, "reasonForChange");
-        String  registrationDocumentNumber = convertNumericToString(registrationDetailsSheet, dataRow, "registrationDocumentNumber");
-        String  registrationDocumentDate = convertNumericToString(registrationDetailsSheet, dataRow, "registrationDocumentDate");
-        String  partiesConsiderationValue = convertNumericToString(registrationDetailsSheet, dataRow, "partiesConsiderationValue");
-        String  departmentGuidelinesValue = convertNumericToString(registrationDetailsSheet, dataRow, "departmentGuide");
+        String buyerClaimantName = convertNumericToString(registrationDetailsSheet, dataRow, "buyerClaimantName");
+        String doorNo = convertNumericToString(registrationDetailsSheet, dataRow, "doorNo");
+        String propertyAddress = convertNumericToString(registrationDetailsSheet, dataRow, "propertyAddress");
+        String registeredPlotArea = convertNumericToString(registrationDetailsSheet, dataRow, "registeredPlotArea");
+        String registeredPlinthArea = convertNumericToString(registrationDetailsSheet, dataRow, "registerPlinthArea");
+        String eastBoundary = convertNumericToString(registrationDetailsSheet, dataRow, "eastBoundary");
+        String westBoundary = convertNumericToString(registrationDetailsSheet, dataRow, "westBoundary");
+        String northBoundary = convertNumericToString(registrationDetailsSheet, dataRow, "northBoundary");
+        String southBoundary = convertNumericToString(registrationDetailsSheet, dataRow, "southBoundary");
+        String sroName = convertNumericToString(registrationDetailsSheet, dataRow, "sroName");
+        String reasonForChange = convertNumericToString(registrationDetailsSheet, dataRow, "reasonForChange");
+        String registrationDocumentNumber = convertNumericToString(registrationDetailsSheet, dataRow, "registrationDocumentNumber");
+        String registrationDocumentDate = convertNumericToString(registrationDetailsSheet, dataRow, "registrationDocumentDate");
+        String partiesConsiderationValue = convertNumericToString(registrationDetailsSheet, dataRow, "partiesConsiderationValue");
+        String departmentGuidelinesValue = convertNumericToString(registrationDetailsSheet, dataRow, "departmentGuide");
 
         return new RegistrationDetailsBuilder()
                 .withSellerExecutantName(sellerExecutantName)
@@ -380,6 +381,7 @@ public class PTISDataReader extends ExcelReader{
                 .withdePartmentGuidelinesValue(departmentGuidelinesValue)
                 .build();
     }
+
     public RevisionPetitionDetails getRevisionPetitionDetails(String revisionPetitionDataId) {
         Row dataRow = readDataRow(revisionPetitionDetailsSheet, revisionPetitionDataId);
         String revisionPetitionDetails = convertNumericToString(revisionPetitionDetailsSheet, dataRow, "revisionPetitionDetails");

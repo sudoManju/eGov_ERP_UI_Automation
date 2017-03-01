@@ -36,10 +36,10 @@ public class CollectionsDataReader extends ExcelReader {
 
         Row dataRow = readDataRow(challanHeaderDetailsSheet, challanheaderid);
         String payeeName = getCellData(challanHeaderDetailsSheet, dataRow, "payeeName").getStringCellValue();
-        String payeeAddress = getCellData(challanHeaderDetailsSheet,dataRow,"payeeAddress").getStringCellValue();
-        String narration = getCellData(challanHeaderDetailsSheet,dataRow,"narration").getStringCellValue();
-        String serviceCategory = getCellData(challanHeaderDetailsSheet,dataRow,"serviceCategory").getStringCellValue();
-        String sericeType = getCellData(challanHeaderDetailsSheet,dataRow,"serviceType").getStringCellValue();
+        String payeeAddress = getCellData(challanHeaderDetailsSheet, dataRow, "payeeAddress").getStringCellValue();
+        String narration = getCellData(challanHeaderDetailsSheet, dataRow, "narration").getStringCellValue();
+        String serviceCategory = getCellData(challanHeaderDetailsSheet, dataRow, "serviceCategory").getStringCellValue();
+        String sericeType = getCellData(challanHeaderDetailsSheet, dataRow, "serviceType").getStringCellValue();
         String amount = convertNumericToString(challanHeaderDetailsSheet, dataRow, "amount");
 
         return new ChallanHeaderDetailsBuilder()

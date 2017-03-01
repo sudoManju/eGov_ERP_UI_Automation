@@ -51,7 +51,7 @@ public class ConnectionInfoBuilder {
         return this;
     }
 
-    public ConnectionInfo build(){
+    public ConnectionInfo build() {
         return connectionInfo;
     }
 }

@@ -9,11 +9,15 @@ public class LicenseClosureDetails {
         this.statusDetails = statusDetails;
     }
 
-    public String getStatusDetails() { return statusDetails; }
+    public String getStatusDetails() {
+        return statusDetails;
+    }
 
     public void setTradeCategory(String tradeCategory) {
         this.tradeCategory = tradeCategory;
     }
 
-    public String getTradeCategory() { return tradeCategory; }
+    public String getTradeCategory() {
+        return tradeCategory;
+    }
 }

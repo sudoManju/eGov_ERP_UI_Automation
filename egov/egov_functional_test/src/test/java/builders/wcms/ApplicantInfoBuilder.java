@@ -21,7 +21,7 @@ public class ApplicantInfoBuilder {
         return this;
     }
 
-    public ApplicantInfo build(){
+    public ApplicantInfo build() {
         return applicantInfo;
     }
 }

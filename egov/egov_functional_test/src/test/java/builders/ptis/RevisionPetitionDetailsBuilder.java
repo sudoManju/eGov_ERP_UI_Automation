@@ -11,7 +11,7 @@ public class RevisionPetitionDetailsBuilder {
         return this;
     }
 
-    public RevisionPetitionDetails build(){
+    public RevisionPetitionDetails build() {
         return revisionPetitionDetails;
     }
 }

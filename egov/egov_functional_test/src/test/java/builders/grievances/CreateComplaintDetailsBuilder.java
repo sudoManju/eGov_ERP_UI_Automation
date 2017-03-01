@@ -4,11 +4,11 @@ import entities.grievances.CreateComplaintDetails;
 
 public class CreateComplaintDetailsBuilder {
 
-    CreateComplaintDetails createComplaintDetails= new CreateComplaintDetails();
+    CreateComplaintDetails createComplaintDetails = new CreateComplaintDetails();
 
     public CreateComplaintDetailsBuilder withCitizenName(String citizenName) {
-         createComplaintDetails.setCitizenname(citizenName);
-         return this;
+        createComplaintDetails.setCitizenname(citizenName);
+        return this;
     }
 
     public CreateComplaintDetailsBuilder withCitizenMobNo(String citizenMobNo) {
@@ -37,13 +37,13 @@ public class CreateComplaintDetailsBuilder {
     }
 
     public CreateComplaintDetailsBuilder withGrievanceLocation(String grievanceLocation) {
-    createComplaintDetails.setGrievanceLocation(grievanceLocation);
-    return this;
+        createComplaintDetails.setGrievanceLocation(grievanceLocation);
+        return this;
     }
 
     public CreateComplaintDetailsBuilder withLocationLandmark(String locationLandmark) {
-    createComplaintDetails.setLocationLandmark(locationLandmark);
-    return this;
+        createComplaintDetails.setLocationLandmark(locationLandmark);
+        return this;
     }
 
     public CreateComplaintDetails build() {

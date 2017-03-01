@@ -2,11 +2,11 @@ package entities.advertisementTax;
 
 public class AdvertisementDetails {
 
-   private String category;
-   private String subCategory;
-   private String classType;
-   private String revenueInspector;
-   private String propertyType;
+    private String category;
+    private String subCategory;
+    private String classType;
+    private String revenueInspector;
+    private String propertyType;
 
     public String getClassType() {
         return classType;

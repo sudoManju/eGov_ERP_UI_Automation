@@ -399,7 +399,7 @@ public class AdvertisementsPage extends BasePage {
         clickOnButton(closeButtonOfDeactivateSuccessPage, driver);
 
         for (String winHandle : driver.getWindowHandles()) {
-            if (driver.switchTo().window(winHandle).getCurrentUrl().equals(getEnvironmentURL()+url)) {
+            if (driver.switchTo().window(winHandle).getCurrentUrl().equals(getEnvironmentURL() + url)) {
                 break;
             }
         }

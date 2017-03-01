@@ -1,12 +1,8 @@
 package entities.ptis;
 
-/**
- * Created by bimal on 25/1/17.
- */
 public class RevisionPetitionDetails {
 
-       private String revisionPetitionDetail;
-
+    private String revisionPetitionDetail;
 
     public String getRevisionPetitionDetail() {
         return revisionPetitionDetail;

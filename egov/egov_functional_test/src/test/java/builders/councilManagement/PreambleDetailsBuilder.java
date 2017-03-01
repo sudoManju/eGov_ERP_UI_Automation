@@ -1,9 +1,10 @@
 package builders.councilManagement;
+
 import entities.councilManagement.CreatePreambleDetails;
 
 public class PreambleDetailsBuilder {
 
-    CreatePreambleDetails createPreambleDetails=new CreatePreambleDetails();
+    CreatePreambleDetails createPreambleDetails = new CreatePreambleDetails();
 
     public PreambleDetailsBuilder withPreambleDepartment(String preambleDepartment) {
         createPreambleDetails.setPreambleDepartment(preambleDepartment);
@@ -20,8 +21,7 @@ public class PreambleDetailsBuilder {
         return this;
     }
 
-    public PreambleDetailsBuilder withPreambleNumber(String preambleNumber)
-    {
+    public PreambleDetailsBuilder withPreambleNumber(String preambleNumber) {
         createPreambleDetails.setPreambleNumber(preambleNumber);
         return this;
     }
@@ -35,10 +35,12 @@ public class PreambleDetailsBuilder {
         createPreambleDetails.setCouncilMeetingDate(meetingDate);
         return this;
     }
+
     public PreambleDetailsBuilder withCouncilMeetingTime(String meetingTime) {
         createPreambleDetails.setCouncilMeetingTime(meetingTime);
         return this;
     }
+
     public PreambleDetailsBuilder withCouncilMeetingPlace(String meetingPlace) {
         createPreambleDetails.setCouncilMeetingPlace(meetingPlace);
         return this;

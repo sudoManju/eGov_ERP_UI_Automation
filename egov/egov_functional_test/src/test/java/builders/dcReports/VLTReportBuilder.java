@@ -16,7 +16,7 @@ public class VLTReportBuilder {
         return this;
     }
 
-    public VLTReport build(){
+    public VLTReport build() {
         return vltReport;
     }
 }

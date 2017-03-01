@@ -8,17 +8,18 @@ public class TradeLocationDetails {
     private String ward;
 
     public String getpropertyAssessmentNumber() {
-        return propertyAssessmentNumber;  }
+        return propertyAssessmentNumber;
+    }
 
     public void setPropertyAssessmentNumber(String propertyAssessmentNumber) {
         this.propertyAssessmentNumber = propertyAssessmentNumber;
     }
 
-    public String getownershipType(){
+    public String getownershipType() {
         return ownershipType;
     }
 
-    public void setOwnershipType(String ownershipType){
+    public void setOwnershipType(String ownershipType) {
         this.ownershipType = ownershipType;
     }
 
