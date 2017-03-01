@@ -170,7 +170,8 @@ public class SelectSingleOrMultipleBillsPage extends FinancialPage {
 
     private WebElement getRemittanceBill(String applicationNumber) {
 
-        await().atMost(20, SECONDS).until(() -> remittanceBillTable.findElements(By.tagName("tr")).size() > 1);
+        System.out.println("++++++++++++++++"+remittanceBillTable.findElements(By.tagName("tr")).size());
+        await().atMost(20, SECONDS).until(() -> remittanceBillTable.findElements(By.tagName("tr")).size() >= 1);
         List<WebElement> applicationRows = remittanceBillTable.findElements(By.tagName("tr"));
         System.out.println("total number of rows -- " + applicationRows.size());
         for (WebElement applicationRow : applicationRows) {
