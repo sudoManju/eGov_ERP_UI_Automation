@@ -9,3 +9,5 @@ out
 .ipr
 .iws
 classes/
+gradlew
+gradlew.bat
