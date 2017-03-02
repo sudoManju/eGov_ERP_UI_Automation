@@ -1,5 +1,6 @@
 package pages.sewerageTax;
 
+import entities.sewerageTax.ConnectionDetails;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,7 +23,10 @@ public class NewSewerageConnectionPage extends BasePage {
     private WebElement propertyTypeDropBox;
 
     @FindBy(css = "input[id='noOfClosetsResidential'][type='text']")
-    private WebElement noOfClosetsTextBox;
+    private WebElement noOfClosetsForResidentialsTextBox;
+
+    @FindBy(css = "input[id='noOfClosetsNonResidential'][type='text']")
+    private WebElement noOfClosetsForNonResidentialsTextBox;
 
     @FindBy(css = "input[id='appDetailsDocument0documentNumber'][type='text']")
     private WebElement documentNumberTextBox;
@@ -127,11 +131,16 @@ public class NewSewerageConnectionPage extends BasePage {
         this.driver = driver;
     }
 
-    public void createNewConnection(String assessmentNumber) {
+    public void createNewConnection(String assessmentNumber, ConnectionDetails connectionDetails) {
         enterText(PTAssessmentNumberTextBox, assessmentNumber, driver);
-        selectFromDropDown(propertyTypeDropBox, "RESIDENTIAL", driver);
-        enterText(noOfClosetsTextBox, "3", driver);
-        enterText(documentNumberTextBox, "123", driver);
+        selectFromDropDown(propertyTypeDropBox, connectionDetails.getPropertyType(), driver);
+        if(connectionDetails.getPropertyType().equals("NON RESIDENTIAL")){
+          enterText(noOfClosetsForNonResidentialsTextBox,connectionDetails.getNumOfClosets(),driver);
+        }
+        else if(connectionDetails.getPropertyType().equals("RESIDENTIAL")) {
+            enterText(noOfClosetsForResidentialsTextBox, connectionDetails.getNumOfClosets(), driver);
+        }
+        enterText(documentNumberTextBox, connectionDetails.getDocumentNum(), driver);
         enterDate(documentDateTextBox, getCurrentDate(), driver);
         uploadFile(chooseFileButton, System.getProperty("user.dir") + "/src/test/resources/dataFiles/logo.jpg", driver);
     }
@@ -247,9 +256,14 @@ public class NewSewerageConnectionPage extends BasePage {
         driver.navigate().to(getEnvironmentURL() + "/stms/transactions/" + action + "/" + hscNumber);
     }
 
-    public void increseTheNumberOfClosets() {
-        enterText(noOfClosetsTextBox, "5", driver);
-        enterText(documentNumberTextBox, "123", driver);
+    public void increseTheNumberOfClosets(ConnectionDetails connectionDetails) {
+        if(connectionDetails.getPropertyType().equals("NON RESIDENTIAL")){
+            enterText(noOfClosetsForNonResidentialsTextBox,connectionDetails.getNumOfClosets(),driver);
+        }
+        else if(connectionDetails.getPropertyType().equals("RESIDENTIAL")) {
+            enterText(noOfClosetsForResidentialsTextBox, connectionDetails.getNumOfClosets(), driver);
+        }
+        enterText(documentNumberTextBox, connectionDetails.getDocumentNum(), driver);
         enterDate(documentDateTextBox, getCurrentDate(), driver);
         uploadFile(chooseFileButton, System.getProperty("user.dir") + "/src/test/resources/dataFiles/logo.jpg", driver);
     }
@@ -282,7 +296,7 @@ public class NewSewerageConnectionPage extends BasePage {
         enterText(demandTextBox, "1000", driver);
         enterText(collectionTextBox, "0", driver);
         selectFromDropDown(propertyTypeDropBox, "RESIDENTIAL", driver);
-        enterText(noOfClosetsTextBox, "3", driver);
+        enterText(noOfClosetsForResidentialsTextBox, "3", driver);
     }
 
     public void submit() {

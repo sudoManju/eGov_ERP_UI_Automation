@@ -12,12 +12,12 @@ Feature: Create/renewal/closure of sewerage connection
     And he choose to close the dataentry acknowledgement screen
     And current user logs out
 
-  @SewerageTax @Sanity
-  Scenario: create/change/closure of sewerage connection
+  @SewerageTax @Sanity 
+  Scenario Outline: create/change/closure of sewerage connection
 
     Given creator logs in
     And user will select the required screen as "Apply for new connection" with condition as "stms"
-    And he create new sewerage connection for above assessment number
+    And he create new sewerage connection for above assessment number <creationDocuments>
     And he forward to assistant engineer and closes the acknowledgement
     Then user will be notified by "forwarded"
 
@@ -78,7 +78,7 @@ Feature: Create/renewal/closure of sewerage connection
     Given creator logs in
     And user will select the required screen as "search connection" with condition as "stms"
     And he search for above sewerage connection
-    And he increses the number of closets
+    And he increses the number of closets <changeDocuments>
     And he forward to assistant engineer for change in closets and closes the acknowledgement
     Then user will be notified by "forwarded"
 
@@ -168,6 +168,11 @@ Feature: Create/renewal/closure of sewerage connection
     And he chooses to act upon above application number
     And he generates closure notice
     And current user logs out
+
+    Examples:
+    |creationDocuments|changeDocuments|
+    |creation1        |change1        |
+    |creation2        |change2        |
 
   @SewerageTax @Sanity
   Scenario: Generate demand bill for legacy sewerage connection

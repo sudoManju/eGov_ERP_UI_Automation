@@ -2,6 +2,8 @@ package steps.sewerageTax;
 
 import cucumber.api.java8.En;
 import entities.ApprovalDetails;
+import entities.sewerageTax.ConnectionDetails;
+import excelDataFiles.SewerageTaxDataReader;
 import pages.ApprovalDetailsPage;
 import pages.sewerageTax.NewSewerageConnectionPage;
 import steps.BaseSteps;
@@ -9,8 +11,9 @@ import excelDataFiles.ExcelReader;
 
 public class NewSewerageConnectionSteps extends BaseSteps implements En {
     public NewSewerageConnectionSteps() {
-        And("^he create new sewerage connection for above assessment number$", () -> {
-            pageStore.get(NewSewerageConnectionPage.class).createNewConnection(scenarioContext.getAssessmentNumber());
+        And("^he create new sewerage connection for above assessment number (\\w+)$", (String sewerageTaxDataId) -> {
+            ConnectionDetails connectionDetails = new SewerageTaxDataReader(sewerageTaxTestDataFileName).getConnectionDetails(sewerageTaxDataId);
+            pageStore.get(NewSewerageConnectionPage.class).createNewConnection(scenarioContext.getAssessmentNumber(),connectionDetails);
 
             String approverDetailsDataId = "assis_Engineer_1";
 
@@ -92,8 +95,9 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
         And("^he search for above sewerage connection$", () -> {
             pageStore.get(NewSewerageConnectionPage.class).searchForAboveSewerageConnection(scenarioContext.getApplicationNumber(), "modifyConnection");
         });
-        And("^he increses the number of closets$", () -> {
-            pageStore.get(NewSewerageConnectionPage.class).increseTheNumberOfClosets();
+        And("^he increses the number of closets (\\w+)$", (String sewerageTaxDataId) -> {
+            ConnectionDetails connectionDetails = new SewerageTaxDataReader(sewerageTaxTestDataFileName).getConnectionDetails(sewerageTaxDataId);
+            pageStore.get(NewSewerageConnectionPage.class).increseTheNumberOfClosets(connectionDetails);
 
             String approverDetailsDataId = "assis_Engineer_1";
 
