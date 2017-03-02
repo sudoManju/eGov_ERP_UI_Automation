@@ -13,8 +13,13 @@ public class ConnectionDetailsBuilder {
         return this;
     }
 
-    public ConnectionDetailsBuilder withNumberOfClosets(String numberOfClosets){
-        connectionDetails.setNumOfClosets(numberOfClosets);
+    public ConnectionDetailsBuilder withNumOfClosetsResidential(String numOfClosetsResidential){
+        connectionDetails.setNumOfClosetsForResidential(numOfClosetsResidential);
+        return this;
+    }
+
+    public ConnectionDetailsBuilder withNumOfClosetsNonResidentials(String numOfClosetsNonResidentials){
+        connectionDetails.setNumOfClosetsForNonResidential(numOfClosetsNonResidentials);
         return this;
     }
 

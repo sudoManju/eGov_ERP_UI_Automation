@@ -18,12 +18,14 @@ public class SewerageTaxDataReader extends ExcelReader {
         Row dataRow = readDataRow(connectionDetailsSheet,connectionDetailsDataId);
 
         String propertyType = getCellData(connectionDetailsSheet,dataRow,"propertyType").getStringCellValue();
-        String numOfClosets = convertNumericToString(connectionDetailsSheet,dataRow,"noOfClosets");
+        String numOfClosetsForResidentials = convertNumericToString(connectionDetailsSheet,dataRow,"noOfClosetsResidential");
+        String numOfClosetsForNonResidentials = convertNumericToString(connectionDetailsSheet,dataRow,"noOfClosetsNonResidential");
         String documentNum = convertNumericToString(connectionDetailsSheet,dataRow,"documentNumber");
 
         return new ConnectionDetailsBuilder()
                    .withPropertyType(propertyType)
-                   .withNumberOfClosets(numOfClosets)
+                   .withNumOfClosetsResidential(numOfClosetsForResidentials)
+                   .withNumOfClosetsNonResidentials(numOfClosetsForNonResidentials)
                    .withDocumentNum(documentNum)
                    .build();
     }

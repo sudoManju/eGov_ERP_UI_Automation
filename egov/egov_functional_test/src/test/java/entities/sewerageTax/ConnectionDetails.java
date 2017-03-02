@@ -3,7 +3,8 @@ package entities.sewerageTax;
 public class ConnectionDetails {
 
     String propertyType;
-    String numOfClosets;
+    String numOfClosetsForResidential;
+    String numOfClosetsForNonResidential;
     String documentNum;
 
     public String getPropertyType() {
@@ -14,12 +15,20 @@ public class ConnectionDetails {
         this.propertyType = propertyType;
     }
 
-    public String getNumOfClosets() {
-        return numOfClosets;
+    public String getNumOfClosetsForResidential() {
+        return numOfClosetsForResidential;
     }
 
-    public void setNumOfClosets(String numOfClosets) {
-        this.numOfClosets = numOfClosets;
+    public void setNumOfClosetsForResidential(String numOfClosetsForResidential) {
+        this.numOfClosetsForResidential = numOfClosetsForResidential;
+    }
+
+    public String getNumOfClosetsForNonResidential() {
+        return numOfClosetsForNonResidential;
+    }
+
+    public void setNumOfClosetsForNonResidential(String numOfClosetsForNonResidential) {
+        this.numOfClosetsForNonResidential = numOfClosetsForNonResidential;
     }
 
     public String getDocumentNum() {
