@@ -2,8 +2,11 @@ package steps.ptis;
 
 import cucumber.api.PendingException;
 import cucumber.api.java8.En;
+import entities.ApprovalDetails;
 import entities.ptis.RegistrationDetails;
+import excelDataFiles.ExcelReader;
 import excelDataFiles.PTISDataReader;
+import pages.ApprovalDetailsPage;
 import pages.ptis.PropertyAcknowledgementPage;
 import pages.ptis.PropertyDetailsPage;
 import pages.ptis.TransferDetailsPage;
@@ -30,6 +33,14 @@ public class TransferSteps extends BaseSteps implements En {
         });
         And("^he generate title transfer notice$", () -> {
             pageStore.get(TransferDetailsPage.class).generateTitleTransferNotice();
+        });
+        And("^he selects the exemption reason from drop down$", () -> {
+            pageStore.get(TransferDetailsPage.class).selectExemptionReason();
+        });
+        And("^he forwarding for approval to (.*)$", (String approvalDetailsDataId) -> {
+            ApprovalDetails approvalDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetails(approvalDetailsDataId);
+            pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approvalDetails);
+            pageStore.get(ApprovalDetailsPage.class).forward();
         });
 
     }

@@ -168,7 +168,7 @@ public class BasePage {
     }
 
     public void isSuccesful(String expectedMessage, String actualMessage) {
-        Boolean found = Arrays.asList(actualMessage.split("\\ ")).contains(expectedMessage);
+        Boolean found = Arrays.asList(actualMessage.split("\\s")).contains(expectedMessage);
         Assert.assertTrue(found);
     }
 

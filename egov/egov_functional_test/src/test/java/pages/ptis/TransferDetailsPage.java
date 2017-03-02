@@ -5,7 +5,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
+
+import java.util.List;
 
 public class TransferDetailsPage extends BasePage {
 
@@ -81,6 +84,9 @@ public class TransferDetailsPage extends BasePage {
     @FindBy(id = "assessmentNum")
     private WebElement searchAssessmentNumberTextBox;
 
+    @FindBy(id = "taxExemptedReason")
+    private WebElement exemptionReasonDropdown;
+
     public void chooseRegistrationAlreadyDone() {
         waitForElementToBeClickable(registrationAlreadyDoneButton, webdriver);
         registrationAlreadyDoneButton.click();
@@ -129,5 +135,16 @@ public class TransferDetailsPage extends BasePage {
         switchToNewlyOpenedWindow(webdriver);
         webdriver.close();
         switchToPreviouslyOpenedWindow(webdriver);
+    }
+
+    public void selectExemptionReason() {
+        List<WebElement> exmptionList = exemptionReasonDropdown.findElements(By.tagName("option"));
+        int index = exmptionList.size();
+        System.out.println(index);
+        for (WebElement application : exmptionList)
+        {
+            String value = application.getText();
+        }
+        selectFromDropDown(exemptionReasonDropdown, "Places set apart for public worship", webdriver);
     }
 }
