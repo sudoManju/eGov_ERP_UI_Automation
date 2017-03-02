@@ -3,6 +3,7 @@ package pages.collections;
 import entities.collections.PaymentMethod;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
 import java.util.List;
@@ -131,7 +132,7 @@ public class MiscellaneousPage extends BasePage {
         enterText(narrationTextBox, "Narration", driver);
         enterText(payeeAddressTextBox, "Banglore", driver);
         selectFromDropDown(serviceCategoryDropDown, "Entry Fees", driver);
-        waitForElementToBePresent(By.cssSelector("select[id='serviceId'] option[value='166']"), driver);
+        await().atMost(10, SECONDS).until(() -> new Select(serviceTypeIDropDown).getOptions().size() > 1);
         selectFromDropDown(serviceTypeIDropDown, "Monuments Entry Fees-MNMENTFEE", driver);
         try {
             WebElement amountBox = driver.findElement(By.cssSelector("input[type='text'][id='billCreditDetailslist[0].creditAmountDetail']"));
