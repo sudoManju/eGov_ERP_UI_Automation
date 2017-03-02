@@ -179,6 +179,7 @@ public class CollectionsPage extends BasePage {
         enterText(payeeAddressTextBox, challanHeaderDetails.getPayeeAddress(), driver);
         enterText(narrationTextBox, challanHeaderDetails.getNarration(), driver);
         selectFromDropDown(serviceCategoryBox, challanHeaderDetails.getServiceCategory(), driver);
+        await().atMost(10, SECONDS).until(() -> new Select(serviceTypeBox).getOptions().size() > 1);
         selectFromDropDown(serviceTypeBox, challanHeaderDetails.getServiceType(), driver);
         try {
             challanAmountTextBox.clear();
