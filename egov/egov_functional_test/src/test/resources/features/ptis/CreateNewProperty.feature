@@ -412,7 +412,33 @@ Feature: Create New Property
       | revisionpetitionBlock   | hearingBlock   |
 
 
+  @WIP
 
+  Scenario Outline: Register user choose to do demolition of property
+
+    Given commissioner logs in
+    And user will select the required screen as "Data entry screen" with condition as "ptis"
+    And he creates a new assessment for a private residential property
+    Then dataEntry Details saved successfully
+    And he choose to add edit DCB
+    And he choose to close the dataentry acknowledgement screen
+    And current user logs out
+
+    Given juniorAssistant logs in
+    And user will select the required screen as "collect tax"
+    And he searches for assessment with number
+    And he chooses to pay tax
+    And he pay tax using Cash
+
+    And user will select the required screen as "Demolition"
+    And he searches for assessment with number
+
+    And he enters demolition details as <demolition Details>
+    And he forwards for approval to billCollector
+
+    Examples:
+      |demolition Details|
+      | demolitionBlock |
 
 
 

@@ -30,6 +30,7 @@ public class PTISDataReader extends ExcelReader {
     Sheet revisionPetitionDetailsSheet;
     Sheet hearingDetailsSheet;
     Sheet registrationDetailsSheet;
+    Sheet demolitionDetailsSheet;
 
     public PTISDataReader(String testData) {
         super(testData);
@@ -49,6 +50,7 @@ public class PTISDataReader extends ExcelReader {
         revisionPetitionDetailsSheet = workbook.getSheet("revisionPetitionDetails");
         hearingDetailsSheet = workbook.getSheet("hearingDetails");
         documentDetailsSheet = workbook.getSheet("documentDetails");
+        demolitionDetailsSheet = workbook.getSheet("demolitionDetails");
     }
 
     public SearchDetails getSearchDetails(String searchId) {
@@ -402,5 +404,31 @@ public class PTISDataReader extends ExcelReader {
                 .withHearingTime(hearingTime)
                 .withvenue(venue)
                 .build();
+    }
+
+    public DemolitionDetail getDemolitionDetails(String demolitionDataId) {
+        Row dataRow = readDataRow(demolitionDetailsSheet, demolitionDataId);
+        String reasonForDemolition =getCellData(demolitionDetailsSheet, dataRow,"reasonForDemolition").getStringCellValue();
+        String surveyNumber =convertNumericToString(demolitionDetailsSheet, dataRow,"surveyNumber");
+        String pattaNumber =convertNumericToString(demolitionDetailsSheet, dataRow, "pattaNumber");
+        String marketValue =convertNumericToString(demolitionDetailsSheet, dataRow,"marketValue");
+        String capitalValue =convertNumericToString(demolitionDetailsSheet, dataRow, "capitalValue");
+        String North =getCellData(demolitionDetailsSheet, dataRow, "North").getStringCellValue();
+        String East =getCellData(demolitionDetailsSheet, dataRow, "East").getStringCellValue();
+        String West =getCellData(demolitionDetailsSheet, dataRow, "East").getStringCellValue();
+        String South =getCellData(demolitionDetailsSheet, dataRow, "South").getStringCellValue();
+
+        return new DemolitionDetailsBuilder()
+                .withReasonForDemolition(reasonForDemolition)
+                .withSurveyNumber(surveyNumber)
+                .withPattaNumber(pattaNumber)
+                .withMarketValue(marketValue)
+                .withCaptialValue(capitalValue)
+                .withNorth(North)
+                .withEast(East)
+                .withWest(West)
+                .withSouth(South)
+                .build();
+
     }
 }
