@@ -25,17 +25,35 @@ Feature: Existing Property
   And he searches for assessment with number
   And he selects the exemption reason from drop down
   And he forwarding for approval to bill_Collector
+  And he will copy the acknowledgement message with application number propertyAckForm
   Then user will be notified by "successfully"
   And current user logs out
-#
-#  When billCollector logs in
-#  And he chooses to act upon above assessment number
-#  And he forwards for approval to revenueInspector
-#  And current user closes acknowledgement
-#  And current user logs out
-#
-#  When revenueInspector logs in
-#  And he chooses to act upon above assessment number
-#  And he forwards for approval to revenueOfficer
-#  And current user closes acknowledgement
-#  And current user logs out
+
+  When bill_Collector logs in
+  And he chooses to act upon above application number
+  And he forwarding for approval to revenue_Inspector
+  And current user closes tax exemption acknowledgement
+  And current user logs out
+
+  When revenue_Inspector logs in
+  And he chooses to act upon above application number
+  And he forwarding for approval to revenue_Officer
+  And current user closes tax exemption acknowledgement
+  And current user logs out
+
+  When revenue_Officer logs in
+  And he chooses to act upon above application number
+  And he forwarding for approval to commissioner1
+  And current user closes tax exemption acknowledgement
+  And current user logs out
+
+
+  When commissioner logs in
+  And he chooses to act upon above assessment number
+  And he approved the property with remarks "property approved"
+  And current user closes tax exemption acknowledgement
+#    Then user will be notified by "Successfully"
+  And he chooses to act upon above assessment number
+  And he does a digital signature
+  When commissioner closes acknowledgement
+  And current user logs out

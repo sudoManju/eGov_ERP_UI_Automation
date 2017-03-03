@@ -45,6 +45,7 @@ public class PropertyAcknowledgementPage extends BasePage {
             clickOnButton(closeButton, driver);
         } catch (StaleElementReferenceException e) {
             WebElement element = driver.findElement(By.cssSelector("input[value='Close'][type='button']"));
+//            WebElement element = driver.findElement(By.cssSelector("a[class='btn btn-default']"));
             waitForElementToBeClickable(element, driver);
             element.click();
         }

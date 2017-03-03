@@ -5,7 +5,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
 import java.util.List;
@@ -87,6 +86,12 @@ public class TransferDetailsPage extends BasePage {
     @FindBy(id = "taxExemptedReason")
     private WebElement exemptionReasonDropdown;
 
+    @FindBy(xpath = ".//*[@id='propertyAckForm']/div[1]/div/div/strong")
+    private WebElement successPageMessage;
+
+    @FindBy(css = "a[class='btn btn-default']")
+    private List<WebElement> taxExemptionCloseButton;
+
     public void chooseRegistrationAlreadyDone() {
         waitForElementToBeClickable(registrationAlreadyDoneButton, webdriver);
         registrationAlreadyDoneButton.click();
@@ -138,13 +143,28 @@ public class TransferDetailsPage extends BasePage {
     }
 
     public void selectExemptionReason() {
-        List<WebElement> exmptionList = exemptionReasonDropdown.findElements(By.tagName("option"));
-        int index = exmptionList.size();
-        System.out.println(index);
-        for (WebElement application : exmptionList)
-        {
-            String value = application.getText();
-        }
         selectFromDropDown(exemptionReasonDropdown, "Places set apart for public worship", webdriver);
+    }
+
+    public String successMessage() {
+        String msg = getTextFromWeb(successPageMessage, webdriver);
+        return msg;
+    }
+
+    public String getApplicationNumber(String type) {
+        WebElement element = webdriver.findElement((By.xpath(".//*[@id='" + type + "']/div[1]/div/div")));
+//        System.out.println(element.getText());
+        return element.getText();
+    }
+
+    public void close() {
+        clickOnButton(taxExemptionCloseButton.get(1), webdriver);
+        switchToPreviouslyOpenedWindow(webdriver);
+    }
+
+    public void closesAcknowledgement() {
+        WebElement closeButton = webdriver.findElement(By.cssSelector("a[class='btn btn-default']"));
+        clickOnButton(closeButton, webdriver);
+        switchToPreviouslyOpenedWindow(webdriver);
     }
 }

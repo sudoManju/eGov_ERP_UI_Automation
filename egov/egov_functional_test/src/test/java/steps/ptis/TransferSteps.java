@@ -42,6 +42,15 @@ public class TransferSteps extends BaseSteps implements En {
             pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approvalDetails);
             pageStore.get(ApprovalDetailsPage.class).forward();
         });
+        And("^he will copy the acknowledgement message with application number (.*)$", (String type) -> {
+            String msg = pageStore.get(TransferDetailsPage.class).getApplicationNumber(type);
+            scenarioContext.setApplicationNumber(scenarioContext.getDataScreenAssessmentNumber());
+            scenarioContext.setActualMessage(msg);
+            pageStore.get(TransferDetailsPage.class).close();
+        });
+        And("^current user closes tax exemption acknowledgement$", () -> {
+            pageStore.get(TransferDetailsPage.class).closesAcknowledgement();
+        });
 
     }
 }
