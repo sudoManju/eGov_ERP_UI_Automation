@@ -413,7 +413,6 @@ Feature: Create New Property
 
 
   @WIP
-
   Scenario Outline: Register user choose to do demolition of property
 
     Given commissioner logs in
@@ -434,11 +433,13 @@ Feature: Create New Property
     And he searches for assessment with number
 
     And he enters demolition details as <demolition Details>
-    And he forwards for approval to billCollector
+    And he forwarding for approval to bill_Collector
+    Then user will be notified by "successfully"
+    And current user logs out
 
     Examples:
       |demolition Details|
-      | demolitionBlock |
+      | demolitionBlock  |
 
 
 
