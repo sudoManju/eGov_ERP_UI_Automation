@@ -1,7 +1,6 @@
 package pages.tradeLicense;
 
 import entities.tradeLicense.*;
-import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -9,7 +8,6 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasePage;
 
-import java.security.Key;
 import java.util.List;
 
 import static com.jayway.awaitility.Awaitility.await;
@@ -66,7 +64,7 @@ public class TradeLicensePage extends BasePage {
     @FindBy(id = "btnsave")
     private WebElement saveButton;
 
-    @FindBy(className = "select2-search__field")
+    @FindBy(css = "input[class='select2-search__field']")
     private WebElement searchBox;
 
     @FindBy(id = "close")
@@ -164,9 +162,20 @@ public class TradeLicensePage extends BasePage {
             WebElement element = webDriver.findElement(By.id("select2-subCategory-container"));
             clickOnButton(element, webDriver);
         }
+        waitForElementToBeVisible(searchBox , webDriver);
         searchBox.sendKeys(tradedetails.gettradeSubCategory());
-        WebElement element = webDriver.findElement(By.xpath(".//*[@id='select2-subCategory-results']/li"));
+        WebElement element = webDriver.findElement(By.xpath(".//*[@id='select2-subCategory-results']/li[1]"));
         clickOnButton(element, webDriver);
+
+        if(tradeSubCategoryDropBox.getText().isEmpty()){
+            WebElement element2 = webDriver.findElement(By.id("select2-subCategory-container"));
+            clickOnButton(element2, webDriver);
+            waitForElementToBeVisible(searchBox , webDriver);
+            searchBox.sendKeys(tradedetails.gettradeSubCategory());
+            WebElement element1 = webDriver.findElement(By.xpath(".//*[@id='select2-subCategory-results']/li[1]"));
+            clickOnButton(element1, webDriver);
+        }
+
         enterText(TradeAreaWeightOfPremises, tradedetails.gettradeAreaWeightOfPremises(), webDriver);
         enterText(remarksTextBox, tradedetails.getremarks(), webDriver);
         enterText(tradeCommencementDateTextBox, tradedetails.gettradeCommencementDate(), webDriver);
@@ -222,7 +231,6 @@ public class TradeLicensePage extends BasePage {
         selectFromDropDown(statusSelect, closureDetails.getStatusDetails(), webDriver);
         selectFromDropDown(TradeCategoryDropBox, closureDetails.getTradeCategory(), webDriver);
         jsClick(searchButton, webDriver);
-//        waitForElementToBeClickable(collectFeeDropBox, webDriver);
         selectFromDropDown(collectFeeDropBox, "Closure", webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
