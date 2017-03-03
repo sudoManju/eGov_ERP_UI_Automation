@@ -83,7 +83,7 @@ public class WaterChargeCollectionsPage extends WaterChargeManagementPage {
     @FindBy(id = "Paybutton")
     private WebElement onlineCardPaymentButton;
 
-    @FindBy(id = "paymentInfo")
+    @FindBy(css = "div[id='paymentInfo']")
     private WebElement onlinePaymentSuccessMessage;
 
     @FindBy(id = "btnGenerateReceipt")
@@ -199,6 +199,7 @@ public class WaterChargeCollectionsPage extends WaterChargeManagementPage {
     }
 
     public String onlinePaymentSuccess() {
+        await().atMost(30, SECONDS).until(() -> webDriver.findElements(By.cssSelector("div[id='paymentInfo']")).size() == 1);
         message = getTextFromWeb(onlinePaymentSuccessMessage, webDriver);
         return message;
     }

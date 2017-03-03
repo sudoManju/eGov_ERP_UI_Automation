@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasePage;
 
+import java.security.Key;
 import java.util.List;
 
 import static com.jayway.awaitility.Awaitility.await;
@@ -141,22 +142,13 @@ public class TradeLicensePage extends BasePage {
     public void entertradeLocationDetails(TradeLocationDetails tradelocationDetails) {
         enterText(propertyAssessmentNumberTextBox, tradelocationDetails.getpropertyAssessmentNumber(), webDriver);
         propertyAssessmentNumberTextBox.sendKeys(Keys.TAB);
-        List<WebElement> options = location.findElements(By.tagName("option"));
-        await().atMost(20, SECONDS).until(() -> options.size() > 1);
-//        for (WebElement option : options) {
-//            if (option.isDisplayed()) {
-//                selectFromDropDown(location, option.getText(), webDriver);
-////                System.out.println(option.getText());
-//            }
-//        }
-        location.sendKeys(Keys.TAB);
-        await().atMost(20, SECONDS).until(() -> wardSelect.findElements(By.tagName("option")).size() > 1);
-
-//        if(wardSelect.findElements(By.tagName("option")).size()>1){
-//            new Select(location).selectByVisibleText("Abbas Nagar-m");
-//            location.sendKeys(Keys.TAB);
-//        }
-//        location.sendKeys(Keys.TAB);
+        await().atMost(20, SECONDS).until(() -> new Select(location).getOptions().size() > 1);
+        if(!(wardSelect.findElements(By.tagName("option")).size() > 1)){
+            clickOnButton(location ,webDriver);
+            clickOnButton(location ,webDriver);
+            location.sendKeys(Keys.TAB);
+        }
+        await().atMost(10, SECONDS).until(() -> wardSelect.findElements(By.tagName("option")).size() > 1);
         waitForElementToBeClickable(wardSelect, webDriver);
         new Select(wardSelect).selectByIndex(1);
         selectFromDropDown(OwnershipTypeDropBox, tradelocationDetails.getownershipType(), webDriver);
@@ -180,7 +172,6 @@ public class TradeLicensePage extends BasePage {
         enterText(tradeCommencementDateTextBox, tradedetails.gettradeCommencementDate(), webDriver);
         clickOnButton(saveButton, webDriver);
     }
-
 
     public String getApplicationNumber() {
         List<WebElement> elements = webDriver.findElements(By.cssSelector(".col-sm-3.col-xs-6.add-margin.view-content"));
