@@ -15,12 +15,15 @@ Feature: To create a data entry screen for the water charge management services 
     And current user logs out
 
   @Sanity @WaterCharges
-  Scenario: To create a data entry screen for the water charges
+  Scenario Outline: To create a data entry screen for the water charges
 
     Given admin logs in
     And user will select the required screen as "Data Entry Screen" with condition as "wtms"
-    And user will enter the details of data entry screen for water charges
+    And user will enter the details of data entry screen for water charges <connectionDetails>
     And user will notify the successful creation of data entry screen as "Successfully"
     And user will be notified by "Successfully"
     And current user logs out
-
+Examples:
+    |connectionDetails  |
+    |dataEntryInfo      |
+    |connectionInfoMeter|

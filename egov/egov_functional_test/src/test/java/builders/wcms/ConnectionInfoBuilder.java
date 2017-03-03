@@ -46,6 +46,16 @@ public class ConnectionInfoBuilder {
         return this;
     }
 
+    public  ConnectionInfoBuilder withWaterSupplyType(String waterSupplyType) {
+        connectionInfo.setWaterSupplyType(waterSupplyType);
+        return this;
+    }
+
+    public ConnectionInfoBuilder withApartmentName(String apartmentName) {
+        connectionInfo.setApartmentName(apartmentName);
+        return this;
+    }
+
     public ConnectionInfoBuilder withReasonForAdditionalConnection(String reason) {
         connectionInfo.setReasonForAdditionalConnection(reason);
         return this;

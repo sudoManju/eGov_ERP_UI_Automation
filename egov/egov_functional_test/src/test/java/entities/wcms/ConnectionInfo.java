@@ -11,6 +11,8 @@ public class ConnectionInfo {
     private String sumpCapacity;
     private String noOfPersons;
     private String reasonForAdditionalConnection;
+    private String waterSupplyType;
+    private String apartmentName;
 
     public String getWaterSourceType() {
         return waterSourceType;
@@ -68,9 +70,15 @@ public class ConnectionInfo {
         this.sumpCapacity = sumpCapacity;
     }
 
-    public String getNoOfPersons() {
-        return noOfPersons;
-    }
+    public String getNoOfPersons() {return noOfPersons;}
+
+    public void setWaterSupplyType(String waterSupplyType){this.waterSupplyType =waterSupplyType;}
+
+    public String getWaterSupplyType() {return waterSupplyType;}
+
+    public void setApartmentName(String apartmentName){this.apartmentName = apartmentName;}
+
+    public String getApartmentName(){return apartmentName;}
 
     public void setNoOfPersons(String noOfPersons) {
         this.noOfPersons = noOfPersons;

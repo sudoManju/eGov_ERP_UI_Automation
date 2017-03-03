@@ -99,6 +99,12 @@ public class WaterConnectionDetailsPage extends WaterChargeManagementPage {
     @FindBy(id = "closeconnectionreason")
     private WebElement closureConnectionReason;
 
+    @FindBy(id = "waterSupplyType")
+    private WebElement waterSupplyType;
+
+    @FindBy(id = "buildingName")
+    private WebElement apartmentName;
+
     public WaterConnectionDetailsPage(WebDriver webDriver) {
         super(webDriver);
     }
@@ -192,5 +198,20 @@ public class WaterConnectionDetailsPage extends WaterChargeManagementPage {
 
         enterText(closureConnectionReason, "Not Required", webDriver);
         return number;
+    }
+
+    public void enterConnecttionInfoForMetered(ConnectionInfo connectionInfo) {
+        selectFromDropDown(waterSourceTypeSelectBox, connectionInfo.getWaterSourceType(), webDriver);
+        selectFromDropDown(connectionTypeSelectBox, connectionInfo.getConnectionType(), webDriver);
+        selectFromDropDown(propertyTypeSelectBox, connectionInfo.getPropertyType(), webDriver);
+        selectFromDropDown(categorySelectBox, connectionInfo.getCategory(), webDriver);
+        selectFromDropDown(usageTypeSelectBox, connectionInfo.getUsageType(), webDriver);
+        selectFromDropDown(hscPipeSizeSelectBox, connectionInfo.getHscPipeSize(), webDriver);
+
+        enterText(sumpCapacityTextBox, connectionInfo.getSumpCapacity(), webDriver);
+        enterText(noOfPersonsTextBox, connectionInfo.getNoOfPersons(), webDriver);
+        selectFromDropDown(waterSupplyType,connectionInfo.getWaterSupplyType(),webDriver);
+        enterText(apartmentName,connectionInfo.getApartmentName(),webDriver);
+
     }
 }

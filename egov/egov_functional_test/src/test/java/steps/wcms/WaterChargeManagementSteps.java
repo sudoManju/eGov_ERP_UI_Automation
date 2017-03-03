@@ -95,17 +95,22 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             pageStore.get(WaterChargeManagementPage.class).clickOnForwardButton();
         });
 
-        And("^user will enter the details of data entry screen for water charges$", () -> {
+        And("^user will enter the details of data entry screen for water charges (\\w+)$", (String connectionType) -> {
             String applicationParticularsDetails = "dataEntryInfo";
-            String connectionDetails = "dataEntryInfo";
+            String connectionDetails = connectionType;
 
             ApplicantInfo applicantInfo = new WaterChargesDataReader(waterChargesTestDataFileName).getApplicantInfo(applicationParticularsDetails);
             pageStore.get(WaterChargeManagementPage.class).enterWaterDataEntryDetails(applicantInfo, scenarioContext.getAssessmentNumber());
 
             ConnectionInfo connectionInfo = new WaterChargesDataReader(waterChargesTestDataFileName).getConnectionInfo(connectionDetails);
-            pageStore.get(WaterConnectionDetailsPage.class).enterConnectionInfo(connectionInfo);
-
-            pageStore.get(WaterChargeManagementPage.class).estimationFeeDetails();
+            if(connectionInfo.getConnectionType().equalsIgnoreCase("Non-metered")) {
+                pageStore.get(WaterConnectionDetailsPage.class).enterConnectionInfo(connectionInfo);
+                pageStore.get(WaterChargeManagementPage.class).estimationFeeDetails();
+            }
+            else{
+                pageStore.get(WaterConnectionDetailsPage.class).enterConnecttionInfoForMetered(connectionInfo);
+                pageStore.get(WaterChargeManagementPage.class).estimationFeeDetailsForMetered();
+            }
 
         });
 

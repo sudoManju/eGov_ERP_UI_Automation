@@ -38,6 +38,8 @@ public class WaterChargesDataReader extends ExcelReader {
         String sumpCapacity = convertNumericToString(connectionDetailsSheet, dataRow, "sumpCapacity");
         String noOfPersons = convertNumericToString(connectionDetailsSheet, dataRow, "noOfPersons");
         String connectionReason = convertNumericToString(connectionDetailsSheet, dataRow, "reasonForAdditionalConn");
+        String waterSupplyType = convertNumericToString(connectionDetailsSheet,dataRow,"waterSupplyType");
+        String apartmentName = convertNumericToString(connectionDetailsSheet,dataRow,"apartmentName");
 
         return new ConnectionInfoBuilder()
                 .withWaterSourceType(waterSourceType)
@@ -49,6 +51,8 @@ public class WaterChargesDataReader extends ExcelReader {
                 .withSumpCapacity(sumpCapacity)
                 .withNoOfPersons(noOfPersons)
                 .withReasonForAdditionalConnection(connectionReason)
+                .withWaterSupplyType(waterSupplyType)
+                .withApartmentName(apartmentName)
                 .build();
     }
 
@@ -99,6 +103,7 @@ public class WaterChargesDataReader extends ExcelReader {
         String existingPipeline = convertNumericToString(fieldInspectionDetailsForWaterConnectionSheet, dataRow, "existingDistributionPipeline");
         String pipelineDistance = convertNumericToString(fieldInspectionDetailsForWaterConnectionSheet, dataRow, "pipelineToHomeDistance");
         String estimationCharges = convertNumericToString(fieldInspectionDetailsForWaterConnectionSheet, dataRow, "estimationCharges");
+
 
         return new FieldInspectionDetailsBuilder()
                 .withMaterial(material)
