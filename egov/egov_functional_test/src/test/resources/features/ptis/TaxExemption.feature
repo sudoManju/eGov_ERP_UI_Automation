@@ -48,12 +48,17 @@ Feature: Existing Property
   And current user logs out
 
 
-  When commissioner logs in
-  And he chooses to act upon above assessment number
-  And he approved the property with remarks "property approved"
-  And current user closes tax exemption acknowledgement
-#    Then user will be notified by "Successfully"
-  And he chooses to act upon above assessment number
-  And he does a digital signature
-  When commissioner closes acknowledgement
-  And current user logs out
+   When commissioner logs in
+   And he chooses to act upon above assessment number
+   And he approved the property with remarks "property approved"
+   And current user closes tax exemption acknowledgement
+#  Then user will be notified by "Successfully"
+   And he chooses to act upon above assessment number
+   And he does a digital signature
+   When commissioner closes acknowledgement
+   And current user logs out
+
+    And juniorAssistant logs in
+    And he chooses to act upon above assessment number
+    And he generates a notice
+    And current user logs out
