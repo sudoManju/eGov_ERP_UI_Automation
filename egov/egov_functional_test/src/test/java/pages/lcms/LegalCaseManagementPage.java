@@ -162,6 +162,21 @@ public class LegalCaseManagementPage extends BasePage {
     @FindBy(id = "disposalDetails")
     private WebElement closeDisposalDetailsTextArea;
 
+    @FindBy(id = "standingCouncilName")
+    private WebElement standingCouncilName;
+
+    @FindBy(id = "assignedDate")
+    private WebElement standingCoucilAssignedDate;
+
+    @FindBy(id = "vakalatdate")
+    private WebElement standingCouncilVakalatDate;
+
+    @FindBy(id = "subitstandingcouncil")
+    private WebElement submitStandingCouncil;
+
+    @FindBy(id = "buttonsubmitid")
+    private WebElement affidavitSubmit;
+
     private String message = null;
     private String caseFileNo = null;
 
@@ -284,6 +299,26 @@ public class LegalCaseManagementPage extends BasePage {
 
                 break;
 
+            case "addOrEditStandingCouncil":
+
+                selectFromDropDown(additionalActionSelect, "Add/Edit Standing Counsel", webDriver);
+
+                switchToNewlyOpenedWindow(webDriver);
+
+                enterStandingCouncilDetails();
+
+                break;
+
+            case "addOrEditCounterAffidavit":
+
+                selectFromDropDown(additionalActionSelect, "Add/Edit Counter Affidavit Details", webDriver);
+
+                switchToNewlyOpenedWindow(webDriver);
+
+                enterCounterAffidavitDetails();
+
+                break;
+
             case "judgment":
 
                 selectFromDropDown(additionalActionSelect, "Judgment", webDriver);
@@ -397,6 +432,24 @@ public class LegalCaseManagementPage extends BasePage {
         enterText(interimOrderNotesTextArea, "Editing Interim Order", webDriver);
 
         clickOnButton(updateButton, webDriver);
+    }
+
+    private void enterStandingCouncilDetails(){
+
+        enterText(standingCouncilName , "S.D.Gowd Advocate & MSC High Court" , webDriver);
+        WebElement element = webDriver.findElement(By.className("tt-dataset-0"));
+        clickOnButton(element ,webDriver);
+
+        enterDate(standingCoucilAssignedDate , getPreviousDate() , webDriver);
+        enterDate(standingCouncilVakalatDate , getPreviousDate() , webDriver);
+
+        clickOnButton(submitStandingCouncil, webDriver);
+        switchToNewlyOpenedWindow(webDriver);
+    }
+
+    private void enterCounterAffidavitDetails(){
+        clickOnButton(affidavitSubmit , webDriver);
+        switchToNewlyOpenedWindow(webDriver);
     }
 
     private void enterJudgmentDetails() {

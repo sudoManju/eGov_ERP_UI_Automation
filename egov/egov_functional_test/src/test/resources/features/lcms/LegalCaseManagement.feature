@@ -7,7 +7,7 @@ Feature: In this feature the following are created as well as edited
   5. Create/Edit Judgment Implementation
   6. Case Closure
 
-  @Sanity @LegalCaseManagement
+  @WIP @LegalCaseManagement
   Scenario Outline: It includes the creation and edit of Legal Case , Hearings , Interim Order , Judgement,
   Judgment Implementation and Case Closure
 
@@ -71,6 +71,26 @@ Feature: In this feature the following are created as well as edited
     And user will closes the successful created or updated page
     And user will be notified by "updated"
 
+    ########################################################
+                   # Add/Edit StandingCouncil #
+    ########################################################
+
+    And user will select the required screen as "Search Legal Case"
+    And user will enter the case file number to search the file
+    And user will take the corresponding action on above as <action11>
+    And user will closes the successful created or updated page
+    And user will be notified by "successfully."
+
+    ########################################################
+                 # Add/edit Counter Affidavit #
+    ########################################################
+
+    And user will select the required screen as "Search Legal Case"
+    And user will enter the case file number to search the file
+    And user will take the corresponding action on above as <action12>
+    And user will closes the successful created or updated page
+    And user will be notified by "Successfully."
+
     #########################################################
                     # Create Judgment #
     #########################################################
@@ -125,11 +145,11 @@ Feature: In this feature the following are created as well as edited
     And current user logs out
 
     Examples:
-      | legalCaseData | action1       | action2  | action3      | action4      | action5     | action6  | action7      | action8                | implementationMode | action9                    | editImplementationMode | action10  |
-      | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | Yes                | editJudgmentImplementation | edit_Yes               | closeCase |
-      | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | No_Appeal          | editJudgmentImplementation | edit_No_Appeal         | closeCase |
-      | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | No_Contempt        | editJudgmentImplementation | edit_No_Contempt       | closeCase |
-      | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | InProgress         | editJudgmentImplementation | edit_InProgress        | closeCase |
+      | legalCaseData | action1       | action2  | action3      | action4      | action5     | action6  | action7      | action8                | implementationMode | action9                    | editImplementationMode | action10  | action11                 | action12                  |
+      | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | Yes                | editJudgmentImplementation | edit_Yes               | closeCase | addOrEditStandingCouncil | addOrEditCounterAffidavit |
+      | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | No_Appeal          | editJudgmentImplementation | edit_No_Appeal         | closeCase | addOrEditStandingCouncil | addOrEditCounterAffidavit |
+      | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | No_Contempt        | editJudgmentImplementation | edit_No_Contempt       | closeCase | addOrEditStandingCouncil | addOrEditCounterAffidavit |
+      | testData1     | editLegalCase | hearings | editHearings | interimOrder | editInterim | judgment | editJudgment | judgmentImplementation | InProgress         | editJudgmentImplementation | edit_InProgress        | closeCase | addOrEditStandingCouncil | addOrEditCounterAffidavit |
 
 
 
