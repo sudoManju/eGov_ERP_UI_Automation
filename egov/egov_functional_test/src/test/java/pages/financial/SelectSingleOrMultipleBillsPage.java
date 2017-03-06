@@ -70,7 +70,6 @@ public class SelectSingleOrMultipleBillsPage extends FinancialPage {
 
     public SelectSingleOrMultipleBillsPage(WebDriver webDriver) {
         super(webDriver);
-        ;
     }
 
     public void singleBillSearch() {
@@ -170,7 +169,6 @@ public class SelectSingleOrMultipleBillsPage extends FinancialPage {
 
     private WebElement getRemittanceBill(String applicationNumber) {
 
-        System.out.println("++++++++++++++++"+remittanceBillTable.findElements(By.tagName("tr")).size());
         await().atMost(20, SECONDS).until(() -> remittanceBillTable.findElements(By.tagName("tr")).size() >= 1);
         List<WebElement> applicationRows = remittanceBillTable.findElements(By.tagName("tr"));
         System.out.println("total number of rows -- " + applicationRows.size());

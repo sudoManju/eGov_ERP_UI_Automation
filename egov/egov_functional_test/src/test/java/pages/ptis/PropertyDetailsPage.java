@@ -295,11 +295,7 @@ public class PropertyDetailsPage extends BasePage {
 
     public void enterPropertyHeader(PropertyHeaderDetails propertyHeaderDetails) {
         selectFromDropDown(categoryOfOwnershipSelection, propertyHeaderDetails.getCategoryOfOwnership(), webDriver);
-        try {
-            TimeUnit.SECONDS.sleep(2);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        maximizeBrowserWindow(webDriver);
         selectFromDropDown(propertyTypeSelection, propertyHeaderDetails.getPropertyType(), webDriver);
     }
 
