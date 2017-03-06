@@ -477,7 +477,7 @@ Feature: Create New Property
       |demolition Details|
       | demolitionBlock  |
 
-     @Sanity @PropertyTax
+  @Sanity @PropertyTax
   Scenario: Registered user choose to do tax exemption of property
 
   Given commissioner logs in
@@ -530,10 +530,10 @@ Feature: Create New Property
    When commissioner closes acknowledgement
    And current user logs out
 
-    And juniorAssistant logs in
-    And he chooses to act upon above assessment number
-    And he generates a notice
-    And current user logs out
+   And juniorAssistant logs in
+   And he chooses to act upon above assessment number
+   And he generates a notice
+   And current user logs out
 
 
 
