@@ -23,7 +23,8 @@ Feature: To create a data entry screen for the water charge management services 
     And user will notify the successful creation of data entry screen as "Successfully"
     And user will be notified by "Successfully"
     And current user logs out
-Examples:
-    |connectionDetails  |
-    |dataEntryInfo      |
-    |connectionInfoMeter|
+
+    Examples:
+      | connectionDetails   |
+      | dataEntryInfo       |
+      | connectionInfoMeter |

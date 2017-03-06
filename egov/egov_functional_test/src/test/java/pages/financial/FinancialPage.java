@@ -194,6 +194,7 @@ public class FinancialPage extends BasePage {
         selectFromDropDown(approverDesignation, approvalDetails.getApproverDesignation(), webDriver);
 
         Select approverPos = new Select(approverPosition);
+        approverPosition.click();
         await().atMost(10, SECONDS).until(() -> approverPos.getOptions().size() > 1);
         userName = approverPos.getOptions().get(1).getText().split("\\ ")[0];
         clickOnButton(approverPos.getOptions().get(1), webDriver);

@@ -15,13 +15,18 @@ Feature: To create a data entry screen for water charges and apply for add/edit 
     And current user logs out
 
   @Sanity @WaterCharges
-  Scenario: To create a data entry screen and edit/add DCB for the water charges
+  Scenario Outline: To create a data entry screen and edit/add DCB for the water charges
 
     Given admin logs in
     And user will select the required screen as "Data Entry Screen" with condition as "wtms"
-    And user will enter the details of data entry screen for water charges
+    And user will enter the details of data entry screen for water charges <connectionDetails>
     And user will click on the add/edit dcb
     And user will enter the details of DCB
     And user will close the dcb form
     Then user will be notified by "successfully"
     And current user logs out
+
+    Examples:
+      | connectionDetails   |
+      | dataEntryInfo       |
+      | connectionInfoMeter |

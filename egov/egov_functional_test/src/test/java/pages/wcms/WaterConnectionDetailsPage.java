@@ -120,6 +120,10 @@ public class WaterConnectionDetailsPage extends WaterChargeManagementPage {
 
         enterText(sumpCapacityTextBox, connectionInfo.getSumpCapacity(), webDriver);
         enterText(noOfPersonsTextBox, connectionInfo.getNoOfPersons(), webDriver);
+
+        if(categorySelectBox.getText().contains("Select from below")){
+            selectFromDropDown(categorySelectBox, connectionInfo.getCategory(), webDriver);
+        }
     }
 
     public void enterDocumentInfo(EnclosedDocument enclosedDocument) {
