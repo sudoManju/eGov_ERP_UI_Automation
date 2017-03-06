@@ -1,5 +1,6 @@
 package steps.ptis;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.ApprovalDetails;
 import entities.ptis.*;
@@ -7,6 +8,7 @@ import excelDataFiles.PTISDataReader;
 import pages.ApprovalDetailsPage;
 import pages.ptis.PropertyAcknowledgementPage;
 import pages.ptis.PropertyDetailsPage;
+import pages.ptis.TransferDetailsPage;
 import steps.BaseSteps;
 import excelDataFiles.ExcelReader;
 
@@ -88,6 +90,13 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
         And("^he enters document type details as (\\w+)$", (String documentSelect) -> {
             DocumentTypeValue documentValue = new PTISDataReader(ptisTestDataFileName).getDocumentValue(documentSelect);
             pageStore.get(PropertyDetailsPage.class).selectDocumentType(documentValue);
+        });
+        And("^he enters the Vacancy Remission Details$", () -> {
+            pageStore.get(PropertyDetailsPage.class).enterVacancyRemissionDetails();
+        });
+        And("^he forward application to the junior assistant and closes acknowledgement$", () -> {
+            pageStore.get(PropertyDetailsPage.class).forward();
+            pageStore.get(TransferDetailsPage.class).closesAcknowledgement();
         });
     }
 }

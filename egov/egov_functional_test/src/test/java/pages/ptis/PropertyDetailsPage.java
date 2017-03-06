@@ -289,6 +289,15 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "searchByDemand")
     private WebElement searchButtonForDemand;
 
+    @FindBy(id = "fromDate")
+    private WebElement vacancyFromDate;
+
+    @FindBy(id = "toDate")
+    private WebElement vacancyToDate;
+
+    @FindBy(id = "vacancyComments")
+    private WebElement vacancyComments;
+
     public PropertyDetailsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -502,5 +511,15 @@ public class PropertyDetailsPage extends BasePage {
 
     public void approveaddition() {
         clickOnButton(approveButton, webDriver);
+    }
+
+    public void enterVacancyRemissionDetails() {
+        WebElement vacancyRemissionDoc1 = webDriver.findElement(By.id("file0"));
+        WebElement vacancyRemissionDoc2 = webDriver.findElement(By.id("file1"));
+        uploadFile(vacancyRemissionDoc1, System.getProperty("user.dir") + "/src/test/resources/dataFiles/PTISTestData.xlsx", webDriver);
+        uploadFile(vacancyRemissionDoc2, System.getProperty("user.dir") + "/src/test/resources/dataFiles/PTISTestData.xlsx", webDriver);
+        enterDate(vacancyFromDate, getCurrentDate(), webDriver);
+        enterDate(vacancyToDate, getFutureDate(184), webDriver);
+        enterText(vacancyComments, "Vacancy Remmission", webDriver);
     }
 }
