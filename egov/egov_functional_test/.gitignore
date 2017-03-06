@@ -3,11 +3,10 @@
 build
 gradle
 .idea
-out
+out/
 .exe
 /src/test/resources/dataFiles/.~lock*
 .ipr
 .iws
 classes/
-gradlew
-gradlew.bat
+Thumbs.db
