@@ -134,13 +134,14 @@ public class MiscellaneousPage extends BasePage {
         selectFromDropDown(serviceCategoryDropDown, "Entry Fees", driver);
         await().atMost(10, SECONDS).until(() -> new Select(serviceTypeIDropDown).getOptions().size() > 1);
         selectFromDropDown(serviceTypeIDropDown, "Monuments Entry Fees-MNMENTFEE", driver);
+        for(int i=0;i<4;i++){
         try {
             WebElement amountBox = driver.findElement(By.cssSelector("input[type='text'][id='billCreditDetailslist[0].creditAmountDetail']"));
             enterText(amountBox, "655", driver);
         } catch (StaleElementReferenceException e) {
             WebElement amountBox = driver.findElement(By.cssSelector("input[type='text'][id='billCreditDetailslist[0].creditAmountDetail']"));
             enterText(amountBox, "655", driver);
-        }
+        }}
     }
 
     public void enterPaymentDetails(PaymentMethod paymentmethod, String mode) {
