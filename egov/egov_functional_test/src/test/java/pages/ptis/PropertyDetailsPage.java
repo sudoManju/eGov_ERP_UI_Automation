@@ -298,6 +298,9 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "vacancyComments")
     private WebElement vacancyComments;
 
+    @FindBy(id = "assessmentNo")
+    private WebElement AmalgamatedPropertiesTextBox;
+
     public PropertyDetailsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -521,5 +524,12 @@ public class PropertyDetailsPage extends BasePage {
         enterDate(vacancyFromDate, getCurrentDate(), webDriver);
         enterDate(vacancyToDate, getFutureDate(184), webDriver);
         enterText(vacancyComments, "Vacancy Remmission", webDriver);
+    }
+
+    public void searchAmalgamatedProperties() {
+        enterText(AmalgamatedPropertiesTextBox, "1016093148" , webDriver);
+        AmalgamatedPropertiesTextBox.sendKeys(Keys.TAB);
+
+
     }
 }

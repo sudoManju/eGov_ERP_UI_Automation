@@ -98,5 +98,8 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
             pageStore.get(PropertyDetailsPage.class).forward();
             pageStore.get(TransferDetailsPage.class).closesAcknowledgement();
         });
+        And("^he search for the Amalgamated Properties$", () -> {
+          pageStore.get(PropertyDetailsPage.class).searchAmalgamatedProperties();
+        });
     }
 }
