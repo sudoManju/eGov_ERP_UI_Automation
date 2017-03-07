@@ -149,7 +149,7 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
 
 
             // User will click on the generate estimation notice
-            pageStore.get(WaterChargeManagementPage.class).clickOnGenerateNotice();
+            pageStore.get(WaterChargeManagementPage.class).clickOnGenerateNotice(scenarioContext.getApplicationNumber());
         });
 
         And("^user will search the recent application based on connection details as (\\w+) and collects money$", (String connectionDetails) -> {

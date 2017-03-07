@@ -7,6 +7,9 @@ import pages.BasePage;
 
 import java.util.List;
 
+import static com.jayway.awaitility.Awaitility.await;
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 public class WaterChargeManagementPage extends BasePage {
 
     protected WebDriver webDriver;
@@ -164,9 +167,10 @@ public class WaterChargeManagementPage extends BasePage {
         enterText(waterConnectionAssesmentNumberTextBox, number, webDriver);
     }
 
-    public void clickOnGenerateNotice() {
+    public void clickOnGenerateNotice(String applicationNumber) {
         jsClick(generateEstimationNoticeButton, webDriver);
         switchToNewlyOpenedWindow(webDriver);
+        await().atMost(10, SECONDS).until(() -> webDriver.getCurrentUrl().split("=")[1].equals(applicationNumber));
         webDriver.close();
         switchToPreviouslyOpenedWindow(webDriver);
     }
