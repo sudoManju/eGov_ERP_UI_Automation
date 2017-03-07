@@ -21,7 +21,21 @@ public class AssessmentDetailsBuilder {
         return this;
     }
 
+    public AssessmentDetailsBuilder withBifurcationReasonForcreation(String bifurcationreasonForCreation) {
+       assessmentDetails.setBifurcationReasonForCreation(bifurcationreasonForCreation);
+        return this;
+    }
+
+    public AssessmentDetailsBuilder withParentAssessmentNo(String parentAssessmentNo) {
+        assessmentDetails.setParentAssessmentNo(parentAssessmentNo);
+        return this;
+    }
+
     public AssessmentDetails build() {
         return assessmentDetails;
     }
+
+
+
 }
+

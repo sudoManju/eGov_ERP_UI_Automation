@@ -301,6 +301,12 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "assessmentNo")
     private WebElement AmalgamatedPropertiesTextBox;
 
+    @FindBy(id = "parentIndex")
+    private WebElement assessmentNumberOfParentPropertyTextBox;
+
+    @FindBy(id ="assessmentNum")
+    private WebElement bifurcationAssessmentNo;
+
     public PropertyDetailsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -531,5 +537,18 @@ public class PropertyDetailsPage extends BasePage {
         AmalgamatedPropertiesTextBox.sendKeys(Keys.TAB);
 
 
+    }
+
+    public void enterBifurcationDetails(AssessmentDetails bifurcationDetails) {
+        selectFromDropDown(reasonForCreationSelection, bifurcationDetails.getBifurcationReasonForCreation(), webDriver);
+        enterText(assessmentNumberOfParentPropertyTextBox, bifurcationDetails.getParentAssessmentNo(), webDriver);
+        enterText(extentOfSiteTextBox, bifurcationDetails.getExtentOfSite(), webDriver);
+        enterText(occupancyCertificateNumberTextBox, bifurcationDetails.getOccupancyCertificateNumber(), webDriver);
+
+    }
+
+    public void enterBifurcationAssessmentNo(AssessmentDetails bifurcationDetails) {
+        enterText(bifurcationAssessmentNo, bifurcationDetails.getParentAssessmentNo(), webDriver);
+        clickOnButton(searchButton, webDriver);
     }
 }

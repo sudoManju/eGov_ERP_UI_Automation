@@ -101,5 +101,14 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
         And("^he search for the Amalgamated Properties$", () -> {
           pageStore.get(PropertyDetailsPage.class).searchAmalgamatedProperties();
         });
+        And("^he enters bifurcation assessment details as (\\w+)$", (String bifurcationDetailsDataId) -> {
+            AssessmentDetails bifurcationDetails = new PTISDataReader(ptisTestDataFileName).getbifurcationDetails(bifurcationDetailsDataId);
+            pageStore.get(PropertyDetailsPage.class).enterBifurcationDetails(bifurcationDetails);
+
+        });
+        And("^he enters parent bifurcated assessment number as (\\w+)$", (String bifurcationAssessmentNo) -> {
+            AssessmentDetails bifurcationDetails = new PTISDataReader(ptisTestDataFileName).getbifurcationDetails(bifurcationAssessmentNo);
+            pageStore.get(PropertyDetailsPage.class).enterBifurcationAssessmentNo(bifurcationDetails);
+        });
     }
 }

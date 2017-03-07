@@ -31,6 +31,7 @@ public class PTISDataReader extends ExcelReader {
     Sheet hearingDetailsSheet;
     Sheet registrationDetailsSheet;
     Sheet demolitionDetailsSheet;
+    Sheet bifurcationDetailsSheet;
 
     public PTISDataReader(String testData) {
         super(testData);
@@ -51,6 +52,7 @@ public class PTISDataReader extends ExcelReader {
         hearingDetailsSheet = workbook.getSheet("hearingDetails");
         documentDetailsSheet = workbook.getSheet("documentDetails");
         demolitionDetailsSheet = workbook.getSheet("demolitionDetails");
+        bifurcationDetailsSheet =workbook.getSheet("bifurcationDetails");
     }
 
     public SearchDetails getSearchDetails(String searchId) {
@@ -429,6 +431,22 @@ public class PTISDataReader extends ExcelReader {
                 .withWest(West)
                 .withSouth(South)
                 .build();
+
+    }
+
+    public AssessmentDetails getbifurcationDetails(String bifurcationDetailsDataId) {
+        Row dataRow = readDataRow(bifurcationDetailsSheet, bifurcationDetailsDataId);
+        String bifurcationreasonForCreation = getCellData(bifurcationDetailsSheet, dataRow, "reasonForCreation").getStringCellValue();
+        String parentAssessmentNo =convertNumericToString(bifurcationDetailsSheet, dataRow, "parentAssessmentNo");
+        String extentOfSite = convertNumericToString(assessmentDetailsSheet, dataRow, "extentOfSite");
+        String occupancyCertificateNumber = convertNumericToString(assessmentDetailsSheet, dataRow, "occupancyCertificateNumber");
+
+        return new AssessmentDetailsBuilder()
+                    .withBifurcationReasonForcreation(bifurcationreasonForCreation)
+                   .withParentAssessmentNo(parentAssessmentNo)
+                    .withExtentOfSite(extentOfSite)
+                    .withOccupancyCertificateNumber(occupancyCertificateNumber)
+                    .build();
 
     }
 }
