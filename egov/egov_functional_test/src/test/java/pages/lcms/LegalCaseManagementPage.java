@@ -390,7 +390,12 @@ public class LegalCaseManagementPage extends BasePage {
     }
 
     public String closeCreatedOrUpdatedPage() {
-        message = getTextFromWeb(successMessage1, webDriver);
+        if(webDriver.findElements(By.cssSelector("div[role='alert']")).size()>0) {
+            message = getTextFromWeb(successMessage1, webDriver);
+        }
+        else {
+            message = getTextFromWeb(webDriver.findElement(By.cssSelector("div[class='role=\"alert\"']")), webDriver);
+        }
 
         clickOnButton(closeButtonWithLinkText, webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
@@ -448,6 +453,8 @@ public class LegalCaseManagementPage extends BasePage {
     }
 
     private void enterCounterAffidavitDetails(){
+        enterDate(webDriver.findElement(By.id("pwrList[0].pwrDueDate")) , getPreviousDate() ,webDriver);
+        enterDate(webDriver.findElement(By.id("counterAffidavits[0].counterAffidavitDueDate")) , getPreviousDate() ,webDriver);
         clickOnButton(affidavitSubmit , webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }

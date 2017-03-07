@@ -7,7 +7,7 @@ Feature: In this feature the following are created as well as edited
   5. Create/Edit Judgment Implementation
   6. Case Closure
 
-  @WIP @LegalCaseManagement
+  @Sanity @LegalCaseManagement
   Scenario Outline: It includes the creation and edit of Legal Case , Hearings , Interim Order , Judgement,
   Judgment Implementation and Case Closure
 
