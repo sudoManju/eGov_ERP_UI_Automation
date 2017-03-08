@@ -536,8 +536,7 @@ Feature: Create New Property
    And current user logs out
 
 #    Amalgamation Property
-
-   @WIP
+  @Sanity @PropertyTax
   Scenario: Registered user choose to do amalgamation of property of property
 
   Given commissioner logs in
@@ -553,9 +552,6 @@ Feature: Create New Property
   And he searches for assessment with number
   And he chooses to pay tax
   And he pay tax using Cash
-
-#   Amalgamation
-
   And user will select the required screen as "Amalgamation of Property"
   And he searches for assessment with number
   And he search for the Amalgamated Properties
@@ -594,9 +590,9 @@ Feature: Create New Property
   And he chooses to act upon above assessment number
   Then he generates a notice
   And current user logs out
-
 #   Amalgamation Property
 
+#  bifurcation of property
   @Sanity @PropertyTax
   Scenario Outline: Register user choose to do bifurcation of property
 
