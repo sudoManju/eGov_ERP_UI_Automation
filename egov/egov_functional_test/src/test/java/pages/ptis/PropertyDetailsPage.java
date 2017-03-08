@@ -307,6 +307,9 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id ="assessmentNum")
     private WebElement bifurcationAssessmentNo;
 
+    @FindBy(name = "propertyDetail.floorDetailsProxy[0].constructionDate")
+    private WebElement constructionDate;
+
     public PropertyDetailsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -533,10 +536,9 @@ public class PropertyDetailsPage extends BasePage {
     }
 
     public void searchAmalgamatedProperties() {
-        enterText(AmalgamatedPropertiesTextBox, "1016093148" , webDriver);
+        enterText(AmalgamatedPropertiesTextBox, "1016071673" , webDriver);
         AmalgamatedPropertiesTextBox.sendKeys(Keys.TAB);
-
-
+        enterDate(constructionDate, getPastDate(184), webDriver);
     }
 
     public void enterBifurcationDetails(AssessmentDetails bifurcationDetails) {

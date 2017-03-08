@@ -92,6 +92,9 @@ public class TransferDetailsPage extends BasePage {
     @FindBy(css = "a[class='btn btn-default']")
     private List<WebElement> taxExemptionCloseButton;
 
+    @FindBy(css = "input[type='button'][value='Close']")
+    private WebElement closeButton;
+
     public void chooseRegistrationAlreadyDone() {
         waitForElementToBeClickable(registrationAlreadyDoneButton, webdriver);
         registrationAlreadyDoneButton.click();
@@ -163,8 +166,11 @@ public class TransferDetailsPage extends BasePage {
     }
 
     public void closesAcknowledgement() {
-        WebElement closeButton = webdriver.findElement(By.cssSelector("a[class='btn btn-default']"));
-        clickOnButton(closeButton, webdriver);
+        if (webdriver.findElements(By.linkText("Close")).size() > 0) {
+            clickOnButton(webdriver.findElement(By.linkText("Close")), webdriver);
+        } else {
+            clickOnButton(webdriver.findElement(By.id("button2")), webdriver);
+        }
         switchToPreviouslyOpenedWindow(webdriver);
     }
 }

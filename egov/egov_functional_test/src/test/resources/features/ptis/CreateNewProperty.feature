@@ -535,6 +535,8 @@ Feature: Create New Property
    And he generates a notice
    And current user logs out
 
+#    Amalgamation Property
+
    @WIP
   Scenario: Registered user choose to do amalgamation of property of property
 
@@ -552,46 +554,48 @@ Feature: Create New Property
   And he chooses to pay tax
   And he pay tax using Cash
 
+#   Amalgamation
+
   And user will select the required screen as "Amalgamation of Property"
   And he searches for assessment with number
   And he search for the Amalgamated Properties
-  And he forwarding for approval to bill_Collector
-  And he will copy the acknowledgement message with application number propertyAckForm
-  Then user will be notified by "successfully"
-  And current user logs out
-
-  When bill_Collector logs in
-  And he chooses to act upon above application number
-  And he forwarding for approval to revenue_Inspector
+  And he forwards for approval to billCollector
   And current user closes tax exemption acknowledgement
   And current user logs out
 
-  When revenue_Inspector logs in
-  And he chooses to act upon above application number
-  And he forwarding for approval to revenue_Officer
+  When billCollector logs in
+  And he chooses to act upon above assessment number
+  And he forwards for approval to revenueInspector
   And current user closes tax exemption acknowledgement
   And current user logs out
 
-  When revenue_Officer logs in
-  And he chooses to act upon above application number
-  And he forwarding for approval to commissioner1
+  When revenueInspector logs in
+  And he chooses to act upon above assessment number
+  And he forwards for approval to revenueOfficer
   And current user closes tax exemption acknowledgement
   And current user logs out
 
-   When commissioner logs in
-   And he chooses to act upon above assessment number
-   And he approved the property with remarks "property approved"
-   And current user closes tax exemption acknowledgement
-#  Then user will be notified by "Successfully"
-   And he chooses to act upon above assessment number
-   And he does a digital signature
-   When commissioner closes acknowledgement
-   And current user logs out
+  When revenueOfficer logs in
+  And he chooses to act upon above assessment number
+  And he forwards for approval to commissioner
+  And current user closes tax exemption acknowledgement
+  And current user logs out
 
-   And juniorAssistant logs in
-   And he chooses to act upon above assessment number
-   And he generates a notice
-   And current user logs out
+  When commissioner logs in
+  And he chooses to act upon above assessment number
+  And he approved the property with remarks "amalgamation-approve"
+  And current user closes tax exemption acknowledgement
+  And he chooses to act upon above assessment number
+  And he does a digital signature
+  When commissioner closes acknowledgement
+  And current user logs out
+
+  And juniorAssistant logs in
+  And he chooses to act upon above assessment number
+  Then he generates a notice
+  And current user logs out
+
+#   Amalgamation Property
 
   @Sanity @PropertyTax
   Scenario Outline: Register user choose to do bifurcation of property
@@ -655,29 +659,3 @@ Feature: Create New Property
     Examples:
       | propertyHeaderDetails | ownerDetails | propertyAddressDetails | bifurcationDetails    | amenitiesDetails | constructionTypeDetails | floorDetails |    documentDetails |
       | residentialPrivate    | bimal        | addressOne             | bifurcationProperty   | all              | defaultConstructionType | firstFloor   |    documentSelect  |
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
