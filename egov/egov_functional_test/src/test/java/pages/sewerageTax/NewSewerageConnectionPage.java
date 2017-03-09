@@ -221,16 +221,14 @@ public class NewSewerageConnectionPage extends BasePage {
     }
 
     public void approveTheApplication() {
-        ;
         enterText(approverCommentTextBox, "Approved", driver);
         clickOnButton(approveButton, driver);
     }
 
     public void generateEstimationNotice() {
-        ;
         enterText(approverCommentTextBox, "Generated estimate notice", driver);
         clickOnButton(generateEstimationNoticeButton, driver);
-        await().atMost(3, SECONDS);
+        await().atMost(20, SECONDS);
         driver.close();
         switchToPreviouslyOpenedWindow(driver);
     }
