@@ -65,6 +65,7 @@ Feature: Create New Property
       | residentialPrivate    | bimal        | addressOne             | assessmentNewProperty | all              | defaultConstructionType | firstFloor   | documentSelect  |
 
    # DATA ENTRY SCREEN #
+
   @Sanity @PropertyTax
   Scenario: Registered user create property through data entry screen
 
@@ -77,6 +78,7 @@ Feature: Create New Property
     And current user logs out
 
    # ADDITION ALTERATION SCREEN #
+
   @Sanity @PropertyTax
   Scenario Outline: Registered user Update existing property
 
@@ -138,6 +140,7 @@ Feature: Create New Property
       | assessmentAdditionProperty | all              | firstFloorAdditionaltaration |
 
   # TRANSFER OF OWNERSHIP SCREEN #
+
   @Sanity @PropertyTax
   Scenario Outline: Register Choose to do title Transfer
 
@@ -210,7 +213,8 @@ Feature: Create New Property
       | registrationDetails |
       | register            |
 
-  # CREATE REVISION PETITION #
+  # CREATE REVISION PETITION SCREEN #
+
   @Sanity @PropertyTax
   Scenario Outline: Register user choose to do revision petition of property
 
@@ -328,7 +332,8 @@ Feature: Create New Property
       | residentialPrivate    | bimal        | addressOne             | assessmentNewProperty | all              | defaultConstructionType | firstFloor   | revisionpetitionBlock   | hearingBlock   | documentSelect  |
 
 
-    # GENERAL REVISION PETITION #
+    # GENERAL REVISION PETITION SCREEN #
+
   @Sanity @PropertyTax
   Scenario Outline: Register user choose to do general revision petition of property
 
@@ -412,6 +417,8 @@ Feature: Create New Property
       | revisionpetitionBlock   | hearingBlock   |
 
 
+    # DEMOLITION OF PROPERTY SCREEN #
+
   @Sanity @PropertyTax
   Scenario Outline: Register user choose to do demolition of property
 
@@ -431,7 +438,6 @@ Feature: Create New Property
 
     And user will select the required screen as "Demolition"
     And he searches for assessment with number
-
     And he enters demolition details as <demolition Details>
 
     And he forwarding for approval to bill_Collector
@@ -457,7 +463,6 @@ Feature: Create New Property
     And current user closes tax exemption acknowledgement
     And current user logs out
 
-
     When commissioner logs in
     And he chooses to act upon above assessment number
     And he approved the property with remarks "property approved"
@@ -476,6 +481,8 @@ Feature: Create New Property
     Examples:
       |demolition Details|
       | demolitionBlock  |
+
+    # TAX EXEMPTION OF PROPERTY #
 
   @Sanity @PropertyTax
   Scenario: Registered user choose to do tax exemption of property
@@ -535,9 +542,11 @@ Feature: Create New Property
    And he generates a notice
    And current user logs out
 
-#    Amalgamation Property
+
+  # AMALGAMATION OF PROPERTY #
+
   @Sanity @PropertyTax
-  Scenario: Registered user choose to do amalgamation of property of property
+  Scenario: Registered user choose to do amalgamation of property
 
   Given commissioner logs in
   And user will select the required screen as "Data entry screen" with condition as "ptis"
@@ -590,9 +599,10 @@ Feature: Create New Property
   And he chooses to act upon above assessment number
   Then he generates a notice
   And current user logs out
-#   Amalgamation Property
 
-#  bifurcation of property
+
+  # BIFURCATION OF PROPERTY #
+
   @Sanity @PropertyTax
   Scenario Outline: Register user choose to do bifurcation of property
 
@@ -655,3 +665,55 @@ Feature: Create New Property
     Examples:
       | propertyHeaderDetails | ownerDetails | propertyAddressDetails | bifurcationDetails    | amenitiesDetails | constructionTypeDetails | floorDetails |    documentDetails |
       | residentialPrivate    | bimal        | addressOne             | bifurcationProperty   | all              | defaultConstructionType | firstFloor   |    documentSelect  |
+
+
+   # VACANCY REMISSION OF PROPERTY SCREEN #
+
+  @Sanity @PropertyTax
+  Scenario: Registered user create property through data entry screen and do Vacancy Remission
+
+    Given commissioner logs in
+    And user will select the required screen as "Data entry screen" with condition as "ptis"
+    And he creates a new assessment for a private residential property
+    Then dataEntry Details saved successfully
+    And he choose to add edit DCB
+    And he choose to close the dataentry acknowledgement screen
+    And current user logs out
+
+    Given juniorAssistant logs in
+    And user will select the required screen as "collect tax"
+    And he searches for assessment with number
+    And he chooses to pay tax
+    And he pay tax using Cash
+
+    And user will select the required screen as "Vacancy Remission"
+    And he searches for assessment with number
+    And he enters the Vacancy Remission Details
+    And he forwarding for approval to commissioner1
+    And he will copy the acknowledgement message with application number vacancyRemissionAckForm
+    And current user logs out
+
+    When commissioner logs in
+    And he chooses to act upon above assessment number
+    And he forward application to the junior assistant and closes acknowledgement
+    And current user logs out
+
+    When juniorAssistant logs in
+    And he chooses to act upon above assessment number
+    And he forwarding for approval to bill_Collector
+    And current user closes tax exemption acknowledgement
+    And current user logs out
+
+    When bill_Collector logs in
+    And he chooses to act upon above application number
+    And he forwarding for approval to revenue_Inspector
+    And current user closes tax exemption acknowledgement
+    And current user logs out
+
+    When revenue_Inspector logs in
+    And he chooses to act upon above application number
+    And he approved the property with remarks "vacancy remission approved"
+    And current user closes tax exemption acknowledgement
+    Then user will be notified by "successfully"
+    And current user logs out
+
