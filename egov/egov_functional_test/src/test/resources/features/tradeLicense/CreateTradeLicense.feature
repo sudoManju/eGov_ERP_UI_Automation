@@ -8,7 +8,7 @@ Feature: Create Trade License
 
   @Sanity @TradeLicense
   Scenario Outline: Registered user creating a new license in the system
-    Given PublicHealthJA logs in
+    Given creator logs in
     And user will select the required screen as "Create New License"
     And he enters trade owner details of new license <tradeDetailsData>
     And he enters trade location details of new license <tradeLocationData>
@@ -24,16 +24,16 @@ Feature: Create Trade License
   @Sanity @TradeLicense
   Scenario Outline: Register User create trade license with work flow
 
-    Given CSCUser logs in
-#    Given PublicHealthJA logs in
+#    Given CSCUser logs in
+    Given creator logs in
     And user will select the required screen as "Create New License"
     And he enters trade owner details of new license <tradeDetailsData>
     And he enters trade location details of new license <tradeLocationData>
     And he enters trade details of new license <tradeDetailsData1>
     And he copy trade application number
-    And current user logs out
+#    And current user logs out
 
-    When PublicHealthJA logs in
+#    When PublicHealthJA logs in
 #    And he choose to search trade license
     And user will select the required screen as "Search Trade License"
     And he search existing application number
@@ -60,7 +60,7 @@ Feature: Create Trade License
     And he closes acknowledgement page
     And current user logs out
 
-    When PublicHealthJA logs in
+    When creator logs in
     And he chooses to act upon above application number
     And he generates the license certificate
     And user will be notified by "License"
@@ -119,7 +119,7 @@ Feature: Create Trade License
 
   # Trade License Renewal #
   @Sanity @TradeLicense
-  Scenario Outline: Renewal of Trade License
+  Scenario Outline: Renewal of Trade License with legacy license
 
     Given creator logs in
     And user will select the required screen as "Create Legacy License"
@@ -164,3 +164,86 @@ Feature: Create Trade License
     Examples:
       | tradeDetailsData         | tradeLocationData           | tradeDetailsData1        |
       | ownerDetailsTradeLicense | locationDetailsTradeLicense | tradeDetailsTradeLicense |
+
+    Scenario Outline: Renewal of license with demand generation
+
+      #    Given CSCUser logs in
+      Given creator logs in
+      And user will select the required screen as "Create New License"
+      And he enters trade owner details of new license <tradeDetailsData>
+      And he enters trade location details of new license <tradeLocationData>
+      And he enters trade details of new license <tradeDetailsData1>
+      And he copy trade application number
+#    And current user logs out
+
+#    When PublicHealthJA logs in
+#    And he choose to search trade license
+      And user will select the required screen as "Search Trade License"
+      And he search existing application number
+      And he choose action "Collect Fees"
+      And he choose to payTax of applicationNumber
+      And he chooses to act upon above application number
+
+      And he forwards for approver sanitaryInspector
+      And he confirms to proceed
+      And he closes acknowledgement page
+      And current user logs out
+
+      When sanitaryInspector logs in
+      And he chooses to act upon above application number
+      And he forwards for approver commissioner
+      And he confirms to proceed
+      And he closes acknowledgement page
+      And current user logs out
+
+      When commissioner logs in
+      And he chooses to act upon above application number
+      And he approves application
+      And he confirms to proceed
+      And he closes acknowledgement page
+      And current user logs out
+
+      When creator logs in
+      And he chooses to act upon above application number
+      And he generates the license certificate
+      And user will be notified by "License"
+
+      And user will select the required screen as "Search Trade License"
+      And he search existing application number
+      And he choose action "Generate Demand"
+      And he generates demand
+      And user will be notified by "successfully"
+      And he choose action "Renew License"
+      And he copy trade license number
+      And he choose to renew trade license
+      And he choose to search with license number
+      And he choose action "Collect Fees"
+      And he choose to payTax of applicationNumber
+      And he chooses to act upon above application number
+      And he forwards for approver sanitaryInspector
+      And he confirms to proceed
+      And he closes acknowledgement page
+      And current user logs out
+
+      When sanitaryInspector logs in
+      And he chooses to act upon above application number
+      And he forwards for approver commissioner
+      And he confirms to proceed
+      And he closes acknowledgement page
+      And current user logs out
+
+      When commissioner logs in
+      And he chooses to act upon above application number
+      And he approves application
+      And he confirms to proceed
+      And he closes acknowledgement page
+      And current user logs out
+
+      When creator logs in
+      And he chooses to act upon above application number
+      And he generates the license certificate
+      And current user logs out
+
+      Examples:
+        | tradeDetailsData         | tradeLocationData           | tradeDetailsData1        |
+        | ownerDetailsTradeLicense | locationDetailsTradeLicense | tradeDetailsTradeLicense |

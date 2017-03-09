@@ -1,6 +1,7 @@
 package pages.tradeLicense;
 
 import entities.tradeLicense.*;
+import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -76,6 +77,9 @@ public class TradeLicensePage extends BasePage {
     @FindBy(id = "btnsearch")
     private WebElement searchButton;
 
+    @FindBy(css = "button[class='btn btn-default'][type='reset']")
+    private WebElement searchResetButton;
+
     @FindBy(id = "recordActions")
     private WebElement collectFeeDropBox;
 
@@ -123,6 +127,12 @@ public class TradeLicensePage extends BasePage {
 
     @FindBy(css = "input[type='button'][value='Close']")
     private WebElement acknowlwdgementClose;
+
+    @FindBy(linkText = "Continue to payment")
+    private WebElement continuePayButton;
+
+    @FindBy(id = "generatedemand")
+    private WebElement generateDemandButton;
 
     public TradeLicensePage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -192,7 +202,7 @@ public class TradeLicensePage extends BasePage {
 
     public void enterApplicationNumber(String applicationNumber) {
         enterText(applicationNumberTextBox, applicationNumber, webDriver);
-        jsClickCheckbox(includeInactiveElementCheck, webDriver);
+//        jsClickCheckbox(includeInactiveElementCheck, webDriver);
         clickOnButton(searchButton, webDriver);
     }
 
@@ -203,7 +213,15 @@ public class TradeLicensePage extends BasePage {
     }
 
     public void chooseToPayTaxOfApplicationNumber() {
+        int tot= 0;
+        for(int i=1;i<=webDriver.findElements(By.xpath(".//*[@id='LicenseBillCollect']/table/tbody/tr")).size();i++)
+        {
+          String totalAmt=webDriver.findElement(By.xpath(".//*[@id='LicenseBillCollect']/table/tbody/tr["+i+"]/td[3]")).getText();
+          tot=tot+ Integer.parseInt(totalAmt);
+        }
+        clickOnButton(continuePayButton, webDriver);
         switchToNewlyOpenedWindow(webDriver);
+        Assert.assertEquals(tot,Integer.parseInt(totalAmountReceived.getAttribute("value").split("\\.")[0]));
         enterText(amountTextBox, totalAmountReceived.getAttribute("value").split("\\.")[0], webDriver);
         WebElement element = webDriver.findElement(By.id("button2"));
         JavascriptExecutor executor = (JavascriptExecutor) webDriver;
@@ -300,6 +318,7 @@ public class TradeLicensePage extends BasePage {
     }
 
     public void enterLicenseNumber(String licenseNumber) {
+        clickOnButton(searchResetButton, webDriver);
         enterText(licenseNumberBox, licenseNumber, webDriver);
         jsClick(searchButton, webDriver);
     }
@@ -308,7 +327,7 @@ public class TradeLicensePage extends BasePage {
         jsClick(saveButton, webDriver);
         jsClick(closeButton, webDriver);
         switchToNewlyOpenedWindow(webDriver);
-        jsClick(searchButton, webDriver);
+//        jsClick(searchButton, webDriver);
     }
 
     public void checkNoOfRecords() {
@@ -342,6 +361,15 @@ public class TradeLicensePage extends BasePage {
     public void confirmToProceed() {
         webDriver.switchTo().activeElement();
         jsClick(webDriver.findElement(By.cssSelector(".btn.btn-danger")), webDriver);
+    }
+
+    public String generateDemand() {
+        clickOnButton(generateDemandButton, webDriver);
+        String actMsg=webDriver.findElement(By.xpath(".//*[@id='generatelicensedemand']/div/div[1]")).getText();
+        webDriver.findElement(By.linkText("Close")).click();
+        switchToNewlyOpenedWindow(webDriver);
+        clickOnButton(searchButton, webDriver);
+        return actMsg;
     }
 }
 
