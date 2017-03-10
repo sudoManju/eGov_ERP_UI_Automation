@@ -16,11 +16,11 @@ Feature: Create/search Advertisement
     And user will select the required screen as "search agency"
     And he enter details for search agency
     And he view and closes the acknowledgement
-    And current user logs out
+#    And current user logs out
 
    # Create Advertisement
 
-    And creator logs in
+#    And creator logs in
     And user will select the required screen as "create advertisement"
     And he enters advertisement details as <advertisementDetails>
     And he enter agency name
@@ -50,13 +50,16 @@ Feature: Create/search Advertisement
     Examples:
       | advertisementDetails | permissionDetails | localityDetails | structureDetails | approverDetails |
       | advertisement1       | permission1       | locality1       | structure1       | commissioner1   |
+      | advertisement2       | permission2       | locality2       | structure2       | commissioner1   |
+      | advertisement3       | permission3       | locality3       | structure3       | commissioner1   |
 
-  @AdvertisementTax  @Sanity
+  @AdvertisementTax @Sanity
   Scenario Outline: Create/Search/CollectTax/Deactivate AdvertisementWise
 
 #  Create Advertisements
 
-    Given creator logs in
+#    Given creator logs in
+    Given admin logs in
     And user will select the required screen as "create advertisement"
     And he enters advertisement details as <advertisementDetails>
     And he enters permission details as <permissionDetails>
@@ -75,13 +78,16 @@ Feature: Create/search Advertisement
 
 #  Search Advertisements
 
-    And creator logs in
+#    And creator logs in
+    Given admin logs in
     And user will select the required screen as "search advertisement"
     And he search and select the required advertisement
     And he view and close the acknowledgement
+    And current user logs out
 
 # Collect Advertisement Tax
 
+    And creator logs in
     And user will select the required screen as "Collect Advertisement Tax"
     And he search advertisement by advertisement number
     And he choose advertisement for collecting advertisement tax
@@ -100,3 +106,5 @@ Feature: Create/search Advertisement
     Examples:
       | advertisementDetails | permissionDetails | localityDetails | structureDetails | approverDetails |
       | advertisement1       | permission1       | locality1       | structure1       | commissioner1   |
+      | advertisement2       | permission2       | locality2       | structure2       | commissioner1   |
+      | advertisement3       | permission3       | locality3       | structure3       | commissioner1   |
