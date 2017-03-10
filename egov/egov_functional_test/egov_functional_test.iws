@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="280cd4f6-2638-43c7-8fa7-b412860618ce" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/egov_functional_test.ipr" afterPath="$PROJECT_DIR$/egov_functional_test.ipr" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/egov_functional_test.iws" afterPath="$PROJECT_DIR$/egov_functional_test.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/steps/StartingSteps.java" afterPath="$PROJECT_DIR$/src/test/java/steps/StartingSteps.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/pages/lcms/LegalCaseManagementPage.java" afterPath="$PROJECT_DIR$/src/test/java/pages/lcms/LegalCaseManagementPage.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -38,8 +36,18 @@
       <file leaf-file-name="LegalCaseManagement.feature" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/resources/features/lcms/LegalCaseManagement.feature">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="376">
-              <caret line="151" column="31" lean-forward="false" selection-start-line="149" selection-start-column="31" selection-end-line="151" selection-end-column="31" />
+            <state relative-caret-position="-2023">
+              <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LegalCaseManagementPage.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/pages/lcms/LegalCaseManagementPage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="123">
+              <caret line="251" column="9" lean-forward="true" selection-start-line="251" selection-start-column="9" selection-end-line="251" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -48,8 +56,8 @@
       <file leaf-file-name="StartingSteps.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/steps/StartingSteps.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="32" column="1" lean-forward="true" selection-start-line="32" selection-start-column="1" selection-end-line="32" selection-end-column="1" />
+            <state relative-caret-position="250">
+              <caret line="30" column="15" lean-forward="false" selection-start-line="29" selection-start-column="15" selection-end-line="30" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -433,8 +441,9 @@
         <option value="$PROJECT_DIR$/src/test/resources/features/wcms/DataEntryScreenForWater.feature" />
         <option value="$PROJECT_DIR$/src/test/java/steps/wcms/WaterChargeManagementSteps.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/src/test/java/steps/StartingSteps.java" />
+        <option value="$PROJECT_DIR$/src/test/java/pages/lcms/LegalCaseManagementPage.java" />
         <option value="$PROJECT_DIR$/src/test/resources/features/lcms/LegalCaseManagement.feature" />
+        <option value="$PROJECT_DIR$/src/test/java/steps/StartingSteps.java" />
       </list>
     </option>
   </component>
@@ -495,7 +504,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$/build.gradle" />
-    <property name="SearchEverywhereHistoryKey" value="SS&#9;PSI&#9;JAVA://steps.StartingSteps" />
+    <property name="SearchEverywhereHistoryKey" value="SS&#9;FILE&#9;file:///home/vinaykumar/Development/eGovernments/eGovAutomation/eGov/egov/egov_functional_test/src/test/java/steps/StartingSteps.java" />
   </component>
   <component name="RunManager" selected="Cucumber java.Scenario: It includes the creation and edit of Legal Case , Hearings , Interim Order , Judgement,">
     <configuration default="false" name="Scenario: It includes the creation and edit of Legal Case , Hearings , Interim Order , Judgement," type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
@@ -768,20 +777,29 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Scenario__It_includes_the_creation_and_edit_of_Legal_Case_,_Hearings_,_Interim_Order_,_Judgement, - 2017.03.10 at 11h 12m 53s.xml">
+    <history-entry file="Scenario__It_includes_the_creation_and_edit_of_Legal_Case_,_Hearings_,_Interim_Order_,_Judgement, - 2017.03.10 at 11h 44m 14s.xml">
       <configuration name="Scenario: It includes the creation and edit of Legal Case , Hearings , Interim Order , Judgement," configurationId="CucumberJavaRunConfigurationType" />
     </history-entry>
-    <history-entry file="Scenario__To_create_a_data_entry_screen_for_the_water_charges - 2017.03.03 at 12h 56m 22s.xml">
-      <configuration name="Scenario: To create a data entry screen for the water charges" configurationId="CucumberJavaRunConfigurationType" />
+    <history-entry file="Scenario__It_includes_the_creation_and_edit_of_Legal_Case_,_Hearings_,_Interim_Order_,_Judgement, - 2017.03.10 at 11h 45m 14s.xml">
+      <configuration name="Scenario: It includes the creation and edit of Legal Case , Hearings , Interim Order , Judgement," configurationId="CucumberJavaRunConfigurationType" />
     </history-entry>
-    <history-entry file="Scenario__To_create_a_data_entry_screen_for_the_water_charges - 2017.03.03 at 12h 58m 28s.xml">
-      <configuration name="Scenario: To create a data entry screen for the water charges" configurationId="CucumberJavaRunConfigurationType" />
+    <history-entry file="Scenario__It_includes_the_creation_and_edit_of_Legal_Case_,_Hearings_,_Interim_Order_,_Judgement, - 2017.03.10 at 11h 49m 00s.xml">
+      <configuration name="Scenario: It includes the creation and edit of Legal Case , Hearings , Interim Order , Judgement," configurationId="CucumberJavaRunConfigurationType" />
     </history-entry>
-    <history-entry file="Scenario__To_create_a_data_entry_screen_for_the_water_charges - 2017.03.03 at 13h 01m 53s.xml">
-      <configuration name="Scenario: To create a data entry screen for the water charges" configurationId="CucumberJavaRunConfigurationType" />
+    <history-entry file="Scenario__It_includes_the_creation_and_edit_of_Legal_Case_,_Hearings_,_Interim_Order_,_Judgement, - 2017.03.10 at 11h 50m 28s.xml">
+      <configuration name="Scenario: It includes the creation and edit of Legal Case , Hearings , Interim Order , Judgement," configurationId="CucumberJavaRunConfigurationType" />
     </history-entry>
-    <history-entry file="Scenario__To_create_a_data_entry_screen_for_the_water_charges - 2017.03.03 at 13h 03m 41s.xml">
-      <configuration name="Scenario: To create a data entry screen for the water charges" configurationId="CucumberJavaRunConfigurationType" />
+    <history-entry file="Scenario__It_includes_the_creation_and_edit_of_Legal_Case_,_Hearings_,_Interim_Order_,_Judgement, - 2017.03.10 at 11h 53m 16s.xml">
+      <configuration name="Scenario: It includes the creation and edit of Legal Case , Hearings , Interim Order , Judgement," configurationId="CucumberJavaRunConfigurationType" />
+    </history-entry>
+    <history-entry file="Scenario__It_includes_the_creation_and_edit_of_Legal_Case_,_Hearings_,_Interim_Order_,_Judgement, - 2017.03.10 at 11h 56m 05s.xml">
+      <configuration name="Scenario: It includes the creation and edit of Legal Case , Hearings , Interim Order , Judgement," configurationId="CucumberJavaRunConfigurationType" />
+    </history-entry>
+    <history-entry file="Scenario__It_includes_the_creation_and_edit_of_Legal_Case_,_Hearings_,_Interim_Order_,_Judgement, - 2017.03.10 at 11h 58m 09s.xml">
+      <configuration name="Scenario: It includes the creation and edit of Legal Case , Hearings , Interim Order , Judgement," configurationId="CucumberJavaRunConfigurationType" />
+    </history-entry>
+    <history-entry file="Scenario__It_includes_the_creation_and_edit_of_Legal_Case_,_Hearings_,_Interim_Order_,_Judgement, - 2017.03.10 at 12h 02m 13s.xml">
+      <configuration name="Scenario: It includes the creation and edit of Legal Case , Hearings , Interim Order , Judgement," configurationId="CucumberJavaRunConfigurationType" />
     </history-entry>
     <history-entry file="Scenario__To_create_a_data_entry_screen_for_the_water_charges - 2017.03.03 at 13h 08m 02s.xml">
       <configuration name="Scenario: To create a data entry screen for the water charges" configurationId="CucumberJavaRunConfigurationType" />
@@ -797,12 +815,13 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32840723" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24110033" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -820,7 +839,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1036,18 +1054,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/pages/lcms/LegalCaseManagementPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="251" column="9" lean-forward="true" selection-start-line="251" selection-start-column="9" selection-end-line="251" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/resources/features/lcms/LegalCaseManagement.feature">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="151" column="31" lean-forward="false" selection-start-line="149" selection-start-column="31" selection-end-line="151" selection-end-column="31" />
+        <state relative-caret-position="-2023">
+          <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/steps/StartingSteps.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="32" column="1" lean-forward="true" selection-start-line="32" selection-start-column="1" selection-end-line="32" selection-end-column="1" />
+        <state relative-caret-position="250">
+          <caret line="30" column="15" lean-forward="false" selection-start-line="29" selection-start-column="15" selection-end-line="30" selection-end-column="15" />
           <folding />
         </state>
       </provider>

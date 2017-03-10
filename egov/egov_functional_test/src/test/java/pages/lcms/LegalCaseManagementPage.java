@@ -174,7 +174,7 @@ public class LegalCaseManagementPage extends BasePage {
     @FindBy(id = "subitstandingcouncil")
     private WebElement submitStandingCouncil;
 
-    @FindBy(id = "buttonsubmitid")
+    @FindBy(id = "buttonid")
     private WebElement affidavitSubmit;
 
     private String message = null;
@@ -246,8 +246,12 @@ public class LegalCaseManagementPage extends BasePage {
 
     public void clickOnCorrespondingAction(String action) {
 
-        await().atMost(10, SECONDS).until(() -> (new Select(additionalActionSelect)).getOptions().size() > 1);
-        switch (action) {
+        if(webDriver.findElements(By.id("additionconn")).size() == 0){
+            clickOnButton(excludeJudgmentImplementationCheckBox, webDriver);
+            clickOnButton(legalcaseReportSearchButton, webDriver);
+        }
+        switch
+                (action) {
 
             case "editLegalCase":
 
@@ -390,10 +394,9 @@ public class LegalCaseManagementPage extends BasePage {
     }
 
     public String closeCreatedOrUpdatedPage() {
-        if(webDriver.findElements(By.cssSelector("div[role='alert']")).size()>0) {
+        if (webDriver.findElements(By.cssSelector("div[role='alert']")).size() > 0) {
             message = getTextFromWeb(successMessage1, webDriver);
-        }
-        else {
+        } else {
             message = getTextFromWeb(webDriver.findElement(By.cssSelector("div[class='role=\"alert\"']")), webDriver);
         }
 
@@ -439,23 +442,23 @@ public class LegalCaseManagementPage extends BasePage {
         clickOnButton(updateButton, webDriver);
     }
 
-    private void enterStandingCouncilDetails(){
+    private void enterStandingCouncilDetails() {
 
-        enterText(standingCouncilName , "S.D.Gowd Advocate & MSC High Court" , webDriver);
+        enterText(standingCouncilName, "S.D.Gowd Advocate & MSC High Court", webDriver);
         WebElement element = webDriver.findElement(By.className("tt-dataset-0"));
-        clickOnButton(element ,webDriver);
+        clickOnButton(element, webDriver);
 
-        enterDate(standingCoucilAssignedDate , getPreviousDate() , webDriver);
-        enterDate(standingCouncilVakalatDate , getPreviousDate() , webDriver);
+        enterDate(standingCoucilAssignedDate, getPreviousDate(), webDriver);
+        enterDate(standingCouncilVakalatDate, getPreviousDate(), webDriver);
 
         clickOnButton(submitStandingCouncil, webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    private void enterCounterAffidavitDetails(){
-        enterDate(webDriver.findElement(By.id("pwrList[0].pwrDueDate")) , getPreviousDate() ,webDriver);
-        enterDate(webDriver.findElement(By.id("counterAffidavits[0].counterAffidavitDueDate")) , getPreviousDate() ,webDriver);
-        clickOnButton(affidavitSubmit , webDriver);
+    private void enterCounterAffidavitDetails() {
+        enterDate(webDriver.findElement(By.id("pwrDueDate")), getPreviousDate(), webDriver);
+        enterDate(webDriver.findElement(By.id("counterAffidavitDueDate")), getPreviousDate(), webDriver);
+        clickOnButton(affidavitSubmit, webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
