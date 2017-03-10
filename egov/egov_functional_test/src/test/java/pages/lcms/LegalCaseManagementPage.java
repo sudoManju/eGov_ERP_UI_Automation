@@ -441,7 +441,7 @@ public class LegalCaseManagementPage extends BasePage {
 
     private void enterStandingCouncilDetails(){
 
-        enterText(standingCouncilName , "S.D.Gowd" , webDriver);
+        enterText(standingCouncilName , "S.D.Gowd Advocate & MSC High Court" , webDriver);
         WebElement element = webDriver.findElement(By.className("tt-dataset-0"));
         clickOnButton(element ,webDriver);
 
