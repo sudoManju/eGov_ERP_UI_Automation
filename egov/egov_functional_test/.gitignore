@@ -6,7 +6,7 @@ gradle
 out/
 .exe
 /src/test/resources/dataFiles/.~lock*
-.ipr
-.iws
+*.ipr
+*.iws
 classes/
 Thumbs.db
