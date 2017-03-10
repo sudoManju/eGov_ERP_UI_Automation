@@ -5,7 +5,7 @@ Feature: Create/Update LegacyAdvertisements
   @AdvertisementTax  @Sanity
   Scenario Outline: Create/Update LegacyAdvertisements
 
-    Given creator logs in
+    When admin logs in
     And user will select the required screen as "create legacy advertisement"
     And he enters advertisement details as <advertisementDetails>
     And he enters permission details as <permissionDetails>
@@ -24,12 +24,13 @@ Feature: Create/Update LegacyAdvertisements
     Examples:
       | advertisementDetails | permissionDetails | localityDetails | structureDetails |
       | advertisement1       | permission1       | locality1       | structure1       |
-
+      | advertisement2       | permission2       | locality2       | structure2       |
+      | advertisement3       | permission3       | locality3       | structure3       |
 
   @AdvertisementTax  @Sanity
   Scenario Outline: Create/Renewal LegacyAdvertisements
 
-    Given creator logs in
+    When admin logs in
     And user will select the required screen as "create legacy advertisement"
     And he enters advertisement details as <advertisementDetails>
     And he enters permission details as <permissionDetails>
@@ -54,4 +55,6 @@ Feature: Create/Update LegacyAdvertisements
     Examples:
       | advertisementDetails | permissionDetails | localityDetails | structureDetails |
       | advertisement1       | permission1       | locality1       | structure1       |
+      | advertisement2       | permission2       | locality2       | structure2       |
+      | advertisement3       | permission3       | locality3       | structure3       |
 
