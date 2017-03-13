@@ -2,10 +2,7 @@ package pages.financial;
 
 import entities.ApprovalDetails;
 import entities.financial.FinancialExpenseBillDetails;
-import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
@@ -82,6 +79,9 @@ public class ExpenseDetailsPage extends FinancialPage {
     @FindBy(className = "actionMessage")
     private WebElement forwardMessage;
 
+    @FindBy(id = "subLedgerType")
+    private WebElement expenseSubLedgerType;
+
     public ExpenseDetailsPage(WebDriver webDriver) {
         super(webDriver);
     }
@@ -94,12 +94,13 @@ public class ExpenseDetailsPage extends FinancialPage {
         waitForElementToBeClickable(expenseFunction, webDriver);
         expenseFunction.sendKeys(financialExpenseBillDetails.getExpenseFunction());
         waitForElementToBeVisible(webDriver.findElement(By.className("tt-dropdown-menu")), webDriver);
-        WebElement dropdown = webDriver.findElement(By.className("tt-dataset-0"));
-        waitForElementToBeVisible(dropdown, webDriver);
-        waitForElementToBeClickable(dropdown, webDriver);
-        dropdown.click();
+        clickOnButton(webDriver.findElement(By.className("tt-dataset-0")), webDriver);
 
         selectFromDropDown(expenseBillSubType, financialExpenseBillDetails.getExpenseBillSubType(), webDriver);
+        selectFromDropDown(expenseSubLedgerType, "Contigent Bill", webDriver);
+        enterText(webDriver.findElement(By.id("subLedgerCode")), "ADMN0009", webDriver);
+
+        clickOnButton(webDriver.findElement(By.className("tt-dataset-3")), webDriver);
         enterText(expensePayTo, "tester", webDriver);
         enterText(expenseAccountCodeDebit, financialExpenseBillDetails.getExpenseAccountCodeDebit(), webDriver);
 
@@ -136,7 +137,12 @@ public class ExpenseDetailsPage extends FinancialPage {
 
         Select approverPosition = new Select(expenseApprovalPosition);
         await().atMost(10, SECONDS).until(() -> approverPosition.getOptions().size() > 1);
-        String userName = approverPosition.getOptions().get(1).getText();
+        String userName;
+        if (approverPosition.getOptions().get(1).getText().split("\\ ")[0].length() == 1) {
+            userName = approverPosition.getOptions().get(1).getText().split("\\ ")[0] + " " + approverPosition.getOptions().get(1).getText().split("\\ ")[1];
+        } else {
+            userName = approverPosition.getOptions().get(1).getText().split("\\ ")[0];
+        }
         clickOnButton(approverPosition.getOptions().get(1), webDriver);
 
         clickOnButton(forwardButton, webDriver);

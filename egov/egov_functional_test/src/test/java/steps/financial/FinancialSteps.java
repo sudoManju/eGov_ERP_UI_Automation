@@ -87,7 +87,7 @@ public class FinancialSteps extends BaseSteps implements En {
         And("^officer will enter the expense approval details as (\\w+)$", (String approveOfficer) -> {
             ApprovalDetails approvalDetails = new ExcelReader(approvalDetailsTestDataFileName).getFinanceApprovalDetails(approveOfficer);
             String userName = pageStore.get(ExpenseDetailsPage.class).enterExpenseApprovalDetails(approvalDetails);
-            scenarioContext.setUser(userName.split("\\ ")[0]);
+            scenarioContext.setUser(userName);
         });
 
         And("^officer will closes the expense acknowledgement page$", () -> {

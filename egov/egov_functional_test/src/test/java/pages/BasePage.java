@@ -90,6 +90,13 @@ public class BasePage {
         new Select(webElement).selectByVisibleText(value);
     }
 
+    protected void selectAParticularFromDropDown(WebElement webElement, int i, WebDriver driver) {
+        waitForElementToBeVisible(webElement, driver);
+        waitForElementToBeClickable(webElement, driver);
+        await().atMost(20, SECONDS).until(() -> new Select(webElement).getOptions().size() > 1);
+        new Select(webElement).selectByIndex(i);
+    }
+
     protected void clickOnButton(WebElement webElement, WebDriver driver) {
         waitForElementToBeVisible(webElement, driver);
         waitForElementToBeClickable(webElement, driver);

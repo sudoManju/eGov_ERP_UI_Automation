@@ -196,7 +196,13 @@ public class FinancialPage extends BasePage {
         Select approverPos = new Select(approverPosition);
         approverPosition.click();
         await().atMost(10, SECONDS).until(() -> approverPos.getOptions().size() > 1);
-        userName = approverPos.getOptions().get(1).getText().split("\\ ")[0];
+
+        if(approverPos.getOptions().get(1).getText().split("\\ ")[0].length() ==1 ){
+            userName = approverPos.getOptions().get(1).getText().split("\\ ")[0] + " " + approverPos.getOptions().get(1).getText().split("\\ ")[1];
+        }
+        else {
+            userName = approverPos.getOptions().get(1).getText().split("\\ ")[0];
+        }
         clickOnButton(approverPos.getOptions().get(1), webDriver);
 
         clickOnForwardButton();
