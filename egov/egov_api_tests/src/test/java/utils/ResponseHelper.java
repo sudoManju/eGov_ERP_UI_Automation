@@ -2,7 +2,6 @@ package utils;
 
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
-
 import java.io.IOException;
 
 public class ResponseHelper {

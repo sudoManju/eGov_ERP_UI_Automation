@@ -1,28 +1,93 @@
 package entities.Login;
 
-public class LoginResponse {
-    private User User;
+import org.codehaus.jackson.annotate.JsonProperty;
 
-    private ResponseInfo responseInfo;
+public class LoginResponse
+{
+    private String scope;
 
-    public User getUser() {
-        return User;
+    private ResponseInfo ResponseInfo;
+
+    private String expires_in;
+
+    private String token_type;
+
+    private String refresh_token;
+
+    private String access_token;
+
+    @JsonProperty("UserRequest")
+    private UserRequest UserRequest;
+
+    public String getScope ()
+    {
+        return scope;
     }
 
-    public void setUser(User User) {
-        this.User = User;
+    public void setScope (String scope)
+    {
+        this.scope = scope;
     }
 
-    public ResponseInfo getResponseInfo() {
-        return responseInfo;
+    public ResponseInfo getResponseInfo ()
+    {
+        return ResponseInfo;
     }
 
-    public void setResponseInfo(ResponseInfo responseInfo) {
-        this.responseInfo = responseInfo;
+    public void setResponseInfo (ResponseInfo ResponseInfo)
+    {
+        this.ResponseInfo = ResponseInfo;
     }
 
-    @Override
-    public String toString() {
-        return "ClassPojo [User = " + User + ", Response = " + responseInfo + "]";
+    public String getExpires_in ()
+    {
+        return expires_in;
     }
+
+    public void setExpires_in (String expires_in)
+    {
+        this.expires_in = expires_in;
+    }
+
+    public String getToken_type ()
+    {
+        return token_type;
+    }
+
+    public void setToken_type (String token_type)
+    {
+        this.token_type = token_type;
+    }
+
+    public String getRefresh_token ()
+    {
+        return refresh_token;
+    }
+
+    public void setRefresh_token (String refresh_token)
+    {
+        this.refresh_token = refresh_token;
+    }
+
+    public String getAccess_token ()
+    {
+        return access_token;
+    }
+
+    public void setAccess_token (String access_token)
+    {
+        this.access_token = access_token;
+    }
+
+    public UserRequest getUserRequest ()
+    {
+        return UserRequest;
+    }
+
+    public void setUserRequest (UserRequest UserRequest)
+    {
+        this.UserRequest = UserRequest;
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package entities.Login;
 
+
 public class ResponseInfo
 {
     private String api_id;
@@ -74,9 +75,5 @@ public class ResponseInfo
         this.res_msg_id = res_msg_id;
     }
 
-    @Override
-    public String toString()
-    {
-        return "ClassPojo [api_id = "+api_id+", ts = "+ts+", status = "+status+", msg_id = "+msg_id+", ver = "+ver+", res_msg_id = "+res_msg_id+"]";
-    }
+
 }
