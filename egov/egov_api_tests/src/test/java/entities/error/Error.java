@@ -1,6 +1,7 @@
 package entities.error;
 
 public class Error {
+
     private String errorKey;
 
     private String errorMessage;

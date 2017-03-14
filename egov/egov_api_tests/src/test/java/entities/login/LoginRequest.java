@@ -1,4 +1,4 @@
-package entities.Login;
+package entities.login;
 
 public class LoginRequest {
 

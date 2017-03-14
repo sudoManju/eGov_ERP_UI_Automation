@@ -1,7 +1,7 @@
-package entities.Login;
+package entities.login;
 
-public class Roles
-{
+public class Roles {
+
     private String id;
 
 //    private String  new;
@@ -16,13 +16,11 @@ public class Roles
 
     private String version;
 
-    public String getId ()
-    {
+    public String getId() {
         return id;
     }
 
-    public void setId (String id)
-    {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -36,54 +34,43 @@ public class Roles
 //        this.new = new;
 //    }
 
-    public String getDescription ()
-    {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription (String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    public String getName ()
-    {
+    public String getName() {
         return name;
     }
 
-    public void setName (String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getLastModifiedDate ()
-    {
+    public String getLastModifiedDate() {
         return lastModifiedDate;
     }
 
-    public void setLastModifiedDate (String lastModifiedDate)
-    {
+    public void setLastModifiedDate(String lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public String getCreatedDate ()
-    {
+    public String getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate (String createdDate)
-    {
+    public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
     }
 
-    public String getVersion ()
-    {
+    public String getVersion() {
         return version;
     }
 
-    public void setVersion (String version)
-    {
+    public void setVersion(String version) {
         this.version = version;
     }
-
 }

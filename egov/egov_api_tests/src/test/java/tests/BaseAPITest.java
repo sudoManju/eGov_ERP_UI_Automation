@@ -8,9 +8,7 @@ import utils.Categories;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
-
 public class BaseAPITest {
-
 
     @BeforeMethod(alwaysRun = true)
     public void testSetup(Method method) {
@@ -20,5 +18,4 @@ public class BaseAPITest {
     @BeforeGroups(groups = Categories.SANITY, alwaysRun = true)
     public void setUp() throws IOException {
     }
-
 }

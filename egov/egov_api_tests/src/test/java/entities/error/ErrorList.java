@@ -1,6 +1,7 @@
 package entities.error;
 
 public class ErrorList {
+
     private String param;
 
     private String value;
