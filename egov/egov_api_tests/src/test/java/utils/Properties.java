@@ -4,6 +4,8 @@ public class Properties {
 
     private static final PropertiesReader propertiesReader = new PropertiesReader();
 
-    public static final String serviceListUrl = propertiesReader.getServiceListUrl();
+    public static final String loginUrl = propertiesReader.getLoginUrl();
+
+    public static final String serverUrl = propertiesReader.getLoginUrl();
 
 }

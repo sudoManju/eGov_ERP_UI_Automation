@@ -2,6 +2,7 @@ package resources;
 
 import com.jayway.restassured.response.Response;
 import utils.APILogger;
+import utils.Properties;
 
 import java.util.Map;
 
@@ -18,7 +19,7 @@ public class LoginResource {
                 .header("Authorization", "Basic ZWdvdi11c2VyLWNsaWVudDplZ292LXVzZXItc2VjcmV0")
                 .params(json)
                 .when()
-                .post("http://egov-micro-qa.egovernments.org/user/_login?jurisdiction_id=ap.public");
+                .post(Properties.serverUrl + Properties.loginUrl);
 
         return response;
     }

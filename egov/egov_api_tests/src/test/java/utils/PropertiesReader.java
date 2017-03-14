@@ -23,5 +23,8 @@ public class PropertiesReader {
         return prop.getProperty("serviceListUrl");
     }
 
+    public String getLoginUrl(){return prop.getProperty("loginUrl");}
+
+    public String getServerUrl(){return prop.getProperty("serverUrl");}
 }
 
