@@ -44,6 +44,31 @@ public class LoginVerificationTest extends BaseAPITest {
     }
 
     @Test(groups = Categories.LOGIN)
+    public void shouldNotAllowLogoutWithInvalidCredentials() throws IOException {
+
+        // Login
+        LoginRequest request = new LoginRequestBuilder().build();
+
+        Map jsonString = RequestHelper.asMap(request);
+
+        Response response = new LoginResource().login(jsonString);
+        LoginResponse loginResponse = (LoginResponse)
+                ResponseHelper.getResponseAsObject(response.asString(), LoginResponse.class);
+
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertEquals(loginResponse.getUserRequest().getUserName(), "narasappa");
+
+        // Logout
+        Response response1 = new LoginResource().logout(loginResponse.getAccess_token().substring(1));
+        LogoutResponse logoutResponse = (LogoutResponse)
+                ResponseHelper.getResponseAsObject(response1.asString(), LogoutResponse.class);
+
+        System.out.println(response1.asString());
+//        Assert.assertEquals(response1.getStatusCode() , 200);
+//        Assert.assertEquals(logoutResponse.getStatus() , "Logout successfully");
+    }
+
+    @Test(groups = Categories.LOGIN)
     public void shouldNotAllowLoginWithInvalidCredentials() throws IOException {
         LoginRequest request = new LoginRequestBuilder().withPassword("").build();
 
