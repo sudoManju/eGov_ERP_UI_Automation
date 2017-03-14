@@ -11,6 +11,7 @@ import static com.jayway.restassured.RestAssured.given;
 public class LoginResource {
 
     public Response post(Map json) {
+
         new APILogger().log("login request -- " + json);
 
         Response response = given().request().with()

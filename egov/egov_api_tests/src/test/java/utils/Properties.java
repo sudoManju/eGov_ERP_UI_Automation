@@ -6,6 +6,6 @@ public class Properties {
 
     public static final String loginUrl = propertiesReader.getLoginUrl();
 
-    public static final String serverUrl = propertiesReader.getLoginUrl();
+    public static final String serverUrl = propertiesReader.getServerUrl();
 
 }
