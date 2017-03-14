@@ -19,7 +19,7 @@ public class LoginVerificationTest extends BaseAPITest {
 
     @Test
     public void shouldAllowLoginToAnExistingUser() throws IOException{
-        LoginRequest request = new LoginRequestBuilder().build();
+        LoginRequest request = new LoginRequestBuilder().withPassword("demo").build();
 
         Map jsonString = RequestHelper.asMap(request);
 
@@ -31,7 +31,16 @@ public class LoginVerificationTest extends BaseAPITest {
                 ResponseHelper.getResponseAsObject(response.asString(), LoginResponse.class);
 
         Assert.assertEquals(loginResponse.getUserRequest().getUserName(), "narasappa");
-        System.out.println(loginResponse.getUserRequest().getRoles().length);
     }
 
+    @Test
+    public void shouldNotAllowLoginWithInvalidCredentials() throws IOException{
+        LoginRequest request = new LoginRequestBuilder().withPassword("").build();
+
+        Map jsonString = RequestHelper.asMap(request);
+
+        Response response = new LoginResource().post(jsonString);
+
+        Assert.assertEquals(response.getStatusCode(),400);
+    }
 }

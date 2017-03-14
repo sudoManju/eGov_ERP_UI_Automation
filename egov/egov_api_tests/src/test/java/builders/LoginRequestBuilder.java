@@ -4,10 +4,6 @@ import entities.Login.LoginRequest;
 
 public final class LoginRequestBuilder {
 
-    private String username;
-    private String password;
-    private String grant_type;
-    private String scope;
     LoginRequest loginRequest = new LoginRequest();
 
 
@@ -19,22 +15,22 @@ public final class LoginRequestBuilder {
     }
 
     public LoginRequestBuilder withUsername(String username) {
-        this.username = username;
+        loginRequest.setUsername(username);
         return this;
     }
 
     public LoginRequestBuilder withPassword(String password) {
-        this.password = password;
+        loginRequest.setPassword(password);
         return this;
     }
 
     public LoginRequestBuilder withGrant_type(String grant_type) {
-        this.grant_type = grant_type;
+        loginRequest.setGrant_type(grant_type);
         return this;
     }
 
     public LoginRequestBuilder withScope(String scope) {
-        this.scope = scope;
+        loginRequest.setScope(scope);
         return this;
     }
 
