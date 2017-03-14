@@ -8,4 +8,6 @@ public class Properties {
 
     public static final String serverUrl = propertiesReader.getServerUrl();
 
+    public static final String logoutUrl = propertiesReader.getLogoutUrl();
+
 }

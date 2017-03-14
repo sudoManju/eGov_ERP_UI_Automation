@@ -26,5 +26,7 @@ public class PropertiesReader {
     public String getLoginUrl(){return prop.getProperty("loginUrl");}
 
     public String getServerUrl(){return prop.getProperty("serverUrl");}
+
+    public String getLogoutUrl(){return prop.getProperty("logoutUrl");}
 }
 
