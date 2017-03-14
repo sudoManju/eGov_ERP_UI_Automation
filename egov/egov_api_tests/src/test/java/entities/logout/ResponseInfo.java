@@ -1,6 +1,6 @@
-package entities.login;
+package entities.logout;
 
-public class LogoutResponse {
+public class ResponseInfo {
 
     private String apiId;
 
@@ -61,4 +61,5 @@ public class LogoutResponse {
     public void setVer(String ver) {
         this.ver = ver;
     }
+
 }

@@ -17,7 +17,7 @@ public class LoginResponse {
     private String access_token;
 
     @JsonProperty("UserRequest")
-    private UserRequest UserRequest;
+    private UserRequest userRequest;
 
     public String getScope() {
         return scope;
@@ -68,10 +68,10 @@ public class LoginResponse {
     }
 
     public UserRequest getUserRequest() {
-        return UserRequest;
+        return userRequest;
     }
 
     public void setUserRequest(UserRequest UserRequest) {
-        this.UserRequest = UserRequest;
+        this.userRequest = UserRequest;
     }
 }

@@ -2,10 +2,11 @@ package tests.login;
 
 import builders.LoginRequestBuilder;
 import com.jayway.restassured.response.Response;
-import entities.error.Error;
+import entities.login.LoginErrorResponse;
 import entities.login.LoginRequest;
 import entities.login.LoginResponse;
-import entities.login.LogoutResponse;
+import entities.logout.InvalidLogoutResponse;
+import entities.logout.LogoutResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.LoginResource;
@@ -60,12 +61,12 @@ public class LoginVerificationTest extends BaseAPITest {
 
         // Logout
         Response response1 = new LoginResource().logout(loginResponse.getAccess_token().substring(1));
-        LogoutResponse logoutResponse = (LogoutResponse)
-                ResponseHelper.getResponseAsObject(response1.asString(), LogoutResponse.class);
+        InvalidLogoutResponse invalidLogoutResponse = (InvalidLogoutResponse)
+                ResponseHelper.getResponseAsObject(response1.asString(), InvalidLogoutResponse.class);
 
-        System.out.println(response1.asString());
-//        Assert.assertEquals(response1.getStatusCode() , 200);
-//        Assert.assertEquals(logoutResponse.getStatus() , "Logout successfully");
+        Assert.assertEquals(response1.getStatusCode() , 400);
+        Assert.assertEquals(invalidLogoutResponse.getResponseInfo().getStatus(), "Logout failed");
+        Assert.assertEquals(invalidLogoutResponse.getError().getDescription(), "Logout failed");
     }
 
     @Test(groups = Categories.LOGIN)
@@ -75,13 +76,10 @@ public class LoginVerificationTest extends BaseAPITest {
         Map jsonString = RequestHelper.asMap(request);
 
         Response response = new LoginResource().login(jsonString);
+        LoginErrorResponse loginErrorResponse = (LoginErrorResponse)
+                ResponseHelper.getResponseAsObject(response.asString(), LoginErrorResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 400);
-
-        Error error = (Error)
-                ResponseHelper.getResponseAsObject(response.asString(), Error.class);
-
-        Assert.assertEquals(error.getError_description(), "Invalid login credentials");
-
+        Assert.assertEquals(loginErrorResponse.getError_description(), "Invalid login credentials");
     }
 }

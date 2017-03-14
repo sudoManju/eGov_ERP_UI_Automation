@@ -34,7 +34,7 @@ paths:
           schema:
             $ref: '#/definitions/ServiceRes'
         '400':
-          description: jurisdiction_id was not provided or General service error
+          description: jurisdiction_id was not provided or General service loginErrorResponse
           schema:
             $ref: '#/definitions/ErrorRes'
         '404':
@@ -65,7 +65,7 @@ paths:
           schema:
             $ref: '#/definitions/ServiceRes'
         '400':
-          description: jurisdiction_id was not provided or General service error
+          description: jurisdiction_id was not provided or General service loginErrorResponse
           schema:
             $ref: '#/definitions/ErrorRes'
         '404':
@@ -104,7 +104,7 @@ paths:
           schema:
             $ref: '#/definitions/ServiceRes'
         '400':
-          description: jurisdiction_id was not provided or General service error
+          description: jurisdiction_id was not provided or General service loginErrorResponse
           schema:
             $ref: '#/definitions/ErrorRes'
         '404':
@@ -145,7 +145,7 @@ paths:
         '400':
           description: >-
             service_code or jurisdiction_id was not provided or General service
-            error
+            loginErrorResponse
           schema:
             $ref: '#/definitions/ErrorRes'
         '404':
@@ -180,7 +180,7 @@ paths:
         '400':
           description: >-
             service_code or jurisdiction_id was not provided or General service
-            error
+            loginErrorResponse
           schema:
             $ref: '#/definitions/ErrorRes'
         '404':
@@ -254,7 +254,7 @@ paths:
         '400':
           description: >-
             service_request_id or jurisdiction_id was not provided or General
-            service error
+            service loginErrorResponse
           schema:
             $ref: '#/definitions/ErrorRes'
         '404':
@@ -295,7 +295,7 @@ paths:
         '400':
           description: >-
             service_code or jurisdiction_id was not provided or General service
-            error
+            loginErrorResponse
           schema:
             $ref: '#/definitions/ErrorRes'
         '404':

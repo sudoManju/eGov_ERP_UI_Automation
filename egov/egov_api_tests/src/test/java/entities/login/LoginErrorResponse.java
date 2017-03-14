@@ -1,6 +1,6 @@
-package entities.error;
+package entities.login;
 
-public class Error {
+public class LoginErrorResponse {
 
     private String error;
 
