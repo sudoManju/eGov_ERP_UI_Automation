@@ -2,6 +2,7 @@ package tests.login;
 
 import builders.LoginRequestBuilder;
 import com.jayway.restassured.response.Response;
+import entities.error.Error;
 import entities.login.LoginRequest;
 import entities.login.LoginResponse;
 import entities.login.LogoutResponse;
@@ -51,5 +52,11 @@ public class LoginVerificationTest extends BaseAPITest {
         Response response = new LoginResource().login(jsonString);
 
         Assert.assertEquals(response.getStatusCode(), 400);
+
+        Error error = (Error)
+                ResponseHelper.getResponseAsObject(response.asString(), Error.class);
+
+        Assert.assertEquals(error.getError_description(), "Invalid login credentials");
+
     }
 }

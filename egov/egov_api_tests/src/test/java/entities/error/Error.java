@@ -2,33 +2,23 @@ package entities.error;
 
 public class Error {
 
-    private String errorKey;
+    private String error;
 
-    private String errorMessage;
+    private String error_description;
 
-    private String errorCode;
-
-    public String getErrorCode() {
-        return errorCode;
+    public String getError() {
+        return error;
     }
 
-    public void setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
+    public void setError(String error) {
+        this.error = error;
     }
 
-    public String getErrorKey() {
-        return errorKey;
+    public String getError_description() {
+        return error_description;
     }
 
-    public void setErrorKey(String errorKey) {
-        this.errorKey = errorKey;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
+    public void setError_description(String error_description) {
+        this.error_description = error_description;
     }
 }
