@@ -1,6 +1,6 @@
 package entities;
 
-public class PGRComplaintResponse {
+public class GetPGRComplaintResponse {
 
     private Response_info response_info;
 

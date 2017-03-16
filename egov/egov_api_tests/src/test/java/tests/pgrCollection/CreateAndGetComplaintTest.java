@@ -1,7 +1,7 @@
 package tests.pgrCollection;
 
 import com.jayway.restassured.response.Response;
-import entities.PGRComplaintResponse;
+import entities.GetPGRComplaintResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.PGRComplaintResource;
@@ -18,10 +18,10 @@ public class CreateAndGetComplaintTest extends BaseAPITest {
 
         // Get Complaint
         Response response = new PGRComplaintResource().getPGRComplaint("00166-2017-GV");
-        PGRComplaintResponse pgrComplaintResponse = (PGRComplaintResponse)
-                ResponseHelper.getResponseAsObject(response.asString(), PGRComplaintResponse.class);
+        GetPGRComplaintResponse getPgrComplaintResponse = (GetPGRComplaintResponse)
+                ResponseHelper.getResponseAsObject(response.asString(), GetPGRComplaintResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals(pgrComplaintResponse.getResponse_info().getStatus(), "successful");
+        Assert.assertEquals(getPgrComplaintResponse.getResponse_info().getStatus(), "successful");
     }
 }
