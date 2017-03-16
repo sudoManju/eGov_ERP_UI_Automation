@@ -12,7 +12,7 @@ public class LoginResource {
 
     public Response login(Map json) {
 
-        new APILogger().log("login request -- " + json);
+        new APILogger().log("login request started -- " + json);
 
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
@@ -27,7 +27,7 @@ public class LoginResource {
 
     public Response logout(String accessToken) {
 
-        new APILogger().log("logout request -- " + accessToken);
+        new APILogger().log("logout request started-- " + accessToken);
 
         Response response = given().request().with()
                 .urlEncodingEnabled(false)

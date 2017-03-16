@@ -2,9 +2,6 @@ package builders;
 
 import entities.pgrCollection.createComplaint.RequestInfo;
 
-/**
- * Created by karthik on 16/3/17.
- */
 public final class RequestInfoBuilder {
     RequestInfo requestInfo = new RequestInfo();
 
@@ -29,6 +26,7 @@ public final class RequestInfoBuilder {
         requestInfo.setTs(ts);
         return this;
     }
+
     public RequestInfoBuilder withMsg_id(String msg_id) {
         requestInfo.setMsg_id(msg_id);
         return this;

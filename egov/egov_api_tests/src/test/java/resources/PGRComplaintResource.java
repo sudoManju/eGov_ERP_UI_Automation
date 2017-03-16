@@ -17,18 +17,19 @@ public class PGRComplaintResource {
 
     public Response createComplaint(String json) {
 
-        Response response =  given().request().with()
-                           .header("Content-Type","application/json")
-                           .body(json)
-                           .when()
-                           .post(Properties.serverUrl + Properties.complaintUrl);
+        new APILogger().log("Creating a PGR request  -- ");
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(json)
+                .when()
+                .post(Properties.serverUrl + Properties.complaintUrl);
 
         return response;
     }
 
     public Response getPGRComplaint(String serviceRequestId) {
 
-        new APILogger().log("Get PGR complaint request with -- " + serviceRequestId);
+        new APILogger().log("Getting a PGR complaint request with -- " + serviceRequestId);
 
         Response response = given().request().with()
                 .urlEncodingEnabled(false)

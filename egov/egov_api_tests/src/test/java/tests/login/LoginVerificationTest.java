@@ -11,6 +11,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.LoginResource;
 import tests.BaseAPITest;
+import utils.APILogger;
 import utils.Categories;
 import utils.RequestHelper;
 import utils.ResponseHelper;
@@ -23,43 +24,20 @@ public class LoginVerificationTest extends BaseAPITest {
     @Test(groups = Categories.LOGIN)
     public void shouldAllowLoginAndLogoutToAnExistingUser() throws IOException {
 
-        // Login
-        LoginRequest request = new LoginRequestBuilder().build();
+        // Login Test
+        LoginResponse loginResponse = loginTestMethod();
 
-        Map jsonString = RequestHelper.asMap(request);
-
-        Response response = new LoginResource().login(jsonString);
-        LoginResponse loginResponse = (LoginResponse)
-                ResponseHelper.getResponseAsObject(response.asString(), LoginResponse.class);
-
-        Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals(loginResponse.getUserRequest().getUserName(), "narasappa");
-
-        // Logout
-        Response response1 = new LoginResource().logout(loginResponse.getAccess_token());
-        LogoutResponse logoutResponse = (LogoutResponse)
-                ResponseHelper.getResponseAsObject(response1.asString(), LogoutResponse.class);
-
-        Assert.assertEquals(response1.getStatusCode(), 200);
-        Assert.assertEquals(logoutResponse.getStatus(), "Logout successfully");
+        // Logout Test
+        logoutTestMethod(loginResponse);
     }
 
     @Test(groups = Categories.LOGIN)
     public void shouldNotAllowLogoutWithInvalidCredentials() throws IOException {
 
-        // Login
-        LoginRequest request = new LoginRequestBuilder().build();
+        // Login Test
+        LoginResponse loginResponse = loginTestMethod();
 
-        Map jsonString = RequestHelper.asMap(request);
-
-        Response response = new LoginResource().login(jsonString);
-        LoginResponse loginResponse = (LoginResponse)
-                ResponseHelper.getResponseAsObject(response.asString(), LoginResponse.class);
-
-        Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals(loginResponse.getUserRequest().getUserName(), "narasappa");
-
-        // Logout
+        // Logout Test
         Response response1 = new LoginResource().logout(loginResponse.getAccess_token().substring(1));
         InvalidLogoutResponse invalidLogoutResponse = (InvalidLogoutResponse)
                 ResponseHelper.getResponseAsObject(response1.asString(), InvalidLogoutResponse.class);
@@ -67,6 +45,8 @@ public class LoginVerificationTest extends BaseAPITest {
         Assert.assertEquals(response1.getStatusCode(), 400);
         Assert.assertEquals(invalidLogoutResponse.getResponseInfo().getStatus(), "Logout failed");
         Assert.assertEquals(invalidLogoutResponse.getError().getDescription(), "Logout failed");
+
+        new APILogger().log("Logout Failed is Completed -- ");
     }
 
     @Test(groups = Categories.LOGIN)
@@ -81,5 +61,7 @@ public class LoginVerificationTest extends BaseAPITest {
 
         Assert.assertEquals(response.getStatusCode(), 400);
         Assert.assertEquals(loginErrorResponse.getError_description(), "Invalid login credentials");
+
+        new APILogger().log("Login Failed is Completed -- ");
     }
 }

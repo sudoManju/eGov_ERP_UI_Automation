@@ -1,8 +1,7 @@
 package entities.pgrCollection.createComplaint;
 
 
-public class Service_requests
-{
+public class Service_requests {
     private String tenantId;
 
     private String media_urls;

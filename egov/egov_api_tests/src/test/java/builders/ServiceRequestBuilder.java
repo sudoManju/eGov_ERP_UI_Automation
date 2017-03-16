@@ -3,9 +3,6 @@ package builders;
 import entities.pgrCollection.createComplaint.ServiceRequest;
 import entities.pgrCollection.createComplaint.Values;
 
-/**
- * Created by karthik on 16/3/17.
- */
 public final class ServiceRequestBuilder {
     ServiceRequest serviceRequest = new ServiceRequest();
     Values values = new ValuesBuilder().build();

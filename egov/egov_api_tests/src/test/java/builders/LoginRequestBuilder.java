@@ -6,7 +6,6 @@ public final class LoginRequestBuilder {
 
     LoginRequest loginRequest = new LoginRequest();
 
-
     public LoginRequestBuilder() {
         loginRequest.setUsername("narasappa");
         loginRequest.setPassword("demo");
