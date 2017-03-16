@@ -1,6 +1,6 @@
 package builders;
 
-import entities.pgrCollection.RequestInfo;
+import entities.pgrCollection.createComplaint.RequestInfo;
 
 /**
  * Created by karthik on 16/3/17.

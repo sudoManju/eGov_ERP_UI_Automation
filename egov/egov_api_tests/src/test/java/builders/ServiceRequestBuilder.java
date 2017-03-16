@@ -1,7 +1,7 @@
 package builders;
 
-import entities.pgrCollection.ServiceRequest;
-import entities.pgrCollection.Values;
+import entities.pgrCollection.createComplaint.ServiceRequest;
+import entities.pgrCollection.createComplaint.Values;
 
 /**
  * Created by karthik on 16/3/17.
