@@ -10,14 +10,14 @@ public final class RequestInfoBuilder {
 
     RequestInfoBuilder() {
         requestInfo.setApi_id("1");
-        requestInfo.setTs("1");
-        requestInfo.setMsg_id(null);
+        requestInfo.setTs(null);
+        requestInfo.setMsg_id("");
         requestInfo.setAction("Create");
         requestInfo.setDid("");
-        requestInfo.setAuth_token("");
-        requestInfo.setVer("");
+        requestInfo.setAuth_token(null);
+        requestInfo.setVer("1");
         requestInfo.setKey("");
-        requestInfo.setRequester_id(null);
+        requestInfo.setRequester_id("");
     }
 
     public RequestInfoBuilder withApi_id(String api_id) {

@@ -38,7 +38,5 @@ public class CreateAndGetComplaintTest extends BaseAPITest {
         Response response = new PGRComplaintResource().createComplaint(jsonString);
 
         System.out.println(response.getStatusCode());
-
-
     }
 }
