@@ -32,10 +32,13 @@ public class CreateAndGetComplaintTest extends BaseAPITest {
     public void createComplaintInPGR() throws IOException {
         ComplaintRequest request = new ComplaintRequestBuilder().build();
 
+        String requestDesc = request.getServiceRequest().getDescription();
+
         String jsonString = RequestHelper.getJsonString(request);
 
         Response response = new PGRComplaintResource().createComplaint(jsonString);
 
-        System.out.println(response.getStatusCode());
+        Assert.assertEquals(response.getStatusCode(), 201);
+
     }
 }
