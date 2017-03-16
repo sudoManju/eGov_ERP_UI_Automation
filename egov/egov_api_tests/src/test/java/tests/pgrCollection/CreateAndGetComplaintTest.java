@@ -20,29 +20,26 @@ public class CreateAndGetComplaintTest extends BaseAPITest {
     @Test(groups = Categories.PGR)
     public void createAndGetComplaintInPGR() throws IOException {
 
-        // Get Complaint
-        Response response = new PGRComplaintResource().getPGRComplaint("00166-2017-GV");
-        GetPGRComplaintResponse getPgrComplaintResponse = (GetPGRComplaintResponse)
-                ResponseHelper.getResponseAsObject(response.asString(), GetPGRComplaintResponse.class);
-        Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals(getPgrComplaintResponse.getResponse_info().getStatus(), "successful");
-
-    }
-
-    @Test
-    public void createComplaintInPGR() throws IOException {
+        // Create A Complaint
         ComplaintRequest request = new ComplaintRequestBuilder().build();
 
-        String requestDesc = request.getServiceRequest().getDescription();
-
         String jsonString = RequestHelper.getJsonString(request);
-
         Response response = new PGRComplaintResource().createComplaint(jsonString);
 
+        ComplaintResponse complaintResponse = (ComplaintResponse)
+                ResponseHelper.getResponseAsObject(response.asString(), ComplaintResponse.class);
+
         Assert.assertEquals(response.getStatusCode(), 201);
+        Assert.assertEquals(complaintResponse.getService_requests()[0].getDescription() ,
+                request.getServiceRequest().getDescription() );
 
-        ComplaintResponse complaintResponse = (ComplaintResponse) ResponseHelper.getResponseAsObject(response.asString(), ComplaintResponse.class);
+        // Get Complaint
+        Response response1 = new PGRComplaintResource().
+                getPGRComplaint(complaintResponse.getService_requests()[0].getService_request_id());
+        GetPGRComplaintResponse getPgrComplaintResponse = (GetPGRComplaintResponse)
+                ResponseHelper.getResponseAsObject(response1.asString(), GetPGRComplaintResponse.class);
 
-//        Assert.assertEquals(complaintResponse.getService_requests[0](). );
+        Assert.assertEquals(response1.getStatusCode(), 200);
+        Assert.assertEquals(getPgrComplaintResponse.getResponse_info().getStatus(), "successful");
     }
 }
