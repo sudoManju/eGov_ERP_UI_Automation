@@ -1,15 +1,19 @@
 package tests.pgrCollection;
 
+import builders.ComplaintRequestBuilder;
 import com.jayway.restassured.response.Response;
 import entities.GetPGRComplaintResponse;
+import entities.pgrCollection.ComplaintRequest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.PGRComplaintResource;
 import tests.BaseAPITest;
 import utils.Categories;
+import utils.RequestHelper;
 import utils.ResponseHelper;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class CreateAndGetComplaintTest extends BaseAPITest {
 
@@ -19,9 +23,22 @@ public class CreateAndGetComplaintTest extends BaseAPITest {
         // Get Complaint
         Response response = new PGRComplaintResource().getPGRComplaint("00166-2017-GV");
         GetPGRComplaintResponse getPgrComplaintResponse = (GetPGRComplaintResponse)
-                ResponseHelper.getResponseAsObject(response.asString(), GetPGRComplaintResponse.class);
-
+        ResponseHelper.getResponseAsObject(response.asString(), GetPGRComplaintResponse.class);
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertEquals(getPgrComplaintResponse.getResponse_info().getStatus(), "successful");
+
+    }
+
+    @Test
+    public void createComplaintInPGR() throws IOException{
+        ComplaintRequest request = new ComplaintRequestBuilder().build();
+
+        String jsonString = RequestHelper.getJsonString(request);
+
+        Response response = new PGRComplaintResource().createComplaint(jsonString);
+
+        System.out.println(response.getStatusCode());
+
+
     }
 }

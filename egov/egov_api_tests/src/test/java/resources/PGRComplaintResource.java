@@ -1,5 +1,11 @@
 package resources;
 
+import com.jayway.restassured.response.Response;
+import utils.Properties;
+
+import java.util.Map;
+
+import static com.jayway.restassured.RestAssured.given;
 
 import com.jayway.restassured.response.Response;
 import utils.APILogger;
@@ -25,6 +31,17 @@ public class PGRComplaintResource {
                 .header("auth_token", "null")
                 .when()
                 .get(Properties.serverUrl + Properties.getPGRComplaintUrl + serviceRequestId);
+
+        return response;
+    }
+
+    public Response createComplaint(String json) {
+
+        Response response =  given().request().with()
+                           .header("Content-Type","application/json")
+                           .body(json)
+                           .when()
+                           .post(Properties.serverUrl + Properties.complaintUrl);
 
         return response;
     }

@@ -12,4 +12,6 @@ public class Properties {
 
     public static final String getPGRComplaintUrl = propertiesReader.getPGRComplaintUrl();
 
+    public static final String complaintUrl = propertiesReader.getComplaintUrl();
+
 }

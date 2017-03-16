@@ -37,5 +37,9 @@ public class PropertiesReader {
     public String getPGRComplaintUrl() {
         return prop.getProperty("getPGRComplaintUrl");
     }
+
+    public String getComplaintUrl() {
+        return prop.getProperty("complaintUrl");
+    }
 }
 
