@@ -2,6 +2,7 @@ package tests.pgrCollection;
 
 import builders.ComplaintRequestBuilder;
 import com.jayway.restassured.response.Response;
+import entities.pgrCollection.createComplaint.ComplaintResponse;
 import entities.pgrCollection.getComplaint.GetPGRComplaintResponse;
 import entities.pgrCollection.createComplaint.ComplaintRequest;
 import org.testng.Assert;
@@ -40,5 +41,8 @@ public class CreateAndGetComplaintTest extends BaseAPITest {
 
         Assert.assertEquals(response.getStatusCode(), 201);
 
+        ComplaintResponse complaintResponse = (ComplaintResponse) ResponseHelper.getResponseAsObject(response.asString(), ComplaintResponse.class);
+
+//        Assert.assertEquals(complaintResponse.getService_requests[0](). );
     }
 }

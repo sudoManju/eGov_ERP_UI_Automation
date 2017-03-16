@@ -4,7 +4,6 @@ import entities.pgrCollection.createComplaint.ComplaintRequest;
 import entities.pgrCollection.createComplaint.RequestInfo;
 import entities.pgrCollection.createComplaint.ServiceRequest;
 
-
 public final class ComplaintRequestBuilder {
     ComplaintRequest complaintRequest = new ComplaintRequest();
     ServiceRequest serviceRequest = new ServiceRequestBuilder().build();
