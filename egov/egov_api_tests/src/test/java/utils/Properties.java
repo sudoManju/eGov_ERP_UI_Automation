@@ -10,4 +10,6 @@ public class Properties {
 
     public static final String logoutUrl = propertiesReader.getLogoutUrl();
 
+    public static final String getPGRComplaintUrl = propertiesReader.getPGRComplaintUrl();
+
 }

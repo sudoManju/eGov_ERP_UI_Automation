@@ -34,7 +34,7 @@ public class LoginResource {
                 .header("Content-type", "application/x-www-form-urlencoded")
                 .header("Authorization", "Basic ZWdvdi11c2VyLWNsaWVudDplZ292LXVzZXItc2VjcmV0")
                 .when()
-                .post(Properties.serverUrl + Properties.logoutUrl+accessToken);
+                .post(Properties.serverUrl + Properties.logoutUrl + accessToken);
 
         return response;
     }

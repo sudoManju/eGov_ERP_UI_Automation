@@ -40,8 +40,8 @@ public class LoginVerificationTest extends BaseAPITest {
         LogoutResponse logoutResponse = (LogoutResponse)
                 ResponseHelper.getResponseAsObject(response1.asString(), LogoutResponse.class);
 
-        Assert.assertEquals(response1.getStatusCode() , 200);
-        Assert.assertEquals(logoutResponse.getStatus() , "Logout successfully");
+        Assert.assertEquals(response1.getStatusCode(), 200);
+        Assert.assertEquals(logoutResponse.getStatus(), "Logout successfully");
     }
 
     @Test(groups = Categories.LOGIN)
@@ -64,7 +64,7 @@ public class LoginVerificationTest extends BaseAPITest {
         InvalidLogoutResponse invalidLogoutResponse = (InvalidLogoutResponse)
                 ResponseHelper.getResponseAsObject(response1.asString(), InvalidLogoutResponse.class);
 
-        Assert.assertEquals(response1.getStatusCode() , 400);
+        Assert.assertEquals(response1.getStatusCode(), 400);
         Assert.assertEquals(invalidLogoutResponse.getResponseInfo().getStatus(), "Logout failed");
         Assert.assertEquals(invalidLogoutResponse.getError().getDescription(), "Logout failed");
     }
