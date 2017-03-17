@@ -19,7 +19,7 @@ import java.io.IOException;
 
 public class CreateAndGetComplaintTest extends BaseAPITest {
 
-    @Test(groups = Categories.PGR)
+    @Test(groups = { Categories.PGR , Categories.SANITY })
     public void createAndGetComplaintInPGR() throws IOException {
 
         //Login Test

@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 import resources.PGRComplaintResource;
 import tests.BaseAPITest;
 import utils.APILogger;
+import utils.Categories;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class GetLocationNameTest extends BaseAPITest{
 
-    @Test
+    @Test(groups = { Categories.LOCATION , Categories.SANITY })
     public void getParticularLocationName() throws IOException{
 
         Response response = new PGRComplaintResource().getParticularLocationName("konda peta");
@@ -30,7 +31,7 @@ public class GetLocationNameTest extends BaseAPITest{
         new APILogger().log("Location details with name is obtained --");
     }
 
-    @Test
+    @Test(groups = { Categories.LOCATION , Categories.SANITY })
     public void invalidLocationName() throws IOException{
 
         Response response = new PGRComplaintResource().getParticularLocationName("vinay");
@@ -43,7 +44,7 @@ public class GetLocationNameTest extends BaseAPITest{
         new APILogger().log("Location details with name is not obtained --");
     }
 
-    @Test
+    @Test(groups = { Categories.LOCATION , Categories.SANITY })
     public void getAllLocationNames() throws IOException{
 
         Response response = new PGRComplaintResource().getAllLocationNames();
