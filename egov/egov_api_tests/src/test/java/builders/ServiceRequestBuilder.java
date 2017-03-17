@@ -1,7 +1,7 @@
 package builders;
 
-import entities.pgrCollection.createComplaint.ServiceRequest;
-import entities.pgrCollection.createComplaint.Values;
+import entities.requests.pgrCollections.createComplaint.ServiceRequest;
+import entities.requests.pgrCollections.createComplaint.Values;
 
 public final class ServiceRequestBuilder {
     ServiceRequest serviceRequest = new ServiceRequest();

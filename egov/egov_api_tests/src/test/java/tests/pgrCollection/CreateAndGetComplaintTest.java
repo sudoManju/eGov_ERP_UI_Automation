@@ -2,10 +2,10 @@ package tests.pgrCollection;
 
 import builders.ComplaintRequestBuilder;
 import com.jayway.restassured.response.Response;
-import entities.login.LoginResponse;
-import entities.pgrCollection.createComplaint.ComplaintResponse;
-import entities.pgrCollection.getComplaint.GetPGRComplaintResponse;
-import entities.pgrCollection.createComplaint.ComplaintRequest;
+import entities.responses.login.LoginResponse;
+import entities.responses.pgrCollections.createComplaint.ComplaintResponse;
+import entities.responses.pgrCollections.getComplaint.GetPGRComplaintResponse;
+import entities.requests.pgrCollections.createComplaint.ComplaintRequest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.PGRComplaintResource;

@@ -1,8 +1,8 @@
 package builders;
 
-import entities.pgrCollection.createComplaint.ComplaintRequest;
-import entities.pgrCollection.createComplaint.RequestInfo;
-import entities.pgrCollection.createComplaint.ServiceRequest;
+import entities.requests.pgrCollections.createComplaint.ComplaintRequest;
+import entities.requests.pgrCollections.createComplaint.RequestInfo;
+import entities.requests.pgrCollections.createComplaint.ServiceRequest;
 
 public final class ComplaintRequestBuilder {
 

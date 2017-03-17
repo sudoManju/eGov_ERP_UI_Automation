@@ -1,7 +1,7 @@
 package tests.pgrCollection;
 
 import com.jayway.restassured.response.Response;
-import entities.pgrCollection.LocationNameResponse;
+import entities.responses.pgrCollections.LocationNameResponse;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
@@ -28,7 +28,19 @@ public class GetLocationNameTest extends BaseAPITest{
         Assert.assertTrue(locations.get(0).getName().contains("Konda Peta"));
 
         new APILogger().log("Location details with name is obtained --");
+    }
 
+    @Test
+    public void invalidLocationName() throws IOException{
+
+        Response response = new PGRComplaintResource().getParticularLocationName("vinay");
+
+        List<LocationNameResponse> locations = getResponseObjectArray(response);
+
+        Assert.assertEquals(response.getStatusCode() , 200);
+        Assert.assertEquals(locations.size() , 0);
+
+        new APILogger().log("Location details with name is not obtained --");
     }
 
     @Test

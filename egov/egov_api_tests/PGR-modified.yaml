@@ -155,8 +155,8 @@ paths:
             
   /requests:
     post:
-      summary: Create service requests
-      description: To Create new service requests.
+      summary: Create service request
+      description: To Create new service request.
       parameters:
         - name: jurisdiction_id
           in: query
@@ -264,8 +264,8 @@ paths:
             
   '/requests/{service_request_id}':
     put:
-      summary: Update service requests
-      description: To Update new service requests.
+      summary: Update service request
+      description: To Update new service request.
       parameters:
         - name: jurisdiction_id
           in: query

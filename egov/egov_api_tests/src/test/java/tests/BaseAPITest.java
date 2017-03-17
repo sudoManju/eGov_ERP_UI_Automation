@@ -2,9 +2,9 @@ package tests;
 
 import builders.LoginRequestBuilder;
 import com.jayway.restassured.response.Response;
-import entities.login.LoginRequest;
-import entities.login.LoginResponse;
-import entities.logout.LogoutResponse;
+import entities.requests.login.LoginRequest;
+import entities.responses.login.LoginResponse;
+import entities.responses.logout.LogoutResponse;
 import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeGroups;

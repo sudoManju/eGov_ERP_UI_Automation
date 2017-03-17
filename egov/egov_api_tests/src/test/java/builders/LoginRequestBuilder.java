@@ -1,6 +1,6 @@
 package builders;
 
-import entities.login.LoginRequest;
+import entities.requests.login.LoginRequest;
 
 public final class LoginRequestBuilder {
 

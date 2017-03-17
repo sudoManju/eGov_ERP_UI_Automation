@@ -2,11 +2,10 @@ package tests.login;
 
 import builders.LoginRequestBuilder;
 import com.jayway.restassured.response.Response;
-import entities.login.LoginErrorResponse;
-import entities.login.LoginRequest;
-import entities.login.LoginResponse;
-import entities.logout.InvalidLogoutResponse;
-import entities.logout.LogoutResponse;
+import entities.responses.login.LoginErrorResponse;
+import entities.requests.login.LoginRequest;
+import entities.responses.login.LoginResponse;
+import entities.responses.logout.InvalidLogoutResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.LoginResource;
