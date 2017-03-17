@@ -41,5 +41,9 @@ public class PropertiesReader {
     public String getComplaintUrl() {
         return prop.getProperty("complaintUrl");
     }
+
+    public String getLocationNameUrl() {
+        return prop.getProperty("locationNameUrl");
+    }
 }
 

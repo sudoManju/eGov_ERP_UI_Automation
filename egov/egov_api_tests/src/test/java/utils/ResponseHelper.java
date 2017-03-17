@@ -13,5 +13,4 @@ public class ResponseHelper {
         mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         return mapper.readValue(responseString, responseClass);
     }
-
 }

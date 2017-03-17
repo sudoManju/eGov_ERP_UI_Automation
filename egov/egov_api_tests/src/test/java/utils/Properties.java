@@ -14,4 +14,6 @@ public class Properties {
 
     public static final String complaintUrl = propertiesReader.getComplaintUrl();
 
+    public static final String locationNameUrl = propertiesReader.getLocationNameUrl();
+
 }
