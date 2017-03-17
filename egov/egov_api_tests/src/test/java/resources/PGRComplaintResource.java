@@ -64,4 +64,28 @@ public class PGRComplaintResource {
 
         return response;
     }
+
+    public Response getFetchComplaint(){
+
+        new APILogger().log("Fetch all Complaints request is started -- ");
+
+        Response response = given().request().with()
+                .urlEncodingEnabled(true)
+                .when()
+                .get(Properties.serverUrl + Properties.fetchComplaintsUrl);
+
+        return response;
+    }
+
+    public Response getFrequentlyFilledComplaints(int count){
+
+        new APILogger().log("Get Frequently filled Complaints request is started -- ");
+
+        Response response = given().request().with()
+                .urlEncodingEnabled(true)
+                .when()
+                .get(Properties.serverUrl + Properties.frequentlyFilledComplaintsUrl + count + "&tenantId=ap.public");
+
+        return response;
+    }
 }

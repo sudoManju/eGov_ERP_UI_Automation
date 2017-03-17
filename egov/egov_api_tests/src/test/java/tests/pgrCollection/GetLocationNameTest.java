@@ -18,7 +18,7 @@ import java.util.List;
 
 public class GetLocationNameTest extends BaseAPITest{
 
-    @Test(groups = { Categories.LOCATION , Categories.SANITY })
+    @Test(groups = { Categories.PGR , Categories.SANITY })
     public void getParticularLocationName() throws IOException{
 
         Response response = new PGRComplaintResource().getParticularLocationName("konda peta");
@@ -31,7 +31,7 @@ public class GetLocationNameTest extends BaseAPITest{
         new APILogger().log("Location details with name is obtained --");
     }
 
-    @Test(groups = { Categories.LOCATION , Categories.SANITY })
+    @Test(groups = { Categories.PGR , Categories.SANITY })
     public void invalidLocationName() throws IOException{
 
         Response response = new PGRComplaintResource().getParticularLocationName("vinay");
@@ -44,7 +44,7 @@ public class GetLocationNameTest extends BaseAPITest{
         new APILogger().log("Location details with name is not obtained --");
     }
 
-    @Test(groups = { Categories.LOCATION , Categories.SANITY })
+    @Test(groups = { Categories.PGR , Categories.SANITY })
     public void getAllLocationNames() throws IOException{
 
         Response response = new PGRComplaintResource().getAllLocationNames();

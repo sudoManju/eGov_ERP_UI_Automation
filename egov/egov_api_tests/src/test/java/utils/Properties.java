@@ -16,4 +16,7 @@ public class Properties {
 
     public static final String locationNameUrl = propertiesReader.getLocationNameUrl();
 
+    public static final String fetchComplaintsUrl = propertiesReader.getFetchComplaintsUrl();
+
+    public static final String frequentlyFilledComplaintsUrl = propertiesReader.getFrequentlyFilledComplaintstUrl();
 }
