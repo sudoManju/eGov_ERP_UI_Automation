@@ -1,5 +1,6 @@
 package steps.collections;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.collections.PaymentMethod;
 import excelDataFiles.CollectionsDataReader;
@@ -51,6 +52,9 @@ public class MiscellaneousSteps extends BaseSteps implements En {
 
             String actualMessage = pageStore.get(MiscellaneousPage.class).successMessageOfRemittance();
             scenarioContext.setActualMessage(actualMessage);
+        });
+        And("^user will notified by payment receipt as url (.*)$", (String name) -> {
+            pageStore.get(MiscellaneousPage.class).checkPaymentPage(name);
         });
     }
 }

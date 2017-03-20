@@ -10,6 +10,7 @@ Feature: Create/Collect/Remit/Cancel Miscellaneous Receipt
     And he enters Miscellaneous header
 
     And he pays using <paymentMethod>
+    And user will notified by payment receipt as url receipts
     And current user closes acknowledgement
     And current user logs out
 

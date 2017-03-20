@@ -270,4 +270,11 @@ public class MiscellaneousPage extends BasePage {
     public String successMessageOfRemittance() {
         return successMessageTextOfRemittance.getText();
     }
+
+    public void checkPaymentPage(String applicationNumber) {
+
+        boolean isOk = driver.getCurrentUrl().split("/")[4].equals(applicationNumber);
+        if(isOk){System.out.println("Fine");}
+        else{System.out.println("Not Done");}
+    }
 }
