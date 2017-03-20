@@ -115,7 +115,7 @@ public class CollectionsPage extends BasePage {
     @FindBy(id = "challan.challanNumber")
     private WebElement challanNumber;
 
-    @FindBy(xpath = ".//*[@id='actionMessages']/ul/li/span")
+    @FindBy(id="actionMessages")
     private WebElement creationMsg;
 
     @FindBy(xpath = ".//*[@id='buttonclose2']")
