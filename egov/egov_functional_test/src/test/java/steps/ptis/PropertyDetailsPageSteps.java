@@ -110,5 +110,8 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
             AssessmentDetails bifurcationDetails = new PTISDataReader(ptisTestDataFileName).getbifurcationDetails(bifurcationAssessmentNo);
             pageStore.get(PropertyDetailsPage.class).enterBifurcationAssessmentNo(bifurcationDetails);
         });
+        And("^he click on floors Details entered$", () -> {
+           pageStore.get(PropertyDetailsPage.class).clickOnFloorDetailsCheckBox();
+        });
     }
 }

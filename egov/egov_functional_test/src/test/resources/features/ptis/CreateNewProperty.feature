@@ -19,6 +19,7 @@ Feature: Create New Property
     And he enters amenities as <amenitiesDetails>
     And he enters construction type details as <constructionTypeDetails>
     And he enters floor details as <floorDetails>
+    And he click on floors Details entered
     And he enters document type details as <documentDetails>
     And he forwards for approval to billCollector
     And he will copy the acknowledgement message with assessment number createProperty-create
@@ -228,6 +229,7 @@ Feature: Create New Property
     And he enters amenities as <amenitiesDetails>
     And he enters construction type details as <constructionTypeDetails>
     And he enters floor details as <floorDetails>
+    And he click on floors Details entered
     And he enters document type details as <documentDetails>
     And he forwards for approval to billCollector
     And he will copy the acknowledgement message with assessment number createProperty-create
@@ -616,6 +618,7 @@ Feature: Create New Property
     And he enters amenities as <amenitiesDetails>
     And he enters construction type details as <constructionTypeDetails>
     And he enters floor details as <floorDetails>
+    And he click on floors Details entered
     And he enters document type details as <documentDetails>
     And he forwards for approval to billCollector
     And he will copy the acknowledgement message with assessment number createProperty-create
@@ -625,7 +628,7 @@ Feature: Create New Property
 
     And he forwards for approval to billCollector
     And he will copy the acknowledgement message with assessment number modifyProperty-forward
-    Then user will be notified by "successfully"
+    Then user will be notified by "Successfully"
     And current user logs out
 
     When billCollector logs in
@@ -714,6 +717,6 @@ Feature: Create New Property
     And he chooses to act upon above application number
     And he approved the property with remarks "vacancy remission approved"
     And current user closes tax exemption acknowledgement
-    Then user will be notified by "successfully"
+    Then user will be notified by "Successfully"
     And current user logs out
 

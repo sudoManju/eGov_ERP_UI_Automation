@@ -310,6 +310,12 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(name = "propertyDetail.floorDetailsProxy[0].constructionDate")
     private WebElement constructionDate;
 
+    @FindBy(id = "floorDetailsEntered")
+    private WebElement floorDetailsEnteredCheckBox;
+
+    @FindBy(id = "createProperty-create_documents_4__uploads")
+    private WebElement PhotoOfAssessment;
+
     public PropertyDetailsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -386,10 +392,17 @@ public class PropertyDetailsPage extends BasePage {
         enterText(plinthAreaInBuildingPlanTextBox, floorDetails.getPlinthAreaInBuildingPlan(), webDriver);
     }
 
+    public void clickOnFloorDetailsCheckBox() {
+        jsClickCheckbox(floorDetailsEnteredCheckBox, webDriver);
+    }
+
     public void selectDocumentType(DocumentTypeValue documentValue) {
         selectFromDropDown(documentTypeDropBox, documentValue.getDocumentType(), webDriver);
         enterText(deedNoTextBox, documentValue.getDeedNo(), webDriver);
         enterDate(DeedDateDateBox, documentValue.getDeedDate(), webDriver);
+        uploadFile(PhotoOfAssessment, System.getProperty("user.dir") + "/src/test/resources/dataFiles/PTISTestData.xlsx", webDriver);
+
+
     }
 
     public void forward() {
@@ -553,4 +566,6 @@ public class PropertyDetailsPage extends BasePage {
         enterText(bifurcationAssessmentNo, bifurcationDetails.getParentAssessmentNo(), webDriver);
         clickOnButton(searchButton, webDriver);
     }
+
+
 }
