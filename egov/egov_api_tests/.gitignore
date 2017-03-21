@@ -13,7 +13,11 @@ hs_err_pid*
 
 # Created by .ignore support plugin (hsz.mobi)
 
-build
+build/
 .idea
 .gradle
 /out
+gradle
+classes
+.DS_Store
+.iml

@@ -1,34 +1,34 @@
 package entities.responses.assetManagement.assetService;
 
 public class AssetCategory {
-    private Object unitOfMeasurement;
-    private Object parent;
+    private String unitOfMeasurement;
+    private String parent;
     private String code;
-    private Object assetAccount;
+    private String assetAccount;
     private String depreciationMethod;
-    private Object customFields;
+    private String customFields;
     private String assetCategoryType;
-    private Object depreciationExpenseAccount;
-    private Object revaluationReserveAccount;
-    private Object tenantId;
+    private String depreciationExpenseAccount;
+    private String revaluationReserveAccount;
+    private String tenantId;
     private String name;
     private int id;
-    private Object depreciationRate;
-    private Object accumulatedDepreciationAccount;
+    private String depreciationRate;
+    private String accumulatedDepreciationAccount;
 
-    public Object getUnitOfMeasurement() {
+    public String getUnitOfMeasurement() {
         return this.unitOfMeasurement;
     }
 
-    public void setUnitOfMeasurement(Object unitOfMeasurement) {
+    public void setUnitOfMeasurement(String unitOfMeasurement) {
         this.unitOfMeasurement = unitOfMeasurement;
     }
 
-    public Object getParent() {
+    public String getParent() {
         return this.parent;
     }
 
-    public void setParent(Object parent) {
+    public void setParent(String parent) {
         this.parent = parent;
     }
 
@@ -40,11 +40,11 @@ public class AssetCategory {
         this.code = code;
     }
 
-    public Object getAssetAccount() {
+    public String getAssetAccount() {
         return this.assetAccount;
     }
 
-    public void setAssetAccount(Object assetAccount) {
+    public void setAssetAccount(String assetAccount) {
         this.assetAccount = assetAccount;
     }
 
@@ -56,11 +56,11 @@ public class AssetCategory {
         this.depreciationMethod = depreciationMethod;
     }
 
-    public Object getCustomFields() {
+    public String getCustomFields() {
         return this.customFields;
     }
 
-    public void setCustomFields(Object customFields) {
+    public void setCustomFields(String customFields) {
         this.customFields = customFields;
     }
 
@@ -72,27 +72,27 @@ public class AssetCategory {
         this.assetCategoryType = assetCategoryType;
     }
 
-    public Object getDepreciationExpenseAccount() {
+    public String getDepreciationExpenseAccount() {
         return this.depreciationExpenseAccount;
     }
 
-    public void setDepreciationExpenseAccount(Object depreciationExpenseAccount) {
+    public void setDepreciationExpenseAccount(String depreciationExpenseAccount) {
         this.depreciationExpenseAccount = depreciationExpenseAccount;
     }
 
-    public Object getRevaluationReserveAccount() {
+    public String getRevaluationReserveAccount() {
         return this.revaluationReserveAccount;
     }
 
-    public void setRevaluationReserveAccount(Object revaluationReserveAccount) {
+    public void setRevaluationReserveAccount(String revaluationReserveAccount) {
         this.revaluationReserveAccount = revaluationReserveAccount;
     }
 
-    public Object getTenantId() {
+    public String getTenantId() {
         return this.tenantId;
     }
 
-    public void setTenantId(Object tenantId) {
+    public void setTenantId(String tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -112,19 +112,19 @@ public class AssetCategory {
         this.id = id;
     }
 
-    public Object getDepreciationRate() {
+    public String getDepreciationRate() {
         return this.depreciationRate;
     }
 
-    public void setDepreciationRate(Object depreciationRate) {
+    public void setDepreciationRate(String depreciationRate) {
         this.depreciationRate = depreciationRate;
     }
 
-    public Object getAccumulatedDepreciationAccount() {
+    public String getAccumulatedDepreciationAccount() {
         return this.accumulatedDepreciationAccount;
     }
 
-    public void setAccumulatedDepreciationAccount(Object accumulatedDepreciationAccount) {
+    public void setAccumulatedDepreciationAccount(String accumulatedDepreciationAccount) {
         this.accumulatedDepreciationAccount = accumulatedDepreciationAccount;
     }
 }

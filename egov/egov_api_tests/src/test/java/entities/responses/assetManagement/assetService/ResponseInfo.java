@@ -1,58 +1,58 @@
 package entities.responses.assetManagement.assetService;
 
 public class ResponseInfo {
-    private Object ver;
-    private Object resMsgId;
-    private Object msgId;
-    private Object apiId;
-    private Object ts;
-    private Object status;
+    private String ver;
+    private String resMsgId;
+    private String msgId;
+    private String apiId;
+    private String ts;
+    private String status;
 
-    public Object getVer() {
+    public String getVer() {
         return this.ver;
     }
 
-    public void setVer(Object ver) {
+    public void setVer(String ver) {
         this.ver = ver;
     }
 
-    public Object getResMsgId() {
+    public String getResMsgId() {
         return this.resMsgId;
     }
 
-    public void setResMsgId(Object resMsgId) {
+    public void setResMsgId(String resMsgId) {
         this.resMsgId = resMsgId;
     }
 
-    public Object getMsgId() {
+    public String getMsgId() {
         return this.msgId;
     }
 
-    public void setMsgId(Object msgId) {
+    public void setMsgId(String msgId) {
         this.msgId = msgId;
     }
 
-    public Object getApiId() {
+    public String getApiId() {
         return this.apiId;
     }
 
-    public void setApiId(Object apiId) {
+    public void setApiId(String apiId) {
         this.apiId = apiId;
     }
 
-    public Object getTs() {
+    public String getTs() {
         return this.ts;
     }
 
-    public void setTs(Object ts) {
+    public void setTs(String ts) {
         this.ts = ts;
     }
 
-    public Object getStatus() {
+    public String getStatus() {
         return this.status;
     }
 
-    public void setStatus(Object status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }

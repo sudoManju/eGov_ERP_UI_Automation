@@ -1,23 +1,23 @@
 package entities.responses.assetManagement.assetService;
 
 public class Department {
-    private Object code;
-    private Object name;
+    private String code;
+    private String name;
     private int id;
 
-    public Object getCode() {
+    public String getCode() {
         return this.code;
     }
 
-    public void setCode(Object code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
-    public Object getName() {
+    public String getName() {
         return this.name;
     }
 
-    public void setName(Object name) {
+    public void setName(String name) {
         this.name = name;
     }
 

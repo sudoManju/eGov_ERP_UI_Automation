@@ -6,10 +6,10 @@ public class Assets {
     private String length;
     private String description;
     private String modeOfAcquisition;
-    private Object accumulatedDepreciation;
+    private String accumulatedDepreciation;
     private String dateOfCreation;
     private String assetDetails;
-    private Object grossValue;
+    private String grossValue;
     private String tenantId;
     private String name;
     private LocationDetails locationDetails;
@@ -61,11 +61,11 @@ public class Assets {
         this.modeOfAcquisition = modeOfAcquisition;
     }
 
-    public Object getAccumulatedDepreciation() {
+    public String getAccumulatedDepreciation() {
         return this.accumulatedDepreciation;
     }
 
-    public void setAccumulatedDepreciation(Object accumulatedDepreciation) {
+    public void setAccumulatedDepreciation(String accumulatedDepreciation) {
         this.accumulatedDepreciation = accumulatedDepreciation;
     }
 
@@ -85,11 +85,11 @@ public class Assets {
         this.assetDetails = assetDetails;
     }
 
-    public Object getGrossValue() {
+    public String getGrossValue() {
         return this.grossValue;
     }
 
-    public void setGrossValue(Object grossValue) {
+    public void setGrossValue(String grossValue) {
         this.grossValue = grossValue;
     }
 
