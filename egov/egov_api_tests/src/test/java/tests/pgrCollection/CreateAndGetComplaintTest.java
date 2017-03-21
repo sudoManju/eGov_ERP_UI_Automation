@@ -1,6 +1,6 @@
 package tests.pgrCollection;
 
-import builders.ComplaintRequestBuilder;
+import builders.pgrCollection.ComplaintRequestBuilder;
 import com.jayway.restassured.response.Response;
 import entities.responses.login.LoginResponse;
 import entities.responses.pgrCollections.createComplaint.ComplaintResponse;

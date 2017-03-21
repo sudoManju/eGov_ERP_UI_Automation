@@ -1,6 +1,6 @@
 package tests;
 
-import builders.LoginRequestBuilder;
+import builders.login.LoginRequestBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.login.LoginRequest;
 import entities.responses.login.LoginResponse;

@@ -1,4 +1,4 @@
-package builders;
+package builders.login;
 
 import entities.requests.login.LoginRequest;
 

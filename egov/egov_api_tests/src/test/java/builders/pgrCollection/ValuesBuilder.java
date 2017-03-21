@@ -1,4 +1,4 @@
-package builders;
+package builders.pgrCollection;
 
 import entities.requests.pgrCollections.createComplaint.Values;
 
