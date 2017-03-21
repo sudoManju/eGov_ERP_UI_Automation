@@ -17,7 +17,7 @@ build/
 .idea
 .gradle
 /out
-gradle
+gradle/
 classes
 .DS_Store
 .iml
