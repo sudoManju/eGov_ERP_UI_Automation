@@ -7,4 +7,5 @@ public class Categories {
     public static final String WIP = "wip";
     public static final String LOGIN = "login";
     public static final String PGR = "pgr";
+    public static final String EIS = "hr";
 }
