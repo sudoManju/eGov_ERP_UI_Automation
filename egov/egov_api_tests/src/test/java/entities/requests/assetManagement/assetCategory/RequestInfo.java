@@ -1,4 +1,4 @@
-package entities.requests.AssetManagement;
+package entities.requests.assetManagement.assetCategory;
 
 public class RequestInfo
 {

@@ -1,8 +1,8 @@
-package tests.AssetManagement;
+package tests.assetManagement;
 
-import builders.AssetManagement.RequestInfoBuilder;
+import builders.assetManagement.RequestInfoBuilder;
 import com.jayway.restassured.response.Response;
-import entities.requests.AssetManagement.RequestInfo;
+import entities.requests.assetManagement.assetCategory.RequestInfo;
 import org.junit.Assert;
 import org.testng.annotations.Test;
 import resources.AssetServices;

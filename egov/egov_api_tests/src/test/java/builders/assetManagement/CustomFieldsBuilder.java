@@ -1,6 +1,6 @@
-package builders.AssetManagement;
+package builders.assetManagement;
 
-import entities.requests.AssetManagement.CustomFields;
+import entities.requests.assetManagement.assetCategory.CustomFields;
 
 public final class CustomFieldsBuilder {
     CustomFields customFields = new CustomFields();

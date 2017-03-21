@@ -1,7 +1,7 @@
-package builders.AssetManagement;
+package builders.assetManagement;
 
-import entities.requests.AssetManagement.AssetCategory;
-import entities.requests.AssetManagement.CustomFields;
+import entities.requests.assetManagement.assetCategory.AssetCategory;
+import entities.requests.assetManagement.assetCategory.CustomFields;
 
 public final class AssetCategoryBuilder {
     AssetCategory assetCategory = new AssetCategory();
