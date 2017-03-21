@@ -1,30 +1,25 @@
 package entities.requests.assetManagement.assetCategory;
 
+import entities.requests.assetManagement.RequestInfo;
 
-public class AssetCategoryCreateRequest
-{
+public class AssetCategoryCreateRequest {
     private AssetCategory AssetCategory;
 
     private RequestInfo RequestInfo;
 
-    public AssetCategory getAssetCategory ()
-    {
+    public AssetCategory getAssetCategory() {
         return AssetCategory;
     }
 
-    public void setAssetCategory (AssetCategory AssetCategory)
-    {
+    public void setAssetCategory(AssetCategory AssetCategory) {
         this.AssetCategory = AssetCategory;
     }
 
-    public RequestInfo getRequestInfo ()
-    {
+    public RequestInfo getRequestInfo() {
         return RequestInfo;
     }
 
-    public void setRequestInfo (RequestInfo RequestInfo)
-    {
+    public void setRequestInfo(RequestInfo RequestInfo) {
         this.RequestInfo = RequestInfo;
     }
-
 }

@@ -1,8 +1,8 @@
-package builders.assetManagement;
+package builders.assetManagement.assetCategory;
 
 import entities.requests.assetManagement.assetCategory.AssetCategory;
 import entities.requests.assetManagement.assetCategory.AssetCategoryCreateRequest;
-import entities.requests.assetManagement.assetCategory.RequestInfo;
+import entities.requests.assetManagement.RequestInfo;
 
 public class AssetCategoryCreateRequestBuilder {
 

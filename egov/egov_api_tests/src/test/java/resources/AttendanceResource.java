@@ -5,9 +5,6 @@ import utils.Properties;
 
 import static com.jayway.restassured.RestAssured.given;
 
-/**
- * Created by manjunatha-lap on 17/03/2017.
- */
 public class AttendanceResource {
 
     public Response post(String jsonData)

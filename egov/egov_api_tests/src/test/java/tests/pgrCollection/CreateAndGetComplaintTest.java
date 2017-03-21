@@ -5,7 +5,7 @@ import com.jayway.restassured.response.Response;
 import entities.responses.login.LoginResponse;
 import entities.responses.pgrCollections.createComplaint.ComplaintResponse;
 import entities.responses.pgrCollections.getComplaint.GetPGRComplaintResponse;
-import entities.requests.pgrCollections.createComplaint.ComplaintRequest;
+import entities.requests.pgrCollections.ComplaintRequest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.PGRComplaintResource;

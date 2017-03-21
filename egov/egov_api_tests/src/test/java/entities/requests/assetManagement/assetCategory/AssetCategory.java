@@ -1,7 +1,6 @@
 package entities.requests.assetManagement.assetCategory;
 
-public class AssetCategory
-{
+public class AssetCategory {
     private String assetCategoryType;
 
     private String tenantId;
@@ -26,73 +25,59 @@ public class AssetCategory
 
     private String assetAccount;
 
-    public String getAssetCategoryType ()
-    {
+    public String getAssetCategoryType() {
         return assetCategoryType;
     }
 
-    public void setAssetCategoryType (String assetCategoryType)
-    {
+    public void setAssetCategoryType(String assetCategoryType) {
         this.assetCategoryType = assetCategoryType;
     }
 
-    public String getTenantId ()
-    {
+    public String getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId (String tenantId)
-    {
+    public void setTenantId(String tenantId) {
         this.tenantId = tenantId;
     }
 
-    public String[] getDepreciationRate ()
-    {
+    public String[] getDepreciationRate() {
         return depreciationRate;
     }
 
-    public void setDepreciationRate (String[] depreciationRate)
-    {
+    public void setDepreciationRate(String[] depreciationRate) {
         this.depreciationRate = depreciationRate;
     }
 
-    public String getDepreciationMethod ()
-    {
+    public String getDepreciationMethod() {
         return depreciationMethod;
     }
 
-    public void setDepreciationMethod (String depreciationMethod)
-    {
+    public void setDepreciationMethod(String depreciationMethod) {
         this.depreciationMethod = depreciationMethod;
     }
 
-    public String getUnitOfMeasurement ()
-    {
+    public String getUnitOfMeasurement() {
         return unitOfMeasurement;
     }
 
-    public void setUnitOfMeasurement (String unitOfMeasurement)
-    {
+    public void setUnitOfMeasurement(String unitOfMeasurement) {
         this.unitOfMeasurement = unitOfMeasurement;
     }
 
-    public String getRevaluationReserveAccount ()
-    {
+    public String getRevaluationReserveAccount() {
         return revaluationReserveAccount;
     }
 
-    public void setRevaluationReserveAccount (String revaluationReserveAccount)
-    {
+    public void setRevaluationReserveAccount(String revaluationReserveAccount) {
         this.revaluationReserveAccount = revaluationReserveAccount;
     }
 
-    public String getAccumulatedDepreciationAccount ()
-    {
+    public String getAccumulatedDepreciationAccount() {
         return accumulatedDepreciationAccount;
     }
 
-    public void setAccumulatedDepreciationAccount (String accumulatedDepreciationAccount)
-    {
+    public void setAccumulatedDepreciationAccount(String accumulatedDepreciationAccount) {
         this.accumulatedDepreciationAccount = accumulatedDepreciationAccount;
     }
 
@@ -101,48 +86,39 @@ public class AssetCategory
         return customFields;
     }
 
-    public void setCustomFields (CustomFields[] customFields)
-    {
+    public void setCustomFields(CustomFields[] customFields) {
         this.customFields = customFields;
     }
 
-    public String getDepreciationExpenseAccount ()
-    {
+    public String getDepreciationExpenseAccount() {
         return depreciationExpenseAccount;
     }
 
-    public void setDepreciationExpenseAccount (String depreciationExpenseAccount)
-    {
+    public void setDepreciationExpenseAccount(String depreciationExpenseAccount) {
         this.depreciationExpenseAccount = depreciationExpenseAccount;
     }
 
-    public String getName ()
-    {
+    public String getName() {
         return name;
     }
 
-    public void setName (String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getParent ()
-    {
+    public String getParent() {
         return parent;
     }
 
-    public void setParent (String parent)
-    {
+    public void setParent(String parent) {
         this.parent = parent;
     }
 
-    public String getAssetAccount ()
-    {
+    public String getAssetAccount() {
         return assetAccount;
     }
 
-    public void setAssetAccount (String assetAccount)
-    {
+    public void setAssetAccount(String assetAccount) {
         this.assetAccount = assetAccount;
     }
 

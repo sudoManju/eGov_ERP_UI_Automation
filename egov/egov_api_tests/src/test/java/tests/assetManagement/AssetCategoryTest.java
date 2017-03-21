@@ -1,7 +1,7 @@
 package tests.assetManagement;
 
 
-import builders.assetManagement.AssetCategoryCreateRequestBuilder;
+import builders.assetManagement.assetCategory.AssetCategoryCreateRequestBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.assetManagement.assetCategory.AssetCategoryCreateRequest;
 import org.testng.annotations.Test;

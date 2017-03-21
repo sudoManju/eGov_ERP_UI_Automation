@@ -1,4 +1,4 @@
-package builders.assetManagement;
+package builders.assetManagement.assetCategory;
 
 import entities.requests.assetManagement.assetCategory.AssetCategory;
 import entities.requests.assetManagement.assetCategory.CustomFields;

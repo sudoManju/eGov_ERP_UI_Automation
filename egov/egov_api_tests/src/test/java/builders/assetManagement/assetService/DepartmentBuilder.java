@@ -6,7 +6,7 @@ public final class DepartmentBuilder {
 
     Department department = new Department();
 
-    private DepartmentBuilder() {
+    public DepartmentBuilder() {
         department.setId(2);
         department.setName(null);
         department.setCode(null);

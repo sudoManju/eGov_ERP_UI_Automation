@@ -1,4 +1,4 @@
-package entities.requests.pgrCollections.createComplaint;
+package entities.requests.pgrCollections;
 
 public class Values {
     private String child_location_id;

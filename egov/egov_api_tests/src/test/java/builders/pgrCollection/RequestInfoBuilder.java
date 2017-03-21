@@ -1,6 +1,6 @@
 package builders.pgrCollection;
 
-import entities.requests.pgrCollections.createComplaint.RequestInfo;
+import entities.requests.pgrCollections.RequestInfo;
 
 public final class RequestInfoBuilder {
     RequestInfo requestInfo = new RequestInfo();

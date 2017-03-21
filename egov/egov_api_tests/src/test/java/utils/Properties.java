@@ -27,4 +27,6 @@ public class Properties {
     public static final String assetCategoryCreateUrl = propertiesReader.getAssetCategoryCreateUrl();
 
     public static final String searchAttendanceUrl = propertiesReader.getSearchAttendanceUrl();
+
+    public static final String createAssetServiceUrl = propertiesReader.getCreateAssetServiceUrl();
 }

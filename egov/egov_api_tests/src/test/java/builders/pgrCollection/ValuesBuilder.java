@@ -1,6 +1,6 @@
 package builders.pgrCollection;
 
-import entities.requests.pgrCollections.createComplaint.Values;
+import entities.requests.pgrCollections.Values;
 
 public final class ValuesBuilder {
 

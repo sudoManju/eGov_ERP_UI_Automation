@@ -1,6 +1,6 @@
-package builders.assetManagement;
+package builders.assetManagement.assetCategory;
 
-import entities.requests.assetManagement.assetCategory.RequestInfo;
+import entities.requests.assetManagement.RequestInfo;
 
 public class RequestInfoBuilder {
 

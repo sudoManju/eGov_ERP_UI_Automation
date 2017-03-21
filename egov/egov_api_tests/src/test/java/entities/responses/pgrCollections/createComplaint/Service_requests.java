@@ -1,7 +1,7 @@
 package entities.responses.pgrCollections.createComplaint;
 
 
-import entities.requests.pgrCollections.createComplaint.Values;
+import entities.requests.pgrCollections.Values;
 
 public class Service_requests {
     private String tenantId;

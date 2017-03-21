@@ -6,7 +6,7 @@ public final class LocationDetailsBuilder {
 
     LocationDetails locationDetails = new LocationDetails();
 
-    private LocationDetailsBuilder() {
+    public LocationDetailsBuilder() {
         locationDetails.setLocality(1);
         locationDetails.setZone(null);
         locationDetails.setRevenueWard(null);

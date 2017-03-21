@@ -1,4 +1,4 @@
-package entities.requests.pgrCollections.createComplaint;
+package entities.requests.pgrCollections;
 
 
 public class ServiceRequest {
