@@ -14,7 +14,7 @@ public class AssetCategoryResource {
                            .header("auth-token", "bedb20fb-7d74-445e-94cc-6a64e825d509")
                            .body(json)
                            .when()
-                           .post(Properties.assetCategoryCreateUrl);
+                           .post(Properties.devServerUrl+Properties.assetCategoryCreateUrl);
 
         return response;
     }

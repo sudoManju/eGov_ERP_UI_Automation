@@ -3,6 +3,7 @@ package builders.assetManagement;
 import entities.requests.assetManagement.assetCategory.RequestInfo;
 
 public class RequestInfoBuilder {
+
     RequestInfo requestInfo = new RequestInfo();
 
     public RequestInfoBuilder(){
@@ -65,4 +66,6 @@ public class RequestInfoBuilder {
     public RequestInfo build(){
         return requestInfo;
     }
+
+
 }

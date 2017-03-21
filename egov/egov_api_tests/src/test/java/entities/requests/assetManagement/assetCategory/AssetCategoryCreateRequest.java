@@ -1,7 +1,7 @@
 package entities.requests.assetManagement.assetCategory;
 
 
-public class AssetCategotyCreateRequest
+public class AssetCategoryCreateRequest
 {
     private AssetCategory AssetCategory;
 
