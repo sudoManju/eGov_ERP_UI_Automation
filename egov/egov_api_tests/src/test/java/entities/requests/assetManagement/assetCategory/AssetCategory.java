@@ -1,5 +1,7 @@
 package entities.requests.assetManagement.assetCategory;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 public class AssetCategory {
     private String assetCategoryType;
 
@@ -15,6 +17,7 @@ public class AssetCategory {
 
     private String accumulatedDepreciationAccount;
 
+    @JsonProperty("CustomFields")
     private CustomFields[] customFields;
 
     private String depreciationExpenseAccount;

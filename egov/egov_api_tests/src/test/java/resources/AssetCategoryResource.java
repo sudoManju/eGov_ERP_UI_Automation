@@ -18,4 +18,16 @@ public class AssetCategoryResource {
 
         return response;
     }
+
+    public Response search(String jsonString) {
+
+        Response response = given().request().with()
+                            .header("Content-Type", "application/json")
+                            .header("auth-token", "bedb20fb-7d74-445e-94cc-6a64e825d509")
+                            .body(jsonString)
+                            .when()
+                            .post(Properties.devServerUrl+Properties.assetCategorySearchUrl);
+
+        return response;
+    }
 }
