@@ -53,5 +53,13 @@ public class PropertiesReader {
     public String getFrequentlyFilledComplaintstUrl() {
         return prop.getProperty("frequentlyFilledComplaintsUrl");
     }
+
+    public String getSearchAssetServiceUrl() {
+        return prop.getProperty("searchAssetService");
+    }
+
+    public String getDevServerUrl() {
+        return prop.getProperty("devServerUrl");
+    }
 }
 

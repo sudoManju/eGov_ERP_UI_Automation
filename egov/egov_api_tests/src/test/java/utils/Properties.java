@@ -19,4 +19,9 @@ public class Properties {
     public static final String fetchComplaintsUrl = propertiesReader.getFetchComplaintsUrl();
 
     public static final String frequentlyFilledComplaintsUrl = propertiesReader.getFrequentlyFilledComplaintstUrl();
+
+    public static final String searchAssetServiceUrl = propertiesReader.getSearchAssetServiceUrl();
+
+    public static final String devServerUrl = propertiesReader.getDevServerUrl();
+
 }

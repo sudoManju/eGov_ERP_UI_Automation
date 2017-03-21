@@ -8,7 +8,7 @@ import static com.jayway.restassured.RestAssured.given;
 
 public class AssetServices {
 
-    public Response searchAssetService(String json){
+    public Response getSearchAssetService(String json){
 
         new APILogger().log("Searching the Asset Service  -- ");
         Response response = given().request().with()
@@ -16,7 +16,7 @@ public class AssetServices {
                 .header("auth-token","bedb20fb-7d74-445e-94cc-6a64e825d509")
                 .body(json)
                 .when()
-                .post(Properties.serverUrl + Properties.complaintUrl);
+                .post(Properties.devServerUrl + Properties.searchAssetServiceUrl);
 
         return response;
     }
