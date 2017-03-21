@@ -1,11 +1,14 @@
 package entities.requests.assetManagement.assetService;
 
 import entities.requests.assetManagement.RequestInfo;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 public class CreateAssetServiceRequest {
 
+    @JsonProperty("RequestInfo")
     private RequestInfo RequestInfo;
 
+    @JsonProperty("Asset")
     private Asset Asset;
 
     public Asset getAsset ()

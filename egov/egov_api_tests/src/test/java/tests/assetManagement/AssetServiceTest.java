@@ -5,7 +5,7 @@ import builders.assetManagement.assetService.CreateAssetServiceRequestBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.assetManagement.RequestInfo;
 import entities.requests.assetManagement.assetService.CreateAssetServiceRequest;
-import entities.responses.assetManagement.assetService.SearchAssetServiceResponse;
+import entities.responses.assetManagement.assetService.AssetServiceResponse;
 import org.junit.Assert;
 import org.testng.annotations.Test;
 import resources.AssetServices;
@@ -22,25 +22,17 @@ public class AssetServiceTest extends BaseAPITest{
     public void searchAssetService() throws IOException {
 
         RequestInfo requestInfo = new RequestInfoBuilder()
-                .withApiId(null)
-                .withVer(null)
-                .withTs(null)
-                .withAction(null)
-                .withDid(null)
-                .withKey(null)
-                .withMsgId(null)
                 .withRequesterId("Ghanshyam")
-                .withAuthToken(null)
                 .build();
 
         String jsonString = RequestHelper.getJsonString(requestInfo);
         Response response = new AssetServices().getSearchAssetService(jsonString);
 
-        SearchAssetServiceResponse searchAssetServiceResponse = (SearchAssetServiceResponse)
-                ResponseHelper.getResponseAsObject(response.asString(), SearchAssetServiceResponse.class);
+        AssetServiceResponse assetServiceResponse = (AssetServiceResponse)
+                ResponseHelper.getResponseAsObject(response.asString(), AssetServiceResponse.class);
 
         Assert.assertEquals(response.getStatusCode() , 200);
-        Assert.assertEquals(searchAssetServiceResponse.getAssets()[0].getAssetDetails() , "Asset details");
+        Assert.assertEquals(assetServiceResponse.getAssets()[0].getAssetDetails() , "Asset details");
 
         new APILogger().log("Found the Asset Service  -- ");
     }
@@ -54,8 +46,10 @@ public class AssetServiceTest extends BaseAPITest{
         String jsonString = RequestHelper.getJsonString(createAssetServiceRequest);
         Response response = new AssetServices().getCreateAssetService(jsonString);
 
-        System.out.println("========="+jsonString);
-//        Assert.assertEquals(response.getStatusCode(), 201);
-    }
+        AssetServiceResponse assetServiceResponse = (AssetServiceResponse)
+                ResponseHelper.getResponseAsObject(response.asString(), AssetServiceResponse.class);
 
+        Assert.assertEquals(assetServiceResponse.getAssets()[0].getName() ,createAssetServiceRequest.getAsset().getName() );
+        Assert.assertEquals(response.getStatusCode(), 201);
+    }
 }

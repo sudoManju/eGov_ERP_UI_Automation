@@ -4,6 +4,8 @@ import com.jayway.restassured.response.Response;
 import utils.APILogger;
 import utils.Properties;
 
+import java.util.Map;
+
 import static com.jayway.restassured.RestAssured.given;
 
 public class AssetServices {
