@@ -16,7 +16,7 @@ public class AssetCategory
 
     private String accumulatedDepreciationAccount;
 
-    private CustomFields[] customFields;
+    private CustomFields customFields;
 
     private String depreciationExpenseAccount;
 
@@ -96,12 +96,12 @@ public class AssetCategory
         this.accumulatedDepreciationAccount = accumulatedDepreciationAccount;
     }
 
-    public CustomFields[] getCustomFields ()
+    public CustomFields getCustomFields ()
     {
         return customFields;
     }
 
-    public void setCustomFields (CustomFields[] customFields)
+    public void setCustomFields (CustomFields customFields)
     {
         this.customFields = customFields;
     }
