@@ -103,5 +103,8 @@ public class TradeLicenseSteps extends BaseSteps implements En {
         And("^he copy trade license number$", () -> {
             scenarioContext.setApplicationNumber(pageStore.get(TradeLicensePage.class).getLicenseNumber());
         });
+        And("^he changes trade area as \"([^\"]*)\"$", (String tradeArea) -> {
+            pageStore.get(TradeLicensePage.class).changeTradeArea(tradeArea);
+        });
     }
 }

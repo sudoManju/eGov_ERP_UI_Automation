@@ -371,5 +371,9 @@ public class TradeLicensePage extends BasePage {
         clickOnButton(searchButton, webDriver);
         return actMsg;
     }
+
+    public void changeTradeArea(String tradeArea) {
+        enterText(TradeAreaWeightOfPremises, tradeArea, webDriver);
+    }
 }
 
