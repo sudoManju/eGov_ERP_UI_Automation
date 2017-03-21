@@ -1,4 +1,4 @@
-package builders.assetManagement.assetCategory;
+package builders.assetManagement;
 
 import entities.requests.assetManagement.RequestInfo;
 

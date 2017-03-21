@@ -1,5 +1,6 @@
 package builders.assetManagement.assetCategory;
 
+import builders.assetManagement.RequestInfoBuilder;
 import entities.requests.assetManagement.assetCategory.AssetCategory;
 import entities.requests.assetManagement.assetCategory.AssetCategoryCreateRequest;
 import entities.requests.assetManagement.RequestInfo;

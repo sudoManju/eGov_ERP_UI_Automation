@@ -1,6 +1,6 @@
 package builders.assetManagement.assetService;
 
-import builders.assetManagement.assetCategory.RequestInfoBuilder;
+import builders.assetManagement.RequestInfoBuilder;
 import entities.requests.assetManagement.RequestInfo;
 import entities.requests.assetManagement.assetService.Asset;
 import entities.requests.assetManagement.assetService.CreateAssetServiceRequest;

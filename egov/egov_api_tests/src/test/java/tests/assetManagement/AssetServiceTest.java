@@ -1,6 +1,6 @@
 package tests.assetManagement;
 
-import builders.assetManagement.assetCategory.RequestInfoBuilder;
+import builders.assetManagement.RequestInfoBuilder;
 import builders.assetManagement.assetService.CreateAssetServiceRequestBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.assetManagement.RequestInfo;
