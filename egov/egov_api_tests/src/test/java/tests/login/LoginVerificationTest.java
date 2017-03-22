@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class LoginVerificationTest extends BaseAPITest {
 
-    @Test(groups = { Categories.LOGIN, Categories.SANITY })
+    @Test(groups = { Categories.SANITY })
     public void shouldAllowLoginAndLogoutToAnExistingUser() throws IOException {
 
         // Login Test
@@ -27,7 +27,7 @@ public class LoginVerificationTest extends BaseAPITest {
         logoutTestMethod(loginResponse);
     }
 
-    @Test(groups = { Categories.LOGIN, Categories.SANITY })
+    @Test(groups = { Categories.SANITY })
     public void shouldNotAllowLogoutWithInvalidCredentials() throws IOException {
 
         // Login Test
@@ -45,7 +45,7 @@ public class LoginVerificationTest extends BaseAPITest {
         new APILogger().log("Logout Failed is Completed -- ");
     }
 
-    @Test(groups = { Categories.LOGIN, Categories.SANITY })
+    @Test(groups = { Categories.SANITY })
     public void shouldNotAllowLoginWithInvalidCredentials() throws IOException {
         LoginRequest request = new LoginRequestBuilder().withPassword("").build();
 

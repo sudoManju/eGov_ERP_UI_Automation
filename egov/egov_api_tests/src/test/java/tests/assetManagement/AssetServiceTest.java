@@ -17,7 +17,7 @@ import java.io.IOException;
 
 public class AssetServiceTest extends BaseAPITest{
 
-    @Test(groups = {Categories.ASS, Categories.SANITY})
+    @Test(groups = {Categories.ASSET, Categories.SANITY})
     public void searchAssetService() throws IOException {
         LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl,"malathi");
 
@@ -37,7 +37,7 @@ public class AssetServiceTest extends BaseAPITest{
         new APILogger().log("Found the Asset Service  -- ");
     }
 
-    @Test(groups = {Categories.ASS, Categories.SANITY})
+    @Test(groups = {Categories.ASSET, Categories.SANITY})
     public void createAssetService() throws IOException{
         LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl,"malathi");
 

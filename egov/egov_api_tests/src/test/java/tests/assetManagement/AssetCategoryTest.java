@@ -21,7 +21,7 @@ import java.io.IOException;
 
 public class AssetCategoryTest extends BaseAPITest {
 
-    @Test(groups = {Categories.ASS, Categories.SANITY})
+    @Test(groups = {Categories.ASSET, Categories.SANITY})
     public void CreateAssetCategoryTest() throws IOException{
         LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl,"narasappa");
 
@@ -39,7 +39,7 @@ public class AssetCategoryTest extends BaseAPITest {
     }
 
 
-    @Test(groups = {Categories.ASS, Categories.SANITY})
+    @Test(groups = {Categories.ASSET, Categories.SANITY})
     public void SearchAssetCategoryTest() throws IOException{
         LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl,"narasappa");
 
