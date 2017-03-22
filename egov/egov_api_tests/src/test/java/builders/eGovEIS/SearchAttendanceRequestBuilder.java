@@ -1,15 +1,13 @@
 package builders.eGovEIS;
 
-
 import entities.requests.eGovEIS.SearchAttendanceRequest;
 
-/**
- * Created by manjunatha-lap on 17/03/2017.
- */
 public final class SearchAttendanceRequestBuilder {
 
     SearchAttendanceRequest searchAttendanceRequest = new SearchAttendanceRequest();
+
     public SearchAttendanceRequestBuilder() {
+
         searchAttendanceRequest.setApiId("string");
         searchAttendanceRequest.setTs("");
         searchAttendanceRequest.setRequesterId("string");

@@ -1,5 +1,6 @@
-package entities.responses.eGovEIS;
-public class ResponseInfo {
+package entities.requests.eGovEIS.createAttendance;
+
+public class RequestInfo {
     private String apiId;
     private String ts;
     private String status;
