@@ -21,6 +21,6 @@ You should be all set.
 
 #### Running tests
 1. You can run the test from IntelliJ directly, by right clicking and **Run test**..
-2. From Commandline typr  **gradle clean build allTests** to run all tests and view report.
+2. From Commandline type  **gradle clean build allTests** to run all tests and view report.
 
 
