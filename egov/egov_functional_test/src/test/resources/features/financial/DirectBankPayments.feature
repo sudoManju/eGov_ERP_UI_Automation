@@ -46,7 +46,7 @@ Feature: To create a voucher through direct bank payments
 
     Given accountsOfficer logs in
     And user will select the required screen as "Direct Bank Payments"
-      And officer will enter the direct bank payment details as <bankDetails> with mode as <paymentMode>
+    And officer will enter the direct bank payment details as <bankDetails> with mode as <paymentMode>
     And officer will enter the approval details as <approvalOfficer1>
     And officer will see the successful voucher creation page and closes it
     Then user will be notified by "Successful"

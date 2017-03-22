@@ -31,6 +31,7 @@ public class DashboardSteps extends BaseSteps implements En {
         });
 
         And("^he chooses to act upon above (.*)$", (String type) -> {
+            System.out.println(scenarioContext.getApplicationNumber());
             if (type.equals("application number")) {
                 pageStore.get(DashboardPage.class).openApplication(scenarioContext.getApplicationNumber());
             } else if (type.equals("assessment number")) {

@@ -1,6 +1,7 @@
 package pages.financial;
 
 import entities.financial.DirectBankPaymentDetails;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -119,7 +120,7 @@ public class DirectBankPaymentDetailsPage extends FinancialPage {
 
     public String directBankSuccessPage() {
         switchToNewlyOpenedWindow(webDriver);
-        String message = getTextFromWeb(forwardMessage, webDriver);
+        String message = getTextFromWeb(forwardMessage.findElements(By.tagName("li")).get(0), webDriver);
 
         if (message.contains("Successful")) {
             clickOnButton(bankCloseButton, webDriver);

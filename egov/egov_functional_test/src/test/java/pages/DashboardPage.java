@@ -92,6 +92,8 @@ public class DashboardPage extends BasePage {
     private WebElement getApplicationRow(String number) {
         List<WebElement> totalRows;
         try {
+//            enterText(driver.findElement(By.id("inboxsearch")) , number , driver);
+//            clickOnButton(driver.findElements(By.cssSelector("input-group-addon")).get(1) , driver);
             await().atMost(20, SECONDS).until(() -> driver.findElement(By.id("official_inbox")).findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size() > 1);
             totalRows = driver.findElement(By.id("official_inbox")).findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
             for (WebElement applicationRow : totalRows) {
