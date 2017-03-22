@@ -5,12 +5,14 @@ import builders.eGovEIS.SearchAttendanceRequestBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.eGovEIS.SearchAttendanceRequest;
 import entities.responses.eGovEIS.SearchAttendanceResponse;
+import entities.responses.login.LoginResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import resources.AttendanceResource;
 import tests.BaseAPITest;
 import utils.Categories;
+import utils.Properties;
 import utils.RequestHelper;
 import utils.ResponseHelper;
 
@@ -18,13 +20,15 @@ import java.io.IOException;
 
 public class SearchAttendancesTest extends BaseAPITest{
 
-    @Test(groups = Categories.EIS)
+    @Test(groups = {Categories.EIS, Categories.SANITY})
     public void searchAttendanceInEIS() throws IOException
     {
+        LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl,"narasappa");
+
         SearchAttendanceRequest request = new SearchAttendanceRequestBuilder().build();
         String jsonData = RequestHelper.getJsonString(request);
 
-        Response response = new AttendanceResource().post(jsonData);
+        Response response = new AttendanceResource().post(jsonData,loginResponse.getAccess_token());
         Assert.assertEquals(response.getStatusCode(), 200);
 
         SearchAttendanceResponse searchAttendanceResponse = (SearchAttendanceResponse) ResponseHelper.getResponseAsObject(response.asString(), SearchAttendanceResponse.class);
