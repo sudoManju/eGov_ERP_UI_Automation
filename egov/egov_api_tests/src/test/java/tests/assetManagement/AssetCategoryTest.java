@@ -7,10 +7,13 @@ import com.jayway.restassured.response.Response;
 import entities.requests.assetManagement.RequestInfo;
 import entities.requests.assetManagement.assetCategory.AssetCategoryCreateRequest;
 import entities.responses.assetManagement.assetCategory.AssetCategoryResponse;
+import entities.responses.login.LoginResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.AssetCategoryResource;
 import tests.BaseAPITest;
+import utils.Categories;
+import utils.Properties;
 import utils.RequestHelper;
 import utils.ResponseHelper;
 
@@ -18,13 +21,15 @@ import java.io.IOException;
 
 public class AssetCategoryTest extends BaseAPITest {
 
-    @Test
+    @Test(groups = {Categories.ASS, Categories.SANITY})
     public void CreateAssetCategoryTest() throws IOException{
+        LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl,"narasappa");
+
         AssetCategoryCreateRequest request = new AssetCategoryCreateRequestBuilder().build();
 
         String jsonString = RequestHelper.getJsonString(request);
 
-        Response response = new AssetCategoryResource().create(jsonString);
+        Response response = new AssetCategoryResource().create(jsonString,loginResponse.getAccess_token());
 
         Assert.assertEquals(response.getStatusCode(),201);
 
@@ -33,13 +38,16 @@ public class AssetCategoryTest extends BaseAPITest {
         Assert.assertEquals(assetCategoryResponse.getAssetCategory()[0].getName(),request.getAssetCategory().getName());
     }
 
-    @Test
+
+    @Test(groups = {Categories.ASS, Categories.SANITY})
     public void SearchAssetCategoryTest() throws IOException{
+        LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl,"narasappa");
+
         RequestInfo requestInfo = new RequestInfoBuilder().build();
 
         String jsonString = RequestHelper.getJsonString(requestInfo);
 
-        Response response = new AssetCategoryResource().search(jsonString);
+        Response response = new AssetCategoryResource().search(jsonString, loginResponse.getAccess_token());
 
         Assert.assertEquals(response.getStatusCode(),200);
 

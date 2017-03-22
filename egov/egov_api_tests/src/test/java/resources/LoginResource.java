@@ -10,7 +10,7 @@ import static com.jayway.restassured.RestAssured.given;
 
 public class LoginResource {
 
-    public Response login(Map json) {
+    public Response login(Map json , String path) {
 
         new APILogger().log("login request started -- " + json);
 
@@ -20,7 +20,7 @@ public class LoginResource {
                 .header("Authorization", "Basic ZWdvdi11c2VyLWNsaWVudDplZ292LXVzZXItc2VjcmV0")
                 .params(json)
                 .when()
-                .post(Properties.serverUrl + Properties.loginUrl);
+                .post(path + Properties.loginUrl);
 
         return response;
     }

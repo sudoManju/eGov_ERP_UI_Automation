@@ -30,17 +30,17 @@ public class BaseAPITest {
     public void setUp() throws IOException {
     }
 
-    protected LoginResponse loginTestMethod() throws IOException {
-        LoginRequest request = new LoginRequestBuilder().build();
+    protected LoginResponse loginTestMethod(String path,String username) throws IOException {
+        LoginRequest request = new LoginRequestBuilder().withUsername(username).build();
 
         Map jsonString = RequestHelper.asMap(request);
 
-        Response response = new LoginResource().login(jsonString);
+        Response response = new LoginResource().login(jsonString , path);
         LoginResponse loginResponse = (LoginResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), LoginResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals(loginResponse.getUserRequest().getUserName(), "narasappa");
+        Assert.assertEquals(loginResponse.getUserRequest().getUserName(), username);
 
         new APILogger().log("Login is Completed -- ");
         return loginResponse;

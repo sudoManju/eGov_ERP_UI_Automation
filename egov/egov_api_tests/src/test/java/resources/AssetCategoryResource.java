@@ -7,11 +7,11 @@ import static com.jayway.restassured.RestAssured.given;
 
 public class AssetCategoryResource {
 
-    public Response create(String json){
+    public Response create(String json,String auth_token){
 
         Response response = given().request().with()
                            .header("Content-Type", "application/json")
-                           .header("auth-token", "bedb20fb-7d74-445e-94cc-6a64e825d509")
+                           .header("auth-token", auth_token)
                            .body(json)
                            .when()
                            .post(Properties.devServerUrl+Properties.assetCategoryCreateUrl);
@@ -19,11 +19,11 @@ public class AssetCategoryResource {
         return response;
     }
 
-    public Response search(String jsonString) {
+    public Response search(String jsonString,String auth_token) {
 
         Response response = given().request().with()
                             .header("Content-Type", "application/json")
-                            .header("auth-token", "bedb20fb-7d74-445e-94cc-6a64e825d509")
+                            .header("auth-token", auth_token)
                             .body(jsonString)
                             .when()
                             .post(Properties.devServerUrl+Properties.assetCategorySearchUrl);

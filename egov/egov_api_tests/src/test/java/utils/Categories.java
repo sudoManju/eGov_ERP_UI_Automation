@@ -8,4 +8,5 @@ public class Categories {
     public static final String LOGIN = "login";
     public static final String PGR = "pgr";
     public static final String EIS = "hr";
+    public static final String ASS = "asset";
 }

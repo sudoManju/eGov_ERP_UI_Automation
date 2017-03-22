@@ -10,10 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.PGRComplaintResource;
 import tests.BaseAPITest;
-import utils.APILogger;
-import utils.Categories;
-import utils.RequestHelper;
-import utils.ResponseHelper;
+import utils.*;
 
 import java.io.IOException;
 
@@ -23,7 +20,7 @@ public class CreateAndGetComplaintTest extends BaseAPITest {
     public void createAndGetComplaintInPGR() throws IOException {
 
         //Login Test
-        LoginResponse loginResponse = loginTestMethod();
+        LoginResponse loginResponse = loginTestMethod(Properties.serverUrl,"narasappa");
 
         // Create A Complaint
         ComplaintRequest request = new ComplaintRequestBuilder().build();

@@ -10,10 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.LoginResource;
 import tests.BaseAPITest;
-import utils.APILogger;
-import utils.Categories;
-import utils.RequestHelper;
-import utils.ResponseHelper;
+import utils.*;
 
 import java.io.IOException;
 import java.util.Map;
@@ -24,7 +21,7 @@ public class LoginVerificationTest extends BaseAPITest {
     public void shouldAllowLoginAndLogoutToAnExistingUser() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = loginTestMethod();
+        LoginResponse loginResponse = loginTestMethod(Properties.serverUrl,"narasappa");
 
         // Logout Test
         logoutTestMethod(loginResponse);
@@ -34,7 +31,7 @@ public class LoginVerificationTest extends BaseAPITest {
     public void shouldNotAllowLogoutWithInvalidCredentials() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = loginTestMethod();
+        LoginResponse loginResponse = loginTestMethod(Properties.serverUrl,"narasappa");
 
         // Logout Test
         Response response1 = new LoginResource().logout(loginResponse.getAccess_token().substring(1));
@@ -54,7 +51,7 @@ public class LoginVerificationTest extends BaseAPITest {
 
         Map jsonString = RequestHelper.asMap(request);
 
-        Response response = new LoginResource().login(jsonString);
+        Response response = new LoginResource().login(jsonString,Properties.serverUrl);
         LoginErrorResponse loginErrorResponse = (LoginErrorResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), LoginErrorResponse.class);
 
