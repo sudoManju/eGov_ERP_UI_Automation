@@ -5,7 +5,7 @@ import entities.requests.pgrCollections.RequestInfo;
 public final class RequestInfoBuilder {
     RequestInfo requestInfo = new RequestInfo();
 
-    RequestInfoBuilder() {
+    public RequestInfoBuilder() {
         requestInfo.setApi_id("1");
         requestInfo.setTs(null);
         requestInfo.setMsg_id("");
@@ -15,6 +15,17 @@ public final class RequestInfoBuilder {
         requestInfo.setVer("1");
         requestInfo.setKey("");
         requestInfo.setRequester_id("");
+    }
+
+    public RequestInfoBuilder(String update) {
+        requestInfo.setApi_id("org.egov.pgr");
+        requestInfo.setStatus("successful");
+        requestInfo.setRes_msg_id("uief87324");
+        requestInfo.setMsg_id("654654");
+        requestInfo.setAction("Create");
+        requestInfo.setAuth_token(null);
+        requestInfo.setVer("1.0");
+        requestInfo.setRequester_id("18");
     }
 
     public RequestInfoBuilder withApi_id(String api_id) {

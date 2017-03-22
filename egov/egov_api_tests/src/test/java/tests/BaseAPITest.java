@@ -46,8 +46,8 @@ public class BaseAPITest {
         return loginResponse;
     }
 
-    protected void logoutTestMethod(LoginResponse loginResponse) throws IOException {
-        Response response1 = new LoginResource().logout(loginResponse.getAccess_token());
+    protected void logoutTestMethod(LoginResponse loginResponse,String path) throws IOException {
+        Response response1 = new LoginResource().logout(loginResponse.getAccess_token(),path);
         LogoutResponse logoutResponse = (LogoutResponse)
                 ResponseHelper.getResponseAsObject(response1.asString(), LogoutResponse.class);
 

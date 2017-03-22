@@ -88,4 +88,15 @@ public class PGRComplaintResource {
 
         return response;
     }
+
+    public Response updateAndClosePGRComplaint(String json) {
+
+        Response response = given().request().with()
+                .header("Content-Type","application/json")
+                .body(json)
+                .when()
+                .put(Properties.serverUrl + Properties.complaintUrl);
+
+        return response;
+    }
 }

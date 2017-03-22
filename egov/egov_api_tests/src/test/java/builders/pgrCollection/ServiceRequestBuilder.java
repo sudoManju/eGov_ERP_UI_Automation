@@ -6,8 +6,9 @@ import entities.requests.pgrCollections.Values;
 public final class ServiceRequestBuilder {
     ServiceRequest serviceRequest = new ServiceRequest();
     Values values = new ValuesBuilder().build();
+    Values values1 = new ValuesBuilder("update").build();
 
-    ServiceRequestBuilder() {
+    public ServiceRequestBuilder() {
         serviceRequest.setService_id(null);
         serviceRequest.setTenantId("123");
         serviceRequest.setUpdated_datetime(null);
@@ -35,6 +36,28 @@ public final class ServiceRequestBuilder {
         serviceRequest.setExpected_datetime("20-02-2017 20:20:20");
         serviceRequest.setEmail("jake@maildrop.cc");
         serviceRequest.setLast_name("Jake");
+    }
+
+    public ServiceRequestBuilder(String update) {
+        serviceRequest.setTenantId("ap.public");
+        serviceRequest.setPhone("9999999990");
+        serviceRequest.setLng("0");
+        serviceRequest.setService_name("Public Health/Dengue/Malaria/Gastro-enteritis");
+        serviceRequest.setService_request_id(null);
+        serviceRequest.setFirst_name("SUMANTHUUUUU");
+        serviceRequest.setDescription("There is a huge problem");
+        serviceRequest.setAgency_responsible(null);
+        serviceRequest.setService_notice(null);
+        serviceRequest.setService_code("PHDMG");
+        serviceRequest.setLat("0");
+        serviceRequest.setAccount_id(null);
+        serviceRequest.setStatus("false");
+        serviceRequest.setMedia_url(null);
+        serviceRequest.setZipcode(null);
+        serviceRequest.setDevice_id(null);
+        serviceRequest.setEmail("jake@maildrop.cc");
+        serviceRequest.setLast_name("");
+        serviceRequest.setValues(values1);
     }
 
     public ServiceRequestBuilder withService_id(String service_id) {

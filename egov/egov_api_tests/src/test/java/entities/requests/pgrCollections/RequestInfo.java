@@ -20,6 +20,26 @@ public class RequestInfo {
 
     private String requester_id;
 
+    private String status;
+
+    private String res_msg_id;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getRes_msg_id() {
+        return res_msg_id;
+    }
+
+    public void setRes_msg_id(String res_msg_id) {
+        this.res_msg_id = res_msg_id;
+    }
+
     public String getApi_id() {
         return api_id;
     }

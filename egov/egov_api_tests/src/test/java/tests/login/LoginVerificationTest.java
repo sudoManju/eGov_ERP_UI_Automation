@@ -24,7 +24,7 @@ public class LoginVerificationTest extends BaseAPITest {
         LoginResponse loginResponse = loginTestMethod(Properties.serverUrl,"narasappa");
 
         // Logout Test
-        logoutTestMethod(loginResponse);
+        logoutTestMethod(loginResponse,Properties.serverUrl );
     }
 
     @Test(groups = { Categories.SANITY })
@@ -34,7 +34,7 @@ public class LoginVerificationTest extends BaseAPITest {
         LoginResponse loginResponse = loginTestMethod(Properties.serverUrl,"narasappa");
 
         // Logout Test
-        Response response1 = new LoginResource().logout(loginResponse.getAccess_token().substring(1));
+        Response response1 = new LoginResource().logout(loginResponse.getAccess_token().substring(1),Properties.serverUrl);
         InvalidLogoutResponse invalidLogoutResponse = (InvalidLogoutResponse)
                 ResponseHelper.getResponseAsObject(response1.asString(), InvalidLogoutResponse.class);
 

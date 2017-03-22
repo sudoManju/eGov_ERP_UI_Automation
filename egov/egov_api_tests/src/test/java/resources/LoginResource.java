@@ -25,7 +25,7 @@ public class LoginResource {
         return response;
     }
 
-    public Response logout(String accessToken) {
+    public Response logout(String accessToken,String path) {
 
         new APILogger().log("logout request started-- " + accessToken);
 
@@ -34,7 +34,7 @@ public class LoginResource {
                 .header("Content-type", "application/x-www-form-urlencoded")
                 .header("Authorization", "Basic ZWdvdi11c2VyLWNsaWVudDplZ292LXVzZXItc2VjcmV0")
                 .when()
-                .post(Properties.serverUrl + Properties.logoutUrl + accessToken);
+                .post(path + Properties.logoutUrl + accessToken);
 
         return response;
     }
