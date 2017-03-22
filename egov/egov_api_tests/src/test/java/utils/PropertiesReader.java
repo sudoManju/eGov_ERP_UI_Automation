@@ -73,5 +73,8 @@ public class PropertiesReader {
     public String getAssetCategorySearchUrl() {
         return  prop.getProperty("assetCategorySearchUrl");
     }
+
+    public String getCreateAttendanceUrl() { return  prop.getProperty("createAttendanceURL");
+    }
 }
 

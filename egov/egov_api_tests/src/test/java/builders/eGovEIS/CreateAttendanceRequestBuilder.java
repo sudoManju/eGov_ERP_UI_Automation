@@ -9,12 +9,13 @@ public class CreateAttendanceRequestBuilder {
 
     CreateAttendanceRequest createAttendanceRequest = new CreateAttendanceRequest();
     RequestInfo requestInfo = new RequestInfoBuilder().build();
-//    RequestInfo requestInfo = new RequestInfoBuilder().build();
     Attendance attendance = new AttendanceBuilder().build();
+    Attendance[] attendances = new Attendance[1];
 
     public CreateAttendanceRequestBuilder() {
         createAttendanceRequest.setRequestInfo(requestInfo);
-        createAttendanceRequest.setAttendance(attendance);
+        attendances[0] = attendance;
+        createAttendanceRequest.setAttendance(attendances);
     }
 
     public CreateAttendanceRequestBuilder withRequestInfo(RequestInfo RequestInfo) {
@@ -22,7 +23,7 @@ public class CreateAttendanceRequestBuilder {
         return this;
     }
 
-    public CreateAttendanceRequestBuilder withAttendance(Attendance Attendance) {
+    public CreateAttendanceRequestBuilder withAttendance(Attendance[] Attendance) {
         createAttendanceRequest.setAttendance(Attendance);
         return this;
     }

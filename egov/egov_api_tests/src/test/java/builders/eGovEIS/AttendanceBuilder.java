@@ -3,14 +3,14 @@ package builders.eGovEIS;
 import entities.requests.eGovEIS.createAttendance.Attendance;
 import entities.requests.eGovEIS.createAttendance.Type;
 
-public final class AttendanceBuilder {
+public class AttendanceBuilder {
 
     Attendance attendance = new Attendance();
-    Type type = new Type();
+    Type type = new TypeBuilder().build();
 
     AttendanceBuilder() {
         attendance.setTenantId("1");
-        attendance.setAttendanceDate("01/03/2017");
+        attendance.setAttendanceDate("19/03/2017");
         attendance.setMonth("3");
         attendance.setRemarks("Present");
         attendance.setYear("2017");

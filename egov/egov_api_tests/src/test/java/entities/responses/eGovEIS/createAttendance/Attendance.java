@@ -34,9 +34,7 @@ public class Attendance {
         this.tenantId = tenantId;
     }
 
-    public String
-
-    getId() {
+    public String getId() {
         return id;
     }
 
@@ -44,9 +42,7 @@ public class Attendance {
         this.id = id;
     }
 
-    public String
-
-    getCreatedBy() {
+    public String getCreatedBy() {
         return createdBy;
     }
 
@@ -62,9 +58,7 @@ public class Attendance {
         this.attendanceDate = attendanceDate;
     }
 
-    public String
-
-    getLastModifiedBy() {
+    public String getLastModifiedBy() {
         return lastModifiedBy;
     }
 
@@ -80,9 +74,7 @@ public class Attendance {
         this.month = month;
     }
 
-    public String
-
-    getLastModifiedDate() {
+    public String getLastModifiedDate() {
         return lastModifiedDate;
     }
 

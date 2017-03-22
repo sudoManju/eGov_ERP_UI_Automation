@@ -1,10 +1,14 @@
 package entities.requests.eGovEIS.createAttendance;
 
-public class CreateAttendanceRequest
-{
+import org.codehaus.jackson.annotate.JsonProperty;
+
+public class CreateAttendanceRequest {
+
+    @JsonProperty("RequestInfo")
     private RequestInfo RequestInfo;
 
-    private Attendance Attendance;
+    @JsonProperty("Attendance")
+    private Attendance[] Attendance;
 
     public RequestInfo getRequestInfo ()
     {
@@ -16,13 +20,14 @@ public class CreateAttendanceRequest
         this.RequestInfo = RequestInfo;
     }
 
-    public entities.requests.eGovEIS.createAttendance.Attendance getAttendance ()
+    public Attendance[] getAttendance ()
     {
         return Attendance;
     }
 
-    public void setAttendance (entities.requests.eGovEIS.createAttendance.Attendance Attendance)
+    public void setAttendance (Attendance[] Attendance)
     {
         this.Attendance = Attendance;
     }
+
 }

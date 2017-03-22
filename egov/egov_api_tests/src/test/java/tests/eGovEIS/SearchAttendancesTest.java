@@ -17,20 +17,19 @@ import utils.RequestHelper;
 import utils.ResponseHelper;
 
 import java.io.IOException;
+import java.util.Map;
 
-public class SearchAttendancesTest extends BaseAPITest{
+public class SearchAttendancesTest extends BaseAPITest {
 
     @Test(groups = {Categories.EIS, Categories.SANITY})
-    public void searchAttendanceInEIS() throws IOException
-    {
-        LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl,"narasappa");
+    public void searchAttendanceInEIS() throws IOException {
+        LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl, "narasappa");
 
         SearchAttendanceRequest request = new SearchAttendanceRequestBuilder().build();
-        String jsonData = RequestHelper.getJsonString(request);
+        Map jsonData = RequestHelper.asMap(request);
 
-        Response response = new AttendanceResource().post(jsonData,loginResponse.getAccess_token());
+        Response response = new AttendanceResource().searchAttendance(jsonData, loginResponse.getAccess_token());
         Assert.assertEquals(response.getStatusCode(), 200);
-
         SearchAttendanceResponse searchAttendanceResponse = (SearchAttendanceResponse) ResponseHelper.getResponseAsObject(response.asString(), SearchAttendanceResponse.class);
         System.out.println("Attendance Mark list: "+searchAttendanceResponse.getAttendance().length);
 
@@ -40,7 +39,7 @@ public class SearchAttendancesTest extends BaseAPITest{
         Assert.assertEquals(searchAttendanceResponse.getAttendance()[0].getAttendanceDate(), "2017-01-01", "Assert");
 
         Assert.assertEquals(searchAttendanceResponse.getAttendance()[1].getEmployee(), "140");
-        System.out.println("Employee Attendance based on ID: "+searchAttendanceResponse.getAttendance()[1].getId());
+        System.out.println("Employee Attendance based on ID: " + searchAttendanceResponse.getAttendance()[1].getId());
         Assert.assertEquals(searchAttendanceResponse.getAttendance()[1].getAttendanceDate(), "2017-01-01");
         Assert.assertEquals(searchAttendanceResponse.getAttendance()[1].getType().getCode(), "P");
 
@@ -49,10 +48,10 @@ public class SearchAttendancesTest extends BaseAPITest{
         softAssert.assertEquals(searchAttendanceResponse.getAttendance()[0].getEmployee(), "120");
         softAssert.assertEquals(searchAttendanceResponse.getAttendance()[1].getEmployee(), "140");
 
-        try{
+        try {
             softAssert.assertAll();
-        }catch (AssertionError error){
-            System.out.println("Assertion Failed because of: "+error.getMessage());
+        } catch (AssertionError error) {
+            System.out.println("Assertion Failed because of: " + error.getMessage());
         }
     }
 }

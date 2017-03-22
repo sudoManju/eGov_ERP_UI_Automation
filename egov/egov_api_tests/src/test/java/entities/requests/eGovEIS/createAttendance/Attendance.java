@@ -3,11 +3,17 @@ package entities.requests.eGovEIS.createAttendance;
 public class Attendance {
 
     private String tenantId;
+
     private String attendanceDate;
+
     private String month;
+
     private String remarks;
+
     private String year;
+
     private Type type;
+
     private String employee;
 
     public String getTenantId() {

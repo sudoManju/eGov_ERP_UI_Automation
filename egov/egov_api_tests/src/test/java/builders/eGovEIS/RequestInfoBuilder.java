@@ -7,10 +7,10 @@ public class RequestInfoBuilder {
     RequestInfo requestInfo = new RequestInfo();
 
     public RequestInfoBuilder() {
-        requestInfo.setApiId("_asset _search");
-        requestInfo.setVer("ver");
-        requestInfo.setTs("2017-02-20T08:30:49.799+0000");
-        requestInfo.setMsgId("user id");
+        requestInfo.setApiId("123456");
+        requestInfo.setVer("1");
+        requestInfo.setTs("");
+        requestInfo.setMsgId("1");
         requestInfo.setStatus("200");
         requestInfo.setResMsgId("uief87324");
     }

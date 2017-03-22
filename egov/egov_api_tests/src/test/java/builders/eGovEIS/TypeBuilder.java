@@ -5,7 +5,7 @@ import entities.requests.eGovEIS.createAttendance.Type;
 public final class TypeBuilder {
     Type type = new Type();
 
-    private TypeBuilder() {
+    public TypeBuilder() {
         type.setId("3");
         type.setCode("P");
     }

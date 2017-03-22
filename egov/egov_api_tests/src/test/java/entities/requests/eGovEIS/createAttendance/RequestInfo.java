@@ -2,10 +2,15 @@ package entities.requests.eGovEIS.createAttendance;
 
 public class RequestInfo {
     private String apiId;
+
     private String ts;
+
     private String status;
+
     private String msgId;
+
     private String resMsgId;
+
     private String ver;
 
     public String getApiId() {
