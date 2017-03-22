@@ -21,7 +21,7 @@ Feature: Collection
     And User will enter Assessment Number and click on search button
     And user will fill amount and select the AXIS Bank Payment Gateway and click on PayOnline
     And user will select the card, enter all the details and click on pay now button
-    Then user will be notified by "received"
+    Then user will be notified by "received."
 
 
 

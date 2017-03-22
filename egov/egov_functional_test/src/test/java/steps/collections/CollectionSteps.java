@@ -9,6 +9,7 @@ import pages.collections.CollectionsPage;
 import pages.collections.PropertyTaxPage;
 import steps.BaseSteps;
 import excelDataFiles.ExcelReader;
+import utils.ScenarioContext;
 
 public class CollectionSteps extends BaseSteps implements En {
 
@@ -70,6 +71,7 @@ public class CollectionSteps extends BaseSteps implements En {
 
         And("^user will select the card, enter all the details and click on pay now button$", () -> {
             pageStore.get(CollectionsPage.class).enterCarddetailsAndPay();
+            scenarioContext.setActualMessage(pageStore.get(CollectionsPage.class).getSuccessMsg());
         });
     }
 }
