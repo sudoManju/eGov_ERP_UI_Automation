@@ -41,10 +41,10 @@ public class ComplaintVerificationTest extends BaseAPITest {
                   updateComplaintInPGR(complaintResponse.getService_requests()[0].getService_request_id());
         new APILogger().log("Updated a PGR complaint request");
 
+        //Close Complaint
         UpdateAndCloseComplaintInPGRResponse updateAndCloseComplaintInPGRResponse1 =
                 updateComplaintInPGR(complaintResponse.getService_requests()[0].getService_request_id());
         new APILogger().log("Close a PGR complaint request");
-
 
         // Logout Test
         logoutTestMethod(loginResponse,Properties.serverUrl);
