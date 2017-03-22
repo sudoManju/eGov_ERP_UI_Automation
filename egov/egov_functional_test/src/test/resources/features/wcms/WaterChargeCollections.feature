@@ -1,6 +1,6 @@
 Feature: To collect water charges in different mode payments
 
-  Background:It will run the data entry screen of property tax as well as logo uploading
+  Background:It will run the data entry screen of property tax
 
     Given commissioner logs in
     And user will select the required screen as "Data entry screen" with condition as "ptis"

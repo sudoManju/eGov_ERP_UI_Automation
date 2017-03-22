@@ -111,18 +111,18 @@ public class WaterConnectionDetailsPage extends WaterChargeManagementPage {
 
     public void enterConnectionInfo(ConnectionInfo connectionInfo) {
 
-        selectFromDropDown(waterSourceTypeSelectBox, connectionInfo.getWaterSourceType(), webDriver);
         selectFromDropDown(connectionTypeSelectBox, connectionInfo.getConnectionType(), webDriver);
+        selectFromDropDown(waterSourceTypeSelectBox, connectionInfo.getWaterSourceType(), webDriver);
         selectFromDropDown(propertyTypeSelectBox, connectionInfo.getPropertyType(), webDriver);
-        selectFromDropDown(categorySelectBox, connectionInfo.getCategory(), webDriver);
+        selectFromDropDown(webDriver.findElement(By.id("connectionCategorie")), connectionInfo.getCategory(), webDriver);
         selectFromDropDown(usageTypeSelectBox, connectionInfo.getUsageType(), webDriver);
         selectFromDropDown(hscPipeSizeSelectBox, connectionInfo.getHscPipeSize(), webDriver);
 
         enterText(sumpCapacityTextBox, connectionInfo.getSumpCapacity(), webDriver);
         enterText(noOfPersonsTextBox, connectionInfo.getNoOfPersons(), webDriver);
 
-        if(categorySelectBox.getText().contains("Select from below")){
-            selectFromDropDown(categorySelectBox, connectionInfo.getCategory(), webDriver);
+        if(webDriver.findElement(By.id("connectionCategorie")).getText().contains("Select from below")){
+            selectFromDropDown(webDriver.findElement(By.id("connectionCategorie")), connectionInfo.getCategory(), webDriver);
         }
     }
 
