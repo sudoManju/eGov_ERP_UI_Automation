@@ -28,13 +28,12 @@ public class AssetCategoryTest extends BaseAPITest {
         AssetCategoryCreateRequest request = new AssetCategoryCreateRequestBuilder().build();
 
         String jsonString = RequestHelper.getJsonString(request);
-
         Response response = new AssetCategoryResource().create(jsonString,loginResponse.getAccess_token());
 
+        AssetCategoryResponse assetCategoryResponse = (AssetCategoryResponse)
+                ResponseHelper.getResponseAsObject(response.asString(),AssetCategoryResponse.class);
+
         Assert.assertEquals(response.getStatusCode(),201);
-
-        AssetCategoryResponse assetCategoryResponse = (AssetCategoryResponse) ResponseHelper.getResponseAsObject(response.asString(),AssetCategoryResponse.class);
-
         Assert.assertEquals(assetCategoryResponse.getAssetCategory()[0].getName(),request.getAssetCategory().getName());
     }
 
@@ -46,13 +45,11 @@ public class AssetCategoryTest extends BaseAPITest {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
 
         String jsonString = RequestHelper.getJsonString(requestInfo);
-
         Response response = new AssetCategoryResource().search(jsonString, loginResponse.getAccess_token());
 
+        AssetCategoryResponse assetCategoryResponse = (AssetCategoryResponse)
+                ResponseHelper.getResponseAsObject(response.asString(),AssetCategoryResponse.class);
+
         Assert.assertEquals(response.getStatusCode(),200);
-
-        AssetCategoryResponse assetCategoryResponse = (AssetCategoryResponse) ResponseHelper.getResponseAsObject(response.asString(),AssetCategoryResponse.class);
-
-        Assert.assertEquals(assetCategoryResponse.getAssetCategory()[0].getCustomFields()[0].getName(), "Land");
     }
 }
