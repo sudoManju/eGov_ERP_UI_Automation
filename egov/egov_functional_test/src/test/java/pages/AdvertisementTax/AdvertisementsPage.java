@@ -8,6 +8,11 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
 
+import java.util.concurrent.TimeUnit;
+
+import static com.jayway.awaitility.Awaitility.await;
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 public class AdvertisementsPage extends BasePage {
 
     private WebDriver driver;
@@ -220,7 +225,15 @@ public class AdvertisementsPage extends BasePage {
     public void enterStructureDetails1(StructureDetails structureDetails) {
         enterText(measurementTextBox, structureDetails.getMeasurement(), driver);
         selectFromDropDown(measurementTypeBox, structureDetails.getMeasurementType(), driver);
-        enterText(taxAmountTextBox, structureDetails.getTaxAmount(), driver);
+        await().atMost(10, SECONDS).until(() -> driver.findElements(By.id("taxAmount")).size() == 1);
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        jse.executeScript("document.getElementById('taxAmount').value = '100';");
+//        enterText(driver.findElement(By.id("taxAmount")), structureDetails.getTaxAmount(), driver);
+        if(driver.findElement(By.id("taxAmount")).getText().isEmpty()){
+            await().atMost(10, SECONDS).until(() -> driver.findElements(By.id("taxAmount")).size() == 1);
+            JavascriptExecutor jse1 = (JavascriptExecutor) driver;
+            jse1.executeScript("document.getElementById('taxAmount').value = '100';");
+        }
     }
 
     public String forward() {

@@ -104,7 +104,6 @@ public class FinancialSteps extends BaseSteps implements En {
         And("^officer will get successful BAN NUMBER created and closes it$", () -> {
             String voucherNumber = pageStore.get(JournalVoucherDetailsPage.class).getVoucherNumber();
             scenarioContext.setApplicationNumber(voucherNumber.split("\\ ")[1]);
-//            System.out.println("=========="+voucherNumber);
             scenarioContext.setActualMessage(voucherNumber);
         });
 
