@@ -32,9 +32,23 @@ public class LoginResource {
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
                 .header("Content-type", "application/x-www-form-urlencoded")
-                .header("Authorization", "Basic ZWdvdi11c2VyLWNsaWVudDplZ292LXVzZXItc2VjcmV0")
+                .header("auth-token", accessToken)
                 .when()
                 .post(path + Properties.logoutUrl + accessToken);
+
+        return response;
+    }
+
+    public Response inValidLogout(String accessToken,String path) {
+
+        new APILogger().log("logout request started-- " + accessToken);
+
+        Response response = given().request().with()
+                .urlEncodingEnabled(false)
+                .header("Content-type", "application/x-www-form-urlencoded")
+                .header("auth-token", accessToken)
+                .when()
+                .post(path + "user/_logout");
 
         return response;
     }

@@ -35,7 +35,7 @@ public class LoginVerificationTest extends BaseAPITest {
         LoginResponse loginResponse = loginTestMethod(Properties.serverUrl,"narasappa");
 
         // Logout Test
-        Response response1 = new LoginResource().logout(loginResponse.getAccess_token().substring(1),Properties.serverUrl);
+        Response response1 = new LoginResource().inValidLogout(loginResponse.getAccess_token(),Properties.serverUrl);
         InvalidLogoutResponse invalidLogoutResponse = (InvalidLogoutResponse)
                 ResponseHelper.getResponseAsObject(response1.asString(), InvalidLogoutResponse.class);
 
