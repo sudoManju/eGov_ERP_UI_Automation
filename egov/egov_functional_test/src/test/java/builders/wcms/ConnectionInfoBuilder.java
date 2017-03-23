@@ -46,7 +46,7 @@ public class ConnectionInfoBuilder {
         return this;
     }
 
-    public  ConnectionInfoBuilder withWaterSupplyType(String waterSupplyType) {
+    public ConnectionInfoBuilder withWaterSupplyType(String waterSupplyType) {
         connectionInfo.setWaterSupplyType(waterSupplyType);
         return this;
     }

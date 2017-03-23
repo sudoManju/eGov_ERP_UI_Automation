@@ -1,6 +1,6 @@
 package utils;
 
-import java.io.*;
+import java.io.Serializable;
 
 public class ScenarioContext implements Serializable {
 
@@ -18,12 +18,12 @@ public class ScenarioContext implements Serializable {
 
     private String registrationNumber;
 
-    public void setRegistrationNumber(String Number) {
-        this.registrationNumber = Number;
-    }
-
     public String getRegistrationNumber() {
         return registrationNumber;
+    }
+
+    public void setRegistrationNumber(String Number) {
+        this.registrationNumber = Number;
     }
 
     public String getUser() {

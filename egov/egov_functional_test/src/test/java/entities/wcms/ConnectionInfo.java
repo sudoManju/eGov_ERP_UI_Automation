@@ -70,18 +70,28 @@ public class ConnectionInfo {
         this.sumpCapacity = sumpCapacity;
     }
 
-    public String getNoOfPersons() {return noOfPersons;}
-
-    public void setWaterSupplyType(String waterSupplyType){this.waterSupplyType =waterSupplyType;}
-
-    public String getWaterSupplyType() {return waterSupplyType;}
-
-    public void setApartmentName(String apartmentName){this.apartmentName = apartmentName;}
-
-    public String getApartmentName(){return apartmentName;}
+    public String getNoOfPersons() {
+        return noOfPersons;
+    }
 
     public void setNoOfPersons(String noOfPersons) {
         this.noOfPersons = noOfPersons;
+    }
+
+    public String getWaterSupplyType() {
+        return waterSupplyType;
+    }
+
+    public void setWaterSupplyType(String waterSupplyType) {
+        this.waterSupplyType = waterSupplyType;
+    }
+
+    public String getApartmentName() {
+        return apartmentName;
+    }
+
+    public void setApartmentName(String apartmentName) {
+        this.apartmentName = apartmentName;
     }
 
     public String getReasonForAdditionalConnection() {

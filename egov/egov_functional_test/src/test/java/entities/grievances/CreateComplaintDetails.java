@@ -20,10 +20,6 @@ public class CreateComplaintDetails {
         this.citizenMobNo = citizenMobNo;
     }
 
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
-    }
-
     public String getCitizenName() {
         return citizenName;
     }
@@ -36,44 +32,48 @@ public class CreateComplaintDetails {
         return emailId;
     }
 
-    public void setGrievanceCategory(String grievanceCategory) {
-        this.grievanceCategory = grievanceCategory;
-    }
-
-    public void setGrievanceType(String grievanceType) {
-        this.grievanceType = grievanceType;
-    }
-
-    public void setGrievanceDetails(String grievanceDetails) {
-        this.grievanceDetails = grievanceDetails;
-    }
-
-    public void setGrievanceLocation(String grievanceLocation) {
-        this.grievanceLocation = grievanceLocation;
-    }
-
-    public void setLocationLandmark(String locationLandmark) {
-        this.locationLandmark = locationLandmark;
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
     }
 
     public String getGrievanceCategory() {
         return grievanceCategory;
     }
 
+    public void setGrievanceCategory(String grievanceCategory) {
+        this.grievanceCategory = grievanceCategory;
+    }
+
     public String getGrievanceType() {
         return grievanceType;
+    }
+
+    public void setGrievanceType(String grievanceType) {
+        this.grievanceType = grievanceType;
     }
 
     public String getGrievanceDetails() {
         return grievanceDetails;
     }
 
+    public void setGrievanceDetails(String grievanceDetails) {
+        this.grievanceDetails = grievanceDetails;
+    }
+
     public String getGrievanceLocation() {
         return grievanceLocation;
     }
 
+    public void setGrievanceLocation(String grievanceLocation) {
+        this.grievanceLocation = grievanceLocation;
+    }
+
     public String getLocationLandmark() {
         return locationLandmark;
+    }
+
+    public void setLocationLandmark(String locationLandmark) {
+        this.locationLandmark = locationLandmark;
     }
 
 }

@@ -38,8 +38,8 @@ public class WaterChargesDataReader extends ExcelReader {
         String sumpCapacity = convertNumericToString(connectionDetailsSheet, dataRow, "sumpCapacity");
         String noOfPersons = convertNumericToString(connectionDetailsSheet, dataRow, "noOfPersons");
         String connectionReason = convertNumericToString(connectionDetailsSheet, dataRow, "reasonForAdditionalConn");
-        String waterSupplyType = convertNumericToString(connectionDetailsSheet,dataRow,"waterSupplyType");
-        String apartmentName = convertNumericToString(connectionDetailsSheet,dataRow,"apartmentName");
+        String waterSupplyType = convertNumericToString(connectionDetailsSheet, dataRow, "waterSupplyType");
+        String apartmentName = convertNumericToString(connectionDetailsSheet, dataRow, "apartmentName");
 
         return new ConnectionInfoBuilder()
                 .withWaterSourceType(waterSourceType)

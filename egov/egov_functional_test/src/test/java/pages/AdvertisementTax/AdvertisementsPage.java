@@ -4,11 +4,12 @@ import entities.advertisementTax.AdvertisementDetails;
 import entities.advertisementTax.LocalityDetails;
 import entities.advertisementTax.PermissionDetails;
 import entities.advertisementTax.StructureDetails;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
-
-import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -234,7 +235,7 @@ public class AdvertisementsPage extends BasePage {
     public String forward() {
         clickOnButton(forwardButton, driver);
 
-        if(driver.findElements(By.id("Forward")).size() ==1){
+        if (driver.findElements(By.id("Forward")).size() == 1) {
             await().atMost(10, SECONDS).until(() -> driver.findElements(By.id("taxAmount")).size() == 1);
             JavascriptExecutor jse1 = (JavascriptExecutor) driver;
             jse1.executeScript("document.getElementById('taxAmount').value = '100';");

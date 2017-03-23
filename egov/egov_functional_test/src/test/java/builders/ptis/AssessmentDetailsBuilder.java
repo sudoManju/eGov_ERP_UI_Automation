@@ -22,7 +22,7 @@ public class AssessmentDetailsBuilder {
     }
 
     public AssessmentDetailsBuilder withBifurcationReasonForcreation(String bifurcationreasonForCreation) {
-       assessmentDetails.setBifurcationReasonForCreation(bifurcationreasonForCreation);
+        assessmentDetails.setBifurcationReasonForCreation(bifurcationreasonForCreation);
         return this;
     }
 
@@ -34,7 +34,6 @@ public class AssessmentDetailsBuilder {
     public AssessmentDetails build() {
         return assessmentDetails;
     }
-
 
 
 }

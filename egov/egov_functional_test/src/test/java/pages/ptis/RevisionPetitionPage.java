@@ -11,55 +11,40 @@ import pages.BasePage;
 public class RevisionPetitionPage extends BasePage {
 
     private WebDriver webDriver;
+    @FindBy(id = "assessmentNum")
+    private WebElement revisionPetitiontextBox;
+    @FindBy(id = "assessmentform_search")
+    private WebElement rpSearchButton;
+    @FindBy(id = "header_2")
+    private WebElement revisionPetitionHeader;
+    @FindBy(id = "details")
+    private WebElement revisionPetitionDetailTextBox;
+    @FindBy(id = "plannedHearingDtId")
+    private WebElement hearingDateTextBox;
+    @FindBy(id = "hearingTime")
+    private WebElement hearingTimeSelection;
+    @FindBy(id = "hearingVenue")
+    private WebElement venueTextBox;
+    @FindBy(id = "Forward")
+    private WebElement forwardButton;
+    @FindBy(id = "approverComments")
+    private WebElement approveRemarkHearingTextBox;
+    @FindBy(id = "reasonForModify")
+    private WebElement reasonForModificationDropDown;
+    @FindBy(id = "inspectionRemarks")
+    private WebElement inspectionTextBox;
+    @FindBy(id = "Approve")
+    private WebElement approveRpbutton;
+    @FindBy(id = "Print Endoresement")
+    private WebElement printEndoresementNoticeButton;
+    @FindBy(id = "buttonClose")
+    private WebElement PrintCloseButton;
+    @FindBy(id = "Print Special Notice")
+    private WebElement printSpecialNotice;
 
     public RevisionPetitionPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
-
-    @FindBy(id = "assessmentNum")
-    private WebElement revisionPetitiontextBox;
-
-    @FindBy(id = "assessmentform_search")
-    private WebElement rpSearchButton;
-
-    @FindBy(id = "header_2")
-    private WebElement revisionPetitionHeader;
-
-    @FindBy(id = "details")
-    private WebElement revisionPetitionDetailTextBox;
-
-    @FindBy(id = "plannedHearingDtId")
-    private WebElement hearingDateTextBox;
-
-    @FindBy(id = "hearingTime")
-    private WebElement hearingTimeSelection;
-
-    @FindBy(id = "hearingVenue")
-    private WebElement venueTextBox;
-
-    @FindBy(id = "Forward")
-    private WebElement forwardButton;
-
-    @FindBy(id = "approverComments")
-    private WebElement approveRemarkHearingTextBox;
-
-    @FindBy(id = "reasonForModify")
-    private WebElement reasonForModificationDropDown;
-
-    @FindBy(id = "inspectionRemarks")
-    private WebElement inspectionTextBox;
-
-    @FindBy(id = "Approve")
-    private WebElement approveRpbutton;
-
-    @FindBy(id = "Print Endoresement")
-    private WebElement printEndoresementNoticeButton;
-
-    @FindBy(id = "buttonClose")
-    private WebElement PrintCloseButton;
-
-    @FindBy(id = "Print Special Notice")
-    private WebElement printSpecialNotice;
 
     public void revisionPetitionSearchScreen(String Rpscreen) {
         enterText(revisionPetitiontextBox, Rpscreen, webDriver);

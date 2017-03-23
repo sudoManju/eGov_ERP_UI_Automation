@@ -1,15 +1,14 @@
 package steps.marriageRegistration;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.ApprovalDetails;
 import entities.marriageRegistration.MarriageRegistrationInformation;
+import excelDataFiles.ExcelReader;
 import excelDataFiles.MarriageRegistrationDataReader;
 import pages.ApprovalDetailsPage;
-import pages.sewerageTax.NewSewerageConnectionPage;
 import pages.marriageRegistration.MarriageRegistrationPage;
+import pages.sewerageTax.NewSewerageConnectionPage;
 import steps.BaseSteps;
-import excelDataFiles.ExcelReader;
 
 public class MarriageRegistrationSteps extends BaseSteps implements En {
     public MarriageRegistrationSteps() {

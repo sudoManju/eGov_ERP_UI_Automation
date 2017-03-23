@@ -23,19 +23,19 @@ public class TradeLocationDetails {
         this.ownershipType = ownershipType;
     }
 
-    public void setLocality(String locality) {
-        this.locality = locality;
-    }
-
-    public void setWard(String ward) {
-        this.ward = ward;
-    }
-
     public String getLocality() {
         return locality;
     }
 
+    public void setLocality(String locality) {
+        this.locality = locality;
+    }
+
     public String getWard() {
         return ward;
+    }
+
+    public void setWard(String ward) {
+        this.ward = ward;
     }
 }

@@ -115,13 +115,13 @@ public class JournalVoucherDetailsPage extends FinancialPage {
         clickOnButton(accountCodeDropdown, webDriver);
         enterText(debitAmount1, financialJournalVoucherDetails.getDebitAmount1(), webDriver);
 
-        m1.put(financialJournalVoucherDetails.getAccountCode1() , financialJournalVoucherDetails.getDebitAmount1());
+        m1.put(financialJournalVoucherDetails.getAccountCode1(), financialJournalVoucherDetails.getDebitAmount1());
 
         enterText(accountCode2, financialJournalVoucherDetails.getAccountCode2(), webDriver);
         clickOnButton(accountCodeDropdown, webDriver);
         enterText(creditAmount2, financialJournalVoucherDetails.getCreditAmount2(), webDriver);
 
-        m1.put(financialJournalVoucherDetails.getAccountCode2() , financialJournalVoucherDetails.getCreditAmount2());
+        m1.put(financialJournalVoucherDetails.getAccountCode2(), financialJournalVoucherDetails.getCreditAmount2());
 
         if (!financialJournalVoucherDetails.getAccountCode3().isEmpty()) {
 
@@ -130,7 +130,7 @@ public class JournalVoucherDetailsPage extends FinancialPage {
             enterText(accountCode3, financialJournalVoucherDetails.getAccountCode3(), webDriver);
             clickOnButton(accountCodeDropdown, webDriver);
             enterText(creditAmount3, financialJournalVoucherDetails.getCreditAmount3(), webDriver);
-            m1.put(financialJournalVoucherDetails.getAccountCode3() , financialJournalVoucherDetails.getCreditAmount3());
+            m1.put(financialJournalVoucherDetails.getAccountCode3(), financialJournalVoucherDetails.getCreditAmount3());
         }
     }
 
@@ -142,28 +142,26 @@ public class JournalVoucherDetailsPage extends FinancialPage {
             await().atMost(5, SECONDS).until(() -> new Select(ledgerAccount1).getOptions().size() > 1);
             List<WebElement> webElementList = ledgerAccount1.findElements(By.tagName("option"));
 
-            for(int i = 0 ; (webElementList.size()-1) >i ; i++){
-                selectFromDropDown(webDriver.findElement(By.id("subLedgerlist["+i+"].glcode.id")), webElementList.get(i+1).getText(), webDriver);
+            for (int i = 0; (webElementList.size() - 1) > i; i++) {
+                selectFromDropDown(webDriver.findElement(By.id("subLedgerlist[" + i + "].glcode.id")), webElementList.get(i + 1).getText(), webDriver);
 
-                if(new Select(webDriver.findElement(By.id("subLedgerlist["+i+"].glcode.id"))).getFirstSelectedOption().getText().contains("3502002")) {
-                    selectFromDropDown(webDriver.findElement(By.id("subLedgerlist["+i+"].detailType.id")), "Employee", webDriver);
-                }
-                else {
-                    selectFromDropDown(webDriver.findElement(By.id("subLedgerlist["+i+"].detailType.id")), "contractor", webDriver);
+                if (new Select(webDriver.findElement(By.id("subLedgerlist[" + i + "].glcode.id"))).getFirstSelectedOption().getText().contains("3502002")) {
+                    selectFromDropDown(webDriver.findElement(By.id("subLedgerlist[" + i + "].detailType.id")), "Employee", webDriver);
+                } else {
+                    selectFromDropDown(webDriver.findElement(By.id("subLedgerlist[" + i + "].detailType.id")), "contractor", webDriver);
                 }
 
-                if(new Select(webDriver.findElement(By.id("subLedgerlist["+i+"].detailType.id"))).getFirstSelectedOption().getText().contains("Employee")) {
-                    enterText(webDriver.findElement(By.id("subLedgerlist["+i+"].detailCode")), "946800", webDriver);
-                }
-                else {
-                    enterText(webDriver.findElement(By.id("subLedgerlist["+i+"].detailCode")), "KMC001", webDriver);
+                if (new Select(webDriver.findElement(By.id("subLedgerlist[" + i + "].detailType.id"))).getFirstSelectedOption().getText().contains("Employee")) {
+                    enterText(webDriver.findElement(By.id("subLedgerlist[" + i + "].detailCode")), "946800", webDriver);
+                } else {
+                    enterText(webDriver.findElement(By.id("subLedgerlist[" + i + "].detailCode")), "KMC001", webDriver);
                 }
 
                 clickOnButton(accountCodeDropdown, webDriver);
 
-                String amountElement = new Select(webDriver.findElement(By.id("subLedgerlist["+i+"].glcode.id"))).getFirstSelectedOption().getText();
-                enterText(webDriver.findElement(By.id("subLedgerlist["+i+"].amount")), m1.get(amountElement).toString() , webDriver);
-                if((webElementList.size()-2) > i){
+                String amountElement = new Select(webDriver.findElement(By.id("subLedgerlist[" + i + "].glcode.id"))).getFirstSelectedOption().getText();
+                enterText(webDriver.findElement(By.id("subLedgerlist[" + i + "].amount")), m1.get(amountElement).toString(), webDriver);
+                if ((webElementList.size() - 2) > i) {
                     webDriver.findElements(By.id("egov_yui_add_image")).get(webDriver.findElements(By.id("egov_yui_add_image")).size() - 1).click();
                 }
             }

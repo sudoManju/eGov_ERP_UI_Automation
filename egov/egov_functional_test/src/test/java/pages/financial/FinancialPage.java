@@ -2,7 +2,10 @@ package pages.financial;
 
 import entities.ApprovalDetails;
 import entities.financial.FinancialBankDetails;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -197,10 +200,9 @@ public class FinancialPage extends BasePage {
         approverPosition.click();
         await().atMost(10, SECONDS).until(() -> approverPos.getOptions().size() > 1);
 
-        if(approverPos.getOptions().get(1).getText().split("\\ ")[0].length() ==1 ){
+        if (approverPos.getOptions().get(1).getText().split("\\ ")[0].length() == 1) {
             userName = approverPos.getOptions().get(1).getText().split("\\ ")[0] + " " + approverPos.getOptions().get(1).getText().split("\\ ")[1];
-        }
-        else {
+        } else {
             userName = approverPos.getOptions().get(1).getText().split("\\ ")[0];
         }
         clickOnButton(approverPos.getOptions().get(1), webDriver);

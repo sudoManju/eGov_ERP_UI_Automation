@@ -170,10 +170,10 @@ Feature: Create/renewal/closure of sewerage connection
     And current user logs out
 
     Examples:
-    |creationDocuments|changeDocuments|
-    |creation1        |change1        |
-    |creation2        |change2        |
-    |creation3        |change3        |
+      | creationDocuments | changeDocuments |
+      | creation1         | change1         |
+      | creation2         | change2         |
+      | creation3         | change3         |
 
   @SewerageTax @Sanity
   Scenario: Generate demand bill for legacy sewerage connection

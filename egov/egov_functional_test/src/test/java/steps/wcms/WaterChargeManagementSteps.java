@@ -6,6 +6,7 @@ import entities.wcms.ApplicantInfo;
 import entities.wcms.ConnectionInfo;
 import entities.wcms.EnclosedDocument;
 import entities.wcms.FieldInspectionDetails;
+import excelDataFiles.ExcelReader;
 import excelDataFiles.WaterChargesDataReader;
 import pages.ApprovalDetailsPage;
 import pages.DashboardPage;
@@ -13,7 +14,6 @@ import pages.wcms.WaterChargeCollectionsPage;
 import pages.wcms.WaterChargeManagementPage;
 import pages.wcms.WaterConnectionDetailsPage;
 import steps.BaseSteps;
-import excelDataFiles.ExcelReader;
 
 public class WaterChargeManagementSteps extends BaseSteps implements En {
 
@@ -103,11 +103,10 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
             pageStore.get(WaterChargeManagementPage.class).enterWaterDataEntryDetails(applicantInfo, scenarioContext.getAssessmentNumber());
 
             ConnectionInfo connectionInfo = new WaterChargesDataReader(waterChargesTestDataFileName).getConnectionInfo(connectionDetails);
-            if(connectionInfo.getConnectionType().equalsIgnoreCase("Non-metered")) {
+            if (connectionInfo.getConnectionType().equalsIgnoreCase("Non-metered")) {
                 pageStore.get(WaterConnectionDetailsPage.class).enterConnectionInfo(connectionInfo);
                 pageStore.get(WaterChargeManagementPage.class).estimationFeeDetails();
-            }
-            else{
+            } else {
                 pageStore.get(WaterConnectionDetailsPage.class).enterConnecttionInfoForMetered(connectionInfo);
                 pageStore.get(WaterChargeManagementPage.class).estimationFeeDetailsForMetered();
             }

@@ -3,14 +3,9 @@ package pages.ptis;
 import entities.ptis.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import static com.jayway.awaitility.Awaitility.await;
-import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class PropertyDetailsPage extends BasePage {
 
@@ -304,7 +299,7 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "parentIndex")
     private WebElement assessmentNumberOfParentPropertyTextBox;
 
-    @FindBy(id ="assessmentNum")
+    @FindBy(id = "assessmentNum")
     private WebElement bifurcationAssessmentNo;
 
     @FindBy(name = "propertyDetail.floorDetailsProxy[0].constructionDate")
@@ -549,7 +544,7 @@ public class PropertyDetailsPage extends BasePage {
     }
 
     public void searchAmalgamatedProperties() {
-        enterText(AmalgamatedPropertiesTextBox, "1016071673" , webDriver);
+        enterText(AmalgamatedPropertiesTextBox, "1016071673", webDriver);
         AmalgamatedPropertiesTextBox.sendKeys(Keys.TAB);
         enterDate(constructionDate, getPastDate(184), webDriver);
     }

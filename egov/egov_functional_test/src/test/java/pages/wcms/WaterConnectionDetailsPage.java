@@ -121,7 +121,7 @@ public class WaterConnectionDetailsPage extends WaterChargeManagementPage {
         enterText(sumpCapacityTextBox, connectionInfo.getSumpCapacity(), webDriver);
         enterText(noOfPersonsTextBox, connectionInfo.getNoOfPersons(), webDriver);
 
-        if(webDriver.findElement(By.id("connectionCategorie")).getText().contains("Select from below")){
+        if (webDriver.findElement(By.id("connectionCategorie")).getText().contains("Select from below")) {
             selectFromDropDown(webDriver.findElement(By.id("connectionCategorie")), connectionInfo.getCategory(), webDriver);
         }
     }
@@ -214,8 +214,8 @@ public class WaterConnectionDetailsPage extends WaterChargeManagementPage {
 
         enterText(sumpCapacityTextBox, connectionInfo.getSumpCapacity(), webDriver);
         enterText(noOfPersonsTextBox, connectionInfo.getNoOfPersons(), webDriver);
-        selectFromDropDown(waterSupplyType,connectionInfo.getWaterSupplyType(),webDriver);
-        enterText(apartmentName,connectionInfo.getApartmentName(),webDriver);
+        selectFromDropDown(waterSupplyType, connectionInfo.getWaterSupplyType(), webDriver);
+        enterText(apartmentName, connectionInfo.getApartmentName(), webDriver);
 
     }
 }

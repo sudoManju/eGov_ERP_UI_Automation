@@ -2,8 +2,8 @@ package excelDataFiles;
 
 import builders.ApprovalDetailsBuilder;
 import builders.LoginDetailsBuilder;
-import entities.*;
 import entities.ApprovalDetails;
+import entities.LoginDetails;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 

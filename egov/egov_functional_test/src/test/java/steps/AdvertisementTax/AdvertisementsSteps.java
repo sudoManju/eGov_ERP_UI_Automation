@@ -7,10 +7,10 @@ import entities.advertisementTax.LocalityDetails;
 import entities.advertisementTax.PermissionDetails;
 import entities.advertisementTax.StructureDetails;
 import excelDataFiles.AdvertisementTaxDataReader;
+import excelDataFiles.ExcelReader;
 import pages.AdvertisementTax.AdvertisementsPage;
 import pages.ApprovalDetailsPage;
 import steps.BaseSteps;
-import excelDataFiles.ExcelReader;
 
 public class AdvertisementsSteps extends BaseSteps implements En {
 

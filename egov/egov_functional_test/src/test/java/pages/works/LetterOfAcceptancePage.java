@@ -8,12 +8,8 @@ import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
 
 public class LetterOfAcceptancePage extends BasePage {
+    String RandomString = RandomStringUtils.randomAlphanumeric(3).toUpperCase();
     private WebDriver driver;
-
-    public LetterOfAcceptancePage(WebDriver driver) {
-        this.driver = driver;
-    }
-
     @FindBy(id = "fileNumber")
     private WebElement fileNumber;
 
@@ -95,7 +91,9 @@ public class LetterOfAcceptancePage extends BasePage {
     @FindBy(id = "workOrderDate")
     private WebElement agreementDate;
 
-    String RandomString = RandomStringUtils.randomAlphanumeric(3).toUpperCase();
+    public LetterOfAcceptancePage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void enterLOAdetails() {
         enterText(fileNumber, "F/" + RandomString, driver);

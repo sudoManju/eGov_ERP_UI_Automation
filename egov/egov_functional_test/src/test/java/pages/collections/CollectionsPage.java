@@ -1,15 +1,13 @@
 package pages.collections;
 
-import cucumber.runtime.Timeout;
 import entities.ApprovalDetails;
 import entities.collections.ChallanHeaderDetails;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.*;
+import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -117,7 +115,7 @@ public class CollectionsPage extends BasePage {
     @FindBy(id = "challan.challanNumber")
     private WebElement challanNumber;
 
-    @FindBy(id="actionMessages")
+    @FindBy(id = "actionMessages")
     private WebElement creationMsg;
 
     @FindBy(xpath = ".//*[@id='buttonclose2']")
@@ -269,7 +267,7 @@ public class CollectionsPage extends BasePage {
     public String getSuccessMsg() {
 
         await().atMost(30, SECONDS).until(() -> driver.findElements(By.cssSelector("div[id='paymentInfo']")).size() == 1);
-        String successMsg = getTextFromWeb(driver.findElement(By.id("paymentInfo")),driver);
+        String successMsg = getTextFromWeb(driver.findElement(By.id("paymentInfo")), driver);
         return successMsg;
     }
 }

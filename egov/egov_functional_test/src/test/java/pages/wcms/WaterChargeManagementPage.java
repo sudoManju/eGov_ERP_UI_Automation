@@ -1,7 +1,9 @@
 package pages.wcms;
 
 import entities.wcms.ApplicantInfo;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
 
@@ -138,7 +140,7 @@ public class WaterChargeManagementPage extends BasePage {
     private WebElement forwardMessage;
 
     @FindBy(id = "existmeterCost")
-    private  WebElement meterCost;
+    private WebElement meterCost;
 
     @FindBy(id = "existmeterName")
     private WebElement meterName;
@@ -147,10 +149,10 @@ public class WaterChargeManagementPage extends BasePage {
     private WebElement meterSlNumber;
 
     @FindBy(id = "previousReading")
-    private  WebElement previousReading;
+    private WebElement previousReading;
 
     @FindBy(id = "existreadingDate")
-    private  WebElement lastreadingDate;
+    private WebElement lastreadingDate;
 
     @FindBy(id = "currentcurrentReading")
     private WebElement currentReading;
@@ -416,12 +418,12 @@ public class WaterChargeManagementPage extends BasePage {
     public void estimationFeeDetailsForMetered() {
         enterText(monthlyFees, "1000", webDriver);
         enterText(donationCharges, "100", webDriver);
-        enterText(meterCost,"1500", webDriver);
-        enterText(meterName,"Test", webDriver);
-        enterText(meterSlNumber,"002", webDriver);
-        enterText(previousReading,"0002", webDriver);
-        enterDate(lastreadingDate,"10", webDriver);
-        enterText(currentReading,"1200", webDriver);
+        enterText(meterCost, "1500", webDriver);
+        enterText(meterName, "Test", webDriver);
+        enterText(meterSlNumber, "002", webDriver);
+        enterText(previousReading, "0002", webDriver);
+        enterDate(lastreadingDate, "10", webDriver);
+        enterText(currentReading, "1200", webDriver);
 
         clickOnButton(createDataEntryScreen, webDriver);
         switchToNewlyOpenedWindow(webDriver);

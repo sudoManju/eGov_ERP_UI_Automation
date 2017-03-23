@@ -12,88 +12,62 @@ import java.util.List;
 public class TransferDetailsPage extends BasePage {
 
     private WebDriver webdriver;
+    @FindBy(id = "REGISTERED TRANSFER")
+    private WebElement registrationAlreadyDoneButton;
+    @FindBy(id = "seller")
+    private WebElement sellerExecutantNameTextBox;
+    @FindBy(id = "buyer")
+    private WebElement buyerClaimantNameTextBox;
+    @FindBy(id = "doorNo")
+    private WebElement doorNoTextBox;
+    @FindBy(id = "address")
+    private WebElement propertyAddressTextBox;
+    @FindBy(id = "mobileNumber")
+    private WebElement transferMobileNumber;
+    @FindBy(id = "plotArea")
+    private WebElement registeredPlotAreaTextBox;
+    @FindBy(id = "plinthArea")
+    private WebElement registeredPlinthAreaTextBox;
+    @FindBy(id = "eastBoundary")
+    private WebElement eastBoundaryTextBox;
+    @FindBy(id = "westBoundary")
+    private WebElement westBoundaryTextBox;
+    @FindBy(id = "northBoundary")
+    private WebElement northBoundaryTextBox;
+    @FindBy(id = "southBoundary")
+    private WebElement southBoundaryTextBox;
+    @FindBy(id = "sroName")
+    private WebElement sRONameTextBox;
+    @FindBy(id = "transRsnId")
+    private WebElement reasonforTransfersection;
+    @FindBy(id = "docNum")
+    private WebElement registrationDocumentNumberTextBox;
+    @FindBy(id = "deedDate")
+    private WebElement registrationDocumentDateTextBox;
+    @FindBy(id = "partyValue")
+    private WebElement partiesConsiderationValueTextBox;
+    @FindBy(id = "departmentValue")
+    private WebElement departmentGuidelinesValueTextBox;
+    @FindBy(name = "assessmentNo")
+    private WebElement searchMutationTextBox;
+    @FindBy(className = "buttonsubmit")
+    private WebElement payFeeButton;
+    @FindBy(id = "Generate Title Transfer Notice")
+    private WebElement titleTransferNoticeTextBox;
+    @FindBy(id = "assessmentNum")
+    private WebElement searchAssessmentNumberTextBox;
+    @FindBy(id = "taxExemptedReason")
+    private WebElement exemptionReasonDropdown;
+    @FindBy(xpath = ".//*[@id='propertyAckForm']/div[1]/div/div/strong")
+    private WebElement successPageMessage;
+    @FindBy(css = "a[class='btn btn-default']")
+    private List<WebElement> taxExemptionCloseButton;
+    @FindBy(css = "input[type='button'][value='Close']")
+    private WebElement closeButton;
 
     public TransferDetailsPage(WebDriver webdriver) {
         this.webdriver = webdriver;
     }
-
-    @FindBy(id = "REGISTERED TRANSFER")
-    private WebElement registrationAlreadyDoneButton;
-
-    @FindBy(id = "seller")
-    private WebElement sellerExecutantNameTextBox;
-
-    @FindBy(id = "buyer")
-    private WebElement buyerClaimantNameTextBox;
-
-    @FindBy(id = "doorNo")
-    private WebElement doorNoTextBox;
-
-    @FindBy(id = "address")
-    private WebElement propertyAddressTextBox;
-
-    @FindBy(id = "mobileNumber")
-    private WebElement transferMobileNumber;
-
-    @FindBy(id = "plotArea")
-    private WebElement registeredPlotAreaTextBox;
-
-    @FindBy(id = "plinthArea")
-    private WebElement registeredPlinthAreaTextBox;
-
-    @FindBy(id = "eastBoundary")
-    private WebElement eastBoundaryTextBox;
-
-    @FindBy(id = "westBoundary")
-    private WebElement westBoundaryTextBox;
-
-    @FindBy(id = "northBoundary")
-    private WebElement northBoundaryTextBox;
-
-    @FindBy(id = "southBoundary")
-    private WebElement southBoundaryTextBox;
-
-    @FindBy(id = "sroName")
-    private WebElement sRONameTextBox;
-
-    @FindBy(id = "transRsnId")
-    private WebElement reasonforTransfersection;
-
-    @FindBy(id = "docNum")
-    private WebElement registrationDocumentNumberTextBox;
-
-    @FindBy(id = "deedDate")
-    private WebElement registrationDocumentDateTextBox;
-
-    @FindBy(id = "partyValue")
-    private WebElement partiesConsiderationValueTextBox;
-
-    @FindBy(id = "departmentValue")
-    private WebElement departmentGuidelinesValueTextBox;
-
-    @FindBy(name = "assessmentNo")
-    private WebElement searchMutationTextBox;
-
-    @FindBy(className = "buttonsubmit")
-    private WebElement payFeeButton;
-
-    @FindBy(id = "Generate Title Transfer Notice")
-    private WebElement titleTransferNoticeTextBox;
-
-    @FindBy(id = "assessmentNum")
-    private WebElement searchAssessmentNumberTextBox;
-
-    @FindBy(id = "taxExemptedReason")
-    private WebElement exemptionReasonDropdown;
-
-    @FindBy(xpath = ".//*[@id='propertyAckForm']/div[1]/div/div/strong")
-    private WebElement successPageMessage;
-
-    @FindBy(css = "a[class='btn btn-default']")
-    private List<WebElement> taxExemptionCloseButton;
-
-    @FindBy(css = "input[type='button'][value='Close']")
-    private WebElement closeButton;
 
     public void chooseRegistrationAlreadyDone() {
         waitForElementToBeClickable(registrationAlreadyDoneButton, webdriver);

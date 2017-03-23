@@ -1,16 +1,15 @@
 package steps.ptis;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.ApprovalDetails;
 import entities.ptis.*;
+import excelDataFiles.ExcelReader;
 import excelDataFiles.PTISDataReader;
 import pages.ApprovalDetailsPage;
 import pages.ptis.PropertyAcknowledgementPage;
 import pages.ptis.PropertyDetailsPage;
 import pages.ptis.TransferDetailsPage;
 import steps.BaseSteps;
-import excelDataFiles.ExcelReader;
 
 public class PropertyDetailsPageSteps extends BaseSteps implements En {
 
@@ -99,7 +98,7 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
             pageStore.get(TransferDetailsPage.class).closesAcknowledgement();
         });
         And("^he search for the Amalgamated Properties$", () -> {
-          pageStore.get(PropertyDetailsPage.class).searchAmalgamatedProperties();
+            pageStore.get(PropertyDetailsPage.class).searchAmalgamatedProperties();
         });
         And("^he enters bifurcation assessment details as (\\w+)$", (String bifurcationDetailsDataId) -> {
             AssessmentDetails bifurcationDetails = new PTISDataReader(ptisTestDataFileName).getbifurcationDetails(bifurcationDetailsDataId);
@@ -111,7 +110,7 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
             pageStore.get(PropertyDetailsPage.class).enterBifurcationAssessmentNo(bifurcationDetails);
         });
         And("^he click on floors Details entered$", () -> {
-           pageStore.get(PropertyDetailsPage.class).clickOnFloorDetailsCheckBox();
+            pageStore.get(PropertyDetailsPage.class).clickOnFloorDetailsCheckBox();
         });
     }
 }

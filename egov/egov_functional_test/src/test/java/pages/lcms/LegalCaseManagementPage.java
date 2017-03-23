@@ -5,11 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
-
-import static com.jayway.awaitility.Awaitility.await;
-import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class LegalCaseManagementPage extends BasePage {
 
@@ -246,7 +242,7 @@ public class LegalCaseManagementPage extends BasePage {
 
     public void clickOnCorrespondingAction(String action) {
 
-        if(webDriver.findElements(By.id("additionconn")).size() == 0){
+        if (webDriver.findElements(By.id("additionconn")).size() == 0) {
             clickOnButton(excludeJudgmentImplementationCheckBox, webDriver);
             clickOnButton(legalcaseReportSearchButton, webDriver);
         }

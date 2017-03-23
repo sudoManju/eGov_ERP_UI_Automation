@@ -1,7 +1,9 @@
 package pages;
 
 import entities.LoginDetails;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.concurrent.TimeUnit;
@@ -42,11 +44,11 @@ public class HomePage extends BasePage {
         enterText(userNameTextBox, loginDetails.getLoginId(), driver);
         enterText(passwordTextBox, loginDetails.getPassword(), driver);
 //        if (loginDetails.getHasZone()) {
-            try {
-                TimeUnit.SECONDS.sleep(2);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 //        }
         WebElement signForm = driver.findElement(By.id("signform"));
         waitForElementToBeClickable(signForm, driver);

@@ -2,11 +2,11 @@ package steps.AdvertisementTax;
 
 import cucumber.api.java8.En;
 import entities.ApprovalDetails;
+import excelDataFiles.ExcelReader;
 import pages.AdvertisementTax.AdvertisementsPage;
 import pages.AdvertisementTax.LegacyAdvertisementsPage;
 import pages.ApprovalDetailsPage;
 import steps.BaseSteps;
-import excelDataFiles.ExcelReader;
 
 public class LegacyAdvertisementsSteps extends BaseSteps implements En {
 

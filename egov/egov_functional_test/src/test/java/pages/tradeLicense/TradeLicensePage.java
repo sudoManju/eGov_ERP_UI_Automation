@@ -151,9 +151,9 @@ public class TradeLicensePage extends BasePage {
         enterText(propertyAssessmentNumberTextBox, tradelocationDetails.getpropertyAssessmentNumber(), webDriver);
         propertyAssessmentNumberTextBox.sendKeys(Keys.TAB);
         await().atMost(20, SECONDS).until(() -> new Select(location).getOptions().size() > 1);
-        if(!(wardSelect.findElements(By.tagName("option")).size() > 1)){
-            clickOnButton(location ,webDriver);
-            clickOnButton(location ,webDriver);
+        if (!(wardSelect.findElements(By.tagName("option")).size() > 1)) {
+            clickOnButton(location, webDriver);
+            clickOnButton(location, webDriver);
             location.sendKeys(Keys.TAB);
         }
         await().atMost(10, SECONDS).until(() -> wardSelect.findElements(By.tagName("option")).size() > 1);
@@ -172,15 +172,15 @@ public class TradeLicensePage extends BasePage {
             WebElement element = webDriver.findElement(By.id("select2-subCategory-container"));
             clickOnButton(element, webDriver);
         }
-        waitForElementToBeVisible(searchBox , webDriver);
+        waitForElementToBeVisible(searchBox, webDriver);
         searchBox.sendKeys(tradedetails.gettradeSubCategory());
         WebElement element = webDriver.findElement(By.xpath(".//*[@id='select2-subCategory-results']/li[1]"));
         clickOnButton(element, webDriver);
 
-        if(tradeSubCategoryDropBox.getText().isEmpty()){
+        if (tradeSubCategoryDropBox.getText().isEmpty()) {
             WebElement element2 = webDriver.findElement(By.id("select2-subCategory-container"));
             clickOnButton(element2, webDriver);
-            waitForElementToBeVisible(searchBox , webDriver);
+            waitForElementToBeVisible(searchBox, webDriver);
             searchBox.sendKeys(tradedetails.gettradeSubCategory());
             WebElement element1 = webDriver.findElement(By.xpath(".//*[@id='select2-subCategory-results']/li[1]"));
             clickOnButton(element1, webDriver);
@@ -213,15 +213,14 @@ public class TradeLicensePage extends BasePage {
     }
 
     public void chooseToPayTaxOfApplicationNumber() {
-        int tot= 0;
-        for(int i=1;i<=webDriver.findElements(By.xpath(".//*[@id='LicenseBillCollect']/table/tbody/tr")).size();i++)
-        {
-          String totalAmt=webDriver.findElement(By.xpath(".//*[@id='LicenseBillCollect']/table/tbody/tr["+i+"]/td[3]")).getText();
-          tot=tot+ Integer.parseInt(totalAmt);
+        int tot = 0;
+        for (int i = 1; i <= webDriver.findElements(By.xpath(".//*[@id='LicenseBillCollect']/table/tbody/tr")).size(); i++) {
+            String totalAmt = webDriver.findElement(By.xpath(".//*[@id='LicenseBillCollect']/table/tbody/tr[" + i + "]/td[3]")).getText();
+            tot = tot + Integer.parseInt(totalAmt);
         }
         clickOnButton(continuePayButton, webDriver);
         switchToNewlyOpenedWindow(webDriver);
-        Assert.assertEquals(tot,Integer.parseInt(totalAmountReceived.getAttribute("value").split("\\.")[0]));
+        Assert.assertEquals(tot, Integer.parseInt(totalAmountReceived.getAttribute("value").split("\\.")[0]));
         enterText(amountTextBox, totalAmountReceived.getAttribute("value").split("\\.")[0], webDriver);
         WebElement element = webDriver.findElement(By.id("button2"));
         JavascriptExecutor executor = (JavascriptExecutor) webDriver;
@@ -365,7 +364,7 @@ public class TradeLicensePage extends BasePage {
 
     public String generateDemand() {
         clickOnButton(generateDemandButton, webDriver);
-        String actMsg=webDriver.findElement(By.xpath(".//*[@id='generatelicensedemand']/div/div[1]")).getText();
+        String actMsg = webDriver.findElement(By.xpath(".//*[@id='generatelicensedemand']/div/div[1]")).getText();
         webDriver.findElement(By.linkText("Close")).click();
         switchToNewlyOpenedWindow(webDriver);
         clickOnButton(searchButton, webDriver);

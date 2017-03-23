@@ -2,9 +2,9 @@ package steps;
 
 import cucumber.api.java8.En;
 import entities.LoginDetails;
+import excelDataFiles.ExcelReader;
 import pages.BasePage;
 import pages.HomePage;
-import excelDataFiles.ExcelReader;
 
 public class HomePageSteps extends BaseSteps implements En {
     public HomePageSteps() {

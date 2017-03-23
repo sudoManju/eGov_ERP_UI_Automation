@@ -5,11 +5,10 @@ import entities.ApprovalDetails;
 import entities.collections.ChallanHeaderDetails;
 import entities.collections.PaymentMethod;
 import excelDataFiles.CollectionsDataReader;
+import excelDataFiles.ExcelReader;
 import pages.collections.CollectionsPage;
 import pages.collections.PropertyTaxPage;
 import steps.BaseSteps;
-import excelDataFiles.ExcelReader;
-import utils.ScenarioContext;
 
 public class CollectionSteps extends BaseSteps implements En {
 

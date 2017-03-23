@@ -134,15 +134,13 @@ public class NewSewerageConnectionPage extends BasePage {
     public void createNewConnection(String assessmentNumber, ConnectionDetails connectionDetails) {
         enterText(PTAssessmentNumberTextBox, assessmentNumber, driver);
         selectFromDropDown(propertyTypeDropBox, connectionDetails.getPropertyType(), driver);
-        if(connectionDetails.getPropertyType().equals("NON RESIDENTIAL")){
-          enterText(noOfClosetsForNonResidentialsTextBox,connectionDetails.getNumOfClosetsForNonResidential(),driver);
-        }
-        else if(connectionDetails.getPropertyType().equals("RESIDENTIAL")) {
+        if (connectionDetails.getPropertyType().equals("NON RESIDENTIAL")) {
+            enterText(noOfClosetsForNonResidentialsTextBox, connectionDetails.getNumOfClosetsForNonResidential(), driver);
+        } else if (connectionDetails.getPropertyType().equals("RESIDENTIAL")) {
             enterText(noOfClosetsForResidentialsTextBox, connectionDetails.getNumOfClosetsForResidential(), driver);
-        }
-        else{
+        } else {
             enterText(noOfClosetsForResidentialsTextBox, connectionDetails.getNumOfClosetsForResidential(), driver);
-            enterText(noOfClosetsForNonResidentialsTextBox,connectionDetails.getNumOfClosetsForNonResidential(),driver);
+            enterText(noOfClosetsForNonResidentialsTextBox, connectionDetails.getNumOfClosetsForNonResidential(), driver);
         }
         enterText(documentNumberTextBox, connectionDetails.getDocumentNum(), driver);
         enterDate(documentDateTextBox, getCurrentDate(), driver);
@@ -259,14 +257,12 @@ public class NewSewerageConnectionPage extends BasePage {
     }
 
     public void increseTheNumberOfClosets(ConnectionDetails connectionDetails) {
-        if(connectionDetails.getPropertyType().equals("NON RESIDENTIAL")){
-            enterText(noOfClosetsForNonResidentialsTextBox,connectionDetails.getNumOfClosetsForNonResidential(),driver);
-        }
-        else if(connectionDetails.getPropertyType().equals("RESIDENTIAL")) {
+        if (connectionDetails.getPropertyType().equals("NON RESIDENTIAL")) {
+            enterText(noOfClosetsForNonResidentialsTextBox, connectionDetails.getNumOfClosetsForNonResidential(), driver);
+        } else if (connectionDetails.getPropertyType().equals("RESIDENTIAL")) {
             enterText(noOfClosetsForResidentialsTextBox, connectionDetails.getNumOfClosetsForResidential(), driver);
-        }
-        else{
-            enterText(noOfClosetsForNonResidentialsTextBox,connectionDetails.getNumOfClosetsForNonResidential(),driver);
+        } else {
+            enterText(noOfClosetsForNonResidentialsTextBox, connectionDetails.getNumOfClosetsForNonResidential(), driver);
             enterText(noOfClosetsForResidentialsTextBox, connectionDetails.getNumOfClosetsForResidential(), driver);
         }
         enterText(documentNumberTextBox, connectionDetails.getDocumentNum(), driver);

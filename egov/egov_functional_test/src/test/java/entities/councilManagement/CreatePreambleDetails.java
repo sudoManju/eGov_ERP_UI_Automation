@@ -14,20 +14,20 @@ public class CreatePreambleDetails {
     private String councilMOMResolution;
     private String councilMOMAction;
 
-    public void setPreambleDepartment(String preambleDepartment) {
-        this.preambleDepartment = preambleDepartment;
-    }
-
     public String getPreambleDepartment() {
         return preambleDepartment;
     }
 
-    public void setAmount(String amount) {
-        this.amount = amount;
+    public void setPreambleDepartment(String preambleDepartment) {
+        this.preambleDepartment = preambleDepartment;
     }
 
     public String getAmount() {
         return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
     }
 
     public String getGistOfPreamble() {
@@ -62,14 +62,6 @@ public class CreatePreambleDetails {
         this.councilMeetingDate = councilMeetingDate;
     }
 
-    public void setCouncilMeetingTime(String councilMeetingTime) {
-        this.councilMeetingTime = councilMeetingTime;
-    }
-
-    public void setCouncilMeetingPlace(String councilMeetingPlace) {
-        this.councilMeetingPlace = councilMeetingPlace;
-    }
-
     public String getcouncilMeetingDate() {
         return councilMeetingDate;
     }
@@ -78,23 +70,31 @@ public class CreatePreambleDetails {
         return councilMeetingTime;
     }
 
+    public void setCouncilMeetingTime(String councilMeetingTime) {
+        this.councilMeetingTime = councilMeetingTime;
+    }
+
     public String getCouncilMeetingPlace() {
         return councilMeetingPlace;
     }
 
-    public void setCouncilMOMResolution(String councilMOMResolution) {
-        this.councilMOMResolution = councilMOMResolution;
-    }
-
-    public void setCouncilMOMAction(String councilMOMAction) {
-        this.councilMOMAction = councilMOMAction;
+    public void setCouncilMeetingPlace(String councilMeetingPlace) {
+        this.councilMeetingPlace = councilMeetingPlace;
     }
 
     public String getCouncilMOMResolution() {
         return councilMOMResolution;
     }
 
+    public void setCouncilMOMResolution(String councilMOMResolution) {
+        this.councilMOMResolution = councilMOMResolution;
+    }
+
     public String getCouncilMOMAction() {
         return councilMOMAction;
+    }
+
+    public void setCouncilMOMAction(String councilMOMAction) {
+        this.councilMOMAction = councilMOMAction;
     }
 }

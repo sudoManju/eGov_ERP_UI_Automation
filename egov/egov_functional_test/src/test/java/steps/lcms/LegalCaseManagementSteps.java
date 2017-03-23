@@ -1,8 +1,8 @@
 package steps.lcms;
 
 import cucumber.api.java8.En;
-import excelDataFiles.LCMSDataReader;
 import entities.lcms.CreateLegalCase;
+import excelDataFiles.LCMSDataReader;
 import pages.lcms.LegalCaseManagementPage;
 import steps.BaseSteps;
 

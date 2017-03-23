@@ -1,6 +1,5 @@
 package steps.collections;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.collections.PaymentMethod;
 import excelDataFiles.CollectionsDataReader;
