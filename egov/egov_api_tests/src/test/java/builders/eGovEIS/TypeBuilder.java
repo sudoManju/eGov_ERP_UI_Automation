@@ -20,5 +20,7 @@ public final class TypeBuilder {
         return this;
     }
 
-    public Type build() { return type; }
+    public Type build() {
+        return type;
+    }
 }

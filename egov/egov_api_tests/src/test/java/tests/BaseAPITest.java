@@ -30,30 +30,30 @@ public class BaseAPITest {
     public void setUp() throws IOException {
     }
 
-    protected LoginResponse loginTestMethod(String path,String username) throws IOException {
+    protected LoginResponse loginTestMethod(String path, String username) throws IOException {
         LoginRequest request = new LoginRequestBuilder().withUsername(username).build();
 
         Map jsonString = RequestHelper.asMap(request);
 
-        Response response = new LoginResource().login(jsonString , path);
+        Response response = new LoginResource().login(jsonString, path);
         LoginResponse loginResponse = (LoginResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), LoginResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertEquals(loginResponse.getUserRequest().getUserName(), username);
 
-        new APILogger().log("Login is Completed -- ");
+        new APILogger().log("Login Test is Completed -- ");
         return loginResponse;
     }
 
-    protected void logoutTestMethod(LoginResponse loginResponse,String path) throws IOException {
-        Response response1 = new LoginResource().logout(loginResponse.getAccess_token(),path);
+    protected void logoutTestMethod(LoginResponse loginResponse, String path) throws IOException {
+        Response response1 = new LoginResource().logout(loginResponse.getAccess_token(), path);
         LogoutResponse logoutResponse = (LogoutResponse)
                 ResponseHelper.getResponseAsObject(response1.asString(), LogoutResponse.class);
 
         Assert.assertEquals(response1.getStatusCode(), 200);
         Assert.assertEquals(logoutResponse.getStatus(), "Logout successfully");
 
-        new APILogger().log("Logout is Completed --");
+        new APILogger().log("Logout Test is Completed --");
     }
 }

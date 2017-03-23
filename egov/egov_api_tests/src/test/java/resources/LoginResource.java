@@ -10,9 +10,9 @@ import static com.jayway.restassured.RestAssured.given;
 
 public class LoginResource {
 
-    public Response login(Map json , String path) {
+    public Response login(Map json, String path) {
 
-        new APILogger().log("login request started -- " + json);
+        new APILogger().log("Login Test is started -- ");
 
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
@@ -25,9 +25,9 @@ public class LoginResource {
         return response;
     }
 
-    public Response logout(String accessToken,String path) {
+    public Response logout(String accessToken, String path) {
 
-        new APILogger().log("logout request started-- " + accessToken);
+        new APILogger().log("Logout request started-- ");
 
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
@@ -39,9 +39,9 @@ public class LoginResource {
         return response;
     }
 
-    public Response inValidLogout(String accessToken,String path) {
+    public Response inValidLogout(String accessToken, String path) {
 
-        new APILogger().log("logout request started-- " + accessToken);
+        new APILogger().log("In-Valid logout request started-- " + accessToken);
 
         Response response = given().request().with()
                 .urlEncodingEnabled(false)

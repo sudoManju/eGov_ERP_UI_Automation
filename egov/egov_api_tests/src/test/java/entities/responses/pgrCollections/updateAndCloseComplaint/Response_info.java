@@ -1,7 +1,6 @@
 package entities.responses.pgrCollections.updateAndCloseComplaint;
 
-public class Response_info
-{
+public class Response_info {
     private String api_id;
 
     private String ts;
@@ -14,63 +13,51 @@ public class Response_info
 
     private String res_msg_id;
 
-    public String getApi_id ()
-    {
+    public String getApi_id() {
         return api_id;
     }
 
-    public void setApi_id (String api_id)
-    {
+    public void setApi_id(String api_id) {
         this.api_id = api_id;
     }
 
-    public String getTs ()
-    {
+    public String getTs() {
         return ts;
     }
 
-    public void setTs (String ts)
-    {
+    public void setTs(String ts) {
         this.ts = ts;
     }
 
-    public String getStatus ()
-    {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus (String status)
-    {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public String getMsg_id ()
-    {
+    public String getMsg_id() {
         return msg_id;
     }
 
-    public void setMsg_id (String msg_id)
-    {
+    public void setMsg_id(String msg_id) {
         this.msg_id = msg_id;
     }
 
-    public String getVer ()
-    {
+    public String getVer() {
         return ver;
     }
 
-    public void setVer (String ver)
-    {
+    public void setVer(String ver) {
         this.ver = ver;
     }
 
-    public String getRes_msg_id ()
-    {
+    public String getRes_msg_id() {
         return res_msg_id;
     }
 
-    public void setRes_msg_id (String res_msg_id)
-    {
+    public void setRes_msg_id(String res_msg_id) {
         this.res_msg_id = res_msg_id;
     }
 }

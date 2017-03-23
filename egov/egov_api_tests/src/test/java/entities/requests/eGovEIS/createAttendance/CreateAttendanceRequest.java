@@ -10,23 +10,19 @@ public class CreateAttendanceRequest {
     @JsonProperty("Attendance")
     private Attendance[] Attendance;
 
-    public RequestInfo getRequestInfo ()
-    {
+    public RequestInfo getRequestInfo() {
         return RequestInfo;
     }
 
-    public void setRequestInfo (RequestInfo RequestInfo)
-    {
+    public void setRequestInfo(RequestInfo RequestInfo) {
         this.RequestInfo = RequestInfo;
     }
 
-    public Attendance[] getAttendance ()
-    {
+    public Attendance[] getAttendance() {
         return Attendance;
     }
 
-    public void setAttendance (Attendance[] Attendance)
-    {
+    public void setAttendance(Attendance[] Attendance) {
         this.Attendance = Attendance;
     }
 

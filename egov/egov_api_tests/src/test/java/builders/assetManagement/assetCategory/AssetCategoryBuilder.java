@@ -8,14 +8,14 @@ public class AssetCategoryBuilder {
     AssetCategory assetCategory = new AssetCategory();
 
     CustomFields customFields1 = new CustomFieldsBuilder()
-                                    .withName("Land")
-                                    .withType("String")
-                                    .withIsActive("true")
-                                    .withIsMandatory("true")
-                                    .withValues("abc")
-                                    .withLocalText("localtext")
-                                    .withregExFormate("regex")
-                                    .build();
+            .withName("Land")
+            .withType("String")
+            .withIsActive("true")
+            .withIsMandatory("true")
+            .withValues("abc")
+            .withLocalText("localtext")
+            .withregExFormate("regex")
+            .build();
 
     CustomFields customFields2 = new CustomFieldsBuilder()
             .withName("PROPERTY")
@@ -27,9 +27,9 @@ public class AssetCategoryBuilder {
             .withregExFormate("regex")
             .build();
 
-    CustomFields[] customFieldses  = new CustomFields[2];
+    CustomFields[] customFieldses = new CustomFields[2];
 
-    public AssetCategoryBuilder(){
+    public AssetCategoryBuilder() {
         assetCategory.setTenantId("1");
         assetCategory.setName("Street lighting");
         assetCategory.setAssetCategoryType("MOVABLE");
@@ -45,7 +45,7 @@ public class AssetCategoryBuilder {
         assetCategory.setCustomFields(customFieldses);
     }
 
-    public AssetCategory build(){
+    public AssetCategory build() {
         return assetCategory;
     }
 }

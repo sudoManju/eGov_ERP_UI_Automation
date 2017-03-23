@@ -47,6 +47,8 @@ public class Service_requests {
     private String requested_datetime;
 
     private String service_code;
+    private String service_notice;
+    private String lat;
 
     public String getTenantId() {
         return tenantId;
@@ -239,9 +241,5 @@ public class Service_requests {
     public void setLat(String lat) {
         this.lat = lat;
     }
-
-    private String service_notice;
-
-    private String lat;
 
 }

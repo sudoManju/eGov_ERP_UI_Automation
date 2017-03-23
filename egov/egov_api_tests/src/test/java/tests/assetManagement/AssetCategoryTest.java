@@ -1,6 +1,5 @@
 package tests.assetManagement;
 
-
 import builders.assetManagement.RequestInfoBuilder;
 import builders.assetManagement.assetCategory.AssetCategoryCreateRequestBuilder;
 import com.jayway.restassured.response.Response;
@@ -12,44 +11,59 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.AssetCategoryResource;
 import tests.BaseAPITest;
-import utils.Categories;
-import utils.Properties;
-import utils.RequestHelper;
-import utils.ResponseHelper;
+import utils.*;
 
 import java.io.IOException;
 
 public class AssetCategoryTest extends BaseAPITest {
 
     @Test(groups = {Categories.ASSET, Categories.SANITY})
-    public void CreateAssetCategoryTest() throws IOException{
-        LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl,"narasappa");
+    public void CreateAssetCategoryTest() throws IOException {
 
-        AssetCategoryCreateRequest request = new AssetCategoryCreateRequestBuilder().build();
+        // Login Test
+        LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl, "narasappa");
 
-        String jsonString = RequestHelper.getJsonString(request);
-        Response response = new AssetCategoryResource().create(jsonString,loginResponse.getAccess_token());
-
-        AssetCategoryResponse assetCategoryResponse = (AssetCategoryResponse)
-                ResponseHelper.getResponseAsObject(response.asString(),AssetCategoryResponse.class);
-
-        Assert.assertEquals(response.getStatusCode(),201);
-        Assert.assertEquals(assetCategoryResponse.getAssetCategory()[0].getName(),request.getAssetCategory().getName());
+        // Create Asset Category Test
+        createAssetCategoryTestMethod(loginResponse);
     }
 
 
     @Test(groups = {Categories.ASSET, Categories.SANITY})
-    public void SearchAssetCategoryTest() throws IOException{
-        LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl,"narasappa");
+    public void SearchAssetCategoryTest() throws IOException {
 
+        // Login Test
+        LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl, "narasappa");
+
+        // Search Asset Category Test
+        searchAssetCategoryTestMethod(loginResponse);
+    }
+
+    private void createAssetCategoryTestMethod(LoginResponse loginResponse) throws IOException {
+        AssetCategoryCreateRequest request = new AssetCategoryCreateRequestBuilder().build();
+
+        String jsonString = RequestHelper.getJsonString(request);
+        Response response = new AssetCategoryResource().create(jsonString, loginResponse.getAccess_token());
+
+        AssetCategoryResponse assetCategoryResponse = (AssetCategoryResponse)
+                ResponseHelper.getResponseAsObject(response.asString(), AssetCategoryResponse.class);
+
+        Assert.assertEquals(response.getStatusCode(), 201);
+        Assert.assertEquals(assetCategoryResponse.getAssetCategory()[0].getName(), request.getAssetCategory().getName());
+
+        new APILogger().log("Create Asset Category Test is Completed --");
+    }
+
+    private void searchAssetCategoryTestMethod(LoginResponse loginResponse) throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
 
         String jsonString = RequestHelper.getJsonString(requestInfo);
         Response response = new AssetCategoryResource().search(jsonString, loginResponse.getAccess_token());
 
         AssetCategoryResponse assetCategoryResponse = (AssetCategoryResponse)
-                ResponseHelper.getResponseAsObject(response.asString(),AssetCategoryResponse.class);
+                ResponseHelper.getResponseAsObject(response.asString(), AssetCategoryResponse.class);
 
-        Assert.assertEquals(response.getStatusCode(),200);
+        Assert.assertEquals(response.getStatusCode(), 200);
+
+        new APILogger().log("Search Asset Category Test is Completed --");
     }
 }

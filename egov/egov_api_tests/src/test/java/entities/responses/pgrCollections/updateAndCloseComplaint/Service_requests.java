@@ -1,7 +1,6 @@
 package entities.responses.pgrCollections.updateAndCloseComplaint;
 
-public class Service_requests
-{
+public class Service_requests {
     private String tenantId;
 
     private String media_urls;
@@ -45,6 +44,8 @@ public class Service_requests
     private String requested_datetime;
 
     private String service_code;
+    private String service_notice;
+    private String lat;
 
     public String getTenantId() {
         return tenantId;
@@ -237,10 +238,6 @@ public class Service_requests
     public void setLat(String lat) {
         this.lat = lat;
     }
-
-    private String service_notice;
-
-    private String lat;
 
 
 }

@@ -1,4 +1,5 @@
 package entities.responses.eGovEIS;
+
 public class Attendance {
     private String tenantId;
 

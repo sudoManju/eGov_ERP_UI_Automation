@@ -2,8 +2,8 @@ package tests.login;
 
 import builders.login.LoginRequestBuilder;
 import com.jayway.restassured.response.Response;
-import entities.responses.login.LoginErrorResponse;
 import entities.requests.login.LoginRequest;
+import entities.responses.login.LoginErrorResponse;
 import entities.responses.login.LoginResponse;
 import entities.responses.logout.InvalidLogoutResponse;
 import org.testng.Assert;
@@ -17,25 +17,25 @@ import java.util.Map;
 
 public class LoginVerificationTest extends BaseAPITest {
 
-    @Test(groups = { Categories.SANITY })
+    @Test(groups = {Categories.SANITY})
     public void shouldAllowLoginAndLogoutToAnExistingUser() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = loginTestMethod(Properties.serverUrl,"narasappa");
+        LoginResponse loginResponse = loginTestMethod(Properties.serverUrl, "narasappa");
 
         // Logout Test
-        logoutTestMethod(loginResponse,Properties.serverUrl );
+        logoutTestMethod(loginResponse, Properties.serverUrl);
 
     }
 
-    @Test(groups = { Categories.SANITY })
+    @Test(groups = {Categories.SANITY})
     public void shouldNotAllowLogoutWithInvalidCredentials() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = loginTestMethod(Properties.serverUrl,"narasappa");
+        LoginResponse loginResponse = loginTestMethod(Properties.serverUrl, "narasappa");
 
         // Logout Test
-        Response response1 = new LoginResource().inValidLogout(loginResponse.getAccess_token(),Properties.serverUrl);
+        Response response1 = new LoginResource().inValidLogout(loginResponse.getAccess_token(), Properties.serverUrl);
         InvalidLogoutResponse invalidLogoutResponse = (InvalidLogoutResponse)
                 ResponseHelper.getResponseAsObject(response1.asString(), InvalidLogoutResponse.class);
 
@@ -46,13 +46,13 @@ public class LoginVerificationTest extends BaseAPITest {
         new APILogger().log("Logout Failed is Completed -- ");
     }
 
-    @Test(groups = { Categories.SANITY })
+    @Test(groups = {Categories.SANITY})
     public void shouldNotAllowLoginWithInvalidCredentials() throws IOException {
         LoginRequest request = new LoginRequestBuilder().withPassword("").build();
 
         Map jsonString = RequestHelper.asMap(request);
 
-        Response response = new LoginResource().login(jsonString,Properties.serverUrl);
+        Response response = new LoginResource().login(jsonString, Properties.serverUrl);
         LoginErrorResponse loginErrorResponse = (LoginErrorResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), LoginErrorResponse.class);
 

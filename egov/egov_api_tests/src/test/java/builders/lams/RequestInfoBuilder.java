@@ -6,7 +6,7 @@ public class RequestInfoBuilder {
 
     RequestInfo requestInfo = new RequestInfo();
 
-    public RequestInfoBuilder(){
+    public RequestInfoBuilder() {
         requestInfo.setApiId("_Get_agreements");
         requestInfo.setVer("ver");
         requestInfo.setTs("2017-02-20T08:30:49.799+0000");
@@ -18,52 +18,52 @@ public class RequestInfoBuilder {
         requestInfo.setAuthToken("auth_tok");
     }
 
-    public RequestInfoBuilder withApiId(String apiId){
+    public RequestInfoBuilder withApiId(String apiId) {
         requestInfo.setApiId(apiId);
         return this;
     }
 
-    public RequestInfoBuilder withTs(String ts){
+    public RequestInfoBuilder withTs(String ts) {
         requestInfo.setTs(ts);
         return this;
     }
 
-    public RequestInfoBuilder withVer(String ver){
+    public RequestInfoBuilder withVer(String ver) {
         requestInfo.setVer(ver);
         return this;
     }
 
-    public RequestInfoBuilder withAction(String action){
+    public RequestInfoBuilder withAction(String action) {
         requestInfo.setAction(action);
         return this;
     }
 
-    public RequestInfoBuilder withDid(String did){
+    public RequestInfoBuilder withDid(String did) {
         requestInfo.setDid(did);
         return this;
     }
 
-    public RequestInfoBuilder withKey(String key){
+    public RequestInfoBuilder withKey(String key) {
         requestInfo.setKey(key);
         return this;
     }
 
-    public RequestInfoBuilder withMsgId(String msgId){
+    public RequestInfoBuilder withMsgId(String msgId) {
         requestInfo.setMsgId(msgId);
         return this;
     }
 
-    public RequestInfoBuilder withRequesterId(String requesterId){
+    public RequestInfoBuilder withRequesterId(String requesterId) {
         requestInfo.setRequesterId(requesterId);
         return this;
     }
 
-    public RequestInfoBuilder withAuthToken(String authToken){
+    public RequestInfoBuilder withAuthToken(String authToken) {
         requestInfo.setAuthToken(authToken);
         return this;
     }
 
-    public RequestInfo build(){
+    public RequestInfo build() {
         return requestInfo;
     }
 }

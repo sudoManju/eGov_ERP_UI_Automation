@@ -9,23 +9,25 @@ import org.junit.Assert;
 import org.testng.annotations.Test;
 import resources.PGRComplaintResource;
 import tests.BaseAPITest;
+import utils.APILogger;
 import utils.Categories;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FrequentlyFilledComplaintTest extends BaseAPITest{
+public class FrequentlyFilledComplaintTest extends BaseAPITest {
 
-    @Test(groups = {Categories.PGR , Categories.SANITY})
-    public void getFrequentlyFilledComplaints() throws IOException{
+    @Test(groups = {Categories.PGR, Categories.SANITY})
+    public void getFrequentlyFilledComplaints() throws IOException {
 
         Response response = new PGRComplaintResource().getFrequentlyFilledComplaints(3);
 
         List<FrequentlyFilledComplaintResponse> fetchComplaints = getResponseObjectArray(response);
 
-        Assert.assertEquals(fetchComplaints.size() , 3);
-        Assert.assertEquals(response.getStatusCode() , 200);
+        Assert.assertEquals(fetchComplaints.size(), 3);
+        Assert.assertEquals(response.getStatusCode(), 200);
+        new APILogger().log("Get Frequently filled Complaints test is completed -- ");
 
     }
 

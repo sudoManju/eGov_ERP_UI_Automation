@@ -26,6 +26,7 @@ public class Values {
     private String locationName;
 
     private String locationId;
+    private String childLocationId;
 
     public String getLocationId() {
         return locationId;
@@ -42,8 +43,6 @@ public class Values {
     public void setChildLocationId(String childLocationId) {
         this.childLocationId = childLocationId;
     }
-
-    private String childLocationId;
 
     public String getDepartmentName() {
         return departmentName;

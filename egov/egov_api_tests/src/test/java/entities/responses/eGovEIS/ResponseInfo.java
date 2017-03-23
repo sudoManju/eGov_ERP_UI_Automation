@@ -1,4 +1,5 @@
 package entities.responses.eGovEIS;
+
 public class ResponseInfo {
     private String apiId;
     private String ts;

@@ -1,7 +1,6 @@
 package entities.requests.assetManagement.assetCategory;
 
-public class CustomFields
-{
+public class CustomFields {
     private String isActive;
 
     private String localText;
@@ -16,73 +15,59 @@ public class CustomFields
 
     private String type;
 
-    public String getIsActive ()
-    {
+    public String getIsActive() {
         return isActive;
     }
 
-    public void setIsActive (String isActive)
-    {
+    public void setIsActive(String isActive) {
         this.isActive = isActive;
     }
 
-    public String getLocalText ()
-    {
+    public String getLocalText() {
         return localText;
     }
 
-    public void setLocalText (String localText)
-    {
+    public void setLocalText(String localText) {
         this.localText = localText;
     }
 
-    public String getValues ()
-    {
+    public String getValues() {
         return values;
     }
 
-    public void setValues (String values)
-    {
+    public void setValues(String values) {
         this.values = values;
     }
 
-    public String getRegExFormate ()
-    {
+    public String getRegExFormate() {
         return regExFormate;
     }
 
-    public void setRegExFormate (String regExFormate)
-    {
+    public void setRegExFormate(String regExFormate) {
         this.regExFormate = regExFormate;
     }
 
-    public String getIsMandatory ()
-    {
+    public String getIsMandatory() {
         return isMandatory;
     }
 
-    public void setIsMandatory (String isMandatory)
-    {
+    public void setIsMandatory(String isMandatory) {
         this.isMandatory = isMandatory;
     }
 
-    public String getName ()
-    {
+    public String getName() {
         return name;
     }
 
-    public void setName (String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getType ()
-    {
+    public String getType() {
         return type;
     }
 
-    public void setType (String type)
-    {
+    public void setType(String type) {
         this.type = type;
     }
 }

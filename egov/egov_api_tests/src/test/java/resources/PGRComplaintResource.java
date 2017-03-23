@@ -1,17 +1,16 @@
 package resources;
 
 import com.jayway.restassured.response.Response;
+import utils.APILogger;
 import utils.Properties;
 
 import static com.jayway.restassured.RestAssured.given;
-
-import utils.APILogger;
 
 public class PGRComplaintResource {
 
     public Response createComplaint(String json) {
 
-        new APILogger().log("Creating a PGR request  -- ");
+        new APILogger().log("Creating complaint test for PGR is started  -- ");
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
                 .body(json)
@@ -23,7 +22,7 @@ public class PGRComplaintResource {
 
     public Response getPGRComplaint(String serviceRequestId) {
 
-        new APILogger().log("Getting a PGR complaint request with -- " + serviceRequestId);
+        new APILogger().log("Getting a PGR complaint test is started -- ");
 
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
@@ -43,7 +42,7 @@ public class PGRComplaintResource {
 
     public Response getParticularLocationName(String locationName) {
 
-        new APILogger().log("Getting a location details with name -- ");
+        new APILogger().log("Getting a location details test with name is started-- ");
 
         Response response = given().request().with()
                 .urlEncodingEnabled(true)
@@ -55,7 +54,7 @@ public class PGRComplaintResource {
 
     public Response getAllLocationNames() {
 
-        new APILogger().log("Getting all location details with name -- ");
+        new APILogger().log("Getting all location details test with name is started-- ");
 
         Response response = given().request().with()
                 .urlEncodingEnabled(true)
@@ -65,9 +64,9 @@ public class PGRComplaintResource {
         return response;
     }
 
-    public Response getFetchComplaint(){
+    public Response getFetchComplaint() {
 
-        new APILogger().log("Fetch all Complaints request is started -- ");
+        new APILogger().log("Fetch all Complaints test is started -- ");
 
         Response response = given().request().with()
                 .urlEncodingEnabled(true)
@@ -77,9 +76,9 @@ public class PGRComplaintResource {
         return response;
     }
 
-    public Response getFrequentlyFilledComplaints(int count){
+    public Response getFrequentlyFilledComplaints(int count) {
 
-        new APILogger().log("Get Frequently filled Complaints request is started -- ");
+        new APILogger().log("Get Frequently filled Complaints test is started -- ");
 
         Response response = given().request().with()
                 .urlEncodingEnabled(true)
@@ -91,8 +90,9 @@ public class PGRComplaintResource {
 
     public Response updateAndClosePGRComplaint(String json) {
 
+        new APILogger().log("Update/Close complaint for PGR is started  -- ");
         Response response = given().request().with()
-                .header("Content-Type","application/json")
+                .header("Content-Type", "application/json")
                 .body(json)
                 .when()
                 .put(Properties.serverUrl + Properties.complaintUrl);

@@ -66,22 +66,28 @@ public class PropertiesReader {
         return prop.getProperty("assetCategoryCreateUrl");
     }
 
-    public String getSearchAttendanceUrl() { return prop.getProperty("searchAttendanceUrl"); }
-
-    public String getCreateAssetServiceUrl() { return prop.getProperty("createAssetServiceUrl"); }
-
-    public String getAssetCategorySearchUrl() {
-        return  prop.getProperty("assetCategorySearchUrl");
+    public String getSearchAttendanceUrl() {
+        return prop.getProperty("searchAttendanceUrl");
     }
 
-    public String getCreateAttendanceUrl() { return  prop.getProperty("createAttendanceURL"); }
+    public String getCreateAssetServiceUrl() {
+        return prop.getProperty("createAssetServiceUrl");
+    }
 
-    public String getSearchEmployeeUrl() { return  prop.getProperty("searchEmployeeUrl");
+    public String getAssetCategorySearchUrl() {
+        return prop.getProperty("assetCategorySearchUrl");
+    }
 
+    public String getSearchEmployeeUrl() {
+        return prop.getProperty("searchEmployeeUrl");
+    }
+
+    public String getCreateAttendanceUrl() {
+        return prop.getProperty("createAttendanceURL");
     }
 
     public String getLamsServiceSearchUrl() {
-        return  prop.getProperty("lamsServiceSearchUrl");
+        return prop.getProperty("lamsServiceSearchUrl");
     }
 }
 

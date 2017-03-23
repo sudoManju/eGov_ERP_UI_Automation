@@ -11,23 +11,19 @@ public class CreateAssetServiceRequest {
     @JsonProperty("Asset")
     private Asset Asset;
 
-    public Asset getAsset ()
-    {
+    public Asset getAsset() {
         return Asset;
     }
 
-    public void setAsset (Asset Asset)
-    {
+    public void setAsset(Asset Asset) {
         this.Asset = Asset;
     }
 
-    public RequestInfo getRequestInfo ()
-    {
+    public RequestInfo getRequestInfo() {
         return RequestInfo;
     }
 
-    public void setRequestInfo (RequestInfo RequestInfo)
-    {
+    public void setRequestInfo(RequestInfo RequestInfo) {
         this.RequestInfo = RequestInfo;
     }
 

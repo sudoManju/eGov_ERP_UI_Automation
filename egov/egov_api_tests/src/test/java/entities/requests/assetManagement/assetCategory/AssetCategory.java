@@ -84,8 +84,7 @@ public class AssetCategory {
         this.accumulatedDepreciationAccount = accumulatedDepreciationAccount;
     }
 
-    public CustomFields[] getCustomFields ()
-    {
+    public CustomFields[] getCustomFields() {
         return customFields;
     }
 

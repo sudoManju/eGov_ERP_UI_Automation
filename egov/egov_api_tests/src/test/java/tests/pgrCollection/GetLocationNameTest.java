@@ -16,42 +16,42 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetLocationNameTest extends BaseAPITest{
+public class GetLocationNameTest extends BaseAPITest {
 
-    @Test(groups = { Categories.PGR , Categories.SANITY })
-    public void getParticularLocationName() throws IOException{
+    @Test(groups = {Categories.PGR, Categories.SANITY})
+    public void getParticularLocationName() throws IOException {
 
         Response response = new PGRComplaintResource().getParticularLocationName("konda peta");
 
         List<LocationNameResponse> locations = getResponseObjectArray(response);
 
-        Assert.assertEquals(response.getStatusCode() , 200);
+        Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertTrue(locations.get(0).getName().contains("Konda Peta"));
 
-        new APILogger().log("Location details with name is obtained --");
+        new APILogger().log("Getting a location details test with name is Completed-- ");
     }
 
-    @Test(groups = { Categories.PGR , Categories.SANITY })
-    public void invalidLocationName() throws IOException{
+    @Test(groups = {Categories.PGR, Categories.SANITY})
+    public void invalidLocationName() throws IOException {
 
         Response response = new PGRComplaintResource().getParticularLocationName("vinay");
 
         List<LocationNameResponse> locations = getResponseObjectArray(response);
 
-        Assert.assertEquals(response.getStatusCode() , 200);
-        Assert.assertEquals(locations.size() , 0);
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertEquals(locations.size(), 0);
 
-        new APILogger().log("Location details with name is not obtained --");
+        new APILogger().log("Getting a invalid location details test with name is completed-- ");
     }
 
-    @Test(groups = { Categories.PGR , Categories.SANITY })
-    public void getAllLocationNames() throws IOException{
+    @Test(groups = {Categories.PGR, Categories.SANITY})
+    public void getAllLocationNames() throws IOException {
 
         Response response = new PGRComplaintResource().getAllLocationNames();
 
         List<LocationNameResponse> locations = getResponseObjectArray(response);
-        Assert.assertEquals(response.getStatusCode() , 200);
-        new APILogger().log("All Location details with name is obtained --");
+        Assert.assertEquals(response.getStatusCode(), 200);
+        new APILogger().log("Getting all location details test with name is Completed-- ");
 
     }
 

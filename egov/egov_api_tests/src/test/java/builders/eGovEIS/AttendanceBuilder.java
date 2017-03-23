@@ -53,5 +53,7 @@ public class AttendanceBuilder {
         return this;
     }
 
-    public Attendance build() { return attendance; }
+    public Attendance build() {
+        return attendance;
+    }
 }
