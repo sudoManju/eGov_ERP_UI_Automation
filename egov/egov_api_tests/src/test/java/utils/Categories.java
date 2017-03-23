@@ -9,4 +9,5 @@ public class Categories {
     public static final String EIS = "hr";
     public static final String ASSET = "asset";
     public static final String HR = "create attendance";
+    public static final String LAMS = "lease and agreement";
 }

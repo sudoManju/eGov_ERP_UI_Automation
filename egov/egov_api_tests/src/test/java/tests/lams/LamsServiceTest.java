@@ -9,6 +9,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.LamsServiceResource;
 import tests.BaseAPITest;
+import utils.Categories;
 import utils.Properties;
 import utils.RequestHelper;
 import utils.ResponseHelper;
@@ -17,7 +18,7 @@ import java.io.IOException;
 
 public class LamsServiceTest extends BaseAPITest {
 
-    @Test
+    @Test(groups = {Categories.LAMS, Categories.SANITY})
     public void LamsServiceSearchTest() throws IOException{
 
         LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl,"narasappa");
