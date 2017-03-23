@@ -9,7 +9,7 @@ import entities.responses.login.LoginResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import resources.AttendanceResource;
+import resources.EgovEISResource;
 import tests.BaseAPITest;
 import utils.Categories;
 import utils.Properties;
@@ -28,13 +28,13 @@ public class SearchAttendancesTest extends BaseAPITest {
         SearchAttendanceRequest request = new SearchAttendanceRequestBuilder().build();
         Map jsonData = RequestHelper.asMap(request);
 
-        Response response = new AttendanceResource().searchAttendance(jsonData, loginResponse.getAccess_token());
+        Response response = new EgovEISResource().searchAttendance(jsonData, loginResponse.getAccess_token());
         Assert.assertEquals(response.getStatusCode(), 200);
         SearchAttendanceResponse searchAttendanceResponse = (SearchAttendanceResponse) ResponseHelper.getResponseAsObject(response.asString(), SearchAttendanceResponse.class);
-        System.out.println("Attendance Mark list: "+searchAttendanceResponse.getAttendance().length);
+        System.out.println("Attendance Mark list: " + searchAttendanceResponse.getAttendance().length);
 
         Assert.assertEquals(searchAttendanceResponse.getAttendance()[0].getEmployee(), "120");
-        System.out.println("Employee Attendance based on ID: "+searchAttendanceResponse.getAttendance()[0].getId());
+        System.out.println("Employee Attendance based on ID: " + searchAttendanceResponse.getAttendance()[0].getId());
         Assert.assertEquals(searchAttendanceResponse.getAttendance()[0].getType().getCode(), "P", "Assert attendance type code");
         Assert.assertEquals(searchAttendanceResponse.getAttendance()[0].getAttendanceDate(), "2017-01-01", "Assert");
 

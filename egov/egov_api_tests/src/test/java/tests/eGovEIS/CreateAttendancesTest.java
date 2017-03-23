@@ -7,7 +7,7 @@ import entities.responses.eGovEIS.createAttendance.CreateAttendanceResponse;
 import entities.responses.login.LoginResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import resources.AttendanceResource;
+import resources.EgovEISResource;
 import tests.BaseAPITest;
 import utils.Categories;
 import utils.Properties;
@@ -24,7 +24,7 @@ public class CreateAttendancesTest extends BaseAPITest {
         String jsonData = RequestHelper.getJsonString(request);
         LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl, "narasappa");
 
-        Response response = new AttendanceResource().createAttendance(jsonData, loginResponse.getAccess_token());
+        Response response = new EgovEISResource().createAttendance(jsonData, loginResponse.getAccess_token());
         Assert.assertEquals(response.getStatusCode(), 200);
 //        System.out.println(response.prettyPrint());
         System.out.println(jsonData);
