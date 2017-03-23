@@ -57,4 +57,17 @@ public class CommonMasterResource {
 
         return response;
     }
+
+    public Response serchHolidayTest(String jsonString, String access_token) {
+
+        new APILogger().log("Search Holiday Test is started --");
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .header("auth-token", access_token)
+                .body(jsonString)
+                .when()
+                .post(Properties.devServerUrl + Properties.cmHolidayUrl);
+
+        return response;
+    }
 }

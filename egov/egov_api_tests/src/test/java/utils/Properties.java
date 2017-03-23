@@ -45,4 +45,6 @@ public class Properties {
     public static final String cmCommunityUrl = propertiesReader.getCMCommunityUrl();
 
     public static final String cmReligionUrl = propertiesReader.getCMReligionUrl();
+
+    public static final String cmHolidayUrl = propertiesReader.getCMHolidayUrl();
 }

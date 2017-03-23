@@ -105,5 +105,9 @@ public class PropertiesReader {
     public String getCMReligionUrl() {
         return prop.getProperty("cmReligionUrl");
     }
+
+    public String getCMHolidayUrl() {
+        return prop.getProperty("cmHolidayUrl");
+    }
 }
 
