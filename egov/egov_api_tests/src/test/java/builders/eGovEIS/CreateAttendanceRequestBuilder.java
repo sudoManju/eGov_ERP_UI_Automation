@@ -23,8 +23,9 @@ public class CreateAttendanceRequestBuilder {
         return this;
     }
 
-    public CreateAttendanceRequestBuilder withAttendance(Attendance[] Attendance) {
-        createAttendanceRequest.setAttendance(Attendance);
+    public CreateAttendanceRequestBuilder withAttendance(Attendance Attendance) {
+        attendances[0] = Attendance;
+        createAttendanceRequest.setAttendance(attendances);
         return this;
     }
 

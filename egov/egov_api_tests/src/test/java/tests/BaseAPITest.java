@@ -17,7 +17,12 @@ import utils.ResponseHelper;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
 import java.util.Map;
+
+import static java.lang.String.format;
 
 public class BaseAPITest {
 
@@ -28,7 +33,31 @@ public class BaseAPITest {
 
     @BeforeGroups(groups = Categories.SANITY, alwaysRun = true)
     public void setUp() throws IOException {
+
     }
+
+
+    public String getRandomDate() {
+
+        GregorianCalendar gc = new GregorianCalendar();
+
+        int year = randBetween(2010, 2017);
+
+        gc.set(gc.YEAR, year);
+
+        int dayOfYear = randBetween(1, gc.getActualMaximum(gc.DAY_OF_YEAR));
+
+        gc.set(gc.DAY_OF_YEAR, dayOfYear);
+
+        String finalDate = format(gc.get(gc.DAY_OF_MONTH) + "/" + (gc.get(gc.MONTH) + 1) + "/" + gc.get(gc.YEAR));
+
+        return finalDate;
+    }
+
+     public static int randBetween(int start, int end) {
+             return start + (int)Math.round(Math.random() * (end - start));
+        }
+
 
     protected LoginResponse loginTestMethod(String path, String username) throws IOException {
         LoginRequest request = new LoginRequestBuilder().withUsername(username).build();
