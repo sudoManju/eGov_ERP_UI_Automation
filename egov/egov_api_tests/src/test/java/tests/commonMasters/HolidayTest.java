@@ -28,7 +28,7 @@ public class HolidayTest extends BaseAPITest {
         holidayTestMethod(loginResponse);
     }
 
-    private void holidayTestMethod(LoginResponse loginResponse)throws IOException{
+    private void holidayTestMethod(LoginResponse loginResponse) throws IOException {
         CommonMasterRequest commonMasterRequest = new CommonMasterRequestBuilder().build();
 
         String jsonString = RequestHelper.getJsonString(commonMasterRequest);

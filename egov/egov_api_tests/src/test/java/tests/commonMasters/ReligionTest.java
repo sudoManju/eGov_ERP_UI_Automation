@@ -3,7 +3,6 @@ package tests.commonMasters;
 import builders.commonMasters.CommonMasterRequestBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.commonMasters.CommonMasterRequest;
-import entities.responses.commonMaster.language.LanguageResponse;
 import entities.responses.commonMaster.religion.ReligionResponse;
 import entities.responses.login.LoginResponse;
 import org.junit.Assert;
@@ -17,7 +16,7 @@ import utils.ResponseHelper;
 
 import java.io.IOException;
 
-public class ReligionTest extends BaseAPITest{
+public class ReligionTest extends BaseAPITest {
 
     @Test
     public void religionTest() throws IOException {

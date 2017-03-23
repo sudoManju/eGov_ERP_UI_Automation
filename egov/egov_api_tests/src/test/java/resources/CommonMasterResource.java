@@ -70,4 +70,17 @@ public class CommonMasterResource {
 
         return response;
     }
+
+    public Response searchCategoryTest(String jsonString, String access_token) {
+
+        new APILogger().log("Search Category Test is started --");
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .header("auth-token", access_token)
+                .body(jsonString)
+                .when()
+                .post(Properties.devServerUrl + Properties.cmCategoryUrl);
+
+        return response;
+    }
 }

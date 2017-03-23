@@ -17,14 +17,16 @@ import utils.ResponseHelper;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.Map;
 
 import static java.lang.String.format;
 
 public class BaseAPITest {
+
+    public static int randBetween(int start, int end) {
+        return start + (int) Math.round(Math.random() * (end - start));
+    }
 
     @BeforeMethod(alwaysRun = true)
     public void testSetup(Method method) {
@@ -35,7 +37,6 @@ public class BaseAPITest {
     public void setUp() throws IOException {
 
     }
-
 
     public String getRandomDate() {
 
@@ -53,11 +54,6 @@ public class BaseAPITest {
 
         return finalDate;
     }
-
-     public static int randBetween(int start, int end) {
-             return start + (int)Math.round(Math.random() * (end - start));
-        }
-
 
     protected LoginResponse loginTestMethod(String path, String username) throws IOException {
         LoginRequest request = new LoginRequestBuilder().withUsername(username).build();

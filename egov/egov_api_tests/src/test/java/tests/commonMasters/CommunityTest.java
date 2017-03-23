@@ -16,7 +16,7 @@ import utils.ResponseHelper;
 
 import java.io.IOException;
 
-public class CommunityTest extends BaseAPITest{
+public class CommunityTest extends BaseAPITest {
 
     @Test
     public void communityTest() throws IOException {
@@ -28,7 +28,7 @@ public class CommunityTest extends BaseAPITest{
         communityTestMethod(loginResponse);
     }
 
-    private void communityTestMethod(LoginResponse loginResponse)throws IOException{
+    private void communityTestMethod(LoginResponse loginResponse) throws IOException {
         CommonMasterRequest commonMasterRequest = new CommonMasterRequestBuilder().build();
 
         String jsonString = RequestHelper.getJsonString(commonMasterRequest);
