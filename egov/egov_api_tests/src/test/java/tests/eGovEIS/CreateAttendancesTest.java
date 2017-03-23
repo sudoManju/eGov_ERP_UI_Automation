@@ -34,10 +34,14 @@ public class CreateAttendancesTest extends BaseAPITest {
         Response response = new EgovEISResource().createAttendance(jsonData, loginResponse.getAccess_token());
 
         Assert.assertEquals(response.getStatusCode(), 200);
+        System.out.println(response.prettyPrint());
+        System.out.println(jsonData);
 
         CreateAttendanceResponse createAttendanceResponse = (CreateAttendanceResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), CreateAttendanceResponse.class);
-        Assert.assertEquals(createAttendanceResponse.getResponseInfo().getStatus(),request.getRequestInfo().getStatus());
+        Assert.assertEquals(createAttendanceResponse.getResponseInfo().getStatus(), 200);
+        Assert.assertEquals(createAttendanceResponse.getAttendance()[0].getAttendanceDate(), "18/03/2017");
+
         System.out.println(createAttendanceResponse.getAttendance().length);
         System.out.println(createAttendanceResponse.getAttendance()[0].getAttendanceDate());
     }

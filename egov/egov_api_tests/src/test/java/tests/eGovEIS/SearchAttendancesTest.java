@@ -30,23 +30,23 @@ public class SearchAttendancesTest extends BaseAPITest {
 
         Response response = new EgovEISResource().searchAttendance(jsonData, loginResponse.getAccess_token());
         Assert.assertEquals(response.getStatusCode(), 200);
+
         SearchAttendanceResponse searchAttendanceResponse = (SearchAttendanceResponse) ResponseHelper.getResponseAsObject(response.asString(), SearchAttendanceResponse.class);
         System.out.println("Attendance Mark list: " + searchAttendanceResponse.getAttendance().length);
 
-        Assert.assertEquals(searchAttendanceResponse.getAttendance()[0].getEmployee(), "120");
+        Assert.assertEquals(searchAttendanceResponse.getAttendance()[0].getEmployee(), "1");
         System.out.println("Employee Attendance based on ID: " + searchAttendanceResponse.getAttendance()[0].getId());
         Assert.assertEquals(searchAttendanceResponse.getAttendance()[0].getType().getCode(), "P", "Assert attendance type code");
-        Assert.assertEquals(searchAttendanceResponse.getAttendance()[0].getAttendanceDate(), "2017-01-01", "Assert");
+        Assert.assertEquals(searchAttendanceResponse.getAttendance()[0].getAttendanceDate(), "2017-03-12", "Assert on Attendance Date");
 
-        Assert.assertEquals(searchAttendanceResponse.getAttendance()[1].getEmployee(), "140");
+        Assert.assertEquals(searchAttendanceResponse.getAttendance()[1].getEmployee(), "4");
         System.out.println("Employee Attendance based on ID: " + searchAttendanceResponse.getAttendance()[1].getId());
-        Assert.assertEquals(searchAttendanceResponse.getAttendance()[1].getAttendanceDate(), "2017-01-01");
+        Assert.assertEquals(searchAttendanceResponse.getAttendance()[1].getAttendanceDate(), "2017-03-12");
         Assert.assertEquals(searchAttendanceResponse.getAttendance()[1].getType().getCode(), "P");
 
         SoftAssert softAssert = new SoftAssert();
-
-        softAssert.assertEquals(searchAttendanceResponse.getAttendance()[0].getEmployee(), "120");
-        softAssert.assertEquals(searchAttendanceResponse.getAttendance()[1].getEmployee(), "140");
+        softAssert.assertEquals(searchAttendanceResponse.getAttendance()[0].getEmployee(), "1");
+        softAssert.assertEquals(searchAttendanceResponse.getAttendance()[1].getEmployee(), "4");
 
         try {
             softAssert.assertAll();

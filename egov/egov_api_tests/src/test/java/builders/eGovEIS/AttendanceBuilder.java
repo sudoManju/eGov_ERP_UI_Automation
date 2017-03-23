@@ -10,12 +10,12 @@ public class AttendanceBuilder {
 
     public AttendanceBuilder() {
         attendance.setTenantId("1");
-        attendance.setAttendanceDate("30/03/2017");
+        attendance.setAttendanceDate("01/03/2017");
         attendance.setMonth("3");
         attendance.setRemarks("Present");
         attendance.setYear("2017");
         attendance.setType(type);
-        attendance.setEmployee("1");
+        attendance.setEmployee("4");
     }
 
     public AttendanceBuilder withTenantId(String tenantId) {
