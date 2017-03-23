@@ -229,20 +229,15 @@ public class AdvertisementsPage extends BasePage {
         JavascriptExecutor jse = (JavascriptExecutor) driver;
         jse.executeScript("document.getElementById('taxAmount').value = '100';");
 //        enterText(driver.findElement(By.id("taxAmount")), structureDetails.getTaxAmount(), driver);
-        if(driver.findElement(By.id("taxAmount")).getText().isEmpty()){
-            await().atMost(10, SECONDS).until(() -> driver.findElements(By.id("taxAmount")).size() == 1);
-            JavascriptExecutor jse1 = (JavascriptExecutor) driver;
-            jse1.executeScript("document.getElementById('taxAmount').value = '100';");
-        }
     }
 
     public String forward() {
         clickOnButton(forwardButton, driver);
-        boolean isPresent = driver.findElements(By.id("taxAmount-error")).size() > 0;
 
-        if (isPresent) {
-            enterText(taxAmountTextBox, "10", driver);
-            clickOnButton(forwardButton, driver);
+        if(driver.findElements(By.id("Forward")).size() ==1){
+            await().atMost(10, SECONDS).until(() -> driver.findElements(By.id("taxAmount")).size() == 1);
+            JavascriptExecutor jse1 = (JavascriptExecutor) driver;
+            jse1.executeScript("document.getElementById('taxAmount').value = '100';");
         }
         String Msg = getTextFromWeb(creationMsg, driver);
         String applicationNumber = Msg.substring(Msg.lastIndexOf(" ") + 1);
@@ -264,9 +259,9 @@ public class AdvertisementsPage extends BasePage {
 
     public void approve() {
         clickOnButton(approveButton, driver);
-        Boolean isPresent = driver.findElements(By.id("Approve")).size() > 0;
-        if (isPresent) {
-            clickOnButton(approveButton, driver);
+//        Boolean isPresent = driver.findElements(By.id("Approve")).size() > 0;
+        if (driver.findElements(By.id("Approve")).size() == 1) {
+            clickOnButton(driver.findElement(By.id("Approve")), driver);
         }
     }
 
