@@ -1,4 +1,4 @@
-package entities.responses.commonMaster.language;
+package entities.responses.commonMaster;
 
 public class ResponseInfo {
     private String ver;

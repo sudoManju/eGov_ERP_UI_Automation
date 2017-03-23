@@ -39,4 +39,6 @@ public class Properties {
     public static final String searchEmployeeURL = propertiesReader.getSearchEmployeeUrl();
 
     public static final String cmLanguageUrl = propertiesReader.getCMLanguageUrl();
+
+    public static final String cmDepartmentUrl = propertiesReader.getCMDepartmentUrl();
 }

@@ -1,14 +1,13 @@
-package entities.responses.commonMaster.language;
+package entities.responses.commonMaster.department;
 
 import entities.responses.commonMaster.ResponseInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class LanguageResponse {
-
+public class DepartmentResponse {
     @JsonProperty("ResponseInfo")
     private ResponseInfo ResponseInfo;
-    @JsonProperty("Language")
-    private Language[] Language;
+    @JsonProperty("Department")
+    private Department[] Department;
 
     public ResponseInfo getResponseInfo() {
         return this.ResponseInfo;
@@ -18,11 +17,11 @@ public class LanguageResponse {
         this.ResponseInfo = ResponseInfo;
     }
 
-    public Language[] getLanguage() {
-        return this.Language;
+    public Department[] getDepartment() {
+        return this.Department;
     }
 
-    public void setLanguage(Language[] Language) {
-        this.Language = Language;
+    public void setDepartment(Department[] Department) {
+        this.Department = Department;
     }
 }

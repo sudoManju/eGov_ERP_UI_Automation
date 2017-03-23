@@ -93,5 +93,9 @@ public class PropertiesReader {
     public String getCMLanguageUrl() {
         return prop.getProperty("cmLanguageUrl");
     }
+
+    public String getCMDepartmentUrl() {
+        return prop.getProperty("cmDepartmentUrl");
+    }
 }
 

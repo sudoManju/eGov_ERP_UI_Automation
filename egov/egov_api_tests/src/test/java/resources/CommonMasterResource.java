@@ -20,4 +20,15 @@ public class CommonMasterResource {
         return response;
     }
 
+    public Response searchDepartmentTest(String jsonString, String access_token) {
+        new APILogger().log("Search Department Test is started --");
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .header("auth-token", access_token)
+                .body(jsonString)
+                .when()
+                .post(Properties.devServerUrl + Properties.cmDepartmentUrl);
+
+        return response;
+    }
 }
