@@ -97,5 +97,9 @@ public class PropertiesReader {
     public String getCMDepartmentUrl() {
         return prop.getProperty("cmDepartmentUrl");
     }
+
+    public String getCMCommunityUrl() {
+        return prop.getProperty("cmCommunityUrl");
+    }
 }
 

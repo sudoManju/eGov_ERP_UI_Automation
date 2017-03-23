@@ -31,4 +31,17 @@ public class CommonMasterResource {
 
         return response;
     }
+
+    public Response searchCommunityTest(String jsonString, String access_token) {
+
+        new APILogger().log("Search Community Test is started --");
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .header("auth-token", access_token)
+                .body(jsonString)
+                .when()
+                .post(Properties.devServerUrl + Properties.cmCommunityUrl);
+
+        return response;
+    }
 }
