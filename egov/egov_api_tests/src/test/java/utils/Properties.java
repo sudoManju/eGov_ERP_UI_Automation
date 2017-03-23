@@ -34,7 +34,9 @@ public class Properties {
 
     public static final String createAttendanceURL = propertiesReader.getCreateAttendanceUrl();
 
-    public static final String lamsServiceSearchUrl = propertiesReader.getLamsServiceSearchUrl();
+    public static final String lAMSServiceSearchUrl = propertiesReader.getLAMSServiceSearchUrl();
 
     public static final String searchEmployeeURL = propertiesReader.getSearchEmployeeUrl();
+
+    public static final String cmLanguageUrl = propertiesReader.getCMLanguageUrl();
 }

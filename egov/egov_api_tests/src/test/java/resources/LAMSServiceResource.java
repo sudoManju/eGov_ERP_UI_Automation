@@ -17,7 +17,7 @@ public class LAMSServiceResource {
                 .header("auth-token", access_token)
                 .body(jsonString)
                 .when()
-                .post(Properties.devServerUrl + Properties.lamsServiceSearchUrl);
+                .post(Properties.devServerUrl + Properties.lAMSServiceSearchUrl);
 
         return response;
     }

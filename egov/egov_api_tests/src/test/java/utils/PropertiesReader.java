@@ -86,8 +86,12 @@ public class PropertiesReader {
         return prop.getProperty("createAttendanceURL");
     }
 
-    public String getLamsServiceSearchUrl() {
+    public String getLAMSServiceSearchUrl() {
         return prop.getProperty("lamsServiceSearchUrl");
+    }
+
+    public String getCMLanguageUrl() {
+        return prop.getProperty("cmLanguageUrl");
     }
 }
 

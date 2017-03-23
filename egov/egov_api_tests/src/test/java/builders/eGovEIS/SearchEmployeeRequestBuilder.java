@@ -63,5 +63,7 @@ public final class SearchEmployeeRequestBuilder {
         return this;
     }
 
-    public SearchEmployeeRequest build() { return searchEmployeeRequest; }
+    public SearchEmployeeRequest build() {
+        return searchEmployeeRequest;
+    }
 }
