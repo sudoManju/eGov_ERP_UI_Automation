@@ -101,5 +101,9 @@ public class PropertiesReader {
     public String getCMCommunityUrl() {
         return prop.getProperty("cmCommunityUrl");
     }
+
+    public String getCMReligionUrl() {
+        return prop.getProperty("cmReligionUrl");
+    }
 }
 
