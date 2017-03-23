@@ -76,5 +76,9 @@ public class PropertiesReader {
 
     public String getCreateAttendanceUrl() { return  prop.getProperty("createAttendanceURL");
     }
+
+    public String getLamsServiceSearchUrl() {
+        return  prop.getProperty("lamsServiceSearchUrl");
+    }
 }
 

@@ -33,4 +33,6 @@ public class Properties {
     public static final String assetCategorySearchUrl = propertiesReader.getAssetCategorySearchUrl();
 
     public static final String createAttendanceURL = propertiesReader.getCreateAttendanceUrl();
+
+    public static final String lamsServiceSearchUrl = propertiesReader.getLamsServiceSearchUrl();
 }
