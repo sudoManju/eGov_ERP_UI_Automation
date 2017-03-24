@@ -37,16 +37,16 @@ public class SearchAttendancesTest extends BaseAPITest {
         Assert.assertEquals(searchAttendanceResponse.getAttendance()[0].getEmployee(), "1");
         System.out.println("Employee Attendance based on ID: " + searchAttendanceResponse.getAttendance()[0].getId());
         Assert.assertEquals(searchAttendanceResponse.getAttendance()[0].getType().getCode(), "P", "Assert attendance type code");
-        Assert.assertEquals(searchAttendanceResponse.getAttendance()[0].getAttendanceDate(), "2017-03-12", "Assert on Attendance Date");
+        Assert.assertEquals(searchAttendanceResponse.getAttendance()[0].getAttendanceDate(), "2010-03-31", "Assert on Attendance Date");
 
-        Assert.assertEquals(searchAttendanceResponse.getAttendance()[1].getEmployee(), "4");
+        Assert.assertEquals(searchAttendanceResponse.getAttendance()[1].getEmployee(), "1");
         System.out.println("Employee Attendance based on ID: " + searchAttendanceResponse.getAttendance()[1].getId());
-        Assert.assertEquals(searchAttendanceResponse.getAttendance()[1].getAttendanceDate(), "2017-03-12");
+        Assert.assertEquals(searchAttendanceResponse.getAttendance()[1].getAttendanceDate(), "2010-05-24");
         Assert.assertEquals(searchAttendanceResponse.getAttendance()[1].getType().getCode(), "P");
 
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(searchAttendanceResponse.getAttendance()[0].getEmployee(), "1");
-        softAssert.assertEquals(searchAttendanceResponse.getAttendance()[1].getEmployee(), "4");
+        softAssert.assertEquals(searchAttendanceResponse.getAttendance()[1].getEmployee(), "1");
 
         try {
             softAssert.assertAll();
