@@ -12,11 +12,11 @@ Feature: Register Complaint
     And he copies CRN and closes the acknowledgement
     And citizen sign out
 
-#    When LightingSuperintendent logs in
-#    And he chooses to act upon above application number
-#    And he mark status as COMPLETED
-#    And user will be notified by "successfully"
-#    And current user logs out
+    When LightingSuperintendent logs in
+    And he chooses to act upon above application number
+    And he mark status as COMPLETED
+    And user will be notified by "successfully"
+    And current user logs out
 
     Examples:
       | grievanceDetails |
