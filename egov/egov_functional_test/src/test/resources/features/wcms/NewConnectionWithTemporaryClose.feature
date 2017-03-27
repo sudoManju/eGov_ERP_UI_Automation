@@ -165,7 +165,7 @@ Feature: To create a flow of water management connections and applying a tempora
     And user will select the required screen as "Apply for Closure of Connection"
     And user will enter the consumer number
     And user will enter the closure connection details as <closureType>
-    And user closes acknowledgement form
+    Then user will get the application number and closes the form
     And current user logs out
 
     And assistantEngineer logs in
@@ -194,7 +194,7 @@ Feature: To create a flow of water management connections and applying a tempora
     And user will select the required screen as "Apply for Re-Connection"
     And user will enter the consumer number
     And user will enter the re-connection details
-    And user closes acknowledgement form
+    Then user will get the application number and closes the form
     And current user logs out
 
     And assistantEngineer logs in

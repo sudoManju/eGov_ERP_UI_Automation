@@ -75,19 +75,19 @@ public class MarriageRegistrationPage extends BasePage {
     @FindBy(xpath = ".//*[@id='settingstab']/li[3]/a")
     private WebElement checkListLink;
 
-    @FindBy(id = "file2id")
+    @FindBy(id = "file1id")
     private WebElement memorandumofMarriage;
 
-    @FindBy(id = "indvcommonhusbandfile7id")
+    @FindBy(id = "ageproofhusbandfile1id")
     private WebElement birthCertificateForBridegroom;
 
-    @FindBy(id = "indvcommonwifefile7id")
+    @FindBy(id = "ageproofwifefile1id")
     private WebElement birthCertificateForBride;
 
-    @FindBy(id = "addressproofhusbandfile3id")
+    @FindBy(id = "addressproofhusbandfile5id")
     private WebElement proofofResidenceForBridegroom;
 
-    @FindBy(id = "addressproofwifefile3id")
+    @FindBy(id = "addressproofwifefile5id")
     private WebElement proofofResidenceForBride;
 
     @FindBy(xpath = ".//*[@id='registrationsuccess-form']/div/div[2]/div")

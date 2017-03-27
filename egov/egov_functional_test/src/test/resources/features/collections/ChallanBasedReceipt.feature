@@ -2,8 +2,8 @@ Feature: Create/Collect Challan Based Receipt
 
   As a registered user of the system
   I am able to Create/Collect Challan Based Receipt
-
-  @Collections  @Sanity @Smoke
+   @WIP
+#  @Collections  @Sanity @Smoke
   Scenario Outline: System should be able to Create Challan
 
     Given juniorAssistant logs in
