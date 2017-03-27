@@ -1,5 +1,6 @@
 package steps.tradeLicense;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.tradeLicense.*;
 import excelDataFiles.TradeLicenseDataReader;
@@ -105,5 +106,22 @@ public class TradeLicenseSteps extends BaseSteps implements En {
         And("^he changes trade area as \"([^\"]*)\"$", (String tradeArea) -> {
             pageStore.get(TradeLicensePage.class).changeTradeArea(tradeArea);
         });
+        And("^he cancel the application$", () -> {
+            pageStore.get(TradeLicensePage.class).cancelApplication();
+        });
+        And("^he rejects the application$", () -> {
+            pageStore.get(TradeLicensePage.class).applicationRejection();
+        });
+
+        And("^he verifies the application status$", () -> {
+            scenarioContext.setActualMessage(pageStore.get(TradeLicensePage.class).applicationStatus());
+        });
+        And("^he verifies the License active$", () -> {
+            scenarioContext.setActualMessage(pageStore.get(TradeLicensePage.class).licenseStatus());
+        });
+        And("^he closes search screen$", () -> {
+            pageStore.get(TradeLicensePage.class).closeSearchScreen();
+        });
+
     }
 }

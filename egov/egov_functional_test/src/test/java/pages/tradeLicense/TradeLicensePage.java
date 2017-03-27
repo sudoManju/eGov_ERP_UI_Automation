@@ -134,6 +134,12 @@ public class TradeLicensePage extends BasePage {
     @FindBy(id = "generatedemand")
     private WebElement generateDemandButton;
 
+    @FindBy(id = "btncancel")
+    private WebElement cancelButton;
+
+    @FindBy(id = "Reject")
+    private WebElement rejectButton;
+
     public TradeLicensePage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -373,6 +379,30 @@ public class TradeLicensePage extends BasePage {
 
     public void changeTradeArea(String tradeArea) {
         enterText(TradeAreaWeightOfPremises, tradeArea, webDriver);
+    }
+
+    public void cancelApplication() {
+        clickOnButton(cancelButton, webDriver);
+    }
+
+    public void applicationRejection() {
+        enterText(approverRemarkTextBox, "Rejected", webDriver);
+        clickOnButton(rejectButton, webDriver);
+    }
+
+    public String applicationStatus() {
+        String status=webDriver.findElement(By.xpath(".//*[@id='tblSearchTrade']/tbody/tr[1]/td[11]")).getText();
+        return status;
+    }
+
+    public String licenseStatus() {
+        String status=webDriver.findElement(By.xpath(".//*[@id='tblSearchTrade']/tbody/tr[1]/td[12]")).getText();
+        return status;
+    }
+
+    public void closeSearchScreen() {
+        clickOnButton(closeSearch,webDriver);
+        switchToPreviouslyOpenedWindow(webDriver);
     }
 }
 
