@@ -13,7 +13,7 @@ import entities.responses.pgrCollections.getComplaint.GetPGRComplaintResponse;
 import entities.responses.pgrCollections.updateAndCloseComplaint.UpdateAndCloseComplaintInPGRResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import resources.PGRComplaintResource;
+import resources.PGRResource;
 import tests.BaseAPITest;
 import utils.*;
 
@@ -29,22 +29,18 @@ public class ComplaintVerificationTest extends BaseAPITest {
 
         // Create A Complaint
         ComplaintResponse complaintResponse = createComplaintInPGR();
-        new APILogger().log("Created a PGR Complaint Request -- ");
 
         // Get Complaint
         GetPGRComplaintResponse getPgrComplaintResponse =
                 getComplaintInPGR(complaintResponse.getService_requests()[0].getService_request_id());
-        new APILogger().log("Got a PGR Complaint Request-- ");
 
         // Update Complaint
         UpdateAndCloseComplaintInPGRResponse updateAndCloseComplaintInPGRResponse =
                 updateComplaintInPGR(complaintResponse.getService_requests()[0].getService_request_id());
-        new APILogger().log("Updated a PGR complaint request");
 
         //Close Complaint
         UpdateAndCloseComplaintInPGRResponse updateAndCloseComplaintInPGRResponse1 =
                 closeComplaintInPGR(complaintResponse.getService_requests()[0].getService_request_id());
-        new APILogger().log("Close a PGR complaint request");
 
         // Logout Test
         logoutTestMethod(loginResponse, Properties.serverUrl);
@@ -54,7 +50,7 @@ public class ComplaintVerificationTest extends BaseAPITest {
         ComplaintRequest request = new ComplaintRequestBuilder().build();
 
         String jsonString = RequestHelper.getJsonString(request);
-        Response response = new PGRComplaintResource().createComplaint(jsonString);
+        Response response = new PGRResource().createComplaint(jsonString);
 
         ComplaintResponse complaintResponse = (ComplaintResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), ComplaintResponse.class);
@@ -69,7 +65,7 @@ public class ComplaintVerificationTest extends BaseAPITest {
     }
 
     private GetPGRComplaintResponse getComplaintInPGR(String id) throws IOException {
-        Response response = new PGRComplaintResource().getPGRComplaint(id);
+        Response response = new PGRResource().getPGRComplaint(id);
 
         GetPGRComplaintResponse getPgrComplaintResponse = (GetPGRComplaintResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), GetPGRComplaintResponse.class);
@@ -89,7 +85,7 @@ public class ComplaintVerificationTest extends BaseAPITest {
 
         String jsonString = RequestHelper.getJsonString(request);
 
-        Response response = new PGRComplaintResource().updateAndClosePGRComplaint(jsonString);
+        Response response = new PGRResource().updateAndClosePGRComplaint(jsonString);
 
         UpdateAndCloseComplaintInPGRResponse updateAndCloseComplaintInPGRResponse = (UpdateAndCloseComplaintInPGRResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), UpdateAndCloseComplaintInPGRResponse.class);
@@ -110,7 +106,7 @@ public class ComplaintVerificationTest extends BaseAPITest {
 
         String jsonString = RequestHelper.getJsonString(request);
 
-        Response response = new PGRComplaintResource().updateAndClosePGRComplaint(jsonString);
+        Response response = new PGRResource().updateAndClosePGRComplaint(jsonString);
 
         UpdateAndCloseComplaintInPGRResponse updateAndCloseComplaintInPGRResponse = (UpdateAndCloseComplaintInPGRResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), UpdateAndCloseComplaintInPGRResponse.class);

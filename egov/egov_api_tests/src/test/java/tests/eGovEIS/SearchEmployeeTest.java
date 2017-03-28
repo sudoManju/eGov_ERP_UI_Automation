@@ -3,7 +3,6 @@ package tests.eGovEIS;
 import builders.eGovEIS.SearchEmployeeRequestBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.eGovEIS.SearchEmployeeRequest;
-import entities.responses.eGovEIS.SearchAttendanceResponse;
 import entities.responses.eGovEIS.employeeMasters.SearchEmployeeResponse;
 import entities.responses.login.LoginResponse;
 import org.testng.Assert;
@@ -30,7 +29,7 @@ public class SearchEmployeeTest extends BaseAPITest {
         SearchEmployeeResponse searchEmployeeResponse = (SearchEmployeeResponse) ResponseHelper.getResponseAsObject(response.asString(), SearchEmployeeResponse.class);
 
 //        ###Assertions for various use cases###
-        System.out.println("Number of Employees: "+searchEmployeeResponse.getEmployee().length);
+        System.out.println("Number of Employees: " + searchEmployeeResponse.getEmployee().length);
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertEquals(searchEmployeeResponse.getEmployee()[0].getUserName(), "egovernments");
         Assert.assertEquals(searchEmployeeResponse.getEmployee()[0].getCode(), "A9090");

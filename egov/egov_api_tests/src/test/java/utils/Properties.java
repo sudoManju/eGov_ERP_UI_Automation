@@ -12,12 +12,17 @@ public class Properties {
     public static final String loginUrl = propertiesReader.getLoginUrl();
     public static final String logoutUrl = propertiesReader.getLogoutUrl();
 
+    //  User Url's  //
+    public static final String userUrl = propertiesReader.getUserUrl();
+
     //  PGR Module Url's  //
     public static final String getPGRComplaintUrl = propertiesReader.getPGRComplaintUrl();
     public static final String complaintUrl = propertiesReader.getComplaintUrl();
     public static final String locationNameUrl = propertiesReader.getLocationNameUrl();
     public static final String fetchComplaintsUrl = propertiesReader.getFetchComplaintsUrl();
     public static final String frequentlyFilledComplaintsUrl = propertiesReader.getFrequentlyFilledComplaintstUrl();
+    public static final String pgrStatusUrl = propertiesReader.getPGRStatusUrl();
+    public static final String pgrReceivingcenterUrl = propertiesReader.getPGRReceivingCenter();
 
     //  Asset Module Url's  //
     public static final String searchAssetServiceUrl = propertiesReader.getSearchAssetServiceUrl();

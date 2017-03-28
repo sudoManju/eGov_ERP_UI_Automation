@@ -7,7 +7,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.junit.Assert;
 import org.testng.annotations.Test;
-import resources.PGRComplaintResource;
+import resources.PGRResource;
 import tests.BaseAPITest;
 import utils.APILogger;
 import utils.Categories;
@@ -21,7 +21,7 @@ public class FetchComplaintTest extends BaseAPITest {
     @Test(groups = {Categories.PGR, Categories.SANITY})
     public void fetchAllComplaint() throws IOException {
 
-        Response response = new PGRComplaintResource().getFetchComplaint();
+        Response response = new PGRResource().getFetchComplaint();
 
         List<FetchComplaintResponse> fetchComplaints = getResponseObjectArray(response);
 

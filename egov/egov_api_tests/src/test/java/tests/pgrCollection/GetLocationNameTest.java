@@ -7,7 +7,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.junit.Assert;
 import org.testng.annotations.Test;
-import resources.PGRComplaintResource;
+import resources.PGRResource;
 import tests.BaseAPITest;
 import utils.APILogger;
 import utils.Categories;
@@ -21,7 +21,7 @@ public class GetLocationNameTest extends BaseAPITest {
     @Test(groups = {Categories.PGR, Categories.SANITY})
     public void getParticularLocationName() throws IOException {
 
-        Response response = new PGRComplaintResource().getParticularLocationName("konda peta");
+        Response response = new PGRResource().getParticularLocationName("konda peta");
 
         List<LocationNameResponse> locations = getResponseObjectArray(response);
 
@@ -34,7 +34,7 @@ public class GetLocationNameTest extends BaseAPITest {
     @Test(groups = {Categories.PGR, Categories.SANITY})
     public void invalidLocationName() throws IOException {
 
-        Response response = new PGRComplaintResource().getParticularLocationName("vinay");
+        Response response = new PGRResource().getParticularLocationName("vinay");
 
         List<LocationNameResponse> locations = getResponseObjectArray(response);
 
@@ -47,7 +47,7 @@ public class GetLocationNameTest extends BaseAPITest {
     @Test(groups = {Categories.PGR, Categories.SANITY})
     public void getAllLocationNames() throws IOException {
 
-        Response response = new PGRComplaintResource().getAllLocationNames();
+        Response response = new PGRResource().getAllLocationNames();
 
         List<LocationNameResponse> locations = getResponseObjectArray(response);
         Assert.assertEquals(response.getStatusCode(), 200);

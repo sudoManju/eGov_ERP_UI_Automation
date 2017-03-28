@@ -1,12 +1,13 @@
 package resources;
 
 import com.jayway.restassured.response.Response;
+import entities.responses.login.LoginResponse;
 import utils.APILogger;
 import utils.Properties;
 
 import static com.jayway.restassured.RestAssured.given;
 
-public class PGRComplaintResource {
+public class PGRResource {
 
     public Response createComplaint(String json) {
 
@@ -96,6 +97,28 @@ public class PGRComplaintResource {
                 .body(json)
                 .when()
                 .put(Properties.serverUrl + Properties.complaintUrl);
+
+        return response;
+    }
+
+    public Response getReceivingCenter(LoginResponse loginResponse) {
+
+        new APILogger().log("Receiving Centers for PGR is started  -- ");
+        Response response = given().request().with()
+                .header("auth-token", loginResponse.getAccess_token())
+                .when()
+                .get(Properties.devServerUrl + Properties.pgrReceivingcenterUrl);
+
+        return response;
+    }
+
+    public Response getPGRApplicationStatus(LoginResponse loginResponse) {
+
+        new APILogger().log("Get All Application Status for PGR is started  -- ");
+        Response response = given().request().with()
+                .header("auth-token", loginResponse.getAccess_token())
+                .when()
+                .post(Properties.devServerUrl + Properties.pgrStatusUrl);
 
         return response;
     }

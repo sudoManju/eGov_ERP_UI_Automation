@@ -22,18 +22,30 @@ public class PropertiesReader {
         return prop.getProperty("serviceListUrl");
     }
 
+    //      Login And Logout Url's      //
     public String getLoginUrl() {
         return prop.getProperty("loginUrl");
-    }
-
-    public String getServerUrl() {
-        return prop.getProperty("serverUrl");
     }
 
     public String getLogoutUrl() {
         return prop.getProperty("logoutUrl");
     }
 
+    //      Server Url's      //
+    public String getServerUrl() {
+        return prop.getProperty("serverUrl");
+    }
+
+    public String getDevServerUrl() {
+        return prop.getProperty("devServerUrl");
+    }
+
+    //      User Url's      //
+    public String getUserUrl() {
+        return prop.getProperty("userUrl");
+    }
+
+    //      PGR Module Url's      //
     public String getPGRComplaintUrl() {
         return prop.getProperty("getPGRComplaintUrl");
     }
@@ -54,20 +66,21 @@ public class PropertiesReader {
         return prop.getProperty("frequentlyFilledComplaintsUrl");
     }
 
+    public String getPGRStatusUrl() {
+        return prop.getProperty("pgrStatusUrl");
+    }
+
+    public String getPGRReceivingCenter() {
+        return prop.getProperty("pgrReceivingCenter");
+    }
+
+    //      Asset Module Url's      //
     public String getSearchAssetServiceUrl() {
         return prop.getProperty("searchAssetService");
     }
 
-    public String getDevServerUrl() {
-        return prop.getProperty("devServerUrl");
-    }
-
     public String getAssetCategoryCreateUrl() {
         return prop.getProperty("assetCategoryCreateUrl");
-    }
-
-    public String getSearchAttendanceUrl() {
-        return prop.getProperty("searchAttendanceUrl");
     }
 
     public String getCreateAssetServiceUrl() {
@@ -78,6 +91,11 @@ public class PropertiesReader {
         return prop.getProperty("assetCategorySearchUrl");
     }
 
+    //      eGovEIS Module Url's      //
+    public String getSearchAttendanceUrl() {
+        return prop.getProperty("searchAttendanceUrl");
+    }
+
     public String getSearchEmployeeUrl() {
         return prop.getProperty("searchEmployeeUrl");
     }
@@ -86,10 +104,12 @@ public class PropertiesReader {
         return prop.getProperty("createAttendanceURL");
     }
 
+    //      Lease And Agreement Module Url's      //
     public String getLAMSServiceSearchUrl() {
         return prop.getProperty("lamsServiceSearchUrl");
     }
 
+    //      Common Master Module Url's      //
     public String getCMLanguageUrl() {
         return prop.getProperty("cmLanguageUrl");
     }
