@@ -382,7 +382,7 @@ public class WaterChargeManagementPage extends BasePage {
 
     public void collectWaterCharges() {
 
-        clickOnButton(collectFeesButton, webDriver);
+        jsClick(collectFeesButton, webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 

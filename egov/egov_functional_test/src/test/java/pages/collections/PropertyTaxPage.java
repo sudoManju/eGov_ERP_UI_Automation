@@ -113,7 +113,7 @@ public class PropertyTaxPage extends BasePage {
                 enterText(chequeNumberTextBox, paymentmethod.getChequeNumber(), driver);
                 enterText(chequeDateTextBox, getCurrentDate(), driver);
                 enterText(bankNameTextBox, paymentmethod.getBankName(), driver);
-                await().atMost(10, SECONDS).until(() -> driver.findElement(By.id("bankcodescontainer"))
+                await().atMost(30, SECONDS).until(() -> driver.findElement(By.id("bankcodescontainer"))
                         .findElements(By.cssSelector("ul li"))
                         .get(0).click());
 
@@ -126,7 +126,7 @@ public class PropertyTaxPage extends BasePage {
                 enterText(chequeNumberTextBox, paymentmethod.getChequeNumber(), driver);
                 enterText(chequeDateTextBox, getCurrentDate(), driver);
                 enterText(bankNameTextBox, paymentmethod.getBankName(), driver);
-                await().atMost(10, SECONDS).until(() -> driver.findElement(By.id("bankcodescontainer"))
+                await().atMost(30, SECONDS).until(() -> driver.findElement(By.id("bankcodescontainer"))
                         .findElements(By.cssSelector("ul li"))
                         .get(0).click());
 
