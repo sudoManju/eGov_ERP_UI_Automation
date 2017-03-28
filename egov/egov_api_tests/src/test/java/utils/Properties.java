@@ -22,7 +22,8 @@ public class Properties {
     public static final String fetchComplaintsUrl = propertiesReader.getFetchComplaintsUrl();
     public static final String frequentlyFilledComplaintsUrl = propertiesReader.getFrequentlyFilledComplaintstUrl();
     public static final String pgrStatusUrl = propertiesReader.getPGRStatusUrl();
-    public static final String pgrReceivingcenterUrl = propertiesReader.getPGRReceivingCenter();
+    public static final String pgrReceivingCenterUrl = propertiesReader.getPGRReceivingCenter();
+    public static final String pgrSearchCitizenComplaintUrl = propertiesReader.getPGRSearchCitizenComplaint();
 
     //  Asset Module Url's  //
     public static final String searchAssetServiceUrl = propertiesReader.getSearchAssetServiceUrl();

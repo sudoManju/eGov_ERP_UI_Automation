@@ -107,7 +107,7 @@ public class PGRResource {
         Response response = given().request().with()
                 .header("auth-token", loginResponse.getAccess_token())
                 .when()
-                .get(Properties.devServerUrl + Properties.pgrReceivingcenterUrl);
+                .get(Properties.devServerUrl + Properties.pgrReceivingCenterUrl);
 
         return response;
     }
@@ -119,6 +119,17 @@ public class PGRResource {
                 .header("auth-token", loginResponse.getAccess_token())
                 .when()
                 .post(Properties.devServerUrl + Properties.pgrStatusUrl);
+
+        return response;
+    }
+
+    public Response getSearchCitizenComplaints(LoginResponse loginResponse) {
+
+        new APILogger().log("Search Citizen Complaints for PGR is started  -- ");
+        Response response = given().request().with()
+                .header("auth-token", loginResponse.getAccess_token())
+                .when()
+                .post(Properties.devServerUrl + Properties.pgrSearchCitizenComplaintUrl);
 
         return response;
     }
