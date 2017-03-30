@@ -2,7 +2,7 @@ Feature: Create/Collect/Remit/Cancel Miscellaneous Receipt
   As a registered user of the system
   I am able to Create/Collect/Remit/Cancel Miscellaneous Receipt
 
-  @Collections @Sanity @Smoke1
+  @Collections @Sanity @Smoke
   Scenario Outline: System should be able to create Miscellaneous receipt
 
     Given creator logs in
@@ -22,7 +22,7 @@ Feature: Create/Collect/Remit/Cancel Miscellaneous Receipt
       | directBank    |
 
 
-  @Collections @Sanity @Smoke1
+  @Collections @Sanity @Smoke
   Scenario: System should be able to cancel receipt
 
     Given creator logs in
@@ -47,7 +47,7 @@ Feature: Create/Collect/Remit/Cancel Miscellaneous Receipt
     And current user logs out
 
 
-  @Collections @Sanity @Smoke1
+  @Collections @Sanity @Smoke
   Scenario: Remittance of receipt
 
     Given adm_manager logs in
