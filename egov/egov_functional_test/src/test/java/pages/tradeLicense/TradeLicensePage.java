@@ -195,7 +195,7 @@ public class TradeLicensePage extends BasePage {
         enterText(TradeAreaWeightOfPremises, tradedetails.gettradeAreaWeightOfPremises(), webDriver);
         enterText(remarksTextBox, tradedetails.getremarks(), webDriver);
         enterText(tradeCommencementDateTextBox, tradedetails.gettradeCommencementDate(), webDriver);
-        clickOnButton(saveButton, webDriver);
+
     }
 
     public String getApplicationNumber() {
@@ -403,6 +403,10 @@ public class TradeLicensePage extends BasePage {
     public void closeSearchScreen() {
         clickOnButton(closeSearch,webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
+    }
+
+    public void saveApplication() {
+        clickOnButton(saveButton, webDriver);
     }
 }
 

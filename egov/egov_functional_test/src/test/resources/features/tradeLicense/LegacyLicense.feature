@@ -11,6 +11,7 @@ Feature: Legacy license
     And he enters trade location details of new license <tradeLocationData>
     And he enters trade details of new license <tradeDetailsData1>
     And he enters fee details of legency trade license
+    And he saves the application
     And he copies the license number and closes the acknowledgement
     And current user logs out
 

@@ -8,6 +8,7 @@ Feature: Renewal of trade license
     And he enters trade owner details of new license <tradeDetailsData>
     And he enters trade location details of new license <tradeLocationData>
     And he enters trade details of new license <tradeDetailsData1>
+    And he saves the application
     And he copy trade application number
 
     And user will select the required screen as "Search Trade License"
@@ -92,6 +93,7 @@ Feature: Renewal of trade license
     And he enters trade location details of new license <tradeLocationData>
     And he enters trade details of new license <tradeDetailsData1>
     And he enters fee details of legency trade license
+    And he saves the application
     And he copies the license number and closes the acknowledgement
 
     And user will select the required screen as "Search Trade License"
@@ -136,6 +138,7 @@ Feature: Renewal of trade license
     And he enters trade owner details of new license <tradeDetailsData>
     And he enters trade location details of new license <tradeLocationData>
     And he enters trade details of new license <tradeDetailsData1>
+    And he saves the application
     And he copy trade application number
 
     And user will select the required screen as "Search Trade License"
@@ -225,6 +228,7 @@ Scenario Outline: Renewal of TL -> collect fee -> forward to SI
   And he enters trade owner details of new license <tradeDetailsData>
   And he enters trade location details of new license <tradeLocationData>
   And he enters trade details of new license <tradeDetailsData1>
+  And he saves the application
   And he copy trade application number
 
   And user will select the required screen as "Search Trade License"

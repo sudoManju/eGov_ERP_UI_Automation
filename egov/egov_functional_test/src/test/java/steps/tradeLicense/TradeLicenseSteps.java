@@ -122,6 +122,9 @@ public class TradeLicenseSteps extends BaseSteps implements En {
         And("^he closes search screen$", () -> {
             pageStore.get(TradeLicensePage.class).closeSearchScreen();
         });
+        And("^he saves the application$", () -> {
+            pageStore.get(TradeLicensePage.class).saveApplication();
+        });
 
     }
 }

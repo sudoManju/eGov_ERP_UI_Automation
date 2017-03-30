@@ -13,6 +13,7 @@ Feature: Create Trade License
     And he enters trade owner details of new license <tradeDetailsData>
     And he enters trade location details of new license <tradeLocationData>
     And he enters trade details of new license <tradeDetailsData1>
+    And he saves the application
     And he copy trade application number
     And current user logs out
 
@@ -29,6 +30,7 @@ Feature: Create Trade License
     And he enters trade owner details of new license <tradeDetailsData>
     And he enters trade location details of new license <tradeLocationData>
     And he enters trade details of new license <tradeDetailsData1>
+    And he saves the application
     And he copy trade application number
 
     And user will select the required screen as "Search Trade License"
@@ -77,6 +79,7 @@ Feature: Create Trade License
     And he enters trade owner details of new license <tradeDetailsData>
     And he enters trade location details of new license <tradeLocationData>
     And he enters trade details of new license <tradeDetailsData1>
+    And he saves the application
     And he copy trade application number
 #    And current user logs out
 
@@ -131,6 +134,7 @@ Feature: Create Trade License
      And he enters trade owner details of new license <tradeDetailsData>
      And he enters trade location details of new license <tradeLocationData>
      And he enters trade details of new license <tradeDetailsData1>
+     And he saves the application
      And he copy trade application number
 
      And user will select the required screen as "Search Trade License"
@@ -188,6 +192,7 @@ Feature: Create Trade License
        And he enters trade owner details of new license <tradeDetailsData>
        And he enters trade location details of new license <tradeLocationData>
        And he enters trade details of new license <tradeDetailsData1>
+       And he saves the application
        And he copy trade application number
 
        And user will select the required screen as "Search Trade License"
@@ -241,6 +246,7 @@ Feature: Create Trade License
     And he enters trade owner details of new license <tradeDetailsData>
     And he enters trade location details of new license <tradeLocationData>
     And he enters trade details of new license <tradeDetailsData1>
+    And he saves the application
     And he copy trade application number
 
     And user will select the required screen as "Search Trade License"
@@ -286,6 +292,7 @@ Feature: Create Trade License
    And he enters trade owner details of new license <tradeDetailsData>
    And he enters trade location details of new license <tradeLocationData>
    And he enters trade details of new license <tradeDetailsData1>
+   And he saves the application
    And he copy trade application number
 
    And user will select the required screen as "Search Trade License"
@@ -321,6 +328,7 @@ Feature: Create Trade License
    And he enters trade owner details of new license <tradeDetailsData>
    And he enters trade location details of new license <tradeLocationData>
    And he enters trade details of new license <tradeDetailsData1>
+   And he saves the application
    And he copy trade application number
 
    And he chooses to act upon above application number
