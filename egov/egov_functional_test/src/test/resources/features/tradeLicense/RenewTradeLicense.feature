@@ -83,7 +83,7 @@ Feature: Renewal of trade license
 
 
     # Trade License Renewal #
-  @Sanity @TradeLicense
+#  @Sanity @TradeLicense
   Scenario Outline: Renewal of Trade License with legacy license
 
     Given creator logs in

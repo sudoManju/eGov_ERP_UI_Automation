@@ -23,7 +23,7 @@ Feature: Create Trade License
 
   # Create Trade License with work flow #
   @Sanity @TradeLicense
-  Scenario Outline: Register User create trade license with work flow
+  Scenario Outline: Register User create trade license with work flows
 
     Given creator logs in
     And user will select the required screen as "Create New License"
