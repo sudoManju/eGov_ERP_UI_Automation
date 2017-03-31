@@ -126,6 +126,7 @@ Feature: Create Trade License
       | tradeDetailsData         | tradeLocationData           | tradeDetailsData1        |
       | ownerDetailsTradeLicense | locationDetailsTradeLicense | tradeDetailsTradeLicense |
 
+  @TradeLicense
    Scenario Outline: Create new TL from JA-> collect fee -> forward to SI -> Change trade area and forward to Commissioner
                      -> Approve in commissioner -> reject
 
@@ -184,6 +185,7 @@ Feature: Create Trade License
        | tradeDetailsData         | tradeLocationData           | tradeDetailsData1        |
        | ownerDetailsTradeLicense | locationDetailsTradeLicense | tradeDetailsTradeLicense |
 
+     @TradeLicense
      Scenario Outline: Create new TL from JA -> collect fee -> forward to SI
                        -> forward to Commissioner reject
 
@@ -239,6 +241,7 @@ Feature: Create Trade License
          | tradeDetailsData         | tradeLocationData           | tradeDetailsData1        |
          | ownerDetailsTradeLicense | locationDetailsTradeLicense | tradeDetailsTradeLicense |
 
+  @TradeLicense
   Scenario Outline: Create new TL -> collect fee -> forward to SI -> reject
 
     Given creator logs in
@@ -285,6 +288,7 @@ Feature: Create Trade License
       | tradeDetailsData         | tradeLocationData           | tradeDetailsData1        |
       | ownerDetailsTradeLicense | locationDetailsTradeLicense | tradeDetailsTradeLicense |
 
+  @TradeLicense
  Scenario Outline: Create new TL -> collect fee -> reject
 
    Given creator logs in
@@ -321,6 +325,7 @@ Feature: Create Trade License
      | tradeDetailsData         | tradeLocationData           | tradeDetailsData1        |
      | ownerDetailsTradeLicense | locationDetailsTradeLicense | tradeDetailsTradeLicense |
 
+  @TradeLicense
  Scenario Outline: Create new TL -> reject
 
    Given creator logs in
