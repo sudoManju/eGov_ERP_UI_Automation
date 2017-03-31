@@ -36,15 +36,14 @@ public class EgovEISResource {
 
     }
 
-    public Response searchEmployee(Map jsonData, String access_token) {
+    public Response searchEmployee(String jsonData) {
         new APILogger().log("Search Employee is started -- ");
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
                 .header("Content-Type", "application/json")
-                .header("auth-token", access_token)
                 .body(jsonData)
                 .when()
-                .post(Properties.devServerUrl + Properties.searchEmployeeURL);
+                .post(Properties.devServerUrl + Properties.searchEmployeeURL + "&employee=1");
         return response;
     }
 }
