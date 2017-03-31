@@ -2,9 +2,11 @@ package tests.assetManagement;
 
 import builders.assetManagement.RequestInfoBuilder;
 import builders.assetManagement.assetCategory.AssetCategoryCreateRequestBuilder;
+import builders.assetManagement.assetCategory.AssetCategorySearchRequestBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.assetManagement.RequestInfo;
 import entities.requests.assetManagement.assetCategory.AssetCategoryCreateRequest;
+import entities.requests.assetManagement.SearchAssetRequest;
 import entities.responses.assetManagement.assetCategory.AssetCategoryResponse;
 import entities.responses.login.LoginResponse;
 import org.testng.Assert;
@@ -39,7 +41,8 @@ public class AssetCategoryTest extends BaseAPITest {
     }
 
     private void createAssetCategoryTestMethod(LoginResponse loginResponse) throws IOException {
-        AssetCategoryCreateRequest request = new AssetCategoryCreateRequestBuilder().build();
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
+        AssetCategoryCreateRequest request = new AssetCategoryCreateRequestBuilder().withRequestInfo(requestInfo).build();
 
         String jsonString = RequestHelper.getJsonString(request);
         Response response = new AssetCategoryResource().create(jsonString, loginResponse.getAccess_token());
@@ -54,9 +57,11 @@ public class AssetCategoryTest extends BaseAPITest {
     }
 
     private void searchAssetCategoryTestMethod(LoginResponse loginResponse) throws IOException {
-        RequestInfo requestInfo = new RequestInfoBuilder().build();
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
 
-        String jsonString = RequestHelper.getJsonString(requestInfo);
+        SearchAssetRequest request = new AssetCategorySearchRequestBuilder().withRequestInfo(requestInfo).build();
+        String jsonString = RequestHelper.getJsonString(request);
+
         Response response = new AssetCategoryResource().search(jsonString, loginResponse.getAccess_token());
 
         AssetCategoryResponse assetCategoryResponse = (AssetCategoryResponse)

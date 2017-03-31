@@ -19,12 +19,12 @@ public final class CreateAssetServiceRequestBuilder {
 
 
     public CreateAssetServiceRequestBuilder withAsset(Asset Asset) {
-        createAssetServiceRequest.setAsset(asset);
+        createAssetServiceRequest.setAsset(Asset);
         return this;
     }
 
     public CreateAssetServiceRequestBuilder withRequestInfo(RequestInfo RequestInfo) {
-        createAssetServiceRequest.setRequestInfo(requestInfo);
+        createAssetServiceRequest.setRequestInfo(RequestInfo);
         return this;
     }
 

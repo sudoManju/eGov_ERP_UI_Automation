@@ -1,9 +1,11 @@
 package tests.assetManagement;
 
 import builders.assetManagement.RequestInfoBuilder;
+import builders.assetManagement.assetCategory.AssetCategorySearchRequestBuilder;
 import builders.assetManagement.assetService.CreateAssetServiceRequestBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.assetManagement.RequestInfo;
+import entities.requests.assetManagement.SearchAssetRequest;
 import entities.requests.assetManagement.assetService.CreateAssetServiceRequest;
 import entities.responses.assetManagement.assetService.AssetServiceResponse;
 import entities.responses.login.LoginResponse;
@@ -40,11 +42,12 @@ public class AssetServiceTest extends BaseAPITest {
 
     private void searchAssetServiceTestMethod(LoginResponse loginResponse) throws IOException {
 
-        RequestInfo requestInfo = new RequestInfoBuilder()
-                .withRequesterId("Ghanshyam")
-                .build();
+        RequestInfo requestInfo = new RequestInfoBuilder().withRequesterId("Ghanshyam").withAuthToken(loginResponse.getAccess_token()).build();
 
-        String jsonString = RequestHelper.getJsonString(requestInfo);
+        SearchAssetRequest request = new AssetCategorySearchRequestBuilder().withRequestInfo(requestInfo).build();
+
+        String jsonString = RequestHelper.getJsonString(request);
+
         Response response = new AssetServiceResource().getSearchAssetService(jsonString, loginResponse.getAccess_token());
 
         AssetServiceResponse assetServiceResponse = (AssetServiceResponse)
@@ -56,7 +59,9 @@ public class AssetServiceTest extends BaseAPITest {
     }
 
     private void createAssetServiceTestMethod(LoginResponse loginResponse) throws IOException {
-        CreateAssetServiceRequest createAssetServiceRequest = new CreateAssetServiceRequestBuilder()
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
+
+        CreateAssetServiceRequest createAssetServiceRequest = new CreateAssetServiceRequestBuilder().withRequestInfo(requestInfo)
                 .build();
 
         String jsonString = RequestHelper.getJsonString(createAssetServiceRequest);
