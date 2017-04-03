@@ -1,7 +1,7 @@
 Feature: Renewal of trade license
 
 
-  @TradeLicense
+#  @TradeLicense
   Scenario Outline: Renewal of license with demand generation
 
     Given creator logs in
@@ -132,7 +132,7 @@ Feature: Renewal of trade license
       | tradeDetailsData         | tradeLocationData           | tradeDetailsData1        |
       | ownerDetailsTradeLicense | locationDetailsTradeLicense | tradeDetailsTradeLicense |
 
-  @TradeLicense
+#  @TradeLicense
   Scenario Outline: Renewal of TL -> collect fee -> forward to SI -> forward to Commissioner -> reject
 
     Given creator logs in
@@ -222,7 +222,7 @@ Feature: Renewal of trade license
       | tradeDetailsData         | tradeLocationData           | tradeDetailsData1        |
       | ownerDetailsTradeLicense | locationDetailsTradeLicense | tradeDetailsTradeLicense |
 
-  @TradeLicense
+#  @TradeLicense
 Scenario Outline: Renewal of TL -> collect fee -> forward to SI
                   -> change trade area and forward to Commissioner -> reject
 
