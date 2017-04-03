@@ -27,7 +27,7 @@ public class AssetCategoryBuilder {
             .withregExFormate("regex")
             .build();
 
-    CustomFields[] customFieldses = new CustomFields[2];
+    CustomFields[] customFields = new CustomFields[2];
 
     public AssetCategoryBuilder() {
         assetCategory.setTenantId("1");
@@ -40,9 +40,9 @@ public class AssetCategoryBuilder {
         assetCategory.setRevaluationReserveAccount("8");
         assetCategory.setDepreciationExpenseAccount("9");
         assetCategory.setUnitOfMeasurement("10");
-        customFieldses[0] = customFields1;
-        customFieldses[1] = customFields2;
-        assetCategory.setCustomFields(customFieldses);
+        customFields[0] = customFields1;
+        customFields[1] = customFields2;
+        assetCategory.setCustomFields(customFields);
     }
 
     public AssetCategory build() {

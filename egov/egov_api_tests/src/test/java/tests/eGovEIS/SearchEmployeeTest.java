@@ -22,7 +22,7 @@ public class SearchEmployeeTest extends BaseAPITest {
 
     @Test
     public void searchEmployeeInEIS() throws IOException {
-        LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl, "narasappa");
+        LoginResponse loginResponse = loginTestMethod("narasappa");
 
         RequestInfo requestInfo = new RequestInfoBuilder("search").withAuthToken(loginResponse.getAccess_token()).build1();
 

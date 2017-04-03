@@ -26,7 +26,7 @@ public class PGRApplicationStatusTest extends BaseAPITest {
     public void pgrApplicationStatus() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl, "narasappa");
+        LoginResponse loginResponse = loginTestMethod("narasappa");
 
         // Get PGR Application Status
         pgrApplicationStatusTestMethod(loginResponse);

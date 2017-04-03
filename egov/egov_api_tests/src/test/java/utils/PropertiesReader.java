@@ -9,7 +9,22 @@ public class PropertiesReader {
 
     public PropertiesReader() {
         try {
-            String propertiesFilePath = "endPoints.properties";
+            String env = System.getProperty("env");
+            String propertiesFilePath = null;
+            switch (env) {
+                case "null":
+                    propertiesFilePath = "endPoints" + ".properties";
+                    break;
+
+                case "dev":
+                    propertiesFilePath = "dev" + ".properties";
+                    break;
+
+                case "qa":
+                    propertiesFilePath = "qa" + ".properties";
+                    break;
+            }
+
             InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(propertiesFilePath);
 
             prop.load(inputStream);
@@ -18,23 +33,23 @@ public class PropertiesReader {
         }
     }
 
-    public String getServiceListUrl() {
-        return prop.getProperty("serviceListUrl");
-    }
-
     //      Login And Logout Url's      //
     public String getLoginUrl() {
         return prop.getProperty("loginUrl");
     }
+
     public String getLogoutUrl() {
         return prop.getProperty("logoutUrl");
     }
 
     //      Server Url's      //
     public String getServerUrl() {
-        return prop.getProperty("serverUrl");
+        return prop.getProperty("qaServerUrl");
     }
-    public String getDevServerUrl() {return prop.getProperty("devServerUrl");}
+
+    public String getDevServerUrl() {
+        return prop.getProperty("devServerUrl");
+    }
 
     //      User Url's      //
     public String getUserUrl() {
@@ -45,37 +60,49 @@ public class PropertiesReader {
     public String getPGRComplaintUrl() {
         return prop.getProperty("getPGRComplaintUrl");
     }
+
     public String getComplaintUrl() {
         return prop.getProperty("complaintUrl");
     }
+
     public String getLocationNameUrl() {
         return prop.getProperty("locationNameUrl");
     }
+
     public String getFetchComplaintsUrl() {
         return prop.getProperty("fetchComplaintsUrl");
     }
+
     public String getFrequentlyFilledComplaintstUrl() {
         return prop.getProperty("frequentlyFilledComplaintsUrl");
     }
+
     public String getPGRStatusUrl() {
         return prop.getProperty("pgrStatusUrl");
     }
+
     public String getPGRReceivingCenter() {
         return prop.getProperty("pgrReceivingCenter");
     }
-    public String getPGRSearchCitizenComplaint() {return prop.getProperty("pgrSearchCitizenComplaint");}
+
+    public String getPGRSearchCitizenComplaint() {
+        return prop.getProperty("pgrSearchCitizenComplaint");
+    }
 
 
     //      Asset Module Url's      //
     public String getSearchAssetServiceUrl() {
         return prop.getProperty("searchAssetService");
     }
+
     public String getAssetCategoryCreateUrl() {
         return prop.getProperty("assetCategoryCreateUrl");
     }
+
     public String getCreateAssetServiceUrl() {
         return prop.getProperty("createAssetServiceUrl");
     }
+
     public String getAssetCategorySearchUrl() {
         return prop.getProperty("assetCategorySearchUrl");
     }
@@ -84,7 +111,9 @@ public class PropertiesReader {
     public String getSearchAttendanceUrl() {
         return prop.getProperty("searchAttendanceUrl");
     }
-    public String getSearchEmployeeUrl() { return prop.getProperty("searchEmployeeUrl"); }
+    public String getSearchEmployeeUrl() {
+        return prop.getProperty("searchEmployeeUrl");
+    }
     public String getCreateAttendanceUrl() {
         return prop.getProperty("createAttendanceURL");
     }
@@ -99,18 +128,23 @@ public class PropertiesReader {
     public String getCMLanguageUrl() {
         return prop.getProperty("cmLanguageUrl");
     }
+
     public String getCMDepartmentUrl() {
         return prop.getProperty("cmDepartmentUrl");
     }
+
     public String getCMCommunityUrl() {
         return prop.getProperty("cmCommunityUrl");
     }
+
     public String getCMReligionUrl() {
         return prop.getProperty("cmReligionUrl");
     }
+
     public String getCMHolidayUrl() {
         return prop.getProperty("cmHolidayUrl");
     }
+
     public String getCMCategoryUrl() {
         return prop.getProperty("cmCategoryUrl");
     }

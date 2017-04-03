@@ -24,7 +24,7 @@ public class LanguageTest extends BaseAPITest {
     public void languageTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl, "narasappa");
+        LoginResponse loginResponse = loginTestMethod("narasappa");
 
         // Language Search Test
         languageTestMethod(loginResponse);

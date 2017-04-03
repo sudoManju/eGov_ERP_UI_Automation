@@ -16,7 +16,7 @@ public class UserDetailsResource {
                 .header("Content-Type", "application/json")
                 .body(json)
                 .when()
-                .post(Properties.devServerUrl + Properties.userUrl);
+                .post(Properties.userUrl);
 
         return response;
     }
@@ -29,7 +29,7 @@ public class UserDetailsResource {
                       .header("Content-Type", "application/json")
                       .body(jsonString)
                       .when()
-                      .post(Properties.devServerUrl + Properties.userCreateUrl);
+                      .post(Properties.userCreateUrl);
 
         return response;
     }

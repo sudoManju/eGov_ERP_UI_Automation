@@ -16,7 +16,7 @@ public class LAMSServiceResource {
                 .header("Content-Type", "application/json")
                 .body(jsonString)
                 .when()
-                .post(Properties.devServerUrl + Properties.lAMSServiceSearchUrl);
+                .post(Properties.lAMSServiceSearchUrl);
 
         return response;
     }

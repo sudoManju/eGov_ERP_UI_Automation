@@ -16,7 +16,7 @@ public class AssetCategoryResource {
                 .header("auth-token", auth_token)
                 .body(json)
                 .when()
-                .post(Properties.devServerUrl + Properties.assetCategoryCreateUrl);
+                .post(Properties.assetCategoryCreateUrl);
 
         return response;
     }
@@ -29,7 +29,7 @@ public class AssetCategoryResource {
                 .header("auth-token", auth_token)
                 .body(jsonString)
                 .when()
-                .post(Properties.devServerUrl + Properties.assetCategorySearchUrl);
+                .post(Properties.assetCategorySearchUrl);
 
         return response;
     }

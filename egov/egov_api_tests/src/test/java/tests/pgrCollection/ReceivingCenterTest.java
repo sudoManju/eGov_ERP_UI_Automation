@@ -26,7 +26,7 @@ public class ReceivingCenterTest extends BaseAPITest {
     public void receivingCenter() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl, "narasappa");
+        LoginResponse loginResponse = loginTestMethod("narasappa");
 
         // Receiving Center Test
         receivingCenterTestMethod(loginResponse);

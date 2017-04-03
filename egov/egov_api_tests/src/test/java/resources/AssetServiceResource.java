@@ -16,7 +16,7 @@ public class AssetServiceResource {
                 .header("auth-token", auth_token)
                 .body(json)
                 .when()
-                .post(Properties.devServerUrl + Properties.searchAssetServiceUrl);
+                .post(Properties.searchAssetServiceUrl);
 
         return response;
     }
@@ -29,7 +29,7 @@ public class AssetServiceResource {
                 .header("auth-token", auth_token)
                 .body(jsonString)
                 .when()
-                .post(Properties.devServerUrl + Properties.createAssetServiceUrl);
+                .post(Properties.createAssetServiceUrl);
 
         return response;
     }

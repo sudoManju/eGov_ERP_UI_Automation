@@ -24,7 +24,7 @@ public class HolidayTest extends BaseAPITest {
     public void holidayTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl, "narasappa");
+        LoginResponse loginResponse = loginTestMethod("narasappa");
 
         // Search Department Test
         holidayTestMethod(loginResponse);
@@ -37,7 +37,7 @@ public class HolidayTest extends BaseAPITest {
                 .build();
         String jsonString = RequestHelper.getJsonString(commonMasterRequest);
 
-        Response response = new CommonMasterResource().serchHolidayTest(jsonString);
+        Response response = new CommonMasterResource().searchHolidayTest(jsonString);
 
         HolidayResponse holidayResponse = (HolidayResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), HolidayResponse.class);

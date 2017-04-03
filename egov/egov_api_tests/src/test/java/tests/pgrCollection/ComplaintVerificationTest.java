@@ -25,7 +25,7 @@ public class ComplaintVerificationTest extends BaseAPITest {
     public void createAndGetComplaintInPGR() throws IOException {
 
         //Login Test
-        LoginResponse loginResponse = loginTestMethod(Properties.serverUrl, "narasappa");
+        LoginResponse loginResponse = loginTestMethod("narasappa");
 
         // Create A Complaint
         ComplaintResponse complaintResponse = createComplaintInPGR();
@@ -43,7 +43,7 @@ public class ComplaintVerificationTest extends BaseAPITest {
                 closeComplaintInPGR(complaintResponse.getService_requests()[0].getService_request_id());
 
         // Logout Test
-        logoutTestMethod(loginResponse, Properties.serverUrl);
+        logoutTestMethod(loginResponse);
     }
 
     private ComplaintResponse createComplaintInPGR() throws IOException {

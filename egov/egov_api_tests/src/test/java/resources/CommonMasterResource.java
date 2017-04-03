@@ -14,7 +14,7 @@ public class CommonMasterResource {
                 .header("Content-Type", "application/json")
                 .body(json)
                 .when()
-                .post(Properties.devServerUrl + Properties.cmLanguageUrl);
+                .post(Properties.cmLanguageUrl);
 
         return response;
     }
@@ -25,7 +25,7 @@ public class CommonMasterResource {
                 .header("Content-Type", "application/json")
                 .body(jsonString)
                 .when()
-                .post(Properties.devServerUrl + Properties.cmDepartmentUrl);
+                .post(Properties.cmDepartmentUrl);
 
         return response;
     }
@@ -37,7 +37,7 @@ public class CommonMasterResource {
                 .header("Content-Type", "application/json")
                 .body(jsonString)
                 .when()
-                .post(Properties.devServerUrl + Properties.cmCommunityUrl);
+                .post(Properties.cmCommunityUrl);
 
         return response;
     }
@@ -49,19 +49,19 @@ public class CommonMasterResource {
                 .header("Content-Type", "application/json")
                 .body(jsonString)
                 .when()
-                .post(Properties.devServerUrl + Properties.cmReligionUrl);
+                .post(Properties.cmReligionUrl);
 
         return response;
     }
 
-    public Response serchHolidayTest(String jsonString) {
+    public Response searchHolidayTest(String jsonString) {
 
         new APILogger().log("Search Holiday Test is started --");
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
                 .body(jsonString)
                 .when()
-                .post(Properties.devServerUrl + Properties.cmHolidayUrl);
+                .post(Properties.cmHolidayUrl);
 
         return response;
     }
@@ -73,7 +73,7 @@ public class CommonMasterResource {
                 .header("Content-Type", "application/json")
                 .body(jsonString)
                 .when()
-                .post(Properties.devServerUrl + Properties.cmCategoryUrl);
+                .post(Properties.cmCategoryUrl);
 
         return response;
     }

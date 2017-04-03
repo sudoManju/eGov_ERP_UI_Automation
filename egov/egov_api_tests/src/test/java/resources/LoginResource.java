@@ -10,7 +10,7 @@ import static com.jayway.restassured.RestAssured.given;
 
 public class LoginResource {
 
-    public Response login(Map json, String path) {
+    public Response login(Map json) {
 
         new APILogger().log("Login Test is started -- ");
 
@@ -20,12 +20,13 @@ public class LoginResource {
                 .header("Authorization", "Basic ZWdvdi11c2VyLWNsaWVudDplZ292LXVzZXItc2VjcmV0")
                 .params(json)
                 .when()
-                .post(path + Properties.loginUrl);
+                .post(Properties.loginUrl);
+//                .post(path + Properties.loginUrl);
 
         return response;
     }
 
-    public Response logout(String accessToken, String path) {
+    public Response logout(String accessToken) {
 
         new APILogger().log("Logout request started-- ");
 
@@ -34,12 +35,12 @@ public class LoginResource {
                 .header("Content-type", "application/x-www-form-urlencoded")
                 .header("auth-token", accessToken)
                 .when()
-                .post(path + Properties.logoutUrl + accessToken);
+                .post(Properties.logoutUrl + accessToken);
 
         return response;
     }
 
-    public Response inValidLogout(String accessToken, String path) {
+    public Response inValidLogout(String accessToken) {
 
         new APILogger().log("In-Valid logout request started-- " + accessToken);
 
@@ -48,7 +49,7 @@ public class LoginResource {
                 .header("Content-type", "application/x-www-form-urlencoded")
                 .header("auth-token", accessToken)
                 .when()
-                .post(path + "user/_logout");
+                .post(Properties.logoutUrl);
 
         return response;
     }

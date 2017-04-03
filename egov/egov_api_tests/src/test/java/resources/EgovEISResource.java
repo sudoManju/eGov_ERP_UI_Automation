@@ -18,7 +18,7 @@ public class EgovEISResource {
                 .header("auth-token", auth_token)
                 .body(jsonData)
                 .when()
-                .post(Properties.devServerUrl + Properties.searchAttendanceUrl);
+                .post(Properties.searchAttendanceUrl);
         return response;
     }
 
@@ -31,7 +31,7 @@ public class EgovEISResource {
                 .header("auth-token", access_token)
                 .body(jsonData)
                 .when()
-                .post(Properties.devServerUrl + Properties.createAttendanceURL);
+                .post(Properties.createAttendanceURL);
         return response;
 
     }
@@ -43,7 +43,7 @@ public class EgovEISResource {
                 .header("Content-Type", "application/json")
                 .body(jsonData)
                 .when()
-                .post(Properties.devServerUrl + Properties.searchEmployeeURL + "&employee=1");
+                .post(Properties.searchEmployeeURL + "&employee=1");
         return response;
     }
 }

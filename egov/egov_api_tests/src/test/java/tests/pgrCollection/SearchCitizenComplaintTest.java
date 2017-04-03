@@ -19,7 +19,7 @@ public class SearchCitizenComplaintTest extends BaseAPITest {
     public void searchCitizenComplaint() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl, "narasappa");
+        LoginResponse loginResponse = loginTestMethod("narasappa");
 
         // Search Citizen Complaint Test
         searchCitizenComplaintTestMethod(loginResponse);

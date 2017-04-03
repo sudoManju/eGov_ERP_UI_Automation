@@ -1,6 +1,7 @@
 package tests;
 
 import builders.login.LoginRequestBuilder;
+import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.response.Response;
 import entities.requests.login.LoginRequest;
 import entities.responses.login.LoginResponse;
@@ -10,10 +11,7 @@ import org.testng.Reporter;
 import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.BeforeMethod;
 import resources.LoginResource;
-import utils.APILogger;
-import utils.Categories;
-import utils.RequestHelper;
-import utils.ResponseHelper;
+import utils.*;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -26,6 +24,10 @@ public class BaseAPITest {
 
     public static int randBetween(int start, int end) {
         return start + (int) Math.round(Math.random() * (end - start));
+    }
+
+    public BaseAPITest() {
+        RestAssured.baseURI = new ResourceHelper().getBaseURI();
     }
 
     @BeforeMethod(alwaysRun = true)
@@ -55,12 +57,12 @@ public class BaseAPITest {
         return finalDate;
     }
 
-    protected LoginResponse loginTestMethod(String path, String username) throws IOException {
+    protected LoginResponse loginTestMethod(String username) throws IOException {
         LoginRequest request = new LoginRequestBuilder().withUsername(username).build();
 
         Map jsonString = RequestHelper.asMap(request);
 
-        Response response = new LoginResource().login(jsonString, path);
+        Response response = new LoginResource().login(jsonString);
         LoginResponse loginResponse = (LoginResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), LoginResponse.class);
 
@@ -71,8 +73,8 @@ public class BaseAPITest {
         return loginResponse;
     }
 
-    protected void logoutTestMethod(LoginResponse loginResponse, String path) throws IOException {
-        Response response1 = new LoginResource().logout(loginResponse.getAccess_token(), path);
+    protected void logoutTestMethod(LoginResponse loginResponse) throws IOException {
+        Response response1 = new LoginResource().logout(loginResponse.getAccess_token());
         LogoutResponse logoutResponse = (LogoutResponse)
                 ResponseHelper.getResponseAsObject(response1.asString(), LogoutResponse.class);
 

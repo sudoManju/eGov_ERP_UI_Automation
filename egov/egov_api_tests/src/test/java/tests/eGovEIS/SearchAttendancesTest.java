@@ -23,7 +23,7 @@ public class SearchAttendancesTest extends BaseAPITest {
 
     @Test(groups = {Categories.EIS, Categories.SANITY})
     public void searchAttendanceInEIS() throws IOException {
-        LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl, "narasappa");
+        LoginResponse loginResponse = loginTestMethod("narasappa");
 
         SearchAttendanceRequest request = new SearchAttendanceRequestBuilder().build();
         Map jsonData = RequestHelper.asMap(request);

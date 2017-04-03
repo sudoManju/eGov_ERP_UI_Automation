@@ -16,7 +16,7 @@ public class PGRResource {
                 .header("Content-Type", "application/json")
                 .body(json)
                 .when()
-                .post(Properties.serverUrl + Properties.complaintUrl);
+                .post(Properties.complaintUrl);
 
         return response;
     }
@@ -36,7 +36,7 @@ public class PGRResource {
                 .header("requester_id", "61")
                 .header("auth_token", "null")
                 .when()
-                .get(Properties.serverUrl + Properties.getPGRComplaintUrl + serviceRequestId);
+                .get(Properties.getPGRComplaintUrl + serviceRequestId);
 
         return response;
     }
@@ -48,7 +48,7 @@ public class PGRResource {
         Response response = given().request().with()
                 .urlEncodingEnabled(true)
                 .when()
-                .get(Properties.serverUrl + Properties.locationNameUrl + locationName);
+                .get(Properties.locationNameUrl + locationName);
 
         return response;
     }
@@ -60,7 +60,7 @@ public class PGRResource {
         Response response = given().request().with()
                 .urlEncodingEnabled(true)
                 .when()
-                .get(Properties.serverUrl + Properties.locationNameUrl);
+                .get(Properties.locationNameUrl);
 
         return response;
     }
@@ -72,7 +72,7 @@ public class PGRResource {
         Response response = given().request().with()
                 .urlEncodingEnabled(true)
                 .when()
-                .get(Properties.serverUrl + Properties.fetchComplaintsUrl);
+                .get(Properties.fetchComplaintsUrl);
 
         return response;
     }
@@ -84,7 +84,7 @@ public class PGRResource {
         Response response = given().request().with()
                 .urlEncodingEnabled(true)
                 .when()
-                .get(Properties.serverUrl + Properties.frequentlyFilledComplaintsUrl + count + "&tenantId=ap.public");
+                .get(Properties.frequentlyFilledComplaintsUrl + count + "&tenantId=ap.public");
 
         return response;
     }
@@ -96,7 +96,7 @@ public class PGRResource {
                 .header("Content-Type", "application/json")
                 .body(json)
                 .when()
-                .put(Properties.serverUrl + Properties.complaintUrl);
+                .put(Properties.complaintUrl);
 
         return response;
     }
@@ -107,7 +107,7 @@ public class PGRResource {
         Response response = given().request().with()
                 .header("auth-token", loginResponse.getAccess_token())
                 .when()
-                .get(Properties.devServerUrl + Properties.pgrReceivingCenterUrl);
+                .get(Properties.pgrReceivingCenterUrl);
 
         return response;
     }
@@ -118,7 +118,7 @@ public class PGRResource {
         Response response = given().request().with()
                 .header("auth-token", loginResponse.getAccess_token())
                 .when()
-                .post(Properties.devServerUrl + Properties.pgrStatusUrl);
+                .post(Properties.pgrStatusUrl);
 
         return response;
     }
@@ -129,7 +129,7 @@ public class PGRResource {
         Response response = given().request().with()
                 .header("auth-token", loginResponse.getAccess_token())
                 .when()
-                .post(Properties.devServerUrl + Properties.pgrSearchCitizenComplaintUrl);
+                .post(Properties.pgrSearchCitizenComplaintUrl);
 
         return response;
     }

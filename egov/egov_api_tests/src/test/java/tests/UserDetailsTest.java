@@ -27,8 +27,8 @@ public class UserDetailsTest extends BaseAPITest {
     @Test
     public void userDetails() throws IOException {
 
-        //Login
-        LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl, "narasappa");
+        // Login Test
+        LoginResponse loginResponse = loginTestMethod("narasappa");
 
         // Create a user
         UserDetailsResponse userDetailsResponse = CreateAUserTest(loginResponse);

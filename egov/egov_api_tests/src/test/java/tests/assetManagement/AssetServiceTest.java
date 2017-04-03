@@ -23,7 +23,7 @@ public class AssetServiceTest extends BaseAPITest {
     public void searchAssetService() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl, "malathi");
+        LoginResponse loginResponse = loginTestMethod("malathi");
 
         // Search Asset Service Test
         searchAssetServiceTestMethod(loginResponse);
@@ -33,7 +33,7 @@ public class AssetServiceTest extends BaseAPITest {
     public void createAssetService() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl, "malathi");
+        LoginResponse loginResponse = loginTestMethod("malathi");
 
         // Create Asset Service Test
         createAssetServiceTestMethod(loginResponse);

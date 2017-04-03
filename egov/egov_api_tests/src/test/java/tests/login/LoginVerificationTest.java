@@ -21,10 +21,10 @@ public class LoginVerificationTest extends BaseAPITest {
     public void shouldAllowLoginAndLogoutToAnExistingUser() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = loginTestMethod(Properties.serverUrl, "narasappa");
+        LoginResponse loginResponse = loginTestMethod("narasappa");
 
         // Logout Test
-        logoutTestMethod(loginResponse, Properties.serverUrl);
+        logoutTestMethod(loginResponse);
 
     }
 
@@ -32,10 +32,10 @@ public class LoginVerificationTest extends BaseAPITest {
     public void shouldNotAllowLogoutWithInvalidCredentials() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = loginTestMethod(Properties.serverUrl, "narasappa");
+        LoginResponse loginResponse = loginTestMethod("narasappa");
 
         // Logout Test
-        Response response1 = new LoginResource().inValidLogout(loginResponse.getAccess_token(), Properties.serverUrl);
+        Response response1 = new LoginResource().inValidLogout(loginResponse.getAccess_token());
         InvalidLogoutResponse invalidLogoutResponse = (InvalidLogoutResponse)
                 ResponseHelper.getResponseAsObject(response1.asString(), InvalidLogoutResponse.class);
 
@@ -52,7 +52,7 @@ public class LoginVerificationTest extends BaseAPITest {
 
         Map jsonString = RequestHelper.asMap(request);
 
-        Response response = new LoginResource().login(jsonString, Properties.serverUrl);
+        Response response = new LoginResource().login(jsonString);
         LoginErrorResponse loginErrorResponse = (LoginErrorResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), LoginErrorResponse.class);
 
@@ -61,5 +61,4 @@ public class LoginVerificationTest extends BaseAPITest {
 
         new APILogger().log("Login Failed is Completed -- ");
     }
-
 }

@@ -25,7 +25,7 @@ public class CreateAttendancesTest extends BaseAPITest {
         CreateAttendanceRequest request = new CreateAttendanceRequestBuilder().withAttendance(attendance).build();
 
         String jsonData = RequestHelper.getJsonString(request);
-        LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl, "narasappa");
+        LoginResponse loginResponse = loginTestMethod("narasappa");
 
         Response response = new EgovEISResource().createAttendance(jsonData, loginResponse.getAccess_token());
         Assert.assertEquals(response.getStatusCode(), 200);
