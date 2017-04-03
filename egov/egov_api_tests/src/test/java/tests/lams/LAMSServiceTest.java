@@ -1,7 +1,9 @@
 package tests.lams;
 
+import builders.lams.LamsServiceRequestBuilder;
 import builders.lams.RequestInfoBuilder;
 import com.jayway.restassured.response.Response;
+import entities.requests.lams.LamsServiceRequest;
 import entities.requests.lams.RequestInfo;
 import entities.responses.lams.LamsServiceSearchResponse;
 import entities.responses.login.LoginResponse;
@@ -27,12 +29,13 @@ public class LAMSServiceTest extends BaseAPITest {
 
     private void lamsServiceTestMethod(LoginResponse loginResponse) throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
+        LamsServiceRequest request = new LamsServiceRequestBuilder().withRequestInfo(requestInfo).build();
 
-        String jsonString = RequestHelper.getJsonString(requestInfo);
+        String jsonString = RequestHelper.getJsonString(request);
 
         System.out.println(jsonString);
 
-        Response response = new LAMSServiceResource().lamsServiceSearch(jsonString, loginResponse.getAccess_token());
+        Response response = new LAMSServiceResource().lamsServiceSearch(jsonString);
 
         Assert.assertEquals(response.getStatusCode(), 200);
 

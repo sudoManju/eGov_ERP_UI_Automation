@@ -8,7 +8,7 @@ import static com.jayway.restassured.RestAssured.given;
 
 public class LAMSServiceResource {
 
-    public Response lamsServiceSearch(String jsonString, String access_token) {
+    public Response lamsServiceSearch(String jsonString) {
 
         new APILogger().log("LAMS service search request is started -- ");
 
