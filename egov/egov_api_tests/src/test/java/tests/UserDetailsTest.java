@@ -1,12 +1,19 @@
 package tests;
 
-import builders.UserDetailsRequestBuilder;
+import builders.userDetails.UserDetailsForSearchRequestBuilder;
+import builders.userDetails.CreateUserRequestBuilder;
+import builders.userDetails.RequestInfoBuilder;
+import builders.userDetails.UserBuilder;
 import com.jayway.restassured.response.Response;
-import entities.requests.UserDetailsRequest;
+import entities.requests.userDetails.UserDetailsForSearchRequest;
+import entities.requests.userDetails.CreateUserRequest;
+import entities.requests.userDetails.RequestInfo;
+import entities.requests.userDetails.User;
 import entities.responses.login.LoginResponse;
 import entities.responses.userDetails.UserDetailsResponse;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Assert;
-import org.junit.Test;
+import org.testng.annotations.Test;
 import resources.UserDetailsResource;
 import utils.APILogger;
 import utils.Properties;
@@ -20,28 +27,60 @@ public class UserDetailsTest extends BaseAPITest {
     @Test
     public void userDetails() throws IOException {
 
-        // Login Test
+        //Login
         LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl, "narasappa");
 
+        // Create a user
+        UserDetailsResponse userDetailsResponse = CreateAUserTest(loginResponse);
+
         // User Details Test
-        userDetailsTestMethod(loginResponse);
+        userDetailsTestMethod(loginResponse, userDetailsResponse);
     }
 
-    private void userDetailsTestMethod(LoginResponse loginResponse) throws IOException {
-        UserDetailsRequest userDetailsRequest = new UserDetailsRequestBuilder().build();
+    private void userDetailsTestMethod(LoginResponse loginResponse, UserDetailsResponse userDetailsResponse) throws IOException {
+        int a[] = {userDetailsResponse.getUser()[0].getId()};
 
-        String jsonString = RequestHelper.getJsonString(userDetailsRequest);
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
 
+        UserDetailsForSearchRequest userDetailsForSearchRequest = new
+                UserDetailsForSearchRequestBuilder().withId(a).withRequestInfo(requestInfo).build();
 
-        Response response = new UserDetailsResource().getUserDetails(loginResponse, jsonString);
+        String jsonString = RequestHelper.getJsonString(userDetailsForSearchRequest);
 
-        UserDetailsResponse userDetailsResponse = (UserDetailsResponse)
+        Response response = new UserDetailsResource().getUserDetails(jsonString);
+
+        UserDetailsResponse userDetailsResponse1 = (UserDetailsResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), UserDetailsResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals(userDetailsResponse.getUser()[0].getUserName(), "egovernments");
+        Assert.assertEquals(userDetailsResponse1.getUser()[0].getUserName(), userDetailsResponse.getUser()[0].getUserName());
 
-        new APILogger().log("User Details Request is Completed --");
+        new APILogger().log("User Details Request For Search is Completed --");
+    }
+
+
+    public UserDetailsResponse CreateAUserTest(LoginResponse loginResponse) throws IOException{
+
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
+
+        User user = new UserBuilder().withUsername("Test"+ RandomStringUtils.randomAlphanumeric(5)).build();
+
+        CreateUserRequest request = new CreateUserRequestBuilder().withRequestInfo(requestInfo).withUser(user).build();
+
+        String jsonString = RequestHelper.getJsonString(request);
+
+        Response response = new UserDetailsResource().createUser(jsonString);
+
+        Assert.assertEquals(response.getStatusCode(),200);
+
+        UserDetailsResponse userDetailsResponse = (UserDetailsResponse)
+                ResponseHelper.getResponseAsObject(response.asString(),UserDetailsResponse.class);
+
+        Assert.assertEquals(request.getUser().getName(),userDetailsResponse.getUser()[0].getName());
+
+        new APILogger().log("User Details Request For Create is Completed --");
+
+        return userDetailsResponse;
     }
 
 }

@@ -9,12 +9,11 @@ import static com.jayway.restassured.RestAssured.given;
 
 public class UserDetailsResource {
 
-    public Response getUserDetails(LoginResponse loginResponse, String json) {
-        new APILogger().log("User Details Request is Started --");
+    public Response getUserDetails(String json) {
+        new APILogger().log("User Details Request For Search is Started --");
 
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
-                .header("auth-token", loginResponse.getAccess_token())
                 .body(json)
                 .when()
                 .post(Properties.devServerUrl + Properties.userUrl);
@@ -23,6 +22,8 @@ public class UserDetailsResource {
     }
 
     public Response createUser(String jsonString){
+
+        new APILogger().log("User Details Request For Create is Started --");
 
         Response response = given().request().with()
                       .header("Content-Type", "application/json")

@@ -14,7 +14,6 @@ public class LAMSServiceResource {
 
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
-//                .header("auth-token", access_token)
                 .body(jsonString)
                 .when()
                 .post(Properties.devServerUrl + Properties.lAMSServiceSearchUrl);
