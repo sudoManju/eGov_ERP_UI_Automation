@@ -1,25 +1,25 @@
 package entities.requests.eGovEIS.createEmployee;
 
 public class Assignments {
-    private String position;
-    private String isPrimary;
-    private String department;
+    private int position;
+    private boolean isPrimary;
+    private int department;
     private String govtOrderNumber;
-    private String designation;
+    private int designation;
     private String toDate;
     private Hod[] hod;
-    private String function;
-    private String functionary;
-    private String createdBy;
+    private int function;
+    private int functionary;
+    private int createdBy;
     private String fromDate;
-    private String lastModifiedBy;
+    private int lastModifiedBy;
     private String lastModifiedDate;
-    private String grade;
-    private String fund;
-    private String employee;
+    private int grade;
+    private int fund;
+    private int employee;
     private String createdDate;
 
-    public String getPosition() {
+    public int getPosition() {
         return position;
     }
 
@@ -27,7 +27,7 @@ public class Assignments {
         this.position = position;
     }
 
-    public String getIsPrimary() {
+    public boolean getIsPrimary() {
         return isPrimary;
     }
 
@@ -35,7 +35,7 @@ public class Assignments {
         this.isPrimary = isPrimary;
     }
 
-    public String getDepartment() {
+    public int getDepartment() {
         return department;
     }
 
@@ -51,7 +51,7 @@ public class Assignments {
         this.govtOrderNumber = govtOrderNumber;
     }
 
-    public String getDesignation() {
+    public int getDesignation() {
         return designation;
     }
 
@@ -75,7 +75,7 @@ public class Assignments {
         this.hod = hod;
     }
 
-    public String getFunction() {
+    public int getFunction() {
         return function;
     }
 
@@ -83,7 +83,7 @@ public class Assignments {
         this.function = function;
     }
 
-    public String getFunctionary() {
+    public int getFunctionary() {
         return functionary;
     }
 
@@ -91,7 +91,7 @@ public class Assignments {
         this.functionary = functionary;
     }
 
-    public String getCreatedBy() {
+    public int getCreatedBy() {
         return createdBy;
     }
 
@@ -107,7 +107,7 @@ public class Assignments {
         this.fromDate = fromDate;
     }
 
-    public String getLastModifiedBy() {
+    public int getLastModifiedBy() {
         return lastModifiedBy;
     }
 
@@ -123,7 +123,7 @@ public class Assignments {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public String getGrade() {
+    public int getGrade() {
         return grade;
     }
 
@@ -131,7 +131,7 @@ public class Assignments {
         this.grade = grade;
     }
 
-    public String getFund() {
+    public int getFund() {
         return fund;
     }
 
@@ -139,7 +139,7 @@ public class Assignments {
         this.fund = fund;
     }
 
-    public String getEmployee() {
+    public int getEmployee() {
         return employee;
     }
 

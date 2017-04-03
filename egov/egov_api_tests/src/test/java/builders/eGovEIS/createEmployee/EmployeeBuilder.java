@@ -33,7 +33,7 @@ public final class EmployeeBuilder {
 
     protected String get3DigitRandomInt() { return String.valueOf((RandomUtils.nextInt(100, 999))); }
 
-    private EmployeeBuilder() {
+    public EmployeeBuilder() {
         employee.setTenantId("1");
         employee.setMotherTongue("5");
         employee.setGpfNo("12"+get3DigitRandomInt());

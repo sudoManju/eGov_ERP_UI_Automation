@@ -2,11 +2,11 @@ package entities.requests.eGovEIS.createEmployee;
 
 public class Regularisation {
     private String orderNo;
-    private String createdBy;
+    private int createdBy;
     private String declaredOn;
     private String orderDate;
-    private String lastModifiedBy;
-    private String designation;
+    private int lastModifiedBy;
+    private int designation;
     private String lastModifiedDate;
     private String remarks;
     private String createdDate;
@@ -19,7 +19,7 @@ public class Regularisation {
         this.orderNo = orderNo;
     }
 
-    public String getCreatedBy() {
+    public int getCreatedBy() {
         return createdBy;
     }
 
@@ -43,7 +43,7 @@ public class Regularisation {
         this.orderDate = orderDate;
     }
 
-    public String getLastModifiedBy() {
+    public int getLastModifiedBy() {
         return lastModifiedBy;
     }
 
@@ -51,7 +51,7 @@ public class Regularisation {
         this.lastModifiedBy = lastModifiedBy;
     }
 
-    public String getDesignation() {
+    public int getDesignation() {
         return designation;
     }
 

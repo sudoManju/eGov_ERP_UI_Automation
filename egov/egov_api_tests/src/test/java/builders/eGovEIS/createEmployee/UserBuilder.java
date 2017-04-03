@@ -1,20 +1,18 @@
 package builders.eGovEIS.createEmployee;
 
-import builders.userDetails.RolesBuilder;
-import entities.requests.userDetails.Roles;
-import entities.requests.userDetails.User;
+import entities.requests.eGovEIS.createEmployee.Roles;
+import entities.requests.eGovEIS.createEmployee.User;
 
 public final class UserBuilder {
     User user = new User();
 
     Roles[] roles = new Roles[2];
-    Roles role1 = new RolesBuilder().withName("TL").withDescription("Technical Lead for HR & Other Modules")
-            .withCreatedBy("1").withCreatedDate("01/01/2017")
-            .withLastModifiedBy("1").withLastModifiedDate("01/01/2017").build();
-
-    Roles role2 = new RolesBuilder().withName("Manager").withDescription("Manager for HR & Other Modules")
-            .withCreatedBy("1").withCreatedDate("01/01/2017")
-            .withLastModifiedBy("1").withLastModifiedDate("01/01/2017").build();
+    Roles role1 = new RolesBuilder().withName("EE").withDescription("Executive Engineer")
+            .withCreatedBy(1).withCreatedDate("01/01/2017")
+            .withLastModifiedBy(1).withLastModifiedDate("01/01/2017").build();
+    Roles role2 = new RolesBuilder().withName("AEE").withDescription("Assistant Executive Engineer")
+            .withCreatedBy(1).withCreatedDate("01/01/2017")
+            .withLastModifiedBy(1).withLastModifiedDate("01/01/2017").build();
 
     public UserBuilder() {
         user.setUserName("");
@@ -47,7 +45,6 @@ public final class UserBuilder {
         user.setCreatedDate("01-01-2017 00:00:00");
         user.setLastModifiedBy("1");
         user.setLastModifiedDate("01-01-2017 00:00:00");
-        user.setTenantId("1");
         roles[0] = role1;
         roles[1] = role2;
         user.setRoles(roles);

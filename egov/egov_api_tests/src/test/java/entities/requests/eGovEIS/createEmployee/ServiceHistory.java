@@ -2,9 +2,9 @@ package entities.requests.eGovEIS.createEmployee;
 
 public class ServiceHistory {
     private String orderNo;
-    private String createdBy;
+    private int createdBy;
     private String serviceFrom;
-    private String lastModifiedBy;
+    private int lastModifiedBy;
     private String lastModifiedDate;
     private String remarks;
     private String createdDate;
@@ -18,7 +18,7 @@ public class ServiceHistory {
         this.orderNo = orderNo;
     }
 
-    public String getCreatedBy() {
+    public int getCreatedBy() {
         return createdBy;
     }
 
@@ -34,7 +34,7 @@ public class ServiceHistory {
         this.serviceFrom = serviceFrom;
     }
 
-    public String getLastModifiedBy() {
+    public int getLastModifiedBy() {
         return lastModifiedBy;
     }
 

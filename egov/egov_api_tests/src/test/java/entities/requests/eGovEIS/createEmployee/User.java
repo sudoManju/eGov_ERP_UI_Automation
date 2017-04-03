@@ -2,35 +2,65 @@ package entities.requests.eGovEIS.createEmployee;
 
 public class User {
     private String correspondenceAddress;
+
     private String bloodGroup;
+
     private String permanentCity;
+
     private String locale;
+
     private String permanentPincode;
+
     private String type;
+
     private String password;
+
     private String altContactNumber;
+
     private String emailId;
+
     private String name;
+
     private String identificationMark;
+
     private String CorrespondencePincode;
+
     private String gender;
+
     private String userName;
+
     private String createdDate;
+
     private String permanentAddress;
+
     private String pwdExpiryDate;
+
     private String photo;
-    private String accountLocked;
+
+    private boolean accountLocked;
+
     private String pan;
+
     private String fatherOrHusbandName;
+
     private String createdBy;
+
     private String aadhaarNumber;
+
     private String dob;
+
     private Roles[] roles;
+
     private String lastModifiedBy;
+
     private String lastModifiedDate;
-    private String active;
+
+    private boolean active;
+
     private String mobileNumber;
+
     private String salutation;
+
     private String correspondenceCity;
 
     public String getCorrespondenceAddress() {
@@ -125,8 +155,8 @@ public class User {
         return CorrespondencePincode;
     }
 
-    public void setCorrespondencePincode(String CorrespondencePincode) {
-        this.CorrespondencePincode = CorrespondencePincode;
+    public void setCorrespondencePincode(String correspondencePincode) {
+        CorrespondencePincode = correspondencePincode;
     }
 
     public String getGender() {
@@ -177,11 +207,11 @@ public class User {
         this.photo = photo;
     }
 
-    public String getAccountLocked() {
+    public boolean getAccountLocked() {
         return accountLocked;
     }
 
-    public void setAccountLocked(String accountLocked) {
+    public void setAccountLocked(boolean accountLocked) {
         this.accountLocked = accountLocked;
     }
 
@@ -249,11 +279,11 @@ public class User {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public String getActive() {
+    public boolean getActive() {
         return active;
     }
 
-    public void setActive(String active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 

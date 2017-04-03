@@ -1,5 +1,6 @@
 package entities.requests.userDetails;
 
+import entities.requests.userDetails.User;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class CreateUserRequest

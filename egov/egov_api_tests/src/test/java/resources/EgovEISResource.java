@@ -43,7 +43,17 @@ public class EgovEISResource {
                 .header("Content-Type", "application/json")
                 .body(jsonData)
                 .when()
-                .post(Properties.searchEmployeeURL + "&employee=1");
+                .post(Properties.searchEmployeeURL);
+        return response;
+    }
+
+    public Response createEmployee(String jsonData){
+        new APILogger().log("Create Employee Test is started -- ");
+        Response response = given().request().with()
+                .urlEncodingEnabled(false)
+                .header("Content-Type", "application/json")
+                .body(jsonData).when()
+                .post(Properties.createEmployeeUrl);
         return response;
     }
 }

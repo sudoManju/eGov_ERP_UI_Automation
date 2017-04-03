@@ -1,18 +1,18 @@
 package entities.requests.eGovEIS.createEmployee;
 
 public class Roles {
-    private String createdBy;
+    private int createdBy;
     private String description;
     private String name;
-    private String lastModifiedBy;
+    private int lastModifiedBy;
     private String lastModifiedDate;
     private String createdDate;
 
-    public String getCreatedBy() {
+    public int getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(int createdBy) {
         this.createdBy = createdBy;
     }
 
@@ -32,11 +32,11 @@ public class Roles {
         this.name = name;
     }
 
-    public String getLastModifiedBy() {
+    public int getLastModifiedBy() {
         return lastModifiedBy;
     }
 
-    public void setLastModifiedBy(String lastModifiedBy) {
+    public void setLastModifiedBy(int lastModifiedBy) {
         this.lastModifiedBy = lastModifiedBy;
     }
 
