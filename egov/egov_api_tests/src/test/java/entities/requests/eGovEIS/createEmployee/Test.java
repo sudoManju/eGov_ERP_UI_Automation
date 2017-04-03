@@ -1,7 +1,7 @@
 package entities.requests.eGovEIS.createEmployee;
 
 public class Test {
-    private String yearOfPassing;
+    private int yearOfPassing;
     private String createdBy;
     private String test;
     private String lastModifiedBy;
@@ -9,11 +9,11 @@ public class Test {
     private String remarks;
     private String createdDate;
 
-    public String getYearOfPassing() {
+    public int getYearOfPassing() {
         return yearOfPassing;
     }
 
-    public void setYearOfPassing(String yearOfPassing) {
+    public void setYearOfPassing(int yearOfPassing) {
         this.yearOfPassing = yearOfPassing;
     }
 

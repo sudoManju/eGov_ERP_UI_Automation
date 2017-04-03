@@ -23,7 +23,7 @@ public class Probation {
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(int createdBy) {
         this.createdBy = createdBy;
     }
 
@@ -47,7 +47,7 @@ public class Probation {
         return lastModifiedBy;
     }
 
-    public void setLastModifiedBy(String lastModifiedBy) {
+    public void setLastModifiedBy(int lastModifiedBy) {
         this.lastModifiedBy = lastModifiedBy;
     }
 
@@ -55,7 +55,7 @@ public class Probation {
         return designation;
     }
 
-    public void setDesignation(String designation) {
+    public void setDesignation(int designation) {
         this.designation = designation;
     }
 

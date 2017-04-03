@@ -3,19 +3,12 @@ package entities.requests.eGovEIS.createEmployee;
 public class Technical
 {
     private String yearOfPassing;
-
     private String createdBy;
-
     private String skill;
-
     private String lastModifiedBy;
-
     private String lastModifiedDate;
-
     private String grade;
-
     private String remarks;
-
     private String createdDate;
 
     public String getYearOfPassing ()

@@ -23,7 +23,7 @@ public class Assignments {
         return position;
     }
 
-    public void setPosition(String position) {
+    public void setPosition(int position) {
         this.position = position;
     }
 
@@ -31,7 +31,7 @@ public class Assignments {
         return isPrimary;
     }
 
-    public void setIsPrimary(String isPrimary) {
+    public void setIsPrimary(boolean isPrimary) {
         this.isPrimary = isPrimary;
     }
 
@@ -39,7 +39,7 @@ public class Assignments {
         return department;
     }
 
-    public void setDepartment(String department) {
+    public void setDepartment(int department) {
         this.department = department;
     }
 
@@ -55,7 +55,7 @@ public class Assignments {
         return designation;
     }
 
-    public void setDesignation(String designation) {
+    public void setDesignation(int designation) {
         this.designation = designation;
     }
 
@@ -79,7 +79,7 @@ public class Assignments {
         return function;
     }
 
-    public void setFunction(String function) {
+    public void setFunction(int function) {
         this.function = function;
     }
 
@@ -87,7 +87,7 @@ public class Assignments {
         return functionary;
     }
 
-    public void setFunctionary(String functionary) {
+    public void setFunctionary(int functionary) {
         this.functionary = functionary;
     }
 
@@ -95,7 +95,7 @@ public class Assignments {
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(int createdBy) {
         this.createdBy = createdBy;
     }
 
@@ -111,7 +111,7 @@ public class Assignments {
         return lastModifiedBy;
     }
 
-    public void setLastModifiedBy(String lastModifiedBy) {
+    public void setLastModifiedBy(int lastModifiedBy) {
         this.lastModifiedBy = lastModifiedBy;
     }
 
@@ -127,7 +127,7 @@ public class Assignments {
         return grade;
     }
 
-    public void setGrade(String grade) {
+    public void setGrade(int grade) {
         this.grade = grade;
     }
 
@@ -135,7 +135,7 @@ public class Assignments {
         return fund;
     }
 
-    public void setFund(String fund) {
+    public void setFund(int fund) {
         this.fund = fund;
     }
 
@@ -143,7 +143,7 @@ public class Assignments {
         return employee;
     }
 
-    public void setEmployee(String employee) {
+    public void setEmployee(int employee) {
         this.employee = employee;
     }
 

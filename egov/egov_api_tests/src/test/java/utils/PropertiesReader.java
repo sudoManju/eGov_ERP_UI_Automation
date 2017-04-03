@@ -84,12 +84,11 @@ public class PropertiesReader {
     public String getSearchAttendanceUrl() {
         return prop.getProperty("searchAttendanceUrl");
     }
-    public String getSearchEmployeeUrl() {
-        return prop.getProperty("searchEmployeeUrl");
-    }
+    public String getSearchEmployeeUrl() { return prop.getProperty("searchEmployeeUrl"); }
     public String getCreateAttendanceUrl() {
         return prop.getProperty("createAttendanceURL");
     }
+    public String getCreateEmployeeUrl() { return prop.getProperty("createEmployeeUrl"); }
 
     //      Lease And Agreement Module Url's      //
     public String getLAMSServiceSearchUrl() {

@@ -22,7 +22,7 @@ public class ServiceHistory {
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(int createdBy) {
         this.createdBy = createdBy;
     }
 
@@ -38,7 +38,7 @@ public class ServiceHistory {
         return lastModifiedBy;
     }
 
-    public void setLastModifiedBy(String lastModifiedBy) {
+    public void setLastModifiedBy(int lastModifiedBy) {
         this.lastModifiedBy = lastModifiedBy;
     }
 

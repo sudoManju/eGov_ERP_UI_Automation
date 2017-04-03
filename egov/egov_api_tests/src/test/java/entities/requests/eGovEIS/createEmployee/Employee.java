@@ -6,18 +6,12 @@ public class Employee {
     private String gpfNo;
     private String passportNo;
     private String recruitmentType;
-    private String[] jurisdictions;
-    private Test[] test;
     private String retirementAge;
     private String employeeStatus;
-    private Technical[] technical;
-    private Education[] education;
     private String maritalStatus;
-    private Probation[] probation;
     private String physicallyDisabled;
     private String recruitmentQuota;
     private String religion;
-    private String[] languagesKnown;
     private String dateOfJoining;
     private String bank;
     private String dateOfResignation;
@@ -26,17 +20,24 @@ public class Employee {
     private String medicalReportProduced;
     private String dateOfTermination;
     private String community;
-    private ServiceHistory[] serviceHistory;
-    private Assignments[] assignments;
-    private Regularisation[] regularisation;
     private String dateOfRetirement;
     private String category;
     private String recruitmentMode;
     private String group;
     private String dateOfAppointment;
-    private User user;
     private String bankAccount;
     private String bankBranch;
+
+    private Test[] test;
+    private Technical[] technical;
+    private Education[] education;
+    private Probation[] probation;
+    private ServiceHistory[] serviceHistory;
+    private Assignments[] assignments;
+    private Regularisation[] regularisation;
+    private User[] user;
+    private int[] languagesKnown;
+    private int[] jurisdictions;
 
     public String getTenantId() { return tenantId; }
 
@@ -76,11 +77,11 @@ public class Employee {
         this.recruitmentType = recruitmentType;
     }
 
-    public String[] getJurisdictions() {
+    public int[] getJurisdictions() {
         return jurisdictions;
     }
 
-    public void setJurisdictions(String[] jurisdictions) {
+    public void setJurisdictions(int[] jurisdictions) {
         this.jurisdictions = jurisdictions;
     }
 
@@ -164,11 +165,11 @@ public class Employee {
         this.religion = religion;
     }
 
-    public String[] getLanguagesKnown() {
+    public int[] getLanguagesKnown() {
         return languagesKnown;
     }
 
-    public void setLanguagesKnown(String[] languagesKnown) {
+    public void setLanguagesKnown(int[] languagesKnown) {
         this.languagesKnown = languagesKnown;
     }
 
@@ -300,11 +301,11 @@ public class Employee {
         this.dateOfAppointment = dateOfAppointment;
     }
 
-    public User getUser() {
+    public User[] getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(User[] user) {
         this.user = user;
     }
 

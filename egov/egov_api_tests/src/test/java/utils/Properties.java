@@ -35,6 +35,7 @@ public class Properties {
     public static final String searchAttendanceUrl = propertiesReader.getSearchAttendanceUrl();
     public static final String createAttendanceURL = propertiesReader.getCreateAttendanceUrl();
     public static final String searchEmployeeURL = propertiesReader.getSearchEmployeeUrl();
+    public static final String createEmployeeUrl = propertiesReader.getCreateEmployeeUrl();
 
     //  Land Estate Module Url's  //
     public static final String lAMSServiceSearchUrl = propertiesReader.getLAMSServiceSearchUrl();

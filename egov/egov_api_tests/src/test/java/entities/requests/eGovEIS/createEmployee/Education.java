@@ -2,11 +2,11 @@ package entities.requests.eGovEIS.createEmployee;
 
 public class Education {
     private String university;
-    private String yearOfPassing;
+    private int yearOfPassing;
     private String qualification;
-    private String createdBy;
+    private int createdBy;
     private String majorSubject;
-    private String lastModifiedBy;
+    private int lastModifiedBy;
     private String lastModifiedDate;
     private String createdDate;
 
@@ -18,11 +18,11 @@ public class Education {
         this.university = university;
     }
 
-    public String getYearOfPassing() {
+    public int getYearOfPassing() {
         return yearOfPassing;
     }
 
-    public void setYearOfPassing(String yearOfPassing) {
+    public void setYearOfPassing(int yearOfPassing) {
         this.yearOfPassing = yearOfPassing;
     }
 
@@ -34,11 +34,11 @@ public class Education {
         this.qualification = qualification;
     }
 
-    public String getCreatedBy() {
+    public int getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(int createdBy) {
         this.createdBy = createdBy;
     }
 
@@ -50,11 +50,11 @@ public class Education {
         this.majorSubject = majorSubject;
     }
 
-    public String getLastModifiedBy() {
+    public int getLastModifiedBy() {
         return lastModifiedBy;
     }
 
-    public void setLastModifiedBy(String lastModifiedBy) {
+    public void setLastModifiedBy(int lastModifiedBy) {
         this.lastModifiedBy = lastModifiedBy;
     }
 

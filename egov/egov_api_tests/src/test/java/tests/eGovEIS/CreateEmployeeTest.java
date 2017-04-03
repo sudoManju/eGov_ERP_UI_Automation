@@ -1,5 +1,6 @@
 package tests.eGovEIS;
 
+import entities.requests.eGovEIS.createEmployee.Employee;
 import entities.responses.login.LoginResponse;
 import org.testng.annotations.Test;
 import tests.BaseAPITest;
@@ -9,11 +10,9 @@ import java.io.IOException;
 
 public class CreateEmployeeTest extends BaseAPITest {
 
-    @Test
+    
     public void createEmployeeInEIS() throws IOException
     {
         LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl, "narasappa");
-
-
     }
 }
