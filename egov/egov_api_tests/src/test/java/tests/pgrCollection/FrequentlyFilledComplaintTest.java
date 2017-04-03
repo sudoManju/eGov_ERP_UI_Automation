@@ -1,6 +1,7 @@
 package tests.pgrCollection;
 
 import com.jayway.restassured.response.Response;
+import entities.responses.pgrCollections.FetchComplaintResponse;
 import entities.responses.pgrCollections.FrequentlyFilledComplaintResponse;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -11,6 +12,7 @@ import resources.PGRResource;
 import tests.BaseAPITest;
 import utils.APILogger;
 import utils.Categories;
+import utils.ResponseHelper;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,19 +25,11 @@ public class FrequentlyFilledComplaintTest extends BaseAPITest {
 
         Response response = new PGRResource().getFrequentlyFilledComplaints(3);
 
-        List<FrequentlyFilledComplaintResponse> fetchComplaints = getResponseObjectArray(response);
+        FrequentlyFilledComplaintResponse[] fetchComplaints = (FrequentlyFilledComplaintResponse[]) ResponseHelper
+                .getResponseAsObject(response.asString(), FrequentlyFilledComplaintResponse[].class);
 
-        Assert.assertEquals(fetchComplaints.size(), 3);
+        Assert.assertEquals(fetchComplaints.length, 3);
         Assert.assertEquals(response.getStatusCode(), 200);
         new APILogger().log("Get Frequently filled Complaints test is completed -- ");
-
     }
-
-    private List<FrequentlyFilledComplaintResponse> getResponseObjectArray(Response response) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        return mapper.readValue(response.asString(), new TypeReference<ArrayList<FrequentlyFilledComplaintResponse>>() {
-        });
-    }
-
 }

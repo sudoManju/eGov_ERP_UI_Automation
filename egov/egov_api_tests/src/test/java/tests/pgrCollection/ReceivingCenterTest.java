@@ -2,6 +2,7 @@ package tests.pgrCollection;
 
 import com.jayway.restassured.response.Response;
 import entities.responses.login.LoginResponse;
+import entities.responses.pgrCollections.PGRApplicationStatusResponse;
 import entities.responses.pgrCollections.ReceivingCenterResponse;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -13,6 +14,7 @@ import tests.BaseAPITest;
 import utils.APILogger;
 import utils.Categories;
 import utils.Properties;
+import utils.ResponseHelper;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,18 +35,12 @@ public class ReceivingCenterTest extends BaseAPITest {
     private void receivingCenterTestMethod(LoginResponse loginResponse) throws IOException {
 
         Response response = new PGRResource().getReceivingCenter(loginResponse);
-        List<ReceivingCenterResponse> receivingCenterResponse = getResponseObjectArray(response);
+        ReceivingCenterResponse[] receivingCenterResponse = (ReceivingCenterResponse[]) ResponseHelper
+                .getResponseAsObject(response.asString(), ReceivingCenterResponse[].class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals(receivingCenterResponse.size(), 10);
+        Assert.assertEquals(receivingCenterResponse.length, 10);
 
         new APILogger().log("Receiving Centers for PGR is Completed  -- ");
-    }
-
-    private List<ReceivingCenterResponse> getResponseObjectArray(Response response) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        return mapper.readValue(response.asString(), new TypeReference<ArrayList<ReceivingCenterResponse>>() {
-        });
     }
 }

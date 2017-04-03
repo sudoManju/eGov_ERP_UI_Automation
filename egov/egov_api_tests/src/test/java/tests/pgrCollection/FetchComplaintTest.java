@@ -11,6 +11,7 @@ import resources.PGRResource;
 import tests.BaseAPITest;
 import utils.APILogger;
 import utils.Categories;
+import utils.ResponseHelper;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,18 +24,11 @@ public class FetchComplaintTest extends BaseAPITest {
 
         Response response = new PGRResource().getFetchComplaint();
 
-        List<FetchComplaintResponse> fetchComplaints = getResponseObjectArray(response);
+        FetchComplaintResponse[] fetchComplaints = (FetchComplaintResponse[]) ResponseHelper
+                .getResponseAsObject(response.asString(), FetchComplaintResponse[].class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertTrue(fetchComplaints.get(0).getMetadata(), true);
+        Assert.assertTrue(fetchComplaints[0].getMetadata(), true);
         new APILogger().log("Fetch all Complaints test is Completed -- ");
-
-    }
-
-    private List<FetchComplaintResponse> getResponseObjectArray(Response response) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        return mapper.readValue(response.asString(), new TypeReference<ArrayList<FetchComplaintResponse>>() {
-        });
     }
 }

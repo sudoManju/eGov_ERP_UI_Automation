@@ -2,6 +2,7 @@ package tests.pgrCollection;
 
 import com.jayway.restassured.response.Response;
 import entities.responses.login.LoginResponse;
+import entities.responses.pgrCollections.LocationNameResponse;
 import entities.responses.pgrCollections.PGRApplicationStatusResponse;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -13,6 +14,7 @@ import tests.BaseAPITest;
 import utils.APILogger;
 import utils.Categories;
 import utils.Properties;
+import utils.ResponseHelper;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,17 +35,11 @@ public class PGRApplicationStatusTest extends BaseAPITest {
     private void pgrApplicationStatusTestMethod(LoginResponse loginResponse) throws IOException {
         Response response = new PGRResource().getPGRApplicationStatus(loginResponse);
 
-        List<PGRApplicationStatusResponse> pgrApplicationStatusResponse = getResponseObjectArray(response);
+        PGRApplicationStatusResponse[] pgrApplicationStatusResponse = (PGRApplicationStatusResponse[]) ResponseHelper
+                .getResponseAsObject(response.asString(), PGRApplicationStatusResponse[].class);
         Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals(pgrApplicationStatusResponse.size(), 9);
+        Assert.assertEquals(pgrApplicationStatusResponse.length, 9);
 
         new APILogger().log("Get All Application Status for PGR is Completed  -- ");
-    }
-
-    private List<PGRApplicationStatusResponse> getResponseObjectArray(Response response) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        return mapper.readValue(response.asString(), new TypeReference<ArrayList<PGRApplicationStatusResponse>>() {
-        });
     }
 }
