@@ -19,7 +19,7 @@ import utils.ResponseHelper;
 import java.io.IOException;
 
 public class CreateAttendancesTest extends BaseAPITest {
-    @Test(groups = Categories.HR)
+//    @Test(groups = Categories.HR)
     public void createAttendanceInEIS() throws IOException {
         Attendance attendance = new AttendanceBuilder().withAttendanceDate(getRandomDate()).build();
         CreateAttendanceRequest request = new CreateAttendanceRequestBuilder().withAttendance(attendance).build();

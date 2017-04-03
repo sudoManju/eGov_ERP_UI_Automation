@@ -10,7 +10,7 @@ import static com.jayway.restassured.RestAssured.given;
 
 public class EgovEISResource {
 
-    public Response searchAttendance(Map jsonData, String auth_token) {
+    public Response searchAttendance(String jsonData, String auth_token) {
         new APILogger().log("Search Attendance is started -- ");
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
