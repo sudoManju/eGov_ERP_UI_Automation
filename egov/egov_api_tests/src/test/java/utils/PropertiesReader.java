@@ -115,5 +115,9 @@ public class PropertiesReader {
     public String getCMCategoryUrl() {
         return prop.getProperty("cmCategoryUrl");
     }
+
+    public String getUserCreateUrl() {
+        return prop.getProperty("userCreateUrl");
+    }
 }
 

@@ -26,9 +26,11 @@ public class LAMSServiceTest extends BaseAPITest {
     }
 
     private void lamsServiceTestMethod(LoginResponse loginResponse) throws IOException {
-        RequestInfo requestInfo = new RequestInfoBuilder().build();
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
 
         String jsonString = RequestHelper.getJsonString(requestInfo);
+
+        System.out.println(jsonString);
 
         Response response = new LAMSServiceResource().lamsServiceSearch(jsonString, loginResponse.getAccess_token());
 

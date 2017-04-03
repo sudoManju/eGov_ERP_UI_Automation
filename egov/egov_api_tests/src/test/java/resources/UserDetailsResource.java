@@ -21,4 +21,15 @@ public class UserDetailsResource {
 
         return response;
     }
+
+    public Response createUser(String jsonString){
+
+        Response response = given().request().with()
+                      .header("Content-Type", "application/json")
+                      .body(jsonString)
+                      .when()
+                      .post(Properties.devServerUrl + Properties.userCreateUrl);
+
+        return response;
+    }
 }

@@ -32,6 +32,7 @@ public class UserDetailsTest extends BaseAPITest {
 
         String jsonString = RequestHelper.getJsonString(userDetailsRequest);
 
+
         Response response = new UserDetailsResource().getUserDetails(loginResponse, jsonString);
 
         UserDetailsResponse userDetailsResponse = (UserDetailsResponse)

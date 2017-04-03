@@ -1,14 +1,22 @@
 package tests.login;
 
 import builders.login.LoginRequestBuilder;
+import builders.userDetails.CreateUserRequestBuilder;
+import builders.userDetails.RequestInfoBuilder;
+import builders.userDetails.UserBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.login.LoginRequest;
+import entities.requests.userDetails.CreateUserRequest;
+import entities.requests.userDetails.RequestInfo;
+import entities.requests.userDetails.User;
 import entities.responses.login.LoginErrorResponse;
 import entities.responses.login.LoginResponse;
 import entities.responses.logout.InvalidLogoutResponse;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.LoginResource;
+import resources.UserDetailsResource;
 import tests.BaseAPITest;
 import utils.*;
 
@@ -60,5 +68,24 @@ public class LoginVerificationTest extends BaseAPITest {
         Assert.assertEquals(loginErrorResponse.getError_description(), "Invalid login credentials");
 
         new APILogger().log("Login Failed is Completed -- ");
+    }
+
+
+    @Test
+    public void CreateAUserTest() throws IOException{
+        LoginResponse loginResponse = loginTestMethod(Properties.devServerUrl, "narasappa");
+
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
+
+        User user = new UserBuilder().withUsername("Test"+ RandomStringUtils.randomAlphanumeric(5)).build();
+
+        CreateUserRequest request = new CreateUserRequestBuilder().withRequestInfo(requestInfo).withUser(user).build();
+
+        String jsonString = RequestHelper.getJsonString(request);
+
+        Response response = new UserDetailsResource().createUser(jsonString);
+
+        Assert.assertEquals(response.getStatusCode(),200);
+
     }
 }
