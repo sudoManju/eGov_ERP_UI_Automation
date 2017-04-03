@@ -8,11 +8,10 @@ import static com.jayway.restassured.RestAssured.given;
 
 public class CommonMasterResource {
 
-    public Response searchLanguageTest(String json, String auth_token) {
+    public Response searchLanguageTest(String json) {
         new APILogger().log("Search Language Test is started --");
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
-                .header("auth-token", auth_token)
                 .body(json)
                 .when()
                 .post(Properties.devServerUrl + Properties.cmLanguageUrl);
@@ -20,11 +19,10 @@ public class CommonMasterResource {
         return response;
     }
 
-    public Response searchDepartmentTest(String jsonString, String access_token) {
+    public Response searchDepartmentTest(String jsonString) {
         new APILogger().log("Search Department Test is started --");
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
-                .header("auth-token", access_token)
                 .body(jsonString)
                 .when()
                 .post(Properties.devServerUrl + Properties.cmDepartmentUrl);
@@ -32,12 +30,11 @@ public class CommonMasterResource {
         return response;
     }
 
-    public Response searchCommunityTest(String jsonString, String access_token) {
+    public Response searchCommunityTest(String jsonString) {
 
         new APILogger().log("Search Community Test is started --");
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
-                .header("auth-token", access_token)
                 .body(jsonString)
                 .when()
                 .post(Properties.devServerUrl + Properties.cmCommunityUrl);
@@ -45,12 +42,11 @@ public class CommonMasterResource {
         return response;
     }
 
-    public Response searchReligionTest(String jsonString, String access_token) {
+    public Response searchReligionTest(String jsonString) {
 
         new APILogger().log("Search Religion Test is started --");
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
-                .header("auth-token", access_token)
                 .body(jsonString)
                 .when()
                 .post(Properties.devServerUrl + Properties.cmReligionUrl);
@@ -58,12 +54,11 @@ public class CommonMasterResource {
         return response;
     }
 
-    public Response serchHolidayTest(String jsonString, String access_token) {
+    public Response serchHolidayTest(String jsonString) {
 
         new APILogger().log("Search Holiday Test is started --");
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
-                .header("auth-token", access_token)
                 .body(jsonString)
                 .when()
                 .post(Properties.devServerUrl + Properties.cmHolidayUrl);
@@ -71,12 +66,11 @@ public class CommonMasterResource {
         return response;
     }
 
-    public Response searchCategoryTest(String jsonString, String access_token) {
+    public Response searchCategoryTest(String jsonString) {
 
         new APILogger().log("Search Category Test is started --");
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
-                .header("auth-token", access_token)
                 .body(jsonString)
                 .when()
                 .post(Properties.devServerUrl + Properties.cmCategoryUrl);

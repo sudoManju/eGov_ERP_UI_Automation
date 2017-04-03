@@ -1,8 +1,10 @@
 package tests.commonMasters;
 
-import builders.commonMasters.CommonMasterRequestBuilder;
+import builders.commonMaster.CommonMasterRequestBuilder;
+import builders.commonMaster.RequestInfoBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.commonMasters.CommonMasterRequest;
+import entities.requests.commonMasters.RequestInfo;
 import entities.responses.commonMaster.category.CategoryResponse;
 import entities.responses.login.LoginResponse;
 import org.junit.Assert;
@@ -29,15 +31,19 @@ public class CategoryTest extends BaseAPITest {
     }
 
     private void categoryTestMethod(LoginResponse loginResponse) throws IOException {
-        CommonMasterRequest commonMasterRequest = new CommonMasterRequestBuilder().build();
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
+        CommonMasterRequest commonMasterRequest = new CommonMasterRequestBuilder()
+                .withRequestInfo(requestInfo)
+                .build();
 
         String jsonString = RequestHelper.getJsonString(commonMasterRequest);
 
-        Response response = new CommonMasterResource().searchCategoryTest(jsonString, loginResponse.getAccess_token());
+        Response response = new CommonMasterResource().searchCategoryTest(jsonString);
 
         CategoryResponse categoryResponse = (CategoryResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), CategoryResponse.class);
 
+        System.out.println(jsonString);
         Assert.assertEquals(categoryResponse.getCategory().length, 3);
         Assert.assertEquals(response.getStatusCode(), 200);
 

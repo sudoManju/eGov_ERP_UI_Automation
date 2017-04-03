@@ -1,8 +1,10 @@
 package tests.commonMasters;
 
-import builders.commonMasters.CommonMasterRequestBuilder;
+import builders.commonMaster.CommonMasterRequestBuilder;
+import builders.commonMaster.RequestInfoBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.commonMasters.CommonMasterRequest;
+import entities.requests.commonMasters.RequestInfo;
 import entities.responses.commonMaster.department.DepartmentResponse;
 import entities.responses.login.LoginResponse;
 import org.junit.Assert;
@@ -29,11 +31,14 @@ public class DepartmentTest extends BaseAPITest {
     }
 
     private void departmentTestMethod(LoginResponse loginResponse) throws IOException {
-        CommonMasterRequest commonMasterRequest = new CommonMasterRequestBuilder().build();
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
+        CommonMasterRequest commonMasterRequest = new CommonMasterRequestBuilder()
+                .withRequestInfo(requestInfo)
+                .build();
 
         String jsonString = RequestHelper.getJsonString(commonMasterRequest);
 
-        Response response = new CommonMasterResource().searchDepartmentTest(jsonString, loginResponse.getAccess_token());
+        Response response = new CommonMasterResource().searchDepartmentTest(jsonString);
 
         DepartmentResponse departmentResponse = (DepartmentResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), DepartmentResponse.class);
