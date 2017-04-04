@@ -21,7 +21,7 @@ public class DepartmentTest extends BaseAPITest {
     public void departmentTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginHelper.loginTestMethod("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
 
         // Search Department Test
         departmentTestMethod(loginResponse);

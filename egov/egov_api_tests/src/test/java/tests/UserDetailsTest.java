@@ -25,7 +25,7 @@ public class UserDetailsTest extends BaseAPITest {
     public void userDetails() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginHelper.loginTestMethod("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
 
         // Create a user
         UserDetailsResponse userDetailsResponse = CreateAUserTest(loginResponse);

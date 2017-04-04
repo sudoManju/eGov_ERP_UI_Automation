@@ -21,7 +21,7 @@ public class CategoryTest extends BaseAPITest {
     public void categoryTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginHelper.loginTestMethod("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
 
         // Search Department Test
         categoryTestMethod(loginResponse);

@@ -6,7 +6,6 @@ import builders.eGovEIS.RequestInfoBuilder;
 import builders.eGovEIS.SearchAttendanceRequestBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.eGovEIS.SearchAttendanceRequest;
-import entities.requests.eGovEIS.SearchEmployeeRequest;
 import entities.requests.eGovEIS.createAttendance.Attendance;
 import entities.requests.eGovEIS.createAttendance.CreateAttendanceRequest;
 import entities.requests.eGovEIS.createAttendance.RequestInfo;
@@ -28,7 +27,7 @@ public class AttendancesTest extends BaseAPITest {
     public void CreateAttendancesTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginHelper.loginTestMethod("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
 
         // Create Attendances Test
         createAttendancesTestMethod(loginResponse);
@@ -38,7 +37,7 @@ public class AttendancesTest extends BaseAPITest {
     public void SearchAttendancesTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginHelper.loginTestMethod("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
 
         // Search Attendances Test
         searchAttendancesTestMethod(loginResponse);

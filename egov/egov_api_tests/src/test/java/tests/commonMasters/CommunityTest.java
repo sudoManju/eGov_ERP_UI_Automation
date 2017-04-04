@@ -21,7 +21,7 @@ public class CommunityTest extends BaseAPITest {
     public void communityTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginHelper.loginTestMethod("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
 
         // Search Department Test
         communityTestMethod(loginResponse);

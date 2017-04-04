@@ -15,7 +15,7 @@ import utils.*;
 import java.io.IOException;
 import java.util.Map;
 
-import static utils.LoginHelper.loginTestMethod;
+import static utils.LoginAndLogoutHelper.login;
 
 public class LoginVerificationTest extends BaseAPITest {
 
@@ -23,10 +23,10 @@ public class LoginVerificationTest extends BaseAPITest {
     public void shouldAllowLoginAndLogoutToAnExistingUser() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = loginTestMethod("narasappa");
+        LoginResponse loginResponse = login("narasappa");
 
         // Logout Test
-        LoginHelper.logoutTestMethod(loginResponse);
+        LoginAndLogoutHelper.logout(loginResponse);
 
     }
 
@@ -34,7 +34,7 @@ public class LoginVerificationTest extends BaseAPITest {
     public void shouldNotAllowLogoutWithInvalidCredentials() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginHelper.loginTestMethod("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
 
         // Logout Test
         Response response1 = new LoginResource().inValidLogout(loginResponse.getAccess_token());

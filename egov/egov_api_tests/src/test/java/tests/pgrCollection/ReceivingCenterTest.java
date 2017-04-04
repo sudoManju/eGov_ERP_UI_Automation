@@ -9,7 +9,7 @@ import resources.PGRResource;
 import tests.BaseAPITest;
 import utils.APILogger;
 import utils.Categories;
-import utils.LoginHelper;
+import utils.LoginAndLogoutHelper;
 import utils.ResponseHelper;
 
 import java.io.IOException;
@@ -20,7 +20,7 @@ public class ReceivingCenterTest extends BaseAPITest {
     public void receivingCenter() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginHelper.loginTestMethod("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
 
         // Receiving Center Test
         receivingCenterTestMethod(loginResponse);

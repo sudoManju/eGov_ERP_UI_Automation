@@ -21,7 +21,7 @@ public class ReligionTest extends BaseAPITest {
     public void religionTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginHelper.loginTestMethod("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
 
         // Language Search Test
         religionTestMethod(loginResponse);

@@ -23,7 +23,7 @@ public class AssetCategoryTest extends BaseAPITest {
     public void CreateAssetCategoryTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginHelper.loginTestMethod("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
 
         // Create Asset Category Test
         createAssetCategoryTestMethod(loginResponse);
@@ -34,7 +34,7 @@ public class AssetCategoryTest extends BaseAPITest {
     public void SearchAssetCategoryTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginHelper.loginTestMethod("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
 
         // Search Asset Category Test
         searchAssetCategoryTestMethod(loginResponse);

@@ -21,7 +21,7 @@ public class HolidayTest extends BaseAPITest {
     public void holidayTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginHelper.loginTestMethod("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
 
         // Search Department Test
         holidayTestMethod(loginResponse);

@@ -21,7 +21,7 @@ public class LAMSServiceTest extends BaseAPITest {
     public void lamsServiceSearchTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginHelper.loginTestMethod("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
 
         // LAMS Service Search Test
         lamsServiceTestMethod(loginResponse);

@@ -9,7 +9,7 @@ import resources.PGRResource;
 import tests.BaseAPITest;
 import utils.APILogger;
 import utils.Categories;
-import utils.LoginHelper;
+import utils.LoginAndLogoutHelper;
 import utils.ResponseHelper;
 
 import java.io.IOException;
@@ -20,7 +20,7 @@ public class SearchCitizenComplaintTest extends BaseAPITest {
     public void searchCitizenComplaint() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginHelper.loginTestMethod("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
 
         // Search Citizen Complaint Test
         searchCitizenComplaintTestMethod(loginResponse);

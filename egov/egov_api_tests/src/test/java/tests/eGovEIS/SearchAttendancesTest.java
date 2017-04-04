@@ -7,7 +7,7 @@ import entities.responses.login.LoginResponse;
 import org.testng.annotations.Test;
 import tests.BaseAPITest;
 import utils.Categories;
-import utils.LoginHelper;
+import utils.LoginAndLogoutHelper;
 
 import java.io.IOException;
 
@@ -15,7 +15,7 @@ public class SearchAttendancesTest extends BaseAPITest {
 
     @Test(groups = {Categories.EIS, Categories.SANITY, Categories.DEV})
     public void searchAttendanceInEIS() throws IOException {
-        LoginResponse loginResponse = LoginHelper.loginTestMethod("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
 
         RequestInfo requestInfo = new RequestInfoBuilder("search").withAuthToken(loginResponse.getAccess_token()).build1();
 

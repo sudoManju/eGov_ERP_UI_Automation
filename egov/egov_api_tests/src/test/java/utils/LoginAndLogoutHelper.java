@@ -12,9 +12,9 @@ import resources.LoginResource;
 import java.io.IOException;
 import java.util.Map;
 
-public class LoginHelper {
+public class LoginAndLogoutHelper {
 
-    public static LoginResponse loginTestMethod(String username) throws IOException {
+    public static LoginResponse login(String username) throws IOException {
         LoginRequest request = new LoginRequestBuilder().withUsername(username).build();
 
         Map jsonString = RequestHelper.asMap(request);
@@ -30,7 +30,7 @@ public class LoginHelper {
         return loginResponse;
     }
 
-    public static void logoutTestMethod(LoginResponse loginResponse) throws IOException {
+    public static void logout(LoginResponse loginResponse) throws IOException {
         Response response1 = new LoginResource().logout(loginResponse.getAccess_token());
         LogoutResponse logoutResponse = (LogoutResponse)
                 ResponseHelper.getResponseAsObject(response1.asString(), LogoutResponse.class);
