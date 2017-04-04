@@ -1,4 +1,4 @@
-package entities.requests.eGovEIS.createAttendance;
+package entities.requests.eGovEIS.Attendances;
 
 public class Attendance {
 

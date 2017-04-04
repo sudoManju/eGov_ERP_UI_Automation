@@ -1,6 +1,6 @@
-package builders.eGovEIS;
+package builders.eGovEIS.Attendances;
 
-import entities.requests.eGovEIS.createAttendance.RequestInfo;
+import entities.requests.eGovEIS.Attendances.RequestInfo;
 
 public class RequestInfoBuilder {
     RequestInfo requestInfo = new RequestInfo();

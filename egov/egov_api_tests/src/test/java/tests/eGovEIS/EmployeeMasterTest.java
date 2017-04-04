@@ -1,10 +1,12 @@
 package tests.eGovEIS;
 
-import builders.eGovEIS.RequestInfoBuilder;
 import builders.eGovEIS.SearchEmployeeRequestBuilder;
+import builders.eGovEIS.createEmployee.CreateEmployeeRequestBuilder;
+import builders.eGovEIS.createEmployee.RequestInfoBuilder;
 import com.jayway.restassured.response.Response;
-import entities.requests.eGovEIS.RequestInfo;
 import entities.requests.eGovEIS.SearchEmployeeRequest;
+import entities.requests.eGovEIS.createEmployee.CreateEmployeeRequest;
+import entities.requests.eGovEIS.createEmployee.RequestInfo;
 import entities.responses.eGovEIS.employeeMasters.SearchEmployeeResponse;
 import entities.responses.login.LoginResponse;
 import org.testng.Assert;
@@ -18,13 +20,40 @@ import utils.ResponseHelper;
 
 import java.io.IOException;
 
-public class SearchEmployeeTest extends BaseAPITest {
+public class EmployeeMasterTest extends BaseAPITest {
 
-    @Test(groups = {Categories.EIS, Categories.SANITY, Categories.DEV})
-    public void searchEmployeeInEIS() throws IOException {
+    @Test(groups = {Categories.HR, Categories.SANITY, Categories.DEV})
+    public void CreateEmployeeTest() throws IOException{
+
+        //Login Test
         LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
 
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build1();
+        //Create Employee Test
+        createEmployeeTestMethod(loginResponse);
+    }
+
+    @Test(groups = {Categories.HR, Categories.SANITY, Categories.DEV})
+    public void SearchEmployeeTest() throws IOException{
+
+        //Login Test
+        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
+
+        //Search Employee Test
+        searchEmployeeTestMethod(loginResponse);
+    }
+
+    public void createEmployeeTestMethod(LoginResponse loginResponse) throws IOException {
+
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
+        CreateEmployeeRequest request = new CreateEmployeeRequestBuilder().withRequestInfo(requestInfo).build();
+
+        String JsonData = RequestHelper.getJsonString(request);
+        System.out.println(JsonData);
+    }
+
+    public void searchEmployeeTestMethod(LoginResponse loginResponse) throws IOException {
+
+        entities.requests.eGovEIS.RequestInfo requestInfo = new builders.eGovEIS.Attendances.RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build1();
 
         SearchEmployeeRequest searchEmployeeRequest = new SearchEmployeeRequestBuilder().withRequestInfo(requestInfo).build();
         String jsonData = RequestHelper.getJsonString(searchEmployeeRequest);

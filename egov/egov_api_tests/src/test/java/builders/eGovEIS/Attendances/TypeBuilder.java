@@ -1,6 +1,6 @@
-package builders.eGovEIS;
+package builders.eGovEIS.Attendances;
 
-import entities.requests.eGovEIS.createAttendance.Type;
+import entities.requests.eGovEIS.Attendances.Type;
 
 public final class TypeBuilder {
     Type type = new Type();

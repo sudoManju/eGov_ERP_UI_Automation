@@ -1,7 +1,7 @@
-package builders.eGovEIS;
+package builders.eGovEIS.Attendances;
 
-import entities.requests.eGovEIS.createAttendance.Attendance;
-import entities.requests.eGovEIS.createAttendance.Type;
+import entities.requests.eGovEIS.Attendances.Attendance;
+import entities.requests.eGovEIS.Attendances.Type;
 
 public class AttendanceBuilder {
 

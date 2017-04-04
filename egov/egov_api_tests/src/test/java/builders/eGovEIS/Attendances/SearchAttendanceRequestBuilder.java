@@ -1,7 +1,7 @@
-package builders.eGovEIS;
+package builders.eGovEIS.Attendances;
 
 import entities.requests.eGovEIS.RequestInfo;
-import entities.requests.eGovEIS.SearchAttendanceRequest;
+import entities.requests.eGovEIS.Attendances.SearchAttendanceRequest;
 
 public final class SearchAttendanceRequestBuilder {
 

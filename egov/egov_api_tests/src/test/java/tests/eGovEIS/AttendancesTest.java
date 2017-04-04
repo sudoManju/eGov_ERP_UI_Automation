@@ -1,14 +1,14 @@
 package tests.eGovEIS;
 
-import builders.eGovEIS.AttendanceBuilder;
-import builders.eGovEIS.CreateAttendanceRequestBuilder;
-import builders.eGovEIS.RequestInfoBuilder;
-import builders.eGovEIS.SearchAttendanceRequestBuilder;
+import builders.eGovEIS.Attendances.AttendanceBuilder;
+import builders.eGovEIS.Attendances.CreateAttendanceRequestBuilder;
+import builders.eGovEIS.Attendances.RequestInfoBuilder;
+import builders.eGovEIS.Attendances.SearchAttendanceRequestBuilder;
 import com.jayway.restassured.response.Response;
-import entities.requests.eGovEIS.SearchAttendanceRequest;
-import entities.requests.eGovEIS.createAttendance.Attendance;
-import entities.requests.eGovEIS.createAttendance.CreateAttendanceRequest;
-import entities.requests.eGovEIS.createAttendance.RequestInfo;
+import entities.requests.eGovEIS.Attendances.SearchAttendanceRequest;
+import entities.requests.eGovEIS.Attendances.Attendance;
+import entities.requests.eGovEIS.Attendances.CreateAttendanceRequest;
+import entities.requests.eGovEIS.Attendances.RequestInfo;
 import entities.responses.eGovEIS.SearchAttendanceResponse;
 import entities.responses.eGovEIS.createAttendance.CreateAttendanceResponse;
 import entities.responses.login.LoginResponse;

@@ -1,5 +1,6 @@
 package builders.eGovEIS;
 
+import builders.eGovEIS.Attendances.RequestInfoBuilder;
 import entities.requests.eGovEIS.RequestInfo;
 import entities.requests.eGovEIS.SearchEmployeeRequest;
 
