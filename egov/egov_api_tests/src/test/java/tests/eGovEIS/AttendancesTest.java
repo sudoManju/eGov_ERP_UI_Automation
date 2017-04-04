@@ -23,7 +23,7 @@ import java.io.IOException;
 
 public class AttendancesTest extends BaseAPITest {
 
-    @Test(groups = Categories.HR)
+    @Test(groups = {Categories.HR, Categories.SANITY, Categories.DEV})
     public void CreateAttendancesTest() throws IOException {
 
         // Login Test
@@ -33,7 +33,7 @@ public class AttendancesTest extends BaseAPITest {
         createAttendancesTestMethod(loginResponse);
     }
 
-    @Test(groups = Categories.HR)
+    @Test(groups = {Categories.HR, Categories.SANITY, Categories.DEV})
     public void SearchAttendancesTest() throws IOException {
 
         // Login Test
@@ -43,8 +43,7 @@ public class AttendancesTest extends BaseAPITest {
         searchAttendancesTestMethod(loginResponse);
     }
 
-    public void createAttendancesTestMethod(LoginResponse loginResponse) throws IOException
-    {
+    public void createAttendancesTestMethod(LoginResponse loginResponse) throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
         Attendance attendance = new AttendanceBuilder().withAttendanceDate(getRandomDate()).build();
         CreateAttendanceRequest request = new CreateAttendanceRequestBuilder().withRequestInfo(requestInfo).withAttendance(attendance).build();
@@ -60,14 +59,11 @@ public class AttendancesTest extends BaseAPITest {
         new APILogger().log("Create Attendance Test is completed --");
     }
 
-    public void searchAttendancesTestMethod(LoginResponse loginResponse) throws IOException
-    {
-        entities.requests.eGovEIS.RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build1();
-        SearchAttendanceRequest request = new SearchAttendanceRequestBuilder().withAuthToken(loginResponse.getAccess_token()).build();
+    public void searchAttendancesTestMethod(LoginResponse loginResponse) throws IOException {
+        entities.requests.eGovEIS.RequestInfo requestInfo = new RequestInfoBuilder("Search").withAuthToken1(loginResponse.getAccess_token()).build1();
+        SearchAttendanceRequest request = new SearchAttendanceRequestBuilder().withRequestInfo(requestInfo).build();
 
         String jsonData = RequestHelper.getJsonString(request);
-//        System.out.println(jsonData);
-
         Response response = new EgovEISResource().searchAttendance(jsonData, loginResponse.getAccess_token());
         SearchAttendanceResponse searchAttendanceResponse = (SearchAttendanceResponse) ResponseHelper.getResponseAsObject(response.asString(), SearchAttendanceResponse.class);
 

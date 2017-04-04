@@ -24,14 +24,16 @@ public class SearchEmployeeTest extends BaseAPITest {
     public void searchEmployeeInEIS() throws IOException {
         LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
 
-        RequestInfo requestInfo = new RequestInfoBuilder("search").withAuthToken(loginResponse.getAccess_token()).build1();
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build1();
 
         SearchEmployeeRequest searchEmployeeRequest = new SearchEmployeeRequestBuilder().withRequestInfo(requestInfo).build();
         String jsonData = RequestHelper.getJsonString(searchEmployeeRequest);
 
+        System.out.println(jsonData);
         Response response = new EgovEISResource().searchEmployee(jsonData);
         SearchEmployeeResponse searchEmployeeResponse = (SearchEmployeeResponse) ResponseHelper.getResponseAsObject(response.asString(), SearchEmployeeResponse.class);
 
+        System.out.println(response.asString());
 //        ###Assertions for various use cases###
         System.out.println("Number of Employees: " + searchEmployeeResponse.getEmployee().length);
         Assert.assertEquals(response.getStatusCode(), 200);
