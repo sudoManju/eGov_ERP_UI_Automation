@@ -23,7 +23,7 @@ public class LoginVerificationTest extends BaseAPITest {
     public void shouldAllowLoginAndLogoutToAnExistingUser() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = login("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
 
         // Logout Test
         LoginAndLogoutHelper.logout(loginResponse);

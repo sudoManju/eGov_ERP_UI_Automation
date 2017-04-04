@@ -12,7 +12,7 @@ public class LoginResource {
 
     public Response login(Map json) {
 
-        new APILogger().log("Login Test is started -- ");
+        new APILogger().log("Login Request is started with-- "+json.toString());
 
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
@@ -21,14 +21,15 @@ public class LoginResource {
                 .params(json)
                 .when()
                 .post(Properties.loginUrl);
-//                .post(path + Properties.loginUrl);
+
+        new APILogger().log("Login Response is generated as-- "+response.asString());
 
         return response;
     }
 
     public Response logout(String accessToken) {
 
-        new APILogger().log("Logout request started-- ");
+        new APILogger().log("Logout request started for-- "+accessToken);
 
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
@@ -37,12 +38,13 @@ public class LoginResource {
                 .when()
                 .post(Properties.logoutUrl + accessToken);
 
+        new APILogger().log("Logout response generated as-- "+response.asString());
         return response;
     }
 
     public Response inValidLogout(String accessToken) {
 
-        new APILogger().log("In-Valid logout request started-- " + accessToken);
+        new APILogger().log("In-Valid logout request started for-- " + accessToken);
 
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
@@ -50,6 +52,8 @@ public class LoginResource {
                 .header("auth-token", accessToken)
                 .when()
                 .post(Properties.logoutUrl);
+
+        new APILogger().log("In-Valid logout response generated as-- " + response.asString());
 
         return response;
     }
