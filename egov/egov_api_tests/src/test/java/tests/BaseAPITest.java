@@ -1,22 +1,15 @@
 package tests;
 
-import builders.login.LoginRequestBuilder;
 import com.jayway.restassured.RestAssured;
-import com.jayway.restassured.response.Response;
-import entities.requests.login.LoginRequest;
-import entities.responses.login.LoginResponse;
-import entities.responses.logout.LogoutResponse;
-import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.BeforeMethod;
-import resources.LoginResource;
-import utils.*;
+import utils.Categories;
+import utils.ResourceHelper;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.GregorianCalendar;
-import java.util.Map;
 
 import static java.lang.String.format;
 

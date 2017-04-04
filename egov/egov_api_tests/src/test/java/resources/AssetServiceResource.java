@@ -10,7 +10,7 @@ public class AssetServiceResource {
 
     public Response getSearchAssetService(String json, String auth_token) {
 
-        new APILogger().log("Search Asset Service Request is started  -- ");
+        new APILogger().log("Search Asset Service Request is started with --" + json);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
                 .header("auth-token", auth_token)
@@ -18,12 +18,13 @@ public class AssetServiceResource {
                 .when()
                 .post(Properties.searchAssetServiceUrl);
 
+        new APILogger().log("Search Asset Service Response is Generated as --" + json);
         return response;
     }
 
     public Response getCreateAssetService(String jsonString, String auth_token) {
 
-        new APILogger().log("Create Asset Service Request is started  -- ");
+        new APILogger().log("Create Asset Service Request is started with --" + jsonString);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
                 .header("auth-token", auth_token)
@@ -31,6 +32,7 @@ public class AssetServiceResource {
                 .when()
                 .post(Properties.createAssetServiceUrl);
 
+        new APILogger().log("Create Asset Service Response is Generated with --" + jsonString);
         return response;
     }
 }
