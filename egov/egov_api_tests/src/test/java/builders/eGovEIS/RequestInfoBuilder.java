@@ -1,6 +1,5 @@
 package builders.eGovEIS;
 
-
 import entities.requests.eGovEIS.createAttendance.RequestInfo;
 
 public class RequestInfoBuilder {
@@ -14,6 +13,7 @@ public class RequestInfoBuilder {
         requestInfo.setMsgId("1");
         requestInfo.setStatus("200");
         requestInfo.setResMsgId("uief87324");
+        requestInfo.setAuthToken("");
     }
 
     public RequestInfoBuilder(String msg) {
@@ -58,11 +58,15 @@ public class RequestInfoBuilder {
         return this;
     }
 
-    public RequestInfoBuilder withAuthToken(String authToken) {
+    public RequestInfoBuilder withAuthToken1(String authToken){
         requestInfo1.setAuthToken(authToken);
         return this;
     }
 
+    public RequestInfoBuilder withAuthToken(String authToken){
+        requestInfo.setAuthToken(authToken);
+        return this;
+    }
     public RequestInfo build() {
         return requestInfo;
     }

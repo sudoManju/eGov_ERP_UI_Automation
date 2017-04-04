@@ -26,7 +26,7 @@ public class EgovEISResource {
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
                 .header("Content-Type", "application/json")
-                .header("auth-token", access_token)
+//                .header("auth-token", access_token)
                 .body(jsonData)
                 .when()
                 .post(Properties.createAttendanceURL);

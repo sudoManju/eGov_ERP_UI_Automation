@@ -8,15 +8,15 @@ public final class SearchAttendanceRequestBuilder {
 
     public SearchAttendanceRequestBuilder() {
 
-        searchAttendanceRequest.setApiId("string");
-        searchAttendanceRequest.setTs("");
-        searchAttendanceRequest.setRequesterId("string");
-        searchAttendanceRequest.setAuthToken("aeiou");
-        searchAttendanceRequest.setMsgId("string");
-        searchAttendanceRequest.setAction("string");
-        searchAttendanceRequest.setDid("string");
-        searchAttendanceRequest.setVer("string");
-        searchAttendanceRequest.setKey("string");
+        searchAttendanceRequest.setApiId("emp");
+        searchAttendanceRequest.setTs("10/03/2017");
+        searchAttendanceRequest.setRequesterId("rajesh");
+        searchAttendanceRequest.setAuthToken("");
+        searchAttendanceRequest.setMsgId("20170310130900");
+        searchAttendanceRequest.setAction("create");
+        searchAttendanceRequest.setDid("1");
+        searchAttendanceRequest.setVer("1.0");
+        searchAttendanceRequest.setKey("abcdkey");
     }
 
     public SearchAttendanceRequestBuilder withApiId(String apiId) {
