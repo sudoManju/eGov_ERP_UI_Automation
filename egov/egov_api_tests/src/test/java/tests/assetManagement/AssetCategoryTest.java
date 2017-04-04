@@ -13,10 +13,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.AssetCategoryResource;
 import tests.BaseAPITest;
-import utils.APILogger;
-import utils.Categories;
-import utils.RequestHelper;
-import utils.ResponseHelper;
+import utils.*;
 
 import java.io.IOException;
 
@@ -26,7 +23,7 @@ public class AssetCategoryTest extends BaseAPITest {
     public void CreateAssetCategoryTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = loginTestMethod("narasappa");
+        LoginResponse loginResponse = LoginHelper.loginTestMethod("narasappa");
 
         // Create Asset Category Test
         createAssetCategoryTestMethod(loginResponse);
@@ -37,7 +34,7 @@ public class AssetCategoryTest extends BaseAPITest {
     public void SearchAssetCategoryTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = loginTestMethod("narasappa");
+        LoginResponse loginResponse = LoginHelper.loginTestMethod("narasappa");
 
         // Search Asset Category Test
         searchAssetCategoryTestMethod(loginResponse);

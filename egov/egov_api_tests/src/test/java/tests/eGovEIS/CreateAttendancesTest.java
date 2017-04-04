@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 import resources.EgovEISResource;
 import tests.BaseAPITest;
 import utils.Categories;
+import utils.LoginHelper;
 import utils.RequestHelper;
 import utils.ResponseHelper;
 
@@ -25,7 +26,7 @@ public class CreateAttendancesTest extends BaseAPITest {
         CreateAttendanceRequest request = new CreateAttendanceRequestBuilder().withAttendance(attendance).build();
 
         String jsonData = RequestHelper.getJsonString(request);
-        LoginResponse loginResponse = loginTestMethod("narasappa");
+        LoginResponse loginResponse = LoginHelper.loginTestMethod("narasappa");
 
         Response response = new EgovEISResource().createAttendance(jsonData, loginResponse.getAccess_token());
         Assert.assertEquals(response.getStatusCode(), 200);

@@ -9,6 +9,7 @@ import resources.PGRResource;
 import tests.BaseAPITest;
 import utils.APILogger;
 import utils.Categories;
+import utils.LoginHelper;
 import utils.ResponseHelper;
 
 import java.io.IOException;
@@ -19,7 +20,7 @@ public class PGRApplicationStatusTest extends BaseAPITest {
     public void pgrApplicationStatus() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = loginTestMethod("narasappa");
+        LoginResponse loginResponse = LoginHelper.loginTestMethod("narasappa");
 
         // Get PGR Application Status
         pgrApplicationStatusTestMethod(loginResponse);

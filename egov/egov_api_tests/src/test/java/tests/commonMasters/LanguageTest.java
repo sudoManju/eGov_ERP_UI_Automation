@@ -11,10 +11,7 @@ import org.junit.Assert;
 import org.testng.annotations.Test;
 import resources.CommonMasterResource;
 import tests.BaseAPITest;
-import utils.APILogger;
-import utils.Categories;
-import utils.RequestHelper;
-import utils.ResponseHelper;
+import utils.*;
 
 import java.io.IOException;
 
@@ -24,7 +21,7 @@ public class LanguageTest extends BaseAPITest {
     public void languageTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = loginTestMethod("narasappa");
+        LoginResponse loginResponse = LoginHelper.loginTestMethod("narasappa");
 
         // Language Search Test
         languageTestMethod(loginResponse);

@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 import resources.EgovEISResource;
 import tests.BaseAPITest;
 import utils.Categories;
+import utils.LoginHelper;
 import utils.RequestHelper;
 import utils.ResponseHelper;
 
@@ -21,7 +22,7 @@ public class SearchEmployeeTest extends BaseAPITest {
 
     @Test(groups = {Categories.EIS, Categories.SANITY, Categories.DEV})
     public void searchEmployeeInEIS() throws IOException {
-        LoginResponse loginResponse = loginTestMethod("narasappa");
+        LoginResponse loginResponse = LoginHelper.loginTestMethod("narasappa");
 
         RequestInfo requestInfo = new RequestInfoBuilder("search").withAuthToken(loginResponse.getAccess_token()).build1();
 

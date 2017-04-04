@@ -15,10 +15,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Assert;
 import org.testng.annotations.Test;
 import resources.UserDetailsResource;
-import utils.APILogger;
-import utils.Categories;
-import utils.RequestHelper;
-import utils.ResponseHelper;
+import utils.*;
 
 import java.io.IOException;
 
@@ -28,7 +25,7 @@ public class UserDetailsTest extends BaseAPITest {
     public void userDetails() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = loginTestMethod("narasappa");
+        LoginResponse loginResponse = LoginHelper.loginTestMethod("narasappa");
 
         // Create a user
         UserDetailsResponse userDetailsResponse = CreateAUserTest(loginResponse);

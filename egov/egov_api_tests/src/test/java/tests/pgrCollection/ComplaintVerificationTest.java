@@ -15,10 +15,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.PGRResource;
 import tests.BaseAPITest;
-import utils.APILogger;
-import utils.Categories;
-import utils.RequestHelper;
-import utils.ResponseHelper;
+import utils.*;
 
 import java.io.IOException;
 
@@ -28,7 +25,8 @@ public class ComplaintVerificationTest extends BaseAPITest {
     public void createAndGetComplaintInPGR() throws IOException {
 
         //Login Test
-        LoginResponse loginResponse = loginTestMethod("narasappa");
+        LoginResponse loginResponse = LoginHelper.loginTestMethod("narasappa");
+
 
         // Create A Complaint
         ComplaintResponse complaintResponse = createComplaintInPGR();
@@ -46,7 +44,7 @@ public class ComplaintVerificationTest extends BaseAPITest {
                 closeComplaintInPGR(complaintResponse.getService_requests()[0].getService_request_id());
 
         // Logout Test
-        logoutTestMethod(loginResponse);
+        LoginHelper.logoutTestMethod(loginResponse);
     }
 
     private ComplaintResponse createComplaintInPGR() throws IOException {

@@ -10,13 +10,12 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.LoginResource;
 import tests.BaseAPITest;
-import utils.APILogger;
-import utils.Categories;
-import utils.RequestHelper;
-import utils.ResponseHelper;
+import utils.*;
 
 import java.io.IOException;
 import java.util.Map;
+
+import static utils.LoginHelper.loginTestMethod;
 
 public class LoginVerificationTest extends BaseAPITest {
 
@@ -27,7 +26,7 @@ public class LoginVerificationTest extends BaseAPITest {
         LoginResponse loginResponse = loginTestMethod("narasappa");
 
         // Logout Test
-        logoutTestMethod(loginResponse);
+        LoginHelper.logoutTestMethod(loginResponse);
 
     }
 
@@ -35,7 +34,7 @@ public class LoginVerificationTest extends BaseAPITest {
     public void shouldNotAllowLogoutWithInvalidCredentials() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = loginTestMethod("narasappa");
+        LoginResponse loginResponse = LoginHelper.loginTestMethod("narasappa");
 
         // Logout Test
         Response response1 = new LoginResource().inValidLogout(loginResponse.getAccess_token());

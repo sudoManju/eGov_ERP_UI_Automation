@@ -13,10 +13,7 @@ import org.junit.Assert;
 import org.testng.annotations.Test;
 import resources.AssetServiceResource;
 import tests.BaseAPITest;
-import utils.APILogger;
-import utils.Categories;
-import utils.RequestHelper;
-import utils.ResponseHelper;
+import utils.*;
 
 import java.io.IOException;
 
@@ -26,7 +23,8 @@ public class AssetServiceTest extends BaseAPITest {
     public void searchAssetService() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = loginTestMethod("malathi");
+        LoginResponse loginResponse = LoginHelper.loginTestMethod("malathi");
+
 
         // Search Asset Service Test
         searchAssetServiceTestMethod(loginResponse);
@@ -36,7 +34,7 @@ public class AssetServiceTest extends BaseAPITest {
     public void createAssetService() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = loginTestMethod("malathi");
+        LoginResponse loginResponse = LoginHelper.loginTestMethod("malathi");
 
         // Create Asset Service Test
         createAssetServiceTestMethod(loginResponse);

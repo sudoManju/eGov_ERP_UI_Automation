@@ -8,6 +8,7 @@ import entities.responses.login.LoginResponse;
 import org.testng.annotations.Test;
 import tests.BaseAPITest;
 import utils.Categories;
+import utils.LoginHelper;
 import utils.RequestHelper;
 
 import java.io.IOException;
@@ -16,7 +17,7 @@ public class CreateEmployeeTest extends BaseAPITest {
 
     @Test(groups = {Categories.HR, Categories.SANITY, Categories.DEV})
     public void createEmployeeInEIS() throws IOException {
-        LoginResponse loginResponse = loginTestMethod("narasappa");
+        LoginResponse loginResponse = LoginHelper.loginTestMethod("narasappa");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
         CreateEmployeeRequest request = new CreateEmployeeRequestBuilder().withRequestInfo(requestInfo).build();
 
