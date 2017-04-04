@@ -22,7 +22,7 @@ import java.util.List;
 
 public class ReceivingCenterTest extends BaseAPITest {
 
-    @Test(groups = {Categories.SANITY, Categories.PGR})
+    @Test(groups = {Categories.SANITY, Categories.PGR, Categories.QA})
     public void receivingCenter() throws IOException {
 
         // Login Test

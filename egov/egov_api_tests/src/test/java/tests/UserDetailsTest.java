@@ -1,14 +1,14 @@
 package tests;
 
-import builders.userDetails.UserDetailsForSearchRequestBuilder;
 import builders.userDetails.CreateUserRequestBuilder;
 import builders.userDetails.RequestInfoBuilder;
 import builders.userDetails.UserBuilder;
+import builders.userDetails.UserDetailsForSearchRequestBuilder;
 import com.jayway.restassured.response.Response;
-import entities.requests.userDetails.User;
-import entities.requests.userDetails.UserDetailsForSearchRequest;
 import entities.requests.userDetails.CreateUserRequest;
 import entities.requests.userDetails.RequestInfo;
+import entities.requests.userDetails.User;
+import entities.requests.userDetails.UserDetailsForSearchRequest;
 import entities.responses.login.LoginResponse;
 import entities.responses.userDetails.UserDetailsResponse;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -16,7 +16,7 @@ import org.junit.Assert;
 import org.testng.annotations.Test;
 import resources.UserDetailsResource;
 import utils.APILogger;
-import utils.Properties;
+import utils.Categories;
 import utils.RequestHelper;
 import utils.ResponseHelper;
 
@@ -24,7 +24,7 @@ import java.io.IOException;
 
 public class UserDetailsTest extends BaseAPITest {
 
-    @Test
+    @Test(groups = {Categories.SANITY, Categories.DEV})
     public void userDetails() throws IOException {
 
         // Login Test
@@ -33,7 +33,7 @@ public class UserDetailsTest extends BaseAPITest {
         // Create a user
         UserDetailsResponse userDetailsResponse = CreateAUserTest(loginResponse);
 
-        // User Details Test
+        // Get User Details Test
         userDetailsTestMethod(loginResponse, userDetailsResponse);
     }
 
@@ -59,11 +59,11 @@ public class UserDetailsTest extends BaseAPITest {
     }
 
 
-    public UserDetailsResponse CreateAUserTest(LoginResponse loginResponse) throws IOException{
+    public UserDetailsResponse CreateAUserTest(LoginResponse loginResponse) throws IOException {
 
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
 
-        User user = new UserBuilder().withUsername("Test"+ RandomStringUtils.randomAlphanumeric(5)).build();
+        User user = new UserBuilder().withUsername("Test" + RandomStringUtils.randomAlphanumeric(5)).build();
 
         CreateUserRequest request = new CreateUserRequestBuilder().withRequestInfo(requestInfo).withUser(user).build();
 
@@ -71,12 +71,12 @@ public class UserDetailsTest extends BaseAPITest {
 
         Response response = new UserDetailsResource().createUser(jsonString);
 
-        Assert.assertEquals(response.getStatusCode(),200);
+        Assert.assertEquals(response.getStatusCode(), 200);
 
         UserDetailsResponse userDetailsResponse = (UserDetailsResponse)
-                ResponseHelper.getResponseAsObject(response.asString(),UserDetailsResponse.class);
+                ResponseHelper.getResponseAsObject(response.asString(), UserDetailsResponse.class);
 
-        Assert.assertEquals(request.getUser().getName(),userDetailsResponse.getUser()[0].getName());
+        Assert.assertEquals(request.getUser().getName(), userDetailsResponse.getUser()[0].getName());
 
         new APILogger().log("User Details Request For Create is Completed --");
 

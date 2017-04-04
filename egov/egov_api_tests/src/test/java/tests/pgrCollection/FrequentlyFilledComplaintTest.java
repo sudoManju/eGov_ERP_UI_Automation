@@ -20,7 +20,7 @@ import java.util.List;
 
 public class FrequentlyFilledComplaintTest extends BaseAPITest {
 
-    @Test(groups = {Categories.PGR, Categories.SANITY})
+    @Test(groups = {Categories.PGR, Categories.SANITY, Categories.QA})
     public void getFrequentlyFilledComplaints() throws IOException {
 
         Response response = new PGRResource().getFrequentlyFilledComplaints(3);

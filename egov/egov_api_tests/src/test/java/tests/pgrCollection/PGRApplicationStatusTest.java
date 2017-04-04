@@ -22,7 +22,7 @@ import java.util.List;
 
 public class PGRApplicationStatusTest extends BaseAPITest {
 
-    @Test(groups = {Categories.SANITY, Categories.PGR})
+    @Test(groups = {Categories.SANITY, Categories.PGR, Categories.QA})
     public void pgrApplicationStatus() throws IOException {
 
         // Login Test

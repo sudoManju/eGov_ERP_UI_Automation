@@ -17,7 +17,7 @@ import java.io.IOException;
 
 public class LAMSServiceTest extends BaseAPITest {
 
-    @Test(groups = {Categories.LAMS, Categories.SANITY})
+    @Test(groups = {Categories.LAMS, Categories.SANITY , Categories.DEV})
     public void lamsServiceSearchTest() throws IOException {
 
         // Login Test

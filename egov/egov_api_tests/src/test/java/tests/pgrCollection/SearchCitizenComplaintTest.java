@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import resources.PGRResource;
 import tests.BaseAPITest;
 import utils.APILogger;
+import utils.Categories;
 import utils.Properties;
 import utils.ResponseHelper;
 
@@ -15,7 +16,7 @@ import java.io.IOException;
 
 public class SearchCitizenComplaintTest extends BaseAPITest {
 
-    @Test
+    @Test(groups = {Categories.SANITY, Categories.PGR, Categories.QA})
     public void searchCitizenComplaint() throws IOException {
 
         // Login Test

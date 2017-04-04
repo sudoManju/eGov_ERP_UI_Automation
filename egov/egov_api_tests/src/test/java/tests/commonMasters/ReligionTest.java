@@ -11,16 +11,13 @@ import org.junit.Assert;
 import org.testng.annotations.Test;
 import resources.CommonMasterResource;
 import tests.BaseAPITest;
-import utils.APILogger;
-import utils.Properties;
-import utils.RequestHelper;
-import utils.ResponseHelper;
+import utils.*;
 
 import java.io.IOException;
 
 public class ReligionTest extends BaseAPITest {
 
-    @Test
+    @Test(groups = {Categories.HR, Categories.SANITY , Categories.DEV})
     public void religionTest() throws IOException {
 
         // Login Test

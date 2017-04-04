@@ -10,14 +10,17 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.LoginResource;
 import tests.BaseAPITest;
-import utils.*;
+import utils.APILogger;
+import utils.Categories;
+import utils.RequestHelper;
+import utils.ResponseHelper;
 
 import java.io.IOException;
 import java.util.Map;
 
 public class LoginVerificationTest extends BaseAPITest {
 
-    @Test(groups = {Categories.SANITY})
+    @Test(groups = {Categories.SANITY, Categories.QA})
     public void shouldAllowLoginAndLogoutToAnExistingUser() throws IOException {
 
         // Login Test
@@ -28,7 +31,7 @@ public class LoginVerificationTest extends BaseAPITest {
 
     }
 
-    @Test(groups = {Categories.SANITY})
+    @Test(groups = {Categories.SANITY, Categories.QA})
     public void shouldNotAllowLogoutWithInvalidCredentials() throws IOException {
 
         // Login Test
@@ -46,7 +49,7 @@ public class LoginVerificationTest extends BaseAPITest {
         new APILogger().log("Logout Failed is Completed -- ");
     }
 
-    @Test(groups = {Categories.SANITY})
+    @Test(groups = {Categories.SANITY , Categories.QA})
     public void shouldNotAllowLoginWithInvalidCredentials() throws IOException {
         LoginRequest request = new LoginRequestBuilder().withPassword("").build();
 

@@ -21,7 +21,7 @@ import java.io.IOException;
 
 public class ComplaintVerificationTest extends BaseAPITest {
 
-    @Test(groups = {Categories.PGR, Categories.SANITY})
+    @Test(groups = {Categories.PGR, Categories.SANITY , Categories.QA})
     public void createAndGetComplaintInPGR() throws IOException {
 
         //Login Test
