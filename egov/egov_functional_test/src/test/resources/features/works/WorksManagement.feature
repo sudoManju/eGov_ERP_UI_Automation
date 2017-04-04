@@ -3,7 +3,7 @@ Feature: Create regular estimate/Create LOA for estimate/Create-Track milestone/
   I want to able Create regular estimate, LOA, Milestone/Track Milestone/Generate Contractor Bill
 
 
-  @Works  @Sanity
+  @Works
   Scenario Outline: Create Regular Estimate
 
     Given assis_Engineer logs in

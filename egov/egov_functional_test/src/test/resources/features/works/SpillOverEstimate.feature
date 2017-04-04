@@ -2,7 +2,7 @@ Feature: Create Spillover Estimate/Create LOA for Spillover
   As a registered user of the system
   I want to be able to create Spillover estimate
 
-  @Works  @Sanity
+  @Works
   Scenario Outline: Create Spillover Line Estimate
 
     Given assis_Engineer logs in
@@ -23,7 +23,7 @@ Feature: Create Spillover Estimate/Create LOA for Spillover
       | SpilloverEstimate_3   | SpillOverFinancial_3 | SpillWork_3 | admin                | technical                |
 
 
-  @Works @Sanity
+  @Works
   Scenario: Letter of Acceptance for Spillover work
 
     Given assis_Engineer logs in

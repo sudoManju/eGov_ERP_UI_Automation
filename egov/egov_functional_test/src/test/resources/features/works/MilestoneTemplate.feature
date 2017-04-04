@@ -4,7 +4,7 @@ Feature: Create/view/modify Milestone template
 
   #Creating a milestone template
 
-  @Works     @Sanity
+  @Works
   Scenario: Create milestone template
 
     Given assis_Engineer logs in
@@ -17,7 +17,7 @@ Feature: Create/view/modify Milestone template
 
   #View a milestone template
 
-  @Works @Sanity
+  @Works
   Scenario: view milestone template
 
     Given assis_Engineer logs in
@@ -29,7 +29,7 @@ Feature: Create/view/modify Milestone template
 
   #Modify a milestone template
 
-  @Works  @Sanity
+  @Works
   Scenario: modify milestone template
 
     Given assis_Engineer logs in
