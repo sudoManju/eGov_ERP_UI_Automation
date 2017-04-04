@@ -22,12 +22,12 @@ import static java.lang.String.format;
 
 public class BaseAPITest {
 
-    public static int randBetween(int start, int end) {
-        return start + (int) Math.round(Math.random() * (end - start));
-    }
-
     public BaseAPITest() {
         RestAssured.baseURI = new ResourceHelper().getBaseURI();
+    }
+
+    public static int randBetween(int start, int end) {
+        return start + (int) Math.round(Math.random() * (end - start));
     }
 
     @BeforeMethod(alwaysRun = true)

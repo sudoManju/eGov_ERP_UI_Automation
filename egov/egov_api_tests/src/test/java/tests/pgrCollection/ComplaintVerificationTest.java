@@ -15,13 +15,16 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.PGRResource;
 import tests.BaseAPITest;
-import utils.*;
+import utils.APILogger;
+import utils.Categories;
+import utils.RequestHelper;
+import utils.ResponseHelper;
 
 import java.io.IOException;
 
 public class ComplaintVerificationTest extends BaseAPITest {
 
-    @Test(groups = {Categories.PGR, Categories.SANITY , Categories.QA})
+    @Test(groups = {Categories.PGR, Categories.SANITY, Categories.QA})
     public void createAndGetComplaintInPGR() throws IOException {
 
         //Login Test

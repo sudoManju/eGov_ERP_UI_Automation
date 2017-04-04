@@ -4,8 +4,6 @@ import com.jayway.restassured.response.Response;
 import utils.APILogger;
 import utils.Properties;
 
-import java.util.Map;
-
 import static com.jayway.restassured.RestAssured.given;
 
 public class EgovEISResource {
@@ -47,7 +45,7 @@ public class EgovEISResource {
         return response;
     }
 
-    public Response createEmployee(String jsonData){
+    public Response createEmployee(String jsonData) {
         new APILogger().log("Create Employee Test is started -- ");
         Response response = given().request().with()
                 .urlEncodingEnabled(false)

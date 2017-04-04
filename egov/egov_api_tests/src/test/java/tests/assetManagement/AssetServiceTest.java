@@ -13,13 +13,16 @@ import org.junit.Assert;
 import org.testng.annotations.Test;
 import resources.AssetServiceResource;
 import tests.BaseAPITest;
-import utils.*;
+import utils.APILogger;
+import utils.Categories;
+import utils.RequestHelper;
+import utils.ResponseHelper;
 
 import java.io.IOException;
 
 public class AssetServiceTest extends BaseAPITest {
 
-    @Test(groups = {Categories.ASSET, Categories.SANITY , Categories.DEV})
+    @Test(groups = {Categories.ASSET, Categories.SANITY, Categories.DEV})
     public void searchAssetService() throws IOException {
 
         // Login Test
@@ -29,7 +32,7 @@ public class AssetServiceTest extends BaseAPITest {
         searchAssetServiceTestMethod(loginResponse);
     }
 
-    @Test(groups = {Categories.ASSET, Categories.SANITY , Categories.DEV})
+    @Test(groups = {Categories.ASSET, Categories.SANITY, Categories.DEV})
     public void createAssetService() throws IOException {
 
         // Login Test

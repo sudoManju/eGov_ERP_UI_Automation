@@ -11,13 +11,16 @@ import org.junit.Assert;
 import org.testng.annotations.Test;
 import resources.CommonMasterResource;
 import tests.BaseAPITest;
-import utils.*;
+import utils.APILogger;
+import utils.Categories;
+import utils.RequestHelper;
+import utils.ResponseHelper;
 
 import java.io.IOException;
 
 public class CommunityTest extends BaseAPITest {
 
-    @Test(groups = {Categories.HR, Categories.SANITY , Categories.DEV})
+    @Test(groups = {Categories.HR, Categories.SANITY, Categories.DEV})
     public void communityTest() throws IOException {
 
         // Login Test

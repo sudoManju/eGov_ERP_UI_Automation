@@ -6,8 +6,7 @@ import entities.requests.eGovEIS.createEmployee.RequestInfo;
 public class RequestInfoBuilder {
     RequestInfo requestInfo = new RequestInfo();
 
-    public RequestInfoBuilder()
-    {
+    public RequestInfoBuilder() {
         requestInfo.setApiId("emp");
         requestInfo.setVer("1.0");
         requestInfo.setTs("10/03/2017");
@@ -19,6 +18,7 @@ public class RequestInfoBuilder {
         requestInfo.setMsgId("20170310130900");
 
     }
+
     public RequestInfoBuilder withApiId(String apiId) {
         requestInfo.setApiId(apiId);
         return this;
@@ -39,7 +39,7 @@ public class RequestInfoBuilder {
         return this;
     }
 
-    public RequestInfoBuilder withAuthToken(String authToken){
+    public RequestInfoBuilder withAuthToken(String authToken) {
         requestInfo.setAuthToken(authToken);
         return this;
     }

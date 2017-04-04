@@ -2,7 +2,6 @@ package builders.eGovEIS;
 
 import entities.requests.eGovEIS.RequestInfo;
 import entities.requests.eGovEIS.SearchEmployeeRequest;
-import entities.responses.login.LoginResponse;
 
 public final class SearchEmployeeRequestBuilder {
 
@@ -14,7 +13,7 @@ public final class SearchEmployeeRequestBuilder {
         searchEmployeeRequest.setRequestInfo(requestInfo);
     }
 
-    public SearchEmployeeRequestBuilder withRequestInfo(RequestInfo requestInfo){
+    public SearchEmployeeRequestBuilder withRequestInfo(RequestInfo requestInfo) {
         searchEmployeeRequest.setRequestInfo(requestInfo);
         return this;
     }

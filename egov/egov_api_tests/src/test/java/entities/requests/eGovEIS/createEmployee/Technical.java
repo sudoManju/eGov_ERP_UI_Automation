@@ -1,7 +1,6 @@
 package entities.requests.eGovEIS.createEmployee;
 
-public class Technical
-{
+public class Technical {
     private String yearOfPassing;
     private String createdBy;
     private String skill;
@@ -11,83 +10,67 @@ public class Technical
     private String remarks;
     private String createdDate;
 
-    public String getYearOfPassing ()
-    {
+    public String getYearOfPassing() {
         return yearOfPassing;
     }
 
-    public void setYearOfPassing (String yearOfPassing)
-    {
+    public void setYearOfPassing(String yearOfPassing) {
         this.yearOfPassing = yearOfPassing;
     }
 
-    public String getCreatedBy ()
-    {
+    public String getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy (String createdBy)
-    {
+    public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 
-    public String getSkill ()
-    {
+    public String getSkill() {
         return skill;
     }
 
-    public void setSkill (String skill)
-    {
+    public void setSkill(String skill) {
         this.skill = skill;
     }
 
-    public String getLastModifiedBy ()
-    {
+    public String getLastModifiedBy() {
         return lastModifiedBy;
     }
 
-    public void setLastModifiedBy (String lastModifiedBy)
-    {
+    public void setLastModifiedBy(String lastModifiedBy) {
         this.lastModifiedBy = lastModifiedBy;
     }
 
-    public String getLastModifiedDate ()
-    {
+    public String getLastModifiedDate() {
         return lastModifiedDate;
     }
 
-    public void setLastModifiedDate (String lastModifiedDate)
-    {
+    public void setLastModifiedDate(String lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public String getGrade ()
-    {
+    public String getGrade() {
         return grade;
     }
 
-    public void setGrade (String grade)
-    {
+    public void setGrade(String grade) {
         this.grade = grade;
     }
 
-    public String getRemarks ()
-    {
+    public String getRemarks() {
         return remarks;
     }
 
-    public void setRemarks (String remarks)
-    {
+    public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
 
-    public String getCreatedDate ()
-    {
+    public String getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate (String createdDate)
-    {
+    public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
     }
 }

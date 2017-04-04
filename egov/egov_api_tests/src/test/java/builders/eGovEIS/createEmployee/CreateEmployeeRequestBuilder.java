@@ -22,5 +22,7 @@ public final class CreateEmployeeRequestBuilder {
         return this;
     }
 
-    public CreateEmployeeRequest build() { return createEmployeeRequest; }
+    public CreateEmployeeRequest build() {
+        return createEmployeeRequest;
+    }
 }

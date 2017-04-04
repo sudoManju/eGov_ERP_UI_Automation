@@ -1,11 +1,7 @@
 package tests.pgrCollection;
 
 import com.jayway.restassured.response.Response;
-import entities.responses.pgrCollections.FetchComplaintResponse;
 import entities.responses.pgrCollections.FrequentlyFilledComplaintResponse;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.type.TypeReference;
 import org.junit.Assert;
 import org.testng.annotations.Test;
 import resources.PGRResource;
@@ -15,8 +11,6 @@ import utils.Categories;
 import utils.ResponseHelper;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class FrequentlyFilledComplaintTest extends BaseAPITest {
 

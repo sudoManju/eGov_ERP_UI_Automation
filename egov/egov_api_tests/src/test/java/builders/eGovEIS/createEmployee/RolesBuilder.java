@@ -6,39 +6,40 @@ public class RolesBuilder {
 
     Roles roles = new Roles();
 
-    public RolesBuilder(){}
+    public RolesBuilder() {
+    }
 
-    public RolesBuilder withName(String name){
+    public RolesBuilder withName(String name) {
         roles.setName(name);
         return this;
     }
 
-    public RolesBuilder withDescription(String description){
+    public RolesBuilder withDescription(String description) {
         roles.setDescription(description);
         return this;
     }
 
-    public RolesBuilder withCreatedBy(int createdBy){
+    public RolesBuilder withCreatedBy(int createdBy) {
         roles.setCreatedBy(createdBy);
         return this;
     }
 
-    public RolesBuilder withCreatedDate(String createdDate){
+    public RolesBuilder withCreatedDate(String createdDate) {
         roles.setCreatedDate(createdDate);
         return this;
     }
 
-    public RolesBuilder withLastModifiedBy(int modifiedBy){
+    public RolesBuilder withLastModifiedBy(int modifiedBy) {
         roles.setLastModifiedBy(modifiedBy);
         return this;
     }
 
-    public RolesBuilder withLastModifiedDate(String lastModifiedDate){
+    public RolesBuilder withLastModifiedDate(String lastModifiedDate) {
         roles.setLastModifiedDate(lastModifiedDate);
         return this;
     }
 
-    public Roles build(){
+    public Roles build() {
         return roles;
     }
 

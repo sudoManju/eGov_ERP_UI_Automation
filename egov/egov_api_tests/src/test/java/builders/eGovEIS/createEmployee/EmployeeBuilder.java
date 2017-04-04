@@ -31,13 +31,11 @@ public final class EmployeeBuilder {
     ServiceHistory serviceHistory1 = new ServiceHistoryBuilder().build();
     ServiceHistory[] serviceHistories = new ServiceHistory[1];
 
-    protected String get3DigitRandomInt() { return String.valueOf((RandomUtils.nextInt(100, 999))); }
-
     public EmployeeBuilder() {
         employee.setTenantId("1");
         employee.setMotherTongue("5");
-        employee.setGpfNo("12"+get3DigitRandomInt());
-        employee.setPassportNo("IND12"+get3DigitRandomInt());
+        employee.setGpfNo("12" + get3DigitRandomInt());
+        employee.setPassportNo("IND12" + get3DigitRandomInt());
         employee.setRecruitmentType("1");
         int a[] = {1};
         employee.setJurisdictions(a);
@@ -80,6 +78,10 @@ public final class EmployeeBuilder {
         employee.setUser(users);
         employee.setBankAccount("987456");
         employee.setBankBranch("30");
+    }
+
+    protected String get3DigitRandomInt() {
+        return String.valueOf((RandomUtils.nextInt(100, 999)));
     }
 
     public EmployeeBuilder withTenantId(String tenantId) {

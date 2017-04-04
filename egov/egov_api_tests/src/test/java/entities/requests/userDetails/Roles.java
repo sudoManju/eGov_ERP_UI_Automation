@@ -1,7 +1,6 @@
 package entities.requests.userDetails;
 
-public class Roles
-{
+public class Roles {
     private String createdBy;
 
     private String description;
@@ -14,63 +13,51 @@ public class Roles
 
     private String createdDate;
 
-    public String getCreatedBy ()
-    {
+    public String getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy (String createdBy)
-    {
+    public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 
-    public String getDescription ()
-    {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription (String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    public String getName ()
-    {
+    public String getName() {
         return name;
     }
 
-    public void setName (String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getLastModifiedBy ()
-    {
+    public String getLastModifiedBy() {
         return lastModifiedBy;
     }
 
-    public void setLastModifiedBy (String lastModifiedBy)
-    {
+    public void setLastModifiedBy(String lastModifiedBy) {
         this.lastModifiedBy = lastModifiedBy;
     }
 
-    public String getLastModifiedDate ()
-    {
+    public String getLastModifiedDate() {
         return lastModifiedDate;
     }
 
-    public void setLastModifiedDate (String lastModifiedDate)
-    {
+    public void setLastModifiedDate(String lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public String getCreatedDate ()
-    {
+    public String getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate (String createdDate)
-    {
+    public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
     }
 }

@@ -19,7 +19,7 @@ public final class UserDetailsForSearchRequestBuilder {
         return this;
     }
 
-    public UserDetailsForSearchRequestBuilder withRequestInfo(RequestInfo requestInfo1){
+    public UserDetailsForSearchRequestBuilder withRequestInfo(RequestInfo requestInfo1) {
         userDetailsForSearchRequest.setRequestInfo(requestInfo1);
         return this;
     }

@@ -9,12 +9,12 @@ public final class UserBuilder {
     Roles[] roles = new Roles[2];
 
     Roles role1 = new RolesBuilder().withName("TL").withDescription("Technical Lead for HR & Other Modules")
-                     .withCreatedBy("1").withCreatedDate("01/01/2017")
-                     .withLastModifiedBy("1").withLastModifiedDate("01/01/2017").build();
+            .withCreatedBy("1").withCreatedDate("01/01/2017")
+            .withLastModifiedBy("1").withLastModifiedDate("01/01/2017").build();
 
     Roles role2 = new RolesBuilder().withName("Manager").withDescription("Manager for HR & Other Modules")
-                      .withCreatedBy("1").withCreatedDate("01/01/2017")
-                      .withLastModifiedBy("1").withLastModifiedDate("01/01/2017").build();
+            .withCreatedBy("1").withCreatedDate("01/01/2017")
+            .withLastModifiedBy("1").withLastModifiedDate("01/01/2017").build();
 
     public UserBuilder() {
         user.setUserName("");
@@ -53,7 +53,7 @@ public final class UserBuilder {
         user.setRoles(roles);
     }
 
-    public UserBuilder withUsername(String username){
+    public UserBuilder withUsername(String username) {
         user.setUserName(username);
         return this;
     }

@@ -2,28 +2,17 @@ package tests.eGovEIS;
 
 
 import builders.eGovEIS.RequestInfoBuilder;
-import builders.eGovEIS.SearchAttendanceRequestBuilder;
-import com.jayway.restassured.response.Response;
 import entities.requests.eGovEIS.RequestInfo;
-import entities.requests.eGovEIS.SearchAttendanceRequest;
-import entities.responses.eGovEIS.SearchAttendanceResponse;
 import entities.responses.login.LoginResponse;
-import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
-import resources.EgovEISResource;
 import tests.BaseAPITest;
 import utils.Categories;
-import utils.Properties;
-import utils.RequestHelper;
-import utils.ResponseHelper;
 
 import java.io.IOException;
-import java.util.Map;
 
 public class SearchAttendancesTest extends BaseAPITest {
 
-//    @Test(groups = {Categories.EIS, Categories.SANITY})
+    @Test(groups = {Categories.EIS, Categories.SANITY, Categories.DEV})
     public void searchAttendanceInEIS() throws IOException {
         LoginResponse loginResponse = loginTestMethod("narasappa");
 

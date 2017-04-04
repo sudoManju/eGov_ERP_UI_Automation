@@ -9,16 +9,16 @@ public class LamsServiceRequestBuilder {
 
     RequestInfo requestInfo = new RequestInfoBuilder().build();
 
-    public LamsServiceRequestBuilder(){
+    public LamsServiceRequestBuilder() {
         request.setRequestInfo(requestInfo);
     }
 
-    public LamsServiceRequestBuilder withRequestInfo(RequestInfo requestInfo1){
+    public LamsServiceRequestBuilder withRequestInfo(RequestInfo requestInfo1) {
         request.setRequestInfo(requestInfo1);
         return this;
     }
 
-    public LamsServiceRequest build(){
+    public LamsServiceRequest build() {
         return request;
     }
 }

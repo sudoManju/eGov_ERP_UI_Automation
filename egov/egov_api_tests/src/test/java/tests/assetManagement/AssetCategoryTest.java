@@ -5,21 +5,24 @@ import builders.assetManagement.assetCategory.AssetCategoryCreateRequestBuilder;
 import builders.assetManagement.assetCategory.AssetCategorySearchRequestBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.assetManagement.RequestInfo;
-import entities.requests.assetManagement.assetCategory.AssetCategoryCreateRequest;
 import entities.requests.assetManagement.SearchAssetRequest;
+import entities.requests.assetManagement.assetCategory.AssetCategoryCreateRequest;
 import entities.responses.assetManagement.assetCategory.AssetCategoryResponse;
 import entities.responses.login.LoginResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.AssetCategoryResource;
 import tests.BaseAPITest;
-import utils.*;
+import utils.APILogger;
+import utils.Categories;
+import utils.RequestHelper;
+import utils.ResponseHelper;
 
 import java.io.IOException;
 
 public class AssetCategoryTest extends BaseAPITest {
 
-    @Test(groups = {Categories.ASSET, Categories.SANITY , Categories.DEV})
+    @Test(groups = {Categories.ASSET, Categories.SANITY, Categories.DEV})
     public void CreateAssetCategoryTest() throws IOException {
 
         // Login Test
@@ -30,7 +33,7 @@ public class AssetCategoryTest extends BaseAPITest {
     }
 
 
-    @Test(groups = {Categories.ASSET, Categories.SANITY , Categories.DEV})
+    @Test(groups = {Categories.ASSET, Categories.SANITY, Categories.DEV})
     public void SearchAssetCategoryTest() throws IOException {
 
         // Login Test

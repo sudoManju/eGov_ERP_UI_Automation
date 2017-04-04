@@ -2,14 +2,14 @@ package utils;
 
 public class Categories {
 
-    public static final String SANITY = "sanity";
-    public static final String DEV= "dev";
-    public static final String QA = "qa";
-    public static final String E2E = "E2E";
-    public static final String WIP = "wip";
-    public static final String PGR = "pgr";
-    public static final String EIS = "hr";
-    public static final String ASSET = "asset";
-    public static final String HR = "create attendance";
-    public static final String LAMS = "lease and agreement";
+    public static final String SANITY = "Sanity";
+    public static final String DEV= "Dev";
+    public static final String QA = "Qa";
+    public static final String E2E = "E2e";
+    public static final String WIP = "Wip";
+    public static final String PGR = "Pgr";
+    public static final String EIS = "Hr";
+    public static final String ASSET = "Asset";
+    public static final String HR = "CreateAttendance";
+    public static final String LAMS = "LeaseAgreement";
 }

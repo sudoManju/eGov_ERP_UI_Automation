@@ -16,8 +16,7 @@ public class RequestInfoBuilder {
         requestInfo.setResMsgId("uief87324");
     }
 
-    public RequestInfoBuilder(String msg)
-    {
+    public RequestInfoBuilder(String msg) {
         requestInfo1.setApiId("emp");
         requestInfo1.setVer("1.0");
         requestInfo1.setTs("10/03/2017");
@@ -28,6 +27,7 @@ public class RequestInfoBuilder {
         requestInfo1.setKey("abcdkey");
         requestInfo1.setMsgId("20170310130900");
     }
+
     public RequestInfoBuilder withApiId(String apiId) {
         requestInfo.setApiId(apiId);
         return this;
@@ -58,7 +58,7 @@ public class RequestInfoBuilder {
         return this;
     }
 
-    public RequestInfoBuilder withAuthToken(String authToken){
+    public RequestInfoBuilder withAuthToken(String authToken) {
         requestInfo1.setAuthToken(authToken);
         return this;
     }
@@ -66,6 +66,7 @@ public class RequestInfoBuilder {
     public RequestInfo build() {
         return requestInfo;
     }
+
     public entities.requests.eGovEIS.RequestInfo build1() {
         return requestInfo1;
     }

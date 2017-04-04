@@ -4,6 +4,7 @@ import entities.requests.eGovEIS.createEmployee.Education;
 
 public final class EducationBuilder {
     Education education = new Education();
+
     public EducationBuilder() {
         education.setUniversity("VTU");
         education.setYearOfPassing(2012);
@@ -55,5 +56,7 @@ public final class EducationBuilder {
         return this;
     }
 
-    public Education build() { return education; }
+    public Education build() {
+        return education;
+    }
 }

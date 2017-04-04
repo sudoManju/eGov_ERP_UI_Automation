@@ -9,7 +9,6 @@ import resources.PGRResource;
 import tests.BaseAPITest;
 import utils.APILogger;
 import utils.Categories;
-import utils.Properties;
 import utils.ResponseHelper;
 
 import java.io.IOException;
@@ -34,7 +33,6 @@ public class SearchCitizenComplaintTest extends BaseAPITest {
                 ResponseHelper.getResponseAsObject(response.asString(), SearchCitizenComplaintResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals(searchCitizenComplaintResponse.getService_requests().length , 103);
         new APILogger().log("Search Citizen Complaints for PGR is Completed  -- ");
     }
 

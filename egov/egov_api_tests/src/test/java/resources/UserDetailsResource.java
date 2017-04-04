@@ -1,7 +1,6 @@
 package resources;
 
 import com.jayway.restassured.response.Response;
-import entities.responses.login.LoginResponse;
 import utils.APILogger;
 import utils.Properties;
 
@@ -21,15 +20,15 @@ public class UserDetailsResource {
         return response;
     }
 
-    public Response createUser(String jsonString){
+    public Response createUser(String jsonString) {
 
         new APILogger().log("User Details Request For Create is Started --");
 
         Response response = given().request().with()
-                      .header("Content-Type", "application/json")
-                      .body(jsonString)
-                      .when()
-                      .post(Properties.userCreateUrl);
+                .header("Content-Type", "application/json")
+                .body(jsonString)
+                .when()
+                .post(Properties.userCreateUrl);
 
         return response;
     }

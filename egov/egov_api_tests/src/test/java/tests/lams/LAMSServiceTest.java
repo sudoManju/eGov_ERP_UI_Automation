@@ -11,13 +11,16 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.LAMSServiceResource;
 import tests.BaseAPITest;
-import utils.*;
+import utils.APILogger;
+import utils.Categories;
+import utils.RequestHelper;
+import utils.ResponseHelper;
 
 import java.io.IOException;
 
 public class LAMSServiceTest extends BaseAPITest {
 
-    @Test(groups = {Categories.LAMS, Categories.SANITY , Categories.DEV})
+    @Test(groups = {Categories.LAMS, Categories.SANITY, Categories.DEV})
     public void lamsServiceSearchTest() throws IOException {
 
         // Login Test

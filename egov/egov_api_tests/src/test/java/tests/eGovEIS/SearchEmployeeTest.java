@@ -11,16 +11,15 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.EgovEISResource;
 import tests.BaseAPITest;
-import utils.Properties;
+import utils.Categories;
 import utils.RequestHelper;
 import utils.ResponseHelper;
 
 import java.io.IOException;
-import java.util.Map;
 
 public class SearchEmployeeTest extends BaseAPITest {
 
-    @Test
+    @Test(groups = {Categories.EIS, Categories.SANITY, Categories.DEV})
     public void searchEmployeeInEIS() throws IOException {
         LoginResponse loginResponse = loginTestMethod("narasappa");
 

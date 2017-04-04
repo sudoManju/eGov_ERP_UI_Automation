@@ -41,7 +41,7 @@ tasks.withType(Test) {
     systemProperties = [env: System.getProperty('env', 'local')]
 }
 
-task allTests(type: Test) {
+task Sanity(type: Test) {
     dependsOn clean, compileTestJava
     useTestNG {
         options {
@@ -49,20 +49,40 @@ task allTests(type: Test) {
             useDefaultListeners = false
             listeners << 'org.uncommons.reportng.HTMLReporter'
             listeners << 'org.uncommons.reportng.JUnitXMLReporter'
-//            includeGroups 'E2E,GoRide'
-            excludeGroups 'wip'
+            excludeGroups 'Wip'
         }
     }
 }
 
+task Dev(type: Test) {
+    dependsOn clean, compileTestJava
+    useTestNG {
+        options {
+            reports.html.destination = file("$testReportDir/APITestsResults")
+            useDefaultListeners = false
+            listeners << 'org.uncommons.reportng.HTMLReporter'
+            listeners << 'org.uncommons.reportng.JUnitXMLReporter'
+            includeGroups 'Dev'
+        }
+    }
+}
 
-
+task Qa(type: Test) {
+    dependsOn clean, compileTestJava
+    useTestNG {
+        options {
+            reports.html.destination = file("$testReportDir/APITestsResults")
+            useDefaultListeners = false
+            listeners << 'org.uncommons.reportng.HTMLReporter'
+            listeners << 'org.uncommons.reportng.JUnitXMLReporter'
+            includeGroups 'Qa'
+        }
+    }
+}
 
 task packageSources(type: Jar) {
     from sourceSets.test.allSource
     classifier = 'sources'
 }
-
-
 
 project.version = version

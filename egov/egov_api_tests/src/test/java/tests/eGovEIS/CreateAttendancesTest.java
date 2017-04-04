@@ -12,14 +12,14 @@ import org.testng.annotations.Test;
 import resources.EgovEISResource;
 import tests.BaseAPITest;
 import utils.Categories;
-import utils.Properties;
 import utils.RequestHelper;
 import utils.ResponseHelper;
 
 import java.io.IOException;
 
 public class CreateAttendancesTest extends BaseAPITest {
-//    @Test(groups = Categories.HR)
+
+    @Test(groups = {Categories.HR, Categories.SANITY, Categories.DEV})
     public void createAttendanceInEIS() throws IOException {
         Attendance attendance = new AttendanceBuilder().withAttendanceDate(getRandomDate()).build();
         CreateAttendanceRequest request = new CreateAttendanceRequestBuilder().withAttendance(attendance).build();

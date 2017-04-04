@@ -21,6 +21,13 @@ You should be all set.
 
 #### Running tests
 1. You can run the test from IntelliJ directly, by right clicking and **Run test**..
-2. From Commandline type  **gradle clean build allTests** to run all tests and view report.
+2. From command line use the following commands to execute in particular environment
+    
+    For running all tests "gradle clean build -Denv=qa Sanity" or 
+                          "gradle clean build -Denv=dev Sanity"
+    
+    In QA Env : "gradle clean build -Denv=qa Qa"
+    In DEV Env : "gradle clean build -Denv=dev Dev"
+    
 
 

@@ -51,5 +51,7 @@ public final class TestBuilder {
         return this;
     }
 
-    public Test build() { return testObject; }
+    public Test build() {
+        return testObject;
+    }
 }
