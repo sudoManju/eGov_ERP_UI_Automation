@@ -28,7 +28,7 @@ public class AttendancesTest extends BaseAPITest {
     public void CreateAttendancesTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = loginTestMethod("narasappa");
+        LoginResponse loginResponse = LoginHelper.loginTestMethod("narasappa");
 
         // Create Attendances Test
         createAttendancesTestMethod(loginResponse);
@@ -38,7 +38,7 @@ public class AttendancesTest extends BaseAPITest {
     public void SearchAttendancesTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = loginTestMethod("narasappa");
+        LoginResponse loginResponse = LoginHelper.loginTestMethod("narasappa");
 
         // Search Attendances Test
         searchAttendancesTestMethod(loginResponse);
