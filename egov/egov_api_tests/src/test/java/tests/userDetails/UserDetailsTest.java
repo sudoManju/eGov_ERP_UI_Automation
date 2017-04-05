@@ -1,4 +1,4 @@
-package tests;
+package tests.userDetails;
 
 import builders.userDetails.CreateUserRequestBuilder;
 import builders.userDetails.RequestInfoBuilder;
@@ -15,6 +15,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Assert;
 import org.testng.annotations.Test;
 import resources.UserDetailsResource;
+import tests.BaseAPITest;
 import utils.*;
 
 import java.io.IOException;
