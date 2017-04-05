@@ -119,6 +119,16 @@ public class PropertiesReader {
         return prop.getProperty("createAttendanceURL");
     }
     public String getCreateEmployeeUrl() { return prop.getProperty("createEmployeeUrl"); }
+    public String getSearchEmployeeTypeUrl() { return prop.getProperty("searchEmployeeTypeUrl"); }
+    public String getSearchDesignationTypeUrl() { return prop.getProperty("searchDesignationTypeUrl"); }
+    public String getSearchPositionUrl() { return prop.getProperty("searchPositionUrl"); }
+    public String getSearchPositionHierarchyUrl() { return prop.getProperty("searchPositionHierarchyUrl"); }
+    public String getSearchGradeUrl() { return prop.getProperty("searchGradeUrl"); }
+    public String getSearchEmployeeGroupUrl() { return prop.getProperty("searchEmployeeGroupUrl"); }
+    public String getSearchRecruitmentQuotaUrl() { return prop.getProperty("searchRecruitmentQuotaUrl"); }
+    public String getSearchRecruitmentModesUrl() { return prop.getProperty("searchRecruitmentModesUrl"); }
+    public String getSearchHrConfigurationsUrl() { return prop.getProperty("searchHrConfigurations"); }
+
 
     //      Lease And Agreement Module Url's      //
     public String getLAMSServiceSearchUrl() {

@@ -36,6 +36,15 @@ public class Properties {
     public static final String createAttendanceURL = propertiesReader.getCreateAttendanceUrl();
     public static final String searchEmployeeURL = propertiesReader.getSearchEmployeeUrl();
     public static final String createEmployeeUrl = propertiesReader.getCreateEmployeeUrl();
+    public static final String eisSearchEmployeeTypeUrl = propertiesReader.getSearchEmployeeTypeUrl();
+    public static final String eisSearchDesignationTypeUrl = propertiesReader.getSearchDesignationTypeUrl();
+    public static final String eisSearchPositionUrl = propertiesReader.getSearchPositionUrl();
+    public static final String eisSearchPositionHierarchyUrl = propertiesReader.getSearchPositionHierarchyUrl();
+    public static final String eisSearchGradeUrl = propertiesReader.getSearchGradeUrl();
+    public static final String eisSearchEmployeeGroupUrl = propertiesReader.getSearchEmployeeGroupUrl();
+    public static final String eisSearchRecruitmentQuotaUrl = propertiesReader.getSearchRecruitmentQuotaUrl();
+    public static final String eisSearchRecruitmentModesUrl = propertiesReader.getSearchRecruitmentModesUrl();
+    public static final String eisSearchHrConfigurationsUrl = propertiesReader.getSearchHrConfigurationsUrl();
 
     //  Land Estate Module Url's  //
     public static final String lAMSServiceSearchUrl = propertiesReader.getLAMSServiceSearchUrl();
