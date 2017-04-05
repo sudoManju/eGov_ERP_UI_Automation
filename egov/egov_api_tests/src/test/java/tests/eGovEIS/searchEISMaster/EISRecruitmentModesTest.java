@@ -10,16 +10,13 @@ import entities.responses.login.LoginResponse;
 import org.junit.Assert;
 import org.testng.annotations.Test;
 import resources.searchEISMaster.EISMasterResource;
-import utils.APILogger;
-import utils.LoginAndLogoutHelper;
-import utils.RequestHelper;
-import utils.ResponseHelper;
+import utils.*;
 
 import java.io.IOException;
 
 public class EISRecruitmentModesTest {
 
-    @Test
+    @Test(groups = {Categories.HR, Categories.SANITY, Categories.DEV})
     public void searchRecruitmentModesTest() throws IOException {
 
         // Login Test
