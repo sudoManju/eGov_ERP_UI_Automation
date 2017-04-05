@@ -150,4 +150,15 @@ public class PGRResource {
         new APILogger().log("Search Citizen Complaints Response for PGR is generated-- "+response.asString());
         return response;
     }
+
+    public Response getReceivingModes() {
+
+        new APILogger().log("Get Different Receiving Modes For PGR is started-- ");
+        Response response = given().request().with()
+                .when()
+                .get(Properties.pgrReceivingModesUrl);
+
+        new APILogger().log("Receiving Modes For PGR is Response is generated-- "+response.asString());
+        return response;
+    }
 }

@@ -6,6 +6,7 @@ import java.util.Properties;
 
 public class PropertiesReader {
     private Properties prop = new Properties();
+    private String PGRReceivingModesUrl;
 
     public PropertiesReader() {
         try {
@@ -151,6 +152,10 @@ public class PropertiesReader {
 
     public String getUserCreateUrl() {
         return prop.getProperty("userCreateUrl");
+    }
+
+    public String getPGRReceivingModesUrl() {
+        return prop.getProperty("pgrReceivingModes");
     }
 }
 
