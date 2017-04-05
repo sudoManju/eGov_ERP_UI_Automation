@@ -79,7 +79,7 @@ public class CouncilManagementPage extends BasePage {
     @FindBy(xpath = ".//*[@id='showModal']")
     private WebElement resolutionComment;
 
-    @FindBy(id = "resolutionStatus")
+    @FindBy(id = "meetingMOMs0.resolutionStatus")
     private WebElement resolutionStatusSelect;
 
     @FindBy(id = "buttonFinalSubmit")

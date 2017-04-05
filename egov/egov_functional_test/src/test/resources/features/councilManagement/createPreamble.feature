@@ -25,7 +25,7 @@ Feature: create preamble
 
     # Create Agenda #
 
-    Given creator logs in
+    Given councilClerk logs in
     And user will select the required screen as "Create Agenda"
     And he choose to create agenda for the above preamble
     And he enters create agenda details as <committee>
