@@ -112,6 +112,7 @@ public class JournalVoucherDetailsPage extends FinancialPage {
     private void enterVoucherAccountDetails(FinancialJournalVoucherDetails financialJournalVoucherDetails) {
 
         enterText(accountCode1, financialJournalVoucherDetails.getAccountCode1(), webDriver);
+        checkAccountCode1DataIsLoadedOrNot(financialJournalVoucherDetails.getAccountCode1());
         clickOnButton(accountCodeDropdown, webDriver);
         enterText(debitAmount1, financialJournalVoucherDetails.getDebitAmount1(), webDriver);
 
@@ -131,6 +132,13 @@ public class JournalVoucherDetailsPage extends FinancialPage {
             clickOnButton(accountCodeDropdown, webDriver);
             enterText(creditAmount3, financialJournalVoucherDetails.getCreditAmount3(), webDriver);
             m1.put(financialJournalVoucherDetails.getAccountCode3(), financialJournalVoucherDetails.getCreditAmount3());
+        }
+    }
+
+    private void checkAccountCode1DataIsLoadedOrNot(String accountCode) {
+        if (webDriver.findElements(By.className("yui-ac-highlight")).size() == 0){
+            accountCode1.clear();
+            enterText(accountCode1, accountCode, webDriver);
         }
     }
 

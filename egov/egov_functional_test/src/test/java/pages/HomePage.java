@@ -17,19 +17,13 @@ public class HomePage extends BasePage {
     @FindBy(id = "j_password")
     private WebElement passwordTextBox;
 
-    @FindBy(id = "signin-action")
-    private WebElement signInButton;
-
     @FindBy(id = "locationId")
     private WebElement locationSelection;
 
     @FindBy(css = ".form-control.style-form.valid")
     private WebElement zoneSelect;
 
-    @FindBy(xpath = "html/body/div[1]/header/nav/div/div[1]/a/img")
-    private WebElement logo;
-
-    @FindBy(css = ".dropdown-toggle")
+    @FindBy(className= "profile-name")
     private WebElement profileLink;
 
     @FindBy(linkText = "Sign out")
@@ -50,9 +44,10 @@ public class HomePage extends BasePage {
             e.printStackTrace();
         }
 //        }
-        WebElement signForm = driver.findElement(By.id("signform"));
+        WebElement signForm = driver.findElement(By.id("signin-action"));
         waitForElementToBeClickable(signForm, driver);
-        signForm.submit();
+        clickOnButton(signForm , driver);
+//        signForm.submit();
     }
 
     public void visitWebsite() {
