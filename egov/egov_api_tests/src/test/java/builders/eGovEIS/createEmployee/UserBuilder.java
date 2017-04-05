@@ -2,6 +2,7 @@ package builders.eGovEIS.createEmployee;
 
 import entities.requests.eGovEIS.createEmployee.Roles;
 import entities.requests.eGovEIS.createEmployee.User;
+import org.apache.commons.lang3.RandomUtils;
 
 public final class UserBuilder {
     User user = new User();
@@ -15,7 +16,7 @@ public final class UserBuilder {
             .withLastModifiedBy(1).withLastModifiedDate("01/01/2017").build();
 
     public UserBuilder() {
-        user.setUserName("");
+        user.setUserName("User12"+get3DigitRandomInt());
         user.setPassword("eGov@123");
         user.setSalutation("Mr");
         user.setName("ABCD");
@@ -50,6 +51,10 @@ public final class UserBuilder {
         user.setRoles(roles);
     }
 
+    protected String get3DigitRandomInt() {
+        return String.valueOf((RandomUtils.nextInt(100, 999)));
+    }
+
     public UserBuilder withUsername(String username) {
         user.setUserName(username);
         return this;
@@ -59,4 +64,3 @@ public final class UserBuilder {
         return user;
     }
 }
-

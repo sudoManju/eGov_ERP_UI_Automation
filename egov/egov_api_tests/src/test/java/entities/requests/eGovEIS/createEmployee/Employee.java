@@ -1,32 +1,32 @@
 package entities.requests.eGovEIS.createEmployee;
 
 public class Employee {
-    private String tenantId;
-    private String motherTongue;
+    private int tenantId;
+    private int motherTongue;
     private String gpfNo;
     private String passportNo;
-    private String recruitmentType;
+    private int recruitmentType;
     private String retirementAge;
-    private String employeeStatus;
+    private int employeeStatus;
     private String maritalStatus;
-    private String physicallyDisabled;
-    private String recruitmentQuota;
-    private String religion;
+    private boolean physicallyDisabled;
+    private int recruitmentQuota;
+    private int religion;
     private String dateOfJoining;
     private String bank;
     private String dateOfResignation;
-    private String employeeType;
+    private int employeeType;
     private String placeOfBirth;
-    private String medicalReportProduced;
+    private boolean medicalReportProduced;
     private String dateOfTermination;
-    private String community;
+    private int community;
     private String dateOfRetirement;
-    private String category;
-    private String recruitmentMode;
-    private String group;
+    private int category;
+    private int recruitmentMode;
+    private int group;
     private String dateOfAppointment;
     private String bankAccount;
-    private String bankBranch;
+    private int bankBranch;
 
     private Test[] test;
     private Technical[] technical;
@@ -39,19 +39,19 @@ public class Employee {
     private int[] languagesKnown;
     private int[] jurisdictions;
 
-    public String getTenantId() {
+    public int getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(String tenantId) {
+    public void setTenantId(int tenantId) {
         this.tenantId = tenantId;
     }
 
-    public String getMotherTongue() {
+    public int getMotherTongue() {
         return motherTongue;
     }
 
-    public void setMotherTongue(String motherTongue) {
+    public void setMotherTongue(int motherTongue) {
         this.motherTongue = motherTongue;
     }
 
@@ -71,11 +71,11 @@ public class Employee {
         this.passportNo = passportNo;
     }
 
-    public String getRecruitmentType() {
+    public int getRecruitmentType() {
         return recruitmentType;
     }
 
-    public void setRecruitmentType(String recruitmentType) {
+    public void setRecruitmentType(int recruitmentType) {
         this.recruitmentType = recruitmentType;
     }
 
@@ -103,11 +103,11 @@ public class Employee {
         this.retirementAge = retirementAge;
     }
 
-    public String getEmployeeStatus() {
+    public int getEmployeeStatus() {
         return employeeStatus;
     }
 
-    public void setEmployeeStatus(String employeeStatus) {
+    public void setEmployeeStatus(int employeeStatus) {
         this.employeeStatus = employeeStatus;
     }
 
@@ -143,27 +143,25 @@ public class Employee {
         this.probation = probation;
     }
 
-    public String getPhysicallyDisabled() {
+    public boolean getPhysicallyDisabled() {
         return physicallyDisabled;
     }
 
-    public void setPhysicallyDisabled(String physicallyDisabled) {
+    public void setPhysicallyDisabled(boolean physicallyDisabled) {
         this.physicallyDisabled = physicallyDisabled;
     }
 
-    public String getRecruitmentQuota() {
+    public int getRecruitmentQuota() {
         return recruitmentQuota;
     }
 
-    public void setRecruitmentQuota(String recruitmentQuota) {
+    public void setRecruitmentQuota(int recruitmentQuota) {
         this.recruitmentQuota = recruitmentQuota;
     }
 
-    public String getReligion() {
-        return religion;
-    }
+    public int getReligion() { return religion; }
 
-    public void setReligion(String religion) {
+    public void setReligion(int religion) {
         this.religion = religion;
     }
 
@@ -199,11 +197,11 @@ public class Employee {
         this.dateOfResignation = dateOfResignation;
     }
 
-    public String getEmployeeType() {
+    public int getEmployeeType() {
         return employeeType;
     }
 
-    public void setEmployeeType(String employeeType) {
+    public void setEmployeeType(int employeeType) {
         this.employeeType = employeeType;
     }
 
@@ -215,11 +213,11 @@ public class Employee {
         this.placeOfBirth = placeOfBirth;
     }
 
-    public String getMedicalReportProduced() {
+    public boolean getMedicalReportProduced() {
         return medicalReportProduced;
     }
 
-    public void setMedicalReportProduced(String medicalReportProduced) {
+    public void setMedicalReportProduced(boolean medicalReportProduced) {
         this.medicalReportProduced = medicalReportProduced;
     }
 
@@ -231,11 +229,11 @@ public class Employee {
         this.dateOfTermination = dateOfTermination;
     }
 
-    public String getCommunity() {
+    public int getCommunity() {
         return community;
     }
 
-    public void setCommunity(String community) {
+    public void setCommunity(int community) {
         this.community = community;
     }
 
@@ -271,29 +269,27 @@ public class Employee {
         this.dateOfRetirement = dateOfRetirement;
     }
 
-    public String getCategory() {
+    public int getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(int category) {
         this.category = category;
     }
 
-    public String getRecruitmentMode() {
+    public int getRecruitmentMode() {
         return recruitmentMode;
     }
 
-    public void setRecruitmentMode(String recruitmentMode) {
+    public void setRecruitmentMode(int recruitmentMode) {
         this.recruitmentMode = recruitmentMode;
     }
 
-    public String getGroup() {
+    public int getGroup() {
         return group;
     }
 
-    public void setGroup(String group) {
-        this.group = group;
-    }
+    public void setGroup(int group) { this.group = group; }
 
     public String getDateOfAppointment() {
         return dateOfAppointment;
@@ -319,11 +315,11 @@ public class Employee {
         this.bankAccount = bankAccount;
     }
 
-    public String getBankBranch() {
+    public int getBankBranch() {
         return bankBranch;
     }
 
-    public void setBankBranch(String bankBranch) {
+    public void setBankBranch(int bankBranch) {
         this.bankBranch = bankBranch;
     }
 }

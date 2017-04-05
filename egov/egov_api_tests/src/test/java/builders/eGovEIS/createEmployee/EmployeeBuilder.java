@@ -32,64 +32,73 @@ public final class EmployeeBuilder {
     ServiceHistory[] serviceHistories = new ServiceHistory[1];
 
     public EmployeeBuilder() {
-        employee.setTenantId("1");
-        employee.setMotherTongue("5");
+        employee.setTenantId(1);
+        employee.setMotherTongue(5);
         employee.setGpfNo("12" + get3DigitRandomInt());
         employee.setPassportNo("IND12" + get3DigitRandomInt());
-        employee.setRecruitmentType("1");
-        int a[] = {1};
-        employee.setJurisdictions(a);
-        tests[0] = test1;
-        employee.setTest(tests);
-        employee.setRetirementAge("45");
-        employee.setEmployeeStatus("1");
-        technicals[0] = technical1;
-        employee.setTechnical(technicals);
-        educations[0] = education1;
-        employee.setEducation(educations);
+        employee.setRecruitmentType(1);
         employee.setMaritalStatus("UNMARRIED");
-        probations[0] = probation1;
-        employee.setProbation(probations);
-        employee.setPhysicallyDisabled("false");
-        employee.setRecruitmentQuota("1");
-        employee.setReligion("1");
-        int b[] = {1, 3, 5};
-        employee.setLanguagesKnown(b);
+        employee.setRetirementAge("45");
+        employee.setEmployeeStatus(1);
+        employee.setPhysicallyDisabled(false);
+        employee.setRecruitmentQuota(1);
+        employee.setReligion(1);
         employee.setDateOfJoining("17/10/2017");
         employee.setBank("21");
         employee.setDateOfResignation("17/09/2022");
-        employee.setEmployeeType("3");
+        employee.setEmployeeType(3);
         employee.setPlaceOfBirth("Bengaluru");
-        employee.setMedicalReportProduced("false");
+        employee.setMedicalReportProduced(false);
         employee.setDateOfTermination("17/09/2022");
-        employee.setCommunity("6");
+        employee.setCommunity(6);
+        employee.setDateOfRetirement("17/09/2022");
+        employee.setCategory(3);
+        employee.setRecruitmentMode(1);
+        employee.setGroup(33);
+        employee.setDateOfAppointment("17/10/2017");
+        employee.setBankAccount("987456");
+        employee.setBankBranch(30);
+
+        int a[] = {1};
+        employee.setJurisdictions(a);
+
+        tests[0] = test1;
+        employee.setTest(tests);
+        technicals[0] = technical1;
+        employee.setTechnical(technicals);
+
+        educations[0] = education1;
+        employee.setEducation(educations);
+
+        probations[0] = probation1;
+        employee.setProbation(probations);
+
+        int b[] = {1, 3, 5};
+        employee.setLanguagesKnown(b);
+
         serviceHistories[0] = serviceHistory1;
         employee.setServiceHistory(serviceHistories);
+
         assignmentss[0] = assignments1;
         employee.setAssignments(assignmentss);
+
         regularisations[0] = regularisation1;
         employee.setRegularisation(regularisations);
-        employee.setDateOfRetirement("17/09/2022");
-        employee.setCategory("3");
-        employee.setRecruitmentMode("1");
-        employee.setGroup("33");
-        employee.setDateOfAppointment("17/10/2017");
+
         users[0] = user1;
         employee.setUser(users);
-        employee.setBankAccount("987456");
-        employee.setBankBranch("30");
     }
 
     protected String get3DigitRandomInt() {
         return String.valueOf((RandomUtils.nextInt(100, 999)));
     }
 
-    public EmployeeBuilder withTenantId(String tenantId) {
+    public EmployeeBuilder withTenantId(int tenantId) {
         employee.setTenantId(tenantId);
         return this;
     }
 
-    public EmployeeBuilder withMotherTongue(String motherTongue) {
+    public EmployeeBuilder withMotherTongue(int motherTongue) {
         employee.setMotherTongue(motherTongue);
         return this;
     }
@@ -104,7 +113,7 @@ public final class EmployeeBuilder {
         return this;
     }
 
-    public EmployeeBuilder withRecruitmentType(String recruitmentType) {
+    public EmployeeBuilder withRecruitmentType(int recruitmentType) {
         employee.setRecruitmentType(recruitmentType);
         return this;
     }
@@ -124,7 +133,7 @@ public final class EmployeeBuilder {
         return this;
     }
 
-    public EmployeeBuilder withEmployeeStatus(String employeeStatus) {
+    public EmployeeBuilder withEmployeeStatus(int employeeStatus) {
         employee.setEmployeeStatus(employeeStatus);
         return this;
     }
@@ -149,17 +158,17 @@ public final class EmployeeBuilder {
         return this;
     }
 
-    public EmployeeBuilder withPhysicallyDisabled(String physicallyDisabled) {
+    public EmployeeBuilder withPhysicallyDisabled(boolean physicallyDisabled) {
         employee.setPhysicallyDisabled(physicallyDisabled);
         return this;
     }
 
-    public EmployeeBuilder withRecruitmentQuota(String recruitmentQuota) {
+    public EmployeeBuilder withRecruitmentQuota(int recruitmentQuota) {
         employee.setRecruitmentQuota(recruitmentQuota);
         return this;
     }
 
-    public EmployeeBuilder withReligion(String religion) {
+    public EmployeeBuilder withReligion(int religion) {
         employee.setReligion(religion);
         return this;
     }
@@ -184,7 +193,7 @@ public final class EmployeeBuilder {
         return this;
     }
 
-    public EmployeeBuilder withEmployeeType(String employeeType) {
+    public EmployeeBuilder withEmployeeType(int employeeType) {
         employee.setEmployeeType(employeeType);
         return this;
     }
@@ -194,7 +203,7 @@ public final class EmployeeBuilder {
         return this;
     }
 
-    public EmployeeBuilder withMedicalReportProduced(String medicalReportProduced) {
+    public EmployeeBuilder withMedicalReportProduced(boolean medicalReportProduced) {
         employee.setMedicalReportProduced(medicalReportProduced);
         return this;
     }
@@ -204,7 +213,7 @@ public final class EmployeeBuilder {
         return this;
     }
 
-    public EmployeeBuilder withCommunity(String community) {
+    public EmployeeBuilder withCommunity(int community) {
         employee.setCommunity(community);
         return this;
     }
@@ -229,17 +238,17 @@ public final class EmployeeBuilder {
         return this;
     }
 
-    public EmployeeBuilder withCategory(String category) {
+    public EmployeeBuilder withCategory(int category) {
         employee.setCategory(category);
         return this;
     }
 
-    public EmployeeBuilder withRecruitmentMode(String recruitmentMode) {
+    public EmployeeBuilder withRecruitmentMode(int recruitmentMode) {
         employee.setRecruitmentMode(recruitmentMode);
         return this;
     }
 
-    public EmployeeBuilder withGroup(String group) {
+    public EmployeeBuilder withGroup(int group) {
         employee.setGroup(group);
         return this;
     }
@@ -259,7 +268,7 @@ public final class EmployeeBuilder {
         return this;
     }
 
-    public EmployeeBuilder withBankBranch(String bankBranch) {
+    public EmployeeBuilder withBankBranch(int bankBranch) {
         employee.setBankBranch(bankBranch);
         return this;
     }
