@@ -9,8 +9,6 @@ public final class UserDetailsForSearchRequestBuilder {
     RequestInfo requestInfo = new RequestInfoBuilder().build();
 
     public UserDetailsForSearchRequestBuilder() {
-        int a[] = {1};
-        userDetailsForSearchRequest.setId(a);
         userDetailsForSearchRequest.setRequestInfo(requestInfo);
     }
 
@@ -21,6 +19,11 @@ public final class UserDetailsForSearchRequestBuilder {
 
     public UserDetailsForSearchRequestBuilder withRequestInfo(RequestInfo requestInfo1) {
         userDetailsForSearchRequest.setRequestInfo(requestInfo1);
+        return this;
+    }
+
+    public UserDetailsForSearchRequestBuilder withUserName(String userName){
+        userDetailsForSearchRequest.setUserName(userName);
         return this;
     }
 

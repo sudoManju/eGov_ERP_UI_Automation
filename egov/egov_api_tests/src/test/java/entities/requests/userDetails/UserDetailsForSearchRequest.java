@@ -5,6 +5,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 public class UserDetailsForSearchRequest {
 
     private int[] id;
+    private String userName;
 
     @JsonProperty("RequestInfo")
     private RequestInfo requestInfo;
@@ -23,5 +24,13 @@ public class UserDetailsForSearchRequest {
 
     public void setId(int[] id) {
         this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

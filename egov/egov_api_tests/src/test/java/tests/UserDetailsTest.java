@@ -30,17 +30,33 @@ public class UserDetailsTest extends BaseAPITest {
         // Create a user
         UserDetailsResponse userDetailsResponse = CreateAUserTest(loginResponse);
 
-        // Get User Details Test
-        userDetailsTestMethod(loginResponse, userDetailsResponse);
+        // Get User Details Test with Id
+        searchUserTestMethod(loginResponse, userDetailsResponse, "Id");
+
+        //Get User Details Test with UserName
+        searchUserTestMethod(loginResponse, userDetailsResponse, "UserName");
     }
 
-    private void userDetailsTestMethod(LoginResponse loginResponse, UserDetailsResponse userDetailsResponse) throws IOException {
-        int a[] = {userDetailsResponse.getUser()[0].getId()};
+    private void searchUserTestMethod(LoginResponse loginResponse, UserDetailsResponse userDetailsResponse,String searchType) throws IOException {
 
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
+        UserDetailsForSearchRequest userDetailsForSearchRequest = new UserDetailsForSearchRequest();
 
-        UserDetailsForSearchRequest userDetailsForSearchRequest = new
-                UserDetailsForSearchRequestBuilder().withId(a).withRequestInfo(requestInfo).build();
+        switch (searchType){
+            case "Id" :
+                int a[] = {userDetailsResponse.getUser()[0].getId()};
+                 userDetailsForSearchRequest = new
+                         UserDetailsForSearchRequestBuilder().withId(a).withRequestInfo(requestInfo).build();
+
+                break;
+            case "UserName" :
+                userDetailsForSearchRequest = new
+                        UserDetailsForSearchRequestBuilder().withUserName(userDetailsResponse.getUser()[0].getUserName())
+                        .withRequestInfo(requestInfo).build();
+
+                break;
+        }
+
 
         String jsonString = RequestHelper.getJsonString(userDetailsForSearchRequest);
 
@@ -50,9 +66,18 @@ public class UserDetailsTest extends BaseAPITest {
                 ResponseHelper.getResponseAsObject(response.asString(), UserDetailsResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals(userDetailsResponse1.getUser()[0].getUserName(), userDetailsResponse.getUser()[0].getUserName());
 
-        new APILogger().log("User Details Request For Search is Completed --");
+        boolean isSame = false;
+
+        for(int i=0;i<userDetailsResponse1.getUser().length;i++){
+            if(userDetailsResponse.getUser()[0].getUserName().equals(userDetailsResponse1.getUser()[i].getUserName())){
+                isSame = true;
+            }
+        }
+
+        Assert.assertTrue(isSame);
+
+        new APILogger().log("User Details Request For Search with "+ searchType+" is Completed --");
     }
 
 

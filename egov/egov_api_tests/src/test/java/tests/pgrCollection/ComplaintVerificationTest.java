@@ -32,16 +32,13 @@ public class ComplaintVerificationTest extends BaseAPITest {
         ComplaintResponse complaintResponse = createComplaintInPGR();
 
         // Get Complaint
-        GetPGRComplaintResponse getPgrComplaintResponse =
-                getComplaintInPGR(complaintResponse.getService_requests()[0].getService_request_id());
+        getComplaintInPGR(complaintResponse.getService_requests()[0].getService_request_id());
 
         // Update Complaint
-        UpdateAndCloseComplaintInPGRResponse updateAndCloseComplaintInPGRResponse =
-                updateComplaintInPGR(complaintResponse.getService_requests()[0].getService_request_id());
+        updateComplaintInPGR(complaintResponse.getService_requests()[0].getService_request_id());
 
         //Close Complaint
-        UpdateAndCloseComplaintInPGRResponse updateAndCloseComplaintInPGRResponse1 =
-                closeComplaintInPGR(complaintResponse.getService_requests()[0].getService_request_id());
+        closeComplaintInPGR(complaintResponse.getService_requests()[0].getService_request_id());
 
         // Logout Test
         LoginAndLogoutHelper.logout(loginResponse);
