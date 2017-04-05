@@ -40,11 +40,26 @@ public class DataEntryAcknowledgementPage extends BasePage {
     @FindBy(name = "demandDetailBeanList[3].actualAmount")
     private WebElement unauthorizedPenaltyTextBox;
 
+    @FindBy(name = "demandDetailBeanList[4].installment.id")
+    private WebElement secondInstallmentDropBox;
+
+    @FindBy(name = "demandDetailBeanList[4].actualAmount")
+    private WebElement secondGeneralTaxTextBox;
+    @FindBy(name = "demandDetailBeanList[5].actualAmount")
+    private WebElement secondLibraryCessTextBox;
+    @FindBy(name = "demandDetailBeanList[6].actualAmount")
+    private WebElement secondEducationCessTextBox;
+    @FindBy(name = "demandDetailBeanList[7].actualAmount")
+    private WebElement secondUnauthorizedPenaltyTextBox;
+
     @FindBy(id = "remarks")
     private WebElement remarksTextArea;
 
     @FindBy(id = "addDemand-update_Update")
     private WebElement updateButton;
+
+    @FindBy(id = "addInstallment")
+    private WebElement addEditDemandButton;
 
     public DataEntryAcknowledgementPage(WebDriver driver) {
         this.driver = driver;
@@ -73,12 +88,19 @@ public class DataEntryAcknowledgementPage extends BasePage {
     }
 
     public void enterAddDemandDetails() {
-        selectFromDropDown(installmentDropBox, "2016-2017-2", driver);
+        selectFromDropDown(installmentDropBox, "2017-2018-1", driver);
         enterText(generalTaxTextBox, "300", driver);
         enterText(libraryCessTextBox, "200", driver);
         enterText(educationCessTextBox, "100", driver);
-        enterText(unauthorizedPenaltyTextBox, "100", driver);
-        enterText(remarksTextArea, "Added 2016-17-2 Demand", driver);
+        enterText(unauthorizedPenaltyTextBox, "50", driver);
+        clickOnButton(addEditDemandButton, driver);
+        selectFromDropDown(secondInstallmentDropBox, "2017-2018-2", driver);
+        enterText(secondGeneralTaxTextBox, "350", driver);
+        enterText(secondLibraryCessTextBox, "250", driver);
+        enterText(secondEducationCessTextBox, "150", driver);
+        enterText(secondUnauthorizedPenaltyTextBox, "100", driver);
+
+        enterText(remarksTextArea, "Added 2017-18 Demand", driver);
         clickOnButton(updateButton, driver);
     }
 }
