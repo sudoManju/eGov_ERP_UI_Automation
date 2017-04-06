@@ -50,7 +50,7 @@ Feature: Create regular estimate/Create LOA for estimate/Create-Track milestone/
       | Estimate_1            | EstimateFinancial_1 | EstimateWork_1 | deputyExecutiveEngineer | SuperIntendent   | commissioner1    | assis_Engineer   |
       | Estimate_2            | EstimateFinancial_2 | EstimateWork_2 | deputyExecutiveEngineer | SuperIntendent   | commissioner1    | assis_Engineer   |
 
-  @Works @Sanity
+  @Works
   Scenario Outline: Create Letter of Acceptance/ Create,Track Milestone/Generate Contractor Bill
 
     When assis_Engineer logs in
