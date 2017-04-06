@@ -199,6 +199,7 @@ public class FinancialPage extends BasePage {
         Select approverPos = new Select(approverPosition);
         approverPosition.click();
         await().atMost(10, SECONDS).until(() -> approverPos.getOptions().size() > 1);
+        checkApprovalPositionIsLoadedOrNot(approverPosition);
 
         if (approverPos.getOptions().get(1).getText().split("\\ ")[0].length() == 1) {
             userName = approverPos.getOptions().get(1).getText().split("\\ ")[0] + " " + approverPos.getOptions().get(1).getText().split("\\ ")[1];
@@ -211,6 +212,13 @@ public class FinancialPage extends BasePage {
 
         isAlertOpened();
         return userName;
+    }
+
+    private void checkApprovalPositionIsLoadedOrNot(WebElement element) {
+        if(element.getText().equals(null)){
+            clickOnButton(element , webDriver);
+            clickOnButton(element , webDriver);
+        }
     }
 
     public String closePage() {

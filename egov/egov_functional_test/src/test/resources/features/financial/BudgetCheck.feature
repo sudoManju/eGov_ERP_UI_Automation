@@ -8,7 +8,7 @@ Feature: To create a new Journal voucher according to the budget check
     And officer will enter the journal voucher details as <voucherDetails> with subledger <isPresent>
     And officer will enter the approval details as <approvalOfficer1>
     And officer will get successful BAN NUMBER created and closes it
-    Then user will be notified by "Budgetary"
+    Then user will be notified by "Sucessfully"
     And current user logs out
 
 #    And accountsOfficer logs in

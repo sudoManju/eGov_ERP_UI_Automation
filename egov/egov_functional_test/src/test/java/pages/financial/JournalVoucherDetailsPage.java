@@ -173,29 +173,6 @@ public class JournalVoucherDetailsPage extends FinancialPage {
                     webDriver.findElements(By.id("egov_yui_add_image")).get(webDriver.findElements(By.id("egov_yui_add_image")).size() - 1).click();
                 }
             }
-
-//            selectFromDropDown(ledgerAccount1, webElementList.get(1).getText(), webDriver);
-//            selectFromDropDown(ledgerType1, financialJournalVoucherDetails.getLedgerType1(), webDriver);
-//
-//            enterText(ledgerCode1, financialJournalVoucherDetails.getLedgerCode1(), webDriver);
-//            clickOnButton(accountCodeDropdown, webDriver);
-//            enterText(ledgerAmount1, financialJournalVoucherDetails.getLedgerAmount1(), webDriver);
-//
-//            if (webElementList.size() > 2) {
-//
-//                if (webDriver.findElements(By.id("egov_yui_add_image")).get(2).isDisplayed()) {
-//                    clickOnButton(addList.get(2), webDriver);
-//                } else if (webDriver.findElements(By.id("egov_yui_add_image")).get(4).isDisplayed()) {
-//                    clickOnButton(addList.get(4), webDriver);
-//                }
-//
-//                selectFromDropDown(ledgerAccount2, webElementList.get(2).getText(), webDriver);
-//                selectFromDropDown(ledgerType2, financialJournalVoucherDetails.getLedgerType2(), webDriver);
-//
-//                enterText(ledgerCode2, financialJournalVoucherDetails.getLedgerCode2(), webDriver);
-//                clickOnButton(accountCodeDropdown, webDriver);
-//                enterText(ledgerAmount2, financialJournalVoucherDetails.getLedgerAmount2(), webDriver);
-//            }
         }
     }
 
