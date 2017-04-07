@@ -1,28 +1,36 @@
-package entities.requests.eGovEIS.createEmployee;
+package entities.requests.eGovEIS.Employee;
 
-public class Technical {
-    private String yearOfPassing;
-    private String createdBy;
+public class Technical
+{
+    private int yearOfPassing;
+
+    private int createdBy;
+
     private String skill;
-    private String lastModifiedBy;
+
+    private int lastModifiedBy;
+
     private String lastModifiedDate;
+
     private String grade;
+
     private String remarks;
+
     private String createdDate;
 
-    public String getYearOfPassing() {
+    public int getYearOfPassing() {
         return yearOfPassing;
     }
 
-    public void setYearOfPassing(String yearOfPassing) {
+    public void setYearOfPassing(int yearOfPassing) {
         this.yearOfPassing = yearOfPassing;
     }
 
-    public String getCreatedBy() {
+    public int getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(int createdBy) {
         this.createdBy = createdBy;
     }
 
@@ -34,11 +42,11 @@ public class Technical {
         this.skill = skill;
     }
 
-    public String getLastModifiedBy() {
+    public int getLastModifiedBy() {
         return lastModifiedBy;
     }
 
-    public void setLastModifiedBy(String lastModifiedBy) {
+    public void setLastModifiedBy(int lastModifiedBy) {
         this.lastModifiedBy = lastModifiedBy;
     }
 

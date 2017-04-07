@@ -1,6 +1,7 @@
-package entities.requests.eGovEIS.createEmployee;
+package entities.requests.eGovEIS.Employee;
 
-public class User {
+public class User
+{
     private String correspondenceAddress;
 
     private String bloodGroup;
@@ -9,7 +10,7 @@ public class User {
 
     private String locale;
 
-    private String permanentPincode;
+    private String  permanentPincode;
 
     private String type;
 
@@ -43,7 +44,7 @@ public class User {
 
     private String fatherOrHusbandName;
 
-    private String createdBy;
+    private int createdBy;
 
     private String aadhaarNumber;
 
@@ -51,7 +52,7 @@ public class User {
 
     private Roles[] roles;
 
-    private String lastModifiedBy;
+    private int lastModifiedBy;
 
     private String lastModifiedDate;
 
@@ -231,11 +232,11 @@ public class User {
         this.fatherOrHusbandName = fatherOrHusbandName;
     }
 
-    public String getCreatedBy() {
+    public int getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(int createdBy) {
         this.createdBy = createdBy;
     }
 
@@ -263,11 +264,11 @@ public class User {
         this.roles = roles;
     }
 
-    public String getLastModifiedBy() {
+    public int getLastModifiedBy() {
         return lastModifiedBy;
     }
 
-    public void setLastModifiedBy(String lastModifiedBy) {
+    public void setLastModifiedBy(int lastModifiedBy) {
         this.lastModifiedBy = lastModifiedBy;
     }
 

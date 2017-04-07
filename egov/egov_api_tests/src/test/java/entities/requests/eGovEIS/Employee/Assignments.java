@@ -1,23 +1,34 @@
-package entities.requests.eGovEIS.createEmployee;
+package entities.requests.eGovEIS.Employee;
 
-public class Assignments {
+public class Assignments
+{
     private int position;
-    private boolean isPrimary;
+
+    private Boolean isPrimary;
+
     private int department;
+
     private String govtOrderNumber;
+
     private int designation;
+
     private String toDate;
+
     private Hod[] hod;
+
     private int function;
+
     private int functionary;
+
     private int createdBy;
+
     private String fromDate;
-    private int lastModifiedBy;
-    private String lastModifiedDate;
-    private int grade;
-    private int fund;
-    private int employee;
-    private String createdDate;
+
+    public void setIsPrimary(Boolean isPrimary){
+        this.isPrimary = isPrimary;
+    }
+
+    public Boolean getIsPrimary(){return  isPrimary;}
 
     public int getPosition() {
         return position;
@@ -27,13 +38,6 @@ public class Assignments {
         this.position = position;
     }
 
-    public boolean getIsPrimary() {
-        return isPrimary;
-    }
-
-    public void setIsPrimary(boolean isPrimary) {
-        this.isPrimary = isPrimary;
-    }
 
     public int getDepartment() {
         return department;
@@ -154,4 +158,17 @@ public class Assignments {
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
     }
+
+    private int lastModifiedBy;
+
+    private String lastModifiedDate;
+
+    private int grade;
+
+    private int fund;
+
+    private int employee;
+
+    private String createdDate;
+
 }

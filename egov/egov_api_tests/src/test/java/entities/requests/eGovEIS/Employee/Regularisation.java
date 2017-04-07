@@ -1,14 +1,23 @@
-package entities.requests.eGovEIS.createEmployee;
+package entities.requests.eGovEIS.Employee;
 
-public class Probation {
+public class Regularisation
+{
     private String orderNo;
+
     private int createdBy;
+
     private String declaredOn;
+
     private String orderDate;
+
     private int lastModifiedBy;
+
     private int designation;
+
     private String lastModifiedDate;
+
     private String remarks;
+
     private String createdDate;
 
     public String getOrderNo() {

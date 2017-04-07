@@ -1,15 +1,18 @@
-package entities.requests.eGovEIS.createEmployee;
+package entities.requests.eGovEIS.Employee;
 
-public class Regularisation {
+public class Probation
+{
     private String orderNo;
+
     private int createdBy;
+
     private String declaredOn;
+
     private String orderDate;
+
     private int lastModifiedBy;
+
     private int designation;
-    private String lastModifiedDate;
-    private String remarks;
-    private String createdDate;
 
     public String getOrderNo() {
         return orderNo;
@@ -82,4 +85,12 @@ public class Regularisation {
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
     }
+
+    private String lastModifiedDate;
+
+    private String remarks;
+
+    private String createdDate;
+
+
 }

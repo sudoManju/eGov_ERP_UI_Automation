@@ -1,26 +1,32 @@
-package entities.requests.eGovEIS.createEmployee;
+package entities.requests.eGovEIS.Employee;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class CreateEmployeeRequest {
+public class CreateEmployeeRequest
+{
     @JsonProperty("RequestInfo")
     private RequestInfo RequestInfo;
+
     @JsonProperty("Employee")
     private Employee Employee;
 
-    public RequestInfo getRequestInfo() {
+    public RequestInfo getRequestInfo ()
+    {
         return RequestInfo;
     }
 
-    public void setRequestInfo(RequestInfo RequestInfo) {
+    public void setRequestInfo (RequestInfo RequestInfo)
+    {
         this.RequestInfo = RequestInfo;
     }
 
-    public Employee getEmployee() {
+    public Employee getEmployee ()
+    {
         return Employee;
     }
 
-    public void setEmployee(Employee Employee) {
+    public void setEmployee (Employee Employee)
+    {
         this.Employee = Employee;
     }
 }

@@ -1,13 +1,21 @@
-package entities.requests.eGovEIS.createEmployee;
+package entities.requests.eGovEIS.Employee;
 
-public class ServiceHistory {
+public class ServiceHistory
+{
     private String orderNo;
+
     private int createdBy;
+
     private String serviceFrom;
+
     private int lastModifiedBy;
+
     private String lastModifiedDate;
+
     private String remarks;
+
     private String createdDate;
+
     private String serviceInfo;
 
     public String getOrderNo() {

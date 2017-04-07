@@ -1,13 +1,21 @@
-package entities.requests.eGovEIS.createEmployee;
+package entities.requests.eGovEIS.Employee;
 
-public class Education {
+public class Education
+{
     private String university;
+
     private int yearOfPassing;
+
     private String qualification;
+
     private int createdBy;
+
     private String majorSubject;
+
     private int lastModifiedBy;
+
     private String lastModifiedDate;
+
     private String createdDate;
 
     public String getUniversity() {

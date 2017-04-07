@@ -1,6 +1,7 @@
 package tests;
 
 import com.jayway.restassured.RestAssured;
+import org.apache.commons.lang3.RandomUtils;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.BeforeMethod;
@@ -49,4 +50,10 @@ public class BaseAPITest {
 
         return finalDate;
     }
+
+    protected String get3DigitRandomInt() {
+        return String.valueOf((RandomUtils.nextInt(100, 999)));
+    }
+
+
 }
