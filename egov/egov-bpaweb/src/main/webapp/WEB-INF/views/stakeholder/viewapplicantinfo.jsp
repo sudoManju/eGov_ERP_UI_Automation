@@ -61,7 +61,23 @@
 			<c:out value="${stakeHolder.code}" default="N/A"></c:out>
 		</div>
 	</div>
-
+	
+	<div class="row add-border">
+		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.stakeholder.type" />
+		</div>
+		<div class="col-sm-3 add-margin view-content">
+			<c:out value="${stakeHolder.stakeHolderType}"></c:out>
+		</div>
+		<div class="row add-border">
+		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.isActive" />
+		</div>
+		<div class="col-sm-3 add-margin view-content">
+			<c:out value="${stakeHolder.isActive}"></c:out>
+		</div>
+	</div>
+	</div>
 
 	<div class="row add-border">
 		<div class="col-sm-3 add-margin">
@@ -79,14 +95,6 @@
 		</div>
 	</div>
 	
-	<div class="row add-border">
-		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.isActive" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${stakeHolder.isActive}"></c:out>
-		</div>
-	</div>
 	<c:forEach items="${stakeHolder.address}" var="address">
 		<div class="row add-border">
 			<div class="col-sm-3 add-margin">

@@ -56,12 +56,17 @@
 							data-pattern="alphanumeric" maxlength="100" />
 						<form:errors path="name" cssClass="error-msg" />
 					</div>
-					<label class="col-sm-2 control-label text-right"><spring:message
-							code="lbl.tin.no" /></label>
+					<label class="col-sm-2 control-label text-right"><spring:message code="lbl.stakeholder.type" /></label>
 					<div class="col-sm-3 add-margin">
-						<form:input type="text" cssClass="form-control" path="tinNumber"
-							id="tinNumber" />
-						<form:errors path="tinNumber" cssClass="error-msg" />
+						<form:select path="stakeHolderType"
+							id="stakeHolderType" cssClass="form-control">
+							<form:option value="">
+								<spring:message code="lbl.select" />
+							</form:option>
+							<form:options items="${stakeHolderTypeList}" />
+						</form:select>
+						<form:errors path="stakeHolderType"
+							cssClass="add-margin error-msg" />
 					</div>
 				</div>
 
@@ -80,7 +85,6 @@
 							path="coaEnrolmentNumber" id="coaEnrolmentNo" />
 						<form:errors path="coaEnrolmentNumber" cssClass="error-msg" />
 					</div>
-
 				</div>
 
 				<div class="form-group">
@@ -98,6 +102,15 @@
 						<form:input type="text" cssClass="form-control" path="pan"
 							id="panNumber" maxlength="10" />
 						<form:errors path="pan" cssClass="error-msg" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label text-right"><spring:message
+							code="lbl.tin.no" /></label>
+					<div class="col-sm-3 add-margin">
+						<form:input type="text" cssClass="form-control" path="tinNumber"
+							id="tinNumber" />
+						<form:errors path="tinNumber" cssClass="error-msg" />
 					</div>
 				</div>
 			</div>

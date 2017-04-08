@@ -172,26 +172,29 @@ public class StakeHolderService {
     public Criteria buildSearchCriteria(final StakeHolder stakeHolder) {
         final Criteria criteria = getCurrentSession().createCriteria(StakeHolder.class, "stakeHolder");
 
-        if (stakeHolder.getName() != null)
+        if (stakeHolder.getName() != null) {
             criteria.add(Restrictions.ilike("stakeHolder.name", stakeHolder.getName(),
                     MatchMode.ANYWHERE));
-
-        if (stakeHolder.getAadhaarNumber() != null)
+        }
+        if (stakeHolder.getStakeHolderType() != null) {
+            criteria.add(Restrictions.eq("stakeHolder.stakeHolderType", stakeHolder.getStakeHolderType()));
+        }
+        if (stakeHolder.getAadhaarNumber() != null) {
             criteria.add(Restrictions.ilike("stakeHolder.aadhaarNumber", stakeHolder.getAadhaarNumber(),
                     MatchMode.ANYWHERE));
-
-        if (stakeHolder.getPan() != null)
+        }
+        if (stakeHolder.getPan() != null) {
             criteria.add(Restrictions.ilike("stakeHolder.pan", stakeHolder.getPan(),
                     MatchMode.ANYWHERE));
-
-        if (stakeHolder.getBusinessLicenceNumber() != null)
+        }
+        if (stakeHolder.getBusinessLicenceNumber() != null) {
             criteria.add(Restrictions.ilike("stakeHolder.businessLicenceNumber", stakeHolder.getBusinessLicenceNumber(),
                     MatchMode.ANYWHERE));
-
-        if (stakeHolder.getCoaEnrolmentNumber() != null)
+        }
+        if (stakeHolder.getCoaEnrolmentNumber() != null) {
             criteria.add(Restrictions.ilike("stakeHolder.coaEnrolmentNumber", stakeHolder.getCoaEnrolmentNumber(),
                     MatchMode.ANYWHERE));
-
+        }
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         return criteria;
     }

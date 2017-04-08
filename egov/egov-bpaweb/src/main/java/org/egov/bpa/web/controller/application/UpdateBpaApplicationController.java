@@ -51,9 +51,13 @@ import org.egov.bpa.application.service.BpaAppointmentScheduleService;
 import org.egov.bpa.masters.service.StakeHolderService;
 import org.egov.bpa.utils.BPASmsAndEmailService;
 import org.egov.bpa.utils.BpaConstants;
+import org.egov.eis.service.PositionMasterService;
 import org.egov.eis.web.contract.WorkflowContainer;
 import org.egov.infra.security.utils.SecurityUtils;
+import org.egov.pims.commons.Position;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -69,6 +73,22 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping(value = "/application")
 public class UpdateBpaApplicationController extends BpaGenericApplicationController {
     
+    private static final String BPA_APPLICATION = "bpaApplication";
+
+    private static final String MESSAGE = "message";
+
+    private static final String APPLICATION_NUMBER = "applicationNumber";
+
+    private static final String CREATEDOCUMENTSCRUTINY_FORM = "createdocumentscrutiny-form";
+
+    private static final String DOCUMENTSCRUTINY_FORM = "documentscrutiny-form";
+
+    private static final String VIEWAPPLICATION_FORM = "viewapplication-form";
+
+    private static final String BPAAPPLICATION_FORM = "bpaapplication-Form";
+
+    private static final String BPA_APPLICATION_RESULT = "bpa-application-result";
+
     private static final String REDIRECT_APPLICATION_VIEW_APPOINTMENT = "redirect:/application/view-appointment/";
 
     private static final String RESCHEDULE_APPIONTMENT = "reschedule-appiontment";
@@ -92,6 +112,10 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
     private BPASmsAndEmailService bpaSmsAndEmailService;
     @Autowired
     private StakeHolderService stakeHolderService;
+    @Autowired
+    private PositionMasterService positionMasterService;
+    @Autowired
+    protected ResourceBundleMessageSource messageSource;
     
     @ModelAttribute
     public BpaApplication getBpaApplication(@PathVariable final String applicationNumber) {
@@ -119,10 +143,10 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
             loadViewdata(model, application);
             if (application.getState() != null
                     && application.getState().getValue().equalsIgnoreCase(BpaConstants.BPA_STATUS_SUPERINDENT_APPROVED)) {
-                return "documentscrutiny-form";
+                return DOCUMENTSCRUTINY_FORM;
             }
         }
-        return "bpaapplication-Form";
+        return BPAAPPLICATION_FORM;
     }
     
     @RequestMapping(value = "/documentscrutiny/{applicationNumber}", method = RequestMethod.GET)
@@ -135,22 +159,22 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
             model.addAttribute("loginUser", securityUtils.getCurrentUser());
         }
         // return to error page if status is not superindent approved.
-        return "createdocumentscrutiny-form";
+        return CREATEDOCUMENTSCRUTINY_FORM;
     }
 
     @RequestMapping(value = "/documentscrutiny/{applicationNumber}", method = RequestMethod.POST)
-    public String documentScrutinyForm(@Valid @ModelAttribute("bpaApplication") BpaApplication bpaApplication,
+    public String documentScrutinyForm(@Valid @ModelAttribute(BPA_APPLICATION) BpaApplication bpaApplication,
             @PathVariable final String applicationNumber,
             final BindingResult resultBinder, final RedirectAttributes redirectAttributes,
             final HttpServletRequest request, final Model model, @RequestParam("files") final MultipartFile[] files) {
         if (resultBinder.hasErrors()) {
             loadViewdata(model, bpaApplication);
-            return "createdocumentscrutiny-form";
+            return CREATEDOCUMENTSCRUTINY_FORM;
         }
 
         bpaApplication = applicationBpaService.updateApplication(bpaApplication,
                 Long.valueOf(request.getParameter("approvalPosition")));
-        return "viewapplication-form";
+        return VIEWAPPLICATION_FORM;
     }
 
     private void loadViewdata(final Model model, final BpaApplication application) {
@@ -160,30 +184,35 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         workflowContainer.setAdditionalRule(BpaConstants.CREATE_ADDITIONAL_RULE_CREATE);
         prepareWorkflow(model, application, workflowContainer);
         model.addAttribute("currentState", application.getCurrentState().getValue());
-        model.addAttribute("bpaApplication", application);
+        model.addAttribute(BPA_APPLICATION, application);
     }
 
     @RequestMapping(value = "/update/{applicationNumber}", method = RequestMethod.POST)
-    public String updateApplication(@Valid @ModelAttribute("bpaApplication") BpaApplication bpaApplication,
+    public String updateApplication(@Valid @ModelAttribute(BPA_APPLICATION) BpaApplication bpaApplication,
             @PathVariable final String applicationNumber,
             final BindingResult resultBinder, final RedirectAttributes redirectAttributes,
             final HttpServletRequest request, final Model model, @RequestParam("files") final MultipartFile[] files) {
        
         if (resultBinder.hasErrors()) {
             loadViewdata(model, bpaApplication);
-            return "bpaapplication-Form";
+            return BPAAPPLICATION_FORM;
         }
         Long approvalPosition = null;
         if (request.getParameter(APPRIVALPOSITION) != null)
             approvalPosition = Long.valueOf(request.getParameter(APPRIVALPOSITION));
-        bpaApplication = applicationBpaService.updateApplication(bpaApplication,approvalPosition);
-        return "viewapplication-form";
+        BpaApplication bpaAppln  = applicationBpaService.updateApplication(bpaApplication,approvalPosition);
+        Position pos = positionMasterService.getPositionById(approvalPosition);
+        String message = messageSource.getMessage("msg.update.forward.registration", new String[] {
+                pos.getName().concat("~").concat(pos.getDeptDesig() != null && pos.getDeptDesig().getDesignation() != null ?pos.getDeptDesig().getDesignation().getDescription() :""), bpaAppln.getApplicationNumber() },
+                LocaleContextHolder.getLocale());
+        model.addAttribute(MESSAGE, message);
+        return BPA_APPLICATION_RESULT;
     }
     
     @RequestMapping(value="/scheduleappointment/{applicationNumber}",method=RequestMethod.GET)
     public String newScheduleAppointment(@PathVariable final String applicationNumber, final Model model) {
         model.addAttribute(BPA_APPOINTMENT_SCHEDULE, new BpaAppointmentSchedule());
-        model.addAttribute("applicationNumber", applicationNumber);
+        model.addAttribute(APPLICATION_NUMBER, applicationNumber);
         return SCHEDULE_APPIONTMENT_NEW;
     }
     
@@ -201,7 +230,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         BpaApplication bpaApplication = applicationBpaService.findByApplicationNumber(applicationNumber);
         List<BpaAppointmentSchedule> appointmentScheduledList = bpaAppointmentScheduleService.findByApplication(bpaApplication);
         model.addAttribute(BPA_APPOINTMENT_SCHEDULE, new BpaAppointmentSchedule());
-        model.addAttribute("applicationNumber", applicationNumber);
+        model.addAttribute(APPLICATION_NUMBER, applicationNumber);
         model.addAttribute("appointmentScheduledList", appointmentScheduledList);
         model.addAttribute("mode", "postponeappointment");
         return RESCHEDULE_APPIONTMENT;
@@ -226,4 +255,5 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         model.addAttribute("appointmentScheduledList", appointmentScheduledList);
         return VIEW_SCHEDULE_APPIONTMENT;
     }
+    
 }

@@ -88,6 +88,10 @@ $(document)
 														"sClass" : "text-left"
 													},
 													{
+														"data" : "stakeHolderType",
+														"sClass" : "text-left"
+													},
+													{
 														"data" : "code",
 														"sClass" : "text-left"
 													},
@@ -156,6 +160,10 @@ $(document)
 											columns : [
 													{
 														"data" : "name",
+														"sClass" : "text-left"
+													},
+													{
+														"data" : "stakeHolderType",
 														"sClass" : "text-left"
 													},
 													{
