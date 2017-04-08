@@ -118,7 +118,7 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
             if (wfmatrix != null){
                 if(pos==null)
                 {
-                    userPosition=  bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(),application.getSiteDetail().get(0)!=null && application.getSiteDetail().get(0).getAdminBoundary()!=null ? application.getSiteDetail().get(0).getAdminBoundary().getId():null);
+                    userPosition=  bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(),application.getSiteDetail().get(0)!=null && application.getSiteDetail().get(0).getElectionBoundary()!=null ? application.getSiteDetail().get(0).getElectionBoundary().getId():null);
                     pos = positionMasterService.getPositionById(userPosition);
                 }
                 application.setStatus(getStatusByCurrentMatrxiStatus(wfmatrix));

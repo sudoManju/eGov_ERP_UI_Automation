@@ -100,7 +100,7 @@ public class BpaUtils {
         final BpaApplicationWorkflowCustomDefaultImpl applicationWorkflowCustomDefaultImpl = getInitialisedWorkFlowBean();
         if(approvalPosition ==null){
         approvalPosition = getUserPositionByZone(wfmatrix.getNextDesignation(), application.getSiteDetail().get(0) != null
-                ? application.getSiteDetail().get(0).getAdminBoundary().getId() : null);
+                ? application.getSiteDetail().get(0).getElectionBoundary().getId() : null);
         }
         applicationWorkflowCustomDefaultImpl.createCommonWorkflowTransition(application,
                 approvalPosition, remarks,
