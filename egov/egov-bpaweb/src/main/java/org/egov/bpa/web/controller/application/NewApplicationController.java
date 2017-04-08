@@ -113,8 +113,8 @@ public class NewApplicationController extends BpaGenericApplicationController {
             model.addAttribute("mode", "new");
             return "newapplication-form";
         }
-        bpaApplication.getOwner().setUsername( bpaApplication.getOwner().getEmailId());
-        bpaApplication.getOwner().setPassword( bpaApplication.getOwner().getMobileNumber());
+        //bpaApplication.getOwner().setUsername( bpaApplication.getOwner().getEmailId());
+       // bpaApplication.getOwner().setPassword( bpaApplication.getOwner().getMobileNumber());
         List<ApplicationStakeHolder> applicationStakeHolders = new ArrayList<>();
         ApplicationStakeHolder applicationStakeHolder= new ApplicationStakeHolder();
         applicationStakeHolder.setApplication(bpaApplication);
