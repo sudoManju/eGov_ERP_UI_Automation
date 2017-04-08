@@ -105,13 +105,16 @@ public class NewApplicationController extends BpaGenericApplicationController {
         Long userPosition = null;
         final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(bpaApplication, BpaConstants.WF_NEW_STATE);
         if (wfmatrix != null)
-            userPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(), bpaApplication.getWardId() != null
-                    ? bpaApplication.getWardId() : bpaApplication.getZoneId() != null ? bpaApplication.getZoneId() : null);
+            userPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(), bpaApplication.getSiteDetail().get(0) != null &&
+                    bpaApplication.getSiteDetail().get(0).getElectionBoundary()!=null
+                    ?  bpaApplication.getSiteDetail().get(0).getElectionBoundary().getId() : null);
         if (userPosition == 0 || userPosition == null) {
             model.addAttribute("noJAORSAMessage", "No Superintendant exists to forward the application.");
             model.addAttribute("mode", "new");
             return "newapplication-form";
         }
+        bpaApplication.getOwner().setUsername( bpaApplication.getOwner().getEmailId());
+        bpaApplication.getOwner().setPassword( bpaApplication.getOwner().getMobileNumber());
         List<ApplicationStakeHolder> applicationStakeHolders = new ArrayList<>();
         ApplicationStakeHolder applicationStakeHolder= new ApplicationStakeHolder();
         applicationStakeHolder.setApplication(bpaApplication);
