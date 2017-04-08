@@ -133,10 +133,10 @@
 		<form:errors path="siteDetail[0].electionBoundary"
 			cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right">CityTown</label>
+	<label class="col-sm-2 control-label text-right">City/Town</label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation"
-			data-pattern="string" id="citytown" path="siteDetail[0].citytown" />
+		<form:input class="form-control patternvalidation" maxlength="50"
+			data-pattern="alphanumericwithspace" id="citytown" path="siteDetail[0].citytown" />
 		<form:errors path="siteDetail[0].citytown"
 			cssClass="add-margin error-msg" />
 	</div>
@@ -145,14 +145,16 @@
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Door Number </label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="50"
+		<form:input class="form-control patternvalidation"  maxlength="12"
+			data-pattern="alphanumericwithspace"
 			id="plotdoornumber" path="siteDetail[0].plotdoornumber" />
 		<form:errors path="siteDetail[0].plotdoornumber"
 			cssClass="add-margin error-msg" />
 	</div>
 	<label class="col-sm-2 control-label text-right">Plot Land Mark</label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="50"
+		<form:input class="form-control patternvalidation" maxlength="64"
+			data-pattern="alphanumericwithspace"
 			id="plotlandmark" path="siteDetail[0].plotlandmark" />
 		<form:errors path="siteDetail[0].plotlandmark"
 			cssClass="add-margin error-msg" />
@@ -163,15 +165,17 @@
 	<label class="col-sm-3 control-label text-right">Plot Number </label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
-			data-pattern="number" maxlength="50" id="plotnumber"
+			maxlength="24"
+			data-pattern="alphanumericwithspace" id="plotnumber"
 			path="siteDetail[0].plotnumber" />
 		<form:errors path="siteDetail[0].plotnumber"
 			cssClass="add-margin error-msg" />
 	</div>
 	<label class="col-sm-2 control-label text-right">Plot
-		SurveyNumber</label>
+		Survey Number</label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="50"
+		<form:input class="form-control patternvalidation" maxlength="24"
+			data-pattern="alphanumericwithspace"
 			id="plotsurveynumber" path="siteDetail[0].plotsurveynumber" />
 		<form:errors path="siteDetail[0].plotsurveynumber"
 			cssClass="add-margin error-msg" />
@@ -179,19 +183,21 @@
 </div>
 
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right">SurveyNumberType
+	<label class="col-sm-3 control-label text-right">Survey Number Type
 	</label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
-			data-pattern="string" maxlength="50" id="surveynumberType"
+			maxlength="24"
+			data-pattern="alphanumericwithspace"  id="surveynumberType"
 			path="siteDetail[0].surveynumberType" />
 		<form:errors path="siteDetail[0].surveynumberType"
 			cssClass="add-margin error-msg" />
 	</div>
 	<label class="col-sm-2 control-label text-right">Old
-		SurveyNumber</label>
+		Survey Number</label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="50"
+		<form:input class="form-control patternvalidation" maxlength="24"
+			data-pattern="alphanumericwithspace"
 			id="oldSurveyNumber" path="siteDetail[0].oldSurveyNumber" />
 		<form:errors path="siteDetail[0].oldSurveyNumber"
 			cssClass="add-margin error-msg" />
@@ -203,7 +209,8 @@
 		Address1 </label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
-			data-pattern="string" id="streetaddress1"
+			maxlength="120"
+			data-pattern="alphanumericwithspace"  id="streetaddress1"
 			path="siteDetail[0].streetaddress1" />
 		<form:errors path="siteDetail[0].streetaddress1"
 			cssClass="add-margin error-msg" />
@@ -213,7 +220,8 @@
 		Address2 </label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
-			data-pattern="string" id="streetaddress2"
+			maxlength="120"
+			data-pattern="alphanumericwithspace" id="streetaddress2"
 			path="siteDetail[0].streetaddress2" />
 		<form:errors path="siteDetail[0].streetaddress2"
 			cssClass="add-margin error-msg" />
@@ -236,7 +244,8 @@
 	<label class="col-sm-2 control-label text-right">State </label>
 	<div class="col-sm-2 add-margin">
 		<form:input class="form-control patternvalidation"
-			data-pattern="string" id="state" path="siteDetail[0].state" />
+			maxlength="32"
+			data-pattern="alphanumericwithspace" id="state" path="siteDetail[0].state" />
 		<form:errors path="siteDetail[0].state"
 			cssClass="add-margin error-msg" />
 	</div>
@@ -245,14 +254,16 @@
 	<label class="col-sm-3 control-label text-right">District </label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
-			data-pattern="string" id="district" path="siteDetail[0].district" />
+			maxlength="32"
+			data-pattern="alphanumericwithspace" id="district" path="siteDetail[0].district" />
 		<form:errors path="siteDetail[0].district"
 			cssClass="add-margin error-msg" />
 	</div>
 	<label class="col-sm-2 control-label text-right">Taluk</label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
-			data-pattern="string" id="taluk" path="siteDetail[0].taluk" />
+			maxlength="32"
+			data-pattern="alphanumericwithspace" id="taluk" path="siteDetail[0].taluk" />
 		<form:errors path="siteDetail[0].taluk"
 			cssClass="add-margin error-msg" />
 	</div>
@@ -270,7 +281,7 @@
 	</div>
 	<div class="form-group" id="statusdiv">
 		<label class="col-sm-2 control-label text-right">Encroachment
-			IssuesPresent</label>
+			Issues Present</label>
 		<div class="col-sm-2 add-margin">
 			<form:checkbox id="encroachmentIssuesPresent"
 				path="siteDetail[0].encroachmentIssuesPresent"
@@ -281,19 +292,19 @@
 </div>
 
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right">Nature Of
-		Ownership </label>
+	<label class="col-sm-3 control-label text-right">Nature Of Ownership </label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
-			data-pattern="string" id="natureofOwnership"
+			maxlength="64"
+			data-pattern="alphanumericwithspace"  id="natureofOwnership"
 			path="siteDetail[0].natureofOwnership" />
 		<form:errors path="siteDetail[0].natureofOwnership"
 			cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right">Extent inSqmt</label>
+	<label class="col-sm-2 control-label text-right">Extent (in Sqmt)</label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation"
-			data-pattern="number" id="extentinsqmts"
+		<form:input class="form-control patternvalidation" maxlength="10"
+			data-pattern="decimalvalue" id="extentinsqmts"
 			path="siteDetail[0].extentinsqmts" />
 		<form:errors path="siteDetail[0].extentinsqmts"
 			cssClass="add-margin error-msg" />
@@ -305,7 +316,8 @@
 		Office</label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
-			data-pattern="string" id="registrarOffice"
+			maxlength="32"
+			data-pattern="alphanumericwithspace"  id="registrarOffice"
 			path="siteDetail[0].registrarOffice" />
 		<form:errors path="siteDetail[0].registrarOffice"
 			cssClass="add-margin error-msg" />
@@ -314,7 +326,8 @@
 		Building Number</label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
-			data-pattern="number" id="nearestbuildingnumber"
+			maxlength="12"
+			data-pattern="alphanumericwithspace"  id="nearestbuildingnumber"
 			path="siteDetail[0].nearestbuildingnumber" />
 		<form:errors path="siteDetail[0].nearestbuildingnumber"
 			cssClass="add-margin error-msg" />
@@ -322,20 +335,22 @@
 </div>
 
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right">Subdivision
+	<label class="col-sm-3 control-label text-right">Sub division
 		Number</label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
-			data-pattern="string" id="subdivisionNumber"
+			maxlength="12"
+			data-pattern="alphanumericwithspace" id="subdivisionNumber"
 			path="siteDetail[0].subdivisionNumber" />
 		<form:errors path="siteDetail[0].subdivisionNumber"
 			cssClass="add-margin error-msg" />
 	</div>
 	<label class="col-sm-2 control-label text-right">Approved
-		LayoutDetail</label>
+		Layout Detail</label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
-			data-pattern="number" id="approvedLayoutDetail"
+			maxlength="64"
+			data-pattern="alphanumericwithspace" id="approvedLayoutDetail"
 			path="siteDetail[0].approvedLayoutDetail" />
 		<form:errors path="siteDetail[0].approvedLayoutDetail"
 			cssClass="add-margin error-msg" />
@@ -343,36 +358,36 @@
 </div>
 
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right">SetBackFront(SBF)</label>
+	<label class="col-sm-3 control-label text-right">Set Back Front(SBF)</label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
-			data-pattern="number" id="setBackFront"
+			data-pattern="decimalvalue" id="setBackFront" maxlength="10"
 			path="siteDetail[0].setBackFront" />
 		<form:errors path="siteDetail[0].setBackFront"
 			cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right">SetBackRear(SBR)</label>
+	<label class="col-sm-2 control-label text-right">Set Back Rear(SBR)</label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
-			data-pattern="number" id="setBackRear"
+			data-pattern="decimalvalue" id="setBackRear" maxlength="10"
 			path="siteDetail[0].setBackRear" />
 		<form:errors path="siteDetail[0].setBackRear"
 			cssClass="add-margin error-msg" />
 	</div>
 </div>
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right">SetBackSide1(SBS2)</label>
+	<label class="col-sm-3 control-label text-right">Set Back Side1(SBS2)</label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
-			data-pattern="number" id="setBackSide2"
+			data-pattern="decimalvalue" id="setBackSide2" maxlength="10"
 			path="siteDetail[0].setBackSide2" />
 		<form:errors path="siteDetail[0].setBackSide2"
 			cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right">SetBackSide1(SBS1)</label>
+	<label class="col-sm-2 control-label text-right">Set Back Side1(SBS1)</label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation"
-			data-pattern="number" id="setBackSide1"
+		<form:input class="form-control patternvalidation" maxlength="10"
+			data-pattern="decimalvalue" id="setBackSide1"
 			path="siteDetail[0].setBackSide1" />
 		<form:errors path="siteDetail[0].setBackSide1"
 			cssClass="add-margin error-msg" />
@@ -383,7 +398,7 @@
 		Remarks</label>
 	<div class="col-sm-3 add-margin">
 		<form:textarea class="form-control patternvalidation"
-			data-pattern="string" maxlength="128" id="encroachmentRemarks"
+			data-pattern="alphanumericwithspace" maxlength="128" id="encroachmentRemarks"
 			path="siteDetail[0].encroachmentRemarks" />
 		<form:errors path="siteDetail[0].encroachmentRemarks"
 			cssClass="add-margin error-msg" />

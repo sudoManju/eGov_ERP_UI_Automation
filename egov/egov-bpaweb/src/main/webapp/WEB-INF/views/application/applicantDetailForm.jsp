@@ -68,7 +68,7 @@
 			<form:textarea path="owner.address" id="address"
 				class="form-control patternvalidation"
 				data-pattern="alphanumericwithspace" required="required"
-				maxlength="256" cols="5" rows="4" />
+				maxlength="128" cols="5" rows="4" />
 			<form:errors path="owner.address" cssClass="add-margin error-msg" />
 		</div>
 	</div>

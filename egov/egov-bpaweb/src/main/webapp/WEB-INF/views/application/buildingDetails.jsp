@@ -49,17 +49,17 @@
 
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Building
-		UnitCount</label>
+		Unit Count</label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="50"
+		<form:input class="form-control patternvalidation" maxlength="5" data-pattern="number"
 			id="unitCount" path="buildingDetail[0].unitCount" />
 		<form:errors path="buildingDetail[0].unitCount"
 			cssClass="add-margin error-msg" />
 	</div>
 	<label class="col-sm-2 control-label text-right">Building
-		UnitClassification</label>
+		Unit Classification</label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="128"
+		<form:input class="form-control patternvalidation"  maxlength="64" data-pattern="alphanumericwithspace"
 			id="unitClassification" path="buildingDetail[0].unitClassification" />
 		<form:errors path="buildingDetail[0].unitClassification"
 			cssClass="add-margin error-msg" />
@@ -67,18 +67,18 @@
 </div>
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Building
-		FloorCount</label>
+		Floor Count</label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
-			data-pattern="number" maxlength="50" id="floorCount"
+			data-pattern="number" maxlength="5" id="floorCount"
 			path="buildingDetail[0].floorCount" />
 		<form:errors path="buildingDetail[0].floorCount"
 			cssClass="add-margin error-msg" />
 	</div>
 	<label class="col-sm-2 control-label text-right">Building
-		NooOfBasementUnit </label>
+		No. Of Basement Unit </label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="50"
+		<form:input class="form-control patternvalidation" maxlength="5" data-pattern="number"
 			id="noofbasementUnit" path="buildingDetail[0].noofbasementUnit" />
 		<form:errors path="buildingDetail[0].noofbasementUnit"
 			cssClass="add-margin error-msg" />
@@ -86,9 +86,9 @@
 </div>
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Building
-		HeightGroud </label>
+		Height Groud </label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="50"
+		<form:input class="form-control patternvalidation" maxlength="10" data-pattern="decimalvalue"
 			id="buildingheightGround"
 			path="buildingDetail[0].buildingheightGround" />
 		<form:errors path="buildingDetail[0].buildingheightGround"
@@ -97,7 +97,7 @@
 	<label class="col-sm-2 control-label text-right">Building
 		Height Floor</label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="50"
+		<form:input class="form-control patternvalidation"  maxlength="5" data-pattern="decimalvalue"
 			id="buildingheightFloor" path="buildingDetail[0].buildingheightFloor" />
 		<form:errors path="buildingDetail[0].buildingheightFloor"
 			cssClass="add-margin error-msg" />
@@ -105,17 +105,17 @@
 </div>
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Building
-		NoOfUpperFloor </label>
+		No Of Upper Floor </label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" id="noofupperFloor"
+		<form:input class="form-control patternvalidation" id="noofupperFloor" maxlength="5" data-pattern="number"
 			path="buildingDetail[0].noofupperFloor" />
 		<form:errors path="buildingDetail[0].noofupperFloor"
 			cssClass="add-margin error-msg" />
 	</div>
 	<label class="col-sm-2 control-label text-right">Building
-		NoOfDwellingUnit </label>
+		No Of Dwelling Unit </label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation"
+		<form:input class="form-control patternvalidation" maxlength="5" data-pattern="number"
 			id="noofdwellingUnit" path="buildingDetail[0].noofdwellingUnit" />
 		<form:errors path="buildingDetail[0].noofdwellingUnit"
 			cssClass="add-margin error-msg" />
@@ -123,18 +123,18 @@
 </div>
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Building
-		ProposedSitalinSqmt </label>
+		Proposed Sital in Sqmt </label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation"
+		<form:input class="form-control patternvalidation" maxlength="10" data-pattern="decimalvalue"
 			id="proposedSitalinSqmt" path="buildingDetail[0].proposedSitalinSqmt" />
 		<form:errors path="buildingDetail[0].proposedSitalinSqmt"
 			cssClass="add-margin error-msg" />
 	</div>
 	<label class="col-sm-2 control-label text-right">Building
-		ProposedFloorArea</label>
+		Proposed Floor Area</label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
-			data-pattern="number" id="buildingDetail[0].proposedfloorArea"
+			maxlength="10" data-pattern="decimalvalue" id="buildingDetail[0].proposedfloorArea"
 			path="buildingDetail[0].proposedfloorArea" />
 		<form:errors path="buildingDetail[0].proposedfloorArea"
 			cssClass="add-margin error-msg" />
@@ -142,19 +142,19 @@
 </div>
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Building
-		TotalPlintArea </label>
+		Total Plint Area </label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
-			data-pattern="number" id="district"
+			maxlength="10" data-pattern="decimalvalue" id="district"
 			path="buildingDetail[0].totalPlintArea" />
 		<form:errors path="buildingDetail[0].totalPlintArea"
 			cssClass="add-margin error-msg" />
 	</div>
 	<label class="col-sm-2 control-label text-right">Building
-		TotalSlab</label>
+		Total Slab</label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
-			data-pattern="number" id="totalSlab"
+			maxlength="10" data-pattern="decimalvalue" id="totalSlab"
 			path="buildingDetail[0].totalSlab" />
 		<form:errors path="buildingDetail[0].totalSlab"
 			cssClass="add-margin error-msg" />
@@ -162,7 +162,7 @@
 </div>
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Existing
-		BldgCategory <span class="mandatory"></span>
+		Building Category <span class="mandatory"></span>
 	</label>
 	<div class="col-sm-3 add-margin">
 		<form:select path="buildingDetail[0].existBldgCategory"
@@ -178,7 +178,7 @@
 			cssClass="add-margin error-msg" />
 	</div>
 	<label class="col-sm-2 control-label text-right">Proposed
-		BldgCategory <span class="mandatory"></span>
+		Building Category <span class="mandatory"></span>
 	</label>
 	<div class="col-sm-3 add-margin">
 		<form:select path="buildingDetail[0].proposedBldgCategory"
@@ -196,7 +196,7 @@
 </div>
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Building
-		IsGroudFloor </label>
+		Is Groud Floor </label>
 	<div class="col-sm-3 add-margin">
 		<form:checkbox id="isGroudFloor" path="buildingDetail[0].isGroudFloor"
 			value="isGroudFloor" />
@@ -212,7 +212,7 @@
 </div>
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Building
-		IsMezzanineFloor </label>
+		Is Mezzanine Floor </label>
 	<div class="col-sm-3 add-margin">
 		<form:checkbox id="isGroudFloor"
 			path="buildingDetail[0].isMezzanineFloor" value="isMezzanineFloor" />
