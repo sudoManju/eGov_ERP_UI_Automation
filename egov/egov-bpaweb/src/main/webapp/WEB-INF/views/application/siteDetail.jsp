@@ -264,7 +264,7 @@
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
 			data-pattern="number" id="sitePincode"
-			path="siteDetail[0].sitePincode" />
+			path="siteDetail[0].sitePincode" maxlength="6" />
 		<form:errors path="siteDetail[0].sitePincode"
 			cssClass="add-margin error-msg" />
 	</div>

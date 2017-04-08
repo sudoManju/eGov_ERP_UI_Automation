@@ -61,47 +61,30 @@ function validateMobileNumber(obj)
 	}
 	return true;
 }
-
-function validatePhoneNumber(obj,mode){
-	var text = obj.value;
-	if(text!=""){
-		
-	var msg;
-	if(mode=='mobile')
-		msg='<s:text name="invalid.mobileno" />';
-	else
-		msg='<s:text name="invalid.teleno" />';
-	if(isNaN(text))
-	{
-		dom.get("bpa_error_area").style.display = '';
-		document.getElementById("bpa_error_area").innerHTML = msg;
-		obj.value="";
-		return false;
-	}
-	if(text<=0)
-	{
-		dom.get("bpa_error_area").style.display = '';
-		document.getElementById("bpa_error_area").innerHTML = msg;
-		obj.value="";
-		return false;
-	}
-	if(text.replace(".","~").search("~")!=-1)
-	{
-		dom.get("bpa_error_area").style.display = '';
-		document.getElementById("bpa_error_area").innerHTML = '<s:text name="period.notallowed" />';
-		obj.value='';
-		return false;
-	}
-	if(text.replace("+","~").search("~")!=-1)
-	{
-		dom.get("bpa_error_area").style.display = '';
-		document.getElementById("bpa_error_area").innerHTML = '<s:text name="plus.notallowed" />';
-		obj.value='';
-		return false;
-	}
-	}
-	return true;
-}
+//email validation
+$('input[id$="emailId"]').blur(function() {
+		var pattern = new RegExp("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
+		var email = $(this).val();
+		if (!pattern.test(email) && $(this).val().length > 0) {
+			var span = $(this).siblings('span'); 
+	    	$(span).addClass('error-msg');
+	    	$(span).text('Please enter valid email..!');
+			$(this).show();
+			$(this).val("");
+		} else {
+			var span1 = $(this).siblings('span'); 
+			$(span1).removeClass('error-msg');
+	    	$(span1).text('');
+		}
+	});
+//mobile number validation
+$('#mobileNumber').blur( function () {
+	 var mobileno = $(this).val();
+		if (mobileno.length < 10) {
+			bootbox.alert("Please enter 10 digit mobile number");
+			$(this).val('');
+		}
+	});
 $('#ward').change(function(){
 	jQuery.ajax({
 		url: "/egi/public/boundary/ajaxBoundary-blockByWard.action",

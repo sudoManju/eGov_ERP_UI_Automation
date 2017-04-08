@@ -107,8 +107,9 @@ public class NewApplicationController extends BpaGenericApplicationController {
         if (wfmatrix != null)
             userPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(), bpaApplication.getWardId() != null
                     ? bpaApplication.getWardId() : bpaApplication.getZoneId() != null ? bpaApplication.getZoneId() : null);
-        if (userPosition == null) {
+        if (userPosition == 0 || userPosition == null) {
             model.addAttribute("noJAORSAMessage", "No Superintendant exists to forward the application.");
+            model.addAttribute("mode", "new");
             return "newapplication-form";
         }
         List<ApplicationStakeHolder> applicationStakeHolders = new ArrayList<>();

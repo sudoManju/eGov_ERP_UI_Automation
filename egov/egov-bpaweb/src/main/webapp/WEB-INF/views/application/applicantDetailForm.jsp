@@ -78,7 +78,7 @@
 		<div class="col-sm-3 add-margin">
 			<form:input class="form-control patternvalidation"
 				data-pattern="number" maxlength="10"
-				onblur="return validateMobileNumber(this);" id="mobileNumber"
+			 id="mobileNumber"
 				path="owner.mobileNumber" required="required" />
 			**SMS is sent to this
 			<form:errors path="owner.mobileNumber"
