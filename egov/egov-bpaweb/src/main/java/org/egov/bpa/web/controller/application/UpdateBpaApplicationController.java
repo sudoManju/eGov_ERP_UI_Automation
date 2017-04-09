@@ -56,6 +56,7 @@ import org.egov.eis.service.PositionMasterService;
 import org.egov.eis.web.contract.WorkflowContainer;
 import org.egov.infra.admin.master.entity.User;
 import org.egov.infra.security.utils.SecurityUtils;
+import org.egov.pims.commons.Position;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.ResourceBundleMessageSource;
@@ -74,6 +75,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping(value = "/application")
 public class UpdateBpaApplicationController extends BpaGenericApplicationController {
 
+    private static final String SCHEDULE_APPIONTMENT_RESULT = "schedule-appiontment-result";
+
     private static final String BPA_APPLICATION = "bpaApplication";
 
     private static final String MESSAGE = "message";
@@ -83,8 +86,6 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
     private static final String CREATEDOCUMENTSCRUTINY_FORM = "createdocumentscrutiny-form";
 
     private static final String DOCUMENTSCRUTINY_FORM = "documentscrutiny-form";
-
-    private static final String VIEWAPPLICATION_FORM = "viewapplication-form";
 
     private static final String BPAAPPLICATION_FORM = "bpaapplication-Form";
 
@@ -98,9 +99,8 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
 
     private static final String APPRIVALPOSITION = "approvalPosition";
 
-    private static final String VIEW_SCHEDULE_APPIONTMENT = "view-schedule-appiontment";
-
     private static final String SCHEDULE_APPIONTMENT_NEW = "schedule-appiontment-new";
+    
     private static final String APPLICATION_HISTORY = "applicationHistory";
 
     private static final String ADDITIONALRULE = "additionalRule";
@@ -181,16 +181,18 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
             return CREATEDOCUMENTSCRUTINY_FORM;
         }
 
-        Long approvalPosition = null;
+        Long approvalPosition ;
         if (request.getParameter(APPRIVALPOSITION) != null) {
             approvalPosition = Long.valueOf(request.getParameter(APPRIVALPOSITION));
-
+            Position pos = positionMasterService.getPositionById(approvalPosition);
             User user = bpaThirdPartyService.getUserPositionByPassingPosition(approvalPosition);
             BpaApplication bpaAppln = applicationBpaService.updateApplication(bpaApplication, approvalPosition);
             String message = messageSource.getMessage("msg.update.forward.documentscrutiny", new String[] {
-                    (user != null ? user.getUsername() : ""),
-                    bpaAppln.getApplicationNumber() },
-                    LocaleContextHolder.getLocale());
+                    user != null ? user.getUsername().concat("~")
+                            .concat(pos.getDeptDesig() != null && pos.getDeptDesig().getDesignation() != null
+                                    ? pos.getDeptDesig().getDesignation().getName() : "")
+                            : "",
+                    bpaAppln.getApplicationNumber() },LocaleContextHolder.getLocale());
             model.addAttribute(MESSAGE, message);
         }
         return BPA_APPLICATION_RESULT;
@@ -220,11 +222,14 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         if (request.getParameter(APPRIVALPOSITION) != null)
             approvalPosition = Long.valueOf(request.getParameter(APPRIVALPOSITION));
         BpaApplication bpaAppln = applicationBpaService.updateApplication(bpaApplication, approvalPosition);
-        // Position pos = positionMasterService.getPositionById(approvalPosition);
+        Position pos = positionMasterService.getPositionById(approvalPosition);
         User user = bpaThirdPartyService.getUserPositionByPassingPosition(approvalPosition);
         String message = messageSource.getMessage("msg.update.forward.registration", new String[] {
-                (user != null ? user.getUsername() : ""), bpaAppln.getApplicationNumber() },
-                LocaleContextHolder.getLocale());
+                user != null ? user.getUsername().concat("~")
+                        .concat(pos.getDeptDesig() != null && pos.getDeptDesig().getDesignation() != null
+                                ? pos.getDeptDesig().getDesignation().getName() : "")
+                        : "",
+                bpaAppln.getApplicationNumber() }, LocaleContextHolder.getLocale());
         model.addAttribute(MESSAGE, message);
         return BPA_APPLICATION_RESULT;
     }
@@ -238,11 +243,13 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
 
     @RequestMapping(value = "/scheduleappointment/{applicationNumber}", method = RequestMethod.POST)
     public String createScheduleAppointment(@Valid @ModelAttribute final BpaAppointmentSchedule appointmentSchedule,
-            @PathVariable final String applicationNumber, final Model model) {
+            @PathVariable final String applicationNumber, final Model model, final RedirectAttributes redirectAttributes) {
         BpaApplication bpaApplication = applicationBpaService.findByApplicationNumber(applicationNumber);
         appointmentSchedule.setApplication(bpaApplication);
         BpaAppointmentSchedule schedule = bpaAppointmentScheduleService.save(appointmentSchedule);
         bpaSmsAndEmailService.sendSMSAndEmailForDocumentScrtiny(schedule, bpaApplication);
+        redirectAttributes.addFlashAttribute("message",
+                messageSource.getMessage("msg.new.appoimt", null, null));
         return REDIRECT_APPLICATION_VIEW_APPOINTMENT + schedule.getId();
     }
 
@@ -250,7 +257,9 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
     public String editScheduleAppointment(@PathVariable final String applicationNumber, final Model model) {
         BpaApplication bpaApplication = applicationBpaService.findByApplicationNumber(applicationNumber);
         List<BpaAppointmentSchedule> appointmentScheduledList = bpaAppointmentScheduleService.findByApplication(bpaApplication);
-        model.addAttribute(BPA_APPOINTMENT_SCHEDULE, new BpaAppointmentSchedule());
+        BpaAppointmentSchedule appointmentSchedule = new BpaAppointmentSchedule();
+        appointmentSchedule.setPurpose(appointmentScheduledList.get(0).getPurpose());
+        model.addAttribute(BPA_APPOINTMENT_SCHEDULE, appointmentSchedule);
         model.addAttribute(APPLICATION_NUMBER, applicationNumber);
         model.addAttribute("appointmentScheduledList", appointmentScheduledList);
         model.addAttribute("mode", "postponeappointment");
@@ -260,7 +269,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
     @RequestMapping(value = "/postponeappointment/{applicationNumber}", method = RequestMethod.POST)
     public String updateScheduleAppointment(@Valid @ModelAttribute final BpaAppointmentSchedule appointmentSchedule,
             @PathVariable final String applicationNumber,
-            @RequestParam Long bpaAppointmentScheduleId, final Model model) {
+            @RequestParam Long bpaAppointmentScheduleId, final Model model,final RedirectAttributes redirectAttributes) {
         BpaApplication bpaApplication = applicationBpaService.findByApplicationNumber(applicationNumber);
         BpaAppointmentSchedule parent = bpaAppointmentScheduleService.findById(bpaAppointmentScheduleId);
         appointmentSchedule.setApplication(bpaApplication);
@@ -268,6 +277,8 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         appointmentSchedule.setParent(parent);
         BpaAppointmentSchedule schedule = bpaAppointmentScheduleService.save(appointmentSchedule);
         bpaSmsAndEmailService.sendSMSAndEmailForDocumentScrtiny(schedule, bpaApplication);
+        redirectAttributes.addFlashAttribute("message",
+                messageSource.getMessage("msg.rescheduled.appoimt", null, null));
         return REDIRECT_APPLICATION_VIEW_APPOINTMENT + schedule.getId();
     }
 
@@ -276,7 +287,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         List<BpaAppointmentSchedule> appointmentScheduledList = bpaAppointmentScheduleService
                 .findByIdAsList(Long.valueOf(applicationNumber));
         model.addAttribute("appointmentScheduledList", appointmentScheduledList);
-        return VIEW_SCHEDULE_APPIONTMENT;
+        return SCHEDULE_APPIONTMENT_RESULT;
     }
 
 }

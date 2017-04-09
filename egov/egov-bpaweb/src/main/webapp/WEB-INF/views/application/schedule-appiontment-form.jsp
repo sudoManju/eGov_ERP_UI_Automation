@@ -53,7 +53,8 @@
 	<label class="col-sm-3 control-label text-right"><spring:message
 			code="lbl.purpose" /> <span class="mandatory"></span> </label>
 	<div class="col-sm-3 add-margin">
-		<form:select path="purpose" id="purpose" required="required"
+		<form:hidden path="purpose"/>
+		<form:select path="purpose" id="purpose1" required="required"
 			cssClass="form-control" cssErrorClass="form-control error">
 			<form:option value="">
 				<spring:message code="lbl.select" />

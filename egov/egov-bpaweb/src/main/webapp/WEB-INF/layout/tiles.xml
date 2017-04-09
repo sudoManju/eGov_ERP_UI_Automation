@@ -132,4 +132,8 @@
         <put-attribute name="page-title" value="title.bpa.appln.success" cascade="true"/>
         <put-attribute name="body" value="/WEB-INF/views/application/bpa-application-result.jsp"/>
     </definition>
+    <definition name="schedule-appiontment-result" extends="base_layout">
+        <put-attribute name="page-title" value="title.result.schedule.appmnt" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/application/schedule-appiontment-result.jsp"/>
+    </definition>
 </tiles-definitions>
