@@ -68,7 +68,9 @@
 			<div class="panel panel-primary" data-collapsed="0">
 				<jsp:include page="buildingDetails.jsp" />
 			</div>
-			
+			<div class="panel panel-primary" data-collapsed="0">
+				<jsp:include page="applicationhistory-view.jsp"></jsp:include>
+			</div>
 			<jsp:include page="../common/commonWorkflowMatrix.jsp" />
 			<div class="buttonbottom" align="center">
 				<jsp:include page="../common/commonWorkflowMatrix-button.jsp" />
