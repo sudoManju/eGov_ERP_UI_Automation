@@ -220,7 +220,7 @@
 							<form:option value="">
 								<spring:message code="lbl.select" />
 							</form:option>
-							 <form:options items="${villageNames}" itemValue="code" itemLabel="name"/>
+							 <form:options items="${villageNames}" itemValue="id" itemLabel="name"/>
 						</form:select>
 						<form:errors path="documentScrutiny[0].village" cssClass="error-msg" />
 					</div>
