@@ -119,10 +119,10 @@ public class WaterChargeManagementPage extends BasePage {
     private WebElement addEditDCB;
 
     @FindBy(id = "actualAmount")
-    private WebElement dcbActualAmount;
+    private List<WebElement> dcbActualAmount;
 
     @FindBy(id = "actualCollection")
-    private WebElement dcbActualCollection;
+    private List<WebElement> dcbActualCollection;
 
     @FindBy(id = "submitButtonId")
     private WebElement dcbSubmit;
@@ -364,8 +364,12 @@ public class WaterChargeManagementPage extends BasePage {
 
     public void enterDetailsOfDCB() {
 
-        enterText(dcbActualAmount, "100", webDriver);
-        enterText(dcbActualCollection, "100", webDriver);
+        enterText(dcbActualAmount.get(0), "100", webDriver);
+        enterText(dcbActualAmount.get(1), "100", webDriver);
+        enterText(dcbActualAmount.get(2), "100", webDriver);
+        enterText(dcbActualCollection.get(0), "100", webDriver);
+        enterText(dcbActualCollection.get(1), "100", webDriver);
+        enterText(dcbActualCollection.get(2), "100", webDriver);
 
         clickOnButton(dcbSubmit, webDriver);
         switchToNewlyOpenedWindow(webDriver);

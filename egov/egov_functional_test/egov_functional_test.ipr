@@ -49,8 +49,9 @@
       <map>
         <entry key="D:/Automation/eGov/egov/egov_functional_test" value="1488265643022" />
         <entry key="D:/Automation/eGov/egov_functional_test" value="1484742919165" />
-        <entry key="$PROJECT_DIR$" value="1490080426018" />
+        <entry key="D:/FunctionalTesting/eGov/egov/egov_functional_test" value="1490080426018" />
         <entry key="D:/automation/eGov/egov/egov_functional_test" value="1481006347243" />
+        <entry key="$PROJECT_DIR$" value="1491549257425" />
         <entry key="D:/mysampleproject/eGov/egov_functional_test" value="1481283178442" />
         <entry key="E:/PracticeSelenium/PracticeSelenium/seleniumPractice" value="2973250073616" />
       </map>
@@ -146,9 +147,6 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
-  </component>
-  <component name="VcsDirectoryMappings">
-    <mapping directory="$PROJECT_DIR$/../.." vcs="Git" />
   </component>
   <component name="libraryTable">
     <library name="Gradle: backport-util-concurrent:backport-util-concurrent:3.1">
