@@ -58,10 +58,12 @@ import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.application.entity.VillageName;
 import org.egov.bpa.application.entity.enums.ApplicantMode;
 import org.egov.bpa.application.entity.enums.StakeHolderType;
+import org.egov.bpa.application.service.ApplicationBpaService;
 import org.egov.bpa.application.service.CheckListDetailService;
 import org.egov.bpa.masters.service.BuildingCategoryService;
 import org.egov.bpa.masters.service.ServiceTypeService;
 import org.egov.bpa.masters.service.VillageNameService;
+import org.egov.bpa.service.BpaThirdPartyService;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.eis.web.controller.workflow.GenericWorkFlowController;
 import org.egov.infra.admin.master.entity.Boundary;
@@ -90,6 +92,10 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     protected FileStoreService fileStoreService;
     @Autowired
     private BuildingCategoryService buildingCategoryService;
+    @Autowired
+    protected ApplicationBpaService applicationBpaService;
+    @Autowired
+    protected BpaThirdPartyService bpaThirdPartyService;
 
     @ModelAttribute("zones")
     public List<Boundary> zones() {

@@ -37,53 +37,66 @@
   ~
   ~   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
   --%>
-
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn" %>
 <div class="row">
 	<div class="col-md-12">
-		<form:form role="form" method="post" modelAttribute="bpaApplication"
-			id="documentscrutinyform"
-			cssClass="form-horizontal form-groups-bordered"
-			enctype="multipart/form-data">
+		<div class="panel panel-primary" data-collapsed="0">
+			<div class="panel-heading">
+				<div class="panel-title">Search BPA Applications</div>
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-sm-3 control-label text-right"><spring:message
+							code="lbl.applicant.name" /></label>
+					<div class="col-sm-3 add-margin">
+						<form:input class="form-control patternvalidation"
+							data-pattern="alphabetwithspace" maxlength="128"
+							id="applicantName" path="applicantName" required="required" />
+						<form:errors path="applicantName" cssClass="add-margin error-msg" />
+					</div>
+					<label class="col-sm-2 control-label text-right"><spring:message
+							code="lbl.application.no" />
+						<span class="mandatory"></span>
+					</label>
+					<div class="col-sm-3 add-margin">
+						<form:input class="form-control patternvalidation" maxlength="50"
+							id="applicationNumber" path="applicationNumber" />
+						<form:errors path="applicationNumber"
+							cssClass="add-margin error-msg" />
+					</div>
+				</div>
 
-			<div class="panel panel-primary" data-collapsed="0">
-				<jsp:include page="view-applicantdetails.jsp"></jsp:include>
+				<div class="form-group">
+					<label class="col-sm-3 control-label text-right"><spring:message
+							code="lbl.ward" /> 
+					</label>
+					<div class="col-sm-3 add-margin">
+						<form:select path="wardId" data-first-option="false" id="wardId"
+							cssClass="form-control">
+							<form:option value="">
+								<spring:message code="lbl.select" />
+							</form:option>
+							<form:options items="${wards}" itemValue="id" itemLabel="name" />
+						</form:select>
+						<form:errors path="wardId" cssClass="add-margin error-msg" />
+					</div>
+					<label class="col-sm-2 control-label text-right"><spring:message
+							code="lbl.election.ward" /></label>
+					<div class="col-sm-3 add-margin">
+						<form:select path="electionWardId" data-first-option="false"
+							id="electionWardId" cssClass="form-control" required="required">
+							<form:option value="">
+								<spring:message code="lbl.select" />
+							</form:option>
+							<form:options items="${electionwards}" itemValue="id"
+								itemLabel="name" />
+						</form:select>
+						<form:errors path="electionWardId" cssClass="add-margin error-msg" />
+					</div>
+				</div>
 			</div>
-			<div class="panel panel-primary" data-collapsed="0">
-				<jsp:include page="viewapplication-details.jsp"></jsp:include>
-			</div>
-			<div class="panel panel-primary" data-collapsed="0">
-				<jsp:include page="view-sitedetail.jsp"></jsp:include>
-			</div>
-			<div class="panel panel-primary" data-collapsed="0">
-				<jsp:include page="applicationhistory-view.jsp"></jsp:include>
-			</div>
-			<div align="center">
-				<c:if test="${mode eq 'newappointment'}">
-					<a
-						href="/bpa/application/scheduleappointment/${bpaApplication.applicationNumber}"
-						class="btn btn-primary"> New Appointment </a>
-				</c:if>
-				<c:if test="${mode eq 'postponeappointment'}">
-					<a
-						href="/bpa/application/postponeappointment/${bpaApplication.applicationNumber}"
-						class="btn btn-primary"> Reschedule Appointment </a>
-				</c:if>
-				<a
-					href="/bpa/application/documentscrutiny/${bpaApplication.applicationNumber}"
-					class="btn btn-primary"> Document Scrutiny </a> <input
-					type="button" name="button2" id="button2" value="Close"
-					class="btn btn-default" onclick="window.close();" />
-				</td>
-			</div>
-		</form:form>
+		</div>
 	</div>
 </div>
-
-<script
-	src="<cdn:url value='/resources/global/js/egov/inbox.js?rnd=${app_release_no}' context='/egi'/>"></script>

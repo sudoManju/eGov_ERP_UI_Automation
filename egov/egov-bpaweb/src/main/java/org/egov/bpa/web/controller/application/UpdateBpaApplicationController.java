@@ -47,7 +47,6 @@ import javax.validation.Valid;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaAppointmentSchedule;
 import org.egov.bpa.application.entity.enums.AppointmentSchedulePurpose;
-import org.egov.bpa.application.service.ApplicationBpaService;
 import org.egov.bpa.application.service.BpaAppointmentScheduleService;
 import org.egov.bpa.masters.service.StakeHolderService;
 import org.egov.bpa.service.BpaThirdPartyService;
@@ -108,8 +107,6 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
     @Autowired
     private SecurityUtils securityUtils;
     @Autowired
-    private ApplicationBpaService applicationBpaService;
-    @Autowired
     private BpaAppointmentScheduleService bpaAppointmentScheduleService;
     @Autowired
     private BPASmsAndEmailService bpaSmsAndEmailService;
@@ -119,8 +116,6 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
     private PositionMasterService positionMasterService;
     @Autowired
     protected ResourceBundleMessageSource messageSource;
-    @Autowired
-    private BpaThirdPartyService bpaThirdPartyService;
 
     @ModelAttribute
     public BpaApplication getBpaApplication(@PathVariable final String applicationNumber) {
