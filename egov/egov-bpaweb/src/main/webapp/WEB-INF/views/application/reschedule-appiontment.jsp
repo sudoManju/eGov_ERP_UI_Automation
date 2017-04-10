@@ -69,6 +69,3 @@
 		</div>
 	</div>
 </form:form>
-<script>
- $("#purpose1").prop("disabled",true);
-</script>

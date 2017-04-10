@@ -46,6 +46,7 @@ import javax.validation.Valid;
 
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaAppointmentSchedule;
+import org.egov.bpa.application.entity.enums.AppointmentSchedulePurpose;
 import org.egov.bpa.application.service.ApplicationBpaService;
 import org.egov.bpa.application.service.BpaAppointmentScheduleService;
 import org.egov.bpa.masters.service.StakeHolderService;
@@ -236,7 +237,9 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
 
     @RequestMapping(value = "/scheduleappointment/{applicationNumber}", method = RequestMethod.GET)
     public String newScheduleAppointment(@PathVariable final String applicationNumber, final Model model) {
-        model.addAttribute(BPA_APPOINTMENT_SCHEDULE, new BpaAppointmentSchedule());
+        BpaAppointmentSchedule appointmentSchedule =  new BpaAppointmentSchedule();
+        appointmentSchedule.setPurpose(AppointmentSchedulePurpose.DOCUMENTSCRUTINY);
+        model.addAttribute(BPA_APPOINTMENT_SCHEDULE, appointmentSchedule);
         model.addAttribute(APPLICATION_NUMBER, applicationNumber);
         return SCHEDULE_APPIONTMENT_NEW;
     }
@@ -248,7 +251,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         appointmentSchedule.setApplication(bpaApplication);
         BpaAppointmentSchedule schedule = bpaAppointmentScheduleService.save(appointmentSchedule);
         bpaSmsAndEmailService.sendSMSAndEmailForDocumentScrtiny(schedule, bpaApplication);
-        redirectAttributes.addFlashAttribute("message",
+        redirectAttributes.addFlashAttribute(MESSAGE,
                 messageSource.getMessage("msg.new.appoimt", null, null));
         return REDIRECT_APPLICATION_VIEW_APPOINTMENT + schedule.getId();
     }
@@ -277,7 +280,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         appointmentSchedule.setParent(parent);
         BpaAppointmentSchedule schedule = bpaAppointmentScheduleService.save(appointmentSchedule);
         bpaSmsAndEmailService.sendSMSAndEmailForDocumentScrtiny(schedule, bpaApplication);
-        redirectAttributes.addFlashAttribute("message",
+        redirectAttributes.addFlashAttribute(MESSAGE,
                 messageSource.getMessage("msg.rescheduled.appoimt", null, null));
         return REDIRECT_APPLICATION_VIEW_APPOINTMENT + schedule.getId();
     }

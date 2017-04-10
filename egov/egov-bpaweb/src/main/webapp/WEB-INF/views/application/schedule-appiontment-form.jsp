@@ -49,11 +49,12 @@
 		<spring:message code="lbl.schedule.doc.scrutiny" />
 	</div>
 </div>
+<form:hidden path="purpose"/>
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right"><spring:message
+	<%-- <label class="col-sm-3 control-label text-right"><spring:message
 			code="lbl.purpose" /> <span class="mandatory"></span> </label>
 	<div class="col-sm-3 add-margin">
-		<form:hidden path="purpose"/>
+		
 		<form:select path="purpose" id="purpose1" required="required"
 			cssClass="form-control" cssErrorClass="form-control error">
 			<form:option value="">
@@ -62,8 +63,8 @@
 			<form:options items="${appointmentPurpose}" />
 		</form:select>
 		<form:errors path="purpose" cssClass="add-margin error-msg" />
-	</div>
-	<label class="col-sm-2 control-label text-right"><spring:message
+	</div> --%>
+	<label class="col-sm-3 control-label text-right"><spring:message
 			code="lbl.appmnt.date" /> <span class="mandatory"></span> </label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control datepicker"
@@ -72,11 +73,7 @@
 			required="required" />
 		<form:errors path="appointmentDate" cssClass="add-margin error-msg" />
 	</div>
-
-</div>
-<div class="form-group">
-
-	<label class="col-sm-3 control-label text-right"><spring:message
+	<label class="col-sm-2 control-label text-right"><spring:message
 			code="lbl.appmnt.time" /> <span class="mandatory"></span> </label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
@@ -85,7 +82,9 @@
 		<form:errors path="appointmentTime" cssClass="add-margin error-msg" />
 	</div>
 
-	<label class="col-sm-2 control-label text-right"><spring:message
+</div>
+<div class="form-group">
+	<label class="col-sm-3 control-label text-right"><spring:message
 			code="lbl.appmnt.location" /> <span class="mandatory"></span> </label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
@@ -94,11 +93,7 @@
 		<form:errors path="appointmentLocation"
 			cssClass="add-margin error-msg" />
 	</div>
-</div>
-
-<div class="form-group">
-
-	<label class="col-sm-3 control-label text-right"><spring:message
+	<label class="col-sm-2 control-label text-right"><spring:message
 			code="lbl.remarks" /> <span class="mandatory"></span> </label>
 	<div class="col-sm-3 add-margin">
 		<form:textarea path="remarks" id="remarks"
@@ -107,9 +102,12 @@
 			maxlength="256" cols="5" rows="4" />
 		<form:errors path="remarks" cssClass="add-margin error-msg" />
 	</div>
+</div>
+
+<div class="form-group">
 	<c:if test="${ mode eq 'postponeappointment' }">
 		<div class="form-group">
-			<label class="col-sm-2 control-label text-right"><spring:message
+			<label class="col-sm-3 control-label text-right"><spring:message
 					code="lbl.postpone.reason" /> <span class="mandatory"></span> </label>
 			<div class="col-sm-3 add-margin">
 				<form:textarea path="postponementReason" id="postponementReason"
