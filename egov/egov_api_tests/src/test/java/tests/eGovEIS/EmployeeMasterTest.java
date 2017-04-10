@@ -1,27 +1,24 @@
 package tests.eGovEIS;
 
-import builders.eGovEIS.CreateEmployee.CreateEmployeeRequestBuilder;
-import builders.eGovEIS.CreateEmployee.EmployeeBuilder;
-import builders.eGovEIS.CreateEmployee.RequestInfoBuilder;
-import builders.eGovEIS.CreateEmployee.UserBuilder;
+import builders.eGovEIS.Employee.*;
 import com.jayway.restassured.response.Response;
-import entities.requests.eGovEIS.Employee.CreateEmployeeRequest;
-import entities.requests.eGovEIS.Employee.Employee;
-import entities.requests.eGovEIS.Employee.RequestInfo;
-import entities.requests.eGovEIS.Employee.User;
+import entities.requests.eGovEIS.Employee.*;
+import entities.responses.eGovEIS.Employee.CreateEmployeeResponse;
 import entities.responses.login.LoginResponse;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.EgovEISResource;
 import tests.BaseAPITest;
 import utils.Categories;
 import utils.LoginAndLogoutHelper;
 import utils.RequestHelper;
+import utils.ResponseHelper;
 
 import java.io.IOException;
 
 public class EmployeeMasterTest extends BaseAPITest {
 
-    @Test(groups = {Categories.HR, Categories.WIP})
+    @Test(groups = {Categories.HR, Categories.SANITY, Categories.DEV})
     public void CreateEmployeeTest() throws IOException {
 
         //Login Test
@@ -45,9 +42,9 @@ public class EmployeeMasterTest extends BaseAPITest {
     public void createEmployeeTestMethod(LoginResponse loginResponse) throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
 
-        User user = new UserBuilder().withUserName("TestUser"+get3DigitRandomInt()).build();
+        User user = new UserBuilder().withUserName("TestUser" + get3DigitRandomInt()).build();
 
-        Employee employee = new EmployeeBuilder().withPassportNo("IND12"+get3DigitRandomInt()).withGpfNo("12"+get3DigitRandomInt()).withUser(user).build();
+        Employee employee = new EmployeeBuilder().withPassportNo("IND12" + get3DigitRandomInt()).withGpfNo("12" + get3DigitRandomInt()).withUser(user).build();
 
         CreateEmployeeRequest request = new CreateEmployeeRequestBuilder().withRequestInfo(requestInfo).withEmployee(employee).build();
 
@@ -55,38 +52,25 @@ public class EmployeeMasterTest extends BaseAPITest {
 
         Response response = new EgovEISResource().createEmployee(jsonString);
 
-        System.out.println(response.getStatusCode());
+        Assert.assertEquals(response.getStatusCode(), 200);
 
+        CreateEmployeeResponse createEmployeeResponse = (CreateEmployeeResponse)
+                ResponseHelper.getResponseAsObject(response.asString(), CreateEmployeeResponse.class);
+
+        Assert.assertEquals(request.getEmployee().getPassportNo(), createEmployeeResponse.getEmployee().getPassportNo());
+        Assert.assertEquals(request.getEmployee().getUser().getUserName(), createEmployeeResponse.getEmployee().getUser().getUserName());
     }
 
     // Search Employee Test
     public void searchEmployeeTestMethod(LoginResponse loginResponse) throws IOException {
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
 
-//        entities.requests.eGovEIS.RequestInfo requestInfo = new RequestInfoBuilder("Search")
-//                .withAuthToken1(loginResponse.getAccess_token()).build1();
-//        SearchEmployeeRequest request = new SearchEmployeeRequestBuilder().withRequestInfo(requestInfo).build();
-//        String jsonData = RequestHelper.getJsonString(request);
-//        Response response = new EgovEISResource().searchEmployee(jsonData);
-//        SearchEmployeeResponse searchEmployeeResponse = (SearchEmployeeResponse) ResponseHelper
-//                .getResponseAsObject(response.asString(), SearchEmployeeResponse.class);
-//
-////        ##Assertions for Employee 1##
-//        Assert.assertEquals(searchEmployeeResponse.getEmployee()[0].getUserName(), "egovernments");
-//        Assert.assertEquals(searchEmployeeResponse.getEmployee()[0].getCode(), "A9090");
-//        Assert.assertEquals(searchEmployeeResponse.getEmployee()[0].getAssignments()[0].getPosition(), "4");
-//        Assert.assertEquals(searchEmployeeResponse.getEmployee()[0].getAssignments()[0].getDesignation(), "2");
-//        Assert.assertEquals(searchEmployeeResponse.getEmployee()[0].getAssignments()[0].getDepartment(), "1");
-//        Assert.assertEquals(searchEmployeeResponse.getEmployee()[0].getAssignments()[0].getFromDate(), "2015-01-01");
-//        Assert.assertEquals(searchEmployeeResponse.getEmployee()[0].getAssignments()[0].getToDate(), "2020-12-31");
-//        Assert.assertEquals(searchEmployeeResponse.getEmployee()[0].getAssignments()[0].getIsPrimary(), "true");
-////        ##Assertions for Employee 2##
-//        Assert.assertEquals(searchEmployeeResponse.getEmployee()[1].getUserName(), "elzan");
-//        Assert.assertEquals(searchEmployeeResponse.getEmployee()[1].getCode(), "1001");
-//        Assert.assertEquals(searchEmployeeResponse.getEmployee()[1].getAssignments()[0].getPosition(), "1");
-//        Assert.assertEquals(searchEmployeeResponse.getEmployee()[1].getAssignments()[0].getDesignation(), "2");
-//        Assert.assertEquals(searchEmployeeResponse.getEmployee()[1].getAssignments()[0].getDepartment(), "1");
-//        Assert.assertEquals(searchEmployeeResponse.getEmployee()[1].getAssignments()[0].getFromDate(), "2016-01-01");
-//        Assert.assertEquals(searchEmployeeResponse.getEmployee()[1].getAssignments()[0].getToDate(), "2017-12-31");
-//        Assert.assertEquals(searchEmployeeResponse.getEmployee()[1].getAssignments()[0].getIsPrimary(), "true");
+        SearchEmployeeRequest request = new SearchEmployeeRequestBuilder().withRequestInfo(requestInfo).build();
+
+        String json = RequestHelper.getJsonString(request);
+
+        Response response = new EgovEISResource().searchEmployee(json);
+
+        Assert.assertEquals(response.getStatusCode(),200);
     }
 }

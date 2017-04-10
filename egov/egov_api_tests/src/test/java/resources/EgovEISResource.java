@@ -28,7 +28,6 @@ public class EgovEISResource {
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
                 .header("Content-Type", "application/json")
-//                .header("auth-token", access_token)
                 .body(jsonData)
                 .when()
                 .post(Properties.createAttendanceURL);
@@ -47,7 +46,7 @@ public class EgovEISResource {
                 .when()
                 .post(Properties.searchEmployeeURL);
 
-        new APILogger().log("Search Employee Response is started with -- " + response.asString());
+        new APILogger().log("Search Employee Response is generated as -- " + response.asString());
         return response;
     }
 

@@ -1,4 +1,4 @@
-package builders.eGovEIS.CreateEmployee;
+package builders.eGovEIS.Employee;
 
 
 import entities.requests.eGovEIS.Employee.Roles;
