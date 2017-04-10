@@ -137,7 +137,7 @@ public class WaterChargeCollectionsPage extends WaterChargeManagementPage {
                 jsClick(ddModeOfPaymentRadio, webDriver);
 
                 enterText(chequeNumberTextBox, "123456", webDriver);
-                enterDate(chequeDateTextBox, "02/01/2017", webDriver);
+                enterDate(chequeDateTextBox, "02/04/2017", webDriver);
                 enterText(bankNameInput, "102", webDriver);
 
                 webDriver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);

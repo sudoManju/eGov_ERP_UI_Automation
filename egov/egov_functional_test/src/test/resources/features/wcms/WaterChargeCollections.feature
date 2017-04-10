@@ -78,6 +78,14 @@ Feature: To collect water charges in different mode payments
   @Sanity @WaterCharges @Smoke1
   Scenario Outline: This Scenario Includes creation of New Connection and collecting the charges through online link
 
+    Given creator logs in
+    And user will select the required screen as "Property Tax"
+    And he chooses to collect tax for above assessment number
+    And he chooses to pay tax
+    And he collect tax using <paymentMode>
+    And user closes the acknowledgement
+    And current user logs out
+
     Given juniorAssistant logs in
     And user will select the required screen as "Apply for New Connection"
     And user will enter the details of the new water connection
@@ -127,5 +135,5 @@ Feature: To collect water charges in different mode payments
     And user will click on the generate receipt
 
     Examples:
-      | connectionDetails | inspectionDetails | approvalOfficer1 | approvalOfficer2        | approvalOfficer3 |
-      | New_connection    | inspectionInfo    | engineer         | deputyExecutiveEngineer | commissioner1    |
+     | paymentMode | connectionDetails | inspectionDetails | approvalOfficer1 | approvalOfficer2        | approvalOfficer3 |
+     | cash        | New_connection    | inspectionInfo    | engineer         | deputyExecutiveEngineer | commissioner1    |
