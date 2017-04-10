@@ -17,7 +17,7 @@ import java.io.IOException;
 public class EmployeeMasterTest extends BaseAPITest {
 
     @Test(groups = {Categories.HR, Categories.SANITY, Categories.DEV})
-    public void CreateEmployeeTest() throws IOException {
+    public void EmployeeTest() throws IOException {
 
         //Login Test
         LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
