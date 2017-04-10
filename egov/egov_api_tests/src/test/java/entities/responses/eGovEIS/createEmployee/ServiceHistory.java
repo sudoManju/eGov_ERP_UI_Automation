@@ -1,17 +1,25 @@
-package entities.responses.eGovEIS.Employee;
+package entities.responses.eGovEIS.createEmployee;
 
-public class Technical {
+public class ServiceHistory {
+    private String orderNo;
     private String createdDate;
-    private int yearOfPassing;
     private Object documents;
     private int createdBy;
     private String lastModifiedDate;
-    private String skill;
-    private String grade;
+    private String serviceFrom;
     private int lastModifiedBy;
     private String tenantId;
+    private String serviceInfo;
     private int id;
     private String remarks;
+
+    public String getOrderNo() {
+        return this.orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
 
     public String getCreatedDate() {
         return this.createdDate;
@@ -19,14 +27,6 @@ public class Technical {
 
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
-    }
-
-    public int getYearOfPassing() {
-        return this.yearOfPassing;
-    }
-
-    public void setYearOfPassing(int yearOfPassing) {
-        this.yearOfPassing = yearOfPassing;
     }
 
     public Object getDocuments() {
@@ -53,20 +53,12 @@ public class Technical {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public String getSkill() {
-        return this.skill;
+    public String getServiceFrom() {
+        return this.serviceFrom;
     }
 
-    public void setSkill(String skill) {
-        this.skill = skill;
-    }
-
-    public String getGrade() {
-        return this.grade;
-    }
-
-    public void setGrade(String grade) {
-        this.grade = grade;
+    public void setServiceFrom(String serviceFrom) {
+        this.serviceFrom = serviceFrom;
     }
 
     public int getLastModifiedBy() {
@@ -83,6 +75,14 @@ public class Technical {
 
     public void setTenantId(String tenantId) {
         this.tenantId = tenantId;
+    }
+
+    public String getServiceInfo() {
+        return this.serviceInfo;
+    }
+
+    public void setServiceInfo(String serviceInfo) {
+        this.serviceInfo = serviceInfo;
     }
 
     public int getId() {

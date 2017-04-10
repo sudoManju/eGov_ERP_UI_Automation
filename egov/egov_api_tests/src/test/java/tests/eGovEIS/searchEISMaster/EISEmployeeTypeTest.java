@@ -46,6 +46,6 @@ public class EISEmployeeTypeTest extends BaseAPITest {
         Assert.assertEquals(response.getStatusCode() , 200);
         Assert.assertEquals(searchEmployeeTypeResponse.getEmployeeType().length , 4);
 
-        new APILogger().log("Search Employee Test is Completed--");
+        new APILogger().log("Search createEmployee Test is Completed--");
     }
 }

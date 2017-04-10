@@ -1,26 +1,17 @@
-package entities.responses.eGovEIS.Employee;
+package entities.responses.eGovEIS.createEmployee;
 
-public class Probation {
-    private String orderNo;
+public class Technical {
     private String createdDate;
+    private int yearOfPassing;
     private Object documents;
     private int createdBy;
     private String lastModifiedDate;
+    private String skill;
+    private String grade;
     private int lastModifiedBy;
-    private String declaredOn;
     private String tenantId;
     private int id;
-    private int designation;
-    private String orderDate;
     private String remarks;
-
-    public String getOrderNo() {
-        return this.orderNo;
-    }
-
-    public void setOrderNo(String orderNo) {
-        this.orderNo = orderNo;
-    }
 
     public String getCreatedDate() {
         return this.createdDate;
@@ -28,6 +19,14 @@ public class Probation {
 
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public int getYearOfPassing() {
+        return this.yearOfPassing;
+    }
+
+    public void setYearOfPassing(int yearOfPassing) {
+        this.yearOfPassing = yearOfPassing;
     }
 
     public Object getDocuments() {
@@ -54,20 +53,28 @@ public class Probation {
         this.lastModifiedDate = lastModifiedDate;
     }
 
+    public String getSkill() {
+        return this.skill;
+    }
+
+    public void setSkill(String skill) {
+        this.skill = skill;
+    }
+
+    public String getGrade() {
+        return this.grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
     public int getLastModifiedBy() {
         return this.lastModifiedBy;
     }
 
     public void setLastModifiedBy(int lastModifiedBy) {
         this.lastModifiedBy = lastModifiedBy;
-    }
-
-    public String getDeclaredOn() {
-        return this.declaredOn;
-    }
-
-    public void setDeclaredOn(String declaredOn) {
-        this.declaredOn = declaredOn;
     }
 
     public String getTenantId() {
@@ -84,22 +91,6 @@ public class Probation {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getDesignation() {
-        return this.designation;
-    }
-
-    public void setDesignation(int designation) {
-        this.designation = designation;
-    }
-
-    public String getOrderDate() {
-        return this.orderDate;
-    }
-
-    public void setOrderDate(String orderDate) {
-        this.orderDate = orderDate;
     }
 
     public String getRemarks() {

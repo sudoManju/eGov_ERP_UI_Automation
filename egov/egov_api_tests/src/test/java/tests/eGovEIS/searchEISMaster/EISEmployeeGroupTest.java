@@ -45,6 +45,6 @@ public class EISEmployeeGroupTest {
         Assert.assertEquals(response.getStatusCode() , 200);
         Assert.assertEquals(searchEmployeeGroupResponse.getGroup().length , 3);
 
-        new APILogger().log("Search Employee Group Test is Completed--");
+        new APILogger().log("Search createEmployee Group Test is Completed--");
     }
 }

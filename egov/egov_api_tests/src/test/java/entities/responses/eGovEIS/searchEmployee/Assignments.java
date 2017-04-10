@@ -1,4 +1,4 @@
-package entities.responses.eGovEIS.Employee;
+package entities.responses.eGovEIS.searchEmployee;
 
 public class Assignments {
     private String govtOrderNumber;
@@ -14,7 +14,7 @@ public class Assignments {
     private boolean isPrimary;
     private int function;
     private int grade;
-    private String tenantId;
+    private Object tenantId;
     private int id;
     private int position;
     private int designation;
@@ -125,11 +125,11 @@ public class Assignments {
         this.grade = grade;
     }
 
-    public String getTenantId() {
+    public Object getTenantId() {
         return this.tenantId;
     }
 
-    public void setTenantId(String tenantId) {
+    public void setTenantId(Object tenantId) {
         this.tenantId = tenantId;
     }
 

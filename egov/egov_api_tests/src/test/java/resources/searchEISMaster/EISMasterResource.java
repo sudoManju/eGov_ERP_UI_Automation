@@ -10,14 +10,14 @@ public class EISMasterResource {
 
     public Response searchEmployeeType(String json) {
 
-        new APILogger().log("Search Employee Test Request is Started with--" + json);
+        new APILogger().log("Search createEmployee Test Request is Started with--" + json);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
                 .body(json)
                 .when()
                 .post(Properties.eisSearchEmployeeTypeUrl);
 
-        new APILogger().log("Search Employee Test Response is Generated as  --" + response.asString());
+        new APILogger().log("Search createEmployee Test Response is Generated as  --" + response.asString());
         return response;
     }
 
@@ -73,14 +73,14 @@ public class EISMasterResource {
     }
 
     public Response searchEmployeeGroup(String json) {
-        new APILogger().log("Search Employee Group Test Request is Started with--" + json);
+        new APILogger().log("Search createEmployee Group Test Request is Started with--" + json);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
                 .body(json)
                 .when()
                 .post(Properties.eisSearchEmployeeGroupUrl);
 
-        new APILogger().log("Search Employee Group Test Response is Generated as  --" + response.asString());
+        new APILogger().log("Search createEmployee Group Test Response is Generated as  --" + response.asString());
         return response;
     }
 

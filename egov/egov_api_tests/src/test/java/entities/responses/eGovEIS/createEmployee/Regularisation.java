@@ -1,4 +1,4 @@
-package entities.responses.eGovEIS.Employee;
+package entities.responses.eGovEIS.createEmployee;
 
 public class Regularisation {
     private String orderNo;

@@ -1,16 +1,17 @@
-package entities.responses.eGovEIS.Employee;
+package entities.responses.eGovEIS.createEmployee;
 
-public class ServiceHistory {
+public class Probation {
     private String orderNo;
     private String createdDate;
     private Object documents;
     private int createdBy;
     private String lastModifiedDate;
-    private String serviceFrom;
     private int lastModifiedBy;
+    private String declaredOn;
     private String tenantId;
-    private String serviceInfo;
     private int id;
+    private int designation;
+    private String orderDate;
     private String remarks;
 
     public String getOrderNo() {
@@ -53,20 +54,20 @@ public class ServiceHistory {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public String getServiceFrom() {
-        return this.serviceFrom;
-    }
-
-    public void setServiceFrom(String serviceFrom) {
-        this.serviceFrom = serviceFrom;
-    }
-
     public int getLastModifiedBy() {
         return this.lastModifiedBy;
     }
 
     public void setLastModifiedBy(int lastModifiedBy) {
         this.lastModifiedBy = lastModifiedBy;
+    }
+
+    public String getDeclaredOn() {
+        return this.declaredOn;
+    }
+
+    public void setDeclaredOn(String declaredOn) {
+        this.declaredOn = declaredOn;
     }
 
     public String getTenantId() {
@@ -77,20 +78,28 @@ public class ServiceHistory {
         this.tenantId = tenantId;
     }
 
-    public String getServiceInfo() {
-        return this.serviceInfo;
-    }
-
-    public void setServiceInfo(String serviceInfo) {
-        this.serviceInfo = serviceInfo;
-    }
-
     public int getId() {
         return this.id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getDesignation() {
+        return this.designation;
+    }
+
+    public void setDesignation(int designation) {
+        this.designation = designation;
+    }
+
+    public String getOrderDate() {
+        return this.orderDate;
+    }
+
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
     }
 
     public String getRemarks() {

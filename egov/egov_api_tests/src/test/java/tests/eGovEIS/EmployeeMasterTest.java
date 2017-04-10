@@ -3,16 +3,14 @@ package tests.eGovEIS;
 import builders.eGovEIS.Employee.*;
 import com.jayway.restassured.response.Response;
 import entities.requests.eGovEIS.Employee.*;
-import entities.responses.eGovEIS.Employee.CreateEmployeeResponse;
+import entities.responses.eGovEIS.createEmployee.CreateEmployeeResponse;
+import entities.responses.eGovEIS.searchEmployee.SearchEmployeeResponse;
 import entities.responses.login.LoginResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.EgovEISResource;
 import tests.BaseAPITest;
-import utils.Categories;
-import utils.LoginAndLogoutHelper;
-import utils.RequestHelper;
-import utils.ResponseHelper;
+import utils.*;
 
 import java.io.IOException;
 
@@ -24,22 +22,18 @@ public class EmployeeMasterTest extends BaseAPITest {
         //Login Test
         LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
 
-        //Create Employee Test
-        createEmployeeTestMethod(loginResponse);
+        //Create createEmployee Test
+        CreateEmployeeResponse createEmployeeResponse = createEmployeeTestMethod(loginResponse);
+
+        //Search createEmployee Test with Criteria Id
+        searchEmployeeTestMethod(loginResponse,"id",createEmployeeResponse);
+
+        //Search createEmployee Test with Criteria Code
+        searchEmployeeTestMethod(loginResponse,"code",createEmployeeResponse);
     }
 
-    @Test(groups = {Categories.HR, Categories.SANITY, Categories.DEV})
-    public void SearchEmployeeTest() throws IOException {
-
-        //Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
-
-        //Search Employee Test
-        searchEmployeeTestMethod(loginResponse);
-    }
-
-    // Create Employee Test
-    public void createEmployeeTestMethod(LoginResponse loginResponse) throws IOException {
+    // Create createEmployee Test
+    public CreateEmployeeResponse createEmployeeTestMethod(LoginResponse loginResponse) throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
 
         User user = new UserBuilder().withUserName("TestUser" + get3DigitRandomInt()).build();
@@ -59,18 +53,41 @@ public class EmployeeMasterTest extends BaseAPITest {
 
         Assert.assertEquals(request.getEmployee().getPassportNo(), createEmployeeResponse.getEmployee().getPassportNo());
         Assert.assertEquals(request.getEmployee().getUser().getUserName(), createEmployeeResponse.getEmployee().getUser().getUserName());
+
+        new APILogger().log("Create Employee Test is Completed");
+
+       return createEmployeeResponse;
     }
 
-    // Search Employee Test
-    public void searchEmployeeTestMethod(LoginResponse loginResponse) throws IOException {
+    // Search createEmployee Test
+    public void searchEmployeeTestMethod(LoginResponse loginResponse,String criteria,CreateEmployeeResponse createEmployeeResponse) throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
 
         SearchEmployeeRequest request = new SearchEmployeeRequestBuilder().withRequestInfo(requestInfo).build();
 
         String json = RequestHelper.getJsonString(request);
+        String path = null;
 
-        Response response = new EgovEISResource().searchEmployee(json);
+        switch (criteria){
+
+            case "id" :
+                path = "&id="+createEmployeeResponse.getEmployee().getId();
+                break;
+
+            case "code" :
+                path = "&code="+createEmployeeResponse.getEmployee().getCode();
+                break;
+        }
+
+        Response response = new EgovEISResource().searchEmployee(json,path);
 
         Assert.assertEquals(response.getStatusCode(),200);
+
+        SearchEmployeeResponse searchEmployeeResponse = (SearchEmployeeResponse)
+                ResponseHelper.getResponseAsObject(response.asString(),SearchEmployeeResponse.class);
+
+        Assert.assertEquals(createEmployeeResponse.getEmployee().getUser().getUserName(), searchEmployeeResponse.getEmployee()[0].getUserName());
+
+        new APILogger().log("Search Employee with "+criteria+" is Completed");
     }
 }
