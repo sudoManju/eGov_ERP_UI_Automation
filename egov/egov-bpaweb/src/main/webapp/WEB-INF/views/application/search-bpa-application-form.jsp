@@ -53,13 +53,11 @@
 					<div class="col-sm-3 add-margin">
 						<form:input class="form-control patternvalidation"
 							data-pattern="alphabetwithspace" maxlength="128"
-							id="applicantName" path="applicantName" required="required" />
+							id="applicantName" path="applicantName"/>
 						<form:errors path="applicantName" cssClass="add-margin error-msg" />
 					</div>
 					<label class="col-sm-2 control-label text-right"><spring:message
-							code="lbl.application.no" />
-						<span class="mandatory"></span>
-					</label>
+							code="lbl.application.no" /></label>
 					<div class="col-sm-3 add-margin">
 						<form:input class="form-control patternvalidation" maxlength="50"
 							id="applicationNumber" path="applicationNumber" />
@@ -86,7 +84,7 @@
 							code="lbl.election.ward" /></label>
 					<div class="col-sm-3 add-margin">
 						<form:select path="electionWardId" data-first-option="false"
-							id="electionWardId" cssClass="form-control" required="required">
+							id="electionWardId" cssClass="form-control">
 							<form:option value="">
 								<spring:message code="lbl.select" />
 							</form:option>
