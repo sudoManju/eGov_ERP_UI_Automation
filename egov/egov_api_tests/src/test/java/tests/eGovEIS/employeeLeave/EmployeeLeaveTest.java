@@ -11,6 +11,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.EgovEISResource;
 import tests.BaseAPITest;
+import utils.Categories;
 import utils.LoginAndLogoutHelper;
 import utils.RequestHelper;
 import utils.ResponseHelper;
@@ -20,7 +21,7 @@ import java.io.IOException;
 
 public class EmployeeLeaveTest extends BaseAPITest {
 
-    @Test
+    @Test(groups = {Categories.HR, Categories.SANITY, Categories.DEV})
     public void employeeLeaveSearch() throws IOException{
 
         //Login
