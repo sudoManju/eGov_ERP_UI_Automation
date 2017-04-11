@@ -21,9 +21,7 @@ Feature: Create/renewal/closure of sewerage connection
     And he chooses to pay tax
     And he collect tax using <paymentMode>
     And user closes the acknowledgement
-    And current user logs out
 
-    Given creator logs in
     And user will select the required screen as "Apply for new connection" with condition as "stms"
     And he create new sewerage connection for above assessment number <creationDocuments>
     And he forward to assistant engineer and closes the acknowledgement
