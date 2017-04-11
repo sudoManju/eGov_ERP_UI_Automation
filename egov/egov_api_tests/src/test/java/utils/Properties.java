@@ -58,4 +58,5 @@ public class Properties {
     public static final String cmCategoryUrl = propertiesReader.getCMCategoryUrl();
     public static final String userCreateUrl = propertiesReader.getUserCreateUrl();
     public static final String pgrReceivingModesUrl = propertiesReader.getPGRReceivingModesUrl();
+    public static final String searchEmployeeLeaveUrl = propertiesReader.getSearchEmployeeLeaveUrl();
 }

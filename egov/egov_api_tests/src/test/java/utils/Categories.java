@@ -8,8 +8,7 @@ public class Categories {
     public static final String E2E = "E2e";
     public static final String WIP = "Wip";
     public static final String PGR = "Pgr";
-    public static final String EIS = "Hr";
     public static final String ASSET = "Asset";
-    public static final String HR = "CreateAttendance";
-    public static final String LAMS = "LeaseAgreement";
+    public static final String HR = "Eis";
+    public static final String LAMS = "Lams";
 }

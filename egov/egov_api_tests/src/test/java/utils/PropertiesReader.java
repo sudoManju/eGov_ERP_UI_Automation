@@ -167,5 +167,9 @@ public class PropertiesReader {
     public String getPGRReceivingModesUrl() {
         return prop.getProperty("pgrReceivingModes");
     }
+
+    public String getSearchEmployeeLeaveUrl() {
+        return prop.getProperty("searchEmployeeLeaveUrl");
+    }
 }
 

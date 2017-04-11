@@ -58,7 +58,20 @@ public class EgovEISResource {
                 .body(jsonData).when()
                 .post(Properties.createEmployeeUrl);
 
-        new APILogger().log("Create createEmployee Response Test is started with-- " + response.asString());
+        new APILogger().log("Create createEmployee Response Test is generated as-- " + response.asString());
+        return response;
+    }
+
+    public Response searchEmployeeLeave(String jsonData){
+        new APILogger().log("Search Employee Leave Request Test is started with-- " + jsonData);
+
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(jsonData)
+                .when()
+                .post(Properties.searchEmployeeLeaveUrl);
+
+        new APILogger().log("Search Employee Leave Response Test is generated as-- " + response.asString());
         return response;
     }
 }

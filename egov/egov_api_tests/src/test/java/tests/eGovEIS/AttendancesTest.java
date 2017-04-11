@@ -1,14 +1,14 @@
 package tests.eGovEIS;
 
-import builders.eGovEIS.Attendances.AttendanceBuilder;
-import builders.eGovEIS.Attendances.CreateAttendanceRequestBuilder;
-import builders.eGovEIS.Attendances.RequestInfoBuilder;
-import builders.eGovEIS.Attendances.SearchAttendanceRequestBuilder;
+import builders.eGovEIS.attendances.AttendanceBuilder;
+import builders.eGovEIS.attendances.CreateAttendanceRequestBuilder;
+import builders.eGovEIS.attendances.RequestInfoBuilder;
+import builders.eGovEIS.attendances.SearchAttendanceRequestBuilder;
 import com.jayway.restassured.response.Response;
-import entities.requests.eGovEIS.Attendances.SearchAttendanceRequest;
-import entities.requests.eGovEIS.Attendances.Attendance;
-import entities.requests.eGovEIS.Attendances.CreateAttendanceRequest;
-import entities.requests.eGovEIS.Attendances.RequestInfo;
+import entities.requests.eGovEIS.attendances.SearchAttendanceRequest;
+import entities.requests.eGovEIS.attendances.Attendance;
+import entities.requests.eGovEIS.attendances.CreateAttendanceRequest;
+import entities.requests.eGovEIS.attendances.RequestInfo;
 import entities.responses.eGovEIS.SearchAttendanceResponse;
 import entities.responses.eGovEIS.createAttendance.CreateAttendanceResponse;
 import entities.responses.login.LoginResponse;
@@ -29,7 +29,7 @@ public class AttendancesTest extends BaseAPITest {
         // Login Test
         LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
 
-        // Create Attendances Test
+        // Create attendances Test
         createAttendancesTestMethod(loginResponse);
     }
 
@@ -39,7 +39,7 @@ public class AttendancesTest extends BaseAPITest {
         // Login Test
         LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
 
-        // Search Attendances Test
+        // Search attendances Test
         searchAttendancesTestMethod(loginResponse);
     }
 
@@ -86,6 +86,6 @@ public class AttendancesTest extends BaseAPITest {
             System.out.println("Assertion Failed because of: " + error.getMessage());
         }
 
-        new APILogger().log("Search Attendances Test is completed --");
+        new APILogger().log("Search attendances Test is completed --");
     }
 }

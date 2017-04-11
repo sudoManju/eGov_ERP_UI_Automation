@@ -6,7 +6,7 @@ public class CreateEmployeeResponse
 {
     private ResponseInfo ResponseInfo;
 
-    @JsonProperty("Employee")
+    @JsonProperty("employee")
     private Employee Employee;
 
     public ResponseInfo getResponseInfo() {

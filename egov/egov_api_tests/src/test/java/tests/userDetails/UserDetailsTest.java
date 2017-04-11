@@ -82,7 +82,7 @@ public class UserDetailsTest extends BaseAPITest {
     }
 
 
-    public UserDetailsResponse CreateAUserTest(LoginResponse loginResponse) throws IOException {
+    private UserDetailsResponse CreateAUserTest(LoginResponse loginResponse) throws IOException {
 
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
 
