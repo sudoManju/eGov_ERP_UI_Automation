@@ -43,7 +43,7 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
             pageStore.get(NewSewerageConnectionPage.class).approveTheApplication();
         });
         And("^he forward to DEE and close the acknowledgement$", () -> {
-            String approverDetailsDataId = "DeputyExecutiveEngineer_1";
+            String approverDetailsDataId = "deputyExecutiveEngineer";
 
             ApprovalDetails approverDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetails(approverDetailsDataId);
             pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approverDetails);

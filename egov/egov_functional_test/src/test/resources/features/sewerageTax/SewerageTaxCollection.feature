@@ -16,6 +16,14 @@ Feature: Create/renewal/closure of sewerage connection
   Scenario Outline: create/change/closure of sewerage connection
 
     Given creator logs in
+    And user will select the required screen as "Property Tax"
+    And he chooses to collect tax for above assessment number
+    And he chooses to pay tax
+    And he collect tax using <paymentMode>
+    And user closes the acknowledgement
+    And current user logs out
+
+    Given creator logs in
     And user will select the required screen as "Apply for new connection" with condition as "stms"
     And he create new sewerage connection for above assessment number <creationDocuments>
     And he forward to assistant engineer and closes the acknowledgement
@@ -32,7 +40,7 @@ Feature: Create/renewal/closure of sewerage connection
     Then user will be notified by "forwarded"
     And current user logs out
 
-    When DeputyExecutiveEngineer_1 logs in
+    When deputyExecutiveEngineer logs in
     And he chooses to act upon above application number
     And he approve the above sewerage application
     And he closes the sewerage acknowledgement
@@ -93,7 +101,7 @@ Feature: Create/renewal/closure of sewerage connection
     Then user will be notified by "forwarded"
     And current user logs out
 
-    When DeputyExecutiveEngineer_1 logs in
+    When deputyExecutiveEngineer logs in
     And he chooses to act upon above application number
     And he approve the above sewerage application
     And he closes the sewerageChange acknowledgement
@@ -151,7 +159,7 @@ Feature: Create/renewal/closure of sewerage connection
     Then user will be notified by "forwarded"
     And current user logs out
 
-    When DeputyExecutiveEngineer_1 logs in
+    When deputyExecutiveEngineer logs in
     And he chooses to act upon above application number
     And he forwards to executive engineer for closure and close the acknowledgement
     Then user will be notified by "forwarded"
@@ -170,10 +178,10 @@ Feature: Create/renewal/closure of sewerage connection
     And current user logs out
 
     Examples:
-      | creationDocuments | changeDocuments |
-      | creation1         | change1         |
-      | creation2         | change2         |
-      | creation3         | change3         |
+     | paymentMode | creationDocuments | changeDocuments |
+     |  cash       | creation1         | change1         |
+     |  cash       | creation2         | change2         |
+     |  cash       | creation3         | change3         |
 
   @SewerageTax @Sanity
   Scenario: Generate demand bill for legacy sewerage connection
