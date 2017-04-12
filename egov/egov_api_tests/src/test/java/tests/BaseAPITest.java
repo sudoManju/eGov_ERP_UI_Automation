@@ -38,7 +38,7 @@ public class BaseAPITest {
 
         GregorianCalendar gc = new GregorianCalendar();
 
-        int year = randBetween(2010, 2017);
+        int year = randBetween(2010, 2016);
 
         gc.set(gc.YEAR, year);
 
