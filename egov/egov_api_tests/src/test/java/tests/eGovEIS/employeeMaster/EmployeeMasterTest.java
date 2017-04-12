@@ -37,7 +37,6 @@ public class EmployeeMasterTest extends BaseAPITest {
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
 
         User user = new UserBuilder().withUserName("TestUser" + get3DigitRandomInt()).build();
-
         Employee employee = new EmployeeBuilder().withPassportNo("IND12" + get3DigitRandomInt()).withGpfNo("12" + get3DigitRandomInt()).withUser(user).build();
 
         CreateEmployeeRequest request = new CreateEmployeeRequestBuilder().withRequestInfo(requestInfo).withEmployee(employee).build();
@@ -45,7 +44,6 @@ public class EmployeeMasterTest extends BaseAPITest {
         String jsonString = RequestHelper.getJsonString(request);
 
         Response response = new EgovEISResource().createEmployee(jsonString);
-
         Assert.assertEquals(response.getStatusCode(), 200);
 
         CreateEmployeeResponse createEmployeeResponse = (CreateEmployeeResponse)
@@ -53,6 +51,7 @@ public class EmployeeMasterTest extends BaseAPITest {
 
         Assert.assertEquals(request.getEmployee().getPassportNo(), createEmployeeResponse.getEmployee().getPassportNo());
         Assert.assertEquals(request.getEmployee().getUser().getUserName(), createEmployeeResponse.getEmployee().getUser().getUserName());
+        Assert.assertEquals(request.getEmployee().getGpfNo(), createEmployeeResponse.getEmployee().getGpfNo());
 
         new APILogger().log("Create employee Test is Completed");
 

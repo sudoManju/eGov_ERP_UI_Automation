@@ -4,7 +4,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class SearchEmployeeResponse {
     private ResponseInfo ResponseInfo;
-    @JsonProperty("employee")
+    @JsonProperty("Employee")
     private Employee[] Employee;
 
     public ResponseInfo getResponseInfo() {

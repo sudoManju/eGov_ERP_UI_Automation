@@ -6,7 +6,7 @@ public class CreateEmployeeRequest {
     @JsonProperty("RequestInfo")
     private RequestInfo RequestInfo;
 
-    @JsonProperty("employee")
+    @JsonProperty("Employee")
     private Employee Employee;
 
     public RequestInfo getRequestInfo() {
