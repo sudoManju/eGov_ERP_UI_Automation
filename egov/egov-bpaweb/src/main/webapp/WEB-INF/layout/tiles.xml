@@ -78,9 +78,10 @@
         <put-attribute name="page-title" value="title.viewApplication" cascade="true"/>
         <put-attribute name="body" value="/WEB-INF/views/application/viewapplication-form.jsp"/>
     </definition>
-    
-    
-    
+    <definition name="application-view" extends="base_layout">
+        <put-attribute name="page-title" value="title.viewApplication" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/application/application-view.jsp"/>
+    </definition>
     <definition name="documentscrutiny-form" extends="base_layout">
         <put-attribute name="page-title" value="title.documentScrutiny" cascade="true"/>
         <put-attribute name="body" value="/WEB-INF/views/application/documentscrutiny-form.jsp"/>

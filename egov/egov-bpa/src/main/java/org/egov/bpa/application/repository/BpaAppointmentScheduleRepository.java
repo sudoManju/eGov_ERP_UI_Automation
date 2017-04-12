@@ -43,12 +43,13 @@ import java.util.List;
 
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaAppointmentSchedule;
+import org.egov.bpa.application.entity.enums.AppointmentSchedulePurpose;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BpaAppointmentScheduleRepository extends JpaRepository<BpaAppointmentSchedule, Long> {
-    List<BpaAppointmentSchedule> findByApplicationOrderByIdDesc(BpaApplication bpaApplication);
+    List<BpaAppointmentSchedule> findByApplicationAndPurposeOrderByIdDesc(BpaApplication bpaApplication,AppointmentSchedulePurpose purpose);
 
     List<BpaAppointmentSchedule> findByIdOrderByIdAsc(Long id);
 }

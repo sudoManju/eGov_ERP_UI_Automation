@@ -82,12 +82,14 @@
 						<div class="col-sm-3 add-margin view-content">
 							<c:out value="${appoimnt.appointmentTime}" default="N/A"></c:out>
 						</div>
+						<c:if test="${appoimnt.purpose eq 'DOCUMENTSCRUTINY'}">
 						<div class="col-sm-3 add-margin">
 							<spring:message code="lbl.appmnt.location" />
 						</div>
 						<div class="col-sm-3 add-margin view-content">
 							<c:out value="${appoimnt.appointmentLocation}" default="N/A"></c:out>
 						</div>
+						</c:if>
 					</div>
 
 					<div class="row add-border">

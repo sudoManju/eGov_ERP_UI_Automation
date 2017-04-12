@@ -43,11 +43,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn"%>
-<div class="panel-heading custom_form_panel_heading">
-	<div class="panel-title">
-		<spring:message code="lbl.existing.schedule.scrutiny" />
-	</div>
-</div>
+
 <div class="panel-body" data-collapsed="0">
 	<c:forEach items="${appointmentScheduledList}" var="appoimnt"
 		varStatus="counter">
@@ -79,12 +75,14 @@
 			<div class="col-sm-3 add-margin view-content">
 				<c:out value="${appoimnt.appointmentTime}" default="N/A"></c:out>
 			</div>
-			<div class="col-sm-3 add-margin">
-				<spring:message code="lbl.appmnt.location" />
-			</div>
-			<div class="col-sm-3 add-margin view-content">
-				<c:out value="${appoimnt.appointmentLocation}" default="N/A"></c:out>
-			</div>
+			<c:if test="${appoimnt.purpose eq 'DOCUMENTSCRUTINY'}">
+				<div class="col-sm-3 add-margin">
+					<spring:message code="lbl.appmnt.location" />
+				</div>
+				<div class="col-sm-3 add-margin view-content">
+					<c:out value="${appoimnt.appointmentLocation}" default="N/A"></c:out>
+				</div>
+			</c:if>
 		</div>
 
 		<div class="row add-border">

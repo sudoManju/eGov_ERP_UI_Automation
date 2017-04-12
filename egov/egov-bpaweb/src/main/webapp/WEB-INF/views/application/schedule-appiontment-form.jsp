@@ -44,11 +44,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn"%>
 
-<div class="panel-heading custom_form_panel_heading">
-	<div class="panel-title">
-		<spring:message code="lbl.schedule.doc.scrutiny" />
-	</div>
-</div>
 <form:hidden path="purpose"/>
 <div class="form-group">
 	<%-- <label class="col-sm-3 control-label text-right"><spring:message
@@ -68,37 +63,43 @@
 			code="lbl.appmnt.date" /> <span class="mandatory"></span> </label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control datepicker"
-			ta-inputmask="'mask': 'd/m/y'" data-date-start-date="0d"
+			data-inputmask="'mask': 'd/m/y'" data-date-start-date="0d"
 			maxlength="50" id="appointmentDate" path="appointmentDate"
 			required="required" />
 		<form:errors path="appointmentDate" cssClass="add-margin error-msg" />
 	</div>
 	<label class="col-sm-2 control-label text-right"><spring:message
-			code="lbl.appmnt.time" /> <span class="mandatory"></span> </label>
+			code="lbl.appmnt.time" /></label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation"
-			data-pattern="string" maxlength="50" id="appointmentTime"
-			path="appointmentTime" required="required" />
+		<div class='input-group date' name='appointmentTime'
+			id='appointmentTime'>
+			<form:input class="form-control" maxlength="50"
+				id="appointmentTime" path="appointmentTime" />
+			<span class="input-group-addon"> <span
+				class="glyphicon glyphicon-time"></span>
+			</span>
+		</div>
 		<form:errors path="appointmentTime" cssClass="add-margin error-msg" />
 	</div>
 
 </div>
+<c:if test="${bpaAppointmentSchedule.purpose eq 'DOCUMENTSCRUTINY'}">
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right"><spring:message
-			code="lbl.appmnt.location" /> <span class="mandatory"></span> </label>
+			code="lbl.appmnt.location" /></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
 			data-pattern="string" maxlength="50" id="appointmentLocation"
-			path="appointmentLocation" required="required" />
+			path="appointmentLocation"/>
 		<form:errors path="appointmentLocation"
 			cssClass="add-margin error-msg" />
 	</div>
 	<label class="col-sm-2 control-label text-right"><spring:message
-			code="lbl.remarks" /> <span class="mandatory"></span> </label>
+			code="lbl.remarks" /> </label>
 	<div class="col-sm-3 add-margin">
 		<form:textarea path="remarks" id="remarks"
 			class="form-control patternvalidation"
-			data-pattern="alphanumericwithspace" required="required"
+			data-pattern="alphanumericwithspace"
 			maxlength="256" cols="5" rows="4" />
 		<form:errors path="remarks" cssClass="add-margin error-msg" />
 	</div>
@@ -120,3 +121,39 @@
 		</div>
 	</c:if>
 </div>
+</c:if>
+
+<c:if test="${bpaAppointmentSchedule.purpose eq 'INSPECTION'}">
+<div class="form-group">
+	<label class="col-sm-3 control-label text-right"><spring:message
+			code="lbl.remarks" /> </label>
+	<div class="col-sm-3 add-margin">
+		<form:textarea path="remarks" id="remarks"
+			class="form-control patternvalidation"
+			data-pattern="alphanumericwithspace" maxlength="256" cols="5"
+			rows="4" />
+		<form:errors path="remarks" cssClass="add-margin error-msg" />
+	</div>
+	<c:if test="${ mode eq 'postponeappointment' }">
+		<label class="col-sm-2 control-label text-right"><spring:message
+				code="lbl.postpone.reason" /> <span class="mandatory"></span> </label>
+		<div class="col-sm-3 add-margin">
+			<form:textarea path="postponementReason" id="postponementReason"
+				class="form-control patternvalidation"
+				data-pattern="alphanumericwithspace" required="required"
+				maxlength="256" cols="5" rows="4" />
+			<form:errors path="postponementReason"
+				cssClass="add-margin error-msg" />
+		</div>
+	</c:if>
+</div>
+</c:if>
+
+<link rel="stylesheet"
+	href="<c:url value='/resources/global/css/bootstrap/bootstrap-datetimepicker.min.css' context='/egi'/>">
+<script
+	src="<cdn:url value='/resources/global/js/jquery/plugins/datatables/moment.min.js' context='/egi'/>"></script>
+<script
+	src="<cdn:url value='/resources/global/js/bootstrap/bootstrap-datetimepicker.min.js' context='/egi'/>"></script>
+<script
+	src="<cdn:url value='/resources/js/app/schedule-appointment.js?rnd=${app_release_no}'/>"></script>

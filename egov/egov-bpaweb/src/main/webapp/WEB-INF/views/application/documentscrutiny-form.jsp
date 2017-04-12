@@ -61,6 +61,9 @@
 				<jsp:include page="view-sitedetail.jsp"></jsp:include>
 			</div>
 			<div class="panel panel-primary" data-collapsed="0">
+				<jsp:include page="view-building-details.jsp" />
+			</div>
+			<div class="panel panel-primary" data-collapsed="0">
 				<jsp:include page="applicationhistory-view.jsp"></jsp:include>
 			</div>
 			<div align="center">
@@ -71,7 +74,7 @@
 				</c:if>
 				<c:if test="${mode eq 'postponeappointment'}">
 					<a
-						href="/bpa/application/postponeappointment/${bpaApplication.applicationNumber}"
+						href="/bpa/application/postponeappointment/${scheduleType}/${bpaApplication.applicationNumber}"
 						class="btn btn-primary"> Reschedule Appointment </a>
 				</c:if>
 				<a

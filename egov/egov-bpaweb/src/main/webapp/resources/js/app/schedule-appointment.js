@@ -37,39 +37,28 @@
  *
  *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
-package org.egov.bpa.application.service;
 
-import java.util.List;
+$(document).ready( function () {
+	
+	//For time picker
+	$(function () {
+        $('#appointmentTime').datetimepicker({
+            format: 'LT',
+            disabledHours: [0,1,2,3,4,5,6,7,8,9,18,19,20,21,22,23],
+            minDate: moment({h:10}),
+            maxDate: moment({h:17})
+        });
+    });
+	//re-schedule appointment date validation
+	$('#appointmentDate').on('changeDate', function() {
+		var  currDate = $('#appointmentDate').val();
+		var  prevDate = $('#previoueappointmentDate').val();
+		var datearray = prevDate.split("-");
+		var newPrevdate = datearray[2] + '/' + datearray[1] + '/' + datearray[0];
+		if(currDate <= newPrevdate){
+			bootbox.alert('Re-schedule date should be greater than the previous scheduled date.');
+			$('#appointmentDate').val('').datepicker("refresh");
+		}
+		});
+});
 
-import org.egov.bpa.application.entity.BpaApplication;
-import org.egov.bpa.application.entity.BpaAppointmentSchedule;
-import org.egov.bpa.application.entity.enums.AppointmentSchedulePurpose;
-import org.egov.bpa.application.repository.BpaAppointmentScheduleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-@Service
-@Transactional(readOnly = true)
-public class BpaAppointmentScheduleService {
-
-    @Autowired
-    private BpaAppointmentScheduleRepository appointmentScheduleRepository;
-
-    @Transactional
-    public BpaAppointmentSchedule save(final BpaAppointmentSchedule appointmentSchedule) {
-        return appointmentScheduleRepository.save(appointmentSchedule);
-    }
-
-    public BpaAppointmentSchedule findById(Long id) {
-        return appointmentScheduleRepository.findOne(id);
-    }
-
-    public List<BpaAppointmentSchedule> findByApplication(BpaApplication bpaApplication,AppointmentSchedulePurpose type) {
-        return appointmentScheduleRepository.findByApplicationAndPurposeOrderByIdDesc(bpaApplication,type);
-    }
-
-    public List<BpaAppointmentSchedule> findByIdAsList(Long id) {
-        return appointmentScheduleRepository.findByIdOrderByIdAsc(id);
-    }
-}

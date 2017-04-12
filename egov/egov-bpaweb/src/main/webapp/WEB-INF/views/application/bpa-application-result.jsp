@@ -64,6 +64,9 @@
 		<div class="panel panel-primary" data-collapsed="0">
 			<jsp:include page="view-sitedetail.jsp"></jsp:include>
 		</div>
+		<div class="panel panel-primary" data-collapsed="0">
+			<jsp:include page="view-building-details.jsp" />
+		</div>
 		<div class="buttonbottom" align="center">
 			<table>
 				<tr>

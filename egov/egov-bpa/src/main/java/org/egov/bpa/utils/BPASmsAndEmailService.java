@@ -51,6 +51,7 @@ import org.egov.bpa.application.entity.ApplicationStakeHolder;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaAppointmentSchedule;
 import org.egov.bpa.application.entity.StakeHolder;
+import org.egov.bpa.application.entity.enums.AppointmentSchedulePurpose;
 import org.egov.infra.admin.master.entity.AppConfigValues;
 import org.egov.infra.admin.master.service.AppConfigValueService;
 import org.egov.infra.messaging.MessagingService;
@@ -74,6 +75,12 @@ public class BPASmsAndEmailService {
     private static final String MSG_KEY_SMS_BPA_DOC_SCRUTINY_RESCHE = "msg.bpa.doc.scruty.reschedule.sms";
     private static final String SUBJECT_KEY_EMAIL_BPA_DOC_SCRUTINY_RESCHE = "msg.bpa.doc.scruty.schedule.email.subject";
     private static final String BODY_KEY_EMAIL_BPA_DOC_SCRUTINY_RESCHE = "msg.bpa.doc.scruty.reschedule.email.subject";
+    private static final String MSG_KEY_SMS_BPA_FIELD_INS = "msg.bpa.field.ins.schedule.sms";
+    private static final String SUBJECT_KEY_EMAIL_BPA_FIELD_INS = "msg.bpa.field.ins.schedule.email.subject";
+    private static final String BODY_KEY_EMAIL_BPA_FIELD_INS = "msg.bpa.field.ins.schedule.email.body";
+    private static final String MSG_KEY_SMS_BPA_FIELD_INS_RESCHE = "msg.bpa.field.ins.reschedule.sms";
+    private static final String SUBJECT_KEY_EMAIL_BPA_FIELD_INS_RESCHE = "msg.bpa.field.ins.reschedule.email.body";
+    private static final String BODY_KEY_EMAIL_BPA_FIELD_INS_RESCHE = "msg.bpa.field.ins.reschedule.email.subject";
     @Autowired
     private MessagingService messagingService;
     @Autowired
@@ -101,9 +108,9 @@ public class BPASmsAndEmailService {
     }
 
     public void sendSMSAndEmail(final BpaApplication bpaApplication) {
-        String mobileNo ;
-        String email ;
-        String applicantName ;
+        String mobileNo;
+        String email;
+        String applicantName;
         if (isSmsEnabled() || isEmailEnabled()) {
             for (ApplicationStakeHolder applnStakeHolder : bpaApplication.getStakeHolder()) {
                 if (applnStakeHolder.getApplication() != null && applnStakeHolder.getApplication().getOwner() != null) {
@@ -122,10 +129,10 @@ public class BPASmsAndEmailService {
         }
     }
 
-    public void sendSMSAndEmailForDocumentScrtiny(final BpaAppointmentSchedule scheduleDetails,
+    public void sendSMSAndEmailToscheduleAppointment(final BpaAppointmentSchedule scheduleDetails,
             final BpaApplication bpaApplication) {
         if (isSmsEnabled() || isEmailEnabled()) {
-            buildSmsAndEmailForDocumentScrutiny(scheduleDetails, bpaApplication, bpaApplication.getOwner().getApplicantName(),
+            buildSmsAndEmailForScheduleAppointment(scheduleDetails, bpaApplication, bpaApplication.getOwner().getApplicantName(),
                     bpaApplication.getOwner().getMobileNumber(), bpaApplication.getOwner().getEmailid());
         }
     }
@@ -149,25 +156,43 @@ public class BPASmsAndEmailService {
             messagingService.sendEmail(email, subject, body);
     }
 
-    private void buildSmsAndEmailForDocumentScrutiny(final BpaAppointmentSchedule scheduleDetails,
+    private void buildSmsAndEmailForScheduleAppointment(final BpaAppointmentSchedule scheduleDetails,
             final BpaApplication bpaApplication, final String applicantName, final String mobileNo, final String email) {
-        String smsMsg;
-        String body;
-        String subject;
-        if (!scheduleDetails.isPostponed()) {
-            smsMsg = buildMessageDetailsForDocumentScrutiny(scheduleDetails, bpaApplication, applicantName,
-                    MSG_KEY_SMS_BPA_DOC_SCRUTINY);
-            body = buildMessageDetailsForDocumentScrutiny(scheduleDetails, bpaApplication, applicantName,
-                    BODY_KEY_EMAIL_BPA_DOC_SCRUTINY);
-            subject = emailSubjectforEmailForDocScrutiny(scheduleDetails, bpaApplication, applicantName,
-                    SUBJECT_KEY_EMAIL_BPA_DOC_SCRUTINY);
-        } else {
-            smsMsg = buildMessageDetailsForDocumentScrutiny(scheduleDetails, bpaApplication, applicantName,
-                    MSG_KEY_SMS_BPA_DOC_SCRUTINY_RESCHE);
-            body = buildMessageDetailsForDocumentScrutiny(scheduleDetails, bpaApplication, applicantName,
-                    BODY_KEY_EMAIL_BPA_DOC_SCRUTINY_RESCHE);
-            subject = emailSubjectforEmailForDocScrutiny(scheduleDetails, bpaApplication, applicantName,
-                    SUBJECT_KEY_EMAIL_BPA_DOC_SCRUTINY_RESCHE);
+        String smsMsg = null;
+        String body = null;
+        String subject = null;
+        if (AppointmentSchedulePurpose.DOCUMENTSCRUTINY.equals(scheduleDetails.getPurpose())) {
+            if (!scheduleDetails.isPostponed()) {
+                smsMsg = buildMessageDetailsForScheduleAppointment(scheduleDetails, bpaApplication, applicantName,
+                        MSG_KEY_SMS_BPA_DOC_SCRUTINY);
+                body = buildMessageDetailsForScheduleAppointment(scheduleDetails, bpaApplication, applicantName,
+                        BODY_KEY_EMAIL_BPA_DOC_SCRUTINY);
+                subject = emailSubjectforEmailForScheduleAppointment(scheduleDetails, bpaApplication, applicantName,
+                        SUBJECT_KEY_EMAIL_BPA_DOC_SCRUTINY);
+            } else {
+                smsMsg = buildMessageDetailsForScheduleAppointment(scheduleDetails, bpaApplication, applicantName,
+                        MSG_KEY_SMS_BPA_DOC_SCRUTINY_RESCHE);
+                body = buildMessageDetailsForScheduleAppointment(scheduleDetails, bpaApplication, applicantName,
+                        BODY_KEY_EMAIL_BPA_DOC_SCRUTINY_RESCHE);
+                subject = emailSubjectforEmailForScheduleAppointment(scheduleDetails, bpaApplication, applicantName,
+                        SUBJECT_KEY_EMAIL_BPA_DOC_SCRUTINY_RESCHE);
+            }
+        } else if (AppointmentSchedulePurpose.INSPECTION.equals(scheduleDetails.getPurpose())) {
+            if (!scheduleDetails.isPostponed()) {
+                smsMsg = buildMessageDetailsForScheduleAppointment(scheduleDetails, bpaApplication, applicantName,
+                        MSG_KEY_SMS_BPA_FIELD_INS);
+                body = buildMessageDetailsForScheduleAppointment(scheduleDetails, bpaApplication, applicantName,
+                        BODY_KEY_EMAIL_BPA_FIELD_INS);
+                subject = emailSubjectforEmailForScheduleAppointment(scheduleDetails, bpaApplication, applicantName,
+                        SUBJECT_KEY_EMAIL_BPA_FIELD_INS);
+            } else {
+                smsMsg = buildMessageDetailsForScheduleAppointment(scheduleDetails, bpaApplication, applicantName,
+                        MSG_KEY_SMS_BPA_FIELD_INS_RESCHE);
+                body = buildMessageDetailsForScheduleAppointment(scheduleDetails, bpaApplication, applicantName,
+                        BODY_KEY_EMAIL_BPA_FIELD_INS_RESCHE);
+                subject = emailSubjectforEmailForScheduleAppointment(scheduleDetails, bpaApplication, applicantName,
+                        SUBJECT_KEY_EMAIL_BPA_FIELD_INS_RESCHE);
+            }
         }
         if (mobileNo != null && smsMsg != null)
             messagingService.sendSMS(mobileNo, smsMsg);
@@ -175,27 +200,47 @@ public class BPASmsAndEmailService {
             messagingService.sendEmail(email, subject, body);
     }
 
-    private String buildMessageDetailsForDocumentScrutiny(final BpaAppointmentSchedule scheduleDetails,
+    private String buildMessageDetailsForScheduleAppointment(final BpaAppointmentSchedule scheduleDetails,
             final BpaApplication bpaApplication, String applicantName, String msgKey) {
-        String mesg;
-        if (!scheduleDetails.isPostponed()) {
-            mesg = bpaMessageSource.getMessage(msgKey,
-                    new String[] { applicantName, scheduleDetails.getAppointmentDate().toString(),
-                            scheduleDetails.getAppointmentTime(), scheduleDetails.getAppointmentLocation(),
-                            bpaApplication.getApplicationNumber() },
-                    null);
-        } else {
-            mesg = bpaMessageSource.getMessage(msgKey,
-                    new String[] { applicantName, scheduleDetails.getPostponementReason(),
-                            scheduleDetails.getAppointmentDate().toString(),
-                            scheduleDetails.getAppointmentTime(), scheduleDetails.getAppointmentLocation(),
-                            bpaApplication.getApplicationNumber() },
-                    null);
+        String mesg = null;
+        if (AppointmentSchedulePurpose.DOCUMENTSCRUTINY.equals(scheduleDetails.getPurpose())) {
+            if (!scheduleDetails.isPostponed()) {
+                mesg = bpaMessageSource.getMessage(msgKey,
+                        new String[] { applicantName, scheduleDetails.getAppointmentDate().toString(),
+                                scheduleDetails.getAppointmentTime(), scheduleDetails.getAppointmentLocation(),
+                                bpaApplication.getApplicationNumber() },
+                        null);
+            } else {
+                mesg = bpaMessageSource.getMessage(msgKey,
+                        new String[] { applicantName, scheduleDetails.getPostponementReason(),
+                                scheduleDetails.getAppointmentDate().toString(),
+                                scheduleDetails.getAppointmentTime(), scheduleDetails.getAppointmentLocation(),
+                                bpaApplication.getApplicationNumber() },
+                        null);
+            }
+        } else if (AppointmentSchedulePurpose.INSPECTION.equals(scheduleDetails.getPurpose())) {
+
+            if (!scheduleDetails.isPostponed()) {
+                mesg = bpaMessageSource.getMessage(msgKey,
+                        new String[] { applicantName, scheduleDetails.getAppointmentDate().toString(),
+                                scheduleDetails.getAppointmentTime(),
+                                bpaApplication.getApplicationNumber() },
+                        null);
+            } else {
+                mesg = bpaMessageSource.getMessage(msgKey,
+                        new String[] { applicantName,
+                                scheduleDetails.getAppointmentDate().toString(),
+                                scheduleDetails.getAppointmentTime(),
+                                bpaApplication.getApplicationNumber(),
+                                scheduleDetails.getPostponementReason() },
+                        null);
+            }
+
         }
         return mesg;
     }
 
-    private String emailSubjectforEmailForDocScrutiny(final BpaAppointmentSchedule scheduleDetails,
+    private String emailSubjectforEmailForScheduleAppointment(final BpaAppointmentSchedule scheduleDetails,
             final BpaApplication bpaApplication, String applicantName, String msgKey) {
         final Locale locale = LocaleContextHolder.getLocale();
         return bpaMessageSource.getMessage(msgKey, new String[] { applicantName, scheduleDetails.getAppointmentDate().toString(),

@@ -39,6 +39,10 @@
  */
 package org.egov.bpa.web.controller.application;
 
+import static org.egov.bpa.utils.BpaConstants.DOCUMENTVERIFIED;
+import static org.egov.bpa.utils.BpaConstants.REGISTERED;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,10 +51,7 @@ import javax.validation.Valid;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaAppointmentSchedule;
 import org.egov.bpa.application.entity.enums.AppointmentSchedulePurpose;
-import org.egov.bpa.application.service.BpaAppointmentScheduleService;
 import org.egov.bpa.masters.service.StakeHolderService;
-import org.egov.bpa.service.BpaThirdPartyService;
-import org.egov.bpa.utils.BPASmsAndEmailService;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.eis.service.PositionMasterService;
 import org.egov.eis.web.contract.WorkflowContainer;
@@ -75,13 +76,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping(value = "/application")
 public class UpdateBpaApplicationController extends BpaGenericApplicationController {
 
-    private static final String SCHEDULE_APPIONTMENT_RESULT = "schedule-appiontment-result";
+    private static final String FORWARDED_TO_FIELD_ISPECTION = "Forwarded to Assistant Engineer for field ispection";
 
     private static final String BPA_APPLICATION = "bpaApplication";
 
     private static final String MESSAGE = "message";
-
-    private static final String APPLICATION_NUMBER = "applicationNumber";
 
     private static final String CREATEDOCUMENTSCRUTINY_FORM = "createdocumentscrutiny-form";
 
@@ -91,25 +90,14 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
 
     private static final String BPA_APPLICATION_RESULT = "bpa-application-result";
 
-    private static final String REDIRECT_APPLICATION_VIEW_APPOINTMENT = "redirect:/application/view-appointment/";
-
-    private static final String RESCHEDULE_APPIONTMENT = "reschedule-appiontment";
-
-    private static final String BPA_APPOINTMENT_SCHEDULE = "bpaAppointmentSchedule";
-
     private static final String APPRIVALPOSITION = "approvalPosition";
 
-    private static final String SCHEDULE_APPIONTMENT_NEW = "schedule-appiontment-new";
-    
     private static final String APPLICATION_HISTORY = "applicationHistory";
 
     private static final String ADDITIONALRULE = "additionalRule";
+
     @Autowired
     private SecurityUtils securityUtils;
-    @Autowired
-    private BpaAppointmentScheduleService bpaAppointmentScheduleService;
-    @Autowired
-    private BPASmsAndEmailService bpaSmsAndEmailService;
     @Autowired
     private StakeHolderService stakeHolderService;
     @Autowired
@@ -125,16 +113,38 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
     @RequestMapping(value = "/update/{applicationNumber}", method = RequestMethod.GET)
     public String updateApplicationForm(final Model model, @PathVariable final String applicationNumber,
             final HttpServletRequest request) {
+        List<String> purposeInsList = new ArrayList<>();
+        List<String> purposeDocList = new ArrayList<>();
         final BpaApplication application = getBpaApplication(applicationNumber);
-        String mode;
-        if (application.getAppointmentSchedule().isEmpty()) {
-            mode = "newappointment";
-        } else {
-            mode = "postponeappointment";
+        String mode = null;
+        AppointmentSchedulePurpose scheduleType = null;
+        for (BpaAppointmentSchedule schedule : application.getAppointmentSchedule()) {
+            if (AppointmentSchedulePurpose.INSPECTION.equals(schedule.getPurpose())) {
+                purposeInsList.add(schedule.getPurpose().name());
+            } else if (AppointmentSchedulePurpose.DOCUMENTSCRUTINY.equals(schedule.getPurpose())) {
+                purposeDocList.add(schedule.getPurpose().name());
+            }
         }
-        if (mode.isEmpty()) {
+        if (application.getAppointmentSchedule().isEmpty()
+                || (DOCUMENTVERIFIED.equalsIgnoreCase(application.getStatus().getCode())
+                        && FORWARDED_TO_FIELD_ISPECTION
+                                .equalsIgnoreCase(application.getState().getNextAction())
+                        && purposeInsList.isEmpty())) {
+            mode = "newappointment";
+        } else if (REGISTERED.equalsIgnoreCase(application.getStatus().getCode())
+                && purposeDocList.contains(AppointmentSchedulePurpose.DOCUMENTSCRUTINY.name())) {
+            mode = "postponeappointment";
+            scheduleType = AppointmentSchedulePurpose.DOCUMENTSCRUTINY;
+        } else if (FORWARDED_TO_FIELD_ISPECTION.equalsIgnoreCase(application.getState().getNextAction())
+                && DOCUMENTVERIFIED.equalsIgnoreCase(application.getStatus().getCode())
+                && purposeInsList.contains(AppointmentSchedulePurpose.INSPECTION.name())) {
+            mode = "postponeappointment";
+            scheduleType = AppointmentSchedulePurpose.INSPECTION;
+        }
+        if (mode == null) {
             mode = "edit";
         }
+        model.addAttribute("scheduleType", scheduleType);
         model.addAttribute("mode", mode);
         model.addAttribute(APPLICATION_HISTORY,
                 bpaThirdPartyService.getHistory(application));
@@ -149,7 +159,11 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 return DOCUMENTSCRUTINY_FORM;
             }
         }
-        return BPAAPPLICATION_FORM;
+        if ("Registered".equals(application.getStatus().getCode())) {
+            return BPAAPPLICATION_FORM;
+        } else {
+            return "application-view";
+        }
     }
 
     @RequestMapping(value = "/documentscrutiny/{applicationNumber}", method = RequestMethod.GET)
@@ -177,7 +191,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
             return CREATEDOCUMENTSCRUTINY_FORM;
         }
 
-        Long approvalPosition ;
+        Long approvalPosition;
         if (request.getParameter(APPRIVALPOSITION) != null) {
             approvalPosition = Long.valueOf(request.getParameter(APPRIVALPOSITION));
             Position pos = positionMasterService.getPositionById(approvalPosition);
@@ -188,7 +202,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                             .concat(pos.getDeptDesig() != null && pos.getDeptDesig().getDesignation() != null
                                     ? pos.getDeptDesig().getDesignation().getName() : "")
                             : "",
-                    bpaAppln.getApplicationNumber() },LocaleContextHolder.getLocale());
+                    bpaAppln.getApplicationNumber() }, LocaleContextHolder.getLocale());
             model.addAttribute(MESSAGE, message);
         }
         return BPA_APPLICATION_RESULT;
@@ -229,63 +243,4 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         model.addAttribute(MESSAGE, message);
         return BPA_APPLICATION_RESULT;
     }
-
-    @RequestMapping(value = "/scheduleappointment/{applicationNumber}", method = RequestMethod.GET)
-    public String newScheduleAppointment(@PathVariable final String applicationNumber, final Model model) {
-        BpaAppointmentSchedule appointmentSchedule =  new BpaAppointmentSchedule();
-        appointmentSchedule.setPurpose(AppointmentSchedulePurpose.DOCUMENTSCRUTINY);
-        model.addAttribute(BPA_APPOINTMENT_SCHEDULE, appointmentSchedule);
-        model.addAttribute(APPLICATION_NUMBER, applicationNumber);
-        return SCHEDULE_APPIONTMENT_NEW;
-    }
-
-    @RequestMapping(value = "/scheduleappointment/{applicationNumber}", method = RequestMethod.POST)
-    public String createScheduleAppointment(@Valid @ModelAttribute final BpaAppointmentSchedule appointmentSchedule,
-            @PathVariable final String applicationNumber, final Model model, final RedirectAttributes redirectAttributes) {
-        BpaApplication bpaApplication = applicationBpaService.findByApplicationNumber(applicationNumber);
-        appointmentSchedule.setApplication(bpaApplication);
-        BpaAppointmentSchedule schedule = bpaAppointmentScheduleService.save(appointmentSchedule);
-        bpaSmsAndEmailService.sendSMSAndEmailForDocumentScrtiny(schedule, bpaApplication);
-        redirectAttributes.addFlashAttribute(MESSAGE,
-                messageSource.getMessage("msg.new.appoimt", null, null));
-        return REDIRECT_APPLICATION_VIEW_APPOINTMENT + schedule.getId();
-    }
-
-    @RequestMapping(value = "/postponeappointment/{applicationNumber}", method = RequestMethod.GET)
-    public String editScheduleAppointment(@PathVariable final String applicationNumber, final Model model) {
-        BpaApplication bpaApplication = applicationBpaService.findByApplicationNumber(applicationNumber);
-        List<BpaAppointmentSchedule> appointmentScheduledList = bpaAppointmentScheduleService.findByApplication(bpaApplication);
-        BpaAppointmentSchedule appointmentSchedule = new BpaAppointmentSchedule();
-        appointmentSchedule.setPurpose(appointmentScheduledList.get(0).getPurpose());
-        model.addAttribute(BPA_APPOINTMENT_SCHEDULE, appointmentSchedule);
-        model.addAttribute(APPLICATION_NUMBER, applicationNumber);
-        model.addAttribute("appointmentScheduledList", appointmentScheduledList);
-        model.addAttribute("mode", "postponeappointment");
-        return RESCHEDULE_APPIONTMENT;
-    }
-
-    @RequestMapping(value = "/postponeappointment/{applicationNumber}", method = RequestMethod.POST)
-    public String updateScheduleAppointment(@Valid @ModelAttribute final BpaAppointmentSchedule appointmentSchedule,
-            @PathVariable final String applicationNumber,
-            @RequestParam Long bpaAppointmentScheduleId, final Model model,final RedirectAttributes redirectAttributes) {
-        BpaApplication bpaApplication = applicationBpaService.findByApplicationNumber(applicationNumber);
-        BpaAppointmentSchedule parent = bpaAppointmentScheduleService.findById(bpaAppointmentScheduleId);
-        appointmentSchedule.setApplication(bpaApplication);
-        appointmentSchedule.setPostponed(true);
-        appointmentSchedule.setParent(parent);
-        BpaAppointmentSchedule schedule = bpaAppointmentScheduleService.save(appointmentSchedule);
-        bpaSmsAndEmailService.sendSMSAndEmailForDocumentScrtiny(schedule, bpaApplication);
-        redirectAttributes.addFlashAttribute(MESSAGE,
-                messageSource.getMessage("msg.rescheduled.appoimt", null, null));
-        return REDIRECT_APPLICATION_VIEW_APPOINTMENT + schedule.getId();
-    }
-
-    @RequestMapping(value = "/view-appointment/{applicationNumber}", method = RequestMethod.GET)
-    public String viewScheduledAppointment(@PathVariable final String applicationNumber, final Model model) {
-        List<BpaAppointmentSchedule> appointmentScheduledList = bpaAppointmentScheduleService
-                .findByIdAsList(Long.valueOf(applicationNumber));
-        model.addAttribute("appointmentScheduledList", appointmentScheduledList);
-        return SCHEDULE_APPIONTMENT_RESULT;
-    }
-
 }
