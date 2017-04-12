@@ -26,7 +26,7 @@ public class EISGradeTest {
         searchGradeTestMethod(loginResponse);
     }
 
-    private void searchGradeTestMethod(LoginResponse loginResponse)throws IOException {
+    private void searchGradeTestMethod(LoginResponse loginResponse) throws IOException {
 
         RequestInfo requestInfo = new RequestInfoBuilder()
                 .withAuthToken(loginResponse.getAccess_token())
@@ -40,12 +40,12 @@ public class EISGradeTest {
                 searchGradeType(RequestHelper.getJsonString(searchEmployeeMasterRequest));
 
         SearchGradeResponse searchGradeResponse = (SearchGradeResponse)
-                ResponseHelper.getResponseAsObject(response.asString() ,SearchGradeResponse.class );
+                ResponseHelper.getResponseAsObject(response.asString(), SearchGradeResponse.class);
 
-        Assert.assertEquals(response.getStatusCode() , 200);
-        Assert.assertEquals(searchGradeResponse.getGrade().length , 3);
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertEquals(searchGradeResponse.getGrade().length, 3);
 
         new APILogger().log("Search Grade Test is Completed--");
     }
-    
+
 }

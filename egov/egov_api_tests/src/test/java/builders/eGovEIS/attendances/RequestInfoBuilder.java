@@ -58,15 +58,16 @@ public class RequestInfoBuilder {
         return this;
     }
 
-    public RequestInfoBuilder withAuthToken1(String authToken){
+    public RequestInfoBuilder withAuthToken1(String authToken) {
         requestInfo1.setAuthToken(authToken);
         return this;
     }
 
-    public RequestInfoBuilder withAuthToken(String authToken){
+    public RequestInfoBuilder withAuthToken(String authToken) {
         requestInfo.setAuthToken(authToken);
         return this;
     }
+
     public RequestInfo build() {
         return requestInfo;
     }

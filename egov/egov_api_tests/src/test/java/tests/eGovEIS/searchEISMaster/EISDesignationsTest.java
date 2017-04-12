@@ -27,7 +27,7 @@ public class EISDesignationsTest extends BaseAPITest {
         searchDesignationTestMethod(loginResponse);
     }
 
-    private void searchDesignationTestMethod(LoginResponse loginResponse)throws IOException {
+    private void searchDesignationTestMethod(LoginResponse loginResponse) throws IOException {
 
         RequestInfo requestInfo = new RequestInfoBuilder()
                 .withAuthToken(loginResponse.getAccess_token())
@@ -41,10 +41,10 @@ public class EISDesignationsTest extends BaseAPITest {
                 searchDesignationType(RequestHelper.getJsonString(searchEmployeeMasterRequest));
 
         SearchDesignationResponse searchEmployeeTypeResponse = (SearchDesignationResponse)
-                ResponseHelper.getResponseAsObject(response.asString() ,SearchDesignationResponse.class );
+                ResponseHelper.getResponseAsObject(response.asString(), SearchDesignationResponse.class);
 
-        Assert.assertEquals(response.getStatusCode() , 200);
-        Assert.assertEquals(searchEmployeeTypeResponse.getDesignation().length , 3);
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertEquals(searchEmployeeTypeResponse.getDesignation().length, 3);
 
         new APILogger().log("Search Designation Test is Completed--");
     }

@@ -15,8 +15,6 @@ import utils.*;
 import java.io.IOException;
 import java.util.Map;
 
-import static utils.LoginAndLogoutHelper.login;
-
 public class LoginVerificationTest extends BaseAPITest {
 
     @Test(groups = {Categories.SANITY, Categories.QA, Categories.DEV})

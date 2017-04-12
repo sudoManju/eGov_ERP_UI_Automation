@@ -7,7 +7,7 @@ public class ProbationBuilder {
 
     Probation probation = new Probation();
 
-    public ProbationBuilder(){
+    public ProbationBuilder() {
         probation.setDesignation(1);
         probation.setDeclaredOn("18/09/2016");
         probation.setOrderNo("A1");
@@ -19,7 +19,7 @@ public class ProbationBuilder {
         probation.setLastModifiedDate("18/09/2016");
     }
 
-    public Probation build(){
+    public Probation build() {
         return probation;
     }
 

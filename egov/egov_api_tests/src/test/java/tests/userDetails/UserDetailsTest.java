@@ -38,19 +38,19 @@ public class UserDetailsTest extends BaseAPITest {
         searchUserTestMethod(loginResponse, userDetailsResponse, "UserName");
     }
 
-    private void searchUserTestMethod(LoginResponse loginResponse, UserDetailsResponse userDetailsResponse,String searchType) throws IOException {
+    private void searchUserTestMethod(LoginResponse loginResponse, UserDetailsResponse userDetailsResponse, String searchType) throws IOException {
 
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
         UserDetailsForSearchRequest userDetailsForSearchRequest = new UserDetailsForSearchRequest();
 
-        switch (searchType){
-            case "Id" :
+        switch (searchType) {
+            case "Id":
                 int a[] = {userDetailsResponse.getUser()[0].getId()};
-                 userDetailsForSearchRequest = new
-                         UserDetailsForSearchRequestBuilder().withId(a).withRequestInfo(requestInfo).build();
+                userDetailsForSearchRequest = new
+                        UserDetailsForSearchRequestBuilder().withId(a).withRequestInfo(requestInfo).build();
 
                 break;
-            case "UserName" :
+            case "UserName":
                 userDetailsForSearchRequest = new
                         UserDetailsForSearchRequestBuilder().withUserName(userDetailsResponse.getUser()[0].getUserName())
                         .withRequestInfo(requestInfo).build();
@@ -70,15 +70,15 @@ public class UserDetailsTest extends BaseAPITest {
 
         boolean isSame = false;
 
-        for(int i=0;i<userDetailsResponse1.getUser().length;i++){
-            if(userDetailsResponse.getUser()[0].getUserName().equals(userDetailsResponse1.getUser()[i].getUserName())){
+        for (int i = 0; i < userDetailsResponse1.getUser().length; i++) {
+            if (userDetailsResponse.getUser()[0].getUserName().equals(userDetailsResponse1.getUser()[i].getUserName())) {
                 isSame = true;
             }
         }
 
         Assert.assertTrue(isSame);
 
-        new APILogger().log("User Details Request For Search with "+ searchType+" is Completed --");
+        new APILogger().log("User Details Request For Search with " + searchType + " is Completed --");
     }
 
 

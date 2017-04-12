@@ -8,14 +8,15 @@ public class SearchEmployeeLeaveRequestBuilder {
 
     SearchEmployeeLeaveRequest request = new SearchEmployeeLeaveRequest();
 
-    public SearchEmployeeLeaveRequestBuilder(){}
+    public SearchEmployeeLeaveRequestBuilder() {
+    }
 
-    public SearchEmployeeLeaveRequestBuilder withRequestInfo(RequestInfo requestInfo){
+    public SearchEmployeeLeaveRequestBuilder withRequestInfo(RequestInfo requestInfo) {
         request.setRequestInfo(requestInfo);
         return this;
     }
 
-    public SearchEmployeeLeaveRequest build(){
+    public SearchEmployeeLeaveRequest build() {
         return request;
     }
 }

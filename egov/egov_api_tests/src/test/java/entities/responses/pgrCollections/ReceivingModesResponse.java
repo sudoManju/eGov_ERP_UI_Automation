@@ -1,7 +1,6 @@
 package entities.responses.pgrCollections;
 
-public class ReceivingModesResponse
-{
+public class ReceivingModesResponse {
     private String id;
 
     private String visible;
@@ -12,53 +11,43 @@ public class ReceivingModesResponse
 
     private String version;
 
-    public String getId ()
-    {
+    public String getId() {
         return id;
     }
 
-    public void setId (String id)
-    {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getVisible ()
-    {
+    public String getVisible() {
         return visible;
     }
 
-    public void setVisible (String visible)
-    {
+    public void setVisible(String visible) {
         this.visible = visible;
     }
 
-    public String getName ()
-    {
+    public String getName() {
         return name;
     }
 
-    public void setName (String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getCode ()
-    {
+    public String getCode() {
         return code;
     }
 
-    public void setCode (String code)
-    {
+    public void setCode(String code) {
         this.code = code;
     }
 
-    public String getVersion ()
-    {
+    public String getVersion() {
         return version;
     }
 
-    public void setVersion (String version)
-    {
+    public void setVersion(String version) {
         this.version = version;
     }
 

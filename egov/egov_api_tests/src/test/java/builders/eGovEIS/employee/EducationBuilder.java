@@ -7,7 +7,7 @@ public class EducationBuilder {
 
     Education education = new Education();
 
-    public EducationBuilder(){
+    public EducationBuilder() {
         education.setQualification("B.E");
         education.setMajorSubject("Electricals");
         education.setYearOfPassing(2012);
@@ -18,7 +18,7 @@ public class EducationBuilder {
         education.setLastModifiedDate("18/09/2016");
     }
 
-    public Education build(){
+    public Education build() {
         return education;
     }
 }

@@ -7,7 +7,7 @@ public class TestBuilder {
 
     Test test = new Test();
 
-    public TestBuilder(){
+    public TestBuilder() {
         test.setTest("A01");
         test.setYearOfPassing(2014);
         test.setRemarks("None");
@@ -17,7 +17,7 @@ public class TestBuilder {
         test.setLastModifiedDate("18/09/2016");
     }
 
-    public Test build(){
+    public Test build() {
         return test;
     }
 }

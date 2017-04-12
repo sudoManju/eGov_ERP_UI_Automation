@@ -9,19 +9,20 @@ public class CreateEmployeeRequestBuilder {
 
     CreateEmployeeRequest createEmployeeRequest = new CreateEmployeeRequest();
 
-    public CreateEmployeeRequestBuilder(){}
+    public CreateEmployeeRequestBuilder() {
+    }
 
-    public CreateEmployeeRequestBuilder withRequestInfo(RequestInfo requestInfo){
+    public CreateEmployeeRequestBuilder withRequestInfo(RequestInfo requestInfo) {
         createEmployeeRequest.setRequestInfo(requestInfo);
         return this;
     }
 
-    public CreateEmployeeRequestBuilder withEmployee(Employee employee){
+    public CreateEmployeeRequestBuilder withEmployee(Employee employee) {
         createEmployeeRequest.setEmployee(employee);
         return this;
     }
 
-    public CreateEmployeeRequest build(){
-        return  createEmployeeRequest;
+    public CreateEmployeeRequest build() {
+        return createEmployeeRequest;
     }
 }

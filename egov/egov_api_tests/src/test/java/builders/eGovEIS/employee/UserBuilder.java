@@ -12,7 +12,7 @@ public class UserBuilder {
     Roles role1 = new RolesBuilder().build();
     Roles role2 = new RolesBuilder("second").build();
 
-    public UserBuilder(){
+    public UserBuilder() {
         user.setPassword("12345");
         user.setSalutation("Mr");
         user.setName("ABCD");
@@ -47,12 +47,12 @@ public class UserBuilder {
         user.setRoles(roles);
     }
 
-    public UserBuilder withUserName(String userName){
+    public UserBuilder withUserName(String userName) {
         user.setUserName(userName);
         return this;
     }
 
-    public User build(){
+    public User build() {
         return user;
     }
 }

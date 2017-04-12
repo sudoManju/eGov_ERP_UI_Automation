@@ -22,7 +22,7 @@ import java.io.IOException;
 public class EmployeeLeaveTest extends BaseAPITest {
 
     @Test(groups = {Categories.HR, Categories.SANITY, Categories.DEV})
-    public void employeeLeaveSearch() throws IOException{
+    public void employeeLeaveSearch() throws IOException {
 
         //Login
         LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
@@ -39,9 +39,9 @@ public class EmployeeLeaveTest extends BaseAPITest {
 
         Response response = new EgovEISResource().searchEmployeeLeave(jsonString);
 
-        Assert.assertEquals(response.getStatusCode(),200);
+        Assert.assertEquals(response.getStatusCode(), 200);
 
-        SearchEmployeeLeaveResponse employeeLeaveResponse = (SearchEmployeeLeaveResponse) ResponseHelper.getResponseAsObject(response.asString(),SearchEmployeeLeaveResponse.class);
+        SearchEmployeeLeaveResponse employeeLeaveResponse = (SearchEmployeeLeaveResponse) ResponseHelper.getResponseAsObject(response.asString(), SearchEmployeeLeaveResponse.class);
 
         System.out.println(employeeLeaveResponse.getLeaveType().length);
     }

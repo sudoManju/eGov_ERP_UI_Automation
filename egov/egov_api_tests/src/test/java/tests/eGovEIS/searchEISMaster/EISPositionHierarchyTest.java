@@ -5,17 +5,19 @@ import builders.eGovEIS.searchEISMaster.SearchEmployeeMasterRequestBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.eGovEIS.searchEISMaster.RequestInfo;
 import entities.requests.eGovEIS.searchEISMaster.SearchEmployeeMasterRequest;
-import entities.responses.eGovEIS.searchEISMasters.position.SearchPositionResponse;
 import entities.responses.login.LoginResponse;
 import org.junit.Assert;
 import org.testng.annotations.Test;
 import resources.searchEISMaster.EISMasterResource;
 import tests.BaseAPITest;
-import utils.*;
+import utils.APILogger;
+import utils.Categories;
+import utils.LoginAndLogoutHelper;
+import utils.RequestHelper;
 
 import java.io.IOException;
 
-public class EISPositionHierarchyTest extends BaseAPITest{
+public class EISPositionHierarchyTest extends BaseAPITest {
 
     @Test(groups = {Categories.HR, Categories.SANITY, Categories.DEV})
     public void searchPositionHierarchyTest() throws IOException {
@@ -27,7 +29,7 @@ public class EISPositionHierarchyTest extends BaseAPITest{
         searchPositionHierarchyTestMethod(loginResponse);
     }
 
-    private void searchPositionHierarchyTestMethod(LoginResponse loginResponse)throws IOException {
+    private void searchPositionHierarchyTestMethod(LoginResponse loginResponse) throws IOException {
 
         RequestInfo requestInfo = new RequestInfoBuilder()
                 .withAuthToken(loginResponse.getAccess_token())
@@ -40,7 +42,7 @@ public class EISPositionHierarchyTest extends BaseAPITest{
         Response response = new EISMasterResource().
                 searchPositionHierarchy(RequestHelper.getJsonString(searchEmployeeMasterRequest));
 
-        Assert.assertEquals(response.getStatusCode() , 200);
+        Assert.assertEquals(response.getStatusCode(), 200);
 
         new APILogger().log("Search Position Test is Completed--");
     }

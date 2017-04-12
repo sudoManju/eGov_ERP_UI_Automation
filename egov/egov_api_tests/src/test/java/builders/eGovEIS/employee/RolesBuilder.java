@@ -7,7 +7,7 @@ public class RolesBuilder {
 
     Roles roles = new Roles();
 
-    public RolesBuilder(){
+    public RolesBuilder() {
         roles.setName("EE");
         roles.setDescription("Executive Engineer");
         roles.setCreatedBy(1);
@@ -16,7 +16,7 @@ public class RolesBuilder {
         roles.setLastModifiedDate("01/01/2017");
     }
 
-    public RolesBuilder(String msg){
+    public RolesBuilder(String msg) {
         roles.setName("Manager");
         roles.setDescription("Manager for Section");
         roles.setCreatedBy(1);
@@ -25,7 +25,7 @@ public class RolesBuilder {
         roles.setLastModifiedDate("01/01/2017");
     }
 
-    public Roles build(){
+    public Roles build() {
         return roles;
     }
 }

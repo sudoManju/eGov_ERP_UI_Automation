@@ -2,8 +2,7 @@ package entities.responses.eGovEIS.createEmployee;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class CreateEmployeeResponse
-{
+public class CreateEmployeeResponse {
     private ResponseInfo ResponseInfo;
 
     @JsonProperty("employee")

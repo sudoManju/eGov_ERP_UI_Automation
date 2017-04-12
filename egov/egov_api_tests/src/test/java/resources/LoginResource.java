@@ -12,7 +12,7 @@ public class LoginResource {
 
     public Response login(Map json) {
 
-        new APILogger().log("Login Request is started with-- "+json.toString());
+        new APILogger().log("Login Request is started with-- " + json.toString());
 
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
@@ -22,14 +22,14 @@ public class LoginResource {
                 .when()
                 .post(Properties.loginUrl);
 
-        new APILogger().log("Login Response is generated as-- "+response.asString());
+        new APILogger().log("Login Response is generated as-- " + response.asString());
 
         return response;
     }
 
     public Response logout(String accessToken) {
 
-        new APILogger().log("Logout request started for-- "+accessToken);
+        new APILogger().log("Logout request started for-- " + accessToken);
 
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
@@ -38,7 +38,7 @@ public class LoginResource {
                 .when()
                 .post(Properties.logoutUrl + accessToken);
 
-        new APILogger().log("Logout response generated as-- "+response.asString());
+        new APILogger().log("Logout response generated as-- " + response.asString());
         return response;
     }
 

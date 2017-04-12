@@ -3,7 +3,7 @@ package utils;
 public class Categories {
 
     public static final String SANITY = "Sanity";
-    public static final String DEV= "Dev";
+    public static final String DEV = "Dev";
     public static final String QA = "Qa";
     public static final String E2E = "E2e";
     public static final String WIP = "Wip";

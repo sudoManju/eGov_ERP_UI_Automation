@@ -26,7 +26,7 @@ public class EISEmployeeGroupTest {
         searchEmployeeGroupTestMethod(loginResponse);
     }
 
-    private void searchEmployeeGroupTestMethod(LoginResponse loginResponse)throws IOException {
+    private void searchEmployeeGroupTestMethod(LoginResponse loginResponse) throws IOException {
 
         RequestInfo requestInfo = new RequestInfoBuilder()
                 .withAuthToken(loginResponse.getAccess_token())
@@ -40,10 +40,10 @@ public class EISEmployeeGroupTest {
                 searchEmployeeGroup(RequestHelper.getJsonString(searchEmployeeMasterRequest));
 
         SearchEmployeeGroupResponse searchEmployeeGroupResponse = (SearchEmployeeGroupResponse)
-                ResponseHelper.getResponseAsObject(response.asString() ,SearchEmployeeGroupResponse.class );
+                ResponseHelper.getResponseAsObject(response.asString(), SearchEmployeeGroupResponse.class);
 
-        Assert.assertEquals(response.getStatusCode() , 200);
-        Assert.assertEquals(searchEmployeeGroupResponse.getGroup().length , 3);
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertEquals(searchEmployeeGroupResponse.getGroup().length, 3);
 
         new APILogger().log("Search createEmployee Group Test is Completed--");
     }

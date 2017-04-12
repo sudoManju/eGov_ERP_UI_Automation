@@ -26,10 +26,10 @@ public class EmployeeMasterTest extends BaseAPITest {
         CreateEmployeeResponse createEmployeeResponse = createEmployeeTestMethod(loginResponse);
 
         //Search createEmployee Test with Criteria Id
-        searchEmployeeTestMethod(loginResponse,"id",createEmployeeResponse);
+        searchEmployeeTestMethod(loginResponse, "id", createEmployeeResponse);
 
         //Search createEmployee Test with Criteria Code
-        searchEmployeeTestMethod(loginResponse,"code",createEmployeeResponse);
+        searchEmployeeTestMethod(loginResponse, "code", createEmployeeResponse);
     }
 
     // Create createEmployee Test
@@ -56,11 +56,11 @@ public class EmployeeMasterTest extends BaseAPITest {
 
         new APILogger().log("Create employee Test is Completed");
 
-       return createEmployeeResponse;
+        return createEmployeeResponse;
     }
 
     // Search createEmployee Test
-    public void searchEmployeeTestMethod(LoginResponse loginResponse,String criteria,CreateEmployeeResponse createEmployeeResponse) throws IOException {
+    public void searchEmployeeTestMethod(LoginResponse loginResponse, String criteria, CreateEmployeeResponse createEmployeeResponse) throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
 
         SearchEmployeeRequest request = new SearchEmployeeRequestBuilder().withRequestInfo(requestInfo).build();
@@ -68,26 +68,26 @@ public class EmployeeMasterTest extends BaseAPITest {
         String json = RequestHelper.getJsonString(request);
         String path = null;
 
-        switch (criteria){
+        switch (criteria) {
 
-            case "id" :
-                path = "&id="+createEmployeeResponse.getEmployee().getId();
+            case "id":
+                path = "&id=" + createEmployeeResponse.getEmployee().getId();
                 break;
 
-            case "code" :
-                path = "&code="+createEmployeeResponse.getEmployee().getCode();
+            case "code":
+                path = "&code=" + createEmployeeResponse.getEmployee().getCode();
                 break;
         }
 
-        Response response = new EgovEISResource().searchEmployee(json,path);
+        Response response = new EgovEISResource().searchEmployee(json, path);
 
-        Assert.assertEquals(response.getStatusCode(),200);
+        Assert.assertEquals(response.getStatusCode(), 200);
 
         SearchEmployeeResponse searchEmployeeResponse = (SearchEmployeeResponse)
-                ResponseHelper.getResponseAsObject(response.asString(),SearchEmployeeResponse.class);
+                ResponseHelper.getResponseAsObject(response.asString(), SearchEmployeeResponse.class);
 
         Assert.assertEquals(createEmployeeResponse.getEmployee().getUser().getUserName(), searchEmployeeResponse.getEmployee()[0].getUserName());
 
-        new APILogger().log("Search employee with "+criteria+" is Completed");
+        new APILogger().log("Search employee with " + criteria + " is Completed");
     }
 }

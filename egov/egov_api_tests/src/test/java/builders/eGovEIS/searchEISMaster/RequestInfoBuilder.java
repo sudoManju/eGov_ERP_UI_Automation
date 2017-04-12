@@ -15,15 +15,15 @@ public class RequestInfoBuilder {
         requestInfo.setDid("1");
         requestInfo.setKey("abcdkey");
         requestInfo.setMsgId("20170310130900");
-        
+
     }
 
-    public RequestInfoBuilder withAuthToken(String authToken){
+    public RequestInfoBuilder withAuthToken(String authToken) {
         requestInfo.setAuthToken(authToken);
         return this;
     }
 
-    public RequestInfo build(){
+    public RequestInfo build() {
         return requestInfo;
     }
 }

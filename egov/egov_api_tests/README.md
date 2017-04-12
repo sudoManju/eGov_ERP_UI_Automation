@@ -29,7 +29,7 @@ You should be all set.
                                         
                           "gradle clean build Sanity -Denv=dev"
     
-    In QA Env : "gradle clean build QaTests -Denv=qa"
+    In QA Env : "gradle clean build Qa -Denv=qa"
     
     In DEV Env : "gradle clean build Dev -Denv=dev"
     
@@ -41,6 +41,6 @@ You should be all set.
                                                                                                         
                              "gradlew clean build Sanity -Denv=dev"
                                                                     
-    In QA Env : "gradlew clean build QaTests -Denv=qa"
+    In QA Env : "gradlew clean build Qa -Denv=qa"
                                                                     
     In DEV Env : "gradlew clean build Dev -Denv=dev"

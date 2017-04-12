@@ -1,7 +1,6 @@
 package entities.requests.eGovEIS.employee;
 
-public class Probation
-{
+public class Probation {
     private String orderNo;
 
     private int createdBy;
@@ -13,6 +12,9 @@ public class Probation
     private int lastModifiedBy;
 
     private int designation;
+    private String lastModifiedDate;
+    private String remarks;
+    private String createdDate;
 
     public String getOrderNo() {
         return orderNo;
@@ -85,12 +87,6 @@ public class Probation
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
     }
-
-    private String lastModifiedDate;
-
-    private String remarks;
-
-    private String createdDate;
 
 
 }

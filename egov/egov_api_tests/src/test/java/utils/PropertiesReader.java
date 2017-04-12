@@ -128,6 +128,7 @@ public class PropertiesReader {
     public String getSearchRecruitmentQuotaUrl() { return prop.getProperty("searchRecruitmentQuotaUrl"); }
     public String getSearchRecruitmentModesUrl() { return prop.getProperty("searchRecruitmentModesUrl"); }
     public String getSearchHrConfigurationsUrl() { return prop.getProperty("searchHrConfigurations"); }
+    public String getSearchHrStatusesUrl() { return prop.getProperty("searchHRStatusesUrl"); }
 
 
     //      Lease And Agreement Module Url's      //

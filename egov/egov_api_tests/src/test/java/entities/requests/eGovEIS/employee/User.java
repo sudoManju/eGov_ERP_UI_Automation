@@ -1,7 +1,6 @@
 package entities.requests.eGovEIS.employee;
 
-public class User
-{
+public class User {
     private String correspondenceAddress;
 
     private String bloodGroup;
@@ -10,7 +9,7 @@ public class User
 
     private String locale;
 
-    private String  permanentPincode;
+    private String permanentPincode;
 
     private String type;
 

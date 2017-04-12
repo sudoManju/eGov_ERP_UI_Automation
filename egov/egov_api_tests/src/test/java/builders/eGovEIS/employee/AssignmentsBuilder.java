@@ -14,29 +14,29 @@ public class AssignmentsBuilder {
     Hod hod3 = new HodBuilder().withDepartment(2).build();
 
 
-    public AssignmentsBuilder(){
-      assignments.setEmployee(2);
-      assignments.setPosition(1);
-      assignments.setIsPrimary(true);
-      assignments.setFund(1);
-      assignments.setFunctionary(1);
-      assignments.setFunction(1);
-      assignments.setDepartment(5);
-      assignments.setDesignation(5);
-      assignments.setFromDate("01/01/2016");
-      assignments.setToDate("31/12/2016");
-      assignments.setGrade(1);
-      assignments.setGovtOrderNumber("sadda");
-      assignments.setCreatedBy(1);
-      assignments.setCreatedDate("18/09/2016");
-      assignments.setLastModifiedBy(3);
-      assignments.setLastModifiedDate("18/09/2016");
-      hods1[0] = hod1;
-      hods1[1] = hod2;
-      assignments.setHod(hods1);
+    public AssignmentsBuilder() {
+        assignments.setEmployee(2);
+        assignments.setPosition(1);
+        assignments.setIsPrimary(true);
+        assignments.setFund(1);
+        assignments.setFunctionary(1);
+        assignments.setFunction(1);
+        assignments.setDepartment(5);
+        assignments.setDesignation(5);
+        assignments.setFromDate("01/01/2016");
+        assignments.setToDate("31/12/2016");
+        assignments.setGrade(1);
+        assignments.setGovtOrderNumber("sadda");
+        assignments.setCreatedBy(1);
+        assignments.setCreatedDate("18/09/2016");
+        assignments.setLastModifiedBy(3);
+        assignments.setLastModifiedDate("18/09/2016");
+        hods1[0] = hod1;
+        hods1[1] = hod2;
+        assignments.setHod(hods1);
     }
 
-    public AssignmentsBuilder(String msg){
+    public AssignmentsBuilder(String msg) {
         assignments.setEmployee(3);
         assignments.setPosition(2);
         assignments.setIsPrimary(true);
@@ -57,7 +57,7 @@ public class AssignmentsBuilder {
         assignments.setHod(hods2);
     }
 
-    public Assignments build(){
+    public Assignments build() {
         return assignments;
     }
 }

@@ -5,29 +5,28 @@ import builders.eGovEIS.searchEISMaster.SearchEmployeeMasterRequestBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.eGovEIS.searchEISMaster.RequestInfo;
 import entities.requests.eGovEIS.searchEISMaster.SearchEmployeeMasterRequest;
-import entities.responses.eGovEIS.searchEISMasters.employeeType.SearchEmployeeTypeResponse;
+import entities.responses.eGovEIS.searchEISMasters.hrStatuses.SearchHRStatusesResponse;
 import entities.responses.login.LoginResponse;
 import org.junit.Assert;
 import org.testng.annotations.Test;
 import resources.searchEISMaster.EISMasterResource;
-import tests.BaseAPITest;
 import utils.*;
 
 import java.io.IOException;
 
-public class EISEmployeeTypeTest extends BaseAPITest {
+public class EISHRStatuses {
 
     @Test(groups = {Categories.HR, Categories.SANITY, Categories.DEV})
-    public void searchEmployeeTypeTest() throws IOException {
+    public void searchHRStatusesTest() throws IOException {
 
         // Login Test
         LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
 
-        // Search Designation Test
-        searchEmployeeTypeTestMethod(loginResponse);
+        // Search hrStatuses Test
+        searchHRStatusesTestMethod(loginResponse);
     }
 
-    private void searchEmployeeTypeTestMethod(LoginResponse loginResponse) throws IOException {
+    private void searchHRStatusesTestMethod(LoginResponse loginResponse) throws IOException {
 
         RequestInfo requestInfo = new RequestInfoBuilder()
                 .withAuthToken(loginResponse.getAccess_token())
@@ -38,14 +37,15 @@ public class EISEmployeeTypeTest extends BaseAPITest {
                 .build();
 
         Response response = new EISMasterResource().
-                searchEmployeeType(RequestHelper.getJsonString(searchEmployeeMasterRequest));
+                searchHRStatusesType(RequestHelper.getJsonString(searchEmployeeMasterRequest));
 
-        SearchEmployeeTypeResponse searchEmployeeTypeResponse = (SearchEmployeeTypeResponse)
-                ResponseHelper.getResponseAsObject(response.asString(), SearchEmployeeTypeResponse.class);
+        SearchHRStatusesResponse searchHRStatusesResponse = (SearchHRStatusesResponse)
+                ResponseHelper.getResponseAsObject(response.asString(), SearchHRStatusesResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals(searchEmployeeTypeResponse.getEmployeeType().length, 4);
+        Assert.assertEquals(searchHRStatusesResponse.getHRStatus().length, 3);
 
-        new APILogger().log("Search createEmployee Test is Completed--");
+        new APILogger().log("Search HR Statuses Test is Completed--");
     }
+
 }

@@ -7,14 +7,15 @@ public class HodBuilder {
 
     Hod hod = new Hod();
 
-    public HodBuilder(){}
+    public HodBuilder() {
+    }
 
-    public HodBuilder withDepartment(int department){
+    public HodBuilder withDepartment(int department) {
         hod.setDepartment(department);
         return this;
     }
 
-    public Hod build(){
+    public Hod build() {
         return hod;
     }
 }

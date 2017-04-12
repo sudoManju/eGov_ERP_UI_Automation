@@ -1,7 +1,6 @@
 package entities.requests.eGovEIS.employee;
 
-public class Education
-{
+public class Education {
     private String university;
 
     private int yearOfPassing;

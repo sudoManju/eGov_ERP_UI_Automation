@@ -1,7 +1,6 @@
 package entities.requests.eGovEIS.employee;
 
-public class Roles
-{
+public class Roles {
     private int createdBy;
 
     private String description;

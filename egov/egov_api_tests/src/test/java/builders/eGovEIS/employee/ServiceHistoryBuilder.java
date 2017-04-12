@@ -6,7 +6,7 @@ public class ServiceHistoryBuilder {
 
     ServiceHistory serviceHistory = new ServiceHistory();
 
-    public ServiceHistoryBuilder(){
+    public ServiceHistoryBuilder() {
         serviceHistory.setServiceInfo("ADS1");
         serviceHistory.setServiceFrom("18/09/2016");
         serviceHistory.setRemarks("None");
@@ -17,7 +17,7 @@ public class ServiceHistoryBuilder {
         serviceHistory.setLastModifiedDate("18/09/2016");
     }
 
-    public ServiceHistory build(){
+    public ServiceHistory build() {
         return serviceHistory;
     }
 

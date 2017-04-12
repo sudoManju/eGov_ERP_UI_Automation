@@ -26,7 +26,7 @@ public class EISPositionTest {
         searchPositionTestMethod(loginResponse);
     }
 
-    private void searchPositionTestMethod(LoginResponse loginResponse)throws IOException {
+    private void searchPositionTestMethod(LoginResponse loginResponse) throws IOException {
 
         RequestInfo requestInfo = new RequestInfoBuilder()
                 .withAuthToken(loginResponse.getAccess_token())
@@ -40,10 +40,10 @@ public class EISPositionTest {
                 searchPosition(RequestHelper.getJsonString(searchEmployeeMasterRequest));
 
         SearchPositionResponse searchPositionResponse = (SearchPositionResponse)
-                ResponseHelper.getResponseAsObject(response.asString() ,SearchPositionResponse.class );
+                ResponseHelper.getResponseAsObject(response.asString(), SearchPositionResponse.class);
 
-        Assert.assertEquals(response.getStatusCode() , 200);
-        Assert.assertEquals(searchPositionResponse.getPosition().length , 10);
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertEquals(searchPositionResponse.getPosition().length, 10);
 
         new APILogger().log("Search Position Test is Completed--");
     }

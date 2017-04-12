@@ -14,15 +14,15 @@ import java.io.IOException;
 public class ReceivingModesTest {
 
     @Test(groups = {Categories.SANITY, Categories.PGR, Categories.QA})
-    public void receivingModesTest() throws IOException{
+    public void receivingModesTest() throws IOException {
 
         Response response = new PGRResource().getReceivingModes();
 
-        Assert.assertEquals(response.getStatusCode(),200);
+        Assert.assertEquals(response.getStatusCode(), 200);
 
         ReceivingModesResponse[] receivingModesResponses = (ReceivingModesResponse[])
                 ResponseHelper.getResponseAsObject(response.asString(), ReceivingModesResponse[].class);
 
-        Assert.assertEquals(receivingModesResponses.length,6);
+        Assert.assertEquals(receivingModesResponses.length, 6);
     }
 }

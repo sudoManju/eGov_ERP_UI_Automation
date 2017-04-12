@@ -45,6 +45,7 @@ public class Properties {
     public static final String eisSearchRecruitmentQuotaUrl = propertiesReader.getSearchRecruitmentQuotaUrl();
     public static final String eisSearchRecruitmentModesUrl = propertiesReader.getSearchRecruitmentModesUrl();
     public static final String eisSearchHrConfigurationsUrl = propertiesReader.getSearchHrConfigurationsUrl();
+    public static final String eisSearchHrStatusesUrl = propertiesReader.getSearchHrStatusesUrl();
 
     //  Land Estate Module Url's  //
     public static final String lAMSServiceSearchUrl = propertiesReader.getLAMSServiceSearchUrl();

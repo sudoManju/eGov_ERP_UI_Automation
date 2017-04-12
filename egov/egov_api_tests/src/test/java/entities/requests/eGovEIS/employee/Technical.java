@@ -1,7 +1,6 @@
 package entities.requests.eGovEIS.employee;
 
-public class Technical
-{
+public class Technical {
     private int yearOfPassing;
 
     private int createdBy;

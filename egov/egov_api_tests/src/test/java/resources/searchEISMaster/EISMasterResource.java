@@ -119,4 +119,17 @@ public class EISMasterResource {
         new APILogger().log("Search HR Configurations Test Response is Generated as  --" + response.asString());
         return response;
     }
+
+    public Response searchHRStatusesType(String json) {
+
+        new APILogger().log("Search HR Statuses Test Request is Started with--" + json);
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(json)
+                .when()
+                .post(Properties.eisSearchHrStatusesUrl);
+
+        new APILogger().log("Search HR Statuses Test Response is Generated as  --" + response.asString());
+        return response;
+    }
 }

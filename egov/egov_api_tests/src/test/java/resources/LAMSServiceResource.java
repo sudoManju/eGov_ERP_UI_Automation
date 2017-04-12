@@ -18,7 +18,7 @@ public class LAMSServiceResource {
                 .when()
                 .post(Properties.lAMSServiceSearchUrl);
 
-        new APILogger().log("LAMS Service Search Response is Generated as -- "+ response.asString());
+        new APILogger().log("LAMS Service Search Response is Generated as -- " + response.asString());
 
         return response;
     }

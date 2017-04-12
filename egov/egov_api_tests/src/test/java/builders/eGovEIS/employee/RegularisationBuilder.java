@@ -6,7 +6,7 @@ public class RegularisationBuilder {
 
     Regularisation regularisation = new Regularisation();
 
-    public RegularisationBuilder(){
+    public RegularisationBuilder() {
         regularisation.setDesignation(1);
         regularisation.setDeclaredOn("18/09/2016");
         regularisation.setOrderNo("A1");
@@ -18,7 +18,7 @@ public class RegularisationBuilder {
         regularisation.setLastModifiedDate("18/09/2016");
     }
 
-    public Regularisation build(){
+    public Regularisation build() {
         return regularisation;
     }
 }

@@ -26,7 +26,7 @@ public class EISRecruitmentModesTest {
         searchRecruitmentModesTestMethod(loginResponse);
     }
 
-    private void searchRecruitmentModesTestMethod(LoginResponse loginResponse)throws IOException {
+    private void searchRecruitmentModesTestMethod(LoginResponse loginResponse) throws IOException {
 
         RequestInfo requestInfo = new RequestInfoBuilder()
                 .withAuthToken(loginResponse.getAccess_token())
@@ -40,12 +40,12 @@ public class EISRecruitmentModesTest {
                 searchRecruitmentModesType(RequestHelper.getJsonString(searchEmployeeMasterRequest));
 
         SearchRecruitmentModesResponse searchRecruitmentModesResponse = (SearchRecruitmentModesResponse)
-                ResponseHelper.getResponseAsObject(response.asString() ,SearchRecruitmentModesResponse.class );
+                ResponseHelper.getResponseAsObject(response.asString(), SearchRecruitmentModesResponse.class);
 
-        Assert.assertEquals(response.getStatusCode() , 200);
-        Assert.assertEquals(searchRecruitmentModesResponse.getRecruitmentMode().length , 3);
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertEquals(searchRecruitmentModesResponse.getRecruitmentMode().length, 3);
 
         new APILogger().log("Search Recruitment Modes Test is Completed--");
     }
-    
+
 }

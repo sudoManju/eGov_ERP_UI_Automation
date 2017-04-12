@@ -12,7 +12,7 @@ public final class SearchAttendanceRequestBuilder {
         searchAttendanceRequest.setRequestInfo(requestInfo);
     }
 
-    public SearchAttendanceRequestBuilder withRequestInfo(RequestInfo requestInfo){
+    public SearchAttendanceRequestBuilder withRequestInfo(RequestInfo requestInfo) {
         searchAttendanceRequest.setRequestInfo(requestInfo);
         return this;
     }

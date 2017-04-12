@@ -1,7 +1,6 @@
 package entities.requests.eGovEIS.employee;
 
-public class ServiceHistory
-{
+public class ServiceHistory {
     private String orderNo;
 
     private int createdBy;

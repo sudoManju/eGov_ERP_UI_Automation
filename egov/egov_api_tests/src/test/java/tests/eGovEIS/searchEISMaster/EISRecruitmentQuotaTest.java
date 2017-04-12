@@ -26,7 +26,7 @@ public class EISRecruitmentQuotaTest {
         searchRecruitmentQuotaTestMethod(loginResponse);
     }
 
-    private void searchRecruitmentQuotaTestMethod(LoginResponse loginResponse)throws IOException {
+    private void searchRecruitmentQuotaTestMethod(LoginResponse loginResponse) throws IOException {
 
         RequestInfo requestInfo = new RequestInfoBuilder()
                 .withAuthToken(loginResponse.getAccess_token())
@@ -40,10 +40,10 @@ public class EISRecruitmentQuotaTest {
                 searchRecruitmentQuotaType(RequestHelper.getJsonString(searchEmployeeMasterRequest));
 
         SearchRecruitmentQuotaResponse searchRecruitmentQuotaResponse = (SearchRecruitmentQuotaResponse)
-                ResponseHelper.getResponseAsObject(response.asString() ,SearchRecruitmentQuotaResponse.class );
+                ResponseHelper.getResponseAsObject(response.asString(), SearchRecruitmentQuotaResponse.class);
 
-        Assert.assertEquals(response.getStatusCode() , 200);
-        Assert.assertEquals(searchRecruitmentQuotaResponse.getRecruitmentQuota().length , 3);
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertEquals(searchRecruitmentQuotaResponse.getRecruitmentQuota().length, 3);
 
         new APILogger().log("Search Recruitment Quota Test is Completed--");
     }

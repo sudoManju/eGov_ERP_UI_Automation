@@ -22,7 +22,7 @@ public final class UserDetailsForSearchRequestBuilder {
         return this;
     }
 
-    public UserDetailsForSearchRequestBuilder withUserName(String userName){
+    public UserDetailsForSearchRequestBuilder withUserName(String userName) {
         userDetailsForSearchRequest.setUserName(userName);
         return this;
     }

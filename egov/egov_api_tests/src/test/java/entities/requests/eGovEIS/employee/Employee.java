@@ -2,8 +2,7 @@ package entities.requests.eGovEIS.employee;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class Employee
-{
+public class Employee {
     private String tenantId;
 
     private int motherTongue;
@@ -78,363 +77,291 @@ public class Employee
 
     private int bankBranch;
 
-    public String getTenantId ()
-    {
+    public String getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId (String tenantId)
-    {
+    public void setTenantId(String tenantId) {
         this.tenantId = tenantId;
     }
 
-    public int getMotherTongue ()
-    {
+    public int getMotherTongue() {
         return motherTongue;
     }
 
-    public void setMotherTongue (int motherTongue)
-    {
+    public void setMotherTongue(int motherTongue) {
         this.motherTongue = motherTongue;
     }
 
-    public String getGpfNo ()
-    {
+    public String getGpfNo() {
         return gpfNo;
     }
 
-    public void setGpfNo (String gpfNo)
-    {
+    public void setGpfNo(String gpfNo) {
         this.gpfNo = gpfNo;
     }
 
-    public String getPassportNo ()
-    {
+    public String getPassportNo() {
         return passportNo;
     }
 
-    public void setPassportNo (String passportNo)
-    {
+    public void setPassportNo(String passportNo) {
         this.passportNo = passportNo;
     }
 
-    public int getRecruitmentType ()
-    {
+    public int getRecruitmentType() {
         return recruitmentType;
     }
 
-    public void setRecruitmentType (int recruitmentType)
-    {
+    public void setRecruitmentType(int recruitmentType) {
         this.recruitmentType = recruitmentType;
     }
 
-    public int[] getJurisdictions ()
-    {
+    public int[] getJurisdictions() {
         return jurisdictions;
     }
 
-    public void setJurisdictions (int[] jurisdictions)
-    {
+    public void setJurisdictions(int[] jurisdictions) {
         this.jurisdictions = jurisdictions;
     }
 
-    public Test[] getTest ()
-    {
+    public Test[] getTest() {
         return test;
     }
 
-    public void setTest (Test[] test)
-    {
+    public void setTest(Test[] test) {
         this.test = test;
     }
 
-    public String getRetirementAge ()
-    {
+    public String getRetirementAge() {
         return retirementAge;
     }
 
-    public void setRetirementAge (String retirementAge)
-    {
+    public void setRetirementAge(String retirementAge) {
         this.retirementAge = retirementAge;
     }
 
-    public int getEmployeeStatus ()
-    {
+    public int getEmployeeStatus() {
         return employeeStatus;
     }
 
-    public void setEmployeeStatus (int employeeStatus)
-    {
+    public void setEmployeeStatus(int employeeStatus) {
         this.employeeStatus = employeeStatus;
     }
 
-    public Technical[] getTechnical ()
-    {
+    public Technical[] getTechnical() {
         return technical;
     }
 
-    public void setTechnical (Technical[] technical)
-    {
+    public void setTechnical(Technical[] technical) {
         this.technical = technical;
     }
 
-    public Education[] getEducation ()
-    {
+    public Education[] getEducation() {
         return education;
     }
 
-    public void setEducation (Education[] education)
-    {
+    public void setEducation(Education[] education) {
         this.education = education;
     }
 
-    public String getMaritalStatus ()
-    {
+    public String getMaritalStatus() {
         return maritalStatus;
     }
 
-    public void setMaritalStatus (String maritalStatus)
-    {
+    public void setMaritalStatus(String maritalStatus) {
         this.maritalStatus = maritalStatus;
     }
 
-    public Probation[] getProbation ()
-    {
+    public Probation[] getProbation() {
         return probation;
     }
 
-    public void setProbation (Probation[] probation)
-    {
+    public void setProbation(Probation[] probation) {
         this.probation = probation;
     }
 
-    public boolean getPhysicallyDisabled ()
-    {
+    public boolean getPhysicallyDisabled() {
         return physicallyDisabled;
     }
 
-    public void setPhysicallyDisabled (boolean physicallyDisabled)
-    {
+    public void setPhysicallyDisabled(boolean physicallyDisabled) {
         this.physicallyDisabled = physicallyDisabled;
     }
 
-    public int getRecruitmentQuota ()
-    {
+    public int getRecruitmentQuota() {
         return recruitmentQuota;
     }
 
-    public void setRecruitmentQuota (int recruitmentQuota)
-    {
+    public void setRecruitmentQuota(int recruitmentQuota) {
         this.recruitmentQuota = recruitmentQuota;
     }
 
-    public int getReligion ()
-    {
+    public int getReligion() {
         return religion;
     }
 
-    public void setReligion (int religion)
-    {
+    public void setReligion(int religion) {
         this.religion = religion;
     }
 
-    public int[] getLanguagesKnown ()
-    {
+    public int[] getLanguagesKnown() {
         return languagesKnown;
     }
 
-    public void setLanguagesKnown (int[] languagesKnown)
-    {
+    public void setLanguagesKnown(int[] languagesKnown) {
         this.languagesKnown = languagesKnown;
     }
 
-    public String getDateOfJoining ()
-    {
+    public String getDateOfJoining() {
         return dateOfJoining;
     }
 
-    public void setDateOfJoining (String dateOfJoining)
-    {
+    public void setDateOfJoining(String dateOfJoining) {
         this.dateOfJoining = dateOfJoining;
     }
 
-    public int getBank ()
-    {
+    public int getBank() {
         return bank;
     }
 
-    public void setBank (int bank)
-    {
+    public void setBank(int bank) {
         this.bank = bank;
     }
 
-    public String getDateOfResignation ()
-    {
+    public String getDateOfResignation() {
         return dateOfResignation;
     }
 
-    public void setDateOfResignation (String dateOfResignation)
-    {
+    public void setDateOfResignation(String dateOfResignation) {
         this.dateOfResignation = dateOfResignation;
     }
 
-    public int getEmployeeType ()
-    {
+    public int getEmployeeType() {
         return employeeType;
     }
 
-    public void setEmployeeType (int employeeType)
-    {
+    public void setEmployeeType(int employeeType) {
         this.employeeType = employeeType;
     }
 
-    public String getPlaceOfBirth ()
-    {
+    public String getPlaceOfBirth() {
         return placeOfBirth;
     }
 
-    public void setPlaceOfBirth (String placeOfBirth)
-    {
+    public void setPlaceOfBirth(String placeOfBirth) {
         this.placeOfBirth = placeOfBirth;
     }
 
-    public boolean getMedicalReportProduced ()
-    {
+    public boolean getMedicalReportProduced() {
         return medicalReportProduced;
     }
 
-    public void setMedicalReportProduced (boolean medicalReportProduced)
-    {
+    public void setMedicalReportProduced(boolean medicalReportProduced) {
         this.medicalReportProduced = medicalReportProduced;
     }
 
-    public String getDateOfTermination ()
-    {
+    public String getDateOfTermination() {
         return dateOfTermination;
     }
 
-    public void setDateOfTermination (String dateOfTermination)
-    {
+    public void setDateOfTermination(String dateOfTermination) {
         this.dateOfTermination = dateOfTermination;
     }
 
-    public int getCommunity ()
-    {
+    public int getCommunity() {
         return community;
     }
 
-    public void setCommunity (int community)
-    {
+    public void setCommunity(int community) {
         this.community = community;
     }
 
-    public ServiceHistory[] getServiceHistory ()
-    {
+    public ServiceHistory[] getServiceHistory() {
         return serviceHistory;
     }
 
-    public void setServiceHistory (ServiceHistory[] serviceHistory)
-    {
+    public void setServiceHistory(ServiceHistory[] serviceHistory) {
         this.serviceHistory = serviceHistory;
     }
 
-    public Assignments[] getAssignments ()
-    {
+    public Assignments[] getAssignments() {
         return assignments;
     }
 
-    public void setAssignments (Assignments[] assignments)
-    {
+    public void setAssignments(Assignments[] assignments) {
         this.assignments = assignments;
     }
 
-    public Regularisation[] getRegularisation ()
-    {
+    public Regularisation[] getRegularisation() {
         return regularisation;
     }
 
-    public void setRegularisation (Regularisation[] regularisation)
-    {
+    public void setRegularisation(Regularisation[] regularisation) {
         this.regularisation = regularisation;
     }
 
-    public String getDateOfRetirement ()
-    {
+    public String getDateOfRetirement() {
         return dateOfRetirement;
     }
 
-    public void setDateOfRetirement (String dateOfRetirement)
-    {
+    public void setDateOfRetirement(String dateOfRetirement) {
         this.dateOfRetirement = dateOfRetirement;
     }
 
-    public int getCategory ()
-    {
+    public int getCategory() {
         return category;
     }
 
-    public void setCategory (int category)
-    {
+    public void setCategory(int category) {
         this.category = category;
     }
 
-    public int getRecruitmentMode ()
-    {
+    public int getRecruitmentMode() {
         return recruitmentMode;
     }
 
-    public void setRecruitmentMode (int recruitmentMode)
-    {
+    public void setRecruitmentMode(int recruitmentMode) {
         this.recruitmentMode = recruitmentMode;
     }
 
-    public int getGroup ()
-    {
+    public int getGroup() {
         return group;
     }
 
-    public void setGroup (int group)
-    {
+    public void setGroup(int group) {
         this.group = group;
     }
 
-    public String getDateOfAppointment ()
-    {
+    public String getDateOfAppointment() {
         return dateOfAppointment;
     }
 
-    public void setDateOfAppointment (String dateOfAppointment)
-    {
+    public void setDateOfAppointment(String dateOfAppointment) {
         this.dateOfAppointment = dateOfAppointment;
     }
 
-    public User getUser ()
-    {
+    public User getUser() {
         return user;
     }
 
-    public void setUser (User user)
-    {
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public String getBankAccount ()
-    {
+    public String getBankAccount() {
         return bankAccount;
     }
 
-    public void setBankAccount (String bankAccount)
-    {
+    public void setBankAccount(String bankAccount) {
         this.bankAccount = bankAccount;
     }
 
-    public int getBankBranch ()
-    {
+    public int getBankBranch() {
         return bankBranch;
     }
 
-    public void setBankBranch (int bankBranch)
-    {
+    public void setBankBranch(int bankBranch) {
         this.bankBranch = bankBranch;
     }
 }

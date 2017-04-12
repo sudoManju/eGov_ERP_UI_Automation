@@ -11,14 +11,14 @@ public class PGRResource {
 
     public Response createComplaint(String json) {
 
-        new APILogger().log("Creating complaint Request for PGR is started  with-- "+ json);
+        new APILogger().log("Creating complaint Request for PGR is started  with-- " + json);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
                 .body(json)
                 .when()
                 .post(Properties.complaintUrl);
 
-        new APILogger().log("Creating complaint Response for PGR is generated as-- "+ response.asString());
+        new APILogger().log("Creating complaint Response for PGR is generated as-- " + response.asString());
         return response;
     }
 
@@ -39,20 +39,20 @@ public class PGRResource {
                 .when()
                 .get(Properties.getPGRComplaintUrl + serviceRequestId);
 
-        new APILogger().log("Getting a PGR complaint Response is generated as-- "+response.asString());
+        new APILogger().log("Getting a PGR complaint Response is generated as-- " + response.asString());
         return response;
     }
 
     public Response getParticularLocationName(String locationName) {
 
-        new APILogger().log("Getting a location details Request with name is started for--"+locationName);
+        new APILogger().log("Getting a location details Request with name is started for--" + locationName);
 
         Response response = given().request().with()
                 .urlEncodingEnabled(true)
                 .when()
                 .get(Properties.locationNameUrl + locationName);
 
-        new APILogger().log("Getting a location details Response with name is generated as-- "+response.asString());
+        new APILogger().log("Getting a location details Response with name is generated as-- " + response.asString());
 
         return response;
     }
@@ -66,7 +66,7 @@ public class PGRResource {
                 .when()
                 .get(Properties.locationNameUrl);
 
-        new APILogger().log("Getting all location details Response with name is generated as-- "+ response.asString());
+        new APILogger().log("Getting all location details Response with name is generated as-- " + response.asString());
 
         return response;
     }
@@ -80,35 +80,35 @@ public class PGRResource {
                 .when()
                 .get(Properties.fetchComplaintsUrl);
 
-        new APILogger().log("Fetch all Complaints Response is generated as-- "+ response.asString());
+        new APILogger().log("Fetch all Complaints Response is generated as-- " + response.asString());
 
         return response;
     }
 
     public Response getFrequentlyFilledComplaints(int count) {
 
-        new APILogger().log("Get Frequently filled Complaints Request is started  for-- "+count);
+        new APILogger().log("Get Frequently filled Complaints Request is started  for-- " + count);
 
         Response response = given().request().with()
                 .urlEncodingEnabled(true)
                 .when()
                 .get(Properties.frequentlyFilledComplaintsUrl + count + "&tenantId=ap.public");
 
-        new APILogger().log("Get Frequently filled Complaints Response is generated as-- "+response.asString());
+        new APILogger().log("Get Frequently filled Complaints Response is generated as-- " + response.asString());
 
         return response;
     }
 
     public Response updateAndClosePGRComplaint(String json) {
 
-        new APILogger().log("Update/Close complaint Request for PGR is started  with-- "+json);
+        new APILogger().log("Update/Close complaint Request for PGR is started  with-- " + json);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
                 .body(json)
                 .when()
                 .put(Properties.complaintUrl);
 
-        new APILogger().log("Update/Close complaint Response for PGR is started  with-- "+response.asString());
+        new APILogger().log("Update/Close complaint Response for PGR is started  with-- " + response.asString());
 
         return response;
     }
@@ -121,7 +121,7 @@ public class PGRResource {
                 .when()
                 .get(Properties.pgrReceivingCenterUrl);
 
-        new APILogger().log("Receiving Centers Response for PGR is generated as-- "+response.asString());
+        new APILogger().log("Receiving Centers Response for PGR is generated as-- " + response.asString());
 
         return response;
     }
@@ -134,7 +134,7 @@ public class PGRResource {
                 .when()
                 .post(Properties.pgrStatusUrl);
 
-        new APILogger().log("Get All Application Status Response for PGR is generated as-- "+response.asString());
+        new APILogger().log("Get All Application Status Response for PGR is generated as-- " + response.asString());
 
         return response;
     }
@@ -147,7 +147,7 @@ public class PGRResource {
                 .when()
                 .post(Properties.pgrSearchCitizenComplaintUrl);
 
-        new APILogger().log("Search Citizen Complaints Response for PGR is generated-- "+response.asString());
+        new APILogger().log("Search Citizen Complaints Response for PGR is generated-- " + response.asString());
         return response;
     }
 
@@ -158,7 +158,7 @@ public class PGRResource {
                 .when()
                 .get(Properties.pgrReceivingModesUrl);
 
-        new APILogger().log("Receiving Modes For PGR is Response is generated-- "+response.asString());
+        new APILogger().log("Receiving Modes For PGR is Response is generated-- " + response.asString());
         return response;
     }
 }

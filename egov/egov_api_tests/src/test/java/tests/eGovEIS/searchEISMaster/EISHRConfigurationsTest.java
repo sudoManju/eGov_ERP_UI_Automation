@@ -26,7 +26,7 @@ public class EISHRConfigurationsTest {
         searchHRConfigurationsTestMethod(loginResponse);
     }
 
-    private void searchHRConfigurationsTestMethod(LoginResponse loginResponse)throws IOException {
+    private void searchHRConfigurationsTestMethod(LoginResponse loginResponse) throws IOException {
 
         RequestInfo requestInfo = new RequestInfoBuilder()
                 .withAuthToken(loginResponse.getAccess_token())
@@ -40,9 +40,9 @@ public class EISHRConfigurationsTest {
                 searchHRConfigurationsType(RequestHelper.getJsonString(searchEmployeeMasterRequest));
 
         SearchHRConfigurationsResponse searchHRConfigurationsResponse = (SearchHRConfigurationsResponse)
-                ResponseHelper.getResponseAsObject(response.asString() ,SearchHRConfigurationsResponse.class );
+                ResponseHelper.getResponseAsObject(response.asString(), SearchHRConfigurationsResponse.class);
 
-        Assert.assertEquals(response.getStatusCode() , 200);
+        Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertTrue(searchHRConfigurationsResponse.getHRConfiguration().getWeekly_holidays()[0].contains("5-day week"));
 
         new APILogger().log("Search HR Configurations Test is Completed--");

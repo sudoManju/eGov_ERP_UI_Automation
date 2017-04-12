@@ -44,7 +44,7 @@ public class EgovEISResource {
                 .header("Content-Type", "application/json")
                 .body(jsonData)
                 .when()
-                .post(Properties.searchEmployeeURL+criteria);
+                .post(Properties.searchEmployeeURL + criteria);
 
         new APILogger().log("Search createEmployee Response is generated as -- " + response.asString());
         return response;
@@ -62,7 +62,7 @@ public class EgovEISResource {
         return response;
     }
 
-    public Response searchEmployeeLeave(String jsonData){
+    public Response searchEmployeeLeave(String jsonData) {
         new APILogger().log("Search Employee Leave Request Test is started with-- " + jsonData);
 
         Response response = given().request().with()

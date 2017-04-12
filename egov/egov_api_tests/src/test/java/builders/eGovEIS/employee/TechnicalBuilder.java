@@ -7,7 +7,7 @@ public class TechnicalBuilder {
 
     Technical technical = new Technical();
 
-    public TechnicalBuilder(){
+    public TechnicalBuilder() {
         technical.setSkill("C");
         technical.setGrade("A");
         technical.setYearOfPassing(2014);
@@ -18,7 +18,7 @@ public class TechnicalBuilder {
         technical.setLastModifiedDate("18/09/2016");
     }
 
-    public Technical build(){
+    public Technical build() {
         return technical;
     }
 }

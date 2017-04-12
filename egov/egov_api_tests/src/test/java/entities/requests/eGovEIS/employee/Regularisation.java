@@ -1,7 +1,6 @@
 package entities.requests.eGovEIS.employee;
 
-public class Regularisation
-{
+public class Regularisation {
     private String orderNo;
 
     private int createdBy;
