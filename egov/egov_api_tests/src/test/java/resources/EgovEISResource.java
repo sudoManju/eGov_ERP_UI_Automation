@@ -74,4 +74,16 @@ public class EgovEISResource {
         new APILogger().log("Search Employee Leave Response Test is generated as-- " + response.asString());
         return response;
     }
+
+    public Response searchLeaveApplications(String jsonData) {
+        new APILogger().log("Search Leave Applications Test is started with-- "+jsonData);
+
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(jsonData).when()
+                .post(Properties.eisSearchLeaveApplicationsUrl);
+
+        new APILogger().log("Search Leave Applications Test is completed with-- "+response.asString());
+        return response;
+    }
 }

@@ -129,7 +129,9 @@ public class PropertiesReader {
     public String getSearchRecruitmentModesUrl() { return prop.getProperty("searchRecruitmentModesUrl"); }
     public String getSearchHrConfigurationsUrl() { return prop.getProperty("searchHrConfigurations"); }
     public String getSearchHrStatusesUrl() { return prop.getProperty("searchHRStatusesUrl"); }
-
+    public String getSearchLeaveApplicationsUrl() { return prop.getProperty("searchLeaveApplicationsUrl"); }
+    public String getSearchLeaveOpeningbalancesUrl() { return prop.getProperty("searchLeaveOpeningbalancesUrl"); }
+    public String getSearchLeaveAllotmentsUrl() { return prop.getProperty("searchLeaveAllotmentsUrl"); }
 
     //      Lease And Agreement Module Url's      //
     public String getLAMSServiceSearchUrl() {
