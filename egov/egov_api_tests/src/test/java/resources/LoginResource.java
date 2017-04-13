@@ -27,14 +27,14 @@ public class LoginResource {
         return response;
     }
 
-    public Response logout(String accessToken) {
+    public Response logout(String json, String accessToken) {
 
-        new APILogger().log("Logout request started for-- " + accessToken);
+        new APILogger().log("Logout request started for-- " + json);
 
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
-                .header("Content-type", "application/x-www-form-urlencoded")
-                .header("auth-token", accessToken)
+                .header("Content-Type", "application/json")
+                .body(json)
                 .when()
                 .post(Properties.logoutUrl + accessToken);
 

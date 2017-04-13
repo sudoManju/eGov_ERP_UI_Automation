@@ -2,8 +2,12 @@ package utils;
 
 
 import builders.login.LoginRequestBuilder;
+import builders.logout.LogoutRequestBuilder;
+import builders.logout.RequestInfoBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.login.LoginRequest;
+import entities.requests.logout.LogoutRequest;
+import entities.requests.logout.RequestInfo;
 import entities.responses.login.LoginResponse;
 import entities.responses.logout.LogoutResponse;
 import org.testng.Assert;
@@ -31,7 +35,13 @@ public class LoginAndLogoutHelper {
     }
 
     public static void logout(LoginResponse loginResponse) throws IOException {
-        Response response1 = new LoginResource().logout(loginResponse.getAccess_token());
+
+        RequestInfo requestInfo = new RequestInfoBuilder()
+                .withAuthToken(loginResponse.getAccess_token())
+                .build();
+        LogoutRequest logoutRequest = new LogoutRequestBuilder().withRequestInfo(requestInfo).build();
+
+        Response response1 = new LoginResource().logout(RequestHelper.getJsonString(logoutRequest), loginResponse.getAccess_token());
         LogoutResponse logoutResponse = (LogoutResponse)
                 ResponseHelper.getResponseAsObject(response1.asString(), LogoutResponse.class);
 
