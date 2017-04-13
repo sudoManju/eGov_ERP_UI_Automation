@@ -60,9 +60,5 @@ public class EmployeeLeaveTest extends BaseAPITest {
         SearchLeaveApplicationsResponse searchLeaveApplicationsResponse = (SearchLeaveApplicationsResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchLeaveApplicationsResponse.class);
 
-        Assert.assertEquals(searchLeaveApplicationsResponse.getLeaveApplication()[0].getEmployee(), 1);
-        Assert.assertEquals(searchLeaveApplicationsResponse.getLeaveApplication()[0].getLeaveType().getName(), "Casual");
-        Assert.assertEquals(searchLeaveApplicationsResponse.getLeaveApplication()[0].getFromDate(), "2017-03-31");
-        Assert.assertEquals(searchLeaveApplicationsResponse.getLeaveApplication()[0].getToDate(), "2017-04-02");
     }
 }

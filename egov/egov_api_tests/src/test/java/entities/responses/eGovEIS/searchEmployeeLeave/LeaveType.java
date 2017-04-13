@@ -3,13 +3,13 @@ package entities.responses.eGovEIS.searchEmployeeLeave;
 public class LeaveType {
     private boolean encashable;
     private String lastModifiedDate;
-    private int lastModifiedBy;
+    private double lastModifiedBy;
     private String description;
     private boolean payEligible;
     private boolean active;
     private String createdDate;
     private boolean accumulative;
-    private int createdBy;
+    private double createdBy;
     private String name;
     private String tenantId;
     private int id;
@@ -31,11 +31,11 @@ public class LeaveType {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public int getLastModifiedBy() {
+    public double getLastModifiedBy() {
         return this.lastModifiedBy;
     }
 
-    public void setLastModifiedBy(int lastModifiedBy) {
+    public void setLastModifiedBy(double lastModifiedBy) {
         this.lastModifiedBy = lastModifiedBy;
     }
 
@@ -79,11 +79,11 @@ public class LeaveType {
         this.accumulative = accumulative;
     }
 
-    public int getCreatedBy() {
+    public double getCreatedBy() {
         return this.createdBy;
     }
 
-    public void setCreatedBy(int createdBy) {
+    public void setCreatedBy(double createdBy) {
         this.createdBy = createdBy;
     }
 

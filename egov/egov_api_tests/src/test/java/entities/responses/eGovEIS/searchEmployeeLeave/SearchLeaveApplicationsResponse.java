@@ -4,6 +4,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class SearchLeaveApplicationsResponse
 {
+    @JsonProperty("ResponseInfo")
     private ResponseInfo ResponseInfo;
 
     @JsonProperty("LeaveApplication")
