@@ -47,7 +47,7 @@ public final class UserBuilder {
         user.setCreatedDate("01-01-2017 00:00:00");
         user.setLastModifiedBy("1");
         user.setLastModifiedDate("01-01-2017 00:00:00");
-        user.setTenantId("1");
+        user.setTenantId("ap.public");
         roles[0] = role1;
         roles[1] = role2;
         user.setRoles(roles);
