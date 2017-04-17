@@ -64,7 +64,7 @@ public class EmployeeBuilder {
         employee.setBankAccount("987456");
         employee.setGroup(33);
         employee.setPlaceOfBirth("Bengaluru");
-        employee.setTenantId("1");
+        employee.setTenantId("ap.public");
         assignmentses[0] = assignments1;
         assignmentses[1] = assignments2;
         employee.setAssignments(assignmentses);
@@ -94,6 +94,11 @@ public class EmployeeBuilder {
 
     public EmployeeBuilder withGpfNo(String gpfNo) {
         employee.setGpfNo(gpfNo);
+        return this;
+    }
+
+    public EmployeeBuilder withCode(String code){
+        employee.setCode(code);
         return this;
     }
 

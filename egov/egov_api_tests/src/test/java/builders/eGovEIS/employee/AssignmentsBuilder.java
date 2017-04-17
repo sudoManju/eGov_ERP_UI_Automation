@@ -39,7 +39,7 @@ public class AssignmentsBuilder {
     public AssignmentsBuilder(String msg) {
         assignments.setEmployee(3);
         assignments.setPosition(2);
-        assignments.setIsPrimary(true);
+        assignments.setIsPrimary(false);
         assignments.setFund(1);
         assignments.setFunctionary(1);
         assignments.setFunction(1);
