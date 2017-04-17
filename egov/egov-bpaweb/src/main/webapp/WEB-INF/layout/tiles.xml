@@ -141,4 +141,8 @@
         <put-attribute name="page-title" value="title.search.appln" cascade="true"/>
         <put-attribute name="body" value="/WEB-INF/views/application/search-bpa-application.jsp"/>
     </definition>
+    <definition name="lettertoparty-result" extends="base_layout">
+    	<put-attribute name="page-title" value="title.lettertoparty.success" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/lettertoparty/lettertoparty-result.jsp"/>
+    </definition>
 </tiles-definitions>
