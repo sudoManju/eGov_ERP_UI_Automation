@@ -1,4 +1,4 @@
-package tests.commonMasters;
+package tests.commonMasters.holiday;
 
 import builders.commonMaster.CommonMasterRequestBuilder;
 import builders.commonMaster.RequestInfoBuilder;
@@ -15,7 +15,7 @@ import utils.*;
 
 import java.io.IOException;
 
-public class HolidayTest extends BaseAPITest {
+public class SearchHolidayTest extends BaseAPITest {
 
     @Test(groups = {Categories.HR, Categories.SANITY, Categories.DEV})
     public void holidayTest() throws IOException {
@@ -23,7 +23,7 @@ public class HolidayTest extends BaseAPITest {
         // Login Test
         LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
 
-        // Search Department Test
+        // Search Holiday Test
         holidayTestMethod(loginResponse);
     }
 

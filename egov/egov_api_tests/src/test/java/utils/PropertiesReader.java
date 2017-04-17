@@ -142,35 +142,29 @@ public class PropertiesReader {
     public String getCMLanguageUrl() {
         return prop.getProperty("cmLanguageUrl");
     }
-
     public String getCMDepartmentUrl() {
         return prop.getProperty("cmDepartmentUrl");
     }
-
     public String getCMCommunityUrl() {
         return prop.getProperty("cmCommunityUrl");
     }
-
     public String getCMReligionUrl() {
         return prop.getProperty("cmReligionUrl");
     }
-
     public String getCMHolidayUrl() {
         return prop.getProperty("cmHolidayUrl");
     }
-
     public String getCMCategoryUrl() {
         return prop.getProperty("cmCategoryUrl");
     }
+    public String getCMCreateHolidayUrl() {return prop.getProperty("cmCreateHolidayUrl");}
 
     public String getUserCreateUrl() {
         return prop.getProperty("userCreateUrl");
     }
-
     public String getPGRReceivingModesUrl() {
         return prop.getProperty("pgrReceivingModes");
     }
-
     public String getSearchEmployeeLeaveUrl() {
         return prop.getProperty("searchEmployeeLeaveUrl");
     }

@@ -1,12 +1,14 @@
 package resources;
 
 import com.jayway.restassured.response.Response;
+import org.codehaus.jackson.map.MapperConfig;
+import tests.BaseAPITest;
 import utils.APILogger;
 import utils.Properties;
 
 import static com.jayway.restassured.RestAssured.given;
 
-public class CommonMasterResource {
+public class CommonMasterResource extends BaseAPITest{
 
     public Response searchLanguageTest(String json) {
         new APILogger().log("Search Language Request Test is Started with --" + json);
@@ -81,6 +83,18 @@ public class CommonMasterResource {
                 .post(Properties.cmCategoryUrl);
 
         new APILogger().log("Search Category Response Test is Generated as --" + response.asString());
+        return response;
+    }
+
+    public Response createHoliday(String jsonString) {
+        new APILogger().log("Create Holiday Request Test is started with --" + jsonString);
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(jsonString)
+                .when()
+                .post(Properties.cmCreateHolidayUrl);
+
+        new APILogger().log("Create Holiday Response Test is Generated as --" + response.asString());
         return response;
     }
 }
