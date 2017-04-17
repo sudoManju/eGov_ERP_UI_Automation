@@ -112,7 +112,6 @@ public class LetterToPartyController {
             final Model model,
             final HttpServletRequest request,
             final BindingResult errors, final RedirectAttributes redirectAttributes) {
-        lettertoParty.setApplication(applicationBpaService.findByApplicationNumber("PPA-2017-000022"));
         final List<LettertoPartyDocument> lpDocs = new ArrayList<>(0);
         int i = 0;
         if (!lettertoParty.getLettertoPartyDocument().isEmpty())
