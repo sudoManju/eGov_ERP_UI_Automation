@@ -94,4 +94,9 @@ public class BpaConstants {
     public static final String SMSEMAILTYPENEWBPAREGISTERED = "newbparegistered";
     public static final String REGISTERED = "Registered";
     public static final String DOCUMENTVERIFIED = "Document Verified";
+    
+    public static final String LETTERTOPARTY_NUMBER_SEQ = "SEQ_BPA_LP_";
+    public static final String CREATEDLETTERTOPARTY = "Letter To Party Created";
+    public static final String LETTERTOPARTYSENT = "LP Sent to Applicant";
+    public static final String LETTERTOPARTYDETAILS = "lettertoparty";
 }

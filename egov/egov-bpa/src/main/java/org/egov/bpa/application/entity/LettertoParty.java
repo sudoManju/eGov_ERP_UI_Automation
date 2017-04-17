@@ -39,6 +39,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -64,20 +65,24 @@ public class LettertoParty extends AbstractAuditable {
     private Long id;
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "application")
     private BpaApplication application;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "inspection")
     private Inspection inspection;
     @Length(min = 1, max = 32)
     private String acknowledgementNumber;
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lpReason")
     private LpReason lpReason;
     @Length(min = 1, max = 128)
     private String lpNumber;
-    @NotNull
+   
     @Temporal(TemporalType.DATE)
     private Date letterDate;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name ="scheduledby")
     private User scheduledby;
     @Length(min = 1, max = 128)
     private String scheduledPlace;
@@ -101,7 +106,8 @@ public class LettertoParty extends AbstractAuditable {
 
     @OneToMany(mappedBy = "letterToParty", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<AutoDcrMap> autoDcrMap = new ArrayList<AutoDcrMap>(0);
-
+    @OneToMany(mappedBy = "lettertoParty", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<LettertoPartyDocument> lettertoPartyDocument = new ArrayList<>(0);
     @Override
     public Long getId() {
         return id;
@@ -250,6 +256,14 @@ public class LettertoParty extends AbstractAuditable {
 
     public List<AutoDcrMap> getAutoDcrMap() {
         return autoDcrMap;
+    }
+
+    public List<LettertoPartyDocument> getLettertoPartyDocument() {
+        return lettertoPartyDocument;
+    }
+
+    public void setLettertoPartyDocument(List<LettertoPartyDocument> lettertoPartyDocument) {
+        this.lettertoPartyDocument = lettertoPartyDocument;
     }
 
 }
