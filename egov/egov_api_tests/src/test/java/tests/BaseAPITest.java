@@ -54,6 +54,4 @@ public class BaseAPITest {
     protected String get3DigitRandomInt() {
         return String.valueOf((RandomUtils.nextInt(100, 999)));
     }
-
-
 }

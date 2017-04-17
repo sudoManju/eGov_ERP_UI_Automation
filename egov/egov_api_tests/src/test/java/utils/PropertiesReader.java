@@ -132,6 +132,7 @@ public class PropertiesReader {
     public String getSearchLeaveApplicationsUrl() { return prop.getProperty("searchLeaveApplicationsUrl"); }
     public String getSearchLeaveOpeningbalancesUrl() { return prop.getProperty("searchLeaveOpeningbalancesUrl"); }
     public String getSearchLeaveAllotmentsUrl() { return prop.getProperty("searchLeaveAllotmentsUrl"); }
+    public String getCreateOpeningBalanceUrl() { return prop.getProperty("createOpeningBalanceUrl"); }
 
     //      Lease And Agreement Module Url's      //
     public String getLAMSServiceSearchUrl() {

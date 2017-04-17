@@ -86,4 +86,18 @@ public class EgovEISResource {
         new APILogger().log("Search Leave Applications Test is completed with-- "+response.asString());
         return response;
     }
+
+    public Response hrLeaveCreateOpeningBalance(String jsonData) {
+
+        new APILogger().log("Create HR Leave Opening Balance Test is started with-- "+jsonData);
+
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(jsonData)
+                .when()
+                .post(Properties.createOpeningBalanceUrlUrl);
+
+        new APILogger().log("Create HR Leave Opening Balance Test is completed with-- "+response.asString());
+        return response;
+    }
 }
