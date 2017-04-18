@@ -44,7 +44,6 @@ $(document).ready( function () {
 	$(function () {
         $('#appointmentTime').datetimepicker({
             format: 'LT',
-            disabledHours: [0,1,2,3,4,5,6,7,8,9,18,19,20,21,22,23],
             minDate: moment({h:10}),
             maxDate: moment({h:17})
         });
@@ -52,7 +51,7 @@ $(document).ready( function () {
 	//re-schedule appointment date validation
 	$('#appointmentDate').on('changeDate', function() {
 		var  currDate = $('#appointmentDate').val();
-		var  prevDate = $('#previoueappointmentDate').val();
+		var  prevDate = $('#previoueappointmentDate').val().toString();
 		var datearray = prevDate.split("-");
 		var newPrevdate = datearray[2] + '/' + datearray[1] + '/' + datearray[0];
 		if(currDate <= newPrevdate){

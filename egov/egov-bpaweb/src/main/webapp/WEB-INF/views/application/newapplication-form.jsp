@@ -70,11 +70,7 @@
 							code='title.documentdetail' /></a></li>
 			</ul>
 			<div class="tab-content">
-				<div id="document-info" class="tab-pane fade">
-					<div class="panel panel-primary" data-collapsed="0">
-						<jsp:include page="bpaDocumentDetails.jsp"></jsp:include>
-					</div>
-				</div>
+				
 				<div id="appliccation-info" class="tab-pane fade in active">
 					<div class="panel panel-primary" data-collapsed="0">
 						<jsp:include page="applicationDetails.jsp"></jsp:include>
@@ -87,6 +83,11 @@
 					</div>
 					<div class="panel panel-primary" data-collapsed="0">
 						<jsp:include page="buildingDetails.jsp" />
+					</div>
+				</div>
+				<div id="document-info" class="tab-pane fade">
+					<div class="panel panel-primary" data-collapsed="0">
+						<jsp:include page="bpaDocumentDetails.jsp"></jsp:include>
 					</div>
 				</div>
 			</div>
@@ -105,3 +106,5 @@
 	src="<cdn:url value='/resources/global/js/egov/inbox.js?rnd=${app_release_no}' context='/egi'/>"></script>
 <script
 	src="<cdn:url value='/resources/js/app/application-new.js?rnd=${app_release_no}'/>"></script>
+<script
+	src="<cdn:url value='/resources/js/app/documentsuploadvalidation.js?rnd=${app_release_no}'/>"></script>

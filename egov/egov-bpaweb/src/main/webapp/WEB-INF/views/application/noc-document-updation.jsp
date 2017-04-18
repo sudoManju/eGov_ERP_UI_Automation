@@ -63,7 +63,7 @@
 							<th><spring:message code="lbl.noc.not.aplicable" /></th>
 							<th width="8%"><spring:message code="lbl.obtained" /></th>
 							<th><spring:message code="lbl.remarks" /></th>
-							<th><spring:message code="lbl.attachdocument" /></th>
+							<th><spring:message code="lbl.attachdocument" /><br>(<spring:message code="lbl.mesg.document"/>)</th>
 					</thead>
 					<tbody>
 						<c:forEach var="doc" items="${nocCheckListDetails}"

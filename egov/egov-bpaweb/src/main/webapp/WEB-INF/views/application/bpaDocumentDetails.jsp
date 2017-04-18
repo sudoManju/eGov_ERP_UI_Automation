@@ -53,7 +53,7 @@
 			</div>
 		</div>
 		<div class="form-group view-content header-color hidden-xs">
-			<div class="col-sm-3 text-center">
+			<div class="col-sm-3 text-right">
 				<spring:message code="lbl.documentname" />
 			</div>
 			<div class="col-sm-3 text-center">
@@ -63,23 +63,17 @@
 				<spring:message code="lbl.remarks" />
 			</div>
 			<div class="col-sm-3 text-center">
-				<spring:message code="lbl.attachdocument" />
+				<spring:message code="lbl.attachdocument" /><br><small class="error-msg"><spring:message code="lbl.mesg.document"/></small>
 			</div>
 		</div>
 		<c:forEach var="docs" items="${checkListDetailList}"
 			varStatus="status">
 			<div class="form-group">
-				<div class="col-sm-3 add-margin check-text text-center">
-					<c:choose>
-						<c:when test="${docs.isMandatory}">
-							<input type="checkbox" checked disabled>&nbsp;<c:out
-								value="${docs.description}" />
-						</c:when>
-						<c:otherwise>
-							<input type="checkbox" disabled>&nbsp;<c:out
-								value="${docs.description}" />
-						</c:otherwise>
-					</c:choose>
+				<div class="col-sm-3 add-margin check-text text-right">
+					<c:out value="${docs.description}"></c:out>
+					<c:if test="${docs.isMandatory}">
+						<span class="mandatory"></span>
+					</c:if>
 					<form:hidden
 						id="applicationDocument${status.index}checklistDetail.id"
 						path="applicationDocument[${status.index}].checklistDetail.id"
@@ -124,10 +118,6 @@
 					</c:choose>
 					<form:errors path="applicationDocument[${status.index}].files"
 						cssClass="add-margin error-msg" />
-					<div class="add-margin error-msg text-left">
-						<font size="2"> <spring:message code="lbl.mesg.document" />
-						</font>
-					</div>
 				</div>
 			</div>
 		</c:forEach>

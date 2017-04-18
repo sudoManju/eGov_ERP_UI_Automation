@@ -55,8 +55,8 @@ $(document)
 												jQuery(this));
 
 										var fileInput = jQuery(this);
-										var maxSize = 4194304; // file size in
-																// bytes(4MB)
+										var maxSize = 2097152; // file size in
+																// bytes(2MB)
 										if (fileInput.get(0).files.length) {
 											var fileSize = this.files[0].size; // in
 																				// bytes
@@ -71,7 +71,7 @@ $(document)
 												return false;
 											} else if (fileSize > maxSize) {
 												bootbox
-														.alert('File size should not exceed 4 MB!');
+														.alert('File size should not exceed 2 MB!');
 												fileInput.replaceWith(fileInput
 														.val('').clone(true));
 												return false;
