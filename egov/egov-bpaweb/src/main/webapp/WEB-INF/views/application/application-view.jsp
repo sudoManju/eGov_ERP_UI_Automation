@@ -50,27 +50,60 @@
 			id="editWaterConnectionform"
 			cssClass="form-horizontal form-groups-bordered"
 			enctype="multipart/form-data">
-
+			<input type="hidden" name="bpaApplication" value="${bpaApplication.id}">
 			<form:hidden path="" id="wfstate" value="${bpaApplication.state.id}" />
 			<form:hidden path="" id="workFlowAction" name="workFlowAction" />
 			<form:hidden path="" id="wfstateDesc" value="${bpaApplication.state.value}" />
 			<form:hidden path="" id="mode" name="mode" value="${mode}" />
 			<form:hidden path="" id="scheduleType" name="scheduleType" value="${scheduleType}" />
-			<div class="panel panel-primary" data-collapsed="0">
-				<jsp:include page="view-applicantdetails.jsp"></jsp:include>
+			<ul class="nav nav-tabs" id="settingstab">
+				<li class="active"><a data-toggle="tab" href="#applicant-info"
+					data-tabidx=0><spring:message code='lbl.appln.details' /></a></li>
+				<c:if test="${showUpdateNoc}"> 
+				<li ><a data-toggle="tab" href="#checklist-info" data-tabidx=1><spring:message
+							code='lbl.noc.doc.details' /></a></li>
+				</c:if>
+				<c:if test="${showNOCDetails}">
+					<li ><a data-toggle="tab" href="#noc-info" data-tabidx=1><spring:message
+							code='lbl.noc.details' /></a></li>
+				</c:if>
+				
+			</ul>
+			<div class="tab-content">
+				<div id="applicant-info" class="tab-pane fade in active">
+					<div class="panel panel-primary" data-collapsed="0">
+						<jsp:include page="view-applicantdetails.jsp"></jsp:include>
+					</div>
+					<div class="panel panel-primary" data-collapsed="0">
+						<jsp:include page="viewapplication-details.jsp"></jsp:include>
+					</div>
+					<div class="panel panel-primary" data-collapsed="0">
+						<jsp:include page="view-sitedetail.jsp"></jsp:include>
+					</div>
+					<div class="panel panel-primary" data-collapsed="0">
+						<jsp:include page="view-building-details.jsp" />
+					</div>
+					<div class="panel panel-primary" data-collapsed="0">
+						<jsp:include page="applicationhistory-view.jsp"></jsp:include>
+					</div>
+				</div>
+				<c:if test="${showUpdateNoc}"> 
+				<input type="hidden" id="showUpdateNoc" value="${showUpdateNoc}">
+					<div id="checklist-info" class="tab-pane fade">
+						<div class="panel panel-primary" data-collapsed="0">
+							<jsp:include page="noc-document-updation.jsp"></jsp:include>
+						</div>
+					</div>
+				</c:if> 
+				<c:if test="${showNOCDetails}">
+					<div id="noc-info" class="tab-pane fade">
+						<div class="panel panel-primary" data-collapsed="0">
+							<jsp:include page="view-noc-document.jsp"></jsp:include>
+						</div>
+					</div>
+				</c:if>
 			</div>
-			<div class="panel panel-primary" data-collapsed="0">
-				<jsp:include page="viewapplication-details.jsp"></jsp:include>
-			</div>
-			<div class="panel panel-primary" data-collapsed="0">
-				<jsp:include page="view-sitedetail.jsp"></jsp:include>
-			</div>
-			<div class="panel panel-primary" data-collapsed="0">
-				<jsp:include page="view-building-details.jsp" />
-			</div>
-			<div class="panel panel-primary" data-collapsed="0">
-				<jsp:include page="applicationhistory-view.jsp"></jsp:include>
-			</div>
+
 			<div class="text-center">
 				<c:if test="${mode eq 'newappointment'}">
 					<a
@@ -96,3 +129,5 @@
 	src="<cdn:url value='/resources/global/js/egov/inbox.js?rnd=${app_release_no}' context='/egi'/>"></script>
 <script
 	src="<cdn:url value='/resources/js/app/application-edit.js?rnd=${app_release_no}'/>"></script>
+<script
+	src="<cdn:url value='/resources/js/app/documentsuploadvalidation.js?rnd=${app_release_no}'/>"></script>

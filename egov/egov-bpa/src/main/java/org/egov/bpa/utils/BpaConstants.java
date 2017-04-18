@@ -70,7 +70,9 @@ public class BpaConstants {
     public static final String WF_END_STATE = "END";
     public static final String APPLICATION_STATUS_CREATED = "CREATED";
     public static final String APPLICATION_STATUS_APPROVED = "APPROVED";
-
+    public static final String APPLICATION_STATUS_FIELD_INS = "Field Inspected";
+    public static final String APPLICATION_STATUS_ORDER_ISSUED = "Order Issued to Applicant";
+    public static final String APPLICATION_STATUS_DIGI_SIGNED ="Digitally signed";
     public static final String WF_APPROVE_BUTTON = "Approve";
     public static final String WF_REJECT_BUTTON = "REJECT";
     public static final String WF_CANCELAPPLICATION_BUTTON = "CANCEL APPLICATION";
@@ -99,4 +101,5 @@ public class BpaConstants {
     public static final String CREATEDLETTERTOPARTY = "Letter To Party Created";
     public static final String LETTERTOPARTYSENT = "LP Sent to Applicant";
     public static final String LETTERTOPARTYDETAILS = "lettertoparty";
+    public static final String CHECKLIST_TYPE_NOC = "NOC";
 }

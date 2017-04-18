@@ -45,51 +45,52 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
-<br>
-<br>
-<c:forEach var="doc" items="${stakeHolderDocumentList}"
-	varStatus="status">
-		<div class="form-group">
-			<div class="col-sm-1"></div>
-		<%-- 	<form:hidden id="documents[${status.index}].id"
-				path="stakeHolderDocument[${status.index}].id" value="${doc.id}" /> --%>
-			<form:hidden id="checkListDocuments[${status.index}].id" path="checkListDocuments[${status.index}].id" value="${doc.id}" />
-			<div class="col-sm-4 add-margin text-right">
-				<c:out value="${doc.description}"></c:out><c:if test="${doc.isMandatory}"><span class="mandatory"></span></c:if>
-			</div>
-			<div class="col-sm-2 add-margin text-center">
-				<%-- <input type="file" id="file${status.index}id"
-					name="checkListDocuments[${status.index}].file"
-					class="file-ellipsis upload-file">
-				<form:errors path="checkListDocuments[${status.index}].file"
-					cssClass="add-margin error-msg" /> --%>
-					
-				<c:choose>
-		<c:when test="${doc.isMandatory}">
-			<input type="file" id="file${status.index}id" name="checkListDocuments[${status.index}].file" class="file-ellipsis upload-file" required="required">
-		</c:when>
-		<c:otherwise>
-			<input type="file" id="file${status.index}id" name="checkListDocuments[${status.index}].file" class="file-ellipsis upload-file">
-		</c:otherwise>
-		</c:choose>	
-			<form:errors path="checkListDocuments[${status.index}].file" cssClass="add-margin error-msg" />
-			</div>
-			<div class="col-sm-2">
-				<c:set value="false" var="isDocFound"></c:set>
-				<c:forEach items="${stakeHolder.stakeHolderDocument}" var="shdoc"
-					varStatus="loopStatus">
-					<c:if test="${shdoc.checkListDetail.id == doc.id}">
-						<c:set value="true" var="isDocFound"></c:set>
-						<a
-								href="/bpa/application/downloadfile/${shdoc.documentId.fileStoreId}"
-								data-gallery>${shdoc.documentId.fileName}
-						</a>
-					</c:if>
-				</c:forEach>
-				<c:if test="${!isDocFound}">
-				NA
-			</c:if>
-			</div>
-		</div>
-</c:forEach>
+<div class="panel-heading">
+	<div class="panel-title">Status of NOC from the Following
+		Departments.</div>
+</div>
 
+<div class="panel-body custom">
+	<table class="table table-bordered  multiheadertbl"
+		name="bpaupdatenocdetails" id=bpaupdatenocdetails>
+		<thead>
+			<th><spring:message code="lbl.srl.no" /></th>
+			<th><spring:message code="lbl.department" /></th>
+			<th><spring:message code="lbl.nature.noc.req" /></th>
+			<th><spring:message code="lbl.letr.sent.on" /></th>
+			<th><spring:message code="lbl.reply.recv.on" /></th>
+			<th><spring:message code="lbl.noc.reject" /></th>
+			<th><spring:message code="lbl.noc.not.aplicable" /></th>
+			<th width="8%"><spring:message code="lbl.obtained" /></th>
+			<th><spring:message code="lbl.remarks" /></th>
+			<th><spring:message code="lbl.attachdocument" /></th>
+		</thead>
+		<tbody>
+
+			<c:forEach var="nocdoc"
+				items="${bpaApplication.applicationNOCDocument}" varStatus="status">
+				<tr>
+					<td><c:out value="${status.index+1}"></c:out></td>
+					<td><c:out value="${nocdoc.checklist.description}"></c:out></td>
+					<td><c:out value="${nocdoc.natureOfRequest}"></c:out></td>
+					<td><c:out value="${nocdoc.letterSentOn}"></c:out></td>
+					<td><c:out value="${nocdoc.replyReceivedOn}"></c:out></td>
+					<td class="text-center"><c:out value="${nocdoc.rejection ? 'YES' : 'NO'}"
+							default="N/A"></c:out></td>
+					<td class="text-center"><c:out value="${nocdoc.notApplicable ? 'YES' : 'NO'}"
+							default="N/A"></c:out></td>
+					<td class="text-center"><c:out value="${nocdoc.issubmitted ? 'YES' : 'NO'}"
+							default="N/A"></c:out></td>
+					<td><c:out value="${nocdoc.remarks}" default="N/A"></c:out></td>
+					<td>
+						<a
+								href="/bpa/application/downloadfile/${nocdoc.nocFileStore.fileStoreId}"
+								data-gallery>
+								${nocdoc.nocFileStore.fileName}
+						</a>
+					</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+</div>

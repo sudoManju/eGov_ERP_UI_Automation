@@ -38,13 +38,15 @@
  *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
 package org.egov.bpa.web.controller.application;
-
+import static org.egov.bpa.utils.BpaConstants.FILESTORE_MODULECODE;
 import static org.egov.infra.utils.JsonUtils.toJSON;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.dto.SearchBpaApplicationForm;
@@ -91,5 +93,10 @@ public class SearchBpaApplicationController extends BpaGenericApplicationControl
         model.addAttribute(APPLICATION_HISTORY,
                 bpaThirdPartyService.getHistory(application));
         return "viewapplication-form";
+    }
+    
+    @RequestMapping(value = "/downloadfile/{fileStoreId}")
+    public void download(@PathVariable final String fileStoreId, final HttpServletResponse response) throws IOException {
+        fileStoreUtils.fetchFileAndWriteToStream(fileStoreId, FILESTORE_MODULECODE, false, response);
     }
 }

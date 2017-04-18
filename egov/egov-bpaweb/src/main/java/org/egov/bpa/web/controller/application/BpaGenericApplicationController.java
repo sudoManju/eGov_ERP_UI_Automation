@@ -71,6 +71,7 @@ import org.egov.infra.admin.master.service.BoundaryService;
 import org.egov.infra.exception.ApplicationRuntimeException;
 import org.egov.infra.filestore.entity.FileStoreMapper;
 import org.egov.infra.filestore.service.FileStoreService;
+import org.egov.infra.utils.FileStoreUtils;
 import org.egov.ptis.constants.PropertyTaxConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -86,7 +87,7 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     @Autowired
     private VillageNameService villageNameService;
     @Autowired
-    private CheckListDetailService checkListDetailService;
+    protected CheckListDetailService checkListDetailService;
     @Autowired
     @Qualifier("fileStoreService")
     protected FileStoreService fileStoreService;
@@ -96,6 +97,8 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     protected ApplicationBpaService applicationBpaService;
     @Autowired
     protected BpaThirdPartyService bpaThirdPartyService;
+    @Autowired
+    protected FileStoreUtils fileStoreUtils;
 
     @ModelAttribute("zones")
     public List<Boundary> zones() {
@@ -107,25 +110,27 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     public List<ServiceType> getServiceTypeList() {
         return serviceTypeService.findAll();
     }
+
     @ModelAttribute("checkListDetailList")
     public List<CheckListDetail> checkListDetailList() {
         return checkListDetailService.findActiveCheckListByChecklistType(BpaConstants.CHECKLIST_TYPE);
     }
+
     @ModelAttribute("buildingCategorYlist")
     public List<BuildingCategory> getAllBuildingCategoryList() {
         return buildingCategoryService.findAll();
     }
+
     @ModelAttribute("stakeHolderTypeList")
     public List<StakeHolderType> getStakeHolderType() {
         return Arrays.asList(StakeHolderType.values());
     }
 
-    @ModelAttribute("villageNames")     
+    @ModelAttribute("villageNames")
     public List<VillageName> getVillage() {
         return villageNameService.findAll();
     }
 
-    
     @ModelAttribute("electionwards")
     public List<Boundary> wards() {
 
@@ -151,11 +156,12 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
                 .getActiveBoundariesByBndryTypeNameAndHierarchyTypeName(BpaConstants.LOCALITY,
                         BpaConstants.LOCATION_HIERARCHY_TYPE);
     }
+
     @ModelAttribute("applicationModes")
-    public  Map<String, String> applicationModes() {
+    public Map<String, String> applicationModes() {
         return getApplicationModeMap();
     }
-    
+
     public Map<String, String> getApplicationModeMap() {
         final Map<String, String> applicationModeMap = new LinkedHashMap<>(0);
         applicationModeMap.put(ApplicantMode.NEW.toString(), ApplicantMode.NEW.name());

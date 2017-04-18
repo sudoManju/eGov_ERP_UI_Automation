@@ -56,9 +56,10 @@
 			<c:forEach var="shdoc" items="${stakeHolder.stakeHolderDocument}">
 				<c:if test="${shdoc.checkListDetail.id == doc.id}">
 						<c:set value="true" var="isDocFound"></c:set>
-				<input type="hidden" id="stakeholderfile${status.index}"
-					value="${shdoc.documentId.fileName}|${shdoc.documentId.contentType}|${regdoc.base64EncodedFile}">
-				<a id="shdoc${status.index}"> ${shdoc.documentId.fileName}</a>
+						<a
+								href="/bpa/application/downloadfile/${shdoc.documentId.fileStoreId}"
+								data-gallery>${shdoc.documentId.fileName}
+						</a>
 				</c:if>
 			</c:forEach>
 			<c:if test="${!isDocFound}">

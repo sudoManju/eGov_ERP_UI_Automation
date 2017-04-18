@@ -165,6 +165,7 @@ public class BpaApplication extends StateAware {
     private List<ApplicationDocument> applicationDocument = new ArrayList<>(0);
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ApplicationNocDocument> applicationNOCDocument = new ArrayList<>(0);
+    private transient List<CheckListDetail> checkListDocumentsForNOC = new ArrayList<>(0);
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Inspection> inspections = new ArrayList<>();
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -473,7 +474,19 @@ public class BpaApplication extends StateAware {
     public void setApplicationNOCDocument(final List<ApplicationNocDocument> applicationNOCDocument) {
         this.applicationNOCDocument = applicationNOCDocument;
     }
+    
+    public List<CheckListDetail> getCheckListDocumentsForNOC() {
+        return checkListDocumentsForNOC;
+    }
 
+    public void setCheckListDocumentsForNOC(List<CheckListDetail> checkListDocumentsForNOC) {
+        this.checkListDocumentsForNOC = checkListDocumentsForNOC;
+    }
+    
+    public void addApplicationNocDocument(final ApplicationNocDocument nocDocument) {
+        nocDocument.setApplication(this);
+        getApplicationNOCDocument().add(nocDocument);
+    }
     public Date getBuildingPlanApprovalDate() {
         return buildingPlanApprovalDate;
     }

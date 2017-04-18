@@ -43,6 +43,7 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -55,6 +56,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import org.egov.infra.admin.master.entity.User;
+import org.egov.infra.filestore.entity.FileStoreMapper;
 import org.egov.infra.persistence.entity.AbstractAuditable;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
@@ -70,17 +72,14 @@ public class ApplicationNocDocument extends AbstractAuditable {
     @Id
     @GeneratedValue(generator = SEQ_APPLICATIONDOCUMENT, strategy = GenerationType.SEQUENCE)
     private Long id;
-
-    /*
-     * @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-     * @JoinTable(name = "egwtr_documents", joinColumns = @JoinColumn(name = "applicationdocumentsid"), inverseJoinColumns
-     * = @JoinColumn(name = "filestoreid")) private Set<FileStoreMapper> supportDocs = Collections.emptySet();
-     */
-
+    
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "nocFileStore")
+    private FileStoreMapper nocFileStore;
     private transient MultipartFile[] files;
     @ManyToOne
     @NotNull
-    @JoinColumn(name = "checklistcode", nullable = false)
+    @JoinColumn(name = "checklist", nullable = false)
     private CheckListDetail checklist;
     @ManyToOne(cascade = CascadeType.ALL)
     @NotNull
@@ -88,12 +87,19 @@ public class ApplicationNocDocument extends AbstractAuditable {
     private BpaApplication application;
     @Temporal(value = TemporalType.DATE)
     private Date submissionDate;
-    private Boolean issubmitted;
+    private Boolean issubmitted = false;
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "createduser")
     private User createduser;
     @Length(min = 1, max = 256)
     private String remarks;
-
+    @Length(min = 1, max = 256)
+    private String natureOfRequest;
+    private Date letterSentOn;
+    private Date replyReceivedOn;
+    private Boolean rejection = false;
+    private Boolean notApplicable = false;
+    
     @Override
     public Long getId() {
         return id;
@@ -160,4 +166,51 @@ public class ApplicationNocDocument extends AbstractAuditable {
         this.createduser = createduser;
     }
 
+    public FileStoreMapper getNocFileStore() {
+        return nocFileStore;
+    }
+
+    public void setNocFileStore(FileStoreMapper nocFileStore) {
+        this.nocFileStore = nocFileStore;
+    }
+
+    public String getNatureOfRequest() {
+        return natureOfRequest;
+    }
+
+    public void setNatureOfRequest(String natureOfRequest) {
+        this.natureOfRequest = natureOfRequest;
+    }
+
+    public Date getLetterSentOn() {
+        return letterSentOn;
+    }
+
+    public void setLetterSentOn(Date letterSentOn) {
+        this.letterSentOn = letterSentOn;
+    }
+
+    public Date getReplyReceivedOn() {
+        return replyReceivedOn;
+    }
+
+    public void setReplyReceivedOn(Date replyReceivedOn) {
+        this.replyReceivedOn = replyReceivedOn;
+    }
+
+    public Boolean getRejection() {
+        return rejection;
+    }
+
+    public void setRejection(Boolean rejection) {
+        this.rejection = rejection;
+    }
+
+    public Boolean getNotApplicable() {
+        return notApplicable;
+    }
+
+    public void setNotApplicable(Boolean notApplicable) {
+        this.notApplicable = notApplicable;
+    }
 }

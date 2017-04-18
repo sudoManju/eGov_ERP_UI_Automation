@@ -39,16 +39,24 @@
  */
 package org.egov.bpa.application.service;
 
+import static org.egov.bpa.utils.BpaConstants.FILESTORE_MODULECODE;
+
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.egov.bpa.application.entity.ApplicationNocDocument;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaFeeDetail;
 import org.egov.bpa.application.entity.BpaStatus;
+import org.egov.bpa.application.entity.CheckListDetail;
 import org.egov.bpa.application.entity.dto.SearchBpaApplicationForm;
 import org.egov.bpa.application.repository.ApplicationBpaRepository;
 import org.egov.bpa.application.service.collection.GenericBillGeneratorService;
@@ -59,7 +67,11 @@ import org.egov.bpa.utils.BpaConstants;
 import org.egov.commons.entity.Source;
 import org.egov.demand.model.EgDemand;
 import org.egov.infra.admin.master.entity.Boundary;
+import org.egov.infra.admin.master.entity.User;
 import org.egov.infra.exception.ApplicationRuntimeException;
+import org.egov.infra.filestore.entity.FileStoreMapper;
+import org.egov.infra.filestore.service.FileStoreService;
+import org.egov.infra.security.utils.SecurityUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
@@ -68,6 +80,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @Transactional(readOnly = true)
@@ -87,17 +100,24 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
 
     @Autowired
     private ApplicationBpaBillService applicationBpaBillService;
-    
+
     @PersistenceContext
     private EntityManager entityManager;
-    
+
     @Autowired
     private BpaThirdPartyService bpaThirdPartyService;
-    
+
+    @Autowired
+    private FileStoreService fileStoreService;
+    @Autowired
+    private CheckListDetailService checkListDetailService;
+    @Autowired
+    private SecurityUtils securityUtils;
+
     public Session getCurrentSession() {
         return entityManager.unwrap(Session.class);
     }
-    
+
     @Transactional
     public BpaApplication createNewApplication(final BpaApplication application) {
         final Boundary boundaryObj = bpaUtils.getBoundaryById(application.getWardId() != null ? application.getWardId()
@@ -111,13 +131,21 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         final BpaStatus bpaStatus = getStatusByCodeAndModuleType("Registered");
         application.setStatus(bpaStatus);
         application.setSource(Source.SYSTEM);
-       /*final BpaApplicationWorkflowCustomDefaultImpl applicationWorkflowCustomDefaultImpl = bpaUtils
-                .getInitialisedWorkFlowBean();
-        applicationWorkflowCustomDefaultImpl.createCommonWorkflowTransition(application,
-                null,BpaConstants.WF_NEW_STATE,
-                BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, null);*/
+        /*
+         * final BpaApplicationWorkflowCustomDefaultImpl applicationWorkflowCustomDefaultImpl = bpaUtils
+         * .getInitialisedWorkFlowBean(); applicationWorkflowCustomDefaultImpl.createCommonWorkflowTransition(application,
+         * null,BpaConstants.WF_NEW_STATE, BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, null);
+         */
         application.setDemand(applicationBpaBillService.createDemand(application));
         return applicationBpaRepository.save(application);
+    }
+
+    private void persistBpaNocDocuments(final BpaApplication application) {
+        final Map<Long, CheckListDetail> generalDocumentAndId = new HashMap<>();
+        checkListDetailService
+                .findActiveCheckListByServiceType(application.getServiceType().getId(), BpaConstants.CHECKLIST_TYPE_NOC)
+                .forEach(document -> generalDocumentAndId.put(document.getId(), document));
+        addDocumentsToFileStore(application, generalDocumentAndId);
     }
 
     public BpaStatus getStatusByCodeAndModuleType(final String code) {
@@ -131,17 +159,18 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
     }
 
     @Transactional
-    public BpaApplication updateApplication(final BpaApplication application,final Long approvalPosition) {
-       
+    public BpaApplication updateApplication(final BpaApplication application, final Long approvalPosition) {
+
         application.setSource(Source.SYSTEM);
+        persistBpaNocDocuments(application);
         final BpaApplication updatedApplication = applicationBpaRepository
-                .save(application);
-        
-        bpaUtils.redirectToBpaWorkFlow(approvalPosition,application, application.getCurrentState().getValue(), null);
+                .saveAndFlush(application);
+
+        bpaUtils.redirectToBpaWorkFlow(approvalPosition, application, application.getCurrentState().getValue(), null);
 
         return updatedApplication;
     }
-    
+
     public BigDecimal setAdmissionFeeAmountForRegistration(final String serviceType) {
         BigDecimal admissionfeeAmount;
         if (serviceType != null)
@@ -171,6 +200,39 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
 
     public BpaApplication findByApplicationNumber(final String applicationNumber) {
         return applicationBpaRepository.findByApplicationNumber(applicationNumber);
+    }
+
+    private void addDocumentsToFileStore(final BpaApplication bpaApplication,
+            final Map<Long, CheckListDetail> documentAndId) {
+        final User user = securityUtils.getCurrentUser();
+        List<ApplicationNocDocument> nocDocumentsList = new ArrayList<>();
+        final List<CheckListDetail> documents = bpaApplication.getCheckListDocumentsForNOC();
+        documents.stream()
+                .filter(document -> !document.getFile().isEmpty() && document.getFile().getSize() > 0)
+                .map(document -> {
+                    for(ApplicationNocDocument applicationNocDocument : bpaApplication.getApplicationNOCDocument()){
+                        if(documentAndId.get(document.getId()).equals(applicationNocDocument.getChecklist())){
+                        applicationNocDocument.setApplication(bpaApplication);
+                        applicationNocDocument.setCreatedBy(user);
+                        applicationNocDocument.setChecklist(documentAndId.get(document.getId()));
+                        applicationNocDocument.setNocFileStore(addToFileStore(document.getFile()));
+                        return applicationNocDocument;
+                        }
+                    }
+                    return null;
+                }).collect(Collectors.toList())
+                .forEach(doc -> bpaApplication.addApplicationNocDocument(doc));
+    }
+
+    private FileStoreMapper addToFileStore(final MultipartFile file) {
+        FileStoreMapper fileStoreMapper = null;
+        try {
+            fileStoreMapper = fileStoreService.store(file.getInputStream(), file.getOriginalFilename(),
+                    file.getContentType(), FILESTORE_MODULECODE);
+        } catch (final IOException e) {
+            throw new ApplicationRuntimeException("Error occurred while getting inputstream", e);
+        }
+        return fileStoreMapper;
     }
 
     @SuppressWarnings("unchecked")

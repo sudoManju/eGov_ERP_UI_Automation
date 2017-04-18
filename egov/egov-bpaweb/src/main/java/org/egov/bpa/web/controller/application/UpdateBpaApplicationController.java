@@ -41,6 +41,10 @@ package org.egov.bpa.web.controller.application;
 
 import static org.egov.bpa.utils.BpaConstants.DOCUMENTVERIFIED;
 import static org.egov.bpa.utils.BpaConstants.REGISTERED;
+import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_FIELD_INS;
+import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_APPROVED;
+import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_DIGI_SIGNED;
+import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_ORDER_ISSUED;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +81,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class UpdateBpaApplicationController extends BpaGenericApplicationController {
 
     private static final String FORWARDED_TO_FIELD_ISPECTION = "Forwarded to Assistant Engineer for field ispection";
-
+    
     private static final String BPA_APPLICATION = "bpaApplication";
 
     private static final String MESSAGE = "message";
@@ -144,11 +148,16 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         if (mode == null) {
             mode = "edit";
         }
+        if(!FORWARDED_TO_FIELD_ISPECTION.equalsIgnoreCase(application.getState().getNextAction()) && APPLICATION_STATUS_FIELD_INS.equalsIgnoreCase(application.getStatus().getCode())){
+            model.addAttribute("showUpdateNoc", true);
+        }
+        if(APPLICATION_STATUS_APPROVED.equalsIgnoreCase(application.getStatus().getCode()) || APPLICATION_STATUS_DIGI_SIGNED.equalsIgnoreCase(application.getStatus().getCode()) || APPLICATION_STATUS_ORDER_ISSUED.equalsIgnoreCase(application.getStatus().getCode())){
+            model.addAttribute("showNOCDetails", true);
+        }
         model.addAttribute("scheduleType", scheduleType);
         model.addAttribute("mode", mode);
         model.addAttribute(APPLICATION_HISTORY,
                 bpaThirdPartyService.getHistory(application));
-
         if (!application.getStakeHolder().isEmpty())
             model.addAttribute("stakeHolderList", stakeHolderService
                     .getStakeHolderListByType(application.getStakeHolder().get(0).getStakeHolder().getStakeHolderType()));
@@ -216,6 +225,8 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         prepareWorkflow(model, application, workflowContainer);
         model.addAttribute("currentState", application.getCurrentState().getValue());
         model.addAttribute(BPA_APPLICATION, application);
+        model.addAttribute("nocCheckListDetails", checkListDetailService.findActiveCheckListByServiceType(application.getServiceType().getId(),BpaConstants.CHECKLIST_TYPE_NOC));
+        
     }
 
     @RequestMapping(value = "/update/{applicationNumber}", method = RequestMethod.POST)
