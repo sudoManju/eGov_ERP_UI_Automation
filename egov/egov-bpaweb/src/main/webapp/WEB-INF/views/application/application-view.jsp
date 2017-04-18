@@ -109,11 +109,17 @@
 					<a
 						href="/bpa/application/scheduleappointment/${bpaApplication.applicationNumber}"
 						class="btn btn-primary"> New Appointment </a>
+						<a
+						href="/bpa/application/createinspectiondetails/${bpaApplication.applicationNumber}"
+						class="btn btn-primary">Capture Inspection Details </a>
 				</c:if>
 				<c:if test="${mode eq 'postponeappointment'}">
 					<a
 						href="/bpa/application/postponeappointment/${scheduleType}/${bpaApplication.applicationNumber}"
 						class="btn btn-primary"> Reschedule Appointment </a>
+						<a
+						href="/bpa/application/createinspectiondetails/${bpaApplication.applicationNumber}"
+						class="btn btn-primary">Capture Inspection Details </a>
 				</c:if>
 			</div>
 			<br>

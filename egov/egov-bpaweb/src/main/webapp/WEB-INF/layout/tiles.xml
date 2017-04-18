@@ -145,4 +145,14 @@
     	<put-attribute name="page-title" value="title.lettertoparty.success" cascade="true"/>
         <put-attribute name="body" value="/WEB-INF/views/lettertoparty/lettertoparty-result.jsp"/>
     </definition>
+      <definition name="createInspectiondetail-form" extends="base_layout">
+        <put-attribute name="page-title" value="title.inspection.appln" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/application/createInspactiondetail-form.jsp"/>
+    </definition>
+      <definition name="inspectionDetail-view" extends="base_layout">
+        <put-attribute name="page-title" value="title.search.appln" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/application/inspectiobView-result.jsp"/>
+    </definition>
+    
+    
 </tiles-definitions>

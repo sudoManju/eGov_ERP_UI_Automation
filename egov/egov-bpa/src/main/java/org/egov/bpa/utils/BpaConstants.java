@@ -102,4 +102,5 @@ public class BpaConstants {
     public static final String LETTERTOPARTYSENT = "LP Sent to Applicant";
     public static final String LETTERTOPARTYDETAILS = "lettertoparty";
     public static final String CHECKLIST_TYPE_NOC = "NOC";
+    public static final String INSPECTION_NUMBER_SEQ = "SEQ_EGBPA_INSPECTION";
 }

@@ -29,6 +29,7 @@
  */
 package org.egov.bpa.application.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -38,6 +39,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.egov.infra.persistence.entity.AbstractAuditable;
 import org.hibernate.validator.constraints.Length;
@@ -65,10 +68,14 @@ public class DocketDetail extends AbstractAuditable {
     private String extentOfViolation;
     @Length(min = 1, max = 32)
     private String percentageOfViolation;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "docket")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @Valid
+    @NotNull
+    @JoinColumn(name = "docket", nullable = false)
     private Docket docket;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+    @NotNull
+    @JoinColumn(name = "checklistdetail", nullable = false)
     private CheckListDetail checkListDetail;
 
     @Override

@@ -35,6 +35,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -49,7 +50,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 
 import org.egov.bpa.application.entity.enums.LandBldngZoneing;
 import org.egov.bpa.application.entity.enums.RoadType;
@@ -70,14 +70,16 @@ public class Inspection extends AbstractAuditable {
     private Long id;
     @Length(min = 1, max = 64)
     private String inspectionNumber;
-    @NotNull
+    
     @Temporal(value = TemporalType.DATE)
     private Date inspectionDate;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="parent")
     private Inspection parent;
 
-    @NotNull
+    
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="inspectedby")
     private User inspectedBy;
     private Boolean isSiteVacant;
     private Boolean isExistingBuildingAsPerPlan;
@@ -94,19 +96,25 @@ public class Inspection extends AbstractAuditable {
     @Enumerated(EnumType.ORDINAL)
     private LandBldngZoneing landZoning;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="lndlayouttype")
     private LayoutMaster lndLayoutType;
     private BigDecimal lndMinPlotExtent = BigDecimal.ZERO;
     private BigDecimal lndProposedPlotExtent = BigDecimal.ZERO;
     private BigDecimal lndOsrLandExtent = BigDecimal.ZERO;
     private BigDecimal lndGuideLineValue = BigDecimal.ZERO;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="landusage")
     private LandBuildingTypes landUsage;
     private BigDecimal lndRegularizationArea = BigDecimal.ZERO;
     private Integer lndPenaltyPeriod;
-    private Boolean lndIsRegularisationCharges;
+    private double lndIsRegularisationCharges;
+    
+    
     // Building Details
+    @Enumerated
     private LandBldngZoneing buildingZoning;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="buildingType")
     private LandBuildingTypes buildingType;
     private BigDecimal bldngBuildUpArea = BigDecimal.ZERO;
     private BigDecimal bldngProposedPlotFrontage = BigDecimal.ZERO;
@@ -116,6 +124,7 @@ public class Inspection extends AbstractAuditable {
     private BigDecimal bldngGFloorOtherTypes = BigDecimal.ZERO;
     private BigDecimal bldngFrstFloorTotalArea = BigDecimal.ZERO;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="bldngstormwaterdrain")
     private StormWaterDrain bldngStormWaterDrain;
     private BigDecimal bldngCompoundWall = BigDecimal.ZERO;
     private BigDecimal bldngWellOhtSumpTankArea = BigDecimal.ZERO;
@@ -134,23 +143,29 @@ public class Inspection extends AbstractAuditable {
     private BigDecimal passageWidth;
     private BigDecimal passageLength;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="surroundedbynorth")
     private SurroundedBldgDtl surroundedByNorth;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="surroundedbysouth")
     private SurroundedBldgDtl surroundedBySouth;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="surroundedbyeast")
     private SurroundedBldgDtl surroundedByEast;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="surroundedbywest")
     private SurroundedBldgDtl surroundedByWest;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="conststages")
     private ConstructionStages constStages;
+    @Column(name="dwellingunitnt")
     private BigDecimal dwellingUnit;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "docket", unique = true)
-    private Docket docket;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "inspection")
+    private List<Docket> docket =new ArrayList<>();
     @OneToMany(mappedBy = "inspection", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ApplicationFloorDetail> floorDetail = new ArrayList<>(0);
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="application")
     private BpaApplication application;
 
     @Override
@@ -323,11 +338,13 @@ public class Inspection extends AbstractAuditable {
         this.lndPenaltyPeriod = lndPenaltyPeriod;
     }
 
-    public Boolean getLndIsRegularisationCharges() {
+   
+
+    public double getLndIsRegularisationCharges() {
         return lndIsRegularisationCharges;
     }
 
-    public void setLndIsRegularisationCharges(final Boolean lndIsRegularisationCharges) {
+    public void setLndIsRegularisationCharges(double lndIsRegularisationCharges) {
         this.lndIsRegularisationCharges = lndIsRegularisationCharges;
     }
 
@@ -547,11 +564,13 @@ public class Inspection extends AbstractAuditable {
         this.dwellingUnit = dwellingUnit;
     }
 
-    public Docket getDocket() {
+ 
+
+    public List<Docket> getDocket() {
         return docket;
     }
 
-    public void setDocket(final Docket docket) {
+    public void setDocket(List<Docket> docket) {
         this.docket = docket;
     }
 

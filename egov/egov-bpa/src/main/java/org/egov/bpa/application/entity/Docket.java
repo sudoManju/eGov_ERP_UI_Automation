@@ -39,12 +39,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import org.egov.infra.persistence.entity.AbstractAuditable;
 import org.hibernate.validator.constraints.Length;
@@ -60,10 +59,11 @@ public class Docket extends AbstractAuditable {
     @Id
     @GeneratedValue(generator = SEQ_DOCKET, strategy = GenerationType.SEQUENCE)
     private Long id;
-    @OneToOne(mappedBy = "docket", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Inspection inspection;
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="inspection")
+    private Inspection inspection;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="status")
     private BpaStatus status;
     @Length(min = 1, max = 64)
     private String existingUsage;
@@ -74,6 +74,7 @@ public class Docket extends AbstractAuditable {
     @Length(min = 1, max = 32)
     private String existingSanctionPlanOrPtTaxPaidRecptEnclosed;
     private BigDecimal abuttingRoadWidth;
+    private BigDecimal locationOfPlot;
     @Length(min = 1, max = 32)
     private String abuttingRoadIsPrivateOrPublic;
     @Length(min = 1, max = 32)
@@ -321,6 +322,14 @@ public class Docket extends AbstractAuditable {
 
     public void setDocketDetail(final List<DocketDetail> docketDetail) {
         this.docketDetail = docketDetail;
+    }
+
+    public BigDecimal getLocationOfPlot() {
+        return locationOfPlot;
+    }
+
+    public void setLocationOfPlot(BigDecimal locationOfPlot) {
+        this.locationOfPlot = locationOfPlot;
     }
 
 }
