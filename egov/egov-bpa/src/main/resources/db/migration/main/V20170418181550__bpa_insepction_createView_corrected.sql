@@ -3,8 +3,8 @@ alter table egbpa_docket add  column inspection bigint;
 
 alter table egbpa_docket add  column locationOfPlot bigint;
 
-alter table egbpa_docket add constraint fk_insp_docket FOREIGN KEY (inspection)
-      REFERENCES public.egbpa_inspection (id);
+alter table egbpa_docket add constraint fk_insp_docket_key FOREIGN KEY (inspection)
+      REFERENCES egbpa_inspection (id);
       
 alter table egbpa_inspection drop column docket;
 
