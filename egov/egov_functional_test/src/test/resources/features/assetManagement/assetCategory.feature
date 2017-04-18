@@ -9,6 +9,7 @@ Scenario Outline: Create assetCategory
   And user will select the required screen as "Create asset category"
   And user will enter the details of asset category as <assetCategory>
   And user will enter the details of custom fields as <customFields>
+  And user create the asset category
 
   Examples:
   |assetCategory   |customFields        |

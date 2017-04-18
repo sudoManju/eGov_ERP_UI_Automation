@@ -56,6 +56,15 @@ public class AssetCategoryPage extends BasePage {
     @FindBy(id = "isMandatory")
     private WebElement isMandatoryCheckBox;
 
+    @FindBy(css = ".glyphicon.glyphicon-plus")
+    private WebElement addCustomFieldsButton;
+
+    @FindBy(linkText = "Add/Edit" )
+    private WebElement addOrEditButton;
+
+    @FindBy(linkText = "Create")
+    private WebElement createButton;
+
     public AssetCategoryPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -85,5 +94,17 @@ public class AssetCategoryPage extends BasePage {
         }
         enterText(valueTextBox,details.getValue(),driver);
         enterText(localTextTextBox,details.getLocalText(),driver);
+    }
+
+    public void clickToCreateCustomFields() {
+        clickOnButton(addCustomFieldsButton,driver);
+    }
+
+    public void addOrEditCustomFieldsButton() {
+        clickOnButton(addOrEditButton,driver);
+    }
+
+    public void clickOnCreateAssetCategoryButton() {
+        clickOnButton(createButton,driver);
     }
 }
