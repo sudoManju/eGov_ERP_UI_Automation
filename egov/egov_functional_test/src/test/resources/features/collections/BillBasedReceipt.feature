@@ -38,8 +38,8 @@ Feature: Create/Collect Bill Based Receipt
 
     Examples:
       | paymentMode |
-#      | cash        |
-#      | cheque      |
+      | cash        |
+      | cheque      |
       | dd          |
-#      | directBank1 |
+      | directBank1 |
 
