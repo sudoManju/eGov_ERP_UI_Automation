@@ -46,8 +46,8 @@ public class HomePage extends BasePage {
 //        }
         WebElement signForm = driver.findElement(By.id("signin-action"));
         waitForElementToBeClickable(signForm, driver);
-        clickOnButton(signForm, driver);
-//        signForm.submit();
+//        clickOnButton(signForm, driver);
+        signForm.submit();
     }
 
     public void visitWebsite() {
