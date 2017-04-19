@@ -74,7 +74,8 @@ public class Docket extends AbstractAuditable {
     @Length(min = 1, max = 32)
     private String existingSanctionPlanOrPtTaxPaidRecptEnclosed;
     private BigDecimal abuttingRoadWidth;
-    private BigDecimal locationOfPlot;
+    @Length(max = 128)
+    private String locationOfPlot;
     @Length(min = 1, max = 32)
     private String abuttingRoadIsPrivateOrPublic;
     @Length(min = 1, max = 32)
@@ -324,12 +325,14 @@ public class Docket extends AbstractAuditable {
         this.docketDetail = docketDetail;
     }
 
-    public BigDecimal getLocationOfPlot() {
+    public String getLocationOfPlot() {
         return locationOfPlot;
     }
 
-    public void setLocationOfPlot(BigDecimal locationOfPlot) {
+    public void setLocationOfPlot(String locationOfPlot) {
         this.locationOfPlot = locationOfPlot;
     }
+
+   
 
 }

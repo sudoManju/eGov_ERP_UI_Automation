@@ -48,17 +48,17 @@
 		<spring:message code="lbl.inspection.appln" />
 	</div>
 </div>
-<%-- <div class="form-group">
+<div class="form-group">
 	<label class="col-sm-3 control-label text-right">Location of
 		the plot</label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
-			data-pattern="numeric" id="locationOfPlot"
+			data-pattern="alphanumericwithspace" maxlength="128" id="locationOfPlot"
 			path="docket[0].locationOfPlot" />
 		<form:errors path="docket[0].locationOfPlot"
 			cssClass="add-margin error-msg" />
 	</div>
-</div> --%>
+</div>
 <c:choose>
 	<c:when test="${!docketDetail.isEmpty()}">
 		<div class="form-group view-content header-color hidden-xs">
@@ -99,11 +99,11 @@
 				</div>
 
 				<div class="col-sm-3 add-margin text-center">
-					<form:input class="form-control patternvalidation"
-						data-pattern="alphanumerichyphenbackslash"
+					<form:textarea class="form-control patternvalidation"
+						data-pattern="alphanumericwithspace" maxlength="256"
 						id="docket[0].docketDetail${status.index}remarks"
 						path="docket[0].docketDetail[${status.index}].remarks"
-						maxlength="50" />
+						 />
 
 					<form:errors path="docket[0].docketDetail[${status.index}].remarks"
 						cssClass="add-margin error-msg" />
