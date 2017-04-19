@@ -38,38 +38,20 @@
  *  In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
 
-package org.egov.infra.web.support.search;
+package org.egov.infra.config.scheduling;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.context.annotation.ConditionContext;
+import org.springframework.context.annotation.ConfigurationCondition;
+import org.springframework.core.type.AnnotatedTypeMetadata;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class SearchRequest {
-
-    private Integer start;
-    private Integer length;
-    private Integer draw;
-
-    public void setStart(final Integer start) {
-        this.start = start;
+public class SchedulerConfigCondition implements ConfigurationCondition {
+    @Override
+    public ConfigurationPhase getConfigurationPhase() {
+        return ConfigurationPhase.REGISTER_BEAN;
     }
 
-    public void setLength(final Integer length) {
-        this.length = length;
-    }
-
-    public Integer getPageNumber() {
-        return (start / length + 1) - 1;
-    }
-
-    public Integer getPageSize() {
-        return length == -1 ? Integer.MAX_VALUE : length;
-    }
-
-    public Integer getDraw() {
-        return draw;
-    }
-
-    public void setDraw(final Integer draw) {
-        this.draw = draw;
+    @Override
+    public boolean matches(final ConditionContext context, final AnnotatedTypeMetadata metadata) {
+        return context.getEnvironment().getProperty("scheduler.enabled", Boolean.class);
     }
 }
