@@ -77,6 +77,16 @@ jQuery(document).ready(function($) {
 	    	$(span1).text('');
 		}
 	});
+	
+	//toggle between multiple tab
+	jQuery('form').validate({
+		ignore: ".ignore",
+		invalidHandler: function(e, validator){
+		if(validator.errorList.length)
+		$('#settingstab a[href="#' + jQuery(validator.errorList[0].element).closest(".tab-pane").attr('id') + '"]').tab('show');
+		}
+		});
+	
 //mobile number validation
 $('#mobileNumber').blur( function () {
 	 var mobileno = $(this).val();

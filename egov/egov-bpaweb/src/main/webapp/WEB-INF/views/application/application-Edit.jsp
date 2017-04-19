@@ -53,29 +53,45 @@
 
 			<form:hidden path="" id="wfstate" value="${bpaApplication.state.id}" />
 			<form:hidden path="" id="workFlowAction" name="workFlowAction" />
-			<form:hidden path="" id="wfstateDesc" value="${waterConnectionDetails.state.value}" />
+			<form:hidden path="" id="wfstateDesc"
+				value="${waterConnectionDetails.state.value}" />
 			<form:hidden path="" id="mode" name="mode" value="${mode}" />
-			
-			<div class="panel panel-primary" data-collapsed="0">
-				<jsp:include page="applicationDetails.jsp"></jsp:include>
+			<ul class="nav nav-tabs" id="settingstab">
+				<li class="active"><a data-toggle="tab"
+					href="#appliccation-info" data-tabidx=0><spring:message
+							code='lbl.appln.details' /></a></li>
+				<li><a data-toggle="tab" href="#document-info" data-tabidx=1><spring:message
+							code='title.documentdetail' /></a></li>
+			</ul>
+			<div class="tab-content">
+				<div id="document-info" class="tab-pane fade">
+					<div class="panel panel-primary" data-collapsed="0">
+						<jsp:include page="bpaDocumentDetails.jsp"></jsp:include>
+					</div>
+				</div>
+				<div id="appliccation-info" class="tab-pane fade in active">
+					<div class="panel panel-primary" data-collapsed="0">
+						<jsp:include page="applicationDetails.jsp"></jsp:include>
+					</div>
+					<div class="panel panel-primary" data-collapsed="0">
+						<jsp:include page="applicantDetailForm.jsp"></jsp:include>
+					</div>
+					<div class="panel panel-primary" data-collapsed="0">
+						<jsp:include page="siteDetail.jsp"></jsp:include>
+					</div>
+					<div class="panel panel-primary" data-collapsed="0">
+						<jsp:include page="buildingDetails.jsp" />
+					</div>
+					<div class="panel panel-primary" data-collapsed="0">
+						<jsp:include page="applicationhistory-view.jsp"></jsp:include>
+					</div>
+				</div>
 			</div>
-			<div class="panel panel-primary" data-collapsed="0">
-				<jsp:include page="applicantDetailForm.jsp"></jsp:include>
-			</div>
-			<div class="panel panel-primary" data-collapsed="0">
-				<jsp:include page="siteDetail.jsp"></jsp:include>
-			</div>
-			<div class="panel panel-primary" data-collapsed="0">
-				<jsp:include page="buildingDetails.jsp" />
-			</div>
-			<div class="panel panel-primary" data-collapsed="0">
-				<jsp:include page="applicationhistory-view.jsp"></jsp:include>
-			</div>
-			<jsp:include page="../common/commonWorkflowMatrix.jsp" />
+		<%-- 	<jsp:include page="../common/commonWorkflowMatrix.jsp" />
 			<div class="buttonbottom" align="center">
 				<jsp:include page="../common/commonWorkflowMatrix-button.jsp" />
-			</div>
-			<%-- 		<div class="buttonbottom" align="center">
+			</div> --%>
+					<div class="buttonbottom" align="center">
 				<table>
 					<tr>
 						<td><form:button type="submit" id="updateApplication"
@@ -84,7 +100,7 @@
 							class="btn btn-primary" onclick="window.close();" /></td>
 					</tr>
 				</table>
-			</div> --%>
+			</div>
 		</form:form>
 	</div>
 </div>

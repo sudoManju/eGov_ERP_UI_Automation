@@ -37,62 +37,73 @@
   ~
   ~   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
   --%>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn"%>
-<div class="row">
-	<div class="col-md-12">
-		<form:form role="form" action="" method="post"
-			modelAttribute="bpaApplication" id="viewApplicationform"
-			cssClass="form-horizontal form-groups-bordered"
-			enctype="multipart/form-data">
-			<ul class="nav nav-tabs" id="settingstab">
-				<li class="active"><a data-toggle="tab"
-					href="#appliccation-info" data-tabidx=0><spring:message
-							code='lbl.appln.details' /></a></li>
-				<li><a data-toggle="tab" href="#document-info" data-tabidx=1><spring:message
-							code='title.documentdetail' /></a></li>
-			</ul>
-			<div class="tab-content">
-				<div id="document-info" class="tab-pane fade">
-					<div class="panel panel-primary" data-collapsed="0">
-						<jsp:include page="view-bpaDocumentdetails.jsp"></jsp:include>
-					</div>
-				</div>
-				<div id="appliccation-info" class="tab-pane fade in active">
-					<div class="panel panel-primary" data-collapsed="0">
-						<jsp:include page="view-applicantdetails.jsp"></jsp:include>
-					</div>
-					<div class="panel panel-primary" data-collapsed="0">
-						<jsp:include page="viewapplication-details.jsp"></jsp:include>
-					</div>
-					<div class="panel panel-primary" data-collapsed="0">
-						<jsp:include page="view-sitedetail.jsp"></jsp:include>
-					</div>
-					<div class="panel panel-primary" data-collapsed="0">
-						<jsp:include page="view-building-details.jsp" />
-					</div>
-					<div class="panel panel-primary" data-collapsed="0">
-						<jsp:include page="applicationhistory-view.jsp"></jsp:include>
-					</div>
-				</div>
-			</div>
-			<div class="buttonbottom" align="center">
-				<table>
-					<tr>
-						<input type="button" name="button2" id="button2" value="Close"
-							class="btn btn-primary" onclick="window.close();" />
-						</td>
-					</tr>
-				</table>
-			</div>
-		</form:form>
+
+<div class="panel-heading custom_form_panel_heading">
+	<div class="panel-title">
+		<spring:message code="lbl.encloseddocuments" />
+		-
+		<spring:message code="lbl.checklist" />
 	</div>
 </div>
 
-<script
-	src="<cdn:url value='/resources/global/js/egov/inbox.js?rnd=${app_release_no}' context='/egi'/>"></script>
+<div class="panel-body">
+	<c:if test="${not empty bpaApplication.applicationDocument}">
+		<thead>
+			<tr>
+				<div class="col-sm-3 text-center">
+					<th><spring:message code="lbl.documentname" /></th>
+				</div>
+				<div class="col-sm-3 text-center">
+					<th><spring:message code="lbl.issubmitted" /></th>
+				</div>
+				<div class="col-sm-3 text-center">
+					<th><spring:message code="lbl.remarks" /></th>
+				</div>
+				<div class="col-sm-3 text-center">
+					<th><spring:message code="lbl.files" /></th>
+				</div>
+			</tr>
+		</thead>
+	</c:if>
+	<c:choose>
+		<c:when test="${not empty  bpaApplication.applicationDocument}">
+			<c:forEach items="${bpaApplication.applicationDocument}" var="docs"
+				varStatus="status">
+				<div class="form-group">
+					<tbody>
+						<tr>
+							<div class="col-sm-3 text-center">
+								<td><c:out value="${docs.checklistDetail.description}" /></td>
+							</div>
+							<div class="col-sm-3 text-center">
+								<td><c:out value="${docs.issubmitted ? 'Yes' : 'No'}"></c:out>
+								</td>
+							</div>
+							<div class="col-sm-3 text-center">
+								<td><c:out value="${docs.remarks}" /></td>
+							</div>
+							<div class="col-sm-3 text-center">
+								<td><c:forEach items="${docs.getSupportDocs()}" var="file">
+										<a
+											href="/egi/downloadfile?fileStoreId=${file.fileStoreId}&moduleName=BPA"
+											target="_blank"> <c:out value="${file.fileName}" /></a>
+									</c:forEach></td>
+							</div>
+
+						</tr>
+					</tbody>
+				</div>
+			</c:forEach>
+		</c:when>
+		<c:otherwise>
+			<div class="col-md-12 col-xs-6  panel-title">No documents found</div>
+		</c:otherwise>
+	</c:choose>
+</div>
+
+

@@ -63,7 +63,9 @@
 				<spring:message code="lbl.remarks" />
 			</div>
 			<div class="col-sm-3 text-center">
-				<spring:message code="lbl.attachdocument" /><br><small class="error-msg"><spring:message code="lbl.mesg.document"/></small>
+				<spring:message code="lbl.attachdocument" />
+				<br> <small class="error-msg"><spring:message
+						code="lbl.mesg.document" /></small>
 			</div>
 		</div>
 		<c:forEach var="docs" items="${checkListDetailList}"
@@ -118,6 +120,22 @@
 					</c:choose>
 					<form:errors path="applicationDocument[${status.index}].files"
 						cssClass="add-margin error-msg" />
+				</div>
+				<div class="col-sm-2">
+					<c:set value="false" var="isDocFound"></c:set>
+					<c:forEach items="${bpaApplication.applicationDocument}"
+						var="appdoc">
+						<c:if test="${appdoc.checklistDetail.id == docs.id}">
+							<c:forEach items="${appdoc.getSupportDocs()}" var="file">
+								<c:set value="true" var="isDocFound"></c:set>
+								<a href="/bpa/application/downloadfile/${file.fileStoreId}"
+									data-gallery>${file.fileName} </a>
+							</c:forEach>
+						</c:if>
+					</c:forEach>
+					<c:if test="${ mode !='new' && !isDocFound}">
+						NA
+					</c:if>
 				</div>
 			</div>
 		</c:forEach>
