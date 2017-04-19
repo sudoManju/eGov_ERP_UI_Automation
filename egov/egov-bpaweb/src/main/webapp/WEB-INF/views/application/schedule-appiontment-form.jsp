@@ -69,12 +69,12 @@
 		<form:errors path="appointmentDate" cssClass="add-margin error-msg" />
 	</div>
 	<label class="col-sm-2 control-label text-right"><spring:message
-			code="lbl.appmnt.time" /></label>
+			code="lbl.appmnt.time" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<div class='input-group date' name='appointmentTime'
 			id='appointmentTime'>
 			<form:input class="form-control" maxlength="50"
-				id="appointmentTime" path="appointmentTime" />
+				id="appointmentTime" path="appointmentTime" required="required" autocomplete="off"/>
 			<span class="input-group-addon"> <span
 				class="glyphicon glyphicon-time"></span>
 			</span>

@@ -54,6 +54,9 @@
 	<input type="hidden" id="previoueappointmentDate"
 		name="bpaAppointmentappointmentDate"
 		value="${appointmentScheduledList[0].appointmentDate}" />
+	<input type="hidden" id="prevAppointmentTime"
+		name="prevAppointmentTime"
+		value="${appointmentScheduledList[0].appointmentTime}" />
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-primary" data-collapsed="0">

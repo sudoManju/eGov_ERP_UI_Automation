@@ -38,26 +38,53 @@
  *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
 
-$(document).ready( function () {
+$(document).ready(function() {
 	
-	//For time picker
-	$(function () {
-        $('#appointmentTime').datetimepicker({
-            format: 'LT',
-            minDate: moment({h:10}),
-            maxDate: moment({h:17})
-        });
-    });
-	//re-schedule appointment date validation
+	// To clear schedule time after enter schedule time if try to change schedule date
 	$('#appointmentDate').on('changeDate', function() {
-		var  currDate = $('#appointmentDate').val();
-		var  prevDate = $('#previoueappointmentDate').val().toString();
-		var datearray = prevDate.split("-");
-		var newPrevdate = datearray[2] + '/' + datearray[1] + '/' + datearray[0];
-		if(currDate <= newPrevdate){
-			bootbox.alert('Re-schedule date should be greater than the previous scheduled date.');
-			$('#appointmentDate').val('').datepicker("refresh");
+		$('#appointmentTime').datetimepicker('clear');
+	});
+	
+	// For time picker initialization
+	$('#appointmentTime').datetimepicker({
+		format : 'LT',
+		useCurrent : true,
+		minDate : moment({ h : 10 }),
+		maxDate : moment({ h : 17 })
+	});
+
+	// validate schedule appointment Date and Time
+	$('#appointmentTime').on('change dp.change', function(e) {
+		if (!$('#appointmentDate').val() && e.date) {
+			$('#appointmentTime').datetimepicker('clear');
+			bootbox.alert('Please select appointment date');
+			return;
 		}
-		});
+		if (!e.date)
+			return;
+		validateDateAndTime();
+	});
+
+	// To validate on submit,if date and time entered manually
+	$('#rescheduleSubmit').click(function(e) {
+		validateDateAndTime();
+	});
 });
 
+function validateDateAndTime() {
+	if ($('#previoueappointmentDate') && $('#previoueappointmentDate').val() && $('#appointmentTime').datetimepicker('date')) {
+		var prevAppointmentDateStr = $('#previoueappointmentDate').val() + " "
+				+ $('#prevAppointmentTime').val();
+		var previousAppointmentDateTime = moment(prevAppointmentDateStr,
+				[ "YYYYY-MM-DD h:mm A" ]);
+		var selectedAppointmentDateStr = $('#appointmentDate').val() + " "
+				+ $('#appointmentTime').datetimepicker('date').format('h:mm A');
+		var selectedAppointmentDateTime = moment(selectedAppointmentDateStr,
+				[ "DD/MM/YYYY h:mm A" ]);
+		if (previousAppointmentDateTime >= selectedAppointmentDateTime) {
+			bootbox
+					.alert('Re-Schedule Date and Time should be greater than the previous scheduled Date and Time');
+			$('#appointmentTime').datetimepicker('clear');
+		}
+	}
+}

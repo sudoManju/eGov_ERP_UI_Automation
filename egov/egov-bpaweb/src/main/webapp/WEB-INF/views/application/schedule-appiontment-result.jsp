@@ -62,26 +62,21 @@
 					varStatus="counter">
 					<div class="row add-border">
 						<div class="col-sm-3 add-margin">
-							<spring:message code="lbl.purpose" />
-						</div>
-						<div class="col-sm-3 add-margin view-content">
-							<c:out value="${appoimnt.purpose}" default="N/A"></c:out>
-						</div>
-						<div class="col-sm-3 add-margin">
 							<spring:message code="lbl.appmnt.date" />
 						</div>
 						<div class="col-sm-3 add-margin view-content">
 							<c:out value="${appoimnt.appointmentDate}" default="N/A"></c:out>
 						</div>
-					</div>
-
-					<div class="row add-border">
 						<div class="col-sm-3 add-margin">
 							<spring:message code="lbl.appmnt.time" />
 						</div>
 						<div class="col-sm-3 add-margin view-content">
 							<c:out value="${appoimnt.appointmentTime}" default="N/A"></c:out>
 						</div>
+					</div>
+
+					<div class="row add-border">
+						
 						<c:if test="${appoimnt.purpose eq 'DOCUMENTSCRUTINY'}">
 						<div class="col-sm-3 add-margin">
 							<spring:message code="lbl.appmnt.location" />
@@ -90,24 +85,21 @@
 							<c:out value="${appoimnt.appointmentLocation}" default="N/A"></c:out>
 						</div>
 						</c:if>
-					</div>
-
-					<div class="row add-border">
 						<div class="col-sm-3 add-margin">
 							<spring:message code="lbl.remarks" />
 						</div>
 						<div class="col-sm-3 add-margin view-content">
 							<c:out value="${appoimnt.remarks}" default="N/A"></c:out>
 						</div>
+					</div>
+
+					<div class="row add-border">
 						<div class="col-sm-3 add-margin">
 							<spring:message code="lbl.ispostponed" />
 						</div>
 						<div class="col-sm-3 add-margin view-content">
 							<c:out value="${appoimnt.postponed ? 'YES' : 'NO'}" default="N/A"></c:out>
 						</div>
-					</div>
-
-					<div class="row add-border">
 						<div class="col-sm-3 add-margin">
 							<spring:message code="lbl.postpone.reason" />
 						</div>
@@ -120,3 +112,8 @@
 		</div>
 	</div>
 </div>
+
+<div class="text-center">
+		<a href='javascript:void(0)' class='btn btn-default'
+			onclick='self.close()'><spring:message code='lbl.close' /></a>
+	</div>
