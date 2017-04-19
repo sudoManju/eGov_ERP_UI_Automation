@@ -13,7 +13,7 @@ Feature: Create/renewal/closure of sewerage connection
     And current user logs out
 
   @SewerageTax @Sanity
-  Scenario Outline: create/change/closure of sewerage connection
+  Scenario Outline: create change closure of sewerage connection
 
     Given creator logs in
     And user will select the required screen as "Property Tax"
@@ -184,7 +184,7 @@ Feature: Create/renewal/closure of sewerage connection
   @SewerageTax @Sanity
   Scenario: Generate demand bill for legacy sewerage connection
 
-    Given admin logs in
+    Given commissioner logs in
     And user will select the required screen as "Data Entry Screen" with condition as "stms"
     And he enter details for legacy sewerage connection
     And he submit the application of legacy sewerage connection and closes the acknowledgement
