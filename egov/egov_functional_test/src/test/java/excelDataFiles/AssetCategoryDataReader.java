@@ -58,9 +58,9 @@ public class AssetCategoryDataReader extends ExcelReader {
         return new CustomFieldsDetailsBuilder()
                 .withName(name)
                 .withDataType(dataType)
-                .withRegExFormat(regExFormat)
-                .withValue(value)
-                .withLocalText(localText)
+//                .withRegExFormat(regExFormat)
+//                .withValue(value)
+//                .withLocalText(localText)
                 .withIsActive(isActive)
                 .withMandatory(mandatory)
                 .build();

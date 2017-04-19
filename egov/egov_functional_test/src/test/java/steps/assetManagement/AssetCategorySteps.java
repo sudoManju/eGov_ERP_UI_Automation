@@ -1,7 +1,6 @@
 package steps.assetManagement;
 
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.assetManagement.AssetCategoryDetails;
 import entities.assetManagement.CustomFieldsDetails;
@@ -14,7 +13,7 @@ public class AssetCategorySteps extends BaseSteps implements En {
     public AssetCategorySteps(){
 
         And("^user will enter the details of asset category as (\\w+)$", (String assetCategory) -> {
-            AssetCategoryDetails details = new AssetCategoryDataReader(assetCategoryTestDataFileName)
+            AssetCategoryDetails details = new AssetCategoryDataReader(assetTestDataFileName)
                                                                  .getAssetCategoryDetails(assetCategory);
             pageStore.get(AssetCategoryPage.class).enterAssetCategoryDetails(details);
         });
@@ -22,7 +21,7 @@ public class AssetCategorySteps extends BaseSteps implements En {
 
             pageStore.get(AssetCategoryPage.class).clickToCreateCustomFields();
 
-            CustomFieldsDetails details = new AssetCategoryDataReader(assetCategoryTestDataFileName)
+            CustomFieldsDetails details = new AssetCategoryDataReader(assetTestDataFileName)
                                                                  .getCustomFieldsDetails(customFields);
             pageStore.get(AssetCategoryPage.class).enterCustomFieldsDetails(details);
 

@@ -60,8 +60,7 @@ dependencies {
     compile("junit:junit:4.12")
 
     compile(group: 'com.googlecode.lambdaj', name: 'lambdaj', version: '2.3.3')
-//    compile('org.seleniumhq.selenium:selenium-java:2.53.1')
-    compile('org.seleniumhq.selenium:selenium-java:3.0.1')
+    compile('org.seleniumhq.selenium:selenium-java:3.3.1')
     compile('org.apache.poi:poi:3.13')
     compile('org.apache.poi:poi-ooxml:3.13')
     compile group: 'com.jayway.awaitility', name: 'awaitility', version: '1.7.0'

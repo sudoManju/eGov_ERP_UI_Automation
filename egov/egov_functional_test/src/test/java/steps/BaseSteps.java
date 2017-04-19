@@ -29,7 +29,7 @@ public class BaseSteps {
     protected String waterChargesTestDataFileName = "waterChargesTestData";
     protected String advertisementTestDataFileName = "AdvertisementDetailsTestData";
     protected String sewerageTaxTestDataFileName = "SewerageTaxTestData";
-    protected String assetCategoryTestDataFileName = "AssetCategoryDetailsTestData";
+    protected String assetTestDataFileName = "AssetDetailsTestData";
 
 
     protected void takeScreenShot(String screenshotName) throws IOException {

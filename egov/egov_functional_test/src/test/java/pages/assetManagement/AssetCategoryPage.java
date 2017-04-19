@@ -59,7 +59,7 @@ public class AssetCategoryPage extends BasePage {
     @FindBy(css = ".glyphicon.glyphicon-plus")
     private WebElement addCustomFieldsButton;
 
-    @FindBy(linkText = "Add/Edit" )
+    @FindBy(css = ".btn.btn-primary" )
     private WebElement addOrEditButton;
 
     @FindBy(linkText = "Create")
@@ -78,22 +78,22 @@ public class AssetCategoryPage extends BasePage {
         selectFromDropDown(accumulatedDepreciationAccountTextBox,details.getAccumulatedDepreciationCode(),driver);
         selectFromDropDown(revaluationReserveAccountTextBox,details.getRevaluationReserveAccountCode(),driver);
         selectFromDropDown(depreciationExpenseAccountTextBox,details.getDepreciationExpenceAccount(),driver);
-        selectFromDropDown(unitOfMeasurementTextBox,details.getUOM(),driver);
+//        selectFromDropDown(unitOfMeasurementTextBox,details.getUOM(),driver);
     }
 
 
     public void enterCustomFieldsDetails(CustomFieldsDetails details) {
         enterText(nameTextBox,details.getName(),driver);
         selectFromDropDown(dataTypeBox,details.getDataType(),driver);
-        enterText(regExFormateTextBox,details.getRegExFormat(),driver);
+//        enterText(regExFormateTextBox,details.getRegExFormat(),driver);
         if(details.isActive()){
             clickOnButton(isActiveCheckBox,driver);
         }
         if(details.isMandatory()){
             clickOnButton(isMandatoryCheckBox,driver);
         }
-        enterText(valueTextBox,details.getValue(),driver);
-        enterText(localTextTextBox,details.getLocalText(),driver);
+//        enterText(valueTextBox,details.getValue(),driver);
+//        enterText(localTextTextBox,details.getLocalText(),driver);
     }
 
     public void clickToCreateCustomFields() {
