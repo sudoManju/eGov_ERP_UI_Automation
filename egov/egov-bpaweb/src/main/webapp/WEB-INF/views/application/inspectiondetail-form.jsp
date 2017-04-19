@@ -48,7 +48,7 @@
 		<spring:message code="lbl.inspection.appln" />
 	</div>
 </div>
-<div class="form-group">
+<%-- <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Location of
 		the plot</label>
 	<div class="col-sm-3 add-margin">
@@ -58,7 +58,7 @@
 		<form:errors path="docket[0].locationOfPlot"
 			cssClass="add-margin error-msg" />
 	</div>
-</div>
+</div> --%>
 <c:choose>
 	<c:when test="${!docketDetail.isEmpty()}">
 		<div class="form-group view-content header-color hidden-xs">
