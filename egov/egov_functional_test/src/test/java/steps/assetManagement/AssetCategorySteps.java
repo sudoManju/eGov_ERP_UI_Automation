@@ -21,9 +21,8 @@ public class AssetCategorySteps extends BaseSteps implements En {
         And("^user will enter the details of custom fields as (\\w+)$", (String noOfCustomFields) -> {
             for(int i=0;i<Integer.parseInt(noOfCustomFields);i++) {
                 pageStore.get(AssetCategoryPage.class).clickToCreateCustomFields();
-                String dataId = (scenarioContext.getApplicationNumber()+(i+1));
                 CustomFieldsDetails details = new AssetCategoryDataReader(assetTestDataFileName)
-                        .getCustomFieldsDetails(dataId);
+                        .getCustomFieldsDetails(scenarioContext.getApplicationNumber()+(i+1));
                 pageStore.get(AssetCategoryPage.class).enterCustomFieldsDetails(details);
                 pageStore.get(AssetCategoryPage.class).addOrEditCustomFieldsButton();
             }

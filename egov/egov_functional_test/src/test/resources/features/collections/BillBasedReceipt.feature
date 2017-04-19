@@ -12,7 +12,7 @@ Feature: Create/Collect Bill Based Receipt
     And he choose to close the dataentry acknowledgement screen
     And current user logs out
 
-  @Collections @Sanity @Smoke @Experiment
+  @Collections @Sanity @Smoke
   Scenario Outline: System should be able to collect taxes
 
     Given creator logs in
