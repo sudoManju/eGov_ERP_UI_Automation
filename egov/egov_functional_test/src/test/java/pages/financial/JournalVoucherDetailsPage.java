@@ -136,7 +136,7 @@ public class JournalVoucherDetailsPage extends FinancialPage {
     }
 
     private void checkAccountCode1DataIsLoadedOrNot(String accountCode) {
-        if (webDriver.findElements(By.className("yui-ac-highlight")).size() == 0){
+        if (webDriver.findElements(By.className("yui-ac-highlight")).size() == 0) {
             accountCode1.clear();
             enterText(accountCode1, accountCode, webDriver);
         }

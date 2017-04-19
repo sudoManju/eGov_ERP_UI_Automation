@@ -391,17 +391,17 @@ public class TradeLicensePage extends BasePage {
     }
 
     public String applicationStatus() {
-        String status=webDriver.findElement(By.xpath(".//*[@id='tblSearchTrade']/tbody/tr[1]/td[11]")).getText();
+        String status = webDriver.findElement(By.xpath(".//*[@id='tblSearchTrade']/tbody/tr[1]/td[11]")).getText();
         return status;
     }
 
     public String licenseStatus() {
-        String status=webDriver.findElement(By.xpath(".//*[@id='tblSearchTrade']/tbody/tr[1]/td[12]")).getText();
+        String status = webDriver.findElement(By.xpath(".//*[@id='tblSearchTrade']/tbody/tr[1]/td[12]")).getText();
         return status;
     }
 
     public void closeSearchScreen() {
-        clickOnButton(closeSearch,webDriver);
+        clickOnButton(closeSearch, webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
     }
 

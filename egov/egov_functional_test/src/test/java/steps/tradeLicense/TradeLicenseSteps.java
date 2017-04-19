@@ -1,6 +1,5 @@
 package steps.tradeLicense;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.tradeLicense.*;
 import excelDataFiles.TradeLicenseDataReader;
@@ -36,7 +35,7 @@ public class TradeLicenseSteps extends BaseSteps implements En {
         And("^he copy trade application number$", () -> {
             String applicationNumber = pageStore.get(TradeLicensePage.class).getApplicationNumber();
             scenarioContext.setApplicationNumber(applicationNumber);
-            System.out.println(" Apllication number "+applicationNumber);
+            System.out.println(" Apllication number " + applicationNumber);
         });
         And("^he enters fee details of legency trade license$", () -> {
             pageStore.get(TradeLicensePage.class).enterlegencyDetails();
@@ -46,7 +45,7 @@ public class TradeLicenseSteps extends BaseSteps implements En {
             pageStore.get(TradeLicensePage.class).enterDetailsForClosure(closureDetails);
             String licenseNumber = pageStore.get(TradeLicensePage.class).getLicenseNumber();
             scenarioContext.setApplicationNumber(licenseNumber);
-            System.out.println(" License number"+licenseNumber);
+            System.out.println(" License number" + licenseNumber);
         });
         And("^he closes the acknowledgement page$", () -> {
             pageStore.get(TradeLicensePage.class).closeAcknowledgement();

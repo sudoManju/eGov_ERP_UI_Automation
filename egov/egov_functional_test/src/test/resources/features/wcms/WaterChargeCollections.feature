@@ -135,5 +135,5 @@ Feature: To collect water charges in different mode payments
     And user will click on the generate receipt
 
     Examples:
-     | paymentMode | connectionDetails | inspectionDetails | approvalOfficer1 | approvalOfficer2        | approvalOfficer3 |
-     | cash        | New_connection    | inspectionInfo    | engineer         | deputyExecutiveEngineer | commissioner1    |
+      | paymentMode | connectionDetails | inspectionDetails | approvalOfficer1 | approvalOfficer2        | approvalOfficer3 |
+      | cash        | New_connection    | inspectionInfo    | engineer         | deputyExecutiveEngineer | commissioner1    |

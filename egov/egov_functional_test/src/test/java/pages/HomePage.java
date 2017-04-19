@@ -23,7 +23,7 @@ public class HomePage extends BasePage {
     @FindBy(css = ".form-control.style-form.valid")
     private WebElement zoneSelect;
 
-    @FindBy(className= "profile-name")
+    @FindBy(className = "profile-name")
     private WebElement profileLink;
 
     @FindBy(linkText = "Sign out")
@@ -46,7 +46,7 @@ public class HomePage extends BasePage {
 //        }
         WebElement signForm = driver.findElement(By.id("signin-action"));
         waitForElementToBeClickable(signForm, driver);
-        clickOnButton(signForm , driver);
+        clickOnButton(signForm, driver);
 //        signForm.submit();
     }
 

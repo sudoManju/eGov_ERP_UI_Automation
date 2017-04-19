@@ -215,9 +215,9 @@ public class FinancialPage extends BasePage {
     }
 
     private void checkApprovalPositionIsLoadedOrNot(WebElement element) {
-        if(element.getText().equals(null)){
-            clickOnButton(element , webDriver);
-            clickOnButton(element , webDriver);
+        if (element.getText().equals(null)) {
+            clickOnButton(element, webDriver);
+            clickOnButton(element, webDriver);
         }
     }
 

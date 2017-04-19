@@ -12,13 +12,13 @@ public class AssetCategoryDataReader extends ExcelReader {
     Sheet assetCategoryDetailsSheet;
     Sheet customFieldsDetailsSheet;
 
-    public AssetCategoryDataReader(String testData){
+    public AssetCategoryDataReader(String testData) {
         super(testData);
         assetCategoryDetailsSheet = workbook.getSheet("AssetCategoryDetails");
         customFieldsDetailsSheet = workbook.getSheet("CustomFieldsDetails");
     }
 
-    public AssetCategoryDetails getAssetCategoryDetails(String assetCategoryDetailsDataId){
+    public AssetCategoryDetails getAssetCategoryDetails(String assetCategoryDetailsDataId) {
         Row dataRow = readDataRow(assetCategoryDetailsSheet, assetCategoryDetailsDataId);
 
         String name = getCellData(assetCategoryDetailsSheet, dataRow, "name").getStringCellValue();
@@ -44,16 +44,16 @@ public class AssetCategoryDataReader extends ExcelReader {
                 .build();
     }
 
-    public CustomFieldsDetails getCustomFieldsDetails(String customDetailsDataId){
-     Row dataRow = readDataRow(customFieldsDetailsSheet, customDetailsDataId);
+    public CustomFieldsDetails getCustomFieldsDetails(String customDetailsDataId) {
+        Row dataRow = readDataRow(customFieldsDetailsSheet, customDetailsDataId);
 
         String name = getCellData(customFieldsDetailsSheet, dataRow, "name").getStringCellValue();
         String dataType = getCellData(customFieldsDetailsSheet, dataRow, "dataType").getStringCellValue();
         String regExFormat = getCellData(customFieldsDetailsSheet, dataRow, "regExFormat").getStringCellValue();
         String value = getCellData(customFieldsDetailsSheet, dataRow, "value").getStringCellValue();
         String localText = getCellData(customFieldsDetailsSheet, dataRow, "localText").getStringCellValue();
-        Boolean isActive = getCellData(customFieldsDetailsSheet,dataRow,"isActive").getBooleanCellValue();
-        Boolean mandatory = getCellData(customFieldsDetailsSheet,dataRow,"mandatory").getBooleanCellValue();
+        Boolean isActive = getCellData(customFieldsDetailsSheet, dataRow, "isActive").getBooleanCellValue();
+        Boolean mandatory = getCellData(customFieldsDetailsSheet, dataRow, "mandatory").getBooleanCellValue();
 
         return new CustomFieldsDetailsBuilder()
                 .withName(name)

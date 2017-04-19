@@ -89,8 +89,8 @@ public class AssetCategoryPage extends BasePage {
         if(details.isActive()){
             clickOnButton(isActiveCheckBox,driver);
         }
-        if(details.isMandatory()){
-            clickOnButton(isMandatoryCheckBox,driver);
+        if (details.isMandatory()) {
+            clickOnButton(isMandatoryCheckBox, driver);
         }
 //        enterText(valueTextBox,details.getValue(),driver);
 //        enterText(localTextTextBox,details.getLocalText(),driver);

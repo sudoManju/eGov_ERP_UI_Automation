@@ -34,12 +34,12 @@ public final class CustomFieldsDetailsBuilder {
         return this;
     }
 
-    public CustomFieldsDetailsBuilder withIsActive(Boolean isActive){
+    public CustomFieldsDetailsBuilder withIsActive(Boolean isActive) {
         customFieldsDetails.setActive(isActive);
         return this;
     }
 
-    public CustomFieldsDetailsBuilder withMandatory(Boolean mandatory){
+    public CustomFieldsDetailsBuilder withMandatory(Boolean mandatory) {
         customFieldsDetails.setMandatory(mandatory);
         return this;
     }

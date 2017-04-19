@@ -114,7 +114,7 @@ public class WaterConnectionDetailsPage extends WaterChargeManagementPage {
         selectFromDropDown(connectionTypeSelectBox, connectionInfo.getConnectionType(), webDriver);
         selectFromDropDown(waterSourceTypeSelectBox, connectionInfo.getWaterSourceType(), webDriver);
         selectFromDropDown(propertyTypeSelectBox, connectionInfo.getPropertyType(), webDriver);
-        clickOnButton(webDriver.findElement(By.id("connectionCategorie")),webDriver);
+        clickOnButton(webDriver.findElement(By.id("connectionCategorie")), webDriver);
         selectFromDropDown(webDriver.findElement(By.id("connectionCategorie")), connectionInfo.getCategory(), webDriver);
         selectFromDropDown(usageTypeSelectBox, connectionInfo.getUsageType(), webDriver);
         selectFromDropDown(hscPipeSizeSelectBox, connectionInfo.getHscPipeSize(), webDriver);

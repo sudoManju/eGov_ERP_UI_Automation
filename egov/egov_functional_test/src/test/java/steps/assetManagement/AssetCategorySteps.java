@@ -10,25 +10,22 @@ import steps.BaseSteps;
 
 public class AssetCategorySteps extends BaseSteps implements En {
 
-    public AssetCategorySteps(){
+    public AssetCategorySteps() {
 
         And("^user will enter the details of asset category as (\\w+)$", (String assetCategory) -> {
             AssetCategoryDetails details = new AssetCategoryDataReader(assetTestDataFileName)
-                                                                 .getAssetCategoryDetails(assetCategory);
+                    .getAssetCategoryDetails(assetCategory);
             pageStore.get(AssetCategoryPage.class).enterAssetCategoryDetails(details);
         });
         And("^user will enter the details of custom fields as (\\w+)$", (String customFields) -> {
-
             pageStore.get(AssetCategoryPage.class).clickToCreateCustomFields();
-
             CustomFieldsDetails details = new AssetCategoryDataReader(assetTestDataFileName)
-                                                                 .getCustomFieldsDetails(customFields);
+                    .getCustomFieldsDetails(customFields);
             pageStore.get(AssetCategoryPage.class).enterCustomFieldsDetails(details);
-
             pageStore.get(AssetCategoryPage.class).addOrEditCustomFieldsButton();
         });
         And("^user create the asset category$", () -> {
-           pageStore.get(AssetCategoryPage.class).clickOnCreateAssetCategoryButton();
+            pageStore.get(AssetCategoryPage.class).clickOnCreateAssetCategoryButton();
         });
     }
 
