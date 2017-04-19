@@ -41,6 +41,7 @@ package org.egov.bpa.application.repository;
 
 import java.util.List;
 
+import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.Inspection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -48,6 +49,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface InspectionRepository extends JpaRepository<Inspection, Long> {
 
+    
+    List<Inspection> findByApplicationOrderByIdDesc(BpaApplication bpaApplication);
+
+    
     List<Inspection> findByIdOrderByIdAsc(Long id);
 
 

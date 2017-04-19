@@ -50,12 +50,13 @@
 </div>
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Location of
-		the plot</label>
+		the plot<span
+		class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
 			data-pattern="alphanumericwithspace" maxlength="128" id="locationOfPlot"
 			path="docket[0].locationOfPlot" />
-		<form:errors path="docket[0].locationOfPlot"
+		<form:errors path="docket[0].locationOfPlot" required="required"
 			cssClass="add-margin error-msg" />
 	</div>
 </div>
@@ -87,15 +88,38 @@
 				</div>
 
 				<div class="col-sm-3 add-margin">
+				 <c:choose>
+				<c:when  test="${mode =='editinsp'}">
+				<form:radiobutton
+						path="docket[0].docketDetail[${status.index}].value" value="true"  />
+					<spring:message code="lbl.yes" />
 					<form:radiobutton
+						path="docket[0].docketDetail[${status.index}].value" value="false"
+						/>
+					<spring:message code="lbl.no" />
+					<form:errors path="docket[0].docketDetail[${status.index}].value"
+						cssClass="add-margin error-msg" />
+				</c:when>
+				<c:otherwise>
+				<form:radiobutton
 						path="docket[0].docketDetail[${status.index}].value" value="true" />
 					<spring:message code="lbl.yes" />
 					<form:radiobutton
 						path="docket[0].docketDetail[${status.index}].value" value="false"
 						checked="checked" />
-					<spring:message code="lbl.no" />
-					<form:errors path="docket[0].docketDetail[${status.index}].value"
+						<spring:message code="lbl.no" />
+						<form:errors path="docket[0].docketDetail[${status.index}].value"
 						cssClass="add-margin error-msg" />
+				</c:otherwise>
+				</c:choose> 
+					<%-- <form:radiobutton
+						path="docket[0].docketDetail[${status.index}].value" value="true" />
+					<spring:message code="lbl.yes" />
+					<form:radiobutton
+						path="docket[0].docketDetail[${status.index}].value" value="false"
+						checked="checked" />
+					<spring:message code="lbl.no" /> --%>
+					
 				</div>
 
 				<div class="col-sm-3 add-margin text-center">

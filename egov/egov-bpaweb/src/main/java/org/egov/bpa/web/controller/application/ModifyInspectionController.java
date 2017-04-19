@@ -64,10 +64,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping(value = "/application")
-public class InspectionController extends BpaGenericApplicationController {
-
-
-
+public class ModifyInspectionController extends BpaGenericApplicationController {
 
     @Autowired
     private SecurityUtils securityUtils;
@@ -77,34 +74,39 @@ public class InspectionController extends BpaGenericApplicationController {
 
 
     @ModelAttribute
-    public Inspection getInspectionForBpaAPplication() {
-        return new Inspection();
+    public Inspection getInspectionForBpaAPplication(@PathVariable final String applicationNumber) {
+        Inspection inspection;
+        final BpaApplication bpaApplication = applicationBpaService.findByApplicationNumber(applicationNumber);
+        final List<Inspection> inspections = inspectionService.findByBpaApplicationOrderByIdAsc(bpaApplication);
+        if (!inspections.isEmpty())
+            inspection = inspections.get(0);
+        else
+            inspection = new Inspection();
+        return inspection;
     }
 
-    @RequestMapping(value = "/createinspectiondetails/{applicationNumber}", method = RequestMethod.GET)
-    public String inspectionDetailForm(final Model model, @PathVariable final String applicationNumber,
-            final HttpServletRequest request) {
+    @RequestMapping(value = "/modify-inspection/{applicationNumber}", method = RequestMethod.GET)
+    public String editInspectionAppointment(
+            @PathVariable final String applicationNumber, final Model model) {
         loadApplication(model, applicationNumber);
-        return BpaConstants.CREATEINSPECTIONDETAIL_FORM;
+        model.addAttribute("mode", "editinsp");
+        return "inspection-edit";
     }
 
-    
-
-    @RequestMapping(value = "/createinspectiondetails/{applicationNumber}", method = RequestMethod.POST)
-    public String createScheduleAppointment(@Valid @ModelAttribute final Inspection inspection,
+    @RequestMapping(value = "/modify-inspection/{applicationNumber}", method = RequestMethod.POST)
+    public String updateInspection(@Valid @ModelAttribute final Inspection inspection,
             @PathVariable final String applicationNumber, final Model model, final BindingResult resultBinder,
             final RedirectAttributes redirectAttributes,
             final HttpServletRequest request) {
         final BpaApplication application = applicationBpaService.findByApplicationNumber(applicationNumber);
         if (resultBinder.hasErrors()) {
             loadApplication(model, applicationNumber);
-            return BpaConstants.CREATEINSPECTIONDETAIL_FORM;
+            return "inspection-edit";
         }
-        final Inspection savedInspection = inspectionService.save(inspection,application);
+        final Inspection savedInspection = inspectionService.save(inspection, application);
         model.addAttribute("message", "Inspection Saved Successfully");
         return "redirect:/application/view-inspection/" + savedInspection.getId();
     }
-
 
     private void loadApplication(final Model model, final String applicationNumber) {
         final BpaApplication application = applicationBpaService.findByApplicationNumber(applicationNumber);
@@ -116,7 +118,7 @@ public class InspectionController extends BpaGenericApplicationController {
                     bpaThirdPartyService.getHistory(application));
         }
         final List<DocketDetail> docketTempList = inspectionService.prepareDocketDetailList(application);
-        final Inspection inspection = getInspectionForBpaAPplication();
+        final Inspection inspection = getInspectionForBpaAPplication(applicationNumber);
         inspection.setInspectionDate(new Date());
         model.addAttribute("inspection", inspection);
         model.addAttribute("docketDetail", docketTempList);
@@ -133,5 +135,4 @@ public class InspectionController extends BpaGenericApplicationController {
         model.addAttribute(BpaConstants.BPA_APPLICATION, application);
     }
 
-    
 }

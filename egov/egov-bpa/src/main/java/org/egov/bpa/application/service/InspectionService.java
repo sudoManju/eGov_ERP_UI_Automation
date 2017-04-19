@@ -39,8 +39,12 @@
  */
 package org.egov.bpa.application.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.egov.bpa.application.autonumber.InspectionNumberGenerator;
 import org.egov.bpa.application.entity.BpaApplication;
@@ -53,6 +57,9 @@ import org.egov.infra.admin.master.entity.User;
 import org.egov.infra.admin.master.service.UserService;
 import org.egov.infra.config.core.ApplicationThreadLocals;
 import org.egov.infra.utils.autonumber.AutonumberServiceBeanResolver;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -60,7 +67,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 public class InspectionService {
-    
+
     @Autowired
     private CheckListDetailService checkListDetailService;
     @Autowired
@@ -69,28 +76,43 @@ public class InspectionService {
     @Autowired
     private UserService userService;
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
     @Autowired
     private InspectionRepository inspectionRepository;
-    
+
+    public Session getCurrentSession() {
+        return entityManager.unwrap(Session.class);
+    }
 
     @Transactional
-    public Inspection save(final Inspection inspection,BpaApplication application) {
+    public Inspection save(final Inspection inspection, final BpaApplication application) {
         User currentUser = null;
-        if (ApplicationThreadLocals.getUserId() != null)
-            currentUser = userService.getUserById(ApplicationThreadLocals.getUserId());
+        if (inspection.getId() == null) {
+            if (ApplicationThreadLocals.getUserId() != null)
+                currentUser = userService.getUserById(ApplicationThreadLocals.getUserId());
 
-        inspection.setInspectedBy(currentUser);
-        inspection.setInspectionDate(new Date());
-        inspection.setInspectionNumber(generateInspectionnumber());
+            inspection.setInspectedBy(currentUser);
+
+            inspection.setInspectionNumber(generateInspectionnumber());
+        }
+        if (inspection.getInspectionDate() == null)
+            inspection.setInspectionDate(new Date());
         inspection.setApplication(application);
         inspection.getDocket().get(0).setInspection(inspection);
         buildDocketDetails(inspection.getDocket().get(0));
         return inspectionRepository.save(inspection);
     }
-    public List<Inspection> findByIdOrderByIdAsc(Long id) {
+
+    public List<Inspection> findByIdOrderByIdAsc(final Long id) {
         return inspectionRepository.findByIdOrderByIdAsc(id);
     }
-   
+
+    public List<Inspection> findByBpaApplicationOrderByIdAsc(final BpaApplication application) {
+        return inspectionRepository.findByApplicationOrderByIdDesc(application);
+    }
+
     public String generateInspectionnumber() {
         final InspectionNumberGenerator inspectionNUmber = beanResolver
                 .getAutoNumberServiceFor(InspectionNumberGenerator.class);
@@ -106,4 +128,31 @@ public class InspectionService {
         return docket;
 
     }
+
+    public List<DocketDetail> prepareDocketDetailList(final BpaApplication application) {
+        List<CheckListDetail> inspectionCheckList;
+        final Criteria criteria = getCheckListByServiceAndType(application.getServiceType().getId(), "INSPECTION");
+        inspectionCheckList = criteria.list();
+        final List<DocketDetail> docketTempList = new ArrayList<>();
+        for (final CheckListDetail checkDet : inspectionCheckList)
+            setDocketDetList(docketTempList, checkDet);
+        return docketTempList;
+    }
+
+    public Criteria getCheckListByServiceAndType(final Long serviceTypeId, final String checkListTypeVal) {
+
+        final Criteria checkListDet = getCurrentSession().createCriteria(CheckListDetail.class, "checklistdet");
+        checkListDet.createAlias("checklistdet.checkList", "checkList");
+        checkListDet.createAlias("checkList.serviceType", "servicetype");
+        checkListDet.add(Restrictions.eq("servicetype.id", serviceTypeId));
+        checkListDet.add(Restrictions.eq("checkList.checklistType", checkListTypeVal));
+        return checkListDet;
+    }
+
+    public void setDocketDetList(final List<DocketDetail> docketTempList, final CheckListDetail checkDet) {
+        final DocketDetail docdet = new DocketDetail();
+        docdet.setCheckListDetail(checkDet);
+        docketTempList.add(docdet);
+    }
+
 }

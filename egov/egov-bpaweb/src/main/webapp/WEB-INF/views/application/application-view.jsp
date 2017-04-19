@@ -105,6 +105,22 @@
 			</div>
 
 			<div class="text-center">
+			
+				<c:if test="${mode eq 'captureInspection'}">
+				<a
+						href="/bpa/application/createinspectiondetails/${bpaApplication.applicationNumber}"
+						class="btn btn-primary">Capture Inspection Details </a>
+					
+				</c:if>
+				<c:if test="${mode eq 'modifyInspection'}">
+						<a
+						href="/bpa/application/createinspectiondetails/${bpaApplication.applicationNumber}"
+						class="btn btn-primary">Capture New Inspection Details </a>
+					
+						<a
+						href="/bpa/application/modify-inspection/${bpaApplication.applicationNumber}"
+						class="btn btn-primary">Add/Edit Inspection Details </a>
+				</c:if>
 				<c:if test="${mode eq 'newappointment'}">
 					<a
 						href="/bpa/application/scheduleappointment/${bpaApplication.applicationNumber}"
@@ -112,6 +128,7 @@
 						<a
 						href="/bpa/application/createinspectiondetails/${bpaApplication.applicationNumber}"
 						class="btn btn-primary">Capture Inspection Details </a>
+					
 				</c:if>
 				<c:if test="${mode eq 'postponeappointment'}">
 					<a
@@ -120,6 +137,7 @@
 						<a
 						href="/bpa/application/createinspectiondetails/${bpaApplication.applicationNumber}"
 						class="btn btn-primary">Capture Inspection Details </a>
+						
 				</c:if>
 			</div>
 			<br>

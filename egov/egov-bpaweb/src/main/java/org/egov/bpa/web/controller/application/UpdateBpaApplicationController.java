@@ -39,12 +39,12 @@
  */
 package org.egov.bpa.web.controller.application;
 
-import static org.egov.bpa.utils.BpaConstants.DOCUMENTVERIFIED;
-import static org.egov.bpa.utils.BpaConstants.REGISTERED;
-import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_FIELD_INS;
 import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_APPROVED;
 import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_DIGI_SIGNED;
+import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_FIELD_INS;
 import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_ORDER_ISSUED;
+import static org.egov.bpa.utils.BpaConstants.DOCUMENTVERIFIED;
+import static org.egov.bpa.utils.BpaConstants.REGISTERED;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -144,6 +144,16 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 && purposeInsList.contains(AppointmentSchedulePurpose.INSPECTION.name())) {
             mode = "postponeappointment";
             scheduleType = AppointmentSchedulePurpose.INSPECTION;
+        }
+        else if (/*FORWARDED_TO_FIELD_ISPECTION.equalsIgnoreCase(application.getState().getNextAction())
+                &&*/ DOCUMENTVERIFIED.equalsIgnoreCase(application.getStatus().getCode())
+                && application.getInspections().isEmpty()) {
+            mode = "captureInspection";
+        }
+        else if (/*FORWARDED_TO_FIELD_ISPECTION.equalsIgnoreCase(application.getState().getNextAction())
+                && */DOCUMENTVERIFIED.equalsIgnoreCase(application.getStatus().getCode())
+                && !application.getInspections().isEmpty()) {
+            mode = "modifyInspection";
         }
         if (mode == null) {
             mode = "edit";

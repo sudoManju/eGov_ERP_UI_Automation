@@ -303,14 +303,6 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         return criteria;
     }
-    public Criteria getCheckListByServiceAndType(Long serviceTypeId,String checkListTypeVal) {
-        
-        Criteria checkListDet =getCurrentSession().createCriteria(CheckListDetail.class,"checklistdet");
-        checkListDet.createAlias("checklistdet.checkList", "checkList");
-        checkListDet.createAlias("checkList.serviceType", "servicetype");
-        checkListDet.add(Restrictions.eq("servicetype.id", serviceTypeId));
-        checkListDet.add(Restrictions.eq("checkList.checklistType",checkListTypeVal)); 
-        return checkListDet;
-    }
+  
 
 }

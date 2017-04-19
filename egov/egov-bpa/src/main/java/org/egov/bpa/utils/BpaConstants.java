@@ -102,5 +102,9 @@ public class BpaConstants {
     public static final String LETTERTOPARTYSENT = "LP Sent to Applicant";
     public static final String LETTERTOPARTYDETAILS = "lettertoparty";
     public static final String CHECKLIST_TYPE_NOC = "NOC";
-    public static final String INSPECTION_NUMBER_SEQ = "SEQ_EGBPA_INSPECTION";
+    public static final String BPA_APPLICATION = "bpaApplication";
+    public static final String APPLICATION_HISTORY = "applicationHistory";
+    public static final String CREATEINSPECTIONDETAIL_FORM = "createInspectiondetail-form";
+    public static final String ADDITIONALRULE = "additionalRule";
+    public static final String INSPECTION_NUMBER_SEQ = "SEQ_BPA_INSPE";
 }

@@ -153,6 +153,9 @@
         <put-attribute name="page-title" value="title.search.appln" cascade="true"/>
         <put-attribute name="body" value="/WEB-INF/views/application/inspectiobView-result.jsp"/>
     </definition>
-    
+         <definition name="inspection-edit" extends="base_layout">
+        <put-attribute name="page-title" value="title.search.appln" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/application/inspectiondetail-edit.jsp"/>
+    </definition>
     
 </tiles-definitions>
