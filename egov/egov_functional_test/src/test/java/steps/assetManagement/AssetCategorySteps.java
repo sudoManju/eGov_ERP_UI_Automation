@@ -15,19 +15,21 @@ public class AssetCategorySteps extends BaseSteps implements En {
         And("^user will enter the details of asset category as (\\w+)$", (String assetCategory) -> {
             AssetCategoryDetails details = new AssetCategoryDataReader(assetTestDataFileName)
                     .getAssetCategoryDetails(assetCategory);
+            scenarioContext.setApplicationNumber(details.getName());
             pageStore.get(AssetCategoryPage.class).enterAssetCategoryDetails(details);
         });
-        And("^user will enter the details of custom fields as (\\w+)$", (String customFields) -> {
-            pageStore.get(AssetCategoryPage.class).clickToCreateCustomFields();
-            CustomFieldsDetails details = new AssetCategoryDataReader(assetTestDataFileName)
-                    .getCustomFieldsDetails(customFields);
-            pageStore.get(AssetCategoryPage.class).enterCustomFieldsDetails(details);
-            pageStore.get(AssetCategoryPage.class).addOrEditCustomFieldsButton();
+        And("^user will enter the details of custom fields as (\\w+)$", (String noOfCustomFields) -> {
+            for(int i=0;i<Integer.parseInt(noOfCustomFields);i++) {
+                pageStore.get(AssetCategoryPage.class).clickToCreateCustomFields();
+                String dataId = (scenarioContext.getApplicationNumber()+(i+1));
+                CustomFieldsDetails details = new AssetCategoryDataReader(assetTestDataFileName)
+                        .getCustomFieldsDetails(dataId);
+                pageStore.get(AssetCategoryPage.class).enterCustomFieldsDetails(details);
+                pageStore.get(AssetCategoryPage.class).addOrEditCustomFieldsButton();
+            }
         });
         And("^user create the asset category$", () -> {
             pageStore.get(AssetCategoryPage.class).clickOnCreateAssetCategoryButton();
         });
-
     }
-
 }

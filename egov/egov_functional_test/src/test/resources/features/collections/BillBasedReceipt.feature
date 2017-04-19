@@ -12,7 +12,7 @@ Feature: Create/Collect Bill Based Receipt
     And he choose to close the dataentry acknowledgement screen
     And current user logs out
 
-  @Collections @Sanity @Smoke
+  @Collections @Sanity @Smoke @Experiment
   Scenario Outline: System should be able to collect taxes
 
     Given creator logs in
@@ -38,8 +38,8 @@ Feature: Create/Collect Bill Based Receipt
 
     Examples:
       | paymentMode |
-      | cash        |
-      | cheque      |
+#      | cash        |
+#      | cheque      |
       | dd          |
-      | directBank1 |
+#      | directBank1 |
 

@@ -13,4 +13,4 @@ Feature: Create/Search for assetCategory
 
     Examples:
       | assetCategory    | customFields         |
-      | categoryDetails1 | customFieldsDetails1 |
+      | categoryDetails1 | 7                    |
