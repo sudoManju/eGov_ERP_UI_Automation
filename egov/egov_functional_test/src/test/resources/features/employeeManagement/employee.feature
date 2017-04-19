@@ -4,7 +4,13 @@ Feature: Create/View/Update
   i should able to create/view/update employee
 
 
-  Scenario: Create an employee
+  Scenario Outline: Create an employee
 
     Given assistant logs in
     And user will select the required screen as "Create" with condition as "/employee"
+    And user enters the employee details as <employeeDetails>
+
+
+    Examples:
+    |employeeDetails|
+    |employee1      |

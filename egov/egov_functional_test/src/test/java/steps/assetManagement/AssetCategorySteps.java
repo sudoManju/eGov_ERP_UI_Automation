@@ -27,6 +27,7 @@ public class AssetCategorySteps extends BaseSteps implements En {
         And("^user create the asset category$", () -> {
             pageStore.get(AssetCategoryPage.class).clickOnCreateAssetCategoryButton();
         });
+
     }
 
 }
