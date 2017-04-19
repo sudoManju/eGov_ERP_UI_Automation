@@ -9,8 +9,9 @@ Feature: Create/View/Update
     Given assistant logs in
     And user will select the required screen as "Create" with condition as "/employee"
     And user enters the employee details as <employeeDetails>
+    And user will enter the assignment details as <assignmentDetails>
 
 
     Examples:
-    |employeeDetails|
-    |employee1      |
+    |employeeDetails| assignmentDetails |
+    |employee1      | abcd              |

@@ -144,6 +144,10 @@ public class BasePage {
         return dateFormat.format(date);
     }
 
+    protected String getCurrentYear() {
+        return getCurrentDate().replaceAll("/" , "-").split("-")[2];
+    }
+
     protected String getPreviousDate() {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Calendar cal = Calendar.getInstance();

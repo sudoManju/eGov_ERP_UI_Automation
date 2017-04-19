@@ -11,5 +11,9 @@ public class employeeOperationSteps extends BaseSteps implements En {
         And("^user enters the employee details as (\\w+)$", (String employeeDetailsDataId) -> {
 
         });
+
+        And("^user will enter the assignment details as (\\w+)$", () -> {
+
+        });
     }
 }
