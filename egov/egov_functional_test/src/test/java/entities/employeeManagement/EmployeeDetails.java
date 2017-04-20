@@ -1,6 +1,6 @@
 package entities.employeeManagement;
 
-public class employeeDetails {
+public class EmployeeDetails {
 
     private String employeeName;
     private String employeeCode;

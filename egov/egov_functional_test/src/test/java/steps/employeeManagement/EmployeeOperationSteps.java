@@ -4,9 +4,9 @@ package steps.employeeManagement;
 import cucumber.api.java8.En;
 import steps.BaseSteps;
 
-public class employeeOperationSteps extends BaseSteps implements En {
+public class EmployeeOperationSteps extends BaseSteps implements En {
 
-    public employeeOperationSteps(){
+    public EmployeeOperationSteps(){
 
         And("^user enters the employee details as (\\w+)$", (String employeeDetailsDataId) -> {
 
