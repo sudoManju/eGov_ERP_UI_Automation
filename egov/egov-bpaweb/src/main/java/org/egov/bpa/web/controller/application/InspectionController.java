@@ -66,15 +66,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping(value = "/application")
 public class InspectionController extends BpaGenericApplicationController {
 
-
-
-
     @Autowired
     private SecurityUtils securityUtils;
 
     @Autowired
     private InspectionService inspectionService;
-
 
     @ModelAttribute
     public Inspection getInspectionForBpaAPplication() {
@@ -88,23 +84,23 @@ public class InspectionController extends BpaGenericApplicationController {
         return BpaConstants.CREATEINSPECTIONDETAIL_FORM;
     }
 
-    
-
     @RequestMapping(value = "/createinspectiondetails/{applicationNumber}", method = RequestMethod.POST)
     public String createScheduleAppointment(@Valid @ModelAttribute final Inspection inspection,
             @PathVariable final String applicationNumber, final Model model, final BindingResult resultBinder,
             final RedirectAttributes redirectAttributes,
             final HttpServletRequest request) {
         final BpaApplication application = applicationBpaService.findByApplicationNumber(applicationNumber);
+        final List<DocketDetail> docketDetailList = inspectionService.buildDocDetFromUI(inspection);
+
+        inspection.getDocket().get(0).setDocketDetail(docketDetailList);
         if (resultBinder.hasErrors()) {
             loadApplication(model, applicationNumber);
             return BpaConstants.CREATEINSPECTIONDETAIL_FORM;
         }
-        final Inspection savedInspection = inspectionService.save(inspection,application);
+        final Inspection savedInspection = inspectionService.save(inspection, application);
         model.addAttribute("message", "Inspection Saved Successfully");
         return "redirect:/application/view-inspection/" + savedInspection.getId();
     }
-
 
     private void loadApplication(final Model model, final String applicationNumber) {
         final BpaApplication application = applicationBpaService.findByApplicationNumber(applicationNumber);
@@ -115,11 +111,18 @@ public class InspectionController extends BpaGenericApplicationController {
             model.addAttribute(BpaConstants.APPLICATION_HISTORY,
                     bpaThirdPartyService.getHistory(application));
         }
-        final List<DocketDetail> docketTempList = inspectionService.prepareDocketDetailList(application);
         final Inspection inspection = getInspectionForBpaAPplication();
         inspection.setInspectionDate(new Date());
+        inspectionService.buildDocketDetailList(inspection);
         model.addAttribute("inspection", inspection);
-        model.addAttribute("docketDetail", docketTempList);
+        model.addAttribute("docketDetailLocList", inspection.getDocketDetailLocList());
+        model.addAttribute("docketDetailMeasumentList", inspection.getDocketDetailMeasumentList());
+        model.addAttribute("docketDetailAccessList", inspection.getDocketDetailAccessList());
+        model.addAttribute("docketDetlSurroundingPlotList", inspection.getDocketDetlSurroundingPlotList());
+        model.addAttribute("docketDetailLandTypeList", inspection.getDocketDetailLandTypeList());
+        model.addAttribute("docketDetailProposedWorkList", inspection.getDocketDetailProposedWorkList());
+        model.addAttribute("docketDetailWorkAsPerPlanList", inspection.getDocketDetailWorkAsPerPlanList());
+        model.addAttribute("docketDetailHgtAbuttRoadList", inspection.getDocketDetailHgtAbuttRoadList());
         model.addAttribute(BpaConstants.BPA_APPLICATION, application);
     }
 
@@ -133,5 +136,4 @@ public class InspectionController extends BpaGenericApplicationController {
         model.addAttribute(BpaConstants.BPA_APPLICATION, application);
     }
 
-    
 }

@@ -49,6 +49,16 @@ jQuery(document).ready(function($) {
 			});*/
 	
 	// By default to point update noc details tab
+	var mode=$('#mode').val();
+	
+	if(mode='captureInspection')
+		{
+		$('#approvalDepartment').removeAttr('required');
+		$('#approvalDesignation').removeAttr('required');
+		$(".show-row").hide();
+		$("#Forward").hide();
+		return false;
+		}
 	var tabfocus;
 	if($('#showUpdateNoc').val()){
 		tabfocus='#checklist-info';

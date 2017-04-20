@@ -53,6 +53,7 @@ import org.egov.bpa.application.entity.Docket;
 import org.egov.bpa.application.entity.DocketDetail;
 import org.egov.bpa.application.entity.Inspection;
 import org.egov.bpa.application.repository.InspectionRepository;
+import org.egov.bpa.utils.BpaConstants;
 import org.egov.infra.admin.master.entity.User;
 import org.egov.infra.admin.master.service.UserService;
 import org.egov.infra.config.core.ApplicationThreadLocals;
@@ -100,8 +101,10 @@ public class InspectionService {
         if (inspection.getInspectionDate() == null)
             inspection.setInspectionDate(new Date());
         inspection.setApplication(application);
+        if(inspection.getDocket().get(0)==null){
         inspection.getDocket().get(0).setInspection(inspection);
         buildDocketDetails(inspection.getDocket().get(0));
+        }
         return inspectionRepository.save(inspection);
     }
 
@@ -128,23 +131,133 @@ public class InspectionService {
         return docket;
 
     }
+    
+    public List<DocketDetail> buildDocDetFromUI(final Inspection inspection) {
+        final List<DocketDetail> docketDetailList = new ArrayList<>();
 
-    public List<DocketDetail> prepareDocketDetailList(final BpaApplication application) {
-        List<CheckListDetail> inspectionCheckList;
-        final Criteria criteria = getCheckListByServiceAndType(application.getServiceType().getId(), "INSPECTION");
-        inspectionCheckList = criteria.list();
-        final List<DocketDetail> docketTempList = new ArrayList<>();
-        for (final CheckListDetail checkDet : inspectionCheckList)
-            setDocketDetList(docketTempList, checkDet);
-        return docketTempList;
+        for(DocketDetail temploc:inspection.getDocketDetailLocList())
+        {
+            docketDetailList.add(temploc);
+        }
+        
+        for(DocketDetail temploc1:inspection.getDocketDetailMeasumentList())
+        {
+            docketDetailList.add(temploc1);
+        }
+        for(DocketDetail temploc1:inspection.getDocketDetailAccessList())
+        {
+            docketDetailList.add(temploc1);
+        }
+        for(DocketDetail temploc1:inspection.getDocketDetlSurroundingPlotList())
+        {
+            docketDetailList.add(temploc1);
+        }
+        for(DocketDetail temploc1:inspection.getDocketDetailLandTypeList())
+        {
+            docketDetailList.add(temploc1);
+        }
+        for(DocketDetail temploc1:inspection.getDocketDetailProposedWorkList())
+        {
+            docketDetailList.add(temploc1);
+        }
+        for(DocketDetail temploc1:inspection.getDocketDetailWorkAsPerPlanList())
+        {
+            docketDetailList.add(temploc1);
+        }
+        for(DocketDetail temploc1:inspection.getDocketDetailHgtAbuttRoadList())
+        {
+            docketDetailList.add(temploc1);
+        }
+        return docketDetailList;
     }
 
-    public Criteria getCheckListByServiceAndType(final Long serviceTypeId, final String checkListTypeVal) {
+    @SuppressWarnings("unchecked")
+    public void buildDocketDetailList( Inspection inspection) {
+         List<DocketDetail> docketTempLocList = new ArrayList<>();
+         List<DocketDetail> docketTempMeasumentList = new ArrayList<>();
+         List<DocketDetail> docketTempAccessList = new ArrayList<>();
+         List<DocketDetail> docketTempSurroundingList = new ArrayList<>();
+         List<DocketDetail> docketTempLandList = new ArrayList<>();
+         List<DocketDetail> docketTempProposedWorkList = new ArrayList<>();
+         List<DocketDetail> docketTempWorkAsPerPlanList = new ArrayList<>();
+         List<DocketDetail> docketTempAbbuteRoadList = new ArrayList<>();
+         Criteria criteriaLoc = getCheckListByServiceAndType(BpaConstants.INSPECTIONLOCATION);
+         Criteria criteriaMeasur = getCheckListByServiceAndType(BpaConstants.INSPECTIONMEASUREMENT);
+         Criteria criteriaAccess = getCheckListByServiceAndType(BpaConstants.INSPECTIONACCESS);
+         Criteria criteriaSurrounding = getCheckListByServiceAndType(BpaConstants.INSPECTIONSURROUNDING);
+         Criteria criteriaTypeofLand = getCheckListByServiceAndType(BpaConstants.INSPECTIONTYPEOFLAND);
+         Criteria criteriaProposedStage = getCheckListByServiceAndType(BpaConstants.INSPECTIONPROPOSEDSTAGEWORK);
+         Criteria criteriaWorkPerPlan = getCheckListByServiceAndType(BpaConstants.INSPECTIONWORKCOMPLETEDPERPLAN);
+         Criteria criteriaHgtAbutRoad = getCheckListByServiceAndType(BpaConstants.INSPECTIONHGTBUILDABUTROAD);
+        List<CheckListDetail> inspectionCheckList = criteriaLoc.list();
+        List<CheckListDetail> inspectionCheckList2 = criteriaMeasur.list();
+        List<CheckListDetail> inspectionCheckList3 = criteriaAccess.list();
+        List<CheckListDetail> inspectionCheckList4 = criteriaSurrounding.list();
+        List<CheckListDetail> inspectionCheckList5 = criteriaTypeofLand.list();
+        List<CheckListDetail> inspectionCheckList6 = criteriaProposedStage.list();
+        List<CheckListDetail> inspectionCheckList7 = criteriaWorkPerPlan.list();
+        List<CheckListDetail> inspectionCheckList8 = criteriaHgtAbutRoad.list();
+
+        for (final CheckListDetail checkDet : inspectionCheckList) {
+            final DocketDetail docdet = new DocketDetail();
+            docdet.setCheckListDetail(checkDet);
+            docketTempLocList.add(docdet);
+        }
+        for (final CheckListDetail checkDet : inspectionCheckList2) {
+            final DocketDetail docdet = new DocketDetail();
+            docdet.setCheckListDetail(checkDet);
+            docketTempMeasumentList.add(docdet);
+        }
+        for (final CheckListDetail checkDet : inspectionCheckList3) {
+            final DocketDetail docdet = new DocketDetail();
+            docdet.setCheckListDetail(checkDet);
+            docketTempAccessList.add(docdet);
+        }
+
+        for (final CheckListDetail checkDet : inspectionCheckList4) {
+            final DocketDetail docdet = new DocketDetail();
+            docdet.setCheckListDetail(checkDet);
+            docketTempSurroundingList.add(docdet);
+        }
+        for (final CheckListDetail checkDet : inspectionCheckList5) {
+            final DocketDetail docdet = new DocketDetail();
+            docdet.setCheckListDetail(checkDet);
+            docketTempLandList.add(docdet);
+        }
+
+        for (final CheckListDetail checkDet : inspectionCheckList6) {
+            final DocketDetail docdet = new DocketDetail();
+            docdet.setCheckListDetail(checkDet);
+            docketTempProposedWorkList.add(docdet);
+        }
+
+        for (final CheckListDetail checkDet : inspectionCheckList7) {
+            final DocketDetail docdet = new DocketDetail();
+            docdet.setCheckListDetail(checkDet);
+            docketTempWorkAsPerPlanList.add(docdet);
+        }
+
+        for (final CheckListDetail checkDet : inspectionCheckList8) {
+            final DocketDetail docdet = new DocketDetail();
+            docdet.setCheckListDetail(checkDet);
+            docketTempAbbuteRoadList.add(docdet);
+        }
+
+        inspection.setDocketDetailLocList(docketTempLocList);
+        inspection.setDocketDetailMeasumentList(docketTempMeasumentList);
+        inspection.setDocketDetailAccessList(docketTempAccessList);
+        inspection.setDocketDetlSurroundingPlotList(docketTempSurroundingList);
+        inspection.setDocketDetailLandTypeList(docketTempLandList);
+        inspection.setDocketDetailProposedWorkList(docketTempProposedWorkList);
+        inspection.setDocketDetailWorkAsPerPlanList(docketTempWorkAsPerPlanList);
+        inspection.setDocketDetailHgtAbuttRoadList(docketTempAbbuteRoadList);
+
+    }
+
+    public Criteria getCheckListByServiceAndType( final String checkListTypeVal) {
 
         final Criteria checkListDet = getCurrentSession().createCriteria(CheckListDetail.class, "checklistdet");
         checkListDet.createAlias("checklistdet.checkList", "checkList");
-        checkListDet.createAlias("checkList.serviceType", "servicetype");
-        checkListDet.add(Restrictions.eq("servicetype.id", serviceTypeId));
         checkListDet.add(Restrictions.eq("checkList.checklistType", checkListTypeVal));
         return checkListDet;
     }

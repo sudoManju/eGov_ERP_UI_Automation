@@ -50,6 +50,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.egov.bpa.application.entity.enums.LandBldngZoneing;
 import org.egov.bpa.application.entity.enums.RoadType;
@@ -154,7 +155,7 @@ public class Inspection extends AbstractAuditable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="surroundedbywest")
     private SurroundedBldgDtl surroundedByWest;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="conststages")
     private ConstructionStages constStages;
     @Column(name="dwellingunitnt")
@@ -167,7 +168,24 @@ public class Inspection extends AbstractAuditable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="application")
     private BpaApplication application;
-
+    @Transient
+    private List<DocketDetail> docketDetailLocList = new ArrayList<>();
+    @Transient
+    private List<DocketDetail> docketDetailAccessList = new ArrayList<>();
+    @Transient
+    private List<DocketDetail> docketDetlSurroundingPlotList = new ArrayList<>();
+    @Transient
+    private List<DocketDetail> docketDetailLandTypeList = new ArrayList<>();
+    @Transient
+    private List<DocketDetail> docketDetailProposedWorkList = new ArrayList<>();
+    @Transient
+    private List<DocketDetail> docketDetailWorkAsPerPlanList = new ArrayList<>();
+    @Transient
+    private List<DocketDetail> docketDetailHgtAbuttRoadList = new ArrayList<>();
+    @Transient
+    private List<DocketDetail> docketDetailMeasumentList = new ArrayList<>();
+    
+    
     @Override
     public Long getId() {
         return id;
@@ -621,5 +639,73 @@ public class Inspection extends AbstractAuditable {
     public void setBldngWellOhtSumpTankArea(final BigDecimal bldngWellOhtSumpTankArea) {
         this.bldngWellOhtSumpTankArea = bldngWellOhtSumpTankArea;
     }
+
+    public List<DocketDetail> getDocketDetailLocList() {
+        return docketDetailLocList;
+    }
+
+    public void setDocketDetailLocList(List<DocketDetail> docketDetailLocList) {
+        this.docketDetailLocList = docketDetailLocList;
+    }
+
+    public List<DocketDetail> getDocketDetailAccessList() {
+        return docketDetailAccessList;
+    }
+
+    public void setDocketDetailAccessList(List<DocketDetail> docketDetailAccessList) {
+        this.docketDetailAccessList = docketDetailAccessList;
+    }
+
+    public List<DocketDetail> getDocketDetlSurroundingPlotList() {
+        return docketDetlSurroundingPlotList;
+    }
+
+    public void setDocketDetlSurroundingPlotList(List<DocketDetail> docketDetlSurroundingPlotList) {
+        this.docketDetlSurroundingPlotList = docketDetlSurroundingPlotList;
+    }
+
+    public List<DocketDetail> getDocketDetailLandTypeList() {
+        return docketDetailLandTypeList;
+    }
+
+    public void setDocketDetailLandTypeList(List<DocketDetail> docketDetailLandTypeList) {
+        this.docketDetailLandTypeList = docketDetailLandTypeList;
+    }
+
+    public List<DocketDetail> getDocketDetailProposedWorkList() {
+        return docketDetailProposedWorkList;
+    }
+
+    public void setDocketDetailProposedWorkList(List<DocketDetail> docketDetailProposedWorkList) {
+        this.docketDetailProposedWorkList = docketDetailProposedWorkList;
+    }
+
+    public List<DocketDetail> getDocketDetailWorkAsPerPlanList() {
+        return docketDetailWorkAsPerPlanList;
+    }
+
+    public void setDocketDetailWorkAsPerPlanList(List<DocketDetail> docketDetailWorkAsPerPlanList) {
+        this.docketDetailWorkAsPerPlanList = docketDetailWorkAsPerPlanList;
+    }
+
+    public List<DocketDetail> getDocketDetailHgtAbuttRoadList() {
+        return docketDetailHgtAbuttRoadList;
+    }
+
+    public void setDocketDetailHgtAbuttRoadList(List<DocketDetail> docketDetailHgtAbuttRoadList) {
+        this.docketDetailHgtAbuttRoadList = docketDetailHgtAbuttRoadList;
+    }
+
+    public List<DocketDetail> getDocketDetailMeasumentList() {
+        return docketDetailMeasumentList;
+    }
+
+    public void setDocketDetailMeasumentList(List<DocketDetail> docketDetailMeasumentList) {
+        this.docketDetailMeasumentList = docketDetailMeasumentList;
+    }
+
+
+   
+    
 
 }

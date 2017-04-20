@@ -49,8 +49,9 @@ public class BpaConstants {
     public static final String BPASTATUSMODULETYPE = "BPAAPPLICATION";
     public static final String ROLE_CITIZEN = "Citizen";
     public static final String YEARLY = "Yearly";
-    public static final String WATER_CONN_BILLNO_SEQ = "SEQ_BILLNO_";
+    public static final String BPA_APPNO_SEQ = "SEQ_BPA_APPNO_";
     public static final String USERNAME_ANONYMOUS = "anonymous";
+    public static final String WATER_CONN_BILLNO_SEQ = "SEQ_BILLNO_";
     public static final String LOCALITY = "locality";
     public static final String ELECTIONWARD_BNDRY_TYPE = "Election Ward";
     public static final String LOCALITY_BNDRY_TYPE = "Locality";
@@ -107,4 +108,19 @@ public class BpaConstants {
     public static final String CREATEINSPECTIONDETAIL_FORM = "createInspectiondetail-form";
     public static final String ADDITIONALRULE = "additionalRule";
     public static final String INSPECTION_NUMBER_SEQ = "SEQ_BPA_INSPE";
+    public static final String INSPECTIONLOCATION= "INSPECTIONLOCATION";
+    public static final String INSPECTIONMEASUREMENT = "INSPECTIONMEASUREMENT";
+
+    public static final String INSPECTIONACCESS = "INSPECTIONACCESS";
+
+    public static final String INSPECTIONSURROUNDING= "INSPECTIONSURROUNDING";
+
+    public static final String INSPECTIONTYPEOFLAND= "INSPECTIONTYPEOFLAND";
+
+    public static final String INSPECTIONPROPOSEDSTAGEWORK = "INSPECTIONPROPOSEDSTAGEWORK";
+
+    public static final String INSPECTIONWORKCOMPLETEDPERPLAN= "INSPECTIONWORKCOMPLETEDPERPLAN";
+
+    public static final String INSPECTIONHGTBUILDABUTROAD= "INSPECTIONHGTBUILDABUTROAD";
+
 }

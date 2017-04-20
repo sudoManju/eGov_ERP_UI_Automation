@@ -39,6 +39,7 @@
  */
 package org.egov.bpa.web.controller.application;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -72,16 +73,14 @@ public class ModifyInspectionController extends BpaGenericApplicationController 
     @Autowired
     private InspectionService inspectionService;
 
-
     @ModelAttribute
     public Inspection getInspectionForBpaAPplication(@PathVariable final String applicationNumber) {
-        Inspection inspection;
+        Inspection inspection = null;
         final BpaApplication bpaApplication = applicationBpaService.findByApplicationNumber(applicationNumber);
         final List<Inspection> inspections = inspectionService.findByBpaApplicationOrderByIdAsc(bpaApplication);
         if (!inspections.isEmpty())
             inspection = inspections.get(0);
-        else
-            inspection = new Inspection();
+
         return inspection;
     }
 
@@ -103,6 +102,17 @@ public class ModifyInspectionController extends BpaGenericApplicationController 
             loadApplication(model, applicationNumber);
             return "inspection-edit";
         }
+        final List<DocketDetail> docketDetailTempList = new ArrayList<>();
+        final List<DocketDetail> docketDetailList = inspectionService.buildDocDetFromUI(inspection);
+        for (final DocketDetail docketDet : inspection.getDocket().get(0).getDocketDetail())
+            for (final DocketDetail temploc : docketDetailList)
+                if (docketDet.getCheckListDetail().getId().equals(temploc.getCheckListDetail().getId())) {
+                    docketDet.setValue(temploc.getValue());
+                    docketDet.setRemarks(temploc.getRemarks());
+                    docketDetailTempList.add(docketDet);
+
+                }
+        inspection.getDocket().get(0).setDocketDetail(docketDetailTempList);
         final Inspection savedInspection = inspectionService.save(inspection, application);
         model.addAttribute("message", "Inspection Saved Successfully");
         return "redirect:/application/view-inspection/" + savedInspection.getId();
@@ -117,12 +127,45 @@ public class ModifyInspectionController extends BpaGenericApplicationController 
             model.addAttribute(BpaConstants.APPLICATION_HISTORY,
                     bpaThirdPartyService.getHistory(application));
         }
-        final List<DocketDetail> docketTempList = inspectionService.prepareDocketDetailList(application);
         final Inspection inspection = getInspectionForBpaAPplication(applicationNumber);
-        inspection.setInspectionDate(new Date());
+        if (inspection != null)
+            inspection.setInspectionDate(new Date());
+        buildDocketDetailList(inspection);
         model.addAttribute("inspection", inspection);
-        model.addAttribute("docketDetail", docketTempList);
+        model.addAttribute("docketDetailLocList", inspection.getDocketDetailLocList());
+        model.addAttribute("docketDetailMeasumentList", inspection.getDocketDetailMeasumentList());
+        model.addAttribute("docketDetailAccessList", inspection.getDocketDetailAccessList());
+        model.addAttribute("docketDetlSurroundingPlotList", inspection.getDocketDetlSurroundingPlotList());
+        model.addAttribute("docketDetailLandTypeList", inspection.getDocketDetailLandTypeList());
+        model.addAttribute("docketDetailProposedWorkList", inspection.getDocketDetailProposedWorkList());
+        model.addAttribute("docketDetailWorkAsPerPlanList", inspection.getDocketDetailWorkAsPerPlanList());
+        model.addAttribute("docketDetailHgtAbuttRoadList", inspection.getDocketDetailHgtAbuttRoadList());
         model.addAttribute(BpaConstants.BPA_APPLICATION, application);
+    }
+
+    public void buildDocketDetailList(final Inspection inspection) {
+        if (inspection != null && !inspection.getDocket().isEmpty())
+            for (final DocketDetail docketDet : inspection.getDocket().get(0).getDocketDetail()) {
+                if (docketDet.getCheckListDetail().getCheckList().getChecklistType().equals(BpaConstants.INSPECTIONLOCATION))
+                    inspection.getDocketDetailLocList().add(docketDet);
+                if (docketDet.getCheckListDetail().getCheckList().getChecklistType().equals(BpaConstants.INSPECTIONMEASUREMENT))
+                    inspection.getDocketDetailMeasumentList().add(docketDet);
+                if (docketDet.getCheckListDetail().getCheckList().getChecklistType().equals(BpaConstants.INSPECTIONACCESS))
+                    inspection.getDocketDetailAccessList().add(docketDet);
+                if (docketDet.getCheckListDetail().getCheckList().getChecklistType().equals(BpaConstants.INSPECTIONSURROUNDING))
+                    inspection.getDocketDetlSurroundingPlotList().add(docketDet);
+                if (docketDet.getCheckListDetail().getCheckList().getChecklistType().equals(BpaConstants.INSPECTIONTYPEOFLAND))
+                    inspection.getDocketDetailLandTypeList().add(docketDet);
+                if (docketDet.getCheckListDetail().getCheckList().getChecklistType()
+                        .equals(BpaConstants.INSPECTIONPROPOSEDSTAGEWORK))
+                    inspection.getDocketDetailProposedWorkList().add(docketDet);
+                if (docketDet.getCheckListDetail().getCheckList().getChecklistType()
+                        .equals(BpaConstants.INSPECTIONWORKCOMPLETEDPERPLAN))
+                    inspection.getDocketDetailWorkAsPerPlanList().add(docketDet);
+                if (docketDet.getCheckListDetail().getCheckList().getChecklistType()
+                        .equals(BpaConstants.INSPECTIONHGTBUILDABUTROAD))
+                    inspection.getDocketDetailHgtAbuttRoadList().add(docketDet);
+            }
     }
 
     private void loadViewdata(final Model model, final BpaApplication application) {

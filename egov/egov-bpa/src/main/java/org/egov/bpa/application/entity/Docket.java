@@ -101,10 +101,10 @@ public class Docket extends AbstractAuditable {
     private BigDecimal constructionWidthRear = new BigDecimal(0);
     private BigDecimal constructionHeightRear = new BigDecimal(0);
 
-    @OneToMany(mappedBy = "docket", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "docket", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<DocketConstructionStage> docketConstructionStage = new ArrayList<DocketConstructionStage>(0);
 
-    @OneToMany(mappedBy = "docket", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "docket", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<DocketDetail> docketDetail = new ArrayList<DocketDetail>(0);
 
     @Override
