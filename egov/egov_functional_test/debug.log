@@ -34,3 +34,4 @@
 [0407/164148.396:ERROR:process_info.cc(625)] range at 0xfff52000, size 0xf84 fully unreadable
 [0407/164148.397:ERROR:process_info.cc(625)] range at 0xfff4f000, size 0xf84 fully unreadable
 [0407/164148.397:ERROR:process_info.cc(625)] range at 0xfffac000, size 0xf84 fully unreadable
+[0419/213309.316:ERROR:file_io_win.cc(163)] CreateFile C:\Users\tester1\AppData\Local\Temp\scoped_dir224_1373\Crashpad\settings.dat: The process cannot access the file because it is being used by another process. (0x20)

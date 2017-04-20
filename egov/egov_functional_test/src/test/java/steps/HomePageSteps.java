@@ -13,6 +13,7 @@ public class HomePageSteps extends BaseSteps implements En {
 //            if (System.getProperty("env").equalsIgnoreCase("qa"))
 //                loginDetails.setPassword("eGov@123");
             pageStore.get(HomePage.class).loginAs(loginDetails);
+            scenarioContext.setUser(currentUser);
         });
 
         And("^the next user will be logged in$", () -> {

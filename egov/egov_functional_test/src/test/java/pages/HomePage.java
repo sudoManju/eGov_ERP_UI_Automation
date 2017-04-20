@@ -23,7 +23,8 @@ public class HomePage extends BasePage {
     @FindBy(css = ".form-control.style-form.valid")
     private WebElement zoneSelect;
 
-    @FindBy(className = "profile-name")
+
+    @FindBy(className= "dropdown-toggle")
     private WebElement profileLink;
 
     @FindBy(linkText = "Sign out")

@@ -30,6 +30,9 @@ public class GrievancesPage extends BasePage {
     @FindBy(id = "complaintType")
     private WebElement complaintTypeSelect;
 
+    @FindBy(id = "complaintTypeName")
+    private WebElement complaintTypeTextBox;
+
     @FindBy(id = "doc")
     private WebElement grievanceDetailsText;
 
@@ -100,9 +103,16 @@ public class GrievancesPage extends BasePage {
         enterText(emailIdTextBox, createComplaintDetails.getEmailId(), webDriver);
     }
 
-    public String enterGrievanceDetails(CreateComplaintDetails createComplaintDetails) {
-        selectFromDropDown(complaintTypeCategorySelect, createComplaintDetails.getGrievanceCategory(), webDriver);
-        selectFromDropDown(complaintTypeSelect, createComplaintDetails.getGrievanceType(), webDriver);
+    public String enterGrievanceDetails(CreateComplaintDetails createComplaintDetails, String user) {
+        if(user.equals("citizen")) {
+            enterText(complaintTypeTextBox, createComplaintDetails.getGrievanceType(), webDriver);
+            WebElement dropdown1 = webDriver.findElement(By.className("tt-highlight"));
+            dropdown1.click();
+        }
+        else {
+            selectFromDropDown(complaintTypeCategorySelect, createComplaintDetails.getGrievanceCategory(), webDriver);
+            selectFromDropDown(complaintTypeSelect, createComplaintDetails.getGrievanceType(), webDriver);
+        }
         enterText(grievanceDetailsText, createComplaintDetails.getGrievanceDetails(), webDriver);
         enterText(grievanceLocationText, createComplaintDetails.getGrievanceLocation(), webDriver);
         WebElement dropdown = webDriver.findElement(By.className("tt-highlight"));
