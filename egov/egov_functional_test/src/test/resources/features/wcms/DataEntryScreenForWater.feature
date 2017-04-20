@@ -17,7 +17,7 @@ Feature: To create a data entry screen for the water charge management services 
   @Sanity @WaterCharges
   Scenario Outline: To create a data entry screen for the water charges
 
-    Given admin logs in
+    Given commissioner logs in
     And user will select the required screen as "Data Entry Screen" with condition as "wtms"
     And user will enter the details of data entry screen for water charges <connectionDetails>
     And user will notify the successful creation of data entry screen as "Successfully"
