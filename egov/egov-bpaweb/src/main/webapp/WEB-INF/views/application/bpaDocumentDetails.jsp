@@ -77,8 +77,8 @@
 						<span class="mandatory"></span>
 					</c:if>
 					<form:hidden
-						id="applicationDocument${status.index}checklistDetail.id"
-						path="applicationDocument[${status.index}].checklistDetail.id"
+						id="applicationDocument${status.index}checklistDetail"
+						path="applicationDocument[${status.index}].checklistDetail"
 						value="${docs.id}" />
 					<form:hidden id="applicationDocument${status.index}checklistDetail"
 						path="applicationDocument[${status.index}].checklistDetail.isMandatory"
