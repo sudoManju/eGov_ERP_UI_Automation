@@ -35,6 +35,7 @@ public class LocalDriver {
             options.addArguments("allow-running-insecure-content");
             options.addArguments("--disable-extensions");
             //            options.addArguments("disable-web-security");
+            capabilities.setCapability(CapabilityType.ForSeleniumServer.ENSURING_CLEAN_SESSION, true);
             capabilities.setCapability(ChromeOptions.CAPABILITY, options);
             return new ChromeDriver(capabilities);
 
