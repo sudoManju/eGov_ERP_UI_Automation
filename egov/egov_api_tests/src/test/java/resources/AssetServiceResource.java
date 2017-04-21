@@ -18,7 +18,7 @@ public class AssetServiceResource {
                 .when()
                 .post(Properties.searchAssetServiceUrl);
 
-        new APILogger().log("Search Asset Service Response is Generated as --" + json);
+        new APILogger().log("Search Asset Service Response is Generated as --" + response.asString());
         return response;
     }
 
@@ -32,7 +32,7 @@ public class AssetServiceResource {
                 .when()
                 .post(Properties.createAssetServiceUrl);
 
-        new APILogger().log("Create Asset Service Response is Generated with --" + jsonString);
+        new APILogger().log("Create Asset Service Response is Generated with --" + response.asString());
         return response;
     }
 }

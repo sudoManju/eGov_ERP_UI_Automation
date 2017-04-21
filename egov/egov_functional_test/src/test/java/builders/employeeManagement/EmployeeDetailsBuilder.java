@@ -11,6 +11,7 @@ public final class EmployeeDetailsBuilder {
         details.setMobileNumber("9999988888");
         details.setEmailId("testing@gmail.com");
 
+
     }
 
     public EmployeeDetailsBuilder withMartialStatus(String status){
