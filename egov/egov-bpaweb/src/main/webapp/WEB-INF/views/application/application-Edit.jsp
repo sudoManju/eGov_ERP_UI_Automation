@@ -87,19 +87,9 @@
 					</div>
 				</div>
 			</div>
-		<%-- 	<jsp:include page="../common/commonWorkflowMatrix.jsp" />
+			<jsp:include page="../common/commonWorkflowMatrix.jsp" />
 			<div class="buttonbottom" align="center">
 				<jsp:include page="../common/commonWorkflowMatrix-button.jsp" />
-			</div> --%>
-					<div class="buttonbottom" align="center">
-				<table>
-					<tr>
-						<td><form:button type="submit" id="updateApplication"
-								class="btn btn-primary" value="updateApplication">Submit</form:button> <input
-							type="button" name="button2" id="button2" value="Close"
-							class="btn btn-primary" onclick="window.close();" /></td>
-					</tr>
-				</table>
 			</div>
 		</form:form>
 	</div>
