@@ -101,10 +101,8 @@ public class InspectionService {
         if (inspection.getInspectionDate() == null)
             inspection.setInspectionDate(new Date());
         inspection.setApplication(application);
-        if(inspection.getDocket().get(0)==null){
         inspection.getDocket().get(0).setInspection(inspection);
         buildDocketDetails(inspection.getDocket().get(0));
-        }
         return inspectionRepository.save(inspection);
     }
 
