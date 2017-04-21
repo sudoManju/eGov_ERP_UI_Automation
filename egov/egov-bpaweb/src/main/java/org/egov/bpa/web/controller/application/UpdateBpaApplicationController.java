@@ -81,6 +81,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class UpdateBpaApplicationController extends BpaGenericApplicationController {
 
     private static final String FORWARDED_TO_FIELD_ISPECTION = "Forwarded to Assistant Engineer for field ispection";
+    private static final String FORWARDED_TO_NOC_UPDATE = "Forwarded to Superintendent for Noc Updation";
     
     private static final String BPA_APPLICATION = "bpaApplication";
 
@@ -158,10 +159,14 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         if (mode == null) {
             mode = "edit";
         }
-        if(!FORWARDED_TO_FIELD_ISPECTION.equalsIgnoreCase(application.getState().getNextAction()) && APPLICATION_STATUS_FIELD_INS.equalsIgnoreCase(application.getStatus().getCode())){
+        if(FORWARDED_TO_NOC_UPDATE.equalsIgnoreCase(application.getState().getNextAction()) && APPLICATION_STATUS_FIELD_INS.equalsIgnoreCase(application.getStatus().getCode())){
             model.addAttribute("showUpdateNoc", true);
         }
-        if(APPLICATION_STATUS_APPROVED.equalsIgnoreCase(application.getStatus().getCode()) || APPLICATION_STATUS_DIGI_SIGNED.equalsIgnoreCase(application.getStatus().getCode()) || APPLICATION_STATUS_ORDER_ISSUED.equalsIgnoreCase(application.getStatus().getCode())){
+        if (!(FORWARDED_TO_NOC_UPDATE.equalsIgnoreCase(application.getState().getNextAction())
+                && APPLICATION_STATUS_FIELD_INS.equalsIgnoreCase(application.getStatus().getCode()))
+                || APPLICATION_STATUS_APPROVED.equalsIgnoreCase(application.getStatus().getCode())
+                || APPLICATION_STATUS_DIGI_SIGNED.equalsIgnoreCase(application.getStatus().getCode())
+                || APPLICATION_STATUS_ORDER_ISSUED.equalsIgnoreCase(application.getStatus().getCode())) {
             model.addAttribute("showNOCDetails", true);
         }
         model.addAttribute("scheduleType", scheduleType);
