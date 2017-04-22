@@ -49,12 +49,71 @@
 		<strong>${message}</strong>
 	</c:if>
 </div>
+
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-primary" data-collapsed="0">
 			<div class="panel-heading custom_form_panel_heading">
 				<div class="panel-title">Inspection Details</div>
 			</div>
+	<div class="row add-border">
+			<div class="col-sm-3 add-margin">
+				Location of the Plot
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+				<c:out value="${docket[0].locationOfPlot}" default="N/A"></c:out>
+			</div>
+			<div class="col-sm-3 add-margin">
+				Land Area
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+				<c:out value="${inspection.lndRegularizationArea}" default="N/A"></c:out>
+			</div>
+		</div>
+		
+		
+		<div class="row add-border">
+			<div class="col-sm-3 add-margin">
+				Building Area
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+				<c:out value="${inspection.bldngBuildUpArea}" default="N/A"></c:out>
+			</div>
+			<div class="col-sm-3 add-margin">
+				Coumpound Wall
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+				<c:out value="${inspection.bldngCompoundWall}" default="N/A"></c:out>
+			</div>
+		</div>
+		<div class="row add-border">
+			<div class="col-sm-3 add-margin">
+			No of Wells
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+				<c:out value="${inspection.bldngwellohtsumptankarea}" default="N/A"></c:out>
+			</div>
+			<div class="col-sm-3 add-margin">
+			Occupancy
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+			N/A
+			</div>
+		</div>
+			<div class="row add-border">
+			<div class="col-sm-3 add-margin">
+			Extent in Sqmtr
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+				<c:out value="${inspection.lndMinPlotExtent}" default="N/A"></c:out>
+			</div>
+			<div class="col-sm-3 add-margin">
+			
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+			</div>
+		</div>
+
 			<div class="row add-border">
 				<div class="col-sm-5 add-margin">
 					<div class="panel-title">Inspection Details CheckList</div>

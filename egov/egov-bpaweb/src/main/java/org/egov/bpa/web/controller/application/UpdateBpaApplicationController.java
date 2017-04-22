@@ -146,13 +146,11 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
             mode = "postponeappointment";
             scheduleType = AppointmentSchedulePurpose.INSPECTION;
         }
-        else if (FORWARDED_TO_FIELD_ISPECTION.equalsIgnoreCase(application.getState().getNextAction())
-                && DOCUMENTVERIFIED.equalsIgnoreCase(application.getStatus().getCode())
+        else if ( DOCUMENTVERIFIED.equalsIgnoreCase(application.getStatus().getCode())
                 && application.getInspections().isEmpty()) {
             mode = "captureInspection";
         }
-        else if (FORWARDED_TO_FIELD_ISPECTION.equalsIgnoreCase(application.getState().getNextAction())
-                && DOCUMENTVERIFIED.equalsIgnoreCase(application.getStatus().getCode())
+        else if (DOCUMENTVERIFIED.equalsIgnoreCase(application.getStatus().getCode())
                 && !application.getInspections().isEmpty()) {
             mode = "modifyInspection";
         }

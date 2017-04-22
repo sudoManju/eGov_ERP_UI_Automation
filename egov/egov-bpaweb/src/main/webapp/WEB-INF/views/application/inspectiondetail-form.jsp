@@ -59,8 +59,70 @@
 		<form:errors path="docket[0].locationOfPlot" required="required"
 			cssClass="add-margin error-msg" />
 	</div>
-</div>
-
+	<label class="col-sm-2 control-label text-right">Land Area</label>
+	<div class="col-sm-2 add-margin">
+		<form:input class="form-control patternvalidation"
+			data-pattern="number"  id="lndRegularizationArea"
+			path="lndRegularizationArea" />
+		<form:errors path="lndRegularizationArea" 
+			cssClass="add-margin error-msg" />
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-3 control-label text-right">Building Area</label>
+	<div class="col-sm-3 add-margin">
+		<form:input  class="form-control patternvalidation" data-pattern="number"
+		  id="bldngBuildUpArea"
+			path="bldngBuildUpArea" />
+		<form:errors path="bldngBuildUpArea" required="required"
+			cssClass="add-margin error-msg" />
+	</div>
+	<label class="col-sm-2 control-label text-right">Compound Wall</label>
+	<div class="col-sm-2 add-margin">
+		<form:input  class="form-control patternvalidation" data-pattern="number"
+		 id="bldngCompoundWall"
+			path="bldngCompoundWall" />
+		<form:errors path="bldngCompoundWall" 
+			cssClass="add-margin error-msg" />
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-3 control-label text-right">No of Wells</label>
+	<div class="col-sm-3 add-margin">
+		<form:input  class="form-control patternvalidation" data-pattern="number"
+		  id="bldngwellohtsumptankarea"
+			path="bldngwellohtsumptankarea" />
+		<form:errors path="bldngwellohtsumptankarea" required="required
+			cssClass="add-margin error-msg" />
+	</div>
+	<label class="col-sm-2 control-label text-right">Occupancy<span
+		class="mandatory"></span></label>
+		<div class="col-sm-3 add-margin">
+	<form:select path="landUsage"
+			data-first-option="false" id="" cssClass="form-control"
+			required="required">
+			<form:option value="">
+				<spring:message code="lbl.select" />
+			</form:option>
+			<form:options items="${occupancyList}" itemValue="id"
+				itemLabel="code" />
+		</form:select>
+		<form:errors path="landUsage"
+			cssClass="add-margin error-msg" />
+	</div>
+	</div>
+	
+<div class="form-group">
+	<label class="col-sm-3 control-label text-right">Extent in Sqmts<span
+		class="mandatory"></span></label>
+	<div class="col-sm-3 add-margin">
+		<form:input  class="form-control patternvalidation" data-pattern="number"
+		  id="lndMinPlotExtent"
+			path="lndMinPlotExtent" />
+		<form:errors path="lndMinPlotExtent" required="required"
+			cssClass="add-margin error-msg" />
+	</div>
+	</div>
 <c:choose>
 	<c:when test="${!docketDetailLocList.isEmpty()}">
 	<div class="panel-heading custom_form_panel_heading">

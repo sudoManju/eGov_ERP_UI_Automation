@@ -37,40 +37,13 @@
  *
  *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
-package org.egov.bpa.web.controller.application;
+package org.egov.bpa.masters.repository;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.egov.bpa.application.entity.LandBuildingTypes;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import org.egov.bpa.application.entity.DocketDetail;
-import org.egov.bpa.application.entity.Inspection;
-import org.egov.bpa.application.service.InspectionService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+@Repository
+public interface LandBuildingTypesRepository extends JpaRepository<LandBuildingTypes, Long> {
 
-@Controller
-@RequestMapping(value = "/application")
-public class ViewInspectionController extends BpaGenericApplicationController {
-    private static final String INSPECTION_RESULT = "inspectionDetail-view";
-
-    @Autowired
-    private InspectionService inspectionService;
-
-
-    @RequestMapping(value = "/view-inspection/{id}", method = RequestMethod.GET)
-    public String viewInspection(@PathVariable final Long id, final Model model) {
-        final List<Inspection> inspection = inspectionService.findByIdOrderByIdAsc(id);
-        List<DocketDetail> dockeDetList = new ArrayList<>();
-        if (!inspection.isEmpty())
-            dockeDetList = inspection.get(0).getDocket().get(0).getDocketDetail();
-        model.addAttribute("docketDetail", dockeDetList);
-        model.addAttribute("inspection", inspection);
-        model.addAttribute("message", "Inspection Saved Successfully");
-        return INSPECTION_RESULT;
-    }
-   
 }

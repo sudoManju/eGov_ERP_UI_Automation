@@ -54,6 +54,7 @@ import org.egov.bpa.application.entity.ApplicationDocument;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BuildingCategory;
 import org.egov.bpa.application.entity.CheckListDetail;
+import org.egov.bpa.application.entity.LandBuildingTypes;
 import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.application.entity.VillageName;
 import org.egov.bpa.application.entity.enums.ApplicantMode;
@@ -61,6 +62,7 @@ import org.egov.bpa.application.entity.enums.StakeHolderType;
 import org.egov.bpa.application.service.ApplicationBpaService;
 import org.egov.bpa.application.service.CheckListDetailService;
 import org.egov.bpa.masters.service.BuildingCategoryService;
+import org.egov.bpa.masters.service.LandBuildingTypesService;
 import org.egov.bpa.masters.service.ServiceTypeService;
 import org.egov.bpa.masters.service.VillageNameService;
 import org.egov.bpa.service.BpaThirdPartyService;
@@ -84,6 +86,10 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     private BoundaryService boundaryService;
     @Autowired
     private ServiceTypeService serviceTypeService;
+    
+    @Autowired
+    private LandBuildingTypesService landBuildingTypesService;
+    
     @Autowired
     private VillageNameService villageNameService;
     @Autowired
@@ -100,6 +106,12 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     @Autowired
     protected FileStoreUtils fileStoreUtils;
 
+    @ModelAttribute("occupancyList")
+    public List<LandBuildingTypes> getOccupancy() {
+        return landBuildingTypesService.findAll();
+    }
+    
+    
     @ModelAttribute("zones")
     public List<Boundary> zones() {
         return boundaryService.getActiveBoundariesByBndryTypeNameAndHierarchyTypeName(BpaConstants.ZONE,
