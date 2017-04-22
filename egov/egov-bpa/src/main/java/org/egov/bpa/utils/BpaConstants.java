@@ -107,7 +107,7 @@ public class BpaConstants {
     public static final String APPLICATION_HISTORY = "applicationHistory";
     public static final String CREATEINSPECTIONDETAIL_FORM = "createInspectiondetail-form";
     public static final String ADDITIONALRULE = "additionalRule";
-    public static final String INSPECTION_NUMBER_SEQ = "SEQ_BPA_INSPE";
+    public static final String INSPECTION_NUMBER_SEQ = "SEQ_BPA_INSPECTIONNUMBER";
     public static final String INSPECTIONLOCATION= "INSPECTIONLOCATION";
     public static final String INSPECTIONMEASUREMENT = "INSPECTIONMEASUREMENT";
 

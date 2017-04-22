@@ -77,7 +77,7 @@
 		<form:errors path="bldngBuildUpArea" required="required"
 			cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right">Compound Wall</label>
+	<label class="col-sm-2 control-label text-right">Compound Wall(In Running Mtr.)</label>
 	<div class="col-sm-2 add-margin">
 		<form:input  class="form-control patternvalidation" data-pattern="number"
 		 id="bldngCompoundWall"
@@ -87,15 +87,15 @@
 	</div>
 	</div>
 	<div class="form-group">
-	<label class="col-sm-3 control-label text-right">No of Wells</label>
+	<label class="col-sm-3 control-label text-right">No. of Wells</label>
 	<div class="col-sm-3 add-margin">
 		<form:input  class="form-control patternvalidation" data-pattern="number"
-		  id="bldngwellohtsumptankarea"
-			path="bldngwellohtsumptankarea" />
-		<form:errors path="bldngwellohtsumptankarea"
+		  id="bldngWellOhtSumpTankArea"
+			path="bldngWellOhtSumpTankArea" />
+		<form:errors path="bldngWellOhtSumpTankArea"
 			cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right">Occupancy></label>
+	<label class="col-sm-2 control-label text-right">Occupancy</label>
 		<div class="col-sm-3 add-margin">
 	<form:select path="landUsage"
 			data-first-option="false" id="" cssClass="form-control"
@@ -112,7 +112,7 @@
 	</div>
 	
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right">Extent in Sqmts<span
+	<label class="col-sm-3 control-label text-right">Extent in Sqmts.<span
 		class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:input  class="form-control patternvalidation" data-pattern="number"
