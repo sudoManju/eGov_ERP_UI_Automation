@@ -126,7 +126,7 @@ public class BpaConstants {
     public static final String BPASTATUS_APPLICATIONFEE_APPROVED = "Approved";
     public static final String FEETYPE_SANCTIONFEE = "SanctionFee";
     public static final String AUTOCALCULATEFEEBYINSPECTION = "BPA_AUTOCALCULATE_FEE";
-    public static final String BPASTATUS_MODULETYPE_REGISTRATIONFEE = "REGISTRATIONFEE";
+    public static final String BPASTATUS_MODULETYPE_REGISTRATIONFEE = "APPLICATIONFEE";
     public static final String BPASTATUS_REGISTRATIONFEE_APPROVED = "Approved";
     
     public static final String APPLN_STATUS_FIELD_INSPECTION_INITIATED = "Field Inspection initiated";

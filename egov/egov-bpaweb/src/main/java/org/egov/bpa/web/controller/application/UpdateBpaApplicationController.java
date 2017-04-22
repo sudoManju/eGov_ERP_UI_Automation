@@ -83,7 +83,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
     private static final String FWD_TO_OVRSR_FOR_FIELD_INS = "Forwarded to Overseer for field inspection";
     private static final String FORWARDED_TO_SUP_NOC = "Forwarded to Superintendent-Noc";
     private static final String FORWARDED_TO_NOC_UPDATE = "Forwarded to Superintendent for Noc Updation";
-    private static final String FORWARDED_TO_APPROVAL = "Forwarded to Approval";
+    private static final String FORWARDED_TO_APPROVAL = "Forwarded to Superintendent approval";
     private static final String BPA_APPLICATION = "bpaApplication";
 
     private static final String MESSAGE = "message";
@@ -155,15 +155,17 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
             scheduleType = AppointmentSchedulePurpose.INSPECTION;
         } else if(FORWARDED_TO_NOC_UPDATE.equalsIgnoreCase(application.getState().getNextAction()) && APPLICATION_STATUS_FIELD_INS.equalsIgnoreCase(application.getStatus().getCode())){
             model.addAttribute("showUpdateNoc", true);
-        } else  if (!DOCUMENTVERIFIED.equalsIgnoreCase(application.getStatus().getCode()) && !(FORWARDED_TO_NOC_UPDATE.equalsIgnoreCase(application.getState().getNextAction())
-                && !APPLN_STATUS_FIELD_INSPECTION_INITIATED.equalsIgnoreCase(application.getStatus().getCode()) && APPLICATION_STATUS_FIELD_INS.equalsIgnoreCase(application.getStatus().getCode()))
+        } else if (FORWARDED_TO_APPROVAL.equalsIgnoreCase(application.getState().getNextAction())
+                && !application.getInspections().isEmpty()) {
+            mode = "initialtedApprove";
+        } else if (!DOCUMENTVERIFIED.equalsIgnoreCase(application.getStatus().getCode())
+                && !(FORWARDED_TO_NOC_UPDATE.equalsIgnoreCase(application.getState().getNextAction())
+                        && !APPLN_STATUS_FIELD_INSPECTION_INITIATED.equalsIgnoreCase(application.getStatus().getCode())
+                        && APPLICATION_STATUS_FIELD_INS.equalsIgnoreCase(application.getStatus().getCode()))
                 || APPLICATION_STATUS_APPROVED.equalsIgnoreCase(application.getStatus().getCode())
                 || APPLICATION_STATUS_DIGI_SIGNED.equalsIgnoreCase(application.getStatus().getCode())
                 || APPLICATION_STATUS_ORDER_ISSUED.equalsIgnoreCase(application.getStatus().getCode())) {
             model.addAttribute("showNOCDetails", true);
-        } else if (FORWARDED_TO_APPROVAL.equalsIgnoreCase(application.getState().getNextAction())
-                          && !application.getInspections().isEmpty()) {
-            mode = "initialtedApprove";
         }
         if (mode == null) {
             mode = "edit";

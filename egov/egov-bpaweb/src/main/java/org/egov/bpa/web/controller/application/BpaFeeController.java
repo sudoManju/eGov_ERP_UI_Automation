@@ -119,9 +119,7 @@ public class BpaFeeController {
             final HttpServletRequest request) {
         final ApplicationFee applicationFee = getBpaApplication(applicationNumber);
         if (applicationFee != null && applicationFee.getApplication() != null
-                && applicationFee.getApplication().getState() != null
-                && applicationFee.getApplication().getState().getValue()
-                        .equalsIgnoreCase(BpaConstants.BPA_STATUS_SUPERINDENT_APPROVED)) {
+                            ) {
             loadViewdata(model, applicationFee);
 
             // check fee calculate first time or update ? Check inspection is captured for existing application ?
