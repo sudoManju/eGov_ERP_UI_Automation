@@ -62,6 +62,10 @@
 			<ul class="nav nav-tabs" id="settingstab">
 				<li class="active"><a data-toggle="tab" href="#applicant-info"
 					data-tabidx=0><spring:message code='lbl.appln.details' /></a></li>
+				<c:if test="${not empty bpaApplication.documentScrutiny}">
+						<li><a data-toggle="tab" href="#doc-scrnty" data-tabidx=1><spring:message
+									code='lbl.document.scrutiny' /></a></li>
+				</c:if>
 				<c:if test="${showUpdateNoc}">
 					<li><a data-toggle="tab" href="#checklist-info" data-tabidx=1><spring:message
 								code='lbl.noc.doc.details' /></a></li>
@@ -98,6 +102,14 @@
 						<jsp:include page="applicationhistory-view.jsp"></jsp:include>
 					</div>
 				</div>
+				
+				<c:if test="${not empty bpaApplication.documentScrutiny}">
+						<div id="doc-scrnty" class="tab-pane fade">
+							<div class="panel panel-primary" data-collapsed="0">
+								<jsp:include page="view-documentscrutiny.jsp"></jsp:include>
+							</div>
+						</div>
+				</c:if>
 				<c:if test="${showNocList}">
 					<div id="noc-info" class="tab-pane fade">
 						<div class="panel panel-primary" data-collapsed="0">
