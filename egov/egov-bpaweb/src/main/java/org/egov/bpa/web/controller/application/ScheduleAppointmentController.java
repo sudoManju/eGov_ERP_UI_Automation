@@ -39,7 +39,7 @@
  */
 package org.egov.bpa.web.controller.application;
 
-import static org.egov.bpa.utils.BpaConstants.DOCUMENTVERIFIED;
+import static org.egov.bpa.utils.BpaConstants.APPLN_STATUS_FIELD_INSPECTION_INITIATED;
 import static org.egov.bpa.utils.BpaConstants.REGISTERED;
 
 import java.util.List;
@@ -95,7 +95,7 @@ public class ScheduleAppointmentController extends BpaGenericApplicationControll
         BpaAppointmentSchedule appointmentSchedule = new BpaAppointmentSchedule();
         if (REGISTERED.equalsIgnoreCase(bpaApplication.getStatus().getCode())) {
             appointmentSchedule.setPurpose(AppointmentSchedulePurpose.DOCUMENTSCRUTINY);
-        } else if (DOCUMENTVERIFIED.equalsIgnoreCase(bpaApplication.getStatus().getCode())) {
+        } else if (APPLN_STATUS_FIELD_INSPECTION_INITIATED.equalsIgnoreCase(bpaApplication.getStatus().getCode())) {
             appointmentSchedule.setPurpose(AppointmentSchedulePurpose.INSPECTION);
         }
         model.addAttribute(BPA_APPOINTMENT_SCHEDULE, appointmentSchedule);

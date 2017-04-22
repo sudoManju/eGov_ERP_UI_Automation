@@ -50,24 +50,30 @@
 			id="editWaterConnectionform"
 			cssClass="form-horizontal form-groups-bordered"
 			enctype="multipart/form-data">
-			<input type="hidden" name="bpaApplication" value="${bpaApplication.id}">
+			<input type="hidden" name="bpaApplication"
+				value="${bpaApplication.id}">
 			<form:hidden path="" id="wfstate" value="${bpaApplication.state.id}" />
 			<form:hidden path="" id="workFlowAction" name="workFlowAction" />
-			<form:hidden path="" id="wfstateDesc" value="${bpaApplication.state.value}" />
+			<form:hidden path="" id="wfstateDesc"
+				value="${bpaApplication.state.value}" />
 			<form:hidden path="" id="mode" name="mode" value="${mode}" />
-			<form:hidden path="" id="scheduleType" name="scheduleType" value="${scheduleType}" />
+			<form:hidden path="" id="scheduleType" name="scheduleType"
+				value="${scheduleType}" />
 			<ul class="nav nav-tabs" id="settingstab">
 				<li class="active"><a data-toggle="tab" href="#applicant-info"
 					data-tabidx=0><spring:message code='lbl.appln.details' /></a></li>
-				<c:if test="${showUpdateNoc}"> 
-				<li ><a data-toggle="tab" href="#checklist-info" data-tabidx=1><spring:message
-							code='lbl.noc.doc.details' /></a></li>
+				<c:if test="${showUpdateNoc}">
+					<li><a data-toggle="tab" href="#checklist-info" data-tabidx=1><spring:message
+								code='lbl.noc.doc.details' /></a></li>
 				</c:if>
-				<c:if test="${showNOCDetails}">
-					<li ><a data-toggle="tab" href="#noc-info" data-tabidx=1><spring:message
-							code='lbl.noc.details' /></a></li>
+
+				<c:if test="${not empty bpaApplication.applicationNOCDocument}">
+					<c:if test="${showNOCDetails || showNocList}">
+						<li><a data-toggle="tab" href="#noc-info" data-tabidx=1><spring:message
+									code='lbl.noc.details' /></a></li>
+					</c:if>
 				</c:if>
-				
+
 			</ul>
 			<div class="tab-content">
 				<div id="applicant-info" class="tab-pane fade in active">
@@ -87,37 +93,46 @@
 						<jsp:include page="applicationhistory-view.jsp"></jsp:include>
 					</div>
 				</div>
-				<c:if test="${showUpdateNoc}"> 
-				<input type="hidden" id="showUpdateNoc" value="${showUpdateNoc}">
+				<c:if test="${not empty bpaApplication.applicationNOCDocument}">
+					<c:if test="${showNocList}">
+						<div id="noc-info" class="tab-pane fade">
+							<div class="panel panel-primary" data-collapsed="0">
+								<jsp:include page="noc-document-list.jsp"></jsp:include>
+							</div>
+						</div>
+					</c:if>
+					<c:if test="${showNOCDetails}">
+						<div id="noc-info" class="tab-pane fade">
+							<div class="panel panel-primary" data-collapsed="0">
+								<jsp:include page="view-noc-document.jsp"></jsp:include>
+							</div>
+						</div>
+					</c:if>
+				</c:if>
+				<c:if test="${showUpdateNoc}">
+					<input type="hidden" id="showUpdateNoc" value="${showUpdateNoc}">
 					<div id="checklist-info" class="tab-pane fade">
 						<div class="panel panel-primary" data-collapsed="0">
 							<jsp:include page="noc-document-updation.jsp"></jsp:include>
-						</div>
-					</div>
-				</c:if> 
-				<c:if test="${showNOCDetails}">
-					<div id="noc-info" class="tab-pane fade">
-						<div class="panel panel-primary" data-collapsed="0">
-							<jsp:include page="view-noc-document.jsp"></jsp:include>
 						</div>
 					</div>
 				</c:if>
 			</div>
 
 			<div class="text-center">
-			
+
 				<c:if test="${mode eq 'captureInspection'}">
-				<a
+					<a
 						href="/bpa/application/createinspectiondetails/${bpaApplication.applicationNumber}"
 						class="btn btn-primary">Capture Inspection Details </a>
-					
+
 				</c:if>
 				<c:if test="${mode eq 'modifyInspection'}">
-						<a
+					<a
 						href="/bpa/application/createinspectiondetails/${bpaApplication.applicationNumber}"
 						class="btn btn-primary">Capture New Inspection Details </a>
-					
-						<a
+
+					<a
 						href="/bpa/application/modify-inspection/${bpaApplication.applicationNumber}"
 						class="btn btn-primary">Add/Edit Inspection Details </a>
 				</c:if>
@@ -125,21 +140,21 @@
 					<a
 						href="/bpa/application/scheduleappointment/${bpaApplication.applicationNumber}"
 						class="btn btn-primary"> New Appointment </a>
-					
-					
+
+
 				</c:if>
 				<c:if test="${mode eq 'postponeappointment'}">
 					<a
 						href="/bpa/application/postponeappointment/${scheduleType}/${bpaApplication.applicationNumber}"
 						class="btn btn-primary"> Reschedule Appointment </a>
-						
-						
+
+
 				</c:if>
 				<c:if test="${mode eq 'initialtedApprove'}">
 					<a
 						href="/bpa/application/calculateFee/${bpaApplication.applicationNumber}"
 						class="btn btn-primary">Calculate Fee </a>
-						
+
 				</c:if>
 			</div>
 			<br>

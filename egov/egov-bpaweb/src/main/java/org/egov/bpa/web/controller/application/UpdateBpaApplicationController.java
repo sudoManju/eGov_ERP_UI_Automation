@@ -43,6 +43,7 @@ import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_APPROVED;
 import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_DIGI_SIGNED;
 import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_FIELD_INS;
 import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_ORDER_ISSUED;
+import static org.egov.bpa.utils.BpaConstants.APPLN_STATUS_FIELD_INSPECTION_INITIATED;
 import static org.egov.bpa.utils.BpaConstants.DOCUMENTVERIFIED;
 import static org.egov.bpa.utils.BpaConstants.REGISTERED;
 
@@ -79,8 +80,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping(value = "/application")
 public class UpdateBpaApplicationController extends BpaGenericApplicationController {
-
-    private static final String FORWARDED_TO_FIELD_ISPECTION = "Forwarded to Assistant Engineer for field ispection";
+    private static final String FWD_TO_OVRSR_FOR_FIELD_INS = "Forwarded to Overseer for field inspection";
+    private static final String FORWARDED_TO_SUP_NOC = "Forwarded to Superintendent-Noc";
     private static final String FORWARDED_TO_NOC_UPDATE = "Forwarded to Superintendent for Noc Updation";
     private static final String FORWARDED_TO_APPROVAL = "Forwarded to Approval";
     private static final String BPA_APPLICATION = "bpaApplication";
@@ -131,8 +132,8 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
             }
         }
         if (application.getAppointmentSchedule().isEmpty()
-                || (DOCUMENTVERIFIED.equalsIgnoreCase(application.getStatus().getCode())
-                        && FORWARDED_TO_FIELD_ISPECTION
+                || (APPLN_STATUS_FIELD_INSPECTION_INITIATED.equalsIgnoreCase(application.getStatus().getCode())
+                        && FWD_TO_OVRSR_FOR_FIELD_INS
                                 .equalsIgnoreCase(application.getState().getNextAction())
                         && purposeInsList.isEmpty())) {
             mode = "newappointment";
@@ -140,37 +141,34 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 && purposeDocList.contains(AppointmentSchedulePurpose.DOCUMENTSCRUTINY.name())) {
             mode = "postponeappointment";
             scheduleType = AppointmentSchedulePurpose.DOCUMENTSCRUTINY;
-        } else if (FORWARDED_TO_FIELD_ISPECTION.equalsIgnoreCase(application.getState().getNextAction())
-                && DOCUMENTVERIFIED.equalsIgnoreCase(application.getStatus().getCode())
-                && purposeInsList.contains(AppointmentSchedulePurpose.INSPECTION.name())) {
-            mode = "postponeappointment";
-            scheduleType = AppointmentSchedulePurpose.INSPECTION;
-        }
-        else if ( DOCUMENTVERIFIED.equalsIgnoreCase(application.getStatus().getCode())
+        } else  if(FORWARDED_TO_SUP_NOC.equalsIgnoreCase(application.getState().getNextAction()) && DOCUMENTVERIFIED.equalsIgnoreCase(application.getStatus().getCode())){
+            model.addAttribute("showNocList", true);
+        } else if (FWD_TO_OVRSR_FOR_FIELD_INS.equalsIgnoreCase(application.getState().getNextAction())
+                && APPLN_STATUS_FIELD_INSPECTION_INITIATED.equalsIgnoreCase(application.getStatus().getCode())
                 && application.getInspections().isEmpty()) {
             mode = "captureInspection";
         }
-        else if (DOCUMENTVERIFIED.equalsIgnoreCase(application.getStatus().getCode())
+        else if (FWD_TO_OVRSR_FOR_FIELD_INS.equalsIgnoreCase(application.getState().getNextAction())
+                && APPLN_STATUS_FIELD_INSPECTION_INITIATED.equalsIgnoreCase(application.getStatus().getCode())
                 && !application.getInspections().isEmpty()) {
             mode = "modifyInspection";
-        }
-        else if (FORWARDED_TO_APPROVAL.equalsIgnoreCase(application.getState().getNextAction())
+            scheduleType = AppointmentSchedulePurpose.INSPECTION;
+        } else if(FORWARDED_TO_NOC_UPDATE.equalsIgnoreCase(application.getState().getNextAction()) && APPLICATION_STATUS_FIELD_INS.equalsIgnoreCase(application.getStatus().getCode())){
+            model.addAttribute("showUpdateNoc", true);
+        } else  if (!DOCUMENTVERIFIED.equalsIgnoreCase(application.getStatus().getCode()) && !(FORWARDED_TO_NOC_UPDATE.equalsIgnoreCase(application.getState().getNextAction())
+                && !APPLN_STATUS_FIELD_INSPECTION_INITIATED.equalsIgnoreCase(application.getStatus().getCode()) && APPLICATION_STATUS_FIELD_INS.equalsIgnoreCase(application.getStatus().getCode()))
+                || APPLICATION_STATUS_APPROVED.equalsIgnoreCase(application.getStatus().getCode())
+                || APPLICATION_STATUS_DIGI_SIGNED.equalsIgnoreCase(application.getStatus().getCode())
+                || APPLICATION_STATUS_ORDER_ISSUED.equalsIgnoreCase(application.getStatus().getCode())) {
+            model.addAttribute("showNOCDetails", true);
+        } else if (FORWARDED_TO_APPROVAL.equalsIgnoreCase(application.getState().getNextAction())
                           && !application.getInspections().isEmpty()) {
             mode = "initialtedApprove";
         }
         if (mode == null) {
             mode = "edit";
         }
-        if(FORWARDED_TO_NOC_UPDATE.equalsIgnoreCase(application.getState().getNextAction()) && APPLICATION_STATUS_FIELD_INS.equalsIgnoreCase(application.getStatus().getCode())){
-            model.addAttribute("showUpdateNoc", true);
-        }
-        if (!(FORWARDED_TO_NOC_UPDATE.equalsIgnoreCase(application.getState().getNextAction())
-                && APPLICATION_STATUS_FIELD_INS.equalsIgnoreCase(application.getStatus().getCode()))
-                || APPLICATION_STATUS_APPROVED.equalsIgnoreCase(application.getStatus().getCode())
-                || APPLICATION_STATUS_DIGI_SIGNED.equalsIgnoreCase(application.getStatus().getCode())
-                || APPLICATION_STATUS_ORDER_ISSUED.equalsIgnoreCase(application.getStatus().getCode())) {
-            model.addAttribute("showNOCDetails", true);
-        }
+        
         model.addAttribute("scheduleType", scheduleType);
         model.addAttribute("mode", mode);
         model.addAttribute(APPLICATION_HISTORY,
