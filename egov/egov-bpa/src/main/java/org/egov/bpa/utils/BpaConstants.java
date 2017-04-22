@@ -122,5 +122,11 @@ public class BpaConstants {
     public static final String INSPECTIONWORKCOMPLETEDPERPLAN= "INSPECTIONWORKCOMPLETEDPERPLAN";
 
     public static final String INSPECTIONHGTBUILDABUTROAD= "INSPECTIONHGTBUILDABUTROAD";
+    public static final String BPASTATUS_APPLICATIONFEE_MODULE = "APPLICATIONFEE";
+    public static final String BPASTATUS_APPLICATIONFEE_APPROVED = "Approved";
+    public static final String FEETYPE_SANCTIONFEE = "SanctionFee";
+    public static final String AUTOCALCULATEFEEBYINSPECTION = "BPA_AUTOCALCULATE_FEE";
+    public static final String BPASTATUS_MODULETYPE_REGISTRATIONFEE = "REGISTRATIONFEE";
+    public static final String BPASTATUS_REGISTRATIONFEE_APPROVED = "Approved";
 
 }

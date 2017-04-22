@@ -39,11 +39,18 @@
  */
 package org.egov.bpa.masters.repository;
 
+import java.util.List;
+
 import org.egov.bpa.application.entity.BpaFee;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BpaFeeRepository extends JpaRepository<BpaFee, Long> {
 
+    @Query("select A from BpaFee A where A.serviceType.id=:serviceTypeId and A.feeType=:feeTypee and A.isActive=true  order by A.feeType asc ")
+    List<BpaFee> getAllActiveBpaFeesbyFeeTypeAndServiceTypeId( @Param("serviceTypeId")  Long serviceTypeId, @Param("feeTypee") String feeTypee);
+    
 }

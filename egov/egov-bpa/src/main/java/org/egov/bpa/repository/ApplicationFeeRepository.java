@@ -37,30 +37,20 @@
  *
  *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
-package org.egov.bpa.masters.service;
+package org.egov.bpa.repository;
 
 import java.util.List;
 
-import org.egov.bpa.application.entity.BpaFee;
-import org.egov.bpa.masters.repository.BpaFeeRepository;
-import org.egov.bpa.utils.BpaConstants;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.egov.bpa.application.entity.ApplicationFee;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
-@Service
-@Transactional(readOnly = true)
-public class BpaFeeService {
+@Repository
+public interface ApplicationFeeRepository extends JpaRepository<ApplicationFee, Long> {
 
-    @Autowired
-    private BpaFeeRepository bpaFeeRepository;
+    @Query("select app from ApplicationFee app where app.application.id=:applicationId and app.isRevised=false order by id desc ")
+    List<ApplicationFee> findNonRevisedFeeByApplicationId(@Param("applicationId") Long applicationId);
 
-    public List<BpaFee> findAll() {
-        return bpaFeeRepository.findAll();
-    }
-
-    public List<BpaFee> getAllActiveSanctionFeesByServiceId(Long serviceTypeId){
-        return bpaFeeRepository.getAllActiveBpaFeesbyFeeTypeAndServiceTypeId(serviceTypeId,BpaConstants.FEETYPE_SANCTIONFEE);
-    }
-    
 }

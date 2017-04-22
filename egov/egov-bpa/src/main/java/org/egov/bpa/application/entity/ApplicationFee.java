@@ -39,6 +39,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -59,20 +60,34 @@ public class ApplicationFee extends StateAware {
     @Id
     @GeneratedValue(generator = SEQ_APPLICATIONFEE, strategy = GenerationType.SEQUENCE)
     private Long id;
-    @NotNull
+    
     private Date feeDate;
     @Length(min = 1, max = 1024)
     private String feeRemarks;
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "status")
     private BpaStatus status;
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="application")
     private BpaApplication application;
     @Length(min = 1, max = 128)
     private String challanNumber;
+    
+    private Boolean isRevised=false;
+    
     @OneToMany(mappedBy = "applicationFee", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ApplicationFeeDetail> applicationFeeDetail = new ArrayList<ApplicationFeeDetail>(0);
+
+    
+    public Boolean getIsRevised() {
+        return isRevised;
+    }
+
+    public void setIsRevised(Boolean isRevised) {
+        this.isRevised = isRevised;
+    }
 
     @Override
     public Long getId() {
@@ -136,6 +151,12 @@ public class ApplicationFee extends StateAware {
 
     public void setApplicationFeeDetail(final List<ApplicationFeeDetail> applicationFeeDetail) {
         this.applicationFeeDetail = applicationFeeDetail;
+    }
+    
+    public void addApplicationFeeDetail (ApplicationFeeDetail applicationFeeDtl)
+    {
+        if(this.applicationFeeDetail!=null)
+            this.applicationFeeDetail.add(applicationFeeDtl);
     }
 
 }

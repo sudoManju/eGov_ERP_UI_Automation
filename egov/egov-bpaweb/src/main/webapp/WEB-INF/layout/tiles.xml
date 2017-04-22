@@ -157,5 +157,12 @@
         <put-attribute name="page-title" value="title.search.appln" cascade="true"/>
         <put-attribute name="body" value="/WEB-INF/views/application/inspectiondetail-edit.jsp"/>
     </definition>
-    
+        <definition name="createbpafee-form" extends="base_layout">
+        <put-attribute name="page-title" value="title.createfee.create" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/application/createbpafee-form.jsp"/>
+    </definition> 
+       <definition name="createbpafee-view" extends="base_layout">
+        <put-attribute name="page-title" value="title.createfee.view" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/application/createbpafee-view.jsp"/>
+    </definition> 
 </tiles-definitions>

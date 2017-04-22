@@ -45,12 +45,12 @@ import javax.validation.constraints.NotNull;
 import org.egov.infra.persistence.entity.AbstractAuditable;
 
 @Entity
-@Table(name = "EGBPA_APPLICATION_FEEDETAIL")
+@Table(name = "EGBPA_APPLICATION_FEEDETAILS")
 @SequenceGenerator(name = ApplicationFeeDetail.SEQ_APPLICATIONFEE_DETAIL, sequenceName = ApplicationFeeDetail.SEQ_APPLICATIONFEE_DETAIL, allocationSize = 1)
 public class ApplicationFeeDetail extends AbstractAuditable {
 
     private static final long serialVersionUID = 3078684328383202788L;
-    public static final String SEQ_APPLICATIONFEE_DETAIL = "SEQ_EGBPA_APPLICATION_FEEDETAIL";
+    public static final String SEQ_APPLICATIONFEE_DETAIL = "SEQ_EGBPA_APPLICATION_FEEDETAILS";
 
     @Id
     @GeneratedValue(generator = SEQ_APPLICATIONFEE_DETAIL, strategy = GenerationType.SEQUENCE)
