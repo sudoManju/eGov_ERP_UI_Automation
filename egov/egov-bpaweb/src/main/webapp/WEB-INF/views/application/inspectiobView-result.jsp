@@ -91,7 +91,7 @@
 			No of Wells
 			</div>
 			<div class="col-sm-3 add-margin view-content">
-				<c:out value="${inspection.bldngwellohtsumptankarea}" default="N/A"></c:out>
+				<c:out value="${inspection.bldngWellOhtSumpTankArea}" default="N/A"></c:out>
 			</div>
 			<div class="col-sm-3 add-margin">
 			Occupancy
