@@ -139,6 +139,12 @@
 						class="btn btn-primary">Capture Inspection Details </a>
 						
 				</c:if>
+				<c:if test="${mode eq 'initialtedApprove'}">
+					<a
+						href="/bpa/application/calculateFee/${bpaApplication.applicationNumber}"
+						class="btn btn-primary">Calculate Fee </a>
+						
+				</c:if>
 			</div>
 			<br>
 			<jsp:include page="../common/commonWorkflowMatrix.jsp" />

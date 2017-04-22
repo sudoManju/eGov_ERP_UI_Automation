@@ -82,7 +82,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
 
     private static final String FORWARDED_TO_FIELD_ISPECTION = "Forwarded to Assistant Engineer for field ispection";
     private static final String FORWARDED_TO_NOC_UPDATE = "Forwarded to Superintendent for Noc Updation";
-    
+    private static final String FORWARDED_TO_APPROVAL = "Forwarded to Approval";
     private static final String BPA_APPLICATION = "bpaApplication";
 
     private static final String MESSAGE = "message";
@@ -155,6 +155,10 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 && DOCUMENTVERIFIED.equalsIgnoreCase(application.getStatus().getCode())
                 && !application.getInspections().isEmpty()) {
             mode = "modifyInspection";
+        }
+        else if (FORWARDED_TO_APPROVAL.equalsIgnoreCase(application.getState().getNextAction())
+                          && !application.getInspections().isEmpty()) {
+            mode = "initialtedApprove";
         }
         if (mode == null) {
             mode = "edit";
