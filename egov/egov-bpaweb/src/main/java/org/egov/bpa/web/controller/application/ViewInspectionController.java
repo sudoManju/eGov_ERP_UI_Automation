@@ -68,7 +68,7 @@ public class ViewInspectionController extends BpaGenericApplicationController {
         if (!inspection.isEmpty())
             dockeDetList = inspection.get(0).getDocket().get(0).getDocketDetail();
         model.addAttribute("docketDetail", dockeDetList);
-        model.addAttribute("inspection", inspection);
+        model.addAttribute("inspection", inspection.get(0));
         model.addAttribute("message", "Inspection Saved Successfully");
         return INSPECTION_RESULT;
     }
