@@ -68,10 +68,15 @@
 				</c:if>
 
 				<c:if test="${not empty bpaApplication.applicationNOCDocument}">
-					<c:if test="${showNOCDetails || showNocList}">
+					<c:if test="${showNOCDetails}">
 						<li><a data-toggle="tab" href="#noc-info" data-tabidx=1><spring:message
 									code='lbl.noc.details' /></a></li>
 					</c:if>
+				</c:if>
+				
+				<c:if test="${showNocList}">
+					<li><a data-toggle="tab" href="#noc-info" data-tabidx=1><spring:message
+								code='lbl.noc.details' /></a></li>
 				</c:if>
 
 			</ul>
@@ -93,14 +98,14 @@
 						<jsp:include page="applicationhistory-view.jsp"></jsp:include>
 					</div>
 				</div>
-				<c:if test="${not empty bpaApplication.applicationNOCDocument}">
-					<c:if test="${showNocList}">
-						<div id="noc-info" class="tab-pane fade">
-							<div class="panel panel-primary" data-collapsed="0">
-								<jsp:include page="noc-document-list.jsp"></jsp:include>
-							</div>
+				<c:if test="${showNocList}">
+					<div id="noc-info" class="tab-pane fade">
+						<div class="panel panel-primary" data-collapsed="0">
+							<jsp:include page="noc-document-list.jsp"></jsp:include>
 						</div>
-					</c:if>
+					</div>
+				</c:if>
+				<c:if test="${not empty bpaApplication.applicationNOCDocument}">
 					<c:if test="${showNOCDetails}">
 						<div id="noc-info" class="tab-pane fade">
 							<div class="panel panel-primary" data-collapsed="0">
