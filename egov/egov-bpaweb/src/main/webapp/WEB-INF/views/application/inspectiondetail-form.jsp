@@ -92,15 +92,14 @@
 		<form:input  class="form-control patternvalidation" data-pattern="number"
 		  id="bldngwellohtsumptankarea"
 			path="bldngwellohtsumptankarea" />
-		<form:errors path="bldngwellohtsumptankarea" required="required
+		<form:errors path="bldngwellohtsumptankarea"
 			cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right">Occupancy<span
-		class="mandatory"></span></label>
+	<label class="col-sm-2 control-label text-right">Occupancy></label>
 		<div class="col-sm-3 add-margin">
 	<form:select path="landUsage"
 			data-first-option="false" id="" cssClass="form-control"
-			required="required">
+			>
 			<form:option value="">
 				<spring:message code="lbl.select" />
 			</form:option>
@@ -117,9 +116,9 @@
 		class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:input  class="form-control patternvalidation" data-pattern="number"
-		  id="lndMinPlotExtent"
+		  id="lndMinPlotExtent" required="required"
 			path="lndMinPlotExtent" />
-		<form:errors path="lndMinPlotExtent" required="required"
+		<form:errors path="lndMinPlotExtent" 
 			cssClass="add-margin error-msg" />
 	</div>
 	</div>
