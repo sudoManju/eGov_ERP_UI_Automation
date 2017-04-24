@@ -123,8 +123,16 @@
 				</div>
 				<div class="col-sm-3 add-margin">Remarks</div>
 			</div>
+			<c:choose>
+	<c:when test="${!docketDetailLocList.isEmpty()}">
+			<div class="panel-heading custom_form_panel_heading">
+	<div class="panel-title">
+		Location of the Plot
+	</div>
+	</div>
+	
 			<div class="panel-body">
-				<c:forEach items="${docketDetail}" var="doc" varStatus="counter">
+				<c:forEach items="${docketDetailLocList}" var="doc" varStatus="counter">
 
 					<div class="row add-border">
 						<div class="col-sm-5 add-margin view-content">
@@ -140,6 +148,165 @@
 					</div>
 				</c:forEach>
 			</div>
+		</c:when>
+			</c:choose>
+		<div class="panel-heading custom_form_panel_heading">
+	<div class="panel-title">
+		Measurement of the PlotCC
+	</div>
+	</div>
+				<div class="panel-body">
+				<c:forEach items="${docketDetailMeasumentList}" var="doc" varStatus="counter">
+
+					<div class="row add-border">
+						<div class="col-sm-5 add-margin view-content">
+							<c:out value="${doc.checkListDetail.description}" default="N/A"></c:out>
+						</div>
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.value=='true' ? 'YES' : 'NO'}" default="N/A"></c:out>
+						</div>
+
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.remarks}" default="N/A"></c:out>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+			
+			<div class="panel-heading custom_form_panel_heading">
+	<div class="panel-title">
+		Access To Plot
+	</div>
+		</div>		<div class="panel-body">
+				<c:forEach items="${docketDetailAccessList}" var="doc" varStatus="counter">
+
+					<div class="row add-border">
+						<div class="col-sm-5 add-margin view-content">
+							<c:out value="${doc.checkListDetail.description}" default="N/A"></c:out>
+						</div>
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.value=='true' ? 'YES' : 'NO'}" default="N/A"></c:out>
+						</div>
+
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.remarks}" default="N/A"></c:out>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+				<div class="panel-heading custom_form_panel_heading">
+			
+				<div class="panel-title">
+		Required details surrounding the plot	
+	</div>
+			</div>	<div class="panel-body">
+				<c:forEach items="${docketDetlSurroundingPlotList}" var="doc" varStatus="counter">
+
+					<div class="row add-border">
+						<div class="col-sm-5 add-margin view-content">
+							<c:out value="${doc.checkListDetail.description}" default="N/A"></c:out>
+						</div>
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.value=='true' ? 'YES' : 'NO'}" default="N/A"></c:out>
+						</div>
+
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.remarks}" default="N/A"></c:out>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+			
+				<div class="panel-heading custom_form_panel_heading">
+			
+				<div class="panel-title">
+		Type of land	
+	</div></div>
+				<div class="panel-body">
+				<c:forEach items="${docketDetailLandTypeList}" var="doc" varStatus="counter">
+
+					<div class="row add-border">
+						<div class="col-sm-5 add-margin view-content">
+							<c:out value="${doc.checkListDetail.description}" default="N/A"></c:out>
+						</div>
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.value=='true' ? 'YES' : 'NO'}" default="N/A"></c:out>
+						</div>
+
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.remarks}" default="N/A"></c:out>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+			
+			<div class="panel-heading custom_form_panel_heading">
+				<div class="panel-title">
+		Stage of proposed work	
+	</div></div>
+				<div class="panel-body">
+				<c:forEach items="${docketDetailProposedWorkList}" var="doc" varStatus="counter">
+
+					<div class="row add-border">
+						<div class="col-sm-5 add-margin view-content">
+							<c:out value="${doc.checkListDetail.description}" default="N/A"></c:out>
+						</div>
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.value=='true' ? 'YES' : 'NO'}" default="N/A"></c:out>
+						</div>
+
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.remarks}" default="N/A"></c:out>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+			
+			
+			<div class="panel-heading custom_form_panel_heading">
+				<div class="panel-title">
+		If work Started/completed
+	</div></div>
+				<div class="panel-body">
+				<c:forEach items="${docketDetailWorkAsPerPlanList}" var="doc" varStatus="counter">
+
+					<div class="row add-border">
+						<div class="col-sm-5 add-margin view-content">
+							<c:out value="${doc.checkListDetail.description}" default="N/A"></c:out>
+						</div>
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.value=='true' ? 'YES' : 'NO'}" default="N/A"></c:out>
+						</div>
+
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.remarks}" default="N/A"></c:out>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+			
+				
+			<div class="panel-heading custom_form_panel_heading">
+				<div class="panel-title">
+		Height of building from the abutting road
+	</div></div>
+				<div class="panel-body">
+				<c:forEach items="${docketDetailHgtAbuttRoadList}" var="doc" varStatus="counter">
+
+					<div class="row add-border">
+						<div class="col-sm-5 add-margin view-content">
+							<c:out value="${doc.checkListDetail.description}" default="N/A"></c:out>
+						</div>
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.value=='true' ? 'YES' : 'NO'}" default="N/A"></c:out>
+						</div>
+
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.remarks}" default="N/A"></c:out>
+						</div>
+					</div>
+				</c:forEach>
+			</div> 
 			<div align="center">
 				<input type="button" name="button2" id="button2" value="Close"
 					class="btn btn-default" onclick="window.close();" />

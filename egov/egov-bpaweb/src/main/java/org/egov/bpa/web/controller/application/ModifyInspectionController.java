@@ -130,44 +130,13 @@ public class ModifyInspectionController extends BpaGenericApplicationController 
         final Inspection inspection = getInspectionForBpaAPplication(applicationNumber);
         if (inspection != null)
             inspection.setInspectionDate(new Date());
-        buildDocketDetailList(inspection);
+       
+        inspectionService.buildDocketDetailForModifyAndViewList(inspection,model);
         model.addAttribute("inspection", inspection);
-        model.addAttribute("docketDetailLocList", inspection.getDocketDetailLocList());
-        model.addAttribute("docketDetailMeasumentList", inspection.getDocketDetailMeasumentList());
-        model.addAttribute("docketDetailAccessList", inspection.getDocketDetailAccessList());
-        model.addAttribute("docketDetlSurroundingPlotList", inspection.getDocketDetlSurroundingPlotList());
-        model.addAttribute("docketDetailLandTypeList", inspection.getDocketDetailLandTypeList());
-        model.addAttribute("docketDetailProposedWorkList", inspection.getDocketDetailProposedWorkList());
-        model.addAttribute("docketDetailWorkAsPerPlanList", inspection.getDocketDetailWorkAsPerPlanList());
-        model.addAttribute("docketDetailHgtAbuttRoadList", inspection.getDocketDetailHgtAbuttRoadList());
         model.addAttribute(BpaConstants.BPA_APPLICATION, application);
     }
 
-    public void buildDocketDetailList(final Inspection inspection) {
-        if (inspection != null && !inspection.getDocket().isEmpty())
-            for (final DocketDetail docketDet : inspection.getDocket().get(0).getDocketDetail()) {
-                if (docketDet.getCheckListDetail().getCheckList().getChecklistType().equals(BpaConstants.INSPECTIONLOCATION))
-                    inspection.getDocketDetailLocList().add(docketDet);
-                if (docketDet.getCheckListDetail().getCheckList().getChecklistType().equals(BpaConstants.INSPECTIONMEASUREMENT))
-                    inspection.getDocketDetailMeasumentList().add(docketDet);
-                if (docketDet.getCheckListDetail().getCheckList().getChecklistType().equals(BpaConstants.INSPECTIONACCESS))
-                    inspection.getDocketDetailAccessList().add(docketDet);
-                if (docketDet.getCheckListDetail().getCheckList().getChecklistType().equals(BpaConstants.INSPECTIONSURROUNDING))
-                    inspection.getDocketDetlSurroundingPlotList().add(docketDet);
-                if (docketDet.getCheckListDetail().getCheckList().getChecklistType().equals(BpaConstants.INSPECTIONTYPEOFLAND))
-                    inspection.getDocketDetailLandTypeList().add(docketDet);
-                if (docketDet.getCheckListDetail().getCheckList().getChecklistType()
-                        .equals(BpaConstants.INSPECTIONPROPOSEDSTAGEWORK))
-                    inspection.getDocketDetailProposedWorkList().add(docketDet);
-                if (docketDet.getCheckListDetail().getCheckList().getChecklistType()
-                        .equals(BpaConstants.INSPECTIONWORKCOMPLETEDPERPLAN))
-                    inspection.getDocketDetailWorkAsPerPlanList().add(docketDet);
-                if (docketDet.getCheckListDetail().getCheckList().getChecklistType()
-                        .equals(BpaConstants.INSPECTIONHGTBUILDABUTROAD))
-                    inspection.getDocketDetailHgtAbuttRoadList().add(docketDet);
-            }
-    }
-
+    
     private void loadViewdata(final Model model, final BpaApplication application) {
         model.addAttribute("stateType", application.getClass().getSimpleName());
         final WorkflowContainer workflowContainer = new WorkflowContainer();

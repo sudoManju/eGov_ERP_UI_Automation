@@ -64,6 +64,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 @Service
 @Transactional(readOnly = true)
@@ -132,40 +133,14 @@ public class InspectionService {
     
     public List<DocketDetail> buildDocDetFromUI(final Inspection inspection) {
         final List<DocketDetail> docketDetailList = new ArrayList<>();
-
-        for(DocketDetail temploc:inspection.getDocketDetailLocList())
-        {
-            docketDetailList.add(temploc);
-        }
-        
-        for(DocketDetail temploc1:inspection.getDocketDetailMeasumentList())
-        {
-            docketDetailList.add(temploc1);
-        }
-        for(DocketDetail temploc1:inspection.getDocketDetailAccessList())
-        {
-            docketDetailList.add(temploc1);
-        }
-        for(DocketDetail temploc1:inspection.getDocketDetlSurroundingPlotList())
-        {
-            docketDetailList.add(temploc1);
-        }
-        for(DocketDetail temploc1:inspection.getDocketDetailLandTypeList())
-        {
-            docketDetailList.add(temploc1);
-        }
-        for(DocketDetail temploc1:inspection.getDocketDetailProposedWorkList())
-        {
-            docketDetailList.add(temploc1);
-        }
-        for(DocketDetail temploc1:inspection.getDocketDetailWorkAsPerPlanList())
-        {
-            docketDetailList.add(temploc1);
-        }
-        for(DocketDetail temploc1:inspection.getDocketDetailHgtAbuttRoadList())
-        {
-            docketDetailList.add(temploc1);
-        }
+        docketDetailList.addAll(inspection.getDocketDetailLocList());
+        docketDetailList.addAll(inspection.getDocketDetailMeasumentList());
+        docketDetailList.addAll(inspection.getDocketDetailAccessList());
+        docketDetailList.addAll(inspection.getDocketDetlSurroundingPlotList());
+        docketDetailList.addAll(inspection.getDocketDetailLandTypeList());
+        docketDetailList.addAll(inspection.getDocketDetailProposedWorkList());
+        docketDetailList.addAll(inspection.getDocketDetailWorkAsPerPlanList());
+        docketDetailList.addAll(inspection.getDocketDetailHgtAbuttRoadList());
         return docketDetailList;
     }
 
@@ -264,6 +239,39 @@ public class InspectionService {
         final DocketDetail docdet = new DocketDetail();
         docdet.setCheckListDetail(checkDet);
         docketTempList.add(docdet);
+    }
+    
+    public void buildDocketDetailForModifyAndViewList(final Inspection inspection,final Model model) {
+        if (inspection != null && !inspection.getDocket().isEmpty())
+            for (final DocketDetail docketDet : inspection.getDocket().get(0).getDocketDetail()) {
+                if (docketDet.getCheckListDetail().getCheckList().getChecklistType().equals(BpaConstants.INSPECTIONLOCATION))
+                    inspection.getDocketDetailLocList().add(docketDet);
+                if (docketDet.getCheckListDetail().getCheckList().getChecklistType().equals(BpaConstants.INSPECTIONMEASUREMENT))
+                    inspection.getDocketDetailMeasumentList().add(docketDet);
+                if (docketDet.getCheckListDetail().getCheckList().getChecklistType().equals(BpaConstants.INSPECTIONACCESS))
+                    inspection.getDocketDetailAccessList().add(docketDet);
+                if (docketDet.getCheckListDetail().getCheckList().getChecklistType().equals(BpaConstants.INSPECTIONSURROUNDING))
+                    inspection.getDocketDetlSurroundingPlotList().add(docketDet);
+                if (docketDet.getCheckListDetail().getCheckList().getChecklistType().equals(BpaConstants.INSPECTIONTYPEOFLAND))
+                    inspection.getDocketDetailLandTypeList().add(docketDet);
+                if (docketDet.getCheckListDetail().getCheckList().getChecklistType()
+                        .equals(BpaConstants.INSPECTIONPROPOSEDSTAGEWORK))
+                    inspection.getDocketDetailProposedWorkList().add(docketDet);
+                if (docketDet.getCheckListDetail().getCheckList().getChecklistType()
+                        .equals(BpaConstants.INSPECTIONWORKCOMPLETEDPERPLAN))
+                    inspection.getDocketDetailWorkAsPerPlanList().add(docketDet);
+                if (docketDet.getCheckListDetail().getCheckList().getChecklistType()
+                        .equals(BpaConstants.INSPECTIONHGTBUILDABUTROAD))
+                    inspection.getDocketDetailHgtAbuttRoadList().add(docketDet);
+            }
+        model.addAttribute("docketDetailLocList", inspection.getDocketDetailLocList());
+        model.addAttribute("docketDetailMeasumentList", inspection.getDocketDetailMeasumentList());
+        model.addAttribute("docketDetailAccessList", inspection.getDocketDetailAccessList());
+        model.addAttribute("docketDetlSurroundingPlotList", inspection.getDocketDetlSurroundingPlotList());
+        model.addAttribute("docketDetailLandTypeList", inspection.getDocketDetailLandTypeList());
+        model.addAttribute("docketDetailProposedWorkList", inspection.getDocketDetailProposedWorkList());
+        model.addAttribute("docketDetailWorkAsPerPlanList", inspection.getDocketDetailWorkAsPerPlanList());
+        model.addAttribute("docketDetailHgtAbuttRoadList", inspection.getDocketDetailHgtAbuttRoadList());
     }
 
 }
