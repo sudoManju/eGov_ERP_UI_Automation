@@ -107,7 +107,7 @@ public class WaterChargeManagementSteps extends BaseSteps implements En {
                 pageStore.get(WaterConnectionDetailsPage.class).enterConnectionInfo(connectionInfo);
                 pageStore.get(WaterChargeManagementPage.class).estimationFeeDetails();
             } else {
-                pageStore.get(WaterConnectionDetailsPage.class).enterConnecttionInfoForMetered(connectionInfo);
+                pageStore.get(WaterConnectionDetailsPage.class).enterConnectionInfoForMetered(connectionInfo);
                 pageStore.get(WaterChargeManagementPage.class).estimationFeeDetailsForMetered();
             }
 

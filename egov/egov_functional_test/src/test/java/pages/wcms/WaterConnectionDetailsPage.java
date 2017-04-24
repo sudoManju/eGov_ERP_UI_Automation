@@ -10,6 +10,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
+import static com.jayway.awaitility.Awaitility.await;
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 public class WaterConnectionDetailsPage extends WaterChargeManagementPage {
 
     @FindBy(id = "waterSource")
@@ -205,10 +208,11 @@ public class WaterConnectionDetailsPage extends WaterChargeManagementPage {
         return number;
     }
 
-    public void enterConnecttionInfoForMetered(ConnectionInfo connectionInfo) {
+    public void enterConnectionInfoForMetered(ConnectionInfo connectionInfo) {
         selectFromDropDown(waterSourceTypeSelectBox, connectionInfo.getWaterSourceType(), webDriver);
         selectFromDropDown(connectionTypeSelectBox, connectionInfo.getConnectionType(), webDriver);
         selectFromDropDown(propertyTypeSelectBox, connectionInfo.getPropertyType(), webDriver);
+        clickOnButton(webDriver.findElement(By.id("connectionCategorie")), webDriver);
         selectFromDropDown(categorySelectBox, connectionInfo.getCategory(), webDriver);
         selectFromDropDown(usageTypeSelectBox, connectionInfo.getUsageType(), webDriver);
         selectFromDropDown(hscPipeSizeSelectBox, connectionInfo.getHscPipeSize(), webDriver);
