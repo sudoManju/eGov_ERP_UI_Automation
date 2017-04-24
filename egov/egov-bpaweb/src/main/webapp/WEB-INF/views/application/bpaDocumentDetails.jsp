@@ -43,8 +43,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn"%>
 
-<c:choose>
-	<c:when test="${!checkListDetailList.isEmpty()}">
 		<div class="panel-heading custom_form_panel_heading">
 			<div class="panel-title">
 				<spring:message code="lbl.encloseddocuments" />
@@ -68,6 +66,8 @@
 						code="lbl.mesg.document" /></small>
 			</div>
 		</div>
+	<c:choose>
+	<c:when test="${bpaApplication.serviceType ne null}">
 		<c:forEach var="docs" items="${checkListDetailList}"
 			varStatus="status">
 			<div class="form-group">
@@ -140,6 +140,9 @@
 			</div>
 		</c:forEach>
 	</c:when>
+	<c:otherwise>
+		<div id="bpaDocumentsBody">
+		
+		</div>
+	</c:otherwise>
 </c:choose>
-
-

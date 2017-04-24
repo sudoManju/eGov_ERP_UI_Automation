@@ -38,15 +38,17 @@
  *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
 jQuery(document).ready(function($) {
-
+	
+	$('.upload-file').removeAttr('required');
+	
 	$("#applicantdet").prop("disabled",true);
 	$("#appDet").prop("disabled",true);
 	$("#serviceType").prop("disabled",true);
-	/*$(".btn-primary")
+	$(".workAction")
 	.click(
 			function() {
 	document.forms[0].submit();
-			});*/
+			});
 	
 	// By default to point update noc details tab
 	var mode=$('#mode').val();
@@ -184,7 +186,6 @@ jQuery( ".dateval" ).datepicker({
 		}
 	    return retvalue;
 	}
-
+	
 });
-
 

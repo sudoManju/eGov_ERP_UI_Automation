@@ -39,10 +39,7 @@
  */
 package org.egov.bpa.web.controller.application;
 
-import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_APPROVED;
-import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_DIGI_SIGNED;
 import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_FIELD_INS;
-import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_ORDER_ISSUED;
 import static org.egov.bpa.utils.BpaConstants.APPLN_STATUS_FIELD_INSPECTION_INITIATED;
 import static org.egov.bpa.utils.BpaConstants.DOCUMENTVERIFIED;
 import static org.egov.bpa.utils.BpaConstants.REGISTERED;
@@ -158,15 +155,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         } else if (FORWARDED_TO_APPROVAL.equalsIgnoreCase(application.getState().getNextAction())
                 && !application.getInspections().isEmpty()) {
             mode = "initialtedApprove";
-        } else if (!DOCUMENTVERIFIED.equalsIgnoreCase(application.getStatus().getCode())
-                && !(FORWARDED_TO_NOC_UPDATE.equalsIgnoreCase(application.getState().getNextAction())
-                        && !APPLN_STATUS_FIELD_INSPECTION_INITIATED.equalsIgnoreCase(application.getStatus().getCode())
-                        && APPLICATION_STATUS_FIELD_INS.equalsIgnoreCase(application.getStatus().getCode()))
-                || APPLICATION_STATUS_APPROVED.equalsIgnoreCase(application.getStatus().getCode())
-                || APPLICATION_STATUS_DIGI_SIGNED.equalsIgnoreCase(application.getStatus().getCode())
-                || APPLICATION_STATUS_ORDER_ISSUED.equalsIgnoreCase(application.getStatus().getCode())) {
-            model.addAttribute("showNOCDetails", true);
-        }
+        } 
         if (mode == null) {
             mode = "edit";
         }
@@ -243,7 +232,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         model.addAttribute("currentState", application.getCurrentState().getValue());
         model.addAttribute(BPA_APPLICATION, application);
         model.addAttribute("nocCheckListDetails", checkListDetailService.findActiveCheckListByServiceType(application.getServiceType().getId(),BpaConstants.CHECKLIST_TYPE_NOC));
-        
+        model.addAttribute("checkListDetailList", checkListDetailService.findActiveCheckListByServiceType(application.getServiceType().getId(),BpaConstants.CHECKLIST_TYPE));
     }
 
     @RequestMapping(value = "/update/{applicationNumber}", method = RequestMethod.POST)

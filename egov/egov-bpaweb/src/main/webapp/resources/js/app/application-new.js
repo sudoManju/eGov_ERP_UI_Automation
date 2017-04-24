@@ -128,24 +128,36 @@ $('#serviceType').change(function(){
 		}
 	});
 });
-/*$('#serviceType').change(function(){
+$('#serviceType').change(function(){
 	jQuery.ajax({
-		url: "/bpa/ajax/getDocumentListByServiceType",
+		url: "/bpa/application/getdocumentlistbyservicetype",
 		type: "GET",
 		data: {
-			serviceType : jQuery('#serviceType').val()
+			serviceType : $('#serviceType').val()
 		},
-		cache: false,
 		dataType: "json",
 		success: function (response) {
-			
+			$('#bpaDocumentsBody').empty();
+			$.each(response, function (index, checklist) {
+                $('#bpaDocumentsBody').append(
+                		'<div class="form-group">'+
+                			'<div class="col-sm-3 add-margin check-text text-right"> <input type="hidden" id="applicationDocument'+index+'checklistDetail" name="applicationDocument['+index+'].checklistDetail" value="'+checklist.id+'">'+
+                			'<input type="hidden" id="applicationDocument'+index+'checklistDetail" name="applicationDocument['+index+'].checklistDetail.isMandatory" value="'+checklist.isMandatory+'">'+
+                			'<input type="hidden" id="applicationDocument'+index+'checklistDetail.description" name="applicationDocument['+index+'].checklistDetail.description" value="'+checklist.description+'">'+
+	                		checklist.description+ (checklist.isMandatory?'<span class="mandatory"></span>':'') +'</div>'
+	                		+'<div class="col-sm-3 add-margin text-center"><input type="checkbox" id="applicationDocument'+index+'issubmitted" name="applicationDocument['+index+'].issubmitted" value="applicationDocument${status.index}issubmitted" /></div>'
+	                		+'<div class="col-sm-3 add-margin text-center"><div class="input-group"><textarea class="form-control patternvalidation" data-pattern="string" maxlength="256" name="applicationDocument['+index+'].remarks" /></div></div>' +
+	                		'<div class="col-sm-3 add-margin text-center"><input type="file" id="file'+index+'id" name="applicationDocument['+index+'].files"class="file-ellipsis upload-file"'+ (checklist.isMandatory? "required" :'')+'>'+
+	                		'</div>'+
+                		'</div>');
+            })
 
 		}, 
 		error: function (response) {
 			
 		}
 	});
-});*/
+});
 
 
 //toggle between multiple tab

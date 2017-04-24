@@ -55,17 +55,21 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.egov.bpa.application.entity.ApplicationDocument;
 import org.egov.bpa.application.entity.ApplicationStakeHolder;
 import org.egov.bpa.application.entity.BpaApplication;
-import org.egov.bpa.application.service.ApplicationBpaService;
+import org.egov.bpa.application.entity.CheckListDetail;
 import org.egov.bpa.application.service.collection.GenericBillGeneratorService;
 import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -77,9 +81,6 @@ public class NewApplicationController extends BpaGenericApplicationController {
     private GenericBillGeneratorService genericBillGeneratorService;
     @Autowired
     private BpaUtils bpaUtils;
-    @Autowired
-    private ApplicationBpaService applicationBpaService;
- 
 
     @RequestMapping(value = "/newApplication-newform", method = GET)
     public String showNewApplicationForm(@ModelAttribute final BpaApplication bpaApplication,
@@ -141,6 +142,13 @@ public class NewApplicationController extends BpaGenericApplicationController {
             resultBinder.rejectValue(fieldError, "files.required");
         } else
             applicationDocs.add(applicationDocument);
+    }
+    
+    @RequestMapping(value = "/getdocumentlistbyservicetype", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<CheckListDetail> getDocumentsByServiceType(final Model model, @RequestParam final Long serviceType,
+            final HttpServletRequest request) {
+        return checkListDetailService.findActiveCheckListByServiceType(serviceType, BpaConstants.CHECKLIST_TYPE);
     }
 
 }

@@ -53,7 +53,6 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.egov.bpa.application.entity.ApplicationDocument;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BuildingCategory;
-import org.egov.bpa.application.entity.CheckListDetail;
 import org.egov.bpa.application.entity.LandBuildingTypes;
 import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.application.entity.VillageName;
@@ -121,11 +120,6 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     @ModelAttribute("serviceTypeList")
     public List<ServiceType> getServiceTypeList() {
         return serviceTypeService.findAll();
-    }
-
-    @ModelAttribute("checkListDetailList")
-    public List<CheckListDetail> checkListDetailList() {
-        return checkListDetailService.findActiveCheckListByChecklistType(BpaConstants.CHECKLIST_TYPE);
     }
 
     @ModelAttribute("buildingCategorYlist")

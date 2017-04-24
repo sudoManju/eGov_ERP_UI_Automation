@@ -74,10 +74,8 @@
 				</c:if>
 
 				<c:if test="${not empty bpaApplication.applicationNOCDocument}">
-					<c:if test="${showNOCDetails}">
 						<li><a data-toggle="tab" href="#noc-info" data-tabidx=3><spring:message
 									code='lbl.noc.details' /></a></li>
-					</c:if>
 				</c:if>
 				
 				<c:if test="${showNocList}">
@@ -131,13 +129,11 @@
 					</div>
 				</c:if>
 				<c:if test="${not empty bpaApplication.applicationNOCDocument}">
-					<c:if test="${showNOCDetails}">
 						<div id="noc-info" class="tab-pane fade">
 							<div class="panel panel-primary" data-collapsed="0">
 								<jsp:include page="view-noc-document.jsp"></jsp:include>
 							</div>
 						</div>
-					</c:if>
 				</c:if>
 				<c:if test="${showUpdateNoc}">
 					<input type="hidden" id="showUpdateNoc" value="${showUpdateNoc}">
