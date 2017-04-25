@@ -122,6 +122,7 @@
 						</div>
 				</c:if>
 				<c:if test="${showNocList}">
+					<input type="hidden" id="showNocList" value="${showNocList}">
 					<div id="noc-info" class="tab-pane fade">
 						<div class="panel panel-primary" data-collapsed="0">
 							<jsp:include page="noc-document-list.jsp"></jsp:include>

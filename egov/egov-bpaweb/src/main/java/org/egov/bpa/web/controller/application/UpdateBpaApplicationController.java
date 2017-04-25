@@ -44,7 +44,9 @@ import static org.egov.bpa.utils.BpaConstants.APPLN_STATUS_FIELD_INSPECTION_INIT
 import static org.egov.bpa.utils.BpaConstants.DOCUMENTVERIFIED;
 import static org.egov.bpa.utils.BpaConstants.REGISTERED;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -231,6 +233,17 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
             approvalPosition = Long.valueOf(request.getParameter(APPRIVALPOSITION));
             Position pos = positionMasterService.getPositionById(approvalPosition);
             User user = bpaThirdPartyService.getUserPositionByPassingPosition(approvalPosition);
+            // for document scrutiny if not scheduled, by default captured the current time and saved.
+            if(bpaApplication.getAppointmentSchedule().isEmpty()){
+                SimpleDateFormat sf =new SimpleDateFormat("hh:mm a");
+                BpaAppointmentSchedule  appointmentSchedule = new BpaAppointmentSchedule();
+                Date now = new Date();
+                appointmentSchedule.setAppointmentDate(now);
+                appointmentSchedule.setPurpose(AppointmentSchedulePurpose.DOCUMENTSCRUTINY);
+                appointmentSchedule.setApplication(bpaApplication);
+                appointmentSchedule.setAppointmentTime(sf.format(now));
+                bpaApplication.getAppointmentSchedule().add(appointmentSchedule);
+            }
             BpaApplication bpaAppln = applicationBpaService.updateApplication(bpaApplication, approvalPosition);
             String message = messageSource.getMessage("msg.update.forward.documentscrutiny", new String[] {
                     user != null ? user.getUsername().concat("~")

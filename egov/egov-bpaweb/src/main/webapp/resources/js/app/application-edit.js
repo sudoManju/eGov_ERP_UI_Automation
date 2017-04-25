@@ -62,10 +62,11 @@ jQuery(document).ready(function($) {
 		return false;
 		}
 	var tabfocus;
-	if($('#showUpdateNoc').val()){
+	if($('#showUpdateNoc').val()) {
 		tabfocus='#checklist-info';
-	}
-	else{
+	} else if($('#showNocList').val()) {
+		tabfocus='#noc-info';
+	} else {
 		tabfocus='#applicant-info';
 	}
 	
