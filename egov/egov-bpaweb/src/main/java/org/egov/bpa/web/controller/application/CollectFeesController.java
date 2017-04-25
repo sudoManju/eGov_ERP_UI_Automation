@@ -41,12 +41,11 @@ package org.egov.bpa.web.controller.application;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
-import java.math.BigDecimal;
-
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.service.ApplicationBpaService;
 import org.egov.bpa.application.service.collection.GenericBillGeneratorService;
 import org.egov.bpa.service.BpaDemandService;
+import org.egov.bpa.utils.BpaConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -70,7 +69,7 @@ public class CollectFeesController {
     public String showCollectFeeForm(final Model model, @PathVariable final String applicationCode) {
     	BpaApplication application=applicationBpaService.findByApplicationNumber(applicationCode);
     	Boolean bpaDuePresent=bpaDemandService.checkAnyTaxIsPendingToCollect(application);
-    	if(bpaDuePresent){
+    	if(application.getStatus()!=null && application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_APPROVED) && bpaDuePresent){
     	return genericBillGeneratorService.generateBillAndRedirectToCollection(application, model);
     	}
     	else{
