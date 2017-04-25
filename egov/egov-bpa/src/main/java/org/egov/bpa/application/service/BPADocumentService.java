@@ -46,6 +46,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.egov.bpa.application.entity.ApplicationDocument;
 import org.egov.bpa.application.entity.CheckListDetail;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -72,4 +73,12 @@ public class BPADocumentService {
         return criteria.list();
     }
 
+    @SuppressWarnings("unchecked")
+    public List<ApplicationDocument> getApplicationDocuments(Long applicationId) {
+        final Criteria criteria = getCurrentSession().createCriteria(
+                ApplicationDocument.class, "appdoc")
+                .createAlias("appdoc.application", "application");
+        criteria.add(Restrictions.eq("application.id", applicationId));
+        return criteria.list();
+    }
 }

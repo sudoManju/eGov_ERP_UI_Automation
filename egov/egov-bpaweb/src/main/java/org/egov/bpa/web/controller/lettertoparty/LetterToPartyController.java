@@ -41,15 +41,17 @@ package org.egov.bpa.web.controller.lettertoparty;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.CheckListDetail;
 import org.egov.bpa.application.entity.LettertoParty;
 import org.egov.bpa.application.entity.LettertoPartyDocument;
@@ -62,8 +64,16 @@ import org.egov.bpa.utils.BpaConstants;
 import org.egov.infra.exception.ApplicationRuntimeException;
 import org.egov.infra.filestore.entity.FileStoreMapper;
 import org.egov.infra.filestore.service.FileStoreService;
+import org.egov.infra.reporting.engine.ReportOutput;
+import org.egov.infra.reporting.engine.ReportRequest;
+import org.egov.infra.reporting.engine.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -71,6 +81,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -88,6 +99,13 @@ public class LetterToPartyController {
     @Autowired
     @Qualifier("fileStoreService")
     protected FileStoreService fileStoreService;
+    @Autowired
+    private ReportService reportService;
+    @Autowired
+    protected ResourceBundleMessageSource messageSource;
+
+    private static final String APPLICATION_NUMBER = "applicationNumber";
+    private static final String MESSAGE = "message";
 
     @ModelAttribute("lpReasonList")
     public List<LpReason> getLpReasonList() {
@@ -99,32 +117,56 @@ public class LetterToPartyController {
         return checkListDetailService.findActiveCheckListByChecklistType(BpaConstants.CHECKLIST_TYPE);
     }
 
-    @RequestMapping(value = "/create", method = GET)
-    public String showLetterToPartyForm(@ModelAttribute final LettertoParty lettertoParty,
-            final Model model, final HttpServletRequest request) {
+    @RequestMapping(value = "/create/{applicationNumber}", method = GET)
+    public String createLetterToParty(@ModelAttribute final LettertoParty lettertoParty,
+            @PathVariable final String applicationNumber, final Model model, final HttpServletRequest request) {
         model.addAttribute("mode", "new");
+        BpaApplication bpaApplication = applicationBpaService.findByApplicationNumber(applicationNumber);
+        model.addAttribute("bpaApplication", bpaApplication);
+        lettertoParty.setApplication(bpaApplication);
         return "lettertoparty-create";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createLetterToParty(@ModelAttribute final LettertoParty lettertoParty,
-            final BindingResult resultBinder,
-            final Model model,
-            final HttpServletRequest request,
-            final BindingResult errors, final RedirectAttributes redirectAttributes) {
-        final List<LettertoPartyDocument> lpDocs = new ArrayList<>(0);
-        int i = 0;
-        if (!lettertoParty.getLettertoPartyDocument().isEmpty())
-            for (final LettertoPartyDocument lettertoPartyDocument : lettertoParty.getLettertoPartyDocument()) {
-                i++;
-            }
+            final BindingResult resultBinder, final Model model,
+            final HttpServletRequest request, final BindingResult errors, final RedirectAttributes redirectAttributes) {
         processAndStoreLetterToPartyDocuments(lettertoParty);
         lettertoPartyService.save(lettertoParty);
+        redirectAttributes.addFlashAttribute(MESSAGE, messageSource.getMessage("msg.lettertoparty.create.success", null, null));
         return "redirect:/lettertoparty/result/" + lettertoParty.getId();
     }
 
+    @RequestMapping(value = "/update/{applicationNumber}", method = RequestMethod.GET)
+    public String editLetterToParty(@PathVariable final String applicationNumber, final Model model) {
+
+        final BpaApplication bpaApplication = applicationBpaService.findByApplicationNumber(applicationNumber);
+        final List<LettertoParty> lettertoPartyList = lettertoPartyService.findByBpaApplicationOrderByIdAsc(bpaApplication);
+        LettertoParty lettertoParty = null;
+        if (!lettertoPartyList.isEmpty())
+            lettertoParty = lettertoPartyList.get(0);
+        if (lettertoParty != null) {
+            model.addAttribute("lettertoParty", lettertoParty);
+            model.addAttribute("lettertopartydocList", lettertoParty.getLettertoPartyDocument());
+        }
+        model.addAttribute("bpaApplication", bpaApplication);
+        return "lettertoparty-update";
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public String updateLettertoparty(@ModelAttribute final LettertoParty lettertoparty,
+            final Model model,
+            final HttpServletRequest request,
+            final BindingResult errors, final RedirectAttributes redirectAttributes) {
+        processAndStoreLetterToPartyDocuments(lettertoparty);
+        lettertoPartyService.save(lettertoparty);
+        redirectAttributes.addFlashAttribute(MESSAGE,
+                messageSource.getMessage("msg.lettertoparty.update.success", null, null));
+        return "redirect:/lettertoparty/result/" + lettertoparty.getId();
+    }
+
     @RequestMapping(value = "/result/{id}", method = RequestMethod.GET)
-    public String resultStakeHolder(@PathVariable final Long id, final Model model) {
+    public String resultLettertoParty(@PathVariable final Long id, final Model model) {
         model.addAttribute("lettertoParty", lettertoPartyService.findById(id));
         LettertoParty lettertoParty = lettertoPartyService.findById(id);
         model.addAttribute("lettertopartydocList", lettertoParty.getLettertoPartyDocument());
@@ -157,6 +199,30 @@ public class LetterToPartyController {
                 lettertoPartyDocument.setLettertoParty(lettertoParty);
                 lettertoPartyDocument.setSupportDocs(addToFileStore(lettertoPartyDocument.getFiles()));
             }
+    }
+
+    @RequestMapping(value = "/lettertopartyprint", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<byte[]> generateLettertoParty(final HttpServletRequest request,
+            final HttpSession session) {
+        final LettertoParty lettertoParty = lettertoPartyService.findById(new Long(request.getParameter("pathVar")));
+        return generateReport(lettertoParty, session);
+    }
+
+    private ResponseEntity<byte[]> generateReport(final LettertoParty lettertoParty,
+            final HttpSession session) {
+        ReportRequest reportInput = null;
+        ReportOutput reportOutput;
+        if (lettertoParty != null) {
+            Map<String, Object> reportParams = null;
+            reportInput = new ReportRequest("lettertoparty", lettertoParty, reportParams);
+            reportInput.setPrintDialogOnOpenReport(true);
+        }
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType("application/pdf"));
+        headers.add("content-disposition", "inline;filename=Lettertoparty.pdf");
+        reportOutput = reportService.createReport(reportInput);
+        return new ResponseEntity<>(reportOutput.getReportOutputData(), headers, HttpStatus.CREATED);
     }
 
 }

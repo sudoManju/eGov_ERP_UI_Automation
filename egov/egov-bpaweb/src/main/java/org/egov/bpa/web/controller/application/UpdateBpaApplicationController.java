@@ -52,7 +52,9 @@ import javax.validation.Valid;
 
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaAppointmentSchedule;
+import org.egov.bpa.application.entity.LettertoParty;
 import org.egov.bpa.application.entity.enums.AppointmentSchedulePurpose;
+import org.egov.bpa.application.service.LettertoPartyService;
 import org.egov.bpa.masters.service.StakeHolderService;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.eis.service.PositionMasterService;
@@ -107,6 +109,8 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
     private PositionMasterService positionMasterService;
     @Autowired
     protected ResourceBundleMessageSource messageSource;
+    @Autowired
+    LettertoPartyService lettertoPartyService;
 
     @ModelAttribute
     public BpaApplication getBpaApplication(@PathVariable final String applicationNumber) {
@@ -156,6 +160,17 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 && !application.getInspections().isEmpty()) {
             mode = "initialtedApprove";
         } 
+        else if (BpaConstants.LETTERTOPARTYSENT.equalsIgnoreCase(application.getState().getNextAction())) {
+            final List<LettertoParty> lettertoPartyList = lettertoPartyService.findByBpaApplicationOrderByIdAsc(application);
+            LettertoParty lettertoParty = null;
+            if (!lettertoPartyList.isEmpty())
+                lettertoParty = lettertoPartyList.get(0);
+            if (lettertoParty != null) {
+                model.addAttribute("lettertoParty", lettertoParty);
+                model.addAttribute("lettertopartydocList", lettertoParty.getLettertoPartyDocument());
+            }
+            mode = "modifylettertoparty";  
+        }
         if (mode == null) {
             mode = "edit";
         }

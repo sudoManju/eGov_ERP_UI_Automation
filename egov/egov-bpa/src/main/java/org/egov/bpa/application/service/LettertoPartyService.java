@@ -30,16 +30,17 @@
 package org.egov.bpa.application.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.egov.bpa.application.autonumber.LettertoPartyNumberGenerator;
-import org.egov.bpa.application.entity.BpaStatus;
+import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.LettertoParty;
-import org.egov.bpa.application.repository.ApplicationBpaRepository;
 import org.egov.bpa.application.repository.LettertoPartyRepository;
-import org.egov.bpa.service.BpaStatusService;
+import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.commons.service.FinancialYearService;
 import org.egov.infra.utils.autonumber.AutonumberServiceBeanResolver;
+import org.egov.infra.workflow.entity.State;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,18 +50,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class LettertoPartyService {
 
     private final LettertoPartyRepository lettertoPartyRepository;
-
     @Autowired
     private FinancialYearService financialYearService;
-
     @Autowired
     private AutonumberServiceBeanResolver beanResolver;
-
     @Autowired
-    private BpaStatusService bpaStatusService;
-
-    @Autowired
-    private ApplicationBpaRepository applicationBpaRepository;
+    BpaUtils bpaUtils;
 
     @Autowired
     public LettertoPartyService(final LettertoPartyRepository lettertoPartyRepository) {
@@ -69,30 +64,19 @@ public class LettertoPartyService {
 
     @Transactional
     public LettertoParty save(final LettertoParty lettertoParty) {
-        lettertoParty.setLetterDate(new Date());
+        Long approverPosition;
         if (lettertoParty.getLpNumber() == null || lettertoParty.getLpNumber().equals("")) {
+            lettertoParty.setLetterDate(new Date());
             lettertoParty.setLpNumber(generateLettertpPartyNumber());
+            approverPosition = getDocScutinyUser(lettertoParty.getApplication());
+            bpaUtils.redirectToBpaWorkFlow(approverPosition, lettertoParty.getApplication(), BpaConstants.LETTERTOPARTYINITIATED,
+                    "Letter to party initiated");
+        } else if (null != lettertoParty.getSentDate() &&
+                lettertoParty.getApplication().getStatus().getCode().equals(BpaConstants.CREATEDLETTERTOPARTY)) {
+            approverPosition = lettertoParty.getApplication().getState().getPreviousOwner().getId();
+            bpaUtils.redirectToBpaWorkFlow(approverPosition, lettertoParty.getApplication(), BpaConstants.LETTERTOPARTYSENT,
+                    "Letter to party sent");
         }
-
-        /*
-         * List<Inspection> inspectionList = getInspectionListforRegistrationObject(lettertoParty.getApplication()); if
-         * (inspectionList != null && !(inspectionList.isEmpty())) { lettertoParty.setInspection(inspectionList.get(0)); } if
-         * (inspectionList != null && !(inspectionList.isEmpty())) { lettertoParty.setInspection(inspectionList.get(0)); }
-         */
-        /*
-         * if (null != lettertoParty.getSentDate() &&
-         * lettertoParty.getApplication().getStatus().getCode().equals(BpaConstants.CREATEDLETTERTOPARTY)) {
-         * lettertoParty.getApplication().setStatus(getStatusByCodeAndModuleType(BpaConstants.LETTERTOPARTYSENT)); } else { if
-         * (!(lettertoParty.getApplication().getStatus().getCode().equals(BpaConstants.LETTERTOPARTYSENT)))
-         * lettertoParty.getApplication().setStatus(getStatusByCodeAndModuleType(BpaConstants.CREATEDLETTERTOPARTY)); }
-         */
-        // lettertoParty.getApplication().setAdditionalRule(BpaConstants.LETTERTOPARTYDETAILS);
-        lettertoParty.getApplication().getLettertoParty().add(lettertoParty);
-        /*
-         * if (null != lettertoParty.getApplication().getApproverPositionId() &&
-         * lettertoParty.getApplication().getApproverPositionId() != -1) { approverId =
-         * Long.valueOf(request.getParameter("approvalPosition"); } applicationBpaRepository.save(lettertoParty.getApplication());
-         */
         return lettertoPartyRepository.save(lettertoParty);
     }
 
@@ -104,19 +88,20 @@ public class LettertoPartyService {
         return lettertoPartyNumberGenerator.generateLettertoPartyNumber(financialYearRange);
     }
 
-    public BpaStatus getStatusByCodeAndModuleType(final String code) {
-        return bpaStatusService
-                .findByModuleTypeAndCode(BpaConstants.BPASTATUS_MODULETYPE, code);
-    }
-
     public LettertoParty findById(final Long id) {
         return lettertoPartyRepository.findOne(id);
     }
 
-    /*
-     * public List<LettertoPartyDocument> getLettertoPartyDocument(LettertoParty lettertoParty ){ final
-     * List<LettertoPartyDocument> lpDocList = new ArrayList(0); if (lettertoParty != null) for (final LettertoPartyDocument lpdoc
-     * : lettertoParty.getLettertoPartyDocument()) if (lpdoc. tempDocList.add(appDoc); return lpDocList; }
-     */
+    public Long getDocScutinyUser(BpaApplication bpaApplication) {
+        State state = bpaApplication.getState();
+        while (!(state.getValue().equals(BpaConstants.DOCUMENTVERIFIED))) {
+            state = state.getPreviousStateRef();
+        }
+        return state.getOwnerPosition().getId();
+    }
+
+    public List<LettertoParty> findByBpaApplicationOrderByIdAsc(final BpaApplication application) {
+        return lettertoPartyRepository.findByApplicationOrderByIdDesc(application);
+    }
 
 }

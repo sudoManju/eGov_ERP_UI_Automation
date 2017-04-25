@@ -30,6 +30,9 @@
 package org.egov.bpa.application.repository;
 
 
+import java.util.List;
+
+import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.LettertoParty;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -37,5 +40,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface LettertoPartyRepository extends JpaRepository<LettertoParty, Long>
 {
-   
+    List<LettertoParty> findByApplicationOrderByIdDesc(BpaApplication bpaApplication);
+
 }

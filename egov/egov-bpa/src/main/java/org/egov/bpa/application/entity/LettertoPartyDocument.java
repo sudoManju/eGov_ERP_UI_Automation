@@ -83,8 +83,8 @@ public class LettertoPartyDocument extends AbstractAuditable {
     private Set<FileStoreMapper> supportDocs = Collections.emptySet();
 
     private transient MultipartFile[] files;
-    @ManyToOne
-    @NotNull
+  
+    @ManyToOne(fetch = FetchType.LAZY)     
     @JoinColumn(name = "checklistDetail", nullable = false)
     private CheckListDetail checklistDetail;
     @ManyToOne(cascade = CascadeType.ALL)

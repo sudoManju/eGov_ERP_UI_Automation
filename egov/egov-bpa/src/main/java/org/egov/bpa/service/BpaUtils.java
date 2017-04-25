@@ -94,17 +94,27 @@ public class BpaUtils {
     }
 
     @Transactional
-    public void redirectToBpaWorkFlow(Long approvalPosition,final BpaApplication application, final String currentState, final String remarks) {
-       
+    public void redirectToBpaWorkFlow(Long approvalPosition, final BpaApplication application, final String currentState,
+            final String remarks) {
+
         final WorkFlowMatrix wfmatrix = getWfMatrixByCurrentState(application, currentState);
         final BpaApplicationWorkflowCustomDefaultImpl applicationWorkflowCustomDefaultImpl = getInitialisedWorkFlowBean();
-        if(approvalPosition ==null){
-        approvalPosition = getUserPositionByZone(wfmatrix.getNextDesignation(), application.getSiteDetail().get(0) != null
-                ? application.getSiteDetail().get(0).getElectionBoundary().getId() : null);
+        if (approvalPosition == null) {
+            approvalPosition = getUserPositionByZone(wfmatrix.getNextDesignation(), application.getSiteDetail().get(0) != null
+                    ? application.getSiteDetail().get(0).getElectionBoundary().getId() : null);
         }
-        applicationWorkflowCustomDefaultImpl.createCommonWorkflowTransition(application,
-                approvalPosition, remarks,
-                BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, null);
+        if (currentState.equals(BpaConstants.LETTERTOPARTYINITIATED))
+            applicationWorkflowCustomDefaultImpl.createCommonWorkflowTransition(application,
+                    approvalPosition, remarks,
+                    BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, BpaConstants.LETTERTOPARTYINITIATED);
+        else if (currentState.equals(BpaConstants.LETTERTOPARTYSENT))
+            applicationWorkflowCustomDefaultImpl.createCommonWorkflowTransition(application,
+                    approvalPosition, remarks,
+                    BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, BpaConstants.LETTERTOPARTYSENT);
+        else
+            applicationWorkflowCustomDefaultImpl.createCommonWorkflowTransition(application,
+                    approvalPosition, remarks,
+                    BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, null);
     }
 
 }

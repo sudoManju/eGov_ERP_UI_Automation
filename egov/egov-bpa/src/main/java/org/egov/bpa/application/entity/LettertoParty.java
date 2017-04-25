@@ -64,7 +64,7 @@ public class LettertoParty extends AbstractAuditable {
     @GeneratedValue(generator = SEQ_LETTERTOPARTY, strategy = GenerationType.SEQUENCE)
     private Long id;
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "application")
     private BpaApplication application;
     @ManyToOne(fetch = FetchType.LAZY)

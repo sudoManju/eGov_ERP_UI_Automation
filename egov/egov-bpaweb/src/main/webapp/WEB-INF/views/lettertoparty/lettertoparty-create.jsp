@@ -42,134 +42,158 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn"%>
-<form:form role="form" action="/bpa/lettertoparty/create"
+
+<form:form role="form" action="" method="post"
 	modelAttribute="lettertoParty" id="lettertoPartyform"
 	cssClass="form-horizontal form-groups-bordered"
 	enctype="multipart/form-data">
-	<div class="form-group">
-		<label class="col-sm-3 control-label text-right"><spring:message
-				code="lbl.lpreason" /></label>
-		<div class="col-sm-3 add-margin">
-			<form:select path="lpReason" data-first-option="false" id="lpReason"
-				cssClass="form-control" required="required">
-				<form:option value="">
-					<spring:message code="lbl.select" />
-				</form:option>
-				<form:options items="${lpReasonList}" itemValue="id"
-					itemLabel="description" />
-			</form:select>
-			<form:errors path="lpReason" cssClass="add-margin error-msg" />
-		</div>
-
-
-
-		<label class="col-sm-3 control-label text-right"><spring:message
-				code="lbl.lpremarks" /></label>
-		<div class="col-sm-3 add-margin">
-			<form:textarea path="lpRemarks"
-				class="form-control patternvalidation" data-pattern="string"
-				maxlength="1024" id="lpRemarks" />
-			<form:errors path="lpRemarks" cssClass="error-msg" />
-		</div>
-
-	</div>
-
-
-
-	<c:choose>
-		<c:when test="${!checkListDetailList.isEmpty()}">
-			<div class="panel-heading custom_form_panel_heading">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-primary" data-collapsed="0">
 				<div class="panel-title">
-					<spring:message code="lbl.encloseddocuments" />
-					-
-					<spring:message code="lbl.checklist" />
+					<spring:message code="title.lettertoparty.create" />
 				</div>
 			</div>
-			<div class="form-group view-content header-color hidden-xs">
-				<div class="col-sm-3 text-center">
-					<spring:message code="lbl.documentname" />
-				</div>
-				<div class="col-sm-3 text-center">
-					<spring:message code="lbl.issubmitted" />
-				</div>
-				<div class="col-sm-3 text-center">
-					<spring:message code="lbl.remarks" />
-				</div>
-				<div class="col-sm-3 text-center">
-					<spring:message code="lbl.attachdocument" />
-				</div>
-			</div>
-			<c:forEach var="docs" items="${checkListDetailList}"
-				varStatus="status">
-				<div class="form-group">
-					<div class="col-sm-3 add-margin check-text text-center">
-						<c:choose>
-							<c:when test="${docs.isMandatory}">
-								<input type="checkbox" checked disabled>&nbsp;<c:out
-									value="${docs.description}" />
-							</c:when>
-							<c:otherwise>
-								<input type="checkbox" disabled>&nbsp;<c:out
-									value="${docs.description}" />
-							</c:otherwise>
-						</c:choose>
-						<form:hidden
-							id="lettertoPartyDocument${status.index}checklistDetail.id"
-							path="lettertoPartyDocument[${status.index}].checklistDetail.id"
-							value="${docs.id}" />
-						<form:hidden
-							id="lettertoPartyDocument${status.index}checklistDetail"
-							path="lettertoPartyDocument[${status.index}].checklistDetail.isMandatory"
-							value="${docs.isMandatory}" />
-						<form:hidden
-							id="lettertoPartyDocument${status.index}checklistDetail.description"
-							path="lettertoPartyDocument[${status.index}].checklistDetail.description"
-							value="${docs.description}" />
+
+			<div class="panel panel-primary" data-collapsed="0">
+				<jsp:include page="../application/viewapplication-details.jsp"></jsp:include>
+
+				<div class="panel-heading custom_form_panel_heading">
+					<div class="panel-title">
+						<spring:message code="lbl.lp.details" />
 					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row add-border">
+						<div class="form-group">
+							<form:hidden path="application" id="applicationId"
+								value="${application.id}" />
+							<label class="col-sm-3 control-label text-right"><spring:message
+									code="lbl.lpreason" /><span class="mandatory"></label>
+							<div class="col-sm-3 add-margin">
+								<form:select path="lpReason" data-first-option="false"
+									id="lpReason" cssClass="form-control" required="required">
+									<form:option value="">
+										<spring:message code="lbl.select" />
+									</form:option>
+									<form:options items="${lpReasonList}" itemValue="id"
+										itemLabel="description" />
+								</form:select>
+								<form:errors path="lpReason" cssClass="add-margin error-msg" />
+							</div>
 
-					<div class="col-sm-3 add-margin text-center">
-						<form:checkbox
-							id="lettertoPartyDocument${status.index}issubmitted"
-							path="lettertoPartyDocument[${status.index}].issubmitted"
-							value="lettertoPartyDocument${status.index}issubmitted" />
-					</div>
+							<label class="col-sm-3 control-label text-right"><spring:message
+									code="lbl.lpdescription" /></label>
+							<div class="col-sm-3 add-margin">
+								<form:textarea path="lpDesc"
+									class="form-control patternvalidation" data-pattern="string"
+									maxlength="1024" id="lpDesc" />
+								<form:errors path="lpDesc" cssClass="error-msg" />
+							</div>
 
-					<div class="col-sm-3 add-margin text-center">
-
-						<form:textarea class="form-control patternvalidation"
-							data-pattern="string" maxlength="256"
-							id="lettertoPartyDocument${status.index}remarks"
-							path="lettertoPartyDocument[${status.index}].remarks" />
-						<form:errors path="lettertoPartyDocument[${status.index}].remarks"
-							cssClass="add-margin error-msg" />
-					</div>
-
-					<div class="col-sm-3 add-margin text-center">
-						<c:choose>
-							<c:when test="${docs.isMandatory}">
-								<input type="file" id="file${status.index}id"
-									name="lettertoPartyDocument[${status.index}].files"
-									class="file-ellipsis upload-file" required="required">
-							</c:when>
-							<c:otherwise>
-								<input type="file" id="file${status.index}id"
-									name="lettertoPartyDocument[${status.index}].files"
-									class="file-ellipsis upload-file">
-							</c:otherwise>
-						</c:choose>
-						<form:errors path="lettertoPartyDocument[${status.index}].files"
-							cssClass="add-margin error-msg" />
-						<div class="add-margin error-msg text-left">
-							<font size="2"> <spring:message code="lbl.mesg.document" />
-							</font>
 						</div>
+
+						<c:choose>
+							<c:when test="${!checkListDetailList.isEmpty()}">
+								<div class="panel-heading custom_form_panel_heading">
+									<div class="panel-title">
+										<spring:message code="lbl.encloseddocuments" />
+										-
+										<spring:message code="lbl.checklist" />
+									</div>
+								</div>
+								<div class="form-group view-content header-color hidden-xs">
+									<div class="col-sm-3 text-center">
+										<spring:message code="lbl.documentname" />
+									</div>
+									<div class="col-sm-3 text-center">
+										<spring:message code="lbl.issubmitted" />
+									</div>
+									<div class="col-sm-3 text-center">
+										<spring:message code="lbl.remarks" />
+									</div>
+									<div class="col-sm-3 text-center">
+										<spring:message code="lbl.attachdocument" />
+									</div>
+								</div>
+								<c:forEach var="docs" items="${checkListDetailList}"
+									varStatus="status">
+									<div class="form-group">
+										<div class="col-sm-3 add-margin check-text text-center">
+											<c:choose>
+												<c:when test="${docs.isMandatory}">
+													<input type="checkbox" checked disabled>&nbsp;<c:out
+														value="${docs.description}" />
+												</c:when>
+												<c:otherwise>
+													<input type="checkbox" disabled>&nbsp;<c:out
+														value="${docs.description}" />
+												</c:otherwise>
+											</c:choose>
+											<form:hidden
+												id="lettertoPartyDocument${status.index}checklistDetail.id"
+												path="lettertoPartyDocument[${status.index}].checklistDetail.id"
+												value="${docs.id}" />
+											<form:hidden
+												id="lettertoPartyDocument${status.index}checklistDetail"
+												path="lettertoPartyDocument[${status.index}].checklistDetail.isMandatory"
+												value="${docs.isMandatory}" />
+											<form:hidden
+												id="lettertoPartyDocument${status.index}checklistDetail.description"
+												path="lettertoPartyDocument[${status.index}].checklistDetail.description"
+												value="${docs.description}" />
+										</div>
+
+										<div class="col-sm-3 add-margin text-center">
+											<form:checkbox
+												id="lettertoPartyDocument${status.index}issubmitted"
+												path="lettertoPartyDocument[${status.index}].issubmitted"
+												value="lettertoPartyDocument${status.index}issubmitted" />
+										</div>
+
+										<div class="col-sm-3 add-margin text-center">
+
+											<form:textarea class="form-control patternvalidation"
+												data-pattern="string" maxlength="256"
+												id="lettertoPartyDocument${status.index}remarks"
+												path="lettertoPartyDocument[${status.index}].remarks" />
+											<form:errors
+												path="lettertoPartyDocument[${status.index}].remarks"
+												cssClass="add-margin error-msg" />
+										</div>
+
+										<div class="col-sm-3 add-margin text-center">
+											<c:choose>
+												<c:when test="${docs.isMandatory}">
+													<input type="file" id="file${status.index}id"
+														name="lettertoPartyDocument[${status.index}].files"
+														class="file-ellipsis upload-file" required="required">
+												</c:when>
+												<c:otherwise>
+													<input type="file" id="file${status.index}id"
+														name="lettertoPartyDocument[${status.index}].files"
+														class="file-ellipsis upload-file">
+												</c:otherwise>
+											</c:choose>
+											<form:errors
+												path="lettertoPartyDocument[${status.index}].files"
+												cssClass="add-margin error-msg" />
+											<div class="add-margin error-msg text-left">
+												<font size="2"> <spring:message
+														code="lbl.mesg.document" />
+												</font>
+											</div>
+										</div>
+
+									</div>
+								</c:forEach>
+							</c:when>
+						</c:choose>
 					</div>
 				</div>
-			</c:forEach>
-		</c:when>
-	</c:choose>
-
-
+			</div>
+		</div>
+	</div>
 	<div class="text-center">
 		<button type='submit' class='btn btn-primary' id="buttonSubmit">
 			<spring:message code='lbl.create' />

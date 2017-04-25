@@ -43,6 +43,25 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn"%>
 <div class="panel-body">
+
+	<div class="row add-border">
+		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.lpNumber" />
+		</div>
+		<div class="col-sm-3 add-margin view-content">
+			<c:out value="${lettertoParty.lpNumber}"></c:out>
+		</div>
+		<c:if test="${lettertoParty.sentDate !=null }">
+			<div class="col-sm-3 add-margin">
+				<spring:message code="lbl.lpsentdate" />
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+				<c:out value="${lettertoParty.sentDate}"></c:out>
+			</div>
+		</c:if>
+		<input type="hidden" id='lettertoParty' name="lettertoParty"
+			value="${lettertoParty.id}">
+	</div>
 	<div class="row add-border">
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.lpreason" />
@@ -51,12 +70,14 @@
 			<c:out value="${lettertoParty.lpReason.description}"></c:out>
 		</div>
 		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.lpremarks" />
+			<spring:message code="lbl.lpdescription" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${lettertoParty.lpRemarks}"></c:out>
+			<c:out value="${lettertoParty.lpDesc}"></c:out>
 		</div>
+
 	</div>
+
 	<c:if test="${not empty lettertopartydocList}">
 		<thead>
 			<tr>
@@ -79,30 +100,32 @@
 		<c:when test="${not empty lettertopartydocList}">
 			<c:forEach items="${lettertopartydocList}" var="docs"
 				varStatus="status">
-			  <div class="form-group">	
-				<tbody>
-					<tr>
-						<div class="col-sm-3 text-center">
-							<td><c:out value="${docs.checklistDetail.description}" /></td>
-						</div>
-						<div class="col-sm-3 text-center">
-							<td><c:out value="${docs.issubmitted ? 'Yes' : 'No'}"></c:out>
-							</td>
-						</div>
-						<div class="col-sm-3 text-center">
-							<td><c:out value="${docs.remarks}" /></td>
-						</div>
-						<div class="col-sm-3 text-center">
-							<td><c:forEach items="${docs.getSupportDocs()}" var="file">
-									<a
-										href="/egi/downloadfile?fileStoreId=${file.fileStoreId}&moduleName=BPA"
-										target="_blank"> <c:out value="${file.fileName}" /></a>
-								</c:forEach>
-							</td>
-						</div>
-
-					</tr>
-				</tbody>
+				<div class="form-group">
+					<tbody>
+						<tr>
+							<div class="col-sm-3 text-center">
+								<td><c:out value="${docs.checklistDetail.description}" /></td>
+							</div>
+							<div class="col-sm-3 text-center">
+								<td><c:out value="${docs.issubmitted ? 'Yes' : 'No'}"></c:out>
+								</td>
+							</div>
+							<div class="col-sm-3 text-center">
+								<td><c:out value="${docs.remarks}" /></td>
+							</div>
+							<div class="col-sm-3 text-center">
+								<c:set value="false" var="isDocFound"></c:set>
+								<td><c:forEach items="${docs.getSupportDocs()}" var="file">
+										<c:set value="true" var="isDocFound"></c:set>
+										<a
+											href="/egi/downloadfile?fileStoreId=${file.fileStoreId}&moduleName=BPA"
+											target="_blank"> <c:out value="${file.fileName}" /></a>
+									</c:forEach> <c:if test="${!isDocFound}">
+									NA
+								</c:if></td>
+							</div>
+						</tr>
+					</tbody>
 				</div>
 			</c:forEach>
 		</c:when>
@@ -110,6 +133,11 @@
 			<div class="col-md-12 col-xs-6  panel-title">No documents found</div>
 		</c:otherwise>
 	</c:choose>
+	<div class="buttonbottom" align="center">
+		<a href='javascript:void(0)' class='btn btn-default'
+			onclick='self.close()'><spring:message code='lbl.close' /></a>
+	</div>
 </div>
-
+<script
+	src="<cdn:url value='/resources/js/app/lettertoparty.js?rnd=${app_release_no}'/> "></script>
 

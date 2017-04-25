@@ -101,6 +101,7 @@ public class BpaConstants {
     public static final String LETTERTOPARTY_NUMBER_SEQ = "SEQ_BPA_LP_";
     public static final String CREATEDLETTERTOPARTY = "Letter To Party Created";
     public static final String LETTERTOPARTYSENT = "LP Sent to Applicant";
+    public static final String LETTERTOPARTYINITIATED  = "LP Initiated";
     public static final String LETTERTOPARTYDETAILS = "lettertoparty";
     public static final String CHECKLIST_TYPE_NOC = "NOC";
     public static final String BPA_APPLICATION = "bpaApplication";
