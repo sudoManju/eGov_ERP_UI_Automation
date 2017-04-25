@@ -42,6 +42,7 @@ $(document)
 		.ready(
 				function() {
 					var viewurl = '/bpa/application/view/';
+					var collecturl = '/bpa/application/bpageneratebill/';
 					var demandNoticeurl = '/bpa/application/demandnotice/';
 					$('#btnSearch').click(function() {
 						callAjaxSearch();
