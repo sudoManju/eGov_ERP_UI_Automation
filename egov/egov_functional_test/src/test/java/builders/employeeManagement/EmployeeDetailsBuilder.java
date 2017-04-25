@@ -4,62 +4,72 @@ import entities.employeeManagement.EmployeeDetails;
 
 public final class EmployeeDetailsBuilder {
 
-    EmployeeDetails details = new EmployeeDetails();
+    EmployeeDetails employeeDetails = new EmployeeDetails();
 
     public EmployeeDetailsBuilder() {
-        details.setDateOfBirth("29/07/1994");
-        details.setMobileNumber("9999988888");
-        details.setEmailId("testing@gmail.com");
-
-
     }
 
-    public EmployeeDetailsBuilder withMartialStatus(String status){
-        details.setMartialStatus(status);
+    public EmployeeDetailsBuilder withEmployeeType(String employeeType) {
+        employeeDetails.setEmployeeType(employeeType);
         return this;
     }
 
-    public EmployeeDetailsBuilder withGender(String gender){
-        details.setGender(gender);
+    public EmployeeDetailsBuilder withStatus(String status) {
+        employeeDetails.setStatus(status);
         return this;
     }
 
-    public EmployeeDetailsBuilder withEmployeeType(String employeeType){
-        details.setEmployeeType(employeeType);
+    public EmployeeDetailsBuilder withDateOfBirth(String dateOfBirth) {
+        employeeDetails.setDateOfBirth(dateOfBirth);
         return this;
     }
 
-    public EmployeeDetailsBuilder withEmployeeGroup(String employeeGroup){
-        details.setEmployeeGroup(employeeGroup);
+    public EmployeeDetailsBuilder withGender(String gender) {
+        employeeDetails.setGender(gender);
         return this;
     }
 
-    public EmployeeDetailsBuilder withStatus(String status){
-        details.setStatus(status);
+    public EmployeeDetailsBuilder withMaritalStatus(String maritalStatus) {
+        employeeDetails.setMaritalStatus(maritalStatus);
         return this;
     }
 
-    public EmployeeDetailsBuilder withPermanantAddress(String permanantAddress){
-        details.setPermanantAddress(permanantAddress);
+    public EmployeeDetailsBuilder withUserName(String userName) {
+        employeeDetails.setUserName(userName);
         return this;
     }
 
-    public EmployeeDetailsBuilder withPermanantCity(String permanantCity){
-        details.setPermanantCity(permanantCity);
+    public EmployeeDetailsBuilder withIsUserActive(String isUserActive) {
+        employeeDetails.setIsUserActive(isUserActive);
         return this;
     }
 
-    public EmployeeDetailsBuilder withPermanantPincode(String permanantPincode){
-        details.setPermananyPincode(permanantPincode);
+    public EmployeeDetailsBuilder withMobileNumber(String mobileNumber) {
+        employeeDetails.setMobileNumber(mobileNumber);
         return this;
     }
 
-    public EmployeeDetailsBuilder withDateOfAppointment(String dateOfAppointment){
-        details.setDateOfAppointment(dateOfAppointment);
+    public EmployeeDetailsBuilder withPermanentAddress(String permanentAddress) {
+        employeeDetails.setPermanentAddress(permanentAddress);
+        return this;
+    }
+
+    public EmployeeDetailsBuilder withPermanentCity(String permanentCity) {
+        employeeDetails.setPermanentCity(permanentCity);
+        return this;
+    }
+
+    public EmployeeDetailsBuilder withPermanentPincode(String permanentPincode) {
+        employeeDetails.setPermanentPincode(permanentPincode);
+        return this;
+    }
+
+    public EmployeeDetailsBuilder withDateOfAppointment(String dateOfAppointment) {
+        employeeDetails.setDateOfAppointment(dateOfAppointment);
         return this;
     }
 
     public EmployeeDetails build() {
-        return details;
+        return employeeDetails;
     }
 }
