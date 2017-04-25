@@ -66,7 +66,7 @@ public class GenericBillGeneratorService {
     @Transactional
     public String generateBillAndRedirectToCollection(final BpaApplication application, final Model model) {
         if (ApplicationThreadLocals.getUserId() == null)
-            if (securityUtils.getCurrentUser().getUsername().equals("anonymous"))
+            if (securityUtils.getCurrentUser().getUsername().equals(BpaConstants.USERNAME_ANONYMOUS))
                 ApplicationThreadLocals.setUserId(userService.getUserByUsername(BpaConstants.USERNAME_ANONYMOUS).getId());
         model.addAttribute("collectxml", applicationBpaBillService.generateBill(application));
         model.addAttribute("citizenrole", getCitizenUserRole());

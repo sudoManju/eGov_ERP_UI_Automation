@@ -38,6 +38,7 @@
  *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
 package org.egov.bpa.web.controller.application;
+import org.egov.bpa.application.service.SearchBpaApplicationService;
 import static org.egov.bpa.utils.BpaConstants.FILESTORE_MODULECODE;
 import static org.egov.infra.utils.JsonUtils.toJSON;
 
@@ -51,6 +52,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.dto.SearchBpaApplicationForm;
 import org.egov.bpa.web.controller.adaptors.SearchBpaApplicationFormAdaptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -66,6 +68,9 @@ public class SearchBpaApplicationController extends BpaGenericApplicationControl
 
     private static final String DATA = "{ \"data\":";
     private static final String APPLICATION_HISTORY = "applicationHistory";
+    
+    @Autowired
+    private SearchBpaApplicationService searchBpaApplicationService;
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String showSearchApprovedforFee(final Model model) {
@@ -78,7 +83,7 @@ public class SearchBpaApplicationController extends BpaGenericApplicationControl
     public String searchRegisterStatusMarriageRecords(final Model model,
             @ModelAttribute final SearchBpaApplicationForm searchBpaApplicationForm)
             throws ParseException {
-        final List<SearchBpaApplicationForm> searchResultList = applicationBpaService.search(searchBpaApplicationForm);
+        final List<SearchBpaApplicationForm> searchResultList = searchBpaApplicationService.search(searchBpaApplicationForm);
         return new StringBuilder(DATA)
                 .append(toJSON(searchResultList, SearchBpaApplicationForm.class, SearchBpaApplicationFormAdaptor.class))
                 .append("}")

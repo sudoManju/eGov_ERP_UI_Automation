@@ -45,7 +45,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.egov.bpa.application.entity.BpaApplication;
-import org.egov.bpa.application.service.ApplicationBpaBillService;
+import org.egov.bpa.service.BpaDemandService;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.collection.constants.CollectionConstants;
 import org.egov.demand.dao.EgBillDao;
@@ -53,7 +53,9 @@ import org.egov.demand.interfaces.Billable;
 import org.egov.demand.model.AbstractBillable;
 import org.egov.demand.model.EgBillType;
 import org.egov.demand.model.EgDemand;
+import org.egov.infra.admin.master.entity.AppConfigValues;
 import org.egov.infra.admin.master.entity.Module;
+import org.egov.infra.admin.master.service.AppConfigValueService;
 import org.egov.infra.admin.master.service.ModuleService;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +76,9 @@ public class BpaApplicationBillable extends AbstractBillable implements Billable
     private EgBillType billType;
     private String referenceNumber;
     private String transanctionReferenceNumber;
+    
+    @Autowired
+    private AppConfigValueService appConfigValueService;
 
     @Autowired
     private EgBillDao egBillDAO;
@@ -81,7 +86,7 @@ public class BpaApplicationBillable extends AbstractBillable implements Billable
     private ModuleService moduleService;
 
     @Autowired
-    private ApplicationBpaBillService applicationBpaBillService;
+    private BpaDemandService bpaDemandService;
 
     @Override
     public String getBillPayee() {
@@ -135,22 +140,29 @@ public class BpaApplicationBillable extends AbstractBillable implements Billable
 
     @Override
     public String getDepartmentCode() {
-        return "REV";
+    	List<AppConfigValues>appConfigValueList=appConfigValueService.getConfigValuesByModuleAndKey(BpaConstants.APPLICATION_MODULE_TYPE, BpaConstants.BPA_DEPARTMENT_CODE);
+    	return (!appConfigValueList.isEmpty()?appConfigValueList.get(0).getValue():"");
     }
 
     @Override
     public BigDecimal getFunctionaryCode() {
-        return new BigDecimal(0);
+    	List<AppConfigValues>appConfigValueList=appConfigValueService.getConfigValuesByModuleAndKey
+    			(BpaConstants.APPLICATION_MODULE_TYPE, BpaConstants.BPA_DEFAULT_FUNCTIONARY_CODE);
+    	return (!appConfigValueList.isEmpty()?new BigDecimal(appConfigValueList.get(0).getValue()):new BigDecimal(0));
     }
 
     @Override
     public String getFundCode() {
-        return "01";
+    	List<AppConfigValues>appConfigValueList=appConfigValueService.getConfigValuesByModuleAndKey
+    			(BpaConstants.APPLICATION_MODULE_TYPE, BpaConstants.BPA_DEFAULT_FUND_CODE);
+    	return (!appConfigValueList.isEmpty()?appConfigValueList.get(0).getValue():"");
     }
 
     @Override
     public String getFundSourceCode() {
-        return "01";
+    	List<AppConfigValues>appConfigValueList=appConfigValueService.getConfigValuesByModuleAndKey
+    			(BpaConstants.APPLICATION_MODULE_TYPE, BpaConstants.BPA_DEFAULT_FUND_SRC_CODE);
+    	return (!appConfigValueList.isEmpty()?appConfigValueList.get(0).getValue():"");
     }
 
     @Override
@@ -188,7 +200,7 @@ public class BpaApplicationBillable extends AbstractBillable implements Billable
     @Override
     public BigDecimal getTotalAmount() {
         final EgDemand currentDemand = getCurrentDemand();
-        final List instVsAmt = applicationBpaBillService.getDmdCollAmtInstallmentWise(currentDemand);
+        final List instVsAmt = bpaDemandService.getDmdCollAmtInstallmentWise(currentDemand);
         BigDecimal balance = BigDecimal.ZERO;
         for (final Object object : instVsAmt) {
             final Object[] ddObject = (Object[]) object;

@@ -208,13 +208,14 @@ public class BpaTaxCollection extends TaxCollection {
     }
 
     /**
-     * @param demand Updates WaterConnectionDetails Object once Collection Is done. send Record move to Commissioner and Send SMS
+     * @param demand Updates bpaApplication Object once Collection Is done. send Record move to Commissioner and Send SMS
      * and Email after Collection
      */
     @Transactional
     public void updateBpaApplication(final EgDemand demand) {
         final BpaApplication application = applicationBpaService
                 .getApplicationByDemand(demand);
+        if(application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_CREATED))
         bpaUtils.redirectToBpaWorkFlow(null,application, BpaConstants.WF_NEW_STATE, "BPA Admission fees collected");
         // update status and initialize workflow
         applicationBpaService.saveAndFlushApplication(application);

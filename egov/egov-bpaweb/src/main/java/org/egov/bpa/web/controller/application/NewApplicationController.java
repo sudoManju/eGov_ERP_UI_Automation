@@ -47,6 +47,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -59,6 +60,8 @@ import org.egov.bpa.application.entity.CheckListDetail;
 import org.egov.bpa.application.service.collection.GenericBillGeneratorService;
 import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
+import org.egov.infra.admin.master.entity.Role;
+import org.egov.infra.admin.master.service.UserService;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -81,12 +84,20 @@ public class NewApplicationController extends BpaGenericApplicationController {
     private GenericBillGeneratorService genericBillGeneratorService;
     @Autowired
     private BpaUtils bpaUtils;
+    
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "/newApplication-newform", method = GET)
     public String showNewApplicationForm(@ModelAttribute final BpaApplication bpaApplication,
             final Model model, final HttpServletRequest request) {
         bpaApplication.setApplicationDate(new Date());
         model.addAttribute("mode", "new");
+        Set<Role>rolList=userService.getRolesByUsername("mahesh");
+        for(Role tt:rolList)
+        {
+        	System.out.println(tt.getName());
+        }
         return "newapplication-form";
     }
 
@@ -96,6 +107,11 @@ public class NewApplicationController extends BpaGenericApplicationController {
             final HttpServletRequest request, final Model model,
             final BindingResult errors) {
 
+    	 Set<Role>rolList=userService.getRolesByUsername("mahesh");
+         for(Role tt:rolList)
+         {
+         	System.out.println(tt.getName());
+         }
         final List<ApplicationDocument> applicationDocs = new ArrayList<>(0);
         int i = 0;
         if (!bpaApplication.getApplicationDocument().isEmpty())

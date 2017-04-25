@@ -46,10 +46,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.egov.bpa.application.entity.ApplicationFee;
 import org.egov.bpa.application.entity.ApplicationFeeDetail;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaFee;
+import org.egov.bpa.application.entity.BpaFeeDetail;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.commons.Installment;
 import org.egov.commons.dao.InstallmentDao;
@@ -60,6 +64,10 @@ import org.egov.demand.model.EgDemandReason;
 import org.egov.demand.model.EgDemandReasonMaster;
 import org.egov.infra.admin.master.entity.Module;
 import org.egov.infra.admin.master.service.ModuleService;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -72,10 +80,15 @@ public class BpaDemandService {
     private ModuleService moduleService;
     @Autowired
     private DemandGenericDao demandGenericDao;
+    @PersistenceContext
+	private EntityManager entityManager;
 
-   
-    @Autowired
-    private InstallmentDao installmentDao;
+	@Autowired
+	private InstallmentDao installmentDao;
+
+	public Session getCurrentSession() {
+		return entityManager.unwrap(Session.class);
+	}
 
     @Transactional
     public ApplicationFee generateDemandUsingSanctionFeeList(ApplicationFee applicationFee) {
@@ -89,8 +102,8 @@ public class BpaDemandService {
                         installment);
 
         Set<EgDemandDetails> demandDetailsSet = applicationFee.getApplication().getDemand().getEgDemandDetails();
-        HashMap<String, BigDecimal> feecodeamountmap = new HashMap<String, BigDecimal>();
-        HashMap<String, Long> feecodedemanddetailsIdmap = new HashMap<String, Long>();
+        HashMap<String, BigDecimal> feecodeamountmap = new HashMap<>();
+        HashMap<String, Long> feecodedemanddetailsIdmap = new HashMap<>();
 
         for (EgDemandDetails demandDetails : demandDetailsSet) {
             feecodeamountmap.put(demandDetails.getEgDemandReason().getEgDemandReasonMaster().getCode(),
@@ -196,7 +209,7 @@ public class BpaDemandService {
          * if (egDemandReasonMaster == null) { egDemandReasonMaster = createEgDemandReasonMaster(bpaFee); }
          */
 
-        egDemandReason = (EgDemandReason) demandGenericDao
+        egDemandReason = demandGenericDao
                 .getDmdReasonByDmdReasonMsterInstallAndMod(egDemandReasonMaster,
                         getCurrentInstallment(BpaConstants.EGMODULE_NAME, BpaConstants.YEARLY, new Date()),
                         module);
@@ -274,4 +287,37 @@ public class BpaDemandService {
        return pendingTaxCollection;
    }
 
+   public EgDemandReason getDemandReasonByCodeAndInstallment(final String demandReason,
+			final Installment installment) {
+		final Query demandQuery = getCurrentSession().getNamedQuery("DEMANDREASONBY_CODE_AND_INSTALLMENTID");
+		demandQuery.setParameter(0, demandReason);
+		demandQuery.setParameter(1, installment.getId());
+		return (EgDemandReason) demandQuery.uniqueResult();
+	}
+
+	public List<Object> getDmdCollAmtInstallmentWise(final EgDemand egDemand) {
+		final StringBuilder queryStringBuilder = new StringBuilder();
+		queryStringBuilder
+				.append("select dmdRes.id,dmdRes.id_installment, sum(dmdDet.amount) as amount, sum(dmdDet.amt_collected) as amt_collected, "
+						+ "sum(dmdDet.amt_rebate) as amt_rebate, inst.start_date from eg_demand_details dmdDet,eg_demand_reason dmdRes, "
+						+ "eg_installment_master inst,eg_demand_reason_master dmdresmas where dmdDet.id_demand_reason=dmdRes.id "
+						+ "and dmdDet.id_demand =:dmdId and dmdRes.id_installment = inst.id and dmdresmas.id = dmdres.id_demand_reason_master "
+						+ "group by dmdRes.id,dmdRes.id_installment, inst.start_date order by inst.start_date ");
+		return getCurrentSession().createSQLQuery(queryStringBuilder.toString()).setLong("dmdId", egDemand.getId())
+				.list();
+	}
+
+	public Criteria createCriteriaforFeeAmount(final Long serviceTypeId, final String feeType) {
+
+		final Criteria feeCrit = getCurrentSession().createCriteria(BpaFeeDetail.class, "bpafeeDtl")
+				.createAlias("bpafeeDtl.bpafee", "bpaFeeObj").createAlias("bpaFeeObj.serviceType", "servicetypeObj");
+		feeCrit.add(Restrictions.eq("servicetypeObj.id", serviceTypeId));
+		feeCrit.add(Restrictions.eq("bpaFeeObj.isActive", Boolean.TRUE));
+		if (feeType != null)
+			feeCrit.add(Restrictions.ilike("bpaFeeObj.feeType", feeType));
+
+		feeCrit.add(Restrictions.le("startDate", new Date()))
+				.add(Restrictions.or(Restrictions.isNull("endDate"), Restrictions.ge("endDate", new Date())));
+		return feeCrit;
+	}
 }

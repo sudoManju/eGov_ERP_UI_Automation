@@ -139,4 +139,10 @@ public class BpaConstants {
     public static final String IMAGE_CONTEXT_PATH = "/egi";
     public static final String BPADEMANDNOTICETITLE = "Building Plan Approval Demand Notice";
     public static final String DEMANDNOCFILENAME = "bpaDemandNotice";
+    public static final String STRING_BPA_FUCNTION_CODE = "5100";
+    public static final String ROLE_BILLCOLLECTOR = "Collection Operator";
+    public static final String  BPA_DEPARTMENT_CODE="BPA_DEPARTMENT_CODE";
+    public static final String BPA_DEFAULT_FUND_CODE="BPA_DEFAULT_FUND_CODE";
+    public static final String BPA_DEFAULT_FUNCTIONARY_CODE="BPA_DEFAULT_FUNCTIONARY_CODE";
+    public static final String BPA_DEFAULT_FUND_SRC_CODE="BPA_DEFAULT_FUND_SRC_CODE";
 }

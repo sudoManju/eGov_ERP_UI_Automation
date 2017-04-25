@@ -115,7 +115,9 @@ $(document)
 															}
 															return ('<select class="dropchange"><option value="">Select from Below</option><option  value='
 																	+ viewurl
-																	+ row.applicationNumber + '>View</option></select>');
+																	+ row.applicationNumber + '>View</option><option  value='
+																	+ collecturl
+																	+ row.applicationNumber + '>Collect Fees</option></select>');
 														}
 													} ]
 										});

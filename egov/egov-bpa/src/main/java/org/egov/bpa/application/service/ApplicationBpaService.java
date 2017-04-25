@@ -43,7 +43,6 @@ import static org.egov.bpa.utils.BpaConstants.FILESTORE_MODULECODE;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,11 +56,9 @@ import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaFeeDetail;
 import org.egov.bpa.application.entity.BpaStatus;
 import org.egov.bpa.application.entity.CheckListDetail;
-import org.egov.bpa.application.entity.dto.SearchBpaApplicationForm;
 import org.egov.bpa.application.repository.ApplicationBpaRepository;
 import org.egov.bpa.application.service.collection.GenericBillGeneratorService;
 import org.egov.bpa.service.BpaStatusService;
-import org.egov.bpa.service.BpaThirdPartyService;
 import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.commons.entity.Source;
@@ -74,9 +71,6 @@ import org.egov.infra.filestore.service.FileStoreService;
 import org.egov.infra.security.utils.SecurityUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.CriteriaSpecification;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -85,9 +79,6 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 @Transactional(readOnly = true)
 public class ApplicationBpaService extends GenericBillGeneratorService {
-
-    private static final String SITE_DETAIL = "siteDetail";
-    private static final String BPA_APPLICATION_DOT_SITE_DETAIL = "bpaApplication.siteDetail";
 
     @Autowired
     private ApplicationBpaRepository applicationBpaRepository;
@@ -103,9 +94,6 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
 
     @PersistenceContext
     private EntityManager entityManager;
-
-    @Autowired
-    private BpaThirdPartyService bpaThirdPartyService;
 
     @Autowired
     private FileStoreService fileStoreService;
@@ -184,7 +172,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
     public BigDecimal getTotalFeeAmountByPassingServiceTypeandArea(final Long serviceTypeId, final String feeType) {
         BigDecimal totalAmount = BigDecimal.ZERO;
         if (serviceTypeId != null) {
-            final Criteria feeCrit = applicationBpaBillService.createCriteriaforFeeAmount(serviceTypeId, feeType);
+            final Criteria feeCrit = applicationBpaBillService.getBpaFeeCriteria(serviceTypeId, feeType);
             final List<BpaFeeDetail> bpaFeeDetails = feeCrit.list();
             for (final BpaFeeDetail feeDetail : bpaFeeDetails)
                 totalAmount = totalAmount.add(BigDecimal.valueOf(feeDetail.getAmount()));
@@ -205,7 +193,6 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
     private void addDocumentsToFileStore(final BpaApplication bpaApplication,
             final Map<Long, CheckListDetail> documentAndId) {
         final User user = securityUtils.getCurrentUser();
-        List<ApplicationNocDocument> nocDocumentsList = new ArrayList<>();
         final List<CheckListDetail> documents = bpaApplication.getCheckListDocumentsForNOC();
         documents.stream()
                 .filter(document -> !document.getFile().isEmpty() && document.getFile().getSize() > 0)
@@ -235,76 +222,6 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         return fileStoreMapper;
     }
 
-    @SuppressWarnings("unchecked")
-    public List<SearchBpaApplicationForm> search(final SearchBpaApplicationForm bpaApplicationForm) {
-        final Criteria criteria = buildSearchCriteria(bpaApplicationForm);
-        List<SearchBpaApplicationForm> searchBpaApplicationFormList = new ArrayList<>();
-        for (BpaApplication bpaApplication : (List<BpaApplication>) criteria.list()) {
-            SearchBpaApplicationForm searchBpaApplicationForm = new SearchBpaApplicationForm();
-            searchBpaApplicationForm.setFeeCollected(bpaApplication.isFeeCollected());
-            searchBpaApplicationForm.setStatus(bpaApplication.getStatus().getCode());
-            searchBpaApplicationForm.setId(bpaApplication.getId());
-            searchBpaApplicationForm.setApplicationNumber(bpaApplication.getApplicationNumber());
-            searchBpaApplicationForm.setBuildingplanapprovalnumber(bpaApplication.getBuildingplanapprovalnumber());
-            searchBpaApplicationForm.setApplicationDate(bpaApplication.getApplicationDate());
-            searchBpaApplicationForm.setAssessmentNumber(bpaApplication.getAssessmentNumber());
-            searchBpaApplicationForm.setServiceType(
-                    bpaApplication.getServiceType() != null ? bpaApplication.getServiceType().getDescription() : "");
-            searchBpaApplicationForm.setStatus(bpaApplication.getStatus().getDescription());
-            searchBpaApplicationForm.setPlanPermissionNumber(bpaApplication.getPlanPermissionNumber());
-            searchBpaApplicationForm
-                    .setApplicantName(bpaApplication.getOwner() != null ? bpaApplication.getOwner().getApplicantName() : "");
-            searchBpaApplicationForm.setStakeHolderName(
-                    !bpaApplication.getStakeHolder().isEmpty() && bpaApplication.getStakeHolder().get(0).getStakeHolder() != null
-                            ? bpaApplication.getStakeHolder().get(0).getStakeHolder().getName() : "");
-            if (bpaApplication.getState() != null && bpaApplication.getState().getOwnerPosition() != null) {
-                searchBpaApplicationForm.setCurrentOwner(bpaThirdPartyService
-                        .getUserPositionByPassingPosition(bpaApplication.getState().getOwnerPosition().getId()).getName());
-                searchBpaApplicationForm.setPendingAction(bpaApplication.getState().getNextAction());
-            }
-            if (bpaApplication.getSiteDetail().get(0) != null) {
-                searchBpaApplicationForm.setElectionWard(bpaApplication.getSiteDetail().get(0).getElectionBoundary() != null
-                        ? bpaApplication.getSiteDetail().get(0).getElectionBoundary().getName() : "");
-                searchBpaApplicationForm.setWard(bpaApplication.getSiteDetail().get(0).getAdminBoundary() != null
-                        ? bpaApplication.getSiteDetail().get(0).getAdminBoundary().getName() : "");
-                searchBpaApplicationForm.setZone(bpaApplication.getSiteDetail().get(0).getLocationBoundary() != null
-                        ? bpaApplication.getSiteDetail().get(0).getLocationBoundary().getName() : "");
-            }
-            searchBpaApplicationFormList.add(searchBpaApplicationForm);
-        }
-        return searchBpaApplicationFormList;
-    }
-
-    public Criteria buildSearchCriteria(final SearchBpaApplicationForm searchBpaApplicationForm) {
-        final Criteria criteria = getCurrentSession().createCriteria(BpaApplication.class, "bpaApplication");
-
-        if (searchBpaApplicationForm.getApplicantName() != null) {
-            criteria.createAlias("bpaApplication.owner", "owner")
-                    .add(Restrictions.ilike("owner.applicantName", searchBpaApplicationForm.getApplicantName(),
-                            MatchMode.ANYWHERE));
-        }
-        if (searchBpaApplicationForm.getApplicationNumber() != null) {
-            criteria.add(Restrictions.eq("bpaApplication.applicationNumber", searchBpaApplicationForm.getApplicationNumber()));
-        }
-        if (searchBpaApplicationForm.getElectionWardId() != null && searchBpaApplicationForm.getWardId() != null) {
-            criteria.createAlias(BPA_APPLICATION_DOT_SITE_DETAIL, SITE_DETAIL);
-            criteria.createAlias("siteDetail.electionBoundary", "electionBoundary")
-                    .add(Restrictions.eq("electionBoundary.id", searchBpaApplicationForm.getElectionWardId()));
-            criteria.createAlias("siteDetail.adminBoundary", "adminBoundary")
-                    .add(Restrictions.eq("adminBoundary.id", searchBpaApplicationForm.getWardId()));
-        } else if (searchBpaApplicationForm.getElectionWardId() != null && searchBpaApplicationForm.getWardId() == null) {
-            criteria.createAlias(BPA_APPLICATION_DOT_SITE_DETAIL, SITE_DETAIL)
-                    .createAlias("siteDetail.electionBoundary", "electionBoundary")
-                    .add(Restrictions.eq("electionBoundary.id", searchBpaApplicationForm.getElectionWardId()));
-        } else if (searchBpaApplicationForm.getWardId() != null && searchBpaApplicationForm.getElectionWardId() == null) {
-            criteria.createAlias(BPA_APPLICATION_DOT_SITE_DETAIL, SITE_DETAIL)
-                    .createAlias("siteDetail.adminBoundary", "adminBoundary")
-                    .add(Restrictions.eq("adminBoundary.id", searchBpaApplicationForm.getWardId()));
-        }
-
-        criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
-        return criteria;
-    }
-  
+    
 
 }

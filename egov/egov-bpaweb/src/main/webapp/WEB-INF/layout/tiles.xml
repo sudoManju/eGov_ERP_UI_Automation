@@ -165,4 +165,8 @@
         <put-attribute name="page-title" value="title.createfee.view" cascade="true"/>
         <put-attribute name="body" value="/WEB-INF/views/application/createbpafee-view.jsp"/>
     </definition> 
+       <definition name="collect-failure" extends="base_layout">
+        <put-attribute name="page-title" value="title.bpacollect.fee" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/application/collect-failure.jsp"/>
+    </definition>
 </tiles-definitions>
