@@ -438,8 +438,8 @@ public class PTISDataReader extends ExcelReader {
         Row dataRow = readDataRow(bifurcationDetailsSheet, bifurcationDetailsDataId);
         String bifurcationreasonForCreation = getCellData(bifurcationDetailsSheet, dataRow, "reasonForCreation").getStringCellValue();
         String parentAssessmentNo = convertNumericToString(bifurcationDetailsSheet, dataRow, "parentAssessmentNo");
-        String extentOfSite = convertNumericToString(assessmentDetailsSheet, dataRow, "extentOfSite");
-        String occupancyCertificateNumber = convertNumericToString(assessmentDetailsSheet, dataRow, "occupancyCertificateNumber");
+        String extentOfSite = convertNumericToString(bifurcationDetailsSheet, dataRow, "extentOfSite");
+        String occupancyCertificateNumber = convertNumericToString(bifurcationDetailsSheet, dataRow, "occupancyCertificateNumber");
 
         return new AssessmentDetailsBuilder()
                 .withBifurcationReasonForcreation(bifurcationreasonForCreation)
