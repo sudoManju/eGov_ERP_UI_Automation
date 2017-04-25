@@ -57,7 +57,7 @@ public class AssignmentDetailsPage extends BasePage {
     @FindBy(css = "input[id='assignments.documents']")
     private WebElement attachFileButton;
 
-    @FindBy(linkText = "Add/Edit")
+    @FindBy(css = ".btn.btn-primary")
     private WebElement addOrEditButton;
 
     @FindBy(id = "addEmployee")
@@ -71,8 +71,8 @@ public class AssignmentDetailsPage extends BasePage {
 
     public void enterAssignmentDetails(AssignmentDetails assignmentDetails) {
 
-        clickOnButton(webDriver.findElement(By.cssSelector("a[href='#assignmentDetails']")), webDriver);
-        clickOnButton(addImageButton, webDriver);
+        jsClick(webDriver.findElement(By.cssSelector("a[href='#assignmentDetails']")), webDriver);
+        jsClick(addImageButton, webDriver);
         if (assignmentDetails.getIsPrimary().equalsIgnoreCase("Yes")) {
             clickOnButton(isPrimaryTrueRadio, webDriver);
         } else {
@@ -86,6 +86,5 @@ public class AssignmentDetailsPage extends BasePage {
         selectFromDropDown(positionSelectBox, assignmentDetails.getPosition(), webDriver);
 
         clickOnButton(addOrEditButton, webDriver);
-        clickOnButton(submitButton, webDriver);
     }
 }
