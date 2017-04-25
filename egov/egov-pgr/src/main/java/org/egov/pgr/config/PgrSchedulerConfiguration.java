@@ -59,7 +59,7 @@ import java.util.Map;
 @Conditional(SchedulerConfigCondition.class)
 public class PgrSchedulerConfiguration extends QuartzSchedulerConfiguration {
 
-    @Bean
+    @Bean(destroyMethod = "destroy")
     public SchedulerFactoryBean pgrScheduler(DataSource dataSource) {
         SchedulerFactoryBean pgrScheduler = createSchedular(dataSource);
         pgrScheduler.setSchedulerName("pgr-scheduler");
@@ -69,6 +69,11 @@ public class PgrSchedulerConfiguration extends QuartzSchedulerConfiguration {
                 complaintEscalationCronTrigger().getObject(),
                 complaintIndexingCronTrigger().getObject());
         return pgrScheduler;
+    }
+
+    @Bean("complaintEscalationJob")
+    public ComplaintEscalationJob complaintEscalationJob() {
+        return new ComplaintEscalationJob();
     }
 
     @Bean
@@ -96,6 +101,11 @@ public class PgrSchedulerConfiguration extends QuartzSchedulerConfiguration {
         escalationCron.setName("PGR_ESCALATION_TRIGGER");
         escalationCron.setCronExpression("0 */52 * * * ?");
         return escalationCron;
+    }
+
+    @Bean("complaintIndexingJob")
+    public ComplaintIndexingJob complaintIndexingJob() {
+        return new ComplaintIndexingJob();
     }
 
     @Bean

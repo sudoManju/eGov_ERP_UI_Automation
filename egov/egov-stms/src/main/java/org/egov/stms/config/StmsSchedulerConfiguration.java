@@ -60,7 +60,7 @@ import static org.quartz.CronTrigger.MISFIRE_INSTRUCTION_DO_NOTHING;
 @Conditional(SchedulerConfigCondition.class)
 public class StmsSchedulerConfiguration extends QuartzSchedulerConfiguration {
 
-    @Bean
+    @Bean(destroyMethod = "destroy")
     public SchedulerFactoryBean stmsScheduler(DataSource dataSource) {
         SchedulerFactoryBean stmsScheduler = createSchedular(dataSource);
         stmsScheduler.setSchedulerName("stms-scheduler");
@@ -68,6 +68,11 @@ public class StmsSchedulerConfiguration extends QuartzSchedulerConfiguration {
         stmsScheduler.setOverwriteExistingJobs(true);
         stmsScheduler.setTriggers(stmsDemandGenerationCronTrigger().getObject());
         return stmsScheduler;
+    }
+
+    @Bean("generateDemandForSewerageTaxJob")
+    public GenerateDemandForSewerageTaxJob generateDemandForSewerageTaxJob() {
+        return new GenerateDemandForSewerageTaxJob();
     }
 
     @Bean

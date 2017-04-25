@@ -60,7 +60,7 @@ import static org.quartz.CronTrigger.MISFIRE_INSTRUCTION_DO_NOTHING;
 @Conditional(SchedulerConfigCondition.class)
 public class AdTaxSchedulerConfiguration extends QuartzSchedulerConfiguration {
 
-    @Bean
+    @Bean(destroyMethod = "destroy")
     public SchedulerFactoryBean adTaxScheduler(DataSource dataSource) {
         SchedulerFactoryBean adTaxScheduler = createSchedular(dataSource);
         adTaxScheduler.setSchedulerName("adtax-scheduler");
@@ -68,6 +68,11 @@ public class AdTaxSchedulerConfiguration extends QuartzSchedulerConfiguration {
         adTaxScheduler.setOverwriteExistingJobs(true);
         adTaxScheduler.setTriggers(adtaxDemandGenerationCronTrigger().getObject());
         return adTaxScheduler;
+    }
+
+    @Bean("generateDemandForAdvertisementTaxJob")
+    public GenerateDemandForAdvertisementTaxJob generateDemandForAdvertisementTaxJob() {
+        return new GenerateDemandForAdvertisementTaxJob();
     }
 
     @Bean

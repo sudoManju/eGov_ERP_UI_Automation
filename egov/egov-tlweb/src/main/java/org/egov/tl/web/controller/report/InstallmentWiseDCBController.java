@@ -37,31 +37,50 @@
  *
  *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
-package org.egov.collection.scheduler;
 
-import org.egov.collection.integration.services.RemittanceSchedulerService;
-import org.egov.infra.scheduler.quartz.AbstractQuartzJob;
+package org.egov.tl.web.controller.report;
+
+import org.egov.tl.entity.dto.InstallmentWiseDCBForm;
+import org.egov.tl.service.InstallmentWiseDCBService;
+import org.egov.tl.web.response.adaptor.InstallmentWiseDCBResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-public class RemittanceInstrumentJob extends AbstractQuartzJob {
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
-    private static final long serialVersionUID = -8293830861860894611L;
+import static org.apache.commons.lang3.StringUtils.defaultString;
+import static org.egov.infra.utils.JsonUtils.toJSON;
+
+
+@Controller
+@RequestMapping(value = {"/installmentwise", "/public/installmentwise"})
+public class InstallmentWiseDCBController {
 
     @Autowired
-    private transient RemittanceSchedulerService remittanceSchedulerService;
-    private String instrumentType;
-    private Integer modulo;
+    private InstallmentWiseDCBService installmentWiseDCBService;
 
-    @Override
-    public void executeJob() {
-        remittanceSchedulerService.remittanceInstrumentProcess(instrumentType, modulo);
+    @ModelAttribute
+    public InstallmentWiseDCBForm installmentWiseDCBForm() {
+        return new InstallmentWiseDCBForm();
     }
 
-    public void setInstrumentType(String instType) {
-        this.instrumentType = instType;
+    @GetMapping(value = "/dcbreport")
+    public String search(Model model) {
+        model.addAttribute("financialYears", installmentWiseDCBService.getFinancialYears());
+        return "yearwiseDCBReport-search";
     }
 
-    public void setModulo(Integer modulo) {
-        this.modulo = modulo;
+    @GetMapping(value = "/dcbresult", produces = MediaType.TEXT_PLAIN_VALUE)
+    @ResponseBody
+    public String result(HttpServletRequest request) throws IOException {
+        return new StringBuilder("{ \"data\":")
+                .append(toJSON(installmentWiseDCBService.getReportResult(defaultString(request.getParameter("licensenumber")), defaultString(request.getParameter("financialYear"))), InstallmentWiseDCBForm.class, InstallmentWiseDCBResponse.class)).append("}").toString();
     }
 }

@@ -60,7 +60,7 @@ import static org.quartz.CronTrigger.MISFIRE_INSTRUCTION_DO_NOTHING;
 @Conditional(SchedulerConfigCondition.class)
 public class EisSchedulerConfiguration extends QuartzSchedulerConfiguration {
 
-    @Bean
+    @Bean(destroyMethod = "destroy")
     public SchedulerFactoryBean eisScheduler(DataSource dataSource) {
         SchedulerFactoryBean eisScheduler = createSchedular(dataSource);
         eisScheduler.setSchedulerName("eis-scheduler");
@@ -68,6 +68,11 @@ public class EisSchedulerConfiguration extends QuartzSchedulerConfiguration {
         eisScheduler.setOverwriteExistingJobs(true);
         eisScheduler.setTriggers(userRoleMappingCronTrigger().getObject());
         return eisScheduler;
+    }
+
+    @Bean("userRoleMappingJob")
+    public UserRoleMappingJob userRoleMappingJob() {
+        return new UserRoleMappingJob();
     }
 
     @Bean
