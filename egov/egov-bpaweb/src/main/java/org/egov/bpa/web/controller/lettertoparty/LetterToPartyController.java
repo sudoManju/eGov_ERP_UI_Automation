@@ -220,7 +220,7 @@ public class LetterToPartyController {
         }
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType("application/pdf"));
-        headers.add("content-disposition", "inline;filename=Lettertoparty.pdf");
+        headers.add("content-disposition", "inline;filename=lettertoparty.pdf");
         reportOutput = reportService.createReport(reportInput);
         return new ResponseEntity<>(reportOutput.getReportOutputData(), headers, HttpStatus.CREATED);
     }
