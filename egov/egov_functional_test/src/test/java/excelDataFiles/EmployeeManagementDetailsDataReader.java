@@ -5,11 +5,11 @@ import entities.employeeManagement.AssignmentDetails;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
-public class AssignmentDetailsDataReader extends ExcelReader {
+public class EmployeeManagementDetailsDataReader extends ExcelReader {
 
     Sheet assignmentDetailsSheet;
 
-    public AssignmentDetailsDataReader(String testData) {
+    public EmployeeManagementDetailsDataReader(String testData) {
         super(testData);
         assignmentDetailsSheet = workbook.getSheet("assignmentDetails");
     }

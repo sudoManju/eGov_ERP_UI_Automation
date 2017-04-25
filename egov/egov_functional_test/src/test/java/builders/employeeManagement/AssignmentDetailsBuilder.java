@@ -6,7 +6,7 @@ public final class AssignmentDetailsBuilder {
 
     AssignmentDetails assignmentDetails = new AssignmentDetails();
 
-    public AssignmentDetailsBuilder withIsPrimary(boolean isPrimary) {
+    public AssignmentDetailsBuilder withIsPrimary(String isPrimary) {
         assignmentDetails.setIsPrimary(isPrimary);
         return this;
     }

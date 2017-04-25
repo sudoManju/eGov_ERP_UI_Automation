@@ -6,12 +6,11 @@ Feature: Create/View/Update
 
   Scenario Outline: Create an employee
 
-    Given assistant logs in
+    Given admin logs in
     And user will select the required screen as "Create" with condition as "/employee"
-    And user enters the employee details as <employeeDetails>
+#    And user enters the employee details as <employeeDetails>
     And user will enter the assignment details as <assignmentDetails>
-
 
     Examples:
     |employeeDetails| assignmentDetails |
-    |employee1      | abcd              |
+    |employee1      | assignment1       |

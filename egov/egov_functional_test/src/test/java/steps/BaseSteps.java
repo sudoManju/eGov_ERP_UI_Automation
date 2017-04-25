@@ -31,6 +31,7 @@ public class BaseSteps {
     protected String sewerageTaxTestDataFileName = "SewerageTaxTestData";
     protected String assetTestDataFileName = "AssetDetailsTestData";
     protected String assetServiceTestDataFileName = "AssetServiceDetailsTestData";
+    protected String eisTestDataFileName = "eisTestData";
 
 
     protected void takeScreenShot(String screenshotName) throws IOException {

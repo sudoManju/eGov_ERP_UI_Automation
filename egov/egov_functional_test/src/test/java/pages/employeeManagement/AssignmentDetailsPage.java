@@ -1,6 +1,7 @@
 package pages.employeeManagement;
 
 import entities.employeeManagement.AssignmentDetails;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -68,11 +69,12 @@ public class AssignmentDetailsPage extends BasePage {
         this.webDriver = webDriver;
     }
 
-    public void enterassignmentDetails(AssignmentDetails assignmentDetails) {
+    public void enterAssignmentDetails(AssignmentDetails assignmentDetails) {
 
+        clickOnButton(webDriver.findElement(By.cssSelector("a[href='#assignmentDetails']")), webDriver);
         clickOnButton(addImageButton, webDriver);
 
-        if (assignmentDetails.getIsPrimary()) {
+        if (assignmentDetails.getIsPrimary().equalsIgnoreCase("Yes")) {
             clickOnButton(isPrimaryTrueRadio, webDriver);
         } else {
             clickOnButton(isPrimaryFalseRadio, webDriver);
