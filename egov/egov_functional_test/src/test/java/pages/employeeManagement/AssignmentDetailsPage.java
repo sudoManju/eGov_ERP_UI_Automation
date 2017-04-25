@@ -73,7 +73,6 @@ public class AssignmentDetailsPage extends BasePage {
 
         clickOnButton(webDriver.findElement(By.cssSelector("a[href='#assignmentDetails']")), webDriver);
         clickOnButton(addImageButton, webDriver);
-
         if (assignmentDetails.getIsPrimary().equalsIgnoreCase("Yes")) {
             clickOnButton(isPrimaryTrueRadio, webDriver);
         } else {
@@ -85,12 +84,6 @@ public class AssignmentDetailsPage extends BasePage {
         selectFromDropDown(departmentSelectBox, assignmentDetails.getDepartment(), webDriver);
         selectFromDropDown(designationSelectBox, assignmentDetails.getDesignation(), webDriver);
         selectFromDropDown(positionSelectBox, assignmentDetails.getPosition(), webDriver);
-
-        if (assignmentDetails.getIsHOD()) {
-            clickOnButton(isHODTrueRadioButton, webDriver);
-        } else {
-            clickOnButton(isHODFalseRadioButton, webDriver);
-        }
 
         clickOnButton(addOrEditButton, webDriver);
         clickOnButton(submitButton, webDriver);

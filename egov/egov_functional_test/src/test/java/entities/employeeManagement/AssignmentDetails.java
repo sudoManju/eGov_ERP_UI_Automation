@@ -2,7 +2,7 @@ package entities.employeeManagement;
 
 public class AssignmentDetails {
 
-    private String isPrimaryTrue;
+    private String isPrimary;
 
     private String fromDate;
 
@@ -27,11 +27,11 @@ public class AssignmentDetails {
     private String govtOrderNumber;
 
     public String getIsPrimary() {
-        return isPrimaryTrue;
+        return isPrimary;
     }
 
     public void setIsPrimary(String isPrimary) {
-        this.isPrimaryTrue = isPrimaryTrue;
+        this.isPrimary = isPrimary;
     }
 
     public String getFromDate() {

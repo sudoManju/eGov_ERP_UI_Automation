@@ -2,9 +2,12 @@ package builders.employeeManagement;
 
 import entities.employeeManagement.AssignmentDetails;
 
-public final class AssignmentDetailsBuilder {
+public class AssignmentDetailsBuilder {
 
     AssignmentDetails assignmentDetails = new AssignmentDetails();
+
+    public AssignmentDetailsBuilder() {
+    }
 
     public AssignmentDetailsBuilder withIsPrimary(String isPrimary) {
         assignmentDetails.setIsPrimary(isPrimary);
