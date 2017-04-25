@@ -157,6 +157,13 @@
 							</div>
 						</div>
 				</c:if>
+				<c:if test="${showlettertoparty}">
+						<div id="view-fee" class="tab-pane fade">
+							<div class="panel panel-primary" data-collapsed="0">
+								<jsp:include page="../lettertoparty/lettertoparty-view.jsp"></jsp:include> 
+							</div>
+						</div>
+				</c:if>
 			</div>
 
 			<div class="text-center">
@@ -195,6 +202,19 @@
 						href="/bpa/application/calculateFee/${bpaApplication.applicationNumber}"
 						class="btn btn-primary">Calculate Fee </a>
 
+				</c:if>
+				<c:if test="${createlettertoparty}">
+				<a
+						href="/bpa/lettertoparty/create/${bpaApplication.applicationNumber}"
+						class="btn btn-primary"> Create Letter to Party </a>	 
+				</c:if>
+				<c:if test="${mode eq 'modifylettertoparty'}">
+					<button type="submit" class="btn btn-primary" onclick="return getUrlToPring()">
+						<spring:message code="lbl.print.lettertoparty" />
+					</button>
+					<a
+						href="/bpa/lettertoparty/update/${bpaApplication.applicationNumber}"
+						class="btn btn-primary"> Update Letter to Party </a>
 				</c:if>
 			</div>
 			<br>

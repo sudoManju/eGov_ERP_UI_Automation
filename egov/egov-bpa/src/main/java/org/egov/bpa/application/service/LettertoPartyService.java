@@ -40,7 +40,7 @@ import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.commons.service.FinancialYearService;
 import org.egov.infra.utils.autonumber.AutonumberServiceBeanResolver;
-import org.egov.infra.workflow.entity.State;
+import org.egov.infra.workflow.entity.StateHistory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -93,11 +93,15 @@ public class LettertoPartyService {
     }
 
     public Long getDocScutinyUser(BpaApplication bpaApplication) {
-        State state = bpaApplication.getState();
-        while (!(state.getValue().equals(BpaConstants.DOCUMENTVERIFIED))) {
-            state = state.getPreviousStateRef();
+        Long docSrcuityUserPos = null;
+        if (!bpaApplication.getStateHistory().isEmpty()) {
+            for (final StateHistory stateHistory : bpaApplication.getStateHistory()) {
+                if (stateHistory.getValue().equals(BpaConstants.DOCUMENTVERIFIED)) {
+                    docSrcuityUserPos = stateHistory.getOwnerPosition().getId();
+                }
+            }
         }
-        return state.getOwnerPosition().getId();
+        return docSrcuityUserPos;
     }
 
     public List<LettertoParty> findByBpaApplicationOrderByIdAsc(final BpaApplication application) {

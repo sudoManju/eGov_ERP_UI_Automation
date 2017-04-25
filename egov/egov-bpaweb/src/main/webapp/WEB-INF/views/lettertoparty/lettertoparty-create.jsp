@@ -43,7 +43,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn"%>
 
-<form:form role="form" action="" method="post"
+<form:form role="form" action="/bpa/lettertoparty/create" method="post"
 	modelAttribute="lettertoParty" id="lettertoPartyform"
 	cssClass="form-horizontal form-groups-bordered"
 	enctype="multipart/form-data">

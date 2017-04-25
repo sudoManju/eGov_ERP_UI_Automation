@@ -169,4 +169,12 @@
         <put-attribute name="page-title" value="title.bpacollect.fee" cascade="true"/>
         <put-attribute name="body" value="/WEB-INF/views/application/collect-failure.jsp"/>
     </definition>
+       <definition name="lettertoparty-create" extends="base_layout">
+        <put-attribute name="page-title" value="title.lettertoparty.create" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/lettertoparty/lettertoparty-create.jsp"/>
+    </definition>
+     <definition name="lettertoparty-update" extends="base_layout">
+    	<put-attribute name="page-title" value="title.lettertoparty.update" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/lettertoparty/lettertoparty-update.jsp"/>
+    </definition>
 </tiles-definitions>

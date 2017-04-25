@@ -160,7 +160,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 && !application.getInspections().isEmpty()) {
             mode = "initialtedApprove";
         } 
-        else if (BpaConstants.LETTERTOPARTYSENT.equalsIgnoreCase(application.getState().getNextAction())) {
+        if (BpaConstants.LETTERTOPARTYSENT.equalsIgnoreCase(application.getState().getNextAction())) {
             final List<LettertoParty> lettertoPartyList = lettertoPartyService.findByBpaApplicationOrderByIdAsc(application);
             LettertoParty lettertoParty = null;
             if (!lettertoPartyList.isEmpty())
@@ -170,7 +170,12 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 model.addAttribute("lettertopartydocList", lettertoParty.getLettertoPartyDocument());
             }
             mode = "modifylettertoparty";  
+            model.addAttribute("showlettertoparty",true);
         }
+        else if(lettertoPartyService.getDocScutinyUser(application) != null)
+        {
+            model.addAttribute("createlettertoparty",true);
+        }   
         if (mode == null) {
             mode = "edit";
         }
