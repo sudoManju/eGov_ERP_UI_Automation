@@ -131,4 +131,12 @@ public class BpaConstants {
     public static final String BPASTATUS_REGISTRATIONFEE_APPROVED = "Approved";
     
     public static final String APPLN_STATUS_FIELD_INSPECTION_INITIATED = "Field Inspection initiated";
+    public static final String BPA_ADM_FEE = "Admission Fee";
+    public static final String BPA_PERMIT_FEE = "Permit Fees";
+    public static final String BPA_WELL_FEE = "Charges for Well";
+    public static final String BPA_COMPOUND_FEE = "Charges for Compound Wall";
+    public static final String IMAGES_BASE_PATH = "/egi/resources/global/images/";
+    public static final String IMAGE_CONTEXT_PATH = "/egi";
+    public static final String BPADEMANDNOTICETITLE = "Building Plan Approval Demand Notice";
+    public static final String DEMANDNOCFILENAME = "bpaDemandNotice";
 }

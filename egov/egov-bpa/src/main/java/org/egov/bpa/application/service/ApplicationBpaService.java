@@ -241,6 +241,8 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         List<SearchBpaApplicationForm> searchBpaApplicationFormList = new ArrayList<>();
         for (BpaApplication bpaApplication : (List<BpaApplication>) criteria.list()) {
             SearchBpaApplicationForm searchBpaApplicationForm = new SearchBpaApplicationForm();
+            searchBpaApplicationForm.setFeeCollected(bpaApplication.isFeeCollected());
+            searchBpaApplicationForm.setStatus(bpaApplication.getStatus().getCode());
             searchBpaApplicationForm.setId(bpaApplication.getId());
             searchBpaApplicationForm.setApplicationNumber(bpaApplication.getApplicationNumber());
             searchBpaApplicationForm.setBuildingplanapprovalnumber(bpaApplication.getBuildingplanapprovalnumber());

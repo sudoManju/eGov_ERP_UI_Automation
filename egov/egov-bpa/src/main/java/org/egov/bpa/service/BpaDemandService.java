@@ -48,6 +48,7 @@ import java.util.Set;
 
 import org.egov.bpa.application.entity.ApplicationFee;
 import org.egov.bpa.application.entity.ApplicationFeeDetail;
+import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaFee;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.commons.Installment;
@@ -255,5 +256,22 @@ public class BpaDemandService {
             return installmentDao.getInsatllmentByModuleForGivenDateAndInstallmentType(
                     moduleService.getModuleByName(moduleName), date, installmentType);
     }
+    
+    /**
+    *
+    * @param bpaApplication
+    * @return
+    */
+   public Boolean checkAnyTaxIsPendingToCollect(final BpaApplication bpaApplication) {
+       Boolean pendingTaxCollection = false;
+
+       if (bpaApplication != null && bpaApplication.getDemand() != null)
+           for (final EgDemandDetails demandDtl : bpaApplication.getDemand().getEgDemandDetails())
+               if (demandDtl.getAmount().subtract(demandDtl.getAmtCollected()).compareTo(BigDecimal.ZERO) > 0) {
+                   pendingTaxCollection = true;
+                   break;
+               }
+       return pendingTaxCollection;
+   }
 
 }

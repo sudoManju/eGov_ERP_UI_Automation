@@ -550,5 +550,11 @@ public class BpaApplication extends StateAware {
     public void setWardId(final Long wardId) {
         this.wardId = wardId;
     }
-
+    
+    public boolean isFeeCollected() {
+        if (demand != null)
+            return demand.getBaseDemand().compareTo(demand.getAmtCollected()) <= 0 ? true : false;
+        else
+            return false;
+    }
 }

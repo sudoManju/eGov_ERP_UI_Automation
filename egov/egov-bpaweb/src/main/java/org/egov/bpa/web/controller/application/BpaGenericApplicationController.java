@@ -64,6 +64,7 @@ import org.egov.bpa.masters.service.BuildingCategoryService;
 import org.egov.bpa.masters.service.LandBuildingTypesService;
 import org.egov.bpa.masters.service.ServiceTypeService;
 import org.egov.bpa.masters.service.VillageNameService;
+import org.egov.bpa.service.BpaDemandService;
 import org.egov.bpa.service.BpaThirdPartyService;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.eis.web.controller.workflow.GenericWorkFlowController;
@@ -104,6 +105,8 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     protected BpaThirdPartyService bpaThirdPartyService;
     @Autowired
     protected FileStoreUtils fileStoreUtils;
+    @Autowired
+    protected BpaDemandService bpaDemandService;
 
     @ModelAttribute("occupancyList")
     public List<LandBuildingTypes> getOccupancy() {

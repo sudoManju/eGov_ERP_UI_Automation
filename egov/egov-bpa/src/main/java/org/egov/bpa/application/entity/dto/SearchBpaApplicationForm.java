@@ -63,6 +63,7 @@ public class SearchBpaApplicationForm{
     private Long electionWardId;
     private String zone;
     private Long zoneId;
+    private boolean isFeeCollected;
     
     public Long getId() {
         return id;
@@ -183,6 +184,12 @@ public class SearchBpaApplicationForm{
     }
     public void setZoneId(Long zoneId) {
         this.zoneId = zoneId;
+    }
+    public boolean isFeeCollected() {
+        return isFeeCollected;
+    }
+    public void setFeeCollected(boolean isFeeCollected) {
+        this.isFeeCollected = isFeeCollected;
     }
     
 }

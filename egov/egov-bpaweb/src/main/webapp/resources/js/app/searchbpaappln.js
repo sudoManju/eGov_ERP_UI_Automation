@@ -42,6 +42,7 @@ $(document)
 		.ready(
 				function() {
 					var viewurl = '/bpa/application/view/';
+					var demandNoticeurl = '/bpa/application/demandnotice/';
 					$('#btnSearch').click(function() {
 						callAjaxSearch();
 					});
@@ -107,15 +108,21 @@ $(document)
 														"render" : function(
 																data, type,
 																row, meta) {
-															return ('<select class="dropchange view"><option value="">Select from Below</option><option  value='
-																		+ viewurl
-																		+ row.applicationNumber + '>View</option></select>');}
+															if (row.status == 'NOC Updated' && !row.isFeeCollected) {
+																return ('<select class="dropchange"><option value="">Select from Below</option><option  value='
+																		+ demandNoticeurl
+																		+ row.applicationNumber + '>Generate Demand Notice</option></select>');
+															}
+															return ('<select class="dropchange"><option value="">Select from Below</option><option  value='
+																	+ viewurl
+																	+ row.applicationNumber + '>View</option></select>');
+														}
 													} ]
 										});
 					}
 					
 					
-					$(document).on('click','.view',function(){
+					$(document).on('click','.dropchange',function(){
 					    var url = $(this).val();
 					    if(url){
 					    	openPopup(url);

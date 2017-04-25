@@ -67,6 +67,8 @@ public class SearchBpaApplicationFormAdaptor implements JsonSerializer<SearchBpa
             jsonObject.addProperty("electionWard", searchFormObj.getElectionWard());
             jsonObject.addProperty("ward", org.apache.commons.lang.StringUtils.defaultString(searchFormObj.getWard()));
             jsonObject.addProperty("zone", org.apache.commons.lang.StringUtils.defaultString(searchFormObj.getZone()));
+            jsonObject.addProperty("isFeeCollected", searchFormObj.isFeeCollected());
+            jsonObject.addProperty("status", searchFormObj.getStatus());
             jsonObject.addProperty("id", searchFormObj.getId());
         }
         return jsonObject;
