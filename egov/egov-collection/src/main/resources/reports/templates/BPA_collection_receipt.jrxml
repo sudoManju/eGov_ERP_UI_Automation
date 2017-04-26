@@ -344,7 +344,7 @@
 			<subreport>
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20" uuid="488747bf-e344-4532-8f25-d6e603f717ea"/>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{accountDetails}, false)]]></dataSourceExpression>
-				<subreportExpression><![CDATA[($F{legacy} ==true ? ReportUtil.getTemplateAsStream("collection_receipt_accounts.jasper"): ReportUtil.getTemplateAsStream("BPA_collection_receipt_accounts.jasper"))]]></subreportExpression>
+				<subreportExpression><![CDATA[ReportUtil.getTemplateAsStream("collection_receipt_accounts.jasper")]]></subreportExpression>
 			</subreport>
 		</band>
 		<band height="144">
