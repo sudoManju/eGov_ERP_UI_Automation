@@ -2,8 +2,10 @@ package excelDataFiles;
 
 import builders.employeeManagement.AssignmentDetailsBuilder;
 import builders.employeeManagement.EmployeeDetailsBuilder;
+import builders.employeeManagement.JurisdictionDetailsBuilder;
 import entities.employeeManagement.AssignmentDetails;
 import entities.employeeManagement.EmployeeDetails;
+import entities.employeeManagement.JurisdictionDetails;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
@@ -11,11 +13,13 @@ public class EmployeeManagementDetailsDataReader extends ExcelReader {
 
     Sheet assignmentDetailsSheet;
     Sheet employeeDetailsSheet;
+    Sheet jurisdictionDetailsSheet;
 
     public EmployeeManagementDetailsDataReader(String testData) {
         super(testData);
         assignmentDetailsSheet = workbook.getSheet("assignmentDetails");
         employeeDetailsSheet = workbook.getSheet("employeeDetails");
+        jurisdictionDetailsSheet = workbook.getSheet("jurisdictionList");
     }
 
     public AssignmentDetails getAssignmentDetails(String dataName) {
@@ -69,4 +73,16 @@ public class EmployeeManagementDetailsDataReader extends ExcelReader {
                 .withDateOfAppointment(dataOfJoining)
                 .build();
         }
+
+    public JurisdictionDetails getJurisdictionDetails(String dataId){
+        Row dataRow = readDataRow(jurisdictionDetailsSheet, dataId);
+
+        String JurisdictionType = getCellData(jurisdictionDetailsSheet,dataRow,"JurisdictionType").getStringCellValue();
+        String JurisdictionList = getCellData(jurisdictionDetailsSheet,dataRow,"JurisdictionList").getStringCellValue();
+
+        return new JurisdictionDetailsBuilder()
+                .withJurisdictionType(JurisdictionType)
+                .withJurisdictionList(JurisdictionList)
+                .build();
+    }
 }

@@ -1,6 +1,7 @@
 package pages.employeeManagement;
 
 import entities.employeeManagement.JurisdictionDetails;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -118,7 +119,7 @@ public class EmployeeOtherDetailsPage extends BasePage {
     @FindBy(css = "[id='test.documents']")
     private WebElement departmentalDocumentButton;
 
-    @FindBy(linkText = "Add/Edit")
+    @FindBy(css = ".btn.btn-primary")
     private WebElement addOrEditButton;
 
     @FindBy(css = "[type='submit']")
@@ -132,11 +133,11 @@ public class EmployeeOtherDetailsPage extends BasePage {
 
     public void enterJurisdictionDetails(JurisdictionDetails jurisdictionDetails) {
 
-        clickOnButton(addImageButton, webDriver);
+        jsClick(webDriver.findElement(By.cssSelector("a[href='#jurisdictionList']")), webDriver);
+        jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#jurisdictionDetailModal']")), webDriver);
         selectFromDropDown(jurisdictionTypeSelectBox, jurisdictionDetails.getJurisdictionType(), webDriver);
         selectFromDropDown(jurisdictionListSelectBox, jurisdictionDetails.getJurisdictionList(), webDriver);
-        clickOnButton(addOrEditButton, webDriver);
-        clickOnButton(submitButton , webDriver);
+        clickOnButton(webDriver.findElement(By.id("jurisdictionAddOrUpdate")), webDriver);
     }
 
     public void enterServiceSectionDetails() {
@@ -158,29 +159,28 @@ public class EmployeeOtherDetailsPage extends BasePage {
         selectFromDropDown(regularisationDesignationSelectBox, "abcd", webDriver);
         enterDate(regularisationDeclaredDate, getCurrentDate(), webDriver);
         clickOnButton(addOrEditButton, webDriver);
-        clickOnButton(submitButton , webDriver);
+        clickOnButton(submitButton, webDriver);
     }
 
-    public void enterEducationDetails(){
+    public void enterEducationDetails() {
         clickOnButton(addImageButton, webDriver);
-        enterText(qualificationTextBox , "B.Tech" , webDriver);
-        selectFromDropDown(yearOfPassingSelectBox , getCurrentYear() ,webDriver);
+        enterText(qualificationTextBox, "B.Tech", webDriver);
+        selectFromDropDown(yearOfPassingSelectBox, getCurrentYear(), webDriver);
         clickOnButton(addOrEditButton, webDriver);
     }
 
-    public void enterTechnicalQualificationDetails(){
+    public void enterTechnicalQualificationDetails() {
         clickOnButton(addImageButton, webDriver);
-        enterText(technicalSkillsTextBox , "Skills" , webDriver);
+        enterText(technicalSkillsTextBox, "Skills", webDriver);
         clickOnButton(addOrEditButton, webDriver);
     }
 
-    public void enterDepartmentalTestDetails(){
+    public void enterDepartmentalTestDetails() {
         clickOnButton(addImageButton, webDriver);
-        enterText(departmentalTestNameTextBox , "departmentalTestNameTextBox" , webDriver);
-        selectFromDropDown(departmentalYearOfPassingTextBox , getCurrentYear() , webDriver);
+        enterText(departmentalTestNameTextBox, "departmentalTestNameTextBox", webDriver);
+        selectFromDropDown(departmentalYearOfPassingTextBox, getCurrentYear(), webDriver);
         clickOnButton(addOrEditButton, webDriver);
-        clickOnButton(submitButton , webDriver);
+        clickOnButton(submitButton, webDriver);
     }
-
 
 }
