@@ -161,7 +161,7 @@
 	<div class="col-sm-3 add-margin">
 		<div class="input-group">
 			<form:input id="assessmentNumber" path="assessmentNumber"
-				class="form-control" maxlength="50" />
+				class="form-control" data-pattern="number" maxlength="50" />
 			<span class="input-group-addon"> <i
 				class="fa fa-search specific"></i></span>
 		</div>
@@ -197,7 +197,7 @@
 	</div>
 	<label class="col-sm-2 control-label text-right">Tapan Number </label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="50"
+		<form:input class="form-control patternvalidation" data-pattern="number" maxlength="50"
 			id="tapalNumber" path="tapalNumber" />
 		<form:errors path="tapalNumber" cssClass="add-margin error-msg" />
 	</div>
@@ -265,7 +265,7 @@
 					PlanApproval Number <span class="mandatory"></span>
 				</label>
 				<form:input class="form-control patternvalidation" maxlength="50"
-					id="buildingplanapprovalnumber" path="buildingplanapprovalnumber" />
+					id="buildingplanapprovalnumber" data-pattern="number" path="buildingplanapprovalnumber" />
 				<form:errors path="buildingplanapprovalnumber"
 					cssClass="add-margin error-msg" />
 			</c:when>

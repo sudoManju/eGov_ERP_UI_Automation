@@ -146,7 +146,7 @@
 	<label class="col-sm-3 control-label text-right">Door Number </label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"  maxlength="12"
-			data-pattern="alphanumericwithspace"
+			data-pattern="alphanumericspecialcharacters"
 			id="plotdoornumber" path="siteDetail[0].plotdoornumber" />
 		<form:errors path="siteDetail[0].plotdoornumber"
 			cssClass="add-margin error-msg" />
@@ -154,7 +154,7 @@
 	<label class="col-sm-2 control-label text-right">Plot Land Mark</label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation" maxlength="64"
-			data-pattern="alphanumericwithspace"
+			data-pattern="alphanumericspecialcharacters"
 			id="plotlandmark" path="siteDetail[0].plotlandmark" />
 		<form:errors path="siteDetail[0].plotlandmark"
 			cssClass="add-margin error-msg" />
@@ -166,7 +166,7 @@
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
 			maxlength="24"
-			data-pattern="alphanumericwithspace" id="plotnumber"
+			data-pattern="alphanumericspecialcharacters" id="plotnumber"
 			path="siteDetail[0].plotnumber" />
 		<form:errors path="siteDetail[0].plotnumber"
 			cssClass="add-margin error-msg" />
@@ -210,7 +210,7 @@
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
 			maxlength="120"
-			data-pattern="alphanumericwithspace"  id="streetaddress1"
+			data-pattern="alphanumericspecialcharacters"  id="streetaddress1"
 			path="siteDetail[0].streetaddress1" />
 		<form:errors path="siteDetail[0].streetaddress1"
 			cssClass="add-margin error-msg" />
@@ -221,7 +221,7 @@
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
 			maxlength="120"
-			data-pattern="alphanumericwithspace" id="streetaddress2"
+			data-pattern="alphanumericspecialcharacters" id="streetaddress2"
 			path="siteDetail[0].streetaddress2" />
 		<form:errors path="siteDetail[0].streetaddress2"
 			cssClass="add-margin error-msg" />

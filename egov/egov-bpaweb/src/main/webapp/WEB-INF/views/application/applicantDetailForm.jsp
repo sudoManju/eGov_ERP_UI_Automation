@@ -55,7 +55,7 @@
 				code="lbl.applicant.name" /> <span class="mandatory"></span> </label>
 		<div class="col-sm-3 add-margin">
 			<form:input class="form-control patternvalidation"
-				data-pattern="alphabetwithspace" maxlength="128"
+				data-pattern="alphabetspecialcharacters" maxlength="128"
 				id="owner.applicantName" path="owner.applicantName"
 				required="required" />
 			<form:errors path="owner.applicantName"
@@ -67,7 +67,7 @@
 		<div class="col-sm-3 add-margin">
 			<form:textarea path="owner.address" id="address"
 				class="form-control patternvalidation"
-				data-pattern="alphanumericwithspace" required="required"
+				data-pattern="alphanumericspecialcharacters" required="required"
 				maxlength="128" cols="5" rows="4" />
 			<form:errors path="owner.address" cssClass="add-margin error-msg" />
 		</div>
