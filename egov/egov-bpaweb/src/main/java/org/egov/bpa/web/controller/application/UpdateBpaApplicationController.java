@@ -42,7 +42,6 @@ package org.egov.bpa.web.controller.application;
 import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_FIELD_INS;
 import static org.egov.bpa.utils.BpaConstants.APPLN_STATUS_FIELD_INSPECTION_INITIATED;
 import static org.egov.bpa.utils.BpaConstants.DOCUMENTVERIFIED;
-import static org.egov.bpa.utils.BpaConstants.REGISTERED;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -140,7 +139,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                                 .equalsIgnoreCase(application.getState().getNextAction())
                         && purposeInsList.isEmpty())) {
             mode = "newappointment";
-        } else if (REGISTERED.equalsIgnoreCase(application.getStatus().getCode())
+        } else if (BpaConstants.APPLICATION_STATUS_REGISTERED.equalsIgnoreCase(application.getStatus().getCode())
                 && purposeDocList.contains(AppointmentSchedulePurpose.DOCUMENTSCRUTINY.name())) {
             mode = "postponeappointment";
             scheduleType = AppointmentSchedulePurpose.DOCUMENTSCRUTINY;

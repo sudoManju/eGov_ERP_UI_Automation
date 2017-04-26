@@ -40,7 +40,6 @@
 package org.egov.bpa.web.controller.application;
 
 import static org.egov.bpa.utils.BpaConstants.APPLN_STATUS_FIELD_INSPECTION_INITIATED;
-import static org.egov.bpa.utils.BpaConstants.REGISTERED;
 
 import java.util.List;
 
@@ -51,6 +50,7 @@ import org.egov.bpa.application.entity.BpaAppointmentSchedule;
 import org.egov.bpa.application.entity.enums.AppointmentSchedulePurpose;
 import org.egov.bpa.application.service.BpaAppointmentScheduleService;
 import org.egov.bpa.utils.BPASmsAndEmailService;
+import org.egov.bpa.utils.BpaConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.stereotype.Controller;
@@ -93,7 +93,7 @@ public class ScheduleAppointmentController extends BpaGenericApplicationControll
     public String newScheduleAppointment(@PathVariable final String applicationNumber, final Model model) {
         BpaApplication bpaApplication = applicationBpaService.findByApplicationNumber(applicationNumber);
         BpaAppointmentSchedule appointmentSchedule = new BpaAppointmentSchedule();
-        if (REGISTERED.equalsIgnoreCase(bpaApplication.getStatus().getCode())) {
+        if (BpaConstants.APPLICATION_STATUS_REGISTERED.equalsIgnoreCase(bpaApplication.getStatus().getCode())) {
             appointmentSchedule.setPurpose(AppointmentSchedulePurpose.DOCUMENTSCRUTINY);
         } else if (APPLN_STATUS_FIELD_INSPECTION_INITIATED.equalsIgnoreCase(bpaApplication.getStatus().getCode())) {
             appointmentSchedule.setPurpose(AppointmentSchedulePurpose.INSPECTION);

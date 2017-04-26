@@ -215,7 +215,7 @@ public class BpaTaxCollection extends TaxCollection {
     public void updateBpaApplication(final EgDemand demand) {
         final BpaApplication application = applicationBpaService
                 .getApplicationByDemand(demand);
-        if(application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_CREATED))
+        if(application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_REGISTERED))
         bpaUtils.redirectToBpaWorkFlow(null,application, BpaConstants.WF_NEW_STATE, "BPA Admission fees collected");
         // update status and initialize workflow
         applicationBpaService.saveAndFlushApplication(application);
