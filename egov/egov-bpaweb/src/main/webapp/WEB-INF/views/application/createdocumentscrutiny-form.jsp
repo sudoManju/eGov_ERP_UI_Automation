@@ -50,6 +50,9 @@
 			modelAttribute="bpaApplication" id="documentscrutinyform"
 			cssClass="form-horizontal form-groups-bordered"
 			enctype="multipart/form-data">
+<form:hidden path="" value="${areaInSqMtr}" id="areaInSqMtr" name="areaInSqMtr"/>
+			<form:hidden path="" value="${currentDesignation}" id="currentDesignation" name="currentDesignation"/>
+			<form:hidden path="" value="${isApproveValid}" id="isApproveValid" name="isApproveValid"/>
 
 			<div class="panel panel-primary" data-collapsed="0">
 				<div class="panel-body custom-form ">

@@ -70,11 +70,12 @@ public class BpaConstants {
     public static final String WF_REJECT_STATE = "Rejected";
     public static final String WF_END_STATE = "END";
     public static final String APPLICATION_STATUS_CREATED = "CREATED";
-    public static final String APPLICATION_STATUS_APPROVED = "APPROVED";
+    public static final String APPLICATION_STATUS_APPROVED = "Approved";
     public static final String APPLICATION_STATUS_FIELD_INS = "Field Inspected";
     public static final String APPLICATION_STATUS_ORDER_ISSUED = "Order Issued to Applicant";
     public static final String APPLICATION_STATUS_DIGI_SIGNED ="Digitally signed";
     public static final String WF_APPROVE_BUTTON = "Approve";
+    public static final String APPLICATION_STATUS_NOCUPDATED ="NOC Updated";
     public static final String WF_REJECT_BUTTON = "REJECT";
     public static final String WF_CANCELAPPLICATION_BUTTON = "CANCEL APPLICATION";
     public static final String APPLICATION_STATUS_CANCELLED = "Cancelled";
@@ -145,4 +146,10 @@ public class BpaConstants {
     public static final String BPA_DEFAULT_FUND_CODE="BPA_DEFAULT_FUND_CODE";
     public static final String BPA_DEFAULT_FUNCTIONARY_CODE="BPA_DEFAULT_FUNCTIONARY_CODE";
     public static final String BPA_DEFAULT_FUND_SRC_CODE="BPA_DEFAULT_FUND_SRC_CODE";
+    public static final String DESIGNATION_AEE="Assistant executive engineer";
+    public static final String DESIGNATION_AE="Assistant engineer";
+    public static final String DESIGNATION_EE="Executive engineer";
+    public static final String DESIGNATION_COMMISSIONER="Commissioner";
+    public static final String DESIGNATION_SECRETARY="Secretary";
+    public static final String DESIGNATION_SUPERIAPPROVAL="Superintendent of Approval";
 }

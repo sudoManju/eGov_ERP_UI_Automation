@@ -57,6 +57,7 @@ import org.egov.bpa.application.entity.LettertoParty;
 import org.egov.bpa.application.entity.enums.AppointmentSchedulePurpose;
 import org.egov.bpa.application.service.LettertoPartyService;
 import org.egov.bpa.masters.service.StakeHolderService;
+import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.eis.service.PositionMasterService;
 import org.egov.eis.web.contract.WorkflowContainer;
@@ -102,6 +103,9 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
 
     private static final String ADDITIONALRULE = "additionalRule";
 
+    @Autowired
+    private BpaUtils bpaUtils;
+    
     @Autowired
     private SecurityUtils securityUtils;
     @Autowired
@@ -180,7 +184,13 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         if (mode == null) {
             mode = "edit";
         }
-
+        if(application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_NOCUPDATED)||
+        		application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_APPROVED))
+       model.addAttribute("isApproveValid", bpaUtils.approveIsValidForLoggedInuserDesgn((!application.getInspections().isEmpty() ?application.getInspections().get(0).getLndMinPlotExtent().intValue():0),bpaUtils.loggedInUserDesignation(application)));
+       
+        else
+        	 model.addAttribute("isApproveValid" ,Boolean.FALSE);
+        model.addAttribute("areaInSqMtr", (!application.getInspections().isEmpty() ?application.getInspections().get(0).getLndMinPlotExtent().intValue():0));
         model.addAttribute("scheduleType", scheduleType);
         model.addAttribute("mode", mode);
         model.addAttribute(APPLICATION_HISTORY,
@@ -243,7 +253,8 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 appointmentSchedule.setAppointmentTime(sf.format(now));
                 bpaApplication.getAppointmentSchedule().add(appointmentSchedule);
             }
-            BpaApplication bpaAppln = applicationBpaService.updateApplication(bpaApplication, approvalPosition);
+            String         workFlowAction = request.getParameter("workFlowAction");
+            BpaApplication bpaAppln = applicationBpaService.updateApplication(bpaApplication, approvalPosition,workFlowAction);
             String message = messageSource.getMessage("msg.update.forward.documentscrutiny", new String[] {
                     user != null ? user.getUsername().concat("~")
                             .concat(pos.getDeptDesig() != null && pos.getDeptDesig().getDesignation() != null
@@ -259,6 +270,11 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         model.addAttribute("stateType", application.getClass().getSimpleName());
         final WorkflowContainer workflowContainer = new WorkflowContainer();
         model.addAttribute(ADDITIONALRULE, BpaConstants.CREATE_ADDITIONAL_RULE_CREATE);
+        final String loggedInUserDesignation = bpaUtils.loggedInUserDesignation(application);
+        workflowContainer.setAdditionalRule(BpaConstants.CREATE_ADDITIONAL_RULE_CREATE);
+        if(application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_NOCUPDATED))
+        workflowContainer.setCurrentDesignation(loggedInUserDesignation);
+        model.addAttribute("currentDesignation", workflowContainer.getCurrentDesignation());
         workflowContainer.setAdditionalRule(BpaConstants.CREATE_ADDITIONAL_RULE_CREATE);
         prepareWorkflow(model, application, workflowContainer);
         model.addAttribute("currentState", application.getCurrentState().getValue());
@@ -279,10 +295,11 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
             loadViewdata(model, bpaApplication);
             return BPAAPPLICATION_FORM;
         }
+        String workFlowAction = request.getParameter("workFlowAction");
         Long approvalPosition = null;
         if (request.getParameter(APPRIVALPOSITION) != null)
             approvalPosition = Long.valueOf(request.getParameter(APPRIVALPOSITION));
-        BpaApplication bpaAppln = applicationBpaService.updateApplication(bpaApplication, approvalPosition);
+        BpaApplication bpaAppln = applicationBpaService.updateApplication(bpaApplication, approvalPosition,workFlowAction);
         Position pos = positionMasterService.getPositionById(approvalPosition);
         User user = bpaThirdPartyService.getUserPositionByPassingPosition(approvalPosition);
         String message = messageSource.getMessage("msg.update.forward.registration", new String[] {

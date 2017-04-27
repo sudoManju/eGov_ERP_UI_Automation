@@ -57,6 +57,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -167,6 +168,7 @@ public class BpaApplication extends StateAware {
     private List<ApplicationNocDocument> applicationNOCDocument = new ArrayList<>(0);
     private transient List<CheckListDetail> checkListDocumentsForNOC = new ArrayList<>(0);
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OrderBy("id DESC ")
     private List<Inspection> inspections = new ArrayList<>();
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<LettertoParty> lettertoParty = new ArrayList<>();

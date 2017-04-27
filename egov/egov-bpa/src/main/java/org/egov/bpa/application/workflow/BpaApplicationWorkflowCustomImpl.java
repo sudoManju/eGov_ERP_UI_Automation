@@ -105,6 +105,7 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
         final DateTime currentDate = new DateTime();
         Position pos = null;
         Assignment wfInitiator = null;
+        final String loggedInUserDesignation = bpaUtils.loggedInUserDesignation(application);
         if (application.getCreatedBy() != null)
             wfInitiator = bpaWorkFlowService.getWorkFlowInitiator(application);
 
@@ -134,16 +135,20 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
 
         } else if (BpaConstants.WF_APPROVE_BUTTON.equalsIgnoreCase(workFlowAction)) {
 
-            wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null,
-                    null, additionalRule, application.getCurrentState().getValue(), null);
-            application.setStatus(getStatusByPassingCode(BpaConstants.APPLICATION_STATUS_APPROVED));
+            wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null, null,
+                    additionalRule, application.getCurrentState().getValue(),  null, null, loggedInUserDesignation);
+            		
+            BpaStatus status=bpaStatusService
+                    .findByModuleTypeAndCode(BpaConstants.BPASTATUS_MODULETYPE, BpaConstants.APPLICATION_STATUS_APPROVED);
+        	if(status !=null)
+            application.setStatus(status);
 
             application.transition().progressWithStateCopy()
                     .withSenderName(user.getUsername() + BpaConstants.COLON_CONCATE + user.getName())
                     .withComments(approvalComent)
-                    .withStateValue(wfmatrix.getNextState()).withDateInfo(currentDate.toDate())
-                    .withOwner(wfInitiator != null ? wfInitiator.getPosition() : null)
-                    .withNextAction(wfmatrix.getNextAction()).withNatureOfTask(BpaConstants.NATURE_OF_WORK);
+                    .withStateValue("Record Approved").withDateInfo(currentDate.toDate())
+                    .withOwner(pos)
+                    .withNextAction("Digital Sign Pending").withNatureOfTask(BpaConstants.NATURE_OF_WORK);
         } else if (BpaConstants.WF_REJECT_BUTTON.equalsIgnoreCase(workFlowAction) ||
                 BpaConstants.WF_CANCELAPPLICATION_BUTTON.equalsIgnoreCase(workFlowAction)) {
 
@@ -189,7 +194,6 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
                         .withNextAction(wfmatrix.getNextAction()).withNatureOfTask(BpaConstants.NATURE_OF_WORK);
             }
         } else if (BpaConstants.LETTERTOPARTYSENT.equalsIgnoreCase(workFlowAction)) {
-            List<StateHistory> statehistoryList = application.getStateHistory();
             wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null,
                     null, additionalRule, application.getStateHistory().get(0).getValue(), null);
             application.setStatus(getStatusByCurrentMatrxiStatus(wfmatrix));
@@ -204,9 +208,13 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
                     null, additionalRule, application.getCurrentState().getValue(), null);
 
             if (wfmatrix != null) {
+            	BpaStatus status=getStatusByCurrentMatrxiStatus(wfmatrix);
+            	if(status !=null)
                 application.setStatus(getStatusByCurrentMatrxiStatus(wfmatrix));
+            	if("Approve".equalsIgnoreCase(workFlowAction) && application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_FIELD_INS))
+                    application.setStatus(getStatusByCurrentMatrxiStatus(wfmatrix));
 
-                if (wfmatrix.getNextAction().equalsIgnoreCase(BpaConstants.WF_END_STATE))
+            		if (wfmatrix.getNextAction().equalsIgnoreCase(BpaConstants.WF_END_STATE))
                     application.transition().end().withSenderName((wfInitiator != null && wfInitiator.getEmployee() != null
                             ? wfInitiator.getEmployee().getUsername() : "") + BpaConstants.COLON_CONCATE
                             + (wfInitiator != null && wfInitiator.getEmployee() != null

@@ -44,7 +44,7 @@ $(document).ready(function()
 		{
 		$('#approvalDepartment').change(function(){
 			$.ajax({
-				url: "/eis/ajaxWorkFlow-getDesignationsByObjectTypeAndDesignation",     
+				url: "/bpa/bpaajaxWorkFlow-getDesignationsByObjectTypeAndDesignation",     
 				type: "GET",
 				data: {
 					approvalDepartment : $('#approvalDepartment').val(),
@@ -54,7 +54,8 @@ $(document).ready(function()
 					amountRule : $('#amountRule').val(),
 					additionalRule : $('#additionalRule').val(),
 					pendingAction : $('#pendingActions').val(),
-					currentDesignation : $('#currentDesignation').val()
+					currentDesignation : $('#currentDesignation').val(),
+					areaInSqMtr : $('#areaInSqMtr').val()
 				},
 				dataType: "json",
 				success: function (response) {

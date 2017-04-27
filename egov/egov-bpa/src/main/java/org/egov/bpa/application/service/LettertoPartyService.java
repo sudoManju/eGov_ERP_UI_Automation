@@ -70,12 +70,12 @@ public class LettertoPartyService {
             lettertoParty.setLpNumber(generateLettertpPartyNumber());
             approverPosition = getDocScutinyUser(lettertoParty.getApplication());
             bpaUtils.redirectToBpaWorkFlow(approverPosition, lettertoParty.getApplication(), BpaConstants.LETTERTOPARTYINITIATED,
-                    "Letter to party initiated");
+                    "Letter to party initiated",null);
         } else if (null != lettertoParty.getSentDate() &&
                 lettertoParty.getApplication().getStatus().getCode().equals(BpaConstants.CREATEDLETTERTOPARTY)) {
             approverPosition = lettertoParty.getApplication().getState().getPreviousOwner().getId();
             bpaUtils.redirectToBpaWorkFlow(approverPosition, lettertoParty.getApplication(), BpaConstants.LETTERTOPARTYSENT,
-                    "Letter to party sent");
+                    "Letter to party sent",null);
         }
         return lettertoPartyRepository.save(lettertoParty);
     }

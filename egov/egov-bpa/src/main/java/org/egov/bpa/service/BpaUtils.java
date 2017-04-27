@@ -1,6 +1,7 @@
 package org.egov.bpa.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.egov.bpa.application.entity.BpaApplication;
@@ -10,7 +11,9 @@ import org.egov.eis.entity.Assignment;
 import org.egov.eis.service.AssignmentService;
 import org.egov.eis.service.DesignationService;
 import org.egov.infra.admin.master.entity.Boundary;
+import org.egov.infra.admin.master.entity.User;
 import org.egov.infra.admin.master.service.BoundaryService;
+import org.egov.infra.security.utils.SecurityUtils;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
 import org.egov.infra.workflow.service.SimpleWorkflowService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,9 @@ public class BpaUtils {
 
     @Autowired
     private ApplicationContext context;
+    
+    @Autowired
+    private SecurityUtils securityUtils;
 
     @Autowired
     private AssignmentService assignmentService;
@@ -39,6 +45,19 @@ public class BpaUtils {
     @Autowired
     private DesignationService designationService;
 
+    public String loggedInUserDesignation(final BpaApplication application) {
+        String loggedInUserDesignation = "";
+        final User user = securityUtils.getCurrentUser();
+        List<Assignment> loggedInUserAssign;
+        if (application.getState() != null && application.getState().getOwnerPosition() != null) {
+            loggedInUserAssign = assignmentService.getAssignmentByPositionAndUserAsOnDate(
+            		application.getState().getOwnerPosition().getId(), user.getId(), new Date());
+            loggedInUserDesignation = !loggedInUserAssign.isEmpty()
+                    ? loggedInUserAssign.get(0).getDesignation().getName() : null;
+        }
+        return loggedInUserDesignation;
+    }
+    
     public BpaApplicationWorkflowCustomDefaultImpl getInitialisedWorkFlowBean() {
         BpaApplicationWorkflowCustomDefaultImpl applicationWorkflowCustomDefaultImpl = null;
         if (null != context)
@@ -95,7 +114,7 @@ public class BpaUtils {
 
     @Transactional
     public void redirectToBpaWorkFlow(Long approvalPosition, final BpaApplication application, final String currentState,
-            final String remarks) {
+            final String remarks,String workFlowAction) {
 
         final WorkFlowMatrix wfmatrix = getWfMatrixByCurrentState(application, currentState);
         final BpaApplicationWorkflowCustomDefaultImpl applicationWorkflowCustomDefaultImpl = getInitialisedWorkFlowBean();
@@ -114,7 +133,24 @@ public class BpaUtils {
         else
             applicationWorkflowCustomDefaultImpl.createCommonWorkflowTransition(application,
                     approvalPosition, remarks,
-                    BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, null);
+                    BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, workFlowAction);
+    }
+    
+    public Boolean approveIsValidForLoggedInuserDesgn(Integer areainSqmtr,String loggedInUserDesignation)
+    {
+    	Boolean isValid=Boolean.FALSE;
+    	if(areainSqmtr <=300 && loggedInUserDesignation!=null && loggedInUserDesignation.equalsIgnoreCase(BpaConstants.DESIGNATION_AE))
+    		isValid=true;
+    	else if(areainSqmtr >300 && areainSqmtr <=750 && loggedInUserDesignation!=null && loggedInUserDesignation.equalsIgnoreCase(BpaConstants.DESIGNATION_AEE))
+    		isValid=true;
+    	else if(areainSqmtr >750 && areainSqmtr <=1500 && loggedInUserDesignation!=null && loggedInUserDesignation.equalsIgnoreCase(BpaConstants.DESIGNATION_EE))
+    		isValid=true;
+    	else if(areainSqmtr >1500 && areainSqmtr <=10000 && loggedInUserDesignation!=null && loggedInUserDesignation.equalsIgnoreCase(BpaConstants.DESIGNATION_COMMISSIONER))
+    		isValid=true;
+    	else if(areainSqmtr > 10000 && loggedInUserDesignation!=null && loggedInUserDesignation.equalsIgnoreCase(BpaConstants.DESIGNATION_SECRETARY))
+    		isValid=true;
+
+    	return isValid;
     }
 
 }

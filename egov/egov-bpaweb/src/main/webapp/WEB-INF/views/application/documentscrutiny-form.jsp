@@ -50,7 +50,6 @@
 			id="documentscrutinyform"
 			cssClass="form-horizontal form-groups-bordered"
 			enctype="multipart/form-data">
-
 			<div class="panel panel-primary" data-collapsed="0">
 				<jsp:include page="view-applicantdetails.jsp"></jsp:include>
 			</div>

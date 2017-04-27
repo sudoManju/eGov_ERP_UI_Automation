@@ -147,14 +147,14 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
     }
 
     @Transactional
-    public BpaApplication updateApplication(final BpaApplication application, final Long approvalPosition) {
+    public BpaApplication updateApplication(final BpaApplication application, final Long approvalPosition,String workFlowAction) {
 
         application.setSource(Source.SYSTEM);
         persistBpaNocDocuments(application);
         final BpaApplication updatedApplication = applicationBpaRepository
                 .saveAndFlush(application);
 
-        bpaUtils.redirectToBpaWorkFlow(approvalPosition, application, application.getCurrentState().getValue(), null);
+        bpaUtils.redirectToBpaWorkFlow(approvalPosition, application, application.getCurrentState().getValue(), null,workFlowAction);
 
         return updatedApplication;
     }

@@ -59,6 +59,9 @@
 			<form:hidden path="" id="mode" name="mode" value="${mode}" />
 			<form:hidden path="" id="scheduleType" name="scheduleType"
 				value="${scheduleType}" />
+			<form:hidden path="" value="${areaInSqMtr}" id="areaInSqMtr" name="areaInSqMtr"/>
+			<form:hidden path="" value="${currentDesignation}" id="currentDesignation" name="currentDesignation"/>
+			<form:hidden path="" value="${isApproveValid}" id="isApproveValid" name="isApproveValid"/>
 			<ul class="nav nav-tabs" id="settingstab">
 				<li class="active"><a data-toggle="tab" href="#applicant-info"
 					data-tabidx=0><spring:message code='lbl.appln.details' /></a></li>

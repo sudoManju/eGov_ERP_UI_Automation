@@ -93,11 +93,6 @@ public class NewApplicationController extends BpaGenericApplicationController {
             final Model model, final HttpServletRequest request) {
         bpaApplication.setApplicationDate(new Date());
         model.addAttribute("mode", "new");
-        Set<Role>rolList=userService.getRolesByUsername("mahesh");
-        for(Role tt:rolList)
-        {
-        	System.out.println(tt.getName());
-        }
         return "newapplication-form";
     }
 
@@ -107,11 +102,6 @@ public class NewApplicationController extends BpaGenericApplicationController {
             final HttpServletRequest request, final Model model,
             final BindingResult errors) {
 
-    	 Set<Role>rolList=userService.getRolesByUsername("mahesh");
-         for(Role tt:rolList)
-         {
-         	System.out.println(tt.getName());
-         }
         final List<ApplicationDocument> applicationDocs = new ArrayList<>(0);
         int i = 0;
         if (!bpaApplication.getApplicationDocument().isEmpty())
