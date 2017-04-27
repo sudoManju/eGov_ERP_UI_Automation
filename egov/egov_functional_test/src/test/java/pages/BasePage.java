@@ -145,7 +145,7 @@ public class BasePage {
     }
 
     protected String getCurrentYear() {
-        return getCurrentDate().replaceAll("/" , "-").split("-")[2];
+        return getCurrentDate().replaceAll("/", "-").split("-")[2];
     }
 
     protected String getPreviousDate() {

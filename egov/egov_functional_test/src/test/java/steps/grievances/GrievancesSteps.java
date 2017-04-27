@@ -20,7 +20,7 @@ public class GrievancesSteps extends BaseSteps implements En {
 
         And("^he choose to enter grievance details as (\\w+)$", (String grievanceDetails) -> {
             CreateComplaintDetails createComplaintDetails = new GrievanceDataReader(grievanceTestDataFileName).getGrievanceDetails(grievanceDetails);
-            scenarioContext.setActualMessage(pageStore.get(GrievancesPage.class).enterGrievanceDetails(createComplaintDetails,scenarioContext.getUser()));
+            scenarioContext.setActualMessage(pageStore.get(GrievancesPage.class).enterGrievanceDetails(createComplaintDetails, scenarioContext.getUser()));
         });
 
         When("^he choose to register complaint with his login$", () -> {

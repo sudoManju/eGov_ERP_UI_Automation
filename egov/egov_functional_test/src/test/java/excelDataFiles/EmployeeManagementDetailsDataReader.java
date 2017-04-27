@@ -42,21 +42,21 @@ public class EmployeeManagementDetailsDataReader extends ExcelReader {
                 .build();
     }
 
-    public EmployeeDetails getEmployeeDetails(String dataName){
+    public EmployeeDetails getEmployeeDetails(String dataName) {
         Row dataRow = readDataRow(employeeDetailsSheet, dataName);
 
-        String employeeType = getCellData(employeeDetailsSheet,dataRow,"EmployeeType").getStringCellValue();
-        String status = getCellData(employeeDetailsSheet,dataRow,"Status").getStringCellValue();
-        String dateOfBirth = getCellData(employeeDetailsSheet,dataRow,"DateOfBirth").getStringCellValue();
-        String gender = getCellData(employeeDetailsSheet,dataRow,"Gender").getStringCellValue();
-        String martialStatus = getCellData(employeeDetailsSheet,dataRow,"MaritalStatus").getStringCellValue();
-        String userName = getCellData(employeeDetailsSheet,dataRow,"UserName").getStringCellValue();
-        String isUserActive = getCellData(employeeDetailsSheet,dataRow,"IsUserActive").getStringCellValue();
-        String mobileNumber = getCellData(employeeDetailsSheet,dataRow,"Mobile").getStringCellValue();
-        String permanentAddress = getCellData(employeeDetailsSheet,dataRow,"PermanentAddress").getStringCellValue();
-        String permanentCity = getCellData(employeeDetailsSheet,dataRow,"City").getStringCellValue();
-        String permanentPincode = getCellData(employeeDetailsSheet,dataRow,"PinCode").getStringCellValue();
-        String dataOfJoining = getCellData(employeeDetailsSheet,dataRow,"DateOfAppointment").getStringCellValue();
+        String employeeType = getCellData(employeeDetailsSheet, dataRow, "EmployeeType").getStringCellValue();
+        String status = getCellData(employeeDetailsSheet, dataRow, "Status").getStringCellValue();
+        String dateOfBirth = getCellData(employeeDetailsSheet, dataRow, "DateOfBirth").getStringCellValue();
+        String gender = getCellData(employeeDetailsSheet, dataRow, "Gender").getStringCellValue();
+        String martialStatus = getCellData(employeeDetailsSheet, dataRow, "MaritalStatus").getStringCellValue();
+        String userName = getCellData(employeeDetailsSheet, dataRow, "UserName").getStringCellValue();
+        String isUserActive = getCellData(employeeDetailsSheet, dataRow, "IsUserActive").getStringCellValue();
+        String mobileNumber = getCellData(employeeDetailsSheet, dataRow, "Mobile").getStringCellValue();
+        String permanentAddress = getCellData(employeeDetailsSheet, dataRow, "PermanentAddress").getStringCellValue();
+        String permanentCity = getCellData(employeeDetailsSheet, dataRow, "City").getStringCellValue();
+        String permanentPincode = getCellData(employeeDetailsSheet, dataRow, "PinCode").getStringCellValue();
+        String dataOfJoining = getCellData(employeeDetailsSheet, dataRow, "DateOfAppointment").getStringCellValue();
 
         return new EmployeeDetailsBuilder()
                 .withEmployeeType(employeeType)
@@ -72,13 +72,13 @@ public class EmployeeManagementDetailsDataReader extends ExcelReader {
                 .withPermanentPincode(permanentPincode)
                 .withDateOfAppointment(dataOfJoining)
                 .build();
-        }
+    }
 
-    public JurisdictionDetails getJurisdictionDetails(String dataId){
+    public JurisdictionDetails getJurisdictionDetails(String dataId) {
         Row dataRow = readDataRow(jurisdictionDetailsSheet, dataId);
 
-        String JurisdictionType = getCellData(jurisdictionDetailsSheet,dataRow,"JurisdictionType").getStringCellValue();
-        String JurisdictionList = getCellData(jurisdictionDetailsSheet,dataRow,"JurisdictionList").getStringCellValue();
+        String JurisdictionType = getCellData(jurisdictionDetailsSheet, dataRow, "JurisdictionType").getStringCellValue();
+        String JurisdictionList = getCellData(jurisdictionDetailsSheet, dataRow, "JurisdictionList").getStringCellValue();
 
         return new JurisdictionDetailsBuilder()
                 .withJurisdictionType(JurisdictionType)

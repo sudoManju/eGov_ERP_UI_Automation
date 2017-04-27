@@ -104,12 +104,11 @@ public class GrievancesPage extends BasePage {
     }
 
     public String enterGrievanceDetails(CreateComplaintDetails createComplaintDetails, String user) {
-        if(user.equals("citizen")) {
+        if (user.equals("citizen")) {
             enterText(complaintTypeTextBox, createComplaintDetails.getGrievanceType(), webDriver);
             WebElement dropdown1 = webDriver.findElement(By.className("tt-highlight"));
             dropdown1.click();
-        }
-        else {
+        } else {
             selectFromDropDown(complaintTypeCategorySelect, createComplaintDetails.getGrievanceCategory(), webDriver);
             selectFromDropDown(complaintTypeSelect, createComplaintDetails.getGrievanceType(), webDriver);
         }

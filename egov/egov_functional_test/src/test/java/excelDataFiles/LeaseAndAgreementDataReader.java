@@ -7,7 +7,7 @@ import entities.leaseAndAgreement.LandAllotteeDetails;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
-public class LeaseAndAgreementDataReader extends ExcelReader{
+public class LeaseAndAgreementDataReader extends ExcelReader {
 
     Sheet allotteeDetailsSheet;
     Sheet agreementDetailsSheet;
@@ -18,7 +18,7 @@ public class LeaseAndAgreementDataReader extends ExcelReader{
         agreementDetailsSheet = workbook.getSheet("landAgreementDetails");
     }
 
-    public LandAllotteeDetails getAllotteeDetails(String dataId){
+    public LandAllotteeDetails getAllotteeDetails(String dataId) {
 
         Row dataRow = readDataRow(allotteeDetailsSheet, dataId);
         String nameOfTheAllottee = getCellData(allotteeDetailsSheet, dataRow, "nameOfTheAllottee").getStringCellValue();
@@ -31,7 +31,7 @@ public class LeaseAndAgreementDataReader extends ExcelReader{
 
     }
 
-    public LandAgreementDetails getAgreementDetails(String dataId){
+    public LandAgreementDetails getAgreementDetails(String dataId) {
 
         Row dataRow = readDataRow(agreementDetailsSheet, dataId);
 

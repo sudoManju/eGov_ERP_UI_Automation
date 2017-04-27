@@ -19,10 +19,10 @@ public class AssetCategorySteps extends BaseSteps implements En {
             pageStore.get(AssetCategoryPage.class).enterAssetCategoryDetails(details);
         });
         And("^user will enter the details of custom fields as (\\w+)$", (String noOfCustomFields) -> {
-            for(int i=0;i<Integer.parseInt(noOfCustomFields);i++) {
+            for (int i = 0; i < Integer.parseInt(noOfCustomFields); i++) {
                 pageStore.get(AssetCategoryPage.class).clickToCreateCustomFields();
                 CustomFieldsDetails details = new AssetCategoryDataReader(assetTestDataFileName)
-                        .getCustomFieldsDetails(scenarioContext.getApplicationNumber()+(i+1));
+                        .getCustomFieldsDetails(scenarioContext.getApplicationNumber() + (i + 1));
                 pageStore.get(AssetCategoryPage.class).enterCustomFieldsDetails(details);
                 pageStore.get(AssetCategoryPage.class).addOrEditCustomFieldsButton();
             }

@@ -1,6 +1,5 @@
 package steps.ptis;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import pages.ptis.PropertyAcknowledgementPage;
 import steps.BaseSteps;

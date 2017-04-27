@@ -24,7 +24,7 @@ public class HomePage extends BasePage {
     private WebElement zoneSelect;
 
 
-    @FindBy(className= "dropdown-toggle")
+    @FindBy(className = "dropdown-toggle")
     private WebElement profileLink;
 
     @FindBy(linkText = "Sign out")

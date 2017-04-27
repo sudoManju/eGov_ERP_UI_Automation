@@ -59,7 +59,7 @@ public class AssetCategoryPage extends BasePage {
     @FindBy(css = ".glyphicon.glyphicon-plus")
     private WebElement addCustomFieldsButton;
 
-    @FindBy(css = ".btn.btn-primary" )
+    @FindBy(css = ".btn.btn-primary")
     private WebElement addOrEditButton;
 
     @FindBy(linkText = "Create")
@@ -70,24 +70,24 @@ public class AssetCategoryPage extends BasePage {
     }
 
     public void enterAssetCategoryDetails(AssetCategoryDetails details) {
-        enterText(nameTextBox,details.getName(),driver);
-        selectFromDropDown(assetCategoryTypeTextBox,details.getAssetCategoryType(),driver);
-        selectFromDropDown(parentTypeTextBox,details.getParentCategory(),driver);
-        selectFromDropDown(depreciationMethodTextBox,details.getDepreciationMethod(),driver);
-        selectFromDropDown(assetAccountTextBox,details.getAssetAccountCode(),driver);
-        selectFromDropDown(accumulatedDepreciationAccountTextBox,details.getAccumulatedDepreciationCode(),driver);
-        selectFromDropDown(revaluationReserveAccountTextBox,details.getRevaluationReserveAccountCode(),driver);
-        selectFromDropDown(depreciationExpenseAccountTextBox,details.getDepreciationExpenceAccount(),driver);
+        enterText(nameTextBox, details.getName(), driver);
+        selectFromDropDown(assetCategoryTypeTextBox, details.getAssetCategoryType(), driver);
+        selectFromDropDown(parentTypeTextBox, details.getParentCategory(), driver);
+        selectFromDropDown(depreciationMethodTextBox, details.getDepreciationMethod(), driver);
+        selectFromDropDown(assetAccountTextBox, details.getAssetAccountCode(), driver);
+        selectFromDropDown(accumulatedDepreciationAccountTextBox, details.getAccumulatedDepreciationCode(), driver);
+        selectFromDropDown(revaluationReserveAccountTextBox, details.getRevaluationReserveAccountCode(), driver);
+        selectFromDropDown(depreciationExpenseAccountTextBox, details.getDepreciationExpenceAccount(), driver);
 //        selectFromDropDown(unitOfMeasurementTextBox,details.getUOM(),driver);
     }
 
 
     public void enterCustomFieldsDetails(CustomFieldsDetails details) {
-        enterText(nameTextBox,details.getName(),driver);
-        selectFromDropDown(dataTypeBox,details.getDataType(),driver);
+        enterText(nameTextBox, details.getName(), driver);
+        selectFromDropDown(dataTypeBox, details.getDataType(), driver);
 //        enterText(regExFormateTextBox,details.getRegExFormat(),driver);
-        if(details.isActive()){
-            clickOnButton(isActiveCheckBox,driver);
+        if (details.isActive()) {
+            clickOnButton(isActiveCheckBox, driver);
         }
         if (details.isMandatory()) {
             clickOnButton(isMandatoryCheckBox, driver);
@@ -97,14 +97,14 @@ public class AssetCategoryPage extends BasePage {
     }
 
     public void clickToCreateCustomFields() {
-        clickOnButton(addCustomFieldsButton,driver);
+        clickOnButton(addCustomFieldsButton, driver);
     }
 
     public void addOrEditCustomFieldsButton() {
-        clickOnButton(addOrEditButton,driver);
+        clickOnButton(addOrEditButton, driver);
     }
 
     public void clickOnCreateAssetCategoryButton() {
-        clickOnButton(createButton,driver);
+        clickOnButton(createButton, driver);
     }
 }

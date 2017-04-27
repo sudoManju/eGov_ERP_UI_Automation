@@ -169,37 +169,35 @@ public class EmployeeDetailsPage extends BasePage {
     @FindBy(id = "documents")
     private WebElement chooseDocuments;
 
-    public EmployeeDetailsPage(WebDriver driver){
+    public EmployeeDetailsPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public void enterEmployeeDetails(EmployeeDetails employeeDetails){
-        enterText(employeeNameTextBox,"TestUser_"+get6DigitRandomInt(),driver);
-        enterText(employeeCodeTextBox,"EMP_"+get6DigitRandomInt(),driver);
-        selectFromDropDown(employeeTypeBox,employeeDetails.getEmployeeType(),driver);
-        selectFromDropDown(employeeStatusBox,employeeDetails.getStatus(),driver);
-        enterText(dobTextBox,employeeDetails.getDateOfBirth(),driver);
-        if(employeeDetails.getGender().equals("Male")){
-            clickOnButton(maleRadioButton,driver);
+    public void enterEmployeeDetails(EmployeeDetails employeeDetails) {
+        enterText(employeeNameTextBox, "TestUser_" + get6DigitRandomInt(), driver);
+        enterText(employeeCodeTextBox, "EMP_" + get6DigitRandomInt(), driver);
+        selectFromDropDown(employeeTypeBox, employeeDetails.getEmployeeType(), driver);
+        selectFromDropDown(employeeStatusBox, employeeDetails.getStatus(), driver);
+        enterText(dobTextBox, employeeDetails.getDateOfBirth(), driver);
+        if (employeeDetails.getGender().equals("Male")) {
+            clickOnButton(maleRadioButton, driver);
+        } else {
+            clickOnButton(femaleRadioButton, driver);
         }
-        else {
-            clickOnButton(femaleRadioButton,driver);
+        selectFromDropDown(maritalStatusBox, employeeDetails.getMaritalStatus(), driver);
+        enterText(userNameTextBox, employeeDetails.getUserName(), driver);
+        if (employeeDetails.getIsUserActive().equals("Yes")) {
+            clickOnButton(userActiveYesButton, driver);
+        } else {
+            clickOnButton(userActiveNoButton, driver);
         }
-        selectFromDropDown(maritalStatusBox,employeeDetails.getMaritalStatus(),driver);
-        enterText(userNameTextBox,employeeDetails.getUserName(),driver);
-        if(employeeDetails.getIsUserActive().equals("Yes")){
-            clickOnButton(userActiveYesButton,driver);
-        }
-        else {
-            clickOnButton(userActiveNoButton,driver);
-        }
-        enterText(mobileNumberTextBox,employeeDetails.getMobileNumber(),driver);
-        enterText(passportNoTextBox,"IND"+get6DigitRandomInt(),driver);
-        enterText(gpfNoTextBox,get6DigitRandomInt(),driver);
-        enterText(panNumberTextBox,"ABCDE"+Integer.toString(Integer.parseInt(get6DigitRandomInt())/100)+"F",driver);
-        enterText(permanentAddressTextBox,employeeDetails.getPermanentAddress(),driver);
-        enterText(permanentCityTextBox,employeeDetails.getPermanentCity(),driver);
-        enterText(permanentPincodeTextBox,employeeDetails.getPermanentPincode(),driver);
-        enterText(dateOfAppointmentTextBox,employeeDetails.getDateOfAppointment(),driver);
+        enterText(mobileNumberTextBox, employeeDetails.getMobileNumber(), driver);
+        enterText(passportNoTextBox, "IND" + get6DigitRandomInt(), driver);
+        enterText(gpfNoTextBox, get6DigitRandomInt(), driver);
+        enterText(panNumberTextBox, "ABCDE" + Integer.toString(Integer.parseInt(get6DigitRandomInt()) / 100) + "F", driver);
+        enterText(permanentAddressTextBox, employeeDetails.getPermanentAddress(), driver);
+        enterText(permanentCityTextBox, employeeDetails.getPermanentCity(), driver);
+        enterText(permanentPincodeTextBox, employeeDetails.getPermanentPincode(), driver);
+        enterText(dateOfAppointmentTextBox, employeeDetails.getDateOfAppointment(), driver);
     }
 }

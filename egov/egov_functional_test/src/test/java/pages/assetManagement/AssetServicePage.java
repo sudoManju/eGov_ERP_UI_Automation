@@ -81,7 +81,7 @@ public class AssetServicePage extends BasePage {
 
     public void enterAssetStatusDetails(String assetStatus) {
         selectFromDropDown(statusSelectBox, assetStatus, webDriver);
-        clickOnButton(createAssetButton , webDriver);
+        clickOnButton(createAssetButton, webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 }
