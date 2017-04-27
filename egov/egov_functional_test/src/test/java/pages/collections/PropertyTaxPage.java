@@ -131,17 +131,14 @@ public class PropertyTaxPage extends BasePage {
                 enterText(chequeNumberTextBox, paymentmethod.getChequeNumber(), driver);
                 enterText(chequeDateTextBox, getCurrentDate(), driver);
                 enterText(bankNameTextBox, paymentmethod.getBankName(), driver);
-                if (driver.findElements(By.id("bankcodescontainer")).size() > 0) {
-                    await().atMost(30, SECONDS).until(() -> driver.findElement(By.id("bankcodescontainer"))
-                            .findElements(By.cssSelector("ul li"))
-                            .get(0).click());
-                } else {
-                    enterText(driver.findElement(By.cssSelector("input[type='text'][name='instrumentProxyList[0].bankId.name']"))
-                            , paymentmethod.getBankName(), driver);
-                    await().atMost(30, SECONDS).until(() -> driver.findElement(By.id("bankcodescontainer"))
-                            .findElements(By.cssSelector("ul li"))
-                            .get(0).click());
+                boolean isPresentForDD  = driver.findElements(By.id("bankcodescontainer")).size() > 0;
+                while (!isPresentForDD){
+                    bankNameTextBox.clear();
+                    enterText(bankNameTextBox, paymentmethod.getBankName(), driver);
                 }
+                await().atMost(30, SECONDS).until(() -> driver.findElement(By.id("bankcodescontainer"))
+                        .findElements(By.cssSelector("ul li"))
+                        .get(0).click());
                 enterText(amountPaidByChequeTextBox, actualAmount, driver);
 
                 break;
