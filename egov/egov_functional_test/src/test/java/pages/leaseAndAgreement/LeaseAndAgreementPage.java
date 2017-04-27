@@ -107,6 +107,7 @@ public class LeaseAndAgreementPage extends BasePage {
         clickOnButton(searchAsseetButton, webDriver);
         enterText(searchAssetCodeTextBox, "00003", webDriver);
         selectFromDropDown(actionDropdown, "Create", webDriver);
+        switchToNewlyOpenedWindow(webDriver);
     }
 
     public void enterAgreementDetails(LandAllotteeDetails landAllotteeDetails, LandAgreementDetails landAgreementDetails) {
@@ -116,24 +117,24 @@ public class LeaseAndAgreementPage extends BasePage {
 
     private void enterLandAllotteeDetails(LandAllotteeDetails landAllotteeDetails) {
         enterText(aadharNumberTextBox, get6DigitRandomInt() + get6DigitRandomInt(), webDriver);
-        enterText(mobileNumberTextBox, landAllotteeDetails.getMobileNumber(), webDriver);
+        enterText(mobileNumberTextBox, "9" + get6DigitRandomInt() + get6DigitRandomInt().substring(0, 3), webDriver);
         enterText(nameTextBox, landAllotteeDetails.getName(), webDriver);
         enterText(emailIdTextBox, landAllotteeDetails.getEmail(), webDriver);
-        enterText(panTextBox, "ABCDE" + get6DigitRandomInt().substring(0, 3) + "F", webDriver);
+        enterText(panTextBox, "ABCDE" + get6DigitRandomInt().substring(0, 4) + "F", webDriver);
 
     }
 
     private void enterLandAgreementDetails(LandAgreementDetails landAgreementDetails) {
-        enterText(tenderNumberTextBox, "T" + get6DigitRandomInt().substring(0, 2), webDriver);
+        enterText(tenderNumberTextBox, "T" + get6DigitRandomInt().substring(0, 3), webDriver);
         enterDate(tenderDate, landAgreementDetails.getTenderDate(), webDriver);
-        enterText(natureOfAllotmentDropdown, landAgreementDetails.getNatureOfAllotment(), webDriver);
-        enterText(councilNumberTextBox, "C" + get6DigitRandomInt().substring(0, 2), webDriver);
+        selectFromDropDown(natureOfAllotmentDropdown, landAgreementDetails.getNatureOfAllotment(), webDriver);
+        enterText(councilNumberTextBox, "C" + get6DigitRandomInt().substring(0, 3), webDriver);
         enterDate(councilDate, landAgreementDetails.getCouncilDate(), webDriver);
         enterText(landRentTextBox, landAgreementDetails.getLandRent(), webDriver);
-        enterText(paymentCycleDropdown, landAgreementDetails.getPaymentCycle(), webDriver);
+        selectFromDropDown(paymentCycleDropdown, landAgreementDetails.getPaymentCycle(), webDriver);
         enterText(bankGuaranteeAmountTextBox, landAgreementDetails.getBankGuaranteeAmount(), webDriver);
         enterDate(bankGuaranteeDate, landAgreementDetails.getBankGuaranteeDate(), webDriver);
-        enterText(solvencyCertificateNumberTextBox, "S" + get6DigitRandomInt().substring(0, 2), webDriver);
+        enterText(solvencyCertificateNumberTextBox, "S" + get6DigitRandomInt().substring(0, 3), webDriver);
         enterDate(solvencyCertificateDate, landAgreementDetails.getSolvencyCertificateDate(), webDriver);
         enterDate(commencementDate, landAgreementDetails.getCommencementDate(), webDriver);
         selectFromDropDown(rentIncrementMethodDropdown, landAgreementDetails.getRentIncrementMethod(), webDriver);
