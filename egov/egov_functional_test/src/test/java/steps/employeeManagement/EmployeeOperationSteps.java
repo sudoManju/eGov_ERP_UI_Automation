@@ -29,5 +29,8 @@ public class EmployeeOperationSteps extends BaseSteps implements En {
             JurisdictionDetails jurisdictionDetails = new EmployeeManagementDetailsDataReader(eisTestDataFileName).getJurisdictionDetails(dataId);
             pageStore.get(EmployeeOtherDetailsPage.class).enterJurisdictionDetails(jurisdictionDetails);
         });
+        Then("^user clicks on submit button$", () -> {
+            pageStore.get(EmployeeOtherDetailsPage.class).submitCreateEmployee();
+        });
     }
 }

@@ -28,10 +28,10 @@ public class EmployeeDetailsPage extends BasePage {
     @FindBy(id = "user.dob")
     private WebElement dobTextBox;
 
-    @FindBy(css = "input[id='user.gender'][value='Male']")
+    @FindBy(css = "input[id='user.gender'][value='MALE']")
     private WebElement maleRadioButton;
 
-    @FindBy(css = "input[id='user.gender'][value='Female']")
+    @FindBy(css = "input[id='user.gender'][value='FEMALE']")
     private WebElement femaleRadioButton;
 
     @FindBy(id = "maritalStatus")

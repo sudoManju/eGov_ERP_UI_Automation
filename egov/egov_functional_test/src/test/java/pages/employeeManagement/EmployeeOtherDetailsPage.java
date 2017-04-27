@@ -122,7 +122,7 @@ public class EmployeeOtherDetailsPage extends BasePage {
     @FindBy(css = ".btn.btn-primary")
     private WebElement addOrEditButton;
 
-    @FindBy(css = "[type='submit']")
+    @FindBy(css = "[id='addEmployee'][type='submit']")
     private WebElement submitButton;
 
     private WebDriver webDriver;
@@ -180,7 +180,9 @@ public class EmployeeOtherDetailsPage extends BasePage {
         enterText(departmentalTestNameTextBox, "departmentalTestNameTextBox", webDriver);
         selectFromDropDown(departmentalYearOfPassingTextBox, getCurrentYear(), webDriver);
         clickOnButton(addOrEditButton, webDriver);
-        clickOnButton(submitButton, webDriver);
     }
 
+    public void submitCreateEmployee() {
+        clickOnButton(submitButton, webDriver);
+    }
 }
