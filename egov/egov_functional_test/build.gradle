@@ -150,11 +150,11 @@ task runInSequence() {
 task generateReport() {
     doLast {
         def jsonReports = fileTree(dir: "${reporting.baseDir}/cucumber/").include '**/*.json'.toString()
-        File reportOutputDirectory = new File("${reporting.baseDir}/cucumber");
+        File reportOutputDirectory = new File("${reporting.baseDir}/cucumber")
 
-        List<String> jsonReportFiles = new ArrayList<String>();
+        List<String> jsonReportFiles = new ArrayList<String>()
         jsonReports.each { File file ->
-            jsonReportFiles.add("${reporting.baseDir}/cucumber/${file.name}".toString());
+            jsonReportFiles.add("${reporting.baseDir}/cucumber/${file.name}".toString())
         }
         ReportBuilder reportBuilder = new ReportBuilder(
                 jsonReportFiles,              // List<String> jsonReports,
@@ -172,8 +172,8 @@ task generateReport() {
                 "",                           // String artifactConfig
                 true,                         // boolean highCharts
                 true                          // boolean parallelTesting
-        );
-        reportBuilder.generateReports();
+        )
+        reportBuilder.generateReports()
         println("\nReport available on: ${reporting.baseDir}/cucumber/feature-overview.html")
     }
 }
