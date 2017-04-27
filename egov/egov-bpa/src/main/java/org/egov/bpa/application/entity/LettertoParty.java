@@ -73,16 +73,16 @@ public class LettertoParty extends AbstractAuditable {
     @Length(min = 1, max = 32)
     private String acknowledgementNumber;
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "lpReason")
     private LpReason lpReason;
     @Length(min = 1, max = 128)
     private String lpNumber;
-   
+
     @Temporal(TemporalType.DATE)
     private Date letterDate;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name ="scheduledby")
+    @JoinColumn(name = "scheduledby")
     private User scheduledby;
     @Length(min = 1, max = 128)
     private String scheduledPlace;
@@ -106,8 +106,9 @@ public class LettertoParty extends AbstractAuditable {
 
     @OneToMany(mappedBy = "letterToParty", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<AutoDcrMap> autoDcrMap = new ArrayList<AutoDcrMap>(0);
-    @OneToMany(mappedBy = "lettertoParty", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "lettertoParty", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<LettertoPartyDocument> lettertoPartyDocument = new ArrayList<>(0);
+
     @Override
     public Long getId() {
         return id;

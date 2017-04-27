@@ -83,8 +83,8 @@ public class LettertoPartyDocument extends AbstractAuditable {
     private Set<FileStoreMapper> supportDocs = Collections.emptySet();
 
     private transient MultipartFile[] files;
-  
-    @ManyToOne(fetch = FetchType.LAZY)     
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "checklistDetail", nullable = false)
     private CheckListDetail checklistDetail;
     @ManyToOne(cascade = CascadeType.ALL)
@@ -96,6 +96,7 @@ public class LettertoPartyDocument extends AbstractAuditable {
     private Date submissionDate;
     private Boolean issubmitted;
 
+    private Boolean isrequested;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "createduser")
     private User createduser;
@@ -167,11 +168,20 @@ public class LettertoPartyDocument extends AbstractAuditable {
     public void setLettertoParty(LettertoParty lettertoParty) {
         this.lettertoParty = lettertoParty;
     }
+
     public MultipartFile[] getFiles() {
         return files;
     }
 
     public void setFiles(final MultipartFile[] files) {
         this.files = files;
+    }
+
+    public Boolean getIsrequested() {
+        return isrequested;
+    }
+
+    public void setIsrequested(Boolean isrequested) {
+        this.isrequested = isrequested;
     }
 }

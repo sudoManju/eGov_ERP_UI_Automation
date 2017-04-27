@@ -177,4 +177,8 @@
     	<put-attribute name="page-title" value="title.lettertoparty.update" cascade="true"/>
         <put-attribute name="body" value="/WEB-INF/views/lettertoparty/lettertoparty-update.jsp"/>
     </definition>
+     <definition name="lettertoparty-checklist" extends="base_layout">
+    	<put-attribute name="page-title" value="title.checklist " cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/lettertoparty/lettertoparty-checklist.jsp"/>
+    </definition>
 </tiles-definitions>

@@ -90,6 +90,11 @@
 					<li><a data-toggle="tab" href="#view-fee" data-tabidx=5><spring:message
 								code='lbl.applicationFee' /></a></li>
 				</c:if>
+					<c:if test="${showlettertoparty}">
+					<li><a data-toggle="tab" href="#view-lp" data-tabidx=6><spring:message
+								code='lbl.lp.details' /></a></li>
+					</c:if>
+				
 			</ul>
 			<div class="tab-content">
 				<div id="applicant-info" class="tab-pane fade in active">
@@ -159,9 +164,9 @@
 						</div>
 				</c:if>
 				<c:if test="${showlettertoparty}">
-						<div id="view-fee" class="tab-pane fade">
+						<div id="view-lp" class="tab-pane fade">
 							<div class="panel panel-primary" data-collapsed="0">
-								<jsp:include page="../lettertoparty/lettertoparty-view.jsp"></jsp:include> 
+								<jsp:include page="../lettertoparty/lettertoparty-details.jsp"></jsp:include> 
 							</div>
 						</div>
 				</c:if>
@@ -208,14 +213,6 @@
 				<a
 						href="/bpa/lettertoparty/create/${bpaApplication.applicationNumber}"
 						class="btn btn-primary"> Create Letter to Party </a>	 
-				</c:if>
-				<c:if test="${mode eq 'modifylettertoparty'}">
-					<button type="submit" class="btn btn-primary" onclick="return getUrlToPring()">
-						<spring:message code="lbl.print.lettertoparty" />
-					</button>
-					<a
-						href="/bpa/lettertoparty/update/${bpaApplication.applicationNumber}"
-						class="btn btn-primary"> Update Letter to Party </a>
 				</c:if>
 			</div>
 			<br>

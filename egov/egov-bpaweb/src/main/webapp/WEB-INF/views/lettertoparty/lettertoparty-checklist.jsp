@@ -46,44 +46,6 @@
 
 <div class="panel-body">
 
-	<div class="panel panel-primary" data-collapsed="0">
-		<jsp:include page="lettertoparty-details.jsp"></jsp:include>
-	</div>
-
-	<div class="row add-border">
-		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.lpNumber" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${lettertoParty.lpNumber}"></c:out>
-		</div>
-		<c:if test="${lettertoParty.sentDate !=null }">
-			<div class="col-sm-3 add-margin">
-				<spring:message code="lbl.lpsentdate" />
-			</div>
-			<div class="col-sm-3 add-margin view-content">
-				<c:out value="${lettertoParty.sentDate}"></c:out>
-			</div>
-		</c:if>
-		<input type="hidden" id='lettertoParty' name="lettertoParty"
-			value="${lettertoParty.id}">
-	</div>
-	<div class="row add-border">
-		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.lpreason" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${lettertoParty.lpReason.description}"></c:out>
-		</div>
-		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.lpdescription" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${lettertoParty.lpDesc}"></c:out>
-		</div>
-
-	</div>
-
 	<c:if test="${not empty lettertopartydocList}">
 		<thead>
 			<tr>
@@ -144,6 +106,5 @@
 			onclick='self.close()'><spring:message code='lbl.close' /></a>
 	</div>
 </div>
-<script
-	src="<cdn:url value='/resources/js/app/lettertoparty.js?rnd=${app_release_no}'/> "></script>
+
 

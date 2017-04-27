@@ -143,24 +143,25 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 && purposeDocList.contains(AppointmentSchedulePurpose.DOCUMENTSCRUTINY.name())) {
             mode = "postponeappointment";
             scheduleType = AppointmentSchedulePurpose.DOCUMENTSCRUTINY;
-        } else  if(FORWARDED_TO_SUP_NOC.equalsIgnoreCase(application.getState().getNextAction()) && DOCUMENTVERIFIED.equalsIgnoreCase(application.getStatus().getCode())){
+        } else if (FORWARDED_TO_SUP_NOC.equalsIgnoreCase(application.getState().getNextAction())
+                && DOCUMENTVERIFIED.equalsIgnoreCase(application.getStatus().getCode())) {
             model.addAttribute("showNocList", true);
         } else if (FWD_TO_OVRSR_FOR_FIELD_INS.equalsIgnoreCase(application.getState().getNextAction())
                 && APPLN_STATUS_FIELD_INSPECTION_INITIATED.equalsIgnoreCase(application.getStatus().getCode())
                 && application.getInspections().isEmpty()) {
             mode = "captureInspection";
-        }
-        else if (FWD_TO_OVRSR_FOR_FIELD_INS.equalsIgnoreCase(application.getState().getNextAction())
+        } else if (FWD_TO_OVRSR_FOR_FIELD_INS.equalsIgnoreCase(application.getState().getNextAction())
                 && APPLN_STATUS_FIELD_INSPECTION_INITIATED.equalsIgnoreCase(application.getStatus().getCode())
                 && !application.getInspections().isEmpty()) {
             mode = "modifyInspection";
             scheduleType = AppointmentSchedulePurpose.INSPECTION;
-        } else if(FORWARDED_TO_NOC_UPDATE.equalsIgnoreCase(application.getState().getNextAction()) && APPLICATION_STATUS_FIELD_INS.equalsIgnoreCase(application.getStatus().getCode())){
+        } else if (FORWARDED_TO_NOC_UPDATE.equalsIgnoreCase(application.getState().getNextAction())
+                && APPLICATION_STATUS_FIELD_INS.equalsIgnoreCase(application.getStatus().getCode())) {
             model.addAttribute("showUpdateNoc", true);
         } else if (FORWARDED_TO_APPROVAL.equalsIgnoreCase(application.getState().getNextAction())
                 && !application.getInspections().isEmpty()) {
             mode = "initialtedApprove";
-        } 
+        }
         if (BpaConstants.LETTERTOPARTYSENT.equalsIgnoreCase(application.getState().getNextAction())) {
             final List<LettertoParty> lettertoPartyList = lettertoPartyService.findByBpaApplicationOrderByIdAsc(application);
             LettertoParty lettertoParty = null;
@@ -170,17 +171,16 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 model.addAttribute("lettertoParty", lettertoParty);
                 model.addAttribute("lettertopartydocList", lettertoParty.getLettertoPartyDocument());
             }
-            mode = "modifylettertoparty";  
-            model.addAttribute("showlettertoparty",true);
+            mode = "modifylettertoparty";
+            model.addAttribute("showlettertoparty", true);
+            model.addAttribute("lettertopartylist", lettertoPartyService.findByBpaApplicationOrderByIdAsc(application));
+        } else if (lettertoPartyService.getDocScutinyUser(application) != null) {
+            model.addAttribute("createlettertoparty", true);
         }
-        else if(lettertoPartyService.getDocScutinyUser(application) != null)
-        {
-            model.addAttribute("createlettertoparty",true);
-        }   
         if (mode == null) {
             mode = "edit";
         }
-        
+
         model.addAttribute("scheduleType", scheduleType);
         model.addAttribute("mode", mode);
         model.addAttribute(APPLICATION_HISTORY,
@@ -233,9 +233,9 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
             Position pos = positionMasterService.getPositionById(approvalPosition);
             User user = bpaThirdPartyService.getUserPositionByPassingPosition(approvalPosition);
             // for document scrutiny if not scheduled, by default captured the current time and saved.
-            if(bpaApplication.getAppointmentSchedule().isEmpty()){
-                SimpleDateFormat sf =new SimpleDateFormat("hh:mm a");
-                BpaAppointmentSchedule  appointmentSchedule = new BpaAppointmentSchedule();
+            if (bpaApplication.getAppointmentSchedule().isEmpty()) {
+                SimpleDateFormat sf = new SimpleDateFormat("hh:mm a");
+                BpaAppointmentSchedule appointmentSchedule = new BpaAppointmentSchedule();
                 Date now = new Date();
                 appointmentSchedule.setAppointmentDate(now);
                 appointmentSchedule.setPurpose(AppointmentSchedulePurpose.DOCUMENTSCRUTINY);
@@ -263,8 +263,10 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         prepareWorkflow(model, application, workflowContainer);
         model.addAttribute("currentState", application.getCurrentState().getValue());
         model.addAttribute(BPA_APPLICATION, application);
-        model.addAttribute("nocCheckListDetails", checkListDetailService.findActiveCheckListByServiceType(application.getServiceType().getId(),BpaConstants.CHECKLIST_TYPE_NOC));
-        model.addAttribute("checkListDetailList", checkListDetailService.findActiveCheckListByServiceType(application.getServiceType().getId(),BpaConstants.CHECKLIST_TYPE));
+        model.addAttribute("nocCheckListDetails", checkListDetailService
+                .findActiveCheckListByServiceType(application.getServiceType().getId(), BpaConstants.CHECKLIST_TYPE_NOC));
+        model.addAttribute("checkListDetailList", checkListDetailService
+                .findActiveCheckListByServiceType(application.getServiceType().getId(), BpaConstants.CHECKLIST_TYPE));
     }
 
     @RequestMapping(value = "/update/{applicationNumber}", method = RequestMethod.POST)

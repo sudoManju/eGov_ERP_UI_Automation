@@ -58,6 +58,7 @@ import org.egov.bpa.application.entity.LettertoPartyDocument;
 import org.egov.bpa.application.entity.LpReason;
 import org.egov.bpa.application.service.ApplicationBpaService;
 import org.egov.bpa.application.service.CheckListDetailService;
+import org.egov.bpa.application.service.LettertoPartyDocumentService;
 import org.egov.bpa.application.service.LettertoPartyService;
 import org.egov.bpa.application.service.LpReasonService;
 import org.egov.bpa.utils.BpaConstants;
@@ -103,8 +104,8 @@ public class LetterToPartyController {
     private ReportService reportService;
     @Autowired
     protected ResourceBundleMessageSource messageSource;
-
-    private static final String APPLICATION_NUMBER = "applicationNumber";
+    @Autowired
+    private LettertoPartyDocumentService lettertoPartyDocumentService;
     private static final String MESSAGE = "message";
 
     @ModelAttribute("lpReasonList")
@@ -170,6 +171,8 @@ public class LetterToPartyController {
         model.addAttribute("lettertoParty", lettertoPartyService.findById(id));
         LettertoParty lettertoParty = lettertoPartyService.findById(id);
         model.addAttribute("lettertopartydocList", lettertoParty.getLettertoPartyDocument());
+        model.addAttribute("lettertopartylist",
+                lettertoPartyService.findByBpaApplicationOrderByIdAsc(lettertoParty.getApplication()));
         return "lettertoparty-result";
     }
 
@@ -223,6 +226,22 @@ public class LetterToPartyController {
         headers.add("content-disposition", "inline;filename=lettertoparty.pdf");
         reportOutput = reportService.createReport(reportInput);
         return new ResponseEntity<>(reportOutput.getReportOutputData(), headers, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/viewlpchecklist/{id}", method = RequestMethod.GET)
+    public String viewlpchecklist(@PathVariable final Long id, final Model model) {
+        model.addAttribute("lettertopartydocList",
+                lettertoPartyDocumentService
+                        .findByIsrequestedTrueAndLettertoPartyOrderByIdAsc(lettertoPartyService.findById(id)));
+        return "lettertoparty-checklist";
+    }
+
+    @RequestMapping(value = "/viewlpreplychecklist/{id}", method = RequestMethod.GET)
+    public String viewlpreplychecklist(@PathVariable final Long id, final Model model) {
+        model.addAttribute("lettertopartydocList",
+                lettertoPartyDocumentService
+                        .findByIsrequestedTrueAndIssubmittedTrueAndLettertoPartyOrderByIdAsc(lettertoPartyService.findById(id)));
+        return "lettertoparty-checklist";
     }
 
 }

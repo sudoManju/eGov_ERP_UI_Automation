@@ -107,7 +107,7 @@
 										<spring:message code="lbl.documentname" />
 									</div>
 									<div class="col-sm-3 text-center">
-										<spring:message code="lbl.issubmitted" />
+										<spring:message code="lbl.isrequested" />
 									</div>
 									<div class="col-sm-3 text-center">
 										<spring:message code="lbl.remarks" />
@@ -146,9 +146,9 @@
 
 										<div class="col-sm-3 add-margin text-center">
 											<form:checkbox
-												id="lettertoPartyDocument${status.index}issubmitted"
-												path="lettertoPartyDocument[${status.index}].issubmitted"
-												value="lettertoPartyDocument${status.index}issubmitted" />
+												id="lettertoPartyDocument${status.index}isrequested"
+												path="lettertoPartyDocument[${status.index}].isrequested"
+												value="lettertoPartyDocument${status.index}isrequested" />
 										</div>
 
 										<div class="col-sm-3 add-margin text-center">

@@ -20,7 +20,7 @@
   ~     You should have received a copy of the GNU General Public License
   ~     along with this program. If not, see http://www.gnu.org/licenses/ or
   ~     http://www.gnu.org/licenses/gpl.html .
-  ~
+  ~ 
   ~     In addition to the terms of the GPL license to be adhered to in using this
   ~     program, the following additional terms are to be complied with:
   ~
@@ -64,10 +64,10 @@
 					</div>
 					<div class="panel-body">
 						<div class="row add-border">
-							<div class="col-sm-3 add-margin">
+							<div class="col-sm-2 add-margin">
 								<spring:message code="lbl.lpNumber" />
 							</div>
-							<div class="col-sm-3 add-margin view-content">
+							<div class="col-sm-2 add-margin view-content">
 								<c:out value="${lettertoParty.lpNumber}"></c:out>
 							</div>
 							<form:hidden path="application" id="applicationId"
@@ -79,11 +79,11 @@
 								value="${lettertoParty.id}">
 						</div>
 						<div class="form-group">
-							<div class="col-sm-3 add-margin">
+							<div class="col-sm-2 add-margin">
 								<spring:message code="lbl.lpreason" />
 								<span class="mandatory"></span>
 							</div>
-							<div class="col-sm-3 add-margin">
+							<div class="col-sm-2 add-margin">
 								<form:select path="lpReason" data-first-option="false"
 									id="lpReason" cssClass="form-control" required="required">
 									<form:option value="">
@@ -109,10 +109,10 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<div class="col-sm-3 add-margin">
+							<div class="col-sm-2 add-margin">
 								<spring:message code="lbl.lpsentdate" />
 							</div>
-							<div class="col-sm-3 add-margin">
+							<div class="col-sm-2 add-margin">
 								<form:input path="sentDate" class="form-control datepicker"
 									data-date-end-date="0d" id="sentDate"
 									data-inputmask="'mask': 'd/m/y'" />
@@ -131,16 +131,19 @@
 									</div>
 								</div>
 								<div class="form-group view-content header-color hidden-xs">
-									<div class="col-sm-3 text-center">
+									<div class="col-sm-2 text-center">
 										<spring:message code="lbl.documentname" />
 									</div>
-									<div class="col-sm-3 text-center">
+									<div class="col-sm-2 text-center">
+										<spring:message code="lbl.isrequested"  />
+									</div>
+									<div class="col-sm-2 text-center">
 										<spring:message code="lbl.issubmitted" />
 									</div>
-									<div class="col-sm-3 text-center">
+									<div class="col-sm-2 text-center">
 										<spring:message code="lbl.remarks" />
 									</div>
-									<div class="col-sm-3 text-center">
+									<div class="col-sm-2 text-center">
 										<spring:message code="lbl.attachdocument" />
 									</div>
 								</div>
@@ -155,7 +158,7 @@
 									<tr>
 										<td>
 											<div class="form-group">
-												<div class="col-sm-3 add-margin check-text text-center">
+												<div class="col-sm-2 add-margin check-text text-center">
 													<c:forEach var="chk" items="${checkListDetailList}">
 														<c:if test="${lpdoc.checklistDetail.id == chk.id}">
 															<c:out value="${chk.description}" />
@@ -170,14 +173,20 @@
 														</c:if>
 													</c:forEach>
 												</div>
-												<div class="col-sm-3 add-margin text-center">
+												<div class="col-sm-2 add-margin text-center">
+													<form:checkbox
+														id="lettertoPartyDocument${status.index}isrequested"
+														path="lettertoPartyDocument[${status.index}].isrequested"
+														value="lettertoPartyDocument${status.index}isrequested" disabled="true"/>
+												</div>
+												<div class="col-sm-2 add-margin text-center">
 													<form:checkbox
 														id="lettertoPartyDocument${status.index}issubmitted"
 														path="lettertoPartyDocument[${status.index}].issubmitted"
 														value="lettertoPartyDocument${status.index}issubmitted" />
 												</div>
 
-												<div class="col-sm-3 add-margin text-center">
+												<div class="col-sm-2 add-margin text-center">
 													<form:textarea class="form-control patternvalidation"
 														data-pattern="string" maxlength="256"
 														id="lettertoPartyDocument${status.index}remarks"
@@ -188,7 +197,7 @@
 														cssClass="add-margin error-msg" />
 												</div>
 
-												<div class="col-sm-3 add-margin text-center">
+												<div class="col-sm-2 add-margin text-center">
 													<c:choose>
 														<c:when test="${chk.isMandatory}">
 															<input type="file" id="file${status.index}id"
