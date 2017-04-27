@@ -7,3 +7,4 @@ Feature: Create a Agreement based on created asset service from the asset module
     Given admin logs in
     And user will select the required screen as "Create Agreement"
     And user will select the required asset service application to create the agreement
+    And user will enter the allottee details as <allotteeDetails> and agreement details as <agreementDetails>

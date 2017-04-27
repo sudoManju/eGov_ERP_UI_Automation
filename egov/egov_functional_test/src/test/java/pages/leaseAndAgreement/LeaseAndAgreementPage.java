@@ -1,12 +1,13 @@
-package pages;
+package pages.leaseAndAgreement;
 
 import entities.leaseAndAgreement.LandAgreementDetails;
 import entities.leaseAndAgreement.LandAllotteeDetails;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import pages.BasePage;
 
-public class leaseAndAgreement extends BasePage {
+public class LeaseAndAgreementPage extends BasePage {
 
     @FindBy(id = "asset_category")
     private WebElement assetCategorySearchDropdown;
@@ -97,15 +98,15 @@ public class leaseAndAgreement extends BasePage {
 
     private WebDriver webDriver;
 
-    public leaseAndAgreement(WebDriver webDriver) {
+    public LeaseAndAgreementPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
 
     public void searchAssetApplication() {
-        selectFromDropDown(assetCategorySearchDropdown , "land" , webDriver);
-        clickOnButton(searchAsseetButton ,webDriver);
-        enterText(searchAssetCodeTextBox , "00003" , webDriver);
-        selectFromDropDown(actionDropdown , "Create" ,webDriver);
+        selectFromDropDown(assetCategorySearchDropdown, "land", webDriver);
+        clickOnButton(searchAsseetButton, webDriver);
+        enterText(searchAssetCodeTextBox, "00003", webDriver);
+        selectFromDropDown(actionDropdown, "Create", webDriver);
     }
 
     public void enterAgreementDetails(LandAllotteeDetails landAllotteeDetails, LandAgreementDetails landAgreementDetails) {
@@ -114,25 +115,25 @@ public class leaseAndAgreement extends BasePage {
     }
 
     private void enterLandAllotteeDetails(LandAllotteeDetails landAllotteeDetails) {
-        enterText(aadharNumberTextBox, landAllotteeDetails.getAadharNumber(), webDriver);
+        enterText(aadharNumberTextBox, get6DigitRandomInt() + get6DigitRandomInt(), webDriver);
         enterText(mobileNumberTextBox, landAllotteeDetails.getMobileNumber(), webDriver);
         enterText(nameTextBox, landAllotteeDetails.getName(), webDriver);
         enterText(emailIdTextBox, landAllotteeDetails.getEmail(), webDriver);
-        enterText(panTextBox, landAllotteeDetails.getPan(), webDriver);
+        enterText(panTextBox, "ABCDE" + get6DigitRandomInt().substring(0, 3) + "F", webDriver);
 
     }
 
     private void enterLandAgreementDetails(LandAgreementDetails landAgreementDetails) {
-        enterText(tenderNumberTextBox, landAgreementDetails.getTenderNumber(), webDriver);
+        enterText(tenderNumberTextBox, "T" + get6DigitRandomInt().substring(0, 2), webDriver);
         enterDate(tenderDate, landAgreementDetails.getTenderDate(), webDriver);
         enterText(natureOfAllotmentDropdown, landAgreementDetails.getNatureOfAllotment(), webDriver);
-        enterText(councilNumberTextBox, landAgreementDetails.getCouncilNumber(), webDriver);
+        enterText(councilNumberTextBox, "C" + get6DigitRandomInt().substring(0, 2), webDriver);
         enterDate(councilDate, landAgreementDetails.getCouncilDate(), webDriver);
         enterText(landRentTextBox, landAgreementDetails.getLandRent(), webDriver);
         enterText(paymentCycleDropdown, landAgreementDetails.getPaymentCycle(), webDriver);
         enterText(bankGuaranteeAmountTextBox, landAgreementDetails.getBankGuaranteeAmount(), webDriver);
         enterDate(bankGuaranteeDate, landAgreementDetails.getBankGuaranteeDate(), webDriver);
-        enterText(solvencyCertificateNumberTextBox, landAgreementDetails.getSolvencyCertificateNumber(), webDriver);
+        enterText(solvencyCertificateNumberTextBox, "S" + get6DigitRandomInt().substring(0, 2), webDriver);
         enterDate(solvencyCertificateDate, landAgreementDetails.getSolvencyCertificateDate(), webDriver);
         enterDate(commencementDate, landAgreementDetails.getCommencementDate(), webDriver);
         selectFromDropDown(rentIncrementMethodDropdown, landAgreementDetails.getRentIncrementMethod(), webDriver);
