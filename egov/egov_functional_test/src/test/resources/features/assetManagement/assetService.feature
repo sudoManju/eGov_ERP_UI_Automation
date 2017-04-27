@@ -5,11 +5,11 @@ Feature: Create/Search for Asset Service
 
   Scenario Outline: Create a Asset Service
 
-    Given assistant logs in
+    Given admin logs in
     And user will select the required screen as "Create Asset"
-    And user will enter the details <headerDetails> and <locationDetails> with summary status <assetStatus>
+    And user will enter the details <headerDetails> and <locationDetails> with asset summary status as <assetStatus>
 
     Examples:
       | headerDetails | locationDetails | assetStatus |
-      | headerDetails | locationDetails | SOLD        |
+      | header1       | location1       | CREATED     |
 

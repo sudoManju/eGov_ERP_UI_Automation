@@ -15,6 +15,7 @@ public class AssetServiceDataReader extends ExcelReader {
     public AssetServiceDataReader(String testData) {
         super(testData);
         headerDetailsSheet = workbook.getSheet("headerDetails");
+        locationDetailsSheet = workbook.getSheet("locationDetails");
     }
 
 
@@ -25,26 +26,33 @@ public class AssetServiceDataReader extends ExcelReader {
         String department = getCellData(headerDetailsSheet, dataRow, "department").getStringCellValue();
         String assetCategory = getCellData(headerDetailsSheet, dataRow, "assetCategory").getStringCellValue();
         String dateOfCreation = getCellData(headerDetailsSheet, dataRow, "dateOfCreation").getStringCellValue();
-        String description = getCellData(headerDetailsSheet, dataRow, "description").getStringCellValue();
-        String assetName = getCellData(headerDetailsSheet, dataRow, "assetName").getStringCellValue();
+//        String description = getCellData(headerDetailsSheet, dataRow, "description").getStringCellValue();
+//        String assetName = getCellData(headerDetailsSheet, dataRow, "assetName").getStringCellValue();
         String modeOfAcquisition = getCellData(headerDetailsSheet, dataRow, "modeOfAcquisition").getStringCellValue();
 
         return new HeaderDetailsBuilder()
                 .withDepartment(department)
-                .withAssetName(assetName)
+//                .withAssetName(assetName)
                 .withAssetCategory(assetCategory)
                 .withDateOfCreation(dateOfCreation)
-                .withDescription(description)
+//                .withDescription(description)
                 .withModeOfAcquisition(modeOfAcquisition)
                 .build();
     }
 
     public LocationDetails getLocationDetails(String locationDetails) {
-        Row dataRow = readDataRow(headerDetailsSheet, locationDetails);
+        Row dataRow = readDataRow(locationDetailsSheet, locationDetails);
 
-        String locality = getCellData(headerDetailsSheet, dataRow, "locality").getStringCellValue();
+        String locality = getCellData(locationDetailsSheet, dataRow, "location").getStringCellValue();
+        String revenueWard = getCellData(locationDetailsSheet, dataRow, "revenueWard").getStringCellValue();
+        String blockNumber = convertNumericToString(locationDetailsSheet, dataRow, "blockNumber");
+        String electionWardNo = getCellData(locationDetailsSheet, dataRow, "electionWardNo").getStringCellValue();
+
         return new LocationDetailsBuilder()
                 .withLocality(locality)
+                .withRevenueWard(revenueWard)
+                .withBlockNumber(blockNumber)
+                .withElectionWardNumber(electionWardNo)
                 .build();
     }
 }

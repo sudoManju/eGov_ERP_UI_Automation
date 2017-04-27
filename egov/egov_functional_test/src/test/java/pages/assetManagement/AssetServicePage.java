@@ -2,6 +2,7 @@ package pages.assetManagement;
 
 import entities.assetManagement.assetService.HeaderDetails;
 import entities.assetManagement.assetService.LocationDetails;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -57,6 +58,9 @@ public class AssetServicePage extends BasePage {
     @FindBy(id = "status")
     private WebElement statusSelectBox;
 
+    @FindBy(css = "button[type='submit']")
+    private WebElement createAssetButton;
+
     private WebDriver webDriver;
 
     public AssetServicePage(WebDriver webDriver) {
@@ -66,15 +70,18 @@ public class AssetServicePage extends BasePage {
     public void enterHeaderDetails(HeaderDetails headerDetails) {
         selectFromDropDown(departmentSelectBox, headerDetails.getDepartment(), webDriver);
         selectFromDropDown(assetCategorySelectBox, headerDetails.getAssetCategory(), webDriver);
-        enterText(assetNameTextBox, headerDetails.getAssetName(), webDriver);
+        enterText(assetNameTextBox, "Tester", webDriver);
         selectFromDropDown(modeOfAcquisitionSelectBox, headerDetails.getModeOfAcquisition(), webDriver);
     }
 
     public void enterLocationDetails(LocationDetails locationDetails) {
         selectFromDropDown(localitySelectBox, locationDetails.getLocality(), webDriver);
+        enterText(webDriver.findElement(By.cssSelector("input[id='description']")), "Description", webDriver);
     }
 
     public void enterAssetStatusDetails(String assetStatus) {
         selectFromDropDown(statusSelectBox, assetStatus, webDriver);
+        clickOnButton(createAssetButton , webDriver);
+        switchToNewlyOpenedWindow(webDriver);
     }
 }

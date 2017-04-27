@@ -29,8 +29,7 @@ public class BaseSteps {
     protected String waterChargesTestDataFileName = "waterChargesTestData";
     protected String advertisementTestDataFileName = "AdvertisementDetailsTestData";
     protected String sewerageTaxTestDataFileName = "SewerageTaxTestData";
-    protected String assetTestDataFileName = "AssetDetailsTestData";
-    protected String assetServiceTestDataFileName = "AssetServiceDetailsTestData";
+    protected String assetTestDataFileName = "assetDetailsTestData";
     protected String eisTestDataFileName = "eisTestData";
 
 
