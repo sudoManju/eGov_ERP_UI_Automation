@@ -185,7 +185,7 @@ public class EmployeeDetailsPage extends BasePage {
             clickOnButton(femaleRadioButton, driver);
         }
         selectFromDropDown(maritalStatusBox, employeeDetails.getMaritalStatus(), driver);
-        enterText(userNameTextBox, employeeDetails.getUserName(), driver);
+        enterText(userNameTextBox, "TestUser" + get6DigitRandomInt().substring(0,3), driver);
         if (employeeDetails.getIsUserActive().equals("Yes")) {
             clickOnButton(userActiveYesButton, driver);
         } else {

@@ -50,7 +50,7 @@ public class EmployeeManagementDetailsDataReader extends ExcelReader {
         String dateOfBirth = getCellData(employeeDetailsSheet, dataRow, "DateOfBirth").getStringCellValue();
         String gender = getCellData(employeeDetailsSheet, dataRow, "Gender").getStringCellValue();
         String martialStatus = getCellData(employeeDetailsSheet, dataRow, "MaritalStatus").getStringCellValue();
-        String userName = getCellData(employeeDetailsSheet, dataRow, "UserName").getStringCellValue();
+//        String userName = getCellData(employeeDetailsSheet, dataRow, "UserName").getStringCellValue();
         String isUserActive = getCellData(employeeDetailsSheet, dataRow, "IsUserActive").getStringCellValue();
         String mobileNumber = getCellData(employeeDetailsSheet, dataRow, "Mobile").getStringCellValue();
         String permanentAddress = getCellData(employeeDetailsSheet, dataRow, "PermanentAddress").getStringCellValue();
@@ -64,7 +64,7 @@ public class EmployeeManagementDetailsDataReader extends ExcelReader {
                 .withDateOfBirth(dateOfBirth)
                 .withGender(gender)
                 .withMaritalStatus(martialStatus)
-                .withUserName(userName)
+//                .withUserName(userName)
                 .withIsUserActive(isUserActive)
                 .withMobileNumber(mobileNumber)
                 .withPermanentAddress(permanentAddress)
