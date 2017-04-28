@@ -37,7 +37,7 @@
  *
  *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
-jQuery(document).ready(function($) {
+jQuery(document).ready(function() {
 	
 	$('.upload-file').removeAttr('required');
 	
@@ -45,13 +45,51 @@ jQuery(document).ready(function($) {
 	$("#appDet").prop("disabled",true);
 	$("#serviceType").prop("disabled",true);
 	var isApproveValid=$('#isApproveValid').val();
+	
 	$(".workAction")
 	.click(
-			function() {
-			validateWorkFlowApprover(document
-						.getElementById("workFlowAction").value);
-				document.forms[0].submit();
+			function(e) {
+				 var action = document.getElementById("workFlowAction").value;
+				if(action == 'Reject') { 
+					 $('#Reject').attr('formnovalidate','true');
+					 bootbox.confirm("Do you really want to Reject the application?", function(result){
+						if(result){
+							var approvalComent=$('#approvalComent').val();
+							  if(approvalComent == "") {
+								  bootbox.alert("Please enter rejection comments!");
+									$('#approvalComent').focus();
+									return true; 
+							  }
+							  else {
+								  validateWorkFlowApprover(action);
+								  validateForm(e);
+							  }
+						}
+					 });
+					 return false;
+				} 
+				
+				if(action == 'CANCEL APPLICATION') { 
+					 $('#Cancel').attr('formnovalidate','true');
+					 bootbox.confirm("Do you really want to Cancel the application?", function(result){
+							if(result){
+								var approvalComent=$('#approvalComent').val();
+								  if(approvalComent == "") {
+									  bootbox.alert("Please enter cancellation comments!");
+									  return true; 
+								  }
+								  else {
+									  validateWorkFlowApprover(action);
+									  validateForm(e);
+								  }
+							}
+						 });
+						 return false;
+				}  
+				validateWorkFlowApprover(action);
+				validateForm(e);
 			});
+	
 	if(isApproveValid =='false'){
 		$("#Approve").hide();
 	}
@@ -67,13 +105,12 @@ jQuery(document).ready(function($) {
 		$('#approvalDesignation').removeAttr('required');
 		$(".show-row").hide();
 		$("#Forward").hide();
+		$("#Reject").hide();
 		return false;
 		}
 	var tabfocus;
 	if($('#showUpdateNoc').val()) {
 		tabfocus='#checklist-info';
-	} else if($('#showNocList').val()) {
-		tabfocus='#noc-info';
 	} else {
 		tabfocus='#applicant-info';
 	}
@@ -198,3 +235,10 @@ jQuery( ".dateval" ).datepicker({
 	
 });
 
+function validateForm(e) {
+	if ($('form').valid()) {
+		document.forms[0].submit();
+	} else {
+		e.preventDefault();
+	}
+}

@@ -40,7 +40,6 @@
 package org.egov.bpa.application.workflow;
 
 import java.util.Date;
-import java.util.List;
 
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaStatus;
@@ -50,9 +49,7 @@ import org.egov.bpa.utils.BpaConstants;
 import org.egov.eis.entity.Assignment;
 import org.egov.eis.service.PositionMasterService;
 import org.egov.infra.admin.master.entity.User;
-import org.egov.infra.config.core.ApplicationThreadLocals;
 import org.egov.infra.security.utils.SecurityUtils;
-import org.egov.infra.workflow.entity.StateHistory;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
 import org.egov.infra.workflow.service.SimpleWorkflowService;
 import org.egov.pims.commons.Position;
@@ -136,12 +133,12 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
         } else if (BpaConstants.WF_APPROVE_BUTTON.equalsIgnoreCase(workFlowAction)) {
 
             wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null, null,
-                    additionalRule, application.getCurrentState().getValue(),  null, null, loggedInUserDesignation);
-            		
-            BpaStatus status=bpaStatusService
+                    additionalRule, application.getCurrentState().getValue(), null, null, loggedInUserDesignation);
+
+            BpaStatus status = bpaStatusService
                     .findByModuleTypeAndCode(BpaConstants.BPASTATUS_MODULETYPE, BpaConstants.APPLICATION_STATUS_APPROVED);
-        	if(status !=null)
-            application.setStatus(status);
+            if (status != null)
+                application.setStatus(status);
 
             application.transition().progressWithStateCopy()
                     .withSenderName(user.getUsername() + BpaConstants.COLON_CONCATE + user.getName())
@@ -149,36 +146,27 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
                     .withStateValue("Record Approved").withDateInfo(currentDate.toDate())
                     .withOwner(pos)
                     .withNextAction("Digital Sign Pending").withNatureOfTask(BpaConstants.NATURE_OF_WORK);
-        } else if (BpaConstants.WF_REJECT_BUTTON.equalsIgnoreCase(workFlowAction) ||
-                BpaConstants.WF_CANCELAPPLICATION_BUTTON.equalsIgnoreCase(workFlowAction)) {
+        } else if (BpaConstants.WF_REJECT_BUTTON.equalsIgnoreCase(workFlowAction)) {
+            wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null,
+                    null, additionalRule, BpaConstants.WF_REJECT_STATE, null);
+            application.setStatus(getStatusByPassingCode(BpaConstants.WF_REJECT_STATE));
+            application.transition().progressWithStateCopy()
+                    .withSenderName(user.getUsername() + BpaConstants.COLON_CONCATE + user.getName())
+                    .withComments(approvalComent)
+                    .withStateValue(BpaConstants.WF_REJECT_STATE).withDateInfo(currentDate.toDate())
+                    .withOwner(pos)
+                    .withNextAction(wfmatrix.getNextAction())
+                    .withNatureOfTask(BpaConstants.NATURE_OF_WORK);
 
-            if (bpaWorkFlowService.validateUserHasSamePositionAsInitiator(ApplicationThreadLocals.getUserId(),
-                    wfInitiator != null ? wfInitiator.getPosition() : null)) {
+        } else if (BpaConstants.WF_CANCELAPPLICATION_BUTTON.equalsIgnoreCase(workFlowAction)) {
+            application.setStatus(getStatusByPassingCode(BpaConstants.APPLICATION_STATUS_CANCELLED));
+            application.transition().end()
+                    .withSenderName(user.getUsername() + BpaConstants.COLON_CONCATE + user.getName())
+                    .withComments(approvalComent).withDateInfo(currentDate.toDate())
+                    .withNextAction(BpaConstants.WF_END_STATE).withNatureOfTask(BpaConstants.NATURE_OF_WORK);
 
+            if (additionalRule != null && additionalRule.equalsIgnoreCase(BpaConstants.CREATE_ADDITIONAL_RULE_CREATE))
                 application.setStatus(getStatusByPassingCode(BpaConstants.APPLICATION_STATUS_CANCELLED));
-                application.transition().end()
-                        .withSenderName(user.getUsername() + BpaConstants.COLON_CONCATE + user.getName())
-                        .withComments(approvalComent).withDateInfo(currentDate.toDate())
-                        .withNextAction(BpaConstants.WF_END_STATE).withNatureOfTask(BpaConstants.NATURE_OF_WORK);
-
-                if (additionalRule != null && additionalRule.equalsIgnoreCase(BpaConstants.CREATE_ADDITIONAL_RULE_CREATE))
-                    application.setStatus(getStatusByPassingCode(BpaConstants.APPLICATION_STATUS_CANCELLED));
-
-            } else {
-                // IN case of rejection, we need to search "superindent" who forwarded record first time and assign.-- Pending
-                // work
-                wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null,
-                        null, additionalRule, BpaConstants.WF_REJECT_STATE, null);
-                application.setStatus(getStatusByCurrentMatrxiStatus(wfmatrix));
-                application.transition().progressWithStateCopy()
-                        .withSenderName(user.getUsername() + BpaConstants.COLON_CONCATE + user.getName())
-                        .withComments(approvalComent)
-                        .withStateValue(BpaConstants.WF_REJECT_STATE).withDateInfo(currentDate.toDate())
-                        .withOwner(wfInitiator != null ? wfInitiator.getPosition() : null)
-                        .withNextAction(wfmatrix.getNextAction())
-                        .withNatureOfTask(BpaConstants.NATURE_OF_WORK);// TODO: WORK FLOW INITIATOR IS NULL THEN RECORD WILL NOT
-                                                                       // SHOW IN ANY USER INBOX.
-            }
 
         } else if (BpaConstants.LETTERTOPARTYINITIATED.equalsIgnoreCase(workFlowAction)) {
 
@@ -208,13 +196,14 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
                     null, additionalRule, application.getCurrentState().getValue(), null);
 
             if (wfmatrix != null) {
-            	BpaStatus status=getStatusByCurrentMatrxiStatus(wfmatrix);
-            	if(status !=null)
-                application.setStatus(getStatusByCurrentMatrxiStatus(wfmatrix));
-            	if("Approve".equalsIgnoreCase(workFlowAction) && application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_FIELD_INS))
+                BpaStatus status = getStatusByCurrentMatrxiStatus(wfmatrix);
+                if (status != null)
+                    application.setStatus(getStatusByCurrentMatrxiStatus(wfmatrix));
+                if ("Approve".equalsIgnoreCase(workFlowAction)
+                        && application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_FIELD_INS))
                     application.setStatus(getStatusByCurrentMatrxiStatus(wfmatrix));
 
-            		if (wfmatrix.getNextAction().equalsIgnoreCase(BpaConstants.WF_END_STATE))
+                if (wfmatrix.getNextAction().equalsIgnoreCase(BpaConstants.WF_END_STATE))
                     application.transition().end().withSenderName((wfInitiator != null && wfInitiator.getEmployee() != null
                             ? wfInitiator.getEmployee().getUsername() : "") + BpaConstants.COLON_CONCATE
                             + (wfInitiator != null && wfInitiator.getEmployee() != null

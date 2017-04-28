@@ -54,7 +54,7 @@
 			validateWorkFlowApprover('Forward');
 		}   */
 		var rejectbutton=document.getElementById("workFlowAction").value;
-		if(rejectbutton!=null && rejectbutton=='Reject')
+		if(rejectbutton!=null && (rejectbutton=='Reject' || rejectbutton=='CANCEL APPLICATION'))
 			{
 			$('#approvalDepartment').removeAttr('required');
 			$('#approvalDesignation').removeAttr('required');
@@ -91,7 +91,7 @@
 		<tr>
 			<td>
 		<c:forEach items="${validActionList}" var="validButtons">
-				<form:button type="submit" id="${validButtons}" class="btn btn-primary workAction"  value="${validButtons}" onclick="validateWorkFlowApprover('${validButtons}');">
+				<form:button type="submit" id="${validButtons}" class="btn workAction btn-primary"  value="${validButtons}" onclick="validateWorkFlowApprover('${validButtons}');">
 						<c:out value="${validButtons}" /> </form:button>
 			</c:forEach>
 				<input type="button" name="button2" id="button2" value="Close"

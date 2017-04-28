@@ -81,14 +81,11 @@
 									code='lbl.noc.details' /></a></li>
 				</c:if>
 				
-				<c:if test="${showNocList}">
-					<li><a data-toggle="tab" href="#noc-info" data-tabidx=3><spring:message
-								code='lbl.noc.details' /></a></li>
-				</c:if>
 				<c:if test="${not empty bpaApplication.inspections}">
 					<li><a data-toggle="tab" href="#view-inspection" data-tabidx=4><spring:message
 								code='lbl.inspection.appln' /></a></li>
 				</c:if>
+				
 				<c:if test="${not empty bpaApplication.applicationFee}">
 					<li><a data-toggle="tab" href="#view-fee" data-tabidx=5><spring:message
 								code='lbl.applicationFee' /></a></li>
@@ -128,14 +125,6 @@
 								<jsp:include page="view-documentscrutiny.jsp"></jsp:include>
 							</div>
 						</div>
-				</c:if>
-				<c:if test="${showNocList}">
-					<input type="hidden" id="showNocList" value="${showNocList}">
-					<div id="noc-info" class="tab-pane fade">
-						<div class="panel panel-primary" data-collapsed="0">
-							<jsp:include page="noc-document-list.jsp"></jsp:include>
-						</div>
-					</div>
 				</c:if>
 				<c:if test="${not empty bpaApplication.applicationNOCDocument}">
 						<div id="noc-info" class="tab-pane fade">

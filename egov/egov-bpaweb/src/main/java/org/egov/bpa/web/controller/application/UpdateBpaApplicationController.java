@@ -41,7 +41,9 @@ package org.egov.bpa.web.controller.application;
 
 import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_FIELD_INS;
 import static org.egov.bpa.utils.BpaConstants.APPLN_STATUS_FIELD_INSPECTION_INITIATED;
-import static org.egov.bpa.utils.BpaConstants.DOCUMENTVERIFIED;
+import static org.egov.bpa.utils.BpaConstants.BPA_STATUS_SUPERINDENT_APPROVED;
+import static org.egov.bpa.utils.BpaConstants.WF_CANCELAPPLICATION_BUTTON;
+import static org.egov.bpa.utils.BpaConstants.WF_REJECT_BUTTON;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -63,6 +65,7 @@ import org.egov.eis.service.PositionMasterService;
 import org.egov.eis.web.contract.WorkflowContainer;
 import org.egov.infra.admin.master.entity.User;
 import org.egov.infra.security.utils.SecurityUtils;
+import org.egov.infra.workflow.entity.StateHistory;
 import org.egov.pims.commons.Position;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -82,7 +85,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping(value = "/application")
 public class UpdateBpaApplicationController extends BpaGenericApplicationController {
     private static final String FWD_TO_OVRSR_FOR_FIELD_INS = "Forwarded to Overseer for field inspection";
-    private static final String FORWARDED_TO_SUP_NOC = "Forwarded to Superintendent-Noc";
     private static final String FORWARDED_TO_NOC_UPDATE = "Forwarded to Superintendent for Noc Updation";
     private static final String FORWARDED_TO_APPROVAL = "Forwarded to Superintendent approval";
     private static final String BPA_APPLICATION = "bpaApplication";
@@ -147,9 +149,6 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 && purposeDocList.contains(AppointmentSchedulePurpose.DOCUMENTSCRUTINY.name())) {
             mode = "postponeappointment";
             scheduleType = AppointmentSchedulePurpose.DOCUMENTSCRUTINY;
-        } else if (FORWARDED_TO_SUP_NOC.equalsIgnoreCase(application.getState().getNextAction())
-                && DOCUMENTVERIFIED.equalsIgnoreCase(application.getStatus().getCode())) {
-            model.addAttribute("showNocList", true);
         } else if (FWD_TO_OVRSR_FOR_FIELD_INS.equalsIgnoreCase(application.getState().getNextAction())
                 && APPLN_STATUS_FIELD_INSPECTION_INITIATED.equalsIgnoreCase(application.getStatus().getCode())
                 && application.getInspections().isEmpty()) {
@@ -184,13 +183,19 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         if (mode == null) {
             mode = "edit";
         }
-        if(application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_NOCUPDATED)||
-        		application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_APPROVED))
-       model.addAttribute("isApproveValid", bpaUtils.approveIsValidForLoggedInuserDesgn((!application.getInspections().isEmpty() ?application.getInspections().get(0).getLndMinPlotExtent().intValue():0),bpaUtils.loggedInUserDesignation(application)));
-       
-        else
-        	 model.addAttribute("isApproveValid" ,Boolean.FALSE);
-        model.addAttribute("areaInSqMtr", (!application.getInspections().isEmpty() ?application.getInspections().get(0).getLndMinPlotExtent().intValue():0));
+        if (application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_NOCUPDATED) ||
+                application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_APPROVED)) {
+            model.addAttribute("isApproveValid",
+                    bpaUtils.approveIsValidForLoggedInuserDesgn(
+                            !application.getInspections().isEmpty()
+                                    ? application.getInspections().get(0).getLndMinPlotExtent().intValue() : 0,
+                            bpaUtils.loggedInUserDesignation(application)));
+
+        } else {
+            model.addAttribute("isApproveValid", Boolean.FALSE);
+        }
+        model.addAttribute("areaInSqMtr", !application.getInspections().isEmpty()
+                ? application.getInspections().get(0).getLndMinPlotExtent().intValue() : 0);
         model.addAttribute("scheduleType", scheduleType);
         model.addAttribute("mode", mode);
         model.addAttribute(APPLICATION_HISTORY,
@@ -272,8 +277,9 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         model.addAttribute(ADDITIONALRULE, BpaConstants.CREATE_ADDITIONAL_RULE_CREATE);
         final String loggedInUserDesignation = bpaUtils.loggedInUserDesignation(application);
         workflowContainer.setAdditionalRule(BpaConstants.CREATE_ADDITIONAL_RULE_CREATE);
-        if(application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_NOCUPDATED))
-        workflowContainer.setCurrentDesignation(loggedInUserDesignation);
+        if (application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_NOCUPDATED)) {
+            workflowContainer.setCurrentDesignation(loggedInUserDesignation);
+        }
         model.addAttribute("currentDesignation", workflowContainer.getCurrentDesignation());
         workflowContainer.setAdditionalRule(BpaConstants.CREATE_ADDITIONAL_RULE_CREATE);
         prepareWorkflow(model, application, workflowContainer);
@@ -296,18 +302,43 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
             return BPAAPPLICATION_FORM;
         }
         String workFlowAction = request.getParameter("workFlowAction");
+        String approvalComent = request.getParameter("approvalComent");
+        String message;
         Long approvalPosition = null;
-        if (request.getParameter(APPRIVALPOSITION) != null)
+        Position pos = null;
+        if (request.getParameter(APPRIVALPOSITION) != null && !WF_REJECT_BUTTON.equalsIgnoreCase(workFlowAction)
+                && !WF_CANCELAPPLICATION_BUTTON.equalsIgnoreCase(workFlowAction)) {
             approvalPosition = Long.valueOf(request.getParameter(APPRIVALPOSITION));
+        } else if (WF_REJECT_BUTTON.equalsIgnoreCase(workFlowAction)) {
+            for (StateHistory stateHistory : bpaApplication.getStateHistory()) {
+                if (BPA_STATUS_SUPERINDENT_APPROVED.equalsIgnoreCase(stateHistory.getValue())) {
+                    approvalPosition = stateHistory.getOwnerPosition().getId();
+                }
+            }
+        }
         BpaApplication bpaAppln = applicationBpaService.updateApplication(bpaApplication, approvalPosition,workFlowAction);
-        Position pos = positionMasterService.getPositionById(approvalPosition);
+        if(null != approvalPosition) {
+         pos = positionMasterService.getPositionById(approvalPosition);
+        }
         User user = bpaThirdPartyService.getUserPositionByPassingPosition(approvalPosition);
-        String message = messageSource.getMessage("msg.update.forward.registration", new String[] {
-                user != null ? user.getUsername().concat("~")
-                        .concat(pos.getDeptDesig() != null && pos.getDeptDesig().getDesignation() != null
-                                ? pos.getDeptDesig().getDesignation().getName() : "")
-                        : "",
-                bpaAppln.getApplicationNumber() }, LocaleContextHolder.getLocale());
+        if (WF_REJECT_BUTTON.equalsIgnoreCase(workFlowAction)) {
+            message = messageSource.getMessage("msg.reject.forward.registration", new String[] {
+                    user != null ? user.getUsername().concat("~")
+                            .concat(pos.getDeptDesig() != null && pos.getDeptDesig().getDesignation() != null
+                                    ? pos.getDeptDesig().getDesignation().getName() : "")
+                            : "",
+                    bpaAppln.getApplicationNumber(), approvalComent }, LocaleContextHolder.getLocale());
+        } else if (WF_CANCELAPPLICATION_BUTTON.equalsIgnoreCase(workFlowAction)) {
+            message = messageSource.getMessage("msg.cancel.registration", new String[] {
+                    bpaAppln.getApplicationNumber(), approvalComent }, LocaleContextHolder.getLocale());
+        } else {
+            message = messageSource.getMessage("msg.update.forward.registration", new String[] {
+                    user != null ? user.getUsername().concat("~")
+                            .concat(pos.getDeptDesig() != null && pos.getDeptDesig().getDesignation() != null
+                                    ? pos.getDeptDesig().getDesignation().getName() : "")
+                            : "",
+                    bpaAppln.getApplicationNumber() }, LocaleContextHolder.getLocale());
+        }
         model.addAttribute(MESSAGE, message);
         return BPA_APPLICATION_RESULT;
     }
