@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
 
+import java.util.List;
+
 public class EmployeeDetailsPage extends BasePage {
 
     private WebDriver driver;
@@ -42,6 +44,9 @@ public class EmployeeDetailsPage extends BasePage {
 
     @FindBy(css = "input[id='user.active'][value='false']")
     private WebElement userActiveNoButton;
+
+    @FindBy(name = "user.active")
+    private List<WebElement> userActive;
 
     @FindBy(id = "user.mobileNumber")
     private WebElement mobileNumberTextBox;
@@ -183,10 +188,11 @@ public class EmployeeDetailsPage extends BasePage {
         }
         selectFromDropDown(maritalStatusBox, employeeDetails.getMaritalStatus(), driver);
         enterText(userNameTextBox, "TestUser" + get6DigitRandomInt().substring(0,3), driver);
+
         if (employeeDetails.getIsUserActive().equals("Yes")) {
-            clickOnButton(userActiveYesButton, driver);
+            userActive.get(0).isSelected();
         } else {
-            clickOnButton(userActiveNoButton, driver);
+            userActive.get(1).isSelected();
         }
         enterText(mobileNumberTextBox, employeeDetails.getMobileNumber(), driver);
         enterText(passportNoTextBox, "IND" + get6DigitRandomInt(), driver);
