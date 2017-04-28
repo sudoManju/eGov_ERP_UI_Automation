@@ -43,14 +43,20 @@ import static org.egov.bpa.utils.BpaConstants.FILESTORE_MODULECODE;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.apache.commons.lang3.ArrayUtils;
+import org.egov.bpa.application.entity.ApplicationDocument;
 import org.egov.bpa.application.entity.ApplicationNocDocument;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaFeeDetail;
@@ -74,6 +80,7 @@ import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
@@ -128,7 +135,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         return applicationBpaRepository.save(application);
     }
 
-    private void persistBpaNocDocuments(final BpaApplication application) {
+    public void persistBpaNocDocuments(final BpaApplication application) {
         final Map<Long, CheckListDetail> generalDocumentAndId = new HashMap<>();
         checkListDetailService
                 .findActiveCheckListByServiceType(application.getServiceType().getId(), BpaConstants.CHECKLIST_TYPE_NOC)
@@ -152,13 +159,35 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         application.setSource(Source.SYSTEM);
         persistBpaNocDocuments(application);
         final BpaApplication updatedApplication = applicationBpaRepository
-                .saveAndFlush(application);
+                .save(application);
 
         bpaUtils.redirectToBpaWorkFlow(approvalPosition, application, application.getCurrentState().getValue(), null,workFlowAction);
 
         return updatedApplication;
     }
-
+    public void persistOrUpdateApplicationDocument(final BpaApplication bpaApplication, final BindingResult resultBinder) {
+		final List<ApplicationDocument> applicationDocs = new ArrayList<>(0);
+        int i = 0;
+        if (!bpaApplication.getApplicationDocument().isEmpty())
+            for (final ApplicationDocument applicationDocument : bpaApplication.getApplicationDocument()) {
+                validateDocuments(applicationDocs, applicationDocument, i, resultBinder);
+                i++;
+            }
+        bpaApplication.setApplicationDocument(applicationDocs);
+        processAndStoreApplicationDocuments(bpaApplication);
+	}
+    private void validateDocuments(final List<ApplicationDocument> applicationDocs,
+            final ApplicationDocument applicationDocument, final int i, final BindingResult resultBinder) {
+        Iterator<MultipartFile> stream = null;
+        if (ArrayUtils.isNotEmpty(applicationDocument.getFiles()))
+            stream = Arrays.asList(applicationDocument.getFiles()).stream().filter(file -> !file.isEmpty())
+                    .iterator();
+        if (stream == null) {
+            final String fieldError = "applicationDocs[" + i + "].files";
+            resultBinder.rejectValue(fieldError, "files.required");
+        } else
+            applicationDocs.add(applicationDocument);
+    }
     public BigDecimal setAdmissionFeeAmountForRegistration(final String serviceType) {
         BigDecimal admissionfeeAmount;
         if (serviceType != null)
@@ -223,5 +252,31 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
     }
 
     
-
+    protected void processAndStoreApplicationDocuments(final BpaApplication bpaApplication) {
+        if (!bpaApplication.getApplicationDocument().isEmpty())
+            for (final ApplicationDocument applicationDocument : bpaApplication.getApplicationDocument()) {
+                applicationDocument.setChecklistDetail(checkListDetailService.load(applicationDocument.getChecklistDetail()
+                        .getId()));
+                applicationDocument.setApplication(bpaApplication);
+                applicationDocument.setSupportDocs(addToFileStore(applicationDocument.getFiles()));
+            }
+    }
+    
+    protected Set<FileStoreMapper> addToFileStore(final MultipartFile[] files) {
+        if (ArrayUtils.isNotEmpty(files))
+            return Arrays
+                    .asList(files)
+                    .stream()
+                    .filter(file -> !file.isEmpty())
+                    .map(file -> {
+                        try {
+                            return fileStoreService.store(file.getInputStream(), file.getOriginalFilename(),
+                                    file.getContentType(), BpaConstants.FILESTORE_MODULECODE);
+                        } catch (final Exception e) {
+                            throw new ApplicationRuntimeException("Error occurred while getting inputstream", e);
+                        }
+                    }).collect(Collectors.toSet());
+        else
+            return null;
+    }
 }

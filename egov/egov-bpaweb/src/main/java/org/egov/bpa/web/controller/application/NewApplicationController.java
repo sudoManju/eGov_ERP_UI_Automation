@@ -102,13 +102,7 @@ public class NewApplicationController extends BpaGenericApplicationController {
             final HttpServletRequest request, final Model model,
             final BindingResult errors) {
 
-        final List<ApplicationDocument> applicationDocs = new ArrayList<>(0);
-        int i = 0;
-        if (!bpaApplication.getApplicationDocument().isEmpty())
-            for (final ApplicationDocument applicationDocument : bpaApplication.getApplicationDocument()) {
-                validateDocuments(applicationDocs, applicationDocument, i, resultBinder);
-                i++;
-            }
+       
         Long userPosition = null;
         final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(bpaApplication, BpaConstants.WF_NEW_STATE);
         if (wfmatrix != null)
@@ -120,35 +114,19 @@ public class NewApplicationController extends BpaGenericApplicationController {
             model.addAttribute("mode", "new");
             return "newapplication-form";
         }
-        //bpaApplication.getOwner().setUsername( bpaApplication.getOwner().getEmailId());
-       // bpaApplication.getOwner().setPassword( bpaApplication.getOwner().getMobileNumber());
         List<ApplicationStakeHolder> applicationStakeHolders = new ArrayList<>();
         ApplicationStakeHolder applicationStakeHolder= new ApplicationStakeHolder();
         applicationStakeHolder.setApplication(bpaApplication);
         applicationStakeHolder.setStakeHolder(bpaApplication.getStakeHolder().get(0).getStakeHolder());
         applicationStakeHolders.add(applicationStakeHolder);
-        bpaApplication.setStakeHolder(applicationStakeHolders);
-        bpaApplication.getApplicationDocument().clear();
-        bpaApplication.setApplicationDocument(applicationDocs);
-        processAndStoreApplicationDocuments(bpaApplication);
+        bpaApplication.setStakeHolder(applicationStakeHolders); 
+        applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
         bpaApplication.setAdmissionfeeAmount(applicationBpaService
                 .setAdmissionFeeAmountForRegistration(String.valueOf(bpaApplication.getServiceType().getId())));
         BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication);
         return genericBillGeneratorService.generateBillAndRedirectToCollection(bpaApplicationRes, model);
     }
 
-    private void validateDocuments(final List<ApplicationDocument> applicationDocs,
-            final ApplicationDocument applicationDocument, final int i, final BindingResult resultBinder) {
-        Iterator<MultipartFile> stream = null;
-        if (ArrayUtils.isNotEmpty(applicationDocument.getFiles()))
-            stream = Arrays.asList(applicationDocument.getFiles()).stream().filter(file -> !file.isEmpty())
-                    .iterator();
-        if (stream == null) {
-            final String fieldError = "applicationDocs[" + i + "].files";
-            resultBinder.rejectValue(fieldError, "files.required");
-        } else
-            applicationDocs.add(applicationDocument);
-    }
     
     @RequestMapping(value = "/getdocumentlistbyservicetype", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody

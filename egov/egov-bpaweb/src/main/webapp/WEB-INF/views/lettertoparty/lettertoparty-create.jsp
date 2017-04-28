@@ -132,7 +132,7 @@
 											</c:choose>
 											<form:hidden
 												id="lettertoPartyDocument${status.index}checklistDetail.id"
-												path="lettertoPartyDocument[${status.index}].checklistDetail.id"
+												path="lettertoPartyDocument[${status.index}].checklistDetail"
 												value="${docs.id}" />
 											<form:hidden
 												id="lettertoPartyDocument${status.index}checklistDetail"

@@ -316,6 +316,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 }
             }
         }
+        applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
         BpaApplication bpaAppln = applicationBpaService.updateApplication(bpaApplication, approvalPosition,workFlowAction);
         if(null != approvalPosition) {
          pos = positionMasterService.getPositionById(approvalPosition);

@@ -178,25 +178,9 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
         return applicationModeMap;
     }
 
-    protected Set<FileStoreMapper> addToFileStore(final MultipartFile[] files) {
-        if (ArrayUtils.isNotEmpty(files))
-            return Arrays
-                    .asList(files)
-                    .stream()
-                    .filter(file -> !file.isEmpty())
-                    .map(file -> {
-                        try {
-                            return fileStoreService.store(file.getInputStream(), file.getOriginalFilename(),
-                                    file.getContentType(), BpaConstants.FILESTORE_MODULECODE);
-                        } catch (final Exception e) {
-                            throw new ApplicationRuntimeException("Error occurred while getting inputstream", e);
-                        }
-                    }).collect(Collectors.toSet());
-        else
-            return null;
-    }
+   
 
-    protected void processAndStoreApplicationDocuments(final BpaApplication bpaApplication) {
+ /*   protected void processAndStoreApplicationDocuments(final BpaApplication bpaApplication) {
         if (!bpaApplication.getApplicationDocument().isEmpty())
             for (final ApplicationDocument applicationDocument : bpaApplication.getApplicationDocument()) {
                 applicationDocument.setChecklistDetail(checkListDetailService.load(applicationDocument.getChecklistDetail()
@@ -205,5 +189,5 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
                 applicationDocument.setSupportDocs(addToFileStore(applicationDocument.getFiles()));
             }
     }
-
+*/
 }

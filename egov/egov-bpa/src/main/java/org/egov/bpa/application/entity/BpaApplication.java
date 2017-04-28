@@ -464,6 +464,10 @@ public class BpaApplication extends StateAware {
     public List<ApplicationDocument> getApplicationDocument() {
         return applicationDocument;
     }
+    public void addApplicationDocument(final ApplicationDocument nocDocument) {
+        nocDocument.setApplication(this);
+        getApplicationDocument().add(nocDocument);
+    }
 
     public void setApplicationDocument(final List<ApplicationDocument> applicationDocument) {
         this.applicationDocument = applicationDocument;

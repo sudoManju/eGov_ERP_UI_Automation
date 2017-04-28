@@ -36,6 +36,7 @@ import org.egov.bpa.application.repository.CheckListDetailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -70,11 +71,11 @@ public class CheckListDetailService {
     public CheckListDetail load(final Long id) {
         return checkListDetailRepository.getOne(id);
     }
-
+    @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = true)
     public List<CheckListDetail> findActiveCheckListByServiceType(final Long serviceTypeId, final String checklistType) {
         return checkListDetailRepository.findActiveCheckListByServiceType(serviceTypeId, checklistType);
     }
-
+    @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = true)
     public List<CheckListDetail> findActiveCheckListByChecklistType(final String checklistType) {
         return checkListDetailRepository.findActiveCheckListByChecklistType(checklistType);
     }
