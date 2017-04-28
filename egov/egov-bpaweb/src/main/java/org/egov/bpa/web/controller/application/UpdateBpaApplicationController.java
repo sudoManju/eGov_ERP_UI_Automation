@@ -161,7 +161,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         } else if (FORWARDED_TO_NOC_UPDATE.equalsIgnoreCase(application.getState().getNextAction())
                 && APPLICATION_STATUS_FIELD_INS.equalsIgnoreCase(application.getStatus().getCode())) {
             model.addAttribute("showUpdateNoc", true);
-        } else if (FORWARDED_TO_APPROVAL.equalsIgnoreCase(application.getState().getNextAction())
+        } else if ("Forwarded to Assistant Engineer For Approval".equalsIgnoreCase(application.getState().getNextAction())
                 && !application.getInspections().isEmpty()) {
             mode = "initialtedApprove";
         }

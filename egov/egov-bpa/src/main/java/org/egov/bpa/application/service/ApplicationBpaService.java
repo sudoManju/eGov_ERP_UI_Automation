@@ -183,7 +183,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
             stream = Arrays.asList(applicationDocument.getFiles()).stream().filter(file -> !file.isEmpty())
                     .iterator();
         if (stream == null) {
-            final String fieldError = "applicationDocs[" + i + "].files";
+            final String fieldError = "applicationDocument[" + i + "].files";
             resultBinder.rejectValue(fieldError, "files.required");
         } else
             applicationDocs.add(applicationDocument);
