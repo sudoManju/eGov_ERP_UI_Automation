@@ -229,7 +229,6 @@ public class AdvertisementsPage extends BasePage {
         await().atMost(10, SECONDS).until(() -> driver.findElements(By.id("taxAmount")).size() == 1);
         JavascriptExecutor jse = (JavascriptExecutor) driver;
         jse.executeScript("document.getElementById('taxAmount').value = '100';");
-//        enterText(driver.findElement(By.id("taxAmount")), structureDetails.getTaxAmount(), driver);
     }
 
     public String forward() {
@@ -239,6 +238,7 @@ public class AdvertisementsPage extends BasePage {
             await().atMost(10, SECONDS).until(() -> driver.findElements(By.id("taxAmount")).size() == 1);
             JavascriptExecutor jse1 = (JavascriptExecutor) driver;
             jse1.executeScript("document.getElementById('taxAmount').value = '100';");
+            clickOnButton(forwardButton, driver);
         }
         String Msg = getTextFromWeb(creationMsg, driver);
         String applicationNumber = Msg.substring(Msg.lastIndexOf(" ") + 1);
@@ -260,7 +260,6 @@ public class AdvertisementsPage extends BasePage {
 
     public void approve() {
         clickOnButton(approveButton, driver);
-//        Boolean isPresent = driver.findElements(By.id("Approve")).size() > 0;
         if (driver.findElements(By.id("Approve")).size() == 1) {
             clickOnButton(driver.findElement(By.id("Approve")), driver);
         }
