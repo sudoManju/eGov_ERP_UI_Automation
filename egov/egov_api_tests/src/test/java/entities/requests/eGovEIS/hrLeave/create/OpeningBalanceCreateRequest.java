@@ -1,5 +1,6 @@
-package entities.requests.eGovEIS.hrLeave.openingBalance;
+package entities.requests.eGovEIS.hrLeave.create;
 
+import entities.requests.eGovEIS.hrLeave.RequestInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class OpeningBalanceCreateRequest {
@@ -8,7 +9,7 @@ public class OpeningBalanceCreateRequest {
     private LeaveOpeningBalance[] LeaveOpeningBalance;
 
     @JsonProperty("RequestInfo")
-    private RequestInfo RequestInfo;
+    private entities.requests.eGovEIS.hrLeave.RequestInfo RequestInfo;
 
     public LeaveOpeningBalance[] getLeaveOpeningBalance() {
         return this.LeaveOpeningBalance;

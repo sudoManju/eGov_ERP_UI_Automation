@@ -1,8 +1,8 @@
-package builders.eGovEIS.hrLeave;
+package builders.eGovEIS.hrLeave.create;
 
-import entities.requests.eGovEIS.hrLeave.openingBalance.LeaveOpeningBalance;
-import entities.requests.eGovEIS.hrLeave.openingBalance.OpeningBalanceCreateRequest;
-import entities.requests.eGovEIS.hrLeave.openingBalance.RequestInfo;
+import entities.requests.eGovEIS.hrLeave.create.LeaveOpeningBalance;
+import entities.requests.eGovEIS.hrLeave.create.OpeningBalanceCreateRequest;
+import entities.requests.eGovEIS.hrLeave.RequestInfo;
 
 public final class OpeningBalanceCreateRequestBuilder {
 

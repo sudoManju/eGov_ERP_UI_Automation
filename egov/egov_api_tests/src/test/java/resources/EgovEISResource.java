@@ -76,28 +76,42 @@ public class EgovEISResource {
     }
 
     public Response searchLeaveApplications(String jsonData) {
-        new APILogger().log("Search Leave Applications Test is started with-- "+jsonData);
+        new APILogger().log("Search Leave Applications Test is started with-- " + jsonData);
 
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
                 .body(jsonData).when()
                 .post(Properties.eisSearchLeaveApplicationsUrl);
 
-        new APILogger().log("Search Leave Applications Test is completed with-- "+response.asString());
+        new APILogger().log("Search Leave Applications Test is completed with-- " + response.asString());
         return response;
     }
 
     public Response hrLeaveCreateOpeningBalance(String jsonData) {
 
-        new APILogger().log("Create HR Leave Opening Balance Test is started with-- "+jsonData);
+        new APILogger().log("Create HR Leave Opening Balance Test is started with-- " + jsonData);
 
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
                 .body(jsonData)
                 .when()
-                .post(Properties.createOpeningBalanceUrlUrl);
+                .post("http://10.0.0.151:32656/hr-leave/leaveopeningbalances/_create");
+//                .post(Properties.createOpeningBalanceUrlUrl);
 
-        new APILogger().log("Create HR Leave Opening Balance Test is completed with-- "+response.asString());
+        new APILogger().log("Create HR Leave Opening Balance Test is completed with-- " + response.asString());
+        return response;
+    }
+
+    public Response hrLeaveSearchOpeningBalance(String jsonData, int noOfDays) {
+        new APILogger().log("Search HR Leave Opening Balance Test is started with-- " + jsonData);
+
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(jsonData)
+                .when()
+                .post("http://10.0.0.151:32656/hr-leave/leaveopeningbalances/_search?tenantId=ap.kurnool?noOfDays=" + noOfDays);
+
+        new APILogger().log("Search HR Leave Opening Balance Test is completed with-- " + response.asString());
         return response;
     }
 }
