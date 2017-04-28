@@ -28,11 +28,8 @@ public class EmployeeDetailsPage extends BasePage {
     @FindBy(id = "user.dob")
     private WebElement dobTextBox;
 
-    @FindBy(css = "input[id='user.gender'][value='MALE']")
-    private WebElement maleRadioButton;
-
-    @FindBy(css = "input[id='user.gender'][value='FEMALE']")
-    private WebElement femaleRadioButton;
+    @FindBy(id = "user.gender")
+    private WebElement genderDropdown;
 
     @FindBy(id = "maritalStatus")
     private WebElement maritalStatusBox;
@@ -180,9 +177,9 @@ public class EmployeeDetailsPage extends BasePage {
         selectFromDropDown(employeeStatusBox, employeeDetails.getStatus(), driver);
         enterText(dobTextBox, employeeDetails.getDateOfBirth(), driver);
         if (employeeDetails.getGender().equals("Male")) {
-            clickOnButton(maleRadioButton, driver);
+            selectFromDropDown(genderDropdown, "Male", driver);
         } else {
-            clickOnButton(femaleRadioButton, driver);
+            selectFromDropDown(genderDropdown, "Female", driver);
         }
         selectFromDropDown(maritalStatusBox, employeeDetails.getMaritalStatus(), driver);
         enterText(userNameTextBox, "TestUser" + get6DigitRandomInt().substring(0,3), driver);
