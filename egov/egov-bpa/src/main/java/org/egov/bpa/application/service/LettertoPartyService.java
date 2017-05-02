@@ -85,17 +85,6 @@ public class LettertoPartyService {
         return lettertoPartyRepository.save(lettertoParty);
     }
 
-    @Transactional
-    public LettertoParty forward(final LettertoParty lettertoParty) {
-        if (null != lettertoParty.getSentDate() &&
-                lettertoParty.getApplication().getStatus().getCode().equals(BpaConstants.CREATEDLETTERTOPARTY)) {
-            Long approverPosition = lettertoParty.getApplication().getState().getPreviousOwner().getId();
-            // bpaUtils.redirectToBpaWorkFlow(approverPosition, lettertoParty.getApplication(), BpaConstants.LETTERTOPARTYSENT,
-            // "Letter to party sent");
-        }
-        return lettertoPartyRepository.save(lettertoParty);
-    }
-
     public String generateLettertpPartyNumber() {
         final String financialYearRange = financialYearService
                 .getCurrentFinancialYear().getFinYearRange();

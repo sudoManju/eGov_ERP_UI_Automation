@@ -249,7 +249,7 @@ public class LetterToPartyController {
         if (LPCHK.equals(type))
             headers.add("content-disposition", "inline;filename=lettertoparty.pdf");
         else if (LPREPLYCHK.equals(type))
-            headers.add("content-disposition", "inline;filename=reply.pdf");
+            headers.add("content-disposition", "inline;filename=lettertopartyreply.pdf");
         reportOutput = reportService.createReport(reportInput);
         return new ResponseEntity<>(reportOutput.getReportOutputData(), headers, HttpStatus.CREATED);
     }

@@ -168,8 +168,7 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
             if (additionalRule != null && additionalRule.equalsIgnoreCase(BpaConstants.CREATE_ADDITIONAL_RULE_CREATE))
                 application.setStatus(getStatusByPassingCode(BpaConstants.APPLICATION_STATUS_CANCELLED));
 
-        } else if (BpaConstants.LETTERTOPARTYINITIATED.equalsIgnoreCase(workFlowAction)) {
-
+        } else if (BpaConstants.LETTERTOPARTYINITIATE.equalsIgnoreCase(workFlowAction)) {
             wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null,
                     null, additionalRule, workFlowAction, null);
             if (wfmatrix != null) {
@@ -181,7 +180,7 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
                         .withOwner(pos)
                         .withNextAction(wfmatrix.getNextAction()).withNatureOfTask(BpaConstants.NATURE_OF_WORK);
             }
-        } else if (BpaConstants.LETTERTOPARTYSENT.equalsIgnoreCase(workFlowAction)) {
+        } else if (BpaConstants.LETTERTOPARTYINITIATED.equalsIgnoreCase(workFlowAction)) {
             wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null,
                     null, additionalRule, application.getStateHistory().get(0).getValue(), null);
             application.setStatus(getStatusByCurrentMatrxiStatus(wfmatrix));
