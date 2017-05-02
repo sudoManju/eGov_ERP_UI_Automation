@@ -49,57 +49,95 @@
 			<th class="bluebgheadtd"><spring:message code="lbl.slno" /></th>
 			<th class="bluebgheadtd"><spring:message code="lbl.lp.no" /></th>
 			<th class="bluebgheadtd"><spring:message code="lbl.lp.date" /></th>
-			<th class="bluebgheadtd"><spring:message
-					code="lbl.lp.description" /></th>
 			<th class="bluebgheadtd"><spring:message code="lbl.lp.reason" /></th>
+			<th class="bluebgheadtd"><spring:message code="lbl.lp.description" /></th>
 			<th class="bluebgheadtd"><spring:message code="lbl.checklist" /></th>
-			<th class="bluebgheadtd"><spring:message code="lbl.modify" /></th>
-			<th class="bluebgheadtd"><spring:message code="lbl.print" /></th>
 			<th class="bluebgheadtd"><spring:message code="lbl.lp.sentdate" /></th>
-			<th class="bluebgheadtd"><spring:message
-					code="lbl.lp.reply.checklist" /></th>
-
+			<th class="bluebgheadtd"><spring:message code="lbl.modify" /></th>	
+			<th class="bluebgheadtd"><spring:message code="lbl.lpprint" /></th>
+			<th class="bluebgheadtd"><spring:message code="lbl.lpreplydate" /></th>
+			<th class="bluebgheadtd"><spring:message code="lbl.lpreply" /></th>
+			<th class="bluebgheadtd"><spring:message  code="lbl.lp.reply.checklist" /></th>
+			<th class="bluebgheadtd"><spring:message code="lbl.lpreply.print" /></th>
 		</tr>
 		<c:choose>
 			<c:when test="${not empty lettertopartylist}">
 				<c:forEach items="${lettertopartylist}" var="lp" varStatus="status">
 					<tr id="lprow">
 						<td class="blueborderfortd" align="center">${status.index+1}</td>
-						<td class="blueborderfortd" align="center"><span class="bold"><c:out
-									value="${lp.lpNumber}" /></span></td>
-						<td class="blueborderfortd" align="center"><span class="bold"><c:out
-									value="${lp.letterDate}" /></span></td>
-						<td class="blueborderfortd" align="center"><span class="bold"><c:out
-									value="${lp.lpDesc}" /></span></td>
-						<td class="blueborderfortd" align="center"><span class="bold"><c:out
-									value="${lp.lpReason.description}" /></span></td>
+						<td class="blueborderfortd" align="center"><span class="bold">
+							<c:out	value="${lp.lpNumber}" /></span></td>
+						<td class="blueborderfortd" align="center"><span class="bold">
+								<c:out value="${lp.letterDate}" /></span></td>
+						<td class="blueborderfortd" align="center"><span class="bold">
+								<c:out value="${lp.lpReason.description}" /></span></td>		
+						<td class="blueborderfortd" align="center"><span class="bold">
+								<c:out value="${lp.lpDesc}" /></span></td>
 						<td class="blueborderfortd" align="center"><a
-							onclick="window.open('/bpa/lettertoparty/viewlpchecklist/${lp.id}','print','width=600, height=400,scrollbars=yes')">
+							onclick="window.open('/bpa/lettertoparty/viewchecklist/lp/${lp.id}','view','width=600, height=400,scrollbars=yes')">
 								<i class="fa fa-file-o" aria-hidden="true"> <spring:message
 										code="lbl.lp.checklist" />
-							</i>
+							     </i>
 						</a></td>
-						<td class="blueborderfortd" align="center"><c:if
-								test="${status.index == 0 }">
-								<c:if test="${mode eq 'modifylettertoparty'}">
-									<a
-										href="/bpa/lettertoparty/update/${bpaApplication.applicationNumber}">
-										<i class="fa fa-pencil" aria-hidden="true"></i> Modify
-									</a>
-								</c:if>
-							</c:if></td>
+						<td class="blueborderfortd" align="center">
+						       <c:choose>
+									<c:when test="${lp.sentDate !=null }">
+									   <c:out value="${lp.sentDate}"></c:out>
+									</c:when>	
+									<c:otherwise>
+										 <a	href="/bpa/lettertoparty/capturesentdate/${lp.id}">
+												<i class="fa fa-pencil" aria-hidden="true"></i> 
+												<spring:message code="lbl.save.lpsentdate" />
+									     </a>
+									</c:otherwise>
+							 </c:choose>
+						</td>
+						<td class="blueborderfortd" align="center">
+						       <c:choose>
+									<c:when test="${lp.sentDate !=null }">
+									  LP Sent
+									</c:when>	
+									<c:otherwise>
+						      			 <a	href="/bpa/lettertoparty/update/${bpaApplication.applicationNumber}">
+												<i class="fa fa-pencil" aria-hidden="true"></i> Modify
+									     </a>
+									</c:otherwise>
+							 </c:choose>
+						</td>
+						<td class="blueborderfortd" align="center">
+							   <a href="/bpa/lettertoparty/lettertopartyprint/lp?pathVar=${lp.id}">
+									<i class="fa fa-print" aria-hidden="true"></i>
+								    <spring:message code="lbl.print" />
+								</a>
+						</td>
+						<td class="blueborderfortd" align="center">
+									<c:if test="${lp.sentDate !=null }">
+										<c:out value="${lp.replyDate}"></c:out>
+									</c:if>	
+						</td>
+						<td class="blueborderfortd" align="center">
+						      <c:choose>
+									<c:when test="${lp.replyDate !=null }">
+									 	 LP Reply Received
+									</c:when>	
+									<c:otherwise>
+						     		 <a	href="/bpa/lettertoparty/lettertopartyreply/${lp.id}">
+												<i class="fa fa-pencil" aria-hidden="true"></i> LP Reply
+								    </a>
+								    </c:otherwise>
+							 </c:choose>	    
+						</td>
 						<td class="blueborderfortd" align="center"><a
-							onclick="window.open('/bpa/lettertoparty/viewlpreplychecklist/${lp.id}','print','width=600, height=400,scrollbars=yes')">
+							onclick="window.open('/bpa/lettertoparty/viewchecklist/lpreply/${lp.id}','view','width=600, height=400,scrollbars=yes')">
 								<i class="fa fa-file-o" aria-hidden="true"> <spring:message
 										code="lbl.lp.reply.checklist" /></i>
 						</a></td>
-						<td class="blueborderfortd" align="center"><a
-							href="/bpa/lettertoparty/lettertopartyprint?pathVar=${lp.id}">
-								<i class="fa fa-print" aria-hidden="true"></i> <spring:message
-									code="lbl.print" />
-						</a></td>
-						<td class="blueborderfortd" align="center"><span class="bold"><c:out
-									value="${lp.sentDate}" /></span></td>
+						<td class="blueborderfortd" align="center">
+							   <a href="/bpa/lettertoparty/lettertopartyprint/lpreply?pathVar=${lp.id}">
+									<i class="fa fa-print" aria-hidden="true"></i>
+								    <spring:message code="lbl.print" />
+								</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</c:when>

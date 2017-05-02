@@ -79,7 +79,7 @@
 									<form:options items="${lpReasonList}" itemValue="id"
 										itemLabel="description" />
 								</form:select>
-								<form:errors path="lpReason" cssClass="add-margin error-msg" />
+								<form:errors path="lpReason" cssClass="error-msg" />
 							</div>
 
 							<label class="col-sm-3 control-label text-right"><spring:message
@@ -111,9 +111,6 @@
 									</div>
 									<div class="col-sm-3 text-center">
 										<spring:message code="lbl.remarks" />
-									</div>
-									<div class="col-sm-3 text-center">
-										<spring:message code="lbl.attachdocument" />
 									</div>
 								</div>
 								<c:forEach var="docs" items="${checkListDetailList}"
@@ -161,30 +158,6 @@
 												path="lettertoPartyDocument[${status.index}].remarks"
 												cssClass="add-margin error-msg" />
 										</div>
-
-										<div class="col-sm-3 add-margin text-center">
-											<c:choose>
-												<c:when test="${docs.isMandatory}">
-													<input type="file" id="file${status.index}id"
-														name="lettertoPartyDocument[${status.index}].files"
-														class="file-ellipsis upload-file" required="required">
-												</c:when>
-												<c:otherwise>
-													<input type="file" id="file${status.index}id"
-														name="lettertoPartyDocument[${status.index}].files"
-														class="file-ellipsis upload-file">
-												</c:otherwise>
-											</c:choose>
-											<form:errors
-												path="lettertoPartyDocument[${status.index}].files"
-												cssClass="add-margin error-msg" />
-											<div class="add-margin error-msg text-left">
-												<font size="2"> <spring:message
-														code="lbl.mesg.document" />
-												</font>
-											</div>
-										</div>
-
 									</div>
 								</c:forEach>
 							</c:when>

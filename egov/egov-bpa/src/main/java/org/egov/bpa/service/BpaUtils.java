@@ -122,14 +122,14 @@ public class BpaUtils {
             approvalPosition = getUserPositionByZone(wfmatrix.getNextDesignation(), application.getSiteDetail().get(0) != null
                     ? application.getSiteDetail().get(0).getElectionBoundary().getId() : null);
         }
-        if (currentState.equals(BpaConstants.LETTERTOPARTYINITIATED))
+        if (currentState.equals(BpaConstants.LETTERTOPARTYINITIATE))
+            applicationWorkflowCustomDefaultImpl.createCommonWorkflowTransition(application,
+                    approvalPosition, remarks,
+                    BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, BpaConstants.LETTERTOPARTYINITIATE);
+        else if (currentState.equals(BpaConstants.LETTERTOPARTYINITIATED))
             applicationWorkflowCustomDefaultImpl.createCommonWorkflowTransition(application,
                     approvalPosition, remarks,
                     BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, BpaConstants.LETTERTOPARTYINITIATED);
-        else if (currentState.equals(BpaConstants.LETTERTOPARTYSENT))
-            applicationWorkflowCustomDefaultImpl.createCommonWorkflowTransition(application,
-                    approvalPosition, remarks,
-                    BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, BpaConstants.LETTERTOPARTYSENT);
         else
             applicationWorkflowCustomDefaultImpl.createCommonWorkflowTransition(application,
                     approvalPosition, remarks,

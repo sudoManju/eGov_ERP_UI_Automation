@@ -81,8 +81,18 @@
 		<div class="col-sm-3 add-margin view-content">
 			<c:out value="${lettertoParty.lpDesc}"></c:out>
 		</div>
-
+	
 	</div>
+	  <c:if test="${lettertoParty.sentDate !=null }">
+		 <div class="row add-border">
+			<div class="col-sm-3 add-margin">
+				<spring:message code="lbl.lpreplydate" />
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+				<c:out value="${lettertoParty.replyDate}"></c:out>
+			</div>
+		</div>	
+		</c:if>
 
 	<c:if test="${not empty lettertopartydocList}">
 		<thead>
@@ -90,15 +100,19 @@
 				<div class="col-sm-3 text-center">
 					<th><spring:message code="lbl.documentname" /></th>
 				</div>
-				<div class="col-sm-3 text-center">
+				<div class="col-sm-2 text-center">
+					<th><spring:message code="lbl.isrequested" /></th>
+				</div>
+				<div class="col-sm-2 text-center">
 					<th><spring:message code="lbl.issubmitted" /></th>
 				</div>
 				<div class="col-sm-3 text-center">
 					<th><spring:message code="lbl.remarks" /></th>
 				</div>
-				<div class="col-sm-3 text-center">
+				<div class="col-sm-2 text-center">
 					<th><spring:message code="lbl.files" /></th>
 				</div>
+				<br/>
 			</tr>
 		</thead>
 	</c:if>
@@ -112,14 +126,18 @@
 							<div class="col-sm-3 text-center">
 								<td><c:out value="${docs.checklistDetail.description}" /></td>
 							</div>
-							<div class="col-sm-3 text-center">
+							<div class="col-sm-2 text-center">
+								<td><c:out value="${docs.isrequested ? 'Yes' : 'No'}"></c:out>
+								</td>
+							</div>
+							<div class="col-sm-2 text-center">
 								<td><c:out value="${docs.issubmitted ? 'Yes' : 'No'}"></c:out>
 								</td>
 							</div>
 							<div class="col-sm-3 text-center">
 								<td><c:out value="${docs.remarks}" /></td>
 							</div>
-							<div class="col-sm-3 text-center">
+							<div class="col-sm-2 text-center">
 								<c:set value="false" var="isDocFound"></c:set>
 								<td><c:forEach items="${docs.getSupportDocs()}" var="file">
 										<c:set value="true" var="isDocFound"></c:set>

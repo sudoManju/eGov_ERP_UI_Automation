@@ -181,4 +181,12 @@
     	<put-attribute name="page-title" value="title.checklist " cascade="true"/>
         <put-attribute name="body" value="/WEB-INF/views/lettertoparty/lettertoparty-checklist.jsp"/>
     </definition>
+     <definition name="lettertoparty-capturesentdate" extends="base_layout">
+    	<put-attribute name="page-title" value="title.checklist " cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/lettertoparty/lettertoparty-capturesentdate.jsp"/>
+    </definition>
+     <definition name="lettertoparty-lpreply" extends="base_layout">
+    	<put-attribute name="page-title" value="title.lpreply " cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/lettertoparty/lettertoparty-lpreply.jsp"/>
+    </definition>
 </tiles-definitions>

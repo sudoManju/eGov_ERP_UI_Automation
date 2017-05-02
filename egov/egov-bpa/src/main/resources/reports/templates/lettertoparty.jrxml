@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-04-20T11:26:19 -->
+<!-- 2017-05-02T10:55:56 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="lettertoparty" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="19a6b87f-b0aa-4611-908a-14a81b44cdbb">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<import value="org.egov.infra.reporting.util.ReportUtil"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/work/collections/reports/templates/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="EGOV_CONNECTION" class="java.sql.Connection" isForPrompting="false">
+		<parameterDescription><![CDATA[SQL connection object]]></parameterDescription>
+		<defaultValueExpression><![CDATA[null]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -12,6 +20,7 @@
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="sentDate" class="java.util.Date"/>
+	<field name="lettertoPartyDocument" class="java.util.Collection"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -41,7 +50,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="206" splitType="Stretch">
+		<band height="194" splitType="Stretch">
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="3" width="34" height="18" uuid="0c1b13e2-4cb9-4fa8-815a-3b633560734d"/>
 				<textElement>
@@ -71,11 +80,11 @@
 				<textFieldExpression><![CDATA["Sub:  Town Planning Section -"+$F{application}.getServiceType().getDescription()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="45" y="172" width="457" height="15" uuid="51bf9720-566f-4c88-8464-5894c30ea896"/>
+				<reportElement positionType="Float" x="45" y="178" width="457" height="15" uuid="51bf9720-566f-4c88-8464-5894c30ea896"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<text><![CDATA[You are requested to  complete document submission  for consideration of your application.]]></text>
+				<text><![CDATA[You are requested to furnish the following particulars for consideration of your application.]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="371" y="23" width="184" height="47" uuid="3497ef93-a84e-4a9d-b4e6-348c82f896e6"/>
@@ -99,6 +108,41 @@
 				<reportElement positionType="FixRelativeToBottom" x="422" y="74" width="39" height="20" uuid="3375e27e-24ab-47dd-9c94-0c07f9b84e8a"/>
 				<textFieldExpression><![CDATA["Date : "]]></textFieldExpression>
 			</textField>
+		</band>
+		<band height="50">
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="1" width="314" height="20" backcolor="#CCCCCC" uuid="b0d49e6e-baad-4c76-9ef1-bc1e363b4ea1"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="314" y="1" width="202" height="20" backcolor="#CCCCCC" uuid="a9d3cfb0-d8b4-42a0-8343-abbd6359e3fa"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Remarks]]></text>
+			</staticText>
+			<subreport>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="21" width="555" height="20" uuid="e35ce559-f063-49b8-9b8f-0d0ce3d42788"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{lettertoPartyDocument}, false)]]></dataSourceExpression>
+				<subreportExpression><![CDATA[ReportUtil.getTemplateAsStream("lp_checklist.jasper")]]></subreportExpression>
+			</subreport>
 		</band>
 		<band height="76">
 			<staticText>

@@ -100,9 +100,11 @@ public class BpaConstants {
     public static final String DOCUMENTVERIFIED = "Document Verified";
     
     public static final String LETTERTOPARTY_NUMBER_SEQ = "SEQ_BPA_LP_";
+    public static final String LETTERTOPARTY_ACK_NUMBER_SEQ = "SEQ_BPA_LP_ACK_";
     public static final String CREATEDLETTERTOPARTY = "Letter To Party Created";
     public static final String LETTERTOPARTYSENT = "LP Sent to Applicant";
     public static final String LETTERTOPARTYINITIATED  = "LP Initiated";
+    public static final String LETTERTOPARTYINITIATE = "LP Initiate";
     public static final String LETTERTOPARTYDETAILS = "lettertoparty";
     public static final String CHECKLIST_TYPE_NOC = "NOC";
     public static final String BPA_APPLICATION = "bpaApplication";
@@ -112,6 +114,7 @@ public class BpaConstants {
     public static final String INSPECTION_NUMBER_SEQ = "SEQ_BPA_INSPECTIONNUMBER";
     public static final String INSPECTIONLOCATION= "INSPECTIONLOCATION";
     public static final String INSPECTIONMEASUREMENT = "INSPECTIONMEASUREMENT";
+    public static final String LETTERTOPARTY_REPLY_RECEIVED="Letter To Party Received";
 
     public static final String INSPECTIONACCESS = "INSPECTIONACCESS";
 

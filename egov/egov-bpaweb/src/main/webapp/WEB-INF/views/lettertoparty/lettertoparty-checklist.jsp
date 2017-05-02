@@ -49,18 +49,16 @@
 	<c:if test="${not empty lettertopartydocList}">
 		<thead>
 			<tr>
-				<div class="col-sm-3 text-center">
+				<div class="col-sm-4 text-center">
 					<th><spring:message code="lbl.documentname" /></th>
 				</div>
-				<div class="col-sm-3 text-center">
-					<th><spring:message code="lbl.issubmitted" /></th>
-				</div>
-				<div class="col-sm-3 text-center">
+				<div class="col-sm-4 text-center">
 					<th><spring:message code="lbl.remarks" /></th>
 				</div>
-				<div class="col-sm-3 text-center">
+				<div class="col-sm-4 text-center">
 					<th><spring:message code="lbl.files" /></th>
 				</div>
+				<br/>
 			</tr>
 		</thead>
 	</c:if>
@@ -71,17 +69,13 @@
 				<div class="form-group">
 					<tbody>
 						<tr>
-							<div class="col-sm-3 text-center">
+							<div class="col-sm-4 text-center">
 								<td><c:out value="${docs.checklistDetail.description}" /></td>
 							</div>
-							<div class="col-sm-3 text-center">
-								<td><c:out value="${docs.issubmitted ? 'Yes' : 'No'}"></c:out>
-								</td>
-							</div>
-							<div class="col-sm-3 text-center">
+							<div class="col-sm-4 text-center">
 								<td><c:out value="${docs.remarks}" /></td>
 							</div>
-							<div class="col-sm-3 text-center">
+							<div class="col-sm-4 text-center">
 								<c:set value="false" var="isDocFound"></c:set>
 								<td><c:forEach items="${docs.getSupportDocs()}" var="file">
 										<c:set value="true" var="isDocFound"></c:set>

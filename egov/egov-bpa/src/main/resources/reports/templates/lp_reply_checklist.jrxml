@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-05-02T10:16:31 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="lp_reply_checklist" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Empty" uuid="09de4100-d968-4594-9dd7-d694ab788a91">
+	<field name="issubmitted" class="java.lang.Boolean"/>
+	<field name="remarks" class="java.lang.String"/>
+	<field name="checklistDetail" class="org.egov.bpa.application.entity.CheckListDetail"/>
+	<field name="isrequested" class="java.lang.Boolean"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="25">
+			<printWhenExpression><![CDATA[$F{isrequested}== true]]></printWhenExpression>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="0" y="0" width="314" height="25" isPrintWhenDetailOverflows="true" uuid="2d7b7d58-4b7a-4cec-b0c7-4018e7b40653">
+					<printWhenExpression><![CDATA[$F{isrequested}== true]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{checklistDetail}.getDescription()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="314" y="0" width="202" height="25" isPrintWhenDetailOverflows="true" uuid="13dc2290-7c7c-4dde-bfda-fe0a699c8446">
+					<printWhenExpression><![CDATA[$F{isrequested}== true]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{isrequested}==true?"Replied":"Not Replied"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

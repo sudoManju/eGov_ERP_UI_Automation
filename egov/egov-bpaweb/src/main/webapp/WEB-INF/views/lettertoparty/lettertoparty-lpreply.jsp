@@ -42,7 +42,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn"%>
-<form:form role="form" action="/bpa/lettertoparty/update" method="post"
+<form:form role="form" action="/bpa/lettertoparty/lettertopartyreply" method="post"
 	modelAttribute="lettertoParty" id="lettertoPartyform"
 	cssClass="form-horizontal form-groups-bordered"
 	enctype="multipart/form-data">
@@ -50,7 +50,7 @@
 		<div class="col-md-12">
 			<div class="panel panel-primary" data-collapsed="0">
 				<div class="panel-title">
-					<spring:message code="title.lettertoparty.update" />
+					<spring:message code="title.lpreply" />
 				</div>
 			</div>
 			<div class="panel panel-primary" data-collapsed="0">
@@ -70,6 +70,12 @@
 							<div class="col-sm-2 add-margin view-content">
 								<c:out value="${lettertoParty.lpNumber}"></c:out>
 							</div>
+							<div class="col-sm-2 add-margin">
+								<spring:message code="lbl.letterdate" />
+							</div>
+							<div class="col-sm-2 add-margin view-content">
+								<c:out value="${lettertoParty.letterDate}"></c:out>
+							</div>
 							<form:hidden path="application" id="applicationId"
 								value="${application.id}" />
 
@@ -77,50 +83,42 @@
 								value="${letterDate}" />
 							<input type="hidden" id='lettertoParty' name="lettertoParty"
 								value="${lettertoParty.id}">
-						</div>
-						<div class="form-group">
+						  </div>
+						 <div class="form-group">
 							<div class="col-sm-2 add-margin">
 								<spring:message code="lbl.lpreason" />
-								<span class="mandatory"></span>
 							</div>
-							<div class="col-sm-2 add-margin">
-								<form:select path="lpReason" data-first-option="false"
-									id="lpReason" cssClass="form-control" required="required">
-									<form:option value="">
-										<spring:message code="lbl.select" />
-									</form:option>
-									<form:options items="${lpReasonList}" itemValue="id"
-										itemLabel="description" />
-								</form:select>
-								<form:errors path="lpReason" cssClass="add-margin error-msg" />
+							<div class="col-sm-2 add-margin  view-content">
+								<c:out value="${lettertoParty.lpReason.description}" />
 							</div>
-
-
 							<div class="row add-border">
-								<label class="col-sm-3 control-label text-right"><spring:message
+								<label class="col-sm-2 control-label text-right"><spring:message
 										code="lbl.lpdescription" /></label>
 								<div class="col-sm-3 add-margin">
-									<form:textarea path="lpDesc"
-										class="form-control patternvalidation" data-pattern="string"
-										maxlength="1024" id="lpDesc" />
-									<form:errors path="lpDesc" cssClass="error-msg" />
+										<c:out value="${lettertoParty.lpDesc}" /></span></td>
 								</div>
 
 							</div>
 						</div>
 						<div class="form-group">
-							<div class="col-sm-2 add-margin">
+							<div class="col-sm-2 add-margin  view-content">
 								<spring:message code="lbl.lpsentdate" />
 							</div>
 							<div class="col-sm-2 add-margin">
-								<form:input path="sentDate" class="form-control datepicker"
-									data-date-end-date="0d" id="sentDate"
-									data-inputmask="'mask': 'd/m/y'"  required="required" />
-								<form:errors path="sentDate" cssClass="add-margin error-msg" /> 
+							    <c:out value="${lettertoParty.sentDate}"></c:out>
 							</div>
 						</div>
-
-
+						<div class="form-group">
+										<div class="col-sm-2 add-margin">
+											<spring:message code="lbl.lpreplydate" />
+										</div>
+										<div class="col-sm-2 add-margin">
+											<form:input path="replyDate" class="form-control datepicker"
+												data-date-end-date="0d" id="replyDate"
+												data-inputmask="'mask': 'd/m/y'"  required="required" />
+											<form:errors path="replyDate" cssClass="add-margin error-msg" /> 
+										</div>
+						    	</div>
 						<c:choose>
 							<c:when test="${!lettertoPartyDocument.isEmpty()}">
 								<div class="panel-heading custom_form_panel_heading">
@@ -147,6 +145,7 @@
 										<spring:message code="lbl.attachdocument" />
 									</div>
 								</div>
+								
 								<c:forEach var="lpdoc" items="${lettertopartydocList}"
 									varStatus="status">
 									<form:hidden
@@ -191,7 +190,6 @@
 														data-pattern="string" maxlength="256"
 														id="lettertoPartyDocument${status.index}remarks"
 														path="lettertoPartyDocument[${status.index}].remarks" />
-													<td><c:out value="${doc.id}"></c:out></td>
 													<form:errors
 														path="lettertoPartyDocument[${status.index}].remarks"
 														cssClass="add-margin error-msg" />
@@ -219,24 +217,10 @@
 														</font>
 													</div>
 												</div>
-
-												<div class="col-sm-2">
-													<c:set value="false" var="isDocFound"></c:set>
-													<c:forEach items="${lpdoc.getSupportDocs()}" var="file">
-														<c:set value="true" var="isDocFound"></c:set>
-														<a
-															href="/bpa/application/downloadfile/${file.fileStoreId}"
-															data-gallery>${file.fileName} </a>
-													</c:forEach>
-
-													<c:if test="${!isDocFound}">
-										NA
-									</c:if>
-												</div>
 											</div>
 								</c:forEach>
 								</td>
-								</tr>
+								</tr>   
 							</c:when>
 						</c:choose>
 					</div>

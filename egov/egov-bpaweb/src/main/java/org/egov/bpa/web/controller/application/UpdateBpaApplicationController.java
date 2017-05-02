@@ -107,7 +107,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
 
     @Autowired
     private BpaUtils bpaUtils;
-    
+
     @Autowired
     private SecurityUtils securityUtils;
     @Autowired
@@ -258,8 +258,8 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 appointmentSchedule.setAppointmentTime(sf.format(now));
                 bpaApplication.getAppointmentSchedule().add(appointmentSchedule);
             }
-            String         workFlowAction = request.getParameter("workFlowAction");
-            BpaApplication bpaAppln = applicationBpaService.updateApplication(bpaApplication, approvalPosition,workFlowAction);
+            String workFlowAction = request.getParameter("workFlowAction");
+            BpaApplication bpaAppln = applicationBpaService.updateApplication(bpaApplication, approvalPosition, workFlowAction);
             String message = messageSource.getMessage("msg.update.forward.documentscrutiny", new String[] {
                     user != null ? user.getUsername().concat("~")
                             .concat(pos.getDeptDesig() != null && pos.getDeptDesig().getDesignation() != null
@@ -306,6 +306,8 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         String message;
         Long approvalPosition = null;
         Position pos = null;
+        if (BpaConstants.LETTERTOPARTYSENT.equalsIgnoreCase(bpaApplication.getState().getNextAction()))
+            approvalPosition = bpaApplication.getState().getPreviousOwner().getId();
         if (request.getParameter(APPRIVALPOSITION) != null && !WF_REJECT_BUTTON.equalsIgnoreCase(workFlowAction)
                 && !WF_CANCELAPPLICATION_BUTTON.equalsIgnoreCase(workFlowAction)) {
             approvalPosition = Long.valueOf(request.getParameter(APPRIVALPOSITION));
@@ -317,9 +319,9 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
             }
         }
         applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
-        BpaApplication bpaAppln = applicationBpaService.updateApplication(bpaApplication, approvalPosition,workFlowAction);
-        if(null != approvalPosition) {
-         pos = positionMasterService.getPositionById(approvalPosition);
+        BpaApplication bpaAppln = applicationBpaService.updateApplication(bpaApplication, approvalPosition, workFlowAction);
+        if (null != approvalPosition) {
+            pos = positionMasterService.getPositionById(approvalPosition);
         }
         User user = bpaThirdPartyService.getUserPositionByPassingPosition(approvalPosition);
         if (WF_REJECT_BUTTON.equalsIgnoreCase(workFlowAction)) {
