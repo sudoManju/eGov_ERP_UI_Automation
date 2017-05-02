@@ -83,6 +83,7 @@ public class AssignmentDetailsPage extends BasePage {
         enterDate(toDateTextBox, assignmentDetails.getToDate(), webDriver);
         selectFromDropDown(departmentSelectBox, assignmentDetails.getDepartment(), webDriver);
         selectFromDropDown(designationSelectBox, assignmentDetails.getDesignation(), webDriver);
+        clickOnButton(positionSelectBox, webDriver);
         selectFromDropDown(positionSelectBox, assignmentDetails.getPosition(), webDriver);
 
         clickOnButton(addOrEditButton, webDriver);

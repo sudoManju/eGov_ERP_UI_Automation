@@ -13,6 +13,6 @@ Feature: Create/View/Update
     Then user clicks on submit button
 
     Examples:
-    |employeeDetails| assignmentDetails | jurisdictionDetail |
-    |employee1      | assignment1       | JurisdictionList1  |
-    |employee2      | assignment2       | JurisdictionList2  |
+      | employeeDetails | assignmentDetails | jurisdictionDetail |
+      | employee1       | assignment1       | JurisdictionList1  |
+      | employee2       | assignment2       | JurisdictionList2  |

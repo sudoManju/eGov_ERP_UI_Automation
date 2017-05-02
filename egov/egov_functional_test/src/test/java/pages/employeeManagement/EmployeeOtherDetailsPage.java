@@ -122,7 +122,7 @@ public class EmployeeOtherDetailsPage extends BasePage {
     @FindBy(css = ".btn.btn-primary")
     private WebElement addOrEditButton;
 
-    @FindBy(css = "[id='addEmployee'][type='submit']")
+    @FindBy(id = "addEmployee")
     private WebElement submitButton;
 
     private WebDriver webDriver;
@@ -183,6 +183,6 @@ public class EmployeeOtherDetailsPage extends BasePage {
     }
 
     public void submitCreateEmployee() {
-        clickOnButton(submitButton, webDriver);
+        jsClick(submitButton, webDriver);
     }
 }
