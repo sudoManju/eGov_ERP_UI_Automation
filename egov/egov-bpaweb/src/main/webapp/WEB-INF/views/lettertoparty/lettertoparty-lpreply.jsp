@@ -107,6 +107,8 @@
 							<div class="col-sm-2 add-margin  view-content">
 							    <c:out value="${lettertoParty.sentDate}"></c:out>
 							</div>
+								<form:hidden path="sentDate" id="sentDate"
+								value="${sentDate}" />
 						</div>
 						<div class="form-group">
 										<div class="col-sm-2 add-margin">
