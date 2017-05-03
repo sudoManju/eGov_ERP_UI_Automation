@@ -1,75 +1,72 @@
 package builders.eGovEIS.employeeMaster.leaveType.create;
 
-import entities.requests.eGovEIS.employeeMaster.leaveType.create.LeaveType1;
+import entities.requests.eGovEIS.employeeMaster.leaveType.create.LeaveType;
 
-public final class LeaveType1Builder {
+public final class LeaveTypeBuilder {
 
-    LeaveType1 leaveType1 = new LeaveType1();
+    LeaveType leaveType = new LeaveType();
 
-    private LeaveType1Builder() {
-    }
-
-    public LeaveType1Builder withEncashable(boolean encashable) {
-        leaveType1.setEncashable(encashable);
+    public LeaveTypeBuilder withEncashable(boolean encashable) {
+        leaveType.setEncashable(encashable);
         return this;
     }
 
-    public LeaveType1Builder withCreatedDate(String createdDate) {
-        leaveType1.setCreatedDate(createdDate);
+    public LeaveTypeBuilder withCreatedDate(String createdDate) {
+        leaveType.setCreatedDate(createdDate);
         return this;
     }
 
-    public LeaveType1Builder withAccumulative(boolean accumulative) {
-        leaveType1.setAccumulative(accumulative);
+    public LeaveTypeBuilder withAccumulative(boolean accumulative) {
+        leaveType.setAccumulative(accumulative);
         return this;
     }
 
-    public LeaveType1Builder withCreatedBy(String createdBy) {
-        leaveType1.setCreatedBy(createdBy);
+    public LeaveTypeBuilder withCreatedBy(String createdBy) {
+        leaveType.setCreatedBy(createdBy);
         return this;
     }
 
-    public LeaveType1Builder withLastModifiedDate(String lastModifiedDate) {
-        leaveType1.setLastModifiedDate(lastModifiedDate);
+    public LeaveTypeBuilder withLastModifiedDate(String lastModifiedDate) {
+        leaveType.setLastModifiedDate(lastModifiedDate);
         return this;
     }
 
-    public LeaveType1Builder withLastModifiedBy(String lastModifiedBy) {
-        leaveType1.setLastModifiedBy(lastModifiedBy);
+    public LeaveTypeBuilder withLastModifiedBy(String lastModifiedBy) {
+        leaveType.setLastModifiedBy(lastModifiedBy);
         return this;
     }
 
-    public LeaveType1Builder withName(String name) {
-        leaveType1.setName(name);
+    public LeaveTypeBuilder withName(String name) {
+        leaveType.setName(name);
         return this;
     }
 
-    public LeaveType1Builder withTenantId(String tenantId) {
-        leaveType1.setTenantId(tenantId);
+    public LeaveTypeBuilder withTenantId(String tenantId) {
+        leaveType.setTenantId(tenantId);
         return this;
     }
 
-    public LeaveType1Builder withDescription(String description) {
-        leaveType1.setDescription(description);
+    public LeaveTypeBuilder withDescription(String description) {
+        leaveType.setDescription(description);
         return this;
     }
 
-    public LeaveType1Builder withPayEligible(boolean payEligible) {
-        leaveType1.setPayEligible(payEligible);
+    public LeaveTypeBuilder withPayEligible(boolean payEligible) {
+        leaveType.setPayEligible(payEligible);
         return this;
     }
 
-    public LeaveType1Builder withActive(boolean active) {
-        leaveType1.setActive(active);
+    public LeaveTypeBuilder withActive(boolean active) {
+        leaveType.setActive(active);
         return this;
     }
 
-    public LeaveType1Builder withHalfdayAllowed(boolean halfdayAllowed) {
-        leaveType1.setHalfdayAllowed(halfdayAllowed);
+    public LeaveTypeBuilder withHalfdayAllowed(boolean halfdayAllowed) {
+        leaveType.setHalfdayAllowed(halfdayAllowed);
         return this;
     }
 
-    public LeaveType1 build() {
-        return leaveType1;
+    public LeaveType build() {
+        return leaveType;
     }
 }

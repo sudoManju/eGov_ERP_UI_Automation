@@ -1,8 +1,15 @@
 package entities.responses.eGovEIS.employeeMaster.create;
 
+import entities.responses.eGovEIS.employeeMaster.RequestInfo;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 public class LeaveTypeCreateResponse {
+
+    @JsonProperty("LeaveType")
     private LeaveType[] LeaveType;
-    private entities.responses.eGovEIS.employeeMaster.RequestInfo RequestInfo;
+
+    @JsonProperty("RequestInfo")
+    private RequestInfo RequestInfo;
 
     public LeaveType[] getLeaveType() {
         return this.LeaveType;
@@ -12,11 +19,11 @@ public class LeaveTypeCreateResponse {
         this.LeaveType = LeaveType;
     }
 
-    public entities.responses.eGovEIS.employeeMaster.RequestInfo getRequestInfo() {
+    public RequestInfo getRequestInfo() {
         return this.RequestInfo;
     }
 
-    public void setRequestInfo(entities.responses.eGovEIS.employeeMaster.RequestInfo RequestInfo) {
+    public void setRequestInfo(RequestInfo RequestInfo) {
         this.RequestInfo = RequestInfo;
     }
 }

@@ -1,4 +1,4 @@
-package builders.eGovEIS.employeeMaster.leaveType;
+package builders.eGovEIS.employeeMaster;
 
 import entities.requests.eGovEIS.employeeMaster.RequestInfo;
 
@@ -6,7 +6,7 @@ public final class RequestInfoBuilder {
 
     RequestInfo requestInfo = new RequestInfo();
 
-    private RequestInfoBuilder() {
+    public RequestInfoBuilder() {
         requestInfo.setApiId("emp");
         requestInfo.setVer("1.0");
         requestInfo.setTs("10-03-2017 00:00:00");

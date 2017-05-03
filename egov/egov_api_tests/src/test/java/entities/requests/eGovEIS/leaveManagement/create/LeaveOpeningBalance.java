@@ -1,4 +1,4 @@
-package entities.requests.eGovEIS.hrLeave.create;
+package entities.requests.eGovEIS.leaveManagement.create;
 
 public class LeaveOpeningBalance {
     private LeaveType leaveType;

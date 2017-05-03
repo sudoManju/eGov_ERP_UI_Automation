@@ -1,16 +1,16 @@
-package tests.eGovEIS.hrLeave;
+package tests.eGovEIS.leaveManagement;
 
-import builders.eGovEIS.hrLeave.create.LeaveOpeningBalanceBuilder;
-import builders.eGovEIS.hrLeave.create.LeaveTypeBuilder;
-import builders.eGovEIS.hrLeave.create.OpeningBalanceCreateRequestBuilder;
-import builders.eGovEIS.hrLeave.create.RequestInfoBuilder;
-import builders.eGovEIS.hrLeave.search.SearchOpeningBalanceRequestBuilder;
+import builders.eGovEIS.leaveManagement.create.LeaveOpeningBalanceBuilder;
+import builders.eGovEIS.leaveManagement.create.LeaveTypeBuilder;
+import builders.eGovEIS.leaveManagement.create.OpeningBalanceCreateRequestBuilder;
+import builders.eGovEIS.leaveManagement.create.RequestInfoBuilder;
+import builders.eGovEIS.leaveManagement.search.SearchOpeningBalanceRequestBuilder;
 import com.jayway.restassured.response.Response;
-import entities.requests.eGovEIS.hrLeave.RequestInfo;
-import entities.requests.eGovEIS.hrLeave.create.LeaveOpeningBalance;
-import entities.requests.eGovEIS.hrLeave.create.LeaveType;
-import entities.requests.eGovEIS.hrLeave.create.OpeningBalanceCreateRequest;
-import entities.requests.eGovEIS.hrLeave.search.SearchOpeningBalanceRequest;
+import entities.requests.eGovEIS.leaveManagement.RequestInfo;
+import entities.requests.eGovEIS.leaveManagement.create.LeaveOpeningBalance;
+import entities.requests.eGovEIS.leaveManagement.create.LeaveType;
+import entities.requests.eGovEIS.leaveManagement.create.OpeningBalanceCreateRequest;
+import entities.requests.eGovEIS.leaveManagement.search.SearchOpeningBalanceRequest;
 import org.junit.Assert;
 import org.testng.annotations.Test;
 import resources.EgovEISResource;

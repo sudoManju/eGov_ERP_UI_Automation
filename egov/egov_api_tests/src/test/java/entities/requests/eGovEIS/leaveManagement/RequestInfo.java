@@ -1,4 +1,4 @@
-package entities.requests.eGovEIS.hrLeave;
+package entities.requests.eGovEIS.leaveManagement;
 
 public class RequestInfo {
     private String ver;

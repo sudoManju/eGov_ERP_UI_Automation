@@ -1,6 +1,6 @@
 package entities.requests.eGovEIS.employeeMaster.leaveType.create;
 
-public class LeaveType1 {
+public class LeaveType {
 
     private boolean encashable;
     private String createdDate;

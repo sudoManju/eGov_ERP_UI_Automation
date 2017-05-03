@@ -1,7 +1,7 @@
-package builders.eGovEIS.hrLeave.search;
+package builders.eGovEIS.leaveManagement.search;
 
-import entities.requests.eGovEIS.hrLeave.RequestInfo;
-import entities.requests.eGovEIS.hrLeave.search.SearchOpeningBalanceRequest;
+import entities.requests.eGovEIS.leaveManagement.RequestInfo;
+import entities.requests.eGovEIS.leaveManagement.search.SearchOpeningBalanceRequest;
 
 public final class SearchOpeningBalanceRequestBuilder {
 

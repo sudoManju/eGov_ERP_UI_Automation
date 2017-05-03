@@ -1,7 +1,7 @@
-package builders.eGovEIS.hrLeave.create;
+package builders.eGovEIS.leaveManagement.create;
 
 
-import entities.requests.eGovEIS.hrLeave.RequestInfo;
+import entities.requests.eGovEIS.leaveManagement.RequestInfo;
 
 public class RequestInfoBuilder {
 
