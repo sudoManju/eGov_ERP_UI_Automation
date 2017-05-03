@@ -145,7 +145,7 @@
 											<form:checkbox
 												id="lettertoPartyDocument${status.index}isrequested"
 												path="lettertoPartyDocument[${status.index}].isrequested"
-												value="lettertoPartyDocument${status.index}isrequested" />
+												value="lettertoPartyDocument${status.index}isrequested"   class="requested"/>
 										</div>
 
 										<div class="col-sm-3 add-margin text-center">
@@ -168,7 +168,7 @@
 		</div>
 	</div>
 	<div class="text-center">
-		<button type='submit' class='btn btn-primary' id="buttonSubmit">
+		<button type='submit' class='btn btn-primary' id="buttonCreateSubmit">
 			<spring:message code='lbl.create' />
 		</button>
 		<a href='javascript:void(0)' class='btn btn-default'

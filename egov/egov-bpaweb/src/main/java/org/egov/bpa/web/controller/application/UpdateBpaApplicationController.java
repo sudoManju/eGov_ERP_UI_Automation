@@ -308,7 +308,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         Position pos = null;
         if (BpaConstants.LETTERTOPARTYSENT.equalsIgnoreCase(bpaApplication.getState().getNextAction()))
             approvalPosition = bpaApplication.getState().getPreviousOwner().getId();
-        if (request.getParameter(APPRIVALPOSITION) != null && !WF_REJECT_BUTTON.equalsIgnoreCase(workFlowAction)
+        else if (request.getParameter(APPRIVALPOSITION) != null && !WF_REJECT_BUTTON.equalsIgnoreCase(workFlowAction)
                 && !WF_CANCELAPPLICATION_BUTTON.equalsIgnoreCase(workFlowAction)) {
             approvalPosition = Long.valueOf(request.getParameter(APPRIVALPOSITION));
         } else if (WF_REJECT_BUTTON.equalsIgnoreCase(workFlowAction)) {

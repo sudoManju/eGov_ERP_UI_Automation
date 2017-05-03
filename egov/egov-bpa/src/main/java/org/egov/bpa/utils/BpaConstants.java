@@ -114,7 +114,7 @@ public class BpaConstants {
     public static final String INSPECTION_NUMBER_SEQ = "SEQ_BPA_INSPECTIONNUMBER";
     public static final String INSPECTIONLOCATION= "INSPECTIONLOCATION";
     public static final String INSPECTIONMEASUREMENT = "INSPECTIONMEASUREMENT";
-    public static final String LETTERTOPARTY_REPLY_RECEIVED="Letter To Party Received";
+    public static final String LETTERTOPARTY_REPLY_RECEIVED="Letter To Party Reply Received"; 
 
     public static final String INSPECTIONACCESS = "INSPECTIONACCESS";
 

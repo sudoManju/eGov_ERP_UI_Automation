@@ -64,12 +64,19 @@
 					</div>
 					<div class="panel-body">
 						<div class="row add-border">
-							<div class="col-sm-2 add-margin">
+							<div class="col-sm-3 add-margin">
 								<spring:message code="lbl.lpNumber" />
 							</div>
 							<div class="col-sm-2 add-margin view-content">
 								<c:out value="${lettertoParty.lpNumber}"></c:out>
 							</div>
+							<div class="col-sm-3 add-margin">
+								<spring:message code="lbl.lp.date" />
+							</div>
+							<div class="col-sm-3 add-margin view-content">
+								<c:out value="${lettertoParty.letterDate}"></c:out>
+							</div>
+							
 							<form:hidden path="application" id="applicationId"
 								value="${application.id}" />
 
@@ -78,21 +85,19 @@
 							<input type="hidden" id='lettertoParty' name="lettertoParty"
 								value="${lettertoParty.id}">
 						</div>
-						<div class="form-group">
-							<div class="col-sm-2 add-margin">
+						<div class="row add-border">
+							<div class="col-sm-3 add-margin">
 								<spring:message code="lbl.lpreason" />
 							</div>
-							<div class="col-sm-2 add-margin">
+							<div class="col-sm-2 add-margin view-content">
 								<c:out value="${lettertoParty.lpReason.description}" />
 							</div>
-							<div class="row add-border">
-								<label class="col-sm-3 control-label text-right"><spring:message
-										code="lbl.lpdescription" /></label>
-								<div class="col-sm-3 add-margin">
+							<div class="col-sm-3 add-margin">
+								<spring:message	code="lbl.lpdescription" />
+							</div>	
+								<div class="col-sm-3 add-margin view-content">
 									<c:out value="${lettertoParty.lpDesc}" /></span></td>
 								</div>
-
-							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-sm-2 add-margin">
@@ -125,5 +130,7 @@
 	src="<cdn:url value='/resources/global/js/bootstrap/bootstrap-datepicker.js' context='/egi'/>"></script>
 <link rel="stylesheet"
 	href="<cdn:url value='/resources/global/css/bootstrap/bootstrap-datepicker.css' context='/egi'/>">
+<script
+	src="<cdn:url value='/resources/global/js/jquery/plugins/datatables/moment.min.js' context='/egi'/>"></script>
 <script
 	src="<cdn:url value='/resources/js/app/lettertoparty.js?rnd=${app_release_no}'/> "></script>

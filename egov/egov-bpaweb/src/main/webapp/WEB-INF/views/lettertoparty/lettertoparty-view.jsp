@@ -45,11 +45,6 @@
 
 
 <div class="panel-body">
-
-	<div class="panel panel-primary" data-collapsed="0">
-		<jsp:include page="lettertoparty-details.jsp"></jsp:include>
-	</div>
-
 	<div class="row add-border">
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.lpNumber" />

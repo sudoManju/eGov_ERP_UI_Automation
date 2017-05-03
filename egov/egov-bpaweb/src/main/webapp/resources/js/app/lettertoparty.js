@@ -37,11 +37,57 @@
  *
  *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
+ 
+jQuery(document).ready(function($) {
+	
+	$("#buttonCreateSubmit").click(function(e){ 
+		var chkbxLength = $('.requested:checked').length;
+		if(chkbxLength <= 0){
+			bootbox.alert('Please select atleast one document.');
+			return false;
+		}
+		validateDate();
+		return true;
+});  
+	
+	$('#sentDate').on('changeDate', function(e) {
+		validateDate();
+	});
+	$('#replyDate').on('changeDate', function(e) {
+		validateReplyDate();
+	});
 
+	
+});
 	function getUrlToPring() {
 		var url = '/bpa/lettertoparty/lettertopartyprint?pathVar='+$('#lettertoParty').val();
-		$('#editmeterWaterConnectionform').attr('method', 'get');    
-		$('#editmeterWaterConnectionform').attr('action', url);
+		$('#lettertoPartyform').attr('method', 'get');    
+		$('#lettertoPartyform').attr('action', url);
 		window.location = url;
+	}
+	function validateReplyDate() {   
+		if ($('#sentDate') && $('#sentDate').val() && $('#replyDate') && $('#replyDate').val()) {
+			var sentdateStr = $('#sentDate').val();
+			var sentdateDateTime = moment(sentdateStr,["DD/MM/YYYY"]);
+			var replyDateStr = $('#replyDate').val();
+			var replyDateTime = moment(replyDateStr,["DD/MM/YYYY"]);
+			if ( sentdateDateTime > replyDateTime) {
+				bootbox.alert('LP Reply Date should be greater than the Letter to party sent Date');
+				$('#replyDate').val('');
+			}
+		}   
+	}	
+	
+	function validateDate() {   
+		if ($('#sentDate') && $('#sentDate').val() && $('#letterDate') && $('#letterDate').val()) {
+			var sentdateStr = $('#sentDate').val();
+			var sentdateDateTime = moment(sentdateStr,["DD/MM/YYYY"]);
+			var letterDateStr = $('#letterDate').val();
+			var letterDateTime = moment(letterDateStr,["DD/MM/YYYY"]);
+			if (letterDateTime > sentdateDateTime) {
+				bootbox.alert('Letter to party sent Date  should be greater than the LP Date');
+				$('#sentDate').val('');
+			}
+		}
 	}
 
