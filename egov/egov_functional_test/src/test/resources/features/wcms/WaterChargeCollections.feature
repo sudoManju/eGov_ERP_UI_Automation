@@ -71,8 +71,8 @@ Feature: To collect water charges in different mode payments
     Examples:
       | connectionDetails | inspectionDetails | approvalOfficer1 | approvalOfficer2        | approvalOfficer3 | paymentMode |
       | New_connection    | inspectionInfo    | engineer         | deputyExecutiveEngineer | commissioner1    | cash        |
-#      | New_connection    | inspectionInfo    | engineer         | deputyExecutiveEngineer | commissioner1    | cheque      |
-#      | New_connection    | inspectionInfo    | engineer         | deputyExecutiveEngineer | commissioner1    | dd          |
+      | New_connection    | inspectionInfo    | engineer         | deputyExecutiveEngineer | commissioner1    | cheque      |
+      | New_connection    | inspectionInfo    | engineer         | deputyExecutiveEngineer | commissioner1    | dd          |
 
 
   @Sanity @WaterCharges @Smoke1 @Experiment
