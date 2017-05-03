@@ -81,6 +81,10 @@ public class BPASmsAndEmailService {
     private static final String MSG_KEY_SMS_BPA_FIELD_INS_RESCHE = "msg.bpa.field.ins.reschedule.sms";
     private static final String SUBJECT_KEY_EMAIL_BPA_FIELD_INS_RESCHE = "msg.bpa.field.ins.reschedule.email.body";
     private static final String BODY_KEY_EMAIL_BPA_FIELD_INS_RESCHE = "msg.bpa.field.ins.reschedule.email.subject";
+
+    private static final String MSG_KEY_SMS_LETTERTOPARTY = "msg.bpa.lettertoparty.sms";
+    private static final String SUBJECT_KEY_EMAIL_LETTERTOPARTY = "msg.bpa.lettertoparty.email.body";
+    private static final String BODY_KEY_EMAIL_LETTERTOPARTY = "msg.bpa.lettertoparty.email.subject";
     @Autowired
     private MessagingService messagingService;
     @Autowired
@@ -137,6 +141,14 @@ public class BPASmsAndEmailService {
         }
     }
 
+    public void sendSMSAndEmailToApplicantForLettertoparty(final BpaApplication bpaApplication) {
+        if (isSmsEnabled() || isEmailEnabled()) {
+            buildSmsAndEmailForBPANewAppln(bpaApplication, bpaApplication.getOwner().getApplicantName(),
+                    bpaApplication.getOwner().getEmailid(),
+                    bpaApplication.getOwner().getMobileNumber());
+        }
+    }
+
     private void buildSmsAndEmailForBPANewAppln(final BpaApplication bpaApplication, final String applicantName,
             final String mobileNo, final String email) {
         String smsMsg = null;
@@ -148,6 +160,13 @@ public class BPASmsAndEmailService {
             body = emailBodyByCodeAndArgsWithType(BODY_KEY_EMAIL_BPA_APPLN_NEW, applicantName,
                     bpaApplication, SMSEMAILTYPENEWBPAREGISTERED);
             subject = emailSubjectforEmailByCodeAndArgs(SUBJECT_KEY_EMAIL_BPA_APPLN_NEW, bpaApplication.getApplicationNumber());
+        } else if (BpaConstants.CREATEDLETTERTOPARTY.equalsIgnoreCase(bpaApplication.getStatus().getCode())) {
+            smsMsg = smsBodyByCodeAndArgsWithType(MSG_KEY_SMS_LETTERTOPARTY, applicantName,
+                    bpaApplication, BpaConstants.SMSEMAILTYPELETTERTOPARTY);
+            body = emailBodyByCodeAndArgsWithType(BODY_KEY_EMAIL_LETTERTOPARTY, applicantName,
+                    bpaApplication, BpaConstants.SMSEMAILTYPELETTERTOPARTY);
+            subject = emailSubjectforEmailByCodeAndArgs(SUBJECT_KEY_EMAIL_LETTERTOPARTY, bpaApplication.getApplicationNumber());
+
         }
 
         if (mobileNo != null && smsMsg != null)
@@ -259,6 +278,10 @@ public class BPASmsAndEmailService {
             body = bpaMessageSource.getMessage(
                     code,
                     new String[] { applicantName, bpaApplication.getApplicationNumber() }, null);
+        } else if (BpaConstants.SMSEMAILTYPELETTERTOPARTY.equalsIgnoreCase(type)) {
+            body = bpaMessageSource.getMessage(
+                    code,
+                    new String[] { applicantName, bpaApplication.getApplicationNumber() }, null);
         }
         return body;
     }
@@ -266,6 +289,10 @@ public class BPASmsAndEmailService {
     private String smsBodyByCodeAndArgsWithType(String code, String applicantName, BpaApplication bpaApplication, String type) {
         String smsMsg = "";
         if (SMSEMAILTYPENEWBPAREGISTERED.equalsIgnoreCase(type)) {
+            smsMsg = bpaMessageSource.getMessage(code,
+                    new String[] { applicantName, bpaApplication.getApplicationNumber() }, null);
+        }
+        else if (BpaConstants.SMSEMAILTYPELETTERTOPARTY.equalsIgnoreCase(type)) {
             smsMsg = bpaMessageSource.getMessage(code,
                     new String[] { applicantName, bpaApplication.getApplicationNumber() }, null);
         }

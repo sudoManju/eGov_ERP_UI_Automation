@@ -88,6 +88,16 @@
 			</div>
 		</div>	
 		</c:if>
+			  <c:if test="${lettertoParty.lastReplyDate !=null }">
+		 <div class="row add-border">
+			<div class="col-sm-3 add-margin">
+				<spring:message code="lbl.lastreplydate" />
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+				<c:out value="${lettertoParty.lastReplyDate}"></c:out>
+			</div>
+		</div>	
+		</c:if>
 
 	<c:if test="${not empty lettertopartydocList}">
 		<thead>

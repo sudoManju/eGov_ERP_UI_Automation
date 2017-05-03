@@ -99,6 +99,14 @@
 									<c:out value="${lettertoParty.lpDesc}" /></span></td>
 								</div>
 						</div>
+						<div class="row add-border">
+							<div class="col-sm-3 add-margin">
+								<spring:message code="lbl.lastreplydate" />
+							</div>
+							<div class="col-sm-2 add-margin view-content">
+								<c:out value="${lettertoParty.lastReplyDate}" />
+							</div>
+						</div>
 						<div class="form-group">
 							<div class="col-sm-2 add-margin">
 								<spring:message code="lbl.lpsentdate" />

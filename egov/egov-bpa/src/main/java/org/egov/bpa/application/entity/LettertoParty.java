@@ -103,6 +103,8 @@ public class LettertoParty extends AbstractAuditable {
     private Boolean isHistory;
     @Length(min = 1, max = 512)
     private String documentid;
+    @Temporal(TemporalType.DATE)
+    private Date lastReplyDate;
 
     @OneToMany(mappedBy = "letterToParty", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<AutoDcrMap> autoDcrMap = new ArrayList<AutoDcrMap>(0);
@@ -265,6 +267,14 @@ public class LettertoParty extends AbstractAuditable {
 
     public void setLettertoPartyDocument(List<LettertoPartyDocument> lettertoPartyDocument) {
         this.lettertoPartyDocument = lettertoPartyDocument;
+    }
+
+    public Date getLastReplyDate() {
+        return lastReplyDate;
+    }
+
+    public void setLastReplyDate(Date lastReplyDate) {
+        this.lastReplyDate = lastReplyDate;
     }
 
 }

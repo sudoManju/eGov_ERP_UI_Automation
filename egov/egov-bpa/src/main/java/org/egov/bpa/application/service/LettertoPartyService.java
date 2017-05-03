@@ -39,6 +39,7 @@ import org.egov.bpa.application.entity.LettertoParty;
 import org.egov.bpa.application.repository.LettertoPartyRepository;
 import org.egov.bpa.service.BpaStatusService;
 import org.egov.bpa.service.BpaUtils;
+import org.egov.bpa.utils.BPASmsAndEmailService;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.commons.service.FinancialYearService;
 import org.egov.infra.utils.autonumber.AutonumberServiceBeanResolver;
@@ -60,6 +61,8 @@ public class LettertoPartyService {
     BpaUtils bpaUtils;
     @Autowired
     private BpaStatusService bpaStatusService;
+    @Autowired
+    private BPASmsAndEmailService bpaSmsAndEmailService;
 
     @Autowired
     public LettertoPartyService(final LettertoPartyRepository lettertoPartyRepository) {
@@ -75,6 +78,7 @@ public class LettertoPartyService {
             approverPosition = getDocScutinyUser(lettertoParty.getApplication());
             bpaUtils.redirectToBpaWorkFlow(approverPosition, lettertoParty.getApplication(), BpaConstants.LETTERTOPARTYINITIATE,
                     "Letter to party initiate", BpaConstants.LETTERTOPARTYINITIATE);
+            bpaSmsAndEmailService.sendSMSAndEmailToApplicantForLettertoparty(lettertoParty.getApplication());
         }
 
         if (lettertoParty.getReplyDate() != null) {

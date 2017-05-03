@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-05-02T10:55:56 -->
+<!-- 2017-05-03T18:00:42 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="lettertoparty" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="19a6b87f-b0aa-4611-908a-14a81b44cdbb">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<import value="org.egov.infra.reporting.util.ReportUtil"/>
@@ -21,6 +21,8 @@
 	</field>
 	<field name="sentDate" class="java.util.Date"/>
 	<field name="lettertoPartyDocument" class="java.util.Collection"/>
+	<field name="lastReplyDate" class="java.util.Date"/>
+	<field name="lpDesc" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -109,7 +111,7 @@
 				<textFieldExpression><![CDATA["Date : "]]></textFieldExpression>
 			</textField>
 		</band>
-		<band height="50">
+		<band height="54">
 			<staticText>
 				<reportElement mode="Transparent" x="0" y="1" width="314" height="20" backcolor="#CCCCCC" uuid="b0d49e6e-baad-4c76-9ef1-bc1e363b4ea1"/>
 				<box>
@@ -144,27 +146,34 @@
 				<subreportExpression><![CDATA[ReportUtil.getTemplateAsStream("lp_checklist.jasper")]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="76">
+		<band height="142">
 			<staticText>
-				<reportElement stretchType="RelativeToBandHeight" x="5" y="3" width="540" height="24" uuid="77f48b75-e602-4184-9d48-2d61116e437b"/>
-				<textElement textAlignment="Justified" verticalAlignment="Middle">
-					<font fontName="Times New Roman" isItalic="true"/>
-				</textElement>
-				<text><![CDATA[Failure to comply with the above requirements within Seven Days of receipt of this communication will lead to disposal of the above application on its merits without further intimation.]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="388" y="61" width="160" height="15" uuid="a93bb901-4fd1-4826-8a28-e43449d401ad"/>
+				<reportElement x="388" y="113" width="160" height="15" uuid="a93bb901-4fd1-4826-8a28-e43449d401ad"/>
 				<textElement>
 					<font fontName="Times New Roman"/>
 				</textElement>
 				<text><![CDATA[ Asst. Executive Engineer (T.P.)]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="5" y="26" width="172" height="20" uuid="55c16c50-7e31-4887-801f-f25af859a0d7"/>
+				<reportElement x="5" y="92" width="172" height="20" uuid="55c16c50-7e31-4887-801f-f25af859a0d7"/>
 				<textElement markup="none">
 					<font fontName="Times New Roman"/>
 				</textElement>
 				<textFieldExpression><![CDATA["LP No :"+$F{lpNumber}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="1" y="30" width="540" height="62" uuid="169be3a7-3d60-4d60-9ed1-815067b41d80">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Failure to comply with the above requirements within "+$F{lastReplyDate}+ " will lead to disposal of the above application on its merits without further intimation."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="0" width="555" height="30" uuid="63f9c209-3bee-4b4c-ab62-ee3d3684002f"/>
+				<textFieldExpression><![CDATA[$F{lpDesc}==null?"":$F{lpDesc}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

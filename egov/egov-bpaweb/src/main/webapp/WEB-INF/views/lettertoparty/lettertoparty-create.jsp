@@ -90,6 +90,16 @@
 									maxlength="1024" id="lpDesc" />
 								<form:errors path="lpDesc" cssClass="error-msg" />
 							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label text-right"><spring:message
+									code="lbl.lastreplydate" /><span class="mandatory"></span></label>
+							<div class="col-sm-3 add-margin">
+								<form:input path="lastReplyDate" class="form-control datepicker"
+									data-date-start-date="0d" id="lastReplyDate"
+									data-inputmask="'mask': 'd/m/y'"  required="required" />
+								<form:errors path="lastReplyDate" cssClass="add-margin error-msg" /> 
+							</div>
 
 						</div>
 
