@@ -120,6 +120,12 @@ public class BasePage {
         webElement.sendKeys(date, Keys.TAB);
     }
 
+    protected void checkDropdownIsLoadedOrNot(WebElement webElement, String text, WebDriver webDriver , String containsText) {
+        if (webElement.getText().contains(containsText)) {
+            selectFromDropDown(webElement, text, webDriver);
+        }
+    }
+
     protected void switchToNewlyOpenedWindow(WebDriver driver) {
         await().atMost(20, SECONDS).until(() -> driver.getWindowHandles().size() > 1);
         for (String winHandle : driver.getWindowHandles()) {
