@@ -50,6 +50,9 @@ import static org.egov.ptis.constants.PropertyTaxConstants.APPLICATION_TYPE_NEW_
 import static org.egov.ptis.constants.PropertyTaxConstants.APPLICATION_TYPE_REVISION_PETITION;
 import static org.egov.ptis.constants.PropertyTaxConstants.APPLICATION_TYPE_TRANSFER_OF_OWNERSHIP;
 import static org.egov.ptis.constants.PropertyTaxConstants.APPLICATION_TYPE_VACANCY_REMISSION;
+import static org.egov.ptis.constants.PropertyTaxConstants.APPLICATION_TYPE_TAX_EXEMTION;
+import static org.egov.ptis.constants.PropertyTaxConstants.APPLICATION_TYPE_DEMOLITION;
+import static org.egov.ptis.constants.PropertyTaxConstants.APPLICATION_TYPE_AMALGAMATION;
 import static org.egov.ptis.constants.PropertyTaxConstants.ARR_COLL_STR;
 import static org.egov.ptis.constants.PropertyTaxConstants.ARR_DMD_STR;
 import static org.egov.ptis.constants.PropertyTaxConstants.BIGDECIMAL_100;
@@ -2117,7 +2120,10 @@ public class PropertyService {
             user = assignmentService.getAssignmentsForPosition(position.getId(), new Date()).get(0).getEmployee();
         if (!applictionType.isEmpty() && (applictionType.equalsIgnoreCase(APPLICATION_TYPE_NEW_ASSESSENT)
                 || applictionType.equalsIgnoreCase(APPLICATION_TYPE_ALTER_ASSESSENT)
-                || applictionType.equalsIgnoreCase(APPLICATION_TYPE_BIFURCATE_ASSESSENT))) {
+                || applictionType.equalsIgnoreCase(APPLICATION_TYPE_BIFURCATE_ASSESSENT)
+                || applictionType.equalsIgnoreCase(APPLICATION_TYPE_TAX_EXEMTION)
+                || applictionType.equalsIgnoreCase(APPLICATION_TYPE_DEMOLITION)
+                || applictionType.equalsIgnoreCase(APPLICATION_TYPE_AMALGAMATION))) {
             final PropertyImpl property = (PropertyImpl) stateAwareObject;
             ApplicationIndex applicationIndex = applicationIndexService.findByApplicationNumber(property
                     .getApplicationNo());
@@ -2148,9 +2154,11 @@ public class PropertyService {
             } else {
                 applicationIndex.setStatus(property.getState().getValue());
                 if (applictionType.equalsIgnoreCase(APPLICATION_TYPE_NEW_ASSESSENT)
-                        || applictionType.equalsIgnoreCase(APPLICATION_TYPE_ALTER_ASSESSENT) || applictionType
-                                .equalsIgnoreCase(APPLICATION_TYPE_BIFURCATE_ASSESSENT)
-                        || applictionType.equalsIgnoreCase(APPLICATION_TYPE_GRP)) {
+                        || applictionType.equalsIgnoreCase(APPLICATION_TYPE_ALTER_ASSESSENT)
+                        || applictionType.equalsIgnoreCase(APPLICATION_TYPE_BIFURCATE_ASSESSENT)
+                        || applictionType.equalsIgnoreCase(APPLICATION_TYPE_TAX_EXEMTION)
+                        || applictionType.equalsIgnoreCase(APPLICATION_TYPE_DEMOLITION)
+                        || applictionType.equalsIgnoreCase(APPLICATION_TYPE_AMALGAMATION)) {
                     applicationIndex.setConsumerCode(property.getBasicProperty().getUpicNo());
                     applicationIndex.setApplicantName(owner.getName());
                     applicationIndex.setOwnerName(user.getUsername() + "::" + user.getName());
@@ -2168,7 +2176,8 @@ public class PropertyService {
                 applicationIndexService.updateApplicationIndex(applicationIndex);
             }
 
-        } else if (!applictionType.isEmpty() && (applictionType.equalsIgnoreCase(APPLICATION_TYPE_REVISION_PETITION))) {
+        } else if (!applictionType.isEmpty() && (applictionType.equalsIgnoreCase(APPLICATION_TYPE_REVISION_PETITION)
+                || applictionType.equalsIgnoreCase(APPLICATION_TYPE_GRP))) {
             final RevisionPetition property = (RevisionPetition) stateAwareObject;
             ApplicationIndex applicationIndex = applicationIndexService.findByApplicationNumber(property
                     .getObjectionNumber());
@@ -2197,15 +2206,17 @@ public class PropertyService {
                 applicationIndexService.createApplicationIndex(applicationIndex);
             } else {
                 applicationIndex.setStatus(property.getState().getValue());
-                applicationIndex.setOwnerName(user.getUsername() + "::" + user.getName());
-                applicationIndex.setClosed(
-                        property.getState().getValue().contains(WF_STATE_CLOSED) ? ClosureStatus.YES : ClosureStatus.NO);
-                applicationIndex.setApproved(
-                        property.getState().getValue().contains(WF_STATE_COMMISSIONER_APPROVED) ? ApprovalStatus.APPROVED
-                                : property.getState().getValue().contains(WF_STATE_REJECTED)
-                                        || property.getState().getValue().contains(WF_STATE_CLOSED) ? ApprovalStatus.REJECTED
-                                                : ApprovalStatus.INPROGRESS);
-
+                if (applictionType.equalsIgnoreCase(APPLICATION_TYPE_REVISION_PETITION)
+                        || applictionType.equalsIgnoreCase(APPLICATION_TYPE_GRP)) {
+                    applicationIndex.setOwnerName(user.getUsername() + "::" + user.getName());
+                    applicationIndex.setClosed(
+                            property.getState().getValue().contains(WF_STATE_CLOSED) ? ClosureStatus.YES : ClosureStatus.NO);
+                    applicationIndex.setApproved(
+                            property.getState().getValue().contains(WF_STATE_COMMISSIONER_APPROVED) ? ApprovalStatus.APPROVED
+                                    : property.getState().getValue().contains(WF_STATE_REJECTED)
+                                            || property.getState().getValue().contains(WF_STATE_CLOSED) ? ApprovalStatus.REJECTED
+                                                    : ApprovalStatus.INPROGRESS);
+                }
                 applicationIndexService.updateApplicationIndex(applicationIndex);
             }
 
@@ -2319,6 +2330,18 @@ public class PropertyService {
                     .intValue();
         } else if (APPLICATION_TYPE_VACANCY_REMISSION.equals(applicationType)) {
             sla = ptaxApplicationTypeService.findByNamedQuery(PtApplicationType.BY_CODE, "VACANCY_REMISSION").getResolutionTime()
+                    .intValue();
+        } else if (APPLICATION_TYPE_TAX_EXEMTION.equals(applicationType)) {
+            sla = ptaxApplicationTypeService.findByNamedQuery(PtApplicationType.BY_CODE, "TAX_EXEMPTION").getResolutionTime()
+                    .intValue();
+        } else if (APPLICATION_TYPE_DEMOLITION.equals(applicationType)) {
+            sla = ptaxApplicationTypeService.findByNamedQuery(PtApplicationType.BY_CODE, "DEMOLITION").getResolutionTime()
+                    .intValue();
+        } else if (APPLICATION_TYPE_AMALGAMATION.equals(applicationType)) {
+            sla = ptaxApplicationTypeService.findByNamedQuery(PtApplicationType.BY_CODE, "AMALGAMATION").getResolutionTime()
+                    .intValue();
+        } else if (APPLICATION_TYPE_BIFURCATE_ASSESSENT.equals(applicationType)) {
+            sla = ptaxApplicationTypeService.findByNamedQuery(PtApplicationType.BY_CODE, "BIFURCATION").getResolutionTime()
                     .intValue();
         }
         return sla;
