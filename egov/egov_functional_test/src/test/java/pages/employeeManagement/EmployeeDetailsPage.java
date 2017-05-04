@@ -175,9 +175,10 @@ public class EmployeeDetailsPage extends BasePage {
         this.driver = driver;
     }
 
-    public void enterEmployeeDetails(EmployeeDetails employeeDetails) {
+    public String enterEmployeeDetails(EmployeeDetails employeeDetails) {
         enterText(employeeNameTextBox, "TestUser_" + get6DigitRandomInt(), driver);
-        enterText(employeeCodeTextBox, "EMP_" + get6DigitRandomInt(), driver);
+        String employeeCode = "EMP_"+get6DigitRandomInt();
+        enterText(employeeCodeTextBox, employeeCode, driver);
         selectFromDropDown(employeeTypeBox, employeeDetails.getEmployeeType(), driver);
         selectFromDropDown(employeeStatusBox, employeeDetails.getStatus(), driver);
         enterText(dobTextBox, employeeDetails.getDateOfBirth(), driver);
@@ -202,5 +203,8 @@ public class EmployeeDetailsPage extends BasePage {
         enterText(permanentCityTextBox, employeeDetails.getPermanentCity(), driver);
         enterText(permanentPincodeTextBox, employeeDetails.getPermanentPincode(), driver);
         enterText(dateOfAppointmentTextBox, employeeDetails.getDateOfAppointment(), driver);
+
+        return employeeCode;
     }
+
 }

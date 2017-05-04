@@ -32,7 +32,7 @@ Feature: Create/Collect/Remit/Cancel Miscellaneous Receipt
     And user closes the acknowledgement
     And current user logs out
 
-    And adm_manager_1 logs in
+    And adm_manager logs in
     And he chooses to act upon the above receipt in inbox
     And he approves all collections
     Then user will be notified by "Approved"
@@ -50,7 +50,7 @@ Feature: Create/Collect/Remit/Cancel Miscellaneous Receipt
   @Collections @Sanity @Smoke
   Scenario: Remittance of receipt
 
-    Given adm_manager_1 logs in
+    Given adm_manager logs in
     And user will select the required screen as "bank remittance"
     And he select the required file with bank details
     Then user will be notified by "successfully"

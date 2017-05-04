@@ -76,7 +76,8 @@ public class AssetServicePage extends BasePage {
 
     public void enterLocationDetails(LocationDetails locationDetails) {
         selectFromDropDown(localitySelectBox, locationDetails.getLocality(), webDriver);
-        enterText(webDriver.findElement(By.cssSelector("input[id='description']")), "Description", webDriver);
+//        enterText(webDriver.findElement(By.cssSelector("input[id='description']")), "Description", webDriver);
+        enterText(webDriver.findElement(By.cssSelector("input[type='text'][name='Shop Details']")),"Testing",webDriver);
     }
 
     public void enterAssetStatusDetails(String assetStatus) {

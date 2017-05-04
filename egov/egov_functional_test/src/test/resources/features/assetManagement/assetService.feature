@@ -12,4 +12,3 @@ Feature: Create/Search for Asset Service
     Examples:
       | headerDetails | locationDetails | assetStatus |
       | header1       | location1       | CREATED     |
-

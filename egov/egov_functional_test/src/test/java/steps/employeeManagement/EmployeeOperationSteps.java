@@ -1,6 +1,7 @@
 package steps.employeeManagement;
 
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.employeeManagement.AssignmentDetails;
 import entities.employeeManagement.EmployeeDetails;
@@ -17,7 +18,7 @@ public class EmployeeOperationSteps extends BaseSteps implements En {
 
         And("^user enters the employee details as (\\w+)$", (String employeeDetailsDataId) -> {
             EmployeeDetails employeeDetails = new EmployeeManagementDetailsDataReader(eisTestDataFileName).getEmployeeDetails(employeeDetailsDataId);
-            pageStore.get(EmployeeDetailsPage.class).enterEmployeeDetails(employeeDetails);
+            scenarioContext.setApplicationNumber(pageStore.get(EmployeeDetailsPage.class).enterEmployeeDetails(employeeDetails));
         });
 
         And("^user will enter the assignment details as (\\w+)$", (String dataId) -> {
@@ -31,6 +32,11 @@ public class EmployeeOperationSteps extends BaseSteps implements En {
         });
         Then("^user clicks on submit button$", () -> {
             pageStore.get(EmployeeOtherDetailsPage.class).submitCreateEmployee();
+
         });
+        Then("^user close the employee search$", () -> {
+            pageStore.get(EmployeeOtherDetailsPage.class).closeEmployeeSearch();
+        });
+
     }
 }

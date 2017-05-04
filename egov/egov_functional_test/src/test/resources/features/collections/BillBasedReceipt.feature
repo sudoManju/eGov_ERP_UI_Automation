@@ -29,7 +29,7 @@ Feature: Create/Collect Bill Based Receipt
     And user closes the acknowledgement
     And current user logs out
 
-    When adm_manager_1 logs in
+    When adm_manager logs in
     And he chooses to act upon on receipt
     And he approves all collections
     Then user will be notified by "Approved"

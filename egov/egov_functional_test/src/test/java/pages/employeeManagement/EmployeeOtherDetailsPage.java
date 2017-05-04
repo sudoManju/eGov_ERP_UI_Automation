@@ -185,4 +185,9 @@ public class EmployeeOtherDetailsPage extends BasePage {
     public void submitCreateEmployee() {
         jsClick(submitButton, webDriver);
     }
+
+    public void closeEmployeeSearch() {
+        clickOnButton(webDriver.findElement(By.cssSelector(".btn.btn-close")),webDriver);
+        switchToPreviouslyOpenedWindow(webDriver);
+    }
 }
