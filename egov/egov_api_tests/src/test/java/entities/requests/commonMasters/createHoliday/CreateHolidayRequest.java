@@ -7,7 +7,7 @@ public class CreateHolidayRequest {
     @JsonProperty("Holiday")
     private Holiday Holiday;
 
-    @JsonProperty("RequestInfo")
+    @JsonProperty("RequestInfo1")
     private RequestInfo RequestInfo;
 
     public Holiday getHoliday() {

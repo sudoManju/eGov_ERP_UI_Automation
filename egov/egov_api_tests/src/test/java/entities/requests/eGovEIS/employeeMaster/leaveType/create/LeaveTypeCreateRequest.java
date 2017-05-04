@@ -8,7 +8,7 @@ public class LeaveTypeCreateRequest {
     @JsonProperty("LeaveType")
     private LeaveType[] LeaveType;
 
-    @JsonProperty("RequestInfo")
+    @JsonProperty("RequestInfo1")
     private RequestInfo RequestInfo;
 
     public LeaveType[] getLeaveType() {

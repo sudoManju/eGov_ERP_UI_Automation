@@ -5,7 +5,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class LamsServiceRequest {
 
-    @JsonProperty("RequestInfo")
+    @JsonProperty("RequestInfo1")
     private RequestInfo requestInfo;
 
     public RequestInfo getRequestInfo() {

@@ -4,7 +4,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class CreateAttendanceRequest {
 
-    @JsonProperty("RequestInfo")
+    @JsonProperty("RequestInfo1")
     private RequestInfo RequestInfo;
 
     @JsonProperty("Attendance")

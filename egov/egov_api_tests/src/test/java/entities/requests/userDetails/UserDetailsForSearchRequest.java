@@ -7,7 +7,7 @@ public class UserDetailsForSearchRequest {
     private int[] id;
     private String userName;
 
-    @JsonProperty("RequestInfo")
+    @JsonProperty("RequestInfo1")
     private RequestInfo requestInfo;
 
     public RequestInfo getRequestInfo() {

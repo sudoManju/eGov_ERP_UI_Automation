@@ -1,10 +1,11 @@
-package entities.requests.eGovEIS.employee;
+package entities.requests.eGovEIS.hrMaster.designation.search;
 
+import entities.requests.eGovEIS.hrMaster.designation.RequestInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class SearchEmployeeRequest {
+public class HRMasterDesignationSearchRequest {
 
-    @JsonProperty("RequestInfo1")
+    @JsonProperty("ResponseInfo")
     private RequestInfo requestInfo;
 
     public RequestInfo getRequestInfo() {

@@ -8,7 +8,7 @@ public class OpeningBalanceCreateRequest {
     @JsonProperty("LeaveOpeningBalance")
     private LeaveOpeningBalance[] LeaveOpeningBalance;
 
-    @JsonProperty("RequestInfo")
+    @JsonProperty("RequestInfo1")
     private entities.requests.eGovEIS.leaveManagement.RequestInfo RequestInfo;
 
     public LeaveOpeningBalance[] getLeaveOpeningBalance() {
