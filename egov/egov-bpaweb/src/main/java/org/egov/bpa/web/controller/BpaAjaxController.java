@@ -51,8 +51,6 @@ import org.egov.bpa.application.entity.StakeHolder;
 import org.egov.bpa.application.entity.enums.StakeHolderType;
 import org.egov.bpa.application.service.ApplicationBpaService;
 import org.egov.bpa.masters.service.StakeHolderService;
-import org.egov.bpa.service.BpaUtils;
-import org.egov.bpa.utils.BpaConstants;
 import org.egov.eis.entity.Assignment;
 import org.egov.eis.entity.AssignmentAdaptor;
 import org.egov.eis.service.AssignmentService;
@@ -75,83 +73,72 @@ import com.google.gson.reflect.TypeToken;
 @Controller
 public class BpaAjaxController {
 
-	@Autowired
-	private DesignationService designationService;
+    @Autowired
+    private DesignationService designationService;
 
-	@Autowired
-	private BpaUtils bpaUtils;
+    @Autowired
+    private AssignmentService assignmentService;
 
-	@Autowired
-	private AssignmentService assignmentService;
+    @Autowired
+    private CustomizedWorkFlowService customizedWorkFlowService;
 
-	@Autowired
-	private CustomizedWorkFlowService customizedWorkFlowService;
+    @Autowired
+    private ApplicationBpaService applicationBpaService;
+    @Autowired
+    private StakeHolderService stakeHolderService;
 
-	@Autowired
-	private ApplicationBpaService applicationBpaService;
-	@Autowired
-	private StakeHolderService stakeHolderService;
+    @RequestMapping(value = "/ajax/getAdmissionFees", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public BigDecimal isConnectionPresentForProperty(@RequestParam final String serviceType) {
+        return applicationBpaService.setAdmissionFeeAmountForRegistration(serviceType);
+    }
 
-	@RequestMapping(value = "/ajax/getAdmissionFees", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public BigDecimal isConnectionPresentForProperty(@RequestParam final String serviceType) {
-		return applicationBpaService.setAdmissionFeeAmountForRegistration(serviceType);
-	}
+    @RequestMapping(value = "/bpaajaxWorkFlow-getDesignationsByObjectTypeAndDesignation", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<Designation> getDesignationsByObjectTypeAndDesignation(
+            @ModelAttribute("designations") @RequestParam final String departmentRule,
+            @RequestParam final String currentState, @RequestParam final String type,
+            @RequestParam final BigDecimal amountRule, @RequestParam final String additionalRule,
+            @RequestParam final String pendingAction, @RequestParam final Long approvalDepartment) {
+        List<Designation> designationList = customizedWorkFlowService.getNextDesignations(type,
+                departmentRule, amountRule, additionalRule, currentState,
+                pendingAction, new Date());
+        if (designationList.isEmpty())
+            designationList = designationService.getAllDesignationByDepartment(approvalDepartment, new Date());
+        return designationList;
+    }
 
-	@RequestMapping(value = "/bpaajaxWorkFlow-getDesignationsByObjectTypeAndDesignation", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<Designation> getDesignationsByObjectTypeAndDesignation(
-			@ModelAttribute("designations") @RequestParam final String departmentRule,
-			@RequestParam final String currentState, @RequestParam final String type,
-			@RequestParam final String amountRule, @RequestParam final String additionalRule,
-			@RequestParam final String pendingAction, @RequestParam final Long approvalDepartment,
-			@RequestParam final String currentDesignation, @RequestParam final String areaInSqMtr) {
+    @RequestMapping(value = "/ajax-designationsByDepartment", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<Designation> getDesignationsByDepartmentId(
+            @ModelAttribute("designations") @RequestParam final Long approvalDepartment) {
+        List<Designation> designations = new ArrayList<>();
+        if (approvalDepartment != null && approvalDepartment != 0 && approvalDepartment != -1)
+            designations = designationService.getAllDesignationByDepartment(approvalDepartment, new Date());
+        designations.forEach(designation -> designation.toString());
+        return designations;
+    }
 
-		List<Designation> designationList = customizedWorkFlowService.getNextDesignations(type, departmentRule, null,
-				additionalRule, currentState, pendingAction, new Date(), currentDesignation);
+    @RequestMapping(value = "/ajax-positionsByDepartmentAndDesignation", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
+    @ResponseBody
+    public String getPositionByDepartmentAndDesignation(@RequestParam final Long approvalDepartment,
+            @RequestParam final Long approvalDesignation, final HttpServletResponse response) {
+        List<Assignment> assignmentList = new ArrayList<>();
+        if (approvalDepartment != null && approvalDepartment != 0 && approvalDepartment != -1
+                && approvalDesignation != null && approvalDesignation != 0 && approvalDesignation != -1) {
+            assignmentList = assignmentService.findAllAssignmentsByDeptDesigAndDates(approvalDepartment,
+                    approvalDesignation, new Date());
+            final Gson jsonCreator = new GsonBuilder().registerTypeAdapter(Assignment.class, new AssignmentAdaptor())
+                    .create();
+            return jsonCreator.toJson(assignmentList, new TypeToken<Collection<Assignment>>() {
+            }.getType());
+        }
+        return "[]";
+    }
 
-		if (designationList.isEmpty())
-			designationList = designationService.getAllDesignationByDepartment(approvalDepartment, new Date());
-		Boolean isApprovalValid = bpaUtils.approveIsValidForLoggedInuserDesgn(
-				areaInSqMtr != null ? Integer.valueOf(areaInSqMtr) : 0, currentDesignation);
-		if (isApprovalValid) {
-			designationList.clear();
-			designationList.add(designationService.getDesignationByName(BpaConstants.DESIGNATION_SUPERIAPPROVAL));
-		}
-		return designationList;
-
-	}
-
-	@RequestMapping(value = "/ajax-designationsByDepartment", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public List<Designation> getDesignationsByDepartmentId(
-			@ModelAttribute("designations") @RequestParam final Long approvalDepartment) {
-		List<Designation> designations = new ArrayList<>();
-		if (approvalDepartment != null && approvalDepartment != 0 && approvalDepartment != -1)
-			designations = designationService.getAllDesignationByDepartment(approvalDepartment, new Date());
-		designations.forEach(designation -> designation.toString());
-		return designations;
-	}
-
-	@RequestMapping(value = "/ajax-positionsByDepartmentAndDesignation", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
-	@ResponseBody
-	public String getPositionByDepartmentAndDesignation(@RequestParam final Long approvalDepartment,
-			@RequestParam final Long approvalDesignation, final HttpServletResponse response) {
-		List<Assignment> assignmentList = new ArrayList<>();
-		if (approvalDepartment != null && approvalDepartment != 0 && approvalDepartment != -1
-				&& approvalDesignation != null && approvalDesignation != 0 && approvalDesignation != -1) {
-			assignmentList = assignmentService.findAllAssignmentsByDeptDesigAndDates(approvalDepartment,
-					approvalDesignation, new Date());
-			final Gson jsonCreator = new GsonBuilder().registerTypeAdapter(Assignment.class, new AssignmentAdaptor())
-					.create();
-			return jsonCreator.toJson(assignmentList, new TypeToken<Collection<Assignment>>() {
-			}.getType());
-		}
-		return "[]";
-	}
-
-	@RequestMapping(value = "/ajax/stakeholdersbytype", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public List<StakeHolder> getStakeHolderByType(@RequestParam final StakeHolderType stakeHolderType) {
-		return stakeHolderService.getStakeHolderListByType(stakeHolderType);
-	}
+    @RequestMapping(value = "/ajax/stakeholdersbytype", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<StakeHolder> getStakeHolderByType(@RequestParam final StakeHolderType stakeHolderType) {
+        return stakeHolderService.getStakeHolderListByType(stakeHolderType);
+    }
 }

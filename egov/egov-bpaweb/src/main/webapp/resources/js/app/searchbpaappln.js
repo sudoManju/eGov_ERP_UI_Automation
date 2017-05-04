@@ -109,16 +109,19 @@ $(document)
 														"render" : function(
 																data, type,
 																row, meta) {
-															if (row.status == 'NOC Updated' && !row.isFeeCollected) {
+															if (row.status == 'Approved' && !row.isFeeCollected) {
 																return ('<select class="dropchange"><option value="">Select from Below</option><option  value='
+																		+ viewurl
+																		+ row.applicationNumber + '>View</option><option  value='
 																		+ demandNoticeurl
-																		+ row.applicationNumber + '>Generate Demand Notice</option></select>');
-															}
+																		+ row.applicationNumber + '>Generate Demand Notice</option><option  value='
+																		+ collecturl
+																		+ row.applicationNumber + '>Collect Fees</option></select>');
+															} else {
 															return ('<select class="dropchange"><option value="">Select from Below</option><option  value='
 																	+ viewurl
-																	+ row.applicationNumber + '>View</option><option  value='
-																	+ collecturl
-																	+ row.applicationNumber + '>Collect Fees</option></select>');
+																	+ row.applicationNumber + '>View</option></select>');
+															}
 														}
 													} ]
 										});

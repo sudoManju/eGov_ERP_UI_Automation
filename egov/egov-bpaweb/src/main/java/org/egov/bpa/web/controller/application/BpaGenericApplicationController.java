@@ -46,12 +46,7 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
-import org.apache.commons.lang3.ArrayUtils;
-import org.egov.bpa.application.entity.ApplicationDocument;
-import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BuildingCategory;
 import org.egov.bpa.application.entity.LandBuildingTypes;
 import org.egov.bpa.application.entity.ServiceType;
@@ -60,6 +55,7 @@ import org.egov.bpa.application.entity.enums.ApplicantMode;
 import org.egov.bpa.application.entity.enums.StakeHolderType;
 import org.egov.bpa.application.service.ApplicationBpaService;
 import org.egov.bpa.application.service.CheckListDetailService;
+import org.egov.bpa.application.workflow.BpaWorkFlowService;
 import org.egov.bpa.masters.service.BuildingCategoryService;
 import org.egov.bpa.masters.service.LandBuildingTypesService;
 import org.egov.bpa.masters.service.ServiceTypeService;
@@ -67,18 +63,18 @@ import org.egov.bpa.masters.service.VillageNameService;
 import org.egov.bpa.service.BpaDemandService;
 import org.egov.bpa.service.BpaThirdPartyService;
 import org.egov.bpa.utils.BpaConstants;
+import org.egov.eis.web.contract.WorkflowContainer;
 import org.egov.eis.web.controller.workflow.GenericWorkFlowController;
 import org.egov.infra.admin.master.entity.Boundary;
 import org.egov.infra.admin.master.service.BoundaryService;
-import org.egov.infra.exception.ApplicationRuntimeException;
-import org.egov.infra.filestore.entity.FileStoreMapper;
 import org.egov.infra.filestore.service.FileStoreService;
 import org.egov.infra.utils.FileStoreUtils;
+import org.egov.infra.workflow.entity.StateAware;
 import org.egov.ptis.constants.PropertyTaxConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.multipart.MultipartFile;
 
 public abstract class BpaGenericApplicationController extends GenericWorkFlowController {
 
@@ -107,6 +103,8 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     protected FileStoreUtils fileStoreUtils;
     @Autowired
     protected BpaDemandService bpaDemandService;
+    @Autowired
+    protected BpaWorkFlowService bpaWorkFlowService;
 
     @ModelAttribute("occupancyList")
     public List<LandBuildingTypes> getOccupancy() {
@@ -177,7 +175,20 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
         applicationModeMap.put(ApplicantMode.OTHERS.name(), ApplicantMode.OTHERS.name());
         return applicationModeMap;
     }
+    
+    /**
+     * @param prepareModel
+     * @param model
+     * @param container
+     *            This method we are calling In GET Method..
+     */
+    @Override
+    protected void prepareWorkflow(final Model prepareModel, final StateAware model, final WorkflowContainer container) {
+        prepareModel.addAttribute("approverDepartmentList", addAllDepartments());
+        prepareModel.addAttribute("validActionList", bpaWorkFlowService.getValidActions(model, container));
+        prepareModel.addAttribute("nextAction", bpaWorkFlowService.getNextAction(model, container));
 
+    }
    
 
  /*   protected void processAndStoreApplicationDocuments(final BpaApplication bpaApplication) {

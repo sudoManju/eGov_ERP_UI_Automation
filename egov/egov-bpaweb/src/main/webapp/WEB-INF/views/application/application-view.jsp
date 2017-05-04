@@ -50,6 +50,16 @@
 			id="editWaterConnectionform"
 			cssClass="form-horizontal form-groups-bordered"
 			enctype="multipart/form-data">
+			<c:if
+				test="${isFeeCollected && bpaApplication.status.code eq 'Approved'}">
+				<div data-collapsed="0">
+					<div class="panel-heading">
+						<div style="color: red; font-size: 16px;" align="center">
+							<spring:message code="lbl.collect.bpaFee" />
+						</div>
+					</div>
+				</div>
+			</c:if>
 			<input type="hidden" name="bpaApplication"
 				value="${bpaApplication.id}">
 			<form:hidden path="" id="wfstate" value="${bpaApplication.state.id}" />
@@ -59,9 +69,6 @@
 			<form:hidden path="" id="mode" name="mode" value="${mode}" />
 			<form:hidden path="" id="scheduleType" name="scheduleType"
 				value="${scheduleType}" />
-			<form:hidden path="" value="${areaInSqMtr}" id="areaInSqMtr" name="areaInSqMtr"/>
-			<form:hidden path="" value="${currentDesignation}" id="currentDesignation" name="currentDesignation"/>
-			<form:hidden path="" value="${isApproveValid}" id="isApproveValid" name="isApproveValid"/>
 			<ul class="nav nav-tabs" id="settingstab">
 				<li class="active"><a data-toggle="tab" href="#applicant-info"
 					data-tabidx=0><spring:message code='lbl.appln.details' /></a></li>
@@ -205,10 +212,21 @@
 				</c:if>
 			</div>
 			<br>
-			<jsp:include page="../common/commonWorkflowMatrix.jsp" />
-			<div class="buttonbottom" align="center">
-				<jsp:include page="../common/commonWorkflowMatrix-button.jsp" />
-			</div>
+			<c:choose>
+				<c:when
+					test="${isFeeCollected && bpaApplication.status.code eq 'Approved'}">
+					<div class="buttonbottom" align="center">
+						<input type="button" name="button2" id="button2" value="Close"
+							class="btn btn-default" onclick="window.close();" />
+					</div>
+				</c:when> 
+				<c:otherwise>
+					<jsp:include page="../common/commonWorkflowMatrix.jsp" />
+					<div class="buttonbottom" align="center">
+						<jsp:include page="../common/commonWorkflowMatrix-button.jsp" />
+					</div>
+				</c:otherwise>
+			</c:choose>
 		</form:form>
 	</div>
 </div>

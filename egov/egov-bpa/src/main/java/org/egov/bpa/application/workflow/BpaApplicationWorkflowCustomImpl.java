@@ -102,7 +102,6 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
         final DateTime currentDate = new DateTime();
         Position pos = null;
         Assignment wfInitiator = null;
-        final String loggedInUserDesignation = bpaUtils.loggedInUserDesignation(application);
         if (application.getCreatedBy() != null)
             wfInitiator = bpaWorkFlowService.getWorkFlowInitiator(application);
 
@@ -130,10 +129,10 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
                         .withNextAction(wfmatrix.getNextAction()).withNatureOfTask(BpaConstants.NATURE_OF_WORK);
             }
 
-        } else if (BpaConstants.WF_APPROVE_BUTTON.equalsIgnoreCase(workFlowAction)) {
-
-            wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null, null,
-                    additionalRule, application.getCurrentState().getValue(), null, null, loggedInUserDesignation);
+        } else if (BpaConstants.WF_APPROVE_BUTTON.equalsIgnoreCase(workFlowAction) && (BpaConstants.APPLICATION_STATUS_APPROVED.equalsIgnoreCase(application.getStatus().getCode())
+                || BpaConstants.APPLICATION_STATUS_NOCUPDATED.equalsIgnoreCase(application.getStatus().getCode()))) {
+            wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null, application.getInspections().get(0).getLndMinPlotExtent(),
+                    additionalRule, application.getCurrentState().getValue(), application.getState().getNextAction(), null, null);
 
             BpaStatus status = bpaStatusService
                     .findByModuleTypeAndCode(BpaConstants.BPASTATUS_MODULETYPE, BpaConstants.APPLICATION_STATUS_APPROVED);
@@ -143,9 +142,9 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
             application.transition().progressWithStateCopy()
                     .withSenderName(user.getUsername() + BpaConstants.COLON_CONCATE + user.getName())
                     .withComments(approvalComent)
-                    .withStateValue("Record Approved").withDateInfo(currentDate.toDate())
+                    .withStateValue(wfmatrix.getNextState()).withDateInfo(currentDate.toDate())
                     .withOwner(pos)
-                    .withNextAction("Digital Sign Pending").withNatureOfTask(BpaConstants.NATURE_OF_WORK);
+                    .withNextAction(wfmatrix.getNextAction()).withNatureOfTask(BpaConstants.NATURE_OF_WORK);
         } else if (BpaConstants.WF_REJECT_BUTTON.equalsIgnoreCase(workFlowAction)) {
             wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null,
                     null, additionalRule, BpaConstants.WF_REJECT_STATE, null);
@@ -191,9 +190,18 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
                     .withOwner(application.getCurrentState().getPreviousOwner())
                     .withNextAction(wfmatrix.getNextAction()).withNatureOfTask(BpaConstants.NATURE_OF_WORK);
         } else {
-            wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null,
-                    null, additionalRule, application.getCurrentState().getValue(), null);
-
+            if (BpaConstants.APPLICATION_STATUS_NOCUPDATED.equalsIgnoreCase(application.getStatus().getCode())) {
+                wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null,
+                        application.getInspections().get(0).getLndMinPlotExtent(), additionalRule,
+                        application.getCurrentState().getValue(), application.getState().getNextAction());
+            } else if (BpaConstants.APPLICATION_STATUS_APPROVED.equalsIgnoreCase(application.getStatus().getCode()) && !"Record Approved".equalsIgnoreCase(application.getState().getValue())) {
+                wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null,
+                        application.getInspections().get(0).getLndMinPlotExtent(), additionalRule,
+                        application.getCurrentState().getValue(), null);
+            } else {
+                wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null,
+                        null, additionalRule, application.getCurrentState().getValue(), null);
+            }
             if (wfmatrix != null) {
                 BpaStatus status = getStatusByCurrentMatrxiStatus(wfmatrix);
                 if (status != null)

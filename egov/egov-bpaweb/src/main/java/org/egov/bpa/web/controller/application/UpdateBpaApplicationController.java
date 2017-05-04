@@ -39,9 +39,14 @@
  */
 package org.egov.bpa.web.controller.application;
 
+import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_APPROVED;
 import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_FIELD_INS;
+import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_NOCUPDATED;
+import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_RECORD_APPROVED;
 import static org.egov.bpa.utils.BpaConstants.APPLN_STATUS_FIELD_INSPECTION_INITIATED;
 import static org.egov.bpa.utils.BpaConstants.BPA_STATUS_SUPERINDENT_APPROVED;
+import static org.egov.bpa.utils.BpaConstants.CHECKLIST_TYPE_NOC;
+import static org.egov.bpa.utils.BpaConstants.CREATE_ADDITIONAL_RULE_CREATE;
 import static org.egov.bpa.utils.BpaConstants.WF_CANCELAPPLICATION_BUTTON;
 import static org.egov.bpa.utils.BpaConstants.WF_REJECT_BUTTON;
 
@@ -60,7 +65,6 @@ import org.egov.bpa.application.entity.enums.AppointmentSchedulePurpose;
 import org.egov.bpa.application.service.InspectionService;
 import org.egov.bpa.application.service.LettertoPartyService;
 import org.egov.bpa.masters.service.StakeHolderService;
-import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.eis.service.PositionMasterService;
 import org.egov.eis.web.contract.WorkflowContainer;
@@ -106,14 +110,9 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
     private static final String ADDITIONALRULE = "additionalRule";
 
     @Autowired
-    private BpaUtils bpaUtils;
-
-    @Autowired
     private SecurityUtils securityUtils;
-    
     @Autowired
     private InspectionService inspectionService;
-    
     @Autowired
     private StakeHolderService stakeHolderService;
     @Autowired
@@ -188,19 +187,6 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         if (mode == null) {
             mode = "edit";
         }
-        if (application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_NOCUPDATED) ||
-                application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_APPROVED)) {
-            model.addAttribute("isApproveValid",
-                    bpaUtils.approveIsValidForLoggedInuserDesgn(
-                            !application.getInspections().isEmpty()
-                                    ? application.getInspections().get(0).getLndMinPlotExtent().intValue() : 0,
-                            bpaUtils.loggedInUserDesignation(application)));
-
-        } else {
-            model.addAttribute("isApproveValid", Boolean.FALSE);
-        }
-        model.addAttribute("areaInSqMtr", !application.getInspections().isEmpty()
-                ? application.getInspections().get(0).getLndMinPlotExtent().intValue() : 0);
         model.addAttribute("scheduleType", scheduleType);
         model.addAttribute("mode", mode);
         model.addAttribute(APPLICATION_HISTORY,
@@ -211,7 +197,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         if (application != null) {
             loadViewdata(model, application);
             if (application.getState() != null
-                    && application.getState().getValue().equalsIgnoreCase(BpaConstants.BPA_STATUS_SUPERINDENT_APPROVED)) {
+                    && application.getState().getValue().equalsIgnoreCase(BPA_STATUS_SUPERINDENT_APPROVED)) {
                 return DOCUMENTSCRUTINY_FORM;
             }
         }
@@ -227,7 +213,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
             final HttpServletRequest request) {
         final BpaApplication application = getBpaApplication(applicationNumber);
         if (application != null && application.getState() != null
-                && application.getState().getValue().equalsIgnoreCase(BpaConstants.BPA_STATUS_SUPERINDENT_APPROVED)) {
+                && application.getState().getValue().equalsIgnoreCase(BPA_STATUS_SUPERINDENT_APPROVED)) {
             loadViewdata(model, application);
             model.addAttribute("loginUser", securityUtils.getCurrentUser());
             model.addAttribute(APPLICATION_HISTORY,
@@ -279,19 +265,22 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
     private void loadViewdata(final Model model, final BpaApplication application) {
         model.addAttribute("stateType", application.getClass().getSimpleName());
         final WorkflowContainer workflowContainer = new WorkflowContainer();
-        model.addAttribute(ADDITIONALRULE, BpaConstants.CREATE_ADDITIONAL_RULE_CREATE);
-        final String loggedInUserDesignation = bpaUtils.loggedInUserDesignation(application);
-        workflowContainer.setAdditionalRule(BpaConstants.CREATE_ADDITIONAL_RULE_CREATE);
-        if (application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_NOCUPDATED)) {
-            workflowContainer.setCurrentDesignation(loggedInUserDesignation);
+        model.addAttribute(ADDITIONALRULE, CREATE_ADDITIONAL_RULE_CREATE);
+        workflowContainer.setAdditionalRule(CREATE_ADDITIONAL_RULE_CREATE);
+        if (APPLICATION_STATUS_NOCUPDATED.equals(application.getStatus().getCode())) {
+            workflowContainer.setAmountRule(application.getInspections().get(0).getLndMinPlotExtent());
+            workflowContainer.setPendingActions( application.getState().getNextAction());
+        } else if (APPLICATION_STATUS_APPROVED.equals(application.getStatus().getCode()) && !APPLICATION_STATUS_RECORD_APPROVED.equalsIgnoreCase(application.getState().getValue()) ) {
+            workflowContainer.setAmountRule(application.getInspections().get(0).getLndMinPlotExtent());
         }
-        model.addAttribute("currentDesignation", workflowContainer.getCurrentDesignation());
-        workflowContainer.setAdditionalRule(BpaConstants.CREATE_ADDITIONAL_RULE_CREATE);
+        workflowContainer.setAdditionalRule(CREATE_ADDITIONAL_RULE_CREATE);
         prepareWorkflow(model, application, workflowContainer);
+        model.addAttribute("pendingActions", workflowContainer.getPendingActions());
+        model.addAttribute("amountRule", workflowContainer.getAmountRule());
         model.addAttribute("currentState", application.getCurrentState().getValue());
         model.addAttribute(BPA_APPLICATION, application);
         model.addAttribute("nocCheckListDetails", checkListDetailService
-                .findActiveCheckListByServiceType(application.getServiceType().getId(), BpaConstants.CHECKLIST_TYPE_NOC));
+                .findActiveCheckListByServiceType(application.getServiceType().getId(), CHECKLIST_TYPE_NOC));
         model.addAttribute("checkListDetailList", checkListDetailService
                 .findActiveCheckListByServiceType(application.getServiceType().getId(), BpaConstants.CHECKLIST_TYPE));
     }

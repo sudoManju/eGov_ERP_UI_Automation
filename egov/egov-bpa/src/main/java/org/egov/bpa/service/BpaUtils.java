@@ -135,22 +135,4 @@ public class BpaUtils {
                     approvalPosition, remarks,
                     BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, workFlowAction);
     }
-    
-    public Boolean approveIsValidForLoggedInuserDesgn(Integer areainSqmtr,String loggedInUserDesignation)
-    {
-    	Boolean isValid=Boolean.FALSE;
-    	if(areainSqmtr <=300 && loggedInUserDesignation!=null && loggedInUserDesignation.equalsIgnoreCase(BpaConstants.DESIGNATION_AE))
-    		isValid=true;
-    	else if(areainSqmtr >300 && areainSqmtr <=750 && loggedInUserDesignation!=null && loggedInUserDesignation.equalsIgnoreCase(BpaConstants.DESIGNATION_AEE))
-    		isValid=true;
-    	else if(areainSqmtr >750 && areainSqmtr <=1500 && loggedInUserDesignation!=null && loggedInUserDesignation.equalsIgnoreCase(BpaConstants.DESIGNATION_EE))
-    		isValid=true;
-    	else if(areainSqmtr >1500 && areainSqmtr <=10000 && loggedInUserDesignation!=null && loggedInUserDesignation.equalsIgnoreCase(BpaConstants.DESIGNATION_COMMISSIONER))
-    		isValid=true;
-    	else if(areainSqmtr > 10000 && loggedInUserDesignation!=null && loggedInUserDesignation.equalsIgnoreCase(BpaConstants.DESIGNATION_SECRETARY))
-    		isValid=true;
-
-    	return isValid;
-    }
-
 }

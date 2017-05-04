@@ -53,9 +53,7 @@ $(document).ready(function()
 					currentState : $('#currentState').val(),
 					amountRule : $('#amountRule').val(),
 					additionalRule : $('#additionalRule').val(),
-					pendingAction : $('#pendingActions').val(),
-					currentDesignation : $('#currentDesignation').val(),
-					areaInSqMtr : $('#areaInSqMtr').val()
+					pendingAction : $('#pendingActions').val()
 				},
 				dataType: "json",
 				success: function (response) {

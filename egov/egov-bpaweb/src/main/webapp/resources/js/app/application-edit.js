@@ -44,7 +44,6 @@ jQuery(document).ready(function() {
 	$("#applicantdet").prop("disabled",true);
 	$("#appDet").prop("disabled",true);
 	$("#serviceType").prop("disabled",true);
-	var isApproveValid=$('#isApproveValid').val();
 	
 	$(".workAction")
 	.click(
@@ -90,12 +89,6 @@ jQuery(document).ready(function() {
 				validateForm(e);
 			});
 	
-	if(isApproveValid =='false'){
-		$("#Approve").hide();
-	}
-	if(isApproveValid == 'true'){
-		$("#Forward").hide();
-	}
 	// By default to point update noc details tab
 	var mode=$('#mode').val();
 	
