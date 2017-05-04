@@ -37,81 +37,58 @@
   ~
   ~   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
   --%>
-
-<%@page import="org.python.modules.jarray"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn"%>
+<div align="center" class="overflow-x-scroll">
+<input type="hidden" name="applicationNumber" id="applicationNumber"
+				value="${applicationNumber}">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0"
+		class="tablebottom" id="inspedetails">
+		<tr>
+			<th class="bluebgheadtd"><spring:message code="lbl.slno" /></th>
+			<th class="bluebgheadtd">Inspection  number</th>
+			<th class="bluebgheadtd">Extent in SQmtr</th>
+			<th class="bluebgheadtd">Modify</th>
+			
+		</tr>
+		<c:choose>
+			<c:when test="${not empty inspectionList}">
+				<c:forEach items="${inspectionList}" var="lp" varStatus="status">
+					<tr id="lprow">
+						<td class="blueborderfortd" align="center">${status.index+1}</td>
+						<td class="blueborderfortd" align="center"><span class="bold">
+							<c:out	value="${lp.inspectionNumber}" /></span></td>
+						<td class="blueborderfortd" align="center"><span class="bold">
+								<c:out value="${lp.lndMinPlotExtent}" /></span></td>
+							<td class="blueborderfortd" align="center"><a
+							onclick="window.open('/bpa/application/modify-inspection/${applicationNumber}','view','width=600, height=400,scrollbars=yes')">
+								<i class="fa fa-file-o" aria-hidden="true">Modify
+							     </i>
+						</a></td>
+					</tr>
+					</c:forEach>
+					</c:when>
+			<c:otherwise>
+				<div class="col-md-12 col-xs-6  panel-title">
+					No Inspection Found
+				</div>
+			</c:otherwise>
+		</c:choose>
 
-
-<div class="panel-heading custom_form_panel_heading">
-	<div class="panel-title">Inspection Details</div>
+	</table>
 </div>
-<div class="panel-body">
-	<div class="row add-border">
-		<div class="col-sm-3 add-margin">Location of the Plot</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.inspections[0].docket[0].locationOfPlot}" default="N/A"></c:out>
-		</div>
-		<div class="col-sm-3 add-margin">Land Area</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.inspections[0].lndRegularizationArea}" default="N/A"></c:out>
-		</div>
-	</div>
+<script>
 
-
-	<div class="row add-border">
-		<div class="col-sm-3 add-margin">Building Area</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.inspections[0].bldngBuildUpArea}" default="N/A"></c:out>
-		</div>
-		<div class="col-sm-3 add-margin">Coumpound Wall</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.inspections[0].bldngCompoundWall}" default="N/A"></c:out>
-		</div>
-	</div>
-	<div class="row add-border">
-		<div class="col-sm-3 add-margin">No of Wells</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.inspections[0].bldngWellOhtSumpTankArea}" default="N/A"></c:out>
-		</div>
-		<div class="col-sm-3 add-margin">Occupancy</div>
-		<div class="col-sm-3 add-margin view-content">N/A</div>
-	</div>
-	<div class="row add-border">
-		<div class="col-sm-3 add-margin">Extent in Sqmtr</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.inspections[0].lndMinPlotExtent}" default="N/A"></c:out>
-		</div>
-		<div class="col-sm-3 add-margin"></div>
-		<div class="col-sm-3 add-margin view-content"></div>
-	</div>
-
-	<div class="row add-border">
-		<div class="col-sm-5 add-margin">
-			<div class="panel-title">Inspection Details CheckList</div>
-		</div>
-		<div class="col-sm-3 add-margin">
-			<div class="panel-title">Document Provided</div>
-		</div>
-		<div class="col-sm-3 add-margin">Remarks</div>
-	</div>
-	<div class="panel-body">
-		<c:forEach items="${bpaApplication.inspections[0].docket[0].docketDetail}" var="doc" varStatus="counter">
-
-			<div class="row add-border">
-				<div class="col-sm-5 add-margin view-content">
-					<c:out value="${doc.checkListDetail.description}" default="N/A"></c:out>
-				</div>
-				<div class="col-sm-3 add-margin view-content">
-					<c:out value="${doc.value=='true' ? 'YES' : 'NO'}" default="N/A"></c:out>
-				</div>
-
-				<div class="col-sm-3 add-margin view-content">
-					<c:out value="${doc.remarks}" default="N/A"></c:out>
-				</div>
-			</div>
-		</c:forEach>
-	</div>
-</div>
+$(document).ready(function() {
+	
+	
+	 $("#inspedetails tbody tr:gt(1)").each(function( index ) {
+		 $(this).find('a').hide();
+	    });
+	    
+	    });
+	    
+</script>

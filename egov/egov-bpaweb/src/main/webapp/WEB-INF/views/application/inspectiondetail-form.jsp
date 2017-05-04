@@ -68,35 +68,19 @@
 			cssClass="add-margin error-msg" />
 	</div>
 	</div>
+	
 	<div class="form-group">
-	<label class="col-sm-3 control-label text-right">Building Area</label>
+	<label class="col-sm-3 control-label text-right">Extent in Sqmts.<span
+		class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:input  class="form-control patternvalidation" data-pattern="number"
-		  id="bldngBuildUpArea"
-			path="bldngBuildUpArea" />
-		<form:errors path="bldngBuildUpArea" required="required"
-			cssClass="add-margin error-msg" />
-	</div>
-	<label class="col-sm-2 control-label text-right">Compound Wall(In Running Mtr.)</label>
-	<div class="col-sm-2 add-margin">
-		<form:input  class="form-control patternvalidation" data-pattern="number"
-		 id="bldngCompoundWall"
-			path="bldngCompoundWall" />
-		<form:errors path="bldngCompoundWall" 
-			cssClass="add-margin error-msg" />
-	</div>
-	</div>
-	<div class="form-group">
-	<label class="col-sm-3 control-label text-right">No. of Wells</label>
-	<div class="col-sm-3 add-margin">
-		<form:input  class="form-control patternvalidation" data-pattern="number"
-		  id="bldngWellOhtSumpTankArea"
-			path="bldngWellOhtSumpTankArea" />
-		<form:errors path="bldngWellOhtSumpTankArea"
+		  id="lndMinPlotExtent" required="required"
+			path="lndMinPlotExtent" />
+		<form:errors path="lndMinPlotExtent" 
 			cssClass="add-margin error-msg" />
 	</div>
 	<label class="col-sm-2 control-label text-right">Occupancy</label>
-		<div class="col-sm-3 add-margin">
+		<div class="col-sm-2 add-margin">
 	<form:select path="landUsage"
 			data-first-option="false" id="" cssClass="form-control"
 			>
@@ -111,17 +95,6 @@
 	</div>
 	</div>
 	
-<div class="form-group">
-	<label class="col-sm-3 control-label text-right">Extent in Sqmts.<span
-		class="mandatory"></span></label>
-	<div class="col-sm-3 add-margin">
-		<form:input  class="form-control patternvalidation" data-pattern="number"
-		  id="lndMinPlotExtent" required="required"
-			path="lndMinPlotExtent" />
-		<form:errors path="lndMinPlotExtent" 
-			cssClass="add-margin error-msg" />
-	</div>
-	</div>
 <c:choose>
 	<c:when test="${!docketDetailLocList.isEmpty()}">
 	<div class="panel-heading custom_form_panel_heading">
@@ -157,10 +130,10 @@
 				<div class="col-sm-3 add-margin">
 				 <c:choose>
 				<c:when  test="${mode =='editinsp'}">
-				<form:radiobutton
+				<form:radiobutton class="radioBtnClass" 
 						path="docketDetailLocList[${status.index}].value" value="true"  />
 					<spring:message code="lbl.yes" />
-					<form:radiobutton
+					<form:radiobutton class="radioBtnClass" 
 						path="docketDetailLocList[${status.index}].value" value="false"
 						/>
 					<spring:message code="lbl.no" />
@@ -168,10 +141,10 @@
 						cssClass="add-margin error-msg" />
 				</c:when>
 				<c:otherwise>
-				<form:radiobutton
+				<form:radiobutton class="radioBtnClass" 
 						path="docketDetailLocList[${status.index}].value" value="true" />
 					<spring:message code="lbl.yes" />
-					<form:radiobutton
+					<form:radiobutton class="radioBtnClass" 
 						path="docketDetailLocList[${status.index}].value" value="false"
 						checked="checked" />
 						<spring:message code="lbl.no" />
@@ -182,7 +155,7 @@
 				</div>
 
 				<div class="col-sm-3 add-margin text-center">
-					<form:textarea class="form-control patternvalidation"
+					<form:textarea class="form-control patternvalidation"  
 						data-pattern="alphanumericwithspace" maxlength="256"
 						id="docketDetailLocList${status.index}remarks"
 						path="docketDetailLocList[${status.index}].remarks"
@@ -233,10 +206,10 @@
 				<div class="col-sm-3 add-margin">
 				 <c:choose>
 				<c:when  test="${mode =='editinsp'}">
-				<form:radiobutton
+				<form:radiobutton class="radioBtnClass" 
 						path="docketDetailMeasumentList[${status.index}].value" value="true"  />
 					<spring:message code="lbl.yes" />
-					<form:radiobutton
+					<form:radiobutton class="radioBtnClass" 
 						path="docketDetailMeasumentList[${status.index}].value" value="false"
 						/>
 					<spring:message code="lbl.no" />
@@ -244,10 +217,10 @@
 						cssClass="add-margin error-msg" />
 				</c:when>
 				<c:otherwise>
-				<form:radiobutton
+				<form:radiobutton class="radioBtnClass" 
 						path="docketDetailMeasumentList[${status.index}].value" value="true" />
 					<spring:message code="lbl.yes" />
-					<form:radiobutton
+					<form:radiobutton class="radioBtnClass" 
 						path="docketDetailMeasumentList[${status.index}].value" value="false"
 						checked="checked" />
 						<spring:message code="lbl.no" />
@@ -259,7 +232,7 @@
 				</div>
 
 				<div class="col-sm-3 add-margin text-center">
-					<form:textarea class="form-control patternvalidation"
+					<form:textarea class="form-control patternvalidation"  
 						data-pattern="alphanumericwithspace" maxlength="256"
 						id="docketDetailMeasumentList${status.index}remarks"
 						path="docketDetailMeasumentList[${status.index}].remarks"
@@ -308,10 +281,10 @@
 				<div class="col-sm-3 add-margin">
 				 <c:choose>
 				<c:when  test="${mode =='editinsp'}">
-				<form:radiobutton
+				<form:radiobutton class="radioBtnClass" 
 						path="docketDetailAccessList[${status.index}].value" value="true"  />
 					<spring:message code="lbl.yes" />
-					<form:radiobutton
+					<form:radiobutton class="radioBtnClass" 
 						path="docketDetailAccessList[${status.index}].value" value="false"
 						/>
 					<spring:message code="lbl.no" />
@@ -319,10 +292,10 @@
 						cssClass="add-margin error-msg" />
 				</c:when>
 				<c:otherwise>
-				<form:radiobutton
+				<form:radiobutton class="radioBtnClass" 
 						path="docketDetailAccessList[${status.index}].value" value="true" />
 					<spring:message code="lbl.yes" />
-					<form:radiobutton
+					<form:radiobutton class="radioBtnClass" 
 						path="docketDetailAccessList[${status.index}].value" value="false"
 						checked="checked" />
 						<spring:message code="lbl.no" />
@@ -333,7 +306,7 @@
 				</div>
 
 				<div class="col-sm-3 add-margin text-center">
-					<form:textarea class="form-control patternvalidation"
+					<form:textarea class="form-control patternvalidation"  
 						data-pattern="alphanumericwithspace" maxlength="256"
 						id="docketDetailAccessList${status.index}remarks"
 						path="docketDetailAccessList[${status.index}].remarks"
@@ -383,10 +356,10 @@
 				<div class="col-sm-3 add-margin">
 				 <c:choose>
 				<c:when  test="${mode =='editinsp'}">
-				<form:radiobutton
+				<form:radiobutton class="radioBtnClass" 
 						path="docketDetlSurroundingPlotList[${status.index}].value" value="true"  />
 					<spring:message code="lbl.yes" />
-					<form:radiobutton
+					<form:radiobutton class="radioBtnClass" 
 						path="docketDetlSurroundingPlotList[${status.index}].value" value="false"
 						/>
 					<spring:message code="lbl.no" />
@@ -394,10 +367,10 @@
 						cssClass="add-margin error-msg" />
 				</c:when>
 				<c:otherwise>
-				<form:radiobutton
+				<form:radiobutton class="radioBtnClass" 
 						path="docketDetlSurroundingPlotList[${status.index}].value" value="true" />
 					<spring:message code="lbl.yes" />
-					<form:radiobutton
+					<form:radiobutton class="radioBtnClass" 
 						path="docketDetlSurroundingPlotList[${status.index}].value" value="false"
 						checked="checked" />
 						<spring:message code="lbl.no" />
@@ -408,7 +381,7 @@
 				</div>
 
 				<div class="col-sm-3 add-margin text-center">
-					<form:textarea class="form-control patternvalidation"
+					<form:textarea class="form-control patternvalidation"  
 						data-pattern="alphanumericwithspace" maxlength="256"
 						id="docketDetlSurroundingPlotList${status.index}remarks"
 						path="docketDetlSurroundingPlotList[${status.index}].remarks"
@@ -458,10 +431,10 @@
 				<div class="col-sm-3 add-margin">
 				 <c:choose>
 				<c:when  test="${mode =='editinsp'}">
-				<form:radiobutton
+				<form:radiobutton class="radioBtnClass" 
 						path="docketDetailLandTypeList[${status.index}].value" value="true"  />
 					<spring:message code="lbl.yes" />
-					<form:radiobutton
+					<form:radiobutton class="radioBtnClass" 
 						path="docketDetailLandTypeList[${status.index}].value" value="false"
 						/>
 					<spring:message code="lbl.no" />
@@ -469,10 +442,10 @@
 						cssClass="add-margin error-msg" />
 				</c:when>
 				<c:otherwise>
-				<form:radiobutton
+				<form:radiobutton class="radioBtnClass" 
 						path="docketDetailLandTypeList[${status.index}].value" value="true" />
 					<spring:message code="lbl.yes" />
-					<form:radiobutton
+					<form:radiobutton class="radioBtnClass" 
 						path="docketDetailLandTypeList[${status.index}].value" value="false"
 						checked="checked" />
 						<spring:message code="lbl.no" />
@@ -483,7 +456,7 @@
 				</div>
 
 				<div class="col-sm-3 add-margin text-center">
-					<form:textarea class="form-control patternvalidation"
+					<form:textarea class="form-control patternvalidation"  
 						data-pattern="alphanumericwithspace" maxlength="256"
 						id="docketDetailLandTypeList${status.index}remarks"
 						path="docketDetailLandTypeList[${status.index}].remarks"
@@ -533,10 +506,10 @@
 				<div class="col-sm-3 add-margin">
 				 <c:choose>
 				<c:when  test="${mode =='editinsp'}">
-				<form:radiobutton
+				<form:radiobutton class="radioBtnClass" 
 						path="docketDetailProposedWorkList[${status.index}].value" value="true"  />
 					<spring:message code="lbl.yes" />
-					<form:radiobutton
+					<form:radiobutton class="radioBtnClass" 
 						path="docketDetailProposedWorkList[${status.index}].value" value="false"
 						/>
 					<spring:message code="lbl.no" />
@@ -544,10 +517,10 @@
 						cssClass="add-margin error-msg" />
 				</c:when>
 				<c:otherwise>
-				<form:radiobutton
+				<form:radiobutton class="radioBtnClass" 
 						path="docketDetailProposedWorkList[${status.index}].value" value="true" />
 					<spring:message code="lbl.yes" />
-					<form:radiobutton
+					<form:radiobutton class="radioBtnClass" 
 						path="docketDetailProposedWorkList[${status.index}].value" value="false"
 						checked="checked" />
 						<spring:message code="lbl.no" />
@@ -558,7 +531,7 @@
 				</div>
 
 				<div class="col-sm-3 add-margin text-center">
-					<form:textarea class="form-control patternvalidation"
+					<form:textarea class="form-control patternvalidation"  
 						data-pattern="alphanumericwithspace" maxlength="256"
 						id="docketDetailProposedWorkList${status.index}remarks"
 						path="docketDetailProposedWorkList[${status.index}].remarks"
@@ -608,10 +581,10 @@
 				<div class="col-sm-3 add-margin">
 				 <c:choose>
 				<c:when  test="${mode =='editinsp'}">
-				<form:radiobutton
+				<form:radiobutton class="radioBtnClass" 
 						path="docketDetailWorkAsPerPlanList[${status.index}].value" value="true"  />
 					<spring:message code="lbl.yes" />
-					<form:radiobutton
+					<form:radiobutton class="radioBtnClass" 
 						path="docketDetailWorkAsPerPlanList[${status.index}].value" value="false"
 						/>
 					<spring:message code="lbl.no" />
@@ -619,10 +592,10 @@
 						cssClass="add-margin error-msg" />
 				</c:when>
 				<c:otherwise>
-				<form:radiobutton
+				<form:radiobutton class="radioBtnClass" 
 						path="docketDetailWorkAsPerPlanList[${status.index}].value" value="true" />
 					<spring:message code="lbl.yes" />
-					<form:radiobutton
+					<form:radiobutton class="radioBtnClass" 
 						path="docketDetailWorkAsPerPlanList[${status.index}].value" value="false"
 						checked="checked" />
 						<spring:message code="lbl.no" />
@@ -633,7 +606,7 @@
 				</div>
 
 				<div class="col-sm-3 add-margin text-center">
-					<form:textarea class="form-control patternvalidation"
+					<form:textarea class="form-control patternvalidation"  
 						data-pattern="alphanumericwithspace" maxlength="256"
 						id="docketDetailWorkAsPerPlanList${status.index}remarks"
 						path="docketDetailWorkAsPerPlanList[${status.index}].remarks"
@@ -683,10 +656,10 @@
 				<div class="col-sm-3 add-margin">
 				 <c:choose>
 				<c:when  test="${mode =='editinsp'}">
-				<form:radiobutton
+				<form:radiobutton class="radioBtnClass" 
 						path="docketDetailHgtAbuttRoadList[${status.index}].value" value="true"  />
 					<spring:message code="lbl.yes" />
-					<form:radiobutton
+					<form:radiobutton class="radioBtnClass" 
 						path="docketDetailHgtAbuttRoadList[${status.index}].value" value="false"
 						/>
 					<spring:message code="lbl.no" />
@@ -694,10 +667,10 @@
 						cssClass="add-margin error-msg" />
 				</c:when>
 				<c:otherwise>
-				<form:radiobutton
+				<form:radiobutton class="radioBtnClass" 
 						path="docketDetailHgtAbuttRoadList[${status.index}].value" value="true" />
 					<spring:message code="lbl.yes" />
-					<form:radiobutton
+					<form:radiobutton class="radioBtnClass" 
 						path="docketDetailHgtAbuttRoadList[${status.index}].value" value="false"
 						checked="checked" />
 						<spring:message code="lbl.no" />
@@ -708,7 +681,7 @@
 				</div>
 
 				<div class="col-sm-3 add-margin text-center">
-					<form:textarea class="form-control patternvalidation"
+					<form:textarea class="form-control patternvalidation"    
 						data-pattern="alphanumericwithspace" maxlength="256"
 						id="docketDetailHgtAbuttRoadList${status.index}remarks"
 						path="docketDetailHgtAbuttRoadList[${status.index}].remarks"
@@ -721,3 +694,274 @@
 		</c:forEach>
 	</c:when>
 </c:choose>
+
+<c:choose>
+	<c:when test="${!docketDetailAreaLoc.isEmpty()}">
+	<div class="panel-heading custom_form_panel_heading">
+	<div class="panel-title">
+		Area of the Location
+	</div>
+</div>
+		<div class="form-group view-content header-color hidden-xs">
+			<div class="col-sm-5 text-center">Documents</div>
+			<div class="col-sm-3 text-center">Value</div>
+			<div class="col-sm-3 text-center">
+				<spring:message code="lbl.remarks" />
+			</div>
+		</div>
+		<c:forEach var="docs" items="${docketDetailAreaLoc}" varStatus="status">
+			<div class="form-group">
+				<div class="col-sm-5 add-margin check-text text-center">
+
+					<c:out value="${docs.checkListDetail.description}" />
+
+
+					<form:hidden
+						id="docketDetailAreaLoc${status.index}checkListDetail.id"
+						path="docketDetailAreaLoc[${status.index}].checkListDetail.id"
+						value="${docs.checkListDetail.id}" />
+
+					<form:hidden
+						id="docketDetailAreaLoc${status.index}checkListDetail.description"
+						path="docketDetailAreaLoc[${status.index}].checkListDetail.description"
+						value="${docs.checkListDetail.description}" />
+				</div>
+
+				<div class="col-sm-3 add-margin">
+				<form:input class="form-control patternvalidation" data-pattern="number" maxlength="35" id="buildingName" path="docketDetailAreaLoc[${status.index}].value"/>
+			<form:errors path="docketDetailAreaLoc[${status.index}].value" cssClass="add-margin error-msg"/>
+				</div>
+
+				<div class="col-sm-3 add-margin text-center">
+					<form:textarea class="form-control patternvalidation"  
+						data-pattern="alphanumericwithspace" maxlength="256"
+						id="docketDetailAreaLoc${status.index}remarks"
+						path="docketDetailAreaLoc[${status.index}].remarks"
+						 />
+
+					<form:errors path="docketDetailMeasumentList[${status.index}].remarks"
+						cssClass="add-margin error-msg" />
+				</div>
+			</div>
+		</c:forEach>
+	</c:when>
+</c:choose>
+<c:choose>
+	<c:when test="${!docketDetailLengthOfCompWall.isEmpty()}">
+	<div class="panel-heading custom_form_panel_heading">
+	<div class="panel-title">
+		Length of the Compound Wall 
+	</div>
+</div>
+		<div class="form-group view-content header-color hidden-xs">
+			<div class="col-sm-5 text-center">Documents</div>
+			<div class="col-sm-3 text-center">Value</div>
+			<div class="col-sm-3 text-center">
+				<spring:message code="lbl.remarks" />
+			</div>
+		</div>
+		<c:forEach var="docs" items="${docketDetailLengthOfCompWall}" varStatus="status">
+			<div class="form-group">
+				<div class="col-sm-5 add-margin check-text text-center">
+
+					<c:out value="${docs.checkListDetail.description}" />
+
+
+					<form:hidden
+						id="docketDetailLengthOfCompWall${status.index}checkListDetail.id"
+						path="docketDetailLengthOfCompWall[${status.index}].checkListDetail.id"
+						value="${docs.checkListDetail.id}" />
+
+					<form:hidden
+						id="docketDetailLengthOfCompWall${status.index}checkListDetail.description"
+						path="docketDetailLengthOfCompWall[${status.index}].checkListDetail.description"
+						value="${docs.checkListDetail.description}" />
+				</div>
+
+				<div class="col-sm-3 add-margin">
+				<form:input class="form-control patternvalidation" data-pattern="number" maxlength="35" id="buildingName" path="docketDetailLengthOfCompWall[${status.index}].value"/>
+			<form:errors path="docketDetailLengthOfCompWall[${status.index}].value" cssClass="add-margin error-msg"/>
+				</div>
+
+				<div class="col-sm-3 add-margin text-center">
+					<form:textarea class="form-control patternvalidation"  
+						data-pattern="alphanumericwithspace" maxlength="256"
+						id="docketDetailLengthOfCompWall${status.index}remarks"
+						path="docketDetailLengthOfCompWall[${status.index}].remarks"
+						 />
+
+					<form:errors path="docketDetailMeasumentList[${status.index}].remarks"
+						cssClass="add-margin error-msg" />
+				</div>
+			</div>
+		</c:forEach>
+	</c:when>
+</c:choose>
+<c:choose>
+	<c:when test="${!docketDetailNumberOfWell.isEmpty()}">
+	<div class="panel-heading custom_form_panel_heading">
+	<div class="panel-title">
+	Number of Wells
+	</div>
+</div>
+		<div class="form-group view-content header-color hidden-xs">
+			<div class="col-sm-5 text-center">Documents</div>
+			<div class="col-sm-3 text-center">Value</div>
+			<div class="col-sm-3 text-center">
+				<spring:message code="lbl.remarks" />
+			</div>
+		</div>
+		<c:forEach var="docs" items="${docketDetailNumberOfWell}" varStatus="status">
+			<div class="form-group">
+				<div class="col-sm-5 add-margin check-text text-center">
+
+					<c:out value="${docs.checkListDetail.description}" />
+
+
+					<form:hidden
+						id="docketDetailNumberOfWell${status.index}checkListDetail.id"
+						path="docketDetailNumberOfWell[${status.index}].checkListDetail.id"
+						value="${docs.checkListDetail.id}" />
+
+					<form:hidden
+						id="docketDetailNumberOfWell${status.index}checkListDetail.description"
+						path="docketDetailNumberOfWell[${status.index}].checkListDetail.description"
+						value="${docs.checkListDetail.description}" />
+				</div>
+
+				<div class="col-sm-3 add-margin">
+				<form:input class="form-control patternvalidation" data-pattern="number" maxlength="35" id="buildingName" path="docketDetailNumberOfWell[${status.index}].value"/>
+			<form:errors path="docketDetailNumberOfWell[${status.index}].value" cssClass="add-margin error-msg"/>
+				</div>
+
+				<div class="col-sm-3 add-margin text-center">
+					<form:textarea class="form-control patternvalidation"  
+						data-pattern="alphanumericwithspace" maxlength="256"
+						id="docketDetailNumberOfWell${status.index}remarks"
+						path="docketDetailNumberOfWell[${status.index}].remarks"
+						 />
+
+					<form:errors path="docketDetailMeasumentList[${status.index}].remarks"
+						cssClass="add-margin error-msg" />
+				</div>
+			</div>
+		</c:forEach>
+	</c:when>
+</c:choose>
+<c:choose>
+	<c:when test="${!docketDetailShutter.isEmpty()}">
+	<div class="panel-heading custom_form_panel_heading">
+	<div class="panel-title">
+  Shutter
+	</div>
+</div>
+		<div class="form-group view-content header-color hidden-xs">
+			<div class="col-sm-5 text-center">Documents</div>
+			<div class="col-sm-3 text-center">Value</div>
+			<div class="col-sm-3 text-center">
+				<spring:message code="lbl.remarks" />
+			</div>
+		</div>
+		<c:forEach var="docs" items="${docketDetailShutter}" varStatus="status">
+			<div class="form-group">
+				<div class="col-sm-5 add-margin check-text text-center">
+
+					<c:out value="${docs.checkListDetail.description}" />
+
+
+					<form:hidden
+						id="docketDetailShutter${status.index}checkListDetail.id"
+						path="docketDetailShutter[${status.index}].checkListDetail.id"
+						value="${docs.checkListDetail.id}" />
+
+					<form:hidden
+						id="docketDetailShutter${status.index}checkListDetail.description"
+						path="docketDetailShutter[${status.index}].checkListDetail.description"
+						value="${docs.checkListDetail.description}" />
+				</div>
+
+				<div class="col-sm-3 add-margin">
+				<form:input class="form-control patternvalidation" data-pattern="number" maxlength="35" id="buildingName" path="docketDetailShutter[${status.index}].value"/>
+			<form:errors path="docketDetailShutter[${status.index}].value" cssClass="add-margin error-msg"/>
+				</div>
+
+				<div class="col-sm-3 add-margin text-center">
+					<form:textarea class="form-control patternvalidation"  
+						data-pattern="alphanumericwithspace" maxlength="256"
+						id="docketDetailShutter${status.index}remarks"
+						path="docketDetailShutter[${status.index}].remarks"
+						 />
+
+					<form:errors path="docketDetailMeasumentList[${status.index}].remarks"
+						cssClass="add-margin error-msg" />
+				</div>
+			</div>
+		</c:forEach>
+	</c:when>
+</c:choose>
+<c:choose>
+	<c:when test="${!docketDetailRoofConversion.isEmpty()}">
+	<div class="panel-heading custom_form_panel_heading">
+	<div class="panel-title">
+  		Roof Conversion
+	</div>
+</div>
+		<div class="form-group view-content header-color hidden-xs">
+			<div class="col-sm-5 text-center">Documents</div>
+			<div class="col-sm-3 text-center">Value</div>
+			<div class="col-sm-3 text-center">
+				<spring:message code="lbl.remarks" />
+			</div>
+		</div>
+		<c:forEach var="docs" items="${docketDetailRoofConversion}" varStatus="status">
+			<div class="form-group">
+				<div class="col-sm-5 add-margin check-text text-center">
+
+					<c:out value="${docs.checkListDetail.description}" />
+
+
+					<form:hidden
+						id="docketDetailRoofConversion${status.index}checkListDetail.id"
+						path="docketDetailRoofConversion[${status.index}].checkListDetail.id"
+						value="${docs.checkListDetail.id}" />
+
+					<form:hidden
+						id="docketDetailRoofConversion${status.index}checkListDetail.description"
+						path="docketDetailRoofConversion[${status.index}].checkListDetail.description"
+						value="${docs.checkListDetail.description}" />
+				</div>
+
+				<div class="col-sm-3 add-margin">
+				<form:input class="form-control patternvalidation" data-pattern="number" maxlength="35" id="buildingName" path="docketDetailRoofConversion[${status.index}].value"/>
+			<form:errors path="docketDetailRoofConversion[${status.index}].value" cssClass="add-margin error-msg"/>
+				</div>
+
+				<div class="col-sm-3 add-margin text-center">
+					<form:textarea class="form-control patternvalidation"  
+						data-pattern="alphanumericwithspace" maxlength="256"
+						id="docketDetailRoofConversion${status.index}remarks"
+						path="docketDetailRoofConversion[${status.index}].remarks"
+						 />
+
+					<form:errors path="docketDetailMeasumentList[${status.index}].remarks"
+						cssClass="add-margin error-msg" />
+				</div>
+			</div>
+		</c:forEach>
+	</c:when>
+</c:choose>
+<script>
+//if($("input[type='radio'].radioBtnClass").is(':checked')) {
+  /*   var card_type = $("input[type='radio'].radioBtnClass:checked").val();
+    
+    alert(card_type);
+    if(!card_type){
+    	jQuery('#constructiontablesite').find("td").each(function(){
+			if(jQuery(this).attr('id')=='mandatoryfields'){ 
+				jQuery(this).find('span').remove();
+				jQuery(this).attr('id', 'changedtononmandatory');
+			}
+		});   
+    }
+ */
+</script>

@@ -57,6 +57,7 @@ import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaAppointmentSchedule;
 import org.egov.bpa.application.entity.LettertoParty;
 import org.egov.bpa.application.entity.enums.AppointmentSchedulePurpose;
+import org.egov.bpa.application.service.InspectionService;
 import org.egov.bpa.application.service.LettertoPartyService;
 import org.egov.bpa.masters.service.StakeHolderService;
 import org.egov.bpa.service.BpaUtils;
@@ -86,7 +87,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class UpdateBpaApplicationController extends BpaGenericApplicationController {
     private static final String FWD_TO_OVRSR_FOR_FIELD_INS = "Forwarded to Overseer for field inspection";
     private static final String FORWARDED_TO_NOC_UPDATE = "Forwarded to Superintendent for Noc Updation";
-    private static final String FORWARDED_TO_APPROVAL = "Forwarded to Superintendent approval";
     private static final String BPA_APPLICATION = "bpaApplication";
 
     private static final String MESSAGE = "message";
@@ -110,6 +110,10 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
 
     @Autowired
     private SecurityUtils securityUtils;
+    
+    @Autowired
+    private InspectionService inspectionService;
+    
     @Autowired
     private StakeHolderService stakeHolderService;
     @Autowired
@@ -165,6 +169,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 && !application.getInspections().isEmpty()) {
             mode = "initialtedApprove";
         }
+        model.addAttribute("inspectionList", inspectionService.findByBpaApplicationOrderByIdAsc(application));
         if (BpaConstants.LETTERTOPARTYSENT.equalsIgnoreCase(application.getState().getNextAction())) {
             final List<LettertoParty> lettertoPartyList = lettertoPartyService.findByBpaApplicationOrderByIdAsc(application);
             LettertoParty lettertoParty = null;

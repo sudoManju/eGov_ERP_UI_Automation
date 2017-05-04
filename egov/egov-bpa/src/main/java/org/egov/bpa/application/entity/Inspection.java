@@ -184,6 +184,19 @@ public class Inspection extends AbstractAuditable {
     private List<DocketDetail> docketDetailHgtAbuttRoadList = new ArrayList<>();
     @Transient
     private List<DocketDetail> docketDetailMeasumentList = new ArrayList<>();
+    @Transient
+    private List<DocketDetail> docketDetailAreaLoc = new ArrayList<>();
+    @Transient
+    private List<DocketDetail> docketDetailLengthOfCompWall= new ArrayList<>();
+    @Transient
+    private List<DocketDetail> docketDetailNumberOfWell = new ArrayList<>();
+    @Transient
+    private List<DocketDetail> docketDetailErectionTower = new ArrayList<>();
+    @Transient
+    private List<DocketDetail> docketDetailShutter = new ArrayList<>();
+    @Transient
+    private List<DocketDetail> docketDetailRoofConversion = new ArrayList<>();
+    
     
     
     @Override
@@ -703,6 +716,54 @@ public class Inspection extends AbstractAuditable {
     public void setDocketDetailMeasumentList(List<DocketDetail> docketDetailMeasumentList) {
         this.docketDetailMeasumentList = docketDetailMeasumentList;
     }
+
+	public List<DocketDetail> getDocketDetailAreaLoc() {
+		return docketDetailAreaLoc;
+	}
+
+	public void setDocketDetailAreaLoc(List<DocketDetail> docketDetailAreaLoc) {
+		this.docketDetailAreaLoc = docketDetailAreaLoc;
+	}
+
+	public List<DocketDetail> getDocketDetailLengthOfCompWall() {
+		return docketDetailLengthOfCompWall;
+	}
+
+	public void setDocketDetailLengthOfCompWall(List<DocketDetail> docketDetailLengthOfCompWall) {
+		this.docketDetailLengthOfCompWall = docketDetailLengthOfCompWall;
+	}
+
+	public List<DocketDetail> getDocketDetailNumberOfWell() {
+		return docketDetailNumberOfWell;
+	}
+
+	public void setDocketDetailNumberOfWell(List<DocketDetail> docketDetailNumberOfWell) {
+		this.docketDetailNumberOfWell = docketDetailNumberOfWell;
+	}
+
+	public List<DocketDetail> getDocketDetailErectionTower() {
+		return docketDetailErectionTower;
+	}
+
+	public void setDocketDetailErectionTower(List<DocketDetail> docketDetailErectionTower) {
+		this.docketDetailErectionTower = docketDetailErectionTower;
+	}
+
+	public List<DocketDetail> getDocketDetailShutter() {
+		return docketDetailShutter;
+	}
+
+	public void setDocketDetailShutter(List<DocketDetail> docketDetailShutter) {
+		this.docketDetailShutter = docketDetailShutter;
+	}
+
+	public List<DocketDetail> getDocketDetailRoofConversion() {
+		return docketDetailRoofConversion;
+	}
+
+	public void setDocketDetailRoofConversion(List<DocketDetail> docketDetailRoofConversion) {
+		this.docketDetailRoofConversion = docketDetailRoofConversion;
+	}
 
 
    

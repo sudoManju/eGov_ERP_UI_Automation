@@ -177,9 +177,6 @@
 						href="/bpa/application/createinspectiondetails/${bpaApplication.applicationNumber}"
 						class="btn btn-primary">Capture New Inspection Details </a>
 
-					<a
-						href="/bpa/application/modify-inspection/${bpaApplication.applicationNumber}"
-						class="btn btn-primary">Add/Edit Inspection Details </a>
 				</c:if>
 				<c:if test="${mode eq 'newappointment'}">
 					<a

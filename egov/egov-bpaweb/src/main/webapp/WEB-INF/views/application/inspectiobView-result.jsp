@@ -307,6 +307,146 @@
 					</div>
 				</c:forEach>
 			</div> 
+			
+			<div class="panel-heading custom_form_panel_heading">
+			
+				<div class="panel-title">
+		Area of the Location
+	</div>
+			</div>	<div class="panel-body">
+				<c:forEach items="${docketDetailAreaLoc}" var="doc" varStatus="counter">
+
+					<div class="row add-border">
+						<div class="col-sm-5 add-margin view-content">
+							<c:out value="${doc.checkListDetail.description}" default="N/A"></c:out>
+						</div>
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.value}" default="N/A"></c:out>
+						</div>
+
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.remarks}" default="N/A"></c:out>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+			
+			<div class="panel-heading custom_form_panel_heading">
+			
+				<div class="panel-title">
+		Length of the Compound Wall
+	</div>
+			</div>	<div class="panel-body">
+				<c:forEach items="${docketDetailLengthOfCompWall}" var="doc" varStatus="counter">
+
+					<div class="row add-border">
+						<div class="col-sm-5 add-margin view-content">
+							<c:out value="${doc.checkListDetail.description}" default="N/A"></c:out>
+						</div>
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.value}" default="N/A"></c:out>
+						</div>
+
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.remarks}" default="N/A"></c:out>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+						<div class="panel-heading custom_form_panel_heading">
+			
+				<div class="panel-title">
+		Number of Wells
+	</div>
+			</div>	<div class="panel-body">
+				<c:forEach items="${docketDetailNumberOfWell}" var="doc" varStatus="counter">
+
+					<div class="row add-border">
+						<div class="col-sm-5 add-margin view-content">
+							<c:out value="${doc.checkListDetail.description}" default="N/A"></c:out>
+						</div>
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.value}" default="N/A"></c:out>
+						</div>
+
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.remarks}" default="N/A"></c:out>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+			
+			
+					
+
+	<div class="panel-heading custom_form_panel_heading">
+			
+				<div class="panel-title">
+		Erection of Tower
+	</div>
+			</div>	<div class="panel-body">
+				<c:forEach items="${docketDetailErectionTower}" var="doc" varStatus="counter">
+
+					<div class="row add-border">
+						<div class="col-sm-5 add-margin view-content">
+							<c:out value="${doc.checkListDetail.description}" default="N/A"></c:out>
+						</div>
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.value}" default="N/A"></c:out>
+						</div>
+
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.remarks}" default="N/A"></c:out>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+			
+			
+				<div class="panel-heading custom_form_panel_heading">
+			
+				<div class="panel-title">
+Shutter	</div>
+			</div>	<div class="panel-body">
+				<c:forEach items="${docketDetailShutter}" var="doc" varStatus="counter">
+
+					<div class="row add-border">
+						<div class="col-sm-5 add-margin view-content">
+							<c:out value="${doc.checkListDetail.description}" default="N/A"></c:out>
+						</div>
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.value}" default="N/A"></c:out>
+						</div>
+
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.remarks}" default="N/A"></c:out>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+			
+				<div class="panel-heading custom_form_panel_heading">
+			
+				<div class="panel-title">
+Roof Conversion	</div>
+			</div>	<div class="panel-body">
+				<c:forEach items="${docketDetailRoofConversion}" var="doc" varStatus="counter">
+
+					<div class="row add-border">
+						<div class="col-sm-5 add-margin view-content">
+							<c:out value="${doc.checkListDetail.description}" default="N/A"></c:out>
+						</div>
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.value}" default="N/A"></c:out>
+						</div>
+
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.remarks}" default="N/A"></c:out>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+			
 			<div align="center">
 				<input type="button" name="button2" id="button2" value="Close"
 					class="btn btn-default" onclick="window.close();" />

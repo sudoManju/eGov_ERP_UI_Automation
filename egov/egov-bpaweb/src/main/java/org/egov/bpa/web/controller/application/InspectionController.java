@@ -123,6 +123,12 @@ public class InspectionController extends BpaGenericApplicationController {
         model.addAttribute("docketDetailProposedWorkList", inspection.getDocketDetailProposedWorkList());
         model.addAttribute("docketDetailWorkAsPerPlanList", inspection.getDocketDetailWorkAsPerPlanList());
         model.addAttribute("docketDetailHgtAbuttRoadList", inspection.getDocketDetailHgtAbuttRoadList());
+        model.addAttribute("docketDetailAreaLoc", inspection.getDocketDetailAreaLoc());
+        model.addAttribute("docketDetailLengthOfCompWall", inspection.getDocketDetailLengthOfCompWall());
+        model.addAttribute("docketDetailNumberOfWell", inspection.getDocketDetailNumberOfWell());
+        model.addAttribute("docketDetailErectionTower", inspection.getDocketDetailErectionTower());
+        model.addAttribute("docketDetailShutter", inspection.getDocketDetailShutter());
+        model.addAttribute("docketDetailRoofConversion", inspection.getDocketDetailRoofConversion());
         model.addAttribute(BpaConstants.BPA_APPLICATION, application);
     }
 
