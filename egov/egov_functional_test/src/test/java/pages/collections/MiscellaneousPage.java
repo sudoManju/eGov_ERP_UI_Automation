@@ -177,7 +177,7 @@ public class MiscellaneousPage extends BasePage {
                 enterText(amountTextBox, "655", driver);
                 break;
 
-            case "directBank":
+            case "directBank1":
                 jsClick(directBankRadioButton, driver);
                 enterText(referenceNumberTextBox, paymentmethod.getChequeNumber(), driver);
                 enterDate(challanDateTextBox, getCurrentDate(), driver);
