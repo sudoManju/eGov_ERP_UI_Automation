@@ -54,6 +54,19 @@ public class Employee {
     private int community;
 
     private String code;
+    private ServiceHistory[] serviceHistory;
+    @JsonProperty("Assignments")
+    private Assignments[] assignments;
+    private Regularisation[] regularisation;
+    private String dateOfRetirement;
+    private int category;
+    private int recruitmentMode;
+    private int group;
+    private String dateOfAppointment;
+    @JsonProperty("User")
+    private User user;
+    private String bankAccount;
+    private int bankBranch;
 
     public String getCode() {
         return code;
@@ -62,30 +75,6 @@ public class Employee {
     public void setCode(String code) {
         this.code = code;
     }
-
-    private ServiceHistory[] serviceHistory;
-
-    @JsonProperty("Assignments")
-    private Assignments[] assignments;
-
-    private Regularisation[] regularisation;
-
-    private String dateOfRetirement;
-
-    private int category;
-
-    private int recruitmentMode;
-
-    private int group;
-
-    private String dateOfAppointment;
-
-    @JsonProperty("User")
-    private User user;
-
-    private String bankAccount;
-
-    private int bankBranch;
 
     public String getTenantId() {
         return tenantId;

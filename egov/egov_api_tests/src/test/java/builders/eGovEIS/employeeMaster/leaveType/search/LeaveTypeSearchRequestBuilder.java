@@ -1,7 +1,7 @@
 package builders.eGovEIS.employeeMaster.leaveType.search;
 
-import entities.requests.eGovEIS.employeeMaster.leaveType.search.LeaveTypeSearchRequest;
 import entities.requests.eGovEIS.employeeMaster.RequestInfo;
+import entities.requests.eGovEIS.employeeMaster.leaveType.search.LeaveTypeSearchRequest;
 
 public final class LeaveTypeSearchRequestBuilder {
 

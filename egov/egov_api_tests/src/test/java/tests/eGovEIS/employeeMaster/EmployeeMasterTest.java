@@ -38,7 +38,7 @@ public class EmployeeMasterTest extends BaseAPITest {
 
         User user = new UserBuilder().withUserName("TestUser" + get3DigitRandomInt()).build();
         Employee employee = new EmployeeBuilder().withPassportNo("IND12" + get3DigitRandomInt()).withGpfNo("12" + get3DigitRandomInt())
-                .withUser(user).withCode("EMPLOYEE"+get3DigitRandomInt()).build();
+                .withUser(user).withCode("EMPLOYEE" + get3DigitRandomInt()).build();
 
         CreateEmployeeRequest request = new CreateEmployeeRequestBuilder().withRequestInfo(requestInfo).withEmployee(employee).build();
 

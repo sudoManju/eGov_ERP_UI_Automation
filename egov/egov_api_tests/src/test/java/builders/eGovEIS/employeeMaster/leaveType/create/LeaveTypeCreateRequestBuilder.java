@@ -5,7 +5,7 @@ import entities.requests.eGovEIS.employeeMaster.leaveType.create.LeaveType;
 import entities.requests.eGovEIS.employeeMaster.leaveType.create.LeaveTypeCreateRequest;
 import tests.BaseAPITest;
 
-public class LeaveTypeCreateRequestBuilder extends BaseAPITest{
+public class LeaveTypeCreateRequestBuilder extends BaseAPITest {
 
     LeaveTypeCreateRequest leaveTypeCreateRequest = new LeaveTypeCreateRequest();
     RequestInfo requestInfo = new RequestInfo();

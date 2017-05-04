@@ -10,6 +10,9 @@ import utils.ResourceHelper;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import static java.lang.String.format;
@@ -53,5 +56,11 @@ public class BaseAPITest {
 
     protected String get3DigitRandomInt() {
         return String.valueOf((RandomUtils.nextInt(100, 999)));
+    }
+
+    protected String getCurrentDate() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 }

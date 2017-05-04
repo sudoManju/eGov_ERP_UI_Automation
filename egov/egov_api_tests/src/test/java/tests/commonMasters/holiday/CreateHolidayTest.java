@@ -56,7 +56,7 @@ public class CreateHolidayTest {
         Response response = new CommonMasterResource()
                 .createHoliday(RequestHelper.getJsonString(createHolidayRequest));
 
-        Assert.assertEquals(response.getStatusCode() , 200);
+        Assert.assertEquals(response.getStatusCode(), 200);
     }
 
 }

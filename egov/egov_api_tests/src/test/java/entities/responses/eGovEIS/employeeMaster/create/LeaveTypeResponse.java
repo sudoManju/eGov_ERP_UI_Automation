@@ -3,7 +3,7 @@ package entities.responses.eGovEIS.employeeMaster.create;
 import entities.responses.eGovEIS.employeeMaster.RequestInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class LeaveTypeCreateResponse {
+public class LeaveTypeResponse {
 
     @JsonProperty("LeaveType")
     private LeaveType[] LeaveType;

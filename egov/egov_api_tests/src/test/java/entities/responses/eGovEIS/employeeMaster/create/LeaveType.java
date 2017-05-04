@@ -1,6 +1,7 @@
 package entities.responses.eGovEIS.employeeMaster.create;
 
 public class LeaveType {
+    private int id;
     private boolean encashable;
     private String createdDate;
     private boolean accumulative;
@@ -13,6 +14,14 @@ public class LeaveType {
     private boolean payEligible;
     private boolean active;
     private boolean halfdayAllowed;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public boolean getEncashable() {
         return this.encashable;

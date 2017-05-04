@@ -97,7 +97,7 @@ public class EmployeeBuilder {
         return this;
     }
 
-    public EmployeeBuilder withCode(String code){
+    public EmployeeBuilder withCode(String code) {
         employee.setCode(code);
         return this;
     }

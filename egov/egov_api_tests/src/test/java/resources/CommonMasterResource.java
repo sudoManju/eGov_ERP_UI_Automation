@@ -1,14 +1,13 @@
 package resources;
 
 import com.jayway.restassured.response.Response;
-import org.codehaus.jackson.map.MapperConfig;
 import tests.BaseAPITest;
 import utils.APILogger;
 import utils.Properties;
 
 import static com.jayway.restassured.RestAssured.given;
 
-public class CommonMasterResource extends BaseAPITest{
+public class CommonMasterResource extends BaseAPITest {
 
     public Response searchLanguageTest(String json) {
         new APILogger().log("Search Language Request Test is Started with --" + json);
