@@ -1,12 +1,12 @@
-package builders.eGovEIS.hrMaster.designation;
+package builders.eGovEIS.hrMaster.position.search;
 
-import entities.requests.eGovEIS.hrMaster.RequestInfo;
-import entities.requests.eGovEIS.hrMaster.UserInfo;
+import entities.responses.eGovEIS.hrMaster.position.search.RequestInfo;
+import entities.responses.eGovEIS.hrMaster.position.search.UserInfo;
 
 public class RequestInfoBuilder {
 
     RequestInfo requestInfo = new RequestInfo();
-    UserInfo userInfo = new UserInfo();
+    UserInfo userInfo = new UserInfoBuilder().build();
 
     public RequestInfoBuilder() {
         requestInfo.setUserInfo(userInfo);
@@ -18,7 +18,6 @@ public class RequestInfoBuilder {
         requestInfo.setMsgId("");
         requestInfo.setRequesterId("");
         requestInfo.setAuthToken("6fe58872-869c-4507-b32d-8b0f0b0e4e45");
-
     }
 
     public RequestInfoBuilder withUserInfo(UserInfo userInfo) {

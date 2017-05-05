@@ -1,10 +1,6 @@
-package entities.requests.logout;
+package entities.responses.eGovEIS.hrMaster.position.search;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-
-public class LogoutRequest {
-
-    @JsonProperty("RequestInfo")
+public class HRMasterPositionSearchRequest {
     private RequestInfo RequestInfo;
 
     public RequestInfo getRequestInfo() {

@@ -4,7 +4,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class SearchAttendanceRequest {
 
-    @JsonProperty("RequestInfo1")
+    @JsonProperty("RequestInfo")
     private entities.requests.eGovEIS.RequestInfo requestInfo;
 
     public entities.requests.eGovEIS.RequestInfo getRequestInfo() {

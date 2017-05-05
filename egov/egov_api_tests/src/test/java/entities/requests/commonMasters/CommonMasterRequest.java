@@ -4,7 +4,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class CommonMasterRequest {
 
-    @JsonProperty("RequestInfo1")
+    @JsonProperty("RequestInfo")
     private RequestInfo RequestInfo;
 
     public RequestInfo getRequestInfo() {

@@ -6,7 +6,7 @@ public class CreateUserRequest {
     @JsonProperty("User")
     private User User;
 
-    @JsonProperty("RequestInfo1")
+    @JsonProperty("RequestInfo")
     private RequestInfo RequestInfo;
 
     public User getUser() {

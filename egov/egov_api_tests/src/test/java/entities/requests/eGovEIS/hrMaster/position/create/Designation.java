@@ -1,7 +1,6 @@
-package entities.requests.eGovEIS.hrMaster.designation;
+package entities.requests.eGovEIS.hrMaster.position.create;
 
-public class UserInfo {
-
+public class Designation {
     private int id;
 
     public int getId() {

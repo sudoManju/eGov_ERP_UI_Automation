@@ -1,6 +1,11 @@
-package entities.responses.eGovEIS.employeeMaster;
+package entities.requests.eGovEIS.hrMaster;
+
+import org.codehaus.jackson.annotate.JsonProperty;
 
 public class RequestInfo {
+
+    @JsonProperty("UserInfo")
+    private UserInfo userInfo;
     private String ver;
     private String requesterId;
     private String authToken;
@@ -10,6 +15,14 @@ public class RequestInfo {
     private String did;
     private String key;
     private String ts;
+
+    public UserInfo getUserInfo() {
+        return this.userInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
+    }
 
     public String getVer() {
         return this.ver;

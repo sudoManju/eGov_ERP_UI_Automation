@@ -1,6 +1,6 @@
 package entities.responses.eGovEIS.employeeMaster.create;
 
-import entities.responses.eGovEIS.employeeMaster.RequestInfo;
+import entities.responses.eGovEIS.employeeMaster.ResponseInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class LeaveTypeResponse {
@@ -8,8 +8,8 @@ public class LeaveTypeResponse {
     @JsonProperty("LeaveType")
     private LeaveType[] LeaveType;
 
-    @JsonProperty("RequestInfo")
-    private RequestInfo RequestInfo;
+    @JsonProperty("ResponseInfo")
+    private ResponseInfo responseInfo;
 
     public LeaveType[] getLeaveType() {
         return this.LeaveType;
@@ -19,11 +19,11 @@ public class LeaveTypeResponse {
         this.LeaveType = LeaveType;
     }
 
-    public RequestInfo getRequestInfo() {
-        return this.RequestInfo;
+    public ResponseInfo getResponseInfo() {
+        return responseInfo;
     }
 
-    public void setRequestInfo(RequestInfo RequestInfo) {
-        this.RequestInfo = RequestInfo;
+    public void setResponseInfo(ResponseInfo responseInfo) {
+        this.responseInfo = responseInfo;
     }
 }

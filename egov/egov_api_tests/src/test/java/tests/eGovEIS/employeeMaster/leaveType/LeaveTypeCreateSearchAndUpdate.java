@@ -42,14 +42,14 @@ public class LeaveTypeCreateSearchAndUpdate extends BaseAPITest {
 
         Response response = new LeaveTypeResource().create(RequestHelper.getJsonString(leaveTypeCreateRequest));
 
-        LeaveTypeResponse leaveTypeResponse = (LeaveTypeResponse)
+        LeaveTypeResponse leaveTypeCreateResponse = (LeaveTypeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), LeaveTypeResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
         new APILogger().log("Leave Type Create Test is Completed --");
 
         // Searching a leave
-        leaveTypeSearchTestMethod(leaveTypeResponse.getLeaveType()[0].getName(), leaveTypeResponse);
+        leaveTypeSearchTestMethod(leaveTypeCreateResponse.getLeaveType()[0].getName(), leaveTypeCreateResponse);
     }
 
     private void leaveTypeSearchTestMethod(String leaveName, LeaveTypeResponse leaveTypeResponse) throws IOException {

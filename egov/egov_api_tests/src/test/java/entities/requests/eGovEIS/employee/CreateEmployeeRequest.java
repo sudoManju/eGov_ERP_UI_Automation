@@ -3,7 +3,7 @@ package entities.requests.eGovEIS.employee;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class CreateEmployeeRequest {
-    @JsonProperty("RequestInfo1")
+    @JsonProperty("RequestInfo")
     private RequestInfo RequestInfo;
 
     @JsonProperty("Employee")

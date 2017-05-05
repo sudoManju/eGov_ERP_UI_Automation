@@ -16,7 +16,7 @@ public class HRMasterDesignationResource {
                 .when()
                 .post("http://10.0.0.151:32656/hr-masters/designations/_create?tenantId=ap.kurnool");
 
-        new APILogger().log("Create Create Designation Test Response is Generated as  --" + response.asString());
+        new APILogger().log("Create Designation Test Response is Generated as  --" + response.asString());
         return response;
     }
 
@@ -28,7 +28,7 @@ public class HRMasterDesignationResource {
                 .when()
                 .post("http://10.0.0.151:32656/hr-masters/designations/_search?tenantId=ap.kurnool&name=" + name);
 
-        new APILogger().log("Search Create Designation Test Response is Generated as  --" + response.asString());
+        new APILogger().log("Search Designation Test Response is Generated as  --" + response.asString());
         return response;
     }
 
@@ -41,7 +41,7 @@ public class HRMasterDesignationResource {
                 .when()
                 .post("http://10.0.0.151:32656/hr-masters/designations/" + id + "/_update");
 
-        new APILogger().log("Update Create Designation Test Response is Generated as  --" + response.asString());
+        new APILogger().log("Update Designation Test Response is Generated as  --" + response.asString());
         return response;
 
     }

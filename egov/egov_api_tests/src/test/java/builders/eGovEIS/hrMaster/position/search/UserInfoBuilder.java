@@ -1,6 +1,6 @@
-package builders.eGovEIS.hrMaster.designation;
+package builders.eGovEIS.hrMaster.position.search;
 
-import entities.requests.eGovEIS.hrMaster.UserInfo;
+import entities.responses.eGovEIS.hrMaster.position.search.UserInfo;
 
 public class UserInfoBuilder {
 

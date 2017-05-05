@@ -1,6 +1,6 @@
 package builders.eGovEIS.hrMaster.designation.create;
 
-import entities.requests.eGovEIS.hrMaster.designation.RequestInfo;
+import entities.requests.eGovEIS.hrMaster.RequestInfo;
 import entities.requests.eGovEIS.hrMaster.designation.create.Designation;
 import entities.requests.eGovEIS.hrMaster.designation.create.HRMasterDesignationCreateRequest;
 

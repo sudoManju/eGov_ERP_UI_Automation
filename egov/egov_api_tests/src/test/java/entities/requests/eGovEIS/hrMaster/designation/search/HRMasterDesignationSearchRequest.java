@@ -1,6 +1,6 @@
 package entities.requests.eGovEIS.hrMaster.designation.search;
 
-import entities.requests.eGovEIS.hrMaster.designation.RequestInfo;
+import entities.requests.eGovEIS.hrMaster.RequestInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class HRMasterDesignationSearchRequest {

@@ -1,10 +1,6 @@
-package entities.requests.eGovEIS.hrMaster.designation;
-
-import org.codehaus.jackson.annotate.JsonProperty;
+package entities.responses.eGovEIS.hrMaster.position.search;
 
 public class RequestInfo {
-
-    @JsonProperty("UserInfo")
     private UserInfo userInfo;
     private String ver;
     private String requesterId;

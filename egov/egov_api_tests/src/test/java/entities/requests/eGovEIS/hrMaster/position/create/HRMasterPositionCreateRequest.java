@@ -1,22 +1,21 @@
-package entities.requests.eGovEIS.hrMaster.designation.create;
+package entities.requests.eGovEIS.hrMaster.position.create;
 
 import entities.requests.eGovEIS.hrMaster.RequestInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class HRMasterDesignationCreateRequest {
-
-    @JsonProperty("Designation")
-    private Designation Designation;
+public class HRMasterPositionCreateRequest {
+    @JsonProperty("Position")
+    private Position[] Position;
 
     @JsonProperty("RequestInfo")
     private RequestInfo RequestInfo;
 
-    public Designation getDesignation() {
-        return this.Designation;
+    public Position[] getPosition() {
+        return this.Position;
     }
 
-    public void setDesignation(Designation Designation) {
-        this.Designation = Designation;
+    public void setPosition(Position[] Position) {
+        this.Position = Position;
     }
 
     public RequestInfo getRequestInfo() {

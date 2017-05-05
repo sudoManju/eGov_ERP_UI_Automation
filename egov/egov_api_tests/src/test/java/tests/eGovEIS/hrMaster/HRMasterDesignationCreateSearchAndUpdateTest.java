@@ -5,7 +5,7 @@ import builders.eGovEIS.hrMaster.designation.create.DesignationBuilder;
 import builders.eGovEIS.hrMaster.designation.create.HRMasterDesignationCreateRequestBuilder;
 import builders.eGovEIS.hrMaster.designation.search.HRMasterDesignationSearchRequestBuilder;
 import com.jayway.restassured.response.Response;
-import entities.requests.eGovEIS.hrMaster.designation.RequestInfo;
+import entities.requests.eGovEIS.hrMaster.RequestInfo;
 import entities.requests.eGovEIS.hrMaster.designation.create.Designation;
 import entities.requests.eGovEIS.hrMaster.designation.create.HRMasterDesignationCreateRequest;
 import entities.requests.eGovEIS.hrMaster.designation.search.HRMasterDesignationSearchRequest;
@@ -19,10 +19,10 @@ import utils.ResponseHelper;
 
 import java.io.IOException;
 
-public class HRMasterDesignationCreateSearchAndUpdate {
+public class HRMasterDesignationCreateSearchAndUpdateTest {
 
     @Test
-    public void leaveTypeCreateSearchAndUpdateTest() throws IOException {
+    public void hrMasterDesignationCreateSearchAndUpdate() throws IOException {
 
         //Login Test
 //        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
