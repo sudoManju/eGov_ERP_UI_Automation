@@ -201,7 +201,7 @@ public class EmployeeDetailsPage extends BasePage {
         enterText(panNumberTextBox, "ABCDE" + Integer.toString(Integer.parseInt(get6DigitRandomInt()) / 100) + "F", driver);
         enterText(permanentAddressTextBox, employeeDetails.getPermanentAddress(), driver);
         enterText(permanentCityTextBox, employeeDetails.getPermanentCity(), driver);
-        enterText(permanentPincodeTextBox, employeeDetails.getPermanentPincode(), driver);
+//        enterText(permanentPincodeTextBox, employeeDetails.getPermanentPincode(), driver);
         enterText(dateOfAppointmentTextBox, employeeDetails.getDateOfAppointment(), driver);
 
         return employeeCode;

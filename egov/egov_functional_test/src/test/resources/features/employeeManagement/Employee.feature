@@ -11,9 +11,9 @@ Feature: Create/View/Update
     And user will enter the assignment details as <assignmentDetails>
     And user will enter the jurisdiction details as <jurisdictionDetail>
     Then user clicks on submit button
-    Then user close the employee search
+#    Then user close the employee search
     
-    And user will select the required screen as "Create LeaveBalance"
+#    And user will select the required screen as "Create LeaveBalance"
 
 
     Examples:
