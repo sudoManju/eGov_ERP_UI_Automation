@@ -64,8 +64,6 @@ public class LeaveApplicationVerficationTest extends BaseAPITest{
     Response response = new LeaveApplicationResource().search(json,appNum);
 
     Assert.assertEquals(response.getStatusCode(),200);
-
-
   }
 }
 

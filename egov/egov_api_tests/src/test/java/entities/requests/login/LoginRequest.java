@@ -6,6 +6,7 @@ public class LoginRequest {
     private String password;
     private String grant_type;
     private String scope;
+    private String tenantId;
 
     public String getUsername() {
         return username;
@@ -37,5 +38,13 @@ public class LoginRequest {
 
     public void setScope(String scope) {
         this.scope = scope;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
     }
 }

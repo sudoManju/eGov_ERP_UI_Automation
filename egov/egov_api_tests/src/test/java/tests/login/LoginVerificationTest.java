@@ -24,7 +24,7 @@ public class LoginVerificationTest extends BaseAPITest {
         LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
 
         // Logout Test
-        LoginAndLogoutHelper.logout(loginResponse);
+//        LoginAndLogoutHelper.logout(loginResponse);
 
     }
 

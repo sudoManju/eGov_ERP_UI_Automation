@@ -11,6 +11,7 @@ public final class LoginRequestBuilder {
         loginRequest.setPassword("demo");
         loginRequest.setGrant_type("password");
         loginRequest.setScope("read");
+        loginRequest.setTenantId("default");
     }
 
     public LoginRequestBuilder withUsername(String username) {
