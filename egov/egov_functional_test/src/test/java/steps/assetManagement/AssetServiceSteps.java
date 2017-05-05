@@ -11,8 +11,8 @@ public class AssetServiceSteps extends BaseSteps implements En {
 
     public AssetServiceSteps() {
 
-        And("^user will enter the details (\\w+) and (\\w+) with asset summary status as (\\w+)$", (String headerDetails
-                , String locationDetails, String assetStatus) -> {
+        And("^user will enter the details as (\\w+) and (\\w+)$", (String headerDetails
+                , String locationDetails) -> {
 
             HeaderDetails headerDetails1 = new AssetServiceDataReader(assetTestDataFileName)
                     .getHeaderDetails(headerDetails);
@@ -22,8 +22,14 @@ public class AssetServiceSteps extends BaseSteps implements En {
                     .getLocationDetails(locationDetails);
             pageStore.get(AssetServicePage.class).enterLocationDetails(locationDetails1);
 
+        });
+        And("^user will enter the category details as (\\w+) and with asset summary status as (\\w+)$", (
+                String categoryDetails, String assetStatus) -> {
+
+            pageStore.get(AssetServicePage.class).enterCategoryDetails(categoryDetails);
             pageStore.get(AssetServicePage.class).enterAssetStatusDetails(assetStatus);
         });
 
     }
 }
+

@@ -54,6 +54,66 @@ public class AssetServicePage extends BasePage {
     @FindBy(id = "pinCode")
     private WebElement pinCodeTextBox;
 
+    // Land Category Details
+    @FindBy(css = "input[name='Land Register Number']")
+    private WebElement landRegisterNumberTextBox;
+
+    @FindBy(css = "select[name='OSR Land']")
+    private WebElement osrLandSelectBox;
+
+    @FindBy(css = "select[name='Is it Fenced']")
+    private WebElement isItFencedSelectBox;
+
+    @FindBy(css = "select[name='Land Type']")
+    private WebElement landTypeSelectBox;
+
+    @FindBy(css = "select[name='Unit of Measurement']")
+    private WebElement unitOfMeasurementSelectBox;
+
+    @FindBy(css = "[name='Government order number']")
+    private WebElement governmentOrderNumberTextBox;
+
+    @FindBy(css = "[name='Collector Order Number']")
+    private WebElement collectorOrderNumberTextBox;
+
+    @FindBy(css = "[name='Council Resolution Number']")
+    private WebElement councilResolutionNumberTextBox;
+
+    @FindBy(css = "[name='Award Number']")
+    private WebElement awardNubmerTextBox;
+
+    // Category Market Details
+    @FindBy(css = "[name='Market Name']")
+    private WebElement marketNameTextBox;
+
+    // Category Kalyana Mandapam Details
+    @FindBy(css = "[name='Kalyana Mandapam Name']")
+    private WebElement kalyanaMandapamNameTextBox;
+
+    // Category Parking Space Details
+    @FindBy(css = "[name='Parking space Name']")
+    private WebElement parkingSpaceNameTextBox;
+
+    // Category Slaughter details
+    @FindBy(css = "[name='Slaughter House Name']")
+    private WebElement slaughterHouseNameTextBox;
+
+    // Category Usufruct Details
+    @FindBy(css = "[name='Usufruct Name']")
+    private WebElement ussfructNameTextBox;
+
+    // Category Fish Tank Details
+    @FindBy(css = "[name='Fish Tank Name']")
+    private WebElement fishTankNameTextBox;
+
+    // Category Park Details
+    @FindBy(css = "[name='Park Name']")
+    private WebElement parkNameTextBox;
+
+    // Category Community
+    @FindBy(css = "[name='Community toilet complex Name']")
+    private WebElement communityToiletComplexNameTextBox;
+
     // Asset Status Details Locators
     @FindBy(id = "status")
     private WebElement statusSelectBox;
@@ -77,12 +137,63 @@ public class AssetServicePage extends BasePage {
     public void enterLocationDetails(LocationDetails locationDetails) {
         selectFromDropDown(localitySelectBox, locationDetails.getLocality(), webDriver);
 //        enterText(webDriver.findElement(By.cssSelector("input[id='description']")), "Description", webDriver);
-        enterText(webDriver.findElement(By.cssSelector("input[type='text'][name='Shop Details']")),"Testing",webDriver);
+//        enterText(webDriver.findElement(By.cssSelector("input[type='text'][name='Shop Details']")), "Testing", webDriver);
     }
 
     public void enterAssetStatusDetails(String assetStatus) {
         selectFromDropDown(statusSelectBox, assetStatus, webDriver);
         clickOnButton(createAssetButton, webDriver);
         switchToNewlyOpenedWindow(webDriver);
+    }
+
+    public void enterCategoryDetails(String categoryDetails) {
+        switch (categoryDetails) {
+
+            case "land":
+
+                enterText(landRegisterNumberTextBox, "abcd", webDriver);
+                selectFromDropDown(osrLandSelectBox, "abcd", webDriver);
+                selectFromDropDown(isItFencedSelectBox, "abcd", webDriver);
+                selectFromDropDown(landTypeSelectBox, "abcd", webDriver);
+                selectFromDropDown(unitOfMeasurementSelectBox, "abcd", webDriver);
+                enterText(governmentOrderNumberTextBox, "abcd", webDriver);
+                enterText(collectorOrderNumberTextBox, "abcd", webDriver);
+                enterText(councilResolutionNumberTextBox, "abcd", webDriver);
+                enterText(awardNubmerTextBox, "abcd", webDriver);
+                break;
+
+            case "market":
+                enterText(marketNameTextBox, "abcd", webDriver);
+                break;
+
+            case "kalyanaMandapam":
+                enterText(kalyanaMandapamNameTextBox, "abcd", webDriver);
+                break;
+
+            case "parkingSpace":
+                enterText(parkingSpaceNameTextBox, "abcd", webDriver);
+                break;
+
+            case "slaughterHouse":
+                enterText(slaughterHouseNameTextBox, "abcd", webDriver);
+                break;
+
+            case "ussfruct":
+                enterText(ussfructNameTextBox, "abcd", webDriver);
+                break;
+
+            case "fishTank":
+                enterText(fishTankNameTextBox, "abcd", webDriver);
+                break;
+
+            case "park":
+                enterText(parkNameTextBox, "abcd", webDriver);
+                break;
+
+            case "community":
+                enterText(communityToiletComplexNameTextBox, "abcd", webDriver);
+                break;
+
+        }
     }
 }
