@@ -63,8 +63,22 @@
 			</form:select>
 			<form:errors path="serviceType" cssClass="add-margin error-msg" />
 		</div>
+		<label class="col-sm-2 control-label text-right">Amenity Type
+			
+		</label>
+		<div class="col-sm-3 add-margin">
+			<form:select path="applicationAmenity" multiple="true" 
+												id="multiselect" cssClass="form-control"
+												cssErrorClass="form-control error">
+												<form:options items="${amenityTypeList}" itemValue="id"
+													itemLabel="description" />
+			</form:select>
+			<form:errors path="applicationAmenity" cssClass="add-margin error-msg" />
+		</div>
+		</div>
+	<div class="form-group">
 
-		<label class="col-sm-2 control-label text-right">Application
+		<label class="col-sm-3 control-label text-right">Application
 			Date <span class="mandatory"></span>
 		</label>
 		<div class="col-sm-3 add-margin">

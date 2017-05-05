@@ -55,6 +55,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
@@ -147,6 +148,11 @@ public class BpaApplication extends StateAware {
 
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<SiteDetail> siteDetail = new ArrayList<>(0);
+    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "egbpa_ApplicationAmenity", joinColumns = @JoinColumn(name = "application"), inverseJoinColumns = @JoinColumn(name = "amenityId"))
+    private List<ServiceType> applicationAmenity = new ArrayList<>(0);
+
 
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<BuildingDetail> buildingDetail = new ArrayList<>(0);
@@ -213,6 +219,15 @@ public class BpaApplication extends StateAware {
 
     }
 
+    public String getAmenityName() {
+        final StringBuilder tempStr = new StringBuilder();
+        for (final ServiceType temp : applicationAmenity)
+        	if(tempStr.toString().equals(""))
+                    tempStr.append(temp.getDescription());
+                else
+                    tempStr.append(",").append(temp.getDescription());
+        return tempStr.toString();
+    }
     public String getBuildingplanapprovalnumber() {
         return buildingplanapprovalnumber;
     }
@@ -265,6 +280,7 @@ public class BpaApplication extends StateAware {
         return status;
     }
 
+    
     public void setStatus(final BpaStatus status) {
         this.status = status;
     }
@@ -563,4 +579,15 @@ public class BpaApplication extends StateAware {
         else
             return false;
     }
+
+	public List<ServiceType> getApplicationAmenity() {
+		return applicationAmenity;
+	}
+
+	public void setApplicationAmenity(List<ServiceType> applicationAmenity) {
+		this.applicationAmenity = applicationAmenity;
+	}
+
+	
+    
 }

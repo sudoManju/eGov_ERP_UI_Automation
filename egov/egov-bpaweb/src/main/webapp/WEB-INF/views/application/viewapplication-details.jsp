@@ -88,6 +88,14 @@
 			<c:out value="${bpaApplication.serviceType.description}" default="N/A"></c:out>
 		</div>
 		<div class="col-sm-3 add-margin">
+			Amenity Type
+		</div>
+		<div class="col-sm-3 add-margin view-content">
+			<c:out value="${bpaApplication.amenityName}" default="N/A"></c:out>
+		</div>
+		</div>
+		<div class="row add-border">
+		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.admission.fees" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">

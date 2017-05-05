@@ -120,9 +120,13 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
 
     @ModelAttribute("serviceTypeList")
     public List<ServiceType> getServiceTypeList() {
-        return serviceTypeService.findAll();
+        return serviceTypeService.getAllActiveMainServiceTypes();
     }
 
+    @ModelAttribute("amenityTypeList")
+    public List<ServiceType> getAmenityTypeList() {
+        return serviceTypeService.getAllActiveAmenities();
+    }
     @ModelAttribute("buildingCategorYlist")
     public List<BuildingCategory> getAllBuildingCategoryList() {
         return buildingCategoryService.findAll();

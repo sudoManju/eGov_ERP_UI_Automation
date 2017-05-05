@@ -82,6 +82,9 @@ public class ServiceType extends AbstractAuditable {
     private String descriptionLocal;
     private Boolean isDocUploadForCitizen;
     private Long sla;
+    
+    @NotNull
+    private Boolean isAmenity;
 
     @OneToMany(mappedBy = "serviceType", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<BpaDocument> document = new ArrayList<>(0);
@@ -202,5 +205,13 @@ public class ServiceType extends AbstractAuditable {
     public List<BpaNoc> getNoc() {
         return noc;
     }
+
+	public Boolean getIsAmenity() {
+		return isAmenity;
+	}
+
+	public void setIsAmenity(Boolean isAmenity) {
+		this.isAmenity = isAmenity;
+	}
 
 }

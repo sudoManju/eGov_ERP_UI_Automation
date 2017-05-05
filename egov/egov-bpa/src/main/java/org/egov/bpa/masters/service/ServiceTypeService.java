@@ -57,5 +57,15 @@ public class ServiceTypeService {
     public List<ServiceType> findAll() {
         return serviceTypeRepository.findAll();
     }
+    
+    public List<ServiceType> getAllActiveMainServiceTypes() {
+        return serviceTypeRepository.getAllActiveMainServiceTypes();
+    }
+    
+    
+    
+    public List<ServiceType> getAllActiveAmenities() {
+        return serviceTypeRepository.getAllActiveAmenities();
+    }
 
 }
