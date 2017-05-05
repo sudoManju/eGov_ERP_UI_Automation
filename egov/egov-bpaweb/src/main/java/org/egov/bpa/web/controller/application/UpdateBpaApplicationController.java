@@ -60,7 +60,6 @@ import javax.validation.Valid;
 
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaAppointmentSchedule;
-import org.egov.bpa.application.entity.LettertoParty;
 import org.egov.bpa.application.entity.enums.AppointmentSchedulePurpose;
 import org.egov.bpa.application.service.InspectionService;
 import org.egov.bpa.application.service.LettertoPartyService;
@@ -170,18 +169,10 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         }
         model.addAttribute("inspectionList", inspectionService.findByBpaApplicationOrderByIdAsc(application));
         if (BpaConstants.LETTERTOPARTYSENT.equalsIgnoreCase(application.getState().getNextAction())) {
-            final List<LettertoParty> lettertoPartyList = lettertoPartyService.findByBpaApplicationOrderByIdAsc(application);
-            LettertoParty lettertoParty = null;
-            if (!lettertoPartyList.isEmpty())
-                lettertoParty = lettertoPartyList.get(0);
-            if (lettertoParty != null) {
-                model.addAttribute("lettertoParty", lettertoParty);
-                model.addAttribute("lettertopartydocList", lettertoParty.getLettertoPartyDocument());
-            }
-            mode = "modifylettertoparty";
             model.addAttribute("showlettertoparty", true);
             model.addAttribute("lettertopartylist", lettertoPartyService.findByBpaApplicationOrderByIdAsc(application));
-        } else if (lettertoPartyService.getDocScutinyUser(application) != null) {
+        } else if (application.getState().getValue().equals(BpaConstants.APPLN_STATUS_FIELD_INSPECTION_INITIATED)
+                || application.getState().getValue().equals(BpaConstants.BPA_STATUS_SUPERINDENT_APPROVED)) {
             model.addAttribute("createlettertoparty", true);
         }
         if (mode == null) {
@@ -269,8 +260,9 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         workflowContainer.setAdditionalRule(CREATE_ADDITIONAL_RULE_CREATE);
         if (APPLICATION_STATUS_NOCUPDATED.equals(application.getStatus().getCode())) {
             workflowContainer.setAmountRule(application.getInspections().get(0).getLndMinPlotExtent());
-            workflowContainer.setPendingActions( application.getState().getNextAction());
-        } else if (APPLICATION_STATUS_APPROVED.equals(application.getStatus().getCode()) && !APPLICATION_STATUS_RECORD_APPROVED.equalsIgnoreCase(application.getState().getValue()) ) {
+            workflowContainer.setPendingActions(application.getState().getNextAction());
+        } else if (APPLICATION_STATUS_APPROVED.equals(application.getStatus().getCode())
+                && !APPLICATION_STATUS_RECORD_APPROVED.equalsIgnoreCase(application.getState().getValue())) {
             workflowContainer.setAmountRule(application.getInspections().get(0).getLndMinPlotExtent());
         }
         workflowContainer.setAdditionalRule(CREATE_ADDITIONAL_RULE_CREATE);
