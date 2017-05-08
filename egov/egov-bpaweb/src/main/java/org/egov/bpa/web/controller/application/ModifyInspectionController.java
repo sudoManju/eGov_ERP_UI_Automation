@@ -103,7 +103,7 @@ public class ModifyInspectionController extends BpaGenericApplicationController 
             return "inspection-edit";
         }
         final List<DocketDetail> docketDetailTempList = new ArrayList<>();
-        final List<DocketDetail> docketDetailList = inspectionService.buildDocDetFromUI(inspection);
+        final List<DocketDetail> docketDetailList = inspectionService.buildDocketDetail(inspection);
         for (final DocketDetail docketDet : inspection.getDocket().get(0).getDocketDetail())
             for (final DocketDetail temploc : docketDetailList)
                 if (docketDet.getCheckListDetail().getId().equals(temploc.getCheckListDetail().getId())) {

@@ -50,6 +50,7 @@ import static org.egov.bpa.utils.BpaConstants.CREATE_ADDITIONAL_RULE_CREATE;
 import static org.egov.bpa.utils.BpaConstants.WF_CANCELAPPLICATION_BUTTON;
 import static org.egov.bpa.utils.BpaConstants.WF_REJECT_BUTTON;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -151,7 +152,8 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 && purposeDocList.contains(AppointmentSchedulePurpose.DOCUMENTSCRUTINY.name())) {
             mode = "postponeappointment";
             scheduleType = AppointmentSchedulePurpose.DOCUMENTSCRUTINY;
-        } else if (FWD_TO_OVRSR_FOR_FIELD_INS.equalsIgnoreCase(application.getState().getNextAction())
+        } 
+        if (FWD_TO_OVRSR_FOR_FIELD_INS.equalsIgnoreCase(application.getState().getNextAction())
                 && APPLN_STATUS_FIELD_INSPECTION_INITIATED.equalsIgnoreCase(application.getStatus().getCode())
                 && application.getInspections().isEmpty()) {
             mode = "captureInspection";
@@ -259,11 +261,11 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         model.addAttribute(ADDITIONALRULE, CREATE_ADDITIONAL_RULE_CREATE);
         workflowContainer.setAdditionalRule(CREATE_ADDITIONAL_RULE_CREATE);
         if (APPLICATION_STATUS_NOCUPDATED.equals(application.getStatus().getCode())) {
-            workflowContainer.setAmountRule(application.getInspections().get(0).getLndMinPlotExtent());
+            workflowContainer.setAmountRule(!application.getSiteDetail().isEmpty() ?application.getSiteDetail().get(0).getExtentinsqmts():new BigDecimal(1));
             workflowContainer.setPendingActions(application.getState().getNextAction());
         } else if (APPLICATION_STATUS_APPROVED.equals(application.getStatus().getCode())
                 && !APPLICATION_STATUS_RECORD_APPROVED.equalsIgnoreCase(application.getState().getValue())) {
-            workflowContainer.setAmountRule(application.getInspections().get(0).getLndMinPlotExtent());
+            workflowContainer.setAmountRule(!application.getSiteDetail().isEmpty() ?application.getSiteDetail().get(0).getExtentinsqmts():new BigDecimal(1));
         }
         workflowContainer.setAdditionalRule(CREATE_ADDITIONAL_RULE_CREATE);
         prepareWorkflow(model, application, workflowContainer);

@@ -49,6 +49,55 @@
 	</div>
 </div>
 <div class="panel-body">
+
+
+<div class="row add-border">
+		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.len.com.wall" />
+		</div>
+		<div class="col-sm-3 add-margin view-content">
+			<c:out value="${bpaApplication.siteDetail[0].lengthOfCompoundWall}" default="N/A"></c:out>
+		</div>
+		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.number.well" />
+		</div>
+		<div class="col-sm-3 add-margin view-content">
+			<c:out value="${bpaApplication.siteDetail[0].dwellingunitnt}"
+				default="N/A"></c:out>
+		</div>
+	</div>
+<div class="row add-border">
+		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.loc.plt" />
+		</div>
+		<div class="col-sm-3 add-margin view-content">
+			<c:out value="${bpaApplication.siteDetail[0].locationOfPlot}" default="N/A"></c:out>
+		</div>
+		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.roof.conv" />
+		</div>
+		<div class="col-sm-3 add-margin view-content">
+			<c:out value="${bpaApplication.siteDetail[0].roofConversion}"
+				default="N/A"></c:out>
+		</div>
+	</div>
+	
+	<div class="row add-border">
+		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.shutter" />
+		</div>
+		<div class="col-sm-3 add-margin view-content">
+			<c:out value="${bpaApplication.siteDetail[0].shutter}" default="N/A"></c:out>
+		</div>
+		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.erection.tower" />
+		</div>
+		<div class="col-sm-3 add-margin view-content">
+			<c:out value="${bpaApplication.siteDetail[0].erectionoftower}"
+				default="N/A"></c:out>
+		</div>
+	</div>
+
 	<div class="row add-border">
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.plot.door.no" />

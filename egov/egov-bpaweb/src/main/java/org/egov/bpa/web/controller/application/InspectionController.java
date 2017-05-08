@@ -46,7 +46,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.egov.bpa.application.entity.BpaApplication;
-import org.egov.bpa.application.entity.DocketDetail;
+import org.egov.bpa.application.entity.Docket;
 import org.egov.bpa.application.entity.Inspection;
 import org.egov.bpa.application.service.InspectionService;
 import org.egov.bpa.utils.BpaConstants;
@@ -90,9 +90,8 @@ public class InspectionController extends BpaGenericApplicationController {
             final RedirectAttributes redirectAttributes,
             final HttpServletRequest request) {
         final BpaApplication application = applicationBpaService.findByApplicationNumber(applicationNumber);
-        final List<DocketDetail> docketDetailList = inspectionService.buildDocDetFromUI(inspection);
-
-        inspection.getDocket().get(0).setDocketDetail(docketDetailList);
+        final List<Docket> docket = inspectionService.buildDocDetFromUI(inspection);
+        inspection.setDocket(docket);
         if (resultBinder.hasErrors()) {
             loadApplication(model, applicationNumber);
             return BpaConstants.CREATEINSPECTIONDETAIL_FORM;

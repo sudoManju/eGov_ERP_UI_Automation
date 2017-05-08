@@ -142,13 +142,78 @@
 	</div>
 </div>
 
+
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right">Door Number </label>
+	<label class="col-sm-3 control-label text-right"><spring:message code="lbl.loc.plt"/><span
+		class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation"  maxlength="12"
-			data-pattern="alphanumericspecialcharacters"
-			id="plotdoornumber" path="siteDetail[0].plotdoornumber" />
-		<form:errors path="siteDetail[0].plotdoornumber"
+		<form:input class="form-control patternvalidation"
+			data-pattern="alphanumericwithspace" maxlength="256" id="locationOfPlot"
+			path="siteDetail[0].locationOfPlot" />
+		<form:errors path="siteDetail[0].locationOfPlot" required="required"
+			cssClass="add-margin error-msg" />
+	</div>
+	<label class="col-sm-2 control-label text-right"><spring:message code="lbl.len.com.wall"/></label>
+	<div class="col-sm-3 add-margin">
+		<form:input class="form-control patternvalidation"
+			data-pattern="number"  id="siteDetail[0].lengthOfCompoundWall"
+			path="siteDetail[0].lengthOfCompoundWall" />
+		<form:errors path="siteDetail[0].lengthOfCompoundWall" 
+			cssClass="add-margin error-msg" />
+	</div>
+	</div>
+	
+	<div class="form-group">
+	<label class="col-sm-3 control-label text-right"><spring:message code="lbl.number.well"/><span
+		class="mandatory"></span></label>
+	<div class="col-sm-3 add-margin">
+		<form:input  class="form-control patternvalidation" data-pattern="number"
+		  id="dwellingunitnt" required="required"
+			path="siteDetail[0].dwellingunitnt" />
+		<form:errors path="siteDetail[0].dwellingunitnt" 
+			cssClass="add-margin error-msg" />
+	</div>
+	<label class="col-sm-2 control-label text-right"><spring:message code="lbl.roof.conv"/><span
+		class="mandatory"></span></label>
+	<div class="col-sm-3 add-margin">
+		<form:input class="form-control patternvalidation"
+			data-pattern="alphanumericwithspace" maxlength="256" id="roofConversion"
+			path="siteDetail[0].roofConversion" />
+		<form:errors path="siteDetail[0].roofConversion" required="required"
+			cssClass="add-margin error-msg" />
+	</div>
+	</div>
+
+
+	
+	<div class="form-group">
+	<label class="col-sm-3 control-label text-right"><spring:message code="lbl.shutter"/><span
+		class="mandatory"></span></label>
+	<div class="col-sm-3 add-margin">
+		<form:input  class="form-control patternvalidation" data-pattern="number"
+		  id="shutter" required="required"
+			path="siteDetail[0].shutter" />
+		<form:errors path="siteDetail[0].shutter" 
+			cssClass="add-margin error-msg" />
+	</div>
+	<label class="col-sm-2 control-label text-right"><spring:message code="lbl.erection.tower"/>
+		<span class="mandatory"></span></label>
+	<div class="col-sm-3 add-margin">
+		<form:input class="form-control patternvalidation"
+			data-pattern="alphanumericwithspace" maxlength="256" id="erectionoftower"
+			path="siteDetail[0].erectionoftower" />
+		<form:errors path="siteDetail[0].erectionoftower" required="required"
+			cssClass="add-margin error-msg" />
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-3 control-label text-right">Extent (in Sqmt) <span
+		class="mandatory"></span></label>
+	<div class="col-sm-3 add-margin">
+		<form:input class="form-control patternvalidation" maxlength="10"
+			data-pattern="decimalvalue" id="extentinsqmts" required="required"
+			path="siteDetail[0].extentinsqmts" />
+		<form:errors path="siteDetail[0].extentinsqmts"
 			cssClass="add-margin error-msg" />
 	</div>
 	<label class="col-sm-2 control-label text-right">Plot Land Mark</label>
@@ -301,12 +366,12 @@
 		<form:errors path="siteDetail[0].natureofOwnership"
 			cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right">Extent (in Sqmt)</label>
+	<label class="col-sm-2 control-label text-right">Door Number </label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="10"
-			data-pattern="decimalvalue" id="extentinsqmts"
-			path="siteDetail[0].extentinsqmts" />
-		<form:errors path="siteDetail[0].extentinsqmts"
+		<form:input class="form-control patternvalidation"  maxlength="12"
+			data-pattern="alphanumericspecialcharacters"
+			id="plotdoornumber" path="siteDetail[0].plotdoornumber" />
+		<form:errors path="siteDetail[0].plotdoornumber"
 			cssClass="add-margin error-msg" />
 	</div>
 </div>

@@ -128,6 +128,12 @@ public class SiteDetail extends AbstractAuditable {
     private BigDecimal setBackRear;
     private BigDecimal setBackSide1;
     private BigDecimal setBackSide2;
+    private BigDecimal lengthOfCompoundWall;
+    private BigDecimal dwellingunitnt;
+    private String locationOfPlot;
+    private String roofConversion;
+    private String shutter;
+    private String erectionoftower;
 
     @Override
     public Long getId() {
@@ -402,5 +408,53 @@ public class SiteDetail extends AbstractAuditable {
     public void setElectionBoundary(final Boundary electionBoundary) {
         this.electionBoundary = electionBoundary;
     }
+
+	public BigDecimal getLengthOfCompoundWall() {
+		return lengthOfCompoundWall;
+	}
+
+	public void setLengthOfCompoundWall(BigDecimal lengthOfCompoundWall) {
+		this.lengthOfCompoundWall = lengthOfCompoundWall;
+	}
+
+	public BigDecimal getDwellingunitnt() {
+		return dwellingunitnt;
+	}
+
+	public void setDwellingunitnt(BigDecimal dwellingunitnt) {
+		this.dwellingunitnt = dwellingunitnt;
+	}
+
+	public String getLocationOfPlot() {
+		return locationOfPlot;
+	}
+
+	public void setLocationOfPlot(String locationOfPlot) {
+		this.locationOfPlot = locationOfPlot;
+	}
+
+	public String getRoofConversion() {
+		return roofConversion;
+	}
+
+	public void setRoofConversion(String roofConversion) {
+		this.roofConversion = roofConversion;
+	}
+
+	public String getShutter() {
+		return shutter;
+	}
+
+	public void setShutter(String shutter) {
+		this.shutter = shutter;
+	}
+
+	public String getErectionoftower() {
+		return erectionoftower;
+	}
+
+	public void setErectionoftower(String erectionoftower) {
+		this.erectionoftower = erectionoftower;
+	}
 
 }

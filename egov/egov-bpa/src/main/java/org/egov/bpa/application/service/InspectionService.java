@@ -131,8 +131,17 @@ public class InspectionService {
 
     }
     
-    public List<DocketDetail> buildDocDetFromUI(final Inspection inspection) {
-        final List<DocketDetail> docketDetailList = new ArrayList<>();
+    public List<Docket> buildDocDetFromUI(final Inspection inspection) {
+    	List<Docket> docket =new ArrayList<>();
+    	Docket docObject=new Docket();
+        final List<DocketDetail> docketDetailList = buildDocketDetail(inspection);
+        docObject.setDocketDetail(docketDetailList);
+        docket.add(docObject);
+        return docket;        
+    }
+
+	public List<DocketDetail> buildDocketDetail(final Inspection inspection) {
+		final List<DocketDetail> docketDetailList = new ArrayList<>();
         docketDetailList.addAll(inspection.getDocketDetailLocList());
         docketDetailList.addAll(inspection.getDocketDetailMeasumentList());
         docketDetailList.addAll(inspection.getDocketDetailAccessList());
@@ -147,9 +156,8 @@ public class InspectionService {
         docketDetailList.addAll(inspection.getDocketDetailErectionTower());  
         docketDetailList.addAll(inspection.getDocketDetailShutter());
         docketDetailList.addAll(inspection.getDocketDetailRoofConversion());
-        return docketDetailList;
-        
-    }
+		return docketDetailList;
+	}
 
     @SuppressWarnings("unchecked")
     public void buildDocketDetailList( Inspection inspection) {
