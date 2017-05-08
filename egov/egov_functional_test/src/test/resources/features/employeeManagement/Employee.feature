@@ -19,4 +19,4 @@ Feature: Create/View/Update
     Examples:
       | employeeDetails | assignmentDetails | jurisdictionDetail |
       | employee1       | assignment1       | JurisdictionList1  |
-      | employee2       | assignment2       | JurisdictionList2  |
+#      | employee2       | assignment2       | JurisdictionList2  |

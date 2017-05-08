@@ -77,8 +77,8 @@ public class EmployeeManagementDetailsDataReader extends ExcelReader {
     public JurisdictionDetails getJurisdictionDetails(String dataId) {
         Row dataRow = readDataRow(jurisdictionDetailsSheet, dataId);
 
-        String JurisdictionType = getCellData(jurisdictionDetailsSheet, dataRow, "JurisdictionType").getStringCellValue();
-        String JurisdictionList = getCellData(jurisdictionDetailsSheet, dataRow, "JurisdictionList").getStringCellValue();
+        String JurisdictionType = getCellData(jurisdictionDetailsSheet, dataRow, "jurisdictionType").getStringCellValue();
+        String JurisdictionList = getCellData(jurisdictionDetailsSheet, dataRow, "jurisdictionList").getStringCellValue();
 
         return new JurisdictionDetailsBuilder()
                 .withJurisdictionType(JurisdictionType)

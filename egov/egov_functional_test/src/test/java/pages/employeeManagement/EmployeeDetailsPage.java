@@ -178,6 +178,7 @@ public class EmployeeDetailsPage extends BasePage {
     public String enterEmployeeDetails(EmployeeDetails employeeDetails) {
         enterText(employeeNameTextBox, "TestUser_" + get6DigitRandomInt(), driver);
         String employeeCode = "EMP_"+get6DigitRandomInt();
+        System.out.println("=======================Code"+employeeCode);
         enterText(employeeCodeTextBox, employeeCode, driver);
         selectFromDropDown(employeeTypeBox, employeeDetails.getEmployeeType(), driver);
         selectFromDropDown(employeeStatusBox, employeeDetails.getStatus(), driver);

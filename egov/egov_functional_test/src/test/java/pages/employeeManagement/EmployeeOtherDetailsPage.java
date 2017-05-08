@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
 
+import java.util.concurrent.TimeUnit;
+
 public class EmployeeOtherDetailsPage extends BasePage {
 
     @FindBy(css = ".glyphicon.glyphicon-plus")
@@ -137,7 +139,25 @@ public class EmployeeOtherDetailsPage extends BasePage {
         jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#jurisdictionDetailModal']")), webDriver);
         selectFromDropDown(jurisdictionTypeSelectBox, jurisdictionDetails.getJurisdictionType(), webDriver);
         selectFromDropDown(jurisdictionListSelectBox, jurisdictionDetails.getJurisdictionList(), webDriver);
+
         clickOnButton(webDriver.findElement(By.id("jurisdictionAddOrUpdate")), webDriver);
+        for (int i = 1; i <= 6; i++) {
+            jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#jurisdictionDetailModal']")), webDriver);
+            try {
+                TimeUnit.SECONDS.sleep(3);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            selectFromDropDown(webDriver.findElement(By.id("jurisdictions.jurisdictionsType")), "Ward", webDriver);
+            selectFromDropDown(webDriver.findElement(By.cssSelector("select[id='jurisdictions.boundary']")), "Election Ward No. " + i, webDriver);
+            try {
+                TimeUnit.SECONDS.sleep(3);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            clickOnButton(webDriver.findElement(By.id("jurisdictionAddOrUpdate")), webDriver);
+        }
+
     }
 
     public void enterServiceSectionDetails() {
@@ -187,7 +207,7 @@ public class EmployeeOtherDetailsPage extends BasePage {
     }
 
     public void closeEmployeeSearch() {
-        clickOnButton(webDriver.findElement(By.cssSelector(".btn.btn-close")),webDriver);
+        clickOnButton(webDriver.findElement(By.cssSelector(".btn.btn-close")), webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
     }
 }
