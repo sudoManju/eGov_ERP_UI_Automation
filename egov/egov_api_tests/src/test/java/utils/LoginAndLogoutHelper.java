@@ -49,5 +49,6 @@ public class LoginAndLogoutHelper {
         Assert.assertEquals(logoutResponse.getStatus(), "Logout successfully");
 
         new APILogger().log("Logout Test is Completed --");
+
     }
 }

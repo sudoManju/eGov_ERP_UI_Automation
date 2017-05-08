@@ -12,6 +12,7 @@ public class PGRResource {
     public Response createComplaint(String json) {
 
         new APILogger().log("Creating complaint Request for PGR is started  with-- " + json);
+
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
                 .body(json)
@@ -19,25 +20,20 @@ public class PGRResource {
                 .post(Properties.complaintUrl);
 
         new APILogger().log("Creating complaint Response for PGR is generated as-- " + response.asString());
+
         return response;
     }
 
-    public Response getPGRComplaint(String serviceRequestId) {
+    public Response getPGRComplaint(String serviceRequestId,String json) {
 
-        new APILogger().log("Getting a PGR complaint Request is started for-- " + serviceRequestId);
+        new APILogger().log("Getting a PGR complaint Request is started for-- " + json);
 
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
-                .header("api_id", "org.egov.pgr")
-                .header("ver", "1.0")
-                .header("ts", "28-03-2016 10:22:33")
-                .header("action", "GET")
-                .header("did", "4354648646")
-                .header("msg_id", "654654")
-                .header("requester_id", "61")
-                .header("auth_token", "null")
+                .header("Content-Type", "application/json")
                 .when()
-                .get(Properties.getPGRComplaintUrl + serviceRequestId);
+                .body(json)
+                .post(Properties.getPGRComplaintUrl + serviceRequestId);
 
         new APILogger().log("Getting a PGR complaint Response is generated as-- " + response.asString());
         return response;
@@ -102,11 +98,12 @@ public class PGRResource {
     public Response updateAndClosePGRComplaint(String json) {
 
         new APILogger().log("Update/Close complaint Request for PGR is started  with-- " + json);
+
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
                 .body(json)
                 .when()
-                .put(Properties.complaintUrl);
+                .post(Properties.updateComplaintUrl);
 
         new APILogger().log("Update/Close complaint Response for PGR is started  with-- " + response.asString());
 

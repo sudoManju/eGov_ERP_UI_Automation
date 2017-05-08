@@ -90,6 +90,10 @@ public class PropertiesReader {
         return prop.getProperty("pgrSearchCitizenComplaint");
     }
 
+    public String getUpdateComplaintUrl() {
+        return prop.getProperty("updateComplaintUrl");
+    }
+
 
     //      Asset Module Url's      //
     public String getSearchAssetServiceUrl() {
@@ -169,5 +173,6 @@ public class PropertiesReader {
     public String getSearchEmployeeLeaveUrl() {
         return prop.getProperty("searchEmployeeLeaveUrl");
     }
+
 }
 

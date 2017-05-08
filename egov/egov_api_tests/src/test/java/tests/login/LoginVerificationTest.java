@@ -1,8 +1,10 @@
 package tests.login;
 
 import builders.login.LoginRequestBuilder;
+import builders.logout.LogoutRequestBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.login.LoginRequest;
+import entities.requests.logout.LogoutRequest;
 import entities.responses.login.LoginErrorResponse;
 import entities.responses.login.LoginResponse;
 import entities.responses.logout.InvalidLogoutResponse;
@@ -24,7 +26,7 @@ public class LoginVerificationTest extends BaseAPITest {
         LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
 
         // Logout Test
-//        LoginAndLogoutHelper.logout(loginResponse);
+        LoginAndLogoutHelper.logout(loginResponse);
 
     }
 
@@ -36,12 +38,8 @@ public class LoginVerificationTest extends BaseAPITest {
 
         // Logout Test
         Response response1 = new LoginResource().inValidLogout(loginResponse.getAccess_token());
-        InvalidLogoutResponse invalidLogoutResponse = (InvalidLogoutResponse)
-                ResponseHelper.getResponseAsObject(response1.asString(), InvalidLogoutResponse.class);
 
-        Assert.assertEquals(response1.getStatusCode(), 400);
-        Assert.assertEquals(invalidLogoutResponse.getResponseInfo().getStatus(), "Logout failed");
-        Assert.assertEquals(invalidLogoutResponse.getError().getDescription(), "Logout failed");
+        Assert.assertEquals(response1.getStatusCode(), 500);
 
         new APILogger().log("Logout Failed is Completed -- ");
     }

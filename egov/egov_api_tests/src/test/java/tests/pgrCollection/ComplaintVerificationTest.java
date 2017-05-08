@@ -1,16 +1,18 @@
 package tests.pgrCollection;
 
-import builders.pgrCollection.ComplaintRequestBuilder;
-import builders.pgrCollection.ServiceRequestBuilder;
-import builders.pgrCollection.ValuesBuilder;
+import builders.pgrCollection.createComplaint.ComplaintRequestBuilder;
+import builders.pgrCollection.createComplaint.RequestInfoBuilder;
+import builders.pgrCollection.createComplaint.ServiceRequestBuilder;
+import builders.pgrCollection.searchComplaint.SearchComplaintRequestBuilder;
 import com.jayway.restassured.response.Response;
-import entities.requests.pgrCollections.ComplaintRequest;
-import entities.requests.pgrCollections.ServiceRequest;
-import entities.requests.pgrCollections.Values;
+import entities.requests.pgrCollections.createComplaint.ComplaintRequest;
+import entities.requests.pgrCollections.createComplaint.RequestInfo;
+import entities.requests.pgrCollections.createComplaint.ServiceRequest;
+import entities.requests.pgrCollections.searchComplaint.SearchComplaintRequest;
 import entities.responses.login.LoginResponse;
-import entities.responses.pgrCollections.createComplaint.ComplaintResponse;
-import entities.responses.pgrCollections.getComplaint.GetPGRComplaintResponse;
-import entities.responses.pgrCollections.updateAndCloseComplaint.UpdateAndCloseComplaintInPGRResponse;
+import entities.responses.pgrCollections.CreateComplaint.CreateComplaintResponse;
+import entities.responses.pgrCollections.SearchComplaint.SearchComplaintResponse;
+import entities.responses.pgrCollections.UpdateComplaint.UpdateComplaintResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.PGRResource;
@@ -29,89 +31,110 @@ public class ComplaintVerificationTest extends BaseAPITest {
 
 
         // Create A Complaint
-        ComplaintResponse complaintResponse = createComplaintInPGR();
+        CreateComplaintResponse create = createComplaintInPGR(loginResponse);
 
         // Get Complaint
-        getComplaintInPGR(complaintResponse.getService_requests()[0].getService_request_id());
+        getComplaintInPGR(create.getServiceRequests()[0].getServiceRequestId(),loginResponse);
 
         // Update Complaint
-        updateComplaintInPGR(complaintResponse.getService_requests()[0].getService_request_id());
-
-        //Close Complaint
-        closeComplaintInPGR(complaintResponse.getService_requests()[0].getService_request_id());
-
+        updateComplaintInPGR(create.getServiceRequests()[0].getServiceRequestId(),loginResponse);
+//
+//        //Close Complaint
+//        closeComplaintInPGR(complaintResponse.getService_requests()[0].getService_request_id());
+//
         // Logout Test
         LoginAndLogoutHelper.logout(loginResponse);
     }
 
-    private ComplaintResponse createComplaintInPGR() throws IOException {
-        ComplaintRequest request = new ComplaintRequestBuilder().build();
+    private CreateComplaintResponse createComplaintInPGR(LoginResponse loginResponse) throws IOException {
+
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuth_token(loginResponse.getAccess_token()).build();
+
+        ComplaintRequest request = new ComplaintRequestBuilder().withRequestInfo(requestInfo).build();
 
         String jsonString = RequestHelper.getJsonString(request);
+
         Response response = new PGRResource().createComplaint(jsonString);
 
-        ComplaintResponse complaintResponse = (ComplaintResponse)
-                ResponseHelper.getResponseAsObject(response.asString(), ComplaintResponse.class);
-
         Assert.assertEquals(response.getStatusCode(), 201);
-        Assert.assertEquals(complaintResponse.getService_requests()[0].getDescription(),
-                request.getServiceRequest().getDescription());
+
+        CreateComplaintResponse response1 = (CreateComplaintResponse)
+                                           ResponseHelper.getResponseAsObject(response.asString(),CreateComplaintResponse.class);
+
+        Assert.assertEquals(request.getServiceRequest().getDescription(),response1.getServiceRequests()[0].getDescription());
 
         new APILogger().log("Creating complaint test for PGR is completed  -- ");
 
-        return complaintResponse;
+        return response1;
     }
 
-    private GetPGRComplaintResponse getComplaintInPGR(String id) throws IOException {
-        Response response = new PGRResource().getPGRComplaint(id);
+    private void getComplaintInPGR(String id,LoginResponse loginResponse) throws IOException {
 
-        GetPGRComplaintResponse getPgrComplaintResponse = (GetPGRComplaintResponse)
-                ResponseHelper.getResponseAsObject(response.asString(), GetPGRComplaintResponse.class);
+        entities.requests.pgrCollections.searchComplaint.RequestInfo requestInfo = new
+                               builders.pgrCollection.searchComplaint.RequestInfoBuilder()
+                              .withAuthToken(loginResponse.getAccess_token()).build();
+
+        SearchComplaintRequest request = new SearchComplaintRequestBuilder().withRequestInfo(requestInfo).build();
+
+        String jsonString = RequestHelper.getJsonString(request);
+
+        Response response = new PGRResource().getPGRComplaint(id,jsonString);
 
         Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals(getPgrComplaintResponse.getResponse_info().getStatus(), "successful");
+
+        SearchComplaintResponse response1 = (SearchComplaintResponse)
+                               ResponseHelper.getResponseAsObject(response.asString(),SearchComplaintResponse.class);
+
+        Assert.assertEquals(id,response1.getServiceRequests()[0].getServiceRequestId());
+
+        Assert.assertEquals(response1.getServiceRequests()[0].getValues().getComplaintStatus(),"REGISTERED");
 
         new APILogger().log("Getting a PGR complaint test is Completed -- ");
-        return getPgrComplaintResponse;
     }
 
 
-    private UpdateAndCloseComplaintInPGRResponse updateComplaintInPGR(String id) throws IOException {
-        ServiceRequest serviceRequest = new ServiceRequestBuilder("update").withService_request_id(id).build();
+    private void updateComplaintInPGR(String id,LoginResponse loginResponse) throws IOException {
 
-        ComplaintRequest request = new ComplaintRequestBuilder("update").withServiceRequest(serviceRequest).build();
+        RequestInfo requestInfo = new RequestInfoBuilder("").withAuth_token(loginResponse.getAccess_token()).build();
 
-        String jsonString = RequestHelper.getJsonString(request);
+        ServiceRequest serviceRequest = new ServiceRequestBuilder("").withServiceRequestId(id).build();
+
+        ComplaintRequest request = new ComplaintRequestBuilder("").withServiceRequest(serviceRequest)
+                                       .withRequestInfo(requestInfo).build();
+
+        String jsonString  = RequestHelper.getJsonString(request);
 
         Response response = new PGRResource().updateAndClosePGRComplaint(jsonString);
 
-        UpdateAndCloseComplaintInPGRResponse updateAndCloseComplaintInPGRResponse = (UpdateAndCloseComplaintInPGRResponse)
-                ResponseHelper.getResponseAsObject(response.asString(), UpdateAndCloseComplaintInPGRResponse.class);
+        Assert.assertEquals(response.getStatusCode(),200);
 
-//        Assert.assertEquals(updateAndCloseComplaintInPGRResponse.getService_requests()[0].getValues().getStatus(), request.getServiceRequest().getValues().getStatus());
+        UpdateComplaintResponse response1 = (UpdateComplaintResponse)
+                                 ResponseHelper.getResponseAsObject(response.asString(),UpdateComplaintResponse.class);
+
+        Assert.assertEquals(request.getServiceRequest().getDescription(),response1.getServiceRequests()[0].getDescription());
+
         new APILogger().log("Update complaint for PGR test is Completed  -- ");
 
-        return updateAndCloseComplaintInPGRResponse;
     }
 
 
-    private UpdateAndCloseComplaintInPGRResponse closeComplaintInPGR(String id) throws IOException {
-        Values values = new ValuesBuilder("close").withStatus("COMPLETED").build();
-
-        ServiceRequest serviceRequest = new ServiceRequestBuilder("update").withService_request_id(id).withValues(values).build();
-
-        ComplaintRequest request = new ComplaintRequestBuilder("update").withServiceRequest(serviceRequest).build();
-
-        String jsonString = RequestHelper.getJsonString(request);
-
-        Response response = new PGRResource().updateAndClosePGRComplaint(jsonString);
-
-        UpdateAndCloseComplaintInPGRResponse updateAndCloseComplaintInPGRResponse = (UpdateAndCloseComplaintInPGRResponse)
-                ResponseHelper.getResponseAsObject(response.asString(), UpdateAndCloseComplaintInPGRResponse.class);
-
-//        Assert.assertEquals(updateAndCloseComplaintInPGRResponse.getService_requests()[0].getValues().getStatus(), request.getServiceRequest().getValues().getStatus());
-        new APILogger().log("Close complaint for PGR test is Completed  -- ");
-
-        return updateAndCloseComplaintInPGRResponse;
+    private void closeComplaintInPGR(String id) throws IOException {
+//        Values values = new ValuesBuilder("close").withStatus("COMPLETED").build();
+//
+//        ServiceRequest serviceRequest = new ServiceRequestBuilder("update").withService_request_id(id).withValues(values).build();
+//
+//        ComplaintRequest request = new ComplaintRequestBuilder("update").withServiceRequest(serviceRequest).build();
+//
+//        String jsonString = RequestHelper.getJsonString(request);
+//
+//        Response response = new PGRResource().updateAndClosePGRComplaint(jsonString);
+//
+//        UpdateAndCloseComplaintInPGRResponse updateAndCloseComplaintInPGRResponse = (UpdateAndCloseComplaintInPGRResponse)
+//                ResponseHelper.getResponseAsObject(response.asString(), UpdateAndCloseComplaintInPGRResponse.class);
+//
+////        Assert.assertEquals(updateAndCloseComplaintInPGRResponse.getService_requests()[0].getValues().getStatus(), request.getServiceRequest().getValues().getStatus());
+//        new APILogger().log("Close complaint for PGR test is Completed  -- ");
+//
+//        return updateAndCloseComplaintInPGRResponse;
     }
 }

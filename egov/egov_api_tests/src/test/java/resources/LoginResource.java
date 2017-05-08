@@ -51,7 +51,7 @@ public class LoginResource {
                 .header("Content-type", "application/x-www-form-urlencoded")
                 .header("auth-token", accessToken)
                 .when()
-                .post(Properties.logoutUrl);
+                .post(Properties.logoutUrl+accessToken);
 
         new APILogger().log("In-Valid logout response generated as-- " + response.asString());
 
