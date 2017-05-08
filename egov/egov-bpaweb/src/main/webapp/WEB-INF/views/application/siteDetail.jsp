@@ -144,13 +144,12 @@
 
 
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right"><spring:message code="lbl.loc.plt"/><span
-		class="mandatory"></span></label>
+	<label class="col-sm-3 control-label text-right"><spring:message code="lbl.loc.plt"/><</label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
 			data-pattern="alphanumericwithspace" maxlength="256" id="locationOfPlot"
 			path="siteDetail[0].locationOfPlot" />
-		<form:errors path="siteDetail[0].locationOfPlot" required="required"
+		<form:errors path="siteDetail[0].locationOfPlot"
 			cssClass="add-margin error-msg" />
 	</div>
 	<label class="col-sm-2 control-label text-right"><spring:message code="lbl.len.com.wall"/></label>
@@ -164,11 +163,10 @@
 	</div>
 	
 	<div class="form-group">
-	<label class="col-sm-3 control-label text-right"><spring:message code="lbl.number.well"/><span
-		class="mandatory"></span></label>
+	<label class="col-sm-3 control-label text-right"><spring:message code="lbl.number.well"/></label>
 	<div class="col-sm-3 add-margin">
 		<form:input  class="form-control patternvalidation" data-pattern="number"
-		  id="dwellingunitnt" required="required"
+		  id="dwellingunitnt" 
 			path="siteDetail[0].dwellingunitnt" />
 		<form:errors path="siteDetail[0].dwellingunitnt" 
 			cssClass="add-margin error-msg" />
@@ -177,9 +175,9 @@
 		class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
-			data-pattern="alphanumericwithspace" maxlength="256" id="roofConversion"
+			data-pattern="number" maxlength="256" id="roofConversion"
 			path="siteDetail[0].roofConversion" />
-		<form:errors path="siteDetail[0].roofConversion" required="required"
+		<form:errors path="siteDetail[0].roofConversion" 
 			cssClass="add-margin error-msg" />
 	</div>
 	</div>
@@ -187,22 +185,21 @@
 
 	
 	<div class="form-group">
-	<label class="col-sm-3 control-label text-right"><spring:message code="lbl.shutter"/><span
-		class="mandatory"></span></label>
+	<label class="col-sm-3 control-label text-right"><spring:message code="lbl.shutter"/></label>
 	<div class="col-sm-3 add-margin">
 		<form:input  class="form-control patternvalidation" data-pattern="number"
-		  id="shutter" required="required"
+		  id="shutter" 
 			path="siteDetail[0].shutter" />
 		<form:errors path="siteDetail[0].shutter" 
 			cssClass="add-margin error-msg" />
 	</div>
 	<label class="col-sm-2 control-label text-right"><spring:message code="lbl.erection.tower"/>
-		<span class="mandatory"></span></label>
+		</label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
-			data-pattern="alphanumericwithspace" maxlength="256" id="erectionoftower"
+			data-pattern="number" maxlength="256" id="erectionoftower"
 			path="siteDetail[0].erectionoftower" />
-		<form:errors path="siteDetail[0].erectionoftower" required="required"
+		<form:errors path="siteDetail[0].erectionoftower" 
 			cssClass="add-margin error-msg" />
 	</div>
 	</div>
