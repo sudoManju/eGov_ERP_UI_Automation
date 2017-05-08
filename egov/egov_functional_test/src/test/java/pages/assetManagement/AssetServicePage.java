@@ -151,15 +151,15 @@ public class AssetServicePage extends BasePage {
 
             case "land":
 
-                enterText(landRegisterNumberTextBox, "abcd", webDriver);
-                selectFromDropDown(osrLandSelectBox, "abcd", webDriver);
-                selectFromDropDown(isItFencedSelectBox, "abcd", webDriver);
-                selectFromDropDown(landTypeSelectBox, "abcd", webDriver);
-                selectFromDropDown(unitOfMeasurementSelectBox, "abcd", webDriver);
-                enterText(governmentOrderNumberTextBox, "abcd", webDriver);
-                enterText(collectorOrderNumberTextBox, "abcd", webDriver);
-                enterText(councilResolutionNumberTextBox, "abcd", webDriver);
-                enterText(awardNubmerTextBox, "abcd", webDriver);
+                enterText(landRegisterNumberTextBox, "LReg_"+get6DigitRandomInt(), webDriver);
+                selectFromDropDown(osrLandSelectBox, "Yes", webDriver);
+                selectFromDropDown(isItFencedSelectBox, "Yes", webDriver);
+                selectFromDropDown(landTypeSelectBox, "Hold", webDriver);
+                selectFromDropDown(unitOfMeasurementSelectBox, "sq. ft.", webDriver);
+                enterText(governmentOrderNumberTextBox, "GOV_"+get6DigitRandomInt(), webDriver);
+                enterText(collectorOrderNumberTextBox, "CO_"+get6DigitRandomInt(), webDriver);
+                enterText(councilResolutionNumberTextBox, "CRO_"+get6DigitRandomInt(), webDriver);
+                enterText(awardNubmerTextBox, "A_"+get6DigitRandomInt(), webDriver);
                 break;
 
             case "market":
