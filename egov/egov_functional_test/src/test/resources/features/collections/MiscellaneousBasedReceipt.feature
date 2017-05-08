@@ -19,7 +19,7 @@ Feature: Create/Collect/Remit/Cancel Miscellaneous Receipt
       | cash          |
       | cheque        |
       | dd            |
-      | directBank1   |
+      | directBank    |
 
 
   @Collections @Sanity @Smoke

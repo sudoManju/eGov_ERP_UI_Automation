@@ -246,8 +246,8 @@ public class MiscellaneousPage extends BasePage {
     }
 
     public void enterBankDetails() {
-        selectFromDropDown(bankNameBox, "STATE BANK OF INDIA-SBI Tresury Branch, Kurnool", driver);
-        selectFromDropDown(bankAccountNumberBox, "844810206002", driver);
+        selectFromDropDown(bankNameBox, "ANDHRA BANK-Andhra Bank RTC Busstand", driver);
+        selectFromDropDown(bankAccountNumberBox, "110710011005899", driver);
         selectFromDropDown(paymentModeBox, "cheque/dd", driver);
         enterDate(fromDateTextBox, getCurrentDate(), driver);
         enterDate(toDateTextBox, getCurrentDate(), driver);
