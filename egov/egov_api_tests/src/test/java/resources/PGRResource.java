@@ -158,4 +158,31 @@ public class PGRResource {
         new APILogger().log("Receiving Modes For PGR is Response is generated-- " + response.asString());
         return response;
     }
+
+    public Response getComplaintTypeByServiceCode(String json) {
+
+        new APILogger().log("Get Complaint Type By Service Code For PGR is started-- "+json);
+        Response response = given().request().with()
+                            .header("Content-Type", "application/json")
+                            .body(json)
+                            .when()
+                            .post(Properties.getComplaintTypeByServiceCodeUrl);
+
+
+        new APILogger().log("Complaint Type By Service Code For PGR is Response is generated-- " + response.asString());
+        return response;
+    }
+
+    public Response getComplaintCategories(String json) {
+
+        new APILogger().log("Get Complaint Type Categories For PGR is started-- "+json);
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(json)
+                .when()
+                .post(Properties.getComplaintTypeCategoriesUrl);
+
+        new APILogger().log("Complaint Type Categories For PGR is Response is generated-- " + response.asString());
+        return response;
+    }
 }

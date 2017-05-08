@@ -94,6 +94,10 @@ public class PropertiesReader {
         return prop.getProperty("updateComplaintUrl");
     }
 
+    public String getComplaintTypeByServiceCodeUrl() {
+        return prop.getProperty("complaintTypeByServiceCodeUrl");
+    }
+
 
     //      Asset Module Url's      //
     public String getSearchAssetServiceUrl() {
@@ -174,5 +178,8 @@ public class PropertiesReader {
         return prop.getProperty("searchEmployeeLeaveUrl");
     }
 
+    public String getComplaintTypeCategoriesUrl() {
+        return prop.getProperty("complaintTypeCategoriesUrl");
+    }
 }
 
