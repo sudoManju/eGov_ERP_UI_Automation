@@ -12,3 +12,8 @@ Feature: Create/Search for Asset Service
     Examples:
       | headerDetails | locationDetails | assetStatus | categoryDetails |
       | header1       | location1       | CREATED     | land            |
+      | header2       | location1       | CREATED     | market          |
+      | header3       | location1       | CREATED     | parkingSpace    |
+      | header5       | location1       | CREATED     | land            |
+      | header6       | location1       | CREATED     | community       |
+      | header7       | location1       | CREATED     | usufruct        |

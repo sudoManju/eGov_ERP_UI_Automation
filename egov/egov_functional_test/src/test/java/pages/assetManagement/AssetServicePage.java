@@ -140,18 +140,12 @@ public class AssetServicePage extends BasePage {
 //        enterText(webDriver.findElement(By.cssSelector("input[type='text'][name='Shop Details']")), "Testing", webDriver);
     }
 
-    public void enterAssetStatusDetails(String assetStatus) {
-        selectFromDropDown(statusSelectBox, assetStatus, webDriver);
-        clickOnButton(createAssetButton, webDriver);
-        switchToNewlyOpenedWindow(webDriver);
-    }
-
     public void enterCategoryDetails(String categoryDetails) {
         switch (categoryDetails) {
-
             case "land":
 
                 enterText(landRegisterNumberTextBox, "LReg_"+get6DigitRandomInt(), webDriver);
+                enterText(landRegisterNumberTextBox, "LReg_" + get6DigitRandomInt(), webDriver);
                 selectFromDropDown(osrLandSelectBox, "Yes", webDriver);
                 selectFromDropDown(isItFencedSelectBox, "Yes", webDriver);
                 selectFromDropDown(landTypeSelectBox, "Hold", webDriver);
@@ -160,6 +154,10 @@ public class AssetServicePage extends BasePage {
                 enterText(collectorOrderNumberTextBox, "CO_"+get6DigitRandomInt(), webDriver);
                 enterText(councilResolutionNumberTextBox, "CRO_"+get6DigitRandomInt(), webDriver);
                 enterText(awardNubmerTextBox, "A_"+get6DigitRandomInt(), webDriver);
+                enterText(governmentOrderNumberTextBox, "GOV_" + get6DigitRandomInt(), webDriver);
+                enterText(collectorOrderNumberTextBox, "CO_" + get6DigitRandomInt(), webDriver);
+                enterText(councilResolutionNumberTextBox, "CRO_" + get6DigitRandomInt(), webDriver);
+                enterText(awardNubmerTextBox, "A_" + get6DigitRandomInt(), webDriver);
                 break;
 
             case "market":
@@ -178,7 +176,7 @@ public class AssetServicePage extends BasePage {
                 enterText(slaughterHouseNameTextBox, "abcd", webDriver);
                 break;
 
-            case "ussfruct":
+            case "usufruct":
                 enterText(ussfructNameTextBox, "abcd", webDriver);
                 break;
 
@@ -193,7 +191,12 @@ public class AssetServicePage extends BasePage {
             case "community":
                 enterText(communityToiletComplexNameTextBox, "abcd", webDriver);
                 break;
-
         }
+    }
+
+    public void enterAssetStatusDetails(String assetStatus) {
+        selectFromDropDown(statusSelectBox, assetStatus, webDriver);
+        clickOnButton(createAssetButton, webDriver);
+        switchToNewlyOpenedWindow(webDriver);
     }
 }
