@@ -179,7 +179,7 @@ public class WaterChargeManagementPage extends BasePage {
 
     public void searchWaterConnectionApplications(String connectionType, String applicationNumber) {
 
-        selectFromDropDown(searchApplicationService, "Water Tax", webDriver);
+        selectFromDropDown(searchApplicationService, "Water Charges", webDriver);
         selectFromDropDown(searchApplicationType, connectionType.replaceAll("_", " "), webDriver);
 
         enterText(applicationSearchBox, applicationNumber, webDriver);
