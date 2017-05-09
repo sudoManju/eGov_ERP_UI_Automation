@@ -1,7 +1,6 @@
 package resources;
 
 import com.jayway.restassured.response.Response;
-import entities.responses.login.LoginResponse;
 import utils.APILogger;
 import utils.Properties;
 
@@ -39,56 +38,32 @@ public class PGRResource {
         return response;
     }
 
-    public Response getParticularLocationName(String locationName) {
+    public Response getFetchComplaint(String json) {
 
-        new APILogger().log("Getting a location details Request with name is started for--" + locationName);
-
-        Response response = given().request().with()
-                .urlEncodingEnabled(true)
-                .when()
-                .get(Properties.locationNameUrl + locationName);
-
-        new APILogger().log("Getting a location details Response with name is generated as-- " + response.asString());
-
-        return response;
-    }
-
-    public Response getAllLocationNames() {
-
-        new APILogger().log("Getting all location details Request with name is started-- ");
+        new APILogger().log("Fetch all Complaints Request is started -- "+json);
 
         Response response = given().request().with()
                 .urlEncodingEnabled(true)
+                .header("Content-Type", "application/json")
                 .when()
-                .get(Properties.locationNameUrl);
-
-        new APILogger().log("Getting all location details Response with name is generated as-- " + response.asString());
-
-        return response;
-    }
-
-    public Response getFetchComplaint() {
-
-        new APILogger().log("Fetch all Complaints Request is started -- ");
-
-        Response response = given().request().with()
-                .urlEncodingEnabled(true)
-                .when()
-                .get(Properties.fetchComplaintsUrl);
+                .body(json)
+                .post(Properties.fetchComplaintsUrl);
 
         new APILogger().log("Fetch all Complaints Response is generated as-- " + response.asString());
 
         return response;
     }
 
-    public Response getFrequentlyFilledComplaints(int count) {
+    public Response getFetchComplaintById(String json) {
 
-        new APILogger().log("Get Frequently filled Complaints Request is started  for-- " + count);
+        new APILogger().log("Fetch Complaints By Id Request is started  for-- "+json);
 
         Response response = given().request().with()
                 .urlEncodingEnabled(true)
+                .header("Content-Type", "application/json")
                 .when()
-                .get(Properties.frequentlyFilledComplaintsUrl + count + "&tenantId=ap.public");
+                .body(json)
+                .post(Properties.fetchComplaintsByIdUrl);
 
         new APILogger().log("Get Frequently filled Complaints Response is generated as-- " + response.asString());
 
@@ -110,52 +85,44 @@ public class PGRResource {
         return response;
     }
 
-    public Response getReceivingCenter(LoginResponse loginResponse) {
+    public Response getReceivingCenter(String json) {
 
-        new APILogger().log("Receiving Centers Request for PGR is started  -- ");
+        new APILogger().log("All Receiving Centers Request for PGR is started  -- "+json);
         Response response = given().request().with()
-                .header("auth-token", loginResponse.getAccess_token())
+                .header("Content-Type", "application/json")
+                .body(json)
                 .when()
-                .get(Properties.pgrReceivingCenterUrl);
+                .post(Properties.pgrReceivingCenterUrl);
 
-        new APILogger().log("Receiving Centers Response for PGR is generated as-- " + response.asString());
+        new APILogger().log("All Receiving Centers Response for PGR is generated as-- " + response.asString());
 
         return response;
     }
 
-    public Response getPGRApplicationStatus(LoginResponse loginResponse) {
+    public Response getReceivingCenterById(String json){
 
-        new APILogger().log("Get All Application Status Request for PGR is started  -- ");
+        new APILogger().log("Receiving Centers By Id Request for PGR is started  -- "+json);
         Response response = given().request().with()
-                .header("auth-token", loginResponse.getAccess_token())
+                .header("Content-Type", "application/json")
+                .body(json)
                 .when()
-                .post(Properties.pgrStatusUrl);
+                .post(Properties.pgrReceivingCenterUrl+"&id=1");
 
-        new APILogger().log("Get All Application Status Response for PGR is generated as-- " + response.asString());
+        new APILogger().log("Receiving Centers By Id Response for PGR is generated as-- " + response.asString());
 
         return response;
     }
 
-    public Response getSearchCitizenComplaints(LoginResponse loginResponse) {
+    public Response getReceivingModes(String json) {
 
-        new APILogger().log("Search Citizen Complaints Request for PGR is started-- ");
+        new APILogger().log("Get All Receiving Modes For PGR is started-- "+json);
         Response response = given().request().with()
-                .header("auth-token", loginResponse.getAccess_token())
-                .when()
-                .post(Properties.pgrSearchCitizenComplaintUrl);
+                           .header("Content-Type", "application/json")
+                           .body(json)
+                           .when()
+                           .post(Properties.pgrReceivingModesUrl);
 
-        new APILogger().log("Search Citizen Complaints Response for PGR is generated-- " + response.asString());
-        return response;
-    }
-
-    public Response getReceivingModes() {
-
-        new APILogger().log("Get Different Receiving Modes For PGR is started-- ");
-        Response response = given().request().with()
-                .when()
-                .get(Properties.pgrReceivingModesUrl);
-
-        new APILogger().log("Receiving Modes For PGR is Response is generated-- " + response.asString());
+        new APILogger().log("All Receiving Modes For PGR is Response is generated-- " + response.asString());
         return response;
     }
 

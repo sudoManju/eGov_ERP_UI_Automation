@@ -18,12 +18,12 @@ public class Properties {
     //  PGR Module Url's  //
     public static final String getPGRComplaintUrl = propertiesReader.getPGRComplaintUrl();
     public static final String complaintUrl = propertiesReader.getComplaintUrl();
-    public static final String locationNameUrl = propertiesReader.getLocationNameUrl();
     public static final String fetchComplaintsUrl = propertiesReader.getFetchComplaintsUrl();
-    public static final String frequentlyFilledComplaintsUrl = propertiesReader.getFrequentlyFilledComplaintstUrl();
-    public static final String pgrStatusUrl = propertiesReader.getPGRStatusUrl();
+    public static final String fetchComplaintsByIdUrl = propertiesReader.getFetchComplaintsByIdComplaintstUrl();
     public static final String pgrReceivingCenterUrl = propertiesReader.getPGRReceivingCenter();
-    public static final String pgrSearchCitizenComplaintUrl = propertiesReader.getPGRSearchCitizenComplaint();
+    public static final String updateComplaintUrl = propertiesReader.getUpdateComplaintUrl();
+    public static final String getComplaintTypeByServiceCodeUrl = propertiesReader.getComplaintTypeByServiceCodeUrl();
+    public static final String getComplaintTypeCategoriesUrl = propertiesReader.getComplaintTypeCategoriesUrl();
 
     //  Asset Module Url's  //
     public static final String searchAssetServiceUrl = propertiesReader.getSearchAssetServiceUrl();
@@ -66,7 +66,5 @@ public class Properties {
     public static final String userCreateUrl = propertiesReader.getUserCreateUrl();
     public static final String pgrReceivingModesUrl = propertiesReader.getPGRReceivingModesUrl();
     public static final String searchEmployeeLeaveUrl = propertiesReader.getSearchEmployeeLeaveUrl();
-    public static final String updateComplaintUrl = propertiesReader.getUpdateComplaintUrl();
-    public static final String getComplaintTypeByServiceCodeUrl = propertiesReader.getComplaintTypeByServiceCodeUrl();
-    public static final String getComplaintTypeCategoriesUrl = propertiesReader.getComplaintTypeCategoriesUrl();
+
 }

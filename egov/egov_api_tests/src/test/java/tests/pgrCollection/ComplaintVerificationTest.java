@@ -23,25 +23,24 @@ import java.io.IOException;
 
 public class ComplaintVerificationTest extends BaseAPITest {
 
-    @Test(groups = {Categories.PGR, Categories.SANITY, Categories.QA})
+    @Test(groups = {Categories.PGR, Categories.SANITY, Categories.DEV})
     public void createAndGetComplaintInPGR() throws IOException {
 
         //Login Test
         LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
 
-
         // Create A Complaint
         CreateComplaintResponse create = createComplaintInPGR(loginResponse);
+
+        // Update Complaint
+        updateComplaintInPGR(create.getServiceRequests()[0].getServiceRequestId(),loginResponse);
 
         // Get Complaint
         getComplaintInPGR(create.getServiceRequests()[0].getServiceRequestId(),loginResponse);
 
-        // Update Complaint
-        updateComplaintInPGR(create.getServiceRequests()[0].getServiceRequestId(),loginResponse);
-//
 //        //Close Complaint
-//        closeComplaintInPGR(complaintResponse.getService_requests()[0].getService_request_id());
-//
+//        closeComplaintInPGR(create.getServiceRequests()[0].getServiceRequestId(),loginResponse);
+
         // Logout Test
         LoginAndLogoutHelper.logout(loginResponse);
     }
@@ -87,7 +86,7 @@ public class ComplaintVerificationTest extends BaseAPITest {
 
         Assert.assertEquals(id,response1.getServiceRequests()[0].getServiceRequestId());
 
-        Assert.assertEquals(response1.getServiceRequests()[0].getValues().getComplaintStatus(),"REGISTERED");
+        Assert.assertEquals(response1.getServiceRequests()[0].getValues().getComplaintStatus(),"PROCESSING");
 
         new APILogger().log("Getting a PGR complaint test is Completed -- ");
     }
@@ -118,23 +117,9 @@ public class ComplaintVerificationTest extends BaseAPITest {
     }
 
 
-    private void closeComplaintInPGR(String id) throws IOException {
-//        Values values = new ValuesBuilder("close").withStatus("COMPLETED").build();
-//
-//        ServiceRequest serviceRequest = new ServiceRequestBuilder("update").withService_request_id(id).withValues(values).build();
-//
-//        ComplaintRequest request = new ComplaintRequestBuilder("update").withServiceRequest(serviceRequest).build();
-//
-//        String jsonString = RequestHelper.getJsonString(request);
-//
-//        Response response = new PGRResource().updateAndClosePGRComplaint(jsonString);
-//
-//        UpdateAndCloseComplaintInPGRResponse updateAndCloseComplaintInPGRResponse = (UpdateAndCloseComplaintInPGRResponse)
-//                ResponseHelper.getResponseAsObject(response.asString(), UpdateAndCloseComplaintInPGRResponse.class);
-//
-////        Assert.assertEquals(updateAndCloseComplaintInPGRResponse.getService_requests()[0].getValues().getStatus(), request.getServiceRequest().getValues().getStatus());
-//        new APILogger().log("Close complaint for PGR test is Completed  -- ");
-//
-//        return updateAndCloseComplaintInPGRResponse;
+    private void closeComplaintInPGR(String id,LoginResponse loginResponse) throws IOException {
+        RequestInfo requestInfo = new RequestInfoBuilder("").withAuth_token(loginResponse.getAccess_token()).build();
+
+        ServiceRequest serviceRequest = new ServiceRequestBuilder("").withServiceRequestId(id).build();
     }
 }

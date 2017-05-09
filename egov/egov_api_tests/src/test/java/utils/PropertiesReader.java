@@ -66,28 +66,16 @@ public class PropertiesReader {
         return prop.getProperty("complaintUrl");
     }
 
-    public String getLocationNameUrl() {
-        return prop.getProperty("locationNameUrl");
-    }
-
     public String getFetchComplaintsUrl() {
         return prop.getProperty("fetchComplaintsUrl");
     }
 
-    public String getFrequentlyFilledComplaintstUrl() {
-        return prop.getProperty("frequentlyFilledComplaintsUrl");
-    }
-
-    public String getPGRStatusUrl() {
-        return prop.getProperty("pgrStatusUrl");
+    public String getFetchComplaintsByIdComplaintstUrl() {
+        return prop.getProperty("fetchComplaintsByIdUrl");
     }
 
     public String getPGRReceivingCenter() {
         return prop.getProperty("pgrReceivingCenter");
-    }
-
-    public String getPGRSearchCitizenComplaint() {
-        return prop.getProperty("pgrSearchCitizenComplaint");
     }
 
     public String getUpdateComplaintUrl() {
@@ -98,6 +86,9 @@ public class PropertiesReader {
         return prop.getProperty("complaintTypeByServiceCodeUrl");
     }
 
+    public String getComplaintTypeCategoriesUrl() {
+        return prop.getProperty("complaintTypeCategoriesUrl");
+    }
 
     //      Asset Module Url's      //
     public String getSearchAssetServiceUrl() {
@@ -178,8 +169,5 @@ public class PropertiesReader {
         return prop.getProperty("searchEmployeeLeaveUrl");
     }
 
-    public String getComplaintTypeCategoriesUrl() {
-        return prop.getProperty("complaintTypeCategoriesUrl");
-    }
 }
 
