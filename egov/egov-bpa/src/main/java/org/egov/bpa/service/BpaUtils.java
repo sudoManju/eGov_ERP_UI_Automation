@@ -1,5 +1,6 @@
 package org.egov.bpa.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -114,7 +115,7 @@ public class BpaUtils {
 
     @Transactional
     public void redirectToBpaWorkFlow(Long approvalPosition, final BpaApplication application, final String currentState,
-            final String remarks,String workFlowAction) {
+            final String remarks,final String workFlowAction,final BigDecimal amountRule) {
 
         final WorkFlowMatrix wfmatrix = getWfMatrixByCurrentState(application, currentState);
         final BpaApplicationWorkflowCustomDefaultImpl applicationWorkflowCustomDefaultImpl = getInitialisedWorkFlowBean();
@@ -125,14 +126,14 @@ public class BpaUtils {
         if (currentState.equals(BpaConstants.LETTERTOPARTYINITIATE))
             applicationWorkflowCustomDefaultImpl.createCommonWorkflowTransition(application,
                     approvalPosition, remarks,
-                    BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, BpaConstants.LETTERTOPARTYINITIATE);
+                    BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, BpaConstants.LETTERTOPARTYINITIATE,amountRule);
         else if (currentState.equals(BpaConstants.LETTERTOPARTYINITIATED))
             applicationWorkflowCustomDefaultImpl.createCommonWorkflowTransition(application,
                     approvalPosition, remarks,
-                    BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, BpaConstants.LETTERTOPARTYINITIATED);
+                    BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, BpaConstants.LETTERTOPARTYINITIATED,amountRule);
         else
             applicationWorkflowCustomDefaultImpl.createCommonWorkflowTransition(application,
                     approvalPosition, remarks,
-                    BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, workFlowAction);
+                    BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, workFlowAction,amountRule);
     }
 }

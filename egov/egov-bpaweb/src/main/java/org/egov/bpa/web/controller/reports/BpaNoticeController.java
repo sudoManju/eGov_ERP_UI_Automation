@@ -2,7 +2,7 @@
  * eGov suite of products aim to improve the internal efficiency,transparency,
  *    accountability and the service delivery of the government  organizations.
  *
- *     Copyright (C) <2015>  eGovernments Foundation
+ *     Copyright (C) <2017>  eGovernments Foundation
  *
  *     The updated version of eGov suite of products as by eGovernments Foundation
  *     is available at http://www.egovernments.org
@@ -37,29 +37,41 @@
  *
  *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
-package org.egov.bpa.application.workflow;
+package org.egov.bpa.web.controller.reports;
 
-import java.math.BigDecimal;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-import org.egov.bpa.application.entity.BpaApplication;
-import org.springframework.transaction.annotation.Transactional;
+import org.egov.bpa.application.service.ApplicationBpaService;
+import org.egov.bpa.application.service.report.BpaNoticeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-/**
- * The Class ApplicationCommonWorkflow.
- */
-public class BpaApplicationWorkflowCustomDefaultImpl extends BpaApplicationWorkflowCustomImpl {
+@Controller
+public class BpaNoticeController {
 
-    public BpaApplicationWorkflowCustomDefaultImpl() {
-    	//
+    @Autowired
+    private ApplicationBpaService applicationBpaService;
+    @Autowired
+    private BpaNoticeService bpaReportService;
+
+    @RequestMapping(value = "/application/demandnotice/{applicationNumber}", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<byte[]> viewDemandNoticeReport(@PathVariable final String applicationNumber,
+            final HttpSession session, HttpServletRequest request) {
+        return bpaReportService.generateDemandNotice(request, applicationBpaService.findByApplicationNumber(applicationNumber));
     }
-
-    @Override
-    @Transactional
-    public void createCommonWorkflowTransition(final BpaApplication application,
-            final Long approvalPosition, final String approvalComent, final String additionalRule,
-            final String workFlowAction,final BigDecimal amountRule) {
-        super.createCommonWorkflowTransition(application, approvalPosition, approvalComent, additionalRule,
-                workFlowAction, amountRule);
+    
+    @RequestMapping(value = "/application/generatepermitorder/{applicationNumber}", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<byte[]> generateBuildingPermitOrder(@PathVariable final String applicationNumber,
+            final HttpSession session, HttpServletRequest request) {
+        return bpaReportService.generateBuildingPermit(request, applicationBpaService.findByApplicationNumber(applicationNumber));
     }
 
 }

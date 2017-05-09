@@ -30,6 +30,8 @@
 package org.egov.bpa.application.entity;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -39,6 +41,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -84,7 +87,8 @@ public class BuildingDetail extends AbstractAuditable {
     private BigDecimal proposedfloorArea;
     private BigDecimal totalPlintArea;
     private BigDecimal totalSlab;
-
+    @OneToMany(mappedBy = "buildingDetail", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ApplicationFloorDetail> applicationFloorDetails = new ArrayList<>(0);
     @Override
     public Long getId() {
         return id;
@@ -239,4 +243,13 @@ public class BuildingDetail extends AbstractAuditable {
         this.proposedBldgCategory = proposedBldgCategory;
     }
 
+    public List<ApplicationFloorDetail> getApplicationFloorDetails() {
+        return applicationFloorDetails;
+    }
+
+    public void setApplicationFloorDetails(List<ApplicationFloorDetail> applicationFloorDetails) {
+        this.applicationFloorDetails = applicationFloorDetails;
+    }
+    
+  
 }

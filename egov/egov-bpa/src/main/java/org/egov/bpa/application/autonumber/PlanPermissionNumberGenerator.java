@@ -37,34 +37,12 @@
  *
  *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
-package org.egov.bpa.web.controller.reports;
+package org.egov.bpa.application.autonumber;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import org.egov.bpa.application.entity.ServiceType;
 
-import org.egov.bpa.application.service.ApplicationBpaService;
-import org.egov.bpa.application.service.report.BpaReportService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+@FunctionalInterface
+public interface PlanPermissionNumberGenerator {
 
-@Controller
-public class BpaReportsController {
-
-    @Autowired
-    private ApplicationBpaService applicationBpaService;
-    @Autowired
-    private BpaReportService bpaReportService;
-
-    @RequestMapping(value = "/application/demandnotice/{applicationNumber}", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<byte[]> viewDemandNoticeReport(@PathVariable final String applicationNumber,
-            final HttpSession session, HttpServletRequest request) {
-        return bpaReportService.generateDemandNotice(request, applicationBpaService.findByApplicationNumber(applicationNumber));
-    }
-
+    public String generatePlanPermissionNumber(ServiceType serviceType);
 }

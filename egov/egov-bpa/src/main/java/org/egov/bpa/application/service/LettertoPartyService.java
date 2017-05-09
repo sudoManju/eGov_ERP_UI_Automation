@@ -77,7 +77,7 @@ public class LettertoPartyService {
             lettertoParty.setLpNumber(generateLettertpPartyNumber());
             approverPosition = getDocScutinyUser(lettertoParty.getApplication());
             bpaUtils.redirectToBpaWorkFlow(approverPosition, lettertoParty.getApplication(), BpaConstants.LETTERTOPARTYINITIATE,
-                    "Letter to party initiate", BpaConstants.LETTERTOPARTYINITIATE);
+                    "Letter to party initiate", BpaConstants.LETTERTOPARTYINITIATE, null);
             bpaSmsAndEmailService.sendSMSAndEmailToApplicantForLettertoparty(lettertoParty.getApplication());
         }
 

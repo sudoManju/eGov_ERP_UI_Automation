@@ -37,29 +37,32 @@
  *
  *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
-package org.egov.bpa.application.workflow;
+package org.egov.bpa.application.autonumber.impl;
 
-import java.math.BigDecimal;
+import java.io.Serializable;
 
-import org.egov.bpa.application.entity.BpaApplication;
-import org.springframework.transaction.annotation.Transactional;
+import org.egov.bpa.application.autonumber.PlanPermissionNumberGenerator;
+import org.egov.bpa.application.entity.ServiceType;
+import org.egov.bpa.utils.BpaConstants;
+import org.egov.infra.persistence.utils.ApplicationSequenceNumberGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-/**
- * The Class ApplicationCommonWorkflow.
- */
-public class BpaApplicationWorkflowCustomDefaultImpl extends BpaApplicationWorkflowCustomImpl {
+@Service
+public class PlanPermissionNumberGeneratorImpl implements PlanPermissionNumberGenerator {
 
-    public BpaApplicationWorkflowCustomDefaultImpl() {
-    	//
-    }
+	@Autowired
+    private ApplicationSequenceNumberGenerator applicationSequenceNumberGenerator;
 
     @Override
-    @Transactional
-    public void createCommonWorkflowTransition(final BpaApplication application,
-            final Long approvalPosition, final String approvalComent, final String additionalRule,
-            final String workFlowAction,final BigDecimal amountRule) {
-        super.createCommonWorkflowTransition(application, approvalPosition, approvalComent, additionalRule,
-                workFlowAction, amountRule);
+    public String generatePlanPermissionNumber(final ServiceType serviceType) {
+        final String sequenceName = BpaConstants.BPA_PLANPERMNO_SEQ ;
+        final Serializable nextSequence = applicationSequenceNumberGenerator.getNextSequence(sequenceName);
+        final StringBuilder formatedNumber = new StringBuilder();
+        if (null != serviceType && serviceType.getServiceNumberPrefix() != null
+                && !"".equals(serviceType.getServiceNumberPrefix())) {
+            formatedNumber.append(serviceType.getServiceNumberPrefix().toUpperCase());
+        }
+        return String.format("%s%06d", formatedNumber, nextSequence);
     }
-
 }

@@ -163,8 +163,6 @@ public class Inspection extends AbstractAuditable {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "inspection")
     private List<Docket> docket =new ArrayList<>();
-    @OneToMany(mappedBy = "inspection", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ApplicationFloorDetail> floorDetail = new ArrayList<>(0);
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="application")
     private BpaApplication application;
@@ -611,14 +609,6 @@ public class Inspection extends AbstractAuditable {
 
     public void setApplication(final BpaApplication application) {
         this.application = application;
-    }
-
-    public List<ApplicationFloorDetail> getFloorDetail() {
-        return floorDetail;
-    }
-
-    public void setFloorDetail(final List<ApplicationFloorDetail> floorDetail) {
-        this.floorDetail = floorDetail;
     }
 
     public BigDecimal getBldngGFloorTiledFloor() {

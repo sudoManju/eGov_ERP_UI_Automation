@@ -43,11 +43,46 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div class="panel-heading custom_form_panel_heading">
 	<div class="panel-title">Building Details</div>
 </div>
 
 <div class="form-group">
+	<label class="col-sm-3 control-label text-right">Existing
+		Building Category <span class="mandatory"></span>
+	</label>
+	<div class="col-sm-3 add-margin">
+		<form:select path="buildingDetail[0].existBldgCategory"
+			data-first-option="false" id="" cssClass="form-control"
+			required="required">
+			<form:option value="">
+				<spring:message code="lbl.select" />
+			</form:option>
+			<form:options items="${buildingCategorYlist}" itemValue="id"
+				itemLabel="code" />
+		</form:select>
+		<form:errors path="buildingDetail[0].existBldgCategory"
+			cssClass="add-margin error-msg" />
+	</div>
+	<label class="col-sm-2 control-label text-right">Proposed
+		Building Category <span class="mandatory"></span>
+	</label>
+	<div class="col-sm-3 add-margin">
+		<form:select path="buildingDetail[0].proposedBldgCategory"
+			data-first-option="false" id="" cssClass="form-control"
+			required="required">
+			<form:option value="">
+				<spring:message code="lbl.select" />
+			</form:option>
+			<form:options items="${buildingCategorYlist}" itemValue="id"
+				itemLabel="code" />
+		</form:select>
+		<form:errors path="buildingDetail[0].proposedBldgCategory"
+			cssClass="add-margin error-msg" />
+	</div>
+</div>
+<%-- <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Building
 		Unit Count</label>
 	<div class="col-sm-3 add-margin">
@@ -120,7 +155,7 @@
 		<form:errors path="buildingDetail[0].noofdwellingUnit"
 			cssClass="add-margin error-msg" />
 	</div>
-</div>
+</div> --%>
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Building
 		Proposed Sital in Sqmt </label>
@@ -161,40 +196,6 @@
 	</div>
 </div>
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right">Existing
-		Building Category <span class="mandatory"></span>
-	</label>
-	<div class="col-sm-3 add-margin">
-		<form:select path="buildingDetail[0].existBldgCategory"
-			data-first-option="false" id="" cssClass="form-control"
-			required="required">
-			<form:option value="">
-				<spring:message code="lbl.select" />
-			</form:option>
-			<form:options items="${buildingCategorYlist}" itemValue="id"
-				itemLabel="code" />
-		</form:select>
-		<form:errors path="buildingDetail[0].existBldgCategory"
-			cssClass="add-margin error-msg" />
-	</div>
-	<label class="col-sm-2 control-label text-right">Proposed
-		Building Category <span class="mandatory"></span>
-	</label>
-	<div class="col-sm-3 add-margin">
-		<form:select path="buildingDetail[0].proposedBldgCategory"
-			data-first-option="false" id="" cssClass="form-control"
-			required="required">
-			<form:option value="">
-				<spring:message code="lbl.select" />
-			</form:option>
-			<form:options items="${buildingCategorYlist}" itemValue="id"
-				itemLabel="code" />
-		</form:select>
-		<form:errors path="buildingDetail[0].proposedBldgCategory"
-			cssClass="add-margin error-msg" />
-	</div>
-</div>
-<div class="form-group">
 	<label class="col-sm-3 control-label text-right">Building
 		Is Groud Floor </label>
 	<div class="col-sm-3 add-margin">
@@ -219,3 +220,101 @@
 		<form:errors path="buildingDetail[0].isMezzanineFloor" />
 	</div>
 </div>
+
+<div class="panel-heading custom_form_panel_heading">
+	<div class="panel-title">Building Plinth and Carpet Area Details:</div>
+</div>
+<div class="text-right add-padding">
+	<button type="button" class="btn btn-sm btn-primary"
+		id="addBuildAreaRow">ADD ROW</button>
+</div>
+<table class="table table-striped table-bordered"
+	id="buildingAreaDetails">
+	<thead>
+		<tr>
+			<th class="text-center"><spring:message code="lbl.srl.no" /></th>
+			<th class="text-center"><spring:message code="lbl.floor.name" /></th>
+			<th class="text-center"><spring:message code="lbl.plinth.area" /></th>
+			<th class="text-center"><spring:message code="lbl.carpet.area" /></th>
+			<th class="text-center"><spring:message code="lbl.action" /></th>
+		</tr>
+	</thead>
+	<tbody
+		data-existing-len="${fn:length(bpaApplication.buildingDetail[0].applicationFloorDetails)}">
+		<c:choose>
+			<c:when
+				test="${!bpaApplication.buildingDetail[0].applicationFloorDetails.isEmpty()}">
+				<c:forEach
+					items="${bpaApplication.buildingDetail[0].applicationFloorDetails}"
+					var="buildingAreaDetails" varStatus="counter">
+					<form:hidden id="table_fieldInspections${counter.index}"
+						path="buildingDetail[0].applicationFloorDetails[${counter.index}].id" />
+					<tr class="data-fetched">
+						<td class="text-center"><span class="serialNo" id="slNoInsp">${counter.index+1}</span></td>
+						<td><form:input type="text"
+								class="form-control table-input patternvalidation"
+								path="buildingDetail[0].applicationFloorDetails[${counter.index}].floorDescription"
+								id="applicationFloorDetails[${counter.index}]floorDescription"
+								maxlength="128" value="${buildingAreaDetails.floorDescription}" /></td>
+						<td class="text-right"><form:input type="text"
+								class="form-control table-input patternvalidation plinthArea"
+								data-pattern="number"
+								path="buildingDetail[0].applicationFloorDetails[${counter.index}].plinthArea"
+								id="applicationFloorDetails${counter.index}plinthArea"
+								maxlength="15" value="${buildingAreaDetails.plinthArea}" /></td>
+						<td class="text-right"><form:input type="text"
+								class="form-control table-input text-right patternvalidation carpetArea"
+								data-pattern="number"
+								path="buildingDetail[0].applicationFloorDetails[${counter.index}].carpetArea"
+								id="applicationFloorDetails${counter.index}carpetArea"
+								maxlength="8" value="${buildingAreaDetails.carpetArea}" /></td>
+						<c:if test="${counter.index!=0}">
+							<td class="text-center"><a href="javascript:void(0);"
+								class="btn-sm btn-danger" id="deleteBuildAreaRow"
+								data-record-id="${var1.id}"><i class="fa fa-trash"></i></a></td>
+						</c:if>
+					</tr>
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<tr class="data-fetched">
+					<td class="text-center"><span class="serialNo" id="slNoInsp">1</span></td>
+					<td><form:input type="text"
+							class="form-control table-input patternvalidation"
+							path="buildingDetail[0].applicationFloorDetails[0].floorDescription"
+							id="applicationFloorDetails[0]floorDescription" maxlength="128"
+							value="" /></td>
+					<td class="text-right"><form:input type="text"
+							class="form-control table-input text-right patternvalidation plinthArea"
+							data-pattern="number"
+							path="buildingDetail[0].applicationFloorDetails[0].plinthArea"
+							id="applicationFloorDetails0plinthArea" maxlength="15" value="" /></td>
+					<td class="text-right"><form:input type="text"
+							class="form-control table-input text-right patternvalidation carpetArea"
+							data-pattern="number"
+							path="buildingDetail[0].applicationFloorDetails[0].carpetArea"
+							id="applicationFloorDetails0carpetArea" maxlength="15" value="" /></td>
+					<td class="text-center"><a href="javascript:void(0);"
+						class="btn-sm btn-danger" id="deleteBuildAreaRow"
+						data-record-id="${buildingAreaDetails.id}"><i
+							class="fa fa-trash"></i></a></td>
+				</tr>
+			</c:otherwise>
+		</c:choose>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td></td>
+			<td class="text-right">Total</td>
+			<td class="text-right"></td>
+			<td class="text-right"></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td class="text-right">Sum ( Plinth + Carpet )</td>
+			<td class="text-center" id="sumOfPlinthCarpet" colspan="2"></td>
+			<td class="text-right"></td>
+		</tr>
+	</tfoot>
+</table>

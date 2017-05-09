@@ -39,11 +39,14 @@
  */
 package org.egov.bpa.application.workflow;
 
+import java.math.BigDecimal;
+
 import org.egov.bpa.application.entity.BpaApplication;
 
 /**
  * The Interface ApplicationCommonWorkflow.
  */
+@FunctionalInterface
 public interface BpaApplicationWorkflowCustom {
 
     /***
@@ -56,6 +59,6 @@ public interface BpaApplicationWorkflowCustom {
      */
     public void createCommonWorkflowTransition(BpaApplication bpaApplication,
             Long approvalPosition, String approvalComent, String additionalRule,
-            String workFlowAction);
+            String workFlowAction, final BigDecimal amountRule);
 
 }

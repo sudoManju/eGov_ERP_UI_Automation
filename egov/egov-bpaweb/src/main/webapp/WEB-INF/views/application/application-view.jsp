@@ -67,6 +67,7 @@
 			<form:hidden path="" id="wfstateDesc"
 				value="${bpaApplication.state.value}" />
 			<form:hidden path="" id="mode" name="mode" value="${mode}" />
+			<form:hidden  path="" id="amountRule" name="amountRule" value="${amountRule}"/>
 			<form:hidden path="" id="scheduleType" name="scheduleType"
 				value="${scheduleType}" />
 			<ul class="nav nav-tabs" id="settingstab">
@@ -177,27 +178,21 @@
 					<a
 						href="/bpa/application/createinspectiondetails/${bpaApplication.applicationNumber}"
 						class="btn btn-primary">Capture Inspection Details </a>
-
 				</c:if>
 				<c:if test="${mode eq 'modifyInspection'}">
 					<a
 						href="/bpa/application/createinspectiondetails/${bpaApplication.applicationNumber}"
 						class="btn btn-primary">Capture New Inspection Details </a>
-
 				</c:if>
 				<c:if test="${mode eq 'newappointment'}">
 					<a
 						href="/bpa/application/scheduleappointment/${bpaApplication.applicationNumber}"
 						class="btn btn-primary"> New Appointment </a>
-
-
 				</c:if>
 				<c:if test="${mode eq 'postponeappointment'}">
 					<a
 						href="/bpa/application/postponeappointment/${scheduleType}/${bpaApplication.applicationNumber}"
 						class="btn btn-primary"> Reschedule Appointment </a>
-
-
 				</c:if>
 				<c:if test="${mode eq 'initialtedApprove'}">
 					<a
@@ -221,7 +216,9 @@
 					</div>
 				</c:when> 
 				<c:otherwise>
-					<jsp:include page="../common/commonWorkflowMatrix.jsp" />
+					<c:if test="${bpaApplication.status.code ne 'Digitally signed'}">
+						<jsp:include page="../common/commonWorkflowMatrix.jsp" />
+					</c:if>
 					<div class="buttonbottom" align="center">
 						<jsp:include page="../common/commonWorkflowMatrix-button.jsp" />
 					</div>

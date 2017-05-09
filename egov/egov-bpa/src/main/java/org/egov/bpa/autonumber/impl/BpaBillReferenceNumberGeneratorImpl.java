@@ -55,7 +55,7 @@ public class BpaBillReferenceNumberGeneratorImpl implements BpaBillReferenceNumb
 
     @Override
     public String generateBillNumber(final String installmentYear) {
-        final String sequenceName = BpaConstants.WATER_CONN_BILLNO_SEQ + installmentYear;
+        final String sequenceName = BpaConstants.BPA_BILLNO_SEQ + installmentYear;
         final Serializable nextSequence = applicationSequenceNumberGenerator.getNextSequence(sequenceName);
         return String.format("%s%06d", "01", nextSequence);
     }

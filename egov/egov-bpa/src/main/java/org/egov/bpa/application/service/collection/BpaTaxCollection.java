@@ -216,7 +216,7 @@ public class BpaTaxCollection extends TaxCollection {
         final BpaApplication application = applicationBpaService
                 .getApplicationByDemand(demand);
         if(application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_REGISTERED))
-        bpaUtils.redirectToBpaWorkFlow(null,application, BpaConstants.WF_NEW_STATE, "BPA Admission fees collected",null);
+        bpaUtils.redirectToBpaWorkFlow(null,application, BpaConstants.WF_NEW_STATE, "BPA Admission fees collected",null,null);
         // update status and initialize workflow
         applicationBpaService.saveAndFlushApplication(application);
         bpaSmsAndEmailService.sendSMSAndEmail(application);

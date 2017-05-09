@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="buildingpermit" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="576a1e58-ecb3-4d56-971a-5d1fe019af29">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="83"/>
+	<import value="org.egov.infra.reporting.util.*"/>
+	<import value="org.egov.infstr.utils.*"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/vinoth/Dev-Tools/eGov-Projects/eGov/egov/egov-bpa/src/main/resources/reports/templates/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="currentDate" class="java.lang.String"/>
+	<parameter name="lawAct" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="ulbName" class="java.lang.String"/>
+	<parameter name="buildingPermitNumber" class="java.lang.String"/>
+	<parameter name="applicationDate" class="java.lang.String"/>
+	<parameter name="applicantName" class="java.lang.String"/>
+	<parameter name="serviceTypeDesc" class="java.lang.String"/>
+	<parameter name="buildingNo" class="java.lang.String"/>
+	<parameter name="nearestBuildingNo" class="java.lang.String"/>
+	<parameter name="surveyNo" class="java.lang.String"/>
+	<parameter name="village" class="java.lang.String"/>
+	<parameter name="taluk" class="java.lang.String"/>
+	<parameter name="district" class="java.lang.String"/>
+	<parameter name="occupancy" class="java.lang.String"/>
+	<parameter name="cityName" class="java.lang.String"/>
+	<parameter name="applicationFloorDetails" class="java.io.InputStream"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="applicationFloorDetails" class="java.util.List"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="71" splitType="Stretch">
+			<textField>
+				<reportElement x="64" y="11" width="452" height="20" uuid="0c350090-2eb2-4cb8-a172-f52fdc4324ba"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["APPENDIX C"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="64" y="31" width="452" height="20" uuid="860ffd1a-527b-4be5-aeaf-3e6dab016dad"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{lawAct}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="64" y="51" width="452" height="20" uuid="13d1ee09-016a-44b3-a70c-eeaa9b66affd"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["BUILDING PERMIT"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="84" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="1" width="555" height="20" uuid="5dfe528d-792c-4b15-8716-5ce4671fb539"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ulbName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="24" width="29" height="20" uuid="8c132a85-9329-402b-9b9f-e6a7ed50d5a7"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[No : ]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="29" y="24" width="275" height="20" uuid="d32664c0-b2ba-4011-a881-fefd4925c5ee"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{buildingPermitNumber}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="324" y="24" width="68" height="20" uuid="38791aa3-d66d-4c38-bb6c-99c92dd7659c"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dated : ]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="392" y="24" width="163" height="20" uuid="c9a26c74-1b40-4ffb-b03c-3e4e887c3b9a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{currentDate}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="18" y="53" width="537" height="20" uuid="96accbd0-87e6-4d36-a4dc-796edc809cdb"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Ref:-  Application Dated "+$P{applicationDate}+" from smt/sri "+$P{applicantName}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="147" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="4" width="555" height="41" uuid="cfd11764-e10d-43b9-9f31-2192c95e330b"/>
+				<textFieldExpression><![CDATA["	Permission is granted for "+$P{serviceTypeDesc}+"  in  building No. "+$P{buildingNo}+" or near building No. "+$P{nearestBuildingNo}+" in survey No. "+$P{surveyNo}+" village "+$P{village}+" taluk "+$P{taluk}+" district"+$P{district}+" for "+$P{occupancy}+" purpose to the conditions stated below : "]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="0" y="97" width="555" height="50" uuid="1f313474-b095-4a9a-891c-f4a17562ea2b"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{applicationFloorDetails},false)]]></dataSourceExpression>
+				<subreportExpression><![CDATA[ReportUtil.getTemplateAsStream("buildingfloordetailssubreport.jasper")]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="0" y="45" width="555" height="26" uuid="e8c5c3c8-1475-4f3f-9be5-711b1e0b5073"/>
+				<text><![CDATA[ 1).   Existing trees should be retained as far as possible and more number of trees  planted on available space after development.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="71" width="555" height="26" uuid="eb15885b-6e09-45f0-af4f-43e21299a371"/>
+				<text><![CDATA[ 2).   The Permit is subject to satisfication of the provisions in the land utilisation order and permit issued thereunder.]]></text>
+			</staticText>
+		</band>
+		<band height="47">
+			<staticText>
+				<reportElement x="0" y="27" width="64" height="20" uuid="88c253a2-442f-42a8-9afe-f04c263186c9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date        : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="6" width="64" height="20" uuid="6c96b9c6-b85d-4e84-af29-c5487095c25a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Place        : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="64" y="7" width="133" height="20" uuid="5fe18618-e612-4fd2-b48f-af737f6fbef0"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cityName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="64" y="27" width="133" height="20" uuid="1a71a025-e5b0-4afd-8eb8-7783f75cee86"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{currentDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="323" y="27" width="232" height="20" uuid="cb6376bc-9b5f-4abc-8873-100c4f1243f4"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Signatiure And Name Of Secretary]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

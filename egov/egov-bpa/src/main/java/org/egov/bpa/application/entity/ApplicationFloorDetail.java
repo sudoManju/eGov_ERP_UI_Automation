@@ -43,6 +43,7 @@ import java.math.BigDecimal;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -50,7 +51,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import org.egov.infra.persistence.entity.AbstractAuditable;
 
@@ -63,14 +63,10 @@ public class ApplicationFloorDetail extends AbstractAuditable {
     public static final String SEQ_EGBPA_REGN_FLOORDETAIL = "SEQ_EGBPA_APPLICATION_FLOORDETAIL";
     @Id
     @GeneratedValue(generator = SEQ_EGBPA_REGN_FLOORDETAIL, strategy = GenerationType.SEQUENCE)
-
     private Long id;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "buildingDetail", nullable = false)
     private BuildingDetail buildingDetail;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "inspection")
-    private Inspection inspection; // need to refer InspectionObject
     private BigDecimal existingbuildingArea;
     private BigDecimal proposedBuildingArea;
     @ManyToOne(cascade = CascadeType.ALL)
@@ -80,6 +76,7 @@ public class ApplicationFloorDetail extends AbstractAuditable {
     @JoinColumn(name = "proposedbuilingusage")
     private BuildingUsage proposedbuilingusage;
     private Integer floorNumber;
+    private String floorDescription;
     private BigDecimal carpetArea;
     private BigDecimal plinthArea;
 
@@ -91,14 +88,6 @@ public class ApplicationFloorDetail extends AbstractAuditable {
     @Override
     public void setId(final Long id) {
         this.id = id;
-    }
-
-    public Inspection getInspectionid() {
-        return inspection;
-    }
-
-    public void setInspectionid(final Inspection inspectionid) {
-        inspection = inspectionid;
     }
 
     public BigDecimal getExistingbuildingArea() {
@@ -157,14 +146,6 @@ public class ApplicationFloorDetail extends AbstractAuditable {
         this.plinthArea = plinthArea;
     }
 
-    public Inspection getInspection() {
-        return inspection;
-    }
-
-    public void setInspection(final Inspection inspection) {
-        this.inspection = inspection;
-    }
-
     public BuildingDetail getBuildingDetail() {
         return buildingDetail;
     }
@@ -173,4 +154,11 @@ public class ApplicationFloorDetail extends AbstractAuditable {
         this.buildingDetail = buildingDetail;
     }
 
+    public String getFloorDescription() {
+        return floorDescription;
+    }
+
+    public void setFloorDescription(String floorDescription) {
+        this.floorDescription = floorDescription;
+    }
 }

@@ -47,6 +47,7 @@ import static org.egov.bpa.utils.BpaConstants.APPLN_STATUS_FIELD_INSPECTION_INIT
 import static org.egov.bpa.utils.BpaConstants.BPA_STATUS_SUPERINDENT_APPROVED;
 import static org.egov.bpa.utils.BpaConstants.CHECKLIST_TYPE_NOC;
 import static org.egov.bpa.utils.BpaConstants.CREATE_ADDITIONAL_RULE_CREATE;
+import static org.egov.bpa.utils.BpaConstants.GENERATEPERMITORDER;
 import static org.egov.bpa.utils.BpaConstants.WF_CANCELAPPLICATION_BUTTON;
 import static org.egov.bpa.utils.BpaConstants.WF_REJECT_BUTTON;
 
@@ -89,7 +90,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping(value = "/application")
 public class UpdateBpaApplicationController extends BpaGenericApplicationController {
-    private static final String FWD_TO_OVRSR_FOR_FIELD_INS = "Forwarded to Overseer for field inspection";
+    private static final String AMOUNT_RULE = "amountRule";
+	private static final String FWD_TO_OVRSR_FOR_FIELD_INS = "Forwarded to Overseer for field inspection";
     private static final String FORWARDED_TO_NOC_UPDATE = "Forwarded to Superintendent for Noc Updation";
     private static final String BPA_APPLICATION = "bpaApplication";
 
@@ -220,12 +222,12 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
     public String documentScrutinyForm(@Valid @ModelAttribute(BPA_APPLICATION) BpaApplication bpaApplication,
             @PathVariable final String applicationNumber,
             final BindingResult resultBinder, final RedirectAttributes redirectAttributes,
-            final HttpServletRequest request, final Model model, @RequestParam("files") final MultipartFile[] files) {
+            final HttpServletRequest request,
+            @RequestParam final BigDecimal amountRule, final Model model, @RequestParam("files") final MultipartFile[] files) {
         if (resultBinder.hasErrors()) {
             loadViewdata(model, bpaApplication);
             return CREATEDOCUMENTSCRUTINY_FORM;
         }
-
         Long approvalPosition;
         if (request.getParameter(APPRIVALPOSITION) != null) {
             approvalPosition = Long.valueOf(request.getParameter(APPRIVALPOSITION));
@@ -243,7 +245,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 bpaApplication.getAppointmentSchedule().add(appointmentSchedule);
             }
             String workFlowAction = request.getParameter("workFlowAction");
-            BpaApplication bpaAppln = applicationBpaService.updateApplication(bpaApplication, approvalPosition, workFlowAction);
+            BpaApplication bpaAppln = applicationBpaService.updateApplication(bpaApplication, approvalPosition, workFlowAction, amountRule);
             String message = messageSource.getMessage("msg.update.forward.documentscrutiny", new String[] {
                     user != null ? user.getUsername().concat("~")
                             .concat(pos.getDeptDesig() != null && pos.getDeptDesig().getDesignation() != null
@@ -270,7 +272,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         workflowContainer.setAdditionalRule(CREATE_ADDITIONAL_RULE_CREATE);
         prepareWorkflow(model, application, workflowContainer);
         model.addAttribute("pendingActions", workflowContainer.getPendingActions());
-        model.addAttribute("amountRule", workflowContainer.getAmountRule());
+        model.addAttribute(AMOUNT_RULE, workflowContainer.getAmountRule());
         model.addAttribute("currentState", application.getCurrentState().getValue());
         model.addAttribute(BPA_APPLICATION, application);
         model.addAttribute("nocCheckListDetails", checkListDetailService
@@ -283,7 +285,8 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
     public String updateApplication(@Valid @ModelAttribute(BPA_APPLICATION) BpaApplication bpaApplication,
             @PathVariable final String applicationNumber,
             final BindingResult resultBinder, final RedirectAttributes redirectAttributes,
-            final HttpServletRequest request, final Model model, @RequestParam("files") final MultipartFile[] files) {
+            final HttpServletRequest request, final Model model, 
+            @RequestParam final BigDecimal amountRule, @RequestParam("files") final MultipartFile[] files) {
 
         if (resultBinder.hasErrors()) {
             loadViewdata(model, bpaApplication);
@@ -307,7 +310,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
             }
         }
         applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
-        BpaApplication bpaAppln = applicationBpaService.updateApplication(bpaApplication, approvalPosition, workFlowAction);
+        BpaApplication bpaAppln = applicationBpaService.updateApplication(bpaApplication, approvalPosition, workFlowAction,amountRule);
         if (null != approvalPosition) {
             pos = positionMasterService.getPositionById(approvalPosition);
         }
@@ -331,6 +334,9 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                     bpaAppln.getApplicationNumber() }, LocaleContextHolder.getLocale());
         }
         model.addAttribute(MESSAGE, message);
+        if (workFlowAction != null && workFlowAction.equalsIgnoreCase(GENERATEPERMITORDER)) {
+            return "redirect:/application/generatepermitorder/" + bpaAppln.getApplicationNumber();
+        }
         return BPA_APPLICATION_RESULT;
     }
 }

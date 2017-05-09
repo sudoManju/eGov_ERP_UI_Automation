@@ -72,10 +72,6 @@
 					</c:if>
 				</c:if>
 				
-				<c:if test="${showNocList}">
-					<li><a data-toggle="tab" href="#noc-info" data-tabidx=3><spring:message
-								code='lbl.noc.details' /></a></li>
-				</c:if>
 				<c:if test="${not empty bpaApplication.inspections}">
 					<li><a data-toggle="tab" href="#view-inspection" data-tabidx=4><spring:message
 								code='lbl.inspection.appln' /></a></li>
@@ -116,13 +112,6 @@
 							</div>
 						</div>
 				</c:if>
-				<c:if test="${showNocList}">
-					<div id="noc-info" class="tab-pane fade">
-						<div class="panel panel-primary" data-collapsed="0">
-							<jsp:include page="noc-document-list.jsp"></jsp:include>
-						</div>
-					</div>
-				</c:if>
 				<c:if test="${not empty bpaApplication.applicationNOCDocument}">
 					<c:if test="${showNOCDetails}">
 						<div id="noc-info" class="tab-pane fade">
@@ -158,7 +147,7 @@
 			<div class="buttonbottom" align="center">
 				<table>
 					<tr>
-						<input type="button" name="button2" id="button2" value="Close"
+						<td><input type="button" name="button2" id="button2" value="Close"
 							class="btn btn-primary" onclick="window.close();" />
 						</td>
 					</tr>

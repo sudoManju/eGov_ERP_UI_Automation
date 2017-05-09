@@ -57,7 +57,7 @@ public class ApplicationNumberGeneratorImpl implements ApplicationNumberGenerato
 
     @Override
     public String generateApplicationNumber(final String installmentYear, final ServiceType serviceType, final Boundary zone) {
-        final String sequenceName = BpaConstants.WATER_CONN_BILLNO_SEQ + installmentYear;
+        final String sequenceName = BpaConstants.BPA_BILLNO_SEQ + installmentYear;
         final Serializable nextSequence = applicationSequenceNumberGenerator.getNextSequence(sequenceName);
         final StringBuilder formatedNumber = new StringBuilder();
         if (null != serviceType && serviceType.getServiceNumberPrefix() != null

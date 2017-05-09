@@ -39,6 +39,7 @@
  */
 package org.egov.bpa.application.service;
 
+import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_APPROVED;
 import static org.egov.bpa.utils.BpaConstants.FILESTORE_MODULECODE;
 
 import java.io.IOException;
@@ -56,7 +57,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.egov.bpa.application.autonumber.PlanPermissionNumberGenerator;
 import org.egov.bpa.application.entity.ApplicationDocument;
+import org.egov.bpa.application.entity.ApplicationFloorDetail;
 import org.egov.bpa.application.entity.ApplicationNocDocument;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaFeeDetail;
@@ -75,6 +78,7 @@ import org.egov.infra.exception.ApplicationRuntimeException;
 import org.egov.infra.filestore.entity.FileStoreMapper;
 import org.egov.infra.filestore.service.FileStoreService;
 import org.egov.infra.security.utils.SecurityUtils;
+import org.egov.infra.utils.autonumber.AutonumberServiceBeanResolver;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,6 +112,8 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
     private CheckListDetailService checkListDetailService;
     @Autowired
     private SecurityUtils securityUtils;
+    @Autowired
+	private AutonumberServiceBeanResolver beanResolver;
 
     public Session getCurrentSession() {
         return entityManager.unwrap(Session.class);
@@ -120,8 +126,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         application.getSiteDetail().get(0).setAdminBoundary(boundaryObj);
         application.getSiteDetail().get(0).setApplication(application);
         application.getBuildingDetail().get(0).setApplication(application);
-        if (!application.getBuildingDetail().isEmpty())
-            application.getBuildingDetail().get(0).setApplication(application);
+        application.getBuildingDetail().get(0).setApplicationFloorDetails(buildApplicationFloorDetails(application));
         application.setApplicationNumber(applicationBpaBillService.generateApplicationnumber(application));
         final BpaStatus bpaStatus = getStatusByCodeAndModuleType(BpaConstants.APPLICATION_STATUS_REGISTERED);
         application.setStatus(bpaStatus);
@@ -134,6 +139,28 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         application.setDemand(applicationBpaBillService.createDemand(application));
         return applicationBpaRepository.save(application);
     }
+
+	private List<ApplicationFloorDetail> buildApplicationFloorDetails(final BpaApplication application) {
+		List<ApplicationFloorDetail> floorDetailsList = new ArrayList<>();
+		if (!application.getBuildingDetail().isEmpty()) {
+			application.getBuildingDetail().get(0).setApplication(application);
+			for (ApplicationFloorDetail applicationFloorDetails : application.getBuildingDetail().get(0)
+					.getApplicationFloorDetails()) {
+				if (null == applicationFloorDetails.getId() && applicationFloorDetails.getFloorDescription() != null) {
+					ApplicationFloorDetail floorDetails = new ApplicationFloorDetail();
+					floorDetails.setBuildingDetail(application.getBuildingDetail().get(0));
+					floorDetails.setFloorDescription(applicationFloorDetails.getFloorDescription());
+					floorDetails.setPlinthArea(applicationFloorDetails.getPlinthArea());
+					floorDetails.setCarpetArea(applicationFloorDetails.getCarpetArea());
+					floorDetailsList.add(floorDetails);
+				} else if (null != applicationFloorDetails.getId()
+						&& applicationFloorDetails.getFloorDescription() != null) {
+					floorDetailsList.add(applicationFloorDetails);
+				}
+			}
+		}
+		return floorDetailsList;
+	}
 
     public void persistBpaNocDocuments(final BpaApplication application) {
         final Map<Long, CheckListDetail> generalDocumentAndId = new HashMap<>();
@@ -154,14 +181,18 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
     }
 
     @Transactional
-    public BpaApplication updateApplication(final BpaApplication application, final Long approvalPosition,String workFlowAction) {
+    public BpaApplication updateApplication(final BpaApplication application, final Long approvalPosition,String workFlowAction,BigDecimal amountRule) {
 
         application.setSource(Source.SYSTEM);
         persistBpaNocDocuments(application);
+        application.getBuildingDetail().get(0).setApplicationFloorDetails(buildApplicationFloorDetails(application));
+        if(APPLICATION_STATUS_APPROVED.equalsIgnoreCase(application.getStatus().getCode())) {
+        	application.setPlanPermissionNumber(generatePlanPermissionNumber(application));
+        }
         final BpaApplication updatedApplication = applicationBpaRepository
                 .save(application);
 
-        bpaUtils.redirectToBpaWorkFlow(approvalPosition, application, application.getCurrentState().getValue(), null,workFlowAction);
+        bpaUtils.redirectToBpaWorkFlow(approvalPosition, application, application.getCurrentState().getValue(), null,workFlowAction,amountRule);
 
         return updatedApplication;
     }
@@ -279,4 +310,10 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         else
             return null;
     }
+    
+	public String generatePlanPermissionNumber(final BpaApplication application) {
+		final PlanPermissionNumberGenerator planPermissionNumber = beanResolver
+				.getAutoNumberServiceFor(PlanPermissionNumberGenerator.class);
+		return planPermissionNumber.generatePlanPermissionNumber(application.getServiceType());
+	}
 }

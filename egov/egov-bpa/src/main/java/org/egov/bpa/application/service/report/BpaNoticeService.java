@@ -45,7 +45,10 @@ static org.egov.bpa.utils.BpaConstants.BPA_ADM_FEE;
 import static org.egov.bpa.utils.BpaConstants.BPA_COMPOUND_FEE;
 import static org.egov.bpa.utils.BpaConstants.BPA_PERMIT_FEE;
 import static org.egov.bpa.utils.BpaConstants.BPA_WELL_FEE;
+import static org.egov.bpa.utils.BpaConstants.BUILDINGDEVELOPPERMITFILENAME;
+import static org.egov.bpa.utils.BpaConstants.BUILDINGPERMITFILENAME;
 import static org.egov.bpa.utils.BpaConstants.DEMANDNOCFILENAME;
+import static org.egov.infra.utils.DateUtils.currentDateToDefaultDateFormat;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -73,7 +76,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(readOnly = true)
-public class BpaReportService {
+public class BpaNoticeService {
     @Autowired
     private ReportService reportService;
 
@@ -92,7 +95,30 @@ public class BpaReportService {
         reportOutput = reportService.createReport(reportInput);
         return new ResponseEntity<>(reportOutput.getReportOutputData(), headers, HttpStatus.CREATED);
     }
+    
+    public ResponseEntity<byte[]> generateBuildingPermit(HttpServletRequest request, final BpaApplication bpaApplication) {
+        ReportRequest reportInput = null;
+        ReportOutput reportOutput;
+        String reportFileName = null;
+        if (null != bpaApplication) {
+			if (BpaConstants.getServicesForBuildPermit().contains(bpaApplication.getServiceType().getDescription())) {
+				reportFileName = BUILDINGPERMITFILENAME;
+			} else if (BpaConstants.getServicesForDevelopPermit().contains(bpaApplication.getServiceType().getDescription())) {
+				reportFileName = BUILDINGDEVELOPPERMITFILENAME;
+			} else {
+				reportFileName = BUILDINGPERMITFILENAME;
+			}
+            final Map<String, Object> reportParams = buildParametersForReport(request, bpaApplication);
+            reportInput = new ReportRequest(reportFileName, bpaApplication.getBuildingDetail().get(0), reportParams);
+        }
 
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType("application/pdf"));
+        headers.add("content-disposition", "inline;filename="+reportFileName+".pdf");
+        reportOutput = reportService.createReport(reportInput);
+        return new ResponseEntity<>(reportOutput.getReportOutputData(), headers, HttpStatus.CREATED);
+    }
+    
     private Map<String, Object> buildParametersForDemandDetails(final BpaApplication bpaApplication) {
         BigDecimal permitFee = BigDecimal.ZERO;
         BigDecimal wallCharges = BigDecimal.ZERO;
@@ -141,8 +167,10 @@ public class BpaReportService {
                 WordUtils.capitalize(BPADEMANDNOTICETITLE));
 
         final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-
+        reportParams.put("currentDate", currentDateToDefaultDateFormat());
+        reportParams.put("lawAct", "Kerala Municipal Building Development Act");
         reportParams.put("applicationNumber", bpaApplication.getApplicationNumber());
+        reportParams.put("buildingPermitNumber", bpaApplication.getPlanPermissionNumber() != null ? bpaApplication.getPlanPermissionNumber() : "");
         reportParams.put("applicantName", bpaApplication.getOwner().getApplicantName());
         reportParams.put("applicantAddress", bpaApplication.getOwner().getAddress());
         reportParams.put("applicationDate", formatter.format(bpaApplication.getApplicationDate()));
@@ -152,6 +180,19 @@ public class BpaReportService {
         reportParams.put("electionWard", bpaApplication.getSiteDetail().get(0).getElectionBoundary().getName());
         reportParams.put("revenueWard", bpaApplication.getSiteDetail().get(0).getAdminBoundary() != null
                 ? bpaApplication.getSiteDetail().get(0).getAdminBoundary().getName() : "");
+        if(!bpaApplication.getSiteDetail().isEmpty()) {
+            reportParams.put("landExtent", bpaApplication.getSiteDetail().get(0).getExtentinsqmts());
+        reportParams.put("buildingNo", bpaApplication.getSiteDetail().get(0).getPlotnumber() != null ? bpaApplication.getSiteDetail().get(0).getPlotnumber() : "");
+        reportParams.put("nearestBuildingNo", bpaApplication.getSiteDetail().get(0).getNearestbuildingnumber() != null ? bpaApplication.getSiteDetail().get(0).getNearestbuildingnumber() : "");
+        reportParams.put("surveyNo", bpaApplication.getSiteDetail().get(0).getPlotsurveynumber() != null ? bpaApplication.getSiteDetail().get(0).getPlotsurveynumber() : "");
+        reportParams.put("village", bpaApplication.getSiteDetail().get(0).getVillage() != null ? bpaApplication.getSiteDetail().get(0).getVillage().getName() : "");
+        reportParams.put("taluk", bpaApplication.getSiteDetail().get(0).getTaluk() != null ? bpaApplication.getSiteDetail().get(0).getTaluk() : "");
+        reportParams.put("district", bpaApplication.getSiteDetail().get(0).getDistrict() != null ? bpaApplication.getSiteDetail().get(0).getDistrict() : "");
+        }
+        if(!bpaApplication.getBuildingDetail().isEmpty()) {
+            reportParams.put("basement", bpaApplication.getBuildingDetail().get(0).getNoofbasementUnit() != null ? bpaApplication.getBuildingDetail().get(0).getNoofbasementUnit() : "");
+            
+            }
         return reportParams;
     }
 }

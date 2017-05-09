@@ -39,6 +39,10 @@
  */
 package org.egov.bpa.utils;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class BpaConstants {
 
     public static final String ZONE = "Zone";
@@ -51,7 +55,8 @@ public class BpaConstants {
     public static final String YEARLY = "Yearly";
     public static final String BPA_APPNO_SEQ = "SEQ_BPA_APPNO_";
     public static final String USERNAME_ANONYMOUS = "anonymous";
-    public static final String WATER_CONN_BILLNO_SEQ = "SEQ_BILLNO_";
+    public static final String BPA_BILLNO_SEQ = "SEQ_BILLNO_";
+    public static final String BPA_PLANPERMNO_SEQ = "SEQ_BPA_PLANPERMNO_";
     public static final String LOCALITY = "locality";
     public static final String ELECTIONWARD_BNDRY_TYPE = "Election Ward";
     public static final String LOCALITY_BNDRY_TYPE = "Locality";
@@ -164,4 +169,32 @@ public class BpaConstants {
     public static final String DESIGNATION_COMMISSIONER="Commissioner";
     public static final String DESIGNATION_SECRETARY="Secretary";
     public static final String DESIGNATION_SUPERIAPPROVAL="Superintendent of Approval";
+    public static final String BUILDINGPERMITFILENAME = "buildingpermit";
+    public static final String BUILDINGDEVELOPPERMITFILENAME = "buildingdeveloppermit";
+    public static final String GENERATEPERMITORDER = "Generate Permit Order";
+	private static final List<String> BUILDPERMIT = new ArrayList<>();
+	static {
+		BUILDPERMIT.add("New Construction");
+		BUILDPERMIT.add("Demolition");
+		BUILDPERMIT.add("Reconstruction");
+		BUILDPERMIT.add("Division of Plot");
+		BUILDPERMIT.add("Alteration");
+		BUILDPERMIT.add("Adding of Extension");
+		BUILDPERMIT.add("Change in Occupancy");
+		BUILDPERMIT.add("Regularization");
+	}
+
+	private static final List<String> DEVELOPPERMIT = new ArrayList<>();
+	static {
+		DEVELOPPERMIT.add("Development of land");
+		DEVELOPPERMIT.add("Re-development of land");
+	}
+
+	public static List<String> getServicesForBuildPermit() {
+		return Collections.unmodifiableList(BUILDPERMIT);
+	}
+
+	public static List<String> getServicesForDevelopPermit() {
+		return Collections.unmodifiableList(DEVELOPPERMIT);
+	}
 }

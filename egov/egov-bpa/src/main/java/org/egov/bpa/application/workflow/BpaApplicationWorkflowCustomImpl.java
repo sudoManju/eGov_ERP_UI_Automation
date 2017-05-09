@@ -39,6 +39,7 @@
  */
 package org.egov.bpa.application.workflow;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import org.egov.bpa.application.entity.BpaApplication;
@@ -94,7 +95,7 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
     @Transactional
     public void createCommonWorkflowTransition(final BpaApplication application,
             Long approvalPosition, final String approvalComent, final String additionalRule,
-            final String workFlowAction) {
+            final String workFlowAction, final BigDecimal amountRule) {
 
         if (LOG.isDebugEnabled())
             LOG.debug(" Create WorkFlow Transition Started  ...");
@@ -131,7 +132,7 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
 
         } else if (BpaConstants.WF_APPROVE_BUTTON.equalsIgnoreCase(workFlowAction) && (BpaConstants.APPLICATION_STATUS_APPROVED.equalsIgnoreCase(application.getStatus().getCode())
                 || BpaConstants.APPLICATION_STATUS_NOCUPDATED.equalsIgnoreCase(application.getStatus().getCode()))) {
-            wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null, application.getInspections().get(0).getLndMinPlotExtent(),
+            wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null, amountRule,
                     additionalRule, application.getCurrentState().getValue(), application.getState().getNextAction(), null, null);
 
             BpaStatus status = bpaStatusService
@@ -192,11 +193,11 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
         } else {
             if (BpaConstants.APPLICATION_STATUS_NOCUPDATED.equalsIgnoreCase(application.getStatus().getCode())) {
                 wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null,
-                        application.getInspections().get(0).getLndMinPlotExtent(), additionalRule,
+                		amountRule, additionalRule,
                         application.getCurrentState().getValue(), application.getState().getNextAction());
             } else if (BpaConstants.APPLICATION_STATUS_APPROVED.equalsIgnoreCase(application.getStatus().getCode()) && !"Record Approved".equalsIgnoreCase(application.getState().getValue())) {
                 wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null,
-                        application.getInspections().get(0).getLndMinPlotExtent(), additionalRule,
+                		amountRule, additionalRule,
                         application.getCurrentState().getValue(), null);
             } else {
                 wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null,
@@ -210,12 +211,8 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
                         && application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_FIELD_INS))
                     application.setStatus(getStatusByCurrentMatrxiStatus(wfmatrix));
 
-                if (wfmatrix.getNextAction().equalsIgnoreCase(BpaConstants.WF_END_STATE))
-                    application.transition().end().withSenderName((wfInitiator != null && wfInitiator.getEmployee() != null
-                            ? wfInitiator.getEmployee().getUsername() : "") + BpaConstants.COLON_CONCATE
-                            + (wfInitiator != null && wfInitiator.getEmployee() != null
-                                    ? wfInitiator.getEmployee().getName()
-                                    : ""))
+                if (BpaConstants.GENERATEPERMITORDER.equalsIgnoreCase(workFlowAction))
+                    application.transition().end().withSenderName(user.getUsername() + BpaConstants.COLON_CONCATE + user.getName())
                             .withComments(approvalComent).withDateInfo(currentDate.toDate())
                             .withNextAction(wfmatrix.getNextAction()).withNatureOfTask(BpaConstants.NATURE_OF_WORK);
                 else

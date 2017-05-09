@@ -38,6 +38,5 @@
   ~   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
   --%>
 <footer class="main">
-   <spring:message code='lbl.powerby'/>  <a href="http://egovernments.org/" target="_blank">
-   <spring:message code='lbl.egov.foundation'/></a>
+    Powered by <a href="http://egovernments.org/" target="_blank">eGovernments Foundation</a>
 </footer>
