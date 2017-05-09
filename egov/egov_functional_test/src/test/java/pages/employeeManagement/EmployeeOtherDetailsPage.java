@@ -161,42 +161,50 @@ public class EmployeeOtherDetailsPage extends BasePage {
     }
 
     public void enterServiceSectionDetails() {
-        clickOnButton(addImageButton, webDriver);
+        jsClick(webDriver.findElement(By.cssSelector("a[href='#serviceSection']")), webDriver);
+        jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#serviceHistoryDetailModal']")), webDriver);
+//        clickOnButton(addImageButton, webDriver);
         enterText(serviceAreaDescriptionTextBox, "serviceAreaDescription", webDriver);
         enterDate(dateTextBox, getCurrentDate(), webDriver);
         clickOnButton(addOrEditButton, webDriver);
     }
 
     public void enterProbationDetails() {
-        clickOnButton(addImageButton, webDriver);
-        selectFromDropDown(probationDesignationSelectBox, "abcd", webDriver);
+        jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#probationDetailModal']")), webDriver);
+//        clickOnButton(addImageButton, webDriver);
+        selectFromDropDown(probationDesignationSelectBox, "Assistant Engineer", webDriver);
         enterDate(probationDeclaredDate, getCurrentDate(), webDriver);
         clickOnButton(addOrEditButton, webDriver);
     }
 
     public void enterRegularisationDetails() {
-        clickOnButton(addImageButton, webDriver);
-        selectFromDropDown(regularisationDesignationSelectBox, "abcd", webDriver);
+        jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#regularisationDetailModal']")), webDriver);
+//        clickOnButton(addImageButton, webDriver);
+        selectFromDropDown(regularisationDesignationSelectBox, "Assistant Executive Engineer", webDriver);
         enterDate(regularisationDeclaredDate, getCurrentDate(), webDriver);
         clickOnButton(addOrEditButton, webDriver);
         clickOnButton(submitButton, webDriver);
     }
 
     public void enterEducationDetails() {
-        clickOnButton(addImageButton, webDriver);
+        jsClick(webDriver.findElement(By.cssSelector("a[href='#otherDetails']")), webDriver);
+        jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#educationDetailModal']")), webDriver);
+//        clickOnButton(addImageButton, webDriver);
         enterText(qualificationTextBox, "B.Tech", webDriver);
         selectFromDropDown(yearOfPassingSelectBox, getCurrentYear(), webDriver);
         clickOnButton(addOrEditButton, webDriver);
     }
 
     public void enterTechnicalQualificationDetails() {
-        clickOnButton(addImageButton, webDriver);
+        jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#technicalDetailModal']")), webDriver);
+//        clickOnButton(addImageButton, webDriver);
         enterText(technicalSkillsTextBox, "Skills", webDriver);
         clickOnButton(addOrEditButton, webDriver);
     }
 
     public void enterDepartmentalTestDetails() {
-        clickOnButton(addImageButton, webDriver);
+        jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#testDetailModal']")), webDriver);
+//        clickOnButton(addImageButton, webDriver);
         enterText(departmentalTestNameTextBox, "departmentalTestNameTextBox", webDriver);
         selectFromDropDown(departmentalYearOfPassingTextBox, getCurrentYear(), webDriver);
         clickOnButton(addOrEditButton, webDriver);

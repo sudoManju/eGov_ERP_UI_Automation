@@ -10,6 +10,7 @@ Feature: Create/View/Update
     And user enters the employee details as <employeeDetails>
     And user will enter the assignment details as <assignmentDetails>
     And user will enter the jurisdiction details as <jurisdictionDetail>
+    And user will enter the service section and other details
     Then user clicks on submit button
 #    Then user close the employee search
     
@@ -19,4 +20,5 @@ Feature: Create/View/Update
     Examples:
       | employeeDetails | assignmentDetails | jurisdictionDetail |
       | employee1       | assignment1       | JurisdictionList1  |
-#      | employee2       | assignment2       | JurisdictionList2  |
+      | employee2       | assignment2       | JurisdictionList2  |
+      | employee3       | assignment3       | JurisdictionList3  |

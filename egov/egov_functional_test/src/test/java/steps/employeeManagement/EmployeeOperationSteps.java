@@ -37,6 +37,14 @@ public class EmployeeOperationSteps extends BaseSteps implements En {
         Then("^user close the employee search$", () -> {
             pageStore.get(EmployeeOtherDetailsPage.class).closeEmployeeSearch();
         });
+        And("^user will enter the service section and other details$", () -> {
+            pageStore.get(EmployeeOtherDetailsPage.class).enterServiceSectionDetails();
+            pageStore.get(EmployeeOtherDetailsPage.class).enterProbationDetails();
+            pageStore.get(EmployeeOtherDetailsPage.class).enterRegularisationDetails();
+            pageStore.get(EmployeeOtherDetailsPage.class).enterEducationDetails();
+            pageStore.get(EmployeeOtherDetailsPage.class).enterTechnicalQualificationDetails();
+            pageStore.get(EmployeeOtherDetailsPage.class).enterDepartmentalTestDetails();
+        });
 
     }
 }
