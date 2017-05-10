@@ -121,6 +121,19 @@ public class AssetServicePage extends BasePage {
     @FindBy(css = "button[type='submit']")
     private WebElement createAssetButton;
 
+    // Search And Modify Asset Locators
+    @FindBy(css = "[id='code']")
+    private WebElement applicationCodeTextBox;
+
+    @FindBy(id = "assetCategory")
+    private WebElement searchAssetCategorySelect;
+
+    @FindBy(css = ".btn.btn-submit")
+    private WebElement searchOrUpdateButton;
+
+    @FindBy(css = ".glyphicon.glyphicon-pencil")
+    private WebElement assetUpdateActionButton;
+
     private WebDriver webDriver;
 
     public AssetServicePage(WebDriver webDriver) {
@@ -144,16 +157,16 @@ public class AssetServicePage extends BasePage {
         switch (categoryDetails) {
             case "land":
 
-                enterText(landRegisterNumberTextBox, "LReg_"+get6DigitRandomInt(), webDriver);
+                enterText(landRegisterNumberTextBox, "LReg_" + get6DigitRandomInt(), webDriver);
                 enterText(landRegisterNumberTextBox, "LReg_" + get6DigitRandomInt(), webDriver);
                 selectFromDropDown(osrLandSelectBox, "Yes", webDriver);
                 selectFromDropDown(isItFencedSelectBox, "Yes", webDriver);
                 selectFromDropDown(landTypeSelectBox, "Hold", webDriver);
                 selectFromDropDown(unitOfMeasurementSelectBox, "sq. ft.", webDriver);
-                enterText(governmentOrderNumberTextBox, "GOV_"+get6DigitRandomInt(), webDriver);
-                enterText(collectorOrderNumberTextBox, "CO_"+get6DigitRandomInt(), webDriver);
-                enterText(councilResolutionNumberTextBox, "CRO_"+get6DigitRandomInt(), webDriver);
-                enterText(awardNubmerTextBox, "A_"+get6DigitRandomInt(), webDriver);
+                enterText(governmentOrderNumberTextBox, "GOV_" + get6DigitRandomInt(), webDriver);
+                enterText(collectorOrderNumberTextBox, "CO_" + get6DigitRandomInt(), webDriver);
+                enterText(councilResolutionNumberTextBox, "CRO_" + get6DigitRandomInt(), webDriver);
+                enterText(awardNubmerTextBox, "A_" + get6DigitRandomInt(), webDriver);
                 enterText(governmentOrderNumberTextBox, "GOV_" + get6DigitRandomInt(), webDriver);
                 enterText(collectorOrderNumberTextBox, "CO_" + get6DigitRandomInt(), webDriver);
                 enterText(councilResolutionNumberTextBox, "CRO_" + get6DigitRandomInt(), webDriver);
@@ -198,5 +211,26 @@ public class AssetServicePage extends BasePage {
         selectFromDropDown(statusSelectBox, assetStatus, webDriver);
         clickOnButton(createAssetButton, webDriver);
         switchToNewlyOpenedWindow(webDriver);
+    }
+
+    public String getAssetServiceNumber() {
+        String number = getTextFromWeb(webDriver.findElements(By.cssSelector("b[style='font-weight: bold;']")).get(1), webDriver);
+        webDriver.close();
+        switchToPreviouslyOpenedWindow(webDriver);
+        return number;
+    }
+
+    public void searchApplicationBasedOnCategory(String details, String applicationNumber) {
+        enterText(applicationCodeTextBox, applicationNumber, webDriver);
+        selectFromDropDown(searchAssetCategorySelect , details , webDriver);
+        clickOnButton(searchOrUpdateButton, webDriver);
+        clickOnButton(assetUpdateActionButton ,webDriver);
+        switchToNewlyOpenedWindow(webDriver);
+    }
+
+    public String enterDetailsToUpdate() {
+        clickOnButton(searchOrUpdateButton , webDriver);
+        switchToNewlyOpenedWindow(webDriver);
+        return webDriver.findElements(By.cssSelector("b[style='font-weight: bold;']")).get(0).getText();
     }
 }

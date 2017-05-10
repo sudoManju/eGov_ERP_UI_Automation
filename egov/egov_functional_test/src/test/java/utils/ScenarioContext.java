@@ -18,8 +18,18 @@ public class ScenarioContext implements Serializable {
 
     private String registrationNumber;
 
+    private String assetCategory;
+
     public String getRegistrationNumber() {
         return registrationNumber;
+    }
+
+    public String getAssetCategory() {
+        return assetCategory;
+    }
+
+    public void setAssetCategory(String assetCategory) {
+        this.assetCategory = assetCategory;
     }
 
     public void setRegistrationNumber(String Number) {

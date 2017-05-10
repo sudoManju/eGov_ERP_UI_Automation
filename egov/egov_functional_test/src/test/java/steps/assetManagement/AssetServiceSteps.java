@@ -16,6 +16,7 @@ public class AssetServiceSteps extends BaseSteps implements En {
 
             HeaderDetails headerDetails1 = new AssetServiceDataReader(assetTestDataFileName)
                     .getHeaderDetails(headerDetails);
+            scenarioContext.setAssetCategory(headerDetails1.getAssetCategory());
             pageStore.get(AssetServicePage.class).enterHeaderDetails(headerDetails1);
 
             LocationDetails locationDetails1 = new AssetServiceDataReader(assetTestDataFileName)
@@ -23,6 +24,7 @@ public class AssetServiceSteps extends BaseSteps implements En {
             pageStore.get(AssetServicePage.class).enterLocationDetails(locationDetails1);
 
         });
+
         And("^user will enter the category details as (\\w+) and with asset summary status as (\\w+)$", (
                 String categoryDetails, String assetStatus) -> {
 
@@ -30,6 +32,20 @@ public class AssetServiceSteps extends BaseSteps implements En {
             pageStore.get(AssetServicePage.class).enterAssetStatusDetails(assetStatus);
         });
 
+        And("^user will be notified the success page with an asset application number$", () -> {
+            String assetServiceNumber = pageStore.get(AssetServicePage.class).getAssetServiceNumber();
+            scenarioContext.setApplicationNumber(assetServiceNumber);
+        });
+
+        And("^user will search the asset application based on category details$", () -> {
+            pageStore.get(AssetServicePage.class).searchApplicationBasedOnCategory(
+                    scenarioContext.getAssetCategory(), scenarioContext.getApplicationNumber());
+        });
+
+        And("^user will update the data in asset modify screen$", () -> {
+            String message = pageStore.get(AssetServicePage.class).enterDetailsToUpdate();
+            scenarioContext.setActualMessage(message);
+        });
     }
 }
 
