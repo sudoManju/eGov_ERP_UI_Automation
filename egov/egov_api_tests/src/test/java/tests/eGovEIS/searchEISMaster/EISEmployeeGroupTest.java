@@ -16,7 +16,7 @@ import java.io.IOException;
 
 public class EISEmployeeGroupTest {
 
-    @Test(groups = {Categories.HR, Categories.SANITY, Categories.DEV})
+    @Test(groups = {Categories.HR, Categories.SANITY})
     public void searchEmployeeGroupTest() throws IOException {
 
         // Login Test

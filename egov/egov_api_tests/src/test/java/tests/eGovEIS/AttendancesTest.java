@@ -23,7 +23,7 @@ import java.io.IOException;
 
 public class AttendancesTest extends BaseAPITest {
 
-    @Test(groups = {Categories.HR, Categories.SANITY, Categories.DEV})
+    @Test(groups = {Categories.HR, Categories.SANITY})
     public void CreateAttendancesTest() throws IOException {
 
         // Login Test
@@ -33,7 +33,7 @@ public class AttendancesTest extends BaseAPITest {
         createAttendancesTestMethod(loginResponse);
     }
 
-    @Test(groups = {Categories.HR, Categories.SANITY, Categories.DEV})
+    @Test(groups = {Categories.HR, Categories.SANITY})
     public void SearchAttendancesTest() throws IOException {
 
         // Login Test

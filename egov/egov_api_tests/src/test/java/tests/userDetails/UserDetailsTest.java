@@ -22,7 +22,7 @@ import java.io.IOException;
 
 public class UserDetailsTest extends BaseAPITest {
 
-    @Test(groups = {Categories.SANITY, Categories.DEV})
+    @Test(groups = {Categories.SANITY})
     public void userDetails() throws IOException {
 
         // Login Test
@@ -32,10 +32,10 @@ public class UserDetailsTest extends BaseAPITest {
         UserDetailsResponse userDetailsResponse = CreateAUserTest(loginResponse);
 
         // Get User Details Test with Id
-        searchUserTestMethod(loginResponse, userDetailsResponse, "Id");
-
-        //Get User Details Test with UserName
-        searchUserTestMethod(loginResponse, userDetailsResponse, "UserName");
+//        searchUserTestMethod(loginResponse, userDetailsResponse, "Id");
+//
+//        //Get User Details Test with UserName
+//        searchUserTestMethod(loginResponse, userDetailsResponse, "UserName");
     }
 
     private void searchUserTestMethod(LoginResponse loginResponse, UserDetailsResponse userDetailsResponse, String searchType) throws IOException {

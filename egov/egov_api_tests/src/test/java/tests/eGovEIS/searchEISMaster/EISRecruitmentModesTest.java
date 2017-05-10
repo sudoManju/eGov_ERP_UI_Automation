@@ -16,7 +16,7 @@ import java.io.IOException;
 
 public class EISRecruitmentModesTest {
 
-    @Test(groups = {Categories.HR, Categories.SANITY, Categories.DEV})
+    @Test(groups = {Categories.HR, Categories.SANITY})
     public void searchRecruitmentModesTest() throws IOException {
 
         // Login Test

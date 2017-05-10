@@ -21,7 +21,7 @@ import java.io.IOException;
 
 public class CreateHolidayTest {
 
-    @Test(groups = {Categories.HR, Categories.SANITY, Categories.DEV})
+    @Test(groups = {Categories.HR, Categories.SANITY})
     public void createHolidayTest() throws IOException {
 
         // Login Test

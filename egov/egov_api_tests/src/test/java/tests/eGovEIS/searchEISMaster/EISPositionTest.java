@@ -16,7 +16,7 @@ import java.io.IOException;
 
 public class EISPositionTest {
 
-    @Test(groups = {Categories.HR, Categories.SANITY, Categories.DEV})
+    @Test(groups = {Categories.HR, Categories.SANITY})
     public void searchPositionTest() throws IOException {
 
         // Login Test

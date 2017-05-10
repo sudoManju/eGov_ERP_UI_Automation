@@ -16,7 +16,7 @@ import java.io.IOException;
 
 public class EISGradeTest {
 
-    @Test(groups = {Categories.HR, Categories.SANITY, Categories.DEV})
+    @Test(groups = {Categories.HR, Categories.SANITY})
     public void searchGradeTest() throws IOException {
 
         // Login Test

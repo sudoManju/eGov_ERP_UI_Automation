@@ -19,7 +19,7 @@ import java.io.IOException;
 
 public class AssetServiceTest extends BaseAPITest {
 
-    @Test(groups = {Categories.ASSET, Categories.SANITY, Categories.DEV})
+    @Test(groups = {Categories.ASSET, Categories.SANITY})
     public void searchAssetService() throws IOException {
 
         // Login Test
@@ -30,7 +30,7 @@ public class AssetServiceTest extends BaseAPITest {
         searchAssetServiceTestMethod(loginResponse);
     }
 
-    @Test(groups = {Categories.ASSET, Categories.SANITY, Categories.DEV})
+    @Test(groups = {Categories.ASSET, Categories.SANITY})
     public void createAssetService() throws IOException {
 
         // Login Test

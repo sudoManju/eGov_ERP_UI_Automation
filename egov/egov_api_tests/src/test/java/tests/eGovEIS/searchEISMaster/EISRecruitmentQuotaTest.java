@@ -16,7 +16,7 @@ import java.io.IOException;
 
 public class EISRecruitmentQuotaTest {
 
-    @Test(groups = {Categories.HR, Categories.SANITY, Categories.DEV})
+    @Test(groups = {Categories.HR, Categories.SANITY})
     public void searchRecruitmentQuotaTest() throws IOException {
 
         // Login Test

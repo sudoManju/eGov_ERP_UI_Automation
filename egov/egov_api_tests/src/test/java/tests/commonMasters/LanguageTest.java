@@ -17,7 +17,7 @@ import java.io.IOException;
 
 public class LanguageTest extends BaseAPITest {
 
-    @Test(groups = {Categories.HR, Categories.SANITY, Categories.DEV})
+    @Test(groups = {Categories.HR, Categories.SANITY})
     public void languageTest() throws IOException {
 
         // Login Test

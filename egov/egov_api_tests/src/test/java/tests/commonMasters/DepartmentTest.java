@@ -17,7 +17,7 @@ import java.io.IOException;
 
 public class DepartmentTest extends BaseAPITest {
 
-    @Test(groups = {Categories.HR, Categories.SANITY, Categories.DEV})
+    @Test(groups = {Categories.HR, Categories.SANITY})
     public void departmentTest() throws IOException {
 
         // Login Test
