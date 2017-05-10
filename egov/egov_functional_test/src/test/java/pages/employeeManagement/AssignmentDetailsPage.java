@@ -79,8 +79,8 @@ public class AssignmentDetailsPage extends BasePage {
             clickOnButton(isPrimaryFalseRadio, webDriver);
         }
 
-        enterDate(fromDateTextBox, assignmentDetails.getFromDate(), webDriver);
-        enterDate(toDateTextBox, assignmentDetails.getToDate(), webDriver);
+        enterDate(fromDateTextBox, getCurrentDate(), webDriver);
+        enterDate(toDateTextBox, getCurrentDate(), webDriver);
         selectFromDropDown(departmentSelectBox, assignmentDetails.getDepartment(), webDriver);
         selectFromDropDown(designationSelectBox, assignmentDetails.getDesignation(), webDriver);
         clickOnButton(positionSelectBox, webDriver);

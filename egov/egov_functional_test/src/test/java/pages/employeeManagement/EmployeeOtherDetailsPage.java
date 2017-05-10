@@ -141,7 +141,7 @@ public class EmployeeOtherDetailsPage extends BasePage {
         selectFromDropDown(jurisdictionListSelectBox, jurisdictionDetails.getJurisdictionList(), webDriver);
 
         clickOnButton(webDriver.findElement(By.id("jurisdictionAddOrUpdate")), webDriver);
-        for (int i = 1; i <= 6; i++) {
+        for (int i = 1; i <= 1; i++) {
             jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#jurisdictionDetailModal']")), webDriver);
             try {
                 TimeUnit.SECONDS.sleep(3);
@@ -157,7 +157,6 @@ public class EmployeeOtherDetailsPage extends BasePage {
             }
             clickOnButton(webDriver.findElement(By.id("jurisdictionAddOrUpdate")), webDriver);
         }
-
     }
 
     public void enterServiceSectionDetails() {
@@ -166,6 +165,8 @@ public class EmployeeOtherDetailsPage extends BasePage {
 //        clickOnButton(addImageButton, webDriver);
         enterText(serviceAreaDescriptionTextBox, "serviceAreaDescription", webDriver);
         enterDate(dateTextBox, getCurrentDate(), webDriver);
+        enterText(orderNumberTextBox, "Order "+get6DigitRandomInt(), webDriver);
+        enterText(remarksTextBox, "Remarks Text", webDriver);
         clickOnButton(addOrEditButton, webDriver);
     }
 
@@ -174,6 +175,9 @@ public class EmployeeOtherDetailsPage extends BasePage {
 //        clickOnButton(addImageButton, webDriver);
         selectFromDropDown(probationDesignationSelectBox, "Assistant Engineer", webDriver);
         enterDate(probationDeclaredDate, getCurrentDate(), webDriver);
+        enterText(probationOrderNumberTextbox, "Order "+get6DigitRandomInt(), webDriver);
+        enterDate(probationOrderDateTextbox, getCurrentDate(), webDriver);
+        enterText(probationRemarksTextBox, "Remarks Text", webDriver);
         clickOnButton(addOrEditButton, webDriver);
     }
 
@@ -182,6 +186,9 @@ public class EmployeeOtherDetailsPage extends BasePage {
 //        clickOnButton(addImageButton, webDriver);
         selectFromDropDown(regularisationDesignationSelectBox, "Assistant Executive Engineer", webDriver);
         enterDate(regularisationDeclaredDate, getCurrentDate(), webDriver);
+        enterText(regularisationOrderNumberTextbox, "Order "+get6DigitRandomInt(), webDriver);
+        enterDate(regularisationOrderDateTextbox, getCurrentDate(), webDriver);
+        enterText(regularisationRemarksTextBox, "Remarks Text", webDriver);
         clickOnButton(addOrEditButton, webDriver);
         clickOnButton(submitButton, webDriver);
     }
