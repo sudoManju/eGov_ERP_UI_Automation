@@ -67,7 +67,6 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.egov.bpa.application.entity.enums.ApplicantMode;
-import org.egov.bpa.application.entity.enums.Occupancy;
 import org.egov.commons.entity.Source;
 import org.egov.demand.model.EgDemand;
 import org.egov.infra.workflow.entity.StateAware;
@@ -128,8 +127,8 @@ public class BpaApplication extends StateAware {
     private String oldApplicationNumber;
     @Length(min = 1, max = 128)
     private String tapalNumber;
-
-    @Enumerated(EnumType.ORDINAL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "occupancy")
     private Occupancy occupancy;
     @Length(min = 1, max = 128)
     private String governmentType;// Government or Quasi Govt

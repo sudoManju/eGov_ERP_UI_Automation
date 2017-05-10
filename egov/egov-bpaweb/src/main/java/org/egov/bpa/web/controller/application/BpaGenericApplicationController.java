@@ -49,6 +49,7 @@ import java.util.Map;
 
 import org.egov.bpa.application.entity.BuildingCategory;
 import org.egov.bpa.application.entity.LandBuildingTypes;
+import org.egov.bpa.application.entity.Occupancy;
 import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.application.entity.VillageName;
 import org.egov.bpa.application.entity.enums.ApplicantMode;
@@ -58,6 +59,7 @@ import org.egov.bpa.application.service.CheckListDetailService;
 import org.egov.bpa.application.workflow.BpaWorkFlowService;
 import org.egov.bpa.masters.service.BuildingCategoryService;
 import org.egov.bpa.masters.service.LandBuildingTypesService;
+import org.egov.bpa.masters.service.OccupancyService;
 import org.egov.bpa.masters.service.ServiceTypeService;
 import org.egov.bpa.masters.service.VillageNameService;
 import org.egov.bpa.service.BpaDemandService;
@@ -84,7 +86,7 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     private ServiceTypeService serviceTypeService;
     
     @Autowired
-    private LandBuildingTypesService landBuildingTypesService;
+    private OccupancyService occupancyService;
     
     @Autowired
     private VillageNameService villageNameService;
@@ -107,8 +109,8 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     protected BpaWorkFlowService bpaWorkFlowService;
 
     @ModelAttribute("occupancyList")
-    public List<LandBuildingTypes> getOccupancy() {
-        return landBuildingTypesService.findAll();
+    public List<Occupancy> getOccupancy() {
+        return occupancyService.findAll();
     }
     
     
