@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
@@ -44,7 +45,6 @@ public class BasePage {
             return driver.findElement(by).isDisplayed();
         return false;
     }
-
 
     protected void waitForElementToDisappear(By locator, WebDriver webDriver) {
         WebDriverWait wait = new WebDriverWait(webDriver, Properties.waitTime);
@@ -187,6 +187,19 @@ public class BasePage {
     public void isSuccesful(String expectedMessage, String actualMessage) {
         Boolean found = Arrays.asList(actualMessage.split("\\ ")).contains(expectedMessage);
         Assert.assertTrue(found);
+    }
+
+    protected String getRandomUpperCaseCharacters(int noOfCharacters) {
+
+        Random random = new Random();
+        String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", " ", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+        String required = null;
+
+        for (int i = 0; i < noOfCharacters; i++) {
+            required = required + alphabet[random.nextInt(27 - 0) + 0];
+        }
+
+        return required.substring(4, required.length());
     }
 
     protected String getEnvironmentURL() {

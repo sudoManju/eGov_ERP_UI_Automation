@@ -4,9 +4,12 @@ import entities.employeeManagement.EmployeeDetails;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
 import java.util.List;
+import java.util.Random;
+import java.util.stream.IntStream;
 
 public class EmployeeDetailsPage extends BasePage {
 
@@ -176,11 +179,12 @@ public class EmployeeDetailsPage extends BasePage {
     }
 
     public String enterEmployeeDetails(EmployeeDetails employeeDetails) {
-        enterText(employeeNameTextBox, "TestUser_" + get6DigitRandomInt(), driver);
-        String employeeCode = "EMP_"+get6DigitRandomInt();
+        enterText(employeeNameTextBox, "TestUser " +getRandomUpperCaseCharacters(5), driver);
+        String employeeCode = "EMP"+get6DigitRandomInt();
         System.out.println("=======================Code"+employeeCode);
         enterText(employeeCodeTextBox, employeeCode, driver);
         selectFromDropDown(employeeTypeBox, employeeDetails.getEmployeeType(), driver);
+        selectFromDropDown(employeeGroupBox, "Central", driver);
         selectFromDropDown(employeeStatusBox, employeeDetails.getStatus(), driver);
         enterText(dobTextBox, employeeDetails.getDateOfBirth(), driver);
         if (employeeDetails.getGender().equals("Male")) {
@@ -189,20 +193,25 @@ public class EmployeeDetailsPage extends BasePage {
             selectFromDropDown(genderDropdown, "Female", driver);
         }
         selectFromDropDown(maritalStatusBox, employeeDetails.getMaritalStatus(), driver);
-        enterText(userNameTextBox, "TestUser" + get6DigitRandomInt().substring(0,3), driver);
+        enterText(userNameTextBox, employeeCode, driver);
 
         if (employeeDetails.getIsUserActive().equals("Yes")) {
             userActive.get(0).isSelected();
         } else {
             userActive.get(1).isSelected();
         }
+        enterText(emailIdTextBox, "mail@mail.com", driver);
+        enterText(fatherOrHusbandName, "Father.Spouse Name", driver);
+        enterText(birthPlaceTextBox, "Native/Birth. Place", driver);
         enterText(mobileNumberTextBox, employeeDetails.getMobileNumber(), driver);
         enterText(passportNoTextBox, "IND" + get6DigitRandomInt(), driver);
         enterText(gpfNoTextBox, get6DigitRandomInt(), driver);
+        enterText(aadhaarNumberTextBox, "111111"+get6DigitRandomInt(), driver);
         enterText(panNumberTextBox, "ABCDE" + Integer.toString(Integer.parseInt(get6DigitRandomInt()) / 100) + "F", driver);
+        enterText(bankAccountNumberTextBox, "10101010101010"+get6DigitRandomInt(), driver);
         enterText(permanentAddressTextBox, employeeDetails.getPermanentAddress(), driver);
         enterText(permanentCityTextBox, employeeDetails.getPermanentCity(), driver);
-//        enterText(permanentPincodeTextBox, employeeDetails.getPermanentPincode(), driver);
+        enterText(permanentPincodeTextBox, employeeDetails.getPermanentPincode(), driver);
         enterText(dateOfAppointmentTextBox, employeeDetails.getDateOfAppointment(), driver);
 
         return employeeCode;
