@@ -3,6 +3,7 @@ package entities.responses.eGovEIS.searchEmployee;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class SearchEmployeeResponse {
+
     private ResponseInfo ResponseInfo;
     @JsonProperty("Employee")
     private Employee[] Employee;

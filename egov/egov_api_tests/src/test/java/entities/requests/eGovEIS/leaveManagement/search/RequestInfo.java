@@ -1,6 +1,7 @@
-package entities.requests.eGovEIS.leaveManagement;
+package entities.requests.eGovEIS.leaveManagement.search;
 
 public class RequestInfo {
+
     private String ver;
     private String requesterId;
     private String authToken;
@@ -82,4 +83,5 @@ public class RequestInfo {
     public void setTs(String ts) {
         this.ts = ts;
     }
+
 }

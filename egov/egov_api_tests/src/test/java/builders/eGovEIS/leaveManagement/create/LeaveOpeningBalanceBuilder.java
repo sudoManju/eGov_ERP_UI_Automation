@@ -10,7 +10,6 @@ public final class LeaveOpeningBalanceBuilder {
 
     public LeaveOpeningBalanceBuilder() {
         leaveOpeningBalance.setLeaveType(leaveType);
-        leaveOpeningBalance.setId(null);
         leaveOpeningBalance.setEmployee(1);
         leaveOpeningBalance.setCalendarYear(2017);
         leaveOpeningBalance.setNoOfDays(2017);

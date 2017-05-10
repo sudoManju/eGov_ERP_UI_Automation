@@ -1,9 +1,10 @@
 package entities.requests.eGovEIS.leaveManagement.search;
 
-import entities.requests.eGovEIS.leaveManagement.RequestInfo;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 public class SearchOpeningBalanceRequest {
 
+    @JsonProperty("RequestInfo")
     private RequestInfo requestInfo;
 
     public RequestInfo getRequestInfo() {

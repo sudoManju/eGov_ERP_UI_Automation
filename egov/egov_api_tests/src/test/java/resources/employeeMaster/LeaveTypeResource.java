@@ -26,7 +26,7 @@ public class LeaveTypeResource {
                 .header("Content-Type", "application/json")
                 .body(json)
                 .when()
-                .post("http://10.0.0.151:32656/hr-leave/leavetypes/_search?tenantId=ap.kurnool" + "&pageSize=100");
+                .post("http://10.0.0.151:32656/hr-leave/leavetypes/_search?tenantId=ap.kurnool&pageSize=100");
 
         new APILogger().log("Search Leave Type Test Response is Generated as  --" + response.asString());
         return response;

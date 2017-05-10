@@ -33,7 +33,7 @@ You should be all set.
     
     In DEV Env : "gradle clean build Dev -Denv=dev"
     
-3. For windows user: from command propmt line use the following commands to execute in particular environment
+3. For windows user: from command prompt line use the following commands to execute in particular environment
                                                                     
     For running all tests : "gradlew clean build Sanity -Denv=qa" 
                                                                     

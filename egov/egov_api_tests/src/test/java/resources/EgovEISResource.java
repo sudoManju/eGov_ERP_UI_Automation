@@ -3,6 +3,7 @@ package resources;
 import com.jayway.restassured.response.Response;
 import utils.APILogger;
 import utils.Properties;
+import utils.RequestHelper;
 
 import static com.jayway.restassured.RestAssured.given;
 
@@ -45,6 +46,19 @@ public class EgovEISResource {
                 .body(jsonData)
                 .when()
                 .post(Properties.searchEmployeeURL + criteria);
+
+        new APILogger().log("Search createEmployee Response is generated as -- " + response.asString());
+        return response;
+    }
+
+    public Response searchEmployee(String jsonData) {
+        new APILogger().log("Search createEmployee Request is started with -- " + jsonData);
+        Response response = given().request().with()
+                .urlEncodingEnabled(false)
+                .header("Content-Type", "application/json")
+                .body(jsonData)
+                .when()
+                .post("http://10.0.0.151:32656/hr-employee/employees/_search?tenantId=ap.kurnool");
 
         new APILogger().log("Search createEmployee Response is generated as -- " + response.asString());
         return response;
@@ -102,16 +116,29 @@ public class EgovEISResource {
         return response;
     }
 
-    public Response hrLeaveSearchOpeningBalance(String jsonData, int noOfDays) {
-        new APILogger().log("Search HR Leave Opening Balance Test is started with-- " + jsonData);
+    public Response hrLeaveSearchOpeningBalance(String jsonData, String path) {
 
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
                 .body(jsonData)
                 .when()
-                .post("http://10.0.0.151:32656/hr-leave/leaveopeningbalances/_search?tenantId=ap.kurnool?noOfDays=" + noOfDays);
+                .post("http://10.0.0.151:32656/hr-leave/leaveopeningbalances/_search?tenantId=ap.kurnool" + path);
 
-        new APILogger().log("Search HR Leave Opening Balance Test is completed with-- " + response.asString());
         return response;
+    }
+
+    public Response hrLeaveUpdateOpeningBalance(String json , int id) {
+
+        new APILogger().log("Update HR Leave Opening Balance Test is started with-- " + json);
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(json)
+                .when()
+                .post("http://10.0.0.151:32656/hr-leave/leaveopeningbalances/" + id + "/_update");
+
+        new APILogger().log("Update HR Leave Opening Balance Test is completed with-- " + response.asString());
+
+        return response;
+
     }
 }

@@ -10,7 +10,7 @@ public class RequestInfoBuilder {
     public RequestInfoBuilder() {
         requestInfo.setApiId("emp");
         requestInfo.setVer("1.0");
-        requestInfo.setTs("10/03/2017");
+        requestInfo.setTs("01-01-2017 01:01:01");
         requestInfo.setAction("create");
         requestInfo.setDid("1");
         requestInfo.setKey("abcdkey");

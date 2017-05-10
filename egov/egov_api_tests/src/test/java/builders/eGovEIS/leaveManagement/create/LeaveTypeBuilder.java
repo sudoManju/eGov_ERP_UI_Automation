@@ -2,7 +2,7 @@ package builders.eGovEIS.leaveManagement.create;
 
 import entities.requests.eGovEIS.leaveManagement.create.LeaveType;
 
-public final class LeaveTypeBuilder {
+public class LeaveTypeBuilder {
 
     LeaveType leaveType = new LeaveType();
 

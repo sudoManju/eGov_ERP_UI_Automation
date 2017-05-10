@@ -120,7 +120,7 @@ public class BasePage {
         webElement.sendKeys(date, Keys.TAB);
     }
 
-    protected void checkDropdownIsLoadedOrNot(WebElement webElement, String text, WebDriver webDriver , String containsText) {
+    protected void checkDropdownIsLoadedOrNot(WebElement webElement, String text, WebDriver webDriver, String containsText) {
         if (webElement.getText().contains(containsText)) {
             selectFromDropDown(webElement, text, webDriver);
         }

@@ -1,6 +1,6 @@
 package builders.eGovEIS.leaveManagement.create;
 
-import entities.requests.eGovEIS.leaveManagement.RequestInfo;
+import entities.requests.eGovEIS.leaveManagement.create.RequestInfo;
 import entities.requests.eGovEIS.leaveManagement.create.LeaveOpeningBalance;
 import entities.requests.eGovEIS.leaveManagement.create.OpeningBalanceCreateRequest;
 

@@ -67,6 +67,7 @@ public class LeaveTypeCreateSearchAndUpdate extends BaseAPITest {
         Assert.assertEquals(response.getStatusCode(), 200);
         int flag = 0;
         int leaveId = 0;
+        System.out.println("========Length========"+leaveTypeSearchResponse.getLeaveType().length);
         for (int i = 0; i < leaveTypeSearchResponse.getLeaveType().length; i++) {
             if (leaveTypeSearchResponse.getLeaveType()[i].getName().contains(leaveName)) {
                 leaveId = leaveTypeSearchResponse.getLeaveType()[i].getId();

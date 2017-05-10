@@ -1,6 +1,6 @@
 package builders.eGovEIS.leaveManagement.search;
 
-import entities.requests.eGovEIS.leaveManagement.RequestInfo;
+import entities.requests.eGovEIS.leaveManagement.search.RequestInfo;
 import entities.requests.eGovEIS.leaveManagement.search.SearchOpeningBalanceRequest;
 
 public final class SearchOpeningBalanceRequestBuilder {
