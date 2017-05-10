@@ -54,6 +54,7 @@ import org.egov.bpa.application.entity.ApplicationFeeDetail;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaFee;
 import org.egov.bpa.application.entity.BpaFeeDetail;
+import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.commons.Installment;
 import org.egov.commons.dao.InstallmentDao;
@@ -307,11 +308,11 @@ public class BpaDemandService {
 				.list();
 	}
 
-	public Criteria createCriteriaforFeeAmount(final Long serviceTypeId, final String feeType) {
+	public Criteria createCriteriaforFeeAmount(List<Long> serviceTypeList ,final String feeType) {
 
 		final Criteria feeCrit = getCurrentSession().createCriteria(BpaFeeDetail.class, "bpafeeDtl")
 				.createAlias("bpafeeDtl.bpafee", "bpaFeeObj").createAlias("bpaFeeObj.serviceType", "servicetypeObj");
-		feeCrit.add(Restrictions.eq("servicetypeObj.id", serviceTypeId));
+		feeCrit.add(Restrictions.in("servicetypeObj.id", serviceTypeList));
 		feeCrit.add(Restrictions.eq("bpaFeeObj.isActive", Boolean.TRUE));
 		if (feeType != null)
 			feeCrit.add(Restrictions.ilike("bpaFeeObj.feeType", feeType));

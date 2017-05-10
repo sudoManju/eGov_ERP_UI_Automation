@@ -65,6 +65,7 @@ import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaFeeDetail;
 import org.egov.bpa.application.entity.BpaStatus;
 import org.egov.bpa.application.entity.CheckListDetail;
+import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.application.repository.ApplicationBpaRepository;
 import org.egov.bpa.application.service.collection.GenericBillGeneratorService;
 import org.egov.bpa.service.BpaStatusService;
@@ -223,16 +224,32 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         BigDecimal admissionfeeAmount;
         if (serviceType != null)
             admissionfeeAmount = getTotalFeeAmountByPassingServiceTypeandArea(
-                    Long.valueOf(serviceType), BpaConstants.BPAFEETYPE);
+                    Long.valueOf(serviceType),new ArrayList<>(), BpaConstants.BPAFEETYPE);
+        else
+            admissionfeeAmount = BigDecimal.ZERO;
+        return admissionfeeAmount;
+    }
+    
+    public BigDecimal setAdmissionFeeAmountForRegistrationWithAmenities(final String serviceType,List<ServiceType> amenityList) {
+        BigDecimal admissionfeeAmount;
+        if (serviceType != null)
+            admissionfeeAmount = getTotalFeeAmountByPassingServiceTypeandArea(
+                    Long.valueOf(serviceType),amenityList, BpaConstants.BPAFEETYPE);
         else
             admissionfeeAmount = BigDecimal.ZERO;
         return admissionfeeAmount;
     }
 
-    public BigDecimal getTotalFeeAmountByPassingServiceTypeandArea(final Long serviceTypeId, final String feeType) {
+    public BigDecimal getTotalFeeAmountByPassingServiceTypeandArea(final Long serviceTypeId, List<ServiceType> amenityList,final String feeType) {
         BigDecimal totalAmount = BigDecimal.ZERO;
+        List<Long>serviceTypeList=new ArrayList<>();
+        serviceTypeList.add(serviceTypeId);
+		for(ServiceType temp:amenityList)
+		{
+			serviceTypeList.add(temp.getId());
+		}
         if (serviceTypeId != null) {
-            final Criteria feeCrit = applicationBpaBillService.getBpaFeeCriteria(serviceTypeId, feeType);
+            final Criteria feeCrit = applicationBpaBillService.getBpaFeeCriteria(serviceTypeList, feeType);
             final List<BpaFeeDetail> bpaFeeDetails = feeCrit.list();
             for (final BpaFeeDetail feeDetail : bpaFeeDetails)
                 totalAmount = totalAmount.add(BigDecimal.valueOf(feeDetail.getAmount()));

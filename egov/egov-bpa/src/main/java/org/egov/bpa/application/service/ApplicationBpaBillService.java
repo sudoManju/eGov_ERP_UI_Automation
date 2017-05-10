@@ -57,6 +57,7 @@ import java.util.TreeSet;
 import org.egov.bpa.application.autonumber.ApplicationNumberGenerator;
 import org.egov.bpa.application.autonumber.BpaBillReferenceNumberGenerator;
 import org.egov.bpa.application.entity.BpaApplication;
+import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.application.repository.ApplicationBpaRepository;
 import org.egov.bpa.application.service.collection.BpaApplicationBillable;
 import org.egov.bpa.application.service.collection.BpaDemandComparatorByOrderId;
@@ -152,8 +153,8 @@ public class ApplicationBpaBillService extends BillServiceInterface {
 					moduleService.getModuleByName(moduleName), date, installmentType);
 	}
 
-	public Criteria getBpaFeeCriteria(final Long serviceTypeId, final String feeType) {
-		return bpaDemandService.createCriteriaforFeeAmount(serviceTypeId, feeType);
+	public Criteria getBpaFeeCriteria(List<Long> amenityList, final String feeType) {
+		return bpaDemandService.createCriteriaforFeeAmount( amenityList,feeType);
 	}
 
 	private EgDemandDetails createDemandDetails(final BigDecimal amount, final String demandReason,

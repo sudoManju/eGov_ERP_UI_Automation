@@ -112,7 +112,7 @@ public class NewApplicationController extends BpaGenericApplicationController {
         bpaApplication.setStakeHolder(applicationStakeHolders); 
         applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
         bpaApplication.setAdmissionfeeAmount(applicationBpaService
-                .setAdmissionFeeAmountForRegistration(String.valueOf(bpaApplication.getServiceType().getId())));
+                .setAdmissionFeeAmountForRegistrationWithAmenities(String.valueOf(bpaApplication.getServiceType().getId()),bpaApplication.getApplicationAmenity()));
         BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication);
         return genericBillGeneratorService.generateBillAndRedirectToCollection(bpaApplicationRes, model);
     }
