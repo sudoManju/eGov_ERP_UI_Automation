@@ -141,7 +141,7 @@ public class EmployeeOtherDetailsPage extends BasePage {
         selectFromDropDown(jurisdictionListSelectBox, jurisdictionDetails.getJurisdictionList(), webDriver);
 
         clickOnButton(webDriver.findElement(By.id("jurisdictionAddOrUpdate")), webDriver);
-        for (int i = 1; i <= 1; i++) {
+        for (int i = 1; i <= 3; i++) {
             jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#jurisdictionDetailModal']")), webDriver);
             try {
                 TimeUnit.SECONDS.sleep(3);
