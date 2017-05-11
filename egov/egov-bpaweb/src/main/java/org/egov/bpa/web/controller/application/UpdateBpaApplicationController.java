@@ -75,7 +75,6 @@ import org.egov.infra.workflow.entity.StateHistory;
 import org.egov.pims.commons.Position;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -119,8 +118,6 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
     private StakeHolderService stakeHolderService;
     @Autowired
     private PositionMasterService positionMasterService;
-    @Autowired
-    protected ResourceBundleMessageSource messageSource;
     @Autowired
     LettertoPartyService lettertoPartyService;
 

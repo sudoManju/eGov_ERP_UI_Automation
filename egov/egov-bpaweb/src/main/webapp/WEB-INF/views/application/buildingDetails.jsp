@@ -157,6 +157,26 @@
 	</div>
 </div> --%>
 <div class="form-group">
+	<label class="col-sm-3 control-label text-right">Building Total Floor
+		Count<span class="mandatory"></span></label>
+	<div class="col-sm-3 add-margin">
+		<form:input class="form-control patternvalidation"
+			data-pattern="number" maxlength="5" id="floorCount"
+			path="buildingDetail[0].floorCount" required="required" />
+		<form:errors path="buildingDetail[0].floorCount"
+			cssClass="add-margin error-msg" />
+	</div>
+	<label class="col-sm-2 control-label text-right">Building
+		Height From Ground <span class="mandatory"></span> </label>
+	<div class="col-sm-3 add-margin">
+		<form:input class="form-control patternvalidation" maxlength="10"
+			data-pattern="decimalvalue" id="buildingheightGround"
+			path="buildingDetail[0].buildingheightGround" required="required" />
+		<form:errors path="buildingDetail[0].buildingheightGround"
+			cssClass="add-margin error-msg" />
+	</div>
+</div>
+<div class="form-group">
 	<label class="col-sm-3 control-label text-right">Building
 		Proposed Sital in Sqmt </label>
 	<div class="col-sm-3 add-margin">
@@ -177,11 +197,11 @@
 </div>
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Building
-		Total Plint Area </label>
+		Total Plint Area <span class="mandatory"></span> </label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
 			maxlength="10" data-pattern="decimalvalue" id="district"
-			path="buildingDetail[0].totalPlintArea" />
+			path="buildingDetail[0].totalPlintArea" required="required" />
 		<form:errors path="buildingDetail[0].totalPlintArea"
 			cssClass="add-margin error-msg" />
 	</div>
@@ -278,12 +298,17 @@
 			</c:when>
 			<c:otherwise>
 				<tr class="data-fetched">
-					<td class="text-center"><span class="serialNo" id="slNoInsp">1</span></td>
-					<td><form:input type="text"
-							class="form-control table-input patternvalidation"
+					<td class="text-center"><span class="serialNo" id="slNoInsp">1</span><input type="hidden" id="buildingFloorList" value="${buildingFloorList}" > </td>
+					<td><form:select
 							path="buildingDetail[0].applicationFloorDetails[0].floorDescription"
-							id="applicationFloorDetails[0]floorDescription" maxlength="128"
-							value="" /></td>
+							data-first-option="false"
+							id="applicationFloorDetails[0]floorDescription"
+							cssClass="form-control" required="required" maxlength="128">
+							<form:option value="">
+								<spring:message code="lbl.select" />
+							</form:option>
+							<form:options items="${buildingFloorList}" />
+						</form:select></td>
 					<td class="text-right"><form:input type="text"
 							class="form-control table-input text-right patternvalidation plinthArea"
 							data-pattern="number"

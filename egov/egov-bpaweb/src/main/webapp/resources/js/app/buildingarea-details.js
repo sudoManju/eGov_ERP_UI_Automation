@@ -48,21 +48,26 @@ jQuery(document).ready(function() {
 	var table = tbody.length ? tbody : $('#buildingAreaDetails');
 	var row = '<tr>'+
 	'<td class="text-center"><span class="serialNo" id="slNoInsp">{{sno}}</span></td>'+
-	'<td ><input type="text" class="form-control table-input text-right patternvalidation" name="buildingDetail[0].applicationFloorDetails[{{idx}}].floorDescription" id="applicationFloorDetails[{{idx}}]floorDescription" maxlength="128" value="" /></td>'+
-	'<td class="text-right"><input type="text" class="form-control table-input patternvalidation plinthArea" data-pattern="number" name="buildingDetail[0].applicationFloorDetails[{{idx}}].plinthArea" id="applicationFloorDetails[{{idx}}]plinthArea" maxlength="15"  /></td>'+
+	'<td ><select name="buildingDetail[0].applicationFloorDetails[{{idx}}].floorDescription" data-first-option="false" id="applicationFloorDetails[{{idx}}]floorDescription" class="form-control" required="required" maxlength="128"> <option value="">Select</option><options items="${buildingFloorList}" /></select></td>'+
+	'<td class="text-right"><input type="text" class="form-control table-input text-right patternvalidation plinthArea" data-pattern="number" name="buildingDetail[0].applicationFloorDetails[{{idx}}].plinthArea" id="applicationFloorDetails[{{idx}}]plinthArea" maxlength="15"  /></td>'+
 	'<td class="text-right"><input type="text" class="form-control table-input text-right patternvalidation carpetArea" data-pattern="number" name="buildingDetail[0].applicationFloorDetails[{{idx}}].carpetArea" id="applicationFloorDetails[{{idx}}]carpetArea" maxlength="15" value=""  /></td>'+
 	'<td class="text-center"><a href="javascript:void(0);" class="btn-sm btn-danger" id="deleteBuildAreaRow" data-record-id="${var1.id}"><i class="fa fa-trash"></i></a></td>'+
 	'</tr>';
-
+	
+	
 	jQuery('#addBuildAreaRow').click(function(){
-		var idx=$(tbody).find('tr').length;
-		var sno=idx+1;
-		//Add row
-		var row={
-		       'sno': sno,
-		       'idx': idx
-		   };
-		addRowFromObject(row);
+		if(validateBuildAreaOnAdd()){
+			var idx=$(tbody).find('tr').length;
+			var sno=idx+1;
+			//Add row
+			var row={
+			       'sno': sno,
+			       'idx': idx
+			   };
+			addRowFromObject(row);
+			loadFloorlist("buildingDetail[0].applicationFloorDetails["+idx+"].floorDescription");
+		}
+		
 	});
 	
 	function addRowFromObject(rowJsonObj)
@@ -78,6 +83,17 @@ jQuery(document).ready(function() {
 		       });
 		   }
 	}());
+	
+	
+	function loadFloorlist(selectBoxName){
+		var floorList = $('#buildingFloorList').val();
+		var floorListStringArry = floorList.substring(1, floorList.length-1);
+		var floorDesc = floorListStringArry.split(',');
+					$.each(floorDesc, function(index, floorDesc) {
+						$('select[name="'+selectBoxName+'"]').append($('<option>').val(floorDesc).text(floorDesc));
+					});
+		}
+	
 });
 
 	var plinthAreaSum = 0;
@@ -118,17 +134,19 @@ function generateSno()
 
 function validateBuildAreaOnAdd(){
 	
-	var tbl=document.getElementById("buildingAreaDetails");
-    var lastRow = tbl.rows.length-3;
-    
-    var floorName = $('*[name="bpaApplication.buildingDetail[0].applicationFloorDetails['+lastRow+'].floorName"]').val();
-    var plinthArea= $('*[plinthArea="bpaApplication.buildingDetail[0].applicationFloorDetails['+lastRow+'].plinthArea"]').val();
-    var carpetArea = $('*[pipeLength="bpaApplication.buildingDetail[0].applicationFloorDetails['+lastRow+'].carpetArea"]').val();    
-    if(!floorName || !plinthArea || !carpetArea) { 
-    	bootbox.alert("Enter all mandatory values for existing rows before adding. Values cannot be 0 or empty.");
-    	return false;
-    } 
-    return true;
+	var isValid=true;
+    $('#buildingAreaDetails tbody tr').each(function(index){
+    	var floorName  = $(this).find('*[name$="floorDescription"]').val();
+	    var plinthArea = $(this).find('*[name$="plinthArea"]').val();
+	    var carpetArea = $(this).find('*[name$="carpetArea"]').val();    
+	    if(!floorName || !plinthArea || !carpetArea) { 
+	    	bootbox.alert("Enter all values for existing rows before adding. Values cannot be 0 or empty.");
+	    	isValid=false;
+	    	return false;
+	    } 
+    });
+   
+    return isValid;
 }
 
 $(document).on('click',"#deleteBuildAreaRow",function (){

@@ -49,6 +49,7 @@ import org.egov.bpa.application.entity.enums.StakeHolderType;
 import org.egov.infra.admin.master.entity.User;
 import org.egov.infra.persistence.entity.CorrespondenceAddress;
 import org.egov.infra.persistence.entity.PermanentAddress;
+import org.egov.infra.persistence.entity.enums.UserType;
 import org.egov.infra.persistence.validator.annotation.Unique;
 import org.hibernate.validator.constraints.Length;
 
@@ -97,7 +98,11 @@ public class StakeHolder extends User {
     private transient CorrespondenceAddress correspondenceAddress = new CorrespondenceAddress();
     private transient PermanentAddress permanentAddress = new PermanentAddress();
     private transient List<CheckListDetail> checkListDocuments = new ArrayList<>(0);
-
+    
+    public StakeHolder() {
+        setType(UserType.BUSINESS);
+    }
+    
     public Boolean getIsActive() {
         return isActive;
     }

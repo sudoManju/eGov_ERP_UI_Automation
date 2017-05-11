@@ -56,15 +56,16 @@ import org.egov.bpa.application.service.BPADocumentService;
 import org.egov.bpa.masters.service.StakeHolderService;
 import org.egov.bpa.utils.BPASmsAndEmailService;
 import org.egov.bpa.web.controller.adaptors.StakeHolderJsonAdaptor;
+import org.egov.infra.config.properties.ApplicationProperties;
 import org.egov.infra.persistence.entity.Address;
 import org.egov.infra.persistence.entity.CorrespondenceAddress;
 import org.egov.infra.persistence.entity.PermanentAddress;
 import org.egov.infra.persistence.entity.enums.AddressType;
 import org.egov.infra.persistence.entity.enums.Gender;
-import org.egov.infra.persistence.entity.enums.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -96,6 +97,10 @@ public class StakeHolderController {
     private BPADocumentService bpaDocumentService;
     @Autowired
     private BPASmsAndEmailService bpaSmsAndEmailService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private ApplicationProperties applicationProperties;
 
     private static final String STAKEHOLDER_NEW = "stakeholder-new";
 
@@ -125,8 +130,9 @@ public class StakeHolderController {
         addressList.add(setPermanentAddress(stakeHolder));
         stakeHolder.setAddress(addressList);
         stakeHolder.setUsername(stakeHolder.getEmailId());
-        stakeHolder.setPassword(stakeHolder.getMobileNumber());
-        stakeHolder.setType(UserType.BUSINESS);
+        stakeHolder.updateNextPwdExpiryDate(applicationProperties.userPasswordExpiryInDays());
+        stakeHolder.setPassword(passwordEncoder.encode(stakeHolder.getMobileNumber()));
+        stakeHolder.setActive(stakeHolder.getIsActive());
         StakeHolder stakeHolderRes = stakeHolderService.save(stakeHolder);
         bpaSmsAndEmailService.sendSMSForStakeHolder(stakeHolderRes);
         bpaSmsAndEmailService.sendEmailForStakeHolder(stakeHolderRes);

@@ -33,6 +33,8 @@ import java.math.BigDecimal;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -44,6 +46,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.egov.bpa.application.entity.enums.BpaUom;
 import org.egov.infra.admin.master.entity.Boundary;
 import org.egov.infra.persistence.entity.AbstractAuditable;
 import org.hibernate.validator.constraints.Length;
@@ -110,6 +113,9 @@ public class SiteDetail extends AbstractAuditable {
     @Length(min = 1, max = 128)
     private String natureofOwnership;
     private BigDecimal extentinsqmts; // --cochin req
+    @NotNull
+    @Enumerated(EnumType.ORDINAL)
+    private BpaUom unitOfMeasurement;
     @Length(min = 1, max = 128)
     private String registrarOffice; // string
     @Length(min = 1, max = 12)
@@ -457,4 +463,11 @@ public class SiteDetail extends AbstractAuditable {
 		this.erectionoftower = erectionoftower;
 	}
 
+	public BpaUom getUnitOfMeasurement() {
+		return unitOfMeasurement;
+	}
+
+	public void setUnitOfMeasurement(BpaUom unitOfMeasurement) {
+		this.unitOfMeasurement = unitOfMeasurement;
+	}
 }

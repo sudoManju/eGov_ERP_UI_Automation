@@ -197,4 +197,30 @@ public class BpaConstants {
 	public static List<String> getServicesForDevelopPermit() {
 		return Collections.unmodifiableList(DEVELOPPERMIT);
 	}
+	
+	private static final List<String> FLOORLIST = new ArrayList<>();
+	static {
+		FLOORLIST.add("Basement 3");
+		FLOORLIST.add("Basement 2");
+		FLOORLIST.add("Basement 1");
+		FLOORLIST.add("Ground Floor");
+		FLOORLIST.add("Mezzanine Floor");
+		FLOORLIST.add("First Floor");
+		FLOORLIST.add("Second Floor");
+		FLOORLIST.add("Third Floor");
+		FLOORLIST.add("Fourth Floor");
+		FLOORLIST.add("Fifth Floor");
+		FLOORLIST.add("Sixth Floor");
+		FLOORLIST.add("Seventh Floor");
+		FLOORLIST.add("Ninth Floor");
+		FLOORLIST.add("Tenth Floor");
+		FLOORLIST.add("Eleventh Floor");
+		FLOORLIST.add("Tweleth Floor");
+		FLOORLIST.add("Thirteenth Floor");
+		FLOORLIST.add("Fourteenth Floor");
+		FLOORLIST.add("Fifteenth Floor");
+	}
+	public static List<String> getBuildingFloorsList() {
+		return Collections.unmodifiableList(FLOORLIST);
+	}
 }

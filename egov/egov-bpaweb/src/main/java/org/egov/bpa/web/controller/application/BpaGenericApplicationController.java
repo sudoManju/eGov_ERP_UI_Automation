@@ -48,17 +48,16 @@ import java.util.List;
 import java.util.Map;
 
 import org.egov.bpa.application.entity.BuildingCategory;
-import org.egov.bpa.application.entity.LandBuildingTypes;
 import org.egov.bpa.application.entity.Occupancy;
 import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.application.entity.VillageName;
 import org.egov.bpa.application.entity.enums.ApplicantMode;
+import org.egov.bpa.application.entity.enums.BpaUom;
 import org.egov.bpa.application.entity.enums.StakeHolderType;
 import org.egov.bpa.application.service.ApplicationBpaService;
 import org.egov.bpa.application.service.CheckListDetailService;
 import org.egov.bpa.application.workflow.BpaWorkFlowService;
 import org.egov.bpa.masters.service.BuildingCategoryService;
-import org.egov.bpa.masters.service.LandBuildingTypesService;
 import org.egov.bpa.masters.service.OccupancyService;
 import org.egov.bpa.masters.service.ServiceTypeService;
 import org.egov.bpa.masters.service.VillageNameService;
@@ -75,6 +74,7 @@ import org.egov.infra.workflow.entity.StateAware;
 import org.egov.ptis.constants.PropertyTaxConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -107,7 +107,8 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     protected BpaDemandService bpaDemandService;
     @Autowired
     protected BpaWorkFlowService bpaWorkFlowService;
-
+    @Autowired
+    protected ResourceBundleMessageSource messageSource;
     @ModelAttribute("occupancyList")
     public List<Occupancy> getOccupancy() {
         return occupancyService.findAll();
@@ -174,7 +175,17 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     public Map<String, String> applicationModes() {
         return getApplicationModeMap();
     }
-
+    
+    @ModelAttribute("buildingFloorList")
+    public List<String> getBuildingFLoorList() {
+        return BpaConstants.getBuildingFloorsList();
+    }
+    
+    @ModelAttribute("uomList")
+    public BpaUom[] getUomList() {
+        return BpaUom.values();
+    }
+    
     public Map<String, String> getApplicationModeMap() {
         final Map<String, String> applicationModeMap = new LinkedHashMap<>(0);
         applicationModeMap.put(ApplicantMode.NEW.toString(), ApplicantMode.NEW.name());

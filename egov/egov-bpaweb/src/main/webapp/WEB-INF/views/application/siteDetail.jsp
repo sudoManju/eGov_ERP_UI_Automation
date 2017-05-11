@@ -202,9 +202,10 @@
 			cssClass="add-margin error-msg" />
 	</div>
 	</div>
-	<div class="form-group">
-	<label class="col-sm-3 control-label text-right">Extent (in Sqmt) <span
-		class="mandatory"></span></label>
+<div class="form-group">
+	<label class="col-sm-3 control-label text-right">Extent Of Land
+		<span class="mandatory"></span>
+	</label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation" maxlength="10"
 			data-pattern="decimalvalue" id="extentinsqmts" required="required"
@@ -212,7 +213,24 @@
 		<form:errors path="siteDetail[0].extentinsqmts"
 			cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right">Plot Land Mark</label>
+	<label class="col-sm-2 control-label text-right">Unit Of
+		Measurement <span class="mandatory"></span>
+	</label>
+	<div class="col-sm-3 add-margin">
+		<form:select path="siteDetail[0].unitOfMeasurement"
+			data-first-option="false" id="zone" cssClass="form-control"
+			required="required">
+			<form:option value="">
+				<spring:message code="lbl.select" />
+			</form:option>
+			<form:options items="${uomList}" />
+		</form:select>
+		<form:errors path="siteDetail[0].unitOfMeasurement"
+			cssClass="add-margin error-msg" />
+	</div>
+</div>
+<div class="form-group">
+<label class="col-sm-3 control-label text-right">Plot Land Mark</label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation" maxlength="64"
 			data-pattern="alphanumericspecialcharacters"
@@ -221,7 +239,6 @@
 			cssClass="add-margin error-msg" />
 	</div>
 </div>
-
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Plot Number<span class="mandatory"></span> </label>
 	<div class="col-sm-3 add-margin">
