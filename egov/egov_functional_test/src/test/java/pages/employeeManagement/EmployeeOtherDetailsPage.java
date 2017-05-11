@@ -141,84 +141,77 @@ public class EmployeeOtherDetailsPage extends BasePage {
         selectFromDropDown(jurisdictionListSelectBox, jurisdictionDetails.getJurisdictionList(), webDriver);
 
         clickOnButton(webDriver.findElement(By.id("jurisdictionAddOrUpdate")), webDriver);
-        for (int i = 1; i <= 3; i++) {
-            jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#jurisdictionDetailModal']")), webDriver);
-            try {
-                TimeUnit.SECONDS.sleep(3);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            selectFromDropDown(webDriver.findElement(By.id("jurisdictions.jurisdictionsType")), "Ward", webDriver);
-            selectFromDropDown(webDriver.findElement(By.cssSelector("select[id='jurisdictions.boundary']")), "Election Ward No. " + i, webDriver);
-            try {
-                TimeUnit.SECONDS.sleep(3);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            clickOnButton(webDriver.findElement(By.id("jurisdictionAddOrUpdate")), webDriver);
-        }
+//        for (int i = 1; i <= 3; i++) {
+//            jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#jurisdictionDetailModal']")), webDriver);
+//            try {
+//                TimeUnit.SECONDS.sleep(3);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            selectFromDropDown(webDriver.findElement(By.id("jurisdictions.jurisdictionsType")), "Ward", webDriver);
+//            selectFromDropDown(webDriver.findElement(By.cssSelector("select[id='jurisdictions.boundary']")), "Election Ward No. " + i, webDriver);
+//            try {
+//                TimeUnit.SECONDS.sleep(3);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            clickOnButton(webDriver.findElement(By.id("jurisdictionAddOrUpdate")), webDriver);
+//        }
     }
 
     public void enterServiceSectionDetails() {
         jsClick(webDriver.findElement(By.cssSelector("a[href='#serviceSection']")), webDriver);
         jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#serviceHistoryDetailModal']")), webDriver);
-//        clickOnButton(addImageButton, webDriver);
         enterText(serviceAreaDescriptionTextBox, "serviceAreaDescription", webDriver);
         enterDate(dateTextBox, getCurrentDate(), webDriver);
         enterText(orderNumberTextBox, "Order "+get6DigitRandomInt(), webDriver);
         enterText(remarksTextBox, "Remarks Text", webDriver);
-        clickOnButton(addOrEditButton, webDriver);
+        clickOnButton(webDriver.findElement(By.id("serviceHistoryAddOrUpdate")), webDriver);
     }
 
     public void enterProbationDetails() {
         jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#probationDetailModal']")), webDriver);
-//        clickOnButton(addImageButton, webDriver);
         selectFromDropDown(probationDesignationSelectBox, "Assistant Engineer", webDriver);
         enterDate(probationDeclaredDate, getCurrentDate(), webDriver);
         enterText(probationOrderNumberTextbox, "Order "+get6DigitRandomInt(), webDriver);
         enterDate(probationOrderDateTextbox, getCurrentDate(), webDriver);
         enterText(probationRemarksTextBox, "Remarks Text", webDriver);
-        clickOnButton(addOrEditButton, webDriver);
+        clickOnButton(webDriver.findElement(By.id("probationAddOrUpdate")), webDriver);
     }
 
     public void enterRegularisationDetails() {
         jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#regularisationDetailModal']")), webDriver);
-//        clickOnButton(addImageButton, webDriver);
         selectFromDropDown(regularisationDesignationSelectBox, "Assistant Executive Engineer", webDriver);
         enterDate(regularisationDeclaredDate, getCurrentDate(), webDriver);
         enterText(regularisationOrderNumberTextbox, "Order "+get6DigitRandomInt(), webDriver);
         enterDate(regularisationOrderDateTextbox, getCurrentDate(), webDriver);
         enterText(regularisationRemarksTextBox, "Remarks Text", webDriver);
-        clickOnButton(addOrEditButton, webDriver);
-        clickOnButton(submitButton, webDriver);
+        clickOnButton(webDriver.findElement(By.id("regularisationAddOrUpdate")), webDriver);
     }
 
     public void enterEducationDetails() {
         jsClick(webDriver.findElement(By.cssSelector("a[href='#otherDetails']")), webDriver);
         jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#educationDetailModal']")), webDriver);
-//        clickOnButton(addImageButton, webDriver);
         enterText(qualificationTextBox, "B.Tech", webDriver);
         selectFromDropDown(yearOfPassingSelectBox, getCurrentYear(), webDriver);
-        clickOnButton(addOrEditButton, webDriver);
+        clickOnButton(webDriver.findElement(By.id("educationAddOrUpdate")), webDriver);
     }
 
     public void enterTechnicalQualificationDetails() {
         jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#technicalDetailModal']")), webDriver);
-//        clickOnButton(addImageButton, webDriver);
         enterText(technicalSkillsTextBox, "Skills", webDriver);
-        clickOnButton(addOrEditButton, webDriver);
+        clickOnButton(webDriver.findElement(By.id("technicalAddOrUpdate")), webDriver);
     }
 
     public void enterDepartmentalTestDetails() {
         jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#testDetailModal']")), webDriver);
-//        clickOnButton(addImageButton, webDriver);
         enterText(departmentalTestNameTextBox, "departmentalTestNameTextBox", webDriver);
         selectFromDropDown(departmentalYearOfPassingTextBox, getCurrentYear(), webDriver);
-        clickOnButton(addOrEditButton, webDriver);
+        clickOnButton(webDriver.findElement(By.id("testAddOrUpdate")), webDriver);
     }
 
     public void submitCreateEmployee() {
-        jsClick(submitButton, webDriver);
+        jsClick(webDriver.findElement(By.id("addEmployee")), webDriver);
     }
 
     public void closeEmployeeSearch() {
