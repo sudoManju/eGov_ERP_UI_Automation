@@ -1,39 +1,39 @@
-package entities.responses.userDetails;
+package entities.responses.userServices.getUser;
 
 public class User {
     private String pwdExpiryDate;
-    private String correspondenceCity;
+    private Object correspondenceCity;
     private String gender;
-    private String signature;
+    private Object signature;
     private String mobileNumber;
-    private Roles[] roles;
+    private UserRoles[] roles;
     private String emailId;
     private String locale;
     private String type;
-    private String correspondenceAddress;
-    private String bloodGroup;
+    private Object correspondenceAddress;
+    private Object bloodGroup;
     private int id;
-    private String permanentAddress;
-    private String correspondencePinCode;
+    private Object permanentAddress;
+    private Object correspondencePinCode;
     private String pan;
-    private boolean accountLocked;
+    private Object accountLocked;
     private String altContactNumber;
-    private String identificationMark;
+    private Object identificationMark;
     private String lastModifiedDate;
     private int lastModifiedBy;
-    private String fatherOrHusbandName;
+    private Object fatherOrHusbandName;
     private boolean active;
-    private String photo;
+    private Object photo;
     private String userName;
-    private String permanentPinCode;
+    private Object permanentPinCode;
     private String aadhaarNumber;
     private String createdDate;
     private int createdBy;
-    private String dob;
+    private Object dob;
     private String name;
-    private String tenantId;
+    private Object tenantId;
     private String salutation;
-    private String permanentCity;
+    private Object permanentCity;
 
     public String getPwdExpiryDate() {
         return this.pwdExpiryDate;
@@ -43,11 +43,11 @@ public class User {
         this.pwdExpiryDate = pwdExpiryDate;
     }
 
-    public String getCorrespondenceCity() {
+    public Object getCorrespondenceCity() {
         return this.correspondenceCity;
     }
 
-    public void setCorrespondenceCity(String correspondenceCity) {
+    public void setCorrespondenceCity(Object correspondenceCity) {
         this.correspondenceCity = correspondenceCity;
     }
 
@@ -59,11 +59,11 @@ public class User {
         this.gender = gender;
     }
 
-    public String getSignature() {
+    public Object getSignature() {
         return this.signature;
     }
 
-    public void setSignature(String signature) {
+    public void setSignature(Object signature) {
         this.signature = signature;
     }
 
@@ -75,11 +75,11 @@ public class User {
         this.mobileNumber = mobileNumber;
     }
 
-    public Roles[] getRoles() {
+    public UserRoles[] getRoles() {
         return this.roles;
     }
 
-    public void setRoles(Roles[] roles) {
+    public void setRoles(UserRoles[] roles) {
         this.roles = roles;
     }
 
@@ -107,19 +107,19 @@ public class User {
         this.type = type;
     }
 
-    public String getCorrespondenceAddress() {
+    public Object getCorrespondenceAddress() {
         return this.correspondenceAddress;
     }
 
-    public void setCorrespondenceAddress(String correspondenceAddress) {
+    public void setCorrespondenceAddress(Object correspondenceAddress) {
         this.correspondenceAddress = correspondenceAddress;
     }
 
-    public String getBloodGroup() {
+    public Object getBloodGroup() {
         return this.bloodGroup;
     }
 
-    public void setBloodGroup(String bloodGroup) {
+    public void setBloodGroup(Object bloodGroup) {
         this.bloodGroup = bloodGroup;
     }
 
@@ -131,19 +131,19 @@ public class User {
         this.id = id;
     }
 
-    public String getPermanentAddress() {
+    public Object getPermanentAddress() {
         return this.permanentAddress;
     }
 
-    public void setPermanentAddress(String permanentAddress) {
+    public void setPermanentAddress(Object permanentAddress) {
         this.permanentAddress = permanentAddress;
     }
 
-    public String getCorrespondencePinCode() {
+    public Object getCorrespondencePinCode() {
         return this.correspondencePinCode;
     }
 
-    public void setCorrespondencePinCode(String correspondencePinCode) {
+    public void setCorrespondencePinCode(Object correspondencePinCode) {
         this.correspondencePinCode = correspondencePinCode;
     }
 
@@ -155,11 +155,11 @@ public class User {
         this.pan = pan;
     }
 
-    public boolean getAccountLocked() {
+    public Object getAccountLocked() {
         return this.accountLocked;
     }
 
-    public void setAccountLocked(boolean accountLocked) {
+    public void setAccountLocked(Object accountLocked) {
         this.accountLocked = accountLocked;
     }
 
@@ -171,11 +171,11 @@ public class User {
         this.altContactNumber = altContactNumber;
     }
 
-    public String getIdentificationMark() {
+    public Object getIdentificationMark() {
         return this.identificationMark;
     }
 
-    public void setIdentificationMark(String identificationMark) {
+    public void setIdentificationMark(Object identificationMark) {
         this.identificationMark = identificationMark;
     }
 
@@ -195,11 +195,11 @@ public class User {
         this.lastModifiedBy = lastModifiedBy;
     }
 
-    public String getFatherOrHusbandName() {
+    public Object getFatherOrHusbandName() {
         return this.fatherOrHusbandName;
     }
 
-    public void setFatherOrHusbandName(String fatherOrHusbandName) {
+    public void setFatherOrHusbandName(Object fatherOrHusbandName) {
         this.fatherOrHusbandName = fatherOrHusbandName;
     }
 
@@ -211,11 +211,11 @@ public class User {
         this.active = active;
     }
 
-    public String getPhoto() {
+    public Object getPhoto() {
         return this.photo;
     }
 
-    public void setPhoto(String photo) {
+    public void setPhoto(Object photo) {
         this.photo = photo;
     }
 
@@ -227,11 +227,11 @@ public class User {
         this.userName = userName;
     }
 
-    public String getPermanentPinCode() {
+    public Object getPermanentPinCode() {
         return this.permanentPinCode;
     }
 
-    public void setPermanentPinCode(String permanentPinCode) {
+    public void setPermanentPinCode(Object permanentPinCode) {
         this.permanentPinCode = permanentPinCode;
     }
 
@@ -259,11 +259,11 @@ public class User {
         this.createdBy = createdBy;
     }
 
-    public String getDob() {
+    public Object getDob() {
         return this.dob;
     }
 
-    public void setDob(String dob) {
+    public void setDob(Object dob) {
         this.dob = dob;
     }
 
@@ -275,11 +275,11 @@ public class User {
         this.name = name;
     }
 
-    public String getTenantId() {
+    public Object getTenantId() {
         return this.tenantId;
     }
 
-    public void setTenantId(String tenantId) {
+    public void setTenantId(Object tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -291,11 +291,11 @@ public class User {
         this.salutation = salutation;
     }
 
-    public String getPermanentCity() {
+    public Object getPermanentCity() {
         return this.permanentCity;
     }
 
-    public void setPermanentCity(String permanentCity) {
+    public void setPermanentCity(Object permanentCity) {
         this.permanentCity = permanentCity;
     }
 }

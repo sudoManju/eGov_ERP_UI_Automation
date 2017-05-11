@@ -21,6 +21,7 @@ public class UserBuilder {
        user.setType("CITIZEN");
        user.setAccountLocked(false);
        user.setTenantId("default");
+       user.setActive(true);
        roles[0] = role1;
        user.setRoles(roles);
    }

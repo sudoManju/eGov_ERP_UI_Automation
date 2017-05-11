@@ -1,4 +1,6 @@
-package entities.responses.userServices;
+package entities.responses.userServices.createUser;
+
+import entities.responses.userServices.createUser.Roles;
 
 public class User {
     private String pwdExpiryDate;

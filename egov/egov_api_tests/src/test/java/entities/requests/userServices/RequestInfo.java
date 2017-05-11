@@ -9,6 +9,15 @@ public class RequestInfo {
     private String apiId;
     private String did;
     private String key;
+    private String ts;
+
+    public String getTs() {
+        return ts;
+    }
+
+    public void setTs(String ts) {
+        this.ts = ts;
+    }
 
     public String getVer() {
         return this.ver;

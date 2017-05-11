@@ -1,4 +1,4 @@
-package entities.responses.userDetails;
+package entities.responses.userServices.getUser;
 
 public class ResponseInfo {
     private Object ver;

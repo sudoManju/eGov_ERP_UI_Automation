@@ -1,4 +1,4 @@
-package entities.responses.userServices;
+package entities.responses.userServices.createUser;
 
 public class Roles {
     private String code;

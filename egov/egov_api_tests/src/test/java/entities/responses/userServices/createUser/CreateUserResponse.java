@@ -1,7 +1,6 @@
-package entities.responses.userDetails;
+package entities.responses.userServices.createUser;
 
-public class UserDetailsResponse {
-
+public class CreateUserResponse {
     private ResponseInfo responseInfo;
     private User[] user;
 

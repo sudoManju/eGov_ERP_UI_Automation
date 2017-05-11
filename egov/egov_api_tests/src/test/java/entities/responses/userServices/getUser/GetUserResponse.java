@@ -1,6 +1,6 @@
-package entities.responses.userServices;
+package entities.responses.userServices.getUser;
 
-public class CreateUserResponse {
+public class GetUserResponse {
     private ResponseInfo responseInfo;
     private User[] user;
 
