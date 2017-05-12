@@ -31,6 +31,11 @@ public class UserBuilder {
        return this;
    }
 
+   public UserBuilder withMobileNumber(String mobileNumber){
+       user.setMobileNumber(mobileNumber);
+       return this;
+   }
+
    public User build(){
        return user;
    }

@@ -14,6 +14,10 @@ public class Properties {
 
     //  User Url's  //
     public static final String userUrl = propertiesReader.getUserUrl();
+    public static final String userCreateUrl = propertiesReader.getUserCreateUrl();
+    public static final String createOtpUrl = propertiesReader.getCreateOtpUrl();
+    public static final String validateOtpUrl = propertiesReader.getValidateOtpUrl();
+    public static final String createCitizenUrl = propertiesReader.getCreateCitizenUrl();
 
     //  PGR Module Url's  //
     public static final String getPGRComplaintUrl = propertiesReader.getPGRComplaintUrl();
@@ -63,8 +67,6 @@ public class Properties {
     public static final String cmCategoryUrl = propertiesReader.getCMCategoryUrl();
     public static final String cmCreateHolidayUrl = propertiesReader.getCMCreateHolidayUrl();
 
-    public static final String userCreateUrl = propertiesReader.getUserCreateUrl();
     public static final String pgrReceivingModesUrl = propertiesReader.getPGRReceivingModesUrl();
     public static final String searchEmployeeLeaveUrl = propertiesReader.getSearchEmployeeLeaveUrl();
-
 }

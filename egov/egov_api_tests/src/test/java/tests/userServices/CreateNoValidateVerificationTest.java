@@ -20,10 +20,10 @@ import utils.*;
 
 import java.io.IOException;
 
-public class CreatenovalidateVerificationTest extends BaseAPITest {
+public class CreateNoValidateVerificationTest extends BaseAPITest {
 
     @Test(groups = {Categories.SANITY,Categories.DEV})
-    public void userDetails() throws IOException {
+    public void createNoValidateAndGetTest() throws IOException {
 
         // Login Test
         LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
@@ -80,7 +80,7 @@ public class CreatenovalidateVerificationTest extends BaseAPITest {
 
         String json = RequestHelper.getJsonString(request);
 
-        Response response = new UserServiceResource().createUser(json);
+        Response response = new UserServiceResource().createUserNoValidate(json);
 
         Assert.assertEquals(response.getStatusCode(),200);
 

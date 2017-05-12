@@ -56,6 +56,16 @@ public class PropertiesReader {
     public String getUserUrl() {
         return prop.getProperty("userUrl");
     }
+    public String getUserCreateUrl() {
+        return prop.getProperty("userCreateUrl");
+    }
+    public String getCreateOtpUrl() {
+        return prop.getProperty("createOtpUrl");
+    }
+    public String getValidateOtpUrl() {
+        return prop.getProperty("validateOtpUrl");
+    }
+    public String getCreateCitizenUrl(){return prop.getProperty("createCitizenUrl");}
 
     //      PGR Module Url's      //
     public String getPGRComplaintUrl() {
@@ -159,15 +169,11 @@ public class PropertiesReader {
     }
     public String getCMCreateHolidayUrl() {return prop.getProperty("cmCreateHolidayUrl");}
 
-    public String getUserCreateUrl() {
-        return prop.getProperty("userCreateUrl");
-    }
     public String getPGRReceivingModesUrl() {
         return prop.getProperty("pgrReceivingModes");
     }
     public String getSearchEmployeeLeaveUrl() {
         return prop.getProperty("searchEmployeeLeaveUrl");
     }
-
 }
 
