@@ -190,7 +190,7 @@
 			<form:option value="">
 				<spring:message code="lbl.select" />
 			</form:option>
-			<form:options items="${occupancyList}" temValue="id"
+			<form:options items="${occupancyList}" itemValue="id"
 					itemLabel="description" />
 		</form:select>
 		<form:errors path="occupancy" cssClass="add-margin error-msg" />
@@ -250,9 +250,9 @@
 		</label>
 		<div class="col-sm-3 add-margin">
 			<form:checkbox id="isexistingApprovedPlan"
-				path="isexistingApprovedPlan"
-				value="isexistingApprovedPlan" />
-			<form:errors path="isexistingApprovedPlan" cssClass="add-margin error-msg"/>
+				path="isExistingApprovedPlan"
+				value="false" />
+			<form:errors path="isExistingApprovedPlan" cssClass="add-margin error-msg"/>
 		</div>
 	</div>
 <div class="form-group">

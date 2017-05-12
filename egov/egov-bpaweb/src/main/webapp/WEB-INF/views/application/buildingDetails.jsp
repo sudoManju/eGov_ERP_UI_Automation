@@ -248,6 +248,7 @@
 	<button type="button" class="btn btn-sm btn-primary"
 		id="addBuildAreaRow">ADD ROW</button>
 </div>
+<input type="hidden" id="buildingFloorList" value="${buildingFloorList}" > 
 <table class="table table-striped table-bordered"
 	id="buildingAreaDetails">
 	<thead>
@@ -277,7 +278,7 @@
 								id="applicationFloorDetails[${counter.index}]floorDescription"
 								maxlength="128" value="${buildingAreaDetails.floorDescription}" /></td>
 						<td class="text-right"><form:input type="text"
-								class="form-control table-input patternvalidation plinthArea"
+								class="form-control table-input patternvalidation plinthArea text-right"
 								data-pattern="number"
 								path="buildingDetail[0].applicationFloorDetails[${counter.index}].plinthArea"
 								id="applicationFloorDetails${counter.index}plinthArea"
@@ -288,17 +289,17 @@
 								path="buildingDetail[0].applicationFloorDetails[${counter.index}].carpetArea"
 								id="applicationFloorDetails${counter.index}carpetArea"
 								maxlength="8" value="${buildingAreaDetails.carpetArea}" /></td>
-						<c:if test="${counter.index!=0}">
+						<%-- <c:if test="${counter.index!=0}">
 							<td class="text-center"><a href="javascript:void(0);"
 								class="btn-sm btn-danger" id="deleteBuildAreaRow"
 								data-record-id="${var1.id}"><i class="fa fa-trash"></i></a></td>
-						</c:if>
+						</c:if> --%>
 					</tr>
 				</c:forEach>
 			</c:when>
 			<c:otherwise>
 				<tr class="data-fetched">
-					<td class="text-center"><span class="serialNo" id="slNoInsp">1</span><input type="hidden" id="buildingFloorList" value="${buildingFloorList}" > </td>
+					<td class="text-center"><span class="serialNo" id="slNoInsp">1</span></td>
 					<td><form:select
 							path="buildingDetail[0].applicationFloorDetails[0].floorDescription"
 							data-first-option="false"

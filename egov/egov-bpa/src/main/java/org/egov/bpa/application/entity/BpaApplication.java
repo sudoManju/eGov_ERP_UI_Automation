@@ -156,7 +156,7 @@ public class BpaApplication extends StateAware {
     @Length(min = 1, max = 128)
     private String revisedPermitNumber;
     
-    private Boolean isexistingApprovedPlan;
+    private Boolean isExistingApprovedPlan;
 
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<SiteDetail> siteDetail = new ArrayList<>(0);
@@ -632,12 +632,12 @@ public class BpaApplication extends StateAware {
 		this.revisedPermitNumber = revisedPermitNumber;
 	}
 
-	public Boolean getIsexistingApprovedPlan() {
-		return isexistingApprovedPlan;
+	public Boolean getIsExistingApprovedPlan() {
+		return isExistingApprovedPlan;
 	}
 
-	public void setIsexistingApprovedPlan(Boolean isexistingApprovedPlan) {
-		this.isexistingApprovedPlan = isexistingApprovedPlan;
+	public void setIsExistingApprovedPlan(Boolean isExistingApprovedPlan) {
+		this.isExistingApprovedPlan = isExistingApprovedPlan;
 	}
 
 }
