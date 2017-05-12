@@ -1,6 +1,5 @@
 package steps.employeeManagement;
 
-
 import cucumber.api.java8.En;
 import entities.employeeManagement.AssignmentDetails;
 import entities.employeeManagement.EmployeeDetails;
@@ -33,9 +32,11 @@ public class EmployeeOperationSteps extends BaseSteps implements En {
             pageStore.get(EmployeeOtherDetailsPage.class).submitCreateEmployee();
 
         });
+
         Then("^user close the employee search$", () -> {
             pageStore.get(EmployeeOtherDetailsPage.class).closeEmployeeSearch();
         });
+
         And("^user will enter the service section and other details$", () -> {
             pageStore.get(EmployeeOtherDetailsPage.class).enterServiceSectionDetails();
             pageStore.get(EmployeeOtherDetailsPage.class).enterProbationDetails();
@@ -44,6 +45,25 @@ public class EmployeeOperationSteps extends BaseSteps implements En {
             pageStore.get(EmployeeOtherDetailsPage.class).enterTechnicalQualificationDetails();
             pageStore.get(EmployeeOtherDetailsPage.class).enterDepartmentalTestDetails();
         });
+
+        And("^user will enter the employee search details$", () -> {
+            pageStore.get(EmployeeOtherDetailsPage.class).searchEmployeeFormViewScreen(scenarioContext.getApplicationNumber());
+        });
+
+        And("^user will enter the employee search details for updating the employee information$", () -> {
+//            pageStore.get(EmployeeOtherDetailsPage.class).searchEmployeeFromUpdateScreen(scenarioContext.getApplicationNumber());
+            pageStore.get(EmployeeOtherDetailsPage.class).searchEmployeeFromUpdateScreen("EMP158471");
+        });
+
+        And("^user will update the employee details$", () -> {
+            pageStore.get(EmployeeDetailsPage.class).updateEmployeeDetails();
+            pageStore.get(EmployeeOtherDetailsPage.class).updateServiceSectionDetails();
+            pageStore.get(EmployeeOtherDetailsPage.class).updateProbationDetails();
+            pageStore.get(EmployeeOtherDetailsPage.class).updateRegularisationDetails();
+            pageStore.get(EmployeeOtherDetailsPage.class).updateEducationDetails();
+            pageStore.get(EmployeeOtherDetailsPage.class).updateTechnicalQualificationDetails();
+        });
+
 
     }
 }

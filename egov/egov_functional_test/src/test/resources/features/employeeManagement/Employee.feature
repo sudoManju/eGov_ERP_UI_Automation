@@ -12,10 +12,18 @@ Feature: Create/View/Update
     And user will enter the jurisdiction details as <jurisdictionDetail>
     And user will enter the service section and other details
     Then user clicks on submit button
-#    Then user close the employee search
-    
-#    And user will select the required screen as "Create LeaveBalance"
 
+    And user will select the required screen as "View Employee"
+    And user will enter the employee search details
+
+    And user will select the required screen as "Update Employee"
+    And user will enter the employee search details for updating the employee information
+    And user will update the employee details
+    Then user clicks on submit button
+
+#    Then user close the employee search
+
+#    And user will select the required screen as "Create LeaveBalance"
 
     Examples:
       | employeeDetails | assignmentDetails | jurisdictionDetail |

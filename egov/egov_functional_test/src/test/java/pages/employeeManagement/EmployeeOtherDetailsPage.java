@@ -1,6 +1,7 @@
 package pages.employeeManagement;
 
 import entities.employeeManagement.JurisdictionDetails;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -164,7 +165,7 @@ public class EmployeeOtherDetailsPage extends BasePage {
         jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#serviceHistoryDetailModal']")), webDriver);
         enterText(serviceAreaDescriptionTextBox, "serviceAreaDescription", webDriver);
         enterDate(dateTextBox, getCurrentDate(), webDriver);
-        enterText(orderNumberTextBox, "Order "+get6DigitRandomInt(), webDriver);
+        enterText(orderNumberTextBox, "Order " + get6DigitRandomInt(), webDriver);
         enterText(remarksTextBox, "Remarks Text", webDriver);
         clickOnButton(webDriver.findElement(By.id("serviceHistoryAddOrUpdate")), webDriver);
     }
@@ -173,7 +174,7 @@ public class EmployeeOtherDetailsPage extends BasePage {
         jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#probationDetailModal']")), webDriver);
         selectFromDropDown(probationDesignationSelectBox, "Assistant Engineer", webDriver);
         enterDate(probationDeclaredDate, getCurrentDate(), webDriver);
-        enterText(probationOrderNumberTextbox, "Order "+get6DigitRandomInt(), webDriver);
+        enterText(probationOrderNumberTextbox, "Order " + get6DigitRandomInt(), webDriver);
         enterDate(probationOrderDateTextbox, getCurrentDate(), webDriver);
         enterText(probationRemarksTextBox, "Remarks Text", webDriver);
         clickOnButton(webDriver.findElement(By.id("probationAddOrUpdate")), webDriver);
@@ -183,7 +184,7 @@ public class EmployeeOtherDetailsPage extends BasePage {
         jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#regularisationDetailModal']")), webDriver);
         selectFromDropDown(regularisationDesignationSelectBox, "Assistant Executive Engineer", webDriver);
         enterDate(regularisationDeclaredDate, getCurrentDate(), webDriver);
-        enterText(regularisationOrderNumberTextbox, "Order "+get6DigitRandomInt(), webDriver);
+        enterText(regularisationOrderNumberTextbox, "Order " + get6DigitRandomInt(), webDriver);
         enterDate(regularisationOrderDateTextbox, getCurrentDate(), webDriver);
         enterText(regularisationRemarksTextBox, "Remarks Text", webDriver);
         clickOnButton(webDriver.findElement(By.id("regularisationAddOrUpdate")), webDriver);
@@ -212,10 +213,72 @@ public class EmployeeOtherDetailsPage extends BasePage {
 
     public void submitCreateEmployee() {
         jsClick(webDriver.findElement(By.id("addEmployee")), webDriver);
+        webDriver.close();
+        switchToPreviouslyOpenedWindow(webDriver);
     }
 
     public void closeEmployeeSearch() {
         clickOnButton(webDriver.findElement(By.cssSelector(".btn.btn-close")), webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
+    }
+
+    public void searchEmployeeFormViewScreen(String applicationNumber) {
+        enterText(webDriver.findElement(By.cssSelector("[id='code']")), applicationNumber, webDriver);
+        clickOnButton(webDriver.findElement(By.cssSelector("[id='sub']")), webDriver);
+        waitForElementToBeVisible(webDriver.findElement(By.cssSelector("[data-label='code']")), webDriver);
+        Assert.assertEquals(webDriver.findElement(By.cssSelector("[data-label='code']")).getText(), applicationNumber);
+        webDriver.close();
+        switchToPreviouslyOpenedWindow(webDriver);
+    }
+
+    public void searchEmployeeFromUpdateScreen(String applicationNumber) {
+        enterText(webDriver.findElement(By.cssSelector("[id='code']")), applicationNumber, webDriver);
+        clickOnButton(webDriver.findElement(By.cssSelector("[id='sub']")), webDriver);
+        waitForElementToBeVisible(webDriver.findElement(By.cssSelector("[data-label='code']")), webDriver);
+        Assert.assertEquals(webDriver.findElement(By.cssSelector("[data-label='code']")).getText(), applicationNumber);
+        clickOnButton(webDriver.findElement(By.cssSelector(".btn.btn-default.btn-action")), webDriver);
+        switchToNewlyOpenedWindow(webDriver);
+    }
+
+    public void updateServiceSectionDetails() {
+        clickOnButton(webDriver.findElement(By.cssSelector("a[href='#serviceSection']")), webDriver);
+        jsClick(webDriver.findElement(By.cssSelector("[onclick=\"markEditIndex(0,'serviceHistoryDetailModal','serviceHistory')\"]")), webDriver);
+        enterText(serviceAreaDescriptionTextBox, "Updated Service Area Description", webDriver);
+        clickOnButton(webDriver.findElement(By.id("serviceHistoryAddOrUpdate")), webDriver);
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateProbationDetails() {
+        jsClick(webDriver.findElement(By.cssSelector("[onclick=\"markEditIndex(0,'probationDetailModal','probation')\"]")), webDriver);
+        enterDate(webDriver.findElement(By.cssSelector("[id='probation.declaredOn']")), getPastDate(1), webDriver);
+        clickOnButton(webDriver.findElement(By.id("probationAddOrUpdate")), webDriver);
+    }
+
+    public void updateRegularisationDetails() {
+        jsClick(webDriver.findElement(By.cssSelector("[onclick=\"markEditIndex(0,'regularisationDetailModal','regularisation')\"]")), webDriver);
+        enterDate(regularisationOrderDateTextbox, getPastDate(1), webDriver);
+        clickOnButton(webDriver.findElement(By.id("regularisationAddOrUpdate")), webDriver);
+    }
+
+    public void updateEducationDetails() {
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        jsClick(webDriver.findElement(By.cssSelector("a[href='#otherDetails']")), webDriver);
+        jsClick(webDriver.findElement(By.cssSelector("[onclick=\"markEditIndex(0,'educationDetailModal','education')\"]")), webDriver);
+        enterText(qualificationTextBox, "BE", webDriver);
+        clickOnButton(webDriver.findElement(By.id("educationAddOrUpdate")), webDriver);
+    }
+
+    public void updateTechnicalQualificationDetails() {
+        jsClick(webDriver.findElement(By.cssSelector("[onclick=\"markEditIndex(0,'technicalDetailModal','technical')\"]")), webDriver);
+        enterText(technicalSkillsTextBox, "Java And Selenium", webDriver);
+        jsClick(webDriver.findElement(By.id("technicalAddOrUpdate")), webDriver);
     }
 }

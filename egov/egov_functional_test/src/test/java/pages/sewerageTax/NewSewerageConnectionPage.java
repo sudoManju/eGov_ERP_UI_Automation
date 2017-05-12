@@ -291,10 +291,10 @@ public class NewSewerageConnectionPage extends BasePage {
         switchToPreviouslyOpenedWindow(driver);
     }
 
-    public void enterDetailsForLegacySewerageConnection(String assessmentNumber) {
+    public void enterDetailsForLegacySewerageConnection(String assessmentNumber, int i) {
         enterText(PTAssessmentNumberTextBox, assessmentNumber, driver);
         enterText(hscNumberTextBox, "1016" + get6DigitRandomInt(), driver);
-        enterText(executionDateTextBox, getPreviousDate(), driver);
+        enterText(executionDateTextBox, getPastDate(i), driver);
         enterText(demandTextBox, "1000", driver);
         enterText(collectionTextBox, "0", driver);
         selectFromDropDown(propertyTypeDropBox, "RESIDENTIAL", driver);

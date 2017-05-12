@@ -1,6 +1,7 @@
 package pages.employeeManagement;
 
 import entities.employeeManagement.EmployeeDetails;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -179,9 +180,8 @@ public class EmployeeDetailsPage extends BasePage {
     }
 
     public String enterEmployeeDetails(EmployeeDetails employeeDetails) {
-        enterText(employeeNameTextBox, "TestUser " +getRandomUpperCaseCharacters(5), driver);
-        String employeeCode = "EMP"+get6DigitRandomInt();
-        System.out.println("=======================Code"+employeeCode);
+        enterText(employeeNameTextBox, "TestUser " + getRandomUpperCaseCharacters(5), driver);
+        String employeeCode = "EMP" + get6DigitRandomInt();
         enterText(employeeCodeTextBox, employeeCode, driver);
         selectFromDropDown(employeeTypeBox, employeeDetails.getEmployeeType(), driver);
         selectFromDropDown(employeeGroupBox, "Central", driver);
@@ -206,9 +206,9 @@ public class EmployeeDetailsPage extends BasePage {
         enterText(mobileNumberTextBox, employeeDetails.getMobileNumber(), driver);
         enterText(passportNoTextBox, "IND" + get6DigitRandomInt(), driver);
         enterText(gpfNoTextBox, get6DigitRandomInt(), driver);
-        enterText(aadhaarNumberTextBox, "111111"+get6DigitRandomInt(), driver);
+        enterText(aadhaarNumberTextBox, "111111" + get6DigitRandomInt(), driver);
         enterText(panNumberTextBox, "ABCDE" + Integer.toString(Integer.parseInt(get6DigitRandomInt()) / 100) + "F", driver);
-        enterText(bankAccountNumberTextBox, "10101010101010"+get6DigitRandomInt(), driver);
+        enterText(bankAccountNumberTextBox, "10101010101010" + get6DigitRandomInt(), driver);
         enterText(permanentAddressTextBox, employeeDetails.getPermanentAddress(), driver);
         enterText(permanentCityTextBox, employeeDetails.getPermanentCity(), driver);
 //        enterText(permanentPincodeTextBox, employeeDetails.getPermanentPincode(), driver);
@@ -217,4 +217,8 @@ public class EmployeeDetailsPage extends BasePage {
         return employeeCode;
     }
 
+    public void updateEmployeeDetails() {
+//        clickOnButton(driver.findElement(By.cssSelector(".btn.btn-default.btn-action")), driver);
+        selectFromDropDown(maritalStatusBox, "MARRIED", driver);
+    }
 }
