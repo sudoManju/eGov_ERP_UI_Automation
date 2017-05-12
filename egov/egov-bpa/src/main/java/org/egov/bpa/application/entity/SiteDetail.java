@@ -140,7 +140,13 @@ public class SiteDetail extends AbstractAuditable {
     private String roofConversion;
     private String shutter;
     private String erectionoftower;
-
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="conststages")
+    private ConstructionStages constStages;
+    @Length(min = 1, max = 128)
+    private String stateOfConstruction;
+    
+    private Boolean isappForRegularization;
     @Override
     public Long getId() {
         return id;
@@ -470,4 +476,30 @@ public class SiteDetail extends AbstractAuditable {
 	public void setUnitOfMeasurement(BpaUom unitOfMeasurement) {
 		this.unitOfMeasurement = unitOfMeasurement;
 	}
+
+	public ConstructionStages getConstStages() {
+		return constStages;
+	}
+
+	public void setConstStages(ConstructionStages constStages) {
+		this.constStages = constStages;
+	}
+
+	public String getStateOfConstruction() {
+		return stateOfConstruction;
+	}
+
+	public void setStateOfConstruction(String stateOfConstruction) {
+		this.stateOfConstruction = stateOfConstruction;
+	}
+
+	public Boolean getIsappForRegularization() {
+		return isappForRegularization;
+	}
+
+	public void setIsappForRegularization(Boolean isappForRegularization) {
+		this.isappForRegularization = isappForRegularization;
+	}
+	
+	
 }

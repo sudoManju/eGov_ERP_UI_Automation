@@ -229,16 +229,7 @@
 			cssClass="add-margin error-msg" />
 	</div>
 </div>
-<div class="form-group">
-<label class="col-sm-3 control-label text-right">Plot Land Mark</label>
-	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="64"
-			data-pattern="alphanumericspecialcharacters"
-			id="plotlandmark" path="siteDetail[0].plotlandmark" />
-		<form:errors path="siteDetail[0].plotlandmark"
-			cssClass="add-margin error-msg" />
-	</div>
-</div>
+
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Plot Number<span class="mandatory"></span> </label>
 	<div class="col-sm-3 add-margin">
@@ -412,6 +403,8 @@
 	</div>
 </div>
 
+
+
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Sub division
 		Number</label>
@@ -468,6 +461,47 @@
 			data-pattern="decimalvalue" id="setBackSide1"
 			path="siteDetail[0].setBackSide1" />
 		<form:errors path="siteDetail[0].setBackSide1"
+			cssClass="add-margin error-msg" />
+	</div>
+</div>
+	<div class="form-group" >
+		<label class="col-sm-3 control-label text-right">If the application is for Regularization
+		</label>
+		<div class="col-sm-3 add-margin">
+			<form:checkbox id="siteDetail[0].isappForRegularization"
+				path="siteDetail[0].isappForRegularization"
+				value="siteDetail[0].isappForRegularization" />
+			<form:errors path="siteDetail[0].isappForRegularization" />
+		</div>
+<label class="col-sm-2 control-label text-right">Plot Land Mark</label>
+	<div class="col-sm-3 add-margin">
+		<form:input class="form-control patternvalidation" maxlength="64"
+			data-pattern="alphanumericspecialcharacters"
+			id="plotlandmark" path="siteDetail[0].plotlandmark" />
+		<form:errors path="siteDetail[0].plotlandmark"
+			cssClass="add-margin error-msg" />
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-sm-3 control-label text-right">Construction Stages</label>
+	<div class="col-sm-3 add-margin">
+		<form:select path="siteDetail[0].constStages" data-first-option="false" id="constStages"
+				cssClass="form-control" >
+				<form:option value="">
+					<spring:message code="lbl.select" />
+				</form:option>
+				<form:options items="${constStages}" itemValue="id" itemLabel="code" />
+			</form:select>
+			<form:errors path="siteDetail[0].constStages"
+			cssClass="add-margin error-msg" />
+	</div>
+	<label class="col-sm-2 control-label text-right">If not completed the state of construction</label>
+	<div class="col-sm-3 add-margin">
+		<form:input class="form-control patternvalidation"
+				data-pattern="alphanumericwithspace"  maxlength="128"
+			 id="stateOfConstruction"
+				path="siteDetail[0].stateOfConstruction" />
+				<form:errors path="siteDetail[0].stateOfConstruction"
 			cssClass="add-margin error-msg" />
 	</div>
 </div>

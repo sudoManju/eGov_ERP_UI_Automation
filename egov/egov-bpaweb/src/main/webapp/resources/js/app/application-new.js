@@ -41,6 +41,40 @@ var reportdatatable;
 jQuery(document).ready(function($) {
 	if($('#noJAORSAMessage') && $('#noJAORSAMessage').val())
 		bootbox.alert($('#noJAORSAMessage').val());
+	
+	$('#isexistingApprovedPlan').on('change', function(){ 
+		   if(this.checked) // if changed state is "CHECKED"
+		    {
+			   $('#feeAmountRecieptNo').attr('required', true);
+				$('#feeAmountRecieptNo').append('<span class="mandatory">*</span>');
+				  $('#approvedReceiptDate').attr('required', true);
+					$('#approvedReceiptDate').append('<span class="mandatory">*</span>');
+					  $('#revisedApplicationNumber').attr('required', true);
+						$('#revisedApplicationNumber').append('<span class="mandatory">*</span>');
+						  $('#revisedPermitNumber').attr('required', true);
+							$('#revisedPermitNumber').append('<span class="mandatory">*</span>');
+		    }
+		   if(!this.checked) // if changed state is "CHECKED"
+		    {
+			   $('#feeAmountRecieptNo').attr('required', false);
+				  $('#approvedReceiptDate').attr('required', false);
+				  $('#revisedApplicationNumber').attr('required', false);
+				  $('#revisedPermitNumber').attr('required', false);
+
+		    }
+		});
+	
+	$('#constStages').change(function(){
+		if($('#constStages option:selected').html()=="NotStarted" ||  $(this).val()=="-1"){
+			 $('#stateOfConstruction').attr('required', true);
+	 		$('#stateOfConstruction').append('<span class="mandatory">*</span>');
+					
+		}else if($('#constStages option:selected').html()=="Started"){	
+			$('#stateOfConstruction').attr('required', false);
+			
+		}
+
+	});
 
 });
 function validateMobileNumber(obj)

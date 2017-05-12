@@ -244,6 +244,47 @@
 		<form:errors path="groupDevelopment" cssClass="add-margin error-msg" />
 	</div>
 </div>
+
+<div class="form-group">
+		<label class="col-sm-3 control-label text-right">Details of Permit/Approved Plan already obtained
+		</label>
+		<div class="col-sm-3 add-margin">
+			<form:checkbox id="isexistingApprovedPlan"
+				path="isexistingApprovedPlan"
+				value="isexistingApprovedPlan" />
+			<form:errors path="isexistingApprovedPlan" cssClass="add-margin error-msg"/>
+		</div>
+	</div>
+<div class="form-group">
+	<label class="col-sm-3 control-label text-right">Fee Amount Paid No </label>
+	<div class="col-sm-3 add-margin">
+		<form:input class="form-control patternvalidation" maxlength="128"
+			id="feeAmountRecieptNo" path="feeAmountRecieptNo" />
+		<form:errors path="feeAmountRecieptNo" cssClass="add-margin error-msg" />
+	</div>
+	<label class="col-sm-2 control-label text-right">Date of Receipt</label>
+	<div class="col-sm-3 add-margin">
+		<form:input path="approvedReceiptDate" class="form-control datepicker"
+				data-date-end-date="0d" id="approvedReceiptDate"
+				data-inputmask="'mask': 'd/m/y'" />
+			<form:errors path="approvedReceiptDate" cssClass="add-margin error-msg" />
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="col-sm-3 control-label text-right">Revised Application Number</label>
+	<div class="col-sm-3 add-margin">
+		<form:input class="form-control patternvalidation" maxlength="128"
+			id="revisedApplicationNumber" path="revisedApplicationNumber" />
+		<form:errors path="revisedApplicationNumber" cssClass="add-margin error-msg" />
+	</div>
+	<label class="col-sm-2 control-label text-right">Already received Permit Number</label>
+	<div class="col-sm-3 add-margin">
+		<form:input class="form-control patternvalidation" maxlength="128"
+			id="revisedPermitNumber" path="revisedPermitNumber" />
+		<form:errors path="revisedPermitNumber" cssClass="add-margin error-msg" />
+	</div>
+</div>
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Remarks</label>
 	<div class="col-sm-3 add-margin">

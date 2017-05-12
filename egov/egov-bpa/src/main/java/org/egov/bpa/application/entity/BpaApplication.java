@@ -144,6 +144,19 @@ public class BpaApplication extends StateAware {
     private String groupDevelopment;
 
     private BigDecimal admissionfeeAmount;
+    
+    @Length(min = 1, max = 128)
+    private String feeAmountRecieptNo;
+    
+    private Date approvedReceiptDate;
+
+    @Length(min = 1, max = 128)
+    private String revisedApplicationNumber;
+    
+    @Length(min = 1, max = 128)
+    private String revisedPermitNumber;
+    
+    private Boolean isexistingApprovedPlan;
 
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<SiteDetail> siteDetail = new ArrayList<>(0);
@@ -587,6 +600,44 @@ public class BpaApplication extends StateAware {
 		this.applicationAmenity = applicationAmenity;
 	}
 
-	
-    
+	public String getFeeAmountRecieptNo() {
+		return feeAmountRecieptNo;
+	}
+
+	public void setFeeAmountRecieptNo(String feeAmountRecieptNo) {
+		this.feeAmountRecieptNo = feeAmountRecieptNo;
+	}
+
+	public Date getApprovedReceiptDate() {
+		return approvedReceiptDate;
+	}
+
+	public void setApprovedReceiptDate(Date approvedReceiptDate) {
+		this.approvedReceiptDate = approvedReceiptDate;
+	}
+
+	public String getRevisedApplicationNumber() {
+		return revisedApplicationNumber;
+	}
+
+	public void setRevisedApplicationNumber(String revisedApplicationNumber) {
+		this.revisedApplicationNumber = revisedApplicationNumber;
+	}
+
+	public String getRevisedPermitNumber() {
+		return revisedPermitNumber;
+	}
+
+	public void setRevisedPermitNumber(String revisedPermitNumber) {
+		this.revisedPermitNumber = revisedPermitNumber;
+	}
+
+	public Boolean getIsexistingApprovedPlan() {
+		return isexistingApprovedPlan;
+	}
+
+	public void setIsexistingApprovedPlan(Boolean isexistingApprovedPlan) {
+		this.isexistingApprovedPlan = isexistingApprovedPlan;
+	}
+
 }

@@ -48,6 +48,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.egov.bpa.application.entity.BuildingCategory;
+import org.egov.bpa.application.entity.ConstructionStages;
 import org.egov.bpa.application.entity.Occupancy;
 import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.application.entity.VillageName;
@@ -58,6 +59,7 @@ import org.egov.bpa.application.service.ApplicationBpaService;
 import org.egov.bpa.application.service.CheckListDetailService;
 import org.egov.bpa.application.workflow.BpaWorkFlowService;
 import org.egov.bpa.masters.service.BuildingCategoryService;
+import org.egov.bpa.masters.service.ConstructionStagesService;
 import org.egov.bpa.masters.service.OccupancyService;
 import org.egov.bpa.masters.service.ServiceTypeService;
 import org.egov.bpa.masters.service.VillageNameService;
@@ -90,6 +92,10 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     
     @Autowired
     private VillageNameService villageNameService;
+    
+    @Autowired
+    private ConstructionStagesService constructionStagesService;
+    
     @Autowired
     protected CheckListDetailService checkListDetailService;
     @Autowired
@@ -143,6 +149,11 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     @ModelAttribute("villageNames")
     public List<VillageName> getVillage() {
         return villageNameService.findAll();
+    }
+    
+    @ModelAttribute("constStages")
+    public List<ConstructionStages> getCOnstructionStage() {
+        return constructionStagesService.findAll();
     }
 
     @ModelAttribute("electionwards")
