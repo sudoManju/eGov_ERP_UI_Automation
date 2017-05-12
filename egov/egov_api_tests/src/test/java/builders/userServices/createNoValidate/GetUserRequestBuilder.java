@@ -1,7 +1,7 @@
-package builders.userServices;
+package builders.userServices.createNoValidate;
 
-import entities.requests.userServices.GetUserRequest;
-import entities.requests.userServices.RequestInfo;
+import entities.requests.userServices.createNoValidate.GetUserRequest;
+import entities.requests.userServices.createNoValidate.RequestInfo;
 
 public class GetUserRequestBuilder {
 

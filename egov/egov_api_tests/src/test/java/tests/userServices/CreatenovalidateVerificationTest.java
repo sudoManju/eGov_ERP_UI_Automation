@@ -1,9 +1,9 @@
 package tests.userServices;
 
-import builders.userServices.CreateUserRequestBuilder;
-import builders.userServices.GetUserRequestBuilder;
-import builders.userServices.RequestInfoBuilder;
-import builders.userServices.UserBuilder;
+import builders.userServices.createNoValidate.CreateUserRequestBuilder;
+import builders.userServices.createNoValidate.GetUserRequestBuilder;
+import builders.userServices.createNoValidate.RequestInfoBuilder;
+import builders.userServices.createNoValidate.UserBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.userServices.createNoValidate.CreateUserRequest;
 import entities.requests.userServices.createNoValidate.GetUserRequest;
