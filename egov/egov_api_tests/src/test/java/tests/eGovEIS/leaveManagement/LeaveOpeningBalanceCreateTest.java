@@ -36,7 +36,7 @@ import java.util.concurrent.TimeUnit;
 
 public class LeaveOpeningBalanceCreateTest extends BaseAPITest {
 
-    @Test(groups = {Categories.HR, Categories.SANITY, Categories.DEV})
+    @Test(groups = {Categories.HR, Categories.SANITY})
     public void leaveOpeningBalanceCreateTest() throws IOException {
 
         // Login Test
