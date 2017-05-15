@@ -5,9 +5,9 @@ import entities.employeeManagement.AssignmentDetails;
 import entities.employeeManagement.EmployeeDetails;
 import entities.employeeManagement.JurisdictionDetails;
 import excelDataFiles.EmployeeManagementDetailsDataReader;
-import pages.employeeManagement.AssignmentDetailsPage;
-import pages.employeeManagement.EmployeeDetailsPage;
-import pages.employeeManagement.EmployeeOtherDetailsPage;
+import pages.employeeManagement.employeeCreation.AssignmentDetailsPage;
+import pages.employeeManagement.employeeCreation.EmployeeDetailsPage;
+import pages.employeeManagement.employeeCreation.EmployeeOtherDetailsPage;
 import steps.BaseSteps;
 
 public class EmployeeOperationSteps extends BaseSteps implements En {
@@ -52,7 +52,7 @@ public class EmployeeOperationSteps extends BaseSteps implements En {
 
         And("^user will enter the employee search details for updating the employee information$", () -> {
 //            pageStore.get(EmployeeOtherDetailsPage.class).searchEmployeeFromUpdateScreen(scenarioContext.getApplicationNumber());
-            pageStore.get(EmployeeOtherDetailsPage.class).searchEmployeeFromUpdateScreen("EMP158471");
+            pageStore.get(EmployeeOtherDetailsPage.class).searchEmployeeFromUpdateScreen(scenarioContext.getApplicationNumber());
         });
 
         And("^user will update the employee details$", () -> {

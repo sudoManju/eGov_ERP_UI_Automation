@@ -1,5 +1,6 @@
 package steps.leaseAndAgreement;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.leaseAndAgreement.LandAgreementDetails;
 import entities.leaseAndAgreement.LandAllotteeDetails;
@@ -24,6 +25,5 @@ public class LeaseAndAgreementSteps extends BaseSteps implements En {
 
             pageStore.get(LeaseAndAgreementPage.class).enterAgreementDetails(landAllotteeDetails, landAgreementDetails);
         });
-
     }
 }

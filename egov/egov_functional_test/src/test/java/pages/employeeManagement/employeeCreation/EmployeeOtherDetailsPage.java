@@ -1,4 +1,4 @@
-package pages.employeeManagement;
+package pages.employeeManagement.employeeCreation;
 
 import entities.employeeManagement.JurisdictionDetails;
 import org.junit.Assert;
@@ -213,7 +213,7 @@ public class EmployeeOtherDetailsPage extends BasePage {
 
     public void submitCreateEmployee() {
         jsClick(webDriver.findElement(By.id("addEmployee")), webDriver);
-        webDriver.close();
+        clickOnButton(webDriver.findElement(By.cssSelector(".btn.btn-close")), webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
     }
 
@@ -227,7 +227,7 @@ public class EmployeeOtherDetailsPage extends BasePage {
         clickOnButton(webDriver.findElement(By.cssSelector("[id='sub']")), webDriver);
         waitForElementToBeVisible(webDriver.findElement(By.cssSelector("[data-label='code']")), webDriver);
         Assert.assertEquals(webDriver.findElement(By.cssSelector("[data-label='code']")).getText(), applicationNumber);
-        webDriver.close();
+        clickOnButton(webDriver.findElement(By.cssSelector(".btn.btn-close")), webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
     }
 

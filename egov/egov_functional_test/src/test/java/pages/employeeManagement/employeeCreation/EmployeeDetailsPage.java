@@ -1,4 +1,4 @@
-package pages.employeeManagement;
+package pages.employeeManagement.employeeCreation;
 
 import entities.employeeManagement.EmployeeDetails;
 import org.openqa.selenium.By;
@@ -184,8 +184,8 @@ public class EmployeeDetailsPage extends BasePage {
         String employeeCode = "EMP" + get6DigitRandomInt();
         enterText(employeeCodeTextBox, employeeCode, driver);
         selectFromDropDown(employeeTypeBox, employeeDetails.getEmployeeType(), driver);
-        selectFromDropDown(employeeGroupBox, "Central", driver);
         selectFromDropDown(employeeStatusBox, employeeDetails.getStatus(), driver);
+//        selectFromDropDown(employeeGroupBox, "Central", driver);
         enterText(dobTextBox, employeeDetails.getDateOfBirth(), driver);
         if (employeeDetails.getGender().equals("Male")) {
             selectFromDropDown(genderDropdown, "Male", driver);

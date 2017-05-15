@@ -1,4 +1,4 @@
-package pages.employeeManagement;
+package pages.employeeManagement.employeeCreation;
 
 import entities.employeeManagement.AssignmentDetails;
 import org.openqa.selenium.By;
