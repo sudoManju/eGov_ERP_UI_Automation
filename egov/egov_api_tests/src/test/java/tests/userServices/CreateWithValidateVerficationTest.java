@@ -31,7 +31,7 @@ public class CreateWithValidateVerficationTest extends BaseAPITest {
         OtpResponse otp = createOtp(loginResponse);
 
         try {
-            TimeUnit.SECONDS.sleep(10);
+            TimeUnit.SECONDS.sleep(3);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

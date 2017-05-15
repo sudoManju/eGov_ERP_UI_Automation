@@ -7,7 +7,6 @@ public class ValidateOtpRequest {
     @JsonProperty("RequestInfo")
     private RequestInfo requestInfo;
 
-    @JsonProperty("Otp")
     private Otp otp;
 
     public RequestInfo getRequestInfo() {
