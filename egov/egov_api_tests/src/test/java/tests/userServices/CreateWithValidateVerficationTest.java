@@ -28,6 +28,12 @@ public class CreateWithValidateVerficationTest extends BaseAPITest {
         //Create OTP
         OtpResponse otp = createOtp(loginResponse);
 
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         //Validate OTP
         OtpResponse validatedOtp = validateOtp(loginResponse,otp);
 
