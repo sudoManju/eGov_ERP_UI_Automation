@@ -16,6 +16,8 @@ import utils.RequestHelper;
 import utils.ResponseHelper;
 
 import java.io.IOException;
+import java.sql.Time;
+import java.util.concurrent.TimeUnit;
 
 public class CreateWithValidateVerficationTest extends BaseAPITest {
 
@@ -29,7 +31,7 @@ public class CreateWithValidateVerficationTest extends BaseAPITest {
         OtpResponse otp = createOtp(loginResponse);
 
         try {
-            Thread.sleep(1000);
+            TimeUnit.SECONDS.sleep(10);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -80,6 +82,8 @@ public class CreateWithValidateVerficationTest extends BaseAPITest {
         String json = RequestHelper.getJsonString(request);
 
         Response response = new UserServiceResource().validateOtp(json);
+
+        System.out.println(response.getHeaders().get("x-correlation-id"));
 
         Assert.assertEquals(response.getStatusCode(),200);
 
