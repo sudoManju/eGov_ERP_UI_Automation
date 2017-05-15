@@ -67,14 +67,16 @@
 			
 		</label>
 		<div class="col-sm-3 add-margin">
-			<form:select path="applicationAmenity" multiple="true" 
+			<form:select path="applicationAmenity" multiple="true"
 												id="multiselect" cssClass="form-control"
 												cssErrorClass="form-control error">
 												<form:options items="${amenityTypeList}" itemValue="id"
 													itemLabel="description" />
 			</form:select>
+			 ( Hold the CTRL key and click the items in a list to choose multiple Amenity ) 
 			<form:errors path="applicationAmenity" cssClass="add-margin error-msg" />
 		</div>
+		     
 		</div>
 	<div class="form-group">
 
@@ -141,7 +143,7 @@
 			cssClass="add-margin error-msg" />
 	</div>
 </div>
-<div class="form-group">
+<%-- <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Old
 		Application Number 
 	</label>
@@ -150,7 +152,7 @@
 			id="oldApplicationNumber" path="oldApplicationNumber" />
 		<form:errors path="oldApplicationNumber"
 			cssClass="add-margin error-msg" />
-	</div>
+	
 	<label class="col-sm-2 control-label text-right">Approval Date </label>
 		<c:choose>
 		<c:when test="%{approvalDate!=null}">
@@ -168,24 +170,13 @@
 			<form:errors path="approvalDate" cssClass="add-margin error-msg" /></div>
 		</c:otherwise>
 	</c:choose>
-</div>
+</div> --%>
+
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right">Property Number
-	</label>
-	<div class="col-sm-3 add-margin">
-		<div class="input-group">
-			<form:input id="assessmentNumber" path="assessmentNumber"
-				class="form-control" data-pattern="number" maxlength="50" />
-			<span class="input-group-addon"> <i
-				class="fa fa-search specific"></i></span>
-		</div>
-		<form:errors path="assessmentNumber" id="assessmentNumber"
-			cssClass="add-margin error-msg" />
-	</div>
-	<label class="col-sm-2 control-label text-right">Occupancy <span
+<label class="col-sm-3 control-label text-right">Occupancy <span
 		class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
-		<form:select path="occupancy" data-first-option="false" id=""
+		<form:select path="occupancy" data-first-option="false" id="occupancy"
 			cssClass="form-control" required="required">
 			<form:option value="">
 				<spring:message code="lbl.select" />
@@ -195,6 +186,18 @@
 		</form:select>
 		<form:errors path="occupancy" cssClass="add-margin error-msg" />
 	</div>
+	<label class="col-sm-2 control-label text-right">Property Number
+	</label>
+	<div class="col-sm-3 add-margin">
+		<div class="input-group">
+			<form:input id="assessmentNumber" path="assessmentNumber"
+				class="form-control" data-pattern="number" maxlength="50" />
+			
+		</div>
+		<form:errors path="assessmentNumber" id="assessmentNumber"
+			cssClass="add-margin error-msg" />
+	</div>
+	
 </div>
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Applicant Mode<span
@@ -202,9 +205,6 @@
 	<div class="col-sm-3 add-margin">
 			<form:select path="applicantMode" data-first-option="false" id=""
 			cssClass="form-control" required="required">
-			<form:option value="">
-				<spring:message code="lbl.select" />
-			</form:option>
 			<form:options items="${applicantModes}" />
 		</form:select>
 		<form:errors path="applicantMode" id="applicantMode"
@@ -245,46 +245,6 @@
 	</div>
 </div>
 
-<div class="form-group">
-		<label class="col-sm-3 control-label text-right">Details of Permit/Approved Plan already obtained
-		</label>
-		<div class="col-sm-3 add-margin">
-			<form:checkbox id="isexistingApprovedPlan"
-				path="isExistingApprovedPlan"
-				value="false" />
-			<form:errors path="isExistingApprovedPlan" cssClass="add-margin error-msg"/>
-		</div>
-	</div>
-<div class="form-group">
-	<label class="col-sm-3 control-label text-right">Fee Amount Paid No </label>
-	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="128"
-			id="feeAmountRecieptNo" path="feeAmountRecieptNo" />
-		<form:errors path="feeAmountRecieptNo" cssClass="add-margin error-msg" />
-	</div>
-	<label class="col-sm-2 control-label text-right">Date of Receipt</label>
-	<div class="col-sm-3 add-margin">
-		<form:input path="approvedReceiptDate" class="form-control datepicker"
-				data-date-end-date="0d" id="approvedReceiptDate"
-				data-inputmask="'mask': 'd/m/y'" />
-			<form:errors path="approvedReceiptDate" cssClass="add-margin error-msg" />
-	</div>
-</div>
-
-<div class="form-group">
-	<label class="col-sm-3 control-label text-right">Revised Application Number</label>
-	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="128"
-			id="revisedApplicationNumber" path="revisedApplicationNumber" />
-		<form:errors path="revisedApplicationNumber" cssClass="add-margin error-msg" />
-	</div>
-	<label class="col-sm-2 control-label text-right">Already received Permit Number</label>
-	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="128"
-			id="revisedPermitNumber" path="revisedPermitNumber" />
-		<form:errors path="revisedPermitNumber" cssClass="add-margin error-msg" />
-	</div>
-</div>
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Remarks</label>
 	<div class="col-sm-3 add-margin">

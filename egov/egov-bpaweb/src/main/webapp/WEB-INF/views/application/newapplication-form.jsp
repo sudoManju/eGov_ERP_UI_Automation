@@ -81,6 +81,9 @@
 					<div class="panel panel-primary" data-collapsed="0">
 						<jsp:include page="siteDetail.jsp"></jsp:include>
 					</div>
+						<div class="panel panel-primary" data-collapsed="0">
+						<jsp:include page="amenityDetails.jsp"></jsp:include>
+					</div>
 					<div class="panel panel-primary" data-collapsed="0">
 						<jsp:include page="buildingDetails.jsp" />
 					</div>
@@ -110,3 +113,4 @@
 	src="<cdn:url value='/resources/js/app/documentsuploadvalidation.js?rnd=${app_release_no}'/>"></script>
 <script
 	src="<cdn:url value='/resources/js/app/buildingarea-details.js?rnd=${app_release_no}'/>"></script>
+	

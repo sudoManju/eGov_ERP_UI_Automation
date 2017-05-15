@@ -171,17 +171,17 @@
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation" maxlength="10"
 			data-pattern="decimalvalue" id="buildingheightGround"
-			path="buildingDetail[0].buildingheightGround" required="required" />
+			path="buildingDetail[0].buildingheightGround" required="required" />in Sq Mtr.
 		<form:errors path="buildingDetail[0].buildingheightGround"
 			cssClass="add-margin error-msg" />
 	</div>
 </div>
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Building
-		Proposed Sital in Sqmt </label>
+		Proposed Sital in Sqmtr </label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation" maxlength="10" data-pattern="decimalvalue"
-			id="proposedSitalinSqmt" path="buildingDetail[0].proposedSitalinSqmt" />
+			id="proposedSitalinSqmt" path="buildingDetail[0].proposedSitalinSqmt" />in Sq Mtr.
 		<form:errors path="buildingDetail[0].proposedSitalinSqmt"
 			cssClass="add-margin error-msg" />
 	</div>
@@ -190,7 +190,7 @@
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
 			maxlength="10" data-pattern="decimalvalue" id="buildingDetail[0].proposedfloorArea"
-			path="buildingDetail[0].proposedfloorArea" />
+			path="buildingDetail[0].proposedfloorArea" />in Sq Mtr.
 		<form:errors path="buildingDetail[0].proposedfloorArea"
 			cssClass="add-margin error-msg" />
 	</div>
@@ -201,7 +201,7 @@
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
 			maxlength="10" data-pattern="decimalvalue" id="district"
-			path="buildingDetail[0].totalPlintArea" required="required" />
+			path="buildingDetail[0].totalPlintArea" required="required" />in Sq Mtr.
 		<form:errors path="buildingDetail[0].totalPlintArea"
 			cssClass="add-margin error-msg" />
 	</div>
@@ -217,7 +217,7 @@
 </div>
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Building
-		Is Groud Floor </label>
+		Is Ground Floor </label>
 	<div class="col-sm-3 add-margin">
 		<form:checkbox id="isGroudFloor" path="buildingDetail[0].isGroudFloor"
 			value="isGroudFloor" />

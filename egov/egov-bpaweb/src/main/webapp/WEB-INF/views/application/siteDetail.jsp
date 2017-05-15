@@ -144,91 +144,24 @@
 
 
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right"><spring:message code="lbl.loc.plt"/></label>
+	<label class="col-sm-3 control-label text-right">Plot Land Mark</label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation"
-			data-pattern="alphanumericwithspace" maxlength="256" id="locationOfPlot"
-			path="siteDetail[0].locationOfPlot" />
-		<form:errors path="siteDetail[0].locationOfPlot"
+		<form:input class="form-control patternvalidation" maxlength="64"
+			data-pattern="alphanumericspecialcharacters"
+			id="plotlandmark" path="siteDetail[0].plotlandmark" />
+		<form:errors path="siteDetail[0].plotlandmark"
 			cssClass="add-margin error-msg" />
-	</div>
-	<label class="col-sm-2 control-label text-right"><spring:message code="lbl.len.com.wall"/></label>
-	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation"
-			data-pattern="number"  id="siteDetail[0].lengthOfCompoundWall"
-			path="siteDetail[0].lengthOfCompoundWall" />
-		<form:errors path="siteDetail[0].lengthOfCompoundWall" 
-			cssClass="add-margin error-msg" />
-	</div>
 	</div>
 	
-	<div class="form-group">
-	<label class="col-sm-3 control-label text-right"><spring:message code="lbl.number.well"/></label>
-	<div class="col-sm-3 add-margin">
-		<form:input  class="form-control patternvalidation" data-pattern="number"
-		  id="dwellingunitnt" 
-			path="siteDetail[0].dwellingunitnt" />
-		<form:errors path="siteDetail[0].dwellingunitnt" 
-			cssClass="add-margin error-msg" />
-	</div>
-	<label class="col-sm-2 control-label text-right"><spring:message code="lbl.roof.conv"/></label>
+	<label class="col-sm-2 control-label text-right">Site Pincode</label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
-			data-pattern="number" maxlength="256" id="roofConversion"
-			path="siteDetail[0].roofConversion" />
-		<form:errors path="siteDetail[0].roofConversion" 
+			data-pattern="number" id="sitePincode"
+			path="siteDetail[0].sitePincode" maxlength="6" />
+		<form:errors path="siteDetail[0].sitePincode"
 			cssClass="add-margin error-msg" />
 	</div>
 	</div>
-
-
-	
-	<div class="form-group">
-	<label class="col-sm-3 control-label text-right"><spring:message code="lbl.shutter"/></label>
-	<div class="col-sm-3 add-margin">
-		<form:input  class="form-control patternvalidation" data-pattern="number"
-		  id="shutter" 
-			path="siteDetail[0].shutter" />
-		<form:errors path="siteDetail[0].shutter" 
-			cssClass="add-margin error-msg" />
-	</div>
-	<label class="col-sm-2 control-label text-right"><spring:message code="lbl.erection.tower"/>
-		</label>
-	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation"
-			data-pattern="number" maxlength="256" id="erectionoftower"
-			path="siteDetail[0].erectionoftower" />
-		<form:errors path="siteDetail[0].erectionoftower" 
-			cssClass="add-margin error-msg" />
-	</div>
-	</div>
-<div class="form-group">
-	<label class="col-sm-3 control-label text-right">Extent Of Land
-		<span class="mandatory"></span>
-	</label>
-	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="10"
-			data-pattern="decimalvalue" id="extentinsqmts" required="required"
-			path="siteDetail[0].extentinsqmts" />
-		<form:errors path="siteDetail[0].extentinsqmts"
-			cssClass="add-margin error-msg" />
-	</div>
-	<label class="col-sm-2 control-label text-right">Unit Of
-		Measurement <span class="mandatory"></span>
-	</label>
-	<div class="col-sm-3 add-margin">
-		<form:select path="siteDetail[0].unitOfMeasurement"
-			data-first-option="false" id="zone" cssClass="form-control"
-			required="required">
-			<form:option value="">
-				<spring:message code="lbl.select" />
-			</form:option>
-			<form:options items="${uomList}" />
-		</form:select>
-		<form:errors path="siteDetail[0].unitOfMeasurement"
-			cssClass="add-margin error-msg" />
-	</div>
-</div>
 
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Plot Number<span class="mandatory"></span> </label>
@@ -338,27 +271,6 @@
 	</div>
 </div>
 
-<div class="form-group">
-	
-	<label class="col-sm-3 control-label text-right">Site Pincode</label>
-	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation"
-			data-pattern="number" id="sitePincode"
-			path="siteDetail[0].sitePincode" maxlength="6" />
-		<form:errors path="siteDetail[0].sitePincode"
-			cssClass="add-margin error-msg" />
-	</div>
-	<div class="form-group" id="statusdiv">
-		<label class="col-sm-2 control-label text-right">Encroachment
-			Issues Present</label>
-		<div class="col-sm-2 add-margin">
-			<form:checkbox id="encroachmentIssuesPresent"
-				path="siteDetail[0].encroachmentIssuesPresent"
-				value="encroachmentIssuesPresent" />
-			<form:errors path="siteDetail[0].encroachmentIssuesPresent" />
-		</div>
-	</div>	
-</div>
 
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Nature Of Ownership </label>
@@ -464,47 +376,7 @@
 			cssClass="add-margin error-msg" />
 	</div>
 </div>
-	<div class="form-group" >
-		<label class="col-sm-3 control-label text-right">If the application is for Regularization
-		</label>
-		<div class="col-sm-3 add-margin">
-			<form:checkbox id="siteDetail[0].isappForRegularization"
-				path="siteDetail[0].isappForRegularization"
-				value="siteDetail[0].isappForRegularization" />
-			<form:errors path="siteDetail[0].isappForRegularization" />
-		</div>
-<label class="col-sm-2 control-label text-right">Plot Land Mark</label>
-	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="64"
-			data-pattern="alphanumericspecialcharacters"
-			id="plotlandmark" path="siteDetail[0].plotlandmark" />
-		<form:errors path="siteDetail[0].plotlandmark"
-			cssClass="add-margin error-msg" />
-	</div>
-</div>
-<div class="form-group">
-	<label class="col-sm-3 control-label text-right">Construction Stages</label>
-	<div class="col-sm-3 add-margin">
-		<form:select path="siteDetail[0].constStages" data-first-option="false" id="constStages"
-				cssClass="form-control" >
-				<form:option value="">
-					<spring:message code="lbl.select" />
-				</form:option>
-				<form:options items="${constStages}" itemValue="id" itemLabel="code" />
-			</form:select>
-			<form:errors path="siteDetail[0].constStages"
-			cssClass="add-margin error-msg" />
-	</div>
-	<label class="col-sm-2 control-label text-right">If not completed the state of construction</label>
-	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation"
-				data-pattern="alphanumericwithspace"  maxlength="128"
-			 id="stateOfConstruction"
-				path="siteDetail[0].stateOfConstruction" />
-				<form:errors path="siteDetail[0].stateOfConstruction"
-			cssClass="add-margin error-msg" />
-	</div>
-</div>
+
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Encroachment
 		Remarks</label>
@@ -514,6 +386,16 @@
 			path="siteDetail[0].encroachmentRemarks" />
 		<form:errors path="siteDetail[0].encroachmentRemarks"
 			cssClass="add-margin error-msg" />
+	</div>
+	<div class="form-group" id="statusdiv">
+		<label class="col-sm-2 control-label text-right">Encroachment
+			Issues Present</label>
+		<div class="col-sm-3 add-margin">
+			<form:checkbox id="encroachmentIssuesPresent"
+				path="siteDetail[0].encroachmentIssuesPresent"
+				value="encroachmentIssuesPresent" />
+			<form:errors path="siteDetail[0].encroachmentIssuesPresent" />
+		</div>
 	</div>
 
 </div>

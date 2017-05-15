@@ -41,18 +41,17 @@ var reportdatatable;
 jQuery(document).ready(function($) {
 	if($('#noJAORSAMessage') && $('#noJAORSAMessage').val())
 		bootbox.alert($('#noJAORSAMessage').val());
-	
+	$('#existingAppPlan').hide();
+	  $('#constDiv').hide();
+
 	$('#isexistingApprovedPlan').on('change', function(){ 
 		   if(this.checked) // if changed state is "CHECKED"
 		    {
+			   $('#existingAppPlan').show();
 			   $('#feeAmountRecieptNo').attr('required', true);
-				$('#feeAmountRecieptNo').append('<span class="mandatory">*</span>');
 				  $('#approvedReceiptDate').attr('required', true);
-					$('#approvedReceiptDate').append('<span class="mandatory">*</span>');
 					  $('#revisedApplicationNumber').attr('required', true);
-						$('#revisedApplicationNumber').append('<span class="mandatory">*</span>');
 						  $('#revisedPermitNumber').attr('required', true);
-							$('#revisedPermitNumber').append('<span class="mandatory">*</span>');
 		    }
 		   if(!this.checked) // if changed state is "CHECKED"
 		    {
@@ -60,9 +59,34 @@ jQuery(document).ready(function($) {
 				  $('#approvedReceiptDate').attr('required', false);
 				  $('#revisedApplicationNumber').attr('required', false);
 				  $('#revisedPermitNumber').attr('required', false);
+				  $('#existingAppPlan').hide();
 
 		    }
 		});
+	
+	$('#isappForRegularization').on('change', function(){ 
+		   if(this.checked) // if changed state is "CHECKED"
+		    {
+			   $('#constDiv').show();
+			   $('#constStages').attr('required', true);
+			   $('#constStages').change(function(){
+					if($('#constStages option:selected').html()=="NotStarted" ||  $(this).val()=="-1"){
+						 $('#stateOfConstruction').attr('required', true);
+					}
+					});
+			   
+				
+					  
+		    }
+		   if(!this.checked) // if changed state is "CHECKED"
+		    {
+			   $('#constStages').attr('required', false);
+				  $('#stateOfConstruction').attr('required', false);
+				  $('#constDiv').hide();
+
+		    }
+		});
+	
 	
 	$('#constStages').change(function(){
 		if($('#constStages option:selected').html()=="NotStarted" ||  $(this).val()=="-1"){
@@ -77,6 +101,16 @@ jQuery(document).ready(function($) {
 	});
 
 });
+
+function chkNumeric(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        if (charCode == 46) { return true; }
+        else { return false; }
+    }
+    return true;
+}
 function validateMobileNumber(obj)
 {
 
@@ -141,6 +175,8 @@ $('#ward').change(function(){
 		}
 	});
 });
+
+
 
 $('#serviceType').change(function(){
 	jQuery.ajax({
