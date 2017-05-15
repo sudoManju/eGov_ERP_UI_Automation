@@ -89,6 +89,84 @@ jQuery(document).ready(function() {
 				validateForm(e);
 			});
 	
+	if($('#isexistingApprovedPlan').val() == 'true'){
+	$('#existingAppPlan').show();
+	}
+	else
+		{
+		$('#existingAppPlan').hide();
+		}
+
+	if($('#isappForRegularization').val() == 'true'){
+	$('#constDiv').show();
+	}
+	else
+		{
+		$('#constDiv').hide();
+		}
+
+	$('#isexistingApprovedPlan').on('change', function(){ 
+		   if(this.checked) // if changed state is "CHECKED"
+		    {
+			   $('#existingAppPlan').show();
+			   $('#feeAmountRecieptNo').attr('required', true);
+				  $('#approvedReceiptDate').attr('required', true);
+					  $('#revisedApplicationNumber').attr('required', true);
+						  $('#revisedPermitNumber').attr('required', true);
+		    }
+		   if(!this.checked) // if changed state is "CHECKED"
+		    {
+			   $('#feeAmountRecieptNo').attr('required', false);
+				  $('#approvedReceiptDate').attr('required', false);
+				  $('#revisedApplicationNumber').attr('required', false);
+				  $('#revisedPermitNumber').val('');
+				  $('#feeAmountRecieptNo').val('');
+				  $('#approvedReceiptDate').val('');
+				  $('#revisedApplicationNumber').val('');
+				  $('#revisedPermitNumber').val('');
+				  $('#existingAppPlan').hide();
+
+		    }
+		});
+	
+	$('#isappForRegularization').on('change', function(){ 
+		   if(this.checked) // if changed state is "CHECKED"
+		    {
+			   $('#constDiv').show();
+			   $('#constStages').attr('required', true);
+			   $('#constStages').change(function(){
+					if($('#constStages option:selected').html()=="NotStarted" ||  $(this).val()=="-1"){
+						 $('#stateOfConstruction').attr('required', true);
+					}
+					});
+			   
+				
+					  
+		    }
+		   if(!this.checked) // if changed state is "CHECKED"
+		    {
+			   $('#constStages').attr('required', false);
+			   $('#stateOfConstruction').attr('required', false);
+			   $('#stateOfConstruction').val('');
+			   $('#constStages').val('');
+				  $('#constDiv').hide();
+
+		    }
+		});
+	
+	
+	$('#constStages').change(function(){
+		if($('#constStages option:selected').html()=="NotStarted" ||  $(this).val()=="-1"){
+			 $('#stateOfConstruction').attr('required', true);
+	 		$('#stateOfConstruction').append('<span class="mandatory">*</span>');
+					
+		}else if($('#constStages option:selected').html()=="Started"){	
+			$('#stateOfConstruction').attr('required', false);
+			
+		}
+
+	});
+
 	// By default to point update noc details tab
 	var mode=$('#mode').val();
 	

@@ -84,6 +84,9 @@
 						<jsp:include page="siteDetail.jsp"></jsp:include>
 					</div>
 					<div class="panel panel-primary" data-collapsed="0">
+						<jsp:include page="amenityDetails.jsp"></jsp:include>
+					</div>
+					<div class="panel panel-primary" data-collapsed="0">
 						<jsp:include page="buildingDetails.jsp" />
 					</div>
 					<div class="panel panel-primary" data-collapsed="0">
