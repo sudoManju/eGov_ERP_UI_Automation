@@ -127,6 +127,9 @@ public class NewSewerageConnectionPage extends BasePage {
     @FindBy(id = "submit")
     private WebElement submitButton;
 
+    @FindBy(id = "amountCollected")
+    private WebElement donationChargesCollected;
+
     public NewSewerageConnectionPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -299,6 +302,7 @@ public class NewSewerageConnectionPage extends BasePage {
         enterText(collectionTextBox, "0", driver);
         selectFromDropDown(propertyTypeDropBox, "RESIDENTIAL", driver);
         enterText(noOfClosetsForResidentialsTextBox, "3", driver);
+        enterText(donationChargesCollected,"0",driver);
     }
 
     public void submit() {
