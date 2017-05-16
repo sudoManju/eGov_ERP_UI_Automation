@@ -67,7 +67,7 @@ import org.egov.tl.entity.LicenseAppType;
 import org.egov.tl.entity.NatureOfBusiness;
 import org.egov.tl.entity.TradeLicense;
 import org.egov.tl.entity.WorkflowBean;
-import org.egov.tl.entity.dto.DemandnoticeForm;
+import org.egov.tl.entity.dto.DemandNoticeForm;
 import org.egov.tl.entity.dto.OnlineSearchForm;
 import org.egov.tl.entity.dto.SearchForm;
 import org.egov.tl.repository.SearchTradeRepository;
@@ -97,19 +97,22 @@ import java.util.Optional;
 
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.apache.commons.lang3.StringUtils.defaultString;
+import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.egov.infra.utils.DateUtils.currentDateToDefaultDateFormat;
 import static org.egov.infra.utils.DateUtils.getDefaultFormattedDate;
 import static org.egov.infra.utils.DateUtils.toYearFormat;
 import static org.egov.tl.utils.Constants.BUTTONAPPROVE;
 import static org.egov.tl.utils.Constants.BUTTONREJECT;
+import static org.egov.tl.utils.Constants.CITY_GRADE_CORPORATION;
+import static org.egov.tl.utils.Constants.CLOSURE_LIC_APPTYPE;
 import static org.egov.tl.utils.Constants.LICENSE_FEE_TYPE;
 import static org.egov.tl.utils.Constants.NEW_LIC_APPTYPE;
 import static org.egov.tl.utils.Constants.RENEWAL_LIC_APPTYPE;
 import static org.egov.tl.utils.Constants.TRADE_LICENSE;
-import static org.egov.tl.utils.Constants.CLOSURE_LIC_APPTYPE;
 
 @Transactional(readOnly = true)
 public class TradeLicenseService extends AbstractLicenseService<TradeLicense> {
+
     @Autowired
     private TradeLicenseSmsAndEmailService tradeLicenseSmsAndEmailService;
 
@@ -177,7 +180,7 @@ public class TradeLicenseService extends AbstractLicenseService<TradeLicense> {
         final Assignment userAssignment = assignmentService.getPrimaryAssignmentForUser(securityUtils.getCurrentUser().getId());
         final Position wfInitiator = getWorkflowInitiator(license);
         if (BUTTONAPPROVE.equals(workFlowAction)) {
-            if (license.getTempLicenseNumber() == null && license.isNewApplication())
+            if (isEmpty(license.getLicenseNumber()) && license.isNewApplication())
                 license.setLicenseNumber(licenseNumberUtils.generateLicenseNumber());
 
             if (license.getCurrentDemand().getBaseDemand().compareTo(license.getCurrentDemand().getAmtCollected()) <= 0)
@@ -230,37 +233,18 @@ public class TradeLicenseService extends AbstractLicenseService<TradeLicense> {
         }
     }
 
-    public ReportRequest prepareReportInputData(final License license) {
-        final String cityGrade = getCityGrade();
-        if (cityGrade != null && cityGrade.equalsIgnoreCase(Constants.CITY_GRADE_CORPORATION)) {
-            final Map<String, Object> reportParams = getReportParamsForCertificate(license, null, null);
-            return new ReportRequest("licenseCertificateForCorp", license, reportParams);
+    @ReadOnly
+    public ReportOutput generateLicenseCertificate(License license) {
+        if (CITY_GRADE_CORPORATION.equals(cityService.getCityGrade())) {
+            return reportService.createReport(
+                    new ReportRequest("tl_licenseCertificateForCorp", license, getReportParamsForCertificate(license)));
         } else {
-            final Map<String, Object> reportParams = getReportParamsForCertificate(license, null, null);
-            return new ReportRequest("licenseCertificate", license, reportParams);
+            return reportService.createReport(
+                    new ReportRequest("tl_licenseCertificate", license, getReportParamsForCertificate(license)));
         }
     }
 
-    private String getCityGrade() {
-        return cityService.getCityByURL(ApplicationThreadLocals.getDomainName()).getGrade();
-    }
-
-    public ReportOutput prepareReportInputDataForDig(final License license, final String districtName,
-                                                     final String cityMunicipalityName) {
-        final String cityGrade = getCityGrade();
-        if (cityGrade != null && cityGrade.equalsIgnoreCase(Constants.CITY_GRADE_CORPORATION)) {
-            return reportService.createReport(
-                    new ReportRequest("licenseCertificateForCorp", license, getReportParamsForCertificate(license, districtName,
-                            cityMunicipalityName)));
-        } else {
-            return reportService.createReport(
-                    new ReportRequest("licenseCertificate", license, getReportParamsForCertificate(license, districtName,
-                            cityMunicipalityName)));
-        }
-    }
-
-    private Map<String, Object> getReportParamsForCertificate(final License license, final String districtName,
-                                                              final String cityMunicipalityName) {
+    private Map<String, Object> getReportParamsForCertificate(License license) {
 
         final Map<String, Object> reportParams = new HashMap<>();
         reportParams.put("applicationnumber", license.getApplicationNumber());
@@ -270,8 +254,8 @@ public class TradeLicenseService extends AbstractLicenseService<TradeLicense> {
         reportParams.put("cscNumber", "");
         reportParams.put("nameOfEstablishment", license.getNameOfEstablishment());
         reportParams.put("licenceAddress", StringEscapeUtils.escapeXml(license.getAddress()));
-        reportParams.put("municipality", cityMunicipalityName);
-        reportParams.put("district", districtName);
+        reportParams.put("municipality", cityService.getMunicipalityName());
+        reportParams.put("district", cityService.getDistrictName());
         reportParams.put("category", license.getCategory().getName());
         reportParams.put("subCategory", license.getTradeName().getName());
 
@@ -281,9 +265,7 @@ public class TradeLicenseService extends AbstractLicenseService<TradeLicense> {
 
         reportParams.put("appType", license.isNewApplication() ? "New Trade" : "Renewal");
         reportParams.put("currentDate", currentDateToDefaultDateFormat());
-        if (ApplicationThreadLocals.getMunicipalityName().contains("Corporation"))
-            reportParams.put("carporationulbType", Boolean.TRUE);
-        reportParams.put("municipality", ApplicationThreadLocals.getMunicipalityName());
+        reportParams.put("carporationulbType", ApplicationThreadLocals.getMunicipalityName().contains("Corporation"));
         String startYear;
         String endYear;
         BigDecimal amtPaid;
@@ -399,7 +381,7 @@ public class TradeLicenseService extends AbstractLicenseService<TradeLicense> {
     }
 
     @ReadOnly
-    public List<DemandnoticeForm> searchLicensefordemandnotice(final DemandnoticeForm demandnoticeForm) {
+    public List<DemandNoticeForm> getLicenseDemandNotices(final DemandNoticeForm demandnoticeForm) {
         final Criteria searchCriteria = entityQueryService.getSession().createCriteria(TradeLicense.class);
         searchCriteria.createAlias("licensee", "licc").createAlias("category", "cat").createAlias("tradeName", "subcat")
                 .createAlias("status", "licstatus");
@@ -424,7 +406,7 @@ public class TradeLicenseService extends AbstractLicenseService<TradeLicense> {
             searchCriteria.add(Restrictions.ne("licstatus.statusCode", StringUtils.upperCase("CAN")));
 
         searchCriteria.addOrder(Order.asc("id"));
-        final List<DemandnoticeForm> finalList = new LinkedList<>();
+        final List<DemandNoticeForm> finalList = new LinkedList<>();
 
         for (final TradeLicense license : (List<TradeLicense>) searchCriteria.list()) {
             Installment currentInstallment = license.getCurrentDemand().getEgInstallmentMaster();
@@ -434,7 +416,7 @@ public class TradeLicenseService extends AbstractLicenseService<TradeLicense> {
             Map<String, Map<String, BigDecimal>> outstandingFees = getOutstandingFeeForDemandNotice(license,
                     currentInstallment, previousInstallment.get(0));
             Map<String, BigDecimal> licenseFees = outstandingFees.get(LICENSE_FEE_TYPE);
-            finalList.add(new DemandnoticeForm(license, licenseFees, getOwnerName(license)));
+            finalList.add(new DemandNoticeForm(license, licenseFees, getOwnerName(license)));
         }
         return finalList;
     }

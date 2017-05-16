@@ -173,6 +173,8 @@ public interface PropertyTaxConstants {
     public static final String GRP_INSPECTION_COMPLETE = "GRP:Inspection completed";
     public static final String GRP_REGISTRATION = "GRP:Registration";
     public static final String GRP_WF_REGISTERED = "GRP:Registered";
+    public static final String RP_NEW = "RP:NEW";
+    public static final String GRP_NEW = "GRP:NEW";
     public static final String GRP_CREATED = "GRP:CREATED";
     public static final String NATURE_OF_WORK_GRP = "GRP";
     public static final String NATURE_OF_WORK_RP = "RP";
@@ -752,10 +754,11 @@ public interface PropertyTaxConstants {
     public static final String ROLE_ULB_OPERATOR = "ULB Operator";
     public static final String ROLE_COLLECTION_OPERATOR = "Collection Operator";
     public static final String ROLE_PTADMINISTRATOR = "Property Administrator";
+    public static final String ROLE_DATAENTRY_OPERATOR ="Data Entry Operator";
 
     // Designations
     public static final String ASSISTANT_DESGN = "Assistant";
-    public static final String REVENUE_OFFICER_DESGN = "Revenue officer";
+    public static final String REVENUE_OFFICER_DESGN = "Revenue Officer";
     public static final String REVENUE_INSPECTOR_DESGN = "UD Revenue Inspector";
     public static final String REVENUE_CLERK_DESGN = "Revenue Clerk";
     public static final String COMMISSIONER_DESGN = "Commissioner";
@@ -763,8 +766,8 @@ public interface PropertyTaxConstants {
     public static final String END_APPROVER_DESGN = "RO";
     public static final String JUNIOR_ASSISTANT = "Junior Assistant";
     public static final String SENIOR_ASSISTANT = "Senior Assistant";
-    public static final String ASSISTANT_COMMISSIONER_DESIGN = "Assistant commissioner";
-    public static final String DEPUTY_COMMISSIONER_DESIGN = "Deputy commissioner";
+    public static final String ASSISTANT_COMMISSIONER_DESIGN = "Assistant Commissioner";
+    public static final String DEPUTY_COMMISSIONER_DESIGN = "Deputy Commissioner";
     public static final String ADDITIONAL_COMMISSIONER_DESIGN = "Additional Commissioner";
     public static final String ZONAL_COMMISSIONER_DESIGN = "Zonal Commissioner";
     public static final String JUNIOR_OR_SENIOR_ASSISTANT_DESIGN = "Senior Assistant,Junior Assistant";
@@ -1584,7 +1587,7 @@ public interface PropertyTaxConstants {
     public String WTMS_TAXDUE_RESTURL = "%s/wtms/rest/watertax/due/byptno/%s";
     public String WTMS_TOTALDEMAND_RESTURL = "%s/wtms/rest/watertax/totaldemandamount/";
     public String WTMS_CONNECT_DTLS_RESTURL = "%s/wtms/rest/watertax/connectiondetails/byptno/%s";
-
+    public String WTMS_AMALGAMATE_WATER_CONNECTIONS_URL = "%s/wtms/rest/watertax/updateConnectionForAmulgamation";
 
     public static final String TRANSACTION_TYPE_CREATE = "Create";
     public static final String TRANSACTION_TYPE_DEMOLITION = "Demolition";
@@ -1598,7 +1601,7 @@ public interface PropertyTaxConstants {
 
     public static final String COLLECION_BILLING_SERVICE_PT = "Property Tax";
     public static final String COLLECION_BILLING_SERVICE_VLT = "Property Tax (On Land)";
-    public static final String COLLECION_BILLING_SERVICE_WTMS = "Water Tax";
+    public static final String COLLECION_BILLING_SERVICE_WTMS = "Water Charges";
 
     public static final String PROPERTY_TAX_INDEX_NAME = "propertytax";
     public static final String COLLECTION_INDEX_NAME = "receipts";
@@ -1711,8 +1714,8 @@ public interface PropertyTaxConstants {
     public static final String DOCUMENT_NAME_UNREGD_WILL_DOCUMENT = "Un-registered Will Document";
     public static final String DOCUMENT_NAME_DECREE_BY_CIVILCOURT = "Decree by Civil Court";
     public static final String DOCUMENT_NAME_NOTARY_DOCUMENT = "Un-registered Document / Notary document";
-    public static final List<String> COMMISSIONER_DESIGNATIONS = ImmutableList.of("Assistant Commissioner",
-            "Zonal Commissioner", "Deputy Commissioner", "Additional Commissioner", "Commissioner");
+    public static final List<String> COMMISSIONER_DESIGNATIONS = ImmutableList.of(ASSISTANT_COMMISSIONER_DESIGN,
+            ZONAL_COMMISSIONER_DESIGN, DEPUTY_COMMISSIONER_DESIGN, ADDITIONAL_COMMISSIONER_DESIGN, COMMISSIONER_DESGN);
     public static final String INTEGRATED_BILL = "Integrated Bill";
     
     //Source of Application

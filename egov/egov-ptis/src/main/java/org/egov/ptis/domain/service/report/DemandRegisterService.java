@@ -55,7 +55,8 @@ import org.egov.commons.dao.InstallmentDao;
 import org.egov.infra.admin.master.entity.City;
 import org.egov.infra.admin.master.repository.BoundaryRepository;
 import org.egov.infra.admin.master.service.ModuleService;
-import org.egov.infra.reporting.engine.ReportConstants.FileFormat;
+import org.egov.infra.config.persistence.datasource.routing.annotation.ReadOnly;
+import org.egov.infra.reporting.engine.ReportFormat;
 import org.egov.infra.reporting.engine.ReportOutput;
 import org.egov.infra.reporting.engine.ReportRequest;
 import org.egov.infra.reporting.engine.ReportService;
@@ -94,7 +95,7 @@ public class DemandRegisterService {
         ReportRequest reportInput;
         reportInput = generateADRReport(reportParams, wardId, finYearStartDate, mode);
         reportInput.setPrintDialogOnOpenReport(true);
-        reportInput.setReportFormat(FileFormat.PDF);
+        reportInput.setReportFormat(ReportFormat.PDF);
         reportOutput = reportService.createReport(reportInput);
         return reportOutput;
 
@@ -126,12 +127,14 @@ public class DemandRegisterService {
         reportInput = new ReportRequest(PropertyTaxConstants.REPORT_ARREAR_DEMAND_REGISTER, reportParams, reportParams);
         return reportInput;
     }
-
+    
+    @ReadOnly
     public Date getMinTransactionDate(final List<String> assessmentList) {
         return transactionsRepository.getMinTransactionDateForAssessmentList(assessmentList);
 
     }
-
+    
+    @ReadOnly
     public Date getFromDateforFinYearList(final List<String> assessmentList) {
         Date mintransactionDate = getMinTransactionDate(assessmentList);
         Date leastInstallmentDate = DateUtils.getDate("1960-04-01", "yyyy-MM-dd");
@@ -140,7 +143,8 @@ public class DemandRegisterService {
         return installmentDao.getInsatllmentByModuleForGivenDate(
                 moduleService.getModuleByName(PropertyTaxConstants.PTMODULENAME), mintransactionDate).getFromDate();
     }
-
+    
+    @ReadOnly
     @SuppressWarnings("unchecked")
     public List<DemandRegisterInfo> getDemandRegisterInfo(final String finYear, final Long ward, final String mode) {
         String propertyType = getPropertyType(mode);
