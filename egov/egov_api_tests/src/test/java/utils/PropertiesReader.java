@@ -66,7 +66,9 @@ public class PropertiesReader {
         return prop.getProperty("validateOtpUrl");
     }
     public String getCreateCitizenUrl(){return prop.getProperty("createCitizenUrl");}
-
+    public String getUserUpdateUrl() {
+        return prop.getProperty("userUpdateUrl");
+    }
     //      PGR Module Url's      //
     public String getPGRComplaintUrl() {
         return prop.getProperty("getPGRComplaintUrl");
@@ -175,5 +177,6 @@ public class PropertiesReader {
     public String getSearchEmployeeLeaveUrl() {
         return prop.getProperty("searchEmployeeLeaveUrl");
     }
+
 }
 

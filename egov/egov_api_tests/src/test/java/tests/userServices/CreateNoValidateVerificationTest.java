@@ -36,6 +36,31 @@ public class CreateNoValidateVerificationTest extends BaseAPITest {
 
         //Get User Details with UserName
         getTheNewlyCreatedUser(loginResponse,create,"userName");
+
+        //Update User Details
+        updateTheUserTest(loginResponse,create.getUser()[0].getId());
+    }
+
+    private void updateTheUserTest(LoginResponse loginResponse, int id) throws IOException {
+
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
+
+        User user = new UserBuilder("").build();
+
+        CreateUserRequest request = new CreateUserRequestBuilder().withRequestInfo(requestInfo).withUser(user).build();
+
+        String json = RequestHelper.getJsonString(request);
+
+        Response response = new UserServiceResource().updateUserDetails(json,id);
+
+        Assert.assertEquals(response.getStatusCode(),200);
+
+        CreateUserResponse response1 = (CreateUserResponse)
+                ResponseHelper.getResponseAsObject(response.asString(),CreateUserResponse.class);
+
+        Assert.assertEquals(response1.getUser()[0].getId(),id);
+
+        Assert.assertEquals(request.getUser().getName(),response1.getUser()[0].getName());
     }
 
     private void getTheNewlyCreatedUser(LoginResponse loginResponse,CreateUserResponse create,String searchType) throws IOException {

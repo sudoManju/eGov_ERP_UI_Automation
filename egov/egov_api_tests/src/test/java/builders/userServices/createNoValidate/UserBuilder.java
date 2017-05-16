@@ -26,6 +26,11 @@ public class UserBuilder {
        user.setRoles(roles);
    }
 
+   public UserBuilder(String update){
+       user.setTenantId("default");
+       user.setName("UpdatedTester");
+   }
+
    public UserBuilder withUserName(String userName){
        user.setUserName(userName);
        return this;

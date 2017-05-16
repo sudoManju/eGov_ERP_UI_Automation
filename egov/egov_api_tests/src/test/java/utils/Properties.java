@@ -69,4 +69,5 @@ public class Properties {
 
     public static final String pgrReceivingModesUrl = propertiesReader.getPGRReceivingModesUrl();
     public static final String searchEmployeeLeaveUrl = propertiesReader.getSearchEmployeeLeaveUrl();
+    public static final String userUpdateUrl = propertiesReader.getUserUpdateUrl();
 }
