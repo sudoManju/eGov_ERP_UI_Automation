@@ -113,7 +113,7 @@ public class PropertyTaxPage extends BasePage {
                 enterText(chequeNumberTextBox, paymentmethod.getChequeNumber(), driver);
                 enterText(chequeDateTextBox, getCurrentDate(), driver);
                 enterText(bankNameTextBox, paymentmethod.getBankName(), driver);
-                boolean isPresent = driver.findElements(By.id("bankcodescontainer")).size() > 0;
+                boolean isPresent = driver.findElement(By.id("bankcodescontainer")).findElements(By.cssSelector("ul li")).size() > 0;
                 while (!isPresent) {
                     bankNameTextBox.clear();
                     enterText(bankNameTextBox, paymentmethod.getBankName(), driver);
@@ -131,7 +131,7 @@ public class PropertyTaxPage extends BasePage {
                 enterText(chequeNumberTextBox, paymentmethod.getChequeNumber(), driver);
                 enterText(chequeDateTextBox, getCurrentDate(), driver);
                 enterText(bankNameTextBox, paymentmethod.getBankName(), driver);
-                boolean isPresentForDD  = driver.findElements(By.id("bankcodescontainer")).size() > 0;
+                boolean isPresentForDD  = driver.findElement(By.id("bankcodescontainer")).findElements(By.cssSelector("ul li")).size() > 0;
                 while (!isPresentForDD){
                     bankNameTextBox.clear();
                     enterText(bankNameTextBox, paymentmethod.getBankName(), driver);
