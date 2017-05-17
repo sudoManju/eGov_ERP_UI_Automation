@@ -128,7 +128,7 @@ public class BpaFeeController {
 
             // Get all sanction fee by service type
             List<BpaFee> bpaSanctionFees = bpaFeeService
-                    .getAllActiveSanctionFeesByServiceId(applicationFee.getApplication().getServiceType().getId());
+                    .getAllActiveSanctionFeesByServiceId(applicationFee.getApplication().getServiceType().getId(),BpaConstants.FEETYPE_SANCTIONFEE);
 
             if (getAppConfigValueByPassingModuleAndType(BpaConstants.EGMODULE_NAME, BpaConstants.AUTOCALCULATEFEEBYINSPECTION)) {
                 // calculate fee by passing sanction list, inspection latest object.
