@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 public class CreateWithValidateVerficationTest extends BaseAPITest {
 
-    @Test(groups = {Categories.SANITY,Categories.DEV})
+    @Test(groups = {Categories.SANITY,Categories.DEV,Categories.USER})
     public void createWithValidateAndGetTest() throws IOException{
 
         // Login Test

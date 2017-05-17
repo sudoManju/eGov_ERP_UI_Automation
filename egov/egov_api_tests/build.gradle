@@ -80,6 +80,32 @@ task Qa(type: Test) {
     }
 }
 
+task Pgr(type: Test) {
+    dependsOn clean, compileTestJava
+    useTestNG {
+        options {
+            reports.html.destination = file("$testReportDir/APITestsResults")
+            useDefaultListeners = false
+            listeners << 'org.uncommons.reportng.HTMLReporter'
+            listeners << 'org.uncommons.reportng.JUnitXMLReporter'
+            includeGroups 'Pgr'
+        }
+    }
+}
+
+task User(type: Test) {
+    dependsOn clean, compileTestJava
+    useTestNG {
+        options {
+            reports.html.destination = file("$testReportDir/APITestsResults")
+            useDefaultListeners = false
+            listeners << 'org.uncommons.reportng.HTMLReporter'
+            listeners << 'org.uncommons.reportng.JUnitXMLReporter'
+            includeGroups 'User'
+        }
+    }
+}
+
 task packageSources(type: Jar) {
     from sourceSets.test.allSource
     classifier = 'sources'

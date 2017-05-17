@@ -22,7 +22,7 @@ import java.io.IOException;
 
 public class CreateNoValidateVerificationTest extends BaseAPITest {
 
-    @Test(groups = {Categories.SANITY,Categories.DEV})
+    @Test(groups = {Categories.SANITY,Categories.DEV,Categories.USER})
     public void createNoValidateAndGetTest() throws IOException {
 
         // Login Test

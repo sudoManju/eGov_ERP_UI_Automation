@@ -20,7 +20,7 @@ import java.io.IOException;
 
 public class userDetailsVerificationTest extends BaseAPITest {
 
-   @Test(groups = {Categories.SANITY,Categories.DEV})
+   @Test(groups = {Categories.SANITY,Categories.DEV,Categories.USER})
    public void userDetailsTest()throws IOException{
 
        // Login Test

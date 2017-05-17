@@ -11,4 +11,5 @@ public class Categories {
     public static final String ASSET = "Asset";
     public static final String HR = "Eis";
     public static final String LAMS = "Lams";
+    public static final String USER = "User";
 }
