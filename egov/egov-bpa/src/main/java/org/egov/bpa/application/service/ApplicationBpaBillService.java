@@ -57,10 +57,13 @@ import java.util.TreeSet;
 import org.egov.bpa.application.autonumber.ApplicationNumberGenerator;
 import org.egov.bpa.application.autonumber.BpaBillReferenceNumberGenerator;
 import org.egov.bpa.application.entity.BpaApplication;
+import org.egov.bpa.application.entity.BpaFee;
+import org.egov.bpa.application.entity.BpaFeeDetail;
 import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.application.repository.ApplicationBpaRepository;
 import org.egov.bpa.application.service.collection.BpaApplicationBillable;
 import org.egov.bpa.application.service.collection.BpaDemandComparatorByOrderId;
+import org.egov.bpa.masters.service.BpaFeeService;
 import org.egov.bpa.service.BpaDemandService;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.collection.integration.models.BillAccountDetails.PURPOSE;
@@ -111,6 +114,9 @@ public class ApplicationBpaBillService extends BillServiceInterface {
 	private EgBillDao egBillDAO;
 	@Autowired
 	private ApplicationContext context;
+	
+	 @Autowired
+	    protected BpaFeeService bpaFeeService;
 	@Autowired
 	private BpaDemandService bpaDemandService;
 
@@ -179,7 +185,19 @@ public class ApplicationBpaBillService extends BillServiceInterface {
 				moduleService.getModuleByName(BpaConstants.EGMODULE_NAME), new Date(), BpaConstants.YEARLY);
 		// Not updating demand amount collected for new connection as per the
 		// discussion.
-		feeDetails.put(BpaConstants.ADMISSIONFEEREASON, application.getAdmissionfeeAmount());
+		List<Long> serviceTypeList = new ArrayList<>();
+		for (ServiceType serviceType : application.getApplicationAmenity()) {
+			serviceTypeList.add(serviceType.getId());
+		}
+		Criteria feeCrit = getBpaFeeCriteria(serviceTypeList, BpaConstants.BPAFEETYPE);
+		List<BpaFeeDetail> bpaFeeDetails = feeCrit.list();
+		for (final BpaFeeDetail feeDetail : bpaFeeDetails) {
+			feeDetails.put(feeDetail.getBpafee().getCode(), BigDecimal.valueOf(feeDetail.getAmount()));
+		}
+		List<BpaFee> bpaAdmissionFees = bpaFeeService
+				.getAllActiveSanctionFeesByServiceId(application.getServiceType().getId(), BpaConstants.BPAFEETYPE);
+
+		feeDetails.put(bpaAdmissionFees.get(0).getCode(), application.getAdmissionfeeAmount());
 		if (installment != null) {
 			final Set<EgDemandDetails> dmdDetailSet = new HashSet<>();
 			for (final String demandReason : feeDetails.keySet())

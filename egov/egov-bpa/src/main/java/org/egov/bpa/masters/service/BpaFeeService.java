@@ -71,9 +71,9 @@ public class BpaFeeService {
 		return entityManager.unwrap(Session.class);
 	}
 
-	public List<BpaFee> getAllActiveSanctionFeesByServiceId(Long serviceTypeId) {
+	public List<BpaFee> getAllActiveSanctionFeesByServiceId(Long serviceTypeId,String feeType) {
 		return bpaFeeRepository.getAllActiveBpaFeesbyFeeTypeAndServiceTypeId(serviceTypeId,
-				BpaConstants.FEETYPE_SANCTIONFEE);
+				feeType);
 	}
 
 	@SuppressWarnings("unchecked")

@@ -52,6 +52,7 @@ import javax.validation.Valid;
 import org.egov.bpa.application.entity.ApplicationStakeHolder;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.CheckListDetail;
+import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.application.service.collection.GenericBillGeneratorService;
 import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
@@ -112,7 +113,7 @@ public class NewApplicationController extends BpaGenericApplicationController {
         bpaApplication.setStakeHolder(applicationStakeHolders); 
         applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
         bpaApplication.setAdmissionfeeAmount(applicationBpaService
-                .setAdmissionFeeAmountForRegistrationWithAmenities(String.valueOf(bpaApplication.getServiceType().getId()),bpaApplication.getApplicationAmenity()));
+                .setAdmissionFeeAmountForRegistrationWithAmenities(String.valueOf(bpaApplication.getServiceType().getId()),new ArrayList<ServiceType>()));
         BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication);
         return genericBillGeneratorService.generateBillAndRedirectToCollection(bpaApplicationRes, model);
     }
