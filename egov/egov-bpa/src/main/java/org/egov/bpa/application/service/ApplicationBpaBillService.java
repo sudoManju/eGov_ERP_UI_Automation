@@ -185,14 +185,16 @@ public class ApplicationBpaBillService extends BillServiceInterface {
 				moduleService.getModuleByName(BpaConstants.EGMODULE_NAME), new Date(), BpaConstants.YEARLY);
 		// Not updating demand amount collected for new connection as per the
 		// discussion.
-		List<Long> serviceTypeList = new ArrayList<>();
-		for (ServiceType serviceType : application.getApplicationAmenity()) {
-			serviceTypeList.add(serviceType.getId());
-		}
-		Criteria feeCrit = getBpaFeeCriteria(serviceTypeList, BpaConstants.BPAFEETYPE);
-		List<BpaFeeDetail> bpaFeeDetails = feeCrit.list();
-		for (final BpaFeeDetail feeDetail : bpaFeeDetails) {
-			feeDetails.put(feeDetail.getBpafee().getCode(), BigDecimal.valueOf(feeDetail.getAmount()));
+		if (!application.getApplicationAmenity().isEmpty()) {
+			List<Long> serviceTypeList = new ArrayList<>();
+			for (ServiceType serviceType : application.getApplicationAmenity()) {
+				serviceTypeList.add(serviceType.getId());
+			}
+			Criteria feeCrit = getBpaFeeCriteria(serviceTypeList, BpaConstants.BPAFEETYPE);
+			List<BpaFeeDetail> bpaFeeDetails = feeCrit.list();
+			for (final BpaFeeDetail feeDetail : bpaFeeDetails) {
+				feeDetails.put(feeDetail.getBpafee().getCode(), BigDecimal.valueOf(feeDetail.getAmount()));
+			}
 		}
 		List<BpaFee> bpaAdmissionFees = bpaFeeService
 				.getAllActiveSanctionFeesByServiceId(application.getServiceType().getId(), BpaConstants.BPAFEETYPE);
