@@ -96,4 +96,19 @@ public class UserServiceResource {
 
         return response;
     }
+
+    public Response getLoginUserDetails(String json, String access_token) {
+
+        new APILogger().log("Login User Details Request is Started with--" + json);
+
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(json)
+                .when()
+                .post(Properties.loginUserDetailsUrl+access_token);
+
+        new APILogger().log("Login User Details Response is Generated as--" + response.asString());
+
+        return response;
+    }
 }

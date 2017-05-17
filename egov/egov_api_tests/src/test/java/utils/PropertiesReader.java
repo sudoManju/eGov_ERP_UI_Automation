@@ -69,6 +69,10 @@ public class PropertiesReader {
     public String getUserUpdateUrl() {
         return prop.getProperty("userUpdateUrl");
     }
+    public String getLoginUserDetailsUrl() {
+        return prop.getProperty("loginUserDetailsUrl");
+    }
+
     //      PGR Module Url's      //
     public String getPGRComplaintUrl() {
         return prop.getProperty("getPGRComplaintUrl");
