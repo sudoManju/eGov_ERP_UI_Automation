@@ -101,9 +101,9 @@ public class BpaNoticeService {
         ReportOutput reportOutput;
         String reportFileName = null;
         if (null != bpaApplication) {
-			if (BpaConstants.getServicesForBuildPermit().contains(bpaApplication.getServiceType().getDescription())) {
+			if (BpaConstants.getServicesForBuildPermit().contains(bpaApplication.getServiceType().getCode())) {
 				reportFileName = BUILDINGPERMITFILENAME;
-			} else if (BpaConstants.getServicesForDevelopPermit().contains(bpaApplication.getServiceType().getDescription())) {
+			} else if (BpaConstants.getServicesForDevelopPermit().contains(bpaApplication.getServiceType().getCode())) {
 				reportFileName = BUILDINGDEVELOPPERMITFILENAME;
 			} else {
 				reportFileName = BUILDINGPERMITFILENAME;

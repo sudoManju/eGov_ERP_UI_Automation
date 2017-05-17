@@ -50,6 +50,7 @@ import org.egov.bpa.application.entity.ApplicationFee;
 import org.egov.bpa.application.entity.ApplicationFeeDetail;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaFee;
+import org.egov.bpa.application.service.ApplicationBpaFeeCalculationService;
 import org.egov.bpa.application.service.ApplicationBpaService;
 import org.egov.bpa.masters.service.BpaFeeService;
 import org.egov.bpa.service.ApplicationFeeService;
@@ -96,7 +97,8 @@ public class BpaFeeController {
     protected ResourceBundleMessageSource messageSource;
     @Autowired
     protected BpaDemandService bpaDemandService;
-
+    @Autowired
+    private ApplicationBpaFeeCalculationService applicationBpaFeeCalculationService;
     @ModelAttribute
     public ApplicationFee getBpaApplication(@PathVariable final String applicationNumber) {
         BpaApplication bpaApplication = applicationBpaService.findByApplicationNumber(applicationNumber);
@@ -117,7 +119,7 @@ public class BpaFeeController {
     @RequestMapping(value = "/calculateFee/{applicationNumber}", method = RequestMethod.GET)
     public String calculateFeeform(final Model model, @PathVariable final String applicationNumber,
             final HttpServletRequest request) {
-        final ApplicationFee applicationFee = getBpaApplication(applicationNumber);
+        ApplicationFee applicationFee = getBpaApplication(applicationNumber);
         if (applicationFee != null && applicationFee.getApplication() != null
                             ) {
             loadViewdata(model, applicationFee);
@@ -131,6 +133,7 @@ public class BpaFeeController {
             if (getAppConfigValueByPassingModuleAndType(BpaConstants.EGMODULE_NAME, BpaConstants.AUTOCALCULATEFEEBYINSPECTION)) {
                 // calculate fee by passing sanction list, inspection latest object.
                 // based on fee code, define calculation logic for each servicewise.
+                applicationFee = applicationBpaFeeCalculationService.calculateBpaSanctionFees(applicationFee.getApplication());
             } else {
 
                 if (applicationFee.getId() == null) {

@@ -112,6 +112,7 @@ public class SiteDetail extends AbstractAuditable {
     private String sitePincode;
     @Length(min = 1, max = 128)
     private String natureofOwnership;
+    private BigDecimal extentOfLand;
     private BigDecimal extentinsqmts; // --cochin req
     @NotNull
     @Enumerated(EnumType.ORDINAL)
@@ -137,9 +138,11 @@ public class SiteDetail extends AbstractAuditable {
     private BigDecimal lengthOfCompoundWall;
     private BigDecimal dwellingunitnt;
     private String locationOfPlot;
-    private String roofConversion;
-    private String shutter;
-    private String erectionoftower;
+    private BigDecimal roofConversion;
+    private BigDecimal shutter;
+    private BigDecimal erectionoftower;
+    private BigDecimal noOfPoles;
+    private BigDecimal noOfHutOrSheds;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="conststages")
     private ConstructionStages constStages;
@@ -445,28 +448,44 @@ public class SiteDetail extends AbstractAuditable {
 		this.locationOfPlot = locationOfPlot;
 	}
 
-	public String getRoofConversion() {
+	public BigDecimal getRoofConversion() {
 		return roofConversion;
 	}
 
-	public void setRoofConversion(String roofConversion) {
+	public void setRoofConversion(BigDecimal roofConversion) {
 		this.roofConversion = roofConversion;
 	}
 
-	public String getShutter() {
+	public BigDecimal getShutter() {
 		return shutter;
 	}
 
-	public void setShutter(String shutter) {
+	public void setShutter(BigDecimal shutter) {
 		this.shutter = shutter;
 	}
 
-	public String getErectionoftower() {
+	public BigDecimal getErectionoftower() {
 		return erectionoftower;
 	}
 
-	public void setErectionoftower(String erectionoftower) {
+	public void setErectionoftower(BigDecimal erectionoftower) {
 		this.erectionoftower = erectionoftower;
+	}
+	
+	public BigDecimal getNoOfPoles() {
+		return noOfPoles;
+	}
+
+	public void setNoOfPoles(BigDecimal noOfPoles) {
+		this.noOfPoles = noOfPoles;
+	}
+
+	public BigDecimal getNoOfHutOrSheds() {
+		return noOfHutOrSheds;
+	}
+
+	public void setNoOfHutOrSheds(BigDecimal noOfHutOrSheds) {
+		this.noOfHutOrSheds = noOfHutOrSheds;
 	}
 
 	public BpaUom getUnitOfMeasurement() {
@@ -499,6 +518,14 @@ public class SiteDetail extends AbstractAuditable {
 
 	public void setIsappForRegularization(Boolean isappForRegularization) {
 		this.isappForRegularization = isappForRegularization;
+	}
+
+	public BigDecimal getExtentOfLand() {
+		return extentOfLand;
+	}
+
+	public void setExtentOfLand(BigDecimal extentOfLand) {
+		this.extentOfLand = extentOfLand;
 	}
 	
 	

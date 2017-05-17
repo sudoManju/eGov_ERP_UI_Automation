@@ -48,56 +48,22 @@
 </div>
 
 <div class="panel-body">
-	<div class="row add-border">
-		<div class="col-sm-3 add-margin">Building Unit Count</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.buildingDetail[0].unitCount}"
-				default="N/A"></c:out>
-		</div>
-		<div class="col-sm-3 add-margin">Building Unit Classification</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.buildingDetail[0].unitClassification}"
-				default="N/A"></c:out>
-		</div>
-	</div>
+	
 	<div class="row add-border">
 		<div class="col-sm-3 add-margin">Building Floor Count</div>
 		<div class="col-sm-3 add-margin view-content">
 			<c:out value="${bpaApplication.buildingDetail[0].floorCount}"
 				default="N/A"></c:out>
 		</div>
-		<div class="col-sm-3 add-margin">Building No. Of Basement Unit</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.buildingDetail[0].noofbasementUnit}"
-				default="N/A"></c:out>
-		</div>
-	</div>
-	<div class="row add-border">
 		<div class="col-sm-3 add-margin">Building Height Ground</div>
 		<div class="col-sm-3 add-margin view-content">
 			<c:out
 				value="${bpaApplication.buildingDetail[0].buildingheightGround}"
 				default="N/A"></c:out>
 		</div>
-		<div class="col-sm-3 add-margin">Building Height Floor</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out
-				value="${bpaApplication.buildingDetail[0].buildingheightFloor}"
-				default="N/A"></c:out>
-		</div>
 	</div>
-	<div class="row add-border">
-		<div class="col-sm-3 add-margin">Building No Of Upper Floor</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.buildingDetail[0].noofupperFloor}"
-				default="N/A"></c:out>
-		</div>
-		<div class="col-sm-3 add-margin">Building No Of Dwelling Unit</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.buildingDetail[0].noofdwellingUnit}"
-				default="N/A"></c:out>
-		</div>
-	</div>
+	
+	
 	<div class="row add-border">
 		<div class="col-sm-3 add-margin">Building Proposed Sital (in
 			Sqmt)</div>
@@ -124,20 +90,7 @@
 				default="N/A"></c:out>
 		</div>
 	</div>
-	<div class="row add-border">
-		<div class="col-sm-3 add-margin">Existing Building Category</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out
-				value="${bpaApplication.buildingDetail[0].existBldgCategory.description}"
-				default="N/A"></c:out>
-		</div>
-		<div class="col-sm-3 add-margin">Proposed Building Category</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out
-				value="${bpaApplication.buildingDetail[0].proposedBldgCategory.description}"
-				default="N/A"></c:out>
-		</div>
-	</div>
+	
 	<div class="row add-border">
 		<div class="col-sm-3 add-margin">Building Is Ground Floor</div>
 		<div class="col-sm-3 add-margin view-content">
@@ -160,8 +113,8 @@
 				default="N/A"></c:out>
 		</div>
 	</div>
-
-	<div class="panel-heading custom_form_panel_heading">
+	<c:if test="${not empty bpaApplication.buildingDetail[0].applicationFloorDetails}">
+		<div class="panel-heading custom_form_panel_heading">
 		<div class="panel-title">Building Plinth and Carpet Area
 			Details :</div>
 	</div>
@@ -216,4 +169,5 @@
 			</tr>
 		</tfoot>
 	</table>
+	</c:if>
 </div>

@@ -39,13 +39,32 @@
  */
 package org.egov.bpa.utils;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BpaConstants {
-
-    public static final String ZONE = "Zone";
+	public static final String ST_CODE_01 = "01";
+	public static final String ST_CODE_02 = "02";
+	public static final String ST_CODE_03 = "03";
+	public static final String ST_CODE_04 = "04";
+	public static final String ST_CODE_05 = "05";
+	public static final String ST_CODE_06 = "06";
+	public static final String ST_CODE_07 = "07";
+	public static final String RE_DEVELOPMENT_OF_LAND = "Re-development of land";
+    public static final String DEVELOPMENT_OF_LAND = "Development of land";
+    public static final String REGULARIZATION = "Regularization";
+	public static final String CHANGE_IN_OCCUPANCY = "Change in Occupancy";
+	public static final String ADDING_OF_EXTENSION = "Adding of Extension";
+	public static final String ALTERATION = "Alteration";
+	public static final String DIVISION_OF_PLOT = "Division of Plot";
+	public static final String RECONSTRUCTION = "Reconstruction";
+	public static final String DEMOLITION = "Demolition";
+	public static final String NEW_CONSTRUCTION = "New Construction";
+	public static final String ZONE = "Zone";
     public static final String WARD = "Ward";
     public static final String BLOCK = "Block";
     public static final String STREET = "Street";
@@ -172,32 +191,25 @@ public class BpaConstants {
     public static final String BUILDINGPERMITFILENAME = "buildingpermit";
     public static final String BUILDINGDEVELOPPERMITFILENAME = "buildingdeveloppermit";
     public static final String GENERATEPERMITORDER = "Generate Permit Order";
+    public static final String TOTAL_PLINT_AREA = "totalPlintArea";
+    public static final String BUILDINGHEIGHT_GROUND = "buildingheightGround";
+	public static final String FLOOR_COUNT = "floorCount";
+	public static final String EXTENTINSQMTS = "extentinsqmts";
 	private static final List<String> BUILDPERMIT = new ArrayList<>();
 	static {
-		BUILDPERMIT.add("New Construction");
-		BUILDPERMIT.add("Demolition");
-		BUILDPERMIT.add("Reconstruction");
-		BUILDPERMIT.add("Division of Plot");
-		BUILDPERMIT.add("Alteration");
-		BUILDPERMIT.add("Adding of Extension");
-		BUILDPERMIT.add("Change in Occupancy");
-		BUILDPERMIT.add("Regularization");
+		BUILDPERMIT.add(ST_CODE_02); // Demolition
+		BUILDPERMIT.add(ST_CODE_01); // New Construction
+		BUILDPERMIT.add(ST_CODE_03); // Reconstruction
+		BUILDPERMIT.add(ST_CODE_04); // Alteration
+		BUILDPERMIT.add(ST_CODE_06); // Adding of Extension
+		BUILDPERMIT.add(ST_CODE_07); // Change in Occupancy
 	}
 
 	private static final List<String> DEVELOPPERMIT = new ArrayList<>();
 	static {
-		DEVELOPPERMIT.add("Development of land");
-		DEVELOPPERMIT.add("Re-development of land");
+		DEVELOPPERMIT.add(ST_CODE_05);
 	}
 
-	public static List<String> getServicesForBuildPermit() {
-		return Collections.unmodifiableList(BUILDPERMIT);
-	}
-
-	public static List<String> getServicesForDevelopPermit() {
-		return Collections.unmodifiableList(DEVELOPPERMIT);
-	}
-	
 	private static final List<String> FLOORLIST = new ArrayList<>();
 	static {
 		FLOORLIST.add("Basement 3");
@@ -220,7 +232,95 @@ public class BpaConstants {
 		FLOORLIST.add("Fourteenth Floor");
 		FLOORLIST.add("Fifteenth Floor");
 	}
+	
+	private static final Map<String, Map<String, BigDecimal>> STAKEHOLDERRESTRICTIONS = new HashMap<>();
+	static {
+		Map<String, BigDecimal> architectRestriction = new HashMap<>();
+		architectRestriction.put(EXTENTINSQMTS, BigDecimal.valueOf(10000));
+		architectRestriction.put(TOTAL_PLINT_AREA, BigDecimal.valueOf(1500));
+		architectRestriction.put(FLOOR_COUNT, BigDecimal.valueOf(3));
+		architectRestriction.put(BUILDINGHEIGHT_GROUND, BigDecimal.valueOf(11));
+		STAKEHOLDERRESTRICTIONS.put("architect", architectRestriction);
+		STAKEHOLDERRESTRICTIONS.put("Building Designer-A", architectRestriction);
+		STAKEHOLDERRESTRICTIONS.put("Engineer-A", architectRestriction);
+	}
+	static {
+		Map<String, BigDecimal> buildingDesingerBRestriction = new HashMap<>();
+		buildingDesingerBRestriction.put(EXTENTINSQMTS, BigDecimal.valueOf(5000));
+		buildingDesingerBRestriction.put(TOTAL_PLINT_AREA, BigDecimal.valueOf(4000));
+		buildingDesingerBRestriction.put(FLOOR_COUNT, BigDecimal.valueOf(4));
+		buildingDesingerBRestriction.put(BUILDINGHEIGHT_GROUND, BigDecimal.valueOf(14.5));
+		STAKEHOLDERRESTRICTIONS.put("Building Designer-B", buildingDesingerBRestriction);
+		STAKEHOLDERRESTRICTIONS.put("Engineer-B", buildingDesingerBRestriction);
+	}
+	static {
+		Map<String, BigDecimal> engineerARestriction = new HashMap<>();
+		engineerARestriction.put(EXTENTINSQMTS, BigDecimal.valueOf(10000));
+		engineerARestriction.put(TOTAL_PLINT_AREA, BigDecimal.valueOf(2250));
+		engineerARestriction.put(FLOOR_COUNT, BigDecimal.valueOf(3));
+		engineerARestriction.put(BUILDINGHEIGHT_GROUND, BigDecimal.valueOf(11));
+		STAKEHOLDERRESTRICTIONS.put("Supervisor-A", engineerARestriction);
+	}
+	static {
+		Map<String, BigDecimal> engineerARestriction = new HashMap<>();
+		engineerARestriction.put(EXTENTINSQMTS, BigDecimal.valueOf(3000));
+		engineerARestriction.put(TOTAL_PLINT_AREA, BigDecimal.valueOf(300));
+		engineerARestriction.put(FLOOR_COUNT, BigDecimal.valueOf(2));
+		engineerARestriction.put(BUILDINGHEIGHT_GROUND, BigDecimal.valueOf(7.5));
+		STAKEHOLDERRESTRICTIONS.put("Supervisor-B", engineerARestriction);
+	}
+
+	private static final List<String> BPAFEECATEGORY1 = new ArrayList<>();
+	static {
+		BPAFEECATEGORY1.add(ST_CODE_01); // New Construction
+		BPAFEECATEGORY1.add(ST_CODE_02); // Demolition
+		BPAFEECATEGORY1.add(ST_CODE_03); // Reconstruction
+		BPAFEECATEGORY1.add(ST_CODE_04); // Alteration
+		BPAFEECATEGORY1.add(ST_CODE_06); // Adding of Extension
+		BPAFEECATEGORY1.add(ST_CODE_07); // Change in Occupancy
+	}
+	
+	private static final List<String> VALIDATIONPUPOSE = new ArrayList<>();
+	static {
+		VALIDATIONPUPOSE.add(ST_CODE_02); // Demolition
+		VALIDATIONPUPOSE.add(ST_CODE_01); // New Construction
+		VALIDATIONPUPOSE.add(ST_CODE_03); // Reconstruction
+		VALIDATIONPUPOSE.add(ST_CODE_04); // Alteration
+		VALIDATIONPUPOSE.add(ST_CODE_06); // Adding of Extension
+		VALIDATIONPUPOSE.add(ST_CODE_07); // Change in Occupancy
+		VALIDATIONPUPOSE.add(ST_CODE_05); // Sub-Division of Plot/Development of land
+	}
+	
+	private static final List<String> BPAFEECATEGORY2 = new ArrayList<>();
+	static {
+		BPAFEECATEGORY2.add(ST_CODE_05);     // Sub-Division of Plot/Development of land
+	}
+	
+	public static Map<String, Map<String, BigDecimal>> getStakeholderRestrictions() {
+		return Collections.unmodifiableMap(STAKEHOLDERRESTRICTIONS);
+	}
+	
 	public static List<String> getBuildingFloorsList() {
 		return Collections.unmodifiableList(FLOORLIST);
+	}
+	
+	public static List<String> getServicesForBuildPermit() {
+		return Collections.unmodifiableList(BUILDPERMIT);
+	}
+
+	public static List<String> getServicesForDevelopPermit() {
+		return Collections.unmodifiableList(DEVELOPPERMIT);
+	}
+	
+	public static List<String> getBpaFeeCateory1() {
+		return Collections.unmodifiableList(BPAFEECATEGORY1);
+	}
+	
+	public static List<String> getBpaFeeCateory2() {
+		return Collections.unmodifiableList(BPAFEECATEGORY2);
+	}
+	
+	public static List<String> getServicesForValidation() {
+		return Collections.unmodifiableList(VALIDATIONPUPOSE);
 	}
 }

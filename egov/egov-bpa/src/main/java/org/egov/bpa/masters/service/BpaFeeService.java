@@ -41,9 +41,15 @@ package org.egov.bpa.masters.service;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.egov.bpa.application.entity.BpaFee;
 import org.egov.bpa.masters.repository.BpaFeeRepository;
 import org.egov.bpa.utils.BpaConstants;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,15 +58,32 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class BpaFeeService {
 
-    @Autowired
-    private BpaFeeRepository bpaFeeRepository;
+	@Autowired
+	private BpaFeeRepository bpaFeeRepository;
+	@PersistenceContext
+	private EntityManager entityManager;
 
-    public List<BpaFee> findAll() {
-        return bpaFeeRepository.findAll();
-    }
+	public List<BpaFee> findAll() {
+		return bpaFeeRepository.findAll();
+	}
 
-    public List<BpaFee> getAllActiveSanctionFeesByServiceId(Long serviceTypeId){
-        return bpaFeeRepository.getAllActiveBpaFeesbyFeeTypeAndServiceTypeId(serviceTypeId,BpaConstants.FEETYPE_SANCTIONFEE);
-    }
-    
+	public Session getCurrentSession() {
+		return entityManager.unwrap(Session.class);
+	}
+
+	public List<BpaFee> getAllActiveSanctionFeesByServiceId(Long serviceTypeId) {
+		return bpaFeeRepository.getAllActiveBpaFeesbyFeeTypeAndServiceTypeId(serviceTypeId,
+				BpaConstants.FEETYPE_SANCTIONFEE);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<BpaFee> getActiveSanctionFeeForListOfServices(List<Long> serviceTypeList) {
+		final Criteria feeCrit = getCurrentSession().createCriteria(BpaFee.class, "bpaFeeObj")
+				.createAlias("bpaFeeObj.serviceType", "servicetypeObj");
+		feeCrit.add(Restrictions.in("servicetypeObj.id", serviceTypeList));
+		feeCrit.add(Restrictions.eq("bpaFeeObj.isActive", Boolean.TRUE));
+		feeCrit.add(Restrictions.ilike("bpaFeeObj.feeType", BpaConstants.FEETYPE_SANCTIONFEE));
+		return feeCrit.list();
+	}
+
 }

@@ -42,7 +42,10 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn"%>
-	
+
+<div class="panel-heading custom_form_panel_heading">
+	<div class="panel-title">Services and Amenities Measurement Details</div>
+</div>
 	<div class="form-group">
 	<label class="col-sm-3 control-label text-right"><spring:message code="lbl.number.well"/></label>
 	<div class="col-sm-3 add-margin">
@@ -61,7 +64,24 @@
 			cssClass="add-margin error-msg" />
 	</div>
 	</div>
-
+	<div class="form-group">
+	<label class="col-sm-3 control-label text-right"><spring:message code="lbl.no.of.poles"/></label>
+	<div class="col-sm-3 add-margin">
+		<form:input  class="form-control patternvalidation" data-pattern="number"
+		  id="dwellingunitnt" 
+			path="siteDetail[0].noOfPoles" />In Numbers
+		<form:errors path="siteDetail[0].noOfPoles" 
+			cssClass="add-margin error-msg" />
+	</div>
+	<label class="col-sm-2 control-label text-right"><spring:message code="lbl.no.of.shuts.huts"/></label>
+	<div class="col-sm-3 add-margin">
+		<form:input class="form-control patternvalidation" data-pattern="decimalvalue"
+			id="roofConversion"
+			path="siteDetail[0].noOfHutOrSheds" /> In Numbers
+		<form:errors path="siteDetail[0].noOfHutOrSheds" 
+			cssClass="add-margin error-msg" />
+	</div>
+	</div>
 
 	
 	<div class="form-group">
@@ -89,9 +109,9 @@
 	</label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation" maxlength="10"
-			data-pattern="decimalvalue" id="extentinsqmts" required="required"
-			path="siteDetail[0].extentinsqmts" />
-		<form:errors path="siteDetail[0].extentinsqmts"
+			data-pattern="decimalvalue" id="extentOfLand" required="required"
+			path="siteDetail[0].extentOfLand" />
+		<form:errors path="siteDetail[0].extentOfLand"
 			cssClass="add-margin error-msg" />
 	
 

@@ -160,7 +160,7 @@
 			<spring:message code="lbl.occupancy" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.occupancy}" default="N/A"></c:out>
+			<c:out value="${bpaApplication.occupancy.description}" default="N/A"></c:out>
 		</div>
 	</div>
 

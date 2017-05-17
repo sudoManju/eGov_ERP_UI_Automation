@@ -44,65 +44,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <div class="panel-heading custom_form_panel_heading">
 	<div class="panel-title">Building Details</div>
 </div>
 
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right">Existing
-		Building Category <span class="mandatory"></span>
-	</label>
-	<div class="col-sm-3 add-margin">
-		<form:select path="buildingDetail[0].existBldgCategory"
-			data-first-option="false" id="" cssClass="form-control"
-			required="required">
-			<form:option value="">
-				<spring:message code="lbl.select" />
-			</form:option>
-			<form:options items="${buildingCategorYlist}" itemValue="id"
-				itemLabel="code" />
-		</form:select>
-		<form:errors path="buildingDetail[0].existBldgCategory"
-			cssClass="add-margin error-msg" />
-	</div>
-	<label class="col-sm-2 control-label text-right">Proposed
-		Building Category <span class="mandatory"></span>
-	</label>
-	<div class="col-sm-3 add-margin">
-		<form:select path="buildingDetail[0].proposedBldgCategory"
-			data-first-option="false" id="" cssClass="form-control"
-			required="required">
-			<form:option value="">
-				<spring:message code="lbl.select" />
-			</form:option>
-			<form:options items="${buildingCategorYlist}" itemValue="id"
-				itemLabel="code" />
-		</form:select>
-		<form:errors path="buildingDetail[0].proposedBldgCategory"
-			cssClass="add-margin error-msg" />
-	</div>
-</div>
-<%-- <div class="form-group">
-	<label class="col-sm-3 control-label text-right">Building
-		Unit Count</label>
-	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="5" data-pattern="number"
-			id="unitCount" path="buildingDetail[0].unitCount" />
-		<form:errors path="buildingDetail[0].unitCount"
-			cssClass="add-margin error-msg" />
-	</div>
-	<label class="col-sm-2 control-label text-right">Building
-		Unit Classification</label>
-	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation"  maxlength="64" data-pattern="alphanumericwithspace"
-			id="unitClassification" path="buildingDetail[0].unitClassification" />
-		<form:errors path="buildingDetail[0].unitClassification"
-			cssClass="add-margin error-msg" />
-	</div>
-</div>
-<div class="form-group">
-	<label class="col-sm-3 control-label text-right">Building
-		Floor Count</label>
+	<label class="col-sm-3 control-label text-right">Building Total Floor
+		Count</label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
 			data-pattern="number" maxlength="5" id="floorCount"
@@ -111,67 +60,11 @@
 			cssClass="add-margin error-msg" />
 	</div>
 	<label class="col-sm-2 control-label text-right">Building
-		No. Of Basement Unit </label>
-	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="5" data-pattern="number"
-			id="noofbasementUnit" path="buildingDetail[0].noofbasementUnit" />
-		<form:errors path="buildingDetail[0].noofbasementUnit"
-			cssClass="add-margin error-msg" />
-	</div>
-</div>
-<div class="form-group">
-	<label class="col-sm-3 control-label text-right">Building
-		Height Groud </label>
-	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="10" data-pattern="decimalvalue"
-			id="buildingheightGround"
-			path="buildingDetail[0].buildingheightGround" />
-		<form:errors path="buildingDetail[0].buildingheightGround"
-			cssClass="add-margin error-msg" />
-	</div>
-	<label class="col-sm-2 control-label text-right">Building
-		Height Floor</label>
-	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation"  maxlength="5" data-pattern="decimalvalue"
-			id="buildingheightFloor" path="buildingDetail[0].buildingheightFloor" />
-		<form:errors path="buildingDetail[0].buildingheightFloor"
-			cssClass="add-margin error-msg" />
-	</div>
-</div>
-<div class="form-group">
-	<label class="col-sm-3 control-label text-right">Building
-		No Of Upper Floor </label>
-	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" id="noofupperFloor" maxlength="5" data-pattern="number"
-			path="buildingDetail[0].noofupperFloor" />
-		<form:errors path="buildingDetail[0].noofupperFloor"
-			cssClass="add-margin error-msg" />
-	</div>
-	<label class="col-sm-2 control-label text-right">Building
-		No Of Dwelling Unit </label>
-	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="5" data-pattern="number"
-			id="noofdwellingUnit" path="buildingDetail[0].noofdwellingUnit" />
-		<form:errors path="buildingDetail[0].noofdwellingUnit"
-			cssClass="add-margin error-msg" />
-	</div>
-</div> --%>
-<div class="form-group">
-	<label class="col-sm-3 control-label text-right">Building Total Floor
-		Count<span class="mandatory"></span></label>
-	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation"
-			data-pattern="number" maxlength="5" id="floorCount"
-			path="buildingDetail[0].floorCount" required="required" />
-		<form:errors path="buildingDetail[0].floorCount"
-			cssClass="add-margin error-msg" />
-	</div>
-	<label class="col-sm-2 control-label text-right">Building
-		Height From Ground <span class="mandatory"></span> </label>
+		Height From Ground </label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation" maxlength="10"
 			data-pattern="decimalvalue" id="buildingheightGround"
-			path="buildingDetail[0].buildingheightGround" required="required" />in Sq Mtr.
+			path="buildingDetail[0].buildingheightGround" />in Sq Mtr.
 		<form:errors path="buildingDetail[0].buildingheightGround"
 			cssClass="add-margin error-msg" />
 	</div>
@@ -304,7 +197,7 @@
 							path="buildingDetail[0].applicationFloorDetails[0].floorDescription"
 							data-first-option="false"
 							id="applicationFloorDetails[0]floorDescription"
-							cssClass="form-control" required="required" maxlength="128">
+							cssClass="form-control" maxlength="128">
 							<form:option value="">
 								<spring:message code="lbl.select" />
 							</form:option>

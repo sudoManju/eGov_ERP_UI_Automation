@@ -9,7 +9,7 @@ update egbpa_mstr_servicetype set servicenumberprefix='AMT' where code='08';
 update egbpa_mstr_servicetype set servicenumberprefix='CW' where code='11';
 update egbpa_mstr_servicetype set servicenumberprefix='SDC' where code='12';
 update egbpa_mstr_servicetype set servicenumberprefix='PS' where code='15';
-
+delete from EGBPA_MSTR_OCCUPANCY where  description='Thatched / Tiled House';
 insert into EGBPA_MSTR_OCCUPANCY (id,code,description,isactive,version,createdBy,createdDate,lastModifiedBy,lastModifiedDate, occupantDoors,noofOccupancy,occupantLoad) values(nextval('SEQ_EGBPA_MSTR_OCCUPANCY'), '14','Thatched / Tiled House',true,0,1,now(),1,now(),null,null,null);
 
 delete from egbpa_application_feedetails;
@@ -434,4 +434,18 @@ INSERT INTO EG_DEMAND_REASON_MASTER ( ID, REASONMASTER, "category", ISDEBIT, mod
 INSERT into EG_DEMAND_REASON (ID,ID_DEMAND_REASON_MASTER,ID_INSTALLMENT,PERCENTAGE_BASIS,ID_BASE_REASON,create_date,modified_date,GLCODEID) (select (nextval('seq_eg_demand_reason')), (select id from eg_demand_reason_master where code='1006' and module=(select id from eg_module where name='BPA' and parentmodule is null)), inst.id, null, null, current_timestamp, current_timestamp, null from eg_installment_master inst where inst.id_module=(select id from eg_module where name='BPA' and parentmodule is null));
 
 
+update egbpa_mstr_bpafeedetail set amount=0 where  bpafee = (select id from egbpa_mstr_bpafee where code ='002');
 
+delete from egbpa_mstr_bpafeedetail where bpafee = (select id from egbpa_mstr_bpafee where code = '701');
+insert into egbpa_mstr_bpafeedetail (id,bpafee,fromareasqmt,toareasqmt,amount,subtype,startdate,CREATEDBY, createddate,additionaltype) values (
+nextval('SEQ_EGBPA_MSTR_BPAFEEDETAIL'), (select id from egbpa_mstr_bpafee where code='701'),null,null,5,null,now(),1,now(),null );
+delete from egbpa_mstr_bpafeedetail where bpafee = (select id from egbpa_mstr_bpafee where code = '901');
+insert into egbpa_mstr_bpafeedetail (id,bpafee,fromareasqmt,toareasqmt,amount,subtype,startdate,CREATEDBY, createddate,additionaltype) values (
+nextval('SEQ_EGBPA_MSTR_BPAFEEDETAIL'), (select id from egbpa_mstr_bpafee where code='901'),null,null,75,null,now(),1,now(),null  );
+update egbpa_mstr_bpafeedetail set amount=15 where additionaltype='Others' and bpafee in (select id from egbpa_mstr_bpafee where code in ('101','301','401','601'));
+update egbpa_mstr_bpafeedetail set amount=3 where additionaltype='Thatched / Tiled House' and bpafee in (select id from egbpa_mstr_bpafee where code in ('101','301','401','601'));
+
+delete from eg_demand_reason  where id_demand_reason_master  = (select id from eg_demand_reason_master where code = '902');
+delete from eg_demand_reason_master where code = '902';
+delete from egbpa_mstr_bpafeedetail where bpafee = (select id from egbpa_mstr_bpafee where code='902');
+delete from egbpa_mstr_bpafee where code = '902';

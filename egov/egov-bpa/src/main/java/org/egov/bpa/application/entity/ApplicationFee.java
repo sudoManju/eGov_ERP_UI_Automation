@@ -64,7 +64,7 @@ public class ApplicationFee extends StateAware {
     private Date feeDate;
     @Length(min = 1, max = 1024)
     private String feeRemarks;
-    @NotNull
+  
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "status")
     private BpaStatus status;
