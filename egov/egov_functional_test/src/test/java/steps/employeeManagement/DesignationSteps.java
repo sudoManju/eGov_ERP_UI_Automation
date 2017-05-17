@@ -11,6 +11,5 @@ public class DesignationSteps extends BaseSteps implements En {
         And("^user will enter the designation details for creation$", () -> {
             pageStore.get(DesignationPage.class).enterDesignationDetails();
         });
-
     }
 }
