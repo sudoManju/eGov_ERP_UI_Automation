@@ -78,10 +78,10 @@ public class BuildingDetail extends AbstractAuditable {
     private Boolean isStiltFloor;
     private Boolean isMezzanineFloor;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "existBldgcategory", nullable = false)
+    @JoinColumn(name = "existBldgcategory")
     private BuildingCategory existBldgCategory;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "proposedBldgCategory", nullable = false)
+    @JoinColumn(name = "proposedBldgCategory")
     private BuildingCategory proposedBldgCategory;
     private BigDecimal proposedSitalinSqmt;
     private BigDecimal proposedfloorArea;
