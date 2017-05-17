@@ -1,16 +1,12 @@
 package pages.employeeManagement.employeeCreation;
 
-import entities.employeeManagement.EmployeeDetails;
-import org.openqa.selenium.By;
+import entities.employeeManagement.createEmployee.EmployeeDetails;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
 import java.util.List;
-import java.util.Random;
-import java.util.stream.IntStream;
 
 public class EmployeeDetailsPage extends BasePage {
 

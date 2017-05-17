@@ -1,9 +1,9 @@
 package steps.employeeManagement;
 
 import cucumber.api.java8.En;
-import entities.employeeManagement.AssignmentDetails;
-import entities.employeeManagement.EmployeeDetails;
-import entities.employeeManagement.JurisdictionDetails;
+import entities.employeeManagement.createEmployee.AssignmentDetails;
+import entities.employeeManagement.createEmployee.EmployeeDetails;
+import entities.employeeManagement.createEmployee.JurisdictionDetails;
 import excelDataFiles.EmployeeManagementDetailsDataReader;
 import pages.employeeManagement.employeeCreation.AssignmentDetailsPage;
 import pages.employeeManagement.employeeCreation.EmployeeDetailsPage;

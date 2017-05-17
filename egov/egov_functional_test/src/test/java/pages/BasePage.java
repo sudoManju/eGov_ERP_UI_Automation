@@ -3,17 +3,16 @@ package pages;
 import org.apache.commons.lang.math.RandomUtils;
 import org.junit.Assert;
 import org.openqa.selenium.*;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.Properties;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
@@ -80,6 +79,12 @@ public class BasePage {
         waitForElementToBeVisible(webElement, driver);
         waitForElementToBeClickable(webElement, driver);
         webElement.clear();
+        webElement.sendKeys(value);
+    }
+
+    protected void enterTextWithoutClearing(WebElement webElement, String value, WebDriver driver) {
+        waitForElementToBeVisible(webElement, driver);
+        waitForElementToBeClickable(webElement, driver);
         webElement.sendKeys(value);
     }
 
@@ -173,6 +178,13 @@ public class BasePage {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -i);
         return dateFormat.format(cal.getTime());
+    }
+
+    protected String getParticularMonthName(int monthId){
+        DateFormat fmt = new SimpleDateFormat("MMMM");
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, -monthId);
+        return fmt.format(cal.getTime());
     }
 
     protected void maximizeBrowserWindow(WebDriver webDriver) {

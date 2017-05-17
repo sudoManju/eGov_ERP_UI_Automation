@@ -1,6 +1,6 @@
-package builders.employeeManagement;
+package builders.employeeManagement.createEmployee;
 
-import entities.employeeManagement.EmployeeDetails;
+import entities.employeeManagement.createEmployee.EmployeeDetails;
 
 public final class EmployeeDetailsBuilder {
 

@@ -1,6 +1,6 @@
-package builders.employeeManagement;
+package builders.employeeManagement.createEmployee;
 
-import entities.employeeManagement.AssignmentDetails;
+import entities.employeeManagement.createEmployee.AssignmentDetails;
 
 public class AssignmentDetailsBuilder {
 

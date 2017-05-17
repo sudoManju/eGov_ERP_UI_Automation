@@ -1,5 +1,6 @@
 package steps.employeeManagement;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import pages.employeeManagement.leaveManagement.LeaveOpeningBalancePage;
 import steps.BaseSteps;
@@ -15,6 +16,5 @@ public class LeaveOpeningBalanceSteps extends BaseSteps implements En {
         And("^user will enter the no of days to an employee$", () -> {
             pageStore.get(LeaveOpeningBalancePage.class).enterDetailsOfLeaveOpeningBalance("10");
         });
-
     }
 }

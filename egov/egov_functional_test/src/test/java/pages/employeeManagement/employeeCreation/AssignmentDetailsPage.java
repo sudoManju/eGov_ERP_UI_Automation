@@ -1,6 +1,6 @@
 package pages.employeeManagement.employeeCreation;
 
-import entities.employeeManagement.AssignmentDetails;
+import entities.employeeManagement.createEmployee.AssignmentDetails;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

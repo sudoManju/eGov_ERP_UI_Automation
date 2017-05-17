@@ -1,6 +1,6 @@
 package pages.employeeManagement.employeeCreation;
 
-import entities.employeeManagement.JurisdictionDetails;
+import entities.employeeManagement.createEmployee.JurisdictionDetails;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

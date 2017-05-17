@@ -1,4 +1,4 @@
-package entities.employeeManagement;
+package entities.employeeManagement.createEmployee;
 
 public class EmployeeDetails {
 

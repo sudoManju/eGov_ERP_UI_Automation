@@ -1,6 +1,6 @@
-package builders.employeeManagement;
+package builders.employeeManagement.createEmployee;
 
-import entities.employeeManagement.JurisdictionDetails;
+import entities.employeeManagement.createEmployee.JurisdictionDetails;
 
 public final class JurisdictionDetailsBuilder {
 

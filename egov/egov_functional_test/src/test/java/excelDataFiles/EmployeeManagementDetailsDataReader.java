@@ -1,11 +1,13 @@
 package excelDataFiles;
 
-import builders.employeeManagement.AssignmentDetailsBuilder;
-import builders.employeeManagement.EmployeeDetailsBuilder;
-import builders.employeeManagement.JurisdictionDetailsBuilder;
-import entities.employeeManagement.AssignmentDetails;
-import entities.employeeManagement.EmployeeDetails;
-import entities.employeeManagement.JurisdictionDetails;
+import builders.employeeManagement.createAttendance.AllEmployeeCodeBuilder;
+import builders.employeeManagement.createEmployee.AssignmentDetailsBuilder;
+import builders.employeeManagement.createEmployee.EmployeeDetailsBuilder;
+import builders.employeeManagement.createEmployee.JurisdictionDetailsBuilder;
+import entities.employeeManagement.createAttendance.AllEmployeeCode;
+import entities.employeeManagement.createEmployee.AssignmentDetails;
+import entities.employeeManagement.createEmployee.EmployeeDetails;
+import entities.employeeManagement.createEmployee.JurisdictionDetails;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
@@ -14,12 +16,14 @@ public class EmployeeManagementDetailsDataReader extends ExcelReader {
     Sheet assignmentDetailsSheet;
     Sheet employeeDetailsSheet;
     Sheet jurisdictionDetailsSheet;
+    Sheet allEmployeeCodesSheet;
 
     public EmployeeManagementDetailsDataReader(String testData) {
         super(testData);
         assignmentDetailsSheet = workbook.getSheet("assignmentDetails");
         employeeDetailsSheet = workbook.getSheet("employeeDetails");
         jurisdictionDetailsSheet = workbook.getSheet("jurisdictionList");
+        allEmployeeCodesSheet = workbook.getSheet("allEmployeeCodes");
     }
 
     public AssignmentDetails getAssignmentDetails(String dataName) {
@@ -79,6 +83,15 @@ public class EmployeeManagementDetailsDataReader extends ExcelReader {
         return new JurisdictionDetailsBuilder()
                 .withJurisdictionType(JurisdictionType)
                 .withJurisdictionList(JurisdictionList)
+                .build();
+    }
+
+    public AllEmployeeCode getEmployeeCodeDetails(String dataId){
+        Row dataRow = readDataRow(allEmployeeCodesSheet, dataId);
+
+        String employeeCode = convertNumericToString(allEmployeeCodesSheet, dataRow, "employeeCode");
+        return new AllEmployeeCodeBuilder()
+                .withEmployeeCode(employeeCode)
                 .build();
     }
 }
