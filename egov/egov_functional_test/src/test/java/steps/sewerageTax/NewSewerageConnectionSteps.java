@@ -215,15 +215,15 @@ public class NewSewerageConnectionSteps extends BaseSteps implements En {
             pageStore.get(NewSewerageConnectionPage.class).generateClosureNotice();
         });
 
-        And("^he enter details for legacy sewerage connection with date as (\\w+)$", (String date) -> {
-            pageStore.get(NewSewerageConnectionPage.class).enterDetailsForLegacySewerageConnection(scenarioContext.getAssessmentNumber() , Integer.parseInt(date));
+        And("^he enter details for legacy sewerage connection$", () -> {
+            pageStore.get(NewSewerageConnectionPage.class).enterDetailsForLegacySewerageConnection(scenarioContext.getAssessmentNumber());
         });
         And("^he submit the application of legacy sewerage connection and closes the acknowledgement$", () -> {
             pageStore.get(NewSewerageConnectionPage.class).submit();
 
             scenarioContext.setApplicationNumber(pageStore.get(NewSewerageConnectionPage.class).getApplicationNumberForLegacyCreation());
 
-            scenarioContext.setAssessmentNumber(pageStore.get(NewSewerageConnectionPage.class).getSuccessMessage1());
+            scenarioContext.setActualMessage(pageStore.get(NewSewerageConnectionPage.class).getSuccessMessage1());
 
             pageStore.get(NewSewerageConnectionPage.class).close();
         });

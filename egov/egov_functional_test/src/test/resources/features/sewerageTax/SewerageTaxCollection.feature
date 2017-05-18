@@ -182,125 +182,18 @@ Feature: Create/renewal/closure of sewerage connection
       | cash        | creation3         | change3         |
 
   @SewerageTax @Sanity
-  Scenario Outline: Generate demand bill for legacy sewerage connection
+  Scenario: Generate demand bill for legacy sewerage connection
 
     Given commissioner logs in
     And user will select the required screen as "Data Entry Screen" with condition as "stms"
-    And he enter details for legacy sewerage connection with date as <date>
+    And he enter details for legacy sewerage connection
     And he submit the application of legacy sewerage connection and closes the acknowledgement
+    Then user will be notified by "successfully."
     And current user logs out
 
-#    When creator logs in
-#    And user will select the required screen as "search connection" with condition as "stms"
-#    And he search application and generate demand bill
-#    And current user logs out
-
-    Examples:
-      | date |
-      | 1    |
-      | 2    |
-      | 3    |
-      | 4    |
-      | 5    |
-      | 6    |
-      | 7    |
-      | 8    |
-      | 9    |
-      | 10   |
-      | 11   |
-      | 12   |
-      | 13   |
-      | 14   |
-      | 15   |
-      | 16   |
-      | 17   |
-      | 18   |
-      | 19   |
-      | 20   |
-      | 21   |
-      | 22   |
-      | 23   |
-      | 24   |
-      | 25   |
-      | 26   |
-      | 27   |
-      | 28   |
-      | 29   |
-      | 30   |
-      | 31   |
-      | 32   |
-      | 33   |
-      | 34   |
-      | 35   |
-      | 36   |
-      | 37   |
-      | 38   |
-      | 38   |
-      | 39   |
-      | 40   |
-      | 41   |
-      | 42   |
-      | 43   |
-      | 44   |
-      | 45   |
-      | 46   |
-      | 47   |
-      | 48   |
-      | 49   |
-      | 50   |
-      | 51   |
-      | 52   |
-      | 53   |
-      | 54   |
-      | 55   |
-      | 56   |
-      | 57   |
-      | 58   |
-      | 59   |
-      | 60   |
-      | 61   |
-      | 62   |
-      | 63   |
-      | 64   |
-      | 65   |
-      | 66   |
-      | 67   |
-      | 68   |
-      | 69   |
-      | 70   |
-      | 71   |
-      | 72   |
-      | 73   |
-      | 74   |
-      | 75   |
-      | 76   |
-      | 77   |
-      | 78   |
-      | 79   |
-      | 80   |
-      | 81   |
-      | 82   |
-      | 83   |
-      | 84   |
-      | 85   |
-      | 86   |
-      | 87   |
-      | 88   |
-      | 89   |
-      | 90   |
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    When creator logs in
+    And user will select the required screen as "search connection" with condition as "stms"
+    And he search application and generate demand bill
+    And current user logs out
 
 
