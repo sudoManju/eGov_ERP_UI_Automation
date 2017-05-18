@@ -170,14 +170,12 @@ public class PTISDataReader extends ExcelReader {
         String locality = getCellData(addressDetailsSheet, dataRow, "locality").getStringCellValue();
         String zoneNumber = getCellData(addressDetailsSheet, dataRow, "zoneNumber").getStringCellValue();
         String electionWard = getCellData(addressDetailsSheet, dataRow, "electionWard").getStringCellValue();
-        String doorNumber = convertNumericToString(addressDetailsSheet, dataRow, "doorNumber");
         String pinCode = convertNumericToString(addressDetailsSheet, dataRow, "pincode");
 
         return new AddressDetailsBuilder()
                 .withLocality(locality)
                 .withZoneNumber(zoneNumber)
                 .withElectionWard(electionWard)
-                .withDoorNumber(doorNumber)
                 .withPincode(pinCode).build();
     }
 
