@@ -71,4 +71,5 @@ public class Properties {
     public static final String searchEmployeeLeaveUrl = propertiesReader.getSearchEmployeeLeaveUrl();
     public static final String userUpdateUrl = propertiesReader.getUserUpdateUrl();
     public static final String loginUserDetailsUrl = propertiesReader.getLoginUserDetailsUrl();;
+    public static final String searchOtpUrl = propertiesReader.getSearchOtpUrl();
 }

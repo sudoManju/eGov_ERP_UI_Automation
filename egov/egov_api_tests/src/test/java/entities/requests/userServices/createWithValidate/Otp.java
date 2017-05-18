@@ -1,9 +1,11 @@
 package entities.requests.userServices.createWithValidate;
 
 public class Otp {
+
     private String identity;
     private String tenantId;
     private String otp;
+    private String UUID;
 
     public String getOtp() {
         return otp;
@@ -15,6 +17,14 @@ public class Otp {
 
     public String getIdentity() {
         return this.identity;
+    }
+
+    public String getUUID() {
+        return UUID;
+    }
+
+    public void setUUID(String UUID) {
+        this.UUID = UUID;
     }
 
     public void setIdentity(String identity) {

@@ -111,4 +111,19 @@ public class UserServiceResource {
 
         return response;
     }
+
+    public Response searchOtp(String json) {
+
+       new APILogger().log("Search OTP Request is Started with--" + json);
+
+       Response response = given().request().with()
+               .header("Content-Type", "application/json")
+               .body(json)
+               .when()
+               .post(Properties.searchOtpUrl);
+
+       new APILogger().log("Search OTP Response is Generated as--" + response.asString());
+
+        return response;
+    }
 }

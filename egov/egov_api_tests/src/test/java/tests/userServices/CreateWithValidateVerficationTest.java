@@ -6,6 +6,7 @@ import entities.requests.userServices.createWithValidate.*;
 import entities.responses.login.LoginResponse;
 import entities.responses.userServices.createUser.CreateUserResponse;
 import entities.responses.userServices.createUserWithValidation.OtpResponse;
+import entities.responses.userServices.searchOtp.SearchOtpResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.UserServiceResource;
@@ -30,17 +31,37 @@ public class CreateWithValidateVerficationTest extends BaseAPITest {
         //Create OTP
         OtpResponse otp = createOtp(loginResponse);
 
-        try {
-            TimeUnit.SECONDS.sleep(3);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        //Search OTP
+        searchOtp(otp,loginResponse);
 
         //Validate OTP
         OtpResponse validatedOtp = validateOtp(loginResponse,otp);
 
+        //Search OTP
+        searchOtp(otp,loginResponse);
+
         //Create User With Validation
         CreateUserResponse user =  createUser(loginResponse,validatedOtp);
+    }
+
+    private void searchOtp(OtpResponse otpGene, LoginResponse loginResponse) throws IOException {
+
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
+
+        Otp otp = new OtpBuilder().withUuid(otpGene.getOtp().getUUID()).build();
+
+        SearchOtpRequest request = new SearchOtpRequestBuilder().withRequestInfo(requestInfo).withOtp(otp).build();
+
+        String json = RequestHelper.getJsonString(request);
+
+        Response response = new UserServiceResource().searchOtp(json);
+
+        Assert.assertEquals(response.getStatusCode(),200);
+
+        SearchOtpResponse response1 = (SearchOtpResponse)
+                ResponseHelper.getResponseAsObject(response.asString(),SearchOtpResponse.class);
+
+        System.out.println("Is OTP Validated :"+response1.getOtp().getIsValidationSuccessful());
     }
 
     private CreateUserResponse createUser(LoginResponse loginResponse, OtpResponse validatedOtp) throws IOException {

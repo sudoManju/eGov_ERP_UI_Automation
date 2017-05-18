@@ -72,6 +72,9 @@ public class PropertiesReader {
     public String getLoginUserDetailsUrl() {
         return prop.getProperty("loginUserDetailsUrl");
     }
+    public String getSearchOtpUrl() {
+        return prop.getProperty("searchOtpUrl");
+    }
 
     //      PGR Module Url's      //
     public String getPGRComplaintUrl() {
@@ -181,6 +184,5 @@ public class PropertiesReader {
     public String getSearchEmployeeLeaveUrl() {
         return prop.getProperty("searchEmployeeLeaveUrl");
     }
-
 }
 

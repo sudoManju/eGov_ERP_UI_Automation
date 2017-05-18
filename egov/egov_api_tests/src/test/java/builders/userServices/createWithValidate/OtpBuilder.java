@@ -20,6 +20,11 @@ public class OtpBuilder {
         return this;
     }
 
+    public OtpBuilder withUuid(String uuid){
+        otp.setUUID(uuid);
+        return this;
+    }
+
     public Otp build(){
         return otp;
     }
