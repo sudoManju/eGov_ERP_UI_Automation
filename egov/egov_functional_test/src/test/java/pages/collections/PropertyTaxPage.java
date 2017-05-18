@@ -113,11 +113,10 @@ public class PropertyTaxPage extends BasePage {
                 enterText(chequeNumberTextBox, paymentmethod.getChequeNumber(), driver);
                 enterText(chequeDateTextBox, getCurrentDate(), driver);
                 enterText(bankNameTextBox, paymentmethod.getBankName(), driver);
-                boolean isPresent = driver.findElement(By.id("bankcodescontainer")).findElements(By.cssSelector("ul li")).size() > 0;
-                while (!isPresent) {
-                    bankNameTextBox.clear();
-                    enterText(bankNameTextBox, paymentmethod.getBankName(), driver);
-                }
+                await().atMost(10, SECONDS).until(() -> driver.findElement(By.id("bankcodescontainer")).findElements(By.cssSelector("ul li")).size() > 1);
+//                while (driver.findElement(By.id("bankcodescontainer")).findElements(By.cssSelector("ul li")).size() == 0) {
+//                    enterText(bankNameTextBox, paymentmethod.getBankName(), driver);
+//                }
                 await().atMost(30, SECONDS).until(() -> driver.findElement(By.id("bankcodescontainer"))
                         .findElements(By.cssSelector("ul li"))
                         .get(0).click());
@@ -131,8 +130,8 @@ public class PropertyTaxPage extends BasePage {
                 enterText(chequeNumberTextBox, paymentmethod.getChequeNumber(), driver);
                 enterText(chequeDateTextBox, getCurrentDate(), driver);
                 enterText(bankNameTextBox, paymentmethod.getBankName(), driver);
-                boolean isPresentForDD  = driver.findElement(By.id("bankcodescontainer")).findElements(By.cssSelector("ul li")).size() > 0;
-                while (!isPresentForDD){
+                boolean isPresentForDD = driver.findElement(By.id("bankcodescontainer")).findElements(By.cssSelector("ul li")).size() > 0;
+                while (!isPresentForDD) {
                     bankNameTextBox.clear();
                     enterText(bankNameTextBox, paymentmethod.getBankName(), driver);
                 }
