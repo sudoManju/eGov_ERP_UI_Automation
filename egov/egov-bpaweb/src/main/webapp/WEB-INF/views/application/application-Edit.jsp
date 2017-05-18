@@ -86,9 +86,11 @@
 					<div class="panel panel-primary" data-collapsed="0">
 						<jsp:include page="amenityDetails.jsp"></jsp:include>
 					</div>
-					<div class="panel panel-primary" data-collapsed="0">
-						<jsp:include page="buildingDetails.jsp" />
-					</div>
+					<c:if test="${bpaApplication.serviceType.description ne 'Sub-Division of plot/Land Development'}">
+						<div class="panel panel-primary" data-collapsed="0">
+							<jsp:include page="buildingDetails.jsp" />
+						</div>
+					</c:if>
 					<div class="panel panel-primary" data-collapsed="0">
 						<jsp:include page="applicationhistory-view.jsp"></jsp:include>
 					</div>
@@ -108,3 +110,5 @@
 	src="<cdn:url value='/resources/js/app/application-edit.js?rnd=${app_release_no}'/>"></script>
 <script
 	src="<cdn:url value='/resources/js/app/buildingarea-details.js?rnd=${app_release_no}'/>"></script>
+<script
+	src="<cdn:url value='/resources/js/app/bpa-application-validations.js?rnd=${app_release_no}'/>"></script>

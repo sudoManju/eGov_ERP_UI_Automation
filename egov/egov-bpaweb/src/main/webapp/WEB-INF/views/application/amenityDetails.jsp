@@ -47,64 +47,7 @@
 	<div class="panel-title">Services and Amenities Measurement Details</div>
 </div>
 	<div class="form-group">
-	<label class="col-sm-3 control-label text-right"><spring:message code="lbl.number.well"/></label>
-	<div class="col-sm-3 add-margin">
-		<form:input  class="form-control patternvalidation" data-pattern="number"
-		  id="dwellingunitnt" 
-			path="siteDetail[0].dwellingunitnt" />In Numbers
-		<form:errors path="siteDetail[0].dwellingunitnt" 
-			cssClass="add-margin error-msg" />
-	</div>
-	<label class="col-sm-2 control-label text-right"><spring:message code="lbl.roof.conv"/></label>
-	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" data-pattern="decimalvalue"
-			id="roofConversion"
-			path="siteDetail[0].roofConversion" /> in Sqmtr.
-		<form:errors path="siteDetail[0].roofConversion" 
-			cssClass="add-margin error-msg" />
-	</div>
-	</div>
-	<div class="form-group">
-	<label class="col-sm-3 control-label text-right"><spring:message code="lbl.no.of.poles"/></label>
-	<div class="col-sm-3 add-margin">
-		<form:input  class="form-control patternvalidation" data-pattern="number"
-		  id="dwellingunitnt" 
-			path="siteDetail[0].noOfPoles" />In Numbers
-		<form:errors path="siteDetail[0].noOfPoles" 
-			cssClass="add-margin error-msg" />
-	</div>
-	<label class="col-sm-2 control-label text-right"><spring:message code="lbl.no.of.shuts.huts"/></label>
-	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" data-pattern="decimalvalue"
-			id="roofConversion"
-			path="siteDetail[0].noOfHutOrSheds" /> In Numbers
-		<form:errors path="siteDetail[0].noOfHutOrSheds" 
-			cssClass="add-margin error-msg" />
-	</div>
-	</div>
-
-	
-	<div class="form-group">
-	<label class="col-sm-3 control-label text-right"><spring:message code="lbl.shutter"/></label>
-	<div class="col-sm-3 add-margin">
-		<form:input  class="form-control patternvalidation" 
-		  id="shutter"  data-pattern="decimalvalue"
-			path="siteDetail[0].shutter" />in Sqmtr.
-		<form:errors path="siteDetail[0].shutter" 
-			cssClass="add-margin error-msg" />
-	</div>
-	<label class="col-sm-2 control-label text-right"><spring:message code="lbl.erection.tower"/>
-		</label>
-	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation"
-			data-pattern="decimalvalue"  id="erectionoftower"
-			path="siteDetail[0].erectionoftower" />in Sqmtr.
-		<form:errors path="siteDetail[0].erectionoftower" 
-			cssClass="add-margin error-msg" />
-	</div>
-	</div>
-<div class="form-group">
-	<label class="col-sm-3 control-label text-right">Extent Of Land
+	<label class="col-sm-3 control-label text-right extentOfLand">Extent Of Land
 		<span class="mandatory"></span>
 	</label>
 	<div class="col-sm-3 add-margin">
@@ -123,9 +66,66 @@
 		<form:errors path="siteDetail[0].unitOfMeasurement"
 			cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right"><spring:message code="lbl.len.com.wall"/></label>
+	<label class="col-sm-2 control-label text-right toggle-madatory Roof"><spring:message code="lbl.roof.conv"/><span ></span></label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation"
+		<form:input class="form-control patternvalidation dyn-mandatory Roof" data-pattern="decimalvalue"
+			id="roofConversion"
+			path="siteDetail[0].roofConversion" /> in Sqmtr.
+		<form:errors path="siteDetail[0].roofConversion" 
+			cssClass="add-margin error-msg" />
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-3 control-label text-right toggle-madatory Pole"><spring:message code="lbl.no.of.poles"/><span ></span></label>
+	<div class="col-sm-3 add-margin">
+		<form:input  class="form-control patternvalidation dyn-mandatory Pole" data-pattern="number"
+		  id="dwellingunitnt" 
+			path="siteDetail[0].noOfPoles" />In Numbers
+		<form:errors path="siteDetail[0].noOfPoles" 
+			cssClass="add-margin error-msg" />
+	</div>
+	<label class="col-sm-2 control-label text-right toggle-madatory Hut"><spring:message code="lbl.no.of.shuts.huts"/><span ></span></label>
+	<div class="col-sm-3 add-margin">
+		<form:input class="form-control patternvalidation dyn-mandatory Hut" data-pattern="decimalvalue"
+			id="noOfHutOrSheds"
+			path="siteDetail[0].noOfHutOrSheds" /> In Numbers
+		<form:errors path="siteDetail[0].noOfHutOrSheds" 
+			cssClass="add-margin error-msg" />
+	</div> 
+	</div>
+
+	
+	<div class="form-group">
+	<label class="col-sm-3 control-label text-right toggle-madatory Shut"><spring:message code="lbl.shutter"/><span ></span></label>
+	<div class="col-sm-3 add-margin">
+		<form:input  class="form-control patternvalidation dyn-mandatory Shut" 
+		  id="shutter"  data-pattern="decimalvalue"
+			path="siteDetail[0].shutter" />in Sqmtr.
+		<form:errors path="siteDetail[0].shutter" 
+			cssClass="add-margin error-msg" />
+	</div>
+	<label class="col-sm-2 control-label text-right toggle-madatory Towe"><spring:message code="lbl.erection.tower"/>
+		<span ></span></label>
+	<div class="col-sm-3 add-margin">
+		<form:input class="form-control patternvalidation dyn-mandatory Towe"
+			data-pattern="decimalvalue"  id="erectionoftower"
+			path="siteDetail[0].erectionoftower" />in Sqmtr.
+		<form:errors path="siteDetail[0].erectionoftower" 
+			cssClass="add-margin error-msg" />
+	</div>
+	</div>
+<div class="form-group">
+	<label class="col-sm-3 control-label text-right toggle-madatory Well"><spring:message code="lbl.number.well"/><span ></span></label>
+	<div class="col-sm-3 add-margin">
+		<form:input  class="form-control patternvalidation dyn-mandatory Well" data-pattern="number"
+		  id="dwellingunitnt" 
+			path="siteDetail[0].dwellingunitnt" />In Numbers
+		<form:errors path="siteDetail[0].dwellingunitnt" 
+			cssClass="add-margin error-msg" />
+	</div>
+	<label class="col-sm-2 control-label text-right toggle-madatory Comp"><spring:message code="lbl.len.com.wall"/><span></span></label>
+	<div class="col-sm-3 add-margin">
+		<form:input class="form-control patternvalidation dyn-mandatory Comp"
 		data-pattern="decimalvalue"
 			  id="siteDetail[0].lengthOfCompoundWall"
 			path="siteDetail[0].lengthOfCompoundWall" />in Sqmtr.
@@ -146,7 +146,7 @@
 	</div>
 	<div class="form-group" id="existingAppPlan">
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right">Fee Amount Paid No <span class="mandatory"></span></label>
+	<label class="col-sm-3 control-label text-right removemandatory">Fee Amount Paid No <span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation" maxlength="128"
 			id="feeAmountRecieptNo" path="feeAmountRecieptNo" />
@@ -162,13 +162,13 @@
 </div>
 
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right">Revised Application Number<span class="mandatory"></span></label>
+	<label class="col-sm-3 control-label text-right removemandatory">Revised Application Number<span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation" maxlength="128"
 			id="revisedApplicationNumber" path="revisedApplicationNumber" />
 		<form:errors path="revisedApplicationNumber" cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right">Already received Permit Number<span class="mandatory"></span></label>
+	<label class="col-sm-2 control-label text-right removemandatory">Already received Permit Number<span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation" maxlength="128"
 			id="revisedPermitNumber" path="revisedPermitNumber" />

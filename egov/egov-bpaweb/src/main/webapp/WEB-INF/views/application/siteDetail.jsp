@@ -273,12 +273,12 @@
 
 
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right">Nature Of Ownership </label>
+	<label class="col-sm-3 control-label text-right">Nature Of Ownership <span class="mandatory"></span> </label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
 			maxlength="64"
 			data-pattern="alphanumericwithspace"  id="natureofOwnership"
-			path="siteDetail[0].natureofOwnership" />
+			path="siteDetail[0].natureofOwnership" required="required" />
 		<form:errors path="siteDetail[0].natureofOwnership"
 			cssClass="add-margin error-msg" />
 	</div>
@@ -294,12 +294,12 @@
 
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Registrar
-		Office</label>
+		Office <span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
 			maxlength="32"
 			data-pattern="alphanumericwithspace"  id="registrarOffice"
-			path="siteDetail[0].registrarOffice" />
+			path="siteDetail[0].registrarOffice" required="required" />
 		<form:errors path="siteDetail[0].registrarOffice"
 			cssClass="add-margin error-msg" />
 	</div>
@@ -319,12 +319,12 @@
 
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Sub division
-		Number</label>
+		Number<span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
 			maxlength="12"
 			data-pattern="alphanumericwithspace" id="subdivisionNumber"
-			path="siteDetail[0].subdivisionNumber" />
+			path="siteDetail[0].subdivisionNumber" required="required" />
 		<form:errors path="siteDetail[0].subdivisionNumber"
 			cssClass="add-margin error-msg" />
 	</div>

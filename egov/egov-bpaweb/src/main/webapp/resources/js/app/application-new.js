@@ -39,91 +39,32 @@
  */
 var reportdatatable;
 jQuery(document).ready(function($) {
+	
 	if($('#noJAORSAMessage') && $('#noJAORSAMessage').val())
 		bootbox.alert($('#noJAORSAMessage').val());
-	$('#existingAppPlan').hide();
-	  $('#constDiv').hide();
-
-	$('#isexistingApprovedPlan').on('change', function(){ 
-		   if(this.checked) // if changed state is "CHECKED"
-		    {
-			   $('#existingAppPlan').show();
-			   $('#feeAmountRecieptNo').attr('required', true);
-				  $('#approvedReceiptDate').attr('required', true);
-					  $('#revisedApplicationNumber').attr('required', true);
-						  $('#revisedPermitNumber').attr('required', true);
-		    }
-		   if(!this.checked) // if changed state is "CHECKED"
-		    {
-			   $('#feeAmountRecieptNo').attr('required', false);
-				  $('#approvedReceiptDate').attr('required', false);
-				  $('#revisedApplicationNumber').attr('required', false);
-				  $('#revisedPermitNumber').attr('required', false);
-				  $('#existingAppPlan').hide();
-
-		    }
-		});
-	
-	$('#isappForRegularization').on('change', function(){ 
-		   if(this.checked) // if changed state is "CHECKED"
-		    {
-			   $('#constDiv').show();
-			   $('#constStages').attr('required', true);
-			   $('#constStages').change(function(){
-					if($('#constStages option:selected').html()=="NotStarted" ||  $(this).val()=="-1"){
-						 $('#stateOfConstruction').attr('required', true);
-					}
-					});
-			   
-				
-					  
-		    }
-		   if(!this.checked) // if changed state is "CHECKED"
-		    {
-			   $('#constStages').attr('required', false);
-				  $('#stateOfConstruction').attr('required', false);
-				  $('#constDiv').hide();
-
-		    }
-		});
-	
-	
-	$('#constStages').change(function(){
-		if($('#constStages option:selected').html()=="NotStarted" ||  $(this).val()=="-1"){
-			 $('#stateOfConstruction').attr('required', true);
-	 		$('#stateOfConstruction').append('<span class="mandatory">*</span>');
-					
-		}else if($('#constStages option:selected').html()=="Started"){	
-			$('#stateOfConstruction').attr('required', false);
-			
-		}
-
-	});
-
 });
 
 function chkNumeric(evt) {
     evt = (evt) ? evt : window.event;
     var charCode = (evt.which) ? evt.which : evt.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-        if (charCode == 46) { return true; }
-        else { return false; }
+        if (charCode == 46) { 
+        	return true;
+        } else { 
+        	return false; 
+        }
     }
     return true;
 }
 function validateMobileNumber(obj)
 {
-
 	var text = obj.value;
 	if(text!=''){
-		
 		if(text.length!=10)
 		{		
 			obj.value="";
-			
 			bootbox.alert("Invalid Mobile length");
 			return false;
-	
 		}
 	validatePhoneNumber(obj,'mobile');
 	}

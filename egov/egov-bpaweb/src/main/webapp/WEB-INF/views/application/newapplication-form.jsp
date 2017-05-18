@@ -61,7 +61,7 @@
 			<input type="hidden" id="noJAORSAMessage" name="noJAORSAMessage"
 				value="${noJAORSAMessage}" />
 			<input type="hidden" id="mode" name="mode" value="${mode}" />
-
+			
 			<ul class="nav nav-tabs" id="settingstab">
 				<li class="active"><a data-toggle="tab"
 					href="#appliccation-info" data-tabidx=0><spring:message
@@ -84,7 +84,7 @@
 						<div class="panel panel-primary" data-collapsed="0">
 						<jsp:include page="amenityDetails.jsp"></jsp:include>
 					</div>
-					<div class="panel panel-primary" data-collapsed="0">
+					<div class="panel panel-primary buildingdetails" data-collapsed="0">
 						<jsp:include page="buildingDetails.jsp" />
 					</div>
 				</div>
@@ -113,4 +113,5 @@
 	src="<cdn:url value='/resources/js/app/documentsuploadvalidation.js?rnd=${app_release_no}'/>"></script>
 <script
 	src="<cdn:url value='/resources/js/app/buildingarea-details.js?rnd=${app_release_no}'/>"></script>
-	
+<script
+	src="<cdn:url value='/resources/js/app/bpa-application-validations.js?rnd=${app_release_no}'/>"></script>

@@ -87,6 +87,11 @@ public class BuildingDetail extends AbstractAuditable {
     private BigDecimal proposedfloorArea;
     private BigDecimal totalPlintArea;
     private BigDecimal totalSlab;
+    private BigDecimal machineRoom;
+    private BigDecimal fromGroundWithWOStairRoom;
+    private BigDecimal fromStreetWithWOStairRoom;
+    private String townPlanningZone;
+    private String crzZone;
     @OneToMany(mappedBy = "buildingDetail", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ApplicationFloorDetail> applicationFloorDetails = new ArrayList<>(0);
     @Override
@@ -246,10 +251,49 @@ public class BuildingDetail extends AbstractAuditable {
     public List<ApplicationFloorDetail> getApplicationFloorDetails() {
         return applicationFloorDetails;
     }
-
+    
     public void setApplicationFloorDetails(List<ApplicationFloorDetail> applicationFloorDetails) {
         this.applicationFloorDetails = applicationFloorDetails;
     }
     
-  
+    public BigDecimal getMachineRoom() {
+		return machineRoom;
+	}
+
+	public void setMachineRoom(BigDecimal machineRoom) {
+		this.machineRoom = machineRoom;
+	}
+
+	public BigDecimal getFromGroundWithWOStairRoom() {
+		return fromGroundWithWOStairRoom;
+	}
+
+	public void setFromGroundWithWOStairRoom(BigDecimal fromGroundWithWOStairRoom) {
+		this.fromGroundWithWOStairRoom = fromGroundWithWOStairRoom;
+	}
+
+	public BigDecimal getFromStreetWithWOStairRoom() {
+		return fromStreetWithWOStairRoom;
+	}
+
+	public void setFromStreetWithWOStairRoom(BigDecimal fromStreetWithWOStairRoom) {
+		this.fromStreetWithWOStairRoom = fromStreetWithWOStairRoom;
+	}
+
+	public String getTownPlanningZone() {
+		return townPlanningZone;
+	}
+
+	public void setTownPlanningZone(String townPlanningZone) {
+		this.townPlanningZone = townPlanningZone;
+	}
+
+	public String getCrzZone() {
+		return crzZone;
+	}
+
+	public void setCrzZone(String crzZone) {
+		this.crzZone = crzZone;
+	}
+
 }

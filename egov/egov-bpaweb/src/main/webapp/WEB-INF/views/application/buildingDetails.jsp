@@ -50,62 +50,97 @@
 </div>
 
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right">Building Total Floor
-		Count</label>
+	<label class="col-sm-3 control-label text-right handle-mandatory totalPlintArea">Building
+		Total Plint Area <span class="mandatory"></span> </label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation"
-			data-pattern="number" maxlength="5" id="floorCount"
-			path="buildingDetail[0].floorCount" />
-		<form:errors path="buildingDetail[0].floorCount"
+		<form:input class="form-control patternvalidation handle-mandatory totalPlintArea"
+			maxlength="10" data-pattern="decimalvalue" id="district"
+			path="buildingDetail[0].totalPlintArea" required="required" />in Sq Mtr.
+		<form:errors path="buildingDetail[0].totalPlintArea"
 			cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right">Building
-		Height From Ground </label>
+	<label class="col-sm-2 control-label text-right handle-mandatory buildingheightGround">Building
+		Height From Ground <span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="10"
+		<form:input class="form-control patternvalidation handle-mandatory buildingheightGround" maxlength="10"
 			data-pattern="decimalvalue" id="buildingheightGround"
-			path="buildingDetail[0].buildingheightGround" />in Sq Mtr.
+			path="buildingDetail[0].buildingheightGround" required="required" />in Mtrs.
 		<form:errors path="buildingDetail[0].buildingheightGround"
 			cssClass="add-margin error-msg" />
 	</div>
 </div>
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right">Building
-		Proposed Sital in Sqmtr </label>
+	<label class="col-sm-3 control-label text-right handle-mandatory floorCount">Building Total Floor
+		Count<span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="10" data-pattern="decimalvalue"
-			id="proposedSitalinSqmt" path="buildingDetail[0].proposedSitalinSqmt" />in Sq Mtr.
-		<form:errors path="buildingDetail[0].proposedSitalinSqmt"
+		<form:input class="form-control patternvalidation handle-mandatory floorCount"
+			data-pattern="number" maxlength="5" id="floorCount"
+			path="buildingDetail[0].floorCount" required="required" />
+		<form:errors path="buildingDetail[0].floorCount"
 			cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right">Building
-		Proposed Floor Area</label>
+	<label class="col-sm-2 control-label text-right handle-mandatory proposedfloorArea">Building
+		Proposed Floor Area </label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation"
+		<form:input class="form-control patternvalidation handle-mandatory proposedfloorArea"
 			maxlength="10" data-pattern="decimalvalue" id="buildingDetail[0].proposedfloorArea"
 			path="buildingDetail[0].proposedfloorArea" />in Sq Mtr.
 		<form:errors path="buildingDetail[0].proposedfloorArea"
 			cssClass="add-margin error-msg" />
 	</div>
 </div>
+
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right">Building
-		Total Plint Area <span class="mandatory"></span> </label>
+	<label class="col-sm-3 control-label text-right handle-mandatory fromGroundWithWOStairRoom"><spring:message code="lbl.grnd.w.wo.stair"/> <span class="mandatory"></span> </label>
+	<div class="col-sm-3 add-margin">
+		<form:input class="form-control patternvalidation handle-mandatory fromGroundWithWOStairRoom"
+			maxlength="10" data-pattern="decimalvalue" id="fromGroundWithWOStairRoom"
+			path="buildingDetail[0].fromGroundWithWOStairRoom" required="required" />in Mtr.
+		<form:errors path="buildingDetail[0].fromGroundWithWOStairRoom"
+			cssClass="add-margin error-msg" />
+	</div>
+	<label class="col-sm-2 control-label text-right handle-mandatory machineRoom"><spring:message code="lbl.machine.room"/>  <span class="mandatory"></span> </label>
+	<div class="col-sm-3 add-margin">
+		<form:input class="form-control patternvalidation handle-mandatory machineRoom"
+			maxlength="10" data-pattern="decimalvalue" id="machineRoom"
+			path="buildingDetail[0].machineRoom" required="required" />
+		<form:errors path="buildingDetail[0].machineRoom"
+			cssClass="add-margin error-msg" />
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-sm-3 control-label text-right handle-mandatory fromStreetWithWOStairRoom"><spring:message code="lbl.street.w.wo.stair"/> <span class="mandatory"></span> </label>
+	<div class="col-sm-3 add-margin">
+		<form:input class="form-control patternvalidation handle-mandatory fromStreetWithWOStairRoom"
+			maxlength="10" data-pattern="decimalvalue" id="fromStreetWithWOStairRoom"
+			path="buildingDetail[0].fromStreetWithWOStairRoom" required="required" />in Mtr.
+		<form:errors path="buildingDetail[0].fromStreetWithWOStairRoom"
+			cssClass="add-margin error-msg" />
+	</div>
+	<label class="col-sm-2 control-label text-right"><spring:message code="lbl.town.plan.zone"/> </label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
-			maxlength="10" data-pattern="decimalvalue" id="district"
-			path="buildingDetail[0].totalPlintArea" required="required" />in Sq Mtr.
-		<form:errors path="buildingDetail[0].totalPlintArea"
+			maxlength="10" data-pattern="decimalvalue" id="townPlanningZone"
+			path="buildingDetail[0].townPlanningZone" />
+		<form:errors path="buildingDetail[0].townPlanningZone"
+			cssClass="add-margin error-msg" />
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-sm-3 control-label text-right"><spring:message code="lbl.crz.zone"/></label>
+	<div class="col-sm-3 add-margin">
+		<form:input class="form-control patternvalidation "
+			maxlength="10" data-pattern="decimalvalue" id="crzZone"
+			path="buildingDetail[0].crzZone" />
+		<form:errors path="buildingDetail[0].crzZone"
 			cssClass="add-margin error-msg" />
 	</div>
 	<label class="col-sm-2 control-label text-right">Building
-		Total Slab</label>
+		Is Mezzanine Floor </label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation"
-			maxlength="10" data-pattern="decimalvalue" id="totalSlab"
-			path="buildingDetail[0].totalSlab" />
-		<form:errors path="buildingDetail[0].totalSlab"
-			cssClass="add-margin error-msg" />
+		<form:checkbox id="isGroudFloor"
+			path="buildingDetail[0].isMezzanineFloor" value="isMezzanineFloor" />
+		<form:errors path="buildingDetail[0].isMezzanineFloor" />
 	</div>
 </div>
 <div class="form-group">
@@ -122,15 +157,6 @@
 		<form:checkbox id="isStiltFloor" path="buildingDetail[0].isStiltFloor"
 			value=".isStiltFloor" />
 		<form:errors path="buildingDetail[0].isStiltFloor" />
-	</div>
-</div>
-<div class="form-group">
-	<label class="col-sm-3 control-label text-right">Building
-		Is Mezzanine Floor </label>
-	<div class="col-sm-3 add-margin">
-		<form:checkbox id="isGroudFloor"
-			path="buildingDetail[0].isMezzanineFloor" value="isMezzanineFloor" />
-		<form:errors path="buildingDetail[0].isMezzanineFloor" />
 	</div>
 </div>
 

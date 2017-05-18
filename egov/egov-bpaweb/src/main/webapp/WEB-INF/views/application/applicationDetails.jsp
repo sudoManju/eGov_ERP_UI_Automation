@@ -54,7 +54,7 @@
 		</label>
 		<div class="col-sm-3 add-margin">
 			<form:select path="serviceType" data-first-option="false"
-				id="serviceType" cssClass="form-control" required="required">
+				id="serviceType" cssClass="form-control serviceType" required="required">
 				<form:option value="">
 					<spring:message code="lbl.select" />
 				</form:option>
@@ -68,7 +68,7 @@
 		</label>
 		<div class="col-sm-3 add-margin">
 			<form:select path="applicationAmenity" multiple="true"
-												id="multiselect" cssClass="form-control"
+												id="applicationAmenity" cssClass="form-control applicationAmenity"
 												cssErrorClass="form-control error">
 												<form:options items="${amenityTypeList}" itemValue="id"
 													itemLabel="description" />
