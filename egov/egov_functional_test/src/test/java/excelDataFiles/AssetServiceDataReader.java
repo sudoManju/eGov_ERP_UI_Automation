@@ -25,7 +25,7 @@ public class AssetServiceDataReader extends ExcelReader {
 
         String department = getCellData(headerDetailsSheet, dataRow, "department").getStringCellValue();
         String assetCategory = getCellData(headerDetailsSheet, dataRow, "assetCategory").getStringCellValue();
-        String dateOfCreation = getCellData(headerDetailsSheet, dataRow, "dateOfCreation").getStringCellValue();
+//        String dateOfCreation = getCellData(headerDetailsSheet, dataRow, "dateOfCreation").getStringCellValue();
 //        String description = getCellData(headerDetailsSheet, dataRow, "description").getStringCellValue();
 //        String assetName = getCellData(headerDetailsSheet, dataRow, "assetName").getStringCellValue();
         String modeOfAcquisition = getCellData(headerDetailsSheet, dataRow, "modeOfAcquisition").getStringCellValue();
@@ -34,7 +34,7 @@ public class AssetServiceDataReader extends ExcelReader {
                 .withDepartment(department)
 //                .withAssetName(assetName)
                 .withAssetCategory(assetCategory)
-                .withDateOfCreation(dateOfCreation)
+//                .withDateOfCreation(dateOfCreation)
 //                .withDescription(description)
                 .withModeOfAcquisition(modeOfAcquisition)
                 .build();

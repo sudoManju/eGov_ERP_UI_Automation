@@ -5,7 +5,7 @@ Feature: Create/Search for Asset Service
 
   Scenario Outline: Create a Asset Service
 
-    Given admin logs in
+    Given assetCreator logs in
     And user will select the required screen as "Create Asset"
     And user will enter the details as <headerDetails> and <locationDetails>
     And user will enter the category details as <categoryDetails> and with asset summary status as <assetStatus>
@@ -20,7 +20,9 @@ Feature: Create/Search for Asset Service
       | headerDetails | locationDetails | assetStatus | categoryDetails |
       | header1       | location1       | CREATED     | land            |
       | header2       | location1       | CREATED     | market          |
-      | header3       | location1       | CREATED     | parkingSpace    |
-      | header5       | location1       | CREATED     | land            |
+      | header3       | location1       | CREATED     | kalyanaMandapam |
+      | header4       | location1       | CREATED     | lakesAndPonds   |
+      | header5       | location1       | CREATED     | roads           |
       | header6       | location1       | CREATED     | community       |
       | header7       | location1       | CREATED     | usufruct        |
+      | header8       | location1       | CREATED     | shopping        |

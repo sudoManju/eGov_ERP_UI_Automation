@@ -8,6 +8,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
 
+import java.util.List;
+import java.util.Random;
+
+import static com.jayway.awaitility.Awaitility.await;
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 public class AssetServicePage extends BasePage {
 
     // Header Details Locators
@@ -16,6 +22,9 @@ public class AssetServicePage extends BasePage {
 
     @FindBy(id = "assetCategory")
     private WebElement assetCategorySelectBox;
+
+    @FindBy(id = "dateOfCreation")
+    private WebElement creationDate;
 
     @FindBy(id = "dateOfCreation")
     private WebElement dateOfCreationTextBox;
@@ -28,6 +37,18 @@ public class AssetServicePage extends BasePage {
 
     @FindBy(id = "modeOfAcquisition")
     private WebElement modeOfAcquisitionSelectBox;
+
+    @FindBy(css = "[class='col-xs-2'] button")
+    private WebElement assetReferenceSearchButton;
+
+    @FindBy(id = "refSet.assetCategory")
+    private WebElement assetReferenceCategorySelectBox;
+
+    @FindBy(css = "[class='row text-center'] button[class='btn btn-submit']")
+    private WebElement assetReferenceSubmitButton;
+
+    @FindBy(css = "[id='tblRef'] tr td button")
+    private List<WebElement> assetReferenceTableRows;
 
     // Location Details Locators
     @FindBy(id = "locality")
@@ -83,12 +104,16 @@ public class AssetServicePage extends BasePage {
     private WebElement awardNubmerTextBox;
 
     // Category Market Details
-    @FindBy(css = "[name='Market Name']")
-    private WebElement marketNameTextBox;
+    @FindBy(css = "[name='Total Square feet area']")
+    private WebElement totalSquareFeetAreaTextBox;
 
     // Category Kalyana Mandapam Details
-    @FindBy(css = "[name='Kalyana Mandapam Name']")
-    private WebElement kalyanaMandapamNameTextBox;
+//    @FindBy(css = "[name='Kalyana Mandapam Name']")
+//    private WebElement kalyanaMandapamNameTextBox;
+
+    // Lakes And Ponds Details
+    @FindBy(css = "[name='Area (acre/sqmtr)']")
+    private WebElement lakesAndPondsAreaTextBox;
 
     // Category Parking Space Details
     @FindBy(css = "[name='Parking space Name']")
@@ -109,6 +134,20 @@ public class AssetServicePage extends BasePage {
     // Category Park Details
     @FindBy(css = "[name='Park Name']")
     private WebElement parkNameTextBox;
+
+    // Roads Details
+    @FindBy(css = "[name='Road type']")
+    private WebElement roadTypeSelectBox;
+
+    // Shopping Complex Details
+    @FindBy(css = "[name='Shopping Complex No.']")
+    private WebElement shoppingComplexNumberTextBox;
+
+    @FindBy(css = "[name='No. of Floors']")
+    private WebElement noOfFloorsTextBox;
+
+    @FindBy(css = "[name='Total No. of Shops']")
+    private WebElement noOfShopsTextBox;
 
     // Category Community
     @FindBy(css = "[name='Community toilet complex Name']")
@@ -131,7 +170,7 @@ public class AssetServicePage extends BasePage {
     @FindBy(css = ".btn.btn-submit")
     private WebElement searchOrUpdateButton;
 
-    @FindBy(css = ".glyphicon.glyphicon-pencil")
+    @FindBy(css = "[id='agreementSearchResultTableBody'] tr")
     private WebElement assetUpdateActionButton;
 
     private WebDriver webDriver;
@@ -143,8 +182,20 @@ public class AssetServicePage extends BasePage {
     public void enterHeaderDetails(HeaderDetails headerDetails) {
         selectFromDropDown(departmentSelectBox, headerDetails.getDepartment(), webDriver);
         selectFromDropDown(assetCategorySelectBox, headerDetails.getAssetCategory(), webDriver);
+        enterDate(creationDate, getCurrentDate(), webDriver);
         enterText(assetNameTextBox, "Tester", webDriver);
         selectFromDropDown(modeOfAcquisitionSelectBox, headerDetails.getModeOfAcquisition(), webDriver);
+        clickOnButton(assetReferenceSearchButton, webDriver);
+
+        // Asset Reference Details
+        selectFromDropDown(assetReferenceCategorySelectBox, headerDetails.getAssetCategory(), webDriver);
+        clickOnButton(assetReferenceSubmitButton, webDriver);
+        System.out.println("============="+assetReferenceTableRows.size());
+        if (assetReferenceTableRows.size() == 1) {
+            clickOnButton(webDriver.findElement(By.cssSelector("[id='tblRef'] tr td button[class='btn btn-close']")), webDriver);
+        } else {
+            clickOnButton(assetReferenceTableRows.get(new Random().nextInt(assetReferenceTableRows.size() - 0) + 0), webDriver);
+        }
     }
 
     public void enterLocationDetails(LocationDetails locationDetails) {
@@ -174,11 +225,19 @@ public class AssetServicePage extends BasePage {
                 break;
 
             case "market":
-                enterText(marketNameTextBox, "abcd", webDriver);
+                enterText(totalSquareFeetAreaTextBox, get6DigitRandomInt().substring(0, 4), webDriver);
                 break;
 
             case "kalyanaMandapam":
-                enterText(kalyanaMandapamNameTextBox, "abcd", webDriver);
+                enterText(webDriver.findElement(By.cssSelector("[name='Total Square Feet Area']")), get6DigitRandomInt().substring(0, 4), webDriver);
+                break;
+
+            case "lakesAndPonds":
+                enterText(lakesAndPondsAreaTextBox, get6DigitRandomInt().substring(0, 4), webDriver);
+                break;
+
+            case "roads":
+                selectFromDropDown(roadTypeSelectBox, "concrete road", webDriver);
                 break;
 
             case "parkingSpace":
@@ -190,7 +249,8 @@ public class AssetServicePage extends BasePage {
                 break;
 
             case "usufruct":
-                enterText(ussfructNameTextBox, "abcd", webDriver);
+                enterText(webDriver.findElement(By.cssSelector("[name='Total Square feet area']")), get6DigitRandomInt().substring(0, 4), webDriver);
+//                enterText(ussfructNameTextBox, "abcd", webDriver);
                 break;
 
             case "fishTank":
@@ -199,6 +259,12 @@ public class AssetServicePage extends BasePage {
 
             case "park":
                 enterText(parkNameTextBox, "abcd", webDriver);
+                break;
+
+            case "shopping":
+                enterText(shoppingComplexNumberTextBox, String.valueOf(new Random().nextInt((9 - 4) + 1) + 1), webDriver);
+                enterText(noOfFloorsTextBox, String.valueOf(new Random().nextInt((9 - 4) + 1) + 1), webDriver);
+                enterText(noOfShopsTextBox, String.valueOf(new Random().nextInt((9 - 4) + 1) + 1), webDriver);
                 break;
 
             case "community":
@@ -214,6 +280,7 @@ public class AssetServicePage extends BasePage {
     }
 
     public String getAssetServiceNumber() {
+        await().atMost(10, SECONDS).until(() -> webDriver.findElements(By.cssSelector("b[style='font-weight: bold;']")).size() > 1);
         String number = getTextFromWeb(webDriver.findElements(By.cssSelector("b[style='font-weight: bold;']")).get(1), webDriver);
         webDriver.close();
         switchToPreviouslyOpenedWindow(webDriver);
@@ -222,14 +289,14 @@ public class AssetServicePage extends BasePage {
 
     public void searchApplicationBasedOnCategory(String details, String applicationNumber) {
         enterText(applicationCodeTextBox, applicationNumber, webDriver);
-        selectFromDropDown(searchAssetCategorySelect , details , webDriver);
+        selectFromDropDown(searchAssetCategorySelect, details, webDriver);
         clickOnButton(searchOrUpdateButton, webDriver);
-        clickOnButton(assetUpdateActionButton ,webDriver);
+        clickOnButton(assetUpdateActionButton, webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    public String enterDetailsToUpdate() {
-        clickOnButton(searchOrUpdateButton , webDriver);
+    public String enterAssetDetailsToUpdate() {
+        clickOnButton(searchOrUpdateButton, webDriver);
         switchToNewlyOpenedWindow(webDriver);
         return webDriver.findElements(By.cssSelector("b[style='font-weight: bold;']")).get(0).getText();
     }
