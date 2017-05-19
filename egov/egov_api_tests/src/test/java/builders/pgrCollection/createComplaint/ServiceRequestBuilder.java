@@ -9,6 +9,8 @@ public final class ServiceRequestBuilder {
 
     AttribValues[] attribValues = new AttribValuesBuilder().build();
 
+    AttribValues[] attribValues1 = new AttribValuesBuilder("PROCESSING").build();
+
     Values values1 = new ValuesBuilder("update").build();
 
     public ServiceRequestBuilder() {
@@ -49,7 +51,8 @@ public final class ServiceRequestBuilder {
         serviceRequest.setEmail("Sanjeev@testing.com");
         serviceRequest.setUpdatedDateTime("22-03-2017 18:14:13");
         serviceRequest.setExpectedDateTime("22-03-2017 18:47:21");
-//        serviceRequest.setValues(values1);
+        serviceRequest.setAttribValues(attribValues1);
+        serviceRequest.setAttribValuesPopulated(true);
     }
 
     public ServiceRequestBuilder withServiceRequestId(String id){
