@@ -195,6 +195,10 @@ public class BpaConstants {
     public static final String BUILDINGHEIGHT_GROUND = "buildingheightGround";
 	public static final String FLOOR_COUNT = "floorCount";
 	public static final String EXTENTINSQMTS = "extentinsqmts";
+	public static final String THATCHED_TILED_HOUSE = "Thatched / Tiled House";
+	public static final String MERCANTILE_COMMERCIAL = "Mercantile / Commercial";
+	public static final String INDUSTRIAL = "Industrial";
+	public static final String RESIDENTIAL = "Residential";
 	private static final List<String> BUILDPERMIT = new ArrayList<>();
 	static {
 		BUILDPERMIT.add(ST_CODE_02); // Demolition
@@ -288,7 +292,6 @@ public class BpaConstants {
 		VALIDATIONPUPOSE.add(ST_CODE_04); // Alteration
 		VALIDATIONPUPOSE.add(ST_CODE_06); // Adding of Extension
 		VALIDATIONPUPOSE.add(ST_CODE_07); // Change in Occupancy
-		VALIDATIONPUPOSE.add(ST_CODE_05); // Sub-Division of Plot/Development of land
 	}
 	
 	private static final List<String> BPAFEECATEGORY2 = new ArrayList<>();

@@ -151,8 +151,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 && purposeDocList.contains(AppointmentSchedulePurpose.DOCUMENTSCRUTINY.name())) {
             mode = "postponeappointment";
             scheduleType = AppointmentSchedulePurpose.DOCUMENTSCRUTINY;
-        } 
-        if (FWD_TO_OVRSR_FOR_FIELD_INS.equalsIgnoreCase(application.getState().getNextAction())
+        } else if (FWD_TO_OVRSR_FOR_FIELD_INS.equalsIgnoreCase(application.getState().getNextAction())
                 && APPLN_STATUS_FIELD_INSPECTION_INITIATED.equalsIgnoreCase(application.getStatus().getCode())
                 && application.getInspections().isEmpty()) {
             mode = "captureInspection";

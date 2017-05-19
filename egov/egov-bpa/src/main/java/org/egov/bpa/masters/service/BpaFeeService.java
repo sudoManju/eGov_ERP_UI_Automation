@@ -77,10 +77,10 @@ public class BpaFeeService {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<BpaFee> getActiveSanctionFeeForListOfServices(List<Long> serviceTypeList) {
+	public List<BpaFee> getActiveSanctionFeeForListOfServices(Long serviceType) {
 		final Criteria feeCrit = getCurrentSession().createCriteria(BpaFee.class, "bpaFeeObj")
 				.createAlias("bpaFeeObj.serviceType", "servicetypeObj");
-		feeCrit.add(Restrictions.in("servicetypeObj.id", serviceTypeList));
+		feeCrit.add(Restrictions.eq("servicetypeObj.id", serviceType));
 		feeCrit.add(Restrictions.eq("bpaFeeObj.isActive", Boolean.TRUE));
 		feeCrit.add(Restrictions.ilike("bpaFeeObj.feeType", BpaConstants.FEETYPE_SANCTIONFEE));
 		return feeCrit.list();

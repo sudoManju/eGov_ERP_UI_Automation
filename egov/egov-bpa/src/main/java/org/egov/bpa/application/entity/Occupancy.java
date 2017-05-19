@@ -68,6 +68,36 @@ public class Occupancy extends AbstractAuditable {
     private BigDecimal noofOccupancy;
     
     private BigDecimal occupantLoad;
+    
+    private Double permissibleAreaInPercentage;
+    private Double numOfTimesAreaPermissible;
+    private Double numOfTimesAreaPermWitAddnlFee;
+    
+    
+    public Double getPermissibleAreaInPercentage() {
+        return permissibleAreaInPercentage;
+    }
+
+    public void setPermissibleAreaInPercentage(Double permissibleAreaInPercentage) {
+        this.permissibleAreaInPercentage = permissibleAreaInPercentage;
+    }
+
+    public Double getNumOfTimesAreaPermissible() {
+        return numOfTimesAreaPermissible;
+    }
+
+    public void setNumOfTimesAreaPermissible(Double numOfTimesAreaPermissible) {
+        this.numOfTimesAreaPermissible = numOfTimesAreaPermissible;
+    }
+
+    public Double getNumOfTimesAreaPermWitAddnlFee() {
+        return numOfTimesAreaPermWitAddnlFee;
+    }
+
+    public void setNumOfTimesAreaPermWitAddnlFee(Double numOfTimesAreaPermWitAddnlFee) {
+        this.numOfTimesAreaPermWitAddnlFee = numOfTimesAreaPermWitAddnlFee;
+    }
+
     @Override
     public Long getId() {
         return id;
