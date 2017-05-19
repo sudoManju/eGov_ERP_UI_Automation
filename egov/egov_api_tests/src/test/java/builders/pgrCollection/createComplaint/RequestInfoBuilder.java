@@ -11,7 +11,6 @@ public final class RequestInfoBuilder {
         requestInfo.setMsg_id("654654");
         requestInfo.setAction(null);
         requestInfo.setDid("4354648646");
-        requestInfo.setAuthToken("");
         requestInfo.setVer("1.0");
         requestInfo.setKey("xyz");
         requestInfo.setRequester_id("61");

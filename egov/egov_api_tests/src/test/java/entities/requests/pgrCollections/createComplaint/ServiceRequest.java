@@ -1,5 +1,7 @@
 package entities.requests.pgrCollections.createComplaint;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 public class ServiceRequest
 {
     private String tenantId;
@@ -20,7 +22,7 @@ public class ServiceRequest
 
     private String requestedDatetime;
 
-    private Values values;
+    private AttribValues[] attribValues;
 
     private String address;
 
@@ -49,6 +51,25 @@ public class ServiceRequest
     private String agencyResponsible;
 
     private String serviceNotice;
+
+    @JsonProperty("isAttribValuesPopulated")
+    private Boolean isAttribValuesPopulated;
+
+    public Boolean getAttribValuesPopulated() {
+        return isAttribValuesPopulated;
+    }
+
+    public void setAttribValuesPopulated(Boolean attribValuesPopulated) {
+        isAttribValuesPopulated = attribValuesPopulated;
+    }
+
+    public AttribValues[] getAttribValues() {
+        return attribValues;
+    }
+
+    public void setAttribValues(AttribValues[] attribValues) {
+        this.attribValues = attribValues;
+    }
 
     public String getTenantId ()
     {
@@ -138,16 +159,6 @@ public class ServiceRequest
     public void setRequestedDatetime (String requestedDatetime)
     {
         this.requestedDatetime = requestedDatetime;
-    }
-
-    public Values getValues ()
-    {
-        return values;
-    }
-
-    public void setValues (Values values)
-    {
-        this.values = values;
     }
 
     public String getAddress ()

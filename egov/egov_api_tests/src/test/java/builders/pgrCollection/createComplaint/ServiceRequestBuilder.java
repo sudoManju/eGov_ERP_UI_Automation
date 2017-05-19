@@ -1,11 +1,14 @@
 package builders.pgrCollection.createComplaint;
 
+import entities.requests.pgrCollections.createComplaint.AttribValues;
 import entities.requests.pgrCollections.createComplaint.ServiceRequest;
 import entities.requests.pgrCollections.createComplaint.Values;
 
 public final class ServiceRequestBuilder {
     ServiceRequest serviceRequest = new ServiceRequest();
-    Values values = new ValuesBuilder().build();
+
+    AttribValues[] attribValues = new AttribValuesBuilder().build();
+
     Values values1 = new ValuesBuilder("update").build();
 
     public ServiceRequestBuilder() {
@@ -24,7 +27,9 @@ public final class ServiceRequestBuilder {
        serviceRequest.setRequestedDatetime("");
        serviceRequest.setMediaUrl("");
        serviceRequest.setTenantId("default");
-       serviceRequest.setValues(values);
+       serviceRequest.setServiceRequestId("");
+       serviceRequest.setAttribValues(attribValues);
+       serviceRequest.setAttribValuesPopulated(true);
     }
 
     public ServiceRequestBuilder(String update) {
@@ -44,7 +49,7 @@ public final class ServiceRequestBuilder {
         serviceRequest.setEmail("Sanjeev@testing.com");
         serviceRequest.setUpdatedDateTime("22-03-2017 18:14:13");
         serviceRequest.setExpectedDateTime("22-03-2017 18:47:21");
-        serviceRequest.setValues(values1);
+//        serviceRequest.setValues(values1);
     }
 
     public ServiceRequestBuilder withServiceRequestId(String id){

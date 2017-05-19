@@ -38,7 +38,7 @@ public class ComplaintVerificationTest extends BaseAPITest {
         // Get Complaint
         getComplaintInPGR(create.getServiceRequests()[0].getServiceRequestId(),loginResponse);
 
-//        //Close Complaint
+        //Close Complaint
 //        closeComplaintInPGR(create.getServiceRequests()[0].getServiceRequestId(),loginResponse);
 
         // Logout Test
@@ -47,7 +47,7 @@ public class ComplaintVerificationTest extends BaseAPITest {
 
     private CreateComplaintResponse createComplaintInPGR(LoginResponse loginResponse) throws IOException {
 
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuth_token(loginResponse.getAccess_token()).build();
+        RequestInfo requestInfo = new RequestInfoBuilder().build();
 
         ComplaintRequest request = new ComplaintRequestBuilder().withRequestInfo(requestInfo).build();
 
