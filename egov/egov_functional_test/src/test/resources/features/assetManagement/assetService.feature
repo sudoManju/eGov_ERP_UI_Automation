@@ -15,6 +15,7 @@ Feature: Create/Search for Asset Service
     And user will search the asset application based on category details
     And user will update the data in asset modify screen
     Then user will be notified by "Updated"
+    And current user logs out
 
     Examples:
       | headerDetails | locationDetails | assetStatus | categoryDetails |

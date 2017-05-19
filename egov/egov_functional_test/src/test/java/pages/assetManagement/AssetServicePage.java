@@ -167,11 +167,14 @@ public class AssetServicePage extends BasePage {
     @FindBy(id = "assetCategory")
     private WebElement searchAssetCategorySelect;
 
-    @FindBy(css = ".btn.btn-submit")
+    @FindBy(css = "[class='text-center'] [class='btn btn-submit']")
     private WebElement searchOrUpdateButton;
 
     @FindBy(css = "[id='agreementSearchResultTableBody'] tr")
     private WebElement assetUpdateActionButton;
+
+    @FindBy(css = "[class='text-center'] [class='btn btn-close']")
+    private WebElement closeButton;
 
     private WebDriver webDriver;
 
@@ -190,7 +193,8 @@ public class AssetServicePage extends BasePage {
         // Asset Reference Details
         selectFromDropDown(assetReferenceCategorySelectBox, headerDetails.getAssetCategory(), webDriver);
         clickOnButton(assetReferenceSubmitButton, webDriver);
-        System.out.println("============="+assetReferenceTableRows.size());
+
+        await().atMost(10, SECONDS).until(() -> webDriver.findElements(By.cssSelector("[id='tblRef'] tr td button")).size() > 0);
         if (assetReferenceTableRows.size() == 1) {
             clickOnButton(webDriver.findElement(By.cssSelector("[id='tblRef'] tr td button[class='btn btn-close']")), webDriver);
         } else {
@@ -209,15 +213,10 @@ public class AssetServicePage extends BasePage {
             case "land":
 
                 enterText(landRegisterNumberTextBox, "LReg_" + get6DigitRandomInt(), webDriver);
-                enterText(landRegisterNumberTextBox, "LReg_" + get6DigitRandomInt(), webDriver);
                 selectFromDropDown(osrLandSelectBox, "Yes", webDriver);
                 selectFromDropDown(isItFencedSelectBox, "Yes", webDriver);
                 selectFromDropDown(landTypeSelectBox, "Hold", webDriver);
                 selectFromDropDown(unitOfMeasurementSelectBox, "sq. ft.", webDriver);
-                enterText(governmentOrderNumberTextBox, "GOV_" + get6DigitRandomInt(), webDriver);
-                enterText(collectorOrderNumberTextBox, "CO_" + get6DigitRandomInt(), webDriver);
-                enterText(councilResolutionNumberTextBox, "CRO_" + get6DigitRandomInt(), webDriver);
-                enterText(awardNubmerTextBox, "A_" + get6DigitRandomInt(), webDriver);
                 enterText(governmentOrderNumberTextBox, "GOV_" + get6DigitRandomInt(), webDriver);
                 enterText(collectorOrderNumberTextBox, "CO_" + get6DigitRandomInt(), webDriver);
                 enterText(councilResolutionNumberTextBox, "CRO_" + get6DigitRandomInt(), webDriver);
@@ -291,13 +290,33 @@ public class AssetServicePage extends BasePage {
         enterText(applicationCodeTextBox, applicationNumber, webDriver);
         selectFromDropDown(searchAssetCategorySelect, details, webDriver);
         clickOnButton(searchOrUpdateButton, webDriver);
+        await().atMost(10, SECONDS).until(() -> webDriver.findElements(By.cssSelector("[id='agreementSearchResultTableBody'] tr")).size() > 0);
         clickOnButton(assetUpdateActionButton, webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
     public String enterAssetDetailsToUpdate() {
+
+        selectFromDropDown(statusSelectBox, "CAPITALIZED", webDriver);
+        enterText(webDriver.findElement(By.id("grossValue")), "10000", webDriver);
+        enterText(webDriver.findElement(By.id("accumulatedDepreciation")), "10000", webDriver);
+
         clickOnButton(searchOrUpdateButton, webDriver);
         switchToNewlyOpenedWindow(webDriver);
-        return webDriver.findElements(By.cssSelector("b[style='font-weight: bold;']")).get(0).getText();
+
+        String updatedMessage = getTextFromWeb(webDriver.findElements(By.cssSelector("b[style='font-weight: bold;']")).get(0), webDriver);
+        clickOnButton(closeButton, webDriver);
+        return updatedMessage;
+    }
+
+    public void closeAssetViewPage() {
+        for (String winHandle : webDriver.getWindowHandles()) {
+            String title = webDriver.switchTo().window(winHandle).getCurrentUrl();
+            if (title.equals("http://kurnool-pilot-services.egovernments.org/services/asset-web/app/asset/search-asset.html?type=update")) {
+                break;
+            }
+        }
+        clickOnButton(closeButton, webDriver);
+        switchToPreviouslyOpenedWindow(webDriver);
     }
 }

@@ -45,6 +45,8 @@ public class AssetServiceSteps extends BaseSteps implements En {
         And("^user will update the data in asset modify screen$", () -> {
             String message = pageStore.get(AssetServicePage.class).enterAssetDetailsToUpdate();
             scenarioContext.setActualMessage(message);
+
+            pageStore.get(AssetServicePage.class).closeAssetViewPage();
         });
     }
 }
