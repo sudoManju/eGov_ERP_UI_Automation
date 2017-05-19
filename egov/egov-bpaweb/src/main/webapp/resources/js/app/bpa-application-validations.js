@@ -40,13 +40,12 @@
 var reportdatatable;
 $(document).ready(function() {
 	
-	$('.dyn-mandatory').removeAttr('required');
-	$('.toggle-madatory').find("span").removeClass( "mandatory" );
-	$('.dyn-mandatory').removeAttr('required');
-	$('.toggle-madatory').find("span").removeClass( "mandatory" );
-	
 	// Each Amenity type validations
 	$('.applicationAmenity').blur(function(){
+		$('.dyn-mandatory').removeAttr('required');
+		$('.toggle-madatory').find("span").removeClass( "mandatory" );
+		$('.dyn-mandatory').removeClass( "error" );
+		
 		var amenities = [];
 		$.each($(".applicationAmenity option:selected"), function(){            
 			amenities.push($(this).text());

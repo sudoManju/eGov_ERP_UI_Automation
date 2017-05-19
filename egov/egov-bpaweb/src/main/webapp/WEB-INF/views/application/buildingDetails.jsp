@@ -79,10 +79,10 @@
 		<form:errors path="buildingDetail[0].floorCount"
 			cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right handle-mandatory proposedfloorArea">Building
+	<label class="col-sm-2 control-label text-right proposedfloorArea">Building
 		Proposed Floor Area </label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation handle-mandatory proposedfloorArea"
+		<form:input class="form-control patternvalidation proposedfloorArea"
 			maxlength="10" data-pattern="decimalvalue" id="buildingDetail[0].proposedfloorArea"
 			path="buildingDetail[0].proposedfloorArea" />in Sq Mtr.
 		<form:errors path="buildingDetail[0].proposedfloorArea"
