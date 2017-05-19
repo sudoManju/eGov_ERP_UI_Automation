@@ -89,30 +89,27 @@ jQuery(document).ready(function() {
 				validateForm(e);
 			});
 	
-	if($('#isexistingApprovedPlan').val() == 'true'){
-	$('#existingAppPlan').show();
-	}
-	else
-		{
+	if($('#isexistingApprovedPlan').val() == 'true') {
+		$('#existingAppPlan').show();
+	} else {
 		$('#existingAppPlan').hide();
-		}
-
-	if($('#isappForRegularization').val() == 'true'){
-	$('#constDiv').show();
 	}
-	else
-		{
-		$('#constDiv').hide();
-		}
 
-	$('#isexistingApprovedPlan').on('change', function(){ 
+	if($('#isappForRegularization').val() == 'true') {
+		$('#constDiv').show();
+	}
+	else {
+		$('#constDiv').hide();
+	}
+
+	$('#isexistingApprovedPlan').on('change', function() { 
 		   if(this.checked) // if changed state is "CHECKED"
 		    {
 			   $('#existingAppPlan').show();
 			   $('#feeAmountRecieptNo').attr('required', true);
-				  $('#approvedReceiptDate').attr('required', true);
-					  $('#revisedApplicationNumber').attr('required', true);
-						  $('#revisedPermitNumber').attr('required', true);
+			   $('#approvedReceiptDate').attr('required', true);
+			   $('#revisedApplicationNumber').attr('required', true);
+			   $('#revisedPermitNumber').attr('required', true);
 		    }
 		   if(!this.checked) // if changed state is "CHECKED"
 		    {
@@ -129,16 +126,16 @@ jQuery(document).ready(function() {
 		    }
 		});
 	
-	$('#isappForRegularization').on('change', function(){ 
+	$('#isappForRegularization').on('change', function() { 
 		   if(this.checked) // if changed state is "CHECKED"
 		    {
 			   $('#constDiv').show();
 			   $('#constStages').attr('required', true);
-			   $('#constStages').change(function(){
+			   $('#constStages').change(function() {
 					if($('#constStages option:selected').html()=="NotStarted" ||  $(this).val()=="-1"){
 						 $('#stateOfConstruction').attr('required', true);
 					}
-					});
+				});
 			   
 				
 					  
@@ -155,12 +152,11 @@ jQuery(document).ready(function() {
 		});
 	
 	
-	$('#constStages').change(function(){
-		if($('#constStages option:selected').html()=="NotStarted" ||  $(this).val()=="-1"){
+	$('#constStages').change(function() {
+		if($('#constStages option:selected').html()=="NotStarted" ||  $(this).val()=="-1") {
 			 $('#stateOfConstruction').attr('required', true);
-	 		$('#stateOfConstruction').append('<span class="mandatory">*</span>');
-					
-		}else if($('#constStages option:selected').html()=="Started"){	
+	 		 $('#stateOfConstruction').append('<span class="mandatory">*</span>');
+		} else if($('#constStages option:selected').html()=="Started") {	
 			$('#stateOfConstruction').attr('required', false);
 			
 		}
@@ -170,15 +166,18 @@ jQuery(document).ready(function() {
 	// By default to point update noc details tab
 	var mode=$('#mode').val();
 	
-	if(mode == 'captureInspection')
-		{
+	if(mode == 'captureInspection') {
 		$('#approvalDepartment').removeAttr('required');
 		$('#approvalDesignation').removeAttr('required');
 		$(".show-row").hide();
 		$("#Forward").hide();
 		$("#Reject").hide();
 		return false;
-		}
+	}
+	if(mode == 'newappointment') {
+		$(".show-row").hide();
+		$("#Forward").hide();
+	}
 	var tabfocus;
 	if($('#showUpdateNoc').val()) {
 		tabfocus='#checklist-info';

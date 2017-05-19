@@ -155,11 +155,11 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 && APPLN_STATUS_FIELD_INSPECTION_INITIATED.equalsIgnoreCase(application.getStatus().getCode())
                 && application.getInspections().isEmpty()) {
             mode = "captureInspection";
+            scheduleType = AppointmentSchedulePurpose.INSPECTION;
         } else if (FWD_TO_OVRSR_FOR_FIELD_INS.equalsIgnoreCase(application.getState().getNextAction())
                 && APPLN_STATUS_FIELD_INSPECTION_INITIATED.equalsIgnoreCase(application.getStatus().getCode())
                 && !application.getInspections().isEmpty()) {
-            mode = "modifyInspection";
-            scheduleType = AppointmentSchedulePurpose.INSPECTION;
+            mode = "modifyInspection";            
         } else if (FORWARDED_TO_NOC_UPDATE.equalsIgnoreCase(application.getState().getNextAction())
                 && APPLICATION_STATUS_FIELD_INS.equalsIgnoreCase(application.getStatus().getCode())) {
             model.addAttribute("showUpdateNoc", true);
