@@ -174,7 +174,7 @@ jQuery(document).ready(function() {
 		$("#Reject").hide();
 		return false;
 	}
-	if(mode == 'newappointment') {
+	if($('#wfstateDesc').val() != 'Registered' && mode == 'newappointment') {
 		$(".show-row").hide();
 		$("#Forward").hide();
 	}
