@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-05-22T23:29:54 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="buildingpermit" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="576a1e58-ecb3-4d56-971a-5d1fe019af29">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="54"/>
+	<property name="ireport.y" value="5"/>
 	<parameter name="landExtent" class="java.math.BigDecimal"/>
 	<parameter name="applicantName" class="java.lang.String"/>
 	<parameter name="ulbName" class="java.lang.String"/>
@@ -15,6 +17,7 @@
 	<parameter name="district" class="java.lang.String"/>
 	<parameter name="cityName" class="java.lang.String"/>
 	<parameter name="buildingPermitNumber" class="java.lang.String"/>
+	<parameter name="certExpryDate" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -35,7 +38,7 @@
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{lawAct}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["[See Rule 6 (7)]"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="64" y="51" width="452" height="20" uuid="13d1ee09-016a-44b3-a70c-eeaa9b66affd"/>
@@ -70,21 +73,21 @@
 				<textFieldExpression><![CDATA[$P{buildingPermitNumber}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="304" y="29" width="100" height="20" uuid="38791aa3-d66d-4c38-bb6c-99c92dd7659c"/>
+				<reportElement x="350" y="29" width="100" height="20" uuid="38791aa3-d66d-4c38-bb6c-99c92dd7659c"/>
 				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Dated : ]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="406" y="29" width="149" height="20" uuid="c9a26c74-1b40-4ffb-b03c-3e4e887c3b9a"/>
-				<textElement>
+				<reportElement x="450" y="29" width="105" height="20" uuid="c9a26c74-1b40-4ffb-b03c-3e4e887c3b9a"/>
+				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{currentDate}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="18" y="58" width="537" height="20" uuid="96accbd0-87e6-4d36-a4dc-796edc809cdb"/>
+				<reportElement x="0" y="58" width="555" height="20" uuid="96accbd0-87e6-4d36-a4dc-796edc809cdb"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -141,8 +144,19 @@
 				<textElement textAlignment="Right">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Signatiure And Name Of Secretary]]></text>
+				<text><![CDATA[Signature And Name Of Secretary]]></text>
 			</staticText>
 		</band>
 	</detail>
+	<pageFooter>
+		<band height="50">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="50" uuid="0224923c-0648-474c-aba2-159a55bd9c42"/>
+				<textElement>
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Note : This certificate is valid upto "+$P{certExpryDate}+" Only."]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
 </jasperReport>

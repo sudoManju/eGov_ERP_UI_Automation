@@ -110,6 +110,7 @@ public class SearchBpaApplicationService  {
                 searchBpaApplicationForm.setZone(bpaApplication.getSiteDetail().get(0).getLocationBoundary() != null
                         ? bpaApplication.getSiteDetail().get(0).getLocationBoundary().getName() : "");
             }
+            searchBpaApplicationForm.setFeeCollected(bpaApplication.getDemand().getBaseDemand().compareTo(bpaApplication.getDemand().getAmtCollected()) <= 0 ? true : false);
             searchBpaApplicationFormList.add(searchBpaApplicationForm);
         }
         return searchBpaApplicationFormList;

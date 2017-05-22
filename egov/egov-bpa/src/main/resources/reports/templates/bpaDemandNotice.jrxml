@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-04-25T14:38:21 -->
+<!-- 2017-05-22T23:58:06 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bpaDemandNotice1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="020c52d2-8151-4206-9f0e-c68a0e78927a">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="112"/>
+	<import value="org.egov.infra.reporting.util.*"/>
+	<import value="org.egov.infstr.utils.*"/>
 	<parameter name="cityLogo" class="java.lang.String"/>
 	<parameter name="ulbName" class="java.lang.String"/>
 	<parameter name="bpademandtitle" class="java.lang.String"/>
@@ -13,39 +15,42 @@
 	<parameter name="applicantAddress" class="java.lang.String"/>
 	<parameter name="applicationDate" class="java.lang.String"/>
 	<parameter name="serviceTypeDesc" class="java.lang.String"/>
-	<parameter name="projectName" class="java.lang.String"/>
+	<parameter name="amenities" class="java.lang.String"/>
 	<parameter name="occupancy" class="java.lang.String"/>
 	<parameter name="electionWard" class="java.lang.String"/>
 	<parameter name="revenueWard" class="java.lang.String"/>
 	<parameter name="installmentDesc" class="java.lang.String"/>
-	<parameter name="permitFee" class="java.math.BigDecimal"/>
-	<parameter name="wellCharges" class="java.math.BigDecimal"/>
-	<parameter name="compoundFee" class="java.math.BigDecimal"/>
 	<parameter name="totalPendingAmt" class="java.math.BigDecimal"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/vinoth/Dev-Tools/eGov-Projects/eGov/egov/egov-bpa/src/main/resources/reports/templates/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="demandResponseList" class="java.util.List" isForPrompting="false"/>
+	<parameter name="serviceTypeForDmd" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
+	<variable name="SUB_REPORT_ROW_CNT" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="70" splitType="Stretch">
 			<textField>
-				<reportElement x="112" y="11" width="425" height="27" uuid="9f9627aa-1cec-4a2d-82e5-9ed165d012db"/>
-				<textElement>
+				<reportElement x="66" y="11" width="471" height="27" uuid="9f9627aa-1cec-4a2d-82e5-9ed165d012db"/>
+				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ulbName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="112" y="38" width="425" height="27" uuid="6bd43f99-43e2-47ee-8cca-0359885d2a3d"/>
-				<textElement>
+				<reportElement x="66" y="38" width="471" height="27" uuid="6bd43f99-43e2-47ee-8cca-0359885d2a3d"/>
+				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{bpademandtitle}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement stretchType="RelativeToTallestObject" x="26" y="11" width="60" height="59" uuid="69857bbb-a9a3-43bd-b807-1e5673e21ae7"/>
+				<reportElement stretchType="RelativeToTallestObject" x="6" y="11" width="60" height="59" uuid="69857bbb-a9a3-43bd-b807-1e5673e21ae7"/>
 				<imageExpression><![CDATA[$P{cityLogo}]]></imageExpression>
 			</image>
 		</band>
@@ -54,7 +59,7 @@
 		<band height="23" splitType="Stretch">
 			<textField>
 				<reportElement x="112" y="1" width="425" height="22" uuid="9defcb94-01aa-4732-82ef-8dbee4c6906f"/>
-				<textElement>
+				<textElement textAlignment="Center">
 					<font size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Building Plan Approval Demand Bill for  "+ $P{installmentDesc}]]></textFieldExpression>
@@ -62,307 +67,126 @@
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="480" splitType="Stretch">
+		<band height="191" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="12" width="135" height="32" uuid="fdcd1a2d-bb63-40f0-b32c-2ce25585cad0"/>
+				<reportElement x="0" y="12" width="122" height="32" uuid="fdcd1a2d-bb63-40f0-b32c-2ce25585cad0"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Application No :]]></text>
+				<text><![CDATA[Application No          :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="43" width="135" height="36" uuid="5b19e0f8-aee9-4fad-941a-51fb09b195b6"/>
+				<reportElement x="0" y="43" width="122" height="36" uuid="5b19e0f8-aee9-4fad-941a-51fb09b195b6"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Service Type :]]></text>
+				<text><![CDATA[Service Type             :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="78" width="135" height="38" uuid="f4c33ffc-22ac-4c35-a7c6-327b3c230673"/>
+				<reportElement x="0" y="78" width="122" height="38" uuid="f4c33ffc-22ac-4c35-a7c6-327b3c230673"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Applicant Name :]]></text>
+				<text><![CDATA[Applicant Name        :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="115" width="135" height="38" uuid="a6e1b4f4-1309-454c-8a82-c6e89f7098a0"/>
+				<reportElement x="0" y="115" width="122" height="38" uuid="a6e1b4f4-1309-454c-8a82-c6e89f7098a0"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Address :]]></text>
+				<text><![CDATA[Address                    :]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="134" y="12" width="143" height="32" uuid="9a709839-fe9d-42c0-b86c-56ab6e8eb631"/>
+				<reportElement x="122" y="12" width="155" height="32" uuid="9a709839-fe9d-42c0-b86c-56ab6e8eb631"/>
 				<textFieldExpression><![CDATA[$P{applicationNumber}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="134" y="43" width="143" height="36" uuid="b895f389-8e77-4c2b-9430-8446a9f226be"/>
-				<textFieldExpression><![CDATA[$P{serviceTypeDesc}]]></textFieldExpression>
+				<reportElement x="122" y="43" width="155" height="36" uuid="b895f389-8e77-4c2b-9430-8446a9f226be"/>
+				<textFieldExpression><![CDATA[$P{serviceTypeForDmd}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="134" y="78" width="143" height="37" uuid="fc08b0ed-e678-48c7-93f3-4253575e15b6"/>
+				<reportElement x="122" y="78" width="155" height="37" uuid="fc08b0ed-e678-48c7-93f3-4253575e15b6"/>
 				<textFieldExpression><![CDATA[$P{applicantName}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="134" y="114" width="414" height="39" uuid="4fa9c2fb-453d-4ac5-acb2-57f1c0943634"/>
+				<reportElement x="122" y="114" width="433" height="39" uuid="4fa9c2fb-453d-4ac5-acb2-57f1c0943634"/>
 				<textFieldExpression><![CDATA[$P{applicantAddress}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="277" y="78" width="129" height="36" uuid="faef8051-c5a7-4633-8664-cf3dc556bfc6"/>
+				<reportElement x="277" y="78" width="109" height="36" uuid="faef8051-c5a7-4633-8664-cf3dc556bfc6"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Occupancy :]]></text>
+				<text><![CDATA[Occupancy            :]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="405" y="78" width="143" height="36" uuid="d95e47d3-7266-4fe4-a48f-eecb901a0b47"/>
+				<reportElement x="386" y="78" width="169" height="36" uuid="d95e47d3-7266-4fe4-a48f-eecb901a0b47"/>
 				<textFieldExpression><![CDATA[$P{occupancy}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="277" y="12" width="129" height="32" uuid="e434a02e-85e1-42bf-ba61-0a0386a29f72"/>
+				<reportElement x="277" y="12" width="109" height="32" uuid="e434a02e-85e1-42bf-ba61-0a0386a29f72"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Application Date]]></text>
+				<text><![CDATA[Application Date  :]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="405" y="153" width="143" height="38" uuid="d6083598-2853-4a96-85c4-189a485cd6a3"/>
+				<reportElement x="386" y="153" width="169" height="38" uuid="d6083598-2853-4a96-85c4-189a485cd6a3"/>
 				<textFieldExpression><![CDATA[$P{revenueWard}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="405" y="12" width="143" height="32" uuid="461ed4e1-af60-4767-974d-d4052ddd6932"/>
+				<reportElement x="386" y="12" width="169" height="32" uuid="461ed4e1-af60-4767-974d-d4052ddd6932"/>
 				<textFieldExpression><![CDATA[$P{applicationDate}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="405" y="43" width="143" height="36" uuid="8997a4a5-02e0-429c-a3a0-2c897a7847c7"/>
-				<textFieldExpression><![CDATA[$P{projectName}]]></textFieldExpression>
+				<reportElement x="386" y="43" width="169" height="36" uuid="8997a4a5-02e0-429c-a3a0-2c897a7847c7"/>
+				<textFieldExpression><![CDATA[$P{amenities}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="277" y="153" width="129" height="38" uuid="4088323a-2941-442f-b975-f79e45a04c43"/>
+				<reportElement x="277" y="153" width="109" height="38" uuid="4088323a-2941-442f-b975-f79e45a04c43"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Revenue Ward :]]></text>
+				<text><![CDATA[Revenue Ward      :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="277" y="43" width="129" height="36" uuid="fa23873c-be3c-4634-9bf4-c85347ec987c"/>
+				<reportElement x="277" y="43" width="109" height="36" uuid="fa23873c-be3c-4634-9bf4-c85347ec987c"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Project Name :]]></text>
+				<text><![CDATA[Amenities             :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="153" width="135" height="38" uuid="23295dd1-7b9b-4cd3-829a-130751f89b8e"/>
+				<reportElement x="0" y="153" width="122" height="38" uuid="23295dd1-7b9b-4cd3-829a-130751f89b8e"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Election Ward :]]></text>
+				<text><![CDATA[Election Ward           :]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="134" y="153" width="143" height="37" uuid="926d338f-3024-484c-a37b-b025670b2d4c"/>
+				<reportElement x="122" y="153" width="155" height="37" uuid="926d338f-3024-484c-a37b-b025670b2d4c"/>
 				<textFieldExpression><![CDATA[$P{electionWard}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="48" y="232" width="81" height="37" uuid="671f75aa-b197-4bd4-aff6-6667d0e95a97"/>
-				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Serial No:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="129" y="232" width="141" height="37" uuid="6fd8c29f-24f1-473b-83a5-7e63734a215a"/>
-				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Fee Type Description]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="270" y="232" width="139" height="37" uuid="425007ce-df96-4f8f-8e4e-5f94680f28dd"/>
-				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Right">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Amount]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="48" y="269" width="80" height="37" uuid="addf30e8-075f-4337-aa54-dd7741936934"/>
-				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[1]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="48" y="306" width="80" height="37" uuid="148efddd-e622-435b-b03d-9447626be5c8"/>
-				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[2]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="48" y="343" width="80" height="37" uuid="bd5a88bd-8d7c-43d9-a73f-eb43982a75e8"/>
-				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[3]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="48" y="380" width="80" height="37" uuid="6cb9ce66-ac7d-4c2e-b693-4b72abf9b653"/>
-				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="128" y="269" width="142" height="37" uuid="6c7e9487-9bf4-487c-81dc-de3e1374a4fb"/>
-				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Permit Fee]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="128" y="306" width="142" height="37" uuid="66779687-1da4-4a59-95b3-e7241eb99d6a"/>
-				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Well charges]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="128" y="343" width="142" height="37" uuid="d345ef75-1b03-4d47-9fd3-a2def0f78be2"/>
-				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Compound Charges]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="128" y="380" width="142" height="37" uuid="99da9f7f-1fc0-479e-a9ae-ed2b48f88763"/>
-				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Total Pending Amount]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="270" y="269" width="139" height="37" uuid="98f13821-cc43-475e-aa8a-23b7030b2d54"/>
-				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$P{permitFee}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="270" y="306" width="139" height="37" uuid="da43d039-4904-48bc-b125-52b08fb3e964"/>
-				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$P{wellCharges}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="270" y="343" width="139" height="37" uuid="73cf0028-49be-41e4-b5b4-18c91bb3f2ec"/>
-				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$P{compoundFee}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="270" y="380" width="139" height="37" uuid="f28b623b-6e65-43be-9fd4-8583d7aa8d4b"/>
-				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$P{totalPendingAmt}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="0" y="200" width="420" height="30" uuid="1e104e4b-10fd-42bf-87a9-e18ab165fbc9"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[The building plan approval donation fees details as follows,]]></text>
-			</staticText>
+		</band>
+		<band height="52">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="52" uuid="5e9c6b63-6d2f-4b32-a8d7-3b036e5f52e4">
+					<printWhenExpression><![CDATA[new Boolean($P{demandResponseList}.size()!= 0)]]></printWhenExpression>
+				</reportElement>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{demandResponseList},false)]]></dataSourceExpression>
+				<subreportExpression><![CDATA[ReportUtil.getTemplateAsStream("demanddetailssubreport.jasper")]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50">
 			<textField isStretchWithOverflow="true">
-				<reportElement x="0" y="441" width="548" height="37" uuid="5466279e-e65e-49c5-8d68-4e5b82f20680"/>
+				<reportElement x="0" y="0" width="555" height="37" uuid="5466279e-e65e-49c5-8d68-4e5b82f20680"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Dear Mr/Mrs "+ $P{applicantName} +" please pay donation amount Rs."+$P{totalPendingAmt}+" as soon as possible for further approval process."]]></textFieldExpression>
 			</textField>
 		</band>
-	</detail>
+	</pageFooter>
 </jasperReport>
