@@ -50,6 +50,7 @@ import org.egov.infra.workflow.entity.State;
 import org.egov.portal.entity.PortalInbox;
 import org.egov.portal.entity.PortalInboxUser;
 import org.egov.portal.repository.PortalInboxRepository;
+import org.egov.portal.service.es.PortalInboxIndexService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -60,12 +61,16 @@ public class PortalInboxService {
 
     private final PortalInboxRepository portalInboxRepository;
 
+    private final PortalInboxIndexService portalInboxIndexService;
+
     @Autowired
     private SecurityUtils securityUtils;
 
     @Autowired
-    public PortalInboxService(final PortalInboxRepository portalInboxRepository) {
+    public PortalInboxService(final PortalInboxRepository portalInboxRepository,
+            final PortalInboxIndexService portalInboxIndexService) {
         this.portalInboxRepository = portalInboxRepository;
+        this.portalInboxIndexService = portalInboxIndexService;
     }
 
     public Long getPortalInboxByStatus(final boolean resolved) {
@@ -84,7 +89,8 @@ public class PortalInboxService {
                 createPortalUser(portalInbox, user);
         } else
             portalInbox.getPortalInboxUsers().addAll(portalInbox.getTempPortalInboxUser());
-        portalInboxRepository.save(portalInbox);
+        portalInboxRepository.saveAndFlush(portalInbox);
+        portalInboxIndexService.createPortalInboxIndex(portalInbox);
     }
 
     private void createPortalUser(final PortalInbox portalInbox, final User user) {
@@ -100,18 +106,29 @@ public class PortalInboxService {
 
     @Transactional
     public void updateInboxMessage(final String applicationNumber, final Long moduleId, final String status,
-            final Boolean isResolved, final Date slaEndDate, final State state, final User user) {
+            final Boolean isResolved, final Date slaEndDate, final State state, final User user,
+            final String entityRefNo, final String link) {
         final PortalInbox portalInbox = getPortalInboxByApplicationNo(applicationNumber, moduleId);
         if (portalInbox != null) {
             portalInbox.setStatus(status);
             portalInbox.setResolved(isResolved);
-            if (portalInbox.getSlaEndDate() != null)
-                portalInbox.setSlaEndDate(slaEndDate);
             portalInbox.setState(state);
+            updatePortalInboxData(slaEndDate, entityRefNo, link, portalInbox);
             if (user != null && !containsUser(portalInbox.getPortalInboxUsers(), user.getId()))
                 createPortalUser(portalInbox, user);
-            portalInboxRepository.save(portalInbox);
+            portalInboxRepository.saveAndFlush(portalInbox);
+            portalInboxIndexService.createPortalInboxIndex(portalInbox);
         }
+    }
+
+    private void updatePortalInboxData(final Date slaEndDate, final String entityRefNo, final String link,
+            final PortalInbox portalInbox) {
+        if (entityRefNo != null && !entityRefNo.isEmpty())
+            portalInbox.setEntityRefNumber(entityRefNo);
+        if (link != null && !link.isEmpty())
+            portalInbox.setLink(link);
+        if (slaEndDate != null)
+            portalInbox.setSlaEndDate(slaEndDate);
     }
 
     public boolean containsUser(final List<PortalInboxUser> list, final Long userId) {
