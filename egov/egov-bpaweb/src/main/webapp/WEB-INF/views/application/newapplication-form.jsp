@@ -128,10 +128,7 @@
 		});
 		$('#buttonSubmit').click(function() {
 		var button=$('#buttonSubmit').val();
-		alert(button);
 		if ($('form').valid()) {
-			alert("inside form val "+button);
-
 			document.getElementById("workFlowAction").value=button;
 			document.forms[0].submit();
 		} else {

@@ -46,6 +46,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -116,6 +117,7 @@ public class PortalInbox extends AbstractAuditable {
 
     private Date resolvedDate;
 
+    @Column(name="slaenddate")
     private Date slaEndDate;
 
     @Temporal(TemporalType.TIMESTAMP)
