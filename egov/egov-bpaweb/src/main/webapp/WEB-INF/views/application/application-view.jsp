@@ -63,7 +63,7 @@
 			<input type="hidden" name="bpaApplication"
 				value="${bpaApplication.id}">
 				<input type="hidden" name="citizenOrBusinessUser"
-				value="${citizenOrBusinessUser}">
+				value="${citizenOrBusinessUser}"/>
 			<form:hidden path="" id="wfstate" value="${bpaApplication.state.id}" />
 			<form:hidden path="" id="workFlowAction" name="workFlowAction" />
 			<form:hidden path="" id="wfstateDesc"

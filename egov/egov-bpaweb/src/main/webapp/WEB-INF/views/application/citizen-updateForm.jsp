@@ -175,14 +175,12 @@
 <script>
  $('#buttonSave').click(function() {
 					var button=$('#buttonSave').val();
-					alert(button);
 					document.getElementById("workFlowAction").value=button;
 						document.forms[0].submit();
 					
 				});
  $('#buttonSubmit').click(function() {
 		var button=$('#buttonSubmit').val();
-		alert("buttonSubmit "+button);
 		document.getElementById("workFlowAction").value=button;
 			document.forms[0].submit();
 		
