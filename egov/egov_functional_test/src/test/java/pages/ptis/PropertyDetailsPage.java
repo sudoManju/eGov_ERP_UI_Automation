@@ -336,7 +336,7 @@ public class PropertyDetailsPage extends BasePage {
         selectFromDropDown(localitySelection, addressDetails.getLocality(), webDriver);
         selectFromDropDown(zoneNumberSelection, addressDetails.getZoneNumber(), webDriver);
         selectFromDropDown(electionWardSeletion, addressDetails.getElectionWard(), webDriver);
-        enterText(doorNumberTextBox, get6DigitRandomInt().substring(0,2)+"/"+get6DigitRandomInt().substring(0,3), webDriver);
+        enterText(doorNumberTextBox,"#"+get6DigitRandomInt(), webDriver);
         enterText(pincodeTextBox, addressDetails.getPincode(), webDriver);
     }
 
