@@ -218,19 +218,21 @@
 					</div>
 				</c:when> 
 				<c:otherwise>
-					<c:when test="${ citizenOrBusinessUser && bpaApplication.id !=null}">
-				<td><form:button type="submit" id="buttonSubmit" class="btn btn-primary"
-					value="Forward">Forward</form:button></td>
-					
-					</c:when>
-					<c:otherwise>
-					<c:if test="${bpaApplication.status.code ne 'Digitally signed'}">
-						<jsp:include page="../common/commonWorkflowMatrix.jsp" />
-					</c:if>
-					<div class="buttonbottom" align="center">
-						<jsp:include page="../common/commonWorkflowMatrix-button.jsp" />
-					</div>
-					</c:otherwise>
+					<c:choose>
+						<c:when
+							test="${ citizenOrBusinessUser && bpaApplication.id !=null}">
+							<form:button type="submit" id="buttonSubmit"
+								class="btn btn-primary" value="Forward">Forward</form:button>
+						</c:when>
+						<c:otherwise>
+							<c:if test="${bpaApplication.status.code ne 'Digitally signed'}">
+								<jsp:include page="../common/commonWorkflowMatrix.jsp" />
+							</c:if>
+							<div class="buttonbottom" align="center">
+								<jsp:include page="../common/commonWorkflowMatrix-button.jsp" />
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</c:otherwise>
 			</c:choose>
 		</form:form>
