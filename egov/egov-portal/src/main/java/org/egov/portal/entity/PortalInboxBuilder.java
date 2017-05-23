@@ -95,7 +95,6 @@ public class PortalInboxBuilder {
             throw new ApplicationRuntimeException("Link is mandatory");
         if (portalInbox.getStatus() == null || portalInbox.getStatus().isEmpty())
             throw new ApplicationRuntimeException("Status is mandatory");
-      
         if (portalInbox.getTempPortalInboxUser() != null && !portalInbox.getTempPortalInboxUser().isEmpty()) {
             User user = portalInbox.getTempPortalInboxUser().get(0).getUser();
             if (user != null
