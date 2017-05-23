@@ -61,7 +61,7 @@
 			<input type="hidden" id="noJAORSAMessage" name="noJAORSAMessage"
 				value="${noJAORSAMessage}" />
 			<input type="hidden" id="mode" name="mode" value="${mode}" />
-			
+			<form:hidden path="" id="workFlowAction" name="workFlowAction" />
 			<ul class="nav nav-tabs" id="settingstab">
 				<li class="active"><a data-toggle="tab"
 					href="#appliccation-info" data-tabidx=0><spring:message
@@ -96,8 +96,18 @@
 			</div>
 
 			<div align="center">
-				<form:button type="submit" id="buttonSubmit" class="btn btn-primary"
-					value="Create">Submit</form:button>
+			<c:choose>
+			<c:when test="${citizenOrBusinessUser }">
+				<form:button type="submit" id="buttonSave" class="btn btn-primary" 
+					value="Save">Save</form:button>
+				<td><form:button type="submit" id="buttonSubmit" class="btn btn-primary" 
+					value="Submit">Submit</form:button></td>
+					</c:when>
+					<c:otherwise>
+					<form:button type="submit" id="buttonSubmit" class="btn btn-primary" 
+					value="Submit">Submit</form:button>
+					</c:otherwise>
+					</c:choose>
 				<input type="button" name="button2" id="button2" value="Close"
 					class="btn btn-default" onclick="window.close();" />
 			</div>
@@ -105,6 +115,31 @@
 	</div>
 </div>
 
+<script>
+	 $('#buttonSave').click(function() {
+			var button=$('#buttonSave').val();
+			if ($('form').valid()) {
+				document.getElementById("workFlowAction").value=button;
+				document.forms[0].submit();
+			} else {
+				e.preventDefault();
+			}
+			
+		});
+		$('#buttonSubmit').click(function() {
+		var button=$('#buttonSubmit').val();
+		alert(button);
+		if ($('form').valid()) {
+			alert("inside form val "+button);
+
+			document.getElementById("workFlowAction").value=button;
+			document.forms[0].submit();
+		} else {
+			e.preventDefault();
+		}
+		
+		});
+</script>
 <script
 	src="<cdn:url value='/resources/global/js/egov/inbox.js?rnd=${app_release_no}' context='/egi'/>"></script>
 <script

@@ -103,6 +103,7 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
         final DateTime currentDate = new DateTime();
         Position pos = null;
         Assignment wfInitiator = null;
+        
         if (application.getCreatedBy() != null)
             wfInitiator = bpaWorkFlowService.getWorkFlowInitiator(application);
 
@@ -110,7 +111,7 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
             pos = positionMasterService.getPositionById(approvalPosition);
 
         WorkFlowMatrix wfmatrix;
-        if (null == application.getState()) { // go by status
+        if (null == application.getState()) { 
             wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null,
                     null, additionalRule, BpaConstants.WF_NEW_STATE, null);
             Long userPosition;
@@ -199,8 +200,16 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
                 wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null,
                 		amountRule, additionalRule,
                         application.getCurrentState().getValue(), null);
-            } else {
-                wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null,
+            } 
+            else if(approvalComent!=null && approvalComent.equals(BpaConstants.BPAFEECOLLECT) && bpaUtils.workFlowinitiatedByNonEmployee(application) 
+            		&& application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_REGISTERED)) {
+            	 
+            	wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null,
+                         null, additionalRule, BpaConstants.WF_NEW_STATE, null);
+            }
+            else {
+                wfmatrix = bpaApplicationWorkflowService.
+                		getWfMatrix(application.getStateType(), null,
                         null, additionalRule, application.getCurrentState().getValue(), null);
             }
             if (wfmatrix != null) {
@@ -225,6 +234,9 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
         }
         if (LOG.isDebugEnabled())
             LOG.debug(" WorkFlow Transition Completed ");
+        
+        bpaUtils.updateCitizeninboxApplication(application);
+
     }
 
     private BpaStatus getStatusByCurrentMatrxiStatus(final WorkFlowMatrix wfmatrix) {

@@ -62,6 +62,8 @@
 			</c:if>
 			<input type="hidden" name="bpaApplication"
 				value="${bpaApplication.id}">
+				<input type="hidden" name="citizenOrBusinessUser"
+				value="${citizenOrBusinessUser}">
 			<form:hidden path="" id="wfstate" value="${bpaApplication.state.id}" />
 			<form:hidden path="" id="workFlowAction" name="workFlowAction" />
 			<form:hidden path="" id="wfstateDesc"
@@ -216,12 +218,19 @@
 					</div>
 				</c:when> 
 				<c:otherwise>
+					<c:when test="${ citizenOrBusinessUser && bpaApplication.id !=null}">
+				<td><form:button type="submit" id="buttonSubmit" class="btn btn-primary"
+					value="Forward">Forward</form:button></td>
+					
+					</c:when>
+					<c:otherwise>
 					<c:if test="${bpaApplication.status.code ne 'Digitally signed'}">
 						<jsp:include page="../common/commonWorkflowMatrix.jsp" />
 					</c:if>
 					<div class="buttonbottom" align="center">
 						<jsp:include page="../common/commonWorkflowMatrix-button.jsp" />
 					</div>
+					</c:otherwise>
 				</c:otherwise>
 			</c:choose>
 		</form:form>

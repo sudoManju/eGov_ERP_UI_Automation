@@ -180,6 +180,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         }
         model.addAttribute("scheduleType", scheduleType);
         model.addAttribute("mode", mode);
+        model.addAttribute("workFlowByNonEmp", applicationBpaService.workFlowinitiatedByNonEmployee(application));
         model.addAttribute(APPLICATION_HISTORY,
                 bpaThirdPartyService.getHistory(application));
         if (!application.getStakeHolder().isEmpty())
@@ -193,6 +194,11 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
             }
         }
         if ("Registered".equals(application.getStatus().getCode())) {
+        	if(applicationBpaService.checkAnyTaxIsPendingToCollect(application)){
+        		model.addAttribute("collectFeeValidate", "Collect Fees to Precess Application");
+        	}
+        	else
+        		model.addAttribute("collectFeeValidate","");
             return BPAAPPLICATION_FORM;
         } else {
             return "application-view";

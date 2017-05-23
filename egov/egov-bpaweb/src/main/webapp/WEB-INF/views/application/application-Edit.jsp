@@ -53,6 +53,11 @@
 
 			<form:hidden path="" id="wfstate" value="${bpaApplication.state.id}" />
 			<form:hidden path="" id="workFlowAction" name="workFlowAction" />
+			<input type="hidden" name="citizenOrBusinessUser"
+				value="${citizenOrBusinessUser}">
+			<form:hidden path="" id="wfstate" value="${bpaApplication.state.id}" />
+			<form:hidden path="" id="collectFeeValidate" value="${collectFeeValidate}" />
+			<input type="hidden"  id="workFlowByNonEmp" value="${workFlowByNonEmp}" />
 			<form:hidden path="" value="${areaInSqMtr}" id="areaInSqMtr" name="areaInSqMtr"/>
 			<form:hidden path="" value="${currentDesignation}" id="currentDesignation" name="currentDesignation"/>
 			<form:hidden path="" value="${isApproveValid}" id="isApproveValid" name="isApproveValid"/>

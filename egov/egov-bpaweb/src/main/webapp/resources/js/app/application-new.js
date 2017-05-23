@@ -180,13 +180,7 @@ jQuery('form').validate({
 	}
 	});
 
-$('#buttonSubmit').click(function(e) {
-	if ($('form').valid()) {
-		//
-	} else {
-		e.preventDefault();
-	}
-});
+
 
 $('#stakeHolderType').change(function(){
 	$.ajax({

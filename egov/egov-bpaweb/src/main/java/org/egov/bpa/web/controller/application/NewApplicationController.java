@@ -56,6 +56,8 @@ import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.application.service.collection.GenericBillGeneratorService;
 import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
+import org.egov.infra.persistence.entity.enums.UserType;
+import org.egov.infra.security.utils.SecurityUtils;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -75,8 +77,13 @@ public class NewApplicationController extends BpaGenericApplicationController {
 
     @Autowired
     private GenericBillGeneratorService genericBillGeneratorService;
+    
+    private static final String BPAAPPLICATION_CITIZEN = "citizen_suceess";
+
     @Autowired
     private BpaUtils bpaUtils;
+    @Autowired
+    private SecurityUtils securityUtils;
     
 
     @RequestMapping(value = "/newApplication-newform", method = GET)
@@ -84,13 +91,14 @@ public class NewApplicationController extends BpaGenericApplicationController {
             final Model model, final HttpServletRequest request) {
         bpaApplication.setApplicationDate(new Date());
         model.addAttribute("mode", "new");
+        model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
         return "newapplication-form";
     }
 
     @RequestMapping(value = "/newApplication-create", method = POST)
     public String createNewConnection(@Valid @ModelAttribute final BpaApplication bpaApplication,
             final BindingResult resultBinder, final RedirectAttributes redirectAttributes,
-            final HttpServletRequest request, final Model model,
+            final HttpServletRequest request, final Model model,@RequestParam String workFlowAction,
             final BindingResult errors) {
 
        
@@ -100,21 +108,32 @@ public class NewApplicationController extends BpaGenericApplicationController {
             userPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(), bpaApplication.getSiteDetail().get(0) != null &&
                     bpaApplication.getSiteDetail().get(0).getElectionBoundary()!=null
                     ?  bpaApplication.getSiteDetail().get(0).getElectionBoundary().getId() : null);
-        if (userPosition == 0 || userPosition == null) {
+        if (!securityUtils.currentUserType().equals(UserType.CITIZEN) && (userPosition == 0 || userPosition == null)) {
             model.addAttribute("noJAORSAMessage", "No Superintendant exists to forward the application.");
             model.addAttribute("mode", "new");
             return "newapplication-form";
         }
+        workFlowAction=request.getParameter("workFlowAction");
+        if(!bpaUtils.logedInuseCitizenOrBusinessUser()){
         List<ApplicationStakeHolder> applicationStakeHolders = new ArrayList<>();
         ApplicationStakeHolder applicationStakeHolder= new ApplicationStakeHolder();
         applicationStakeHolder.setApplication(bpaApplication);
         applicationStakeHolder.setStakeHolder(bpaApplication.getStakeHolder().get(0).getStakeHolder());
         applicationStakeHolders.add(applicationStakeHolder);
         bpaApplication.setStakeHolder(applicationStakeHolders); 
+         }
         applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
         bpaApplication.setAdmissionfeeAmount(applicationBpaService
                 .setAdmissionFeeAmountForRegistrationWithAmenities(String.valueOf(bpaApplication.getServiceType().getId()),new ArrayList<ServiceType>()));
-        BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication);
+        BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication,workFlowAction);
+        if(bpaUtils.logedInuseCitizenOrBusinessUser())
+        {	
+        	bpaUtils.pushMessage(bpaApplicationRes);
+        	model.addAttribute("message", "Sucessfully saved with ApplicationNumber " +bpaApplicationRes.getApplicationNumber());
+            bpaUtils.sendSmsEmailOnCitizenSubmit(bpaApplication, workFlowAction);        
+        	return BPAAPPLICATION_CITIZEN;
+        }
+        else
         return genericBillGeneratorService.generateBillAndRedirectToCollection(bpaApplicationRes, model);
     }
 

@@ -39,6 +39,8 @@
  */
 package org.egov.bpa.web.controller.application;
 import org.egov.bpa.application.service.SearchBpaApplicationService;
+import org.egov.bpa.service.BpaUtils;
+
 import static org.egov.bpa.utils.BpaConstants.FILESTORE_MODULECODE;
 import static org.egov.infra.utils.JsonUtils.toJSON;
 
@@ -71,6 +73,9 @@ public class SearchBpaApplicationController extends BpaGenericApplicationControl
     
     @Autowired
     private SearchBpaApplicationService searchBpaApplicationService;
+    
+    @Autowired
+    private BpaUtils bpaUtils;
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String showSearchApprovedforFee(final Model model) {
@@ -95,6 +100,7 @@ public class SearchBpaApplicationController extends BpaGenericApplicationControl
             final HttpServletRequest request) {
         BpaApplication application = applicationBpaService.findByApplicationNumber(applicationNumber);
         model.addAttribute("bpaApplication", application);
+        model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
         model.addAttribute(APPLICATION_HISTORY,
                 bpaThirdPartyService.getHistory(application));
         return "viewapplication-form";

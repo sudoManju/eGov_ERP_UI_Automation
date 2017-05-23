@@ -199,6 +199,8 @@ public class BpaConstants {
 	public static final String MERCANTILE_COMMERCIAL = "Mercantile / Commercial";
 	public static final String INDUSTRIAL = "Industrial";
 	public static final String RESIDENTIAL = "Residential";
+	public static final String BPAFEECOLLECT="BPA Admission fees collected";
+	public static final String WF_SURVEYOR_FORWARD_BUTTON = "Submit";
 	private static final List<String> BUILDPERMIT = new ArrayList<>();
 	static {
 		BUILDPERMIT.add(ST_CODE_02); // Demolition

@@ -110,6 +110,7 @@
 		</div>
 	</div>
 </div>
+<c:if test="${ !citizenOrBusinessUser && !workFlowByNonEmp}">
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right"><spring:message
 			code="lbl.stakeholder.type" /> <span class="mandatory"></span></label>
@@ -143,6 +144,7 @@
 			cssClass="add-margin error-msg" />
 	</div>
 </div>
+</c:if>
 <%-- <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Old
 		Application Number 

@@ -68,12 +68,19 @@
         <put-attribute name="page-title" value="title.newApplication" cascade="true"/>
         <put-attribute name="body" value="/WEB-INF/views/application/newapplication-form.jsp"/>
     </definition>
+    <definition name="citizen_suceess" extends="base_layout">
+        <put-attribute name="page-title" value="title.newApplication" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/application/citizen-sucess.jsp"/>
+    </definition>
         
     <definition name="bpaapplication-Form" extends="base_layout">
         <put-attribute name="page-title" value="title.updateApplication" cascade="true"/>
         <put-attribute name="body" value="/WEB-INF/views/application/application-Edit.jsp"/>
     </definition>
-            
+        <definition name="citizen-view" extends="base_layout">
+        <put-attribute name="page-title" value="title.updateApplication" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/application/citizen-updateForm.jsp"/>
+    </definition>
     <definition name="viewapplication-form" extends="base_layout">
         <put-attribute name="page-title" value="title.viewApplication" cascade="true"/>
         <put-attribute name="body" value="/WEB-INF/views/application/viewapplication-form.jsp"/>

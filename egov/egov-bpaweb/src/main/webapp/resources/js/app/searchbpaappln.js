@@ -117,7 +117,14 @@ $(document)
 																		+ row.applicationNumber + '>Generate Demand Notice</option><option  value='
 																		+ collecturl
 																		+ row.applicationNumber + '>Collect Fees</option></select>');
-															} else if (row.status == 'Order Issued to Applicant') {
+															} 
+															else if(row.status == 'Registered' && !row.isFeeCollected){
+																return ('<select class="dropchange">'+commonOptions+'<option  value='
+																		+ collecturl
+																		+ row.applicationNumber + '>Collect Fees</option></select>');
+																
+															}
+															else if (row.status == 'Order Issued to Applicant') {
 																return ('<select class="dropchange">'+commonOptions+'<option  value='
 																		+ permitorderurl
 																		+ row.applicationNumber + '>Generate Permit Order</option></select>');

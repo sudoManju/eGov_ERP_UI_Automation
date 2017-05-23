@@ -69,7 +69,8 @@ public class CollectFeesController {
     public String showCollectFeeForm(final Model model, @PathVariable final String applicationCode) {
     	BpaApplication application=applicationBpaService.findByApplicationNumber(applicationCode);
     	Boolean bpaDuePresent=bpaDemandService.checkAnyTaxIsPendingToCollect(application);
-    	if(application.getStatus()!=null && application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_APPROVED) && bpaDuePresent){
+    	if(application.getStatus()!=null && (application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_APPROVED) ||
+    			application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_REGISTERED)) && bpaDuePresent){
     	return genericBillGeneratorService.generateBillAndRedirectToCollection(application, model);
     	}
     	else{

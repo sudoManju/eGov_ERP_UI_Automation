@@ -81,6 +81,7 @@ import org.egov.infra.filestore.entity.FileStoreMapper;
 import org.egov.infra.filestore.service.FileStoreService;
 import org.egov.infra.security.utils.SecurityUtils;
 import org.egov.infra.utils.autonumber.AutonumberServiceBeanResolver;
+import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,7 +99,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
 
     @Autowired
     private BpaStatusService bpaStatusService;
-
+    
     @Autowired
     private BpaUtils bpaUtils;
 
@@ -122,7 +123,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
     }
 
     @Transactional
-    public BpaApplication createNewApplication(final BpaApplication application) {
+    public BpaApplication createNewApplication(final BpaApplication application,String workFlowAction) {
         final Boundary boundaryObj = bpaUtils.getBoundaryById(application.getWardId() != null ? application.getWardId()
                 : application.getZoneId() != null ? application.getZoneId() : null);
         application.getSiteDetail().get(0).setAdminBoundary(boundaryObj);
@@ -132,17 +133,26 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         application.setApplicationNumber(applicationBpaBillService.generateApplicationnumber(application));
         final BpaStatus bpaStatus = getStatusByCodeAndModuleType(BpaConstants.APPLICATION_STATUS_REGISTERED);
         application.setStatus(bpaStatus);
-        application.setSource(Source.SYSTEM);
+        if( bpaUtils.logedInuseCitizenOrBusinessUser())
+        application.setSource(Source.CITIZENPORTAL);
+        else
+        	 application.setSource(Source.SYSTEM);
         application.getSiteDetail().get(0).setExtentinsqmts(convertExtendOfLandToSqmts(application.getSiteDetail().get(0).getExtentOfLand(), application.getSiteDetail().get(0).getUnitOfMeasurement()));
-        /*
-         * final BpaApplicationWorkflowCustomDefaultImpl applicationWorkflowCustomDefaultImpl = bpaUtils
-         * .getInitialisedWorkFlowBean(); applicationWorkflowCustomDefaultImpl.createCommonWorkflowTransition(application,
-         * null,BpaConstants.WF_NEW_STATE, BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, null);
-         */
+        Long approvalPosition=null;
         application.setDemand(applicationBpaBillService.createDemand(application));
+        if(workFlowAction!=null && workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON) && (bpaUtils.logedInuseCitizenOrBusinessUser()))
+    	{
+    	 final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(application, BpaConstants.WF_NEW_STATE);
+         if (wfmatrix != null)
+        	 approvalPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(), application.getSiteDetail().get(0) != null &&
+        			application.getSiteDetail().get(0).getElectionBoundary()!=null
+                     ?  application.getSiteDetail().get(0).getElectionBoundary().getId() : null);
+    	bpaUtils.redirectToBpaWorkFlow(approvalPosition,application, BpaConstants.WF_NEW_STATE, null,null,null);
+    	}
         return applicationBpaRepository.save(application);
     }
 
+    
 	private List<ApplicationFloorDetail> buildApplicationFloorDetails(final BpaApplication application) {
 		List<ApplicationFloorDetail> floorDetailsList = new ArrayList<>();
 		if (!application.getBuildingDetail().isEmpty()) {
@@ -353,5 +363,14 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
     
     public BigDecimal convertHectareToSqmtrs(BigDecimal extentLand){
     	return extentLand.multiply(BigDecimal.valueOf(10000));
+    }
+    
+    public Boolean checkAnyTaxIsPendingToCollect(BpaApplication bpaApplication)
+    {
+    	return bpaUtils.checkAnyTaxIsPendingToCollect(bpaApplication);
+    }
+    public Boolean workFlowinitiatedByNonEmployee(BpaApplication bpaApplication)
+    {
+    	return bpaUtils.workFlowinitiatedByNonEmployee(bpaApplication);
     }
 }

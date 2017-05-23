@@ -140,7 +140,7 @@
 		<div class="col-sm-3 add-margin">
 			<form:checkbox id="isexistingApprovedPlan"
 				path="isExistingApprovedPlan"
-				value="false" />
+				value="isExistingApprovedPlan" />
 			<form:errors path="isExistingApprovedPlan" cssClass="add-margin error-msg"/>
 		</div>
 	</div>

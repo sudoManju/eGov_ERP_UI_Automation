@@ -44,7 +44,16 @@ jQuery(document).ready(function() {
 	$("#applicantdet").prop("disabled",true);
 	$("#appDet").prop("disabled",true);
 	$("#serviceType").prop("disabled",true);
-	
+	if($('#collectFeeValidate').val() !='' && $('#collectFeeValidate').val() !=null)
+	{
+	bootbox.alert($('#collectFeeValidate').val());
+	$('#approvalDepartment').removeAttr('required');
+	$('#approvalDesignation').removeAttr('required');
+	$(".show-row").hide();
+	$("#Forward").hide();
+	$(".workAction").hide();
+	return false;
+	}
 	$(".workAction")
 	.click(
 			function(e) {

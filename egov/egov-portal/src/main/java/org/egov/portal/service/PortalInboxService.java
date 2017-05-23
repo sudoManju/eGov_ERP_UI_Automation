@@ -100,8 +100,8 @@ public class PortalInboxService {
             portalInboxUser.setUser(user);
             portalInbox.getPortalInboxUsers().add(portalInboxUser);
             portalInboxUser.setPortalInbox(portalInbox);
-        } else
-            throw new ApplicationRuntimeException("Logged in User must be a Citizen or Business User.");
+        }/* else
+            throw new ApplicationRuntimeException("Logged in User must be a Citizen or Business User.");*/
     }
 
     @Transactional
