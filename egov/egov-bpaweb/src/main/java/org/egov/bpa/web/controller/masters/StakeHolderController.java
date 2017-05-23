@@ -55,7 +55,9 @@ import org.egov.bpa.application.entity.enums.StakeHolderType;
 import org.egov.bpa.application.service.BPADocumentService;
 import org.egov.bpa.masters.service.StakeHolderService;
 import org.egov.bpa.utils.BPASmsAndEmailService;
+import org.egov.bpa.utils.BpaConstants;
 import org.egov.bpa.web.controller.adaptors.StakeHolderJsonAdaptor;
+import org.egov.infra.admin.master.service.RoleService;
 import org.egov.infra.config.properties.ApplicationProperties;
 import org.egov.infra.persistence.entity.Address;
 import org.egov.infra.persistence.entity.CorrespondenceAddress;
@@ -95,6 +97,9 @@ public class StakeHolderController {
     private StakeHolderCodeGenerator stakeHolderCodeGenerator;
     @Autowired
     private BPADocumentService bpaDocumentService;
+    
+    @Autowired
+    private RoleService roleService;
     @Autowired
     private BPASmsAndEmailService bpaSmsAndEmailService;
     @Autowired
@@ -132,6 +137,7 @@ public class StakeHolderController {
         stakeHolder.setUsername(stakeHolder.getEmailId());
         stakeHolder.updateNextPwdExpiryDate(applicationProperties.userPasswordExpiryInDays());
         stakeHolder.setPassword(passwordEncoder.encode(stakeHolder.getMobileNumber()));
+        stakeHolder.addRole(roleService.getRoleByName(BpaConstants.ROLE_BUSINESS_USER));
         stakeHolder.setActive(stakeHolder.getIsActive());
         StakeHolder stakeHolderRes = stakeHolderService.save(stakeHolder);
         bpaSmsAndEmailService.sendSMSForStakeHolder(stakeHolderRes);
