@@ -56,7 +56,6 @@ import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.application.service.collection.GenericBillGeneratorService;
 import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
-import org.egov.infra.persistence.entity.enums.UserType;
 import org.egov.infra.security.utils.SecurityUtils;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,10 +107,14 @@ public class NewApplicationController extends BpaGenericApplicationController {
             userPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(), bpaApplication.getSiteDetail().get(0) != null &&
                     bpaApplication.getSiteDetail().get(0).getElectionBoundary()!=null
                     ?  bpaApplication.getSiteDetail().get(0).getElectionBoundary().getId() : null);
-        if (!securityUtils.currentUserType().equals(UserType.CITIZEN) && (userPosition == 0 || userPosition == null)) {
-            model.addAttribute("noJAORSAMessage", "No Superintendant exists to forward the application.");
-            model.addAttribute("mode", "new");
-            return "newapplication-form";
+        if(bpaUtils.logedInuseCitizenOrBusinessUser() && workFlowAction!=null && workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON))
+        {
+        	if ( (userPosition == 0 || userPosition == null)) {
+                return redirectOnValidationFailure(model);
+            }	
+        }
+        else if ( !bpaUtils.logedInuseCitizenOrBusinessUser() && (userPosition == 0 || userPosition == null)) {
+            return redirectOnValidationFailure(model);
         }
         workFlowAction=request.getParameter("workFlowAction");
         if(!bpaUtils.logedInuseCitizenOrBusinessUser()){
@@ -136,6 +139,12 @@ public class NewApplicationController extends BpaGenericApplicationController {
         else
         return genericBillGeneratorService.generateBillAndRedirectToCollection(bpaApplicationRes, model);
     }
+
+	private String redirectOnValidationFailure(final Model model) {
+		model.addAttribute("noJAORSAMessage", "No Superintendant exists to forward the application.");
+		model.addAttribute("mode", "new");
+		return "newapplication-form";
+	}
 
     
     @RequestMapping(value = "/getdocumentlistbyservicetype", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
