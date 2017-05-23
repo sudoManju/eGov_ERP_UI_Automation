@@ -47,7 +47,6 @@ import javax.validation.Valid;
 
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.service.BpaUtils;
-import org.egov.bpa.utils.BPASmsAndEmailService;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,8 +76,6 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
     @Autowired
     private BpaUtils bpaUtils;
     
-    @Autowired
-    private BPASmsAndEmailService bpaSmsAndEmailService;
 
     @ModelAttribute
     public BpaApplication getBpaApplication(@PathVariable final String applicationNumber) {
