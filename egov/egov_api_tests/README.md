@@ -23,11 +23,11 @@ You should be all set.
 1. You can run the test from IntelliJ directly, by right clicking and **Run test**..
 2. From command line use the following commands to execute in particular environment
     
-    For running all tests : "gradle clean build Sanity -Denv=qa" 
+    For running all tests : "gradle egov -Denv=dev -Dtags=<tagName>"
     
                                         or 
                                         
-                          "gradle clean build Sanity -Denv=dev"
+                            "gradle egov -Denv=qa -Dtags=<tagName>"
     
     In QA Env : "gradle clean build Qa -Denv=qa"
     

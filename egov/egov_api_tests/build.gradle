@@ -41,7 +41,8 @@ tasks.withType(Test) {
     systemProperties = [env: System.getProperty('env', 'local')]
 }
 
-task Sanity(type: Test) {
+task egov(type: Test) {
+    String tagName = System.getProperty("tags")
     dependsOn clean, compileTestJava
     useTestNG {
         options {
@@ -49,59 +50,7 @@ task Sanity(type: Test) {
             useDefaultListeners = false
             listeners << 'org.uncommons.reportng.HTMLReporter'
             listeners << 'org.uncommons.reportng.JUnitXMLReporter'
-            excludeGroups 'Wip'
-        }
-    }
-}
-
-task Dev(type: Test) {
-    dependsOn clean, compileTestJava
-    useTestNG {
-        options {
-            reports.html.destination = file("$testReportDir/APITestsResults")
-            useDefaultListeners = false
-            listeners << 'org.uncommons.reportng.HTMLReporter'
-            listeners << 'org.uncommons.reportng.JUnitXMLReporter'
-            includeGroups 'Dev'
-        }
-    }
-}
-
-task Qa(type: Test) {
-    dependsOn clean, compileTestJava
-    useTestNG {
-        options {
-            reports.html.destination = file("$testReportDir/APITestsResults")
-            useDefaultListeners = false
-            listeners << 'org.uncommons.reportng.HTMLReporter'
-            listeners << 'org.uncommons.reportng.JUnitXMLReporter'
-            includeGroups 'Qa'
-        }
-    }
-}
-
-task Pgr(type: Test) {
-    dependsOn clean, compileTestJava
-    useTestNG {
-        options {
-            reports.html.destination = file("$testReportDir/APITestsResults")
-            useDefaultListeners = false
-            listeners << 'org.uncommons.reportng.HTMLReporter'
-            listeners << 'org.uncommons.reportng.JUnitXMLReporter'
-            includeGroups 'Pgr'
-        }
-    }
-}
-
-task User(type: Test) {
-    dependsOn clean, compileTestJava
-    useTestNG {
-        options {
-            reports.html.destination = file("$testReportDir/APITestsResults")
-            useDefaultListeners = false
-            listeners << 'org.uncommons.reportng.HTMLReporter'
-            listeners << 'org.uncommons.reportng.JUnitXMLReporter'
-            includeGroups 'User'
+            includeGroups tagName
         }
     }
 }
