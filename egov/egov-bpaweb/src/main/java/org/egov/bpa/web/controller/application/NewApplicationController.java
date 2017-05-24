@@ -73,50 +73,50 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping(value = "/application")
 public class NewApplicationController extends BpaGenericApplicationController {
 
-    @Autowired
-    private GenericBillGeneratorService genericBillGeneratorService;
+	@Autowired
+	private GenericBillGeneratorService genericBillGeneratorService;
 
-    @Autowired
-    private BpaUtils bpaUtils;
-    
+	@Autowired
+	private BpaUtils bpaUtils;
 
-    @RequestMapping(value = "/newApplication-newform", method = GET)
-    public String showNewApplicationForm(@ModelAttribute final BpaApplication bpaApplication,
-            final Model model, final HttpServletRequest request) {
-        bpaApplication.setApplicationDate(new Date());
-        model.addAttribute("mode", "new");
-        model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
-        return "newapplication-form";
-    }
+	@RequestMapping(value = "/newApplication-newform", method = GET)
+	public String showNewApplicationForm(@ModelAttribute final BpaApplication bpaApplication, final Model model,
+			final HttpServletRequest request) {
+		bpaApplication.setApplicationDate(new Date());
+		model.addAttribute("mode", "new");
+		model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
+		return "newapplication-form";
+	}
 
-    @RequestMapping(value = "/newApplication-create", method = POST)
-    public String createNewConnection(@Valid @ModelAttribute final BpaApplication bpaApplication,
-            final BindingResult resultBinder, final RedirectAttributes redirectAttributes,
-            final HttpServletRequest request, final Model model,@RequestParam String workFlowAction,
-            final BindingResult errors) {
+	@RequestMapping(value = "/newApplication-create", method = POST)
+	public String createNewConnection(@Valid @ModelAttribute final BpaApplication bpaApplication,
+			final BindingResult resultBinder, final RedirectAttributes redirectAttributes,
+			final HttpServletRequest request, final Model model, @RequestParam String workFlowAction,
+			final BindingResult errors) {
 
-        Long userPosition = null;
-        final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(bpaApplication, BpaConstants.WF_NEW_STATE);
-        if (wfmatrix != null)
-            userPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(), bpaApplication.getSiteDetail().get(0) != null &&
-                    bpaApplication.getSiteDetail().get(0).getElectionBoundary()!=null
-                    ?  bpaApplication.getSiteDetail().get(0).getElectionBoundary().getId() : null);
-        if (userPosition == 0 || userPosition == null) {
-            return redirectOnValidationFailure(model);
-        }
-        workFlowAction=request.getParameter("workFlowAction");
-        List<ApplicationStakeHolder> applicationStakeHolders = new ArrayList<>();
-        ApplicationStakeHolder applicationStakeHolder= new ApplicationStakeHolder();
-        applicationStakeHolder.setApplication(bpaApplication);
-        applicationStakeHolder.setStakeHolder(bpaApplication.getStakeHolder().get(0).getStakeHolder());
-        applicationStakeHolders.add(applicationStakeHolder);
-        bpaApplication.setStakeHolder(applicationStakeHolders); 
-        applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
-        bpaApplication.setAdmissionfeeAmount(applicationBpaService
-                .setAdmissionFeeAmountForRegistrationWithAmenities(String.valueOf(bpaApplication.getServiceType().getId()),new ArrayList<ServiceType>()));
-        BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication,workFlowAction);
-        return genericBillGeneratorService.generateBillAndRedirectToCollection(bpaApplicationRes, model);
-    }
+		Long userPosition = null;
+		final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(bpaApplication, BpaConstants.WF_NEW_STATE);
+		if (wfmatrix != null)
+			userPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(),
+					bpaApplication.getSiteDetail().get(0) != null
+							&& bpaApplication.getSiteDetail().get(0).getElectionBoundary() != null
+									? bpaApplication.getSiteDetail().get(0).getElectionBoundary().getId() : null);
+		if (userPosition == 0 || userPosition == null) {
+			return redirectOnValidationFailure(model);
+		}
+		workFlowAction = request.getParameter("workFlowAction");
+		List<ApplicationStakeHolder> applicationStakeHolders = new ArrayList<>();
+		ApplicationStakeHolder applicationStakeHolder = new ApplicationStakeHolder();
+		applicationStakeHolder.setApplication(bpaApplication);
+		applicationStakeHolder.setStakeHolder(bpaApplication.getStakeHolder().get(0).getStakeHolder());
+		applicationStakeHolders.add(applicationStakeHolder);
+		bpaApplication.setStakeHolder(applicationStakeHolders);
+		applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
+		bpaApplication.setAdmissionfeeAmount(applicationBpaService.setAdmissionFeeAmountForRegistrationWithAmenities(
+				String.valueOf(bpaApplication.getServiceType().getId()), new ArrayList<ServiceType>()));
+		BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication, workFlowAction);
+		return genericBillGeneratorService.generateBillAndRedirectToCollection(bpaApplicationRes, model);
+	}
 
 	private String redirectOnValidationFailure(final Model model) {
 		model.addAttribute("noJAORSAMessage", "No Superintendant exists to forward the application.");
@@ -124,12 +124,11 @@ public class NewApplicationController extends BpaGenericApplicationController {
 		return "newapplication-form";
 	}
 
-    
-    @RequestMapping(value = "/getdocumentlistbyservicetype", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public List<CheckListDetail> getDocumentsByServiceType(final Model model, @RequestParam final Long serviceType,
-            final HttpServletRequest request) {
-        return checkListDetailService.findActiveCheckListByServiceType(serviceType, BpaConstants.CHECKLIST_TYPE);
-    }
+	@RequestMapping(value = "/getdocumentlistbyservicetype", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<CheckListDetail> getDocumentsByServiceType(final Model model, @RequestParam final Long serviceType,
+			final HttpServletRequest request) {
+		return checkListDetailService.findActiveCheckListByServiceType(serviceType, BpaConstants.CHECKLIST_TYPE);
+	}
 
 }

@@ -65,81 +65,79 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping(value = "/application")
 public class CitizenUpdateApplicationController extends BpaGenericApplicationController {
-    private static final String BPA_APPLICATION = "bpaApplication";
+	private static final String BPA_APPLICATION = "bpaApplication";
 
-    private static final String BPA_APPLICATION_RESULT = "bpa-application-result";
+	private static final String BPA_APPLICATION_RESULT = "bpa-application-result";
 
+	private static final String APPLICATION_HISTORY = "applicationHistory";
 
-    private static final String APPLICATION_HISTORY = "applicationHistory";
+	private static final String ADDITIONALRULE = "additionalRule";
 
-    private static final String ADDITIONALRULE = "additionalRule";
-    
-    @Autowired
-    private BpaUtils bpaUtils;
-    
+	@Autowired
+	private BpaUtils bpaUtils;
 
-    @ModelAttribute
-    public BpaApplication getBpaApplication(@PathVariable final String applicationNumber) {
-        return applicationBpaService.findByApplicationNumber(applicationNumber);
-    }
+	@ModelAttribute
+	public BpaApplication getBpaApplication(@PathVariable final String applicationNumber) {
+		return applicationBpaService.findByApplicationNumber(applicationNumber);
+	}
 
-    @RequestMapping(value = "/citizen/update/{applicationNumber}", method = RequestMethod.GET)
-    public String updateApplicationForm(final Model model, @PathVariable final String applicationNumber,
-            final HttpServletRequest request) {
-        final BpaApplication application = getBpaApplication(applicationNumber);
-        model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
-        model.addAttribute("mode", "citizen");
-        model.addAttribute(APPLICATION_HISTORY,
-                bpaThirdPartyService.getHistory(application));
-        loadViewdata(model,application);
-        return "citizen-view";
-    }
+	@RequestMapping(value = "/citizen/update/{applicationNumber}", method = RequestMethod.GET)
+	public String updateApplicationForm(final Model model, @PathVariable final String applicationNumber,
+			final HttpServletRequest request) {
+		final BpaApplication application = getBpaApplication(applicationNumber);
+		model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
+		model.addAttribute("mode", "citizen");
+		model.addAttribute(APPLICATION_HISTORY, bpaThirdPartyService.getHistory(application));
+		loadViewdata(model, application);
+		return "citizen-view";
+	}
 
+	private void loadViewdata(final Model model, final BpaApplication application) {
+		model.addAttribute("stateType", application.getClass().getSimpleName());
+		model.addAttribute(ADDITIONALRULE, CREATE_ADDITIONAL_RULE_CREATE);
 
-    private void loadViewdata(final Model model, final BpaApplication application) {
-        model.addAttribute("stateType", application.getClass().getSimpleName());
-        model.addAttribute(ADDITIONALRULE, CREATE_ADDITIONAL_RULE_CREATE);
-       
-        model.addAttribute(BPA_APPLICATION, application);
-      
-        //prepareWorkflow(model, application, workflowContainer);
-        model.addAttribute("currentState", application.getCurrentState()!=null?application.getCurrentState().getValue():"");
-        model.addAttribute(BPA_APPLICATION, application);
-        model.addAttribute("nocCheckListDetails", checkListDetailService
-                .findActiveCheckListByServiceType(application.getServiceType().getId(), CHECKLIST_TYPE_NOC));
-        model.addAttribute("checkListDetailList", checkListDetailService
-                .findActiveCheckListByServiceType(application.getServiceType().getId(), BpaConstants.CHECKLIST_TYPE));
-    }
+		model.addAttribute(BPA_APPLICATION, application);
 
-    @RequestMapping(value = "/citizen/update/{applicationNumber}", method = RequestMethod.POST)
-    public String updateApplication(@Valid @ModelAttribute("") BpaApplication bpaApplication,
-            @PathVariable final String applicationNumber,
-            final BindingResult resultBinder, final RedirectAttributes redirectAttributes,
-            final HttpServletRequest request, final Model model, 
-            @RequestParam("files") final MultipartFile[] files,@RequestParam String workFlowAction) {
+		// prepareWorkflow(model, application, workflowContainer);
+		model.addAttribute("currentState",
+				application.getCurrentState() != null ? application.getCurrentState().getValue() : "");
+		model.addAttribute(BPA_APPLICATION, application);
+		model.addAttribute("nocCheckListDetails", checkListDetailService
+				.findActiveCheckListByServiceType(application.getServiceType().getId(), CHECKLIST_TYPE_NOC));
+		model.addAttribute("checkListDetailList", checkListDetailService
+				.findActiveCheckListByServiceType(application.getServiceType().getId(), BpaConstants.CHECKLIST_TYPE));
+	}
 
-        if (resultBinder.hasErrors()) {	
-            loadViewdata(model, bpaApplication);
-            return "citizen-view";
-        }
+	@RequestMapping(value = "/citizen/update/{applicationNumber}", method = RequestMethod.POST)
+	public String updateApplication(@Valid @ModelAttribute("") BpaApplication bpaApplication,
+			@PathVariable final String applicationNumber, final BindingResult resultBinder,
+			final RedirectAttributes redirectAttributes, final HttpServletRequest request, final Model model,
+			@RequestParam("files") final MultipartFile[] files, @RequestParam String workFlowAction) {
+
+		if (resultBinder.hasErrors()) {
+			loadViewdata(model, bpaApplication);
+			return "citizen-view";
+		}
 		workFlowAction = request.getParameter("workFlowAction");
-        Long approvalPosition = null;
-        applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
-        if(workFlowAction!=null && workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON) && (bpaUtils.logedInuseCitizenOrBusinessUser()))
-        	{
-        	 final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(bpaApplication, BpaConstants.WF_NEW_STATE);
-             if (wfmatrix != null)
-            	 approvalPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(), bpaApplication.getSiteDetail().get(0) != null &&
-            			 bpaApplication.getSiteDetail().get(0).getElectionBoundary()!=null
-                         ?  bpaApplication.getSiteDetail().get(0).getElectionBoundary().getId() : null);
-        	bpaUtils.redirectToBpaWorkFlow(approvalPosition,bpaApplication, BpaConstants.WF_NEW_STATE, null,null,null);
+		Long approvalPosition = null;
+		applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
+		if (workFlowAction != null && workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)
+				&& (bpaUtils.logedInuseCitizenOrBusinessUser())) {
+			final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(bpaApplication,
+					BpaConstants.WF_NEW_STATE);
+			if (wfmatrix != null)
+				approvalPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(),
+						bpaApplication.getSiteDetail().get(0) != null
+								&& bpaApplication.getSiteDetail().get(0).getElectionBoundary() != null
+										? bpaApplication.getSiteDetail().get(0).getElectionBoundary().getId() : null);
+			bpaUtils.redirectToBpaWorkFlow(approvalPosition, bpaApplication, BpaConstants.WF_NEW_STATE, null, null,
+					null);
 
-        	}
-        applicationBpaService.saveAndFlushApplication(bpaApplication);
-        bpaUtils.updateCitizeninboxApplication(bpaApplication);
-        bpaUtils.sendSmsEmailOnCitizenSubmit(bpaApplication, workFlowAction);        
-        return BPA_APPLICATION_RESULT;
-    }
+		}
+		applicationBpaService.saveAndFlushApplication(bpaApplication);
+		bpaUtils.updateCitizeninboxApplication(bpaApplication);
+		bpaUtils.sendSmsEmailOnCitizenSubmit(bpaApplication, workFlowAction);
+		return BPA_APPLICATION_RESULT;
+	}
 
-	
 }
