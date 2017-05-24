@@ -54,7 +54,7 @@ public class BpaConstants {
 	public static final String ST_CODE_05 = "05";
 	public static final String ST_CODE_06 = "06";
 	public static final String ST_CODE_07 = "07";
-    public static final String ROLE_BUSINESS_USER = "Business User";
+    public static final String ROLE_BUSINESS_USER = "BUSINESS";
 	public static final String RE_DEVELOPMENT_OF_LAND = "Re-development of land";
     public static final String DEVELOPMENT_OF_LAND = "Development of land";
     public static final String REGULARIZATION = "Regularization";
