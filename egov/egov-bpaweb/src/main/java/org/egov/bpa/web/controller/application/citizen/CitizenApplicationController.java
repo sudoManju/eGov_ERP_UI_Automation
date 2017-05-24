@@ -37,85 +37,130 @@
  *
  *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
-package org.egov.bpa.web.controller.application;
+package org.egov.bpa.web.controller.application.citizen;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.egov.bpa.application.entity.ApplicationStakeHolder;
 import org.egov.bpa.application.entity.BpaApplication;
-import org.egov.bpa.application.entity.CheckListDetail;
 import org.egov.bpa.application.entity.ServiceType;
-import org.egov.bpa.application.service.collection.GenericBillGeneratorService;
+import org.egov.bpa.masters.service.ServiceTypeService;
 import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
+import org.egov.bpa.web.controller.application.BpaGenericApplicationController;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping(value = "/application")
-public class NewApplicationController extends BpaGenericApplicationController {
-
-    @Autowired
-    private GenericBillGeneratorService genericBillGeneratorService;
+@RequestMapping(value = "/application/citizen")
+public class CitizenApplicationController extends BpaGenericApplicationController {
+    
+    private static final String BPAAPPLICATION_CITIZEN = "citizen_suceess";
 
     @Autowired
     private BpaUtils bpaUtils;
     
+    @Autowired
+    private ServiceTypeService serviceTypeService;
+    
 
-    @RequestMapping(value = "/newApplication-newform", method = GET)
+    @RequestMapping(value = "/newconstruction-form", method = GET)
     public String showNewApplicationForm(@ModelAttribute final BpaApplication bpaApplication,
             final Model model, final HttpServletRequest request) {
-        bpaApplication.setApplicationDate(new Date());
-        model.addAttribute("mode", "new");
-        model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
-        return "newapplication-form";
+        return loadNewForm(bpaApplication, model,BpaConstants.ST_CODE_01);
     }
-
-    @RequestMapping(value = "/newApplication-create", method = POST)
+	private String loadNewForm(final BpaApplication bpaApplication, final Model model,String serviceCode) {
+		bpaApplication.setApplicationDate(new Date());
+        model.addAttribute("mode", "new");
+        bpaApplication.setServiceType(serviceTypeService.getServiceTypeByCode(serviceCode));
+        model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
+        return "citizenApplication-form";
+	}
+    @RequestMapping(value = "/demolition-form", method = GET)
+    public String showDemolition(@ModelAttribute final BpaApplication bpaApplication,
+            final Model model, final HttpServletRequest request) {
+        return loadNewForm(bpaApplication, model,BpaConstants.ST_CODE_02);
+    }
+ 
+    
+    @RequestMapping(value = "/reconstruction-form", method = GET)
+    public String showReconstruction(@ModelAttribute final BpaApplication bpaApplication,
+            final Model model, final HttpServletRequest request) {
+        return loadNewForm(bpaApplication, model,BpaConstants.ST_CODE_03);
+    }
+    @RequestMapping(value = "/alteration-form", method = GET)
+    public String showAlteration(@ModelAttribute final BpaApplication bpaApplication,
+            final Model model, final HttpServletRequest request) {
+        return loadNewForm(bpaApplication, model,BpaConstants.ST_CODE_04);
+    }
+    
+    @RequestMapping(value = "/subdevland-form", method = GET)
+    public String showSubDevlisionOfLand(@ModelAttribute final BpaApplication bpaApplication,
+            final Model model, final HttpServletRequest request) {
+        return loadNewForm(bpaApplication, model,BpaConstants.ST_CODE_05);
+    }
+    
+    @RequestMapping(value = "/addextnew-form", method = GET)
+    public String loadAddOfExtection(@ModelAttribute final BpaApplication bpaApplication,
+            final Model model, final HttpServletRequest request) {
+        return loadNewForm(bpaApplication, model,BpaConstants.ST_CODE_06);
+    }
+    @RequestMapping(value = "/changeofoccupancy-form", method = GET)
+    public String showChangeOfOccupancy(@ModelAttribute final BpaApplication bpaApplication,
+            final Model model, final HttpServletRequest request) {
+        return loadNewForm(bpaApplication, model,BpaConstants.ST_CODE_07);
+    }
+    
+    @RequestMapping(value = "/permissionhutorshud-form", method = GET)
+    public String loadPermOfHutOrShud(@ModelAttribute final BpaApplication bpaApplication,
+            final Model model, final HttpServletRequest request) {
+        return loadNewForm(bpaApplication, model,BpaConstants.ST_CODE_09);
+    }
+    
+    @RequestMapping(value = "/application-create", method = POST)
     public String createNewConnection(@Valid @ModelAttribute final BpaApplication bpaApplication,
             final BindingResult resultBinder, final RedirectAttributes redirectAttributes,
             final HttpServletRequest request, final Model model,@RequestParam String workFlowAction,
             final BindingResult errors) {
 
+       
         Long userPosition = null;
         final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(bpaApplication, BpaConstants.WF_NEW_STATE);
         if (wfmatrix != null)
             userPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(), bpaApplication.getSiteDetail().get(0) != null &&
                     bpaApplication.getSiteDetail().get(0).getElectionBoundary()!=null
                     ?  bpaApplication.getSiteDetail().get(0).getElectionBoundary().getId() : null);
-        if (userPosition == 0 || userPosition == null) {
-            return redirectOnValidationFailure(model);
+        if(bpaUtils.logedInuseCitizenOrBusinessUser() && workFlowAction!=null && workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON))
+        {
+        	if ( (userPosition == 0 || userPosition == null)) {
+                return redirectOnValidationFailure(model);
+            }	
         }
         workFlowAction=request.getParameter("workFlowAction");
-        List<ApplicationStakeHolder> applicationStakeHolders = new ArrayList<>();
-        ApplicationStakeHolder applicationStakeHolder= new ApplicationStakeHolder();
-        applicationStakeHolder.setApplication(bpaApplication);
-        applicationStakeHolder.setStakeHolder(bpaApplication.getStakeHolder().get(0).getStakeHolder());
-        applicationStakeHolders.add(applicationStakeHolder);
-        bpaApplication.setStakeHolder(applicationStakeHolders); 
         applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
         bpaApplication.setAdmissionfeeAmount(applicationBpaService
                 .setAdmissionFeeAmountForRegistrationWithAmenities(String.valueOf(bpaApplication.getServiceType().getId()),new ArrayList<ServiceType>()));
         BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication,workFlowAction);
-        return genericBillGeneratorService.generateBillAndRedirectToCollection(bpaApplicationRes, model);
+        if(bpaUtils.logedInuseCitizenOrBusinessUser())
+        {	
+        	bpaUtils.pushMessage(bpaApplicationRes);
+        	model.addAttribute("message", "Sucessfully saved with ApplicationNumber " +bpaApplicationRes.getApplicationNumber());
+            bpaUtils.sendSmsEmailOnCitizenSubmit(bpaApplication, workFlowAction);        
+        }
+        return BPAAPPLICATION_CITIZEN;
     }
 
 	private String redirectOnValidationFailure(final Model model) {
@@ -125,11 +170,6 @@ public class NewApplicationController extends BpaGenericApplicationController {
 	}
 
     
-    @RequestMapping(value = "/getdocumentlistbyservicetype", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public List<CheckListDetail> getDocumentsByServiceType(final Model model, @RequestParam final Long serviceType,
-            final HttpServletRequest request) {
-        return checkListDetailService.findActiveCheckListByServiceType(serviceType, BpaConstants.CHECKLIST_TYPE);
-    }
+    
 
 }

@@ -62,7 +62,9 @@ public class ServiceTypeService {
         return serviceTypeRepository.getAllActiveMainServiceTypes();
     }
     
-    
+    public ServiceType getServiceTypeByCode(final String code) {
+        return serviceTypeRepository.getServiceTypeByCode(code);
+    }
     
     public List<ServiceType> getAllActiveAmenities() {
         return serviceTypeRepository.getAllActiveAmenities();

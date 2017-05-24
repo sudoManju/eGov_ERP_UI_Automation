@@ -37,7 +37,7 @@
  *
  *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
-package org.egov.bpa.web.controller.application;
+package org.egov.bpa.web.controller.application.citizen;
 
 import static org.egov.bpa.utils.BpaConstants.CHECKLIST_TYPE_NOC;
 import static org.egov.bpa.utils.BpaConstants.CREATE_ADDITIONAL_RULE_CREATE;
@@ -48,6 +48,7 @@ import javax.validation.Valid;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
+import org.egov.bpa.web.controller.application.BpaGenericApplicationController;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

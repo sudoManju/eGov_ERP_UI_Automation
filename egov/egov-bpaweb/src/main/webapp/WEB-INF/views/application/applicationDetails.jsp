@@ -89,16 +89,14 @@
 				data-inputmask="'mask': 'd/m/y'" required="required" />
 			<form:errors path="applicationDate" cssClass="add-margin error-msg" />
 		</div>
-	</div>
-	<div class="form-group">
-		<label class="col-sm-3 control-label text-right">ApplicationNumber
+		<%-- <label class="col-sm-3 control-label text-right">ApplicationNumber
 			<span class="mandatory"></span>
 		</label>
 		<div class="col-sm-3 add-margin">
 			<form:input class="form-control patternvalidation" maxlength="50"
 				id="applicationNumber" path="applicationNumber" disabled="true" />
 			<form:errors path="applicationNumber" cssClass="add-margin error-msg" />
-		</div>
+		</div> --%>
 		<label class="col-sm-2 control-label text-right">Admission
 			Fees </label>
 		<div class="col-sm-3 add-margin">

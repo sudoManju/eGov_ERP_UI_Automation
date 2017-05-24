@@ -52,7 +52,7 @@
 			<fmt:formatDate pattern="dd/MM/yyyy"
 				value="${bpaApplication.applicationDate}" />
 		</div>
-		<form:form role="form" action="newApplication-create" method="post"
+		<form:form role="form" action="application-create" method="post"
 			modelAttribute="bpaApplication" id="newApplicationform"
 			cssClass="form-horizontal form-groups-bordered"
 			enctype="multipart/form-data">
@@ -97,10 +97,18 @@
 			</div>
 
 			<div align="center">
-			
+			<c:choose>
+			<c:when test="${citizenOrBusinessUser }">
+				<form:button type="submit" id="buttonSave" class="btn btn-primary" 
+					value="Save">Save</form:button>
+				<td><form:button type="submit" id="buttonSubmit" class="btn btn-primary" 
+					value="Submit">Submit</form:button></td>
+					</c:when>
+					<c:otherwise>
 					<form:button type="submit" id="buttonSubmit" class="btn btn-primary" 
 					value="Submit">Submit</form:button>
-					
+					</c:otherwise>
+					</c:choose>
 				<input type="button" name="button2" id="button2" value="Close"
 					class="btn btn-default" onclick="window.close();" />
 			</div>
@@ -109,14 +117,25 @@
 </div>
 
 <script>
-	
+	 $('#buttonSave').click(function() {
+			var button=$('#buttonSave').val();
+			if ($('form').valid()) {
+				$('#serviceType').prop("disabled", false);
+				document.getElementById("workFlowAction").value=button;
+				document.forms[0].submit();
+			} else {
+				alert('enter all meng=datory fields');
+			}
+			
+		});
 		$('#buttonSubmit').click(function() {
 		var button=$('#buttonSubmit').val();
 		if ($('form').valid()) {
+			$('#serviceType').prop("disabled", false);
 			document.getElementById("workFlowAction").value=button;
 			document.forms[0].submit();
 		} else {
-			e.preventDefault();
+			alert('enter all meng=datory fields');
 		}
 		
 		});

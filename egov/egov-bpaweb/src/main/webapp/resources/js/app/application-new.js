@@ -43,7 +43,11 @@ jQuery(document).ready(function($) {
 	if($('#noJAORSAMessage') && $('#noJAORSAMessage').val())
 		bootbox.alert($('#noJAORSAMessage').val());
 });
-
+	var citizenOrBusiness=$('#citizenOrBusinessUser').val();
+	if(citizenOrBusiness == 'true')
+	{
+	$('#serviceType').prop("disabled", true);
+	}
 function chkNumeric(evt) {
     evt = (evt) ? evt : window.event;
     var charCode = (evt.which) ? evt.which : evt.keyCode;

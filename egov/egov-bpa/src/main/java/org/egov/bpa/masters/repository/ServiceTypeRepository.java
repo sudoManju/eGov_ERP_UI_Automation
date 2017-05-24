@@ -44,15 +44,18 @@ import java.util.List;
 import org.egov.bpa.application.entity.ServiceType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ServiceTypeRepository extends JpaRepository<ServiceType, Long> {
-	 @Query("select A from ServiceType A where A.isAmenity=false order by A.id asc ")
-	    List<ServiceType> getAllActiveMainServiceTypes();
-	 
-	 
-	 @Query("select A from ServiceType A where A.isAmenity=true order by A.id asc ")
-	    List<ServiceType> getAllActiveAmenities();
-	  
+	@Query("select A from ServiceType A where A.isAmenity=false order by A.id asc ")
+	List<ServiceType> getAllActiveMainServiceTypes();
+
+	@Query("select A from ServiceType A where A.isAmenity=true order by A.id asc ")
+	List<ServiceType> getAllActiveAmenities();
+
+	@Query("select A from ServiceType A where A.isAmenity=false and A.code=:code order by A.id asc ")
+	ServiceType getServiceTypeByCode(@Param("code") String code);
+
 }
