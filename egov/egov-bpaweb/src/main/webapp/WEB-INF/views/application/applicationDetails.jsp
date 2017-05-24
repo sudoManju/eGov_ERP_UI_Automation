@@ -54,7 +54,8 @@
 		</label>
 		<div class="col-sm-3 add-margin">
 			<form:select path="serviceType" data-first-option="false"
-				id="serviceType" cssClass="form-control serviceType" required="required">
+				id="serviceType" cssClass="form-control serviceType"
+				required="required">
 				<form:option value="">
 					<spring:message code="lbl.select" />
 				</form:option>
@@ -64,20 +65,22 @@
 			<form:errors path="serviceType" cssClass="add-margin error-msg" />
 		</div>
 		<label class="col-sm-2 control-label text-right">Amenity Type
-			
+
 		</label>
 		<div class="col-sm-3 add-margin">
 			<form:select path="applicationAmenity" multiple="true"
-												id="applicationAmenity" cssClass="form-control applicationAmenity"
-												cssErrorClass="form-control error">
-												<form:options items="${amenityTypeList}" itemValue="id"
-													itemLabel="description" />
+				id="applicationAmenity" cssClass="form-control applicationAmenity"
+				cssErrorClass="form-control error">
+				<form:options items="${amenityTypeList}" itemValue="id"
+					itemLabel="description" />
 			</form:select>
-			 ( Hold the CTRL key and click the items in a list to choose multiple Amenity ) 
-			<form:errors path="applicationAmenity" cssClass="add-margin error-msg" />
+			( Hold the CTRL key and click the items in a list to choose multiple
+			Amenity )
+			<form:errors path="applicationAmenity"
+				cssClass="add-margin error-msg" />
 		</div>
-		     
-		</div>
+
+	</div>
 	<div class="form-group">
 
 		<label class="col-sm-3 control-label text-right">Application
@@ -109,39 +112,39 @@
 	</div>
 </div>
 <c:if test="${ !citizenOrBusinessUser && !workFlowByNonEmp}">
-<div class="form-group">
-	<label class="col-sm-3 control-label text-right"><spring:message
-			code="lbl.stakeholder.type" /> <span class="mandatory"></span></label>
-	<div class="col-sm-3 add-margin">
-		<form:select path="stakeHolder[0].stakeHolder.stakeHolderType"
-			id="stakeHolderType"
-			value="${bpaApplication.stakeHolder[0].stakeHolder.stakeHolderType}"
-			required="required" cssClass="form-control">
-			<form:option value="">
-				<spring:message code="lbl.select" />
-			</form:option>
-			<form:options items="${stakeHolderTypeList}" />
-		</form:select>
-		<form:errors path="stakeHolder[0].stakeHolder"
-			cssClass="add-margin error-msg" />
+	<div class="form-group">
+		<label class="col-sm-3 control-label text-right"><spring:message
+				code="lbl.stakeholder.type" /> <span class="mandatory"></span></label>
+		<div class="col-sm-3 add-margin">
+			<form:select path="stakeHolder[0].stakeHolder.stakeHolderType"
+				id="stakeHolderType"
+				value="${bpaApplication.stakeHolder[0].stakeHolder.stakeHolderType}"
+				required="required" cssClass="form-control">
+				<form:option value="">
+					<spring:message code="lbl.select" />
+				</form:option>
+				<form:options items="${stakeHolderTypeList}" />
+			</form:select>
+			<form:errors path="stakeHolder[0].stakeHolder"
+				cssClass="add-margin error-msg" />
+		</div>
+		<label class="col-sm-2 control-label text-right"><spring:message
+				code="lbl.stakeholder.name" /><span class="mandatory"></span> </label>
+		<div class="col-sm-3 add-margin">
+			<form:hidden path="stakeHolder[0].application" />
+			<form:select path="stakeHolder[0].stakeHolder" id="stakeHolder"
+				value="${bpaApplication.stakeHolder[0].stakeHolder.name}"
+				required="required" cssClass="form-control">
+				<form:option value="">
+					<spring:message code="lbl.select" />
+				</form:option>
+				<form:options items="${stakeHolderList}" itemValue="id"
+					itemLabel="name" />
+			</form:select>
+			<form:errors path="stakeHolder[0].stakeHolder"
+				cssClass="add-margin error-msg" />
+		</div>
 	</div>
-	<label class="col-sm-2 control-label text-right"><spring:message
-			code="lbl.stakeholder.name" /><span class="mandatory"></span> </label>
-	<div class="col-sm-3 add-margin">
-		<form:hidden path="stakeHolder[0].application" />
-		<form:select path="stakeHolder[0].stakeHolder" id="stakeHolder"
-			value="${bpaApplication.stakeHolder[0].stakeHolder.name}"
-			required="required" cssClass="form-control">
-			<form:option value="">
-				<spring:message code="lbl.select" />
-			</form:option>
-			<form:options items="${stakeHolderList}" itemValue="id"
-				itemLabel="name" />
-		</form:select>
-		<form:errors path="stakeHolder[0].stakeHolder"
-			cssClass="add-margin error-msg" />
-	</div>
-</div>
 </c:if>
 <%-- <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Old
@@ -173,7 +176,7 @@
 </div> --%>
 
 <div class="form-group">
-<label class="col-sm-3 control-label text-right">Occupancy <span
+	<label class="col-sm-3 control-label text-right">Occupancy <span
 		class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:select path="occupancy" data-first-option="false" id="occupancy"
@@ -182,39 +185,37 @@
 				<spring:message code="lbl.select" />
 			</form:option>
 			<form:options items="${occupancyList}" itemValue="id"
-					itemLabel="description" />
+				itemLabel="description" />
 		</form:select>
 		<form:errors path="occupancy" cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right">Property Number
-	</label>
+	<label class="col-sm-2 control-label text-right">Property
+		Number </label>
 	<div class="col-sm-3 add-margin">
 		<div class="input-group">
 			<form:input id="assessmentNumber" path="assessmentNumber"
 				class="form-control" data-pattern="number" maxlength="50" />
-			
 		</div>
 		<form:errors path="assessmentNumber" id="assessmentNumber"
 			cssClass="add-margin error-msg" />
 	</div>
-	
 </div>
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Applicant Mode<span
 		class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
-			<form:select path="applicantMode" data-first-option="false" id=""
+		<form:select path="applicantMode" data-first-option="false" id=""
 			cssClass="form-control" required="required">
 			<form:options items="${applicantModes}" />
 		</form:select>
 		<form:errors path="applicantMode" id="applicantMode"
 			cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right">Tapan Number </label>
+	<label class="col-sm-2 control-label text-right">Remarks</label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" data-pattern="number" maxlength="50"
-			id="tapalNumber" path="tapalNumber" />
-		<form:errors path="tapalNumber" cssClass="add-margin error-msg" />
+		<form:textarea class="form-control patternvalidation"
+			data-pattern="string" maxlength="128" id="remarks" path="remarks" />
+		<form:errors path="remarks" cssClass="add-margin error-msg" />
 	</div>
 	<%-- <label class="col-sm-2 control-label text-right">Source <span
 		class="mandatory"></span></label>
@@ -229,31 +230,7 @@
 		<form:errors path="source" cssClass="add-margin error-msg" />
 	</div> --%>
 </div>
-<div class="form-group">
-	<label class="col-sm-3 control-label text-right">Project Name </label>
-	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="50"
-			id="projectName" path="projectName" />
-		<form:errors path="projectName" cssClass="add-margin error-msg" />
-	</div>
-	<label class="col-sm-2 control-label text-right">Group
-		Development</label>
-	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="50"
-			id="groupDevelopment" path="groupDevelopment" />
-		<form:errors path="groupDevelopment" cssClass="add-margin error-msg" />
-	</div>
-</div>
 
-<div class="form-group">
-	<label class="col-sm-3 control-label text-right">Remarks</label>
-	<div class="col-sm-3 add-margin">
-		<form:textarea class="form-control patternvalidation"
-			data-pattern="string" maxlength="128" id="remarks" path="remarks"
-			 />
-		<form:errors path="remarks" cssClass="add-margin error-msg" />
-	</div>
-</div>
 <div class="form-group">
 	<div class="col-sm-3 add-margin">
 		<c:choose>
@@ -281,7 +258,8 @@
 					PlanApproval Number <span class="mandatory"></span>
 				</label>
 				<form:input class="form-control patternvalidation" maxlength="50"
-					id="buildingplanapprovalnumber" data-pattern="number" path="buildingplanapprovalnumber" />
+					id="buildingplanapprovalnumber" data-pattern="number"
+					path="buildingplanapprovalnumber" />
 				<form:errors path="buildingplanapprovalnumber"
 					cssClass="add-margin error-msg" />
 			</c:when>

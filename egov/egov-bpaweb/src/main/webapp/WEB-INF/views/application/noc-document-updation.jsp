@@ -45,149 +45,160 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
-			<div class="panel-heading">
-				<div class="panel-title">Status of NOC from the Following
-					Departments.</div>
-			</div>
+<div class="panel-heading">
+	<div class="panel-title">Status of NOC from the Following
+		Departments.</div>
+</div>
 
-			<div class="panel-body custom">
-				<table class="table table-bordered  multiheadertbl"
-					name="bpaupdatenocdetails" id=bpaupdatenocdetails>
-					<thead>
-							<th><spring:message code="lbl.srl.no" /></th>
-							<th><spring:message code="lbl.department" /></th>
-							<th><spring:message code="lbl.nature.noc.req" /></th>
-							<th><spring:message code="lbl.letr.sent.on" /></th>
-							<th><spring:message code="lbl.reply.recv.on" /></th>
-							<th><spring:message code="lbl.noc.reject" /></th>
-							<th><spring:message code="lbl.noc.not.aplicable" /></th>
-							<th width="8%"><spring:message code="lbl.obtained" /></th>
-							<th><spring:message code="lbl.remarks" /></th>
-							<th><spring:message code="lbl.attachdocument" /><br>(<spring:message code="lbl.mesg.document"/>)</th>
-					</thead>
-					<tbody>
-						<c:forEach var="doc" items="${nocCheckListDetails}"
-							varStatus="status">
-							<form:hidden
-								path="applicationNOCDocument[${status.index}].application"
-								id="applicationId" value="${bpaApplication.id}" />
-							<form:hidden
-								path="applicationNOCDocument[${status.index}].checklist"
-								id="checklist" value="${doc.id}" />
-							<form:hidden id="checkListDocumentsForNOC[${status.index}].id"
-								path="checkListDocumentsForNOC[${status.index}].id"
-								value="${doc.id}" />
-							<tr>
-								<td><c:out value="${status.index+1}"></c:out></td>
-								<td><c:out value="${doc.description}"></c:out>
-									<c:if test="${doc.isMandatory}">
-										<span class="mandatory"></span>
-									</c:if></td>
-								<td>
-								 
-       							<div class = "input-group">
-								  <form:textarea
-										class="form-control patternvalidation textarea-content"
-										data-pattern="string" maxlength="512"
-										id="applicationNOCDocument${status.index}natureOfRequest"
-										path="applicationNOCDocument[${status.index}].natureOfRequest" />
-									<form:errors
-										path="applicationNOCDocument[${status.index}].natureOfRequest"
-										cssClass="add-margin error-msg" />
-										<span class="input-group-addon showModal" data-assign-to="applicationNOCDocument${status.index}natureOfRequest" data-header="Nature Of NOC Request"><span class="glyphicon glyphicon-pencil" style="cursor:pointer"></span></span>
-										</div>
-							  </td>
-								<td><form:input class="form-control dateval"
-										maxlength="50"
-										id="letterSentOn"
-										path="applicationNOCDocument[${status.index}].letterSentOn" />
-									<form:errors
-										path="applicationNOCDocument[${status.index}].letterSentOn"
-										cssClass="add-margin error-msg" /></td>
-								<td><form:input class="form-control dateval"
-										maxlength="50"
-										id="replyReceivedOn"
-										path="applicationNOCDocument[${status.index}].replyReceivedOn" />
-									<form:errors
-										path="applicationNOCDocument[${status.index}].replyReceivedOn"
-										cssClass="add-margin error-msg" /></td>
-								<td>
-								<form:radiobutton path="applicationNOCDocument[${status.index}].rejection" value="true" /> <spring:message code="lbl.yes" />
-								<form:radiobutton path="applicationNOCDocument[${status.index}].rejection" value="false" /> <spring:message code="lbl.no" />
-								</td>
-								<td><form:radiobutton path="applicationNOCDocument[${status.index}].notApplicable" value="true" /> <spring:message code="lbl.yes" />
-								<form:radiobutton path="applicationNOCDocument[${status.index}].notApplicable" value="false" /> <spring:message code="lbl.no" />
-								</td>
-								<td>
-								<form:radiobutton path="applicationNOCDocument[${status.index}].issubmitted" value="true" /> <spring:message code="lbl.yes" />
-								<form:radiobutton path="applicationNOCDocument[${status.index}].issubmitted" value="false" /> <spring:message code="lbl.no" /></td>
-								<td>
-								<div class = "input-group">
-								<form:textarea
-										class="form-control patternvalidation textarea-content"
-										data-pattern="string" maxlength="512"
-										id="applicationNOCDocument${status.index}remarks"
-										path="applicationNOCDocument[${status.index}].remarks" /> <form:errors
-										path="applicationNOCDocument[${status.index}].remarks"
-										cssClass="add-margin error-msg" />
-										<span class="input-group-addon showModal" data-assign-to="applicationNOCDocument${status.index}remarks" data-header="Remarks"><span class="glyphicon glyphicon-pencil" style="cursor:pointer"></span></span>
-								</div>
-								</td>
-								<td><c:choose>
-										<c:when test="${doc.isMandatory}">
-											<input type="file" id="file${status.index}id"
-												name="checkListDocumentsForNOC[${status.index}].file"
-												class="file-ellipsis upload-file" required="required">
-										</c:when>
-										<c:otherwise>
-											<input type="file" id="file${status.index}id"
-												name="checkListDocumentsForNOC[${status.index}].file"
-												class="file-ellipsis upload-file">
-										</c:otherwise>
-									</c:choose> <form:errors
-										path="checkListDocumentsForNOC[${status.index}].file"
-										cssClass="add-margin error-msg" />
-								<c:set value="false" var="isDocFound"></c:set>
-				<c:forEach items="${bpaApplication.applicationNOCDocument}" var="nocdoc"
-					varStatus="loopStatus">
-					<c:if test="${nocdoc.checklist.id == doc.id}">
-						<c:set value="true" var="isDocFound"></c:set>
-						<a
-								href="/bpa/application/downloadfile/${nocdoc.nocFileStore.fileStoreId}"
-								data-gallery>${nocdoc.nocFileStore.fileName}
-						</a>
-					</c:if>
-				</c:forEach>
-				<c:if test="${!isDocFound}">
+<div class="panel-body custom">
+	<table class="table table-bordered  multiheadertbl"
+		name="bpaupdatenocdetails" id=bpaupdatenocdetails>
+		<thead>
+			<tr>
+				<th><spring:message code="lbl.srl.no" /></th>
+				<th><spring:message code="lbl.department" /></th>
+				<th><spring:message code="lbl.nature.noc.req" /></th>
+				<th><spring:message code="lbl.letr.sent.on" /></th>
+				<th><spring:message code="lbl.reply.recv.on" /></th>
+				<th><spring:message code="lbl.noc.reject" /></th>
+				<th><spring:message code="lbl.noc.not.aplicable" /></th>
+				<th width="8%"><spring:message code="lbl.obtained" /></th>
+				<th><spring:message code="lbl.remarks" /></th>
+				<th><spring:message code="lbl.attachdocument" /><br>(<spring:message
+						code="lbl.mesg.document" />)</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="doc" items="${nocCheckListDetails}"
+				varStatus="status">
+				<form:hidden
+					path="applicationNOCDocument[${status.index}].application"
+					id="applicationId" value="${bpaApplication.id}" />
+				<form:hidden
+					path="applicationNOCDocument[${status.index}].checklist"
+					id="checklist" value="${doc.id}" />
+				<form:hidden id="checkListDocumentsForNOC[${status.index}].id"
+					path="checkListDocumentsForNOC[${status.index}].id"
+					value="${doc.id}" />
+				<tr>
+					<td><c:out value="${status.index+1}"></c:out></td>
+					<td><c:out value="${doc.description}"></c:out> <c:if
+							test="${doc.isMandatory}">
+							<span class="mandatory"></span>
+						</c:if></td>
+					<td>
+
+						<div class="input-group">
+							<form:textarea
+								class="form-control patternvalidation textarea-content"
+								data-pattern="string" maxlength="512"
+								id="applicationNOCDocument${status.index}natureOfRequest"
+								path="applicationNOCDocument[${status.index}].natureOfRequest" />
+							<form:errors
+								path="applicationNOCDocument[${status.index}].natureOfRequest"
+								cssClass="add-margin error-msg" />
+							<span class="input-group-addon showModal"
+								data-assign-to="applicationNOCDocument${status.index}natureOfRequest"
+								data-header="Nature Of NOC Request"><span
+								class="glyphicon glyphicon-pencil" style="cursor: pointer"></span></span>
+						</div>
+					</td>
+					<td><form:input class="form-control dateval" maxlength="50"
+							id="letterSentOn"
+							path="applicationNOCDocument[${status.index}].letterSentOn" /> <form:errors
+							path="applicationNOCDocument[${status.index}].letterSentOn"
+							cssClass="add-margin error-msg" /></td>
+					<td><form:input class="form-control dateval" maxlength="50"
+							id="replyReceivedOn"
+							path="applicationNOCDocument[${status.index}].replyReceivedOn" />
+						<form:errors
+							path="applicationNOCDocument[${status.index}].replyReceivedOn"
+							cssClass="add-margin error-msg" /></td>
+					<td><form:radiobutton
+							path="applicationNOCDocument[${status.index}].rejection"
+							value="true" /> <spring:message code="lbl.yes" /> <form:radiobutton
+							path="applicationNOCDocument[${status.index}].rejection"
+							value="false" /> <spring:message code="lbl.no" /></td>
+					<td><form:radiobutton
+							path="applicationNOCDocument[${status.index}].notApplicable"
+							value="true" /> <spring:message code="lbl.yes" /> <form:radiobutton
+							path="applicationNOCDocument[${status.index}].notApplicable"
+							value="false" /> <spring:message code="lbl.no" /></td>
+					<td><form:radiobutton
+							path="applicationNOCDocument[${status.index}].issubmitted"
+							value="true" /> <spring:message code="lbl.yes" /> <form:radiobutton
+							path="applicationNOCDocument[${status.index}].issubmitted"
+							value="false" /> <spring:message code="lbl.no" /></td>
+					<td>
+						<div class="input-group">
+							<form:textarea
+								class="form-control patternvalidation textarea-content"
+								data-pattern="string" maxlength="512"
+								id="applicationNOCDocument${status.index}remarks"
+								path="applicationNOCDocument[${status.index}].remarks" />
+							<form:errors
+								path="applicationNOCDocument[${status.index}].remarks"
+								cssClass="add-margin error-msg" />
+							<span class="input-group-addon showModal"
+								data-assign-to="applicationNOCDocument${status.index}remarks"
+								data-header="Remarks"><span
+								class="glyphicon glyphicon-pencil" style="cursor: pointer"></span></span>
+						</div>
+					</td>
+					<td><c:choose>
+							<c:when test="${doc.isMandatory}">
+								<input type="file" id="file${status.index}id"
+									name="checkListDocumentsForNOC[${status.index}].file"
+									class="file-ellipsis upload-file" required="required">
+							</c:when>
+							<c:otherwise>
+								<input type="file" id="file${status.index}id"
+									name="checkListDocumentsForNOC[${status.index}].file"
+									class="file-ellipsis upload-file">
+							</c:otherwise>
+						</c:choose> <form:errors
+							path="checkListDocumentsForNOC[${status.index}].file"
+							cssClass="add-margin error-msg" /> <c:set value="false"
+							var="isDocFound"></c:set> <c:forEach
+							items="${bpaApplication.applicationNOCDocument}" var="nocdoc"
+							varStatus="loopStatus">
+							<c:if test="${nocdoc.checklist.id == doc.id}">
+								<c:set value="true" var="isDocFound"></c:set>
+								<a
+									href="/bpa/application/downloadfile/${nocdoc.nocFileStore.fileStoreId}"
+									data-gallery>${nocdoc.nocFileStore.fileName} </a>
+							</c:if>
+						</c:forEach> <c:if test="${!isDocFound}">
 				NA
-			</c:if>
-								</td>
-							</tr>
-						</c:forEach>
+			</c:if></td>
+				</tr>
+			</c:forEach>
 
-					</tbody>
-				</table>
-			</div>
+		</tbody>
+	</table>
+</div>
 
 <!-- Modal -->
-  <div class="modal fade" id="textarea-modal" role="dialog">
-    <div class="modal-dialog modal-lg">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title" id="textarea-header"></h4>
-        </div>
-        <div class="modal-body">
-          <textarea class="form-control textarea-content-of-modal" id="textarea-updatedcontent" rows="10"></textarea>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="textarea-btnupdate" data-dismiss="modal">Update</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          
-        </div>
-      </div>
-      
-    </div>
-  </div>
+<div class="modal fade" id="textarea-modal" role="dialog">
+	<div class="modal-dialog modal-lg">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title" id="textarea-header"></h4>
+			</div>
+			<div class="modal-body">
+				<textarea class="form-control textarea-content-of-modal"
+					id="textarea-updatedcontent" rows="10"></textarea>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary"
+					id="textarea-btnupdate" data-dismiss="modal">Update</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+			</div>
+		</div>
+
+	</div>
+</div>

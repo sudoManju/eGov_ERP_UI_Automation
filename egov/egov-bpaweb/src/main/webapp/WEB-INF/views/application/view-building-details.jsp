@@ -50,7 +50,11 @@
 <div class="panel-body">
 
 	<div class="row add-border">
-		<div class="col-sm-3 add-margin">Total Plint Area</div>
+		<div class="col-sm-3 add-margin show-hide totalPlintArea">Total Plint Area</div>
+		<div class="col-sm-3 add-margin show-hide noofhutorshed">Area of the Hut/Shed</div>
+		<div class="col-sm-3 add-margin show-hide alterationInArea">Alteration/Change in Area</div>
+		<div class="col-sm-3 add-margin show-hide additionInArea">Addition or Extension in Area</div>
+		<div class="col-sm-3 add-margin show-hide changeInOccupancyArea">Change in Occupancy Area</div>
 		<div class="col-sm-3 add-margin view-content">
 			<c:out value="${bpaApplication.buildingDetail[0].totalPlintArea}"
 				default="N/A"></c:out>
@@ -78,29 +82,48 @@
 
 	<div class="row add-border">
 		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.grnd.w.wo.stair" />
+			<spring:message code="lbl.grnd.with.stair" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
 			<c:out
-				value="${bpaApplication.buildingDetail[0].fromGroundWithWOStairRoom}"
+				value="${bpaApplication.buildingDetail[0].heightFromGroundWithStairRoom}"
 				default="N/A"></c:out>
 		</div>
 		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.machine.room" />
+			<spring:message code="lbl.grnd.wo.stair" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.buildingDetail[0].machineRoom}"
+			<c:out
+				value="${bpaApplication.buildingDetail[0].heightFromGroundWithOutStairRoom}"
+				default="N/A"></c:out>
+		</div>
+	</div>
+	
+	<div class="row add-border">
+		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.street.with.stair" />
+		</div>
+		<div class="col-sm-3 add-margin view-content">
+			<c:out
+				value="${bpaApplication.buildingDetail[0].fromStreetLevelWithStairRoom}"
+				default="N/A"></c:out>
+		</div>
+		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.street.wo.stair" />
+		</div>
+		<div class="col-sm-3 add-margin view-content">
+			<c:out
+				value="${bpaApplication.buildingDetail[0].fromStreetLevelWithOutStairRoom}"
 				default="N/A"></c:out>
 		</div>
 	</div>
 
 	<div class="row add-border">
 		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.street.w.wo.stair" />
+			<spring:message code="lbl.machine.room" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
-			<c:out
-				value="${bpaApplication.buildingDetail[0].fromStreetWithWOStairRoom}"
+			<c:out value="${bpaApplication.buildingDetail[0].machineRoom}"
 				default="N/A"></c:out>
 		</div>
 		<div class="col-sm-3 add-margin">

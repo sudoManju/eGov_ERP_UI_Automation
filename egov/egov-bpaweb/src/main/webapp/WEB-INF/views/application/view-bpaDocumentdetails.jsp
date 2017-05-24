@@ -53,50 +53,47 @@
 
 <div class="panel-body">
 	<c:if test="${not empty bpaApplication.applicationDocument}">
-		<thead>
-			<tr>
-				<div class="col-sm-3 text-center">
-					<th><spring:message code="lbl.documentname" /></th>
-				</div>
-				<div class="col-sm-3 text-center">
-					<th><spring:message code="lbl.issubmitted" /></th>
-				</div>
-				<div class="col-sm-3 text-center">
-					<th><spring:message code="lbl.remarks" /></th>
-				</div>
-				<div class="col-sm-3 text-center">
-					<th><spring:message code="lbl.files" /></th>
-				</div>
-			</tr>
-		</thead>
+		<div class="col-sm-3 text-center view-content">
+			<spring:message code="lbl.documentname" />
+		</div>
+		<div class="col-sm-3 text-center view-content">
+			<spring:message code="lbl.issubmitted" />
+		</div>
+		<div class="col-sm-3 text-center view-content">
+			<spring:message code="lbl.remarks" />
+		</div>
+		<div class="col-sm-3 text-center view-content">
+			<spring:message code="lbl.files" />
+		</div>
 	</c:if>
 	<c:choose>
 		<c:when test="${not empty  bpaApplication.applicationDocument}">
 			<c:forEach items="${bpaApplication.applicationDocument}" var="docs"
 				varStatus="status">
 				<div class="form-group">
-					<tbody>
-						<tr>
-							<div class="col-sm-3 text-center">
-								<td><c:out value="${docs.checklistDetail.description}" /></td>
-							</div>
-							<div class="col-sm-3 text-center">
-								<td><c:out value="${docs.issubmitted ? 'Yes' : 'No'}"></c:out>
-								</td>
-							</div>
-							<div class="col-sm-3 text-center">
-								<td><c:out value="${docs.remarks}" /></td>
-							</div>
-							<div class="col-sm-3 text-center">
-								<td><c:forEach items="${docs.getSupportDocs()}" var="file">
-										<a
-											href="/egi/downloadfile?fileStoreId=${file.fileStoreId}&moduleName=BPA"
-											target="_blank"> <c:out value="${file.fileName}" /></a>
-									</c:forEach></td>
-							</div>
-
-						</tr>
-					</tbody>
+					<div class="col-sm-3 text-center">
+						<c:out value="${docs.checklistDetail.description}" />
+					</div>
+					<div class="col-sm-3 text-center">
+						<c:out value="${docs.issubmitted ? 'Yes' : 'No'}"></c:out>
+					</div>
+					<div class="col-sm-3 text-center">
+						<c:out value="${docs.remarks}" />
+					</div>
+					<div class="col-sm-3 add-margin text-center">
+						<c:set value="false" var="isDocFound"></c:set>
+						<c:forEach var="bpadoc" items="${docs.getSupportDocs()}">
+							<c:if test="${bpadoc.fileStoreId ne null}">
+								<c:set value="true" var="isDocFound"></c:set>
+								<a
+									href="/bpa/application/downloadfile/${bpadoc.fileStoreId}"
+									data-gallery>${bpadoc.fileName} </a>
+							</c:if>
+						</c:forEach>
+						<c:if test="${!isDocFound}">
+							NA
+						</c:if>
+					</div>
 				</div>
 			</c:forEach>
 		</c:when>

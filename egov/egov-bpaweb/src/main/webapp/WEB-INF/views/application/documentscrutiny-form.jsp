@@ -83,7 +83,6 @@
 					class="btn btn-primary"> Document Scrutiny </a> <input
 					type="button" name="button2" id="button2" value="Close"
 					class="btn btn-default" onclick="window.close();" />
-				</td>
 			</div>
 		</form:form>
 	</div>
@@ -91,3 +90,5 @@
 
 <script
 	src="<cdn:url value='/resources/global/js/egov/inbox.js?rnd=${app_release_no}' context='/egi'/>"></script>
+<script
+	src="<cdn:url value='/resources/js/app/application-view.js?rnd=${app_release_no}'/>"></script>

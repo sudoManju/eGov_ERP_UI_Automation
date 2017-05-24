@@ -49,7 +49,7 @@ jQuery(document).ready(function() {
 	var row = '<tr>'+
 	'<td class="text-center"><span class="serialNo" id="slNoInsp">{{sno}}</span></td>'+
 	'<td ><select name="buildingDetail[0].applicationFloorDetails[{{idx}}].floorDescription" data-first-option="false" id="applicationFloorDetails[{{idx}}]floorDescription" class="form-control" required="required" maxlength="128"> <option value="">Select</option><options items="${buildingFloorList}" /></select></td>'+
-	'<td class="text-right"><input type="text" class="form-control table-input text-right patternvalidation plinthArea" data-pattern="number" name="buildingDetail[0].applicationFloorDetails[{{idx}}].plinthArea" id="applicationFloorDetails[{{idx}}]plinthArea" maxlength="15"  /></td>'+
+	'<td class="text-right"><input type="text" class="form-control table-input text-right patternvalidation plinthArea" data-pattern="number" name="buildingDetail[0].applicationFloorDetails[{{idx}}].plinthArea" id="applicationFloorDetails[{{idx}}]plinthArea" maxlength="15" onblur="validateFloorDetails(this)"  /></td>'+
 	'<td class="text-right"><input type="text" class="form-control table-input text-right patternvalidation carpetArea" data-pattern="number" name="buildingDetail[0].applicationFloorDetails[{{idx}}].carpetArea" id="applicationFloorDetails[{{idx}}]carpetArea" maxlength="15" value=""  /></td>'+
 	'<td class="text-center"><a href="javascript:void(0);" class="btn-sm btn-danger" id="deleteBuildAreaRow" data-record-id="${var1.id}"><i class="fa fa-trash"></i></a></td>'+
 	'</tr>';
@@ -105,6 +105,7 @@ $(document).on('change', '.plinthArea', function() {
     	 totalPlinth +=  parseInt($(this).find('td:eq(2) input.plinthArea').val());
      });
      $("#buildingAreaDetails tfoot tr td:eq(2)").html(totalPlinth);
+     $("#sumOfPlinthArea").val(totalPlinth);
      plinthAreaSum = $("#buildingAreaDetails tfoot tr td:eq(2)").html();
      carpetAreaSum = $("#buildingAreaDetails tfoot tr td:eq(3)").html();
      totalSum = parseInt(plinthAreaSum == '' ? 0 : plinthAreaSum) + parseInt(carpetAreaSum == '' ? 0 : carpetAreaSum);

@@ -245,3 +245,5 @@
 	src="<cdn:url value='/resources/js/app/application-edit.js?rnd=${app_release_no}'/>"></script>
 <script
 	src="<cdn:url value='/resources/js/app/documentsuploadvalidation.js?rnd=${app_release_no}'/>"></script>
+<script
+	src="<cdn:url value='/resources/js/app/application-view.js?rnd=${app_release_no}'/>"></script>

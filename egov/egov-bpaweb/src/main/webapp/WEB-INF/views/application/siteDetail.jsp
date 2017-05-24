@@ -164,10 +164,10 @@
 	</div>
 
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right">Plot Number<span class="mandatory"></span> </label>
+	<label class="col-sm-3 control-label text-right">Plot Number</label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
-			maxlength="24" required="required"
+			maxlength="24"
 			data-pattern="alphanumericspecialcharacters" id="plotnumber"
 			path="siteDetail[0].plotnumber" />
 		<form:errors path="siteDetail[0].plotnumber"
@@ -183,29 +183,25 @@
 			cssClass="add-margin error-msg" />
 	</div>
 </div>
-
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right">Survey Number Type
-	</label>
+	<label class="col-sm-3 control-label text-right"><spring:message code="lbl.re.survey.no" /></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
 			maxlength="24"
-			data-pattern="alphanumericwithspace"  id="surveynumberType"
-			path="siteDetail[0].surveynumberType" />
-		<form:errors path="siteDetail[0].surveynumberType"
+			data-pattern="alphanumericspecialcharacters" id="reSurveyNumber"
+			path="siteDetail[0].reSurveyNumber" />
+		<form:errors path="siteDetail[0].reSurveyNumber"
 			cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right">Old
-		Survey Number</label>
+	<label class="col-sm-2 control-label text-right"><spring:message code="lbl.town.survey.no" /></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation" maxlength="24"
 			data-pattern="alphanumericwithspace"
-			id="oldSurveyNumber" path="siteDetail[0].oldSurveyNumber" />
-		<form:errors path="siteDetail[0].oldSurveyNumber"
+			id="plotsurveynumber" path="siteDetail[0].townSurveyNumber" />
+		<form:errors path="siteDetail[0].townSurveyNumber"
 			cssClass="add-margin error-msg" />
 	</div>
 </div>
-
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">Street
 		Address1 </label>

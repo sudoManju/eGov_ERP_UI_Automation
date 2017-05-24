@@ -52,18 +52,20 @@
 
 <div class="panel-body custom">
 	<table class="table table-bordered  multiheadertbl"
-		name="bpaupdatenocdetails" id=bpaupdatenocdetails>
+		name="bpaupdatenocdetails" id="bpaupdatenocdetails">
 		<thead>
-			<th><spring:message code="lbl.srl.no" /></th>
-			<th><spring:message code="lbl.department" /></th>
-			<th><spring:message code="lbl.nature.noc.req" /></th>
-			<th><spring:message code="lbl.letr.sent.on" /></th>
-			<th><spring:message code="lbl.reply.recv.on" /></th>
-			<th><spring:message code="lbl.noc.reject" /></th>
-			<th><spring:message code="lbl.noc.not.aplicable" /></th>
-			<th width="8%"><spring:message code="lbl.obtained" /></th>
-			<th><spring:message code="lbl.remarks" /></th>
-			<th><spring:message code="lbl.attachdocument" /></th>
+			<tr>
+				<th><spring:message code="lbl.srl.no" /></th>
+				<th><spring:message code="lbl.department" /></th>
+				<th><spring:message code="lbl.nature.noc.req" /></th>
+				<th><spring:message code="lbl.letr.sent.on" /></th>
+				<th><spring:message code="lbl.reply.recv.on" /></th>
+				<th><spring:message code="lbl.noc.reject" /></th>
+				<th><spring:message code="lbl.noc.not.aplicable" /></th>
+				<th width="8%"><spring:message code="lbl.obtained" /></th>
+				<th><spring:message code="lbl.remarks" /></th>
+				<th><spring:message code="lbl.attachdocument" /></th>
+			</tr>
 		</thead>
 		<tbody>
 

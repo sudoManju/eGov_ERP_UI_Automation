@@ -53,13 +53,13 @@
 	</div>
 </div>
 
-		<div class="buttonbottom" align="center">
-			<table>
-				<tr>
-					<input type="button" name="button2" id="button2" value="Close"
-						class="btn btn-primary" onclick="window.close();" />
-					</td>
-				</tr>
-			</table>
-		</div>
+<div class="buttonbottom" align="center">
+	<table>
+		<tr>
+			<td><input type="button" name="button2" id="button2"
+				value="Close" class="btn btn-primary" onclick="window.close();" />
+			</td>
+		</tr>
+	</table>
+</div>
 

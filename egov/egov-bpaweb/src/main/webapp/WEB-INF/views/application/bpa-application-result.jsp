@@ -64,17 +64,21 @@
 		<div class="panel panel-primary" data-collapsed="0">
 			<jsp:include page="view-sitedetail.jsp"></jsp:include>
 		</div>
-		<div class="panel panel-primary" data-collapsed="0">
-			<jsp:include page="view-building-details.jsp" />
-		</div>
+		<c:if test="${bpaApplication.serviceType.description ne 'Sub-Division of plot/Land Development'}">
+			<div class="panel panel-primary" data-collapsed="0">
+				<jsp:include page="view-building-details.jsp" />
+			</div>
+		</c:if>
 		<div class="buttonbottom" align="center">
 			<table>
 				<tr>
-					<input type="button" name="button2" id="button2" value="Close"
-						class="btn btn-primary" onclick="window.close();" />
+					<td><input type="button" name="button2" id="button2"
+						value="Close" class="btn btn-primary" onclick="window.close();" />
 					</td>
 				</tr>
 			</table>
 		</div>
 	</div>
 </div>
+<script
+	src="<cdn:url value='/resources/js/app/application-view.js?rnd=${app_release_no}'/>"></script>

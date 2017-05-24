@@ -85,6 +85,7 @@
 			<spring:message code="lbl.service.type" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
+			<input type="hidden" id="serviceType" value="${bpaApplication.serviceType.description}">
 			<c:out value="${bpaApplication.serviceType.description}" default="N/A"></c:out>
 		</div>
 		<div class="col-sm-3 add-margin">
@@ -136,21 +137,6 @@
 
 	<div class="row add-border">
 		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.old.appln.no" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.oldApplicationNumber}" default="N/A"></c:out>
-		</div>
-		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.approval.date" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.approvalDate}" default="N/A"></c:out>
-		</div>
-	</div>
-
-	<div class="row add-border">
-		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.assessmt.no" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
@@ -172,40 +158,10 @@
 			<c:out value="${bpaApplication.applicantType}" default="N/A"></c:out>
 		</div>
 		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.source" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.source}" default="N/A"></c:out>
-		</div>
-	</div>
-
-	<div class="row add-border">
-		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.tapal.no" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.tapalNumber}" default="N/A"></c:out>
-		</div>
-		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.government.type" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
 			<c:out value="${bpaApplication.governmentType}" default="N/A"></c:out>
-		</div>
-	</div>
-
-	<div class="row add-border">
-		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.project.name" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.projectName}" default="N/A"></c:out>
-		</div>
-		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.group.development" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.groupDevelopment}" default="N/A"></c:out>
 		</div>
 	</div>
 
@@ -217,4 +173,5 @@
 			<c:out value="${bpaApplication.remarks}" default="N/A"></c:out>
 		</div>
 	</div>
+	
 </div>

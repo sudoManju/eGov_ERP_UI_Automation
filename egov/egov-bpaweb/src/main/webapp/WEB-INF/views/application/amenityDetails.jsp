@@ -51,7 +51,7 @@
 		<span class="mandatory"></span>
 	</label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="10"
+		<form:input class="form-control patternvalidation for-calculation clear-values" maxlength="10"
 			data-pattern="decimalvalue" id="extentOfLand" required="required"
 			path="siteDetail[0].extentOfLand" />
 		<form:errors path="siteDetail[0].extentOfLand"
@@ -59,19 +59,20 @@
 	
 
 		<form:select path="siteDetail[0].unitOfMeasurement"
-			data-first-option="false" id="zone" cssClass="form-control"
+			data-first-option="false" id="unitOfMeasurement" cssClass="form-control for-calculation"
 			required="required">
 			<form:options items="${uomList}" />
 		</form:select>
 		<form:errors path="siteDetail[0].unitOfMeasurement"
 			cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right toggle-madatory Roof"><spring:message code="lbl.roof.conv"/><span ></span></label>
+	<label class="col-sm-2 control-label text-right"><spring:message code="lbl.extentin.sqmts"/><span ></span></label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation dyn-mandatory Roof" data-pattern="decimalvalue"
-			id="roofConversion"
-			path="siteDetail[0].roofConversion" /> in Sqmtr.
-		<form:errors path="siteDetail[0].roofConversion" 
+		<form:hidden id="extentinsqmtshdn" path="siteDetail[0].extentinsqmts" />
+		<form:input class="form-control patternvalidation extentinsqmts" data-pattern="decimalvalue"
+			id="extentinsqmts" disabled="true"
+			path="siteDetail[0].extentinsqmts" />
+		<form:errors path="siteDetail[0].extentinsqmts" 
 			cssClass="add-margin error-msg" />
 	</div>
 	</div>
@@ -84,9 +85,9 @@
 		<form:errors path="siteDetail[0].noOfPoles" 
 			cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right toggle-madatory Hut"><spring:message code="lbl.no.of.shuts.huts"/><span ></span></label>
+	<label class="col-sm-2 control-label text-right noofhutorshed"><spring:message code="lbl.no.of.shuts.huts"/><span ></span></label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation dyn-mandatory Hut" data-pattern="decimalvalue"
+		<form:input class="form-control patternvalidation noofhutorshed" data-pattern="decimalvalue"
 			id="noOfHutOrSheds"
 			path="siteDetail[0].noOfHutOrSheds" /> In Numbers
 		<form:errors path="siteDetail[0].noOfHutOrSheds" 
@@ -133,6 +134,16 @@
 			cssClass="add-margin error-msg" />
 	</div>
 </div>
+<div class="form-group">
+	<label class="col-sm-3 control-label text-right toggle-madatory Roof"><spring:message code="lbl.roof.conv"/><span ></span></label>
+	<div class="col-sm-3 add-margin">
+		<form:input class="form-control patternvalidation dyn-mandatory Roof" data-pattern="decimalvalue"
+			id="roofConversion"
+			path="siteDetail[0].roofConversion" /> in Sqmtr.
+		<form:errors path="siteDetail[0].roofConversion" 
+			cssClass="add-margin error-msg" />
+	</div>
+	</div>
 
 <div class="form-group">
 		<label class="col-sm-3 control-label text-right">Details of Permit/Approved Plan already obtained

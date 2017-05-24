@@ -64,7 +64,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label text-right"><spring:message code="lbl.plotsurvey.number" /><span class="mandatory"></label>
+					<label class="col-sm-3 control-label text-right"><spring:message code="lbl.plotsurvey.number" /><span class="mandatory"></span></label>
 					<div class="col-sm-3 add-margin">
 						<form:hidden path="documentScrutiny[0].application" 
 							id="scrutinyapplicationid" value="${bpaApplication.id}" />
@@ -103,7 +103,7 @@
 						<form:errors path="documentScrutiny[0].isBoundaryDrawingSubmitted"
 							cssClass="add-margin error-msg" />
 					</div>
-					<label class="col-sm-2 control-label text-right"><spring:message code="lbl.extent.of.land" /><span class="mandatory"> </label>
+					<label class="col-sm-2 control-label text-right"><spring:message code="lbl.extent.of.land" /><span class="mandatory"></span></label>
 					<div class="col-sm-2 add-margin">
 						<form:input class="form-control patternvalidation" maxlength="10" data-pattern="number" required="required"
 							id="extentinsqmts" path="documentScrutiny[0].extentinsqmts"  value="${bpaApplication.siteDetail[0].extentinsqmts}"/>
@@ -162,7 +162,7 @@
 				</div>
 				
 				<div class="form-group">
-					<label class="col-sm-3 control-label text-right"><spring:message code="lbl.registraroffice" /><span class="mandatory"></label>
+					<label class="col-sm-3 control-label text-right"><spring:message code="lbl.registraroffice" /><span class="mandatory"></span></label>
 					<div class="col-sm-3 add-margin">
 						<form:input class="form-control patternvalidation" maxlength="120" data-pattern="alphanumeric"  required="required"
 							id="registrarOffice"

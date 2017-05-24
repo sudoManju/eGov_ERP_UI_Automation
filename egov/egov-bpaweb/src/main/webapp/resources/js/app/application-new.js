@@ -42,6 +42,11 @@ jQuery(document).ready(function($) {
 	
 	if($('#noJAORSAMessage') && $('#noJAORSAMessage').val())
 		bootbox.alert($('#noJAORSAMessage').val());
+	
+	$('#buttonSubmit').click(function(e) {
+		var button=$('#buttonSubmit').val();
+		validateForm(e,button);
+	});
 });
 	var citizenOrBusiness=$('#citizenOrBusinessUser').val();
 	if(citizenOrBusiness == 'true')
@@ -205,3 +210,12 @@ $('#stakeHolderType').change(function(){
 		}
 	});
 });
+
+function validateForm(e,button) {
+	if ($('form').valid()) {
+		document.getElementById("workFlowAction").value=button;
+		document.forms[0].submit();
+	} else {
+		e.preventDefault();
+	}
+}

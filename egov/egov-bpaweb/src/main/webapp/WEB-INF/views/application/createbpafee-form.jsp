@@ -54,103 +54,116 @@
 			<div class="panel panel-primary" data-collapsed="0">
 				<div class="panel-body custom-form ">
 					<div class="panel-heading custom_form_panel_heading">
-	<div class="panel-title">
-		<spring:message code="lbl.appln.details" />
-	</div>
-</div>
-<div class="panel-body">
-	<div class="row add-border">
-			<div class="col-sm-3 add-margin">
-				<spring:message code="lbl.application.no" />
-			</div>
-			<div class="col-sm-3 add-margin view-content">
-				<c:out value="${applicationFee.application.applicationNumber}" default="N/A"></c:out>
-			</div>
-			<div class="col-sm-3 add-margin">
-				<spring:message code="lbl.application.date" />
-			</div>
-			<div class="col-sm-3 add-margin view-content">
-				<c:out value="${applicationFee.application.applicationDate}" default="N/A"></c:out>
-			</div>
-		</div>
-<div class="row add-border">
-		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.service.type" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${applicationFee.application.serviceType.description}" default="N/A"></c:out>
-		</div>
-		<div class="col-sm-3 add-margin">
-			Amenity Type
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${applicationFee.application.amenityName}" default="N/A"></c:out>
-		</div>
-		</div>
-		<div class="row add-border">
-		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.admission.fees" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${applicationFee.application.admissionfeeAmount}" default="N/A"></c:out>
-		</div>
-	</div>
-</div>
-				<div class="panel-heading custom_form_panel_heading">
-					<div class="panel-title">
-						<spring:message code="lbl.applicationFee" />
+						<div class="panel-title">
+							<spring:message code="lbl.appln.details" />
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
+					<div class="panel-body">
+						<div class="row add-border">
+							<div class="col-sm-3 add-margin">
+								<spring:message code="lbl.application.no" />
+							</div>
+							<div class="col-sm-3 add-margin view-content">
+								<c:out value="${applicationFee.application.applicationNumber}"
+									default="N/A"></c:out>
+							</div>
+							<div class="col-sm-3 add-margin">
+								<spring:message code="lbl.application.date" />
+							</div>
+							<div class="col-sm-3 add-margin view-content">
+								<c:out value="${applicationFee.application.applicationDate}"
+									default="N/A"></c:out>
+							</div>
+						</div>
+						<div class="row add-border">
+							<div class="col-sm-3 add-margin">
+								<spring:message code="lbl.service.type" />
+							</div>
+							<div class="col-sm-3 add-margin view-content">
+								<c:out
+									value="${applicationFee.application.serviceType.description}"
+									default="N/A"></c:out>
+							</div>
+							<div class="col-sm-3 add-margin">Amenity Type</div>
+							<div class="col-sm-3 add-margin view-content">
+								<c:out value="${applicationFee.application.amenityName}"
+									default="N/A"></c:out>
+							</div>
+						</div>
+						<div class="row add-border">
+							<div class="col-sm-3 add-margin">
+								<spring:message code="lbl.admission.fees" />
+							</div>
+							<div class="col-sm-3 add-margin view-content">
+								<c:out value="${applicationFee.application.admissionfeeAmount}"
+									default="N/A"></c:out>
+							</div>
+						</div>
+					</div>
+					<div class="panel-heading custom_form_panel_heading">
+						<div class="panel-title">
+							<spring:message code="lbl.applicationFee" />
+						</div>
+					</div>
+					<div class="form-group">
 						<div class="col-sm-3 add-margin">
-						<form:hidden path="application" 
-							id="feeapplicationid" value="${applicationFee.application.id}" />
-						<form:hidden path="status" 
-							id="feeapplicationstatusid" value="${applicationFee.status.id}" />
-					
-						<form:hidden path="id"
-							id="id" value="${applicationFee.id}" />
+							<form:hidden path="application" id="feeapplicationid"
+								value="${applicationFee.application.id}" />
+							<form:hidden path="status" id="feeapplicationstatusid"
+								value="${applicationFee.status.id}" />
 
+							<form:hidden path="id" id="id" value="${applicationFee.id}" />
+
+						</div>
 					</div>
-				</div>
 
-				
-				
-<c:choose>
-	<c:when test="${!applicationFeeDetail.isEmpty()}">
-		<div class="form-group view-content header-color hidden-xs">
-			<div class="col-sm-5 text-right"><spring:message code="lbl.applicationFee.feeType" /> </div>
-			<div class="col-sm-2 text-center"><spring:message code="lbl.applicationFee.amount" /></div>
-		</div>
-		<c:forEach var="docs" items="${applicationFee.applicationFeeDetail}" varStatus="status">
-			<div class="form-group">
-				<div class="col-sm-5 add-margin check-text text-right">
-					<c:out value="${docs.bpaFee.description}" />
-					<form:hidden
-						id="applicationFeeDetail${status.index}id"
-						path="applicationFeeDetail[${status.index}].id" 
-						value="${docs.id}" />
-					<form:hidden
-						id="applicationFeeDetail${status.index}bpaFee"
-						path="applicationFeeDetail[${status.index}].bpaFee" 
-						value="${docs.bpaFee.id}" />
-					<form:hidden
-						id="applicationFeeDetail${status.index}applicationFee"
-						path="applicationFeeDetail[${status.index}].applicationFee"
-						value="${docs.applicationFee.id}" />
-					
-				</div>
-					<div class="col-sm-2 add-margin text-center">
-					<form:input class="form-control patternvalidation"	data-pattern="decimalvalue" maxlength="10"	id="applicationFeeDetail${status.index}amount"	value="${docs.amount}"		path="applicationFeeDetail[${status.index}].amount"	 />
-					<form:errors path="applicationFeeDetail[${status.index}].amount"
-						cssClass="add-margin error-msg" />
-				</div>
-			</div>
-		</c:forEach>
-	</c:when>
-</c:choose>
-				
 
+
+					<c:choose>
+						<c:when test="${!applicationFeeDetail.isEmpty()}">
+							<div class="form-group view-content header-color hidden-xs">
+								<div class="col-sm-5 text-right">
+									<spring:message code="lbl.applicationFee.feeType" />
+								</div>
+								<div class="col-sm-2 text-center">
+									<spring:message code="lbl.applicationFee.amount" />
+								</div>
+							</div>
+							<c:forEach var="docs"
+								items="${applicationFee.applicationFeeDetail}"
+								varStatus="status">
+								<div class="form-group">
+									<div class="col-sm-5 add-margin check-text text-right">
+										<c:out value="${docs.bpaFee.description}" />
+										<form:hidden id="applicationFeeDetail${status.index}id"
+											path="applicationFeeDetail[${status.index}].id"
+											value="${docs.id}" />
+										<form:hidden id="applicationFeeDetail${status.index}bpaFee"
+											path="applicationFeeDetail[${status.index}].bpaFee"
+											value="${docs.bpaFee.id}" />
+										<form:hidden
+											id="applicationFeeDetail${status.index}applicationFee"
+											path="applicationFeeDetail[${status.index}].applicationFee"
+											value="${docs.applicationFee.id}" />
+
+									</div>
+									<div class="col-sm-2 add-margin text-center">
+										<form:input class="form-control patternvalidation"
+											data-pattern="decimalvalue" maxlength="10"
+											id="applicationFeeDetail${status.index}amount"
+											value="${docs.amount}"
+											path="applicationFeeDetail[${status.index}].amount" />
+										<form:errors
+											path="applicationFeeDetail[${status.index}].amount"
+											cssClass="add-margin error-msg" />
+									</div>
+								</div>
+							</c:forEach>
+						</c:when>
+					</c:choose>
+
+
+				</div>
 			</div>
 			<div class="text-center">
 				<button type="submit" class='btn btn-primary' id="createFeeSubmit">
@@ -159,8 +172,8 @@
 				<a href='javascript:void(0)' class='btn btn-default'
 					onclick='self.close()'><spring:message code='lbl.close' /></a>
 			</div>
-						
-			</form:form>
+
+		</form:form>
 	</div>
 </div>
 

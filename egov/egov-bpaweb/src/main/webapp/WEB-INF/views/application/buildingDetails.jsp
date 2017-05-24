@@ -50,21 +50,41 @@
 </div>
 
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right handle-mandatory totalPlintArea">Building
-		Total Plint Area <span class="mandatory"></span> </label>
+	<label
+		class="col-sm-3 control-label text-right handle-mandatory show-hide totalPlintArea">Building
+		Total Plint Area <span class="mandatory"></span>
+	</label> <label
+		class="col-sm-3 control-label text-right handle-mandatory show-hide noofhutorshed">Area
+		of the Hut/Shed <span class="mandatory"></span>
+	</label> <label
+		class="col-sm-3 control-label text-right handle-mandatory show-hide alterationInArea">Alteration/Change
+		in Area <span class="mandatory"></span>
+	</label> <label
+		class="col-sm-3 control-label text-right handle-mandatory show-hide additionInArea">Addition
+		or Extension in Area <span class="mandatory"></span>
+	</label> <label
+		class="col-sm-3 control-label text-right handle-mandatory show-hide changeInOccupancyArea">Change
+		in Occupancy Area <span class="mandatory"></span>
+	</label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation handle-mandatory totalPlintArea"
-			maxlength="10" data-pattern="decimalvalue" id="district"
-			path="buildingDetail[0].totalPlintArea" required="required" />in Sq Mtr.
+		<form:input
+			class="form-control patternvalidation handle-mandatory clear-values"
+			maxlength="10" data-pattern="decimalvalue" id="totalPlintArea"
+			path="buildingDetail[0].totalPlintArea" required="required" />
+		in Sq Mtr.
 		<form:errors path="buildingDetail[0].totalPlintArea"
 			cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right handle-mandatory buildingheightGround">Building
-		Height From Ground <span class="mandatory"></span></label>
+	<label
+		class="col-sm-2 control-label text-right handle-mandatory buildingheightGround">Building
+		Height From Ground <span class="mandatory"></span>
+	</label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation handle-mandatory buildingheightGround" maxlength="10"
-			data-pattern="decimalvalue" id="buildingheightGround"
-			path="buildingDetail[0].buildingheightGround" required="required" />in Mtrs.
+		<form:input
+			class="form-control patternvalidation clear-values handle-mandatory buildingheightGround"
+			maxlength="10" data-pattern="decimalvalue" id="buildingheightGround"
+			path="buildingDetail[0].buildingheightGround" required="required" />
+		in Mtrs.
 		<form:errors path="buildingDetail[0].buildingheightGround"
 			cssClass="add-margin error-msg" />
 	</div>
@@ -73,7 +93,7 @@
 	<label class="col-sm-3 control-label text-right handle-mandatory floorCount">Building Total Floor
 		Count<span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation handle-mandatory floorCount"
+		<form:input class="form-control patternvalidation clear-values handle-mandatory floorCount"
 			data-pattern="number" maxlength="5" id="floorCount"
 			path="buildingDetail[0].floorCount" required="required" />
 		<form:errors path="buildingDetail[0].floorCount"
@@ -82,39 +102,57 @@
 	<label class="col-sm-2 control-label text-right proposedfloorArea">Building
 		Proposed Floor Area </label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation proposedfloorArea"
+		<form:input class="form-control patternvalidation clear-values proposedfloorArea"
 			maxlength="10" data-pattern="decimalvalue" id="buildingDetail[0].proposedfloorArea"
 			path="buildingDetail[0].proposedfloorArea" />in Sq Mtr.
 		<form:errors path="buildingDetail[0].proposedfloorArea"
 			cssClass="add-margin error-msg" />
 	</div>
 </div>
-
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right handle-mandatory fromGroundWithWOStairRoom"><spring:message code="lbl.grnd.w.wo.stair"/> <span class="mandatory"></span> </label>
+	<label class="col-sm-3 control-label text-right handle-mandatory heightFromGroundWithStairRoom"><spring:message code="lbl.grnd.with.stair"/> <span class="mandatory"></span> </label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation handle-mandatory fromGroundWithWOStairRoom"
-			maxlength="10" data-pattern="decimalvalue" id="fromGroundWithWOStairRoom"
-			path="buildingDetail[0].fromGroundWithWOStairRoom" required="required" />in Mtr.
-		<form:errors path="buildingDetail[0].fromGroundWithWOStairRoom"
+		<form:input class="form-control patternvalidation clear-values  handle-mandatory heightFromGroundWithStairRoom"
+			maxlength="10" data-pattern="decimalvalue" id="heightFromGroundWithStairRoom"
+			path="buildingDetail[0].heightFromGroundWithStairRoom" required="required" />in Mtr.
+		<form:errors path="buildingDetail[0].heightFromGroundWithStairRoom"
 			cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right handle-mandatory machineRoom"><spring:message code="lbl.machine.room"/>  <span class="mandatory"></span> </label>
+	<label class="col-sm-2 control-label text-right handle-mandatory heightFromGroundWithOutStairRoom"><spring:message code="lbl.grnd.wo.stair"/> <span class="mandatory"></span> </label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation handle-mandatory machineRoom"
-			maxlength="10" data-pattern="decimalvalue" id="machineRoom"
-			path="buildingDetail[0].machineRoom" required="required" />
-		<form:errors path="buildingDetail[0].machineRoom"
+		<form:input class="form-control patternvalidation clear-values  handle-mandatory heightFromGroundWithOutStairRoom"
+			maxlength="10" data-pattern="decimalvalue" id="heightFromGroundWithOutStairRoom"
+			path="buildingDetail[0].heightFromGroundWithOutStairRoom" required="required" />in Mtr.
+		<form:errors path="buildingDetail[0].heightFromGroundWithOutStairRoom"
 			cssClass="add-margin error-msg" />
 	</div>
 </div>
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right handle-mandatory fromStreetWithWOStairRoom"><spring:message code="lbl.street.w.wo.stair"/> <span class="mandatory"></span> </label>
+	<label class="col-sm-3 control-label text-right handle-mandatory fromStreetLevelWithStairRoom"><spring:message code="lbl.street.with.stair"/> <span class="mandatory"></span> </label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation handle-mandatory fromStreetWithWOStairRoom"
-			maxlength="10" data-pattern="decimalvalue" id="fromStreetWithWOStairRoom"
-			path="buildingDetail[0].fromStreetWithWOStairRoom" required="required" />in Mtr.
-		<form:errors path="buildingDetail[0].fromStreetWithWOStairRoom"
+		<form:input class="form-control patternvalidation handle-mandatory fromStreetLevelWithStairRoom"
+			maxlength="10" data-pattern="decimalvalue" id="fromStreetLevelWithStairRoom"
+			path="buildingDetail[0].fromStreetLevelWithStairRoom" required="required" />in Mtr.
+		<form:errors path="buildingDetail[0].fromStreetLevelWithStairRoom"
+			cssClass="add-margin error-msg" />
+	</div>
+	<label class="col-sm-2 control-label text-right handle-mandatory fromStreetLevelWithOutStairRoom"><spring:message code="lbl.street.wo.stair"/> <span class="mandatory"></span> </label>
+	<div class="col-sm-3 add-margin">
+		<form:input class="form-control patternvalidation handle-mandatory fromStreetLevelWithOutStairRoom"
+			maxlength="10" data-pattern="decimalvalue" id="fromStreetLevelWithOutStairRoom"
+			path="buildingDetail[0].fromStreetLevelWithOutStairRoom" required="required" />in Mtr.
+		<form:errors path="buildingDetail[0].fromStreetLevelWithOutStairRoom"
+			cssClass="add-margin error-msg" />
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="col-sm-3 control-label text-right handle-mandatory machineRoom"><spring:message code="lbl.machine.room"/>  <span class="mandatory"></span> </label>
+	<div class="col-sm-3 add-margin">
+		<form:input class="form-control patternvalidation clear-values handle-mandatory machineRoom"
+			maxlength="10" data-pattern="decimalvalue" id="machineRoom"
+			path="buildingDetail[0].machineRoom" required="required" />in Mtr.
+		<form:errors path="buildingDetail[0].machineRoom"
 			cssClass="add-margin error-msg" />
 	</div>
 	<label class="col-sm-2 control-label text-right"><spring:message code="lbl.town.plan.zone"/> </label>
@@ -168,6 +206,8 @@
 		id="addBuildAreaRow">ADD ROW</button>
 </div>
 <input type="hidden" id="buildingFloorList" value="${buildingFloorList}" > 
+<input type="hidden" id="occupancyList" value="" >
+<input type="hidden" id="sumOfPlinthArea" value="" >
 <table class="table table-striped table-bordered"
 	id="buildingAreaDetails">
 	<thead>
@@ -233,7 +273,7 @@
 							class="form-control table-input text-right patternvalidation plinthArea"
 							data-pattern="number"
 							path="buildingDetail[0].applicationFloorDetails[0].plinthArea"
-							id="applicationFloorDetails0plinthArea" maxlength="15" value="" /></td>
+							id="applicationFloorDetails0plinthArea" maxlength="15" value="" onblur="validateFloorDetails(this)" /></td>
 					<td class="text-right"><form:input type="text"
 							class="form-control table-input text-right patternvalidation carpetArea"
 							data-pattern="number"

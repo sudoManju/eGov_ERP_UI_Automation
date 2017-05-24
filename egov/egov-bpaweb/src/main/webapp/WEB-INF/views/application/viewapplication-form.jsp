@@ -97,9 +97,11 @@
 					<div class="panel panel-primary" data-collapsed="0">
 						<jsp:include page="view-sitedetail.jsp"></jsp:include>
 					</div>
-					<div class="panel panel-primary" data-collapsed="0">
-						<jsp:include page="view-building-details.jsp" />
-					</div>
+					<c:if test="${bpaApplication.serviceType.description ne 'Sub-Division of plot/Land Development'}">
+						<div class="panel panel-primary" data-collapsed="0">
+							<jsp:include page="view-building-details.jsp" />
+						</div>
+					</c:if>
 					<div class="panel panel-primary" data-collapsed="0">
 						<jsp:include page="applicationhistory-view.jsp"></jsp:include>
 					</div>
@@ -159,3 +161,5 @@
 
 <script
 	src="<cdn:url value='/resources/global/js/egov/inbox.js?rnd=${app_release_no}' context='/egi'/>"></script>
+<script
+	src="<cdn:url value='/resources/js/app/application-view.js?rnd=${app_release_no}'/>"></script>

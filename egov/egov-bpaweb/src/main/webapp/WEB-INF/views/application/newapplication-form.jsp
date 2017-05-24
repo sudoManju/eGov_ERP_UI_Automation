@@ -108,19 +108,6 @@
 	</div>
 </div>
 
-<script>
-	
-		$('#buttonSubmit').click(function() {
-		var button=$('#buttonSubmit').val();
-		if ($('form').valid()) {
-			document.getElementById("workFlowAction").value=button;
-			document.forms[0].submit();
-		} else {
-			e.preventDefault();
-		}
-		
-		});
-</script>
 <script
 	src="<cdn:url value='/resources/global/js/egov/inbox.js?rnd=${app_release_no}' context='/egi'/>"></script>
 <script

@@ -312,7 +312,8 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 }
             }
         }
-        applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
+        // TODO : on 2nd level document's are getting deleting and document's order reshuffling,need to be fix.
+        //applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
         BpaApplication bpaAppln = applicationBpaService.updateApplication(bpaApplication, approvalPosition, workFlowAction,amountRule);
         if (null != approvalPosition) {
             pos = positionMasterService.getPositionById(approvalPosition);

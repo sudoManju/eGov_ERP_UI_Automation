@@ -88,8 +88,10 @@ public class BuildingDetail extends AbstractAuditable {
     private BigDecimal totalPlintArea;
     private BigDecimal totalSlab;
     private BigDecimal machineRoom;
-    private BigDecimal fromGroundWithWOStairRoom;
-    private BigDecimal fromStreetWithWOStairRoom;
+    private BigDecimal heightFromGroundWithStairRoom;
+    private BigDecimal heightFromGroundWithOutStairRoom;
+    private BigDecimal fromStreetLevelWithStairRoom;
+    private BigDecimal fromStreetLevelWithOutStairRoom;
     private String townPlanningZone;
     private String crzZone;
     @OneToMany(mappedBy = "buildingDetail", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -264,20 +266,36 @@ public class BuildingDetail extends AbstractAuditable {
 		this.machineRoom = machineRoom;
 	}
 
-	public BigDecimal getFromGroundWithWOStairRoom() {
-		return fromGroundWithWOStairRoom;
+	public BigDecimal getHeightFromGroundWithStairRoom() {
+		return heightFromGroundWithStairRoom;
 	}
 
-	public void setFromGroundWithWOStairRoom(BigDecimal fromGroundWithWOStairRoom) {
-		this.fromGroundWithWOStairRoom = fromGroundWithWOStairRoom;
+	public void setHeightFromGroundWithStairRoom(BigDecimal heightFromGroundWithStairRoom) {
+		this.heightFromGroundWithStairRoom = heightFromGroundWithStairRoom;
 	}
 
-	public BigDecimal getFromStreetWithWOStairRoom() {
-		return fromStreetWithWOStairRoom;
+	public BigDecimal getHeightFromGroundWithOutStairRoom() {
+		return heightFromGroundWithOutStairRoom;
 	}
 
-	public void setFromStreetWithWOStairRoom(BigDecimal fromStreetWithWOStairRoom) {
-		this.fromStreetWithWOStairRoom = fromStreetWithWOStairRoom;
+	public void setHeightFromGroundWithOutStairRoom(BigDecimal heightFromGroundWithOutStairRoom) {
+		this.heightFromGroundWithOutStairRoom = heightFromGroundWithOutStairRoom;
+	}
+
+	public BigDecimal getFromStreetLevelWithStairRoom() {
+		return fromStreetLevelWithStairRoom;
+	}
+
+	public void setFromStreetLevelWithStairRoom(BigDecimal fromStreetLevelWithStairRoom) {
+		this.fromStreetLevelWithStairRoom = fromStreetLevelWithStairRoom;
+	}
+
+	public BigDecimal getFromStreetLevelWithOutStairRoom() {
+		return fromStreetLevelWithOutStairRoom;
+	}
+
+	public void setFromStreetLevelWithOutStairRoom(BigDecimal fromStreetLevelWithOutStairRoom) {
+		this.fromStreetLevelWithOutStairRoom = fromStreetLevelWithOutStairRoom;
 	}
 
 	public String getTownPlanningZone() {

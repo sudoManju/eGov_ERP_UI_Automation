@@ -164,23 +164,24 @@
 				default="N/A"></c:out>
 		</div>
 	</div>
-
+	
 	<div class="row add-border">
 		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.survey.no.type" />
+			<spring:message code="lbl.re.survey.no" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.siteDetail[0].surveynumberType}"
+			<c:out value="${bpaApplication.siteDetail[0].reSurveyNumber}"
 				default="N/A"></c:out>
 		</div>
 		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.old.survey.no.type" />
+			<spring:message code="lbl.town.survey.no" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.siteDetail[0].oldSurveyNumber}"
+			<c:out value="${bpaApplication.siteDetail[0].townSurveyNumber}"
 				default="N/A"></c:out>
 		</div>
 	</div>
+
 
 	<div class="row add-border">
 		<div class="col-sm-3 add-margin">

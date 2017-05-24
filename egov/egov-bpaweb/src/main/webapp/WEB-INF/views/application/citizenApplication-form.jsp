@@ -117,28 +117,24 @@
 </div>
 
 <script>
-	 $('#buttonSave').click(function() {
-			var button=$('#buttonSave').val();
-			if ($('form').valid()) {
-				$('#serviceType').prop("disabled", false);
-				document.getElementById("workFlowAction").value=button;
-				document.forms[0].submit();
-			} else {
-				alert('enter all meng=datory fields');
-			}
-			
-		});
-		$('#buttonSubmit').click(function() {
-		var button=$('#buttonSubmit').val();
+	$('#buttonSave').click(function(e) {
+		var button = $('#buttonSave').val();
+		validateForm1(e, button);
+	});
+	$('#buttonSubmit').click(function(e) {
+		var button = $('#buttonSubmit').val();
+		validateForm1(e, button);
+	});
+
+	function validateForm1(e, button) {
 		if ($('form').valid()) {
 			$('#serviceType').prop("disabled", false);
-			document.getElementById("workFlowAction").value=button;
+			document.getElementById("workFlowAction").value = button;
 			document.forms[0].submit();
 		} else {
-			alert('enter all meng=datory fields');
+			e.preventDefault();
 		}
-		
-		});
+	}
 </script>
 <script
 	src="<cdn:url value='/resources/global/js/egov/inbox.js?rnd=${app_release_no}' context='/egi'/>"></script>

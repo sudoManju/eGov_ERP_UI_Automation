@@ -47,9 +47,11 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.egov.bpa.application.entity.Occupancy;
 import org.egov.bpa.application.entity.StakeHolder;
 import org.egov.bpa.application.entity.enums.StakeHolderType;
 import org.egov.bpa.application.service.ApplicationBpaService;
+import org.egov.bpa.masters.service.OccupancyService;
 import org.egov.bpa.masters.service.StakeHolderService;
 import org.egov.eis.entity.Assignment;
 import org.egov.eis.entity.AssignmentAdaptor;
@@ -86,12 +88,14 @@ public class BpaAjaxController {
     private ApplicationBpaService applicationBpaService;
     @Autowired
     private StakeHolderService stakeHolderService;
+    @Autowired
+    private OccupancyService occupancyService;
 
     @RequestMapping(value = "/ajax/getAdmissionFees", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public BigDecimal isConnectionPresentForProperty(@RequestParam final String serviceType) {
         return applicationBpaService.setAdmissionFeeAmountForRegistration(serviceType);
-    }
+    }	
 
     @RequestMapping(value = "/bpaajaxWorkFlow-getDesignationsByObjectTypeAndDesignation", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -140,5 +144,11 @@ public class BpaAjaxController {
     @ResponseBody
     public List<StakeHolder> getStakeHolderByType(@RequestParam final StakeHolderType stakeHolderType) {
         return stakeHolderService.getStakeHolderListByType(stakeHolderType);
+    }
+    
+    @RequestMapping(value = "/application/getoccupancydetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<Occupancy> getOccupancyDetails() {
+    	return occupancyService.findAll();
     }
 }

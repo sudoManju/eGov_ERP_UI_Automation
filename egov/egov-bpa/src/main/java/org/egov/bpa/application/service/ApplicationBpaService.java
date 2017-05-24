@@ -66,7 +66,6 @@ import org.egov.bpa.application.entity.BpaFeeDetail;
 import org.egov.bpa.application.entity.BpaStatus;
 import org.egov.bpa.application.entity.CheckListDetail;
 import org.egov.bpa.application.entity.ServiceType;
-import org.egov.bpa.application.entity.enums.BpaUom;
 import org.egov.bpa.application.repository.ApplicationBpaRepository;
 import org.egov.bpa.application.service.collection.GenericBillGeneratorService;
 import org.egov.bpa.service.BpaStatusService;
@@ -137,7 +136,6 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         application.setSource(Source.CITIZENPORTAL);
         else
         	 application.setSource(Source.SYSTEM);
-        application.getSiteDetail().get(0).setExtentinsqmts(convertExtendOfLandToSqmts(application.getSiteDetail().get(0).getExtentOfLand(), application.getSiteDetail().get(0).getUnitOfMeasurement()));
         Long approvalPosition=null;
         application.setDemand(applicationBpaBillService.createDemand(application));
         if(workFlowAction!=null && workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON) && (bpaUtils.logedInuseCitizenOrBusinessUser()))
@@ -199,7 +197,6 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         application.setSource(Source.SYSTEM);
         persistBpaNocDocuments(application);
         application.getBuildingDetail().get(0).setApplicationFloorDetails(buildApplicationFloorDetails(application));
-        application.getSiteDetail().get(0).setExtentinsqmts(convertExtendOfLandToSqmts(application.getSiteDetail().get(0).getExtentOfLand(), application.getSiteDetail().get(0).getUnitOfMeasurement()));
         if(APPLICATION_STATUS_APPROVED.equalsIgnoreCase(application.getStatus().getCode())) {
         	application.setPlanPermissionNumber(generatePlanPermissionNumber(application));
         }
@@ -340,37 +337,18 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         else
             return null;
     }
-    
+
 	public String generatePlanPermissionNumber(final BpaApplication application) {
 		final PlanPermissionNumberGenerator planPermissionNumber = beanResolver
 				.getAutoNumberServiceFor(PlanPermissionNumberGenerator.class);
 		return planPermissionNumber.generatePlanPermissionNumber(application.getServiceType());
 	}
-	
-	public BigDecimal convertExtendOfLandToSqmts(BigDecimal extentLand, BpaUom uom){
-    	if(uom.equals(BpaUom.ARE)){
-    		return convertAreToSqmtrs(extentLand);
-    	} else if(uom.equals(BpaUom.HECTARE)){
-    		return convertHectareToSqmtrs(extentLand);
-    	} else {
-    		return extentLand;
-    	}
-    }
-	
-	public BigDecimal convertAreToSqmtrs(BigDecimal extentLand){
-    	return extentLand.multiply(BigDecimal.valueOf(100));
-    }
-    
-    public BigDecimal convertHectareToSqmtrs(BigDecimal extentLand){
-    	return extentLand.multiply(BigDecimal.valueOf(10000));
-    }
-    
-    public Boolean checkAnyTaxIsPendingToCollect(BpaApplication bpaApplication)
-    {
-    	return bpaUtils.checkAnyTaxIsPendingToCollect(bpaApplication);
-    }
-    public Boolean workFlowinitiatedByNonEmployee(BpaApplication bpaApplication)
-    {
-    	return bpaUtils.workFlowinitiatedByNonEmployee(bpaApplication);
-    }
+
+	public Boolean checkAnyTaxIsPendingToCollect(BpaApplication bpaApplication) {
+		return bpaUtils.checkAnyTaxIsPendingToCollect(bpaApplication);
+	}
+
+	public Boolean workFlowinitiatedByNonEmployee(BpaApplication bpaApplication) {
+		return bpaUtils.workFlowinitiatedByNonEmployee(bpaApplication);
+	}
 }

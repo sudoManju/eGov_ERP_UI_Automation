@@ -77,6 +77,10 @@ public class SiteDetail extends AbstractAuditable {
     private String surveynumberType;
     @Length(min = 1, max = 24)
     private String oldSurveyNumber;
+    @Length(min = 1, max = 24)
+    private String reSurveyNumber;
+    @Length(min = 1, max = 24)
+    private String townSurveyNumber;
     @Length(min = 1, max = 128)
     private String streetaddress1;
     @Length(min = 1, max = 128)
@@ -194,8 +198,24 @@ public class SiteDetail extends AbstractAuditable {
     public void setPlotsurveynumber(final String plotsurveynumber) {
         this.plotsurveynumber = plotsurveynumber;
     }
+    
+    public String getReSurveyNumber() {
+		return reSurveyNumber;
+	}
 
-    public String getSurveynumberType() {
+	public void setReSurveyNumber(String reSurveyNumber) {
+		this.reSurveyNumber = reSurveyNumber;
+	}
+
+	public String getTownSurveyNumber() {
+		return townSurveyNumber;
+	}
+
+	public void setTownSurveyNumber(String townSurveyNumber) {
+		this.townSurveyNumber = townSurveyNumber;
+	}
+
+	public String getSurveynumberType() {
         return surveynumberType;
     }
 
