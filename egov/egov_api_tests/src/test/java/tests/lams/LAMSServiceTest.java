@@ -15,13 +15,15 @@ import utils.*;
 
 import java.io.IOException;
 
+import static data.usernames.narasappa;
+
 public class LAMSServiceTest extends BaseAPITest {
 
     @Test(groups = {Categories.LAMS, Categories.SANITY})
     public void lamsServiceSearchTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
 
         // LAMS Service Search Test
         lamsServiceTestMethod(loginResponse);

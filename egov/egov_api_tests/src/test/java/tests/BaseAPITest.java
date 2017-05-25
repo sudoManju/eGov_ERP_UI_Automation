@@ -35,7 +35,6 @@ public class BaseAPITest {
 
     @BeforeGroups(groups = Categories.SANITY, alwaysRun = true)
     public void setUp() throws IOException {
-
     }
 
     public String getRandomDate() {

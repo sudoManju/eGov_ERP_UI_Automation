@@ -14,13 +14,15 @@ import utils.*;
 
 import java.io.IOException;
 
+import static data.usernames.narasappa;
+
 public class EISRecruitmentModesTest {
 
     @Test(groups = {Categories.HR, Categories.SANITY})
     public void searchRecruitmentModesTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
 
         // Search RecruitmentModes Test
         searchRecruitmentModesTestMethod(loginResponse);

@@ -17,13 +17,15 @@ import utils.RequestHelper;
 
 import java.io.IOException;
 
+import static data.usernames.narasappa;
+
 public class EISPositionHierarchyTest extends BaseAPITest {
 
     @Test(groups = {Categories.HR, Categories.SANITY})
     public void searchPositionHierarchyTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
 
         // Search Designation Test
         searchPositionHierarchyTestMethod(loginResponse);

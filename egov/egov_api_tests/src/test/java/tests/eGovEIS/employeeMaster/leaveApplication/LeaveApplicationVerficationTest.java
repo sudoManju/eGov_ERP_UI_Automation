@@ -23,7 +23,7 @@ public class LeaveApplicationVerficationTest extends BaseAPITest{
   @Test
   public void leaveApplicationTest() throws IOException, InterruptedException {
       //Login Test
-      //LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
+      //LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
 
       //Create a leave application
       String applicationNum = leaveApplicationCreateTestMethod();

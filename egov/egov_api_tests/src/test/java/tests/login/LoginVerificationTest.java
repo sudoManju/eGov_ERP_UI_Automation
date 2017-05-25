@@ -1,13 +1,10 @@
 package tests.login;
 
 import builders.login.LoginRequestBuilder;
-import builders.logout.LogoutRequestBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.login.LoginRequest;
-import entities.requests.logout.LogoutRequest;
 import entities.responses.login.LoginErrorResponse;
 import entities.responses.login.LoginResponse;
-import entities.responses.logout.InvalidLogoutResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.LoginResource;
@@ -17,13 +14,15 @@ import utils.*;
 import java.io.IOException;
 import java.util.Map;
 
+import static data.usernames.narasappa;
+
 public class LoginVerificationTest extends BaseAPITest {
 
     @Test(groups = {Categories.SANITY, Categories.QA, Categories.DEV})
     public void shouldAllowLoginAndLogoutToAnExistingUser() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
 
         // Logout Test
         LoginAndLogoutHelper.logout(loginResponse);
@@ -33,7 +32,7 @@ public class LoginVerificationTest extends BaseAPITest {
     public void shouldNotAllowLogoutWithInvalidCredentials() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
 
         // Logout Test
         Response response1 = new LoginResource().inValidLogout(loginResponse.getAccess_token());

@@ -20,13 +20,15 @@ import java.io.IOException;
 import java.sql.Time;
 import java.util.concurrent.TimeUnit;
 
+import static data.usernames.narasappa;
+
 public class CreateWithValidateVerficationTest extends BaseAPITest {
 
     @Test(groups = {Categories.SANITY,Categories.DEV,Categories.USER})
     public void createWithValidateAndGetTest() throws IOException{
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
 
         //Create OTP
         OtpResponse otp = createOtp(loginResponse);

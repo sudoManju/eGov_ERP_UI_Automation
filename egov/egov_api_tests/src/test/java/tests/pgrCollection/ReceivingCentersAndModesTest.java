@@ -16,13 +16,15 @@ import utils.RequestHelper;
 
 import java.io.IOException;
 
+import static data.usernames.narasappa;
+
 public class ReceivingCentersAndModesTest extends BaseAPITest {
 
     @Test(groups = {Categories.PGR, Categories.SANITY, Categories.DEV})
     public void receivingCentersTest()throws IOException{
 
         //Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
 
         //AllReceivingCenters
         getAllReceivingCentersTest(loginResponse);

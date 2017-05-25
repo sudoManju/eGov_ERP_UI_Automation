@@ -23,7 +23,7 @@ public class HRMasterPositionCreateSearchAndUpdateTest {
     public void hrMasterPositionCreateSearchAndUpdate() throws IOException {
 
         //Login Test
-//        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
+//        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
 
         // Creating a HR Position
         hrMasterPositionCreateTestMethod();

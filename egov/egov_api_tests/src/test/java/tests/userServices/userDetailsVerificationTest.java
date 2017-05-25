@@ -18,13 +18,15 @@ import utils.ResponseHelper;
 
 import java.io.IOException;
 
+import static data.usernames.narasappa;
+
 public class userDetailsVerificationTest extends BaseAPITest {
 
    @Test(groups = {Categories.SANITY,Categories.DEV,Categories.USER})
    public void userDetailsTest()throws IOException{
 
        // Login Test
-       LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
+       LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
 
        //User Details Test
        verifyUserDetails(loginResponse);

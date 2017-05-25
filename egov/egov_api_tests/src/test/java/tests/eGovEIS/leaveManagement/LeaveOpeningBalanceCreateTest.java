@@ -40,7 +40,7 @@ public class LeaveOpeningBalanceCreateTest extends BaseAPITest {
     public void leaveOpeningBalanceCreateTest() throws IOException {
 
         // Login Test
-//        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
+//        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
 
         /*
             Collecting all Employee id's

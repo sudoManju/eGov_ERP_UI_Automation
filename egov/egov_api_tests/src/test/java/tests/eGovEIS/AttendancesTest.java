@@ -21,13 +21,15 @@ import utils.*;
 
 import java.io.IOException;
 
+import static data.usernames.narasappa;
+
 public class AttendancesTest extends BaseAPITest {
 
     @Test(groups = {Categories.HR, Categories.SANITY})
     public void CreateAttendancesTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
 
         // Create attendances Test
         createAttendancesTestMethod(loginResponse);
@@ -37,7 +39,7 @@ public class AttendancesTest extends BaseAPITest {
     public void SearchAttendancesTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
 
         // Search attendances Test
         searchAttendancesTestMethod(loginResponse);

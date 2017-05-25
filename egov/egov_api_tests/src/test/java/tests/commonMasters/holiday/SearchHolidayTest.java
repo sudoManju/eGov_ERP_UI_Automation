@@ -15,13 +15,15 @@ import utils.*;
 
 import java.io.IOException;
 
+import static data.usernames.narasappa;
+
 public class SearchHolidayTest extends BaseAPITest {
 
     @Test(groups = {Categories.HR, Categories.SANITY})
     public void holidayTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
 
         // Search Holiday Test
         holidayTestMethod(loginResponse);

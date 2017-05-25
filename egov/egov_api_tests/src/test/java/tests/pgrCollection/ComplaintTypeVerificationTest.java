@@ -16,13 +16,15 @@ import utils.RequestHelper;
 
 import java.io.IOException;
 
+import static data.usernames.narasappa;
+
 public class ComplaintTypeVerificationTest extends BaseAPITest {
 
     @Test(groups = {Categories.PGR, Categories.SANITY, Categories.DEV})
     public void complaintType()throws IOException{
 
         //Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
 
         //complaintTypeByServiceCode
         complaintTypeByServiceCode(loginResponse);

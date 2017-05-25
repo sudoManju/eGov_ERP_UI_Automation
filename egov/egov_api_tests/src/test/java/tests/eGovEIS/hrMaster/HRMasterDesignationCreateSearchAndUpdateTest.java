@@ -25,7 +25,7 @@ public class HRMasterDesignationCreateSearchAndUpdateTest {
     public void hrMasterDesignationCreateSearchAndUpdate() throws IOException {
 
         //Login Test
-//        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
+//        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
 
         // Creating a HR Designation Type
         hrMasterDesignationCreateTestMethod();

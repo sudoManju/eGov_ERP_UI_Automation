@@ -19,13 +19,15 @@ import utils.RequestHelper;
 
 import java.io.IOException;
 
+import static data.usernames.narasappa;
+
 public class CreateHolidayTest {
 
     @Test(groups = {Categories.HR, Categories.SANITY})
     public void createHolidayTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
 
         // Create Holiday Test
         createHolidayTestMethod(loginResponse);

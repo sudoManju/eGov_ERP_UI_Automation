@@ -15,13 +15,15 @@ import utils.*;
 
 import java.io.IOException;
 
+import static data.usernames.narasappa;
+
 public class ReligionTest extends BaseAPITest {
 
     @Test(groups = {Categories.HR, Categories.SANITY})
     public void religionTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
 
         // Language Search Test
         religionTestMethod(loginResponse);

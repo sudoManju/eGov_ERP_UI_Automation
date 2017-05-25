@@ -20,13 +20,15 @@ import utils.*;
 
 import java.io.IOException;
 
+import static data.usernames.narasappa;
+
 public class CreateNoValidateVerificationTest extends BaseAPITest {
 
     @Test(groups = {Categories.SANITY,Categories.DEV,Categories.USER})
     public void createNoValidateAndGetTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
 
         // Create a user
         CreateUserResponse create = CreateAUserTest(loginResponse);

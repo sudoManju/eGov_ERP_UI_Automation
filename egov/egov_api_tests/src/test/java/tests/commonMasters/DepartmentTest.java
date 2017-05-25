@@ -15,13 +15,15 @@ import utils.*;
 
 import java.io.IOException;
 
+import static data.usernames.narasappa;
+
 public class DepartmentTest extends BaseAPITest {
 
     @Test(groups = {Categories.HR, Categories.SANITY})
     public void departmentTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
 
         // Search Department Test
         departmentTestMethod(loginResponse);
