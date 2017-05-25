@@ -87,6 +87,8 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
 		model.addAttribute("mode", "new");
 		bpaApplication.setServiceType(serviceTypeService.getServiceTypeByCode(serviceCode));
 		model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
+		model.addAttribute("checkListDetailList", checkListDetailService.findActiveCheckListByServiceType(bpaApplication.getServiceType().getId(), 
+				BpaConstants.CHECKLIST_TYPE));
 		return "citizenApplication-form";
 	}
 
