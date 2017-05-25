@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.Properties;
 
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -215,13 +216,9 @@ public class BasePage {
     }
 
     protected String getEnvironmentURL() {
-        String env = System.getProperty("env");
-        String url = null;
-        if (env.equals("staging")) {
-            url = "http://kurnool-uat.egovernments.org";
-        } else if (env.equals("qa")) {
-            url = "http://kurnool-qa.egovernments.org";
-        }
+
+        String url = Properties.url;
+
         return url;
     }
 }
