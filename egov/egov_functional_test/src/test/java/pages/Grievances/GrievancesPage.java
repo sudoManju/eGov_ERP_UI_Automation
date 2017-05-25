@@ -48,10 +48,10 @@ public class GrievancesPage extends BasePage {
     @FindBy(xpath = ".//*[@id='main']/div[1]/div/div/div[1]/div/strong")
     private WebElement successMsg;
 
-    @FindBy(linkText = "New Request")
+    @FindBy(linkText = "Grievance Redressal")
     private WebElement newRequestLink;
 
-    @FindBy(xpath = ".//*[@id='section-newrequest-1']/div[2]/header/div/a")
+    @FindBy(linkText = "Register Grievance")
     private WebElement registerComplaint;
 
     @FindBy(id = "ctn_no")

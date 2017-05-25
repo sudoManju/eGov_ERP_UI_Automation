@@ -24,7 +24,7 @@ public class HomePage extends BasePage {
     private WebElement zoneSelect;
 
 
-    @FindBy(className = "dropdown-toggle")
+    @FindBy(xpath = "html/body/div[1]/div/div[2]/header/nav/div[2]/span[1]/a/i")
     private WebElement profileLink;
 
     @FindBy(linkText = "Sign out")
@@ -57,7 +57,7 @@ public class HomePage extends BasePage {
 
     public void signOut() {
         clickOnButton(profileLink, driver);
-        clickOnButton(profileLink, driver);
-        clickOnButton(signOutLink, driver);
+//        clickOnButton(profileLink, driver);
+//        clickOnButton(signOutLink, driver);
     }
 }

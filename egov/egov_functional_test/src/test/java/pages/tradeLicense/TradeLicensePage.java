@@ -44,7 +44,8 @@ public class TradeLicensePage extends BasePage {
     @FindBy(id = "nameOfEstablishment")
     private WebElement tradeTitleTextBox;
 
-    @FindBy(id = "buildingType")
+//    @FindBy(id = "buildingType")
+    @FindBy(css = "select[name=natureOfBusiness]")
     private WebElement TradeTypeDropBox;
 
     @FindBy(id = "category")
@@ -231,7 +232,8 @@ public class TradeLicensePage extends BasePage {
         WebElement element = webDriver.findElement(By.id("button2"));
         JavascriptExecutor executor = (JavascriptExecutor) webDriver;
         executor.executeScript("arguments[0].click();", element);
-        clickOnButton(printClose, webDriver);
+//        clickOnButton(printClose, webDriver);
+        webDriver.close();
         switchToNewlyOpenedWindow(webDriver);
         clickOnButton(closeSearch, webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
@@ -246,8 +248,8 @@ public class TradeLicensePage extends BasePage {
         List<WebElement> elements = webDriver.findElements(By.cssSelector(".form-control.patternvalidation.feeamount"));
 
         enterText(elements.get(5), "200", webDriver);
-        webDriver.switchTo().activeElement();
-        jsClick(webDriver.findElement(By.cssSelector(".btn.btn-primary")), webDriver);
+//        webDriver.switchTo().activeElement();
+//        jsClick(webDriver.findElement(By.cssSelector(".btn.btn-primary")), webDriver);
     }
 
     public void enterDetailsForClosure(LicenseClosureDetails closureDetails) {
@@ -316,8 +318,9 @@ public class TradeLicensePage extends BasePage {
     }
 
     public String getLegacyLicenseNumber() {
-        String licenseNum = webDriver.findElement(By.xpath(".//*[@id='viewTradeLicense']/div[8]/div[1]/div[2]")).getText();
-        jsClick(closeLicensePage, webDriver);
+        String licenseNum = webDriver.findElement(By.xpath(".//*[@id='tradeLicense']/div[8]/div[1]/div[2]")).getText();
+//        jsClick(closeLicensePage, webDriver);
+        webDriver.findElement(By.xpath(".//*[@id='buttondiv']/table/tbody/tr/td[2]/button")).click();
         switchToPreviouslyOpenedWindow(webDriver);
         return licenseNum;
     }
@@ -332,7 +335,7 @@ public class TradeLicensePage extends BasePage {
         jsClick(saveButton, webDriver);
         jsClick(closeButton, webDriver);
         switchToNewlyOpenedWindow(webDriver);
-//        jsClick(searchButton, webDriver);
+        jsClick(searchButton, webDriver);
     }
 
     public void checkNoOfRecords() {
