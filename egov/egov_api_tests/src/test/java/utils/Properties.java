@@ -4,72 +4,68 @@ public class Properties {
 
     private static final PropertiesReader propertiesReader = new PropertiesReader();
 
-    //  Server Url's  //
-    public static final String devServerUrl = propertiesReader.getDevServerUrl();
-    public static final String serverUrl = propertiesReader.getServerUrl();
-
     //  Login And Logout Url's  //
-    public static final String loginUrl = propertiesReader.getLoginUrl();
-    public static final String logoutUrl = propertiesReader.getLogoutUrl();
+    public static final String loginUrl = propertiesReader.getEndPointUrl("loginUrl");
+    public static final String logoutUrl = propertiesReader.getEndPointUrl("logoutUrl");
 
     //  User Url's  //
-    public static final String userUrl = propertiesReader.getUserUrl();
-    public static final String userCreateUrl = propertiesReader.getUserCreateUrl();
-    public static final String createOtpUrl = propertiesReader.getCreateOtpUrl();
-    public static final String validateOtpUrl = propertiesReader.getValidateOtpUrl();
-    public static final String createCitizenUrl = propertiesReader.getCreateCitizenUrl();
+    public static final String userUrl = propertiesReader.getEndPointUrl("userUrl");
+    public static final String userCreateUrl = propertiesReader.getEndPointUrl("userCreateUrl");
+    public static final String createOtpUrl = propertiesReader.getEndPointUrl("createOtpUrl");
+    public static final String validateOtpUrl = propertiesReader.getEndPointUrl("validateOtpUrl");
+    public static final String createCitizenUrl = propertiesReader.getEndPointUrl("createCitizenUrl");
 
     //  PGR Module Url's  //
-    public static final String getPGRComplaintUrl = propertiesReader.getPGRComplaintUrl();
-    public static final String complaintUrl = propertiesReader.getComplaintUrl();
-    public static final String fetchComplaintsUrl = propertiesReader.getFetchComplaintsUrl();
-    public static final String fetchComplaintsByIdUrl = propertiesReader.getFetchComplaintsByIdComplaintstUrl();
-    public static final String pgrReceivingCenterUrl = propertiesReader.getPGRReceivingCenter();
-    public static final String updateComplaintUrl = propertiesReader.getUpdateComplaintUrl();
-    public static final String getComplaintTypeByServiceCodeUrl = propertiesReader.getComplaintTypeByServiceCodeUrl();
-    public static final String getComplaintTypeCategoriesUrl = propertiesReader.getComplaintTypeCategoriesUrl();
+    public static final String getPGRComplaintUrl = propertiesReader.getEndPointUrl("getPGRComplaintUrl");
+    public static final String complaintUrl = propertiesReader.getEndPointUrl("complaintUrl");
+    public static final String fetchComplaintsUrl = propertiesReader.getEndPointUrl("fetchComplaintsUrl");
+    public static final String fetchComplaintsByIdUrl = propertiesReader.getEndPointUrl("fetchComplaintsByIdUrl");
+    public static final String pgrReceivingCenterUrl = propertiesReader.getEndPointUrl("pgrReceivingCenter");
+    public static final String updateComplaintUrl = propertiesReader.getEndPointUrl("updateComplaintUrl");
+    public static final String getComplaintTypeByServiceCodeUrl = propertiesReader.getEndPointUrl("complaintTypeByServiceCodeUrl");
+    public static final String getComplaintTypeCategoriesUrl = propertiesReader.getEndPointUrl("complaintTypeCategoriesUrl");
 
     //  Asset Module Url's  //
-    public static final String searchAssetServiceUrl = propertiesReader.getSearchAssetServiceUrl();
-    public static final String assetCategoryCreateUrl = propertiesReader.getAssetCategoryCreateUrl();
-    public static final String createAssetServiceUrl = propertiesReader.getCreateAssetServiceUrl();
-    public static final String assetCategorySearchUrl = propertiesReader.getAssetCategorySearchUrl();
+    public static final String searchAssetServiceUrl = propertiesReader.getEndPointUrl("searchAssetService");
+    public static final String assetCategoryCreateUrl = propertiesReader.getEndPointUrl("assetCategoryCreateUrl");
+    public static final String createAssetServiceUrl = propertiesReader.getEndPointUrl("createAssetServiceUrl");
+    public static final String assetCategorySearchUrl = propertiesReader.getEndPointUrl("assetCategorySearchUrl");
 
     //  eGov EIS Module Url's  //
-    public static final String searchAttendanceUrl = propertiesReader.getSearchAttendanceUrl();
-    public static final String createAttendanceURL = propertiesReader.getCreateAttendanceUrl();
-    public static final String searchEmployeeURL = propertiesReader.getSearchEmployeeUrl();
-    public static final String createEmployeeUrl = propertiesReader.getCreateEmployeeUrl();
-    public static final String eisSearchEmployeeTypeUrl = propertiesReader.getSearchEmployeeTypeUrl();
-    public static final String eisSearchDesignationTypeUrl = propertiesReader.getSearchDesignationTypeUrl();
-    public static final String eisSearchPositionUrl = propertiesReader.getSearchPositionUrl();
-    public static final String eisSearchPositionHierarchyUrl = propertiesReader.getSearchPositionHierarchyUrl();
-    public static final String eisSearchGradeUrl = propertiesReader.getSearchGradeUrl();
-    public static final String eisSearchEmployeeGroupUrl = propertiesReader.getSearchEmployeeGroupUrl();
-    public static final String eisSearchRecruitmentQuotaUrl = propertiesReader.getSearchRecruitmentQuotaUrl();
-    public static final String eisSearchRecruitmentModesUrl = propertiesReader.getSearchRecruitmentModesUrl();
-    public static final String eisSearchHrConfigurationsUrl = propertiesReader.getSearchHrConfigurationsUrl();
-    public static final String eisSearchHrStatusesUrl = propertiesReader.getSearchHrStatusesUrl();
-    public static final String eisSearchLeaveApplicationsUrl = propertiesReader.getSearchLeaveApplicationsUrl();
-    public static final String eisSearchLeaveOpeningbalancesUrl = propertiesReader.getSearchLeaveOpeningbalancesUrl();
-    public static final String eisSearchLeaveAllotmentsUrl = propertiesReader.getSearchLeaveAllotmentsUrl();
-    public static final String createOpeningBalanceUrlUrl = propertiesReader.getCreateOpeningBalanceUrl();
+    public static final String searchAttendanceUrl = propertiesReader.getEndPointUrl("searchAttendanceUrl");
+    public static final String createAttendanceURL = propertiesReader.getEndPointUrl("createAttendanceURL");
+    public static final String searchEmployeeURL = propertiesReader.getEndPointUrl("searchEmployeeUrl");
+    public static final String createEmployeeUrl = propertiesReader.getEndPointUrl("createEmployeeUrl");
+    public static final String eisSearchEmployeeTypeUrl = propertiesReader.getEndPointUrl("searchEmployeeTypeUrl");
+    public static final String eisSearchDesignationTypeUrl = propertiesReader.getEndPointUrl("searchDesignationTypeUrl");
+    public static final String eisSearchPositionUrl = propertiesReader.getEndPointUrl("searchPositionUrl");
+    public static final String eisSearchPositionHierarchyUrl = propertiesReader.getEndPointUrl("searchPositionHierarchyUrl");
+    public static final String eisSearchGradeUrl = propertiesReader.getEndPointUrl("searchGradeUrl");
+    public static final String eisSearchEmployeeGroupUrl = propertiesReader.getEndPointUrl("searchEmployeeGroupUrl");
+    public static final String eisSearchRecruitmentQuotaUrl = propertiesReader.getEndPointUrl("searchRecruitmentQuotaUrl");
+    public static final String eisSearchRecruitmentModesUrl = propertiesReader.getEndPointUrl("searchRecruitmentModesUrl");
+    public static final String eisSearchHrConfigurationsUrl = propertiesReader.getEndPointUrl("searchHrConfigurations");
+    public static final String eisSearchHrStatusesUrl = propertiesReader.getEndPointUrl("searchHRStatusesUrl");
+    public static final String eisSearchLeaveApplicationsUrl = propertiesReader.getEndPointUrl("searchLeaveApplicationsUrl");
+    public static final String eisSearchLeaveOpeningbalancesUrl = propertiesReader.getEndPointUrl("searchLeaveOpeningbalancesUrl");
+    public static final String eisSearchLeaveAllotmentsUrl = propertiesReader.getEndPointUrl("searchLeaveAllotmentsUrl");
+    public static final String createOpeningBalanceUrlUrl = propertiesReader.getEndPointUrl("createOpeningBalanceUrl");
 
     //  Land Estate Module Url's  //
-    public static final String lAMSServiceSearchUrl = propertiesReader.getLAMSServiceSearchUrl();
+    public static final String lAMSServiceSearchUrl = propertiesReader.getEndPointUrl("lamsServiceSearchUrl");
 
     //  Common Master's Module Url's  //
-    public static final String cmLanguageUrl = propertiesReader.getCMLanguageUrl();
-    public static final String cmDepartmentUrl = propertiesReader.getCMDepartmentUrl();
-    public static final String cmCommunityUrl = propertiesReader.getCMCommunityUrl();
-    public static final String cmReligionUrl = propertiesReader.getCMReligionUrl();
-    public static final String cmHolidayUrl = propertiesReader.getCMHolidayUrl();
-    public static final String cmCategoryUrl = propertiesReader.getCMCategoryUrl();
-    public static final String cmCreateHolidayUrl = propertiesReader.getCMCreateHolidayUrl();
+    public static final String cmLanguageUrl = propertiesReader.getEndPointUrl("cmLanguageUrl");
+    public static final String cmDepartmentUrl = propertiesReader.getEndPointUrl("cmDepartmentUrl");
+    public static final String cmCommunityUrl = propertiesReader.getEndPointUrl("cmCommunityUrl");
+    public static final String cmReligionUrl = propertiesReader.getEndPointUrl("cmReligionUrl");
+    public static final String cmHolidayUrl = propertiesReader.getEndPointUrl("cmHolidayUrl");
+    public static final String cmCategoryUrl = propertiesReader.getEndPointUrl("cmCategoryUrl");
+    public static final String cmCreateHolidayUrl = propertiesReader.getEndPointUrl("cmCreateHolidayUrl");
 
-    public static final String pgrReceivingModesUrl = propertiesReader.getPGRReceivingModesUrl();
-    public static final String searchEmployeeLeaveUrl = propertiesReader.getSearchEmployeeLeaveUrl();
-    public static final String userUpdateUrl = propertiesReader.getUserUpdateUrl();
-    public static final String loginUserDetailsUrl = propertiesReader.getLoginUserDetailsUrl();;
-    public static final String searchOtpUrl = propertiesReader.getSearchOtpUrl();
+    public static final String pgrReceivingModesUrl = propertiesReader.getEndPointUrl("pgrReceivingModes");
+    public static final String searchEmployeeLeaveUrl = propertiesReader.getEndPointUrl("searchEmployeeLeaveUrl");
+    public static final String userUpdateUrl = propertiesReader.getEndPointUrl("userUpdateUrl");
+    public static final String loginUserDetailsUrl = propertiesReader.getEndPointUrl("loginUserDetailsUrl");;
+    public static final String searchOtpUrl = propertiesReader.getEndPointUrl("searchOtpUrl");
 }

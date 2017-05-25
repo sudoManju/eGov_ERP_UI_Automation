@@ -27,7 +27,6 @@ public class LoginVerificationTest extends BaseAPITest {
 
         // Logout Test
         LoginAndLogoutHelper.logout(loginResponse);
-
     }
 
     @Test(groups = {Categories.SANITY, Categories.QA, Categories.DEV})

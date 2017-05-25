@@ -2,13 +2,33 @@ package utils;
 
 public class ResourceHelper {
 
-    public String getBaseURI() {
-        if (System.getProperty("env").equals("qa"))
-            return "http://egov-micro-qa.egovernments.org/";
-        if (System.getProperty("env").equals("dev"))
-            return "http://egov-micro-dev.egovernments.org/";
+    public static String getBaseURI() {
 
-        throw new RuntimeException("Not a valid env");
+        String baseUrl = null;
+
+        switch (System.getProperty("env")){
+
+            case "dev" :
+
+                baseUrl = "http://egov-micro-dev.egovernments.org";
+                break;
+
+            case "qa" :
+
+                baseUrl = "http://egov-micro-qa.egovernments.org";
+                break;
+
+            case "pilot" :
+
+                baseUrl = "http://kurnool-pilot-services.egovernments.org";
+                break;
+
+            default :
+
+                baseUrl = "http://kurnool-pilot-services.egovernments.org";
+                break;
+        }
+
+        return baseUrl;
     }
-
 }
