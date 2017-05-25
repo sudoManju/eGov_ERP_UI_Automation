@@ -37,16 +37,50 @@
  *
  *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
-package org.egov.commons.entity;
+package org.egov.ptis.domain.service.property;
 
-import org.apache.commons.lang3.StringUtils;
+import static org.egov.ptis.constants.PropertyTaxConstants.BIGDECIMAL_100;
 
-public enum Source {
+import java.math.BigDecimal;
+import java.util.Date;
 
-    APONLINE, ESEVA, MEESEVA, SYSTEM, SOFTTECH, CARD, MOBILE, LEADWINNER ,CSC, CITIZENPORTAL;
+import org.egov.commons.Installment;
+import org.egov.ptis.constants.PropertyTaxConstants;
+import org.egov.ptis.domain.entity.property.RebatePeriod;
+import org.egov.ptis.service.utils.PropertyTaxCommonUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-    @Override
-    public String toString() {
-        return StringUtils.capitalize(name());
+/**
+ * Service class to perform services related to Rebate Amount
+ *
+ * @author neelam
+ */
+@Service
+@Transactional(readOnly = true)
+public class RebateService {
+    @Autowired
+    private PropertyTaxCommonUtils propertyTaxCommonUtils;
+
+    @Autowired
+    private RebatePeriodService rebatePeriodService;
+
+    public BigDecimal calculateEarlyPayRebate(final BigDecimal tax) {
+        if (isEarlyPayRebateActive())
+            return tax.multiply(PropertyTaxConstants.ADVANCE_REBATE_PERCENTAGE).divide(BIGDECIMAL_100).setScale(0,
+                    BigDecimal.ROUND_HALF_UP);
+        else
+            return BigDecimal.ZERO;
     }
+
+    public boolean isEarlyPayRebateActive() {
+        boolean value = false;
+        final Installment currentInstallment = propertyTaxCommonUtils.getCurrentInstallment();
+        final RebatePeriod rebatePeriod = rebatePeriodService.getRebateForCurrInstallment(currentInstallment.getId());
+        if (rebatePeriod != null && rebatePeriod.getRebateDate().compareTo(new Date()) > 0)
+            value = true;
+        return value;
+    }
+
 }

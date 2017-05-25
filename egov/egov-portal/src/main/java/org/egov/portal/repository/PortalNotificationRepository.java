@@ -37,16 +37,13 @@
  *
  *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
-package org.egov.commons.entity;
+package org.egov.portal.repository;
 
-import org.apache.commons.lang3.StringUtils;
+import org.egov.portal.entity.PortalNotification;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public enum Source {
+@Repository
+public interface PortalNotificationRepository extends JpaRepository<PortalNotification, Long> {
 
-    APONLINE, ESEVA, MEESEVA, SYSTEM, SOFTTECH, CARD, MOBILE, LEADWINNER ,CSC, CITIZENPORTAL;
-
-    @Override
-    public String toString() {
-        return StringUtils.capitalize(name());
-    }
 }

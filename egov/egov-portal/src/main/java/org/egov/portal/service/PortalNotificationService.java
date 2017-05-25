@@ -37,16 +37,30 @@
  *
  *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
-package org.egov.commons.entity;
+package org.egov.portal.service;
 
-import org.apache.commons.lang3.StringUtils;
+import org.egov.portal.entity.PortalNotification;
+import org.egov.portal.repository.PortalNotificationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-public enum Source {
+@Service
+@Transactional(readOnly = true)
+public class PortalNotificationService {
 
-    APONLINE, ESEVA, MEESEVA, SYSTEM, SOFTTECH, CARD, MOBILE, LEADWINNER ,CSC, CITIZENPORTAL;
+    @Autowired
+    private PortalNotificationRepository portalNotificationRepository;
 
-    @Override
-    public String toString() {
-        return StringUtils.capitalize(name());
+    @Transactional
+    public void pushNotificationMessage(final PortalNotification portalNotification) {
+        portalNotificationRepository.saveAndFlush(portalNotification);
     }
+
+    @Transactional
+    public void updateNotificationMessage(final PortalNotification portalNotification) {
+        portalNotification.setReadStatus(true);
+        portalNotificationRepository.saveAndFlush(portalNotification);
+    }
+
 }
