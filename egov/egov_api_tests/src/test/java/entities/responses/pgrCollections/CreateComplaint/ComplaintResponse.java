@@ -1,7 +1,12 @@
-package entities.responses.pgrCollections.UpdateComplaint;
+package entities.responses.pgrCollections.CreateComplaint;
 
-public class UpdateComplaintResponse {
+import org.codehaus.jackson.annotate.JsonProperty;
+
+public class ComplaintResponse {
+
+    @JsonProperty("ServiceRequests")
     private ServiceRequests[] serviceRequests;
+
     private ResponseInfo responseInfo;
 
     public ServiceRequests[] getServiceRequests() {

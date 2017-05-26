@@ -4,10 +4,9 @@ public class ServiceRequests {
     private Object lastName;
     private String serviceRequestId;
     private String address;
-    private int lng;
+    private double lng;
     private String serviceCode;
     private Object serviceNotice;
-    private Values values;
     private String requestedDatetime;
     private String description;
     private Object agencyResponsible;
@@ -18,11 +17,12 @@ public class ServiceRequests {
     private String firstName;
     private Object accountId;
     private String phone;
+    private AttribValues[] attribValues;
     private String tenantId;
     private Object mediaUrls;
     private String updatedDatetime;
     private String expectedDatetime;
-    private int lat;
+    private double lat;
     private String email;
     private boolean status;
 
@@ -50,11 +50,11 @@ public class ServiceRequests {
         this.address = address;
     }
 
-    public int getLng() {
+    public double getLng() {
         return this.lng;
     }
 
-    public void setLng(int lng) {
+    public void setLng(double lng) {
         this.lng = lng;
     }
 
@@ -72,14 +72,6 @@ public class ServiceRequests {
 
     public void setServiceNotice(Object serviceNotice) {
         this.serviceNotice = serviceNotice;
-    }
-
-    public Values getValues() {
-        return this.values;
-    }
-
-    public void setValues(Values values) {
-        this.values = values;
     }
 
     public String getRequestedDatetime() {
@@ -162,6 +154,14 @@ public class ServiceRequests {
         this.phone = phone;
     }
 
+    public AttribValues[] getAttribValues() {
+        return this.attribValues;
+    }
+
+    public void setAttribValues(AttribValues[] attribValues) {
+        this.attribValues = attribValues;
+    }
+
     public String getTenantId() {
         return this.tenantId;
     }
@@ -194,11 +194,11 @@ public class ServiceRequests {
         this.expectedDatetime = expectedDatetime;
     }
 
-    public int getLat() {
+    public double getLat() {
         return this.lat;
     }
 
-    public void setLat(int lat) {
+    public void setLat(double lat) {
         this.lat = lat;
     }
 

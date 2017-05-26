@@ -1,5 +1,7 @@
 package entities.responses.pgrCollections.CreateComplaint;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 public class ServiceRequests {
     private Object lastName;
     private String serviceRequestId;
@@ -7,7 +9,6 @@ public class ServiceRequests {
     private int lng;
     private String serviceCode;
     private Object serviceNotice;
-    private Values values;
     private String requestedDatetime;
     private String description;
     private Object agencyResponsible;
@@ -18,9 +19,11 @@ public class ServiceRequests {
     private String firstName;
     private Object accountId;
     private String phone;
+    @JsonProperty("AttribValues")
+    private AttribValues[] attribValues;
     private String tenantId;
     private Object mediaUrls;
-    private Object updatedDatetime;
+    private String updatedDatetime;
     private Object expectedDatetime;
     private int lat;
     private String email;
@@ -72,14 +75,6 @@ public class ServiceRequests {
 
     public void setServiceNotice(Object serviceNotice) {
         this.serviceNotice = serviceNotice;
-    }
-
-    public Values getValues() {
-        return this.values;
-    }
-
-    public void setValues(Values values) {
-        this.values = values;
     }
 
     public String getRequestedDatetime() {
@@ -162,6 +157,14 @@ public class ServiceRequests {
         this.phone = phone;
     }
 
+    public AttribValues[] getAttribValues() {
+        return this.attribValues;
+    }
+
+    public void setAttribValues(AttribValues[] attribValues) {
+        this.attribValues = attribValues;
+    }
+
     public String getTenantId() {
         return this.tenantId;
     }
@@ -178,11 +181,11 @@ public class ServiceRequests {
         this.mediaUrls = mediaUrls;
     }
 
-    public Object getUpdatedDatetime() {
+    public String getUpdatedDatetime() {
         return this.updatedDatetime;
     }
 
-    public void setUpdatedDatetime(Object updatedDatetime) {
+    public void setUpdatedDatetime(String updatedDatetime) {
         this.updatedDatetime = updatedDatetime;
     }
 
