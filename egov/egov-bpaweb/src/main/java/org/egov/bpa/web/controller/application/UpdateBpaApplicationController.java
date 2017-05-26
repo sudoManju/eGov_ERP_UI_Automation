@@ -66,6 +66,7 @@ import org.egov.bpa.application.entity.enums.AppointmentSchedulePurpose;
 import org.egov.bpa.application.service.InspectionService;
 import org.egov.bpa.application.service.LettertoPartyService;
 import org.egov.bpa.masters.service.StakeHolderService;
+import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.eis.service.PositionMasterService;
 import org.egov.eis.web.contract.WorkflowContainer;
@@ -114,6 +115,9 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
     private SecurityUtils securityUtils;
     @Autowired
     private InspectionService inspectionService;
+    
+    @Autowired
+    private BpaUtils bpaUtils;
     @Autowired
     private StakeHolderService stakeHolderService;
     @Autowired
@@ -180,7 +184,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         }
         model.addAttribute("scheduleType", scheduleType);
         model.addAttribute("mode", mode);
-        model.addAttribute("workFlowByNonEmp", applicationBpaService.workFlowinitiatedByNonEmployee(application));
+        model.addAttribute("workFlowByNonEmp", applicationBpaService.applicationinitiatedByNonEmployee(application));
         model.addAttribute(APPLICATION_HISTORY,
                 bpaThirdPartyService.getHistory(application));
         if (!application.getStakeHolder().isEmpty())
@@ -193,8 +197,8 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 return DOCUMENTSCRUTINY_FORM;
             }
         }
-        if ("Registered".equals(application.getStatus().getCode())) {
-        	if(applicationBpaService.checkAnyTaxIsPendingToCollect(application)){
+        if ("Created".equals(application.getStatus().getCode()) || "Registered".equals(application.getStatus().getCode())) {
+        	if(applicationBpaService.applicationinitiatedByNonEmployee(application) &&applicationBpaService.checkAnyTaxIsPendingToCollect(application)){
         		model.addAttribute("collectFeeValidate", "Collect Fees to Precess Application");
         	}
         	else
@@ -302,7 +306,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         Position pos = null;
         if (BpaConstants.LETTERTOPARTYSENT.equalsIgnoreCase(bpaApplication.getState().getNextAction()))
             approvalPosition = bpaApplication.getState().getPreviousOwner().getId();
-        else if (request.getParameter(APPRIVALPOSITION) != null && !WF_REJECT_BUTTON.equalsIgnoreCase(workFlowAction)
+        else if (!request.getParameter(APPRIVALPOSITION).equals("") && request.getParameter(APPRIVALPOSITION) != null && !WF_REJECT_BUTTON.equalsIgnoreCase(workFlowAction)
                 && !WF_CANCELAPPLICATION_BUTTON.equalsIgnoreCase(workFlowAction)) {
             approvalPosition = Long.valueOf(request.getParameter(APPRIVALPOSITION));
         } else if (WF_REJECT_BUTTON.equalsIgnoreCase(workFlowAction)) {
@@ -312,11 +316,17 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 }
             }
         }
-        // TODO : on 2nd level document's are getting deleting and document's order reshuffling,need to be fix.
+        
         applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
+        if(bpaApplication.getCurrentState().getValue().equals(BpaConstants.WF_NEW_STATE)){
+      	   return applicationBpaService.redirectToCollectionOnForward(bpaApplication,model);
+           }
         BpaApplication bpaAppln = applicationBpaService.updateApplication(bpaApplication, approvalPosition, workFlowAction,amountRule);
         if (null != approvalPosition) {
             pos = positionMasterService.getPositionById(approvalPosition);
+        }
+        if (null == approvalPosition) {
+            pos = positionMasterService.getPositionById(bpaAppln.getCurrentState().getOwnerPosition().getId());
         }
         User user = bpaThirdPartyService.getUserPositionByPassingPosition(approvalPosition);
         if (WF_REJECT_BUTTON.equalsIgnoreCase(workFlowAction)) {
@@ -338,6 +348,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                     bpaAppln.getApplicationNumber() }, LocaleContextHolder.getLocale());
         }
         model.addAttribute(MESSAGE, message);
+       
         if (workFlowAction != null && workFlowAction.equalsIgnoreCase(GENERATEPERMITORDER)) {
             return "redirect:/application/generatepermitorder/" + bpaAppln.getApplicationNumber();
         }

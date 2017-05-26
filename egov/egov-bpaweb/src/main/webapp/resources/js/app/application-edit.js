@@ -95,7 +95,17 @@ jQuery(document).ready(function() {
 						 return false;
 				}  
 				validateWorkFlowApprover(action);
+				if(	$('#wfstateDesc').val()  == 'NEW'){
+					$('#approvalDepartment').removeAttr('required');
+					$('#approvalDesignation').removeAttr('required');
+					$('#approvalPosition').removeAttr('required');
+					document.forms[0].submit;
+				   return true;
+				
+			}
+			if(	$('#wfstateDesc').val()  != 'NEW'){
 				validateForm(e);
+				}
 			});
 	
 	if($('#isexistingApprovedPlan').val() == 'true') {
@@ -183,10 +193,16 @@ jQuery(document).ready(function() {
 		$("#Reject").hide();
 		return false;
 	}
-	if($('#wfstateDesc').val() != 'Registered' && mode == 'newappointment') {
+	if($('#wfstateDesc').val() != 'Registered' && $('#wfstateDesc').val()  != 'NEW' && mode == 'newappointment') {
 		$(".show-row").hide();
 		$("#Forward").hide();
 	}
+	if( $('#wfstateDesc').val()  == 'NEW' && mode == 'newappointment') {
+		$('#approvalDepartment').removeAttr('required');
+		$('#approvalDesignation').removeAttr('required');
+		$(".show-row").hide();
+	}
+	
 	var tabfocus;
 	if($('#showUpdateNoc').val()) {
 		tabfocus='#checklist-info';

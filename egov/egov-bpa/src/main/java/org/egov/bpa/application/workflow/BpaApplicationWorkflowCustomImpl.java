@@ -112,8 +112,12 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
 
         WorkFlowMatrix wfmatrix;
         if (null == application.getState()) { 
+        	if(bpaUtils.applicationinitiatedByNonEmployee(application))
+        		 wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null,
+                         null, additionalRule, BpaConstants.WF_NEW_STATE, null);
+        	else
             wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null,
-                    null, additionalRule, BpaConstants.WF_NEW_STATE, null);
+                    null, additionalRule, BpaConstants.WF_CREATED_STATE, null);
             Long userPosition;
             if (wfmatrix != null) {
                 if (pos == null) {
@@ -201,7 +205,7 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
                 		amountRule, additionalRule,
                         application.getCurrentState().getValue(), null);
             } 
-            else if(approvalComent!=null && approvalComent.equals(BpaConstants.BPAFEECOLLECT) && bpaUtils.workFlowinitiatedByNonEmployee(application) 
+            else if(approvalComent!=null && approvalComent.equals(BpaConstants.BPAFEECOLLECT) && bpaUtils.applicationinitiatedByNonEmployee(application) 
             		&& application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_REGISTERED)) {
             	 
             	wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null,
@@ -234,7 +238,6 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
         }
         if (LOG.isDebugEnabled())
             LOG.debug(" WorkFlow Transition Completed ");
-        
         bpaUtils.updateCitizeninboxApplication(application);
 
     }

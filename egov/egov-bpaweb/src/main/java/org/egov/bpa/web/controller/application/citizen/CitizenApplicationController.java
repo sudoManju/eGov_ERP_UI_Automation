@@ -150,7 +150,8 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
 		if (bpaUtils.logedInuseCitizenOrBusinessUser() && workFlowAction != null
 				&& workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)) {
 			if ((userPosition == 0 || userPosition == null)) {
-				return redirectOnValidationFailure(model);
+				model.addAttribute("noJAORSAMessage", "No Superintendant exists to forward the application.");
+				return loadNewForm(bpaApplication, model, bpaApplication.getServiceType().getCode());
 			}
 		}
 		workFlowAction = request.getParameter("workFlowAction");
@@ -167,10 +168,6 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
 		return BPAAPPLICATION_CITIZEN;
 	}
 
-	private String redirectOnValidationFailure(final Model model) {
-		model.addAttribute("noJAORSAMessage", "No Superintendant exists to forward the application.");
-		model.addAttribute("mode", "new");
-		return "citizenApplication-form";
-	}
+	
 
 }

@@ -93,9 +93,9 @@ public class BpaConstants {
     public static final String COLON_CONCATE = "::";
     public static final String NATURE_OF_WORK = "Building Plan Approval";
     public static final String WF_NEW_STATE = "NEW";
+    public static final String WF_CREATED_STATE = "Created";
     public static final String WF_REJECT_STATE = "Rejected";
     public static final String WF_END_STATE = "END";
-    public static final String APPLICATION_STATUS_CREATED = "CREATED";
     public static final String APPLICATION_STATUS_APPROVED = "Approved";
     public static final String APPLICATION_STATUS_FIELD_INS = "Field Inspected";
     public static final String APPLICATION_STATUS_ORDER_ISSUED = "Order Issued to Applicant";
@@ -124,6 +124,7 @@ public class BpaConstants {
  // Sms And Email Code For New Connection
     public static final String SMSEMAILTYPENEWBPAREGISTERED = "newbparegistered";
     public static final String APPLICATION_STATUS_REGISTERED = "Registered";
+    public static final String APPLICATION_STATUS_CREATED = "Created";
     public static final String DOCUMENTVERIFIED = "Document Verified";
     public static final String SMSEMAILTYPELETTERTOPARTY = "Letter To Party";
     

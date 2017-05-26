@@ -51,7 +51,6 @@
 			cssClass="form-horizontal form-groups-bordered"
 			enctype="multipart/form-data">
 
-			<form:hidden path="" id="wfstate" value="${bpaApplication.state.id}" />
 			<form:hidden path="" id="workFlowAction" name="workFlowAction" />
 			<input type="hidden" name="citizenOrBusinessUser"
 				value="${citizenOrBusinessUser}">
@@ -101,7 +100,9 @@
 					</div>
 				</div>
 			</div>
+			<c:if test="${wfstateDesc !='NEW'}">
 			<jsp:include page="../common/commonWorkflowMatrix.jsp" />
+			</c:if>
 			<div class="buttonbottom" align="center">
 				<jsp:include page="../common/commonWorkflowMatrix-button.jsp" />
 			</div>

@@ -79,6 +79,7 @@ import org.egov.infra.exception.ApplicationRuntimeException;
 import org.egov.infra.filestore.entity.FileStoreMapper;
 import org.egov.infra.filestore.service.FileStoreService;
 import org.egov.infra.security.utils.SecurityUtils;
+import org.egov.infra.utils.ApplicationNumberGenerator;
 import org.egov.infra.utils.autonumber.AutonumberServiceBeanResolver;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
 import org.hibernate.Criteria;
@@ -86,6 +87,7 @@ import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -93,64 +95,81 @@ import org.springframework.web.multipart.MultipartFile;
 @Transactional(readOnly = true)
 public class ApplicationBpaService extends GenericBillGeneratorService {
 
-    @Autowired
-    private ApplicationBpaRepository applicationBpaRepository;
+	@Autowired
+	private ApplicationBpaRepository applicationBpaRepository;
 
-    @Autowired
-    private BpaStatusService bpaStatusService;
-    
-    @Autowired
-    private BpaUtils bpaUtils;
+	@Autowired
+	private BpaStatusService bpaStatusService;
 
-    @Autowired
-    private ApplicationBpaBillService applicationBpaBillService;
+	@Autowired
+	private BpaUtils bpaUtils;
 
-    @PersistenceContext
-    private EntityManager entityManager;
+	@Autowired
+	private ApplicationBpaBillService applicationBpaBillService;
 
-    @Autowired
-    private FileStoreService fileStoreService;
-    @Autowired
-    private CheckListDetailService checkListDetailService;
-    @Autowired
-    private SecurityUtils securityUtils;
-    @Autowired
+	@Autowired
+	private GenericBillGeneratorService genericBillGeneratorService;
+
+	@Autowired
+	private ApplicationNumberGenerator applicationNumberGenerator;
+
+	@PersistenceContext
+	private EntityManager entityManager;
+
+	@Autowired
+	private FileStoreService fileStoreService;
+	@Autowired
+	private CheckListDetailService checkListDetailService;
+	@Autowired
+	private SecurityUtils securityUtils;
+	@Autowired
 	private AutonumberServiceBeanResolver beanResolver;
 
-    public Session getCurrentSession() {
-        return entityManager.unwrap(Session.class);
-    }
+	public Session getCurrentSession() {
+		return entityManager.unwrap(Session.class);
+	}
 
-    @Transactional
-    public BpaApplication createNewApplication(final BpaApplication application,String workFlowAction) {
-        final Boundary boundaryObj = bpaUtils.getBoundaryById(application.getWardId() != null ? application.getWardId()
-                : application.getZoneId() != null ? application.getZoneId() : null);
-        application.getSiteDetail().get(0).setAdminBoundary(boundaryObj);
-        application.getSiteDetail().get(0).setApplication(application);
-        application.getBuildingDetail().get(0).setApplication(application);
-        application.getBuildingDetail().get(0).setApplicationFloorDetails(buildApplicationFloorDetails(application));
-        application.setApplicationNumber(applicationBpaBillService.generateApplicationnumber(application));
-        final BpaStatus bpaStatus = getStatusByCodeAndModuleType(BpaConstants.APPLICATION_STATUS_REGISTERED);
-        application.setStatus(bpaStatus);
-        if( bpaUtils.logedInuseCitizenOrBusinessUser())
-        application.setSource(Source.CITIZENPORTAL);
-        else
-        	 application.setSource(Source.SYSTEM);
-        Long approvalPosition=null;
-        application.setDemand(applicationBpaBillService.createDemand(application));
-        if(workFlowAction!=null && workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON) && (bpaUtils.logedInuseCitizenOrBusinessUser()))
-    	{
-    	 final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(application, BpaConstants.WF_NEW_STATE);
-         if (wfmatrix != null)
-        	 approvalPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(), application.getSiteDetail().get(0) != null &&
-        			application.getSiteDetail().get(0).getElectionBoundary()!=null
-                     ?  application.getSiteDetail().get(0).getElectionBoundary().getId() : null);
-    	bpaUtils.redirectToBpaWorkFlow(approvalPosition,application, BpaConstants.WF_NEW_STATE, null,null,null);
-    	}
-        return applicationBpaRepository.save(application);
-    }
+	@Transactional
+	public BpaApplication createNewApplication(final BpaApplication application, String workFlowAction) {
+		final Boundary boundaryObj = bpaUtils.getBoundaryById(application.getWardId() != null ? application.getWardId()
+				: application.getZoneId() != null ? application.getZoneId() : null);
+		application.getSiteDetail().get(0).setAdminBoundary(boundaryObj);
+		application.getSiteDetail().get(0).setApplication(application);
+		application.getBuildingDetail().get(0).setApplication(application);
+		application.getBuildingDetail().get(0).setApplicationFloorDetails(buildApplicationFloorDetails(application));
+		application.setApplicationNumber(applicationNumberGenerator.generate());
+		final BpaStatus bpaStatus = getStatusByCodeAndModuleType(BpaConstants.APPLICATION_STATUS_CREATED);
+		application.setStatus(bpaStatus);
+		if (bpaUtils.logedInuseCitizenOrBusinessUser())
+			application.setSource(Source.CITIZENPORTAL);
+		else
+			application.setSource(Source.SYSTEM);
+		Long approvalPosition = null;
+		application.setDemand(applicationBpaBillService.createDemand(application));
+		if (!bpaUtils.logedInuseCitizenOrBusinessUser()) {
+			final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(application,
+					BpaConstants.WF_CREATED_STATE);
+			if (wfmatrix != null)
+				approvalPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(),
+						application.getSiteDetail().get(0) != null
+								&& application.getSiteDetail().get(0).getElectionBoundary() != null
+										? application.getSiteDetail().get(0).getElectionBoundary().getId() : null);
+			bpaUtils.redirectToBpaWorkFlow(approvalPosition, application, BpaConstants.WF_CREATED_STATE, null, null,
+					null);
+		}
+		if (workFlowAction != null && workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)
+				&& (bpaUtils.logedInuseCitizenOrBusinessUser())) {
+			final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(application, BpaConstants.WF_NEW_STATE);
+			if (wfmatrix != null)
+				approvalPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(),
+						application.getSiteDetail().get(0) != null
+								&& application.getSiteDetail().get(0).getElectionBoundary() != null
+										? application.getSiteDetail().get(0).getElectionBoundary().getId() : null);
+			bpaUtils.redirectToBpaWorkFlow(approvalPosition, application, BpaConstants.WF_NEW_STATE, null, null, null);
+		}
+		return applicationBpaRepository.save(application);
+	}
 
-    
 	private List<ApplicationFloorDetail> buildApplicationFloorDetails(final BpaApplication application) {
 		List<ApplicationFloorDetail> floorDetailsList = new ArrayList<>();
 		if (!application.getBuildingDetail().isEmpty()) {
@@ -173,170 +192,176 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
 		return floorDetailsList;
 	}
 
-    public void persistBpaNocDocuments(final BpaApplication application) {
-        final Map<Long, CheckListDetail> generalDocumentAndId = new HashMap<>();
-        checkListDetailService
-                .findActiveCheckListByServiceType(application.getServiceType().getId(), BpaConstants.CHECKLIST_TYPE_NOC)
-                .forEach(document -> generalDocumentAndId.put(document.getId(), document));
-        addDocumentsToFileStore(application, generalDocumentAndId);
-    }
-
-    public BpaStatus getStatusByCodeAndModuleType(final String code) {
-        return bpaStatusService
-                .findByModuleTypeAndCode(BpaConstants.BPASTATUS_MODULETYPE, code);
-    }
-
-    @Transactional
-    public void saveAndFlushApplication(final BpaApplication application) {
-        applicationBpaRepository.saveAndFlush(application);
-    }
-
-    @Transactional
-    public BpaApplication updateApplication(final BpaApplication application, final Long approvalPosition,String workFlowAction,BigDecimal amountRule) {
-
-        application.setSource(Source.SYSTEM);
-        persistBpaNocDocuments(application);
-        application.getBuildingDetail().get(0).setApplicationFloorDetails(buildApplicationFloorDetails(application));
-        if(APPLICATION_STATUS_APPROVED.equalsIgnoreCase(application.getStatus().getCode())) {
-        	application.setPlanPermissionNumber(generatePlanPermissionNumber(application));
-        }
-        final BpaApplication updatedApplication = applicationBpaRepository
-                .save(application);
-
-        bpaUtils.redirectToBpaWorkFlow(approvalPosition, application, application.getCurrentState().getValue(), null,workFlowAction,amountRule);
-
-        return updatedApplication;
-    }
-    public void persistOrUpdateApplicationDocument(final BpaApplication bpaApplication, final BindingResult resultBinder) {
-		final List<ApplicationDocument> applicationDocs = new ArrayList<>(0);
-        int i = 0;
-        if (!bpaApplication.getApplicationDocument().isEmpty())
-            for (final ApplicationDocument applicationDocument : bpaApplication.getApplicationDocument()) {
-                validateDocuments(applicationDocs, applicationDocument, i, resultBinder);
-                i++;
-            }
-        bpaApplication.setApplicationDocument(applicationDocs);
-        processAndStoreApplicationDocuments(bpaApplication);
+	public void persistBpaNocDocuments(final BpaApplication application) {
+		final Map<Long, CheckListDetail> generalDocumentAndId = new HashMap<>();
+		checkListDetailService
+				.findActiveCheckListByServiceType(application.getServiceType().getId(), BpaConstants.CHECKLIST_TYPE_NOC)
+				.forEach(document -> generalDocumentAndId.put(document.getId(), document));
+		addDocumentsToFileStore(application, generalDocumentAndId);
 	}
-    private void validateDocuments(final List<ApplicationDocument> applicationDocs,
-            final ApplicationDocument applicationDocument, final int i, final BindingResult resultBinder) {
-        Iterator<MultipartFile> stream = null;
-        if (ArrayUtils.isNotEmpty(applicationDocument.getFiles()))
-            stream = Arrays.asList(applicationDocument.getFiles()).stream().filter(file -> !file.isEmpty())
-                    .iterator();
-        if (stream == null) {
-            final String fieldError = "applicationDocument[" + i + "].files";
-            resultBinder.rejectValue(fieldError, "files.required");
-        } else
-            applicationDocs.add(applicationDocument);
-    }
-    public BigDecimal setAdmissionFeeAmountForRegistration(final String serviceType) {
-        BigDecimal admissionfeeAmount;
-        if (serviceType != null)
-            admissionfeeAmount = getTotalFeeAmountByPassingServiceTypeandArea(
-                    Long.valueOf(serviceType),new ArrayList<>(), BpaConstants.BPAFEETYPE);
-        else
-            admissionfeeAmount = BigDecimal.ZERO;
-        return admissionfeeAmount;
-    }
-    
-    public BigDecimal setAdmissionFeeAmountForRegistrationWithAmenities(final String serviceType,List<ServiceType> amenityList) {
-        BigDecimal admissionfeeAmount;
-        if (serviceType != null)
-            admissionfeeAmount = getTotalFeeAmountByPassingServiceTypeandArea(
-                    Long.valueOf(serviceType),amenityList, BpaConstants.BPAFEETYPE);
-        else
-            admissionfeeAmount = BigDecimal.ZERO;
-        return admissionfeeAmount;
-    }
 
-    public BigDecimal getTotalFeeAmountByPassingServiceTypeandArea(final Long serviceTypeId, List<ServiceType> amenityList,final String feeType) {
-        BigDecimal totalAmount = BigDecimal.ZERO;
-        List<Long>serviceTypeList=new ArrayList<>();
-        serviceTypeList.add(serviceTypeId);
-		for(ServiceType temp:amenityList)
-		{
+	public BpaStatus getStatusByCodeAndModuleType(final String code) {
+		return bpaStatusService.findByModuleTypeAndCode(BpaConstants.BPASTATUS_MODULETYPE, code);
+	}
+
+	@Transactional
+	public void saveAndFlushApplication(final BpaApplication application) {
+		applicationBpaRepository.saveAndFlush(application);
+	}
+
+	@Transactional
+	public String redirectToCollectionOnForward(final BpaApplication application, Model model) {
+		persistBpaNocDocuments(application);
+		application.getBuildingDetail().get(0).setApplicationFloorDetails(buildApplicationFloorDetails(application));
+		application.getBuildingDetail().get(0).setApplicationFloorDetails(buildApplicationFloorDetails(application));
+		return genericBillGeneratorService.generateBillAndRedirectToCollection(application, model);
+	}
+
+	@Transactional
+	public BpaApplication updateApplication(final BpaApplication application, final Long approvalPosition,
+			String workFlowAction, BigDecimal amountRule) {
+
+		application.setSource(Source.SYSTEM);
+		persistBpaNocDocuments(application);
+		application.getBuildingDetail().get(0).setApplicationFloorDetails(buildApplicationFloorDetails(application));
+		if (APPLICATION_STATUS_APPROVED.equalsIgnoreCase(application.getStatus().getCode())) {
+			application.setPlanPermissionNumber(generatePlanPermissionNumber(application));
+		}
+		final BpaApplication updatedApplication = applicationBpaRepository.save(application);
+		if (updatedApplication.getCurrentState() != null
+				&& !updatedApplication.getCurrentState().getValue().equals(BpaConstants.WF_NEW_STATE)) {
+			bpaUtils.redirectToBpaWorkFlow(approvalPosition, application, application.getCurrentState().getValue(),
+					null, workFlowAction, amountRule);
+		}
+		return updatedApplication;
+	}
+
+	public void persistOrUpdateApplicationDocument(final BpaApplication bpaApplication,
+			final BindingResult resultBinder) {
+		final List<ApplicationDocument> applicationDocs = new ArrayList<>(0);
+		int i = 0;
+		if (!bpaApplication.getApplicationDocument().isEmpty())
+			for (final ApplicationDocument applicationDocument : bpaApplication.getApplicationDocument()) {
+				validateDocuments(applicationDocs, applicationDocument, i, resultBinder);
+				i++;
+			}
+		bpaApplication.setApplicationDocument(applicationDocs);
+		processAndStoreApplicationDocuments(bpaApplication);
+	}
+
+	private void validateDocuments(final List<ApplicationDocument> applicationDocs,
+			final ApplicationDocument applicationDocument, final int i, final BindingResult resultBinder) {
+		Iterator<MultipartFile> stream = null;
+		if (ArrayUtils.isNotEmpty(applicationDocument.getFiles()))
+			stream = Arrays.asList(applicationDocument.getFiles()).stream().filter(file -> !file.isEmpty()).iterator();
+		if (stream == null) {
+			final String fieldError = "applicationDocument[" + i + "].files";
+			resultBinder.rejectValue(fieldError, "files.required");
+		} else
+			applicationDocs.add(applicationDocument);
+	}
+
+	public BigDecimal setAdmissionFeeAmountForRegistration(final String serviceType) {
+		BigDecimal admissionfeeAmount;
+		if (serviceType != null)
+			admissionfeeAmount = getTotalFeeAmountByPassingServiceTypeandArea(Long.valueOf(serviceType),
+					new ArrayList<>(), BpaConstants.BPAFEETYPE);
+		else
+			admissionfeeAmount = BigDecimal.ZERO;
+		return admissionfeeAmount;
+	}
+
+	public BigDecimal setAdmissionFeeAmountForRegistrationWithAmenities(final String serviceType,
+			List<ServiceType> amenityList) {
+		BigDecimal admissionfeeAmount;
+		if (serviceType != null)
+			admissionfeeAmount = getTotalFeeAmountByPassingServiceTypeandArea(Long.valueOf(serviceType), amenityList,
+					BpaConstants.BPAFEETYPE);
+		else
+			admissionfeeAmount = BigDecimal.ZERO;
+		return admissionfeeAmount;
+	}
+
+	public BigDecimal getTotalFeeAmountByPassingServiceTypeandArea(final Long serviceTypeId,
+			List<ServiceType> amenityList, final String feeType) {
+		BigDecimal totalAmount = BigDecimal.ZERO;
+		List<Long> serviceTypeList = new ArrayList<>();
+		serviceTypeList.add(serviceTypeId);
+		for (ServiceType temp : amenityList) {
 			serviceTypeList.add(temp.getId());
 		}
-        if (serviceTypeId != null) {
-            final Criteria feeCrit = applicationBpaBillService.getBpaFeeCriteria(serviceTypeList, feeType);
-            final List<BpaFeeDetail> bpaFeeDetails = feeCrit.list();
-            for (final BpaFeeDetail feeDetail : bpaFeeDetails)
-                totalAmount = totalAmount.add(BigDecimal.valueOf(feeDetail.getAmount()));
-        } else
-            throw new ApplicationRuntimeException("Service Type Id is mandatory.");
+		if (serviceTypeId != null) {
+			final Criteria feeCrit = applicationBpaBillService.getBpaFeeCriteria(serviceTypeList, feeType);
+			final List<BpaFeeDetail> bpaFeeDetails = feeCrit.list();
+			for (final BpaFeeDetail feeDetail : bpaFeeDetails)
+				totalAmount = totalAmount.add(BigDecimal.valueOf(feeDetail.getAmount()));
+		} else
+			throw new ApplicationRuntimeException("Service Type Id is mandatory.");
 
-        return totalAmount;
-    }
+		return totalAmount;
+	}
 
-    public BpaApplication getApplicationByDemand(final EgDemand demand) {
-        return applicationBpaRepository.findByDemand(demand);
-    }
+	public BpaApplication getApplicationByDemand(final EgDemand demand) {
+		return applicationBpaRepository.findByDemand(demand);
+	}
 
-    public BpaApplication findByApplicationNumber(final String applicationNumber) {
-        return applicationBpaRepository.findByApplicationNumber(applicationNumber);
-    }
+	public BpaApplication findByApplicationNumber(final String applicationNumber) {
+		return applicationBpaRepository.findByApplicationNumber(applicationNumber);
+	}
 
-    private void addDocumentsToFileStore(final BpaApplication bpaApplication,
-            final Map<Long, CheckListDetail> documentAndId) {
-        final User user = securityUtils.getCurrentUser();
-        final List<CheckListDetail> documents = bpaApplication.getCheckListDocumentsForNOC();
-        documents.stream()
-                .filter(document -> !document.getFile().isEmpty() && document.getFile().getSize() > 0)
-                .map(document -> {
-                    for(ApplicationNocDocument applicationNocDocument : bpaApplication.getApplicationNOCDocument()){
-                        if(documentAndId.get(document.getId()).equals(applicationNocDocument.getChecklist())){
-                        applicationNocDocument.setApplication(bpaApplication);
-                        applicationNocDocument.setCreatedBy(user);
-                        applicationNocDocument.setChecklist(documentAndId.get(document.getId()));
-                        applicationNocDocument.setNocFileStore(addToFileStore(document.getFile()));
-                        return applicationNocDocument;
-                        }
-                    }
-                    return null;
-                }).collect(Collectors.toList())
-                .forEach(doc -> bpaApplication.addApplicationNocDocument(doc));
-    }
+	private void addDocumentsToFileStore(final BpaApplication bpaApplication,
+			final Map<Long, CheckListDetail> documentAndId) {
+		final User user = securityUtils.getCurrentUser();
+		final List<CheckListDetail> documents = bpaApplication.getCheckListDocumentsForNOC();
+		documents.stream().filter(document -> !document.getFile().isEmpty() && document.getFile().getSize() > 0)
+				.map(document -> {
+					for (ApplicationNocDocument applicationNocDocument : bpaApplication.getApplicationNOCDocument()) {
+						if (documentAndId.get(document.getId()).equals(applicationNocDocument.getChecklist())) {
+							applicationNocDocument.setApplication(bpaApplication);
+							applicationNocDocument.setCreatedBy(user);
+							applicationNocDocument.setChecklist(documentAndId.get(document.getId()));
+							applicationNocDocument.setNocFileStore(addToFileStore(document.getFile()));
+							return applicationNocDocument;
+						}
+					}
+					return null;
+				}).collect(Collectors.toList()).forEach(doc -> bpaApplication.addApplicationNocDocument(doc));
+	}
 
-    private FileStoreMapper addToFileStore(final MultipartFile file) {
-        FileStoreMapper fileStoreMapper = null;
-        try {
-            fileStoreMapper = fileStoreService.store(file.getInputStream(), file.getOriginalFilename(),
-                    file.getContentType(), FILESTORE_MODULECODE);
-        } catch (final IOException e) {
-            throw new ApplicationRuntimeException("Error occurred while getting inputstream", e);
-        }
-        return fileStoreMapper;
-    }
+	private FileStoreMapper addToFileStore(final MultipartFile file) {
+		FileStoreMapper fileStoreMapper = null;
+		try {
+			fileStoreMapper = fileStoreService.store(file.getInputStream(), file.getOriginalFilename(),
+					file.getContentType(), FILESTORE_MODULECODE);
+		} catch (final IOException e) {
+			throw new ApplicationRuntimeException("Error occurred while getting inputstream", e);
+		}
+		return fileStoreMapper;
+	}
 
-    
-    protected void processAndStoreApplicationDocuments(final BpaApplication bpaApplication) {
-        if (!bpaApplication.getApplicationDocument().isEmpty())
-            for (final ApplicationDocument applicationDocument : bpaApplication.getApplicationDocument()) {
-                applicationDocument.setChecklistDetail(checkListDetailService.load(applicationDocument.getChecklistDetail()
-                        .getId()));
-                applicationDocument.setApplication(bpaApplication);
-                applicationDocument.setSupportDocs(addToFileStore(applicationDocument.getFiles()));
-            }
-    }
-    
-    protected Set<FileStoreMapper> addToFileStore(final MultipartFile[] files) {
-        if (ArrayUtils.isNotEmpty(files))
-            return Arrays
-                    .asList(files)
-                    .stream()
-                    .filter(file -> !file.isEmpty())
-                    .map(file -> {
-                        try {
-                            return fileStoreService.store(file.getInputStream(), file.getOriginalFilename(),
-                                    file.getContentType(), BpaConstants.FILESTORE_MODULECODE);
-                        } catch (final Exception e) {
-                            throw new ApplicationRuntimeException("Error occurred while getting inputstream", e);
-                        }
-                    }).collect(Collectors.toSet());
-        else
-            return null;
-    }
+	protected void processAndStoreApplicationDocuments(final BpaApplication bpaApplication) {
+		if (!bpaApplication.getApplicationDocument().isEmpty())
+			for (final ApplicationDocument applicationDocument : bpaApplication.getApplicationDocument()) {
+				applicationDocument.setChecklistDetail(
+						checkListDetailService.load(applicationDocument.getChecklistDetail().getId()));
+				applicationDocument.setApplication(bpaApplication);
+				applicationDocument.setSupportDocs(addToFileStore(applicationDocument.getFiles()));
+			}
+	}
+
+	protected Set<FileStoreMapper> addToFileStore(final MultipartFile[] files) {
+		if (ArrayUtils.isNotEmpty(files))
+			return Arrays.asList(files).stream().filter(file -> !file.isEmpty()).map(file -> {
+				try {
+					return fileStoreService.store(file.getInputStream(), file.getOriginalFilename(),
+							file.getContentType(), BpaConstants.FILESTORE_MODULECODE);
+				} catch (final Exception e) {
+					throw new ApplicationRuntimeException("Error occurred while getting inputstream", e);
+				}
+			}).collect(Collectors.toSet());
+		else
+			return null;
+	}
 
 	public String generatePlanPermissionNumber(final BpaApplication application) {
 		final PlanPermissionNumberGenerator planPermissionNumber = beanResolver
@@ -348,7 +373,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
 		return bpaUtils.checkAnyTaxIsPendingToCollect(bpaApplication);
 	}
 
-	public Boolean workFlowinitiatedByNonEmployee(BpaApplication bpaApplication) {
-		return bpaUtils.workFlowinitiatedByNonEmployee(bpaApplication);
+	public Boolean applicationinitiatedByNonEmployee(BpaApplication bpaApplication) {
+		return bpaUtils.applicationinitiatedByNonEmployee(bpaApplication);
 	}
 }

@@ -70,7 +70,7 @@ public class GenericBillGeneratorService {
                 ApplicationThreadLocals.setUserId(userService.getUserByUsername(BpaConstants.USERNAME_ANONYMOUS).getId());
         model.addAttribute("collectxml", applicationBpaBillService.generateBill(application));
         model.addAttribute("citizenrole", getCitizenUserRole());
-        return "collecttax-redirection";
+       return "collecttax-redirection";
     }
 
     public Boolean getCitizenUserRole() {
