@@ -63,6 +63,8 @@
 			<input type="hidden" id="mode" name="mode" value="${mode}" />
 			<input type="hidden"  id="citizenOrBusinessUser" name="citizenOrBusinessUser" value="${citizenOrBusinessUser}"/>
 			<form:hidden path="" id="workFlowAction" name="workFlowAction" />
+			<input type="hidden" id="invalidStakeholder" name="invalidStakeholder"
+				value="${invalidStakeholder}" />
 			<ul class="nav nav-tabs" id="settingstab">
 				<li class="active"><a data-toggle="tab"
 					href="#appliccation-info" data-tabidx=0><spring:message

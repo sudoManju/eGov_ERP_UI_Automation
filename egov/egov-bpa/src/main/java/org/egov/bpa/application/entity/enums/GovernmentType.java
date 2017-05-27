@@ -29,24 +29,21 @@
  */
 package org.egov.bpa.application.entity.enums;
 
-public enum StakeHolderType {
-	ARCHITECT("Architect"), BUILDING_DESIGNER_A("Building Designer - A"), BUILDING_DESIGNER_B(
-			"Building Designer - B"), ENGINEER_A("Engineer - A"), ENGINEER_B("Engineer - B"), TOWN_PLANNER_A(
-					"Town Planner - A"), TOWN_PLANNER_B(
-							"Town Planner - B"), SUPERVISOR_A("Supervisor - A"), SUPERVISOR_B("Supervisor - B");
+public enum GovernmentType {
+    GOVERNMENT("Government"),QUASI_GOVERNMENT("Quasi Government");
+    
+    private final String governmentTypeTypeVal;
 
-	private final String stakeHolderTypeVal;
+    private GovernmentType(String shTypeVal) {
+        this.governmentTypeTypeVal = shTypeVal;
+    }
 
-	private StakeHolderType(String shTypeVal) {
-		this.stakeHolderTypeVal = shTypeVal;
-	}
-
-	public String getStakeHolderTypeVal() {
-		return stakeHolderTypeVal;
+    public String getGovernmentTypeVal() {
+		return governmentTypeTypeVal;
 	}
 
 	@Override
-	public String toString() {
-		return stakeHolderTypeVal.replace("_", "");
-	}
+    public String toString() {
+		return governmentTypeTypeVal.replace("_", "");
+    }
 }

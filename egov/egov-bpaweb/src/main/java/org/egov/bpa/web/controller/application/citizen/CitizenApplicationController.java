@@ -48,12 +48,17 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.egov.bpa.application.entity.ApplicationStakeHolder;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.ServiceType;
+import org.egov.bpa.application.entity.StakeHolder;
 import org.egov.bpa.masters.service.ServiceTypeService;
+import org.egov.bpa.masters.service.StakeHolderService;
 import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.bpa.web.controller.application.BpaGenericApplicationController;
+import org.egov.infra.admin.master.entity.User;
+import org.egov.infra.security.utils.SecurityUtils;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -72,9 +77,12 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
 
 	@Autowired
 	private BpaUtils bpaUtils;
-
 	@Autowired
 	private ServiceTypeService serviceTypeService;
+	@Autowired
+    private SecurityUtils securityUtils;
+	@Autowired
+	private StakeHolderService stakeHolderService;
 
 	@RequestMapping(value = "/newconstruction-form", method = GET)
 	public String showNewApplicationForm(@ModelAttribute final BpaApplication bpaApplication, final Model model,
@@ -153,6 +161,17 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
 				model.addAttribute("noJAORSAMessage", "No Superintendant exists to forward the application.");
 				return loadNewForm(bpaApplication, model, bpaApplication.getServiceType().getCode());
 			}
+		}
+		User user = securityUtils.getCurrentUser();
+		StakeHolder stakeHolder = stakeHolderService.findById(user.getId());
+		ApplicationStakeHolder applicationStakeHolder = new ApplicationStakeHolder();
+		applicationStakeHolder.setApplication(bpaApplication);
+		applicationStakeHolder.setStakeHolder(stakeHolder);
+		bpaApplication.getStakeHolder().add(applicationStakeHolder);
+		if (!applicationBpaService.checkStakeholderIsValid(bpaApplication)) {
+			String message = applicationBpaService.getValidationMessageForBusinessResgistration(bpaApplication);
+			model.addAttribute("invalidStakeholder", message);
+			return loadNewForm(bpaApplication, model, bpaApplication.getServiceType().getCode());
 		}
 		workFlowAction = request.getParameter("workFlowAction");
 		applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);

@@ -73,6 +73,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping(value = "/application")
 public class NewApplicationController extends BpaGenericApplicationController {
 
+	private static final String NEWAPPLICATION_FORM = "newapplication-form";
+
 	@Autowired
 	private GenericBillGeneratorService genericBillGeneratorService;
 
@@ -85,7 +87,7 @@ public class NewApplicationController extends BpaGenericApplicationController {
 		bpaApplication.setApplicationDate(new Date());
 		model.addAttribute("mode", "new");
 		model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
-		return "newapplication-form";
+		return NEWAPPLICATION_FORM;
 	}
 
 	@RequestMapping(value = "/newApplication-create", method = POST)
@@ -104,6 +106,14 @@ public class NewApplicationController extends BpaGenericApplicationController {
 		if (userPosition == 0 || userPosition == null) {
 			return redirectOnValidationFailure(model);
 		}
+		
+		if (!applicationBpaService.checkStakeholderIsValid(bpaApplication)) {
+			String message = applicationBpaService.getValidationMessageForBusinessResgistration(bpaApplication);
+			model.addAttribute("invalidStakeholder", message);
+			model.addAttribute("mode", "new");
+			return NEWAPPLICATION_FORM;
+		}
+		
 		workFlowAction = request.getParameter("workFlowAction");
 		List<ApplicationStakeHolder> applicationStakeHolders = new ArrayList<>();
 		ApplicationStakeHolder applicationStakeHolder = new ApplicationStakeHolder();
@@ -121,7 +131,7 @@ public class NewApplicationController extends BpaGenericApplicationController {
 	private String redirectOnValidationFailure(final Model model) {
 		model.addAttribute("noJAORSAMessage", "No Superintendant exists to forward the application.");
 		model.addAttribute("mode", "new");
-		return "newapplication-form";
+		return NEWAPPLICATION_FORM;
 	}
 
 	@RequestMapping(value = "/getdocumentlistbyservicetype", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

@@ -67,6 +67,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.egov.bpa.application.entity.enums.ApplicantMode;
+import org.egov.bpa.application.entity.enums.GovernmentType;
 import org.egov.commons.entity.Source;
 import org.egov.demand.model.EgDemand;
 import org.egov.infra.workflow.entity.StateAware;
@@ -100,7 +101,6 @@ public class BpaApplication extends StateAware {
     @NotNull
     @Enumerated(EnumType.ORDINAL)
     private Source source;
-
     @Length(min = 1, max = 128)
     private String applicantType;
     // same as source
@@ -112,11 +112,9 @@ public class BpaApplication extends StateAware {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "serviceType")
     private ServiceType serviceType;
-
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "status")
     private BpaStatus status;
-
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Applicant owner;
     @Length(min = 1, max = 128)
@@ -130,9 +128,9 @@ public class BpaApplication extends StateAware {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "occupancy")
     private Occupancy occupancy;
-    @Length(min = 1, max = 128)
-    private String governmentType;// Government or Quasi Govt
-
+    @Enumerated(EnumType.STRING)
+    @Column(name = "governmentType")
+    private GovernmentType governmentType;// Government or Quasi Govt
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "demand")
     private EgDemand demand;
@@ -142,44 +140,30 @@ public class BpaApplication extends StateAware {
     private String projectName;
     @Length(min = 1, max = 128)
     private String groupDevelopment;
-
     private BigDecimal admissionfeeAmount;
-    
     @Length(min = 1, max = 128)
     private String feeAmountRecieptNo;
-    
     private Date approvedReceiptDate;
-
     @Length(min = 1, max = 128)
     private String revisedApplicationNumber;
-    
     @Length(min = 1, max = 128)
     private String revisedPermitNumber;
-    
     private Boolean isExistingApprovedPlan;
-
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<SiteDetail> siteDetail = new ArrayList<>(0);
-    
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "egbpa_ApplicationAmenity", joinColumns = @JoinColumn(name = "application"), inverseJoinColumns = @JoinColumn(name = "amenityId"))
     private List<ServiceType> applicationAmenity = new ArrayList<>(0);
-
-
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<BuildingDetail> buildingDetail = new ArrayList<>(0);
-
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "application")
     private List<DocumentHistory> documentHistory = new ArrayList<>();
-
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "application")
     private List<PermittedFloorDetail> permittedFloorDetail = new ArrayList<>();
-
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<AutoDcrMap> autoDcr = new ArrayList<>();
-
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ApplicationDocument> applicationDocument = new ArrayList<>(0);
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -190,28 +174,20 @@ public class BpaApplication extends StateAware {
     private List<Inspection> inspections = new ArrayList<>();
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<LettertoParty> lettertoParty = new ArrayList<>();
-
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ApplicationFee> applicationFee = new ArrayList<>();
-
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<BpaDocumentScrutiny> documentScrutiny = new ArrayList<>();
-
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<BpaAppointmentSchedule> appointmentSchedule = new ArrayList<>();
-
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ApplicationStakeHolder> stakeHolder = new ArrayList<>(0);
-
     @Transient
     private Long approvalDepartment;
-
     @Transient
     private Long zoneId;
-
     @Transient
     private Long wardId;
-
     @Transient
     private String approvalComent;
 
@@ -353,15 +329,15 @@ public class BpaApplication extends StateAware {
         this.occupancy = occupancy;
     }
 
-    public String getGovernmentType() {
-        return governmentType;
-    }
+    public GovernmentType getGovernmentType() {
+		return governmentType;
+	}
 
-    public void setGovernmentType(final String governmentType) {
-        this.governmentType = governmentType;
-    }
+	public void setGovernmentType(GovernmentType governmentType) {
+		this.governmentType = governmentType;
+	}
 
-    public EgDemand getDemand() {
+	public EgDemand getDemand() {
         return demand;
     }
 

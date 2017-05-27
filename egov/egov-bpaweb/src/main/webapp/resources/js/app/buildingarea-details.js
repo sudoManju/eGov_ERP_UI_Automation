@@ -96,32 +96,33 @@ jQuery(document).ready(function() {
 	
 });
 
-	var plinthAreaSum = 0;
-	var carpetAreaSum = 0;
-	var totalSum = 0;
+var plinthAreaSum = 0;
+var carpetAreaSum = 0;
 $(document).on('change', '.plinthArea', function() {
      var totalPlinth = 0;
      $("#buildingAreaDetails tbody tr").each(function () {
     	 totalPlinth +=  parseInt($(this).find('td:eq(2) input.plinthArea').val());
      });
      $("#buildingAreaDetails tfoot tr td:eq(2)").html(totalPlinth);
-     $("#sumOfPlinthArea").val(totalPlinth);
-     plinthAreaSum = $("#buildingAreaDetails tfoot tr td:eq(2)").html();
-     carpetAreaSum = $("#buildingAreaDetails tfoot tr td:eq(3)").html();
-     totalSum = parseInt(plinthAreaSum == '' ? 0 : plinthAreaSum) + parseInt(carpetAreaSum == '' ? 0 : carpetAreaSum);
-     $("#sumOfPlinthCarpet").html(totalSum);
 });
 	 
 $(document).on('change', '.carpetArea', function() {
      var totalCarpet = 0;
+     var rowPlinthArea;
+     var rowCarpetArea;
      $("#buildingAreaDetails tbody tr").each(function () {
-    	 totalCarpet +=  parseInt($(this).find('td:eq(3) input.carpetArea').val());
+    	 rowPlinthArea = parseInt($(this).find('td:eq(2) input.plinthArea').val());
+    	 rowCarpetArea = parseInt($(this).find('td:eq(3) input.carpetArea').val());
+    	 if(rowCarpetArea > rowPlinthArea) {
+    		 $('.carpetArea').val('');
+    		 bootbox.alert("Please enter valid values, Carpet Area should be less than the Plinth Area.");
+    		 $( ".plinthArea" ).trigger( "change" );
+    		 $( ".carpetArea" ).trigger( "change" );
+    		 return false;
+    	 }
+    	 totalCarpet +=  rowCarpetArea;
      });
      $("#buildingAreaDetails tfoot tr td:eq(3)").html(totalCarpet);
-     plinthAreaSum = $("#buildingAreaDetails tfoot tr td:eq(2)").html();
-     carpetAreaSum = $("#buildingAreaDetails tfoot tr td:eq(3)").html();
-     totalSum = parseInt(plinthAreaSum == '' ? 0 : plinthAreaSum) + parseInt(carpetAreaSum == '' ? 0 : carpetAreaSum);
-     $("#sumOfPlinthCarpet").html(totalSum);
 });
 	
 function generateSno()

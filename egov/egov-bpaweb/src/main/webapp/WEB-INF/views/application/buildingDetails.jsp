@@ -130,7 +130,7 @@
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right handle-mandatory fromStreetLevelWithStairRoom"><spring:message code="lbl.street.with.stair"/> <span class="mandatory"></span> </label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation handle-mandatory fromStreetLevelWithStairRoom"
+		<form:input class="form-control patternvalidation handle-mandatory clear-values fromStreetLevelWithStairRoom"
 			maxlength="10" data-pattern="decimalvalue" id="fromStreetLevelWithStairRoom"
 			path="buildingDetail[0].fromStreetLevelWithStairRoom" required="required" />in Mtr.
 		<form:errors path="buildingDetail[0].fromStreetLevelWithStairRoom"
@@ -138,7 +138,7 @@
 	</div>
 	<label class="col-sm-2 control-label text-right handle-mandatory fromStreetLevelWithOutStairRoom"><spring:message code="lbl.street.wo.stair"/> <span class="mandatory"></span> </label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation handle-mandatory fromStreetLevelWithOutStairRoom"
+		<form:input class="form-control patternvalidation handle-mandatory clear-values fromStreetLevelWithOutStairRoom"
 			maxlength="10" data-pattern="decimalvalue" id="fromStreetLevelWithOutStairRoom"
 			path="buildingDetail[0].fromStreetLevelWithOutStairRoom" required="required" />in Mtr.
 		<form:errors path="buildingDetail[0].fromStreetLevelWithOutStairRoom"
@@ -294,12 +294,6 @@
 			<td class="text-right"></td>
 			<td class="text-right"></td>
 			<td></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td class="text-right">Sum ( Plinth + Carpet )</td>
-			<td class="text-center" id="sumOfPlinthCarpet" colspan="2"></td>
-			<td class="text-right"></td>
 		</tr>
 	</tfoot>
 </table>

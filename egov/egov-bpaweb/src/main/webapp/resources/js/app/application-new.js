@@ -43,6 +43,9 @@ jQuery(document).ready(function($) {
 	if($('#noJAORSAMessage') && $('#noJAORSAMessage').val())
 		bootbox.alert($('#noJAORSAMessage').val());
 	
+	if($('#invalidStakeholder').val())
+		bootbox.alert($('#invalidStakeholder').val());
+	
 	$('#buttonSubmit').click(function(e) {
 		var button=$('#buttonSubmit').val();
 		validateForm(e,button);

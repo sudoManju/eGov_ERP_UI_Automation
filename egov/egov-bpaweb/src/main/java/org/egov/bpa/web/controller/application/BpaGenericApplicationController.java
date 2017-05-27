@@ -54,6 +54,7 @@ import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.application.entity.VillageName;
 import org.egov.bpa.application.entity.enums.ApplicantMode;
 import org.egov.bpa.application.entity.enums.BpaUom;
+import org.egov.bpa.application.entity.enums.GovernmentType;
 import org.egov.bpa.application.entity.enums.StakeHolderType;
 import org.egov.bpa.application.service.ApplicationBpaService;
 import org.egov.bpa.application.service.CheckListDetailService;
@@ -144,6 +145,11 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     @ModelAttribute("stakeHolderTypeList")
     public List<StakeHolderType> getStakeHolderType() {
         return Arrays.asList(StakeHolderType.values());
+    }
+    
+    @ModelAttribute("governmentTypeList")
+    public List<GovernmentType> getGovernmentType() {
+        return Arrays.asList(GovernmentType.values());
     }
 
     @ModelAttribute("villageNames")

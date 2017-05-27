@@ -54,6 +54,7 @@ import org.egov.bpa.application.entity.StakeHolder;
 import org.egov.bpa.application.entity.enums.AppointmentSchedulePurpose;
 import org.egov.infra.admin.master.entity.AppConfigValues;
 import org.egov.infra.admin.master.service.AppConfigValueService;
+import org.egov.infra.config.core.ApplicationThreadLocals;
 import org.egov.infra.messaging.MessagingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -92,6 +93,10 @@ public class BPASmsAndEmailService {
     private MessageSource bpaMessageSource;
     @Autowired
     private AppConfigValueService appConfigValuesService;
+    
+    public String getMunicipalityName() {
+        return ApplicationThreadLocals.getMunicipalityName();
+    }
 
     public void sendSMSForStakeHolder(final StakeHolder stakeHolder) {
         String msgKey = MSG_KEY_SMS_STAKEHOLDER_NEW;
@@ -166,7 +171,6 @@ public class BPASmsAndEmailService {
             body = emailBodyByCodeAndArgsWithType(BODY_KEY_EMAIL_LETTERTOPARTY, applicantName,
                     bpaApplication, BpaConstants.SMSEMAILTYPELETTERTOPARTY);
             subject = emailSubjectforEmailByCodeAndArgs(SUBJECT_KEY_EMAIL_LETTERTOPARTY, bpaApplication.getApplicationNumber());
-
         }
 
         if (mobileNo != null && smsMsg != null)
@@ -227,14 +231,14 @@ public class BPASmsAndEmailService {
                 mesg = bpaMessageSource.getMessage(msgKey,
                         new String[] { applicantName, scheduleDetails.getAppointmentDate().toString(),
                                 scheduleDetails.getAppointmentTime(), scheduleDetails.getAppointmentLocation(),
-                                bpaApplication.getApplicationNumber() },
+                                bpaApplication.getApplicationNumber(), getMunicipalityName() },
                         null);
             } else {
                 mesg = bpaMessageSource.getMessage(msgKey,
                         new String[] { applicantName, scheduleDetails.getPostponementReason(),
                                 scheduleDetails.getAppointmentDate().toString(),
                                 scheduleDetails.getAppointmentTime(), scheduleDetails.getAppointmentLocation(),
-                                bpaApplication.getApplicationNumber() },
+                                bpaApplication.getApplicationNumber(), getMunicipalityName() },
                         null);
             }
         } else if (AppointmentSchedulePurpose.INSPECTION.equals(scheduleDetails.getPurpose())) {
@@ -243,7 +247,7 @@ public class BPASmsAndEmailService {
                 mesg = bpaMessageSource.getMessage(msgKey,
                         new String[] { applicantName, scheduleDetails.getAppointmentDate().toString(),
                                 scheduleDetails.getAppointmentTime(),
-                                bpaApplication.getApplicationNumber() },
+                                bpaApplication.getApplicationNumber(), getMunicipalityName() },
                         null);
             } else {
                 mesg = bpaMessageSource.getMessage(msgKey,
@@ -251,10 +255,9 @@ public class BPASmsAndEmailService {
                                 scheduleDetails.getAppointmentDate().toString(),
                                 scheduleDetails.getAppointmentTime(),
                                 bpaApplication.getApplicationNumber(),
-                                scheduleDetails.getPostponementReason() },
+                                scheduleDetails.getPostponementReason(), getMunicipalityName() },
                         null);
             }
-
         }
         return mesg;
     }
@@ -272,36 +275,31 @@ public class BPASmsAndEmailService {
         return bpaMessageSource.getMessage(code, new String[] { applicationNumber }, locale);
     }
 
-    private String emailBodyByCodeAndArgsWithType(String code, String applicantName, BpaApplication bpaApplication, String type) {
-        String body = "";
-        if (SMSEMAILTYPENEWBPAREGISTERED.equalsIgnoreCase(type)) {
-            body = bpaMessageSource.getMessage(
-                    code,
-                    new String[] { applicantName, bpaApplication.getApplicationNumber() }, null);
-        } else if (BpaConstants.SMSEMAILTYPELETTERTOPARTY.equalsIgnoreCase(type)) {
-            body = bpaMessageSource.getMessage(
-                    code,
-                    new String[] { applicantName, bpaApplication.getApplicationNumber() }, null);
-        }
-        return body;
-    }
+	private String emailBodyByCodeAndArgsWithType(String code, String applicantName, BpaApplication bpaApplication,
+			String type) {
+		String body = "";
+		if (SMSEMAILTYPENEWBPAREGISTERED.equalsIgnoreCase(type)
+				|| BpaConstants.SMSEMAILTYPELETTERTOPARTY.equalsIgnoreCase(type)) {
+			body = bpaMessageSource.getMessage(code,
+					new String[] { applicantName, bpaApplication.getApplicationNumber(), getMunicipalityName() }, null);
+		}
+		return body;
+	}
 
-    private String smsBodyByCodeAndArgsWithType(String code, String applicantName, BpaApplication bpaApplication, String type) {
-        String smsMsg = "";
-        if (SMSEMAILTYPENEWBPAREGISTERED.equalsIgnoreCase(type)) {
-            smsMsg = bpaMessageSource.getMessage(code,
-                    new String[] { applicantName, bpaApplication.getApplicationNumber() }, null);
-        }
-        else if (BpaConstants.SMSEMAILTYPELETTERTOPARTY.equalsIgnoreCase(type)) {
-            smsMsg = bpaMessageSource.getMessage(code,
-                    new String[] { applicantName, bpaApplication.getApplicationNumber() }, null);
-        }
-        return smsMsg;
-    }
+	private String smsBodyByCodeAndArgsWithType(String code, String applicantName, BpaApplication bpaApplication,
+			String type) {
+		String smsMsg = "";
+		if (SMSEMAILTYPENEWBPAREGISTERED.equalsIgnoreCase(type)
+				|| BpaConstants.SMSEMAILTYPELETTERTOPARTY.equalsIgnoreCase(type)) {
+			smsMsg = bpaMessageSource.getMessage(code,
+					new String[] { applicantName, bpaApplication.getApplicationNumber(), getMunicipalityName() }, null);
+		}
+		return smsMsg;
+	}
 
     private String buildMessageDetails(final StakeHolder stakeHolder, String msgKeyMail) {
         return bpaMessageSource.getMessage(msgKeyMail, new String[] { stakeHolder.getName(), stakeHolder.getCode(),
-                stakeHolder.getUsername(), stakeHolder.getPassword() }, null);
+                stakeHolder.getUsername(), stakeHolder.getMobileNumber(), getMunicipalityName() }, null);
     }
 
     public Boolean isSmsEnabled() {

@@ -207,8 +207,11 @@ $(document).ready(function() {
 });
 
 $('#occupancy').change(function(){
+	$( ".plinthArea" ).trigger( "change" );
+	$( ".carpetArea" ).trigger( "change" );
 	$('.clear-values').val('');
 	$('#buildingAreaDetails').find('input').val('');
+	$('#buildingAreaDetails').find('select').val('');
 	getOccupancyObject();
 });
 
@@ -233,16 +236,29 @@ $('#totalPlintArea').blur(function(e) {
 	var occpancyObj = getOccupancyObject();
 	var numOfTimesAreaPermissible = occpancyObj[0].numOfTimesAreaPermissible;
 	var numOfTimesAreaPermWitAddnlFee = occpancyObj[0].numOfTimesAreaPermWitAddnlFee;
-	var areaPermissibleWOAddnlFee = parseInt(extentInSqmts) * parseInt(numOfTimesAreaPermissible);
-	var areaPermissibleWithAddnlFee = parseInt(extentInSqmts) * parseInt(numOfTimesAreaPermWitAddnlFee);
-		if(parseInt(totalPlintArea) > areaPermissibleWithAddnlFee) {
-			bootbox.alert("For the occupancy type of " +occpancyObj[0].description+", maximum permissible area allowed with addtional fee is "+areaPermissibleWithAddnlFee+", beyond of permissible area you can't construct construction.");
+	var areaPermissibleWOAddnlFee = parseFloat(extentInSqmts) * parseFloat(numOfTimesAreaPermissible);
+	var areaPermissibleWithAddnlFee = parseFloat(extentInSqmts) * parseFloat(numOfTimesAreaPermWitAddnlFee);
+		
+		if(areaPermissibleWithAddnlFee == 0) {
+			if(parseInt(totalPlintArea) > areaPermissibleWOAddnlFee){
+				bootbox.alert("For the occupancy type of " +occpancyObj[0].description+", maximum permissible area is "+areaPermissibleWOAddnlFee+" Sq.Mtrs, beyond of permissible area you can't construct construction.");
+				$('#totalPlintArea').val('');
+				 $( ".plinthArea" ).trigger( "change" );
+	    		 $( ".carpetArea" ).trigger( "change" );
+				return false;
+			} else {
+				return true;
+			}
+		} else if(parseInt(totalPlintArea) > areaPermissibleWithAddnlFee) {
+			bootbox.alert("For the occupancy type of " +occpancyObj[0].description+", maximum permissible area allowed with addtional fee is "+areaPermissibleWithAddnlFee+" Sq.Mtrs, beyond of permissible area you can't construct construction.");
 			$('#totalPlintArea').val('');
+			 $( ".plinthArea" ).trigger( "change" );
+    		 $( ".carpetArea" ).trigger( "change" );
 			return false;
 		} else if(parseInt(totalPlintArea) > areaPermissibleWOAddnlFee) {
 			bootbox
 			.confirm({
-				message : 'For the occupancy type of ' +occpancyObj[0].description+', maximum permissible area allowed with out addtional fee is '+areaPermissibleWOAddnlFee+', Do you want continue construction in additional area with addtional cost of Rs.1000 per Sq.mt.If you want continue further please select Yes / No ?',
+				message : 'For the occupancy type of ' +occpancyObj[0].description+', maximum permissible area allowed with out addtional fee is '+areaPermissibleWOAddnlFee+' Sq.Mtrs, Do you want continue construction in additional area with addtional cost of Rs.1000 per Sq.Mtr.If you want continue further please select Yes / No ?',
 				buttons : {
 					'cancel' : {
 						label : 'No',
@@ -258,6 +274,8 @@ $('#totalPlintArea').blur(function(e) {
 						//
 					} else {
 						$('#totalPlintArea').val('');
+						 $( ".plinthArea" ).trigger( "change" );
+			    		 $( ".carpetArea" ).trigger( "change" );
 						e.stopPropagation();
 						e.preventDefault();
 					}
@@ -294,7 +312,7 @@ function validateFloorDetails(plinthArea){
 	var permissibleAreaForFloor = extentInSqmts * permissibleAreaInPercentage / 100;
 	if(parseInt(inputPlinthArea) > parseInt(permissibleAreaForFloor)){
 		$(plinthArea).val('');
-		bootbox.alert("For type of " +occpancyObj[0].description+", each floor wise maximum permissable plinth area is " +permissibleAreaForFloor+", so beyond of maximum floor wise area you can't construct your building.");
+		bootbox.alert("For type of " +occpancyObj[0].description+", each floor wise maximum permissable plinth area is " +permissibleAreaForFloor+" Sq.Mtrs, so beyond of maximum permissable floor wise area you can't construct your building.");
 		return false;
 	}
 	if(parseInt($("#sumOfPlinthArea").val()) > parseInt(totalPlintArea)){

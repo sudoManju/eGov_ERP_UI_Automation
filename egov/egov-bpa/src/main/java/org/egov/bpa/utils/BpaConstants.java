@@ -54,7 +54,8 @@ public class BpaConstants {
 	public static final String ST_CODE_05 = "05";
 	public static final String ST_CODE_06 = "06";
 	public static final String ST_CODE_07 = "07";
-	public static final String ST_CODE_09 = "09";
+	public static final String ST_CODE_08 = "08"; // Amenities
+	public static final String ST_CODE_09 = "09"; // Permission for Temporary hut or shed
     public static final String ROLE_BUSINESS_USER = "BUSINESS";
 	public static final String RE_DEVELOPMENT_OF_LAND = "Re-development of land";
     public static final String DEVELOPMENT_OF_LAND = "Development of land";
@@ -242,41 +243,31 @@ public class BpaConstants {
 		FLOORLIST.add("Fifteenth Floor");
 	}
 	
-	private static final Map<String, Map<String, BigDecimal>> STAKEHOLDERRESTRICTIONS = new HashMap<>();
+	private static final Map<String, Map<String, BigDecimal>> STAKEHOLDERTYPE1RESTRICTIONS = new HashMap<>();
 	static {
-		Map<String, BigDecimal> architectRestriction = new HashMap<>();
-		architectRestriction.put(EXTENTINSQMTS, BigDecimal.valueOf(10000));
-		architectRestriction.put(TOTAL_PLINT_AREA, BigDecimal.valueOf(1500));
-		architectRestriction.put(FLOOR_COUNT, BigDecimal.valueOf(3));
-		architectRestriction.put(BUILDINGHEIGHT_GROUND, BigDecimal.valueOf(11));
-		STAKEHOLDERRESTRICTIONS.put("architect", architectRestriction);
-		STAKEHOLDERRESTRICTIONS.put("Building Designer-A", architectRestriction);
-		STAKEHOLDERRESTRICTIONS.put("Engineer-A", architectRestriction);
+		Map<String, BigDecimal> stakeHolderType1Restrictions = new HashMap<>();
+		stakeHolderType1Restrictions.put(EXTENTINSQMTS, BigDecimal.valueOf(10000));
+		STAKEHOLDERTYPE1RESTRICTIONS.put("architect", stakeHolderType1Restrictions);
+		STAKEHOLDERTYPE1RESTRICTIONS.put("building designer - a", stakeHolderType1Restrictions);
+		STAKEHOLDERTYPE1RESTRICTIONS.put("engineer - a", stakeHolderType1Restrictions);
+		STAKEHOLDERTYPE1RESTRICTIONS.put("town planner - b", stakeHolderType1Restrictions);
 	}
+	private static final Map<String, Map<String, BigDecimal>> STAKEHOLDERTYPE2RESTRICTIONS = new HashMap<>();
 	static {
-		Map<String, BigDecimal> buildingDesingerBRestriction = new HashMap<>();
-		buildingDesingerBRestriction.put(EXTENTINSQMTS, BigDecimal.valueOf(5000));
-		buildingDesingerBRestriction.put(TOTAL_PLINT_AREA, BigDecimal.valueOf(4000));
-		buildingDesingerBRestriction.put(FLOOR_COUNT, BigDecimal.valueOf(4));
-		buildingDesingerBRestriction.put(BUILDINGHEIGHT_GROUND, BigDecimal.valueOf(14.5));
-		STAKEHOLDERRESTRICTIONS.put("Building Designer-B", buildingDesingerBRestriction);
-		STAKEHOLDERRESTRICTIONS.put("Engineer-B", buildingDesingerBRestriction);
+		Map<String, BigDecimal> stakeHolderType2Restrictions = new HashMap<>();
+		stakeHolderType2Restrictions.put(EXTENTINSQMTS, BigDecimal.valueOf(5000));
+		stakeHolderType2Restrictions.put(TOTAL_PLINT_AREA, BigDecimal.valueOf(1000));
+		stakeHolderType2Restrictions.put(FLOOR_COUNT, BigDecimal.valueOf(4));
+		stakeHolderType2Restrictions.put(BUILDINGHEIGHT_GROUND, BigDecimal.valueOf(14.5));
+		STAKEHOLDERTYPE2RESTRICTIONS.put("building designer - b", stakeHolderType2Restrictions);
+		STAKEHOLDERTYPE2RESTRICTIONS.put("engineer - b", stakeHolderType2Restrictions);
 	}
+	private static final Map<String, Map<String, String>> STAKEHOLDERTYPE3RESTRICTIONS = new HashMap<>();
 	static {
-		Map<String, BigDecimal> engineerARestriction = new HashMap<>();
-		engineerARestriction.put(EXTENTINSQMTS, BigDecimal.valueOf(10000));
-		engineerARestriction.put(TOTAL_PLINT_AREA, BigDecimal.valueOf(2250));
-		engineerARestriction.put(FLOOR_COUNT, BigDecimal.valueOf(3));
-		engineerARestriction.put(BUILDINGHEIGHT_GROUND, BigDecimal.valueOf(11));
-		STAKEHOLDERRESTRICTIONS.put("Supervisor-A", engineerARestriction);
-	}
-	static {
-		Map<String, BigDecimal> engineerARestriction = new HashMap<>();
-		engineerARestriction.put(EXTENTINSQMTS, BigDecimal.valueOf(3000));
-		engineerARestriction.put(TOTAL_PLINT_AREA, BigDecimal.valueOf(300));
-		engineerARestriction.put(FLOOR_COUNT, BigDecimal.valueOf(2));
-		engineerARestriction.put(BUILDINGHEIGHT_GROUND, BigDecimal.valueOf(7.5));
-		STAKEHOLDERRESTRICTIONS.put("Supervisor-B", engineerARestriction);
+		Map<String, String> stakeHolderType3Restrictions = new HashMap<>();
+		stakeHolderType3Restrictions.put("restriction", "norole");
+		STAKEHOLDERTYPE3RESTRICTIONS.put("supervisor - a", stakeHolderType3Restrictions);
+		STAKEHOLDERTYPE3RESTRICTIONS.put("supervisor - b", stakeHolderType3Restrictions);
 	}
 
 	private static final List<String> BPAFEECATEGORY1 = new ArrayList<>();
@@ -301,11 +292,22 @@ public class BpaConstants {
 	
 	private static final List<String> BPAFEECATEGORY2 = new ArrayList<>();
 	static {
-		BPAFEECATEGORY2.add(ST_CODE_05);     // Sub-Division of Plot/Development of land
+		BPAFEECATEGORY2.add(ST_CODE_05); // Sub-Division of Plot/Development of land
 	}
 	
-	public static Map<String, Map<String, BigDecimal>> getStakeholderRestrictions() {
-		return Collections.unmodifiableMap(STAKEHOLDERRESTRICTIONS);
+	private BpaConstants() {
+		// only invariants
+	}
+	public static Map<String, Map<String, BigDecimal>> getStakeholderType1Restrictions() {
+		return Collections.unmodifiableMap(STAKEHOLDERTYPE1RESTRICTIONS);
+	}
+	
+	public static Map<String, Map<String, BigDecimal>> getStakeholderType2Restrictions() {
+		return Collections.unmodifiableMap(STAKEHOLDERTYPE2RESTRICTIONS);
+	}
+	
+	public static Map<String, Map<String, String>> getStakeholderType3Restrictions() {
+		return Collections.unmodifiableMap(STAKEHOLDERTYPE3RESTRICTIONS);
 	}
 	
 	public static List<String> getBuildingFloorsList() {

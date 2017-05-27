@@ -218,11 +218,20 @@
 		<form:errors path="applicantMode" id="applicantMode"
 			cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right">Remarks</label>
+	<label class="col-sm-2 control-label text-right"><spring:message
+			code="lbl.government.type" /></label>
 	<div class="col-sm-3 add-margin">
-		<form:textarea class="form-control patternvalidation"
-			data-pattern="string" maxlength="128" id="remarks" path="remarks" />
-		<form:errors path="remarks" cssClass="add-margin error-msg" />
+		<form:select path="governmentType"
+			id="governmentType"
+			value="${bpaApplication.governmentType}"
+			cssClass="form-control">
+			<form:option value="">
+				<spring:message code="lbl.select" />
+			</form:option>
+			<form:options items="${governmentTypeList}" />
+		</form:select>
+		<form:errors path="governmentType"
+			cssClass="add-margin error-msg" />
 	</div>
 	<%-- <label class="col-sm-2 control-label text-right">Source <span
 		class="mandatory"></span></label>
@@ -236,6 +245,15 @@
 		</form:select>
 		<form:errors path="source" cssClass="add-margin error-msg" />
 	</div> --%>
+</div>
+
+<div class="form-group">
+<label class="col-sm-3 control-label text-right">Remarks</label>
+	<div class="col-sm-3 add-margin">
+		<form:textarea class="form-control patternvalidation"
+			data-pattern="string" maxlength="128" id="remarks" path="remarks" />
+		<form:errors path="remarks" cssClass="add-margin error-msg" />
+	</div>
 </div>
 
 <div class="form-group">

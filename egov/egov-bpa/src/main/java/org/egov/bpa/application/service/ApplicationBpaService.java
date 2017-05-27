@@ -40,7 +40,13 @@
 package org.egov.bpa.application.service;
 
 import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_APPROVED;
+import static org.egov.bpa.utils.BpaConstants.BUILDINGHEIGHT_GROUND;
+import static org.egov.bpa.utils.BpaConstants.EXTENTINSQMTS;
 import static org.egov.bpa.utils.BpaConstants.FILESTORE_MODULECODE;
+import static org.egov.bpa.utils.BpaConstants.FLOOR_COUNT;
+import static org.egov.bpa.utils.BpaConstants.TOTAL_PLINT_AREA;
+import static org.egov.bpa.utils.BpaConstants.getStakeholderType1Restrictions;
+import static org.egov.bpa.utils.BpaConstants.getStakeholderType2Restrictions;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -85,6 +91,9 @@ import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -124,6 +133,9 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
 	private SecurityUtils securityUtils;
 	@Autowired
 	private AutonumberServiceBeanResolver beanResolver;
+	@Autowired
+    @Qualifier("parentMessageSource")
+    private MessageSource messageSource;
 
 	public Session getCurrentSession() {
 		return entityManager.unwrap(Session.class);
@@ -375,5 +387,103 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
 
 	public Boolean applicationinitiatedByNonEmployee(BpaApplication bpaApplication) {
 		return bpaUtils.applicationinitiatedByNonEmployee(bpaApplication);
+	}
+	
+	public boolean checkStakeholderIsValid(final BpaApplication bpaApplication) {
+		return validateStakeholder(bpaApplication.getServiceType().getCode(), bpaApplication.getStakeHolder().get(0).getStakeHolder().getStakeHolderType().getStakeHolderTypeVal(),
+				bpaApplication.getSiteDetail().get(0).getExtentinsqmts(),
+				bpaApplication.getBuildingDetail().get(0).getFloorCount(),
+				bpaApplication.getBuildingDetail().get(0).getBuildingheightGround(),
+				bpaApplication.getBuildingDetail().get(0).getTotalPlintArea());
+	}
+
+	private boolean validateStakeholder(final String serviceType, final String type, final BigDecimal extentInArea, final Integer floorCount,
+			final BigDecimal buildingHeight, final BigDecimal totalPlinthArea) {
+		if (BpaConstants.ST_CODE_08.equalsIgnoreCase(serviceType)
+				|| BpaConstants.ST_CODE_09.equalsIgnoreCase(serviceType)) {
+			// For service type of Amenities and Permission for Temporary hut or
+			// shed any registered business user can apply and no validations.
+			return true;
+		} else if (BpaConstants.getStakeholderType3Restrictions().containsKey(type.toLowerCase())) {
+			// For Supervisor - A and Supervisor - B currently doesn't have any
+			// role to submit bpa application
+			return false;
+		} else if ("Town Planner - A".equalsIgnoreCase(type.toLowerCase())) {
+			// For Town Planner - A there is no restrictions to submit
+			// applications
+			return true;
+		} else if ((getStakeholderType1Restrictions().containsKey(type.toLowerCase())
+				&& BpaConstants.getServicesForDevelopPermit().contains(serviceType))) {
+			Map<String, BigDecimal> stakeHolderType1Restriction = getStakeholderType1Restrictions()
+					.get(type.toLowerCase());
+			BigDecimal extentinsqmtsInput = stakeHolderType1Restriction.get(EXTENTINSQMTS);
+			return extentInArea.compareTo(extentinsqmtsInput) <= 0 ? true : false;
+		} else if ("Town Planner - B".equalsIgnoreCase(type.toLowerCase())
+						&& BpaConstants.getServicesForBuildPermit().contains(serviceType)) {
+			return false;
+		} else if (getStakeholderType1Restrictions().containsKey(type.toLowerCase())
+				&& BpaConstants.getServicesForBuildPermit().contains(serviceType)) {
+			return true;
+		} else if (getStakeholderType2Restrictions().containsKey(type.toLowerCase())
+				&& BpaConstants.getServicesForDevelopPermit().contains(serviceType)) {
+			Map<String, BigDecimal> stakeHolderType2Restriction = getStakeholderType2Restrictions()
+					.get(type.toLowerCase());
+			BigDecimal extentinsqmtsInput = stakeHolderType2Restriction.get(EXTENTINSQMTS);
+			return extentInArea.compareTo(extentinsqmtsInput) <= 0 ? true : false;
+		} else if (getStakeholderType2Restrictions().containsKey(type.toLowerCase())
+				&& BpaConstants.getServicesForBuildPermit().contains(serviceType)) {
+			Map<String, BigDecimal> stakeHolderType2Restriction = getStakeholderType2Restrictions()
+					.get(type.toLowerCase());
+			BigDecimal extentinsqmtsInput = stakeHolderType2Restriction.get(EXTENTINSQMTS);
+			BigDecimal plinthAreaInput = stakeHolderType2Restriction.get(TOTAL_PLINT_AREA);
+			BigDecimal floorCountInput = stakeHolderType2Restriction.get(FLOOR_COUNT);
+			BigDecimal buildingHeightInput = stakeHolderType2Restriction.get(BUILDINGHEIGHT_GROUND);
+			return (extentInArea.compareTo(extentinsqmtsInput) <= 0 && totalPlinthArea.compareTo(plinthAreaInput) <= 0
+					&& buildingHeight.compareTo(buildingHeightInput) <= 0
+					&& BigDecimal.valueOf(floorCount).compareTo(floorCountInput) <= 0) ? true : false;
+		}
+		return true;
+	}
+	
+	public String getValidationMessageForBusinessResgistration(final BpaApplication bpaApplication) {
+		String stakeHolderType = bpaApplication.getStakeHolder().get(0).getStakeHolder().getStakeHolderType().getStakeHolderTypeVal();
+		String serviceType = bpaApplication.getServiceType().getCode();
+		BigDecimal extentinsqmtsInput = BigDecimal.ZERO;
+		BigDecimal plinthAreaInput = BigDecimal.ZERO;
+		BigDecimal floorCountInput = BigDecimal.ZERO;
+		BigDecimal buildingHeightInput = BigDecimal.ZERO;
+		String message ;
+		
+		if((getStakeholderType1Restrictions().containsKey(stakeHolderType.toLowerCase()) && BpaConstants.getServicesForDevelopPermit().contains(serviceType)) || ("Town Planner - B".equalsIgnoreCase(stakeHolderType.toLowerCase())
+				&& BpaConstants.getServicesForDevelopPermit().contains(serviceType))){
+			Map<String, BigDecimal> stakeHolderType1Restriction = getStakeholderType1Restrictions().get(stakeHolderType.toLowerCase());
+			extentinsqmtsInput = stakeHolderType1Restriction.get(EXTENTINSQMTS);
+		} else if(getStakeholderType2Restrictions().containsKey(stakeHolderType.toLowerCase()) && BpaConstants.getServicesForDevelopPermit().contains(serviceType)){
+			Map<String, BigDecimal> stakeHolderType2Restriction = getStakeholderType2Restrictions().get(stakeHolderType.toLowerCase());
+			extentinsqmtsInput = stakeHolderType2Restriction.get(EXTENTINSQMTS);
+		} else if(getStakeholderType2Restrictions().containsKey(stakeHolderType.toLowerCase()) && BpaConstants.getServicesForBuildPermit().contains(serviceType)){
+			Map<String, BigDecimal> stakeHolderType2Restriction = getStakeholderType2Restrictions().get(stakeHolderType.toLowerCase());
+			extentinsqmtsInput = stakeHolderType2Restriction.get(EXTENTINSQMTS);
+			plinthAreaInput = stakeHolderType2Restriction.get(TOTAL_PLINT_AREA);
+			floorCountInput = stakeHolderType2Restriction.get(FLOOR_COUNT);
+			buildingHeightInput = stakeHolderType2Restriction.get(BUILDINGHEIGHT_GROUND);
+		}
+		if ("Town Planner - B".equalsIgnoreCase(stakeHolderType.toLowerCase())
+				&& BpaConstants.getServicesForBuildPermit().contains(serviceType)) {
+			message = messageSource.getMessage("msg.invalid.stakeholder4", new String[] { stakeHolderType }, LocaleContextHolder.getLocale());
+		}
+		else if (BpaConstants.getStakeholderType3Restrictions().containsKey(stakeHolderType.toLowerCase())) {
+			message = messageSource.getMessage("msg.invalid.stakeholder3", new String[] { stakeHolderType }, LocaleContextHolder.getLocale());
+		} else if(!extentinsqmtsInput.equals(BigDecimal.ZERO) && plinthAreaInput.equals(BigDecimal.ZERO)) {
+			message = messageSource.getMessage("msg.invalid.stakeholder2",
+					new String[] { stakeHolderType, extentinsqmtsInput.toString(), bpaApplication.getServiceType().getDescription()},
+					LocaleContextHolder.getLocale());
+		} else {
+			message = messageSource.getMessage("msg.invalid.stakeholder1",
+					new String[] { stakeHolderType, extentinsqmtsInput.toString(), plinthAreaInput.toString(),
+							floorCountInput.toString(), buildingHeightInput.toString(), bpaApplication.getServiceType().getDescription() },
+					LocaleContextHolder.getLocale());
+		}
+		return message;
 	}
 }

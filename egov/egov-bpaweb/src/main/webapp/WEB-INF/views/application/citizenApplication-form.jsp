@@ -60,6 +60,8 @@
 				value="${bpaApplication.id}" />
 			<input type="hidden" id="noJAORSAMessage" name="noJAORSAMessage"
 				value="${noJAORSAMessage}" />
+			<input type="hidden" id="invalidStakeholder" name="invalidStakeholder"
+				value="${invalidStakeholder}" />
 			<input type="hidden" id="mode" name="mode" value="${mode}" />
 			<input type="hidden"  id="citizenOrBusinessUser" name="citizenOrBusinessUser" value="${citizenOrBusinessUser}"/>
 			<form:hidden path="" id="workFlowAction" name="workFlowAction" />
