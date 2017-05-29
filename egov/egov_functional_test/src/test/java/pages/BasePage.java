@@ -181,6 +181,12 @@ public class BasePage {
         return dateFormat.format(cal.getTime());
     }
 
+    protected String getCurrentTime(){
+        DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
     protected String getParticularMonthName(int monthId){
         DateFormat fmt = new SimpleDateFormat("MMMM");
         Calendar cal = Calendar.getInstance();

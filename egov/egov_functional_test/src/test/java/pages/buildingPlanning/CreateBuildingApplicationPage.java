@@ -120,14 +120,20 @@ public class CreateBuildingApplicationPage extends BasePage {
     @FindBy(id = "floorCount")
     private WebElement floorCountTextBox;
 
-    @FindBy(id = "fromGroundWithWOStairRoom")
-    private WebElement fromGroundWithAndWithoutStairRoomTextBox;
+    @FindBy(id = "heightFromGroundWithStairRoom")
+    private WebElement heightFromGroundWithStairRoomTextBox;
+
+    @FindBy(id = "heightFromGroundWithOutStairRoom")
+    private WebElement heightFromGroundWithOutStairRoomTextBox;
 
     @FindBy(id = "machineRoom")
     private WebElement machineRoomTextbox;
 
-    @FindBy(id = "fromStreetWithWOStairRoom")
-    private WebElement fromStreetWithAndWithoutStairRoomTextBox;
+    @FindBy(id = "fromStreetLevelWithStairRoom")
+    private WebElement fromStreetLevelWithStairRoomTextBox;
+
+    @FindBy(id = "fromStreetLevelWithOutStairRoom")
+    private WebElement fromStreetLevelWithOutStairRoomTextBox;
 
     @FindBy(id = "buttonSubmit")
     private WebElement submitButton;
@@ -246,9 +252,11 @@ public class CreateBuildingApplicationPage extends BasePage {
         enterText(totalPlintAreaTextBox, get6DigitRandomInt().substring(0, 3), webDriver);
         enterText(buildingheightGroundTextBox, get6DigitRandomInt().substring(0, 2), webDriver);
         enterText(floorCountTextBox, get6DigitRandomInt().substring(0, 1), webDriver);
-        enterText(fromGroundWithAndWithoutStairRoomTextBox, "7", webDriver);
+        enterText(heightFromGroundWithStairRoomTextBox, "10", webDriver);
+        enterText(heightFromGroundWithOutStairRoomTextBox, "5", webDriver);
+        enterText(fromStreetLevelWithStairRoomTextBox, "10", webDriver);
+        enterText(fromStreetLevelWithOutStairRoomTextBox, "5", webDriver);
         enterText(machineRoomTextbox, "8", webDriver);
-        enterText(fromStreetWithAndWithoutStairRoomTextBox, "10", webDriver);
     }
 
     public void submitApplication() {
@@ -271,6 +279,7 @@ public class CreateBuildingApplicationPage extends BasePage {
 
     public void closeAcknowledgementForm() {
         clickOnButton(closeButton, webDriver);
+
         if (webDriver.getWindowHandles().size() > 1) {
             for (String winHandle : webDriver.getWindowHandles()) {
                 String title = webDriver.switchTo().window(winHandle).getCurrentUrl();
@@ -294,7 +303,8 @@ public class CreateBuildingApplicationPage extends BasePage {
 
         enterDate(appointmentDate, getCurrentDate(), webDriver);
         waitForElementToBeVisible(appointmentTimeTextBox, webDriver);
-        clickOnButton(presentTimeSelectionButton, webDriver);
+        enterText(appointmentTimeTextBox, getCurrentTime(), webDriver);
+//        clickOnButton(presentTimeSelectionButton, webDriver);
         clickOnButton(scheduleSubmitButton, webDriver);
 
         switchToNewlyOpenedWindow(webDriver);
