@@ -1,5 +1,6 @@
 package steps.ptis;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.ApprovalDetails;
 import entities.ptis.*;
@@ -111,6 +112,22 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
         });
         And("^he click on floors Details entered$", () -> {
             pageStore.get(PropertyDetailsPage.class).clickOnFloorDetailsCheckBox();
+        });
+        And("^he enters the floor details checkbox$", () -> {
+            pageStore.get(PropertyDetailsPage.class).enterExtentOfSiteValue();
+
+            pageStore.get(PropertyDetailsPage.class).clickOnFloorDetailsCheckBox();
+        });
+        And("^he checks the validations for all textBoxes$", () -> {
+           pageStore.get(PropertyDetailsPage.class).checkValidationForOwner();
+           pageStore.get(PropertyDetailsPage.class).checkValidationForAssessmentDetails();
+           pageStore.get(PropertyDetailsPage.class).checkValidationForFloorDetails();
+           pageStore.get(PropertyDetailsPage.class).clickOnFloorDetailsCheckBox();
+           pageStore.get(PropertyDetailsPage.class).checkValidationForLocationDetails();
+        });
+        And("^he check the errorMessage of door number$", () -> {
+           pageStore.get(PropertyDetailsPage.class).checkDoorNumber();
+           pageStore.get(PropertyDetailsPage.class).clickOnFloorDetailsCheckBox();
         });
     }
 }

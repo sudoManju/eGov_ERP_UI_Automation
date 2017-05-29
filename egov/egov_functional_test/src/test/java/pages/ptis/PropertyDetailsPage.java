@@ -1,6 +1,7 @@
 package pages.ptis;
 
 import entities.ptis.*;
+import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
@@ -38,7 +39,7 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "emailId")
     private WebElement emailIdTextBox;
 
-    @FindBy(id = "basicProperty.propertyOwnerInfoProxy[0].owner.guardianRelation")
+    @FindBy(name = "basicProperty.propertyOwnerInfoProxy[0].owner.guardianRelation")
     private WebElement guardianRelationSelection;
 
     @FindBy(id = "guardian")
@@ -396,8 +397,6 @@ public class PropertyDetailsPage extends BasePage {
         enterText(deedNoTextBox, documentValue.getDeedNo(), webDriver);
         enterDate(DeedDateDateBox, documentValue.getDeedDate(), webDriver);
         uploadFile(PhotoOfAssessment, System.getProperty("user.dir") + "/src/test/resources/dataFiles/PTISTestData.xlsx", webDriver);
-
-
     }
 
     public void forward() {
@@ -563,4 +562,55 @@ public class PropertyDetailsPage extends BasePage {
     }
 
 
+    public void enterExtentOfSiteValue() {
+        enterText(extentOfSiteTextBox,"200",webDriver);
+        uploadFile(PhotoOfAssessment, System.getProperty("user.dir") + "/src/test/resources/dataFiles/PTISTestData.xlsx", webDriver);
+    }
+
+    public void checkValidationForOwner() {
+        validationCheck(mobileNumberTextBox,"kakaka","9444"+get6DigitRandomInt());
+        validationCheck(ownerNameTextBox,"2222","Bimal");
+        validationCheck(ownerNameTextBox,"@@@","Bimal");
+        selectFromDropDown(genderSelection,"MALE",webDriver);
+        validationCheck(emailIdTextBox,"kakaka","testing@gmail.com");
+        selectFromDropDown(guardianRelationSelection,"Father",webDriver);
+        validationCheck(guardianTextBox,"2222","Ram");
+        validationCheck(guardianTextBox,"@@@","Ram");
+    }
+
+    public void checkValidationForAssessmentDetails(){
+        selectFromDropDown(reasonForCreationSelection,"NEW PROPERTY",webDriver);
+        validationCheck(extentOfSiteTextBox,"kakaka","200");
+        validationCheck(extentOfSiteTextBox,"@@@","200");
+    }
+
+    public void checkValidationForFloorDetails(){
+        validationCheck(lengthTextBox,"kakaa","10.0");
+        validationCheck(lengthTextBox,"@@@","10.0");
+        validationCheck(breadthTextBox,"kakak","20.0");
+        validationCheck(breadthTextBox,"@@@","20.0");
+        validationCheck(plinthAreaInBuildingPlanTextBox,"kakak","30.0");
+        validationCheck(plinthAreaInBuildingPlanTextBox,"@@@","30.0");
+    }
+
+    public void checkValidationForLocationDetails(){
+        selectFromDropDown(localitySelection, "4th colony", webDriver);
+        selectFromDropDown(zoneNumberSelection, "Zone-1", webDriver);
+        selectFromDropDown(electionWardSeletion,"Election Ward No. 1", webDriver);
+        enterText(doorNumberTextBox,"12/46", webDriver);
+        validationCheck(pincodeTextBox,"kakak","540037");
+        validationCheck(pincodeTextBox,"@@@","540037");
+    }
+
+    public void validationCheck(WebElement element,String wrongData,String correctData){
+        enterText(element,wrongData,webDriver);
+        element.sendKeys(Keys.TAB);
+        WebElement element1 = webDriver.findElement(By.cssSelector("div[class~='bootbox-alert'] button[class^='btn']"));
+        clickOnButton(element1,webDriver);
+        enterText(element,correctData,webDriver);
+    }
+
+    public void checkDoorNumber() {
+        enterText(doorNumberTextBox,"#"+get6DigitRandomInt(),webDriver);
+    }
 }
