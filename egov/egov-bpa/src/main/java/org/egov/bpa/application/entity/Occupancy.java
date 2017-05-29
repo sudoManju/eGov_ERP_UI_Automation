@@ -72,7 +72,7 @@ public class Occupancy extends AbstractAuditable {
     private Double permissibleAreaInPercentage;
     private Double numOfTimesAreaPermissible;
     private Double numOfTimesAreaPermWitAddnlFee;
-    
+    private Integer orderNumber;
     
     public Double getPermissibleAreaInPercentage() {
         return permissibleAreaInPercentage;
@@ -156,4 +156,12 @@ public class Occupancy extends AbstractAuditable {
 		this.occupantLoad = occupantLoad;
 	}
 
+	public Integer getOrderNumber() {
+		return orderNumber;
+	}
+
+	public void setOrderNumber(Integer orderNumber) {
+		this.orderNumber = orderNumber;
+	}
+	
 }

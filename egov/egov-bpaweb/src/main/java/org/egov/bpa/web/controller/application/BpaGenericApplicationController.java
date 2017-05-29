@@ -116,11 +116,11 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     protected BpaWorkFlowService bpaWorkFlowService;
     @Autowired
     protected ResourceBundleMessageSource messageSource;
+    
     @ModelAttribute("occupancyList")
     public List<Occupancy> getOccupancy() {
-        return occupancyService.findAll();
+        return occupancyService.findAllOrderByOrderNumber();
     }
-    
     
     @ModelAttribute("zones")
     public List<Boundary> zones() {

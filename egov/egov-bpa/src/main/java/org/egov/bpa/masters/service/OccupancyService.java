@@ -44,6 +44,7 @@ import java.util.List;
 import org.egov.bpa.application.entity.Occupancy;
 import org.egov.bpa.masters.repository.OccupancyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,6 +57,10 @@ public class OccupancyService {
 
     public List<Occupancy> findAll() {
         return occupancyRepository.findAll();
+    }
+    
+    public List<Occupancy> findAllOrderByOrderNumber() {
+        return occupancyRepository.findAll(new Sort(Sort.Direction.ASC, "orderNumber"));
     }
     
 }

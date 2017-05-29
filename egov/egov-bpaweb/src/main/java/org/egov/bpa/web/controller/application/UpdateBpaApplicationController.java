@@ -66,7 +66,6 @@ import org.egov.bpa.application.entity.enums.AppointmentSchedulePurpose;
 import org.egov.bpa.application.service.InspectionService;
 import org.egov.bpa.application.service.LettertoPartyService;
 import org.egov.bpa.masters.service.StakeHolderService;
-import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.eis.service.PositionMasterService;
 import org.egov.eis.web.contract.WorkflowContainer;
@@ -115,9 +114,6 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
     private SecurityUtils securityUtils;
     @Autowired
     private InspectionService inspectionService;
-    
-    @Autowired
-    private BpaUtils bpaUtils;
     @Autowired
     private StakeHolderService stakeHolderService;
     @Autowired
@@ -269,11 +265,11 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         model.addAttribute(ADDITIONALRULE, CREATE_ADDITIONAL_RULE_CREATE);
         workflowContainer.setAdditionalRule(CREATE_ADDITIONAL_RULE_CREATE);
         if (APPLICATION_STATUS_NOCUPDATED.equals(application.getStatus().getCode())) {
-            workflowContainer.setAmountRule(!application.getSiteDetail().isEmpty() ?application.getSiteDetail().get(0).getExtentinsqmts():new BigDecimal(1));
+            workflowContainer.setAmountRule(!application.getSiteDetail().isEmpty() ? application.getDocumentScrutiny().get(0).getExtentinsqmts():new BigDecimal(1));
             workflowContainer.setPendingActions(application.getState().getNextAction());
         } else if (APPLICATION_STATUS_APPROVED.equals(application.getStatus().getCode())
                 && !APPLICATION_STATUS_RECORD_APPROVED.equalsIgnoreCase(application.getState().getValue())) {
-            workflowContainer.setAmountRule(!application.getSiteDetail().isEmpty() ?application.getSiteDetail().get(0).getExtentinsqmts():new BigDecimal(1));
+            workflowContainer.setAmountRule(!application.getSiteDetail().isEmpty() ? application.getDocumentScrutiny().get(0).getExtentinsqmts():new BigDecimal(1));
         }
         workflowContainer.setAdditionalRule(CREATE_ADDITIONAL_RULE_CREATE);
         prepareWorkflow(model, application, workflowContainer);
