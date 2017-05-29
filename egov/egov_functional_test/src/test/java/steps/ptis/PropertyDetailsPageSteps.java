@@ -129,5 +129,6 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
            pageStore.get(PropertyDetailsPage.class).checkDoorNumber();
            pageStore.get(PropertyDetailsPage.class).clickOnFloorDetailsCheckBox();
         });
+
     }
 }

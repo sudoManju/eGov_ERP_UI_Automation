@@ -162,7 +162,7 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "propertyDetail.floorDetailsProxy[0].buildingPlanPlinthArea.area")
     private WebElement plinthAreaInBuildingPlanTextBox;
 
-    @FindBy(id = "Forward")
+    @FindBy(css = "input[id='Forward'][type='submit']")
     private WebElement forwardButton;
 
     @FindBy(id = "Approve")
@@ -312,6 +312,9 @@ public class PropertyDetailsPage extends BasePage {
     @FindBy(id = "createProperty-create_documents_4__uploads")
     private WebElement PhotoOfAssessment;
 
+    @FindBy(id = "applicationCheck")
+    private WebElement applicationCheckBox;
+
     public PropertyDetailsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -400,6 +403,7 @@ public class PropertyDetailsPage extends BasePage {
     }
 
     public void forward() {
+        clickOnButton(applicationCheckBox,webDriver);
         clickOnButton(forwardButton, webDriver);
     }
 

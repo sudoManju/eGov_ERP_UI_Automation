@@ -1,5 +1,6 @@
 package steps.ptis;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import pages.ptis.PropertyAcknowledgementPage;
 import steps.BaseSteps;
@@ -19,7 +20,11 @@ public class PropertyAcknowledgementSteps extends BaseSteps implements En {
             scenarioContext.setAssessmentNumber(msg.substring(msg.lastIndexOf(" ") + 1));
             pageStore.get(PropertyAcknowledgementPage.class).close();
         });
-
+        And("^he will copy the acknowledgement of above rejected (.*)$", (String type) -> {
+            String msg = pageStore.get(PropertyAcknowledgementPage.class).getAssessmentNumberNew(type);
+            scenarioContext.setActualMessage(msg);
+            pageStore.get(PropertyAcknowledgementPage.class).close();
+        });
         And("^current user closes acknowledgement$", () -> {
             pageStore.get(PropertyAcknowledgementPage.class).close();
         });
