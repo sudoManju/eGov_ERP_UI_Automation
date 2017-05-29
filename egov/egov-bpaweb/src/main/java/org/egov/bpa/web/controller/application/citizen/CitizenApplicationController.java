@@ -44,12 +44,15 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.egov.bpa.application.entity.ApplicationDocument;
 import org.egov.bpa.application.entity.ApplicationStakeHolder;
 import org.egov.bpa.application.entity.BpaApplication;
+import org.egov.bpa.application.entity.CheckListDetail;
 import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.application.entity.StakeHolder;
 import org.egov.bpa.masters.service.ServiceTypeService;
@@ -97,6 +100,16 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
 		model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
 		model.addAttribute("checkListDetailList", checkListDetailService.findActiveCheckListByServiceType(bpaApplication.getServiceType().getId(), 
 				BpaConstants.CHECKLIST_TYPE));
+		List<CheckListDetail>checkListDetail= checkListDetailService.findActiveCheckListByServiceType(bpaApplication.getServiceType().getId(), 
+				BpaConstants.CHECKLIST_TYPE);
+		List<ApplicationDocument> appDocList=new ArrayList<>();
+		for(CheckListDetail checkdet:checkListDetail)
+		{
+			ApplicationDocument appdoc=new ApplicationDocument();
+					appdoc.setChecklistDetail(checkdet);
+					appDocList.add(appdoc);
+		}
+        model.addAttribute("applicationDocumentList",appDocList);
 		return "citizenApplication-form";
 	}
 

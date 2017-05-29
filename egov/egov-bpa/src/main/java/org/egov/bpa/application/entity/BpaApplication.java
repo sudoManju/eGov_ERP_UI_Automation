@@ -164,6 +164,7 @@ public class BpaApplication extends StateAware {
     private List<PermittedFloorDetail> permittedFloorDetail = new ArrayList<>();
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<AutoDcrMap> autoDcr = new ArrayList<>();
+    @OrderBy("id ASC")
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ApplicationDocument> applicationDocument = new ArrayList<>(0);
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

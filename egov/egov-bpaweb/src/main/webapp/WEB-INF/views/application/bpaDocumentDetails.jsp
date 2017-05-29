@@ -68,31 +68,45 @@
 		</div>
 	<c:choose>
 	<c:when test="${bpaApplication.serviceType ne null}">
-		<c:forEach var="docs" items="${checkListDetailList}"
+		<c:forEach var="docs" items="${applicationDocumentList}"
 			varStatus="status">
 			<div class="form-group">
 				<div class="col-sm-3 add-margin check-text text-right">
-					<c:out value="${docs.description}"></c:out>
-					<c:if test="${docs.isMandatory}">
+					<c:out value="${docs.checklistDetail.description}"></c:out>
+					<c:if test="${docs.checklistDetail.isMandatory}">
 						<span class="mandatory"></span>
 					</c:if>
 					<form:hidden
+						id="applicationDocument${status.index}id"
+						path="applicationDocument[${status.index}].id"
+						value="${docs.id}" />
+					<form:hidden
 						id="applicationDocument${status.index}checklistDetail"
 						path="applicationDocument[${status.index}].checklistDetail"
-						value="${docs.id}" />
+						value="${docs.checklistDetail.id}" />
 					<form:hidden id="applicationDocument${status.index}checklistDetail"
 						path="applicationDocument[${status.index}].checklistDetail.isMandatory"
-						value="${docs.isMandatory}" />
+						value="${docs.checklistDetail.isMandatory}" />
 					<form:hidden
 						id="applicationDocument${status.index}checklistDetail.description"
 						path="applicationDocument[${status.index}].checklistDetail.description"
-						value="${docs.description}" />
+						value="${docs.checklistDetail.description}" />
 				</div>
 
 				<div class="col-sm-3 add-margin text-center">
+				<c:choose>
+				<c:when test="${docs.issubmitted ne null &&  docs.issubmitted == 'true'}">
 					<form:checkbox id="applicationDocument${status.index}issubmitted"
+						path="applicationDocument[${status.index}].issubmitted"  checked="checked"
+						value="${docs.issubmitted}"/>
+						</c:when>
+						<c:otherwise>
+							<form:checkbox id="applicationDocument${status.index}issubmitted"
 						path="applicationDocument[${status.index}].issubmitted"
-						value="applicationDocument${status.index}issubmitted" />
+						value="${docs.issubmitted}"/>
+						</c:otherwise>
+				</c:choose>
+				
 				</div>
 
 				<div class="col-sm-3 add-margin text-center">
@@ -100,14 +114,15 @@
 					<form:textarea class="form-control patternvalidation"
 						data-pattern="string" maxlength="256"
 						id="applicationDocument${status.index}remarks"
-						path="applicationDocument[${status.index}].remarks" />
+						path="applicationDocument[${status.index}].remarks" 
+						value="{docs.remarks}"/>
 					<form:errors path="applicationDocument[${status.index}].remarks"
 						cssClass="add-margin error-msg" />
 				</div>
 
 				<div class="col-sm-3 add-margin text-center">
 					<c:choose>
-						<c:when test="${docs.isMandatory}">
+						<c:when test="${docs.checklistDetail.isMandatory}">
 							<input type="file" id="file${status.index}id"
 								name="applicationDocument[${status.index}].files"
 								class="file-ellipsis upload-file" required="required">
@@ -123,16 +138,13 @@
 				</div>
 				<div class="col-sm-2">
 					<c:set value="false" var="isDocFound"></c:set>
-					<c:forEach items="${bpaApplication.applicationDocument}"
-						var="appdoc">
-						<c:if test="${appdoc.checklistDetail.id == docs.id}">
-							<c:forEach items="${appdoc.getSupportDocs()}" var="file">
+					<c:forEach items="${docs.getSupportDocs()}" var="file">
 								<c:set value="true" var="isDocFound"></c:set>
 								<a href="/bpa/application/downloadfile/${file.fileStoreId}"
 									data-gallery>${file.fileName} </a>
+									
 							</c:forEach>
-						</c:if>
-					</c:forEach>
+						
 					<c:if test="${ mode !='new' && !isDocFound}">
 						NA
 					</c:if>

@@ -144,7 +144,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
 	@Transactional
 	public BpaApplication createNewApplication(final BpaApplication application, String workFlowAction) {
 		final Boundary boundaryObj = bpaUtils.getBoundaryById(application.getWardId() != null ? application.getWardId()
-				: application.getZoneId() != null ? application.getZoneId() : null);
+				:( application.getZoneId() != null ? application.getZoneId() : null));
 		application.getSiteDetail().get(0).setAdminBoundary(boundaryObj);
 		application.getSiteDetail().get(0).setApplication(application);
 		application.getBuildingDetail().get(0).setApplication(application);
@@ -354,10 +354,20 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
 	protected void processAndStoreApplicationDocuments(final BpaApplication bpaApplication) {
 		if (!bpaApplication.getApplicationDocument().isEmpty())
 			for (final ApplicationDocument applicationDocument : bpaApplication.getApplicationDocument()) {
-				applicationDocument.setChecklistDetail(
-						checkListDetailService.load(applicationDocument.getChecklistDetail().getId()));
-				applicationDocument.setApplication(bpaApplication);
-				applicationDocument.setSupportDocs(addToFileStore(applicationDocument.getFiles()));
+						applicationDocument.setChecklistDetail(
+								checkListDetailService.load(applicationDocument.getChecklistDetail().getId()));
+						applicationDocument.setApplication(bpaApplication);
+						if (applicationDocument.getIssubmitted() == null
+								|| applicationDocument.getIssubmitted().equals(Boolean.FALSE))
+							applicationDocument.setIssubmitted(Boolean.FALSE);
+						else
+							applicationDocument.setIssubmitted(Boolean.TRUE);
+						for (MultipartFile tempFile : applicationDocument.getFiles()) {
+							if (tempFile.getSize() > 0) {
+							applicationDocument.setSupportDocs(addToFileStore(applicationDocument.getFiles()));
+					}
+				}
+
 			}
 	}
 

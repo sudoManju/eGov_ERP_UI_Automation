@@ -106,6 +106,7 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 				.findActiveCheckListByServiceType(application.getServiceType().getId(), CHECKLIST_TYPE_NOC));
 		model.addAttribute("checkListDetailList", checkListDetailService
 				.findActiveCheckListByServiceType(application.getServiceType().getId(), BpaConstants.CHECKLIST_TYPE));
+        model.addAttribute("applicationDocumentList",application.getApplicationDocument());
 	}
 
 	@RequestMapping(value = "/citizen/update/{applicationNumber}", method = RequestMethod.POST)
