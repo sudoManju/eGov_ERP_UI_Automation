@@ -86,9 +86,12 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 			final HttpServletRequest request) {
 		final BpaApplication application = getBpaApplication(applicationNumber);
 		model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
-		model.addAttribute("mode", "citizen");
+		model.addAttribute("mode", "newappointment");
 		model.addAttribute(APPLICATION_HISTORY, bpaThirdPartyService.getHistory(application));
 		loadViewdata(model, application);
+		if(application.getStatus()!=null && application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_CREATED))
+			return "bpaapp-citizenForm";
+		else
 		return "citizen-view";
 	}
 
@@ -122,6 +125,7 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 		workFlowAction = request.getParameter("workFlowAction");
 		Long approvalPosition = null;
 		applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
+		bpaApplication.getBuildingDetail().get(0).setApplicationFloorDetails(applicationBpaService.buildApplicationFloorDetails(bpaApplication));
 		if (workFlowAction != null && workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)
 				&& (bpaUtils.logedInuseCitizenOrBusinessUser())) {
 			final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(bpaApplication,

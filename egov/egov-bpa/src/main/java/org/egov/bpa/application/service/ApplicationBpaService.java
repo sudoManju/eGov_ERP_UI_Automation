@@ -182,7 +182,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
 		return applicationBpaRepository.save(application);
 	}
 
-	private List<ApplicationFloorDetail> buildApplicationFloorDetails(final BpaApplication application) {
+	public List<ApplicationFloorDetail> buildApplicationFloorDetails(final BpaApplication application) {
 		List<ApplicationFloorDetail> floorDetailsList = new ArrayList<>();
 		if (!application.getBuildingDetail().isEmpty()) {
 			application.getBuildingDetail().get(0).setApplication(application);
