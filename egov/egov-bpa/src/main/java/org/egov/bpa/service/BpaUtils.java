@@ -2,6 +2,7 @@ package org.egov.bpa.service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -140,7 +141,7 @@ public class BpaUtils {
         final PortalInboxBuilder portalInboxBuilder = new PortalInboxBuilder(module,application.getServiceType().getDescription(),
         		application.getApplicationNumber(),application.getPlanPermissionNumber(),application.getId(),
                 "Sucess","suceess1",url,
-                isResolved,"to be Subitted",new Date(),application.getState(),securityUtils.getCurrentUser());
+                isResolved,"to be Subitted",new Date(),application.getState(),Arrays.asList(securityUtils.getCurrentUser()));
 
         final PortalInbox portalInbox = portalInboxBuilder.build();
         portalInboxService.pushInboxMessage(portalInbox);
