@@ -1,11 +1,17 @@
 package pages.employeeManagement.employeeCreation;
 
 import entities.employeeManagement.createEmployee.AssignmentDetails;
+import org.joda.time.Seconds;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
+
+import java.util.concurrent.TimeUnit;
+
+import static com.jayway.awaitility.Awaitility.await;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class AssignmentDetailsPage extends BasePage {
 
@@ -30,7 +36,7 @@ public class AssignmentDetailsPage extends BasePage {
     @FindBy(css = "select[id='assignments.designation']")
     private WebElement designationSelectBox;
 
-    @FindBy(css = "select[id='assignments.position']")
+    @FindBy(css = "[id='assignments.position']")
     private WebElement positionSelectBox;
 
     @FindBy(css = "select[id='assignments.grade']")
@@ -83,8 +89,12 @@ public class AssignmentDetailsPage extends BasePage {
         enterDate(toDateTextBox, getCurrentDate(), webDriver);
         selectFromDropDown(departmentSelectBox, assignmentDetails.getDepartment(), webDriver);
         selectFromDropDown(designationSelectBox, assignmentDetails.getDesignation(), webDriver);
-        clickOnButton(positionSelectBox, webDriver);
-        selectFromDropDown(positionSelectBox, positionSelectBox.findElements(By.tagName("option")).get(1).getText(), webDriver);
+        waitForElementToBeVisible(webDriver.findElement(By.cssSelector("[class='col-sm-6'] [id='assignments.position']")), webDriver);
+        waitForElementToBeClickable(webDriver.findElement(By.cssSelector("[class='col-sm-6'] [id='assignments.position']")), webDriver);
+//        webDriver.findElement(By.cssSelector("[class='col-sm-6'] [id='assignments.position']")).click();
+        jsClick(positionSelectBox, webDriver);
+        await().atMost(10, SECONDS).until(() -> positionSelectBox.findElements(By.tagName("option")).size() > 1);
+        clickOnButton(positionSelectBox.findElements(By.tagName("option")).get(1), webDriver);
 
         clickOnButton(addOrEditButton, webDriver);
     }

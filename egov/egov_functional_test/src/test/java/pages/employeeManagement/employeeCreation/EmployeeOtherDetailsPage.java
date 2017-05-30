@@ -213,7 +213,7 @@ public class EmployeeOtherDetailsPage extends BasePage {
 
     public void submitCreateEmployee() {
         jsClick(webDriver.findElement(By.id("addEmployee")), webDriver);
-        clickOnButton(webDriver.findElement(By.cssSelector(".btn.btn-close")), webDriver);
+        jsClick(webDriver.findElement(By.cssSelector(".btn.btn-close")), webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
     }
 
