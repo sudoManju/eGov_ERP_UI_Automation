@@ -404,7 +404,12 @@ public class PropertyDetailsPage extends BasePage {
 
     public void forward() {
         clickOnButton(applicationCheckBox,webDriver);
-        clickOnButton(forwardButton, webDriver);
+        if(forwardButton.isEnabled()) {
+            clickOnButton(forwardButton, webDriver);
+        }else {
+            clickOnButton(applicationCheckBox,webDriver);
+            clickOnButton(forwardButton, webDriver);
+        }
     }
 
     public void approve() {
