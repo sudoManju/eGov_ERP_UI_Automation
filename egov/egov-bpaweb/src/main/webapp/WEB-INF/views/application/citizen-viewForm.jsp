@@ -53,8 +53,6 @@
 						<form:hidden path="" id="workFlowAction" name="workFlowAction"/>		
 			<form:hidden path="" id="wfstateDesc"
 				value="${bpaApplication.state.value}" />
-				<input type="text" id="statusCode"
-				value="${bpaApplication.status.code}" />
 					<input type="hidden" name="citizenOrBusinessUser"
 				value="${citizenOrBusinessUser}">
 			<ul class="nav nav-tabs" id="settingstab">
@@ -154,16 +152,6 @@
 			<div class="buttonbottom" align="center">
 				<table>
 					<tr>
-					<td><c:choose>
-					<c:when test="${citizenOrBusinessUser && bpaApplication.id !=null && bpaApplication.state==null && statusCode == 'Created'}">
-				<form:button type="submit" id="buttonSave" class="btn btn-primary"
-					value="Save">Save</form:button>
-				<td><form:button type="submit" id="buttonSubmit" class="btn btn-primary"
-					value="Submit">Submit</form:button></td>
-					</c:when>
-					<c:otherwise>
-					</c:otherwise>
-					</c:choose><td>
 						<td><input type="button" name="button2" id="button2" value="Close"
 							class="btn btn-primary" onclick="window.close();" />
 						</td>
