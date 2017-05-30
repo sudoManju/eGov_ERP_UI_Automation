@@ -70,6 +70,11 @@
 		 if(rejectbutton!=null && rejectbutton=='Approve'){
 				$('#approvalComent').removeAttr('required');
 			} 
+		 if(rejectbutton == 'Forward' && $('#currentState').val() == 'LP Initiated'){
+				$('#approvalDepartment').removeAttr('required');
+				$('#approvalDesignation').removeAttr('required');
+				$('#approvalPosition').removeAttr('required');
+			}
 	   document.forms[0].submit;
 	   return true;
 	}

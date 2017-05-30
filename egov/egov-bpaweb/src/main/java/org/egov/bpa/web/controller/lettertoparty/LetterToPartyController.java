@@ -42,6 +42,7 @@ package org.egov.bpa.web.controller.lettertoparty;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -68,6 +69,7 @@ import org.egov.infra.filestore.service.FileStoreService;
 import org.egov.infra.reporting.engine.ReportOutput;
 import org.egov.infra.reporting.engine.ReportRequest;
 import org.egov.infra.reporting.engine.ReportService;
+import org.egov.infra.workflow.entity.StateHistory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.support.ResourceBundleMessageSource;
@@ -89,212 +91,216 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping(value = "/lettertoparty")
 public class LetterToPartyController {
-    @Autowired
-    ApplicationBpaService applicationBpaService;
-    @Autowired
-    LpReasonService lpReasonService;
-    @Autowired
-    LettertoPartyService lettertoPartyService;
-    @Autowired
-    private CheckListDetailService checkListDetailService;
-    @Autowired
-    @Qualifier("fileStoreService")
-    protected FileStoreService fileStoreService;
-    @Autowired
-    private ReportService reportService;
-    @Autowired
-    protected ResourceBundleMessageSource messageSource;
-    @Autowired
-    private LettertoPartyDocumentService lettertoPartyDocumentService;
-    private static final String MESSAGE = "message";
-    static final String LPCHK = "lp";
-    static final String LPREPLYCHK = "lpreply";
+	private static final String REDIRECT_LETTERTOPARTY_RESULT = "redirect:/lettertoparty/result/";
+	private static final String CHECK_LIST_DETAIL_LIST = "checkListDetailList";
+	private static final String LETTERTOPARTYDOC_LIST = "lettertopartydocList";
+	private static final String LETTERTO_PARTY = "lettertoParty";
+	private static final String BPA_APPLICATION = "bpaApplication";
+	private static final String MESSAGE = "message";
+	static final String LPCHK = "lp";
+	static final String LPREPLYCHK = "lpreply";
 
-    @ModelAttribute("lpReasonList")
-    public List<LpReason> getLpReasonList() {
-        return lpReasonService.findAll();
-    }
+	@Autowired
+	ApplicationBpaService applicationBpaService;
+	@Autowired
+	LpReasonService lpReasonService;
+	@Autowired
+	LettertoPartyService lettertoPartyService;
+	@Autowired
+	private CheckListDetailService checkListDetailService;
+	@Autowired
+	@Qualifier("fileStoreService")
+	protected FileStoreService fileStoreService;
+	@Autowired
+	private ReportService reportService;
+	@Autowired
+	protected ResourceBundleMessageSource messageSource;
+	@Autowired
+	private LettertoPartyDocumentService lettertoPartyDocumentService;
 
-    @ModelAttribute("checkListDetailList")
-    public List<CheckListDetail> checkListDetailList() {
-        return checkListDetailService.findActiveCheckListByChecklistType(BpaConstants.CHECKLIST_TYPE);
-    }
+	@ModelAttribute("lpReasonList")
+	public List<LpReason> getLpReasonList() {
+		return lpReasonService.findAll();
+	}
 
-    @RequestMapping(value = "/create/{applicationNumber}", method = GET)
-    public String createLetterToParty(@ModelAttribute final LettertoParty lettertoParty,
-            @PathVariable final String applicationNumber, final Model model, final HttpServletRequest request) {
-        model.addAttribute("mode", "new");
-        BpaApplication bpaApplication = applicationBpaService.findByApplicationNumber(applicationNumber);
-        model.addAttribute("bpaApplication", bpaApplication);
-        lettertoParty.setApplication(bpaApplication);
-        return "lettertoparty-create";
-    }
+	public List<CheckListDetail> getCheckListDetailList(final Long serviceTypeId) {
+		return checkListDetailService.findActiveCheckListByServiceType(serviceTypeId, BpaConstants.CHECKLIST_TYPE);
+	}
 
-    public void validateCreateLetterToParty(LettertoParty lettertoParty, BindingResult errors) {
-        boolean required = false;
-        if (lettertoParty.getLpReason() == null)
-            errors.rejectValue("lpReason", "lbl.lp.reason.required");
-        for (final LettertoPartyDocument lettertoPartyDocument : lettertoParty.getLettertoPartyDocument()) {
-            if (lettertoPartyDocument.getIsrequested())
-                required = Boolean.TRUE;
-        }
-        if (!required)
-            errors.rejectValue("lettertoPartyDocument[1].isrequested", "lbl.dorequired.required");
-    }
+	@RequestMapping(value = "/create/{applicationNumber}", method = GET)
+	public String createLetterToParty(@ModelAttribute final LettertoParty lettertoParty,
+			@PathVariable final String applicationNumber, final Model model, final HttpServletRequest request) {
+		model.addAttribute("mode", "new");
+		BpaApplication bpaApplication = applicationBpaService.findByApplicationNumber(applicationNumber);
+		model.addAttribute(BPA_APPLICATION, bpaApplication);
+		model.addAttribute(CHECK_LIST_DETAIL_LIST, getCheckListDetailList(bpaApplication.getServiceType().getId()));
+		lettertoParty.setApplication(bpaApplication);
+		return "lettertoparty-create";
+	}
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String createLetterToParty(@ModelAttribute final LettertoParty lettertoParty,
-            final BindingResult resultBinder, final Model model,
-            final HttpServletRequest request, final BindingResult errors, final RedirectAttributes redirectAttributes) {
-        validateCreateLetterToParty(lettertoParty, errors);
-        if (errors.hasErrors())
-            return "lettertoparty-create";
-        processAndStoreLetterToPartyDocuments(lettertoParty);
-        lettertoPartyService.save(lettertoParty);
-        redirectAttributes.addFlashAttribute(MESSAGE, messageSource.getMessage("msg.lettertoparty.create.success", null, null));
-        return "redirect:/lettertoparty/result/" + lettertoParty.getId();
-    }
+	public void validateCreateLetterToParty(LettertoParty lettertoParty, BindingResult errors) {
+		boolean required = false;
+		if (lettertoParty.getLpReason() == null)
+			errors.rejectValue("lpReason", "lbl.lp.reason.required");
+		for (final LettertoPartyDocument lettertoPartyDocument : lettertoParty.getLettertoPartyDocument()) {
+			if (lettertoPartyDocument.getIsrequested())
+				required = Boolean.TRUE;
+		}
+		if (!required)
+			errors.rejectValue("lettertoPartyDocument[1].isrequested", "lbl.dorequired.required");
+	}
 
-    @RequestMapping(value = "/update/{applicationNumber}", method = RequestMethod.GET)
-    public String editLetterToParty(@PathVariable final String applicationNumber, final Model model) {
-        prepareLetterToParty(applicationNumber, model);
-        return "lettertoparty-update";
-    }
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	public String createLetterToParty(@ModelAttribute final LettertoParty lettertoParty,
+			final BindingResult resultBinder, final Model model, final HttpServletRequest request,
+			final BindingResult errors, final RedirectAttributes redirectAttributes) {
+		validateCreateLetterToParty(lettertoParty, errors);
+		if (errors.hasErrors())
+			return "lettertoparty-create";
+		processAndStoreLetterToPartyDocuments(lettertoParty);
+		lettertoParty.setCurrentApplnStatus(lettertoParty.getApplication().getStatus());
+		lettertoParty.setCurrentStateValueOfLP(lettertoParty.getApplication().getStateHistory().stream()
+				.sorted(Comparator.comparing(StateHistory::getId).reversed()).collect(Collectors.toList()).get(0)
+				.getValue());
+		lettertoPartyService.save(lettertoParty);
+		redirectAttributes.addFlashAttribute(MESSAGE,
+				messageSource.getMessage("msg.lettertoparty.create.success", null, null));
+		return REDIRECT_LETTERTOPARTY_RESULT + lettertoParty.getId();
+	}
 
-    private void prepareLetterToParty(String applicationNumber, Model model) {
-        final BpaApplication bpaApplication = applicationBpaService.findByApplicationNumber(applicationNumber);
-        final List<LettertoParty> lettertoPartyList = lettertoPartyService.findByBpaApplicationOrderByIdAsc(bpaApplication);
-        LettertoParty lettertoParty = null;
-        if (!lettertoPartyList.isEmpty())
-            lettertoParty = lettertoPartyList.get(0);
-        if (lettertoParty != null) {
-            model.addAttribute("lettertoParty", lettertoParty);
-            model.addAttribute("lettertopartydocList", lettertoParty.getLettertoPartyDocument());
-        }
-        model.addAttribute("bpaApplication", bpaApplication);
-    }
+	@RequestMapping(value = "/update/{applicationNumber}", method = RequestMethod.GET)
+	public String editLetterToParty(@PathVariable final String applicationNumber, final Model model) {
+		prepareLetterToParty(applicationNumber, model);
+		return "lettertoparty-update";
+	}
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String updateLettertoparty(@ModelAttribute final LettertoParty lettertoparty,
-            final Model model,
-            final HttpServletRequest request,
-            final BindingResult errors, final RedirectAttributes redirectAttributes) {
-        processAndStoreLetterToPartyDocuments(lettertoparty);
-        lettertoPartyService.save(lettertoparty);
-        redirectAttributes.addFlashAttribute(MESSAGE,
-                messageSource.getMessage("msg.lettertoparty.update.success", null, null));
-        return "redirect:/lettertoparty/result/" + lettertoparty.getId();
-    }
+	private void prepareLetterToParty(String applicationNumber, Model model) {
+		final BpaApplication bpaApplication = applicationBpaService.findByApplicationNumber(applicationNumber);
+		final List<LettertoParty> lettertoPartyList = lettertoPartyService
+				.findByBpaApplicationOrderByIdDesc(bpaApplication);
+		LettertoParty lettertoParty = null;
+		if (!lettertoPartyList.isEmpty())
+			lettertoParty = lettertoPartyList.get(0);
+		if (lettertoParty != null) {
+			model.addAttribute(LETTERTO_PARTY, lettertoParty);
+			model.addAttribute(LETTERTOPARTYDOC_LIST, lettertoParty.getLettertoPartyDocument());
+		}
+		model.addAttribute(CHECK_LIST_DETAIL_LIST, getCheckListDetailList(bpaApplication.getServiceType().getId()));
+		model.addAttribute(BPA_APPLICATION, bpaApplication);
+	}
 
-    @RequestMapping(value = "/result/{id}", method = RequestMethod.GET)
-    public String resultLettertoParty(@PathVariable final Long id, final Model model) {
-        model.addAttribute("lettertoParty", lettertoPartyService.findById(id));
-        LettertoParty lettertoParty = lettertoPartyService.findById(id);
-        model.addAttribute("lettertopartydocList", lettertoParty.getLettertoPartyDocument());
-        model.addAttribute("lettertopartylist",
-                lettertoPartyService.findByBpaApplicationOrderByIdAsc(lettertoParty.getApplication()));
-        return "lettertoparty-result";
-    }
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String updateLettertoparty(@ModelAttribute final LettertoParty lettertoparty, final Model model,
+			final HttpServletRequest request, final BindingResult errors, final RedirectAttributes redirectAttributes) {
+		processAndStoreLetterToPartyDocuments(lettertoparty);
+		lettertoPartyService.save(lettertoparty);
+		redirectAttributes.addFlashAttribute(MESSAGE,
+				messageSource.getMessage("msg.lettertoparty.update.success", null, null));
+		return REDIRECT_LETTERTOPARTY_RESULT + lettertoparty.getId();
+	}
 
-    protected Set<FileStoreMapper> addToFileStore(final MultipartFile[] files) {
-        if (ArrayUtils.isNotEmpty(files))
-            return Arrays
-                    .asList(files)
-                    .stream()
-                    .filter(file -> !file.isEmpty())
-                    .map(file -> {
-                        try {
-                            return fileStoreService.store(file.getInputStream(), file.getOriginalFilename(),
-                                    file.getContentType(), BpaConstants.FILESTORE_MODULECODE);
-                        } catch (final Exception e) {
-                            throw new ApplicationRuntimeException("Error occurred while getting inputstream", e);
-                        }
-                    }).collect(Collectors.toSet());
-        else
-            return null;
-    }
+	@RequestMapping(value = "/result/{id}", method = RequestMethod.GET)
+	public String resultLettertoParty(@PathVariable final Long id, final Model model) {
+		model.addAttribute(LETTERTO_PARTY, lettertoPartyService.findById(id));
+		LettertoParty lettertoParty = lettertoPartyService.findById(id);
+		model.addAttribute(LETTERTOPARTYDOC_LIST, lettertoParty.getLettertoPartyDocument());
+		model.addAttribute("lettertopartylist",
+				lettertoPartyService.findByBpaApplicationOrderByIdDesc(lettertoParty.getApplication()));
+		return "lettertoparty-result";
+	}
 
-    protected void processAndStoreLetterToPartyDocuments(final LettertoParty lettertoParty) {
-        if (!lettertoParty.getLettertoPartyDocument().isEmpty())
-            for (final LettertoPartyDocument lettertoPartyDocument : lettertoParty.getLettertoPartyDocument()) {
-                lettertoPartyDocument.setChecklistDetail(checkListDetailService.load(lettertoPartyDocument.getChecklistDetail()
-                        .getId()));
-                lettertoPartyDocument.setLettertoParty(lettertoParty);
-                lettertoPartyDocument.setSupportDocs(addToFileStore(lettertoPartyDocument.getFiles()));
-            }
-    }
+	protected Set<FileStoreMapper> addToFileStore(final MultipartFile[] files) {
+		if (ArrayUtils.isNotEmpty(files))
+			return Arrays.asList(files).stream().filter(file -> !file.isEmpty()).map(file -> {
+				try {
+					return fileStoreService.store(file.getInputStream(), file.getOriginalFilename(),
+							file.getContentType(), BpaConstants.FILESTORE_MODULECODE);
+				} catch (final Exception e) {
+					throw new ApplicationRuntimeException("Error occurred while getting inputstream", e);
+				}
+			}).collect(Collectors.toSet());
+		else
+			return null;
+	}
 
-    @RequestMapping(value = "/lettertopartyprint/{type}", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<byte[]> generateLettertoParty(@PathVariable final String type, final HttpServletRequest request,
-            final HttpSession session) {
-        final LettertoParty lettertoParty = lettertoPartyService.findById(new Long(request.getParameter("pathVar")));
-        return generateReport(lettertoParty, type);
-    }
+	protected void processAndStoreLetterToPartyDocuments(final LettertoParty lettertoParty) {
+		if (!lettertoParty.getLettertoPartyDocument().isEmpty())
+			for (final LettertoPartyDocument lettertoPartyDocument : lettertoParty.getLettertoPartyDocument()) {
+				lettertoPartyDocument.setChecklistDetail(
+						checkListDetailService.load(lettertoPartyDocument.getChecklistDetail().getId()));
+				lettertoPartyDocument.setLettertoParty(lettertoParty);
+				lettertoPartyDocument.setSupportDocs(addToFileStore(lettertoPartyDocument.getFiles()));
+			}
+	}
 
-    private ResponseEntity<byte[]> generateReport(final LettertoParty lettertoParty,
-            String type) {
-        ReportRequest reportInput = null;
-        ReportOutput reportOutput;
-        if (lettertoParty != null) {
-            Map<String, Object> reportParams = null;
-            if (LPCHK.equals(type))
-                reportInput = new ReportRequest("lettertoparty", lettertoParty, reportParams);
-            else if (LPREPLYCHK.equals(type))
-                reportInput = new ReportRequest("lettertopartyreply", lettertoParty, reportParams);
-            reportInput.setPrintDialogOnOpenReport(true);
-        }
-        final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.parseMediaType("application/pdf"));
-        if (LPCHK.equals(type))
-            headers.add("content-disposition", "inline;filename=lettertoparty.pdf");
-        else if (LPREPLYCHK.equals(type))
-            headers.add("content-disposition", "inline;filename=lettertopartyreply.pdf");
-        reportOutput = reportService.createReport(reportInput);
-        return new ResponseEntity<>(reportOutput.getReportOutputData(), headers, HttpStatus.CREATED);
-    }
+	@RequestMapping(value = "/lettertopartyprint/{type}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<byte[]> generateLettertoParty(@PathVariable final String type,
+			final HttpServletRequest request, final HttpSession session) {
+		final LettertoParty lettertoParty = lettertoPartyService.findById(new Long(request.getParameter("pathVar")));
+		return generateReport(lettertoParty, type);
+	}
 
-    @RequestMapping(value = "/viewchecklist/{type}/{id}", method = RequestMethod.GET)
-    public String viewchecklist(@PathVariable final Long id, @PathVariable final String type, final Model model) {
-        if (type.equals(LPCHK))
-            model.addAttribute("lettertopartydocList",
-                    lettertoPartyDocumentService
-                            .findByIsrequestedTrueAndLettertoPartyOrderByIdAsc(lettertoPartyService.findById(id)));
-        else if (type.equals(LPREPLYCHK))
-            model.addAttribute("lettertopartydocList",
-                    lettertoPartyDocumentService
-                            .findByIsrequestedTrueAndIssubmittedTrueAndLettertoPartyOrderByIdAsc(
-                                    lettertoPartyService.findById(id)));
-        return "lettertoparty-checklist";
-    }
+	private ResponseEntity<byte[]> generateReport(final LettertoParty lettertoParty, String type) {
+		ReportRequest reportInput = null;
+		ReportOutput reportOutput;
+		if (lettertoParty != null) {
+			Map<String, Object> reportParams = null;
+			if (LPCHK.equals(type))
+				reportInput = new ReportRequest("lettertoparty", lettertoParty, reportParams);
+			else if (LPREPLYCHK.equals(type))
+				reportInput = new ReportRequest("lettertopartyreply", lettertoParty, reportParams);
+			reportInput.setPrintDialogOnOpenReport(true);
+		}
+		final HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.parseMediaType("application/pdf"));
+		if (LPCHK.equals(type))
+			headers.add("content-disposition", "inline;filename=lettertoparty.pdf");
+		else if (LPREPLYCHK.equals(type))
+			headers.add("content-disposition", "inline;filename=lettertopartyreply.pdf");
+		reportOutput = reportService.createReport(reportInput);
+		return new ResponseEntity<>(reportOutput.getReportOutputData(), headers, HttpStatus.CREATED);
+	}
 
-    @RequestMapping(value = "/capturesentdate/{id}", method = RequestMethod.GET)
-    public String capturesentdate(@PathVariable final Long id, final Model model) {
-        LettertoParty lettertoParty = lettertoPartyService.findById(id);
-        model.addAttribute("lettertoParty", lettertoParty);
-        model.addAttribute("lettertopartydocList", lettertoParty.getLettertoPartyDocument());
-        model.addAttribute("bpaApplication", lettertoParty.getApplication());
-        return "lettertoparty-capturesentdate";
-    }
+	@RequestMapping(value = "/viewchecklist/{type}/{id}", method = RequestMethod.GET)
+	public String viewchecklist(@PathVariable final Long id, @PathVariable final String type, final Model model) {
+		if (type.equals(LPCHK))
+			model.addAttribute(LETTERTOPARTYDOC_LIST, lettertoPartyDocumentService
+					.findByIsrequestedTrueAndLettertoPartyOrderByIdAsc(lettertoPartyService.findById(id)));
+		else if (type.equals(LPREPLYCHK))
+			model.addAttribute(LETTERTOPARTYDOC_LIST,
+					lettertoPartyDocumentService.findByIsrequestedTrueAndIssubmittedTrueAndLettertoPartyOrderByIdAsc(
+							lettertoPartyService.findById(id)));
+		return "lettertoparty-checklist";
+	}
 
-    @RequestMapping(value = "/lettertopartyreply/{id}", method = RequestMethod.GET)
-    public String createLettertoPartyReply(@PathVariable final Long id, final Model model) {
-        LettertoParty lettertoParty = lettertoPartyService.findById(id);
-        model.addAttribute("lettertoParty", lettertoParty);
-        model.addAttribute("lettertopartydocList", lettertoParty.getLettertoPartyDocument());
-        model.addAttribute("bpaApplication", lettertoParty.getApplication());
-        return "lettertoparty-lpreply";
-    }
+	@RequestMapping(value = "/capturesentdate/{id}", method = RequestMethod.GET)
+	public String capturesentdate(@PathVariable final Long id, final Model model) {
+		LettertoParty lettertoParty = lettertoPartyService.findById(id);
+		model.addAttribute(LETTERTO_PARTY, lettertoParty);
+		model.addAttribute(LETTERTOPARTYDOC_LIST, lettertoParty.getLettertoPartyDocument());
+		model.addAttribute(BPA_APPLICATION, lettertoParty.getApplication());
+		return "lettertoparty-capturesentdate";
+	}
 
-    @RequestMapping(value = "/lettertopartyreply", method = RequestMethod.POST)
-    public String createLettertoPartyReply(@ModelAttribute final LettertoParty lettertoparty,
-            final Model model,
-            final HttpServletRequest request,
-            final BindingResult errors, final RedirectAttributes redirectAttributes) {
-        processAndStoreLetterToPartyDocuments(lettertoparty);
-        lettertoPartyService.save(lettertoparty);
-        redirectAttributes.addFlashAttribute(MESSAGE,
-                messageSource.getMessage("msg.lettertoparty.reply.success", null, null));
-        return "redirect:/lettertoparty/result/" + lettertoparty.getId();
-    }
+	@RequestMapping(value = "/lettertopartyreply/{id}", method = RequestMethod.GET)
+	public String createLettertoPartyReply(@PathVariable final Long id, final Model model) {
+		LettertoParty lettertoParty = lettertoPartyService.findById(id);
+		model.addAttribute(LETTERTO_PARTY, lettertoParty);
+		model.addAttribute(LETTERTOPARTYDOC_LIST, lettertoParty.getLettertoPartyDocument());
+		model.addAttribute(BPA_APPLICATION, lettertoParty.getApplication());
+		model.addAttribute(CHECK_LIST_DETAIL_LIST,
+				getCheckListDetailList(lettertoParty.getApplication().getServiceType().getId()));
+		return "lettertoparty-lpreply";
+	}
+
+	@RequestMapping(value = "/lettertopartyreply", method = RequestMethod.POST)
+	public String createLettertoPartyReply(@ModelAttribute final LettertoParty lettertoparty, final Model model,
+			final HttpServletRequest request, final BindingResult errors, final RedirectAttributes redirectAttributes) {
+		processAndStoreLetterToPartyDocuments(lettertoparty);
+		lettertoPartyService.save(lettertoparty);
+		redirectAttributes.addFlashAttribute(MESSAGE,
+				messageSource.getMessage("msg.lettertoparty.reply.success", null, null));
+		return REDIRECT_LETTERTOPARTY_RESULT + lettertoparty.getId();
+	}
 }

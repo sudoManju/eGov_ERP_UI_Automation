@@ -76,85 +76,86 @@
 		<div class="col-sm-3 add-margin view-content">
 			<c:out value="${lettertoParty.lpDesc}"></c:out>
 		</div>
-	
+
 	</div>
-	  <c:if test="${lettertoParty.sentDate !=null }">
-		 <div class="row add-border">
+	<c:if test="${lettertoParty.sentDate !=null }">
+		<div class="row add-border">
 			<div class="col-sm-3 add-margin">
 				<spring:message code="lbl.lpreplydate" />
 			</div>
 			<div class="col-sm-3 add-margin view-content">
 				<c:out value="${lettertoParty.replyDate}"></c:out>
 			</div>
-		</div>	
-		</c:if>
-			  <c:if test="${lettertoParty.lastReplyDate !=null }">
-		 <div class="row add-border">
+		</div>
+	</c:if>
+	<c:if test="${lettertoParty.lastReplyDate !=null }">
+		<div class="row add-border">
 			<div class="col-sm-3 add-margin">
 				<spring:message code="lbl.lastreplydate" />
 			</div>
 			<div class="col-sm-3 add-margin view-content">
 				<c:out value="${lettertoParty.lastReplyDate}"></c:out>
 			</div>
-		</div>	
-		</c:if>
+		</div>
+	</c:if>
 
 	<c:if test="${not empty lettertopartydocList}">
-		<thead>
-			<tr>
-				<div class="col-sm-3 text-center">
-					<th><spring:message code="lbl.documentname" /></th>
-				</div>
-				<div class="col-sm-2 text-center">
-					<th><spring:message code="lbl.isrequested" /></th>
-				</div>
-				<div class="col-sm-2 text-center">
-					<th><spring:message code="lbl.issubmitted" /></th>
-				</div>
-				<div class="col-sm-3 text-center">
-					<th><spring:message code="lbl.remarks" /></th>
-				</div>
-				<div class="col-sm-2 text-center">
-					<th><spring:message code="lbl.files" /></th>
-				</div>
-				<br/>
-			</tr>
-		</thead>
+		<div class="panel-heading custom_form_panel_heading">
+			<div class="panel-title">
+				<spring:message code="lbl.encloseddocuments" />
+				-
+				<spring:message code="lbl.checklist" />
+			</div>
+		</div>
+		<div class="form-group view-content ">
+			<div class="col-sm-3 text-center view-content">
+				<spring:message code="lbl.documentname" />
+			</div>
+			<div class="col-sm-2 text-center view-content">
+				<spring:message code="lbl.isrequested" />
+			</div>
+			<div class="col-sm-2 text-center view-content">
+				<spring:message code="lbl.issubmitted" />
+			</div>
+			<div class="col-sm-3 text-center view-content">
+				<spring:message code="lbl.remarks" />
+			</div>
+			<div class="col-sm-2 text-center view-content">
+				<spring:message code="lbl.files" />
+			</div>
+		</div>
 	</c:if>
 	<c:choose>
 		<c:when test="${not empty lettertopartydocList}">
 			<c:forEach items="${lettertopartydocList}" var="docs"
 				varStatus="status">
 				<div class="form-group">
-					<tbody>
-						<tr>
-							<div class="col-sm-3 text-center">
-								<td><c:out value="${docs.checklistDetail.description}" /></td>
-							</div>
-							<div class="col-sm-2 text-center">
-								<td><c:out value="${docs.isrequested ? 'Yes' : 'No'}"></c:out>
-								</td>
-							</div>
-							<div class="col-sm-2 text-center">
-								<td><c:out value="${docs.issubmitted ? 'Yes' : 'No'}"></c:out>
-								</td>
-							</div>
-							<div class="col-sm-3 text-center">
-								<td><c:out value="${docs.remarks}" /></td>
-							</div>
-							<div class="col-sm-2 text-center">
-								<c:set value="false" var="isDocFound"></c:set>
-								<td><c:forEach items="${docs.getSupportDocs()}" var="file">
-										<c:set value="true" var="isDocFound"></c:set>
-										<a
-											href="/egi/downloadfile?fileStoreId=${file.fileStoreId}&moduleName=BPA"
-											target="_blank"> <c:out value="${file.fileName}" /></a>
-									</c:forEach> <c:if test="${!isDocFound}">
+					<div class="col-sm-3 text-center">
+						<c:out value="${docs.checklistDetail.description}" />
+					</div>
+					<div class="col-sm-2 text-center">
+						<c:out value="${docs.isrequested ? 'Yes' : 'No'}"></c:out>
+
+					</div>
+					<div class="col-sm-2 text-center">
+						<c:out value="${docs.issubmitted ? 'Yes' : 'No'}"></c:out>
+
+					</div>
+					<div class="col-sm-3 text-center">
+						<c:out value="${docs.remarks}" />
+					</div>
+					<div class="col-sm-2 text-center">
+						<c:set value="false" var="isDocFound"></c:set>
+						<c:forEach items="${docs.getSupportDocs()}" var="file">
+							<c:set value="true" var="isDocFound"></c:set>
+							<a
+								href="/egi/downloadfile?fileStoreId=${file.fileStoreId}&moduleName=BPA"
+								target="_blank"> <c:out value="${file.fileName}" /></a>
+						</c:forEach>
+						<c:if test="${!isDocFound}">
 									NA
-								</c:if></td>
-							</div>
-						</tr>
-					</tbody>
+								</c:if>
+					</div>
 				</div>
 			</c:forEach>
 		</c:when>

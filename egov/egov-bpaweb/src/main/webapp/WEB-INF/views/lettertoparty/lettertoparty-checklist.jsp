@@ -43,51 +43,42 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn"%>
 
-
 <div class="panel-body">
-
 	<c:if test="${not empty lettertopartydocList}">
-		<thead>
-			<tr>
-				<div class="col-sm-4 text-center">
-					<th><spring:message code="lbl.documentname" /></th>
-				</div>
-				<div class="col-sm-4 text-center">
-					<th><spring:message code="lbl.remarks" /></th>
-				</div>
-				<div class="col-sm-4 text-center">
-					<th><spring:message code="lbl.files" /></th>
-				</div>
-				<br/>
-			</tr>
-		</thead>
+		<div class="col-sm-4 text-center">
+			<spring:message code="lbl.documentname" />
+		</div>
+		<div class="col-sm-4 text-center">
+			<spring:message code="lbl.remarks" />
+		</div>
+		<div class="col-sm-4 text-center">
+			<spring:message code="lbl.files" />
+		</div>
+		<br />
 	</c:if>
 	<c:choose>
 		<c:when test="${not empty lettertopartydocList}">
 			<c:forEach items="${lettertopartydocList}" var="docs"
 				varStatus="status">
 				<div class="form-group">
-					<tbody>
-						<tr>
-							<div class="col-sm-4 text-center">
-								<td><c:out value="${docs.checklistDetail.description}" /></td>
-							</div>
-							<div class="col-sm-4 text-center">
-								<td><c:out value="${docs.remarks}" /></td>
-							</div>
-							<div class="col-sm-4 text-center">
-								<c:set value="false" var="isDocFound"></c:set>
-								<td><c:forEach items="${docs.getSupportDocs()}" var="file">
-										<c:set value="true" var="isDocFound"></c:set>
-										<a
-											href="/egi/downloadfile?fileStoreId=${file.fileStoreId}&moduleName=BPA"
-											target="_blank"> <c:out value="${file.fileName}" /></a>
-									</c:forEach> <c:if test="${!isDocFound}">
+					<div class="col-sm-4 text-center">
+						<c:out value="${docs.checklistDetail.description}" />
+					</div>
+					<div class="col-sm-4 text-center">
+						<c:out value="${docs.remarks}" />
+					</div>
+					<div class="col-sm-4 text-center">
+						<c:set value="false" var="isDocFound"></c:set>
+						<c:forEach items="${docs.getSupportDocs()}" var="file">
+							<c:set value="true" var="isDocFound"></c:set>
+							<a
+								href="/egi/downloadfile?fileStoreId=${file.fileStoreId}&moduleName=BPA"
+								target="_blank"> <c:out value="${file.fileName}" /></a>
+						</c:forEach>
+						<c:if test="${!isDocFound}">
 									NA
-								</c:if></td>
-							</div>
-						</tr>
-					</tbody>
+								</c:if>
+					</div>
 				</div>
 			</c:forEach>
 		</c:when>
@@ -100,5 +91,3 @@
 			onclick='self.close()'><spring:message code='lbl.close' /></a>
 	</div>
 </div>
-
-

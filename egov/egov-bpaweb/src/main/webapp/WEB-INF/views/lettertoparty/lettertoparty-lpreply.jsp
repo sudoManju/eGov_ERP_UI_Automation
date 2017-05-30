@@ -48,13 +48,6 @@
 	enctype="multipart/form-data">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel-primary" data-collapsed="0">
-				<div class="panel-title">
-					<spring:message code="title.lpreply" />
-				</div>
-			</div>
-			<div class="panel panel-primary" data-collapsed="0">
-
 				<div class="panel panel-primary" data-collapsed="0">
 					<jsp:include page="../application/viewapplication-details.jsp"></jsp:include>
 					<div class="panel-heading custom_form_panel_heading">
@@ -130,21 +123,26 @@
 										<spring:message code="lbl.checklist" />
 									</div>
 								</div>
-								<div class="form-group view-content header-color hidden-xs">
-									<div class="col-sm-2 text-center">
+								<div class="form-group">
+									<div class="col-sm-2 text-center view-content">
 										<spring:message code="lbl.documentname" />
 									</div>
-									<div class="col-sm-2 text-center">
+									<div class="col-sm-2  text-center view-content">
 										<spring:message code="lbl.isrequested"  />
 									</div>
-									<div class="col-sm-2 text-center">
+									<div class="col-sm-2 text-center view-content">
 										<spring:message code="lbl.issubmitted" />
 									</div>
-									<div class="col-sm-2 text-center">
+									<div class="col-sm-2 text-center view-content">
 										<spring:message code="lbl.remarks" />
 									</div>
-									<div class="col-sm-2 text-center">
+									<div class="col-sm-2 text-center view-content">
 										<spring:message code="lbl.attachdocument" />
+										<div class="add-margin error-msg text-center">
+														<font size="2"> <spring:message
+																code="lbl.mesg.document" />
+														</font>
+													</div>
 									</div>
 								</div>
 								
@@ -160,19 +158,15 @@
 										<td>
 											<div class="form-group">
 												<div class="col-sm-2 add-margin check-text text-center">
-													<c:forEach var="chk" items="${checkListDetailList}">
-														<c:if test="${lpdoc.checklistDetail.id == chk.id}">
-															<c:out value="${chk.description}" />
+													<c:out value="${lpdoc.checklistDetail.description}" />
 															<form:hidden
 																id="lettertoPartyDocument${status.index}checklistDetail"
 																path="lettertoPartyDocument[${status.index}].checklistDetail"
-																value="${chk.id}" />
+																value="${lpdoc.checklistDetail.id}" />
 															<form:hidden
 																id="lettertoPartyDocument${status.index}checklistDetail"
 																path="lettertoPartyDocument[${status.index}].checklistDetail.isMandatory"
-																value="${chk.isMandatory}" />
-														</c:if>
-													</c:forEach>
+																value="${lpdoc.checklistDetail.isMandatory}" />
 												</div>
 												<div class="col-sm-2 add-margin text-center">
 													<form:checkbox
@@ -199,7 +193,7 @@
 
 												<div class="col-sm-2 add-margin text-center">
 													<c:choose>
-														<c:when test="${chk.isMandatory}">
+														<c:when test="${lpdoc.checklistDetail.isMandatory}">
 															<input type="file" id="file${status.index}id"
 																name="lettertoPartyDocument[${status.index}].files"
 																class="file-ellipsis upload-file" required="required">
@@ -213,21 +207,13 @@
 													<form:errors
 														path="lettertoPartyDocument[${status.index}].files"
 														cssClass="add-margin error-msg" />
-													<div class="add-margin error-msg text-left">
-														<font size="2"> <spring:message
-																code="lbl.mesg.document" />
-														</font>
-													</div>
 												</div>
 											</div>
 								</c:forEach>
-								</td>
-								</tr>   
 							</c:when>
 						</c:choose>
 					</div>
 				</div>
-			</div>
 		</div>
 	</div>
 	<div class="text-center">

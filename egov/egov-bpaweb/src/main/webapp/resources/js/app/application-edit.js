@@ -203,6 +203,13 @@ jQuery(document).ready(function() {
 		$(".show-row").hide();
 	}
 	
+	if($('#currentState').val() == 'LP Initiated'){
+		$('#approvalDepartment').removeAttr('required');
+		$('#approvalDesignation').removeAttr('required');
+		$('#approvalPosition').removeAttr('required');
+		$(".show-row").hide();
+	}
+	
 	var tabfocus;
 	if($('#showUpdateNoc').val()) {
 		tabfocus='#checklist-info';

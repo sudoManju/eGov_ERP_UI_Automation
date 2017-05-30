@@ -114,7 +114,7 @@ public class LettertoPartyService {
         return docSrcuityUserPos;
     }
 
-    public List<LettertoParty> findByBpaApplicationOrderByIdAsc(final BpaApplication application) {
+    public List<LettertoParty> findByBpaApplicationOrderByIdDesc(final BpaApplication application) {
         return lettertoPartyRepository.findByApplicationOrderByIdDesc(application);
     }
 

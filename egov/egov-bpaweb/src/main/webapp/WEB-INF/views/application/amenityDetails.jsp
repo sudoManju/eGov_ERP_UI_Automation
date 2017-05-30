@@ -129,7 +129,7 @@
 		<form:input class="form-control patternvalidation dyn-mandatory Comp"
 		data-pattern="decimalvalue"
 			  id="siteDetail[0].lengthOfCompoundWall"
-			path="siteDetail[0].lengthOfCompoundWall" />in Sqmtr.
+			path="siteDetail[0].lengthOfCompoundWall" />In Mtrs.
 		<form:errors path="siteDetail[0].lengthOfCompoundWall" 
 			cssClass="add-margin error-msg" />
 	</div>

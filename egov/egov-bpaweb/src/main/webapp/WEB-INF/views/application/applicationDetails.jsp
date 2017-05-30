@@ -219,10 +219,11 @@
 			cssClass="add-margin error-msg" />
 	</div>
 	<label class="col-sm-2 control-label text-right"><spring:message
-			code="lbl.government.type" /></label>
+			code="lbl.government.type" /><span class="mandatory">
+				</span></label>
 	<div class="col-sm-3 add-margin">
 		<form:select path="governmentType"
-			id="governmentType"
+			id="governmentType" required="required"
 			value="${bpaApplication.governmentType}"
 			cssClass="form-control">
 			<form:option value="">

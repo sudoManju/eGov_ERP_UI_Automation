@@ -110,7 +110,10 @@ public class LettertoParty extends AbstractAuditable {
     private final List<AutoDcrMap> autoDcrMap = new ArrayList<AutoDcrMap>(0);
     @OneToMany(mappedBy = "lettertoParty", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<LettertoPartyDocument> lettertoPartyDocument = new ArrayList<>(0);
-
+    private String currentStateValueOfLP;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "currentapplnstatus")
+    private BpaStatus currentApplnStatus;
     @Override
     public Long getId() {
         return id;
@@ -276,5 +279,21 @@ public class LettertoParty extends AbstractAuditable {
     public void setLastReplyDate(Date lastReplyDate) {
         this.lastReplyDate = lastReplyDate;
     }
+    
+	public String getCurrentStateValueOfLP() {
+		return currentStateValueOfLP;
+	}
+
+	public void setCurrentStateValueOfLP(String currentStateValueOfLP) {
+		this.currentStateValueOfLP = currentStateValueOfLP;
+	}
+
+	public BpaStatus getCurrentApplnStatus() {
+		return currentApplnStatus;
+	}
+
+	public void setCurrentApplnStatus(BpaStatus currentApplnStatus) {
+		this.currentApplnStatus = currentApplnStatus;
+	}
 
 }

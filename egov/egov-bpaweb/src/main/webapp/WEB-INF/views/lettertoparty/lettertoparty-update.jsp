@@ -49,12 +49,6 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-primary" data-collapsed="0">
-				<div class="panel-title">
-					<spring:message code="title.lettertoparty.update" />
-				</div>
-			</div>
-			<div class="panel panel-primary" data-collapsed="0">
-
 				<div class="panel panel-primary" data-collapsed="0">
 					<jsp:include page="../application/viewapplication-details.jsp"></jsp:include>
 					<div class="panel-heading custom_form_panel_heading">
@@ -95,7 +89,6 @@
 								<form:errors path="lpReason" cssClass="add-margin error-msg" />
 							</div>
 
-
 							<div class="row add-border">
 								<label class="col-sm-3 control-label text-right"><spring:message
 										code="lbl.lpdescription" /></label>
@@ -105,7 +98,6 @@
 										maxlength="1024" id="lpDesc" />
 									<form:errors path="lpDesc" cssClass="error-msg" />
 								</div>
-
 							</div>
 						</div>
 						<div class="form-group">
@@ -119,7 +111,6 @@
 								<form:errors path="sentDate" cssClass="add-margin error-msg" /> 
 							</div>
 						</div>
-
 
 						<c:choose>
 							<c:when test="${!lettertoPartyDocument.isEmpty()}">
@@ -145,6 +136,11 @@
 									</div>
 									<div class="col-sm-2 text-center">
 										<spring:message code="lbl.attachdocument" />
+										<div class="add-margin error-msg text-center">
+											<font size="2"> <spring:message
+													code="lbl.mesg.document" />
+											</font>
+										</div>
 									</div>
 								</div>
 								<c:forEach var="lpdoc" items="${lettertopartydocList}"
@@ -155,8 +151,6 @@
 									<form:hidden
 										path="lettertoPartyDocument[${status.index}].checklistDetail"
 										id="checklist" value="${doc.id}" />
-									<tr>
-										<td>
 											<div class="form-group">
 												<div class="col-sm-2 add-margin check-text text-center">
 													<c:forEach var="chk" items="${checkListDetailList}">
@@ -191,7 +185,7 @@
 														data-pattern="string" maxlength="256"
 														id="lettertoPartyDocument${status.index}remarks"
 														path="lettertoPartyDocument[${status.index}].remarks" />
-													<td><c:out value="${doc.id}"></c:out></td>
+													<c:out value="${doc.id}"></c:out>
 													<form:errors
 														path="lettertoPartyDocument[${status.index}].remarks"
 														cssClass="add-margin error-msg" />
@@ -213,11 +207,6 @@
 													<form:errors
 														path="lettertoPartyDocument[${status.index}].files"
 														cssClass="add-margin error-msg" />
-													<div class="add-margin error-msg text-left">
-														<font size="2"> <spring:message
-																code="lbl.mesg.document" />
-														</font>
-													</div>
 												</div>
 
 												<div class="col-sm-2">
@@ -228,15 +217,12 @@
 															href="/bpa/application/downloadfile/${file.fileStoreId}"
 															data-gallery>${file.fileName} </a>
 													</c:forEach>
-
 													<c:if test="${!isDocFound}">
 										NA
 									</c:if>
 												</div>
 											</div>
 								</c:forEach>
-								</td>
-								</tr>
 							</c:when>
 						</c:choose>
 					</div>

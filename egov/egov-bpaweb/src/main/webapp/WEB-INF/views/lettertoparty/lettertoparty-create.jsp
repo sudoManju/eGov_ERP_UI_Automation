@@ -50,12 +50,6 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-primary" data-collapsed="0">
-				<div class="panel-title">
-					<spring:message code="title.lettertoparty.create" />
-				</div>
-			</div>
-
-			<div class="panel panel-primary" data-collapsed="0">
 				<jsp:include page="../application/viewapplication-details.jsp"></jsp:include>
 
 				<div class="panel-heading custom_form_panel_heading">
@@ -69,7 +63,7 @@
 							<form:hidden path="application" id="applicationId"
 								value="${application.id}" />
 							<label class="col-sm-3 control-label text-right"><spring:message
-									code="lbl.lpreason" /><span class="mandatory"></label>
+									code="lbl.lpreason" /><span class="mandatory"></span> </label>
 							<div class="col-sm-3 add-margin">
 								<form:select path="lpReason" data-first-option="false"
 									id="lpReason" cssClass="form-control" required="required">
@@ -82,25 +76,24 @@
 								<form:errors path="lpReason" cssClass="error-msg" />
 							</div>
 
-							<label class="col-sm-3 control-label text-right"><spring:message
-									code="lbl.lpdescription" /></label>
+							<label class="col-sm-2 control-label text-right"><spring:message
+									code="lbl.lpdescription" /><span class="mandatory"></span></label>
 							<div class="col-sm-3 add-margin">
 								<form:textarea path="lpDesc"
 									class="form-control patternvalidation" data-pattern="string"
-									maxlength="1024" id="lpDesc" />
+									maxlength="1024" id="lpDesc" required="required"  />
 								<form:errors path="lpDesc" cssClass="error-msg" />
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label text-right"><spring:message
-									code="lbl.lastreplydate" /><span class="mandatory"></span></label>
+									code="lbl.lastreplydate" /></label>
 							<div class="col-sm-3 add-margin">
 								<form:input path="lastReplyDate" class="form-control datepicker"
 									data-date-start-date="0d" id="lastReplyDate"
-									data-inputmask="'mask': 'd/m/y'"  required="required" />
+									data-inputmask="'mask': 'd/m/y'" />
 								<form:errors path="lastReplyDate" cssClass="add-margin error-msg" /> 
 							</div>
-
 						</div>
 
 						<c:choose>
@@ -126,17 +119,11 @@
 								<c:forEach var="docs" items="${checkListDetailList}"
 									varStatus="status">
 									<div class="form-group">
-										<div class="col-sm-3 add-margin check-text text-center">
-											<c:choose>
-												<c:when test="${docs.isMandatory}">
-													<input type="checkbox" checked disabled>&nbsp;<c:out
-														value="${docs.description}" />
-												</c:when>
-												<c:otherwise>
-													<input type="checkbox" disabled>&nbsp;<c:out
-														value="${docs.description}" />
-												</c:otherwise>
-											</c:choose>
+										<div class="col-sm-3 add-margin check-text text-right">
+											<c:out value="${docs.description}"></c:out>
+											<c:if test="${docs.isMandatory}">
+												<span class="mandatory"></span>
+											</c:if>
 											<form:hidden
 												id="lettertoPartyDocument${status.index}checklistDetail.id"
 												path="lettertoPartyDocument[${status.index}].checklistDetail"
@@ -155,7 +142,8 @@
 											<form:checkbox
 												id="lettertoPartyDocument${status.index}isrequested"
 												path="lettertoPartyDocument[${status.index}].isrequested"
-												value="lettertoPartyDocument${status.index}isrequested"   class="requested"/>
+												value="lettertoPartyDocument${status.index}isrequested"
+												class="requested" />
 										</div>
 
 										<div class="col-sm-3 add-margin text-center">

@@ -168,11 +168,10 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
             mode = "initialtedApprove";
         }
         model.addAttribute("inspectionList", inspectionService.findByBpaApplicationOrderByIdAsc(application));
-        if (BpaConstants.LETTERTOPARTYSENT.equalsIgnoreCase(application.getState().getNextAction())) {
-            model.addAttribute("showlettertoparty", true);
-            model.addAttribute("lettertopartylist", lettertoPartyService.findByBpaApplicationOrderByIdAsc(application));
-        } else if (application.getState().getValue().equals(BpaConstants.APPLN_STATUS_FIELD_INSPECTION_INITIATED)
-                || application.getState().getValue().equals(BpaConstants.BPA_STATUS_SUPERINDENT_APPROVED)) {
+        model.addAttribute("lettertopartylist", lettertoPartyService.findByBpaApplicationOrderByIdDesc(application));
+        if ("Forwarded to Assistant Engineer for field ispection".equals(application.getState().getNextAction())
+                || "Field Inspected".equals(application.getStatus().getCode())
+                || "NOC Updated".equalsIgnoreCase(application.getStatus().getCode())) {
             model.addAttribute("createlettertoparty", true);
         }
         if (mode == null) {
@@ -303,7 +302,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         Position pos = null;
         if (BpaConstants.LETTERTOPARTYSENT.equalsIgnoreCase(bpaApplication.getState().getNextAction()))
             approvalPosition = bpaApplication.getState().getPreviousOwner().getId();
-        else if (!request.getParameter(APPRIVALPOSITION).equals("") && request.getParameter(APPRIVALPOSITION) != null && !WF_REJECT_BUTTON.equalsIgnoreCase(workFlowAction)
+        else if (null != request.getParameter(APPRIVALPOSITION) && !"".equals(request.getParameter(APPRIVALPOSITION)) && !WF_REJECT_BUTTON.equalsIgnoreCase(workFlowAction)
                 && !WF_CANCELAPPLICATION_BUTTON.equalsIgnoreCase(workFlowAction)) {
             approvalPosition = Long.valueOf(request.getParameter(APPRIVALPOSITION));
         } else if (WF_REJECT_BUTTON.equalsIgnoreCase(workFlowAction)) {

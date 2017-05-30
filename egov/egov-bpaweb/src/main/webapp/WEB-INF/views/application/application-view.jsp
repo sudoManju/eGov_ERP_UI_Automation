@@ -100,7 +100,7 @@
 					<li><a data-toggle="tab" href="#view-fee" data-tabidx=5><spring:message
 								code='lbl.applicationFee' /></a></li>
 				</c:if>
-					<c:if test="${showlettertoparty}">
+					<c:if test="${not empty lettertopartylist}">
 					<li><a data-toggle="tab" href="#view-lp" data-tabidx=6><spring:message
 								code='lbl.lp.details' /></a></li>
 					</c:if>
@@ -167,7 +167,7 @@
 							</div>
 						</div>
 				</c:if>
-				<c:if test="${showlettertoparty}">
+				<c:if test="${not empty lettertopartylist}">
 						<div id="view-lp" class="tab-pane fade">
 							<div class="panel panel-primary" data-collapsed="0">
 								<jsp:include page="../lettertoparty/lettertoparty-details.jsp"></jsp:include> 
