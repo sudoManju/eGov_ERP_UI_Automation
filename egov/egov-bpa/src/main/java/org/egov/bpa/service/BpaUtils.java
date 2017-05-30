@@ -84,7 +84,7 @@ public class BpaUtils {
 
     public String loggedInUserDesignation(final BpaApplication application) {
         String loggedInUserDesignation = "";
-        final User user = securityUtils.getCurrentUser();
+        final User user = getCurrentUser();
         List<Assignment> loggedInUserAssign;
         if (application.getState() != null && application.getState().getOwnerPosition() != null) {
             loggedInUserAssign = assignmentService.getAssignmentByPositionAndUserAsOnDate(
@@ -101,12 +101,16 @@ public class BpaUtils {
     	if(application.getCreatedBy()!=null)
     	 applicationInitiator = userService.getUserById(application.getCreatedBy().getId());
     	else
-    		applicationInitiator = securityUtils.getCurrentUser();
+    		applicationInitiator = getCurrentUser();
     	if(applicationInitiator !=null && !applicationInitiator.getType().equals(UserType.EMPLOYEE)){
     		initiatedByNonEmployee=Boolean.TRUE;
     	}
     	
     	return initiatedByNonEmployee;
+    }
+    public User getCurrentUser()
+    {
+    	return securityUtils.getCurrentUser();
     }
     public BpaApplicationWorkflowCustomDefaultImpl getInitialisedWorkFlowBean() {
         BpaApplicationWorkflowCustomDefaultImpl applicationWorkflowCustomDefaultImpl = null;
@@ -129,7 +133,7 @@ public class BpaUtils {
         String  url = "/bpa/application/citizen/update/" + application.getApplicationNumber();
         if(application.getStatus()!=null )
         portalInboxService.updateInboxMessage(application.getApplicationNumber(), module.getId(),  (application.getStatus().getDescription()), 
-        		isResolved, new Date(), application.getState(), securityUtils.getCurrentUser(),application.getPlanPermissionNumber(),url);
+        		isResolved, new Date(), application.getState(), getCurrentUser(),application.getPlanPermissionNumber(),url);
     }
     @Transactional
     public void pushMessage(final BpaApplication application) {
@@ -141,7 +145,7 @@ public class BpaUtils {
         final PortalInboxBuilder portalInboxBuilder = new PortalInboxBuilder(module,application.getServiceType().getDescription(),
         		application.getApplicationNumber(),application.getPlanPermissionNumber(),application.getId(),
                 "Sucess","suceess1",url,
-                isResolved,"to be Subitted",new Date(),application.getState(),Arrays.asList(securityUtils.getCurrentUser()));
+                isResolved,"to be Subitted",new Date(),application.getState(),Arrays.asList(getCurrentUser()));
 
         final PortalInbox portalInbox = portalInboxBuilder.build();
         portalInboxService.pushInboxMessage(portalInbox);
@@ -188,7 +192,7 @@ public class BpaUtils {
     }
     public Boolean logedInuseCitizenOrBusinessUser() {
         Boolean citizenOrbusiness = Boolean.FALSE;
-        User applicationInitiator = securityUtils.getCurrentUser();
+        User applicationInitiator = getCurrentUser();
        if( applicationInitiator!=null && (applicationInitiator.getType().equals(UserType.CITIZEN) || applicationInitiator.getType().equals(UserType.BUSINESS))){
     	   citizenOrbusiness=Boolean.TRUE;
        }

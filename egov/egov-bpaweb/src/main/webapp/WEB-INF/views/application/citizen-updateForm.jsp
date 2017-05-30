@@ -100,6 +100,8 @@
 					value="Save">Save</form:button>
 				<td><form:button type="submit" id="buttonSubmit" class="btn btn-primary"
 					value="Submit">Submit</form:button></td>
+					<td><form:button type="submit" id="buttonCancel" class="btn btn-primary"
+					value="CANCEL APPLICATION">CANCEL APPLICATION </form:button></td>
 					</c:when>
 					<c:otherwise>
 					</c:otherwise>
@@ -144,6 +146,16 @@ jQuery(document).ready(function() {
 				});
  $('#buttonSubmit').click(function() {
 		var button=$('#buttonSubmit').val();
+		document.getElementById("workFlowAction").value=button;
+		$("#applicantdet").prop("disabled",false);
+		$("#appDet").prop("disabled",false);
+		$("#serviceType").prop("disabled",false);
+		$("#admissionfeeAmount").prop("disabled",false);
+			document.forms[0].submit();
+		
+	});
+ $('#buttonCancel').click(function() {
+		var button=$('#buttonCancel').val();
 		document.getElementById("workFlowAction").value=button;
 		$("#applicantdet").prop("disabled",false);
 		$("#appDet").prop("disabled",false);

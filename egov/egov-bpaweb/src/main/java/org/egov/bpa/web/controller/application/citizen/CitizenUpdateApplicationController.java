@@ -89,18 +89,17 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 		model.addAttribute("mode", "newappointment");
 		model.addAttribute(APPLICATION_HISTORY, bpaThirdPartyService.getHistory(application));
 		loadViewdata(model, application);
-		if(application.getStatus()!=null && application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_CREATED))
+		if (application.getStatus() != null
+				&& application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_CREATED))
 			return "bpaapp-citizenForm";
 		else
-		return "citizen-view";
+			return "citizen-view";
 	}
 
 	private void loadViewdata(final Model model, final BpaApplication application) {
 		model.addAttribute("stateType", application.getClass().getSimpleName());
 		model.addAttribute(ADDITIONALRULE, CREATE_ADDITIONAL_RULE_CREATE);
-
 		model.addAttribute(BPA_APPLICATION, application);
-
 		// prepareWorkflow(model, application, workflowContainer);
 		model.addAttribute("currentState",
 				application.getCurrentState() != null ? application.getCurrentState().getValue() : "");
@@ -109,7 +108,7 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 				.findActiveCheckListByServiceType(application.getServiceType().getId(), CHECKLIST_TYPE_NOC));
 		model.addAttribute("checkListDetailList", checkListDetailService
 				.findActiveCheckListByServiceType(application.getServiceType().getId(), BpaConstants.CHECKLIST_TYPE));
-        model.addAttribute("applicationDocumentList",application.getApplicationDocument());
+		model.addAttribute("applicationDocumentList", application.getApplicationDocument());
 	}
 
 	@RequestMapping(value = "/citizen/update/{applicationNumber}", method = RequestMethod.POST)
@@ -120,24 +119,40 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 
 		if (resultBinder.hasErrors()) {
 			loadViewdata(model, bpaApplication);
-			return "citizen-view";
+			if (bpaApplication.getStatus() != null
+					&& bpaApplication.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_CREATED))
+				return "bpaapp-citizenForm";
+			else
+				return "citizen-view";
 		}
 		workFlowAction = request.getParameter("workFlowAction");
 		Long approvalPosition = null;
 		applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
-		bpaApplication.getBuildingDetail().get(0).setApplicationFloorDetails(applicationBpaService.buildApplicationFloorDetails(bpaApplication));
-		if (workFlowAction != null && workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)
+		bpaApplication.getBuildingDetail().get(0)
+				.setApplicationFloorDetails(applicationBpaService.buildApplicationFloorDetails(bpaApplication));
+		if (workFlowAction != null
+				&& (workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)
+						|| BpaConstants.WF_CANCELAPPLICATION_BUTTON.equalsIgnoreCase(workFlowAction))
 				&& (bpaUtils.logedInuseCitizenOrBusinessUser())) {
-			final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(bpaApplication,
-					BpaConstants.WF_NEW_STATE);
-			if (wfmatrix != null)
-				approvalPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(),
-						bpaApplication.getSiteDetail().get(0) != null
-								&& bpaApplication.getSiteDetail().get(0).getElectionBoundary() != null
-										? bpaApplication.getSiteDetail().get(0).getElectionBoundary().getId() : null);
-			bpaUtils.redirectToBpaWorkFlow(approvalPosition, bpaApplication, BpaConstants.WF_NEW_STATE, null, null,
-					null);
+			if (workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)) {
+				final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(bpaApplication,
+						BpaConstants.WF_NEW_STATE);
+				if (wfmatrix != null)
+					approvalPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(),
+							bpaApplication.getSiteDetail().get(0) != null
+									&& bpaApplication.getSiteDetail().get(0).getElectionBoundary() != null
+											? bpaApplication.getSiteDetail().get(0).getElectionBoundary().getId()
+											: null);
+				bpaUtils.redirectToBpaWorkFlow(approvalPosition, bpaApplication, BpaConstants.WF_NEW_STATE, null, null,
+						null);
 
+			}
+			if (BpaConstants.WF_CANCELAPPLICATION_BUTTON.equalsIgnoreCase(workFlowAction)) {
+				bpaApplication.setStatus(
+						applicationBpaService.getStatusByCodeAndModuleType(BpaConstants.APPLICATION_STATUS_CANCELLED));
+				bpaUtils.updateCitizeninboxApplication(bpaApplication);
+
+			}
 		}
 		applicationBpaService.saveAndFlushApplication(bpaApplication);
 		bpaUtils.updateCitizeninboxApplication(bpaApplication);
