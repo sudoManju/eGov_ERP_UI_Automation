@@ -230,14 +230,8 @@ public class MiscellaneousPage extends BasePage {
     }
 
     public String cancelReceipt() {
-//        waitForElementToBeVisible(reasonForCancellationTextBox, driver);
-//        reasonForCancellationTextBox.sendKeys("Testing");
         enterText(reasonForCancellationTextBox, "Testing", driver);
-
-//        waitForElementToBeClickable(cancelReceiptButton, driver);
-//        cancelReceiptButton.click();
         jsClick(cancelReceiptButton, driver);
-
         WebElement cancelReceiptSuccessMessage = driver.findElement(By.xpath(".//*[@id='searchReceipt']/table/tbody/tr[2]/td/font/b/div"));
         waitForElementToBeVisible(cancelReceiptSuccessMessage, driver);
         String message = cancelReceiptSuccessMessage.getText();
