@@ -96,7 +96,7 @@
 	</div>
 </div>
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right"><spring:message
+	<%-- <label class="col-sm-3 control-label text-right"><spring:message
 			code="lbl.block" /></label>
 	<div class="col-sm-3 add-margin">
 		<form:select name="block" id="block"
@@ -104,8 +104,8 @@
 			cssErrorClass="form-control error">
 			<form:option value="">--select--</form:option>
 		</form:select>
-	</div>
-	<label for="field-1" class="col-sm-2 control-label"><spring:message
+	</div> --%>
+	<label for="field-1" class="col-sm-3 control-label"><spring:message
 			code="lbl.locality" /></label>
 	<div class="col-sm-3 add-margin">
 		<form:select name="localitys" id="localitys"
@@ -115,10 +115,7 @@
 			<form:options items="${localitys}" itemValue="id" itemLabel="name" />
 		</form:select>
 	</div>
-</div>
-
-<div class="form-group">
-	<label class="col-sm-3 control-label text-right"> Election
+	<label class="col-sm-2 control-label text-right"> Election
 		Ward <span
 		class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
@@ -131,6 +128,17 @@
 				itemLabel="name" />
 		</form:select>
 		<form:errors path="siteDetail[0].electionBoundary"
+			cssClass="add-margin error-msg" />
+	</div>
+</div>
+
+<div class="form-group">
+		<label class="col-sm-3 control-label text-right">State <span class="mandatory"></span> </label>
+	<div class="col-sm-3 add-margin">
+		<form:input class="form-control patternvalidation"
+			maxlength="32"
+			data-pattern="alphanumericwithspace" id="state" path="siteDetail[0].state" required="required" />
+		<form:errors path="siteDetail[0].state"
 			cssClass="add-margin error-msg" />
 	</div>
 	<label class="col-sm-2 control-label text-right">City/Town</label>
@@ -225,8 +233,7 @@
 			cssClass="add-margin error-msg" />
 	</div>
 </div>
-<div class="form-group">
-<label class="col-sm-3 control-label text-right">Revenue Village <span class="mandatory"></span> </label>
+<<%-- label class="col-sm-3 control-label text-right">Revenue Village <span class="mandatory"></span> </label>
 	<div class="col-sm-3 add-margin">
 		<form:select path="siteDetail[0].village"
 			data-first-option="false" id="village" required="required" cssClass="form-control">
@@ -238,16 +245,8 @@
 		</form:select>
 		<form:errors path="siteDetail[0].village"
 			cssClass="add-margin error-msg" />
-	</div>
-	<label class="col-sm-2 control-label text-right">State <span class="mandatory"></span> </label>
-	<div class="col-sm-2 add-margin">
-		<form:input class="form-control patternvalidation"
-			maxlength="32"
-			data-pattern="alphanumericwithspace" id="state" path="siteDetail[0].state" required="required" />
-		<form:errors path="siteDetail[0].state"
-			cssClass="add-margin error-msg" />
-	</div>
-	</div>
+	</div> --%>
+
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right">District <span class="mandatory"></span> </label>
 	<div class="col-sm-3 add-margin">
