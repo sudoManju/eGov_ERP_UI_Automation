@@ -19,11 +19,11 @@ Feature: Create/Search for Asset Service
 
     Examples:
       | headerDetails | locationDetails | assetStatus | categoryDetails |
-#      | header1       | location1       | CREATED     | land            |
-#      | header2       | location1       | CREATED     | market          |
-#      | header3       | location1       | CREATED     | kalyanaMandapam |
-#      | header4       | location1       | CREATED     | lakesAndPonds   |
-#      | header5       | location1       | CREATED     | roads           |
-#      | header6       | location1       | CREATED     | community       |
-#      | header7       | location1       | CREATED     | usufruct        |
+      | header1       | location1       | CREATED     | land            |
+      | header2       | location1       | CREATED     | market          |
+      | header3       | location1       | CREATED     | kalyanaMandapam |
+      | header4       | location1       | CREATED     | lakesAndPonds   |
+      | header5       | location1       | CREATED     | roads           |
+      | header6       | location1       | CREATED     | community       |
+      | header7       | location1       | CREATED     | usufruct        |
       | header8       | location1       | CREATED     | shopping        |
