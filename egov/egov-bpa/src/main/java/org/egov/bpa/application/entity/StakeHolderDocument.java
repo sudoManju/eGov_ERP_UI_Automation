@@ -42,6 +42,7 @@ import javax.persistence.Table;
 
 import org.egov.infra.filestore.entity.FileStoreMapper;
 import org.egov.infra.persistence.entity.AbstractAuditable;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "EGBPA_STAKEHOLDER_Document")
@@ -63,7 +64,7 @@ public class StakeHolderDocument extends AbstractAuditable {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "documentId")
     private FileStoreMapper documentId;
-
+    private transient MultipartFile files;
     @Override
     public Long getId() {
         return id;
@@ -105,5 +106,13 @@ public class StakeHolderDocument extends AbstractAuditable {
     public void setDocumentId(final FileStoreMapper documentId) {
         this.documentId = documentId;
     }
+
+	public MultipartFile getFiles() {
+		return files;
+	}
+
+	public void setFiles(MultipartFile files) {
+		this.files = files;
+	}
 
 }

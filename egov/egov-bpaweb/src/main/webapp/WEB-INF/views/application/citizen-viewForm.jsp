@@ -161,21 +161,5 @@
 		</form:form>
 	</div>
 </div>
-
-<script>
- $('#buttonSave').click(function() {
-					var button=$('#buttonSave').val();
-					document.getElementById("workFlowAction").value=button;
-						document.forms[0].submit();
-					
-				});
- $('#buttonSubmit').click(function() {
-		var button=$('#buttonSubmit').val();
-		document.getElementById("workFlowAction").value=button;
-			document.forms[0].submit();
-		
-	});
-
- </script>
 <script
 	src="<cdn:url value='/resources/global/js/egov/inbox.js?rnd=${app_release_no}' context='/egi'/>"></script>

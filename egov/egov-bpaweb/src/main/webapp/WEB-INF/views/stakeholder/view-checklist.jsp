@@ -49,23 +49,24 @@
 	<div class="row add-border">
 		
 		<div class="col-sm-3 add-margin">
-			<c:out value="${doc.description}"></c:out>
+			<c:out value="${doc.checkListDetail.description}"></c:out>
 		</div>
-		<div class="col-sm-3 add-margin view-content">
-		<c:set value="false" var="isDocFound"></c:set>
-			<c:forEach var="shdoc" items="${stakeHolder.stakeHolderDocument}">
-				<c:if test="${shdoc.checkListDetail.id == doc.id}">
+					<div class="col-sm-2">
+				<c:set value="false" var="isDocFound"></c:set>
+				<c:forEach items="${stakeHolder.stakeHolderDocument}" var="shdoc"
+					varStatus="loopStatus">
+					<c:if test="${shdoc.checkListDetail.id == doc.checkListDetail.id}">
 						<c:set value="true" var="isDocFound"></c:set>
 						<a
 								href="/bpa/application/downloadfile/${shdoc.documentId.fileStoreId}"
 								data-gallery>${shdoc.documentId.fileName}
 						</a>
-				</c:if>
-			</c:forEach>
-			<c:if test="${!isDocFound}">
+					</c:if>
+				</c:forEach>
+				<c:if test="${!isDocFound}">
 				NA
 			</c:if>
-		</div>
+			</div>
 		
 	</div>
 </c:forEach>

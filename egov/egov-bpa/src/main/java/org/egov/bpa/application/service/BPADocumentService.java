@@ -41,13 +41,16 @@ package org.egov.bpa.application.service;
 
 import static org.egov.bpa.utils.BpaConstants.STAKE_HOLDER_CHECK_LIST_TYPE;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.apache.struts2.util.tomcat.buf.CharChunk;
 import org.egov.bpa.application.entity.ApplicationDocument;
 import org.egov.bpa.application.entity.CheckListDetail;
+import org.egov.bpa.application.entity.StakeHolderDocument;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -65,12 +68,20 @@ public class BPADocumentService {
     }
 
     @SuppressWarnings("unchecked")
-    public List<CheckListDetail> getStakeHolderDocuments() {
+    public List<StakeHolderDocument> getStakeHolderDocuments() {
+    	List<StakeHolderDocument>stakeHolderDocument=new ArrayList<>();
         final Criteria criteria = getCurrentSession().createCriteria(
                 CheckListDetail.class, "checklistdetails");
         criteria.createAlias("checklistdetails.checkList", "checklist")
                 .add(Restrictions.eq("checklist.checklistType", STAKE_HOLDER_CHECK_LIST_TYPE));
-        return criteria.list();
+        List<CheckListDetail>checkDet=criteria.list();
+        for(CheckListDetail stkeDoc: checkDet)
+        {
+        	StakeHolderDocument stakeHolder=new StakeHolderDocument();
+        	stakeHolder.setCheckListDetail(stkeDoc);
+        	stakeHolderDocument.add(stakeHolder);
+        }
+        return stakeHolderDocument;
     }
 
     @SuppressWarnings("unchecked")

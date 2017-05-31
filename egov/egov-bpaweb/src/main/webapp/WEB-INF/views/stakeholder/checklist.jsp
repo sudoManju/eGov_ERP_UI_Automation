@@ -51,34 +51,27 @@
 	varStatus="status">
 		<div class="form-group">
 			<div class="col-sm-1"></div>
-		<%-- 	<form:hidden id="documents[${status.index}].id"
-				path="stakeHolderDocument[${status.index}].id" value="${doc.id}" /> --%>
-			<form:hidden id="checkListDocuments[${status.index}].id" path="checkListDocuments[${status.index}].id" value="${doc.id}" />
+			<form:hidden id="stakeHolderDocument[${status.index}].checkListDetail.id" path="stakeHolderDocument[${status.index}].checkListDetail.id" value="${doc.checkListDetail.id}" />
 			<div class="col-sm-4 add-margin text-right">
-				<c:out value="${doc.description}"></c:out><c:if test="${doc.isMandatory}"><span class="mandatory"></span></c:if>
+				<c:out value="${doc.checkListDetail.description}"></c:out><c:if test="${doc.checkListDetail.isMandatory}"><span class="mandatory"></span></c:if>
 			</div>
 			<div class="col-sm-2 add-margin text-center">
-				<%-- <input type="file" id="file${status.index}id"
-					name="checkListDocuments[${status.index}].file"
-					class="file-ellipsis upload-file">
-				<form:errors path="checkListDocuments[${status.index}].file"
-					cssClass="add-margin error-msg" /> --%>
 					
 				<c:choose>
-		<c:when test="${doc.isMandatory}">
-			<input type="file" id="file${status.index}id" name="checkListDocuments[${status.index}].file" class="file-ellipsis upload-file" required="required">
+		<c:when test="${doc.checkListDetail.isMandatory}">
+			<input type="file" id="file${status.index}id" name="stakeHolderDocument[${status.index}].files" class="file-ellipsis upload-file" required="required">
 		</c:when>
 		<c:otherwise>
-			<input type="file" id="file${status.index}id" name="checkListDocuments[${status.index}].file" class="file-ellipsis upload-file">
+			<input type="file" id="file${status.index}id" name="stakeHolderDocument[${status.index}].files" class="file-ellipsis upload-file">
 		</c:otherwise>
 		</c:choose>	
-			<form:errors path="checkListDocuments[${status.index}].file" cssClass="add-margin error-msg" />
+			<form:errors path="stakeHolderDocument[${status.index}].files" cssClass="add-margin error-msg" />
 			</div>
 			<div class="col-sm-2">
 				<c:set value="false" var="isDocFound"></c:set>
 				<c:forEach items="${stakeHolder.stakeHolderDocument}" var="shdoc"
 					varStatus="loopStatus">
-					<c:if test="${shdoc.checkListDetail.id == doc.id}">
+					<c:if test="${shdoc.checkListDetail.id == doc.checkListDetail.id}">
 						<c:set value="true" var="isDocFound"></c:set>
 						<a
 								href="/bpa/application/downloadfile/${shdoc.documentId.fileStoreId}"

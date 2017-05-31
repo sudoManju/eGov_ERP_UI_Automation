@@ -49,8 +49,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.egov.bpa.application.autonumber.StakeHolderCodeGenerator;
-import org.egov.bpa.application.entity.CheckListDetail;
 import org.egov.bpa.application.entity.StakeHolder;
+import org.egov.bpa.application.entity.StakeHolderDocument;
 import org.egov.bpa.application.entity.enums.StakeHolderType;
 import org.egov.bpa.application.service.BPADocumentService;
 import org.egov.bpa.masters.service.StakeHolderService;
@@ -110,7 +110,7 @@ public class StakeHolderController {
     private static final String STAKEHOLDER_NEW = "stakeholder-new";
 
     @ModelAttribute("stakeHolderDocumentList")
-    public List<CheckListDetail> getStakeHolderDocuments() {
+    public List<StakeHolderDocument> getStakeHolderDocuments() {
         return bpaDocumentService.getStakeHolderDocuments();
     }
 

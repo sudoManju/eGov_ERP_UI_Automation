@@ -42,21 +42,22 @@ package org.egov.bpa.masters.service;
 import static org.egov.bpa.utils.BpaConstants.FILESTORE_MODULECODE;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.egov.bpa.application.entity.CheckListDetail;
+import org.apache.commons.lang3.ArrayUtils;
 import org.egov.bpa.application.entity.StakeHolder;
 import org.egov.bpa.application.entity.StakeHolderDocument;
 import org.egov.bpa.application.entity.enums.StakeHolderType;
-import org.egov.bpa.application.service.BPADocumentService;
+import org.egov.bpa.application.service.CheckListDetailService;
 import org.egov.bpa.masters.repository.StakeHolderAddressRepository;
 import org.egov.bpa.masters.repository.StakeHolderRepository;
+import org.egov.bpa.utils.BpaConstants;
 import org.egov.infra.exception.ApplicationRuntimeException;
 import org.egov.infra.filestore.entity.FileStoreMapper;
 import org.egov.infra.filestore.service.FileStoreService;
@@ -83,9 +84,10 @@ public class StakeHolderService {
     private StakeHolderAddressRepository stakeHolderAddressRepository;
     @Autowired
     private FileStoreService fileStoreService;
-
+    
     @Autowired
-    private BPADocumentService bpaDocumentService;
+	private CheckListDetailService checkListDetailService;
+
 
     public Session getCurrentSession() {
         return entityManager.unwrap(Session.class);
@@ -97,20 +99,40 @@ public class StakeHolderService {
 
     @Transactional
     public StakeHolder save(final StakeHolder stakeHolder) {
-        persistStakeHolderDocuments(stakeHolder);
+    	processAndStoreApplicationDocuments(stakeHolder);
         return stakeHolderRepository.save(stakeHolder);
     }
 
-    private void persistStakeHolderDocuments(final StakeHolder stakeHolder) {
-        final Map<Long, CheckListDetail> generalDocumentAndId = new HashMap<>();
-        bpaDocumentService.getStakeHolderDocuments()
-                .forEach(document -> generalDocumentAndId.put(document.getId(), document));
-        addDocumentsToFileStore(stakeHolder, generalDocumentAndId);
-    }
+	protected void processAndStoreApplicationDocuments(final StakeHolder stakeHolder) {
+		if (!stakeHolder.getStakeHolderDocument().isEmpty())
+			for (final StakeHolderDocument applicationDocument : stakeHolder.getStakeHolderDocument()) {
+						applicationDocument.setCheckListDetail(
+								checkListDetailService.load(applicationDocument.getCheckListDetail().getId()));
+						applicationDocument.setStakeHolder(stakeHolder);
+							if (applicationDocument.getFiles().getSize() > 0) {
+								applicationDocument.setDocumentId(addToFileStore(applicationDocument.getFiles()));
+								applicationDocument.setIsAttached(true);
+				}
 
+			}
+	}
+
+	protected Set<FileStoreMapper> addToFileStore(final MultipartFile[] files) {
+		if (ArrayUtils.isNotEmpty(files))
+			return Arrays.asList(files).stream().filter(file -> !file.isEmpty()).map(file -> {
+				try {
+					return fileStoreService.store(file.getInputStream(), file.getOriginalFilename(),
+							file.getContentType(), BpaConstants.FILESTORE_MODULECODE);
+				} catch (final Exception e) {
+					throw new ApplicationRuntimeException("Error occurred while getting inputstream", e);
+				}
+			}).collect(Collectors.toSet());
+		else
+			return null;
+	}
     @Transactional
     public StakeHolder update(final StakeHolder stakeHolder) {
-        persistStakeHolderDocuments(stakeHolder);
+    	processAndStoreApplicationDocuments(stakeHolder);
         return stakeHolderRepository.save(stakeHolder);
     }
 
@@ -137,26 +159,6 @@ public class StakeHolderService {
         return criteria.list();
     }
 
-    /**
-     * Adds the uploaded stake holder document to file store and associates with the stake holder
-     *
-     * @param registration
-     */
-    private void addDocumentsToFileStore(final StakeHolder stakeHolder,
-            final Map<Long, CheckListDetail> documentAndId) {
-        final List<CheckListDetail> documents = stakeHolder.getCheckListDocuments();
-        documents.stream()
-                .filter(document -> !document.getFile().isEmpty() && document.getFile().getSize() > 0)
-                .map(document -> {
-                    final StakeHolderDocument stakeHolderDocument = new StakeHolderDocument();
-                    stakeHolderDocument.setStakeHolder(stakeHolder);
-                    stakeHolderDocument.setCheckListDetail(documentAndId.get(document.getId()));
-                    stakeHolderDocument.setDocumentId(addToFileStore(document.getFile()));
-                    stakeHolderDocument.setIsAttached(true);
-                    return stakeHolderDocument;
-                }).collect(Collectors.toList())
-                .forEach(doc -> stakeHolder.addStakeHolderDocument(doc));
-    }
 
     private FileStoreMapper addToFileStore(final MultipartFile file) {
         FileStoreMapper fileStoreMapper = null;
