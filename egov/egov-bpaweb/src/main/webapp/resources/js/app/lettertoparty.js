@@ -60,8 +60,8 @@ jQuery(document).ready(function($) {
 	
 });
 	function getUrlToPring() {
-		var url = '/bpa/lettertoparty/lettertopartyprint?pathVar='+$('#lettertoParty').val();
-		$('#lettertoPartyform').attr('method', 'get');    
+		var url = '/bpa/lettertoparty/lettertopartyprint/lp?pathVar='+$('#lettertoParty').val();
+		$('#lettertoPartyform').attr('method', 'get');
 		$('#lettertoPartyform').attr('action', url);
 		window.location = url;
 	}

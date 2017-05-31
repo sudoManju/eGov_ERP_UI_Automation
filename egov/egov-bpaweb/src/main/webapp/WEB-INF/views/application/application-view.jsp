@@ -199,7 +199,7 @@
 				<c:if test="${mode eq 'initialtedApprove'}">
 					<a
 						href="/bpa/application/calculateFee/${bpaApplication.applicationNumber}"
-						class="btn btn-primary">Calculate Fee </a>
+						class="btn btn-primary">Modify Fee </a>
 
 				</c:if>
 				<c:if test="${createlettertoparty}">
