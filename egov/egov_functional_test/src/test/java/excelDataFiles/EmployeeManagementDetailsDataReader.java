@@ -32,13 +32,11 @@ public class EmployeeManagementDetailsDataReader extends ExcelReader {
         String isPrimary = getCellData(assignmentDetailsSheet, dataRow, "IsPrimary").getStringCellValue();
         String mainDepartment = getCellData(assignmentDetailsSheet, dataRow, "MainDepartment").getStringCellValue();
         String designation = getCellData(assignmentDetailsSheet, dataRow, "Designation").getStringCellValue();
-        String position = getCellData(assignmentDetailsSheet, dataRow, "Position").getStringCellValue();
 
         return new AssignmentDetailsBuilder()
                 .withIsPrimary(isPrimary)
                 .withDepartment(mainDepartment)
                 .withDesignation(designation)
-                .withPosition(position)
                 .build();
     }
 
