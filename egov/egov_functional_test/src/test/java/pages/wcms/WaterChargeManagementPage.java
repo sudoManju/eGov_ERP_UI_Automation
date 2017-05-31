@@ -302,7 +302,7 @@ public class WaterChargeManagementPage extends BasePage {
 
     public void estimationFeeDetails() {
 
-        enterText(monthlyFees, "1000", webDriver);
+//        enterText(monthlyFees, "1000", webDriver);
         enterText(donationCharges, "100", webDriver);
 
         clickOnButton(createDataEntryScreen, webDriver);
@@ -420,7 +420,7 @@ public class WaterChargeManagementPage extends BasePage {
     }
 
     public void estimationFeeDetailsForMetered() {
-        enterText(monthlyFees, "1000", webDriver);
+//        enterText(monthlyFees, "1000", webDriver);
         enterText(donationCharges, "100", webDriver);
         enterText(meterCost, "1500", webDriver);
         enterText(meterName, "Test", webDriver);

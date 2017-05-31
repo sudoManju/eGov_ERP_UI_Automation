@@ -119,10 +119,16 @@ public class NewSewerageConnectionPage extends BasePage {
     private WebElement executionDateTextBox;
 
     @FindBy(css = "input[id='demandDetailBeanList0actualAmount'][type='text']")
-    private WebElement demandTextBox;
+    private WebElement demandTextBox1;
 
     @FindBy(css = "input[id='demandDetailBeanList0actualCollection'][type='text']")
-    private WebElement collectionTextBox;
+    private WebElement collectionTextBox1;
+
+    @FindBy(css = "input[id='demandDetailBeanList1actualAmount'][type='text']")
+    private WebElement demandTextBox2;
+
+    @FindBy(css = "input[id='demandDetailBeanList1actualCollection'][type='text']")
+    private WebElement collectionTextBox2;
 
     @FindBy(id = "submit")
     private WebElement submitButton;
@@ -167,7 +173,7 @@ public class NewSewerageConnectionPage extends BasePage {
     }
 
     public String getApplicationNumberForLegacyCreation() {
-        String num1 = successMessageForSewerageConnectionText1.getText().split("\\ ")[5].substring(1, 14);
+        String num1 = successMessageForSewerageConnectionText1.getText().split("\\ ")[9].substring(1, 11);
         return num1;
     }
 
@@ -298,8 +304,10 @@ public class NewSewerageConnectionPage extends BasePage {
         enterText(PTAssessmentNumberTextBox, assessmentNumber, driver);
         enterText(hscNumberTextBox, "1016" + get6DigitRandomInt(), driver);
         enterText(executionDateTextBox, getPreviousDate(), driver);
-        enterText(demandTextBox, "1000", driver);
-        enterText(collectionTextBox, "0", driver);
+        enterText(demandTextBox1, "1000", driver);
+        enterText(collectionTextBox1, "0", driver);
+        enterText(demandTextBox2, "1000", driver);
+        enterText(collectionTextBox2, "0", driver);
         selectFromDropDown(propertyTypeDropBox, "RESIDENTIAL", driver);
         enterText(noOfClosetsForResidentialsTextBox, "3", driver);
         enterText(donationChargesCollected,"0",driver);
@@ -310,13 +318,11 @@ public class NewSewerageConnectionPage extends BasePage {
     }
 
     public void searchAndGenerateDemandBill(String number) {
-        enterText(applicationNumberTextBox, number, driver);
+        enterText(hscNumberTextBox, number, driver);
         clickOnButton(searchButton, driver);
         waitForElementToBeVisible(searchResultsTable, driver);
-        WebElement dropDownAction = searchResultsTable.findElement(By.tagName("tbody")).findElement(By.tagName("tr")).findElements(By.tagName("td")).get(1).findElement(By.tagName("a"));
-        String hscNumber = dropDownAction.getText();
-        driver.navigate().to(getEnvironmentURL() + "/stms/reports/generate-sewerage-demand-bill/" + number + "/" + hscNumber);
-        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+        driver.navigate().to(getEnvironmentURL() + "/stms/reports/generate-sewerage-demand-bill/" + number + "/" + number);
+        await().atMost(20, SECONDS);
         driver.close();
         switchToPreviouslyOpenedWindow(driver);
     }
