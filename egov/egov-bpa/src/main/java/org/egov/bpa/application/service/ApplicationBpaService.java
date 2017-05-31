@@ -40,6 +40,7 @@
 package org.egov.bpa.application.service;
 
 import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_APPROVED;
+import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_FIELD_INS;
 import static org.egov.bpa.utils.BpaConstants.BUILDINGHEIGHT_GROUND;
 import static org.egov.bpa.utils.BpaConstants.EXTENTINSQMTS;
 import static org.egov.bpa.utils.BpaConstants.FILESTORE_MODULECODE;
@@ -74,6 +75,7 @@ import org.egov.bpa.application.entity.CheckListDetail;
 import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.application.repository.ApplicationBpaRepository;
 import org.egov.bpa.application.service.collection.GenericBillGeneratorService;
+import org.egov.bpa.service.ApplicationFeeService;
 import org.egov.bpa.service.BpaStatusService;
 import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
@@ -103,6 +105,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 @Transactional(readOnly = true)
 public class ApplicationBpaService extends GenericBillGeneratorService {
+
+	private static final String NOC_UPDATION_IN_PROGRESS = "NOC updation in progress";
 
 	@Autowired
 	private ApplicationBpaRepository applicationBpaRepository;
@@ -136,6 +140,10 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
 	@Autowired
     @Qualifier("parentMessageSource")
     private MessageSource messageSource;
+	@Autowired
+	private ApplicationBpaFeeCalculationService applicationBpaFeeCalculationService;
+	@Autowired
+    protected ApplicationFeeService applicationFeeService;
 
 	public Session getCurrentSession() {
 		return entityManager.unwrap(Session.class);
@@ -236,6 +244,9 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
 		application.setSource(Source.SYSTEM);
 		persistBpaNocDocuments(application);
 		application.getBuildingDetail().get(0).setApplicationFloorDetails(buildApplicationFloorDetails(application));
+		if (APPLICATION_STATUS_FIELD_INS.equalsIgnoreCase(application.getStatus().getCode()) && NOC_UPDATION_IN_PROGRESS.equalsIgnoreCase(application.getState().getValue())) {
+			 applicationFeeService.saveApplicationFee(applicationBpaFeeCalculationService.calculateBpaSanctionFees(application));
+		}
 		if (APPLICATION_STATUS_APPROVED.equalsIgnoreCase(application.getStatus().getCode())) {
 			application.setPlanPermissionNumber(generatePlanPermissionNumber(application));
 		}
