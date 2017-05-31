@@ -266,6 +266,8 @@ public class MiscellaneousPage extends BasePage {
             }
         }
         jsClick(remitToBankButton, driver);
+
+        driver.switchTo().alert().accept();
     }
 
     public String successMessageOfRemittance() {
