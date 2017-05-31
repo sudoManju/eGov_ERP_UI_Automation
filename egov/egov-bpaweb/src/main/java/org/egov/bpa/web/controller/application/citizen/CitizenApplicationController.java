@@ -155,6 +155,12 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
 		return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_09);
 	}
 
+	@RequestMapping(value = "/amenity-form", method = GET)
+	public String loadAmenity(@ModelAttribute final BpaApplication bpaApplication, final Model model,
+			final HttpServletRequest request) {
+		return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_08);
+	}
+
 	@RequestMapping(value = "/application-create", method = POST)
 	public String createNewConnection(@Valid @ModelAttribute final BpaApplication bpaApplication,
 			final BindingResult resultBinder, final RedirectAttributes redirectAttributes,
