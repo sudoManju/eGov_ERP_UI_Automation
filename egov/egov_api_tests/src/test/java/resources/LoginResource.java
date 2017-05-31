@@ -51,9 +51,53 @@ public class LoginResource {
                 .header("Content-type", "application/x-www-form-urlencoded")
                 .header("auth-token", accessToken)
                 .when()
-                .post(Properties.logoutUrl+accessToken);
+                .post(Properties.logoutUrl + accessToken);
 
         new APILogger().log("In-Valid logout response generated as-- " + response.asString());
+
+        return response;
+    }
+
+    public Response getSessionFromBaseAPI() {
+        new APILogger().log("Get The SESSION ID From Base API Test Is Started -- ");
+
+        Response response = given().request().with()
+                .urlEncodingEnabled(false)
+                .when()
+                .get("http://kurnool-pilot-services.egovernments.org/egi");
+
+        new APILogger().log("Get The SESSION ID From Base API Test Is Completed -- ");
+
+        return response;
+    }
+
+    public Response loginFromPilotService(String sessionId, Map map) {
+        new APILogger().log("Get The SESSION ID From LOGIN API Test Is Started -- ");
+
+        Response response = given().request().with()
+                .urlEncodingEnabled(false)
+                .header("Content-type", "application/x-www-form-urlencoded")
+                .header("Authorization", "Basic Og==")
+                .header("SESSIONID", sessionId)
+                .params(map)
+                .when()
+                .post("http://kurnool-pilot-services.egovernments.org/egi/j_security_check");
+
+        new APILogger().log("Get The SESSION ID From LOGIN API Test Is Completed -- ");
+
+        return response;
+    }
+
+    public Response logoutFromPilotService(String sessionIdFromLoginAPI) {
+        new APILogger().log("Get The SESSION ID From LOGOUT API Test Is Started -- ");
+
+        Response response = given().request().with()
+                .urlEncodingEnabled(false)
+                .header("SESSIONID", sessionIdFromLoginAPI)
+                .when()
+                .get("http://kurnool-pilot-services.egovernments.org/egi/logout");
+
+        new APILogger().log("Get The SESSION ID From LOGOUT API Test Is Completed -- ");
 
         return response;
     }

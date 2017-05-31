@@ -42,8 +42,8 @@ public class AssetServiceSteps extends BaseSteps implements En {
                     scenarioContext.getAssetCategory(), scenarioContext.getApplicationNumber());
         });
 
-        And("^user will update the data in asset modify screen$", () -> {
-            String message = pageStore.get(AssetServicePage.class).enterAssetDetailsToUpdate();
+        And("^user will update the details in asset modify screen based on (\\w+)$", (String categoryDetails) -> {
+            String message = pageStore.get(AssetServicePage.class).enterAssetDetailsToUpdate(categoryDetails);
             scenarioContext.setActualMessage(message);
 
             pageStore.get(AssetServicePage.class).closeAssetViewPage();

@@ -10,6 +10,7 @@ import pages.BasePage;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -176,6 +177,12 @@ public class AssetServicePage extends BasePage {
     @FindBy(css = "[class='text-center'] [class='btn btn-close']")
     private WebElement closeButton;
 
+    @FindBy(css = "[class='land-table table-responsive'] tbody input")
+    private List<WebElement> amenties;
+
+    @FindBy(css = "[class='btn btn-primary']")
+    private WebElement amentiesAddButton;
+
     private WebDriver webDriver;
 
     public AssetServicePage(WebDriver webDriver) {
@@ -229,6 +236,11 @@ public class AssetServicePage extends BasePage {
 
             case "kalyanaMandapam":
                 enterText(webDriver.findElement(By.cssSelector("[name='Total Square Feet Area']")), get6DigitRandomInt().substring(0, 4), webDriver);
+                enterText(amenties.get(0), "AC", webDriver);
+                enterText(amenties.get(1), "10", webDriver);
+                clickOnButton(amentiesAddButton, webDriver);
+                enterText(amenties.get(2), "Fans", webDriver);
+                enterText(amenties.get(3), "40", webDriver);
                 break;
 
             case "lakesAndPonds":
@@ -262,8 +274,13 @@ public class AssetServicePage extends BasePage {
 
             case "shopping":
                 enterText(shoppingComplexNumberTextBox, String.valueOf(new Random().nextInt((9 - 4) + 1) + 1), webDriver);
-                enterText(noOfFloorsTextBox, String.valueOf(new Random().nextInt((9 - 4) + 1) + 1), webDriver);
-                enterText(noOfShopsTextBox, String.valueOf(new Random().nextInt((9 - 4) + 1) + 1), webDriver);
+                int noOfFloors = new Random().nextInt((5 - 1) + 1);
+                int noOfRooms = noOfFloors * 5;
+                enterText(noOfFloorsTextBox, String.valueOf(noOfFloors), webDriver);
+                enterText(noOfShopsTextBox, String.valueOf(noOfRooms), webDriver);
+                enterText(amenties.get(0), "1", webDriver);
+                enterText(amenties.get(1), String.valueOf(noOfRooms / noOfFloors), webDriver);
+
                 break;
 
             case "community":
@@ -295,7 +312,24 @@ public class AssetServicePage extends BasePage {
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    public String enterAssetDetailsToUpdate() {
+    public String enterAssetDetailsToUpdate(String categoryDetails) {
+
+        switch (categoryDetails) {
+            case "kalyanaMandapam":
+                clickOnButton(amentiesAddButton, webDriver);
+                enterText(amenties.get(4), "Rooms", webDriver);
+                enterText(amenties.get(5), "20", webDriver);
+                clickOnButton(amentiesAddButton, webDriver);
+                enterText(amenties.get(6), "Parking Floors", webDriver);
+                enterText(amenties.get(7), "2", webDriver);
+                break;
+
+            case "shopping":
+                clickOnButton(amentiesAddButton, webDriver);
+                enterText(amenties.get(2), "2", webDriver);
+                enterText(amenties.get(3), "5", webDriver);
+                break;
+        }
 
         selectFromDropDown(statusSelectBox, "CAPITALIZED", webDriver);
         enterText(webDriver.findElement(By.id("grossValue")), "10000", webDriver);

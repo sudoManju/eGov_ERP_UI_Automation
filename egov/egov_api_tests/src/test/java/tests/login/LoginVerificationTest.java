@@ -1,8 +1,10 @@
 package tests.login;
 
 import builders.login.LoginRequestBuilder;
+import builders.login.LoginRequestForPilotServiceBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.login.LoginRequest;
+import entities.requests.login.LoginRequestForPilotService;
 import entities.responses.login.LoginErrorResponse;
 import entities.responses.login.LoginResponse;
 import org.testng.Assert;
@@ -56,5 +58,23 @@ public class LoginVerificationTest extends BaseAPITest {
         Assert.assertEquals(loginErrorResponse.getError_description(), "Invalid login credentials");
 
         new APILogger().log("Login Failed is Completed -- ");
+    }
+
+    @Test
+    public void loginWithSessionId(){
+        Response baseAPIResponse = new LoginResource().getSessionFromBaseAPI();
+        Assert.assertEquals(baseAPIResponse.getStatusCode() , 200);
+        String sessionIdFromBaseAPI = baseAPIResponse.getCookie("SESSIONID");
+
+        LoginRequestForPilotService loginRequestForPilotService = new LoginRequestForPilotServiceBuilder().build();
+        Response loginFromPilotServiceResponse = new LoginResource()
+                .loginFromPilotService(sessionIdFromBaseAPI , RequestHelper.asMap(loginRequestForPilotService));
+        Assert.assertEquals(loginFromPilotServiceResponse.getStatusCode() , 302);
+        String sessionIdFromLoginAPI = loginFromPilotServiceResponse.getCookie("SESSIONID");
+        System.out.println("========"+sessionIdFromLoginAPI);
+
+        Response logoutResponse = new LoginResource()
+                .logoutFromPilotService(sessionIdFromLoginAPI);
+        Assert.assertEquals(logoutResponse.getStatusCode() , 200);
     }
 }
