@@ -10,6 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.PGRResource;
 import tests.BaseAPITest;
+import utils.APILogger;
 import utils.Categories;
 import utils.LoginAndLogoutHelper;
 import utils.RequestHelper;
@@ -38,6 +39,8 @@ public class ReceivingCentersAndModesTest extends BaseAPITest {
 
     private void getAllReceivingModesTest(LoginResponse loginResponse) {
 
+        new APILogger().log("Receiving modes test is started ---");
+
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
 
         ReceivingCentersRequest request = new ReceivingCentersRequestBuilder().withRequestInfo(requestInfo).build();
@@ -47,9 +50,13 @@ public class ReceivingCentersAndModesTest extends BaseAPITest {
         Response response = new PGRResource().getReceivingModes(json);
 
         Assert.assertEquals(response.getStatusCode(),200);
+
+        new APILogger().log("Receiving modes test is completed ---");
     }
 
     private void getAllReceivingCentersTest(LoginResponse loginResponse){
+
+        new APILogger().log("All Receiving centers test is started ---");
 
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
 
@@ -61,9 +68,12 @@ public class ReceivingCentersAndModesTest extends BaseAPITest {
 
         Assert.assertEquals(response.getStatusCode(),200);
 
+        new APILogger().log("All Receiving Centers test is Completed ---");
     }
 
     private void getReceivingCenterByIdTest(LoginResponse loginResponse){
+
+        new APILogger().log("Receiving Centers by Id test is Started ---");
 
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
 
@@ -74,6 +84,8 @@ public class ReceivingCentersAndModesTest extends BaseAPITest {
         Response response = new PGRResource().getReceivingCenterById(json);
 
         Assert.assertEquals(response.getStatusCode(),200);
+
+        new APILogger().log("Receiving Centers by Id test is Completed ---");
     }
 
 }

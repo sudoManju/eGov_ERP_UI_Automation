@@ -10,6 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.PGRResource;
 import tests.BaseAPITest;
+import utils.APILogger;
 import utils.Categories;
 import utils.LoginAndLogoutHelper;
 import utils.RequestHelper;
@@ -36,6 +37,8 @@ public class ComplaintTypeVerificationTest extends BaseAPITest {
 
     private void complaintTypeByServiceCode(LoginResponse loginResponse)throws IOException{
 
+        new APILogger().log("get complaint type by service code started ---");
+
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
 
         ComplaintTypeRequest request = new ComplaintTypeRequestBuilder().withRequestInfo(requestInfo).build();
@@ -45,9 +48,13 @@ public class ComplaintTypeVerificationTest extends BaseAPITest {
         Response response = new PGRResource().getComplaintTypeByServiceCode(json);
 
         Assert.assertEquals(response.getStatusCode(),200);
+
+        new APILogger().log("get complaint type by service code completed ---");
      }
 
      private void complaintTypeCategories(LoginResponse loginResponse)throws IOException{
+
+         new APILogger().log("get complaint type by Categories started ---");
 
          RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
 
@@ -58,5 +65,7 @@ public class ComplaintTypeVerificationTest extends BaseAPITest {
          Response response = new PGRResource().getComplaintCategories(json);
 
          Assert.assertEquals(response.getStatusCode(),200);
+
+         new APILogger().log("get complaint type by Categories completed ---");
      }
 }

@@ -10,6 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.PGRResource;
 import tests.BaseAPITest;
+import utils.APILogger;
 import utils.Categories;
 import utils.LoginAndLogoutHelper;
 import utils.RequestHelper;
@@ -34,6 +35,9 @@ public class FetchComplaintTypeTest extends BaseAPITest{
     }
 
     private void fetchComplaintById(LoginResponse loginResponse) {
+
+        new APILogger().log("Fetch complaint by id test is started ---");
+
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
 
         FetchComplaintRequest request = new FetchComplaintRequestBuilder().withRequestInfo(requestInfo).build();
@@ -43,9 +47,13 @@ public class FetchComplaintTypeTest extends BaseAPITest{
         Response response = new PGRResource().getFetchComplaintById(json);
 
         Assert.assertEquals(response.getStatusCode(),200);
+
+        new APILogger().log("Fetch complaint by id test is completed ---");
     }
 
     private void fetchAllComplaints(LoginResponse loginResponse) {
+
+        new APILogger().log("Fetch all complaints test is started ---");
 
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
 
@@ -56,5 +64,7 @@ public class FetchComplaintTypeTest extends BaseAPITest{
         Response response = new PGRResource().getFetchComplaint(json);
 
         Assert.assertEquals(response.getStatusCode(),200);
+
+        new APILogger().log("Fetch all complaints test is completed ---");
     }
 }

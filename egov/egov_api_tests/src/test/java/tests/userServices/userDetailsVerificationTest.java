@@ -11,10 +11,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.UserServiceResource;
 import tests.BaseAPITest;
-import utils.Categories;
-import utils.LoginAndLogoutHelper;
-import utils.RequestHelper;
-import utils.ResponseHelper;
+import utils.*;
 
 import java.io.IOException;
 
@@ -35,6 +32,8 @@ public class userDetailsVerificationTest extends BaseAPITest {
 
     private void verifyUserDetails(LoginResponse loginResponse) throws IOException {
 
+        new APILogger().log("Verify User Details Test is Started ---");
+
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
 
         UserDetailsRequest request = new UserDetailsRequestBuilder().withRequestInfo(requestInfo).build();
@@ -53,5 +52,7 @@ public class userDetailsVerificationTest extends BaseAPITest {
         Assert.assertEquals(loginResponse.getUserRequest().getUserName(),response1.getUserName());
         Assert.assertEquals(loginResponse.getUserRequest().getMobileNumber(),response1.getMobileNumber());
         Assert.assertEquals(loginResponse.getUserRequest().getEmailId(),response1.getEmailId());
+
+        new APILogger().log("Verify User Details Test is Completed ---");
     }
 }

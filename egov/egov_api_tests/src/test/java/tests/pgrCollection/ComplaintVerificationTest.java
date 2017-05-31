@@ -49,6 +49,8 @@ public class ComplaintVerificationTest extends BaseAPITest {
 
     private ComplaintResponse createComplaintInPGR(LoginResponse loginResponse) throws IOException {
 
+        new APILogger().log("Creating complaint test for PGR is Started  -- ");
+
         RequestInfo requestInfo = new RequestInfoBuilder().build();
 
         ComplaintRequest request = new ComplaintRequestBuilder().withRequestInfo(requestInfo).build();
@@ -76,6 +78,8 @@ public class ComplaintVerificationTest extends BaseAPITest {
     }
 
     private void getComplaintInPGR(ComplaintResponse complaint,LoginResponse loginResponse) throws IOException {
+
+        new APILogger().log("Getting a PGR complaint test is started -- ");
 
         entities.requests.pgrCollections.searchComplaint.RequestInfo requestInfo = new
                                builders.pgrCollection.searchComplaint.RequestInfoBuilder()
@@ -117,6 +121,8 @@ public class ComplaintVerificationTest extends BaseAPITest {
 
 
     private ComplaintResponse updateComplaintInPGR(ComplaintResponse complaint,LoginResponse loginResponse) throws IOException {
+
+        new APILogger().log("Update complaint for PGR test is started  -- ");
 
         RequestInfo requestInfo = new RequestInfoBuilder("").withAuth_token(loginResponse.getAccess_token()).build();
 

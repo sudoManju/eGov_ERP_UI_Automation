@@ -10,8 +10,9 @@ import entities.requests.userServices.createNoValidate.GetUserRequest;
 import entities.requests.userServices.createNoValidate.RequestInfo;
 import entities.requests.userServices.createNoValidate.User;
 import entities.responses.login.LoginResponse;
-import entities.responses.userServices.createUser.CreateUserResponse;
+import entities.responses.userServices.createUser.UserResponse;
 import entities.responses.userServices.getUser.GetUserResponse;
+import org.junit.rules.Timeout;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.UserServiceResource;
@@ -19,6 +20,7 @@ import tests.BaseAPITest;
 import utils.*;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import static data.usernames.narasappa;
 
@@ -31,7 +33,7 @@ public class CreateNoValidateVerificationTest extends BaseAPITest {
         LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
 
         // Create a user
-        CreateUserResponse create = CreateAUserTest(loginResponse);
+        UserResponse create = CreateAUserTest(loginResponse);
 
         //Get User Details with Id
         getTheNewlyCreatedUser(loginResponse,create,"id");
@@ -40,10 +42,18 @@ public class CreateNoValidateVerificationTest extends BaseAPITest {
         getTheNewlyCreatedUser(loginResponse,create,"userName");
 
         //Update User Details
-        updateTheUserTest(loginResponse,create.getUser()[0].getId());
+        UserResponse update =updateTheUserTest(loginResponse,create.getUser()[0].getId());
+
+        //Get User Details with Id
+        getTheNewlyCreatedUser(loginResponse,update,"id");
+
+        //Get User Details with UserName
+        getTheNewlyCreatedUser(loginResponse,update,"userName");
     }
 
-    private void updateTheUserTest(LoginResponse loginResponse, int id) throws IOException {
+    private UserResponse updateTheUserTest(LoginResponse loginResponse, int id) throws IOException {
+
+        new APILogger().log("Update user test is started ---");
 
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
 
@@ -57,15 +67,21 @@ public class CreateNoValidateVerificationTest extends BaseAPITest {
 
         Assert.assertEquals(response.getStatusCode(),200);
 
-        CreateUserResponse response1 = (CreateUserResponse)
-                ResponseHelper.getResponseAsObject(response.asString(),CreateUserResponse.class);
+        UserResponse response1 = (UserResponse)
+                ResponseHelper.getResponseAsObject(response.asString(),UserResponse.class);
 
         Assert.assertEquals(response1.getUser()[0].getId(),id);
 
         Assert.assertEquals(request.getUser().getName(),response1.getUser()[0].getName());
+
+        new APILogger().log("Update user test is completed ---");
+
+        return response1;
     }
 
-    private void getTheNewlyCreatedUser(LoginResponse loginResponse,CreateUserResponse create,String searchType) throws IOException {
+    private void getTheNewlyCreatedUser(LoginResponse loginResponse, UserResponse create, String searchType) throws IOException {
+
+      new APILogger().log("get user details with search type "+searchType+" is started ---");
 
       RequestInfo requestInfo = new RequestInfoBuilder("").withAuthToken(loginResponse.getAccess_token()).build();
 
@@ -95,9 +111,12 @@ public class CreateNoValidateVerificationTest extends BaseAPITest {
 
         Assert.assertEquals(response1.getUser()[0].getUserName(),create.getUser()[0].getUserName());
 
+        new APILogger().log("get user details with search type "+searchType+" is completed ---");
     }
 
-    private CreateUserResponse CreateAUserTest(LoginResponse loginResponse) throws IOException {
+    private UserResponse CreateAUserTest(LoginResponse loginResponse) throws IOException {
+
+        new APILogger().log("Create user test is started ---");
 
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
 
@@ -111,10 +130,12 @@ public class CreateNoValidateVerificationTest extends BaseAPITest {
 
         Assert.assertEquals(response.getStatusCode(),200);
 
-        CreateUserResponse response1 = (CreateUserResponse)
-                ResponseHelper.getResponseAsObject(response.asString(),CreateUserResponse.class);
+        UserResponse response1 = (UserResponse)
+                ResponseHelper.getResponseAsObject(response.asString(),UserResponse.class);
 
         Assert.assertEquals(request.getUser().getUserName(),response1.getUser()[0].getUserName());
+
+        new APILogger().log("Create user test is completed ---");
 
         return response1;
     }

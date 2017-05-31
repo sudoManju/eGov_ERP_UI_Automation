@@ -29,6 +29,7 @@ public class UserBuilder {
    public UserBuilder(String update){
        user.setTenantId("default");
        user.setName("UpdatedTester");
+       user.setActive(true);
    }
 
    public UserBuilder withUserName(String userName){
