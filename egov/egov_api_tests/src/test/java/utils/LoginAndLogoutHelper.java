@@ -2,10 +2,12 @@ package utils;
 
 
 import builders.login.LoginRequestBuilder;
+import builders.login.LoginRequestForPilotServiceBuilder;
 import builders.logout.LogoutRequestBuilder;
 import builders.logout.RequestInfoBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.login.LoginRequest;
+import entities.requests.login.LoginRequestForPilotService;
 import entities.requests.logout.LogoutRequest;
 import entities.requests.logout.RequestInfo;
 import entities.responses.login.LoginResponse;
@@ -50,5 +52,20 @@ public class LoginAndLogoutHelper {
 
         new APILogger().log("Logout Test is Completed --");
 
+    }
+
+    public static String loginFromPilotService(){
+        Response baseAPIResponse = new LoginResource().getSessionFromBaseAPI();
+        String sessionIdFromBaseAPI = baseAPIResponse.getCookie("SESSIONID");
+
+        LoginRequestForPilotService loginRequestForPilotService = new LoginRequestForPilotServiceBuilder().build();
+        Response loginFromPilotServiceResponse = new LoginResource()
+                .loginFromPilotService(sessionIdFromBaseAPI , RequestHelper.asMap(loginRequestForPilotService));
+        return loginFromPilotServiceResponse.getCookie("SESSIONID");
+    }
+
+    public static void logoutFromPilotService(String sessionIdFromLoginAPI){
+        Response logoutResponse = new LoginResource()
+                .logoutFromPilotService(sessionIdFromLoginAPI);
     }
 }
