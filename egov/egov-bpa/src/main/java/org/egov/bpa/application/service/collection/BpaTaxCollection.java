@@ -215,9 +215,10 @@ public class BpaTaxCollection extends TaxCollection {
     public void updateBpaApplication(final EgDemand demand) {
         final BpaApplication application = applicationBpaService
                 .getApplicationByDemand(demand);
-        if(application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_CREATED))
+        if(application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_CREATED)){
         bpaUtils.redirectToBpaWorkFlow(null,application, BpaConstants.WF_NEW_STATE, BpaConstants.BPAFEECOLLECT,null,null);
-        // update status and initialize workflow
+        }
+        bpaUtils.updateCitizeninboxApplication(application);
         applicationBpaService.saveAndFlushApplication(application);
         bpaSmsAndEmailService.sendSMSAndEmail(application);
 
@@ -296,13 +297,11 @@ public class BpaTaxCollection extends TaxCollection {
 
     public EgDemand getCurrentDemand(final Long billId) {
         final EgBill egBill = egBillDAO.findById(billId, false);
-        final BpaApplication application = null;
-        EgDemand demand;
+        EgDemand demand=null;
         if (egBill.getEgDemand() != null && egBill.getEgDemand().getIsHistory() != null
                 && egBill.getEgDemand().getIsHistory().equals(BpaConstants.DEMANDISHISTORY))
             demand = egBill.getEgDemand();
-        else
-            demand = application.getDemand();
+       
         return demand;
     }
 

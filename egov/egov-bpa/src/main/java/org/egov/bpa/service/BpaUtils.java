@@ -14,9 +14,11 @@ import org.egov.demand.model.EgDemandDetails;
 import org.egov.eis.entity.Assignment;
 import org.egov.eis.service.AssignmentService;
 import org.egov.eis.service.DesignationService;
+import org.egov.infra.admin.master.entity.AppConfigValues;
 import org.egov.infra.admin.master.entity.Boundary;
 import org.egov.infra.admin.master.entity.Module;
 import org.egov.infra.admin.master.entity.User;
+import org.egov.infra.admin.master.service.AppConfigValueService;
 import org.egov.infra.admin.master.service.BoundaryService;
 import org.egov.infra.admin.master.service.ModuleService;
 import org.egov.infra.admin.master.service.UserService;
@@ -66,6 +68,17 @@ public class BpaUtils {
 
     @Autowired
     private DesignationService designationService;
+    
+    
+    @Autowired
+    private AppConfigValueService appConfigValueService;
+    
+    
+    public String getAppconfigByKeyName(String code)
+    {
+    	List<AppConfigValues>appConfigValueList=appConfigValueService.getConfigValuesByModuleAndKey(BpaConstants.APPLICATION_MODULE_TYPE,code);
+    	return (!appConfigValueList.isEmpty()?appConfigValueList.get(0).getValue():"");
+    }
     
     @Autowired
     private UserService userService;

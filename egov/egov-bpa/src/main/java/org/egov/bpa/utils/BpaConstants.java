@@ -205,6 +205,8 @@ public class BpaConstants {
 	public static final String RESIDENTIAL = "Residential";
 	public static final String BPAFEECOLLECT="BPA Admission fees collected";
 	public static final String WF_SURVEYOR_FORWARD_BUTTON = "Submit";
+	public static final String WF_PAY_ONLINE_BUTTON = "Pay Online";
+	public static final String ENABLEONLINEPAYMENT="BPA_ONLINE_PAY";
 	private static final List<String> BUILDPERMIT = new ArrayList<>();
 	static {
 		BUILDPERMIT.add(ST_CODE_02); // Demolition

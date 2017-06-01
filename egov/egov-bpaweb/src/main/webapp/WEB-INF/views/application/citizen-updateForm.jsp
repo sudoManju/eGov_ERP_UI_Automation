@@ -50,7 +50,10 @@
 			id="editWaterConnectionform"
 			cssClass="form-horizontal form-groups-bordered"
 			enctype="multipart/form-data">
-						<form:hidden path="" id="workFlowAction" name="workFlowAction"/>		
+						<form:hidden path="" id="workFlowAction" name="workFlowAction"/>	
+						<form:hidden path="" id="onlinePaymentEnable"
+				value="${onlinePaymentEnable}" />
+							
 			<form:hidden path="" id="wfstateDesc"
 				value="${bpaApplication.state.value}" />
 					<input type="hidden" name="citizenOrBusinessUser"
@@ -97,16 +100,19 @@
 					<td><c:choose>
 					<c:when test="${citizenOrBusinessUser && bpaApplication.id !=null && bpaApplication.state==null}">
 				<form:button type="submit" id="buttonSave" class="btn btn-primary"
-					value="Save">Save</form:button>
-				<td><form:button type="submit" id="buttonSubmit" class="btn btn-primary"
-					value="Submit">Submit</form:button></td>
-					<td><form:button type="submit" id="buttonCancel" class="btn btn-primary"
-					value="CANCEL APPLICATION">CANCEL APPLICATION </form:button></td>
+					value="Save"> Save </form:button>
+				<form:button type="submit" id="buttonSubmit" class="btn btn-primary"
+					value="Submit">Submit</form:button>
+					<form:button type="submit" id="buttonCancel" class="btn btn-primary"
+					value="CANCEL APPLICATION"> CANCEL APPLICATION </form:button>
+					<c:if test="${onlinePaymentEnable}">
+					<form:button type="submit" id="buttonPay" class="btn btn-primary"
+					value="Pay Online"> Pay Online </form:button></c:if>
 					</c:when>
 					<c:otherwise>
 					</c:otherwise>
-					</c:choose><td>
-						<td><input type="button" name="button2" id="button2" value="Close"
+					</c:choose>
+						<input type="button" name="button2" id="button2" value="Close"
 							class="btn btn-primary" onclick="window.close();" />
 						</td>
 					</tr>
@@ -117,6 +123,7 @@
 </div>
 
 <script type="text/javascript">
+
 jQuery(document).ready(function() {
 	$("#applicantdet").prop("disabled",true);
 	$("#appDet").prop("disabled",true);
@@ -154,8 +161,8 @@ jQuery(document).ready(function() {
 			document.forms[0].submit();
 		
 	});
- $('#buttonCancel').click(function() {
-		var button=$('#buttonCancel').val();
+ $('#buttonPay').click(function() {
+		var button=$('#buttonPay').val();
 		document.getElementById("workFlowAction").value=button;
 		$("#applicantdet").prop("disabled",false);
 		$("#appDet").prop("disabled",false);

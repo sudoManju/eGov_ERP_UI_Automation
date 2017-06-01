@@ -46,6 +46,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.egov.bpa.application.entity.BpaApplication;
+import org.egov.bpa.application.service.collection.GenericBillGeneratorService;
 import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.bpa.web.controller.application.BpaGenericApplicationController;
@@ -72,7 +73,8 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 	private static final String APPLICATION_HISTORY = "applicationHistory";
 
 	private static final String ADDITIONALRULE = "additionalRule";
-
+	@Autowired
+	private GenericBillGeneratorService genericBillGeneratorService;
 	@Autowired
 	private BpaUtils bpaUtils;
 
@@ -101,6 +103,8 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 		model.addAttribute(ADDITIONALRULE, CREATE_ADDITIONAL_RULE_CREATE);
 		model.addAttribute(BPA_APPLICATION, application);
 		// prepareWorkflow(model, application, workflowContainer);
+		String enableOrDisablePayOnline=bpaUtils.getAppconfigByKeyName(BpaConstants.ENABLEONLINEPAYMENT);
+		model.addAttribute("onlinePaymentEnable", (enableOrDisablePayOnline.equals("YES")?Boolean.TRUE:Boolean.FALSE));
 		model.addAttribute("currentState",
 				application.getCurrentState() != null ? application.getCurrentState().getValue() : "");
 		model.addAttribute(BPA_APPLICATION, application);
@@ -130,6 +134,10 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 		applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
 		bpaApplication.getBuildingDetail().get(0)
 				.setApplicationFloorDetails(applicationBpaService.buildApplicationFloorDetails(bpaApplication));
+		if (workFlowAction != null && workFlowAction.equals(BpaConstants.WF_PAY_ONLINE_BUTTON)) {
+			
+			return genericBillGeneratorService.generateBillAndRedirectToCollection(bpaApplication, model);
+		}
 		if (workFlowAction != null
 				&& (workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)
 						|| BpaConstants.WF_CANCELAPPLICATION_BUTTON.equalsIgnoreCase(workFlowAction))

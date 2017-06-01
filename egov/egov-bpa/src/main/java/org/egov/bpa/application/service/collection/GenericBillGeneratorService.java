@@ -73,6 +73,7 @@ public class GenericBillGeneratorService {
        return "collecttax-redirection";
     }
 
+    //NOTE: as off now Giving pay online For Architect and Citizen as Per Bpa Requirement
     public Boolean getCitizenUserRole() {
         Boolean citizenrole = Boolean.FALSE;
         if (ApplicationThreadLocals.getUserId() != null) {
@@ -81,7 +82,8 @@ public class GenericBillGeneratorService {
                     && securityUtils.getCurrentUser().getUsername().equals(BpaConstants.USERNAME_ANONYMOUS))
                 citizenrole = Boolean.TRUE;
             for (final Role userrole : currentUser.getRoles())
-                if (userrole != null && userrole.getName().equals(BpaConstants.ROLE_CITIZEN)) {
+                if (userrole != null && (userrole.getName().equals(BpaConstants.ROLE_CITIZEN)||
+                		userrole.getName().equals(BpaConstants.ROLE_BUSINESS_USER))) {
                     citizenrole = Boolean.TRUE;
                     break;
                 }
