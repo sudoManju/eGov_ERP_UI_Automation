@@ -208,10 +208,10 @@ public class EmployeeOtherDetailsPage extends BasePage {
         jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#testDetailModal']")), webDriver);
         enterText(departmentalTestNameTextBox, "departmentalTestNameTextBox", webDriver);
         selectFromDropDown(departmentalYearOfPassingTextBox, getCurrentYear(), webDriver);
-        clickOnButton(webDriver.findElement(By.id("testAddOrUpdate")), webDriver);
     }
 
     public void submitCreateEmployee() {
+        clickOnButton(webDriver.findElement(By.id("testAddOrUpdate")), webDriver);
         jsClick(webDriver.findElement(By.id("addEmployee")), webDriver);
         jsClick(webDriver.findElement(By.cssSelector(".btn.btn-close")), webDriver);
         switchToPreviouslyOpenedWindow(webDriver);

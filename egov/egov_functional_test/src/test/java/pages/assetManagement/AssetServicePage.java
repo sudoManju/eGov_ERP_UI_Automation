@@ -193,7 +193,8 @@ public class AssetServicePage extends BasePage {
         selectFromDropDown(departmentSelectBox, headerDetails.getDepartment(), webDriver);
         selectFromDropDown(assetCategorySelectBox, headerDetails.getAssetCategory(), webDriver);
         enterDate(creationDate, getCurrentDate(), webDriver);
-        enterText(assetNameTextBox, "Tester", webDriver);
+        enterText(descriptionTextBox, "Description for "+headerDetails.getAssetCategory()+" Asset", webDriver);
+        enterText(assetNameTextBox, "Asset: "+headerDetails.getAssetCategory(), webDriver);
         selectFromDropDown(modeOfAcquisitionSelectBox, headerDetails.getModeOfAcquisition(), webDriver);
         clickOnButton(assetReferenceSearchButton, webDriver);
 
