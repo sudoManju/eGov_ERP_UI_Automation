@@ -2,7 +2,7 @@ Feature: As a registered user will create a building planning and checking the f
 
   Scenario Outline: Create A Building Planning Registration
 
-    Given suresh logs in
+    Given ulbOperator logs in
     And user will select the required screen as "New BPA Application"
     And user will enter the Building Application Details
     And user will enter the Applicant Details
@@ -18,16 +18,16 @@ Feature: As a registered user will create a building planning and checking the f
     ###    Application is Went to Superintendent Inbox   ###
     ########################################################
 
-    Given shahid logs in
+    Given superintendentBPA logs in
     And he chooses to act upon above application number
     And user will enter the approval details as <approvalOfficer1> and forwards it
     And current user logs out
 
-    ########################################################
+    #########################################################
     ###    Application is Went to JuniorAssistant Inbox   ###
-    ########################################################
+    #########################################################
 
-    Given syed logs in
+    Given ulbOperator logs in
     And he chooses to act upon above application number
     And user will provide the appointment for the verification of documents
     And he chooses to act upon above application number
@@ -39,7 +39,7 @@ Feature: As a registered user will create a building planning and checking the f
     ###    Application is Went to Assistant Engineer Inbox   ###
     ############################################################
 
-    Given rishi logs in
+    Given assistantEngineerBPA logs in
     And he chooses to act upon above application number
     And user will enter the approval details as <approvalOfficer3> and forwards it
     And current user logs out
@@ -48,7 +48,7 @@ Feature: As a registered user will create a building planning and checking the f
     ###    Application is Went to Town Planning Building Overseer Inbox   ###
     #########################################################################
 
-    Given sankar logs in
+    Given overseer logs in
     And he chooses to act upon above application number
     And user will provide the appointment for the verification of documents
     And he chooses to act upon above application number
@@ -61,7 +61,7 @@ Feature: As a registered user will create a building planning and checking the f
     ###    Application is Went to Assistant Engineer Inbox   ###
     ############################################################
 
-    Given rishi logs in
+    Given assistantEngineerBPA logs in
     And he chooses to act upon above application number
     And user will enter the approval details as <approvalOfficer4> and forwards it
     And current user logs out
@@ -70,7 +70,7 @@ Feature: As a registered user will create a building planning and checking the f
     ###    Application is Went to Superintendent of NOC Inbox   ###
     ###############################################################
 
-    Given satyam logs in
+    Given superintendentOfNOC logs in
     And he chooses to act upon above application number
     And user will enter the approval details as <approvalOfficer2> and forwards it
     And current user logs out
@@ -79,7 +79,7 @@ Feature: As a registered user will create a building planning and checking the f
     ###    Application is Went to Assistant Engineer Inbox   ###
     ############################################################
 
-    Given rishi logs in
+    Given assistantEngineerBPA logs in
     And he chooses to act upon above application number
     And user will calculate the fees based on the building measurements
     And he chooses to act upon above application number
@@ -90,7 +90,7 @@ Feature: As a registered user will create a building planning and checking the f
     ###    Application is Went to Assistant Executive Engineer Inbox   ###
     ######################################################################
 
-    Given sathish logs in
+    Given assistantExecutiveEngineer logs in
     And he chooses to act upon above application number
     And user will enter the approval details as <approvalOfficer6> and forwards it
     And current user logs out
@@ -99,16 +99,16 @@ Feature: As a registered user will create a building planning and checking the f
     ###    Application is Went to Executive Engineer Inbox   ###
     ############################################################
 
-    Given manikanta logs in
+    Given executiveEngineer logs in
     And he chooses to act upon above application number
     And user will enter the approval details as <approvalOfficer7> and forwards it
     And current user logs out
 
-    ############################################################
-    ###    Application is Went to Assistant Engineer Inbox   ###
-    ############################################################
+    ##############################################################
+    ###    Application is Went to Corporation Engineer Inbox   ###
+    ##############################################################
 
-    Given rishi logs in
+    Given corporationEngineer logs in
     And he chooses to act upon above application number
     And user will enter the approval details as <approvalOfficer8> and forwards it
     And current user logs out
@@ -117,7 +117,7 @@ Feature: As a registered user will create a building planning and checking the f
     ###      Application is Went to Secretary Inbox      ###
     ########################################################
 
-    Given pradeep logs in
+    Given secretary logs in
     And he chooses to act upon above application number
     And secretary will approve the application with approval details as <approvalOfficer9> and forwards it
     And current user logs out
@@ -126,7 +126,7 @@ Feature: As a registered user will create a building planning and checking the f
     ###         Application is Went to ULB Inbox         ###
     ########################################################
 
-    Given suresh logs in
+    Given ulbOperator logs in
     And user will select the required screen as "Search Application" with condition as "bpa/application/search"
     And user will search the application based on application number
     And user will close the acknowledgement form
@@ -136,7 +136,7 @@ Feature: As a registered user will create a building planning and checking the f
     ###    Application is Went to Superintendent of Approval Inbox   ###
     ####################################################################
 
-    Given vaibhav logs in
+    Given superintendentOfApproval logs in
     And he chooses to act upon above application number
     And user will enter the approval details as <approvalOfficer8> and forwards it
     And current user logs out
@@ -145,7 +145,7 @@ Feature: As a registered user will create a building planning and checking the f
     ###      Application is Went to Secretary Inbox      ###
     ########################################################
 
-    Given pradeep logs in
+    Given secretary logs in
     And he chooses to act upon above application number
     And Secretary will apply the Digital Signature and forwards to <approvalOfficer9>
     And current user logs out
@@ -154,13 +154,11 @@ Feature: As a registered user will create a building planning and checking the f
     ###    Application is Went to Superintendent of Approval Inbox   ###
     ####################################################################
 
-    Given vaibhav logs in
+    Given superintendentOfApproval logs in
     And he chooses to act upon above application number
     And user will click on Generate Permit Order
     And current user logs out
 
     Examples:
-    | approvalOfficer1 | approvalOfficer2 | approvalOfficer3 | approvalOfficer4 | approvalOfficer5 | approvalOfficer6 | approvalOfficer7 | approvalOfficer8 | approvalOfficer9 |
-    | syedBPA          | rishiBPA         | sankarBPA        | satyamBPA        | sathishBPA       | manikantaBPA     | rishiCorpBPA     | pradeepBPA       | vaibhavBPA       |
-
-
+    | approvalOfficer1 | approvalOfficer2     | approvalOfficer3 | approvalOfficer4    | approvalOfficer5           | approvalOfficer6 | approvalOfficer7    | approvalOfficer8 | approvalOfficer9         |
+    | ulbOperator      | assistantEngineerBPA | overseer         | superintendentOfNOC | assistantExecutiveEngineer | executiveEngineer| corporationEngineer | secretary        | superintendentOfApproval |

@@ -32,6 +32,9 @@ public class CreateBuildingApplicationPage extends BasePage {
     @FindBy(id = "applicantMode")
     private WebElement applicantModeSelectBox;
 
+    @FindBy(id = "governmentType")
+    private WebElement governmentTypeSelectBox;
+
     // Applicant Details
     @FindBy(id = "owner.applicantName")
     private WebElement applicantNameTextBox;
@@ -169,7 +172,7 @@ public class CreateBuildingApplicationPage extends BasePage {
     @FindBy(linkText = "Capture Inspection Details")
     private WebElement captureInspectionDetailsButton;
 
-    @FindBy(linkText = "Calculate Fee")
+    @FindBy(linkText = "Modify Fee")
     private WebElement calculateFeeButton;
 
     @FindBy(id = "createFeeSubmit")
@@ -211,6 +214,7 @@ public class CreateBuildingApplicationPage extends BasePage {
         selectFromDropDown(stakeHolderNameSelectBox, "Vasim", webDriver);
         selectFromDropDown(occupancySelectBox, "Residential", webDriver);
 //        selectFromDropDown(applicantModeSelectBox, "NEW", webDriver);
+        selectFromDropDown(governmentTypeSelectBox, "GOVERNMENT", webDriver);
     }
 
     public void enterApplicantDetails() {
@@ -222,8 +226,8 @@ public class CreateBuildingApplicationPage extends BasePage {
 
     public void enterSiteDetails() {
 //        selectFromDropDown(zoneSelectBox, "Zone-1", webDriver);
-        selectFromDropDown(wardSelectBox, "Gandhi Road", webDriver);
-        selectFromDropDown(electionWardSelectBox, "Election Ward No 1", webDriver);
+        selectFromDropDown(wardSelectBox, "BEYPORE", webDriver);
+        selectFromDropDown(electionWardSelectBox, "BEYPORE", webDriver);
         enterText(plotNumberTextBox, get6DigitRandomInt().substring(0, 3), webDriver);
         enterText(plotSurveyNumberTextBox, get6DigitRandomInt().substring(0, 4), webDriver);
         selectFromDropDown(revenueVillageSelectBox, "Coachin", webDriver);
