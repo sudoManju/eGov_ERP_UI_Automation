@@ -40,12 +40,12 @@
  
 jQuery(document).ready(function($) {
 	
+	// to refresh inbox item after forwarding
+	$(window).unload(function(){
+		parent.window.opener.inboxloadmethod();
+	});
+	
 	$("#buttonCreateSubmit").click(function(e){ 
-		var chkbxLength = $('.requested:checked').length;
-		if(chkbxLength <= 0){
-			bootbox.alert('Please select atleast one document.');
-			return false;
-		}
 		validateDate();
 		return true;
 });  

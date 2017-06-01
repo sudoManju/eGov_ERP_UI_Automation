@@ -81,7 +81,7 @@
 							<div class="col-sm-3 add-margin">
 								<form:textarea path="lpDesc"
 									class="form-control patternvalidation" data-pattern="string"
-									maxlength="1024" id="lpDesc" required="required"  />
+									maxlength="1024" rows="5" id="lpDesc" required="required" />
 								<form:errors path="lpDesc" cssClass="error-msg" />
 							</div>
 						</div>
@@ -92,7 +92,8 @@
 								<form:input path="lastReplyDate" class="form-control datepicker"
 									data-date-start-date="0d" id="lastReplyDate"
 									data-inputmask="'mask': 'd/m/y'" />
-								<form:errors path="lastReplyDate" cssClass="add-margin error-msg" /> 
+								<form:errors path="lastReplyDate"
+									cssClass="add-margin error-msg" />
 							</div>
 						</div>
 

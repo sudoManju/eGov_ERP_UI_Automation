@@ -199,11 +199,15 @@
         <put-attribute name="body" value="/WEB-INF/views/lettertoparty/lettertoparty-checklist.jsp"/>
     </definition>
      <definition name="lettertoparty-capturesentdate" extends="base_layout">
-    	<put-attribute name="page-title" value="title.checklist " cascade="true"/>
+    	<put-attribute name="page-title" value="title.lettertoparty.update" cascade="true"/>
         <put-attribute name="body" value="/WEB-INF/views/lettertoparty/lettertoparty-capturesentdate.jsp"/>
     </definition>
      <definition name="lettertoparty-lpreply" extends="base_layout">
     	<put-attribute name="page-title" value="title.lpreply " cascade="true"/>
         <put-attribute name="body" value="/WEB-INF/views/lettertoparty/lettertoparty-lpreply.jsp"/>
+    </definition>
+      <definition name="lettertoparty-view" extends="base_layout">
+    	<put-attribute name="page-title" value="title.lettertoparty.view" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/lettertoparty/lettertoparty-view.jsp"/>
     </definition>
 </tiles-definitions>

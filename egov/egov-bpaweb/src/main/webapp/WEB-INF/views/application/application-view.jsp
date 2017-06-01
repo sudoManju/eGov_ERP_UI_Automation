@@ -205,7 +205,7 @@
 				<c:if test="${createlettertoparty}">
 				<a
 						href="/bpa/lettertoparty/create/${bpaApplication.applicationNumber}"
-						class="btn btn-primary"> Create Letter to Party </a>	 
+						target="_self" class="btn btn-primary"> Create Letter to Party </a>	 
 				</c:if>
 			</div>
 			<br>
@@ -220,9 +220,13 @@
 				<c:otherwise>
 					<c:choose>
 						<c:when
-							test="${ citizenOrBusinessUser && bpaApplication.id !=null}">
-							<form:button type="submit" id="buttonSubmit"
-								class="btn btn-primary" value="Forward">Forward</form:button>
+							test="${ (citizenOrBusinessUser && bpaApplication.id !=null) || bpaApplication.state.value eq 'LP Initiated'}">
+							<div class="buttonbottom" align="center">
+								<form:button type="submit" id="buttonSubmit"
+									class="btn btn-primary" value="Forward">Forward</form:button>
+								<input type="button" name="button2" id="button2" value="Close"
+								class="btn btn-default" onclick="window.close();" />
+							</div>
 						</c:when>
 						<c:otherwise>
 							<c:if test="${bpaApplication.status.code ne 'Digitally signed'}">

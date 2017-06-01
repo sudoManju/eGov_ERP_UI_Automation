@@ -114,6 +114,7 @@ public class LettertoParty extends AbstractAuditable {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "currentapplnstatus")
     private BpaStatus currentApplnStatus;
+    private String stateForOwnerPosition;
     @Override
     public Long getId() {
         return id;
@@ -296,4 +297,12 @@ public class LettertoParty extends AbstractAuditable {
 		this.currentApplnStatus = currentApplnStatus;
 	}
 
+	public String getStateForOwnerPosition() {
+		return stateForOwnerPosition;
+	}
+
+	public void setStateForOwnerPosition(String stateForOwnerPosition) {
+		this.stateForOwnerPosition = stateForOwnerPosition;
+	}
+	
 }

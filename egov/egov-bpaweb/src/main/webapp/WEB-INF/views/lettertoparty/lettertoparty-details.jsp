@@ -42,44 +42,41 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn"%>
-<div align="center" class="overflow-x-scroll">
-	<table width="100%" border="0" cellspacing="0" cellpadding="0"
-		class="tablebottom" id="vacantLandTable">
-		<tr>
-			<th class="bluebgheadtd"><spring:message code="lbl.slno" /></th>
-			<th class="bluebgheadtd"><spring:message code="lbl.lp.no" /></th>
-			<th class="bluebgheadtd"><spring:message code="lbl.lp.date" /></th>
-			<th class="bluebgheadtd"><spring:message code="lbl.lp.reason" /></th>
-			<th class="bluebgheadtd"><spring:message code="lbl.lp.description" /></th>
-			<th class="bluebgheadtd"><spring:message code="lbl.checklist" /></th>
-			<th class="bluebgheadtd"><spring:message code="lbl.lp.sentdate" /></th>
-			<th class="bluebgheadtd"><spring:message code="lbl.modify" /></th>	
-			<th class="bluebgheadtd"><spring:message code="lbl.lpprint" /></th>
-			<th class="bluebgheadtd"><spring:message code="lbl.lpreplydate" /></th>
-			<th class="bluebgheadtd"><spring:message code="lbl.lpreply" /></th>
-			<th class="bluebgheadtd"><spring:message  code="lbl.lp.reply.checklist" /></th>
-			<th class="bluebgheadtd"><spring:message code="lbl.lpreply.print" /></th>
-		</tr>
+
+<div class="panel-heading">
+	<div class="panel-title"> Letter To Party Details raised by different officials :-</div>
+</div>
+
+<div class="panel-body custom">
+	<table class="table table-bordered  multiheadertbl" id="vacantLandTable">
+		<thead>
+			<tr>
+				<th><spring:message code="lbl.slno" /></th>
+				<th><spring:message code="lbl.lp.no" /></th>
+				<th><spring:message code="lbl.lp.date" /></th>
+				<th><spring:message code="lbl.lp.reason" /></th>
+				<th><spring:message code="lbl.lp.sentdate" /></th>
+				<th><spring:message code="lbl.modify" /></th>	
+				<th><spring:message code="lbl.lpprint" /></th>
+				<th><spring:message code="lbl.lpreplydate" /></th>
+				<th><spring:message code="lbl.lpreply" /></th>
+				<th><spring:message code="lbl.lpreply.print" /></th>
+				<th><spring:message code="lbl.action" /></th>
+			</tr>
+			</thead>
+		<tbody>
 		<c:choose>
 			<c:when test="${not empty lettertopartylist}">
 				<c:forEach items="${lettertopartylist}" var="lp" varStatus="status">
 					<tr id="lprow">
-						<td class="blueborderfortd" align="center">${status.index+1}</td>
-						<td class="blueborderfortd" align="center"><span class="bold">
+						<td align="center">${status.index+1}</td>
+						<td align="center"><span class="bold">
 							<c:out	value="${lp.lpNumber}" /></span></td>
-						<td class="blueborderfortd" align="center"><span class="bold">
+						<td align="center"><span class="bold">
 								<c:out value="${lp.letterDate}" /></span></td>
-						<td class="blueborderfortd" align="center"><span class="bold">
+						<td align="center"><span class="bold">
 								<c:out value="${lp.lpReason.description}" /></span></td>		
-						<td class="blueborderfortd" align="center"><span class="bold">
-								<c:out value="${lp.lpDesc}" /></span></td>
-						<td class="blueborderfortd" align="center"><a
-							onclick="window.open('/bpa/lettertoparty/viewchecklist/lp/${lp.id}','view','width=600, height=400,scrollbars=yes')">
-								<i class="fa fa-file-o" aria-hidden="true"> <spring:message
-										code="lbl.lp.checklist" />
-							     </i>
-						</a></td>
-						<td class="blueborderfortd" align="center">
+						<td align="center">
 						       <c:choose>
 									<c:when test="${lp.sentDate !=null }">
 									   <c:out value="${lp.sentDate}"></c:out>
@@ -92,7 +89,7 @@
 									</c:otherwise>
 							 </c:choose>
 						</td>
-						<td class="blueborderfortd" align="center">
+						<td align="center">
 						       <c:choose>
 									<c:when test="${lp.sentDate !=null }">
 									  LP Sent
@@ -104,18 +101,18 @@
 									</c:otherwise>
 							 </c:choose>
 						</td>
-						<td class="blueborderfortd" align="center">
+						<td align="center">
 							   <a href="/bpa/lettertoparty/lettertopartyprint/lp?pathVar=${lp.id}">
 									<i class="fa fa-print" aria-hidden="true"></i>
 								    <spring:message code="lbl.print" />
 								</a>
 						</td>
-						<td class="blueborderfortd" align="center">
+						<td align="center">
 									<c:if test="${lp.sentDate !=null }">
 										<c:out value="${lp.replyDate}"></c:out>
 									</c:if>	
 						</td>
-						<td class="blueborderfortd" align="center">
+						<td align="center">
 						      <c:choose>
 									<c:when test="${lp.replyDate !=null }">
 									 	 LP Reply Received
@@ -127,17 +124,17 @@
 								    </c:otherwise>
 							 </c:choose>	    
 						</td>
-						<td class="blueborderfortd" align="center"><a
-							onclick="window.open('/bpa/lettertoparty/viewchecklist/lpreply/${lp.id}','view','width=600, height=400,scrollbars=yes')">
-								<i class="fa fa-file-o" aria-hidden="true"> <spring:message
-										code="lbl.lp.reply.checklist" /></i>
-						</a></td>
-						<td class="blueborderfortd" align="center">
+						<td align="center">
 							   <a href="/bpa/lettertoparty/lettertopartyprint/lpreply?pathVar=${lp.id}">
 									<i class="fa fa-print" aria-hidden="true"></i>
 								    <spring:message code="lbl.print" />
 								</a>
 						</td>
+						<td align="center"><a
+							onclick="window.open('/bpa/lettertoparty/viewdetails/lpreply/${lp.id}','view','width=600, height=400,scrollbars=yes')">
+								<i class="fa fa-file-o" aria-hidden="true"> <spring:message
+										code="lbl.view" /></i>
+						</a></td>
 					</tr>
 				</c:forEach>
 			</c:when>
@@ -147,7 +144,7 @@
 				</div>
 			</c:otherwise>
 		</c:choose>
-
+	</tbody>
 	</table>
 </div>
 <script

@@ -48,7 +48,6 @@
 	enctype="multipart/form-data">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel-primary" data-collapsed="0">
 				<div class="panel panel-primary" data-collapsed="0">
 					<jsp:include page="../application/viewapplication-details.jsp"></jsp:include>
 					<div class="panel-heading custom_form_panel_heading">
@@ -95,7 +94,7 @@
 								<div class="col-sm-3 add-margin">
 									<form:textarea path="lpDesc"
 										class="form-control patternvalidation" data-pattern="string"
-										maxlength="1024" id="lpDesc" />
+										maxlength="1024" rows="5" id="lpDesc" />
 									<form:errors path="lpDesc" cssClass="error-msg" />
 								</div>
 							</div>
@@ -227,7 +226,6 @@
 						</c:choose>
 					</div>
 				</div>
-			</div>
 		</div>
 	</div>
 	<div class="text-center">

@@ -76,6 +76,7 @@ import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.application.repository.ApplicationBpaRepository;
 import org.egov.bpa.application.service.collection.GenericBillGeneratorService;
 import org.egov.bpa.service.ApplicationFeeService;
+import org.egov.bpa.service.BpaDemandService;
 import org.egov.bpa.service.BpaStatusService;
 import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
@@ -144,6 +145,8 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
 	private ApplicationBpaFeeCalculationService applicationBpaFeeCalculationService;
 	@Autowired
     protected ApplicationFeeService applicationFeeService;
+	@Autowired
+    protected BpaDemandService bpaDemandService;
 
 	public Session getCurrentSession() {
 		return entityManager.unwrap(Session.class);
@@ -244,8 +247,10 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
 		application.setSource(Source.SYSTEM);
 		persistBpaNocDocuments(application);
 		application.getBuildingDetail().get(0).setApplicationFloorDetails(buildApplicationFloorDetails(application));
-		if (APPLICATION_STATUS_FIELD_INS.equalsIgnoreCase(application.getStatus().getCode()) && NOC_UPDATION_IN_PROGRESS.equalsIgnoreCase(application.getState().getValue())) {
-			 applicationFeeService.saveApplicationFee(applicationBpaFeeCalculationService.calculateBpaSanctionFees(application));
+		if (APPLICATION_STATUS_FIELD_INS.equalsIgnoreCase(application.getStatus().getCode())
+				&& NOC_UPDATION_IN_PROGRESS.equalsIgnoreCase(application.getState().getValue())) {
+			bpaDemandService.generateDemandUsingSanctionFeeList(applicationFeeService
+					.saveApplicationFee(applicationBpaFeeCalculationService.calculateBpaSanctionFees(application)));
 		}
 		if (APPLICATION_STATUS_APPROVED.equalsIgnoreCase(application.getStatus().getCode())) {
 			application.setPlanPermissionNumber(generatePlanPermissionNumber(application));

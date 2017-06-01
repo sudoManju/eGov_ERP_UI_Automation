@@ -40,10 +40,8 @@
 package org.egov.bpa.application.workflow;
 
 import java.math.BigDecimal;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaStatus;
@@ -195,8 +193,7 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
             }
 		} else if (BpaConstants.LETTERTOPARTYINITIATED.equalsIgnoreCase(workFlowAction)) {
 			List<LettertoParty> lettertoParties = lettertoPartyService.findByBpaApplicationOrderByIdDesc(application);
-			StateHistory stateHistory = application.getStateHistory().stream()
-					.sorted(Comparator.comparing(StateHistory::getId).reversed()).collect(Collectors.toList()).get(0);
+			StateHistory stateHistory = application.getStateHistory().stream().filter(history -> history.getValue().equalsIgnoreCase(lettertoParties.get(0).getStateForOwnerPosition())).findAny().orElse(null);
 			wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null, null, additionalRule,
 					lettertoParties.get(0).getCurrentStateValueOfLP(), null);
 			application.setStatus(lettertoParties.get(0).getCurrentApplnStatus());

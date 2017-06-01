@@ -48,13 +48,6 @@
 	enctype="multipart/form-data">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel-primary" data-collapsed="0">
-				<div class="panel-title">
-					<spring:message code="title.lettertoparty.update" />
-				</div>
-			</div>
-			<div class="panel panel-primary" data-collapsed="0">
-
 				<div class="panel panel-primary" data-collapsed="0">
 					<jsp:include page="../application/viewapplication-details.jsp"></jsp:include>
 					<div class="panel-heading custom_form_panel_heading">
@@ -121,7 +114,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
 	</div>
 	<div class="text-center">
 	<button type='submit' class='btn btn-primary' id="buttonSubmit">

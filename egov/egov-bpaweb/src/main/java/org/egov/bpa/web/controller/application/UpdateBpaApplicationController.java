@@ -50,6 +50,7 @@ import static org.egov.bpa.utils.BpaConstants.CREATE_ADDITIONAL_RULE_CREATE;
 import static org.egov.bpa.utils.BpaConstants.GENERATEPERMITORDER;
 import static org.egov.bpa.utils.BpaConstants.WF_CANCELAPPLICATION_BUTTON;
 import static org.egov.bpa.utils.BpaConstants.WF_REJECT_BUTTON;
+import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_DIGI_SIGNED;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -62,6 +63,7 @@ import javax.validation.Valid;
 
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaAppointmentSchedule;
+import org.egov.bpa.application.entity.LettertoParty;
 import org.egov.bpa.application.entity.enums.AppointmentSchedulePurpose;
 import org.egov.bpa.application.service.InspectionService;
 import org.egov.bpa.application.service.LettertoPartyService;
@@ -263,13 +265,19 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         final WorkflowContainer workflowContainer = new WorkflowContainer();
         model.addAttribute(ADDITIONALRULE, CREATE_ADDITIONAL_RULE_CREATE);
         workflowContainer.setAdditionalRule(CREATE_ADDITIONAL_RULE_CREATE);
-        if (APPLICATION_STATUS_NOCUPDATED.equals(application.getStatus().getCode())) {
-            workflowContainer.setAmountRule(!application.getSiteDetail().isEmpty() ? application.getDocumentScrutiny().get(0).getExtentinsqmts():new BigDecimal(1));
-            workflowContainer.setPendingActions(application.getState().getNextAction());
-        } else if (APPLICATION_STATUS_APPROVED.equals(application.getStatus().getCode())
-                && !APPLICATION_STATUS_RECORD_APPROVED.equalsIgnoreCase(application.getState().getValue())) {
-            workflowContainer.setAmountRule(!application.getSiteDetail().isEmpty() ? application.getDocumentScrutiny().get(0).getExtentinsqmts():new BigDecimal(1));
-        }
+        List<LettertoParty> lettertoParties = lettertoPartyService.findByBpaApplicationOrderByIdDesc(application);
+		if (APPLICATION_STATUS_NOCUPDATED.equals(application.getStatus().getCode())
+				|| (!APPLICATION_STATUS_DIGI_SIGNED.equals(application.getStatus().getCode()) && !APPLICATION_STATUS_APPROVED.equals(application.getStatus().getCode()) && !lettertoParties.isEmpty()
+						&& APPLICATION_STATUS_NOCUPDATED
+								.equals(lettertoParties.get(0).getCurrentApplnStatus().getCode()))) {
+			workflowContainer.setAmountRule(!application.getSiteDetail().isEmpty()
+					? application.getDocumentScrutiny().get(0).getExtentinsqmts() : new BigDecimal(1));
+			workflowContainer.setPendingActions(application.getState().getNextAction());
+		} else if (APPLICATION_STATUS_APPROVED.equals(application.getStatus().getCode())
+				&& !APPLICATION_STATUS_RECORD_APPROVED.equalsIgnoreCase(application.getState().getValue())) {
+			workflowContainer.setAmountRule(!application.getSiteDetail().isEmpty()
+					? application.getDocumentScrutiny().get(0).getExtentinsqmts() : new BigDecimal(1));
+		}
         workflowContainer.setAdditionalRule(CREATE_ADDITIONAL_RULE_CREATE);
         prepareWorkflow(model, application, workflowContainer);
         model.addAttribute("pendingActions", workflowContainer.getPendingActions());
