@@ -34,7 +34,7 @@ Feature: Create a Agreement based on created asset service from the asset module
     Examples:
       | headerDetails | locationDetails | assetStatus | categoryDetails | allotteeDetails  | agreementDetails  | approvalOfficer1 | approvalOfficer2 |
       | header1       | location1       | CREATED     | Land            | allotteeDetails1 | agreementDetails1 | veeraswamy       | commissionerLAMS |
-#      | header2       | location1       | CREATED     | market          | allotteeDetails1 | agreementDetails1 |
+      | header2       | location1       | CREATED     | market          | allotteeDetails1 | agreementDetails1 | veeraswamy       | commissionerLAMS |
 #      | header3       | location1       | CREATED     | kalyanaMandapam | allotteeDetails1 | agreementDetails1 |
 #      | header4       | location1       | CREATED     | lakesAndPonds   | allotteeDetails1 | agreementDetails1 |
 #      | header5       | location1       | CREATED     | roads           | allotteeDetails1 | agreementDetails1 |

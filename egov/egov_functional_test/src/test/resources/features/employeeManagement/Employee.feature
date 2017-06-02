@@ -5,7 +5,7 @@ Feature: Create/View/Update
 
   Scenario Outline: Create an employee
 
-    Given hrUAT logs in
+    Given hrPilot logs in
     And user will select the required screen as "Create Employee" with condition as "/employee"
     And user enters the employee details as <employeeDetails>
     And user will enter the assignment details as <assignmentDetails>
@@ -29,6 +29,7 @@ Feature: Create/View/Update
       | employee1       | assignment1       | JurisdictionList1   |
       | employee2       | assignment2       | JurisdictionList2   |
       | employee3       | assignment3       | JurisdictionList3   |
+      | employee4       | assignment4       | JurisdictionList4   |
 
 
     Scenario Outline: Create employee fields validation test
