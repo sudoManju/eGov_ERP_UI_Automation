@@ -54,7 +54,6 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import org.egov.bpa.application.autonumber.ApplicationNumberGenerator;
 import org.egov.bpa.application.autonumber.BpaBillReferenceNumberGenerator;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaFee;
@@ -114,9 +113,9 @@ public class ApplicationBpaBillService extends BillServiceInterface {
 	private EgBillDao egBillDAO;
 	@Autowired
 	private ApplicationContext context;
-	
-	 @Autowired
-	    protected BpaFeeService bpaFeeService;
+
+	@Autowired
+	protected BpaFeeService bpaFeeService;
 	@Autowired
 	private BpaDemandService bpaDemandService;
 
@@ -160,7 +159,7 @@ public class ApplicationBpaBillService extends BillServiceInterface {
 	}
 
 	public Criteria getBpaFeeCriteria(List<Long> amenityList, final String feeType) {
-		return bpaDemandService.createCriteriaforFeeAmount( amenityList,feeType);
+		return bpaDemandService.createCriteriaforFeeAmount(amenityList, feeType);
 	}
 
 	private EgDemandDetails createDemandDetails(final BigDecimal amount, final String demandReason,
@@ -222,7 +221,7 @@ public class ApplicationBpaBillService extends BillServiceInterface {
 		final List<EgBillDetails> billDetails = new ArrayList<>();
 		final EgDemand demand = billObj.getCurrentDemand();
 		final Date currentDate = new Date();
-		final Map installmentWise = new HashMap<Installment, List<EgDemandDetails>>();
+		final Map<Installment, List<EgDemandDetails>> installmentWise = new HashMap<>();
 		final Set<Installment> sortedInstallmentSet = new TreeSet<>();
 		final BpaDemandComparatorByOrderId demandComparatorByOrderId = new BpaDemandComparatorByOrderId();
 		final List<EgDemandDetails> orderedDetailsList = new ArrayList<>();
@@ -320,15 +319,6 @@ public class ApplicationBpaBillService extends BillServiceInterface {
 		/*
 		 * ncell Bill still not developed Ca
 		 */
-	}
-
-	public String generateApplicationnumber(final BpaApplication application) {
-		final String currentInstallmentYear = getCurrentInstallmentYear();
-		final ApplicationNumberGenerator applicationnumber = beanResolver
-				.getAutoNumberServiceFor(ApplicationNumberGenerator.class);
-		return applicationnumber.generateApplicationNumber(currentInstallmentYear, application.getServiceType(),
-				application.getSiteDetail() != null && application.getSiteDetail().get(0).getAdminBoundary() != null
-						? application.getSiteDetail().get(0).getAdminBoundary() : null);
 	}
 
 	private String getCurrentInstallmentYear() {

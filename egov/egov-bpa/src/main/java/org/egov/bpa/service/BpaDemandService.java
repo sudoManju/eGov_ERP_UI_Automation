@@ -54,7 +54,6 @@ import org.egov.bpa.application.entity.ApplicationFeeDetail;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaFee;
 import org.egov.bpa.application.entity.BpaFeeDetail;
-import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.commons.Installment;
 import org.egov.commons.dao.InstallmentDao;
@@ -187,7 +186,7 @@ public class BpaDemandService {
     }
 
     @Transactional
-    protected EgDemandDetails createDemandDetail(BpaFee feeDet, BigDecimal amount) {
+    public EgDemandDetails createDemandDetail(BpaFee feeDet, BigDecimal amount) {
         EgDemandDetails dmdDet = new EgDemandDetails();
         dmdDet.setAmount(amount);
         dmdDet.setAmtCollected(BigDecimal.ZERO);

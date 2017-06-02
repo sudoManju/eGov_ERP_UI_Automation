@@ -200,7 +200,7 @@ public class BpaApplicationBillable extends AbstractBillable implements Billable
     @Override
     public BigDecimal getTotalAmount() {
         final EgDemand currentDemand = getCurrentDemand();
-        final List instVsAmt = bpaDemandService.getDmdCollAmtInstallmentWise(currentDemand);
+        final List<Object> instVsAmt = bpaDemandService.getDmdCollAmtInstallmentWise(currentDemand);
         BigDecimal balance = BigDecimal.ZERO;
         for (final Object object : instVsAmt) {
             final Object[] ddObject = (Object[]) object;
