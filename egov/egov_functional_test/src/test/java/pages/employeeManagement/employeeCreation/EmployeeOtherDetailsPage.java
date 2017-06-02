@@ -3,12 +3,15 @@ package pages.employeeManagement.employeeCreation;
 import entities.employeeManagement.createEmployee.JurisdictionDetails;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
 
 import java.util.concurrent.TimeUnit;
+
+import static com.jayway.awaitility.Awaitility.await;
 
 public class EmployeeOtherDetailsPage extends BasePage {
 
@@ -127,6 +130,21 @@ public class EmployeeOtherDetailsPage extends BasePage {
 
     @FindBy(id = "addEmployee")
     private WebElement submitButton;
+
+    @FindBy(id = "serviceHistory.orderNo-error")
+    private WebElement serviceOrderNoError;
+
+    @FindBy(id = "serviceHistory.remarks-error")
+    private WebElement serviceRemarksError;
+
+    @FindBy(id = "education.qualification-error")
+    private WebElement qualificationError;
+
+    @FindBy(id = "education.majorSubject-error")
+    private WebElement subjectError;
+
+    @FindBy(id = "education.university-error")
+    private WebElement universityError;
 
     private WebDriver webDriver;
 
@@ -280,5 +298,35 @@ public class EmployeeOtherDetailsPage extends BasePage {
         jsClick(webDriver.findElement(By.cssSelector("[onclick=\"markEditIndex(0,'technicalDetailModal','technical')\"]")), webDriver);
         enterText(technicalSkillsTextBox, "Java And Selenium", webDriver);
         jsClick(webDriver.findElement(By.id("technicalAddOrUpdate")), webDriver);
+    }
+
+    public void checkValidationForServiceDetails() {
+        jsClick(webDriver.findElement(By.cssSelector("a[href='#serviceSection']")), webDriver);
+        jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#serviceHistoryDetailModal']")), webDriver);
+        enterText(serviceAreaDescriptionTextBox, "serviceAreaDescription", webDriver);
+        enterDate(dateTextBox, getCurrentDate(), webDriver);
+        checkField(orderNumberTextBox,serviceOrderNoError,"@@@@@","1234","Only alphanumeric with -/_ allowed.");
+        checkField(remarksTextBox,serviceRemarksError,"@@@@@","Remarks","Only alphanumeric with -/_ allowed.");
+        remarksTextBox.clear();
+        enterText(remarksTextBox,"Remarks",webDriver);
+        clickOnButton(webDriver.findElement(By.id("serviceHistoryAddOrUpdate")), webDriver);
+    }
+
+    private void checkField(WebElement element,WebElement errorElement,String wrongData,String correctData,String errorMsg){
+        enterText(element,wrongData,webDriver);
+        element.sendKeys(Keys.TAB);
+        if(errorElement.getText().equals(errorMsg)){
+            enterText(element,correctData,webDriver);
+        }
+    }
+
+    public void checkEducationDetailsFields() {
+      jsClick(webDriver.findElement(By.cssSelector("a[href='#otherDetails']")), webDriver);
+      jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#educationDetailModal']")), webDriver);
+      checkField(qualificationTextBox,qualificationError,"1234","B.tech","Only alphabets with special characters allowed.");
+      checkField(majorSubjectTextBox,subjectError,"1234","Testing","Only alphabets with special characters allowed.");
+      selectFromDropDown(yearOfPassingSelectBox,"2002",webDriver);
+      checkField(universityTextBox,universityError,"1234","Test","Only alphabets with special characters allowed.");
+      clickOnButton(webDriver.findElement(By.id("educationAddOrUpdate")), webDriver);
     }
 }

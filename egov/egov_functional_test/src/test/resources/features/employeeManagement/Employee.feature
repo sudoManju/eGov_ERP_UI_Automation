@@ -29,3 +29,18 @@ Feature: Create/View/Update
       | employee1       | assignment1       | JurisdictionList1   |
       | employee2       | assignment2       | JurisdictionList2   |
       | employee3       | assignment3       | JurisdictionList3   |
+
+
+    Scenario Outline: Create employee fields validation test
+
+      Given hrPilot logs in
+      And user will select the required screen as "Create Employee" with condition as "/employee"
+      And user test the fields validation for employee details
+      And user will enter the assignment details as <assignmentDetails>
+      And user test the fields validation for assisgnment details
+      And user will enter the jurisdiction details as <jurisdictionDetails>
+      And user test the fields validation for service and other details
+
+      Examples:
+      |assignmentDetails|jurisdictionDetails|
+      |assignment3      |JurisdictionList3  |

@@ -1,5 +1,6 @@
 package steps.employeeManagement;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.employeeManagement.createEmployee.AssignmentDetails;
 import entities.employeeManagement.createEmployee.EmployeeDetails;
@@ -63,7 +64,20 @@ public class EmployeeOperationSteps extends BaseSteps implements En {
             pageStore.get(EmployeeOtherDetailsPage.class).updateEducationDetails();
             pageStore.get(EmployeeOtherDetailsPage.class).updateTechnicalQualificationDetails();
         });
-
+        And("^user test the fields validation for employee details$", () -> {
+            scenarioContext.setApplicationNumber(pageStore.get(EmployeeDetailsPage.class).checkEmployeeTabFields());
+        });
+        And("^user test the fields validation for assisgnment details$", () -> {
+           pageStore.get(AssignmentDetailsPage.class).checkValidationFieldsInAssisgnmentTab();
+        });
+        And("^user test the fields validation for service and other details$", () -> {
+          pageStore.get(EmployeeOtherDetailsPage.class).checkValidationForServiceDetails();
+          pageStore.get(EmployeeOtherDetailsPage.class).enterProbationDetails();
+          pageStore.get(EmployeeOtherDetailsPage.class).enterRegularisationDetails();
+          pageStore.get(EmployeeOtherDetailsPage.class).checkEducationDetailsFields();
+          pageStore.get(EmployeeOtherDetailsPage.class).enterTechnicalQualificationDetails();
+          pageStore.get(EmployeeOtherDetailsPage.class).enterDepartmentalTestDetails();
+        });
 
     }
 }
