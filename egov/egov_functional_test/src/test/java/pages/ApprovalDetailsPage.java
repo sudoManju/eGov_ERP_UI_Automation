@@ -1,8 +1,10 @@
 package pages;
 
 import entities.ApprovalDetails;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
@@ -39,13 +41,13 @@ public class ApprovalDetailsPage extends BasePage {
     @FindBy(css = "textarea[name='approverComments']")
     private WebElement approverCommentsTextBox;
 
-    @FindBy(id = "approverDepartment")
+    @FindAll({@FindBy(id = "approver_department"), @FindBy(id = "approverDepartment")})
     private WebElement approverDepartmentSelection;
 
-    @FindBy(id = "approverDesignation")
+    @FindAll({@FindBy(id = "approverDesignation"), @FindBy(id = "approver_designation")})
     private WebElement approverDesignationSelection;
 
-    @FindBy(id = "approverPositionId")
+    @FindAll({@FindBy(id = "approverPositionId"), @FindBy(id = "approver_name") , @FindBy(css = "[id='approverName']")})
     private WebElement approverSelection;
 
     @FindBy(id = "Forward")
@@ -57,6 +59,9 @@ public class ApprovalDetailsPage extends BasePage {
     @FindBy(id = "approvalDesignation")
     private WebElement approvalDesignationSelection;
 
+//    @FindBy(css = "[id='approverName']")
+//    private WebElement approverNameDropdown;
+
     public ApprovalDetailsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -67,11 +72,16 @@ public class ApprovalDetailsPage extends BasePage {
         await().atMost(10, SECONDS).until(() -> new Select(approverDesignationSelection).getOptions().size() > 1);
 
         selectFromDropDown(approverDesignationSelection, approvalDetails.getApproverDesignation(), webDriver);
-        await().atMost(10, SECONDS).until(() -> new Select(approverSelection).getOptions().size() > 1);
 
-        selectFromDropDown(approverSelection, approvalDetails.getApprover(), webDriver);
+//        if (approverSelection.isDisplayed()) {
+            await().atMost(10, SECONDS).until(() -> new Select(approverSelection).getOptions().size() > 1);
+            selectFromDropDown(approverSelection, approvalDetails.getApprover(), webDriver);
+//        } else {
+//            await().atMost(10, SECONDS).until(() -> new Select(approverNameDropdown).getOptions().size() >= 1);
+//            selectFromDropDown(approverNameDropdown, approvalDetails.getApprover(), webDriver);
+//        }
 
-        if (approverCommentsTextBox.isDisplayed()) {
+        if (webDriver.findElements(By.cssSelector("textarea[name='approverComments']")).size() > 0) {
             enterText(approverCommentsTextBox, approvalDetails.getApproverRemarks(), webDriver);
         }
     }

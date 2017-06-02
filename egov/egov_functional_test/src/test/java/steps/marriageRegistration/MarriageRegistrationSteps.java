@@ -47,7 +47,7 @@ public class MarriageRegistrationSteps extends BaseSteps implements En {
         And("^he approve the new marriage application  and close the acknowledgement$", () -> {
 //            pageStore.get(MarriageRegistrationPage.class).enterMarriageRegNum();
             pageStore.get(MarriageRegistrationPage.class).approve();
-            scenarioContext.setRegistrationNumber(pageStore.get(MarriageRegistrationPage.class).getRegistrationNumber());
+            scenarioContext.setReferenceNumber(pageStore.get(MarriageRegistrationPage.class).getRegistrationNumber());
             scenarioContext.setActualMessage(pageStore.get(MarriageRegistrationPage.class).getSuccessMessage());
             pageStore.get(MarriageRegistrationPage.class).closeApplication();
         });

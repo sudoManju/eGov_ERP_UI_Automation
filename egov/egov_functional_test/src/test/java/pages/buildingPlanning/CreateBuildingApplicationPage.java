@@ -8,8 +8,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import static com.jayway.awaitility.Awaitility.await;
 
 public class CreateBuildingApplicationPage extends BasePage {
 
@@ -269,9 +272,9 @@ public class CreateBuildingApplicationPage extends BasePage {
     }
 
     public String collectFeeFromApplicant() {
+        await().atMost(10, TimeUnit.SECONDS).until(() -> webDriver.findElements(By.cssSelector("[class='greyboxwithlink'] table tbody tr")).size() > 0);
         waitForElementToBeVisible(webDriver.findElements(By.cssSelector("[class='greyboxwithlink'] table tbody tr")).get(1).findElements(By.tagName("td")).get(2), webDriver);
         String applicationNumber = webDriver.findElements(By.cssSelector("[class='greyboxwithlink'] table tbody tr")).get(1).findElements(By.tagName("td")).get(2).getText();
-        System.out.println("===========" + applicationNumber);
         waitForElementToBeVisible(webDriver.findElement(By.id("totalamounttobepaid")), webDriver);
         String amountTobePaid = webDriver.findElement(By.id("totalamounttobepaid")).getAttribute("value");
 
@@ -284,16 +287,22 @@ public class CreateBuildingApplicationPage extends BasePage {
     public void closeAcknowledgementForm() {
         clickOnButton(closeButton, webDriver);
 
-        if (webDriver.getWindowHandles().size() > 1) {
-            for (String winHandle : webDriver.getWindowHandles()) {
-                String title = webDriver.switchTo().window(winHandle).getCurrentUrl();
-                if (title.equals("http://kozhikode-demo.egovernments.org/bpa/application/search")) {
-                    break;
-                }
-            }
-            clickOnButton(webDriver.findElement(By.cssSelector(".btn.btn-default")), webDriver);
-        }
+        ArrayList<String> tabs2 = new ArrayList<> (webDriver.getWindowHandles());
+        webDriver.switchTo().window(tabs2.get(1));
+        clickOnButton(webDriver.findElement(By.cssSelector(".btn.btn-default")), webDriver);
+        webDriver.switchTo().window(tabs2.get(0));
         switchToPreviouslyOpenedWindow(webDriver);
+
+//        if (webDriver.getWindowHandles().size() > 1) {
+//            for (String winHandle : webDriver.getWindowHandles()) {
+//                String title = webDriver.switchTo().window(winHandle).getCurrentUrl();
+//                if (title.equals("http://kozhikode-demo.egovernments.org/bpa/application/search")) {
+//                    break;
+//                }
+//            }
+//
+//        }
+//        switchToPreviouslyOpenedWindow(webDriver);
     }
 
     public void closeForwardAcknowledgementForm() {

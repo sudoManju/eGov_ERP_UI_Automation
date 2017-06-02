@@ -28,8 +28,7 @@
     <version value="1.0" />
   </component>
   <component name="KotlinCommonCompilerArguments">
-    <option name="languageVersion" value="1.1" />
-    <option name="apiVersion" value="1.1" />
+    <option name="coroutinesWarn" value="false" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -110,8 +109,11 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/egov_functional_test.iml" filepath="$PROJECT_DIR$/egov_functional_test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/egov_functional_test.iml" filepath="$PROJECT_DIR$/.idea/modules/egov_functional_test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/egov_functional_test_main.iml" filepath="$PROJECT_DIR$/egov_functional_test_main.iml" group="egov_functional_test" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/egov_functional_test_main.iml" filepath="$PROJECT_DIR$/.idea/modules/egov_functional_test_main.iml" group="egov_functional_test" />
+      <module fileurl="file://$PROJECT_DIR$/egov_functional_test_test.iml" filepath="$PROJECT_DIR$/egov_functional_test_test.iml" group="egov_functional_test" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/egov_functional_test_test.iml" filepath="$PROJECT_DIR$/.idea/modules/egov_functional_test_test.iml" group="egov_functional_test" />
     </modules>
   </component>

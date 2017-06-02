@@ -16,12 +16,16 @@ public class ScenarioContext implements Serializable {
 
     private String user;
 
-    private String registrationNumber;
+    private String referenceNumber;
 
     private String assetCategory;
 
-    public String getRegistrationNumber() {
-        return registrationNumber;
+    public String getReferenceNumber() {
+        return referenceNumber;
+    }
+
+    public void setReferenceNumber(String referenceNumber) {
+        this.referenceNumber = referenceNumber;
     }
 
     public String getAssetCategory() {
@@ -30,10 +34,6 @@ public class ScenarioContext implements Serializable {
 
     public void setAssetCategory(String assetCategory) {
         this.assetCategory = assetCategory;
-    }
-
-    public void setRegistrationNumber(String Number) {
-        this.registrationNumber = Number;
     }
 
     public String getUser() {
