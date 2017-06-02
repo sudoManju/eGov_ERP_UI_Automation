@@ -198,7 +198,7 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
 				String.valueOf(bpaApplication.getServiceType().getId()), new ArrayList<ServiceType>()));
 		BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication, workFlowAction);
 		if (bpaUtils.logedInuseCitizenOrBusinessUser()) {
-			bpaUtils.pushMessage(bpaApplicationRes);
+			bpaUtils.createPortalUserinbox(bpaApplicationRes);
 			model.addAttribute("message",
 					"Sucessfully saved with ApplicationNumber " + bpaApplicationRes.getApplicationNumber());
 			bpaUtils.sendSmsEmailOnCitizenSubmit(bpaApplication, workFlowAction);

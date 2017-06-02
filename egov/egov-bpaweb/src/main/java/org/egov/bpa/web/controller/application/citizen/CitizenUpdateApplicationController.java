@@ -103,7 +103,7 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 		model.addAttribute(ADDITIONALRULE, CREATE_ADDITIONAL_RULE_CREATE);
 		model.addAttribute(BPA_APPLICATION, application);
 		// prepareWorkflow(model, application, workflowContainer);
-		String enableOrDisablePayOnline=bpaUtils.getAppconfigByKeyName(BpaConstants.ENABLEONLINEPAYMENT);
+		String enableOrDisablePayOnline=bpaUtils.getAppconfigValueByKeyName(BpaConstants.ENABLEONLINEPAYMENT);
 		model.addAttribute("onlinePaymentEnable", (enableOrDisablePayOnline.equals("YES")?Boolean.TRUE:Boolean.FALSE));
 		model.addAttribute("currentState",
 				application.getCurrentState() != null ? application.getCurrentState().getValue() : "");
@@ -158,12 +158,12 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 			if (BpaConstants.WF_CANCELAPPLICATION_BUTTON.equalsIgnoreCase(workFlowAction)) {
 				bpaApplication.setStatus(
 						applicationBpaService.getStatusByCodeAndModuleType(BpaConstants.APPLICATION_STATUS_CANCELLED));
-				bpaUtils.updateCitizeninboxApplication(bpaApplication);
+				bpaUtils.updatePortalUserinbox(bpaApplication);
 
 			}
 		}
 		applicationBpaService.saveAndFlushApplication(bpaApplication);
-		bpaUtils.updateCitizeninboxApplication(bpaApplication);
+		bpaUtils.updatePortalUserinbox(bpaApplication);
 		bpaUtils.sendSmsEmailOnCitizenSubmit(bpaApplication, workFlowAction);
 		return BPA_APPLICATION_RESULT;
 	}

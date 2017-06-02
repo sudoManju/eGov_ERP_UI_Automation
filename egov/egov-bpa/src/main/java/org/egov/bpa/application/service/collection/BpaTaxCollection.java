@@ -218,7 +218,7 @@ public class BpaTaxCollection extends TaxCollection {
         if(application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_CREATED)){
         bpaUtils.redirectToBpaWorkFlow(null,application, BpaConstants.WF_NEW_STATE, BpaConstants.BPAFEECOLLECT,null,null);
         }
-        bpaUtils.updateCitizeninboxApplication(application);
+        bpaUtils.updatePortalUserinbox(application);
         applicationBpaService.saveAndFlushApplication(application);
         bpaSmsAndEmailService.sendSMSAndEmail(application);
 

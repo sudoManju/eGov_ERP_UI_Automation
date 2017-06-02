@@ -134,8 +134,6 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         List<String> purposeInsList = new ArrayList<>();
         List<String> purposeDocList = new ArrayList<>();
         final BpaApplication application = getBpaApplication(applicationNumber);
-        String mode = null;
-        AppointmentSchedulePurpose scheduleType = null;
         for (BpaAppointmentSchedule schedule : application.getAppointmentSchedule()) {
             if (AppointmentSchedulePurpose.INSPECTION.equals(schedule.getPurpose())) {
                 purposeInsList.add(schedule.getPurpose().name());
@@ -143,32 +141,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 purposeDocList.add(schedule.getPurpose().name());
             }
         }
-        if (application.getAppointmentSchedule().isEmpty()
-                || (APPLN_STATUS_FIELD_INSPECTION_INITIATED.equalsIgnoreCase(application.getStatus().getCode())
-                        && FWD_TO_OVRSR_FOR_FIELD_INS
-                                .equalsIgnoreCase(application.getState().getNextAction())
-                        && purposeInsList.isEmpty())) {
-            mode = "newappointment";
-        } else if (BpaConstants.APPLICATION_STATUS_REGISTERED.equalsIgnoreCase(application.getStatus().getCode())
-                && purposeDocList.contains(AppointmentSchedulePurpose.DOCUMENTSCRUTINY.name())) {
-            mode = "postponeappointment";
-            scheduleType = AppointmentSchedulePurpose.DOCUMENTSCRUTINY;
-        } else if (FWD_TO_OVRSR_FOR_FIELD_INS.equalsIgnoreCase(application.getState().getNextAction())
-                && APPLN_STATUS_FIELD_INSPECTION_INITIATED.equalsIgnoreCase(application.getStatus().getCode())
-                && application.getInspections().isEmpty()) {
-            mode = "captureInspection";
-            scheduleType = AppointmentSchedulePurpose.INSPECTION;
-        } else if (FWD_TO_OVRSR_FOR_FIELD_INS.equalsIgnoreCase(application.getState().getNextAction())
-                && APPLN_STATUS_FIELD_INSPECTION_INITIATED.equalsIgnoreCase(application.getStatus().getCode())
-                && !application.getInspections().isEmpty()) {
-            mode = "modifyInspection";            
-        } else if (FORWARDED_TO_NOC_UPDATE.equalsIgnoreCase(application.getState().getNextAction())
-                && APPLICATION_STATUS_FIELD_INS.equalsIgnoreCase(application.getStatus().getCode())) {
-            model.addAttribute("showUpdateNoc", true);
-        } else if ("Forwarded to Assistant Engineer For Approval".equalsIgnoreCase(application.getState().getNextAction())
-                && !application.getInspections().isEmpty()) {
-            mode = "initialtedApprove";
-        }
+        getModeForUpdateApplication(model, purposeInsList, purposeDocList, application);
         model.addAttribute("inspectionList", inspectionService.findByBpaApplicationOrderByIdAsc(application));
         model.addAttribute("lettertopartylist", lettertoPartyService.findByBpaApplicationOrderByIdDesc(application));
         if ("Forwarded to Assistant Engineer for field ispection".equals(application.getState().getNextAction())
@@ -176,11 +149,6 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 || "NOC Updated".equalsIgnoreCase(application.getStatus().getCode())) {
             model.addAttribute("createlettertoparty", true);
         }
-        if (mode == null) {
-            mode = "edit";
-        }
-        model.addAttribute("scheduleType", scheduleType);
-        model.addAttribute("mode", mode);
         model.addAttribute("workFlowByNonEmp", applicationBpaService.applicationinitiatedByNonEmployee(application));
         model.addAttribute(APPLICATION_HISTORY,
                 bpaThirdPartyService.getHistory(application));
@@ -206,6 +174,42 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         }
     }
 
+	private void getModeForUpdateApplication(final Model model, List<String> purposeInsList,
+			List<String> purposeDocList, final BpaApplication application) {
+        String mode = null;
+		AppointmentSchedulePurpose scheduleType=null;
+		if (application.getAppointmentSchedule().isEmpty()
+                || (APPLN_STATUS_FIELD_INSPECTION_INITIATED.equalsIgnoreCase(application.getStatus().getCode())
+                        && FWD_TO_OVRSR_FOR_FIELD_INS
+                                .equalsIgnoreCase(application.getState().getNextAction())
+                        && purposeInsList.isEmpty())) {
+            mode = "newappointment";
+        } else if (BpaConstants.APPLICATION_STATUS_REGISTERED.equalsIgnoreCase(application.getStatus().getCode())
+                && purposeDocList.contains(AppointmentSchedulePurpose.DOCUMENTSCRUTINY.name())) {
+            mode = "postponeappointment";
+            scheduleType = AppointmentSchedulePurpose.DOCUMENTSCRUTINY;
+        } else if (FWD_TO_OVRSR_FOR_FIELD_INS.equalsIgnoreCase(application.getState().getNextAction())
+                && APPLN_STATUS_FIELD_INSPECTION_INITIATED.equalsIgnoreCase(application.getStatus().getCode())
+                && application.getInspections().isEmpty()) {
+            mode = "captureInspection";
+            scheduleType = AppointmentSchedulePurpose.INSPECTION;
+        } else if (FWD_TO_OVRSR_FOR_FIELD_INS.equalsIgnoreCase(application.getState().getNextAction())
+                && APPLN_STATUS_FIELD_INSPECTION_INITIATED.equalsIgnoreCase(application.getStatus().getCode())
+                && !application.getInspections().isEmpty()) {
+            mode = "modifyInspection";            
+        } else if (FORWARDED_TO_NOC_UPDATE.equalsIgnoreCase(application.getState().getNextAction())
+                && APPLICATION_STATUS_FIELD_INS.equalsIgnoreCase(application.getStatus().getCode())) {
+            model.addAttribute("showUpdateNoc", true);
+        } else if ("Forwarded to Assistant Engineer For Approval".equalsIgnoreCase(application.getState().getNextAction())
+                && !application.getInspections().isEmpty()) {
+            mode = "initialtedApprove";
+        }
+        if (mode == null) {
+            mode = "edit";
+        }
+        model.addAttribute("scheduleType", scheduleType);
+        model.addAttribute("mode", mode);
+	}
     @RequestMapping(value = "/documentscrutiny/{applicationNumber}", method = RequestMethod.GET)
     public String documentScrutinyForm(final Model model, @PathVariable final String applicationNumber,
             final HttpServletRequest request) {

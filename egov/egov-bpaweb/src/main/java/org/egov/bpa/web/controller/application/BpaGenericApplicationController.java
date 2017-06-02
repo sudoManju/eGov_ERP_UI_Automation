@@ -224,15 +224,4 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
 
     }
    
-
- /*   protected void processAndStoreApplicationDocuments(final BpaApplication bpaApplication) {
-        if (!bpaApplication.getApplicationDocument().isEmpty())
-            for (final ApplicationDocument applicationDocument : bpaApplication.getApplicationDocument()) {
-                applicationDocument.setChecklistDetail(checkListDetailService.load(applicationDocument.getChecklistDetail()
-                        .getId()));
-                applicationDocument.setApplication(bpaApplication);
-                applicationDocument.setSupportDocs(addToFileStore(applicationDocument.getFiles()));
-            }
-    }
-*/
 }
