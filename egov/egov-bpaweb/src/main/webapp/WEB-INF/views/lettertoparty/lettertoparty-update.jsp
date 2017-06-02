@@ -94,7 +94,7 @@
 								<div class="col-sm-3 add-margin">
 									<form:textarea path="lpDesc"
 										class="form-control patternvalidation" data-pattern="string"
-										maxlength="1024" rows="5" id="lpDesc" />
+										rows="5" id="lpDesc" maxlength="1024"/>
 									<form:errors path="lpDesc" cssClass="error-msg" />
 								</div>
 							</div>

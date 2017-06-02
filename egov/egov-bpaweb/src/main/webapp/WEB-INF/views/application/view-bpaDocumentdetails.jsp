@@ -53,7 +53,7 @@
 
 <div class="panel-body">
 	<c:if test="${not empty bpaApplication.applicationDocument}">
-		<div class="col-sm-3 text-center view-content">
+		<div class="col-sm-3 text-right view-content">
 			<spring:message code="lbl.documentname" />
 		</div>
 		<div class="col-sm-3 text-center view-content">
@@ -71,7 +71,7 @@
 			<c:forEach items="${bpaApplication.applicationDocument}" var="docs"
 				varStatus="status">
 				<div class="form-group">
-					<div class="col-sm-3 text-center">
+					<div class="col-sm-3 text-right">
 						<c:out value="${docs.checklistDetail.description}" />
 					</div>
 					<div class="col-sm-3 text-center">

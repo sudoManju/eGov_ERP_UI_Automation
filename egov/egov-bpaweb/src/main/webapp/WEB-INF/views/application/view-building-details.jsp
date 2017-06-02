@@ -43,23 +43,37 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn"%>
+
 <div class="panel-heading custom_form_panel_heading">
-	<div class="panel-title">Building Details</div>
+	<div class="panel-title">
+		<spring:message code="lbl.build.details" />
+	</div>
 </div>
 
 <div class="panel-body">
-
 	<div class="row add-border">
-		<div class="col-sm-3 add-margin show-hide totalPlintArea">Total Plint Area</div>
-		<div class="col-sm-3 add-margin show-hide noofhutorshed">Area of the Hut/Shed</div>
-		<div class="col-sm-3 add-margin show-hide alterationInArea">Alteration/Change in Area</div>
-		<div class="col-sm-3 add-margin show-hide additionInArea">Addition or Extension in Area</div>
-		<div class="col-sm-3 add-margin show-hide changeInOccupancyArea">Change in Occupancy Area</div>
+		<div class="col-sm-3 add-margin show-hide totalPlintArea">
+			<spring:message code="lbl.build.total.plinth" />
+		</div>
+		<div class="col-sm-3 add-margin show-hide noofhutorshed">
+			<spring:message code="lbl.area.hut.shed" />
+		</div>
+		<div class="col-sm-3 add-margin show-hide alterationInArea">
+			<spring:message code="lbl.alteration.area" />
+		</div>
+		<div class="col-sm-3 add-margin show-hide additionInArea">
+			<spring:message code="lbl.extension.area" />
+		</div>
+		<div class="col-sm-3 add-margin show-hide changeInOccupancyArea">
+			<spring:message code="lbl.change.occupancy.area" />
+		</div>
 		<div class="col-sm-3 add-margin view-content">
 			<c:out value="${bpaApplication.buildingDetail[0].totalPlintArea}"
 				default="N/A"></c:out>
 		</div>
-		<div class="col-sm-3 add-margin">Building Height Ground</div>
+		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.build.height" />
+		</div>
 		<div class="col-sm-3 add-margin view-content">
 			<c:out
 				value="${bpaApplication.buildingDetail[0].buildingheightGround}"
@@ -68,12 +82,16 @@
 	</div>
 
 	<div class="row add-border">
-		<div class="col-sm-3 add-margin">Building Floor Count</div>
+		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.floor.count" />
+		</div>
 		<div class="col-sm-3 add-margin view-content">
 			<c:out value="${bpaApplication.buildingDetail[0].floorCount}"
 				default="N/A"></c:out>
 		</div>
-		<div class="col-sm-3 add-margin">Building Proposed Floor Area</div>
+		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.build.propsed.floor.area" />
+		</div>
 		<div class="col-sm-3 add-margin view-content">
 			<c:out value="${bpaApplication.buildingDetail[0].proposedfloorArea}"
 				default="N/A"></c:out>
@@ -98,7 +116,7 @@
 				default="N/A"></c:out>
 		</div>
 	</div>
-	
+
 	<div class="row add-border">
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.street.with.stair" />
@@ -142,7 +160,9 @@
 			<c:out value="${bpaApplication.buildingDetail[0].crzZone}"
 				default="N/A"></c:out>
 		</div>
-		<div class="col-sm-3 add-margin">Building Is Mezzanine Floor</div>
+		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.mezzanine.floor" />
+		</div>
 		<div class="col-sm-3 add-margin view-content">
 			<c:out
 				value="${bpaApplication.buildingDetail[0].isMezzanineFloor ? 'YES' : 'NO'}"
@@ -150,13 +170,17 @@
 		</div>
 	</div>
 	<div class="row add-border">
-		<div class="col-sm-3 add-margin">Building Is Ground Floor</div>
+		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.build.is.grnd.floor" />
+		</div>
 		<div class="col-sm-3 add-margin view-content">
 			<c:out
 				value="${bpaApplication.buildingDetail[0].isGroudFloor ? 'YES' : 'NO'}"
 				default="N/A"></c:out>
 		</div>
-		<div class="col-sm-3 add-margin">Proposed is Stilt Floor</div>
+		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.is.stilt.floor" />
+		</div>
 		<div class="col-sm-3 add-margin view-content">
 			<c:out
 				value="${bpaApplication.buildingDetail[0].isStiltFloor ? 'YES' : 'NO'}"
@@ -167,8 +191,9 @@
 	<c:if
 		test="${not empty bpaApplication.buildingDetail[0].applicationFloorDetails}">
 		<div class="panel-heading custom_form_panel_heading">
-			<div class="panel-title">Building Plinth and Carpet Area
-				Details :</div>
+			<div class="panel-title">
+				<spring:message code="lbl.plint.carpet.details" />
+			</div>
 		</div>
 		<table class="table table-striped table-bordered"
 			id="buildingAreaDetails">
@@ -212,12 +237,6 @@
 							default="0"></c:out></td>
 					<td class="text-center"><c:out value="${carpetAreaTotal}"
 							default="0"></c:out></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td class="text-right">Sum ( Plinth + Carpet )</td>
-					<td class="text-center" colspan="2"><c:out
-							value="${plinthAreaTotal + carpetAreaTotal}" default="0"></c:out></td>
 				</tr>
 			</tfoot>
 		</table>

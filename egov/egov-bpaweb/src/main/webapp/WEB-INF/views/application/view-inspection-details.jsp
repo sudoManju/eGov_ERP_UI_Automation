@@ -42,53 +42,48 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn"%>
+<br>
 <div align="center" class="overflow-x-scroll">
-<input type="hidden" name="applicationNumber" id="applicationNumber"
-				value="${applicationNumber}">
-	<table width="100%" border="0" cellspacing="0" cellpadding="0"
-		class="tablebottom" id="inspedetails">
-		<tr>
-			<th class="bluebgheadtd"><spring:message code="lbl.slno" /></th>
-			<th class="bluebgheadtd">Inspection  number</th>
-			<th class="bluebgheadtd">Extent in SQmtr</th>
-			<th class="bluebgheadtd">Modify</th>
-			
-		</tr>
-		<c:choose>
-			<c:when test="${not empty inspectionList}">
-				<c:forEach items="${inspectionList}" var="lp" varStatus="status">
-					<tr id="lprow">
-						<td class="blueborderfortd" align="center">${status.index+1}</td>
-						<td class="blueborderfortd" align="center"><span class="bold">
-							<c:out	value="${lp.inspectionNumber}" /></span></td>
-						<td class="blueborderfortd" align="center"><span class="bold">
-								<c:out value="${lp.lndMinPlotExtent}" /></span></td>
-							<td class="blueborderfortd" align="center"><a
-							onclick="window.open('/bpa/application/modify-inspection/${applicationNumber}','view','width=600, height=400,scrollbars=yes')">
-								<i class="fa fa-file-o" aria-hidden="true">Modify
-							     </i>
-						</a></td>
-					</tr>
+	<input type="hidden" name="applicationNumber" id="applicationNumber"
+		value="${applicationNumber}">
+	<table class="table table-bordered  multiheadertbl" id="inspedetails">
+		<thead>
+			<tr>
+				<th><spring:message code="lbl.slno" /></th>
+				<th>Inspection number</th>
+				<th>Extent in SQmtr</th>
+				<th>Modify</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:choose>
+				<c:when test="${not empty inspectionList}">
+					<c:forEach items="${inspectionList}" var="lp" varStatus="status">
+						<tr id="lprow">
+							<td align="center">${status.index+1}</td>
+							<td align="center"><span class="bold"> <c:out
+										value="${lp.inspectionNumber}" /></span></td>
+							<td align="center"><span class="bold"> <c:out
+										value="${lp.lndMinPlotExtent}" /></span></td>
+							<td align="center"><a
+								onclick="window.open('/bpa/application/modify-inspection/${applicationNumber}','view','width=600, height=400,scrollbars=yes')">
+									<i class="fa fa-file-o" aria-hidden="true">Modify </i>
+							</a></td>
+						</tr>
 					</c:forEach>
-					</c:when>
-			<c:otherwise>
-				<div class="col-md-12 col-xs-6  panel-title">
-					No Inspection Found
-				</div>
-			</c:otherwise>
-		</c:choose>
-
+				</c:when>
+				<c:otherwise>
+					<div class="col-md-12 col-xs-6  panel-title">No Inspection
+						Found</div>
+				</c:otherwise>
+			</c:choose>
+		</tbody>
 	</table>
 </div>
 <script>
-
-$(document).ready(function() {
-	
-	
-	 $("#inspedetails tbody tr:gt(1)").each(function( index ) {
-		 $(this).find('a').hide();
-	    });
-	    
-	    });
-	    
+	$(document).ready(function() {
+		$("#inspedetails tbody tr:gt(1)").each(function(index) {
+			$(this).find('a').hide();
+		});
+	});
 </script>

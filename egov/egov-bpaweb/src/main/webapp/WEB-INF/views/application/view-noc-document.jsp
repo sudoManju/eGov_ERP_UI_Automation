@@ -51,8 +51,7 @@
 </div>
 
 <div class="panel-body custom">
-	<table class="table table-bordered  multiheadertbl"
-		name="bpaupdatenocdetails" id="bpaupdatenocdetails">
+	<table class="table table-bordered  multiheadertbl"  id="bpaupdatenocdetails">
 		<thead>
 			<tr>
 				<th><spring:message code="lbl.srl.no" /></th>

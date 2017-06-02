@@ -89,7 +89,7 @@
 								<spring:message	code="lbl.lpdescription" />
 							</div>	
 								<div class="col-sm-3 add-margin view-content">
-									<c:out value="${lettertoParty.lpDesc}" /></span></td>
+									<c:out value="${lettertoParty.lpDesc}" />
 								</div>
 						</div>
 						<div class="row add-border">

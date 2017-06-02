@@ -40,6 +40,17 @@
 
 $(document).ready(function() {
 	
+
+   $('#appointmentDate').datepicker({
+        	 format: 'dd/mm/yyyy',
+    	   	 autoclose:true
+   });
+   
+   $('#appointmentDate+span.input-group-addon').click(function(){
+	   $('#appointmentDate').datepicker('show');
+   });
+        
+  
 	// To clear schedule time after enter schedule time if try to change schedule date
 	$('#appointmentDate').on('changeDate', function() {
 		$('#appointmentTime').datetimepicker('clear');

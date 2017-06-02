@@ -46,33 +46,22 @@
 
 <form:hidden path="purpose"/>
 <div class="form-group">
-	<%-- <label class="col-sm-3 control-label text-right"><spring:message
-			code="lbl.purpose" /> <span class="mandatory"></span> </label>
-	<div class="col-sm-3 add-margin">
-		
-		<form:select path="purpose" id="purpose1" required="required"
-			cssClass="form-control" cssErrorClass="form-control error">
-			<form:option value="">
-				<spring:message code="lbl.select" />
-			</form:option>
-			<form:options items="${appointmentPurpose}" />
-		</form:select>
-		<form:errors path="purpose" cssClass="add-margin error-msg" />
-	</div> --%>
 	<label class="col-sm-3 control-label text-right"><spring:message
 			code="lbl.appmnt.date" /> <span class="mandatory"></span> </label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control datepicker"
+	<div class="input-group input-append">
+		<form:input class="form-control input-group datepicker"
 			data-inputmask="'mask': 'd/m/y'" data-date-start-date="0d"
 			maxlength="50" id="appointmentDate" path="appointmentDate"
 			required="required" />
+			<span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
 		<form:errors path="appointmentDate" cssClass="add-margin error-msg" />
+	</div>
 	</div>
 	<label class="col-sm-2 control-label text-right"><spring:message
 			code="lbl.appmnt.time" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
-		<div class='input-group date' name='appointmentTime'
-			id='appointmentTime'>
+		<div class='input-group date' id='appointmentTime'>
 			<form:input class="form-control" maxlength="50"
 				id="appointmentTime" path="appointmentTime" required="required" autocomplete="off"/>
 			<span class="input-group-addon"> <span
