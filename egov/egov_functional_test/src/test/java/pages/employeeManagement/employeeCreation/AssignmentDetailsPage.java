@@ -110,13 +110,7 @@ public class AssignmentDetailsPage extends BasePage {
 
 
     public void checkValidationFieldsInAssisgnmentTab() {
-//        await().atMost(10 , TimeUnit.SECONDS).until(()-> webDriver.findElements(By.cssSelector("[id='agreementTableBody'] tr")).size() > 0);
-
-        try {
-            TimeUnit.SECONDS.sleep(5 );
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        await().atMost(10 , TimeUnit.SECONDS).until(()-> webDriver.findElements(By.cssSelector("[id='agreementTableBody'] tr")).size() > 0);
         jsClick(webDriver.findElements(By.cssSelector("td[data-label='Action'] button")).get(0),webDriver);
         enterText(govtOrderNumberTextBox,"@@@@@",webDriver);
         govtOrderNumberTextBox.sendKeys(Keys.TAB);
