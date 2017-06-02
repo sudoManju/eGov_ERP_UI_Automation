@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-05-22T23:29:54 -->
+<!-- 2017-06-02T15:11:37 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="buildingpermit" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="576a1e58-ecb3-4d56-971a-5d1fe019af29">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
@@ -99,14 +99,17 @@
 		<band height="112" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="4" width="555" height="44" uuid="cfd11764-e10d-43b9-9f31-2192c95e330b"/>
+				<textElement textAlignment="Justified"/>
 				<textFieldExpression><![CDATA["	Permission is hereby granted for the developement  or redevelopment of land to extent of "+$P{landExtent}+" area/hectares comprised in survey No. "+$P{surveyNo}+" village "+$P{village}+" taluk "+$P{taluk}+" district "+$P{district}+" subject to the following conditions :- "]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="86" width="555" height="26" uuid="3486b608-b1c7-4eb2-a55d-17c19f433f8b"/>
+				<textElement textAlignment="Justified"/>
 				<text><![CDATA[ 2).   The Permit is subject to satisfication of the provisions in the land utilisation order and permit issued thereunder.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="60" width="555" height="26" uuid="22b911bc-189f-40d8-bb19-a6b4365873be"/>
+				<textElement textAlignment="Justified"/>
 				<text><![CDATA[ 1).   Existing trees should be retained as far as possible and more number of trees  planted on available space after development.]]></text>
 			</staticText>
 		</band>

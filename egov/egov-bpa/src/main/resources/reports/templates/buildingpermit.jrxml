@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-05-22T22:10:24 -->
+<!-- 2017-06-02T15:10:48 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="buildingpermit" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="576a1e58-ecb3-4d56-971a-5d1fe019af29">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
@@ -110,6 +110,7 @@
 		<band height="147" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="4" width="555" height="41" uuid="cfd11764-e10d-43b9-9f31-2192c95e330b"/>
+				<textElement textAlignment="Justified"/>
 				<textFieldExpression><![CDATA["	Permission is granted for "+$P{serviceTypeDesc}+"  in  building No. "+$P{buildingNo}+" or near building No. "+$P{nearestBuildingNo}+" in survey No. "+$P{surveyNo}+" village "+$P{village}+" taluk "+$P{taluk}+" district"+$P{district}+" for "+$P{occupancy}+" purpose to the conditions stated below : "]]></textFieldExpression>
 			</textField>
 			<subreport>
@@ -122,10 +123,12 @@
 			</subreport>
 			<staticText>
 				<reportElement x="0" y="45" width="555" height="26" uuid="e8c5c3c8-1475-4f3f-9be5-711b1e0b5073"/>
+				<textElement textAlignment="Justified"/>
 				<text><![CDATA[ 1).   Existing trees should be retained as far as possible and more number of trees  planted on available space after development.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="71" width="555" height="26" uuid="eb15885b-6e09-45f0-af4f-43e21299a371"/>
+				<textElement textAlignment="Justified"/>
 				<text><![CDATA[ 2).   The Permit is subject to satisfication of the provisions in the land utilisation order and permit issued thereunder.]]></text>
 			</staticText>
 		</band>

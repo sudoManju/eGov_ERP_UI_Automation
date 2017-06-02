@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-05-02T10:24:55 -->
+<!-- 2017-06-02T15:51:10 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reply" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="19a6b87f-b0aa-4611-908a-14a81b44cdbb">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<import value="org.egov.infra.reporting.util.ReportUtil"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["/work/collections/reports/templates/"]]></defaultValueExpression>
@@ -33,14 +36,14 @@
 			<staticText>
 				<reportElement x="146" y="16" width="284" height="20" uuid="58e1974e-c738-46d8-8c58-f5f6a4e1b962"/>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="11" isBold="true" pdfFontName="Times-Bold"/>
+					<font fontName="Times New Roman" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Letter to the Party Reply Acknowledgement]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="153" y="0" width="270" height="16" uuid="67ea5c35-8b79-4289-9647-3815a7b81375"/>
+				<reportElement x="146" y="0" width="284" height="16" uuid="67ea5c35-8b79-4289-9647-3815a7b81375"/>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="11" isBold="true" pdfFontName="Times-Bold" pdfEncoding="Cp1252"/>
+					<font fontName="Times New Roman" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Town Planning Section-Works Department]]></text>
 			</staticText>
@@ -53,9 +56,9 @@
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="137" splitType="Stretch">
+		<band height="101" splitType="Stretch">
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="11" y="84" width="113" height="20" backcolor="#CCCCCC" uuid="af138c79-17c8-478c-83e0-99957f18d8da"/>
+				<reportElement stretchType="RelativeToBandHeight" mode="Transparent" x="0" y="81" width="124" height="20" backcolor="#CCCCCC" uuid="af138c79-17c8-478c-83e0-99957f18d8da"/>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="1.0"/>
@@ -69,7 +72,7 @@
 				<text><![CDATA[Remarks]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="11" y="2" width="113" height="20" backcolor="#CCCCCC" uuid="43665c18-6c55-4dbd-a4da-c02d5298cf6d"/>
+				<reportElement mode="Transparent" x="0" y="2" width="124" height="19" backcolor="#CCCCCC" uuid="43665c18-6c55-4dbd-a4da-c02d5298cf6d"/>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="1.0"/>
@@ -80,10 +83,10 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Acknowledgement No.]]></text>
+				<text><![CDATA[Acknowledgement No.   ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="11" y="23" width="113" height="20" backcolor="#CCCCCC" uuid="682edd15-3b51-4d46-8241-33d0936c4e2b"/>
+				<reportElement mode="Transparent" x="0" y="21" width="124" height="20" backcolor="#CCCCCC" uuid="682edd15-3b51-4d46-8241-33d0936c4e2b"/>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="1.0"/>
@@ -94,10 +97,10 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Letter to Party Date :]]></text>
+				<text><![CDATA[Letter to Party Date      ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="11" y="43" width="113" height="20" backcolor="#CCCCCC" uuid="bad5eaae-df0f-4c05-a2e5-67c1ae8cd5c0"/>
+				<reportElement mode="Transparent" x="0" y="41" width="124" height="20" backcolor="#CCCCCC" uuid="bad5eaae-df0f-4c05-a2e5-67c1ae8cd5c0"/>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="1.0"/>
@@ -108,10 +111,10 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Applicant Name]]></text>
+				<text><![CDATA[Applicant Name           ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="11" y="64" width="113" height="20" backcolor="#CCCCCC" uuid="d5c1e3ca-c452-4a8a-bff1-b1fa2683bbf2"/>
+				<reportElement mode="Transparent" x="0" y="61" width="124" height="20" backcolor="#CCCCCC" uuid="d5c1e3ca-c452-4a8a-bff1-b1fa2683bbf2"/>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="1.0"/>
@@ -125,7 +128,7 @@
 				<text><![CDATA[Lp Reason]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="265" y="2" width="115" height="20" backcolor="#CCCCCC" uuid="425af814-0f2c-415b-9e2e-078e79daf02e"/>
+				<reportElement mode="Transparent" x="265" y="2" width="115" height="19" backcolor="#CCCCCC" uuid="425af814-0f2c-415b-9e2e-078e79daf02e"/>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="1.0"/>
@@ -136,10 +139,10 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Date :]]></text>
+				<text><![CDATA[Date                            ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="265" y="22" width="115" height="20" backcolor="#CCCCCC" uuid="620a991d-d16f-4551-bd75-b11f075a1343"/>
+				<reportElement mode="Transparent" x="265" y="21" width="115" height="20" backcolor="#CCCCCC" uuid="620a991d-d16f-4551-bd75-b11f075a1343"/>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="1.0"/>
@@ -150,10 +153,10 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Letter to Party Number :]]></text>
+				<text><![CDATA[Letter to Party Number ]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="380" y="2" width="136" height="20" uuid="6f653db2-56ce-4aa1-9a1f-f80330cf9464"/>
+				<reportElement x="380" y="2" width="175" height="19" uuid="6f653db2-56ce-4aa1-9a1f-f80330cf9464"/>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="1.0"/>
@@ -167,7 +170,7 @@
 				<textFieldExpression><![CDATA[$F{replyDate}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="380" y="22" width="136" height="20" uuid="d6adf61d-6c64-470c-b6cb-ebc1fe0e28d3"/>
+				<reportElement x="380" y="21" width="175" height="20" uuid="d6adf61d-6c64-470c-b6cb-ebc1fe0e28d3"/>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="1.0"/>
@@ -181,7 +184,7 @@
 				<textFieldExpression><![CDATA[$F{lpNumber}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="125" y="2" width="140" height="20" uuid="3ff18553-88a3-4498-9dd9-e015e00ed8da"/>
+				<reportElement x="124" y="2" width="141" height="19" uuid="3ff18553-88a3-4498-9dd9-e015e00ed8da"/>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="1.0"/>
@@ -195,7 +198,7 @@
 				<textFieldExpression><![CDATA[$F{acknowledgementNumber}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="124" y="23" width="141" height="20" uuid="9cfd5e71-9d9f-4068-8591-6331a7944db6"/>
+				<reportElement x="124" y="21" width="141" height="20" uuid="9cfd5e71-9d9f-4068-8591-6331a7944db6"/>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="1.0"/>
@@ -209,7 +212,7 @@
 				<textFieldExpression><![CDATA[$F{sentDate}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="125" y="43" width="391" height="20" uuid="cb9ac46b-f0eb-4d3d-83eb-6e7f3ba53376"/>
+				<reportElement x="124" y="41" width="431" height="20" uuid="cb9ac46b-f0eb-4d3d-83eb-6e7f3ba53376"/>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="1.0"/>
@@ -223,7 +226,7 @@
 				<textFieldExpression><![CDATA[$F{application}.getOwner().getApplicantName()]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="125" y="64" width="391" height="20" uuid="1789c793-b4b4-4d46-92e0-789131ffeb6e"/>
+				<reportElement x="124" y="61" width="431" height="20" uuid="1789c793-b4b4-4d46-92e0-789131ffeb6e"/>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="1.0"/>
@@ -237,7 +240,7 @@
 				<textFieldExpression><![CDATA[$F{lpReason}.getDescription()]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement stretchType="RelativeToTallestObject" x="125" y="84" width="391" height="20" uuid="c0615808-b4c3-43ec-9024-b0f1ee77cd5a"/>
+				<reportElement stretchType="RelativeToBandHeight" x="124" y="81" width="431" height="20" uuid="c0615808-b4c3-43ec-9024-b0f1ee77cd5a"/>
 				<box leftPadding="1" rightPadding="1">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="1.0"/>
@@ -245,58 +248,25 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{lpDesc}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="12" y="121" width="504" height="15" uuid="d32ba531-749c-4e6a-8c55-ce3b85d4b70d"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[The following particulars are furnished for the application.]]></text>
-			</staticText>
 		</band>
-		<band height="55">
-			<staticText>
-				<reportElement mode="Transparent" x="0" y="1" width="314" height="20" backcolor="#CCCCCC" uuid="1801485f-d4f0-46f1-b52a-0eaabaf4dc6c"/>
-				<box>
-					<pen lineWidth="0.25"/>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.25"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" isPdfEmbedded="false"/>
-				</textElement>
-				<text><![CDATA[Description]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Transparent" x="314" y="1" width="202" height="20" backcolor="#CCCCCC" uuid="257ba88f-35ff-45cf-9acc-379790f7b398"/>
-				<box>
-					<pen lineWidth="0.25"/>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.25"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman"/>
-				</textElement>
-				<text><![CDATA[Remarks]]></text>
-			</staticText>
+		<band height="54">
 			<subreport>
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="21" width="555" height="20" uuid="488747bf-e344-4532-8f25-d6e603f717ea"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="3" width="555" height="51" uuid="488747bf-e344-4532-8f25-d6e603f717ea"/>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{lettertoPartyDocument}, false)]]></dataSourceExpression>
 				<subreportExpression><![CDATA[ReportUtil.getTemplateAsStream("lp_reply_checklist.jasper")]]></subreportExpression>
 			</subreport>
 		</band>
 		<band height="37">
 			<staticText>
-				<reportElement x="12" y="10" width="484" height="20" uuid="1e0f2bc1-2b7f-493b-b90f-87a31a9a06a5"/>
+				<reportElement x="0" y="10" width="496" height="20" uuid="1e0f2bc1-2b7f-493b-b90f-87a31a9a06a5"/>
 				<box leftPadding="1"/>
 				<textElement>
-					<font fontName="Times New Roman" isBold="true"/>
+					<font fontName="Times New Roman" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Note: This is computer generated acknowledgment. Seal & signature not necessary.]]></text>
 			</staticText>
