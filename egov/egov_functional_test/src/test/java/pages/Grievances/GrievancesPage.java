@@ -81,7 +81,7 @@ public class GrievancesPage extends BasePage {
     @FindBy(xpath = ".//*[@id='inbox-template']/div[1]/div[1]/input")
     private WebElement searchCitizenInbox;
 
-    @FindBy(xpath = ".//*[@id='inbox-template']/div[2]/section/div[1]/header/div[2]/a/u")
+    @FindBy(xpath = ".//*[@id='tabelPortal']/tbody[2]/tr[1]/td[2]")
     private WebElement complaintLink;
 
     @FindBy(css = "button[type=submit]")
@@ -100,7 +100,7 @@ public class GrievancesPage extends BasePage {
         clickOnButton(receivingModeRadio, webDriver);
         enterText(citizenNameTextBox, createComplaintDetails.getCitizenName(), webDriver);
         enterText(mobNoTextBox, createComplaintDetails.getcitizenMobNo(), webDriver);
-        enterText(emailIdTextBox, createComplaintDetails.getEmailId(), webDriver);
+//        enterText(emailIdTextBox, createComplaintDetails.getEmailId(), webDriver);
     }
 
     public String enterGrievanceDetails(CreateComplaintDetails createComplaintDetails, String user) {
@@ -152,15 +152,16 @@ public class GrievancesPage extends BasePage {
 
     public void searchInCitizenInbox(String crn) {
         webDriver.navigate().refresh();
-        enterText(searchCitizenInbox, crn, webDriver);
+        webDriver.findElement(By.xpath(".//*[@id='totalServicesAppliedDiv']/div/div[2]")).click();
+//        enterText(searchCitizenInbox, crn, webDriver);
         clickOnButton(complaintLink, webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
     public void withdrawComplaint(String complaintStatus) {
-        selectFromDropDown(selectStatus, complaintStatus, webDriver);
+//        selectFromDropDown(selectStatus, complaintStatus, webDriver);
         enterText(incMessageBox, complaintStatus, webDriver);
-        clickOnButton(submitButton, webDriver);
+        webDriver.findElement(By.cssSelector("button[class='btn btn-primary'][type='submit'")).click();
         clickOnButton(closeButton, webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
     }
