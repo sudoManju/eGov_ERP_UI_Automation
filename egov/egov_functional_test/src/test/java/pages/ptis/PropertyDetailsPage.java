@@ -557,9 +557,9 @@ public class PropertyDetailsPage extends BasePage {
         enterDate(constructionDate, getPastDate(184), webDriver);
     }
 
-    public void enterBifurcationDetails(AssessmentDetails bifurcationDetails) {
+    public void enterBifurcationDetails(AssessmentDetails bifurcationDetails,String num) {
         selectFromDropDown(reasonForCreationSelection, bifurcationDetails.getBifurcationReasonForCreation(), webDriver);
-        enterText(assessmentNumberOfParentPropertyTextBox, bifurcationDetails.getParentAssessmentNo(), webDriver);
+        enterText(assessmentNumberOfParentPropertyTextBox,num, webDriver);
         enterText(extentOfSiteTextBox, bifurcationDetails.getExtentOfSite(), webDriver);
         enterText(occupancyCertificateNumberTextBox, bifurcationDetails.getOccupancyCertificateNumber(), webDriver);
 

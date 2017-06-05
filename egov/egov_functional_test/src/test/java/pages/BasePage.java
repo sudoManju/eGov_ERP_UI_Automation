@@ -92,7 +92,7 @@ public class BasePage {
     protected void selectFromDropDown(WebElement webElement, String value, WebDriver driver) {
         waitForElementToBeVisible(webElement, driver);
         waitForElementToBeClickable(webElement, driver);
-        await().atMost(20, SECONDS).until(() -> new Select(webElement).getOptions().size() > 1);
+        await().atMost(40, SECONDS).until(() -> new Select(webElement).getOptions().size() > 1);
         new Select(webElement).selectByVisibleText(value);
     }
 

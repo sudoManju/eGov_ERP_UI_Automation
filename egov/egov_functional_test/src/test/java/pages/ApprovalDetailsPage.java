@@ -69,12 +69,12 @@ public class ApprovalDetailsPage extends BasePage {
     public void enterApproverDetails(ApprovalDetails approvalDetails) {
 
         selectFromDropDown(approverDepartmentSelection, approvalDetails.getApproverDepartment(), webDriver);
-        await().atMost(10, SECONDS).until(() -> new Select(approverDesignationSelection).getOptions().size() > 1);
+        await().atMost(50, SECONDS).until(() -> new Select(approverDesignationSelection).getOptions().size() > 1);
 
         selectFromDropDown(approverDesignationSelection, approvalDetails.getApproverDesignation(), webDriver);
 
 //        if (approverSelection.isDisplayed()) {
-            await().atMost(10, SECONDS).until(() -> new Select(approverSelection).getOptions().size() > 1);
+            await().atMost(50, SECONDS).until(() -> new Select(approverSelection).getOptions().size() > 1);
             selectFromDropDown(approverSelection, approvalDetails.getApprover(), webDriver);
 //        } else {
 //            await().atMost(10, SECONDS).until(() -> new Select(approverNameDropdown).getOptions().size() >= 1);

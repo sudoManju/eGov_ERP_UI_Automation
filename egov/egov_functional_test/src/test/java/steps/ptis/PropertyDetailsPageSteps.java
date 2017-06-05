@@ -103,7 +103,8 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
         });
         And("^he enters bifurcation assessment details as (\\w+)$", (String bifurcationDetailsDataId) -> {
             AssessmentDetails bifurcationDetails = new PTISDataReader(ptisTestDataFileName).getbifurcationDetails(bifurcationDetailsDataId);
-            pageStore.get(PropertyDetailsPage.class).enterBifurcationDetails(bifurcationDetails);
+            System.out.println(scenarioContext.getAssessmentNumber());
+            pageStore.get(PropertyDetailsPage.class).enterBifurcationDetails(bifurcationDetails,scenarioContext.getAssessmentNumber());
 
         });
         And("^he enters parent bifurcated assessment number as (\\w+)$", (String bifurcationAssessmentNo) -> {
