@@ -104,12 +104,12 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
         And("^he enters bifurcation assessment details as (\\w+)$", (String bifurcationDetailsDataId) -> {
             AssessmentDetails bifurcationDetails = new PTISDataReader(ptisTestDataFileName).getbifurcationDetails(bifurcationDetailsDataId);
             System.out.println(scenarioContext.getAssessmentNumber());
+            scenarioContext.setApplicationNumber(scenarioContext.getAssessmentNumber());
             pageStore.get(PropertyDetailsPage.class).enterBifurcationDetails(bifurcationDetails,scenarioContext.getAssessmentNumber());
 
         });
-        And("^he enters parent bifurcated assessment number as (\\w+)$", (String bifurcationAssessmentNo) -> {
-            AssessmentDetails bifurcationDetails = new PTISDataReader(ptisTestDataFileName).getbifurcationDetails(bifurcationAssessmentNo);
-            pageStore.get(PropertyDetailsPage.class).enterBifurcationAssessmentNo(bifurcationDetails);
+        And("^he enters parent bifurcated assessment number$", () -> {
+            pageStore.get(PropertyDetailsPage.class).enterBifurcationAssessmentNo(scenarioContext.getApplicationNumber());
         });
         And("^he click on floors Details entered$", () -> {
             pageStore.get(PropertyDetailsPage.class).clickOnFloorDetailsCheckBox();
@@ -130,6 +130,7 @@ public class PropertyDetailsPageSteps extends BaseSteps implements En {
            pageStore.get(PropertyDetailsPage.class).checkDoorNumber();
            pageStore.get(PropertyDetailsPage.class).clickOnFloorDetailsCheckBox();
         });
+
 
     }
 }

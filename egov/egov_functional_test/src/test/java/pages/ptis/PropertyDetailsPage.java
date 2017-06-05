@@ -565,8 +565,8 @@ public class PropertyDetailsPage extends BasePage {
 
     }
 
-    public void enterBifurcationAssessmentNo(AssessmentDetails bifurcationDetails) {
-        enterText(bifurcationAssessmentNo, bifurcationDetails.getParentAssessmentNo(), webDriver);
+    public void enterBifurcationAssessmentNo(String number) {
+        enterText(bifurcationAssessmentNo, number, webDriver);
         clickOnButton(searchButton, webDriver);
     }
 
@@ -622,4 +622,6 @@ public class PropertyDetailsPage extends BasePage {
     public void checkDoorNumber() {
         enterText(doorNumberTextBox,"#"+get6DigitRandomInt(),webDriver);
     }
+
+
 }

@@ -39,12 +39,12 @@ Feature: Bifurcation of Property
     And he forwards for approval to billCollector
     And he will copy the acknowledgement message with assessment number createProperty-create
     And user will be notified by "Successfully"
-    And user will select the required screen as "Bifurcation of Assessment"
-    And he enters parent bifurcated assessment number as <bifurcationDetails>
 
+    And user will select the required screen as "Bifurcation of Assessment"
+    And he enters parent bifurcated assessment number
     And he forwards for approval to billCollector
     And he will copy the acknowledgement message with assessment number modifyProperty-forward
-    Then user will be notified by "Successfully"
+    Then user will be notified by "forwarded"
     And current user logs out
 
     When billCollector logs in
