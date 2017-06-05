@@ -233,7 +233,7 @@ public class CreateBuildingApplicationPage extends BasePage {
         selectFromDropDown(electionWardSelectBox, "BEYPORE", webDriver);
         enterText(plotNumberTextBox, get6DigitRandomInt().substring(0, 3), webDriver);
         enterText(plotSurveyNumberTextBox, get6DigitRandomInt().substring(0, 4), webDriver);
-        selectFromDropDown(revenueVillageSelectBox, "Coachin", webDriver);
+//        selectFromDropDown(revenueVillageSelectBox, "Coachin", webDriver);
         enterText(stateTextBox, "Kerala", webDriver);
         enterText(districtTextBox, "Khozikode", webDriver);
         enterText(talukTextBox, "Khozikode", webDriver);
@@ -287,22 +287,15 @@ public class CreateBuildingApplicationPage extends BasePage {
     public void closeAcknowledgementForm() {
         clickOnButton(closeButton, webDriver);
 
-        ArrayList<String> tabs2 = new ArrayList<> (webDriver.getWindowHandles());
-        webDriver.switchTo().window(tabs2.get(1));
-        clickOnButton(webDriver.findElement(By.cssSelector(".btn.btn-default")), webDriver);
-        webDriver.switchTo().window(tabs2.get(0));
-        switchToPreviouslyOpenedWindow(webDriver);
+        // Shifting the Driver when there are two windows
+        if (webDriver.getWindowHandles().size() > 1) {
+            ArrayList<String> tabs2 = new ArrayList<>(webDriver.getWindowHandles());
+            webDriver.switchTo().window(tabs2.get(1));
+            clickOnButton(webDriver.findElement(By.cssSelector(".btn.btn-default")), webDriver);
+            webDriver.switchTo().window(tabs2.get(0));
+        }
 
-//        if (webDriver.getWindowHandles().size() > 1) {
-//            for (String winHandle : webDriver.getWindowHandles()) {
-//                String title = webDriver.switchTo().window(winHandle).getCurrentUrl();
-//                if (title.equals("http://kozhikode-demo.egovernments.org/bpa/application/search")) {
-//                    break;
-//                }
-//            }
-//
-//        }
-//        switchToPreviouslyOpenedWindow(webDriver);
+        switchToPreviouslyOpenedWindow(webDriver);
     }
 
     public void closeForwardAcknowledgementForm() {
