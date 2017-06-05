@@ -41,13 +41,16 @@ public class ApprovalDetailsPage extends BasePage {
     @FindBy(css = "textarea[name='approverComments']")
     private WebElement approverCommentsTextBox;
 
-    @FindAll({@FindBy(id = "approver_department"), @FindBy(id = "approverDepartment")})
+    //    @FindAll({@FindBy(id = "approver_department"), @FindBy(id = "approverDepartment")})
+    @FindBy(id = "approverDepartment")
     private WebElement approverDepartmentSelection;
 
-    @FindAll({@FindBy(id = "approverDesignation"), @FindBy(id = "approver_designation")})
+    //    @FindAll({@FindBy(id = "approverDesignation"), @FindBy(id = "approver_designation")}
+    @FindBy(id = "approverDesignation")
     private WebElement approverDesignationSelection;
 
-    @FindAll({@FindBy(id = "approverPositionId"), @FindBy(id = "approver_name") , @FindBy(css = "[id='approverName']")})
+    //    @FindAll({@FindBy(id = "approverPositionId"), @FindBy(id = "approver_name"), @FindBy(css = "[id='approverName']")})
+    @FindBy(id = "approverPositionId")
     private WebElement approverSelection;
 
     @FindBy(id = "Forward")
@@ -74,8 +77,8 @@ public class ApprovalDetailsPage extends BasePage {
         selectFromDropDown(approverDesignationSelection, approvalDetails.getApproverDesignation(), webDriver);
 
 //        if (approverSelection.isDisplayed()) {
-            await().atMost(50, SECONDS).until(() -> new Select(approverSelection).getOptions().size() > 1);
-            selectFromDropDown(approverSelection, approvalDetails.getApprover(), webDriver);
+        await().atMost(50, SECONDS).until(() -> new Select(approverSelection).getOptions().size() > 1);
+        selectFromDropDown(approverSelection, approvalDetails.getApprover(), webDriver);
 //        } else {
 //            await().atMost(10, SECONDS).until(() -> new Select(approverNameDropdown).getOptions().size() >= 1);
 //            selectFromDropDown(approverNameDropdown, approvalDetails.getApprover(), webDriver);
