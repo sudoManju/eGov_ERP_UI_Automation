@@ -231,6 +231,7 @@ public class EmployeeOtherDetailsPage extends BasePage {
     public void submitCreateEmployee() {
         clickOnButton(webDriver.findElement(By.id("testAddOrUpdate")), webDriver);
         jsClick(webDriver.findElement(By.id("addEmployee")), webDriver);
+        switchToNewlyOpenedWindow(webDriver);
         jsClick(webDriver.findElement(By.cssSelector(".btn.btn-close")), webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
     }
@@ -305,28 +306,28 @@ public class EmployeeOtherDetailsPage extends BasePage {
         jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#serviceHistoryDetailModal']")), webDriver);
         enterText(serviceAreaDescriptionTextBox, "serviceAreaDescription", webDriver);
         enterDate(dateTextBox, getCurrentDate(), webDriver);
-        checkField(orderNumberTextBox,serviceOrderNoError,"@@@@@","1234","Only alphanumeric with -/_ allowed.");
-        checkField(remarksTextBox,serviceRemarksError,"@@@@@","Remarks","Only alphanumeric with -/_ allowed.");
+        checkField(orderNumberTextBox, serviceOrderNoError, "@@@@@", "1234", "Only alphanumeric with -/_ allowed.");
+        checkField(remarksTextBox, serviceRemarksError, "@@@@@", "Remarks", "Only alphanumeric with -/_ allowed.");
         remarksTextBox.clear();
-        enterText(remarksTextBox,"Remarks",webDriver);
+        enterText(remarksTextBox, "Remarks", webDriver);
         clickOnButton(webDriver.findElement(By.id("serviceHistoryAddOrUpdate")), webDriver);
     }
 
-    private void checkField(WebElement element,WebElement errorElement,String wrongData,String correctData,String errorMsg){
-        enterText(element,wrongData,webDriver);
+    private void checkField(WebElement element, WebElement errorElement, String wrongData, String correctData, String errorMsg) {
+        enterText(element, wrongData, webDriver);
         element.sendKeys(Keys.TAB);
-        if(errorElement.getText().equals(errorMsg)){
-            enterText(element,correctData,webDriver);
+        if (errorElement.getText().equals(errorMsg)) {
+            enterText(element, correctData, webDriver);
         }
     }
 
     public void checkEducationDetailsFields() {
-      jsClick(webDriver.findElement(By.cssSelector("a[href='#otherDetails']")), webDriver);
-      jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#educationDetailModal']")), webDriver);
-      checkField(qualificationTextBox,qualificationError,"1234","B.tech","Only alphabets with special characters allowed.");
-      checkField(majorSubjectTextBox,subjectError,"1234","Testing","Only alphabets with special characters allowed.");
-      selectFromDropDown(yearOfPassingSelectBox,"2002",webDriver);
-      checkField(universityTextBox,universityError,"1234","Test","Only alphabets with special characters allowed.");
-      clickOnButton(webDriver.findElement(By.id("educationAddOrUpdate")), webDriver);
+        jsClick(webDriver.findElement(By.cssSelector("a[href='#otherDetails']")), webDriver);
+        jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#educationDetailModal']")), webDriver);
+        checkField(qualificationTextBox, qualificationError, "1234", "B.tech", "Only alphabets with special characters allowed.");
+        checkField(majorSubjectTextBox, subjectError, "1234", "Testing", "Only alphabets with special characters allowed.");
+        selectFromDropDown(yearOfPassingSelectBox, "2002", webDriver);
+        checkField(universityTextBox, universityError, "1234", "Test", "Only alphabets with special characters allowed.");
+        clickOnButton(webDriver.findElement(By.id("educationAddOrUpdate")), webDriver);
     }
 }
