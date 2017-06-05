@@ -275,7 +275,8 @@ public class AssetServicePage extends BasePage {
 
             case "shopping":
                 enterText(shoppingComplexNumberTextBox, String.valueOf(new Random().nextInt((9 - 4) + 1) + 1), webDriver);
-                int noOfFloors = new Random().nextInt((5 - 1) + 1);
+                int noOfFloors = new Random().nextInt((9 - 4) + 1) + 1;
+                System.out.println("================="+noOfFloors);
                 int noOfRooms = noOfFloors * 5;
                 enterText(noOfFloorsTextBox, String.valueOf(noOfFloors), webDriver);
                 enterText(noOfShopsTextBox, String.valueOf(noOfRooms), webDriver);
