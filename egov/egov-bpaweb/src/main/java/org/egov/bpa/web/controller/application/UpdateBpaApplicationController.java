@@ -40,6 +40,7 @@
 package org.egov.bpa.web.controller.application;
 
 import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_APPROVED;
+import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_DIGI_SIGNED;
 import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_FIELD_INS;
 import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_NOCUPDATED;
 import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_RECORD_APPROVED;
@@ -50,7 +51,6 @@ import static org.egov.bpa.utils.BpaConstants.CREATE_ADDITIONAL_RULE_CREATE;
 import static org.egov.bpa.utils.BpaConstants.GENERATEPERMITORDER;
 import static org.egov.bpa.utils.BpaConstants.WF_CANCELAPPLICATION_BUTTON;
 import static org.egov.bpa.utils.BpaConstants.WF_REJECT_BUTTON;
-import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_DIGI_SIGNED;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -67,7 +67,6 @@ import org.egov.bpa.application.entity.LettertoParty;
 import org.egov.bpa.application.entity.enums.AppointmentSchedulePurpose;
 import org.egov.bpa.application.service.InspectionService;
 import org.egov.bpa.application.service.LettertoPartyService;
-import org.egov.bpa.masters.service.StakeHolderService;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.eis.service.PositionMasterService;
 import org.egov.eis.web.contract.WorkflowContainer;
@@ -117,8 +116,6 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
     @Autowired
     private InspectionService inspectionService;
     @Autowired
-    private StakeHolderService stakeHolderService;
-    @Autowired
     private PositionMasterService positionMasterService;
     @Autowired
     LettertoPartyService lettertoPartyService;
@@ -152,9 +149,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         model.addAttribute("workFlowByNonEmp", applicationBpaService.applicationinitiatedByNonEmployee(application));
         model.addAttribute(APPLICATION_HISTORY,
                 bpaThirdPartyService.getHistory(application));
-        if (!application.getStakeHolder().isEmpty())
-            model.addAttribute("stakeHolderList", stakeHolderService
-                    .getStakeHolderListByType(application.getStakeHolder().get(0).getStakeHolder().getStakeHolderType()));
+        
         if (application != null) {
             loadViewdata(model, application);
             if (application.getState() != null

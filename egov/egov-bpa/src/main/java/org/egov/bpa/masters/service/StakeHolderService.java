@@ -207,9 +207,10 @@ public class StakeHolderService {
     }
     
     @SuppressWarnings("unchecked")
-    public List<StakeHolder> getStakeHolderListByType(final StakeHolderType stakeholderType) {
+    public List<StakeHolder> getStakeHolderListByType(final StakeHolderType stakeholderType, final String name) {
         final Criteria criteria = getCurrentSession().createCriteria(StakeHolder.class, "stakeHolder");
         criteria.add(Restrictions.eq("stakeHolder.stakeHolderType", stakeholderType));
+        criteria.add(Restrictions.ilike("stakeHolder.name", name, MatchMode.ANYWHERE));
         criteria.add(Restrictions.eq("stakeHolder.isActive", true));
         return criteria.list();
     }

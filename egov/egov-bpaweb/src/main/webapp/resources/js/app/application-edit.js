@@ -41,6 +41,10 @@ jQuery(document).ready(function() {
 	
 	$('.upload-file').removeAttr('required');
 	
+	$("#admissionfeeAmount").prop("disabled",true);
+	$("#applicationDate").prop("disabled",true);
+	$("#stakeHolderTypeHead").prop("disabled",true);
+	$("#stakeHolderType").prop("disabled",true);
 	$("#applicantdet").prop("disabled",true);
 	$("#appDet").prop("disabled",true);
 	$("#serviceType").prop("disabled",true);

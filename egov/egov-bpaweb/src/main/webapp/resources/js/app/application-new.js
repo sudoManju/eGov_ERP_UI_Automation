@@ -64,7 +64,7 @@ function chkNumeric(evt) {
         	return true;
         } else { 
         	return false; 
-        }
+        } 
     }
     return true;
 }
@@ -194,25 +194,42 @@ jQuery('form').validate({
 
 
 
-$('#stakeHolderType').change(function(){
-	$.ajax({
-		url: "/bpa/ajax/stakeholdersbytype",     
-		type: "GET",
-		data: {
-			stakeHolderType : $('#stakeHolderType').val()    
-		},
-		dataType: "json",
-		success: function (response) {
-			$('#stakeHolder').empty();
-			$('#stakeHolder').append($("<option value=''>Select from below</option>"));
-			$.each(response, function(index, value) {
-				$('#stakeHolder').append($('<option>').text(value.name).attr('value', value.id));  
-			});
-		}, 
-		error: function (response) {
-		}
-	});
+// Instantiate the stakeholder name Bloodhound suggestion engine
+var stakeholderengine = new Bloodhound({
+    datumTokenizer: function (datum) {
+        return Bloodhound.tokenizers.whitespace(datum.value);
+    },
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: {
+        url: '/bpa/ajax/stakeholdersbytype',
+        replace: function (url, query) {
+            return url + '?name=' + query + '&stakeHolderType='+$('#stakeHolderType').val();
+        },
+        filter: function (data) {
+            // Map the remote source JSON array to a JavaScript object array
+            return $.map(data, function (stakeHolder) {
+                return {
+                    name :  stakeHolder.name,
+                    value: stakeHolder.id
+                }
+            });
+        }
+    }
 });
+// Initialize the Bloodhound suggestion engine
+stakeholderengine.initialize();
+
+var sh_typeahead=$('#stakeHolderTypeHead').typeahead({
+	   hint:true,
+	   highlight:true,
+	   minLength:1
+},
+{
+	   displayKey : 'name',
+	   source: stakeholderengine.ttAdapter()
+});
+typeaheadWithEventsHandling(sh_typeahead,'#stakeHolderName');
+
 
 function validateForm(e,button) {
 	if ($('form').valid()) {

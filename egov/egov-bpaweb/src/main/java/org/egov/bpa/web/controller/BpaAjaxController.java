@@ -142,8 +142,8 @@ public class BpaAjaxController {
 
     @RequestMapping(value = "/ajax/stakeholdersbytype", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<StakeHolder> getStakeHolderByType(@RequestParam final StakeHolderType stakeHolderType) {
-        return stakeHolderService.getStakeHolderListByType(stakeHolderType);
+    public List<StakeHolder> getStakeHolderByType( @RequestParam final String name, @RequestParam final StakeHolderType stakeHolderType) {
+        return stakeHolderService.getStakeHolderListByType(stakeHolderType, name);
     }
     
     @RequestMapping(value = "/application/getoccupancydetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

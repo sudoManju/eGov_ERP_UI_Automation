@@ -139,15 +139,8 @@
 				code="lbl.stakeholder.name" /><span class="mandatory"></span> </label>
 		<div class="col-sm-3 add-margin">
 			<form:hidden path="stakeHolder[0].application" />
-			<form:select path="stakeHolder[0].stakeHolder" id="stakeHolder"
-				value="${bpaApplication.stakeHolder[0].stakeHolder.name}"
-				required="required" cssClass="form-control">
-				<form:option value="">
-					<spring:message code="lbl.select" />
-				</form:option>
-				<form:options items="${stakeHolderList}" itemValue="id"
-					itemLabel="name" />
-			</form:select>
+			<input type="text" id="stakeHolderTypeHead" class="form-control typeahead"  autocomplete="off" value="${bpaApplication.stakeHolder[0].stakeHolder.name}" />
+			<form:hidden path="stakeHolder[0].stakeHolder" id="stakeHolderName" value="${bpaApplication.stakeHolder[0].stakeHolder.id}" />
 			<form:errors path="stakeHolder[0].stakeHolder"
 				cssClass="add-margin error-msg" />
 		</div>
