@@ -42,23 +42,18 @@ package org.egov.bpa.web.controller.masters;
 
 import static org.egov.infra.utils.JsonUtils.toJSON;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.egov.bpa.application.autonumber.StakeHolderCodeGenerator;
 import org.egov.bpa.application.entity.StakeHolder;
 import org.egov.bpa.application.entity.StakeHolderDocument;
 import org.egov.bpa.application.entity.enums.StakeHolderType;
 import org.egov.bpa.application.service.BPADocumentService;
 import org.egov.bpa.masters.service.StakeHolderService;
 import org.egov.bpa.utils.BPASmsAndEmailService;
-import org.egov.bpa.utils.BpaConstants;
 import org.egov.bpa.web.controller.adaptors.StakeHolderJsonAdaptor;
-import org.egov.infra.admin.master.service.RoleService;
-import org.egov.infra.config.properties.ApplicationProperties;
 import org.egov.infra.persistence.entity.Address;
 import org.egov.infra.persistence.entity.CorrespondenceAddress;
 import org.egov.infra.persistence.entity.PermanentAddress;
@@ -67,7 +62,6 @@ import org.egov.infra.persistence.entity.enums.Gender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.MediaType;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -93,19 +87,12 @@ public class StakeHolderController {
     private StakeHolderService stakeHolderService;
     @Autowired
     private MessageSource messageSource;
-    @Autowired
-    private StakeHolderCodeGenerator stakeHolderCodeGenerator;
+   
     @Autowired
     private BPADocumentService bpaDocumentService;
     
     @Autowired
-    private RoleService roleService;
-    @Autowired
     private BPASmsAndEmailService bpaSmsAndEmailService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private ApplicationProperties applicationProperties;
 
     private static final String STAKEHOLDER_NEW = "stakeholder-new";
 
@@ -117,10 +104,14 @@ public class StakeHolderController {
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String showStakeHolder(final Model model) {
         model.addAttribute(STAKE_HOLDER, new StakeHolder());
+        prepareModel(model);
+        return STAKEHOLDER_NEW;
+    }
+
+    private void prepareModel(final Model model) {
         model.addAttribute("genderList", Arrays.asList(Gender.values()));
         model.addAttribute("stakeHolderTypes", Arrays.asList(StakeHolderType.values()));
         model.addAttribute("isOnbehalfOfOrganization", false);
-        return STAKEHOLDER_NEW;
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -128,17 +119,13 @@ public class StakeHolderController {
             final Model model,
             final HttpServletRequest request,
             final BindingResult errors, final RedirectAttributes redirectAttributes) {
-        if (null == stakeHolder.getCode())
-            stakeHolder.setCode(stakeHolderCodeGenerator.generateStakeHolderCode(stakeHolder));
-        final List<Address> addressList = new ArrayList<>();
-        addressList.add(setCorrespondenceAddress(stakeHolder));
-        addressList.add(setPermanentAddress(stakeHolder));
-        stakeHolder.setAddress(addressList);
-        stakeHolder.setUsername(stakeHolder.getEmailId());
-        stakeHolder.updateNextPwdExpiryDate(applicationProperties.userPasswordExpiryInDays());
-        stakeHolder.setPassword(passwordEncoder.encode(stakeHolder.getMobileNumber()));
-        stakeHolder.addRole(roleService.getRoleByName(BpaConstants.ROLE_BUSINESS_USER));
-        stakeHolder.setActive(stakeHolder.getIsActive());
+        if(stakeHolderService.checkIsEmailAlreadyExists(stakeHolder)) {
+            errors.rejectValue("emailId", "msg.email.exists");
+        }
+        if (errors.hasErrors()) {
+            prepareModel(model);
+            return STAKEHOLDER_NEW;
+        }
         StakeHolder stakeHolderRes = stakeHolderService.save(stakeHolder);
         bpaSmsAndEmailService.sendSMSForStakeHolder(stakeHolderRes);
         bpaSmsAndEmailService.sendEmailForStakeHolder(stakeHolderRes);
@@ -146,43 +133,20 @@ public class StakeHolderController {
         return "redirect:/stakeholder/result/" + stakeHolderRes.getId();
     }
 
-    private CorrespondenceAddress setCorrespondenceAddress(final StakeHolder stakeHolder) {
-        final CorrespondenceAddress correspondenceAddress = new CorrespondenceAddress();
-        correspondenceAddress.setHouseNoBldgApt(stakeHolder.getCorrespondenceAddress().getHouseNoBldgApt());
-        correspondenceAddress.setStreetRoadLine(stakeHolder.getCorrespondenceAddress().getStreetRoadLine());
-        correspondenceAddress.setAreaLocalitySector(stakeHolder.getCorrespondenceAddress().getAreaLocalitySector());
-        correspondenceAddress.setCityTownVillage(stakeHolder.getCorrespondenceAddress().getCityTownVillage());
-        correspondenceAddress.setDistrict(stakeHolder.getCorrespondenceAddress().getDistrict());
-        correspondenceAddress.setState(stakeHolder.getCorrespondenceAddress().getState());
-        correspondenceAddress.setPinCode(stakeHolder.getCorrespondenceAddress().getPinCode());
-        correspondenceAddress.setUser(stakeHolder);
-        return correspondenceAddress;
-    }
-
-    private PermanentAddress setPermanentAddress(final StakeHolder stakeHolder) {
-        final PermanentAddress permanentAddress = new PermanentAddress();
-        permanentAddress.setHouseNoBldgApt(stakeHolder.getPermanentAddress().getHouseNoBldgApt());
-        permanentAddress.setStreetRoadLine(stakeHolder.getPermanentAddress().getStreetRoadLine());
-        permanentAddress.setAreaLocalitySector(stakeHolder.getPermanentAddress().getAreaLocalitySector());
-        permanentAddress.setCityTownVillage(stakeHolder.getPermanentAddress().getCityTownVillage());
-        permanentAddress.setDistrict(stakeHolder.getPermanentAddress().getDistrict());
-        permanentAddress.setState(stakeHolder.getPermanentAddress().getState());
-        permanentAddress.setPinCode(stakeHolder.getPermanentAddress().getPinCode());
-        permanentAddress.setUser(stakeHolder);
-        return permanentAddress;
-    }
-
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String editStakeholder(@PathVariable final Long id, final Model model) {
         final StakeHolder stakeHolder = stakeHolderService.findById(id);
+        preapreUpdateModel(stakeHolder, model);
+        return STAKEHOLDER_UPDATE;
+    }
 
+    private void preapreUpdateModel(final StakeHolder stakeHolder, final Model model) {
         for (final Address address : stakeHolder.getAddress())
             if (AddressType.CORRESPONDENCE.equals(address.getType()))
                 stakeHolder.setCorrespondenceAddress((CorrespondenceAddress) address);
             else
                 stakeHolder.setPermanentAddress((PermanentAddress) address);
         model.addAttribute(STAKE_HOLDER, stakeHolder);
-        return STAKEHOLDER_UPDATE;
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -190,11 +154,11 @@ public class StakeHolderController {
             final Model model,
             final HttpServletRequest request,
             final BindingResult errors, final RedirectAttributes redirectAttributes) {
-        stakeHolderService.removeAddress(stakeHolder.getAddress());
-        final List<Address> addressList = new ArrayList<>();
-        addressList.add(stakeHolder.getCorrespondenceAddress());
-        addressList.add(stakeHolder.getPermanentAddress());
-        stakeHolder.setAddress(addressList);
+        
+        if (errors.hasErrors()) {
+            preapreUpdateModel(stakeHolder, model);
+            return STAKEHOLDER_UPDATE;
+        }
         stakeHolderService.update(stakeHolder);
         redirectAttributes.addFlashAttribute("message", messageSource.getMessage("msg.update.stakeholder.success", null, null));
         return "redirect:/stakeholder/result/" + stakeHolder.getId();

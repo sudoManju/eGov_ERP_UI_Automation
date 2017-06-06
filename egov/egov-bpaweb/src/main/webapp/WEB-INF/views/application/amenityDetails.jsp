@@ -203,14 +203,14 @@
 </div>
 
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right"> </label>
+	<label class="col-sm-3 control-label text-right"><spring:message
+			code="lbl.if.regularized" /> </label>
 	<div class="col-sm-3 add-margin">
 		<form:checkbox id="isappForRegularization"
 			path="siteDetail[0].isappForRegularization"
 			value="siteDetail[0].isappForRegularization" />
 		<form:errors path="siteDetail[0].isappForRegularization" />
 	</div>
-
 </div>
 <div class="form-group" id="constDiv">
 	<label class="col-sm-3 control-label text-right"><spring:message

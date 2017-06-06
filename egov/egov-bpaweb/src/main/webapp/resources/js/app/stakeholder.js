@@ -126,4 +126,8 @@ $('input[id$="emailId"]').blur(function() {
 
 });
 	
-	
+var stakeHolderId = $('#stakeHolderId').val();
+if(stakeHolderId){
+	$('#emailId').prop("disabled", true);
+	$('#mobileNumber').prop("disabled", true);
+}

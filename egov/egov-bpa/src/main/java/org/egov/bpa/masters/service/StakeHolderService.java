@@ -42,6 +42,7 @@ package org.egov.bpa.masters.service;
 import static org.egov.bpa.utils.BpaConstants.FILESTORE_MODULECODE;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -51,6 +52,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.egov.bpa.application.autonumber.StakeHolderCodeGenerator;
 import org.egov.bpa.application.entity.StakeHolder;
 import org.egov.bpa.application.entity.StakeHolderDocument;
 import org.egov.bpa.application.entity.enums.StakeHolderType;
@@ -58,16 +60,21 @@ import org.egov.bpa.application.service.CheckListDetailService;
 import org.egov.bpa.masters.repository.StakeHolderAddressRepository;
 import org.egov.bpa.masters.repository.StakeHolderRepository;
 import org.egov.bpa.utils.BpaConstants;
+import org.egov.infra.admin.master.service.RoleService;
+import org.egov.infra.config.properties.ApplicationProperties;
 import org.egov.infra.exception.ApplicationRuntimeException;
 import org.egov.infra.filestore.entity.FileStoreMapper;
 import org.egov.infra.filestore.service.FileStoreService;
 import org.egov.infra.persistence.entity.Address;
+import org.egov.infra.persistence.entity.CorrespondenceAddress;
+import org.egov.infra.persistence.entity.PermanentAddress;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -84,9 +91,16 @@ public class StakeHolderService {
     private StakeHolderAddressRepository stakeHolderAddressRepository;
     @Autowired
     private FileStoreService fileStoreService;
-    
     @Autowired
-	private CheckListDetailService checkListDetailService;
+    private CheckListDetailService checkListDetailService;
+    @Autowired
+    private StakeHolderCodeGenerator stakeHolderCodeGenerator;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private ApplicationProperties applicationProperties;
+    @Autowired
+    private RoleService roleService;
 
 
     public Session getCurrentSession() {
@@ -99,39 +113,54 @@ public class StakeHolderService {
 
     @Transactional
     public StakeHolder save(final StakeHolder stakeHolder) {
+        if (null == stakeHolder.getCode())
+            stakeHolder.setCode(stakeHolderCodeGenerator.generateStakeHolderCode(stakeHolder));
+        final List<Address> addressList = new ArrayList<>();
+        addressList.add(setCorrespondenceAddress(stakeHolder));
+        addressList.add(setPermanentAddress(stakeHolder));
+        stakeHolder.setAddress(addressList);
+        stakeHolder.setUsername(stakeHolder.getEmailId());
+        stakeHolder.updateNextPwdExpiryDate(applicationProperties.userPasswordExpiryInDays());
+        stakeHolder.setPassword(passwordEncoder.encode(stakeHolder.getMobileNumber()));
+        stakeHolder.addRole(roleService.getRoleByName(BpaConstants.ROLE_BUSINESS_USER));
+        stakeHolder.setActive(stakeHolder.getIsActive());
     	processAndStoreApplicationDocuments(stakeHolder);
         return stakeHolderRepository.save(stakeHolder);
     }
 
-	protected void processAndStoreApplicationDocuments(final StakeHolder stakeHolder) {
-		if (!stakeHolder.getStakeHolderDocument().isEmpty())
-			for (final StakeHolderDocument applicationDocument : stakeHolder.getStakeHolderDocument()) {
-						applicationDocument.setCheckListDetail(
-								checkListDetailService.load(applicationDocument.getCheckListDetail().getId()));
-						applicationDocument.setStakeHolder(stakeHolder);
-							if (applicationDocument.getFiles().getSize() > 0) {
-								applicationDocument.setDocumentId(addToFileStore(applicationDocument.getFiles()));
-								applicationDocument.setIsAttached(true);
-				}
+    protected void processAndStoreApplicationDocuments(final StakeHolder stakeHolder) {
+        if (!stakeHolder.getStakeHolderDocument().isEmpty())
+            for (final StakeHolderDocument applicationDocument : stakeHolder.getStakeHolderDocument()) {
+                applicationDocument.setCheckListDetail(
+                        checkListDetailService.load(applicationDocument.getCheckListDetail().getId()));
+                applicationDocument.setStakeHolder(stakeHolder);
+                if (applicationDocument.getFiles().getSize() > 0) {
+                    applicationDocument.setDocumentId(addToFileStore(applicationDocument.getFiles()));
+                    applicationDocument.setIsAttached(true);
+                }
+            }
+    }
 
-			}
-	}
-
-	protected Set<FileStoreMapper> addToFileStore(final MultipartFile[] files) {
-		if (ArrayUtils.isNotEmpty(files))
-			return Arrays.asList(files).stream().filter(file -> !file.isEmpty()).map(file -> {
-				try {
-					return fileStoreService.store(file.getInputStream(), file.getOriginalFilename(),
-							file.getContentType(), BpaConstants.FILESTORE_MODULECODE);
-				} catch (final Exception e) {
-					throw new ApplicationRuntimeException("Error occurred while getting inputstream", e);
-				}
-			}).collect(Collectors.toSet());
-		else
-			return null;
-	}
+    protected Set<FileStoreMapper> addToFileStore(final MultipartFile[] files) {
+        if (ArrayUtils.isNotEmpty(files))
+            return Arrays.asList(files).stream().filter(file -> !file.isEmpty()).map(file -> {
+                try {
+                    return fileStoreService.store(file.getInputStream(), file.getOriginalFilename(),
+                            file.getContentType(), BpaConstants.FILESTORE_MODULECODE);
+                } catch (final Exception e) {
+                    throw new ApplicationRuntimeException("Error occurred while getting inputstream", e);
+                }
+            }).collect(Collectors.toSet());
+        else
+            return null;
+    }
     @Transactional
     public StakeHolder update(final StakeHolder stakeHolder) {
+        removeAddress(stakeHolder.getAddress());
+        final List<Address> addressList = new ArrayList<>();
+        addressList.add(stakeHolder.getCorrespondenceAddress());
+        addressList.add(stakeHolder.getPermanentAddress());
+        stakeHolder.setAddress(addressList);
     	processAndStoreApplicationDocuments(stakeHolder);
         return stakeHolderRepository.save(stakeHolder);
     }
@@ -143,6 +172,32 @@ public class StakeHolderService {
 
     public StakeHolder findById(final Long id) {
         return stakeHolderRepository.findOne(id);
+    }
+    
+    public CorrespondenceAddress setCorrespondenceAddress(final StakeHolder stakeHolder) {
+        final CorrespondenceAddress correspondenceAddress = new CorrespondenceAddress();
+        correspondenceAddress.setHouseNoBldgApt(stakeHolder.getCorrespondenceAddress().getHouseNoBldgApt());
+        correspondenceAddress.setStreetRoadLine(stakeHolder.getCorrespondenceAddress().getStreetRoadLine());
+        correspondenceAddress.setAreaLocalitySector(stakeHolder.getCorrespondenceAddress().getAreaLocalitySector());
+        correspondenceAddress.setCityTownVillage(stakeHolder.getCorrespondenceAddress().getCityTownVillage());
+        correspondenceAddress.setDistrict(stakeHolder.getCorrespondenceAddress().getDistrict());
+        correspondenceAddress.setState(stakeHolder.getCorrespondenceAddress().getState());
+        correspondenceAddress.setPinCode(stakeHolder.getCorrespondenceAddress().getPinCode());
+        correspondenceAddress.setUser(stakeHolder);
+        return correspondenceAddress;
+    }
+
+    public PermanentAddress setPermanentAddress(final StakeHolder stakeHolder) {
+        final PermanentAddress permanentAddress = new PermanentAddress();
+        permanentAddress.setHouseNoBldgApt(stakeHolder.getPermanentAddress().getHouseNoBldgApt());
+        permanentAddress.setStreetRoadLine(stakeHolder.getPermanentAddress().getStreetRoadLine());
+        permanentAddress.setAreaLocalitySector(stakeHolder.getPermanentAddress().getAreaLocalitySector());
+        permanentAddress.setCityTownVillage(stakeHolder.getPermanentAddress().getCityTownVillage());
+        permanentAddress.setDistrict(stakeHolder.getPermanentAddress().getDistrict());
+        permanentAddress.setState(stakeHolder.getPermanentAddress().getState());
+        permanentAddress.setPinCode(stakeHolder.getPermanentAddress().getPinCode());
+        permanentAddress.setUser(stakeHolder);
+        return permanentAddress;
     }
 
     @SuppressWarnings("unchecked")
@@ -199,5 +254,9 @@ public class StakeHolderService {
         }
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         return criteria;
+    }
+    
+    public boolean checkIsEmailAlreadyExists(final StakeHolder stakeHolder) {
+        return stakeHolderRepository.findByEmailId(stakeHolder.getEmailId()) != null ? true : false;
     }
 }

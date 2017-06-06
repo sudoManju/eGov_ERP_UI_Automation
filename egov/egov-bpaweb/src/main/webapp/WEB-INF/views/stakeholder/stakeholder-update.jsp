@@ -45,7 +45,7 @@
 <form:form role="form" action="/bpa/stakeholder/update" modelAttribute="stakeHolder"
 	id="stakeHolderUpdateform" cssClass="form-horizontal form-groups-bordered"
 	enctype="multipart/form-data">
-	<input type="hidden" name="stakeHolder" value="${stakeHolder.id}" >
+	<input type="hidden" name="stakeHolder" id="stakeHolderId" value="${stakeHolder.id}" >
 	<ul class="nav nav-tabs" id="settingstab">
 		<li class="active"><a data-toggle="tab" href="#applicant-info"
 			data-tabidx=0><spring:message code='lbl.applicant.info'/></a></li>
