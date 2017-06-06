@@ -44,6 +44,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -209,13 +210,7 @@ public class BpaApplication extends StateAware {
     }
 
     public String getAmenityName() {
-        final StringBuilder tempStr = new StringBuilder();
-        for (final ServiceType temp : applicationAmenity)
-        	if(tempStr.toString().equals(""))
-                    tempStr.append(temp.getDescription());
-                else
-                    tempStr.append(",").append(temp.getDescription());
-        return tempStr.toString();
+        return applicationAmenity.stream().map(ServiceType::getDescription).collect(Collectors.joining(","));
     }
     public String getBuildingplanapprovalnumber() {
         return buildingplanapprovalnumber;
@@ -517,9 +512,9 @@ public class BpaApplication extends StateAware {
     @Override
     public String getStateDetails() {
         final SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        return String.format("Application Number %s with application date %s.",
+        return String.format("Application Number %s with application date %s for the service type of %s.",
                 applicationNumber != null ? applicationNumber : planPermissionNumber,
-                applicationDate != null ? formatter.format(applicationDate) : formatter.format(new Date()));
+                applicationDate != null ? formatter.format(applicationDate) : formatter.format(new Date()),serviceType.getDescription() !=null ? serviceType.getDescription() :"");
     }
 
     public BigDecimal getAdmissionfeeAmount() {

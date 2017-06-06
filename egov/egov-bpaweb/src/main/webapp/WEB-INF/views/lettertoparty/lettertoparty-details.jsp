@@ -74,13 +74,17 @@
 							<c:out	value="${lp.lpNumber}" /></span></td>
 						<td align="center"><span class="bold">
 								<c:out value="${lp.letterDate}" /></span></td>
-						<td align="center"><span class="bold">
-								<c:out value="${lp.lpReason.description}" /></span></td>		
-						<td align="center">
+							<td align="center"><span class="bold"> <c:forEach
+										items="${lp.lpReason}" var="lpReason" varStatus="status">
+										<c:out value="${lpReason.description}" />
+										<c:if test="${!status.last}">,</c:if>
+									</c:forEach>
+							</span></td>
+							<td align="center">
 						       <c:choose>
 									<c:when test="${lp.sentDate !=null }">
 									   <c:out value="${lp.sentDate}"></c:out>
-									</c:when>	
+									</c:when>
 									<c:otherwise>
 										 <a	href="/bpa/lettertoparty/capturesentdate/${lp.id}">
 												<i class="fa fa-pencil" aria-hidden="true"></i> 

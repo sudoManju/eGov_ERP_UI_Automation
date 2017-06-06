@@ -57,10 +57,10 @@
 					</div>
 					<div class="panel-body">
 						<div class="row add-border">
-							<div class="col-sm-2 add-margin">
+							<div class="col-sm-3 add-margin">
 								<spring:message code="lbl.lpNumber" />
 							</div>
-							<div class="col-sm-2 add-margin view-content">
+							<div class="col-sm-3 add-margin view-content">
 								<c:out value="${lettertoParty.lpNumber}"></c:out>
 							</div>
 							<form:hidden path="application" id="applicationId"
@@ -72,24 +72,22 @@
 								value="${lettertoParty.id}">
 						</div>
 						<div class="form-group">
-							<div class="col-sm-2 add-margin">
+							<div class="col-sm-3 add-margin">
 								<spring:message code="lbl.lpreason" />
 								<span class="mandatory"></span>
 							</div>
-							<div class="col-sm-2 add-margin">
+							<div class="col-sm-3 add-margin">
 								<form:select path="lpReason" data-first-option="false"
-									id="lpReason" cssClass="form-control" required="required">
-									<form:option value="">
-										<spring:message code="lbl.select" />
-									</form:option>
+									id="lpReason" cssClass="form-control" multiple="true" required="required">
 									<form:options items="${lpReasonList}" itemValue="id"
 										itemLabel="description" />
+									( Hold the CTRL key to select multiple reasons)
 								</form:select>
 								<form:errors path="lpReason" cssClass="add-margin error-msg" />
 							</div>
 
 							<div class="row add-border">
-								<label class="col-sm-3 control-label text-right"><spring:message
+								<label class="col-sm-2 control-label text-right"><spring:message
 										code="lbl.lpdescription" /></label>
 								<div class="col-sm-3 add-margin">
 									<form:textarea path="lpDesc"
@@ -100,10 +98,10 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<div class="col-sm-2 add-margin">
+							<div class="col-sm-3 add-margin">
 								<spring:message code="lbl.lpsentdate" />
 							</div>
-							<div class="col-sm-2 add-margin">
+							<div class="col-sm-3 add-margin">
 								<form:input path="sentDate" class="form-control datepicker"
 									data-date-end-date="0d" id="sentDate"
 									data-inputmask="'mask': 'd/m/y'"  required="required" />

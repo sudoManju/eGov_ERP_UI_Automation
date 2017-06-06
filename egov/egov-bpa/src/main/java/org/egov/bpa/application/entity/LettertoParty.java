@@ -40,6 +40,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -72,10 +73,9 @@ public class LettertoParty extends AbstractAuditable {
     private Inspection inspection;
     @Length(min = 1, max = 32)
     private String acknowledgementNumber;
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "lpReason")
-    private LpReason lpReason;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "egbpa_lp_and_reason", joinColumns = @JoinColumn(name = "lettertoparty"), inverseJoinColumns = @JoinColumn(name = "lpreason"))
+    private List<LpReason> lpReason;
     @Length(min = 1, max = 128)
     private String lpNumber;
 
@@ -115,6 +115,7 @@ public class LettertoParty extends AbstractAuditable {
     @JoinColumn(name = "currentapplnstatus")
     private BpaStatus currentApplnStatus;
     private String stateForOwnerPosition;
+    
     @Override
     public Long getId() {
         return id;
@@ -141,11 +142,11 @@ public class LettertoParty extends AbstractAuditable {
         this.acknowledgementNumber = acknowledgementNumber;
     }
 
-    public LpReason getLpReason() {
+    public List<LpReason> getLpReason() {
         return lpReason;
     }
 
-    public void setLpReason(final LpReason lpReason) {
+    public void setLpReason(List<LpReason> lpReason) {
         this.lpReason = lpReason;
     }
 
@@ -280,29 +281,29 @@ public class LettertoParty extends AbstractAuditable {
     public void setLastReplyDate(Date lastReplyDate) {
         this.lastReplyDate = lastReplyDate;
     }
-    
-	public String getCurrentStateValueOfLP() {
-		return currentStateValueOfLP;
-	}
 
-	public void setCurrentStateValueOfLP(String currentStateValueOfLP) {
-		this.currentStateValueOfLP = currentStateValueOfLP;
-	}
+    public String getCurrentStateValueOfLP() {
+        return currentStateValueOfLP;
+    }
 
-	public BpaStatus getCurrentApplnStatus() {
-		return currentApplnStatus;
-	}
+    public void setCurrentStateValueOfLP(String currentStateValueOfLP) {
+        this.currentStateValueOfLP = currentStateValueOfLP;
+    }
 
-	public void setCurrentApplnStatus(BpaStatus currentApplnStatus) {
-		this.currentApplnStatus = currentApplnStatus;
-	}
+    public BpaStatus getCurrentApplnStatus() {
+        return currentApplnStatus;
+    }
 
-	public String getStateForOwnerPosition() {
-		return stateForOwnerPosition;
-	}
+    public void setCurrentApplnStatus(BpaStatus currentApplnStatus) {
+        this.currentApplnStatus = currentApplnStatus;
+    }
 
-	public void setStateForOwnerPosition(String stateForOwnerPosition) {
-		this.stateForOwnerPosition = stateForOwnerPosition;
-	}
-	
+    public String getStateForOwnerPosition() {
+        return stateForOwnerPosition;
+    }
+
+    public void setStateForOwnerPosition(String stateForOwnerPosition) {
+        this.stateForOwnerPosition = stateForOwnerPosition;
+    }
+
 }

@@ -117,7 +117,7 @@ public class LetterToPartyController {
 	@Autowired
 	private SecurityUtils securityUtils;
 	@Autowired
-    private PositionMasterService positionMasterService;
+	private PositionMasterService positionMasterService;
 	@Autowired
 	protected BpaThirdPartyService bpaThirdPartyService;
 	@ModelAttribute("lpReasonList")
@@ -126,7 +126,7 @@ public class LetterToPartyController {
 	}
 
 	public List<CheckListDetail> getCheckListDetailList(final Long serviceTypeId) {
-		return checkListDetailService.findActiveCheckListByServiceType(serviceTypeId, BpaConstants.CHECKLIST_TYPE);
+		return checkListDetailService.findActiveCheckListByServiceType(serviceTypeId, BpaConstants.LP_CHECKLIST);
 	}
 
 	@RequestMapping(value = "/create/{applicationNumber}", method = GET)

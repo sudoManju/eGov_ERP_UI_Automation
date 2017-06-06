@@ -66,13 +66,11 @@
 									code="lbl.lpreason" /><span class="mandatory"></span> </label>
 							<div class="col-sm-3 add-margin">
 								<form:select path="lpReason" data-first-option="false"
-									id="lpReason" cssClass="form-control" required="required">
-									<form:option value="">
-										<spring:message code="lbl.select" />
-									</form:option>
+									id="lpReason" cssClass="form-control" multiple="true" required="required">
 									<form:options items="${lpReasonList}" itemValue="id"
 										itemLabel="description" />
 								</form:select>
+								( Hold the CTRL key to select multiple reasons)
 								<form:errors path="lpReason" cssClass="error-msg" />
 							</div>
 

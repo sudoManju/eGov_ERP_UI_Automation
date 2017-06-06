@@ -33,6 +33,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -40,6 +41,7 @@ import org.egov.bpa.application.autonumber.LettertoPartyNumberGenerator;
 import org.egov.bpa.application.autonumber.LettertoPartyReplyAckNumberGenerator;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.LettertoParty;
+import org.egov.bpa.application.entity.LpReason;
 import org.egov.bpa.application.repository.LettertoPartyRepository;
 import org.egov.bpa.service.BpaStatusService;
 import org.egov.bpa.service.BpaUtils;
@@ -50,6 +52,7 @@ import org.egov.infra.reporting.engine.ReportOutput;
 import org.egov.infra.reporting.engine.ReportRequest;
 import org.egov.infra.reporting.engine.ReportService;
 import org.egov.infra.utils.autonumber.AutonumberServiceBeanResolver;
+import org.egov.infra.web.utils.WebUtils;
 import org.egov.infra.workflow.entity.StateHistory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -146,9 +149,9 @@ public class LettertoPartyService {
 		ReportOutput reportOutput;
 		if (lettertoParty != null) {
 			if (LPCHK.equals(type))
-				reportInput = new ReportRequest("lettertoparty", lettertoParty, buildReportParameters(request));
+				reportInput = new ReportRequest("lettertoparty", lettertoParty, buildReportParameters(lettertoParty, request));
 			else if (LPREPLYCHK.equals(type))
-				reportInput = new ReportRequest("lettertopartyreply", lettertoParty, buildReportParameters(request));
+				reportInput = new ReportRequest("lettertopartyreply", lettertoParty, buildReportParameters(lettertoParty, request));
 			reportInput.setPrintDialogOnOpenReport(true);
 		}
 		final HttpHeaders headers = new HttpHeaders();
@@ -160,11 +163,18 @@ public class LettertoPartyService {
 		reportOutput = reportService.createReport(reportInput);
 		return new ResponseEntity<>(reportOutput.getReportOutputData(), headers, HttpStatus.CREATED);
 	}
-	public Map<String, Object> buildReportParameters(HttpServletRequest request){
-		final Map<String, Object> reportParams = new HashMap<>();
-		reportParams.put("cityName", request.getSession().getAttribute("cityname").toString());
-		reportParams.put("ulbName", request.getSession().getAttribute("citymunicipalityname").toString());
-		return reportParams;
-	}
+
+    public Map<String, Object> buildReportParameters(final LettertoParty lettertoParty, HttpServletRequest request) {
+        final Map<String, Object> reportParams = new HashMap<>();
+        final String url = WebUtils.extractRequestDomainURL(request, false);
+        final String cityLogo = url.concat(BpaConstants.IMAGE_CONTEXT_PATH)
+                        .concat((String) request.getSession().getAttribute("citylogo"));
+        reportParams.put("logoPath", cityLogo);
+        reportParams.put("cityName", request.getSession().getAttribute("cityname").toString());
+        reportParams.put("ulbName", request.getSession().getAttribute("citymunicipalityname").toString());
+        reportParams.put("lpReason",
+                lettertoParty.getLpReason().stream().map(LpReason::getDescription).collect(Collectors.joining(",")));
+        return reportParams;
+    }
 
 }
