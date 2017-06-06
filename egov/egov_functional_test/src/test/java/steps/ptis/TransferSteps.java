@@ -1,5 +1,6 @@
 package steps.ptis;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.ApprovalDetails;
 import entities.ptis.RegistrationDetails;
@@ -35,10 +36,12 @@ public class TransferSteps extends BaseSteps implements En {
         });
         And("^he selects the exemption reason from drop down$", () -> {
             pageStore.get(TransferDetailsPage.class).selectExemptionReason();
+            pageStore.get(TransferDetailsPage.class).uploadFiles();
         });
         And("^he forwarding for approval to (.*)$", (String approvalDetailsDataId) -> {
             ApprovalDetails approvalDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetails(approvalDetailsDataId);
             pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approvalDetails);
+            pageStore.get(TransferDetailsPage.class).selectDeclarationCheckBox();
             pageStore.get(ApprovalDetailsPage.class).forward();
         });
         And("^he will copy the acknowledgement message with application number (.*)$", (String type) -> {
@@ -49,6 +52,9 @@ public class TransferSteps extends BaseSteps implements En {
         });
         And("^current user closes tax exemption acknowledgement$", () -> {
             pageStore.get(TransferDetailsPage.class).closesAcknowledgement();
+        });
+        And("^he clicks on permises button$", () -> {
+            pageStore.get(TransferDetailsPage.class).clickOnPremisesCheckBox();
         });
 
     }

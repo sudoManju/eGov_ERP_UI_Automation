@@ -38,6 +38,7 @@ Feature: Tax Exemption of property
 
   When revenue_Inspector logs in
   And he chooses to act upon above application number
+  And he clicks on permises button
   And he forwarding for approval to revenue_Officer
   And current user closes tax exemption acknowledgement
   And current user logs out

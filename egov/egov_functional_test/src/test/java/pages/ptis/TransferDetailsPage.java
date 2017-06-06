@@ -64,6 +64,10 @@ public class TransferDetailsPage extends BasePage {
     private List<WebElement> taxExemptionCloseButton;
     @FindBy(css = "input[type='button'][value='Close']")
     private WebElement closeButton;
+    @FindBy(id = "applicationCheck")
+    private WebElement declarationCheckBox;
+    @FindBy(css = "input[id=check]")
+    private WebElement permisesUsedCheckBoxButton;
 
     public TransferDetailsPage(WebDriver webdriver) {
         this.webdriver = webdriver;
@@ -146,5 +150,19 @@ public class TransferDetailsPage extends BasePage {
             clickOnButton(webdriver.findElement(By.id("button2")), webdriver);
         }
         switchToPreviouslyOpenedWindow(webdriver);
+    }
+
+    public void selectDeclarationCheckBox() {
+        clickOnButton(declarationCheckBox,webdriver);
+    }
+
+    public void uploadFiles() {
+        for(int i=0;i<2;i++){
+            uploadFile(webdriver.findElements(By.id("file"+i)).get(0),System.getProperty("user.dir") + "/src/test/resources/dataFiles/PTISTestData.xlsx",webdriver);
+        }
+    }
+
+    public void clickOnPremisesCheckBox() {
+       clickOnButton(permisesUsedCheckBoxButton,webdriver);
     }
 }
