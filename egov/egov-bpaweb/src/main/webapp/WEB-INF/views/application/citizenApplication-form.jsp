@@ -53,7 +53,7 @@
 				value="${bpaApplication.applicationDate}" />
 		</div>
 		<form:form role="form" action="application-create" method="post"
-			modelAttribute="bpaApplication" id="newApplicationform"
+			modelAttribute="bpaApplication" id="newCitizenApplicationform"
 			cssClass="form-horizontal form-groups-bordered"
 			enctype="multipart/form-data">
 			<input type="hidden" id="bpaApplication" name="bpaApplication"
@@ -101,13 +101,13 @@
 			<div align="center">
 			<c:choose>
 			<c:when test="${citizenOrBusinessUser }">
-				<form:button type="submit" id="buttonSave" class="btn btn-primary" 
+				<form:button type="submit" id="bpaSave" class="btn btn-primary" 
 					value="Save">Save</form:button>
-				<td><form:button type="submit" id="buttonSubmit" class="btn btn-primary" 
+				<td><form:button type="submit" id="bpaCreate" class="btn btn-primary" 
 					value="Submit">Submit</form:button></td>
 					</c:when>
 					<c:otherwise>
-					<form:button type="submit" id="buttonSubmit" class="btn btn-primary" 
+					<form:button type="submit" id="bpaCreate" class="btn btn-primary" 
 					value="Submit">Submit</form:button>
 					</c:otherwise>
 					</c:choose>
@@ -118,26 +118,7 @@
 	</div>
 </div>
 
-<script>
-	$('#buttonSave').click(function(e) {
-		var button = $('#buttonSave').val();
-		validateForm1(e, button);
-	});
-	$('#buttonSubmit').click(function(e) {
-		var button = $('#buttonSubmit').val();
-		validateForm1(e, button);
-	});
 
-	function validateForm1(e, button) {
-		if ($('form').valid()) {
-			$('#serviceType').prop("disabled", false);
-			document.getElementById("workFlowAction").value = button;
-			document.forms[0].submit();
-		} else {
-			e.preventDefault();
-		}
-	}
-</script>
 <script
 	src="<cdn:url value='/resources/global/js/egov/inbox.js?rnd=${app_release_no}' context='/egi'/>"></script>
 <script
@@ -148,3 +129,6 @@
 	src="<cdn:url value='/resources/js/app/buildingarea-details.js?rnd=${app_release_no}'/>"></script>
 <script
 	src="<cdn:url value='/resources/js/app/bpa-application-validations.js?rnd=${app_release_no}'/>"></script>
+<script
+	src="<cdn:url value='/resources/js/app/citizen-helper.js?rnd=${app_release_no}'/>"></script>
+	

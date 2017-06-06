@@ -38,7 +38,17 @@
  *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
 var reportdatatable;
+
+
 jQuery(document).ready(function($) {
+	
+	var validator=$("#newApplicationform").validate({
+	  highlight: function(element, errorClass) {
+	    $(element).fadeOut(function() {
+	      $(element).fadeIn();
+	    });
+	  }
+	});
 	
 	if($('#noJAORSAMessage') && $('#noJAORSAMessage').val())
 		bootbox.alert($('#noJAORSAMessage').val());
@@ -47,9 +57,21 @@ jQuery(document).ready(function($) {
 		bootbox.alert($('#invalidStakeholder').val());
 	
 	$('#buttonSubmit').click(function(e) {
-		var button=$('#buttonSubmit').val();
-		validateForm(e,button);
+		return validateForm(validator);
 	});
+	
+
+	function validateForm(validator) {
+		if ($('#newApplicationform').valid()) {
+			document.getElementById("workFlowAction").value=$('#buttonSubmit').val();
+			document.forms[0].submit();
+			return true;
+		} else {
+			validator.focusInvalid();
+			return false;
+		}
+	}
+	
 });
 	var citizenOrBusiness=$('#citizenOrBusinessUser').val();
 	if(citizenOrBusiness == 'true')
@@ -230,12 +252,3 @@ var sh_typeahead=$('#stakeHolderTypeHead').typeahead({
 });
 typeaheadWithEventsHandling(sh_typeahead,'#stakeHolderName');
 
-
-function validateForm(e,button) {
-	if ($('form').valid()) {
-		document.getElementById("workFlowAction").value=button;
-		document.forms[0].submit();
-	} else {
-		e.preventDefault();
-	}
-}

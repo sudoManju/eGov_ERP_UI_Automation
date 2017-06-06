@@ -139,7 +139,7 @@
 				code="lbl.stakeholder.name" /><span class="mandatory"></span> </label>
 		<div class="col-sm-3 add-margin">
 			<form:hidden path="stakeHolder[0].application" />
-			<input type="text" id="stakeHolderTypeHead" class="form-control typeahead"  autocomplete="off" value="${bpaApplication.stakeHolder[0].stakeHolder.name}" />
+			<input type="text" id="stakeHolderTypeHead" class="form-control typeahead"  autocomplete="off" required="required" value="${bpaApplication.stakeHolder[0].stakeHolder.name}" />
 			<form:hidden path="stakeHolder[0].stakeHolder" id="stakeHolderName" value="${bpaApplication.stakeHolder[0].stakeHolder.id}" />
 			<form:errors path="stakeHolder[0].stakeHolder"
 				cssClass="add-margin error-msg" />

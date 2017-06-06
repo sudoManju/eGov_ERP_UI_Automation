@@ -39,6 +39,14 @@
  */
 jQuery(document).ready(function() {
 	
+	var validator=$("#editBpaApplicationForm").validate({
+		  highlight: function(element, errorClass) {
+		    $(element).fadeOut(function() {
+		      $(element).fadeIn();
+		    });
+		  }
+		});
+	
 	$('.upload-file').removeAttr('required');
 	
 	$("#admissionfeeAmount").prop("disabled",true);
@@ -73,8 +81,8 @@ jQuery(document).ready(function() {
 									return true; 
 							  }
 							  else {
-								  validateWorkFlowApprover(action);
-								  validateForm(e);
+								  if(validateForm(validator))
+									  validateWorkFlowApprover(action);
 							  }
 						}
 					 });
@@ -91,8 +99,8 @@ jQuery(document).ready(function() {
 									  return true; 
 								  }
 								  else {
-									  validateWorkFlowApprover(action);
-									  validateForm(e);
+									  if(validateForm(validator))
+										  validateWorkFlowApprover(action);
 								  }
 							}
 						 });
@@ -108,7 +116,7 @@ jQuery(document).ready(function() {
 				
 			}
 			if(	$('#wfstateDesc').val()  != 'NEW'){
-				validateForm(e);
+				return validateForm(validator);
 				}
 			});
 	
@@ -341,10 +349,12 @@ jQuery( ".dateval" ).datepicker({
 	
 });
 
-function validateForm(e) {
-	if ($('form').valid()) {
+function validateForm(validator) {
+	if ($('#editBpaApplicationForm').valid()) {
 		document.forms[0].submit();
+		return true;
 	} else {
-		e.preventDefault();
+		validator.focusInvalid();
+		return false;
 	}
 }

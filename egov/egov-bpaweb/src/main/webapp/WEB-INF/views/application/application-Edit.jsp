@@ -47,7 +47,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<form:form role="form" method="post" modelAttribute="bpaApplication"
-			id="editWaterConnectionform"
+			id="editBpaApplicationForm"
 			cssClass="form-horizontal form-groups-bordered"
 			enctype="multipart/form-data">
 
