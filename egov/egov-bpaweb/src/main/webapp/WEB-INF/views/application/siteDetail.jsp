@@ -53,8 +53,11 @@
 	</label>
 	<div class="col-sm-3 add-margin">
 		<c:if test="${mode =='newappointment'}">
-			<form:select path="zoneId" data-first-option="false" id="zone"
-				cssClass="form-control" required="required">
+			<form:select path="siteDetail[0].adminBoundary.parent" data-first-option="false" id="zone" 
+				cssClass="form-control" required="required" > 
+				<form:option value="">
+					<spring:message code="lbl.select" />
+				</form:option>
 				<form:options items="${zones}" itemValue="id" itemLabel="name" />
 			</form:select>
 			<form:errors path="zoneId" cssClass="add-margin error-msg" />
@@ -62,6 +65,9 @@
 		<c:if test="${mode=='new'}">
 			<form:select path="zoneId" data-first-option="false" id="zone"
 				cssClass="form-control" required="required">
+				<form:option value="">
+					<spring:message code="lbl.select" />
+				</form:option>
 				<form:options items="${zones}" itemValue="id" itemLabel="name" />
 			</form:select>
 		</c:if>
@@ -72,7 +78,7 @@
 	<div class="col-sm-3 add-margin">
 		<c:if test="${mode =='newappointment'}">
 			<form:select path="siteDetail[0].adminBoundary"
-				data-first-option="false" id="zone" cssClass="form-control">
+				data-first-option="false" id="ward" cssClass="form-control">
 				<form:option value="">
 					<spring:message code="lbl.select" />
 				</form:option>

@@ -102,7 +102,7 @@ public class SearchBpaApplicationService  {
                         .getUserPositionByPassingPosition(bpaApplication.getState().getOwnerPosition().getId()).getName());
                 searchBpaApplicationForm.setPendingAction(bpaApplication.getState().getNextAction());
             }
-            if (bpaApplication.getSiteDetail().get(0) != null) {
+            if (bpaApplication.getSiteDetail()!=null && bpaApplication.getSiteDetail().size()>0 && bpaApplication.getSiteDetail().get(0) != null) { 
                 searchBpaApplicationForm.setElectionWard(bpaApplication.getSiteDetail().get(0).getElectionBoundary() != null
                         ? bpaApplication.getSiteDetail().get(0).getElectionBoundary().getName() : "");
                 searchBpaApplicationForm.setWard(bpaApplication.getSiteDetail().get(0).getAdminBoundary() != null

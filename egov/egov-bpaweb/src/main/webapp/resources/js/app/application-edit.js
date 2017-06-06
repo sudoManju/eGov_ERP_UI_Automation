@@ -39,6 +39,7 @@
  */
 jQuery(document).ready(function() {
 	
+	var wardValue=$('#ward').val();
 	var validator=$("#editBpaApplicationForm").validate({
 		  highlight: function(element, errorClass) {
 		    $(element).fadeOut(function() {
@@ -299,7 +300,33 @@ $(document).on('click','#textarea-btnupdate',function(evt){
 	evt.stopImmediatePropagation();
 });
 
-
+$('#zone').change(function(){
+	jQuery.ajax({
+		url: "/egi/public/boundary/ajaxBoundary-blockByWard.action",
+		type: "GET",
+		data: {
+			wardId : jQuery('#zone').val()
+		},
+		cache: false,
+		dataType: "json",
+		success: function (response) {
+			jQuery('#ward').html("");
+			jQuery('#ward').append("<option value=''>Select</option>");
+			jQuery.each(response, function(index, value) {
+				jQuery('#ward').append($('<option>').text(value.blockName).attr('value', value.blockId));
+			});
+			if(wardValue !== '') {
+				$("select#ward").val(wardValue); 
+				wardValue = '';
+			}
+		}, 
+		error: function (response) {	
+			jQuery('#ward').html("");
+			jQuery('#ward').append("<option value=''>Select</option>");
+		}
+		
+	});
+});
 
 jQuery( ".dateval" ).datepicker({ 
   	 format: 'dd/mm/yyyy',
@@ -346,7 +373,7 @@ jQuery( ".dateval" ).datepicker({
 		}
 	    return retvalue;
 	}
-	
+	$('#zone').trigger('change');	
 });
 
 function validateForm(validator) {

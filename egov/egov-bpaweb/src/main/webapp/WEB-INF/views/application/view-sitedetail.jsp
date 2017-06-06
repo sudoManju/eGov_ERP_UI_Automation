@@ -54,7 +54,8 @@
 			<spring:message code="lbl.zone" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
-			<c:out value="N/A" default="N/A"></c:out>
+			<c:out value="${bpaApplication.siteDetail[0].adminBoundary.parent.name}"
+				default="N/A"></c:out>
 		</div>
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.rev.ward" />

@@ -123,34 +123,33 @@ $('input[id$="emailId"]').blur(function() {
 //mobile number validation
 $('#mobileNumber').blur( function () {
 	 var mobileno = $(this).val();
-		if (mobileno.length < 10) {
+		if (mobileno && mobileno.length < 10) { 
 			bootbox.alert("Please enter 10 digit mobile number");
 			$(this).val('');
 		}
 	});
-$('#ward').change(function(){
+$('#zone').change(function(){
 	jQuery.ajax({
 		url: "/egi/public/boundary/ajaxBoundary-blockByWard.action",
 		type: "GET",
 		data: {
-			wardId : jQuery('#ward').val()
+			wardId : jQuery('#zone').val()
 		},
 		cache: false,
 		dataType: "json",
 		success: function (response) {
-			jQuery('#block').html("");
-			jQuery('#block').append("<option value=''>Select</option>");
+			jQuery('#ward').html("");
+			jQuery('#ward').append("<option value=''>Select</option>");
 			jQuery.each(response, function(index, value) {
-				jQuery('#block').append($('<option>').text(value.blockName).attr('value', value.blockId));
+				jQuery('#ward').append($('<option>').text(value.blockName).attr('value', value.blockId));
 			});
 		}, 
 		error: function (response) {
-			jQuery('#block').html("");
-			jQuery('#block').append("<option value=''>Select</option>");
+			jQuery('#ward').html("");
+			jQuery('#ward').append("<option value=''>Select</option>");
 		}
 	});
 });
-
 
 
 $('#serviceType').change(function(){
