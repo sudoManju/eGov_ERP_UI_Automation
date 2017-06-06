@@ -202,6 +202,14 @@ public class EmployeeDetailsPage extends BasePage {
     }
 
     public String enterEmployeeDetails(EmployeeDetails employeeDetails) {
+
+        await().atMost(60, TimeUnit.SECONDS).until(() -> driver.findElements(By.cssSelector("[class='blockUI']")).size() == 0);
+
+        if(!(driver.findElements(By.cssSelector("[class='blockUI']")).size() == 0)){
+            driver.navigate().refresh();
+            await().atMost(20, TimeUnit.SECONDS).until(() -> driver.findElements(By.cssSelector("[class='blockUI']")).size() == 0);
+        }
+
 //        enterText(employeeNameTextBox, "TestUser ", driver);
         enterText(employeeNameTextBox, "TestUser " + getRandomUpperCaseCharacters(5), driver);
         String employeeCode = "KEMP" + get6DigitRandomInt();

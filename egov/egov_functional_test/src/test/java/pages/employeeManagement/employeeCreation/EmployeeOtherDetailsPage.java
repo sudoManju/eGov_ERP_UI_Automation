@@ -229,10 +229,9 @@ public class EmployeeOtherDetailsPage extends BasePage {
     }
 
     public void submitCreateEmployee() {
-        clickOnButton(webDriver.findElement(By.id("testAddOrUpdate")), webDriver);
         jsClick(webDriver.findElement(By.id("addEmployee")), webDriver);
-        switchToNewlyOpenedWindow(webDriver);
-        jsClick(webDriver.findElement(By.cssSelector(".btn.btn-close")), webDriver);
+        await().atMost(20, TimeUnit.SECONDS).until(() -> webDriver.findElements(By.id("sub")).size() > 0);
+        clickOnButton(webDriver.findElement(By.cssSelector(".btn.btn-close")), webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
     }
 

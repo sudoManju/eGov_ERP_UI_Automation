@@ -20,6 +20,7 @@ Feature: Create/View/Update
     And user will enter the employee search details for updating the employee information
     And user will update the employee details
     Then user clicks on submit button
+    And current user logs out
 
 #    Then user close the employee search
 #    And user will select the required screen as "Create LeaveBalance"
@@ -33,16 +34,16 @@ Feature: Create/View/Update
 #      | employee5       | assignment5       | JurisdictionList5   |
 
 
-    Scenario Outline: Create employee fields validation test
+  Scenario Outline: Create employee fields validation test
 
-      Given hrAdmin logs in
-      And user will select the required screen as "Create Employee" with condition as "/employee"
-      And user test the fields validation for employee details
-      And user will enter the assignment details as <assignmentDetails>
-      And user test the fields validation for assisgnment details
-      And user will enter the jurisdiction details as <jurisdictionDetails>
-      And user test the fields validation for service and other details
+    Given hrAdmin logs in
+    And user will select the required screen as "Create Employee" with condition as "/employee"
+    And user test the fields validation for employee details
+    And user will enter the assignment details as <assignmentDetails>
+    And user test the fields validation for assisgnment details
+    And user will enter the jurisdiction details as <jurisdictionDetails>
+    And user test the fields validation for service and other details
 
-      Examples:
-      |assignmentDetails|jurisdictionDetails|
-      |assignment3      |JurisdictionList3  |
+    Examples:
+      | assignmentDetails | jurisdictionDetails |
+      | assignment3       | JurisdictionList3   |
