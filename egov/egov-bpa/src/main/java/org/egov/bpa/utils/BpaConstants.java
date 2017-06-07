@@ -110,8 +110,8 @@ public class BpaConstants {
     public static final String CREATE_ADDITIONAL_RULE_CREATE = "CREATEBPAAPPLICATION";
 
     public static final String STAKE_HOLDER_CHECK_LIST_TYPE = "STAKEHOLDERDOCUMENT";
-    public static final String ADMISSIONFEEREASON = "ADMISSIONFEES";
-    public static final String BPAFEETYPE = "AdmissionFee";
+    public static final String APPLICATIONFEEREASON = "APPLICATIONFEES";
+    public static final String BPAFEETYPE = "ApplicationFee";
     public static final String BOUNDARY_TYPE_ZONE = "Zone";
     public static final String BOUNDARY_TYPE_CITY = "City";
 
@@ -173,7 +173,7 @@ public class BpaConstants {
     public static final String BPASTATUS_REGISTRATIONFEE_APPROVED = "Approved";
     
     public static final String APPLN_STATUS_FIELD_INSPECTION_INITIATED = "Field Inspection initiated";
-    public static final String BPA_ADM_FEE = "Admission Fee";
+    public static final String BPA_ADM_FEE = "Application Fee";
     public static final String BPA_PERMIT_FEE = "Permit Fees";
     public static final String BPA_WELL_FEE = "Charges for Well";
     public static final String BPA_COMPOUND_FEE = "Charges for Compound Wall";
@@ -204,7 +204,7 @@ public class BpaConstants {
 	public static final String MERCANTILE_COMMERCIAL = "Mercantile / Commercial";
 	public static final String INDUSTRIAL = "Industrial";
 	public static final String RESIDENTIAL = "Residential";
-	public static final String BPAFEECOLLECT="BPA Admission fees collected";
+	public static final String BPAFEECOLLECT="BPA Application fees collected";
 	public static final String WF_SURVEYOR_FORWARD_BUTTON = "Submit";
 	public static final String WF_PAY_ONLINE_BUTTON = "Pay Online";
 	public static final String ENABLEONLINEPAYMENT="BPA_ONLINE_PAY";

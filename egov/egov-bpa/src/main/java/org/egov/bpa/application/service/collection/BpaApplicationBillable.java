@@ -69,7 +69,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class BpaApplicationBillable extends AbstractBillable implements Billable {
 
-    private static final String DISPLAY_MESSAGE = "Bpa Admission Fee Collection";
+    private static final String DISPLAY_MESSAGE = "Bpa Application Fee Collection";
     private BpaApplication application;
     private Long userId;
     private Boolean isCallbackForApportion = Boolean.FALSE;
@@ -141,28 +141,28 @@ public class BpaApplicationBillable extends AbstractBillable implements Billable
     @Override
     public String getDepartmentCode() {
     	List<AppConfigValues>appConfigValueList=appConfigValueService.getConfigValuesByModuleAndKey(BpaConstants.APPLICATION_MODULE_TYPE, BpaConstants.BPA_DEPARTMENT_CODE);
-    	return (!appConfigValueList.isEmpty()?appConfigValueList.get(0).getValue():"");
+    	return !appConfigValueList.isEmpty()?appConfigValueList.get(0).getValue():"";
     }
 
     @Override
     public BigDecimal getFunctionaryCode() {
     	List<AppConfigValues>appConfigValueList=appConfigValueService.getConfigValuesByModuleAndKey
     			(BpaConstants.APPLICATION_MODULE_TYPE, BpaConstants.BPA_DEFAULT_FUNCTIONARY_CODE);
-    	return (!appConfigValueList.isEmpty()?new BigDecimal(appConfigValueList.get(0).getValue()):new BigDecimal(0));
+    	return !appConfigValueList.isEmpty()?new BigDecimal(appConfigValueList.get(0).getValue()):new BigDecimal(0);
     }
 
     @Override
     public String getFundCode() {
     	List<AppConfigValues>appConfigValueList=appConfigValueService.getConfigValuesByModuleAndKey
     			(BpaConstants.APPLICATION_MODULE_TYPE, BpaConstants.BPA_DEFAULT_FUND_CODE);
-    	return (!appConfigValueList.isEmpty()?appConfigValueList.get(0).getValue():"");
+    	return !appConfigValueList.isEmpty()?appConfigValueList.get(0).getValue():"";
     }
 
     @Override
     public String getFundSourceCode() {
     	List<AppConfigValues>appConfigValueList=appConfigValueService.getConfigValuesByModuleAndKey
     			(BpaConstants.APPLICATION_MODULE_TYPE, BpaConstants.BPA_DEFAULT_FUND_SRC_CODE);
-    	return (!appConfigValueList.isEmpty()?appConfigValueList.get(0).getValue():"");
+    	return !appConfigValueList.isEmpty()?appConfigValueList.get(0).getValue():"";
     }
 
     @Override

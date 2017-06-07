@@ -107,8 +107,8 @@
 			<form:errors path="applicationDate" cssClass="add-margin error-msg" />
 		</div>
 		
-		<label class="col-sm-2 control-label text-right">Admission
-			Fees </label>
+		<label class="col-sm-2 control-label text-right"><spring:message
+				code="lbl.admission.fees" /> </label>
 		<div class="col-sm-3 add-margin">
 			<form:input class="form-control patternvalidation" maxlength="50"
 				name="admissionfeeAmount" id="admissionfeeAmount"
