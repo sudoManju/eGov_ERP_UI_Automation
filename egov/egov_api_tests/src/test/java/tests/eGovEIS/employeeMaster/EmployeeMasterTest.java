@@ -14,7 +14,7 @@ import utils.*;
 
 import java.io.IOException;
 
-import static data.usernames.narasappa;
+import static data.UserData.NARASAPPA;
 
 public class EmployeeMasterTest extends BaseAPITest {
 
@@ -22,7 +22,7 @@ public class EmployeeMasterTest extends BaseAPITest {
     public void EmployeeTest() throws IOException {
 
         //Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
 
         //Create createEmployee Test
         CreateEmployeeResponse createEmployeeResponse = createEmployeeTestMethod(loginResponse);

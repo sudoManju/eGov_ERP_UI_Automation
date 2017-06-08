@@ -21,7 +21,7 @@ import utils.*;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import static data.usernames.narasappa;
+import static data.UserData.NARASAPPA;
 
 public class ComplaintVerificationTest extends BaseAPITest {
 
@@ -29,7 +29,7 @@ public class ComplaintVerificationTest extends BaseAPITest {
     public void createAndGetComplaintInPGR() throws IOException {
 
         //Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
 
         // Create A Complaint
         ComplaintResponse create = createComplaintInPGR(loginResponse);

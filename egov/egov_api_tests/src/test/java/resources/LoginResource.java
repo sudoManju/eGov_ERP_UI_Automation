@@ -58,7 +58,7 @@ public class LoginResource {
         return response;
     }
 
-    public Response getSessionFromBaseAPI() {
+    public Response getSessionIdFromPilotBaseAPI() {
         new APILogger().log("Get The SESSION ID From Base API Test Is Started -- ");
 
         Response response = given().request().with()
@@ -81,7 +81,7 @@ public class LoginResource {
                 .header("SESSIONID", sessionId)
                 .params(map)
                 .when()
-                .post("http://kurnool-pilot-services.egovernments.org/egi/j_security_check");
+                .post(Properties.pilotLoginUrl);
 
         new APILogger().log("Get The SESSION ID From LOGIN API Test Is Completed -- ");
 
@@ -89,15 +89,15 @@ public class LoginResource {
     }
 
     public Response logoutFromPilotService(String sessionIdFromLoginAPI) {
-        new APILogger().log("Get The SESSION ID From LOGOUT API Test Is Started -- ");
+        new APILogger().log("LOGOUT Test Is Started -- ");
 
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
                 .header("SESSIONID", sessionIdFromLoginAPI)
                 .when()
-                .get("http://kurnool-pilot-services.egovernments.org/egi/logout");
+                .get(Properties.pilotLogoutUrl);
 
-        new APILogger().log("Get The SESSION ID From LOGOUT API Test Is Completed -- ");
+        new APILogger().log("LOGOUT Test Is Completed -- ");
 
         return response;
     }

@@ -17,7 +17,7 @@ import utils.*;
 
 import java.io.IOException;
 
-import static data.usernames.narasappa;
+import static data.UserData.NARASAPPA;
 
 public class AssetCategoryTest extends BaseAPITest {
 
@@ -25,7 +25,7 @@ public class AssetCategoryTest extends BaseAPITest {
     public void CreateAssetCategoryTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
 
         // Create Asset Category Test
         createAssetCategoryTestMethod(loginResponse);
@@ -36,7 +36,7 @@ public class AssetCategoryTest extends BaseAPITest {
     public void SearchAssetCategoryTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
 
         // Search Asset Category Test
         searchAssetCategoryTestMethod(loginResponse);

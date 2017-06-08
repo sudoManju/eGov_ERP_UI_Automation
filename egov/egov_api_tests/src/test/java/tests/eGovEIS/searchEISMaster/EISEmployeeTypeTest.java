@@ -15,7 +15,7 @@ import utils.*;
 
 import java.io.IOException;
 
-import static data.usernames.narasappa;
+import static data.UserData.NARASAPPA;
 
 public class EISEmployeeTypeTest extends BaseAPITest {
 
@@ -23,7 +23,7 @@ public class EISEmployeeTypeTest extends BaseAPITest {
     public void searchEmployeeTypeTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
 
         // Search Designation Test
         searchEmployeeTypeTestMethod(loginResponse);

@@ -21,7 +21,7 @@ import utils.*;
 
 import java.io.IOException;
 
-import static data.usernames.narasappa;
+import static data.UserData.NARASAPPA;
 
 public class AttendancesTest extends BaseAPITest {
 
@@ -29,7 +29,7 @@ public class AttendancesTest extends BaseAPITest {
     public void CreateAttendancesTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
 
         // Create attendances Test
         createAttendancesTestMethod(loginResponse);
@@ -39,7 +39,7 @@ public class AttendancesTest extends BaseAPITest {
     public void SearchAttendancesTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
 
         // Search attendances Test
         searchAttendancesTestMethod(loginResponse);

@@ -17,7 +17,7 @@ import utils.*;
 
 import java.io.IOException;
 
-import static data.usernames.malathi;
+import static data.UserData.MALATHI;
 
 public class AssetServiceTest extends BaseAPITest {
 
@@ -25,7 +25,7 @@ public class AssetServiceTest extends BaseAPITest {
     public void searchAssetService() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(malathi);
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(MALATHI);
 
 
         // Search Asset Service Test
@@ -36,7 +36,7 @@ public class AssetServiceTest extends BaseAPITest {
     public void createAssetService() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(malathi);
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(MALATHI);
 
         // Create Asset Service Test
         createAssetServiceTestMethod(loginResponse);

@@ -15,7 +15,7 @@ import utils.*;
 
 import java.io.IOException;
 
-import static data.usernames.narasappa;
+import static data.UserData.NARASAPPA;
 
 public class ReligionTest extends BaseAPITest {
 
@@ -23,7 +23,7 @@ public class ReligionTest extends BaseAPITest {
     public void religionTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
 
         // Language Search Test
         religionTestMethod(loginResponse);

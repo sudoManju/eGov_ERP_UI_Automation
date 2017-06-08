@@ -12,7 +12,6 @@ import entities.requests.userServices.createNoValidate.User;
 import entities.responses.login.LoginResponse;
 import entities.responses.userServices.createUser.UserResponse;
 import entities.responses.userServices.getUser.GetUserResponse;
-import org.junit.rules.Timeout;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.UserServiceResource;
@@ -20,9 +19,8 @@ import tests.BaseAPITest;
 import utils.*;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
-import static data.usernames.narasappa;
+import static data.UserData.NARASAPPA;
 
 public class CreateNoValidateVerificationTest extends BaseAPITest {
 
@@ -30,7 +28,7 @@ public class CreateNoValidateVerificationTest extends BaseAPITest {
     public void createNoValidateAndGetTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
 
         // Create a user
         UserResponse create = CreateAUserTest(loginResponse);

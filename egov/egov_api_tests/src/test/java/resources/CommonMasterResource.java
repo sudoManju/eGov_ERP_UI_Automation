@@ -72,11 +72,12 @@ public class CommonMasterResource extends BaseAPITest {
         return response;
     }
 
-    public Response searchCategoryTest(String jsonString) {
+    public Response searchCategoryTest(String jsonString, String sessionId) {
 
         new APILogger().log("Search Category Request Test is started with --" + jsonString);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
+                .header("cookie", "SESSIONID=" + sessionId)
                 .body(jsonString)
                 .when()
                 .post(Properties.cmCategoryUrl);

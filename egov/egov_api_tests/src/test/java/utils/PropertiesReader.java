@@ -8,7 +8,7 @@ public class PropertiesReader {
     private Properties prop = new Properties();
 
     public PropertiesReader() {
-        try{
+        try {
             String propertiesFilePath = "endPoints.properties";
             InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(propertiesFilePath);
             prop.load(inputStream);
@@ -17,6 +17,8 @@ public class PropertiesReader {
         }
     }
 
-    public String getEndPointUrl(String endpoint){return ResourceHelper.getBaseURI()+ prop.getProperty(endpoint);}
+    public String getEndPointUrl(String endpoint) {
+        return ResourceHelper.getBaseURI() + prop.getProperty(endpoint);
+    }
 }
 

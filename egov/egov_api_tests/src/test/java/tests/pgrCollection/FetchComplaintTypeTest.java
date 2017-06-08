@@ -17,7 +17,7 @@ import utils.RequestHelper;
 
 import java.io.IOException;
 
-import static data.usernames.narasappa;
+import static data.UserData.NARASAPPA;
 
 public class FetchComplaintTypeTest extends BaseAPITest{
 
@@ -25,7 +25,7 @@ public class FetchComplaintTypeTest extends BaseAPITest{
     public void FeatchComplaintType()throws IOException{
 
         //Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
 
         //Fetch All Complaint
         fetchAllComplaints(loginResponse);

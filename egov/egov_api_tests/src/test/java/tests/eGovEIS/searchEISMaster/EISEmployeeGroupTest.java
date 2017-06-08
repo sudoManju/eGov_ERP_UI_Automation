@@ -14,7 +14,7 @@ import utils.*;
 
 import java.io.IOException;
 
-import static data.usernames.narasappa;
+import static data.UserData.NARASAPPA;
 
 public class EISEmployeeGroupTest {
 
@@ -22,7 +22,7 @@ public class EISEmployeeGroupTest {
     public void searchEmployeeGroupTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
 
         // Search Designation Test
         searchEmployeeGroupTestMethod(loginResponse);

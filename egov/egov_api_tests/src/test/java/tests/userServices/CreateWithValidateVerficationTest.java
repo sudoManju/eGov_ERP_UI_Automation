@@ -22,7 +22,7 @@ import utils.*;
 
 import java.io.IOException;
 
-import static data.usernames.narasappa;
+import static data.UserData.NARASAPPA;
 
 public class CreateWithValidateVerficationTest extends BaseAPITest {
 
@@ -30,7 +30,7 @@ public class CreateWithValidateVerficationTest extends BaseAPITest {
     public void createWithValidateAndGetTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
 
         //Create OTP
         OtpResponse otp = createOtp(loginResponse);

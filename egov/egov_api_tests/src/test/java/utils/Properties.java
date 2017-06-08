@@ -7,6 +7,8 @@ public class Properties {
     //  Login And Logout Url's  //
     public static final String loginUrl = propertiesReader.getEndPointUrl("loginUrl");
     public static final String logoutUrl = propertiesReader.getEndPointUrl("logoutUrl");
+    public static final String pilotLoginUrl = propertiesReader.getEndPointUrl("pilotLoginUrl");
+    public static final String pilotLogoutUrl = propertiesReader.getEndPointUrl("pilotLogoutUrl");
 
     //  User Url's  //
     public static final String userUrl = propertiesReader.getEndPointUrl("userUrl");

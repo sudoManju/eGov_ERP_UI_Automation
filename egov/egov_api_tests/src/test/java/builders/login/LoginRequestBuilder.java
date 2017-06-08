@@ -7,7 +7,7 @@ public final class LoginRequestBuilder {
     LoginRequest loginRequest = new LoginRequest();
 
     public LoginRequestBuilder() {
-        loginRequest.setUsername("narasappa");
+        loginRequest.setUsername("NARASAPPA");
         loginRequest.setPassword("demo");
         loginRequest.setGrant_type("password");
         loginRequest.setScope("read");

@@ -1,10 +1,8 @@
 package tests.login;
 
 import builders.login.LoginRequestBuilder;
-import builders.login.LoginRequestForPilotServiceBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.login.LoginRequest;
-import entities.requests.login.LoginRequestForPilotService;
 import entities.responses.login.LoginErrorResponse;
 import entities.responses.login.LoginResponse;
 import org.testng.Assert;
@@ -16,7 +14,8 @@ import utils.*;
 import java.io.IOException;
 import java.util.Map;
 
-import static data.usernames.narasappa;
+import static data.UserData.ADMIN;
+import static data.UserData.NARASAPPA;
 
 public class LoginVerificationTest extends BaseAPITest {
 
@@ -24,7 +23,7 @@ public class LoginVerificationTest extends BaseAPITest {
     public void shouldAllowLoginAndLogoutToAnExistingUser() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
 
         // Logout Test
         LoginAndLogoutHelper.logout(loginResponse);
@@ -34,7 +33,7 @@ public class LoginVerificationTest extends BaseAPITest {
     public void shouldNotAllowLogoutWithInvalidCredentials() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
 
         // Logout Test
         Response response1 = new LoginResource().inValidLogout(loginResponse.getAccess_token());
@@ -58,5 +57,14 @@ public class LoginVerificationTest extends BaseAPITest {
         Assert.assertEquals(loginErrorResponse.getError_description(), "Invalid login credentials");
 
         new APILogger().log("Login Failed is Completed -- ");
+    }
+
+    @Test(groups = {Categories.PILOT})
+    public void shouldAllowLoginAndLogoutInPilotService() {
+        // Login Test
+        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN);
+
+        // Logout Test
+        LoginAndLogoutHelper.logoutFromPilotService(sessionId);
     }
 }

@@ -54,18 +54,18 @@ public class LoginAndLogoutHelper {
 
     }
 
-    public static String loginFromPilotService(){
-        Response baseAPIResponse = new LoginResource().getSessionFromBaseAPI();
+    public static String loginFromPilotService(String username){
+        Response baseAPIResponse = new LoginResource().getSessionIdFromPilotBaseAPI();
         String sessionIdFromBaseAPI = baseAPIResponse.getCookie("SESSIONID");
 
-        LoginRequestForPilotService loginRequestForPilotService = new LoginRequestForPilotServiceBuilder().build();
+        LoginRequestForPilotService loginRequestForPilotService = new LoginRequestForPilotServiceBuilder()
+                .withJ_username(username).build();
         Response loginFromPilotServiceResponse = new LoginResource()
                 .loginFromPilotService(sessionIdFromBaseAPI , RequestHelper.asMap(loginRequestForPilotService));
         return loginFromPilotServiceResponse.getCookie("SESSIONID");
     }
 
     public static void logoutFromPilotService(String sessionIdFromLoginAPI){
-        Response logoutResponse = new LoginResource()
-                .logoutFromPilotService(sessionIdFromLoginAPI);
+        new LoginResource().logoutFromPilotService(sessionIdFromLoginAPI);
     }
 }

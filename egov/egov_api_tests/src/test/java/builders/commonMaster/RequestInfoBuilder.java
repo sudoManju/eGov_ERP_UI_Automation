@@ -7,14 +7,14 @@ public class RequestInfoBuilder {
     RequestInfo requestInfo = new RequestInfo();
 
     public RequestInfoBuilder() {
-        requestInfo.setApiId("string");
-        requestInfo.setVer("string");
-        requestInfo.setTs("");
-        requestInfo.setAction("string");
-        requestInfo.setDid("string");
-        requestInfo.setKey("string");
-        requestInfo.setMsgId("string");
-        requestInfo.setRequesterId("string");
+        requestInfo.setApiId("1");
+        requestInfo.setVer("1");
+        requestInfo.setTs("08-06-2017 01:01:01");
+        requestInfo.setAction("create");
+        requestInfo.setDid("");
+        requestInfo.setKey("");
+        requestInfo.setMsgId("");
+        requestInfo.setRequesterId("");
         requestInfo.setAuthToken("aeiou");
     }
 

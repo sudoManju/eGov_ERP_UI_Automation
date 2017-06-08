@@ -15,7 +15,7 @@ import utils.*;
 
 import java.io.IOException;
 
-import static data.usernames.narasappa;
+import static data.UserData.NARASAPPA;
 
 public class CommunityTest extends BaseAPITest {
 
@@ -23,7 +23,7 @@ public class CommunityTest extends BaseAPITest {
     public void communityTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
 
         // Search Department Test
         communityTestMethod(loginResponse);

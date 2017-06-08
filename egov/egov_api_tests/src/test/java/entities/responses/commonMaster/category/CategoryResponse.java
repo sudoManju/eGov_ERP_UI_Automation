@@ -4,23 +4,26 @@ import entities.responses.commonMaster.ResponseInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class CategoryResponse {
-    private ResponseInfo ResponseInfo;
+
+    @JsonProperty("ResponseInfo")
+    private ResponseInfo responseInfo;
+
     @JsonProperty("Category")
-    private Category[] Category;
+    private Category[] category;
 
     public ResponseInfo getResponseInfo() {
-        return this.ResponseInfo;
+        return this.responseInfo;
     }
 
     public void setResponseInfo(ResponseInfo ResponseInfo) {
-        this.ResponseInfo = ResponseInfo;
+        this.responseInfo = ResponseInfo;
     }
 
     public Category[] getCategory() {
-        return this.Category;
+        return this.category;
     }
 
     public void setCategory(Category[] Category) {
-        this.Category = Category;
+        this.category = Category;
     }
 }

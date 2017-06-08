@@ -19,7 +19,7 @@ import utils.ResponseHelper;
 
 import java.io.IOException;
 
-import static data.usernames.narasappa;
+import static data.UserData.NARASAPPA;
 
 
 public class EmployeeLeaveTest extends BaseAPITest {
@@ -28,7 +28,7 @@ public class EmployeeLeaveTest extends BaseAPITest {
     public void employeeLeaveSearch() throws IOException {
 
         //Login
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
 
         employeeLeave(loginResponse);
         employeeLeaveApplications(loginResponse);
