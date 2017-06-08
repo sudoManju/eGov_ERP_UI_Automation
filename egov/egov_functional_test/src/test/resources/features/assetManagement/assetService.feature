@@ -27,3 +27,6 @@ Feature: Create/Search for Asset Service
       | header6       | location1       | CREATED     | community       |
       | header7       | location1       | CREATED     | usufruct        |
       | header8       | location1       | CREATED     | shopping        |
+      | header9       | location1       | CREATED     | parkingSpace    |
+      | header10      | location1       | CREATED     | parkingSpace    |
+      | header11      | location1       | CREATED     | parks           |

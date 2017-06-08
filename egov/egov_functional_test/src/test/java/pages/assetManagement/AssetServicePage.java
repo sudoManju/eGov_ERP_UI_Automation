@@ -10,7 +10,6 @@ import pages.BasePage;
 
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -117,12 +116,12 @@ public class AssetServicePage extends BasePage {
     private WebElement lakesAndPondsAreaTextBox;
 
     // Category Parking Space Details
-    @FindBy(css = "[name='Parking space Name']")
-    private WebElement parkingSpaceNameTextBox;
+    @FindBy(css = "[name='Total Square feet area']")
+    private WebElement parkingSpaceTotalSquareFeetArea;
 
     // Category Slaughter details
-    @FindBy(css = "[name='Slaughter House Name']")
-    private WebElement slaughterHouseNameTextBox;
+    @FindBy(css = "[name='Total Square feet area']")
+    private WebElement slaughterHouseTotalSquareFeet;
 
     // Category Usufruct Details
     @FindBy(css = "[name='Usufruct Name']")
@@ -133,8 +132,8 @@ public class AssetServicePage extends BasePage {
     private WebElement fishTankNameTextBox;
 
     // Category Park Details
-    @FindBy(css = "[name='Park Name']")
-    private WebElement parkNameTextBox;
+    @FindBy(css = "[name='Total Square feet area']")
+    private WebElement parkTotalSquareFeet;
 
     // Roads Details
     @FindBy(css = "[name='Road type']")
@@ -193,20 +192,25 @@ public class AssetServicePage extends BasePage {
         selectFromDropDown(departmentSelectBox, headerDetails.getDepartment(), webDriver);
         selectFromDropDown(assetCategorySelectBox, headerDetails.getAssetCategory(), webDriver);
         enterDate(creationDate, getCurrentDate(), webDriver);
-        enterText(descriptionTextBox, "Description for "+headerDetails.getAssetCategory()+" Asset", webDriver);
-        enterText(assetNameTextBox, "Asset: "+headerDetails.getAssetCategory(), webDriver);
+        enterText(descriptionTextBox, "Description for " + headerDetails.getAssetCategory() + " Asset", webDriver);
+        enterText(assetNameTextBox, "Asset: " + headerDetails.getAssetCategory(), webDriver);
         selectFromDropDown(modeOfAcquisitionSelectBox, headerDetails.getModeOfAcquisition(), webDriver);
-        clickOnButton(assetReferenceSearchButton, webDriver);
 
         // Asset Reference Details
+        clickOnButton(assetReferenceSearchButton, webDriver);
         selectFromDropDown(assetReferenceCategorySelectBox, headerDetails.getAssetCategory(), webDriver);
         clickOnButton(assetReferenceSubmitButton, webDriver);
 
-        await().atMost(10, SECONDS).until(() -> webDriver.findElements(By.cssSelector("[id='tblRef'] tr td button")).size() > 0);
-        if (assetReferenceTableRows.size() == 1) {
-            clickOnButton(webDriver.findElement(By.cssSelector("[id='tblRef'] tr td button[class='btn btn-close']")), webDriver);
+        // If there is no reference application for the present category it skips the selection of application and continue the flow.
+        if (webDriver.findElements(By.cssSelector("[id='tblRef'] tr td button")).size() == 0) {
+            clickOnButton(webDriver.findElements(By.cssSelector("[class='btn btn-default']")).get(0), webDriver);
         } else {
-            clickOnButton(assetReferenceTableRows.get(new Random().nextInt(assetReferenceTableRows.size() - 0) + 0), webDriver);
+            await().atMost(10, SECONDS).until(() -> webDriver.findElements(By.cssSelector("[id='tblRef'] tr td button")).size() > 0);
+            if (assetReferenceTableRows.size() == 1) {
+                clickOnButton(webDriver.findElement(By.cssSelector("[id='tblRef'] tr td button[class='btn btn-close']")), webDriver);
+            } else {
+                clickOnButton(assetReferenceTableRows.get(new Random().nextInt(assetReferenceTableRows.size() - 0) + 0), webDriver);
+            }
         }
     }
 
@@ -253,11 +257,11 @@ public class AssetServicePage extends BasePage {
                 break;
 
             case "parkingSpace":
-                enterText(parkingSpaceNameTextBox, "abcd", webDriver);
+                enterText(parkingSpaceTotalSquareFeetArea, get6DigitRandomInt().substring(0, 5), webDriver);
                 break;
 
             case "slaughterHouse":
-                enterText(slaughterHouseNameTextBox, "abcd", webDriver);
+                enterText(slaughterHouseTotalSquareFeet, get6DigitRandomInt().substring(0, 5), webDriver);
                 break;
 
             case "usufruct":
@@ -269,14 +273,14 @@ public class AssetServicePage extends BasePage {
                 enterText(fishTankNameTextBox, "abcd", webDriver);
                 break;
 
-            case "park":
-                enterText(parkNameTextBox, "abcd", webDriver);
+            case "parks":
+                enterText(parkTotalSquareFeet, get6DigitRandomInt().substring(0, 5), webDriver);
                 break;
 
             case "shopping":
                 enterText(shoppingComplexNumberTextBox, String.valueOf(new Random().nextInt((9 - 4) + 1) + 1), webDriver);
                 int noOfFloors = new Random().nextInt((9 - 4) + 1) + 1;
-                System.out.println("================="+noOfFloors);
+                System.out.println("=================" + noOfFloors);
                 int noOfRooms = noOfFloors * 5;
                 enterText(noOfFloorsTextBox, String.valueOf(noOfFloors), webDriver);
                 enterText(noOfShopsTextBox, String.valueOf(noOfRooms), webDriver);
