@@ -51,22 +51,6 @@
 <div class="panel-body">
 	<div class="row add-border">
 		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.build.plan.apprvl.date" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.buildingPlanApprovalDate}" default="N/A"></c:out>
-		</div>
-		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.plan.approval.no" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.buildingplanapprovalnumber}"
-				default="N/A"></c:out>
-		</div>
-	</div>
-
-	<div class="row add-border">
-		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.build.plan.permission.date" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">

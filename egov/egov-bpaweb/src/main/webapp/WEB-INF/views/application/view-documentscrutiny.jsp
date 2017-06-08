@@ -155,14 +155,6 @@
 						default="N/A"></c:out>
 				</div>
 				<div class="col-sm-3 add-margin">
-					<spring:message code="lbl.revenue.village" />
-				</div>
-				<div class="col-sm-3 add-margin view-content">
-					<c:out value="${bpaApplication.documentScrutiny[0].village}" default="N/A"></c:out>
-				</div>
-			</div>
-			<div class="row add-border">
-				<div class="col-sm-3 add-margin">
 					<spring:message code="lbl.allpage.attached" />
 				</div>
 				<div class="col-sm-3 add-margin view-content">
@@ -170,6 +162,8 @@
 						value="${bpaApplication.documentScrutiny[0].whetherallPageOfdocAttached ? 'Yes' : 'No'}"
 						default="N/A"></c:out>
 				</div>
+			</div>
+			<div class="row add-border">
 				<div class="col-sm-3 add-margin">
 					<spring:message code="lbl.various.doc.matching" />
 				</div>

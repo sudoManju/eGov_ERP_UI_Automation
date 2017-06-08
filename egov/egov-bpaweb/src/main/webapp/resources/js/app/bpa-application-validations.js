@@ -44,50 +44,13 @@ $(document).ready(function() {
 	$('.show-hide').hide();
 	$('.totalPlintArea').show();
 	
-	// Each Amenity type validations
-	$('.applicationAmenity').blur(function(){
-		$('.dyn-mandatory').removeAttr('required');
-		$('.toggle-madatory').find("span").removeClass( "mandatory" );
-		$('.dyn-mandatory').removeClass( "error" );
-		
-		var amenities = [];
-		$.each($(".applicationAmenity option:selected"), function(){            
-			amenities.push($(this).text());
-        });
-		
-		var amenitiesArry = amenities.toString().split(',');
-		$.each(amenitiesArry, function(index, amenitiesArry) {
-			var splitStr = amenitiesArry.substring(0,4);
-			if('Roof' == splitStr) {
-				$('.Roof').attr('required', true);
-				$('.Roof').find("span").addClass( "mandatory" );
-			} else if('Well' == splitStr) {
-				$('.Well').attr('required', true);
-				$('.Well').find("span").addClass( "mandatory" );
-			} else if('Pole' == splitStr) {
-				$('.Pole').attr('required', true);
-				$('.Pole').find("span").addClass( "mandatory" );
-			} else if('Shut' == splitStr) {
-				$('.Shut').attr('required', true);
-				$('.Shut').find("span").addClass( "mandatory" );
-			} else if('Towe' == splitStr) {
-				$('.Towe').attr('required', true);
-				$('.Towe').find("span").addClass( "mandatory" );
-			} else if('Comp' == splitStr) {
-				$('.Comp').attr('required', true);
-				$('.Comp').find("span").addClass( "mandatory" );
-			}
-		});
-	});
-	
-	
 	// For each main service type validations
 	$('.serviceType').change(function(){
+		
+		loadAmenities();
+		
 		var seviceTypeName = $( "#serviceType option:selected" ).text();
 		$('.buildingdetails').show();
-		$('.noofhutorshed').removeAttr('required');
-		$('.noofhutorshed').find("span").removeClass( "mandatory" );
-		$('.noofhutorshed').removeClass( "error" );
 		if('Sub-Division of plot/Land Development' == seviceTypeName){
 			$('.handle-mandatory').removeAttr('required');
 			$('.handle-mandatory').find("span").removeClass( "mandatory" );
@@ -101,7 +64,6 @@ $(document).ready(function() {
 			$('.handle-mandatory').removeAttr('required');
 			$('.handle-mandatory').find("span").removeClass( "mandatory" );
 			$('.Hut').find("span").addClass( "mandatory" );
-			$('.noofhutorshed').attr('required',true);
 			$('.noofhutorshed').find("span").addClass( "mandatory" );
 			$('#totalPlintArea').attr('required',true);
 		} else {
@@ -122,6 +84,68 @@ $(document).ready(function() {
 			$('.handle-mandatory').find("span").addClass( "mandatory" );
 		}
 	});
+	
+	// Each Amenity type validations
+	
+	$('#applicationAmenity').on('change', function(){ 
+		loadAmenities();
+	});
+	
+	function loadAmenities(){
+		
+		var amenities = [];
+		
+		if($( "#serviceType option:selected" ).text() == 'Permission for Temporary hut or shed'){
+			amenities.push('Permission for Temporary hut or shed');
+		}
+		
+		$.each($("#applicationAmenity option:selected"), function(idx){     
+			amenities.push($(this).text());
+		});
+		
+		
+		var result="";
+		$.each(amenities, function(idx, value){            
+			//console.log('is even?', $(this).text(), idx, );
+			var isEven=(parseInt(idx)%2 === 0);
+			if(isEven){
+				result= result+ (result?"</div><div class='form-group'>":"<div class='form-group'>");
+			}
+			result=result+getTemplateComplie(value, isEven);
+        });
+		result=result+"</div>";
+		$('#amenitiesInputs').html(result);
+	}
+	
+	function getTemplateComplie(value, isFirstPosition){
+		var templateStr="";
+		
+		switch(value) {
+		    case "Well":
+		        templateStr=$('#well-template').html();
+		        break;
+		    case "Compound Wall":
+		    	templateStr=$('#compound-template').html();
+		        break;
+		    case "Shutter or Door Conversion/Erection under rule 100 or 101":
+		    	templateStr=$('#shutter-template').html();
+		        break;
+		    case "Roof Conversion under rule 100 or 101":
+		    	templateStr=$('#roof-template').html();
+		        break;
+		    case "Tower Construction":
+		    	templateStr=$('#tower-template').html();
+		        break;
+		    case "Pole Structures":
+		    	templateStr=$('#poles-template').html();
+		        break;
+		    case "Permission for Temporary hut or shed":
+		    	templateStr=$('#sheds-template').html();
+		        break;
+		}
+		
+		return templateStr.replace(/{className}/g, isFirstPosition?'col-sm-3':'col-sm-2');
+	}
 	
 	// making atleast one amenity should be mandatory if service type is selected as amenities 
 	$('#buttonSubmit').click(function(){
@@ -190,7 +214,7 @@ $(document).ready(function() {
 	$( "#isappForRegularization" ).trigger( "change" );
 	$( "#constStages" ).trigger( "change" );
 	$( ".serviceType" ).trigger( "change" );
-	$( ".applicationAmenity" ).trigger( "blur" );
+	$( ".applicationAmenity" ).trigger( "change" );
 	
 	// on form load get occupancy details List
 	$.ajax({
@@ -341,4 +365,6 @@ function convertExtendOfLandToSqmts(extentOfLand,uom){
 	}
 	return extentinsqmts;
 }
+
+
 

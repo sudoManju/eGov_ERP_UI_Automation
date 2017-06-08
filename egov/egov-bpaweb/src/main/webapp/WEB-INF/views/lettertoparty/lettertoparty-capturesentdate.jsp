@@ -60,7 +60,7 @@
 							<div class="col-sm-3 add-margin">
 								<spring:message code="lbl.lpNumber" />
 							</div>
-							<div class="col-sm-2 add-margin view-content">
+							<div class="col-sm-3 add-margin view-content">
 								<c:out value="${lettertoParty.lpNumber}"></c:out>
 							</div>
 							<div class="col-sm-3 add-margin">

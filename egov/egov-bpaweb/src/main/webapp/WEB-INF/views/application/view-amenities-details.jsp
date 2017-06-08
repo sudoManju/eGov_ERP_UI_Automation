@@ -43,13 +43,24 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn" %>
+
 <div class="panel-heading custom_form_panel_heading">
 	<div class="panel-title">
 		<spring:message code="lbl.ser.meas.details" />
 	</div>
 </div>
+<input  type="hidden" id="serviceType" value="${bpaApplication.serviceType.description}" />
+<input type="hidden" id="applicationAmenity" value="${bpaApplication.amenityName}" />
+
 <div class="panel-body">
 	<div class="row add-border">
+		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.extent.of.land" />
+		</div>
+		<div class="col-sm-3 add-margin view-content">
+			<c:out value="${bpaApplication.siteDetail[0].extentOfLand}"
+				default="N/A"></c:out> <c:out value="${bpaApplication.siteDetail[0].unitOfMeasurement}" ></c:out>
+		</div>
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.extentin.sqmts" />
 		</div>
@@ -57,6 +68,12 @@
 			<c:out value="${bpaApplication.siteDetail[0].extentinsqmts}"
 				default="N/A"></c:out>
 		</div>
+	</div>
+	<div id="amenitiesOuptuts">
+
+	</div>
+	
+<script id="roof-view-template" type="text/egov-template">
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.roof.conv" />
 		</div>
@@ -64,8 +81,9 @@
 			<c:out value="${bpaApplication.siteDetail[0].roofConversion}"
 				default="N/A"></c:out>
 		</div>
-	</div>
-	<div class="row add-border">
+</script>
+	
+<script id="compound-view-template" type="text/egov-template">
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.len.com.wall" />
 		</div>
@@ -73,6 +91,9 @@
 			<c:out value="${bpaApplication.siteDetail[0].lengthOfCompoundWall}"
 				default="N/A"></c:out>
 		</div>
+</script>
+
+<script id="well-view-template" type="text/egov-template">
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.number.well" />
 		</div>
@@ -80,15 +101,18 @@
 			<c:out value="${bpaApplication.siteDetail[0].dwellingunitnt}"
 				default="N/A"></c:out>
 		</div>
-	</div>
+</script>
 
-	<div class="row add-border">
+<script id="shutter-view-template" type="text/egov-template">
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.shutter" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
 			<c:out value="${bpaApplication.siteDetail[0].shutter}" default="N/A"></c:out>
 		</div>
+</script>
+
+<script id="tower-view-template" type="text/egov-template">
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.erection.tower" />
 		</div>
@@ -96,9 +120,9 @@
 			<c:out value="${bpaApplication.siteDetail[0].erectionoftower}"
 				default="N/A"></c:out>
 		</div>
-	</div>
+</script>
 
-	<div class="row add-border">
+<script id="poles-view-template" type="text/egov-template">
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.no.of.poles" />
 		</div>
@@ -106,6 +130,9 @@
 			<c:out value="${bpaApplication.siteDetail[0].noOfPoles}"
 				default="N/A"></c:out>
 		</div>
+</script>
+
+<script id="sheds-view-template" type="text/egov-template">
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.no.of.shuts.huts" />
 		</div>
@@ -113,5 +140,5 @@
 			<c:out value="${bpaApplication.siteDetail[0].noOfHutOrSheds}"
 				default="N/A"></c:out>
 		</div>
-	</div>
+</script>
 </div>

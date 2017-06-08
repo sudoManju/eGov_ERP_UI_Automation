@@ -68,7 +68,7 @@
 			cssClass="add-margin error-msg" />
 	</div>
 	<label class="col-sm-2 control-label text-right"><spring:message
-			code="lbl.extentin.sqmts" /><span></span></label>
+			code="lbl.extentin.sqmts" /></label>
 	<div class="col-sm-3 add-margin">
 		<form:hidden id="extentinsqmtshdn" path="siteDetail[0].extentinsqmts" />
 		<form:input class="form-control patternvalidation extentinsqmts"
@@ -78,78 +78,97 @@
 			cssClass="add-margin error-msg" />
 	</div>
 </div>
-<div class="form-group">
-	<label class="col-sm-3 control-label text-right toggle-madatory Pole"><spring:message
-			code="lbl.no.of.poles" /><span></span></label>
+
+
+<div id="amenitiesInputs">
+
+</div>
+
+<script id="poles-template" type="text/egov-template">
+	<label class="{className} control-label text-right toggle-madatory Pole"><spring:message
+			code="lbl.no.of.poles" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation dyn-mandatory Pole"
 			data-pattern="number" id="dwellingunitnt"
-			path="siteDetail[0].noOfPoles" />
+			path="siteDetail[0].noOfPoles" required="required" />
 		<form:errors path="siteDetail[0].noOfPoles"
 			cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right noofhutorshed"><spring:message
-			code="lbl.no.of.shuts.huts" /><span></span></label>
+</script>
+
+<script id="sheds-template" type="text/egov-template">
+	<label class="{className} control-label text-right noofhutorshed"><spring:message
+			code="lbl.no.of.shuts.huts" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation noofhutorshed"
 			data-pattern="decimalvalue" id="noOfHutOrSheds"
-			path="siteDetail[0].noOfHutOrSheds" />
+			path="siteDetail[0].noOfHutOrSheds" required="required" />
 		<form:errors path="siteDetail[0].noOfHutOrSheds"
 			cssClass="add-margin error-msg" />
 	</div>
-</div>
+</script>
 
-
-<div class="form-group">
-	<label class="col-sm-3 control-label text-right toggle-madatory Shut"><spring:message
-			code="lbl.shutter" /><span></span></label>
+<script id="shutter-template" type="text/egov-template">
+	<label class="{className} control-label text-right toggle-madatory Shut"><spring:message
+			code="lbl.shutter" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation dyn-mandatory Shut"
-			id="shutter" data-pattern="decimalvalue" path="siteDetail[0].shutter" />
+			id="shutter" data-pattern="decimalvalue" path="siteDetail[0].shutter" required="required"/>
 		<form:errors path="siteDetail[0].shutter"
 			cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right toggle-madatory Towe"><spring:message
-			code="lbl.erection.tower" /> <span></span></label>
+</script>
+
+<script id="tower-template" type="text/egov-template">
+	<label class="{className} control-label text-right toggle-madatory Towe"><spring:message
+			code="lbl.erection.tower" /> <span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation dyn-mandatory Towe"
 			data-pattern="decimalvalue" id="erectionoftower"
-			path="siteDetail[0].erectionoftower" />
+			path="siteDetail[0].erectionoftower" required="required" />
 		<form:errors path="siteDetail[0].erectionoftower"
 			cssClass="add-margin error-msg" />
 	</div>
-</div>
-<div class="form-group">
-	<label class="col-sm-3 control-label text-right toggle-madatory Well"><spring:message
-			code="lbl.number.well" /><span></span></label>
+</script>
+
+<script id="well-template" type="text/egov-template">
+	<label class="{className} control-label text-right toggle-madatory Well"><spring:message
+			code="lbl.number.well" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation dyn-mandatory Well"
 			data-pattern="number" id="dwellingunitnt"
-			path="siteDetail[0].dwellingunitnt" />
+			path="siteDetail[0].dwellingunitnt" required="required" />
 		<form:errors path="siteDetail[0].dwellingunitnt"
 			cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right toggle-madatory Comp"><spring:message
-			code="lbl.len.com.wall" /><span></span></label>
+</script>
+
+<script id="compound-template" type="text/egov-template">
+	<label class="{className} control-label text-right toggle-madatory Comp"><spring:message
+			code="lbl.len.com.wall" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation dyn-mandatory Comp"
 			data-pattern="decimalvalue" id="siteDetail[0].lengthOfCompoundWall"
-			path="siteDetail[0].lengthOfCompoundWall" />
+			path="siteDetail[0].lengthOfCompoundWall" required="required" />
 		<form:errors path="siteDetail[0].lengthOfCompoundWall"
 			cssClass="add-margin error-msg" />
 	</div>
-</div>
-<div class="form-group">
-	<label class="col-sm-3 control-label text-right toggle-madatory Roof"><spring:message
-			code="lbl.roof.conv" /><span></span></label>
+</script>
+
+<script id="roof-template" type="text/egov-template">
+	<label class="{className} control-label text-right toggle-madatory Roof"><spring:message
+			code="lbl.roof.conv" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation dyn-mandatory Roof"
 			data-pattern="decimalvalue" id="roofConversion"
-			path="siteDetail[0].roofConversion" />
+			path="siteDetail[0].roofConversion" required="required" />
 		<form:errors path="siteDetail[0].roofConversion"
 			cssClass="add-margin error-msg" />
 	</div>
-</div>
+</script>
+
+
+
 
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right"><spring:message

@@ -39,6 +39,9 @@
  */
 jQuery(document).ready(function() {
 	
+	$( ".serviceType" ).trigger( "change" );
+	$( ".applicationAmenity" ).trigger( "change" );
+	
 	var seviceTypeName = $("#serviceType").val();
 	$('.show-hide').hide();
 	if('Change in occupancy' == seviceTypeName){
@@ -52,5 +55,61 @@ jQuery(document).ready(function() {
 	} else {
 		$('.totalPlintArea').show();
 	}
+	
+	loadAmenities();
+function loadAmenities(){
+		var amenities = [];
+		if($( "#serviceType" ).val() == 'Permission for Temporary hut or shed'){
+			amenities.push('Permission for Temporary hut or shed');
+		}
+		var amenityDesc = $("#applicationAmenity").val().split(',');
+		$.each(amenityDesc, function(index, amenityDesc) {
+			amenities.push(amenityDesc);
+		});
+		
+		var result="";
+		$.each(amenities, function(idx, value){            
+			//console.log('is even?', $(this).text(), idx, );
+			var isEven=(parseInt(idx)%2 === 0);
+			if(isEven){
+				result= result+ (result?"</div><div class='row add-border'>":"<div class='row add-border'>");
+			}
+			result=result+getTemplateComplie(value, isEven);
+        });
+		result=result+"</div>";
+		$('#amenitiesOuptuts').html(result);
+	}
+	
+	function getTemplateComplie(value, isFirstPosition){
+		var templateStr="";
+		
+		switch(value) {
+		    case "Well":
+		        templateStr=$('#well-view-template').html();
+		        break;
+		    case "Compound Wall":
+		    	templateStr=$('#compound-view-template').html();
+		        break;
+		    case "Shutter or Door Conversion/Erection under rule 100 or 101":
+		    	templateStr=$('#shutter-view-template').html();
+		        break;
+		    case "Roof Conversion under rule 100 or 101":
+		    	templateStr=$('#roof-view-template').html();
+		        break;
+		    case "Tower Construction":
+		    	templateStr=$('#tower-view-template').html();
+		        break;
+		    case "Pole Structures":
+		    	templateStr=$('#poles-view-template').html();
+		        break;
+		    case "Permission for Temporary hut or shed":
+		    	templateStr=$('#sheds-view-template').html();
+		        break;
+		}
+		
+		return templateStr;
+	}
+	
+	
 });
 
