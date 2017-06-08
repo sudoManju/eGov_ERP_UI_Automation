@@ -15,36 +15,40 @@ import utils.*;
 
 import java.io.IOException;
 
+import static data.UserData.ADMIN;
 import static data.UserData.NARASAPPA;
 
 public class DepartmentTest extends BaseAPITest {
 
-    @Test(groups = {Categories.HR, Categories.SANITY})
+    @Test(groups = {Categories.HR, Categories.SANITY, Categories.PILOT})
     public void departmentTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
+        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN);
 
         // Search Department Test
-        departmentTestMethod(loginResponse);
+        departmentTestMethod(sessionId);
     }
 
-    private void departmentTestMethod(LoginResponse loginResponse) throws IOException {
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
+    private void departmentTestMethod(String sessionId) throws IOException {
+        RequestInfo requestInfo = new RequestInfoBuilder().build();
         CommonMasterRequest commonMasterRequest = new CommonMasterRequestBuilder()
                 .withRequestInfo(requestInfo)
                 .build();
 
         String jsonString = RequestHelper.getJsonString(commonMasterRequest);
 
-        Response response = new CommonMasterResource().searchDepartmentTest(jsonString);
+        Response response = new CommonMasterResource().searchDepartmentTest(jsonString, sessionId);
 
         DepartmentResponse departmentResponse = (DepartmentResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), DepartmentResponse.class);
 
-        Assert.assertEquals(departmentResponse.getDepartment().length, 10);
+        Assert.assertTrue(departmentResponse.getDepartment().length > 0);
         Assert.assertEquals(response.getStatusCode(), 200);
 
         new APILogger().log("Search Department Test is Completed --");
+
+        // Logout Test
+        pilotLogoutService(sessionId);
     }
 }

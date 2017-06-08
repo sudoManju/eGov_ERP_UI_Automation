@@ -49,7 +49,7 @@ public class Properties {
     public static final String eisSearchHrConfigurationsUrl = propertiesReader.getEndPointUrl("searchHrConfigurations");
     public static final String eisSearchHrStatusesUrl = propertiesReader.getEndPointUrl("searchHRStatusesUrl");
     public static final String eisSearchLeaveApplicationsUrl = propertiesReader.getEndPointUrl("searchLeaveApplicationsUrl");
-    public static final String eisSearchLeaveOpeningbalancesUrl = propertiesReader.getEndPointUrl("searchLeaveOpeningbalancesUrl");
+    public static final String eisSearchLeaveOpeningBalanceUrl = propertiesReader.getEndPointUrl("searchLeaveOpeningBalanceUrl");
     public static final String eisSearchLeaveAllotmentsUrl = propertiesReader.getEndPointUrl("searchLeaveAllotmentsUrl");
     public static final String createOpeningBalanceUrlUrl = propertiesReader.getEndPointUrl("createOpeningBalanceUrl");
 

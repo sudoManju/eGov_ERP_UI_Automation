@@ -6,6 +6,7 @@ import org.testng.Reporter;
 import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.BeforeMethod;
 import utils.Categories;
+import utils.LoginAndLogoutHelper;
 import utils.ResourceHelper;
 
 import java.io.IOException;
@@ -62,5 +63,10 @@ public class BaseAPITest {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
         return dateFormat.format(date);
+    }
+
+    protected void pilotLogoutService(String sessionId){
+        new LoginAndLogoutHelper().logoutFromPilotService(sessionId);
+
     }
 }

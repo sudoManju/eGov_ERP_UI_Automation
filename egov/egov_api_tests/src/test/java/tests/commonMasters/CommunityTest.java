@@ -15,35 +15,40 @@ import utils.*;
 
 import java.io.IOException;
 
+import static data.UserData.ADMIN;
 import static data.UserData.NARASAPPA;
 
 public class CommunityTest extends BaseAPITest {
 
-    @Test(groups = {Categories.HR, Categories.SANITY})
+    @Test(groups = {Categories.HR, Categories.SANITY, Categories.PILOT})
     public void communityTest() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
+        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN);
+        System.out.println(sessionId);
 
         // Search Department Test
-        communityTestMethod(loginResponse);
+        communityTestMethod(sessionId);
     }
 
-    private void communityTestMethod(LoginResponse loginResponse) throws IOException {
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
+    private void communityTestMethod(String sessionId) throws IOException {
+        RequestInfo requestInfo = new RequestInfoBuilder().build();
         CommonMasterRequest commonMasterRequest = new CommonMasterRequestBuilder()
                 .withRequestInfo(requestInfo)
                 .build();
 
         String jsonString = RequestHelper.getJsonString(commonMasterRequest);
 
-        Response response = new CommonMasterResource().searchCommunityTest(jsonString);
+        Response response = new CommonMasterResource().searchCommunityTest(jsonString, sessionId);
         CommunityResponse communityResponse = (CommunityResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), CommunityResponse.class);
 
-        Assert.assertEquals(communityResponse.getCommunity().length, 3);
+        Assert.assertTrue(communityResponse.getCommunity().length >= 0);
         Assert.assertEquals(response.getStatusCode(), 200);
 
         new APILogger().log("Search Community Test is Completed --");
+
+        // Logout Test
+        pilotLogoutService(sessionId);
     }
 }

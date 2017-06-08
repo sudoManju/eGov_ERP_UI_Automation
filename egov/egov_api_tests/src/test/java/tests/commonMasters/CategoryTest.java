@@ -48,7 +48,7 @@ public class CategoryTest extends BaseAPITest {
         new APILogger().log("Search Category Test is Completed --");
 
         // Logout Test
-        new LoginAndLogoutHelper().logoutFromPilotService(sessionId);
+        pilotLogoutService(sessionId);
     }
 
 }

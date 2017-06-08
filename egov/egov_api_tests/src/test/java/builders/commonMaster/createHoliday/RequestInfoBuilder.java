@@ -7,15 +7,15 @@ public class RequestInfoBuilder {
     RequestInfo requestInfo = new RequestInfo();
 
     public RequestInfoBuilder() {
-        requestInfo.setApiId("emp");
-        requestInfo.setTs("10/03/2017");
-        requestInfo.setMsgId("20170310130900");
-        requestInfo.setAction("Create");
-        requestInfo.setDid("1");
-        requestInfo.setAuthToken("4f77f679-d609-45e8-beb7-26f449ca209f");
-        requestInfo.setVer("1.0");
-        requestInfo.setKey("abcdkey");
-        requestInfo.setRequesterId("1");
+        requestInfo.setApiId("1");
+        requestInfo.setVer("1");
+        requestInfo.setTs("08-06-2017 01:01:01");
+        requestInfo.setAction("create");
+        requestInfo.setDid("");
+        requestInfo.setKey("");
+        requestInfo.setMsgId("");
+        requestInfo.setRequesterId("");
+        requestInfo.setAuthToken("aeiou");
     }
 
     public RequestInfoBuilder withApi_id(String api_id) {

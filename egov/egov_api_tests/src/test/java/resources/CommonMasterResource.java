@@ -9,10 +9,11 @@ import static com.jayway.restassured.RestAssured.given;
 
 public class CommonMasterResource extends BaseAPITest {
 
-    public Response searchLanguageTest(String json) {
+    public Response searchLanguageTest(String json, String sessionId) {
         new APILogger().log("Search Language Request Test is Started with --" + json);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
+                .header("cookie", "SESSIONID=" + sessionId)
                 .body(json)
                 .when()
                 .post(Properties.cmLanguageUrl);
@@ -21,10 +22,11 @@ public class CommonMasterResource extends BaseAPITest {
         return response;
     }
 
-    public Response searchDepartmentTest(String jsonString) {
-        new APILogger().log("Search Department Request Test is started with --" + jsonString);
+    public Response searchDepartmentTest(String jsonString, String sessionId) {
+        new APILogger().log("Search Department Request Test is Started with --" + jsonString);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
+                .header("cookie", "SESSIONID=" + sessionId)
                 .body(jsonString)
                 .when()
                 .post(Properties.cmDepartmentUrl);
@@ -33,11 +35,12 @@ public class CommonMasterResource extends BaseAPITest {
         return response;
     }
 
-    public Response searchCommunityTest(String jsonString) {
+    public Response searchCommunityTest(String jsonString, String sessionId) {
 
-        new APILogger().log("Search Community Request Test is started with --" + jsonString);
+        new APILogger().log("Search Community Request Test is Started with --" + jsonString);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
+                .header("cookie", "SESSIONID=" + sessionId)
                 .body(jsonString)
                 .when()
                 .post(Properties.cmCommunityUrl);
@@ -46,11 +49,12 @@ public class CommonMasterResource extends BaseAPITest {
         return response;
     }
 
-    public Response searchReligionTest(String jsonString) {
+    public Response searchReligionTest(String jsonString, String sessionId) {
 
-        new APILogger().log("Search Religion Request Test is started with --" + jsonString);
+        new APILogger().log("Search Religion Request Test is Started with --" + jsonString);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
+                .header("cookie", "SESSIONID=" + sessionId)
                 .body(jsonString)
                 .when()
                 .post(Properties.cmReligionUrl);
@@ -59,11 +63,12 @@ public class CommonMasterResource extends BaseAPITest {
         return response;
     }
 
-    public Response searchHolidayTest(String jsonString) {
+    public Response searchHolidayTest(String jsonString , String sessionId) {
 
-        new APILogger().log("Search Holiday Request Test is started with --" + jsonString);
+        new APILogger().log("Search Holiday Request Test is Started with --" + jsonString);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
+                .header("cookie", "SESSIONID=" + sessionId)
                 .body(jsonString)
                 .when()
                 .post(Properties.cmHolidayUrl);
@@ -74,7 +79,7 @@ public class CommonMasterResource extends BaseAPITest {
 
     public Response searchCategoryTest(String jsonString, String sessionId) {
 
-        new APILogger().log("Search Category Request Test is started with --" + jsonString);
+        new APILogger().log("Search Category Request Test is Started with --" + jsonString);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
                 .header("cookie", "SESSIONID=" + sessionId)
@@ -86,10 +91,11 @@ public class CommonMasterResource extends BaseAPITest {
         return response;
     }
 
-    public Response createHoliday(String jsonString) {
-        new APILogger().log("Create Holiday Request Test is started with --" + jsonString);
+    public Response createHoliday(String jsonString, String sessionId) {
+        new APILogger().log("Create Holiday Request Test is Started with --" + jsonString);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
+                .header("cookie", "SESSIONID=" + sessionId)
                 .body(jsonString)
                 .when()
                 .post(Properties.cmCreateHolidayUrl);
