@@ -28,5 +28,5 @@ Feature: Create/Search for Asset Service
       | header7       | location1       | CREATED     | usufruct        |
       | header8       | location1       | CREATED     | shopping        |
       | header9       | location1       | CREATED     | parkingSpace    |
-      | header10      | location1       | CREATED     | parkingSpace    |
+      | header10      | location1       | CREATED     | slaughterHouse  |
       | header11      | location1       | CREATED     | parks           |

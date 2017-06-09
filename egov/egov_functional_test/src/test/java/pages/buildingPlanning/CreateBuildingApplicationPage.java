@@ -26,7 +26,7 @@ public class CreateBuildingApplicationPage extends BasePage {
     @FindBy(id = "stakeHolderType")
     private WebElement stakeHolderTypeSelectBox;
 
-    @FindBy(id = "stakeHolder")
+    @FindBy(id = "stakeHolderTypeHead")
     private WebElement stakeHolderNameSelectBox;
 
     @FindBy(id = "occupancy")
@@ -67,11 +67,20 @@ public class CreateBuildingApplicationPage extends BasePage {
     @FindBy(id = "plotsurveynumber")
     private WebElement plotSurveyNumberTextBox;
 
+    @FindBy(id = "plotlandmark")
+    private WebElement plotLandMarkTextBox;
+
     @FindBy(id = "village")
     private WebElement revenueVillageSelectBox;
 
     @FindBy(id = "state")
     private WebElement stateTextBox;
+
+    @FindBy(id = "citytown")
+    private WebElement cityTextBox;
+
+    @FindBy(id = "sitePincode")
+    private WebElement sitePincodeTextBox;
 
     @FindBy(name = "siteDetail[0].district")
     private WebElement districtTextBox;
@@ -214,7 +223,8 @@ public class CreateBuildingApplicationPage extends BasePage {
         }
 
         selectFromDropDown(stakeHolderTypeSelectBox, "ARCHITECT", webDriver);
-        selectFromDropDown(stakeHolderNameSelectBox, "Vasim", webDriver);
+        enterText(stakeHolderNameSelectBox, "Vasim", webDriver);
+        clickOnButton(webDriver.findElement(By.className("tt-dropdown-menu")), webDriver);
         selectFromDropDown(occupancySelectBox, "Residential", webDriver);
 //        selectFromDropDown(applicantModeSelectBox, "NEW", webDriver);
         selectFromDropDown(governmentTypeSelectBox, "GOVERNMENT", webDriver);
@@ -228,13 +238,16 @@ public class CreateBuildingApplicationPage extends BasePage {
     }
 
     public void enterSiteDetails() {
-//        selectFromDropDown(zoneSelectBox, "Zone-1", webDriver);
-        selectFromDropDown(wardSelectBox, "BEYPORE", webDriver);
+        selectFromDropDown(zoneSelectBox, "ZONE-1", webDriver);
+        selectFromDropDown(wardSelectBox, "WARD 1", webDriver);
         selectFromDropDown(electionWardSelectBox, "BEYPORE", webDriver);
         enterText(plotNumberTextBox, get6DigitRandomInt().substring(0, 3), webDriver);
         enterText(plotSurveyNumberTextBox, get6DigitRandomInt().substring(0, 4), webDriver);
+        enterText(plotLandMarkTextBox, "Land Mark", webDriver);
 //        selectFromDropDown(revenueVillageSelectBox, "Coachin", webDriver);
+        enterText(cityTextBox, "Khozikode", webDriver);
         enterText(stateTextBox, "Kerala", webDriver);
+        enterText(sitePincodeTextBox, "123456", webDriver);
         enterText(districtTextBox, "Khozikode", webDriver);
         enterText(talukTextBox, "Khozikode", webDriver);
         enterText(natureOfOwnershipTextBox, "Tester", webDriver);
@@ -245,14 +258,13 @@ public class CreateBuildingApplicationPage extends BasePage {
 
     public void enterServicesAndAmenitiesMeasurementDetails() {
         enterText(extentOfLandTextBox, get6DigitRandomInt().substring(0, 5), webDriver);
-        enterText(roofConversionTextBox, get6DigitRandomInt().substring(0, 2), webDriver);
-        enterText(noOfPolesTextBox, get6DigitRandomInt().substring(0, 1), webDriver);
-        enterText(noOfHutOrShedsTextBox, get6DigitRandomInt().substring(0, 1), webDriver);
-        enterText(noOfShutterOrDoorsTextBox, get6DigitRandomInt().substring(0, 1), webDriver);
-        enterText(noOfShutterOrDoorsTextBox, get6DigitRandomInt().substring(0, 2), webDriver);
-        enterText(noOfTowersTextBox, get6DigitRandomInt().substring(0, 1), webDriver);
         enterText(noOfWellsTextBox, get6DigitRandomInt().substring(0, 1), webDriver);
         enterText(lengthOfCompondWallTextBox, get6DigitRandomInt().substring(0, 3), webDriver);
+        enterText(noOfShutterOrDoorsTextBox, get6DigitRandomInt().substring(0, 1), webDriver);
+        enterText(roofConversionTextBox, get6DigitRandomInt().substring(0, 2), webDriver);
+        enterText(noOfTowersTextBox, get6DigitRandomInt().substring(0, 1), webDriver);
+        enterText(noOfPolesTextBox, get6DigitRandomInt().substring(0, 1), webDriver);
+//        enterText(noOfHutOrShedsTextBox, get6DigitRandomInt().substring(0, 1), webDriver);
     }
 
     public void enterBuildingDetails() {
