@@ -191,7 +191,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
                         application.getSiteDetail().get(0) != null
                                 && application.getSiteDetail().get(0).getElectionBoundary() != null
                                         ? application.getSiteDetail().get(0).getElectionBoundary().getId() : null);
-            bpaUtils.redirectToBpaWorkFlow(approvalPosition, application, BpaConstants.WF_NEW_STATE, null, null, null);
+            bpaUtils.redirectToBpaWorkFlow(approvalPosition, application, BpaConstants.WF_NEW_STATE, application.getApprovalComent(), null, null);
         }
         return applicationBpaRepository.save(application);
     }
@@ -264,7 +264,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         if (updatedApplication.getCurrentState() != null
                 && !updatedApplication.getCurrentState().getValue().equals(BpaConstants.WF_NEW_STATE)) {
             bpaUtils.redirectToBpaWorkFlow(approvalPosition, application, application.getCurrentState().getValue(),
-                    null, workFlowAction, amountRule);
+                    application.getApprovalComent(), workFlowAction, amountRule);
         }
         return updatedApplication;
     }
