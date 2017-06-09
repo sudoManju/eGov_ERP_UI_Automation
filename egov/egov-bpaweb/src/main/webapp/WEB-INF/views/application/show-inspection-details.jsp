@@ -38,28 +38,10 @@
   ~   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
   --%>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@page import="org.python.modules.jarray"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn"%>
 
-<div class="panel-heading custom_form_panel_heading">
-	<div class="panel-title text-center no-float">
-		<c:if test="${not empty message}">
-			<strong>${message}</strong>
-		</c:if>
-	</div>
-</div>
-
-<div class="buttonbottom" align="center">
-	<table>
-		<tr>
-			<td><input type="button" name="button2" id="button2"
-				value="Close" class="btn btn-default" onclick="window.close();" />
-			</td>
-		</tr>
-	</table>
-</div>
-
+<jsp:include page="inspection-view-form.jsp"></jsp:include>

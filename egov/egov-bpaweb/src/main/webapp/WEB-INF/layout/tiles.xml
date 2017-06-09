@@ -75,7 +75,7 @@
     </definition>
     
     <definition name="citizen_suceess" extends="base_layout">
-        <put-attribute name="page-title" value="title.newApplication" cascade="true"/>
+        <put-attribute name="page-title" value="title.bpa.appln.success" cascade="true"/>
         <put-attribute name="body" value="/WEB-INF/views/application/citizen-sucess.jsp"/>
     </definition>
         
@@ -84,7 +84,7 @@
         <put-attribute name="body" value="/WEB-INF/views/application/application-Edit.jsp"/>
     </definition>
         <definition name="citizen-view" extends="base_layout">
-        <put-attribute name="page-title" value="title.updateApplication" cascade="true"/>
+        <put-attribute name="page-title" value="title.viewApplication" cascade="true"/>
         <put-attribute name="body" value="/WEB-INF/views/application/citizen-viewForm.jsp"/>
     </definition>
         <definition name="bpaapp-citizenForm" extends="base_layout">
@@ -162,16 +162,20 @@
     	<put-attribute name="page-title" value="title.lettertoparty.success" cascade="true"/>
         <put-attribute name="body" value="/WEB-INF/views/lettertoparty/lettertoparty-result.jsp"/>
     </definition>
-      <definition name="createInspectiondetail-form" extends="base_layout">
+      <definition name="createinspectiondetail-form" extends="base_layout">
         <put-attribute name="page-title" value="title.inspection.appln" cascade="true"/>
-        <put-attribute name="body" value="/WEB-INF/views/application/createInspactiondetail-form.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/application/createinspectiondetail-form.jsp"/>
     </definition>
-      <definition name="inspectionDetail-view" extends="base_layout">
-        <put-attribute name="page-title" value="title.search.appln" cascade="true"/>
-        <put-attribute name="body" value="/WEB-INF/views/application/inspectiobView-result.jsp"/>
+      <definition name="inspection-details-result" extends="base_layout">
+        <put-attribute name="page-title" value="title.inspection.result" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/application/inspection-details-result.jsp"/>
+    </definition>
+     <definition name="show-inspection-details" extends="base_layout">
+        <put-attribute name="page-title" value="title.inspection.view" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/application/show-inspection-details.jsp"/>
     </definition>
          <definition name="inspection-edit" extends="base_layout">
-        <put-attribute name="page-title" value="title.search.appln" cascade="true"/>
+        <put-attribute name="page-title" value="title.inspection.modify" cascade="true"/>
         <put-attribute name="body" value="/WEB-INF/views/application/inspectiondetail-edit.jsp"/>
     </definition>
         <definition name="createbpafee-form" extends="base_layout">

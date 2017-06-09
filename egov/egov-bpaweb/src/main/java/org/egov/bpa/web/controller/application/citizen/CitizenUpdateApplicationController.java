@@ -46,6 +46,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.egov.bpa.application.entity.BpaApplication;
+import org.egov.bpa.application.service.InspectionService;
+import org.egov.bpa.application.service.LettertoPartyService;
 import org.egov.bpa.application.service.collection.GenericBillGeneratorService;
 import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
@@ -77,6 +79,10 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 	private GenericBillGeneratorService genericBillGeneratorService;
 	@Autowired
 	private BpaUtils bpaUtils;
+	@Autowired
+	LettertoPartyService lettertoPartyService;
+	@Autowired
+	private InspectionService inspectionService;
 
 	@ModelAttribute
 	public BpaApplication getBpaApplication(@PathVariable final String applicationNumber) {
@@ -113,6 +119,9 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 		model.addAttribute("checkListDetailList", checkListDetailService
 				.findActiveCheckListByServiceType(application.getServiceType().getId(), BpaConstants.CHECKLIST_TYPE));
 		model.addAttribute("applicationDocumentList", application.getApplicationDocument());
+		model.addAttribute("isFeeCollected", bpaDemandService.checkAnyTaxIsPendingToCollect(application));
+		model.addAttribute("lettertopartylist", lettertoPartyService.findByBpaApplicationOrderByIdDesc(application));
+		model.addAttribute("inspectionList", inspectionService.findByBpaApplicationOrderByIdAsc(application));
 	}
 
 	@RequestMapping(value = "/citizen/update/{applicationNumber}", method = RequestMethod.POST)

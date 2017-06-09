@@ -47,10 +47,5 @@
 <div class="alert alert-success" role="alert">
 	<strong>${message}</strong>
 </div>
-<div class="row">
-	<div class="col-md-12">
-		<div class="panel panel-primary" data-collapsed="0">
-			<jsp:include page="lettertoparty-view.jsp"></jsp:include>
-		</div>
-	</div>
-</div>
+
+<jsp:include page="lettertoparty-view.jsp"></jsp:include>

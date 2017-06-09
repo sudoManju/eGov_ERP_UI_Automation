@@ -65,7 +65,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping(value = "/application")
 public class InspectionController extends BpaGenericApplicationController {
-
+    private static final String CREATEINSPECTIONDETAIL_FORM = "createinspectiondetail-form";
     @Autowired
     private SecurityUtils securityUtils;
 
@@ -81,7 +81,7 @@ public class InspectionController extends BpaGenericApplicationController {
     public String inspectionDetailForm(final Model model, @PathVariable final String applicationNumber,
             final HttpServletRequest request) {
         loadApplication(model, applicationNumber);
-        return BpaConstants.CREATEINSPECTIONDETAIL_FORM;
+        return CREATEINSPECTIONDETAIL_FORM;
     }
 
     @RequestMapping(value = "/createinspectiondetails/{applicationNumber}", method = RequestMethod.POST)
@@ -94,7 +94,7 @@ public class InspectionController extends BpaGenericApplicationController {
         inspection.setDocket(docket);
         if (resultBinder.hasErrors()) {
             loadApplication(model, applicationNumber);
-            return BpaConstants.CREATEINSPECTIONDETAIL_FORM;
+            return CREATEINSPECTIONDETAIL_FORM;
         }
         final Inspection savedInspection = inspectionService.save(inspection, application);
         model.addAttribute("message", "Inspection Saved Successfully");

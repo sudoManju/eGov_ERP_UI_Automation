@@ -108,7 +108,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Transactional(readOnly = true)
 public class ApplicationBpaService extends GenericBillGeneratorService {
 
-    private static final String DIGITAL_SIGN_PENDING = "Digital Sign Pending";
+    private static final String FORWARDED_DIGI_SIGN = "Forwarded to Digital Signature";
 
     private static final String NOC_UPDATION_IN_PROGRESS = "NOC updation in progress";
 
@@ -256,7 +256,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
                     .saveApplicationFee(applicationBpaFeeCalculationService.calculateBpaSanctionFees(application)));
         }
         if (APPLICATION_STATUS_APPROVED.equalsIgnoreCase(application.getStatus().getCode())
-                && DIGITAL_SIGN_PENDING.equalsIgnoreCase(application.getState().getNextAction())) {
+                && FORWARDED_DIGI_SIGN.equalsIgnoreCase(application.getState().getNextAction())) {
             application.setPlanPermissionNumber(generatePlanPermissionNumber(application));
             application.setPlanPermissionDate(new Date());
         }

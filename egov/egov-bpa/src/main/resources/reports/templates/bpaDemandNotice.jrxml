@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-06-07T16:27:27 -->
+<!-- 2017-06-09T13:34:14 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bpaDemandNotice1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="020c52d2-8151-4206-9f0e-c68a0e78927a">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="112"/>
+	<property name="ireport.y" value="74"/>
 	<import value="org.egov.infra.reporting.util.*"/>
 	<import value="org.egov.infstr.utils.*"/>
-	<parameter name="cityLogo" class="java.lang.String"/>
 	<parameter name="ulbName" class="java.lang.String"/>
 	<parameter name="bpademandtitle" class="java.lang.String"/>
 	<parameter name="applicationNumber" class="java.lang.String"/>
@@ -26,6 +25,7 @@
 	</parameter>
 	<parameter name="demandResponseList" class="java.util.List" isForPrompting="false"/>
 	<parameter name="serviceTypeForDmd" class="java.lang.String"/>
+	<parameter name="logoPath" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -34,8 +34,8 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="70" splitType="Stretch">
-			<textField>
+		<band height="68" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="66" y="11" width="471" height="27" uuid="9f9627aa-1cec-4a2d-82e5-9ed165d012db"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
@@ -49,16 +49,16 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{bpademandtitle}]]></textFieldExpression>
 			</textField>
-			<image>
-				<reportElement stretchType="RelativeToTallestObject" x="6" y="11" width="60" height="59" uuid="69857bbb-a9a3-43bd-b807-1e5673e21ae7"/>
-				<imageExpression><![CDATA[$P{cityLogo}]]></imageExpression>
+			<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+				<reportElement x="5" y="10" width="60" height="57" uuid="3a427151-96e6-4496-8574-ace19ab07522"/>
+				<imageExpression><![CDATA[$P{logoPath}]]></imageExpression>
 			</image>
 		</band>
 	</title>
 	<pageHeader>
 		<band height="23" splitType="Stretch">
 			<textField>
-				<reportElement x="112" y="1" width="425" height="22" uuid="9defcb94-01aa-4732-82ef-8dbee4c6906f"/>
+				<reportElement x="66" y="1" width="471" height="22" uuid="9defcb94-01aa-4732-82ef-8dbee4c6906f"/>
 				<textElement textAlignment="Center">
 					<font size="11" isBold="true"/>
 				</textElement>
@@ -180,12 +180,12 @@
 	</detail>
 	<pageFooter>
 		<band height="50">
-			<textField isStretchWithOverflow="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="0" y="0" width="555" height="37" uuid="5466279e-e65e-49c5-8d68-4e5b82f20680"/>
-				<textElement>
+				<textElement textAlignment="Justified">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Note: Dear Mr/Mrs "+ $P{applicantName} +" please pay Rs."+$P{totalPendingAmt}+" as soon as possible for further approval process."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Note: Dear Mr/Mrs "+ $P{applicantName} +" please pay building plan approval sanction fee Rs."+$P{totalPendingAmt}+" as soon as possible for further approval process."]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

@@ -51,56 +51,43 @@
 	</div>
 </div>
 
-<div class="panel-body">
-	<c:if test="${not empty bpaApplication.applicationDocument}">
-		<div class="col-sm-3 text-right view-content">
-			<spring:message code="lbl.documentname" />
-		</div>
-		<div class="col-sm-3 text-center view-content">
-			<spring:message code="lbl.issubmitted" />
-		</div>
-		<div class="col-sm-3 text-center view-content">
-			<spring:message code="lbl.remarks" />
-		</div>
-		<div class="col-sm-3 text-center view-content">
-			<spring:message code="lbl.files" />
-		</div>
-	</c:if>
-	<c:choose>
-		<c:when test="${not empty  bpaApplication.applicationDocument}">
-			<c:forEach items="${bpaApplication.applicationDocument}" var="docs"
-				varStatus="status">
-				<div class="form-group">
-					<div class="col-sm-3 text-right">
-						<c:out value="${docs.checklistDetail.description}" />
-					</div>
-					<div class="col-sm-3 text-center">
-						<c:out value="${docs.issubmitted ? 'Yes' : 'No'}"></c:out>
-					</div>
-					<div class="col-sm-3 text-center">
-						<c:out value="${docs.remarks}" />
-					</div>
-					<div class="col-sm-3 add-margin text-center">
-						<c:set value="false" var="isDocFound"></c:set>
-						<c:forEach var="bpadoc" items="${docs.getSupportDocs()}">
-							<c:if test="${bpadoc.fileStoreId ne null}">
-								<c:set value="true" var="isDocFound"></c:set>
-								<a
-									href="/bpa/application/downloadfile/${bpadoc.fileStoreId}"
-									data-gallery>${bpadoc.fileName} </a>
-							</c:if>
-						</c:forEach>
-						<c:if test="${!isDocFound}">
-							NA
-						</c:if>
-					</div>
-				</div>
-			</c:forEach>
-		</c:when>
-		<c:otherwise>
-			<div class="col-md-12 col-xs-6  panel-title">No documents found</div>
-		</c:otherwise>
-	</c:choose>
-</div>
-
-
+<table class="table">
+	<thead>
+		<tr>
+			<th><spring:message code="lbl.documentname" /></th>
+			<th><spring:message code="lbl.issubmitted" /></th>
+			<th><spring:message code="lbl.remarks" /></th>
+			<th><spring:message code="lbl.files" /></th>
+		</tr>
+	</thead>
+	<tbody>
+		<c:choose>
+			<c:when test="${not empty  bpaApplication.applicationDocument}">
+				<c:forEach items="${bpaApplication.applicationDocument}" var="docs"
+					varStatus="status">
+					<tr>
+						<td><c:out value="${docs.checklistDetail.description}"
+								default="N/A" /></td>
+						<td><c:out value="${docs.issubmitted ? 'Yes' : 'No'}"
+								default="N/A"></c:out></td>
+						<td><c:out value="${docs.remarks}" default="N/A" /></td>
+						<td><c:set value="false" var="isDocFound"></c:set> <c:forEach
+								var="bpadoc" items="${docs.getSupportDocs()}">
+								<c:if test="${bpadoc.fileStoreId ne null}">
+									<c:set value="true" var="isDocFound"></c:set>
+									<a href="/bpa/application/downloadfile/${bpadoc.fileStoreId}"
+										data-gallery>${bpadoc.fileName} </a>
+								</c:if>
+							</c:forEach> <c:if test="${!isDocFound}">
+							N/A
+						</c:if></td>
+					</tr>
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<div class="col-md-12 col-xs-6  panel-title">No documents
+					found</div>
+			</c:otherwise>
+		</c:choose>
+	</tbody>
+</table>

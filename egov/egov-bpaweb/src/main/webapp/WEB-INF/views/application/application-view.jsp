@@ -81,24 +81,21 @@
 						<li><a data-toggle="tab" href="#doc-scrnty" data-tabidx=2><spring:message
 									code='lbl.document.scrutiny' /></a></li>
 				</c:if>
-				<c:if test="${showUpdateNoc}">
-					<li><a data-toggle="tab" href="#checklist-info" data-tabidx=3><spring:message
-								code='lbl.noc.doc.details' /></a></li>
-				</c:if>
-
-				<c:if test="${not empty bpaApplication.applicationNOCDocument}">
-						<li><a data-toggle="tab" href="#noc-info" data-tabidx=3><spring:message
-									code='lbl.noc.details' /></a></li>
-				</c:if>
-				
 				<c:if test="${not empty bpaApplication.inspections}">
-					<li><a data-toggle="tab" href="#view-inspection" data-tabidx=4><spring:message
+					<li><a data-toggle="tab" href="#view-inspection" data-tabidx=3><spring:message
 								code='lbl.inspection.appln' /></a></li>
 				</c:if>
-				
+				<c:if test="${showUpdateNoc}">
+					<li><a data-toggle="tab" href="#checklist-info" data-tabidx=4><spring:message
+								code='lbl.noc.doc.details' /></a></li>
+				</c:if>
+				<c:if test="${not empty bpaApplication.applicationNOCDocument}">
+						<li><a data-toggle="tab" href="#noc-info" data-tabidx=4><spring:message
+									code='lbl.noc.details' /></a></li>
+				</c:if>
 				<c:if test="${not empty bpaApplication.applicationFee}">
 					<li><a data-toggle="tab" href="#view-fee" data-tabidx=5><spring:message
-								code='lbl.applicationFee' /></a></li>
+								code='lbl.fee.details' /></a></li>
 				</c:if>
 					<c:if test="${not empty lettertopartylist}">
 					<li><a data-toggle="tab" href="#view-lp" data-tabidx=6><spring:message
@@ -141,6 +138,13 @@
 							</div>
 						</div>
 				</c:if>
+				<c:if test="${not empty bpaApplication.inspections}">
+						<div id="view-inspection" class="tab-pane fade">
+							<div class="panel panel-primary" data-collapsed="0">
+								<jsp:include page="view-inspection-details.jsp"></jsp:include>
+							</div>
+						</div>
+				</c:if>
 				<c:if test="${not empty bpaApplication.applicationNOCDocument}">
 						<div id="noc-info" class="tab-pane fade">
 							<div class="panel panel-primary" data-collapsed="0">
@@ -156,14 +160,7 @@
 						</div>
 					</div>
 				</c:if>
-				<c:if test="${not empty bpaApplication.inspections}">
-						<div id="view-inspection" class="tab-pane fade">
-							<div class="panel panel-primary" data-collapsed="0">
-								<jsp:include page="view-inspection-details.jsp"></jsp:include>
-							</div>
-						</div>
-				</c:if>
-				<c:if test="${not empty bpaApplication.inspections}">
+				<c:if test="${not empty bpaApplication.applicationFee}">
 						<div id="view-fee" class="tab-pane fade">
 							<div class="panel panel-primary" data-collapsed="0">
 								<jsp:include page="view-bpa-fee-details.jsp"></jsp:include>

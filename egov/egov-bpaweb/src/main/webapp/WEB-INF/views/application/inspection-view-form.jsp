@@ -44,141 +44,94 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn"%>
 
-<div class="alert alert-success" role="alert">
-	<c:if test="${not empty message}">
-		<strong>${message}</strong>
-	</c:if>
-</div>
-
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-primary" data-collapsed="0">
 			<div class="panel-heading custom_form_panel_heading">
 				<div class="panel-title">Inspection Details</div>
 			</div>
-	<div class="row add-border">
-			<div class="col-sm-3 add-margin">
-				Location of the Plot
-			</div>
-			<div class="col-sm-3 add-margin view-content">
-				<c:out value="${docket[0].locationOfPlot}" default="N/A"></c:out>
-			</div>
-			<div class="col-sm-3 add-margin">
-				Land Area
-			</div>
-			<div class="col-sm-3 add-margin view-content">
-				<c:out value="${inspection.lndRegularizationArea}" default="N/A"></c:out>
-			</div>
-		</div>
-		
-		
-		<div class="row add-border">
-			<div class="col-sm-3 add-margin">
-				Building Area
-			</div>
-			<div class="col-sm-3 add-margin view-content">
-				<c:out value="${inspection.bldngBuildUpArea}" default="N/A"></c:out>
-			</div>
-			<div class="col-sm-3 add-margin">
-				Coumpound Wall
-			</div>
-			<div class="col-sm-3 add-margin view-content">
-				<c:out value="${inspection.bldngCompoundWall}" default="N/A"></c:out>
-			</div>
-		</div>
-		<div class="row add-border">
-			<div class="col-sm-3 add-margin">
-			No of Wells
-			</div>
-			<div class="col-sm-3 add-margin view-content">
-				<c:out value="${inspection.bldngWellOhtSumpTankArea}" default="N/A"></c:out>
-			</div>
-			<div class="col-sm-3 add-margin">
-			Occupancy
-			</div>
-			<div class="col-sm-3 add-margin view-content">
-			N/A
-			</div>
-		</div>
-			<div class="row add-border">
-			<div class="col-sm-3 add-margin">
-			Extent in Sqmtr
-			</div>
-			<div class="col-sm-3 add-margin view-content">
-				<c:out value="${inspection.lndMinPlotExtent}" default="N/A"></c:out>
-			</div>
-			<div class="col-sm-3 add-margin">
-			
-			</div>
-			<div class="col-sm-3 add-margin view-content">
-			</div>
-		</div>
+			<div class="panel-body">
+				<div class="row add-border">
+					<div class="col-sm-3 add-margin">Location of the Plot</div>
+					<div class="col-sm-3 add-margin view-content">
+						<c:out value="${docket[0].locationOfPlot}" default="N/A"></c:out>
+					</div>
+					<div class="col-sm-3 add-margin">Land Area</div>
+					<div class="col-sm-3 add-margin view-content">
+						<c:out value="${inspection.lndRegularizationArea}" default="N/A"></c:out>
+					</div>
+				</div>
 
-			<div class="row add-border">
-				<div class="col-sm-5 add-margin">
-					<div class="panel-title">Inspection Details CheckList</div>
+				<div class="row add-border">
+					<div class="col-sm-3 add-margin">Building Area</div>
+					<div class="col-sm-3 add-margin view-content">
+						<c:out value="${inspection.bldngBuildUpArea}" default="N/A"></c:out>
+					</div>
+					<div class="col-sm-3 add-margin">Coumpound Wall</div>
+					<div class="col-sm-3 add-margin view-content">
+						<c:out value="${inspection.bldngCompoundWall}" default="N/A"></c:out>
+					</div>
 				</div>
-				<div class="col-sm-3 add-margin">
-					<div class="panel-title">Document Provided</div>
+				<div class="row add-border">
+					<div class="col-sm-3 add-margin">No of Wells</div>
+					<div class="col-sm-3 add-margin view-content">
+						<c:out value="${inspection.bldngWellOhtSumpTankArea}"
+							default="N/A"></c:out>
+					</div>
+					<div class="col-sm-3 add-margin">Occupancy</div>
+					<div class="col-sm-3 add-margin view-content">N/A</div>
 				</div>
-				<div class="col-sm-3 add-margin">Remarks</div>
+				<div class="row add-border">
+					<div class="col-sm-3 add-margin">Extent in Sqmtr</div>
+					<div class="col-sm-3 add-margin view-content">
+						<c:out value="${inspection.lndMinPlotExtent}" default="N/A"></c:out>
+					</div>
+				</div>
+				<div class="row add-border">
+					<div class="col-sm-5 add-margin view-content">
+						<div class="panel-title">Inspection Details CheckList</div>
+					</div>
+					<div class="col-sm-3 add-margin view-content">
+						<div class="panel-title">Document Provided</div>
+					</div>
+					<div class="col-sm-3 add-margin view-content">
+						<div class="panel-title">Remarks</div>
+					</div>
+				</div>
 			</div>
 			<c:choose>
-	<c:when test="${!docketDetailLocList.isEmpty()}">
-			<div class="panel-heading custom_form_panel_heading">
-	<div class="panel-title">
-		Location of the Plot
-	</div>
-	</div>
-	
-			<div class="panel-body">
-				<c:forEach items="${docketDetailLocList}" var="doc" varStatus="counter">
-
-					<div class="row add-border">
-						<div class="col-sm-5 add-margin view-content">
-							<c:out value="${doc.checkListDetail.description}" default="N/A"></c:out>
-						</div>
-						<div class="col-sm-3 add-margin view-content">
-							<c:out value="${doc.value=='true' ? 'YES' : 'NO'}" default="N/A"></c:out>
-						</div>
-
-						<div class="col-sm-3 add-margin view-content">
-							<c:out value="${doc.remarks}" default="N/A"></c:out>
-						</div>
+				<c:when test="${!docketDetailLocList.isEmpty()}">
+					<div class="panel-heading custom_form_panel_heading">
+						<div class="panel-title">Location of the Plot</div>
 					</div>
-				</c:forEach>
-			</div>
-		</c:when>
+
+					<div class="panel-body">
+						<c:forEach items="${docketDetailLocList}" var="doc"
+							varStatus="counter">
+
+							<div class="row add-border">
+								<div class="col-sm-5 add-margin view-content">
+									<c:out value="${doc.checkListDetail.description}" default="N/A"></c:out>
+								</div>
+								<div class="col-sm-3 add-margin view-content">
+									<c:out value="${doc.value=='true' ? 'YES' : 'NO'}"
+										default="N/A"></c:out>
+								</div>
+
+								<div class="col-sm-3 add-margin view-content">
+									<c:out value="${doc.remarks}" default="N/A"></c:out>
+								</div>
+							</div>
+						</c:forEach>
+					</div>
+				</c:when>
 			</c:choose>
-		<div class="panel-heading custom_form_panel_heading">
-	<div class="panel-title">
-		Measurement of the PlotCC
-	</div>
-	</div>
-				<div class="panel-body">
-				<c:forEach items="${docketDetailMeasumentList}" var="doc" varStatus="counter">
-
-					<div class="row add-border">
-						<div class="col-sm-5 add-margin view-content">
-							<c:out value="${doc.checkListDetail.description}" default="N/A"></c:out>
-						</div>
-						<div class="col-sm-3 add-margin view-content">
-							<c:out value="${doc.value=='true' ? 'YES' : 'NO'}" default="N/A"></c:out>
-						</div>
-
-						<div class="col-sm-3 add-margin view-content">
-							<c:out value="${doc.remarks}" default="N/A"></c:out>
-						</div>
-					</div>
-				</c:forEach>
-			</div>
-			
 			<div class="panel-heading custom_form_panel_heading">
-	<div class="panel-title">
-		Access To Plot
-	</div>
-		</div>		<div class="panel-body">
-				<c:forEach items="${docketDetailAccessList}" var="doc" varStatus="counter">
+				<div class="panel-title">Measurement of the PlotCC</div>
+			</div>
+			<div class="panel-body">
+				<c:forEach items="${docketDetailMeasumentList}" var="doc"
+					varStatus="counter">
 
 					<div class="row add-border">
 						<div class="col-sm-5 add-margin view-content">
@@ -194,58 +147,13 @@
 					</div>
 				</c:forEach>
 			</div>
-				<div class="panel-heading custom_form_panel_heading">
-			
-				<div class="panel-title">
-		Required details surrounding the plot	
-	</div>
-			</div>	<div class="panel-body">
-				<c:forEach items="${docketDetlSurroundingPlotList}" var="doc" varStatus="counter">
 
-					<div class="row add-border">
-						<div class="col-sm-5 add-margin view-content">
-							<c:out value="${doc.checkListDetail.description}" default="N/A"></c:out>
-						</div>
-						<div class="col-sm-3 add-margin view-content">
-							<c:out value="${doc.value=='true' ? 'YES' : 'NO'}" default="N/A"></c:out>
-						</div>
-
-						<div class="col-sm-3 add-margin view-content">
-							<c:out value="${doc.remarks}" default="N/A"></c:out>
-						</div>
-					</div>
-				</c:forEach>
-			</div>
-			
-				<div class="panel-heading custom_form_panel_heading">
-			
-				<div class="panel-title">
-		Type of land	
-	</div></div>
-				<div class="panel-body">
-				<c:forEach items="${docketDetailLandTypeList}" var="doc" varStatus="counter">
-
-					<div class="row add-border">
-						<div class="col-sm-5 add-margin view-content">
-							<c:out value="${doc.checkListDetail.description}" default="N/A"></c:out>
-						</div>
-						<div class="col-sm-3 add-margin view-content">
-							<c:out value="${doc.value=='true' ? 'YES' : 'NO'}" default="N/A"></c:out>
-						</div>
-
-						<div class="col-sm-3 add-margin view-content">
-							<c:out value="${doc.remarks}" default="N/A"></c:out>
-						</div>
-					</div>
-				</c:forEach>
-			</div>
-			
 			<div class="panel-heading custom_form_panel_heading">
-				<div class="panel-title">
-		Stage of proposed work	
-	</div></div>
-				<div class="panel-body">
-				<c:forEach items="${docketDetailProposedWorkList}" var="doc" varStatus="counter">
+				<div class="panel-title">Access To Plot</div>
+			</div>
+			<div class="panel-body">
+				<c:forEach items="${docketDetailAccessList}" var="doc"
+					varStatus="counter">
 
 					<div class="row add-border">
 						<div class="col-sm-5 add-margin view-content">
@@ -261,14 +169,14 @@
 					</div>
 				</c:forEach>
 			</div>
-			
-			
 			<div class="panel-heading custom_form_panel_heading">
-				<div class="panel-title">
-		If work Started/completed
-	</div></div>
-				<div class="panel-body">
-				<c:forEach items="${docketDetailWorkAsPerPlanList}" var="doc" varStatus="counter">
+
+				<div class="panel-title">Required details surrounding the plot
+				</div>
+			</div>
+			<div class="panel-body">
+				<c:forEach items="${docketDetlSurroundingPlotList}" var="doc"
+					varStatus="counter">
 
 					<div class="row add-border">
 						<div class="col-sm-5 add-margin view-content">
@@ -284,14 +192,14 @@
 					</div>
 				</c:forEach>
 			</div>
-			
-				
+
 			<div class="panel-heading custom_form_panel_heading">
-				<div class="panel-title">
-		Height of building from the abutting road
-	</div></div>
-				<div class="panel-body">
-				<c:forEach items="${docketDetailHgtAbuttRoadList}" var="doc" varStatus="counter">
+
+				<div class="panel-title">Type of land</div>
+			</div>
+			<div class="panel-body">
+				<c:forEach items="${docketDetailLandTypeList}" var="doc"
+					varStatus="counter">
 
 					<div class="row add-border">
 						<div class="col-sm-5 add-margin view-content">
@@ -306,22 +214,21 @@
 						</div>
 					</div>
 				</c:forEach>
-			</div> 
-			
+			</div>
+
 			<div class="panel-heading custom_form_panel_heading">
-			
-				<div class="panel-title">
-		Area of the Location
-	</div>
-			</div>	<div class="panel-body">
-				<c:forEach items="${docketDetailAreaLoc}" var="doc" varStatus="counter">
+				<div class="panel-title">Stage of proposed work</div>
+			</div>
+			<div class="panel-body">
+				<c:forEach items="${docketDetailProposedWorkList}" var="doc"
+					varStatus="counter">
 
 					<div class="row add-border">
 						<div class="col-sm-5 add-margin view-content">
 							<c:out value="${doc.checkListDetail.description}" default="N/A"></c:out>
 						</div>
 						<div class="col-sm-3 add-margin view-content">
-							<c:out value="${doc.value}" default="N/A"></c:out>
+							<c:out value="${doc.value=='true' ? 'YES' : 'NO'}" default="N/A"></c:out>
 						</div>
 
 						<div class="col-sm-3 add-margin view-content">
@@ -330,21 +237,21 @@
 					</div>
 				</c:forEach>
 			</div>
-			
+
+
 			<div class="panel-heading custom_form_panel_heading">
-			
-				<div class="panel-title">
-		Length of the Compound Wall
-	</div>
-			</div>	<div class="panel-body">
-				<c:forEach items="${docketDetailLengthOfCompWall}" var="doc" varStatus="counter">
+				<div class="panel-title">If work Started/completed</div>
+			</div>
+			<div class="panel-body">
+				<c:forEach items="${docketDetailWorkAsPerPlanList}" var="doc"
+					varStatus="counter">
 
 					<div class="row add-border">
 						<div class="col-sm-5 add-margin view-content">
 							<c:out value="${doc.checkListDetail.description}" default="N/A"></c:out>
 						</div>
 						<div class="col-sm-3 add-margin view-content">
-							<c:out value="${doc.value}" default="N/A"></c:out>
+							<c:out value="${doc.value=='true' ? 'YES' : 'NO'}" default="N/A"></c:out>
 						</div>
 
 						<div class="col-sm-3 add-margin view-content">
@@ -353,20 +260,22 @@
 					</div>
 				</c:forEach>
 			</div>
-						<div class="panel-heading custom_form_panel_heading">
-			
-				<div class="panel-title">
-		Number of Wells
-	</div>
-			</div>	<div class="panel-body">
-				<c:forEach items="${docketDetailNumberOfWell}" var="doc" varStatus="counter">
+
+
+			<div class="panel-heading custom_form_panel_heading">
+				<div class="panel-title">Height of building from the abutting
+					road</div>
+			</div>
+			<div class="panel-body">
+				<c:forEach items="${docketDetailHgtAbuttRoadList}" var="doc"
+					varStatus="counter">
 
 					<div class="row add-border">
 						<div class="col-sm-5 add-margin view-content">
 							<c:out value="${doc.checkListDetail.description}" default="N/A"></c:out>
 						</div>
 						<div class="col-sm-3 add-margin view-content">
-							<c:out value="${doc.value}" default="N/A"></c:out>
+							<c:out value="${doc.value=='true' ? 'YES' : 'NO'}" default="N/A"></c:out>
 						</div>
 
 						<div class="col-sm-3 add-margin view-content">
@@ -375,24 +284,21 @@
 					</div>
 				</c:forEach>
 			</div>
-			
-			
-					
 
-	<div class="panel-heading custom_form_panel_heading">
-			
-				<div class="panel-title">
-		Erection of Tower
-	</div>
-			</div>	<div class="panel-body">
-				<c:forEach items="${docketDetailErectionTower}" var="doc" varStatus="counter">
+			<div class="panel-heading custom_form_panel_heading">
+
+				<div class="panel-title">Area of the Location</div>
+			</div>
+			<div class="panel-body">
+				<c:forEach items="${docketDetailAreaLoc}" var="doc"
+					varStatus="counter">
 
 					<div class="row add-border">
 						<div class="col-sm-5 add-margin view-content">
 							<c:out value="${doc.checkListDetail.description}" default="N/A"></c:out>
 						</div>
 						<div class="col-sm-3 add-margin view-content">
-							<c:out value="${doc.value}" default="N/A"></c:out>
+							<c:out value="${doc.value =='true' ? 'YES' : 'NO'}" default="N/A"></c:out>
 						</div>
 
 						<div class="col-sm-3 add-margin view-content">
@@ -401,21 +307,21 @@
 					</div>
 				</c:forEach>
 			</div>
-			
-			
-				<div class="panel-heading custom_form_panel_heading">
-			
-				<div class="panel-title">
-Shutter	</div>
-			</div>	<div class="panel-body">
-				<c:forEach items="${docketDetailShutter}" var="doc" varStatus="counter">
+
+			<div class="panel-heading custom_form_panel_heading">
+
+				<div class="panel-title">Length of the Compound Wall</div>
+			</div>
+			<div class="panel-body">
+				<c:forEach items="${docketDetailLengthOfCompWall}" var="doc"
+					varStatus="counter">
 
 					<div class="row add-border">
 						<div class="col-sm-5 add-margin view-content">
 							<c:out value="${doc.checkListDetail.description}" default="N/A"></c:out>
 						</div>
 						<div class="col-sm-3 add-margin view-content">
-							<c:out value="${doc.value}" default="N/A"></c:out>
+							<c:out value="${doc.value =='true' ? 'YES' : 'NO'}" default="N/A"></c:out>
 						</div>
 
 						<div class="col-sm-3 add-margin view-content">
@@ -424,20 +330,20 @@ Shutter	</div>
 					</div>
 				</c:forEach>
 			</div>
-			
-				<div class="panel-heading custom_form_panel_heading">
-			
-				<div class="panel-title">
-Roof Conversion	</div>
-			</div>	<div class="panel-body">
-				<c:forEach items="${docketDetailRoofConversion}" var="doc" varStatus="counter">
+			<div class="panel-heading custom_form_panel_heading">
+
+				<div class="panel-title">Number of Wells</div>
+			</div>
+			<div class="panel-body">
+				<c:forEach items="${docketDetailNumberOfWell}" var="doc"
+					varStatus="counter">
 
 					<div class="row add-border">
 						<div class="col-sm-5 add-margin view-content">
 							<c:out value="${doc.checkListDetail.description}" default="N/A"></c:out>
 						</div>
 						<div class="col-sm-3 add-margin view-content">
-							<c:out value="${doc.value}" default="N/A"></c:out>
+							<c:out value="${doc.value =='true' ? 'YES' : 'NO'}" default="N/A"></c:out>
 						</div>
 
 						<div class="col-sm-3 add-margin view-content">
@@ -446,11 +352,83 @@ Roof Conversion	</div>
 					</div>
 				</c:forEach>
 			</div>
-			
-			<div align="center">
-				<input type="button" name="button2" id="button2" value="Close"
-					class="btn btn-default" onclick="window.close();" />
+
+
+
+
+			<div class="panel-heading custom_form_panel_heading">
+
+				<div class="panel-title">Erection of Tower</div>
+			</div>
+			<div class="panel-body">
+				<c:forEach items="${docketDetailErectionTower}" var="doc"
+					varStatus="counter">
+
+					<div class="row add-border">
+						<div class="col-sm-5 add-margin view-content">
+							<c:out value="${doc.checkListDetail.description}" default="N/A"></c:out>
+						</div>
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.value =='true' ? 'YES' : 'NO'}" default="N/A"></c:out>
+						</div>
+
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.remarks}" default="N/A"></c:out>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+
+
+			<div class="panel-heading custom_form_panel_heading">
+
+				<div class="panel-title">Shutter</div>
+			</div>
+			<div class="panel-body">
+				<c:forEach items="${docketDetailShutter}" var="doc"
+					varStatus="counter">
+
+					<div class="row add-border">
+						<div class="col-sm-5 add-margin view-content">
+							<c:out value="${doc.checkListDetail.description}" default="N/A"></c:out>
+						</div>
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.value =='true' ? 'YES' : 'NO'}" default="N/A"></c:out>
+						</div>
+
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.remarks}" default="N/A"></c:out>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+
+			<div class="panel-heading custom_form_panel_heading">
+
+				<div class="panel-title">Roof Conversion</div>
+			</div>
+			<div class="panel-body">
+				<c:forEach items="${docketDetailRoofConversion}" var="doc"
+					varStatus="counter">
+
+					<div class="row add-border">
+						<div class="col-sm-5 add-margin view-content">
+							<c:out value="${doc.checkListDetail.description}" default="N/A"></c:out>
+						</div>
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.value =='true' ? 'YES' : 'NO'}" default="N/A"></c:out>
+						</div>
+
+						<div class="col-sm-3 add-margin view-content">
+							<c:out value="${doc.remarks}" default="N/A"></c:out>
+						</div>
+					</div>
+				</c:forEach>
 			</div>
 		</div>
 	</div>
+</div>
+<div align="center">
+	<input type="button" name="button2" id="button2" value="Close"
+		class="btn btn-default" onclick="window.close();" />
 </div>

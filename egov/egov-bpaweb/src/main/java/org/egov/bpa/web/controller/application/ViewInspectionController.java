@@ -55,7 +55,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping(value = "/application")
 public class ViewInspectionController extends BpaGenericApplicationController {
-    private static final String INSPECTION_RESULT = "inspectionDetail-view";
+    private static final String SHOW_INSPECTION_DETAILS = "show-inspection-details";
+
+    private static final String INSPECTION_RESULT = "inspection-details-result";
 
     @Autowired
     private InspectionService inspectionService;
@@ -74,6 +76,20 @@ public class ViewInspectionController extends BpaGenericApplicationController {
         inspectionService.buildDocketDetailForModifyAndViewList(inspectionObj,model);
         model.addAttribute("inspection", inspectionObj);
         return INSPECTION_RESULT;
+    }
+    
+    @RequestMapping(value = "/showinspectiondetails/{id}", method = RequestMethod.GET)
+    public String showInspectionDetails(@PathVariable final Long id, final Model model) {
+        final List<Inspection> inspection = inspectionService.findByIdOrderByIdAsc(id);
+        List<DocketDetail> dockeDetList = new ArrayList<>();
+        if (!inspection.isEmpty())
+            dockeDetList = inspection.get(0).getDocket().get(0).getDocketDetail();
+        model.addAttribute("docketDetail", dockeDetList);
+        Inspection inspectionObj=inspection.get(0);
+        model.addAttribute("inspection", inspection.get(0));
+        inspectionService.buildDocketDetailForModifyAndViewList(inspectionObj,model);
+        model.addAttribute("inspection", inspectionObj);
+        return SHOW_INSPECTION_DETAILS;
     }
     
    

@@ -51,8 +51,8 @@
 			<tr>
 				<th><spring:message code="lbl.slno" /></th>
 				<th>Inspection number</th>
-				<th>Extent in SQmtr</th>
-				<th>Modify</th>
+				<th>Inspection Date</th>
+				<th>Action</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -64,10 +64,10 @@
 							<td align="center"><span class="bold"> <c:out
 										value="${lp.inspectionNumber}" /></span></td>
 							<td align="center"><span class="bold"> <c:out
-										value="${lp.lndMinPlotExtent}" /></span></td>
+										value="${lp.inspectionDate}" /></span></td>
 							<td align="center"><a
-								onclick="window.open('/bpa/application/modify-inspection/${applicationNumber}','view','width=600, height=400,scrollbars=yes')">
-									<i class="fa fa-file-o" aria-hidden="true">Modify </i>
+								onclick="window.open('/bpa/application/showinspectiondetails/${lp.id}','view','width=600, height=400,scrollbars=yes')">
+									View
 							</a></td>
 						</tr>
 					</c:forEach>

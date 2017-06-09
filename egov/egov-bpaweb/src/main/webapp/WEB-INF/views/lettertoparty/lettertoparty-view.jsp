@@ -178,15 +178,14 @@
 							found</div>
 					</c:otherwise>
 				</c:choose>
-				<div class="buttonbottom" align="center">
-					<a href='javascript:void(0)' class='btn btn-default'
-						onclick='self.close()'><spring:message code='lbl.close' /></a>
-				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
+<div class="buttonbottom" align="center">
+	<a href='javascript:void(0)' class='btn btn-default'
+		onclick='self.close()'><spring:message code='lbl.close' /></a>
+</div>
 <script
 	src="<cdn:url value='/resources/js/app/lettertoparty.js?rnd=${app_release_no}'/> "></script>
 

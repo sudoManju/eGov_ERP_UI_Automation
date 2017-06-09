@@ -100,15 +100,15 @@
 							<div class="col-sm-3 add-margin">
 								<spring:message code="lbl.lastreplydate" />
 							</div>
-							<div class="col-sm-2 add-margin view-content">
+							<div class="col-sm-3 add-margin view-content">
 								<c:out value="${lettertoParty.lastReplyDate}" />
 							</div>
 						</div>
 						<div class="form-group">
-							<div class="col-sm-2 add-margin">
+							<div class="col-sm-3 add-margin">
 								<spring:message code="lbl.lpsentdate" />
 							</div>
-							<div class="col-sm-2 add-margin">
+							<div class="col-sm-3 add-margin">
 								<form:input path="sentDate" class="form-control datepicker"
 									data-date-end-date="0d" id="sentDate"
 									data-inputmask="'mask': 'd/m/y'"  required="required" />

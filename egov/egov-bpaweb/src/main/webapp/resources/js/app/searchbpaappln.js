@@ -118,7 +118,7 @@ $(document)
 																		+ collecturl
 																		+ row.applicationNumber + '>Collect Fees</option></select>');
 															} 
-															else if(row.status == 'Registered' && !row.isFeeCollected){
+															else if(row.status == 'Registered'){
 																return ('<select class="dropchange">'+commonOptions+'<option  value='
 																		+ collecturl
 																		+ row.applicationNumber + '>Collect Fees</option></select>');

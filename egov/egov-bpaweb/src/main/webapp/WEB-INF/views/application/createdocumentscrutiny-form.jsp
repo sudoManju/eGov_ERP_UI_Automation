@@ -85,7 +85,7 @@
 
 					<label class="col-sm-2 control-label text-right"><spring:message
 							code="lbl.subdivision.number" /></label>
-					<div class="col-sm-2 add-margin">
+					<div class="col-sm-3 add-margin">
 						<form:input class="form-control patternvalidation" maxlength="12"
 							data-pattern="alphanumeric" id="subdivisionNumber"
 							path="documentScrutiny[0].subdivisionNumber"
@@ -96,8 +96,6 @@
 				</div>
 
 				<div class="form-group">
-
-
 					<label class="col-sm-3 control-label text-right"><spring:message
 							code="lbl.dimensionofplot" /></label>
 					<div class="col-sm-3 add-margin">
@@ -114,7 +112,7 @@
 					</div>
 					<label class="col-sm-2 control-label text-right"><spring:message
 							code="lbl.extent.of.land" /><span class="mandatory"></span></label>
-					<div class="col-sm-2 add-margin">
+					<div class="col-sm-3 add-margin">
 						<form:input class="form-control patternvalidation" maxlength="10"
 							data-pattern="number" required="required" id="extentinsqmts"
 							path="documentScrutiny[0].extentinsqmts"
@@ -141,7 +139,7 @@
 
 					<label class="col-sm-2 control-label text-right"><spring:message
 							code="lbl.nature.of.ownership" /></label>
-					<div class="col-sm-2 add-margin">
+					<div class="col-sm-3 add-margin">
 						<form:input class="form-control patternvalidation" maxlength="120"
 							data-pattern="alphanumeric" id="natureofOwnership"
 							path="documentScrutiny[0].natureofOwnership"
@@ -168,7 +166,7 @@
 
 					<label class="col-sm-2 control-label text-right"><spring:message
 							code="lbl.deednumber" /></label>
-					<div class="col-sm-2 add-margin">
+					<div class="col-sm-3 add-margin">
 						<form:input class="form-control patternvalidation" maxlength="60"
 							data-pattern="alphanumeric" id="deedNumber"
 							path="documentScrutiny[0].deedNumber" />
@@ -191,7 +189,7 @@
 
 					<label class="col-sm-2 control-label text-right"><spring:message
 							code="lbl.typeofland" /></label>
-					<div class="col-sm-2 add-margin">
+					<div class="col-sm-3 add-margin">
 						<form:input class="form-control patternvalidation" maxlength="120"
 							data-pattern="alphanumeric" id="typeofLand"
 							path="documentScrutiny[0].typeofLand" />
@@ -213,7 +211,7 @@
 
 					<label class="col-sm-2 control-label text-right"><spring:message
 							code="lbl.district" /></label>
-					<div class="col-sm-2 add-margin">
+					<div class="col-sm-3 add-margin">
 						<form:input class="form-control patternvalidation" maxlength="120"
 							data-pattern="alphanumeric" id="district"
 							path="documentScrutiny[0].district"
@@ -238,7 +236,7 @@
 					</div>
 					<label class="col-sm-2 control-label text-right"><spring:message
 							code="lbl.allpage.attached" /></label>
-					<div class="col-sm-2 add-margin">
+					<div class="col-sm-3 add-margin">
 						<form:radiobutton
 							path="documentScrutiny[0].whetherallPageOfdocAttached"
 							value="true" checked="checked" />

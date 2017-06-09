@@ -65,25 +65,22 @@
 						<li><a data-toggle="tab" href="#doc-scrnty" data-tabidx=2><spring:message
 									code='lbl.document.scrutiny' /></a></li>
 				</c:if>
-				<c:if test="${showUpdateNoc}">
-					<li><a data-toggle="tab" href="#checklist-info" data-tabidx=3><spring:message
-								code='lbl.noc.doc.details' /></a></li>
-				</c:if>
-
-				<c:if test="${not empty bpaApplication.applicationNOCDocument}">
-					<c:if test="${showNOCDetails}">
-						<li><a data-toggle="tab" href="#noc-info" data-tabidx=3><spring:message
-									code='lbl.noc.details' /></a></li>
-					</c:if>
-				</c:if>
 				
 				<c:if test="${not empty bpaApplication.inspections}">
-					<li><a data-toggle="tab" href="#view-inspection" data-tabidx=4><spring:message
+					<li><a data-toggle="tab" href="#view-inspection" data-tabidx=3><spring:message
 								code='lbl.inspection.appln' /></a></li>
+				</c:if>
+				<c:if test="${not empty bpaApplication.applicationNOCDocument}">
+						<li><a data-toggle="tab" href="#noc-info" data-tabidx=4><spring:message
+									code='lbl.noc.details' /></a></li>
 				</c:if>
 				<c:if test="${not empty bpaApplication.applicationFee}">
 					<li><a data-toggle="tab" href="#view-fee" data-tabidx=5><spring:message
-								code='lbl.applicationFee' /></a></li>
+								code='lbl.fee.details' /></a></li>
+				</c:if>
+				<c:if test="${not empty lettertopartylist}">
+					<li><a data-toggle="tab" href="#view-lp" data-tabidx=6><spring:message
+								code='lbl.lp.details' /></a></li>
 				</c:if>
 			</ul>
 			<div class="tab-content">
@@ -120,23 +117,6 @@
 							</div>
 						</div>
 				</c:if>
-				<c:if test="${not empty bpaApplication.applicationNOCDocument}">
-					<c:if test="${showNOCDetails}">
-						<div id="noc-info" class="tab-pane fade">
-							<div class="panel panel-primary" data-collapsed="0">
-								<jsp:include page="view-noc-document.jsp"></jsp:include>
-							</div>
-						</div>
-					</c:if>
-				</c:if>
-				<c:if test="${showUpdateNoc}">
-					<input type="hidden" id="showUpdateNoc" value="${showUpdateNoc}">
-					<div id="checklist-info" class="tab-pane fade">
-						<div class="panel panel-primary" data-collapsed="0">
-							<jsp:include page="noc-document-updation.jsp"></jsp:include>
-						</div>
-					</div>
-				</c:if>
 				<c:if test="${not empty bpaApplication.inspections}">
 						<div id="view-inspection" class="tab-pane fade">
 							<div class="panel panel-primary" data-collapsed="0">
@@ -144,10 +124,24 @@
 							</div>
 						</div>
 				</c:if>
-				<c:if test="${not empty bpaApplication.inspections}">
+				<c:if test="${not empty bpaApplication.applicationNOCDocument}">
+						<div id="noc-info" class="tab-pane fade">
+							<div class="panel panel-primary" data-collapsed="0">
+								<jsp:include page="view-noc-document.jsp"></jsp:include>
+							</div>
+						</div>
+				</c:if>
+				<c:if test="${not empty bpaApplication.applicationFee}">
 						<div id="view-fee" class="tab-pane fade">
 							<div class="panel panel-primary" data-collapsed="0">
 								<jsp:include page="view-bpa-fee-details.jsp"></jsp:include>
+							</div>
+						</div>
+				</c:if>
+				<c:if test="${not empty lettertopartylist}">
+						<div id="view-lp" class="tab-pane fade">
+							<div class="panel panel-primary" data-collapsed="0">
+								<jsp:include page="../lettertoparty/lettertoparty-details-citizen.jsp"></jsp:include> 
 							</div>
 						</div>
 				</c:if>
@@ -155,8 +149,27 @@
 			<div class="buttonbottom" align="center">
 				<table>
 					<tr>
-						<td><input type="button" name="button2" id="button2" value="Close"
-							class="btn btn-primary" onclick="window.close();" />
+						<c:if test="${bpaApplication.status.code eq  'Letter To Party Created' }">
+							<td> <a	href="/bpa/lettertoparty/lettertopartyreply/${lettertopartylist.get(0).id}" class="btn btn-primary">
+										 Reply Letter To Party
+								    </a>
+							</td>
+						</c:if>
+						<c:if test="${bpaApplication.status.code eq 'Approved' && isFeeCollected }">
+							<td> <a	href="/bpa/application/demandnotice/${bpaApplication.applicationNumber}" class="btn btn-primary">
+										 Print Demand Notice
+								    </a>
+							</td> 
+						</c:if>
+						<c:if test="${bpaApplication.status.code eq 'Order Issued to Applicant' }">
+							<td> <a	href="/bpa/application/generatepermitorder/${bpaApplication.applicationNumber}" class="btn btn-primary">
+										 Print Permit Order
+								    </a>
+							</td> 
+						</c:if>
+						
+						<td>&nbsp;<input type="button" name="button2" id="button2" value="Close"
+							class="btn btn-default" onclick="window.close();" />
 						</td>
 					</tr>
 				</table>
@@ -166,3 +179,5 @@
 </div>
 <script
 	src="<cdn:url value='/resources/global/js/egov/inbox.js?rnd=${app_release_no}' context='/egi'/>"></script>
+<script
+	src="<cdn:url value='/resources/js/app/application-view.js?rnd=${app_release_no}'/>"></script>
