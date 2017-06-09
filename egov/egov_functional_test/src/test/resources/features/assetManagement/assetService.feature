@@ -19,7 +19,7 @@ Feature: Create/Search for Asset Service
 
     Examples:
       | headerDetails | locationDetails | assetStatus | categoryDetails |
-      | header1       | location1       | CREATED     | land            |
+      | header1       | location1       | CREATED     | Land            |
       | header2       | location1       | CREATED     | market          |
       | header3       | location1       | CREATED     | kalyanaMandapam |
       | header4       | location1       | CREATED     | lakesAndPonds   |

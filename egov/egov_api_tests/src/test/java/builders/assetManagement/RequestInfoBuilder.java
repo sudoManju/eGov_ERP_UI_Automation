@@ -7,15 +7,15 @@ public class RequestInfoBuilder {
     RequestInfo requestInfo = new RequestInfo();
 
     public RequestInfoBuilder() {
-        requestInfo.setApiId("_asset _search");
-        requestInfo.setVer("ver");
-        requestInfo.setTs("2017-02-20T08:30:49.799+0000");
-        requestInfo.setAction("GET");
-        requestInfo.setDid("unique id");
-        requestInfo.setKey("key");
-        requestInfo.setMsgId("user id");
-        requestInfo.setRequesterId("req_id");
-        requestInfo.setAuthToken("auth_tok");
+        requestInfo.setApiId("1");
+        requestInfo.setVer("1");
+        requestInfo.setTs("08-06-2017 01:01:01");
+        requestInfo.setAction("create");
+        requestInfo.setDid("");
+        requestInfo.setKey("");
+        requestInfo.setMsgId("");
+        requestInfo.setRequesterId("");
+        requestInfo.setAuthToken("aeiou");
     }
 
     public RequestInfoBuilder withApiId(String apiId) {

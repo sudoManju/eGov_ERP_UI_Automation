@@ -25,7 +25,6 @@ public class CommunityTest extends BaseAPITest {
 
         // Login Test
         String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN);
-        System.out.println(sessionId);
 
         // Search Department Test
         communityTestMethod(sessionId);

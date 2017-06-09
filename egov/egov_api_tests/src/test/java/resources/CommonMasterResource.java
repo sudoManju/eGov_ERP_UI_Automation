@@ -92,6 +92,7 @@ public class CommonMasterResource extends BaseAPITest {
     }
 
     public Response createHoliday(String jsonString, String sessionId) {
+        System.out.println(Properties.cmCreateHolidayUrl);
         new APILogger().log("Create Holiday Request Test is Started with --" + jsonString);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")

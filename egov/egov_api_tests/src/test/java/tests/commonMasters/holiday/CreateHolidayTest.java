@@ -31,6 +31,7 @@ public class CreateHolidayTest extends BaseAPITest {
 
         // Login Test
         String sessionId = LoginAndLogoutHelper.loginFromPilotService(NARASAPPA);
+        System.out.println(sessionId);
 
         // Create Holiday Test
         createHolidayTestMethod(sessionId);

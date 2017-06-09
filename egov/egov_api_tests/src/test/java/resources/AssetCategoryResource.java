@@ -8,12 +8,13 @@ import static com.jayway.restassured.RestAssured.given;
 
 public class AssetCategoryResource {
 
-    public Response create(String json, String auth_token) {
+    public Response create(String json, String sessionId) {
 
         new APILogger().log("Create Asset Category Test Request is Started with--" + json);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
-                .header("auth-token", auth_token)
+                .header("cookie", "SESSIONID=" + sessionId)
+//                .header("auth-token", auth_token)
                 .body(json)
                 .when()
                 .post(Properties.assetCategoryCreateUrl);
@@ -22,12 +23,13 @@ public class AssetCategoryResource {
         return response;
     }
 
-    public Response search(String jsonString, String auth_token) {
+    public Response search(String jsonString, String sessionId) {
 
         new APILogger().log("Search Asset Category Request Test is started with --" + jsonString);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
-                .header("auth-token", auth_token)
+                .header("cookie", "SESSIONID=" + sessionId)
+//                .header("auth-token", auth_token)
                 .body(jsonString)
                 .when()
                 .post(Properties.assetCategorySearchUrl);

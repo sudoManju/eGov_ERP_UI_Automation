@@ -222,7 +222,7 @@ public class AssetServicePage extends BasePage {
 
     public void enterCategoryDetails(String categoryDetails) {
         switch (categoryDetails) {
-            case "land":
+            case "Land":
 
                 enterText(landRegisterNumberTextBox, "LReg_" + get6DigitRandomInt(), webDriver);
                 selectFromDropDown(osrLandSelectBox, "Yes", webDriver);
