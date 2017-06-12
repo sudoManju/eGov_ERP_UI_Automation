@@ -32,12 +32,12 @@ Feature: Create a Agreement based on created asset service from the asset module
     And current user logs out
 
     Examples:
-      | headerDetails | locationDetails | assetStatus | categoryDetails | allotteeDetails  | agreementDetails  | approvalOfficer1 | approvalOfficer2 |
-      | header1       | location1       | CREATED     | Land            | allotteeDetails1 | agreementDetails1 | veeraswamy       | commissionerLAMS |
-#      | header2       | location1       | CREATED     | market          | allotteeDetails1 | agreementDetails1 | veeraswamy       | commissionerLAMS |
-#      | header3       | location1       | CREATED     | kalyanaMandapam | allotteeDetails1 | agreementDetails1 |
-#      | header4       | location1       | CREATED     | lakesAndPonds   | allotteeDetails1 | agreementDetails1 |
-#      | header5       | location1       | CREATED     | roads           | allotteeDetails1 | agreementDetails1 |
-#      | header6       | location1       | CREATED     | community       | allotteeDetails1 | agreementDetails1 |
-#      | header7       | location1       | CREATED     | usufruct        | allotteeDetails1 | agreementDetails1 |
-#      | header8       | location1       | CREATED     | shopping        | allotteeDetails1 | agreementDetails1 |
+      | headerDetails | locationDetails | assetStatus | categoryDetails          | allotteeDetails  | agreementDetails  | approvalOfficer1 | approvalOfficer2 |
+      | header1       | location1       | CREATED     | Land                     | allotteeDetails1 | agreementDetails1 | veeraswamy       | commissionerLAMS |
+#      | header2       | location1       | CREATED     | Market                   | allotteeDetails1 | agreementDetails1 | veeraswamy       | commissionerLAMS |
+#      | header3       | location1       | CREATED     | Kalyana_Mandapam         | allotteeDetails1 | agreementDetails1 | veeraswamy       | commissionerLAMS |
+#      | header4       | location1       | CREATED     | Lakes_and_Ponds          | allotteeDetails1 | agreementDetails1 | veeraswamy       | commissionerLAMS |
+#      | header5       | location1       | CREATED     | Roads                    | allotteeDetails1 | agreementDetails1 | veeraswamy       | commissionerLAMS |
+#      | header6       | location1       | CREATED     | Community_Toilet_Complex | allotteeDetails1 | agreementDetails1 | veeraswamy       | commissionerLAMS |
+#      | header7       | location1       | CREATED     | Usufruct                 | allotteeDetails1 | agreementDetails1 | veeraswamy       | commissionerLAMS |
+#      | header8       | location1       | CREATED     | Shopping_Complex         | allotteeDetails1 | agreementDetails1 | veeraswamy       | commissionerLAMS |

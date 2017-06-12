@@ -17,7 +17,9 @@ public class LeaseAndAgreementSteps extends BaseSteps implements En {
 
         And("^user will select the required asset service application to create the agreement based on (\\w+) with action as \"([^\"]*)\"$",
                 (String categoryType, String action) -> {
-//                    pageStore.get(LeaseAndAgreementPage.class).searchAssetApplication("000283", categoryType, action);
+
+                    if (categoryType.contains("_"))
+                        categoryType = categoryType.replaceAll("_", " ");
                     pageStore.get(LeaseAndAgreementPage.class).searchAssetApplication(scenarioContext.getApplicationNumber(), categoryType, action);
                 });
 

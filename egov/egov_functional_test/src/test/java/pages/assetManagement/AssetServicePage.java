@@ -209,7 +209,12 @@ public class AssetServicePage extends BasePage {
             if (assetReferenceTableRows.size() == 1) {
                 clickOnButton(webDriver.findElement(By.cssSelector("[id='tblRef'] tr td button[class='btn btn-close']")), webDriver);
             } else {
-                clickOnButton(assetReferenceTableRows.get(new Random().nextInt(assetReferenceTableRows.size() - 0) + 0), webDriver);
+                if (assetReferenceTableRows.size() > 10) {
+                    clickOnButton(assetReferenceTableRows.get(new Random().nextInt(9 - 0) + 0), webDriver);
+                } else {
+                    System.out.println("=========="+assetReferenceTableRows.size());
+                    clickOnButton(assetReferenceTableRows.get(new Random().nextInt(assetReferenceTableRows.size() - 0) + 0), webDriver);
+                }
             }
         }
     }

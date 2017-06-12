@@ -151,7 +151,7 @@ public class LeaseAndAgreementPage extends BasePage {
         enterDate(solvencyCertificateDate, getCurrentDate(), webDriver);
         enterDate(securityDepositDate, getCurrentDate(), webDriver);
         enterDate(commencementDate, getCurrentDate(), webDriver);
-        selectFromDropDown(rentIncrementMethodDropdown, landAgreementDetails.getRentIncrementMethod(), webDriver);
+//        selectFromDropDown(rentIncrementMethodDropdown, landAgreementDetails.getRentIncrementMethod(), webDriver);
         enterTextWithoutClearing(goodWillAmountTextBox, "100", webDriver);
         selectFromDropDown(timePeriodDropdown, landAgreementDetails.getTimePeriod(), webDriver);
     }
