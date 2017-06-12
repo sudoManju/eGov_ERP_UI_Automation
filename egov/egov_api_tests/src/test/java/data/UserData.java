@@ -2,7 +2,7 @@ package data;
 
 public interface UserData {
 
-    String NARASAPPA = "narasappa1";
-    String MALATHI = "malathi1";
+    String NARASAPPA = "narasappa";
+    String MALATHI = "malathi";
     String ADMIN = "egovernments";
 }
