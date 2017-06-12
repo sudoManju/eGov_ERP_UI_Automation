@@ -31,4 +31,4 @@ public class StartingSteps extends BaseSteps {
         pageStore.webDriver.manage().deleteAllCookies();
         pageStore.destroy();
     }
-}git
+}
