@@ -82,7 +82,7 @@
 							<div class="col-sm-3 add-margin">
 								<spring:message code="lbl.lpreason" />
 							</div>
-							<div class="col-sm-2 add-margin view-content">
+							<div class="col-sm-3 add-margin view-content">
 								<c:forEach items="${lettertoParty.lpReason}" var="lpReason"
 									varStatus="status">
 									<c:out value="${lpReason.description}" />
