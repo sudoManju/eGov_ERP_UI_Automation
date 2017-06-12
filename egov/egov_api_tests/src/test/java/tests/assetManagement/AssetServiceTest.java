@@ -17,6 +17,8 @@ import utils.*;
 
 import java.io.IOException;
 
+import static data.UserData.ADMIN;
+import static data.UserData.AssetServiceUser;
 import static data.UserData.MALATHI;
 
 public class AssetServiceTest extends BaseAPITest {
@@ -25,11 +27,32 @@ public class AssetServiceTest extends BaseAPITest {
     public void searchAssetService() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(MALATHI);
+        String sessionId = LoginAndLogoutHelper.loginFromPilotService(AssetServiceUser);
 
 
         // Search Asset Service Test
-        searchAssetServiceTestMethod(loginResponse);
+        searchAssetServiceTestMethod(sessionId);
+    }
+
+    private void searchAssetServiceTestMethod(String sessionId) throws IOException {
+
+        RequestInfo requestInfo = new RequestInfoBuilder().withRequesterId("Ghanshyam").build();
+
+        SearchAssetRequest request = new AssetCategorySearchRequestBuilder().withRequestInfo(requestInfo).build();
+
+        String jsonString = RequestHelper.getJsonString(request);
+
+        Response response = new AssetServiceResource().getSearchAssetService(jsonString, sessionId);
+
+        AssetServiceResponse assetServiceResponse = (AssetServiceResponse)
+                ResponseHelper.getResponseAsObject(response.asString(), AssetServiceResponse.class);
+
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertTrue(assetServiceResponse.getAssets().length > 0);
+        new APILogger().log("Search Asset Service Request is Completed  -- ");
+
+        // Logout Test
+        pilotLogoutService(sessionId);
     }
 
     @Test(groups = {Categories.ASSET, Categories.SANITY})
@@ -41,24 +64,6 @@ public class AssetServiceTest extends BaseAPITest {
         // Create Asset Service Test
         createAssetServiceTestMethod(loginResponse);
 
-    }
-
-    private void searchAssetServiceTestMethod(LoginResponse loginResponse) throws IOException {
-
-        RequestInfo requestInfo = new RequestInfoBuilder().withRequesterId("Ghanshyam").withAuthToken(loginResponse.getAccess_token()).build();
-
-        SearchAssetRequest request = new AssetCategorySearchRequestBuilder().withRequestInfo(requestInfo).build();
-
-        String jsonString = RequestHelper.getJsonString(request);
-
-        Response response = new AssetServiceResource().getSearchAssetService(jsonString, loginResponse.getAccess_token());
-
-        AssetServiceResponse assetServiceResponse = (AssetServiceResponse)
-                ResponseHelper.getResponseAsObject(response.asString(), AssetServiceResponse.class);
-
-        Assert.assertEquals(response.getStatusCode(), 200);
-
-        new APILogger().log("Search Asset Service Request is Completed  -- ");
     }
 
     private void createAssetServiceTestMethod(LoginResponse loginResponse) throws IOException {

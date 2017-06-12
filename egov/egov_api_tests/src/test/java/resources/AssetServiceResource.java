@@ -8,12 +8,12 @@ import static com.jayway.restassured.RestAssured.given;
 
 public class AssetServiceResource {
 
-    public Response getSearchAssetService(String json, String auth_token) {
-
+    public Response getSearchAssetService(String json, String sessionId) {
         new APILogger().log("Search Asset Service Request is started with --" + json);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
-                .header("auth-token", auth_token)
+                .header("cookie", "SESSIONID=" + sessionId)
+//                .header("auth-token", auth_token)
                 .body(json)
                 .when()
                 .post(Properties.searchAssetServiceUrl);
