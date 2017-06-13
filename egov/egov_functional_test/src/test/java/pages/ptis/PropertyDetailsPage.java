@@ -330,8 +330,7 @@ public class PropertyDetailsPage extends BasePage {
         mobileNumberTextBox.sendKeys("94488" + get6DigitRandomInt());
         enterText(ownerNameTextBox, ownerDetails.getOwnerName(), webDriver);
         selectFromDropDown(genderSelection, ownerDetails.getGender().toUpperCase(), webDriver);
-        JavascriptExecutor executor = (JavascriptExecutor) webDriver;
-        executor.executeScript(String.format("document.getElementById('emailId').setAttribute('value', '%s')", ownerDetails.getEmailAddress()));
+        enterText(webDriver.findElement(By.cssSelector("input[id='emailId'][type='text']")),ownerDetails.getEmailAddress(),webDriver);
         selectFromDropDown(guardianRelationSelection, ownerDetails.getGuardianRelation(), webDriver);
         enterText(guardianTextBox, ownerDetails.getGuardianName(), webDriver);
     }
