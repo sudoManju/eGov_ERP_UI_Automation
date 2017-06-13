@@ -5,7 +5,7 @@ import entities.requests.assetManagement.RequestInfo;
 import entities.requests.assetManagement.assetService.Asset;
 import entities.requests.assetManagement.assetService.CreateAssetServiceRequest;
 
-public final class CreateAssetServiceRequestBuilder {
+public class CreateAssetServiceRequestBuilder {
 
     CreateAssetServiceRequest createAssetServiceRequest = new CreateAssetServiceRequest();
     Asset asset = new AssetBuilder().build();
@@ -16,7 +16,6 @@ public final class CreateAssetServiceRequestBuilder {
         createAssetServiceRequest.setAsset(asset);
         createAssetServiceRequest.setRequestInfo(requestInfo);
     }
-
 
     public CreateAssetServiceRequestBuilder withAsset(Asset Asset) {
         createAssetServiceRequest.setAsset(Asset);

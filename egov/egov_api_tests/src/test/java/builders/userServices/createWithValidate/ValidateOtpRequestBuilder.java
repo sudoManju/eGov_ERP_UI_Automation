@@ -8,17 +8,17 @@ public class ValidateOtpRequestBuilder {
 
     ValidateOtpRequest request = new ValidateOtpRequest();
 
-    public ValidateOtpRequestBuilder withRequestInfo(RequestInfo requestInfo){
+    public ValidateOtpRequestBuilder withRequestInfo(RequestInfo requestInfo) {
         request.setRequestInfo(requestInfo);
         return this;
     }
 
-    public ValidateOtpRequestBuilder withOtp(Otp otp){
+    public ValidateOtpRequestBuilder withOtp(Otp otp) {
         request.setOtp(otp);
         return this;
     }
 
-    public ValidateOtpRequest build(){
+    public ValidateOtpRequest build() {
         return request;
     }
 }

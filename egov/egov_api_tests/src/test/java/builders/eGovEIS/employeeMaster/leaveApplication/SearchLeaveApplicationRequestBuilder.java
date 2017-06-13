@@ -8,11 +8,11 @@ public class SearchLeaveApplicationRequestBuilder {
     SearchLeaveApplicationRequest request = new SearchLeaveApplicationRequest();
     RequestInfo requestInfo = new RequestInfoBuilder().build();
 
-    public SearchLeaveApplicationRequestBuilder(){
+    public SearchLeaveApplicationRequestBuilder() {
         request.setRequestInfo(requestInfo);
     }
 
-    public SearchLeaveApplicationRequest build(){
+    public SearchLeaveApplicationRequest build() {
         return request;
     }
 }

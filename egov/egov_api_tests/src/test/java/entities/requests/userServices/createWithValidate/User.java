@@ -1,7 +1,7 @@
 package entities.requests.userServices.createWithValidate;
 
 public class User {
-   
+
     private String tenantId;
 
     private String correspondenceAddress;

@@ -7,14 +7,15 @@ public class ReceivingCentersRequestBuilder {
 
     ReceivingCentersRequest request = new ReceivingCentersRequest();
 
-    public ReceivingCentersRequestBuilder(){}
+    public ReceivingCentersRequestBuilder() {
+    }
 
-    public ReceivingCentersRequestBuilder withRequestInfo(RequestInfo requestInfo){
+    public ReceivingCentersRequestBuilder withRequestInfo(RequestInfo requestInfo) {
         request.setRequestInfo(requestInfo);
         return this;
     }
 
-    public ReceivingCentersRequest build(){
+    public ReceivingCentersRequest build() {
         return request;
     }
 }

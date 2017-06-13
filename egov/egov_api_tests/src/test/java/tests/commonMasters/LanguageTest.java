@@ -6,7 +6,6 @@ import com.jayway.restassured.response.Response;
 import entities.requests.commonMasters.CommonMasterRequest;
 import entities.requests.commonMasters.RequestInfo;
 import entities.responses.commonMaster.language.LanguageResponse;
-import entities.responses.login.LoginResponse;
 import org.junit.Assert;
 import org.testng.annotations.Test;
 import resources.CommonMasterResource;
@@ -16,7 +15,6 @@ import utils.*;
 import java.io.IOException;
 
 import static data.UserData.ADMIN;
-import static data.UserData.NARASAPPA;
 
 public class LanguageTest extends BaseAPITest {
 

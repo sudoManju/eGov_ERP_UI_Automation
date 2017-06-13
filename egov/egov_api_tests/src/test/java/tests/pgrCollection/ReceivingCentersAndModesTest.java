@@ -22,7 +22,7 @@ import static data.UserData.NARASAPPA;
 public class ReceivingCentersAndModesTest extends BaseAPITest {
 
     @Test(groups = {Categories.PGR, Categories.SANITY, Categories.DEV})
-    public void receivingCentersTest()throws IOException{
+    public void receivingCentersTest() throws IOException {
 
         //Login Test
         LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
@@ -49,12 +49,12 @@ public class ReceivingCentersAndModesTest extends BaseAPITest {
 
         Response response = new PGRResource().getReceivingModes(json);
 
-        Assert.assertEquals(response.getStatusCode(),200);
+        Assert.assertEquals(response.getStatusCode(), 200);
 
         new APILogger().log("Receiving modes test is completed ---");
     }
 
-    private void getAllReceivingCentersTest(LoginResponse loginResponse){
+    private void getAllReceivingCentersTest(LoginResponse loginResponse) {
 
         new APILogger().log("All Receiving centers test is started ---");
 
@@ -66,12 +66,12 @@ public class ReceivingCentersAndModesTest extends BaseAPITest {
 
         Response response = new PGRResource().getReceivingCenter(json);
 
-        Assert.assertEquals(response.getStatusCode(),200);
+        Assert.assertEquals(response.getStatusCode(), 200);
 
         new APILogger().log("All Receiving Centers test is Completed ---");
     }
 
-    private void getReceivingCenterByIdTest(LoginResponse loginResponse){
+    private void getReceivingCenterByIdTest(LoginResponse loginResponse) {
 
         new APILogger().log("Receiving Centers by Id test is Started ---");
 
@@ -83,7 +83,7 @@ public class ReceivingCentersAndModesTest extends BaseAPITest {
 
         Response response = new PGRResource().getReceivingCenterById(json);
 
-        Assert.assertEquals(response.getStatusCode(),200);
+        Assert.assertEquals(response.getStatusCode(), 200);
 
         new APILogger().log("Receiving Centers by Id test is Completed ---");
     }

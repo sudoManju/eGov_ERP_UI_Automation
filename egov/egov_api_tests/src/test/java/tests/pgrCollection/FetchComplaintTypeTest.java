@@ -19,10 +19,10 @@ import java.io.IOException;
 
 import static data.UserData.NARASAPPA;
 
-public class FetchComplaintTypeTest extends BaseAPITest{
+public class FetchComplaintTypeTest extends BaseAPITest {
 
     @Test(groups = {Categories.PGR, Categories.SANITY, Categories.DEV})
-    public void FeatchComplaintType()throws IOException{
+    public void FeatchComplaintType() throws IOException {
 
         //Login Test
         LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
@@ -42,11 +42,11 @@ public class FetchComplaintTypeTest extends BaseAPITest{
 
         FetchComplaintRequest request = new FetchComplaintRequestBuilder().withRequestInfo(requestInfo).build();
 
-        String  json = RequestHelper.getJsonString(request);
+        String json = RequestHelper.getJsonString(request);
 
         Response response = new PGRResource().getFetchComplaintById(json);
 
-        Assert.assertEquals(response.getStatusCode(),200);
+        Assert.assertEquals(response.getStatusCode(), 200);
 
         new APILogger().log("Fetch complaint by id test is completed ---");
     }
@@ -59,11 +59,11 @@ public class FetchComplaintTypeTest extends BaseAPITest{
 
         FetchComplaintRequest request = new FetchComplaintRequestBuilder().withRequestInfo(requestInfo).build();
 
-        String  json = RequestHelper.getJsonString(request);
+        String json = RequestHelper.getJsonString(request);
 
         Response response = new PGRResource().getFetchComplaint(json);
 
-        Assert.assertEquals(response.getStatusCode(),200);
+        Assert.assertEquals(response.getStatusCode(), 200);
 
         new APILogger().log("Fetch all complaints test is completed ---");
     }

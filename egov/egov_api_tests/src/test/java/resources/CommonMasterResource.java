@@ -63,7 +63,7 @@ public class CommonMasterResource extends BaseAPITest {
         return response;
     }
 
-    public Response searchHolidayTest(String jsonString , String sessionId) {
+    public Response searchHolidayTest(String jsonString, String sessionId) {
 
         new APILogger().log("Search Holiday Request Test is Started with --" + jsonString);
         Response response = given().request().with()

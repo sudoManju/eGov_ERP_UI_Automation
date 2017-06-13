@@ -54,13 +54,13 @@ public class UserServiceResource {
 
     public Response validateOtp(String json) {
 
-       new APILogger().log("Validate Otp Request is Started with--" + json);
+        new APILogger().log("Validate Otp Request is Started with--" + json);
 
-       Response response = given().request().with()
-               .header("Content-Type", "application/json")
-               .body(json)
-               .when()
-               .post(Properties.validateOtpUrl);
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(json)
+                .when()
+                .post(Properties.validateOtpUrl);
 
         new APILogger().log("Validate Otp Response is Generated as--" + response.asString());
 
@@ -90,7 +90,7 @@ public class UserServiceResource {
                 .header("Content-Type", "application/json")
                 .body(json)
                 .when()
-                .post(Properties.userUpdateUrl+id+"/_updatenovalidate");
+                .post(Properties.userUpdateUrl + id + "/_updatenovalidate");
 
         new APILogger().log("Update User Response is Generated as--" + response.asString());
 
@@ -105,7 +105,7 @@ public class UserServiceResource {
                 .header("Content-Type", "application/json")
                 .body(json)
                 .when()
-                .post(Properties.loginUserDetailsUrl+access_token);
+                .post(Properties.loginUserDetailsUrl + access_token);
 
         new APILogger().log("Login User Details Response is Generated as--" + response.asString());
 
@@ -114,15 +114,15 @@ public class UserServiceResource {
 
     public Response searchOtp(String json) {
 
-       new APILogger().log("Search OTP Request is Started with--" + json);
+        new APILogger().log("Search OTP Request is Started with--" + json);
 
-       Response response = given().request().with()
-               .header("Content-Type", "application/json")
-               .body(json)
-               .when()
-               .post(Properties.searchOtpUrl);
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(json)
+                .when()
+                .post(Properties.searchOtpUrl);
 
-       new APILogger().log("Search OTP Response is Generated as--" + response.asString());
+        new APILogger().log("Search OTP Response is Generated as--" + response.asString());
 
         return response;
     }

@@ -2,8 +2,7 @@ package entities.requests.pgrCollections.createComplaint;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class ServiceRequest
-{
+public class ServiceRequest {
     private String tenantId;
 
     private String serviceRequestId;
@@ -71,153 +70,123 @@ public class ServiceRequest
         this.attribValues = attribValues;
     }
 
-    public String getTenantId ()
-    {
+    public String getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId (String tenantId)
-    {
+    public void setTenantId(String tenantId) {
         this.tenantId = tenantId;
     }
 
-    public String getServiceRequestId ()
-    {
+    public String getServiceRequestId() {
         return serviceRequestId;
     }
 
-    public void setServiceRequestId (String serviceRequestId)
-    {
+    public void setServiceRequestId(String serviceRequestId) {
         this.serviceRequestId = serviceRequestId;
     }
 
-    public String getPhone ()
-    {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone (String phone)
-    {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
-    public String getMediaUrl ()
-    {
+    public String getMediaUrl() {
         return mediaUrl;
     }
 
-    public void setMediaUrl (String mediaUrl)
-    {
+    public void setMediaUrl(String mediaUrl) {
         this.mediaUrl = mediaUrl;
     }
 
-    public Boolean getStatus ()
-    {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus (Boolean status)
-    {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 
-    public String getLng ()
-    {
+    public String getLng() {
         return lng;
     }
 
-    public void setLng (String lng)
-    {
+    public void setLng(String lng) {
         this.lng = lng;
     }
 
-    public String getAddressId ()
-    {
+    public String getAddressId() {
         return addressId;
     }
 
-    public void setAddressId (String addressId)
-    {
+    public void setAddressId(String addressId) {
         this.addressId = addressId;
     }
 
-    public String getServiceName ()
-    {
+    public String getServiceName() {
         return serviceName;
     }
 
-    public void setServiceName (String serviceName)
-    {
+    public void setServiceName(String serviceName) {
         this.serviceName = serviceName;
     }
 
-    public String getRequestedDatetime ()
-    {
+    public String getRequestedDatetime() {
         return requestedDatetime;
     }
 
-    public void setRequestedDatetime (String requestedDatetime)
-    {
+    public void setRequestedDatetime(String requestedDatetime) {
         this.requestedDatetime = requestedDatetime;
     }
 
-    public String getAddress ()
-    {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress (String address)
-    {
+    public void setAddress(String address) {
         this.address = address;
     }
 
-    public String getEmail ()
-    {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail (String email)
-    {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public String getDescription ()
-    {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription (String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    public String getServiceCode ()
-    {
+    public String getServiceCode() {
         return serviceCode;
     }
 
-    public void setServiceCode (String serviceCode)
-    {
+    public void setServiceCode(String serviceCode) {
         this.serviceCode = serviceCode;
     }
 
-    public String getFirstName ()
-    {
+    public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName (String firstName)
-    {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    public String getLat ()
-    {
+    public String getLat() {
         return lat;
     }
 
-    public void setLat (String lat)
-    {
+    public void setLat(String lat) {
         this.lat = lat;
     }
 

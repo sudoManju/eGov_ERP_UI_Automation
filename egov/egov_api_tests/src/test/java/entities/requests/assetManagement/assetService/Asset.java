@@ -8,37 +8,21 @@ import entities.responses.assetManagement.assetServices.Properties;
 public class Asset {
 
     private String tenantId;
-
     private String assetDetails;
-
     private String status;
-
     private Department department;
-
     private String width;
-
     private String modeOfAcquisition;
-
     private String remarks;
-
     private Properties properties;
-
     private String accumulatedDepreciation;
-
     private String dateOfCreation;
-
     private LocationDetails locationDetails;
-
     private String grossValue;
-
     private String description;
-
     private String name;
-
     private String length;
-
     private String totalArea;
-
     private AssetCategory assetCategory;
 
     public String getTenantId() {

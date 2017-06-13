@@ -23,7 +23,7 @@ public class PGRResource {
         return response;
     }
 
-    public Response getPGRComplaint(String serviceRequestId,String json) {
+    public Response getPGRComplaint(String serviceRequestId, String json) {
 
         new APILogger().log("Getting a PGR complaint Request is started for-- " + json);
 
@@ -40,7 +40,7 @@ public class PGRResource {
 
     public Response getFetchComplaint(String json) {
 
-        new APILogger().log("Fetch all Complaints Request is started -- "+json);
+        new APILogger().log("Fetch all Complaints Request is started -- " + json);
 
         Response response = given().request().with()
                 .urlEncodingEnabled(true)
@@ -56,7 +56,7 @@ public class PGRResource {
 
     public Response getFetchComplaintById(String json) {
 
-        new APILogger().log("Fetch Complaints By Id Request is started  for-- "+json);
+        new APILogger().log("Fetch Complaints By Id Request is started  for-- " + json);
 
         Response response = given().request().with()
                 .urlEncodingEnabled(true)
@@ -87,7 +87,7 @@ public class PGRResource {
 
     public Response getReceivingCenter(String json) {
 
-        new APILogger().log("All Receiving Centers Request for PGR is started  -- "+json);
+        new APILogger().log("All Receiving Centers Request for PGR is started  -- " + json);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
                 .body(json)
@@ -99,14 +99,14 @@ public class PGRResource {
         return response;
     }
 
-    public Response getReceivingCenterById(String json){
+    public Response getReceivingCenterById(String json) {
 
-        new APILogger().log("Receiving Centers By Id Request for PGR is started  -- "+json);
+        new APILogger().log("Receiving Centers By Id Request for PGR is started  -- " + json);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
                 .body(json)
                 .when()
-                .post(Properties.pgrReceivingCenterUrl+"&id=1");
+                .post(Properties.pgrReceivingCenterUrl + "&id=1");
 
         new APILogger().log("Receiving Centers By Id Response for PGR is generated as-- " + response.asString());
 
@@ -115,12 +115,12 @@ public class PGRResource {
 
     public Response getReceivingModes(String json) {
 
-        new APILogger().log("Get All Receiving Modes For PGR is started-- "+json);
+        new APILogger().log("Get All Receiving Modes For PGR is started-- " + json);
         Response response = given().request().with()
-                           .header("Content-Type", "application/json")
-                           .body(json)
-                           .when()
-                           .post(Properties.pgrReceivingModesUrl);
+                .header("Content-Type", "application/json")
+                .body(json)
+                .when()
+                .post(Properties.pgrReceivingModesUrl);
 
         new APILogger().log("All Receiving Modes For PGR is Response is generated-- " + response.asString());
         return response;
@@ -128,12 +128,12 @@ public class PGRResource {
 
     public Response getComplaintTypeByServiceCode(String json) {
 
-        new APILogger().log("Get Complaint Type By Service Code For PGR is started-- "+json);
+        new APILogger().log("Get Complaint Type By Service Code For PGR is started-- " + json);
         Response response = given().request().with()
-                            .header("Content-Type", "application/json")
-                            .body(json)
-                            .when()
-                            .post(Properties.getComplaintTypeByServiceCodeUrl);
+                .header("Content-Type", "application/json")
+                .body(json)
+                .when()
+                .post(Properties.getComplaintTypeByServiceCodeUrl);
 
 
         new APILogger().log("Complaint Type By Service Code For PGR is Response is generated-- " + response.asString());
@@ -142,7 +142,7 @@ public class PGRResource {
 
     public Response getComplaintCategories(String json) {
 
-        new APILogger().log("Get Complaint Type Categories For PGR is started-- "+json);
+        new APILogger().log("Get Complaint Type Categories For PGR is started-- " + json);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
                 .body(json)

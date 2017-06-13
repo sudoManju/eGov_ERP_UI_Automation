@@ -35,10 +35,10 @@ public class ComplaintVerificationTest extends BaseAPITest {
         ComplaintResponse create = createComplaintInPGR(loginResponse);
 
         // Get Complaint
-        getComplaintInPGR(create,loginResponse);
+        getComplaintInPGR(create, loginResponse);
 
         // Update Complaint
-        ComplaintResponse update = updateComplaintInPGR(create,loginResponse);
+        ComplaintResponse update = updateComplaintInPGR(create, loginResponse);
 
         // Get Complaint
 //        getComplaintInPGR(update,loginResponse);
@@ -62,9 +62,9 @@ public class ComplaintVerificationTest extends BaseAPITest {
         Assert.assertEquals(response.getStatusCode(), 201);
 
         ComplaintResponse response1 = (ComplaintResponse)
-                                           ResponseHelper.getResponseAsObject(response.asString(),ComplaintResponse.class);
+                ResponseHelper.getResponseAsObject(response.asString(), ComplaintResponse.class);
 
-        Assert.assertEquals(request.getServiceRequest().getDescription(),response1.getServiceRequests()[0].getDescription());
+        Assert.assertEquals(request.getServiceRequest().getDescription(), response1.getServiceRequests()[0].getDescription());
 
         new APILogger().log("Creating complaint test for PGR is completed  -- ");
 
@@ -77,50 +77,50 @@ public class ComplaintVerificationTest extends BaseAPITest {
         return response1;
     }
 
-    private void getComplaintInPGR(ComplaintResponse complaint,LoginResponse loginResponse) throws IOException {
+    private void getComplaintInPGR(ComplaintResponse complaint, LoginResponse loginResponse) throws IOException {
 
         new APILogger().log("Getting a PGR complaint test is started -- ");
 
         entities.requests.pgrCollections.searchComplaint.RequestInfo requestInfo = new
-                               builders.pgrCollection.searchComplaint.RequestInfoBuilder()
-                              .withAuthToken(loginResponse.getAccess_token()).build();
+                builders.pgrCollection.searchComplaint.RequestInfoBuilder()
+                .withAuthToken(loginResponse.getAccess_token()).build();
 
         SearchComplaintRequest request = new SearchComplaintRequestBuilder().withRequestInfo(requestInfo).build();
 
         String jsonString = RequestHelper.getJsonString(request);
 
-        Response response = new PGRResource().getPGRComplaint(complaint.getServiceRequests()[0].getServiceRequestId(),jsonString);
+        Response response = new PGRResource().getPGRComplaint(complaint.getServiceRequests()[0].getServiceRequestId(), jsonString);
 
         Assert.assertEquals(response.getStatusCode(), 200);
 
         SearchComplaintResponse response1 = (SearchComplaintResponse)
-                               ResponseHelper.getResponseAsObject(response.asString(),SearchComplaintResponse.class);
+                ResponseHelper.getResponseAsObject(response.asString(), SearchComplaintResponse.class);
 
-        Assert.assertEquals(complaint.getServiceRequests()[0].getServiceRequestId(),response1.getServiceRequests()[0].getServiceRequestId());
+        Assert.assertEquals(complaint.getServiceRequests()[0].getServiceRequestId(), response1.getServiceRequests()[0].getServiceRequestId());
 
         String status = null;
 
-        for(int i=0;i<complaint.getServiceRequests()[0].getAttribValues().length;i++){
-            if(complaint.getServiceRequests()[0].getAttribValues()[i].getKey().equals("status")){
+        for (int i = 0; i < complaint.getServiceRequests()[0].getAttribValues().length; i++) {
+            if (complaint.getServiceRequests()[0].getAttribValues()[i].getKey().equals("status")) {
                 status = complaint.getServiceRequests()[0].getAttribValues()[i].getName();
             }
         }
 
         String getStatus = null;
 
-        for(int i=0;i<response1.getServiceRequests()[0].getAttribValues().length;i++){
-            if(response1.getServiceRequests()[0].getAttribValues()[i].getKey().equals("status")){
+        for (int i = 0; i < response1.getServiceRequests()[0].getAttribValues().length; i++) {
+            if (response1.getServiceRequests()[0].getAttribValues()[i].getKey().equals("status")) {
                 getStatus = response1.getServiceRequests()[0].getAttribValues()[i].getName();
             }
         }
 
-        Assert.assertEquals(getStatus,status);
+        Assert.assertEquals(getStatus, status);
 
         new APILogger().log("Getting a PGR complaint test is Completed -- ");
     }
 
 
-    private ComplaintResponse updateComplaintInPGR(ComplaintResponse complaint,LoginResponse loginResponse) throws IOException {
+    private ComplaintResponse updateComplaintInPGR(ComplaintResponse complaint, LoginResponse loginResponse) throws IOException {
 
         new APILogger().log("Update complaint for PGR test is started  -- ");
 
@@ -129,20 +129,20 @@ public class ComplaintVerificationTest extends BaseAPITest {
         ServiceRequest serviceRequest = new ServiceRequestBuilder("").withServiceRequestId(complaint.getServiceRequests()[0].getServiceRequestId()).build();
 
         ComplaintRequest request = new ComplaintRequestBuilder("").withServiceRequest(serviceRequest)
-                                       .withRequestInfo(requestInfo).build();
+                .withRequestInfo(requestInfo).build();
 
-        String jsonString  = RequestHelper.getJsonString(request);
+        String jsonString = RequestHelper.getJsonString(request);
 
         Response response = new PGRResource().updateAndClosePGRComplaint(jsonString);
 
-        Assert.assertEquals(response.getStatusCode(),200);
+        Assert.assertEquals(response.getStatusCode(), 200);
 
         ComplaintResponse response1 = (ComplaintResponse)
-                                 ResponseHelper.getResponseAsObject(response.asString(),ComplaintResponse.class);
+                ResponseHelper.getResponseAsObject(response.asString(), ComplaintResponse.class);
 
-        Assert.assertEquals(complaint.getServiceRequests()[0].getServiceRequestId(),response1.getServiceRequests()[0].getServiceRequestId());
+        Assert.assertEquals(complaint.getServiceRequests()[0].getServiceRequestId(), response1.getServiceRequests()[0].getServiceRequestId());
 
-        Assert.assertEquals(request.getServiceRequest().getDescription(),response1.getServiceRequests()[0].getDescription());
+        Assert.assertEquals(request.getServiceRequest().getDescription(), response1.getServiceRequests()[0].getDescription());
 
         new APILogger().log("Update complaint for PGR test is Completed  -- ");
 

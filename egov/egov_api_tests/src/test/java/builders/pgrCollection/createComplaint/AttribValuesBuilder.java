@@ -11,7 +11,7 @@ public class AttribValuesBuilder {
     AttribValues attribValues3 = new AttribValues();
     AttribValues attribValues4 = new AttribValues();
 
-    public AttribValuesBuilder(){
+    public AttribValuesBuilder() {
         attribValues1.setKey("receivingMode");
         attribValues1.setName("MANUAL");
         attribValues[0] = attribValues1;
@@ -26,8 +26,7 @@ public class AttribValuesBuilder {
         attribValues[3] = attribValues4;
     }
 
-    public AttribValuesBuilder(String status)
-    {
+    public AttribValuesBuilder(String status) {
         attribValues1.setKey("receivingMode");
         attribValues1.setName("MANUAL");
         attribValues[0] = attribValues1;
@@ -41,7 +40,8 @@ public class AttribValuesBuilder {
         attribValues4.setName("erode");
         attribValues[3] = attribValues4;
     }
-    public AttribValues[] build(){
+
+    public AttribValues[] build() {
         return attribValues;
     }
 }

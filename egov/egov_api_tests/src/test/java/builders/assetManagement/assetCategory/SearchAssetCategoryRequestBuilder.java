@@ -9,11 +9,11 @@ public class SearchAssetCategoryRequestBuilder {
 
     RequestInfo requestInfo = new RequestInfoBuilder().build();
 
-    public SearchAssetCategoryRequestBuilder(){
+    public SearchAssetCategoryRequestBuilder() {
         request.setRequestInfo(requestInfo);
     }
 
-    public SearchAssetCategoryRequest build(){
+    public SearchAssetCategoryRequest build() {
         return request;
     }
 }

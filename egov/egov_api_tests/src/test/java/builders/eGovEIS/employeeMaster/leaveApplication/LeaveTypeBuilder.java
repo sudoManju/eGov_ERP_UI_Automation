@@ -6,11 +6,11 @@ public class LeaveTypeBuilder {
 
     LeaveType leaveType = new LeaveType();
 
-    public LeaveTypeBuilder(){
+    public LeaveTypeBuilder() {
         leaveType.setId("120");
     }
 
-    public LeaveType build(){
+    public LeaveType build() {
         return leaveType;
     }
 }

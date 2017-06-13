@@ -1,9 +1,8 @@
 package entities.requests.assetManagement;
 
-
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class SearchAssetRequest {
+public class SearchAssetServiceRequest {
 
     @JsonProperty("RequestInfo")
     RequestInfo requestInfo;

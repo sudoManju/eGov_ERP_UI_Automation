@@ -10,16 +10,16 @@ public class CreateAssetCategoryRequestBuilder {
 
     RequestInfo requestInfo = new RequestInfoBuilder().build();
 
-    public CreateAssetCategoryRequestBuilder(){
+    public CreateAssetCategoryRequestBuilder() {
         request.setRequestInfo(requestInfo);
     }
 
-    public CreateAssetCategoryRequestBuilder withAssetCategory(AssetCategory category){
+    public CreateAssetCategoryRequestBuilder withAssetCategory(AssetCategory category) {
         request.setAssetCategory(category);
         return this;
     }
 
-    public CreateAssetCategoryRequest build(){
+    public CreateAssetCategoryRequest build() {
         return request;
     }
 }

@@ -9,7 +9,7 @@ public class UserBuilder {
     Roles[] roles = new Roles[1];
     Roles role1 = new RolesBuilder().build();
 
-    public UserBuilder(){
+    public UserBuilder() {
         user.setPassword("12345");
         user.setSalutation("mrs");
         user.setName("Tester");
@@ -25,17 +25,17 @@ public class UserBuilder {
         user.setRoles(roles);
     }
 
-    public UserBuilder withUserName(String name){
+    public UserBuilder withUserName(String name) {
         user.setUserName(name);
         return this;
     }
 
-    public UserBuilder withMobileNumber(String number){
+    public UserBuilder withMobileNumber(String number) {
         user.setMobileNumber(number);
         return this;
     }
 
-    public UserBuilder withOtpReference(String otpReference){
+    public UserBuilder withOtpReference(String otpReference) {
         user.setOtpReference(otpReference);
         return this;
     }

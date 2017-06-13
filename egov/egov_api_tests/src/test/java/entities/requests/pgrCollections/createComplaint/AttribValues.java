@@ -2,9 +2,9 @@ package entities.requests.pgrCollections.createComplaint;
 
 public class AttribValues {
 
-   private String key;
+    private String key;
 
-   private String name;
+    private String name;
 
     public String getKey() {
         return key;

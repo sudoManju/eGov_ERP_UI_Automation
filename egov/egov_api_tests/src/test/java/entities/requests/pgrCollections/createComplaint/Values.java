@@ -1,7 +1,6 @@
 package entities.requests.pgrCollections.createComplaint;
 
-public class Values
-{
+public class Values {
     private String receivingCenter;
 
     private String complainantAddress;
@@ -70,43 +69,35 @@ public class Values
         this.assignmentId = assignmentId;
     }
 
-    public String getReceivingCenter ()
-    {
+    public String getReceivingCenter() {
         return receivingCenter;
     }
 
-    public void setReceivingCenter (String receivingCenter)
-    {
+    public void setReceivingCenter(String receivingCenter) {
         this.receivingCenter = receivingCenter;
     }
 
-    public String getComplainantAddress ()
-    {
+    public String getComplainantAddress() {
         return complainantAddress;
     }
 
-    public void setComplainantAddress (String complainantAddress)
-    {
+    public void setComplainantAddress(String complainantAddress) {
         this.complainantAddress = complainantAddress;
     }
 
-    public String getStatus ()
-    {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus (String status)
-    {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public String getReceivingMode ()
-    {
+    public String getReceivingMode() {
         return receivingMode;
     }
 
-    public void setReceivingMode (String receivingMode)
-    {
+    public void setReceivingMode(String receivingMode) {
         this.receivingMode = receivingMode;
     }
 }

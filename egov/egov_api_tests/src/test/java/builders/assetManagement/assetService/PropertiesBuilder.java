@@ -2,7 +2,7 @@ package builders.assetManagement.assetService;
 
 import entities.responses.assetManagement.assetServices.Properties;
 
-public final class PropertiesBuilder {
+public class PropertiesBuilder {
 
     Properties properties = new Properties();
 

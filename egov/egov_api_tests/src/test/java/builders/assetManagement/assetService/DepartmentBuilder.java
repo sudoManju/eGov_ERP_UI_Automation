@@ -2,7 +2,7 @@ package builders.assetManagement.assetService;
 
 import entities.responses.assetManagement.assetServices.Department;
 
-public final class DepartmentBuilder {
+public class DepartmentBuilder {
 
     Department department = new Department();
 

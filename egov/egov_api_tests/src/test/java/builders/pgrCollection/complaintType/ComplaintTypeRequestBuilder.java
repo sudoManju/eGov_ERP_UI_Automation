@@ -5,16 +5,17 @@ import entities.requests.pgrCollections.complaintType.RequestInfo;
 
 public class ComplaintTypeRequestBuilder {
 
-     ComplaintTypeRequest request = new ComplaintTypeRequest();
+    ComplaintTypeRequest request = new ComplaintTypeRequest();
 
-     public ComplaintTypeRequestBuilder(){}
+    public ComplaintTypeRequestBuilder() {
+    }
 
-     public ComplaintTypeRequestBuilder withRequestInfo(RequestInfo requestInfo){
-          request.setRequestInfo(requestInfo);
-          return this;
-     }
+    public ComplaintTypeRequestBuilder withRequestInfo(RequestInfo requestInfo) {
+        request.setRequestInfo(requestInfo);
+        return this;
+    }
 
-     public ComplaintTypeRequest build(){
-          return request;
-     }
+    public ComplaintTypeRequest build() {
+        return request;
+    }
 }

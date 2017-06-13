@@ -2,7 +2,7 @@ package entities.responses.assetManagement.assetServices;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class AssetServiceResponse {
+public class CreateAssetServiceResponse {
 
     private ResponseInfo ResponseInfo;
 

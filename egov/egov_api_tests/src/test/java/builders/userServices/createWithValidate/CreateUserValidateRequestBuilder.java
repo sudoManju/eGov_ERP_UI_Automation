@@ -8,17 +8,17 @@ public class CreateUserValidateRequestBuilder {
 
     CreateUserValidateRequest request = new CreateUserValidateRequest();
 
-    public CreateUserValidateRequestBuilder withRequestInfo(RequestInfo requestInfo){
+    public CreateUserValidateRequestBuilder withRequestInfo(RequestInfo requestInfo) {
         request.setRequestInfo(requestInfo);
         return this;
     }
 
-    public CreateUserValidateRequestBuilder withUser(User user){
+    public CreateUserValidateRequestBuilder withUser(User user) {
         request.setUser(user);
         return this;
     }
 
-    public CreateUserValidateRequest build(){
+    public CreateUserValidateRequest build() {
         return request;
     }
 }

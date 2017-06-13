@@ -1,6 +1,6 @@
 package entities.requests.assetManagement.assetCategory;
-public class Columns
-{
+
+public class Columns {
     private Boolean isActive;
 
     private String localText;

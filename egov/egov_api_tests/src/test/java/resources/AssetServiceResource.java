@@ -8,23 +8,23 @@ import static com.jayway.restassured.RestAssured.given;
 
 public class AssetServiceResource {
 
-    public Response getSearchAssetService(String json, String sessionId) {
-        new APILogger().log("Search Asset Service Request is started with --" + json);
+    public Response getSearchAssetService(String json, String sessionId, String assetCode) {
+        String path = assetCode == null ? null : "&code=" + assetCode;
+
+        new APILogger().log("Search Asset Service Request is Started with --" + json);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
                 .header("cookie", "SESSIONID=" + sessionId)
-//                .header("auth-token", auth_token)
                 .body(json)
                 .when()
-                .post(Properties.searchAssetServiceUrl);
+                .post(Properties.searchAssetServiceUrl + path);
 
         new APILogger().log("Search Asset Service Response is Generated as --" + response.asString());
         return response;
     }
 
     public Response getCreateAssetService(String jsonString, String sessionId) {
-        System.out.println(Properties.createAssetServiceUrl);
-        new APILogger().log("Create Asset Service Request is started with --" + jsonString);
+        new APILogger().log("Create Asset Service Request is Started with --" + jsonString);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
                 .header("cookie", "SESSIONID=" + sessionId)
@@ -32,7 +32,7 @@ public class AssetServiceResource {
                 .when()
                 .post(Properties.createAssetServiceUrl);
 
-        new APILogger().log("Create Asset Service Response is Generated with --" + response.asString());
+        new APILogger().log("Create Asset Service Response is Generated as --" + response.asString());
         return response;
     }
 }

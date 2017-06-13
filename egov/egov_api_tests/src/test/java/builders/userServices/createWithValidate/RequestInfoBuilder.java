@@ -6,7 +6,7 @@ public class RequestInfoBuilder {
 
     RequestInfo requestInfo = new RequestInfo();
 
-    public RequestInfoBuilder(){
+    public RequestInfoBuilder() {
         requestInfo.setApiId("emp");
         requestInfo.setVer("1.0");
         requestInfo.setTs("4-11-2017 3:18:55 PM");
@@ -16,12 +16,12 @@ public class RequestInfoBuilder {
         requestInfo.setDid("4354648646");
     }
 
-    public RequestInfoBuilder withAuthToken(String authToken){
+    public RequestInfoBuilder withAuthToken(String authToken) {
         requestInfo.setAuthToken(authToken);
         return this;
     }
 
-    public RequestInfo build(){
+    public RequestInfo build() {
         return requestInfo;
     }
 }

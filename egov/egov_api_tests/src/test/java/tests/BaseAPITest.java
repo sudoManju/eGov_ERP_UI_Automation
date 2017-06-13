@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -65,7 +64,7 @@ public class BaseAPITest {
         return dateFormat.format(date);
     }
 
-    protected void pilotLogoutService(String sessionId){
+    protected void pilotLogoutService(String sessionId) {
         new LoginAndLogoutHelper().logoutFromPilotService(sessionId);
 
     }

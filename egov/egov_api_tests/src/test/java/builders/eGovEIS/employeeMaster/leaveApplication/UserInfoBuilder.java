@@ -9,7 +9,7 @@ public class UserInfoBuilder {
     Roles[] roles = new Roles[1];
     Roles role1 = new RolesBuilder().build();
 
-    public UserInfoBuilder(){
+    public UserInfoBuilder() {
         userInfo.setName("Tester");
         userInfo.setId(82);
         userInfo.setTenantId("ap.kurnool");
@@ -17,7 +17,7 @@ public class UserInfoBuilder {
         userInfo.setRoles(roles);
     }
 
-    public UserInfo build(){
+    public UserInfo build() {
         return userInfo;
     }
 }

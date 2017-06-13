@@ -15,12 +15,7 @@ public class AssetCategoryBuilder {
     AssetFieldsDefination assetFieldsDefination4 = new AssetFieldsDefinationBuilder("Shops").build();
     AssetFieldsDefination assetFieldsDefination5 = new AssetFieldsDefinationBuilder("FloorDetails").build();
 
-    public AssetCategoryBuilder withName(String name){
-        assetCategory.setName(name);
-        return this;
-    }
-
-    public AssetCategoryBuilder(){
+    public AssetCategoryBuilder() {
         assetCategory.setTenantId("ap.kurnool");
         assetCategory.setAssetCategoryType("MOVABLE");
         assetCategory.setDepreciationMethod("STRAIGHT_LINE_METHOD");
@@ -39,7 +34,12 @@ public class AssetCategoryBuilder {
         assetCategory.setAssetFieldsDefination(assetFieldsDefinations);
     }
 
-    public AssetCategory build(){
+    public AssetCategoryBuilder withName(String name) {
+        assetCategory.setName(name);
+        return this;
+    }
+
+    public AssetCategory build() {
         return assetCategory;
     }
 }

@@ -3,7 +3,6 @@ package resources;
 import com.jayway.restassured.response.Response;
 import utils.APILogger;
 import utils.Properties;
-import utils.RequestHelper;
 
 import static com.jayway.restassured.RestAssured.given;
 
@@ -127,7 +126,7 @@ public class EgovEISResource {
         return response;
     }
 
-    public Response hrLeaveUpdateOpeningBalance(String json , int id) {
+    public Response hrLeaveUpdateOpeningBalance(String json, int id) {
 
         new APILogger().log("Update HR Leave Opening Balance Test is started with-- " + json);
         Response response = given().request().with()

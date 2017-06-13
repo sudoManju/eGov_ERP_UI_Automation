@@ -6,7 +6,7 @@ import entities.responses.assetManagement.assetServices.Department;
 import entities.responses.assetManagement.assetServices.LocationDetails;
 import entities.responses.assetManagement.assetServices.Properties;
 
-public final class AssetBuilder {
+public class AssetBuilder {
 
     Asset asset = new Asset();
     Department department = new DepartmentBuilder().build();
@@ -15,9 +15,9 @@ public final class AssetBuilder {
     AssetCategory assetCategory = new AssetCategoryBuilder().build();
 
     public AssetBuilder() {
-        asset.setTenantId("1");
+        asset.setTenantId("ap.kurnool");
         asset.setAssetDetails("Asset details");
-        asset.setStatus("SOLD");
+        asset.setStatus("CREATED");
         asset.setDepartment(department);
         asset.setWidth("width");
         asset.setModeOfAcquisition("ACQUIRED");

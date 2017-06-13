@@ -19,16 +19,16 @@ public class Otp {
         return this.identity;
     }
 
+    public void setIdentity(String identity) {
+        this.identity = identity;
+    }
+
     public String getUUID() {
         return UUID;
     }
 
     public void setUUID(String UUID) {
         this.UUID = UUID;
-    }
-
-    public void setIdentity(String identity) {
-        this.identity = identity;
     }
 
     public String getTenantId() {

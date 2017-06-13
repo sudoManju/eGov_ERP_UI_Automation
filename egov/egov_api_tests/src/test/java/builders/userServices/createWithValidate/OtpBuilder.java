@@ -6,26 +6,26 @@ public class OtpBuilder {
 
     Otp otp = new Otp();
 
-    public OtpBuilder(){
+    public OtpBuilder() {
         otp.setTenantId("default");
     }
 
-    public OtpBuilder withIdentity(String identity){
+    public OtpBuilder withIdentity(String identity) {
         otp.setIdentity(identity);
         return this;
     }
 
-    public OtpBuilder withOtp(String otpNumber){
+    public OtpBuilder withOtp(String otpNumber) {
         otp.setOtp(otpNumber);
         return this;
     }
 
-    public OtpBuilder withUuid(String uuid){
+    public OtpBuilder withUuid(String uuid) {
         otp.setUUID(uuid);
         return this;
     }
 
-    public Otp build(){
+    public Otp build() {
         return otp;
     }
 }

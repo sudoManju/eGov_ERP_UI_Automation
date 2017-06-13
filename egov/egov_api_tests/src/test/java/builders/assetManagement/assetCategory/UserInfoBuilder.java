@@ -6,11 +6,11 @@ public class UserInfoBuilder {
 
     UserInfo userInfo = new UserInfo();
 
-    public UserInfoBuilder(){
+    public UserInfoBuilder() {
         userInfo.setId(1);
     }
 
-    public UserInfo build(){
-       return userInfo;
+    public UserInfo build() {
+        return userInfo;
     }
 }

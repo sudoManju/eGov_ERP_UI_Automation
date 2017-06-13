@@ -7,12 +7,12 @@ public class UserDetailsRequestBuilder {
 
     UserDetailsRequest request = new UserDetailsRequest();
 
-    public UserDetailsRequestBuilder withRequestInfo(RequestInfo requestInfo){
+    public UserDetailsRequestBuilder withRequestInfo(RequestInfo requestInfo) {
         request.setRequestInfo(requestInfo);
         return this;
     }
 
-    public UserDetailsRequest build(){
+    public UserDetailsRequest build() {
         return request;
     }
 }

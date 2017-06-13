@@ -12,10 +12,10 @@ import com.jayway.restassured.response.Response;
 import entities.requests.eGovEIS.employee.SearchEmployeeRequest;
 import entities.requests.eGovEIS.employeeMaster.leaveType.create.LeaveTypeCreateRequest;
 import entities.requests.eGovEIS.employeeMaster.leaveType.search.LeaveTypeSearchRequest;
-import entities.requests.eGovEIS.leaveManagement.create.RequestInfo;
 import entities.requests.eGovEIS.leaveManagement.create.LeaveOpeningBalance;
 import entities.requests.eGovEIS.leaveManagement.create.LeaveType;
 import entities.requests.eGovEIS.leaveManagement.create.OpeningBalanceCreateRequest;
+import entities.requests.eGovEIS.leaveManagement.create.RequestInfo;
 import entities.requests.eGovEIS.leaveManagement.search.SearchOpeningBalanceRequest;
 import entities.responses.eGovEIS.employeeMaster.create.LeaveTypeResponse;
 import entities.responses.eGovEIS.leaveManagement.search.LeaveOpeningBalanceSearchResponse;
@@ -32,7 +32,6 @@ import utils.ResponseHelper;
 
 import java.io.IOException;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 public class LeaveOpeningBalanceCreateTest extends BaseAPITest {
 
@@ -306,6 +305,6 @@ public class LeaveOpeningBalanceCreateTest extends BaseAPITest {
                 ResponseHelper.getResponseAsObject(response.asString(), LeaveOpeningBalanceSearchResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals(leaveOpeningBalanceUpdateResponse.getLeaveOpeningBalance()[0].getNoOfDays(),openingBalanceCreateRequest.getLeaveOpeningBalance()[0].getNoOfDays() + 1);
+        Assert.assertEquals(leaveOpeningBalanceUpdateResponse.getLeaveOpeningBalance()[0].getNoOfDays(), openingBalanceCreateRequest.getLeaveOpeningBalance()[0].getNoOfDays() + 1);
     }
 }

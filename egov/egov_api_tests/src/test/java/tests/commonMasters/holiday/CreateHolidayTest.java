@@ -9,7 +9,6 @@ import entities.requests.commonMasters.createHoliday.CalendarYear;
 import entities.requests.commonMasters.createHoliday.CreateHolidayRequest;
 import entities.requests.commonMasters.createHoliday.Holiday;
 import entities.requests.commonMasters.createHoliday.RequestInfo;
-import entities.responses.login.LoginResponse;
 import org.junit.Assert;
 import org.testng.annotations.Test;
 import resources.CommonMasterResource;
@@ -21,7 +20,6 @@ import utils.RequestHelper;
 
 import java.io.IOException;
 
-import static data.UserData.ADMIN;
 import static data.UserData.NARASAPPA;
 
 public class CreateHolidayTest extends BaseAPITest {

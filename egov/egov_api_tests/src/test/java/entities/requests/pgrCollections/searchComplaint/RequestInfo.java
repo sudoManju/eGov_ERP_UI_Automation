@@ -1,7 +1,6 @@
 package entities.requests.pgrCollections.searchComplaint;
 
-public class RequestInfo
-{
+public class RequestInfo {
     private String apiId;
 
     private String ts;
@@ -20,93 +19,75 @@ public class RequestInfo
 
     private String key;
 
-    public String getApiId ()
-    {
+    public String getApiId() {
         return apiId;
     }
 
-    public void setApiId (String apiId)
-    {
+    public void setApiId(String apiId) {
         this.apiId = apiId;
     }
 
-    public String getTs ()
-    {
+    public String getTs() {
         return ts;
     }
 
-    public void setTs (String ts)
-    {
+    public void setTs(String ts) {
         this.ts = ts;
     }
 
-    public String getRequesterId ()
-    {
+    public String getRequesterId() {
         return requesterId;
     }
 
-    public void setRequesterId (String requesterId)
-    {
+    public void setRequesterId(String requesterId) {
         this.requesterId = requesterId;
     }
 
-    public String getAuthToken ()
-    {
+    public String getAuthToken() {
         return authToken;
     }
 
-    public void setAuthToken (String authToken)
-    {
+    public void setAuthToken(String authToken) {
         this.authToken = authToken;
     }
 
-    public String getMsgId ()
-    {
+    public String getMsgId() {
         return msgId;
     }
 
-    public void setMsgId (String msgId)
-    {
+    public void setMsgId(String msgId) {
         this.msgId = msgId;
     }
 
-    public String getAction ()
-    {
+    public String getAction() {
         return action;
     }
 
-    public void setAction (String action)
-    {
+    public void setAction(String action) {
         this.action = action;
     }
 
-    public String getDid ()
-    {
+    public String getDid() {
         return did;
     }
 
-    public void setDid (String did)
-    {
+    public void setDid(String did) {
         this.did = did;
     }
 
-    public String getVer ()
-    {
+    public String getVer() {
         return ver;
     }
 
-    public void setVer (String ver)
-    {
+    public void setVer(String ver) {
         this.ver = ver;
     }
 
-    public String getKey ()
-    {
+    public String getKey() {
         return key;
     }
 
-    public void setKey (String key)
-    {
+    public void setKey(String key) {
         this.key = key;
     }
 

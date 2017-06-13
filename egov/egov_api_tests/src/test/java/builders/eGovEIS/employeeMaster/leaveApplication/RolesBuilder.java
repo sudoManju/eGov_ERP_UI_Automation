@@ -6,11 +6,11 @@ public class RolesBuilder {
 
     Roles roles = new Roles();
 
-    public RolesBuilder(){
+    public RolesBuilder() {
         roles.setName("assistantEngineer");
     }
 
-    public Roles build(){
+    public Roles build() {
         return roles;
     }
 }

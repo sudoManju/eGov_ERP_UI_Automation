@@ -2,7 +2,7 @@ package builders.assetManagement.assetService;
 
 import entities.responses.assetManagement.assetServices.LocationDetails;
 
-public final class LocationDetailsBuilder {
+public class LocationDetailsBuilder {
 
     LocationDetails locationDetails = new LocationDetails();
 

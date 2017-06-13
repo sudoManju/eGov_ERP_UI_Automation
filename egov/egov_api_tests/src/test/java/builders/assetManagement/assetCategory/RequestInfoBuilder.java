@@ -9,11 +9,11 @@ public class RequestInfoBuilder {
 
     UserInfo userInfo = new UserInfoBuilder().build();
 
-    public RequestInfoBuilder(){
+    public RequestInfoBuilder() {
         requestInfo.setUserInfo(userInfo);
     }
 
-    public RequestInfo build(){
+    public RequestInfo build() {
         return requestInfo;
     }
 }

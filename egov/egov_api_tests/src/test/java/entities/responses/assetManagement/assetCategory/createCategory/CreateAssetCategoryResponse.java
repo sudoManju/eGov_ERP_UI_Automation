@@ -1,4 +1,4 @@
-package entities.responses.assetManagement.assetCategory;
+package entities.responses.assetManagement.assetCategory.createCategory;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 

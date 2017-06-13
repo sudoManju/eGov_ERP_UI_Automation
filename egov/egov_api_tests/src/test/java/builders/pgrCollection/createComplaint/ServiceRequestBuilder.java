@@ -14,24 +14,24 @@ public final class ServiceRequestBuilder {
     Values values1 = new ValuesBuilder("update").build();
 
     public ServiceRequestBuilder() {
-       serviceRequest.setServiceCode("PHDMG");
-       serviceRequest.setDescription("Testing the create");
-       serviceRequest.setAddressId("127");
-       serviceRequest.setLat("0");
-       serviceRequest.setLng("0");
-       serviceRequest.setAddress("");
-       serviceRequest.setServiceRequestId("");
-       serviceRequest.setFirstName("Sanjeev");
-       serviceRequest.setPhone("9999999999");
-       serviceRequest.setEmail("sanjeev@testing.com");
-       serviceRequest.setStatus(true);
-       serviceRequest.setServiceName("Public Health/Dengue/Malaria/Gastro-enteritis");
-       serviceRequest.setRequestedDatetime("");
-       serviceRequest.setMediaUrl("");
-       serviceRequest.setTenantId("default");
-       serviceRequest.setServiceRequestId("");
-       serviceRequest.setAttribValues(attribValues);
-       serviceRequest.setAttribValuesPopulated(true);
+        serviceRequest.setServiceCode("PHDMG");
+        serviceRequest.setDescription("Testing the create");
+        serviceRequest.setAddressId("127");
+        serviceRequest.setLat("0");
+        serviceRequest.setLng("0");
+        serviceRequest.setAddress("");
+        serviceRequest.setServiceRequestId("");
+        serviceRequest.setFirstName("Sanjeev");
+        serviceRequest.setPhone("9999999999");
+        serviceRequest.setEmail("sanjeev@testing.com");
+        serviceRequest.setStatus(true);
+        serviceRequest.setServiceName("Public Health/Dengue/Malaria/Gastro-enteritis");
+        serviceRequest.setRequestedDatetime("");
+        serviceRequest.setMediaUrl("");
+        serviceRequest.setTenantId("default");
+        serviceRequest.setServiceRequestId("");
+        serviceRequest.setAttribValues(attribValues);
+        serviceRequest.setAttribValuesPopulated(true);
     }
 
     public ServiceRequestBuilder(String update) {
@@ -55,7 +55,7 @@ public final class ServiceRequestBuilder {
         serviceRequest.setAttribValuesPopulated(true);
     }
 
-    public ServiceRequestBuilder withServiceRequestId(String id){
+    public ServiceRequestBuilder withServiceRequestId(String id) {
         serviceRequest.setServiceRequestId(id);
         return this;
     }

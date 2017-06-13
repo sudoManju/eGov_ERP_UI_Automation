@@ -8,16 +8,16 @@ public class CreateOtpRequestBuilder {
 
     CreateOtpRequest request = new CreateOtpRequest();
 
-    public CreateOtpRequest build(){
+    public CreateOtpRequest build() {
         return request;
     }
 
-    public CreateOtpRequestBuilder withRequestInfo(RequestInfo requestInfo){
+    public CreateOtpRequestBuilder withRequestInfo(RequestInfo requestInfo) {
         request.setRequestInfo(requestInfo);
         return this;
     }
 
-    public CreateOtpRequestBuilder withOtp(Otp otp){
+    public CreateOtpRequestBuilder withOtp(Otp otp) {
         request.setOtp(otp);
         return this;
     }

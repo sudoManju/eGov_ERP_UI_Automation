@@ -7,14 +7,15 @@ public class SearchComplaintRequestBuilder {
 
     SearchComplaintRequest request = new SearchComplaintRequest();
 
-    public SearchComplaintRequestBuilder(){}
+    public SearchComplaintRequestBuilder() {
+    }
 
-    public SearchComplaintRequestBuilder withRequestInfo(RequestInfo requestInfo){
+    public SearchComplaintRequestBuilder withRequestInfo(RequestInfo requestInfo) {
         request.setRequestInfo(requestInfo);
         return this;
     }
 
-    public SearchComplaintRequest build(){
+    public SearchComplaintRequest build() {
         return request;
     }
 }

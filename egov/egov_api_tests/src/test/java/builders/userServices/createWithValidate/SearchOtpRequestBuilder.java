@@ -8,17 +8,17 @@ public class SearchOtpRequestBuilder {
 
     SearchOtpRequest request = new SearchOtpRequest();
 
-    public SearchOtpRequestBuilder withRequestInfo(RequestInfo requestInfo){
+    public SearchOtpRequestBuilder withRequestInfo(RequestInfo requestInfo) {
         request.setRequestInfo(requestInfo);
         return this;
     }
 
-    public SearchOtpRequestBuilder withOtp(Otp otp){
+    public SearchOtpRequestBuilder withOtp(Otp otp) {
         request.setOtp(otp);
         return this;
     }
 
-    public SearchOtpRequest build(){
+    public SearchOtpRequest build() {
         return request;
     }
 }

@@ -4,18 +4,18 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class GetUserRequest {
 
-   @JsonProperty("RequestInfo")
-   RequestInfo requestInfo;
+    @JsonProperty("RequestInfo")
+    RequestInfo requestInfo;
 
-   String tenantId;
+    String tenantId;
 
-   int[] id;
+    int[] id;
 
-   String userName;
+    String userName;
 
-   String userType;
+    String userType;
 
-   boolean active;
+    boolean active;
 
     public int[] getId() {
         return id;

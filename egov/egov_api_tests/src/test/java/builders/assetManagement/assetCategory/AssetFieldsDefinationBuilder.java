@@ -13,39 +13,39 @@ public class AssetFieldsDefinationBuilder {
 
     Columns columns2 = new ColumnsBuilder("").build();
 
-    public AssetFieldsDefinationBuilder(String name){
+    public AssetFieldsDefinationBuilder(String name) {
 
-        switch (name){
+        switch (name) {
 
-            case "shoppingComplex" :
+            case "shoppingComplex":
                 assetFieldsDefination.setName("Shopping complex name1");
                 assetFieldsDefination.setType("Text");
                 assetFieldsDefination.setIsActive(true);
 
                 break;
 
-            case "shoppingName" :
+            case "shoppingName":
                 assetFieldsDefination.setName("shopping complex no1");
                 assetFieldsDefination.setType("Text");
                 assetFieldsDefination.setIsActive(true);
 
                 break;
 
-            case "Floor" :
+            case "Floor":
                 assetFieldsDefination.setName("No of floors1");
                 assetFieldsDefination.setType("text");
                 assetFieldsDefination.setIsActive(true);
 
                 break;
 
-            case "Shops" :
+            case "Shops":
                 assetFieldsDefination.setName("No of shops1");
                 assetFieldsDefination.setType("text");
                 assetFieldsDefination.setIsActive(true);
 
                 break;
 
-            case "FloorDetails" :
+            case "FloorDetails":
                 assetFieldsDefination.setName("Floor Details 1");
                 assetFieldsDefination.setType("Table");
                 columnses[0] = columns1;
@@ -56,7 +56,7 @@ public class AssetFieldsDefinationBuilder {
         }
     }
 
-    public AssetFieldsDefination build(){
+    public AssetFieldsDefination build() {
         return assetFieldsDefination;
     }
 }

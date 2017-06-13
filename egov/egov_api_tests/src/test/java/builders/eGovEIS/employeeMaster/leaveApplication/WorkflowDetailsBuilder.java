@@ -6,7 +6,7 @@ public class WorkflowDetailsBuilder {
 
     WorkflowDetails workflowDetails = new WorkflowDetails();
 
-    public WorkflowDetailsBuilder(){
+    public WorkflowDetailsBuilder() {
         workflowDetails.setDepartment("");
         workflowDetails.setDesignation("");
         workflowDetails.setAssignee(82);
@@ -14,7 +14,7 @@ public class WorkflowDetailsBuilder {
         workflowDetails.setStatus("");
     }
 
-    public WorkflowDetails build(){
+    public WorkflowDetails build() {
         return workflowDetails;
     }
- }
+}

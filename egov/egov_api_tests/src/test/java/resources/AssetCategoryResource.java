@@ -10,7 +10,7 @@ public class AssetCategoryResource {
 
     public Response create(String json, String sessionId) {
 
-        new APILogger().log("Create Asset Category Test Request is Started with--" + json);
+        new APILogger().log("Create Asset Category Test Request is Started with --" + json);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
                 .header("cookie", "SESSIONID=" + sessionId)
@@ -22,17 +22,18 @@ public class AssetCategoryResource {
         return response;
     }
 
-    public Response search(String json, String sessionId,String code) {
+    public Response search(String json, String sessionId, String code) {
+        String path = code != null ? "&code=" + code : null;
 
-        new APILogger().log("Search Asset Category Request Test is started with --" + json);
+        new APILogger().log("Search Asset Category Request Test is Started with --" + json);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
                 .header("cookie", "SESSIONID=" + sessionId)
                 .body(json)
                 .when()
-                .post(Properties.assetCategorySearchUrl+"&code="+code);
+                .post(Properties.assetCategorySearchUrl + path);
 
-        new APILogger().log("Search Asset Category Response Test is Generated with --" + response.asString());
+        new APILogger().log("Search Asset Category Response Test is Generated as --" + response.asString());
         return response;
     }
 }

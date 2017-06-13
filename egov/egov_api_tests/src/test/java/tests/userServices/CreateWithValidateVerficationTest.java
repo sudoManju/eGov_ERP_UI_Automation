@@ -1,14 +1,10 @@
 package tests.userServices;
 
-import builders.userServices.createNoValidate.*;
+import builders.userServices.createNoValidate.GetUserRequestBuilder;
 import builders.userServices.createWithValidate.*;
-import builders.userServices.createWithValidate.RequestInfoBuilder;
-import builders.userServices.createWithValidate.UserBuilder;
 import com.jayway.restassured.response.Response;
-import entities.requests.userServices.createNoValidate.*;
+import entities.requests.userServices.createNoValidate.GetUserRequest;
 import entities.requests.userServices.createWithValidate.*;
-import entities.requests.userServices.createWithValidate.RequestInfo;
-import entities.requests.userServices.createWithValidate.User;
 import entities.responses.login.LoginResponse;
 import entities.responses.userServices.createUser.UserResponse;
 import entities.responses.userServices.createUserWithValidation.OtpResponse;
@@ -48,10 +44,10 @@ public class CreateWithValidateVerficationTest extends BaseAPITest {
         UserResponse user = createUser(loginResponse, validatedOtp);
 
         //Get User Details with id
-        getTheNewlyCreatedUser(loginResponse,user,"id");
+        getTheNewlyCreatedUser(loginResponse, user, "id");
 
         //Get User Details with username
-        getTheNewlyCreatedUser(loginResponse,user,"userName");
+        getTheNewlyCreatedUser(loginResponse, user, "userName");
     }
 
     private void searchOtp(OtpResponse otpGene, LoginResponse loginResponse) throws IOException {

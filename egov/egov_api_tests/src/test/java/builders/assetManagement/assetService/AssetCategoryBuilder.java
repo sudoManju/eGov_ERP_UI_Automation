@@ -2,7 +2,7 @@ package builders.assetManagement.assetService;
 
 import entities.responses.assetManagement.assetServices.AssetCategory;
 
-public final class AssetCategoryBuilder {
+public class AssetCategoryBuilder {
 
     AssetCategory assetCategory = new AssetCategory();
 

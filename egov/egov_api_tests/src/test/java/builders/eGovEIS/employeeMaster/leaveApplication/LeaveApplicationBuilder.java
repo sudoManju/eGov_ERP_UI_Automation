@@ -10,7 +10,7 @@ public class LeaveApplicationBuilder {
     LeaveType leaveType = new LeaveTypeBuilder().build();
     WorkflowDetails workflowDetails = new WorkflowDetailsBuilder().build();
 
-    public LeaveApplicationBuilder(){
+    public LeaveApplicationBuilder() {
         leaveApplication.setEmployee(82);
         leaveApplication.setFromDate("05/05/2017");
         leaveApplication.setToDate("05/05/2017");
@@ -24,7 +24,7 @@ public class LeaveApplicationBuilder {
         leaveApplication.setWorkflowDetails(workflowDetails);
     }
 
-    public LeaveApplication build(){
+    public LeaveApplication build() {
         return leaveApplication;
     }
 }
