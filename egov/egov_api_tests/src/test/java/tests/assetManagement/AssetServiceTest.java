@@ -8,7 +8,6 @@ import entities.requests.assetManagement.RequestInfo;
 import entities.requests.assetManagement.SearchAssetRequest;
 import entities.requests.assetManagement.assetService.CreateAssetServiceRequest;
 import entities.responses.assetManagement.assetService.AssetServiceResponse;
-import entities.responses.login.LoginResponse;
 import org.junit.Assert;
 import org.testng.annotations.Test;
 import resources.AssetServiceResource;
@@ -17,19 +16,15 @@ import utils.*;
 
 import java.io.IOException;
 
-import static data.UserData.ADMIN;
 import static data.UserData.AssetServiceUser;
-import static data.UserData.MALATHI;
 
 public class AssetServiceTest extends BaseAPITest {
 
-    @Test(groups = {Categories.ASSET, Categories.SANITY})
+    @Test(groups = {Categories.ASSET, Categories.SANITY, Categories.PILOT})
     public void searchAssetService() throws IOException {
 
         // Login Test
         String sessionId = LoginAndLogoutHelper.loginFromPilotService(AssetServiceUser);
-
-
         // Search Asset Service Test
         searchAssetServiceTestMethod(sessionId);
     }
@@ -59,22 +54,22 @@ public class AssetServiceTest extends BaseAPITest {
     public void createAssetService() throws IOException {
 
         // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(MALATHI);
+        String sessionId = LoginAndLogoutHelper.loginFromPilotService(AssetServiceUser);
 
         // Create Asset Service Test
-        createAssetServiceTestMethod(loginResponse);
+        createAssetServiceTestMethod(sessionId);
 
     }
 
-    private void createAssetServiceTestMethod(LoginResponse loginResponse) throws IOException {
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
+    private void createAssetServiceTestMethod(String sessionId) throws IOException {
+        RequestInfo requestInfo = new RequestInfoBuilder().build();
 
         CreateAssetServiceRequest createAssetServiceRequest = new CreateAssetServiceRequestBuilder().withRequestInfo(requestInfo)
                 .build();
 
         String jsonString = RequestHelper.getJsonString(createAssetServiceRequest);
 
-        Response response = new AssetServiceResource().getCreateAssetService(jsonString, loginResponse.getAccess_token());
+        Response response = new AssetServiceResource().getCreateAssetService(jsonString, sessionId);
 
         AssetServiceResponse assetServiceResponse = (AssetServiceResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), AssetServiceResponse.class);

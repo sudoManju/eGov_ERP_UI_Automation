@@ -22,12 +22,12 @@ public class AssetServiceResource {
         return response;
     }
 
-    public Response getCreateAssetService(String jsonString, String auth_token) {
-
+    public Response getCreateAssetService(String jsonString, String sessionId) {
+        System.out.println(Properties.createAssetServiceUrl);
         new APILogger().log("Create Asset Service Request is started with --" + jsonString);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
-                .header("auth-token", auth_token)
+                .header("cookie", "SESSIONID=" + sessionId)
                 .body(jsonString)
                 .when()
                 .post(Properties.createAssetServiceUrl);
