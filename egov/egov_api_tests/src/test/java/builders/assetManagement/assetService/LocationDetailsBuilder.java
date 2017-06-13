@@ -1,6 +1,6 @@
 package builders.assetManagement.assetService;
 
-import entities.responses.assetManagement.assetService.LocationDetails;
+import entities.responses.assetManagement.assetServices.LocationDetails;
 
 public final class LocationDetailsBuilder {
 

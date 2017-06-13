@@ -1,9 +1,8 @@
 package entities.requests.assetManagement.assetCategory;
 
-import entities.requests.assetManagement.RequestInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class AssetCategoryCreateRequest {
+public class CreateAssetCategoryRequest {
 
     @JsonProperty("AssetCategory")
     private AssetCategory AssetCategory;
@@ -12,7 +11,7 @@ public class AssetCategoryCreateRequest {
     private RequestInfo RequestInfo;
 
     public AssetCategory getAssetCategory() {
-        return AssetCategory;
+        return this.AssetCategory;
     }
 
     public void setAssetCategory(AssetCategory AssetCategory) {
@@ -20,7 +19,7 @@ public class AssetCategoryCreateRequest {
     }
 
     public RequestInfo getRequestInfo() {
-        return RequestInfo;
+        return this.RequestInfo;
     }
 
     public void setRequestInfo(RequestInfo RequestInfo) {

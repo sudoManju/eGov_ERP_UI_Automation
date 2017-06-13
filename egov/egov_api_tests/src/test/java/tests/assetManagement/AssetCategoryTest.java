@@ -1,82 +1,70 @@
 package tests.assetManagement;
 
-import builders.assetManagement.RequestInfoBuilder;
-import builders.assetManagement.assetCategory.AssetCategoryCreateRequestBuilder;
-import builders.assetManagement.assetCategory.AssetCategorySearchRequestBuilder;
+import builders.assetManagement.assetCategory.AssetCategoryBuilder;
+import builders.assetManagement.assetCategory.CreateAssetCategoryRequestBuilder;
+import builders.assetManagement.assetCategory.SearchAssetCategoryRequestBuilder;
 import com.jayway.restassured.response.Response;
-import entities.requests.assetManagement.RequestInfo;
-import entities.requests.assetManagement.SearchAssetRequest;
-import entities.requests.assetManagement.assetCategory.AssetCategoryCreateRequest;
-import entities.responses.assetManagement.assetCategory.AssetCategoryResponse;
-import entities.responses.login.LoginResponse;
+import entities.requests.assetManagement.assetCategory.AssetCategory;
+import entities.requests.assetManagement.assetCategory.CreateAssetCategoryRequest;
+import entities.requests.assetManagement.assetCategory.SearchAssetCategoryRequest;
+import entities.responses.assetManagement.assetCategory.CreateAssetCategoryResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.AssetCategoryResource;
 import tests.BaseAPITest;
-import utils.*;
+import utils.APILogger;
+import utils.LoginAndLogoutHelper;
+import utils.RequestHelper;
+import utils.ResponseHelper;
 
 import java.io.IOException;
 
 import static data.UserData.ADMIN;
-import static data.UserData.NARASAPPA;
 
 public class AssetCategoryTest extends BaseAPITest {
 
-    @Test(groups = {Categories.ASSET, Categories.SANITY, Categories.PILOT})
-    public void CreateAssetCategoryTest() throws IOException {
 
-        // Login Test
-        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN);
+    @Test
+    public void assetCategoryTest() throws IOException {
 
-        // Create Asset Category Test
-        createAssetCategoryTestMethod(sessionId);
+        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN);  //Login
+
+        CreateAssetCategoryResponse create = createAssetCategoryTest(sessionId);
+
+        searchAssetCategoryTest(sessionId,create.getAssetCategory()[0].getCode());
     }
 
-    private void createAssetCategoryTestMethod(String sessionId) throws IOException {
-        RequestInfo requestInfo = new RequestInfoBuilder().build();
-        AssetCategoryCreateRequest request = new AssetCategoryCreateRequestBuilder().withRequestInfo(requestInfo).build();
+    private void searchAssetCategoryTest(String sessionId, String code) {
+
+        new APILogger().log("Search Asset Category Test started");
+
+        SearchAssetCategoryRequest request = new SearchAssetCategoryRequestBuilder().build();
 
         String jsonString = RequestHelper.getJsonString(request);
-        Response response = new AssetCategoryResource().create(jsonString, sessionId);
 
-        AssetCategoryResponse assetCategoryResponse = (AssetCategoryResponse)
-                ResponseHelper.getResponseAsObject(response.asString(), AssetCategoryResponse.class);
+        Response response = new AssetCategoryResource().search(jsonString,sessionId,code);
 
-        Assert.assertEquals(response.getStatusCode(), 201);
-        Assert.assertEquals(assetCategoryResponse.getAssetCategory()[0].getName(), request.getAssetCategory().getName());
-
-        new APILogger().log("Create Asset Category Test is Completed --");
-
-        // Logout Test
-        pilotLogoutService(sessionId);
+        Assert.assertEquals(response.getStatusCode(),200);
     }
 
-    @Test(groups = {Categories.ASSET, Categories.SANITY, Categories.PILOT})
-    public void SearchAssetCategoryTest() throws IOException {
+    private CreateAssetCategoryResponse createAssetCategoryTest(String id) throws IOException {
 
-        // Login Test
-        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN);
+        new APILogger().log("Create Asset Category Test started");
 
-        // Search Asset Category Test
-        searchAssetCategoryTestMethod(sessionId);
-    }
+        AssetCategory category = new AssetCategoryBuilder().withName("Shop_"+get3DigitRandomInt()).build();
 
-    private void searchAssetCategoryTestMethod(String sessionId) throws IOException {
-        RequestInfo requestInfo = new RequestInfoBuilder().build();
+        CreateAssetCategoryRequest request = new CreateAssetCategoryRequestBuilder().withAssetCategory(category).build();
 
-        SearchAssetRequest request = new AssetCategorySearchRequestBuilder().withRequestInfo(requestInfo).build();
         String jsonString = RequestHelper.getJsonString(request);
 
-        Response response = new AssetCategoryResource().search(jsonString, sessionId);
+        Response response = new AssetCategoryResource().create(jsonString,id);
 
-        AssetCategoryResponse assetCategoryResponse = (AssetCategoryResponse)
-                ResponseHelper.getResponseAsObject(response.asString(), AssetCategoryResponse.class);
+        Assert.assertEquals(response.getStatusCode(),201);
 
-        Assert.assertEquals(response.getStatusCode(), 200);
+        CreateAssetCategoryResponse response1 = (CreateAssetCategoryResponse)
+                ResponseHelper.getResponseAsObject(response.asString(),CreateAssetCategoryResponse.class);
 
-        new APILogger().log("Search Asset Category Test is Completed --");
-
-        // Logout Test
-        pilotLogoutService(sessionId);
+        return response1;
     }
+
 }

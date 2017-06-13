@@ -1,4 +1,4 @@
-package entities.responses.assetManagement.assetService;
+package entities.responses.assetManagement.assetServices;
 
 public class Assets {
     private String code;

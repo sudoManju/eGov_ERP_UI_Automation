@@ -1,10 +1,10 @@
 package builders.assetManagement.assetService;
 
 import entities.requests.assetManagement.assetService.Asset;
-import entities.responses.assetManagement.assetService.AssetCategory;
-import entities.responses.assetManagement.assetService.Department;
-import entities.responses.assetManagement.assetService.LocationDetails;
-import entities.responses.assetManagement.assetService.Properties;
+import entities.responses.assetManagement.assetServices.AssetCategory;
+import entities.responses.assetManagement.assetServices.Department;
+import entities.responses.assetManagement.assetServices.LocationDetails;
+import entities.responses.assetManagement.assetServices.Properties;
 
 public final class AssetBuilder {
 

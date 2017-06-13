@@ -1,6 +1,6 @@
 package builders.assetManagement.assetService;
 
-import entities.responses.assetManagement.assetService.AssetCategory;
+import entities.responses.assetManagement.assetServices.AssetCategory;
 
 public final class AssetCategoryBuilder {
 

@@ -1,6 +1,6 @@
 package builders.assetManagement.assetService;
 
-import entities.responses.assetManagement.assetService.Properties;
+import entities.responses.assetManagement.assetServices.Properties;
 
 public final class PropertiesBuilder {
 

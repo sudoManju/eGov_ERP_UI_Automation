@@ -1,26 +1,32 @@
 package entities.requests.assetManagement.assetCategory;
-
-public class CustomFields {
-    private String isActive;
+public class Columns
+{
+    private Boolean isActive;
 
     private String localText;
 
     private String values;
 
+    private String order;
+
     private String regExFormate;
 
-    private String isMandatory;
+    private Boolean isMandatory;
 
     private String name;
 
+    private String columns;
+
     private String type;
 
-    public String getIsActive() {
+    private String url;
+
+    public Boolean getActive() {
         return isActive;
     }
 
-    public void setIsActive(String isActive) {
-        this.isActive = isActive;
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 
     public String getLocalText() {
@@ -39,6 +45,14 @@ public class CustomFields {
         this.values = values;
     }
 
+    public String getOrder() {
+        return order;
+    }
+
+    public void setOrder(String order) {
+        this.order = order;
+    }
+
     public String getRegExFormate() {
         return regExFormate;
     }
@@ -47,12 +61,12 @@ public class CustomFields {
         this.regExFormate = regExFormate;
     }
 
-    public String getIsMandatory() {
+    public Boolean getMandatory() {
         return isMandatory;
     }
 
-    public void setIsMandatory(String isMandatory) {
-        this.isMandatory = isMandatory;
+    public void setMandatory(Boolean mandatory) {
+        isMandatory = mandatory;
     }
 
     public String getName() {
@@ -63,11 +77,27 @@ public class CustomFields {
         this.name = name;
     }
 
+    public String getColumns() {
+        return columns;
+    }
+
+    public void setColumns(String columns) {
+        this.columns = columns;
+    }
+
     public String getType() {
         return type;
     }
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

@@ -1,9 +1,9 @@
-package entities.requests.assetManagement.assetCategory;
+package entities.responses.assetManagement.assetCategory;
 
 public class AssetCategory {
     private int unitOfMeasurement;
     private Object parent;
-    private Object code;
+    private String code;
     private int assetAccount;
     private String depreciationMethod;
     private String version;
@@ -34,11 +34,11 @@ public class AssetCategory {
         this.parent = parent;
     }
 
-    public Object getCode() {
+    public String getCode() {
         return this.code;
     }
 
-    public void setCode(Object code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
