@@ -64,39 +64,41 @@ public class EgovEISResource {
     }
 
     public Response createEmployee(String jsonData) {
-        new APILogger().log("Create createEmployee Request Test is started with-- " + jsonData);
+        new APILogger().log("Create createEmployee Request Test is started with -- " + jsonData);
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
                 .header("Content-Type", "application/json")
                 .body(jsonData).when()
                 .post(Properties.createEmployeeUrl);
 
-        new APILogger().log("Create createEmployee Response Test is generated as-- " + response.asString());
+        new APILogger().log("Create createEmployee Response Test is generated as -- " + response.asString());
         return response;
     }
 
-    public Response searchEmployeeLeave(String jsonData) {
-        new APILogger().log("Search Employee Leave Request Test is started with-- " + jsonData);
+    public Response searchEmployeeLeaveTypesResource(String jsonData, String sessionId) {
+        new APILogger().log("Search Employee Leave Types Test Request is Started with -- " + jsonData);
 
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
+                .header("cookie", "SESSIONID=" + sessionId)
                 .body(jsonData)
                 .when()
                 .post(Properties.searchEmployeeLeaveUrl);
 
-        new APILogger().log("Search Employee Leave Response Test is generated as-- " + response.asString());
+        new APILogger().log("Search Employee Leave Types Test Response is Generated as -- " + response.asString());
         return response;
     }
 
-    public Response searchLeaveApplications(String jsonData) {
-        new APILogger().log("Search Leave Applications Test is started with-- " + jsonData);
+    public Response searchEmployeeLeaveApplicationsResource(String jsonData, String sessionId) {
+        new APILogger().log("Search Employee Leave Applications Test Request is Started with -- " + jsonData);
 
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
+                .header("cookie", "SESSIONID=" + sessionId)
                 .body(jsonData).when()
                 .post(Properties.eisSearchLeaveApplicationsUrl);
 
-        new APILogger().log("Search Leave Applications Test is completed with-- " + response.asString());
+        new APILogger().log("Search Employee Leave Applications Test Response is Generated with -- " + response.asString());
         return response;
     }
 
