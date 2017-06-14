@@ -11,8 +11,8 @@ public final class ComplaintRequestBuilder {
     ServiceRequest serviceRequest = new ServiceRequestBuilder().build();
     RequestInfo requestInfo = new RequestInfoBuilder().build();
 
-    ServiceRequest serviceRequest1 = new ServiceRequestBuilder("update").build();
-    RequestInfo requestInfo1 = new RequestInfoBuilder("update").build();
+    ServiceRequest serviceRequest1 = new ServiceRequestBuilder("updateLeaveTypeResource").build();
+    RequestInfo requestInfo1 = new RequestInfoBuilder("updateLeaveTypeResource").build();
 
     public ComplaintRequestBuilder() {
         complaintRequest.setServiceRequest(serviceRequest);

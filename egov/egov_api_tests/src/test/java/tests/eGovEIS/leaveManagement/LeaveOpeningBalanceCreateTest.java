@@ -123,7 +123,7 @@ public class LeaveOpeningBalanceCreateTest extends BaseAPITest {
                 .withRequestInfo(requestInfo)
                 .build();
 
-        Response response = new LeaveTypeResource().search(RequestHelper.getJsonString(leaveTypeSearchRequest));
+        Response response = new LeaveTypeResource().searchLeaveTypeResource(RequestHelper.getJsonString(leaveTypeSearchRequest), "sessionId");
 
         LeaveTypeResponse leaveTypeSearchResponse = (LeaveTypeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), LeaveTypeResponse.class);
@@ -169,7 +169,7 @@ public class LeaveOpeningBalanceCreateTest extends BaseAPITest {
                 .withLeaveType(leaveTypes)
                 .build();
 
-        Response response = new LeaveTypeResource().create(RequestHelper.getJsonString(leaveTypeCreateRequest));
+        Response response = new LeaveTypeResource().createLeaveTypeResource(RequestHelper.getJsonString(leaveTypeCreateRequest), "sessionId");
 
         LeaveTypeResponse leaveTypeCreateResponse = (LeaveTypeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), LeaveTypeResponse.class);
@@ -184,7 +184,7 @@ public class LeaveOpeningBalanceCreateTest extends BaseAPITest {
                 .withRequestInfo(requestInfo1)
                 .build();
 
-        Response response1 = new LeaveTypeResource().search(RequestHelper.getJsonString(leaveTypeSearchRequest));
+        Response response1 = new LeaveTypeResource().searchLeaveTypeResource(RequestHelper.getJsonString(leaveTypeSearchRequest), "sessionId");
 
         LeaveTypeResponse leaveTypeSearchResponse = (LeaveTypeResponse)
                 ResponseHelper.getResponseAsObject(response1.asString(), LeaveTypeResponse.class);

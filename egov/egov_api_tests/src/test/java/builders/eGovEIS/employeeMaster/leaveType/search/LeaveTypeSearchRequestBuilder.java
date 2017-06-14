@@ -3,7 +3,7 @@ package builders.eGovEIS.employeeMaster.leaveType.search;
 import entities.requests.eGovEIS.employeeMaster.RequestInfo;
 import entities.requests.eGovEIS.employeeMaster.leaveType.search.LeaveTypeSearchRequest;
 
-public final class LeaveTypeSearchRequestBuilder {
+public class LeaveTypeSearchRequestBuilder {
 
     LeaveTypeSearchRequest leaveTypeSearchRequest = new LeaveTypeSearchRequest();
     RequestInfo requestInfo = new RequestInfo();

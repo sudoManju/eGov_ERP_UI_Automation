@@ -2,43 +2,47 @@ package resources.employeeMaster;
 
 import com.jayway.restassured.response.Response;
 import utils.APILogger;
+import utils.Properties;
 
 import static com.jayway.restassured.RestAssured.given;
 
 public class LeaveTypeResource {
 
-    public Response create(String json) {
+    public Response createLeaveTypeResource(String json, String sessionId) {
 
         new APILogger().log("Create Leave Type Test Request is Started with--" + json);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
+                .header("cookie", "SESSIONID=" + sessionId)
                 .body(json)
                 .when()
-                .post("http://10.0.0.151:32656/hr-leave/leavetypes/_create?tenantId=ap.kurnool");
+                .post(Properties.createLeaveTypeUrl);
 
         new APILogger().log("Create Leave Type Test Response is Generated as  --" + response.asString());
         return response;
     }
 
-    public Response search(String json) {
+    public Response searchLeaveTypeResource(String json, String sessionId) {
         new APILogger().log("Search Leave Type Test Request is Started with--" + json);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
+                .header("cookie", "SESSIONID=" + sessionId)
                 .body(json)
                 .when()
-                .post("http://10.0.0.151:32656/hr-leave/leavetypes/_search?tenantId=ap.kurnool&pageSize=100");
+                .post(Properties.searchLeaveTypeUrl);
 
         new APILogger().log("Search Leave Type Test Response is Generated as  --" + response.asString());
         return response;
     }
 
-    public Response update(String json, int leaveId) {
+    public Response updateLeaveTypeResource(String json, int leaveId, String sessionId) {
         new APILogger().log("Update Leave Type Test Request is Started with--" + json);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
+                .header("cookie", "SESSIONID=" + sessionId)
                 .body(json)
                 .when()
-                .post("http://10.0.0.151:32656/hr-leave/leavetypes/" + leaveId + "/_update");
+                .post("http://kurnool-pilot-services.egovernments.org/hr-leave/leavetypes/" + leaveId + "/_update?tenantId=ap.kurnool");
 
         new APILogger().log("Update Leave Type Test Response is Generated as  --" + response.asString());
         return response;

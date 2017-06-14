@@ -11,7 +11,7 @@ public final class ServiceRequestBuilder {
 
     AttribValues[] attribValues1 = new AttribValuesBuilder("PROCESSING").build();
 
-    Values values1 = new ValuesBuilder("update").build();
+    Values values1 = new ValuesBuilder("updateLeaveTypeResource").build();
 
     public ServiceRequestBuilder() {
         serviceRequest.setServiceCode("PHDMG");
@@ -39,7 +39,7 @@ public final class ServiceRequestBuilder {
         serviceRequest.setStatus(false);
         serviceRequest.setServiceName("Bio Medical waste/Health hazard waste removal");
         serviceRequest.setServiceCode("BMWHHWR");
-        serviceRequest.setDescription("Testing for update");
+        serviceRequest.setDescription("Testing for updateLeaveTypeResource");
         serviceRequest.setRequestedDatetime("22-03-2017 10:47:21");
         serviceRequest.setAddress("");
         serviceRequest.setAddressId(null);

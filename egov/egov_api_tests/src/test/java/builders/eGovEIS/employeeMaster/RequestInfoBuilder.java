@@ -2,18 +2,19 @@ package builders.eGovEIS.employeeMaster;
 
 import entities.requests.eGovEIS.employeeMaster.RequestInfo;
 
-public final class RequestInfoBuilder {
+public class RequestInfoBuilder {
 
     RequestInfo requestInfo = new RequestInfo();
 
     public RequestInfoBuilder() {
-        requestInfo.setApiId("emp");
-        requestInfo.setVer("1.0");
+        requestInfo.setApiId("");
+        requestInfo.setVer("1");
         requestInfo.setTs("10-03-2017 00:00:00");
-        requestInfo.setAction("createLeaveApplicationResource");
-        requestInfo.setKey("abcdkey");
-        requestInfo.setMsgId("20170310130900");
-        requestInfo.setRequesterId("1");
+        requestInfo.setAction("createLeaveTypeResource");
+        requestInfo.setKey("");
+        requestInfo.setMsgId("");
+        requestInfo.setRequesterId("");
+        requestInfo.setAuthToken("aeiou");
     }
 
     public RequestInfoBuilder withVer(String ver) {

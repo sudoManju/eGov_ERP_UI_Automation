@@ -83,7 +83,7 @@ public class EgovEISResource {
                 .header("cookie", "SESSIONID=" + sessionId)
                 .body(jsonData)
                 .when()
-                .post(Properties.searchEmployeeLeaveUrl);
+                .post(Properties.searchLeaveTypeUrl);
 
         new APILogger().log("Search Employee Leave Types Test Response is Generated as -- " + response.asString());
         return response;

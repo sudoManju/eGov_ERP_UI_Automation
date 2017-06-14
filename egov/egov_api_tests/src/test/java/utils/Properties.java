@@ -66,7 +66,8 @@ public class Properties {
     public static final String cmCreateHolidayUrl = propertiesReader.getEndPointUrl("cmCreateHolidayUrl");
 
     public static final String pgrReceivingModesUrl = propertiesReader.getEndPointUrl("pgrReceivingModes");
-    public static final String searchEmployeeLeaveUrl = propertiesReader.getEndPointUrl("searchEmployeeLeaveUrl");
+    public static final String searchLeaveTypeUrl = propertiesReader.getEndPointUrl("searchLeaveTypeUrl");
+    public static final String createLeaveTypeUrl = propertiesReader.getEndPointUrl("createLeaveTypeUrl");
     public static final String userUpdateUrl = propertiesReader.getEndPointUrl("userUpdateUrl");
     public static final String loginUserDetailsUrl = propertiesReader.getEndPointUrl("loginUserDetailsUrl");;
     public static final String searchOtpUrl = propertiesReader.getEndPointUrl("searchOtpUrl");

@@ -15,52 +15,51 @@ import org.testng.annotations.Test;
 import resources.employeeMaster.LeaveTypeResource;
 import tests.BaseAPITest;
 import utils.APILogger;
+import utils.LoginAndLogoutHelper;
 import utils.RequestHelper;
 import utils.ResponseHelper;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import static data.UserData.ADMIN;
 
 public class LeaveTypeCreateSearchAndUpdate extends BaseAPITest {
 
     @Test
     public void leaveTypeCreateSearchAndUpdateTest() throws IOException {
-
-        //Login Test
-//        LoginResponse loginResponse = LoginAndLogoutHelper.login("narasappa");
-
-        // Creating a Leave Type
-        leaveTypeCreateTestMethod();
+        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+        createLeaveType(sessionId); // Create A Leave Type
     }
 
-    private void leaveTypeCreateTestMethod() throws IOException {
-
+    private void createLeaveType(String sessionId) throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
-
         LeaveTypeCreateRequest leaveTypeCreateRequest = new LeaveTypeCreateRequestBuilder()
-                .withRequestInfo(requestInfo)
-                .build();
+                .withRequestInfo(requestInfo).build();
 
-        Response response = new LeaveTypeResource().create(RequestHelper.getJsonString(leaveTypeCreateRequest));
-
+        Response response = new LeaveTypeResource()
+                .createLeaveTypeResource(RequestHelper.getJsonString(leaveTypeCreateRequest), sessionId);
         LeaveTypeResponse leaveTypeCreateResponse = (LeaveTypeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), LeaveTypeResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
         new APILogger().log("Leave Type Create Test is Completed --");
-
-        // Searching a leave
-        leaveTypeSearchTestMethod(leaveTypeCreateResponse.getLeaveType()[0].getName(), leaveTypeCreateResponse);
+        searchLeaveType(leaveTypeCreateResponse.getLeaveType()[0].getName(), leaveTypeCreateResponse, sessionId); // Search Leave Type
     }
 
-    private void leaveTypeSearchTestMethod(String leaveName, LeaveTypeResponse leaveTypeResponse) throws IOException {
+    private void searchLeaveType(String leaveName, LeaveTypeResponse leaveTypeResponse, String sessionId) throws IOException {
+        try {
+            TimeUnit.SECONDS.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         RequestInfo requestInfo = new RequestInfoBuilder().build();
-
         LeaveTypeSearchRequest leaveTypeSearchRequest = new LeaveTypeSearchRequestBuilder()
-                .withRequestInfo(requestInfo)
-                .build();
+                .withRequestInfo(requestInfo).build();
 
-        Response response = new LeaveTypeResource().search(RequestHelper.getJsonString(leaveTypeSearchRequest));
-
+        Response response = new LeaveTypeResource()
+                .searchLeaveTypeResource(RequestHelper.getJsonString(leaveTypeSearchRequest), sessionId);
         LeaveTypeResponse leaveTypeSearchResponse = (LeaveTypeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), LeaveTypeResponse.class);
 
@@ -79,10 +78,10 @@ public class LeaveTypeCreateSearchAndUpdate extends BaseAPITest {
         new APILogger().log("Leave Type Search Test is Completed --");
 
         // Updating a leave
-        leaveTypeUpdateTestMethod(leaveId, leaveTypeResponse);
+        updateLeaveType(leaveId, leaveTypeResponse, sessionId); // Update Leave Type
     }
 
-    private void leaveTypeUpdateTestMethod(int leaveId, LeaveTypeResponse leaveTypeResponse1) throws IOException {
+    private void updateLeaveType(int leaveId, LeaveTypeResponse leaveTypeResponse1, String sessionId) throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
 
         LeaveType leaveType1 = new LeaveTypeBuilder()
@@ -108,8 +107,8 @@ public class LeaveTypeCreateSearchAndUpdate extends BaseAPITest {
                 .withLeaveType(leaveTypes)
                 .build();
 
-        Response response = new LeaveTypeResource().update(RequestHelper.getJsonString(leaveTypeUpdateRequest), leaveId);
-
+        Response response = new LeaveTypeResource()
+                .updateLeaveTypeResource(RequestHelper.getJsonString(leaveTypeUpdateRequest), leaveId, sessionId);
         LeaveTypeResponse leaveTypeUpdateResponse = (LeaveTypeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), LeaveTypeResponse.class);
 
@@ -118,18 +117,15 @@ public class LeaveTypeCreateSearchAndUpdate extends BaseAPITest {
         new APILogger().log("Leave Type Update Test is Completed --");
 
         // Search a leave type after updating it
-        leaveTypeSearchAfterTestMethod(leaveId);
+        searchLeaveTypeAfterUpdate(leaveId, sessionId); // Search Leave Type After Update
     }
 
-    private void leaveTypeSearchAfterTestMethod(int leaveId) throws IOException {
+    private void searchLeaveTypeAfterUpdate(int leaveId, String sessionId) throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
-
         LeaveTypeSearchRequest leaveTypeSearchRequest = new LeaveTypeSearchRequestBuilder()
-                .withRequestInfo(requestInfo)
-                .build();
+                .withRequestInfo(requestInfo).build();
 
-        Response response = new LeaveTypeResource().search(RequestHelper.getJsonString(leaveTypeSearchRequest));
-
+        Response response = new LeaveTypeResource().searchLeaveTypeResource(RequestHelper.getJsonString(leaveTypeSearchRequest), sessionId);
         LeaveTypeResponse leaveTypeSearchResponse = (LeaveTypeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), LeaveTypeResponse.class);
 
@@ -144,7 +140,6 @@ public class LeaveTypeCreateSearchAndUpdate extends BaseAPITest {
         }
         if (flag > 0) System.out.println("Updates Leave Type is Found");
         else throw new RuntimeException("Updated Leave Type is not Found -- " + leaveId);
-        new APILogger().log("Leave Type Search After Update Test is Completed --");
+        new APILogger().log("Search Leave Type After Update Test is Completed --");
     }
-
 }

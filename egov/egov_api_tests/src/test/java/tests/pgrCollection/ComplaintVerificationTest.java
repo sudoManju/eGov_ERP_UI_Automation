@@ -41,7 +41,7 @@ public class ComplaintVerificationTest extends BaseAPITest {
         ComplaintResponse update = updateComplaintInPGR(create, loginResponse);
 
         // Get Complaint
-//        getComplaintInPGR(update,loginResponse);
+//        getComplaintInPGR(updateLeaveTypeResource,loginResponse);
 
         // Logout Test
         LoginAndLogoutHelper.logout(loginResponse);

@@ -11,7 +11,7 @@ public class RequestInfoBuilder {
         requestInfo.setApiId("");
         requestInfo.setVer("1");
         requestInfo.setTs("01-04-2017 01:01:01");
-        requestInfo.setAction("create");
+        requestInfo.setAction("createLeaveTypeResource");
         requestInfo.setDid("");
         requestInfo.setKey("");
         requestInfo.setMsgId("");

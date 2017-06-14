@@ -89,7 +89,7 @@ public class HRMasterPositionCreateSearchAndUpdateTest {
         Assert.assertTrue(hrMasterPositionUpdateResponse.getPosition()[0].getName().split("_")[0].contains("Updated"));
         new APILogger().log("HR Master Position Update Test is Completed --");
 
-        // Search the position after update
+        // Search the position after updateLeaveTypeResource
         hrMasterPositionSearchAfterUpdateTestMethod(hrMasterPositionUpdateResponse.getPosition()[0].getName());
 
     }

@@ -104,7 +104,7 @@ public class HRMasterDesignationCreateSearchAndUpdateTest {
         Assert.assertEquals(hrMasterDesignationUpdateResponse.getDesignation()[0].getDescription(), "Modified Description");
         new APILogger().log("HR Master Designation Update Test is Completed --");
 
-        // Search the designation after update
+        // Search the designation after updateLeaveTypeResource
         hrMasterDesignationSearchAfterUpdateTestMethod(hrMasterDesignationUpdateResponse.getDesignation()[0].getName());
 
     }
