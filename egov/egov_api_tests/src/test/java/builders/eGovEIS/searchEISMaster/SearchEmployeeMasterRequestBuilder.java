@@ -3,7 +3,7 @@ package builders.eGovEIS.searchEISMaster;
 import entities.requests.eGovEIS.searchEISMaster.RequestInfo;
 import entities.requests.eGovEIS.searchEISMaster.SearchEmployeeMasterRequest;
 
-public final class SearchEmployeeMasterRequestBuilder {
+public class SearchEmployeeMasterRequestBuilder {
 
     SearchEmployeeMasterRequest searchEmployeeMasterRequest = new SearchEmployeeMasterRequest();
     RequestInfo requestInfo = new RequestInfo();

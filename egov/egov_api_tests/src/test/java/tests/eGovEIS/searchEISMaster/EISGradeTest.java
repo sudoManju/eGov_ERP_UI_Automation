@@ -6,48 +6,39 @@ import com.jayway.restassured.response.Response;
 import entities.requests.eGovEIS.searchEISMaster.RequestInfo;
 import entities.requests.eGovEIS.searchEISMaster.SearchEmployeeMasterRequest;
 import entities.responses.eGovEIS.searchEISMasters.grade.SearchGradeResponse;
-import entities.responses.login.LoginResponse;
 import org.junit.Assert;
 import org.testng.annotations.Test;
 import resources.searchEISMaster.EISMasterResource;
+import tests.BaseAPITest;
 import utils.*;
 
 import java.io.IOException;
 
-import static data.UserData.NARASAPPA;
+import static data.UserData.ADMIN;
 
-public class EISGradeTest {
+public class EISGradeTest extends BaseAPITest {
 
-    @Test(groups = {Categories.HR, Categories.SANITY})
+    @Test(groups = {Categories.HR, Categories.SANITY, Categories.PILOT})
     public void searchGradeTest() throws IOException {
-
-        // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
-
-        // Search Grade Test
-        searchGradeTestMethod(loginResponse);
+        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+        searchGrade(sessionId); // Search Grade
     }
 
-    private void searchGradeTestMethod(LoginResponse loginResponse) throws IOException {
-
-        RequestInfo requestInfo = new RequestInfoBuilder()
-                .withAuthToken(loginResponse.getAccess_token())
-                .build();
-
+    private void searchGrade(String sessionId) throws IOException {
+        RequestInfo requestInfo = new RequestInfoBuilder().build();
         SearchEmployeeMasterRequest searchEmployeeMasterRequest = new SearchEmployeeMasterRequestBuilder()
                 .withRequestInfo(requestInfo)
                 .build();
 
         Response response = new EISMasterResource().
-                searchGradeType(RequestHelper.getJsonString(searchEmployeeMasterRequest));
-
+                searchGradeResource(RequestHelper.getJsonString(searchEmployeeMasterRequest), sessionId);
         SearchGradeResponse searchGradeResponse = (SearchGradeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchGradeResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals(searchGradeResponse.getGrade().length, 3);
-
+        Assert.assertTrue(searchGradeResponse.getGrade().length > 0);
         new APILogger().log("Search Grade Test is Completed--");
+        pilotLogoutService(sessionId); // Logout
     }
 
 }

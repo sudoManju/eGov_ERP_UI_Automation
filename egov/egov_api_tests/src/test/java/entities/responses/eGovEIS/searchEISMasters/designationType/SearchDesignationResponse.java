@@ -5,6 +5,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 public class SearchDesignationResponse {
 
     private ResponseInfo ResponseInfo;
+
     @JsonProperty("Designation")
     private Designation[] Designation;
 

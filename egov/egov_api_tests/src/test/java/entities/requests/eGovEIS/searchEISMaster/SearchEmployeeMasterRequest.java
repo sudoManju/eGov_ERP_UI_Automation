@@ -3,6 +3,7 @@ package entities.requests.eGovEIS.searchEISMaster;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class SearchEmployeeMasterRequest {
+
     @JsonProperty("RequestInfo")
     private RequestInfo RequestInfo;
 

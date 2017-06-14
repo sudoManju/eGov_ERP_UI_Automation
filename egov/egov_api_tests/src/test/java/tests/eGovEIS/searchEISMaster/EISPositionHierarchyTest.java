@@ -17,36 +17,28 @@ import utils.RequestHelper;
 
 import java.io.IOException;
 
-import static data.UserData.NARASAPPA;
+import static data.UserData.ADMIN;
 
 public class EISPositionHierarchyTest extends BaseAPITest {
 
-    @Test(groups = {Categories.HR, Categories.SANITY})
+    @Test(groups = Categories.WIP)
+//    @Test(groups = {Categories.HR, Categories.SANITY, Categories.PILOT})
     public void searchPositionHierarchyTest() throws IOException {
-
-        // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
-
-        // Search Designation Test
-        searchPositionHierarchyTestMethod(loginResponse);
+        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+        searchPositionHierarchy(sessionId); // Search Position Hierarchy
     }
 
-    private void searchPositionHierarchyTestMethod(LoginResponse loginResponse) throws IOException {
-
-        RequestInfo requestInfo = new RequestInfoBuilder()
-                .withAuthToken(loginResponse.getAccess_token())
-                .build();
-
+    private void searchPositionHierarchy(String sessionId) throws IOException {
+        RequestInfo requestInfo = new RequestInfoBuilder().build();
         SearchEmployeeMasterRequest searchEmployeeMasterRequest = new SearchEmployeeMasterRequestBuilder()
                 .withRequestInfo(requestInfo)
                 .build();
 
         Response response = new EISMasterResource().
-                searchPositionHierarchy(RequestHelper.getJsonString(searchEmployeeMasterRequest));
+                searchPositionHierarchyResource(RequestHelper.getJsonString(searchEmployeeMasterRequest), sessionId);
 
         Assert.assertEquals(response.getStatusCode(), 200);
-
         new APILogger().log("Search Position Test is Completed--");
+        pilotLogoutService(sessionId); // Logout
     }
-
 }

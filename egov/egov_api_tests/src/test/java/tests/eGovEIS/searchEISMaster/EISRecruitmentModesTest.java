@@ -6,48 +6,39 @@ import com.jayway.restassured.response.Response;
 import entities.requests.eGovEIS.searchEISMaster.RequestInfo;
 import entities.requests.eGovEIS.searchEISMaster.SearchEmployeeMasterRequest;
 import entities.responses.eGovEIS.searchEISMasters.recruitmentModes.SearchRecruitmentModesResponse;
-import entities.responses.login.LoginResponse;
 import org.junit.Assert;
 import org.testng.annotations.Test;
 import resources.searchEISMaster.EISMasterResource;
+import tests.BaseAPITest;
 import utils.*;
 
 import java.io.IOException;
 
-import static data.UserData.NARASAPPA;
+import static data.UserData.ADMIN;
 
-public class EISRecruitmentModesTest {
+public class EISRecruitmentModesTest extends BaseAPITest {
 
-    @Test(groups = {Categories.HR, Categories.SANITY})
+    @Test(groups = {Categories.HR, Categories.SANITY, Categories.PILOT})
     public void searchRecruitmentModesTest() throws IOException {
-
-        // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
-
-        // Search RecruitmentModes Test
-        searchRecruitmentModesTestMethod(loginResponse);
+        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+        searchRecruitmentModes(sessionId); // Search RecruitmentModes
     }
 
-    private void searchRecruitmentModesTestMethod(LoginResponse loginResponse) throws IOException {
-
-        RequestInfo requestInfo = new RequestInfoBuilder()
-                .withAuthToken(loginResponse.getAccess_token())
-                .build();
-
+    private void searchRecruitmentModes(String sessionId) throws IOException {
+        RequestInfo requestInfo = new RequestInfoBuilder().build();
         SearchEmployeeMasterRequest searchEmployeeMasterRequest = new SearchEmployeeMasterRequestBuilder()
                 .withRequestInfo(requestInfo)
                 .build();
 
         Response response = new EISMasterResource().
-                searchRecruitmentModesType(RequestHelper.getJsonString(searchEmployeeMasterRequest));
-
+                searchRecruitmentModesResource(RequestHelper.getJsonString(searchEmployeeMasterRequest), sessionId);
         SearchRecruitmentModesResponse searchRecruitmentModesResponse = (SearchRecruitmentModesResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchRecruitmentModesResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals(searchRecruitmentModesResponse.getRecruitmentMode().length, 3);
-
+        Assert.assertTrue(searchRecruitmentModesResponse.getRecruitmentMode().length > 0);
         new APILogger().log("Search Recruitment Modes Test is Completed--");
+        pilotLogoutService(sessionId); // Logout
     }
 
 }
