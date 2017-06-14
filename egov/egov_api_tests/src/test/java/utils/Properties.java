@@ -69,4 +69,5 @@ public class Properties {
     public static final String userUpdateUrl = propertiesReader.getEndPointUrl("userUpdateUrl");
     public static final String loginUserDetailsUrl = propertiesReader.getEndPointUrl("loginUserDetailsUrl");;
     public static final String searchOtpUrl = propertiesReader.getEndPointUrl("searchOtpUrl");
+    public static final String createUsageMasterUrl = propertiesReader.getEndPointUrl("usageMasterCreateUrl");
 }
