@@ -3,6 +3,7 @@ package builders.eGovEIS.employeeMaster.leaveApplication;
 import entities.requests.eGovEIS.employeeMaster.leaveApplication.LeaveApplication;
 import entities.requests.eGovEIS.employeeMaster.leaveApplication.LeaveType;
 import entities.requests.eGovEIS.employeeMaster.leaveApplication.WorkflowDetails;
+import tests.BaseAPITest;
 
 public class LeaveApplicationBuilder {
 
@@ -12,8 +13,8 @@ public class LeaveApplicationBuilder {
 
     public LeaveApplicationBuilder() {
         leaveApplication.setEmployee(82);
-        leaveApplication.setFromDate("05/05/2017");
-        leaveApplication.setToDate("05/05/2017");
+        leaveApplication.setFromDate(new BaseAPITest().getCurrentDate());
+        leaveApplication.setToDate(new BaseAPITest().getCurrentDate());
         leaveApplication.setAvailableDays(6);
         leaveApplication.setLeaveDays(2);
         leaveApplication.setReason("Not feeling well");

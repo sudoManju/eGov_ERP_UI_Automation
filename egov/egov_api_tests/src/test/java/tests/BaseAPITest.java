@@ -44,7 +44,7 @@ public class BaseAPITest {
         return String.valueOf((RandomUtils.nextInt(100, 999)));
     }
 
-    protected String getCurrentDate() {
+    public String getCurrentDate() {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
         return dateFormat.format(date);

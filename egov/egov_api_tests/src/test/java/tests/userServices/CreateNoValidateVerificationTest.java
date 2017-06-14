@@ -79,7 +79,7 @@ public class CreateNoValidateVerificationTest extends BaseAPITest {
 
     private void getTheNewlyCreatedUser(LoginResponse loginResponse, UserResponse create, String searchType) throws IOException {
 
-        new APILogger().log("get user details with search type " + searchType + " is started ---");
+        new APILogger().log("get user details with searchLeaveApplicationResource type " + searchType + " is started ---");
 
         RequestInfo requestInfo = new RequestInfoBuilder("").withAuthToken(loginResponse.getAccess_token()).build();
 
@@ -109,7 +109,7 @@ public class CreateNoValidateVerificationTest extends BaseAPITest {
 
         Assert.assertEquals(response1.getUser()[0].getUserName(), create.getUser()[0].getUserName());
 
-        new APILogger().log("get user details with search type " + searchType + " is completed ---");
+        new APILogger().log("get user details with searchLeaveApplicationResource type " + searchType + " is completed ---");
     }
 
     private UserResponse CreateAUserTest(LoginResponse loginResponse) throws IOException {

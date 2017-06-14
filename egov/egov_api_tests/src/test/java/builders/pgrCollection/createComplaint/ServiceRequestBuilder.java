@@ -15,7 +15,7 @@ public final class ServiceRequestBuilder {
 
     public ServiceRequestBuilder() {
         serviceRequest.setServiceCode("PHDMG");
-        serviceRequest.setDescription("Testing the create");
+        serviceRequest.setDescription("Testing the createLeaveApplicationResource");
         serviceRequest.setAddressId("127");
         serviceRequest.setLat("0");
         serviceRequest.setLng("0");

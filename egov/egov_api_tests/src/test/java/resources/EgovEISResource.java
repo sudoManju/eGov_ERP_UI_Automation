@@ -96,7 +96,7 @@ public class EgovEISResource {
                 .header("Content-Type", "application/json")
                 .header("cookie", "SESSIONID=" + sessionId)
                 .body(jsonData).when()
-                .post(Properties.eisSearchLeaveApplicationsUrl);
+                .post(Properties.eisSearchLeaveApplicationUrl);
 
         new APILogger().log("Search Employee Leave Applications Test Response is Generated with -- " + response.asString());
         return response;

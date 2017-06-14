@@ -81,7 +81,7 @@ public class LeaveOpeningBalanceCreateTest extends BaseAPITest {
 
         /*
             When employeeId == 0 that means for every employee there is a opening balance with the above leave type
-            So now we need to create the new leave type in order to create the opening balance
+            So now we need to createLeaveApplicationResource the new leave type in order to createLeaveApplicationResource the opening balance
         */
         if (employeeId == 0) {
             leaveTypeId = createTheLeaveTypeWithNameBasedOnDataFormat("Leave Type - " + get3DigitRandomInt());

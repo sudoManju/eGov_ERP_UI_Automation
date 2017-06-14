@@ -9,7 +9,7 @@ public class RequestInfoBuilder {
     public RequestInfoBuilder() {
         requestInfo.setApiId("emp");
         requestInfo.setVer("1.0");
-        requestInfo.setAction("create");
+        requestInfo.setAction("createLeaveApplicationResource");
         requestInfo.setDid("1");
         requestInfo.setKey("abcdkey");
         requestInfo.setMsgId("20170310130900");

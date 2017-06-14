@@ -13,7 +13,7 @@ public class RequestInfoBuilder {
         requestInfo.setApiId("1");
         requestInfo.setTs("10-01-2017 01:01:01");
         requestInfo.setMsgId("");
-        requestInfo.setAction("create");
+        requestInfo.setAction("createLeaveApplicationResource");
         requestInfo.setDid("");
         requestInfo.setAuthToken("4f77f679-d609-45e8-beb7-26f449ca209f");
         requestInfo.setVer("1");

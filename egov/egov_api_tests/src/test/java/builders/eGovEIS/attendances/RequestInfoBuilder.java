@@ -20,7 +20,7 @@ public class RequestInfoBuilder {
         requestInfo1.setApiId("emp");
         requestInfo1.setVer("1.0");
         requestInfo1.setTs("10/03/2017");
-        requestInfo1.setAction("create");
+        requestInfo1.setAction("createLeaveApplicationResource");
         requestInfo1.setAuthToken("");
         requestInfo1.setRequesterId("rajesh");
         requestInfo1.setDid("1");

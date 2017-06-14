@@ -22,8 +22,8 @@ public class EmployeeLeaveTest extends BaseAPITest {
     @Test(groups = {Categories.HR, Categories.SANITY, Categories.PILOT})
     public void employeeLeaveTest() throws IOException {
         String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
-        searchEmployeeLeaveTypes(sessionId);
-        searchEmployeeLeaveApplications(sessionId);
+        searchEmployeeLeaveTypes(sessionId); // Search Employee Leave Types
+        searchEmployeeLeaveApplications(sessionId); // Search Employee Leave Applications
         pilotLogoutService(sessionId); // Logout
     }
 

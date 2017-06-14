@@ -46,6 +46,6 @@ public class LAMSServiceTest extends BaseAPITest {
 
         Assert.assertEquals(lamsServiceSearchResponse.getResposneInfo().getStatus(), "successful");
 
-        new APILogger().log("LAMS service search request is Completed -- ");
+        new APILogger().log("LAMS service searchLeaveApplicationResource request is Completed -- ");
     }
 }
