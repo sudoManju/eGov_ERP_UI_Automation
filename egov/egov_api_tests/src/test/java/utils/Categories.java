@@ -1,7 +1,6 @@
 package utils;
 
 public class Categories {
-
     public static final String SANITY = "Sanity";
     public static final String DEV = "Dev";
     public static final String QA = "Qa";

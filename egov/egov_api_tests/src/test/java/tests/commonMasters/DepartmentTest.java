@@ -20,24 +20,18 @@ public class DepartmentTest extends BaseAPITest {
 
     @Test(groups = {Categories.HR, Categories.SANITY, Categories.PILOT})
     public void departmentTest() throws IOException {
-
-        // Login Test
-        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN);
-
-        // Search Department Test
-        departmentTestMethod(sessionId);
+        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+        searchDepartment(sessionId);  // Search Department
     }
 
-    private void departmentTestMethod(String sessionId) throws IOException {
+    private void searchDepartment(String sessionId) throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
         CommonMasterRequest commonMasterRequest = new CommonMasterRequestBuilder()
                 .withRequestInfo(requestInfo)
                 .build();
 
-        String jsonString = RequestHelper.getJsonString(commonMasterRequest);
-
-        Response response = new CommonMasterResource().searchDepartmentTest(jsonString, sessionId);
-
+        Response response = new CommonMasterResource()
+                .searchDepartmentResource(RequestHelper.getJsonString(commonMasterRequest), sessionId);
         DepartmentResponse departmentResponse = (DepartmentResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), DepartmentResponse.class);
 
@@ -45,8 +39,6 @@ public class DepartmentTest extends BaseAPITest {
         Assert.assertEquals(response.getStatusCode(), 200);
 
         new APILogger().log("Search Department Test is Completed --");
-
-        // Logout Test
-        pilotLogoutService(sessionId);
+        pilotLogoutService(sessionId); // Logout
     }
 }

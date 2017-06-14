@@ -20,23 +20,18 @@ public class CommunityTest extends BaseAPITest {
 
     @Test(groups = {Categories.HR, Categories.SANITY, Categories.PILOT})
     public void communityTest() throws IOException {
-
-        // Login Test
-        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN);
-
-        // Search Department Test
-        communityTestMethod(sessionId);
+        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+        searchCommunity(sessionId);  // Search Community
     }
 
-    private void communityTestMethod(String sessionId) throws IOException {
+    private void searchCommunity(String sessionId) throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
         CommonMasterRequest commonMasterRequest = new CommonMasterRequestBuilder()
                 .withRequestInfo(requestInfo)
                 .build();
 
-        String jsonString = RequestHelper.getJsonString(commonMasterRequest);
-
-        Response response = new CommonMasterResource().searchCommunityTest(jsonString, sessionId);
+        Response response = new CommonMasterResource()
+                .searchCommunityResource(RequestHelper.getJsonString(commonMasterRequest), sessionId);
         CommunityResponse communityResponse = (CommunityResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), CommunityResponse.class);
 
@@ -44,8 +39,6 @@ public class CommunityTest extends BaseAPITest {
         Assert.assertEquals(response.getStatusCode(), 200);
 
         new APILogger().log("Search Community Test is Completed --");
-
-        // Logout Test
-        pilotLogoutService(sessionId);
+        pilotLogoutService(sessionId); // Logout
     }
 }

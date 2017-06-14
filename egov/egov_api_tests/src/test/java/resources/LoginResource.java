@@ -11,9 +11,7 @@ import static com.jayway.restassured.RestAssured.given;
 public class LoginResource {
 
     public Response login(Map json) {
-
         new APILogger().log("Login Request is started with-- " + json.toString());
-
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
                 .header("Content-type", "application/x-www-form-urlencoded")
@@ -23,14 +21,11 @@ public class LoginResource {
                 .post(Properties.loginUrl);
 
         new APILogger().log("Login Response is generated as-- " + response.asString());
-
         return response;
     }
 
     public Response logout(String json, String accessToken) {
-
         new APILogger().log("Logout request started for-- " + json);
-
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
                 .header("Content-Type", "application/json")
@@ -43,9 +38,7 @@ public class LoginResource {
     }
 
     public Response inValidLogout(String accessToken) {
-
         new APILogger().log("In-Valid logout request started for-- " + accessToken);
-
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
                 .header("Content-type", "application/x-www-form-urlencoded")
@@ -54,26 +47,22 @@ public class LoginResource {
                 .post(Properties.logoutUrl + accessToken);
 
         new APILogger().log("In-Valid logout response generated as-- " + response.asString());
-
         return response;
     }
 
     public Response getSessionIdFromPilotBaseAPI() {
         new APILogger().log("Get The SESSION ID From Base API Test Is Started -- ");
-
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
                 .when()
                 .get("http://kurnool-pilot-services.egovernments.org/egi");
 
         new APILogger().log("Get The SESSION ID From Base API Test Is Completed -- ");
-
         return response;
     }
 
     public Response loginFromPilotService(String sessionId, Map map) {
         new APILogger().log("Get The SESSION ID From LOGIN API Test Is Started -- ");
-
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
                 .header("Content-type", "application/x-www-form-urlencoded")
@@ -84,13 +73,11 @@ public class LoginResource {
                 .post(Properties.pilotLoginUrl);
 
         new APILogger().log("Get The SESSION ID From LOGIN API Test Is Completed -- ");
-
         return response;
     }
 
     public Response logoutFromPilotService(String sessionIdFromLoginAPI) {
         new APILogger().log("LOGOUT Test Is Started -- ");
-
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
                 .header("SESSIONID", sessionIdFromLoginAPI)
@@ -98,7 +85,6 @@ public class LoginResource {
                 .get(Properties.pilotLogoutUrl);
 
         new APILogger().log("LOGOUT Test Is Completed -- ");
-
         return response;
     }
 }

@@ -1,7 +1,6 @@
 package utils;
 
 public class Properties {
-
     private static final PropertiesReader propertiesReader = new PropertiesReader();
 
     //  Login And Logout Url's  //

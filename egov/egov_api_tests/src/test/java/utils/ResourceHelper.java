@@ -4,31 +4,25 @@ public class ResourceHelper {
 
     public static String getBaseURI() {
 
-        String baseUrl = null;
+        String baseUrl;
+        switch (System.getProperty("env")) {
 
-        switch (System.getProperty("env")){
-
-            case "dev" :
-
+            case "dev":
                 baseUrl = "http://egov-micro-dev.egovernments.org";
                 break;
 
-            case "qa" :
-
+            case "qa":
                 baseUrl = "http://egov-micro-qa.egovernments.org";
                 break;
 
-            case "pilot" :
-
+            case "pilot":
                 baseUrl = "http://kurnool-pilot-services.egovernments.org";
                 break;
 
-            default :
-
+            default:
                 baseUrl = "http://kurnool-pilot-services.egovernments.org";
                 break;
         }
-
         return baseUrl;
     }
 }

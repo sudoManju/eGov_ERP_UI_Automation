@@ -1,6 +1,5 @@
 package utils;
 
-
 import builders.login.LoginRequestBuilder;
 import builders.login.LoginRequestForPilotServiceBuilder;
 import builders.logout.LogoutRequestBuilder;
@@ -16,22 +15,18 @@ import org.testng.Assert;
 import resources.LoginResource;
 
 import java.io.IOException;
-import java.util.Map;
 
 public class LoginAndLogoutHelper {
 
     public static LoginResponse login(String username) throws IOException {
         LoginRequest request = new LoginRequestBuilder().withUsername(username).build();
 
-        Map jsonString = RequestHelper.asMap(request);
-
-        Response response = new LoginResource().login(jsonString);
+        Response response = new LoginResource().login(RequestHelper.asMap(request));
         LoginResponse loginResponse = (LoginResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), LoginResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertEquals(loginResponse.getUserRequest().getUserName(), username);
-
         new APILogger().log("Login Test is Completed -- ");
         return loginResponse;
     }
@@ -49,9 +44,7 @@ public class LoginAndLogoutHelper {
 
         Assert.assertEquals(response1.getStatusCode(), 200);
         Assert.assertEquals(logoutResponse.getStatus(), "Logout successfully");
-
         new APILogger().log("Logout Test is Completed --");
-
     }
 
     public static String loginFromPilotService(String username) {

@@ -13,7 +13,13 @@ import static data.UserData.AssetServiceUser;
 
 public class AssetCategoryAndServiceTest extends BaseAPITest {
 
-    /* Here we are testing Create and Search for both Asset Category & Asset Service */
+    /* Tests Description
+       ==========================
+       Create Asset Category and Search the Created One
+       Search Asset Category
+       Create Asset Service Along with Create Asset Category and also Search the Created Asset Service
+       Search Asset Service
+    */
 
     private AssetCategoryHelper assetCategoryHelper;
     private AssetServiceHelper assetServiceHelper;
@@ -24,7 +30,7 @@ public class AssetCategoryAndServiceTest extends BaseAPITest {
     }
 
     // Asset Category Tests
-    @Test(groups = {Categories.PILOT})
+    @Test(groups = {Categories.ASSET, Categories.SANITY, Categories.PILOT})
     public void createAssetCategoryTest() throws IOException {
         String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN);  // Login
         CreateAssetCategoryResponse create = assetCategoryHelper.createAssetCategory(sessionId); // Create Asset Category
@@ -32,7 +38,7 @@ public class AssetCategoryAndServiceTest extends BaseAPITest {
         pilotLogoutService(sessionId); // Logout
     }
 
-    @Test(groups = {Categories.PILOT})
+    @Test(groups = {Categories.ASSET, Categories.SANITY, Categories.PILOT})
     public void searchAssetCategoryTest() throws IOException {
         String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
         assetCategoryHelper.searchAssetCategory(sessionId, null); // Search Asset Category
@@ -40,7 +46,7 @@ public class AssetCategoryAndServiceTest extends BaseAPITest {
     }
 
     // Asset Service Tests
-    @Test(groups = {Categories.ASSET, Categories.SANITY})
+    @Test(groups = {Categories.ASSET, Categories.SANITY, Categories.PILOT})
     public void createAssetService() throws IOException {
         String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN);  // Login
         CreateAssetCategoryResponse create = assetCategoryHelper.createAssetCategory(sessionId); // Create Asset Category

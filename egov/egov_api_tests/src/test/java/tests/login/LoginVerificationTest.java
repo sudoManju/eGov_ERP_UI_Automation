@@ -19,52 +19,35 @@ import static data.UserData.NARASAPPA;
 
 public class LoginVerificationTest extends BaseAPITest {
 
-    @Test(groups = {Categories.SANITY, Categories.QA, Categories.DEV})
+    @Test(groups = {Categories.SANITY, Categories.QA, Categories.DEV, Categories.PGR})
     public void shouldAllowLoginAndLogoutToAnExistingUser() throws IOException {
-
-        // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
-
-        // Logout Test
-        LoginAndLogoutHelper.logout(loginResponse);
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA); // Login
+        LoginAndLogoutHelper.logout(loginResponse); // Logout
     }
 
-    @Test(groups = {Categories.SANITY, Categories.QA, Categories.DEV})
+    @Test(groups = {Categories.SANITY, Categories.QA, Categories.DEV, Categories.PGR})
     public void shouldNotAllowLogoutWithInvalidCredentials() throws IOException {
-
-        // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
-
-        // Logout Test
-        Response response1 = new LoginResource().inValidLogout(loginResponse.getAccess_token());
-
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA); // Login Test
+        Response response1 = new LoginResource().inValidLogout(loginResponse.getAccess_token()); // Invalid Logout
         Assert.assertEquals(response1.getStatusCode(), 500);
-
-        new APILogger().log("Logout Failed is Completed -- ");
+        new APILogger().log("Logout Test Failed is Completed -- ");
     }
 
-    @Test(groups = {Categories.SANITY, Categories.QA, Categories.DEV})
+    @Test(groups = {Categories.SANITY, Categories.QA, Categories.DEV, Categories.PGR})
     public void shouldNotAllowLoginWithInvalidCredentials() throws IOException {
-        LoginRequest request = new LoginRequestBuilder().withPassword("").build();
-
-        Map jsonString = RequestHelper.asMap(request);
-
-        Response response = new LoginResource().login(jsonString);
+        LoginRequest request = new LoginRequestBuilder().withPassword("").build(); // Invalid Login
+        Response response = new LoginResource().login(RequestHelper.asMap(request));
         LoginErrorResponse loginErrorResponse = (LoginErrorResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), LoginErrorResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 400);
         Assert.assertEquals(loginErrorResponse.getError_description(), "Invalid login credentials");
-
         new APILogger().log("Login Failed is Completed -- ");
     }
 
     @Test(groups = {Categories.PILOT})
     public void shouldAllowLoginAndLogoutInPilotService() {
-        // Login Test
-        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN);
-
-        // Logout Test
-        LoginAndLogoutHelper.logoutFromPilotService(sessionId);
+        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+        LoginAndLogoutHelper.logoutFromPilotService(sessionId); // Logout
     }
 }
