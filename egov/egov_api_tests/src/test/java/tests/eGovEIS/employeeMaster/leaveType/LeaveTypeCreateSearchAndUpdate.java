@@ -14,22 +14,19 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.employeeMaster.LeaveTypeResource;
 import tests.BaseAPITest;
-import utils.APILogger;
-import utils.LoginAndLogoutHelper;
-import utils.RequestHelper;
-import utils.ResponseHelper;
+import utils.*;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 import static data.UserData.ADMIN;
 
 public class LeaveTypeCreateSearchAndUpdate extends BaseAPITest {
 
-    @Test
+    @Test(groups = {Categories.PILOT, Categories.HR, Categories.SANITY})
     public void leaveTypeCreateSearchAndUpdateTest() throws IOException {
         String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
-        createLeaveType(sessionId); // Create A Leave Type
+        createLeaveType(sessionId); // Create Leave Type
+        pilotLogoutService(sessionId); // Logout
     }
 
     private void createLeaveType(String sessionId) throws IOException {
@@ -48,12 +45,6 @@ public class LeaveTypeCreateSearchAndUpdate extends BaseAPITest {
     }
 
     private void searchLeaveType(String leaveName, LeaveTypeResponse leaveTypeResponse, String sessionId) throws IOException {
-        try {
-            TimeUnit.SECONDS.sleep(10);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         RequestInfo requestInfo = new RequestInfoBuilder().build();
         LeaveTypeSearchRequest leaveTypeSearchRequest = new LeaveTypeSearchRequestBuilder()
                 .withRequestInfo(requestInfo).build();
@@ -66,18 +57,14 @@ public class LeaveTypeCreateSearchAndUpdate extends BaseAPITest {
         Assert.assertEquals(response.getStatusCode(), 200);
         int flag = 0;
         int leaveId = 0;
-        System.out.println("========Length========" + leaveTypeSearchResponse.getLeaveType().length);
         for (int i = 0; i < leaveTypeSearchResponse.getLeaveType().length; i++) {
             if (leaveTypeSearchResponse.getLeaveType()[i].getName().contains(leaveName)) {
                 leaveId = leaveTypeSearchResponse.getLeaveType()[i].getId();
                 flag++;
             }
         }
-        if (flag > 0) System.out.println("Created Leave is Found");
-        else throw new RuntimeException("No Leave is found with -- " + leaveName);
+        if (!(flag > 0)) throw new RuntimeException("No Leave Type is found with -- " + leaveName);
         new APILogger().log("Leave Type Search Test is Completed --");
-
-        // Updating a leave
         updateLeaveType(leaveId, leaveTypeResponse, sessionId); // Update Leave Type
     }
 
@@ -114,9 +101,7 @@ public class LeaveTypeCreateSearchAndUpdate extends BaseAPITest {
 
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertEquals(leaveTypeUpdateResponse.getLeaveType()[0].getDescription(), "Modified Description of Leave Type");
-        new APILogger().log("Leave Type Update Test is Completed --");
-
-        // Search a leave type after updating it
+        new APILogger().log("Update Leave Type Test is Completed --");
         searchLeaveTypeAfterUpdate(leaveId, sessionId); // Search Leave Type After Update
     }
 
@@ -138,8 +123,7 @@ public class LeaveTypeCreateSearchAndUpdate extends BaseAPITest {
                 }
             }
         }
-        if (flag > 0) System.out.println("Updates Leave Type is Found");
-        else throw new RuntimeException("Updated Leave Type is not Found -- " + leaveId);
+        if (!(flag > 0)) throw new RuntimeException("Updated Leave Type is not Found -- " + leaveId);
         new APILogger().log("Search Leave Type After Update Test is Completed --");
     }
 }

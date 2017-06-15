@@ -10,9 +10,9 @@ public class RequestInfoBuilder {
         requestInfo.setApiId("");
         requestInfo.setVer("1");
         requestInfo.setTs("10-03-2017 00:00:00");
-        requestInfo.setAction("createLeaveTypeResource");
+        requestInfo.setAction("create");
         requestInfo.setKey("");
-        requestInfo.setMsgId("");
+        requestInfo.setMsgId("1");
         requestInfo.setRequesterId("");
         requestInfo.setAuthToken("aeiou");
     }
