@@ -1,7 +1,7 @@
 package builders.propertyTax.masters.usage;
 
-import entities.requests.propertyTax.masters.usage.CreateUsageMasterRequest;
 import entities.requests.propertyTax.masters.RequestInfo;
+import entities.requests.propertyTax.masters.usage.CreateUsageMasterRequest;
 import entities.requests.propertyTax.masters.usage.UsageMasters;
 import org.apache.commons.lang3.RandomUtils;
 
