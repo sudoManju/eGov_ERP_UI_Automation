@@ -184,13 +184,13 @@ public class WaterChargeCollectionsPage extends WaterChargeManagementPage {
     public void enterCardDetails() {
 
         waitForElementToBeClickable(cardNumber, webDriver);
-        cardNumber.sendKeys("5123456789012346");
+        cardNumber.sendKeys("5457210001000019");
 
         waitForElementToBeClickable(cardMonth, webDriver);
-        cardMonth.sendKeys("05");
+        cardMonth.sendKeys("12");
 
         waitForElementToBeClickable(cardYear, webDriver);
-        cardYear.sendKeys("17");
+        cardYear.sendKeys("25");
 
         waitForElementToBeClickable(cvvNumber, webDriver);
         cvvNumber.sendKeys("123");

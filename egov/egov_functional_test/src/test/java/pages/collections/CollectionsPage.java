@@ -257,9 +257,9 @@ public class CollectionsPage extends BasePage {
     }
 
     public void enterCarddetailsAndPay() {
-        enterText(cardNumber, "5123456789012346", driver);
-        enterText(cardMonth, "05", driver);
-        enterText(cardYear, "17", driver);
+        enterText(cardNumber, "5457210001000019", driver);
+        enterText(cardMonth, "12", driver);
+        enterText(cardYear, "25", driver);
         enterText(cvvNumber, "123", driver);
         clickOnButton(onlineCardPaymentButton, driver);
     }
