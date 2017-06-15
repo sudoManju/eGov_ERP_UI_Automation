@@ -1,11 +1,11 @@
 package pages.assetManagement;
 
 import entities.assetManagement.assetService.HeaderDetails;
-import entities.assetManagement.assetService.LocationDetails;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
 import java.util.List;
@@ -76,8 +76,47 @@ public class AssetServicePage extends BasePage {
     private WebElement pinCodeTextBox;
 
     // Land Category Details
+    @FindBy(css = "[name='Date of Deed Execution']")
+    private WebElement nameOfDeedExecution;
+
     @FindBy(css = "input[name='Land Register Number']")
     private WebElement landRegisterNumberTextBox;
+
+    @FindBy(css = "[name='Re-survey Number']")
+    private WebElement reSurveyNumberTextBox;
+
+    @FindBy(css = "[name='Old Survey Number']")
+    private WebElement oldSurveyNumberTextBox;
+
+    @FindBy(css = "[name='Sub division Number']")
+    private WebElement subDivisionNumberTextBox;
+
+    @FindBy(css = "[name='Area of the Land']")
+    private WebElement areaOfTheLandTextBox;
+
+    @FindBy(css = "[name='Compensation Paid']")
+    private WebElement compensationPaidTextBox;
+
+    @FindBy(css = "[name='Old Land Register Number']")
+    private WebElement oldLandRegisterNumberTextBox;
+
+    @FindBy(css = "[name='Date of Possession']")
+    private WebElement dateOfPossession;
+
+    @FindBy(css = "[name='Index No.']")
+    private WebElement indexNumberTextBox;
+
+    @FindBy(css = "[name='Department Reference No.']")
+    private WebElement departmentReferenceNumberTextBox;
+
+    @FindBy(css = "[name='From Whom the Deed Taken']")
+    private WebElement fromWhomTheDeedTakenTextBox;
+
+    @FindBy(css = "[name='Land usage']")
+    private WebElement landUsageSelectBox;
+
+    @FindBy(css = "[name='Special Conditions attached to the Holding']")
+    private WebElement specialConditionsAttacedToTheHoldingTextBox;
 
     @FindBy(css = "select[name='OSR Land']")
     private WebElement osrLandSelectBox;
@@ -204,6 +243,7 @@ public class AssetServicePage extends BasePage {
         // If there is no reference application for the present category it skips the selection of application and continue the flow.
         if (webDriver.findElements(By.cssSelector("[id='tblRef'] tr td button")).size() == 0) {
             clickOnButton(webDriver.findElements(By.cssSelector("[class='btn btn-default']")).get(0), webDriver);
+            enterLocationDetails();
         } else {
             await().atMost(10, SECONDS).until(() -> webDriver.findElements(By.cssSelector("[id='tblRef'] tr td button")).size() > 0);
             if (assetReferenceTableRows.size() == 1) {
@@ -212,28 +252,42 @@ public class AssetServicePage extends BasePage {
                 if (assetReferenceTableRows.size() > 10) {
                     clickOnButton(assetReferenceTableRows.get(new Random().nextInt(9 - 0) + 0), webDriver);
                 } else {
-                    System.out.println("=========="+assetReferenceTableRows.size());
+                    System.out.println("==========" + assetReferenceTableRows.size());
                     clickOnButton(assetReferenceTableRows.get(new Random().nextInt(assetReferenceTableRows.size() - 0) + 0), webDriver);
                 }
             }
         }
     }
 
-    public void enterLocationDetails(LocationDetails locationDetails) {
-        selectFromDropDown(localitySelectBox, locationDetails.getLocality(), webDriver);
-//        enterText(webDriver.findElement(By.cssSelector("input[id='description']")), "Description", webDriver);
-//        enterText(webDriver.findElement(By.cssSelector("input[type='text'][name='Shop Details']")), "Testing", webDriver);
+    private void enterLocationDetails() {
+        waitForElementToBeVisible(localitySelectBox, webDriver);
+        clickOnButton(new Select(localitySelectBox).getOptions().get(3), webDriver);
+        clickOnButton(new Select(revenueWardSelectBox).getOptions().get(3), webDriver);
+        clickOnButton(new Select(blockNumberSelectBox).getOptions().get(3), webDriver);
+        enterText(doorNoTextBox, get6DigitRandomInt().substring(0, 4), webDriver);
+        enterText(pinCodeTextBox, "5" + get6DigitRandomInt().substring(0, 4), webDriver);
     }
 
     public void enterCategoryDetails(String categoryDetails) {
         switch (categoryDetails) {
             case "Land":
 
+                enterDate(nameOfDeedExecution, getCurrentDate(), webDriver);
                 enterText(landRegisterNumberTextBox, "LReg_" + get6DigitRandomInt(), webDriver);
+                enterText(reSurveyNumberTextBox, get6DigitRandomInt().substring(0, 4), webDriver);
+                enterText(oldSurveyNumberTextBox, get6DigitRandomInt().substring(0, 4), webDriver);
+                enterText(subDivisionNumberTextBox, get6DigitRandomInt().substring(0, 4), webDriver);
                 selectFromDropDown(osrLandSelectBox, "Yes", webDriver);
                 selectFromDropDown(isItFencedSelectBox, "Yes", webDriver);
                 selectFromDropDown(landTypeSelectBox, "Hold", webDriver);
+                enterText(areaOfTheLandTextBox, get6DigitRandomInt().substring(0, 4), webDriver);
                 selectFromDropDown(unitOfMeasurementSelectBox, "sq. ft.", webDriver);
+                enterText(compensationPaidTextBox, get6DigitRandomInt().substring(0, 3), webDriver);
+                enterText(oldLandRegisterNumberTextBox, get6DigitRandomInt().substring(0, 4), webDriver);
+                enterDate(dateOfPossession, getCurrentDate(), webDriver);
+                enterText(indexNumberTextBox, get6DigitRandomInt().substring(0, 3), webDriver);
+                enterText(departmentReferenceNumberTextBox, get6DigitRandomInt().substring(0, 3), webDriver);
+                enterText(specialConditionsAttacedToTheHoldingTextBox, "Special Condition", webDriver);
                 enterText(governmentOrderNumberTextBox, "GOV_" + get6DigitRandomInt(), webDriver);
                 enterText(collectorOrderNumberTextBox, "CO_" + get6DigitRandomInt(), webDriver);
                 enterText(councilResolutionNumberTextBox, "CRO_" + get6DigitRandomInt(), webDriver);

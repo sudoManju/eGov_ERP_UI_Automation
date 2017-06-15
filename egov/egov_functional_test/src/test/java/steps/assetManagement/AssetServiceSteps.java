@@ -2,7 +2,6 @@ package steps.assetManagement;
 
 import cucumber.api.java8.En;
 import entities.assetManagement.assetService.HeaderDetails;
-import entities.assetManagement.assetService.LocationDetails;
 import excelDataFiles.AssetServiceDataReader;
 import pages.assetManagement.AssetServicePage;
 import steps.BaseSteps;
@@ -18,11 +17,6 @@ public class AssetServiceSteps extends BaseSteps implements En {
                     .getHeaderDetails(headerDetails);
             scenarioContext.setAssetCategory(headerDetails1.getAssetCategory());
             pageStore.get(AssetServicePage.class).enterHeaderDetails(headerDetails1);
-
-            LocationDetails locationDetails1 = new AssetServiceDataReader(assetTestDataFileName)
-                    .getLocationDetails(locationDetails);
-            pageStore.get(AssetServicePage.class).enterLocationDetails(locationDetails1);
-
         });
 
         And("^user will enter the category details as (\\w+) and with asset summary status as (\\w+)$", (
