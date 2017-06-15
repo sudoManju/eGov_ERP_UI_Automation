@@ -1,5 +1,6 @@
-package entities.requests.propertyTax.masters;
+package entities.requests.propertyTax.masters.usage;
 
+import entities.requests.propertyTax.masters.RequestInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class CreateUsageMasterRequest {
@@ -7,7 +8,7 @@ public class CreateUsageMasterRequest {
     private UsageMasters[] usageMasters;
 
     @JsonProperty("RequestInfo")
-    private RequestInfo RequestInfo;
+    private entities.requests.propertyTax.masters.RequestInfo RequestInfo;
 
     public UsageMasters[] getUsageMasters() {
         return this.usageMasters;
@@ -17,7 +18,7 @@ public class CreateUsageMasterRequest {
         this.usageMasters = usageMasters;
     }
 
-    public RequestInfo getRequestInfo() {
+    public entities.requests.propertyTax.masters.RequestInfo getRequestInfo() {
         return this.RequestInfo;
     }
 

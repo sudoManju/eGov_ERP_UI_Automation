@@ -1,15 +1,16 @@
 package tests.propertyTax.masters;
 
-import builders.propertyTax.masters.CreateUsageMasterRequestBuilder;
+import builders.propertyTax.masters.usage.CreateUsageMasterRequestBuilder;
 import builders.propertyTax.masters.RequestInfoBuilder;
 import com.jayway.restassured.response.Response;
-import entities.requests.propertyTax.masters.CreateUsageMasterRequest;
+import entities.requests.propertyTax.masters.usage.CreateUsageMasterRequest;
 import entities.requests.propertyTax.masters.RequestInfo;
 import entities.responses.login.LoginResponse;
-import entities.responses.propertyTax.masters.CreateUsageMasterResponse;
+import entities.responses.propertyTax.masters.usage.create.UsageMasterResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.propertyTax.masters.UsageMasterResource;
+import tests.BaseAPITest;
 import utils.APILogger;
 import utils.LoginAndLogoutHelper;
 import utils.RequestHelper;
@@ -19,17 +20,24 @@ import java.io.IOException;
 
 import static data.UserData.NARASAPPA;
 
-public class UsageMasterVerificationTest {
+public class UsageMasterVerificationTest extends BaseAPITest {
+
 
     @Test
     public void usageMasterTest() throws IOException {
 
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);     //Login
 
-        createUsageMaster(loginResponse);
+        SearchHelper helper = new SearchHelper(loginResponse);
+
+        UsageMasterResponse response1 = createUsageMaster(loginResponse);   //Create
+
+        helper.searchForUsageMaster(response1); //Search
+
+        LoginAndLogoutHelper.logout(loginResponse);
     }
 
-    private void createUsageMaster(LoginResponse loginResponse) throws IOException {
+    private UsageMasterResponse createUsageMaster(LoginResponse loginResponse) throws IOException {
 
         new APILogger().log("Create Usage Master Test Started");
 
@@ -43,12 +51,14 @@ public class UsageMasterVerificationTest {
 
         Assert.assertEquals(response.getStatusCode(),200);
 
-        CreateUsageMasterResponse response1 = (CreateUsageMasterResponse)
-                ResponseHelper.getResponseAsObject(response.asString(),CreateUsageMasterResponse.class);
+        UsageMasterResponse response1 = (UsageMasterResponse)
+                ResponseHelper.getResponseAsObject(response.asString(),UsageMasterResponse.class);
 
         Assert.assertEquals(response1.getResponseInfo().getStatus(),"SUCCESSFUL");
         Assert.assertEquals(response1.getUsageMasters()[0].getDescription(),request.getUsageMasters()[0].getDescription());
 
         new APILogger().log("Create Usage Master Test Completed");
+
+        return response1;
     }
 }

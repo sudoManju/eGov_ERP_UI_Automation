@@ -1,15 +1,15 @@
-package entities.responses.propertyTax.masters;
+package entities.responses.propertyTax.masters.usage.search;
 
 public class UsageMasters {
     private String code;
-    private int orderNumber;
-    private Object data;
-    private boolean isResidential;
+    private Object orderNumber;
+    private String data;
+    private Object isResidential;
     private UsageMastersAuditDetails auditDetails;
     private String tenantId;
     private String name;
     private String description;
-    private boolean active;
+    private Object active;
     private int id;
     private String nameLocal;
 
@@ -21,27 +21,27 @@ public class UsageMasters {
         this.code = code;
     }
 
-    public int getOrderNumber() {
+    public Object getOrderNumber() {
         return this.orderNumber;
     }
 
-    public void setOrderNumber(int orderNumber) {
+    public void setOrderNumber(Object orderNumber) {
         this.orderNumber = orderNumber;
     }
 
-    public Object getData() {
+    public String getData() {
         return this.data;
     }
 
-    public void setData(Object data) {
+    public void setData(String data) {
         this.data = data;
     }
 
-    public boolean getIsResidential() {
+    public Object getIsResidential() {
         return this.isResidential;
     }
 
-    public void setIsResidential(boolean isResidential) {
+    public void setIsResidential(Object isResidential) {
         this.isResidential = isResidential;
     }
 
@@ -77,11 +77,11 @@ public class UsageMasters {
         this.description = description;
     }
 
-    public boolean getActive() {
+    public Object getActive() {
         return this.active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Object active) {
         this.active = active;
     }
 

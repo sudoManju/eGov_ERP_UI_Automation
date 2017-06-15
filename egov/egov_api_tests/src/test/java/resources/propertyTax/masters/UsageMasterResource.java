@@ -23,4 +23,19 @@ public class UsageMasterResource {
 
         return response;
     }
+
+    public Response searchUsageMaster(String json, String s) {
+
+        new APILogger().log("Search Usage Master started as --"+json);
+
+        Response response = given().request().with()
+                .header("Content-Type","application/json")
+                .body(json)
+                .when()
+                .post(Properties.searchUsageMasterUrl+s);
+
+        new APILogger().log("Search Usage master response generated as --"+response.asString());
+
+        return response;
+    }
 }

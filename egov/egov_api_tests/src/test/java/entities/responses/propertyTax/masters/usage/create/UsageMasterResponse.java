@@ -1,6 +1,6 @@
-package entities.responses.propertyTax.masters;
+package entities.responses.propertyTax.masters.usage.create;
 
-public class CreateUsageMasterResponse {
+public class UsageMasterResponse {
     private UsageMasters[] usageMasters;
     private ResponseInfo responseInfo;
 

@@ -1,12 +1,12 @@
-package entities.requests.propertyTax.masters;
+package entities.responses.propertyTax.masters.structureClass;
 
-public class UsageMasters {
+public class StructureClasses {
     private String code;
     private int orderNumber;
-    private boolean isResidential;
+    private Object data;
     private AuditDetails auditDetails;
-    private String name;
     private String tenantId;
+    private String name;
     private String description;
     private boolean active;
     private int id;
@@ -28,12 +28,12 @@ public class UsageMasters {
         this.orderNumber = orderNumber;
     }
 
-    public boolean getIsResidential() {
-        return this.isResidential;
+    public Object getData() {
+        return this.data;
     }
 
-    public void setIsResidential(boolean isResidential) {
-        this.isResidential = isResidential;
+    public void setData(Object data) {
+        this.data = data;
     }
 
     public AuditDetails getAuditDetails() {
@@ -44,20 +44,20 @@ public class UsageMasters {
         this.auditDetails = auditDetails;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getTenantId() {
         return this.tenantId;
     }
 
     public void setTenantId(String tenantId) {
         this.tenantId = tenantId;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {

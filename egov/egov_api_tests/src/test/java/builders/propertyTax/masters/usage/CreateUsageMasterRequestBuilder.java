@@ -1,15 +1,18 @@
-package builders.propertyTax.masters;
+package builders.propertyTax.masters.usage;
 
-import entities.requests.propertyTax.masters.CreateUsageMasterRequest;
+import entities.requests.propertyTax.masters.usage.CreateUsageMasterRequest;
 import entities.requests.propertyTax.masters.RequestInfo;
-import entities.requests.propertyTax.masters.UsageMasters;
+import entities.requests.propertyTax.masters.usage.UsageMasters;
+import org.apache.commons.lang3.RandomUtils;
 
 public class CreateUsageMasterRequestBuilder {
 
     CreateUsageMasterRequest request = new CreateUsageMasterRequest();
 
     UsageMasters[] usageMasterses = new UsageMasters[1];
-    UsageMasters usageMasters = new UsageMastersBuilder().build();
+    String num = String.valueOf((RandomUtils.nextInt(100, 999)));
+    UsageMasters usageMasters = new UsageMastersBuilder().withName("Test"+num).withCode(num).withNameLocal("Local"+num)
+                                   .withOrderNumber(Integer.parseInt(num)).build();
 
     public CreateUsageMasterRequestBuilder(){
         usageMasterses[0] = usageMasters;
