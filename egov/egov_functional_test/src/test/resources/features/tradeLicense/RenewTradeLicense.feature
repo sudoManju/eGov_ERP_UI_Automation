@@ -84,7 +84,7 @@ Feature: Renewal of trade license
 
 
     # Trade License Renewal #
-  @Sanity @TradeLicense
+  @Sanity @TradeLicense @LicenseRenewal
   Scenario Outline: Renewal of Trade License with legacy license
 
     Given creator logs in
@@ -96,11 +96,20 @@ Feature: Renewal of trade license
     And he enters fee details of legency trade license
     And he saves the application
     And he copies the license number and closes the acknowledgement
+    And current user logs out
 
+    When CSCUser logs in
     And user will select the required screen as "Search Trade License"
     And he choose to search with license number
     And he choose action "Renew License"
     And he choose to renew trade license
+    And he closes search screen
+    And current user logs out
+
+
+    When creator logs in
+    And user will select the required screen as "Search Trade License"
+    And he choose to search with license number
     And he choose action "Collect Fees"
     And he choose to payTax of applicationNumber
     And he chooses to act upon above application number
@@ -274,6 +283,308 @@ Feature: Renewal of trade license
     And he closes search screen
     And current user logs out
 
+
+    Examples:
+      | tradeDetailsData         | tradeLocationData           | tradeDetailsData1        |
+      | ownerDetailsTradeLicense | locationDetailsTradeLicense | tradeDetailsTradeLicense |
+
+
+  @Sanity @TradeLicense @LicenseRenewal
+  Scenario Outline: Renewal of Trade License with legacy license and commissioner rejects it
+
+    Given creator logs in
+    And user will select the required screen as "Create Legacy License"
+    And he enters old license number
+    And he enters trade owner details of new license <tradeDetailsData>
+    And he enters trade location details of new license <tradeLocationData>
+    And he enters trade details of new license <tradeDetailsData1>
+    And he enters fee details of legency trade license
+    And he saves the application
+    And he copies the license number and closes the acknowledgement
+    And current user logs out
+
+    When CSCUser logs in
+    And user will select the required screen as "Search Trade License"
+    And he choose to search with license number
+    And he choose action "Renew License"
+    And he choose to renew trade license
+    And he closes search screen
+    And current user logs out
+
+
+    When creator logs in
+    And user will select the required screen as "Search Trade License"
+    And he choose to search with license number
+    And he choose action "Collect Fees"
+    And he choose to payTax of applicationNumber
+    And he chooses to act upon above application number
+    And he forwards for approver sanitaryInspector
+    And he confirms to proceed
+    And he closes acknowledgement page
+    And current user logs out
+
+    When sanitaryInspector logs in
+    And he chooses to act upon above application number
+    And he forwards for approver commissioner
+    And he confirms to proceed
+    And he closes acknowledgement page
+    And current user logs out
+
+    When commissioner logs in
+    And he chooses to act upon above application number
+    And he rejects the application
+    And he confirms to proceed
+    And he closes acknowledgement page
+    And current user logs out
+
+    When creator logs in
+    And he chooses to act upon above application number
+    And he rejects the application
+    And he confirms to proceed
+    And he closes acknowledgement page
+    And user will select the required screen as "Search Trade License"
+    And he choose to search with license number
+    And he verifies the application status
+    And user will be notified by "Cancelled"
+    And he verifies the License active
+    And user will be notified by "YES"
+    And he closes search screen
+    And current user logs out
+
+    Examples:
+      | tradeDetailsData         | tradeLocationData           | tradeDetailsData1        |
+      | ownerDetailsTradeLicense | locationDetailsTradeLicense | tradeDetailsTradeLicense |
+
+
+  @Sanity @TradeLicense @LicenseRenewal
+  Scenario Outline: Renewal of Trade License with legacy license and SI rejects it
+
+    Given creator logs in
+    And user will select the required screen as "Create Legacy License"
+    And he enters old license number
+    And he enters trade owner details of new license <tradeDetailsData>
+    And he enters trade location details of new license <tradeLocationData>
+    And he enters trade details of new license <tradeDetailsData1>
+    And he enters fee details of legency trade license
+    And he saves the application
+    And he copies the license number and closes the acknowledgement
+    And current user logs out
+
+    When CSCUser logs in
+    And user will select the required screen as "Search Trade License"
+    And he choose to search with license number
+    And he choose action "Renew License"
+    And he choose to renew trade license
+    And he closes search screen
+    And current user logs out
+
+
+    When creator logs in
+    And user will select the required screen as "Search Trade License"
+    And he choose to search with license number
+    And he choose action "Collect Fees"
+    And he choose to payTax of applicationNumber
+    And he chooses to act upon above application number
+    And he forwards for approver sanitaryInspector
+    And he confirms to proceed
+    And he closes acknowledgement page
+    And current user logs out
+
+    When sanitaryInspector logs in
+    And he chooses to act upon above application number
+    And he rejects the application
+    And he confirms to proceed
+    And he closes acknowledgement page
+    And current user logs out
+
+    When creator logs in
+    And he chooses to act upon above application number
+    And he rejects the application
+    And he confirms to proceed
+    And he closes acknowledgement page
+    And user will select the required screen as "Search Trade License"
+    And he choose to search with license number
+    And he verifies the application status
+    And user will be notified by "Cancelled"
+    And he verifies the License active
+    And user will be notified by "YES"
+    And he closes search screen
+    And current user logs out
+
+    Examples:
+      | tradeDetailsData         | tradeLocationData           | tradeDetailsData1        |
+      | ownerDetailsTradeLicense | locationDetailsTradeLicense | tradeDetailsTradeLicense |
+
+
+  @Sanity @TradeLicense @LicenseRenewal
+  Scenario Outline: Renewal of Trade License with legacy license - JA rejects it before collection
+
+    Given creator logs in
+    And user will select the required screen as "Create Legacy License"
+    And he enters old license number
+    And he enters trade owner details of new license <tradeDetailsData>
+    And he enters trade location details of new license <tradeLocationData>
+    And he enters trade details of new license <tradeDetailsData1>
+    And he enters fee details of legency trade license
+    And he saves the application
+    And he copies the license number and closes the acknowledgement
+    And current user logs out
+
+    When CSCUser logs in
+    And user will select the required screen as "Search Trade License"
+    And he choose to search with license number
+    And he choose action "Renew License"
+    And he choose to renew trade license
+    And he closes search screen
+    And current user logs out
+
+
+    When creator logs in
+    And he chooses to act upon above application number
+    And he cancel the application
+    And he closes acknowledgement page
+    And user will select the required screen as "Search Trade License"
+    And he choose to search with license number
+    And he verifies the application status
+    And user will be notified by "Cancelled"
+    And he verifies the License active
+    And user will be notified by "YES"
+    And he closes search screen
+    And current user logs out
+
+
+    Examples:
+      | tradeDetailsData         | tradeLocationData           | tradeDetailsData1        |
+      | ownerDetailsTradeLicense | locationDetailsTradeLicense | tradeDetailsTradeLicense |
+
+  @Sanity @TradeLicense @LicenseRenewal
+  Scenario Outline: Renewal of Trade License with legacy license and second level fee collection
+
+    Given creator logs in
+    And user will select the required screen as "Create Legacy License"
+    And he enters old license number
+    And he enters trade owner details of new license <tradeDetailsData>
+    And he enters trade location details of new license <tradeLocationData>
+    And he enters trade details of new license <tradeDetailsData1>
+    And he enters fee details of legency trade license
+    And he saves the application
+    And he copies the license number and closes the acknowledgement
+    And current user logs out
+
+    When CSCUser logs in
+    And user will select the required screen as "Search Trade License"
+    And he choose to search with license number
+    And he choose action "Renew License"
+    And he choose to renew trade license
+    And he closes search screen
+    And current user logs out
+
+
+    When creator logs in
+    And user will select the required screen as "Search Trade License"
+    And he choose to search with license number
+    And he choose action "Collect Fees"
+    And he choose to payTax of applicationNumber
+    And he chooses to act upon above application number
+    And he forwards for approver sanitaryInspector
+    And he confirms to proceed
+    And he closes acknowledgement page
+    And current user logs out
+
+    When sanitaryInspector logs in
+    And he chooses to act upon above application number
+    And he changes trade area as "1200"
+    And he forwards for approver commissioner
+    And he confirms to proceed
+    And he closes acknowledgement page
+    And current user logs out
+
+    When commissioner logs in
+    And he chooses to act upon above application number
+    And he approves application
+    And he confirms to proceed
+    And he closes acknowledgement page
+    And current user logs out
+
+    When creator logs in
+    And user will select the required screen as "Search Trade License"
+    And he choose to search with license number
+    And he choose action "Collect Fees"
+    And he choose to payTax of applicationNumber
+    And he chooses to act upon above application number
+    And he generates the license certificate
+    And user will be notified by "License"
+    And current user logs out
+
+    Examples:
+      | tradeDetailsData         | tradeLocationData           | tradeDetailsData1        |
+      | ownerDetailsTradeLicense | locationDetailsTradeLicense | tradeDetailsTradeLicense |
+
+  @Sanity @TradeLicense @LicenseRenewal
+  Scenario Outline: Renewal of Trade License with legacy license and rejection before second level fee collection
+
+    Given creator logs in
+    And user will select the required screen as "Create Legacy License"
+    And he enters old license number
+    And he enters trade owner details of new license <tradeDetailsData>
+    And he enters trade location details of new license <tradeLocationData>
+    And he enters trade details of new license <tradeDetailsData1>
+    And he enters fee details of legency trade license
+    And he saves the application
+    And he copies the license number and closes the acknowledgement
+    And current user logs out
+
+    When CSCUser logs in
+    And user will select the required screen as "Search Trade License"
+    And he choose to search with license number
+    And he choose action "Renew License"
+    And he choose to renew trade license
+    And he closes search screen
+    And current user logs out
+
+
+    When creator logs in
+    And user will select the required screen as "Search Trade License"
+    And he choose to search with license number
+    And he choose action "Collect Fees"
+    And he choose to payTax of applicationNumber
+    And he chooses to act upon above application number
+    And he forwards for approver sanitaryInspector
+    And he confirms to proceed
+    And he closes acknowledgement page
+    And current user logs out
+
+    When sanitaryInspector logs in
+    And he chooses to act upon above application number
+    And he changes trade area as "1200"
+    And he forwards for approver commissioner
+    And he confirms to proceed
+    And he closes acknowledgement page
+    And current user logs out
+
+    When commissioner logs in
+    And he chooses to act upon above application number
+    And he approves application
+    And he confirms to proceed
+    And he closes acknowledgement page
+    And he chooses to act upon above application number
+    And he cancel the application
+    And he closes acknowledgement page
+    And current user logs out
+
+    When creator logs in
+    And he chooses to act upon above application number
+    And he rejects the application
+    And he confirms to proceed
+    And he closes acknowledgement page
+    And user will select the required screen as "Search Trade License"
+    And he choose to search with license number
+    And he verifies the application status
+    And user will be notified by "Rejected"
+    And he verifies the License active
+    And user will be notified by "YES"
+    And he closes search screen
+    And current user logs out
 
     Examples:
       | tradeDetailsData         | tradeLocationData           | tradeDetailsData1        |

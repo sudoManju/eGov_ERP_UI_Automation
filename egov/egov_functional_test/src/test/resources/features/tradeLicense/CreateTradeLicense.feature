@@ -25,14 +25,17 @@ Feature: Create Trade License
   @Sanity @TradeLicense
   Scenario Outline: Register User create trade license with work flows
 
-    Given creator logs in
+#    Given creator logs in
+    Given CSCUser logs in
     And user will select the required screen as "Create New License"
     And he enters trade owner details of new license <tradeDetailsData>
     And he enters trade location details of new license <tradeLocationData>
     And he enters trade details of new license <tradeDetailsData1>
     And he saves the application
     And he copy trade application number
+    And current user logs out
 
+    When creator logs in
     And user will select the required screen as "Search Trade License"
     And he search existing application number
     And he choose action "Collect Fees"
@@ -73,18 +76,17 @@ Feature: Create Trade License
   @Sanity @TradeLicense
   Scenario Outline: Register User create trade license with second level collection with work flow
 
-#    Given CSCUser logs in
-    Given creator logs in
+    Given CSCUser logs in
+#    Given creator logs in
     And user will select the required screen as "Create New License"
     And he enters trade owner details of new license <tradeDetailsData>
     And he enters trade location details of new license <tradeLocationData>
     And he enters trade details of new license <tradeDetailsData1>
     And he saves the application
     And he copy trade application number
-#    And current user logs out
+    And current user logs out
 
-#    When PublicHealthJA logs in
-#    And he choose to search trade license
+    When creator logs in
     And user will select the required screen as "Search Trade License"
     And he search existing application number
     And he choose action "Collect Fees"
@@ -130,14 +132,17 @@ Feature: Create Trade License
   Scenario Outline: Create new TL from JA-> collect fee -> forward to SI -> Change trade area and forward to Commissioner
   -> Approve in commissioner -> reject
 
-    Given creator logs in
+#    Given creator logs in
+    Given CSCUser logs in
     And user will select the required screen as "Create New License"
     And he enters trade owner details of new license <tradeDetailsData>
     And he enters trade location details of new license <tradeLocationData>
     And he enters trade details of new license <tradeDetailsData1>
     And he saves the application
     And he copy trade application number
+    And current user logs out
 
+    When creator logs in
     And user will select the required screen as "Search Trade License"
     And he search existing application number
     And he choose action "Collect Fees"
@@ -189,14 +194,17 @@ Feature: Create Trade License
   Scenario Outline: Create new TL from JA -> collect fee -> forward to SI
   -> forward to Commissioner reject
 
-    Given creator logs in
+#    Given creator logs in
+    Given CSCUser logs in
     And user will select the required screen as "Create New License"
     And he enters trade owner details of new license <tradeDetailsData>
     And he enters trade location details of new license <tradeLocationData>
     And he enters trade details of new license <tradeDetailsData1>
     And he saves the application
     And he copy trade application number
+    And current user logs out
 
+    When creator logs in
     And user will select the required screen as "Search Trade License"
     And he search existing application number
     And he choose action "Collect Fees"
@@ -244,14 +252,17 @@ Feature: Create Trade License
   @TradeLicense
   Scenario Outline: Create new TL -> collect fee -> forward to SI -> reject
 
-    Given creator logs in
+#    Given creator logs in
+    Given CSCUser logs in
     And user will select the required screen as "Create New License"
     And he enters trade owner details of new license <tradeDetailsData>
     And he enters trade location details of new license <tradeLocationData>
     And he enters trade details of new license <tradeDetailsData1>
     And he saves the application
     And he copy trade application number
+    And current user logs out
 
+    When creator logs in
     And user will select the required screen as "Search Trade License"
     And he search existing application number
     And he choose action "Collect Fees"
@@ -291,14 +302,17 @@ Feature: Create Trade License
   @TradeLicense
   Scenario Outline: Create new TL -> collect fee -> reject
 
-    Given creator logs in
+#    Given creator logs in
+    Given CSCUser logs in
     And user will select the required screen as "Create New License"
     And he enters trade owner details of new license <tradeDetailsData>
     And he enters trade location details of new license <tradeLocationData>
     And he enters trade details of new license <tradeDetailsData1>
     And he saves the application
     And he copy trade application number
+    And current user logs out
 
+    When creator logs in
     And user will select the required screen as "Search Trade License"
     And he search existing application number
     And he choose action "Collect Fees"
@@ -328,14 +342,17 @@ Feature: Create Trade License
   @TradeLicense
   Scenario Outline: Create new TL -> reject
 
-    Given creator logs in
+#    Given creator logs in
+    Given CSCUser logs in
     And user will select the required screen as "Create New License"
     And he enters trade owner details of new license <tradeDetailsData>
     And he enters trade location details of new license <tradeLocationData>
     And he enters trade details of new license <tradeDetailsData1>
     And he saves the application
     And he copy trade application number
+    And current user logs out
 
+    When creator logs in
     And he chooses to act upon above application number
     And he cancel the application
     And he closes acknowledgement page

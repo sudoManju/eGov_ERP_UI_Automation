@@ -20,6 +20,12 @@ public class ScenarioContext implements Serializable {
 
     private String assetCategory;
 
+    private String licenseCategory;
+    
+    private String UOM;
+    
+    private String licenseSubCategory;
+
     public String getReferenceNumber() {
         return referenceNumber;
     }
@@ -82,6 +88,30 @@ public class ScenarioContext implements Serializable {
 
     public void setDataScreenAssessmentNumber(String dataScreenAssessmentNumber) {
         this.dataScreenAssessmentNumber = dataScreenAssessmentNumber;
+    }
+
+    public void setLicenseCategory(String licenseCategory) {
+        this.licenseCategory = licenseCategory;
+    }
+
+    public String getLicenseCategory() {
+        return licenseCategory;
+    }
+
+    public void setUOM(String UOM) {
+        this.UOM = UOM;
+    }
+
+    public String getUOM() {
+        return UOM;
+    }
+
+    public void setLicenseSubCategory(String licenseSubCategory) {
+        this.licenseSubCategory = licenseSubCategory;
+    }
+
+    public String getLicenseSubCategory() {
+        return licenseSubCategory;
     }
 }
 
