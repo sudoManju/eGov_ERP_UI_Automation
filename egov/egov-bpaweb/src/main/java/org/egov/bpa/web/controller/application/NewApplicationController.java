@@ -43,12 +43,14 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.egov.bpa.application.entity.Applicant;
 import org.egov.bpa.application.entity.ApplicationStakeHolder;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.CheckListDetail;
@@ -56,9 +58,17 @@ import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.application.service.collection.GenericBillGeneratorService;
 import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
+import org.egov.infra.admin.master.entity.User;
+import org.egov.infra.admin.master.service.RoleService;
+import org.egov.infra.admin.master.service.UserService;
+import org.egov.infra.config.properties.ApplicationProperties;
+import org.egov.infra.persistence.entity.Address;
+import org.egov.infra.persistence.entity.PermanentAddress;
+import org.egov.infra.persistence.entity.enums.Gender;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -73,72 +83,109 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping(value = "/application")
 public class NewApplicationController extends BpaGenericApplicationController {
 
-	private static final String NEWAPPLICATION_FORM = "newapplication-form";
+    private static final String NEWAPPLICATION_FORM = "newapplication-form";
 
-	@Autowired
-	private GenericBillGeneratorService genericBillGeneratorService;
+    @Autowired
+    private GenericBillGeneratorService genericBillGeneratorService;
 
-	@Autowired
-	private BpaUtils bpaUtils;
+    @Autowired
+    private BpaUtils bpaUtils;
 
-	@RequestMapping(value = "/newApplication-newform", method = GET)
-	public String showNewApplicationForm(@ModelAttribute final BpaApplication bpaApplication, final Model model,
-			final HttpServletRequest request) {
-		bpaApplication.setApplicationDate(new Date());
-		model.addAttribute("mode", "new");
-		model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
-		return NEWAPPLICATION_FORM;
-	}
+    @Autowired
+    private ApplicationProperties applicationProperties;
 
-	@RequestMapping(value = "/newApplication-create", method = POST)
-	public String createNewConnection(@Valid @ModelAttribute final BpaApplication bpaApplication,
-			final BindingResult resultBinder, final RedirectAttributes redirectAttributes,
-			final HttpServletRequest request, final Model model, @RequestParam String workFlowAction,
-			final BindingResult errors) {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-		Long userPosition = null;
-		final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(bpaApplication, BpaConstants.WF_NEW_STATE);
-		if (wfmatrix != null)
-			userPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(),
-					bpaApplication.getSiteDetail().get(0) != null
-							&& bpaApplication.getSiteDetail().get(0).getElectionBoundary() != null
-									? bpaApplication.getSiteDetail().get(0).getElectionBoundary().getId() : null);
-		if (userPosition == 0 || userPosition == null) {
-			return redirectOnValidationFailure(model);
-		}
-		
-		if (!applicationBpaService.checkStakeholderIsValid(bpaApplication)) {
-			String message = applicationBpaService.getValidationMessageForBusinessResgistration(bpaApplication);
-			model.addAttribute("invalidStakeholder", message);
-			model.addAttribute("mode", "new");
-			return NEWAPPLICATION_FORM;
-		}
-		
-		workFlowAction = request.getParameter("workFlowAction");
-		List<ApplicationStakeHolder> applicationStakeHolders = new ArrayList<>();
-		ApplicationStakeHolder applicationStakeHolder = new ApplicationStakeHolder();
-		applicationStakeHolder.setApplication(bpaApplication);
-		applicationStakeHolder.setStakeHolder(bpaApplication.getStakeHolder().get(0).getStakeHolder());
-		applicationStakeHolders.add(applicationStakeHolder);
-		bpaApplication.setStakeHolder(applicationStakeHolders);
-		applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
-		bpaApplication.setAdmissionfeeAmount(applicationBpaService.setAdmissionFeeAmountForRegistrationWithAmenities(
-				String.valueOf(bpaApplication.getServiceType().getId()), new ArrayList<ServiceType>()));
-		BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication, workFlowAction);
-		return genericBillGeneratorService.generateBillAndRedirectToCollection(bpaApplicationRes, model);
-	}
+    @Autowired
+    private RoleService roleService;
+    
+    @Autowired
+    private UserService userService;
 
-	private String redirectOnValidationFailure(final Model model) {
-		model.addAttribute("noJAORSAMessage", "No Superintendant exists to forward the application.");
-		model.addAttribute("mode", "new");
-		return NEWAPPLICATION_FORM;
-	}
+    @RequestMapping(value = "/newApplication-newform", method = GET)
+    public String showNewApplicationForm(@ModelAttribute final BpaApplication bpaApplication, final Model model,
+            final HttpServletRequest request) {
+        bpaApplication.setApplicationDate(new Date());
+        model.addAttribute("mode", "new");
+        model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
+        model.addAttribute("genderList", Arrays.asList(Gender.values()));
+        return NEWAPPLICATION_FORM;
+    }
 
-	@RequestMapping(value = "/getdocumentlistbyservicetype", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public List<CheckListDetail> getDocumentsByServiceType(final Model model, @RequestParam final Long serviceType,
-			final HttpServletRequest request) {
-		return checkListDetailService.findActiveCheckListByServiceType(serviceType, BpaConstants.CHECKLIST_TYPE);
-	}
+    @RequestMapping(value = "/newApplication-create", method = POST)
+    public String createNewConnection(@Valid @ModelAttribute final BpaApplication bpaApplication,
+            final BindingResult resultBinder, final RedirectAttributes redirectAttributes,
+            final HttpServletRequest request, final Model model, @RequestParam String workFlowAction,
+            final BindingResult errors) {
+
+        Long userPosition = null;
+        final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(bpaApplication, BpaConstants.WF_NEW_STATE);
+        if (wfmatrix != null)
+            userPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(),
+                    bpaApplication.getSiteDetail().get(0) != null
+                            && bpaApplication.getSiteDetail().get(0).getElectionBoundary() != null ? bpaApplication
+                            .getSiteDetail().get(0).getElectionBoundary().getId() : null);
+        if (userPosition == 0 || userPosition == null) {
+            return redirectOnValidationFailure(model);
+        }
+
+        if (!applicationBpaService.checkStakeholderIsValid(bpaApplication)) {
+            String message = applicationBpaService.getValidationMessageForBusinessResgistration(bpaApplication);
+            model.addAttribute("invalidStakeholder", message);
+            model.addAttribute("mode", "new");
+            return NEWAPPLICATION_FORM;
+        }
+        if (validateApplicantDtls_unique_email(bpaApplication.getOwner())!=null){
+            model.addAttribute("noJAORSAMessage", "Applicant/User with given emailId already exists.");
+            model.addAttribute("mode", "new"); 
+            return NEWAPPLICATION_FORM;
+        }
+
+        workFlowAction = request.getParameter("workFlowAction");
+        List<ApplicationStakeHolder> applicationStakeHolders = new ArrayList<>();
+        ApplicationStakeHolder applicationStakeHolder = new ApplicationStakeHolder();
+        applicationStakeHolder.setApplication(bpaApplication);
+        applicationStakeHolder.setStakeHolder(bpaApplication.getStakeHolder().get(0).getStakeHolder());
+        applicationStakeHolders.add(applicationStakeHolder);
+        bpaApplication.setStakeHolder(applicationStakeHolders);
+        applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
+        bpaApplication.setAdmissionfeeAmount(applicationBpaService.setAdmissionFeeAmountForRegistrationWithAmenities(
+                String.valueOf(bpaApplication.getServiceType().getId()), new ArrayList<ServiceType>()));
+        bpaApplication.getOwner().setUsername(bpaApplication.getOwner().getEmailId());
+        bpaApplication.getOwner().updateNextPwdExpiryDate(applicationProperties.userPasswordExpiryInDays());
+        bpaApplication.getOwner().setPassword(passwordEncoder.encode(bpaApplication.getOwner().getMobileNumber()));
+        bpaApplication.getOwner().addRole(roleService.getRoleByName(BpaConstants.ROLE_CITIZEN));
+        bpaApplication.getOwner().setAddress(Arrays.asList(setApplicantAddress(bpaApplication.getOwner())));
+        BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication, workFlowAction);
+        bpaUtils.createPortalUserinbox(bpaApplicationRes,Arrays.asList(bpaApplicationRes.getOwner(),bpaApplicationRes.getStakeHolder().get(0).getStakeHolder()));
+        bpaApplicationRes.setCitizenAccepted(true);
+        bpaApplicationRes.setArchitectAccepted(true);
+        return genericBillGeneratorService.generateBillAndRedirectToCollection(bpaApplicationRes, model);
+    }
+    
+    private User validateApplicantDtls_unique_email(final Applicant owner) {
+           return userService.getUserByEmailId(owner.getEmailId());
+    }
+
+    private Address setApplicantAddress(final Applicant owner) {
+        final PermanentAddress permanentAddress = new PermanentAddress();
+        permanentAddress.setStreetRoadLine(owner.getApplicantAddress());
+        permanentAddress.setUser(owner);
+        return permanentAddress;
+    }
+
+    private String redirectOnValidationFailure(final Model model) {
+        model.addAttribute("noJAORSAMessage", "No Superintendant exists to forward the application.");
+        model.addAttribute("mode", "new");
+        return NEWAPPLICATION_FORM;
+    }
+
+    @RequestMapping(value = "/getdocumentlistbyservicetype", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<CheckListDetail> getDocumentsByServiceType(final Model model, @RequestParam final Long serviceType,
+            final HttpServletRequest request) {
+        return checkListDetailService.findActiveCheckListByServiceType(serviceType, BpaConstants.CHECKLIST_TYPE);
+    }
 
 }

@@ -56,21 +56,21 @@
 		<div class="col-sm-3 add-margin">
 			<form:input class="form-control patternvalidation"
 				data-pattern="alphabetspecialcharacters" maxlength="128"
-				id="owner.applicantName" path="owner.applicantName"
+				id="owner.name" path="owner.name"
 				required="required" />
-			<form:errors path="owner.applicantName"
+			<form:errors path="owner.name"
 				cssClass="add-margin error-msg" />
 		</div>
 
-		<label class="col-sm-2 control-label text-right"><spring:message
-				code="lbl.owner.address" /><span class="mandatory"></span> </label>
+		 <label class="col-sm-2 control-label text-right"><spring:message
+				code="lbl.owner.address" /><span class="mandatory"></span></label>
 		<div class="col-sm-3 add-margin">
-			<form:textarea path="owner.address" id="address"
+			<form:textarea path="owner.applicantAddress" id="address"
 				class="form-control patternvalidation"
 				data-pattern="alphanumericspecialcharacters" required="required"
 				maxlength="128" cols="5" rows="4" />
-			<form:errors path="owner.address" cssClass="add-margin error-msg" />
-		</div>
+			<form:errors path="owner.applicantAddress" cssClass="add-margin error-msg" />
+		</div> 
 	</div>
 	<div class="form-group">
 		<label class="col-sm-3 control-label text-right"><spring:message
@@ -89,9 +89,22 @@
 				code="lbl.emailid" /> <span class="mandatory"></span></label>
 		<div class="col-sm-3 add-margin">
 			<form:input class="form-control " maxlength="128" onblur=""
-				id="emailId" path="owner.emailid" required="required" />
+				id="emailId" path="owner.emailId" required="required" />
 			**Mail is sent to this
-			<form:errors path="owner.emailid" cssClass="add-margin error-msg" />
+			<form:errors path="owner.emailId" cssClass="add-margin error-msg" />
 		</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-3 control-label text-right"><spring:message
+			code="lbl.gender" /> <span class="mandatory"></span></label>
+	<div class="col-sm-3 add-margin">
+		<form:select path="owner.gender" id="gender" required="required"
+			cssClass="form-control" cssErrorClass="form-control error">
+			<form:option value="">
+				<spring:message code="lbl.select" />
+			</form:option>
+			<form:options items="${genderList}" />
+		</form:select>
+		<form:errors path="owner.gender" cssClass="error-msg" />
 	</div>
 </div>

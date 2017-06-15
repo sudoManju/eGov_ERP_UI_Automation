@@ -76,7 +76,7 @@ public class BpaApplicationBillable extends AbstractBillable implements Billable
     private EgBillType billType;
     private String referenceNumber;
     private String transanctionReferenceNumber;
-    
+
     @Autowired
     private AppConfigValueService appConfigValueService;
 
@@ -90,12 +90,13 @@ public class BpaApplicationBillable extends AbstractBillable implements Billable
 
     @Override
     public String getBillPayee() {
-        return application.getOwner().getApplicantName();
+        return application.getOwner().getName();
     }
 
     @Override
     public String getBillAddress() {
-        return application.getOwner() != null ? application.getOwner().getAddress() : "";
+        return application.getOwner() != null ? !application.getOwner().getAddress().isEmpty() ? application.getOwner()
+                .getAddress().get(0).getStreetRoadLine() : "" : "";
     }
 
     @Override
@@ -105,7 +106,7 @@ public class BpaApplicationBillable extends AbstractBillable implements Billable
 
     @Override
     public String getEmailId() {
-        return application.getOwner().getEmailid();
+        return application.getOwner().getEmailId();
     }
 
     @Override
@@ -129,8 +130,9 @@ public class BpaApplicationBillable extends AbstractBillable implements Billable
 
     @Override
     public Long getBoundaryNum() {
-        return application.getSiteDetail().get(0) != null && application.getSiteDetail().get(0).getAdminBoundary() != null
-                ? application.getSiteDetail().get(0).getAdminBoundary().getBoundaryNum() : 0l;
+        return application.getSiteDetail().get(0) != null
+                && application.getSiteDetail().get(0).getAdminBoundary() != null ? application.getSiteDetail().get(0)
+                .getAdminBoundary().getBoundaryNum() : 0l;
     }
 
     @Override
@@ -140,29 +142,30 @@ public class BpaApplicationBillable extends AbstractBillable implements Billable
 
     @Override
     public String getDepartmentCode() {
-    	List<AppConfigValues>appConfigValueList=appConfigValueService.getConfigValuesByModuleAndKey(BpaConstants.APPLICATION_MODULE_TYPE, BpaConstants.BPA_DEPARTMENT_CODE);
-    	return !appConfigValueList.isEmpty()?appConfigValueList.get(0).getValue():"";
+        List<AppConfigValues> appConfigValueList = appConfigValueService.getConfigValuesByModuleAndKey(
+                BpaConstants.APPLICATION_MODULE_TYPE, BpaConstants.BPA_DEPARTMENT_CODE);
+        return !appConfigValueList.isEmpty() ? appConfigValueList.get(0).getValue() : "";
     }
 
     @Override
     public BigDecimal getFunctionaryCode() {
-    	List<AppConfigValues>appConfigValueList=appConfigValueService.getConfigValuesByModuleAndKey
-    			(BpaConstants.APPLICATION_MODULE_TYPE, BpaConstants.BPA_DEFAULT_FUNCTIONARY_CODE);
-    	return !appConfigValueList.isEmpty()?new BigDecimal(appConfigValueList.get(0).getValue()):new BigDecimal(0);
+        List<AppConfigValues> appConfigValueList = appConfigValueService.getConfigValuesByModuleAndKey(
+                BpaConstants.APPLICATION_MODULE_TYPE, BpaConstants.BPA_DEFAULT_FUNCTIONARY_CODE);
+        return !appConfigValueList.isEmpty() ? new BigDecimal(appConfigValueList.get(0).getValue()) : new BigDecimal(0);
     }
 
     @Override
     public String getFundCode() {
-    	List<AppConfigValues>appConfigValueList=appConfigValueService.getConfigValuesByModuleAndKey
-    			(BpaConstants.APPLICATION_MODULE_TYPE, BpaConstants.BPA_DEFAULT_FUND_CODE);
-    	return !appConfigValueList.isEmpty()?appConfigValueList.get(0).getValue():"";
+        List<AppConfigValues> appConfigValueList = appConfigValueService.getConfigValuesByModuleAndKey(
+                BpaConstants.APPLICATION_MODULE_TYPE, BpaConstants.BPA_DEFAULT_FUND_CODE);
+        return !appConfigValueList.isEmpty() ? appConfigValueList.get(0).getValue() : "";
     }
 
     @Override
     public String getFundSourceCode() {
-    	List<AppConfigValues>appConfigValueList=appConfigValueService.getConfigValuesByModuleAndKey
-    			(BpaConstants.APPLICATION_MODULE_TYPE, BpaConstants.BPA_DEFAULT_FUND_SRC_CODE);
-    	return !appConfigValueList.isEmpty()?appConfigValueList.get(0).getValue():"";
+        List<AppConfigValues> appConfigValueList = appConfigValueService.getConfigValuesByModuleAndKey(
+                BpaConstants.APPLICATION_MODULE_TYPE, BpaConstants.BPA_DEFAULT_FUND_SRC_CODE);
+        return !appConfigValueList.isEmpty() ? appConfigValueList.get(0).getValue() : "";
     }
 
     @Override

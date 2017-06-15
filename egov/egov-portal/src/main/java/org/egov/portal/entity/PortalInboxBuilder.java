@@ -98,8 +98,8 @@ public class PortalInboxBuilder {
                     PortalInboxUser portalInboxUser = new PortalInboxUser();
                     portalInboxUser.setUser(userObject);
                     portalInboxUser.setPortalInbox(portalInbox);
-                    portalInbox.setTempPortalInboxUser(new ArrayList<PortalInboxUser>(Arrays.asList(portalInboxUser)));
-                }
+                    portalInbox.getTempPortalInboxUser().add(portalInboxUser);
+                } 
             }
         }
     }

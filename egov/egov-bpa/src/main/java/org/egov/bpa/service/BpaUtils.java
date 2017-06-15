@@ -136,7 +136,7 @@ public class BpaUtils {
 	}
 
 	@Transactional
-	public void updatePortalUserinbox(final BpaApplication application) {
+	public void updatePortalUserinbox(final BpaApplication application, final User additionalPortalInboxUser) {
 		Module module = moduleService.getModuleByName(BpaConstants.EGMODULE_NAME);
 		boolean isResolved = false;
 		if ((application.getState() != null && application.getState().equals(WF_END_ACTION))
@@ -147,18 +147,18 @@ public class BpaUtils {
 		if (application.getStatus() != null)
 			portalInboxService.updateInboxMessage(application.getApplicationNumber(), module.getId(),
 					(application.getStatus().getDescription()), isResolved, new Date(), application.getState(),
-					getCurrentUser(), application.getPlanPermissionNumber(), url);
+					additionalPortalInboxUser, application.getPlanPermissionNumber(), url);
 	}
 
 	@Transactional
-	public void createPortalUserinbox(final BpaApplication application) {
+	public void createPortalUserinbox(final BpaApplication application, final List<User> portalInboxUser) {
 		Module module = moduleService.getModuleByName(BpaConstants.EGMODULE_NAME);
 		boolean isResolved = false;
 		String url = "/bpa/application/citizen/update/" + application.getApplicationNumber();
 		final PortalInboxBuilder portalInboxBuilder = new PortalInboxBuilder(module,
 				application.getServiceType().getDescription(), application.getApplicationNumber(),
 				application.getPlanPermissionNumber(), application.getId(), "Sucess", "suceess1", url, isResolved,
-				"to be Subitted", new Date(), application.getState(), Arrays.asList(getCurrentUser()));
+				"to be Subitted", new Date(), application.getState(), portalInboxUser);
 
 		final PortalInbox portalInbox = portalInboxBuilder.build();
 		portalInboxService.pushInboxMessage(portalInbox);

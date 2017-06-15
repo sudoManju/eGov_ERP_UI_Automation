@@ -52,6 +52,7 @@ import org.egov.bpa.application.service.collection.GenericBillGeneratorService;
 import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.bpa.web.controller.application.BpaGenericApplicationController;
+import org.egov.infra.security.utils.SecurityUtils;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -83,6 +84,7 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 	LettertoPartyService lettertoPartyService;
 	@Autowired
 	private InspectionService inspectionService;
+	private SecurityUtils securityUtils;
 
 	@ModelAttribute
 	public BpaApplication getBpaApplication(@PathVariable final String applicationNumber) {
@@ -167,12 +169,12 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 			if (BpaConstants.WF_CANCELAPPLICATION_BUTTON.equalsIgnoreCase(workFlowAction)) {
 				bpaApplication.setStatus(
 						applicationBpaService.getStatusByCodeAndModuleType(BpaConstants.APPLICATION_STATUS_CANCELLED));
-				bpaUtils.updatePortalUserinbox(bpaApplication);
+				bpaUtils.updatePortalUserinbox(bpaApplication,null);
 
 			}
 		}
 		applicationBpaService.saveAndFlushApplication(bpaApplication);
-		bpaUtils.updatePortalUserinbox(bpaApplication);
+		bpaUtils.updatePortalUserinbox(bpaApplication,null);
 		bpaUtils.sendSmsEmailOnCitizenSubmit(bpaApplication, workFlowAction);
 		return BPA_APPLICATION_RESULT;
 	}

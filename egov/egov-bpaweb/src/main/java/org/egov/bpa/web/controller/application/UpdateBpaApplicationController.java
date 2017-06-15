@@ -61,21 +61,25 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.egov.bpa.application.entity.Applicant;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaAppointmentSchedule;
 import org.egov.bpa.application.entity.LettertoParty;
 import org.egov.bpa.application.entity.enums.AppointmentSchedulePurpose;
 import org.egov.bpa.application.service.InspectionService;
 import org.egov.bpa.application.service.LettertoPartyService;
+import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.eis.service.PositionMasterService;
 import org.egov.eis.web.contract.WorkflowContainer;
 import org.egov.infra.admin.master.entity.User;
+import org.egov.infra.admin.master.service.UserService;
 import org.egov.infra.security.utils.SecurityUtils;
 import org.egov.infra.workflow.entity.StateHistory;
 import org.egov.pims.commons.Position;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -119,6 +123,12 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
     private PositionMasterService positionMasterService;
     @Autowired
     LettertoPartyService lettertoPartyService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private BpaUtils bpaUtils;
 
     @ModelAttribute
     public BpaApplication getBpaApplication(@PathVariable final String applicationNumber) {
@@ -278,6 +288,10 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
 					? application.getDocumentScrutiny().get(0).getExtentinsqmts() : new BigDecimal(1));
 		}
         workflowContainer.setAdditionalRule(CREATE_ADDITIONAL_RULE_CREATE);
+        if (application.getOwner().getApplicantAddress() == null && application.getOwner().getAddress() != null
+                && !application.getOwner().getAddress().isEmpty()
+                && application.getOwner().getAddress().get(0) != null)
+            application.getOwner().setApplicantAddress(application.getOwner().getAddress().get(0).getStreetRoadLine());
         prepareWorkflow(model, application, workflowContainer);
         model.addAttribute("pendingActions", workflowContainer.getPendingActions());
         model.addAttribute(AMOUNT_RULE, workflowContainer.getAmountRule());
@@ -297,7 +311,11 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
             final BindingResult resultBinder, final RedirectAttributes redirectAttributes,
             final HttpServletRequest request, final Model model, 
             @RequestParam final BigDecimal amountRule, @RequestParam("files") final MultipartFile[] files) {
-
+        User dbUser = validateApplicantDtls_unique_email(bpaApplication.getOwner());
+        if (dbUser!=null && dbUser.getId()!= bpaApplication.getOwner().getId()){
+            model.addAttribute("noJAORSAMessage", "Applicant/User with given emailId already exists.");
+            return BPAAPPLICATION_FORM;
+        } 
         if (resultBinder.hasErrors()) {
             loadViewdata(model, bpaApplication);
             return BPAAPPLICATION_FORM;
@@ -319,12 +337,15 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 }
             }
         }
-        
+        bpaApplication.getOwner().setUsername(bpaApplication.getOwner().getEmailId());
+        bpaApplication.getOwner().setPassword(passwordEncoder.encode(bpaApplication.getOwner().getMobileNumber()));
+        setApplicantAddress(bpaApplication.getOwner());
         applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
         if(bpaApplication.getCurrentState().getValue().equals(BpaConstants.WF_NEW_STATE)){
       	   return applicationBpaService.redirectToCollectionOnForward(bpaApplication,model);
            }
         BpaApplication bpaAppln = applicationBpaService.updateApplication(bpaApplication, approvalPosition, workFlowAction,amountRule);
+        bpaUtils.updatePortalUserinbox(bpaAppln,null);
         if (null != approvalPosition) {
             pos = positionMasterService.getPositionById(approvalPosition);
         }
@@ -357,4 +378,13 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         }
         return BPA_APPLICATION_RESULT;
     }
+    
+    private User validateApplicantDtls_unique_email(final Applicant owner) {
+        return userService.getUserByEmailId(owner.getEmailId());
+    }
+    
+    private void setApplicantAddress(final Applicant owner) {
+        owner.getAddress().get(0).setStreetRoadLine(owner.getApplicantAddress());
+    }
+
 }

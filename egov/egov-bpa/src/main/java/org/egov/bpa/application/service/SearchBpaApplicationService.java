@@ -93,7 +93,7 @@ public class SearchBpaApplicationService  {
             searchBpaApplicationForm.setStatus(bpaApplication.getStatus().getDescription());
             searchBpaApplicationForm.setPlanPermissionNumber(bpaApplication.getPlanPermissionNumber());
             searchBpaApplicationForm
-                    .setApplicantName(bpaApplication.getOwner() != null ? bpaApplication.getOwner().getApplicantName() : "");
+                    .setApplicantName(bpaApplication.getOwner() != null ? bpaApplication.getOwner().getName() : "");
             searchBpaApplicationForm.setStakeHolderName(
                     !bpaApplication.getStakeHolder().isEmpty() && bpaApplication.getStakeHolder().get(0).getStakeHolder() != null
                             ? bpaApplication.getStakeHolder().get(0).getStakeHolder().getName() : "");

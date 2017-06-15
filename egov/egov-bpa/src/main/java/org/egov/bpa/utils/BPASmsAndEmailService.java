@@ -123,8 +123,8 @@ public class BPASmsAndEmailService {
         if (isSmsEnabled() || isEmailEnabled()) {
             for (ApplicationStakeHolder applnStakeHolder : bpaApplication.getStakeHolder()) {
                 if (applnStakeHolder.getApplication() != null && applnStakeHolder.getApplication().getOwner() != null) {
-                    applicantName = applnStakeHolder.getApplication().getOwner().getApplicantName();
-                    email = applnStakeHolder.getApplication().getOwner().getEmailid();
+                    applicantName = applnStakeHolder.getApplication().getOwner().getName();
+                    email = applnStakeHolder.getApplication().getOwner().getEmailId();
                     mobileNo = applnStakeHolder.getApplication().getOwner().getMobileNumber();
                     buildSmsAndEmailForBPANewAppln(bpaApplication, applicantName, mobileNo, email);
                 }
@@ -141,15 +141,15 @@ public class BPASmsAndEmailService {
     public void sendSMSAndEmailToscheduleAppointment(final BpaAppointmentSchedule scheduleDetails,
             final BpaApplication bpaApplication) {
         if (isSmsEnabled() || isEmailEnabled()) {
-            buildSmsAndEmailForScheduleAppointment(scheduleDetails, bpaApplication, bpaApplication.getOwner().getApplicantName(),
-                    bpaApplication.getOwner().getMobileNumber(), bpaApplication.getOwner().getEmailid());
+            buildSmsAndEmailForScheduleAppointment(scheduleDetails, bpaApplication, bpaApplication.getOwner().getName(),
+                    bpaApplication.getOwner().getMobileNumber(), bpaApplication.getOwner().getEmailId());
         }
     }
 
     public void sendSMSAndEmailToApplicantForLettertoparty(final BpaApplication bpaApplication) {
         if (isSmsEnabled() || isEmailEnabled()) {
-            buildSmsAndEmailForBPANewAppln(bpaApplication, bpaApplication.getOwner().getApplicantName(),
-                    bpaApplication.getOwner().getEmailid(),
+            buildSmsAndEmailForBPANewAppln(bpaApplication, bpaApplication.getOwner().getName(),
+                    bpaApplication.getOwner().getEmailId(),
                     bpaApplication.getOwner().getMobileNumber());
         }
     }

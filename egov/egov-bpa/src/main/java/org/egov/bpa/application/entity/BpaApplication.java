@@ -192,6 +192,8 @@ public class BpaApplication extends StateAware {
     private Long wardId;
     @Transient
     private String approvalComent;
+    private boolean citizenAccepted;
+    private boolean architectAccepted;
 
     @Override
     public Long getId() {
@@ -611,5 +613,21 @@ public class BpaApplication extends StateAware {
 	public void setIsExistingApprovedPlan(Boolean isExistingApprovedPlan) {
 		this.isExistingApprovedPlan = isExistingApprovedPlan;
 	}
+
+    public boolean isCitizenAccepted() {
+        return citizenAccepted;
+    }
+
+    public void setCitizenAccepted(boolean citizenAccepted) {
+        this.citizenAccepted = citizenAccepted;
+    }
+
+    public boolean isArchitectAccepted() {
+        return architectAccepted;
+    }
+
+    public void setArchitectAccepted(boolean architectAccepted) {
+        this.architectAccepted = architectAccepted;
+    }
 
 }

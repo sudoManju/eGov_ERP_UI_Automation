@@ -79,6 +79,7 @@ import org.egov.demand.model.EgDemandReason;
 import org.egov.infra.admin.master.entity.Module;
 import org.egov.infra.admin.master.service.ModuleService;
 import org.egov.infra.exception.ApplicationRuntimeException;
+import org.egov.infra.security.utils.SecurityUtils;
 import org.egov.infra.workflow.service.SimpleWorkflowService;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -125,6 +126,9 @@ public class BpaTaxCollection extends TaxCollection {
     
     @Autowired
     private BPASmsAndEmailService bpaSmsAndEmailService;
+    
+    @Autowired
+    private SecurityUtils securityUtils;
 
     public Session getCurrentSession() {
         return entityManager.unwrap(Session.class);
@@ -218,7 +222,7 @@ public class BpaTaxCollection extends TaxCollection {
         if(application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_CREATED)){
         bpaUtils.redirectToBpaWorkFlow(null,application, BpaConstants.WF_NEW_STATE, BpaConstants.BPAFEECOLLECT,null,null);
         }
-        bpaUtils.updatePortalUserinbox(application);
+        bpaUtils.updatePortalUserinbox(application,null);
         applicationBpaService.saveAndFlushApplication(application);
         bpaSmsAndEmailService.sendSMSAndEmail(application);
 

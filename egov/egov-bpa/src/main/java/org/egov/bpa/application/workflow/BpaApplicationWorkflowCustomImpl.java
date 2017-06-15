@@ -245,7 +245,7 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
         }
         if (LOG.isDebugEnabled())
             LOG.debug(" WorkFlow Transition Completed ");
-        bpaUtils.updatePortalUserinbox(application);
+        bpaUtils.updatePortalUserinbox(application,null);
 
     }
 

@@ -42,38 +42,30 @@ package org.egov.bpa.application.entity;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.egov.bpa.application.entity.enums.GenderTitle;
-import org.egov.infra.persistence.entity.AbstractAuditable;
+import org.egov.infra.admin.master.entity.User;
+import org.egov.infra.persistence.entity.enums.UserType;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "EGBPA_APPLICANT")
 @SequenceGenerator(name = Applicant.SEQ_APPLICANT, sequenceName = Applicant.SEQ_APPLICANT, allocationSize = 1)
-public class Applicant extends AbstractAuditable {
+public class Applicant extends User {
 
     private static final long serialVersionUID = 3078684328383202788L;
     public static final String SEQ_APPLICANT = "SEQ_EGBPA_Applicant";
 
-    @Id
-    @GeneratedValue(generator = SEQ_APPLICANT, strategy = GenerationType.SEQUENCE)
-    private Long id;
-    private String applicantName;
+    @Transient
+    private String applicantAddress;
+    
     private GenderTitle title;
-    @Length(min = 1, max = 128)
-    private String username;
-    @Length(min = 1, max = 128)
-    private String gender;
     @Length(min = 1, max = 128)
     private String fatherorHusbandName;
     private Date dateofBirth;
-    @Length(min = 1, max = 128)
-    private String address;
     @Length(min = 1, max = 128)
     private String district;
     @Length(min = 1, max = 128)
@@ -86,27 +78,11 @@ public class Applicant extends AbstractAuditable {
     private String state;
     @Length(min = 1, max = 128)
     private String pinCode;
-    @Length(min = 1, max = 128)
-    private String mobileNumber;
-    @Length(min = 1, max = 128)
-    private String emailid;
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public String getApplicantName() {
-        return applicantName;
-    }
-
-    public void setApplicantName(final String applicantName) {
-        this.applicantName = applicantName;
+  
+    
+    public Applicant() {
+        setType(UserType.CITIZEN);
+        setActive(true);
     }
 
     public GenderTitle getTitle() {
@@ -117,21 +93,6 @@ public class Applicant extends AbstractAuditable {
         this.title = title;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(final String username) {
-        this.username = username;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(final String gender) {
-        this.gender = gender;
-    }
 
     public Date getDateofBirth() {
         return dateofBirth;
@@ -139,14 +100,6 @@ public class Applicant extends AbstractAuditable {
 
     public void setDateofBirth(final Date dateofBirth) {
         this.dateofBirth = dateofBirth;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(final String address) {
-        this.address = address;
     }
 
     public String getDistrict() {
@@ -188,15 +141,6 @@ public class Applicant extends AbstractAuditable {
     public void setState(final String state) {
         this.state = state;
     }
-
-    public String getEmailid() {
-        return emailid;
-    }
-
-    public void setEmailid(final String emailid) {
-        this.emailid = emailid;
-    }
-
     public String getFatherorHusbandName() {
         return fatherorHusbandName;
     }
@@ -213,12 +157,11 @@ public class Applicant extends AbstractAuditable {
         this.pinCode = pinCode;
     }
 
-    public String getMobileNumber() {
-        return mobileNumber;
+    public String getApplicantAddress() {
+            return applicantAddress;
     }
 
-    public void setMobileNumber(final String mobileNumber) {
-        this.mobileNumber = mobileNumber;
+    public void setApplicantAddress(String applicantAddress) { 
+            this.applicantAddress =  applicantAddress;
     }
-
 }

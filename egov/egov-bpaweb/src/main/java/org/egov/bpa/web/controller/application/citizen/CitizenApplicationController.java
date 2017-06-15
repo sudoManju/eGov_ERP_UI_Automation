@@ -43,6 +43,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -198,7 +199,7 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
 				String.valueOf(bpaApplication.getServiceType().getId()), new ArrayList<ServiceType>()));
 		BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication, workFlowAction);
 		if (bpaUtils.logedInuseCitizenOrBusinessUser()) {
-			bpaUtils.createPortalUserinbox(bpaApplicationRes);
+			bpaUtils.createPortalUserinbox(bpaApplicationRes,Arrays.asList(securityUtils.getCurrentUser()));
 			model.addAttribute("message",
 					"Sucessfully saved with ApplicationNumber " + bpaApplicationRes.getApplicationNumber());
 			bpaUtils.sendSmsEmailOnCitizenSubmit(bpaApplication, workFlowAction);
