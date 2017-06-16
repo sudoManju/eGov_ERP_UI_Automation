@@ -192,10 +192,8 @@
 	<label class="col-sm-2 control-label text-right">Property
 		Number </label>
 	<div class="col-sm-3 add-margin">
-		<div class="input-group">
 			<form:input id="assessmentNumber" path="assessmentNumber"
 				class="form-control" data-pattern="number" maxlength="50" />
-		</div>
 		<form:errors path="assessmentNumber" id="assessmentNumber"
 			cssClass="add-margin error-msg" />
 	</div>

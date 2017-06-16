@@ -49,7 +49,8 @@ jQuery(document).ready(function() {
 		});
 	
 	$('.upload-file').removeAttr('required');
-	
+	$("#mobileNumber").prop("disabled",true);
+	$("#emailId").prop("disabled",true);
 	$("#admissionfeeAmount").prop("disabled",true);
 	$("#applicationDate").prop("disabled",true);
 	$("#stakeHolderTypeHead").prop("disabled",true);
