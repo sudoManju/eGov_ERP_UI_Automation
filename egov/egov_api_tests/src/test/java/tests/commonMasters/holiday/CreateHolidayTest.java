@@ -20,49 +20,35 @@ import utils.RequestHelper;
 
 import java.io.IOException;
 
-import static data.UserData.NARASAPPA;
+import static data.UserData.ADMIN;
 
 public class CreateHolidayTest extends BaseAPITest {
 
     @Test(groups = {Categories.HR, Categories.SANITY})
     public void createHolidayTest() throws IOException {
-
-        // Login Test
-        String sessionId = LoginAndLogoutHelper.loginFromPilotService(NARASAPPA);
-        System.out.println(sessionId);
-
-        // Create Holiday Test
-        createHolidayTestMethod(sessionId);
-
+        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+        createHoliday(sessionId); // Create Holiday
+        pilotLogoutService(sessionId); // Logout
     }
 
-    private void createHolidayTestMethod(String sessionId) {
-
+    private void createHoliday(String sessionId) {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
-
-        CalendarYear calendarYear = new CalendarYearBuilder()
-                .build();
+        CalendarYear calendarYear = new CalendarYearBuilder().build();
 
         Holiday holiday = new HolidayBuilder()
                 .withCalendarYear(calendarYear)
-                .withId(30)
                 .withName("Good Friday")
                 .withApplicableOn("14/04/2017")
                 .build();
-
         CreateHolidayRequest createHolidayRequest = new CreateHolidayRequestBuilder()
                 .withHoliday(holiday)
                 .withRequestInfo(requestInfo)
                 .build();
 
         Response response = new CommonMasterResource()
-                .createHoliday(RequestHelper.getJsonString(createHolidayRequest), sessionId);
+                .createHolidayResource(RequestHelper.getJsonString(createHolidayRequest), sessionId);
 
         Assert.assertEquals(response.getStatusCode(), 200);
         new APILogger().log("Create Holiday Test is Completed --");
-
-        // Logout Test
-        pilotLogoutService(sessionId);
     }
-
 }

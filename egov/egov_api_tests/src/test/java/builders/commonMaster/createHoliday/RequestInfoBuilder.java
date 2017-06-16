@@ -10,10 +10,10 @@ public class RequestInfoBuilder {
         requestInfo.setApiId("1");
         requestInfo.setVer("1");
         requestInfo.setTs("08-06-2017 01:01:01");
-        requestInfo.setAction("createLeaveApplicationResource");
+        requestInfo.setAction("create");
         requestInfo.setDid("");
         requestInfo.setKey("");
-        requestInfo.setMsgId("");
+        requestInfo.setMsgId("1");
         requestInfo.setRequesterId("");
         requestInfo.setAuthToken("aeiou");
     }

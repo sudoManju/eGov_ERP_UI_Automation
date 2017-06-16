@@ -10,7 +10,7 @@ public final class HolidayBuilder {
 
     public HolidayBuilder() {
         holiday.setCalendarYear(calendarYear);
-        holiday.setTenantId("1");
+        holiday.setTenantId("ap.kurnool");
     }
 
     public HolidayBuilder withCalendarYear(CalendarYear calendarYear) {

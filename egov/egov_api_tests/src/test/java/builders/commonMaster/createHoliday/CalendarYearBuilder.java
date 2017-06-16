@@ -12,7 +12,7 @@ public final class CalendarYearBuilder {
         calendarYear.setStartDate("01/01/2017");
         calendarYear.setEndDate("31/12/2017");
         calendarYear.setActive(true);
-        calendarYear.setTenantId("1");
+        calendarYear.setTenantId("ap.kurnool");
     }
 
     public CalendarYearBuilder withEndDate(String endDate) {
