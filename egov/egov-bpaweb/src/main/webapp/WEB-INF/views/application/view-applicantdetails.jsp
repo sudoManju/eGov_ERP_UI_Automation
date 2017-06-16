@@ -55,13 +55,13 @@
 			<spring:message code="lbl.applicant.name" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.owner.applicantName}" default="N/A"></c:out>
+			<c:out value="${bpaApplication.owner.name}" default="N/A"></c:out>
 		</div>
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.owner.address" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.owner.address}" default="N/A"></c:out>
+			<c:out value="${bpaApplication.owner.address[0].streetRoadLine}" default="N/A"></c:out>
 		</div>
 	</div>
 	
@@ -76,7 +76,15 @@
 			<spring:message code="lbl.emailid" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.owner.emailid}" default="N/A"></c:out>
+			<c:out value="${bpaApplication.owner.emailId}" default="N/A"></c:out>
+		</div>
+	</div>
+	<div class="row add-border">
+		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.gender" />
+		</div>
+		<div class="col-sm-3 add-margin view-content">
+			<c:out value="${bpaApplication.owner.gender}" default="N/A"></c:out>
 		</div>
 	</div>
 </div>

@@ -92,21 +92,22 @@
 							<c:out value="${appoimnt.remarks}" default="N/A"></c:out>
 						</div>
 					</div>
-
-					<div class="row add-border">
-						<div class="col-sm-3 add-margin">
-							<spring:message code="lbl.ispostponed" />
+					<c:if test="${appoimnt.postponed}">
+						<div class="row add-border">
+							<div class="col-sm-3 add-margin">
+								<spring:message code="lbl.ispostponed" />
+							</div>
+							<div class="col-sm-3 add-margin view-content">
+								<c:out value="${appoimnt.postponed ? 'YES' : 'NO'}" default="N/A"></c:out>
+							</div>
+							<div class="col-sm-3 add-margin">
+								<spring:message code="lbl.postpone.reason" />
+							</div>
+							<div class="col-sm-3 add-margin view-content">
+								<c:out value="${appoimnt.postponementReason}" default="N/A"></c:out>
+							</div>
 						</div>
-						<div class="col-sm-3 add-margin view-content">
-							<c:out value="${appoimnt.postponed ? 'YES' : 'NO'}" default="N/A"></c:out>
-						</div>
-						<div class="col-sm-3 add-margin">
-							<spring:message code="lbl.postpone.reason" />
-						</div>
-						<div class="col-sm-3 add-margin view-content">
-							<c:out value="${appoimnt.postponementReason}" default="N/A"></c:out>
-						</div>
-					</div>
+					</c:if>
 				</c:forEach>
 			</div>
 		</div>
