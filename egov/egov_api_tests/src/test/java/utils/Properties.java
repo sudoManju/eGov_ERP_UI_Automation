@@ -75,4 +75,6 @@ public class Properties {
     public static final String searchUsageMasterUrl = propertiesReader.getEndPointUrl("usageMasterSearchUrl");
     public static final String createStructureClassUrl = propertiesReader.getEndPointUrl("structureClassCreateUrl");
     public static final String searchStructureClassUrl = propertiesReader.getEndPointUrl("structureClassSearchUrl");
+    public static final String createFloorTypesUrl = propertiesReader.getEndPointUrl("floorTypesCreateUrl");
+    public static final String searchFloorTypesUrl = propertiesReader.getEndPointUrl("floorTypesSearchUrl");
 }

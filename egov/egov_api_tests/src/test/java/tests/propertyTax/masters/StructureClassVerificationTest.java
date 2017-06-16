@@ -31,7 +31,7 @@ public class StructureClassVerificationTest extends BaseAPITest {
 
         SearchHelper helper = new SearchHelper(loginResponse);
 
-        helper.searchStructureClassMaster(create);
+        helper.searchStructureClassMaster(create);    //Search
     }
 
     private StructureClassResponse createStructureClass(LoginResponse loginResponse) throws IOException {

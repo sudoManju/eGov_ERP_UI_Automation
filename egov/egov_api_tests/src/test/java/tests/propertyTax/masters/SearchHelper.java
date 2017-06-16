@@ -6,11 +6,14 @@ import com.jayway.restassured.response.Response;
 import entities.requests.propertyTax.masters.RequestInfo;
 import entities.requests.propertyTax.masters.usage.SearchMasterRequest;
 import entities.responses.login.LoginResponse;
+import entities.responses.propertyTax.masters.floorTypes.create.FloorTypesResponse;
+import entities.responses.propertyTax.masters.floorTypes.search.SearchFloorTypesResponse;
 import entities.responses.propertyTax.masters.structureClass.create.StructureClassResponse;
 import entities.responses.propertyTax.masters.structureClass.search.SearchStructureClassResponse;
 import entities.responses.propertyTax.masters.usage.search.SearchUsageMasterResponse;
 import entities.responses.propertyTax.masters.usage.create.UsageMasterResponse;
 import org.testng.Assert;
+import resources.propertyTax.masters.FloorTypesResource;
 import resources.propertyTax.masters.StructureClassResource;
 import resources.propertyTax.masters.UsageMasterResource;
 import tests.BaseAPITest;
@@ -119,5 +122,50 @@ public class SearchHelper extends BaseAPITest {
         Assert.assertEquals(response1.getStructureClasses()[0].getName(),responseObjectOfCreate.getStructureClasses()[0].getName());
         Assert.assertEquals(response1.getStructureClasses()[0].getCode(),responseObjectOfCreate.getStructureClasses()[0].getCode());
         Assert.assertEquals(response1.getStructureClasses()[0].getNameLocal(),responseObjectOfCreate.getStructureClasses()[0].getNameLocal());
+    }
+
+    public void searchFloorTypesMaster(FloorTypesResponse responseObjectOfCreate) throws IOException {
+
+        new APILogger().log("Search FloorTypes master is started --");
+
+        Response responseForId = new FloorTypesResource().searchFloorTypeMaster(json,"&ids="+responseObjectOfCreate.getFloorTypes()[0].getId());
+
+        checkAssertsForFloorTypes(responseForId,responseObjectOfCreate);
+
+        new APILogger().log("Search FloorTypes master with Id is success");
+
+        Response responseForName = new FloorTypesResource().searchFloorTypeMaster(json, "&name=" + responseObjectOfCreate.getFloorTypes()[0].getName());
+
+        checkAssertsForFloorTypes(responseForName,responseObjectOfCreate);
+
+        new APILogger().log("Search FloorTypes Master with Name is success");
+
+        Response responseForCode = new FloorTypesResource().searchFloorTypeMaster(json, "&code=" + responseObjectOfCreate.getFloorTypes()[0].getCode());
+
+        checkAssertsForFloorTypes(responseForCode,responseObjectOfCreate);
+
+        new APILogger().log("Search FloorTypes Master with code is success");
+
+        Response responseForNameLocal = new FloorTypesResource().searchFloorTypeMaster(json,"&nameLocal="+responseObjectOfCreate.getFloorTypes()[0].getNameLocal());
+
+        checkAssertsForFloorTypes(responseForNameLocal,responseObjectOfCreate);
+
+        new APILogger().log("Search FloorTypes Master with Name Local is success");
+
+        new APILogger().log("Search FloorTypes Master is Completed --");
+
+    }
+
+    private void checkAssertsForFloorTypes(Response response,FloorTypesResponse requestObject) throws IOException {
+
+        Assert.assertEquals(response.getStatusCode(),200);
+
+        SearchFloorTypesResponse response1 = (SearchFloorTypesResponse)
+                ResponseHelper.getResponseAsObject(response.asString(),SearchFloorTypesResponse.class);
+
+        Assert.assertEquals(response1.getFloorTypes()[0].getId(),requestObject.getFloorTypes()[0].getId());
+        Assert.assertEquals(response1.getFloorTypes()[0].getName(),requestObject.getFloorTypes()[0].getName());
+        Assert.assertEquals(response1.getFloorTypes()[0].getCode(),requestObject.getFloorTypes()[0].getCode());
+        Assert.assertEquals(response1.getFloorTypes()[0].getNameLocal(),requestObject.getFloorTypes()[0].getNameLocal());
     }
 }
