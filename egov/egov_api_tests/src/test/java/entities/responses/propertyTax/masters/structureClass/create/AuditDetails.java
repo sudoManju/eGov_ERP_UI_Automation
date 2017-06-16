@@ -1,4 +1,4 @@
-package entities.responses.propertyTax.masters.structureClass;
+package entities.responses.propertyTax.masters.structureClass.create;
 
 public class AuditDetails {
     private long lastModifiedTime;

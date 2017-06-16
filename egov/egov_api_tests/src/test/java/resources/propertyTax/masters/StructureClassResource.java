@@ -23,4 +23,19 @@ public class StructureClassResource {
 
         return response;
     }
+
+    public Response searchStructureClass(String json, String s) {
+
+        new APILogger().log("Search StructureClass Master request is started with --"+json);
+
+        Response response = given().request().with()
+                .header("Content-Type","application/json")
+                .body(json)
+                .when()
+                .post(Properties.searchStructureClassUrl+s);
+
+        new APILogger().log("Search StructureClass Master response is generated as --"+response.asString());
+
+        return response;
+    }
 }

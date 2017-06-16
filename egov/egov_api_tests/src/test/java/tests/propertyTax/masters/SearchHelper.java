@@ -6,9 +6,12 @@ import com.jayway.restassured.response.Response;
 import entities.requests.propertyTax.masters.RequestInfo;
 import entities.requests.propertyTax.masters.usage.SearchMasterRequest;
 import entities.responses.login.LoginResponse;
+import entities.responses.propertyTax.masters.structureClass.create.StructureClassResponse;
+import entities.responses.propertyTax.masters.structureClass.search.SearchStructureClassResponse;
 import entities.responses.propertyTax.masters.usage.search.SearchUsageMasterResponse;
 import entities.responses.propertyTax.masters.usage.create.UsageMasterResponse;
 import org.testng.Assert;
+import resources.propertyTax.masters.StructureClassResource;
 import resources.propertyTax.masters.UsageMasterResource;
 import tests.BaseAPITest;
 import utils.APILogger;
@@ -31,46 +34,40 @@ public class SearchHelper extends BaseAPITest {
         json = RequestHelper.getJsonString(request);
     }
 
-    public void searchForUsageMaster(UsageMasterResponse response) throws IOException {
+    public void searchForUsageMaster(UsageMasterResponse responseObjectOfUsage) throws IOException {
 
         new APILogger().log("Search Usage Master is started --");
 
-        Response responseForId = new UsageMasterResource().searchUsageMaster(json, "&ids=" + response.getUsageMasters()[0].getId());
+        Response responseForId = new UsageMasterResource().searchUsageMaster(json, "&ids=" + responseObjectOfUsage.getUsageMasters()[0].getId());
 
-        Assert.assertEquals(responseForId.getStatusCode(), 200);
-
-        CheckResponseForUsage(responseForId,response);
+        checkResponseForUsage(responseForId,responseObjectOfUsage);
 
         new APILogger().log("Search Usage Master with Id is success");
 
-        Response responseForName = new UsageMasterResource().searchUsageMaster(json, "&name=" + response.getUsageMasters()[0].getName());
+        Response responseForName = new UsageMasterResource().searchUsageMaster(json, "&name=" + responseObjectOfUsage.getUsageMasters()[0].getName());
 
-        Assert.assertEquals(responseForName.getStatusCode(), 200);
-
-        CheckResponseForUsage(responseForName,response);
+        checkResponseForUsage(responseForName,responseObjectOfUsage);
 
         new APILogger().log("Search Usage Master with Name is success");
 
-        Response responseForCode = new UsageMasterResource().searchUsageMaster(json, "&code=" + response.getUsageMasters()[0].getCode());
+        Response responseForCode = new UsageMasterResource().searchUsageMaster(json, "&code=" + responseObjectOfUsage.getUsageMasters()[0].getCode());
 
-        Assert.assertEquals(responseForCode.getStatusCode(), 200);
-
-        CheckResponseForUsage(responseForCode,response);
+        checkResponseForUsage(responseForCode,responseObjectOfUsage);
 
         new APILogger().log("Search Usage Master with code is success");
 
-        Response responseForNameLocal = new UsageMasterResource().searchUsageMaster(json,"&nameLocal="+response.getUsageMasters()[0].getNameLocal());
+        Response responseForNameLocal = new UsageMasterResource().searchUsageMaster(json,"&nameLocal="+responseObjectOfUsage.getUsageMasters()[0].getNameLocal());
 
-        Assert.assertEquals(responseForNameLocal.getStatusCode(),200);
-
-        CheckResponseForUsage(responseForNameLocal,response);
+        checkResponseForUsage(responseForNameLocal,responseObjectOfUsage);
 
         new APILogger().log("Search Usage Master with Name Local is success");
 
         new APILogger().log("Search Usage Master is Completed --");
     }
 
-    private void CheckResponseForUsage(Response response,UsageMasterResponse create) throws IOException {
+    private void checkResponseForUsage(Response response, UsageMasterResponse create) throws IOException {
+
+        Assert.assertEquals(response.getStatusCode(),200);
 
         SearchUsageMasterResponse response1 = (SearchUsageMasterResponse)
                 ResponseHelper.getResponseAsObject(response.asString(),SearchUsageMasterResponse.class);
@@ -79,5 +76,48 @@ public class SearchHelper extends BaseAPITest {
         Assert.assertEquals(response1.getUsageMasters()[0].getName(),create.getUsageMasters()[0].getName());
         Assert.assertEquals(response1.getUsageMasters()[0].getCode(),create.getUsageMasters()[0].getCode());
         Assert.assertEquals(response1.getUsageMasters()[0].getNameLocal(),create.getUsageMasters()[0].getNameLocal());
+    }
+
+    public void searchStructureClassMaster(StructureClassResponse responseObjectOfCreate)throws IOException{
+
+        new APILogger().log("Search Structure Classes master is started --");
+
+        Response responseForId = new StructureClassResource().searchStructureClass(json,"&ids="+responseObjectOfCreate.getStructureClasses()[0].getId());
+
+        checkResponseForStructure(responseForId,responseObjectOfCreate);
+
+        new APILogger().log("Search Structure Classes master with Id is success");
+
+        Response responseForName = new StructureClassResource().searchStructureClass(json, "&name=" + responseObjectOfCreate.getStructureClasses()[0].getName());
+
+        checkResponseForStructure(responseForName,responseObjectOfCreate);
+
+        new APILogger().log("Search Structure Classes Master with Name is success");
+
+        Response responseForCode = new StructureClassResource().searchStructureClass(json, "&code=" + responseObjectOfCreate.getStructureClasses()[0].getCode());
+
+        checkResponseForStructure(responseForCode,responseObjectOfCreate);
+
+        new APILogger().log("Search Structure Classes Master with code is success");
+
+        Response responseForNameLocal = new StructureClassResource().searchStructureClass(json,"&nameLocal="+responseObjectOfCreate.getStructureClasses()[0].getNameLocal());
+
+        checkResponseForStructure(responseForNameLocal,responseObjectOfCreate);
+
+        new APILogger().log("Search Structure Classes Master with Name Local is success");
+
+        new APILogger().log("Search Structure Classes Master is Completed --");
+    }
+
+    private void checkResponseForStructure(Response response, StructureClassResponse responseObjectOfCreate) throws IOException {
+
+        Assert.assertEquals(response.getStatusCode(),200);
+
+        SearchStructureClassResponse response1 = (SearchStructureClassResponse) ResponseHelper.getResponseAsObject(response.asString(),SearchStructureClassResponse.class);
+
+        Assert.assertEquals(response1.getStructureClasses()[0].getId(),responseObjectOfCreate.getStructureClasses()[0].getId());
+        Assert.assertEquals(response1.getStructureClasses()[0].getName(),responseObjectOfCreate.getStructureClasses()[0].getName());
+        Assert.assertEquals(response1.getStructureClasses()[0].getCode(),responseObjectOfCreate.getStructureClasses()[0].getCode());
+        Assert.assertEquals(response1.getStructureClasses()[0].getNameLocal(),responseObjectOfCreate.getStructureClasses()[0].getNameLocal());
     }
 }

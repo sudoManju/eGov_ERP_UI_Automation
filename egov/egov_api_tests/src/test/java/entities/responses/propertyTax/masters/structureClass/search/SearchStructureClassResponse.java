@@ -1,13 +1,12 @@
-package entities.responses.propertyTax.masters.structureClass;
+package entities.responses.propertyTax.masters.structureClass.search;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class CreateStructureClassResponse {
+public class SearchStructureClassResponse {
 
     @JsonProperty("StructureClasses")
     private StructureClasses[] structureClasses;
 
-    @JsonProperty("ResponseInfo")
     private ResponseInfo responseInfo;
 
     public StructureClasses[] getStructureClasses() {

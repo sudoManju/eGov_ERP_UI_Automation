@@ -6,7 +6,7 @@ import com.jayway.restassured.response.Response;
 import entities.requests.propertyTax.masters.RequestInfo;
 import entities.requests.propertyTax.masters.structureClass.CreateStructureClassRequest;
 import entities.responses.login.LoginResponse;
-import entities.responses.propertyTax.masters.structureClass.CreateStructureClassResponse;
+import entities.responses.propertyTax.masters.structureClass.create.StructureClassResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.propertyTax.masters.StructureClassResource;
@@ -27,11 +27,14 @@ public class StructureClassVerificationTest extends BaseAPITest {
 
         LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA); // Login
 
-        createStructureClass(loginResponse);
+        StructureClassResponse create = createStructureClass(loginResponse);  //Create
 
+        SearchHelper helper = new SearchHelper(loginResponse);
+
+        helper.searchStructureClassMaster(create);
     }
 
-    private void createStructureClass(LoginResponse loginResponse) throws IOException {
+    private StructureClassResponse createStructureClass(LoginResponse loginResponse) throws IOException {
 
         new APILogger().log("Create StructureClass Master started");
 
@@ -45,8 +48,8 @@ public class StructureClassVerificationTest extends BaseAPITest {
 
         Assert.assertEquals(response.getStatusCode(),200);
 
-        CreateStructureClassResponse response1 = (CreateStructureClassResponse)
-                ResponseHelper.getResponseAsObject(response.asString(),CreateStructureClassResponse.class);
+        StructureClassResponse response1 = (StructureClassResponse)
+                ResponseHelper.getResponseAsObject(response.asString(),StructureClassResponse.class);
 
         Assert.assertEquals(response1.getStructureClasses()[0].getName(),request.getStructureClasses()[0].getName());
         Assert.assertEquals(response1.getStructureClasses()[0].getCode(),request.getStructureClasses()[0].getCode());
@@ -56,5 +59,7 @@ public class StructureClassVerificationTest extends BaseAPITest {
         Assert.assertEquals(response1.getResponseInfo().getStatus(),"SUCCESSFUL");
 
         new APILogger().log("Create StructureClass Master completed");
+
+        return response1;
     }
 }
