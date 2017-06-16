@@ -12,10 +12,13 @@ import entities.responses.propertyTax.masters.structureClass.create.StructureCla
 import entities.responses.propertyTax.masters.structureClass.search.SearchStructureClassResponse;
 import entities.responses.propertyTax.masters.usage.search.SearchUsageMasterResponse;
 import entities.responses.propertyTax.masters.usage.create.UsageMasterResponse;
+import entities.responses.propertyTax.masters.woodTypes.create.WoodTypesResponse;
+import entities.responses.propertyTax.masters.woodTypes.search.SearchWoodTypesResponse;
 import org.testng.Assert;
 import resources.propertyTax.masters.FloorTypesResource;
 import resources.propertyTax.masters.StructureClassResource;
 import resources.propertyTax.masters.UsageMasterResource;
+import resources.propertyTax.masters.WoodTypesResource;
 import tests.BaseAPITest;
 import utils.APILogger;
 import utils.RequestHelper;
@@ -167,5 +170,48 @@ public class SearchHelper extends BaseAPITest {
         Assert.assertEquals(response1.getFloorTypes()[0].getName(),requestObject.getFloorTypes()[0].getName());
         Assert.assertEquals(response1.getFloorTypes()[0].getCode(),requestObject.getFloorTypes()[0].getCode());
         Assert.assertEquals(response1.getFloorTypes()[0].getNameLocal(),requestObject.getFloorTypes()[0].getNameLocal());
+    }
+
+    public void searchWoodTypesMaster(WoodTypesResponse create) throws IOException {
+
+        new APILogger().log("Search WoodTypes is started --");
+
+        Response responseForId = new WoodTypesResource().searchWoodTypes(json,"&ids="+create.getWoodTypes()[0].getId());
+
+        checkAssertsForWoodTypes(responseForId,create);
+
+        new APILogger().log("Search WoodTypes Master with code is success");
+
+        Response responseForName = new WoodTypesResource().searchWoodTypes(json,"&name="+create.getWoodTypes()[0].getName());
+
+        checkAssertsForWoodTypes(responseForName,create);
+
+        new APILogger().log("Search WoodTypes Master with code is success");
+
+        Response responseForCode = new WoodTypesResource().searchWoodTypes(json,"&code="+create.getWoodTypes()[0].getCode());
+
+        checkAssertsForWoodTypes(responseForCode,create);
+
+        new APILogger().log("Search WoodTypes Master with code is success");
+
+        Response responseForNameLocal = new WoodTypesResource().searchWoodTypes(json,"&nameLocal="+create.getWoodTypes()[0].getNameLocal());
+
+        checkAssertsForWoodTypes(responseForNameLocal,create);
+
+        new APILogger().log("Search WoodTypes Master with code is success");
+
+        new APILogger().log("earch WoodTypes is completed --");
+    }
+
+    private void checkAssertsForWoodTypes(Response response,WoodTypesResponse requestObject) throws IOException {
+
+        Assert.assertEquals(response.getStatusCode(),200);
+
+        SearchWoodTypesResponse response1 = (SearchWoodTypesResponse)
+                ResponseHelper.getResponseAsObject(response.asString(),SearchWoodTypesResponse.class);
+
+        Assert.assertEquals(response1.getWoodTypes()[0].getName(),requestObject.getWoodTypes()[0].getName());
+        Assert.assertEquals(response1.getWoodTypes()[0].getCode(),requestObject.getWoodTypes()[0].getCode());
+//        Assert.assertEquals(response1.getWoodTypes()[0].getNameLocal(),requestObject.getWoodTypes()[0].getNameLocal());
     }
 }

@@ -11,6 +11,7 @@ import entities.responses.propertyTax.masters.floorTypes.create.FloorTypesRespon
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.propertyTax.masters.FloorTypesResource;
+import tests.BaseAPITest;
 import utils.APILogger;
 import utils.LoginAndLogoutHelper;
 import utils.RequestHelper;
@@ -20,7 +21,7 @@ import java.io.IOException;
 
 import static data.UserData.NARASAPPA;
 
-public class FloorTypesVerificationTest {
+public class FloorTypesVerificationTest extends BaseAPITest {
 
   @Test
   public void floorTypesTest() throws IOException {
