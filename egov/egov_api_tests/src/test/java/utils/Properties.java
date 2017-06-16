@@ -39,6 +39,8 @@ public class Properties {
     public static final String createEmployeeUrl = propertiesReader.getEndPointUrl("createEmployeeUrl");
     public static final String eisSearchEmployeeTypeUrl = propertiesReader.getEndPointUrl("searchEmployeeTypeUrl");
     public static final String eisSearchDesignationTypeUrl = propertiesReader.getEndPointUrl("searchDesignationTypeUrl");
+    public static final String eisCreateDesignationTypeUrl = propertiesReader.getEndPointUrl("createDesignationTypeUrl");
+    public static final String eisUpdateDesignationTypeUrl = propertiesReader.getEndPointUrl("updateDesignationTypeUrl");
     public static final String eisSearchPositionUrl = propertiesReader.getEndPointUrl("searchPositionUrl");
     public static final String eisSearchPositionHierarchyUrl = propertiesReader.getEndPointUrl("searchPositionHierarchyUrl");
     public static final String eisSearchGradeUrl = propertiesReader.getEndPointUrl("searchGradeUrl");

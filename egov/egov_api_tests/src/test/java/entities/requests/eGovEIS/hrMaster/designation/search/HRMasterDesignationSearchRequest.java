@@ -5,7 +5,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class HRMasterDesignationSearchRequest {
 
-    @JsonProperty("ResponseInfo")
+    @JsonProperty("RequestInfo")
     private RequestInfo requestInfo;
 
     public RequestInfo getRequestInfo() {
