@@ -580,7 +580,7 @@ Feature: Renewal of trade license
     And user will select the required screen as "Search Trade License"
     And he choose to search with license number
     And he verifies the application status
-    And user will be notified by "Rejected"
+    And user will be notified by "Cancelled"
     And he verifies the License active
     And user will be notified by "YES"
     And he closes search screen
