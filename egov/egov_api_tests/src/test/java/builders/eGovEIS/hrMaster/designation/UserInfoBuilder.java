@@ -7,7 +7,7 @@ public class UserInfoBuilder {
     UserInfo userInfo = new UserInfo();
 
     public UserInfoBuilder() {
-        userInfo.setId(1);
+        userInfo.setId(0);
     }
 
     public UserInfoBuilder withId(int id) {

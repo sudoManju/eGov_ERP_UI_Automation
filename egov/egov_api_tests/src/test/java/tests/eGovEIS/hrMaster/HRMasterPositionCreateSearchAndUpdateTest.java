@@ -11,60 +11,51 @@ import entities.responses.eGovEIS.hrMaster.position.search.HRMasterPositionSearc
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.hrMaster.HRMasterPositionResource;
-import utils.APILogger;
-import utils.RequestHelper;
-import utils.ResponseHelper;
+import tests.BaseAPITest;
+import utils.*;
 
 import java.io.IOException;
 
-public class HRMasterPositionCreateSearchAndUpdateTest {
+import static data.UserData.ADMIN;
 
-    @Test
+public class HRMasterPositionCreateSearchAndUpdateTest extends BaseAPITest {
+
+    @Test(groups = {Categories.SANITY, Categories.PILOT, Categories.HR})
     public void hrMasterPositionCreateSearchAndUpdate() throws IOException {
-
-        //Login Test
-//        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
-
-        // Creating a HR Position
-        hrMasterPositionCreateTestMethod();
+        LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+        createPosition(); // Create Position
+        pilotLogoutService(); // Logout
     }
 
-    private void hrMasterPositionCreateTestMethod() throws IOException {
+    private void createPosition() throws IOException {
+        HRMasterPositionCreateRequest hrMasterPositionCreateRequest = new HRMasterPositionCreateRequestBuilder().build();
 
-        HRMasterPositionCreateRequest hrMasterPositionCreateRequest =
-                new HRMasterPositionCreateRequestBuilder().build();
-
-        Response response = new HRMasterPositionResource().create(RequestHelper.getJsonString(hrMasterPositionCreateRequest));
-
+        Response response = new HRMasterPositionResource().createPositionResource(RequestHelper.getJsonString(hrMasterPositionCreateRequest));
         HRMasterPositionResponse hrMasterPositionCreateResponse = (HRMasterPositionResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), HRMasterPositionResponse.class);
-        Assert.assertEquals(response.getStatusCode(), 200);
 
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertEquals(hrMasterPositionCreateRequest.getPosition()[0].getName(), hrMasterPositionCreateResponse.getPosition()[0].getName());
         new APILogger().log("HR Master Position Create Test is Completed --");
-        // Search a created position
-        hrMasterPositionSearchTestMethod(hrMasterPositionCreateResponse.getPosition()[0].getName(), hrMasterPositionCreateRequest);
+        searchPosition(hrMasterPositionCreateResponse.getPosition()[0].getName(),
+                hrMasterPositionCreateRequest); // Search Position
     }
 
-    private void hrMasterPositionSearchTestMethod(String positionName, HRMasterPositionCreateRequest hrMasterPositionCreateRequest) throws IOException {
+    private void searchPosition(String positionName, HRMasterPositionCreateRequest hrMasterPositionCreateRequest) throws IOException {
+        HRMasterPositionSearchRequest hrMasterPositionSearchRequest = new HRMasterPositionSearchRequestBuilder().build();
 
-        HRMasterPositionSearchRequest hrMasterPositionSearchRequest =
-                new HRMasterPositionSearchRequestBuilder().build();
-
-        Response response = new HRMasterPositionResource().search(RequestHelper.getJsonString(hrMasterPositionSearchRequest), positionName);
+        Response response = new HRMasterPositionResource().searchPositionResource(RequestHelper.getJsonString(hrMasterPositionSearchRequest), positionName);
         HRMasterPositionResponse hrMasterPositionSearchResponse = (HRMasterPositionResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), HRMasterPositionResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertEquals(hrMasterPositionSearchResponse.getPosition()[0].getName(), positionName);
         new APILogger().log("HR Master Position Search Test is Completed --");
-
-        // Search a created position
-        hrMasterPositionUpdateTestMethod(hrMasterPositionSearchResponse.getPosition()[0].getId(), hrMasterPositionCreateRequest);
-
+        updatePosition(hrMasterPositionSearchResponse.getPosition()[0].getId(),
+                hrMasterPositionCreateRequest); // Update Position
     }
 
-    private void hrMasterPositionUpdateTestMethod(int id, HRMasterPositionCreateRequest hrMasterPositionCreateRequest) throws IOException {
-
+    private void updatePosition(int id, HRMasterPositionCreateRequest hrMasterPositionCreateRequest) throws IOException {
         Position position = new PositionBuilder()
                 .withName("Updated_" + hrMasterPositionCreateRequest.getPosition()[0].getName())
                 .withDeptdesig(hrMasterPositionCreateRequest.getPosition()[0].getDeptdesig())
@@ -81,31 +72,27 @@ public class HRMasterPositionCreateSearchAndUpdateTest {
                         .withPosition(positions)
                         .build();
 
-        Response response = new HRMasterPositionResource().update(RequestHelper.getJsonString(hrMasterPositionUpdateRequest), id);
+        Response response = new HRMasterPositionResource().updatePositionResource(RequestHelper.getJsonString(hrMasterPositionUpdateRequest), id);
 
         HRMasterPositionResponse hrMasterPositionUpdateResponse = (HRMasterPositionResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), HRMasterPositionResponse.class);
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertTrue(hrMasterPositionUpdateResponse.getPosition()[0].getName().split("_")[0].contains("Updated"));
         new APILogger().log("HR Master Position Update Test is Completed --");
-
-        // Search the position after updateLeaveTypeResource
-        hrMasterPositionSearchAfterUpdateTestMethod(hrMasterPositionUpdateResponse.getPosition()[0].getName());
+        searchPositionAfterUpdate(hrMasterPositionUpdateResponse.getPosition()[0].getName()); // Search Position After Update
 
     }
 
-    private void hrMasterPositionSearchAfterUpdateTestMethod(String updatedPositionName) throws IOException {
-
+    private void searchPositionAfterUpdate(String updatedPositionName) throws IOException {
         HRMasterPositionSearchRequest hrMasterPositionSearchRequest =
                 new HRMasterPositionSearchRequestBuilder().build();
 
-        Response response = new HRMasterPositionResource().search(RequestHelper.getJsonString(hrMasterPositionSearchRequest), updatedPositionName);
+        Response response = new HRMasterPositionResource().searchPositionResource(RequestHelper.getJsonString(hrMasterPositionSearchRequest), updatedPositionName);
         HRMasterPositionResponse hrMasterPositionSearchAfterUpdateResponse = (HRMasterPositionResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), HRMasterPositionResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertTrue(hrMasterPositionSearchAfterUpdateResponse.getPosition()[0].getName().split("_")[0].contains("Updated"));
         new APILogger().log("HR Master Position Search After Update Test is Completed --");
-
     }
 }

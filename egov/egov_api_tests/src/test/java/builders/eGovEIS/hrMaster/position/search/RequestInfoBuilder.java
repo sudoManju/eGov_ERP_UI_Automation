@@ -15,9 +15,9 @@ public class RequestInfoBuilder {
         requestInfo.setTs("01-01-2017 01:01:01");
         requestInfo.setDid("");
         requestInfo.setKey("");
-        requestInfo.setMsgId("");
+        requestInfo.setMsgId("1");
         requestInfo.setRequesterId("");
-        requestInfo.setAuthToken("6fe58872-869c-4507-b32d-8b0f0b0e4e45");
+        requestInfo.setAuthToken("aeiou");
     }
 
     public RequestInfoBuilder withUserInfo(UserInfo userInfo) {

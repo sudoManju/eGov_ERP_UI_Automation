@@ -42,6 +42,8 @@ public class Properties {
     public static final String eisCreateDesignationTypeUrl = propertiesReader.getEndPointUrl("createDesignationTypeUrl");
     public static final String eisUpdateDesignationTypeUrl = propertiesReader.getEndPointUrl("updateDesignationTypeUrl");
     public static final String eisSearchPositionUrl = propertiesReader.getEndPointUrl("searchPositionUrl");
+    public static final String eisCreatePositionUrl = propertiesReader.getEndPointUrl("createPositionUrl");
+    public static final String eisUpdatePositionUrl = propertiesReader.getEndPointUrl("updatePositionUrl");
     public static final String eisSearchPositionHierarchyUrl = propertiesReader.getEndPointUrl("searchPositionHierarchyUrl");
     public static final String eisSearchGradeUrl = propertiesReader.getEndPointUrl("searchGradeUrl");
     public static final String eisSearchEmployeeGroupUrl = propertiesReader.getEndPointUrl("searchEmployeeGroupUrl");
@@ -71,7 +73,8 @@ public class Properties {
     public static final String searchLeaveTypeUrl = propertiesReader.getEndPointUrl("searchLeaveTypeUrl");
     public static final String createLeaveTypeUrl = propertiesReader.getEndPointUrl("createLeaveTypeUrl");
     public static final String userUpdateUrl = propertiesReader.getEndPointUrl("userUpdateUrl");
-    public static final String loginUserDetailsUrl = propertiesReader.getEndPointUrl("loginUserDetailsUrl");;
+    public static final String loginUserDetailsUrl = propertiesReader.getEndPointUrl("loginUserDetailsUrl");
+    ;
     public static final String searchOtpUrl = propertiesReader.getEndPointUrl("searchOtpUrl");
 
     // Property Tax Master's Module Url's //

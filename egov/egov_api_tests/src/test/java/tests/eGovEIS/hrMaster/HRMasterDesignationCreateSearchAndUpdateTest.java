@@ -1,6 +1,6 @@
 package tests.eGovEIS.hrMaster;
 
-import builders.eGovEIS.hrMaster.designation.RequestInfoBuilder;
+import builders.eGovEIS.hrMaster.RequestInfoBuilder;
 import builders.eGovEIS.hrMaster.designation.create.DesignationBuilder;
 import builders.eGovEIS.hrMaster.designation.create.HRMasterDesignationCreateRequestBuilder;
 import builders.eGovEIS.hrMaster.designation.search.HRMasterDesignationSearchRequestBuilder;

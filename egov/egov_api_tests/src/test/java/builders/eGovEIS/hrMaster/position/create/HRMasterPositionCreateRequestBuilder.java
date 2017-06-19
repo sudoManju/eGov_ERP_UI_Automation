@@ -1,6 +1,6 @@
 package builders.eGovEIS.hrMaster.position.create;
 
-import builders.eGovEIS.hrMaster.designation.RequestInfoBuilder;
+import builders.eGovEIS.hrMaster.RequestInfoBuilder;
 import entities.requests.eGovEIS.hrMaster.RequestInfo;
 import entities.requests.eGovEIS.hrMaster.position.create.HRMasterPositionCreateRequest;
 import entities.requests.eGovEIS.hrMaster.position.create.Position;

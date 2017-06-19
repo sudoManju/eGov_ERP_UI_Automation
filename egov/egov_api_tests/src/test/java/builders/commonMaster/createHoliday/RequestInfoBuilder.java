@@ -10,7 +10,7 @@ public class RequestInfoBuilder {
         requestInfo.setApiId("1");
         requestInfo.setVer("1");
         requestInfo.setTs("08-06-2017 01:01:01");
-        requestInfo.setAction("create");
+        requestInfo.setAction("createPositionResource");
         requestInfo.setDid("");
         requestInfo.setKey("");
         requestInfo.setMsgId("1");

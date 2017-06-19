@@ -10,7 +10,7 @@ public class DeptdesigBuilder {
 
     public DeptdesigBuilder() {
         deptdesig.setDesignation(designation);
-        deptdesig.setDepartment(1);
+        deptdesig.setDepartment(3);
     }
 
     public DeptdesigBuilder withDesignation(Designation designation) {
