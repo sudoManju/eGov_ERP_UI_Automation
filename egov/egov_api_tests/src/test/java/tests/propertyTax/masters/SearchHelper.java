@@ -6,8 +6,12 @@ import com.jayway.restassured.response.Response;
 import entities.requests.propertyTax.masters.RequestInfo;
 import entities.requests.propertyTax.masters.usage.SearchMasterRequest;
 import entities.responses.login.LoginResponse;
+import entities.responses.propertyTax.masters.department.create.DepartmentsMasterResponse;
+import entities.responses.propertyTax.masters.department.search.SearchDepartmentsResponse;
 import entities.responses.propertyTax.masters.floorTypes.create.FloorTypesResponse;
 import entities.responses.propertyTax.masters.floorTypes.search.SearchFloorTypesResponse;
+import entities.responses.propertyTax.masters.occupancy.create.CreateOccupancyMasterResponse;
+import entities.responses.propertyTax.masters.occupancy.search.SearchOccupancyMasterResponse;
 import entities.responses.propertyTax.masters.propertyTypes.create.PropertyTypesResponse;
 import entities.responses.propertyTax.masters.propertyTypes.search.SearchPropertyTypesResponse;
 import entities.responses.propertyTax.masters.structureClass.create.StructureClassResponse;
@@ -179,13 +183,13 @@ public class SearchHelper extends BaseAPITest {
 
         checkAssertsForWoodTypes(responseForId,create);
 
-        new APILogger().log("Search WoodTypes Master with code is success");
+        new APILogger().log("Search WoodTypes Master with Id is success");
 
         Response responseForName = new WoodTypesResource().searchWoodTypes(json,"&name="+create.getWoodTypes()[0].getName());
 
         checkAssertsForWoodTypes(responseForName,create);
 
-        new APILogger().log("Search WoodTypes Master with code is success");
+        new APILogger().log("Search WoodTypes Master with name is success");
 
         Response responseForCode = new WoodTypesResource().searchWoodTypes(json,"&code="+create.getWoodTypes()[0].getCode());
 
@@ -197,7 +201,7 @@ public class SearchHelper extends BaseAPITest {
 
         checkAssertsForWoodTypes(responseForNameLocal,create);
 
-        new APILogger().log("Search WoodTypes Master with code is success");
+        new APILogger().log("Search WoodTypes Master with nameLocal is success");
 
         new APILogger().log("earch WoodTypes is completed --");
     }
@@ -229,21 +233,21 @@ public class SearchHelper extends BaseAPITest {
 
         checkAssertsForPropertyTypes(responseForName,createObject);
 
-        new APILogger().log("Search WoodTypes Master with code is success");
+        new APILogger().log("Search Property type with name is success");
 
         Response responseForCode = new PropertyTypeMasterResource().searchPropertyType(json,"&code="+createObject.getPropertyTypes()[0].getCode());
 
         checkAssertsForPropertyTypes(responseForCode,createObject);
 
-        new APILogger().log("Search WoodTypes Master with code is success");
+        new APILogger().log("Search Property type with code is success");
 
         Response responseForNameLocal = new PropertyTypeMasterResource().searchPropertyType(json,"&nameLocal="+createObject.getPropertyTypes()[0].getNameLocal());
 
         checkAssertsForPropertyTypes(responseForNameLocal,createObject);
 
-        new APILogger().log("Search WoodTypes Master with code is success");
+        new APILogger().log("Search Property type with nameLocal is success");
 
-        new APILogger().log("earch WoodTypes is completed --");
+        new APILogger().log("Search Property type is completed --");
     }
 
     private void checkAssertsForPropertyTypes(Response response, PropertyTypesResponse createObject) throws IOException {
@@ -257,5 +261,95 @@ public class SearchHelper extends BaseAPITest {
         Assert.assertEquals(response1.getPropertyTypes()[0].getName(),createObject.getPropertyTypes()[0].getName());
         Assert.assertEquals(response1.getPropertyTypes()[0].getCode(),createObject.getPropertyTypes()[0].getCode());
         Assert.assertEquals(response1.getPropertyTypes()[0].getNameLocal(),createObject.getPropertyTypes()[0].getNameLocal());
+    }
+
+    public void searchDepartmentMaster(DepartmentsMasterResponse createObject) throws IOException {
+
+        new APILogger().log("Search Department Master is started --");
+
+        Response responseForId = new DepartmentsMasterResource().searchDepartment(json,"&ids="+createObject.getDepartments()[0].getId());
+
+        checkAssertsForDepartments(responseForId,createObject);
+
+        new APILogger().log("Search Department Master with Id is success");
+
+        Response responseForName = new DepartmentsMasterResource().searchDepartment(json,"&name="+createObject.getDepartments()[0].getName());
+
+        checkAssertsForDepartments(responseForName,createObject);
+
+        new APILogger().log("Search Department Master with name is success");
+
+        Response responseForCode = new DepartmentsMasterResource().searchDepartment(json,"&code="+createObject.getDepartments()[0].getCode());
+
+        checkAssertsForDepartments(responseForCode,createObject);
+
+        new APILogger().log("Search Department Master with code is success");
+
+        Response responseForNameLocal = new DepartmentsMasterResource().searchDepartment(json,"&nameLocal="+createObject.getDepartments()[0].getNameLocal());
+
+        checkAssertsForDepartments(responseForNameLocal,createObject);
+
+        new APILogger().log("Search Department Master with nameLocal is success");
+
+        new APILogger().log("Search Department Master is completed --");
+
+    }
+
+   private void checkAssertsForDepartments(Response response,DepartmentsMasterResponse requestObject) throws IOException {
+
+       Assert.assertEquals(response.getStatusCode(),200);
+
+       SearchDepartmentsResponse response1 = (SearchDepartmentsResponse)
+               ResponseHelper.getResponseAsObject(response.asString(),SearchDepartmentsResponse.class);
+
+       Assert.assertEquals(response1.getDepartments()[0].getId(),requestObject.getDepartments()[0].getId());
+       Assert.assertEquals(response1.getDepartments()[0].getName(),requestObject.getDepartments()[0].getName());
+       Assert.assertEquals(response1.getDepartments()[0].getCode(),requestObject.getDepartments()[0].getCode());
+       Assert.assertEquals(response1.getDepartments()[0].getNameLocal(),requestObject.getDepartments()[0].getNameLocal());
+   }
+
+    public void searchOccupancyMaster(CreateOccupancyMasterResponse createObject)throws IOException {
+
+        new APILogger().log("Search Occupancy Master is started --");
+
+        Response responseForId = new OccupancyMasterResource().searchOccupancy(json,"&ids="+createObject.getOccuapancyMasters()[0].getId());
+
+        checkAssertsForOccupancyMaster(responseForId,createObject);
+
+        new APILogger().log("Search Occupancy Master with Id is success");
+
+        Response responseForName = new OccupancyMasterResource().searchOccupancy(json,"&name="+createObject.getOccuapancyMasters()[0].getName());
+
+        checkAssertsForOccupancyMaster(responseForName,createObject);
+
+        new APILogger().log("Search Occupancy Master with name is success");
+
+        Response responseForCode = new OccupancyMasterResource().searchOccupancy(json,"&code="+createObject.getOccuapancyMasters()[0].getCode());
+
+        checkAssertsForOccupancyMaster(responseForCode,createObject);
+
+        new APILogger().log("Search Occupancy Master with code is success");
+
+        Response responseForNameLocal = new OccupancyMasterResource().searchOccupancy(json,"&nameLocal="+createObject.getOccuapancyMasters()[0].getNameLocal());
+
+        checkAssertsForOccupancyMaster(responseForNameLocal,createObject);
+
+        new APILogger().log("Search Occupancy Master with nameLocal is success");
+
+        new APILogger().log("Search Occupancy Master is completed --");
+
+    }
+
+    private void checkAssertsForOccupancyMaster(Response response,CreateOccupancyMasterResponse requestObject) throws IOException {
+
+        Assert.assertEquals(response.getStatusCode(),200);
+
+        SearchOccupancyMasterResponse response1 = (SearchOccupancyMasterResponse)
+                ResponseHelper.getResponseAsObject(response.asString(),SearchOccupancyMasterResponse.class);
+
+        Assert.assertEquals(response1.getOccuapancyMasters()[0].getId(),requestObject.getOccuapancyMasters()[0].getId());
+        Assert.assertEquals(response1.getOccuapancyMasters()[0].getName(),requestObject.getOccuapancyMasters()[0].getName());
+        Assert.assertEquals(response1.getOccuapancyMasters()[0].getCode(),requestObject.getOccuapancyMasters()[0].getCode());
+        Assert.assertEquals(response1.getOccuapancyMasters()[0].getNameLocal(),requestObject.getOccuapancyMasters()[0].getNameLocal());
     }
 }

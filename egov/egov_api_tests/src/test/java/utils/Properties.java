@@ -85,4 +85,8 @@ public class Properties {
     public static final String searchWoodTypeUrl = propertiesReader.getEndPointUrl("woodTypesSearchUrl");
     public static final String createPropertyTypeUrl = propertiesReader.getEndPointUrl("propertyTypeCreateUrl");
     public static final String searchPropertyTypeUrl = propertiesReader.getEndPointUrl("propertyTypeSearchUrl");
+    public static final String createDepartmentsMasterUrl = propertiesReader.getEndPointUrl("departmentMasterCreateUrl");
+    public static final String searchDepartmentsMasterUrl = propertiesReader.getEndPointUrl("departmentMasterSearchUrl");
+    public static final String createOccupancyMasterUrl = propertiesReader.getEndPointUrl("occupancyMasterCreateUrl");
+    public static final String searchOccupancyMasterUrl = propertiesReader.getEndPointUrl("occupancyMasterSearchUrl");
 }
