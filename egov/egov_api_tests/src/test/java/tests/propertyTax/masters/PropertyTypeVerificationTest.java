@@ -11,10 +11,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.propertyTax.masters.PropertyTypeMasterResource;
 import tests.BaseAPITest;
-import utils.APILogger;
-import utils.LoginAndLogoutHelper;
-import utils.RequestHelper;
-import utils.ResponseHelper;
+import utils.*;
 
 import java.io.IOException;
 
@@ -22,16 +19,18 @@ import static data.UserData.NARASAPPA;
 
 public class PropertyTypeVerificationTest extends BaseAPITest {
 
-    @Test
+    @Test(groups = {Categories.PTIS, Categories.SANITY})
     public void propertyTypeTest() throws IOException{
 
         LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
 
-        PropertyTypesResponse create = createPropertyTypeMaster(loginResponse);
+        PropertyTypesResponse create = createPropertyTypeMaster(loginResponse);   //Create
 
         SearchHelper helper = new SearchHelper(loginResponse);
 
-        helper.searchPropertyTypeMaster(create);
+        helper.searchPropertyTypeMaster(create);    //Search
+
+        LoginAndLogoutHelper.logout(loginResponse);  //Logout
     }
 
     private PropertyTypesResponse createPropertyTypeMaster(LoginResponse loginResponse) throws IOException {

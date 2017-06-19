@@ -18,6 +18,8 @@ import entities.responses.propertyTax.masters.structureClass.create.StructureCla
 import entities.responses.propertyTax.masters.structureClass.search.SearchStructureClassResponse;
 import entities.responses.propertyTax.masters.usage.search.SearchUsageMasterResponse;
 import entities.responses.propertyTax.masters.usage.create.UsageMasterResponse;
+import entities.responses.propertyTax.masters.wallTypes.create.WallTypesResponse;
+import entities.responses.propertyTax.masters.wallTypes.search.SearchWallTypesMasterResponse;
 import entities.responses.propertyTax.masters.woodTypes.create.WoodTypesResponse;
 import entities.responses.propertyTax.masters.woodTypes.search.SearchWoodTypesResponse;
 import org.testng.Assert;
@@ -351,5 +353,49 @@ public class SearchHelper extends BaseAPITest {
         Assert.assertEquals(response1.getOccuapancyMasters()[0].getName(),requestObject.getOccuapancyMasters()[0].getName());
         Assert.assertEquals(response1.getOccuapancyMasters()[0].getCode(),requestObject.getOccuapancyMasters()[0].getCode());
         Assert.assertEquals(response1.getOccuapancyMasters()[0].getNameLocal(),requestObject.getOccuapancyMasters()[0].getNameLocal());
+    }
+
+    public void searchWallTypeMaster(WallTypesResponse createObject) throws IOException {
+
+        new APILogger().log("Search WallTypes Master is started --");
+
+        Response responseForId = new WallTypeResource().searchWallTypeMaster(json,"&ids="+createObject.getWallTypes()[0].getId());
+
+        checkAssertsForWallTypeMaster(responseForId,createObject);
+
+        new APILogger().log("Search wallTypes Master with Id is success");
+
+        Response responseForName = new WallTypeResource().searchWallTypeMaster(json,"&name="+createObject.getWallTypes()[0].getName());
+
+        checkAssertsForWallTypeMaster(responseForName,createObject);
+
+        new APILogger().log("Search WallTypes Master with name is success");
+
+        Response responseForCode = new WallTypeResource().searchWallTypeMaster(json,"&code="+createObject.getWallTypes()[0].getCode());
+
+        checkAssertsForWallTypeMaster(responseForCode,createObject);
+
+        new APILogger().log("Search WallTypes Master with code is success");
+
+        Response responseForNameLocal = new WallTypeResource().searchWallTypeMaster(json,"&nameLocal="+createObject.getWallTypes()[0].getNameLocal());
+
+        checkAssertsForWallTypeMaster(responseForNameLocal,createObject);
+
+        new APILogger().log("Search WallTypes Master with nameLocal is success");
+
+        new APILogger().log("Search WallTypes Master is completed --");
+    }
+
+    private void checkAssertsForWallTypeMaster(Response response,WallTypesResponse requestObject) throws IOException {
+
+        Assert.assertEquals(response.getStatusCode(),200);
+
+        SearchWallTypesMasterResponse response1 = (SearchWallTypesMasterResponse)
+                ResponseHelper.getResponseAsObject(response.asString(),SearchWallTypesMasterResponse.class);
+
+        Assert.assertEquals(response1.getWallTypes()[0].getId(),requestObject.getWallTypes()[0].getId());
+        Assert.assertEquals(response1.getWallTypes()[0].getName(),requestObject.getWallTypes()[0].getName());
+        Assert.assertEquals(response1.getWallTypes()[0].getCode(),requestObject.getWallTypes()[0].getCode());
+//        Assert.assertEquals(response1.getWallTypes()[0].getNameLocal(),requestObject.getWallTypes()[0].getNameLocal());
     }
 }

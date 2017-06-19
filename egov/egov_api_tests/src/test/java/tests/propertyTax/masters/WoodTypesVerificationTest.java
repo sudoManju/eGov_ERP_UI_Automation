@@ -11,6 +11,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.propertyTax.masters.WoodTypesResource;
 import tests.BaseAPITest;
+import utils.Categories;
 import utils.LoginAndLogoutHelper;
 import utils.RequestHelper;
 import utils.ResponseHelper;
@@ -21,7 +22,7 @@ import static data.UserData.NARASAPPA;
 
 public class WoodTypesVerificationTest extends BaseAPITest {
 
-    @Test
+    @Test(groups = {Categories.PTIS, Categories.SANITY})
     public void woodTypesTest()throws IOException{
 
         LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);    //Login
@@ -31,6 +32,8 @@ public class WoodTypesVerificationTest extends BaseAPITest {
         SearchHelper helper = new SearchHelper(loginResponse);
 
         helper.searchWoodTypesMaster(create);    //Search
+
+        LoginAndLogoutHelper.logout(loginResponse);  //Logout
     }
 
     private WoodTypesResponse createWoodTypesMaster(LoginResponse loginResponse) throws IOException {

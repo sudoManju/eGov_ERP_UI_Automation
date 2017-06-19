@@ -10,27 +10,27 @@ import entities.responses.propertyTax.masters.department.create.DepartmentsMaste
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.propertyTax.masters.DepartmentsMasterResource;
-import utils.APILogger;
-import utils.LoginAndLogoutHelper;
-import utils.RequestHelper;
-import utils.ResponseHelper;
+import tests.BaseAPITest;
+import utils.*;
 
 import java.io.IOException;
 
 import static data.UserData.NARASAPPA;
 
-public class DepartmentVerificationTest {
+public class DepartmentVerificationTest extends BaseAPITest {
 
-    @Test
+    @Test(groups = {Categories.PTIS, Categories.SANITY})
     public void DepartmentMasterTest() throws IOException{
 
         LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
 
-        DepartmentsMasterResponse create = createDepartmentMaster(loginResponse);
+        DepartmentsMasterResponse create = createDepartmentMaster(loginResponse);   //Create
 
         SearchHelper helper = new SearchHelper(loginResponse);
 
-        helper.searchDepartmentMaster(create);
+        helper.searchDepartmentMaster(create);     //Search
+
+        LoginAndLogoutHelper.logout(loginResponse);  //Logout
     }
 
     private DepartmentsMasterResponse createDepartmentMaster(LoginResponse loginResponse) throws IOException {

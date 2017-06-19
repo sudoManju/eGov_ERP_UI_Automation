@@ -11,19 +11,16 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.propertyTax.masters.UsageMasterResource;
 import tests.BaseAPITest;
-import utils.APILogger;
-import utils.LoginAndLogoutHelper;
-import utils.RequestHelper;
-import utils.ResponseHelper;
+import utils.*;
 
 import java.io.IOException;
 
 import static data.UserData.NARASAPPA;
 
-public class UsageMasterVerificationTest extends BaseAPITest {
+public class  UsageMasterVerificationTest extends BaseAPITest {
 
 
-    @Test
+    @Test(groups = {Categories.PTIS, Categories.SANITY})
     public void usageMasterTest() throws IOException {
 
         LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);     //Login
@@ -34,7 +31,7 @@ public class UsageMasterVerificationTest extends BaseAPITest {
 
         helper.searchForUsageMaster(response1); //Search
 
-        LoginAndLogoutHelper.logout(loginResponse);
+        LoginAndLogoutHelper.logout(loginResponse);   //Logout
     }
 
     private UsageMasterResponse createUsageMaster(LoginResponse loginResponse) throws IOException {

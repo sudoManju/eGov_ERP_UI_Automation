@@ -12,10 +12,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.propertyTax.masters.FloorTypesResource;
 import tests.BaseAPITest;
-import utils.APILogger;
-import utils.LoginAndLogoutHelper;
-import utils.RequestHelper;
-import utils.ResponseHelper;
+import utils.*;
 
 import java.io.IOException;
 
@@ -23,7 +20,7 @@ import static data.UserData.NARASAPPA;
 
 public class FloorTypesVerificationTest extends BaseAPITest {
 
-  @Test
+  @Test(groups = {Categories.PTIS, Categories.SANITY})
   public void floorTypesTest() throws IOException {
 
       LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);  //Login
@@ -33,6 +30,8 @@ public class FloorTypesVerificationTest extends BaseAPITest {
       SearchHelper helper = new SearchHelper(loginResponse);
 
       helper.searchFloorTypesMaster(create);      //Search
+
+      LoginAndLogoutHelper.logout(loginResponse); //Logout
   }
 
     private FloorTypesResponse createFloorTypes(LoginResponse loginResponse) throws IOException {

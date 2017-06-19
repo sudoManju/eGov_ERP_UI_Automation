@@ -10,27 +10,27 @@ import entities.responses.propertyTax.masters.occupancy.create.CreateOccupancyMa
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.propertyTax.masters.OccupancyMasterResource;
-import utils.APILogger;
-import utils.LoginAndLogoutHelper;
-import utils.RequestHelper;
-import utils.ResponseHelper;
+import tests.BaseAPITest;
+import utils.*;
 
 import java.io.IOException;
 
 import static data.UserData.NARASAPPA;
 
-public class OccupancyMasterVerificationTest {
+public class OccupancyMasterVerificationTest extends BaseAPITest {
 
-    @Test
+    @Test(groups = {Categories.PTIS, Categories.SANITY})
     public void OccupancyMasterTest()throws IOException{
 
         LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
 
-        CreateOccupancyMasterResponse create = createOccupancyMaster(loginResponse);
+        CreateOccupancyMasterResponse create = createOccupancyMaster(loginResponse);   //Create
 
         SearchHelper helper = new SearchHelper(loginResponse);
 
-        helper.searchOccupancyMaster(create);
+        helper.searchOccupancyMaster(create);     //Search
+
+        LoginAndLogoutHelper.logout(loginResponse); //Logout
     }
 
     private CreateOccupancyMasterResponse createOccupancyMaster(LoginResponse loginResponse) throws IOException {
