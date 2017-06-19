@@ -12,7 +12,6 @@ import tests.BaseAPITest;
 import utils.*;
 
 import java.io.IOException;
-import java.util.Map;
 
 import static data.UserData.ADMIN;
 import static data.UserData.NARASAPPA;
@@ -45,9 +44,15 @@ public class LoginVerificationTest extends BaseAPITest {
         new APILogger().log("Login Failed is Completed -- ");
     }
 
+//    @Test(groups = {Categories.PILOT})
+//    public void shouldAllowLoginAndLogoutInPilotService() {
+//        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+//        LoginAndLogoutHelper.logoutFromPilotService(sessionId); // Logout
+//    }
+
     @Test(groups = {Categories.PILOT})
-    public void shouldAllowLoginAndLogoutInPilotService() {
-        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
-        LoginAndLogoutHelper.logoutFromPilotService(sessionId); // Logout
+    public void shouldAllowLoginAndLogoutInPilotService1() {
+        LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+        LoginAndLogoutHelper.logoutFromPilotService(); // Logout
     }
 }

@@ -20,25 +20,23 @@ public class EISHRStatuses extends BaseAPITest {
 
     @Test(groups = {Categories.HR, Categories.SANITY, Categories.PILOT})
     public void searchHRStatusesTest() throws IOException {
-        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
-        searchHRStatuses(sessionId); // Search HR Status
+        LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+        searchHRStatuses(); // Search HR Status
+        pilotLogoutService(); // Logout
     }
 
-    private void searchHRStatuses(String sessionId) throws IOException {
+    private void searchHRStatuses() throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
         SearchEmployeeMasterRequest searchEmployeeMasterRequest = new SearchEmployeeMasterRequestBuilder()
-                .withRequestInfo(requestInfo)
-                .build();
+                .withRequestInfo(requestInfo).build();
 
         Response response = new EISMasterResource().
-                searchHRStatusesResource(RequestHelper.getJsonString(searchEmployeeMasterRequest), sessionId);
+                searchHRStatusesResource(RequestHelper.getJsonString(searchEmployeeMasterRequest));
         SearchHRStatusesResponse searchHRStatusesResponse = (SearchHRStatusesResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchHRStatusesResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertTrue(searchHRStatusesResponse.getHRStatus().length > 0);
         new APILogger().log("Search HR Statuses Test is Completed--");
-        pilotLogoutService(sessionId); // Logout
     }
-
 }

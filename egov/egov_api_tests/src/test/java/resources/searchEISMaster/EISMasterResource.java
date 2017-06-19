@@ -1,18 +1,19 @@
 package resources.searchEISMaster;
 
 import com.jayway.restassured.response.Response;
+import resources.Resource;
 import utils.APILogger;
 import utils.Properties;
 
 import static com.jayway.restassured.RestAssured.given;
 
-public class EISMasterResource {
+public class EISMasterResource extends Resource{
 
-    public Response searchEmployeeTypeResource(String json, String sessionId) {
+    public Response searchEmployeeTypeResource(String json) {
         new APILogger().log("Search createEmployee Test Request is Started with -- " + json);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
-                .header("cookie", "SESSIONID=" + sessionId)
+                .header("cookie", "SESSIONID=" + scenarioContext.getSessionId())
                 .body(json)
                 .when()
                 .post(Properties.eisSearchEmployeeTypeUrl);
@@ -21,11 +22,11 @@ public class EISMasterResource {
         return response;
     }
 
-    public Response searchDesignationResource(String json, String sessionId) {
+    public Response searchDesignationResource(String json) {
         new APILogger().log("Search Designation Test Request is Started with -- " + json);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
-                .header("cookie", "SESSIONID=" + sessionId)
+                .header("cookie", "SESSIONID=" + scenarioContext.getSessionId())
                 .body(json)
                 .when()
                 .post(Properties.eisSearchDesignationTypeUrl);
@@ -34,11 +35,11 @@ public class EISMasterResource {
         return response;
     }
 
-    public Response searchPositionResource(String json, String sessionId) {
+    public Response searchPositionResource(String json) {
         new APILogger().log("Search Position Test Request is Started with --" + json);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
-                .header("cookie", "SESSIONID=" + sessionId)
+                .header("cookie", "SESSIONID=" + scenarioContext.getSessionId())
                 .body(json)
                 .when()
                 .post(Properties.eisSearchPositionUrl);
@@ -48,12 +49,12 @@ public class EISMasterResource {
     }
 
 
-    public Response searchPositionHierarchyResource(String json, String sessionId) {
+    public Response searchPositionHierarchyResource(String json) {
         new APILogger().log("Search Position Hierarchy Test Request is Started with --" + json);
         System.out.println(Properties.eisSearchPositionHierarchyUrl);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
-                .header("cookie", "SESSIONID=" + sessionId)
+                .header("cookie", "SESSIONID=" + scenarioContext.getSessionId())
                 .body(json)
                 .when()
                 .post(Properties.eisSearchPositionHierarchyUrl);
@@ -62,11 +63,11 @@ public class EISMasterResource {
         return response;
     }
 
-    public Response searchGradeResource(String json, String sessionId) {
+    public Response searchGradeResource(String json) {
         new APILogger().log("Search Grade Test Request is Started with --" + json);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
-                .header("cookie", "SESSIONID=" + sessionId)
+                .header("cookie", "SESSIONID=" + scenarioContext.getSessionId())
                 .body(json)
                 .when()
                 .post(Properties.eisSearchGradeUrl);
@@ -75,11 +76,11 @@ public class EISMasterResource {
         return response;
     }
 
-    public Response searchEmployeeGroupResource(String json, String sessionId) {
+    public Response searchEmployeeGroupResource(String json) {
         new APILogger().log("Search createEmployee Group Test Request is Started with --" + json);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
-                .header("cookie", "SESSIONID=" + sessionId)
+                .header("cookie", "SESSIONID=" + scenarioContext.getSessionId())
                 .body(json)
                 .when()
                 .post(Properties.eisSearchEmployeeGroupUrl);
@@ -88,11 +89,11 @@ public class EISMasterResource {
         return response;
     }
 
-    public Response searchRecruitmentQuotaResource(String json, String sessionId) {
+    public Response searchRecruitmentQuotaResource(String json) {
         new APILogger().log("Search Recruitment Quota Test Request is Started with --" + json);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
-                .header("cookie", "SESSIONID=" + sessionId)
+                .header("cookie", "SESSIONID=" + scenarioContext.getSessionId())
                 .body(json)
                 .when()
                 .post(Properties.eisSearchRecruitmentQuotaUrl);
@@ -101,11 +102,11 @@ public class EISMasterResource {
         return response;
     }
 
-    public Response searchRecruitmentModesResource(String json, String sessionId) {
+    public Response searchRecruitmentModesResource(String json) {
         new APILogger().log("Search Recruitment Modes Test Request is Started with --" + json);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
-                .header("cookie", "SESSIONID=" + sessionId)
+                .header("cookie", "SESSIONID=" + scenarioContext.getSessionId())
                 .body(json)
                 .when()
                 .post(Properties.eisSearchRecruitmentModesUrl);
@@ -114,11 +115,11 @@ public class EISMasterResource {
         return response;
     }
 
-    public Response searchHRConfigurationsResource(String json, String sessionId) {
+    public Response searchHRConfigurationsResource(String json) {
         new APILogger().log("Search HR Configurations Test Request is Started with --" + json);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
-                .header("cookie", "SESSIONID=" + sessionId)
+                .header("cookie", "SESSIONID=" + scenarioContext.getSessionId())
                 .body(json)
                 .when()
                 .post(Properties.eisSearchHrConfigurationsUrl);
@@ -127,11 +128,11 @@ public class EISMasterResource {
         return response;
     }
 
-    public Response searchHRStatusesResource(String json, String sessionId) {
+    public Response searchHRStatusesResource(String json) {
         new APILogger().log("Search HR Statuses Test Request is Started with --" + json);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
-                .header("cookie", "SESSIONID=" + sessionId)
+                .header("cookie", "SESSIONID=" + scenarioContext.getSessionId())
                 .body(json)
                 .when()
                 .post(Properties.eisSearchHrStatusesUrl);

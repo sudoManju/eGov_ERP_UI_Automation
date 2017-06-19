@@ -24,33 +24,33 @@ public class LeaveTypeCreateSearchAndUpdate extends BaseAPITest {
 
     @Test(groups = {Categories.PILOT, Categories.HR, Categories.SANITY})
     public void leaveTypeCreateSearchAndUpdateTest() throws IOException {
-        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
-        createLeaveType(sessionId); // Create Leave Type
-        pilotLogoutService(sessionId); // Logout
+        LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+        createLeaveType(); // Create Leave Type
+        pilotLogoutService(); // Logout
     }
 
-    private void createLeaveType(String sessionId) throws IOException {
+    private void createLeaveType() throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
         LeaveTypeCreateRequest leaveTypeCreateRequest = new LeaveTypeCreateRequestBuilder()
                 .withRequestInfo(requestInfo).build();
 
         Response response = new LeaveTypeResource()
-                .createLeaveTypeResource(RequestHelper.getJsonString(leaveTypeCreateRequest), sessionId);
+                .createLeaveTypeResource(RequestHelper.getJsonString(leaveTypeCreateRequest));
         LeaveTypeResponse leaveTypeCreateResponse = (LeaveTypeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), LeaveTypeResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
         new APILogger().log("Leave Type Create Test is Completed --");
-        searchLeaveType(leaveTypeCreateResponse.getLeaveType()[0].getName(), leaveTypeCreateResponse, sessionId); // Search Leave Type
+        searchLeaveType(leaveTypeCreateResponse.getLeaveType()[0].getName(), leaveTypeCreateResponse); // Search Leave Type
     }
 
-    private void searchLeaveType(String leaveName, LeaveTypeResponse leaveTypeResponse, String sessionId) throws IOException {
+    private void searchLeaveType(String leaveName, LeaveTypeResponse leaveTypeResponse) throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
         LeaveTypeSearchRequest leaveTypeSearchRequest = new LeaveTypeSearchRequestBuilder()
                 .withRequestInfo(requestInfo).build();
 
         Response response = new LeaveTypeResource()
-                .searchLeaveTypeResource(RequestHelper.getJsonString(leaveTypeSearchRequest), sessionId);
+                .searchLeaveTypeResource(RequestHelper.getJsonString(leaveTypeSearchRequest));
         LeaveTypeResponse leaveTypeSearchResponse = (LeaveTypeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), LeaveTypeResponse.class);
 
@@ -65,10 +65,10 @@ public class LeaveTypeCreateSearchAndUpdate extends BaseAPITest {
         }
         if (!(flag > 0)) throw new RuntimeException("No Leave Type is found with -- " + leaveName);
         new APILogger().log("Leave Type Search Test is Completed --");
-        updateLeaveType(leaveId, leaveTypeResponse, sessionId); // Update Leave Type
+        updateLeaveType(leaveId, leaveTypeResponse); // Update Leave Type
     }
 
-    private void updateLeaveType(int leaveId, LeaveTypeResponse leaveTypeResponse1, String sessionId) throws IOException {
+    private void updateLeaveType(int leaveId, LeaveTypeResponse leaveTypeResponse1) throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
 
         LeaveType leaveType1 = new LeaveTypeBuilder()
@@ -95,22 +95,22 @@ public class LeaveTypeCreateSearchAndUpdate extends BaseAPITest {
                 .build();
 
         Response response = new LeaveTypeResource()
-                .updateLeaveTypeResource(RequestHelper.getJsonString(leaveTypeUpdateRequest), leaveId, sessionId);
+                .updateLeaveTypeResource(RequestHelper.getJsonString(leaveTypeUpdateRequest), leaveId);
         LeaveTypeResponse leaveTypeUpdateResponse = (LeaveTypeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), LeaveTypeResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertEquals(leaveTypeUpdateResponse.getLeaveType()[0].getDescription(), "Modified Description of Leave Type");
         new APILogger().log("Update Leave Type Test is Completed --");
-        searchLeaveTypeAfterUpdate(leaveId, sessionId); // Search Leave Type After Update
+        searchLeaveTypeAfterUpdate(leaveId); // Search Leave Type After Update
     }
 
-    private void searchLeaveTypeAfterUpdate(int leaveId, String sessionId) throws IOException {
+    private void searchLeaveTypeAfterUpdate(int leaveId) throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
         LeaveTypeSearchRequest leaveTypeSearchRequest = new LeaveTypeSearchRequestBuilder()
                 .withRequestInfo(requestInfo).build();
 
-        Response response = new LeaveTypeResource().searchLeaveTypeResource(RequestHelper.getJsonString(leaveTypeSearchRequest), sessionId);
+        Response response = new LeaveTypeResource().searchLeaveTypeResource(RequestHelper.getJsonString(leaveTypeSearchRequest));
         LeaveTypeResponse leaveTypeSearchResponse = (LeaveTypeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), LeaveTypeResponse.class);
 

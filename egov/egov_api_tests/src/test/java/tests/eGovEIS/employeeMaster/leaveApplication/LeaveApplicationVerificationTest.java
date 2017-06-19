@@ -25,17 +25,17 @@ public class LeaveApplicationVerificationTest extends BaseAPITest {
 
     @Test
     public void leaveApplicationTest() throws IOException, InterruptedException {
-        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
-        String applicationNum = createLeaveApplication(sessionId); // Create Leave Application
-        searchLeaveApplication(applicationNum, sessionId); // Search Leave Application
-        pilotLogoutService(sessionId); // Logout
+        LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+        String applicationNum = createLeaveApplication(); // Create Leave Application
+        searchLeaveApplication(applicationNum); // Search Leave Application
+        pilotLogoutService(); // Logout
     }
 
-    private String createLeaveApplication(String sessionId) throws IOException {
+    private String createLeaveApplication() throws IOException {
         CreateLeaveApplicationRequest request = new CreateLeaveApplicationRequestBuilder().build();
 
         Response response = new LeaveApplicationResource()
-                .createLeaveApplicationResource(RequestHelper.getJsonString(request), sessionId);
+                .createLeaveApplicationResource(RequestHelper.getJsonString(request));
         CreateLeaveApplicationResponse response1 = (CreateLeaveApplicationResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), CreateLeaveApplicationResponse.class);
 
@@ -45,7 +45,7 @@ public class LeaveApplicationVerificationTest extends BaseAPITest {
         return response1.getLeaveApplication()[0].getApplicationNumber();
     }
 
-    private void searchLeaveApplication(String applicationNumber, String sessionId) throws IOException {
+    private void searchLeaveApplication(String applicationNumber) throws IOException {
 
         try {
             TimeUnit.SECONDS.sleep(5);
@@ -55,7 +55,7 @@ public class LeaveApplicationVerificationTest extends BaseAPITest {
 
         SearchLeaveApplicationRequest request = new SearchLeaveApplicationRequestBuilder().build();
         Response response = new LeaveApplicationResource()
-                .searchLeaveApplicationResource(RequestHelper.getJsonString(request), applicationNumber, sessionId);
+                .searchLeaveApplicationResource(RequestHelper.getJsonString(request), applicationNumber);
         SearchLeaveApplicationsResponse searchLeaveApplicationsResponse = (SearchLeaveApplicationsResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchLeaveApplicationsResponse.class);
         Assert.assertEquals(response.getStatusCode(), 200);

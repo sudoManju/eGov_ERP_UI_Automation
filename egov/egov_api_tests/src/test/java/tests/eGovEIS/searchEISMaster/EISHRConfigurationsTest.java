@@ -20,24 +20,23 @@ public class EISHRConfigurationsTest extends BaseAPITest {
 
     @Test(groups = {Categories.HR, Categories.SANITY, Categories.PILOT})
     public void searchHRConfigurationsTest() throws IOException {
-        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
-        searchHRConfigurations(sessionId); // Search HR Configurations
+        LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+        searchHRConfigurations(); // Search HR Configurations
+        pilotLogoutService(); // Logout
     }
 
-    private void searchHRConfigurations(String sessionId) throws IOException {
+    private void searchHRConfigurations() throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
         SearchEmployeeMasterRequest searchEmployeeMasterRequest = new SearchEmployeeMasterRequestBuilder()
-                .withRequestInfo(requestInfo)
-                .build();
+                .withRequestInfo(requestInfo).build();
 
         Response response = new EISMasterResource().
-                searchHRConfigurationsResource(RequestHelper.getJsonString(searchEmployeeMasterRequest), sessionId);
+                searchHRConfigurationsResource(RequestHelper.getJsonString(searchEmployeeMasterRequest));
         SearchHRConfigurationsResponse searchHRConfigurationsResponse = (SearchHRConfigurationsResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchHRConfigurationsResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertTrue(searchHRConfigurationsResponse.getHRConfiguration().getWeekly_holidays()[0].contains("5-day week"));
         new APILogger().log("Search HR Configurations Test is Completed--");
-        pilotLogoutService(sessionId); // Logout
     }
 }

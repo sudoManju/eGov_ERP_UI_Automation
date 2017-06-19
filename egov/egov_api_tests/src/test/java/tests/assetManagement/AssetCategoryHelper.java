@@ -20,11 +20,11 @@ import java.io.IOException;
 
 public class AssetCategoryHelper extends BaseAPITest {
 
-    public CreateAssetCategoryResponse createAssetCategory(String id) throws IOException {
+    public CreateAssetCategoryResponse createAssetCategory() throws IOException {
         AssetCategory category = new AssetCategoryBuilder().withName("Shop_" + get3DigitRandomInt()).build();
         CreateAssetCategoryRequest request = new CreateAssetCategoryRequestBuilder().withAssetCategory(category).build();
 
-        Response response = new AssetCategoryResource().create(RequestHelper.getJsonString(request), id);
+        Response response = new AssetCategoryResource().create(RequestHelper.getJsonString(request));
         Assert.assertEquals(response.getStatusCode(), 201);
 
         CreateAssetCategoryResponse createAssetCategoryResponse = (CreateAssetCategoryResponse)
@@ -33,9 +33,9 @@ public class AssetCategoryHelper extends BaseAPITest {
         return createAssetCategoryResponse;
     }
 
-    public int searchAssetCategory(String sessionId, String assetCode) throws IOException {
+    public int searchAssetCategory(String assetCode) throws IOException {
         SearchAssetCategoryRequest request = new SearchAssetCategoryRequestBuilder().build();
-        Response response = new AssetCategoryResource().search(RequestHelper.getJsonString(request), sessionId, assetCode);
+        Response response = new AssetCategoryResource().search(RequestHelper.getJsonString(request), assetCode);
         SearchAssetCategoryResponse searchAssetCategoryResponse = (SearchAssetCategoryResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchAssetCategoryResponse.class);
         Assert.assertEquals(response.getStatusCode(), 200);

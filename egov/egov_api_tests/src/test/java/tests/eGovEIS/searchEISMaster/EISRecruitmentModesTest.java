@@ -20,25 +20,24 @@ public class EISRecruitmentModesTest extends BaseAPITest {
 
     @Test(groups = {Categories.HR, Categories.SANITY, Categories.PILOT})
     public void searchRecruitmentModesTest() throws IOException {
-        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
-        searchRecruitmentModes(sessionId); // Search RecruitmentModes
+        LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+        searchRecruitmentModes(); // Search RecruitmentModes
+        pilotLogoutService(); // Logout
     }
 
-    private void searchRecruitmentModes(String sessionId) throws IOException {
+    private void searchRecruitmentModes() throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
         SearchEmployeeMasterRequest searchEmployeeMasterRequest = new SearchEmployeeMasterRequestBuilder()
-                .withRequestInfo(requestInfo)
-                .build();
+                .withRequestInfo(requestInfo).build();
 
         Response response = new EISMasterResource().
-                searchRecruitmentModesResource(RequestHelper.getJsonString(searchEmployeeMasterRequest), sessionId);
+                searchRecruitmentModesResource(RequestHelper.getJsonString(searchEmployeeMasterRequest));
         SearchRecruitmentModesResponse searchRecruitmentModesResponse = (SearchRecruitmentModesResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchRecruitmentModesResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertTrue(searchRecruitmentModesResponse.getRecruitmentMode().length > 0);
         new APILogger().log("Search Recruitment Modes Test is Completed--");
-        pilotLogoutService(sessionId); // Logout
     }
 
 }

@@ -20,25 +20,23 @@ public class ReligionTest extends BaseAPITest {
 
     @Test(groups = {Categories.HR, Categories.SANITY, Categories.PILOT})
     public void religionTest() throws IOException {
-        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
-        searchReligion(sessionId);  // Search Religion
+        LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+        searchReligion();  // Search Religion
+        pilotLogoutService(); // Logout
     }
 
-    private void searchReligion(String sessionId) throws IOException {
+    private void searchReligion() throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
         CommonMasterRequest commonMasterRequest = new CommonMasterRequestBuilder()
-                .withRequestInfo(requestInfo)
-                .build();
+                .withRequestInfo(requestInfo).build();
 
         Response response = new CommonMasterResource()
-                .searchReligionResource(RequestHelper.getJsonString(commonMasterRequest), sessionId);
+                .searchReligionResource(RequestHelper.getJsonString(commonMasterRequest));
         ReligionResponse religionResponse = (ReligionResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), ReligionResponse.class);
 
         Assert.assertTrue(religionResponse.getReligion().length > 0);
         Assert.assertEquals(response.getStatusCode(), 200);
-
         new APILogger().log("Search Religion Test is Completed --");
-        pilotLogoutService(sessionId); // Logout
     }
 }

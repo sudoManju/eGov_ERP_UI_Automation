@@ -20,25 +20,24 @@ public class EISGradeTest extends BaseAPITest {
 
     @Test(groups = {Categories.HR, Categories.SANITY, Categories.PILOT})
     public void searchGradeTest() throws IOException {
-        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
-        searchGrade(sessionId); // Search Grade
+        LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+        searchGrade(); // Search Grade
+        pilotLogoutService(); // Logout
     }
 
-    private void searchGrade(String sessionId) throws IOException {
+    private void searchGrade() throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
         SearchEmployeeMasterRequest searchEmployeeMasterRequest = new SearchEmployeeMasterRequestBuilder()
-                .withRequestInfo(requestInfo)
-                .build();
+                .withRequestInfo(requestInfo).build();
 
         Response response = new EISMasterResource().
-                searchGradeResource(RequestHelper.getJsonString(searchEmployeeMasterRequest), sessionId);
+                searchGradeResource(RequestHelper.getJsonString(searchEmployeeMasterRequest));
         SearchGradeResponse searchGradeResponse = (SearchGradeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchGradeResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertTrue(searchGradeResponse.getGrade().length > 0);
         new APILogger().log("Search Grade Test is Completed--");
-        pilotLogoutService(sessionId); // Logout
     }
 
 }

@@ -20,25 +20,23 @@ public class EISEmployeeTypeTest extends BaseAPITest {
 
     @Test(groups = {Categories.HR, Categories.SANITY, Categories.PILOT})
     public void searchEmployeeTypeTest() throws IOException {
-        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
-        searchEmployeeType(sessionId); // Search Employee Type
+        LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+        searchEmployeeType(); // Search Employee Type
+        pilotLogoutService(); // Logout
     }
 
-    private void searchEmployeeType(String sessionId) throws IOException {
-
+    private void searchEmployeeType() throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
         SearchEmployeeMasterRequest searchEmployeeMasterRequest = new SearchEmployeeMasterRequestBuilder()
-                .withRequestInfo(requestInfo)
-                .build();
+                .withRequestInfo(requestInfo).build();
 
         Response response = new EISMasterResource().
-                searchEmployeeTypeResource(RequestHelper.getJsonString(searchEmployeeMasterRequest), sessionId);
+                searchEmployeeTypeResource(RequestHelper.getJsonString(searchEmployeeMasterRequest));
         SearchEmployeeTypeResponse searchEmployeeTypeResponse = (SearchEmployeeTypeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchEmployeeTypeResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertTrue(searchEmployeeTypeResponse.getEmployeeType().length > 0);
         new APILogger().log("Search createEmployee Test is Completed--");
-        pilotLogoutService(sessionId); // Logout
     }
 }

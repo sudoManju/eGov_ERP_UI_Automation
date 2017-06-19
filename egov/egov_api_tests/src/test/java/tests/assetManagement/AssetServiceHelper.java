@@ -23,12 +23,12 @@ import java.io.IOException;
 
 public class AssetServiceHelper extends BaseAPITest {
 
-    public void searchAssetService(String sessionId, String assetCode) throws IOException {
+    public void searchAssetService(String assetCode) throws IOException {
 
         RequestInfo requestInfo = new RequestInfoBuilder().withRequesterId("Ghanshyam").build();
         SearchAssetServiceRequest request = new SearchAssetServiceRequestBuilder().withRequestInfo(requestInfo).build();
 
-        Response response = new AssetServiceResource().getSearchAssetService(RequestHelper.getJsonString(request), sessionId, assetCode);
+        Response response = new AssetServiceResource().getSearchAssetService(RequestHelper.getJsonString(request), assetCode);
         CreateAssetServiceResponse createAssetServiceResponse = (CreateAssetServiceResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), CreateAssetServiceResponse.class);
 
@@ -37,7 +37,7 @@ public class AssetServiceHelper extends BaseAPITest {
         new APILogger().log("Search Asset Service Request is Completed  -- ");
     }
 
-    public String createAssetService(String sessionId, String assetCode, String name, int id) throws IOException {
+    public String createAssetService(String assetCode, String name, int id) throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
 
         AssetCategory assetCategory = new AssetCategoryBuilder()
@@ -51,7 +51,7 @@ public class AssetServiceHelper extends BaseAPITest {
                 .build();
 
         Response response = new AssetServiceResource()
-                .getCreateAssetService(RequestHelper.getJsonString(createAssetServiceRequest), sessionId);
+                .getCreateAssetService(RequestHelper.getJsonString(createAssetServiceRequest));
 
         CreateAssetServiceResponse createAssetServiceResponse = (CreateAssetServiceResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), CreateAssetServiceResponse.class);

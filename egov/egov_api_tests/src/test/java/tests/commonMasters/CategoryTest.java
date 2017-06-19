@@ -20,25 +20,24 @@ public class CategoryTest extends BaseAPITest {
 
     @Test(groups = {Categories.HR, Categories.SANITY, Categories.PILOT})
     public void categoryTest() throws IOException {
-        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
-        searchCategory(sessionId);  // Search Category
+        LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+        searchCategory();  // Search Category
+        pilotLogoutService(); // Logout
+
     }
 
-    private void searchCategory(String sessionId) throws IOException {
+    private void searchCategory() throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
         CommonMasterRequest commonMasterRequest = new CommonMasterRequestBuilder()
-                .withRequestInfo(requestInfo)
-                .build();
+                .withRequestInfo(requestInfo).build();
 
         Response response = new CommonMasterResource().
-                searchCategoryResource(RequestHelper.getJsonString(commonMasterRequest), sessionId);
+                searchCategoryResource(RequestHelper.getJsonString(commonMasterRequest));
         CategoryResponse categoryResponse = (CategoryResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), CategoryResponse.class);
 
         Assert.assertTrue(categoryResponse.getCategory().length > 0);
         Assert.assertEquals(response.getStatusCode(), 200);
-
         new APILogger().log("Search Category Test is Completed --");
-        pilotLogoutService(sessionId); // Logout
     }
 }

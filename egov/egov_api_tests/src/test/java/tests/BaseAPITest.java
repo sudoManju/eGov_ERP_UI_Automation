@@ -6,6 +6,7 @@ import org.testng.Reporter;
 import org.testng.annotations.BeforeMethod;
 import utils.LoginAndLogoutHelper;
 import utils.ResourceHelper;
+import utils.ScenarioContext;
 
 import java.lang.reflect.Method;
 import java.text.DateFormat;
@@ -14,30 +15,33 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import static java.lang.String.format;
+import static java.util.Calendar.*;
 
 public class BaseAPITest {
+
+    public static ScenarioContext scenarioContext;
 
     public BaseAPITest() {
         RestAssured.baseURI = new ResourceHelper().getBaseURI();
     }
 
-    public static int randBetween(int start, int end) {
-        return start + (int) Math.round(Math.random() * (end - start));
-    }
-
     @BeforeMethod(alwaysRun = true)
     public void testSetup(Method method) {
+        scenarioContext = new ScenarioContext();
         Reporter.log("Test Method Name -- " + method.getName(), true);
     }
 
-    public String getRandomDate() {
+    private static int randBetween(int start, int end) {
+        return start + (int) Math.round(Math.random() * (end - start));
+    }
+
+    protected String getRandomDate() {
         GregorianCalendar gc = new GregorianCalendar();
         int year = randBetween(2010, 2016);
-        gc.set(gc.YEAR, year);
-        int dayOfYear = randBetween(1, gc.getActualMaximum(gc.DAY_OF_YEAR));
-        gc.set(gc.DAY_OF_YEAR, dayOfYear);
-        String finalDate = format(gc.get(gc.DAY_OF_MONTH) + "/" + (gc.get(gc.MONTH) + 1) + "/" + gc.get(gc.YEAR));
-        return finalDate;
+        gc.set(YEAR, year);
+        int dayOfYear = randBetween(1, gc.getActualMaximum(DAY_OF_YEAR));
+        gc.set(DAY_OF_YEAR, dayOfYear);
+        return (gc.get(DAY_OF_MONTH) + "/" + (gc.get(MONTH) + 1) + "/" + gc.get(YEAR));
     }
 
     protected String get3DigitRandomInt() {
@@ -50,7 +54,8 @@ public class BaseAPITest {
         return dateFormat.format(date);
     }
 
-    protected void pilotLogoutService(String sessionId) {
-        new LoginAndLogoutHelper().logoutFromPilotService(sessionId);
+    protected void pilotLogoutService() {
+        new LoginAndLogoutHelper();
+        LoginAndLogoutHelper.logoutFromPilotService();
     }
 }

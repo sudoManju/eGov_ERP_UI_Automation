@@ -20,25 +20,23 @@ public class LanguageTest extends BaseAPITest {
 
     @Test(groups = {Categories.HR, Categories.SANITY, Categories.PILOT})
     public void languageTest() throws IOException {
-        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
-        searchLanguage(sessionId);  // Search Language
+        LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+        searchLanguage();  // Search Language
+        pilotLogoutService(); // Logout
     }
 
-    private void searchLanguage(String sessionId) throws IOException {
+    private void searchLanguage() throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
         CommonMasterRequest commonMasterRequest = new CommonMasterRequestBuilder()
-                .withRequestInfo(requestInfo)
-                .build();
+                .withRequestInfo(requestInfo).build();
 
         Response response = new CommonMasterResource()
-                .searchLanguageResource(RequestHelper.getJsonString(commonMasterRequest), sessionId);
+                .searchLanguageResource(RequestHelper.getJsonString(commonMasterRequest));
         LanguageResponse languageResponse = (LanguageResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), LanguageResponse.class);
 
         Assert.assertTrue(languageResponse.getLanguage().length > 0);
         Assert.assertEquals(response.getStatusCode(), 200);
-
         new APILogger().log("Search Language Test is Completed --");
-        pilotLogoutService(sessionId); // Logout
     }
 }

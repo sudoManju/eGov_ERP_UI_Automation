@@ -32,35 +32,35 @@ public class AssetCategoryAndServiceTest extends BaseAPITest {
     // Asset Category Tests
     @Test(groups = {Categories.ASSET, Categories.SANITY, Categories.PILOT})
     public void createAssetCategoryTest() throws IOException {
-        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN);  // Login
-        CreateAssetCategoryResponse create = assetCategoryHelper.createAssetCategory(sessionId); // Create Asset Category
-        int id = assetCategoryHelper.searchAssetCategory(sessionId, create.getAssetCategory()[0].getCode()); // Search Asset Category
-        pilotLogoutService(sessionId); // Logout
+        LoginAndLogoutHelper.loginFromPilotService(ADMIN);  // Login
+        CreateAssetCategoryResponse create = assetCategoryHelper.createAssetCategory(); // Create Asset Category
+        int id = assetCategoryHelper.searchAssetCategory(create.getAssetCategory()[0].getCode()); // Search Asset Category
+        pilotLogoutService(); // Logout
     }
 
     @Test(groups = {Categories.ASSET, Categories.SANITY, Categories.PILOT})
     public void searchAssetCategoryTest() throws IOException {
-        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
-        assetCategoryHelper.searchAssetCategory(sessionId, null); // Search Asset Category
-        pilotLogoutService(sessionId); // Logout
+        LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+        assetCategoryHelper.searchAssetCategory(null); // Search Asset Category
+        pilotLogoutService(); // Logout
     }
 
     // Asset Service Tests
     @Test(groups = {Categories.ASSET, Categories.SANITY, Categories.PILOT})
     public void createAssetService() throws IOException {
-        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN);  // Login
-        CreateAssetCategoryResponse create = assetCategoryHelper.createAssetCategory(sessionId); // Create Asset Category
-        int id = assetCategoryHelper.searchAssetCategory(sessionId, create.getAssetCategory()[0].getCode()); // Search Asset Category
-        String assetCode = assetServiceHelper.createAssetService(sessionId, create.getAssetCategory()[0].getCode(), // Create Asset Service
+        LoginAndLogoutHelper.loginFromPilotService(ADMIN);  // Login
+        CreateAssetCategoryResponse create = assetCategoryHelper.createAssetCategory(); // Create Asset Category
+        int id = assetCategoryHelper.searchAssetCategory(create.getAssetCategory()[0].getCode()); // Search Asset Category
+        String assetCode = assetServiceHelper.createAssetService(create.getAssetCategory()[0].getCode(), // Create Asset Service
                 create.getAssetCategory()[0].getName(), id);
-        assetServiceHelper.searchAssetService(sessionId, assetCode); // Search Asset Service
-        pilotLogoutService(sessionId); // Logout
+        assetServiceHelper.searchAssetService(assetCode); // Search Asset Service
+        pilotLogoutService(); // Logout
     }
 
     @Test(groups = {Categories.ASSET, Categories.SANITY, Categories.PILOT})
     public void searchAssetService() throws IOException {
-        String sessionId = LoginAndLogoutHelper.loginFromPilotService(AssetServiceUser); // Login
-        assetServiceHelper.searchAssetService(sessionId, null); // Search Asset Service
-        pilotLogoutService(sessionId); // Logout
+        LoginAndLogoutHelper.loginFromPilotService(AssetServiceUser); // Login
+        assetServiceHelper.searchAssetService(null); // Search Asset Service
+        pilotLogoutService(); // Logout
     }
 }

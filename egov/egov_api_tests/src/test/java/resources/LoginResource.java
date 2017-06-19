@@ -8,7 +8,7 @@ import java.util.Map;
 
 import static com.jayway.restassured.RestAssured.given;
 
-public class LoginResource {
+public class LoginResource extends Resource{
 
     public Response login(Map json) {
         new APILogger().log("Login Request is started with-- " + json.toString());
@@ -56,7 +56,7 @@ public class LoginResource {
                 .urlEncodingEnabled(false)
                 .when()
                 .get("http://kurnool-pilot-services.egovernments.org/egi");
-
+        scenarioContext.setSessionId(response.getCookie("SESSIONID"));
         new APILogger().log("Get The SESSION ID From Base API Test Is Completed -- ");
         return response;
     }
@@ -72,6 +72,7 @@ public class LoginResource {
                 .when()
                 .post(Properties.pilotLoginUrl);
 
+        scenarioContext.setSessionId(response.getCookie("SESSIONID"));
         new APILogger().log("Get The SESSION ID From LOGIN API Test Is Completed -- ");
         return response;
     }
@@ -81,6 +82,46 @@ public class LoginResource {
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
                 .header("SESSIONID", sessionIdFromLoginAPI)
+                .when()
+                .get(Properties.pilotLogoutUrl);
+
+        new APILogger().log("LOGOUT Test Is Completed -- ");
+        return response;
+    }
+
+    //
+    public Response getSessionIdFromPilotBaseAPI1() {
+        new APILogger().log("Get The SESSION ID From Base API Test Is Started -- ");
+        Response response = given().request().with()
+                .urlEncodingEnabled(false)
+                .when()
+                .get("http://kurnool-pilot-services.egovernments.org/egi");
+        scenarioContext.setSessionId(response.getCookie("SESSIONID"));
+        new APILogger().log("Get The SESSION ID From Base API Test Is Completed -- ");
+        return response;
+    }
+
+    public Response loginFromPilotService1(Map map) {
+        new APILogger().log("Get The SESSION ID From LOGIN API Test Is Started -- ");
+        Response response = given().request().with()
+                .urlEncodingEnabled(false)
+                .header("Content-type", "application/x-www-form-urlencoded")
+                .header("Authorization", "Basic Og==")
+                .header("SESSIONID", scenarioContext.getSessionId())
+                .params(map)
+                .when()
+                .post(Properties.pilotLoginUrl);
+
+        scenarioContext.setSessionId(response.getCookie("SESSIONID"));
+        new APILogger().log("Get The SESSION ID From LOGIN API Test Is Completed -- ");
+        return response;
+    }
+
+    public Response logoutFromPilotService1() {
+        new APILogger().log("LOGOUT Test Is Started -- ");
+        Response response = given().request().with()
+                .urlEncodingEnabled(false)
+                .header("SESSIONID", scenarioContext.getSessionId())
                 .when()
                 .get(Properties.pilotLogoutUrl);
 

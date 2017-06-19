@@ -47,18 +47,17 @@ public class LoginAndLogoutHelper {
         new APILogger().log("Logout Test is Completed --");
     }
 
-    public static String loginFromPilotService(String username) {
-        Response baseAPIResponse = new LoginResource().getSessionIdFromPilotBaseAPI();
-        String sessionIdFromBaseAPI = baseAPIResponse.getCookie("SESSIONID");
+    public static void loginFromPilotService(String username) {
+        Response baseAPIResponse = new LoginResource().getSessionIdFromPilotBaseAPI1();
+        baseAPIResponse.getCookie("SESSIONID");
 
         LoginRequestForPilotService loginRequestForPilotService = new LoginRequestForPilotServiceBuilder()
                 .withJ_username(username).build();
         Response loginFromPilotServiceResponse = new LoginResource()
-                .loginFromPilotService(sessionIdFromBaseAPI, RequestHelper.asMap(loginRequestForPilotService));
-        return loginFromPilotServiceResponse.getCookie("SESSIONID");
+                .loginFromPilotService1(RequestHelper.asMap(loginRequestForPilotService));
     }
 
-    public static void logoutFromPilotService(String sessionIdFromLoginAPI) {
-        new LoginResource().logoutFromPilotService(sessionIdFromLoginAPI);
+    public static void logoutFromPilotService() {
+        new LoginResource().logoutFromPilotService1();
     }
 }

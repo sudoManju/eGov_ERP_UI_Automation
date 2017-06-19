@@ -26,12 +26,12 @@ public class CreateHolidayTest extends BaseAPITest {
 
     @Test(groups = {Categories.HR, Categories.SANITY})
     public void createHolidayTest() throws IOException {
-        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
-        createHoliday(sessionId); // Create Holiday
-        pilotLogoutService(sessionId); // Logout
+        LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+        createHoliday(); // Create Holiday
+        pilotLogoutService(); // Logout
     }
 
-    private void createHoliday(String sessionId) {
+    private void createHoliday() {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
         CalendarYear calendarYear = new CalendarYearBuilder().build();
 
@@ -40,14 +40,14 @@ public class CreateHolidayTest extends BaseAPITest {
                 .withName("Good Friday")
                 .withApplicableOn("14/04/2017")
                 .build();
+
         CreateHolidayRequest createHolidayRequest = new CreateHolidayRequestBuilder()
                 .withHoliday(holiday)
                 .withRequestInfo(requestInfo)
                 .build();
 
         Response response = new CommonMasterResource()
-                .createHolidayResource(RequestHelper.getJsonString(createHolidayRequest), sessionId);
-
+                .createHolidayResource(RequestHelper.getJsonString(createHolidayRequest));
         Assert.assertEquals(response.getStatusCode(), 200);
         new APILogger().log("Create Holiday Test is Completed --");
     }

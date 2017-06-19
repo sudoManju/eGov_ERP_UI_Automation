@@ -20,24 +20,23 @@ public class EISDesignationsTest extends BaseAPITest {
 
     @Test(groups = {Categories.HR, Categories.SANITY, Categories.PILOT})
     public void searchEISDesignationTest() throws IOException {
-        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
-        searchEISDesignation(sessionId); // Search EIS Designation Test
+        LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+        searchEISDesignation(); // Search EIS Designation Test
+        pilotLogoutService(); // Logout
     }
 
-    private void searchEISDesignation(String sessionId) throws IOException {
+    private void searchEISDesignation() throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
         SearchEmployeeMasterRequest searchEmployeeMasterRequest = new SearchEmployeeMasterRequestBuilder()
-                .withRequestInfo(requestInfo)
-                .build();
+                .withRequestInfo(requestInfo).build();
 
         Response response = new EISMasterResource().
-                searchDesignationResource(RequestHelper.getJsonString(searchEmployeeMasterRequest), sessionId);
+                searchDesignationResource(RequestHelper.getJsonString(searchEmployeeMasterRequest));
         SearchDesignationResponse searchEmployeeTypeResponse = (SearchDesignationResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchDesignationResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertTrue(searchEmployeeTypeResponse.getDesignation().length > 0);
         new APILogger().log("Search Designation Test is Completed --");
-        pilotLogoutService(sessionId); // Logout
     }
 }

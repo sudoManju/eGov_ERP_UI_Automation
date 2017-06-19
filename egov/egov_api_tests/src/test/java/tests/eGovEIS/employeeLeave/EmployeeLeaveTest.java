@@ -21,19 +21,19 @@ public class EmployeeLeaveTest extends BaseAPITest {
 
     @Test(groups = {Categories.HR, Categories.SANITY, Categories.PILOT})
     public void employeeLeaveTest() throws IOException {
-        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
-        searchEmployeeLeaveTypes(sessionId); // Search Employee Leave Types
-        searchEmployeeLeaveApplications(sessionId); // Search Employee Leave Applications
-        pilotLogoutService(sessionId); // Logout
+        LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+        searchEmployeeLeaveTypes(); // Search Employee Leave Types
+        searchEmployeeLeaveApplications(); // Search Employee Leave Applications
+        pilotLogoutService(); // Logout
     }
 
-    private void searchEmployeeLeaveTypes(String sessionId) throws IOException {
+    private void searchEmployeeLeaveTypes() throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
         SearchEmployeeLeaveRequest searchEmployeeLeaveRequest = new SearchEmployeeLeaveRequestBuilder()
                 .withRequestInfo(requestInfo).build();
 
         Response response = new EgovEISResource()
-                .searchEmployeeLeaveTypesResource(RequestHelper.getJsonString(searchEmployeeLeaveRequest), sessionId);
+                .searchEmployeeLeaveTypesResource(RequestHelper.getJsonString(searchEmployeeLeaveRequest));
         SearchEmployeeLeaveResponse employeeLeaveResponse = (SearchEmployeeLeaveResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchEmployeeLeaveResponse.class);
 
@@ -42,13 +42,13 @@ public class EmployeeLeaveTest extends BaseAPITest {
         new APILogger().log("Search Employee Leave Types Test is Completed --");
     }
 
-    private void searchEmployeeLeaveApplications(String sessionId) throws IOException {
+    private void searchEmployeeLeaveApplications() throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
         SearchEmployeeLeaveRequest searchEmployeeLeaveRequest = new SearchEmployeeLeaveRequestBuilder()
                 .withRequestInfo(requestInfo).build();
 
         Response response = new EgovEISResource()
-                .searchEmployeeLeaveApplicationsResource(RequestHelper.getJsonString(searchEmployeeLeaveRequest), sessionId);
+                .searchEmployeeLeaveApplicationsResource(RequestHelper.getJsonString(searchEmployeeLeaveRequest));
         SearchLeaveApplicationsResponse searchLeaveApplicationsResponse = (SearchLeaveApplicationsResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchLeaveApplicationsResponse.class);
 

@@ -6,15 +6,15 @@ import utils.Properties;
 
 import static com.jayway.restassured.RestAssured.given;
 
-public class AssetServiceResource {
+public class AssetServiceResource extends Resource{
 
-    public Response getSearchAssetService(String json, String sessionId, String assetCode) {
+    public Response getSearchAssetService(String json, String assetCode) {
         String path = assetCode == null ? null : "&code=" + assetCode;
 
         new APILogger().log("Search Asset Service Request is Started with --" + json);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
-                .header("cookie", "SESSIONID=" + sessionId)
+                .header("cookie", "SESSIONID=" + scenarioContext.getSessionId())
                 .body(json)
                 .when()
                 .post(Properties.searchAssetServiceUrl + path);
@@ -23,11 +23,11 @@ public class AssetServiceResource {
         return response;
     }
 
-    public Response getCreateAssetService(String jsonString, String sessionId) {
+    public Response getCreateAssetService(String jsonString) {
         new APILogger().log("Create Asset Service Request is Started with --" + jsonString);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
-                .header("cookie", "SESSIONID=" + sessionId)
+                .header("cookie", "SESSIONID=" + scenarioContext.getSessionId())
                 .body(jsonString)
                 .when()
                 .post(Properties.createAssetServiceUrl);

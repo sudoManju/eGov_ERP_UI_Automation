@@ -20,24 +20,23 @@ public class EISPositionTest extends BaseAPITest {
 
     @Test(groups = {Categories.HR, Categories.SANITY , Categories.PILOT})
     public void searchPositionTest() throws IOException {
-        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
-        searchPosition(sessionId); // Search Positions
+        LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+        searchPosition(); // Search Positions
+        pilotLogoutService(); // Logout
     }
 
-    private void searchPosition(String sessionId) throws IOException {
+    private void searchPosition() throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
         SearchEmployeeMasterRequest searchEmployeeMasterRequest = new SearchEmployeeMasterRequestBuilder()
-                .withRequestInfo(requestInfo)
-                .build();
+                .withRequestInfo(requestInfo).build();
 
         Response response = new EISMasterResource().
-                searchPositionResource(RequestHelper.getJsonString(searchEmployeeMasterRequest), sessionId);
+                searchPositionResource(RequestHelper.getJsonString(searchEmployeeMasterRequest));
         SearchPositionResponse searchPositionResponse = (SearchPositionResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchPositionResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertTrue(searchPositionResponse.getPosition().length > 0);
         new APILogger().log("Search Position Test is Completed--");
-        pilotLogoutService(sessionId); // Logout
     }
 }

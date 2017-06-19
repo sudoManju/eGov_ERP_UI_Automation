@@ -24,12 +24,12 @@ public class HRMasterDesignationCreateSearchAndUpdateTest extends BaseAPITest {
 
     @Test(groups = {Categories.SANITY, Categories.PILOT, Categories.HR})
     public void hrMasterDesignationCreateSearchAndUpdate() throws IOException {
-        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
-        createDesignation(sessionId); // Create HR Designation Type
-        pilotLogoutService(sessionId); // Logout
+        LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+        createDesignation(); // Create HR Designation Type
+        pilotLogoutService(); // Logout
     }
 
-    private void createDesignation(String sessionId) throws IOException {
+    private void createDesignation() throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
         Designation designation = new DesignationBuilder().build();
 
@@ -40,17 +40,17 @@ public class HRMasterDesignationCreateSearchAndUpdateTest extends BaseAPITest {
                         .build();
 
         Response response = new HRMasterDesignationResource()
-                .createDesignationResource(RequestHelper.getJsonString(hrMasterDesignationCreateRequest), sessionId);
+                .createDesignationResource(RequestHelper.getJsonString(hrMasterDesignationCreateRequest));
         HRMasterDesignationCreateSearchAndUpdateResponse hrMasterDesignationCreateResponse = (HRMasterDesignationCreateSearchAndUpdateResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), HRMasterDesignationCreateSearchAndUpdateResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
         new APILogger().log("HR Master Designation Create Test is Completed --");
         searchDesignation(hrMasterDesignationCreateResponse.getDesignation()[0].getName(),
-                hrMasterDesignationCreateResponse, sessionId); // Search Designation
+                hrMasterDesignationCreateResponse); // Search Designation
     }
 
-    private void searchDesignation(String designationName, HRMasterDesignationCreateSearchAndUpdateResponse hrMasterDesignationCreateRequest, String sessionId) throws IOException {
+    private void searchDesignation(String designationName, HRMasterDesignationCreateSearchAndUpdateResponse hrMasterDesignationCreateRequest) throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
         HRMasterDesignationSearchRequest hrMasterDesignationSearchRequest =
                 new HRMasterDesignationSearchRequestBuilder()
@@ -58,7 +58,7 @@ public class HRMasterDesignationCreateSearchAndUpdateTest extends BaseAPITest {
                         .build();
 
         Response response = new HRMasterDesignationResource()
-                .searchDesignationResource(RequestHelper.getJsonString(hrMasterDesignationSearchRequest), designationName, sessionId);
+                .searchDesignationResource(RequestHelper.getJsonString(hrMasterDesignationSearchRequest), designationName);
         HRMasterDesignationCreateSearchAndUpdateResponse hrMasterDesignationSearchResponse = (HRMasterDesignationCreateSearchAndUpdateResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), HRMasterDesignationCreateSearchAndUpdateResponse.class);
 
@@ -66,10 +66,10 @@ public class HRMasterDesignationCreateSearchAndUpdateTest extends BaseAPITest {
         Assert.assertEquals(hrMasterDesignationSearchResponse.getDesignation()[0].getName(), designationName);
         new APILogger().log("HR Master Designation Search Test is Completed --");
         updateDesignation(hrMasterDesignationSearchResponse.getDesignation()[0].getId(),
-                hrMasterDesignationCreateRequest, sessionId); // Update Designation
+                hrMasterDesignationCreateRequest); // Update Designation
     }
 
-    private void updateDesignation(int id, HRMasterDesignationCreateSearchAndUpdateResponse hrMasterDesignationCreateRequest, String sessionId) throws IOException {
+    private void updateDesignation(int id, HRMasterDesignationCreateSearchAndUpdateResponse hrMasterDesignationCreateRequest) throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
         Designation designation = new DesignationBuilder()
                 .withName(hrMasterDesignationCreateRequest.getDesignation()[0].getName())
@@ -87,18 +87,17 @@ public class HRMasterDesignationCreateSearchAndUpdateTest extends BaseAPITest {
                         .build();
 
         Response response = new HRMasterDesignationResource()
-                .updateDesignationResource(RequestHelper.getJsonString(hrMasterDesignationUpdateRequest), id, sessionId);
+                .updateDesignationResource(RequestHelper.getJsonString(hrMasterDesignationUpdateRequest), id);
         HRMasterDesignationCreateSearchAndUpdateResponse hrMasterDesignationUpdateResponse = (HRMasterDesignationCreateSearchAndUpdateResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), HRMasterDesignationCreateSearchAndUpdateResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertEquals(hrMasterDesignationUpdateResponse.getDesignation()[0].getDescription(), "Modified Description");
         new APILogger().log("HR Master Designation Update Test is Completed --");
-        searchDesignationAfterUpdate(hrMasterDesignationUpdateResponse.getDesignation()[0].getName(),
-                sessionId); // Search Designation After Update
+        searchDesignationAfterUpdate(hrMasterDesignationUpdateResponse.getDesignation()[0].getName()); // Search Designation After Update
     }
 
-    private void searchDesignationAfterUpdate(String name, String sessionId) throws IOException {
+    private void searchDesignationAfterUpdate(String name) throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
         HRMasterDesignationSearchRequest hrMasterDesignationSearchRequest =
                 new HRMasterDesignationSearchRequestBuilder()
@@ -106,7 +105,7 @@ public class HRMasterDesignationCreateSearchAndUpdateTest extends BaseAPITest {
                         .build();
 
         Response response = new HRMasterDesignationResource()
-                .searchDesignationResource(RequestHelper.getJsonString(hrMasterDesignationSearchRequest), name, sessionId);
+                .searchDesignationResource(RequestHelper.getJsonString(hrMasterDesignationSearchRequest), name);
         HRMasterDesignationCreateSearchAndUpdateResponse hrMasterDesignationSearchAfterUpdateResponse = (HRMasterDesignationCreateSearchAndUpdateResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), HRMasterDesignationCreateSearchAndUpdateResponse.class);
 

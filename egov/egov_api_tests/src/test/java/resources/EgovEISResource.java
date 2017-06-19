@@ -6,14 +6,14 @@ import utils.Properties;
 
 import static com.jayway.restassured.RestAssured.given;
 
-public class EgovEISResource {
+public class EgovEISResource extends Resource {
 
-    public Response searchAttendance(String jsonData, String auth_token) {
+    public Response searchAttendanceResource(String jsonData) {
         new APILogger().log("Search Attendance Request is started with -- " + jsonData);
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
                 .header("Content-Type", "application/json")
-//                .header("auth-token", auth_token)
+                .header("cookie", "SESSIONID=" + scenarioContext.getSessionId())
                 .body(jsonData)
                 .when()
                 .post(Properties.searchAttendanceUrl);
@@ -22,12 +22,13 @@ public class EgovEISResource {
         return response;
     }
 
-    public Response createAttendance(String jsonData, String access_token) {
+    public Response createAttendanceResource(String jsonData) {
 
         new APILogger().log("Create Attendance Request is started with -- " + jsonData);
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
                 .header("Content-Type", "application/json")
+                .header("cookie", "SESSIONID=" + scenarioContext.getSessionId())
                 .body(jsonData)
                 .when()
                 .post(Properties.createAttendanceURL);
@@ -75,12 +76,12 @@ public class EgovEISResource {
         return response;
     }
 
-    public Response searchEmployeeLeaveTypesResource(String jsonData, String sessionId) {
+    public Response searchEmployeeLeaveTypesResource(String jsonData) {
         new APILogger().log("Search Employee Leave Types Test Request is Started with -- " + jsonData);
 
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
-                .header("cookie", "SESSIONID=" + sessionId)
+                .header("cookie", "SESSIONID=" + scenarioContext.getSessionId())
                 .body(jsonData)
                 .when()
                 .post(Properties.searchLeaveTypeUrl);
@@ -89,12 +90,12 @@ public class EgovEISResource {
         return response;
     }
 
-    public Response searchEmployeeLeaveApplicationsResource(String jsonData, String sessionId) {
+    public Response searchEmployeeLeaveApplicationsResource(String jsonData) {
         new APILogger().log("Search Employee Leave Applications Test Request is Started with -- " + jsonData);
 
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
-                .header("cookie", "SESSIONID=" + sessionId)
+                .header("cookie", "SESSIONID=" + scenarioContext.getSessionId())
                 .body(jsonData).when()
                 .post(Properties.eisSearchLeaveApplicationUrl);
 

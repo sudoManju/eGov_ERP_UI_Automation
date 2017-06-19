@@ -20,25 +20,23 @@ public class SearchHolidayTest extends BaseAPITest {
 
     @Test(groups = {Categories.HR, Categories.SANITY, Categories.PILOT})
     public void holidayTest() throws IOException {
-        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
-        searchHoliday(sessionId);  // Search Holiday
+        LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+        searchHoliday();  // Search Holiday
+        pilotLogoutService(); // Logout
     }
 
-    private void searchHoliday(String sessionId) throws IOException {
+    private void searchHoliday() throws IOException {
         RequestInfo requestInfo = new RequestInfoBuilder().build();
         CommonMasterRequest commonMasterRequest = new CommonMasterRequestBuilder()
-                .withRequestInfo(requestInfo)
-                .build();
+                .withRequestInfo(requestInfo).build();
 
         Response response = new CommonMasterResource()
-                .searchHolidayResource(RequestHelper.getJsonString(commonMasterRequest), sessionId);
+                .searchHolidayResource(RequestHelper.getJsonString(commonMasterRequest));
         HolidayResponse holidayResponse = (HolidayResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), HolidayResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertTrue(holidayResponse.getHoliday().length >= 0);
-
         new APILogger().log("Search Holiday Test is Completed --");
-        pilotLogoutService(sessionId); // Logout
     }
 }
