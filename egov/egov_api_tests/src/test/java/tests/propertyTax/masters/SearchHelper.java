@@ -8,6 +8,8 @@ import entities.requests.propertyTax.masters.usage.SearchMasterRequest;
 import entities.responses.login.LoginResponse;
 import entities.responses.propertyTax.masters.floorTypes.create.FloorTypesResponse;
 import entities.responses.propertyTax.masters.floorTypes.search.SearchFloorTypesResponse;
+import entities.responses.propertyTax.masters.propertyTypes.create.PropertyTypesResponse;
+import entities.responses.propertyTax.masters.propertyTypes.search.SearchPropertyTypesResponse;
 import entities.responses.propertyTax.masters.structureClass.create.StructureClassResponse;
 import entities.responses.propertyTax.masters.structureClass.search.SearchStructureClassResponse;
 import entities.responses.propertyTax.masters.usage.search.SearchUsageMasterResponse;
@@ -15,10 +17,7 @@ import entities.responses.propertyTax.masters.usage.create.UsageMasterResponse;
 import entities.responses.propertyTax.masters.woodTypes.create.WoodTypesResponse;
 import entities.responses.propertyTax.masters.woodTypes.search.SearchWoodTypesResponse;
 import org.testng.Assert;
-import resources.propertyTax.masters.FloorTypesResource;
-import resources.propertyTax.masters.StructureClassResource;
-import resources.propertyTax.masters.UsageMasterResource;
-import resources.propertyTax.masters.WoodTypesResource;
+import resources.propertyTax.masters.*;
 import tests.BaseAPITest;
 import utils.APILogger;
 import utils.RequestHelper;
@@ -210,8 +209,53 @@ public class SearchHelper extends BaseAPITest {
         SearchWoodTypesResponse response1 = (SearchWoodTypesResponse)
                 ResponseHelper.getResponseAsObject(response.asString(),SearchWoodTypesResponse.class);
 
+        Assert.assertEquals(response1.getWoodTypes()[0].getId(),requestObject.getWoodTypes()[0].getId());
         Assert.assertEquals(response1.getWoodTypes()[0].getName(),requestObject.getWoodTypes()[0].getName());
         Assert.assertEquals(response1.getWoodTypes()[0].getCode(),requestObject.getWoodTypes()[0].getCode());
 //        Assert.assertEquals(response1.getWoodTypes()[0].getNameLocal(),requestObject.getWoodTypes()[0].getNameLocal());
+    }
+
+    public void searchPropertyTypeMaster(PropertyTypesResponse createObject)throws IOException{
+
+        new APILogger().log("Search Property type is started --");
+
+        Response responseForId = new PropertyTypeMasterResource().searchPropertyType(json,"&ids="+createObject.getPropertyTypes()[0].getId());
+
+        checkAssertsForPropertyTypes(responseForId,createObject);
+
+        new APILogger().log("Search Property type with Id is success");
+
+        Response responseForName = new PropertyTypeMasterResource().searchPropertyType(json,"&name="+createObject.getPropertyTypes()[0].getName());
+
+        checkAssertsForPropertyTypes(responseForName,createObject);
+
+        new APILogger().log("Search WoodTypes Master with code is success");
+
+        Response responseForCode = new PropertyTypeMasterResource().searchPropertyType(json,"&code="+createObject.getPropertyTypes()[0].getCode());
+
+        checkAssertsForPropertyTypes(responseForCode,createObject);
+
+        new APILogger().log("Search WoodTypes Master with code is success");
+
+        Response responseForNameLocal = new PropertyTypeMasterResource().searchPropertyType(json,"&nameLocal="+createObject.getPropertyTypes()[0].getNameLocal());
+
+        checkAssertsForPropertyTypes(responseForNameLocal,createObject);
+
+        new APILogger().log("Search WoodTypes Master with code is success");
+
+        new APILogger().log("earch WoodTypes is completed --");
+    }
+
+    private void checkAssertsForPropertyTypes(Response response, PropertyTypesResponse createObject) throws IOException {
+
+        Assert.assertEquals(response.getStatusCode(),200);
+
+        SearchPropertyTypesResponse response1 = (SearchPropertyTypesResponse)
+                ResponseHelper.getResponseAsObject(response.asString(),SearchPropertyTypesResponse.class);
+
+        Assert.assertEquals(response1.getPropertyTypes()[0].getId(),createObject.getPropertyTypes()[0].getId());
+        Assert.assertEquals(response1.getPropertyTypes()[0].getName(),createObject.getPropertyTypes()[0].getName());
+        Assert.assertEquals(response1.getPropertyTypes()[0].getCode(),createObject.getPropertyTypes()[0].getCode());
+        Assert.assertEquals(response1.getPropertyTypes()[0].getNameLocal(),createObject.getPropertyTypes()[0].getNameLocal());
     }
 }

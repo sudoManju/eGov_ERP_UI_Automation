@@ -73,6 +73,8 @@ public class Properties {
     public static final String userUpdateUrl = propertiesReader.getEndPointUrl("userUpdateUrl");
     public static final String loginUserDetailsUrl = propertiesReader.getEndPointUrl("loginUserDetailsUrl");;
     public static final String searchOtpUrl = propertiesReader.getEndPointUrl("searchOtpUrl");
+
+    // Property Tax Master's Module Url's //
     public static final String createUsageMasterUrl = propertiesReader.getEndPointUrl("usageMasterCreateUrl");
     public static final String searchUsageMasterUrl = propertiesReader.getEndPointUrl("usageMasterSearchUrl");
     public static final String createStructureClassUrl = propertiesReader.getEndPointUrl("structureClassCreateUrl");
@@ -82,4 +84,5 @@ public class Properties {
     public static final String createWoodTypeUrl = propertiesReader.getEndPointUrl("woodTypesCreateUrl");
     public static final String searchWoodTypeUrl = propertiesReader.getEndPointUrl("woodTypesSearchUrl");
     public static final String createPropertyTypeUrl = propertiesReader.getEndPointUrl("propertyTypeCreateUrl");
+    public static final String searchPropertyTypeUrl = propertiesReader.getEndPointUrl("propertyTypeSearchUrl");
 }

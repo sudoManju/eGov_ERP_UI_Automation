@@ -22,4 +22,19 @@ public class PropertyTypeMasterResource {
 
         return response;
     }
+
+    public Response searchPropertyType(String json, String s) {
+
+        new APILogger().log("Search PropertyType request is started as --"+json);
+
+        Response response = given().request().with()
+                .header("Content-Type","application/json")
+                .body(json)
+                .when()
+                .post(Properties.searchPropertyTypeUrl+s);
+
+        new APILogger().log("Search PropertyType Response is generated as --"+response.asString());
+
+        return response;
+    }
 }

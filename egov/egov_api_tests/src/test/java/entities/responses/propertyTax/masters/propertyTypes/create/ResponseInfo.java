@@ -1,4 +1,4 @@
-package entities.responses.propertyTax.masters.propertyTypes;
+package entities.responses.propertyTax.masters.propertyTypes.create;
 
 public class ResponseInfo {
     private String ver;

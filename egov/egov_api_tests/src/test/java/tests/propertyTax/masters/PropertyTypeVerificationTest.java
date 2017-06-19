@@ -6,7 +6,7 @@ import com.jayway.restassured.response.Response;
 import entities.requests.propertyTax.masters.RequestInfo;
 import entities.requests.propertyTax.masters.propertyType.CreatePropertyTypeRequest;
 import entities.responses.login.LoginResponse;
-import entities.responses.propertyTax.masters.propertyTypes.PropertyTypesResponse;
+import entities.responses.propertyTax.masters.propertyTypes.create.PropertyTypesResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.propertyTax.masters.PropertyTypeMasterResource;
@@ -27,10 +27,14 @@ public class PropertyTypeVerificationTest extends BaseAPITest {
 
         LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
 
-        createPropertyTypeMaster(loginResponse);
+        PropertyTypesResponse create = createPropertyTypeMaster(loginResponse);
+
+        SearchHelper helper = new SearchHelper(loginResponse);
+
+        helper.searchPropertyTypeMaster(create);
     }
 
-    private void createPropertyTypeMaster(LoginResponse loginResponse) throws IOException {
+    private PropertyTypesResponse createPropertyTypeMaster(LoginResponse loginResponse) throws IOException {
 
         new APILogger().log("Create PropertyType Master is started --");
 
@@ -53,5 +57,7 @@ public class PropertyTypeVerificationTest extends BaseAPITest {
         Assert.assertEquals(response1.getResponseInfo().getStatus(),"SUCCESSFUL");
 
         new APILogger().log("Create PropertyType Master is completed --");
+
+        return response1;
     }
 }

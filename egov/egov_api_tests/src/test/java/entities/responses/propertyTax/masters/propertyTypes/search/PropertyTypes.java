@@ -1,9 +1,9 @@
-package entities.responses.propertyTax.masters.propertyTypes;
+package entities.responses.propertyTax.masters.propertyTypes.search;
 
 public class PropertyTypes {
     private String code;
     private int orderNumber;
-    private Object data;
+    private String data;
     private AuditDetails auditDetails;
     private String tenantId;
     private String name;
@@ -28,11 +28,11 @@ public class PropertyTypes {
         this.orderNumber = orderNumber;
     }
 
-    public Object getData() {
+    public String getData() {
         return this.data;
     }
 
-    public void setData(Object data) {
+    public void setData(String data) {
         this.data = data;
     }
 
