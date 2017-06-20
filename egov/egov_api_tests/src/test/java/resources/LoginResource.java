@@ -19,7 +19,6 @@ public class LoginResource extends Resource{
                 .params(json)
                 .when()
                 .post(Properties.loginUrl);
-
         new APILogger().log("Login Response is generated as-- " + response.asString());
         return response;
     }

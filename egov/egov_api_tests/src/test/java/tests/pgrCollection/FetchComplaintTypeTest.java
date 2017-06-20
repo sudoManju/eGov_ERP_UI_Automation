@@ -5,7 +5,6 @@ import builders.pgrCollection.fetchComplaints.RequestInfoBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.pgrCollections.fetchComplaints.FetchComplaintRequest;
 import entities.requests.pgrCollections.fetchComplaints.RequestInfo;
-import entities.responses.login.LoginResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.PGRResource;
@@ -22,49 +21,30 @@ import static data.UserData.NARASAPPA;
 public class FetchComplaintTypeTest extends BaseAPITest {
 
     @Test(groups = {Categories.PGR, Categories.SANITY, Categories.DEV})
-    public void FeatchComplaintType() throws IOException {
-
-        //Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
-
-        //Fetch All Complaint
-        fetchAllComplaints(loginResponse);
-
-        //Fetch Complaint By Id
-        fetchComplaintById(loginResponse);
+    public void FetchComplaintsTest() throws IOException {
+        LoginAndLogoutHelper.login1(NARASAPPA); //Login Test
+        fetchAllComplaints(); // Fetch All Complaints
+        fetchComplaintById(); // Fetch Complaint By Id
+        LoginAndLogoutHelper.logout1(); // Logout
     }
 
-    private void fetchComplaintById(LoginResponse loginResponse) {
-
-        new APILogger().log("Fetch complaint by id test is started ---");
-
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
-
+    private void fetchComplaintById() {
+        new APILogger().log("Fetch Complaint by ID Test is Started ---");
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         FetchComplaintRequest request = new FetchComplaintRequestBuilder().withRequestInfo(requestInfo).build();
 
-        String json = RequestHelper.getJsonString(request);
-
-        Response response = new PGRResource().getFetchComplaintById(json);
-
+        Response response = new PGRResource().fetchComplaintByIdResource(RequestHelper.getJsonString(request));
         Assert.assertEquals(response.getStatusCode(), 200);
-
-        new APILogger().log("Fetch complaint by id test is completed ---");
+        new APILogger().log("Fetch Complaint by ID Test is Completed ---");
     }
 
-    private void fetchAllComplaints(LoginResponse loginResponse) {
-
-        new APILogger().log("Fetch all complaints test is started ---");
-
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
-
+    private void fetchAllComplaints() {
+        new APILogger().log("Fetch All Complaints Test is Started ---");
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         FetchComplaintRequest request = new FetchComplaintRequestBuilder().withRequestInfo(requestInfo).build();
 
-        String json = RequestHelper.getJsonString(request);
-
-        Response response = new PGRResource().getFetchComplaint(json);
-
+        Response response = new PGRResource().fetchAllComplaintsResource(RequestHelper.getJsonString(request));
         Assert.assertEquals(response.getStatusCode(), 200);
-
-        new APILogger().log("Fetch all complaints test is completed ---");
+        new APILogger().log("Fetch All Complaints Test is Completed ---");
     }
 }

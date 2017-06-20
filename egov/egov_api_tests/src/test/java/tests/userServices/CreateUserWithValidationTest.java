@@ -20,156 +20,99 @@ import java.io.IOException;
 
 import static data.UserData.NARASAPPA;
 
-public class CreateWithValidateVerficationTest extends BaseAPITest {
+public class CreateUserWithValidationTest extends BaseAPITest {
 
     @Test(groups = {Categories.SANITY, Categories.DEV, Categories.USER})
-    public void createWithValidateAndGetTest() throws IOException {
+    public void createUserWithValidationTest() throws IOException {
+        LoginAndLogoutHelper.login1(NARASAPPA); // Login
+        OtpResponse otp = createOtp(); // Create OTP
+        searchOtp(otp); // Search OTP
 
-        // Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
+        OtpResponse validatedOtp = validateOtp(otp); // Validate OTP
+        searchOtp(otp); // Search OTP
 
-        //Create OTP
-        OtpResponse otp = createOtp(loginResponse);
-
-        //Search OTP
-        searchOtp(otp, loginResponse);
-
-        //Validate OTP
-        OtpResponse validatedOtp = validateOtp(loginResponse, otp);
-
-        //Search OTP
-        searchOtp(otp, loginResponse);
-
-        //Create User With Validation
-        UserResponse user = createUser(loginResponse, validatedOtp);
-
-        //Get User Details with id
-        getTheNewlyCreatedUser(loginResponse, user, "id");
-
-        //Get User Details with username
-        getTheNewlyCreatedUser(loginResponse, user, "userName");
+        UserResponse user = createCitizenUser(validatedOtp); // Create User With Validation
+        searchCreatedUser(user, "id"); // Search User Details
+        searchCreatedUser(user, "userName"); // // Search User Details
+        LoginAndLogoutHelper.logout1(); // Logout
     }
 
-    private void searchOtp(OtpResponse otpGene, LoginResponse loginResponse) throws IOException {
-
+    private void searchOtp(OtpResponse otpGene) throws IOException {
         new APILogger().log("Search OTP Test is started ---");
-
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
-
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         Otp otp = new OtpBuilder().withUuid(otpGene.getOtp().getUUID()).build();
-
         SearchOtpRequest request = new SearchOtpRequestBuilder().withRequestInfo(requestInfo).withOtp(otp).build();
 
-        String json = RequestHelper.getJsonString(request);
-
-        Response response = new UserServiceResource().searchOtp(json);
-
-        Assert.assertEquals(response.getStatusCode(), 200);
-
+        Response response = new UserServiceResource().searchOtpResource(RequestHelper.getJsonString(request));
         SearchOtpResponse response1 = (SearchOtpResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchOtpResponse.class);
 
+        Assert.assertEquals(response.getStatusCode(), 200);
         System.out.println("Is OTP Validated :" + response1.getOtp().getIsValidationSuccessful());
-
         new APILogger().log("Search OTP Test is completed ---");
     }
 
-    private UserResponse createUser(LoginResponse loginResponse, OtpResponse validatedOtp) throws IOException {
-
+    private UserResponse createCitizenUser(OtpResponse validatedOtp) throws IOException {
         new APILogger().log("Create User Test with OTP is started ---");
-
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
-
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         User user = new UserBuilder()
                 .withUserName("Test_" + get3DigitRandomInt() + get3DigitRandomInt())
                 .withMobileNumber(validatedOtp.getOtp().getIdentity())
                 .withOtpReference(validatedOtp.getOtp().getUUID())
                 .build();
-
         CreateUserValidateRequest request = new CreateUserValidateRequestBuilder().withRequestInfo(requestInfo)
                 .withUser(user).build();
 
-        String json = RequestHelper.getJsonString(request);
-
-        Response response = new UserServiceResource().createCitizenUser(json);
-
-        Assert.assertEquals(response.getStatusCode(), 200);
-
+        Response response = new UserServiceResource().createCitizenUserResource(RequestHelper.getJsonString(request));
         UserResponse response1 = (UserResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), UserResponse.class);
 
+        Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertEquals(response1.getUser()[0].getMobileNumber(), validatedOtp.getOtp().getIdentity());
         Assert.assertEquals(request.getUser().getUserName(), response1.getUser()[0].getUserName());
-
         new APILogger().log("Create User Test with OTP is completed ---");
-
         return response1;
     }
 
-    private OtpResponse validateOtp(LoginResponse loginResponse, OtpResponse otpgenerated) throws IOException {
-
+    private OtpResponse validateOtp(OtpResponse otpGenerated) throws IOException {
         new APILogger().log("Validate OTP Test is started ---");
-
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
-
-        Otp otp = new OtpBuilder().withIdentity(otpgenerated.getOtp().getIdentity()).withOtp(otpgenerated.getOtp().getOtp()).build();
-
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
+        Otp otp = new OtpBuilder().withIdentity(otpGenerated.getOtp().getIdentity()).withOtp(otpGenerated.getOtp().getOtp()).build();
         ValidateOtpRequest request = new ValidateOtpRequestBuilder().withRequestInfo(requestInfo).withOtp(otp).build();
 
-        String json = RequestHelper.getJsonString(request);
-
-        Response response = new UserServiceResource().validateOtp(json);
-
-        System.out.println(response.getHeaders().get("x-correlation-id"));
+        Response response = new UserServiceResource().validateOtp(RequestHelper.getJsonString(request));
+        OtpResponse response1 = (OtpResponse)
+                ResponseHelper.getResponseAsObject(response.asString(), OtpResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
-
-        OtpResponse response1 = (OtpResponse)
-                ResponseHelper.getResponseAsObject(response.asString(), OtpResponse.class);
-
-        Assert.assertEquals(otpgenerated.getOtp().getIdentity(), response1.getOtp().getIdentity());
-
+        Assert.assertEquals(otpGenerated.getOtp().getIdentity(), response1.getOtp().getIdentity());
         Assert.assertTrue(response1.getOtp().getIsValidationSuccessful());
-
-        new APILogger().log("Validate OTP Test is completed ---");
-
+        new APILogger().log("Validate OTP Test is Completed ---");
         return response1;
     }
 
-    private OtpResponse createOtp(LoginResponse loginResponse) throws IOException {
-
+    private OtpResponse createOtp() throws IOException {
         new APILogger().log("Create OTP Test is started ---");
-
         String phoneNo = "9" + get3DigitRandomInt() + get3DigitRandomInt() + get3DigitRandomInt();
-
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
-
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         Otp otp = new OtpBuilder().withIdentity(phoneNo).build();
-
         CreateOtpRequest request = new CreateOtpRequestBuilder().withRequestInfo(requestInfo).withOtp(otp).build();
 
-        String json = RequestHelper.getJsonString(request);
-
-        Response response = new UserServiceResource().createOtp(json);
-
-        Assert.assertEquals(response.getStatusCode(), 201);
-
+        Response response = new UserServiceResource().createOtpResource(RequestHelper.getJsonString(request));
         OtpResponse response1 = (OtpResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), OtpResponse.class);
 
+        Assert.assertEquals(response.getStatusCode(), 201);
         Assert.assertEquals(phoneNo, response1.getOtp().getIdentity());
-
         new APILogger().log("Create OTP Test is completed ---");
-
         return response1;
     }
 
-    private void getTheNewlyCreatedUser(LoginResponse loginResponse, UserResponse create, String searchType) throws IOException {
+    private void searchCreatedUser(UserResponse create, String searchType) throws IOException {
+        new APILogger().log("Get User details with type " + searchType + " is Started ---");
 
-        new APILogger().log("get user details with searchLeaveApplicationResource type " + searchType + " is started ---");
-
-        entities.requests.userServices.createNoValidate.RequestInfo requestInfo = new builders.userServices.createNoValidate.RequestInfoBuilder("").withAuthToken(loginResponse.getAccess_token()).build();
-
+        entities.requests.userServices.createNoValidate.RequestInfo requestInfo = new builders.userServices.createNoValidate.RequestInfoBuilder("").
+                withAuthToken(scenarioContext.getAuthToken()).build();
         GetUserRequest request = new GetUserRequest();
 
         switch (searchType) {
@@ -185,17 +128,12 @@ public class CreateWithValidateVerficationTest extends BaseAPITest {
                 break;
         }
 
-        String json = RequestHelper.getJsonString(request);
-
-        Response response = new UserServiceResource().getUserDetails(json);
-
-        Assert.assertEquals(response.getStatusCode(), 200);
-
+        Response response = new UserServiceResource().searchCreatedUserResource(RequestHelper.getJsonString(request));
         GetUserResponse response1 = (GetUserResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), GetUserResponse.class);
 
+        Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertEquals(response1.getUser()[0].getUserName(), create.getUser()[0].getUserName());
-
-        new APILogger().log("get user details with searchLeaveApplicationResource type " + searchType + " is completed ---");
+        new APILogger().log("Get User details with type " + searchType + " is Completed ---");
     }
 }

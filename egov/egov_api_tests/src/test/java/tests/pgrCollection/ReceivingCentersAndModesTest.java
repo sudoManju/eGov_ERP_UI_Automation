@@ -5,7 +5,6 @@ import builders.pgrCollection.receivingCenters.RequestInfoBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.pgrCollections.receivingCenters.ReceivingCentersRequest;
 import entities.requests.pgrCollections.receivingCenters.RequestInfo;
-import entities.responses.login.LoginResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.PGRResource;
@@ -23,69 +22,39 @@ public class ReceivingCentersAndModesTest extends BaseAPITest {
 
     @Test(groups = {Categories.PGR, Categories.SANITY, Categories.DEV})
     public void receivingCentersTest() throws IOException {
-
-        //Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
-
-        //AllReceivingCenters
-        getAllReceivingCentersTest(loginResponse);
-
-        //ReceivingCenterById
-        getReceivingCenterByIdTest(loginResponse);
-
-        //ReceivingMode
-        getAllReceivingModesTest(loginResponse);
+        LoginAndLogoutHelper.login1(NARASAPPA); //Login Test
+        getAllReceivingCentersTest(); // Get All Receiving Centers
+        getReceivingCenterByIdTest(); // Get Receiving Center By ID
+        getAllReceivingModes(); // Get All Receiving Modes
     }
 
-    private void getAllReceivingModesTest(LoginResponse loginResponse) {
-
-        new APILogger().log("Receiving modes test is started ---");
-
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
-
+    private void getAllReceivingModes() {
+        new APILogger().log("Receiving Modes Test is Started ---");
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         ReceivingCentersRequest request = new ReceivingCentersRequestBuilder().withRequestInfo(requestInfo).build();
 
-        String json = RequestHelper.getJsonString(request);
-
-        Response response = new PGRResource().getReceivingModes(json);
-
+        Response response = new PGRResource().getReceivingModesResource(RequestHelper.getJsonString(request));
         Assert.assertEquals(response.getStatusCode(), 200);
-
-        new APILogger().log("Receiving modes test is completed ---");
+        new APILogger().log("Receiving Modes Test is Completed ---");
     }
 
-    private void getAllReceivingCentersTest(LoginResponse loginResponse) {
-
-        new APILogger().log("All Receiving centers test is started ---");
-
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
-
+    private void getAllReceivingCentersTest() {
+        new APILogger().log("All Receiving Centers Test is Started ---");
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         ReceivingCentersRequest request = new ReceivingCentersRequestBuilder().withRequestInfo(requestInfo).build();
 
-        String json = RequestHelper.getJsonString(request);
-
-        Response response = new PGRResource().getReceivingCenter(json);
-
+        Response response = new PGRResource().getReceivingCenterResource(RequestHelper.getJsonString(request));
         Assert.assertEquals(response.getStatusCode(), 200);
-
         new APILogger().log("All Receiving Centers test is Completed ---");
     }
 
-    private void getReceivingCenterByIdTest(LoginResponse loginResponse) {
-
-        new APILogger().log("Receiving Centers by Id test is Started ---");
-
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
-
+    private void getReceivingCenterByIdTest() {
+        new APILogger().log("Receiving Centers by Id Test is Started ---");
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         ReceivingCentersRequest request = new ReceivingCentersRequestBuilder().withRequestInfo(requestInfo).build();
 
-        String json = RequestHelper.getJsonString(request);
-
-        Response response = new PGRResource().getReceivingCenterById(json);
-
+        Response response = new PGRResource().getReceivingCenterByIdResource(RequestHelper.getJsonString(request));
         Assert.assertEquals(response.getStatusCode(), 200);
-
-        new APILogger().log("Receiving Centers by Id test is Completed ---");
+        new APILogger().log("Receiving Centers by Id Test is Completed ---");
     }
-
 }

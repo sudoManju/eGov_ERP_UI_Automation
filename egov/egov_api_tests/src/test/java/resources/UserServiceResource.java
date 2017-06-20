@@ -8,7 +8,7 @@ import static com.jayway.restassured.RestAssured.given;
 
 public class UserServiceResource {
 
-    public Response getUserDetails(String json) {
+    public Response searchCreatedUserResource(String json) {
         new APILogger().log("User Details Request For Search is Started with--" + json);
 
         Response response = given().request().with()
@@ -22,7 +22,7 @@ public class UserServiceResource {
         return response;
     }
 
-    public Response createUserNoValidate(String jsonString) {
+    public Response createUserWithoutValidationResource(String jsonString) {
 
         new APILogger().log("User Details Request For Create is Started with--" + jsonString);
 
@@ -37,7 +37,7 @@ public class UserServiceResource {
         return response;
     }
 
-    public Response createOtp(String json) {
+    public Response createOtpResource(String json) {
 
         new APILogger().log("Create Otp Request is Started with--" + json);
 
@@ -67,7 +67,7 @@ public class UserServiceResource {
         return response;
     }
 
-    public Response createCitizenUser(String json) {
+    public Response createCitizenUserResource(String json) {
 
         new APILogger().log("Create Citizen User Request is Started with--" + json);
 
@@ -82,7 +82,7 @@ public class UserServiceResource {
         return response;
     }
 
-    public Response updateUserDetails(String json, int id) {
+    public Response updateUserResource(String json, int id) {
 
         new APILogger().log("Update User Request is Started with--" + json);
 
@@ -97,7 +97,7 @@ public class UserServiceResource {
         return response;
     }
 
-    public Response getLoginUserDetails(String json, String access_token) {
+    public Response verifyUserDetailsResource(String json, String access_token) {
 
         new APILogger().log("Login User Details Request is Started with--" + json);
 
@@ -112,7 +112,7 @@ public class UserServiceResource {
         return response;
     }
 
-    public Response searchOtp(String json) {
+    public Response searchOtpResource(String json) {
 
         new APILogger().log("Search OTP Request is Started with--" + json);
 

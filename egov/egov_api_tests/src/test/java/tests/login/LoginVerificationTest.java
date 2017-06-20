@@ -18,13 +18,13 @@ import static data.UserData.NARASAPPA;
 
 public class LoginVerificationTest extends BaseAPITest {
 
-    @Test(groups = {Categories.SANITY, Categories.QA, Categories.DEV, Categories.PGR})
+    @Test(groups = {Categories.PGR})
     public void shouldAllowLoginAndLogoutToAnExistingUser() throws IOException {
         LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA); // Login
         LoginAndLogoutHelper.logout(loginResponse); // Logout
     }
 
-    @Test(groups = {Categories.SANITY, Categories.QA, Categories.DEV, Categories.PGR})
+    @Test(groups = {Categories.PGR})
     public void shouldNotAllowLogoutWithInvalidCredentials() throws IOException {
         LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA); // Login Test
         Response response1 = new LoginResource().inValidLogout(loginResponse.getAccess_token()); // Invalid Logout
@@ -32,7 +32,7 @@ public class LoginVerificationTest extends BaseAPITest {
         new APILogger().log("Logout Test Failed is Completed -- ");
     }
 
-    @Test(groups = {Categories.SANITY, Categories.QA, Categories.DEV, Categories.PGR})
+    @Test(groups = {Categories.PGR})
     public void shouldNotAllowLoginWithInvalidCredentials() throws IOException {
         LoginRequest request = new LoginRequestBuilder().withPassword("").build(); // Invalid Login
         Response response = new LoginResource().login(RequestHelper.asMap(request));
@@ -43,12 +43,6 @@ public class LoginVerificationTest extends BaseAPITest {
         Assert.assertEquals(loginErrorResponse.getError_description(), "Invalid login credentials");
         new APILogger().log("Login Failed is Completed -- ");
     }
-
-//    @Test(groups = {Categories.PILOT})
-//    public void shouldAllowLoginAndLogoutInPilotService() {
-//        String sessionId = LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
-//        LoginAndLogoutHelper.logoutFromPilotService(sessionId); // Logout
-//    }
 
     @Test(groups = {Categories.PILOT})
     public void shouldAllowLoginAndLogoutInPilotService1() {

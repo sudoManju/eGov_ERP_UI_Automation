@@ -5,7 +5,6 @@ import builders.pgrCollection.complaintType.RequestInfoBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.pgrCollections.complaintType.ComplaintTypeRequest;
 import entities.requests.pgrCollections.complaintType.RequestInfo;
-import entities.responses.login.LoginResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.PGRResource;
@@ -22,50 +21,30 @@ import static data.UserData.NARASAPPA;
 public class ComplaintTypeVerificationTest extends BaseAPITest {
 
     @Test(groups = {Categories.PGR, Categories.SANITY, Categories.DEV})
-    public void complaintType() throws IOException {
-
-        //Login Test
-        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA);
-
-        //complaintTypeByServiceCode
-        complaintTypeByServiceCode(loginResponse);
-
-        //complaintTypeCategories
-        complaintTypeCategories(loginResponse);
-
+    public void complaintTypeTest() throws IOException {
+        LoginAndLogoutHelper.login1(NARASAPPA); // Login
+        complaintTypeByServiceCode(); // Complaint Type By Service Code
+        complaintTypeCategories(); // Complaint Type By Categories
+        LoginAndLogoutHelper.logout1(); // Logout
     }
 
-    private void complaintTypeByServiceCode(LoginResponse loginResponse) throws IOException {
-
-        new APILogger().log("get complaint type by service code started ---");
-
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
-
+    private void complaintTypeByServiceCode() throws IOException {
+        new APILogger().log("Get Complaint Type By Service Code Test is Started ---");
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         ComplaintTypeRequest request = new ComplaintTypeRequestBuilder().withRequestInfo(requestInfo).build();
 
-        String json = RequestHelper.getJsonString(request);
-
-        Response response = new PGRResource().getComplaintTypeByServiceCode(json);
-
+        Response response = new PGRResource().complaintTypeByServiceCodeResource(RequestHelper.getJsonString(request));
         Assert.assertEquals(response.getStatusCode(), 200);
-
-        new APILogger().log("get complaint type by service code completed ---");
+        new APILogger().log("Get Complaint Type By Service Code Test is Completed ---");
     }
 
-    private void complaintTypeCategories(LoginResponse loginResponse) throws IOException {
-
-        new APILogger().log("get complaint type by Categories started ---");
-
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(loginResponse.getAccess_token()).build();
-
+    private void complaintTypeCategories() throws IOException {
+        new APILogger().log("Get Complaint Type By Categories Test is Started ---");
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         ComplaintTypeRequest request = new ComplaintTypeRequestBuilder().withRequestInfo(requestInfo).build();
 
-        String json = RequestHelper.getJsonString(request);
-
-        Response response = new PGRResource().getComplaintCategories(json);
-
+        Response response = new PGRResource().complaintTypeCategoriesResource(RequestHelper.getJsonString(request));
         Assert.assertEquals(response.getStatusCode(), 200);
-
-        new APILogger().log("get complaint type by Categories completed ---");
+        new APILogger().log("Get Complaint Type By Categories Test is Completed ---");
     }
 }
