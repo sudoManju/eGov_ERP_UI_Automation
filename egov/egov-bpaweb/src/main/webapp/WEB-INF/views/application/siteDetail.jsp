@@ -138,20 +138,20 @@
 </div>
 
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right"> <spring:message code="lbl.plot.survey.no" /> <span class="mandatory"></span>
-	</label>
+	<label class="col-sm-3 control-label text-right"><spring:message
+			code="lbl.re.survey.no" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation" maxlength="24"
-			data-pattern="alphanumericwithspace" required="required"
-			id="plotsurveynumber" path="siteDetail[0].plotsurveynumber" />
-		<form:errors path="siteDetail[0].plotsurveynumber"
+			data-pattern="alphanumericspecialcharacters" id="reSurveyNumber"
+			path="siteDetail[0].reSurveyNumber" required="required" />
+		<form:errors path="siteDetail[0].reSurveyNumber"
 			cssClass="add-margin error-msg" />
 	</div>
 	<label class="col-sm-2 control-label text-right"><spring:message
 			code="lbl.town.survey.no" /></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation" maxlength="24"
-			data-pattern="alphanumericwithspace" id="plotsurveynumber"
+			data-pattern="alphanumericwithspace" id="townSurveyNumber"
 			path="siteDetail[0].townSurveyNumber" />
 		<form:errors path="siteDetail[0].townSurveyNumber"
 			cssClass="add-margin error-msg" />
@@ -159,16 +159,7 @@
 </div>
 
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right"><spring:message
-			code="lbl.re.survey.no" /></label>
-	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="24"
-			data-pattern="alphanumericspecialcharacters" id="reSurveyNumber"
-			path="siteDetail[0].reSurveyNumber" />
-		<form:errors path="siteDetail[0].reSurveyNumber"
-			cssClass="add-margin error-msg" />
-	</div>
-	<label class="col-sm-2 control-label text-right"><spring:message code="lbl.subdiv.no" /><span class="mandatory"></span>
+	<label class="col-sm-3 control-label text-right"><spring:message code="lbl.subdiv.no" /><span class="mandatory"></span>
 	</label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation" maxlength="12"
@@ -177,18 +168,19 @@
 		<form:errors path="siteDetail[0].subdivisionNumber"
 			cssClass="add-margin error-msg" />
 	</div>
+	<label class="col-sm-2 control-label text-right"><spring:message code="lbl.registrar.office" /> <span class="mandatory"></span>
+	</label>
+	<div class="col-sm-3 add-margin">
+		<form:input class="form-control patternvalidation" maxlength="32"
+			data-pattern="alphanumericwithspace" id="registrarOffice"
+			path="siteDetail[0].registrarOffice" required="required" />
+		<form:errors path="siteDetail[0].registrarOffice"
+			cssClass="add-margin error-msg" />
+	</div>
 </div>
 
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right"><spring:message code="lbl.plot.no" /></label>
-	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="24"
-			data-pattern="alphanumericspecialcharacters" id="plotnumber"
-			path="siteDetail[0].plotnumber" />
-		<form:errors path="siteDetail[0].plotnumber"
-			cssClass="add-margin error-msg" />
-	</div>
-	<label class="col-sm-2 control-label text-right"><spring:message code="lbl.addr.dno" /> </label>
+	<label class="col-sm-3 control-label text-right"><spring:message code="lbl.addr.dno" /> </label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation" maxlength="12"
 			data-pattern="alphanumericspecialcharacters" id="plotdoornumber"
@@ -196,24 +188,13 @@
 		<form:errors path="siteDetail[0].plotdoornumber"
 			cssClass="add-margin error-msg" />
 	</div>
-</div>
-
-<div class="form-group">
-	<label class="col-sm-3 control-label text-right"><spring:message code="lbl.nearest.build.no" /><span class="mandatory"></span>
+	<label class="col-sm-2 control-label text-right"><spring:message code="lbl.nearest.build.no" /><span class="mandatory"></span>
 	</label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation" maxlength="12"
 			required="required" data-pattern="alphanumericspecialcharacters"
 			id="nearestbuildingnumber" path="siteDetail[0].nearestbuildingnumber" />
 		<form:errors path="siteDetail[0].nearestbuildingnumber"
-			cssClass="add-margin error-msg" />
-	</div>
-	<label class="col-sm-2 control-label text-right"><spring:message code="lbl.plot.landmark" /><span class="mandatory"></span></label>
-	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="64"
-			data-pattern="alphanumericspecialcharacters" id="plotlandmark"
-			path="siteDetail[0].plotlandmark" required="required" />
-		<form:errors path="siteDetail[0].plotlandmark"
 			cssClass="add-margin error-msg" />
 	</div>
 </div>
@@ -290,19 +271,7 @@
 		<form:errors path="siteDetail[0].sitePincode"
 			cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right"><spring:message code="lbl.registrar.office" /> <span class="mandatory"></span>
-	</label>
-	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation" maxlength="32"
-			data-pattern="alphanumericwithspace" id="registrarOffice"
-			path="siteDetail[0].registrarOffice" required="required" />
-		<form:errors path="siteDetail[0].registrarOffice"
-			cssClass="add-margin error-msg" />
-	</div>
-</div>
-
-<div class="form-group">
-	<label class="col-sm-3 control-label text-right"><spring:message code="lbl.nature.of.ownership" /><span class="mandatory"></span>
+	<label class="col-sm-2 control-label text-right"><spring:message code="lbl.nature.of.ownership" /><span class="mandatory"></span>
 	</label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation" maxlength="64"
@@ -311,7 +280,10 @@
 		<form:errors path="siteDetail[0].natureofOwnership"
 			cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right"><spring:message code="lbl.approved.layout.details" /></label>
+</div>
+
+<div class="form-group">
+	<label class="col-sm-3 control-label text-right"><spring:message code="lbl.approved.layout.details" /></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation" maxlength="64"
 			data-pattern="alphanumericwithspace" id="approvedLayoutDetail"
@@ -321,7 +293,7 @@
 	</div>
 </div>
 
-<div class="form-group">
+<%-- <div class="form-group">
 	<label class="col-sm-3 control-label text-right"><spring:message code="lbl.set.back.front" /></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
@@ -338,9 +310,9 @@
 		<form:errors path="siteDetail[0].setBackRear"
 			cssClass="add-margin error-msg" />
 	</div>
-</div>
+</div> --%>
 
-<div class="form-group">
+<%-- <div class="form-group">
 	<label class="col-sm-3 control-label text-right"><spring:message code="lbl.set.back.side1" /></label>
 		<div class="col-sm-3 add-margin">
 			<form:input class="form-control patternvalidation" maxlength="10"
@@ -375,5 +347,5 @@
 		<form:errors path="siteDetail[0].encroachmentRemarks"
 			cssClass="add-margin error-msg" />
 	</div>
-</div>
+</div> --%>
 	

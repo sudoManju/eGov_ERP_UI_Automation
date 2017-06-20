@@ -73,20 +73,7 @@
 			cssClass="add-margin error-msg" />
 	</div>
 	<label
-		class="col-sm-2 control-label text-right handle-mandatory buildingheightGround"><spring:message
-			code="lbl.build.height" /> <span class="mandatory"></span> </label>
-	<div class="col-sm-3 add-margin">
-		<form:input
-			class="form-control patternvalidation clear-values handle-mandatory buildingheightGround"
-			maxlength="10" data-pattern="decimalvalue" id="buildingheightGround"
-			path="buildingDetail[0].buildingheightGround" required="required" />
-		<form:errors path="buildingDetail[0].buildingheightGround"
-			cssClass="add-margin error-msg" />
-	</div>
-</div>
-<div class="form-group">
-	<label
-		class="col-sm-3 control-label text-right handle-mandatory floorCount"><spring:message
+		class="col-sm-2 control-label text-right handle-mandatory floorCount"><spring:message
 			code="lbl.floor.count" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:input
@@ -96,6 +83,20 @@
 		<form:errors path="buildingDetail[0].floorCount"
 			cssClass="add-margin error-msg" />
 	</div>
+	<%-- <label
+		class="col-sm-2 control-label text-right handle-mandatory buildingheightGround"><spring:message
+			code="lbl.build.height" /> <span class="mandatory"></span> </label>
+	<div class="col-sm-3 add-margin">
+		<form:input
+			class="form-control patternvalidation clear-values handle-mandatory buildingheightGround"
+			maxlength="10" data-pattern="decimalvalue" id="buildingheightGround"
+			path="buildingDetail[0].buildingheightGround" required="required" />
+		<form:errors path="buildingDetail[0].buildingheightGround"
+			cssClass="add-margin error-msg" />
+	</div> --%>
+</div>
+<%-- <div class="form-group">
+	
 	<label class="col-sm-2 control-label text-right proposedfloorArea"><spring:message
 			code="lbl.build.propsed.floor.area" /> </label>
 	<div class="col-sm-3 add-margin">
@@ -107,7 +108,7 @@
 		<form:errors path="buildingDetail[0].proposedfloorArea"
 			cssClass="add-margin error-msg" />
 	</div>
-</div>
+</div> --%>
 <div class="form-group">
 	<label
 		class="col-sm-3 control-label text-right handle-mandatory heightFromGroundWithStairRoom"><spring:message
@@ -197,30 +198,8 @@
 		<form:errors path="buildingDetail[0].crzZone"
 			cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right"><spring:message
-			code="lbl.mezzanine.floor" /> </label>
-	<div class="col-sm-3 add-margin">
-		<form:checkbox id="isGroudFloor"
-			path="buildingDetail[0].isMezzanineFloor" value="isMezzanineFloor" />
-		<form:errors path="buildingDetail[0].isMezzanineFloor" />
-	</div>
 </div>
-<div class="form-group">
-	<label class="col-sm-3 control-label text-right"><spring:message
-			code="lbl.build.is.grnd.floor" /> </label>
-	<div class="col-sm-3 add-margin">
-		<form:checkbox id="isGroudFloor" path="buildingDetail[0].isGroudFloor"
-			value="isGroudFloor" />
-		<form:errors path="buildingDetail[0].isGroudFloor" />
-	</div>
-	<label class="col-sm-2 control-label text-right"><spring:message
-			code="lbl.is.stilt.floor" /></label>
-	<div class="col-sm-3 add-margin">
-		<form:checkbox id="isStiltFloor" path="buildingDetail[0].isStiltFloor"
-			value=".isStiltFloor" />
-		<form:errors path="buildingDetail[0].isStiltFloor" />
-	</div>
-</div>
+
 
 <div class="panel-heading custom_form_panel_heading">
 	<div class="panel-title">

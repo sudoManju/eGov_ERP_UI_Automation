@@ -39,8 +39,9 @@
  */
 var reportdatatable;
 
-
 jQuery(document).ready(function($) {
+	
+	$('#applicationDate').prop("disabled", true);
 	
 	var validator=$("#newApplicationform").validate({
 	  highlight: function(element, errorClass) {

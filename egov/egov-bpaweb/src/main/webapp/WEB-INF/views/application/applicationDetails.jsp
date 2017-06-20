@@ -189,26 +189,6 @@
 		</form:select>
 		<form:errors path="occupancy" cssClass="add-margin error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right">Property
-		Number </label>
-	<div class="col-sm-3 add-margin">
-			<form:input id="assessmentNumber" path="assessmentNumber"
-				class="form-control" data-pattern="number" maxlength="50" />
-		<form:errors path="assessmentNumber" id="assessmentNumber"
-			cssClass="add-margin error-msg" />
-	</div>
-</div>
-<div class="form-group">
-	<label class="col-sm-3 control-label text-right">Applicant Mode<span
-		class="mandatory"></span></label>
-	<div class="col-sm-3 add-margin">
-		<form:select path="applicantMode" data-first-option="false" id=""
-			cssClass="form-control" required="required">
-			<form:options items="${applicantModes}" />
-		</form:select>
-		<form:errors path="applicantMode" id="applicantMode"
-			cssClass="add-margin error-msg" />
-	</div>
 	<label class="col-sm-2 control-label text-right"><spring:message
 			code="lbl.government.type" /><span class="mandatory">
 				</span></label>
@@ -225,18 +205,6 @@
 		<form:errors path="governmentType"
 			cssClass="add-margin error-msg" />
 	</div>
-	<%-- <label class="col-sm-2 control-label text-right">Source <span
-		class="mandatory"></span></label>
-	<div class="col-sm-2 add-margin">
-		<form:select path="source" data-first-option="false" id=""
-			cssClass="form-control" required="required">
-			<form:option value="">
-				<spring:message code="lbl.select" />
-			</form:option>
-			<form:options items="${souceList}" />
-		</form:select>
-		<form:errors path="source" cssClass="add-margin error-msg" />
-	</div> --%>
 </div>
 
 <div class="form-group">

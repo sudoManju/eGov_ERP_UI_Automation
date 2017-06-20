@@ -72,21 +72,21 @@
 				default="N/A"></c:out>
 		</div>
 		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.floor.count" />
+		</div>
+		<div class="col-sm-3 add-margin view-content">
+			<c:out value="${bpaApplication.buildingDetail[0].floorCount}"
+				default="N/A"></c:out>
+		</div>
+	</div>
+
+	<%-- <div class="row add-border">
+		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.build.height" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
 			<c:out
 				value="${bpaApplication.buildingDetail[0].buildingheightGround}"
-				default="N/A"></c:out>
-		</div>
-	</div>
-
-	<div class="row add-border">
-		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.floor.count" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.buildingDetail[0].floorCount}"
 				default="N/A"></c:out>
 		</div>
 		<div class="col-sm-3 add-margin">
@@ -96,7 +96,7 @@
 			<c:out value="${bpaApplication.buildingDetail[0].proposedfloorArea}"
 				default="N/A"></c:out>
 		</div>
-	</div>
+	</div> --%>
 
 	<div class="row add-border">
 		<div class="col-sm-3 add-margin">
@@ -158,32 +158,6 @@
 		</div>
 		<div class="col-sm-3 add-margin view-content">
 			<c:out value="${bpaApplication.buildingDetail[0].crzZone}"
-				default="N/A"></c:out>
-		</div>
-		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.mezzanine.floor" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out
-				value="${bpaApplication.buildingDetail[0].isMezzanineFloor ? 'YES' : 'NO'}"
-				default="N/A"></c:out>
-		</div>
-	</div>
-	<div class="row add-border">
-		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.build.is.grnd.floor" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out
-				value="${bpaApplication.buildingDetail[0].isGroudFloor ? 'YES' : 'NO'}"
-				default="N/A"></c:out>
-		</div>
-		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.is.stilt.floor" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out
-				value="${bpaApplication.buildingDetail[0].isStiltFloor ? 'YES' : 'NO'}"
 				default="N/A"></c:out>
 		</div>
 	</div>
