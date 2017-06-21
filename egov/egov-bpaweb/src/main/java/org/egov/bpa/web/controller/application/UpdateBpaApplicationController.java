@@ -74,6 +74,7 @@ import org.egov.eis.service.PositionMasterService;
 import org.egov.eis.web.contract.WorkflowContainer;
 import org.egov.infra.admin.master.entity.User;
 import org.egov.infra.admin.master.service.UserService;
+import org.egov.infra.persistence.entity.PermanentAddress;
 import org.egov.infra.security.utils.SecurityUtils;
 import org.egov.infra.workflow.entity.StateHistory;
 import org.egov.pims.commons.Position;
@@ -288,10 +289,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
 					? application.getDocumentScrutiny().get(0).getExtentinsqmts() : new BigDecimal(1));
 		}
         workflowContainer.setAdditionalRule(CREATE_ADDITIONAL_RULE_CREATE);
-        if (application.getOwner().getApplicantAddress() == null && application.getOwner().getAddress() != null
-                && !application.getOwner().getAddress().isEmpty()
-                && application.getOwner().getAddress().get(0) != null)
-            application.getOwner().setApplicantAddress(application.getOwner().getAddress().get(0).getStreetRoadLine());
+        application.getOwner().setPermanentAddress((PermanentAddress) application.getOwner().getAddress().get(0));
         prepareWorkflow(model, application, workflowContainer);
         model.addAttribute("pendingActions", workflowContainer.getPendingActions());
         model.addAttribute(AMOUNT_RULE, workflowContainer.getAmountRule());
@@ -339,7 +337,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         }
         bpaApplication.getOwner().setUsername(bpaApplication.getOwner().getEmailId());
         bpaApplication.getOwner().setPassword(passwordEncoder.encode(bpaApplication.getOwner().getMobileNumber()));
-        setApplicantAddress(bpaApplication.getOwner());
+        bpaApplication.getOwner().addAddress(bpaApplication.getOwner().getPermanentAddress());
         applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
         if(bpaApplication.getCurrentState().getValue().equals(BpaConstants.WF_NEW_STATE)){
       	   return applicationBpaService.redirectToCollectionOnForward(bpaApplication,model);
@@ -383,8 +381,4 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         return userService.getUserByEmailId(owner.getEmailId());
     }
     
-    private void setApplicantAddress(final Applicant owner) {
-        owner.getAddress().get(0).setStreetRoadLine(owner.getApplicantAddress());
-    }
-
 }

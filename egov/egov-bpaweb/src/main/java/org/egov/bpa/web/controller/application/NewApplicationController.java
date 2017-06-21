@@ -64,8 +64,6 @@ import org.egov.infra.admin.master.entity.User;
 import org.egov.infra.admin.master.service.RoleService;
 import org.egov.infra.admin.master.service.UserService;
 import org.egov.infra.config.properties.ApplicationProperties;
-import org.egov.infra.persistence.entity.Address;
-import org.egov.infra.persistence.entity.PermanentAddress;
 import org.egov.infra.persistence.entity.enums.Gender;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -163,7 +161,7 @@ public class NewApplicationController extends BpaGenericApplicationController {
         bpaApplication.getOwner().updateNextPwdExpiryDate(applicationProperties.userPasswordExpiryInDays());
         bpaApplication.getOwner().setPassword(passwordEncoder.encode(bpaApplication.getOwner().getMobileNumber()));
         bpaApplication.getOwner().addRole(roleService.getRoleByName(BpaConstants.ROLE_CITIZEN));
-        bpaApplication.getOwner().setAddress(Arrays.asList(setApplicantAddress(bpaApplication.getOwner())));
+        bpaApplication.getOwner().addAddress(bpaApplication.getOwner().getPermanentAddress());
         BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication, workFlowAction);
         bpaUtils.createPortalUserinbox(bpaApplicationRes,Arrays.asList(bpaApplicationRes.getOwner(),bpaApplicationRes.getStakeHolder().get(0).getStakeHolder()));
         bpaApplicationRes.setCitizenAccepted(true);
@@ -173,13 +171,6 @@ public class NewApplicationController extends BpaGenericApplicationController {
     
     private User validateApplicantDtls_unique_email(final Applicant owner) {
            return userService.getUserByEmailId(owner.getEmailId());
-    }
-
-    private Address setApplicantAddress(final Applicant owner) {
-        final PermanentAddress permanentAddress = new PermanentAddress();
-        permanentAddress.setStreetRoadLine(owner.getApplicantAddress());
-        permanentAddress.setUser(owner);
-        return permanentAddress;
     }
 
     private String redirectOnValidationFailure(final Model model) {

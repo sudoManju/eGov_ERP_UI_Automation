@@ -44,10 +44,10 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.egov.bpa.application.entity.enums.GenderTitle;
 import org.egov.infra.admin.master.entity.User;
+import org.egov.infra.persistence.entity.PermanentAddress;
 import org.egov.infra.persistence.entity.enums.UserType;
 import org.hibernate.validator.constraints.Length;
 
@@ -59,9 +59,6 @@ public class Applicant extends User {
     private static final long serialVersionUID = 3078684328383202788L;
     public static final String SEQ_APPLICANT = "SEQ_EGBPA_Applicant";
 
-    @Transient
-    private String applicantAddress;
-    
     private GenderTitle title;
     @Length(min = 1, max = 128)
     private String fatherorHusbandName;
@@ -78,7 +75,8 @@ public class Applicant extends User {
     private String state;
     @Length(min = 1, max = 128)
     private String pinCode;
-  
+    
+    private transient PermanentAddress permanentAddress = new PermanentAddress();
     
     public Applicant() {
         setType(UserType.CITIZEN);
@@ -157,11 +155,12 @@ public class Applicant extends User {
         this.pinCode = pinCode;
     }
 
-    public String getApplicantAddress() {
-            return applicantAddress;
+    public PermanentAddress getPermanentAddress() {
+        return permanentAddress;
     }
 
-    public void setApplicantAddress(String applicantAddress) { 
-            this.applicantAddress =  applicantAddress;
+    public void setPermanentAddress(PermanentAddress permanentAddress) {
+        this.permanentAddress = permanentAddress;
     }
+    
 }

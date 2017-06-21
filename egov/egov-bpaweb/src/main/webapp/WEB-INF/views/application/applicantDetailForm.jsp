@@ -65,11 +65,11 @@
 		 <label class="col-sm-2 control-label text-right"><spring:message
 				code="lbl.owner.address" /><span class="mandatory"></span></label>
 		<div class="col-sm-3 add-margin">
-			<form:textarea path="owner.applicantAddress" id="address"
+			<form:textarea path="owner.permanentAddress.streetRoadLine" id="address"
 				class="form-control patternvalidation"
 				data-pattern="alphanumericspecialcharacters" required="required"
 				maxlength="128" cols="5" rows="4" />
-			<form:errors path="owner.applicantAddress" cssClass="add-margin error-msg" />
+			<form:errors path="owner.permanentAddress.streetRoadLine" cssClass="add-margin error-msg" />
 		</div> 
 	</div>
 	<div class="form-group">

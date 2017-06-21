@@ -71,8 +71,6 @@ import org.egov.infra.admin.master.service.AppConfigValueService;
 import org.egov.infra.admin.master.service.RoleService;
 import org.egov.infra.admin.master.service.UserService;
 import org.egov.infra.config.properties.ApplicationProperties;
-import org.egov.infra.persistence.entity.Address;
-import org.egov.infra.persistence.entity.PermanentAddress;
 import org.egov.infra.security.utils.SecurityUtils;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,17 +87,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping(value = "/application/citizen")
 public class CitizenApplicationController extends BpaGenericApplicationController {
 
-	private static final String BPAAPPLICATION_CITIZEN = "citizen_suceess";
+    private static final String BPAAPPLICATION_CITIZEN = "citizen_suceess";
 
-	@Autowired
-	private BpaUtils bpaUtils;
-	@Autowired
-	private ServiceTypeService serviceTypeService;
-	@Autowired
+    @Autowired
+    private BpaUtils bpaUtils;
+    @Autowired
+    private ServiceTypeService serviceTypeService;
+    @Autowired
     private SecurityUtils securityUtils;
-	@Autowired
-	private StakeHolderService stakeHolderService;
-	@Autowired
+    @Autowired
+    private StakeHolderService stakeHolderService;
+    @Autowired
     private ApplicationProperties applicationProperties;
 
     @Autowired
@@ -107,166 +105,162 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
 
     @Autowired
     private RoleService roleService;
-    
+
     @Autowired
     private UserService userService;
-    
-	@Autowired
-	private GenericBillGeneratorService genericBillGeneratorService; 
-    
+
+    @Autowired
+    private GenericBillGeneratorService genericBillGeneratorService;
+
     @Autowired
     private AppConfigValueService appConfigValueService;
 
-	@RequestMapping(value = "/newconstruction-form", method = GET)
-	public String showNewApplicationForm(@ModelAttribute final BpaApplication bpaApplication, final Model model,
-			final HttpServletRequest request) {
-		return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_01);
-	}
+    @RequestMapping(value = "/newconstruction-form", method = GET)
+    public String showNewApplicationForm(@ModelAttribute final BpaApplication bpaApplication, final Model model,
+            final HttpServletRequest request) {
+        return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_01);
+    }
 
-	private String loadNewForm(final BpaApplication bpaApplication, final Model model, String serviceCode) {
-		bpaApplication.setApplicationDate(new Date());
-		model.addAttribute("mode", "new");
-		bpaApplication.setSource(Source.CITIZENPORTAL);
-                bpaApplication.setApplicantMode(ApplicantMode.NEW);
-		List<AppConfigValues> appConfigValueList = appConfigValueService.getConfigValuesByModuleAndKey(
-	                BpaConstants.APPLICATION_MODULE_TYPE, BpaConstants.BPA_CITIZENACCEPTANCE_CHECK);
-		String validateCitizenAcceptance = !appConfigValueList.isEmpty() ? appConfigValueList.get(0).getValue() : "";
-		model.addAttribute("validateCitizenAcceptance", (validateCitizenAcceptance.equalsIgnoreCase("YES")?Boolean.TRUE:Boolean.FALSE));
-		if(validateCitizenAcceptance!=null){			
-			model.addAttribute("citizenDisclaimerAccepted",bpaApplication.isCitizenAccepted());
-		}
-		bpaApplication.setServiceType(serviceTypeService.getServiceTypeByCode(serviceCode));
-		model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
-		model.addAttribute("checkListDetailList", checkListDetailService.findActiveCheckListByServiceType(bpaApplication.getServiceType().getId(), 
-				BpaConstants.CHECKLIST_TYPE));
-		List<CheckListDetail>checkListDetail= checkListDetailService.findActiveCheckListByServiceType(bpaApplication.getServiceType().getId(), 
-				BpaConstants.CHECKLIST_TYPE);
-		List<ApplicationDocument> appDocList=new ArrayList<>();
-		for(CheckListDetail checkdet:checkListDetail)
-		{
-			ApplicationDocument appdoc=new ApplicationDocument();
-					appdoc.setChecklistDetail(checkdet);
-					appDocList.add(appdoc);
-		}
-        model.addAttribute("applicationDocumentList",appDocList);
-		return "citizenApplication-form";
-	}
-
-	@RequestMapping(value = "/demolition-form", method = GET)
-	public String showDemolition(@ModelAttribute final BpaApplication bpaApplication, final Model model,
-			final HttpServletRequest request) {
-		return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_02);
-	}
-
-	@RequestMapping(value = "/reconstruction-form", method = GET)
-	public String showReconstruction(@ModelAttribute final BpaApplication bpaApplication, final Model model,
-			final HttpServletRequest request) {
-		return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_03);
-	}
-
-	@RequestMapping(value = "/alteration-form", method = GET)
-	public String showAlteration(@ModelAttribute final BpaApplication bpaApplication, final Model model,
-			final HttpServletRequest request) {
-		return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_04);
-	}
-
-	@RequestMapping(value = "/subdevland-form", method = GET)
-	public String showSubDevlisionOfLand(@ModelAttribute final BpaApplication bpaApplication, final Model model,
-			final HttpServletRequest request) {
-		return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_05);
-	}
-
-	@RequestMapping(value = "/addextnew-form", method = GET)
-	public String loadAddOfExtection(@ModelAttribute final BpaApplication bpaApplication, final Model model,
-			final HttpServletRequest request) {
-		return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_06);
-	}
-
-	@RequestMapping(value = "/changeofoccupancy-form", method = GET)
-	public String showChangeOfOccupancy(@ModelAttribute final BpaApplication bpaApplication, final Model model,
-			final HttpServletRequest request) {
-		return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_07);
-	}
-
-	@RequestMapping(value = "/permissionhutorshud-form", method = GET)
-	public String loadPermOfHutOrShud(@ModelAttribute final BpaApplication bpaApplication, final Model model,
-			final HttpServletRequest request) {
-		return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_09);
-	}
-
-	@RequestMapping(value = "/amenity-form", method = GET)
-	public String loadAmenity(@ModelAttribute final BpaApplication bpaApplication, final Model model,
-			final HttpServletRequest request) {
-		return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_08);
-	}
-
-	@RequestMapping(value = "/application-create", method = POST)
-	public String createNewConnection(@Valid @ModelAttribute final BpaApplication bpaApplication,
-			final BindingResult resultBinder, final RedirectAttributes redirectAttributes,
-			final HttpServletRequest request, final Model model, @RequestParam String workFlowAction,
-			final BindingResult errors) {
-
-		Long userPosition = null;
-		final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(bpaApplication, BpaConstants.WF_NEW_STATE);
-		if (wfmatrix != null)
-			userPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(),
-					bpaApplication.getSiteDetail().get(0) != null
-							&& bpaApplication.getSiteDetail().get(0).getElectionBoundary() != null
-									? bpaApplication.getSiteDetail().get(0).getElectionBoundary().getId() : null);
-		if (bpaUtils.logedInuseCitizenOrBusinessUser() && workFlowAction != null
-				&& workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)) {
-			if ((userPosition == 0 || userPosition == null)) {
-				model.addAttribute("noJAORSAMessage", "No Superintendant exists to forward the application.");
-				return loadNewForm(bpaApplication, model, bpaApplication.getServiceType().getCode());
-			}
-		}
-		if (validateApplicantDtls_unique_email(bpaApplication.getOwner())!=null){
-            model.addAttribute("noJAORSAMessage", "Applicant/User with given emailId already exists.");
-            return loadNewForm(bpaApplication, model, bpaApplication.getServiceType().getCode()); 
+    private String loadNewForm(final BpaApplication bpaApplication, final Model model, String serviceCode) {
+        bpaApplication.setApplicationDate(new Date());
+        model.addAttribute("mode", "new");
+        bpaApplication.setSource(Source.CITIZENPORTAL);
+        bpaApplication.setApplicantMode(ApplicantMode.NEW);
+        List<AppConfigValues> appConfigValueList = appConfigValueService.getConfigValuesByModuleAndKey(
+                BpaConstants.APPLICATION_MODULE_TYPE, BpaConstants.BPA_CITIZENACCEPTANCE_CHECK);
+        String validateCitizenAcceptance = !appConfigValueList.isEmpty() ? appConfigValueList.get(0).getValue() : "";
+        model.addAttribute("validateCitizenAcceptance",
+                (validateCitizenAcceptance.equalsIgnoreCase("YES") ? Boolean.TRUE : Boolean.FALSE));
+        if (validateCitizenAcceptance != null) {
+            model.addAttribute("citizenDisclaimerAccepted", bpaApplication.isCitizenAccepted());
         }
-		User user = securityUtils.getCurrentUser();
-		StakeHolder stakeHolder = stakeHolderService.findById(user.getId());
-		ApplicationStakeHolder applicationStakeHolder = new ApplicationStakeHolder();
-		applicationStakeHolder.setApplication(bpaApplication);
-		applicationStakeHolder.setStakeHolder(stakeHolder);
-		bpaApplication.getStakeHolder().add(applicationStakeHolder);
-		if (!applicationBpaService.checkStakeholderIsValid(bpaApplication)) {
-			String message = applicationBpaService.getValidationMessageForBusinessResgistration(bpaApplication);
-			model.addAttribute("invalidStakeholder", message);
-			return loadNewForm(bpaApplication, model, bpaApplication.getServiceType().getCode());
-		}
-		workFlowAction = request.getParameter("workFlowAction");
-		applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
-		if (workFlowAction != null && workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)) {
-			
-			return genericBillGeneratorService.generateBillAndRedirectToCollection(bpaApplication, model);
-		}
-		bpaApplication.setAdmissionfeeAmount(applicationBpaService.setAdmissionFeeAmountForRegistrationWithAmenities(
-				String.valueOf(bpaApplication.getServiceType().getId()), new ArrayList<ServiceType>()));
-		bpaApplication.getOwner().setUsername(bpaApplication.getOwner().getEmailId());
+        bpaApplication.setServiceType(serviceTypeService.getServiceTypeByCode(serviceCode));
+        model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
+        model.addAttribute("checkListDetailList",
+                checkListDetailService.findActiveCheckListByServiceType(bpaApplication.getServiceType().getId(),
+                        BpaConstants.CHECKLIST_TYPE));
+        List<CheckListDetail> checkListDetail = checkListDetailService.findActiveCheckListByServiceType(
+                bpaApplication.getServiceType().getId(),
+                BpaConstants.CHECKLIST_TYPE);
+        List<ApplicationDocument> appDocList = new ArrayList<>();
+        for (CheckListDetail checkdet : checkListDetail) {
+            ApplicationDocument appdoc = new ApplicationDocument();
+            appdoc.setChecklistDetail(checkdet);
+            appDocList.add(appdoc);
+        }
+        model.addAttribute("applicationDocumentList", appDocList);
+        return "citizenApplication-form";
+    }
+
+    @RequestMapping(value = "/demolition-form", method = GET)
+    public String showDemolition(@ModelAttribute final BpaApplication bpaApplication, final Model model,
+            final HttpServletRequest request) {
+        return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_02);
+    }
+
+    @RequestMapping(value = "/reconstruction-form", method = GET)
+    public String showReconstruction(@ModelAttribute final BpaApplication bpaApplication, final Model model,
+            final HttpServletRequest request) {
+        return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_03);
+    }
+
+    @RequestMapping(value = "/alteration-form", method = GET)
+    public String showAlteration(@ModelAttribute final BpaApplication bpaApplication, final Model model,
+            final HttpServletRequest request) {
+        return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_04);
+    }
+
+    @RequestMapping(value = "/subdevland-form", method = GET)
+    public String showSubDevlisionOfLand(@ModelAttribute final BpaApplication bpaApplication, final Model model,
+            final HttpServletRequest request) {
+        return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_05);
+    }
+
+    @RequestMapping(value = "/addextnew-form", method = GET)
+    public String loadAddOfExtection(@ModelAttribute final BpaApplication bpaApplication, final Model model,
+            final HttpServletRequest request) {
+        return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_06);
+    }
+
+    @RequestMapping(value = "/changeofoccupancy-form", method = GET)
+    public String showChangeOfOccupancy(@ModelAttribute final BpaApplication bpaApplication, final Model model,
+            final HttpServletRequest request) {
+        return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_07);
+    }
+
+    @RequestMapping(value = "/permissionhutorshud-form", method = GET)
+    public String loadPermOfHutOrShud(@ModelAttribute final BpaApplication bpaApplication, final Model model,
+            final HttpServletRequest request) {
+        return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_09);
+    }
+
+    @RequestMapping(value = "/amenity-form", method = GET)
+    public String loadAmenity(@ModelAttribute final BpaApplication bpaApplication, final Model model,
+            final HttpServletRequest request) {
+        return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_08);
+    }
+
+    @RequestMapping(value = "/application-create", method = POST)
+    public String createNewConnection(@Valid @ModelAttribute final BpaApplication bpaApplication,
+            final BindingResult resultBinder, final RedirectAttributes redirectAttributes,
+            final HttpServletRequest request, final Model model, @RequestParam String workFlowAction,
+            final BindingResult errors) {
+
+        Long userPosition = null;
+        final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(bpaApplication, BpaConstants.WF_NEW_STATE);
+        if (wfmatrix != null)
+            userPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(),
+                    bpaApplication.getSiteDetail().get(0) != null
+                            && bpaApplication.getSiteDetail().get(0).getElectionBoundary() != null
+                                    ? bpaApplication.getSiteDetail().get(0).getElectionBoundary().getId() : null);
+        if (bpaUtils.logedInuseCitizenOrBusinessUser() && workFlowAction != null
+                && workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)) {
+            if ((userPosition == 0 || userPosition == null)) {
+                model.addAttribute("noJAORSAMessage", "No Superintendant exists to forward the application.");
+                return loadNewForm(bpaApplication, model, bpaApplication.getServiceType().getCode());
+            }
+        }
+        if (validateApplicantDtls_unique_email(bpaApplication.getOwner()) != null) {
+            model.addAttribute("noJAORSAMessage", "Applicant/User with given emailId already exists.");
+            return loadNewForm(bpaApplication, model, bpaApplication.getServiceType().getCode());
+        }
+        User user = securityUtils.getCurrentUser();
+        StakeHolder stakeHolder = stakeHolderService.findById(user.getId());
+        ApplicationStakeHolder applicationStakeHolder = new ApplicationStakeHolder();
+        applicationStakeHolder.setApplication(bpaApplication);
+        applicationStakeHolder.setStakeHolder(stakeHolder);
+        bpaApplication.getStakeHolder().add(applicationStakeHolder);
+        if (!applicationBpaService.checkStakeholderIsValid(bpaApplication)) {
+            String message = applicationBpaService.getValidationMessageForBusinessResgistration(bpaApplication);
+            model.addAttribute("invalidStakeholder", message);
+            return loadNewForm(bpaApplication, model, bpaApplication.getServiceType().getCode());
+        }
+        workFlowAction = request.getParameter("workFlowAction");
+        applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
+        if (workFlowAction != null && workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)) {
+
+            return genericBillGeneratorService.generateBillAndRedirectToCollection(bpaApplication, model);
+        }
+        bpaApplication.setAdmissionfeeAmount(applicationBpaService.setAdmissionFeeAmountForRegistrationWithAmenities(
+                String.valueOf(bpaApplication.getServiceType().getId()), new ArrayList<ServiceType>()));
+        bpaApplication.getOwner().setUsername(bpaApplication.getOwner().getEmailId());
         bpaApplication.getOwner().updateNextPwdExpiryDate(applicationProperties.userPasswordExpiryInDays());
         bpaApplication.getOwner().setPassword(passwordEncoder.encode(bpaApplication.getOwner().getMobileNumber()));
         bpaApplication.getOwner().addRole(roleService.getRoleByName(BpaConstants.ROLE_CITIZEN));
-        bpaApplication.getOwner().setAddress(Arrays.asList(setApplicantAddress(bpaApplication.getOwner())));
-		BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication, workFlowAction);
-		if (bpaUtils.logedInuseCitizenOrBusinessUser()) {
-			bpaUtils.createPortalUserinbox(bpaApplicationRes,Arrays.asList(bpaApplicationRes.getOwner(),securityUtils.getCurrentUser()));
-			model.addAttribute("message",
-					"Sucessfully saved with ApplicationNumber " + bpaApplicationRes.getApplicationNumber());
-			bpaUtils.sendSmsEmailOnCitizenSubmit(bpaApplication, workFlowAction);
-		}
-		return BPAAPPLICATION_CITIZEN;
-	}
+        bpaApplication.getOwner().addAddress(bpaApplication.getOwner().getPermanentAddress());
+        BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication, workFlowAction);
+        if (bpaUtils.logedInuseCitizenOrBusinessUser()) {
+            bpaUtils.createPortalUserinbox(bpaApplicationRes,
+                    Arrays.asList(bpaApplicationRes.getOwner(), securityUtils.getCurrentUser()));
+            model.addAttribute("message",
+                    "Sucessfully saved with ApplicationNumber " + bpaApplicationRes.getApplicationNumber());
+            bpaUtils.sendSmsEmailOnCitizenSubmit(bpaApplication, workFlowAction);
+        }
+        return BPAAPPLICATION_CITIZEN;
+    }
 
-	 private Address setApplicantAddress(final Applicant owner) {
-	    final PermanentAddress permanentAddress = new PermanentAddress();
-	    permanentAddress.setStreetRoadLine(owner.getApplicantAddress());
-	    permanentAddress.setUser(owner);
-	    return permanentAddress;
-	  }
-	 
-	 private User validateApplicantDtls_unique_email(final Applicant owner) {
-         return userService.getUserByEmailId(owner.getEmailId());
-	 }
+    private User validateApplicantDtls_unique_email(final Applicant owner) {
+        return userService.getUserByEmailId(owner.getEmailId());
+    }
 
 }
