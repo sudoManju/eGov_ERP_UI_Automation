@@ -41,7 +41,6 @@ var reportdatatable;
 
 jQuery(document).ready(function($) {
 	
-	$('#applicationDate').prop("disabled", true);
 	
 	var validator=$("#newApplicationform").validate({
 	  highlight: function(element, errorClass) {
@@ -63,7 +62,7 @@ jQuery(document).ready(function($) {
 	
 
 	function validateForm(validator) {
-		if ($('#newApplicationform').valid()) {
+		if ($('#newApplicationform').valid() && validateUploadFilesMandatory()) {
 			document.getElementById("workFlowAction").value=$('#buttonSubmit').val();
 			document.forms[0].submit();
 			return true;
@@ -186,17 +185,16 @@ $('#serviceType').change(function(){
 			$.each(response, function (index, checklist) {
                 $('#bpaDocumentsBody').append(
                 		'<div class="form-group">'+
-                			'<div class="col-sm-3 add-margin check-text text-right"> <input type="hidden" id="applicationDocument'+index+'checklistDetail" name="applicationDocument['+index+'].checklistDetail" value="'+checklist.id+'">'+
+                			'<div class="col-sm-3 add-margin check-text"> <input type="hidden" id="applicationDocument'+index+'checklistDetail" name="applicationDocument['+index+'].checklistDetail" value="'+checklist.id+'">'+
                 			'<input type="hidden" id="applicationDocument'+index+'checklistDetail" name="applicationDocument['+index+'].checklistDetail.isMandatory" value="'+checklist.isMandatory+'">'+
                 			'<input type="hidden" id="applicationDocument'+index+'checklistDetail.description" name="applicationDocument['+index+'].checklistDetail.description" value="'+checklist.description+'">'+
 	                		checklist.description+ (checklist.isMandatory?'<span class="mandatory"></span>':'') +'</div>'
-	                		+'<div class="col-sm-3 add-margin text-center"><input type="checkbox" id="applicationDocument'+index+'issubmitted" name="applicationDocument['+index+'].issubmitted" value="applicationDocument${status.index}issubmitted" /></div>'
-	                		+'<div class="col-sm-3 add-margin text-center"><div class="input-group"><textarea class="form-control patternvalidation" data-pattern="string" maxlength="256" name="applicationDocument['+index+'].remarks" /></div></div>' +
-	                		'<div class="col-sm-3 add-margin text-center"><input type="file" id="file'+index+'id" name="applicationDocument['+index+'].files"class="file-ellipsis upload-file"'+ (checklist.isMandatory? "required" :'')+'>'+
+	                		+'<div class="col-sm-2 add-margin "><input type="checkbox" id="applicationDocument'+index+'issubmitted" name="applicationDocument['+index+'].issubmitted" value="applicationDocument${status.index}issubmitted" /></div>'
+	                		+'<div class="col-sm-3 add-margin "><div class="input-group"><textarea class="form-control patternvalidation" data-pattern="string" maxlength="256" name="applicationDocument['+index+'].remarks" /></div></div>' +
+	                		'<div class="col-sm-4 add-margin "><div class="files-upload-container" data-allowed-extenstion="doc,docx,xls,xlsx,rtf,pdf,txt,zip" '+(checklist.isMandatory? "required" :'')+'> <div class="files-viewer"> <a href="javascript:void(0);" class="file-add" data-unlimited-files="true" data-toggle="tooltip" data-placement="top" tittle="Test Tooltip" data-file-input-name="applicationDocument['+index+'].files"> <i class="fa fa-plus" aria-hidden="true"></i></a></div></div>'+
 	                		'</div>'+
                 		'</div>');
             })
-
 		}, 
 		error: function (response) {
 			
@@ -210,10 +208,14 @@ jQuery('form').validate({
 	ignore: ".ignore",
 	invalidHandler: function(e, validator){
 	if(validator.errorList.length)
-	$('#settingstab a[href="#' + jQuery(validator.errorList[0].element).closest(".tab-pane").attr('id') + '"]').tab('show');
+		focusToTabElement(validator.errorList[0].element);
 	}
-	});
+});
 
+
+function focusToTabElement(element){
+	$('#settingstab a[href="#' + jQuery(element).closest(".tab-pane").attr('id') + '"]').tab('show');
+}
 
 
 // Instantiate the stakeholder name Bloodhound suggestion engine

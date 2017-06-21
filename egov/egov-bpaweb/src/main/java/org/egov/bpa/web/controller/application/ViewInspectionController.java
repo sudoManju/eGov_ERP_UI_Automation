@@ -74,6 +74,7 @@ public class ViewInspectionController extends BpaGenericApplicationController {
         model.addAttribute("inspection", inspection.get(0));
         model.addAttribute("message", "Inspection Saved Successfully");
         inspectionService.buildDocketDetailForModifyAndViewList(inspectionObj,model);
+        inspectionObj.setEncodedImages(inspectionService.prepareImagesForView(inspectionObj));
         model.addAttribute("inspection", inspectionObj);
         return INSPECTION_RESULT;
     }
@@ -88,6 +89,7 @@ public class ViewInspectionController extends BpaGenericApplicationController {
         Inspection inspectionObj=inspection.get(0);
         model.addAttribute("inspection", inspection.get(0));
         inspectionService.buildDocketDetailForModifyAndViewList(inspectionObj,model);
+        inspectionObj.setEncodedImages(inspectionService.prepareImagesForView(inspectionObj));
         model.addAttribute("inspection", inspectionObj);
         return SHOW_INSPECTION_DETAILS;
     }

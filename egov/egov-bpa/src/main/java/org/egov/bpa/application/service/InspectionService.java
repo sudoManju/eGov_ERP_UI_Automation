@@ -39,13 +39,20 @@
  */
 package org.egov.bpa.application.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.apache.log4j.Logger;
 import org.egov.bpa.application.autonumber.InspectionNumberGenerator;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.CheckListDetail;
@@ -57,6 +64,8 @@ import org.egov.bpa.utils.BpaConstants;
 import org.egov.infra.admin.master.entity.User;
 import org.egov.infra.admin.master.service.UserService;
 import org.egov.infra.config.core.ApplicationThreadLocals;
+import org.egov.infra.filestore.entity.FileStoreMapper;
+import org.egov.infra.filestore.service.FileStoreService;
 import org.egov.infra.utils.autonumber.AutonumberServiceBeanResolver;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -65,10 +74,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 
 @Service
 @Transactional(readOnly = true)
 public class InspectionService {
+
+    private static final Logger LOGGER = Logger.getLogger(InspectionService.class);
 
     @Autowired
     private CheckListDetailService checkListDetailService;
@@ -83,6 +95,12 @@ public class InspectionService {
 
     @Autowired
     private InspectionRepository inspectionRepository;
+
+    @Autowired
+    private FileStoreService fileStoreService;
+
+    @Autowired
+    private ApplicationBpaService applicationBpaService;
 
     public Session getCurrentSession() {
         return entityManager.unwrap(Session.class);
@@ -101,6 +119,11 @@ public class InspectionService {
         }
         if (inspection.getInspectionDate() == null)
             inspection.setInspectionDate(new Date());
+        if (inspection.getFiles().length > 0) {
+            Set<FileStoreMapper> docketSupportDocs = applicationBpaService.addToFileStore(inspection.getFiles());
+            if (docketSupportDocs.size() > 0)
+                inspection.setInspectionSupportDocs(docketSupportDocs);
+        }
         inspection.setApplication(application);
         inspection.getDocket().get(0).setInspection(inspection);
         buildDocketDetails(inspection.getDocket().get(0));
@@ -130,18 +153,18 @@ public class InspectionService {
         return docket;
 
     }
-    
+
     public List<Docket> buildDocDetFromUI(final Inspection inspection) {
-    	List<Docket> docket =new ArrayList<>();
-    	Docket docObject=new Docket();
+        List<Docket> docket = new ArrayList<>();
+        Docket docObject = new Docket();
         final List<DocketDetail> docketDetailList = buildDocketDetail(inspection);
         docObject.setDocketDetail(docketDetailList);
         docket.add(docObject);
-        return docket;        
+        return docket;
     }
 
-	public List<DocketDetail> buildDocketDetail(final Inspection inspection) {
-		final List<DocketDetail> docketDetailList = new ArrayList<>();
+    public List<DocketDetail> buildDocketDetail(final Inspection inspection) {
+        final List<DocketDetail> docketDetailList = new ArrayList<>();
         docketDetailList.addAll(inspection.getDocketDetailLocList());
         docketDetailList.addAll(inspection.getDocketDetailMeasumentList());
         docketDetailList.addAll(inspection.getDocketDetailAccessList());
@@ -153,42 +176,42 @@ public class InspectionService {
         docketDetailList.addAll(inspection.getDocketDetailAreaLoc());
         docketDetailList.addAll(inspection.getDocketDetailLengthOfCompWall());
         docketDetailList.addAll(inspection.getDocketDetailNumberOfWell());
-        docketDetailList.addAll(inspection.getDocketDetailErectionTower());  
+        docketDetailList.addAll(inspection.getDocketDetailErectionTower());
         docketDetailList.addAll(inspection.getDocketDetailShutter());
         docketDetailList.addAll(inspection.getDocketDetailRoofConversion());
-		return docketDetailList;
-	}
+        return docketDetailList;
+    }
 
     @SuppressWarnings("unchecked")
-    public void buildDocketDetailList( Inspection inspection) {
-         List<DocketDetail> docketTempLocList = new ArrayList<>();
-         List<DocketDetail> docketTempMeasumentList = new ArrayList<>();
-         List<DocketDetail> docketTempAccessList = new ArrayList<>();
-         List<DocketDetail> docketTempSurroundingList = new ArrayList<>();
-         List<DocketDetail> docketTempLandList = new ArrayList<>();
-         List<DocketDetail> docketTempProposedWorkList = new ArrayList<>();
-         List<DocketDetail> docketTempWorkAsPerPlanList = new ArrayList<>();
-         List<DocketDetail> docketTempAbbuteRoadList = new ArrayList<>();
-         List<DocketDetail> docketTempAreaLoc = new ArrayList<>();
-         List<DocketDetail> docketTempLengthOfCompoundWall = new ArrayList<>();
-         List<DocketDetail> docketTempNumberofWell = new ArrayList<>();
-         List<DocketDetail> docketTempShutter = new ArrayList<>();
-         List<DocketDetail> docketTempErectionofTower = new ArrayList<>();
-         List<DocketDetail> docketTempRoofConv = new ArrayList<>();
-         Criteria criteriaLoc = getCheckListByServiceAndType(BpaConstants.INSPECTIONLOCATION);
-         Criteria criteriaMeasur = getCheckListByServiceAndType(BpaConstants.INSPECTIONMEASUREMENT);
-         Criteria criteriaAccess = getCheckListByServiceAndType(BpaConstants.INSPECTIONACCESS);
-         Criteria criteriaSurrounding = getCheckListByServiceAndType(BpaConstants.INSPECTIONSURROUNDING);
-         Criteria criteriaTypeofLand = getCheckListByServiceAndType(BpaConstants.INSPECTIONTYPEOFLAND);
-         Criteria criteriaProposedStage = getCheckListByServiceAndType(BpaConstants.INSPECTIONPROPOSEDSTAGEWORK);
-         Criteria criteriaWorkPerPlan = getCheckListByServiceAndType(BpaConstants.INSPECTIONWORKCOMPLETEDPERPLAN);
-         Criteria criteriaHgtAbutRoad = getCheckListByServiceAndType(BpaConstants.INSPECTIONHGTBUILDABUTROAD);
-         Criteria criteriaAreaLoc = getCheckListByServiceAndType(BpaConstants.INSPECTIONAREALOC);
-         Criteria criteriaLengthOfCompoundWall = getCheckListByServiceAndType(BpaConstants.INSPECTIONLENGTHOFCOMPOUNDWALL);
-         Criteria criteriaNumberofWell = getCheckListByServiceAndType(BpaConstants.INSPECTIONNUMBEROFWELLS);
-         Criteria criteriaShutter = getCheckListByServiceAndType(BpaConstants.INSPECTIONSHUTTER);
-         Criteria criteriaErectionofTower = getCheckListByServiceAndType(BpaConstants.INSPECTIONERECTIONOFTOWER);
-         Criteria criteriaRoofConv = getCheckListByServiceAndType(BpaConstants.INSPECTIONROOFCONVERSION);
+    public void buildDocketDetailList(Inspection inspection) {
+        List<DocketDetail> docketTempLocList = new ArrayList<>();
+        List<DocketDetail> docketTempMeasumentList = new ArrayList<>();
+        List<DocketDetail> docketTempAccessList = new ArrayList<>();
+        List<DocketDetail> docketTempSurroundingList = new ArrayList<>();
+        List<DocketDetail> docketTempLandList = new ArrayList<>();
+        List<DocketDetail> docketTempProposedWorkList = new ArrayList<>();
+        List<DocketDetail> docketTempWorkAsPerPlanList = new ArrayList<>();
+        List<DocketDetail> docketTempAbbuteRoadList = new ArrayList<>();
+        List<DocketDetail> docketTempAreaLoc = new ArrayList<>();
+        List<DocketDetail> docketTempLengthOfCompoundWall = new ArrayList<>();
+        List<DocketDetail> docketTempNumberofWell = new ArrayList<>();
+        List<DocketDetail> docketTempShutter = new ArrayList<>();
+        List<DocketDetail> docketTempErectionofTower = new ArrayList<>();
+        List<DocketDetail> docketTempRoofConv = new ArrayList<>();
+        Criteria criteriaLoc = getCheckListByServiceAndType(BpaConstants.INSPECTIONLOCATION);
+        Criteria criteriaMeasur = getCheckListByServiceAndType(BpaConstants.INSPECTIONMEASUREMENT);
+        Criteria criteriaAccess = getCheckListByServiceAndType(BpaConstants.INSPECTIONACCESS);
+        Criteria criteriaSurrounding = getCheckListByServiceAndType(BpaConstants.INSPECTIONSURROUNDING);
+        Criteria criteriaTypeofLand = getCheckListByServiceAndType(BpaConstants.INSPECTIONTYPEOFLAND);
+        Criteria criteriaProposedStage = getCheckListByServiceAndType(BpaConstants.INSPECTIONPROPOSEDSTAGEWORK);
+        Criteria criteriaWorkPerPlan = getCheckListByServiceAndType(BpaConstants.INSPECTIONWORKCOMPLETEDPERPLAN);
+        Criteria criteriaHgtAbutRoad = getCheckListByServiceAndType(BpaConstants.INSPECTIONHGTBUILDABUTROAD);
+        Criteria criteriaAreaLoc = getCheckListByServiceAndType(BpaConstants.INSPECTIONAREALOC);
+        Criteria criteriaLengthOfCompoundWall = getCheckListByServiceAndType(BpaConstants.INSPECTIONLENGTHOFCOMPOUNDWALL);
+        Criteria criteriaNumberofWell = getCheckListByServiceAndType(BpaConstants.INSPECTIONNUMBEROFWELLS);
+        Criteria criteriaShutter = getCheckListByServiceAndType(BpaConstants.INSPECTIONSHUTTER);
+        Criteria criteriaErectionofTower = getCheckListByServiceAndType(BpaConstants.INSPECTIONERECTIONOFTOWER);
+        Criteria criteriaRoofConv = getCheckListByServiceAndType(BpaConstants.INSPECTIONROOFCONVERSION);
         List<CheckListDetail> inspectionCheckList = criteriaLoc.list();
         List<CheckListDetail> inspectionCheckList2 = criteriaMeasur.list();
         List<CheckListDetail> inspectionCheckList3 = criteriaAccess.list();
@@ -240,33 +263,32 @@ public class InspectionService {
             final DocketDetail docdet = CreateDocketDetailObject(checkDet);
             docketTempAbbuteRoadList.add(docdet);
         }
-        
+
         for (final CheckListDetail checkDet : inspectionCheckAreaLoc) {
             final DocketDetail docdet = CreateDocketDetailObject(checkDet);
             docketTempAreaLoc.add(docdet);
         }
-        
+
         for (final CheckListDetail checkDet : inspectionCheckLenCompound) {
             final DocketDetail docdet = CreateDocketDetailObject(checkDet);
             docketTempLengthOfCompoundWall.add(docdet);
         }
-        
+
         for (final CheckListDetail checkDet : inspectionCheckNumberofWell) {
             final DocketDetail docdet = CreateDocketDetailObject(checkDet);
             docketTempNumberofWell.add(docdet);
         }
-        
+
         for (final CheckListDetail checkDet : inspectionCheckErectionOfTower) {
             final DocketDetail docdet = CreateDocketDetailObject(checkDet);
             docketTempErectionofTower.add(docdet);
         }
-        
-        
+
         for (final CheckListDetail checkDet : inspectionCheckRoofCnv) {
             final DocketDetail docdet = CreateDocketDetailObject(checkDet);
             docketTempRoofConv.add(docdet);
         }
-        
+
         for (final CheckListDetail checkDet : inspectionCheckShutter) {
             final DocketDetail docdet = CreateDocketDetailObject(checkDet);
             docketTempShutter.add(docdet);
@@ -287,13 +309,13 @@ public class InspectionService {
         inspection.setDocketDetailRoofConversion(docketTempRoofConv);
     }
 
-	private DocketDetail CreateDocketDetailObject(final CheckListDetail checkDet) {
-		final DocketDetail docdet = new DocketDetail();
-		docdet.setCheckListDetail(checkDet);
-		return docdet;
-	}
+    private DocketDetail CreateDocketDetailObject(final CheckListDetail checkDet) {
+        final DocketDetail docdet = new DocketDetail();
+        docdet.setCheckListDetail(checkDet);
+        return docdet;
+    }
 
-    public Criteria getCheckListByServiceAndType( final String checkListTypeVal) {
+    public Criteria getCheckListByServiceAndType(final String checkListTypeVal) {
 
         final Criteria checkListDet = getCurrentSession().createCriteria(CheckListDetail.class, "checklistdet");
         checkListDet.createAlias("checklistdet.checkList", "checkList");
@@ -305,8 +327,8 @@ public class InspectionService {
         final DocketDetail docdet = CreateDocketDetailObject(checkDet);
         docketTempList.add(docdet);
     }
-    
-    public void buildDocketDetailForModifyAndViewList(final Inspection inspection,final Model model) {
+
+    public void buildDocketDetailForModifyAndViewList(final Inspection inspection, final Model model) {
         if (inspection != null && !inspection.getDocket().isEmpty())
             for (final DocketDetail docketDet : inspection.getDocket().get(0).getDocketDetail()) {
                 if (docketDet.getCheckListDetail().getCheckList().getChecklistType().equals(BpaConstants.INSPECTIONLOCATION))
@@ -331,7 +353,7 @@ public class InspectionService {
                 if (docketDet.getCheckListDetail().getCheckList().getChecklistType()
                         .equals(BpaConstants.INSPECTIONAREALOC))
                     inspection.getDocketDetailAreaLoc().add(docketDet);
-                
+
                 if (docketDet.getCheckListDetail().getCheckList().getChecklistType()
                         .equals(BpaConstants.INSPECTIONLENGTHOFCOMPOUNDWALL))
                     inspection.getDocketDetailLengthOfCompWall().add(docketDet);
@@ -362,6 +384,25 @@ public class InspectionService {
         model.addAttribute("docketDetailErectionTower", inspection.getDocketDetailErectionTower());
         model.addAttribute("docketDetailShutter", inspection.getDocketDetailShutter());
         model.addAttribute("docketDetailRoofConversion", inspection.getDocketDetailRoofConversion());
+    }
+
+    public Map<Long, String> prepareImagesForView(final Inspection inspection) {
+        Map<Long, String> imageMap = new HashMap<>();
+        inspection.getInspectionSupportDocs().forEach(
+                docketFileStoreObj -> {
+                    try {
+                        if (docketFileStoreObj != null) {
+                            final File file = fileStoreService.fetch(docketFileStoreObj.getFileStoreId(),
+                                    BpaConstants.FILESTORE_MODULECODE);
+                            if (file != null)
+                                imageMap.put(docketFileStoreObj.getId(), Base64.getEncoder().encodeToString(
+                                        FileCopyUtils.copyToByteArray(file)));
+                        }
+                    } catch (final IOException e) {
+                        LOGGER.error("Error while preparing the images for view", e);
+                    }
+                });
+        return imageMap;
     }
 
 }

@@ -110,7 +110,6 @@ public class ModifyInspectionController extends BpaGenericApplicationController 
                     docketDet.setValue(temploc.getValue());
                     docketDet.setRemarks(temploc.getRemarks());
                     docketDetailTempList.add(docketDet);
-
                 }
         inspection.getDocket().get(0).setDocketDetail(docketDetailTempList);
         final Inspection savedInspection = inspectionService.save(inspection, application);
@@ -130,13 +129,12 @@ public class ModifyInspectionController extends BpaGenericApplicationController 
         final Inspection inspection = getInspectionForBpaAPplication(applicationNumber);
         if (inspection != null)
             inspection.setInspectionDate(new Date());
-       
-        inspectionService.buildDocketDetailForModifyAndViewList(inspection,model);
+        inspection.setEncodedImages(inspectionService.prepareImagesForView(inspection));
+        inspectionService.buildDocketDetailForModifyAndViewList(inspection, model);
         model.addAttribute("inspection", inspection);
         model.addAttribute(BpaConstants.BPA_APPLICATION, application);
     }
 
-    
     private void loadViewdata(final Model model, final BpaApplication application) {
         model.addAttribute("stateType", application.getClass().getSimpleName());
         final WorkflowContainer workflowContainer = new WorkflowContainer();

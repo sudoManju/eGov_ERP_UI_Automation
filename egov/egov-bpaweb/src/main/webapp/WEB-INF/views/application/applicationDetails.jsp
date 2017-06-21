@@ -103,7 +103,7 @@
 		<div class="col-sm-3 add-margin">
 			<form:input path="applicationDate" class="form-control datepicker"
 				data-date-end-date="0d" id="applicationDate"
-				data-inputmask="'mask': 'd/m/y'" required="required" />
+				data-inputmask="'mask': 'd/m/y'" required="required" readonly="true" />
 			<form:errors path="applicationDate" cssClass="add-margin error-msg" />
 		</div>
 		
@@ -210,6 +210,8 @@
 <div class="form-group">
 <label class="col-sm-3 control-label text-right">Remarks</label>
 	<div class="col-sm-3 add-margin">
+	 	<form:hidden path="applicantMode"/>
+	 	<form:hidden path="source" />
 		<form:textarea class="form-control patternvalidation"
 			data-pattern="string" maxlength="128" id="remarks" path="remarks" />
 		<form:errors path="remarks" cssClass="add-margin error-msg" />

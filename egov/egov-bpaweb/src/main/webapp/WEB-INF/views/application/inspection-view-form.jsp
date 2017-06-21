@@ -426,6 +426,11 @@
 				</c:forEach>
 			</div>
 		</div>
+		<div class="panel panel-primary" data-collapsed="0">
+				<div class="panel-body custom-form ">
+					<jsp:include page="view-inspection-documents.jsp"></jsp:include>
+				</div>
+		</div>
 	</div>
 </div>
 <div align="center">

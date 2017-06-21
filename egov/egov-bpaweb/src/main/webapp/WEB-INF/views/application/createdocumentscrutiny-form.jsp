@@ -68,7 +68,7 @@
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label text-right"><spring:message
-							code="lbl.plotsurvey.number" /><span class="mandatory"></span></label>
+							code="lbl.re.survey.no" /><span class="mandatory"></span></label>
 					<div class="col-sm-3 add-margin">
 						<form:hidden path="documentScrutiny[0].application"
 							id="scrutinyapplicationid" value="${bpaApplication.id}" />
@@ -77,9 +77,9 @@
 
 						<form:input class="form-control patternvalidation" maxlength="20"
 							data-pattern="alphanumeric" required="required"
-							id="plotsurveynumber" path="documentScrutiny[0].plotsurveynumber"
-							value="${bpaApplication.siteDetail[0].plotsurveynumber}" />
-						<form:errors path="documentScrutiny[0].plotsurveynumber"
+							id="reSurveynumber" path="documentScrutiny[0].reSurveynumber"
+							value="${bpaApplication.siteDetail[0].reSurveyNumber}" />
+						<form:errors path="documentScrutiny[0].reSurveynumber"
 							cssClass="add-margin error-msg" />
 					</div>
 

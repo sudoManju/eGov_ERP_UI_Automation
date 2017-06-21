@@ -52,12 +52,16 @@
 			enctype="multipart/form-data">
 			<input type="hidden" id="bpaApplicationid" name="bpaApplicationid" value="${bpaApplication.id}" />
 			<input type="hidden" id="id" name="id" value="${inspection.id}" />
+			<input type="hidden" name="inspection" value="${inspection.id}" />
+			<form:hidden
+				id="docketId"
+				path="docket[0].id" value="${inspection.docket[0].id}" />
 			<input type="hidden" id="mode" name="mode" value="${mode}" />
 			<input type="hidden" name="applicationNumber" id="applicationNumber"
 				value="${applicationNumber}">
 			<input type="hidden" name="inspectionDate" id="inspectionDate"
 				value="${inspectionDate}">
-
+			<form:hidden id="deletedFilestoreIds" path="deletedDocketDetailsFilestoreIds" />
 			<div class="panel panel-primary" data-collapsed="0">
 				<div class="panel-body custom-form ">
 					<jsp:include page="viewapplication-details.jsp"></jsp:include>
@@ -66,6 +70,11 @@
 			<div class="panel panel-primary" data-collapsed="0">
 				<div class="panel-body custom-form ">
 					<jsp:include page="inspectiondetail-form.jsp"></jsp:include>
+				</div>
+			</div>
+			<div class="panel panel-primary" data-collapsed="0">
+				<div class="panel-body custom-form ">
+					<jsp:include page="upload-inspection-documents.jsp"></jsp:include>
 				</div>
 			</div>
 

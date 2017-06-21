@@ -66,7 +66,13 @@
 					<jsp:include page="inspectiondetail-form.jsp"></jsp:include>
 				</div>
 			</div>
-
+			
+			<div class="panel panel-primary" data-collapsed="0">
+				<div class="panel-body custom-form ">
+					<jsp:include page="upload-inspection-documents.jsp"></jsp:include>
+				</div>
+			</div>
+			
 			<div align="center">
 				<form:button type="submit" id="buttonSubmit" class="btn btn-primary"
 					value="createinspectiondetails">Submit</form:button>

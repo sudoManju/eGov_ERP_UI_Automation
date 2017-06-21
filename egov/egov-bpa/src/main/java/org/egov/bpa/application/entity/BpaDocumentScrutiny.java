@@ -36,6 +36,8 @@ public class BpaDocumentScrutiny extends AbstractAuditable {
     private BpaApplication application;
     @Length(min = 1, max = 24)
     private String plotsurveynumber;
+    @Length(min = 1, max = 24)
+    private String reSurveynumber;
     @Length(min = 1, max = 12)
     private String subdivisionNumber;
     private BigDecimal extentinsqmts;
@@ -230,6 +232,14 @@ public class BpaDocumentScrutiny extends AbstractAuditable {
 
     public void setVerifiedBy(final User verifiedBy) {
         this.verifiedBy = verifiedBy;
+    }
+
+    public String getReSurveynumber() {
+        return reSurveynumber;
+    }
+
+    public void setReSurveynumber(String reSurveynumber) {
+        this.reSurveynumber = reSurveynumber;
     }
 
 }

@@ -37,58 +37,41 @@
   ~
   ~   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
   --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<%@page import="org.python.modules.jarray"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <div class="panel-heading custom_form_panel_heading">
 	<div class="panel-title">
-		<spring:message code="lbl.encloseddocuments" />
-		-
-		<spring:message code="lbl.checklist" />
+		<spring:message code="lbl.uploaded.image" />
 	</div>
 </div>
-
-<table class="table">
-	<thead>
-		<tr>
-			<th><spring:message code="lbl.documentname" /></th>
-			<th><spring:message code="lbl.issubmitted" /></th>
-			<th><spring:message code="lbl.remarks" /></th>
-			<th><spring:message code="lbl.files" /></th>
-		</tr>
-	</thead>
-	<tbody>
-		<c:choose>
-			<c:when test="${not empty  bpaApplication.applicationDocument}">
-				<c:forEach items="${bpaApplication.applicationDocument}" var="docs"
-					varStatus="status">
-					<tr>
-						<td><c:out value="${docs.checklistDetail.description}"
-								default="N/A" /></td>
-						<td><c:out value="${docs.issubmitted ? 'Yes' : 'No'}"
-								default="N/A"></c:out></td>
-						<td><c:out value="${docs.remarks}" default="N/A" /></td>
-						<td><c:set value="false" var="isDocFound"></c:set> <c:forEach
-								var="bpadoc" items="${docs.getSupportDocs()}" varStatus="loop">
-								<c:if test="${bpadoc.fileStoreId ne null}">
-									<c:set value="true" var="isDocFound"></c:set>
-									<a href="/bpa/application/downloadfile/${bpadoc.fileStoreId}"
-										data-gallery>${bpadoc.fileName} </a>
-									<c:if test="${!loop.last}">,</c:if>&nbsp;
-								</c:if>
-							</c:forEach> <c:if test="${!isDocFound}">
-							N/A
-						</c:if></td>
-					</tr>
+<div class="row text-center">
+	<div class="col-sm-12 add-margin view-content">
+		<div class="files-upload-container">
+			<div class="files-viewer">
+				<c:forEach var="image" items="${inspection.encodedImages}"
+					varStatus="status1">
+					<div class="file-viewer"
+						style="background:url('data:image/jpeg;base64,${image.value}');">
+						<a href="javascript:void(0);" data-id="${image.key}" class="hide"></a>
+					</div>
 				</c:forEach>
-			</c:when>
-			<c:otherwise>
-				<div class="col-md-12 col-xs-6  panel-title">No documents
-					found</div>
-			</c:otherwise>
-		</c:choose>
-	</tbody>
-</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- The Modal -->
+<div id="imgModel" class="image-modal">
+	<span class="closebtn">&times;</span> <img class="modal-content"
+		id="previewImg">
+	<div id="caption"></div>
+</div>
+
+<link rel="stylesheet" href="<c:url value='/resources/css/bpa-style.css?rnd=${app_release_no}'/>">
+<script
+	src="<cdn:url value='/resources/js/app/document-upload-helper.js?rnd=${app_release_no}'/>"></script>

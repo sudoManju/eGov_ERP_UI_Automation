@@ -92,10 +92,10 @@
 				default="N/A"></c:out>
 		</div>
 		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.town.survey.no" />
+			<spring:message code="lbl.nature.of.ownership" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.siteDetail[0].townSurveyNumber}"
+			<c:out value="${bpaApplication.siteDetail[0].natureofOwnership}"
 				default="N/A"></c:out>
 		</div>
 	</div>
@@ -189,16 +189,6 @@
 			<c:out value="${bpaApplication.siteDetail[0].sitePincode}"
 				default="N/A"></c:out>
 		</div>
-		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.nature.of.ownership" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.siteDetail[0].natureofOwnership}"
-				default="N/A"></c:out>
-		</div>
-	</div>
-
-	<div class="row add-border">
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.approved.layout.details" />
 		</div>

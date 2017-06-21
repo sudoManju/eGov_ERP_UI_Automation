@@ -55,9 +55,11 @@ import org.egov.bpa.application.entity.ApplicationStakeHolder;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.CheckListDetail;
 import org.egov.bpa.application.entity.ServiceType;
+import org.egov.bpa.application.entity.enums.ApplicantMode;
 import org.egov.bpa.application.service.collection.GenericBillGeneratorService;
 import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
+import org.egov.commons.entity.Source;
 import org.egov.infra.admin.master.entity.User;
 import org.egov.infra.admin.master.service.RoleService;
 import org.egov.infra.admin.master.service.UserService;
@@ -107,6 +109,8 @@ public class NewApplicationController extends BpaGenericApplicationController {
     public String showNewApplicationForm(@ModelAttribute final BpaApplication bpaApplication, final Model model,
             final HttpServletRequest request) {
         bpaApplication.setApplicationDate(new Date());
+        bpaApplication.setSource(Source.SYSTEM);
+        bpaApplication.setApplicantMode(ApplicantMode.NEW);
         model.addAttribute("mode", "new");
         model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
         model.addAttribute("genderList", Arrays.asList(Gender.values()));
@@ -138,7 +142,10 @@ public class NewApplicationController extends BpaGenericApplicationController {
         }
         if (validateApplicantDtls_unique_email(bpaApplication.getOwner())!=null){
             model.addAttribute("noJAORSAMessage", "Applicant/User with given emailId already exists.");
-            model.addAttribute("mode", "new"); 
+            bpaApplication.setApplicationDate(new Date());
+            model.addAttribute("mode", "new");
+            model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
+            model.addAttribute("genderList", Arrays.asList(Gender.values()));
             return NEWAPPLICATION_FORM;
         }
 

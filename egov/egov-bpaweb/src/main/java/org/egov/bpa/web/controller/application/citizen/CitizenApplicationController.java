@@ -57,12 +57,14 @@ import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.CheckListDetail;
 import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.application.entity.StakeHolder;
+import org.egov.bpa.application.entity.enums.ApplicantMode;
 import org.egov.bpa.application.service.collection.GenericBillGeneratorService;
 import org.egov.bpa.masters.service.ServiceTypeService;
 import org.egov.bpa.masters.service.StakeHolderService;
 import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.bpa.web.controller.application.BpaGenericApplicationController;
+import org.egov.commons.entity.Source;
 import org.egov.infra.admin.master.entity.AppConfigValues;
 import org.egov.infra.admin.master.entity.User;
 import org.egov.infra.admin.master.service.AppConfigValueService;
@@ -124,6 +126,8 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
 	private String loadNewForm(final BpaApplication bpaApplication, final Model model, String serviceCode) {
 		bpaApplication.setApplicationDate(new Date());
 		model.addAttribute("mode", "new");
+		bpaApplication.setSource(Source.CITIZENPORTAL);
+                bpaApplication.setApplicantMode(ApplicantMode.NEW);
 		List<AppConfigValues> appConfigValueList = appConfigValueService.getConfigValuesByModuleAndKey(
 	                BpaConstants.APPLICATION_MODULE_TYPE, BpaConstants.BPA_CITIZENACCEPTANCE_CHECK);
 		String validateCitizenAcceptance = !appConfigValueList.isEmpty() ? appConfigValueList.get(0).getValue() : "";

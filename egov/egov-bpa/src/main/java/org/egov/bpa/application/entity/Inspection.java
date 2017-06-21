@@ -31,8 +31,12 @@ package org.egov.bpa.application.entity;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -44,6 +48,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -55,8 +60,10 @@ import javax.persistence.Transient;
 import org.egov.bpa.application.entity.enums.LandBldngZoneing;
 import org.egov.bpa.application.entity.enums.RoadType;
 import org.egov.infra.admin.master.entity.User;
+import org.egov.infra.filestore.entity.FileStoreMapper;
 import org.egov.infra.persistence.entity.AbstractAuditable;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "EGBPA_INSPECTION")
@@ -71,16 +78,15 @@ public class Inspection extends AbstractAuditable {
     private Long id;
     @Length(min = 1, max = 64)
     private String inspectionNumber;
-    
+
     @Temporal(value = TemporalType.DATE)
     private Date inspectionDate;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="parent")
+    @JoinColumn(name = "parent")
     private Inspection parent;
 
-    
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="inspectedby")
+    @JoinColumn(name = "inspectedby")
     private User inspectedBy;
     private Boolean isSiteVacant;
     private Boolean isExistingBuildingAsPerPlan;
@@ -97,25 +103,24 @@ public class Inspection extends AbstractAuditable {
     @Enumerated(EnumType.ORDINAL)
     private LandBldngZoneing landZoning;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="lndlayouttype")
+    @JoinColumn(name = "lndlayouttype")
     private LayoutMaster lndLayoutType;
     private BigDecimal lndMinPlotExtent = BigDecimal.ZERO;
     private BigDecimal lndProposedPlotExtent = BigDecimal.ZERO;
     private BigDecimal lndOsrLandExtent = BigDecimal.ZERO;
     private BigDecimal lndGuideLineValue = BigDecimal.ZERO;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="landusage")
+    @JoinColumn(name = "landusage")
     private LandBuildingTypes landUsage;
     private BigDecimal lndRegularizationArea = BigDecimal.ZERO;
     private Integer lndPenaltyPeriod;
     private double lndIsRegularisationCharges;
-    
-    
+
     // Building Details
     @Enumerated
     private LandBldngZoneing buildingZoning;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="buildingType")
+    @JoinColumn(name = "buildingType")
     private LandBuildingTypes buildingType;
     private BigDecimal bldngBuildUpArea = BigDecimal.ZERO;
     private BigDecimal bldngProposedPlotFrontage = BigDecimal.ZERO;
@@ -125,7 +130,7 @@ public class Inspection extends AbstractAuditable {
     private BigDecimal bldngGFloorOtherTypes = BigDecimal.ZERO;
     private BigDecimal bldngFrstFloorTotalArea = BigDecimal.ZERO;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="bldngstormwaterdrain")
+    @JoinColumn(name = "bldngstormwaterdrain")
     private StormWaterDrain bldngStormWaterDrain;
     private BigDecimal bldngCompoundWall = BigDecimal.ZERO;
     private BigDecimal bldngWellOhtSumpTankArea = BigDecimal.ZERO;
@@ -144,27 +149,27 @@ public class Inspection extends AbstractAuditable {
     private BigDecimal passageWidth;
     private BigDecimal passageLength;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="surroundedbynorth")
+    @JoinColumn(name = "surroundedbynorth")
     private SurroundedBldgDtl surroundedByNorth;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="surroundedbysouth")
+    @JoinColumn(name = "surroundedbysouth")
     private SurroundedBldgDtl surroundedBySouth;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="surroundedbyeast")
+    @JoinColumn(name = "surroundedbyeast")
     private SurroundedBldgDtl surroundedByEast;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="surroundedbywest")
+    @JoinColumn(name = "surroundedbywest")
     private SurroundedBldgDtl surroundedByWest;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name="conststages")
+    @JoinColumn(name = "conststages")
     private ConstructionStages constStages;
-    @Column(name="dwellingunitnt")
+    @Column(name = "dwellingunitnt")
     private BigDecimal dwellingUnit;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "inspection")
-    private List<Docket> docket =new ArrayList<>();
+    private List<Docket> docket = new ArrayList<>();
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="application")
+    @JoinColumn(name = "application")
     private BpaApplication application;
     @Transient
     private List<DocketDetail> docketDetailLocList = new ArrayList<>();
@@ -185,7 +190,7 @@ public class Inspection extends AbstractAuditable {
     @Transient
     private List<DocketDetail> docketDetailAreaLoc = new ArrayList<>();
     @Transient
-    private List<DocketDetail> docketDetailLengthOfCompWall= new ArrayList<>();
+    private List<DocketDetail> docketDetailLengthOfCompWall = new ArrayList<>();
     @Transient
     private List<DocketDetail> docketDetailNumberOfWell = new ArrayList<>();
     @Transient
@@ -194,9 +199,17 @@ public class Inspection extends AbstractAuditable {
     private List<DocketDetail> docketDetailShutter = new ArrayList<>();
     @Transient
     private List<DocketDetail> docketDetailRoofConversion = new ArrayList<>();
+
+    private transient List<String> deletedDocketDetailsFilestoreIds;
     
+    private transient MultipartFile[] files;
     
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "egbpa_inspectiondocs", joinColumns = @JoinColumn(name = "inspectionid"), inverseJoinColumns = @JoinColumn(name = "filestoreid"))
+    private Set<FileStoreMapper> inspectionSupportDocs = Collections.emptySet();
     
+    private transient Map<Long, String> encodedImages = new HashMap<>() ;
+
     @Override
     public Long getId() {
         return id;
@@ -366,8 +379,6 @@ public class Inspection extends AbstractAuditable {
     public void setLndPenaltyPeriod(final Integer lndPenaltyPeriod) {
         this.lndPenaltyPeriod = lndPenaltyPeriod;
     }
-
-   
 
     public double getLndIsRegularisationCharges() {
         return lndIsRegularisationCharges;
@@ -593,8 +604,6 @@ public class Inspection extends AbstractAuditable {
         this.dwellingUnit = dwellingUnit;
     }
 
- 
-
     public List<Docket> getDocket() {
         return docket;
     }
@@ -707,56 +716,84 @@ public class Inspection extends AbstractAuditable {
         this.docketDetailMeasumentList = docketDetailMeasumentList;
     }
 
-	public List<DocketDetail> getDocketDetailAreaLoc() {
-		return docketDetailAreaLoc;
-	}
+    public List<DocketDetail> getDocketDetailAreaLoc() {
+        return docketDetailAreaLoc;
+    }
 
-	public void setDocketDetailAreaLoc(List<DocketDetail> docketDetailAreaLoc) {
-		this.docketDetailAreaLoc = docketDetailAreaLoc;
-	}
+    public void setDocketDetailAreaLoc(List<DocketDetail> docketDetailAreaLoc) {
+        this.docketDetailAreaLoc = docketDetailAreaLoc;
+    }
 
-	public List<DocketDetail> getDocketDetailLengthOfCompWall() {
-		return docketDetailLengthOfCompWall;
-	}
+    public List<DocketDetail> getDocketDetailLengthOfCompWall() {
+        return docketDetailLengthOfCompWall;
+    }
 
-	public void setDocketDetailLengthOfCompWall(List<DocketDetail> docketDetailLengthOfCompWall) {
-		this.docketDetailLengthOfCompWall = docketDetailLengthOfCompWall;
-	}
+    public void setDocketDetailLengthOfCompWall(List<DocketDetail> docketDetailLengthOfCompWall) {
+        this.docketDetailLengthOfCompWall = docketDetailLengthOfCompWall;
+    }
 
-	public List<DocketDetail> getDocketDetailNumberOfWell() {
-		return docketDetailNumberOfWell;
-	}
+    public List<DocketDetail> getDocketDetailNumberOfWell() {
+        return docketDetailNumberOfWell;
+    }
 
-	public void setDocketDetailNumberOfWell(List<DocketDetail> docketDetailNumberOfWell) {
-		this.docketDetailNumberOfWell = docketDetailNumberOfWell;
-	}
+    public void setDocketDetailNumberOfWell(List<DocketDetail> docketDetailNumberOfWell) {
+        this.docketDetailNumberOfWell = docketDetailNumberOfWell;
+    }
 
-	public List<DocketDetail> getDocketDetailErectionTower() {
-		return docketDetailErectionTower;
-	}
+    public List<DocketDetail> getDocketDetailErectionTower() {
+        return docketDetailErectionTower;
+    }
 
-	public void setDocketDetailErectionTower(List<DocketDetail> docketDetailErectionTower) {
-		this.docketDetailErectionTower = docketDetailErectionTower;
-	}
+    public void setDocketDetailErectionTower(List<DocketDetail> docketDetailErectionTower) {
+        this.docketDetailErectionTower = docketDetailErectionTower;
+    }
 
-	public List<DocketDetail> getDocketDetailShutter() {
-		return docketDetailShutter;
-	}
+    public List<DocketDetail> getDocketDetailShutter() {
+        return docketDetailShutter;
+    }
 
-	public void setDocketDetailShutter(List<DocketDetail> docketDetailShutter) {
-		this.docketDetailShutter = docketDetailShutter;
-	}
+    public void setDocketDetailShutter(List<DocketDetail> docketDetailShutter) {
+        this.docketDetailShutter = docketDetailShutter;
+    }
 
-	public List<DocketDetail> getDocketDetailRoofConversion() {
-		return docketDetailRoofConversion;
-	}
+    public List<DocketDetail> getDocketDetailRoofConversion() {
+        return docketDetailRoofConversion;
+    }
 
-	public void setDocketDetailRoofConversion(List<DocketDetail> docketDetailRoofConversion) {
-		this.docketDetailRoofConversion = docketDetailRoofConversion;
-	}
+    public void setDocketDetailRoofConversion(List<DocketDetail> docketDetailRoofConversion) {
+        this.docketDetailRoofConversion = docketDetailRoofConversion;
+    }
 
+    public List<String> getDeletedDocketDetailsFilestoreIds() {
+        return deletedDocketDetailsFilestoreIds;
+    }
 
-   
+    public void setDeletedDocketDetailsFilestoreIds(List<String> deletedDocketDetailsFilestoreIds) {
+        this.deletedDocketDetailsFilestoreIds = deletedDocketDetailsFilestoreIds;
+    }
     
+    public Set<FileStoreMapper> getInspectionSupportDocs() {
+        return inspectionSupportDocs;
+    }
+
+    public void setInspectionSupportDocs(Set<FileStoreMapper> inspectionSupportDocs) {
+        this.inspectionSupportDocs = inspectionSupportDocs;
+    }
+
+    public Map<Long, String> getEncodedImages() {
+        return encodedImages;
+    }
+
+    public void setEncodedImages(Map<Long, String> encodedImages) {
+        this.encodedImages = encodedImages;
+    }
+    
+    public MultipartFile[] getFiles() {
+        return files;
+    }
+
+    public void setFiles(MultipartFile[] files) {
+        this.files = files;
+    }
 
 }
