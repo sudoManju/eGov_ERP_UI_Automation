@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-06-02T15:10:48 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="buildingpermit" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="576a1e58-ecb3-4d56-971a-5d1fe019af29">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="36"/>
+	<property name="ireport.y" value="564"/>
 	<import value="org.egov.infra.reporting.util.*"/>
 	<import value="org.egov.infstr.utils.*"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
@@ -27,13 +25,22 @@
 	<parameter name="cityName" class="java.lang.String"/>
 	<parameter name="applicationFloorDetails" class="java.io.InputStream"/>
 	<parameter name="certExpryDate" class="java.lang.String"/>
+	<parameter name="isBusinessUser" class="java.lang.Boolean"/>
+	<parameter name="duplicateWatermarkPath" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
 	<field name="applicationFloorDetails" class="java.util.List"/>
 	<variable name="SUB_REPORT_ROW_CNT" class="java.lang.Integer"/>
 	<background>
-		<band splitType="Stretch"/>
+		<band height="802" splitType="Stretch">
+			<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" isUsingCache="true" onErrorType="Blank">
+				<reportElement x="10" y="50" width="534" height="570" uuid="696844a6-436b-49c9-97f6-ac7120c893b8">
+					<printWhenExpression><![CDATA[$P{isBusinessUser}]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[$P{duplicateWatermarkPath}]]></imageExpression>
+			</image>
+		</band>
 	</background>
 	<title>
 		<band height="71" splitType="Stretch">

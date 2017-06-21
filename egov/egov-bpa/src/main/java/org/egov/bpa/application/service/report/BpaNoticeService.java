@@ -60,17 +60,21 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.WordUtils;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.Response;
+import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.commons.Installment;
 import org.egov.demand.model.EgDemandDetails;
+import org.egov.infra.filestore.service.FileStoreService;
 import org.egov.infra.reporting.engine.ReportOutput;
 import org.egov.infra.reporting.engine.ReportRequest;
 import org.egov.infra.reporting.engine.ReportService;
+import org.egov.infra.reporting.util.ReportUtil;
 import org.egov.infra.web.utils.WebUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -81,138 +85,144 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 public class BpaNoticeService {
-	@Autowired
-	private ReportService reportService;
+    @Autowired
+    private ReportService reportService;
+    @Autowired
+    @Qualifier("fileStoreService")
+    protected FileStoreService fileStoreService;
+    @Autowired
+    private BpaUtils bpaUtils;
 
-	public ResponseEntity<byte[]> generateDemandNotice(HttpServletRequest request,
-			final BpaApplication bpaApplication) {
-		ReportRequest reportInput = null;
-		ReportOutput reportOutput;
-		if (null != bpaApplication) {
-			final Map<String, Object> reportParams = buildParametersForReport(request, bpaApplication);
-			reportParams.putAll(buildParametersForDemandDetails(bpaApplication));
-			reportInput = new ReportRequest(DEMANDNOCFILENAME, bpaApplication, reportParams);
-		}
+    public ResponseEntity<byte[]> generateDemandNotice(HttpServletRequest request,
+            final BpaApplication bpaApplication) {
+        ReportRequest reportInput = null;
+        ReportOutput reportOutput;
+        if (null != bpaApplication) {
+            final Map<String, Object> reportParams = buildParametersForReport(request, bpaApplication);
+            reportParams.putAll(buildParametersForDemandDetails(bpaApplication));
+            reportInput = new ReportRequest(DEMANDNOCFILENAME, bpaApplication, reportParams);
+        }
 
-		final HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.parseMediaType("application/pdf"));
-		headers.add("content-disposition", "inline;filename=Demand Notice.pdf");
-		reportOutput = reportService.createReport(reportInput);
-		return new ResponseEntity<>(reportOutput.getReportOutputData(), headers, HttpStatus.CREATED);
-	}
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType("application/pdf"));
+        headers.add("content-disposition", "inline;filename=Demand Notice.pdf");
+        reportOutput = reportService.createReport(reportInput);
+        return new ResponseEntity<>(reportOutput.getReportOutputData(), headers, HttpStatus.CREATED);
+    }
 
-	public ResponseEntity<byte[]> generateBuildingPermit(HttpServletRequest request,
-			final BpaApplication bpaApplication) {
-		ReportRequest reportInput = null;
-		ReportOutput reportOutput;
-		String reportFileName = null;
-		if (null != bpaApplication) {
-			if (BpaConstants.getServicesForBuildPermit().contains(bpaApplication.getServiceType().getCode())) {
-				reportFileName = BUILDINGPERMITFILENAME;
-			} else if (BpaConstants.getServicesForDevelopPermit().contains(bpaApplication.getServiceType().getCode())) {
-				reportFileName = BUILDINGDEVELOPPERMITFILENAME;
-			} else {
-				reportFileName = BUILDINGPERMITFILENAME;
-			}
-			final Map<String, Object> reportParams = buildParametersForReport(request, bpaApplication);
-			reportInput = new ReportRequest(reportFileName, bpaApplication.getBuildingDetail().get(0), reportParams);
-		}
+    public ResponseEntity<byte[]> generateBuildingPermit(HttpServletRequest request,
+            final BpaApplication bpaApplication) {
+        ReportRequest reportInput = null;
+        ReportOutput reportOutput;
+        String reportFileName = null;
+        if (null != bpaApplication) {
+            if (BpaConstants.getServicesForBuildPermit().contains(bpaApplication.getServiceType().getCode())) {
+                reportFileName = BUILDINGPERMITFILENAME;
+            } else if (BpaConstants.getServicesForDevelopPermit().contains(bpaApplication.getServiceType().getCode())) {
+                reportFileName = BUILDINGDEVELOPPERMITFILENAME;
+            } else {
+                reportFileName = BUILDINGPERMITFILENAME;
+            }
+            final Map<String, Object> reportParams = buildParametersForReport(request, bpaApplication);
+            reportInput = new ReportRequest(reportFileName, bpaApplication.getBuildingDetail().get(0), reportParams);
+        }
 
-		final HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.parseMediaType("application/pdf"));
-		headers.add("content-disposition", "inline;filename=" + reportFileName + ".pdf");
-		reportOutput = reportService.createReport(reportInput);
-		return new ResponseEntity<>(reportOutput.getReportOutputData(), headers, HttpStatus.CREATED);
-	}
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType("application/pdf"));
+        headers.add("content-disposition", "inline;filename=" + reportFileName + ".pdf");
+        reportOutput = reportService.createReport(reportInput);
+        return new ResponseEntity<>(reportOutput.getReportOutputData(), headers, HttpStatus.CREATED);
+    }
 
-	private Map<String, Object> buildParametersForDemandDetails(final BpaApplication bpaApplication) {
-		List<Response> demandResponseList = new ArrayList<>();
-		BigDecimal totalPendingAmt = BigDecimal.ZERO;
-		final Map<String, Object> reportParams = new HashMap<>();
-		Installment currentInstallemnt = bpaApplication.getDemand().getEgInstallmentMaster();
-		for (final EgDemandDetails demandDtl : bpaApplication.getDemand().getEgDemandDetails()) {
-			Response response = new Response();
-			if (!BPA_ADM_FEE.equalsIgnoreCase(demandDtl.getEgDemandReason().getEgDemandReasonMaster().getReasonMaster())
-					&& demandDtl.getBalance().compareTo(BigDecimal.ZERO) > 0) {
-				response.setDemandDescription(
-						demandDtl.getEgDemandReason().getEgDemandReasonMaster().getReasonMaster());
-				response.setDemandAmount(demandDtl.getBalance().setScale(2, BigDecimal.ROUND_HALF_EVEN));
-				totalPendingAmt = totalPendingAmt.add(demandDtl.getBalance());
-				demandResponseList.add(response);
-			}
-		}
+    private Map<String, Object> buildParametersForDemandDetails(final BpaApplication bpaApplication) {
+        List<Response> demandResponseList = new ArrayList<>();
+        BigDecimal totalPendingAmt = BigDecimal.ZERO;
+        final Map<String, Object> reportParams = new HashMap<>();
+        Installment currentInstallemnt = bpaApplication.getDemand().getEgInstallmentMaster();
+        for (final EgDemandDetails demandDtl : bpaApplication.getDemand().getEgDemandDetails()) {
+            Response response = new Response();
+            if (!BPA_ADM_FEE.equalsIgnoreCase(demandDtl.getEgDemandReason().getEgDemandReasonMaster().getReasonMaster())
+                    && demandDtl.getBalance().compareTo(BigDecimal.ZERO) > 0) {
+                response.setDemandDescription(
+                        demandDtl.getEgDemandReason().getEgDemandReasonMaster().getReasonMaster());
+                response.setDemandAmount(demandDtl.getBalance().setScale(2, BigDecimal.ROUND_HALF_EVEN));
+                totalPendingAmt = totalPendingAmt.add(demandDtl.getBalance());
+                demandResponseList.add(response);
+            }
+        }
 
-		reportParams.put("installmentDesc",
-				currentInstallemnt.getDescription() != null ? currentInstallemnt.getDescription() : "");
-		reportParams.put("demandResponseList", demandResponseList);
-		reportParams.put("totalPendingAmt", totalPendingAmt.setScale(2, BigDecimal.ROUND_HALF_EVEN));
+        reportParams.put("installmentDesc",
+                currentInstallemnt.getDescription() != null ? currentInstallemnt.getDescription() : "");
+        reportParams.put("demandResponseList", demandResponseList);
+        reportParams.put("totalPendingAmt", totalPendingAmt.setScale(2, BigDecimal.ROUND_HALF_EVEN));
 
-		return reportParams;
-	}
+        return reportParams;
+    }
 
-	private Map<String, Object> buildParametersForReport(HttpServletRequest request,
-			final BpaApplication bpaApplication) {
-		final Map<String, Object> reportParams = new HashMap<>();
-		StringBuilder serviceTypeDesc = new StringBuilder();
-		final String url = WebUtils.extractRequestDomainURL(request, false);
-		final String cityLogo = url.concat(BpaConstants.IMAGE_CONTEXT_PATH)
-				.concat((String) request.getSession().getAttribute("citylogo"));
-		final String ulbName = request.getSession().getAttribute("citymunicipalityname").toString();
-		final String cityName = request.getSession().getAttribute("cityname").toString();
-		reportParams.put("cityName", cityName);
-		reportParams.put("logoPath", cityLogo);
-		reportParams.put("ulbName", ulbName);
-		reportParams.put("bpademandtitle", WordUtils.capitalize(BPADEMANDNOTICETITLE));
+    private Map<String, Object> buildParametersForReport(HttpServletRequest request,
+            final BpaApplication bpaApplication) {
+        final Map<String, Object> reportParams = new HashMap<>();
+        StringBuilder serviceTypeDesc = new StringBuilder();
+        final String url = WebUtils.extractRequestDomainURL(request, false);
+        final String cityLogo = url.concat(BpaConstants.IMAGE_CONTEXT_PATH)
+                .concat((String) request.getSession().getAttribute("citylogo"));
+        final String ulbName = request.getSession().getAttribute("citymunicipalityname").toString();
+        final String cityName = request.getSession().getAttribute("cityname").toString();
+        reportParams.put("cityName", cityName);
+        reportParams.put("logoPath", cityLogo);
+        reportParams.put("ulbName", ulbName);
+        reportParams.put("duplicateWatermarkPath", ReportUtil.duplicateWatermarkAbsolutePath(request));
+        reportParams.put("bpademandtitle", WordUtils.capitalize(BPADEMANDNOTICETITLE));
 
-		final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		reportParams.put("currentDate", currentDateToDefaultDateFormat());
-		reportParams.put("lawAct", "[See Rule 11 (3)]");
-		reportParams.put("applicationNumber", bpaApplication.getApplicationNumber());
-		reportParams.put("buildingPermitNumber",
-				bpaApplication.getPlanPermissionNumber() != null ? bpaApplication.getPlanPermissionNumber() : "");
-		reportParams.put("applicantName", bpaApplication.getOwner().getName());
-		reportParams.put("applicantAddress", bpaApplication.getOwner().getAddress());
-		reportParams.put("applicationDate", formatter.format(bpaApplication.getApplicationDate()));
-		String amenities = bpaApplication.getApplicationAmenity().stream().map(am -> am.getDescription())
-				.collect(Collectors.joining(", "));
-		if (bpaApplication.getApplicationAmenity().isEmpty()) {
-			serviceTypeDesc.append(bpaApplication.getServiceType().getDescription());
-		} else {
-			serviceTypeDesc.append(bpaApplication.getServiceType().getDescription()).append(" with amenities ")
-					.append(amenities);
-		}
-		reportParams.put("serviceTypeDesc", serviceTypeDesc.toString());
-		reportParams.put("serviceTypeForDmd", bpaApplication.getServiceType().getDescription());
-		reportParams.put("amenities", amenities != null ? amenities : "");
-		reportParams.put("occupancy",
-				bpaApplication.getOccupancy() != null ? bpaApplication.getOccupancy().getDescription() : "");
-		reportParams.put("electionWard", bpaApplication.getSiteDetail().get(0).getElectionBoundary().getName());
-		reportParams.put("revenueWard", bpaApplication.getSiteDetail().get(0).getAdminBoundary() != null
-				? bpaApplication.getSiteDetail().get(0).getAdminBoundary().getName() : "");
-		if (!bpaApplication.getSiteDetail().isEmpty()) {
-			reportParams.put("landExtent", bpaApplication.getSiteDetail().get(0).getExtentinsqmts());
-			reportParams.put("buildingNo", bpaApplication.getSiteDetail().get(0).getPlotnumber() != null
-					? bpaApplication.getSiteDetail().get(0).getPlotnumber() : "");
-			reportParams.put("nearestBuildingNo",
-					bpaApplication.getSiteDetail().get(0).getNearestbuildingnumber() != null
-							? bpaApplication.getSiteDetail().get(0).getNearestbuildingnumber() : "");
-			reportParams.put("surveyNo", bpaApplication.getSiteDetail().get(0).getPlotsurveynumber() != null
-					? bpaApplication.getSiteDetail().get(0).getPlotsurveynumber() : "");
-			reportParams.put("village", bpaApplication.getSiteDetail().get(0).getVillage() != null
-					? bpaApplication.getSiteDetail().get(0).getVillage().getName() : "");
-			reportParams.put("taluk", bpaApplication.getSiteDetail().get(0).getTaluk() != null
-					? bpaApplication.getSiteDetail().get(0).getTaluk() : "");
-			reportParams.put("district", bpaApplication.getSiteDetail().get(0).getDistrict() != null
-					? bpaApplication.getSiteDetail().get(0).getDistrict() : "");
-		}
-		reportParams.put("certExpryDate", calculateCertExpryDate());
+        final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        reportParams.put("currentDate", currentDateToDefaultDateFormat());
+        reportParams.put("lawAct", "[See Rule 11 (3)]");
+        reportParams.put("applicationNumber", bpaApplication.getApplicationNumber());
+        reportParams.put("buildingPermitNumber",
+                bpaApplication.getPlanPermissionNumber() != null ? bpaApplication.getPlanPermissionNumber() : "");
+        reportParams.put("applicantName", bpaApplication.getOwner().getName());
+        reportParams.put("applicantAddress", bpaApplication.getOwner().getAddress());
+        reportParams.put("applicationDate", formatter.format(bpaApplication.getApplicationDate()));
+        String amenities = bpaApplication.getApplicationAmenity().stream().map(am -> am.getDescription())
+                .collect(Collectors.joining(", "));
+        if (bpaApplication.getApplicationAmenity().isEmpty()) {
+            serviceTypeDesc.append(bpaApplication.getServiceType().getDescription());
+        } else {
+            serviceTypeDesc.append(bpaApplication.getServiceType().getDescription()).append(" with amenities ")
+                    .append(amenities);
+        }
+        reportParams.put("serviceTypeDesc", serviceTypeDesc.toString());
+        reportParams.put("serviceTypeForDmd", bpaApplication.getServiceType().getDescription());
+        reportParams.put("amenities", amenities != null ? amenities : "");
+        reportParams.put("occupancy",
+                bpaApplication.getOccupancy() != null ? bpaApplication.getOccupancy().getDescription() : "");
+        reportParams.put("electionWard", bpaApplication.getSiteDetail().get(0).getElectionBoundary().getName());
+        reportParams.put("revenueWard", bpaApplication.getSiteDetail().get(0).getAdminBoundary() != null
+                ? bpaApplication.getSiteDetail().get(0).getAdminBoundary().getName() : "");
+        if (!bpaApplication.getSiteDetail().isEmpty()) {
+            reportParams.put("landExtent", bpaApplication.getSiteDetail().get(0).getExtentinsqmts());
+            reportParams.put("buildingNo", bpaApplication.getSiteDetail().get(0).getPlotnumber() != null
+                    ? bpaApplication.getSiteDetail().get(0).getPlotnumber() : "");
+            reportParams.put("nearestBuildingNo",
+                    bpaApplication.getSiteDetail().get(0).getNearestbuildingnumber() != null
+                            ? bpaApplication.getSiteDetail().get(0).getNearestbuildingnumber() : "");
+            reportParams.put("surveyNo", bpaApplication.getSiteDetail().get(0).getPlotsurveynumber() != null
+                    ? bpaApplication.getSiteDetail().get(0).getPlotsurveynumber() : "");
+            reportParams.put("village", bpaApplication.getSiteDetail().get(0).getVillage() != null
+                    ? bpaApplication.getSiteDetail().get(0).getVillage().getName() : "");
+            reportParams.put("taluk", bpaApplication.getSiteDetail().get(0).getTaluk() != null
+                    ? bpaApplication.getSiteDetail().get(0).getTaluk() : "");
+            reportParams.put("district", bpaApplication.getSiteDetail().get(0).getDistrict() != null
+                    ? bpaApplication.getSiteDetail().get(0).getDistrict() : "");
+        }
+        reportParams.put("certExpryDate", calculateCertExpryDate());
+        reportParams.put("isBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
+        return reportParams;
+    }
 
-		return reportParams;
-	}
-
-	private String calculateCertExpryDate() {
-		DateTime dt = new DateTime();
-		DateTimeFormatter fmt = DateTimeFormat.forPattern("dd/MM/yyyy");
-		return fmt.print(dt.plusYears(3));
-	}
+    private String calculateCertExpryDate() {
+        DateTime dt = new DateTime();
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("dd/MM/yyyy");
+        return fmt.print(dt.plusYears(3));
+    }
 }

@@ -167,4 +167,10 @@ public final class ReportUtil {
         return url.concat(IMAGE_CONTEXT_PATH).concat(
                 "/resources/global/images/cancelled_watermark.png");
     }
+    
+    public static String duplicateWatermarkAbsolutePath(HttpServletRequest request) {
+        String url = WebUtils.extractRequestDomainURL(request, false);
+        return url.concat(IMAGE_CONTEXT_PATH).concat(
+                "/resources/global/images/duplicate_watermark.gif");
+    }
 }
