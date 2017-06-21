@@ -8,7 +8,7 @@ import static com.jayway.restassured.RestAssured.given;
 
 public class WallTypeResource {
 
-    public Response createWallTypeMaster(String json){
+    public Response create(String json){
 
         new APILogger().log("Create WallTypes Master request is started as --"+json);
 
@@ -23,7 +23,7 @@ public class WallTypeResource {
         return response;
     }
 
-    public Response searchWallTypeMaster(String json,String s){
+    public Response search(String json, String s){
 
         new APILogger().log("Search WallTypes Master request is started as --"+json);
 

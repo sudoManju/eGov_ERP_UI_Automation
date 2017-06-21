@@ -8,7 +8,7 @@ import static com.jayway.restassured.RestAssured.given;
 
 public class FloorTypesResource {
 
-    public Response createFloorTypeMaster(String jsonString) {
+    public Response create(String jsonString) {
 
         new APILogger().log("Create FloorTypes request is started as--"+jsonString);
 
@@ -23,7 +23,7 @@ public class FloorTypesResource {
         return response;
     }
 
-    public Response searchFloorTypeMaster(String jsonString,String s){
+    public Response search(String jsonString, String s){
 
         new APILogger().log("Search FloorTypes request is started as--"+jsonString);
 

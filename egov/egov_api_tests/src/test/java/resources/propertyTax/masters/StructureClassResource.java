@@ -9,7 +9,7 @@ import static com.jayway.restassured.RestAssured.given;
 public class StructureClassResource {
 
 
-    public Response createStructureClass(String json) {
+    public Response create(String json) {
 
         new APILogger().log("Create StructureClass Master request is started with --"+json);
 
@@ -24,7 +24,7 @@ public class StructureClassResource {
         return response;
     }
 
-    public Response searchStructureClass(String json, String s) {
+    public Response search(String json, String s) {
 
         new APILogger().log("Search StructureClass Master request is started with --"+json);
 

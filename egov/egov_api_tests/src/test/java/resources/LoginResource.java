@@ -50,18 +50,18 @@ public class LoginResource extends Resource{
     }
 
     public Response getSessionIdFromPilotBaseAPI() {
-        new APILogger().log("Get The SESSION ID From Base API Test Is Started -- ");
+        new APILogger().log("Get The SESSION IDS From Base API Test Is Started -- ");
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
                 .when()
                 .get("http://kurnool-pilot-services.egovernments.org/egi");
         scenarioContext.setSessionId(response.getCookie("SESSIONID"));
-        new APILogger().log("Get The SESSION ID From Base API Test Is Completed -- ");
+        new APILogger().log("Get The SESSION IDS From Base API Test Is Completed -- ");
         return response;
     }
 
     public Response loginFromPilotService(String sessionId, Map map) {
-        new APILogger().log("Get The SESSION ID From LOGIN API Test Is Started -- ");
+        new APILogger().log("Get The SESSION IDS From LOGIN API Test Is Started -- ");
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
                 .header("Content-type", "application/x-www-form-urlencoded")
@@ -72,7 +72,7 @@ public class LoginResource extends Resource{
                 .post(Properties.pilotLoginUrl);
 
         scenarioContext.setSessionId(response.getCookie("SESSIONID"));
-        new APILogger().log("Get The SESSION ID From LOGIN API Test Is Completed -- ");
+        new APILogger().log("Get The SESSION IDS From LOGIN API Test Is Completed -- ");
         return response;
     }
 
@@ -90,18 +90,18 @@ public class LoginResource extends Resource{
 
     //
     public Response getSessionIdFromPilotBaseAPI1() {
-        new APILogger().log("Get The SESSION ID From Base API Test Is Started -- ");
+        new APILogger().log("Get The SESSION IDS From Base API Test Is Started -- ");
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
                 .when()
                 .get("http://kurnool-pilot-services.egovernments.org/egi");
         scenarioContext.setSessionId(response.getCookie("SESSIONID"));
-        new APILogger().log("Get The SESSION ID From Base API Test Is Completed -- ");
+        new APILogger().log("Get The SESSION IDS From Base API Test Is Completed -- ");
         return response;
     }
 
     public Response loginFromPilotService1(Map map) {
-        new APILogger().log("Get The SESSION ID From LOGIN API Test Is Started -- ");
+        new APILogger().log("Get The SESSION IDS From LOGIN API Test Is Started -- ");
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
                 .header("Content-type", "application/x-www-form-urlencoded")
@@ -112,7 +112,7 @@ public class LoginResource extends Resource{
                 .post(Properties.pilotLoginUrl);
 
         scenarioContext.setSessionId(response.getCookie("SESSIONID"));
-        new APILogger().log("Get The SESSION ID From LOGIN API Test Is Completed -- ");
+        new APILogger().log("Get The SESSION IDS From LOGIN API Test Is Completed -- ");
         return response;
     }
 

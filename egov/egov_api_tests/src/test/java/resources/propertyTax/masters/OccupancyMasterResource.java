@@ -9,7 +9,7 @@ import static com.jayway.restassured.RestAssured.given;
 public class OccupancyMasterResource {
 
 
-    public Response createOccupancyMaster(String jsonString) {
+    public Response create(String jsonString) {
 
         new APILogger().log("Create Occupancy master request is started as --"+jsonString);
 
@@ -24,7 +24,7 @@ public class OccupancyMasterResource {
         return response;
     }
 
-    public Response searchOccupancy(String json, String s) {
+    public Response search(String json, String s) {
 
         new APILogger().log("Search Occupancy master request is started as --"+json);
 

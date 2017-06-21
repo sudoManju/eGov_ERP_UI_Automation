@@ -8,7 +8,7 @@ import static com.jayway.restassured.RestAssured.given;
 
 public class DepartmentsMasterResource {
 
-    public Response createDepartment(String jsonString) {
+    public Response create(String jsonString) {
 
         new APILogger().log("Create Department Master request is started as --"+jsonString);
 
@@ -23,7 +23,7 @@ public class DepartmentsMasterResource {
         return response;
     }
 
-    public Response searchDepartment(String json,String s){
+    public Response search(String json, String s){
 
        new APILogger().log("Search Department Master request is started as --"+json);
 

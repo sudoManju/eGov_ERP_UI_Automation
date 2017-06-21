@@ -9,7 +9,7 @@ import static com.jayway.restassured.RestAssured.given;
 public class UsageMasterResource {
 
 
-    public Response createUsageMaster(String json) {
+    public Response create(String json) {
 
         new APILogger().log("Create Usage Master started as --"+json);
 
@@ -24,7 +24,7 @@ public class UsageMasterResource {
         return response;
     }
 
-    public Response searchUsageMaster(String json, String s) {
+    public Response search(String json, String s) {
 
         new APILogger().log("Search Usage Master started as --"+json);
 

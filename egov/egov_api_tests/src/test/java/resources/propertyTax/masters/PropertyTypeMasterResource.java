@@ -8,7 +8,7 @@ import static com.jayway.restassured.RestAssured.given;
 
 public class PropertyTypeMasterResource {
 
-    public Response createPropertyType(String json){
+    public Response create(String json){
 
         new APILogger().log("Create PropertyType request is started as --"+json);
 
@@ -23,7 +23,7 @@ public class PropertyTypeMasterResource {
         return response;
     }
 
-    public Response searchPropertyType(String json, String s) {
+    public Response search(String json, String s) {
 
         new APILogger().log("Search PropertyType request is started as --"+json);
 

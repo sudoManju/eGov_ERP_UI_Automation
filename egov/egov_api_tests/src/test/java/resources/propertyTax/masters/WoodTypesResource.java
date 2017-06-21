@@ -9,7 +9,7 @@ import static com.jayway.restassured.RestAssured.given;
 public class WoodTypesResource {
 
 
-    public Response createWoodTypes(String jsonString) {
+    public Response create(String jsonString) {
 
         new APILogger().log("Create WoodTypes Master request is started as --"+jsonString);
 
@@ -24,7 +24,7 @@ public class WoodTypesResource {
         return response;
     }
 
-    public Response searchWoodTypes(String json, String s) {
+    public Response search(String json, String s) {
 
         new APILogger().log("Search WoodTypes Master request is started as --"+json);
 
