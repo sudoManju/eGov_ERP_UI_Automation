@@ -52,6 +52,19 @@ jQuery(document).ready(function($) {
 		if ($('#newCitizenApplicationform').valid()) {
 			$('#serviceType').prop("disabled", false);
 			document.getElementById("workFlowAction").value = button;
+			if($('#citizenOrBusinessUser').val())
+			{
+				if(!$('#architectAccepted').prop('checked')){
+					bootbox.alert("Please accept disclaimer to continue...");
+					return false;
+				}
+				if(button == 'Submit'){
+					if($('#validateCitizenAcceptance').val() == 'true' && $('#citizenDisclaimerAccepted').val() != 'true'){
+						bootbox.alert("Citizen Disclaimer Acceptance Pending. Cannot Submit Application.");
+						return false;
+					}
+				}
+			}
 			document.forms[0].submit();
 			return true;
 		} else {

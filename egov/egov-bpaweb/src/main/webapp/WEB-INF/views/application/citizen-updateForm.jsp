@@ -56,8 +56,11 @@
 							
 			<form:hidden path="" id="wfstateDesc"
 				value="${bpaApplication.state.value}" />
-					<input type="hidden" name="citizenOrBusinessUser"
+					<input type="hidden" name="citizenOrBusinessUser" id="citizenOrBusinessUser"
 				value="${citizenOrBusinessUser}">
+			<input type="hidden"  id="validateCitizenAcceptance" name="validateCitizenAcceptance" value="${validateCitizenAcceptance}"/>
+			<input type="hidden"  id="citizenDisclaimerAccepted" name="citizenDisclaimerAccepted" value="${citizenDisclaimerAccepted}"/>
+			<input type="hidden"  id="isCitizen" name="isCitizen" value="${isCitizen}"/>
 	<ul class="nav nav-tabs" id="settingstab">
 				<li class="active"><a data-toggle="tab"
 					href="#appliccation-info" data-tabidx=0><spring:message
@@ -89,6 +92,11 @@
 							<jsp:include page="buildingDetails.jsp" />
 						</div>
 					</c:if>
+					<c:if test="${(isCitizen && validateCitizenAcceptance) || (!isCitizen)}">
+						<div class="panel panel-primary" data-collapsed="0">
+							<jsp:include page="disclaimer.jsp" />
+						</div>
+					</c:if>
 					<div class="panel panel-primary" data-collapsed="0">
 						<jsp:include page="applicationhistory-view.jsp"></jsp:include>
 					</div>
@@ -105,9 +113,6 @@
 					value="Submit">Submit</form:button>
 					<form:button type="submit" id="buttonCancel" class="btn btn-primary"
 					value="CANCEL APPLICATION"> CANCEL APPLICATION </form:button>
-					<c:if test="${onlinePaymentEnable}">
-					<form:button type="submit" id="buttonPay" class="btn btn-primary"
-					value="Pay Online"> Pay Online </form:button></c:if>
 					</c:when>
 					<c:otherwise>
 					</c:otherwise>
@@ -142,6 +147,20 @@ jQuery(document).ready(function() {
 		$('#constDiv').hide();
 	}
  $('#buttonSave').click(function() {
+				 if($('#citizenOrBusinessUser').val())
+					{// for citizen login
+					 if($('#validateCitizenAcceptance').val() == 'true' && $('#isCitizen').val() == 'true'){
+						 if(!$('#citizenAccepted').prop('checked')){
+								bootbox.alert("Please accept disclaimer to continue...");
+								return false;
+							}
+					 } else if($('#isCitizen').val() != 'true'){  //for business user login
+						if(!$('#architectAccepted').prop('checked')){
+							bootbox.alert("Please accept disclaimer to continue...");
+							return false;
+						}
+					 }
+					}
 					var button=$('#buttonSave').val();
 					document.getElementById("workFlowAction").value=button;
 					$("#applicantdet").prop("disabled",false);
@@ -152,6 +171,25 @@ jQuery(document).ready(function() {
 					
 				});
  $('#buttonSubmit').click(function() {
+	 	if($('#citizenOrBusinessUser').val())
+		{
+			// for citizen login
+	 		 if($('#validateCitizenAcceptance').val() == 'true' && $('#isCitizen').val() == 'true'){
+				 if(!$('#citizenAccepted').prop('checked')){
+						bootbox.alert("Please accept disclaimer to continue...");
+						return false;
+					}
+			 } else if($('#isCitizen').val() != 'true'){  //for business user login
+				if(!$('#architectAccepted').prop('checked')){
+					bootbox.alert("Please accept disclaimer to continue...");
+					return false;
+				}
+				if($('#validateCitizenAcceptance').val() == 'true' && $('#citizenDisclaimerAccepted').val() != 'true'){
+					bootbox.alert("Citizen Disclaimer Acceptance Pending. Cannot Submit Application.");
+					return false;
+				}
+			 }
+		}
 		var button=$('#buttonSubmit').val();
 		document.getElementById("workFlowAction").value=button;
 		$("#applicantdet").prop("disabled",false);

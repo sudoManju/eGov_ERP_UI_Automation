@@ -42,9 +42,12 @@ package org.egov.bpa.web.controller.application.citizen;
 import static org.egov.bpa.utils.BpaConstants.CHECKLIST_TYPE_NOC;
 import static org.egov.bpa.utils.BpaConstants.CREATE_ADDITIONAL_RULE_CREATE;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.egov.bpa.application.entity.Applicant;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.service.InspectionService;
 import org.egov.bpa.application.service.LettertoPartyService;
@@ -52,9 +55,14 @@ import org.egov.bpa.application.service.collection.GenericBillGeneratorService;
 import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.bpa.web.controller.application.BpaGenericApplicationController;
+import org.egov.infra.admin.master.entity.AppConfigValues;
+import org.egov.infra.admin.master.entity.User;
+import org.egov.infra.admin.master.service.AppConfigValueService;
+import org.egov.infra.admin.master.service.UserService;
 import org.egov.infra.security.utils.SecurityUtils;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -77,7 +85,7 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 
 	private static final String ADDITIONALRULE = "additionalRule";
 	@Autowired
-	private GenericBillGeneratorService genericBillGeneratorService;
+	private GenericBillGeneratorService genericBillGeneratorService; 
 	@Autowired
 	private BpaUtils bpaUtils;
 	@Autowired
@@ -85,9 +93,15 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 	@Autowired
 	private InspectionService inspectionService;
 	private SecurityUtils securityUtils;
+	@Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private AppConfigValueService appConfigValueService;
 
 	@ModelAttribute
-	public BpaApplication getBpaApplication(@PathVariable final String applicationNumber) {
+	public BpaApplication getBpaApplication(@PathVariable final String applicationNumber) {  
 		return applicationBpaService.findByApplicationNumber(applicationNumber);
 	}
 
@@ -95,7 +109,8 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 	public String updateApplicationForm(final Model model, @PathVariable final String applicationNumber,
 			final HttpServletRequest request) {
 		final BpaApplication application = getBpaApplication(applicationNumber);
-		model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
+		model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());  
+		model.addAttribute("isCitizen", bpaUtils.logedInuserIsCitizen());
 		model.addAttribute("mode", "newappointment");
 		model.addAttribute(APPLICATION_HISTORY, bpaThirdPartyService.getHistory(application));
 		loadViewdata(model, application);
@@ -111,8 +126,15 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 		model.addAttribute(ADDITIONALRULE, CREATE_ADDITIONAL_RULE_CREATE);
 		model.addAttribute(BPA_APPLICATION, application);
 		// prepareWorkflow(model, application, workflowContainer);
+		List<AppConfigValues> appConfigValueList = appConfigValueService.getConfigValuesByModuleAndKey(
+                BpaConstants.APPLICATION_MODULE_TYPE, BpaConstants.BPA_CITIZENACCEPTANCE_CHECK);
+		String validateCitizenAcceptance = !appConfigValueList.isEmpty() ? appConfigValueList.get(0).getValue() : "";
+		model.addAttribute("validateCitizenAcceptance", (validateCitizenAcceptance.equalsIgnoreCase("YES")?Boolean.TRUE:Boolean.FALSE));
+		if(validateCitizenAcceptance!=null){			
+			model.addAttribute("citizenDisclaimerAccepted",application.isCitizenAccepted()); 
+		}
 		String enableOrDisablePayOnline=bpaUtils.getAppconfigValueByKeyName(BpaConstants.ENABLEONLINEPAYMENT);
-		model.addAttribute("onlinePaymentEnable", (enableOrDisablePayOnline.equals("YES")?Boolean.TRUE:Boolean.FALSE));
+		model.addAttribute("onlinePaymentEnable", (enableOrDisablePayOnline.equalsIgnoreCase("YES")?Boolean.TRUE:Boolean.FALSE));
 		model.addAttribute("currentState",
 				application.getCurrentState() != null ? application.getCurrentState().getValue() : "");
 		model.addAttribute(BPA_APPLICATION, application);
@@ -124,6 +146,10 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 		model.addAttribute("isFeeCollected", bpaDemandService.checkAnyTaxIsPendingToCollect(application));
 		model.addAttribute("lettertopartylist", lettertoPartyService.findByBpaApplicationOrderByIdDesc(application));
 		model.addAttribute("inspectionList", inspectionService.findByBpaApplicationOrderByIdAsc(application));
+		if (application.getOwner().getApplicantAddress() == null && application.getOwner().getAddress() != null
+                && !application.getOwner().getAddress().isEmpty()
+                && application.getOwner().getAddress().get(0) != null)
+            application.getOwner().setApplicantAddress(application.getOwner().getAddress().get(0).getStreetRoadLine());
 	}
 
 	@RequestMapping(value = "/citizen/update/{applicationNumber}", method = RequestMethod.POST)
@@ -131,13 +157,23 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 			@PathVariable final String applicationNumber, final BindingResult resultBinder,
 			final RedirectAttributes redirectAttributes, final HttpServletRequest request, final Model model,
 			@RequestParam("files") final MultipartFile[] files, @RequestParam String workFlowAction) {
+		
+		 User dbUser = validateApplicantDtls_unique_email(bpaApplication.getOwner());
+		 if (dbUser!=null && dbUser.getId()!= bpaApplication.getOwner().getId()){
+            model.addAttribute("noJAORSAMessage", "Applicant/User with given emailId already exists.");
+            if (bpaApplication.getStatus() != null
+					&& bpaApplication.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_CREATED))
+            	return "bpaapp-citizenForm";
+            else
+				return "citizen-view";
+		 } 
 
 		if (resultBinder.hasErrors()) {
 			loadViewdata(model, bpaApplication);
 			if (bpaApplication.getStatus() != null
 					&& bpaApplication.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_CREATED))
 				return "bpaapp-citizenForm";
-			else
+			else 
 				return "citizen-view";
 		}
 		workFlowAction = request.getParameter("workFlowAction");
@@ -145,7 +181,7 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 		applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
 		bpaApplication.getBuildingDetail().get(0)
 				.setApplicationFloorDetails(applicationBpaService.buildApplicationFloorDetails(bpaApplication));
-		if (workFlowAction != null && workFlowAction.equals(BpaConstants.WF_PAY_ONLINE_BUTTON)) {
+		if (workFlowAction != null && workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)) {
 			
 			return genericBillGeneratorService.generateBillAndRedirectToCollection(bpaApplication, model);
 		}
@@ -173,10 +209,23 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 
 			}
 		}
+		bpaApplication.getOwner().setUsername(bpaApplication.getOwner().getEmailId());
+        bpaApplication.getOwner().setPassword(passwordEncoder.encode(bpaApplication.getOwner().getMobileNumber()));
+        setApplicantAddress(bpaApplication.getOwner());
 		applicationBpaService.saveAndFlushApplication(bpaApplication);
 		bpaUtils.updatePortalUserinbox(bpaApplication,null);
 		bpaUtils.sendSmsEmailOnCitizenSubmit(bpaApplication, workFlowAction);
 		return BPA_APPLICATION_RESULT;
 	}
+	
+    
+    private User validateApplicantDtls_unique_email(final Applicant owner) {
+        return userService.getUserByEmailId(owner.getEmailId());
+    }
+    
+    private void setApplicantAddress(final Applicant owner) {
+        owner.getAddress().get(0).setStreetRoadLine(owner.getApplicantAddress());
+    }
+
 
 }

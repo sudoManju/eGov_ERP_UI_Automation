@@ -2,7 +2,7 @@
   ~ eGov suite of products aim to improve the internal efficiency,transparency,
   ~    accountability and the service delivery of the government  organizations.
   ~
-  ~     Copyright (C) <2015>  eGovernments Foundation
+  ~     Copyright (C) <2017>  eGovernments Foundation
   ~
   ~     The updated version of eGov suite of products as by eGovernments Foundation
   ~     is available at http://www.egovernments.org
@@ -37,49 +37,33 @@
   ~
   ~   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
   --%>
-
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@page import="org.python.modules.jarray"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn"%>
 
-<%@ page language="java" pageEncoding="UTF-8"%>
-<html>
-<head>
-<title><spring:message code="title.collect.tax.view" /></title>
-<script type="text/javascript">
-	jQuery(document).ready(function() {
+<div class="panel-heading custom_form_panel_heading">
+	<div class="panel-title">
+		<spring:message code="lbl.disclaimer" />
+	</div>
+</div>
 
-		var collectXML = '${collectxml}';
-		var citizenRole = '${citizenrole}';
-		var onlinePaymentEnable = '${onlinePaymentEnable}';
-		if (citizenRole == 'true' && onlinePaymentEnable == 'true') {
-			jQuery('<form>.').attr({
-				method : 'post',
-				action : '/collection/citizen/onlineReceipt-newform.action',
-				target : '_self'
-			}).append(jQuery('<input>').attr({
-				type : 'hidden',
-				id : 'collectXML',
-				name : 'collectXML',
-				value : collectXML
-			})).appendTo(document.body).submit();
-		} else {
-			jQuery('<form>.').attr({
-				method : 'post',
-				action : '/collection/receipts/receipt-newform.action',
-				target : '_self'
-			}).append(jQuery('<input>').attr({
-				type : 'hidden',
-				id : 'collectXML',
-				name : 'collectXML',
-				value : collectXML
-			})).appendTo(document.body).submit();
-		}
-	});
-</script>
-</head>
-<body>
-</body>
-</html>
+<div class="form-group">
+	<label class="col-sm-3 control-label text-right"> <spring:message
+			code="lbl.accepted" /><span class="mandatory"></span></label>
+	<c:choose>
+	<c:when test="${isCitizen}"> <!-- for citizen user login -->
+		<div class="col-sm-3 add-margin">
+			<form:checkbox path="citizenAccepted" id="citizenAccepted" cssClass="form-control" />
+			<form:errors path="citizenAccepted" cssClass="error-msg" />
+		</div>
+	</c:when>
+	<c:otherwise>  <!-- for business user login -->
+		<div class="col-sm-3 add-margin">
+			<form:checkbox path="architectAccepted" id="architectAccepted" cssClass="form-control" />
+			<form:errors path="architectAccepted" cssClass="error-msg" />
+		</div>
+	</c:otherwise>
+	</c:choose>		
+</div>

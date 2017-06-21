@@ -64,6 +64,8 @@
 				value="${invalidStakeholder}" />
 			<input type="hidden" id="mode" name="mode" value="${mode}" />
 			<input type="hidden"  id="citizenOrBusinessUser" name="citizenOrBusinessUser" value="${citizenOrBusinessUser}"/>
+			<input type="hidden"  id="validateCitizenAcceptance" name="validateCitizenAcceptance" value="${validateCitizenAcceptance}"/>
+			<input type="hidden"  id="citizenDisclaimerAccepted" name="citizenDisclaimerAccepted" value="${citizenDisclaimerAccepted}"/>
 			<form:hidden path="" id="workFlowAction" name="workFlowAction" />
 			<ul class="nav nav-tabs" id="settingstab">
 				<li class="active"><a data-toggle="tab"
@@ -90,6 +92,9 @@
 					<div class="panel panel-primary buildingdetails" data-collapsed="0">
 						<jsp:include page="buildingDetails.jsp" />
 					</div>
+					<div class="panel panel-primary" data-collapsed="0">
+						<jsp:include page="disclaimer.jsp" />
+					</div>
 				</div>
 				<div id="document-info" class="tab-pane fade">
 					<div class="panel panel-primary" data-collapsed="0">
@@ -100,7 +105,7 @@
 
 			<div align="center">
 			<c:choose>
-			<c:when test="${citizenOrBusinessUser }">
+			<c:when test="${citizenOrBusinessUser}">
 				<form:button type="submit" id="bpaSave" class="btn btn-primary" 
 					value="Save">Save</form:button>
 				<td><form:button type="submit" id="bpaCreate" class="btn btn-primary" 

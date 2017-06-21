@@ -50,21 +50,31 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.egov.bpa.application.entity.Applicant;
 import org.egov.bpa.application.entity.ApplicationDocument;
 import org.egov.bpa.application.entity.ApplicationStakeHolder;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.CheckListDetail;
 import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.application.entity.StakeHolder;
+import org.egov.bpa.application.service.collection.GenericBillGeneratorService;
 import org.egov.bpa.masters.service.ServiceTypeService;
 import org.egov.bpa.masters.service.StakeHolderService;
 import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.bpa.web.controller.application.BpaGenericApplicationController;
+import org.egov.infra.admin.master.entity.AppConfigValues;
 import org.egov.infra.admin.master.entity.User;
+import org.egov.infra.admin.master.service.AppConfigValueService;
+import org.egov.infra.admin.master.service.RoleService;
+import org.egov.infra.admin.master.service.UserService;
+import org.egov.infra.config.properties.ApplicationProperties;
+import org.egov.infra.persistence.entity.Address;
+import org.egov.infra.persistence.entity.PermanentAddress;
 import org.egov.infra.security.utils.SecurityUtils;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -87,6 +97,23 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
     private SecurityUtils securityUtils;
 	@Autowired
 	private StakeHolderService stakeHolderService;
+	@Autowired
+    private ApplicationProperties applicationProperties;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private RoleService roleService;
+    
+    @Autowired
+    private UserService userService;
+    
+	@Autowired
+	private GenericBillGeneratorService genericBillGeneratorService; 
+    
+    @Autowired
+    private AppConfigValueService appConfigValueService;
 
 	@RequestMapping(value = "/newconstruction-form", method = GET)
 	public String showNewApplicationForm(@ModelAttribute final BpaApplication bpaApplication, final Model model,
@@ -97,6 +124,13 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
 	private String loadNewForm(final BpaApplication bpaApplication, final Model model, String serviceCode) {
 		bpaApplication.setApplicationDate(new Date());
 		model.addAttribute("mode", "new");
+		List<AppConfigValues> appConfigValueList = appConfigValueService.getConfigValuesByModuleAndKey(
+	                BpaConstants.APPLICATION_MODULE_TYPE, BpaConstants.BPA_CITIZENACCEPTANCE_CHECK);
+		String validateCitizenAcceptance = !appConfigValueList.isEmpty() ? appConfigValueList.get(0).getValue() : "";
+		model.addAttribute("validateCitizenAcceptance", (validateCitizenAcceptance.equalsIgnoreCase("YES")?Boolean.TRUE:Boolean.FALSE));
+		if(validateCitizenAcceptance!=null){			
+			model.addAttribute("citizenDisclaimerAccepted",bpaApplication.isCitizenAccepted());
+		}
 		bpaApplication.setServiceType(serviceTypeService.getServiceTypeByCode(serviceCode));
 		model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
 		model.addAttribute("checkListDetailList", checkListDetailService.findActiveCheckListByServiceType(bpaApplication.getServiceType().getId(), 
@@ -182,6 +216,10 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
 				return loadNewForm(bpaApplication, model, bpaApplication.getServiceType().getCode());
 			}
 		}
+		if (validateApplicantDtls_unique_email(bpaApplication.getOwner())!=null){
+            model.addAttribute("noJAORSAMessage", "Applicant/User with given emailId already exists.");
+            return loadNewForm(bpaApplication, model, bpaApplication.getServiceType().getCode()); 
+        }
 		User user = securityUtils.getCurrentUser();
 		StakeHolder stakeHolder = stakeHolderService.findById(user.getId());
 		ApplicationStakeHolder applicationStakeHolder = new ApplicationStakeHolder();
@@ -195,11 +233,20 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
 		}
 		workFlowAction = request.getParameter("workFlowAction");
 		applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
+		if (workFlowAction != null && workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)) {
+			
+			return genericBillGeneratorService.generateBillAndRedirectToCollection(bpaApplication, model);
+		}
 		bpaApplication.setAdmissionfeeAmount(applicationBpaService.setAdmissionFeeAmountForRegistrationWithAmenities(
 				String.valueOf(bpaApplication.getServiceType().getId()), new ArrayList<ServiceType>()));
+		bpaApplication.getOwner().setUsername(bpaApplication.getOwner().getEmailId());
+        bpaApplication.getOwner().updateNextPwdExpiryDate(applicationProperties.userPasswordExpiryInDays());
+        bpaApplication.getOwner().setPassword(passwordEncoder.encode(bpaApplication.getOwner().getMobileNumber()));
+        bpaApplication.getOwner().addRole(roleService.getRoleByName(BpaConstants.ROLE_CITIZEN));
+        bpaApplication.getOwner().setAddress(Arrays.asList(setApplicantAddress(bpaApplication.getOwner())));
 		BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication, workFlowAction);
 		if (bpaUtils.logedInuseCitizenOrBusinessUser()) {
-			bpaUtils.createPortalUserinbox(bpaApplicationRes,Arrays.asList(securityUtils.getCurrentUser()));
+			bpaUtils.createPortalUserinbox(bpaApplicationRes,Arrays.asList(bpaApplicationRes.getOwner(),securityUtils.getCurrentUser()));
 			model.addAttribute("message",
 					"Sucessfully saved with ApplicationNumber " + bpaApplicationRes.getApplicationNumber());
 			bpaUtils.sendSmsEmailOnCitizenSubmit(bpaApplication, workFlowAction);
@@ -207,6 +254,15 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
 		return BPAAPPLICATION_CITIZEN;
 	}
 
-	
+	 private Address setApplicantAddress(final Applicant owner) {
+	    final PermanentAddress permanentAddress = new PermanentAddress();
+	    permanentAddress.setStreetRoadLine(owner.getApplicantAddress());
+	    permanentAddress.setUser(owner);
+	    return permanentAddress;
+	  }
+	 
+	 private User validateApplicantDtls_unique_email(final Applicant owner) {
+         return userService.getUserByEmailId(owner.getEmailId());
+	 }
 
 }

@@ -2,7 +2,6 @@ package org.egov.bpa.service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -210,6 +209,15 @@ public class BpaUtils {
 			citizenOrbusiness = Boolean.TRUE;
 		}
 		return citizenOrbusiness;
+	}
+	
+	public Boolean logedInuserIsCitizen() {
+		Boolean citizen = Boolean.FALSE;
+		User applicationInitiator = getCurrentUser();
+		if (applicationInitiator != null && (applicationInitiator.getType().equals(UserType.CITIZEN))) {
+			citizen = Boolean.TRUE;
+		}
+		return citizen;
 	}
 
 	@Transactional
