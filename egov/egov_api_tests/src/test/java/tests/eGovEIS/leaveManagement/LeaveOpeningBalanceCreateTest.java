@@ -1,6 +1,6 @@
 package tests.eGovEIS.leaveManagement;
 
-import builders.eGovEIS.employee.SearchEmployeeRequestBuilder;
+import builders.eGovEIS.emp.SearchEmployeeRequestBuilder;
 import builders.eGovEIS.employeeMaster.leaveType.create.LeaveTypeCreateRequestBuilder;
 import builders.eGovEIS.employeeMaster.leaveType.search.LeaveTypeSearchRequestBuilder;
 import builders.eGovEIS.leaveManagement.create.LeaveOpeningBalanceBuilder;
@@ -9,7 +9,7 @@ import builders.eGovEIS.leaveManagement.create.OpeningBalanceCreateRequestBuilde
 import builders.eGovEIS.leaveManagement.create.RequestInfoBuilder;
 import builders.eGovEIS.leaveManagement.search.SearchOpeningBalanceRequestBuilder;
 import com.jayway.restassured.response.Response;
-import entities.requests.eGovEIS.employee.SearchEmployeeRequest;
+import entities.requests.eGovEIS.emp.SearchEmployeeRequest;
 import entities.requests.eGovEIS.employeeMaster.leaveType.create.LeaveTypeCreateRequest;
 import entities.requests.eGovEIS.employeeMaster.leaveType.search.LeaveTypeSearchRequest;
 import entities.requests.eGovEIS.leaveManagement.create.LeaveOpeningBalance;
@@ -94,7 +94,7 @@ public class LeaveOpeningBalanceCreateTest extends BaseAPITest {
 
     private int[] collectingAllEmployees() throws IOException {
         new APILogger().log("Search Employee Test is Started --");
-        entities.requests.eGovEIS.employee.RequestInfo requestInfo = new builders.eGovEIS.employee.RequestInfoBuilder().build();
+        entities.requests.eGovEIS.emp.RequestInfo requestInfo = new builders.eGovEIS.emp.RequestInfoBuilder().build();
 
         SearchEmployeeRequest request = new SearchEmployeeRequestBuilder().withRequestInfo(requestInfo).build();
 
