@@ -12,12 +12,12 @@ public class UserBuilder {
     Roles roles1 = new RolesBuilder().build();
 
     public UserBuilder(){
-       user.setName("Tester0001");
+       user.setName("Tester");
        user.setGender("MALE");
        user.setMobileNumber("9999999999");
        user.setEmailId("Test@Testing.com");
        user.setAltContactNumber("9090909090");
-       user.setPan("ABCD1234E");
+       user.setPan("ABCDE1234F");
        user.setAadhaarNumber("123456789012");
        user.setPermanentAddress("asdfgh");
        user.setPermanentCity("asdfgh");

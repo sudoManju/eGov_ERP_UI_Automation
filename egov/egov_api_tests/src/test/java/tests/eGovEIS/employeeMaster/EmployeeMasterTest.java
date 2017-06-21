@@ -35,10 +35,10 @@ public class EmployeeMasterTest extends BaseAPITest {
         Assignments[] assignments = {assignments1};
         User user1 = new UserBuilder().withUserName("Test_"+get3DigitRandomInt()).build();
         Employee employee = new EmployeeBuilder().withCode("EMP_"+get3DigitRandomInt()).withAssignments(assignments).withUser(user1).build();
-        CreateEmployeeRequest request = new CreateEmployeeRequestBuilder().withEmployee(employee).build();
+        CreateEmployeeRequest employeeRequest = new CreateEmployeeRequestBuilder().withEmployee(employee).build();
 
-        Response response = new EgovEISResource().createEmployee(RequestHelper.getJsonString(request),sessionId);
-        CreateEmployeeResponse response1 = (CreateEmployeeResponse)
+        Response response = new EgovEISResource().createEmployee(RequestHelper.getJsonString(employeeRequest),sessionId);
+        CreateEmployeeResponse employeeResponse = (CreateEmployeeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(),CreateEmployeeResponse.class);
 
         Assert.assertEquals(response.getStatusCode(),200);
