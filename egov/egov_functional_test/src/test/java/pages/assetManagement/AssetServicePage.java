@@ -1,6 +1,7 @@
 package pages.assetManagement;
 
 import entities.assetManagement.assetService.HeaderDetails;
+import org.apache.commons.lang3.RandomUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -143,6 +144,22 @@ public class AssetServicePage extends BasePage {
     private WebElement awardNubmerTextBox;
 
     // Category Market Details
+
+    @FindBy(css = "[name = 'East']")
+    private WebElement eastText;
+
+    @FindBy(css = "[name = 'South']")
+    private WebElement southText;
+
+    @FindBy(css = "[name = 'West']")
+    private WebElement westText;
+
+    @FindBy(css = "[name = 'North']")
+    private WebElement northText;
+
+    @FindBy(css = "[name = 'Stall Details']")
+    private WebElement stallDetailsText;
+
     @FindBy(css = "[name='Total Square feet area']")
     private WebElement totalSquareFeetAreaTextBox;
 
@@ -245,17 +262,18 @@ public class AssetServicePage extends BasePage {
             clickOnButton(webDriver.findElements(By.cssSelector("[class='btn btn-default']")).get(0), webDriver);
             enterLocationDetails();
         } else {
-            await().atMost(10, SECONDS).until(() -> webDriver.findElements(By.cssSelector("[id='tblRef'] tr td button")).size() > 0);
-            if (assetReferenceTableRows.size() == 1) {
-                clickOnButton(webDriver.findElement(By.cssSelector("[id='tblRef'] tr td button[class='btn btn-close']")), webDriver);
-            } else {
-                if (assetReferenceTableRows.size() > 10) {
-                    clickOnButton(assetReferenceTableRows.get(new Random().nextInt(9 - 0) + 0), webDriver);
-                } else {
-                    System.out.println("==========" + assetReferenceTableRows.size());
-                    clickOnButton(assetReferenceTableRows.get(new Random().nextInt(assetReferenceTableRows.size() - 0) + 0), webDriver);
-                }
-            }
+            clickOnButton(assetReferenceTableRows.get(0), webDriver);
+//            await().atMost(10, SECONDS).until(() -> webDriver.findElements(By.cssSelector("[id='tblRef'] tr td button")).size() > 0);
+//            if (assetReferenceTableRows.size() == 1) {
+//                clickOnButton(webDriver.findElement(By.cssSelector("[id='tblRef'] tr td button[class='btn btn-close']")), webDriver);
+//            } else {
+//                if (assetReferenceTableRows.size() > 10) {
+//                    clickOnButton(assetReferenceTableRows.get(new Random().nextInt(9 - 0) + 0), webDriver);
+//                } else {
+//                    System.out.println("==========" + assetReferenceTableRows.size());
+//                    clickOnButton(assetReferenceTableRows.get(new Random().nextInt(assetReferenceTableRows.size() - 0) + 0), webDriver);
+//                }
+//            }
         }
     }
 
@@ -265,13 +283,12 @@ public class AssetServicePage extends BasePage {
         clickOnButton(new Select(revenueWardSelectBox).getOptions().get(3), webDriver);
         clickOnButton(new Select(blockNumberSelectBox).getOptions().get(3), webDriver);
         enterText(doorNoTextBox, get6DigitRandomInt().substring(0, 4), webDriver);
-        enterText(pinCodeTextBox, "5" + get6DigitRandomInt().substring(0, 4), webDriver);
+        enterText(pinCodeTextBox, "5" + get6DigitRandomInt().substring(0, 5), webDriver);
     }
 
     public void enterCategoryDetails(String categoryDetails) {
         switch (categoryDetails) {
             case "Land":
-
                 enterDate(nameOfDeedExecution, getCurrentDate(), webDriver);
                 enterText(landRegisterNumberTextBox, "LReg_" + get6DigitRandomInt(), webDriver);
                 enterText(reSurveyNumberTextBox, get6DigitRandomInt().substring(0, 4), webDriver);
@@ -295,6 +312,11 @@ public class AssetServicePage extends BasePage {
                 break;
 
             case "market":
+                enterText(eastText, String.valueOf((RandomUtils.nextInt(100, 999))), webDriver);
+                enterText(northText, String.valueOf((RandomUtils.nextInt(100, 999))), webDriver);
+                enterText(southText, String.valueOf((RandomUtils.nextInt(100, 999))), webDriver);
+                enterText(westText, String.valueOf((RandomUtils.nextInt(100, 999))), webDriver);
+                enterText(stallDetailsText, get6DigitRandomInt(), webDriver);
                 enterText(totalSquareFeetAreaTextBox, get6DigitRandomInt().substring(0, 4), webDriver);
                 break;
 
@@ -336,8 +358,9 @@ public class AssetServicePage extends BasePage {
                 enterText(parkTotalSquareFeet, get6DigitRandomInt().substring(0, 5), webDriver);
                 break;
 
-            case "shopping":
-                enterText(shoppingComplexNumberTextBox, String.valueOf(new Random().nextInt((9 - 4) + 1) + 1), webDriver);
+            case "Shopping_Complex":
+//                enterText(shoppingComplexNumberTextBox, String.valueOf(new Random().nextInt((9 - 4) + 1) + 1), webDriver);
+                enterText(shoppingComplexNumberTextBox, get6DigitRandomInt(), webDriver);
                 int noOfFloors = new Random().nextInt((9 - 4) + 1) + 1;
                 System.out.println("=================" + noOfFloors);
                 int noOfRooms = noOfFloors * 5;

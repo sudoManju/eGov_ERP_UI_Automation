@@ -28,6 +28,18 @@ public class LeaseAndAgreementPage extends BasePage {
     @FindBy(id = "myOptions")
     private WebElement actionDropdown;
 
+    @FindBy(name = "tradelicenseNumber")
+    private WebElement tradelicenseNumber;
+
+    @FindBy(id = "tinNumber")
+    private WebElement tinNumber;
+
+    @FindBy(id = "allottee.permanentAddress")
+    private WebElement allotteeAddress;
+
+    @FindBy(css = "[id='remarks']")
+    private WebElement remarksTextBox;
+
     // Land Allottee Details
     @FindBy(css = "input[id='allottee.aadhaarNumber']")
     private WebElement aadharNumberTextBox;
@@ -93,7 +105,7 @@ public class LeaseAndAgreementPage extends BasePage {
     @FindAll({@FindBy(id = "createAgreement"), @FindBy(id = "Forward")})
     private WebElement forwardButton;
 
-    @FindBy(id = "registration_free")
+    @FindBy(css = "[id='registrationFee']")
     private WebElement registrationFeeTextBox;
 
     @FindBy(id = "goodWillAmount")
@@ -130,9 +142,12 @@ public class LeaseAndAgreementPage extends BasePage {
     private void enterLandAllotteeDetails(LandAllotteeDetails landAllotteeDetails) {
         enterText(aadharNumberTextBox, get6DigitRandomInt() + get6DigitRandomInt(), webDriver);
         enterText(mobileNumberTextBox, "9" + get6DigitRandomInt() + get6DigitRandomInt().substring(0, 3), webDriver);
-        enterText(nameTextBox, landAllotteeDetails.getName(), webDriver);
+        enterText(nameTextBox,landAllotteeDetails.getName()+getRandomUpperCaseCharacters(2) , webDriver);
         enterText(emailIdTextBox, landAllotteeDetails.getEmail(), webDriver);
         enterText(panTextBox, "ABCDE" + get6DigitRandomInt().substring(0, 4) + "F", webDriver);
+        enterText(tradelicenseNumber, "TL"+get6DigitRandomInt(), webDriver);
+        enterText(tinNumber, "TIN"+get6DigitRandomInt(), webDriver);
+        enterText(allotteeAddress, "Kurnool, Adoni, Nellore, Kakinada: AP", webDriver);
 
     }
 
@@ -140,8 +155,8 @@ public class LeaseAndAgreementPage extends BasePage {
         enterText(tenderNumberTextBox, "T" + get6DigitRandomInt().substring(0, 3), webDriver);
         enterDate(tenderDate, getCurrentDate(), webDriver);
         selectFromDropDown(natureOfAllotmentDropdown, landAgreementDetails.getNatureOfAllotment(), webDriver);
-        enterText(councilNumberTextBox, "C" + get6DigitRandomInt().substring(0, 3), webDriver);
         enterTextWithoutClearing(registrationFeeTextBox, "1000", webDriver);
+        enterText(councilNumberTextBox, "C" + get6DigitRandomInt().substring(0, 3), webDriver);
         enterDate(councilDate, getCurrentDate(), webDriver);
         enterText(landRentTextBox, landAgreementDetails.getLandRent(), webDriver);
         selectFromDropDown(paymentCycleDropdown, landAgreementDetails.getPaymentCycle(), webDriver);
@@ -152,8 +167,9 @@ public class LeaseAndAgreementPage extends BasePage {
         enterDate(securityDepositDate, getCurrentDate(), webDriver);
         enterDate(commencementDate, getCurrentDate(), webDriver);
 //        selectFromDropDown(rentIncrementMethodDropdown, landAgreementDetails.getRentIncrementMethod(), webDriver);
-        enterTextWithoutClearing(goodWillAmountTextBox, "100", webDriver);
+        enterTextWithoutClearing(goodWillAmountTextBox, "1"+get6DigitRandomInt(), webDriver);
         selectFromDropDown(timePeriodDropdown, landAgreementDetails.getTimePeriod(), webDriver);
+        enterText(remarksTextBox, "Agreement Created and Forwarded to Revenue Officer", webDriver);
     }
 
     public void clickOnForwardAndCloseSuccessPage() {
