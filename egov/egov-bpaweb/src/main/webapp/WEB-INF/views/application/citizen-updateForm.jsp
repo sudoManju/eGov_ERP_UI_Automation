@@ -50,18 +50,14 @@
 			id="editWaterConnectionform"
 			cssClass="form-horizontal form-groups-bordered"
 			enctype="multipart/form-data">
-						<form:hidden path="" id="workFlowAction" name="workFlowAction"/>	
-						<form:hidden path="" id="onlinePaymentEnable"
-				value="${onlinePaymentEnable}" />
-							
-			<form:hidden path="" id="wfstateDesc"
-				value="${bpaApplication.state.value}" />
-					<input type="hidden" name="citizenOrBusinessUser" id="citizenOrBusinessUser"
-				value="${citizenOrBusinessUser}">
+			<form:hidden path="" id="workFlowAction" name="workFlowAction"/>	
+			<form:hidden path="" id="onlinePaymentEnable" name="onlinePaymentEnable" value="${onlinePaymentEnable}" />
+			<form:hidden path="" id="wfstateDesc" value="${bpaApplication.state.value}" />
+			<input type="hidden" name="citizenOrBusinessUser" id="citizenOrBusinessUser" value="${citizenOrBusinessUser}">
 			<input type="hidden"  id="validateCitizenAcceptance" name="validateCitizenAcceptance" value="${validateCitizenAcceptance}"/>
 			<input type="hidden"  id="citizenDisclaimerAccepted" name="citizenDisclaimerAccepted" value="${citizenDisclaimerAccepted}"/>
 			<input type="hidden"  id="isCitizen" name="isCitizen" value="${isCitizen}"/>
-	<ul class="nav nav-tabs" id="settingstab">
+		<ul class="nav nav-tabs" id="settingstab">
 				<li class="active"><a data-toggle="tab"
 					href="#appliccation-info" data-tabidx=0><spring:message
 							code='lbl.appln.details' /></a></li>

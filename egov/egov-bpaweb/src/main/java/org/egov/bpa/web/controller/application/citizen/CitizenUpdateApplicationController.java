@@ -163,51 +163,55 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
                     && bpaApplication.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_CREATED))
                 return "bpaapp-citizenForm";
             else
-                return "citizen-view";
-        }
+				return "citizen-view";
+		 } 
 
-        if (resultBinder.hasErrors()) {
-            loadViewdata(model, bpaApplication);
-            if (bpaApplication.getStatus() != null
-                    && bpaApplication.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_CREATED))
-                return "bpaapp-citizenForm";
-            else
-                return "citizen-view";
-        }
-        workFlowAction = request.getParameter("workFlowAction");
-        Long approvalPosition = null;
-        applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
-        bpaApplication.getBuildingDetail().get(0)
-                .setApplicationFloorDetails(applicationBpaService.buildApplicationFloorDetails(bpaApplication));
-        if (workFlowAction != null && workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)) {
+		if (resultBinder.hasErrors()) {
+			loadViewdata(model, bpaApplication);
+			if (bpaApplication.getStatus() != null
+					&& bpaApplication.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_CREATED))
+				return "bpaapp-citizenForm";
+			else 
+				return "citizen-view";
+		}
+		workFlowAction = request.getParameter("workFlowAction");
+		Long approvalPosition = null;
+		applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
+		bpaApplication.getBuildingDetail().get(0)
+				.setApplicationFloorDetails(applicationBpaService.buildApplicationFloorDetails(bpaApplication));
+		String enableOrDisablePayOnline=bpaUtils.getAppconfigValueByKeyName(BpaConstants.ENABLEONLINEPAYMENT);
+		if (workFlowAction != null
+				&& workFlowAction
+						.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)
+				&& enableOrDisablePayOnline.equalsIgnoreCase("YES")) {
+			return genericBillGeneratorService
+					.generateBillAndRedirectToCollection(bpaApplication, model);
+		} 
+		if (workFlowAction != null
+				&& (workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)
+						|| BpaConstants.WF_CANCELAPPLICATION_BUTTON.equalsIgnoreCase(workFlowAction))
+				&& (bpaUtils.logedInuseCitizenOrBusinessUser())) {
+			if (workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)) {
+				final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(bpaApplication,
+						BpaConstants.WF_NEW_STATE);
+				if (wfmatrix != null)
+					approvalPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(),
+							bpaApplication.getSiteDetail().get(0) != null
+									&& bpaApplication.getSiteDetail().get(0).getElectionBoundary() != null
+											? bpaApplication.getSiteDetail().get(0).getElectionBoundary().getId()
+											: null);
+				bpaUtils.redirectToBpaWorkFlow(approvalPosition, bpaApplication, BpaConstants.WF_NEW_STATE, null, null,
+						null);
 
-            return genericBillGeneratorService.generateBillAndRedirectToCollection(bpaApplication, model);
-        }
-        if (workFlowAction != null
-                && (workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)
-                        || BpaConstants.WF_CANCELAPPLICATION_BUTTON.equalsIgnoreCase(workFlowAction))
-                && (bpaUtils.logedInuseCitizenOrBusinessUser())) {
-            if (workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)) {
-                final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(bpaApplication,
-                        BpaConstants.WF_NEW_STATE);
-                if (wfmatrix != null)
-                    approvalPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(),
-                            bpaApplication.getSiteDetail().get(0) != null
-                                    && bpaApplication.getSiteDetail().get(0).getElectionBoundary() != null
-                                            ? bpaApplication.getSiteDetail().get(0).getElectionBoundary().getId()
-                                            : null);
-                bpaUtils.redirectToBpaWorkFlow(approvalPosition, bpaApplication, BpaConstants.WF_NEW_STATE, null, null,
-                        null);
+			}
+			if (BpaConstants.WF_CANCELAPPLICATION_BUTTON.equalsIgnoreCase(workFlowAction)) {
+				bpaApplication.setStatus(
+						applicationBpaService.getStatusByCodeAndModuleType(BpaConstants.APPLICATION_STATUS_CANCELLED));
+				bpaUtils.updatePortalUserinbox(bpaApplication,null);
 
-            }
-            if (BpaConstants.WF_CANCELAPPLICATION_BUTTON.equalsIgnoreCase(workFlowAction)) {
-                bpaApplication.setStatus(
-                        applicationBpaService.getStatusByCodeAndModuleType(BpaConstants.APPLICATION_STATUS_CANCELLED));
-                bpaUtils.updatePortalUserinbox(bpaApplication, null);
-
-            }
-        }
-        bpaApplication.getOwner().setUsername(bpaApplication.getOwner().getEmailId());
+			}
+		}
+		bpaApplication.getOwner().setUsername(bpaApplication.getOwner().getEmailId());
         bpaApplication.getOwner().setPassword(passwordEncoder.encode(bpaApplication.getOwner().getMobileNumber()));
         bpaApplication.getOwner().addAddress(bpaApplication.getOwner().getPermanentAddress());
         applicationBpaService.saveAndFlushApplication(bpaApplication);

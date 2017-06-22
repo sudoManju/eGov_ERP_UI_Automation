@@ -67,7 +67,6 @@
 			})).appendTo(document.body).submit();
 		} else {
 			jQuery('<form>.').attr({
-				method : 'post',
 				action : '/collection/receipts/receipt-newform.action',
 				target : '_self'
 			}).append(jQuery('<input>').attr({

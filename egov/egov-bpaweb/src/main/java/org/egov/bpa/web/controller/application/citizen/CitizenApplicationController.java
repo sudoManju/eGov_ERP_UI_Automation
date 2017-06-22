@@ -121,36 +121,36 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
         return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_01);
     }
 
-    private String loadNewForm(final BpaApplication bpaApplication, final Model model, String serviceCode) {
-        bpaApplication.setApplicationDate(new Date());
-        model.addAttribute("mode", "new");
+	private String loadNewForm(final BpaApplication bpaApplication, final Model model, String serviceCode) {
+		bpaApplication.setApplicationDate(new Date());
+		model.addAttribute("mode", "new");
         bpaApplication.setSource(Source.CITIZENPORTAL);
         bpaApplication.setApplicantMode(ApplicantMode.NEW);
-        List<AppConfigValues> appConfigValueList = appConfigValueService.getConfigValuesByModuleAndKey(
-                BpaConstants.APPLICATION_MODULE_TYPE, BpaConstants.BPA_CITIZENACCEPTANCE_CHECK);
-        String validateCitizenAcceptance = !appConfigValueList.isEmpty() ? appConfigValueList.get(0).getValue() : "";
-        model.addAttribute("validateCitizenAcceptance",
-                (validateCitizenAcceptance.equalsIgnoreCase("YES") ? Boolean.TRUE : Boolean.FALSE));
-        if (validateCitizenAcceptance != null) {
-            model.addAttribute("citizenDisclaimerAccepted", bpaApplication.isCitizenAccepted());
-        }
-        bpaApplication.setServiceType(serviceTypeService.getServiceTypeByCode(serviceCode));
-        model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
-        model.addAttribute("checkListDetailList",
-                checkListDetailService.findActiveCheckListByServiceType(bpaApplication.getServiceType().getId(),
-                        BpaConstants.CHECKLIST_TYPE));
-        List<CheckListDetail> checkListDetail = checkListDetailService.findActiveCheckListByServiceType(
-                bpaApplication.getServiceType().getId(),
-                BpaConstants.CHECKLIST_TYPE);
-        List<ApplicationDocument> appDocList = new ArrayList<>();
-        for (CheckListDetail checkdet : checkListDetail) {
-            ApplicationDocument appdoc = new ApplicationDocument();
-            appdoc.setChecklistDetail(checkdet);
-            appDocList.add(appdoc);
-        }
-        model.addAttribute("applicationDocumentList", appDocList);
-        return "citizenApplication-form";
-    }
+		List<AppConfigValues> appConfigValueList = appConfigValueService.getConfigValuesByModuleAndKey(
+	                BpaConstants.APPLICATION_MODULE_TYPE, BpaConstants.BPA_CITIZENACCEPTANCE_CHECK);
+		String validateCitizenAcceptance = !appConfigValueList.isEmpty() ? appConfigValueList.get(0).getValue() : "";
+		model.addAttribute("validateCitizenAcceptance", (validateCitizenAcceptance.equalsIgnoreCase("YES")?Boolean.TRUE:Boolean.FALSE));
+		if(validateCitizenAcceptance!=null){			
+			model.addAttribute("citizenDisclaimerAccepted",bpaApplication.isCitizenAccepted());
+		}
+		String enableOrDisablePayOnline=bpaUtils.getAppconfigValueByKeyName(BpaConstants.ENABLEONLINEPAYMENT);
+		model.addAttribute("onlinePaymentEnable", (enableOrDisablePayOnline.equalsIgnoreCase("YES")?Boolean.TRUE:Boolean.FALSE));
+		bpaApplication.setServiceType(serviceTypeService.getServiceTypeByCode(serviceCode));
+		model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
+		model.addAttribute("checkListDetailList", checkListDetailService.findActiveCheckListByServiceType(bpaApplication.getServiceType().getId(), 
+				BpaConstants.CHECKLIST_TYPE));
+		List<CheckListDetail>checkListDetail= checkListDetailService.findActiveCheckListByServiceType(bpaApplication.getServiceType().getId(), 
+				BpaConstants.CHECKLIST_TYPE);
+		List<ApplicationDocument> appDocList=new ArrayList<>();
+		for(CheckListDetail checkdet:checkListDetail)
+		{
+			ApplicationDocument appdoc=new ApplicationDocument();
+					appdoc.setChecklistDetail(checkdet);
+					appDocList.add(appdoc);
+		}
+        model.addAttribute("applicationDocumentList",appDocList);
+		return "citizenApplication-form";
+	}
 
     @RequestMapping(value = "/demolition-form", method = GET)
     public String showDemolition(@ModelAttribute final BpaApplication bpaApplication, final Model model,
@@ -224,26 +224,30 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
             model.addAttribute("noJAORSAMessage", "Applicant/User with given emailId already exists.");
             return loadNewForm(bpaApplication, model, bpaApplication.getServiceType().getCode());
         }
-        User user = securityUtils.getCurrentUser();
-        StakeHolder stakeHolder = stakeHolderService.findById(user.getId());
-        ApplicationStakeHolder applicationStakeHolder = new ApplicationStakeHolder();
-        applicationStakeHolder.setApplication(bpaApplication);
-        applicationStakeHolder.setStakeHolder(stakeHolder);
-        bpaApplication.getStakeHolder().add(applicationStakeHolder);
-        if (!applicationBpaService.checkStakeholderIsValid(bpaApplication)) {
-            String message = applicationBpaService.getValidationMessageForBusinessResgistration(bpaApplication);
-            model.addAttribute("invalidStakeholder", message);
-            return loadNewForm(bpaApplication, model, bpaApplication.getServiceType().getCode());
-        }
-        workFlowAction = request.getParameter("workFlowAction");
-        applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
-        if (workFlowAction != null && workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)) {
-
-            return genericBillGeneratorService.generateBillAndRedirectToCollection(bpaApplication, model);
-        }
-        bpaApplication.setAdmissionfeeAmount(applicationBpaService.setAdmissionFeeAmountForRegistrationWithAmenities(
-                String.valueOf(bpaApplication.getServiceType().getId()), new ArrayList<ServiceType>()));
-        bpaApplication.getOwner().setUsername(bpaApplication.getOwner().getEmailId());
+		User user = securityUtils.getCurrentUser();
+		StakeHolder stakeHolder = stakeHolderService.findById(user.getId());
+		ApplicationStakeHolder applicationStakeHolder = new ApplicationStakeHolder();
+		applicationStakeHolder.setApplication(bpaApplication);
+		applicationStakeHolder.setStakeHolder(stakeHolder);
+		bpaApplication.getStakeHolder().add(applicationStakeHolder);
+		if (!applicationBpaService.checkStakeholderIsValid(bpaApplication)) {
+			String message = applicationBpaService.getValidationMessageForBusinessResgistration(bpaApplication);
+			model.addAttribute("invalidStakeholder", message);
+			return loadNewForm(bpaApplication, model, bpaApplication.getServiceType().getCode());
+		}
+		workFlowAction = request.getParameter("workFlowAction");
+		applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
+		String enableOrDisablePayOnline=bpaUtils.getAppconfigValueByKeyName(BpaConstants.ENABLEONLINEPAYMENT);
+		if (workFlowAction != null
+				&& workFlowAction
+						.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)
+				&& enableOrDisablePayOnline.equalsIgnoreCase("YES")) {
+			return genericBillGeneratorService
+					.generateBillAndRedirectToCollection(bpaApplication, model);
+		}
+		bpaApplication.setAdmissionfeeAmount(applicationBpaService.setAdmissionFeeAmountForRegistrationWithAmenities(
+				String.valueOf(bpaApplication.getServiceType().getId()), new ArrayList<ServiceType>()));
+		bpaApplication.getOwner().setUsername(bpaApplication.getOwner().getEmailId());
         bpaApplication.getOwner().updateNextPwdExpiryDate(applicationProperties.userPasswordExpiryInDays());
         bpaApplication.getOwner().setPassword(passwordEncoder.encode(bpaApplication.getOwner().getMobileNumber()));
         bpaApplication.getOwner().addRole(roleService.getRoleByName(BpaConstants.ROLE_CITIZEN));

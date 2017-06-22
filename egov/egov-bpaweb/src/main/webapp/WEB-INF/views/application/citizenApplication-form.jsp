@@ -62,6 +62,7 @@
 				value="${noJAORSAMessage}" />
 			<input type="hidden" id="invalidStakeholder" name="invalidStakeholder"
 				value="${invalidStakeholder}" />
+			<form:hidden path="" id="onlinePaymentEnable" name="onlinePaymentEnable" value="${onlinePaymentEnable}" />
 			<input type="hidden" id="mode" name="mode" value="${mode}" />
 			<input type="hidden"  id="citizenOrBusinessUser" name="citizenOrBusinessUser" value="${citizenOrBusinessUser}"/>
 			<input type="hidden"  id="validateCitizenAcceptance" name="validateCitizenAcceptance" value="${validateCitizenAcceptance}"/>

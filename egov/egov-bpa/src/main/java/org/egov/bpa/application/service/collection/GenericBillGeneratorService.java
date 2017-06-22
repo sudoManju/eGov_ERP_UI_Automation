@@ -41,6 +41,7 @@ package org.egov.bpa.application.service.collection;
 
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.service.ApplicationBpaBillService;
+import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.infra.admin.master.entity.Role;
 import org.egov.infra.admin.master.entity.User;
@@ -59,17 +60,20 @@ public class GenericBillGeneratorService {
     private SecurityUtils securityUtils;
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private BpaUtils bpaUtils;
     @Autowired
     private ApplicationBpaBillService applicationBpaBillService;
 
     @Transactional
-    public String generateBillAndRedirectToCollection(final BpaApplication application, final Model model) {
+    public String generateBillAndRedirectToCollection(final BpaApplication application, final Model model) { 
         if (ApplicationThreadLocals.getUserId() == null)
             if (securityUtils.getCurrentUser().getUsername().equals(BpaConstants.USERNAME_ANONYMOUS))
                 ApplicationThreadLocals.setUserId(userService.getUserByUsername(BpaConstants.USERNAME_ANONYMOUS).getId());
         model.addAttribute("collectxml", applicationBpaBillService.generateBill(application));
         model.addAttribute("citizenrole", getCitizenUserRole());
+        String enableOrDisablePayOnline=bpaUtils.getAppconfigValueByKeyName(BpaConstants.ENABLEONLINEPAYMENT);
+		model.addAttribute("onlinePaymentEnable", (enableOrDisablePayOnline.equalsIgnoreCase("YES")?Boolean.TRUE:Boolean.FALSE));
        return "collecttax-redirection";
     }
 
