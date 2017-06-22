@@ -6,4 +6,5 @@ public interface UserData {
     String MALATHI = "malathi";
     String ADMIN = "egovernments";
     String AssetServiceUser = "KEMP0003";
+    String MANAS = "manas";
 }

@@ -22,7 +22,7 @@ public class BaseAPITest {
     public static ScenarioContext scenarioContext;
 
     public BaseAPITest() {
-        RestAssured.baseURI = new ResourceHelper().getBaseURI();
+        RestAssured.baseURI = new ResourceHelper().getBaseURL();
     }
 
     @BeforeMethod(alwaysRun = true)
@@ -44,7 +44,7 @@ public class BaseAPITest {
         return (gc.get(DAY_OF_MONTH) + "/" + (gc.get(MONTH) + 1) + "/" + gc.get(YEAR));
     }
 
-    protected String get3DigitRandomInt() {
+    public String get3DigitRandomInt() {
         return String.valueOf((RandomUtils.nextInt(100, 999)));
     }
 

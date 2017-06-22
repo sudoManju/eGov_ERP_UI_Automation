@@ -18,7 +18,7 @@ public class PropertiesReader {
     }
 
     public String getEndPointUrl(String endpoint) {
-        return ResourceHelper.getBaseURI() + prop.getProperty(endpoint);
+        return ResourceHelper.getBaseURL() + prop.getProperty(endpoint);
     }
 }
 

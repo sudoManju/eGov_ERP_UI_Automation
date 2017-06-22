@@ -2,7 +2,7 @@ package utils;
 
 public class ResourceHelper {
 
-    public static String getBaseURI() {
+    public static String getBaseURL() {
 
         String baseUrl;
         switch (System.getProperty("env")) {

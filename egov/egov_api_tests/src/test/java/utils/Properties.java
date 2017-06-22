@@ -74,7 +74,6 @@ public class Properties {
     public static final String createLeaveTypeUrl = propertiesReader.getEndPointUrl("createLeaveTypeUrl");
     public static final String userUpdateUrl = propertiesReader.getEndPointUrl("userUpdateUrl");
     public static final String loginUserDetailsUrl = propertiesReader.getEndPointUrl("loginUserDetailsUrl");
-    ;
     public static final String searchOtpUrl = propertiesReader.getEndPointUrl("searchOtpUrl");
 
     // Property Tax Master's Module Url's //
@@ -94,4 +93,10 @@ public class Properties {
     public static final String searchOccupancyMasterUrl = propertiesReader.getEndPointUrl("occupancyMasterSearchUrl");
     public static final String createWallTypeMasterUrl = propertiesReader.getEndPointUrl("wallTypeMasterCreateUrl");
     public static final String searchWallTypeMasterUrl = propertiesReader.getEndPointUrl("wallTypeMasterSearchUrl");
+
+    // Water Charge Management Url's //
+    public static final String wcmsCreateCategoryTypeUrl = propertiesReader.getEndPointUrl("wcmsCreateCategoryTypeUrl");
+    public static final String wcmsSearchCategoryTypeUrl = propertiesReader.getEndPointUrl("wcmsSearchCategoryTypeUrl");
+
+
 }

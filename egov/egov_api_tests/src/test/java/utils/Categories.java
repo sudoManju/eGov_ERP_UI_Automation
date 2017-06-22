@@ -13,4 +13,5 @@ public class Categories {
     public static final String USER = "User";
     public static final String PILOT = "Pilot";
     public static final String PTIS = "Ptis";
+    public static final String WCMS = "Wcms";
 }
