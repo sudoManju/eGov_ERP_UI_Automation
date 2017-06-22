@@ -1,9 +1,9 @@
-package entities.requests.wcms.categoryType.search;
+package entities.requests.wcms.pipeSize.search;
 
 import entities.requests.wcms.RequestInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class SearchCategoryTypeRequest {
+public class SearchPipeSizeRequest {
 
     @JsonProperty("RequestInfo")
     private RequestInfo RequestInfo;

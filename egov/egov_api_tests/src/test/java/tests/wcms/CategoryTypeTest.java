@@ -2,10 +2,10 @@ package tests.wcms;
 
 import builders.wcms.categoryType.create.CategoryBuilder;
 import builders.wcms.categoryType.create.CreateCategoryTypeRequestBuilder;
-import builders.wcms.categoryType.RequestInfoBuilder;
+import builders.wcms.RequestInfoBuilder;
 import builders.wcms.categoryType.search.SearchCategoryTypeRequestBuilder;
 import com.jayway.restassured.response.Response;
-import entities.requests.wcms.categoryType.RequestInfo;
+import entities.requests.wcms.RequestInfo;
 import entities.requests.wcms.categoryType.create.Category;
 import entities.requests.wcms.categoryType.create.CreateCategoryTypeRequest;
 import entities.requests.wcms.categoryType.search.SearchCategoryTypeRequest;

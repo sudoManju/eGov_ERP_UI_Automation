@@ -1,6 +1,6 @@
-package builders.wcms.categoryType;
+package builders.wcms;
 
-import entities.requests.wcms.categoryType.RequestInfo;
+import entities.requests.wcms.RequestInfo;
 
 public class RequestInfoBuilder {
     RequestInfo requestInfo = new RequestInfo();

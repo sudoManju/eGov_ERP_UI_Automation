@@ -1,4 +1,4 @@
-package entities.responses.wcms.categoryType;
+package entities.responses.wcms;
 
 public class ResponseInfo {
     private String ver;

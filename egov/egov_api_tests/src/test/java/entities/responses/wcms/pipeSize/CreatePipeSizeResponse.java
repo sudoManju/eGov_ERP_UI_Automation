@@ -1,15 +1,13 @@
-package entities.responses.wcms.categoryType.create;
+package entities.responses.wcms.pipeSize;
 
 import entities.responses.wcms.ResponseInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class CreateCategoryTypeResponse {
-
-    @JsonProperty("ResponseInfo")
+public class CreatePipeSizeResponse {
     private ResponseInfo ResponseInfo;
 
-    @JsonProperty("Category")
-    private Category[] Category;
+    @JsonProperty("PipeSize")
+    private PipeSize[] PipeSize;
 
     public ResponseInfo getResponseInfo() {
         return this.ResponseInfo;
@@ -19,11 +17,11 @@ public class CreateCategoryTypeResponse {
         this.ResponseInfo = ResponseInfo;
     }
 
-    public Category[] getCategory() {
-        return this.Category;
+    public PipeSize[] getPipeSize() {
+        return this.PipeSize;
     }
 
-    public void setCategory(Category[] Category) {
-        this.Category = Category;
+    public void setPipeSize(PipeSize[] PipeSize) {
+        this.PipeSize = PipeSize;
     }
 }

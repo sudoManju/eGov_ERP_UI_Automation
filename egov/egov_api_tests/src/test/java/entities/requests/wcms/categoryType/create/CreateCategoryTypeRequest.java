@@ -1,6 +1,6 @@
 package entities.requests.wcms.categoryType.create;
 
-import entities.requests.wcms.categoryType.RequestInfo;
+import entities.requests.wcms.RequestInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class CreateCategoryTypeRequest {

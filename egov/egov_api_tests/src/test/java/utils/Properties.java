@@ -97,6 +97,8 @@ public class Properties {
     // Water Charge Management Url's //
     public static final String wcmsCreateCategoryTypeUrl = propertiesReader.getEndPointUrl("wcmsCreateCategoryTypeUrl");
     public static final String wcmsSearchCategoryTypeUrl = propertiesReader.getEndPointUrl("wcmsSearchCategoryTypeUrl");
+    public static final String wcmsCreatePipeSizeUrl = propertiesReader.getEndPointUrl("wcmsCreatePipeSizeUrl");
+    public static final String wcmsSearchPipeSizeUrl = propertiesReader.getEndPointUrl("wcmsSearchPipeSizeUrl");
 
 
 }

@@ -1,4 +1,4 @@
-package entities.requests.wcms.categoryType;
+package entities.requests.wcms;
 
 public class RequestInfo {
     private String ver;

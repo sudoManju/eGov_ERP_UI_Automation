@@ -1,6 +1,6 @@
 package builders.wcms.categoryType.search;
 
-import entities.requests.wcms.categoryType.RequestInfo;
+import entities.requests.wcms.RequestInfo;
 import entities.requests.wcms.categoryType.search.SearchCategoryTypeRequest;
 
 public class SearchCategoryTypeRequestBuilder {
