@@ -8,8 +8,8 @@ public class CreateCategoryTypeResponse {
     @JsonProperty("ResponseInfo")
     private ResponseInfo ResponseInfo;
 
-    @JsonProperty("Category")
-    private Category[] Category;
+    @JsonProperty("CategoryTypes")
+    private CategoryTypes[] Category;
 
     public ResponseInfo getResponseInfo() {
         return this.ResponseInfo;
@@ -19,11 +19,11 @@ public class CreateCategoryTypeResponse {
         this.ResponseInfo = ResponseInfo;
     }
 
-    public Category[] getCategory() {
+    public CategoryTypes[] getCategory() {
         return this.Category;
     }
 
-    public void setCategory(Category[] Category) {
+    public void setCategory(CategoryTypes[] Category) {
         this.Category = Category;
     }
 }

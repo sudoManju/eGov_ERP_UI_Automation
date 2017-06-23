@@ -1,6 +1,6 @@
 package entities.requests.wcms.categoryType.create;
 
-public class Category {
+public class CategoryType {
     private String code;
     private String name;
     private String tenantId;

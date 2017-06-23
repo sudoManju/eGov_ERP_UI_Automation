@@ -39,7 +39,7 @@ public class WCMSResource {
                 .header("Content-Type", "application/json")
                 .body(jsonString)
                 .when()
-                .post(ResourceHelper.getBaseURL() + "/wcms-masters/category/" + code + "/_update");
+                .post(ResourceHelper.getBaseURL() + "/wcms-masters/categorytype/" + code + "/_update");
         new APILogger().log("Update CategoryType Test Request is Generated as  --" + response.asString());
         return response;
     }

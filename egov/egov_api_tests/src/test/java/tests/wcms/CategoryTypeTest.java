@@ -1,12 +1,12 @@
 package tests.wcms;
 
-import builders.wcms.categoryType.create.CategoryBuilder;
-import builders.wcms.categoryType.create.CreateCategoryTypeRequestBuilder;
 import builders.wcms.RequestInfoBuilder;
+import builders.wcms.categoryType.create.CategoryTypeBuilder;
+import builders.wcms.categoryType.create.CreateCategoryTypeRequestBuilder;
 import builders.wcms.categoryType.search.SearchCategoryTypeRequestBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.wcms.RequestInfo;
-import entities.requests.wcms.categoryType.create.Category;
+import entities.requests.wcms.categoryType.create.CategoryType;
 import entities.requests.wcms.categoryType.create.CreateCategoryTypeRequest;
 import entities.requests.wcms.categoryType.search.SearchCategoryTypeRequest;
 import entities.responses.wcms.categoryType.create.CreateCategoryTypeResponse;
@@ -34,7 +34,7 @@ public class CategoryTypeTest extends BaseAPITest {
     private String createCategoryType() throws IOException {
         new APILogger().log("Create CategoryType Test is Started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
-        Category category = new CategoryBuilder().build();
+        CategoryType category = new CategoryTypeBuilder().build();
         CreateCategoryTypeRequest createCategoryTypeRequest = new CreateCategoryTypeRequestBuilder()
                 .withCategory(category).withRequestInfo(requestInfo).build();
 
@@ -68,7 +68,7 @@ public class CategoryTypeTest extends BaseAPITest {
     private void updateCategoryType(CreateCategoryTypeResponse searchCategoryTypeResponse) throws IOException {
         new APILogger().log("Update CategoryType Test is Started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
-        Category category = new CategoryBuilder().withName(searchCategoryTypeResponse.getCategory()[0].getName() + "-Updated").build();
+        CategoryType category = new CategoryTypeBuilder().withName(searchCategoryTypeResponse.getCategory()[0].getName() + "-Updated").build();
         CreateCategoryTypeRequest createCategoryTypeRequest = new CreateCategoryTypeRequestBuilder()
                 .withCategory(category).withRequestInfo(requestInfo).build();
 

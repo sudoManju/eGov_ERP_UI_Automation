@@ -1,6 +1,6 @@
 package entities.responses.wcms.categoryType.create;
 
-public class Category {
+public class CategoryTypes {
     private String code;
     private String name;
     private String tenantId;

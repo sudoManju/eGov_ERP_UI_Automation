@@ -1,12 +1,14 @@
 package builders.wcms.categoryType.create;
 
-import entities.requests.wcms.categoryType.create.Category;
+import entities.requests.wcms.categoryType.create.CategoryType;
 import tests.BaseAPITest;
 
-public class CategoryBuilder {
-    Category category = new Category();
 
-    public CategoryBuilder() {
+public class CategoryTypeBuilder {
+
+    CategoryType category = new CategoryType();
+
+    public CategoryTypeBuilder() {
         category.setCode("");
         category.setName("Category Type" + new BaseAPITest().get3DigitRandomInt());
         category.setActive(true);
@@ -14,37 +16,41 @@ public class CategoryBuilder {
         category.setTenantId("default");
     }
 
-    public CategoryBuilder withCode(String code) {
+    public static CategoryTypeBuilder aCategoryType() {
+        return new CategoryTypeBuilder();
+    }
+
+    public CategoryTypeBuilder withCode(String code) {
         category.setCode(code);
         return this;
     }
 
-    public CategoryBuilder withName(String name) {
+    public CategoryTypeBuilder withName(String name) {
         category.setName(name);
         return this;
     }
 
-    public CategoryBuilder withTenantId(String tenantId) {
+    public CategoryTypeBuilder withTenantId(String tenantId) {
         category.setTenantId(tenantId);
         return this;
     }
 
-    public CategoryBuilder withDescription(String description) {
+    public CategoryTypeBuilder withDescription(String description) {
         category.setDescription(description);
         return this;
     }
 
-    public CategoryBuilder withActive(boolean active) {
+    public CategoryTypeBuilder withActive(boolean active) {
         category.setActive(active);
         return this;
     }
 
-    public CategoryBuilder withId(int id) {
+    public CategoryTypeBuilder withId(int id) {
         category.setId(id);
         return this;
     }
 
-    public Category build() {
+    public CategoryType build() {
         return category;
     }
 }

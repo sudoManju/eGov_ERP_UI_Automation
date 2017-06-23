@@ -5,17 +5,17 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class CreateCategoryTypeRequest {
 
-    @JsonProperty("Category")
-    private Category Category;
+    @JsonProperty("CategoryType")
+    private CategoryType Category;
 
     @JsonProperty("RequestInfo")
     private RequestInfo RequestInfo;
 
-    public entities.requests.wcms.categoryType.create.Category getCategory() {
+    public entities.requests.wcms.categoryType.create.CategoryType getCategory() {
         return this.Category;
     }
 
-    public void setCategory(entities.requests.wcms.categoryType.create.Category Category) {
+    public void setCategory(entities.requests.wcms.categoryType.create.CategoryType Category) {
         this.Category = Category;
     }
 
