@@ -176,7 +176,8 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 		}
 		workFlowAction = request.getParameter("workFlowAction");
 		Long approvalPosition = null;
-		applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
+		if (!bpaApplication.getApplicationDocument().isEmpty())
+	       	applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder); 
 		bpaApplication.getBuildingDetail().get(0)
 				.setApplicationFloorDetails(applicationBpaService.buildApplicationFloorDetails(bpaApplication));
 		String enableOrDisablePayOnline=bpaUtils.getAppconfigValueByKeyName(BpaConstants.ENABLEONLINEPAYMENT);
@@ -213,7 +214,7 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 		}
 		bpaApplication.getOwner().setUsername(bpaApplication.getOwner().getEmailId());
         bpaApplication.getOwner().setPassword(passwordEncoder.encode(bpaApplication.getOwner().getMobileNumber()));
-        bpaApplication.getOwner().addAddress(bpaApplication.getOwner().getPermanentAddress());
+        bpaApplication.getOwner().getAddress().get(0).setStreetRoadLine(bpaApplication.getOwner().getPermanentAddress().getStreetRoadLine());
         applicationBpaService.saveAndFlushApplication(bpaApplication);
         bpaUtils.updatePortalUserinbox(bpaApplication, null);
         bpaUtils.sendSmsEmailOnCitizenSubmit(bpaApplication, workFlowAction);

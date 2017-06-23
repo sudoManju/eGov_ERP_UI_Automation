@@ -60,7 +60,7 @@ jQuery(document).ready(function($) {
 				}
 				if(button == 'Submit'){
 					if($('#validateCitizenAcceptance').val() == 'true' && $('#citizenDisclaimerAccepted').val() != 'true'){
-						bootbox.alert("Citizen Disclaimer Acceptance Pending. Cannot Submit Application.");
+						bootbox.alert("Please Save application before Submitting. Citizen Disclaimer Acceptance Pending.");
 						return false;
 					}
 				}

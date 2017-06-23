@@ -337,8 +337,9 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         }
         bpaApplication.getOwner().setUsername(bpaApplication.getOwner().getEmailId());
         bpaApplication.getOwner().setPassword(passwordEncoder.encode(bpaApplication.getOwner().getMobileNumber()));
-        bpaApplication.getOwner().addAddress(bpaApplication.getOwner().getPermanentAddress());
-        applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
+        bpaApplication.getOwner().getAddress().get(0).setStreetRoadLine(bpaApplication.getOwner().getPermanentAddress().getStreetRoadLine());
+        if (!bpaApplication.getApplicationDocument().isEmpty())
+        	applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder); 
         if(bpaApplication.getCurrentState().getValue().equals(BpaConstants.WF_NEW_STATE)){
       	   return applicationBpaService.redirectToCollectionOnForward(bpaApplication,model);
            }

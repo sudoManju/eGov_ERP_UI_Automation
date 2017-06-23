@@ -271,17 +271,18 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
 
     public void persistOrUpdateApplicationDocument(final BpaApplication bpaApplication,
             final BindingResult resultBinder) {
-        final List<ApplicationDocument> applicationDocs = new ArrayList<>(0);
+    	final List<ApplicationDocument> applicationDocs = new ArrayList<>(0);
         int i = 0;
-        if (!bpaApplication.getApplicationDocument().isEmpty())
+        if (!bpaApplication.getApplicationDocument().isEmpty()){
             for (final ApplicationDocument applicationDocument : bpaApplication.getApplicationDocument()) {
                 validateDocuments(applicationDocs, applicationDocument, i, resultBinder);
                 i++;
             }
         bpaApplication.setApplicationDocument(applicationDocs);
+        }
         processAndStoreApplicationDocuments(bpaApplication);
     }
-
+    
     private void validateDocuments(final List<ApplicationDocument> applicationDocs,
             final ApplicationDocument applicationDocument, final int i, final BindingResult resultBinder) {
         Iterator<MultipartFile> stream = null;
@@ -373,10 +374,10 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         return fileStoreMapper;
     }
 
-    protected void processAndStoreApplicationDocuments(final BpaApplication bpaApplication) {
+    protected void processAndStoreApplicationDocuments(final BpaApplication bpaApplication) { 
         if (!bpaApplication.getApplicationDocument().isEmpty())
             for (final ApplicationDocument applicationDocument : bpaApplication.getApplicationDocument()) {
-                applicationDocument.setChecklistDetail(
+            	applicationDocument.setChecklistDetail(
                         checkListDetailService.load(applicationDocument.getChecklistDetail().getId()));
                 applicationDocument.setApplication(bpaApplication);
                 if (applicationDocument.getIssubmitted() == null
@@ -389,7 +390,6 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
                         applicationDocument.setSupportDocs(addToFileStore(applicationDocument.getFiles()));
                     }
                 }
-
             }
     }
 
