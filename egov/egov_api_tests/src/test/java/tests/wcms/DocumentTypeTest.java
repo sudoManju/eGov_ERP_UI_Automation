@@ -14,10 +14,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.wcms.WCMSResource;
 import tests.BaseAPITest;
-import utils.APILogger;
-import utils.LoginAndLogoutHelper;
-import utils.RequestHelper;
-import utils.ResponseHelper;
+import utils.*;
 
 import java.io.IOException;
 
@@ -25,7 +22,7 @@ import static data.UserData.MANAS;
 
 public class DocumentTypeTest extends BaseAPITest {
 
-    @Test
+    @Test(groups = {Categories.WCMS, Categories.SANITY})
     public void documentType() throws IOException {
         LoginAndLogoutHelper.login1(MANAS); // Login
         String documentName = createDocumentType(); // Create DocumentType

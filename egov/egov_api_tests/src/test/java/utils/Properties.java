@@ -101,6 +101,8 @@ public class Properties {
     public static final String wcmsSearchPipeSizeUrl = propertiesReader.getEndPointUrl("wcmsSearchPipeSizeUrl");
     public static final String wcmsCreateDocumentTypeUrl = propertiesReader.getEndPointUrl("wcmsCreateDocumentTypeUrl");
     public static final String wcmsSearchDocumentTypeUrl = propertiesReader.getEndPointUrl("wcmsSearchDocumentTypeUrl");
+    public static final String wcmsCreateSourceTypeUrl = propertiesReader.getEndPointUrl("wcmsCreateSourceTypeUrl");
+    public static final String wcmsSearchSourceTypeUrl = propertiesReader.getEndPointUrl("wcmsSearchSourceTypeUrl");
 
 
 }

@@ -51,7 +51,7 @@ public class WCMSResource {
                 .body(jsonString)
                 .when()
                 .post(Properties.wcmsCreatePipeSizeUrl);
-        new APILogger().log("Create PipeSize Test Test Request is Generated as  --" + response.asString());
+        new APILogger().log("Create PipeSize Test Request is Generated as  --" + response.asString());
         return response;
     }
 
@@ -62,7 +62,7 @@ public class WCMSResource {
                 .body(jsonString)
                 .when()
                 .post(Properties.wcmsSearchPipeSizeUrl + "&sizeInMilimeter=" + millimeterSize);
-        new APILogger().log("Search PipeSize Test Test Request is Generated as  --" + response.asString());
+        new APILogger().log("Search PipeSize Test Request is Generated as  --" + response.asString());
         return response;
     }
 
@@ -73,7 +73,7 @@ public class WCMSResource {
                 .body(jsonString)
                 .when()
                 .post(ResourceHelper.getBaseURL() + "/wcms-masters/pipesize/" + code + "/_update");
-        new APILogger().log("Update PipeSize Test Test Request is Generated as  --" + response.asString());
+        new APILogger().log("Update PipeSize Test Request is Generated as  --" + response.asString());
         return response;
     }
 
@@ -84,7 +84,7 @@ public class WCMSResource {
                 .body(jsonString)
                 .when()
                 .post(Properties.wcmsCreateDocumentTypeUrl);
-        new APILogger().log("Create DocumentType Test Test Request is Generated as  --" + response.asString());
+        new APILogger().log("Create DocumentType Test Request is Generated as  --" + response.asString());
         return response;
     }
 
@@ -106,7 +106,40 @@ public class WCMSResource {
                 .body(jsonString)
                 .when()
                 .post(ResourceHelper.getBaseURL() + "/wcms-masters/documenttype/" + code + "/_update");
-        new APILogger().log("Update DocumentType Test Test Request is Generated as  --" + response.asString());
+        new APILogger().log("Update DocumentType Test Request is Generated as  --" + response.asString());
+        return response;
+    }
+
+    public Response createSourceTypeResource(String jsonString) {
+        new APILogger().log("Create SourceType Test Request is Started with --" + jsonString);
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(jsonString)
+                .when()
+                .post(Properties.wcmsCreateSourceTypeUrl);
+        new APILogger().log("Create SourceType Test Request is Generated as  --" + response.asString());
+        return response;
+    }
+
+    public Response searchSourceTypeResource(String jsonString, String sourceTypeName) {
+        new APILogger().log("Create SourceType Test Request is Started with --" + jsonString);
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(jsonString)
+                .when()
+                .post(Properties.wcmsSearchSourceTypeUrl + "&name=" + sourceTypeName);
+        new APILogger().log("Create SourceType Test Request is Generated as  --" + response.asString());
+        return response;
+    }
+
+    public Response updateSourceTypeResource(String jsonString, String code) {
+        new APILogger().log("Update SourceType Test Request is Started with --" + jsonString);
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(jsonString)
+                .when()
+                .post(ResourceHelper.getBaseURL() + "/wcms-masters/sourcetype/" + code + "/_update");
+        new APILogger().log("Update SourceType Test Request is Generated as  --" + response.asString());
         return response;
     }
 }

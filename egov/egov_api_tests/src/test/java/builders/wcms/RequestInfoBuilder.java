@@ -14,6 +14,7 @@ public class RequestInfoBuilder {
         requestInfo.setKey("");
         requestInfo.setMsgId("");
         requestInfo.setRequesterId("");
+        requestInfo.setAuthToken("5c4cecb3-50eb-4cf7-8160-d764f47f5dbb");
     }
 
     public RequestInfoBuilder withVer(String ver) {
