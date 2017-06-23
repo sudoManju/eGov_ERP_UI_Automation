@@ -309,11 +309,6 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
             final BindingResult resultBinder, final RedirectAttributes redirectAttributes,
             final HttpServletRequest request, final Model model, 
             @RequestParam final BigDecimal amountRule, @RequestParam("files") final MultipartFile[] files) {
-        User dbUser = validateApplicantDtls_unique_email(bpaApplication.getOwner());
-        if (dbUser!=null && dbUser.getId()!= bpaApplication.getOwner().getId()){
-            model.addAttribute("noJAORSAMessage", "Applicant/User with given emailId already exists.");
-            return BPAAPPLICATION_FORM;
-        } 
         if (resultBinder.hasErrors()) {
             loadViewdata(model, bpaApplication);
             return BPAAPPLICATION_FORM;
@@ -335,9 +330,18 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 }
             }
         }
-        bpaApplication.getOwner().setUsername(bpaApplication.getOwner().getEmailId());
-        bpaApplication.getOwner().setPassword(passwordEncoder.encode(bpaApplication.getOwner().getMobileNumber()));
-        bpaApplication.getOwner().getAddress().get(0).setStreetRoadLine(bpaApplication.getOwner().getPermanentAddress().getStreetRoadLine());
+     	if (bpaApplication.getOwner().getPermanentAddress() != null
+				&& bpaApplication.getOwner().getPermanentAddress() 
+						.getStreetRoadLine() != null
+				&& !bpaApplication.getOwner().getPermanentAddress()
+						.getStreetRoadLine().isEmpty())
+			bpaApplication 
+					.getOwner()
+					.getAddress()
+					.get(0)
+					.setStreetRoadLine(
+							bpaApplication.getOwner().getPermanentAddress()
+									.getStreetRoadLine());
         if (!bpaApplication.getApplicationDocument().isEmpty())
         	applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder); 
         if(bpaApplication.getCurrentState().getValue().equals(BpaConstants.WF_NEW_STATE)){
@@ -376,10 +380,6 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
             return "redirect:/application/generatepermitorder/" + bpaAppln.getApplicationNumber();
         }
         return BPA_APPLICATION_RESULT;
-    }
-    
-    private User validateApplicantDtls_unique_email(final Applicant owner) {
-        return userService.getUserByEmailId(owner.getEmailId());
     }
     
 }
