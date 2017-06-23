@@ -134,5 +134,24 @@ public class BpaReportsController extends BpaGenericApplicationController {
                 .append("}")
                 .toString();
     }
+    
+    @RequestMapping(value = "/zonewisedetails", method = RequestMethod.GET)
+    public String searchZoneWiseServicesForm(final Model model) {
+        model.addAttribute("searchBpaApplicationForm", new SearchBpaApplicationForm());
+        return "search-zonewise-report";
+    }
+
+    @RequestMapping(value = "/zonewisedetails", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+    @ResponseBody
+    public String getZoneWiseServicesResult(final Model model,
+            @ModelAttribute final SearchBpaApplicationForm searchBpaApplicationForm)
+            throws ParseException {
+        final List<SearchBpaApplicationReport> searchResultList = bpaReportsService
+                .getResultsForEachServicetypeByZone(searchBpaApplicationForm);
+        return new StringBuilder(DATA)
+                .append(toJSON(searchResultList, SearchBpaApplicationReport.class, SearchBpaApplicationReportAdaptor.class))
+                .append("}")
+                .toString();
+    }
 
 }

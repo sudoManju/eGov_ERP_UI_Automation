@@ -110,4 +110,23 @@ public class SearchBpaApplicationController extends BpaGenericApplicationControl
     public void download(@PathVariable final String fileStoreId, final HttpServletResponse response) throws IOException {
         fileStoreUtils.fetchFileAndWriteToStream(fileStoreId, FILESTORE_MODULECODE, false, response);
     }
+    
+    
+    @RequestMapping(value = "/bpacollectfee", method = RequestMethod.GET)
+    public String showCollectionPendingRecords(final Model model) {
+        model.addAttribute("searchBpaApplicationForm", new SearchBpaApplicationForm());
+        return "search-collect-fee";
+    }
+    
+    @RequestMapping(value = "/bpacollectfee", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+    @ResponseBody
+    public String searchCollectionPendingRecords(final Model model,
+            @ModelAttribute final SearchBpaApplicationForm searchBpaApplicationForm)
+            throws ParseException {
+        final List<SearchBpaApplicationForm> searchResultList = searchBpaApplicationService.searchForCollectionPending(searchBpaApplicationForm);
+        return new StringBuilder(DATA)
+                .append(toJSON(searchResultList, SearchBpaApplicationForm.class, SearchBpaApplicationFormAdaptor.class))
+                .append("}")
+                .toString();
+    }
 }

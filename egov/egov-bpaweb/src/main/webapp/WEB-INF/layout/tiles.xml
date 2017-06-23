@@ -222,4 +222,12 @@
     	<put-attribute name="page-title" value="title.view.appln.details" cascade="true"/>
         <put-attribute name="body" value="/WEB-INF/views/reports/view-servicewise-appln-details.jsp"/>
     </definition>
+    <definition name="search-zonewise-report" extends="base_layout">
+    	<put-attribute name="page-title" value="title.zone.wise.services" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/reports/search-zonewise-report.jsp"/>
+    </definition>
+    <definition name="search-collect-fee" extends="base_layout">
+    	<put-attribute name="page-title" value="title.collect.fee" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/application/search-collect-fee.jsp"/>
+    </definition>
 </tiles-definitions>

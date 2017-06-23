@@ -39,15 +39,15 @@
  */
 package org.egov.bpa.application.service.report;
 
-import static org.egov.bpa.utils.BpaConstants.ST_CODE_01;
-import static org.egov.bpa.utils.BpaConstants.ST_CODE_02;
-import static org.egov.bpa.utils.BpaConstants.ST_CODE_03;
-import static org.egov.bpa.utils.BpaConstants.ST_CODE_04;
-import static org.egov.bpa.utils.BpaConstants.ST_CODE_05;
-import static org.egov.bpa.utils.BpaConstants.ST_CODE_06;
-import static org.egov.bpa.utils.BpaConstants.ST_CODE_07;
-import static org.egov.bpa.utils.BpaConstants.ST_CODE_08;
-import static org.egov.bpa.utils.BpaConstants.ST_CODE_09;
+import static org.egov.bpa.utils.BpaConstants.NEW_CONSTRUCTION;
+import static org.egov.bpa.utils.BpaConstants.RECONSTRUCTION;
+import static org.egov.bpa.utils.BpaConstants.DEMOLITION;
+import static org.egov.bpa.utils.BpaConstants.CHANGE_IN_OCCUPANCY;
+import static org.egov.bpa.utils.BpaConstants.ADDING_OF_EXTENSION;
+import static org.egov.bpa.utils.BpaConstants.ALTERATION;
+import static org.egov.bpa.utils.BpaConstants.AMENITIES;
+import static org.egov.bpa.utils.BpaConstants.PERM_FOR_HUT_OR_SHED;
+import static org.egov.bpa.utils.BpaConstants.DIVISION_OF_PLOT;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,39 +73,87 @@ public class BpaReportsService {
             final SearchBpaApplicationForm searchBpaApplicationForm) {
         List<SearchBpaApplicationReport> searchBpaApplicationReportList = new ArrayList<>();
         List<SearchBpaApplicationForm> searchBpaApplnResultList = searchBpaApplicationService.search(searchBpaApplicationForm);
+        System.out.println(searchBpaApplnResultList.size());
         Map<String, Map<String, Long>> resultMap = searchBpaApplnResultList.stream().collect(
                 Collectors.groupingBy(SearchBpaApplicationForm::getStatus,
-                        Collectors.groupingBy(SearchBpaApplicationForm::getServiceCode, Collectors.counting())));
+                        Collectors.groupingBy(SearchBpaApplicationForm::getServiceType, Collectors.counting())));
         for (final Entry<String, Map<String, Long>> statusCountResMap : resultMap.entrySet()) {
+            Long newCostruction = 0l;
+            Long demolition = 0l;
+            Long reConstruction = 0l;
+            Long alteration = 0l;
+            Long divisionOfPlot = 0l;
+            Long addingExtension = 0l;
+            Long changeInOccupancy = 0l;
+            Long amenities = 0l;
+            Long hut = 0l;
             SearchBpaApplicationReport bpaApplicationReport = new SearchBpaApplicationReport();
             bpaApplicationReport.setStatus(statusCountResMap.getKey());
             for (final Entry<String, Long> statusCountMap : statusCountResMap.getValue().entrySet()) {
-                bpaApplicationReport
-                        .setServiceType01(ST_CODE_01.equalsIgnoreCase(statusCountMap.getKey())
-                                ? statusCountMap.getValue() : 0l);
-                bpaApplicationReport
-                        .setServiceType02(ST_CODE_02.equalsIgnoreCase(statusCountMap.getKey())
-                                ? statusCountMap.getValue() : 0l);
-                bpaApplicationReport.setServiceType03(
-                        ST_CODE_03.equalsIgnoreCase(statusCountMap.getKey()) ? statusCountMap.getValue() : 0l);
-                bpaApplicationReport
-                        .setServiceType04(ST_CODE_04.equalsIgnoreCase(statusCountMap.getKey())
-                                ? statusCountMap.getValue() : 0l);
-                bpaApplicationReport.setServiceType05(
-                        ST_CODE_05.equalsIgnoreCase(statusCountMap.getKey()) ? statusCountMap.getValue()
-                                : 0l);
-                bpaApplicationReport
-                        .setServiceType06(ST_CODE_06.equalsIgnoreCase(statusCountMap.getKey())
-                                ? statusCountMap.getValue() : 0l);
-                bpaApplicationReport
-                        .setServiceType07(ST_CODE_07.equalsIgnoreCase(statusCountMap.getKey())
-                                ? statusCountMap.getValue() : 0l);
-                bpaApplicationReport.setServiceType08(
-                        ST_CODE_08.equalsIgnoreCase(statusCountMap.getKey())
-                                ? statusCountMap.getValue() : 0l);
-                bpaApplicationReport
-                        .setServiceType09(ST_CODE_09.equalsIgnoreCase(statusCountMap.getKey())
-                                ? statusCountMap.getValue() : 0l);
+                if (NEW_CONSTRUCTION.equalsIgnoreCase(statusCountMap.getKey())) {
+                    newCostruction = newCostruction + statusCountMap.getValue();
+                    bpaApplicationReport.setServiceType01(newCostruction);
+                } else if (DEMOLITION.equalsIgnoreCase(statusCountMap.getKey())) {
+                    demolition = demolition + statusCountMap.getValue();
+                    bpaApplicationReport.setServiceType02(demolition);
+                } else if (RECONSTRUCTION.equalsIgnoreCase(statusCountMap.getKey())) {
+                    reConstruction = reConstruction + statusCountMap.getValue();
+                    bpaApplicationReport.setServiceType03(reConstruction);
+                } else if (ALTERATION.equalsIgnoreCase(statusCountMap.getKey())) {
+                    alteration = alteration + statusCountMap.getValue();
+                    bpaApplicationReport.setServiceType04(alteration);
+                } else if (DIVISION_OF_PLOT.equalsIgnoreCase(statusCountMap.getKey())) {
+                    divisionOfPlot = divisionOfPlot + statusCountMap.getValue();
+                    bpaApplicationReport.setServiceType05(divisionOfPlot);
+                } else if (ADDING_OF_EXTENSION.equalsIgnoreCase(statusCountMap.getKey())) {
+                    addingExtension = addingExtension + statusCountMap.getValue();
+                    bpaApplicationReport.setServiceType06(addingExtension);
+                } else if (CHANGE_IN_OCCUPANCY.equalsIgnoreCase(statusCountMap.getKey())) {
+                    changeInOccupancy = changeInOccupancy + statusCountMap.getValue();
+                    bpaApplicationReport.setServiceType07(changeInOccupancy);
+                } else if (AMENITIES.equalsIgnoreCase(statusCountMap.getKey())) {
+                    amenities = amenities + statusCountMap.getValue();
+                    bpaApplicationReport.setServiceType08(amenities);
+                } else if (PERM_FOR_HUT_OR_SHED.equalsIgnoreCase(statusCountMap.getKey())) {
+                    hut = hut + statusCountMap.getValue();
+                    bpaApplicationReport.setServiceType09(hut);
+                }
+            }
+            searchBpaApplicationReportList.add(bpaApplicationReport);
+        }
+        return searchBpaApplicationReportList;
+    }
+
+    public List<SearchBpaApplicationReport> getResultsForEachServicetypeByZone(
+            final SearchBpaApplicationForm searchBpaApplicationForm) {
+        List<SearchBpaApplicationReport> searchBpaApplicationReportList = new ArrayList<>();
+        List<SearchBpaApplicationForm> searchBpaApplnResultList = searchBpaApplicationService.search(searchBpaApplicationForm);
+        System.out.println(searchBpaApplnResultList.size());
+        Map<String, Map<String, Long>> resultMap = searchBpaApplnResultList.stream().collect(
+                Collectors.groupingBy(SearchBpaApplicationForm::getServiceType,
+                        Collectors.groupingBy(SearchBpaApplicationForm::getZone, Collectors.counting())));
+        for (final Entry<String, Map<String, Long>> statusCountResMap : resultMap.entrySet()) {
+            Long zone1 = 0l;
+            Long zone2 = 0l;
+            Long zone3 = 0l;
+            Long zone4 = 0l;
+            SearchBpaApplicationReport bpaApplicationReport = new SearchBpaApplicationReport();
+            bpaApplicationReport.setServiceType(statusCountResMap.getKey());
+            for (final Entry<String, Long> statusCountMap : statusCountResMap.getValue().entrySet()) {
+
+                if ("ZONE-1".equalsIgnoreCase(statusCountMap.getKey())) {
+                    zone1 = zone1 + statusCountMap.getValue();
+                    bpaApplicationReport.setZone1(zone1);
+                } else if ("ZONE-2".equalsIgnoreCase(statusCountMap.getKey())) {
+                    zone2 = zone2 + statusCountMap.getValue();
+                    bpaApplicationReport.setZone2(zone2);
+                } else if ("ZONE-3".equalsIgnoreCase(statusCountMap.getKey())) {
+                    zone3 = zone3 + statusCountMap.getValue();
+                    bpaApplicationReport.setZone3(zone3);
+                } else if ("ZONE-4".equalsIgnoreCase(statusCountMap.getKey())) {
+                    zone4 = zone4 + statusCountMap.getValue();
+                    bpaApplicationReport.setZone4(statusCountMap.getValue());
+                }
             }
             searchBpaApplicationReportList.add(bpaApplicationReport);
         }

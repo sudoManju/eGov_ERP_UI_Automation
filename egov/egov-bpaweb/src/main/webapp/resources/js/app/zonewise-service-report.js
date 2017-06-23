@@ -54,13 +54,14 @@ $(document)
 						var wardId = $('#wardId').val();
 						var electionWardId = $('#electionWardId').val();
 						var zoneId = $('#zone').val();
+						var statusId = $('#statusId').val();
 						
 						$('.report-section').removeClass('display-hide');
-						$("#searchStatusByServiceTypeReportTable")
+						$("#searchZoneWiseServiceCount")
 								.dataTable(
 										{
 											ajax : {
-												url : "/bpa/reports/servicewise-statusreport",
+												url : "/bpa/reports/zonewisedetails",
 												type : "POST",
 												beforeSend : function() {
 													$('.loader-class')
@@ -73,8 +74,7 @@ $(document)
 												"data" : getFormData($('form')),
 												"dataSrc": function ( json ) {
 													json.data.forEach(function(item){
-														item["rowTotal"] = item.serviceType01 + item.serviceType02 + item.serviceType03 + item.serviceType04 + item.serviceType05 
-															+ item.serviceType06 + item.serviceType07 + item.serviceType08 + item.serviceType09;
+														item["rowTotal"] = item.zone1 + item.zone2 + item.zone3 + item.zone4;
 													});
 									                return json.data;
 									            },   
@@ -102,14 +102,14 @@ $(document)
 													"sClass" : "text-center"
 												},
 													{
-														"data" : "status",
+														"data" : "serviceType",
 														"sClass" : "text-left"
 													},
 													{
-														"data" : "serviceType01",
+														"data" : "zone1",
 														 render : function(data, type, row, meta) {
-															return parseInt(row.serviceType01)!==0? '<a onclick="openPopup(\'/bpa/reports/servicewise-statusreport/view?'
-																	+ 'serviceType=New Construction'
+															return parseInt(row.zone1)!==0? '<a onclick="openPopup(\'/bpa/reports/servicewise-statusreport/view?'
+																	+ 'serviceType='+row.serviceType
 																	+ '&'
 																	+ 'applicantName='+applicantName
 																	+ '&'
@@ -125,19 +125,19 @@ $(document)
 																	+ '&'
 																	+ 'zone='+zoneId
 																	+ '&'
-																	+ 'status='+row.status
+																	+ 'status='+statusId
 																	+ '&'
 																	+ 'revenueWard='+wardId
 																	+ '\')" href="javascript:void(0);">'
-																	+ row.serviceType01 + '</a>':row.serviceType01;
+																	+ row.zone1 + '</a>':row.zone1;
 														},
 														"sClass" : "text-center"
 													},
 													{
-														"data" : "serviceType02",
+														"data" : "zone2",
 														render : function(data, type, row, meta) {
-															return parseInt(row.serviceType02)!==0? '<a onclick="openPopup(\'/bpa/reports/servicewise-statusreport/view?'
-																	+ 'serviceType=Demolition'
+															return parseInt(row.zone2)!==0? '<a onclick="openPopup(\'/bpa/reports/servicewise-statusreport/view?'
+																	+ 'serviceType='+row.serviceType
 																	+ '&'
 																	+ 'applicantName='+applicantName
 																	+ '&'
@@ -153,19 +153,19 @@ $(document)
 																	+ '&'
 																	+ 'zone='+zoneId
 																	+ '&'
-																	+ 'status='+row.status
+																	+ 'status='+statusId
 																	+ '&'
 																	+ 'revenueWard='+wardId
 																	+ '\')" href="javascript:void(0);">'
-																	+ row.serviceType02 + '</a>':row.serviceType02;
+																	+ row.zone2 + '</a>':row.zone2;
 														},
 														"sClass" : "text-center"
 													},
 													{
-														"data" : "serviceType03",
+														"data" : "zone3",
 														render : function(data, type, row, meta) {
-															return parseInt(row.serviceType03)!==0 ? '<a onclick="openPopup(\'/bpa/reports/servicewise-statusreport/view?'
-																	+ 'serviceType=Reconstruction'
+															return parseInt(row.zone3)!==0 ? '<a onclick="openPopup(\'/bpa/reports/servicewise-statusreport/view?'
+																	+ 'serviceType='+row.serviceType
 																	+ '&'
 																	+ 'applicantName='+applicantName
 																	+ '&'
@@ -181,19 +181,19 @@ $(document)
 																	+ '&'
 																	+ 'zone='+zoneId
 																	+ '&'
-																	+ 'status='+row.status
+																	+ 'status='+statusId
 																	+ '&'
 																	+ 'revenueWard='+wardId
 																	+ '\')" href="javascript:void(0);">'
-																	+ row.serviceType03 + '</a>':row.serviceType03;
+																	+ row.zone3 + '</a>':row.zone3;
 														},
 														"sClass" : "text-center"
 													},
 													{
-														"data" : "serviceType04",
+														"data" : "zone4",
 														render : function(data, type, row, meta) {
-															return parseInt(row.serviceType04)!== 0 ? '<a onclick="openPopup(\'/bpa/reports/servicewise-statusreport/view?'
-																	+ 'serviceType=Alteration'
+															return parseInt(row.zone4)!== 0 ? '<a onclick="openPopup(\'/bpa/reports/servicewise-statusreport/view?'
+																	+ 'serviceType='+row.serviceType
 																	+ '&'
 																	+ 'applicantName='+applicantName
 																	+ '&'
@@ -209,154 +209,15 @@ $(document)
 																	+ '&'
 																	+ 'zone='+zoneId
 																	+ '&'
-																	+ 'status='+row.status
+																	+ 'status='+statusId
 																	+ '&'
 																	+ 'revenueWard='+wardId
 																	+ '\')" href="javascript:void(0);">'
-																	+ row.serviceType04 + '</a>':row.serviceType04;
+																	+ row.zone4 + '</a>':row.zone4;
 														},
 														"sClass" : "text-center"
 													},
 													{
-														"data" : "serviceType05",
-														render : function(data, type, row, meta) {
-						    									return parseInt(row.serviceType05)!== 0 ? '<a onclick="openPopup(\'/bpa/reports/servicewise-statusreport/view?'
-																	+ 'serviceType=Sub-Division of plot/Land Development'
-																	+ '&'
-																	+ 'applicantName='+applicantName
-																	+ '&'
-																	+ 'applicationNumber='+applicationNumber
-																	+ '&'
-																	+ 'fromDate='+from
-																	+ '&'
-																	+ 'toDate='+to
-																	+ '&'
-																	+ 'ward='+wardId
-																	+ '&'
-																	+ 'electionWard='+electionWardId
-																	+ '&'
-																	+ 'zone='+zoneId
-																	+ '&'
-																	+ 'status='+row.status
-																	+ '&'
-																	+ 'revenueWard='+wardId
-																	+ '\')" href="javascript:void(0);">'
-																	+ row.serviceType05 + '</a>':row.serviceType05;
-														},
-														"sClass" : "text-center"
-													},
-													{
-														"data" : "serviceType06",
-														render : function(data, type, row, meta) {
-															return parseInt(row.serviceType06)!== 0 ? '<a onclick="openPopup(\'/bpa/reports/servicewise-statusreport/view?'
-																	+ 'serviceType=Adding of Extension'
-																	+ '&'
-																	+ 'applicantName='+applicantName
-																	+ '&'
-																	+ 'applicationNumber='+applicationNumber
-																	+ '&'
-																	+ 'fromDate='+from
-																	+ '&'
-																	+ 'toDate='+to
-																	+ '&'
-																	+ 'ward='+wardId
-																	+ '&'
-																	+ 'electionWard='+electionWardId
-																	+ '&'
-																	+ 'zone='+zoneId
-																	+ '&'
-																	+ 'status='+row.status
-																	+ '&'
-																	+ 'revenueWard='+wardId
-																	+ '\')" href="javascript:void(0);">'
-																	+ row.serviceType06 + '</a>':row.serviceType06;
-														},
-														"sClass" : "text-center"
-													},
-													{
-														"data" : "serviceType07",
-														render : function(data, type, row, meta) {
-															return parseInt(row.serviceType07)!== 0 ? '<a onclick="openPopup(\'/bpa/reports/servicewise-statusreport/view?'
-																	+ 'serviceType=Change in Occupancy'
-																	+ '&'
-																	+ 'applicantName='+applicantName
-																	+ '&'
-																	+ 'applicationNumber='+applicationNumber
-																	+ '&'
-																	+ 'fromDate='+from
-																	+ '&'
-																	+ 'toDate='+to
-																	+ '&'
-																	+ 'ward='+wardId
-																	+ '&'
-																	+ 'electionWard='+electionWardId
-																	+ '&'
-																	+ 'zone='+zoneId
-																	+ '&'
-																	+ 'status='+row.status
-																	+ '&'
-																	+ 'revenueWard='+wardId
-																	+ '\')" href="javascript:void(0);">'
-																	+ row.serviceType07 + '</a>':row.serviceType07;
-														},
-														"sClass" : "text-center"
-													},
-													{
-														"data" : "serviceType08",
-														render : function(data, type, row, meta) {
-															return parseInt(row.serviceType08)!== 0 ? '<a onclick="openPopup(\'/bpa/reports/servicewise-statusreport/view?'
-																	+ 'serviceType=Amenities'
-																	+ '&'
-																	+ 'applicantName='+applicantName
-																	+ '&'
-																	+ 'applicationNumber='+applicationNumber
-																	+ '&'
-																	+ 'fromDate='+from
-																	+ '&'
-																	+ 'toDate='+to
-																	+ '&'
-																	+ 'ward='+wardId
-																	+ '&'
-																	+ 'electionWard='+electionWardId
-																	+ '&'
-																	+ 'zone='+zoneId
-																	+ '&'
-																	+ 'status='+row.status
-																	+ '&'
-																	+ 'revenueWard='+wardId
-																	+ '\')" href="javascript:void(0);">'
-																	+ row.serviceType08 + '</a>':row.serviceType08;
-														},
-														"sClass" : "text-center"
-													},
-													{
-														"data" : "serviceType09",
-														render : function(data, type, row, meta) {
-															return parseInt(row.serviceType09)!==0 ? '<a onclick="openPopup(\'/bpa/reports/servicewise-statusreport/view?'
-																	+ 'serviceType=Permission for Temporary hut or shed'
-																	+ '&'
-																	+ 'applicantName='+applicantName
-																	+ '&'
-																	+ 'applicationNumber='+applicationNumber
-																	+ '&'
-																	+ 'fromDate='+from
-																	+ '&'
-																	+ 'toDate='+to
-																	+ '&'
-																	+ 'ward='+wardId
-																	+ '&'
-																	+ 'electionWard='+electionWardId
-																	+ '&'
-																	+ 'zone='+zoneId
-																	+ '&'
-																	+ 'status='+row.status
-																	+ '&'
-																	+ 'revenueWard='+wardId
-																	+ '\')" href="javascript:void(0);">'
-																	+ row.serviceType09 + '</a>':row.serviceType09;
-														},
-														"sClass" : "text-center"
-													},{
 														"data":"rowTotal",
 														"sClass" : "text-center"
 													}],
@@ -374,15 +235,11 @@ $(document)
 															updateTotalFooter(4, api);
 															updateTotalFooter(5, api);
 															updateTotalFooter(6, api);
-															updateTotalFooter(7, api);
-															updateTotalFooter(8, api);
-															updateTotalFooter(9, api);
-															updateTotalFooter(10, api);
-															updateTotalFooter(11, api);
+															
 															}
 													},
 													"aoColumnDefs" : [ {
-														"aTargets" : [2,3,4,5,6,7,8,9,10,11],
+														"aTargets" : [2,3,4,5,6],
 														"mRender" : function(data, type, full) {
 															return formatNumberInr(data);    
 														}

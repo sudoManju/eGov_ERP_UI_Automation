@@ -57,13 +57,13 @@ public class BpaConstants {
     public static final String ST_CODE_08 = "08"; // Amenities
     public static final String ST_CODE_09 = "09"; // Permission for Temporary hut or shed
     public static final String ROLE_BUSINESS_USER = "BUSINESS";
-    public static final String RE_DEVELOPMENT_OF_LAND = "Re-development of land";
-    public static final String DEVELOPMENT_OF_LAND = "Development of land";
+    public static final String AMENITIES = "Amenities";
+    public static final String PERM_FOR_HUT_OR_SHED = "Permission for Temporary hut or shed";
     public static final String REGULARIZATION = "Regularization";
     public static final String CHANGE_IN_OCCUPANCY = "Change in Occupancy";
     public static final String ADDING_OF_EXTENSION = "Adding of Extension";
     public static final String ALTERATION = "Alteration";
-    public static final String DIVISION_OF_PLOT = "Division of Plot";
+    public static final String DIVISION_OF_PLOT = "Sub-Division of plot/Land Development";
     public static final String RECONSTRUCTION = "Reconstruction";
     public static final String DEMOLITION = "Demolition";
     public static final String NEW_CONSTRUCTION = "New Construction";

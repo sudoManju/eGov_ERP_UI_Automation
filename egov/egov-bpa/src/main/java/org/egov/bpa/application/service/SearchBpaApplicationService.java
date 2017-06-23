@@ -93,9 +93,13 @@ public class SearchBpaApplicationService {
         return cal1.getTime();
     }
 
-    @SuppressWarnings("unchecked")
     public List<SearchBpaApplicationForm> search(final SearchBpaApplicationForm bpaApplicationForm) {
         final Criteria criteria = buildSearchCriteria(bpaApplicationForm);
+        List<SearchBpaApplicationForm> searchBpaApplicationFormList = buildApplicationDetailsResponse(criteria);
+        return searchBpaApplicationFormList;
+    }
+
+    private List<SearchBpaApplicationForm> buildApplicationDetailsResponse(final Criteria criteria) {
         List<SearchBpaApplicationForm> searchBpaApplicationFormList = new ArrayList<>();
         for (BpaApplication bpaApplication : (List<BpaApplication>) criteria.list()) {
             SearchBpaApplicationForm searchBpaApplicationForm = new SearchBpaApplicationForm();
@@ -105,10 +109,10 @@ public class SearchBpaApplicationService {
             searchBpaApplicationForm.setApplicationDate(bpaApplication.getApplicationDate());
             searchBpaApplicationForm.setServiceTypeId(bpaApplication.getServiceType().getId());
             searchBpaApplicationForm.setStatusId(bpaApplication.getStatus().getId());
-            searchBpaApplicationForm.setServiceType(
-                    bpaApplication.getServiceType() != null ? bpaApplication.getServiceType().getDescription() : "");
             searchBpaApplicationForm.setServiceCode(
                     bpaApplication.getServiceType() != null ? bpaApplication.getServiceType().getCode() : "");
+            searchBpaApplicationForm.setServiceType(
+                    bpaApplication.getServiceType() != null ? bpaApplication.getServiceType().getDescription() : "");
             searchBpaApplicationForm.setStatus(bpaApplication.getStatus().getDescription());
             searchBpaApplicationForm.setPlanPermissionNumber(bpaApplication.getPlanPermissionNumber());
             searchBpaApplicationForm
@@ -144,7 +148,13 @@ public class SearchBpaApplicationService {
         }
         return searchBpaApplicationFormList;
     }
-
+    
+    public List<SearchBpaApplicationForm> searchForCollectionPending(final SearchBpaApplicationForm bpaApplicationForm) {
+        final Criteria criteria = buildSearchCriteria(bpaApplicationForm);
+            criteria.createAlias("bpaApplication.status", "status")
+                    .add(Restrictions.eq("status.code", "Approved"));
+        return buildApplicationDetailsResponse(criteria);
+    }
     public Criteria buildSearchCriteria(final SearchBpaApplicationForm searchBpaApplicationForm) {
         final Criteria criteria = getCurrentSession().createCriteria(BpaApplication.class, "bpaApplication");
 
@@ -161,7 +171,7 @@ public class SearchBpaApplicationService {
         }
         if (searchBpaApplicationForm.getServiceType() != null) {
             criteria.createAlias("bpaApplication.serviceType", "serviceType")
-                    .add(Restrictions.eq("serviceType.code", searchBpaApplicationForm.getServiceType()));
+                    .add(Restrictions.eq("serviceType.description", searchBpaApplicationForm.getServiceType()));
         }
         if (searchBpaApplicationForm.getStatusId() != null) {
             criteria.add(Restrictions.eq("bpaApplication.status.id", searchBpaApplicationForm.getStatusId()));
@@ -192,6 +202,10 @@ public class SearchBpaApplicationService {
         }
         if (searchBpaApplicationForm.getZoneId() != null) {
             criteria.add(Restrictions.eq("adminBoundary.parent.id", searchBpaApplicationForm.getZoneId()));
+        }
+        
+        if (searchBpaApplicationForm.getZoneId() != null) {
+            criteria.add(Restrictions.eq("adminBoundary.parent.name", searchBpaApplicationForm.getZoneId()));
         }
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         return criteria;

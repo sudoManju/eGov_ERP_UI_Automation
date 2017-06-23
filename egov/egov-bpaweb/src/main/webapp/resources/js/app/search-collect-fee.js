@@ -43,8 +43,6 @@ $(document)
 				function() {
 					var viewurl = '/bpa/application/view/';
 					var collecturl = '/bpa/application/bpageneratebill/';
-					var demandNoticeurl = '/bpa/application/demandnotice/';
-					var permitorderurl = '/bpa/application/generatepermitorder/';
 					$('#btnSearch').click(function() {
 						callAjaxSearch();
 					});
@@ -55,7 +53,7 @@ $(document)
 								.dataTable(
 										{
 											ajax : {
-												url : "/bpa/application/search",
+												url : "/bpa/application/bpacollectfee",
 												type : "POST",
 												beforeSend : function() {
 													$('.loader-class')
@@ -110,27 +108,10 @@ $(document)
 														"render" : function(
 																data, type,
 																row, meta) {
-															var commonOptions = '<option value="">Select from Below</option><option  value=' + viewurl + row.applicationNumber + '>View</option>'
-															if (row.status == 'Approved' && !row.isFeeCollected) {
-																return ('<select class="dropchange">'+commonOptions+'<option  value='
-																		+ demandNoticeurl
-																		+ row.applicationNumber + '>Generate Demand Notice</option><option  value='
+																return ('<select class="dropchange"><option value="">Select from Below</option><option  value='
 																		+ collecturl
-																		+ row.applicationNumber + '>Collect Fees</option></select>');
-															} 
-															else if(row.status == 'Registered'){
-																return ('<select class="dropchange">'+commonOptions+'<option  value='
-																		+ collecturl
-																		+ row.applicationNumber + '>Collect Fees</option></select>');
-																
-															}
-															else if (row.status == 'Order Issued to Applicant') {
-																return ('<select class="dropchange">'+commonOptions+'<option  value='
-																		+ permitorderurl
-																		+ row.applicationNumber + '>Generate Permit Order</option></select>');
-															} else {
-																return ('<select class="dropchange">'+commonOptions+'></select>');
-															}
+																		+ row.applicationNumber + '>Collect Fees</option>'
+																		+'<option  value=' + viewurl + row.applicationNumber + '>View</option></select>');
 														}
 													} ]
 										});

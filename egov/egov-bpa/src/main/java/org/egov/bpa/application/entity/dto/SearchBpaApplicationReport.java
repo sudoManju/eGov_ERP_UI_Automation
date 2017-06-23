@@ -55,6 +55,10 @@ public class SearchBpaApplicationReport {
     private Long serviceType07;
     private Long serviceType08;
     private Long serviceType09;
+    private Long zone1;
+    private Long zone2;
+    private Long zone3;
+    private Long zone4;
 
     public Long getId() {
         return id;
@@ -175,4 +179,37 @@ public class SearchBpaApplicationReport {
     public void setStatusId(Long statusId) {
         this.statusId = statusId;
     }
+
+    public Long getZone1() {
+        return zone1;
+    }
+
+    public void setZone1(Long zone1) {
+        this.zone1 = zone1;
+    }
+
+    public Long getZone2() {
+        return zone2;
+    }
+
+    public void setZone2(Long zone2) {
+        this.zone2 = zone2;
+    }
+
+    public Long getZone3() {
+        return zone3;
+    }
+
+    public void setZone3(Long zone3) {
+        this.zone3 = zone3;
+    }
+
+    public Long getZone4() {
+        return zone4;
+    }
+
+    public void setZone4(Long zone4) {
+        this.zone4 = zone4;
+    }
+    
 }
