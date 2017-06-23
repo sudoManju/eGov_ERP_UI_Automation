@@ -212,11 +212,11 @@ public class EmployeeDetailsPage extends BasePage {
 
 //        enterText(employeeNameTextBox, "TestUser ", driver);
         enterText(employeeNameTextBox, "TestUser " + getRandomUpperCaseCharacters(5), driver);
-        String employeeCode = "KEMP" + get6DigitRandomInt();
+        String employeeCode = "EMP" + get6DigitRandomInt();
         enterText(employeeCodeTextBox, employeeCode, driver);
         selectFromDropDown(employeeTypeBox, employeeDetails.getEmployeeType(), driver);
         selectFromDropDown(employeeStatusBox, employeeDetails.getStatus(), driver);
-//        selectFromDropDown(employeeGroupBox, "Central", driver);
+        selectFromDropDown(employeeGroupBox, "Central", driver);
         enterText(dobTextBox, employeeDetails.getDateOfBirth(), driver);
         if (employeeDetails.getGender().equals("Male")) {
             selectFromDropDown(genderDropdown, "Male", driver);
@@ -234,6 +234,7 @@ public class EmployeeDetailsPage extends BasePage {
         enterText(emailIdTextBox, "mail@mail.com", driver);
         enterText(fatherOrHusbandName, "Father.Spouse Name", driver);
         enterText(birthPlaceTextBox, "Native/Birth. Place", driver);
+        selectFromDropDown(userBloodGroupBox, "O+", driver);
         enterText(mobileNumberTextBox, employeeDetails.getMobileNumber(), driver);
         enterText(passportNoTextBox, "IND" + get6DigitRandomInt(), driver);
         enterText(gpfNoTextBox, get6DigitRandomInt(), driver);

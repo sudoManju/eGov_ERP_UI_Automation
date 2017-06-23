@@ -5,11 +5,14 @@ Feature: Create/View/Update
 
   Scenario Outline: Create an employee
 
-    //for create employee login with:
-    // hrAdmin: kurnool
-    //tirupatiEmpAdm: tirupati
+#    //for create employee login with:
+#    //pilotHR: pilotServices
+#    //kurnoolHR: staging
+#    //tirupatiHR: tirupati
+#    //kakinadaHR: kakinada
+#    //gunturHR: guntur
 
-    Given admin logs in
+    Given pilotHR logs in
     And user will select the required screen as "Create Employee" with condition as "/employee"
     And user enters the employee details as <employeeDetails>
     And user will enter the assignment details as <assignmentDetails>
@@ -36,7 +39,6 @@ Feature: Create/View/Update
       | employee3       | assignment3       | JurisdictionList3   |
       | employee4       | assignment4       | JurisdictionList4   |
       | employee5       | assignment5       | JurisdictionList5   |
-
 
   Scenario Outline: Create employee fields validation test
 

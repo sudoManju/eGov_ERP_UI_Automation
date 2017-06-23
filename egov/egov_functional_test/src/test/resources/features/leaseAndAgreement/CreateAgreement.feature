@@ -4,12 +4,12 @@ Feature: Create a Agreement based on created asset service from the asset module
 
   Scenario Outline: Create the Agreement
 
-    //users for creating asset and agreement:
-    //kakinadJA:
-    //nelloreJA:
-    //tirupatiJA:
+#    //users for creating asset and agreement:
+#    //kakinadJA:
+#    //nelloreJA:
+#    //tirupatiJA:
 
-    Given nelloreJA logs in
+    Given kakinadJA logs in
     And user will select the required screen as "Create Asset"
     And user will enter the details as <headerDetails> and <locationDetails>
     And user will enter the category details as <categoryDetails> and with asset summary status as <assetStatus>
@@ -26,18 +26,18 @@ Feature: Create a Agreement based on created asset service from the asset module
     And user will collect the fee and save the agreement application number
     And current user logs out
 
-  //kakinadRO:
-  //nelloreRO:
-  //tirupatiRO:
+#  //kakinadRO:
+#  //nelloreRO:
+#  //tirupatiRO:
 
     Given adoniRO logs in
     And he chooses to act upon above application number
     And user will enter the approval details of <approvalOfficer2>
     And current user logs out
 
-  //kakinadComm:
-  //nelloreComm:
-  //tirupatiComm:
+#  //kakinadComm:
+#  //nelloreComm:
+#  //tirupatiComm:
 
     Given commissioner logs in
     And he chooses to act upon above application number
