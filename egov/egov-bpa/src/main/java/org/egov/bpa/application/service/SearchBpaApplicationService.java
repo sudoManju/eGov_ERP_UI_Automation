@@ -40,6 +40,8 @@
 package org.egov.bpa.application.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -59,23 +61,37 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(readOnly = true)
-public class SearchBpaApplicationService  {
-	
-    private static final String SITE_DETAIL = "siteDetail";
-    private static final String BPA_APPLICATION_DOT_SITE_DETAIL = "bpaApplication.siteDetail";
+public class SearchBpaApplicationService {
 
+    @Autowired
+    private BpaThirdPartyService bpaThirdPartyService;
 
-	   @Autowired
-	    private BpaThirdPartyService bpaThirdPartyService;
-	   
-	   @PersistenceContext
-	    private EntityManager entityManager;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-	 
+    public Session getCurrentSession() {
+        return entityManager.unwrap(Session.class);
+    }
 
-	    public Session getCurrentSession() {
-	        return entityManager.unwrap(Session.class);
-	    }
+    public Date resetFromDateTimeStamp(final Date date) {
+        final Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(date);
+        cal1.set(Calendar.HOUR_OF_DAY, 0);
+        cal1.set(Calendar.MINUTE, 0);
+        cal1.set(Calendar.SECOND, 0);
+        cal1.set(Calendar.MILLISECOND, 0);
+        return cal1.getTime();
+    }
+
+    public Date resetToDateTimeStamp(final Date date) {
+        final Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(date);
+        cal1.set(Calendar.HOUR_OF_DAY, 23);
+        cal1.set(Calendar.MINUTE, 59);
+        cal1.set(Calendar.SECOND, 59);
+        cal1.set(Calendar.MILLISECOND, 999);
+        return cal1.getTime();
+    }
 
     @SuppressWarnings("unchecked")
     public List<SearchBpaApplicationForm> search(final SearchBpaApplicationForm bpaApplicationForm) {
@@ -87,9 +103,12 @@ public class SearchBpaApplicationService  {
             searchBpaApplicationForm.setApplicationNumber(bpaApplication.getApplicationNumber());
             searchBpaApplicationForm.setBuildingplanapprovalnumber(bpaApplication.getBuildingplanapprovalnumber());
             searchBpaApplicationForm.setApplicationDate(bpaApplication.getApplicationDate());
-            searchBpaApplicationForm.setAssessmentNumber(bpaApplication.getAssessmentNumber());
+            searchBpaApplicationForm.setServiceTypeId(bpaApplication.getServiceType().getId());
+            searchBpaApplicationForm.setStatusId(bpaApplication.getStatus().getId());
             searchBpaApplicationForm.setServiceType(
                     bpaApplication.getServiceType() != null ? bpaApplication.getServiceType().getDescription() : "");
+            searchBpaApplicationForm.setServiceCode(
+                    bpaApplication.getServiceType() != null ? bpaApplication.getServiceType().getCode() : "");
             searchBpaApplicationForm.setStatus(bpaApplication.getStatus().getDescription());
             searchBpaApplicationForm.setPlanPermissionNumber(bpaApplication.getPlanPermissionNumber());
             searchBpaApplicationForm
@@ -102,15 +121,25 @@ public class SearchBpaApplicationService  {
                         .getUserPositionByPassingPosition(bpaApplication.getState().getOwnerPosition().getId()).getName());
                 searchBpaApplicationForm.setPendingAction(bpaApplication.getState().getNextAction());
             }
-            if (bpaApplication.getSiteDetail()!=null && bpaApplication.getSiteDetail().size()>0 && bpaApplication.getSiteDetail().get(0) != null) { 
+            if (bpaApplication.getSiteDetail() != null && bpaApplication.getSiteDetail().size() > 0
+                    && bpaApplication.getSiteDetail().get(0) != null) {
                 searchBpaApplicationForm.setElectionWard(bpaApplication.getSiteDetail().get(0).getElectionBoundary() != null
                         ? bpaApplication.getSiteDetail().get(0).getElectionBoundary().getName() : "");
                 searchBpaApplicationForm.setWard(bpaApplication.getSiteDetail().get(0).getAdminBoundary() != null
                         ? bpaApplication.getSiteDetail().get(0).getAdminBoundary().getName() : "");
-                searchBpaApplicationForm.setZone(bpaApplication.getSiteDetail().get(0).getLocationBoundary() != null
+                searchBpaApplicationForm.setZone(bpaApplication.getSiteDetail().get(0).getAdminBoundary().getParent() != null
+                        ? bpaApplication.getSiteDetail().get(0).getAdminBoundary().getParent().getName() : "");
+                searchBpaApplicationForm.setLocality(bpaApplication.getSiteDetail().get(0).getLocationBoundary() != null
                         ? bpaApplication.getSiteDetail().get(0).getLocationBoundary().getName() : "");
+                searchBpaApplicationForm.setReSurveyNumber(bpaApplication.getSiteDetail().get(0).getReSurveyNumber());
             }
-            searchBpaApplicationForm.setFeeCollected(bpaApplication.getDemand().getBaseDemand().compareTo(bpaApplication.getDemand().getAmtCollected()) <= 0 ? true : false);
+            searchBpaApplicationForm.setFeeCollected(
+                    bpaApplication.getDemand().getBaseDemand().compareTo(bpaApplication.getDemand().getAmtCollected()) <= 0 ? true
+                            : false);
+            searchBpaApplicationForm
+                    .setAddress(bpaApplication.getOwner() != null && !bpaApplication.getOwner().getAddress().isEmpty()
+                            ? bpaApplication.getOwner().getAddress().get(0).getStreetRoadLine() : "");
+
             searchBpaApplicationFormList.add(searchBpaApplicationForm);
         }
         return searchBpaApplicationFormList;
@@ -121,31 +150,51 @@ public class SearchBpaApplicationService  {
 
         if (searchBpaApplicationForm.getApplicantName() != null) {
             criteria.createAlias("bpaApplication.owner", "owner")
-                    .add(Restrictions.ilike("owner.applicantName", searchBpaApplicationForm.getApplicantName(),
+                    .add(Restrictions.ilike("owner.name", searchBpaApplicationForm.getApplicantName(),
                             MatchMode.ANYWHERE));
         }
         if (searchBpaApplicationForm.getApplicationNumber() != null) {
             criteria.add(Restrictions.eq("bpaApplication.applicationNumber", searchBpaApplicationForm.getApplicationNumber()));
         }
-        if (searchBpaApplicationForm.getElectionWardId() != null && searchBpaApplicationForm.getWardId() != null) {
-            criteria.createAlias(BPA_APPLICATION_DOT_SITE_DETAIL, SITE_DETAIL);
+        if (searchBpaApplicationForm.getServiceTypeId() != null) {
+            criteria.add(Restrictions.eq("bpaApplication.serviceType.id", searchBpaApplicationForm.getServiceTypeId()));
+        }
+        if (searchBpaApplicationForm.getServiceType() != null) {
+            criteria.createAlias("bpaApplication.serviceType", "serviceType")
+                    .add(Restrictions.eq("serviceType.code", searchBpaApplicationForm.getServiceType()));
+        }
+        if (searchBpaApplicationForm.getStatusId() != null) {
+            criteria.add(Restrictions.eq("bpaApplication.status.id", searchBpaApplicationForm.getStatusId()));
+        }
+        if (searchBpaApplicationForm.getStatus() != null) {
+            criteria.createAlias("bpaApplication.status", "status")
+                    .add(Restrictions.eq("status.code", searchBpaApplicationForm.getStatus()));
+        }
+        if (searchBpaApplicationForm.getFromDate() != null)
+            criteria.add(Restrictions.ge("bpaApplication.applicationDate",
+                    resetFromDateTimeStamp(searchBpaApplicationForm.getFromDate())));
+        if (searchBpaApplicationForm.getToDate() != null)
+            criteria.add(Restrictions.le("bpaApplication.applicationDate",
+                    resetToDateTimeStamp(searchBpaApplicationForm.getToDate())));
+        if (searchBpaApplicationForm.getElectionWardId() != null || searchBpaApplicationForm.getWardId() != null
+                || searchBpaApplicationForm.getZoneId() != null) {
+            criteria.createAlias("bpaApplication.siteDetail", "siteDetail");
+        }
+        if (searchBpaApplicationForm.getWardId() != null || searchBpaApplicationForm.getZoneId() != null) {
+            criteria.createAlias("siteDetail.adminBoundary", "adminBoundary");
+        }
+        if (searchBpaApplicationForm.getElectionWardId() != null) {
             criteria.createAlias("siteDetail.electionBoundary", "electionBoundary")
                     .add(Restrictions.eq("electionBoundary.id", searchBpaApplicationForm.getElectionWardId()));
-            criteria.createAlias("siteDetail.adminBoundary", "adminBoundary")
-                    .add(Restrictions.eq("adminBoundary.id", searchBpaApplicationForm.getWardId()));
-        } else if (searchBpaApplicationForm.getElectionWardId() != null && searchBpaApplicationForm.getWardId() == null) {
-            criteria.createAlias(BPA_APPLICATION_DOT_SITE_DETAIL, SITE_DETAIL)
-                    .createAlias("siteDetail.electionBoundary", "electionBoundary")
-                    .add(Restrictions.eq("electionBoundary.id", searchBpaApplicationForm.getElectionWardId()));
-        } else if (searchBpaApplicationForm.getWardId() != null && searchBpaApplicationForm.getElectionWardId() == null) {
-            criteria.createAlias(BPA_APPLICATION_DOT_SITE_DETAIL, SITE_DETAIL)
-                    .createAlias("siteDetail.adminBoundary", "adminBoundary")
-                    .add(Restrictions.eq("adminBoundary.id", searchBpaApplicationForm.getWardId()));
         }
-
+        if (searchBpaApplicationForm.getWardId() != null) {
+            criteria.add(Restrictions.eq("adminBoundary.id", searchBpaApplicationForm.getWardId()));
+        }
+        if (searchBpaApplicationForm.getZoneId() != null) {
+            criteria.add(Restrictions.eq("adminBoundary.parent.id", searchBpaApplicationForm.getZoneId()));
+        }
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         return criteria;
     }
-  
 
 }

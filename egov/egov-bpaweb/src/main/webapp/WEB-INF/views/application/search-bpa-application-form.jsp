@@ -44,16 +44,36 @@
 	<div class="col-md-12">
 		<div class="panel panel-primary" data-collapsed="0">
 			<div class="panel-heading">
-				<div class="panel-title">Search BPA Applications</div>
+				<div class="panel-title">Search Applications</div>
 			</div>
 			<div class="panel-body">
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label text-right"><spring:message
+							code="lbl.fromDate" /></label>
+					<div class="col-sm-3 add-margin">
+						<form:input path="fromDate" class="form-control datepicker"
+							data-date-end-date="0d" id="fromDate"
+							data-inputmask="'mask': 'd/m/y'" />
+						<form:errors path="fromDate" cssClass="add-margin error-msg" />
+					</div>
+					<label class="col-sm-2 control-label text-right"><spring:message
+							code="lbl.toDate" /></label>
+					<div class="col-sm-3 add-margin">
+						<form:input path="toDate" class="form-control datepicker"
+							data-date-end-date="0d" id="toDate"
+							data-inputmask="'mask': 'd/m/y'" />
+						<form:errors path="toDate" cssClass="add-margin error-msg" />
+					</div>
+				</div>
+
 				<div class="form-group">
 					<label class="col-sm-3 control-label text-right"><spring:message
 							code="lbl.applicant.name" /></label>
 					<div class="col-sm-3 add-margin">
 						<form:input class="form-control patternvalidation"
 							data-pattern="alphabetwithspace" maxlength="128"
-							id="applicantName" path="applicantName"/>
+							id="applicantName" path="applicantName" />
 						<form:errors path="applicantName" cssClass="add-margin error-msg" />
 					</div>
 					<label class="col-sm-2 control-label text-right"><spring:message
@@ -68,8 +88,35 @@
 
 				<div class="form-group">
 					<label class="col-sm-3 control-label text-right"><spring:message
-							code="lbl.ward" /> 
-					</label>
+							code="lbl.service.type" /></label>
+					<div class="col-sm-3 add-margin">
+						<form:select path="serviceTypeId" data-first-option="false"
+							id="serviceTypeId" cssClass="form-control serviceType">
+							<form:option value="">
+								<spring:message code="lbl.select" />
+							</form:option>
+							<form:options items="${serviceTypeList}" itemValue="id"
+								itemLabel="description" />
+						</form:select>
+					</div>
+					<label class="col-sm-2 control-label text-right"><spring:message
+							code="lbl.status" /></label>
+					<div class="col-sm-3 add-margin">
+						<form:select path="statusId" data-first-option="false"
+							id="statusId" cssClass="form-control">
+							<form:option value="">
+								<spring:message code="lbl.select" />
+							</form:option>
+							<form:options items="${applnStatusList}" itemValue="id"
+								itemLabel="description" />
+						</form:select>
+						<form:errors path="statusId" cssClass="add-margin error-msg" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label text-right"><spring:message
+							code="lbl.ward" /> </label>
 					<div class="col-sm-3 add-margin">
 						<form:select path="wardId" data-first-option="false" id="wardId"
 							cssClass="form-control">
@@ -92,6 +139,22 @@
 								itemLabel="name" />
 						</form:select>
 						<form:errors path="electionWardId" cssClass="add-margin error-msg" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label text-right"> <spring:message
+							code="lbl.zone" />
+					</label>
+					<div class="col-sm-3 add-margin">
+						<form:select path="zoneId" data-first-option="false" id="zone"
+							cssClass="form-control">
+							<form:option value="">
+								<spring:message code="lbl.select" />
+							</form:option>
+							<form:options items="${zones}" itemValue="id" itemLabel="name" />
+						</form:select>
+						<form:errors path="zoneId" cssClass="add-margin error-msg" />
 					</div>
 				</div>
 			</div>

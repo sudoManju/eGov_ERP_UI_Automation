@@ -47,10 +47,12 @@ public class SearchBpaApplicationForm{
     private String applicationNumber;
     private String buildingplanapprovalnumber;
     private Date applicationDate;
-    private String assessmentNumber;
     private String applicantType;
     private String serviceType;
+    private Long serviceTypeId;
+    private String serviceCode;
     private String status;
+    private Long statusId;
     private String planPermissionNumber;
     private BigDecimal admissionfeeAmount;
     private String applicantName;
@@ -64,6 +66,11 @@ public class SearchBpaApplicationForm{
     private String zone;
     private Long zoneId;
     private boolean isFeeCollected;
+    private Date fromDate;
+    private Date toDate;
+    private String address;
+    private String locality;
+    private String reSurveyNumber;
     
     public Long getId() {
         return id;
@@ -89,11 +96,12 @@ public class SearchBpaApplicationForm{
     public void setApplicationDate(Date applicationDate) {
         this.applicationDate = applicationDate;
     }
-    public String getAssessmentNumber() {
-        return assessmentNumber;
+    
+    public String getAddress() {
+        return address;
     }
-    public void setAssessmentNumber(String assessmentNumber) {
-        this.assessmentNumber = assessmentNumber;
+    public void setAddress(String address) {
+        this.address = address;
     }
     public String getApplicantType() {
         return applicantType;
@@ -191,5 +199,46 @@ public class SearchBpaApplicationForm{
     public void setFeeCollected(boolean isFeeCollected) {
         this.isFeeCollected = isFeeCollected;
     }
-    
+    public String getServiceCode() {
+        return serviceCode;
+    }
+    public void setServiceCode(String serviceCode) {
+        this.serviceCode = serviceCode;
+    }
+    public Long getServiceTypeId() {
+        return serviceTypeId;
+    }
+    public void setServiceTypeId(Long serviceTypeId) {
+        this.serviceTypeId = serviceTypeId;
+    }
+    public Long getStatusId() {
+        return statusId;
+    }
+    public void setStatusId(Long statusId) {
+        this.statusId = statusId;
+    }
+    public Date getFromDate() {
+        return fromDate;
+    }
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
+    }
+    public Date getToDate() {
+        return toDate;
+    }
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
+    }
+    public String getLocality() {
+        return locality;
+    }
+    public void setLocality(String locality) {
+        this.locality = locality;
+    }
+    public String getReSurveyNumber() {
+        return reSurveyNumber;
+    }
+    public void setReSurveyNumber(String reSurveyNumber) {
+        this.reSurveyNumber = reSurveyNumber;
+    }
 }

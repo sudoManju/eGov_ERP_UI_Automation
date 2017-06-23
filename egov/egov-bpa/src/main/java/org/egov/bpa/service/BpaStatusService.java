@@ -1,5 +1,7 @@
 package org.egov.bpa.service;
 
+import java.util.List;
+
 import org.egov.bpa.application.entity.BpaStatus;
 import org.egov.bpa.repository.BpaStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +21,9 @@ public class BpaStatusService {
 
     public BpaStatus findByModuleTypeAndCode(final String moduleType, final String code) {
         return bpaStatusRepository.findByModuleTypeContainingIgnoreCaseAndCode(moduleType, code);
+    }
+
+    public List<BpaStatus> findAll() {
+        return bpaStatusRepository.findAll();
     }
 }

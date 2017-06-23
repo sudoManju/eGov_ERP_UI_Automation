@@ -47,6 +47,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.egov.bpa.application.entity.BpaStatus;
 import org.egov.bpa.application.entity.BuildingCategory;
 import org.egov.bpa.application.entity.ConstructionStages;
 import org.egov.bpa.application.entity.Occupancy;
@@ -65,6 +66,7 @@ import org.egov.bpa.masters.service.OccupancyService;
 import org.egov.bpa.masters.service.ServiceTypeService;
 import org.egov.bpa.masters.service.VillageNameService;
 import org.egov.bpa.service.BpaDemandService;
+import org.egov.bpa.service.BpaStatusService;
 import org.egov.bpa.service.BpaThirdPartyService;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.eis.web.contract.WorkflowContainer;
@@ -116,6 +118,8 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     protected BpaWorkFlowService bpaWorkFlowService;
     @Autowired
     protected ResourceBundleMessageSource messageSource;
+    @Autowired
+    protected BpaStatusService bpaStatusService;
     
     @ModelAttribute("occupancyList")
     public List<Occupancy> getOccupancy() {
@@ -201,6 +205,11 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     @ModelAttribute("uomList")
     public BpaUom[] getUomList() {
         return BpaUom.values();
+    }
+    
+    @ModelAttribute("applnStatusList")
+    public List<BpaStatus> getApplnStatusList() {
+        return bpaStatusService.findAll();
     }
     
     public Map<String, String> getApplicationModeMap() {

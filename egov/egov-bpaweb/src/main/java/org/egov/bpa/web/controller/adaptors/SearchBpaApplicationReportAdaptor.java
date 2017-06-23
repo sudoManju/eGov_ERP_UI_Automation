@@ -41,43 +41,31 @@ package org.egov.bpa.web.controller.adaptors;
 
 import java.lang.reflect.Type;
 
-import org.egov.bpa.application.entity.dto.SearchBpaApplicationForm;
+import org.egov.bpa.application.entity.dto.SearchBpaApplicationReport;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
-public class SearchBpaApplicationFormAdaptor implements JsonSerializer<SearchBpaApplicationForm> {
+public class SearchBpaApplicationReportAdaptor implements JsonSerializer<SearchBpaApplicationReport> {
     @Override
-    public JsonElement serialize(final SearchBpaApplicationForm searchFormObj, final Type type,
+    public JsonElement serialize(final SearchBpaApplicationReport reportResultFormObj, final Type type,
             final JsonSerializationContext jsc) {
         final JsonObject jsonObject = new JsonObject();
-        if (searchFormObj != null) {
-            jsonObject.addProperty("applicantName",
-                    org.apache.commons.lang.StringUtils.defaultString(searchFormObj.getApplicantName()));
-            jsonObject.addProperty("applicationNumber",
-                    org.apache.commons.lang.StringUtils.defaultString(searchFormObj.getApplicationNumber()));
-            jsonObject.addProperty("applicationDate",
-                    org.apache.commons.lang.StringUtils.defaultString(searchFormObj.getApplicationDate().toString()));
-            jsonObject.addProperty("buildingplanapprovalnumber",
-                    org.apache.commons.lang.StringUtils.defaultString(searchFormObj.getBuildingplanapprovalnumber()));
-            jsonObject.addProperty("locality",
-                    org.apache.commons.lang.StringUtils.defaultString(searchFormObj.getLocality()));
-            jsonObject.addProperty("reSurveyNumber",
-                    org.apache.commons.lang.StringUtils.defaultString(searchFormObj.getReSurveyNumber()));
-            jsonObject.addProperty("address",
-                    org.apache.commons.lang.StringUtils.defaultString(searchFormObj.getAddress()));
-            jsonObject.addProperty("serviceType",
-                    org.apache.commons.lang.StringUtils.defaultString(searchFormObj.getServiceType()));
-            jsonObject.addProperty("currentOwner", searchFormObj.getCurrentOwner());
-            jsonObject.addProperty("pendingAction", searchFormObj.getPendingAction());
-            jsonObject.addProperty("electionWard", searchFormObj.getElectionWard());
-            jsonObject.addProperty("ward", org.apache.commons.lang.StringUtils.defaultString(searchFormObj.getWard()));
-            jsonObject.addProperty("zone", org.apache.commons.lang.StringUtils.defaultString(searchFormObj.getZone()));
-            jsonObject.addProperty("isFeeCollected", searchFormObj.isFeeCollected());
-            jsonObject.addProperty("status", searchFormObj.getStatus());
-            jsonObject.addProperty("id", searchFormObj.getId());
+        if (reportResultFormObj != null) {
+            jsonObject.addProperty("applicationNumber", reportResultFormObj.getApplicationNumber());
+            jsonObject.addProperty("status", reportResultFormObj.getStatus());
+            jsonObject.addProperty("serviceType01", reportResultFormObj.getServiceType01());
+            jsonObject.addProperty("serviceType02", reportResultFormObj.getServiceType02());
+            jsonObject.addProperty("serviceType03", reportResultFormObj.getServiceType03());
+            jsonObject.addProperty("serviceType04", reportResultFormObj.getServiceType04());
+            jsonObject.addProperty("serviceType05", reportResultFormObj.getServiceType05());
+            jsonObject.addProperty("serviceType06", reportResultFormObj.getServiceType06());
+            jsonObject.addProperty("serviceType07", reportResultFormObj.getServiceType07());
+            jsonObject.addProperty("serviceType08", reportResultFormObj.getServiceType08());
+            jsonObject.addProperty("serviceType09", reportResultFormObj.getServiceType09());
+            jsonObject.addProperty("id", reportResultFormObj.getId());
         }
         return jsonObject;
     }
