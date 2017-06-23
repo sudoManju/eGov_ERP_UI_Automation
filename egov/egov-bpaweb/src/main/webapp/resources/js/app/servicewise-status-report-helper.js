@@ -75,7 +75,8 @@ $(document)
 												"data" : getFormData($('form')),
 												"dataSrc": function ( json ) {
 													json.data.forEach(function(item){
-														item["rowTotal"] = item.serviceType01 + item.serviceType02 +item.serviceType03 +item.serviceType04 +item.serviceType05 +item.serviceType06 +item.serviceType07;
+														item["rowTotal"] = item.serviceType01 + item.serviceType02 + item.serviceType03 + item.serviceType04 + item.serviceType05 
+															+ item.serviceType06 + item.serviceType07 + item.serviceType08 + item.serviceType09;
 													});
 									                return json.data;
 									            },   
