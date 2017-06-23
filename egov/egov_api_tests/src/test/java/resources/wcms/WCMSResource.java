@@ -66,7 +66,7 @@ public class WCMSResource {
         return response;
     }
 
-    public Response updatePipeSizeResource(String jsonString , String code) {
+    public Response updatePipeSizeResource(String jsonString, String code) {
         new APILogger().log("Update PipeSize Test Request is Started with --" + jsonString);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
@@ -74,6 +74,39 @@ public class WCMSResource {
                 .when()
                 .post(ResourceHelper.getBaseURL() + "/wcms-masters/pipesize/" + code + "/_update");
         new APILogger().log("Update PipeSize Test Test Request is Generated as  --" + response.asString());
+        return response;
+    }
+
+    public Response createDocumentTypeResource(String jsonString) {
+        new APILogger().log("Create DocumentType Test Request is Started with --" + jsonString);
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(jsonString)
+                .when()
+                .post(Properties.wcmsCreateDocumentTypeUrl);
+        new APILogger().log("Create DocumentType Test Test Request is Generated as  --" + response.asString());
+        return response;
+    }
+
+    public Response searchDocumentTypeResource(String jsonString, String documentName) {
+        new APILogger().log("Search DocumentType Test Request is Started with --" + jsonString);
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(jsonString)
+                .when()
+                .post(Properties.wcmsSearchDocumentTypeUrl + "&name=" + documentName);
+        new APILogger().log("Search DocumentType Test Test Request is Generated as  --" + response.asString());
+        return response;
+    }
+
+    public Response updateDocumentTypeResource(String jsonString, String code) {
+        new APILogger().log("Update DocumentType Test Request is Started with --" + jsonString);
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(jsonString)
+                .when()
+                .post(ResourceHelper.getBaseURL() + "/wcms-masters/documenttype/" + code + "/_update");
+        new APILogger().log("Update DocumentType Test Test Request is Generated as  --" + response.asString());
         return response;
     }
 }
