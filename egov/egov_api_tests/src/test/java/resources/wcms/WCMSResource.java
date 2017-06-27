@@ -142,4 +142,37 @@ public class WCMSResource {
         new APILogger().log("Update SourceType Test Request is Generated as  --" + response.asString());
         return response;
     }
+
+    public Response createSupplyTypeResource(String jsonString) {
+        new APILogger().log("Create SupplyType Test Request is Started with --" + jsonString);
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(jsonString)
+                .when()
+                .post(Properties.wcmsCreateSupplyTypeUrl);
+        new APILogger().log("Create SupplyType Test Request is Generated as  --" + response.asString());
+        return response;
+    }
+
+    public Response searchSupplyTypeResource(String jsonString, String name) {
+        new APILogger().log("Search SupplyType Test Request is Started with --" + jsonString);
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(jsonString)
+                .when()
+                .post(Properties.wcmsSearchSupplyTypeUrl + "&name=" + name);
+        new APILogger().log("Search SupplyType Test Request is Generated as  --" + response.asString());
+        return response;
+    }
+
+    public Response updateSupplyTypeResource(String jsonString, String code) {
+        new APILogger().log("Update SupplyType Test Request is Started with --" + jsonString);
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(jsonString)
+                .when()
+                .post(ResourceHelper.getBaseURL() + "/wcms-masters/supplytype/" + code + "/_update");
+        new APILogger().log("Update SupplyType Test Request is Generated as  --" + response.asString());
+        return response;
+    }
 }

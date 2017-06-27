@@ -103,6 +103,8 @@ public class Properties {
     public static final String wcmsSearchDocumentTypeUrl = propertiesReader.getEndPointUrl("wcmsSearchDocumentTypeUrl");
     public static final String wcmsCreateSourceTypeUrl = propertiesReader.getEndPointUrl("wcmsCreateSourceTypeUrl");
     public static final String wcmsSearchSourceTypeUrl = propertiesReader.getEndPointUrl("wcmsSearchSourceTypeUrl");
+    public static final String wcmsCreateSupplyTypeUrl = propertiesReader.getEndPointUrl("wcmsCreateSupplyTypeUrl");
+    public static final String wcmsSearchSupplyTypeUrl = propertiesReader.getEndPointUrl("wcmsSearchSupplyTypeUrl");
 
 
 }
