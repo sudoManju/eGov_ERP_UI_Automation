@@ -81,7 +81,6 @@ public interface PropertyTaxConstants {
     public static final String DATE_FORMAT_DDMMYYY = "dd/MM/yyyy";
     public static final String SESSIONLOGINID = "userid";
     public static final String SESSION_VAR_LOGIN_USER_NAME = "username";
-    public static final String CITIZENUSER = "9999999999";
     public static final String PROP_ADDR_TYPE = "PROPERTY";
     public static final String OWNER_ADDR_TYPE = "OWNER";
     public static final String TRANSFER = "TRANSFER";
@@ -117,6 +116,10 @@ public interface PropertyTaxConstants {
     public static final String ARREAR_REBATE_STR = "ARREAR_REBATE";
     public static final String CURR_FIRSTHALF_DMD_STR = "CURR_FIRSTHALF_DMD";
     public static final String CURR_FIRSTHALF_COLL_STR = "CURR_FIRSTHALF_COLL";
+    public static final String CURR_FIRSTHALF_PENALTY_DMD_STR = "CURR_FIRSTHALF_PENALTY_DMD";
+    public static final String CURR_FIRSTHALF_PENALTY_COLL_STR = "CURR_FIRSTHALF_PENALTY_COLL";
+    public static final String CURR_SECONDHALF_PENALTY_DMD_STR = "CURR_SECONDHALF_PENALTY_DMD";
+    public static final String CURR_SECONDHALF_PENALTY_COLL_STR = "CURR_SECONDHALF_PENALTY_COLL";
     public static final String CURR_SECONDHALF_DMD_STR = "CURR_SECONDHALF_DMD";
     public static final String CURR_SECONDHALF_COLL_STR = "CURR_SECONDHALF_COLL";
     public static final String ADVANCE_COLLECTION_STR = "ADVANCECOLLECTION";
@@ -398,21 +401,6 @@ public interface PropertyTaxConstants {
     public static final BigDecimal BPA_DEVIATION_TAXPERC_1_10 = new BigDecimal(0.25);// 25%
     public static final BigDecimal BPA_DEVIATION_TAXPERC_ABOVE_11 = new BigDecimal(0.5);// 50%
     public static final BigDecimal BPA_DEVIATION_TAXPERC_NOT_DEFINED = new BigDecimal(1);// 100%
-
-    // TreeMap for Guardian Relation
-    public static final TreeMap<String, String> GUARDIAN_RELATION = new TreeMap<String, String>() {
-        /**
-         *
-         */
-        private static final long serialVersionUID = 1562775868931890565L;
-
-        {
-            put("FATHER", "Father");
-            put("MOTHER", "Mother");
-            put("HUSBAND", "Husband");
-            put("OTHERS", "Others");
-        }
-    };
 
     // Named Queries
     public static final String QUERY_DEPRECIATION_BY_YEAR = "DEPRECIATION_BY_YEAR";
@@ -763,6 +751,7 @@ public interface PropertyTaxConstants {
     public static final String REVENUE_CLERK_DESGN = "Revenue Clerk";
     public static final String COMMISSIONER_DESGN = "Commissioner";
     public static final String BILL_COLLECTOR_DESGN = "Bill Collector";
+    public static final String TAX_COLLECTOR_DESGN = "Tax Collector";
     public static final String END_APPROVER_DESGN = "RO";
     public static final String JUNIOR_ASSISTANT = "Junior Assistant";
     public static final String SENIOR_ASSISTANT = "Senior Assistant";
@@ -1115,7 +1104,8 @@ public interface PropertyTaxConstants {
     public static final String MUTATIONRS_OTHERS = "OTHERS";
     public static final String MUTATIONRS_SALES_DEED = "Sale Deed";
     public static final String MUTATIONRS_COURT_ORDER = "Court Deed";
-
+    public static final String MUTATIONRS_DECREE_BY_CIVIL_COURT = "Decree by Civil Court";
+    
     @SuppressWarnings("serial")
     public static final Map<String, String> SALUTATION = new HashMap<String, String>() {
         {
@@ -1132,6 +1122,7 @@ public interface PropertyTaxConstants {
     public static final String PROPERTY_ACTIVE_ERR_CODE = "PTAX103";
     public static final String PROPERTY_INACTIVE_ERR_CODE = "PTAX104";
     public static final String PROPERTY_EXEMPTED_ERR_CODE = "PTAX105";
+    public static final String PROPERTY_DUPLICATE_ERR_CODE = "PTAX106";
 
     public static final String PROPERTY_NOT_EXIST_ERR_MSG_PREFIX = "Property with assessment no ";
     public static final String PROPERTY_NOT_EXIST_ERR_MSG_SUFFIX = " does not exist";
@@ -1140,6 +1131,7 @@ public interface PropertyTaxConstants {
     public static final String PROPERTY_ACTIVE_NOT_EXISTS = "Active property does not exists for the given assessment number";
     public static final String PROPERTY_INACTIVE_ERR_MSG = "Property is not active for the given assessment number";
     public static final String PROPERTY_EXEMPTED_ERR_MSG = "Property is exempted";
+    public static final String PROPERTY_DUPLICATE_ERR_MSG = "More than one assessment for the old assessment number: ";
 
     public static final String MARK_DEACTIVE = "MARK_DEACTIVE";
     public static final BigDecimal PENALTY_PERCENTAGE = new BigDecimal(2);
@@ -1503,11 +1495,7 @@ public interface PropertyTaxConstants {
     public static final String STR_FOR_CASH = "We have received a property tax cash payment of Rs.";
     public static final String STR_FOR_CASH_ADJUSTMENT = "/- and it would be adjusted against your assessment no.";
 
-    public static final String GUARDIAN_RELATION_FATHER = "FATHER";
-    public static final String GUARDIAN_RELATION_MOTHER = "MOTHER";
-    public static final String GUARDIAN_RELATION_HUSBAND = "HUSBAND";
     public static final String GUARDIAN_RELATION_WIFE = "WIFE";
-    public static final String GUARDIAN_RELATION_OTHERS = "OTHERS";
 
     public static final String WRITEOFF_REASON_DEMOLITION = "Demolition";
     public static final String WRITEOFF_REASON_ROAD_WIDENING = "Road widening";

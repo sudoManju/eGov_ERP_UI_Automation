@@ -69,7 +69,7 @@ public class FinancialsDetailsRequest {
     private String detailedCode = "";
     private String aggregationLevel;
     private String currentFinancialYear;
-    private String LastFinancialYear;
+    private String lastFinancialYear;
 
     public String getRegion() {
         return region;
@@ -219,24 +219,24 @@ public class FinancialsDetailsRequest {
         return currentFinancialYear;
     }
 
-    public void setCurrentFinancialYear(String currentFinancialYear) {
+    public void setCurrentFinancialYear(final String currentFinancialYear) {
         this.currentFinancialYear = currentFinancialYear;
-    }
-
-    public String getLastFinancialYear() {
-        return LastFinancialYear;
-    }
-
-    public void setLastFinancialYear(String lastFinancialYear) {
-        LastFinancialYear = lastFinancialYear;
     }
 
     public String getUlbName() {
         return ulbName;
     }
 
-    public void setUlbName(String ulbName) {
+    public void setUlbName(final String ulbName) {
         this.ulbName = ulbName;
+    }
+
+    public String getLastFinancialYear() {
+        return lastFinancialYear;
+    }
+
+    public void setLastFinancialYear(final String lastFinancialYear) {
+        this.lastFinancialYear = lastFinancialYear;
     }
 
 }
