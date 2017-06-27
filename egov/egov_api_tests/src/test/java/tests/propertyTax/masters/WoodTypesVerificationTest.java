@@ -21,7 +21,7 @@ public class WoodTypesVerificationTest extends BaseAPITest {
     @Test(groups = {Categories.PTIS, Categories.SANITY})
     public void woodTypesTest()throws IOException{
 
-        LoginAndLogoutHelper.login(NARASAPPA);    //Login
+        LoginAndLogoutHelper.login1(NARASAPPA);    //Login
 
         WoodTypesResponse create = createWoodTypesMaster();       //Create
 

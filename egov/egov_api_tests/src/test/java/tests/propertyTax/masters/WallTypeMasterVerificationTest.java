@@ -21,7 +21,7 @@ public class WallTypeMasterVerificationTest extends BaseAPITest {
     @Test(groups = {Categories.PTIS, Categories.SANITY})
     public void wallTypeMasterTest() throws IOException {
 
-        LoginAndLogoutHelper.login(NARASAPPA);   //Login
+        LoginAndLogoutHelper.login1(NARASAPPA);   //Login
 
         WallTypesResponse create = createWallTypeMasterTest();  //Create
 

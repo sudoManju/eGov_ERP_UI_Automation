@@ -22,7 +22,7 @@ public class  UsageMasterVerificationTest extends BaseAPITest {
     @Test(groups = {Categories.PTIS, Categories.SANITY})
     public void usageMasterTest() throws IOException {
 
-        LoginAndLogoutHelper.login(NARASAPPA);     //Login
+        LoginAndLogoutHelper.login1(NARASAPPA);     //Login
 
         SearchHelper helper = new SearchHelper();
 

@@ -20,7 +20,7 @@ public class DepartmentVerificationTest extends BaseAPITest {
 
     @Test(groups = {Categories.PTIS, Categories.SANITY})
     public void DepartmentMasterTest() throws IOException{
-        LoginAndLogoutHelper.login(NARASAPPA);         //Login
+        LoginAndLogoutHelper.login1(NARASAPPA);         //Login
 
         DepartmentsMasterResponse create = createDepartmentMaster();   //Create
 

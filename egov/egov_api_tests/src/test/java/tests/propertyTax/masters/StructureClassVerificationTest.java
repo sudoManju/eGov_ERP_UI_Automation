@@ -21,7 +21,7 @@ public class StructureClassVerificationTest extends BaseAPITest {
     @Test(groups = {Categories.PTIS, Categories.SANITY})
     public void structureClassTest()throws IOException{
 
-        LoginAndLogoutHelper.login(NARASAPPA); // Login
+        LoginAndLogoutHelper.login1(NARASAPPA); // Login
 
         StructureClassResponse create = createStructureClass();  //Create
 

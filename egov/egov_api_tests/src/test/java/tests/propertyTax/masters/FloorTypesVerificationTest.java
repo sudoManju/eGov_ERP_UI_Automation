@@ -22,7 +22,7 @@ public class FloorTypesVerificationTest extends BaseAPITest {
   @Test(groups = {Categories.PTIS, Categories.SANITY})
   public void floorTypesTest() throws IOException {
 
-     LoginAndLogoutHelper.login(NARASAPPA);  //Login
+     LoginAndLogoutHelper.login1(NARASAPPA);  //Login
 
       FloorTypesResponse create = createFloorTypes();  //Create
 

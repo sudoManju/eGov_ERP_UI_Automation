@@ -21,7 +21,7 @@ public class PropertyTypeVerificationTest extends BaseAPITest {
     @Test(groups = {Categories.PTIS, Categories.SANITY})
     public void propertyTypeTest() throws IOException{
 
-        LoginAndLogoutHelper.login(NARASAPPA);    //Login
+        LoginAndLogoutHelper.login1(NARASAPPA);    //Login
 
         PropertyTypesResponse create = createPropertyTypeMaster();   //Create
 

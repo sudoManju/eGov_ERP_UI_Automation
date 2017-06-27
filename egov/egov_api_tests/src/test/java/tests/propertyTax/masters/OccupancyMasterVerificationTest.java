@@ -20,7 +20,7 @@ public class OccupancyMasterVerificationTest extends BaseAPITest {
 
     @Test(groups = {Categories.PTIS, Categories.SANITY})
     public void OccupancyMasterTest()throws IOException{
-        LoginAndLogoutHelper.login(NARASAPPA);   //Login
+        LoginAndLogoutHelper.login1(NARASAPPA);   //Login
 
         CreateOccupancyMasterResponse create = createOccupancyMaster();   //Create
 
