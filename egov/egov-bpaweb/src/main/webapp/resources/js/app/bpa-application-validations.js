@@ -228,6 +228,17 @@ $(document).ready(function() {
 		}
 	});
 	
+	
+	$('#extentOfLand,#unitOfMeasurement').change(function(){
+		var extentOfLand = $('#extentOfLand').val();
+		var uom = $('#unitOfMeasurement').val();
+		if(extentOfLand && uom && convertExtendOfLandToSqmts(extentOfLand, uom) > 1000000) {
+			$('#extentOfLand').val('');
+			$('#extentinsqmts').val('');
+			bootbox.alert("Maximum allowed area of extend land upto 10 lakhs Sq.Mtrs only.");
+		}
+	});
+	
 });
 
 $('#occupancy').change(function(){

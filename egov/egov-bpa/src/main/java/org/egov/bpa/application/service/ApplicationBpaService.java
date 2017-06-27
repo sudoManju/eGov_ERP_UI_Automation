@@ -55,7 +55,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -271,28 +270,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
 
     public void persistOrUpdateApplicationDocument(final BpaApplication bpaApplication,
             final BindingResult resultBinder) {
-    	final List<ApplicationDocument> applicationDocs = new ArrayList<>(0);
-        int i = 0;
-        if (!bpaApplication.getApplicationDocument().isEmpty()){
-            for (final ApplicationDocument applicationDocument : bpaApplication.getApplicationDocument()) {
-                validateDocuments(applicationDocs, applicationDocument, i, resultBinder);
-                i++;
-            }
-        bpaApplication.setApplicationDocument(applicationDocs);
-        }
         processAndStoreApplicationDocuments(bpaApplication);
-    }
-    
-    private void validateDocuments(final List<ApplicationDocument> applicationDocs,
-            final ApplicationDocument applicationDocument, final int i, final BindingResult resultBinder) {
-        Iterator<MultipartFile> stream = null;
-        if (ArrayUtils.isNotEmpty(applicationDocument.getFiles()))
-            stream = Arrays.asList(applicationDocument.getFiles()).stream().filter(file -> !file.isEmpty()).iterator();
-        if (stream == null) {
-            final String fieldError = "applicationDocument[" + i + "].files";
-            resultBinder.rejectValue(fieldError, "files.required");
-        } else
-            applicationDocs.add(applicationDocument);
     }
 
     public BigDecimal setAdmissionFeeAmountForRegistration(final String serviceType) {
@@ -374,20 +352,17 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         return fileStoreMapper;
     }
 
-    protected void processAndStoreApplicationDocuments(final BpaApplication bpaApplication) { 
+    protected void processAndStoreApplicationDocuments(final BpaApplication bpaApplication) {
         if (!bpaApplication.getApplicationDocument().isEmpty())
             for (final ApplicationDocument applicationDocument : bpaApplication.getApplicationDocument()) {
-            	applicationDocument.setChecklistDetail(
+                applicationDocument.setChecklistDetail(
                         checkListDetailService.load(applicationDocument.getChecklistDetail().getId()));
                 applicationDocument.setApplication(bpaApplication);
-                if (applicationDocument.getIssubmitted() == null
-                        || applicationDocument.getIssubmitted().equals(Boolean.FALSE))
-                    applicationDocument.setIssubmitted(Boolean.FALSE);
-                else
-                    applicationDocument.setIssubmitted(Boolean.TRUE);
-                for (MultipartFile tempFile : applicationDocument.getFiles()) {
-                    if (tempFile.getSize() > 0) {
-                        applicationDocument.setSupportDocs(addToFileStore(applicationDocument.getFiles()));
+                if (applicationDocument.getFiles() != null) {
+                    for (MultipartFile tempFile : applicationDocument.getFiles()) {
+                        if (!tempFile.isEmpty()) {
+                            applicationDocument.setSupportDocs(addToFileStore(applicationDocument.getFiles()));
+                        }
                     }
                 }
             }

@@ -62,6 +62,7 @@ function getNewFileViewer(fileName) {
 $(document).on('change','.files-upload-container input:file',function(e) {
 	
 	var allowedExtenstion=$(this).closest('.files-upload-container').data('allowed-extenstion');
+	var maxFileSize = $(this).closest('.files-upload-container').data('file-max-size');
 	
 	$(this).parent().find('.error').remove();
 	
@@ -74,10 +75,21 @@ $(document).on('change','.files-upload-container input:file',function(e) {
 	if (input.files && input.files[0]) {
 		var reader = new FileReader();
 		var fileName = input.files[0].name;
-		var extension = fileName.split('.').pop().toLowerCase()
+		var extension = fileName.split('.').pop().toLowerCase();
+		
+		var isMaxLimitReached=false;
+		
+		if(maxFileSize){
+			isMaxLimitReached = parseInt(maxFileSize)*1024*1000 < input.files[0].size;
+		}
 		
 		if(allowedExtenstion && allowedExtenstion.toUpperCase().split(',').indexOf(extension.toUpperCase()) < 0){
 			bootbox.alert('Please upload '+allowedExtenstion.toUpperCase());
+			$(this).val('');
+			return;
+		}
+		else if(isMaxLimitReached){
+			bootbox.alert('File size should not exceed 2 MB!');
 			$(this).val('');
 			return;
 		}

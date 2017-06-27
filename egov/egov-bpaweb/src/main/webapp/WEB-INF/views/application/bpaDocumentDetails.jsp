@@ -110,7 +110,8 @@
 
 				<div class="col-sm-4 add-margin">
 					<div class="files-upload-container"
-						data-allowed-extenstion="doc,docx,xls,xlsx,rtf,pdf,txt,zip">
+					    data-file-max-size="2"
+						data-allowed-extenstion="doc,docx,xls,xlsx,rtf,pdf,txt,zip,jpeg,jpg,png,gif">
 						<div class="files-viewer">
 
 							<c:forEach items="${docs.getSupportDocs()}" var="file">

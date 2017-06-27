@@ -39,218 +39,260 @@
  */
 var reportdatatable;
 
-jQuery(document).ready(function($) {
-	
-	
-	var validator=$("#newApplicationform").validate({
-	  highlight: function(element, errorClass) {
-	    $(element).fadeOut(function() {
-	      $(element).fadeIn();
-	    });
-	  }
-	});
-	
-	if($('#noJAORSAMessage') && $('#noJAORSAMessage').val())
-		bootbox.alert($('#noJAORSAMessage').val());
-	
-	if($('#invalidStakeholder').val())
-		bootbox.alert($('#invalidStakeholder').val());
-	
-	$('#buttonSubmit').click(function(e) {
-		return validateForm(validator);
-	});
-	
+jQuery(document).ready(
+		function($) {
 
-	function validateForm(validator) {
-		if ($('#newApplicationform').valid() && validateUploadFilesMandatory()) {
-			document.getElementById("workFlowAction").value=$('#buttonSubmit').val();
-			document.forms[0].submit();
+			var validator = $("#newApplicationform").validate({
+				highlight : function(element, errorClass) {
+					$(element).fadeOut(function() {
+						$(element).fadeIn();
+					});
+				}
+			});
+
+			if ($('#noJAORSAMessage') && $('#noJAORSAMessage').val())
+				bootbox.alert($('#noJAORSAMessage').val());
+
+			if ($('#invalidStakeholder').val())
+				bootbox.alert($('#invalidStakeholder').val());
+
+			$('#buttonSubmit').click(function(e) {
+				return validateForm(validator);
+			});
+
+			function validateForm(validator) {
+				if ($('#newApplicationform').valid()
+						&& validateUploadFilesMandatory()) {
+					document.getElementById("workFlowAction").value = $(
+							'#buttonSubmit').val();
+					document.forms[0].submit();
+					return true;
+				} else {
+					validator.focusInvalid();
+					return false;
+				}
+			}
+
+		});
+
+var citizenOrBusiness = $('#citizenOrBusinessUser').val();
+if (citizenOrBusiness == 'true') {
+	$('#serviceType').prop("disabled", true);
+}
+function chkNumeric(evt) {
+	evt = (evt) ? evt : window.event;
+	var charCode = (evt.which) ? evt.which : evt.keyCode;
+	if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+		if (charCode == 46) {
 			return true;
 		} else {
-			validator.focusInvalid();
 			return false;
 		}
-	}
-	
-});
-	var citizenOrBusiness=$('#citizenOrBusinessUser').val();
-	if(citizenOrBusiness == 'true')
-	{
-	$('#serviceType').prop("disabled", true);
-	}
-function chkNumeric(evt) {
-    evt = (evt) ? evt : window.event;
-    var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-        if (charCode == 46) { 
-        	return true;
-        } else { 
-        	return false; 
-        } 
-    }
-    return true;
-}
-function validateMobileNumber(obj)
-{
-	var text = obj.value;
-	if(text!=''){
-		if(text.length!=10)
-		{		
-			obj.value="";
-			bootbox.alert("Invalid Mobile length");
-			return false;
-		}
-	validatePhoneNumber(obj,'mobile');
 	}
 	return true;
 }
-//email validation
-$('input[id$="emailId"]').blur(function() {
-		var pattern = new RegExp("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
-		var email = $(this).val();
-		if (!pattern.test(email) && $(this).val().length > 0) {
-			var span = $(this).siblings('span'); 
-	    	$(span).addClass('error-msg');
-	    	$(span).text('Please enter valid email..!');
-			$(this).show();
-			$(this).val("");
-		} else {
-			var span1 = $(this).siblings('span'); 
-			$(span1).removeClass('error-msg');
-	    	$(span1).text('');
+function validateMobileNumber(obj) {
+	var text = obj.value;
+	if (text != '') {
+		if (text.length != 10) {
+			obj.value = "";
+			bootbox.alert("Invalid Mobile length");
+			return false;
 		}
-	});
-//mobile number validation
-$('#mobileNumber').blur( function () {
-	 var mobileno = $(this).val();
-		if (mobileno && mobileno.length < 10) { 
-			bootbox.alert("Please enter 10 digit mobile number");
-			$(this).val('');
-		}
-	});
-$('#zone').change(function(){
-	jQuery.ajax({
-		url: "/egi/public/boundary/ajaxBoundary-blockByWard.action",
-		type: "GET",
-		data: {
-			wardId : jQuery('#zone').val()
-		},
-		cache: false,
-		dataType: "json",
-		success: function (response) {
-			jQuery('#ward').html("");
-			jQuery('#ward').append("<option value=''>Select</option>");
-			jQuery.each(response, function(index, value) {
-				jQuery('#ward').append($('<option>').text(value.blockName).attr('value', value.blockId));
-			});
-		}, 
-		error: function (response) {
-			jQuery('#ward').html("");
-			jQuery('#ward').append("<option value=''>Select</option>");
-		}
-	});
+		validatePhoneNumber(obj, 'mobile');
+	}
+	return true;
+}
+// email validation
+$('input[id$="emailId"]')
+		.blur(
+				function() {
+					var pattern = new RegExp(
+							"^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
+					var email = $(this).val();
+					if (!pattern.test(email) && $(this).val().length > 0) {
+						var span = $(this).siblings('span');
+						$(span).addClass('error-msg');
+						$(span).text('Please enter valid email..!');
+						$(this).show();
+						$(this).val("");
+					} else {
+						var span1 = $(this).siblings('span');
+						$(span1).removeClass('error-msg');
+						$(span1).text('');
+					}
+				});
+// mobile number validation
+$('#mobileNumber').blur(function() {
+	var mobileno = $(this).val();
+	if (mobileno && mobileno.length < 10) {
+		bootbox.alert("Please enter 10 digit mobile number");
+		$(this).val('');
+	}
 });
+$('#zone').change(
+		function() {
+			jQuery.ajax({
+				url : "/egi/public/boundary/ajaxBoundary-blockByWard.action",
+				type : "GET",
+				data : {
+					wardId : jQuery('#zone').val()
+				},
+				cache : false,
+				dataType : "json",
+				success : function(response) {
+					jQuery('#ward').html("");
+					jQuery('#ward').append("<option value=''>Select</option>");
+					jQuery.each(response, function(index, value) {
+						jQuery('#ward').append(
+								$('<option>').text(value.blockName).attr(
+										'value', value.blockId));
+					});
+				},
+				error : function(response) {
+					jQuery('#ward').html("");
+					jQuery('#ward').append("<option value=''>Select</option>");
+				}
+			});
+		});
 
-
-$('#serviceType').change(function(){
+$('#serviceType').change(function() {
 	jQuery.ajax({
-		url: "/bpa/ajax/getAdmissionFees",
-		type: "GET",
-		data: {
+		url : "/bpa/ajax/getAdmissionFees",
+		type : "GET",
+		data : {
 			serviceType : jQuery('#serviceType').val()
 		},
-		cache: false,
-		dataType: "json",
-		success: function (response) {
-			
-				$("#admissionfeeAmount").prop("disabled", true);
-				jQuery('#admissionfeeAmount').val(response);
+		cache : false,
+		dataType : "json",
+		success : function(response) {
 
-		}, 
-		error: function (response) {
-			
-		}
-	});
-});
-$('#serviceType').change(function(){
-	jQuery.ajax({
-		url: "/bpa/application/getdocumentlistbyservicetype",
-		type: "GET",
-		data: {
-			serviceType : $('#serviceType').val()
+			$("#admissionfeeAmount").prop("disabled", true);
+			jQuery('#admissionfeeAmount').val(response);
+
 		},
-		dataType: "json",
-		success: function (response) {
-			$('#bpaDocumentsBody').empty();
-			$.each(response, function (index, checklist) {
-                $('#bpaDocumentsBody').append(
-                		'<div class="form-group">'+
-                			'<div class="col-sm-3 add-margin check-text"> <input type="hidden" id="applicationDocument'+index+'checklistDetail" name="applicationDocument['+index+'].checklistDetail" value="'+checklist.id+'">'+
-                			'<input type="hidden" id="applicationDocument'+index+'checklistDetail" name="applicationDocument['+index+'].checklistDetail.isMandatory" value="'+checklist.isMandatory+'">'+
-                			'<input type="hidden" id="applicationDocument'+index+'checklistDetail.description" name="applicationDocument['+index+'].checklistDetail.description" value="'+checklist.description+'">'+
-	                		checklist.description+ (checklist.isMandatory?'<span class="mandatory"></span>':'') +'</div>'
-	                		+'<div class="col-sm-2 add-margin "><input type="checkbox" id="applicationDocument'+index+'issubmitted" name="applicationDocument['+index+'].issubmitted" value="applicationDocument${status.index}issubmitted" /></div>'
-	                		+'<div class="col-sm-3 add-margin "><div class="input-group"><textarea class="form-control patternvalidation" data-pattern="string" maxlength="256" name="applicationDocument['+index+'].remarks" /></div></div>' +
-	                		'<div class="col-sm-4 add-margin "><div class="files-upload-container" data-allowed-extenstion="doc,docx,xls,xlsx,rtf,pdf,txt,zip" '+(checklist.isMandatory? "required" :'')+'> <div class="files-viewer"> <a href="javascript:void(0);" class="file-add" data-unlimited-files="true" data-toggle="tooltip" data-placement="top" tittle="Test Tooltip" data-file-input-name="applicationDocument['+index+'].files"> <i class="fa fa-plus" aria-hidden="true"></i></a></div></div>'+
-	                		'</div>'+
-                		'</div>');
-            })
-		}, 
-		error: function (response) {
-			
+		error : function(response) {
+
 		}
 	});
 });
+$('#serviceType')
+		.change(
+				function() {
+					jQuery
+							.ajax({
+								url : "/bpa/application/getdocumentlistbyservicetype",
+								type : "GET",
+								data : {
+									serviceType : $('#serviceType').val()
+								},
+								dataType : "json",
+								success : function(response) {
+									$('#bpaDocumentsBody').empty();
+									$
+											.each(
+													response,
+													function(index, checklist) {
+														$('#bpaDocumentsBody')
+																.append(
+																		'<div class="form-group">'
+																				+ '<div class="col-sm-3 add-margin check-text"> <input type="hidden" id="applicationDocument'
+																				+ index
+																				+ 'checklistDetail" name="applicationDocument['
+																				+ index
+																				+ '].checklistDetail" value="'
+																				+ checklist.id
+																				+ '">'
+																				+ '<input type="hidden" id="applicationDocument'
+																				+ index
+																				+ 'checklistDetail" name="applicationDocument['
+																				+ index
+																				+ '].checklistDetail.isMandatory" value="'
+																				+ checklist.isMandatory
+																				+ '">'
+																				+ '<input type="hidden" id="applicationDocument'
+																				+ index
+																				+ 'checklistDetail.description" name="applicationDocument['
+																				+ index
+																				+ '].checklistDetail.description" value="'
+																				+ checklist.description
+																				+ '">'
+																				+ checklist.description
+																				+ (checklist.isMandatory ? '<span class="mandatory"></span>'
+																						: '')
+																				+ '</div>'
+																				+ '<div class="col-sm-2 add-margin "><input type="checkbox" id="applicationDocument'
+																				+ index
+																				+ 'issubmitted" name="applicationDocument['
+																				+ index
+																				+ '].issubmitted" /></div>'
+																				+ '<div class="col-sm-3 add-margin "><div class="input-group"><textarea class="form-control patternvalidation" data-pattern="string" maxlength="256" name="applicationDocument['
+																				+ index
+																				+ '].remarks" /></div></div>'
+																				+ '<div class="col-sm-4 add-margin "><div class="files-upload-container" data-allowed-extenstion="doc,docx,xls,xlsx,rtf,pdf,txt,zip,jpeg,jpg,png,gif" '
+																				+ (checklist.isMandatory ? "required"
+																						: '')
+																				+ '> <div class="files-viewer"> <a href="javascript:void(0);" class="file-add" data-unlimited-files="true" data-toggle="tooltip" data-placement="top" tittle="Test Tooltip" data-file-input-name="applicationDocument['
+																				+ index
+																				+ '].files"> <i class="fa fa-plus" aria-hidden="true"></i></a></div></div>'
+																				+ '</div>'
+																				+ '</div>');
+													})
+								},
+								error : function(response) {
 
+								}
+							});
+				});
 
-//toggle between multiple tab
+// toggle between multiple tab
 jQuery('form').validate({
-	ignore: ".ignore",
-	invalidHandler: function(e, validator){
-	if(validator.errorList.length)
-		focusToTabElement(validator.errorList[0].element);
+	ignore : ".ignore",
+	invalidHandler : function(e, validator) {
+		if (validator.errorList.length)
+			focusToTabElement(validator.errorList[0].element);
 	}
 });
 
-
-function focusToTabElement(element){
-	$('#settingstab a[href="#' + jQuery(element).closest(".tab-pane").attr('id') + '"]').tab('show');
+function focusToTabElement(element) {
+	$(
+			'#settingstab a[href="#'
+					+ jQuery(element).closest(".tab-pane").attr('id') + '"]')
+			.tab('show');
 }
-
 
 // Instantiate the stakeholder name Bloodhound suggestion engine
 var stakeholderengine = new Bloodhound({
-    datumTokenizer: function (datum) {
-        return Bloodhound.tokenizers.whitespace(datum.value);
-    },
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    remote: {
-        url: '/bpa/ajax/stakeholdersbytype',
-        replace: function (url, query) {
-            return url + '?name=' + query + '&stakeHolderType='+$('#stakeHolderType').val();
-        },
-        filter: function (data) {
-            // Map the remote source JSON array to a JavaScript object array
-            return $.map(data, function (stakeHolder) {
-                return {
-                    name :  stakeHolder.name,
-                    value: stakeHolder.id
-                }
-            });
-        }
-    }
+	datumTokenizer : function(datum) {
+		return Bloodhound.tokenizers.whitespace(datum.value);
+	},
+	queryTokenizer : Bloodhound.tokenizers.whitespace,
+	remote : {
+		url : '/bpa/ajax/stakeholdersbytype',
+		replace : function(url, query) {
+			return url + '?name=' + query + '&stakeHolderType='
+					+ $('#stakeHolderType').val();
+		},
+		filter : function(data) {
+			// Map the remote source JSON array to a JavaScript object array
+			return $.map(data, function(stakeHolder) {
+				return {
+					name : stakeHolder.name,
+					value : stakeHolder.id
+				}
+			});
+		}
+	}
 });
 // Initialize the Bloodhound suggestion engine
 stakeholderengine.initialize();
 
-var sh_typeahead=$('#stakeHolderTypeHead').typeahead({
-	   hint:true,
-	   highlight:true,
-	   minLength:1
-},
-{
-	   displayKey : 'name',
-	   source: stakeholderengine.ttAdapter()
+var sh_typeahead = $('#stakeHolderTypeHead').typeahead({
+	hint : true,
+	highlight : true,
+	minLength : 1
+}, {
+	displayKey : 'name',
+	source : stakeholderengine.ttAdapter()
 });
-typeaheadWithEventsHandling(sh_typeahead,'#stakeHolderName');
-
+typeaheadWithEventsHandling(sh_typeahead, '#stakeHolderName');
