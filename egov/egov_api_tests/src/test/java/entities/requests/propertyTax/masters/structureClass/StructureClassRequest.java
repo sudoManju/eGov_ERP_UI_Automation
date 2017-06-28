@@ -3,7 +3,7 @@ package entities.requests.propertyTax.masters.structureClass;
 import entities.requests.propertyTax.masters.RequestInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class CreateStructureClassRequest {
+public class StructureClassRequest {
 
     private StructureClasses[] structureClasses;
 

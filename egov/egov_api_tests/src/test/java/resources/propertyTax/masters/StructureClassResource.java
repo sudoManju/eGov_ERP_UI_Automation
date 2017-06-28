@@ -38,4 +38,19 @@ public class StructureClassResource {
 
         return response;
     }
+
+    public Response update(String jsonString) {
+
+        new APILogger().log("Update StructureClass Master request is started with --"+jsonString);
+
+        Response response = given().request().with()
+                .header("Content-Type","application/json")
+                .body(jsonString)
+                .when()
+                .post(Properties.updateStructureClassUrl);
+
+        new APILogger().log("Update StructureClass Master response is generated as --"+response.asString());
+
+        return response;
+    }
 }

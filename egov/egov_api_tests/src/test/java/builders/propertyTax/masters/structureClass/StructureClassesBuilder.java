@@ -38,6 +38,11 @@ public class StructureClassesBuilder {
         return this;
     }
 
+    public StructureClassesBuilder withId(int id){
+        structureClasses.setId(id);
+        return this;
+    }
+
     public StructureClasses build(){
         return structureClasses;
     }

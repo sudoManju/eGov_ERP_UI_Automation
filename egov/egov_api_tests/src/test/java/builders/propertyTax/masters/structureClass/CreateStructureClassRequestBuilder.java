@@ -1,24 +1,18 @@
 package builders.propertyTax.masters.structureClass;
 
 import entities.requests.propertyTax.masters.RequestInfo;
-import entities.requests.propertyTax.masters.structureClass.CreateStructureClassRequest;
+import entities.requests.propertyTax.masters.structureClass.StructureClassRequest;
 import entities.requests.propertyTax.masters.structureClass.StructureClasses;
-import org.apache.commons.lang3.RandomUtils;
 
 public class CreateStructureClassRequestBuilder {
 
-    CreateStructureClassRequest request = new CreateStructureClassRequest();
+    StructureClassRequest request = new StructureClassRequest();
 
-    String num = String.valueOf((RandomUtils.nextInt(100, 999)));
+    public CreateStructureClassRequestBuilder(){}
 
-    StructureClasses[] structureClasses = new StructureClasses[1];
-
-    StructureClasses structureClass = new StructureClassesBuilder().withName("Test_"+num).withCode(num).withNameLocal("Testing"+num)
-                                        .withOrderNumber(Integer.parseInt(num)).build();
-
-    public CreateStructureClassRequestBuilder(){
-          structureClasses[0] = structureClass;
-          request.setStructureClasses(structureClasses);
+    public CreateStructureClassRequestBuilder withStructureClasses(StructureClasses[] structureClasses){
+        request.setStructureClasses(structureClasses);
+        return this;
     }
 
     public CreateStructureClassRequestBuilder withRequestinfo(RequestInfo requestinfo){
@@ -26,7 +20,7 @@ public class CreateStructureClassRequestBuilder {
         return this;
     }
 
-    public CreateStructureClassRequest build(){
+    public StructureClassRequest build(){
         return request;
     }
 }
