@@ -56,9 +56,9 @@
 		<div class="col-sm-3 add-margin">
 			<form:input class="form-control patternvalidation"
 				data-pattern="alphabetspecialcharacters" maxlength="128"
-				id="owner.name" path="owner.name"
+				id="name" path="owner.user.name"
 				required="required" />
-			<form:errors path="owner.name"
+			<form:errors path="owner.user.name"
 				cssClass="add-margin error-msg" />
 		</div>
 
@@ -79,9 +79,9 @@
 			<form:input class="form-control patternvalidation"
 				data-pattern="number" maxlength="10"
 			 id="mobileNumber"
-				path="owner.mobileNumber" required="required" />
+				path="owner.user.mobileNumber" required="required" />
 			**SMS is sent to this
-			<form:errors path="owner.mobileNumber"
+			<form:errors path="owner.user.mobileNumber"
 				cssClass="add-margin error-msg" />
 		</div>
 
@@ -89,23 +89,23 @@
 				code="lbl.emailid" /> <span class="mandatory"></span></label>
 		<div class="col-sm-3 add-margin">
 			<form:input class="form-control " maxlength="128" onblur=""
-				id="emailId" path="owner.emailId" required="required" />
+				id="emailId" name="emailId" path="owner.user.emailId" required="required" />
 			**Mail is sent to this
-			<form:errors path="owner.emailId" cssClass="add-margin error-msg" />
+			<form:errors path="owner.user.emailId" cssClass="add-margin error-msg" />
 		</div>
 	</div>
 	<div class="form-group">
 	<label class="col-sm-3 control-label text-right"><spring:message
 			code="lbl.gender" /> <span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
-		<form:select path="owner.gender" id="gender" required="required"
+		<form:select path="owner.user.gender" id="gender" required="required"
 			cssClass="form-control" cssErrorClass="form-control error">
 			<form:option value="">
 				<spring:message code="lbl.select" />
 			</form:option>
 			<form:options items="${genderList}" />
 		</form:select>
-		<form:errors path="owner.gender" cssClass="error-msg" />
+		<form:errors path="owner.user.gender" cssClass="error-msg" />
 	</div>
 </div>
 </div>

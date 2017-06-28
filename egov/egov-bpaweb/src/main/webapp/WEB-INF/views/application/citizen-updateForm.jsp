@@ -74,7 +74,7 @@
 					<div class="panel panel-primary" data-collapsed="0">
 						<jsp:include page="applicationDetails.jsp"></jsp:include>
 					</div>
-					<div class="panel panel-primary" data-collapsed="0">
+					<div class="panel panel-primary" data-collapsed="0" id="applicantDiv">
 						<jsp:include page="applicantDetailForm.jsp"></jsp:include>
 					</div>
 					<div class="panel panel-primary" data-collapsed="0">
@@ -98,19 +98,21 @@
 					</div>
 				</div>
 			</div>
-			<div class="buttonbottom" align="center">
+			<div class="buttonbottom" align="center" id="buttonDiv">
 				<table>
 					<tr>
 					<td><c:choose>
-					<c:when test="${citizenOrBusinessUser && bpaApplication.id !=null && bpaApplication.state==null}">
-				<form:button type="submit" id="buttonSave" class="btn btn-primary"
-					value="Save"> Save </form:button>
-				<form:button type="submit" id="buttonSubmit" class="btn btn-primary"
-					value="Submit">Submit</form:button>
-					<form:button type="submit" id="buttonCancel" class="btn btn-primary"
-					value="CANCEL APPLICATION"> CANCEL APPLICATION </form:button>
+					<c:when test="${citizenOrBusinessUser && bpaApplication.id !=null && bpaApplication.state==null && !isCitizen}">
+						<form:button type="submit" id="buttonSave" class="btn btn-primary"
+							value="Save"> Save </form:button>
+						<form:button type="submit" id="buttonSubmit" class="btn btn-primary"
+							value="Submit">Submit</form:button>
+						<form:button type="submit" id="buttonCancel" class="btn btn-primary"
+						value="CANCEL APPLICATION"> CANCEL APPLICATION </form:button>
 					</c:when>
 					<c:otherwise>
+						<form:button type="submit" id="buttonSubmit" class="btn btn-primary"
+								value="Submit">Submit</form:button>
 					</c:otherwise>
 					</c:choose>
 						<input type="button" name="button2" id="button2" value="Close"
@@ -126,21 +128,28 @@
 <script type="text/javascript">
 
 jQuery(document).ready(function() {
-	$("#applicantdet").prop("disabled",true);
-	$("#appDet").prop("disabled",true);
-	$("#serviceType").prop("disabled",true);
-	$("#admissionfeeAmount").prop("disabled",true);
-	if($('#isexistingApprovedPlan').val() == 'true') {
-		$('#existingAppPlan').show();
-	} else {
-		$('#existingAppPlan').hide();
-	}
 
-	if($('#isappForRegularization').val() == 'true') {
-		$('#constDiv').show();
-	}
-	else {
-		$('#constDiv').hide();
+	if($('#isCitizen').val() == 'true'){
+		$(':input').not('#applicantDiv :input').attr('readOnly', true);  
+		$('#buttonSubmit,#button2,#emailId,#mobileNumber').prop("readOnly",false);
+		$('#emailId,#mobileNumber').prop("readOnly",true);
+	} else {
+		$("#applicantdet").prop("disabled",true);
+		$("#appDet").prop("disabled",true);
+		$("#serviceType").prop("disabled",true);
+		$("#admissionfeeAmount").prop("disabled",true);
+		if($('#isexistingApprovedPlan').val() == 'true') {
+			$('#existingAppPlan').show();
+		} else {
+			$('#existingAppPlan').hide();
+		}
+	
+		if($('#isappForRegularization').val() == 'true') {
+			$('#constDiv').show();
+		}
+		else {
+			$('#constDiv').hide();
+		}
 	}
  $('#buttonSave').click(function() {
 				 if($('#citizenOrBusinessUser').val())

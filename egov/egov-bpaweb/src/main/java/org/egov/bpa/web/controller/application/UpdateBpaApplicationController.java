@@ -289,7 +289,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
 					? application.getDocumentScrutiny().get(0).getExtentinsqmts() : new BigDecimal(1));
 		}
         workflowContainer.setAdditionalRule(CREATE_ADDITIONAL_RULE_CREATE);
-        application.getOwner().setPermanentAddress((PermanentAddress) application.getOwner().getAddress().get(0));
+        application.getOwner().setPermanentAddress((PermanentAddress) application.getOwner().getUser().getAddress().get(0));
         prepareWorkflow(model, application, workflowContainer);
         model.addAttribute("pendingActions", workflowContainer.getPendingActions());
         model.addAttribute(AMOUNT_RULE, workflowContainer.getAmountRule());
@@ -337,6 +337,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
 						.getStreetRoadLine().isEmpty())
 			bpaApplication 
 					.getOwner()
+					.getUser()
 					.getAddress()
 					.get(0)
 					.setStreetRoadLine(

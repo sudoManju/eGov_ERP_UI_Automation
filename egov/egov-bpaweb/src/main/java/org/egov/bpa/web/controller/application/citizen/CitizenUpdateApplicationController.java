@@ -147,7 +147,7 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
         model.addAttribute("isFeeCollected", bpaDemandService.checkAnyTaxIsPendingToCollect(application));
         model.addAttribute("lettertopartylist", lettertoPartyService.findByBpaApplicationOrderByIdDesc(application));
         model.addAttribute("inspectionList", inspectionService.findByBpaApplicationOrderByIdAsc(application));
-        application.getOwner().setPermanentAddress((PermanentAddress) application.getOwner().getAddress().get(0));
+        application.getOwner().setPermanentAddress((PermanentAddress) application.getOwner().getUser().getAddress().get(0));
     }
 
     @RequestMapping(value = "/citizen/update/{applicationNumber}", method = RequestMethod.POST)
@@ -157,7 +157,7 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
             @RequestParam("files") final MultipartFile[] files, @RequestParam String workFlowAction) {
 
         User dbUser = validateApplicantDtls_unique_email(bpaApplication.getOwner());
-        if (dbUser != null && dbUser.getId() != bpaApplication.getOwner().getId()) {
+        if (dbUser != null && dbUser.getId() != bpaApplication.getOwner().getUser().getId()) {
             model.addAttribute("noJAORSAMessage", "Applicant/User with given emailId already exists.");
             if (bpaApplication.getStatus() != null
                     && bpaApplication.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_CREATED))
@@ -184,11 +184,11 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 		if (workFlowAction != null
 				&& workFlowAction
 						.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)
-				&& enableOrDisablePayOnline.equalsIgnoreCase("YES")) {
+				&& enableOrDisablePayOnline.equalsIgnoreCase("YES") && !bpaUtils.logedInuserIsCitizen()) {
 			return genericBillGeneratorService
 					.generateBillAndRedirectToCollection(bpaApplication, model);
 		} 
-		if (workFlowAction != null
+		if (workFlowAction != null && !bpaUtils.logedInuserIsCitizen()
 				&& (workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)
 						|| BpaConstants.WF_CANCELAPPLICATION_BUTTON.equalsIgnoreCase(workFlowAction))
 				&& (bpaUtils.logedInuseCitizenOrBusinessUser())) {
@@ -212,9 +212,21 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 
 			}
 		}
-		bpaApplication.getOwner().setUsername(bpaApplication.getOwner().getEmailId());
-        bpaApplication.getOwner().setPassword(passwordEncoder.encode(bpaApplication.getOwner().getMobileNumber()));
-        bpaApplication.getOwner().getAddress().get(0).setStreetRoadLine(bpaApplication.getOwner().getPermanentAddress().getStreetRoadLine());
+		bpaApplication.getOwner().getUser().setUsername(bpaApplication.getOwner().getUser().getEmailId());
+        bpaApplication.getOwner().getUser().setPassword(passwordEncoder.encode(bpaApplication.getOwner().getUser().getMobileNumber()));
+        if (bpaApplication.getOwner().getPermanentAddress() != null
+				&& bpaApplication.getOwner().getPermanentAddress() 
+						.getStreetRoadLine() != null
+				&& !bpaApplication.getOwner().getPermanentAddress()
+						.getStreetRoadLine().isEmpty())
+			bpaApplication 
+					.getOwner()
+					.getUser()
+					.getAddress()
+					.get(0)
+					.setStreetRoadLine(
+							bpaApplication.getOwner().getPermanentAddress()
+									.getStreetRoadLine());
         applicationBpaService.saveAndFlushApplication(bpaApplication);
         bpaUtils.updatePortalUserinbox(bpaApplication, null);
         bpaUtils.sendSmsEmailOnCitizenSubmit(bpaApplication, workFlowAction);
@@ -222,7 +234,7 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
     }
 
     private User validateApplicantDtls_unique_email(final Applicant owner) {
-        return userService.getUserByEmailId(owner.getEmailId());
+        return userService.getUserByEmailId(owner.getUser().getEmailId());
     }
 
 }

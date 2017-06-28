@@ -180,8 +180,8 @@ public class BpaNoticeService {
         reportParams.put("applicationNumber", bpaApplication.getApplicationNumber());
         reportParams.put("buildingPermitNumber",
                 bpaApplication.getPlanPermissionNumber() != null ? bpaApplication.getPlanPermissionNumber() : "");
-        reportParams.put("applicantName", bpaApplication.getOwner().getName());
-        reportParams.put("applicantAddress", bpaApplication.getOwner() != null && !bpaApplication.getOwner().getAddress().isEmpty() ? bpaApplication.getOwner().getAddress().get(0).getStreetRoadLine() : "");
+        reportParams.put("applicantName", bpaApplication.getOwner().getUser().getName());
+        reportParams.put("applicantAddress", bpaApplication.getOwner() != null && !bpaApplication.getOwner().getUser().getAddress().isEmpty() ? bpaApplication.getOwner().getUser().getAddress().get(0).getStreetRoadLine() : "");
         reportParams.put("applicationDate", formatter.format(bpaApplication.getApplicationDate()));
         String amenities = bpaApplication.getApplicationAmenity().stream().map(am -> am.getDescription())
                 .collect(Collectors.joining(", "));

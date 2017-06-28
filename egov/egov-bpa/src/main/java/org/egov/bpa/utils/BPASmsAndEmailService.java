@@ -123,9 +123,9 @@ public class BPASmsAndEmailService {
         if (isSmsEnabled() || isEmailEnabled()) {
             for (ApplicationStakeHolder applnStakeHolder : bpaApplication.getStakeHolder()) {
                 if (applnStakeHolder.getApplication() != null && applnStakeHolder.getApplication().getOwner() != null) {
-                    applicantName = applnStakeHolder.getApplication().getOwner().getName();
-                    email = applnStakeHolder.getApplication().getOwner().getEmailId();
-                    mobileNo = applnStakeHolder.getApplication().getOwner().getMobileNumber();
+                    applicantName = applnStakeHolder.getApplication().getOwner().getUser().getName();
+                    email = applnStakeHolder.getApplication().getOwner().getUser().getEmailId();
+                    mobileNo = applnStakeHolder.getApplication().getOwner().getUser().getMobileNumber();
                     buildSmsAndEmailForBPANewAppln(bpaApplication, applicantName, mobileNo, email);
                 }
                 if (applnStakeHolder.getStakeHolder() != null) {
@@ -141,16 +141,16 @@ public class BPASmsAndEmailService {
     public void sendSMSAndEmailToscheduleAppointment(final BpaAppointmentSchedule scheduleDetails,
             final BpaApplication bpaApplication) {
         if (isSmsEnabled() || isEmailEnabled()) {
-            buildSmsAndEmailForScheduleAppointment(scheduleDetails, bpaApplication, bpaApplication.getOwner().getName(),
-                    bpaApplication.getOwner().getMobileNumber(), bpaApplication.getOwner().getEmailId());
+            buildSmsAndEmailForScheduleAppointment(scheduleDetails, bpaApplication, bpaApplication.getOwner().getUser().getName(),
+                    bpaApplication.getOwner().getUser().getMobileNumber(), bpaApplication.getOwner().getUser().getEmailId());
         }
     }
 
     public void sendSMSAndEmailToApplicantForLettertoparty(final BpaApplication bpaApplication) {
         if (isSmsEnabled() || isEmailEnabled()) {
-            buildSmsAndEmailForBPANewAppln(bpaApplication, bpaApplication.getOwner().getName(),
-                    bpaApplication.getOwner().getEmailId(),
-                    bpaApplication.getOwner().getMobileNumber());
+            buildSmsAndEmailForBPANewAppln(bpaApplication, bpaApplication.getOwner().getUser().getName(),
+                    bpaApplication.getOwner().getUser().getEmailId(),
+                    bpaApplication.getOwner().getUser().getMobileNumber());
         }
     }
 

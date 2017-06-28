@@ -116,7 +116,7 @@ public class SearchBpaApplicationService {
             searchBpaApplicationForm.setStatus(bpaApplication.getStatus().getDescription());
             searchBpaApplicationForm.setPlanPermissionNumber(bpaApplication.getPlanPermissionNumber());
             searchBpaApplicationForm
-                    .setApplicantName(bpaApplication.getOwner() != null ? bpaApplication.getOwner().getName() : "");
+                    .setApplicantName(bpaApplication.getOwner() != null ? bpaApplication.getOwner().getUser().getName() : "");
             searchBpaApplicationForm.setStakeHolderName(
                     !bpaApplication.getStakeHolder().isEmpty() && bpaApplication.getStakeHolder().get(0).getStakeHolder() != null
                             ? bpaApplication.getStakeHolder().get(0).getStakeHolder().getName() : "");
@@ -141,8 +141,8 @@ public class SearchBpaApplicationService {
                     bpaApplication.getDemand().getBaseDemand().compareTo(bpaApplication.getDemand().getAmtCollected()) <= 0 ? true
                             : false);
             searchBpaApplicationForm
-                    .setAddress(bpaApplication.getOwner() != null && !bpaApplication.getOwner().getAddress().isEmpty()
-                            ? bpaApplication.getOwner().getAddress().get(0).getStreetRoadLine() : "");
+                    .setAddress(bpaApplication.getOwner() != null && !bpaApplication.getOwner().getUser().getAddress().isEmpty()
+                            ? bpaApplication.getOwner().getUser().getAddress().get(0).getStreetRoadLine() : "");
 
             searchBpaApplicationFormList.add(searchBpaApplicationForm);
         }
@@ -159,8 +159,9 @@ public class SearchBpaApplicationService {
         final Criteria criteria = getCurrentSession().createCriteria(BpaApplication.class, "bpaApplication");
 
         if (searchBpaApplicationForm.getApplicantName() != null) {
-            criteria.createAlias("bpaApplication.owner", "owner")
-                    .add(Restrictions.ilike("owner.name", searchBpaApplicationForm.getApplicantName(),
+            criteria.createAlias("bpaApplication.owner", "owner");
+            criteria.createAlias("owner.user", "user")
+                    .add(Restrictions.ilike("user.name", searchBpaApplicationForm.getApplicantName(),
                             MatchMode.ANYWHERE));
         }
         if (searchBpaApplicationForm.getApplicationNumber() != null) {

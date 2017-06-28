@@ -65,6 +65,7 @@ import org.egov.infra.admin.master.service.RoleService;
 import org.egov.infra.admin.master.service.UserService;
 import org.egov.infra.config.properties.ApplicationProperties;
 import org.egov.infra.persistence.entity.enums.Gender;
+import org.egov.infra.persistence.entity.enums.UserType;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -157,20 +158,29 @@ public class NewApplicationController extends BpaGenericApplicationController {
         applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
         bpaApplication.setAdmissionfeeAmount(applicationBpaService.setAdmissionFeeAmountForRegistrationWithAmenities(
                 String.valueOf(bpaApplication.getServiceType().getId()), new ArrayList<ServiceType>()));
-        bpaApplication.getOwner().setUsername(bpaApplication.getOwner().getEmailId());
-        bpaApplication.getOwner().updateNextPwdExpiryDate(applicationProperties.userPasswordExpiryInDays());
-        bpaApplication.getOwner().setPassword(passwordEncoder.encode(bpaApplication.getOwner().getMobileNumber()));
-        bpaApplication.getOwner().addRole(roleService.getRoleByName(BpaConstants.ROLE_CITIZEN));
-        bpaApplication.getOwner().addAddress(bpaApplication.getOwner().getPermanentAddress());
+        User applicantUser = new User();
+		applicantUser.setName(bpaApplication.getOwner().getUser().getName());
+		applicantUser.setMobileNumber(bpaApplication.getOwner().getUser().getMobileNumber());
+		applicantUser.setEmailId(bpaApplication.getOwner().getUser().getEmailId());
+		applicantUser.setGender(bpaApplication.getOwner().getUser().getGender());
+		applicantUser.setUsername(bpaApplication.getOwner().getUser().getEmailId());
+		applicantUser.updateNextPwdExpiryDate(applicationProperties.userPasswordExpiryInDays());
+		applicantUser.setPassword(passwordEncoder.encode(bpaApplication.getOwner().getUser().getMobileNumber()));
+		applicantUser.setType(UserType.CITIZEN);
+		applicantUser.setActive(true);
+		applicantUser.addRole(roleService.getRoleByName(BpaConstants.ROLE_CITIZEN));
+		applicantUser.addAddress(bpaApplication.getOwner().getPermanentAddress());
+		userService.createUser(applicantUser);
+		bpaApplication.getOwner().setUser(applicantUser);
         BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication, workFlowAction);
-        bpaUtils.createPortalUserinbox(bpaApplicationRes,Arrays.asList(bpaApplicationRes.getOwner(),bpaApplicationRes.getStakeHolder().get(0).getStakeHolder()));
+        bpaUtils.createPortalUserinbox(bpaApplicationRes,Arrays.asList(bpaApplicationRes.getOwner().getUser(),bpaApplicationRes.getStakeHolder().get(0).getStakeHolder()));
         bpaApplicationRes.setCitizenAccepted(true);
         bpaApplicationRes.setArchitectAccepted(true);
         return genericBillGeneratorService.generateBillAndRedirectToCollection(bpaApplicationRes, model);
     }
     
     private User validateApplicantDtls_unique_email(final Applicant owner) {
-           return userService.getUserByEmailId(owner.getEmailId());
+           return userService.getUserByEmailId(owner.getUser().getEmailId());
     }
 
     private String redirectOnValidationFailure(final Model model) {
@@ -185,5 +195,4 @@ public class NewApplicationController extends BpaGenericApplicationController {
             final HttpServletRequest request) {
         return checkListDetailService.findActiveCheckListByServiceType(serviceType, BpaConstants.CHECKLIST_TYPE);
     }
-
 }

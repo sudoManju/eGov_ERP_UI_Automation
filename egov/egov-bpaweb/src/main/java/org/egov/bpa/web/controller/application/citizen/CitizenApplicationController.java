@@ -71,6 +71,7 @@ import org.egov.infra.admin.master.service.AppConfigValueService;
 import org.egov.infra.admin.master.service.RoleService;
 import org.egov.infra.admin.master.service.UserService;
 import org.egov.infra.config.properties.ApplicationProperties;
+import org.egov.infra.persistence.entity.enums.UserType;
 import org.egov.infra.security.utils.SecurityUtils;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -247,15 +248,24 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
 		}
 		bpaApplication.setAdmissionfeeAmount(applicationBpaService.setAdmissionFeeAmountForRegistrationWithAmenities(
 				String.valueOf(bpaApplication.getServiceType().getId()), new ArrayList<ServiceType>()));
-		bpaApplication.getOwner().setUsername(bpaApplication.getOwner().getEmailId());
-        bpaApplication.getOwner().updateNextPwdExpiryDate(applicationProperties.userPasswordExpiryInDays());
-        bpaApplication.getOwner().setPassword(passwordEncoder.encode(bpaApplication.getOwner().getMobileNumber()));
-        bpaApplication.getOwner().addRole(roleService.getRoleByName(BpaConstants.ROLE_CITIZEN));
-        bpaApplication.getOwner().addAddress(bpaApplication.getOwner().getPermanentAddress());
+		User applicantUser = new User();
+		applicantUser.setName(bpaApplication.getOwner().getUser().getName());
+		applicantUser.setMobileNumber(bpaApplication.getOwner().getUser().getMobileNumber());
+		applicantUser.setEmailId(bpaApplication.getOwner().getUser().getEmailId());
+		applicantUser.setGender(bpaApplication.getOwner().getUser().getGender());
+		applicantUser.setUsername(bpaApplication.getOwner().getUser().getEmailId());
+		applicantUser.updateNextPwdExpiryDate(applicationProperties.userPasswordExpiryInDays());
+		applicantUser.setPassword(passwordEncoder.encode(bpaApplication.getOwner().getUser().getMobileNumber()));
+		applicantUser.setType(UserType.CITIZEN);
+		applicantUser.setActive(true);
+		applicantUser.addRole(roleService.getRoleByName(BpaConstants.ROLE_CITIZEN));
+		applicantUser.addAddress(bpaApplication.getOwner().getPermanentAddress());
+		userService.createUser(applicantUser);
+		bpaApplication.getOwner().setUser(applicantUser);
         BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication, workFlowAction);
         if (bpaUtils.logedInuseCitizenOrBusinessUser()) {
-            bpaUtils.createPortalUserinbox(bpaApplicationRes,
-                    Arrays.asList(bpaApplicationRes.getOwner(), securityUtils.getCurrentUser()));
+            bpaUtils.createPortalUserinbox(bpaApplicationRes,  
+                    Arrays.asList(bpaApplicationRes.getOwner().getUser(), securityUtils.getCurrentUser()));
             model.addAttribute("message",
                     "Sucessfully saved with ApplicationNumber " + bpaApplicationRes.getApplicationNumber());
             bpaUtils.sendSmsEmailOnCitizenSubmit(bpaApplication, workFlowAction);
@@ -264,7 +274,7 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
     }
 
     private User validateApplicantDtls_unique_email(final Applicant owner) {
-        return userService.getUserByEmailId(owner.getEmailId());
+        return userService.getUserByEmailId(owner.getUser().getEmailId());
     }
 
 }

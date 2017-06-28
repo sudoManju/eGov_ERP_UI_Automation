@@ -41,24 +41,35 @@ package org.egov.bpa.application.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.egov.bpa.application.entity.enums.GenderTitle;
 import org.egov.infra.admin.master.entity.User;
+import org.egov.infra.persistence.entity.AbstractAuditable;
 import org.egov.infra.persistence.entity.PermanentAddress;
-import org.egov.infra.persistence.entity.enums.UserType;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "EGBPA_APPLICANT")
 @SequenceGenerator(name = Applicant.SEQ_APPLICANT, sequenceName = Applicant.SEQ_APPLICANT, allocationSize = 1)
-public class Applicant extends User {
+public class Applicant extends AbstractAuditable {
 
     private static final long serialVersionUID = 3078684328383202788L;
     public static final String SEQ_APPLICANT = "SEQ_EGBPA_Applicant";
 
+    @Id
+    @GeneratedValue(generator = SEQ_APPLICANT, strategy = GenerationType.SEQUENCE)
+    private Long id;
     private GenderTitle title;
     @Length(min = 1, max = 128)
     private String fatherorHusbandName;
@@ -75,12 +86,20 @@ public class Applicant extends User {
     private String state;
     @Length(min = 1, max = 128)
     private String pinCode;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
+	private transient PermanentAddress permanentAddress = new PermanentAddress();
     
-    private transient PermanentAddress permanentAddress = new PermanentAddress();
-    
-    public Applicant() {
-        setType(UserType.CITIZEN);
-        setActive(true);
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(final Long id) {
+        this.id = id;
     }
 
     public GenderTitle getTitle() {
@@ -162,5 +181,14 @@ public class Applicant extends User {
     public void setPermanentAddress(PermanentAddress permanentAddress) {
         this.permanentAddress = permanentAddress;
     }
+
+    public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
     
 }
