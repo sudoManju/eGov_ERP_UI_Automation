@@ -42,6 +42,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <div class="panel-heading custom_form_panel_heading">
 	<div class="panel-title">
@@ -111,6 +112,7 @@
 				<div class="col-sm-4 add-margin">
 					<div class="files-upload-container"
 					    data-file-max-size="2"
+					    <c:if test="${docs.checklistDetail.isMandatory eq true && fn:length(docs.getSupportDocs()) eq 0}">required</c:if>
 						data-allowed-extenstion="doc,docx,xls,xlsx,rtf,pdf,txt,zip,jpeg,jpg,png,gif">
 						<div class="files-viewer">
 

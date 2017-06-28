@@ -61,7 +61,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.egov.bpa.application.entity.Applicant;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaAppointmentSchedule;
 import org.egov.bpa.application.entity.LettertoParty;
@@ -73,14 +72,12 @@ import org.egov.bpa.utils.BpaConstants;
 import org.egov.eis.service.PositionMasterService;
 import org.egov.eis.web.contract.WorkflowContainer;
 import org.egov.infra.admin.master.entity.User;
-import org.egov.infra.admin.master.service.UserService;
 import org.egov.infra.persistence.entity.PermanentAddress;
 import org.egov.infra.security.utils.SecurityUtils;
 import org.egov.infra.workflow.entity.StateHistory;
 import org.egov.pims.commons.Position;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -124,10 +121,6 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
     private PositionMasterService positionMasterService;
     @Autowired
     LettertoPartyService lettertoPartyService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private UserService userService;
     @Autowired
     private BpaUtils bpaUtils;
 
@@ -301,6 +294,9 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 .findActiveCheckListByServiceType(application.getServiceType().getId(), BpaConstants.CHECKLIST_TYPE));
         model.addAttribute("applicationDocumentList",application.getApplicationDocument());
         model.addAttribute("isFeeCollected", bpaDemandService.checkAnyTaxIsPendingToCollect(application));
+        model.addAttribute("admissionFee", applicationBpaService.setAdmissionFeeAmountForRegistrationWithAmenities(
+                application.getServiceType().getId(), application.getApplicationAmenity()));
+        buildReceiptDetails(application);
     }
 
     @RequestMapping(value = "/update/{applicationNumber}", method = RequestMethod.POST)
@@ -330,19 +326,11 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 }
             }
         }
-     	if (bpaApplication.getOwner().getPermanentAddress() != null
-				&& bpaApplication.getOwner().getPermanentAddress() 
-						.getStreetRoadLine() != null
-				&& !bpaApplication.getOwner().getPermanentAddress()
-						.getStreetRoadLine().isEmpty())
-			bpaApplication 
-					.getOwner()
-					.getUser()
-					.getAddress()
-					.get(0)
-					.setStreetRoadLine(
-							bpaApplication.getOwner().getPermanentAddress()
-									.getStreetRoadLine());
+        if (bpaApplication.getOwner().getPermanentAddress() != null
+                && bpaApplication.getOwner().getPermanentAddress().getStreetRoadLine() != null
+                && !bpaApplication.getOwner().getPermanentAddress().getStreetRoadLine().isEmpty())
+            bpaApplication.getOwner().getUser().getAddress().get(0)
+                    .setStreetRoadLine(bpaApplication.getOwner().getPermanentAddress().getStreetRoadLine());
         if (!bpaApplication.getApplicationDocument().isEmpty())
         	applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder); 
         if(bpaApplication.getCurrentState().getValue().equals(BpaConstants.WF_NEW_STATE)){

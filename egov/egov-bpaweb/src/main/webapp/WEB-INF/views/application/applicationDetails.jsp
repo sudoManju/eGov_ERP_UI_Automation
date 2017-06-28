@@ -110,9 +110,10 @@
 		<label class="col-sm-2 control-label text-right"><spring:message
 				code="lbl.admission.fees" /> </label>
 		<div class="col-sm-3 add-margin">
-			<form:input class="form-control patternvalidation" maxlength="50"
+			<form:hidden class="form-control patternvalidation" maxlength="50"
 				name="admissionfeeAmount" id="admissionfeeAmount"
 				path="admissionfeeAmount" />
+			<input type="text" class="form-control patternvalidation" id="admissionfee" value="${admissionFee}" disabled="disabled" />
 			<form:errors path="admissionfeeAmount"
 				cssClass="add-margin error-msg" />
 		</div>
@@ -190,11 +191,10 @@
 		<form:errors path="occupancy" cssClass="add-margin error-msg" />
 	</div>
 	<label class="col-sm-2 control-label text-right"><spring:message
-			code="lbl.government.type" /><span class="mandatory">
-				</span></label>
+			code="lbl.government.type" /></label>
 	<div class="col-sm-3 add-margin">
 		<form:select path="governmentType"
-			id="governmentType" required="required"
+			id="governmentType"
 			value="${bpaApplication.governmentType}"
 			cssClass="form-control">
 			<form:option value="">

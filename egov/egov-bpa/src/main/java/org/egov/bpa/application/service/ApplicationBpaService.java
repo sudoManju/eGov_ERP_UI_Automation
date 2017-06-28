@@ -273,29 +273,18 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         processAndStoreApplicationDocuments(bpaApplication);
     }
 
-    public BigDecimal setAdmissionFeeAmountForRegistration(final String serviceType) {
+    public BigDecimal setAdmissionFeeAmountForRegistrationWithAmenities(final Long serviceType, List<ServiceType> amenityList) {
         BigDecimal admissionfeeAmount;
         if (serviceType != null)
-            admissionfeeAmount = getTotalFeeAmountByPassingServiceTypeandArea(Long.valueOf(serviceType),
-                    new ArrayList<>(), BpaConstants.BPAFEETYPE);
-        else
-            admissionfeeAmount = BigDecimal.ZERO;
-        return admissionfeeAmount;
-    }
-
-    public BigDecimal setAdmissionFeeAmountForRegistrationWithAmenities(final String serviceType,
-            List<ServiceType> amenityList) {
-        BigDecimal admissionfeeAmount;
-        if (serviceType != null)
-            admissionfeeAmount = getTotalFeeAmountByPassingServiceTypeandArea(Long.valueOf(serviceType), amenityList,
+            admissionfeeAmount = getTotalFeeAmountByPassingServiceTypeandArea(serviceType, amenityList,
                     BpaConstants.BPAFEETYPE);
         else
             admissionfeeAmount = BigDecimal.ZERO;
         return admissionfeeAmount;
     }
 
-    public BigDecimal getTotalFeeAmountByPassingServiceTypeandArea(final Long serviceTypeId,
-            List<ServiceType> amenityList, final String feeType) {
+    public BigDecimal getTotalFeeAmountByPassingServiceTypeandArea(final Long serviceTypeId, List<ServiceType> amenityList,
+            final String feeType) {
         BigDecimal totalAmount = BigDecimal.ZERO;
         List<Long> serviceTypeList = new ArrayList<>();
         serviceTypeList.add(serviceTypeId);
@@ -304,6 +293,20 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         }
         if (serviceTypeId != null) {
             final Criteria feeCrit = applicationBpaBillService.getBpaFeeCriteria(serviceTypeList, feeType);
+            @SuppressWarnings("unchecked")
+            final List<BpaFeeDetail> bpaFeeDetails = feeCrit.list();
+            for (final BpaFeeDetail feeDetail : bpaFeeDetails)
+                totalAmount = totalAmount.add(BigDecimal.valueOf(feeDetail.getAmount()));
+        } else
+            throw new ApplicationRuntimeException("Service Type Id is mandatory.");
+
+        return totalAmount;
+    }
+    
+    public BigDecimal getTotalFeeAmountByPassingServiceTypeAndAmenities(List<Long> serviceTypeIds) {
+        BigDecimal totalAmount = BigDecimal.ZERO;
+        if (!serviceTypeIds.isEmpty()) {
+            final Criteria feeCrit = applicationBpaBillService.getBpaFeeCriteria(serviceTypeIds, BpaConstants.BPAFEETYPE);
             @SuppressWarnings("unchecked")
             final List<BpaFeeDetail> bpaFeeDetails = feeCrit.list();
             for (final BpaFeeDetail feeDetail : bpaFeeDetails)

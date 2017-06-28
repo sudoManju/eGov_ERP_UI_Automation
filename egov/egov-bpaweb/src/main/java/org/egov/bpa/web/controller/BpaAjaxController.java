@@ -41,6 +41,7 @@ package org.egov.bpa.web.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -93,8 +94,8 @@ public class BpaAjaxController {
 
     @RequestMapping(value = "/ajax/getAdmissionFees", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public BigDecimal isConnectionPresentForProperty(@RequestParam final String serviceType) {
-        return applicationBpaService.setAdmissionFeeAmountForRegistration(serviceType);
+    public BigDecimal isConnectionPresentForProperty(@RequestParam final Long[] serviceTypeIds) {
+        return applicationBpaService.getTotalFeeAmountByPassingServiceTypeAndAmenities(Arrays.asList(serviceTypeIds));
     }	
 
     @RequestMapping(value = "/bpaajaxWorkFlow-getDesignationsByObjectTypeAndDesignation", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

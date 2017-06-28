@@ -47,6 +47,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaStatus;
 import org.egov.bpa.application.entity.BuildingCategory;
 import org.egov.bpa.application.entity.ConstructionStages;
@@ -69,6 +70,9 @@ import org.egov.bpa.service.BpaDemandService;
 import org.egov.bpa.service.BpaStatusService;
 import org.egov.bpa.service.BpaThirdPartyService;
 import org.egov.bpa.utils.BpaConstants;
+import org.egov.dcb.bean.Receipt;
+import org.egov.demand.model.EgDemandDetails;
+import org.egov.demand.model.EgdmCollectedReceipt;
 import org.egov.eis.web.contract.WorkflowContainer;
 import org.egov.eis.web.controller.workflow.GenericWorkFlowController;
 import org.egov.infra.admin.master.entity.Boundary;
@@ -231,6 +235,18 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
         prepareModel.addAttribute("validActionList", bpaWorkFlowService.getValidActions(model, container));
         prepareModel.addAttribute("nextAction", bpaWorkFlowService.getNextAction(model, container));
 
+    }
+    
+    protected void buildReceiptDetails(final BpaApplication application) {
+        for (final EgDemandDetails demandDtl : application.getDemand().getEgDemandDetails())
+            for (final EgdmCollectedReceipt collRecpt : demandDtl.getEgdmCollectedReceipts())
+                if (!collRecpt.isCancelled()) {
+                    Receipt receipt = new Receipt();
+                    receipt.setReceiptNumber(collRecpt.getReceiptNumber());
+                    receipt.setReceiptDate(collRecpt.getReceiptDate());
+                    receipt.setReceiptAmt(collRecpt.getAmount());
+                    application.getReceipts().add(receipt);
+                }
     }
    
 }

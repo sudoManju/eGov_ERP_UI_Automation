@@ -103,6 +103,7 @@ public class SearchBpaApplicationController extends BpaGenericApplicationControl
         model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
         model.addAttribute(APPLICATION_HISTORY,
                 bpaThirdPartyService.getHistory(application));
+        buildReceiptDetails(application);
         return "viewapplication-form";
     }
     

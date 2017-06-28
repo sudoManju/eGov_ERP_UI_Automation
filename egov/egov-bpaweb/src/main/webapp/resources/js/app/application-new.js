@@ -61,11 +61,9 @@ jQuery(document).ready(
 			});
 
 			function validateForm(validator) {
-				if ($('#newApplicationform').valid()
-						&& validateUploadFilesMandatory()) {
+				if ($('#newApplicationform').valid() && validateUploadFilesMandatory()) {
 					document.getElementById("workFlowAction").value = $(
 							'#buttonSubmit').val();
-					document.forms[0].submit();
 					return true;
 				} else {
 					validator.focusInvalid();
@@ -156,25 +154,29 @@ $('#zone').change(
 			});
 		});
 
-$('#serviceType').change(function() {
-	jQuery.ajax({
+$('#serviceType,.applicationAmenity').change(function() {
+	var servicesAndAmenities =[];
+	servicesAndAmenities.push($('#serviceType').val());
+	$.each($("#applicationAmenity option:selected"), function(idx){     
+		servicesAndAmenities.push($(this).val());
+	});
+	
+	$.ajax({
 		url : "/bpa/ajax/getAdmissionFees",
 		type : "GET",
+		contentType: 'application/json; charset=UTF-8',
 		data : {
-			serviceType : jQuery('#serviceType').val()
+			"serviceTypeIds" : servicesAndAmenities.join(",")
 		},
 		cache : false,
-		dataType : "json",
+		dataType: "json",
 		success : function(response) {
-
-			$("#admissionfeeAmount").prop("disabled", true);
-			jQuery('#admissionfeeAmount').val(response);
-
+			jQuery('#admissionfee').val(response);
 		},
 		error : function(response) {
-
 		}
 	});
+	
 });
 $('#serviceType')
 		.change(

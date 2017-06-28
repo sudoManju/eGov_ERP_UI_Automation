@@ -69,31 +69,34 @@
 			<spring:message code="lbl.service.type" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
-			<input type="hidden" id="serviceType" value="${bpaApplication.serviceType.description}">
-			<c:out value="${bpaApplication.serviceType.description}" default="N/A"></c:out>
+			<input type="hidden" id="serviceType"
+				value="${bpaApplication.serviceType.description}">
+			<c:out value="${bpaApplication.serviceType.description}"
+				default="N/A"></c:out>
 		</div>
-		<div class="col-sm-3 add-margin">
-			Amenity Type
-		</div>
+		<div class="col-sm-3 add-margin">Amenity Type</div>
 		<div class="col-sm-3 add-margin view-content">
 			<c:out value="${bpaApplication.amenityName}" default="N/A"></c:out>
 		</div>
-		</div>
-		<div class="row add-border">
-		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.admission.fees" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.admissionfeeAmount}" default="N/A"></c:out>
-		</div>
 	</div>
-	
+	<c:if test="${ empty  bpaApplication.receipts && (bpaApplication.status.code eq 'Created' || bpaApplication.status.code eq 'Registered')}">
+		<div class="row add-border">
+			<div class="col-sm-3 add-margin">
+				<spring:message code="lbl.admission.fees" />
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+				<c:out value="${admissionFee}" default="N/A"></c:out>
+			</div>
+		</div>
+	</c:if>
 	<div class="row add-border">
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.stakeholder.type" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.stakeHolder[0].stakeHolder.stakeHolderType}" default="N/A"></c:out>
+			<c:out
+				value="${bpaApplication.stakeHolder[0].stakeHolder.stakeHolderType}"
+				default="N/A"></c:out>
 		</div>
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.stakeholder.name" />
@@ -142,5 +145,5 @@
 			<c:out value="${bpaApplication.remarks}" default="N/A"></c:out>
 		</div>
 	</div>
-	
+
 </div>

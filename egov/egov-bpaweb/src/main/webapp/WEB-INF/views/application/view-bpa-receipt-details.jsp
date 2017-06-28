@@ -37,56 +37,56 @@
   ~
   ~   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
   --%>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn" %>
+<%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn"%>
 
-<div class="panel-heading custom_form_panel_heading">
-	<div class="panel-title text-center no-float">
-		<c:if test="${not empty message}">
-			<strong>${message}</strong>
-		</c:if>
+<%-- <div class="panel-heading custom_form_panel_heading">
+	<div class="panel-title">
+		<spring:message code="lbl.recpt.details" />
 	</div>
-</div>
-<div class="row">
-	<div class="col-md-12">
+</div> --%>    
 
-		<div class="panel panel-primary" data-collapsed="0">
-			<jsp:include page="view-applicantdetails.jsp"></jsp:include>
+
+
+<div class="panel-heading toggle-header">
+		<div class="panel-title">
+			<spring:message code="lbl.recpt.details" />
 		</div>
-		<div class="panel panel-primary" data-collapsed="0">
-			<jsp:include page="viewapplication-details.jsp"></jsp:include>
-		</div>
-		<div class="panel panel-primary" data-collapsed="0">
-			<jsp:include page="view-sitedetail.jsp"></jsp:include>
-		</div>
-		<div class="panel panel-primary" data-collapsed="0">
-			<jsp:include page="view-amenities-details.jsp"></jsp:include>
-		</div>
-		<c:if test="${bpaApplication.serviceType.description ne 'Sub-Division of plot/Land Development'}">
-			<div class="panel panel-primary" data-collapsed="0">
-				<jsp:include page="view-building-details.jsp" />
-			</div>
-		</c:if>
-		<c:if test="${not empty  bpaApplication.receipts}">
-			<div class="panel panel-primary" data-collapsed="0">
-				<jsp:include page="view-bpa-receipt-details.jsp"></jsp:include>
-			</div>
-		</c:if>
-		<div class="buttonbottom" align="center">
-			<table>
-				<tr>
-					<td><input type="button" name="button2" id="button2"
-						value="Close" class="btn btn-primary" onclick="window.close();" />
-					</td>
-				</tr>
-			</table>
+		<div class="history-icon toggle-icon">
+			<i class="fa fa-angle-up fa-2x"></i>
 		</div>
 	</div>
+<div class="panel-body display-hide">
+<table class="table">
+	<thead>
+		<tr>
+			<th><spring:message code="lbl.rcpt.no" /></th>
+			<th><spring:message code="lbl.rcpt.date" /></th>
+			<th><spring:message code="lbl.rcpt.amt" /></th>
+		</tr>
+	</thead>
+	<tbody>
+		<c:choose>
+			<c:when test="${not empty  bpaApplication.receipts}">
+				<c:forEach items="${bpaApplication.receipts}" var="receipt"
+					varStatus="status">
+					<tr>
+						<td><a class="open-popup"
+							href="/collection/citizen/onlineReceipt-viewReceipt.action?receiptNumber=${receipt.receiptNumber}&consumerCode=${bpaApplication.applicationNumber}&serviceCode=BPA">${receipt.receiptNumber}</a></td>
+						<td><c:out value="${receipt.receiptDate}"
+								default="N/A"></c:out></td>
+						<td><c:out value="${receipt.receiptAmt}" default="N/A" /></td>
+					</tr>
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<div class="col-md-12 col-xs-6  panel-title">No Receipts
+					found</div>
+			</c:otherwise>
+		</c:choose>
+	</tbody>
+</table>
 </div>
-<script
-	src="<cdn:url value='/resources/js/app/application-view.js?rnd=${app_release_no}'/>"></script>

@@ -43,7 +43,9 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
@@ -70,6 +72,7 @@ import javax.validation.constraints.NotNull;
 import org.egov.bpa.application.entity.enums.ApplicantMode;
 import org.egov.bpa.application.entity.enums.GovernmentType;
 import org.egov.commons.entity.Source;
+import org.egov.dcb.bean.Receipt;
 import org.egov.demand.model.EgDemand;
 import org.egov.infra.workflow.entity.StateAware;
 import org.hibernate.validator.constraints.Length;
@@ -194,6 +197,7 @@ public class BpaApplication extends StateAware {
     private String approvalComent;
     private boolean citizenAccepted;
     private boolean architectAccepted;
+    private transient Set<Receipt> receipts = new HashSet<>();
 
     @Override
     public Long getId() {
@@ -214,6 +218,7 @@ public class BpaApplication extends StateAware {
     public String getAmenityName() {
         return applicationAmenity.stream().map(ServiceType::getDescription).collect(Collectors.joining(","));
     }
+
     public String getBuildingplanapprovalnumber() {
         return buildingplanapprovalnumber;
     }
@@ -266,7 +271,6 @@ public class BpaApplication extends StateAware {
         return status;
     }
 
-    
     public void setStatus(final BpaStatus status) {
         this.status = status;
     }
@@ -328,14 +332,14 @@ public class BpaApplication extends StateAware {
     }
 
     public GovernmentType getGovernmentType() {
-		return governmentType;
-	}
+        return governmentType;
+    }
 
-	public void setGovernmentType(GovernmentType governmentType) {
-		this.governmentType = governmentType;
-	}
+    public void setGovernmentType(GovernmentType governmentType) {
+        this.governmentType = governmentType;
+    }
 
-	public EgDemand getDemand() {
+    public EgDemand getDemand() {
         return demand;
     }
 
@@ -466,6 +470,7 @@ public class BpaApplication extends StateAware {
     public List<ApplicationDocument> getApplicationDocument() {
         return applicationDocument;
     }
+
     public void addApplicationDocument(final ApplicationDocument nocDocument) {
         nocDocument.setApplication(this);
         getApplicationDocument().add(nocDocument);
@@ -482,7 +487,7 @@ public class BpaApplication extends StateAware {
     public void setApplicationNOCDocument(final List<ApplicationNocDocument> applicationNOCDocument) {
         this.applicationNOCDocument = applicationNOCDocument;
     }
-    
+
     public List<CheckListDetail> getCheckListDocumentsForNOC() {
         return checkListDocumentsForNOC;
     }
@@ -490,11 +495,12 @@ public class BpaApplication extends StateAware {
     public void setCheckListDocumentsForNOC(List<CheckListDetail> checkListDocumentsForNOC) {
         this.checkListDocumentsForNOC = checkListDocumentsForNOC;
     }
-    
+
     public void addApplicationNocDocument(final ApplicationNocDocument nocDocument) {
         nocDocument.setApplication(this);
         getApplicationNOCDocument().add(nocDocument);
     }
+
     public Date getBuildingPlanApprovalDate() {
         return buildingPlanApprovalDate;
     }
@@ -516,7 +522,8 @@ public class BpaApplication extends StateAware {
         final SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         return String.format("Application Number %s with application date %s for the service type of %s.",
                 applicationNumber != null ? applicationNumber : planPermissionNumber,
-                applicationDate != null ? formatter.format(applicationDate) : formatter.format(new Date()),serviceType.getDescription() !=null ? serviceType.getDescription() :"");
+                applicationDate != null ? formatter.format(applicationDate) : formatter.format(new Date()),
+                serviceType.getDescription() != null ? serviceType.getDescription() : "");
     }
 
     public BigDecimal getAdmissionfeeAmount() {
@@ -558,7 +565,7 @@ public class BpaApplication extends StateAware {
     public void setWardId(final Long wardId) {
         this.wardId = wardId;
     }
-    
+
     public boolean isFeeCollected() {
         if (demand != null)
             return demand.getBaseDemand().compareTo(demand.getAmtCollected()) <= 0 ? true : false;
@@ -566,53 +573,53 @@ public class BpaApplication extends StateAware {
             return false;
     }
 
-	public List<ServiceType> getApplicationAmenity() {
-		return applicationAmenity;
-	}
+    public List<ServiceType> getApplicationAmenity() {
+        return applicationAmenity;
+    }
 
-	public void setApplicationAmenity(List<ServiceType> applicationAmenity) {
-		this.applicationAmenity = applicationAmenity;
-	}
+    public void setApplicationAmenity(List<ServiceType> applicationAmenity) {
+        this.applicationAmenity = applicationAmenity;
+    }
 
-	public String getFeeAmountRecieptNo() {
-		return feeAmountRecieptNo;
-	}
+    public String getFeeAmountRecieptNo() {
+        return feeAmountRecieptNo;
+    }
 
-	public void setFeeAmountRecieptNo(String feeAmountRecieptNo) {
-		this.feeAmountRecieptNo = feeAmountRecieptNo;
-	}
+    public void setFeeAmountRecieptNo(String feeAmountRecieptNo) {
+        this.feeAmountRecieptNo = feeAmountRecieptNo;
+    }
 
-	public Date getApprovedReceiptDate() {
-		return approvedReceiptDate;
-	}
+    public Date getApprovedReceiptDate() {
+        return approvedReceiptDate;
+    }
 
-	public void setApprovedReceiptDate(Date approvedReceiptDate) {
-		this.approvedReceiptDate = approvedReceiptDate;
-	}
+    public void setApprovedReceiptDate(Date approvedReceiptDate) {
+        this.approvedReceiptDate = approvedReceiptDate;
+    }
 
-	public String getRevisedApplicationNumber() {
-		return revisedApplicationNumber;
-	}
+    public String getRevisedApplicationNumber() {
+        return revisedApplicationNumber;
+    }
 
-	public void setRevisedApplicationNumber(String revisedApplicationNumber) {
-		this.revisedApplicationNumber = revisedApplicationNumber;
-	}
+    public void setRevisedApplicationNumber(String revisedApplicationNumber) {
+        this.revisedApplicationNumber = revisedApplicationNumber;
+    }
 
-	public String getRevisedPermitNumber() {
-		return revisedPermitNumber;
-	}
+    public String getRevisedPermitNumber() {
+        return revisedPermitNumber;
+    }
 
-	public void setRevisedPermitNumber(String revisedPermitNumber) {
-		this.revisedPermitNumber = revisedPermitNumber;
-	}
+    public void setRevisedPermitNumber(String revisedPermitNumber) {
+        this.revisedPermitNumber = revisedPermitNumber;
+    }
 
-	public Boolean getIsExistingApprovedPlan() {
-		return isExistingApprovedPlan;
-	}
+    public Boolean getIsExistingApprovedPlan() {
+        return isExistingApprovedPlan;
+    }
 
-	public void setIsExistingApprovedPlan(Boolean isExistingApprovedPlan) {
-		this.isExistingApprovedPlan = isExistingApprovedPlan;
-	}
+    public void setIsExistingApprovedPlan(Boolean isExistingApprovedPlan) {
+        this.isExistingApprovedPlan = isExistingApprovedPlan;
+    }
 
     public boolean isCitizenAccepted() {
         return citizenAccepted;
@@ -628,6 +635,14 @@ public class BpaApplication extends StateAware {
 
     public void setArchitectAccepted(boolean architectAccepted) {
         this.architectAccepted = architectAccepted;
+    }
+
+    public Set<Receipt> getReceipts() {
+        return receipts;
+    }
+
+    public void setReceipts(Set<Receipt> receipts) {
+        this.receipts = receipts;
     }
 
 }

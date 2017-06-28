@@ -148,6 +148,7 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
         model.addAttribute("lettertopartylist", lettertoPartyService.findByBpaApplicationOrderByIdDesc(application));
         model.addAttribute("inspectionList", inspectionService.findByBpaApplicationOrderByIdAsc(application));
         application.getOwner().setPermanentAddress((PermanentAddress) application.getOwner().getUser().getAddress().get(0));
+        model.addAttribute("admissionFee", applicationBpaService.setAdmissionFeeAmountForRegistrationWithAmenities(application.getServiceType().getId(), application.getApplicationAmenity()));
     }
 
     @RequestMapping(value = "/citizen/update/{applicationNumber}", method = RequestMethod.POST)

@@ -247,7 +247,7 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
 					.generateBillAndRedirectToCollection(bpaApplication, model);
 		}
 		bpaApplication.setAdmissionfeeAmount(applicationBpaService.setAdmissionFeeAmountForRegistrationWithAmenities(
-				String.valueOf(bpaApplication.getServiceType().getId()), new ArrayList<ServiceType>()));
+				bpaApplication.getServiceType().getId(), new ArrayList<ServiceType>()));
 		User applicantUser = new User();
 		applicantUser.setName(bpaApplication.getOwner().getUser().getName());
 		applicantUser.setMobileNumber(bpaApplication.getOwner().getUser().getMobileNumber());

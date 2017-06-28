@@ -44,13 +44,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn"%>
 
-<div class="panel-heading custom_form_panel_heading">
+<div class="panel-heading toggle-header custom_form_panel_heading">
 	<div class="panel-title">
 		<spring:message code="lbl.build.details" />
 	</div>
+	<div class="history-icon toggle-icon">
+			<i class="fa fa-angle-up fa-2x"></i>
+		</div>
 </div>
 
-<div class="panel-body">
+<div class="panel-body display-hide">
 	<div class="row add-border">
 		<div class="col-sm-3 add-margin show-hide totalPlintArea">
 			<spring:message code="lbl.build.total.plinth" />
