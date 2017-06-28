@@ -3,7 +3,7 @@ package entities.requests.propertyTax.masters.wallType;
 import entities.requests.propertyTax.masters.RequestInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class UpdateWallTypeMasterRequest {
+public class WallTypeMasterRequest {
 
     @JsonProperty("RequestInfo")
     private RequestInfo requestInfo;
