@@ -12,7 +12,7 @@ public class WallTypesBuilder {
 
     public WallTypesBuilder(){
         wallTypes.setId(0);
-        wallTypes.setTenantId("ap.kurnool");
+        wallTypes.setTenantId("default");
         wallTypes.setDescription("Testing the wall type");
         wallTypes.setAuditDetails(auditDetails);
     }

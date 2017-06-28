@@ -12,7 +12,7 @@ public class FloorTypesBuilder {
 
     public FloorTypesBuilder(){
         floorTypes.setId(0);
-        floorTypes.setTenantId("ap.kurnool");
+        floorTypes.setTenantId("default");
         floorTypes.setDescription("Testing The floor types Master");
         floorTypes.setAuditDetails(auditDetails);
     }
@@ -29,6 +29,11 @@ public class FloorTypesBuilder {
 
     public FloorTypesBuilder withNameLocal(String nameLocal){
         floorTypes.setNameLocal(nameLocal);
+        return this;
+    }
+
+    public FloorTypesBuilder withId(int id){
+        floorTypes.setId(id);
         return this;
     }
 

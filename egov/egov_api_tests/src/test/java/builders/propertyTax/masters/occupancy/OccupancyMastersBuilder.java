@@ -13,7 +13,7 @@ public class OccupancyMastersBuilder {
     public OccupancyMastersBuilder(){
         occuapancyMasters.setId(0);
         occuapancyMasters.setDescription("Testing the Occupancy Master");
-        occuapancyMasters.setTenantId("ap.kurnool");
+        occuapancyMasters.setTenantId("default");
         occuapancyMasters.setActive(true);
         occuapancyMasters.setAuditDetails(auditDetails);
     }

@@ -11,7 +11,7 @@ public class PropertyTypesBuilder {
     AuditDetails auditDetails = new AuditDetailsBuilder().build();
 
     public PropertyTypesBuilder(){
-        propertyTypes.setTenantId("ap.kurnool");
+        propertyTypes.setTenantId("default");
         propertyTypes.setId(0);
         propertyTypes.setDescription("Testing the propertyType master");
         propertyTypes.setActive(true);

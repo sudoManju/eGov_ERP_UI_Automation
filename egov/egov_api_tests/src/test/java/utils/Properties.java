@@ -84,6 +84,7 @@ public class Properties {
     public static final String updateStructureClassUrl = propertiesReader.getEndPointUrl("structureClassUpdateUrl");
     public static final String createFloorTypesUrl = propertiesReader.getEndPointUrl("floorTypesCreateUrl");
     public static final String searchFloorTypesUrl = propertiesReader.getEndPointUrl("floorTypesSearchUrl");
+    public static final String updateFloorTypesUrl = propertiesReader.getEndPointUrl("floorTypesUpdateUrl");
     public static final String createWoodTypeUrl = propertiesReader.getEndPointUrl("woodTypesCreateUrl");
     public static final String searchWoodTypeUrl = propertiesReader.getEndPointUrl("woodTypesSearchUrl");
     public static final String createPropertyTypeUrl = propertiesReader.getEndPointUrl("propertyTypeCreateUrl");

@@ -12,7 +12,7 @@ public class DepartmentsBuilder {
 
     public DepartmentsBuilder(){
         departments.setId(0);
-        departments.setTenantId("ap.kurnool");
+        departments.setTenantId("default");
         departments.setDescription("Testing the Department Master");
         departments.setAuditDetails(auditDetails);
     }

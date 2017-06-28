@@ -19,7 +19,7 @@ public class UsageMastersBuilder {
         usageMasters.setActive(true);
         usageMasters.setIsResidential(true);
         usageMasters.setOrderNumber(0);
-        usageMasters.setTenantId("ap.kurnool");
+        usageMasters.setTenantId("default");
         usageMasters.setAuditDetails(auditDetails);
     }
 

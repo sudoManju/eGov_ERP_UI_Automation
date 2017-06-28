@@ -37,4 +37,19 @@ public class FloorTypesResource {
 
         return response;
     }
+
+    public Response update(String jsonString) {
+
+        new APILogger().log("Update FloorTypes request is started as--"+jsonString);
+
+        Response response = given().request().with()
+                .header("Content-Type","application/json")
+                .body(jsonString)
+                .when()
+                .post(Properties.updateFloorTypesUrl);
+
+        new APILogger().log("Update FloorTypes response is generated as --"+response.asString());
+
+        return response;
+    }
 }

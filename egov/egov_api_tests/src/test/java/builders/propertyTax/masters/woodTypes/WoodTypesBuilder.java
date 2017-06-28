@@ -12,7 +12,7 @@ public class WoodTypesBuilder {
 
     public WoodTypesBuilder(){
         woodTypes.setAuditDetails(auditDetails);
-        woodTypes.setTenantId("ap.kurnool");
+        woodTypes.setTenantId("default");
         woodTypes.setId(0);
         woodTypes.setDescription("Testing the woodTypes Master");
     }

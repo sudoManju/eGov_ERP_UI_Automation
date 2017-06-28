@@ -14,7 +14,7 @@ public class StructureClassesBuilder {
         structureClasses.setActive(true);
         structureClasses.setDescription("Testing the structureClass Master");
         structureClasses.setId(0);
-        structureClasses.setTenantId("ap.kurnool");
+        structureClasses.setTenantId("default");
         structureClasses.setAuditDetails(auditDetails);
     }
 

@@ -3,7 +3,7 @@ package entities.requests.propertyTax.masters.floorType;
 import entities.requests.propertyTax.masters.RequestInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class CreateFloorTypesRequest {
+public class FloorTypesRequest {
 
     private FloorTypes[] floorTypes;
 
