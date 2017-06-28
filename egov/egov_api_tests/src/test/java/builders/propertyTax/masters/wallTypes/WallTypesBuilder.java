@@ -32,6 +32,11 @@ public class WallTypesBuilder {
         return this;
     }
 
+    public WallTypesBuilder withId(int id){
+        wallTypes.setId(id);
+        return this;
+    }
+
     public WallTypes build(){
         return wallTypes;
     }
