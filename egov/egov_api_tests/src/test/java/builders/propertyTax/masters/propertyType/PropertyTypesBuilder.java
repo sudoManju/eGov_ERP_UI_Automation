@@ -38,6 +38,11 @@ public class PropertyTypesBuilder {
         return this;
     }
 
+    public PropertyTypesBuilder withId(int id){
+        propertyTypes.setId(id);
+        return this;
+    }
+
     public PropertyTypes build(){
         return propertyTypes;
     }

@@ -1,10 +1,12 @@
 package tests.propertyTax.masters;
 
 import builders.propertyTax.masters.RequestInfoBuilder;
-import builders.propertyTax.masters.propertyType.CreatePropertyTypesRequestBuilder;
+import builders.propertyTax.masters.propertyType.PropertyTypesBuilder;
+import builders.propertyTax.masters.propertyType.PropertyTypesRequestBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.propertyTax.masters.RequestInfo;
-import entities.requests.propertyTax.masters.propertyType.CreatePropertyTypeRequest;
+import entities.requests.propertyTax.masters.propertyType.PropertyTypeRequest;
+import entities.requests.propertyTax.masters.propertyType.PropertyTypes;
 import entities.responses.propertyTax.masters.propertyTypes.create.PropertyTypesResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -18,37 +20,66 @@ import static data.UserData.NARASAPPA;
 
 public class PropertyTypeVerificationTest extends BaseAPITest {
 
+    PropertyTypes[] propertyTypes;
+    RequestInfo requestInfo;
+    SearchHelper helper;
+
+    public PropertyTypeVerificationTest(){propertyTypes = new PropertyTypes[1];}
+
     @Test(groups = {Categories.PTIS, Categories.SANITY})
     public void propertyTypeTest() throws IOException{
-
         LoginAndLogoutHelper.login1(NARASAPPA);    //Login
-
+        requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
+        helper = new SearchHelper();
         PropertyTypesResponse create = createPropertyTypeMaster();   //Create
-
-        SearchHelper helper = new SearchHelper();
-
         helper.searchPropertyTypeMaster(create);    //Search
 
+        PropertyTypesResponse update = updatePropertyTypeMaster(create.getPropertyTypes()[0].getId());   //Update
+        helper.searchPropertyTypeMaster(update);   //Search
         LoginAndLogoutHelper.logout1();  //Logout
     }
 
     private PropertyTypesResponse createPropertyTypeMaster() throws IOException {
         new APILogger().log("Create PropertyType Master is Started --");
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
-        CreatePropertyTypeRequest request = new CreatePropertyTypesRequestBuilder().withRequestInfo(requestInfo).build();
+        propertyTypes[0] = new PropertyTypesBuilder().withName("Test_"+get3DigitRandomInt()).withCode(get3DigitRandomInt())
+                .withNameLocal("Test_"+get3DigitRandomInt()).withOrderNum(Integer.parseInt(get3DigitRandomInt())).build();
+        PropertyTypeRequest request = new PropertyTypesRequestBuilder().withRequestInfo(requestInfo)
+                          .withPropertyTypes(propertyTypes).build();
 
         Response response = new PropertyTypeMasterResource().create(RequestHelper.getJsonString(request));
-        PropertyTypesResponse response1 = (PropertyTypesResponse)
+        PropertyTypesResponse responseObject = checkAsserts(request,response);
+        new APILogger().log("Create PropertyType Master is Completed --");
+
+        return responseObject;
+    }
+
+    private PropertyTypesResponse checkAsserts(PropertyTypeRequest request, Response response) throws IOException{
+        PropertyTypesResponse responseObject = (PropertyTypesResponse)
                 ResponseHelper.getResponseAsObject(response.asString(),PropertyTypesResponse.class);
 
         Assert.assertEquals(response.getStatusCode(),200);
-        Assert.assertEquals(response1.getPropertyTypes()[0].getName(),request.getPropertyTypes()[0].getName());
-        Assert.assertEquals(response1.getPropertyTypes()[0].getCode(),request.getPropertyTypes()[0].getCode());
-        Assert.assertEquals(response1.getPropertyTypes()[0].getNameLocal(),request.getPropertyTypes()[0].getNameLocal());
-        Assert.assertEquals(response1.getPropertyTypes()[0].getOrderNumber(),request.getPropertyTypes()[0].getOrderNumber());
-        Assert.assertEquals(response1.getResponseInfo().getStatus(),"SUCCESSFUL");
-        new APILogger().log("Create PropertyType Master is Completed --");
+        Assert.assertEquals(responseObject.getPropertyTypes()[0].getName(),request.getPropertyTypes()[0].getName());
+        Assert.assertEquals(responseObject.getPropertyTypes()[0].getCode(),request.getPropertyTypes()[0].getCode());
+        Assert.assertEquals(responseObject.getPropertyTypes()[0].getNameLocal(),request.getPropertyTypes()[0].getNameLocal());
+        Assert.assertEquals(responseObject.getPropertyTypes()[0].getOrderNumber(),request.getPropertyTypes()[0].getOrderNumber());
+        Assert.assertEquals(responseObject.getResponseInfo().getStatus(),"SUCCESSFUL");
 
-        return response1;
+        return responseObject;
+    }
+
+    private PropertyTypesResponse updatePropertyTypeMaster(int id)throws IOException{
+        new APILogger().log("Update PropertyType Master is Started --");
+        propertyTypes[0] = new PropertyTypesBuilder().withId(id)
+                .withName("Test_"+get3DigitRandomInt()).withCode(get3DigitRandomInt())
+                .withNameLocal("Test_"+get3DigitRandomInt()).withOrderNum(Integer.parseInt(get3DigitRandomInt())).build();
+        PropertyTypeRequest request = new PropertyTypesRequestBuilder().withRequestInfo(requestInfo)
+                .withPropertyTypes(propertyTypes).build();
+
+        Response response = new PropertyTypeMasterResource().update(RequestHelper.getJsonString(request));
+        PropertyTypesResponse responseObject = checkAsserts(request,response);
+        Assert.assertEquals(responseObject.getPropertyTypes()[0].getId(),id);
+        new APILogger().log("Update PropertyType Master is Completed --");
+
+        return responseObject;
     }
 }

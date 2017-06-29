@@ -3,7 +3,7 @@ package entities.requests.propertyTax.masters.propertyType;
 import entities.requests.propertyTax.masters.RequestInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class CreatePropertyTypeRequest {
+public class PropertyTypeRequest {
 
     @JsonProperty("RequestInfo")
     private RequestInfo requestInfo;

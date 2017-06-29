@@ -37,4 +37,19 @@ public class PropertyTypeMasterResource {
 
         return response;
     }
+
+    public Response update(String jsonString) {
+
+        new APILogger().log("Update PropertyType request is started as --"+jsonString);
+
+        Response response = given().request().with()
+                .header("Content-Type","application/json")
+                .body(jsonString)
+                .when()
+                .post(Properties.updatePropertyTypeUrl);
+
+        new APILogger().log("Update PropertyType Response is generated as --"+response.asString());
+
+        return response;
+    }
 }
