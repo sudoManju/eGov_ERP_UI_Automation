@@ -58,16 +58,16 @@ public class StructureClassVerificationTest extends BaseAPITest {
     }
 
     private StructureClassResponse checkAsserts(StructureClassRequest request, Response response) throws IOException{
-        StructureClassResponse response1 = (StructureClassResponse)
+        StructureClassResponse responseObject = (StructureClassResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), StructureClassResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals(response1.getStructureClasses()[0].getName(), request.getStructureClasses()[0].getName());
-        Assert.assertEquals(response1.getStructureClasses()[0].getCode(), request.getStructureClasses()[0].getCode());
-        Assert.assertEquals(response1.getStructureClasses()[0].getNameLocal(), request.getStructureClasses()[0].getNameLocal());
-        Assert.assertEquals(response1.getStructureClasses()[0].getOrderNumber(), request.getStructureClasses()[0].getOrderNumber());
-        Assert.assertEquals(response1.getResponseInfo().getStatus(), "SUCCESSFUL");
-        return response1;
+        Assert.assertEquals(responseObject.getStructureClasses()[0].getName(), request.getStructureClasses()[0].getName());
+        Assert.assertEquals(responseObject.getStructureClasses()[0].getCode(), request.getStructureClasses()[0].getCode());
+        Assert.assertEquals(responseObject.getStructureClasses()[0].getNameLocal(), request.getStructureClasses()[0].getNameLocal());
+        Assert.assertEquals(responseObject.getStructureClasses()[0].getOrderNumber(), request.getStructureClasses()[0].getOrderNumber());
+        Assert.assertEquals(responseObject.getResponseInfo().getStatus(), "SUCCESSFUL");
+        return responseObject;
     }
 
     private StructureClassResponse updateStructureClass(int id) throws IOException{
@@ -79,8 +79,8 @@ public class StructureClassVerificationTest extends BaseAPITest {
                 .build();
 
         Response response = new StructureClassResource().update(RequestHelper.getJsonString(request));
-        StructureClassResponse response1 = checkAsserts(request,response);
+        StructureClassResponse responseObject = checkAsserts(request,response);
         new APILogger().log("Update StructureClass Master Completed");
-        return response1;
+        return responseObject;
     }
 }

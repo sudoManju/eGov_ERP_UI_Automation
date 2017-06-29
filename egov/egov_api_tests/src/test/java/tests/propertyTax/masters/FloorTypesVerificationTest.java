@@ -32,7 +32,6 @@ public class FloorTypesVerificationTest extends BaseAPITest {
 
   @Test(groups = {Categories.PTIS, Categories.SANITY})
   public void floorTypesTest() throws IOException {
-
       LoginAndLogoutHelper.login1(NARASAPPA);  //Login
       requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
       helper = new SearchHelper();
@@ -64,22 +63,22 @@ public class FloorTypesVerificationTest extends BaseAPITest {
         FloorTypesRequest request = new FloorTypesRequestBuilder().withRequestInfo(requestInfo).withFloorTypes(floorTypes).build();
 
         Response response = new FloorTypesResource().create(RequestHelper.getJsonString(request));
-        FloorTypesResponse response1 = checkAsserts(request,response);
+        FloorTypesResponse responseObject = checkAsserts(request,response);
         new APILogger().log("Create Floor Types Master is Completed --");
-        return response1;
+        return responseObject;
     }
 
     private FloorTypesResponse checkAsserts(FloorTypesRequest request,Response response) throws IOException {
-        FloorTypesResponse response1 = (FloorTypesResponse)
+        FloorTypesResponse responseObject = (FloorTypesResponse)
                 ResponseHelper.getResponseAsObject(response.asString(),FloorTypesResponse.class);
 
         Assert.assertEquals(response.getStatusCode(),200);
-        Assert.assertEquals(response1.getFloorTypes()[0].getName(),request.getFloorTypes()[0].getName());
-        Assert.assertEquals(response1.getFloorTypes()[0].getCode(),request.getFloorTypes()[0].getCode());
-        Assert.assertEquals(response1.getFloorTypes()[0].getNameLocal(),request.getFloorTypes()[0].getNameLocal());
-        Assert.assertEquals(response1.getResponseInfo().getStatus(),"SUCCESSFUL");
+        Assert.assertEquals(responseObject.getFloorTypes()[0].getName(),request.getFloorTypes()[0].getName());
+        Assert.assertEquals(responseObject.getFloorTypes()[0].getCode(),request.getFloorTypes()[0].getCode());
+        Assert.assertEquals(responseObject.getFloorTypes()[0].getNameLocal(),request.getFloorTypes()[0].getNameLocal());
+        Assert.assertEquals(responseObject.getResponseInfo().getStatus(),"SUCCESSFUL");
 
-        return response1;
+        return responseObject;
     }
 
 }

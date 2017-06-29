@@ -64,20 +64,20 @@ public class WallTypeMasterVerificationTest extends BaseAPITest {
                 .withRequestInfo(requestInfo).withWallTypes(wallTypes).build();
 
         Response response = new WallTypeResource().update(RequestHelper.getJsonString(request));
-        WallTypesResponse response1 = checkAsserts(request,response);
+        WallTypesResponse responseObject = checkAsserts(request,response);
         new APILogger().log("Update WallType Master is Completed --");
-        return response1;
+        return responseObject;
     }
 
     private WallTypesResponse checkAsserts(WallTypeMasterRequest request,Response response) throws IOException {
-        WallTypesResponse response1 = (WallTypesResponse)
+        WallTypesResponse responseObject = (WallTypesResponse)
                 ResponseHelper.getResponseAsObject(response.asString(),WallTypesResponse.class);
 
         Assert.assertEquals(response.getStatusCode(),200);
-        Assert.assertEquals(response1.getWallTypes()[0].getName(),request.getWallTypes()[0].getName());
-        Assert.assertEquals(response1.getWallTypes()[0].getCode(),request.getWallTypes()[0].getCode());
-        Assert.assertEquals(response1.getWallTypes()[0].getNameLocal(),request.getWallTypes()[0].getNameLocal());
-        Assert.assertEquals(response1.getResponseInfo().getStatus(),"SUCCESSFUL");
-        return response1;
+        Assert.assertEquals(responseObject.getWallTypes()[0].getName(),request.getWallTypes()[0].getName());
+        Assert.assertEquals(responseObject.getWallTypes()[0].getCode(),request.getWallTypes()[0].getCode());
+        Assert.assertEquals(responseObject.getWallTypes()[0].getNameLocal(),request.getWallTypes()[0].getNameLocal());
+        Assert.assertEquals(responseObject.getResponseInfo().getStatus(),"SUCCESSFUL");
+        return responseObject;
     }
 }
