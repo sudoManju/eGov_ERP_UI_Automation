@@ -28,7 +28,7 @@ public class OccupancyMasterVerificationTest extends BaseAPITest {
 
     @Test(groups = {Categories.PTIS, Categories.SANITY})
     public void OccupancyMasterTest()throws IOException{
-        LoginAndLogoutHelper.login1(NARASAPPA);   //Login
+        LoginAndLogoutHelper.login(NARASAPPA);   //Login
         helper = new SearchHelper();
         requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         OccupancyMasterResponse create = createOccupancyMaster();   //Create
@@ -36,13 +36,13 @@ public class OccupancyMasterVerificationTest extends BaseAPITest {
 
         OccupancyMasterResponse update = updateOccupancyMaster(create.getOccuapancyMasters()[0].getId());   //Update
         helper.searchOccupancyMaster(update);     //Search
-        LoginAndLogoutHelper.logout1(); //Logout
+        LoginAndLogoutHelper.logout(); //Logout
     }
 
     private OccupancyMasterResponse createOccupancyMaster() throws IOException {
         new APILogger().log("Create Occupancy Master is Started");
-        occuapancyMasters[0] = new OccupancyMastersBuilder().withName("Test_"+get3DigitRandomInt())
-                .withCode(get3DigitRandomInt()).withNameLocal("Test_"+get3DigitRandomInt()).build();
+        occuapancyMasters[0] = new OccupancyMastersBuilder().withName("Test_"+ get6DigitRandomInt())
+                .withCode(get6DigitRandomInt()).withNameLocal("Test_"+ get6DigitRandomInt()).build();
         OccupancyMasterRequest request = new OccupancyMasterRequestBuilder().withRequestInfo(requestInfo)
                 .withOccupancyMaster(occuapancyMasters).build();
 
@@ -55,8 +55,8 @@ public class OccupancyMasterVerificationTest extends BaseAPITest {
 
     private OccupancyMasterResponse updateOccupancyMaster(int id) throws IOException{
         new APILogger().log("Update Occupancy Master is Started");
-        occuapancyMasters[0] = new OccupancyMastersBuilder().withId(id).withName("Test_"+get3DigitRandomInt())
-                .withCode(get3DigitRandomInt()).withNameLocal("Test_"+get3DigitRandomInt()).build();
+        occuapancyMasters[0] = new OccupancyMastersBuilder().withId(id).withName("Test_"+ get6DigitRandomInt())
+                .withCode(get6DigitRandomInt()).withNameLocal("Test_"+ get6DigitRandomInt()).build();
         OccupancyMasterRequest request = new OccupancyMasterRequestBuilder().withRequestInfo(requestInfo)
                 .withOccupancyMaster(occuapancyMasters).build();
 

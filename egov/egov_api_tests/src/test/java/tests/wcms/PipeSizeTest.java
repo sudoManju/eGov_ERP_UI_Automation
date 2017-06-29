@@ -24,11 +24,11 @@ public class PipeSizeTest extends BaseAPITest {
 
     @Test(groups = {Categories.WCMS, Categories.SANITY})
     public void pipeSizeTest() throws IOException {
-        LoginAndLogoutHelper.login1(MANAS); // Login
+        LoginAndLogoutHelper.login(MANAS); // Login
         String millimeterSize = createPipeSize(); // Create PipeSize
         CreatePipeSizeResponse searchPipeSizeResponse = searchPipeSize(millimeterSize); // Search PipeSize
         updatePipeSize(searchPipeSizeResponse); // Update PipeSize
-        LoginAndLogoutHelper.logout1(); // Logout
+        LoginAndLogoutHelper.logout(); // Logout
     }
 
     private String createPipeSize() throws IOException {

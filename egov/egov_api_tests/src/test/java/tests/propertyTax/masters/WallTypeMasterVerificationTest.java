@@ -15,7 +15,6 @@ import tests.BaseAPITest;
 import utils.*;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import static data.UserData.NARASAPPA;
 
@@ -31,7 +30,7 @@ public class WallTypeMasterVerificationTest extends BaseAPITest {
 
     @Test(groups = {Categories.PTIS, Categories.SANITY})
     public void wallTypeMasterTest() throws IOException {
-        LoginAndLogoutHelper.login1(NARASAPPA);   //Login
+        LoginAndLogoutHelper.login(NARASAPPA);   //Login
         requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         helper = new SearchHelper();
         WallTypesResponse create = createWallTypeMasterTest();  //Create
@@ -39,13 +38,13 @@ public class WallTypeMasterVerificationTest extends BaseAPITest {
 
         WallTypesResponse update = updateWallTypeMasterTest(create.getWallTypes()[0].getId()); //Update
         helper.searchWallTypeMaster(update);  //Search
-        LoginAndLogoutHelper.logout1(); //Logout
+        LoginAndLogoutHelper.logout(); //Logout
     }
 
     private WallTypesResponse createWallTypeMasterTest() throws IOException {
         new APILogger().log("Create WallType Master is Started --");
-        wallTypes[0] = new WallTypesBuilder().withCode(get3DigitRandomInt())
-                .withName("Test_"+get3DigitRandomInt()).withNameLocal("Test_"+get3DigitRandomInt()).build();
+        wallTypes[0] = new WallTypesBuilder().withCode(get6DigitRandomInt())
+                .withName("Test_"+ get6DigitRandomInt()).withNameLocal("Test_"+ get6DigitRandomInt()).build();
         WallTypeMasterRequest request = new WallTypeMasterRequestBuilder().withRequestInfo(requestInfo)
                 .withWallTypes(wallTypes).build();
 
@@ -57,8 +56,8 @@ public class WallTypeMasterVerificationTest extends BaseAPITest {
 
     private WallTypesResponse updateWallTypeMasterTest(int id) throws IOException{
         new APILogger().log("Update WallType Master is Started --");
-        wallTypes[0] = new WallTypesBuilder().withId(id).withName("Test_"+get3DigitRandomInt())
-                .withCode(get3DigitRandomInt()).withNameLocal("Test_"+get3DigitRandomInt()).build();
+        wallTypes[0] = new WallTypesBuilder().withId(id).withName("Test_"+ get6DigitRandomInt())
+                .withCode(get6DigitRandomInt()).withNameLocal("Test_"+ get6DigitRandomInt()).build();
         WallTypeMasterRequest request = new WallTypeMasterRequestBuilder()
                 .withRequestInfo(requestInfo).withWallTypes(wallTypes).build();
 

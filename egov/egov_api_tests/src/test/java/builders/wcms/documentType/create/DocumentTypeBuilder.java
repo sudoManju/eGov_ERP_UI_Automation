@@ -10,7 +10,7 @@ public class DocumentTypeBuilder {
         documentType.setActive(true);
         documentType.setId(0);
         documentType.setCode("");
-        documentType.setName(new BaseAPITest().get3DigitRandomInt());
+        documentType.setName(new BaseAPITest().get6DigitRandomInt());
         documentType.setDescription("Document Description");
         documentType.setTenantId("default");
     }

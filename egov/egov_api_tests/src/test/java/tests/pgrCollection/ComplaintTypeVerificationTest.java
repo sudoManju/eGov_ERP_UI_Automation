@@ -22,10 +22,10 @@ public class ComplaintTypeVerificationTest extends BaseAPITest {
 
     @Test(groups = {Categories.PGR, Categories.SANITY, Categories.DEV})
     public void complaintTypeTest() throws IOException {
-        LoginAndLogoutHelper.login1(NARASAPPA); // Login
+        LoginAndLogoutHelper.login(NARASAPPA); // Login
         complaintTypeByServiceCode(); // Complaint Type By Service Code
         complaintTypeCategories(); // Complaint Type By Categories
-        LoginAndLogoutHelper.logout1(); // Logout
+        LoginAndLogoutHelper.logout(); // Logout
     }
 
     private void complaintTypeByServiceCode() throws IOException {

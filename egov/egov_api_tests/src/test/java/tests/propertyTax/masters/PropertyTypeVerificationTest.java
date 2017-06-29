@@ -28,7 +28,7 @@ public class PropertyTypeVerificationTest extends BaseAPITest {
 
     @Test(groups = {Categories.PTIS, Categories.SANITY})
     public void propertyTypeTest() throws IOException{
-        LoginAndLogoutHelper.login1(NARASAPPA);    //Login
+        LoginAndLogoutHelper.login(NARASAPPA);    //Login
         requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         helper = new SearchHelper();
         PropertyTypesResponse create = createPropertyTypeMaster();   //Create
@@ -36,13 +36,13 @@ public class PropertyTypeVerificationTest extends BaseAPITest {
 
         PropertyTypesResponse update = updatePropertyTypeMaster(create.getPropertyTypes()[0].getId());   //Update
         helper.searchPropertyTypeMaster(update);   //Search
-        LoginAndLogoutHelper.logout1();  //Logout
+        LoginAndLogoutHelper.logout();  //Logout
     }
 
     private PropertyTypesResponse createPropertyTypeMaster() throws IOException {
         new APILogger().log("Create PropertyType Master is Started --");
-        propertyTypes[0] = new PropertyTypesBuilder().withName("Test_"+get3DigitRandomInt()).withCode(get3DigitRandomInt())
-                .withNameLocal("Test_"+get3DigitRandomInt()).withOrderNum(Integer.parseInt(get3DigitRandomInt())).build();
+        propertyTypes[0] = new PropertyTypesBuilder().withName("Test_"+ get6DigitRandomInt()).withCode(get6DigitRandomInt())
+                .withNameLocal("Test_"+ get6DigitRandomInt()).withOrderNum(Integer.parseInt(get6DigitRandomInt())).build();
         PropertyTypeRequest request = new PropertyTypesRequestBuilder().withRequestInfo(requestInfo)
                           .withPropertyTypes(propertyTypes).build();
 
@@ -70,8 +70,8 @@ public class PropertyTypeVerificationTest extends BaseAPITest {
     private PropertyTypesResponse updatePropertyTypeMaster(int id)throws IOException{
         new APILogger().log("Update PropertyType Master is Started --");
         propertyTypes[0] = new PropertyTypesBuilder().withId(id)
-                .withName("Test_"+get3DigitRandomInt()).withCode(get3DigitRandomInt())
-                .withNameLocal("Test_"+get3DigitRandomInt()).withOrderNum(Integer.parseInt(get3DigitRandomInt())).build();
+                .withName("Test_"+ get6DigitRandomInt()).withCode(get6DigitRandomInt())
+                .withNameLocal("Test_"+ get6DigitRandomInt()).withOrderNum(Integer.parseInt(get6DigitRandomInt())).build();
         PropertyTypeRequest request = new PropertyTypesRequestBuilder().withRequestInfo(requestInfo)
                 .withPropertyTypes(propertyTypes).build();
 

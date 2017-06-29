@@ -26,12 +26,12 @@ public class ComplaintVerificationTest extends BaseAPITest {
 
     @Test(groups = {Categories.PGR, Categories.SANITY, Categories.DEV})
     public void createAndGetComplaintTest() throws IOException {
-        LoginAndLogoutHelper.login1(NARASAPPA); //Login Test
+        LoginAndLogoutHelper.login(NARASAPPA); //Login Test
         ComplaintResponse create = createComplaint(); // Create Complaint
         getComplaint(create); // Get Complaint
         ComplaintResponse update = updateComplaint(create); // Update Complaint
 //        getComplaint(updateLeaveTypeResource,loginResponse);
-        LoginAndLogoutHelper.logout1(); // Logout
+        LoginAndLogoutHelper.logout(); // Logout
     }
 
     private ComplaintResponse createComplaint() throws IOException {

@@ -24,11 +24,11 @@ public class CategoryTypeTest extends BaseAPITest {
 
     @Test(groups = {Categories.SANITY, Categories.WCMS})
     public void categoryTypeTest() throws IOException {
-        LoginAndLogoutHelper.login1(MANAS); // Login
+        LoginAndLogoutHelper.login(MANAS); // Login
         String categoryTypeName = createCategoryType(); // Create CategoryType
         CreateCategoryTypeResponse searchCategoryTypeResponse = searchCategoryType(categoryTypeName); // Search CategoryType
         updateCategoryType(searchCategoryTypeResponse); // Update CategoryType
-        LoginAndLogoutHelper.logout1(); // Logout
+        LoginAndLogoutHelper.logout(); // Logout
     }
 
     private String createCategoryType() throws IOException {

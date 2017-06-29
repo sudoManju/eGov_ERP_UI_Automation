@@ -28,7 +28,7 @@ public class WoodTypesVerificationTest extends BaseAPITest {
 
     @Test(groups = {Categories.PTIS, Categories.SANITY})
     public void woodTypesTest()throws IOException{
-        LoginAndLogoutHelper.login1(NARASAPPA);    //Login
+        LoginAndLogoutHelper.login(NARASAPPA);    //Login
         requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         helper = new SearchHelper();
         WoodTypesResponse create = createWoodTypesMaster();       //Create
@@ -36,13 +36,13 @@ public class WoodTypesVerificationTest extends BaseAPITest {
 
         WoodTypesResponse update = updateWoodTypesMaster(create.getWoodTypes()[0].getId());   //Update
         helper.searchWoodTypesMaster(update);   //Search
-        LoginAndLogoutHelper.logout1();  //Logout
+        LoginAndLogoutHelper.logout();  //Logout
     }
 
     private WoodTypesResponse createWoodTypesMaster() throws IOException {
         new APILogger().log("Create WoodType Master is Started");
-        woodTypes[0] = new WoodTypesBuilder().withName("Test"+get3DigitRandomInt()).withCode(get3DigitRandomInt())
-                .withNameLocal("Test_"+get3DigitRandomInt()).build();
+        woodTypes[0] = new WoodTypesBuilder().withName("Test"+ get6DigitRandomInt()).withCode(get6DigitRandomInt())
+                .withNameLocal("Test_"+ get6DigitRandomInt()).build();
         WoodTypeMasterRequest request = new WoodTypeMasterRequestBuilder().withRequestInfo(requestInfo)
                 .withWoodType(woodTypes).build();
 
@@ -68,8 +68,8 @@ public class WoodTypesVerificationTest extends BaseAPITest {
 
     private WoodTypesResponse updateWoodTypesMaster(int id) throws IOException{
         new APILogger().log("Update WoodType Master is Started");
-        woodTypes[0] = new WoodTypesBuilder().withName("Test"+get3DigitRandomInt()).withCode(get3DigitRandomInt())
-                .withId(id).withNameLocal("Test_"+get3DigitRandomInt()).build();
+        woodTypes[0] = new WoodTypesBuilder().withName("Test"+ get6DigitRandomInt()).withCode(get6DigitRandomInt())
+                .withId(id).withNameLocal("Test_"+ get6DigitRandomInt()).build();
         WoodTypeMasterRequest request = new WoodTypeMasterRequestBuilder().withRequestInfo(requestInfo)
                 .withWoodType(woodTypes).build();
 

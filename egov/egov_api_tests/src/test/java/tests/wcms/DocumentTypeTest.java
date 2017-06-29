@@ -24,11 +24,11 @@ public class DocumentTypeTest extends BaseAPITest {
 
     @Test(groups = {Categories.WCMS, Categories.SANITY})
     public void documentType() throws IOException {
-        LoginAndLogoutHelper.login1(MANAS); // Login
+        LoginAndLogoutHelper.login(MANAS); // Login
         String documentName = createDocumentType(); // Create DocumentType
         CreateDocumentTypeResponse searchDocumentTypeResponse = searchDocumentType(documentName); // Search DocumentType
         updateDocumentType(searchDocumentTypeResponse); // Update DocumentType
-        LoginAndLogoutHelper.logout1(); // Logout
+        LoginAndLogoutHelper.logout(); // Logout
     }
 
     public String createDocumentType() throws IOException {

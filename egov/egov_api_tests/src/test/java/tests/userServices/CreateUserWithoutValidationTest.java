@@ -25,7 +25,7 @@ public class CreateUserWithoutValidationTest extends BaseAPITest {
 
     @Test(groups = {Categories.SANITY, Categories.DEV, Categories.USER})
     public void createUserWithoutValidationTest() throws IOException {
-        LoginAndLogoutHelper.login1(NARASAPPA); //Login Test
+        LoginAndLogoutHelper.login(NARASAPPA); //Login Test
         UserResponse create = createUserWithoutValidation(); // Create User
         searchCreatedUser(create, "id"); // Get User Details with Id
         searchCreatedUser(create, "userName"); // Get User Details with UserName
@@ -33,7 +33,7 @@ public class CreateUserWithoutValidationTest extends BaseAPITest {
         UserResponse update = updateUser(create.getUser()[0].getId()); // Update User Details
         searchCreatedUser(update, "id"); // Get User Details with Id
         searchCreatedUser(update, "userName"); // Get User Details with UserName
-        LoginAndLogoutHelper.logout1(); // Logout
+        LoginAndLogoutHelper.logout(); // Logout
     }
 
     private UserResponse updateUser(int id) throws IOException {
@@ -83,7 +83,7 @@ public class CreateUserWithoutValidationTest extends BaseAPITest {
     private UserResponse createUserWithoutValidation() throws IOException {
         new APILogger().log("Create User Test is started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
-        User user = new UserBuilder().withUserName("Test_" + get3DigitRandomInt() + get3DigitRandomInt()).build();
+        User user = new UserBuilder().withUserName("Test_" + get6DigitRandomInt() + get6DigitRandomInt()).build();
         CreateUserRequest request = new CreateUserRequestBuilder().withRequestInfo(requestInfo).withUser(user).build();
 
         Response response = new UserServiceResource().createUserWithoutValidationResource(RequestHelper.getJsonString(request));

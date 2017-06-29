@@ -25,35 +25,6 @@ public class LoginAndLogoutHelper extends Resource {
         Response response = new LoginResource().login(RequestHelper.asMap(request));
         LoginResponse loginResponse = (LoginResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), LoginResponse.class);
-
-        Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals(loginResponse.getUserRequest().getUserName(), username);
-        new APILogger().log("Login Test is Completed -- ");
-        return loginResponse;
-    }
-
-    public static void logout(LoginResponse loginResponse) throws IOException {
-
-        RequestInfo requestInfo = new RequestInfoBuilder()
-                .withAuthToken(loginResponse.getAccess_token())
-                .build();
-        LogoutRequest logoutRequest = new LogoutRequestBuilder().withRequestInfo(requestInfo).build();
-
-        Response response1 = new LoginResource().logout(RequestHelper.getJsonString(logoutRequest), loginResponse.getAccess_token());
-        LogoutResponse logoutResponse = (LogoutResponse)
-                ResponseHelper.getResponseAsObject(response1.asString(), LogoutResponse.class);
-
-        Assert.assertEquals(response1.getStatusCode(), 200);
-        Assert.assertEquals(logoutResponse.getStatus(), "Logout successfully");
-        new APILogger().log("Logout Test is Completed --");
-    }
-
-    public static LoginResponse login1(String username) throws IOException {
-        LoginRequest request = new LoginRequestBuilder().withUsername(username).build();
-
-        Response response = new LoginResource().login(RequestHelper.asMap(request));
-        LoginResponse loginResponse = (LoginResponse)
-                ResponseHelper.getResponseAsObject(response.asString(), LoginResponse.class);
         scenarioContext.setAuthToken(loginResponse.getAccess_token());
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertEquals(loginResponse.getUserRequest().getUserName(), username);
@@ -61,7 +32,7 @@ public class LoginAndLogoutHelper extends Resource {
         return loginResponse;
     }
 
-    public static void logout1() throws IOException {
+    public static void logout() throws IOException {
 
         RequestInfo requestInfo = new RequestInfoBuilder()
                 .withAuthToken(scenarioContext.getAuthToken())

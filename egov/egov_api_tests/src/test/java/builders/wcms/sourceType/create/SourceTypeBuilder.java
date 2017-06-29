@@ -10,7 +10,7 @@ public class SourceTypeBuilder {
         sourceType.setActive(true);
         sourceType.setCode("");
         sourceType.setId(0);
-        sourceType.setName("SourceType" + new BaseAPITest().get3DigitRandomInt());
+        sourceType.setName("SourceType" + new BaseAPITest().get6DigitRandomInt());
         sourceType.setDescription("Source Type Description");
         sourceType.setTenantId("default");
     }

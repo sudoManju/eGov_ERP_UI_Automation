@@ -10,7 +10,7 @@ public class CategoryTypeBuilder {
 
     public CategoryTypeBuilder() {
         category.setCode("");
-        category.setName("Category Type" + new BaseAPITest().get3DigitRandomInt());
+        category.setName("Category Type" + new BaseAPITest().get6DigitRandomInt());
         category.setActive(true);
         category.setDescription("Category Type Description");
         category.setTenantId("default");

@@ -28,7 +28,7 @@ public class DepartmentVerificationTest extends BaseAPITest {
 
     @Test(groups = {Categories.PTIS, Categories.SANITY})
     public void DepartmentMasterTest() throws IOException{
-        LoginAndLogoutHelper.login1(NARASAPPA);         //Login
+        LoginAndLogoutHelper.login(NARASAPPA);         //Login
         requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         helper = new SearchHelper();
         DepartmentsMasterResponse create = createDepartmentMaster();   //Create
@@ -36,13 +36,13 @@ public class DepartmentVerificationTest extends BaseAPITest {
 
         DepartmentsMasterResponse update = updateDepartmentsMaster(create.getDepartments()[0].getId());   //Update
         helper.searchDepartmentMaster(update);   //Search
-        LoginAndLogoutHelper.logout1();  //Logout
+        LoginAndLogoutHelper.logout();  //Logout
     }
 
     private DepartmentsMasterResponse createDepartmentMaster() throws IOException {
         new APILogger().log("Create Department Master is Started");
-        departments[0] = new DepartmentsBuilder().withName("Test_"+get3DigitRandomInt()).withCode(get3DigitRandomInt())
-                .withNameLocal("Test"+get3DigitRandomInt()).build();
+        departments[0] = new DepartmentsBuilder().withName("Test_"+ get6DigitRandomInt()).withCode(get6DigitRandomInt())
+                .withNameLocal("Test"+ get6DigitRandomInt()).build();
         DepartmentMasterRequest request = new DepartmentMasterRequestBuilder().withRequestInfo(requestInfo)
                 .withDepartments(departments).build();
 
@@ -68,8 +68,8 @@ public class DepartmentVerificationTest extends BaseAPITest {
 
     private DepartmentsMasterResponse updateDepartmentsMaster(int id) throws IOException{
         new APILogger().log("Update Department Master is Started");
-        departments[0] = new DepartmentsBuilder().withName("Test_"+get3DigitRandomInt()).withCode(get3DigitRandomInt())
-                .withNameLocal("Test"+get3DigitRandomInt()).withId(id).build();
+        departments[0] = new DepartmentsBuilder().withName("Test_"+ get6DigitRandomInt()).withCode(get6DigitRandomInt())
+                .withNameLocal("Test"+ get6DigitRandomInt()).withId(id).build();
         DepartmentMasterRequest request = new DepartmentMasterRequestBuilder().withRequestInfo(requestInfo)
                 .withDepartments(departments).build();
 

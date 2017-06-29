@@ -84,7 +84,7 @@ public class LeaveOpeningBalanceCreateTest extends BaseAPITest {
             So now we need to createLeaveApplicationResource the new leave type in order to createLeaveApplicationResource the opening balance
         */
         if (employeeId == 0) {
-            leaveTypeId = createTheLeaveTypeWithNameBasedOnDataFormat("Leave Type - " + get3DigitRandomInt());
+            leaveTypeId = createTheLeaveTypeWithNameBasedOnDataFormat("Leave Type - " + get6DigitRandomInt());
             employeeId = employeeIdList[new Random().nextInt(employeeIdList.length - 0) + 0];
         }
 
@@ -230,7 +230,7 @@ public class LeaveOpeningBalanceCreateTest extends BaseAPITest {
         LeaveOpeningBalance leaveOpeningBalance = new LeaveOpeningBalanceBuilder()
                 .withLeaveType(leaveType)
                 .withEmployee(employeeId)
-                .withNoOfDays(Integer.parseInt(get3DigitRandomInt()))
+                .withNoOfDays(Integer.parseInt(get6DigitRandomInt()))
                 .withTenantId("ap.kurnool")
                 .build();
 

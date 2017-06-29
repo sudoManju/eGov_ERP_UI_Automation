@@ -15,7 +15,6 @@ import tests.BaseAPITest;
 import utils.*;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import static data.UserData.NARASAPPA;
 
@@ -31,7 +30,7 @@ public class StructureClassVerificationTest extends BaseAPITest {
 
     @Test(groups = {Categories.PTIS, Categories.SANITY})
     public void structureClassTest() throws IOException {
-        LoginAndLogoutHelper.login1(NARASAPPA); // Login
+        LoginAndLogoutHelper.login(NARASAPPA); // Login
         requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         helper = new SearchHelper();
         StructureClassResponse create = createStructureClass();  //Create
@@ -39,13 +38,13 @@ public class StructureClassVerificationTest extends BaseAPITest {
 
         StructureClassResponse update = updateStructureClass(create.getStructureClasses()[0].getId());  //Update
         helper.searchStructureClassMaster(update);    //Search
-        LoginAndLogoutHelper.logout1();  //Logout
+        LoginAndLogoutHelper.logout();  //Logout
     }
 
     private StructureClassResponse createStructureClass() throws IOException {
         new APILogger().log("Create StructureClass Master Started");
-        structureClasses[0] = new StructureClassesBuilder().withName("Test_"+get3DigitRandomInt()).withCode(get3DigitRandomInt())
-                .withNameLocal("Test_"+get3DigitRandomInt()).withOrderNumber(Integer.parseInt(get3DigitRandomInt())).build();
+        structureClasses[0] = new StructureClassesBuilder().withName("Test_"+ get6DigitRandomInt()).withCode(get6DigitRandomInt())
+                .withNameLocal("Test_"+ get6DigitRandomInt()).withOrderNumber(Integer.parseInt(get6DigitRandomInt())).build();
         StructureClassRequest request = new CreateStructureClassRequestBuilder().withRequestinfo(requestInfo)
                 .withStructureClasses(structureClasses)
                                         .build();
@@ -71,8 +70,8 @@ public class StructureClassVerificationTest extends BaseAPITest {
 
     private StructureClassResponse updateStructureClass(int id) throws IOException{
         new APILogger().log("Update StructureClass Master Started");
-        structureClasses[0] = new StructureClassesBuilder().withId(id).withName("Test_"+get3DigitRandomInt()).withCode(get3DigitRandomInt())
-                .withNameLocal("Test_"+get3DigitRandomInt()).build();
+        structureClasses[0] = new StructureClassesBuilder().withId(id).withName("Test_"+ get6DigitRandomInt()).withCode(get6DigitRandomInt())
+                .withNameLocal("Test_"+ get6DigitRandomInt()).build();
         StructureClassRequest request = new CreateStructureClassRequestBuilder().withRequestinfo(requestInfo)
                 .withStructureClasses(structureClasses)
                 .build();

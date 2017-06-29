@@ -16,7 +16,6 @@ import tests.BaseAPITest;
 import utils.*;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import static data.UserData.NARASAPPA;
 
@@ -32,7 +31,7 @@ public class FloorTypesVerificationTest extends BaseAPITest {
 
   @Test(groups = {Categories.PTIS, Categories.SANITY})
   public void floorTypesTest() throws IOException {
-      LoginAndLogoutHelper.login1(NARASAPPA);  //Login
+      LoginAndLogoutHelper.login(NARASAPPA);  //Login
       requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
       helper = new SearchHelper();
       FloorTypesResponse create = createFloorTypesMaster();  //Create
@@ -40,13 +39,13 @@ public class FloorTypesVerificationTest extends BaseAPITest {
 
       FloorTypesResponse update =updateFloorTypesMaster(create.getFloorTypes()[0].getId()); //Update
       helper.searchFloorTypesMaster(update);      //Search
-      LoginAndLogoutHelper.logout1(); //Logout
+      LoginAndLogoutHelper.logout(); //Logout
   }
 
     private FloorTypesResponse updateFloorTypesMaster(int id) throws IOException {
         new APILogger().log("Update Floor Types Master is Started --");
-        floorTypes[0] = new FloorTypesBuilder().withId(id).withName("Test_"+get3DigitRandomInt()).withCode(get3DigitRandomInt())
-                .withNameLocal("Test_"+get3DigitRandomInt()).build();
+        floorTypes[0] = new FloorTypesBuilder().withId(id).withName("Test_"+ get6DigitRandomInt()).withCode(get6DigitRandomInt())
+                .withNameLocal("Test_"+ get6DigitRandomInt()).build();
         FloorTypesRequest request = new FloorTypesRequestBuilder().withRequestInfo(requestInfo).withFloorTypes(floorTypes).build();
 
         Response response = new FloorTypesResource().update(RequestHelper.getJsonString(request));
@@ -58,8 +57,8 @@ public class FloorTypesVerificationTest extends BaseAPITest {
 
     private FloorTypesResponse createFloorTypesMaster() throws IOException {
         new APILogger().log("Create Floor Types Master is Started --");
-        floorTypes[0] = new FloorTypesBuilder().withName("Test_"+get3DigitRandomInt()).withCode(get3DigitRandomInt())
-                .withNameLocal("Test_"+get3DigitRandomInt()).build();
+        floorTypes[0] = new FloorTypesBuilder().withName("Test_"+ get6DigitRandomInt()).withCode(get6DigitRandomInt())
+                .withNameLocal("Test_"+ get6DigitRandomInt()).build();
         FloorTypesRequest request = new FloorTypesRequestBuilder().withRequestInfo(requestInfo).withFloorTypes(floorTypes).build();
 
         Response response = new FloorTypesResource().create(RequestHelper.getJsonString(request));

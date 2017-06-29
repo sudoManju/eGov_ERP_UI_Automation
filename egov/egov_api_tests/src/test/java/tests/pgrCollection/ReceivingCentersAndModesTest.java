@@ -22,7 +22,7 @@ public class ReceivingCentersAndModesTest extends BaseAPITest {
 
     @Test(groups = {Categories.PGR, Categories.SANITY, Categories.DEV})
     public void receivingCentersTest() throws IOException {
-        LoginAndLogoutHelper.login1(NARASAPPA); //Login Test
+        LoginAndLogoutHelper.login(NARASAPPA); //Login Test
         getAllReceivingCentersTest(); // Get All Receiving Centers
         getReceivingCenterByIdTest(); // Get Receiving Center By ID
         getAllReceivingModes(); // Get All Receiving Modes

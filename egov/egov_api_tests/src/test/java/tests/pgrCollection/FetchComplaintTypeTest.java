@@ -22,10 +22,10 @@ public class FetchComplaintTypeTest extends BaseAPITest {
 
     @Test(groups = {Categories.PGR, Categories.SANITY, Categories.DEV})
     public void FetchComplaintsTest() throws IOException {
-        LoginAndLogoutHelper.login1(NARASAPPA); //Login Test
+        LoginAndLogoutHelper.login(NARASAPPA); //Login Test
         fetchAllComplaints(); // Fetch All Complaints
         fetchComplaintById(); // Fetch Complaint By Id
-        LoginAndLogoutHelper.logout1(); // Logout
+        LoginAndLogoutHelper.logout(); // Logout
     }
 
     private void fetchComplaintById() {

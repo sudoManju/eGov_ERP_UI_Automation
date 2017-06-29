@@ -24,11 +24,11 @@ public class SupplyTypeTest extends BaseAPITest {
 
     @Test(groups = {Categories.SANITY, Categories.WCMS})
     public void supplyTypeTest() throws IOException {
-        LoginAndLogoutHelper.login1(MANAS); // Login
+        LoginAndLogoutHelper.login(MANAS); // Login
         String supplyTypeName = createSupplyType(); // Create SupplyType
         CreateSupplyTypeResponse searchSupplyTypeResponse = searchSupplyType(supplyTypeName); // Search SupplyType
         updateSupplyType(searchSupplyTypeResponse); // Update SupplyType
-        LoginAndLogoutHelper.logout1(); // Logout
+        LoginAndLogoutHelper.logout(); // Logout
     }
 
     private String createSupplyType() throws IOException {

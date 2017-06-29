@@ -24,11 +24,11 @@ public class SourceTypeTest extends BaseAPITest {
 
     @Test(groups = {Categories.SANITY, Categories.WCMS})
     public void sourceTypeTest() throws IOException {
-        LoginAndLogoutHelper.login1(MANAS); // Login
+        LoginAndLogoutHelper.login(MANAS); // Login
         String sourceTypeName = createSourceType(); // Create SourceType
         CreateSourceTypeResponse searchSourceTypeResponse = searchSourceType(sourceTypeName); // Search SourceType
         updateSourceType(searchSourceTypeResponse); // Update SourceType
-        LoginAndLogoutHelper.logout1(); // Logout
+        LoginAndLogoutHelper.logout(); // Logout
     }
 
     private String createSourceType() throws IOException {

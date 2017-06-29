@@ -21,9 +21,9 @@ public class UserDetailsVerificationTest extends BaseAPITest {
 
     @Test(groups = {Categories.SANITY, Categories.DEV, Categories.USER})
     public void userDetailsVerificationTest() throws IOException {
-        LoginResponse loginResponse = LoginAndLogoutHelper.login1(NARASAPPA); // Login
+        LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA); // Login
         verifyUserDetails(loginResponse); // Verify User Details
-        LoginAndLogoutHelper.logout1(); // Logout
+        LoginAndLogoutHelper.logout(); // Logout
     }
 
     private void verifyUserDetails(LoginResponse loginResponse) throws IOException {

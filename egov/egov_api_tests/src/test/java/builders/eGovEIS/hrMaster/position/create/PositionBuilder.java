@@ -11,7 +11,7 @@ public class PositionBuilder extends BaseAPITest {
 
     public PositionBuilder() {
         position.setDeptdesig(deptdesig);
-        position.setName("ACO_" + get3DigitRandomInt());
+        position.setName("ACO_" + get6DigitRandomInt());
         position.setIsPostOutsourced(true);
         position.setActive(true);
         position.setTenantId("ap.kurnool");

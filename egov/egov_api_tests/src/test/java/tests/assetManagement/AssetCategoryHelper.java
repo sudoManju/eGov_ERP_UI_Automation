@@ -21,7 +21,7 @@ import java.io.IOException;
 public class AssetCategoryHelper extends BaseAPITest {
 
     public CreateAssetCategoryResponse createAssetCategory() throws IOException {
-        AssetCategory category = new AssetCategoryBuilder().withName("Shop_" + get3DigitRandomInt()).build();
+        AssetCategory category = new AssetCategoryBuilder().withName("Shop_" + get6DigitRandomInt()).build();
         CreateAssetCategoryRequest request = new CreateAssetCategoryRequestBuilder().withAssetCategory(category).build();
 
         Response response = new AssetCategoryResource().create(RequestHelper.getJsonString(request));

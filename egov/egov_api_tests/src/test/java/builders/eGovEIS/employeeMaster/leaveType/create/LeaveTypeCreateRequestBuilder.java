@@ -11,7 +11,7 @@ public class LeaveTypeCreateRequestBuilder extends BaseAPITest {
     RequestInfo requestInfo = new RequestInfo();
 
     LeaveType leaveType1 = new LeaveTypeBuilder()
-            .withName("Leave Type" + get3DigitRandomInt())
+            .withName("Leave Type" + get6DigitRandomInt())
             .withDescription("Leave Type")
             .withHalfdayAllowed(true)
             .withPayEligible(true)
