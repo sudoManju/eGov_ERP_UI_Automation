@@ -9,7 +9,7 @@ import entities.responses.propertyTax.masters.department.create.DepartmentsMaste
 import entities.responses.propertyTax.masters.department.search.SearchDepartmentsResponse;
 import entities.responses.propertyTax.masters.floorTypes.create.FloorTypesResponse;
 import entities.responses.propertyTax.masters.floorTypes.search.SearchFloorTypesResponse;
-import entities.responses.propertyTax.masters.occupancy.create.CreateOccupancyMasterResponse;
+import entities.responses.propertyTax.masters.occupancy.create.OccupancyMasterResponse;
 import entities.responses.propertyTax.masters.occupancy.search.SearchOccupancyMasterResponse;
 import entities.responses.propertyTax.masters.propertyTypes.create.PropertyTypesResponse;
 import entities.responses.propertyTax.masters.propertyTypes.search.SearchPropertyTypesResponse;
@@ -228,7 +228,7 @@ public class SearchHelper extends BaseAPITest {
         Assert.assertEquals(response1.getDepartments()[0].getNameLocal(), requestObject.getDepartments()[0].getNameLocal());
     }
 
-    public void searchOccupancyMaster(CreateOccupancyMasterResponse createObject) throws IOException {
+    public void searchOccupancyMaster(OccupancyMasterResponse createObject) throws IOException {
         new APILogger().log("Search Occupancy Master is Started --");
         Response responseForId = new OccupancyMasterResource().search(json, IDS + createObject.getOccuapancyMasters()[0].getId());
         checkAssertsForOccupancyMaster(responseForId, createObject);
@@ -248,7 +248,7 @@ public class SearchHelper extends BaseAPITest {
         new APILogger().log("Search Occupancy Master is Completed --");
     }
 
-    private void checkAssertsForOccupancyMaster(Response response, CreateOccupancyMasterResponse requestObject) throws IOException {
+    private void checkAssertsForOccupancyMaster(Response response, OccupancyMasterResponse requestObject) throws IOException {
         SearchOccupancyMasterResponse response1 = (SearchOccupancyMasterResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchOccupancyMasterResponse.class);
 

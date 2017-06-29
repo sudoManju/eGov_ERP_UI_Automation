@@ -38,4 +38,19 @@ public class OccupancyMasterResource {
 
         return response;
     }
+
+    public Response update(String jsonString) {
+
+        new APILogger().log("Update Occupancy master request is started as --"+jsonString);
+
+        Response response = given().request().with()
+                .header("Content-Type","application/json")
+                .body(jsonString)
+                .when()
+                .post(Properties.updateOccupancyMasterUrl);
+
+        new APILogger().log("Update Occupancy master response is generated as --"+response.asString());
+
+        return response;
+    }
 }

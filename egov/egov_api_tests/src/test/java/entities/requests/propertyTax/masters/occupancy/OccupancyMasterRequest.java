@@ -3,7 +3,7 @@ package entities.requests.propertyTax.masters.occupancy;
 import entities.requests.propertyTax.masters.RequestInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class CreateOccupancyMasterRequest {
+public class OccupancyMasterRequest {
 
     private OccuapancyMasters[] occuapancyMasters;
 

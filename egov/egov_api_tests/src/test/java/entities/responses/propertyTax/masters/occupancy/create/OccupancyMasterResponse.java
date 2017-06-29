@@ -1,6 +1,6 @@
 package entities.responses.propertyTax.masters.occupancy.create;
 
-public class CreateOccupancyMasterResponse {
+public class OccupancyMasterResponse {
     private OccuapancyMasters[] occuapancyMasters;
     private ResponseInfo responseInfo;
 

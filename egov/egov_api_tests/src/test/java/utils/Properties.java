@@ -96,6 +96,7 @@ public class Properties {
     public static final String updateDepartmentsMasterUrl = propertiesReader.getEndPointUrl("departmentMasterUpdateUrl");
     public static final String createOccupancyMasterUrl = propertiesReader.getEndPointUrl("occupancyMasterCreateUrl");
     public static final String searchOccupancyMasterUrl = propertiesReader.getEndPointUrl("occupancyMasterSearchUrl");
+    public static final String updateOccupancyMasterUrl = propertiesReader.getEndPointUrl("occupancyMasterUpdateUrl");
     public static final String createWallTypeMasterUrl = propertiesReader.getEndPointUrl("wallTypeMasterCreateUrl");
     public static final String searchWallTypeMasterUrl = propertiesReader.getEndPointUrl("wallTypeMasterSearchUrl");
     public static final String updateWallTypeMasterUrl = propertiesReader.getEndPointUrl("wallTypeMasterUpdateUrl");

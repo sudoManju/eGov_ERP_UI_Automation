@@ -33,6 +33,11 @@ public class OccupancyMastersBuilder {
         return this;
     }
 
+    public OccupancyMastersBuilder withId(int id){
+        occuapancyMasters.setId(id);
+        return this;
+    }
+
     public OccuapancyMasters build(){
         return occuapancyMasters;
     }
