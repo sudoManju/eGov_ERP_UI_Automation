@@ -65,7 +65,7 @@
     </definition>
 	
 	<definition name="newapplication-form" extends="base_layout">
-        <put-attribute name="page-title" value="title.citizenApplication" cascade="true"/>
+        <put-attribute name="page-title" value="title.newApplication" cascade="true"/>
         <put-attribute name="body" value="/WEB-INF/views/application/newapplication-form.jsp"/>
     </definition>
     

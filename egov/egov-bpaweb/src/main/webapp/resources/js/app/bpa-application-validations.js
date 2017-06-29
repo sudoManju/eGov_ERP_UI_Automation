@@ -183,17 +183,24 @@ $(document).ready(function() {
 	$('#isappForRegularization').on('change', function(){ 
 		   if(this.checked) // if changed state is "CHECKED"
 		    {
+			   $('.constStages').find("span").addClass( "mandatory" );
+			   $('#constStages').attr('required', true);
 			   $('#constDiv').show();
+			   $('#inprogress').hide();
 			   $('#constStages').attr('required', true);
 			   $('#constStages').change(function(){
-					if($('#constStages option:selected').html()=="NotStarted" ||  $(this).val()=="-1"){
+					if($('#constStages option:selected').html()=="In Progress" ||  $(this).val()=="-1"){
+						$('#inprogress').show();
+						$('.stateOfConstruction').find("span").addClass( "mandatory" );
 						 $('#stateOfConstruction').attr('required', true);
+					} else {
+						 $('#inprogress').hide();
 					}
 					});
 		    }
 		   if(!this.checked) // if changed state is "CHECKED"
 		    {
-			   $('#constStages').attr('required', false);
+			   	  $('#constStages').attr('required', false);
 				  $('#stateOfConstruction').attr('required', false);
 				  $('#constDiv').hide();
 		    }

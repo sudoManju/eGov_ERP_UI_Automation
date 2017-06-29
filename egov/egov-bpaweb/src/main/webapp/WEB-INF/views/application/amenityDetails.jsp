@@ -48,43 +48,42 @@
 		<spring:message code="lbl.ser.meas.details" />
 	</div>
 </div>
-<div class="form-group">
-	<label class="col-sm-3 control-label text-right extentOfLand"><spring:message
-			code="lbl.extent.of.land" /> <span class="mandatory"></span> </label>
-	<div class="col-sm-3 add-margin">
-		<form:input
-			class="form-control patternvalidation for-calculation clear-values"
-			maxlength="10" data-pattern="decimalvalue" id="extentOfLand"
-			required="required" path="siteDetail[0].extentOfLand" />
-		<form:errors path="siteDetail[0].extentOfLand"
-			cssClass="add-margin error-msg" />
+<div class="panel-body">
+	<div class="form-group">
+		<label class="col-sm-3 control-label text-right extentOfLand"><spring:message
+				code="lbl.extent.of.land" /> <span class="mandatory"></span> </label>
+		<div class="col-sm-3 add-margin">
+			<form:input
+				class="form-control patternvalidation for-calculation clear-values"
+				maxlength="10" data-pattern="decimalvalue" id="extentOfLand"
+				required="required" path="siteDetail[0].extentOfLand" />
+			<form:errors path="siteDetail[0].extentOfLand"
+				cssClass="add-margin error-msg" />
 
-		<form:select path="siteDetail[0].unitOfMeasurement"
-			data-first-option="false" id="unitOfMeasurement"
-			cssClass="form-control for-calculation" required="required">
-			<form:options items="${uomList}" />
-		</form:select>
-		<form:errors path="siteDetail[0].unitOfMeasurement"
-			cssClass="add-margin error-msg" />
+			<form:select path="siteDetail[0].unitOfMeasurement"
+				data-first-option="false" id="unitOfMeasurement"
+				cssClass="form-control for-calculation" required="required">
+				<form:options items="${uomList}" />
+			</form:select>
+			<form:errors path="siteDetail[0].unitOfMeasurement"
+				cssClass="add-margin error-msg" />
+		</div>
+		<label class="col-sm-2 control-label text-right"><spring:message
+				code="lbl.extentin.sqmts" /></label>
+		<div class="col-sm-3 add-margin">
+			<form:hidden id="extentinsqmtshdn" path="siteDetail[0].extentinsqmts" />
+			<form:input class="form-control patternvalidation extentinsqmts"
+				data-pattern="decimalvalue" id="extentinsqmts" disabled="true"
+				path="siteDetail[0].extentinsqmts" />
+			<form:errors path="siteDetail[0].extentinsqmts"
+				cssClass="add-margin error-msg" />
+		</div>
 	</div>
-	<label class="col-sm-2 control-label text-right"><spring:message
-			code="lbl.extentin.sqmts" /></label>
-	<div class="col-sm-3 add-margin">
-		<form:hidden id="extentinsqmtshdn" path="siteDetail[0].extentinsqmts" />
-		<form:input class="form-control patternvalidation extentinsqmts"
-			data-pattern="decimalvalue" id="extentinsqmts" disabled="true"
-			path="siteDetail[0].extentinsqmts" />
-		<form:errors path="siteDetail[0].extentinsqmts"
-			cssClass="add-margin error-msg" />
-	</div>
-</div>
 
 
-<div id="amenitiesInputs">
+	<div id="amenitiesInputs"></div>
 
-</div>
-
-<script id="poles-template" type="text/egov-template">
+	<script id="poles-template" type="text/egov-template">
 	<label class="{className} control-label text-right toggle-madatory Pole"><spring:message
 			code="lbl.no.of.poles" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
@@ -96,7 +95,7 @@
 	</div>
 </script>
 
-<script id="sheds-template" type="text/egov-template">
+	<script id="sheds-template" type="text/egov-template">
 	<label class="{className} control-label text-right noofhutorshed"><spring:message
 			code="lbl.no.of.shuts.huts" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
@@ -108,7 +107,7 @@
 	</div>
 </script>
 
-<script id="shutter-template" type="text/egov-template">
+	<script id="shutter-template" type="text/egov-template">
 	<label class="{className} control-label text-right toggle-madatory Shut"><spring:message
 			code="lbl.shutter" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
@@ -119,7 +118,7 @@
 	</div>
 </script>
 
-<script id="tower-template" type="text/egov-template">
+	<script id="tower-template" type="text/egov-template">
 	<label class="{className} control-label text-right toggle-madatory Towe"><spring:message
 			code="lbl.erection.tower" /> <span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
@@ -131,7 +130,7 @@
 	</div>
 </script>
 
-<script id="well-template" type="text/egov-template">
+	<script id="well-template" type="text/egov-template">
 	<label class="{className} control-label text-right toggle-madatory Well"><spring:message
 			code="lbl.number.well" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
@@ -143,7 +142,7 @@
 	</div>
 </script>
 
-<script id="compound-template" type="text/egov-template">
+	<script id="compound-template" type="text/egov-template">
 	<label class="{className} control-label text-right toggle-madatory Comp"><spring:message
 			code="lbl.len.com.wall" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
@@ -155,7 +154,7 @@
 	</div>
 </script>
 
-<script id="roof-template" type="text/egov-template">
+	<script id="roof-template" type="text/egov-template">
 	<label class="{className} control-label text-right toggle-madatory Roof"><spring:message
 			code="lbl.roof.conv" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
@@ -170,88 +169,91 @@
 
 
 
-<div class="form-group">
-	<label class="col-sm-3 control-label text-right"><spring:message
-			code="lbl.permt.plan.obtain" /> </label>
-	<div class="col-sm-3 add-margin">
-		<form:checkbox id="isexistingApprovedPlan"
-			path="isExistingApprovedPlan" value="isExistingApprovedPlan" />
-		<form:errors path="isExistingApprovedPlan"
-			cssClass="add-margin error-msg" />
-	</div>
-</div>
-<div class="form-group" id="existingAppPlan">
 	<div class="form-group">
-		<label class="col-sm-3 control-label text-right removemandatory"><spring:message
-				code="lbl.amount.paid" /> <span class="mandatory"></span></label>
+		<label class="col-sm-3 control-label text-right"><spring:message
+				code="lbl.permt.plan.obtain" /> </label>
 		<div class="col-sm-3 add-margin">
-			<form:input class="form-control patternvalidation" maxlength="128"
-				id="feeAmountRecieptNo" path="feeAmountRecieptNo" />
-			<form:errors path="feeAmountRecieptNo"
+			<form:checkbox id="isexistingApprovedPlan"
+				path="isExistingApprovedPlan" value="isExistingApprovedPlan" />
+			<form:errors path="isExistingApprovedPlan"
 				cssClass="add-margin error-msg" />
 		</div>
-		<label class="col-sm-2 control-label text-right"><spring:message
-				code="lbl.date.receipt" /><span class="mandatory"></span></label>
-		<div class="col-sm-3 add-margin">
-			<form:input path="approvedReceiptDate"
-				class="form-control datepicker" data-date-end-date="0d"
-				id="approvedReceiptDate" data-inputmask="'mask': 'd/m/y'" />
-			<form:errors path="approvedReceiptDate"
-				cssClass="add-margin error-msg" />
+	</div>
+	<div class="form-group" id="existingAppPlan">
+		<div class="form-group">
+			<label class="col-sm-3 control-label text-right removemandatory"><spring:message
+					code="lbl.amount.paid" /> <span class="mandatory"></span></label>
+			<div class="col-sm-3 add-margin">
+				<form:input class="form-control patternvalidation" maxlength="128"
+					id="feeAmountRecieptNo" path="feeAmountRecieptNo" />
+				<form:errors path="feeAmountRecieptNo"
+					cssClass="add-margin error-msg" />
+			</div>
+			<label class="col-sm-2 control-label text-right"><spring:message
+					code="lbl.date.receipt" /><span class="mandatory"></span></label>
+			<div class="col-sm-3 add-margin">
+				<form:input path="approvedReceiptDate"
+					class="form-control datepicker" data-date-end-date="0d"
+					id="approvedReceiptDate" data-inputmask="'mask': 'd/m/y'" />
+				<form:errors path="approvedReceiptDate"
+					cssClass="add-margin error-msg" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label text-right removemandatory"><spring:message
+					code="lbl.revised.appln.no" /><span class="mandatory"></span></label>
+			<div class="col-sm-3 add-margin">
+				<form:input class="form-control patternvalidation" maxlength="128"
+					id="revisedApplicationNumber" path="revisedApplicationNumber" />
+				<form:errors path="revisedApplicationNumber"
+					cssClass="add-margin error-msg" />
+			</div>
+			<label class="col-sm-2 control-label text-right removemandatory"><spring:message
+					code="lbl.received.receipt.no" /><span class="mandatory"></span></label>
+			<div class="col-sm-3 add-margin">
+				<form:input class="form-control patternvalidation" maxlength="128"
+					id="revisedPermitNumber" path="revisedPermitNumber" />
+				<form:errors path="revisedPermitNumber"
+					cssClass="add-margin error-msg" />
+			</div>
 		</div>
 	</div>
 
 	<div class="form-group">
-		<label class="col-sm-3 control-label text-right removemandatory"><spring:message
-				code="lbl.revised.appln.no" /><span class="mandatory"></span></label>
+		<label class="col-sm-3 control-label text-right"><spring:message
+				code="lbl.if.regularized" /> </label>
 		<div class="col-sm-3 add-margin">
-			<form:input class="form-control patternvalidation" maxlength="128"
-				id="revisedApplicationNumber" path="revisedApplicationNumber" />
-			<form:errors path="revisedApplicationNumber"
-				cssClass="add-margin error-msg" />
-		</div>
-		<label class="col-sm-2 control-label text-right removemandatory"><spring:message
-				code="lbl.received.receipt.no" /><span class="mandatory"></span></label>
-		<div class="col-sm-3 add-margin">
-			<form:input class="form-control patternvalidation" maxlength="128"
-				id="revisedPermitNumber" path="revisedPermitNumber" />
-			<form:errors path="revisedPermitNumber"
-				cssClass="add-margin error-msg" />
+			<form:checkbox id="isappForRegularization"
+				path="siteDetail[0].isappForRegularization"
+				value="siteDetail[0].isappForRegularization" />
+			<form:errors path="siteDetail[0].isappForRegularization" />
 		</div>
 	</div>
-</div>
-
-<div class="form-group">
-	<label class="col-sm-3 control-label text-right"><spring:message
-			code="lbl.if.regularized" /> </label>
-	<div class="col-sm-3 add-margin">
-		<form:checkbox id="isappForRegularization"
-			path="siteDetail[0].isappForRegularization"
-			value="siteDetail[0].isappForRegularization" />
-		<form:errors path="siteDetail[0].isappForRegularization" />
-	</div>
-</div>
-<div class="form-group" id="constDiv">
-	<label class="col-sm-3 control-label text-right"><spring:message
-			code="lbl.cons.stages" /></label>
-	<div class="col-sm-3 add-margin">
-		<form:select path="siteDetail[0].constStages"
-			data-first-option="false" id="constStages" cssClass="form-control">
-			<form:option value="">
-				<spring:message code="lbl.select" />
-			</form:option>
-			<form:options items="${constStages}" itemValue="id" itemLabel="code" />
-		</form:select>
-		<form:errors path="siteDetail[0].constStages"
-			cssClass="add-margin error-msg" />
-	</div>
-	<label class="col-sm-2 control-label text-right"><spring:message
-			code="lbl.if.cons.not.cmplted" /></label>
-	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation"
-			data-pattern="alphanumericwithspace" maxlength="128"
-			id="stateOfConstruction" path="siteDetail[0].stateOfConstruction" />
-		<form:errors path="siteDetail[0].stateOfConstruction"
-			cssClass="add-margin error-msg" />
+	<div class="form-group" id="constDiv">
+		<label class="col-sm-3 control-label text-right constStages"><spring:message
+				code="lbl.cons.stages" /><span></span></label>
+		<div class="col-sm-3 add-margin">
+			<form:select path="siteDetail[0].constStages"
+				data-first-option="false" id="constStages" cssClass="form-control">
+				<form:option value="">
+					<spring:message code="lbl.select" />
+				</form:option>
+				<form:options items="${constStages}" itemValue="id" itemLabel="code" />
+			</form:select>
+			<form:errors path="siteDetail[0].constStages"
+				cssClass="add-margin error-msg" />
+		</div>
+		<div id="inprogress">
+			<label class="col-sm-2 control-label text-right stateOfConstruction"><spring:message
+					code="lbl.if.cons.not.cmplted" /><span></span></label>
+			<div class="col-sm-3 add-margin">
+				<form:input class="form-control patternvalidation"
+					data-pattern="alphanumericwithspace" maxlength="128"
+					id="stateOfConstruction" path="siteDetail[0].stateOfConstruction" />
+				<form:errors path="siteDetail[0].stateOfConstruction"
+					cssClass="add-margin error-msg" />
+			</div>
+		</div>
 	</div>
 </div>

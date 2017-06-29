@@ -197,3 +197,24 @@ div.file-viewer a.delete {
 }
 /* image popup end */
 
+/* amenities multiple select tick box start */
+
+select.tick-indicator option:before{
+	font-family: FontAwesome;
+	content:"\f096";
+	padding-right:5px; 
+}
+
+select.tick-indicator option:checked:before{
+	font-family: FontAwesome;
+	content:"\f046";
+}
+
+
+select.tick-indicator[multiple] option:checked {
+  color:black;
+  font-weight:bold;
+  background: white linear-gradient(0deg, grey 0%, grey 100%);
+}
+
+/* amenities multiple select tick box end */

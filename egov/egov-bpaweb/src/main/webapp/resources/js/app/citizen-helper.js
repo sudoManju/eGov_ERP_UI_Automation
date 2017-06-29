@@ -67,6 +67,12 @@ jQuery(document).ready(function($) {
 			}
 			return true;
 		} else {
+			$.each(validator.invalidElements(), function(index, elem){
+				if(!$(elem).is(":visible") && !$(elem).closest('div.panel-body').is(":visible")){
+					$(elem).closest('div.panel-body').slideToggle();
+					console.log("elem", elem);
+				}
+			});
 			validator.focusInvalid();
 			return false;
 		}

@@ -50,19 +50,23 @@
 </div>
 
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right"> <spring:message
-			code="lbl.accepted" /><span class="mandatory"></span></label>
 	<c:choose>
 	<c:when test="${isCitizen}"> <!-- for citizen user login -->
-		<div class="col-sm-3 add-margin">
-			<form:checkbox path="citizenAccepted" id="citizenAccepted" cssClass="form-control" />
-			<form:errors path="citizenAccepted" cssClass="error-msg" />
+		<div class="col-sm-12 text-center add-margin">
+			<div class="checkbox">
+			  <label><form:checkbox path="citizenAccepted" id="citizenAccepted" />
+				<form:errors path="citizenAccepted" cssClass="error-msg" /><spring:message
+			code="lbl.accepted" /><span class="mandatory"></span></label>
+			</div>
 		</div>
 	</c:when>
 	<c:otherwise>  <!-- for business user login -->
-		<div class="col-sm-3 add-margin">
-			<form:checkbox path="architectAccepted" id="architectAccepted" cssClass="form-control" />
-			<form:errors path="architectAccepted" cssClass="error-msg" />
+		<div class="col-sm-12 text-center add-margin">
+		<div class="checkbox">
+			  <label><form:checkbox path="architectAccepted" id="architectAccepted" />
+				<form:errors path="architectAccepted" cssClass="error-msg" /><spring:message
+			code="lbl.accepted" /><span class="mandatory"></span></label>
+			</div>
 		</div>
 	</c:otherwise>
 	</c:choose>		

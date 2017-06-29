@@ -66,10 +66,41 @@ jQuery(document).ready(
 							'#buttonSubmit').val();
 					return true;
 				} else {
+					$.each(validator.invalidElements(), function(index, elem){
+						if(!$(elem).is(":visible") && !$(elem).closest('div.panel-body').is(":visible")){
+							$(elem).closest('div.panel-body').slideToggle();
+							console.log("elem", elem);
+						}
+					});
+					
 					validator.focusInvalid();
 					return false;
 				}
 			}
+			
+			
+			$('.applicantname').hide();
+			$('#name').change(function() {
+				$('.applicantname').show();
+				$( "span#applicantName" ).html( $(this).val() );
+			});
+			
+			$("select.tick-indicator").mousedown(function(e){
+			    e.preventDefault();
+			    
+				var select = this;
+			    var scroll = select.scrollTop;
+			    
+			    e.target.selected = !e.target.selected;
+			    
+			    $(this).trigger('change');
+			    
+			    setTimeout(function(){select.scrollTop = scroll;}, 0);
+			    
+			    $(select).focus();
+
+			}).mousemove(function(e){e.preventDefault()});
+			
 
 		});
 

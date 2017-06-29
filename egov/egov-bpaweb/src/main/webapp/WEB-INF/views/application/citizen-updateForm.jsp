@@ -78,10 +78,10 @@
 						<jsp:include page="applicantDetailForm.jsp"></jsp:include>
 					</div>
 					<div class="panel panel-primary" data-collapsed="0">
-						<jsp:include page="siteDetail.jsp"></jsp:include>
+						<jsp:include page="amenityDetails.jsp"></jsp:include>
 					</div>
 					<div class="panel panel-primary" data-collapsed="0">
-						<jsp:include page="amenityDetails.jsp"></jsp:include>
+						<jsp:include page="siteDetail.jsp"></jsp:include>
 					</div>
 					<c:if test="${bpaApplication.serviceType.description ne 'Sub-Division of plot/Land Development'}">
 						<div class="panel panel-primary" data-collapsed="0">
