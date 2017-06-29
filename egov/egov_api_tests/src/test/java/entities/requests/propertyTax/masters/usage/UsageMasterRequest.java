@@ -3,7 +3,7 @@ package entities.requests.propertyTax.masters.usage;
 import entities.requests.propertyTax.masters.RequestInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class CreateUsageMasterRequest {
+public class UsageMasterRequest {
 
     private UsageMasters[] usageMasters;
 

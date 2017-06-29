@@ -3,7 +3,7 @@ package entities.requests.propertyTax.masters.department;
 import entities.requests.propertyTax.masters.RequestInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class CreateDepartmentRequest {
+public class DepartmentMasterRequest {
 
     private Departments[] departments;
 

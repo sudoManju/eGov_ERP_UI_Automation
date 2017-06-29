@@ -38,7 +38,6 @@ public class FloorTypesVerificationTest extends BaseAPITest {
       FloorTypesResponse create = createFloorTypesMaster();  //Create
       helper.searchFloorTypesMaster(create);      //Search
 
-      Arrays.fill(floorTypes,null);
       FloorTypesResponse update =updateFloorTypesMaster(create.getFloorTypes()[0].getId()); //Update
       helper.searchFloorTypesMaster(update);      //Search
       LoginAndLogoutHelper.logout1(); //Logout
@@ -51,9 +50,10 @@ public class FloorTypesVerificationTest extends BaseAPITest {
         FloorTypesRequest request = new FloorTypesRequestBuilder().withRequestInfo(requestInfo).withFloorTypes(floorTypes).build();
 
         Response response = new FloorTypesResource().update(RequestHelper.getJsonString(request));
-        FloorTypesResponse response1 = checkAsserts(request,response);
+        FloorTypesResponse responseObject = checkAsserts(request,response);
+        Assert.assertEquals(responseObject.getFloorTypes()[0].getId(),id);
         new APILogger().log("Update Floor Types Master is Completed --");
-        return response1;
+        return responseObject;
     }
 
     private FloorTypesResponse createFloorTypesMaster() throws IOException {

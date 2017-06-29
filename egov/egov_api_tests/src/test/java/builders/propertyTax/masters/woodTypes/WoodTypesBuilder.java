@@ -32,6 +32,11 @@ public class WoodTypesBuilder {
         return this;
     }
 
+    public WoodTypesBuilder withId(int id){
+        woodTypes.setId(id);
+        return this;
+    }
+
     public WoodTypes build(){
         return woodTypes;
     }

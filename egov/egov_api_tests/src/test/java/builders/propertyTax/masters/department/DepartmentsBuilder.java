@@ -32,6 +32,11 @@ public class DepartmentsBuilder {
         return this;
     }
 
+    public DepartmentsBuilder withId(int id){
+        departments.setId(id);
+        return this;
+    }
+
     public Departments build(){
         return departments;
     }

@@ -37,4 +37,19 @@ public class DepartmentsMasterResource {
 
         return response;
     }
+
+    public Response update(String jsonString) {
+
+        new APILogger().log("Update Department Master request is started as --"+jsonString);
+
+        Response response = given().request().with()
+                .header("Content-Type","application/json")
+                .body(jsonString)
+                .when()
+                .post(Properties.updateDepartmentsMasterUrl);
+
+        new APILogger().log("Update Department Master response is generated as --"+response.asString());
+
+        return response;
+    }
 }

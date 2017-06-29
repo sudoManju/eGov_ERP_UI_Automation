@@ -3,7 +3,7 @@ package entities.requests.propertyTax.masters.woodType;
 import entities.requests.propertyTax.masters.RequestInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class CreateWoodTypeRequest {
+public class WoodTypeMasterRequest {
 
     @JsonProperty("RequestInfo")
     private RequestInfo RequestInfo;

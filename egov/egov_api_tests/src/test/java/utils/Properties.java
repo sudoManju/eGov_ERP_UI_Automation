@@ -79,6 +79,7 @@ public class Properties {
     // Property Tax Master's Module Url's //
     public static final String createUsageMasterUrl = propertiesReader.getEndPointUrl("usageMasterCreateUrl");
     public static final String searchUsageMasterUrl = propertiesReader.getEndPointUrl("usageMasterSearchUrl");
+    public static final String updateUsageMasterUrl = propertiesReader.getEndPointUrl("usageMasterUpdateUrl");
     public static final String createStructureClassUrl = propertiesReader.getEndPointUrl("structureClassCreateUrl");
     public static final String searchStructureClassUrl = propertiesReader.getEndPointUrl("structureClassSearchUrl");
     public static final String updateStructureClassUrl = propertiesReader.getEndPointUrl("structureClassUpdateUrl");
@@ -87,10 +88,12 @@ public class Properties {
     public static final String updateFloorTypesUrl = propertiesReader.getEndPointUrl("floorTypesUpdateUrl");
     public static final String createWoodTypeUrl = propertiesReader.getEndPointUrl("woodTypesCreateUrl");
     public static final String searchWoodTypeUrl = propertiesReader.getEndPointUrl("woodTypesSearchUrl");
+    public static final String updateWoodTypeUrl = propertiesReader.getEndPointUrl("woodTypesUpdateUrl");
     public static final String createPropertyTypeUrl = propertiesReader.getEndPointUrl("propertyTypeCreateUrl");
     public static final String searchPropertyTypeUrl = propertiesReader.getEndPointUrl("propertyTypeSearchUrl");
     public static final String createDepartmentsMasterUrl = propertiesReader.getEndPointUrl("departmentMasterCreateUrl");
     public static final String searchDepartmentsMasterUrl = propertiesReader.getEndPointUrl("departmentMasterSearchUrl");
+    public static final String updateDepartmentsMasterUrl = propertiesReader.getEndPointUrl("departmentMasterUpdateUrl");
     public static final String createOccupancyMasterUrl = propertiesReader.getEndPointUrl("occupancyMasterCreateUrl");
     public static final String searchOccupancyMasterUrl = propertiesReader.getEndPointUrl("occupancyMasterSearchUrl");
     public static final String createWallTypeMasterUrl = propertiesReader.getEndPointUrl("wallTypeMasterCreateUrl");

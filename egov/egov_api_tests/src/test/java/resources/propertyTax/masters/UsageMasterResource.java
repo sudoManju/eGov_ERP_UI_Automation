@@ -38,4 +38,19 @@ public class UsageMasterResource {
 
         return response;
     }
+
+    public Response update(String jsonString) {
+
+        new APILogger().log("Update Usage Master started as --"+jsonString);
+
+        Response response = given().request().with()
+                .header("Content-Type","application/json")
+                .body(jsonString)
+                .when()
+                .post(Properties.updateUsageMasterUrl);
+
+        new APILogger().log("Update Usage Master response generated as --"+response.asString());
+
+        return response;
+    }
 }

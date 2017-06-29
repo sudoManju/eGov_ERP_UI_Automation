@@ -37,7 +37,6 @@ public class StructureClassVerificationTest extends BaseAPITest {
         StructureClassResponse create = createStructureClass();  //Create
         helper.searchStructureClassMaster(create);    //Search
 
-        Arrays.fill(structureClasses,null);
         StructureClassResponse update = updateStructureClass(create.getStructureClasses()[0].getId());  //Update
         helper.searchStructureClassMaster(update);    //Search
         LoginAndLogoutHelper.logout1();  //Logout
@@ -52,9 +51,9 @@ public class StructureClassVerificationTest extends BaseAPITest {
                                         .build();
 
         Response response = new StructureClassResource().create(RequestHelper.getJsonString(request));
-        StructureClassResponse response1 = checkAsserts(request,response);
+        StructureClassResponse responseObject = checkAsserts(request,response);
         new APILogger().log("Create StructureClass Master Completed");
-        return response1;
+        return responseObject;
     }
 
     private StructureClassResponse checkAsserts(StructureClassRequest request, Response response) throws IOException{
@@ -80,6 +79,7 @@ public class StructureClassVerificationTest extends BaseAPITest {
 
         Response response = new StructureClassResource().update(RequestHelper.getJsonString(request));
         StructureClassResponse responseObject = checkAsserts(request,response);
+        Assert.assertEquals(responseObject.getStructureClasses()[0].getId(),id);
         new APILogger().log("Update StructureClass Master Completed");
         return responseObject;
     }

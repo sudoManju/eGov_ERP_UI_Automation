@@ -23,6 +23,11 @@ public class UsageMastersBuilder {
         usageMasters.setAuditDetails(auditDetails);
     }
 
+    public UsageMastersBuilder withId(int id){
+        usageMasters.setId(id);
+        return this;
+    }
+
     public UsageMastersBuilder withName(String name){
         usageMasters.setName(name);
         return this;

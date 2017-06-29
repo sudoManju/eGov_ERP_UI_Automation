@@ -152,7 +152,7 @@ public class SearchHelper extends BaseAPITest {
         Response responseForNameLocal = new WoodTypesResource().search(json, NAMELOCAL + create.getWoodTypes()[0].getNameLocal());
         checkAssertsForWoodTypes(responseForNameLocal, create);
         new APILogger().log("Search WoodTypes Master with nameLocal is Success");
-        new APILogger().log("earch WoodTypes is Completed --");
+        new APILogger().log("Search WoodTypes is Completed --");
     }
 
     private void checkAssertsForWoodTypes(Response response, WoodTypesResponse requestObject) throws IOException {

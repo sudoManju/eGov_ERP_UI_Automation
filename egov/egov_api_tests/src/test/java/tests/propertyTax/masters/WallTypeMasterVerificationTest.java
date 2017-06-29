@@ -37,7 +37,6 @@ public class WallTypeMasterVerificationTest extends BaseAPITest {
         WallTypesResponse create = createWallTypeMasterTest();  //Create
         helper.searchWallTypeMaster(create);   //Search
 
-        Arrays.fill(wallTypes,null);
         WallTypesResponse update = updateWallTypeMasterTest(create.getWallTypes()[0].getId()); //Update
         helper.searchWallTypeMaster(update);  //Search
         LoginAndLogoutHelper.logout1(); //Logout
@@ -51,9 +50,9 @@ public class WallTypeMasterVerificationTest extends BaseAPITest {
                 .withWallTypes(wallTypes).build();
 
         Response response = new WallTypeResource().create(RequestHelper.getJsonString(request));
-        WallTypesResponse response1 = checkAsserts(request,response);
+        WallTypesResponse responseObject = checkAsserts(request,response);
         new APILogger().log("Create WallType Master is Completed --");
-        return response1;
+        return responseObject;
     }
 
     private WallTypesResponse updateWallTypeMasterTest(int id) throws IOException{
@@ -65,6 +64,7 @@ public class WallTypeMasterVerificationTest extends BaseAPITest {
 
         Response response = new WallTypeResource().update(RequestHelper.getJsonString(request));
         WallTypesResponse responseObject = checkAsserts(request,response);
+        Assert.assertEquals(responseObject.getWallTypes()[0].getId(),id);
         new APILogger().log("Update WallType Master is Completed --");
         return responseObject;
     }

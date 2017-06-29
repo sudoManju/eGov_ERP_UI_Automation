@@ -38,4 +38,19 @@ public class WoodTypesResource {
 
         return response;
     }
+
+    public Response update(String jsonString) {
+
+        new APILogger().log("Update WoodTypes Master request is started as --"+jsonString);
+
+        Response response = given().request().with()
+                .header("Content-Type","application/json")
+                .body(jsonString)
+                .when()
+                .post(Properties.updateWoodTypeUrl);
+
+        new APILogger().log("Update WoodTypes Master response is generated as --"+response.asString());
+
+        return response;
+    }
 }
