@@ -31,7 +31,7 @@ public class DocumentTypeTest extends BaseAPITest {
         LoginAndLogoutHelper.logout1(); // Logout
     }
 
-    private String createDocumentType() throws IOException {
+    public String createDocumentType() throws IOException {
         new APILogger().log("Create DocumentType Test is Started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         DocumentType documentType = new DocumentTypeBuilder().build();
@@ -48,7 +48,7 @@ public class DocumentTypeTest extends BaseAPITest {
         return createDocumentTypeResponse.getDocumentTypes()[0].getName();
     }
 
-    private CreateDocumentTypeResponse searchDocumentType(String documentName) throws IOException {
+    public CreateDocumentTypeResponse searchDocumentType(String documentName) throws IOException {
         new APILogger().log("Search DocumentType Test With Name is Started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         SearchDocumentTypeRequest searchDocumentTypeRequest = new SearchDocumentTypeRequestBuilder().withRequestInfo(requestInfo).build();

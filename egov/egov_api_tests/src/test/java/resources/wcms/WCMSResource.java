@@ -175,4 +175,26 @@ public class WCMSResource {
         new APILogger().log("Update SupplyType Test Request is Generated as  --" + response.asString());
         return response;
     }
+
+    public Response createDocumentTypeApplicationTypeResource(String jsonString) {
+        new APILogger().log("Create DocumentType - ApplicationType Test Request is Started with --" + jsonString);
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(jsonString)
+                .when()
+                .post(Properties.wcmsCreateDocumentTypeApplicationTypeUrl);
+        new APILogger().log("Create DocumentType - ApplicationType Test Request is Generated as  --" + response.asString());
+        return response;
+    }
+
+    public Response searchDocumentTypeApplicationTypeResource(String jsonString) {
+        new APILogger().log("Search DocumentType - ApplicationType Test Request is Started with --" + jsonString);
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(jsonString)
+                .when()
+                .post(Properties.wcmsSearchDocumentTypeApplicationTypeUrl);
+        new APILogger().log("Search DocumentType - ApplicationType Test Request is Generated as  --" + response.asString());
+        return response;
+    }
 }
