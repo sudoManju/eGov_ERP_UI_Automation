@@ -238,6 +238,9 @@ public class AssetServicePage extends BasePage {
     @FindBy(css = "[class='btn btn-primary']")
     private WebElement amentiesAddButton;
 
+    @FindBy(css = "[name='Remarks']")
+    private WebElement remarksText;
+
     private WebDriver webDriver;
 
     public AssetServicePage(WebDriver webDriver) {
@@ -311,7 +314,18 @@ public class AssetServicePage extends BasePage {
                 enterText(awardNubmerTextBox, "A_" + get6DigitRandomInt(), webDriver);
                 break;
 
-            case "market":
+            case "Shop":
+                enterText(amenties.get(0), "Shop Number "+get6DigitRandomInt().substring(0, 3), webDriver);
+                enterText(amenties.get(1), get6DigitRandomInt().substring(0, 2), webDriver);
+                clickOnButton(amentiesAddButton, webDriver);
+                enterText(amenties.get(2), "Shop Number "+get6DigitRandomInt().substring(0, 3), webDriver);
+                enterText(amenties.get(3), get6DigitRandomInt().substring(0, 2), webDriver);
+                clickOnButton(amentiesAddButton, webDriver);
+                enterText(amenties.get(4), "Shop Number "+get6DigitRandomInt().substring(0, 3), webDriver);
+                enterText(amenties.get(5), get6DigitRandomInt().substring(0, 2), webDriver);
+                break;
+
+            case "Market":
                 enterText(eastText, String.valueOf((RandomUtils.nextInt(100, 999))), webDriver);
                 enterText(northText, String.valueOf((RandomUtils.nextInt(100, 999))), webDriver);
                 enterText(southText, String.valueOf((RandomUtils.nextInt(100, 999))), webDriver);
@@ -320,13 +334,22 @@ public class AssetServicePage extends BasePage {
                 enterText(totalSquareFeetAreaTextBox, get6DigitRandomInt().substring(0, 4), webDriver);
                 break;
 
-            case "kalyanaMandapam":
+            case "Kalyana_Mandapam":
                 enterText(webDriver.findElement(By.cssSelector("[name='Total Square Feet Area']")), get6DigitRandomInt().substring(0, 4), webDriver);
                 enterText(amenties.get(0), "AC", webDriver);
                 enterText(amenties.get(1), "10", webDriver);
                 clickOnButton(amentiesAddButton, webDriver);
                 enterText(amenties.get(2), "Fans", webDriver);
                 enterText(amenties.get(3), "40", webDriver);
+                break;
+
+            case "Usufruct":
+                enterText(webDriver.findElement(By.cssSelector("[name='Total Square feet area']")), get6DigitRandomInt().substring(0, 4), webDriver);
+                enterText(eastText, get6DigitRandomInt().substring(0, 3), webDriver);
+                enterText(southText, get6DigitRandomInt().substring(0, 3), webDriver);
+                enterText(westText, get6DigitRandomInt().substring(0, 3), webDriver);
+                enterText(northText, get6DigitRandomInt().substring(0, 3), webDriver);
+                enterText(remarksText, "Usfruct Asset Details", webDriver);
                 break;
 
             case "lakesAndPonds":
@@ -343,11 +366,6 @@ public class AssetServicePage extends BasePage {
 
             case "slaughterHouse":
                 enterText(slaughterHouseTotalSquareFeet, get6DigitRandomInt().substring(0, 5), webDriver);
-                break;
-
-            case "usufruct":
-                enterText(webDriver.findElement(By.cssSelector("[name='Total Square feet area']")), get6DigitRandomInt().substring(0, 4), webDriver);
-//                enterText(ussfructNameTextBox, "abcd", webDriver);
                 break;
 
             case "fishTank":
