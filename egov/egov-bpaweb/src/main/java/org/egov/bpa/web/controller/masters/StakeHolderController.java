@@ -137,6 +137,7 @@ public class StakeHolderController {
     public String editStakeholder(@PathVariable final Long id, final Model model) {
         final StakeHolder stakeHolder = stakeHolderService.findById(id);
         preapreUpdateModel(stakeHolder, model);
+        model.addAttribute("stakeHolderDocumentList", stakeHolder.getStakeHolderDocument());
         return STAKEHOLDER_UPDATE;
     }
 

@@ -41,8 +41,65 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
+<div class="panel-body">
 <input type="hidden" name="username" value="${stakeHolder.username}">
 <input type="hidden" name="password" value="${stakeHolder.password}">
+
+<div class="form-group">
+	<label class="col-sm-3 control-label text-right"> <spring:message code="lbl.behalf.org" /><span class="mandatory"></span></label>
+	<div class="col-sm-3 add-margin">
+		<form:radiobutton path="isOnbehalfOfOrganization" class="isOnbehalfOfOrganization" value="true" /> <spring:message code="lbl.yes" />
+		<form:radiobutton path="isOnbehalfOfOrganization" class="isOnbehalfOfOrganization" value="false" checked="checked" /> <spring:message code="lbl.no" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If Yes please specify
+	</div>
+</div>
+<div id="showhide" class="hide">
+	<div class="form-group">
+		<label class="col-sm-3 control-label text-right toggle-madatory"><spring:message
+				code="lbl.nameof.org" /><span class="mandatory"></span></label>
+		<div class="col-sm-3 add-margin">
+			<form:input type="text" cssClass="form-control addremoverequired"
+				path="organizationName" maxlength="128" id="organizationName" />
+			<form:errors path="organizationName" cssClass="error-msg" />
+		</div>
+		<label class="col-sm-2 control-label text-right toggle-madatory"><spring:message
+				code="lbl.contactNo" /><span class="mandatory"></span></label>
+		<div class="col-sm-3 add-margin">
+			<form:input type="text" cssClass="form-control patternvalidation addremoverequired"
+				path="organizationMobNo" data-pattern="number" maxlength="11" id="organizationMobNo" />
+			<form:errors path="organizationMobNo" cssClass="error-msg" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label text-right toggle-madatory"><spring:message
+				code="lbl.addressof.org" /><span class="mandatory"></span></label>
+		<div class="col-sm-3 add-margin">
+			<form:textarea path="organizationAddress" id="organizationAddress"
+				type="text" class="form-control low-width patternvalidation addremoverequired"
+				data-pattern="regexp_alphabetspecialcharacters" maxlength="128"
+				placeholder="" autocomplete="off" />
+			<form:errors path="organizationAddress" cssClass="error-msg" />
+		</div>
+		<label class="col-sm-2 control-label text-right toggle-madatory"><spring:message
+				code="lbl.contact.person" /><span class="mandatory"></span></label>
+		<div class="col-sm-3 add-margin">
+			<form:input type="text" cssClass="form-control addremoverequired"
+				path="contactPerson" maxlength="50" id="contactPerson" />
+			<form:errors path="contactPerson" cssClass="error-msg" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label text-right toggle-madatory"><spring:message
+				code="lbl.designation" /><span class="mandatory"></span></label>
+		<div class="col-sm-3 add-margin">
+			<form:input path="designation" id="designation"
+				type="text" class="form-control low-width patternvalidation addremoverequired"
+				data-pattern="regexp_alphabetspecialcharacters" maxlength="50"
+				placeholder="" autocomplete="off" />
+			<form:errors path="designation" cssClass="error-msg" />
+		</div>
+	</div>
+</div>
+
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right"><spring:message
 			code="lbl.applicant.name" /><span class="mandatory"></span></label>
@@ -75,10 +132,10 @@
 		<form:errors path="stakeHolderType" cssClass="error-msg" />
 	</div>
 <label class="col-sm-2 control-label text-right"><spring:message
-			code="lbl.isActive" /></label>
+			code="lbl.status" /></label>
 	<div class="col-sm-3 add-margin">
-		<form:radiobutton path="isActive" value="true" checked="checked" /> <spring:message code="lbl.yes" />
-		<form:radiobutton path="isActive" value="false" /> <spring:message code="lbl.no" />
+		<form:radiobutton path="isActive" value="true" checked="checked" /> <spring:message code="lbl.active" />
+		<form:radiobutton path="isActive" value="false" /> <spring:message code="lbl.in.active" />
 		<form:errors path="isActive" cssClass="error-msg" />
 	</div>	
 </div>
@@ -154,21 +211,22 @@
 </div> --%>
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right"><spring:message
-			code="lbl.business.lic.no" /><span class="mandatory"></span></label>
+			code="lbl.lic.no" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:input type="text" cssClass="form-control"
-			path="businessLicenceNumber" maxlength="64" id="businessLicenceNumber" required="required" />
-		<form:errors path="businessLicenceNumber" cssClass="error-msg" />
+			path="licenceNumber" maxlength="64" id="licenceNumber" required="required" />
+		<form:errors path="licenceNumber" cssClass="error-msg" />
 	</div>
 	<label class="col-sm-2 control-label text-right"><spring:message
-			code="lbl.business.lic.due" /><span class="mandatory"></span></label>
+			code="lbl.buil.lic.iss.date" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:input type="text" cssClass="form-control datepicker"
-			path="businessLicenceDueDate" id="businessLicenceDueDate" required="required" />
-		<form:errors path="businessLicenceDueDate" cssClass="error-msg" />
+			path="buildingLicenceIssueDate" id="buildingLicenceIssueDate" required="required" />
+		<form:errors path="buildingLicenceIssueDate" cssClass="error-msg" />
 	</div>
 </div>
-<div class="form-group">
+
+<%-- <div class="form-group">
 	<label class="col-sm-3 control-label text-right"><spring:message
 			code="lbl.coa.enrol.no" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
@@ -183,9 +241,9 @@
 			path="coaEnrolmentDueDate" id="coaRenewalDueDate" required="required" />
 		<form:errors path="coaEnrolmentDueDate" cssClass="error-msg" />
 	</div>
-</div>
+</div> --%>
 
-<div class="form-group">
+<%-- <div class="form-group">
 	<label class="col-sm-3 control-label text-right"> <spring:message code="lbl.enrol.with.local.body" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:radiobutton path="isEnrolWithLocalBody" value="true" checked="checked" /> <spring:message code="lbl.yes" />
@@ -198,7 +256,7 @@
 			id="tinNumber" />
 		<form:errors path="tinNumber" cssClass="error-msg" />
 	</div>
-</div>
+</div> --%>
 
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right"><spring:message
@@ -207,6 +265,13 @@
 		<form:input type="text" cssClass="form-control patternvalidation"
 			path="aadhaarNumber" data-pattern="number" maxlength="12" id="aadhaarNumber" />
 		<form:errors path="aadhaarNumber"  cssClass="error-msg" />
+	</div>
+	<label class="col-sm-2 control-label text-right"><spring:message
+			code="lbl.build.lic.exp.date" /><span class="mandatory"></span></label>
+	<div class="col-sm-3 add-margin">
+		<form:input type="text" cssClass="form-control datepicker"
+			path="buildingLicenceExpiryDate" id="buildingLicenceExpiryDate" required="required" />
+		<form:errors path="buildingLicenceExpiryDate" cssClass="error-msg" />
 	</div>
 </div>
 <div class="form-group">
@@ -221,7 +286,9 @@
 		<form:errors path="pan" cssClass="error-msg" />
 	</div>
 </div>
-
+<c:forEach var="address" items="${stakeHolder.address}" varStatus="status1">
+	<form:hidden path="address[${status1.index}].id" value="${address.id}" />
+</c:forEach>
 <c:set value="correspondenceAddress" var="address" scope="request"></c:set>
 
 <form:hidden path="correspondenceAddress.user" value="${stakeHolder.id}" />
@@ -243,49 +310,4 @@
 	<jsp:param value="lbl.permt.address" name="subhead" />
 </jsp:include>
 
-
-
-
-<div class="form-group">
-	<label class="col-sm-3 control-label text-right"> <spring:message code="lbl.behalf.org" /><span class="mandatory"></span></label>
-	<div class="col-sm-3 add-margin">
-		<form:radiobutton path="isOnbehalfOfOrganization" class="isOnbehalfOfOrganization" value="true" /> <spring:message code="lbl.yes" />
-		<form:radiobutton path="isOnbehalfOfOrganization" class="isOnbehalfOfOrganization" value="false" checked="checked" /> <spring:message code="lbl.no" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If Yes please specify
-	</div>
-</div>
-<div id="showhide" class="hide">
-	<div class="form-group">
-		<label class="col-sm-3 control-label text-right toggle-madatory"><spring:message
-				code="lbl.nameof.org" /><span class="mandatory"></span></label>
-		<div class="col-sm-3 add-margin">
-			<form:input type="text" cssClass="form-control addremoverequired"
-				path="organizationName" maxlength="128" id="organizationName" />
-			<form:errors path="organizationName" cssClass="error-msg" />
-		</div>
-		<label class="col-sm-2 control-label text-right toggle-madatory"><spring:message
-				code="lbl.contactNo" /><span class="mandatory"></span></label>
-		<div class="col-sm-3 add-margin">
-			<form:input type="text" cssClass="form-control patternvalidation addremoverequired"
-				path="organizationMobNo" data-pattern="number" maxlength="11" id="organizationMobNo" />
-			<form:errors path="organizationMobNo" cssClass="error-msg" />
-		</div>
-	</div>
-	<div class="form-group">
-		<label class="col-sm-3 control-label text-right toggle-madatory"><spring:message
-				code="lbl.addressof.org" /><span class="mandatory"></span></label>
-		<div class="col-sm-3 add-margin">
-			<form:textarea path="organizationAddress" id="organizationAddress"
-				type="text" class="form-control low-width patternvalidation addremoverequired"
-				data-pattern="regexp_alphabetspecialcharacters" maxlength="128"
-				placeholder="" autocomplete="off" />
-			<form:errors path="organizationAddress" cssClass="error-msg" />
-		</div>
-		<label class="col-sm-2 control-label text-right toggle-madatory"><spring:message
-				code="lbl.org.url" /><span class="mandatory"></span></label>
-		<div class="col-sm-3 add-margin">
-			<form:input type="text" cssClass="form-control addremoverequired"
-				path="organizationUrl" maxlength="64" id="organizationUrl" />
-			<form:errors path="organizationUrl" cssClass="error-msg" />
-		</div>
-	</div>
 </div>

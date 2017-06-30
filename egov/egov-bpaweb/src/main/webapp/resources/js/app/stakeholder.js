@@ -90,6 +90,7 @@ $('#isAddressSame').click(function(e) {
 		$('input[id="permanentAddress.district"]').val($('input[id="correspondenceAddress.district"]').val());
 		$('input[id="permanentAddress.state"]').val($('input[id="correspondenceAddress.state"]').val());
 		$('input[id="permanentAddress.pinCode"]').val($('input[id="correspondenceAddress.pinCode"]').val());
+		$('input[id="permanentAddress.postOffice"]').val($('input[id="correspondenceAddress.postOffice"]').val());
 	}
 });
 

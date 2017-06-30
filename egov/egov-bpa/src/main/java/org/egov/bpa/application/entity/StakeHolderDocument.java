@@ -29,6 +29,9 @@
  */
 package org.egov.bpa.application.entity;
 
+import java.util.Collections;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -36,7 +39,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -61,10 +66,10 @@ public class StakeHolderDocument extends AbstractAuditable {
     @JoinColumn(name = "stakeHolder")
     private StakeHolder stakeHolder;
     private Boolean isAttached;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "documentId")
-    private FileStoreMapper documentId;
-    private transient MultipartFile files;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "egbpa_stakeholder_support_documents", joinColumns = @JoinColumn(name = "stakeholderdocumentid"), inverseJoinColumns = @JoinColumn(name = "filestoreid"))
+    private Set<FileStoreMapper> supportDocs = Collections.emptySet();
+    private transient MultipartFile[] files;
     @Override
     public Long getId() {
         return id;
@@ -99,20 +104,20 @@ public class StakeHolderDocument extends AbstractAuditable {
         this.checkListDetail = checkListDetail;
     }
 
-    public FileStoreMapper getDocumentId() {
-        return documentId;
+    public MultipartFile[] getFiles() {
+        return files;
     }
 
-    public void setDocumentId(final FileStoreMapper documentId) {
-        this.documentId = documentId;
+    public void setFiles(MultipartFile[] files) {
+        this.files = files;
     }
 
-	public MultipartFile getFiles() {
-		return files;
-	}
+    public Set<FileStoreMapper> getSupportDocs() {
+        return supportDocs;
+    }
 
-	public void setFiles(MultipartFile files) {
-		this.files = files;
-	}
+    public void setSupportDocs(Set<FileStoreMapper> supportDocs) {
+        this.supportDocs = supportDocs;
+    }
 
 }

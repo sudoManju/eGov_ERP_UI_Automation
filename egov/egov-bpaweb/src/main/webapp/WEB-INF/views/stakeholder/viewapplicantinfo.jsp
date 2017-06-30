@@ -46,7 +46,55 @@
 
 
 <div class="panel-body">
+	
+	<div class="row add-border">
+		<div class="col-sm-3 control-div add-margin">
+			<spring:message code="lbl.behalf.org" />
+		</div>
+		<div class="col-sm-3 add-margin view-content">
+			<c:out value="${stakeHolder.isOnbehalfOfOrganization  ? 'YES' : 'NO'}" default="N/A"></c:out>
+		</div>
+	</div>
+	<c:if test="${stakeHolder.isOnbehalfOfOrganization}">
+		<div class="row add-border">
+			<div class="col-sm-3 control-div add-margin">
+				<spring:message code="lbl.nameof.org" />
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+				<c:out value="${stakeHolder.organizationName}" default="N/A"></c:out>
+			</div>
+			<div class="col-sm-3 add-margin">
+				<spring:message code="lbl.contactNo" />
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+				<c:out value="${stakeHolder.organizationMobNo}" default="N/A"></c:out>
+			</div>
+		</div>
 
+		<div class="row add-border">
+			<div class="col-sm-3 control-div add-margin">
+				<spring:message code="lbl.addressof.org" />
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+				<c:out value="${stakeHolder.organizationAddress}" default="N/A"></c:out>
+			</div>
+			<div class="col-sm-3 add-margin">
+				<spring:message code="lbl.contact.person" />
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+				<c:out value="${stakeHolder.contactPerson}" default="N/A"></c:out>
+			</div>
+		</div>
+		<div class="row add-border">
+			<div class="col-sm-3 control-div add-margin">
+				<spring:message code="lbl.designation" />
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+				<c:out value="${stakeHolder.designation}" default="N/A"></c:out>
+			</div>
+		</div>
+	</c:if>
+	
 	<div class="row add-border">
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.applicant.name" />
@@ -151,6 +199,12 @@
 		</div>
 		<div class="row add-border">
 			<div class="col-sm-3 add-margin">
+				<spring:message code="lbl.post.office" />
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+				<c:out value="${address.postOffice}" default="N/A"></c:out>
+			</div>
+			<div class="col-sm-3 add-margin">
 				<spring:message code="lbl.pincode" />
 			</div>
 			<div class="col-sm-3 add-margin view-content">
@@ -163,7 +217,7 @@
 			<spring:message code="lbl.mobileNo" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${stakeHolder.mobileNumber}"></c:out>
+			<c:out value="${stakeHolder.mobileNumber}" default="N/A"></c:out>
 		</div>
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.emailid" />
@@ -175,21 +229,30 @@
 
 	<div class="row add-border">
 		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.business.lic.no" />
+			<spring:message code="lbl.lic.no" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${stakeHolder.businessLicenceNumber}"></c:out>
+			<c:out value="${stakeHolder.licenceNumber}" default="N/A"></c:out>
 		</div>
 
 		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.business.lic.due" />
+			<spring:message code="lbl.buil.lic.iss.date" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${stakeHolder.businessLicenceDueDate}" default="N/A"></c:out>
+			<c:out value="${stakeHolder.buildingLicenceIssueDate}" default="N/A"></c:out>
+		</div>
+	</div>
+	
+	<div class="row add-border">
+		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.build.lic.exp.date" />
+		</div>
+		<div class="col-sm-3 add-margin view-content">
+			<c:out value="${stakeHolder.buildingLicenceExpiryDate}" default="N/A"></c:out>
 		</div>
 	</div>
 
-	<div class="row add-border">
+	<%-- <div class="row add-border">
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.coa.enrol.no" />
 		</div>
@@ -202,9 +265,7 @@
 		<div class="col-sm-3 add-margin view-content">
 			<c:out value="${stakeHolder.coaEnrolmentDueDate}"></c:out>
 		</div>
-	</div>
-
-
+	</div> 
 	<div class="row add-border">
 		<div class="col-sm-3 control-div add-margin">
 			<spring:message code="lbl.enrol.with.local.body" />
@@ -218,62 +279,22 @@
 		<div class="col-sm-3 add-margin view-content">
 			<c:out value="${stakeHolder.tinNumber}" default="NA"></c:out>
 		</div>
-	</div>
+	</div> --%>
 
 	<div class="row add-border">
 		<div class="col-sm-3 control-div add-margin">
 			<spring:message code="lbl.aadhar" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${stakeHolder.aadhaarNumber}" default="NA"></c:out>
+			<c:out value="${stakeHolder.aadhaarNumber}" default="N/A"></c:out>
 		</div>
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.pan" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${stakeHolder.pan}" default="NA"></c:out>
+			<c:out value="${stakeHolder.pan}" default="N/A"></c:out>
 		</div>
 	</div>
-
-	<div class="row add-border">
-		<div class="col-sm-3 control-div add-margin">
-			<spring:message code="lbl.behalf.org" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${stakeHolder.isOnbehalfOfOrganization}" default="NA"></c:out>
-		</div>
-	</div>
-	<c:if test="${stakeHolder.isOnbehalfOfOrganization}">
-		<div class="row add-border">
-			<div class="col-sm-3 control-div add-margin">
-				<spring:message code="lbl.nameof.org" />
-			</div>
-			<div class="col-sm-3 add-margin view-content">
-				<c:out value="${stakeHolder.organizationName}" default="NA"></c:out>
-			</div>
-			<div class="col-sm-3 add-margin">
-				<spring:message code="lbl.contactNo" />
-			</div>
-			<div class="col-sm-3 add-margin view-content">
-				<c:out value="${stakeHolder.organizationMobNo}" default="NA"></c:out>
-			</div>
-		</div>
-
-		<div class="row add-border">
-			<div class="col-sm-3 control-div add-margin">
-				<spring:message code="lbl.addressof.org" />
-			</div>
-			<div class="col-sm-3 add-margin view-content">
-				<c:out value="${stakeHolder.organizationAddress}" default="NA"></c:out>
-			</div>
-			<div class="col-sm-3 add-margin">
-				<spring:message code="lbl.org.url" />
-			</div>
-			<div class="col-sm-3 add-margin view-content">
-				<c:out value="${stakeHolder.organizationUrl}" default="NA"></c:out>
-			</div>
-		</div>
-	</c:if>
 
 </div>
 

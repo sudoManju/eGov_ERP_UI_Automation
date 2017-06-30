@@ -75,7 +75,7 @@
 								var="bpadoc" items="${docs.getSupportDocs()}" varStatus="loop">
 								<c:if test="${bpadoc.fileStoreId ne null}">
 									<c:set value="true" var="isDocFound"></c:set>
-									<a href="/bpa/application/downloadfile/${bpadoc.fileStoreId}"
+									<a target="_blank" href="/bpa/application/downloadfile/${bpadoc.fileStoreId}"
 										data-gallery>${bpadoc.fileName} </a>
 									<c:if test="${!loop.last}">,</c:if>&nbsp;
 								</c:if>

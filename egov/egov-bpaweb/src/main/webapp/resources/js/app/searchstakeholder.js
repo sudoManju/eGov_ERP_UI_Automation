@@ -96,15 +96,11 @@ $(document)
 														"sClass" : "text-left"
 													},
 													{
-														"data" : "businessLicenceNumber",
+														"data" : "licenceNumber",
 														"sClass" : "text-left"
 													},
 													{
-														"data" : "coaEnrolmentNumber",
-														"sClass" : "text-left"
-													},
-													{
-														"data" : "tinNumber",
+														"data" : "aadharNumber",
 														"sClass" : "text-left"
 													},
 													{
@@ -171,15 +167,11 @@ $(document)
 														"sClass" : "text-left"
 													},
 													{
-														"data" : "businessLicenceNumber",
+														"data" : "licenceNumber",
 														"sClass" : "text-left"
 													},
 													{
-														"data" : "coaEnrolmentNumber",
-														"sClass" : "text-left"
-													},
-													{
-														"data" : "tinNumber",
+														"data" : "aadharNumber",
 														"sClass" : "text-left"
 													},
 													{

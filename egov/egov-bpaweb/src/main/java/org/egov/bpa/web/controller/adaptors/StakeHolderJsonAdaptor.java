@@ -57,11 +57,10 @@ public class StakeHolderJsonAdaptor implements JsonSerializer<StakeHolder> {
             jsonObject.addProperty("name", org.apache.commons.lang.StringUtils.defaultString(stakeHolder.getName()));
             jsonObject.addProperty("stakeHolderType", org.apache.commons.lang.StringUtils.defaultString(stakeHolder.getStakeHolderType().name()));
             jsonObject.addProperty("code", org.apache.commons.lang.StringUtils.defaultString(stakeHolder.getCode()));
-            jsonObject.addProperty("businessLicenceNumber",
-                    org.apache.commons.lang.StringUtils.defaultString(stakeHolder.getBusinessLicenceNumber()));
-            jsonObject.addProperty("coaEnrolmentNumber",
-                    org.apache.commons.lang.StringUtils.defaultString(stakeHolder.getCoaEnrolmentNumber()));
-            jsonObject.addProperty("tinNumber", org.apache.commons.lang.StringUtils.defaultString(stakeHolder.getTinNumber()));
+            jsonObject.addProperty("licenceNumber",
+                    org.apache.commons.lang.StringUtils.defaultString(stakeHolder.getLicenceNumber()));
+            jsonObject.addProperty("aadharNumber",
+                    org.apache.commons.lang.StringUtils.defaultString(stakeHolder.getAadhaarNumber()));
             jsonObject.addProperty("id", stakeHolder.getId());
         }
         return jsonObject;

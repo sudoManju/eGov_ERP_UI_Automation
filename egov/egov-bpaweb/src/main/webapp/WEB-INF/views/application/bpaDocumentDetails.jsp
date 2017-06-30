@@ -113,7 +113,7 @@
 					<div class="files-upload-container"
 					    data-file-max-size="2"
 					    <c:if test="${docs.checklistDetail.isMandatory eq true && fn:length(docs.getSupportDocs()) eq 0}">required</c:if>
-						data-allowed-extenstion="doc,docx,xls,xlsx,rtf,pdf,txt,zip,jpeg,jpg,png,gif">
+						data-allowed-extenstion="doc,docx,xls,xlsx,rtf,pdf,txt,zip,jpeg,jpg,png,gif,tiff">
 						<div class="files-viewer">
 
 							<c:forEach items="${docs.getSupportDocs()}" var="file">
@@ -135,6 +135,10 @@
 										</c:when>
 										<c:when test="${file.contentType eq 'application/zip'}">
 											<i class="fa fa-file-archive-o" aria-hidden="true"></i>
+										</c:when>
+										<c:when
+											test="${file.contentType eq 'image/jpg' || file.contentType eq 'image/jpeg' || file.contentType eq 'image/png' || file.contentType eq 'image/gif' || file.contentType eq 'image/tiff'}">
+											<i class="fa fa-picture-o" aria-hidden="true"></i>
 										</c:when>
 										<c:when
 											test="${file.contentType eq 'application/xls' || file.contentType eq 'application/xlsx'}">
@@ -165,6 +169,14 @@
 	</c:otherwise>
 </c:choose>
 </div> 	
+
+<!-- The Modal -->
+<div id="imgModel" class="image-modal">
+	<span class="closebtn">&times;</span> <img class="modal-content"
+		id="previewImg">
+	<div id="caption"></div>
+</div>
+
 <link rel="stylesheet" href="<c:url value='/resources/css/bpa-style.css?rnd=${app_release_no}'/>">
 <script
 	src="<cdn:url value='/resources/js/app/document-upload-helper.js?rnd=${app_release_no}'/>"></script>

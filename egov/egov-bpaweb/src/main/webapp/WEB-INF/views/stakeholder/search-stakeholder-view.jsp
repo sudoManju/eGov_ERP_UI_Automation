@@ -69,9 +69,8 @@
 					<th><spring:message code="lbl.applicant.name" /></th>
 					<th><spring:message code="lbl.stakeholder.type" /></th>
 					<th><spring:message code="lbl.code" /></th>
-					<th><spring:message code="lbl.business.lic.no" /></th>
-					<th><spring:message code="lbl.coa.enrol.no" /></th>
-					<th><spring:message code="lbl.tin.no" /></th>
+					<th><spring:message code="lbl.lic.no" /></th>
+					<th><spring:message code="lbl.aadhar" /></th>
 					<th><spring:message code="lbl.action" /></th>
 				</tr>
 			</thead>

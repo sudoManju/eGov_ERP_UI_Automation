@@ -44,7 +44,7 @@
 	<div class="col-md-12">
 		<div class="panel panel-primary" data-collapsed="0">
 			<div class="panel-heading">
-				<div class="panel-title">Search StakeHolder</div>
+				<div class="panel-title">Search Building Licensee</div>
 			</div>
 			<div class="panel-body">
 				<div class="form-group">
@@ -72,23 +72,6 @@
 
 				<div class="form-group">
 					<label class="col-sm-3 control-label text-right"><spring:message
-							code="lbl.business.lic.no" /></label>
-					<div class="col-sm-3 add-margin">
-						<form:input type="text" cssClass="form-control"
-							path="businessLicenceNumber" id="businessLicenceNumber" />
-						<form:errors path="businessLicenceNumber" cssClass="error-msg" />
-					</div>
-					<label class="col-sm-2 control-label text-right"><spring:message
-							code="lbl.coa.enrol.no" /></label>
-					<div class="col-sm-3 add-margin">
-						<form:input type="text" cssClass="form-control"
-							path="coaEnrolmentNumber" id="coaEnrolmentNo" />
-						<form:errors path="coaEnrolmentNumber" cssClass="error-msg" />
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label class="col-sm-3 control-label text-right"><spring:message
 							code="lbl.aadhar" /></label>
 					<div class="col-sm-3 add-margin">
 						<form:input type="text" cssClass="form-control"
@@ -104,15 +87,17 @@
 						<form:errors path="pan" cssClass="error-msg" />
 					</div>
 				</div>
+				
 				<div class="form-group">
 					<label class="col-sm-3 control-label text-right"><spring:message
-							code="lbl.tin.no" /></label>
+							code="lbl.lic.no" /></label>
 					<div class="col-sm-3 add-margin">
-						<form:input type="text" cssClass="form-control" path="tinNumber"
-							id="tinNumber" />
-						<form:errors path="tinNumber" cssClass="error-msg" />
+						<form:input type="text" cssClass="form-control"
+							path="licenceNumber" id="licenceNumber" />
+						<form:errors path="licenceNumber" cssClass="error-msg" />
 					</div>
 				</div>
+				
 			</div>
 		</div>
 	</div>

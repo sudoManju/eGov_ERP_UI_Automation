@@ -39,9 +39,6 @@
  */
 package org.egov.bpa.masters.service;
 
-import static org.egov.bpa.utils.BpaConstants.FILESTORE_MODULECODE;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -134,9 +131,15 @@ public class StakeHolderService {
                 applicationDocument.setCheckListDetail(
                         checkListDetailService.load(applicationDocument.getCheckListDetail().getId()));
                 applicationDocument.setStakeHolder(stakeHolder);
-                if (applicationDocument.getFiles().getSize() > 0) {
-                    applicationDocument.setDocumentId(addToFileStore(applicationDocument.getFiles()));
-                    applicationDocument.setIsAttached(true);
+                if (applicationDocument.getFiles() != null) {
+                    for (MultipartFile tempFile : applicationDocument.getFiles()) {
+                        if (!tempFile.isEmpty()) {
+                            applicationDocument.setSupportDocs(addToFileStore(applicationDocument.getFiles()));
+                            applicationDocument.setIsAttached(true);
+                        } else {
+                            applicationDocument.setIsAttached(false);
+                        }
+                    }
                 }
             }
     }
@@ -156,11 +159,12 @@ public class StakeHolderService {
     }
     @Transactional
     public StakeHolder update(final StakeHolder stakeHolder) {
-        removeAddress(stakeHolder.getAddress());
+        // TODO : Need to fix update address not working
+        /*removeAddress(stakeHolder.getAddress());
         final List<Address> addressList = new ArrayList<>();
         addressList.add(stakeHolder.getCorrespondenceAddress());
         addressList.add(stakeHolder.getPermanentAddress());
-        stakeHolder.setAddress(addressList);
+        stakeHolder.setAddress(addressList);*/
     	processAndStoreApplicationDocuments(stakeHolder);
         return stakeHolderRepository.save(stakeHolder);
     }
@@ -182,6 +186,7 @@ public class StakeHolderService {
         correspondenceAddress.setCityTownVillage(stakeHolder.getCorrespondenceAddress().getCityTownVillage());
         correspondenceAddress.setDistrict(stakeHolder.getCorrespondenceAddress().getDistrict());
         correspondenceAddress.setState(stakeHolder.getCorrespondenceAddress().getState());
+        correspondenceAddress.setPostOffice(stakeHolder.getCorrespondenceAddress().getPostOffice());
         correspondenceAddress.setPinCode(stakeHolder.getCorrespondenceAddress().getPinCode());
         correspondenceAddress.setUser(stakeHolder);
         return correspondenceAddress;
@@ -195,6 +200,7 @@ public class StakeHolderService {
         permanentAddress.setCityTownVillage(stakeHolder.getPermanentAddress().getCityTownVillage());
         permanentAddress.setDistrict(stakeHolder.getPermanentAddress().getDistrict());
         permanentAddress.setState(stakeHolder.getPermanentAddress().getState());
+        permanentAddress.setPostOffice(stakeHolder.getCorrespondenceAddress().getPostOffice());
         permanentAddress.setPinCode(stakeHolder.getPermanentAddress().getPinCode());
         permanentAddress.setUser(stakeHolder);
         return permanentAddress;
@@ -215,18 +221,6 @@ public class StakeHolderService {
         return criteria.list();
     }
 
-
-    private FileStoreMapper addToFileStore(final MultipartFile file) {
-        FileStoreMapper fileStoreMapper = null;
-        try {
-            fileStoreMapper = fileStoreService.store(file.getInputStream(), file.getOriginalFilename(),
-                    file.getContentType(), FILESTORE_MODULECODE);
-        } catch (final IOException e) {
-            throw new ApplicationRuntimeException("Error occurred while getting inputstream", e);
-        }
-        return fileStoreMapper;
-    }
-
     public Criteria buildSearchCriteria(final StakeHolder stakeHolder) {
         final Criteria criteria = getCurrentSession().createCriteria(StakeHolder.class, "stakeHolder");
 
@@ -245,12 +239,8 @@ public class StakeHolderService {
             criteria.add(Restrictions.ilike("stakeHolder.pan", stakeHolder.getPan(),
                     MatchMode.ANYWHERE));
         }
-        if (stakeHolder.getBusinessLicenceNumber() != null) {
-            criteria.add(Restrictions.ilike("stakeHolder.businessLicenceNumber", stakeHolder.getBusinessLicenceNumber(),
-                    MatchMode.ANYWHERE));
-        }
-        if (stakeHolder.getCoaEnrolmentNumber() != null) {
-            criteria.add(Restrictions.ilike("stakeHolder.coaEnrolmentNumber", stakeHolder.getCoaEnrolmentNumber(),
+        if (stakeHolder.getLicenceNumber() != null) {
+            criteria.add(Restrictions.ilike("stakeHolder.licenceNumber", stakeHolder.getLicenceNumber(),
                     MatchMode.ANYWHERE));
         }
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);

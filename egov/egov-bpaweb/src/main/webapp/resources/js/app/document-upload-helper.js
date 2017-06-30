@@ -101,7 +101,7 @@ $(document).on('change','.files-upload-container input:file',function(e) {
         	$addFileBtn.before($fileViewer);
         	//$filesViewerContainer.append($fileViewer);
         	
-        	if(['jpg', 'jpeg', 'png', 'gif'].indexOf(extension)>=0){
+        	if(['jpg', 'jpeg', 'png', 'gif', 'tiff'].indexOf(extension)>=0){
         		$fileViewer.css({
             		'background-image':'url(' + e.target.result + ')',
             		'background-position':'center',

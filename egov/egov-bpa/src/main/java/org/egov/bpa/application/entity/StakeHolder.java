@@ -70,10 +70,12 @@ public class StakeHolder extends User {
 
     @NotNull
     @Length(min = 1, max = 64)
-    private String businessLicenceNumber;
+    private String licenceNumber;
     @NotNull
     @Temporal(value = TemporalType.DATE)
-    private Date businessLicenceDueDate;
+    private Date buildingLicenceIssueDate;
+    @Temporal(value = TemporalType.DATE)
+    private Date buildingLicenceExpiryDate;
     @Length(min = 1, max = 64)
     private String coaEnrolmentNumber;
     @Temporal(value = TemporalType.DATE)
@@ -92,13 +94,15 @@ public class StakeHolder extends User {
     private Boolean isActive;
     @Length(max = 11)
     private String tinNumber;
-
     @OneToMany(mappedBy = "stakeHolder", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<StakeHolderDocument> stakeHolderDocument = new ArrayList<>(0);
     private transient CorrespondenceAddress correspondenceAddress = new CorrespondenceAddress();
     private transient PermanentAddress permanentAddress = new PermanentAddress();
     private transient List<CheckListDetail> checkListDocuments = new ArrayList<>(0);
-    
+    @Length(max = 50)
+    private String contactPerson;
+    @Length(max = 50)
+    private String designation;
     public StakeHolder() {
         setType(UserType.BUSINESS);
     }
@@ -127,12 +131,44 @@ public class StakeHolder extends User {
         this.stakeHolderType = stakeHolderType;
     }
 
-    public String getBusinessLicenceNumber() {
-        return businessLicenceNumber;
+    public String getLicenceNumber() {
+        return licenceNumber;
     }
 
-    public void setBusinessLicenceNumber(final String businessLicenceNumber) {
-        this.businessLicenceNumber = businessLicenceNumber;
+    public void setLicenceNumber(String licenceNumber) {
+        this.licenceNumber = licenceNumber;
+    }
+
+    public Date getBuildingLicenceIssueDate() {
+        return buildingLicenceIssueDate;
+    }
+
+    public void setBuildingLicenceIssueDate(Date buildingLicenceIssueDate) {
+        this.buildingLicenceIssueDate = buildingLicenceIssueDate;
+    }
+
+    public Date getBuildingLicenceExpiryDate() {
+        return buildingLicenceExpiryDate;
+    }
+
+    public void setBuildingLicenceExpiryDate(Date buildingLicenceExpiryDate) {
+        this.buildingLicenceExpiryDate = buildingLicenceExpiryDate;
+    }
+
+    public String getContactPerson() {
+        return contactPerson;
+    }
+
+    public void setContactPerson(String contactPerson) {
+        this.contactPerson = contactPerson;
+    }
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
     }
 
     public String getCoaEnrolmentNumber() {
@@ -197,14 +233,6 @@ public class StakeHolder extends User {
 
     public void setTinNumber(final String tinNumber) {
         this.tinNumber = tinNumber;
-    }
-
-    public Date getBusinessLicenceDueDate() {
-        return businessLicenceDueDate;
-    }
-
-    public void setBusinessLicenceDueDate(final Date businessLicenceDueDate) {
-        this.businessLicenceDueDate = businessLicenceDueDate;
     }
 
     public List<StakeHolderDocument> getStakeHolderDocument() {
