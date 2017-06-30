@@ -58,7 +58,7 @@ $(document).ready(function() {
 		} else if('Amenities' == seviceTypeName){
 			$('.handle-mandatory').removeAttr('required');
 			$('.handle-mandatory').find("span").removeClass( "mandatory" );
-		} else if('Permission for Temporary hut or shed' == seviceTypeName){
+		} else if('Huts and Sheds' == seviceTypeName){
 			$('.show-hide').hide();
 			$('.noofhutorshed').show();
 			$('.handle-mandatory').removeAttr('required');
@@ -95,8 +95,8 @@ $(document).ready(function() {
 		
 		var amenities = [];
 		
-		if($( "#serviceType option:selected" ).text() == 'Permission for Temporary hut or shed'){
-			amenities.push('Permission for Temporary hut or shed');
+		if($( "#serviceType option:selected" ).text() == 'Huts and Sheds'){
+			amenities.push('Huts and Sheds');
 		}
 		
 		$.each($("#applicationAmenity option:selected"), function(idx){     
@@ -139,7 +139,7 @@ $(document).ready(function() {
 		    case "Pole Structures":
 		    	templateStr=$('#poles-template').html();
 		        break;
-		    case "Permission for Temporary hut or shed":
+		    case "Huts and Sheds":
 		    	templateStr=$('#sheds-template').html();
 		        break;
 		}

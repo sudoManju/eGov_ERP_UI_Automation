@@ -58,7 +58,7 @@ public class BpaConstants {
     public static final String ST_CODE_09 = "09"; // Permission for Temporary hut or shed
     public static final String ROLE_BUSINESS_USER = "BUSINESS";
     public static final String AMENITIES = "Amenities";
-    public static final String PERM_FOR_HUT_OR_SHED = "Permission for Temporary hut or shed";
+    public static final String PERM_FOR_HUT_OR_SHED = "Huts and Sheds";
     public static final String REGULARIZATION = "Regularization";
     public static final String CHANGE_IN_OCCUPANCY = "Change in Occupancy";
     public static final String ADDING_OF_EXTENSION = "Adding of Extension";

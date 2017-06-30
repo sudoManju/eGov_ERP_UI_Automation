@@ -41,6 +41,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn"%>
 
 <div class="panel-heading custom_form_panel_heading">
@@ -71,7 +72,7 @@
 				<select name="applicationAmenity" multiple id="applicationAmenity"
 					class="form-control applicationAmenity tick-indicator">
 					<c:forEach items="${amenityTypeList}" var="amenity">
-						<option value="${amenity.id}" title="${amenity.description}">${amenity.description}</option>
+						<option value="${amenity.id}" title="${amenity.description}" <c:if test="${fn:contains(bpaApplication.applicationAmenity, amenity)}"> Selected </c:if> >${amenity.description}</option>
 					</c:forEach>
 				</select>
 
