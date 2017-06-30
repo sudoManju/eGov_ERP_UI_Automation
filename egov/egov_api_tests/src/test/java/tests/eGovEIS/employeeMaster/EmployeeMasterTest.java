@@ -6,7 +6,7 @@ import entities.requests.eGovEIS.emp.*;
 import entities.responses.eGovEIS.createEmp.CreateEmployeeResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import resources.EgovEISResource;
+import resources.EGovEISResource;
 import tests.BaseAPITest;
 import utils.*;
 
@@ -34,11 +34,11 @@ public class EmployeeMasterTest extends BaseAPITest {
         String date = getRandomDate();
         Assignments assignments1 = new AssignmentsBuilder().withFromDate(date).withToDate(date).build();
         Assignments[] assignments = {assignments1};
-        User user1 = new UserBuilder().withUserName("Test_"+ get6DigitRandomInt()).build();
-        Employee employee = new EmployeeBuilder().withCode("EMP_"+ get6DigitRandomInt()).withAssignments(assignments).withUser(user1).build();
+        User user1 = new UserBuilder().withUserName("Test_"+ get3DigitRandomInt()).build();
+        Employee employee = new EmployeeBuilder().withCode("EMP_"+ get3DigitRandomInt()).withAssignments(assignments).withUser(user1).build();
         CreateEmployeeRequest employeeRequest = new CreateEmployeeRequestBuilder().withEmployee(employee).build();
 
-        Response response = new EgovEISResource().createEmployee(RequestHelper.getJsonString(employeeRequest),sessionId);
+        Response response = new EGovEISResource().createEmployee(RequestHelper.getJsonString(employeeRequest),sessionId);
         CreateEmployeeResponse employeeResponse = (CreateEmployeeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(),CreateEmployeeResponse.class);
 

@@ -22,24 +22,22 @@ import entities.responses.eGovEIS.leaveManagement.search.LeaveOpeningBalanceSear
 import entities.responses.eGovEIS.searchEmployee.SearchEmployeeResponse;
 import org.junit.Assert;
 import org.testng.annotations.Test;
-import resources.EgovEISResource;
+import resources.EGovEISResource;
 import resources.employeeMaster.LeaveTypeResource;
 import tests.BaseAPITest;
-import utils.APILogger;
-import utils.Categories;
-import utils.RequestHelper;
-import utils.ResponseHelper;
+import utils.*;
 
 import java.io.IOException;
 import java.util.Random;
+
+import static data.UserData.ADMIN;
 
 public class LeaveOpeningBalanceCreateTest extends BaseAPITest {
 
     @Test(groups = {Categories.HR, Categories.SANITY})
     public void leaveOpeningBalanceCreateTest() throws IOException {
 
-        // Login Test
-//        LoginResponse loginResponse = LoginAndLogoutHelper.login(narasappa);
+        LoginAndLogoutHelper.loginFromPilotService("KEMP210639"); // Login
 
         /*
             Collecting all Employee id's
@@ -84,12 +82,13 @@ public class LeaveOpeningBalanceCreateTest extends BaseAPITest {
             So now we need to createLeaveApplicationResource the new leave type in order to createLeaveApplicationResource the opening balance
         */
         if (employeeId == 0) {
-            leaveTypeId = createTheLeaveTypeWithNameBasedOnDataFormat("Leave Type - " + get6DigitRandomInt());
+            leaveTypeId = createTheLeaveTypeWithNameBasedOnDataFormat("Leave Type - " + get3DigitRandomInt());
             employeeId = employeeIdList[new Random().nextInt(employeeIdList.length - 0) + 0];
         }
 
         // Create attendances Test
         openingBalanceCreateTestMethod(employeeId, leaveTypeId);
+        LoginAndLogoutHelper.logoutFromPilotService(); // Logout
     }
 
     private int[] collectingAllEmployees() throws IOException {
@@ -98,13 +97,12 @@ public class LeaveOpeningBalanceCreateTest extends BaseAPITest {
 
         SearchEmployeeRequest request = new SearchEmployeeRequestBuilder().withRequestInfo(requestInfo).build();
 
-        Response response = new EgovEISResource().searchEmployee(RequestHelper.getJsonString(request));
+        Response response = new EGovEISResource().searchEmployee(RequestHelper.getJsonString(request));
 
-        org.testng.Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertEquals(response.getStatusCode(), 200);
 
         SearchEmployeeResponse searchEmployeeResponse = (SearchEmployeeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchEmployeeResponse.class);
-
 
         int[] employeeList = new int[searchEmployeeResponse.getEmployee().length];
         for (int i = 0; i < searchEmployeeResponse.getEmployee().length; i++) {
@@ -213,7 +211,7 @@ public class LeaveOpeningBalanceCreateTest extends BaseAPITest {
 
         String path = "&employee=" + employeeId + "&leaveType=" + leaveTypeId + "&year=" + getCurrentDate().split("/")[2];
 
-        Response response = new EgovEISResource().hrLeaveSearchOpeningBalance(RequestHelper.getJsonString(searchOpeningBalanceRequest), path);
+        Response response = new EGovEISResource().hrLeaveSearchOpeningBalance(RequestHelper.getJsonString(searchOpeningBalanceRequest), path);
 
         LeaveOpeningBalanceSearchResponse leaveOpeningBalanceSearchResponse = (LeaveOpeningBalanceSearchResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), LeaveOpeningBalanceSearchResponse.class);
@@ -230,7 +228,7 @@ public class LeaveOpeningBalanceCreateTest extends BaseAPITest {
         LeaveOpeningBalance leaveOpeningBalance = new LeaveOpeningBalanceBuilder()
                 .withLeaveType(leaveType)
                 .withEmployee(employeeId)
-                .withNoOfDays(Integer.parseInt(get6DigitRandomInt()))
+                .withNoOfDays(Integer.parseInt(get3DigitRandomInt()))
                 .withTenantId("ap.kurnool")
                 .build();
 
@@ -245,7 +243,7 @@ public class LeaveOpeningBalanceCreateTest extends BaseAPITest {
                 .withRequestInfo(requestInfo)
                 .build();
 
-        Response response = new EgovEISResource().hrLeaveCreateOpeningBalance(RequestHelper.getJsonString(openingBalanceCreateRequest));
+        Response response = new EGovEISResource().hrLeaveCreateOpeningBalance(RequestHelper.getJsonString(openingBalanceCreateRequest));
         Assert.assertEquals(response.getStatusCode(), 200);
 
         searchOpeningBalanceTestMethod(employeeId, leaveTypeId, openingBalanceCreateRequest);
@@ -264,7 +262,7 @@ public class LeaveOpeningBalanceCreateTest extends BaseAPITest {
 
         String path = "&employee=" + employeeId + "&leaveType=" + leaveTypeId + "&year=" + getCurrentDate().split("/")[2];
         new APILogger().log("Search HR Leave Opening Balance Test is started with-- " + RequestHelper.getJsonString(searchOpeningBalanceRequest));
-        Response response = new EgovEISResource().hrLeaveSearchOpeningBalance(RequestHelper.getJsonString(searchOpeningBalanceRequest), path);
+        Response response = new EGovEISResource().hrLeaveSearchOpeningBalance(RequestHelper.getJsonString(searchOpeningBalanceRequest), path);
         new APILogger().log("Search HR Leave Opening Balance Test is completed with-- " + response.asString());
 
         LeaveOpeningBalanceSearchResponse leaveOpeningBalanceSearchResponse = (LeaveOpeningBalanceSearchResponse)
@@ -299,7 +297,7 @@ public class LeaveOpeningBalanceCreateTest extends BaseAPITest {
                 .withRequestInfo(requestInfo)
                 .build();
 
-        Response response = new EgovEISResource().hrLeaveUpdateOpeningBalance(RequestHelper.getJsonString(openingBalanceUpdateRequest), id);
+        Response response = new EGovEISResource().hrLeaveUpdateOpeningBalance(RequestHelper.getJsonString(openingBalanceUpdateRequest), id);
 
         LeaveOpeningBalanceSearchResponse leaveOpeningBalanceUpdateResponse = (LeaveOpeningBalanceSearchResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), LeaveOpeningBalanceSearchResponse.class);

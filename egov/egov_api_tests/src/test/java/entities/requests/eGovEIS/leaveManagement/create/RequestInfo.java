@@ -1,6 +1,10 @@
 package entities.requests.eGovEIS.leaveManagement.create;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 public class RequestInfo {
+
+    @JsonProperty("UserInfo")
     private UserInfo userInfo;
     private String ver;
     private String requesterId;

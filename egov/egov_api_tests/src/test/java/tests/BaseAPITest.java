@@ -44,8 +44,8 @@ public class BaseAPITest {
         return (gc.get(DAY_OF_MONTH) + "/" + (gc.get(MONTH) + 1) + "/" + gc.get(YEAR));
     }
 
-    public String get6DigitRandomInt() {
-        return String.valueOf((RandomUtils.nextInt(100000, 999999)));
+    public String get3DigitRandomInt() {
+        return String.valueOf((RandomUtils.nextInt(100, 999)));
     }
 
     public String getCurrentDate() {

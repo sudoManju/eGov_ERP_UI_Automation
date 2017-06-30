@@ -14,7 +14,7 @@ import entities.responses.eGovEIS.createAttendance.CreateAttendanceResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import resources.EgovEISResource;
+import resources.EGovEISResource;
 import tests.BaseAPITest;
 import utils.*;
 
@@ -44,7 +44,7 @@ public class AttendancesTest extends BaseAPITest {
         CreateAttendanceRequest request = new CreateAttendanceRequestBuilder().withRequestInfo(requestInfo)
                 .withAttendance(attendance).build();
 
-        Response response = new EgovEISResource().createAttendanceResource(RequestHelper.getJsonString(request));
+        Response response = new EGovEISResource().createAttendanceResource(RequestHelper.getJsonString(request));
         CreateAttendanceResponse createAttendanceResponse = (CreateAttendanceResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), CreateAttendanceResponse.class);
 
@@ -57,7 +57,7 @@ public class AttendancesTest extends BaseAPITest {
         entities.requests.eGovEIS.RequestInfo requestInfo = new RequestInfoBuilder("Search").build1();
         SearchAttendanceRequest request = new SearchAttendanceRequestBuilder().withRequestInfo(requestInfo).build();
 
-        Response response = new EgovEISResource().searchAttendanceResource(RequestHelper.getJsonString(request));
+        Response response = new EGovEISResource().searchAttendanceResource(RequestHelper.getJsonString(request));
         SearchAttendanceResponse searchAttendanceResponse = (SearchAttendanceResponse) ResponseHelper.getResponseAsObject(response.asString(), SearchAttendanceResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);

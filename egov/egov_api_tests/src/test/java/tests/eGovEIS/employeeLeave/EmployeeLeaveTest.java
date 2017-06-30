@@ -9,7 +9,7 @@ import entities.responses.eGovEIS.searchEmployeeLeave.SearchEmployeeLeaveRespons
 import entities.responses.eGovEIS.searchEmployeeLeave.SearchLeaveApplicationsResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import resources.EgovEISResource;
+import resources.EGovEISResource;
 import tests.BaseAPITest;
 import utils.*;
 
@@ -32,7 +32,7 @@ public class EmployeeLeaveTest extends BaseAPITest {
         SearchEmployeeLeaveRequest searchEmployeeLeaveRequest = new SearchEmployeeLeaveRequestBuilder()
                 .withRequestInfo(requestInfo).build();
 
-        Response response = new EgovEISResource()
+        Response response = new EGovEISResource()
                 .searchEmployeeLeaveTypesResource(RequestHelper.getJsonString(searchEmployeeLeaveRequest));
         SearchEmployeeLeaveResponse employeeLeaveResponse = (SearchEmployeeLeaveResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchEmployeeLeaveResponse.class);
@@ -47,7 +47,7 @@ public class EmployeeLeaveTest extends BaseAPITest {
         SearchEmployeeLeaveRequest searchEmployeeLeaveRequest = new SearchEmployeeLeaveRequestBuilder()
                 .withRequestInfo(requestInfo).build();
 
-        Response response = new EgovEISResource()
+        Response response = new EGovEISResource()
                 .searchEmployeeLeaveApplicationsResource(RequestHelper.getJsonString(searchEmployeeLeaveRequest));
         SearchLeaveApplicationsResponse searchLeaveApplicationsResponse = (SearchLeaveApplicationsResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchLeaveApplicationsResponse.class);

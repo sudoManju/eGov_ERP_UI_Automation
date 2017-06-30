@@ -10,7 +10,7 @@ public class SupplyTypeBuilder {
     public SupplyTypeBuilder() {
         supplyType.setCode("");
         supplyType.setId(0);
-        supplyType.setName("SupplyType " + new BaseAPITest().get6DigitRandomInt());
+        supplyType.setName("SupplyType " + new BaseAPITest().get3DigitRandomInt());
         supplyType.setDescription("SupplyType Description");
         supplyType.setTenantId("default");
         supplyType.setActive(true);

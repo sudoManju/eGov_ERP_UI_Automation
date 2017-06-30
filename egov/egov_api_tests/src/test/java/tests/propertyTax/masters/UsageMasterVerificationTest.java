@@ -42,8 +42,8 @@ public class  UsageMasterVerificationTest extends BaseAPITest {
 
     private UsageMasterResponse createUsageMaster() throws IOException {
         new APILogger().log("Create Usage Master Test Started");
-        usageMasters[0] = new UsageMastersBuilder().withName("Test"+ get6DigitRandomInt()).withCode(get6DigitRandomInt())
-                .withNameLocal("Local"+ get6DigitRandomInt()).withOrderNumber(Integer.parseInt(get6DigitRandomInt())).build();
+        usageMasters[0] = new UsageMastersBuilder().withName("Test"+ get3DigitRandomInt()).withCode(get3DigitRandomInt())
+                .withNameLocal("Local"+ get3DigitRandomInt()).withOrderNumber(Integer.parseInt(get3DigitRandomInt())).build();
         UsageMasterRequest request = new UsageMasterRequestBuilder().withRequestInfo(requestInfo)
                 .withUsageMasters(usageMasters).build();
 
@@ -70,8 +70,8 @@ public class  UsageMasterVerificationTest extends BaseAPITest {
     private UsageMasterResponse updateusageMaster(int id) throws IOException {
         new APILogger().log("Update Usage Master Test Started");
         usageMasters[0] = new UsageMastersBuilder().withId(id)
-                 .withName("Test_"+ get6DigitRandomInt()).withCode(get6DigitRandomInt())
-                .withNameLocal("Test_"+ get6DigitRandomInt()).withOrderNumber(Integer.parseInt(get6DigitRandomInt())).build();
+                 .withName("Test_"+ get3DigitRandomInt()).withCode(get3DigitRandomInt())
+                .withNameLocal("Test_"+ get3DigitRandomInt()).withOrderNumber(Integer.parseInt(get3DigitRandomInt())).build();
         UsageMasterRequest request = new UsageMasterRequestBuilder().withRequestInfo(requestInfo)
                 .withUsageMasters(usageMasters).build();
 

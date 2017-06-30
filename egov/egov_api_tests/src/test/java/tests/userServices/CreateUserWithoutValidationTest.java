@@ -83,7 +83,7 @@ public class CreateUserWithoutValidationTest extends BaseAPITest {
     private UserResponse createUserWithoutValidation() throws IOException {
         new APILogger().log("Create User Test is started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
-        User user = new UserBuilder().withUserName("Test_" + get6DigitRandomInt() + get6DigitRandomInt()).build();
+        User user = new UserBuilder().withUserName("Test_" + get3DigitRandomInt() + get3DigitRandomInt()).build();
         CreateUserRequest request = new CreateUserRequestBuilder().withRequestInfo(requestInfo).withUser(user).build();
 
         Response response = new UserServiceResource().createUserWithoutValidationResource(RequestHelper.getJsonString(request));

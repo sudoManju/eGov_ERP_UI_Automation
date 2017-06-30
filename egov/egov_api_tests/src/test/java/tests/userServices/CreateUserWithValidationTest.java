@@ -55,7 +55,7 @@ public class CreateUserWithValidationTest extends BaseAPITest {
         new APILogger().log("Create User Test with OTP is started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         User user = new UserBuilder()
-                .withUserName("Test_" + get6DigitRandomInt() + get6DigitRandomInt())
+                .withUserName("Test_" + get3DigitRandomInt() + get3DigitRandomInt())
                 .withMobileNumber(validatedOtp.getOtp().getIdentity())
                 .withOtpReference(validatedOtp.getOtp().getUUID())
                 .build();
@@ -92,7 +92,7 @@ public class CreateUserWithValidationTest extends BaseAPITest {
 
     private OtpResponse createOtp() throws IOException {
         new APILogger().log("Create OTP Test is started ---");
-        String phoneNo = "9" + get6DigitRandomInt() + get6DigitRandomInt() + get6DigitRandomInt();
+        String phoneNo = "9" + get3DigitRandomInt() + get3DigitRandomInt() + get3DigitRandomInt();
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         Otp otp = new OtpBuilder().withIdentity(phoneNo).build();
         CreateOtpRequest request = new CreateOtpRequestBuilder().withRequestInfo(requestInfo).withOtp(otp).build();

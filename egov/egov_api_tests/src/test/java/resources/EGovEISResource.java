@@ -6,7 +6,7 @@ import utils.Properties;
 
 import static com.jayway.restassured.RestAssured.given;
 
-public class EgovEISResource extends Resource {
+public class EGovEISResource extends Resource {
 
     public Response searchAttendanceResource(String jsonData) {
         new APILogger().log("Search Attendance Request is started with -- " + jsonData);
@@ -55,19 +55,20 @@ public class EgovEISResource extends Resource {
     }
 
     public Response searchEmployee(String jsonData) {
-        new APILogger().log("Search createEmployee Request is started with -- " + jsonData);
+        new APILogger().log("Search Employee Request is started with -- " + jsonData);
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
                 .header("Content-Type", "application/json")
+                .header("cookie", "SESSIONID=" + scenarioContext.getSessionId())
                 .body(jsonData)
                 .when()
-                .post("http://10.0.0.151:32656/hr-employee/employees/_search?tenantId=ap.kurnool");
+                .post("http://kurnool-pilot-services.egovernments.org/hr-employee/employees/_search?tenantId=ap.kurnool");
 
-        new APILogger().log("Search createEmployee Response is generated as -- " + response.asString());
+        new APILogger().log("Search Employee Response is generated as -- " + response.asString());
         return response;
     }
 
-    public Response createEmployee(String jsonData,String s) {
+    public Response createEmployee(String jsonData, String s) {
         new APILogger().log("Create createEmployee Request Test is started with -- " + jsonData);
 
         Response response = given().request().with()
@@ -114,9 +115,10 @@ public class EgovEISResource extends Resource {
 
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
+                .header("cookie", "SESSIONID=" + scenarioContext.getSessionId())
                 .body(jsonData)
                 .when()
-                .post("http://10.0.0.151:32656/hr-leave/leaveopeningbalances/_create");
+                .post("http://kurnool-pilot-services.egovernments.org/hr-leave/leaveopeningbalances/_create");
 //                .post(Properties.createOpeningBalanceUrlUrl);
 
         new APILogger().log("Create HR Leave Opening Balance Test is completed with-- " + response.asString());
@@ -127,9 +129,10 @@ public class EgovEISResource extends Resource {
 
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
+                .header("cookie", "SESSIONID=" + scenarioContext.getSessionId())
                 .body(jsonData)
                 .when()
-                .post("http://10.0.0.151:32656/hr-leave/leaveopeningbalances/_search?tenantId=ap.kurnool" + path);
+                .post("http://kurnool-pilot-services.egovernments.org/hr-leave/leaveopeningbalances/_search?tenantId=ap.kurnool" + path);
 
         return response;
     }
@@ -139,9 +142,10 @@ public class EgovEISResource extends Resource {
         new APILogger().log("Update HR Leave Opening Balance Test is started with-- " + json);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
+                .header("cookie", "SESSIONID=" + scenarioContext.getSessionId())
                 .body(json)
                 .when()
-                .post("http://10.0.0.151:32656/hr-leave/leaveopeningbalances/" + id + "/_update");
+                .post("http://kurnool-pilot-services.egovernments.org/hr-leave/leaveopeningbalances/" + id + "/_update");
 
         new APILogger().log("Update HR Leave Opening Balance Test is completed with-- " + response.asString());
 

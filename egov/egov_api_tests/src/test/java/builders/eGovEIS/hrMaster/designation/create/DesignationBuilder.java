@@ -8,7 +8,7 @@ public class DesignationBuilder extends BaseAPITest {
     Designation designation = new Designation();
 
     public DesignationBuilder() {
-        String accountOfficerCode = get6DigitRandomInt();
+        String accountOfficerCode = get3DigitRandomInt();
         designation.setName("Accounts Officer" + accountOfficerCode);
         designation.setCode("AO" + accountOfficerCode);
         designation.setDescription("Accounts Officer" + accountOfficerCode);
