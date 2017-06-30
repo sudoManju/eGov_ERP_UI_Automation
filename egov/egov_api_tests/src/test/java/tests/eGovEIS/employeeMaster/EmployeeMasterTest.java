@@ -50,7 +50,7 @@ public class EmployeeMasterTest extends BaseAPITest {
     public void searchEmployeeTestMethod(CreateEmployeeResponse create){
         SearchEmployeeRequest request = new SearchEmployeeRequestBuilder().build();
 
-        Response response = new EgovEISResource().searchEmployee(RequestHelper.getJsonString(request),CODE1+create.getEmployee().getCode());
+        Response response = new EGovEISResource().searchEmployee(RequestHelper.getJsonString(request),CODE1+create.getEmployee().getCode());
 
         Assert.assertEquals(response.getStatusCode(),200);
     }
