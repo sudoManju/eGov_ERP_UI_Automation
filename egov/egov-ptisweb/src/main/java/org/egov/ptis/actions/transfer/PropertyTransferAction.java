@@ -264,7 +264,8 @@ public class PropertyTransferAction extends GenericWorkFlowAction {
     private String applicationSource;
     private List<String> guardianRelations;
     private Boolean citizenPortalUser = Boolean.FALSE;
-    
+    private Boolean showAckBtn = Boolean.FALSE;
+
     public PropertyTransferAction() {
         addRelatedEntity("mutationReason", PropertyMutationMaster.class);
     }
@@ -459,6 +460,11 @@ public class PropertyTransferAction extends GenericWorkFlowAction {
             else
                 return EDIT;
         }
+        if (mutationId != null) {
+            propertyMutation = (PropertyMutation) persistenceService.find("From PropertyMutation where id = ? ",
+                    mutationId);
+            persistenceService.getSession().refresh(propertyMutation);
+        }
 
         Assignment wfInitiator = null;
         String loggedInUserDesignation = "";
@@ -469,7 +475,7 @@ public class PropertyTransferAction extends GenericWorkFlowAction {
                     propertyMutation.getCurrentState().getOwnerPosition().getId(), user.getId(), new Date());
             loggedInUserDesignation = !loggedInUserAssign.isEmpty() ? loggedInUserAssign.get(0).getDesignation().getName() : null;
         }
-        if (isRoOrCommissioner(loggedInUserDesignation)) {
+        if (propertyTaxCommonUtils.isRoOrCommissioner(loggedInUserDesignation)) {
             final Assignment assignmentOnreject = propertyService.getUserOnRejection(propertyMutation);
             wfInitiator = assignmentOnreject;
         } else if (BILL_COLLECTOR_DESGN.equalsIgnoreCase(loggedInUserDesignation)
@@ -504,34 +510,6 @@ public class PropertyTransferAction extends GenericWorkFlowAction {
         return ("Rejected".equals(propertyMutation.getState().getValue())
                 || propertyMutation.getType().equalsIgnoreCase(ADDTIONAL_RULE_FULL_TRANSFER))
                 && propertyMutation.getReceiptNum() != null && !receiptCanceled;
-    }
-
-    private boolean isRoOrCommissioner(final String loggedInUserDesignation) {
-        boolean isany;
-        if (!REVENUE_OFFICER_DESGN.equalsIgnoreCase(loggedInUserDesignation))
-            isany = isCommissioner(loggedInUserDesignation);
-        else
-            isany = true;
-        return isany;
-    }
-
-    private boolean isCommissioner(final String loggedInUserDesignation) {
-        boolean isanyone;
-        if (!ASSISTANT_COMMISSIONER_DESIGN.equalsIgnoreCase(loggedInUserDesignation)
-                || !ADDITIONAL_COMMISSIONER_DESIGN.equalsIgnoreCase(loggedInUserDesignation))
-            isanyone = isDeputyOrAbove(loggedInUserDesignation);
-        else
-            isanyone = true;
-        return isanyone;
-    }
-
-    private boolean isDeputyOrAbove(final String loggedInUserDesignation) {
-        boolean isanyone = false;
-        if (DEPUTY_COMMISSIONER_DESIGN.equalsIgnoreCase(loggedInUserDesignation)
-                || COMMISSIONER_DESGN.equalsIgnoreCase(loggedInUserDesignation)
-                || ZONAL_COMMISSIONER_DESIGN.equalsIgnoreCase(loggedInUserDesignation))
-            isanyone = true;
-        return isanyone;
     }
 
     @ValidationErrorPage(value = EDIT)
@@ -902,7 +880,7 @@ public class PropertyTransferAction extends GenericWorkFlowAction {
             final String approvalmesg = " Succesfully Cancelled.";
             ackMessage = ackMessage == null ? approvalmesg : ackMessage + approvalmesg;
         }
-
+        checkToDisplayAckButton();
     }
 
     public void buildSMS(final PropertyMutation propertyMutation) {
@@ -1316,6 +1294,10 @@ public class PropertyTransferAction extends GenericWorkFlowAction {
                                 securityUtils.getCurrentUser().getId())
                         : null;
     }
+    private void checkToDisplayAckButton() {
+          if(getModel().getId() == null)
+            showAckBtn = Boolean.TRUE;
+    }
 
     public boolean isAllowEditDocument() {
         return allowEditDocument;
@@ -1364,5 +1346,12 @@ public class PropertyTransferAction extends GenericWorkFlowAction {
     public void setCitizenPortalUser(Boolean citizenPortalUser) {
         this.citizenPortalUser = citizenPortalUser;
     }
-	
+
+    public Boolean getShowAckBtn() {
+        return showAckBtn;
+    }
+
+    public void setShowAckBtn(final Boolean showAckBtn) {
+        this.showAckBtn = showAckBtn;
+    }
 }

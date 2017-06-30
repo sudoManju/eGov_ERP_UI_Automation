@@ -1,5 +1,5 @@
 /*
- * eGov suite of products aim to improve the internal efficiency,transparency,
+ *    eGov  SmartCity eGovernance suite aims to improve the internal efficiency,transparency,
  *    accountability and the service delivery of the government  organizations.
  *
  *     Copyright (C) <2015>  eGovernments Foundation
@@ -26,6 +26,13 @@
  *
  *         1) All versions of this program, verbatim or modified must carry this
  *            Legal Notice.
+ *           Further, all user interfaces, including but not limited to citizen facing interfaces,
+ *           Urban Local Bodies interfaces, dashboards, mobile applications, of the program and any
+ *           derived works should carry eGovernments Foundation logo on the top right corner.
+ *
+ * 	       For the logo, please refer http://egovernments.org/html/logo/egov_logo.png.
+ * 	       For any further queries on attribution, including queries on brand guidelines,
+ *           please contact contact@egovernments.org
  *
  *         2) Any misrepresentation of the origin of the material is prohibited. It
  *            is required that all modified versions of this material be marked in
@@ -37,43 +44,25 @@
  *
  *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
-package org.egov.egf.contract.model;
 
-import java.util.ArrayList;
+package org.egov.pgr.repository;
+
+import org.egov.infstr.services.Page;
+import org.egov.pgr.entity.dto.DrillDownReportRequest;
+import org.egov.pgr.entity.view.DrillDownReports;
+
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+public interface ComplainttypewiseReportRepositoryCustom {
 
-public class VoucherContractResponse {
+    Page<DrillDownReports> findComplainttypewiseRecord(DrillDownReportRequest reportRequest);
 
-    @JsonProperty("Vouchers")
-    private List<VoucherResponse> vouchers = new ArrayList<>(0);
-    @JsonProperty("ResponseInfo")
-    private ResponseInfo responseInfo;
-    private PageContract page;
+    Page<DrillDownReports> findComplainttypewiseRecordsByComplaintId(DrillDownReportRequest reportRequest);
 
-    public List<VoucherResponse> getVouchers() {
-        return vouchers;
-    }
+    Object[] findGrandTotal(DrillDownReportRequest reportRequest);
 
-    public void setVouchers(final List<VoucherResponse> vouchers) {
-        this.vouchers = vouchers;
-    }
+    List<DrillDownReports> findComplainttypewiseRecordlistByComplaintId(DrillDownReportRequest reportRequest);
 
-    public ResponseInfo getResponseInfo() {
-        return responseInfo;
-    }
-
-    public void setResponseInfo(final ResponseInfo responseInfo) {
-        this.responseInfo = responseInfo;
-    }
-
-    public PageContract getPage() {
-        return page;
-    }
-
-    public void setPage(final PageContract page) {
-        this.page = page;
-    }
+    List<DrillDownReports> findComplainttypewiseRecordList(DrillDownReportRequest reportRequest);
 
 }

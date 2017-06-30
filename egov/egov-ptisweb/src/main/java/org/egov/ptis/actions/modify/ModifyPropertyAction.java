@@ -54,6 +54,7 @@ import static org.egov.ptis.constants.PropertyTaxConstants.ARR_DMD_STR;
 import static org.egov.ptis.constants.PropertyTaxConstants.ASSISTANT_ROLE;
 import static org.egov.ptis.constants.PropertyTaxConstants.BIFURCATION_OF_ASSESSMENT;
 import static org.egov.ptis.constants.PropertyTaxConstants.BILL_COLLECTOR_DESGN;
+import static org.egov.ptis.constants.PropertyTaxConstants.TAX_COLLECTOR_DESGN;
 import static org.egov.ptis.constants.PropertyTaxConstants.BUILT_UP_PROPERTY;
 import static org.egov.ptis.constants.PropertyTaxConstants.CATEGORY_MIXED;
 import static org.egov.ptis.constants.PropertyTaxConstants.CATEGORY_NON_RESIDENTIAL;
@@ -791,6 +792,8 @@ public class ModifyPropertyAction extends PropertyTaxBaseAction {
 		transitionWorkFlow(propertyModel);
 		propService.updateIndexes(propertyModel, getApplicationType());
 		basicPropertyService.update(basicProp);
+		if (propertyModel.getSource().equalsIgnoreCase(Source.CITIZENPORTAL.toString()))
+			propService.updatePortal(propertyModel, getApplicationType());
 		setModifyRsn(propertyModel.getPropertyDetail().getPropertyMutationMaster().getCode());
 		prepareAckMsg();
 		buildEmailandSms(propertyModel, APPLICATION_TYPE_ALTER_ASSESSENT);
@@ -839,6 +842,8 @@ public class ModifyPropertyAction extends PropertyTaxBaseAction {
 		propService.updateIndexes(propertyModel, getApplicationType());
 		basicPropertyService.update(basicProp);
 		setBasicProp(basicProp);
+		if (propertyModel.getSource().equalsIgnoreCase(Source.CITIZENPORTAL.toString()))
+			propService.updatePortal(propertyModel, getApplicationType());
 		setAckMessage(getText(PROPERTY_MODIFY_APPROVE_SUCCESS,
 				new String[] { getModifyReasonString(), propertyModel.getBasicProperty().getUpicNo() }));
 		buildEmailandSms(propertyModel, getApplicationType());
@@ -930,6 +935,8 @@ public class ModifyPropertyAction extends PropertyTaxBaseAction {
 			propService.updateIndexes(propertyModel, getApplicationType());
 			propertyImplService.update(propertyModel);
 			setModifyRsn(propertyModel.getPropertyDetail().getPropertyMutationMaster().getCode());
+			if (propertyModel.getSource().equalsIgnoreCase(Source.CITIZENPORTAL.toString()))
+				propService.updatePortal(propertyModel, getApplicationType());
 		}
 		final String username = getInitiator();
 
@@ -974,11 +981,12 @@ public class ModifyPropertyAction extends PropertyTaxBaseAction {
 		return wfInitiator;
 	}
 
-	private boolean isCommissionerRoOrBillCollector() {
-		return StringUtils.containsIgnoreCase(userDesignationList, BILL_COLLECTOR_DESGN)
-				|| StringUtils.containsIgnoreCase(userDesignationList, COMMISSIONER_DESGN)
-				|| StringUtils.containsIgnoreCase(userDesignationList, REVENUE_OFFICER_DESGN);
-	}
+    private boolean isCommissionerRoOrBillCollector() {
+        return StringUtils.containsIgnoreCase(userDesignationList, BILL_COLLECTOR_DESGN)
+                || StringUtils.containsIgnoreCase(userDesignationList, TAX_COLLECTOR_DESGN)
+                || StringUtils.containsIgnoreCase(userDesignationList, COMMISSIONER_DESGN)
+                || StringUtils.containsIgnoreCase(userDesignationList, REVENUE_OFFICER_DESGN);
+    }
 
 	private void getAckMsg(final String username, final Assignment wfInitiator) {
 		if (wfInitiator != null) {
