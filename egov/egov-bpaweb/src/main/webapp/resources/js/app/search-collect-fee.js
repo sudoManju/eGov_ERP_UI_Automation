@@ -108,17 +108,25 @@ $(document)
 														"render" : function(
 																data, type,
 																row, meta) {
-																return ('<select class="dropchange"><option value="">Select from Below</option><option  value='
-																		+ collecturl
-																		+ row.applicationNumber + '>Collect Fees</option>'
-																		+'<option  value=' + viewurl + row.applicationNumber + '>View</option></select>');
+															
+															if ((row.status == 'Approved' || row.status == 'Registered') && row.isFeeCollected) {
+																return '<button type="button" class="btn btn-xs btn-secondary dropchange" value='
+																+ collecturl
+																+ row.applicationNumber
+																+ '><span class="glyphicon glyphicon-view"></span>&nbsp;Collect Fee</button>';
+															} else {
+																return '<button type="button" class="btn btn-xs btn-secondary dropchange" value='
+																+ viewurl
+																+ row.applicationNumber
+																+ '><span class="glyphicon glyphicon-view"></span>&nbsp;View</button>';
+															}
 														}
 													} ]
 										});
 					}
 					
 					
-					$(document).on('change','.dropchange',function(){
+					$(document).on('click','.dropchange',function(){
 					    var url = $(this).val();
 					    if(url){
 					    	openPopup(url);

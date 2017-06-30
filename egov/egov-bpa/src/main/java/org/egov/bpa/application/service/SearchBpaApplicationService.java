@@ -49,6 +49,7 @@ import javax.persistence.PersistenceContext;
 
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.dto.SearchBpaApplicationForm;
+import org.egov.bpa.service.BpaDemandService;
 import org.egov.bpa.service.BpaThirdPartyService;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -65,6 +66,8 @@ public class SearchBpaApplicationService {
 
     @Autowired
     private BpaThirdPartyService bpaThirdPartyService;
+    @Autowired
+    private  BpaDemandService bpaDemandService;
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -137,9 +140,7 @@ public class SearchBpaApplicationService {
                         ? bpaApplication.getSiteDetail().get(0).getLocationBoundary().getName() : "");
                 searchBpaApplicationForm.setReSurveyNumber(bpaApplication.getSiteDetail().get(0).getReSurveyNumber());
             }
-            searchBpaApplicationForm.setFeeCollected(
-                    bpaApplication.getDemand().getBaseDemand().compareTo(bpaApplication.getDemand().getAmtCollected()) <= 0 ? true
-                            : false);
+            searchBpaApplicationForm.setFeeCollected(bpaDemandService.checkAnyTaxIsPendingToCollect(bpaApplication));
             searchBpaApplicationForm
                     .setAddress(bpaApplication.getOwner() != null && !bpaApplication.getOwner().getUser().getAddress().isEmpty()
                             ? bpaApplication.getOwner().getUser().getAddress().get(0).getStreetRoadLine() : "");
@@ -152,7 +153,7 @@ public class SearchBpaApplicationService {
     public List<SearchBpaApplicationForm> searchForCollectionPending(final SearchBpaApplicationForm bpaApplicationForm) {
         final Criteria criteria = buildSearchCriteria(bpaApplicationForm);
             criteria.createAlias("bpaApplication.status", "status")
-                    .add(Restrictions.eq("status.code", "Approved"));
+                    .add(Restrictions.in("status.code", new String[] { "Approved","Registered" }));
         return buildApplicationDetailsResponse(criteria);
     }
     public Criteria buildSearchCriteria(final SearchBpaApplicationForm searchBpaApplicationForm) {
