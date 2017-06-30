@@ -43,9 +43,12 @@ public class EgovEISResource extends Resource {
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
                 .header("Content-Type", "application/json")
+                .header("cookie","SESSIONID="+scenarioContext.getSessionId())
                 .body(jsonData)
                 .when()
                 .post(Properties.searchEmployeeURL + criteria);
+
+        System.out.println(Properties.searchEmployeeURL + criteria);
 
         new APILogger().log("Search createEmployee Response is generated as -- " + response.asString());
         return response;
@@ -73,8 +76,6 @@ public class EgovEISResource extends Resource {
                 .body(jsonData)
                 .when()
                 .post(Properties.createEmployeeUrl);
-
-        System.out.println(Properties.createEmployeeUrl);
 
         new APILogger().log("Create createEmployee Response Test is generated as -- " + response.asString());
         return response;

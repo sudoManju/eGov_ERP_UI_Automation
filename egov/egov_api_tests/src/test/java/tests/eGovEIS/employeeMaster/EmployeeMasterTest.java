@@ -1,9 +1,6 @@
 package tests.eGovEIS.employeeMaster;
 
-import builders.eGovEIS.emp.AssignmentsBuilder;
-import builders.eGovEIS.emp.CreateEmployeeRequestBuilder;
-import builders.eGovEIS.emp.EmployeeBuilder;
-import builders.eGovEIS.emp.UserBuilder;
+import builders.eGovEIS.emp.*;
 import com.jayway.restassured.response.Response;
 import entities.requests.eGovEIS.emp.*;
 import entities.responses.eGovEIS.createEmp.CreateEmployeeResponse;
@@ -15,6 +12,8 @@ import utils.*;
 
 import java.io.IOException;
 
+import static data.SearchParameterData.CODE;
+import static data.SearchParameterData.CODE1;
 import static data.UserData.ADMIN;
 
 public class EmployeeMasterTest extends BaseAPITest {
@@ -24,12 +23,14 @@ public class EmployeeMasterTest extends BaseAPITest {
 
         LoginAndLogoutHelper.loginFromPilotService(ADMIN);   //Login
 
-        createEmployeeTestMethod(scenarioContext.getSessionId());  //Create
+        CreateEmployeeResponse create = createEmployeeTestMethod(scenarioContext.getSessionId());  //Create
+
+        searchEmployeeTestMethod(create);
 
         LoginAndLogoutHelper.logoutFromPilotService();  //Logout
     }
 
-    public void createEmployeeTestMethod(String sessionId) throws IOException {
+    public CreateEmployeeResponse createEmployeeTestMethod(String sessionId) throws IOException {
         String date = getRandomDate();
         Assignments assignments1 = new AssignmentsBuilder().withFromDate(date).withToDate(date).build();
         Assignments[] assignments = {assignments1};
@@ -40,6 +41,16 @@ public class EmployeeMasterTest extends BaseAPITest {
         Response response = new EgovEISResource().createEmployee(RequestHelper.getJsonString(employeeRequest),sessionId);
         CreateEmployeeResponse employeeResponse = (CreateEmployeeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(),CreateEmployeeResponse.class);
+
+        Assert.assertEquals(response.getStatusCode(),200);
+
+        return employeeResponse;
+    }
+
+    public void searchEmployeeTestMethod(CreateEmployeeResponse create){
+        SearchEmployeeRequest request = new SearchEmployeeRequestBuilder().build();
+
+        Response response = new EgovEISResource().searchEmployee(RequestHelper.getJsonString(request),CODE1+create.getEmployee().getCode());
 
         Assert.assertEquals(response.getStatusCode(),200);
     }

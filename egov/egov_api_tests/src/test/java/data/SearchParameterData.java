@@ -6,4 +6,5 @@ public interface SearchParameterData {
     String CODE = "&code=";
     String NAME = "&name=";
     String NAMELOCAL = "&nameLocal=";
+    String CODE1 = "?code=";
 }

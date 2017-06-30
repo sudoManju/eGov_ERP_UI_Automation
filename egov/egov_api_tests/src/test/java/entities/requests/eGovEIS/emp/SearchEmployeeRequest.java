@@ -1,7 +1,10 @@
 package entities.requests.eGovEIS.emp;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 public class SearchEmployeeRequest {
 
+    @JsonProperty("RequestInfo")
     private RequestInfo requestInfo;
 
     public RequestInfo getRequestInfo() {

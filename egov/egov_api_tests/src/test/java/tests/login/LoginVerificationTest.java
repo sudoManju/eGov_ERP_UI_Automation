@@ -18,13 +18,13 @@ import static data.UserData.NARASAPPA;
 
 public class LoginVerificationTest extends BaseAPITest {
 
-    @Test(groups = {Categories.LOGIN})
+    @Test(groups = {Categories.LOGIN, Categories.DEV, Categories.QA})
     public void shouldAllowLoginAndLogoutToAnExistingUser() throws IOException {
         LoginAndLogoutHelper.login(NARASAPPA); // Login
         LoginAndLogoutHelper.logout(); // Logout
     }
 
-    @Test(groups = {Categories.LOGIN})
+    @Test(groups = {Categories.LOGIN, Categories.DEV, Categories.QA})
     public void shouldNotAllowLogoutWithInvalidCredentials() throws IOException {
         LoginResponse loginResponse = LoginAndLogoutHelper.login(NARASAPPA); // Login Test
         Response response1 = new LoginResource().inValidLogout(loginResponse.getAccess_token()); // Invalid Logout
@@ -32,7 +32,7 @@ public class LoginVerificationTest extends BaseAPITest {
         new APILogger().log("Logout Test Failed is Completed -- ");
     }
 
-    @Test(groups = {Categories.LOGIN})
+    @Test(groups = {Categories.LOGIN, Categories.DEV, Categories.QA})
     public void shouldNotAllowLoginWithInvalidCredentials() throws IOException {
         LoginRequest request = new LoginRequestBuilder().withPassword("").build(); // Invalid Login
         Response response = new LoginResource().login(RequestHelper.asMap(request));
