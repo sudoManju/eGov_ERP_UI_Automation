@@ -163,7 +163,7 @@ public class SearchHelper extends BaseAPITest {
         Assert.assertEquals(response1.getWoodTypes()[0].getId(), requestObject.getWoodTypes()[0].getId());
         Assert.assertEquals(response1.getWoodTypes()[0].getName(), requestObject.getWoodTypes()[0].getName());
         Assert.assertEquals(response1.getWoodTypes()[0].getCode(), requestObject.getWoodTypes()[0].getCode());
-//        Assert.assertEquals(response1.getWoodTypes()[0].getNameLocal(),requestObject.getWoodTypes()[0].getNameLocal());
+        Assert.assertEquals(response1.getWoodTypes()[0].getNameLocal(),requestObject.getWoodTypes()[0].getNameLocal());
     }
 
     public void searchPropertyTypeMaster(PropertyTypesResponse createObject) throws IOException {
