@@ -139,6 +139,15 @@ public class NewApplicationController extends BpaGenericApplicationController {
             model.addAttribute("mode", "new");
             return NEWAPPLICATION_FORM;
         }
+        if (userService.getUserByUsername(bpaApplication.getOwner().getUser()
+				.getEmailId()) != null){
+            model.addAttribute("noJAORSAMessage", "Login UserName with this EmailId is already mapped with other mobile No. Please enter different emailId.");
+            bpaApplication.setApplicationDate(new Date());
+            model.addAttribute("mode", "new");
+            model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
+            model.addAttribute("genderList", Arrays.asList(Gender.values()));
+            return NEWAPPLICATION_FORM;
+        }
         workFlowAction = request.getParameter("workFlowAction");
         List<ApplicationStakeHolder> applicationStakeHolders = new ArrayList<>();
         ApplicationStakeHolder applicationStakeHolder = new ApplicationStakeHolder();

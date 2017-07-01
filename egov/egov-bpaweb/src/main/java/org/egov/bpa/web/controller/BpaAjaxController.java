@@ -180,5 +180,12 @@ public class BpaAjaxController {
     	}
         return user; 
     }
+    
+    @RequestMapping(value = "/getApplicantDetailsForEmailId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public User getApplicantDetailsForEmailId(@RequestParam final String emailId) {
+    	return userService.getUserByUsername(emailId); 
+    }
+    
 
 }

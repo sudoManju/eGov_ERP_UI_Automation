@@ -68,6 +68,7 @@ import org.egov.eis.service.PositionMasterService;
 import org.egov.infra.admin.master.entity.AppConfigValues;
 import org.egov.infra.admin.master.entity.User;
 import org.egov.infra.admin.master.service.AppConfigValueService;
+import org.egov.infra.admin.master.service.UserService;
 import org.egov.infra.security.utils.SecurityUtils;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
 import org.egov.pims.commons.Position;
@@ -101,6 +102,8 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
     private AppConfigValueService appConfigValueService;
     @Autowired
     private PositionMasterService positionMasterService;
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "/newconstruction-form", method = GET)
     public String showNewApplicationForm(@ModelAttribute final BpaApplication bpaApplication, final Model model,
@@ -201,12 +204,20 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
                             && bpaApplication.getSiteDetail().get(0).getElectionBoundary() != null
                                     ? bpaApplication.getSiteDetail().get(0).getElectionBoundary().getId() : null);
         if (bpaUtils.logedInuseCitizenOrBusinessUser() && workFlowAction != null
-                && workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)) {
+                && workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)) {  
             if ((userPosition == 0 || userPosition == null)) {
                 model.addAttribute("noJAORSAMessage", "No Superintendant exists to forward the application.");
                 return loadNewForm(bpaApplication, model, bpaApplication.getServiceType().getCode());
             }
         }
+		if (userService.getUserByUsername(bpaApplication.getOwner().getUser()
+				.getEmailId()) != null) {
+			model.addAttribute(
+					"noJAORSAMessage",
+					"Login UserName with this EmailId is already mapped with other mobile No. Please enter different emailId.");
+			return loadNewForm(bpaApplication, model, bpaApplication
+					.getServiceType().getCode());
+		}
        	User user = securityUtils.getCurrentUser();
 		StakeHolder stakeHolder = stakeHolderService.findById(user.getId());
 		ApplicationStakeHolder applicationStakeHolder = new ApplicationStakeHolder();

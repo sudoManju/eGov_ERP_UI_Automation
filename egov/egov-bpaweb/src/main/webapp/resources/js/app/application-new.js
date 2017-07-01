@@ -327,6 +327,26 @@ $('#mobileNumber').change(function(){
 	});
 });
 
+$('#emailId').change(function(){
+	jQuery.ajax({
+		url: "/bpa/getApplicantDetailsForEmailId",
+		type: "GET",
+		data: {
+			emailId : $('#emailId').val()
+		},
+		cache : false,
+		dataType: "json",
+		success: function (response) {
+				if(response.id!=undefined){
+					bootbox.alert("Login UserName with this EmailId is already mapped with other mobile No. Please enter different emailId.");
+					jQuery('#emailId').val("");
+				}
+		}, 
+		error: function (response) {
+		}
+	});
+});
+
 // Instantiate the stakeholder name Bloodhound suggestion engine
 var stakeholderengine = new Bloodhound({
 	datumTokenizer : function(datum) {
