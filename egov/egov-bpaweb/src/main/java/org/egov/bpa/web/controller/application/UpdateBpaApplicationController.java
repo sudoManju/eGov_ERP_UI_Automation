@@ -326,13 +326,8 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 }
             }
         }
-        if (bpaApplication.getOwner().getPermanentAddress() != null
-                && bpaApplication.getOwner().getPermanentAddress().getStreetRoadLine() != null
-                && !bpaApplication.getOwner().getPermanentAddress().getStreetRoadLine().isEmpty())
-            bpaApplication.getOwner().getUser().getAddress().get(0)
-                    .setStreetRoadLine(bpaApplication.getOwner().getPermanentAddress().getStreetRoadLine());
         if (!bpaApplication.getApplicationDocument().isEmpty())
-        	applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder); 
+        	applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);  
         if(bpaApplication.getCurrentState().getValue().equals(BpaConstants.WF_NEW_STATE)){
       	   return applicationBpaService.redirectToCollectionOnForward(bpaApplication,model);
            }

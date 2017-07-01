@@ -50,7 +50,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.egov.bpa.application.entity.Applicant;
 import org.egov.bpa.application.entity.ApplicationDocument;
 import org.egov.bpa.application.entity.ApplicationStakeHolder;
 import org.egov.bpa.application.entity.BpaApplication;
@@ -65,17 +64,15 @@ import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.bpa.web.controller.application.BpaGenericApplicationController;
 import org.egov.commons.entity.Source;
+import org.egov.eis.service.PositionMasterService;
 import org.egov.infra.admin.master.entity.AppConfigValues;
 import org.egov.infra.admin.master.entity.User;
 import org.egov.infra.admin.master.service.AppConfigValueService;
-import org.egov.infra.admin.master.service.RoleService;
-import org.egov.infra.admin.master.service.UserService;
-import org.egov.infra.config.properties.ApplicationProperties;
-import org.egov.infra.persistence.entity.enums.UserType;
 import org.egov.infra.security.utils.SecurityUtils;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
+import org.egov.pims.commons.Position;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -99,22 +96,11 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
     @Autowired
     private StakeHolderService stakeHolderService;
     @Autowired
-    private ApplicationProperties applicationProperties;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private RoleService roleService;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
     private GenericBillGeneratorService genericBillGeneratorService;
-
     @Autowired
     private AppConfigValueService appConfigValueService;
+    @Autowired
+    private PositionMasterService positionMasterService;
 
     @RequestMapping(value = "/newconstruction-form", method = GET)
     public String showNewApplicationForm(@ModelAttribute final BpaApplication bpaApplication, final Model model,
@@ -221,15 +207,11 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
                 return loadNewForm(bpaApplication, model, bpaApplication.getServiceType().getCode());
             }
         }
-        if (validateApplicantDtls_unique_email(bpaApplication.getOwner()) != null) {
-            model.addAttribute("noJAORSAMessage", "Applicant/User with given emailId already exists.");
-            return loadNewForm(bpaApplication, model, bpaApplication.getServiceType().getCode());
-        }
-		User user = securityUtils.getCurrentUser();
+       	User user = securityUtils.getCurrentUser();
 		StakeHolder stakeHolder = stakeHolderService.findById(user.getId());
 		ApplicationStakeHolder applicationStakeHolder = new ApplicationStakeHolder();
 		applicationStakeHolder.setApplication(bpaApplication);
-		applicationStakeHolder.setStakeHolder(stakeHolder);
+		applicationStakeHolder.setStakeHolder(stakeHolder); 
 		bpaApplication.getStakeHolder().add(applicationStakeHolder);
 		if (!applicationBpaService.checkStakeholderIsValid(bpaApplication)) {
 			String message = applicationBpaService.getValidationMessageForBusinessResgistration(bpaApplication);
@@ -248,33 +230,33 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
 		}
 		bpaApplication.setAdmissionfeeAmount(applicationBpaService.setAdmissionFeeAmountForRegistrationWithAmenities(
 				bpaApplication.getServiceType().getId(), new ArrayList<ServiceType>()));
-		User applicantUser = new User();
-		applicantUser.setName(bpaApplication.getOwner().getUser().getName());
-		applicantUser.setMobileNumber(bpaApplication.getOwner().getUser().getMobileNumber());
-		applicantUser.setEmailId(bpaApplication.getOwner().getUser().getEmailId());
-		applicantUser.setGender(bpaApplication.getOwner().getUser().getGender());
-		applicantUser.setUsername(bpaApplication.getOwner().getUser().getEmailId());
-		applicantUser.updateNextPwdExpiryDate(applicationProperties.userPasswordExpiryInDays());
-		applicantUser.setPassword(passwordEncoder.encode(bpaApplication.getOwner().getUser().getMobileNumber()));
-		applicantUser.setType(UserType.CITIZEN);
-		applicantUser.setActive(true);
-		applicantUser.addRole(roleService.getRoleByName(BpaConstants.ROLE_CITIZEN));
-		applicantUser.addAddress(bpaApplication.getOwner().getPermanentAddress());
-		userService.createUser(applicantUser);
-		bpaApplication.getOwner().setUser(applicantUser);
+		if(bpaApplication.getOwner().getUser()!=null && bpaApplication.getOwner().getUser().getId()!=null){
+			if(!bpaApplication.getOwner().getUser().isActive())
+				bpaApplication.getOwner().getUser().setActive(true);
+		}else{
+			bpaApplication.getOwner().setUser(applicationBpaService.createApplicantAsUser(bpaApplication));
+		}
         BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication, workFlowAction);
         if (bpaUtils.logedInuseCitizenOrBusinessUser()) {
             bpaUtils.createPortalUserinbox(bpaApplicationRes,  
                     Arrays.asList(bpaApplicationRes.getOwner().getUser(), securityUtils.getCurrentUser()));
+            if (workFlowAction != null
+    				&& workFlowAction
+    						.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)){
+	            Position pos = positionMasterService.getPositionById(bpaApplicationRes.getCurrentState().getOwnerPosition().getId());
+	            User wfUser = bpaThirdPartyService.getUserPositionByPassingPosition(pos.getId());
+	            String message = messageSource.getMessage("msg.portal.forward.registration", new String[] {
+	            		wfUser != null ? wfUser.getUsername().concat("~")
+	                            .concat(pos.getDeptDesig() != null && pos.getDeptDesig().getDesignation() != null
+	                                    ? pos.getDeptDesig().getDesignation().getName() : "")
+	                            : "",
+	                            bpaApplicationRes.getApplicationNumber() }, LocaleContextHolder.getLocale());
+	            model.addAttribute("message",message);
+            }else
             model.addAttribute("message",
                     "Sucessfully saved with ApplicationNumber " + bpaApplicationRes.getApplicationNumber());
             bpaUtils.sendSmsEmailOnCitizenSubmit(bpaApplication, workFlowAction);
         }
         return BPAAPPLICATION_CITIZEN;
     }
-
-    private User validateApplicantDtls_unique_email(final Applicant owner) {
-        return userService.getUserByEmailId(owner.getUser().getEmailId());
-    }
-
 }

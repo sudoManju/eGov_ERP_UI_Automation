@@ -49,8 +49,11 @@ jQuery(document).ready(function() {
 		});
 	
 	$('.upload-file').removeAttr('required');
-	$("#mobileNumber").prop("disabled",true);
-	$("#emailId").prop("disabled",true);
+	$("#mobileNumber").prop("readOnly",true);
+	$("#name").prop("readOnly", true);
+	$("#emailId").prop("readOnly", true);
+	$('#gender').attr("style", "pointer-events: none;");
+	$("#address").prop("readOnly", true);
 	$("#admissionfeeAmount").prop("disabled",true);
 	$("#applicationDate").prop("disabled",true);
 	$("#stakeHolderTypeHead").prop("disabled",true);

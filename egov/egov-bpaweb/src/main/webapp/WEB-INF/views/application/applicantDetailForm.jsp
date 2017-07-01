@@ -54,6 +54,7 @@
 		<label class="col-sm-3 control-label text-right"><spring:message
 				code="lbl.applicant.name" /> <span class="mandatory"></span> </label>
 		<div class="col-sm-3 add-margin">
+			<form:hidden path="owner.user" id="userId" />
 			<form:input class="form-control patternvalidation"
 				data-pattern="alphabetspecialcharacters" maxlength="128"
 				id="name" path="owner.user.name"

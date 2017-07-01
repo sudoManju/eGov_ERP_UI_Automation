@@ -44,7 +44,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -58,6 +60,9 @@ import org.egov.eis.entity.Assignment;
 import org.egov.eis.entity.AssignmentAdaptor;
 import org.egov.eis.service.AssignmentService;
 import org.egov.eis.service.DesignationService;
+import org.egov.infra.admin.master.entity.User;
+import org.egov.infra.admin.master.service.UserService;
+import org.egov.infra.persistence.entity.enums.UserType;
 import org.egov.infra.workflow.matrix.service.CustomizedWorkFlowService;
 import org.egov.pims.commons.Designation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,6 +96,8 @@ public class BpaAjaxController {
     private StakeHolderService stakeHolderService;
     @Autowired
     private OccupancyService occupancyService;
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "/ajax/getAdmissionFees", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -156,4 +163,22 @@ public class BpaAjaxController {
     public List<Occupancy> getOccupancyDetails() {
     	return occupancyService.findAll();
     }
+    
+    @RequestMapping(value = "/getApplicantDetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Map getApplicantDetailsForMobileNumber(@RequestParam final String mobileNumber) {
+    	Map user = new HashMap<String, String>();
+    	List<User> userList = userService.getUserByMobileNumberAndType(mobileNumber, UserType.CITIZEN); 
+    	if(!userList.isEmpty()){
+    		User dbUser = userList.get(0);
+    		user.put("name", dbUser.getName());
+    		user.put("address", dbUser.getAddress().get(0).getStreetRoadLine());
+    		user.put("emailId", dbUser.getEmailId());
+    		user.put("gender", dbUser.getGender()); 
+    		user.put("id", dbUser.getId());
+    		
+    	}
+        return user; 
+    }
+
 }

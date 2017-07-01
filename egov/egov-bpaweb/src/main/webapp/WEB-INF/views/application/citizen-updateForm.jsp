@@ -111,9 +111,9 @@
 						value="CANCEL APPLICATION"> CANCEL APPLICATION </form:button>
 					</c:when>
 					<c:otherwise>
-						<form:button type="submit" id="buttonSubmit" class="btn btn-primary"
-								value="Submit">Submit</form:button>
-					</c:otherwise>
+							<form:button type="submit" id="buttonSubmit" class="btn btn-primary"
+									value="Submit">Submit</form:button>
+					</c:otherwise>	
 					</c:choose>
 						<input type="button" name="button2" id="button2" value="Close"
 							class="btn btn-primary" onclick="window.close();" />
@@ -128,11 +128,24 @@
 <script type="text/javascript">
 
 jQuery(document).ready(function() {
-
+	
+	$('#applicantDiv :input').attr('readOnly', true);
+	$('#gender').attr("style", "pointer-events: none;"); 
+	 
 	if($('#isCitizen').val() == 'true'){
-		$(':input').not('#applicantDiv :input').attr('readOnly', true);  
-		$('#buttonSubmit,#button2,#emailId,#mobileNumber').prop("readOnly",false);
-		$('#emailId,#mobileNumber').prop("readOnly",true);
+		$(':input').attr('readOnly', true);  
+		$('#buttonSubmit,#button2').prop("readOnly",false);
+		$('option:not(:selected)').attr('disabled', true);
+		if($('#validateCitizenAcceptance').val() == 'true'){
+			$('#citizenAccepted').prop("readOnly",false);
+			$("input[type=checkbox]:not('#citizenAccepted')") .on("click", function(e) {
+	            e.preventDefault();
+	        });
+		}else{
+			$("input[type=checkbox]") .on("click", function(e) {
+	            e.preventDefault();
+	        });
+		}
 	} else {
 		$("#applicantdet").prop("disabled",true);
 		$("#appDet").prop("disabled",true);
@@ -151,6 +164,7 @@ jQuery(document).ready(function() {
 			$('#constDiv').hide();
 		}
 	}
+
  $('#buttonSave').click(function() {
 				 if($('#citizenOrBusinessUser').val())
 					{// for citizen login
@@ -204,14 +218,10 @@ jQuery(document).ready(function() {
 			document.forms[0].submit();
 		
 	});
- $('#buttonPay').click(function() {
-		var button=$('#buttonPay').val();
+ $('#buttonCancel').click(function() {
+		var button=$('#buttonCancel').val();
 		document.getElementById("workFlowAction").value=button;
-		$("#applicantdet").prop("disabled",false);
-		$("#appDet").prop("disabled",false);
-		$("#serviceType").prop("disabled",false);
-		$("#admissionfeeAmount").prop("disabled",false);
-			document.forms[0].submit();
+		document.forms[0].submit();
 		
 	});
 });

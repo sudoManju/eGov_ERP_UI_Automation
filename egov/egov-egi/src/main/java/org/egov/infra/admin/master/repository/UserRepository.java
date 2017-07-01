@@ -85,4 +85,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Integer getUserSerialNumberByName(@Param("name") final String name);
 
     User findByNameAndMobileNumberAndGender(String name, String mobileNumber, Gender gender);
+    
+    List<User> findByMobileNumberAndTypeOrderById(String aadhaarNumber, UserType type); 
 }

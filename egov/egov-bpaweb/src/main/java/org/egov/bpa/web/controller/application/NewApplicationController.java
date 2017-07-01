@@ -139,15 +139,6 @@ public class NewApplicationController extends BpaGenericApplicationController {
             model.addAttribute("mode", "new");
             return NEWAPPLICATION_FORM;
         }
-        if (validateApplicantDtls_unique_email(bpaApplication.getOwner())!=null){
-            model.addAttribute("noJAORSAMessage", "Applicant/User with given emailId already exists.");
-            bpaApplication.setApplicationDate(new Date());
-            model.addAttribute("mode", "new");
-            model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
-            model.addAttribute("genderList", Arrays.asList(Gender.values()));
-            return NEWAPPLICATION_FORM;
-        }
-
         workFlowAction = request.getParameter("workFlowAction");
         List<ApplicationStakeHolder> applicationStakeHolders = new ArrayList<>();
         ApplicationStakeHolder applicationStakeHolder = new ApplicationStakeHolder();
@@ -158,29 +149,17 @@ public class NewApplicationController extends BpaGenericApplicationController {
         applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
         bpaApplication.setAdmissionfeeAmount(applicationBpaService.setAdmissionFeeAmountForRegistrationWithAmenities(
                 bpaApplication.getServiceType().getId(), new ArrayList<ServiceType>()));
-        User applicantUser = new User();
-		applicantUser.setName(bpaApplication.getOwner().getUser().getName());
-		applicantUser.setMobileNumber(bpaApplication.getOwner().getUser().getMobileNumber());
-		applicantUser.setEmailId(bpaApplication.getOwner().getUser().getEmailId());
-		applicantUser.setGender(bpaApplication.getOwner().getUser().getGender());
-		applicantUser.setUsername(bpaApplication.getOwner().getUser().getEmailId());
-		applicantUser.updateNextPwdExpiryDate(applicationProperties.userPasswordExpiryInDays());
-		applicantUser.setPassword(passwordEncoder.encode(bpaApplication.getOwner().getUser().getMobileNumber()));
-		applicantUser.setType(UserType.CITIZEN);
-		applicantUser.setActive(true);
-		applicantUser.addRole(roleService.getRoleByName(BpaConstants.ROLE_CITIZEN));
-		applicantUser.addAddress(bpaApplication.getOwner().getPermanentAddress());
-		userService.createUser(applicantUser);
-		bpaApplication.getOwner().setUser(applicantUser);
+        if(bpaApplication.getOwner().getUser()!=null && bpaApplication.getOwner().getUser().getId()!=null){
+			if(!bpaApplication.getOwner().getUser().isActive())
+				bpaApplication.getOwner().getUser().setActive(true);
+		}else{
+			bpaApplication.getOwner().setUser(applicationBpaService.createApplicantAsUser(bpaApplication));
+		}
         BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication, workFlowAction);
         bpaUtils.createPortalUserinbox(bpaApplicationRes,Arrays.asList(bpaApplicationRes.getOwner().getUser(),bpaApplicationRes.getStakeHolder().get(0).getStakeHolder()));
         bpaApplicationRes.setCitizenAccepted(true);
         bpaApplicationRes.setArchitectAccepted(true);
         return genericBillGeneratorService.generateBillAndRedirectToCollection(bpaApplicationRes, model);
-    }
-    
-    private User validateApplicantDtls_unique_email(final Applicant owner) {
-           return userService.getUserByEmailId(owner.getUser().getEmailId());
     }
 
     private String redirectOnValidationFailure(final Model model) {

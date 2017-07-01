@@ -45,7 +45,7 @@
 
 <div class="panel-heading custom_form_panel_heading">
 	<div class="panel-title">
-		<spring:message code="lbl.disclaimer" />
+		<spring:message code="lbl.disclaimer"/>
 	</div>
 </div>
 
@@ -53,7 +53,7 @@
 	<c:choose>
 	<c:when test="${isCitizen}"> <!-- for citizen user login -->
 		<div class="col-sm-12 text-center add-margin">
-			<div class="checkbox">
+			<div class="checkbox" style="font-size: 15px; color: red">
 			  <label><form:checkbox path="citizenAccepted" id="citizenAccepted" />
 				<form:errors path="citizenAccepted" cssClass="error-msg" /><spring:message
 			code="lbl.accepted" /><span class="mandatory"></span></label>
@@ -62,7 +62,7 @@
 	</c:when>
 	<c:otherwise>  <!-- for business user login -->
 		<div class="col-sm-12 text-center add-margin">
-		<div class="checkbox">
+		<div class="checkbox" style="font-size: 15px; color: red">
 			  <label><form:checkbox path="architectAccepted" id="architectAccepted" />
 				<form:errors path="architectAccepted" cssClass="error-msg" /><spring:message
 			code="lbl.accepted" /><span class="mandatory"></span></label>

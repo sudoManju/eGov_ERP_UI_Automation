@@ -294,6 +294,39 @@ function focusToTabElement(element) {
 			.tab('show');
 }
 
+$('#mobileNumber').change(function(){
+	jQuery.ajax({
+		url: "/bpa/getApplicantDetails",
+		type: "GET",
+		data: {
+			mobileNumber : $('#mobileNumber').val()
+		},
+		cache : false,
+		dataType: "json",
+		success: function (response) {
+				if(response.id!=undefined){
+					jQuery('#name').val(response.name);
+					jQuery('#emailId').val(response.emailId);
+					jQuery('#gender').val(response.gender);
+					jQuery('#address').val(response.address);
+					jQuery('#userId').val(response.id);
+					$("#name").prop("readOnly", true);
+					$("#emailId").prop("readOnly", true);
+					$('#gender').attr("style", "pointer-events: none;");
+					$("#address").prop("readOnly", true);
+				}else{
+					$("#name").prop("readOnly", false);
+					$("#emailId").prop("readOnly", false);
+					$('#gender').attr("style", "pointer-events:");
+					$("#address").prop("readOnly", false);
+					jQuery('#userId').val("");
+				}
+		}, 
+		error: function (response) {
+		}
+	});
+});
+
 // Instantiate the stakeholder name Bloodhound suggestion engine
 var stakeholderengine = new Bloodhound({
 	datumTokenizer : function(datum) {

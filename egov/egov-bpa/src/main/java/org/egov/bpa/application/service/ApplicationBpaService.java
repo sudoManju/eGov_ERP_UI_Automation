@@ -84,9 +84,13 @@ import org.egov.commons.entity.Source;
 import org.egov.demand.model.EgDemand;
 import org.egov.infra.admin.master.entity.Boundary;
 import org.egov.infra.admin.master.entity.User;
+import org.egov.infra.admin.master.service.RoleService;
+import org.egov.infra.admin.master.service.UserService;
+import org.egov.infra.config.properties.ApplicationProperties;
 import org.egov.infra.exception.ApplicationRuntimeException;
 import org.egov.infra.filestore.entity.FileStoreMapper;
 import org.egov.infra.filestore.service.FileStoreService;
+import org.egov.infra.persistence.entity.enums.UserType;
 import org.egov.infra.security.utils.SecurityUtils;
 import org.egov.infra.utils.ApplicationNumberGenerator;
 import org.egov.infra.utils.autonumber.AutonumberServiceBeanResolver;
@@ -97,6 +101,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -149,6 +154,14 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
     protected ApplicationFeeService applicationFeeService;
     @Autowired
     protected BpaDemandService bpaDemandService;
+    @Autowired
+    private ApplicationProperties applicationProperties;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private RoleService roleService;
+    @Autowired
+    private UserService userService;
 
     public Session getCurrentSession() {
         return entityManager.unwrap(Session.class);
@@ -508,5 +521,25 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
                     LocaleContextHolder.getLocale());
         }
         return message;
+    }
+    
+    /**
+     * @param bpaApplication
+     * @return
+     */
+    public User createApplicantAsUser(BpaApplication bpaApplication){
+    	User applicantUser = new User();
+		applicantUser.setName(bpaApplication.getOwner().getUser().getName());
+		applicantUser.setMobileNumber(bpaApplication.getOwner().getUser().getMobileNumber());
+		applicantUser.setEmailId(bpaApplication.getOwner().getUser().getEmailId());
+		applicantUser.setGender(bpaApplication.getOwner().getUser().getGender());
+		applicantUser.setUsername(bpaApplication.getOwner().getUser().getEmailId());
+		applicantUser.updateNextPwdExpiryDate(applicationProperties.userPasswordExpiryInDays());
+		applicantUser.setPassword(passwordEncoder.encode(bpaApplication.getOwner().getUser().getMobileNumber()));
+		applicantUser.setType(UserType.CITIZEN);
+		applicantUser.setActive(true);
+		applicantUser.addRole(roleService.getRoleByName(BpaConstants.ROLE_CITIZEN));
+		applicantUser.addAddress(bpaApplication.getOwner().getPermanentAddress());
+		return userService.createUser(applicantUser);
     }
 }
