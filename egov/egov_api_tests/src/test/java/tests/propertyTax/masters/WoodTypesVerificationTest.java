@@ -41,8 +41,8 @@ public class WoodTypesVerificationTest extends BaseAPITest {
 
     private WoodTypesResponse createWoodTypesMaster() throws IOException {
         new APILogger().log("Create WoodType Master is Started");
-        woodTypes[0] = new WoodTypesBuilder().withName("Test"+ get3DigitRandomInt()).withCode(get3DigitRandomInt())
-                .withNameLocal("Test_"+ get3DigitRandomInt()).build();
+        woodTypes[0] = new WoodTypesBuilder().withName("Test"+ get5DigitRandomInt()).withCode(get5DigitRandomInt())
+                .withNameLocal("Test_"+ get5DigitRandomInt()).build();
         WoodTypeMasterRequest request = new WoodTypeMasterRequestBuilder().withRequestInfo(requestInfo)
                 .withWoodType(woodTypes).build();
 
@@ -68,8 +68,8 @@ public class WoodTypesVerificationTest extends BaseAPITest {
 
     private WoodTypesResponse updateWoodTypesMaster(int id) throws IOException{
         new APILogger().log("Update WoodType Master is Started");
-        woodTypes[0] = new WoodTypesBuilder().withName("Test"+ get3DigitRandomInt()).withCode(get3DigitRandomInt())
-                .withId(id).withNameLocal("Test_"+ get3DigitRandomInt()).build();
+        woodTypes[0] = new WoodTypesBuilder().withName("Test"+ get5DigitRandomInt()).withCode(get5DigitRandomInt())
+                .withId(id).withNameLocal("Test_"+ get5DigitRandomInt()).build();
         WoodTypeMasterRequest request = new WoodTypeMasterRequestBuilder().withRequestInfo(requestInfo)
                 .withWoodType(woodTypes).build();
 

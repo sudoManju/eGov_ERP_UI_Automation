@@ -48,6 +48,10 @@ public class BaseAPITest {
         return String.valueOf((RandomUtils.nextInt(100, 999)));
     }
 
+    public String get5DigitRandomInt() {
+        return get3DigitRandomInt()+get3DigitRandomInt().substring(0,2);
+    }
+
     public String getCurrentDate() {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();

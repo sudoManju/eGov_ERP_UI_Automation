@@ -41,8 +41,8 @@ public class DepartmentVerificationTest extends BaseAPITest {
 
     private DepartmentsMasterResponse createDepartmentMaster() throws IOException {
         new APILogger().log("Create Department Master is Started");
-        departments[0] = new DepartmentsBuilder().withName("Test_"+ get3DigitRandomInt()).withCode(get3DigitRandomInt())
-                .withNameLocal("Test"+ get3DigitRandomInt()).build();
+        departments[0] = new DepartmentsBuilder().withName("Test_"+ get5DigitRandomInt()).withCode(get5DigitRandomInt())
+                .withNameLocal("Test"+ get5DigitRandomInt()).build();
         DepartmentMasterRequest request = new DepartmentMasterRequestBuilder().withRequestInfo(requestInfo)
                 .withDepartments(departments).build();
 
@@ -68,8 +68,8 @@ public class DepartmentVerificationTest extends BaseAPITest {
 
     private DepartmentsMasterResponse updateDepartmentsMaster(int id) throws IOException{
         new APILogger().log("Update Department Master is Started");
-        departments[0] = new DepartmentsBuilder().withName("Test_"+ get3DigitRandomInt()).withCode(get3DigitRandomInt())
-                .withNameLocal("Test"+ get3DigitRandomInt()).withId(id).build();
+        departments[0] = new DepartmentsBuilder().withName("Test_"+ get5DigitRandomInt()).withCode(get5DigitRandomInt())
+                .withNameLocal("Test"+ get5DigitRandomInt()).withId(id).build();
         DepartmentMasterRequest request = new DepartmentMasterRequestBuilder().withRequestInfo(requestInfo)
                 .withDepartments(departments).build();
 

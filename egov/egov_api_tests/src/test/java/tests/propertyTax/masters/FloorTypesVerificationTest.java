@@ -44,8 +44,8 @@ public class FloorTypesVerificationTest extends BaseAPITest {
 
     private FloorTypesResponse updateFloorTypesMaster(int id) throws IOException {
         new APILogger().log("Update Floor Types Master is Started --");
-        floorTypes[0] = new FloorTypesBuilder().withId(id).withName("Test_"+ get3DigitRandomInt()).withCode(get3DigitRandomInt())
-                .withNameLocal("Test_"+ get3DigitRandomInt()).build();
+        floorTypes[0] = new FloorTypesBuilder().withId(id).withName("Test_"+ get5DigitRandomInt()).withCode(get5DigitRandomInt())
+                .withNameLocal("Test_"+ get5DigitRandomInt()).build();
         FloorTypesRequest request = new FloorTypesRequestBuilder().withRequestInfo(requestInfo).withFloorTypes(floorTypes).build();
 
         Response response = new FloorTypesResource().update(RequestHelper.getJsonString(request));
@@ -57,8 +57,8 @@ public class FloorTypesVerificationTest extends BaseAPITest {
 
     private FloorTypesResponse createFloorTypesMaster() throws IOException {
         new APILogger().log("Create Floor Types Master is Started --");
-        floorTypes[0] = new FloorTypesBuilder().withName("Test_"+ get3DigitRandomInt()).withCode(get3DigitRandomInt())
-                .withNameLocal("Test_"+ get3DigitRandomInt()).build();
+        floorTypes[0] = new FloorTypesBuilder().withName("Test_"+ get5DigitRandomInt()).withCode(get5DigitRandomInt())
+                .withNameLocal("Test_"+ get5DigitRandomInt()).build();
         FloorTypesRequest request = new FloorTypesRequestBuilder().withRequestInfo(requestInfo).withFloorTypes(floorTypes).build();
 
         Response response = new FloorTypesResource().create(RequestHelper.getJsonString(request));

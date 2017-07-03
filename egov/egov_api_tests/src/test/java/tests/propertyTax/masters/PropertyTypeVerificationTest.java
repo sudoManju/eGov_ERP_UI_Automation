@@ -41,8 +41,8 @@ public class PropertyTypeVerificationTest extends BaseAPITest {
 
     private PropertyTypesResponse createPropertyTypeMaster() throws IOException {
         new APILogger().log("Create PropertyType Master is Started --");
-        propertyTypes[0] = new PropertyTypesBuilder().withName("Test_"+ get3DigitRandomInt()).withCode(get3DigitRandomInt())
-                .withNameLocal("Test_"+ get3DigitRandomInt()).withOrderNum(Integer.parseInt(get3DigitRandomInt())).build();
+        propertyTypes[0] = new PropertyTypesBuilder().withName("Test_"+ get5DigitRandomInt()).withCode(get5DigitRandomInt())
+                .withNameLocal("Test_"+ get5DigitRandomInt()).withOrderNum(Integer.parseInt(get5DigitRandomInt())).build();
         PropertyTypeRequest request = new PropertyTypesRequestBuilder().withRequestInfo(requestInfo)
                           .withPropertyTypes(propertyTypes).build();
 
@@ -70,8 +70,8 @@ public class PropertyTypeVerificationTest extends BaseAPITest {
     private PropertyTypesResponse updatePropertyTypeMaster(int id)throws IOException{
         new APILogger().log("Update PropertyType Master is Started --");
         propertyTypes[0] = new PropertyTypesBuilder().withId(id)
-                .withName("Test_"+ get3DigitRandomInt()).withCode(get3DigitRandomInt())
-                .withNameLocal("Test_"+ get3DigitRandomInt()).withOrderNum(Integer.parseInt(get3DigitRandomInt())).build();
+                .withName("Test_"+ get5DigitRandomInt()).withCode(get5DigitRandomInt())
+                .withNameLocal("Test_"+ get5DigitRandomInt()).withOrderNum(Integer.parseInt(get5DigitRandomInt())).build();
         PropertyTypeRequest request = new PropertyTypesRequestBuilder().withRequestInfo(requestInfo)
                 .withPropertyTypes(propertyTypes).build();
 

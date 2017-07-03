@@ -43,8 +43,8 @@ public class StructureClassVerificationTest extends BaseAPITest {
 
     private StructureClassResponse createStructureClass() throws IOException {
         new APILogger().log("Create StructureClass Master Started");
-        structureClasses[0] = new StructureClassesBuilder().withName("Test_"+ get3DigitRandomInt()).withCode(get3DigitRandomInt())
-                .withNameLocal("Test_"+ get3DigitRandomInt()).withOrderNumber(Integer.parseInt(get3DigitRandomInt())).build();
+        structureClasses[0] = new StructureClassesBuilder().withName("Test_"+ get5DigitRandomInt()).withCode(get5DigitRandomInt())
+                .withNameLocal("Test_"+ get5DigitRandomInt()).withOrderNumber(Integer.parseInt(get5DigitRandomInt())).build();
         StructureClassRequest request = new CreateStructureClassRequestBuilder().withRequestinfo(requestInfo)
                 .withStructureClasses(structureClasses)
                                         .build();
@@ -70,8 +70,8 @@ public class StructureClassVerificationTest extends BaseAPITest {
 
     private StructureClassResponse updateStructureClass(int id) throws IOException{
         new APILogger().log("Update StructureClass Master Started");
-        structureClasses[0] = new StructureClassesBuilder().withId(id).withName("Test_"+ get3DigitRandomInt()).withCode(get3DigitRandomInt())
-                .withNameLocal("Test_"+ get3DigitRandomInt()).build();
+        structureClasses[0] = new StructureClassesBuilder().withId(id).withName("Test_"+ get5DigitRandomInt()).withCode(get5DigitRandomInt())
+                .withNameLocal("Test_"+ get5DigitRandomInt()).build();
         StructureClassRequest request = new CreateStructureClassRequestBuilder().withRequestinfo(requestInfo)
                 .withStructureClasses(structureClasses)
                 .build();

@@ -43,8 +43,8 @@ public class WallTypeMasterVerificationTest extends BaseAPITest {
 
     private WallTypesResponse createWallTypeMasterTest() throws IOException {
         new APILogger().log("Create WallType Master is Started --");
-        wallTypes[0] = new WallTypesBuilder().withCode(get3DigitRandomInt())
-                .withName("Test_"+ get3DigitRandomInt()).withNameLocal("Test_"+ get3DigitRandomInt()).build();
+        wallTypes[0] = new WallTypesBuilder().withCode(get5DigitRandomInt())
+                .withName("Test_"+ get5DigitRandomInt()).withNameLocal("Test_"+ get5DigitRandomInt()).build();
         WallTypeMasterRequest request = new WallTypeMasterRequestBuilder().withRequestInfo(requestInfo)
                 .withWallTypes(wallTypes).build();
 
@@ -56,8 +56,8 @@ public class WallTypeMasterVerificationTest extends BaseAPITest {
 
     private WallTypesResponse updateWallTypeMasterTest(int id) throws IOException{
         new APILogger().log("Update WallType Master is Started --");
-        wallTypes[0] = new WallTypesBuilder().withId(id).withName("Test_"+ get3DigitRandomInt())
-                .withCode(get3DigitRandomInt()).withNameLocal("Test_"+ get3DigitRandomInt()).build();
+        wallTypes[0] = new WallTypesBuilder().withId(id).withName("Test_"+ get5DigitRandomInt())
+                .withCode(get5DigitRandomInt()).withNameLocal("Test_"+ get5DigitRandomInt()).build();
         WallTypeMasterRequest request = new WallTypeMasterRequestBuilder()
                 .withRequestInfo(requestInfo).withWallTypes(wallTypes).build();
 

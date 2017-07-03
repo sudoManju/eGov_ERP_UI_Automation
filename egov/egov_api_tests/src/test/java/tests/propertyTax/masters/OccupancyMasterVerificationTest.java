@@ -41,8 +41,8 @@ public class OccupancyMasterVerificationTest extends BaseAPITest {
 
     private OccupancyMasterResponse createOccupancyMaster() throws IOException {
         new APILogger().log("Create Occupancy Master is Started");
-        occuapancyMasters[0] = new OccupancyMastersBuilder().withName("Test_"+ get3DigitRandomInt())
-                .withCode(get3DigitRandomInt()).withNameLocal("Test_"+ get3DigitRandomInt()).build();
+        occuapancyMasters[0] = new OccupancyMastersBuilder().withName("Test_"+ get5DigitRandomInt())
+                .withCode(get5DigitRandomInt()).withNameLocal("Test_"+ get5DigitRandomInt()).build();
         OccupancyMasterRequest request = new OccupancyMasterRequestBuilder().withRequestInfo(requestInfo)
                 .withOccupancyMaster(occuapancyMasters).build();
 
@@ -55,8 +55,8 @@ public class OccupancyMasterVerificationTest extends BaseAPITest {
 
     private OccupancyMasterResponse updateOccupancyMaster(int id) throws IOException{
         new APILogger().log("Update Occupancy Master is Started");
-        occuapancyMasters[0] = new OccupancyMastersBuilder().withId(id).withName("Test_"+ get3DigitRandomInt())
-                .withCode(get3DigitRandomInt()).withNameLocal("Test_"+ get3DigitRandomInt()).build();
+        occuapancyMasters[0] = new OccupancyMastersBuilder().withId(id).withName("Test_"+ get5DigitRandomInt())
+                .withCode(get5DigitRandomInt()).withNameLocal("Test_"+ get5DigitRandomInt()).build();
         OccupancyMasterRequest request = new OccupancyMasterRequestBuilder().withRequestInfo(requestInfo)
                 .withOccupancyMaster(occuapancyMasters).build();
 
