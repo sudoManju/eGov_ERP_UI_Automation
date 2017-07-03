@@ -210,14 +210,16 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
                 return loadNewForm(bpaApplication, model, bpaApplication.getServiceType().getCode());
             }
         }
-		if (userService.getUserByUsername(bpaApplication.getOwner().getUser()
-				.getEmailId()) != null) {
-			model.addAttribute(
-					"noJAORSAMessage",
-					"Login UserName with this EmailId is already mapped with other mobile No. Please enter different emailId.");
-			return loadNewForm(bpaApplication, model, bpaApplication
-					.getServiceType().getCode());
-		}
+        if(bpaApplication.getOwner().getUser()!=null && bpaApplication.getOwner().getUser().getId()==null){
+			if (userService.getUserByUsername(bpaApplication.getOwner().getUser()
+					.getEmailId()) != null) {
+				model.addAttribute(
+						"noJAORSAMessage",
+						"Login UserName with this EmailId is already mapped with other mobile No. Please enter different emailId.");
+				return loadNewForm(bpaApplication, model, bpaApplication
+						.getServiceType().getCode());
+			}
+        }
        	User user = securityUtils.getCurrentUser();
 		StakeHolder stakeHolder = stakeHolderService.findById(user.getId());
 		ApplicationStakeHolder applicationStakeHolder = new ApplicationStakeHolder();
