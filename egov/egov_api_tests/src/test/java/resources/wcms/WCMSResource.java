@@ -21,13 +21,13 @@ public class WCMSResource {
         return response;
     }
 
-    public Response searchCategoryTypeResource(String jsonString, String name, String path) {
+    public Response searchCategoryTypeResource(String jsonString, String path) {
         new APILogger().log("Search CategoryType Test Request is Started with --" + jsonString);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
                 .body(jsonString)
                 .when()
-                .post(Properties.wcmsSearchCategoryTypeUrl + path + name);
+                .post(Properties.wcmsSearchCategoryTypeUrl + path);
 
         new APILogger().log("Search CategoryType Test Request is Generated as  --" + response.asString());
         return response;

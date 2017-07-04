@@ -12,7 +12,6 @@ import utils.*;
 
 import java.io.IOException;
 
-import static data.SearchParameterData.CODE;
 import static data.SearchParameterData.CODE1;
 import static data.UserData.ADMIN;
 

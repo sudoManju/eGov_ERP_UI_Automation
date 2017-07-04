@@ -8,7 +8,8 @@ public class RequestInfoBuilder {
     public RequestInfoBuilder() {
         requestInfo.setApiId("1");
         requestInfo.setVer("1");
-        requestInfo.setTs("13-04-2017 12:13:30");
+//        requestInfo.setTs("13-04-2017 12:13:30");
+        requestInfo.setTs("6546546464");
         requestInfo.setAction("");
         requestInfo.setDid("");
         requestInfo.setKey("");

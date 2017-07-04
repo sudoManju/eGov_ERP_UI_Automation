@@ -48,8 +48,8 @@ public class BaseAPITest {
         return String.valueOf((RandomUtils.nextInt(100, 999)));
     }
 
-    public String get5DigitRandomInt() {
-        return get3DigitRandomInt()+get3DigitRandomInt().substring(0,2);
+    protected String get5DigitRandomInt() {
+        return get3DigitRandomInt() + get3DigitRandomInt().substring(0, 2);
     }
 
     public String getCurrentDate() {
@@ -61,5 +61,9 @@ public class BaseAPITest {
     protected void pilotLogoutService() {
         new LoginAndLogoutHelper();
         LoginAndLogoutHelper.logoutFromPilotService();
+    }
+
+    protected String pathBuilder(String parameterType, String data) {
+        return parameterType + data;
     }
 }

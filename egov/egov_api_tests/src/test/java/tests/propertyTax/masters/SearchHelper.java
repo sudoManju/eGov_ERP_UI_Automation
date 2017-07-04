@@ -48,11 +48,11 @@ public class SearchHelper extends BaseAPITest {
         checkResponseForUsage(responseForId, responseObjectOfUsage);
         new APILogger().log("Search Usage Master with Id is Success");
 
-        Response responseForName = new UsageMasterResource().search(json, NAME + responseObjectOfUsage.getUsageMasters()[0].getName());
+        Response responseForName = new UsageMasterResource().search(json, WITH_NAME + responseObjectOfUsage.getUsageMasters()[0].getName());
         checkResponseForUsage(responseForName, responseObjectOfUsage);
         new APILogger().log("Search Usage Master with Name is Success");
 
-        Response responseForCode = new UsageMasterResource().search(json, CODE + responseObjectOfUsage.getUsageMasters()[0].getCode());
+        Response responseForCode = new UsageMasterResource().search(json, WITH_CODE + responseObjectOfUsage.getUsageMasters()[0].getCode());
         checkResponseForUsage(responseForCode, responseObjectOfUsage);
         new APILogger().log("Search Usage Master with code is Success");
 
@@ -79,11 +79,11 @@ public class SearchHelper extends BaseAPITest {
         checkResponseForStructure(responseForId, responseObjectOfCreate);
         new APILogger().log("Search Structure Classes master with Id is Success");
 
-        Response responseForName = new StructureClassResource().search(json, NAME + responseObjectOfCreate.getStructureClasses()[0].getName());
+        Response responseForName = new StructureClassResource().search(json, WITH_NAME + responseObjectOfCreate.getStructureClasses()[0].getName());
         checkResponseForStructure(responseForName, responseObjectOfCreate);
         new APILogger().log("Search Structure Classes Master with Name is Success");
 
-        Response responseForCode = new StructureClassResource().search(json, CODE + responseObjectOfCreate.getStructureClasses()[0].getCode());
+        Response responseForCode = new StructureClassResource().search(json, WITH_CODE + responseObjectOfCreate.getStructureClasses()[0].getCode());
         checkResponseForStructure(responseForCode, responseObjectOfCreate);
         new APILogger().log("Search Structure Classes Master with code is Success");
 
@@ -110,11 +110,11 @@ public class SearchHelper extends BaseAPITest {
         checkAssertsForFloorTypes(responseForId, responseObjectOfCreate);
         new APILogger().log("Search FloorTypes master with Id is Success");
 
-        Response responseForName = new FloorTypesResource().search(json, NAME + responseObjectOfCreate.getFloorTypes()[0].getName());
+        Response responseForName = new FloorTypesResource().search(json, WITH_NAME + responseObjectOfCreate.getFloorTypes()[0].getName());
         checkAssertsForFloorTypes(responseForName, responseObjectOfCreate);
         new APILogger().log("Search FloorTypes Master with Name is Success");
 
-        Response responseForCode = new FloorTypesResource().search(json, CODE + responseObjectOfCreate.getFloorTypes()[0].getCode());
+        Response responseForCode = new FloorTypesResource().search(json, WITH_CODE + responseObjectOfCreate.getFloorTypes()[0].getCode());
         checkAssertsForFloorTypes(responseForCode, responseObjectOfCreate);
         new APILogger().log("Search FloorTypes Master with code is Success");
 
@@ -141,11 +141,11 @@ public class SearchHelper extends BaseAPITest {
         checkAssertsForWoodTypes(responseForId, create);
         new APILogger().log("Search WoodTypes Master with Id is Success");
 
-        Response responseForName = new WoodTypesResource().search(json, NAME + create.getWoodTypes()[0].getName());
+        Response responseForName = new WoodTypesResource().search(json, WITH_NAME + create.getWoodTypes()[0].getName());
         checkAssertsForWoodTypes(responseForName, create);
         new APILogger().log("Search WoodTypes Master with name is Success");
 
-        Response responseForCode = new WoodTypesResource().search(json, CODE + create.getWoodTypes()[0].getCode());
+        Response responseForCode = new WoodTypesResource().search(json, WITH_CODE + create.getWoodTypes()[0].getCode());
         checkAssertsForWoodTypes(responseForCode, create);
         new APILogger().log("Search WoodTypes Master with code is Success");
 
@@ -172,11 +172,11 @@ public class SearchHelper extends BaseAPITest {
         checkAssertsForPropertyTypes(responseForId, createObject);
         new APILogger().log("Search Property type with Id is Success");
 
-        Response responseForName = new PropertyTypeMasterResource().search(json, NAME + createObject.getPropertyTypes()[0].getName());
+        Response responseForName = new PropertyTypeMasterResource().search(json, WITH_NAME + createObject.getPropertyTypes()[0].getName());
         checkAssertsForPropertyTypes(responseForName, createObject);
         new APILogger().log("Search Property type with name is Success");
 
-        Response responseForCode = new PropertyTypeMasterResource().search(json, CODE + createObject.getPropertyTypes()[0].getCode());
+        Response responseForCode = new PropertyTypeMasterResource().search(json, WITH_CODE + createObject.getPropertyTypes()[0].getCode());
         checkAssertsForPropertyTypes(responseForCode, createObject);
         new APILogger().log("Search Property type with code is Success");
 
@@ -203,11 +203,11 @@ public class SearchHelper extends BaseAPITest {
         checkAssertsForDepartments(responseForId, createObject);
         new APILogger().log("Search Department Master with Id is Success");
 
-        Response responseForName = new DepartmentsMasterResource().search(json, NAME + createObject.getDepartments()[0].getName());
+        Response responseForName = new DepartmentsMasterResource().search(json, WITH_NAME + createObject.getDepartments()[0].getName());
         checkAssertsForDepartments(responseForName, createObject);
         new APILogger().log("Search Department Master with name is Success");
 
-        Response responseForCode = new DepartmentsMasterResource().search(json, CODE + createObject.getDepartments()[0].getCode());
+        Response responseForCode = new DepartmentsMasterResource().search(json, WITH_CODE + createObject.getDepartments()[0].getCode());
         checkAssertsForDepartments(responseForCode, createObject);
         new APILogger().log("Search Department Master with code is Success");
 
@@ -234,11 +234,11 @@ public class SearchHelper extends BaseAPITest {
         checkAssertsForOccupancyMaster(responseForId, createObject);
         new APILogger().log("Search Occupancy Master with Id is Success");
 
-        Response responseForName = new OccupancyMasterResource().search(json, NAME + createObject.getOccuapancyMasters()[0].getName());
+        Response responseForName = new OccupancyMasterResource().search(json, WITH_NAME + createObject.getOccuapancyMasters()[0].getName());
         checkAssertsForOccupancyMaster(responseForName, createObject);
         new APILogger().log("Search Occupancy Master with name is Success");
 
-        Response responseForCode = new OccupancyMasterResource().search(json, CODE + createObject.getOccuapancyMasters()[0].getCode());
+        Response responseForCode = new OccupancyMasterResource().search(json, WITH_CODE + createObject.getOccuapancyMasters()[0].getCode());
         checkAssertsForOccupancyMaster(responseForCode, createObject);
         new APILogger().log("Search Occupancy Master with code is Success");
 
@@ -265,11 +265,11 @@ public class SearchHelper extends BaseAPITest {
         checkAssertsForWallTypeMaster(responseForId, createObject);
         new APILogger().log("Search wallTypes Master with Id is Success");
 
-        Response responseForName = new WallTypeResource().search(json, NAME + createObject.getWallTypes()[0].getName());
+        Response responseForName = new WallTypeResource().search(json, WITH_NAME + createObject.getWallTypes()[0].getName());
         checkAssertsForWallTypeMaster(responseForName, createObject);
         new APILogger().log("Search WallTypes Master with name is Success");
 
-        Response responseForCode = new WallTypeResource().search(json, CODE + createObject.getWallTypes()[0].getCode());
+        Response responseForCode = new WallTypeResource().search(json, WITH_CODE + createObject.getWallTypes()[0].getCode());
         checkAssertsForWallTypeMaster(responseForCode, createObject);
         new APILogger().log("Search WallTypes Master with code is Success");
 
