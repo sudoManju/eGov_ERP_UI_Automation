@@ -26,6 +26,8 @@ public class ScenarioContext implements Serializable {
     
     private String licenseSubCategory;
 
+    private String feeRateType;
+
     public String getReferenceNumber() {
         return referenceNumber;
     }
@@ -112,6 +114,10 @@ public class ScenarioContext implements Serializable {
 
     public String getLicenseSubCategory() {
         return licenseSubCategory;
+    }
+
+    public void setFeeRateType(String feeRateType) {
+        this.feeRateType = feeRateType;
     }
 }
 

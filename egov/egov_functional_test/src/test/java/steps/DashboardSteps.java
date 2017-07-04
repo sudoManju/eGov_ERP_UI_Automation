@@ -1,5 +1,6 @@
 package steps;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import pages.DashboardPage;
 
@@ -36,6 +37,9 @@ public class DashboardSteps extends BaseSteps implements En {
             } else if (type.equals("assessment number")) {
                 pageStore.get(DashboardPage.class).openApplication(scenarioContext.getAssessmentNumber());
             }
+        });
+        And("^he verifies that application not in his inbox$", () -> {
+            pageStore.get(DashboardPage.class).verifyApplication(scenarioContext.getApplicationNumber());
         });
     }
 }

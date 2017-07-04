@@ -8,7 +8,7 @@ Feature: Create Trade License
 
   @Sanity @TradeLicense
   Scenario Outline: Registered user creating a new license in the system
-    Given creator logs in
+    Given CSCUser logs in
     And user will select the required screen as "Create New License"
     And he enters trade owner details of new license <tradeDetailsData>
     And he enters trade location details of new license <tradeLocationData>
@@ -22,7 +22,7 @@ Feature: Create Trade License
       | ownerDetailsTradeLicense | locationDetailsTradeLicense | tradeDetailsTradeLicense |
 
   # Create Trade License with work flow #
-  @Sanity @TradeLicense
+  @Sanity @TradeLicense @New
   Scenario Outline: Register User create trade license with work flows
 
 #    Given creator logs in
@@ -45,6 +45,7 @@ Feature: Create Trade License
     And he forwards for approver sanitaryInspector
     And he confirms to proceed
     And he closes acknowledgement page
+    And he verifies that application not in his inbox
     And current user logs out
 
     When sanitaryInspector logs in
@@ -52,6 +53,7 @@ Feature: Create Trade License
     And he forwards for approver commissioner
     And he confirms to proceed
     And he closes acknowledgement page
+    And he verifies that application not in his inbox
     And current user logs out
 
     When commissioner logs in
@@ -59,12 +61,14 @@ Feature: Create Trade License
     And he approves application
     And he confirms to proceed
     And he closes acknowledgement page
+    And he verifies that application not in his inbox
     And current user logs out
 
     When creator logs in
     And he chooses to act upon above application number
     And he generates the license certificate
     And user will be notified by "License"
+    And he verifies that application not in his inbox
     And current user logs out
 
     Examples:

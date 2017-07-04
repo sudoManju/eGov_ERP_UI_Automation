@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
 
+import java.util.Random;
+
 /**
  * Created by tester1 on 6/13/2017.
  */
@@ -61,11 +63,34 @@ public class LicenseMastersPage extends BasePage {
     @FindBy(id = "financialYear")
     private WebElement financialYear;
 
+    @FindBy(xpath = ".//*[@id='result']/tbody/tr/td[2]/input")
+    private WebElement UOMToRange;
+
+    @FindBy(xpath = ".//*[@id='result']/tbody/tr/td[3]/input")
+    private WebElement amountField;
+
+    @FindBy(id = "applicationType_dropdown")
+    private WebElement DocLicenseAppType;
+
+    @FindBy(id = "enabled")
+    private WebElement enabledCheckBox;
+
     public LicenseMastersPage(WebDriver webDriver){this.webDriver =webDriver;}
 
-    public void masterNameCode(String name, String code) {
+    public String masterNameCode() {
+        char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        StringBuilder sb = new StringBuilder();
+        Random random1 = new Random();
+
+        for (int i = 0; i < 6; i++) {
+            char c = chars[random1.nextInt(chars.length)];
+            sb.append(c);
+        }
+        String name = sb.toString();
+
         enterText(nameField,name,webDriver);
-        enterText(codeField,code,webDriver);
+        enterText(codeField,name,webDriver);
+        return name;
     }
 
     public String createLicenseMaster() {
@@ -123,5 +148,30 @@ public class LicenseMastersPage extends BasePage {
         }
         selectFromDropDown(licenseFeeType,"License Fee",webDriver);
         selectFromDropDown(financialYear,"2017-18",webDriver);
+        enterText(UOMToRange, "1000",webDriver);
+        enterText(amountField,"100", webDriver);
+    }
+
+    public void closeViewFeeMatrix() {
+        clickOnButton(webDriver.findElement(By.xpath(".//*[@id='feematrix-new']/div[8]/button")),webDriver);
+        switchToPreviouslyOpenedWindow(webDriver);
+    }
+
+    public String enterDocumentTypeDetails() {
+        char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        StringBuilder sb = new StringBuilder();
+        Random random1 = new Random();
+
+        for (int i = 0; i < 6; i++) {
+            char c = chars[random1.nextInt(chars.length)];
+            sb.append(c);
+        }
+        String name = sb.toString();
+
+        enterText(nameField,name,webDriver);
+        selectFromDropDown(DocLicenseAppType,"NEW",webDriver);
+        clickOnButton(enabledCheckBox,webDriver);
+        clickOnButton(saveButton,webDriver);
+        return webDriver.findElement(By.xpath(".//*[@id='documenttypesuccess']/div[1]/div[1]/div")).getText();
     }
 }

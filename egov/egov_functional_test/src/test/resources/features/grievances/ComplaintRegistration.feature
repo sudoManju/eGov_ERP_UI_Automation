@@ -16,6 +16,7 @@ Feature: Register Complaint
     And he chooses to act upon above application number
     And he mark status as COMPLETED
     And user will be notified by "successfully"
+    And he verifies that application not in his inbox
     And current user logs out
 
     Examples:
@@ -48,18 +49,21 @@ Feature: Register Complaint
     And he copies CRN and closes the acknowledgement
     And he chooses to act upon above application number
     And he forwards for approver sanitaryInspector1
+    And he verifies that application not in his inbox
     And current user logs out
 
     When sanitaryInspector logs in
     And he chooses to act upon above application number
     And he marks the staus as processing
     And he forwards for approver LightingSuperintendent
+    And he verifies that application not in his inbox
     And current user logs out
 
     When LightingSuperintendent logs in
     And he chooses to act upon above application number
     And he mark status as COMPLETED
     And user will be notified by "successfully"
+    And he verifies that application not in his inbox
     And current user logs out
 
 
@@ -81,18 +85,21 @@ Feature: Register Complaint
     When LightingSuperintendent logs in
     And he chooses to act upon above application number
     And he forwards for approver sanitaryInspector1
+    And he verifies that application not in his inbox
     And current user logs out
 
     When sanitaryInspector logs in
     And he chooses to act upon above application number
     And he marks the staus as processing
     And he forwards for approver LightingSuperintendent
+    And he verifies that application not in his inbox
     And current user logs out
 
     When LightingSuperintendent logs in
     And he chooses to act upon above application number
     And he mark status as COMPLETED
     And user will be notified by "successfully"
+    And he verifies that application not in his inbox
     And current user logs out
 
     Examples:
@@ -113,6 +120,10 @@ Feature: Register Complaint
     And he WITHDRAWN the complaint
     And citizen sign out
 
+    When LightingSuperintendent logs in
+    And he verifies that application not in his inbox
+    And current user logs out
+
     Examples:
       | grievanceDetails |
       | grievanceDetails |
@@ -132,6 +143,7 @@ Feature: Register Complaint
     And he chooses to act upon above application number
     And he mark status as REJECTED
     And user will be notified by "successfully"
+    And he verifies that application not in his inbox
     And current user logs out
 
     When citizen logs in

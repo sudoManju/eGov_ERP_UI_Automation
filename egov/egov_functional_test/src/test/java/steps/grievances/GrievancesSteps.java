@@ -1,5 +1,6 @@
 package steps.grievances;
 
+import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.grievances.CreateComplaintDetails;
 import excelDataFiles.GrievanceDataReader;
@@ -48,6 +49,9 @@ public class GrievancesSteps extends BaseSteps implements En {
 
         And("^he (.*) the complaint$", (String complaintStatus) -> {
             pageStore.get(GrievancesPage.class).withdrawComplaint(complaintStatus);
+        });
+        And("^he chooses to search complaint with location$", () -> {
+            pageStore.get(GrievancesPage.class).searchComplaint();
         });
     }
 }

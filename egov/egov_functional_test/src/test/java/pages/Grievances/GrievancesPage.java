@@ -87,6 +87,12 @@ public class GrievancesPage extends BasePage {
     @FindBy(css = "button[type=submit]")
     private WebElement submitButton;
 
+    @FindBy(id = "ct-location")
+    private WebElement locationTextBox;
+
+    @FindBy(id = "searchComplaints")
+    private WebElement searchComplaints;
+
     public GrievancesPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -164,5 +170,17 @@ public class GrievancesPage extends BasePage {
         webDriver.findElement(By.cssSelector("button[class='btn btn-primary'][type='submit'")).click();
         clickOnButton(closeButton, webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
+    }
+
+    public void searchComplaint() {
+        enterText(locationTextBox, "Election Ward No. 44",webDriver);
+        clickOnButton(searchComplaints,webDriver);
+        selectFromDropDown(webDriver.findElement(By.xpath(".//*[@id='complaintSearchResults_length']/label/select")),"All",webDriver);
+        int numOfRecords = webDriver.findElements(By.className("sorting_1")).size();
+        if (numOfRecords > 0) {
+            System.out.println("--------Number of records = " + numOfRecords);
+        } else {
+            System.out.println("--------No records found");
+        }
     }
 }

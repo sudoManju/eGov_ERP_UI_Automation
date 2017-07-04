@@ -141,6 +141,9 @@ public class TradeLicensePage extends BasePage {
     @FindBy(id = "Reject")
     private WebElement rejectButton;
 
+    @FindBy(id = "address")
+    private WebElement tradeAddress;
+
     public TradeLicensePage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -155,8 +158,10 @@ public class TradeLicensePage extends BasePage {
     }
 
     public void entertradeLocationDetails(TradeLocationDetails tradelocationDetails) {
-        enterText(propertyAssessmentNumberTextBox, tradelocationDetails.getpropertyAssessmentNumber(), webDriver);
-        propertyAssessmentNumberTextBox.sendKeys(Keys.TAB);
+//        enterText(propertyAssessmentNumberTextBox, tradelocationDetails.getpropertyAssessmentNumber(), webDriver);
+//        propertyAssessmentNumberTextBox.sendKeys(Keys.TAB);
+        Select select = new Select(location);
+        select.selectByIndex(6);
         await().atMost(20, SECONDS).until(() -> new Select(location).getOptions().size() > 1);
         if (!(wardSelect.findElements(By.tagName("option")).size() > 1)) {
             clickOnButton(location, webDriver);
@@ -167,6 +172,7 @@ public class TradeLicensePage extends BasePage {
         waitForElementToBeClickable(wardSelect, webDriver);
         new Select(wardSelect).selectByIndex(1);
         selectFromDropDown(OwnershipTypeDropBox, tradelocationDetails.getownershipType(), webDriver);
+        enterText(tradeAddress,"Bangalore",webDriver);
     }
 
     public void entertradeDetails(TradeDetails tradedetails) {

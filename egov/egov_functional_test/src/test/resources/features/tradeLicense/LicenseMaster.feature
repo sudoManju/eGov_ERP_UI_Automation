@@ -3,11 +3,12 @@ Feature: Creating Master Data for Trade License
 
   As a TL Admin I want to create a license category
 
+
   Scenario: Create license category
 
     Given commissioner logs in
     And user will select the required screen as "Create License Category"
-    And he enters the license category name as "Motor Vehicles4" and code as "motorVehicleCate"
+    And he choose to enter category details
     And he creates the license category
     And user will be notified by "View"
     And he closes the view page
@@ -18,7 +19,7 @@ Feature: Creating Master Data for Trade License
 
     Given commissioner logs in
     And user will select the required screen as "Create Unit Of Measurement"
-    And he enters the Unit Of Measurement name as "Newton" and code as "Newton"
+    And he choose to enter create UOM details
     And he checks the Active checkbox
     And he creates the Unit Of Measurement
     And user will be notified by "View"
@@ -33,13 +34,13 @@ Feature: Creating Master Data for Trade License
 
     # Create License Category
     And user will select the required screen as "Create License Category"
-    And he enters the license category name as "Motor Vehicles7" and code as "motorVehicleCategor"
+    And he choose to enter category details
     And he creates the license category
     And he closes the view page
 
     #Create UOM
     And user will select the required screen as "Create Unit Of Measurement"
-    And he enters the Unit Of Measurement name as "Omega" and code as "Omega"
+    And he choose to enter sub category details
     And he checks the Active checkbox
     And he creates the Unit Of Measurement
     And he closes the view page
@@ -47,26 +48,26 @@ Feature: Creating Master Data for Trade License
     #Create sub category
     And user will select the required screen as "Create License SubCategory"
     And he selects the above created category
-    And he enters the sub category name as "Two Wheeler" and code as "TwoWheeler"
+    And he choose to enter sub category details
     And he enters fee type as "License Fee" Rate Type as "Flat_by_Range" and UOM
     And he creates the Sub Category
     And user will be notified by "View"
     And he close ack page
     And current user logs out
 
-  @FeeMatrix
+  @FeeMatrix @Master
   Scenario: Create Fee Matrix
 
    Given commissioner logs in
   # Create License Category
     And user will select the required screen as "Create License Category"
-    And he enters the license category name as "Motor Vehicles1" and code as "motorVehicles"
+    And he choose to enter category details
     And he creates the license category
     And he closes the view page
 
     #Create UOM
     And user will select the required screen as "Create Unit Of Measurement"
-    And he enters the Unit Of Measurement name as "Forces" and code as "Forces"
+    And he choose to enter create UOM details
     And he checks the Active checkbox
     And he creates the Unit Of Measurement
     And he closes the view page
@@ -74,7 +75,7 @@ Feature: Creating Master Data for Trade License
     #Create sub category
     And user will select the required screen as "Create License SubCategory"
     And he selects the above created category
-    And he enters the sub category name as "Two Wheelers" and code as "TwoWheelers"
+    And he choose to enter sub category details
     And he enters fee type as "License Fee" Rate Type as "Flat_by_Range" and UOM
     And he creates the Sub Category
     And he close ack page
@@ -83,5 +84,15 @@ Feature: Creating Master Data for Trade License
     
     And user will select the required screen as "Create Fee Matrix"
     And he enters fee matrix details
+    And he creates the fee matrix
+    And user will be notified by "Fee"
+    And he closes the View Fee Matrix page
+
+    #Create License Document Type
+    And user will select the required screen as "Create Document Type"
+    And he enters document type details
+    And user will be notified by "Document"
+
     
-#    And current user logs out
+    
+    And current user logs out

@@ -1,10 +1,12 @@
 package pages;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -38,6 +40,9 @@ public class DashboardPage extends BasePage {
 
     @FindBy(css = "li[class='dropdown'] a[data-work='drafts']")
     private WebElement officialDraftsTable;
+
+    @FindBy(id = "inboxsearch")
+    private WebElement inboxsearch;
 
     public DashboardPage(WebDriver driver) {
         this.driver = driver;
@@ -112,6 +117,13 @@ public class DashboardPage extends BasePage {
             }
             throw new RuntimeException("No application row found in Inbox and Drafts -- " + number);
         }
+    }
+
+    public void verifyApplication(String applicationNumber) {
+        driver.navigate().refresh();
+        enterText(inboxsearch,applicationNumber,driver);
+        String actMsg = driver.findElement(By.xpath(".//*[@id='official_inbox']/tbody/tr/td")).getText();
+        Arrays.asList(actMsg.split("\\ ")).contains("No");
     }
 }
 
