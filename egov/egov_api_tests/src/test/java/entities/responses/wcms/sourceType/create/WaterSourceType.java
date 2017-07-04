@@ -7,7 +7,7 @@ public class WaterSourceType {
     private String description;
     private boolean active;
     private int id;
-    private Object auditDeatils;
+    private String auditDeatils;
 
     public String getCode() {
         return this.code;
@@ -57,11 +57,11 @@ public class WaterSourceType {
         this.id = id;
     }
 
-    public Object getAuditDeatils() {
+    public String getAuditDeatils() {
         return this.auditDeatils;
     }
 
-    public void setAuditDeatils(Object auditDeatils) {
+    public void setAuditDeatils(String auditDeatils) {
         this.auditDeatils = auditDeatils;
     }
 }

@@ -121,13 +121,13 @@ public class WCMSResource {
         return response;
     }
 
-    public Response searchSourceTypeResource(String jsonString, String sourceTypeName) {
+    public Response searchSourceTypeResource(String jsonString, String path) {
         new APILogger().log("Create SourceType Test Request is Started with --" + jsonString);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
                 .body(jsonString)
                 .when()
-                .post(Properties.wcmsSearchSourceTypeUrl + "&name=" + sourceTypeName);
+                .post(Properties.wcmsSearchSourceTypeUrl + path);
         new APILogger().log("Create SourceType Test Request is Generated as  --" + response.asString());
         return response;
     }

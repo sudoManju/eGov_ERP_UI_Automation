@@ -18,6 +18,9 @@ import utils.*;
 
 import java.io.IOException;
 
+import static data.SearchParameterData.WITH_CODE;
+import static data.SearchParameterData.WITH_ID;
+import static data.SearchParameterData.WITH_NAME;
 import static data.UserData.MANAS;
 
 public class SourceTypeTest extends BaseAPITest {
@@ -25,13 +28,14 @@ public class SourceTypeTest extends BaseAPITest {
     @Test(groups = {Categories.SANITY, Categories.WCMS})
     public void sourceTypeTest() throws IOException {
         LoginAndLogoutHelper.login(MANAS); // Login
-        String sourceTypeName = createSourceType(); // Create SourceType
-        CreateSourceTypeResponse searchSourceTypeResponse = searchSourceType(sourceTypeName); // Search SourceType
-        updateSourceType(searchSourceTypeResponse); // Update SourceType
+        CreateSourceTypeResponse createSourceTypeResponse = createSourceType(); // Create SourceType
+        CreateSourceTypeResponse searchSourceTypeResponse = searchSourceType(createSourceTypeResponse, WITH_NAME); // Search SourceType
+        CreateSourceTypeResponse updateSourceTypeResponse = updateSourceType(searchSourceTypeResponse); // Update SourceType
+        searchSourceType(updateSourceTypeResponse, WITH_CODE); // Search SourceType
         LoginAndLogoutHelper.logout(); // Logout
     }
 
-    private String createSourceType() throws IOException {
+    private CreateSourceTypeResponse createSourceType() throws IOException {
         new APILogger().log("Create SourceType Test is Started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         SourceType sourceType = new SourceTypeBuilder().build();
@@ -42,29 +46,35 @@ public class SourceTypeTest extends BaseAPITest {
         CreateSourceTypeResponse createSourceTypeResponse = (CreateSourceTypeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), CreateSourceTypeResponse.class);
 
-        Assert.assertEquals(200, response.getStatusCode());
+        Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertEquals(sourceType.getName(), createSourceTypeResponse.getWaterSourceType()[0].getName());
         new APILogger().log("Create SourceType Test is Completed ---");
-        return createSourceTypeResponse.getWaterSourceType()[0].getName();
+        return createSourceTypeResponse;
     }
 
-    private CreateSourceTypeResponse searchSourceType(String sourceTypeName) throws IOException {
+    private CreateSourceTypeResponse searchSourceType(CreateSourceTypeResponse createSourceTypeResponse, String parameter) throws IOException {
         new APILogger().log("Search SourceType Test With Name is Started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         SearchSourceTypeRequest searchSourceTypeRequest = new SearchSourceTypeRequestBuilder().withRequestInfo(requestInfo).build();
 
-        Response response = new WCMSResource().searchSourceTypeResource(RequestHelper.getJsonString(searchSourceTypeRequest), sourceTypeName);
+        String path;
+        if (parameter.contains("&name="))
+            path = pathBuilder(parameter, createSourceTypeResponse.getWaterSourceType()[0].getName());
+        else
+            path = pathBuilder(parameter, createSourceTypeResponse.getWaterSourceType()[0].getCode());
+
+        Response response = new WCMSResource().searchSourceTypeResource(RequestHelper.getJsonString(searchSourceTypeRequest), path);
         CreateSourceTypeResponse searchSourceTypeResponse = (CreateSourceTypeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), CreateSourceTypeResponse.class);
 
-        Assert.assertEquals(200, response.getStatusCode());
-        Assert.assertEquals(sourceTypeName, searchSourceTypeResponse.getWaterSourceType()[0].getName());
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertEquals(createSourceTypeResponse.getWaterSourceType()[0].getName(), searchSourceTypeResponse.getWaterSourceType()[0].getName());
         Assert.assertTrue(searchSourceTypeResponse.getWaterSourceType().length == 1);
         new APILogger().log("Search SourceType Test With Name is Completed ---");
         return searchSourceTypeResponse;
     }
 
-    private void updateSourceType(CreateSourceTypeResponse searchSourceTypeResponse) throws IOException {
+    private CreateSourceTypeResponse updateSourceType(CreateSourceTypeResponse searchSourceTypeResponse) throws IOException {
         new APILogger().log("Update SourceType Test is Started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         SourceType sourceType = new SourceTypeBuilder().withCode(searchSourceTypeResponse.getWaterSourceType()[0].getCode())
@@ -78,8 +88,9 @@ public class SourceTypeTest extends BaseAPITest {
         CreateSourceTypeResponse updateSourceTypeResponse = (CreateSourceTypeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), CreateSourceTypeResponse.class);
 
-        Assert.assertEquals(200, response.getStatusCode());
+        Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertEquals("Updated", updateSourceTypeResponse.getWaterSourceType()[0].getName().split("-")[1]);
         new APILogger().log("Update SourceType Test is Completed ---");
+        return updateSourceTypeResponse;
     }
 }
