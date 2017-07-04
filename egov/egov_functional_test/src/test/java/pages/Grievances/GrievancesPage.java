@@ -191,7 +191,7 @@ public class GrievancesPage extends BasePage {
         switchToPreviouslyOpenedWindow(webDriver);
     }
 
-    public void searchComplaint(String applicationNumber, CreateComplaintDetails complaintDetails, String searchType) {
+    public void searchComplaint(String applicationNumber, String searchType) {
         webDriver.navigate().refresh();
         switch (searchType) {
 

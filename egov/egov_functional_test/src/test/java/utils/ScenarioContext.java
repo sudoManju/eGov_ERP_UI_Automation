@@ -30,16 +30,6 @@ public class ScenarioContext implements Serializable {
 
     private String feeRateType;
 
-    private CreateComplaintDetails complaintDetails;
-
-    public CreateComplaintDetails getComplaintDetails() {
-        return complaintDetails;
-    }
-
-    public void setComplaintDetails(CreateComplaintDetails complaintDetails) {
-        this.complaintDetails = complaintDetails;
-    }
-
     public String getReferenceNumber() {
         return referenceNumber;
     }

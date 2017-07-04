@@ -23,7 +23,6 @@ public class GrievancesSteps extends BaseSteps implements En {
 
         And("^he choose to enter grievance details as (\\w+)$", (String grievanceDetails) -> {
             CreateComplaintDetails createComplaintDetails = new GrievanceDataReader(grievanceTestDataFileName).getGrievanceDetails(grievanceDetails);
-            scenarioContext.setComplaintDetails(createComplaintDetails);
             scenarioContext.setActualMessage(pageStore.get(GrievancesPage.class).enterGrievanceDetails(createComplaintDetails, scenarioContext.getUser()));
         });
 
@@ -54,10 +53,10 @@ public class GrievancesSteps extends BaseSteps implements En {
             pageStore.get(GrievancesPage.class).withdrawComplaint(complaintStatus);
         });
         And("^he search complaint with all parameters$", () -> {
-            String[] parameters = {"appNum"};
+            String[] parameters = {"appNum","location","today","allDates","last7Days","last30Days","last90Days","status"};
             for (int i=0;i<parameters.length;i++) {
                 String type = parameters[i];
-                pageStore.get(GrievancesPage.class).searchComplaint(scenarioContext.getApplicationNumber(), scenarioContext.getComplaintDetails(),type);
+                pageStore.get(GrievancesPage.class).searchComplaint(scenarioContext.getApplicationNumber(),type);
             }
             pageStore.get(GrievancesPage.class).close();
         });
