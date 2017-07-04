@@ -154,13 +154,13 @@ public class WCMSResource {
         return response;
     }
 
-    public Response searchSupplyTypeResource(String jsonString, String name) {
+    public Response searchSupplyTypeResource(String jsonString, String path) {
         new APILogger().log("Search SupplyType Test Request is Started with --" + jsonString);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
                 .body(jsonString)
                 .when()
-                .post(Properties.wcmsSearchSupplyTypeUrl + "&name=" + name);
+                .post(Properties.wcmsSearchSupplyTypeUrl + path);
         new APILogger().log("Search SupplyType Test Request is Generated as  --" + response.asString());
         return response;
     }

@@ -69,7 +69,7 @@ public class CategoryTypeTest extends BaseAPITest {
         CreateCategoryTypeResponse searchCategoryTypeResponse = (CreateCategoryTypeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), CreateCategoryTypeResponse.class);
 
-        Assert.assertEquals(200, response.getStatusCode());
+        Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertTrue(searchCategoryTypeResponse.getCategory().length == 1);
         Assert.assertEquals(createCategoryTypeResponse.getCategory()[0].getName(), searchCategoryTypeResponse.getCategory()[0].getName());
         new APILogger().log("Search CategoryType Test " + parameter + "is Completed ---");
