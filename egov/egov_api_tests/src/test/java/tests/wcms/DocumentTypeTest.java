@@ -46,7 +46,7 @@ public class DocumentTypeTest extends BaseAPITest {
         CreateDocumentTypeResponse createDocumentTypeResponse = (CreateDocumentTypeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), CreateDocumentTypeResponse.class);
 
-        Assert.assertEquals(200, response.getStatusCode());
+        Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertEquals(documentType.getName(), createDocumentTypeResponse.getDocumentTypes()[0].getName());
         new APILogger().log("Create DocumentType Test is Completed ---");
         return createDocumentTypeResponse;
@@ -62,7 +62,7 @@ public class DocumentTypeTest extends BaseAPITest {
             path = pathBuilder(parameter, createDocumentTypeResponse.getDocumentTypes()[0].getName());
         else
             path = pathBuilder(parameter, String.valueOf(createDocumentTypeResponse.getDocumentTypes()[0].getId()));
-        System.out.println(path);
+
         Response response = new WCMSResource().searchDocumentTypeResource(RequestHelper.getJsonString(searchDocumentTypeRequest), path);
         CreateDocumentTypeResponse searchDocumentTypeResponse = (CreateDocumentTypeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), CreateDocumentTypeResponse.class);
