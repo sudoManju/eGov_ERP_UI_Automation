@@ -88,14 +88,14 @@ public class WCMSResource {
         return response;
     }
 
-    public Response searchDocumentTypeResource(String jsonString, String documentName) {
+    public Response searchDocumentTypeResource(String jsonString, String path) {
         new APILogger().log("Search DocumentType Test Request is Started with --" + jsonString);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
                 .body(jsonString)
                 .when()
-                .post(Properties.wcmsSearchDocumentTypeUrl + "&name=" + documentName);
-        new APILogger().log("Search DocumentType Test Test Request is Generated as  --" + response.asString());
+                .post(Properties.wcmsSearchDocumentTypeUrl + path);
+        new APILogger().log("Search DocumentType Test Request is Generated as  --" + response.asString());
         return response;
     }
 

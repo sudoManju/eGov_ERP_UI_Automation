@@ -17,6 +17,7 @@ import utils.*;
 
 import java.io.IOException;
 
+import static data.SearchParameterData.WITH_NAME;
 import static data.UserData.MANAS;
 
 public class DocumentTypeApplicationTypeTest extends BaseAPITest {
@@ -30,8 +31,8 @@ public class DocumentTypeApplicationTypeTest extends BaseAPITest {
     @Test(groups = {Categories.WCMS, Categories.SANITY})
     public void documentTypeApplicationTypeTest() throws IOException {
         LoginAndLogoutHelper.login(MANAS); // Login
-        String documentName = documentTypeTest.createDocumentType(); // Create DocumentType
-        CreateDocumentTypeResponse searchDocumentTypeResponse = documentTypeTest.searchDocumentType(documentName); // Search DocumentType
+        CreateDocumentTypeResponse createDocumentTypeResponse = documentTypeTest.createDocumentType(); // Create DocumentType
+        CreateDocumentTypeResponse searchDocumentTypeResponse = documentTypeTest.searchDocumentType(createDocumentTypeResponse , WITH_NAME); // Search DocumentType
         createDocumentTypeApplicationType(searchDocumentTypeResponse.getDocumentTypes()[0].getId());
 //        searchDocumentTypeApplicationType(searchDocumentTypeResponse.getDocumentTypes()[0].getId());
         LoginAndLogoutHelper.logout(); // Logout
