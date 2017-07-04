@@ -8,6 +8,8 @@ import org.junit.Assert;
 import pages.Grievances.GrievancesPage;
 import steps.BaseSteps;
 
+import java.util.List;
+
 public class GrievancesSteps extends BaseSteps implements En {
     public GrievancesSteps() {
         When("^he choose to register a complaint$", () -> {
@@ -21,6 +23,7 @@ public class GrievancesSteps extends BaseSteps implements En {
 
         And("^he choose to enter grievance details as (\\w+)$", (String grievanceDetails) -> {
             CreateComplaintDetails createComplaintDetails = new GrievanceDataReader(grievanceTestDataFileName).getGrievanceDetails(grievanceDetails);
+            scenarioContext.setComplaintDetails(createComplaintDetails);
             scenarioContext.setActualMessage(pageStore.get(GrievancesPage.class).enterGrievanceDetails(createComplaintDetails, scenarioContext.getUser()));
         });
 
@@ -50,8 +53,12 @@ public class GrievancesSteps extends BaseSteps implements En {
         And("^he (.*) the complaint$", (String complaintStatus) -> {
             pageStore.get(GrievancesPage.class).withdrawComplaint(complaintStatus);
         });
-        And("^he chooses to search complaint with location$", () -> {
-            pageStore.get(GrievancesPage.class).searchComplaint();
+        And("^he search complaint with all parameters$", () -> {
+            String[] parameters = {"appNum","location","today","allDates","last7Days","last30Days","last90Days","status"};
+            for (int i=0;i<parameters.length;i++) {
+                String type = parameters[i];
+                pageStore.get(GrievancesPage.class).searchComplaint(scenarioContext.getApplicationNumber(), scenarioContext.getComplaintDetails(),type);
+            }
         });
     }
 }

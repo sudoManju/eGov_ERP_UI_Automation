@@ -8,6 +8,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import static com.jayway.awaitility.Awaitility.await;
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 
 public class GrievancesPage extends BasePage {
     private WebDriver webDriver;
@@ -93,6 +100,15 @@ public class GrievancesPage extends BasePage {
     @FindBy(id = "searchComplaints")
     private WebElement searchComplaints;
 
+    @FindBy(id = "ct-ctno")
+    private WebElement searchByAppNumTextBox;
+
+    @FindBy(id = "when_date")
+    private WebElement searchComplaintByDateBox;
+
+    @FindBy(id = "toggle-searchcomp")
+    private WebElement advanceSearchButton;
+
     public GrievancesPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -172,15 +188,68 @@ public class GrievancesPage extends BasePage {
         switchToPreviouslyOpenedWindow(webDriver);
     }
 
-    public void searchComplaint() {
-        enterText(locationTextBox, "Election Ward No. 44",webDriver);
-        clickOnButton(searchComplaints,webDriver);
-        selectFromDropDown(webDriver.findElement(By.xpath(".//*[@id='complaintSearchResults_length']/label/select")),"All",webDriver);
-        int numOfRecords = webDriver.findElements(By.className("sorting_1")).size();
-        if (numOfRecords > 0) {
-            System.out.println("--------Number of records = " + numOfRecords);
-        } else {
-            System.out.println("--------No records found");
+    public void searchComplaint(String applicationNumber, CreateComplaintDetails complaintDetails, String searchType) {
+        webDriver.navigate().refresh();
+        switch (searchType) {
+
+            case "appNum":
+                enterText(searchByAppNumTextBox, applicationNumber, webDriver);
+                break;
+
+            case "location":
+                enterText(locationTextBox,"Election Ward No. 44",webDriver);
+                break;
+
+            case "today":
+                selectFromDropDown(searchComplaintByDateBox,"Today",webDriver);
+                break;
+
+            case "allDates":
+                selectFromDropDown(searchComplaintByDateBox,"All",webDriver);
+                break;
+
+            case "last7Days":
+                selectFromDropDown(searchComplaintByDateBox,"In Last 7 days",webDriver);
+                break;
+
+            case "last30Days":
+                selectFromDropDown(searchComplaintByDateBox,"In Last 30 days",webDriver);
+                break;
+
+            case "last90Days":
+                selectFromDropDown(searchComplaintByDateBox,"In Last 90 days",webDriver);
+                break;
+
+            case "status":
+                clickOnButton(advanceSearchButton,webDriver);
+                selectFromDropDown(webDriver.findElement(By.name("complaintStatus")),"REGISTERED",webDriver);
+                break;
+
         }
+        clickOnButton(searchComplaints, webDriver);
+        selectFromDropDown(webDriver.findElement(By.xpath(".//*[@id='complaintSearchResults_length']/label/select")),"All",webDriver);
+        List<WebElement> numOfComplaints = webDriver.findElements(By.className("sorting_1"));
+        int complaintRow = checkComplaint(numOfComplaints, applicationNumber);
+        numOfComplaints.get(complaintRow).click();
+        switchToNewlyOpenedWindow(webDriver);
+        clickOnButton(webDriver.findElement(By.cssSelector("[type='button'][onclick]")),webDriver);
+        List<String> webPages = new ArrayList<>(webDriver.getWindowHandles());
+        webDriver.switchTo().window(webPages.get(1));
+    }
+
+    private int checkComplaint(List<WebElement> numOfComplaints, String applicationNumber) {
+        int rowNumber = 0;
+        boolean found = false;
+        for (int i = 0; i < numOfComplaints.size(); i++) {
+            if (webDriver.findElements(By.className("sorting_1")).get(i).getText().contains(applicationNumber)) {
+                rowNumber = i;
+                found = true;
+            }
+        }
+        if (found)
+            return rowNumber;
+        else
+            throw new RuntimeException("Element Not Found");
+
     }
 }

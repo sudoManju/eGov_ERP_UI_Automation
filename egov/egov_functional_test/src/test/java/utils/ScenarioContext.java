@@ -1,5 +1,7 @@
 package utils;
 
+import entities.grievances.CreateComplaintDetails;
+
 import java.io.Serializable;
 
 public class ScenarioContext implements Serializable {
@@ -27,6 +29,16 @@ public class ScenarioContext implements Serializable {
     private String licenseSubCategory;
 
     private String feeRateType;
+
+    private CreateComplaintDetails complaintDetails;
+
+    public CreateComplaintDetails getComplaintDetails() {
+        return complaintDetails;
+    }
+
+    public void setComplaintDetails(CreateComplaintDetails complaintDetails) {
+        this.complaintDetails = complaintDetails;
+    }
 
     public String getReferenceNumber() {
         return referenceNumber;

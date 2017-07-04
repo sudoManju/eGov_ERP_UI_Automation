@@ -1,8 +1,0 @@
-Feature: Registered user search the complaint with various parameters
-
-  Scenario: Employee search for complaints filed by citizen
-
-    Given LightingSuperintendent logs in
-    And user will select the required screen as "Search Grievance"
-    And he chooses to search complaint with location
-    
