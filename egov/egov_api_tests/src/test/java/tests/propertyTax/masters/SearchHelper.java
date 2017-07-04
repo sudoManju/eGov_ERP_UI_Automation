@@ -287,6 +287,6 @@ public class SearchHelper extends BaseAPITest {
         Assert.assertEquals(response1.getWallTypes()[0].getId(), requestObject.getWallTypes()[0].getId());
         Assert.assertEquals(response1.getWallTypes()[0].getName(), requestObject.getWallTypes()[0].getName());
         Assert.assertEquals(response1.getWallTypes()[0].getCode(), requestObject.getWallTypes()[0].getCode());
-//        Assert.assertEquals(response1.getWallTypes()[0].getNameLocal(),requestObject.getWallTypes()[0].getNameLocal());
+        Assert.assertEquals(response1.getWallTypes()[0].getNameLocal(),requestObject.getWallTypes()[0].getNameLocal());
     }
 }
