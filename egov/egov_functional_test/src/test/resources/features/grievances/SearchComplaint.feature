@@ -12,6 +12,7 @@ Feature: Registered user search the complaint with various parameters
     Given LightingSuperintendent logs in
     And user will select the required screen as "Search Grievance"
     And he search complaint with all parameters
+    And current user logs out
 
   Examples:
     | grievanceDetails |

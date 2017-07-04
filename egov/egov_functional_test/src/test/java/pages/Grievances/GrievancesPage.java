@@ -109,6 +109,9 @@ public class GrievancesPage extends BasePage {
     @FindBy(id = "toggle-searchcomp")
     private WebElement advanceSearchButton;
 
+    @FindBy(id = "closeComplaints")
+    private WebElement closeButton1;
+
     public GrievancesPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -251,5 +254,10 @@ public class GrievancesPage extends BasePage {
         else
             throw new RuntimeException("Element Not Found");
 
+    }
+
+    public void close() {
+       clickOnButton(closeButton1,webDriver);
+       switchToPreviouslyOpenedWindow(webDriver);
     }
 }
