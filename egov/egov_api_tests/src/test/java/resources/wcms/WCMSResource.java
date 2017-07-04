@@ -55,13 +55,13 @@ public class WCMSResource {
         return response;
     }
 
-    public Response searchPipeSizeResource(String jsonString, String millimeterSize) {
+    public Response searchPipeSizeResource(String jsonString, String path) {
         new APILogger().log("Search PipeSize Test Request is Started with --" + jsonString);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
                 .body(jsonString)
                 .when()
-                .post(Properties.wcmsSearchPipeSizeUrl + "&sizeInMilimeter=" + millimeterSize);
+                .post(Properties.wcmsSearchPipeSizeUrl + path);
         new APILogger().log("Search PipeSize Test Request is Generated as  --" + response.asString());
         return response;
     }
