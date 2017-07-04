@@ -57,7 +57,8 @@
 			<spring:message code="lbl.zone" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.siteDetail[0].adminBoundary.parent.name}"
+			<c:out
+				value="${bpaApplication.siteDetail[0].adminBoundary.parent.name}"
 				default="N/A"></c:out>
 		</div>
 		<div class="col-sm-3 add-margin">
@@ -119,7 +120,7 @@
 				default="N/A"></c:out>
 		</div>
 	</div>
-	
+
 	<div class="row add-border">
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.addr.dno" />
@@ -168,30 +169,59 @@
 			<c:out value="${bpaApplication.siteDetail[0].taluk}" default="N/A"></c:out>
 		</div>
 	</div>
+	<div class="row add-border">
+		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.site.pincode" />
+		</div>
+		<div class="col-sm-3 add-margin view-content">
+			<c:out value="${bpaApplication.siteDetail[0].postalAddress.pincode}"
+				default="N/A"></c:out>
+		</div>
+		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.post.office" />
+		</div>
+		<div class="col-sm-3 add-margin view-content">
+			<c:out
+				value="${bpaApplication.siteDetail[0].postalAddress.postOffice}"
+				default="N/A"></c:out>
+		</div>
+	</div>
 
 	<div class="row add-border">
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.district" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.siteDetail[0].district}" default="N/A"></c:out>
+			<c:out value="${bpaApplication.siteDetail[0].postalAddress.district}"
+				default="N/A"></c:out>
 		</div>
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.state" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.siteDetail[0].state}" default="N/A"></c:out>
+			<c:out value="${bpaApplication.siteDetail[0].postalAddress.state}" default="N/A"></c:out>
 		</div>
 	</div>
 
 	<div class="row add-border">
 		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.site.pincode" />
+			<spring:message code="lbl.town.plan.zone" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.siteDetail[0].sitePincode}"
+			<c:out value="${bpaApplication.buildingDetail[0].townPlanningZone}"
 				default="N/A"></c:out>
 		</div>
+		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.crz.zone" />
+		</div>
+		<div class="col-sm-3 add-margin view-content">
+			<c:out value="${bpaApplication.buildingDetail[0].crzZone}"
+				default="N/A"></c:out>
+		</div>
+	</div>
+
+
+	<div class="row add-border">
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.approved.layout.details" />
 		</div>
@@ -234,7 +264,7 @@
 				default="N/A"></c:out>
 		</div>
 	</div> --%>
-	
+
 	<%-- <div class="row add-border">
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.encroch.issue.present" />

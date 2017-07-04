@@ -183,3 +183,68 @@ $(document).on('click',"#deleteBuildAreaRow",function (){
 	  $( ".carpetArea" ).trigger( "change" );
 	
 });	
+
+
+
+//Instantiate the postaladdress name Bloodhound suggestion engine
+var postaladdressengine = new Bloodhound({
+	datumTokenizer : function(datum) {
+		return Bloodhound.tokenizers.whitespace(datum.value);
+	},
+	queryTokenizer : Bloodhound.tokenizers.whitespace,
+	remote : {
+		url : '/bpa/ajax/postaladdress',
+		replace : function(url, query) {
+			return url + '?pincode=' + query ;
+		},
+		filter : function(data) {
+			var arry=[];
+		    Object.keys(data).forEach(function (key) {								
+		    	arry.push({
+					name : key,
+					value : key,
+					postOffices:data[key]
+				});
+			});
+			return arry;
+		}
+	}
+});
+
+var postaddressres;
+//Initialize the Bloodhound suggestion engine
+postaladdressengine.initialize();
+
+var sh_typeahead = $('#postalAddressTypeHead').typeahead({
+	hint : true,
+	highlight : true,
+	minLength : 1
+}, {
+	displayKey : 'name',
+	source : postaladdressengine.ttAdapter()
+});
+
+sh_typeahead.on('typeahead:selected', function(event, data){
+	postaddressres = data.postOffices;
+	$('#postOffices').empty();
+	$('#postOffices').append($('<option>').val('').text('Select'));
+	$.each(data.postOffices, function(index, postal) {
+		$('#postOffices').append($('<option>').val(postal.id).text(postal.postOffice));
+	});
+	
+});
+
+
+typeaheadWithEventsHandling(sh_typeahead, '#postalAddressTypeHead');
+
+$('#postOffices').change(function(){
+	//console.log(postaddressres);
+	var selectedIndex = $("#postOffices option:selected" ).index()-1;
+	var selectedPostal = postaddressres[selectedIndex];
+	if(selectedPostal){
+		$('#postalAddress').val(selectedPostal.id);
+		$('#district').val(selectedPostal.district);
+		$('#state').val(selectedPostal.state);
+	}
+});
+

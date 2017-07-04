@@ -61,6 +61,9 @@ jQuery(document).ready(
 			});
 
 			function validateForm(validator) {
+				if($("#postOffices option:selected" ).val() == "") {
+					bootbox.alert('Please select postoffice')
+				}
 				if ($('#newApplicationform').valid() && validateUploadFilesMandatory()) {
 					document.getElementById("workFlowAction").value = $(
 							'#buttonSubmit').val();

@@ -47,13 +47,16 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.egov.bpa.application.entity.Occupancy;
+import org.egov.bpa.application.entity.PostalAddress;
 import org.egov.bpa.application.entity.StakeHolder;
 import org.egov.bpa.application.entity.enums.StakeHolderType;
 import org.egov.bpa.application.service.ApplicationBpaService;
+import org.egov.bpa.application.service.PostalAddressService;
 import org.egov.bpa.masters.service.OccupancyService;
 import org.egov.bpa.masters.service.StakeHolderService;
 import org.egov.eis.entity.Assignment;
@@ -98,6 +101,8 @@ public class BpaAjaxController {
     private OccupancyService occupancyService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private PostalAddressService postalAddressService;
 
     @RequestMapping(value = "/ajax/getAdmissionFees", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -107,7 +112,7 @@ public class BpaAjaxController {
         } else {
             return BigDecimal.ZERO;
         }
-    }	
+    }
 
     @RequestMapping(value = "/bpaajaxWorkFlow-getDesignationsByObjectTypeAndDesignation", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -154,38 +159,44 @@ public class BpaAjaxController {
 
     @RequestMapping(value = "/ajax/stakeholdersbytype", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<StakeHolder> getStakeHolderByType( @RequestParam final String name, @RequestParam final StakeHolderType stakeHolderType) {
+    public List<StakeHolder> getStakeHolderByType(@RequestParam final String name,
+            @RequestParam final StakeHolderType stakeHolderType) {
         return stakeHolderService.getStakeHolderListByType(stakeHolderType, name);
     }
-    
+
     @RequestMapping(value = "/application/getoccupancydetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<Occupancy> getOccupancyDetails() {
-    	return occupancyService.findAll();
+        return occupancyService.findAll();
     }
-    
+
     @RequestMapping(value = "/getApplicantDetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public Map getApplicantDetailsForMobileNumber(@RequestParam final String mobileNumber) {
-    	Map user = new HashMap<String, String>();
-    	List<User> userList = userService.getUserByMobileNumberAndType(mobileNumber, UserType.CITIZEN); 
-    	if(!userList.isEmpty()){
-    		User dbUser = userList.get(0);
-    		user.put("name", dbUser.getName());
-    		user.put("address", dbUser.getAddress().get(0).getStreetRoadLine());
-    		user.put("emailId", dbUser.getEmailId());
-    		user.put("gender", dbUser.getGender()); 
-    		user.put("id", dbUser.getId());
-    		
-    	}
-        return user; 
+    public Map<String, String> getApplicantDetailsForMobileNumber(@RequestParam final String mobileNumber) {
+        Map<String, String> user = new HashMap<String, String>();
+        List<User> userList = userService.getUserByMobileNumberAndType(mobileNumber, UserType.CITIZEN);
+        if (!userList.isEmpty()) {
+            User dbUser = userList.get(0);
+            user.put("name", dbUser.getName());
+            user.put("address", dbUser.getAddress().get(0).getStreetRoadLine());
+            user.put("emailId", dbUser.getEmailId());
+            user.put("gender", dbUser.getGender().name());
+            user.put("id", dbUser.getId().toString());
+
+        }
+        return user;
     }
-    
+
     @RequestMapping(value = "/getApplicantDetailsForEmailId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public User getApplicantDetailsForEmailId(@RequestParam final String emailId) {
-    	return userService.getUserByUsername(emailId); 
+        return userService.getUserByUsername(emailId);
     }
-    
 
+    @RequestMapping(value = "/ajax/postaladdress", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Map<String, List<PostalAddress>> getPostalAddress(@RequestParam final String pincode) {
+        return postalAddressService.getPostalAddressList(pincode).stream()
+                .collect(Collectors.groupingBy(PostalAddress::getPincode));
+    }
 }

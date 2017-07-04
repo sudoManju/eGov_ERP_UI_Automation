@@ -139,32 +139,6 @@
 		</div>
 	</div>
 
-	<div class="row add-border">
-		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.machine.room" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.buildingDetail[0].machineRoom}"
-				default="N/A"></c:out>
-		</div>
-		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.town.plan.zone" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.buildingDetail[0].townPlanningZone}"
-				default="N/A"></c:out>
-		</div>
-	</div>
-	<div class="row add-border">
-		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.crz.zone" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.buildingDetail[0].crzZone}"
-				default="N/A"></c:out>
-		</div>
-	</div>
-
 	<c:if
 		test="${not empty bpaApplication.buildingDetail[0].applicationFloorDetails}">
 		<div class="panel-heading custom_form_panel_heading">

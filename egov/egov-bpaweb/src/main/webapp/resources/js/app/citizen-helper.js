@@ -49,6 +49,9 @@ jQuery(document).ready(function($) {
 		});
 	
 	function validateForm1(button, validator) {
+		if($("#postOffices option:selected" ).val() == "") {
+			bootbox.alert('Please select postoffice')
+		}
 		if ($('#newCitizenApplicationform').valid() && validateUploadFilesMandatory()) {
 			$('#serviceType').prop("disabled", false);
 			document.getElementById("workFlowAction").value = button;

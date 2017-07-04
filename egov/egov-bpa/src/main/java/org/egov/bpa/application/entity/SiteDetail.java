@@ -103,21 +103,17 @@ public class SiteDetail extends AbstractAuditable {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "street")
     private Boundary street;
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "village")
     private VillageName village; // required ??
-    // nameing correct ???
-    @Length(min = 1, max = 128)
-    private String district;
-    @Length(min = 1, max = 128)
-    private String state;
-    @Length(min = 1, max = 12)
-    private String sitePincode;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "postalAddress")
+    private PostalAddress postalAddress;
     @Length(min = 1, max = 128)
     private String natureofOwnership;
     private BigDecimal extentOfLand;
-    private BigDecimal extentinsqmts; // --cochin req
+    private BigDecimal extentinsqmts; 
     @NotNull
     @Enumerated(EnumType.ORDINAL)
     private BpaUom unitOfMeasurement;
@@ -287,28 +283,12 @@ public class SiteDetail extends AbstractAuditable {
         this.village = village;
     }
 
-    public String getDistrict() {
-        return district;
+    public PostalAddress getPostalAddress() {
+        return postalAddress;
     }
 
-    public void setDistrict(final String district) {
-        this.district = district;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(final String state) {
-        this.state = state;
-    }
-
-    public String getSitePincode() {
-        return sitePincode;
-    }
-
-    public void setSitePincode(final String sitePincode) {
-        this.sitePincode = sitePincode;
+    public void setPostalAddress(PostalAddress postalAddress) {
+        this.postalAddress = postalAddress;
     }
 
     public String getNatureofOwnership() {
