@@ -75,19 +75,19 @@ public class SearchHelper extends BaseAPITest {
 
      void searchStructureClassMaster(StructureClassResponse responseObjectOfCreate) throws IOException {
         new APILogger().log("Search Structure Classes master is Started --");
-        Response responseForId = new StructureClassResource().search(json, IDS + responseObjectOfCreate.getStructureClasses()[0].getId());
+        Response responseForId = new StructureClassMasterResource().search(json, IDS + responseObjectOfCreate.getStructureClasses()[0].getId());
         checkResponseForStructure(responseForId, responseObjectOfCreate);
         new APILogger().log("Search Structure Classes master with Id is Success");
 
-        Response responseForName = new StructureClassResource().search(json, WITH_NAME + responseObjectOfCreate.getStructureClasses()[0].getName());
+        Response responseForName = new StructureClassMasterResource().search(json, WITH_NAME + responseObjectOfCreate.getStructureClasses()[0].getName());
         checkResponseForStructure(responseForName, responseObjectOfCreate);
         new APILogger().log("Search Structure Classes Master with Name is Success");
 
-        Response responseForCode = new StructureClassResource().search(json, WITH_CODE + responseObjectOfCreate.getStructureClasses()[0].getCode());
+        Response responseForCode = new StructureClassMasterResource().search(json, WITH_CODE + responseObjectOfCreate.getStructureClasses()[0].getCode());
         checkResponseForStructure(responseForCode, responseObjectOfCreate);
         new APILogger().log("Search Structure Classes Master with code is Success");
 
-        Response responseForNameLocal = new StructureClassResource().search(json, NAMELOCAL + responseObjectOfCreate.getStructureClasses()[0].getNameLocal());
+        Response responseForNameLocal = new StructureClassMasterResource().search(json, NAMELOCAL + responseObjectOfCreate.getStructureClasses()[0].getNameLocal());
         checkResponseForStructure(responseForNameLocal, responseObjectOfCreate);
         new APILogger().log("Search Structure Classes Master with Name Local is Success");
         new APILogger().log("Search Structure Classes Master is Completed --");
@@ -106,19 +106,19 @@ public class SearchHelper extends BaseAPITest {
 
      void searchFloorTypesMaster(FloorTypesResponse responseObjectOfCreate) throws IOException {
         new APILogger().log("Search FloorTypes master is Started --");
-        Response responseForId = new FloorTypesResource().search(json, IDS + responseObjectOfCreate.getFloorTypes()[0].getId());
+        Response responseForId = new FloorTypesMasterResource().search(json, IDS + responseObjectOfCreate.getFloorTypes()[0].getId());
         checkAssertsForFloorTypes(responseForId, responseObjectOfCreate);
         new APILogger().log("Search FloorTypes master with Id is Success");
 
-        Response responseForName = new FloorTypesResource().search(json, WITH_NAME + responseObjectOfCreate.getFloorTypes()[0].getName());
+        Response responseForName = new FloorTypesMasterResource().search(json, WITH_NAME + responseObjectOfCreate.getFloorTypes()[0].getName());
         checkAssertsForFloorTypes(responseForName, responseObjectOfCreate);
         new APILogger().log("Search FloorTypes Master with Name is Success");
 
-        Response responseForCode = new FloorTypesResource().search(json, WITH_CODE + responseObjectOfCreate.getFloorTypes()[0].getCode());
+        Response responseForCode = new FloorTypesMasterResource().search(json, WITH_CODE + responseObjectOfCreate.getFloorTypes()[0].getCode());
         checkAssertsForFloorTypes(responseForCode, responseObjectOfCreate);
         new APILogger().log("Search FloorTypes Master with code is Success");
 
-        Response responseForNameLocal = new FloorTypesResource().search(json, NAMELOCAL + responseObjectOfCreate.getFloorTypes()[0].getNameLocal());
+        Response responseForNameLocal = new FloorTypesMasterResource().search(json, NAMELOCAL + responseObjectOfCreate.getFloorTypes()[0].getNameLocal());
         checkAssertsForFloorTypes(responseForNameLocal, responseObjectOfCreate);
         new APILogger().log("Search FloorTypes Master with Name Local is Success");
         new APILogger().log("Search FloorTypes Master is Completed --");
@@ -137,19 +137,19 @@ public class SearchHelper extends BaseAPITest {
 
      void searchWoodTypesMaster(WoodTypesResponse create) throws IOException {
         new APILogger().log("Search WoodTypes is Started --");
-        Response responseForId = new WoodTypesResource().search(json, IDS + create.getWoodTypes()[0].getId());
+        Response responseForId = new WoodTypesMasterResource().search(json, IDS + create.getWoodTypes()[0].getId());
         checkAssertsForWoodTypes(responseForId, create);
         new APILogger().log("Search WoodTypes Master with Id is Success");
 
-        Response responseForName = new WoodTypesResource().search(json, WITH_NAME + create.getWoodTypes()[0].getName());
+        Response responseForName = new WoodTypesMasterResource().search(json, WITH_NAME + create.getWoodTypes()[0].getName());
         checkAssertsForWoodTypes(responseForName, create);
         new APILogger().log("Search WoodTypes Master with name is Success");
 
-        Response responseForCode = new WoodTypesResource().search(json, WITH_CODE + create.getWoodTypes()[0].getCode());
+        Response responseForCode = new WoodTypesMasterResource().search(json, WITH_CODE + create.getWoodTypes()[0].getCode());
         checkAssertsForWoodTypes(responseForCode, create);
         new APILogger().log("Search WoodTypes Master with code is Success");
 
-        Response responseForNameLocal = new WoodTypesResource().search(json, NAMELOCAL + create.getWoodTypes()[0].getNameLocal());
+        Response responseForNameLocal = new WoodTypesMasterResource().search(json, NAMELOCAL + create.getWoodTypes()[0].getNameLocal());
         checkAssertsForWoodTypes(responseForNameLocal, create);
         new APILogger().log("Search WoodTypes Master with nameLocal is Success");
         new APILogger().log("Search WoodTypes is Completed --");
@@ -261,19 +261,19 @@ public class SearchHelper extends BaseAPITest {
 
      void searchWallTypeMaster(WallTypesResponse createObject) throws IOException {
         new APILogger().log("Search WallTypes Master is Started --");
-        Response responseForId = new WallTypeResource().search(json, IDS + createObject.getWallTypes()[0].getId());
+        Response responseForId = new WallTypesMasterResource().search(json, IDS + createObject.getWallTypes()[0].getId());
         checkAssertsForWallTypeMaster(responseForId, createObject);
         new APILogger().log("Search wallTypes Master with Id is Success");
 
-        Response responseForName = new WallTypeResource().search(json, WITH_NAME + createObject.getWallTypes()[0].getName());
+        Response responseForName = new WallTypesMasterResource().search(json, WITH_NAME + createObject.getWallTypes()[0].getName());
         checkAssertsForWallTypeMaster(responseForName, createObject);
         new APILogger().log("Search WallTypes Master with name is Success");
 
-        Response responseForCode = new WallTypeResource().search(json, WITH_CODE + createObject.getWallTypes()[0].getCode());
+        Response responseForCode = new WallTypesMasterResource().search(json, WITH_CODE + createObject.getWallTypes()[0].getCode());
         checkAssertsForWallTypeMaster(responseForCode, createObject);
         new APILogger().log("Search WallTypes Master with code is Success");
 
-        Response responseForNameLocal = new WallTypeResource().search(json, NAMELOCAL + createObject.getWallTypes()[0].getNameLocal());
+        Response responseForNameLocal = new WallTypesMasterResource().search(json, NAMELOCAL + createObject.getWallTypes()[0].getNameLocal());
         checkAssertsForWallTypeMaster(responseForNameLocal, createObject);
         new APILogger().log("Search WallTypes Master with nameLocal is Success");
         new APILogger().log("Search WallTypes Master is Completed --");

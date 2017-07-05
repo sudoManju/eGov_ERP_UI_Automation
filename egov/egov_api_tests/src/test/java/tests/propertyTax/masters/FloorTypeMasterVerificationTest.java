@@ -11,7 +11,7 @@ import entities.requests.propertyTax.masters.floorType.FloorTypesRequest;
 import entities.responses.propertyTax.masters.floorTypes.create.FloorTypesResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import resources.propertyTax.masters.FloorTypesResource;
+import resources.propertyTax.masters.FloorTypesMasterResource;
 import tests.BaseAPITest;
 import utils.*;
 
@@ -19,13 +19,13 @@ import java.io.IOException;
 
 import static data.UserData.NARASAPPA;
 
-public class FloorTypesVerificationTest extends BaseAPITest {
+public class FloorTypeMasterVerificationTest extends BaseAPITest {
 
     FloorTypes[] floorTypes;
     RequestInfo requestInfo;
     SearchHelper helper;
 
-    public FloorTypesVerificationTest(){
+    public FloorTypeMasterVerificationTest(){
         floorTypes = new FloorTypes[1];
     }
 
@@ -48,7 +48,7 @@ public class FloorTypesVerificationTest extends BaseAPITest {
                 .withNameLocal("Test_"+ get5DigitRandomInt()).build();
         FloorTypesRequest request = new FloorTypesRequestBuilder().withRequestInfo(requestInfo).withFloorTypes(floorTypes).build();
 
-        Response response = new FloorTypesResource().update(RequestHelper.getJsonString(request));
+        Response response = new FloorTypesMasterResource().update(RequestHelper.getJsonString(request));
         FloorTypesResponse responseObject = checkAsserts(request,response);
         Assert.assertEquals(responseObject.getFloorTypes()[0].getId(),id);
         new APILogger().log("Update Floor Types Master is Completed --");
@@ -61,7 +61,7 @@ public class FloorTypesVerificationTest extends BaseAPITest {
                 .withNameLocal("Test_"+ get5DigitRandomInt()).build();
         FloorTypesRequest request = new FloorTypesRequestBuilder().withRequestInfo(requestInfo).withFloorTypes(floorTypes).build();
 
-        Response response = new FloorTypesResource().create(RequestHelper.getJsonString(request));
+        Response response = new FloorTypesMasterResource().create(RequestHelper.getJsonString(request));
         FloorTypesResponse responseObject = checkAsserts(request,response);
         new APILogger().log("Create Floor Types Master is Completed --");
         return responseObject;

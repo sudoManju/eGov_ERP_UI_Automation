@@ -10,7 +10,7 @@ import entities.requests.propertyTax.masters.wallType.WallTypes;
 import entities.responses.propertyTax.masters.wallTypes.create.WallTypesResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import resources.propertyTax.masters.WallTypeResource;
+import resources.propertyTax.masters.WallTypesMasterResource;
 import tests.BaseAPITest;
 import utils.*;
 
@@ -48,7 +48,7 @@ public class WallTypeMasterVerificationTest extends BaseAPITest {
         WallTypeMasterRequest request = new WallTypeMasterRequestBuilder().withRequestInfo(requestInfo)
                 .withWallTypes(wallTypes).build();
 
-        Response response = new WallTypeResource().create(RequestHelper.getJsonString(request));
+        Response response = new WallTypesMasterResource().create(RequestHelper.getJsonString(request));
         WallTypesResponse responseObject = checkAsserts(request,response);
         new APILogger().log("Create WallType Master is Completed --");
         return responseObject;
@@ -61,7 +61,7 @@ public class WallTypeMasterVerificationTest extends BaseAPITest {
         WallTypeMasterRequest request = new WallTypeMasterRequestBuilder()
                 .withRequestInfo(requestInfo).withWallTypes(wallTypes).build();
 
-        Response response = new WallTypeResource().update(RequestHelper.getJsonString(request));
+        Response response = new WallTypesMasterResource().update(RequestHelper.getJsonString(request));
         WallTypesResponse responseObject = checkAsserts(request,response);
         Assert.assertEquals(responseObject.getWallTypes()[0].getId(),id);
         new APILogger().log("Update WallType Master is Completed --");

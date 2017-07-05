@@ -6,7 +6,7 @@ import utils.Properties;
 
 import static com.jayway.restassured.RestAssured.given;
 
-public class StructureClassResource {
+public class StructureClassMasterResource {
 
 
     public Response create(String json) {

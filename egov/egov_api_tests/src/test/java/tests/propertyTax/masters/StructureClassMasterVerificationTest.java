@@ -10,7 +10,7 @@ import entities.requests.propertyTax.masters.structureClass.StructureClasses;
 import entities.responses.propertyTax.masters.structureClass.create.StructureClassResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import resources.propertyTax.masters.StructureClassResource;
+import resources.propertyTax.masters.StructureClassMasterResource;
 import tests.BaseAPITest;
 import utils.*;
 
@@ -18,13 +18,13 @@ import java.io.IOException;
 
 import static data.UserData.NARASAPPA;
 
-public class StructureClassVerificationTest extends BaseAPITest {
+public class StructureClassMasterVerificationTest extends BaseAPITest {
 
     StructureClasses[] structureClasses;
     RequestInfo requestInfo;
     SearchHelper helper;
 
-    public StructureClassVerificationTest(){
+    public StructureClassMasterVerificationTest(){
         structureClasses = new StructureClasses[1];
     }
 
@@ -49,7 +49,7 @@ public class StructureClassVerificationTest extends BaseAPITest {
                 .withStructureClasses(structureClasses)
                                         .build();
 
-        Response response = new StructureClassResource().create(RequestHelper.getJsonString(request));
+        Response response = new StructureClassMasterResource().create(RequestHelper.getJsonString(request));
         StructureClassResponse responseObject = checkAsserts(request,response);
         new APILogger().log("Create StructureClass Master Completed");
         return responseObject;
@@ -76,7 +76,7 @@ public class StructureClassVerificationTest extends BaseAPITest {
                 .withStructureClasses(structureClasses)
                 .build();
 
-        Response response = new StructureClassResource().update(RequestHelper.getJsonString(request));
+        Response response = new StructureClassMasterResource().update(RequestHelper.getJsonString(request));
         StructureClassResponse responseObject = checkAsserts(request,response);
         Assert.assertEquals(responseObject.getStructureClasses()[0].getId(),id);
         new APILogger().log("Update StructureClass Master Completed");

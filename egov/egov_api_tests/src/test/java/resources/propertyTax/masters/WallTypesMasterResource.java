@@ -7,7 +7,7 @@ import utils.Properties;
 import static com.jayway.restassured.RestAssured.get;
 import static com.jayway.restassured.RestAssured.given;
 
-public class WallTypeResource {
+public class WallTypesMasterResource {
 
     public Response create(String json){
 

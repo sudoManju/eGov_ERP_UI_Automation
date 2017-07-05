@@ -18,13 +18,13 @@ import java.io.IOException;
 
 import static data.UserData.NARASAPPA;
 
-public class DepartmentVerificationTest extends BaseAPITest {
+public class DepartmentMasterVerificationTest extends BaseAPITest {
 
     Departments[] departments;
     RequestInfo requestInfo;
     SearchHelper helper;
 
-    public DepartmentVerificationTest(){departments = new Departments[1];}
+    public DepartmentMasterVerificationTest(){departments = new Departments[1];}
 
     @Test(groups = {Categories.PTIS, Categories.SANITY})
     public void DepartmentMasterTest() throws IOException{

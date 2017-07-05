@@ -18,13 +18,13 @@ import java.io.IOException;
 
 import static data.UserData.NARASAPPA;
 
-public class PropertyTypeVerificationTest extends BaseAPITest {
+public class PropertyTypeMasterVerificationTest extends BaseAPITest {
 
     PropertyTypes[] propertyTypes;
     RequestInfo requestInfo;
     SearchHelper helper;
 
-    public PropertyTypeVerificationTest(){propertyTypes = new PropertyTypes[1];}
+    public PropertyTypeMasterVerificationTest(){propertyTypes = new PropertyTypes[1];}
 
     @Test(groups = {Categories.PTIS, Categories.SANITY})
     public void propertyTypeTest() throws IOException{
