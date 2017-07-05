@@ -36,13 +36,13 @@ public class SearchHelper extends BaseAPITest {
 
     private String json;
 
-    public SearchHelper() {
+     SearchHelper() {
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         SearchMasterRequest request = new SearchUsageMasterRequestBuilder().withRequestInfo(requestInfo).build();
         json = RequestHelper.getJsonString(request);
     }
 
-    public void searchForUsageMaster(UsageMasterResponse responseObjectOfUsage) throws IOException {
+     void searchForUsageMaster(UsageMasterResponse responseObjectOfUsage) throws IOException {
         new APILogger().log("Search Usage Master is Started --");
         Response responseForId = new UsageMasterResource().search(json, IDS + responseObjectOfUsage.getUsageMasters()[0].getId());
         checkResponseForUsage(responseForId, responseObjectOfUsage);
@@ -73,7 +73,7 @@ public class SearchHelper extends BaseAPITest {
         Assert.assertEquals(response1.getUsageMasters()[0].getNameLocal(), create.getUsageMasters()[0].getNameLocal());
     }
 
-    public void searchStructureClassMaster(StructureClassResponse responseObjectOfCreate) throws IOException {
+     void searchStructureClassMaster(StructureClassResponse responseObjectOfCreate) throws IOException {
         new APILogger().log("Search Structure Classes master is Started --");
         Response responseForId = new StructureClassResource().search(json, IDS + responseObjectOfCreate.getStructureClasses()[0].getId());
         checkResponseForStructure(responseForId, responseObjectOfCreate);
@@ -104,7 +104,7 @@ public class SearchHelper extends BaseAPITest {
         Assert.assertEquals(response1.getStructureClasses()[0].getNameLocal(), responseObjectOfCreate.getStructureClasses()[0].getNameLocal());
     }
 
-    public void searchFloorTypesMaster(FloorTypesResponse responseObjectOfCreate) throws IOException {
+     void searchFloorTypesMaster(FloorTypesResponse responseObjectOfCreate) throws IOException {
         new APILogger().log("Search FloorTypes master is Started --");
         Response responseForId = new FloorTypesResource().search(json, IDS + responseObjectOfCreate.getFloorTypes()[0].getId());
         checkAssertsForFloorTypes(responseForId, responseObjectOfCreate);
@@ -135,7 +135,7 @@ public class SearchHelper extends BaseAPITest {
         Assert.assertEquals(response1.getFloorTypes()[0].getNameLocal(), requestObject.getFloorTypes()[0].getNameLocal());
     }
 
-    public void searchWoodTypesMaster(WoodTypesResponse create) throws IOException {
+     void searchWoodTypesMaster(WoodTypesResponse create) throws IOException {
         new APILogger().log("Search WoodTypes is Started --");
         Response responseForId = new WoodTypesResource().search(json, IDS + create.getWoodTypes()[0].getId());
         checkAssertsForWoodTypes(responseForId, create);
@@ -166,7 +166,7 @@ public class SearchHelper extends BaseAPITest {
         Assert.assertEquals(response1.getWoodTypes()[0].getNameLocal(),requestObject.getWoodTypes()[0].getNameLocal());
     }
 
-    public void searchPropertyTypeMaster(PropertyTypesResponse createObject) throws IOException {
+     void searchPropertyTypeMaster(PropertyTypesResponse createObject) throws IOException {
         new APILogger().log("Search Property type is Started --");
         Response responseForId = new PropertyTypeMasterResource().search(json, IDS + createObject.getPropertyTypes()[0].getId());
         checkAssertsForPropertyTypes(responseForId, createObject);
@@ -197,7 +197,7 @@ public class SearchHelper extends BaseAPITest {
         Assert.assertEquals(response1.getPropertyTypes()[0].getNameLocal(), createObject.getPropertyTypes()[0].getNameLocal());
     }
 
-    public void searchDepartmentMaster(DepartmentsMasterResponse createObject) throws IOException {
+     void searchDepartmentMaster(DepartmentsMasterResponse createObject) throws IOException {
         new APILogger().log("Search Department Master is Started --");
         Response responseForId = new DepartmentsMasterResource().search(json, IDS + createObject.getDepartments()[0].getId());
         checkAssertsForDepartments(responseForId, createObject);
@@ -228,7 +228,7 @@ public class SearchHelper extends BaseAPITest {
         Assert.assertEquals(response1.getDepartments()[0].getNameLocal(), requestObject.getDepartments()[0].getNameLocal());
     }
 
-    public void searchOccupancyMaster(OccupancyMasterResponse createObject) throws IOException {
+     void searchOccupancyMaster(OccupancyMasterResponse createObject) throws IOException {
         new APILogger().log("Search Occupancy Master is Started --");
         Response responseForId = new OccupancyMasterResource().search(json, IDS + createObject.getOccuapancyMasters()[0].getId());
         checkAssertsForOccupancyMaster(responseForId, createObject);
@@ -259,7 +259,7 @@ public class SearchHelper extends BaseAPITest {
         Assert.assertEquals(response1.getOccuapancyMasters()[0].getNameLocal(), requestObject.getOccuapancyMasters()[0].getNameLocal());
     }
 
-    public void searchWallTypeMaster(WallTypesResponse createObject) throws IOException {
+     void searchWallTypeMaster(WallTypesResponse createObject) throws IOException {
         new APILogger().log("Search WallTypes Master is Started --");
         Response responseForId = new WallTypeResource().search(json, IDS + createObject.getWallTypes()[0].getId());
         checkAssertsForWallTypeMaster(responseForId, createObject);
