@@ -212,8 +212,8 @@ public class BpaNoticeService {
                     ? bpaApplication.getSiteDetail().get(0).getVillage().getName() : "");
             reportParams.put("taluk", bpaApplication.getSiteDetail().get(0).getTaluk() != null
                     ? bpaApplication.getSiteDetail().get(0).getTaluk() : "");
-            reportParams.put("district", bpaApplication.getSiteDetail().get(0).getDistrict() != null
-                    ? bpaApplication.getSiteDetail().get(0).getDistrict() : "");
+            reportParams.put("district", bpaApplication.getSiteDetail().get(0).getPostalAddress() != null
+                    ? bpaApplication.getSiteDetail().get(0).getPostalAddress().getDistrict() : "");
         }
         reportParams.put("certExpryDate", calculateCertExpryDate());
         reportParams.put("isBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
