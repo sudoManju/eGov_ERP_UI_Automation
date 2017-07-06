@@ -218,3 +218,21 @@ select.tick-indicator[multiple] option:checked {
 }
 
 /* amenities multiple select tick box end */
+
+/* search suggestion start */
+
+#postalAddressTypeHead .empty-message {
+  padding: 5px 10px;
+ text-align: center;
+}
+
+.padding-10{
+	padding:5px 10px;
+}
+
+.custom-list-item:hover small{
+	color:#fff;
+}
+
+
+/* search suggestion end */

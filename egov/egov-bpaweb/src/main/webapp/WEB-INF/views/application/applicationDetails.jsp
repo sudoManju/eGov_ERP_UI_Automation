@@ -143,7 +143,7 @@
 					code="lbl.stakeholder.name" /><span class="mandatory"></span> </label>
 			<div class="col-sm-3 add-margin">
 				<form:hidden path="stakeHolder[0].application" />
-				<input type="text" id="stakeHolderTypeHead"
+				<input type="text" id="stakeHolderTypeHead" placeholder="Search Building Licensee.."
 					class="form-control typeahead" autocomplete="off"
 					required="required"
 					value="${bpaApplication.stakeHolder[0].stakeHolder.name}" />
@@ -184,34 +184,6 @@
 </div> --%>
 
 	<div class="form-group">
-		<label class="col-sm-3 control-label text-right">Occupancy <span
-			class="mandatory"></span></label>
-		<div class="col-sm-3 add-margin">
-			<form:select path="occupancy" data-first-option="false"
-				id="occupancy" cssClass="form-control" required="required">
-				<form:option value="">
-					<spring:message code="lbl.select" />
-				</form:option>
-				<form:options items="${occupancyList}" itemValue="id"
-					itemLabel="description" />
-			</form:select>
-			<form:errors path="occupancy" cssClass="add-margin error-msg" />
-		</div>
-		<label class="col-sm-2 control-label text-right"><spring:message
-				code="lbl.government.type" /></label>
-		<div class="col-sm-3 add-margin">
-			<form:select path="governmentType" id="governmentType"
-				value="${bpaApplication.governmentType}" cssClass="form-control">
-				<form:option value="">
-					<spring:message code="lbl.select" />
-				</form:option>
-				<form:options items="${governmentTypeList}" />
-			</form:select>
-			<form:errors path="governmentType" cssClass="add-margin error-msg" />
-		</div>
-	</div>
-
-	<div class="form-group">
 		<label class="col-sm-3 control-label text-right">Remarks</label>
 		<div class="col-sm-3 add-margin">
 			<form:hidden path="applicantMode" />
@@ -222,7 +194,7 @@
 		</div>
 	</div>
 
-	<div class="form-group">
+	<%-- <div class="form-group">
 		<div class="col-sm-3 add-margin">
 			<c:choose>
 				<c:when test="%{buildingPlanApprovalDate!=null}">
@@ -297,5 +269,5 @@
 				<td class="bluebox">&nbsp;</td>
 			</c:otherwise>
 		</c:choose>
-	</div>
+	</div> --%>
 </div>

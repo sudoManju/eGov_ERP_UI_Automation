@@ -71,8 +71,7 @@ jQuery(document).ready(
 				} else {
 					$.each(validator.invalidElements(), function(index, elem){
 						if(!$(elem).is(":visible") && !$(elem).closest('div.panel-body').is(":visible")){
-							$(elem).closest('div.panel-body').slideToggle();
-							console.log("elem", elem);
+							$(elem).closest('div.panel-body').show();
 						}
 					});
 					
@@ -80,7 +79,6 @@ jQuery(document).ready(
 					return false;
 				}
 			}
-			
 			
 			$('.applicantname').hide();
 			$('#name').change(function() {
@@ -291,8 +289,7 @@ jQuery('form').validate({
 });
 
 function focusToTabElement(element) {
-	$(
-			'#settingstab a[href="#'
+	$('#settingstab a[href="#'
 					+ jQuery(element).closest(".tab-pane").attr('id') + '"]')
 			.tab('show');
 }
@@ -377,8 +374,8 @@ var stakeholderengine = new Bloodhound({
 stakeholderengine.initialize();
 
 var sh_typeahead = $('#stakeHolderTypeHead').typeahead({
-	hint : true,
-	highlight : true,
+	hint : false,
+	highlight : false,
 	minLength : 1
 }, {
 	displayKey : 'name',

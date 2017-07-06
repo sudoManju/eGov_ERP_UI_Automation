@@ -107,13 +107,13 @@ public class SiteDetail extends AbstractAuditable {
     @JoinColumn(name = "village")
     private VillageName village; // required ??
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "postalAddress")
     private PostalAddress postalAddress;
     @Length(min = 1, max = 128)
     private String natureofOwnership;
     private BigDecimal extentOfLand;
-    private BigDecimal extentinsqmts; 
+    private BigDecimal extentinsqmts;
     @NotNull
     @Enumerated(EnumType.ORDINAL)
     private BpaUom unitOfMeasurement;
@@ -144,12 +144,13 @@ public class SiteDetail extends AbstractAuditable {
     private BigDecimal noOfPoles;
     private BigDecimal noOfHutOrSheds;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name="conststages")
+    @JoinColumn(name = "conststages")
     private ConstructionStages constStages;
     @Length(min = 1, max = 128)
     private String stateOfConstruction;
-    
     private Boolean isappForRegularization;
+    private transient Long postalId;
+
     @Override
     public Long getId() {
         return id;
@@ -194,24 +195,24 @@ public class SiteDetail extends AbstractAuditable {
     public void setPlotsurveynumber(final String plotsurveynumber) {
         this.plotsurveynumber = plotsurveynumber;
     }
-    
+
     public String getReSurveyNumber() {
-		return reSurveyNumber;
-	}
+        return reSurveyNumber;
+    }
 
-	public void setReSurveyNumber(String reSurveyNumber) {
-		this.reSurveyNumber = reSurveyNumber;
-	}
+    public void setReSurveyNumber(String reSurveyNumber) {
+        this.reSurveyNumber = reSurveyNumber;
+    }
 
-	public String getTownSurveyNumber() {
-		return townSurveyNumber;
-	}
+    public String getTownSurveyNumber() {
+        return townSurveyNumber;
+    }
 
-	public void setTownSurveyNumber(String townSurveyNumber) {
-		this.townSurveyNumber = townSurveyNumber;
-	}
+    public void setTownSurveyNumber(String townSurveyNumber) {
+        this.townSurveyNumber = townSurveyNumber;
+    }
 
-	public String getSurveynumberType() {
+    public String getSurveynumberType() {
         return surveynumberType;
     }
 
@@ -424,109 +425,116 @@ public class SiteDetail extends AbstractAuditable {
         this.electionBoundary = electionBoundary;
     }
 
-	public BigDecimal getLengthOfCompoundWall() {
-		return lengthOfCompoundWall;
-	}
+    public BigDecimal getLengthOfCompoundWall() {
+        return lengthOfCompoundWall;
+    }
 
-	public void setLengthOfCompoundWall(BigDecimal lengthOfCompoundWall) {
-		this.lengthOfCompoundWall = lengthOfCompoundWall;
-	}
+    public void setLengthOfCompoundWall(BigDecimal lengthOfCompoundWall) {
+        this.lengthOfCompoundWall = lengthOfCompoundWall;
+    }
 
-	public BigDecimal getDwellingunitnt() {
-		return dwellingunitnt;
-	}
+    public BigDecimal getDwellingunitnt() {
+        return dwellingunitnt;
+    }
 
-	public void setDwellingunitnt(BigDecimal dwellingunitnt) {
-		this.dwellingunitnt = dwellingunitnt;
-	}
+    public void setDwellingunitnt(BigDecimal dwellingunitnt) {
+        this.dwellingunitnt = dwellingunitnt;
+    }
 
-	public String getLocationOfPlot() {
-		return locationOfPlot;
-	}
+    public String getLocationOfPlot() {
+        return locationOfPlot;
+    }
 
-	public void setLocationOfPlot(String locationOfPlot) {
-		this.locationOfPlot = locationOfPlot;
-	}
+    public void setLocationOfPlot(String locationOfPlot) {
+        this.locationOfPlot = locationOfPlot;
+    }
 
-	public BigDecimal getRoofConversion() {
-		return roofConversion;
-	}
+    public BigDecimal getRoofConversion() {
+        return roofConversion;
+    }
 
-	public void setRoofConversion(BigDecimal roofConversion) {
-		this.roofConversion = roofConversion;
-	}
+    public void setRoofConversion(BigDecimal roofConversion) {
+        this.roofConversion = roofConversion;
+    }
 
-	public BigDecimal getShutter() {
-		return shutter;
-	}
+    public BigDecimal getShutter() {
+        return shutter;
+    }
 
-	public void setShutter(BigDecimal shutter) {
-		this.shutter = shutter;
-	}
+    public void setShutter(BigDecimal shutter) {
+        this.shutter = shutter;
+    }
 
-	public BigDecimal getErectionoftower() {
-		return erectionoftower;
-	}
+    public BigDecimal getErectionoftower() {
+        return erectionoftower;
+    }
 
-	public void setErectionoftower(BigDecimal erectionoftower) {
-		this.erectionoftower = erectionoftower;
-	}
-	
-	public BigDecimal getNoOfPoles() {
-		return noOfPoles;
-	}
+    public void setErectionoftower(BigDecimal erectionoftower) {
+        this.erectionoftower = erectionoftower;
+    }
 
-	public void setNoOfPoles(BigDecimal noOfPoles) {
-		this.noOfPoles = noOfPoles;
-	}
+    public BigDecimal getNoOfPoles() {
+        return noOfPoles;
+    }
 
-	public BigDecimal getNoOfHutOrSheds() {
-		return noOfHutOrSheds;
-	}
+    public void setNoOfPoles(BigDecimal noOfPoles) {
+        this.noOfPoles = noOfPoles;
+    }
 
-	public void setNoOfHutOrSheds(BigDecimal noOfHutOrSheds) {
-		this.noOfHutOrSheds = noOfHutOrSheds;
-	}
+    public BigDecimal getNoOfHutOrSheds() {
+        return noOfHutOrSheds;
+    }
 
-	public BpaUom getUnitOfMeasurement() {
-		return unitOfMeasurement;
-	}
+    public void setNoOfHutOrSheds(BigDecimal noOfHutOrSheds) {
+        this.noOfHutOrSheds = noOfHutOrSheds;
+    }
 
-	public void setUnitOfMeasurement(BpaUom unitOfMeasurement) {
-		this.unitOfMeasurement = unitOfMeasurement;
-	}
+    public BpaUom getUnitOfMeasurement() {
+        return unitOfMeasurement;
+    }
 
-	public ConstructionStages getConstStages() {
-		return constStages;
-	}
+    public void setUnitOfMeasurement(BpaUom unitOfMeasurement) {
+        this.unitOfMeasurement = unitOfMeasurement;
+    }
 
-	public void setConstStages(ConstructionStages constStages) {
-		this.constStages = constStages;
-	}
+    public ConstructionStages getConstStages() {
+        return constStages;
+    }
 
-	public String getStateOfConstruction() {
-		return stateOfConstruction;
-	}
+    public void setConstStages(ConstructionStages constStages) {
+        this.constStages = constStages;
+    }
 
-	public void setStateOfConstruction(String stateOfConstruction) {
-		this.stateOfConstruction = stateOfConstruction;
-	}
+    public String getStateOfConstruction() {
+        return stateOfConstruction;
+    }
 
-	public Boolean getIsappForRegularization() {
-		return isappForRegularization;
-	}
+    public void setStateOfConstruction(String stateOfConstruction) {
+        this.stateOfConstruction = stateOfConstruction;
+    }
 
-	public void setIsappForRegularization(Boolean isappForRegularization) {
-		this.isappForRegularization = isappForRegularization;
-	}
+    public Boolean getIsappForRegularization() {
+        return isappForRegularization;
+    }
 
-	public BigDecimal getExtentOfLand() {
-		return extentOfLand;
-	}
+    public void setIsappForRegularization(Boolean isappForRegularization) {
+        this.isappForRegularization = isappForRegularization;
+    }
 
-	public void setExtentOfLand(BigDecimal extentOfLand) {
-		this.extentOfLand = extentOfLand;
-	}
-	
-	
+    public BigDecimal getExtentOfLand() {
+        return extentOfLand;
+    }
+
+    public void setExtentOfLand(BigDecimal extentOfLand) {
+        this.extentOfLand = extentOfLand;
+    }
+
+    public Long getPostalId() {
+        return postalId;
+    }
+
+    public void setPostalId(Long postalId) {
+        this.postalId = postalId;
+    }
+
 }

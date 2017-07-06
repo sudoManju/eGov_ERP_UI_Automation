@@ -54,6 +54,7 @@
 	</div>
 </div>
 <div class="panel-body display-hide">
+
 	<div class="form-group">
 		<label
 			class="col-sm-3 control-label text-right handle-mandatory show-hide totalPlintArea"><spring:message
@@ -98,93 +99,7 @@
 			cssClass="add-margin error-msg" />
 	</div> --%>
 	</div>
-	<%-- <div class="form-group">
 	
-	<label class="col-sm-2 control-label text-right proposedfloorArea"><spring:message
-			code="lbl.build.propsed.floor.area" /> </label>
-	<div class="col-sm-3 add-margin">
-		<form:input
-			class="form-control patternvalidation clear-values proposedfloorArea"
-			maxlength="10" data-pattern="decimalvalue"
-			id="buildingDetail[0].proposedfloorArea"
-			path="buildingDetail[0].proposedfloorArea" />
-		<form:errors path="buildingDetail[0].proposedfloorArea"
-			cssClass="add-margin error-msg" />
-	</div>
-</div> --%>
-	<div class="form-group">
-		<label
-			class="col-sm-3 control-label text-right handle-mandatory heightFromGroundWithStairRoom"><spring:message
-				code="lbl.grnd.with.stair" /> <span class="mandatory"></span> </label>
-		<div class="col-sm-3 add-margin">
-			<form:input
-				class="form-control patternvalidation clear-values  handle-mandatory heightFromGroundWithStairRoom"
-				maxlength="10" data-pattern="decimalvalue"
-				id="heightFromGroundWithStairRoom"
-				path="buildingDetail[0].heightFromGroundWithStairRoom"
-				required="required" />
-			<form:errors path="buildingDetail[0].heightFromGroundWithStairRoom"
-				cssClass="add-margin error-msg" />
-		</div>
-		<label
-			class="col-sm-2 control-label text-right handle-mandatory heightFromGroundWithOutStairRoom"><spring:message
-				code="lbl.grnd.wo.stair" /> <span class="mandatory"></span> </label>
-		<div class="col-sm-3 add-margin">
-			<form:input
-				class="form-control patternvalidation clear-values  handle-mandatory heightFromGroundWithOutStairRoom"
-				maxlength="10" data-pattern="decimalvalue"
-				id="heightFromGroundWithOutStairRoom"
-				path="buildingDetail[0].heightFromGroundWithOutStairRoom"
-				required="required" />
-			<form:errors
-				path="buildingDetail[0].heightFromGroundWithOutStairRoom"
-				cssClass="add-margin error-msg" />
-		</div>
-	</div>
-	<div class="form-group">
-		<label
-			class="col-sm-3 control-label text-right handle-mandatory fromStreetLevelWithStairRoom"><spring:message
-				code="lbl.street.with.stair" /> <span class="mandatory"></span> </label>
-		<div class="col-sm-3 add-margin">
-			<form:input
-				class="form-control patternvalidation handle-mandatory clear-values fromStreetLevelWithStairRoom"
-				maxlength="10" data-pattern="decimalvalue"
-				id="fromStreetLevelWithStairRoom"
-				path="buildingDetail[0].fromStreetLevelWithStairRoom"
-				required="required" />
-			<form:errors path="buildingDetail[0].fromStreetLevelWithStairRoom"
-				cssClass="add-margin error-msg" />
-		</div>
-		<label
-			class="col-sm-2 control-label text-right handle-mandatory fromStreetLevelWithOutStairRoom"><spring:message
-				code="lbl.street.wo.stair" /> <span class="mandatory"></span> </label>
-		<div class="col-sm-3 add-margin">
-			<form:input
-				class="form-control patternvalidation handle-mandatory clear-values fromStreetLevelWithOutStairRoom"
-				maxlength="10" data-pattern="decimalvalue"
-				id="fromStreetLevelWithOutStairRoom"
-				path="buildingDetail[0].fromStreetLevelWithOutStairRoom"
-				required="required" />
-			<form:errors path="buildingDetail[0].fromStreetLevelWithOutStairRoom"
-				cssClass="add-margin error-msg" />
-		</div>
-	</div>
-
-	<%-- <div class="form-group">
-	<label
-		class="col-sm-3 control-label text-right handle-mandatory machineRoom"><spring:message
-			code="lbl.machine.room" /> <span class="mandatory"></span> </label>
-	<div class="col-sm-3 add-margin">
-		<form:input
-			class="form-control patternvalidation clear-values handle-mandatory machineRoom"
-			maxlength="10" data-pattern="decimalvalue" id="machineRoom"
-			path="buildingDetail[0].machineRoom" required="required" />
-		<form:errors path="buildingDetail[0].machineRoom"
-			cssClass="add-margin error-msg" />
-	</div>
-</div> --%>
-
-
 	<div class="panel-title header-color">
 		<spring:message code="lbl.plint.carpet.details" />
 	</div>
@@ -286,4 +201,179 @@
 			</tr>
 		</tfoot>
 	</table>
+	
+	<%-- <div class="form-group">
+	
+	<label class="col-sm-2 control-label text-right proposedfloorArea"><spring:message
+			code="lbl.build.propsed.floor.area" /> </label>
+	<div class="col-sm-3 add-margin">
+		<form:input
+			class="form-control patternvalidation clear-values proposedfloorArea"
+			maxlength="10" data-pattern="decimalvalue"
+			id="buildingDetail[0].proposedfloorArea"
+			path="buildingDetail[0].proposedfloorArea" />
+		<form:errors path="buildingDetail[0].proposedfloorArea"
+			cssClass="add-margin error-msg" />
+	</div>
+</div> --%>
+	<div class="form-group">
+		<label
+			class="col-sm-3 control-label text-right handle-mandatory heightFromGroundWithStairRoom"><spring:message
+				code="lbl.grnd.with.stair" /> <span class="mandatory"></span> </label>
+		<div class="col-sm-3 add-margin">
+			<form:input
+				class="form-control patternvalidation clear-values  handle-mandatory heightFromGroundWithStairRoom"
+				maxlength="10" data-pattern="decimalvalue"
+				id="heightFromGroundWithStairRoom"
+				path="buildingDetail[0].heightFromGroundWithStairRoom"
+				required="required" />
+			<form:errors path="buildingDetail[0].heightFromGroundWithStairRoom"
+				cssClass="add-margin error-msg" />
+		</div>
+		<label
+			class="col-sm-2 control-label text-right handle-mandatory heightFromGroundWithOutStairRoom"><spring:message
+				code="lbl.grnd.wo.stair" /> <span class="mandatory"></span> </label>
+		<div class="col-sm-3 add-margin">
+			<form:input
+				class="form-control patternvalidation clear-values  handle-mandatory heightFromGroundWithOutStairRoom"
+				maxlength="10" data-pattern="decimalvalue"
+				id="heightFromGroundWithOutStairRoom"
+				path="buildingDetail[0].heightFromGroundWithOutStairRoom"
+				required="required" />
+			<form:errors
+				path="buildingDetail[0].heightFromGroundWithOutStairRoom"
+				cssClass="add-margin error-msg" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label
+			class="col-sm-3 control-label text-right handle-mandatory fromStreetLevelWithStairRoom"><spring:message
+				code="lbl.street.with.stair" /> <span class="mandatory"></span> </label>
+		<div class="col-sm-3 add-margin">
+			<form:input
+				class="form-control patternvalidation handle-mandatory clear-values fromStreetLevelWithStairRoom"
+				maxlength="10" data-pattern="decimalvalue"
+				id="fromStreetLevelWithStairRoom"
+				path="buildingDetail[0].fromStreetLevelWithStairRoom"
+				required="required" />
+			<form:errors path="buildingDetail[0].fromStreetLevelWithStairRoom"
+				cssClass="add-margin error-msg" />
+		</div>
+		<label
+			class="col-sm-2 control-label text-right handle-mandatory fromStreetLevelWithOutStairRoom"><spring:message
+				code="lbl.street.wo.stair" /> <span class="mandatory"></span> </label>
+		<div class="col-sm-3 add-margin">
+			<form:input
+				class="form-control patternvalidation handle-mandatory clear-values fromStreetLevelWithOutStairRoom"
+				maxlength="10" data-pattern="decimalvalue"
+				id="fromStreetLevelWithOutStairRoom"
+				path="buildingDetail[0].fromStreetLevelWithOutStairRoom"
+				required="required" />
+			<form:errors path="buildingDetail[0].fromStreetLevelWithOutStairRoom"
+				cssClass="add-margin error-msg" />
+		</div>
+	</div>
+
+	<%-- <div class="form-group">
+	<label
+		class="col-sm-3 control-label text-right handle-mandatory machineRoom"><spring:message
+			code="lbl.machine.room" /> <span class="mandatory"></span> </label>
+	<div class="col-sm-3 add-margin">
+		<form:input
+			class="form-control patternvalidation clear-values handle-mandatory machineRoom"
+			maxlength="10" data-pattern="decimalvalue" id="machineRoom"
+			path="buildingDetail[0].machineRoom" required="required" />
+		<form:errors path="buildingDetail[0].machineRoom"
+			cssClass="add-margin error-msg" />
+	</div>
+</div> --%>
+	
+	<div class="form-group">
+		<label class="col-sm-3 control-label text-right"><spring:message
+				code="lbl.if.regularized" /> </label>
+		<div class="col-sm-3 add-margin">
+			<form:checkbox id="isappForRegularization"
+				path="siteDetail[0].isappForRegularization"
+				value="siteDetail[0].isappForRegularization" />
+			<form:errors path="siteDetail[0].isappForRegularization" />
+		</div>
+	</div>
+	<div class="form-group" id="constDiv">
+		<label class="col-sm-3 control-label text-right constStages"><spring:message
+				code="lbl.cons.stages" /><span></span></label>
+		<div class="col-sm-3 add-margin">
+			<form:select path="siteDetail[0].constStages"
+				data-first-option="false" id="constStages" cssClass="form-control">
+				<form:option value="">
+					<spring:message code="lbl.select" />
+				</form:option>
+				<form:options items="${constStages}" itemValue="id" itemLabel="code" />
+			</form:select>
+			<form:errors path="siteDetail[0].constStages"
+				cssClass="add-margin error-msg" />
+		</div>
+		<div id="inprogress">
+			<label class="col-sm-2 control-label text-right stateOfConstruction"><spring:message
+					code="lbl.if.cons.not.cmplted" /><span></span></label>
+			<div class="col-sm-3 add-margin">
+				<form:input class="form-control patternvalidation"
+					data-pattern="alphanumericwithspace" maxlength="128"
+					id="stateOfConstruction" path="siteDetail[0].stateOfConstruction" />
+				<form:errors path="siteDetail[0].stateOfConstruction"
+					cssClass="add-margin error-msg" />
+			</div>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="col-sm-3 control-label text-right"><spring:message
+				code="lbl.permt.plan.obtain" /> </label>
+		<div class="col-sm-3 add-margin">
+			<form:checkbox id="isexistingApprovedPlan"
+				path="isExistingApprovedPlan" value="isExistingApprovedPlan" />
+			<form:errors path="isExistingApprovedPlan"
+				cssClass="add-margin error-msg" />
+		</div>
+	</div>
+	<div class="form-group" id="existingAppPlan">
+		<div class="form-group">
+			<label class="col-sm-3 control-label text-right removemandatory"><spring:message
+					code="lbl.amount.paid" /> <span class="mandatory"></span></label>
+			<div class="col-sm-3 add-margin">
+				<form:input class="form-control patternvalidation" maxlength="128"
+					id="feeAmountRecieptNo" path="feeAmountRecieptNo" />
+				<form:errors path="feeAmountRecieptNo"
+					cssClass="add-margin error-msg" />
+			</div>
+			<label class="col-sm-2 control-label text-right"><spring:message
+					code="lbl.date.receipt" /><span class="mandatory"></span></label>
+			<div class="col-sm-3 add-margin">
+				<form:input path="approvedReceiptDate"
+					class="form-control datepicker" data-date-end-date="0d"
+					id="approvedReceiptDate" data-inputmask="'mask': 'd/m/y'" />
+				<form:errors path="approvedReceiptDate"
+					cssClass="add-margin error-msg" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label text-right removemandatory"><spring:message
+					code="lbl.revised.appln.no" /><span class="mandatory"></span></label>
+			<div class="col-sm-3 add-margin">
+				<form:input class="form-control patternvalidation" maxlength="128"
+					id="revisedApplicationNumber" path="revisedApplicationNumber" />
+				<form:errors path="revisedApplicationNumber"
+					cssClass="add-margin error-msg" />
+			</div>
+			<label class="col-sm-2 control-label text-right removemandatory"><spring:message
+					code="lbl.received.receipt.no" /><span class="mandatory"></span></label>
+			<div class="col-sm-3 add-margin">
+				<form:input class="form-control patternvalidation" maxlength="128"
+					id="revisedPermitNumber" path="revisedPermitNumber" />
+				<form:errors path="revisedPermitNumber"
+					cssClass="add-margin error-msg" />
+			</div>
+		</div>
+	</div>
+
 </div>

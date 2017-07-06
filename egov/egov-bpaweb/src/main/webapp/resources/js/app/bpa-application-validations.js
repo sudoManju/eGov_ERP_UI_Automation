@@ -251,7 +251,7 @@ $(document).ready(function() {
 $('#occupancy').change(function(){
 	$( ".plinthArea" ).trigger( "change" );
 	$( ".carpetArea" ).trigger( "change" );
-	$('.clear-values').val('');
+	//$('.clear-values').val('');
 	$('#buildingAreaDetails').find('input').val('');
 	$('#buildingAreaDetails').find('select').val('');
 	getOccupancyObject();
@@ -331,10 +331,10 @@ function getOccupancyObject() {
 	extentInSqmts = $('#extentinsqmts').val();
 	totalPlintArea = $('#totalPlintArea').val();
 	var occpancyId = $('#occupancy').val();
-		if(!occpancyId){
+		/*if(!occpancyId){
 			bootbox.alert("Please select occpancy type");
 			return false;
-		}
+		}*/
 	return occupancyResponse[occpancyId];
 }
 

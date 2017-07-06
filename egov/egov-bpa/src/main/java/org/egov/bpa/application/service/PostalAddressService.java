@@ -46,10 +46,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.egov.bpa.application.entity.PostalAddress;
+import org.egov.bpa.application.repository.PostalAddressRepository;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,6 +61,8 @@ public class PostalAddressService {
 
     @PersistenceContext
     private EntityManager entityManager;
+    @Autowired
+    private PostalAddressRepository postalAddressRepository;
 
     public Session getCurrentSession() {
         return entityManager.unwrap(Session.class);
@@ -70,5 +74,9 @@ public class PostalAddressService {
         criteria.add(Restrictions.ilike("postalAddress.pincode", pincode, MatchMode.ANYWHERE));
         criteria.add(Restrictions.eq("postalAddress.isActive", true));
         return criteria.list();
+    }
+    
+    public PostalAddress findById(Long id) {
+        return postalAddressRepository.findOne(id);
     }
 }

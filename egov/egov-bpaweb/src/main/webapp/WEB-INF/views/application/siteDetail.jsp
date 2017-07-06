@@ -45,7 +45,9 @@
 <%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn"%>
 
 <div class="panel-heading toggle-header custom_form_panel_heading">
-	<div class="panel-title">Site Details</div>
+	<div class="panel-title">
+		<spring:message code="lbl.site.details" />
+	</div>
 	<div class="history-icon toggle-icon">
 		<i class="fa fa-angle-up fa-2x"></i>
 	</div>
@@ -247,26 +249,29 @@
 				cssClass="add-margin error-msg" />
 		</div>
 	</div>
-	
+
 	<div class="form-group">
 		<label class="col-sm-3 control-label text-right"><spring:message
 				code="lbl.site.pincode" /><span class="mandatory"></span></label>
 		<div class="col-sm-3 add-margin">
 			<input type="text" id="postalAddressTypeHead"
-					class="form-control typeahead" autocomplete="off"
+					class="form-control patternvalidation typeahead" placeholder="Search Pincode" autocomplete="off" data-pattern="number"
 					value="${bpaApplication.siteDetail[0].postalAddress.pincode}" />
-				<form:hidden path="siteDetail[0].postalAddress" id="postalAddress"
-					value="${bpaApplication.siteDetail[0].postalAddress.id}" />
+			<form:hidden path="siteDetail[0].postalAddress" value="${bpaApplication.siteDetail[0].postalAddress.id}" />
+			<form:hidden path="siteDetail[0].postalId" id="postalAddress" value="" />
 		</div>
 		<label class="col-sm-2 control-label text-right"><spring:message
 				code="lbl.post.office" /><span class="mandatory"></span></label>
 		<div class="col-sm-3 add-margin">
-			<select id="postOffices" class="form-control" required="required" >
+			<%-- <select id="postOffices" class="form-control" required="required" >
 			        <option value=""><spring:message code="lbl.select" /></option>
 			        <c:if test="${bpaApplication.siteDetail[0].postalAddress.postOffice ne null}">
 			        	<option selected="selected">${bpaApplication.siteDetail[0].postalAddress.postOffice}</option>
 			        </c:if>
-				</select>
+				</select> --%>
+			<input class="form-control patternvalidation" maxlength="128"
+				data-pattern="alphanumericwithspace" id="postOffices"
+				value="${bpaApplication.siteDetail[0].postalAddress.postOffice}" disabled="disabled" />
 		</div>
 	</div>
 	
@@ -322,6 +327,28 @@
 				path="siteDetail[0].approvedLayoutDetail" />
 			<form:errors path="siteDetail[0].approvedLayoutDetail"
 				cssClass="add-margin error-msg" />
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="col-sm-3 control-label text-right">Occupancy <span
+			class="mandatory"></span></label>
+		<div class="col-sm-3 add-margin">
+			<form:select path="occupancy" data-first-option="false"
+				id="occupancy" cssClass="form-control" required="required">
+				<form:option value="">
+					<spring:message code="lbl.select" />
+				</form:option>
+				<form:options items="${occupancyList}" itemValue="id"
+					itemLabel="description" />
+			</form:select>
+			<form:errors path="occupancy" cssClass="add-margin error-msg" />
+		</div>
+		<label class="col-sm-2 control-label text-right"><spring:message
+				code="lbl.government.type" /></label>
+		<div class="col-sm-3 add-margin">
+			<form:radiobuttons items="${governmentTypeList}" path="governmentType"/>
+			<form:errors path="governmentType" cssClass="add-margin error-msg" />
 		</div>
 	</div>
 

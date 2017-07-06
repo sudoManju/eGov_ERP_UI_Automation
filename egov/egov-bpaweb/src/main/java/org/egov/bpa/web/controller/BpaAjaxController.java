@@ -47,7 +47,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -195,8 +194,7 @@ public class BpaAjaxController {
 
     @RequestMapping(value = "/ajax/postaladdress", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public Map<String, List<PostalAddress>> getPostalAddress(@RequestParam final String pincode) {
-        return postalAddressService.getPostalAddressList(pincode).stream()
-                .collect(Collectors.groupingBy(PostalAddress::getPincode));
+    public List<PostalAddress> getPostalAddress(@RequestParam final String pincode) {
+        return postalAddressService.getPostalAddressList(pincode);
     }
 }

@@ -198,15 +198,16 @@ var postaladdressengine = new Bloodhound({
 			return url + '?pincode=' + query ;
 		},
 		filter : function(data) {
-			var arry=[];
-		    Object.keys(data).forEach(function (key) {								
-		    	arry.push({
-					name : key,
-					value : key,
-					postOffices:data[key]
-				});
+			return $.map(data, function(postal) {
+				return {
+					name : postal.pincode,
+					pincode : postal.pincode,
+					value : postal.id,
+					postOffice : postal.postOffice,
+					district : postal.district,
+					state : postal.state
+				}
 			});
-			return arry;
 		}
 	}
 });
@@ -215,36 +216,29 @@ var postaddressres;
 //Initialize the Bloodhound suggestion engine
 postaladdressengine.initialize();
 
-var sh_typeahead = $('#postalAddressTypeHead').typeahead({
-	hint : true,
-	highlight : true,
-	minLength : 1
+var postal_typeahead = $('#postalAddressTypeHead').typeahead({
+	hint: false,
+	highlight: false,
+	minLength: 2
 }, {
 	displayKey : 'name',
-	source : postaladdressengine.ttAdapter()
+	source : postaladdressengine.ttAdapter(),
+	 templates: {
+	    empty: [
+	      '<div class="empty-message">',
+	        'No Pincode Available',
+	      '</div>'
+	    ].join('\n'),
+	    suggestion: Handlebars.compile('<div class="custom-list-item"><h4 class="padding-10">{{name}} <small>{{postOffice}}</small></h4></div>')
+	  }
 });
 
-sh_typeahead.on('typeahead:selected', function(event, data){
-	postaddressres = data.postOffices;
-	$('#postOffices').empty();
-	$('#postOffices').append($('<option>').val('').text('Select'));
-	$.each(data.postOffices, function(index, postal) {
-		$('#postOffices').append($('<option>').val(postal.id).text(postal.postOffice));
-	});
-	
-});
-
-
-typeaheadWithEventsHandling(sh_typeahead, '#postalAddressTypeHead');
-
-$('#postOffices').change(function(){
-	//console.log(postaddressres);
-	var selectedIndex = $("#postOffices option:selected" ).index()-1;
-	var selectedPostal = postaddressres[selectedIndex];
-	if(selectedPostal){
-		$('#postalAddress').val(selectedPostal.id);
-		$('#district').val(selectedPostal.district);
-		$('#state').val(selectedPostal.state);
+function postalCodeSelectedEvent(event, data){
+	$('#postalAddress').val(data.value);
+	$('#postOffices').val(data.postOffice);
+	$('#district').val(data.district);
+	$('#state').val(data.state);
 	}
-});
+
+typeaheadWithEventsHandling(postal_typeahead, '#postalAddress', undefined, postalCodeSelectedEvent);
 

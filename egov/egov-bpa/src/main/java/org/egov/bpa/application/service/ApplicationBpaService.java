@@ -162,6 +162,8 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
     private RoleService roleService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private PostalAddressService postalAddressService;
 
     public Session getCurrentSession() {
         return entityManager.unwrap(Session.class);
@@ -175,6 +177,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         application.getSiteDetail().get(0).setApplication(application);
         application.getBuildingDetail().get(0).setApplication(application);
         application.getBuildingDetail().get(0).setApplicationFloorDetails(buildApplicationFloorDetails(application));
+        application.getSiteDetail().get(0).setPostalAddress(postalAddressService.findById(application.getSiteDetail().get(0).getPostalId()));
         application.setApplicationNumber(applicationNumberGenerator.generate());
         final BpaStatus bpaStatus = getStatusByCodeAndModuleType(BpaConstants.APPLICATION_STATUS_CREATED);
         application.setStatus(bpaStatus);
@@ -244,7 +247,14 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
 
     @Transactional
     public void saveAndFlushApplication(final BpaApplication application) {
+        persistPostalAddress(application);
         applicationBpaRepository.saveAndFlush(application);
+    }
+
+    private void persistPostalAddress(final BpaApplication application) {
+        if(application.getSiteDetail().get(0).getPostalId() != null) {
+            application.getSiteDetail().get(0).setPostalAddress(postalAddressService.findById(application.getSiteDetail().get(0).getPostalId()));
+        }
     }
 
     @Transactional
@@ -262,6 +272,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         application.setSource(Source.SYSTEM);
         persistBpaNocDocuments(application);
         application.getBuildingDetail().get(0).setApplicationFloorDetails(buildApplicationFloorDetails(application));
+        persistPostalAddress(application);
         if (APPLICATION_STATUS_FIELD_INS.equalsIgnoreCase(application.getStatus().getCode())
                 && NOC_UPDATION_IN_PROGRESS.equalsIgnoreCase(application.getState().getValue())) {
             bpaDemandService.generateDemandUsingSanctionFeeList(applicationFeeService

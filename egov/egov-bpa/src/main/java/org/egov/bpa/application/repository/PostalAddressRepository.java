@@ -37,58 +37,13 @@
  *
  *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
+package org.egov.bpa.application.repository;
 
+import org.egov.bpa.application.entity.PostalAddress;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-jQuery(document).ready(function($) {
-	var validator=$("#newCitizenApplicationform").validate({
-		  highlight: function(element, errorClass) {
-		    $(element).fadeOut(function() {
-		      $(element).fadeIn();
-		    });
-		  }
-		});
-	
-	function validateForm1(button, validator) {
-		if($("#postOffices option:selected" ).val() == "") {
-			bootbox.alert('Please select postoffice')
-		}
-		if ($('#newCitizenApplicationform').valid() && validateUploadFilesMandatory()) {
-			$('#serviceType').prop("disabled", false);
-			document.getElementById("workFlowAction").value = button;
-			if($('#citizenOrBusinessUser').val())
-			{
-				if(!$('#architectAccepted').prop('checked')){
-					bootbox.alert("Please accept disclaimer to continue...");
-					return false;
-				}
-				if(button == 'Submit'){
-					if($('#validateCitizenAcceptance').val() == 'true' && $('#citizenDisclaimerAccepted').val() != 'true'){
-						bootbox.alert("Please Save application before Submitting. Citizen Disclaimer Acceptance Pending.");
-						return false;
-					}
-				}
-			}
-			return true;
-		} else {
-			$.each(validator.invalidElements(), function(index, elem){
-				if(!$(elem).is(":visible") && !$(elem).closest('div.panel-body').is(":visible")){
-					$(elem).closest('div.panel-body').show();
-					console.log("elem", elem);
-				}
-			});
-			validator.focusInvalid();
-			return false;
-		}
-	}
-	
-	$('#bpaSave').click(function() {
-		var button = $('#bpaSave').val();
-		return validateForm1(button, validator);
-	});
-	$('#bpaCreate').click(function() {
-		var button = $('#bpaCreate').val();
-		return validateForm1(button, validator);
-	});
-	
-});
-	
+@Repository
+public interface PostalAddressRepository extends JpaRepository<PostalAddress, Long> {
+    
+}
