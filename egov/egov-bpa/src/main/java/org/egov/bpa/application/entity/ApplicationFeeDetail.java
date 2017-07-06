@@ -43,10 +43,16 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.egov.infra.persistence.entity.AbstractAuditable;
+import org.hibernate.envers.AuditOverride;
+import org.hibernate.envers.AuditOverrides;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 
 @Entity
 @Table(name = "EGBPA_APPLICATION_FEEDETAILS")
 @SequenceGenerator(name = ApplicationFeeDetail.SEQ_APPLICATIONFEE_DETAIL, sequenceName = ApplicationFeeDetail.SEQ_APPLICATIONFEE_DETAIL, allocationSize = 1)
+@AuditOverrides({ @AuditOverride(forClass = AbstractAuditable.class, name = "lastModifiedBy"),
+    @AuditOverride(forClass = AbstractAuditable.class, name = "lastModifiedDate") })
 public class ApplicationFeeDetail extends AbstractAuditable {
 
     private static final long serialVersionUID = 3078684328383202788L;
@@ -58,11 +64,14 @@ public class ApplicationFeeDetail extends AbstractAuditable {
     @ManyToOne(fetch = FetchType.LAZY)
     @NotNull
     @JoinColumn(name = "bpaFee")
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     private BpaFee bpaFee;
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "applicationFee")
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     private ApplicationFee applicationFee;
+    @Audited
     private BigDecimal amount = BigDecimal.ZERO;
 
     @Override
