@@ -22,7 +22,7 @@ public class WallTypeMasterVerificationTest extends BaseAPITest {
 
     WallTypes[] wallTypes;
     RequestInfo requestInfo;
-    SearchHelper helper;
+    PTISMasterSearchHelper helper;
 
     public WallTypeMasterVerificationTest(){
         wallTypes = new WallTypes[1];
@@ -32,7 +32,7 @@ public class WallTypeMasterVerificationTest extends BaseAPITest {
     public void wallTypeMasterTest() throws IOException {
         LoginAndLogoutHelper.login(NARASAPPA);   //Login
         requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
-        helper = new SearchHelper();
+        helper = new PTISMasterSearchHelper();
         WallTypesResponse create = createWallTypeMasterTest();  //Create
         helper.searchWallTypeMaster(create);   //Search
 

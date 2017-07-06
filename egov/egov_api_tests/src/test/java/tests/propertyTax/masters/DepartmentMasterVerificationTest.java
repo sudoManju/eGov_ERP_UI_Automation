@@ -22,7 +22,7 @@ public class DepartmentMasterVerificationTest extends BaseAPITest {
 
     Departments[] departments;
     RequestInfo requestInfo;
-    SearchHelper helper;
+    PTISMasterSearchHelper helper;
 
     public DepartmentMasterVerificationTest(){departments = new Departments[1];}
 
@@ -30,7 +30,7 @@ public class DepartmentMasterVerificationTest extends BaseAPITest {
     public void DepartmentMasterTest() throws IOException{
         LoginAndLogoutHelper.login(NARASAPPA);         //Login
         requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
-        helper = new SearchHelper();
+        helper = new PTISMasterSearchHelper();
         DepartmentsMasterResponse create = createDepartmentMaster();   //Create
         helper.searchDepartmentMaster(create);     //Search
 

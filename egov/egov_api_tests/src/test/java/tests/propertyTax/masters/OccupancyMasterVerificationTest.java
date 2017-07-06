@@ -22,14 +22,14 @@ public class OccupancyMasterVerificationTest extends BaseAPITest {
 
     OccuapancyMasters[] occuapancyMasters;
     RequestInfo requestInfo;
-    SearchHelper helper;
+    PTISMasterSearchHelper helper;
 
     public OccupancyMasterVerificationTest(){occuapancyMasters = new OccuapancyMasters[1];}
 
     @Test(groups = {Categories.PTIS, Categories.SANITY})
     public void OccupancyMasterTest()throws IOException{
         LoginAndLogoutHelper.login(NARASAPPA);   //Login
-        helper = new SearchHelper();
+        helper = new PTISMasterSearchHelper();
         requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         OccupancyMasterResponse create = createOccupancyMaster();   //Create
         helper.searchOccupancyMaster(create);     //Search

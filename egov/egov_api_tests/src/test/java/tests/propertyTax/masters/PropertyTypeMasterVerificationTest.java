@@ -22,7 +22,7 @@ public class PropertyTypeMasterVerificationTest extends BaseAPITest {
 
     PropertyTypes[] propertyTypes;
     RequestInfo requestInfo;
-    SearchHelper helper;
+    PTISMasterSearchHelper helper;
 
     public PropertyTypeMasterVerificationTest(){propertyTypes = new PropertyTypes[1];}
 
@@ -30,7 +30,7 @@ public class PropertyTypeMasterVerificationTest extends BaseAPITest {
     public void propertyTypeTest() throws IOException{
         LoginAndLogoutHelper.login(NARASAPPA);    //Login
         requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
-        helper = new SearchHelper();
+        helper = new PTISMasterSearchHelper();
         PropertyTypesResponse create = createPropertyTypeMaster();   //Create
         helper.searchPropertyTypeMaster(create);    //Search
 

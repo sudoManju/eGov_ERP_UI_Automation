@@ -22,7 +22,7 @@ public class RoofTypeMasterVerificationTest extends BaseAPITest {
 
     RoofTypes[] roofTypes;
     RequestInfo requestInfo;
-    SearchHelper helper;
+    PTISMasterSearchHelper helper;
 
     public RoofTypeMasterVerificationTest(){
         roofTypes = new RoofTypes[1];
@@ -32,7 +32,7 @@ public class RoofTypeMasterVerificationTest extends BaseAPITest {
     public void roofTypesTest() throws IOException{
         LoginAndLogoutHelper.login(NARASAPPA);                       //Login
         requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
-        helper = new SearchHelper();
+        helper = new PTISMasterSearchHelper();
         RoofTypeMasterResponse create = createRoofTypesMaster();     //Create
         helper.searchRoofTypeMaster(create);                         //Search
 

@@ -34,11 +34,11 @@ import java.io.IOException;
 
 import static data.SearchParameterData.*;
 
-public class SearchHelper extends BaseAPITest {
+public class PTISMasterSearchHelper extends BaseAPITest {
 
     private String json;
 
-     SearchHelper() {
+     PTISMasterSearchHelper() {
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         SearchMasterRequest request = new SearchUsageMasterRequestBuilder().withRequestInfo(requestInfo).build();
         json = RequestHelper.getJsonString(request);
@@ -186,6 +186,18 @@ public class SearchHelper extends BaseAPITest {
         checkAssertsForPropertyTypes(responseForNameLocal, createObject);
         new APILogger().log("Search Property type with nameLocal is Success");
         new APILogger().log("Search Property type is Completed --");
+    }
+
+    public SearchPropertyTypesResponse searchAllPropertyTypes() throws IOException {
+        new APILogger().log("Search All PropertyTypes Test is Started --");
+        Response response = new PropertyTypeMasterResource().search(json, null);
+        SearchPropertyTypesResponse searchPropertyTypesResponse = (SearchPropertyTypesResponse)
+                ResponseHelper.getResponseAsObject(response.asString(), SearchPropertyTypesResponse.class);
+
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertTrue(searchPropertyTypesResponse.getPropertyTypes().length > 0);
+        new APILogger().log("Search All PropertyTypes Test is Completed");
+        return searchPropertyTypesResponse;
     }
 
     private void checkAssertsForPropertyTypes(Response response, PropertyTypesResponse createObject) throws IOException {

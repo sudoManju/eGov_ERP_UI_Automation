@@ -22,7 +22,7 @@ public class  UsageMasterVerificationTest extends BaseAPITest {
 
     UsageMasters[] usageMasters;
     RequestInfo requestInfo;
-    SearchHelper helper;
+    PTISMasterSearchHelper helper;
 
     public UsageMasterVerificationTest(){usageMasters = new UsageMasters[1];}
 
@@ -31,7 +31,7 @@ public class  UsageMasterVerificationTest extends BaseAPITest {
 
         LoginAndLogoutHelper.login(NARASAPPA);     //Login
         requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
-        helper = new SearchHelper();
+        helper = new PTISMasterSearchHelper();
         UsageMasterResponse create = createUsageMaster();   //Create
         helper.searchForUsageMaster(create); //Search
 

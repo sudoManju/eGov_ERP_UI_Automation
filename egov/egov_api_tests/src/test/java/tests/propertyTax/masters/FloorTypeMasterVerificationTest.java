@@ -23,7 +23,7 @@ public class FloorTypeMasterVerificationTest extends BaseAPITest {
 
     FloorTypes[] floorTypes;
     RequestInfo requestInfo;
-    SearchHelper helper;
+    PTISMasterSearchHelper helper;
 
     public FloorTypeMasterVerificationTest(){
         floorTypes = new FloorTypes[1];
@@ -33,7 +33,7 @@ public class FloorTypeMasterVerificationTest extends BaseAPITest {
   public void floorTypesTest() throws IOException {
       LoginAndLogoutHelper.login(NARASAPPA);  //Login
       requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
-      helper = new SearchHelper();
+      helper = new PTISMasterSearchHelper();
       FloorTypesResponse create = createFloorTypesMaster();  //Create
       helper.searchFloorTypesMaster(create);      //Search
 

@@ -22,7 +22,7 @@ public class WoodTypeMasterVerificationTest extends BaseAPITest {
 
     WoodTypes[] woodTypes;
     RequestInfo requestInfo;
-    SearchHelper helper;
+    PTISMasterSearchHelper helper;
 
     public WoodTypeMasterVerificationTest(){woodTypes = new WoodTypes[1];}
 
@@ -30,7 +30,7 @@ public class WoodTypeMasterVerificationTest extends BaseAPITest {
     public void woodTypesTest()throws IOException{
         LoginAndLogoutHelper.login(NARASAPPA);    //Login
         requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
-        helper = new SearchHelper();
+        helper = new PTISMasterSearchHelper();
         WoodTypesResponse create = createWoodTypesMaster();       //Create
         helper.searchWoodTypesMaster(create);    //Search
 

@@ -22,7 +22,7 @@ public class StructureClassMasterVerificationTest extends BaseAPITest {
 
     StructureClasses[] structureClasses;
     RequestInfo requestInfo;
-    SearchHelper helper;
+    PTISMasterSearchHelper helper;
 
     public StructureClassMasterVerificationTest(){
         structureClasses = new StructureClasses[1];
@@ -32,7 +32,7 @@ public class StructureClassMasterVerificationTest extends BaseAPITest {
     public void structureClassTest() throws IOException {
         LoginAndLogoutHelper.login(NARASAPPA); // Login
         requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
-        helper = new SearchHelper();
+        helper = new PTISMasterSearchHelper();
         StructureClassResponse create = createStructureClass();  //Create
         helper.searchStructureClassMaster(create);    //Search
 
