@@ -1,5 +1,7 @@
 package entities.responses.propertyTax.masters.department.search;
 
+import entities.responses.propertyTax.masters.ResponseInfo;
+
 public class SearchDepartmentsResponse {
     private Departments[] departments;
     private ResponseInfo responseInfo;

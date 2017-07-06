@@ -1,5 +1,7 @@
 package entities.responses.propertyTax.masters.woodTypes.create;
 
+import entities.responses.propertyTax.masters.AuditDetails;
+
 public class WoodTypes {
     private String code;
     private Object data;

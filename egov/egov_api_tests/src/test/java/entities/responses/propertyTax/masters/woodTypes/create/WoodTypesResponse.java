@@ -1,5 +1,7 @@
 package entities.responses.propertyTax.masters.woodTypes.create;
 
+import entities.responses.propertyTax.masters.ResponseInfo;
+
 public class WoodTypesResponse {
     private ResponseInfo responseInfo;
     private WoodTypes[] woodTypes;

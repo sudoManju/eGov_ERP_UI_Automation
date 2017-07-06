@@ -1,5 +1,7 @@
 package entities.responses.propertyTax.masters.occupancy.create;
 
+import entities.responses.propertyTax.masters.AuditDetails;
+
 public class OccuapancyMasters {
     private String code;
     private int orderNumber;

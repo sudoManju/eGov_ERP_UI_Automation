@@ -1,5 +1,7 @@
 package entities.responses.propertyTax.masters.propertyTypes.create;
 
+import entities.responses.propertyTax.masters.AuditDetails;
+
 public class PropertyTypes {
     private String code;
     private int orderNumber;

@@ -1,5 +1,6 @@
 package entities.responses.propertyTax.masters.structureClass.create;
 
+import entities.responses.propertyTax.masters.ResponseInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class StructureClassResponse {

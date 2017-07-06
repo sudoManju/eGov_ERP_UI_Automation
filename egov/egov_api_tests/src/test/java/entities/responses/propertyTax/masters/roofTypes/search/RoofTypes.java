@@ -1,16 +1,15 @@
-package entities.responses.propertyTax.masters.department.create;
+package entities.responses.propertyTax.masters.roofTypes.search;
 
 import entities.responses.propertyTax.masters.AuditDetails;
 
-public class Departments {
+public class RoofTypes {
     private String code;
-    private Object data;
+    private String data;
     private AuditDetails auditDetails;
     private String tenantId;
     private String name;
     private String description;
     private int id;
-    private Object category;
     private String nameLocal;
 
     public String getCode() {
@@ -21,11 +20,11 @@ public class Departments {
         this.code = code;
     }
 
-    public Object getData() {
+    public String getData() {
         return this.data;
     }
 
-    public void setData(Object data) {
+    public void setData(String data) {
         this.data = data;
     }
 
@@ -67,14 +66,6 @@ public class Departments {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Object getCategory() {
-        return this.category;
-    }
-
-    public void setCategory(Object category) {
-        this.category = category;
     }
 
     public String getNameLocal() {

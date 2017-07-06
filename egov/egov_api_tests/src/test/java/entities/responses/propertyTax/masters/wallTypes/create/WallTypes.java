@@ -1,5 +1,7 @@
 package entities.responses.propertyTax.masters.wallTypes.create;
 
+import entities.responses.propertyTax.masters.AuditDetails;
+
 public class WallTypes {
     private String code;
     private Object data;

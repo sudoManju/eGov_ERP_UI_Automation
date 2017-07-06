@@ -1,5 +1,7 @@
 package entities.responses.propertyTax.masters.occupancy.create;
 
+import entities.responses.propertyTax.masters.ResponseInfo;
+
 public class OccupancyMasterResponse {
     private OccuapancyMasters[] occuapancyMasters;
     private ResponseInfo responseInfo;

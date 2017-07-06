@@ -1,4 +1,4 @@
-package entities.responses.propertyTax.masters.usage.search;
+package entities.responses.propertyTax.masters;
 
 public class ResponseInfo {
     private String ver;

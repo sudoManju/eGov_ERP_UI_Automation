@@ -1,5 +1,7 @@
 package entities.responses.propertyTax.masters.department.search;
 
+import entities.responses.propertyTax.masters.AuditDetails;
+
 public class Departments {
     private String code;
     private String data;

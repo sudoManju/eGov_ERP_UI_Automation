@@ -1,5 +1,7 @@
 package entities.responses.propertyTax.masters.structureClass.create;
 
+import entities.responses.propertyTax.masters.AuditDetails;
+
 public class StructureClasses {
     private String code;
     private int orderNumber;

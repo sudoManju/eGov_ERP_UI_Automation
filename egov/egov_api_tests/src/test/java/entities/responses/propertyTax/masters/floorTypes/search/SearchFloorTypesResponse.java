@@ -1,5 +1,7 @@
 package entities.responses.propertyTax.masters.floorTypes.search;
 
+import entities.responses.propertyTax.masters.ResponseInfo;
+
 public class SearchFloorTypesResponse {
     private FloorTypes[] floorTypes;
     private ResponseInfo responseInfo;

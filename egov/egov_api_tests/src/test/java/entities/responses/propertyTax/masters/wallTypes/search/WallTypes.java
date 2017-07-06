@@ -1,5 +1,7 @@
 package entities.responses.propertyTax.masters.wallTypes.search;
 
+import entities.responses.propertyTax.masters.AuditDetails;
+
 public class WallTypes {
     private String code;
     private String data;

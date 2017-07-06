@@ -1,10 +1,12 @@
 package entities.responses.propertyTax.masters.structureClass.search;
 
+import entities.responses.propertyTax.masters.AuditDetails;
+
 public class StructureClasses {
     private String code;
     private int orderNumber;
     private Object data;
-    private StructureClassesAuditDetails auditDetails;
+    private AuditDetails auditDetails;
     private String tenantId;
     private String name;
     private String description;
@@ -36,11 +38,11 @@ public class StructureClasses {
         this.data = data;
     }
 
-    public StructureClassesAuditDetails getAuditDetails() {
+    public AuditDetails getAuditDetails() {
         return this.auditDetails;
     }
 
-    public void setAuditDetails(StructureClassesAuditDetails auditDetails) {
+    public void setAuditDetails(AuditDetails auditDetails) {
         this.auditDetails = auditDetails;
     }
 

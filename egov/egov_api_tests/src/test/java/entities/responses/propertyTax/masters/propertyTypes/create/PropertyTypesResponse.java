@@ -1,5 +1,7 @@
 package entities.responses.propertyTax.masters.propertyTypes.create;
 
+import entities.responses.propertyTax.masters.ResponseInfo;
+
 public class PropertyTypesResponse {
     private PropertyTypes[] propertyTypes;
     private ResponseInfo responseInfo;

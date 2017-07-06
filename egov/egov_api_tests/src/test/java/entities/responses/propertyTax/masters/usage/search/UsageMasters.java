@@ -1,11 +1,13 @@
 package entities.responses.propertyTax.masters.usage.search;
 
+import entities.responses.propertyTax.masters.AuditDetails;
+
 public class UsageMasters {
     private String code;
     private Object orderNumber;
     private String data;
     private Object isResidential;
-    private UsageMastersAuditDetails auditDetails;
+    private AuditDetails auditDetails;
     private String tenantId;
     private String name;
     private String description;
@@ -45,11 +47,11 @@ public class UsageMasters {
         this.isResidential = isResidential;
     }
 
-    public UsageMastersAuditDetails getAuditDetails() {
+    public AuditDetails getAuditDetails() {
         return this.auditDetails;
     }
 
-    public void setAuditDetails(UsageMastersAuditDetails auditDetails) {
+    public void setAuditDetails(AuditDetails auditDetails) {
         this.auditDetails = auditDetails;
     }
 

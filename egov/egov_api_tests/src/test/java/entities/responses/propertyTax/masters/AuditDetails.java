@@ -1,16 +1,16 @@
-package entities.responses.propertyTax.masters.department.search;
+package entities.responses.propertyTax.masters;
 
 public class AuditDetails {
-    private Object lastModifiedTime;
+    private long lastModifiedTime;
     private String createdBy;
     private String lastModifiedBy;
-    private Object createdTime;
+    private long createdTime;
 
-    public Object getLastModifiedTime() {
+    public long getLastModifiedTime() {
         return this.lastModifiedTime;
     }
 
-    public void setLastModifiedTime(Object lastModifiedTime) {
+    public void setLastModifiedTime(long lastModifiedTime) {
         this.lastModifiedTime = lastModifiedTime;
     }
 
@@ -30,11 +30,11 @@ public class AuditDetails {
         this.lastModifiedBy = lastModifiedBy;
     }
 
-    public Object getCreatedTime() {
+    public long getCreatedTime() {
         return this.createdTime;
     }
 
-    public void setCreatedTime(Object createdTime) {
+    public void setCreatedTime(long createdTime) {
         this.createdTime = createdTime;
     }
 }

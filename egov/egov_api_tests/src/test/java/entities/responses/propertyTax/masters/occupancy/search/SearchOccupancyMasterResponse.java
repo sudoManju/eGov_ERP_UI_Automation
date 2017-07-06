@@ -1,5 +1,7 @@
 package entities.responses.propertyTax.masters.occupancy.search;
 
+import entities.responses.propertyTax.masters.ResponseInfo;
+
 public class SearchOccupancyMasterResponse {
     private OccuapancyMasters[] occuapancyMasters;
     private ResponseInfo responseInfo;

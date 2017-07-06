@@ -1,5 +1,6 @@
 package entities.responses.propertyTax.masters.floorTypes.create;
 
+import entities.responses.propertyTax.masters.ResponseInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class FloorTypesResponse {

@@ -1,17 +1,17 @@
-package entities.responses.propertyTax.masters.wallTypes.create;
+package entities.responses.propertyTax.masters.roofTypes.create;
 
 import entities.responses.propertyTax.masters.ResponseInfo;
 
-public class WallTypesResponse {
-    private WallTypes[] wallTypes;
+public class RoofTypeMasterResponse {
+    private RoofTypes[] roofTypes;
     private ResponseInfo responseInfo;
 
-    public WallTypes[] getWallTypes() {
-        return this.wallTypes;
+    public RoofTypes[] getRoofTypes() {
+        return this.roofTypes;
     }
 
-    public void setWallTypes(WallTypes[] wallTypes) {
-        this.wallTypes = wallTypes;
+    public void setRoofTypes(RoofTypes[] roofTypes) {
+        this.roofTypes = roofTypes;
     }
 
     public ResponseInfo getResponseInfo() {

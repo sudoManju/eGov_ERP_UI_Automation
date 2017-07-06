@@ -13,6 +13,8 @@ import entities.responses.propertyTax.masters.occupancy.create.OccupancyMasterRe
 import entities.responses.propertyTax.masters.occupancy.search.SearchOccupancyMasterResponse;
 import entities.responses.propertyTax.masters.propertyTypes.create.PropertyTypesResponse;
 import entities.responses.propertyTax.masters.propertyTypes.search.SearchPropertyTypesResponse;
+import entities.responses.propertyTax.masters.roofTypes.create.RoofTypeMasterResponse;
+import entities.responses.propertyTax.masters.roofTypes.search.SearchRoofTypeMasterResponse;
 import entities.responses.propertyTax.masters.structureClass.create.StructureClassResponse;
 import entities.responses.propertyTax.masters.structureClass.search.SearchStructureClassResponse;
 import entities.responses.propertyTax.masters.usage.search.SearchUsageMasterResponse;
@@ -63,14 +65,14 @@ public class SearchHelper extends BaseAPITest {
     }
 
     private void checkResponseForUsage(Response response, UsageMasterResponse create) throws IOException {
-        SearchUsageMasterResponse response1 = (SearchUsageMasterResponse)
+        SearchUsageMasterResponse responseObject = (SearchUsageMasterResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchUsageMasterResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals(response1.getUsageMasters()[0].getId(), create.getUsageMasters()[0].getId());
-        Assert.assertEquals(response1.getUsageMasters()[0].getName(), create.getUsageMasters()[0].getName());
-        Assert.assertEquals(response1.getUsageMasters()[0].getCode(), create.getUsageMasters()[0].getCode());
-        Assert.assertEquals(response1.getUsageMasters()[0].getNameLocal(), create.getUsageMasters()[0].getNameLocal());
+        Assert.assertEquals(responseObject.getUsageMasters()[0].getId(), create.getUsageMasters()[0].getId());
+        Assert.assertEquals(responseObject.getUsageMasters()[0].getName(), create.getUsageMasters()[0].getName());
+        Assert.assertEquals(responseObject.getUsageMasters()[0].getCode(), create.getUsageMasters()[0].getCode());
+        Assert.assertEquals(responseObject.getUsageMasters()[0].getNameLocal(), create.getUsageMasters()[0].getNameLocal());
     }
 
      void searchStructureClassMaster(StructureClassResponse responseObjectOfCreate) throws IOException {
@@ -94,14 +96,14 @@ public class SearchHelper extends BaseAPITest {
     }
 
     private void checkResponseForStructure(Response response, StructureClassResponse responseObjectOfCreate) throws IOException {
-        SearchStructureClassResponse response1 = (SearchStructureClassResponse)
+        SearchStructureClassResponse responseObject = (SearchStructureClassResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchStructureClassResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals(response1.getStructureClasses()[0].getId(), responseObjectOfCreate.getStructureClasses()[0].getId());
-        Assert.assertEquals(response1.getStructureClasses()[0].getName(), responseObjectOfCreate.getStructureClasses()[0].getName());
-        Assert.assertEquals(response1.getStructureClasses()[0].getCode(), responseObjectOfCreate.getStructureClasses()[0].getCode());
-        Assert.assertEquals(response1.getStructureClasses()[0].getNameLocal(), responseObjectOfCreate.getStructureClasses()[0].getNameLocal());
+        Assert.assertEquals(responseObject.getStructureClasses()[0].getId(), responseObjectOfCreate.getStructureClasses()[0].getId());
+        Assert.assertEquals(responseObject.getStructureClasses()[0].getName(), responseObjectOfCreate.getStructureClasses()[0].getName());
+        Assert.assertEquals(responseObject.getStructureClasses()[0].getCode(), responseObjectOfCreate.getStructureClasses()[0].getCode());
+        Assert.assertEquals(responseObject.getStructureClasses()[0].getNameLocal(), responseObjectOfCreate.getStructureClasses()[0].getNameLocal());
     }
 
      void searchFloorTypesMaster(FloorTypesResponse responseObjectOfCreate) throws IOException {
@@ -125,14 +127,14 @@ public class SearchHelper extends BaseAPITest {
     }
 
     private void checkAssertsForFloorTypes(Response response, FloorTypesResponse requestObject) throws IOException {
-        SearchFloorTypesResponse response1 = (SearchFloorTypesResponse)
+        SearchFloorTypesResponse responseObject = (SearchFloorTypesResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchFloorTypesResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals(response1.getFloorTypes()[0].getId(), requestObject.getFloorTypes()[0].getId());
-        Assert.assertEquals(response1.getFloorTypes()[0].getName(), requestObject.getFloorTypes()[0].getName());
-        Assert.assertEquals(response1.getFloorTypes()[0].getCode(), requestObject.getFloorTypes()[0].getCode());
-        Assert.assertEquals(response1.getFloorTypes()[0].getNameLocal(), requestObject.getFloorTypes()[0].getNameLocal());
+        Assert.assertEquals(responseObject.getFloorTypes()[0].getId(), requestObject.getFloorTypes()[0].getId());
+        Assert.assertEquals(responseObject.getFloorTypes()[0].getName(), requestObject.getFloorTypes()[0].getName());
+        Assert.assertEquals(responseObject.getFloorTypes()[0].getCode(), requestObject.getFloorTypes()[0].getCode());
+        Assert.assertEquals(responseObject.getFloorTypes()[0].getNameLocal(), requestObject.getFloorTypes()[0].getNameLocal());
     }
 
      void searchWoodTypesMaster(WoodTypesResponse create) throws IOException {
@@ -156,14 +158,14 @@ public class SearchHelper extends BaseAPITest {
     }
 
     private void checkAssertsForWoodTypes(Response response, WoodTypesResponse requestObject) throws IOException {
-        SearchWoodTypesResponse response1 = (SearchWoodTypesResponse)
+        SearchWoodTypesResponse responseObject = (SearchWoodTypesResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchWoodTypesResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals(response1.getWoodTypes()[0].getId(), requestObject.getWoodTypes()[0].getId());
-        Assert.assertEquals(response1.getWoodTypes()[0].getName(), requestObject.getWoodTypes()[0].getName());
-        Assert.assertEquals(response1.getWoodTypes()[0].getCode(), requestObject.getWoodTypes()[0].getCode());
-        Assert.assertEquals(response1.getWoodTypes()[0].getNameLocal(),requestObject.getWoodTypes()[0].getNameLocal());
+        Assert.assertEquals(responseObject.getWoodTypes()[0].getId(), requestObject.getWoodTypes()[0].getId());
+        Assert.assertEquals(responseObject.getWoodTypes()[0].getName(), requestObject.getWoodTypes()[0].getName());
+        Assert.assertEquals(responseObject.getWoodTypes()[0].getCode(), requestObject.getWoodTypes()[0].getCode());
+        Assert.assertEquals(responseObject.getWoodTypes()[0].getNameLocal(),requestObject.getWoodTypes()[0].getNameLocal());
     }
 
      void searchPropertyTypeMaster(PropertyTypesResponse createObject) throws IOException {
@@ -187,14 +189,14 @@ public class SearchHelper extends BaseAPITest {
     }
 
     private void checkAssertsForPropertyTypes(Response response, PropertyTypesResponse createObject) throws IOException {
-        SearchPropertyTypesResponse response1 = (SearchPropertyTypesResponse)
+        SearchPropertyTypesResponse responseObject = (SearchPropertyTypesResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchPropertyTypesResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals(response1.getPropertyTypes()[0].getId(), createObject.getPropertyTypes()[0].getId());
-        Assert.assertEquals(response1.getPropertyTypes()[0].getName(), createObject.getPropertyTypes()[0].getName());
-        Assert.assertEquals(response1.getPropertyTypes()[0].getCode(), createObject.getPropertyTypes()[0].getCode());
-        Assert.assertEquals(response1.getPropertyTypes()[0].getNameLocal(), createObject.getPropertyTypes()[0].getNameLocal());
+        Assert.assertEquals(responseObject.getPropertyTypes()[0].getId(), createObject.getPropertyTypes()[0].getId());
+        Assert.assertEquals(responseObject.getPropertyTypes()[0].getName(), createObject.getPropertyTypes()[0].getName());
+        Assert.assertEquals(responseObject.getPropertyTypes()[0].getCode(), createObject.getPropertyTypes()[0].getCode());
+        Assert.assertEquals(responseObject.getPropertyTypes()[0].getNameLocal(), createObject.getPropertyTypes()[0].getNameLocal());
     }
 
      void searchDepartmentMaster(DepartmentsMasterResponse createObject) throws IOException {
@@ -218,14 +220,14 @@ public class SearchHelper extends BaseAPITest {
     }
 
     private void checkAssertsForDepartments(Response response, DepartmentsMasterResponse requestObject) throws IOException {
-        SearchDepartmentsResponse response1 = (SearchDepartmentsResponse)
+        SearchDepartmentsResponse responseObject = (SearchDepartmentsResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchDepartmentsResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals(response1.getDepartments()[0].getId(), requestObject.getDepartments()[0].getId());
-        Assert.assertEquals(response1.getDepartments()[0].getName(), requestObject.getDepartments()[0].getName());
-        Assert.assertEquals(response1.getDepartments()[0].getCode(), requestObject.getDepartments()[0].getCode());
-        Assert.assertEquals(response1.getDepartments()[0].getNameLocal(), requestObject.getDepartments()[0].getNameLocal());
+        Assert.assertEquals(responseObject.getDepartments()[0].getId(), requestObject.getDepartments()[0].getId());
+        Assert.assertEquals(responseObject.getDepartments()[0].getName(), requestObject.getDepartments()[0].getName());
+        Assert.assertEquals(responseObject.getDepartments()[0].getCode(), requestObject.getDepartments()[0].getCode());
+        Assert.assertEquals(responseObject.getDepartments()[0].getNameLocal(), requestObject.getDepartments()[0].getNameLocal());
     }
 
      void searchOccupancyMaster(OccupancyMasterResponse createObject) throws IOException {
@@ -249,14 +251,14 @@ public class SearchHelper extends BaseAPITest {
     }
 
     private void checkAssertsForOccupancyMaster(Response response, OccupancyMasterResponse requestObject) throws IOException {
-        SearchOccupancyMasterResponse response1 = (SearchOccupancyMasterResponse)
+        SearchOccupancyMasterResponse responseObject = (SearchOccupancyMasterResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchOccupancyMasterResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals(response1.getOccuapancyMasters()[0].getId(), requestObject.getOccuapancyMasters()[0].getId());
-        Assert.assertEquals(response1.getOccuapancyMasters()[0].getName(), requestObject.getOccuapancyMasters()[0].getName());
-        Assert.assertEquals(response1.getOccuapancyMasters()[0].getCode(), requestObject.getOccuapancyMasters()[0].getCode());
-        Assert.assertEquals(response1.getOccuapancyMasters()[0].getNameLocal(), requestObject.getOccuapancyMasters()[0].getNameLocal());
+        Assert.assertEquals(responseObject.getOccuapancyMasters()[0].getId(), requestObject.getOccuapancyMasters()[0].getId());
+        Assert.assertEquals(responseObject.getOccuapancyMasters()[0].getName(), requestObject.getOccuapancyMasters()[0].getName());
+        Assert.assertEquals(responseObject.getOccuapancyMasters()[0].getCode(), requestObject.getOccuapancyMasters()[0].getCode());
+        Assert.assertEquals(responseObject.getOccuapancyMasters()[0].getNameLocal(), requestObject.getOccuapancyMasters()[0].getNameLocal());
     }
 
      void searchWallTypeMaster(WallTypesResponse createObject) throws IOException {
@@ -280,13 +282,44 @@ public class SearchHelper extends BaseAPITest {
     }
 
     private void checkAssertsForWallTypeMaster(Response response, WallTypesResponse requestObject) throws IOException {
-        SearchWallTypesMasterResponse response1 = (SearchWallTypesMasterResponse)
+        SearchWallTypesMasterResponse responseObject = (SearchWallTypesMasterResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchWallTypesMasterResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals(response1.getWallTypes()[0].getId(), requestObject.getWallTypes()[0].getId());
-        Assert.assertEquals(response1.getWallTypes()[0].getName(), requestObject.getWallTypes()[0].getName());
-        Assert.assertEquals(response1.getWallTypes()[0].getCode(), requestObject.getWallTypes()[0].getCode());
-        Assert.assertEquals(response1.getWallTypes()[0].getNameLocal(),requestObject.getWallTypes()[0].getNameLocal());
+        Assert.assertEquals(responseObject.getWallTypes()[0].getId(), requestObject.getWallTypes()[0].getId());
+        Assert.assertEquals(responseObject.getWallTypes()[0].getName(), requestObject.getWallTypes()[0].getName());
+        Assert.assertEquals(responseObject.getWallTypes()[0].getCode(), requestObject.getWallTypes()[0].getCode());
+        Assert.assertEquals(responseObject.getWallTypes()[0].getNameLocal(),requestObject.getWallTypes()[0].getNameLocal());
+    }
+
+    void searchRoofTypeMaster(RoofTypeMasterResponse createObject) throws IOException {
+        new APILogger().log("Search RoofType Master is Started --");
+        Response responseForId = new RoofTypesMasterResource().search(json, IDS + createObject.getRoofTypes()[0].getId());
+        checkAssertsForRoofTypeMaster(responseForId, createObject);
+        new APILogger().log("Search RoofType Master with Id is Success");
+
+        Response responseForName = new RoofTypesMasterResource().search(json, WITH_NAME + createObject.getRoofTypes()[0].getName());
+        checkAssertsForRoofTypeMaster(responseForName, createObject);
+        new APILogger().log("Search RoofType Master with name is Success");
+
+        Response responseForCode = new RoofTypesMasterResource().search(json, WITH_CODE + createObject.getRoofTypes()[0].getCode());
+        checkAssertsForRoofTypeMaster(responseForCode, createObject);
+        new APILogger().log("Search RoofType Master with code is Success");
+
+        Response responseForNameLocal = new RoofTypesMasterResource().search(json, NAMELOCAL + createObject.getRoofTypes()[0].getNameLocal());
+        checkAssertsForRoofTypeMaster(responseForNameLocal, createObject);
+        new APILogger().log("Search RoofType Master with nameLocal is Success");
+        new APILogger().log("Search RoofType Master is Completed --");
+    }
+
+    private void checkAssertsForRoofTypeMaster(Response response, RoofTypeMasterResponse requestObject) throws IOException {
+        SearchRoofTypeMasterResponse responseObject = (SearchRoofTypeMasterResponse)
+                ResponseHelper.getResponseAsObject(response.asString(),SearchRoofTypeMasterResponse.class);
+
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertEquals(responseObject.getRoofTypes()[0].getId(), requestObject.getRoofTypes()[0].getId());
+        Assert.assertEquals(responseObject.getRoofTypes()[0].getName(), requestObject.getRoofTypes()[0].getName());
+        Assert.assertEquals(responseObject.getRoofTypes()[0].getCode(), requestObject.getRoofTypes()[0].getCode());
+        Assert.assertEquals(responseObject.getRoofTypes()[0].getNameLocal(),requestObject.getRoofTypes()[0].getNameLocal());
     }
 }

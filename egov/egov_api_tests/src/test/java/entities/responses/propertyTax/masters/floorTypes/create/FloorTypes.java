@@ -1,5 +1,7 @@
 package entities.responses.propertyTax.masters.floorTypes.create;
 
+import entities.responses.propertyTax.masters.AuditDetails;
+
 public class FloorTypes {
     private String code;
     private Object data;

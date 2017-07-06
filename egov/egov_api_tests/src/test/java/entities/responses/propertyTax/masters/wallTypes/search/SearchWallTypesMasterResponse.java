@@ -1,5 +1,7 @@
 package entities.responses.propertyTax.masters.wallTypes.search;
 
+import entities.responses.propertyTax.masters.ResponseInfo;
+
 public class SearchWallTypesMasterResponse {
     private WallTypes[] wallTypes;
     private ResponseInfo responseInfo;

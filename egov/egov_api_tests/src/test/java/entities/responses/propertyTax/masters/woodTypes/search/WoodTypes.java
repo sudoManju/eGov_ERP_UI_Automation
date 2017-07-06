@@ -1,5 +1,7 @@
 package entities.responses.propertyTax.masters.woodTypes.search;
 
+import entities.responses.propertyTax.masters.AuditDetails;
+
 public class WoodTypes {
     private String code;
     private String data;
