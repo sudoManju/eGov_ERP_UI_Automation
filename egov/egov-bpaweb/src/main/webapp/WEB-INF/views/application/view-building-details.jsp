@@ -82,6 +82,60 @@
 				default="N/A"></c:out>
 		</div>
 	</div>
+	
+	<c:if
+		test="${not empty bpaApplication.buildingDetail[0].applicationFloorDetails}">
+		<div class="panel-heading custom_form_panel_heading">
+			<div class="panel-title">
+				<spring:message code="lbl.plint.carpet.details" />
+			</div>
+		</div>
+		<table class="table table-striped table-bordered"
+			id="buildingAreaDetails">
+			<thead>
+				<tr>
+					<th class="text-center"><spring:message code="lbl.srl.no" /></th>
+					<th class="text-center"><spring:message code="lbl.floor.name" /></th>
+					<th class="text-center"><spring:message code="lbl.plinth.area" /></th>
+					<th class="text-center"><spring:message code="lbl.carpet.area" /></th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:set var="plinthAreaTotal" value="${0}" />
+				<c:set var="carpetAreaTotal" value="${0}" />
+				<c:forEach
+					items="${bpaApplication.buildingDetail[0].applicationFloorDetails}"
+					var="floorDetails" varStatus="counter">
+					<c:set var="plinthAreaTotal"
+						value="${plinthAreaTotal + floorDetails.plinthArea}" />
+					<c:set var="carpetAreaTotal"
+						value="${carpetAreaTotal + floorDetails.carpetArea}" />
+					<input type="hidden" value="${floorDetails.id}"
+						id="table_fieldInspections${counter.index}"
+						name="bpaApplication.buildingDetail[0].applicationFloorDetails[${counter.index}].id" />
+					<tr class="data-fetched">
+						<td class="text-center"><span class="serialNo" id="slNoInsp">${counter.index+1}</span></td>
+						<td class="text-center"><c:out
+								value="${floorDetails.floorDescription}" default="N/A"></c:out>
+						<td class="text-center"><c:out
+								value="${floorDetails.plinthArea}" default="N/A"></c:out>
+						<td class="text-center"><c:out
+								value="${floorDetails.carpetArea}" default="N/A"></c:out>
+					</tr>
+				</c:forEach>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td></td>
+					<td class="text-right">Total</td>
+					<td class="text-center"><c:out value="${plinthAreaTotal}"
+							default="0"></c:out></td>
+					<td class="text-center"><c:out value="${carpetAreaTotal}"
+							default="0"></c:out></td>
+				</tr>
+			</tfoot>
+		</table>
+	</c:if>
 
 	<%-- <div class="row add-border">
 		<div class="col-sm-3 add-margin">
@@ -139,57 +193,4 @@
 		</div>
 	</div>
 
-	<c:if
-		test="${not empty bpaApplication.buildingDetail[0].applicationFloorDetails}">
-		<div class="panel-heading custom_form_panel_heading">
-			<div class="panel-title">
-				<spring:message code="lbl.plint.carpet.details" />
-			</div>
-		</div>
-		<table class="table table-striped table-bordered"
-			id="buildingAreaDetails">
-			<thead>
-				<tr>
-					<th class="text-center"><spring:message code="lbl.srl.no" /></th>
-					<th class="text-center"><spring:message code="lbl.floor.name" /></th>
-					<th class="text-center"><spring:message code="lbl.plinth.area" /></th>
-					<th class="text-center"><spring:message code="lbl.carpet.area" /></th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:set var="plinthAreaTotal" value="${0}" />
-				<c:set var="carpetAreaTotal" value="${0}" />
-				<c:forEach
-					items="${bpaApplication.buildingDetail[0].applicationFloorDetails}"
-					var="floorDetails" varStatus="counter">
-					<c:set var="plinthAreaTotal"
-						value="${plinthAreaTotal + floorDetails.plinthArea}" />
-					<c:set var="carpetAreaTotal"
-						value="${carpetAreaTotal + floorDetails.carpetArea}" />
-					<input type="hidden" value="${floorDetails.id}"
-						id="table_fieldInspections${counter.index}"
-						name="bpaApplication.buildingDetail[0].applicationFloorDetails[${counter.index}].id" />
-					<tr class="data-fetched">
-						<td class="text-center"><span class="serialNo" id="slNoInsp">${counter.index+1}</span></td>
-						<td class="text-center"><c:out
-								value="${floorDetails.floorDescription}" default="N/A"></c:out>
-						<td class="text-center"><c:out
-								value="${floorDetails.plinthArea}" default="N/A"></c:out>
-						<td class="text-center"><c:out
-								value="${floorDetails.carpetArea}" default="N/A"></c:out>
-					</tr>
-				</c:forEach>
-			</tbody>
-			<tfoot>
-				<tr>
-					<td></td>
-					<td class="text-right">Total</td>
-					<td class="text-center"><c:out value="${plinthAreaTotal}"
-							default="0"></c:out></td>
-					<td class="text-center"><c:out value="${carpetAreaTotal}"
-							default="0"></c:out></td>
-				</tr>
-			</tfoot>
-		</table>
-	</c:if>
 </div>

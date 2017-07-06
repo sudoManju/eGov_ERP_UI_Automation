@@ -58,15 +58,11 @@ import org.egov.eis.service.PositionMasterService;
 import org.egov.infra.admin.master.entity.AppConfigValues;
 import org.egov.infra.admin.master.entity.User;
 import org.egov.infra.admin.master.service.AppConfigValueService;
-import org.egov.infra.admin.master.service.RoleService;
-import org.egov.infra.admin.master.service.UserService;
-import org.egov.infra.config.properties.ApplicationProperties;
 import org.egov.infra.persistence.entity.PermanentAddress;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
 import org.egov.pims.commons.Position;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -94,15 +90,7 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
     @Autowired
     private InspectionService inspectionService;
     @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private UserService userService;
-    @Autowired
     private AppConfigValueService appConfigValueService;
-    @Autowired
-    private ApplicationProperties applicationProperties;
-    @Autowired
-    private RoleService roleService;
     @Autowired
     private PositionMasterService positionMasterService;
 
@@ -139,6 +127,7 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
     }
 
     private void loadViewdata(final Model model, final BpaApplication application) {
+        buildReceiptDetails(application);
         model.addAttribute("stateType", application.getClass().getSimpleName());
         model.addAttribute(ADDITIONALRULE, CREATE_ADDITIONAL_RULE_CREATE);
         model.addAttribute(BPA_APPLICATION, application);

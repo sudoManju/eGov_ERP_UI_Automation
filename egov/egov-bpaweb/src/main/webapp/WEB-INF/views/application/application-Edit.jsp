@@ -79,10 +79,10 @@
 				</div>
 				<div id="appliccation-info" class="tab-pane fade in active">
 					<div class="panel panel-primary" data-collapsed="0">
-						<jsp:include page="applicationDetails.jsp"></jsp:include>
+						<jsp:include page="applicantDetailForm.jsp"></jsp:include>
 					</div>
 					<div class="panel panel-primary" data-collapsed="0">
-						<jsp:include page="applicantDetailForm.jsp"></jsp:include>
+						<jsp:include page="applicationDetails.jsp"></jsp:include>
 					</div>
 					<div class="panel panel-primary" data-collapsed="0">
 						<jsp:include page="amenityDetails.jsp"></jsp:include>
@@ -115,6 +115,8 @@
 	</div>
 </div>
 
+<script
+	src="<c:url value='/resources/global/js/handlebars/handlebars.js?rnd=${app_release_no}' context='/egi'/>"></script>
 <script
 	src="<cdn:url value='/resources/global/js/egov/inbox.js?rnd=${app_release_no}' context='/egi'/>"></script>
 <script

@@ -71,11 +71,11 @@
 					</div>
 				</div>
 				<div id="appliccation-info" class="tab-pane fade in active">
-					<div class="panel panel-primary" data-collapsed="0">
-						<jsp:include page="applicationDetails.jsp"></jsp:include>
-					</div>
 					<div class="panel panel-primary" data-collapsed="0" id="applicantDiv">
 						<jsp:include page="applicantDetailForm.jsp"></jsp:include>
+					</div>
+					<div class="panel panel-primary" data-collapsed="0">
+						<jsp:include page="applicationDetails.jsp"></jsp:include>
 					</div>
 					<div class="panel panel-primary" data-collapsed="0">
 						<jsp:include page="amenityDetails.jsp"></jsp:include>
@@ -91,6 +91,11 @@
 					<c:if test="${(isCitizen && validateCitizenAcceptance) || (!isCitizen)}">
 						<div class="panel panel-primary" data-collapsed="0">
 							<jsp:include page="disclaimer.jsp" />
+						</div>
+					</c:if>
+					<c:if test="${not empty  bpaApplication.receipts}">
+						<div class="panel panel-primary" data-collapsed="0">
+							<jsp:include page="view-bpa-receipt-details.jsp"></jsp:include>
 						</div>
 					</c:if>
 					<div class="panel panel-primary" data-collapsed="0">
@@ -226,6 +231,9 @@ jQuery(document).ready(function() {
 	});
 });
  </script>
+
+<script
+	src="<c:url value='/resources/global/js/handlebars/handlebars.js?rnd=${app_release_no}' context='/egi'/>"></script>
 <script
 	src="<cdn:url value='/resources/global/js/egov/inbox.js?rnd=${app_release_no}' context='/egi'/>"></script>
 <script

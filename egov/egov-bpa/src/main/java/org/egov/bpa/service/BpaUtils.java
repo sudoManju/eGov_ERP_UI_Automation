@@ -157,7 +157,7 @@ public class BpaUtils {
 		final PortalInboxBuilder portalInboxBuilder = new PortalInboxBuilder(module,
 				application.getServiceType().getDescription(), application.getApplicationNumber(),
 				application.getPlanPermissionNumber(), application.getId(), "Sucess", "suceess1", url, isResolved,
-				"to be Subitted", new Date(), application.getState(), portalInboxUser);
+				"To be submitted", new Date(), application.getState(), portalInboxUser);
 
 		final PortalInbox portalInbox = portalInboxBuilder.build();
 		portalInboxService.pushInboxMessage(portalInbox);

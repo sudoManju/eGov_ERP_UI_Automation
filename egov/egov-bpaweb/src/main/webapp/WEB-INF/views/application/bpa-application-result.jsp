@@ -62,10 +62,10 @@
 			<jsp:include page="viewapplication-details.jsp"></jsp:include>
 		</div>
 		<div class="panel panel-primary" data-collapsed="0">
-			<jsp:include page="view-sitedetail.jsp"></jsp:include>
+			<jsp:include page="view-amenities-details.jsp"></jsp:include>
 		</div>
 		<div class="panel panel-primary" data-collapsed="0">
-			<jsp:include page="view-amenities-details.jsp"></jsp:include>
+			<jsp:include page="view-sitedetail.jsp"></jsp:include>
 		</div>
 		<c:if test="${bpaApplication.serviceType.description ne 'Sub-Division of plot/Land Development'}">
 			<div class="panel panel-primary" data-collapsed="0">

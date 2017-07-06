@@ -215,7 +215,7 @@
 						<form:input class="form-control patternvalidation" maxlength="120"
 							data-pattern="alphanumeric" id="district"
 							path="documentScrutiny[0].district"
-							value="${bpaApplication.siteDetail[0].district}" />
+							value="${bpaApplication.siteDetail[0].postalAddress.district}" />
 						<form:errors path="documentScrutiny[0].district"
 							cssClass="add-margin error-msg" />
 					</div>

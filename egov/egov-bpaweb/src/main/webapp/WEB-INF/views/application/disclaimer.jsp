@@ -52,20 +52,20 @@
 <div class="form-group">
 	<c:choose>
 	<c:when test="${isCitizen}"> <!-- for citizen user login -->
-		<div class="col-sm-12 text-center add-margin">
-			<div class="checkbox" style="font-size: 15px; color: red">
+		<div class="col-sm-8 col-sm-offset-2">
+			<div class="checkbox">
 			  <label><form:checkbox path="citizenAccepted" id="citizenAccepted" />
-				<form:errors path="citizenAccepted" cssClass="error-msg" /><spring:message
-			code="lbl.accepted" /><span class="mandatory"></span></label>
+				<form:errors path="citizenAccepted" cssClass="error-msg" /><span class="mandatory"></span>&nbsp;&nbsp;<spring:message
+			code="lbl.accepted" /></label>
 			</div>
 		</div>
 	</c:when>
 	<c:otherwise>  <!-- for business user login -->
-		<div class="col-sm-12 text-center add-margin">
-		<div class="checkbox" style="font-size: 15px; color: red">
-			  <label><form:checkbox path="architectAccepted" id="architectAccepted" />
-				<form:errors path="architectAccepted" cssClass="error-msg" /><spring:message
-			code="lbl.accepted" /><span class="mandatory"></span></label>
+		<div class="col-sm-8 col-sm-offset-2">
+		<div class="checkbox" >
+			 <label><form:checkbox path="architectAccepted" id="architectAccepted" />
+				<form:errors path="architectAccepted" cssClass="error-msg" /><span class="mandatory"></span>&nbsp;&nbsp;<spring:message
+			code="lbl.accepted" /></label>
 			</div>
 		</div>
 	</c:otherwise>

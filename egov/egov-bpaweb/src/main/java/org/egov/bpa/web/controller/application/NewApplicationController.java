@@ -50,7 +50,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.egov.bpa.application.entity.Applicant;
 import org.egov.bpa.application.entity.ApplicationStakeHolder;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.CheckListDetail;
@@ -60,16 +59,11 @@ import org.egov.bpa.application.service.collection.GenericBillGeneratorService;
 import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.commons.entity.Source;
-import org.egov.infra.admin.master.entity.User;
-import org.egov.infra.admin.master.service.RoleService;
 import org.egov.infra.admin.master.service.UserService;
-import org.egov.infra.config.properties.ApplicationProperties;
 import org.egov.infra.persistence.entity.enums.Gender;
-import org.egov.infra.persistence.entity.enums.UserType;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -92,15 +86,6 @@ public class NewApplicationController extends BpaGenericApplicationController {
     @Autowired
     private BpaUtils bpaUtils;
 
-    @Autowired
-    private ApplicationProperties applicationProperties;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private RoleService roleService;
-    
     @Autowired
     private UserService userService;
 
