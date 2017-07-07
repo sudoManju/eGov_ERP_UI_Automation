@@ -210,8 +210,8 @@ public class BpaNoticeService {
                     ? bpaApplication.getSiteDetail().get(0).getPlotsurveynumber() : "");
             reportParams.put("village", bpaApplication.getSiteDetail().get(0).getVillage() != null
                     ? bpaApplication.getSiteDetail().get(0).getVillage().getName() : "");
-            reportParams.put("taluk", bpaApplication.getSiteDetail().get(0).getTaluk() != null
-                    ? bpaApplication.getSiteDetail().get(0).getTaluk() : "");
+            reportParams.put("taluk", bpaApplication.getSiteDetail().get(0).getPostalAddress().getTaluk() != null
+                    ? bpaApplication.getSiteDetail().get(0).getPostalAddress().getTaluk() : "");
             reportParams.put("district", bpaApplication.getSiteDetail().get(0).getPostalAddress() != null
                     ? bpaApplication.getSiteDetail().get(0).getPostalAddress().getDistrict() : "");
         }

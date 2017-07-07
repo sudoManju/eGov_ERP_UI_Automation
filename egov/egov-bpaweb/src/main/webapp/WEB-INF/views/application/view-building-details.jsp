@@ -193,4 +193,75 @@
 		</div>
 	</div>
 
+	<div class="row add-border">
+		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.if.regularized" />
+		</div>
+		<div class="col-sm-3 add-margin view-content">
+			<c:out
+				value="${bpaApplication.siteDetail[0].isappForRegularization ? 'YES' : 'NO'}"></c:out>
+		</div>
+	</div>
+	<c:if test="${bpaApplication.siteDetail[0].isappForRegularization}">
+		<div class="row add-border">
+			<div class="col-sm-3 add-margin">
+				<spring:message code="lbl.cons.stages" />
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+				<c:out
+					value="${bpaApplication.siteDetail[0].constStages.description}"
+					default="N/A"></c:out>
+			</div>
+			<c:if
+				test="${bpaApplication.siteDetail[0].constStages.description eq 'In Progress'}">
+				<div class="col-sm-3 add-margin">
+					<spring:message code="lbl.if.cons.not.cmplted" />
+				</div>
+				<div class="col-sm-3 add-margin view-content">
+					<c:out value="${bpaApplication.siteDetail[0].stateOfConstruction}"
+						default="N/A"></c:out>
+				</div>
+			</c:if>
+		</div>
+	</c:if>
+	
+	<div class="row add-border">
+		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.permt.plan.obtain" />
+		</div>
+		<div class="col-sm-3 add-margin view-content">
+			<c:out
+				value="${bpaApplication.isExistingApprovedPlan ? 'YES' : 'NO'}"></c:out>
+		</div>
+	</div>
+	<c:if test="${bpaApplication.isExistingApprovedPlan}">
+		<div class="row add-border">
+			<div class="col-sm-3 add-margin">
+				<spring:message code="lbl.received.permit.no" />
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+				<c:out value="${bpaApplication.revisedPermitNumber}" default="N/A"></c:out>
+			</div>
+			<div class="col-sm-3 add-margin">
+				<spring:message code="lbl.paid.fee" />
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+				<c:out value="${bpaApplication.approvedFeeAmount}" default="N/A"></c:out>
+			</div>
+		</div>
+		<div class="row add-border">
+			<div class="col-sm-3 add-margin">
+				<spring:message code="lbl.paid.details" />
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+				<c:out value="${bpaApplication.feeAmountRecieptNo}" default="N/A"></c:out>
+			</div>
+			<div class="col-sm-3 add-margin">
+				<spring:message code="lbl.sanction.date" />
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+				<c:out value="${bpaApplication.approvedReceiptDate}" default="N/A"></c:out>
+			</div>
+		</div>
+	</c:if>
 </div>

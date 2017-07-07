@@ -201,6 +201,7 @@ var postaladdressengine = new Bloodhound({
 			return $.map(data, function(postal) {
 				return {
 					name : postal.pincode,
+					taluk : postal.taluk,
 					pincode : postal.pincode,
 					value : postal.id,
 					postOffice : postal.postOffice,
@@ -233,12 +234,13 @@ var postal_typeahead = $('#postalAddressTypeHead').typeahead({
 	  }
 });
 
-function postalCodeSelectedEvent(event, data){
-	$('#postalAddress').val(data.value);
-	$('#postOffices').val(data.postOffice);
-	$('#district').val(data.district);
-	$('#state').val(data.state);
-	}
+function postalCodeSelectedEvent(event, data) {
+		$('#taluk').val(data.taluk);
+		$('#postalAddress').val(data.value);
+		$('#postOffices').val(data.postOffice);
+		$('#district').val(data.district);
+		$('#state').val(data.state);
+}
 
 typeaheadWithEventsHandling(postal_typeahead, '#postalAddress', undefined, postalCodeSelectedEvent);
 

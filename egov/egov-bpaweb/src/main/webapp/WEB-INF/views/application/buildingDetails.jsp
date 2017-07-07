@@ -336,9 +336,29 @@
 		</div>
 	</div>
 	<div class="form-group" id="existingAppPlan">
+	
 		<div class="form-group">
 			<label class="col-sm-3 control-label text-right removemandatory"><spring:message
-					code="lbl.amount.paid" /> <span class="mandatory"></span></label>
+					code="lbl.received.permit.no" /><span class="mandatory"></span></label>
+			<div class="col-sm-3 add-margin">
+				<form:input class="form-control patternvalidation" maxlength="128"
+					id="revisedPermitNumber" path="revisedPermitNumber" />
+				<form:errors path="revisedPermitNumber"
+					cssClass="add-margin error-msg" />
+			</div>
+			<label class="col-sm-2 control-label text-right removemandatory"><spring:message
+					code="lbl.paid.fee" /><span class="mandatory"></span></label>
+			<div class="col-sm-3 add-margin">
+				<form:input class="form-control patternvalidation" data-pattern="number" maxlength="128"
+					id="approvedFeeAmount" path="approvedFeeAmount" />
+				<form:errors path="approvedFeeAmount"
+					cssClass="add-margin error-msg" />
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-3 control-label text-right removemandatory"><spring:message
+					code="lbl.paid.details" /> <span class="mandatory"></span></label>
 			<div class="col-sm-3 add-margin">
 				<form:input class="form-control patternvalidation" maxlength="128"
 					id="feeAmountRecieptNo" path="feeAmountRecieptNo" />
@@ -346,7 +366,7 @@
 					cssClass="add-margin error-msg" />
 			</div>
 			<label class="col-sm-2 control-label text-right"><spring:message
-					code="lbl.date.receipt" /><span class="mandatory"></span></label>
+					code="lbl.sanction.date" /><span class="mandatory"></span></label>
 			<div class="col-sm-3 add-margin">
 				<form:input path="approvedReceiptDate"
 					class="form-control datepicker" data-date-end-date="0d"
@@ -356,24 +376,6 @@
 			</div>
 		</div>
 
-		<div class="form-group">
-			<label class="col-sm-3 control-label text-right removemandatory"><spring:message
-					code="lbl.revised.appln.no" /><span class="mandatory"></span></label>
-			<div class="col-sm-3 add-margin">
-				<form:input class="form-control patternvalidation" maxlength="128"
-					id="revisedApplicationNumber" path="revisedApplicationNumber" />
-				<form:errors path="revisedApplicationNumber"
-					cssClass="add-margin error-msg" />
-			</div>
-			<label class="col-sm-2 control-label text-right removemandatory"><spring:message
-					code="lbl.received.receipt.no" /><span class="mandatory"></span></label>
-			<div class="col-sm-3 add-margin">
-				<form:input class="form-control patternvalidation" maxlength="128"
-					id="revisedPermitNumber" path="revisedPermitNumber" />
-				<form:errors path="revisedPermitNumber"
-					cssClass="add-margin error-msg" />
-			</div>
-		</div>
 	</div>
 
 </div>

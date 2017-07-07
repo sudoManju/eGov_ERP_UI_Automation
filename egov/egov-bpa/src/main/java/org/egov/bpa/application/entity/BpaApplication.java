@@ -147,6 +147,7 @@ public class BpaApplication extends StateAware {
     private BigDecimal admissionfeeAmount;
     @Length(min = 1, max = 128)
     private String feeAmountRecieptNo;
+    private BigDecimal approvedFeeAmount;
     private Date approvedReceiptDate;
     @Length(min = 1, max = 128)
     private String revisedApplicationNumber;
@@ -645,4 +646,11 @@ public class BpaApplication extends StateAware {
         this.receipts = receipts;
     }
 
+    public BigDecimal getApprovedFeeAmount() {
+        return approvedFeeAmount;
+    }
+
+    public void setApprovedFeeAmount(BigDecimal approvedFeeAmount) {
+        this.approvedFeeAmount = approvedFeeAmount;
+    }
 }

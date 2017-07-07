@@ -165,7 +165,7 @@ $(document).ready(function() {
 			   $('#existingAppPlan').show();
 			   $('#feeAmountRecieptNo').attr('required', true);
 			   $('#approvedReceiptDate').attr('required', true);
-			   $('#revisedApplicationNumber').attr('required', true);
+			   $('#approvedFeeAmount').attr('required', true);
 			   $('#revisedPermitNumber').attr('required', true);
 		    }
 		   if(!this.checked) // if changed state is "CHECKED"
@@ -173,7 +173,7 @@ $(document).ready(function() {
 			  $('.removemandatory').find("span").removeClass( "mandatory" );
 			  $('#feeAmountRecieptNo').attr('required', false);
 			  $('#approvedReceiptDate').attr('required', false);
-			  $('#revisedApplicationNumber').attr('required', false);
+			  $('#approvedFeeAmount').attr('required', false);
 			  $('#revisedPermitNumber').attr('required', false);
 			  $('#existingAppPlan').hide();
 

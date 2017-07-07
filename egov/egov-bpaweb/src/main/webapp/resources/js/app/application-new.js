@@ -379,6 +379,13 @@ var sh_typeahead = $('#stakeHolderTypeHead').typeahead({
 	minLength : 1
 }, {
 	displayKey : 'name',
-	source : stakeholderengine.ttAdapter()
+	source : stakeholderengine.ttAdapter(),
+	templates: {
+	    empty: [
+	      '<div class="empty-message">',
+	        'No Name Available',
+	      '</div>'
+	    ].join('\n')
+	  }
 });
 typeaheadWithEventsHandling(sh_typeahead, '#stakeHolderName');

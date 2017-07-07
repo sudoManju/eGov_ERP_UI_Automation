@@ -240,35 +240,25 @@
 				cssClass="add-margin error-msg" />
 		</div>
 		<label class="col-sm-2 control-label text-right"><spring:message
-				code="lbl.taluk" /> <span class="mandatory"></span> </label>
-		<div class="col-sm-3 add-margin">
-			<form:input class="form-control patternvalidation" maxlength="32"
-				data-pattern="alphanumericwithspace" id="taluk"
-				path="siteDetail[0].taluk" required="required" />
-			<form:errors path="siteDetail[0].taluk"
-				cssClass="add-margin error-msg" />
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label text-right"><spring:message
 				code="lbl.site.pincode" /><span class="mandatory"></span></label>
 		<div class="col-sm-3 add-margin">
-			<input type="text" id="postalAddressTypeHead"
+			<input type="text" id="postalAddressTypeHead" required="required"
 					class="form-control patternvalidation typeahead" placeholder="Search Pincode" autocomplete="off" data-pattern="number"
 					value="${bpaApplication.siteDetail[0].postalAddress.pincode}" />
 			<form:hidden path="siteDetail[0].postalAddress" value="${bpaApplication.siteDetail[0].postalAddress.id}" />
 			<form:hidden path="siteDetail[0].postalId" id="postalAddress" value="" />
 		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-3 control-label text-right"><spring:message
+				code="lbl.taluk" /> <span class="mandatory"></span> </label>
+		<div class="col-sm-3 add-margin">
+			<input class="form-control patternvalidation" id="taluk" value="${bpaApplication.siteDetail[0].postalAddress.taluk}" disabled="disabled" />
+		</div>
 		<label class="col-sm-2 control-label text-right"><spring:message
 				code="lbl.post.office" /><span class="mandatory"></span></label>
 		<div class="col-sm-3 add-margin">
-			<%-- <select id="postOffices" class="form-control" required="required" >
-			        <option value=""><spring:message code="lbl.select" /></option>
-			        <c:if test="${bpaApplication.siteDetail[0].postalAddress.postOffice ne null}">
-			        	<option selected="selected">${bpaApplication.siteDetail[0].postalAddress.postOffice}</option>
-			        </c:if>
-				</select> --%>
 			<input class="form-control patternvalidation" maxlength="128"
 				data-pattern="alphanumericwithspace" id="postOffices"
 				value="${bpaApplication.siteDetail[0].postalAddress.postOffice}" disabled="disabled" />

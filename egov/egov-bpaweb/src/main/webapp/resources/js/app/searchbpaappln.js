@@ -42,7 +42,6 @@ $(document)
 		.ready(
 				function() {
 					var viewurl = '/bpa/application/view/';
-					var collecturl = '/bpa/application/bpageneratebill/';
 					var demandNoticeurl = '/bpa/application/demandnotice/';
 					var permitorderurl = '/bpa/application/generatepermitorder/';
 					$('#btnSearch').click(function() {
@@ -114,16 +113,8 @@ $(document)
 															if (row.status == 'Approved' && !row.isFeeCollected) {
 																return ('<select class="dropchange">'+commonOptions+'<option  value='
 																		+ demandNoticeurl
-																		+ row.applicationNumber + '>Generate Demand Notice</option><option  value='
-																		+ collecturl
-																		+ row.applicationNumber + '>Collect Fees</option></select>');
+																		+ row.applicationNumber + '>Generate Demand Notice</option></select>');
 															} 
-															else if(row.status == 'Registered'){
-																return ('<select class="dropchange">'+commonOptions+'<option  value='
-																		+ collecturl
-																		+ row.applicationNumber + '>Collect Fees</option></select>');
-																
-															}
 															else if (row.status == 'Order Issued to Applicant') {
 																return ('<select class="dropchange">'+commonOptions+'<option  value='
 																		+ permitorderurl

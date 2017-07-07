@@ -98,8 +98,6 @@ public class SiteDetail extends AbstractAuditable {
     private Boundary electionBoundary;
     @Length(min = 1, max = 128)
     private String citytown; // required ??
-    @Length(min = 1, max = 128)
-    private String taluk;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "street")
     private Boundary street;
@@ -258,14 +256,6 @@ public class SiteDetail extends AbstractAuditable {
 
     public void setCitytown(final String citytown) {
         this.citytown = citytown;
-    }
-
-    public String getTaluk() {
-        return taluk;
-    }
-
-    public void setTaluk(final String taluk) {
-        this.taluk = taluk;
     }
 
     public Boundary getStreet() {
