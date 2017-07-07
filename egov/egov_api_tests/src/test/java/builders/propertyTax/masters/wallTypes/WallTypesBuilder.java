@@ -10,34 +10,34 @@ public class WallTypesBuilder {
 
     AuditDetails auditDetails = new AuditDetailsBuilder().build();
 
-    public WallTypesBuilder(){
+    public WallTypesBuilder() {
         wallTypes.setId(0);
         wallTypes.setTenantId("default");
         wallTypes.setDescription("Testing the wall type");
         wallTypes.setAuditDetails(auditDetails);
     }
 
-    public WallTypesBuilder withName(String name){
+    public WallTypesBuilder withName(String name) {
         wallTypes.setName(name);
         return this;
     }
 
-    public WallTypesBuilder withCode(String code){
+    public WallTypesBuilder withCode(String code) {
         wallTypes.setCode(code);
         return this;
     }
 
-    public WallTypesBuilder withNameLocal(String nameLocal){
+    public WallTypesBuilder withNameLocal(String nameLocal) {
         wallTypes.setNameLocal(nameLocal);
         return this;
     }
 
-    public WallTypesBuilder withId(int id){
+    public WallTypesBuilder withId(int id) {
         wallTypes.setId(id);
         return this;
     }
 
-    public WallTypes build(){
+    public WallTypes build() {
         return wallTypes;
     }
 }

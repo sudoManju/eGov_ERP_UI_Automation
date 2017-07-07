@@ -7,7 +7,7 @@ import utils.Properties;
 
 import static com.jayway.restassured.RestAssured.given;
 
-public class LeaveApplicationResource extends Resource{
+public class LeaveApplicationResource extends Resource {
 
     public Response createLeaveApplicationResource(String json) {
         new APILogger().log("Create Leave Application Test Request is Started with --" + json);

@@ -1,28 +1,23 @@
 package entities.requests.propertyTax.masters;
 
-public class AuditDetails
-{
+public class AuditDetails {
     private String createdBy;
 
     private String lastModifiedBy;
 
-    public String getCreatedBy ()
-    {
+    public String getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy (String createdBy)
-    {
+    public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 
-    public String getLastModifiedBy ()
-    {
+    public String getLastModifiedBy() {
         return lastModifiedBy;
     }
 
-    public void setLastModifiedBy (String lastModifiedBy)
-    {
+    public void setLastModifiedBy(String lastModifiedBy) {
         this.lastModifiedBy = lastModifiedBy;
     }
 }

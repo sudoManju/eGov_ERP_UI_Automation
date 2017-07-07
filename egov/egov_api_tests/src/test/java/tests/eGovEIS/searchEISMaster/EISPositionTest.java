@@ -18,7 +18,7 @@ import static data.UserData.ADMIN;
 
 public class EISPositionTest extends BaseAPITest {
 
-    @Test(groups = {Categories.HR, Categories.SANITY , Categories.PILOT})
+    @Test(groups = {Categories.HR, Categories.SANITY, Categories.PILOT})
     public void searchPositionTest() throws IOException {
         LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
         searchPosition(); // Search Positions

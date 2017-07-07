@@ -17,8 +17,8 @@ import entities.responses.propertyTax.masters.roofTypes.create.RoofTypeMasterRes
 import entities.responses.propertyTax.masters.roofTypes.search.SearchRoofTypeMasterResponse;
 import entities.responses.propertyTax.masters.structureClass.create.StructureClassResponse;
 import entities.responses.propertyTax.masters.structureClass.search.SearchStructureClassResponse;
-import entities.responses.propertyTax.masters.usage.search.SearchUsageMasterResponse;
 import entities.responses.propertyTax.masters.usage.create.UsageMasterResponse;
+import entities.responses.propertyTax.masters.usage.search.SearchUsageMasterResponse;
 import entities.responses.propertyTax.masters.wallTypes.create.WallTypesResponse;
 import entities.responses.propertyTax.masters.wallTypes.search.SearchWallTypesMasterResponse;
 import entities.responses.propertyTax.masters.woodTypes.create.WoodTypesResponse;
@@ -38,13 +38,13 @@ public class PTISMasterSearchHelper extends BaseAPITest {
 
     private String json;
 
-     PTISMasterSearchHelper() {
+    public PTISMasterSearchHelper() {
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         SearchMasterRequest request = new SearchUsageMasterRequestBuilder().withRequestInfo(requestInfo).build();
         json = RequestHelper.getJsonString(request);
     }
 
-     void searchForUsageMaster(UsageMasterResponse responseObjectOfUsage) throws IOException {
+    void searchForUsageMaster(UsageMasterResponse responseObjectOfUsage) throws IOException {
         new APILogger().log("Search Usage Master is Started --");
         Response responseForId = new UsageMasterResource().search(json, IDS + responseObjectOfUsage.getUsageMasters()[0].getId());
         checkResponseForUsage(responseForId, responseObjectOfUsage);
@@ -64,6 +64,18 @@ public class PTISMasterSearchHelper extends BaseAPITest {
         new APILogger().log("Search Usage Master is Completed --");
     }
 
+    public SearchUsageMasterResponse getAllUsageTypes() throws IOException {
+        new APILogger().log("Search All UsageTypes Test is Started --");
+        Response response = new UsageMasterResource().search(json, "");
+        SearchUsageMasterResponse searchUsageMasterResponse = (SearchUsageMasterResponse)
+                ResponseHelper.getResponseAsObject(response.asString(), SearchUsageMasterResponse.class);
+
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertTrue(searchUsageMasterResponse.getUsageMasters().length > 0);
+        new APILogger().log("Search All UsageTypes Test is Completed --");
+        return searchUsageMasterResponse;
+    }
+
     private void checkResponseForUsage(Response response, UsageMasterResponse create) throws IOException {
         SearchUsageMasterResponse responseObject = (SearchUsageMasterResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchUsageMasterResponse.class);
@@ -75,7 +87,7 @@ public class PTISMasterSearchHelper extends BaseAPITest {
         Assert.assertEquals(responseObject.getUsageMasters()[0].getNameLocal(), create.getUsageMasters()[0].getNameLocal());
     }
 
-     void searchStructureClassMaster(StructureClassResponse responseObjectOfCreate) throws IOException {
+    void searchStructureClassMaster(StructureClassResponse responseObjectOfCreate) throws IOException {
         new APILogger().log("Search Structure Classes master is Started --");
         Response responseForId = new StructureClassMasterResource().search(json, IDS + responseObjectOfCreate.getStructureClasses()[0].getId());
         checkResponseForStructure(responseForId, responseObjectOfCreate);
@@ -106,7 +118,7 @@ public class PTISMasterSearchHelper extends BaseAPITest {
         Assert.assertEquals(responseObject.getStructureClasses()[0].getNameLocal(), responseObjectOfCreate.getStructureClasses()[0].getNameLocal());
     }
 
-     void searchFloorTypesMaster(FloorTypesResponse responseObjectOfCreate) throws IOException {
+    void searchFloorTypesMaster(FloorTypesResponse responseObjectOfCreate) throws IOException {
         new APILogger().log("Search FloorTypes master is Started --");
         Response responseForId = new FloorTypesMasterResource().search(json, IDS + responseObjectOfCreate.getFloorTypes()[0].getId());
         checkAssertsForFloorTypes(responseForId, responseObjectOfCreate);
@@ -137,7 +149,7 @@ public class PTISMasterSearchHelper extends BaseAPITest {
         Assert.assertEquals(responseObject.getFloorTypes()[0].getNameLocal(), requestObject.getFloorTypes()[0].getNameLocal());
     }
 
-     void searchWoodTypesMaster(WoodTypesResponse create) throws IOException {
+    void searchWoodTypesMaster(WoodTypesResponse create) throws IOException {
         new APILogger().log("Search WoodTypes is Started --");
         Response responseForId = new WoodTypesMasterResource().search(json, IDS + create.getWoodTypes()[0].getId());
         checkAssertsForWoodTypes(responseForId, create);
@@ -165,10 +177,10 @@ public class PTISMasterSearchHelper extends BaseAPITest {
         Assert.assertEquals(responseObject.getWoodTypes()[0].getId(), requestObject.getWoodTypes()[0].getId());
         Assert.assertEquals(responseObject.getWoodTypes()[0].getName(), requestObject.getWoodTypes()[0].getName());
         Assert.assertEquals(responseObject.getWoodTypes()[0].getCode(), requestObject.getWoodTypes()[0].getCode());
-        Assert.assertEquals(responseObject.getWoodTypes()[0].getNameLocal(),requestObject.getWoodTypes()[0].getNameLocal());
+        Assert.assertEquals(responseObject.getWoodTypes()[0].getNameLocal(), requestObject.getWoodTypes()[0].getNameLocal());
     }
 
-     void searchPropertyTypeMaster(PropertyTypesResponse createObject) throws IOException {
+    void searchPropertyTypeMaster(PropertyTypesResponse createObject) throws IOException {
         new APILogger().log("Search Property type is Started --");
         Response responseForId = new PropertyTypeMasterResource().search(json, IDS + createObject.getPropertyTypes()[0].getId());
         checkAssertsForPropertyTypes(responseForId, createObject);
@@ -190,7 +202,7 @@ public class PTISMasterSearchHelper extends BaseAPITest {
 
     public SearchPropertyTypesResponse searchAllPropertyTypes() throws IOException {
         new APILogger().log("Search All PropertyTypes Test is Started --");
-        Response response = new PropertyTypeMasterResource().search(json, null);
+        Response response = new PropertyTypeMasterResource().search(json, "");
         SearchPropertyTypesResponse searchPropertyTypesResponse = (SearchPropertyTypesResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), SearchPropertyTypesResponse.class);
 
@@ -211,7 +223,7 @@ public class PTISMasterSearchHelper extends BaseAPITest {
         Assert.assertEquals(responseObject.getPropertyTypes()[0].getNameLocal(), createObject.getPropertyTypes()[0].getNameLocal());
     }
 
-     void searchDepartmentMaster(DepartmentsMasterResponse createObject) throws IOException {
+    void searchDepartmentMaster(DepartmentsMasterResponse createObject) throws IOException {
         new APILogger().log("Search Department Master is Started --");
         Response responseForId = new DepartmentsMasterResource().search(json, IDS + createObject.getDepartments()[0].getId());
         checkAssertsForDepartments(responseForId, createObject);
@@ -242,7 +254,7 @@ public class PTISMasterSearchHelper extends BaseAPITest {
         Assert.assertEquals(responseObject.getDepartments()[0].getNameLocal(), requestObject.getDepartments()[0].getNameLocal());
     }
 
-     void searchOccupancyMaster(OccupancyMasterResponse createObject) throws IOException {
+    void searchOccupancyMaster(OccupancyMasterResponse createObject) throws IOException {
         new APILogger().log("Search Occupancy Master is Started --");
         Response responseForId = new OccupancyMasterResource().search(json, IDS + createObject.getOccuapancyMasters()[0].getId());
         checkAssertsForOccupancyMaster(responseForId, createObject);
@@ -273,7 +285,7 @@ public class PTISMasterSearchHelper extends BaseAPITest {
         Assert.assertEquals(responseObject.getOccuapancyMasters()[0].getNameLocal(), requestObject.getOccuapancyMasters()[0].getNameLocal());
     }
 
-     void searchWallTypeMaster(WallTypesResponse createObject) throws IOException {
+    void searchWallTypeMaster(WallTypesResponse createObject) throws IOException {
         new APILogger().log("Search WallTypes Master is Started --");
         Response responseForId = new WallTypesMasterResource().search(json, IDS + createObject.getWallTypes()[0].getId());
         checkAssertsForWallTypeMaster(responseForId, createObject);
@@ -301,7 +313,7 @@ public class PTISMasterSearchHelper extends BaseAPITest {
         Assert.assertEquals(responseObject.getWallTypes()[0].getId(), requestObject.getWallTypes()[0].getId());
         Assert.assertEquals(responseObject.getWallTypes()[0].getName(), requestObject.getWallTypes()[0].getName());
         Assert.assertEquals(responseObject.getWallTypes()[0].getCode(), requestObject.getWallTypes()[0].getCode());
-        Assert.assertEquals(responseObject.getWallTypes()[0].getNameLocal(),requestObject.getWallTypes()[0].getNameLocal());
+        Assert.assertEquals(responseObject.getWallTypes()[0].getNameLocal(), requestObject.getWallTypes()[0].getNameLocal());
     }
 
     void searchRoofTypeMaster(RoofTypeMasterResponse createObject) throws IOException {
@@ -326,12 +338,12 @@ public class PTISMasterSearchHelper extends BaseAPITest {
 
     private void checkAssertsForRoofTypeMaster(Response response, RoofTypeMasterResponse requestObject) throws IOException {
         SearchRoofTypeMasterResponse responseObject = (SearchRoofTypeMasterResponse)
-                ResponseHelper.getResponseAsObject(response.asString(),SearchRoofTypeMasterResponse.class);
+                ResponseHelper.getResponseAsObject(response.asString(), SearchRoofTypeMasterResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertEquals(responseObject.getRoofTypes()[0].getId(), requestObject.getRoofTypes()[0].getId());
         Assert.assertEquals(responseObject.getRoofTypes()[0].getName(), requestObject.getRoofTypes()[0].getName());
         Assert.assertEquals(responseObject.getRoofTypes()[0].getCode(), requestObject.getRoofTypes()[0].getCode());
-        Assert.assertEquals(responseObject.getRoofTypes()[0].getNameLocal(),requestObject.getRoofTypes()[0].getNameLocal());
+        Assert.assertEquals(responseObject.getRoofTypes()[0].getNameLocal(), requestObject.getRoofTypes()[0].getNameLocal());
     }
 }

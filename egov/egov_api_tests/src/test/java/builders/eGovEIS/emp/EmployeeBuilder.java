@@ -7,8 +7,8 @@ public class EmployeeBuilder {
     Employee employee = new Employee();
 
     String[] documents = new String[0];
-    int[] languagesKnown = {393,167,54};
-    int[] juridictions = {2,1222};
+    int[] languagesKnown = {393, 167, 54};
+    int[] juridictions = {2, 1222};
 
     Education education1 = new EducationBuilder().build();
     Education[] educations = {education1};
@@ -28,7 +28,7 @@ public class EmployeeBuilder {
     Test test1 = new TestBuilder().build();
     Test[] tests = {test1};
 
-    public EmployeeBuilder(){
+    public EmployeeBuilder() {
         employee.setTenantId("ap.kurnool");
         employee.setDocuments(documents);
         employee.setPlaceOfBirth("asdfgh");
@@ -62,22 +62,22 @@ public class EmployeeBuilder {
         employee.setTest(tests);
     }
 
-    public EmployeeBuilder withCode(String code){
+    public EmployeeBuilder withCode(String code) {
         employee.setCode(code);
         return this;
     }
 
-    public EmployeeBuilder withAssignments(Assignments[] assignments){
+    public EmployeeBuilder withAssignments(Assignments[] assignments) {
         employee.setAssignments(assignments);
         return this;
     }
 
-    public EmployeeBuilder withUser(User user){
+    public EmployeeBuilder withUser(User user) {
         employee.setUser(user);
         return this;
     }
 
-    public Employee build(){
+    public Employee build() {
         return employee;
     }
 }

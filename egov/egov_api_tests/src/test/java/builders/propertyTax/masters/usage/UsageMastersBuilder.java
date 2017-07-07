@@ -10,7 +10,7 @@ public class UsageMastersBuilder {
 
     AuditDetails auditDetails = new AuditDetailsBuilder().build();
 
-    public UsageMastersBuilder(){
+    public UsageMastersBuilder() {
         usageMasters.setId(0);
         usageMasters.setName("Egovernments");
         usageMasters.setCode("123");
@@ -23,32 +23,32 @@ public class UsageMastersBuilder {
         usageMasters.setAuditDetails(auditDetails);
     }
 
-    public UsageMastersBuilder withId(int id){
+    public UsageMastersBuilder withId(int id) {
         usageMasters.setId(id);
         return this;
     }
 
-    public UsageMastersBuilder withName(String name){
+    public UsageMastersBuilder withName(String name) {
         usageMasters.setName(name);
         return this;
     }
 
-    public UsageMastersBuilder withCode(String code){
+    public UsageMastersBuilder withCode(String code) {
         usageMasters.setCode(code);
         return this;
     }
 
-    public UsageMastersBuilder withNameLocal(String nameLocal){
+    public UsageMastersBuilder withNameLocal(String nameLocal) {
         usageMasters.setNameLocal(nameLocal);
         return this;
     }
 
-    public UsageMastersBuilder withOrderNumber(int orderNumber){
+    public UsageMastersBuilder withOrderNumber(int orderNumber) {
         usageMasters.setOrderNumber(orderNumber);
         return this;
     }
 
-    public UsageMasters build(){
+    public UsageMasters build() {
         return usageMasters;
     }
 }

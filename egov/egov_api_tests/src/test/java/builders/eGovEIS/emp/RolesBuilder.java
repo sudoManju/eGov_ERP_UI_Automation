@@ -6,7 +6,7 @@ public class RolesBuilder {
 
     Roles roles = new Roles();
 
-    public RolesBuilder(){
+    public RolesBuilder() {
         roles.setName("Employee");
         roles.setCode("EMPLOYEE");
         roles.setDescription("Default roles for all employees");
@@ -14,7 +14,7 @@ public class RolesBuilder {
         roles.setLastModifiedBy(1);
     }
 
-    public Roles build(){
+    public Roles build() {
         return roles;
     }
 }

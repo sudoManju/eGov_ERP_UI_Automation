@@ -1,7 +1,6 @@
 package entities.requests.eGovEIS.emp;
 
-public class Test
-{
+public class Test {
     private String tenantId;
 
     private int id;

@@ -8,7 +8,7 @@ public class TestBuilder {
 
     String[] documents = new String[0];
 
-    public TestBuilder(){
+    public TestBuilder() {
         test.setId(1);
         test.setTest("asdfgh");
         test.setYearOfPassing(2001);
@@ -19,7 +19,7 @@ public class TestBuilder {
         test.setDocuments(documents);
     }
 
-    public Test build(){
+    public Test build() {
         return test;
     }
 }

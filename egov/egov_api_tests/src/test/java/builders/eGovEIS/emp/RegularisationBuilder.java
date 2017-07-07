@@ -8,7 +8,7 @@ public class RegularisationBuilder {
 
     String[] documents = new String[0];
 
-    public RegularisationBuilder(){
+    public RegularisationBuilder() {
         regularisation.setId(1);
         regularisation.setDesignation(86);
         regularisation.setDeclaredOn("03/04/2017");
@@ -21,7 +21,7 @@ public class RegularisationBuilder {
         regularisation.setDocuments(documents);
     }
 
-    public Regularisation build(){
+    public Regularisation build() {
         return regularisation;
     }
 }

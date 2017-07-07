@@ -8,7 +8,10 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.EGovEISResource;
 import tests.BaseAPITest;
-import utils.*;
+import utils.Categories;
+import utils.LoginAndLogoutHelper;
+import utils.RequestHelper;
+import utils.ResponseHelper;
 
 import java.io.IOException;
 
@@ -33,25 +36,25 @@ public class EmployeeMasterTest extends BaseAPITest {
         String date = getRandomDate();
         Assignments assignments1 = new AssignmentsBuilder().withFromDate(date).withToDate(date).build();
         Assignments[] assignments = {assignments1};
-        User user1 = new UserBuilder().withUserName("Test_"+ get3DigitRandomInt()).build();
-        Employee employee = new EmployeeBuilder().withCode("EMP_"+ get3DigitRandomInt()).withAssignments(assignments).withUser(user1).build();
+        User user1 = new UserBuilder().withUserName("Test_" + get3DigitRandomInt()).build();
+        Employee employee = new EmployeeBuilder().withCode("EMP_" + get3DigitRandomInt()).withAssignments(assignments).withUser(user1).build();
         CreateEmployeeRequest employeeRequest = new CreateEmployeeRequestBuilder().withEmployee(employee).build();
 
-        Response response = new EGovEISResource().createEmployee(RequestHelper.getJsonString(employeeRequest),sessionId);
+        Response response = new EGovEISResource().createEmployee(RequestHelper.getJsonString(employeeRequest), sessionId);
         CreateEmployeeResponse employeeResponse = (CreateEmployeeResponse)
-                ResponseHelper.getResponseAsObject(response.asString(),CreateEmployeeResponse.class);
+                ResponseHelper.getResponseAsObject(response.asString(), CreateEmployeeResponse.class);
 
-        Assert.assertEquals(response.getStatusCode(),200);
+        Assert.assertEquals(response.getStatusCode(), 200);
 
         return employeeResponse;
     }
 
-    public void searchEmployeeTestMethod(CreateEmployeeResponse create){
+    public void searchEmployeeTestMethod(CreateEmployeeResponse create) {
         SearchEmployeeRequest request = new SearchEmployeeRequestBuilder().build();
 
-        Response response = new EGovEISResource().searchEmployee(RequestHelper.getJsonString(request),CODE1+create.getEmployee().getCode());
+        Response response = new EGovEISResource().searchEmployee(RequestHelper.getJsonString(request), CODE1 + create.getEmployee().getCode());
 
-        Assert.assertEquals(response.getStatusCode(),200);
+        Assert.assertEquals(response.getStatusCode(), 200);
     }
 
 }

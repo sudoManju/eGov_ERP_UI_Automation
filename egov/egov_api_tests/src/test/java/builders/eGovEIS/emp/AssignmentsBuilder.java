@@ -9,7 +9,7 @@ public class AssignmentsBuilder {
     String[] hod = new String[0];
     String[] documents = new String[0];
 
-    public AssignmentsBuilder(){
+    public AssignmentsBuilder() {
         assignments.setId(1);
         assignments.setPosition(360);
         assignments.setFunctionary(1);
@@ -26,17 +26,17 @@ public class AssignmentsBuilder {
         assignments.setDocuments(documents);
     }
 
-    public AssignmentsBuilder withFromDate(String fromDate){
+    public AssignmentsBuilder withFromDate(String fromDate) {
         assignments.setFromDate(fromDate);
         return this;
     }
 
-    public AssignmentsBuilder withToDate(String toDate){
+    public AssignmentsBuilder withToDate(String toDate) {
         assignments.setToDate(toDate);
         return this;
     }
 
-    public Assignments build(){
+    public Assignments build() {
         return assignments;
     }
 }

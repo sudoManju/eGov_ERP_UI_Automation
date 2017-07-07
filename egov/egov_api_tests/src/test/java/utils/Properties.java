@@ -118,5 +118,6 @@ public class Properties {
     public static final String wcmsSearchSupplyTypeUrl = propertiesReader.getEndPointUrl("wcmsSearchSupplyTypeUrl");
     public static final String wcmsCreateDocumentTypeApplicationTypeUrl = propertiesReader.getEndPointUrl("wcmsCreateDocumentTypeApplicationTypeUrl");
     public static final String wcmsSearchDocumentTypeApplicationTypeUrl = propertiesReader.getEndPointUrl("wcmsSearchDocumentTypeApplicationTypeUrl");
-
+    public static final String wcmsCreatePropertyTypeUsageTypeUrl = propertiesReader.getEndPointUrl("wcmsCreatePropertyTypeUsageTypeUrl");
+    public static final String wcmsSearchPropertyTypeUsageTypeUrl = propertiesReader.getEndPointUrl("wcmsSearchPropertyTypeUsageTypeUrl");
 }

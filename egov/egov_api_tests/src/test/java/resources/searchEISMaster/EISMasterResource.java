@@ -7,7 +7,7 @@ import utils.Properties;
 
 import static com.jayway.restassured.RestAssured.given;
 
-public class EISMasterResource extends Resource{
+public class EISMasterResource extends Resource {
 
     public Response searchEmployeeTypeResource(String json) {
         new APILogger().log("Search createEmployee Test Request is Started with -- " + json);

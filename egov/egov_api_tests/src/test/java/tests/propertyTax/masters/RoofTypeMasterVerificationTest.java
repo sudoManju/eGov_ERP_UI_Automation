@@ -24,12 +24,12 @@ public class RoofTypeMasterVerificationTest extends BaseAPITest {
     RequestInfo requestInfo;
     PTISMasterSearchHelper helper;
 
-    public RoofTypeMasterVerificationTest(){
+    public RoofTypeMasterVerificationTest() {
         roofTypes = new RoofTypes[1];
     }
 
     @Test(groups = {Categories.PTIS, Categories.SANITY})
-    public void roofTypesTest() throws IOException{
+    public void roofTypesTest() throws IOException {
         LoginAndLogoutHelper.login(NARASAPPA);                       //Login
         requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         helper = new PTISMasterSearchHelper();
@@ -43,13 +43,13 @@ public class RoofTypeMasterVerificationTest extends BaseAPITest {
 
     private RoofTypeMasterResponse updateRoofTypesMaster(int id) throws IOException {
         new APILogger().log("Update RoofType Master has started --");
-        roofTypes[0] = new RoofTypesBuilder().withName("Test_"+get5DigitRandomInt()).withCode(get5DigitRandomInt())
-                .withNameLocal("Test_"+get5DigitRandomInt()).withId(id).build();
+        roofTypes[0] = new RoofTypesBuilder().withName("Test_" + get5DigitRandomInt()).withCode(get5DigitRandomInt())
+                .withNameLocal("Test_" + get5DigitRandomInt()).withId(id).build();
         RoofTypeMasterRequest request = new RoofTypeMasterRequestBuilder().withRequestInfo(requestInfo)
                 .withRoofTypes(roofTypes).build();
 
         Response response = new RoofTypesMasterResource().update(RequestHelper.getJsonString(request));
-        RoofTypeMasterResponse responseObject = checkAsserts(request,response);
+        RoofTypeMasterResponse responseObject = checkAsserts(request, response);
         new APILogger().log("Update RoofType Master has completed --");
 
         return responseObject;
@@ -57,13 +57,13 @@ public class RoofTypeMasterVerificationTest extends BaseAPITest {
 
     private RoofTypeMasterResponse createRoofTypesMaster() throws IOException {
         new APILogger().log("Create RoofType Master has started --");
-        roofTypes[0] = new RoofTypesBuilder().withName("Test_"+get5DigitRandomInt()).withCode(get5DigitRandomInt())
-                .withNameLocal("Test_"+get5DigitRandomInt()).build();
+        roofTypes[0] = new RoofTypesBuilder().withName("Test_" + get5DigitRandomInt()).withCode(get5DigitRandomInt())
+                .withNameLocal("Test_" + get5DigitRandomInt()).build();
         RoofTypeMasterRequest request = new RoofTypeMasterRequestBuilder().withRequestInfo(requestInfo)
                 .withRoofTypes(roofTypes).build();
 
         Response response = new RoofTypesMasterResource().create(RequestHelper.getJsonString(request));
-        RoofTypeMasterResponse responseObject = checkAsserts(request,response);
+        RoofTypeMasterResponse responseObject = checkAsserts(request, response);
         new APILogger().log("Create RoofType Master has completed --");
 
         return responseObject;
@@ -71,13 +71,13 @@ public class RoofTypeMasterVerificationTest extends BaseAPITest {
 
     private RoofTypeMasterResponse checkAsserts(RoofTypeMasterRequest request, Response response) throws IOException {
         RoofTypeMasterResponse responseObject = (RoofTypeMasterResponse)
-                ResponseHelper.getResponseAsObject(response.asString(),RoofTypeMasterResponse.class);
+                ResponseHelper.getResponseAsObject(response.asString(), RoofTypeMasterResponse.class);
 
-        Assert.assertEquals(response.getStatusCode(),200);
-        Assert.assertEquals(responseObject.getRoofTypes()[0].getName(),request.getRoofTypes()[0].getName());
-        Assert.assertEquals(responseObject.getRoofTypes()[0].getCode(),request.getRoofTypes()[0].getCode());
-        Assert.assertEquals(responseObject.getRoofTypes()[0].getNameLocal(),request.getRoofTypes()[0].getNameLocal());
-        Assert.assertEquals(responseObject.getResponseInfo().getStatus(),"SUCCESSFUL");
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertEquals(responseObject.getRoofTypes()[0].getName(), request.getRoofTypes()[0].getName());
+        Assert.assertEquals(responseObject.getRoofTypes()[0].getCode(), request.getRoofTypes()[0].getCode());
+        Assert.assertEquals(responseObject.getRoofTypes()[0].getNameLocal(), request.getRoofTypes()[0].getNameLocal());
+        Assert.assertEquals(responseObject.getResponseInfo().getStatus(), "SUCCESSFUL");
 
         return responseObject;
     }

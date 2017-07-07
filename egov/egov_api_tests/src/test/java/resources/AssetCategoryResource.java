@@ -6,7 +6,7 @@ import utils.Properties;
 
 import static com.jayway.restassured.RestAssured.given;
 
-public class AssetCategoryResource extends Resource{
+public class AssetCategoryResource extends Resource {
 
     public Response create(String json) {
 

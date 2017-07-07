@@ -18,7 +18,7 @@ import static data.UserData.ADMIN;
 
 public class LAMSServiceTest extends BaseAPITest {
 
-    @Test(groups = {Categories.LAMS, Categories.SANITY , Categories.PILOT})
+    @Test(groups = {Categories.LAMS, Categories.SANITY, Categories.PILOT})
     public void searchLAMSServiceTest() throws IOException {
         LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
         searchLAMSService(); // Search LAMS

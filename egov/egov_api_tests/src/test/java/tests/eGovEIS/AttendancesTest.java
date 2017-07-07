@@ -31,7 +31,7 @@ public class AttendancesTest extends BaseAPITest {
         pilotLogoutService(); // Logout
     }
 
-    @Test(groups = {Categories.HR, Categories.SANITY , Categories.PILOT})
+    @Test(groups = {Categories.HR, Categories.SANITY, Categories.PILOT})
     public void searchAttendanceTest() throws IOException {
         LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
         searchAttendance(); // Search Attendance

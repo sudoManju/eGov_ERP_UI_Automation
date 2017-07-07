@@ -1,7 +1,6 @@
 package entities.requests.eGovEIS.emp;
 
-public class RequestInfo
-{
+public class RequestInfo {
     private String apiId;
 
     private String ts;

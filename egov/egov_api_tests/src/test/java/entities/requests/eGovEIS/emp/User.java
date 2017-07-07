@@ -1,7 +1,6 @@
 package entities.requests.eGovEIS.emp;
 
-public class User
-{
+public class User {
     private String tenantId;
 
     private String correspondencePinCode;

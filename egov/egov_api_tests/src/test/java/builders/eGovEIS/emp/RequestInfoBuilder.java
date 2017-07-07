@@ -6,7 +6,7 @@ public class RequestInfoBuilder {
 
     RequestInfo requestInfo = new RequestInfo();
 
-    public RequestInfoBuilder(){
+    public RequestInfoBuilder() {
         requestInfo.setApiId("org.egov.pgr");
         requestInfo.setVer("1.0");
         requestInfo.setTs("24-04-2016 12:12:12");
@@ -17,7 +17,7 @@ public class RequestInfoBuilder {
         requestInfo.setRequesterId("61");
     }
 
-    public RequestInfo build(){
+    public RequestInfo build() {
         return requestInfo;
     }
 }

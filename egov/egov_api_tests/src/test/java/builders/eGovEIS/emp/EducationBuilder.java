@@ -8,7 +8,7 @@ public class EducationBuilder {
 
     String[] documents = new String[0];
 
-    public EducationBuilder(){
+    public EducationBuilder() {
         education.setId(1);
         education.setQualification("asdfgh");
         education.setMajorSubject("asdfgh");
@@ -20,7 +20,7 @@ public class EducationBuilder {
         education.setDocuments(documents);
     }
 
-    public Education build(){
+    public Education build() {
         return education;
     }
 }

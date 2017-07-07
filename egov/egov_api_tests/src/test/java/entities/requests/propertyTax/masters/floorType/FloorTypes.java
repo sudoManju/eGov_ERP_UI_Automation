@@ -2,8 +2,7 @@ package entities.requests.propertyTax.masters.floorType;
 
 import entities.requests.propertyTax.masters.AuditDetails;
 
-public class FloorTypes
-{
+public class FloorTypes {
     private String tenantId;
 
     private int id;
@@ -18,73 +17,59 @@ public class FloorTypes
 
     private AuditDetails auditDetails;
 
-    public String getTenantId ()
-    {
+    public String getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId (String tenantId)
-    {
+    public void setTenantId(String tenantId) {
         this.tenantId = tenantId;
     }
 
-    public int getId ()
-    {
+    public int getId() {
         return id;
     }
 
-    public void setId (int id)
-    {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getDescription ()
-    {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription (String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    public String getName ()
-    {
+    public String getName() {
         return name;
     }
 
-    public void setName (String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getCode ()
-    {
+    public String getCode() {
         return code;
     }
 
-    public void setCode (String code)
-    {
+    public void setCode(String code) {
         this.code = code;
     }
 
-    public String getNameLocal ()
-    {
+    public String getNameLocal() {
         return nameLocal;
     }
 
-    public void setNameLocal (String nameLocal)
-    {
+    public void setNameLocal(String nameLocal) {
         this.nameLocal = nameLocal;
     }
 
-    public AuditDetails getAuditDetails ()
-    {
+    public AuditDetails getAuditDetails() {
         return auditDetails;
     }
 
-    public void setAuditDetails (AuditDetails auditDetails)
-    {
+    public void setAuditDetails(AuditDetails auditDetails) {
         this.auditDetails = auditDetails;
     }
 }

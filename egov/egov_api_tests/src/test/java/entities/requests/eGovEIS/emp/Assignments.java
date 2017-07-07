@@ -1,7 +1,6 @@
 package entities.requests.eGovEIS.emp;
 
-public class Assignments
-{
+public class Assignments {
     private String tenantId;
 
     private int position;

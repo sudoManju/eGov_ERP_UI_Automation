@@ -6,7 +6,7 @@ import utils.Properties;
 
 import static com.jayway.restassured.RestAssured.given;
 
-public class AssetServiceResource extends Resource{
+public class AssetServiceResource extends Resource {
 
     public Response getSearchAssetService(String json, String assetCode) {
         String path = assetCode == null ? null : "&code=" + assetCode;

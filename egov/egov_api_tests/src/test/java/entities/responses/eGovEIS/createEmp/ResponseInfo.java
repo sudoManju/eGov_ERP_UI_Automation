@@ -1,7 +1,6 @@
 package entities.responses.eGovEIS.createEmp;
 
-public class ResponseInfo
-{
+public class ResponseInfo {
     private String apiId;
 
     private String ts;

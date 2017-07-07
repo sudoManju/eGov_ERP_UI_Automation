@@ -24,10 +24,12 @@ public class DepartmentMasterVerificationTest extends BaseAPITest {
     RequestInfo requestInfo;
     PTISMasterSearchHelper helper;
 
-    public DepartmentMasterVerificationTest(){departments = new Departments[1];}
+    public DepartmentMasterVerificationTest() {
+        departments = new Departments[1];
+    }
 
     @Test(groups = {Categories.PTIS, Categories.SANITY})
-    public void DepartmentMasterTest() throws IOException{
+    public void DepartmentMasterTest() throws IOException {
         LoginAndLogoutHelper.login(NARASAPPA);         //Login
         requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         helper = new PTISMasterSearchHelper();
@@ -41,13 +43,13 @@ public class DepartmentMasterVerificationTest extends BaseAPITest {
 
     private DepartmentsMasterResponse createDepartmentMaster() throws IOException {
         new APILogger().log("Create Department Master is Started");
-        departments[0] = new DepartmentsBuilder().withName("Test_"+ get5DigitRandomInt()).withCode(get5DigitRandomInt())
-                .withNameLocal("Test"+ get5DigitRandomInt()).build();
+        departments[0] = new DepartmentsBuilder().withName("Test_" + get5DigitRandomInt()).withCode(get5DigitRandomInt())
+                .withNameLocal("Test" + get5DigitRandomInt()).build();
         DepartmentMasterRequest request = new DepartmentMasterRequestBuilder().withRequestInfo(requestInfo)
                 .withDepartments(departments).build();
 
         Response response = new DepartmentsMasterResource().create(RequestHelper.getJsonString(request));
-        DepartmentsMasterResponse responseObject = checkAsserts(request,response);
+        DepartmentsMasterResponse responseObject = checkAsserts(request, response);
         new APILogger().log("Create Department Master is Completed");
 
         return responseObject;
@@ -55,27 +57,27 @@ public class DepartmentMasterVerificationTest extends BaseAPITest {
 
     private DepartmentsMasterResponse checkAsserts(DepartmentMasterRequest request, Response response) throws IOException {
         DepartmentsMasterResponse responseObject = (DepartmentsMasterResponse)
-                ResponseHelper.getResponseAsObject(response.asString(),DepartmentsMasterResponse.class);
+                ResponseHelper.getResponseAsObject(response.asString(), DepartmentsMasterResponse.class);
 
-        Assert.assertEquals(response.getStatusCode(),200);
-        Assert.assertEquals(responseObject.getResponseInfo().getStatus(),"SUCCESSFUL");
-        Assert.assertEquals(responseObject.getDepartments()[0].getName(),request.getDepartments()[0].getName());
-        Assert.assertEquals(responseObject.getDepartments()[0].getCode(),request.getDepartments()[0].getCode());
-        Assert.assertEquals(responseObject.getDepartments()[0].getNameLocal(),request.getDepartments()[0].getNameLocal());
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertEquals(responseObject.getResponseInfo().getStatus(), "SUCCESSFUL");
+        Assert.assertEquals(responseObject.getDepartments()[0].getName(), request.getDepartments()[0].getName());
+        Assert.assertEquals(responseObject.getDepartments()[0].getCode(), request.getDepartments()[0].getCode());
+        Assert.assertEquals(responseObject.getDepartments()[0].getNameLocal(), request.getDepartments()[0].getNameLocal());
 
         return responseObject;
     }
 
-    private DepartmentsMasterResponse updateDepartmentsMaster(int id) throws IOException{
+    private DepartmentsMasterResponse updateDepartmentsMaster(int id) throws IOException {
         new APILogger().log("Update Department Master is Started");
-        departments[0] = new DepartmentsBuilder().withName("Test_"+ get5DigitRandomInt()).withCode(get5DigitRandomInt())
-                .withNameLocal("Test"+ get5DigitRandomInt()).withId(id).build();
+        departments[0] = new DepartmentsBuilder().withName("Test_" + get5DigitRandomInt()).withCode(get5DigitRandomInt())
+                .withNameLocal("Test" + get5DigitRandomInt()).withId(id).build();
         DepartmentMasterRequest request = new DepartmentMasterRequestBuilder().withRequestInfo(requestInfo)
                 .withDepartments(departments).build();
 
         Response response = new DepartmentsMasterResource().update(RequestHelper.getJsonString(request));
-        DepartmentsMasterResponse responseObject = checkAsserts(request,response);
-        Assert.assertEquals(responseObject.getDepartments()[0].getId(),id);
+        DepartmentsMasterResponse responseObject = checkAsserts(request, response);
+        Assert.assertEquals(responseObject.getDepartments()[0].getId(), id);
         new APILogger().log("Update Department Master is Completed");
 
         return responseObject;

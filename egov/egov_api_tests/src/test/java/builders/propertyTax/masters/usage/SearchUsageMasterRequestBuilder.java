@@ -7,12 +7,12 @@ public class SearchUsageMasterRequestBuilder {
 
     SearchMasterRequest request = new SearchMasterRequest();
 
-    public SearchUsageMasterRequestBuilder withRequestInfo(RequestInfo requestInfo){
+    public SearchUsageMasterRequestBuilder withRequestInfo(RequestInfo requestInfo) {
         request.setRequestInfo(requestInfo);
         return this;
     }
 
-    public SearchMasterRequest build(){
+    public SearchMasterRequest build() {
         return request;
     }
 }

@@ -11,45 +11,45 @@ public class WoodTypesMasterResource {
 
     public Response create(String jsonString) {
 
-        new APILogger().log("Create WoodTypes Master request is started as --"+jsonString);
+        new APILogger().log("Create WoodTypes Master request is started as --" + jsonString);
 
         Response response = given().request().with()
-                .header("Content-Type","application/json")
+                .header("Content-Type", "application/json")
                 .body(jsonString)
                 .when()
                 .post(Properties.createWoodTypeUrl);
 
-        new APILogger().log("Create WoodTypes Master response is generated as --"+response.asString());
+        new APILogger().log("Create WoodTypes Master response is generated as --" + response.asString());
 
         return response;
     }
 
     public Response search(String json, String s) {
 
-        new APILogger().log("Search WoodTypes Master request is started as --"+json);
+        new APILogger().log("Search WoodTypes Master request is started as --" + json);
 
         Response response = given().request().with()
-                .header("Content-Type","application/json")
+                .header("Content-Type", "application/json")
                 .body(json)
                 .when()
-                .post(Properties.searchWoodTypeUrl+s);
+                .post(Properties.searchWoodTypeUrl + s);
 
-        new APILogger().log("Search WoodTypes Master Response is generated as --"+response.asString());
+        new APILogger().log("Search WoodTypes Master Response is generated as --" + response.asString());
 
         return response;
     }
 
     public Response update(String jsonString) {
 
-        new APILogger().log("Update WoodTypes Master request is started as --"+jsonString);
+        new APILogger().log("Update WoodTypes Master request is started as --" + jsonString);
 
         Response response = given().request().with()
-                .header("Content-Type","application/json")
+                .header("Content-Type", "application/json")
                 .body(jsonString)
                 .when()
                 .post(Properties.updateWoodTypeUrl);
 
-        new APILogger().log("Update WoodTypes Master response is generated as --"+response.asString());
+        new APILogger().log("Update WoodTypes Master response is generated as --" + response.asString());
 
         return response;
     }

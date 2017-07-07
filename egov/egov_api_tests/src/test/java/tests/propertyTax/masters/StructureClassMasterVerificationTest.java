@@ -24,7 +24,7 @@ public class StructureClassMasterVerificationTest extends BaseAPITest {
     RequestInfo requestInfo;
     PTISMasterSearchHelper helper;
 
-    public StructureClassMasterVerificationTest(){
+    public StructureClassMasterVerificationTest() {
         structureClasses = new StructureClasses[1];
     }
 
@@ -43,19 +43,19 @@ public class StructureClassMasterVerificationTest extends BaseAPITest {
 
     private StructureClassResponse createStructureClass() throws IOException {
         new APILogger().log("Create StructureClass Master Started");
-        structureClasses[0] = new StructureClassesBuilder().withName("Test_"+ get5DigitRandomInt()).withCode(get5DigitRandomInt())
-                .withNameLocal("Test_"+ get5DigitRandomInt()).withOrderNumber(Integer.parseInt(get5DigitRandomInt())).build();
+        structureClasses[0] = new StructureClassesBuilder().withName("Test_" + get5DigitRandomInt()).withCode(get5DigitRandomInt())
+                .withNameLocal("Test_" + get5DigitRandomInt()).withOrderNumber(Integer.parseInt(get5DigitRandomInt())).build();
         StructureClassRequest request = new CreateStructureClassRequestBuilder().withRequestinfo(requestInfo)
                 .withStructureClasses(structureClasses)
-                                        .build();
+                .build();
 
         Response response = new StructureClassMasterResource().create(RequestHelper.getJsonString(request));
-        StructureClassResponse responseObject = checkAsserts(request,response);
+        StructureClassResponse responseObject = checkAsserts(request, response);
         new APILogger().log("Create StructureClass Master Completed");
         return responseObject;
     }
 
-    private StructureClassResponse checkAsserts(StructureClassRequest request, Response response) throws IOException{
+    private StructureClassResponse checkAsserts(StructureClassRequest request, Response response) throws IOException {
         StructureClassResponse responseObject = (StructureClassResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), StructureClassResponse.class);
 
@@ -68,17 +68,17 @@ public class StructureClassMasterVerificationTest extends BaseAPITest {
         return responseObject;
     }
 
-    private StructureClassResponse updateStructureClass(int id) throws IOException{
+    private StructureClassResponse updateStructureClass(int id) throws IOException {
         new APILogger().log("Update StructureClass Master Started");
-        structureClasses[0] = new StructureClassesBuilder().withId(id).withName("Test_"+ get5DigitRandomInt()).withCode(get5DigitRandomInt())
-                .withNameLocal("Test_"+ get5DigitRandomInt()).build();
+        structureClasses[0] = new StructureClassesBuilder().withId(id).withName("Test_" + get5DigitRandomInt()).withCode(get5DigitRandomInt())
+                .withNameLocal("Test_" + get5DigitRandomInt()).build();
         StructureClassRequest request = new CreateStructureClassRequestBuilder().withRequestinfo(requestInfo)
                 .withStructureClasses(structureClasses)
                 .build();
 
         Response response = new StructureClassMasterResource().update(RequestHelper.getJsonString(request));
-        StructureClassResponse responseObject = checkAsserts(request,response);
-        Assert.assertEquals(responseObject.getStructureClasses()[0].getId(),id);
+        StructureClassResponse responseObject = checkAsserts(request, response);
+        Assert.assertEquals(responseObject.getStructureClasses()[0].getId(), id);
         new APILogger().log("Update StructureClass Master Completed");
         return responseObject;
     }

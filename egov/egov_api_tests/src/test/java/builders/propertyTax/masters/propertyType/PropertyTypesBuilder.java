@@ -10,7 +10,7 @@ public class PropertyTypesBuilder {
 
     AuditDetails auditDetails = new AuditDetailsBuilder().build();
 
-    public PropertyTypesBuilder(){
+    public PropertyTypesBuilder() {
         propertyTypes.setTenantId("default");
         propertyTypes.setId(0);
         propertyTypes.setDescription("Testing the propertyType master");
@@ -18,32 +18,32 @@ public class PropertyTypesBuilder {
         propertyTypes.setAuditDetails(auditDetails);
     }
 
-    public PropertyTypesBuilder withName(String name){
+    public PropertyTypesBuilder withName(String name) {
         propertyTypes.setName(name);
         return this;
     }
 
-    public PropertyTypesBuilder withCode(String code){
+    public PropertyTypesBuilder withCode(String code) {
         propertyTypes.setCode(code);
         return this;
     }
 
-    public PropertyTypesBuilder withNameLocal(String nameLocal){
+    public PropertyTypesBuilder withNameLocal(String nameLocal) {
         propertyTypes.setNameLocal(nameLocal);
         return this;
     }
 
-    public PropertyTypesBuilder withOrderNum(int num){
+    public PropertyTypesBuilder withOrderNum(int num) {
         propertyTypes.setOrderNumber(num);
         return this;
     }
 
-    public PropertyTypesBuilder withId(int id){
+    public PropertyTypesBuilder withId(int id) {
         propertyTypes.setId(id);
         return this;
     }
 
-    public PropertyTypes build(){
+    public PropertyTypes build() {
         return propertyTypes;
     }
 

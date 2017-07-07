@@ -8,17 +8,17 @@ public class RoofTypeMasterRequestBuilder {
 
     RoofTypeMasterRequest request = new RoofTypeMasterRequest();
 
-    public RoofTypeMasterRequestBuilder withRequestInfo(RequestInfo requestInfo){
+    public RoofTypeMasterRequestBuilder withRequestInfo(RequestInfo requestInfo) {
         request.setRequestInfo(requestInfo);
         return this;
     }
 
-    public RoofTypeMasterRequestBuilder withRoofTypes(RoofTypes[] roofTypes){
+    public RoofTypeMasterRequestBuilder withRoofTypes(RoofTypes[] roofTypes) {
         request.setRoofTypes(roofTypes);
         return this;
     }
 
-    public RoofTypeMasterRequest build(){
+    public RoofTypeMasterRequest build() {
         return request;
     }
 }

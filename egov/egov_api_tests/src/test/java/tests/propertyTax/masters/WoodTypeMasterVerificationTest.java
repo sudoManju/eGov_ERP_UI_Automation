@@ -24,10 +24,12 @@ public class WoodTypeMasterVerificationTest extends BaseAPITest {
     RequestInfo requestInfo;
     PTISMasterSearchHelper helper;
 
-    public WoodTypeMasterVerificationTest(){woodTypes = new WoodTypes[1];}
+    public WoodTypeMasterVerificationTest() {
+        woodTypes = new WoodTypes[1];
+    }
 
     @Test(groups = {Categories.PTIS, Categories.SANITY})
-    public void woodTypesTest()throws IOException{
+    public void woodTypesTest() throws IOException {
         LoginAndLogoutHelper.login(NARASAPPA);    //Login
         requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         helper = new PTISMasterSearchHelper();
@@ -41,41 +43,41 @@ public class WoodTypeMasterVerificationTest extends BaseAPITest {
 
     private WoodTypesResponse createWoodTypesMaster() throws IOException {
         new APILogger().log("Create WoodType Master is Started");
-        woodTypes[0] = new WoodTypesBuilder().withName("Test"+ get5DigitRandomInt()).withCode(get5DigitRandomInt())
-                .withNameLocal("Test_"+ get5DigitRandomInt()).build();
+        woodTypes[0] = new WoodTypesBuilder().withName("Test" + get5DigitRandomInt()).withCode(get5DigitRandomInt())
+                .withNameLocal("Test_" + get5DigitRandomInt()).build();
         WoodTypeMasterRequest request = new WoodTypeMasterRequestBuilder().withRequestInfo(requestInfo)
                 .withWoodType(woodTypes).build();
 
         Response response = new WoodTypesMasterResource().create(RequestHelper.getJsonString(request));
-        WoodTypesResponse responseObject = checkAsserts(request,response);
+        WoodTypesResponse responseObject = checkAsserts(request, response);
         new APILogger().log("Create WoodType Master is Completed");
 
         return responseObject;
     }
 
-    private WoodTypesResponse checkAsserts(WoodTypeMasterRequest request,Response response) throws IOException {
+    private WoodTypesResponse checkAsserts(WoodTypeMasterRequest request, Response response) throws IOException {
         WoodTypesResponse responseObject = (WoodTypesResponse)
-                ResponseHelper.getResponseAsObject(response.asString(),WoodTypesResponse.class);
+                ResponseHelper.getResponseAsObject(response.asString(), WoodTypesResponse.class);
 
-        Assert.assertEquals(response.getStatusCode(),200);
-        Assert.assertEquals(responseObject.getWoodTypes()[0].getName(),request.getWoodTypes()[0].getName());
-        Assert.assertEquals(responseObject.getWoodTypes()[0].getCode(),request.getWoodTypes()[0].getCode());
-        Assert.assertEquals(responseObject.getWoodTypes()[0].getNameLocal(),request.getWoodTypes()[0].getNameLocal());
-        Assert.assertEquals(responseObject.getResponseInfo().getStatus(),"SUCCESSFUL");
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertEquals(responseObject.getWoodTypes()[0].getName(), request.getWoodTypes()[0].getName());
+        Assert.assertEquals(responseObject.getWoodTypes()[0].getCode(), request.getWoodTypes()[0].getCode());
+        Assert.assertEquals(responseObject.getWoodTypes()[0].getNameLocal(), request.getWoodTypes()[0].getNameLocal());
+        Assert.assertEquals(responseObject.getResponseInfo().getStatus(), "SUCCESSFUL");
 
         return responseObject;
     }
 
-    private WoodTypesResponse updateWoodTypesMaster(int id) throws IOException{
+    private WoodTypesResponse updateWoodTypesMaster(int id) throws IOException {
         new APILogger().log("Update WoodType Master is Started");
-        woodTypes[0] = new WoodTypesBuilder().withName("Test"+ get5DigitRandomInt()).withCode(get5DigitRandomInt())
-                .withId(id).withNameLocal("Test_"+ get5DigitRandomInt()).build();
+        woodTypes[0] = new WoodTypesBuilder().withName("Test" + get5DigitRandomInt()).withCode(get5DigitRandomInt())
+                .withId(id).withNameLocal("Test_" + get5DigitRandomInt()).build();
         WoodTypeMasterRequest request = new WoodTypeMasterRequestBuilder().withRequestInfo(requestInfo)
                 .withWoodType(woodTypes).build();
 
         Response response = new WoodTypesMasterResource().update(RequestHelper.getJsonString(request));
-        WoodTypesResponse responseObject = checkAsserts(request,response);
-        Assert.assertEquals(responseObject.getWoodTypes()[0].getId(),id);
+        WoodTypesResponse responseObject = checkAsserts(request, response);
+        Assert.assertEquals(responseObject.getWoodTypes()[0].getId(), id);
         new APILogger().log("Update WoodType Master is Completed");
 
         return responseObject;

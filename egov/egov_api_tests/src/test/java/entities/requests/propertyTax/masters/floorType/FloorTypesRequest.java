@@ -10,23 +10,19 @@ public class FloorTypesRequest {
     @JsonProperty("RequestInfo")
     private RequestInfo RequestInfo;
 
-    public FloorTypes[] getFloorTypes ()
-    {
+    public FloorTypes[] getFloorTypes() {
         return floorTypes;
     }
 
-    public void setFloorTypes (FloorTypes[] floorTypes)
-    {
+    public void setFloorTypes(FloorTypes[] floorTypes) {
         this.floorTypes = floorTypes;
     }
 
-    public RequestInfo getRequestInfo ()
-    {
+    public RequestInfo getRequestInfo() {
         return RequestInfo;
     }
 
-    public void setRequestInfo (RequestInfo RequestInfo)
-    {
+    public void setRequestInfo(RequestInfo RequestInfo) {
         this.RequestInfo = RequestInfo;
     }
 

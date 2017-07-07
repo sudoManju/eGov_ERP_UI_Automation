@@ -1,7 +1,6 @@
 package entities.responses.eGovEIS.createEmp;
 
-public class ServiceHistory
-{
+public class ServiceHistory {
     private String tenantId;
 
     private String id;

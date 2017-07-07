@@ -43,7 +43,7 @@ public class EGovEISResource extends Resource {
         Response response = given().request().with()
                 .urlEncodingEnabled(false)
                 .header("Content-Type", "application/json")
-                .header("cookie","SESSIONID="+scenarioContext.getSessionId())
+                .header("cookie", "SESSIONID=" + scenarioContext.getSessionId())
                 .body(jsonData)
                 .when()
                 .post(Properties.searchEmployeeURL + criteria);

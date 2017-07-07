@@ -197,4 +197,35 @@ public class WCMSResource {
         new APILogger().log("Search DocumentType - ApplicationType Test Request is Generated as  --" + response.asString());
         return response;
     }
+
+    public Response createPropertyTypeUsageType(String jsonString) {
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(jsonString)
+                .when()
+                .post(Properties.wcmsCreatePropertyTypeUsageTypeUrl);
+        return response;
+    }
+
+    public Response searchPropertyTypeUsageTypeResource(String jsonString, String path) {
+        new APILogger().log("Search PropertyType - UsageType Test Request is Started with --" + jsonString);
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(jsonString)
+                .when()
+                .post(Properties.wcmsSearchPropertyTypeUsageTypeUrl + path);
+
+        new APILogger().log("Search PropertyType - UsageType Test Request is Generated as  --" + response.asString());
+        return response;
+    }
+
+    public Response updatePropertyTypeUsageType(String jsonString, int propertyTypeUsageTypeId) {
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(jsonString)
+                .when()
+                .post(ResourceHelper.getBaseURL() + "/wcms-masters/propertytype-usagetype/" + propertyTypeUsageTypeId + "/_update");
+
+        return response;
+    }
 }

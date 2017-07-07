@@ -1,7 +1,6 @@
 package entities.requests.eGovEIS.emp;
 
-public class Regularisation
-{
+public class Regularisation {
     private String tenantId;
 
     private int id;

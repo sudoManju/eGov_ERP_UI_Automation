@@ -20,7 +20,6 @@ import java.io.IOException;
 
 import static data.SearchParameterData.WITH_CODE;
 import static data.SearchParameterData.WITH_MILLIMETERSIZE;
-import static data.SearchParameterData.WITH_NAME;
 import static data.UserData.MANAS;
 
 public class PipeSizeTest extends BaseAPITest {

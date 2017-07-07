@@ -1,7 +1,6 @@
 package entities.responses.eGovEIS.createEmp;
 
-public class Technical
-{
+public class Technical {
     private String tenantId;
 
     private String id;

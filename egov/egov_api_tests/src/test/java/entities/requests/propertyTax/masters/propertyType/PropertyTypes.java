@@ -2,8 +2,7 @@ package entities.requests.propertyTax.masters.propertyType;
 
 import entities.requests.propertyTax.masters.AuditDetails;
 
-public class PropertyTypes
-{
+public class PropertyTypes {
     private String tenantId;
 
     private int id;

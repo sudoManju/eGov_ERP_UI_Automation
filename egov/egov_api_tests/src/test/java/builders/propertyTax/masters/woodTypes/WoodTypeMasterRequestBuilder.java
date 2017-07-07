@@ -8,19 +8,20 @@ public class WoodTypeMasterRequestBuilder {
 
     WoodTypeMasterRequest request = new WoodTypeMasterRequest();
 
-    public WoodTypeMasterRequestBuilder(){}
+    public WoodTypeMasterRequestBuilder() {
+    }
 
-    public WoodTypeMasterRequestBuilder withWoodType(WoodTypes[] woodTypes){
+    public WoodTypeMasterRequestBuilder withWoodType(WoodTypes[] woodTypes) {
         request.setWoodTypes(woodTypes);
         return this;
     }
 
-    public WoodTypeMasterRequestBuilder withRequestInfo(RequestInfo requestInfo){
+    public WoodTypeMasterRequestBuilder withRequestInfo(RequestInfo requestInfo) {
         request.setRequestInfo(requestInfo);
         return this;
     }
 
-    public WoodTypeMasterRequest build(){
+    public WoodTypeMasterRequest build() {
         return request;
     }
 }

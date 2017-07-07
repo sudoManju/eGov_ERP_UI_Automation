@@ -24,7 +24,7 @@ public class WallTypeMasterVerificationTest extends BaseAPITest {
     RequestInfo requestInfo;
     PTISMasterSearchHelper helper;
 
-    public WallTypeMasterVerificationTest(){
+    public WallTypeMasterVerificationTest() {
         wallTypes = new WallTypes[1];
     }
 
@@ -44,39 +44,39 @@ public class WallTypeMasterVerificationTest extends BaseAPITest {
     private WallTypesResponse createWallTypeMasterTest() throws IOException {
         new APILogger().log("Create WallType Master is Started --");
         wallTypes[0] = new WallTypesBuilder().withCode(get5DigitRandomInt())
-                .withName("Test_"+ get5DigitRandomInt()).withNameLocal("Test_"+ get5DigitRandomInt()).build();
+                .withName("Test_" + get5DigitRandomInt()).withNameLocal("Test_" + get5DigitRandomInt()).build();
         WallTypeMasterRequest request = new WallTypeMasterRequestBuilder().withRequestInfo(requestInfo)
                 .withWallTypes(wallTypes).build();
 
         Response response = new WallTypesMasterResource().create(RequestHelper.getJsonString(request));
-        WallTypesResponse responseObject = checkAsserts(request,response);
+        WallTypesResponse responseObject = checkAsserts(request, response);
         new APILogger().log("Create WallType Master is Completed --");
         return responseObject;
     }
 
-    private WallTypesResponse updateWallTypeMasterTest(int id) throws IOException{
+    private WallTypesResponse updateWallTypeMasterTest(int id) throws IOException {
         new APILogger().log("Update WallType Master is Started --");
-        wallTypes[0] = new WallTypesBuilder().withId(id).withName("Test_"+ get5DigitRandomInt())
-                .withCode(get5DigitRandomInt()).withNameLocal("Test_"+ get5DigitRandomInt()).build();
+        wallTypes[0] = new WallTypesBuilder().withId(id).withName("Test_" + get5DigitRandomInt())
+                .withCode(get5DigitRandomInt()).withNameLocal("Test_" + get5DigitRandomInt()).build();
         WallTypeMasterRequest request = new WallTypeMasterRequestBuilder()
                 .withRequestInfo(requestInfo).withWallTypes(wallTypes).build();
 
         Response response = new WallTypesMasterResource().update(RequestHelper.getJsonString(request));
-        WallTypesResponse responseObject = checkAsserts(request,response);
-        Assert.assertEquals(responseObject.getWallTypes()[0].getId(),id);
+        WallTypesResponse responseObject = checkAsserts(request, response);
+        Assert.assertEquals(responseObject.getWallTypes()[0].getId(), id);
         new APILogger().log("Update WallType Master is Completed --");
         return responseObject;
     }
 
-    private WallTypesResponse checkAsserts(WallTypeMasterRequest request,Response response) throws IOException {
+    private WallTypesResponse checkAsserts(WallTypeMasterRequest request, Response response) throws IOException {
         WallTypesResponse responseObject = (WallTypesResponse)
-                ResponseHelper.getResponseAsObject(response.asString(),WallTypesResponse.class);
+                ResponseHelper.getResponseAsObject(response.asString(), WallTypesResponse.class);
 
-        Assert.assertEquals(response.getStatusCode(),200);
-        Assert.assertEquals(responseObject.getWallTypes()[0].getName(),request.getWallTypes()[0].getName());
-        Assert.assertEquals(responseObject.getWallTypes()[0].getCode(),request.getWallTypes()[0].getCode());
-        Assert.assertEquals(responseObject.getWallTypes()[0].getNameLocal(),request.getWallTypes()[0].getNameLocal());
-        Assert.assertEquals(responseObject.getResponseInfo().getStatus(),"SUCCESSFUL");
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertEquals(responseObject.getWallTypes()[0].getName(), request.getWallTypes()[0].getName());
+        Assert.assertEquals(responseObject.getWallTypes()[0].getCode(), request.getWallTypes()[0].getCode());
+        Assert.assertEquals(responseObject.getWallTypes()[0].getNameLocal(), request.getWallTypes()[0].getNameLocal());
+        Assert.assertEquals(responseObject.getResponseInfo().getStatus(), "SUCCESSFUL");
         return responseObject;
     }
 }

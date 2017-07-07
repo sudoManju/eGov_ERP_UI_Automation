@@ -10,34 +10,34 @@ public class DepartmentsBuilder {
 
     AuditDetails auditDetails = new AuditDetailsBuilder().build();
 
-    public DepartmentsBuilder(){
+    public DepartmentsBuilder() {
         departments.setId(0);
         departments.setTenantId("default");
         departments.setDescription("Testing the Department Master");
         departments.setAuditDetails(auditDetails);
     }
 
-    public DepartmentsBuilder withName(String name){
+    public DepartmentsBuilder withName(String name) {
         departments.setName(name);
         return this;
     }
 
-    public DepartmentsBuilder withCode(String code){
+    public DepartmentsBuilder withCode(String code) {
         departments.setCode(code);
         return this;
     }
 
-    public DepartmentsBuilder withNameLocal(String nameLocal){
+    public DepartmentsBuilder withNameLocal(String nameLocal) {
         departments.setNameLocal(nameLocal);
         return this;
     }
 
-    public DepartmentsBuilder withId(int id){
+    public DepartmentsBuilder withId(int id) {
         departments.setId(id);
         return this;
     }
 
-    public Departments build(){
+    public Departments build() {
         return departments;
     }
 

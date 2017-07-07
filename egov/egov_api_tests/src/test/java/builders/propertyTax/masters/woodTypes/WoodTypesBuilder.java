@@ -10,34 +10,34 @@ public class WoodTypesBuilder {
 
     AuditDetails auditDetails = new AuditDetailsBuilder().build();
 
-    public WoodTypesBuilder(){
+    public WoodTypesBuilder() {
         woodTypes.setAuditDetails(auditDetails);
         woodTypes.setTenantId("default");
         woodTypes.setId(0);
         woodTypes.setDescription("Testing the woodTypes Master");
     }
 
-    public WoodTypesBuilder withName(String name){
+    public WoodTypesBuilder withName(String name) {
         woodTypes.setName(name);
         return this;
     }
 
-    public WoodTypesBuilder withCode(String code){
+    public WoodTypesBuilder withCode(String code) {
         woodTypes.setCode(code);
         return this;
     }
 
-    public WoodTypesBuilder withNameLocal(String nameLocal){
+    public WoodTypesBuilder withNameLocal(String nameLocal) {
         woodTypes.setNameLocal(nameLocal);
         return this;
     }
 
-    public WoodTypesBuilder withId(int id){
+    public WoodTypesBuilder withId(int id) {
         woodTypes.setId(id);
         return this;
     }
 
-    public WoodTypes build(){
+    public WoodTypes build() {
         return woodTypes;
     }
 }

@@ -5,7 +5,6 @@ import builders.wcms.categoryType.create.CategoryTypeBuilder;
 import builders.wcms.categoryType.create.CreateCategoryTypeRequestBuilder;
 import builders.wcms.categoryType.search.SearchCategoryTypeRequestBuilder;
 import com.jayway.restassured.response.Response;
-import data.SearchParameterData;
 import entities.requests.wcms.RequestInfo;
 import entities.requests.wcms.categoryType.create.CategoryType;
 import entities.requests.wcms.categoryType.create.CreateCategoryTypeRequest;
@@ -18,7 +17,6 @@ import tests.BaseAPITest;
 import utils.*;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 import static data.SearchParameterData.WITH_CODE;
 import static data.SearchParameterData.WITH_NAME;

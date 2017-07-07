@@ -8,7 +8,7 @@ public class ServiceHistoryBuilder {
 
     String[] documents = new String[0];
 
-    public ServiceHistoryBuilder(){
+    public ServiceHistoryBuilder() {
         serviceHistory.setId(1);
         serviceHistory.setServiceInfo("efrthg");
         serviceHistory.setServiceFrom("15/03/2016");
@@ -20,7 +20,7 @@ public class ServiceHistoryBuilder {
         serviceHistory.setDocuments(documents);
     }
 
-    public ServiceHistoryBuilder(String s){
+    public ServiceHistoryBuilder(String s) {
         serviceHistory.setId(2);
         serviceHistory.setServiceInfo("asdfgh");
         serviceHistory.setServiceFrom("15/03/2016");
@@ -34,7 +34,7 @@ public class ServiceHistoryBuilder {
         serviceHistory.setDocuments(documents);
     }
 
-    public ServiceHistory build(){
+    public ServiceHistory build() {
         return serviceHistory;
     }
 }

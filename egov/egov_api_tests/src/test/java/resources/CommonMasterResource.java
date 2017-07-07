@@ -1,7 +1,6 @@
 package resources;
 
 import com.jayway.restassured.response.Response;
-import tests.BaseAPITest;
 import utils.APILogger;
 import utils.Properties;
 

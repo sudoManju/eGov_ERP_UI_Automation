@@ -1,7 +1,6 @@
 package entities.requests.eGovEIS.emp;
 
-public class Employee
-{
+public class Employee {
     private String tenantId;
 
     private int motherTongue;
@@ -75,6 +74,7 @@ public class Employee
     private User user;
 
     private String bankAccount;
+    private String bankBranch;
 
     public String getTenantId() {
         return tenantId;
@@ -379,6 +379,4 @@ public class Employee
     public void setBankBranch(String bankBranch) {
         this.bankBranch = bankBranch;
     }
-
-    private String bankBranch;
 }

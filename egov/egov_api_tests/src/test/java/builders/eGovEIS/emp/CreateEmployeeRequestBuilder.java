@@ -10,16 +10,16 @@ public class CreateEmployeeRequestBuilder {
 
     RequestInfo requestInfo = new RequestInfoBuilder().build();
 
-    public CreateEmployeeRequestBuilder(){
+    public CreateEmployeeRequestBuilder() {
         request.setRequestInfo(requestInfo);
     }
 
-    public CreateEmployeeRequestBuilder withEmployee(Employee employee){
+    public CreateEmployeeRequestBuilder withEmployee(Employee employee) {
         request.setEmployee(employee);
         return this;
     }
 
-    public CreateEmployeeRequest build(){
+    public CreateEmployeeRequest build() {
         return request;
     }
 }

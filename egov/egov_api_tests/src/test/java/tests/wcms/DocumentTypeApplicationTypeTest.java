@@ -32,7 +32,7 @@ public class DocumentTypeApplicationTypeTest extends BaseAPITest {
     public void documentTypeApplicationTypeTest() throws IOException {
         LoginAndLogoutHelper.login(MANAS); // Login
         CreateDocumentTypeResponse createDocumentTypeResponse = documentTypeTest.createDocumentType(); // Create DocumentType
-        CreateDocumentTypeResponse searchDocumentTypeResponse = documentTypeTest.searchDocumentType(createDocumentTypeResponse , WITH_NAME); // Search DocumentType
+        CreateDocumentTypeResponse searchDocumentTypeResponse = documentTypeTest.searchDocumentType(createDocumentTypeResponse, WITH_NAME); // Search DocumentType
         createDocumentTypeApplicationType(searchDocumentTypeResponse.getDocumentTypes()[0].getId());
 //        searchDocumentTypeApplicationType(searchDocumentTypeResponse.getDocumentTypes()[0].getId());
         LoginAndLogoutHelper.logout(); // Logout

@@ -9,20 +9,20 @@ public class WallTypeMasterRequestBuilder {
     WallTypeMasterRequest request = new WallTypeMasterRequest();
 
 
-    public WallTypeMasterRequestBuilder(){
+    public WallTypeMasterRequestBuilder() {
     }
 
-    public WallTypeMasterRequestBuilder withRequestInfo(RequestInfo requestInfo){
+    public WallTypeMasterRequestBuilder withRequestInfo(RequestInfo requestInfo) {
         request.setRequestInfo(requestInfo);
         return this;
     }
 
-    public WallTypeMasterRequestBuilder withWallTypes(WallTypes[] wallTypes){
+    public WallTypeMasterRequestBuilder withWallTypes(WallTypes[] wallTypes) {
         request.setWallTypes(wallTypes);
         return this;
     }
 
-    public WallTypeMasterRequest build(){
+    public WallTypeMasterRequest build() {
         return request;
     }
 }

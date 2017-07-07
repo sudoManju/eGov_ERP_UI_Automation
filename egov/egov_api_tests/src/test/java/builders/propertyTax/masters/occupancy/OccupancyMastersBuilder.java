@@ -10,7 +10,7 @@ public class OccupancyMastersBuilder {
 
     AuditDetails auditDetails = new AuditDetailsBuilder().build();
 
-    public OccupancyMastersBuilder(){
+    public OccupancyMastersBuilder() {
         occuapancyMasters.setId(0);
         occuapancyMasters.setDescription("Testing the Occupancy Master");
         occuapancyMasters.setTenantId("default");
@@ -18,27 +18,27 @@ public class OccupancyMastersBuilder {
         occuapancyMasters.setAuditDetails(auditDetails);
     }
 
-    public OccupancyMastersBuilder withName(String name){
+    public OccupancyMastersBuilder withName(String name) {
         occuapancyMasters.setName(name);
         return this;
     }
 
-    public OccupancyMastersBuilder withCode(String code){
+    public OccupancyMastersBuilder withCode(String code) {
         occuapancyMasters.setCode(code);
         return this;
     }
 
-    public OccupancyMastersBuilder withNameLocal(String nameLocal){
+    public OccupancyMastersBuilder withNameLocal(String nameLocal) {
         occuapancyMasters.setNameLocal(nameLocal);
         return this;
     }
 
-    public OccupancyMastersBuilder withId(int id){
+    public OccupancyMastersBuilder withId(int id) {
         occuapancyMasters.setId(id);
         return this;
     }
 
-    public OccuapancyMasters build(){
+    public OccuapancyMasters build() {
         return occuapancyMasters;
     }
 }

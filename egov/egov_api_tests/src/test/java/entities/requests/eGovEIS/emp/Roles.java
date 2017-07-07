@@ -1,7 +1,6 @@
 package entities.requests.eGovEIS.emp;
 
-public class Roles
-{
+public class Roles {
     private String tenantId;
 
     private int createdBy;

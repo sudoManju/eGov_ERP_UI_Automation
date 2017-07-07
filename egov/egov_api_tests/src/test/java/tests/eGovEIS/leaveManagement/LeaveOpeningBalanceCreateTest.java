@@ -30,8 +30,6 @@ import utils.*;
 import java.io.IOException;
 import java.util.Random;
 
-import static data.UserData.ADMIN;
-
 public class LeaveOpeningBalanceCreateTest extends BaseAPITest {
 
     @Test(groups = {Categories.HR, Categories.SANITY})

@@ -14,7 +14,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import static java.lang.String.format;
 import static java.util.Calendar.*;
 
 public class BaseAPITest {
@@ -25,14 +24,14 @@ public class BaseAPITest {
         RestAssured.baseURI = new ResourceHelper().getBaseURL();
     }
 
+    private static int randBetween(int start, int end) {
+        return start + (int) Math.round(Math.random() * (end - start));
+    }
+
     @BeforeMethod(alwaysRun = true)
     public void testSetup(Method method) {
         scenarioContext = new ScenarioContext();
         Reporter.log("Test Method Name -- " + method.getName(), true);
-    }
-
-    private static int randBetween(int start, int end) {
-        return start + (int) Math.round(Math.random() * (end - start));
     }
 
     protected String getRandomDate() {

@@ -8,7 +8,7 @@ import java.util.Map;
 
 import static com.jayway.restassured.RestAssured.given;
 
-public class LoginResource extends Resource{
+public class LoginResource extends Resource {
 
     public Response login(Map json) {
         new APILogger().log("Login Request is started with-- " + json.toString());

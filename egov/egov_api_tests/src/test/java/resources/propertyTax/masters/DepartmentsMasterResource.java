@@ -10,45 +10,45 @@ public class DepartmentsMasterResource {
 
     public Response create(String jsonString) {
 
-        new APILogger().log("Create Department Master request is started as --"+jsonString);
+        new APILogger().log("Create Department Master request is started as --" + jsonString);
 
         Response response = given().request().with()
-                .header("Content-Type","application/json")
+                .header("Content-Type", "application/json")
                 .body(jsonString)
                 .when()
                 .post(Properties.createDepartmentsMasterUrl);
 
-        new APILogger().log("Create Department Master response is generated as --"+response.asString());
+        new APILogger().log("Create Department Master response is generated as --" + response.asString());
 
         return response;
     }
 
-    public Response search(String json, String s){
+    public Response search(String json, String s) {
 
-       new APILogger().log("Search Department Master request is started as --"+json);
+        new APILogger().log("Search Department Master request is started as --" + json);
 
         Response response = given().request().with()
-                .header("Content-Type","application/json")
+                .header("Content-Type", "application/json")
                 .body(json)
                 .when()
-                .post(Properties.searchDepartmentsMasterUrl+s);
+                .post(Properties.searchDepartmentsMasterUrl + s);
 
-        new APILogger().log("Search Department Master response is generated as --"+response.asString());
+        new APILogger().log("Search Department Master response is generated as --" + response.asString());
 
         return response;
     }
 
     public Response update(String jsonString) {
 
-        new APILogger().log("Update Department Master request is started as --"+jsonString);
+        new APILogger().log("Update Department Master request is started as --" + jsonString);
 
         Response response = given().request().with()
-                .header("Content-Type","application/json")
+                .header("Content-Type", "application/json")
                 .body(jsonString)
                 .when()
                 .post(Properties.updateDepartmentsMasterUrl);
 
-        new APILogger().log("Update Department Master response is generated as --"+response.asString());
+        new APILogger().log("Update Department Master response is generated as --" + response.asString());
 
         return response;
     }

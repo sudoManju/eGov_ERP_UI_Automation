@@ -18,7 +18,7 @@ import static data.UserData.ADMIN;
 
 public class EISEmployeeGroupTest extends BaseAPITest {
 
-    @Test(groups = {Categories.HR, Categories.SANITY , Categories.PILOT})
+    @Test(groups = {Categories.HR, Categories.SANITY, Categories.PILOT})
     public void searchEmployeeGroupTest() throws IOException {
         LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
         searchEmployeeGroup(); // Search Employee Group

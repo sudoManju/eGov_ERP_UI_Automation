@@ -8,7 +8,7 @@ public class TechnicalBuilder {
 
     String[] documents = new String[0];
 
-    public TechnicalBuilder(){
+    public TechnicalBuilder() {
         technical.setId(1);
         technical.setSkill("asdfgh");
         technical.setGrade("asdfgh");
@@ -20,7 +20,7 @@ public class TechnicalBuilder {
         technical.setDocuments(documents);
     }
 
-    public Technical build(){
+    public Technical build() {
         return technical;
     }
 }

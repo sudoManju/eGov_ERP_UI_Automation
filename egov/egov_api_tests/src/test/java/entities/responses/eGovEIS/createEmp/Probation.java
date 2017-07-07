@@ -1,7 +1,6 @@
 package entities.responses.eGovEIS.createEmp;
 
-public class Probation
-{
+public class Probation {
     private String tenantId;
 
     private String id;

@@ -9,16 +9,16 @@ public class SearchEmployeeRequestBuilder {
 
     SearchEmployeeRequest request = new SearchEmployeeRequest();
 
-    public SearchEmployeeRequestBuilder(){
+    public SearchEmployeeRequestBuilder() {
         request.setRequestInfo(requestInfo);
     }
 
-    public SearchEmployeeRequestBuilder withRequestInfo(RequestInfo requestInfo){
+    public SearchEmployeeRequestBuilder withRequestInfo(RequestInfo requestInfo) {
         request.setRequestInfo(requestInfo);
         return this;
     }
 
-    public SearchEmployeeRequest build(){
+    public SearchEmployeeRequest build() {
         return request;
     }
 }

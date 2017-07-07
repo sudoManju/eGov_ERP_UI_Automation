@@ -8,7 +8,7 @@ public class ProbationBuilder {
 
     String[] documents = new String[0];
 
-    public ProbationBuilder(){
+    public ProbationBuilder() {
         probation.setId(1);
         probation.setDesignation(74);
         probation.setDeclaredOn("01/04/2017");
@@ -21,7 +21,7 @@ public class ProbationBuilder {
         probation.setDocuments(documents);
     }
 
-    public ProbationBuilder(String s){
+    public ProbationBuilder(String s) {
         probation.setId(2);
         probation.setDesignation(70);
         probation.setDeclaredOn("01/04/2017");
@@ -33,7 +33,7 @@ public class ProbationBuilder {
         probation.setDocuments(documents);
     }
 
-    public Probation build(){
+    public Probation build() {
         return probation;
     }
 }

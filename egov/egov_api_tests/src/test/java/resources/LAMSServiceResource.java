@@ -6,7 +6,7 @@ import utils.Properties;
 
 import static com.jayway.restassured.RestAssured.given;
 
-public class LAMSServiceResource extends Resource{
+public class LAMSServiceResource extends Resource {
 
     public Response searchLAMSServiceResource(String jsonString) {
         new APILogger().log("LAMS Service Search Request is started with -- " + jsonString);
