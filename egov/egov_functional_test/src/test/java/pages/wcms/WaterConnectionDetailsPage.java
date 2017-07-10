@@ -54,8 +54,14 @@ public class WaterConnectionDetailsPage extends WaterChargeManagementPage {
     @FindBy(id = "applicationDocs3documentNumber")
     private WebElement documentNo3TextBox;
 
+    @FindBy(id = "applicationDocs4documentNumber")
+    private WebElement documentNo4TextBox;
+
     @FindBy(id = "applicationDocs3documentDate")
     private WebElement documentDate3TextBox;
+
+    @FindBy(id = "applicationDocs4documentDate")
+    private WebElement documentDate4TextBox;
 
     @FindBy(id = "file0id")
     private WebElement browse1Button;
@@ -65,6 +71,9 @@ public class WaterConnectionDetailsPage extends WaterChargeManagementPage {
 
     @FindBy(id = "file3id")
     private WebElement browse3Button;
+
+    @FindBy(id = "file4id")
+    private WebElement browse4Button;
 
     @FindBy(id = "estimationDetails0itemDescription")
     private WebElement fieldInspectionMaterial;
@@ -141,14 +150,17 @@ public class WaterConnectionDetailsPage extends WaterChargeManagementPage {
         enterText(documentNo1TextBox, enclosedDocument.getDocumentN01(), webDriver);
         enterText(documentNo2TextBox, enclosedDocument.getDocumentN02(), webDriver);
         enterText(documentNo3TextBox, enclosedDocument.getDocumentN03(), webDriver);
+        enterText(documentNo4TextBox, enclosedDocument.getDocumentN03(), webDriver);
 
         enterDate(documentDate1TextBox, getCurrentDate(), webDriver);
         enterDate(documentDate2TextBox, getCurrentDate(), webDriver);
         enterDate(documentDate3TextBox, getCurrentDate(), webDriver);
+        enterDate(documentDate4TextBox, getCurrentDate(), webDriver);
 
         uploadFile(browse1Button, System.getProperty("user.dir") + "/src/test/resources/dataFiles/PTISTestData.xlsx", webDriver);
         uploadFile(browse2Button, System.getProperty("user.dir") + "/src/test/resources/dataFiles/PTISTestData.xlsx", webDriver);
         uploadFile(browse3Button, System.getProperty("user.dir") + "/src/test/resources/dataFiles/PTISTestData.xlsx", webDriver);
+        uploadFile(browse4Button, System.getProperty("user.dir") + "/src/test/resources/dataFiles/PTISTestData.xlsx", webDriver);
     }
 
     public void enterAdditionalWaterConnectionInfo(ConnectionInfo connectionInfo) {
