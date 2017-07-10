@@ -98,8 +98,7 @@ public class SearchBpaApplicationService {
 
     public List<SearchBpaApplicationForm> search(final SearchBpaApplicationForm bpaApplicationForm) {
         final Criteria criteria = buildSearchCriteria(bpaApplicationForm);
-        List<SearchBpaApplicationForm> searchBpaApplicationFormList = buildApplicationDetailsResponse(criteria);
-        return searchBpaApplicationFormList;
+        return buildApplicationDetailsResponse(criteria);
     }
 
     private List<SearchBpaApplicationForm> buildApplicationDetailsResponse(final Criteria criteria) {
@@ -189,10 +188,10 @@ public class SearchBpaApplicationService {
             criteria.add(Restrictions.le("bpaApplication.applicationDate",
                     resetToDateTimeStamp(searchBpaApplicationForm.getToDate())));
         if (searchBpaApplicationForm.getElectionWardId() != null || searchBpaApplicationForm.getWardId() != null
-                || searchBpaApplicationForm.getZoneId() != null) {
+                || searchBpaApplicationForm.getZoneId() != null || searchBpaApplicationForm.getZone() != null) {
             criteria.createAlias("bpaApplication.siteDetail", "siteDetail");
         }
-        if (searchBpaApplicationForm.getWardId() != null || searchBpaApplicationForm.getZoneId() != null) {
+        if (searchBpaApplicationForm.getWardId() != null || searchBpaApplicationForm.getZoneId() != null || searchBpaApplicationForm.getZone() != null) {
             criteria.createAlias("siteDetail.adminBoundary", "adminBoundary");
         }
         if (searchBpaApplicationForm.getElectionWardId() != null) {
@@ -206,8 +205,8 @@ public class SearchBpaApplicationService {
             criteria.add(Restrictions.eq("adminBoundary.parent.id", searchBpaApplicationForm.getZoneId()));
         }
         
-        if (searchBpaApplicationForm.getZoneId() != null) {
-            criteria.add(Restrictions.eq("adminBoundary.parent.name", searchBpaApplicationForm.getZoneId()));
+        if (searchBpaApplicationForm.getZoneId() == null && searchBpaApplicationForm.getZone() != null) {
+            criteria.createAlias("adminBoundary.parent", "parent").add(Restrictions.eq("parent.name", searchBpaApplicationForm.getZone()));
         }
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         return criteria;

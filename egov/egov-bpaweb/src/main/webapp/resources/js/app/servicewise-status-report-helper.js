@@ -123,7 +123,9 @@ $(document)
 																	+ '&'
 																	+ 'electionWard='+electionWardId
 																	+ '&'
-																	+ 'zone='+zoneId
+																	+ 'zoneId='+zoneId
+																	+ '&'
+																	+ 'zone='
 																	+ '&'
 																	+ 'status='+row.status
 																	+ '&'
@@ -151,7 +153,9 @@ $(document)
 																	+ '&'
 																	+ 'electionWard='+electionWardId
 																	+ '&'
-																	+ 'zone='+zoneId
+																	+ 'zoneId='+zoneId
+																	+ '&'
+																	+ 'zone='
 																	+ '&'
 																	+ 'status='+row.status
 																	+ '&'
@@ -179,7 +183,9 @@ $(document)
 																	+ '&'
 																	+ 'electionWard='+electionWardId
 																	+ '&'
-																	+ 'zone='+zoneId
+																	+ 'zoneId='+zoneId
+																	+ '&'
+																	+ 'zone='
 																	+ '&'
 																	+ 'status='+row.status
 																	+ '&'
@@ -207,7 +213,9 @@ $(document)
 																	+ '&'
 																	+ 'electionWard='+electionWardId
 																	+ '&'
-																	+ 'zone='+zoneId
+																	+ 'zoneId='+zoneId
+																	+ '&'
+																	+ 'zone='
 																	+ '&'
 																	+ 'status='+row.status
 																	+ '&'
@@ -235,7 +243,9 @@ $(document)
 																	+ '&'
 																	+ 'electionWard='+electionWardId
 																	+ '&'
-																	+ 'zone='+zoneId
+																	+ 'zoneId='+zoneId
+																	+ '&'
+																	+ 'zone='
 																	+ '&'
 																	+ 'status='+row.status
 																	+ '&'
@@ -263,7 +273,9 @@ $(document)
 																	+ '&'
 																	+ 'electionWard='+electionWardId
 																	+ '&'
-																	+ 'zone='+zoneId
+																	+ 'zoneId='+zoneId
+																	+ '&'
+																	+ 'zone='
 																	+ '&'
 																	+ 'status='+row.status
 																	+ '&'
@@ -291,7 +303,9 @@ $(document)
 																	+ '&'
 																	+ 'electionWard='+electionWardId
 																	+ '&'
-																	+ 'zone='+zoneId
+																	+ 'zoneId='+zoneId
+																	+ '&'
+																	+ 'zone='
 																	+ '&'
 																	+ 'status='+row.status
 																	+ '&'
@@ -319,7 +333,9 @@ $(document)
 																	+ '&'
 																	+ 'electionWard='+electionWardId
 																	+ '&'
-																	+ 'zone='+zoneId
+																	+ 'zoneId='+zoneId
+																	+ '&'
+																	+ 'zone='
 																	+ '&'
 																	+ 'status='+row.status
 																	+ '&'
@@ -333,7 +349,7 @@ $(document)
 														"data" : "serviceType09",
 														render : function(data, type, row, meta) {
 															return parseInt(row.serviceType09)!==0 ? '<a onclick="openPopup(\'/bpa/reports/servicewise-statusreport/view?'
-																	+ 'serviceType=Permission for Temporary hut or shed'
+																	+ 'serviceType=Huts and Sheds'
 																	+ '&'
 																	+ 'applicantName='+applicantName
 																	+ '&'
@@ -347,7 +363,9 @@ $(document)
 																	+ '&'
 																	+ 'electionWard='+electionWardId
 																	+ '&'
-																	+ 'zone='+zoneId
+																	+ 'zoneId='+zoneId
+																	+ '&'
+																	+ 'zone='
 																	+ '&'
 																	+ 'status='+row.status
 																	+ '&'

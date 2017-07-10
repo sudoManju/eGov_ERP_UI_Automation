@@ -39,15 +39,15 @@
  */
 package org.egov.bpa.application.service.report;
 
-import static org.egov.bpa.utils.BpaConstants.NEW_CONSTRUCTION;
-import static org.egov.bpa.utils.BpaConstants.RECONSTRUCTION;
-import static org.egov.bpa.utils.BpaConstants.DEMOLITION;
-import static org.egov.bpa.utils.BpaConstants.CHANGE_IN_OCCUPANCY;
 import static org.egov.bpa.utils.BpaConstants.ADDING_OF_EXTENSION;
 import static org.egov.bpa.utils.BpaConstants.ALTERATION;
 import static org.egov.bpa.utils.BpaConstants.AMENITIES;
-import static org.egov.bpa.utils.BpaConstants.PERM_FOR_HUT_OR_SHED;
+import static org.egov.bpa.utils.BpaConstants.CHANGE_IN_OCCUPANCY;
+import static org.egov.bpa.utils.BpaConstants.DEMOLITION;
 import static org.egov.bpa.utils.BpaConstants.DIVISION_OF_PLOT;
+import static org.egov.bpa.utils.BpaConstants.NEW_CONSTRUCTION;
+import static org.egov.bpa.utils.BpaConstants.PERM_FOR_HUT_OR_SHED;
+import static org.egov.bpa.utils.BpaConstants.RECONSTRUCTION;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +73,6 @@ public class BpaReportsService {
             final SearchBpaApplicationForm searchBpaApplicationForm) {
         List<SearchBpaApplicationReport> searchBpaApplicationReportList = new ArrayList<>();
         List<SearchBpaApplicationForm> searchBpaApplnResultList = searchBpaApplicationService.search(searchBpaApplicationForm);
-        System.out.println(searchBpaApplnResultList.size());
         Map<String, Map<String, Long>> resultMap = searchBpaApplnResultList.stream().collect(
                 Collectors.groupingBy(SearchBpaApplicationForm::getStatus,
                         Collectors.groupingBy(SearchBpaApplicationForm::getServiceType, Collectors.counting())));
@@ -128,7 +127,6 @@ public class BpaReportsService {
             final SearchBpaApplicationForm searchBpaApplicationForm) {
         List<SearchBpaApplicationReport> searchBpaApplicationReportList = new ArrayList<>();
         List<SearchBpaApplicationForm> searchBpaApplnResultList = searchBpaApplicationService.search(searchBpaApplicationForm);
-        System.out.println(searchBpaApplnResultList.size());
         Map<String, Map<String, Long>> resultMap = searchBpaApplnResultList.stream().collect(
                 Collectors.groupingBy(SearchBpaApplicationForm::getServiceType,
                         Collectors.groupingBy(SearchBpaApplicationForm::getZone, Collectors.counting())));

@@ -58,7 +58,8 @@
 	value="${revenueWard}" />
 <input type="hidden" name="electionWardId" id="electionWardId"
 	value="${electionWard}" />
-<input type="hidden" name="zoneId" id="zoneId" value="${zone}" />
+<input type="hidden" name="zoneId" id="zoneId" value="${zoneId}" />
+<input type="hidden" name="zone" id="zone" value="${zone}" />
 <input type="hidden" name="status" id="status" value="${status}" />
 <input type="hidden" name="serviceType" id="serviceType"
 	value="${serviceType}" />

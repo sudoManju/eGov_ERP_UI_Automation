@@ -123,7 +123,9 @@ $(document)
 																	+ '&'
 																	+ 'electionWard='+electionWardId
 																	+ '&'
-																	+ 'zone='+zoneId
+																	+ 'zone=ZONE-1'
+																	+ '&'
+																	+ 'zoneId='+zoneId
 																	+ '&'
 																	+ 'status='+statusId
 																	+ '&'
@@ -151,7 +153,9 @@ $(document)
 																	+ '&'
 																	+ 'electionWard='+electionWardId
 																	+ '&'
-																	+ 'zone='+zoneId
+																	+ 'zone=ZONE-2'
+																	+ '&'
+																	+ 'zoneId='+zoneId
 																	+ '&'
 																	+ 'status='+statusId
 																	+ '&'
@@ -179,7 +183,9 @@ $(document)
 																	+ '&'
 																	+ 'electionWard='+electionWardId
 																	+ '&'
-																	+ 'zone='+zoneId
+																	+ 'zone=ZONE-3'
+																	+ '&'
+																	+ 'zoneId='+zoneId
 																	+ '&'
 																	+ 'status='+statusId
 																	+ '&'
@@ -207,7 +213,9 @@ $(document)
 																	+ '&'
 																	+ 'electionWard='+electionWardId
 																	+ '&'
-																	+ 'zone='+zoneId
+																	+ 'zone=ZONE-4'
+																	+ '&'
+																	+ 'zoneId='+zoneId
 																	+ '&'
 																	+ 'status='+statusId
 																	+ '&'

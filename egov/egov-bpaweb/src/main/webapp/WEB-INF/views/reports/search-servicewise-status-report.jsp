@@ -76,7 +76,7 @@
 					<th>Adding of Extension</th>
 					<th>Change in Occupancy</th>
 					<th>Amenities</th>
-					<th>Permission for Temporary hut or shed</th>
+					<th>Huts and Sheds</th>
 					<th>Total</th>
 				</tr>
 			</thead>

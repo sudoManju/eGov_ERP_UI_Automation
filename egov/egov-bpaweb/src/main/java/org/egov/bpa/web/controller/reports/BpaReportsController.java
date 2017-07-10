@@ -41,7 +41,6 @@ package org.egov.bpa.web.controller.reports;
 
 import static org.egov.infra.utils.JsonUtils.toJSON;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -83,8 +82,7 @@ public class BpaReportsController extends BpaGenericApplicationController {
     @RequestMapping(value = "/servicewise-statusreport", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
     public String getStatusCountByServicetypeResult(final Model model,
-            @ModelAttribute final SearchBpaApplicationForm searchBpaApplicationForm)
-            throws ParseException {
+            @ModelAttribute final SearchBpaApplicationForm searchBpaApplicationForm) {
         final List<SearchBpaApplicationReport> searchResultList = bpaReportsService
                 .getResultsByServicetypeAndStatus(searchBpaApplicationForm);
         return new StringBuilder(DATA)
@@ -98,9 +96,8 @@ public class BpaReportsController extends BpaGenericApplicationController {
             @RequestParam final String applicationNumber,
             @RequestParam final Long ward, @RequestParam final Date fromDate,
             @RequestParam final Date toDate, @RequestParam final Long revenueWard, @RequestParam final Long electionWard,
-            @RequestParam final Long zone, @RequestParam final String status, @RequestParam final String serviceType,
-            final Model model)
-            throws ParseException {
+            @RequestParam final Long zoneId, @RequestParam final String status, @RequestParam final String serviceType,
+            @RequestParam final String zone, final Model model) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         model.addAttribute("applicantName", applicantName);
         model.addAttribute("applicationNumber", applicationNumber);
@@ -118,6 +115,7 @@ public class BpaReportsController extends BpaGenericApplicationController {
         model.addAttribute("revenueWard", revenueWard);
         model.addAttribute("electionWard", electionWard);
         model.addAttribute("zone", zone);
+        model.addAttribute("zoneId", zoneId);
         model.addAttribute("status", status);
         model.addAttribute("serviceType", serviceType);
         return "view-servicewise-appln-details";
@@ -125,16 +123,15 @@ public class BpaReportsController extends BpaGenericApplicationController {
 
     @RequestMapping(value = "/servicewise-statusreport/view", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
-    public String ViewStatusCountByServicetypeDetails(@ModelAttribute final SearchBpaApplicationForm searchBpaApplicationForm,
-            final Model model)
-            throws ParseException {
+    public String viewStatusCountByServicetypeDetails(@ModelAttribute final SearchBpaApplicationForm searchBpaApplicationForm,
+            final Model model) {
         final List<SearchBpaApplicationForm> searchResultList = searchBpaApplicationService.search(searchBpaApplicationForm);
         return new StringBuilder(DATA)
                 .append(toJSON(searchResultList, SearchBpaApplicationForm.class, SearchBpaApplicationFormAdaptor.class))
                 .append("}")
                 .toString();
     }
-    
+
     @RequestMapping(value = "/zonewisedetails", method = RequestMethod.GET)
     public String searchZoneWiseServicesForm(final Model model) {
         model.addAttribute("searchBpaApplicationForm", new SearchBpaApplicationForm());
@@ -144,8 +141,7 @@ public class BpaReportsController extends BpaGenericApplicationController {
     @RequestMapping(value = "/zonewisedetails", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
     public String getZoneWiseServicesResult(final Model model,
-            @ModelAttribute final SearchBpaApplicationForm searchBpaApplicationForm)
-            throws ParseException {
+            @ModelAttribute final SearchBpaApplicationForm searchBpaApplicationForm) {
         final List<SearchBpaApplicationReport> searchResultList = bpaReportsService
                 .getResultsForEachServicetypeByZone(searchBpaApplicationForm);
         return new StringBuilder(DATA)
