@@ -31,9 +31,9 @@ public class EmployeeBuilder {
     public EmployeeBuilder() {
         employee.setTenantId("ap.kurnool");
         employee.setDocuments(documents);
-        employee.setPlaceOfBirth("asdfgh");
+        employee.setPlaceOfBirth("Birth Place");
         employee.setGroup(271);
-        employee.setBankAccount("8708787989");
+        employee.setBankAccount("1010101010");
         employee.setBank(47);
         employee.setMaritalStatus("MARRIED");
         employee.setLanguagesKnown(languagesKnown);
@@ -45,11 +45,11 @@ public class EmployeeBuilder {
         employee.setMotherTongue(54);
         employee.setJurisdictions(juridictions);
         employee.setEmployeeType(1);
-        employee.setDateOfTermination("01/04/2016");
-        employee.setDateOfAppointment("01/04/2016");
-        employee.setDateOfJoining("01/04/2016");
-        employee.setDateOfRetirement("01/04/2016");
-        employee.setDateOfResignation("01/04/2016");
+//        employee.setDateOfTermination("01/04/2016");
+        employee.setDateOfAppointment("01/04/2017");
+        employee.setDateOfJoining("01/04/2017");
+//        employee.setDateOfRetirement("01/04/2016");
+//        employee.setDateOfResignation("01/04/2016");
         employee.setEmployeeStatus(41);
         employee.setRecruitmentMode(158);
         employee.setRecruitmentType(45);

@@ -18,7 +18,6 @@ public class AssignmentsBuilder {
         assignments.setDesignation(74);
         assignments.setIsPrimary(true);
         assignments.setGrade(59);
-        assignments.setGovtOrderNumber("asd123");
         assignments.setCreatedBy(61);
         assignments.setLastModifiedBy(61);
         assignments.setTenantId("ap.kurnool");
@@ -36,7 +35,13 @@ public class AssignmentsBuilder {
         return this;
     }
 
-    public Assignments build() {
+    public AssignmentsBuilder withGovtOrderNumber(String govtOrderNumber)
+    {
+        assignments.setGovtOrderNumber(govtOrderNumber);
+        return this;
+    }
+
+    public Assignments build(){
         return assignments;
     }
 }

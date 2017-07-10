@@ -33,11 +33,13 @@ public class EmployeeMasterTest extends BaseAPITest {
     }
 
     public CreateEmployeeResponse createEmployeeTestMethod(String sessionId) throws IOException {
-        String date = getRandomDate();
-        Assignments assignments1 = new AssignmentsBuilder().withFromDate(date).withToDate(date).build();
+        String date = getCurrentDate();
+        String num = get3DigitRandomInt();
+        Assignments assignments1 = new AssignmentsBuilder().withFromDate(date).withToDate(date).withGovtOrderNumber("GOV_"+get3DigitRandomInt()).build();
         Assignments[] assignments = {assignments1};
-        User user1 = new UserBuilder().withUserName("Test_" + get3DigitRandomInt()).build();
-        Employee employee = new EmployeeBuilder().withCode("EMP_" + get3DigitRandomInt()).withAssignments(assignments).withUser(user1).build();
+
+        User user1 = new UserBuilder().withUserName("EMP"+num).build();
+        Employee employee = new EmployeeBuilder().withCode("EMP"+ num).withAssignments(assignments).withUser(user1).build();
         CreateEmployeeRequest employeeRequest = new CreateEmployeeRequestBuilder().withEmployee(employee).build();
 
         Response response = new EGovEISResource().createEmployee(RequestHelper.getJsonString(employeeRequest), sessionId);
