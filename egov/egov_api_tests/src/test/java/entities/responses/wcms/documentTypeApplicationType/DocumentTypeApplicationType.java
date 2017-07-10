@@ -2,12 +2,12 @@ package entities.responses.wcms.documentTypeApplicationType;
 
 public class DocumentTypeApplicationType {
     private String applicationType;
-    private Object documentType;
-    private Object auditDetails;
+    private String documentType;
+    private String auditDetails;
     private int documentTypeId;
     private String tenantId;
     private boolean active;
-    private Object id;
+    private int id;
     private boolean mandatory;
 
     public String getApplicationType() {
@@ -18,19 +18,19 @@ public class DocumentTypeApplicationType {
         this.applicationType = applicationType;
     }
 
-    public Object getDocumentType() {
+    public String getDocumentType() {
         return this.documentType;
     }
 
-    public void setDocumentType(Object documentType) {
+    public void setDocumentType(String documentType) {
         this.documentType = documentType;
     }
 
-    public Object getAuditDetails() {
+    public String getAuditDetails() {
         return this.auditDetails;
     }
 
-    public void setAuditDetails(Object auditDetails) {
+    public void setAuditDetails(String auditDetails) {
         this.auditDetails = auditDetails;
     }
 
@@ -58,11 +58,11 @@ public class DocumentTypeApplicationType {
         this.active = active;
     }
 
-    public Object getId() {
+    public int getId() {
         return this.id;
     }
 
-    public void setId(Object id) {
+    public void setId(int id) {
         this.id = id;
     }
 

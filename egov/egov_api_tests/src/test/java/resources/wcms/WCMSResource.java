@@ -187,14 +187,25 @@ public class WCMSResource {
         return response;
     }
 
-    public Response searchDocumentTypeApplicationTypeResource(String jsonString) {
+    public Response searchDocumentTypeApplicationTypeResource(String jsonString, String path) {
         new APILogger().log("Search DocumentType - ApplicationType Test Request is Started with --" + jsonString);
         Response response = given().request().with()
                 .header("Content-Type", "application/json")
                 .body(jsonString)
                 .when()
-                .post(Properties.wcmsSearchDocumentTypeApplicationTypeUrl);
+                .post(Properties.wcmsSearchDocumentTypeApplicationTypeUrl + path);
         new APILogger().log("Search DocumentType - ApplicationType Test Request is Generated as  --" + response.asString());
+        return response;
+    }
+
+    public Response updateDocumentTypeApplicationTypeResource(String jsonString, int code) {
+        new APILogger().log("Update DocumentType - ApplicationType Test Request is Started with --" + jsonString);
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(jsonString)
+                .when()
+                .post(ResourceHelper.getBaseURL() + "/wcms-masters/documenttype-applicationtype/" + code + "/_update");
+        new APILogger().log("Update DocumentType - ApplicationType Test Request is Generated as  --" + response.asString());
         return response;
     }
 

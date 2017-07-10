@@ -7,7 +7,7 @@ public class DocumentTypeApplicationTypeBuilder {
     DocumentTypeApplicationType documentTypeApplicationType = new DocumentTypeApplicationType();
 
     public DocumentTypeApplicationTypeBuilder() {
-        documentTypeApplicationType.setDocumentTypeId(0);
+        documentTypeApplicationType.setDocumentType("");
         documentTypeApplicationType.setApplicationType(new ApplicationTypesData().randomApplicationType());
         documentTypeApplicationType.setMandatory("true");
         documentTypeApplicationType.setTenantId("default");
@@ -19,8 +19,8 @@ public class DocumentTypeApplicationTypeBuilder {
         return this;
     }
 
-    public DocumentTypeApplicationTypeBuilder withDocumentTypeId(int documentTypeId) {
-        documentTypeApplicationType.setDocumentTypeId(documentTypeId);
+    public DocumentTypeApplicationTypeBuilder withDocumentType(String documentTypeId) {
+        documentTypeApplicationType.setDocumentType(documentTypeId);
         return this;
     }
 

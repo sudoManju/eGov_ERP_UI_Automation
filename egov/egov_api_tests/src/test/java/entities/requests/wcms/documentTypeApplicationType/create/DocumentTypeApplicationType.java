@@ -2,7 +2,7 @@ package entities.requests.wcms.documentTypeApplicationType.create;
 
 public class DocumentTypeApplicationType {
     private String applicationType;
-    private int documentTypeId;
+    private String documentType;
     private String tenantId;
     private String active;
     private String mandatory;
@@ -15,12 +15,12 @@ public class DocumentTypeApplicationType {
         this.applicationType = applicationType;
     }
 
-    public int getDocumentTypeId() {
-        return this.documentTypeId;
+    public String getDocumentType() {
+        return this.documentType;
     }
 
-    public void setDocumentTypeId(int documentTypeId) {
-        this.documentTypeId = documentTypeId;
+    public void setDocumentType(String documentType) {
+        this.documentType = documentType;
     }
 
     public String getTenantId() {
