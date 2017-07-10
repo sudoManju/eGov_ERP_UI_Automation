@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-07-10T18:23:14 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="buildingpermit" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="576a1e58-ecb3-4d56-971a-5d1fe019af29">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="389"/>
+	<property name="ireport.y" value="261"/>
 	<import value="org.egov.infra.reporting.util.*"/>
 	<import value="org.egov.infstr.utils.*"/>
 	<parameter name="landExtent" class="java.math.BigDecimal"/>
@@ -159,16 +161,14 @@
 				<text><![CDATA[Signature And Name Of Secretary]]></text>
 			</staticText>
 		</band>
-	</detail>
-	<pageFooter>
 		<band height="50">
 			<textField>
 				<reportElement x="0" y="0" width="555" height="50" uuid="0224923c-0648-474c-aba2-159a55bd9c42"/>
 				<textElement>
 					<font size="10" isBold="true" isItalic="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Note : This certificate is valid upto "+$P{certExpryDate}+" Only."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["\n\nNote : This certificate is valid upto "+$P{certExpryDate}+" Only."]]></textFieldExpression>
 			</textField>
 		</band>
-	</pageFooter>
+	</detail>
 </jasperReport>
