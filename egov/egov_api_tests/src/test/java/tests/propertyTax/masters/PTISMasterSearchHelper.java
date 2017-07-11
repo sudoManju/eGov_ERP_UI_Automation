@@ -346,4 +346,48 @@ public class PTISMasterSearchHelper extends BaseAPITest {
         Assert.assertEquals(responseObject.getRoofTypes()[0].getCode(), requestObject.getRoofTypes()[0].getCode());
         Assert.assertEquals(responseObject.getRoofTypes()[0].getNameLocal(), requestObject.getRoofTypes()[0].getNameLocal());
     }
+
+    public Boolean checkRoofType(String name) throws IOException {
+        Response response = new RoofTypesMasterResource().search(json, WITH_NAME + name);
+        SearchRoofTypeMasterResponse responseObject = (SearchRoofTypeMasterResponse)
+                ResponseHelper.getResponseAsObject(response.asString(), SearchRoofTypeMasterResponse.class);
+
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertEquals(responseObject.getRoofTypes()[0].getName(),name);
+
+        return true;
+    }
+
+    public Boolean checkWoodType(String name) throws IOException {
+        Response response = new WoodTypesMasterResource().search(json, WITH_NAME + name);
+        SearchWoodTypesResponse responseObject = (SearchWoodTypesResponse)
+                ResponseHelper.getResponseAsObject(response.asString(), SearchWoodTypesResponse.class);
+
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertEquals(responseObject.getWoodTypes()[0].getName(),name);
+
+        return true;
+    }
+
+    public Boolean checkWallType(String name) throws IOException {
+        Response response = new WallTypesMasterResource().search(json, WITH_NAME +name);
+        SearchWallTypesMasterResponse responseObject = (SearchWallTypesMasterResponse)
+                ResponseHelper.getResponseAsObject(response.asString(), SearchWallTypesMasterResponse.class);
+
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertEquals(responseObject.getWallTypes()[0].getName(),name);
+
+        return true;
+    }
+
+    public Boolean checkFloorType(String name) throws IOException {
+        Response response = new FloorTypesMasterResource().search(json, WITH_NAME + name);
+        SearchFloorTypesResponse responseObject = (SearchFloorTypesResponse)
+                ResponseHelper.getResponseAsObject(response.asString(), SearchFloorTypesResponse.class);
+
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertEquals(responseObject.getFloorTypes()[0].getName(),name);
+
+        return true;
+    }
 }

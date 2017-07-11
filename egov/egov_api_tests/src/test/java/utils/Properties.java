@@ -105,6 +105,9 @@ public class Properties {
     public static final String searchRoofTypeMasterUrl = propertiesReader.getEndPointUrl("roofTypeMasterSearchUrl");
     public static final String updateRoofTypeMasterUrl = propertiesReader.getEndPointUrl("roofTypeMasterUpdateUrl");
 
+    public static final String createNewPropertyUrl = propertiesReader.getEndPointUrl("createNewPropertyUrl");
+
+
     // Water Charge Management Url's //
     public static final String wcmsCreateCategoryTypeUrl = propertiesReader.getEndPointUrl("wcmsCreateCategoryTypeUrl");
     public static final String wcmsSearchCategoryTypeUrl = propertiesReader.getEndPointUrl("wcmsSearchCategoryTypeUrl");
