@@ -30,7 +30,7 @@
 package org.egov.bpa.application.entity.enums;
 
 public enum GovernmentType {
-    GOVERNMENT("Government"),QUASI_GOVERNMENT("Quasi Government");
+    NOT_APPLICABLE("Not Applicable") ,GOVERNMENT("Government"), QUASI_GOVERNMENT("Quasi Government");
     
     private final String governmentTypeTypeVal;
 
