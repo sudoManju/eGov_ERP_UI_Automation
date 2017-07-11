@@ -6,7 +6,6 @@ import builders.wcms.propertyCategoryType.create.CreatePropertyCategoryTypeReque
 import builders.wcms.propertyCategoryType.search.SearchPropertyCategoryTypeRequestBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.wcms.RequestInfo;
-import entities.requests.wcms.documentTypeApplicationType.ApplicationTypesData;
 import entities.requests.wcms.propertyCategoryType.create.CreatePropertyCategoryTypeRequest;
 import entities.requests.wcms.propertyCategoryType.create.PropertyCategory;
 import entities.requests.wcms.propertyCategoryType.search.SearchPropertyCategoryTypeRequest;
@@ -85,7 +84,10 @@ public class PropertyCategoryTypeTest extends BaseAPITest {
         return searchPropertyCategoryTypeResponse;
     }
 
-    private void updatePropertyCategoryType(CreatePropertyCategoryTypeResponse createPropertyCategoryTypeResponse, CreatePropertyCategoryTypeResponse searchPropertyCategoryTypeResponse, SearchPropertyTypesResponse searchPropertyTypesResponse) throws IOException {
+    private void updatePropertyCategoryType(CreatePropertyCategoryTypeResponse createPropertyCategoryTypeResponse,
+                                            CreatePropertyCategoryTypeResponse searchPropertyCategoryTypeResponse,
+                                            SearchPropertyTypesResponse searchPropertyTypesResponse) throws IOException {
+
         new APILogger().log("Update PropertyType - CategoryType Test is Started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
 

@@ -273,4 +273,37 @@ public class WCMSResource {
         new APILogger().log("Update PropertyType - CategoryType Test Request is Generated as  --" + response.asString());
         return response;
     }
+
+    public Response createPropertyPipeSize(String jsonString) {
+        new APILogger().log("Create PropertyType - PipeSize Test Request is Started with --" + jsonString);
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(jsonString)
+                .when()
+                .post(Properties.wcmsCreatePropertyPipeSizeUrl);
+        new APILogger().log("Create PropertyType - PipeSize Test Request is Generated as  --" + response.asString());
+        return response;
+    }
+
+    public Response searchPropertyPipeSizeResource(String jsonString, String path) {
+        new APILogger().log("Search PropertyType - PipeSize Test Request is Started with --" + jsonString);
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(jsonString)
+                .when()
+                .post(Properties.wcmsSearchPropertyPipeSizeUrl + path);
+        new APILogger().log("Search PropertyType - PipeSize Test Request is Generated as  --" + response.asString());
+        return response;
+    }
+
+    public Response updatePropertyPipeSizeResource(String jsonString, String id) {
+        new APILogger().log("Update PropertyType - PipeSize Test Request is Started with --" + jsonString);
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(jsonString)
+                .when()
+                .post(ResourceHelper.getBaseURL() + "/wcms-masters/propertytype-pipesize/" + id + "/_update");
+        new APILogger().log("Update PropertyType - PipeSize Test Request is Generated as  --" + response.asString());
+        return response;
+    }
 }

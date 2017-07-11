@@ -34,7 +34,7 @@ public class PipeSizeTest extends BaseAPITest {
         LoginAndLogoutHelper.logout(); // Logout
     }
 
-    private CreatePipeSizeResponse createPipeSize() throws IOException {
+    public CreatePipeSizeResponse createPipeSize() throws IOException {
         new APILogger().log("Create PipeSize Test is Started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         PipeSize pipeSize = new PipeSizeBuilder().build();
@@ -51,7 +51,7 @@ public class PipeSizeTest extends BaseAPITest {
         return createPipeSizeResponse;
     }
 
-    private CreatePipeSizeResponse searchPipeSize(CreatePipeSizeResponse createPipeSizeResponse, String parameter) throws IOException {
+    public CreatePipeSizeResponse searchPipeSize(CreatePipeSizeResponse createPipeSizeResponse, String parameter) throws IOException {
         new APILogger().log("Search PipeSize Test with " + parameter + " is Started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         SearchPipeSizeRequest searchPipeSizeRequest = new SearchPipeSizeRequestBuilder().withRequestInfo(requestInfo).build();
@@ -61,7 +61,7 @@ public class PipeSizeTest extends BaseAPITest {
             path = pathBuilder(parameter, String.valueOf(createPipeSizeResponse.getPipeSize()[0].getSizeInMilimeter()));
         else
             path = pathBuilder(parameter, createPipeSizeResponse.getPipeSize()[0].getCode());
-        System.out.println(path);
+
         Response response = new WCMSResource().searchPipeSizeResource(RequestHelper.getJsonString(searchPipeSizeRequest), path);
         CreatePipeSizeResponse searchPipeSizeResponse = (CreatePipeSizeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), CreatePipeSizeResponse.class);
