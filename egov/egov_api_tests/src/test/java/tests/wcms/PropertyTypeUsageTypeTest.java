@@ -25,8 +25,6 @@ import static data.UserData.MANAS;
 
 public class PropertyTypeUsageTypeTest extends BaseAPITest {
 
-    private PTISMasterSearchHelper ptisMasterSearchHelper;
-
     /*
     * Search PropertyTypes Test - PropertyTax
     * Search UsageTypes Test - PropertyTax
@@ -38,9 +36,8 @@ public class PropertyTypeUsageTypeTest extends BaseAPITest {
     public void createPropertyTypeUsageTypeWithUpdateAsUsageTypeTest() throws IOException {
         LoginAndLogoutHelper.login(MANAS); // Login
 
-        ptisMasterSearchHelper = new PTISMasterSearchHelper();
-        SearchPropertyTypesResponse searchPropertyTypesResponse = ptisMasterSearchHelper.searchAllPropertyTypes(); // Get PropertyTypes
-        SearchUsageMasterResponse searchUsageMasterResponse = ptisMasterSearchHelper.getAllUsageTypes(); // Get UsageTypes
+        SearchPropertyTypesResponse searchPropertyTypesResponse = new PTISMasterSearchHelper().searchAllPropertyTypes(); // Get PropertyTypes
+        SearchUsageMasterResponse searchUsageMasterResponse = new PTISMasterSearchHelper().getAllUsageTypes(); // Get UsageTypes
 
         CreatePropertyTypeUsageTypeResponse createPropertyTypeUsageTypeResponse = createPropertyTypeUsageType(searchPropertyTypesResponse, searchUsageMasterResponse); // Create PropertyTypeUsageType
         int propertyTypeUsageTypeId = searchPropertyTypeUsageType(createPropertyTypeUsageTypeResponse); // Search PropertyTypeUsageType
@@ -60,9 +57,8 @@ public class PropertyTypeUsageTypeTest extends BaseAPITest {
     public void createPropertyTypeUsageTypeWithUpdateAsPropertyTypeTest() throws IOException {
         LoginAndLogoutHelper.login(MANAS); // Login
 
-        ptisMasterSearchHelper = new PTISMasterSearchHelper();
-        SearchPropertyTypesResponse searchPropertyTypesResponse = ptisMasterSearchHelper.searchAllPropertyTypes(); // Get PropertyTypes
-        SearchUsageMasterResponse searchUsageMasterResponse = ptisMasterSearchHelper.getAllUsageTypes(); // Get UsageTypes
+        SearchPropertyTypesResponse searchPropertyTypesResponse = new PTISMasterSearchHelper().searchAllPropertyTypes(); // Get PropertyTypes
+        SearchUsageMasterResponse searchUsageMasterResponse = new PTISMasterSearchHelper().getAllUsageTypes(); // Get UsageTypes
 
         CreatePropertyTypeUsageTypeResponse createPropertyTypeUsageTypeResponse = createPropertyTypeUsageType(searchPropertyTypesResponse, searchUsageMasterResponse); // Create PropertyTypeUsageType
         int propertyTypeUsageTypeId = searchPropertyTypeUsageType(createPropertyTypeUsageTypeResponse); // Search PropertyTypeUsageType

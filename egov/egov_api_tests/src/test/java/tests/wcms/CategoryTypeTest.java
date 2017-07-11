@@ -34,7 +34,7 @@ public class CategoryTypeTest extends BaseAPITest {
         LoginAndLogoutHelper.logout(); // Logout
     }
 
-    private CreateCategoryTypeResponse createCategoryType() throws IOException {
+    public CreateCategoryTypeResponse createCategoryType() throws IOException {
         new APILogger().log("Create CategoryType Test is Started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         CategoryType category = new CategoryTypeBuilder().build();
@@ -51,7 +51,7 @@ public class CategoryTypeTest extends BaseAPITest {
         return createCategoryTypeResponse;
     }
 
-    private CreateCategoryTypeResponse searchCategoryType(CreateCategoryTypeResponse createCategoryTypeResponse, String parameter) throws IOException {
+    public CreateCategoryTypeResponse searchCategoryType(CreateCategoryTypeResponse createCategoryTypeResponse, String parameter) throws IOException {
         new APILogger().log("Search CategoryType Test " + parameter + " is Started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         SearchCategoryTypeRequest searchCategoryTypeRequest = new SearchCategoryTypeRequestBuilder().withRequestInfo(requestInfo).build();
@@ -90,5 +90,21 @@ public class CategoryTypeTest extends BaseAPITest {
         Assert.assertEquals("Updated", updateCategoryTypeResponse.getCategory()[0].getName().split("-")[1]);
         new APILogger().log("Update CategoryType Test is Completed ---");
         return updateCategoryTypeResponse;
+    }
+
+    public CreateCategoryTypeResponse getAllCategoryTypes() throws IOException {
+        new APILogger().log("Search ALL CategoryType Test is Started ---");
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
+        SearchCategoryTypeRequest searchCategoryTypeRequest = new SearchCategoryTypeRequestBuilder().withRequestInfo(requestInfo).build();
+
+        Response response = new WCMSResource().searchCategoryTypeResource(RequestHelper.getJsonString(searchCategoryTypeRequest),
+                null);
+        CreateCategoryTypeResponse searchCategoryTypeResponse = (CreateCategoryTypeResponse)
+                ResponseHelper.getResponseAsObject(response.asString(), CreateCategoryTypeResponse.class);
+
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertTrue(searchCategoryTypeResponse.getCategory().length >= 1);
+        new APILogger().log("Search ALL CategoryType Test is Completed ---");
+        return searchCategoryTypeResponse;
     }
 }

@@ -239,4 +239,38 @@ public class WCMSResource {
 
         return response;
     }
+
+    public Response createPropertyCategoryTypeResource(String jsonString) {
+        new APILogger().log("Create PropertyType - CategoryType Test Request is Started with --" + jsonString);
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(jsonString)
+                .when()
+                .post(Properties.wcmsCreatePropertyCategoryTypeUrl);
+        new APILogger().log("Create PropertyType - CategoryType Test Request is Generated as  --" + response.asString());
+        return response;
+    }
+
+    public Response searchPropertyCategoryTypeResource(String jsonString, String path) {
+        new APILogger().log("Search PropertyType - CategoryType Test Request is Started with --" + jsonString);
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(jsonString)
+                .when()
+                .post(Properties.wcmsSearchPropertyCategoryTypeUrl + path);
+        new APILogger().log("Search PropertyType - CategoryType Test Request is Generated as  --" + response.asString());
+        return response;
+    }
+
+    public Response updatePropertyCategoryTypeResource(String jsonString, String id) {
+        new APILogger().log("Update PropertyType - CategoryType Test Request is Started with --" + jsonString);
+        Response response = given().request().with()
+                .header("Content-Type", "application/json")
+                .body(jsonString)
+                .when()
+                .post(ResourceHelper.getBaseURL() + "/wcms-masters/propertytype-categorytype/" + id + "/_update");
+
+        new APILogger().log("Update PropertyType - CategoryType Test Request is Generated as  --" + response.asString());
+        return response;
+    }
 }
