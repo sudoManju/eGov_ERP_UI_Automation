@@ -199,8 +199,18 @@ public class BpaApplication extends StateAware {
     private boolean citizenAccepted;
     private boolean architectAccepted;
     private transient Set<Receipt> receipts = new HashSet<>();
+    @Transient
+    private boolean mailPwdRequired;
 
-    @Override
+    public boolean isMailPwdRequired() {
+		return mailPwdRequired;
+	}
+
+	public void setMailPwdRequired(boolean mailPwdRequired) {
+		this.mailPwdRequired = mailPwdRequired;
+	}
+
+	@Override
     public Long getId() {
         return id;
     }

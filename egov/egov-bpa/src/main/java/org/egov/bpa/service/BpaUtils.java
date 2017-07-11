@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.workflow.BpaApplicationWorkflowCustomDefaultImpl;
 import org.egov.bpa.utils.BPASmsAndEmailService;
@@ -242,9 +243,18 @@ public class BpaUtils {
 					BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, workFlowAction, amountRule);
 	}
 
-	public void sendSmsEmailOnCitizenSubmit(BpaApplication bpaApplication, String workFlowAction) {
-		if (workFlowAction != null && workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)
-				&& (logedInuseCitizenOrBusinessUser()))
+	public void sendSmsEmailOnCitizenSubmit(BpaApplication bpaApplication) {
 			bpaSmsAndEmailService.sendSMSAndEmail(bpaApplication);
 	}
+	
+	public String generateUserName(final String name) {
+        final StringBuilder userNameBuilder = new StringBuilder();
+        String userName = "";
+        if (name.length() < 6)
+            userName = String.format("%-6s", name).replace(' ', '0');
+        else
+            userName = name.substring(0, 6).replace(' ', '0');
+        userNameBuilder.append(userName).append(RandomStringUtils.randomNumeric(4));
+        return userNameBuilder.toString();
+    }
 }

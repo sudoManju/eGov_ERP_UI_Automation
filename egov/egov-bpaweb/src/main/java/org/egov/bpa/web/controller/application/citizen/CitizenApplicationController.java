@@ -65,9 +65,7 @@ import org.egov.bpa.utils.BpaConstants;
 import org.egov.bpa.web.controller.application.BpaGenericApplicationController;
 import org.egov.commons.entity.Source;
 import org.egov.eis.service.PositionMasterService;
-import org.egov.infra.admin.master.entity.AppConfigValues;
 import org.egov.infra.admin.master.entity.User;
-import org.egov.infra.admin.master.service.AppConfigValueService;
 import org.egov.infra.admin.master.service.UserService;
 import org.egov.infra.security.utils.SecurityUtils;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
@@ -80,7 +78,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping(value = "/application/citizen")
@@ -99,8 +96,6 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
     @Autowired
     private GenericBillGeneratorService genericBillGeneratorService;
     @Autowired
-    private AppConfigValueService appConfigValueService;
-    @Autowired
     private PositionMasterService positionMasterService;
     @Autowired
     private UserService userService;
@@ -113,20 +108,11 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
 
 	private String loadNewForm(final BpaApplication bpaApplication, final Model model, String serviceCode) {
 		bpaApplication.setApplicationDate(new Date());
+		prepareCommonModelAttribute(model,bpaApplication);
 		model.addAttribute("mode", "new");
         bpaApplication.setSource(Source.CITIZENPORTAL);
         bpaApplication.setApplicantMode(ApplicantMode.NEW);
-		List<AppConfigValues> appConfigValueList = appConfigValueService.getConfigValuesByModuleAndKey(
-	                BpaConstants.APPLICATION_MODULE_TYPE, BpaConstants.BPA_CITIZENACCEPTANCE_CHECK);
-		String validateCitizenAcceptance = !appConfigValueList.isEmpty() ? appConfigValueList.get(0).getValue() : "";
-		model.addAttribute("validateCitizenAcceptance", (validateCitizenAcceptance.equalsIgnoreCase("YES")?Boolean.TRUE:Boolean.FALSE));
-		if(validateCitizenAcceptance!=null){			
-			model.addAttribute("citizenDisclaimerAccepted",bpaApplication.isCitizenAccepted());
-		}
-		String enableOrDisablePayOnline=bpaUtils.getAppconfigValueByKeyName(BpaConstants.ENABLEONLINEPAYMENT);
-		model.addAttribute("onlinePaymentEnable", (enableOrDisablePayOnline.equalsIgnoreCase("YES")?Boolean.TRUE:Boolean.FALSE));
-		bpaApplication.setServiceType(serviceTypeService.getServiceTypeByCode(serviceCode));
-		model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
+        bpaApplication.setServiceType(serviceTypeService.getServiceTypeByCode(serviceCode));
 		model.addAttribute("checkListDetailList", checkListDetailService.findActiveCheckListByServiceType(bpaApplication.getServiceType().getId(), 
 				BpaConstants.CHECKLIST_TYPE));
 		List<CheckListDetail>checkListDetail= checkListDetailService.findActiveCheckListByServiceType(bpaApplication.getServiceType().getId(), 
@@ -192,52 +178,69 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
 
     @RequestMapping(value = "/application-create", method = POST)
     public String createNewConnection(@Valid @ModelAttribute final BpaApplication bpaApplication,
-            final BindingResult resultBinder, final RedirectAttributes redirectAttributes,
+            final BindingResult resultBinder,
             final HttpServletRequest request, final Model model, @RequestParam String workFlowAction,
             final BindingResult errors) {
 
         Long userPosition = null;
+        Boolean isCitizen =request.getParameter("isCitizen")!= null
+				&& request.getParameter("isCitizen")
+				.equalsIgnoreCase("TRUE") ? Boolean.TRUE : Boolean.FALSE; 
+		Boolean citizenOrBusinessUser =  request.getParameter("citizenOrBusinessUser") != null
+				&& request.getParameter("citizenOrBusinessUser")
+				.equalsIgnoreCase("TRUE") ? Boolean.TRUE : Boolean.FALSE; 
+		Boolean onlinePaymentEnable =  request.getParameter("onlinePaymentEnable") != null
+				&& request.getParameter("onlinePaymentEnable")
+				.equalsIgnoreCase("TRUE") ? Boolean.TRUE : Boolean.FALSE; 
+       // Boolean isNewUser=true;
+		if(!(bpaApplication.getOwner().getUser()!=null && bpaApplication.getOwner().getUser().getId()!=null))
+			bpaApplication.setMailPwdRequired(true);
         final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(bpaApplication, BpaConstants.WF_NEW_STATE);
         if (wfmatrix != null)
             userPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(),
                     bpaApplication.getSiteDetail().get(0) != null
                             && bpaApplication.getSiteDetail().get(0).getElectionBoundary() != null
                                     ? bpaApplication.getSiteDetail().get(0).getElectionBoundary().getId() : null);
-        if (bpaUtils.logedInuseCitizenOrBusinessUser() && workFlowAction != null
+        if (citizenOrBusinessUser && workFlowAction != null
                 && workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)) {  
             if ((userPosition == 0 || userPosition == null)) {
                 model.addAttribute("noJAORSAMessage", "No Superintendant exists to forward the application.");
                 return loadNewForm(bpaApplication, model, bpaApplication.getServiceType().getCode());
             }
         }
-        if(bpaApplication.getOwner().getUser()!=null && bpaApplication.getOwner().getUser().getId()==null){
-			if (userService.getUserByUsername(bpaApplication.getOwner().getUser()
-					.getEmailId()) != null) {
-				model.addAttribute(
-						"noJAORSAMessage",
-						"Login UserName with this EmailId is already mapped with other mobile No. Please enter different emailId.");
-				return loadNewForm(bpaApplication, model, bpaApplication
-						.getServiceType().getCode());
+		if (citizenOrBusinessUser) {
+			if (isCitizen) {
+				List<ApplicationStakeHolder> applicationStakeHolders = new ArrayList<>();
+				ApplicationStakeHolder applicationStakeHolder = new ApplicationStakeHolder();
+				applicationStakeHolder.setApplication(bpaApplication);
+				applicationStakeHolder.setStakeHolder(bpaApplication
+						.getStakeHolder().get(0).getStakeHolder());
+				applicationStakeHolders.add(applicationStakeHolder);
+				bpaApplication.setStakeHolder(applicationStakeHolders);
+			} else {
+				User user = securityUtils.getCurrentUser();
+				StakeHolder stakeHolder = stakeHolderService.findById(user
+						.getId());
+				ApplicationStakeHolder applicationStakeHolder = new ApplicationStakeHolder();
+				applicationStakeHolder.setApplication(bpaApplication);
+				applicationStakeHolder.setStakeHolder(stakeHolder);
+				bpaApplication.getStakeHolder().add(applicationStakeHolder);
+				if (!applicationBpaService
+						.checkStakeholderIsValid(bpaApplication)) {
+					String message = applicationBpaService
+							.getValidationMessageForBusinessResgistration(bpaApplication);
+					model.addAttribute("invalidStakeholder", message);
+					return loadNewForm(bpaApplication, model, bpaApplication
+							.getServiceType().getCode());
+				}
 			}
-        }
-       	User user = securityUtils.getCurrentUser();
-		StakeHolder stakeHolder = stakeHolderService.findById(user.getId());
-		ApplicationStakeHolder applicationStakeHolder = new ApplicationStakeHolder();
-		applicationStakeHolder.setApplication(bpaApplication);
-		applicationStakeHolder.setStakeHolder(stakeHolder); 
-		bpaApplication.getStakeHolder().add(applicationStakeHolder);
-		if (!applicationBpaService.checkStakeholderIsValid(bpaApplication)) {
-			String message = applicationBpaService.getValidationMessageForBusinessResgistration(bpaApplication);
-			model.addAttribute("invalidStakeholder", message);
-			return loadNewForm(bpaApplication, model, bpaApplication.getServiceType().getCode());
 		}
 		workFlowAction = request.getParameter("workFlowAction");
 		applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
-		String enableOrDisablePayOnline=bpaUtils.getAppconfigValueByKeyName(BpaConstants.ENABLEONLINEPAYMENT);
 		if (workFlowAction != null
 				&& workFlowAction
 						.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)
-				&& enableOrDisablePayOnline.equalsIgnoreCase("YES")) {
+				&& onlinePaymentEnable) {
 			return genericBillGeneratorService
 					.generateBillAndRedirectToCollection(bpaApplication, model);
 		}
@@ -250,8 +253,11 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
 			bpaApplication.getOwner().setUser(applicationBpaService.createApplicantAsUser(bpaApplication));
 		}
         BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication, workFlowAction);
-        if (bpaUtils.logedInuseCitizenOrBusinessUser()) {
-            bpaUtils.createPortalUserinbox(bpaApplicationRes,  
+        if (citizenOrBusinessUser) {
+        	if(isCitizen)
+        		 bpaUtils.createPortalUserinbox(bpaApplicationRes,Arrays.asList(bpaApplicationRes.getOwner().getUser(),bpaApplicationRes.getStakeHolder().get(0).getStakeHolder()));
+        	else
+        		bpaUtils.createPortalUserinbox(bpaApplicationRes,  
                     Arrays.asList(bpaApplicationRes.getOwner().getUser(), securityUtils.getCurrentUser()));
             if (workFlowAction != null
     				&& workFlowAction
@@ -268,7 +274,7 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
             }else
             model.addAttribute("message",
                     "Sucessfully saved with ApplicationNumber " + bpaApplicationRes.getApplicationNumber());
-            bpaUtils.sendSmsEmailOnCitizenSubmit(bpaApplication, workFlowAction);
+            bpaUtils.sendSmsEmailOnCitizenSubmit(bpaApplication);
         }
         return BPAAPPLICATION_CITIZEN;
     }

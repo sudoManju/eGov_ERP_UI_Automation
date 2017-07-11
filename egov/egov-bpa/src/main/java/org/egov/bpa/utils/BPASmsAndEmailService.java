@@ -68,8 +68,11 @@ public class BPASmsAndEmailService {
     private static final String SUBJECT_KEY_EMAIL_STAKEHOLDER_NEW = "msg.newstakeholder.email.subject";
     private static final String BODY_KEY_EMAIL_STAKEHOLDER_NEW = "msg.newstakeholder.email.body";
     private static final String MSG_KEY_SMS_BPA_APPLN_NEW = "msg.bpa.newappln.sms";
+    private static final String MSG_KEY_SMS_BPA_APPLN_NEW_PWD = "msg.bpa.newappln.sms.pwd";
     private static final String SUBJECT_KEY_EMAIL_BPA_APPLN_NEW = "msg.bpa.newappln.email.subject";
     private static final String BODY_KEY_EMAIL_BPA_APPLN_NEW = "msg.bpa.newappln.email.body";
+    private static final String BODY_KEY_EMAIL_BPA_APPLN_NEW_PWD = "msg.bpa.newappln.email.body.pwd";
+    
     private static final String MSG_KEY_SMS_BPA_DOC_SCRUTINY = "msg.bpa.doc.scruty.schedule.sms";
     private static final String SUBJECT_KEY_EMAIL_BPA_DOC_SCRUTINY = "msg.bpa.doc.scruty.schedule.email.subject";
     private static final String BODY_KEY_EMAIL_BPA_DOC_SCRUTINY = "msg.bpa.doc.scruty.schedule.email.body";
@@ -120,19 +123,31 @@ public class BPASmsAndEmailService {
         String mobileNo;
         String email;
         String applicantName;
-        if (isSmsEnabled() || isEmailEnabled()) {
+        String loginUserName;
+        String password;
+        if (isSmsEnabled() || isEmailEnabled()) {  
             for (ApplicationStakeHolder applnStakeHolder : bpaApplication.getStakeHolder()) {
                 if (applnStakeHolder.getApplication() != null && applnStakeHolder.getApplication().getOwner() != null) {
                     applicantName = applnStakeHolder.getApplication().getOwner().getUser().getName();
                     email = applnStakeHolder.getApplication().getOwner().getUser().getEmailId();
                     mobileNo = applnStakeHolder.getApplication().getOwner().getUser().getMobileNumber();
-                    buildSmsAndEmailForBPANewAppln(bpaApplication, applicantName, mobileNo, email);
+                    loginUserName = applnStakeHolder.getApplication().getOwner().getUser().getUsername();
+                    if(bpaApplication.isMailPwdRequired())
+                    	password = mobileNo;
+                    else
+                    	password = "";
+                    buildSmsAndEmailForBPANewAppln(bpaApplication, applicantName, mobileNo, email,loginUserName,password);
                 }
                 if (applnStakeHolder.getStakeHolder() != null) {
                     applicantName = applnStakeHolder.getStakeHolder().getName();
                     email = applnStakeHolder.getStakeHolder().getEmailId();
                     mobileNo = applnStakeHolder.getStakeHolder().getMobileNumber();
-                    buildSmsAndEmailForBPANewAppln(bpaApplication, applicantName, mobileNo, email);
+                    loginUserName = applnStakeHolder.getStakeHolder().getUsername();
+                    if(bpaApplication.isMailPwdRequired())
+                    	password = mobileNo;
+                    else
+                    	password = "";
+                    buildSmsAndEmailForBPANewAppln(bpaApplication, applicantName, mobileNo, email,loginUserName,password);
                 }
             }
         }
@@ -150,26 +165,36 @@ public class BPASmsAndEmailService {
         if (isSmsEnabled() || isEmailEnabled()) {
             buildSmsAndEmailForBPANewAppln(bpaApplication, bpaApplication.getOwner().getUser().getName(),
                     bpaApplication.getOwner().getUser().getEmailId(),
-                    bpaApplication.getOwner().getUser().getMobileNumber());
+                    bpaApplication.getOwner().getUser().getMobileNumber(),"","");
         }
     }
 
     private void buildSmsAndEmailForBPANewAppln(final BpaApplication bpaApplication, final String applicantName,
-            final String mobileNo, final String email) {
+            final String mobileNo, final String email, final String loginUserName, final String password) {
         String smsMsg = null;
         String body = "";
         String subject = "";
-        if ("Registered".equalsIgnoreCase(bpaApplication.getStatus().getCode())) {
-            smsMsg = smsBodyByCodeAndArgsWithType(MSG_KEY_SMS_BPA_APPLN_NEW, applicantName, bpaApplication,
-                    SMSEMAILTYPENEWBPAREGISTERED);
-            body = emailBodyByCodeAndArgsWithType(BODY_KEY_EMAIL_BPA_APPLN_NEW, applicantName,
-                    bpaApplication, SMSEMAILTYPENEWBPAREGISTERED);
+        String smsCode = "";
+        String mailCode = "";
+        if ((BpaConstants.APPLICATION_STATUS_CREATED).equalsIgnoreCase(bpaApplication.getStatus().getCode()) || 
+        		"Registered".equalsIgnoreCase(bpaApplication.getStatus().getCode())) {
+        	if(password!=""){
+        		smsCode = MSG_KEY_SMS_BPA_APPLN_NEW_PWD;
+        		mailCode = BODY_KEY_EMAIL_BPA_APPLN_NEW_PWD;
+        	} else{
+        		smsCode = MSG_KEY_SMS_BPA_APPLN_NEW;
+        		mailCode = BODY_KEY_EMAIL_BPA_APPLN_NEW;
+        	}
+        	smsMsg = smsBodyByCodeAndArgsWithType(smsCode, applicantName, bpaApplication,
+                    SMSEMAILTYPENEWBPAREGISTERED, loginUserName, password);
+            body = emailBodyByCodeAndArgsWithType(mailCode, applicantName,
+                    bpaApplication, SMSEMAILTYPENEWBPAREGISTERED, loginUserName, password);
             subject = emailSubjectforEmailByCodeAndArgs(SUBJECT_KEY_EMAIL_BPA_APPLN_NEW, bpaApplication.getApplicationNumber());
         } else if (BpaConstants.CREATEDLETTERTOPARTY.equalsIgnoreCase(bpaApplication.getStatus().getCode())) {
             smsMsg = smsBodyByCodeAndArgsWithType(MSG_KEY_SMS_LETTERTOPARTY, applicantName,
-                    bpaApplication, BpaConstants.SMSEMAILTYPELETTERTOPARTY);
+                    bpaApplication, BpaConstants.SMSEMAILTYPELETTERTOPARTY,"","");
             body = emailBodyByCodeAndArgsWithType(BODY_KEY_EMAIL_LETTERTOPARTY, applicantName,
-                    bpaApplication, BpaConstants.SMSEMAILTYPELETTERTOPARTY);
+                    bpaApplication, BpaConstants.SMSEMAILTYPELETTERTOPARTY, "","");
             subject = emailSubjectforEmailByCodeAndArgs(SUBJECT_KEY_EMAIL_LETTERTOPARTY, bpaApplication.getApplicationNumber());
         }
 
@@ -276,24 +301,36 @@ public class BPASmsAndEmailService {
     }
 
 	private String emailBodyByCodeAndArgsWithType(String code, String applicantName, BpaApplication bpaApplication,
-			String type) {
+			String type, String loginUserName, String password) {
 		String body = "";
-		if (SMSEMAILTYPENEWBPAREGISTERED.equalsIgnoreCase(type)
-				|| BpaConstants.SMSEMAILTYPELETTERTOPARTY.equalsIgnoreCase(type)) {
-			body = bpaMessageSource.getMessage(code,
-					new String[] { applicantName, bpaApplication.getApplicationNumber(), getMunicipalityName() }, null);
+		if (SMSEMAILTYPENEWBPAREGISTERED.equalsIgnoreCase(type)){			
+			if(password!="")
+				body = bpaMessageSource.getMessage(code,
+					new String[] { applicantName, bpaApplication.getApplicationNumber(),loginUserName, password, getMunicipalityName() }, null);
+			else
+				body = bpaMessageSource.getMessage(code,
+						new String[] { applicantName, bpaApplication.getApplicationNumber(),getMunicipalityName() }, null);
 		}
-		return body;
+		else if (BpaConstants.SMSEMAILTYPELETTERTOPARTY.equalsIgnoreCase(type)) 
+				body = bpaMessageSource.getMessage(code,
+						new String[] { applicantName, bpaApplication.getApplicationNumber(), getMunicipalityName() }, null);
+		return body; 
 	}
 
 	private String smsBodyByCodeAndArgsWithType(String code, String applicantName, BpaApplication bpaApplication,
-			String type) {
+			String type, String loginUserName, String password) {
 		String smsMsg = "";
-		if (SMSEMAILTYPENEWBPAREGISTERED.equalsIgnoreCase(type)
-				|| BpaConstants.SMSEMAILTYPELETTERTOPARTY.equalsIgnoreCase(type)) {
-			smsMsg = bpaMessageSource.getMessage(code,
-					new String[] { applicantName, bpaApplication.getApplicationNumber(), getMunicipalityName() }, null);
+		if (SMSEMAILTYPENEWBPAREGISTERED.equalsIgnoreCase(type)){
+			if(password!="")
+				smsMsg = bpaMessageSource.getMessage(code,
+						new String[] { applicantName, bpaApplication.getApplicationNumber(),loginUserName, password, getMunicipalityName() }, null);
+			else
+				smsMsg = bpaMessageSource.getMessage(code,
+						new String[] { applicantName, bpaApplication.getApplicationNumber(),getMunicipalityName() }, null);
 		}
+		else if (BpaConstants.SMSEMAILTYPELETTERTOPARTY.equalsIgnoreCase(type))
+			smsMsg = bpaMessageSource.getMessage(code,
+					new String[] { applicantName, bpaApplication.getApplicationNumber(),getMunicipalityName() }, null);
 		return smsMsg;
 	}
 

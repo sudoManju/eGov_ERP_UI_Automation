@@ -122,7 +122,8 @@
 			</div>
 		</div>
 	</div>
-	<c:if test="${ !citizenOrBusinessUser && !workFlowByNonEmp}">
+	<!-- Provide Stakeholder dropdown for citizen login and officials -->
+	<c:if test="${(!citizenOrBusinessUser && !workFlowByNonEmp) || isCitizen}">
 		<div class="form-group">
 			<label class="col-sm-3 control-label text-right"><spring:message
 					code="lbl.stakeholder.type" /> <span class="mandatory"></span></label>

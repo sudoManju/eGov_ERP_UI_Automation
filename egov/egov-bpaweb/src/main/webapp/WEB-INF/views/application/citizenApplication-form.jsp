@@ -72,6 +72,7 @@
 			<input type="hidden"  id="citizenOrBusinessUser" name="citizenOrBusinessUser" value="${citizenOrBusinessUser}"/>
 			<input type="hidden"  id="validateCitizenAcceptance" name="validateCitizenAcceptance" value="${validateCitizenAcceptance}"/>
 			<input type="hidden"  id="citizenDisclaimerAccepted" name="citizenDisclaimerAccepted" value="${citizenDisclaimerAccepted}"/>
+			<input type="hidden"  id="isCitizen" name="isCitizen" value="${isCitizen}"/>
 			<form:hidden path="" id="workFlowAction" name="workFlowAction" />
 			<ul class="nav nav-tabs" id="settingstab">
 				<li class="active"><a data-toggle="tab"
@@ -98,9 +99,11 @@
 					<div class="panel panel-primary buildingdetails" data-collapsed="0">
 						<jsp:include page="buildingDetails.jsp" />
 					</div>
+					<c:if test="${(isCitizen && validateCitizenAcceptance) || (!isCitizen)}">
 					<div class="panel panel-primary" data-collapsed="0">
 						<jsp:include page="disclaimer.jsp" />
 					</div>
+					</c:if>
 				</div>
 				<div id="document-info" class="tab-pane fade">
 					<div class="panel panel-primary" data-collapsed="0">
@@ -110,18 +113,8 @@
 			</div>
 
 			<div align="center">
-			<c:choose>
-			<c:when test="${citizenOrBusinessUser}">
 				<form:button type="submit" id="bpaSave" class="btn btn-primary" 
 					value="Save">Save</form:button>
-				<td><form:button type="submit" id="bpaCreate" class="btn btn-primary" 
-					value="Submit">Submit</form:button></td>
-					</c:when>
-					<c:otherwise>
-					<form:button type="submit" id="bpaCreate" class="btn btn-primary" 
-					value="Submit">Submit</form:button>
-					</c:otherwise>
-					</c:choose>
 				<input type="button" name="button2" id="button2" value="Close"
 					class="btn btn-default" onclick="window.close();" />
 			</div>

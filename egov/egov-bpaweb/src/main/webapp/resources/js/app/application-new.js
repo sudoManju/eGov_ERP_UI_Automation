@@ -294,7 +294,7 @@ function focusToTabElement(element) {
 			.tab('show');
 }
 
-$('#mobileNumber').change(function(){
+$('#mobileNumber').change(function(){ 
 	jQuery.ajax({
 		url: "/bpa/getApplicantDetails",
 		type: "GET",
@@ -309,7 +309,9 @@ $('#mobileNumber').change(function(){
 					jQuery('#emailId').val(response.emailId);
 					jQuery('#gender').val(response.gender);
 					jQuery('#address').val(response.address);
-					jQuery('#userId').val(response.id);
+					jQuery('#userId').val(response.id); 
+					$('.applicantname').show();
+					$( "span#applicantName" ).html(response.name);
 					$("#name").prop("readOnly", true);
 					$("#emailId").prop("readOnly", true);
 					$('#gender').attr("style", "pointer-events: none;");
@@ -320,26 +322,6 @@ $('#mobileNumber').change(function(){
 					$('#gender').attr("style", "pointer-events:");
 					$("#address").prop("readOnly", false);
 					jQuery('#userId').val("");
-				}
-		}, 
-		error: function (response) {
-		}
-	});
-});
-
-$('#emailId').change(function(){
-	jQuery.ajax({
-		url: "/bpa/getApplicantDetailsForEmailId",
-		type: "GET",
-		data: {
-			emailId : $('#emailId').val()
-		},
-		cache : false,
-		dataType: "json",
-		success: function (response) {
-				if(response.id!=undefined){
-					bootbox.alert("Login UserName with this EmailId is already mapped with other mobile No. Please enter different emailId.");
-					jQuery('#emailId').val("");
 				}
 		}, 
 		error: function (response) {

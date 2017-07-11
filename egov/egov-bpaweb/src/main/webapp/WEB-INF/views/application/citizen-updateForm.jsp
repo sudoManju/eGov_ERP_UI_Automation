@@ -47,7 +47,7 @@
 <div class="row">
 	<div class="col-md-12">
 			<form:form role="form" method="post" modelAttribute="bpaApplication"
-			id="editWaterConnectionform"
+			id="editCitizenApplicationform"
 			cssClass="form-horizontal form-groups-bordered"
 			enctype="multipart/form-data">
 			<form:hidden path="" id="workFlowAction" name="workFlowAction"/>	
@@ -106,20 +106,15 @@
 			<div class="buttonbottom" align="center" id="buttonDiv">
 				<table>
 					<tr>
-					<td><c:choose>
-					<c:when test="${citizenOrBusinessUser && bpaApplication.id !=null && bpaApplication.state==null && !isCitizen}">
-						<form:button type="submit" id="buttonSave" class="btn btn-primary"
+					<td>
+					<form:button type="submit" id="buttonSave" class="btn btn-primary"
 							value="Save"> Save </form:button>
+					<c:if test="${citizenOrBusinessUser && bpaApplication.id !=null && bpaApplication.state==null && !isCitizen}">
 						<form:button type="submit" id="buttonSubmit" class="btn btn-primary"
 							value="Submit">Submit</form:button>
 						<form:button type="submit" id="buttonCancel" class="btn btn-primary"
 						value="CANCEL APPLICATION"> CANCEL APPLICATION </form:button>
-					</c:when>
-					<c:otherwise>
-							<form:button type="submit" id="buttonSubmit" class="btn btn-primary"
-									value="Submit">Submit</form:button>
-					</c:otherwise>	
-					</c:choose>
+					</c:if>
 						<input type="button" name="button2" id="button2" value="Close"
 							class="btn btn-primary" onclick="window.close();" />
 						</td>

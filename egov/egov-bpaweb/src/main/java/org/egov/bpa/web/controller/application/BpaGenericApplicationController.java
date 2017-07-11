@@ -69,13 +69,16 @@ import org.egov.bpa.masters.service.VillageNameService;
 import org.egov.bpa.service.BpaDemandService;
 import org.egov.bpa.service.BpaStatusService;
 import org.egov.bpa.service.BpaThirdPartyService;
+import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.dcb.bean.Receipt;
 import org.egov.demand.model.EgDemandDetails;
 import org.egov.demand.model.EgdmCollectedReceipt;
 import org.egov.eis.web.contract.WorkflowContainer;
 import org.egov.eis.web.controller.workflow.GenericWorkFlowController;
+import org.egov.infra.admin.master.entity.AppConfigValues;
 import org.egov.infra.admin.master.entity.Boundary;
+import org.egov.infra.admin.master.service.AppConfigValueService;
 import org.egov.infra.admin.master.service.BoundaryService;
 import org.egov.infra.filestore.service.FileStoreService;
 import org.egov.infra.utils.FileStoreUtils;
@@ -124,6 +127,10 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     protected ResourceBundleMessageSource messageSource;
     @Autowired
     protected BpaStatusService bpaStatusService;
+    @Autowired
+    private AppConfigValueService appConfigValueService;
+    @Autowired
+    private BpaUtils bpaUtils;
     
     @ModelAttribute("occupancyList")
     public List<Occupancy> getOccupancy() {
@@ -235,6 +242,21 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
         prepareModel.addAttribute("validActionList", bpaWorkFlowService.getValidActions(model, container));
         prepareModel.addAttribute("nextAction", bpaWorkFlowService.getNextAction(model, container));
 
+    }
+    
+    protected void prepareCommonModelAttribute(final Model model,final BpaApplication bpaApplication) {
+    	Boolean citizenUser = bpaUtils.logedInuserIsCitizen();
+        model.addAttribute("isCitizen", citizenUser);
+		List<AppConfigValues> appConfigValueList = appConfigValueService.getConfigValuesByModuleAndKey(
+	                BpaConstants.APPLICATION_MODULE_TYPE, BpaConstants.BPA_CITIZENACCEPTANCE_CHECK);
+		String validateCitizenAcceptance = !appConfigValueList.isEmpty() ? appConfigValueList.get(0).getValue() : "";
+		model.addAttribute("validateCitizenAcceptance", (validateCitizenAcceptance.equalsIgnoreCase("YES")?Boolean.TRUE:Boolean.FALSE));
+		if(validateCitizenAcceptance!=null){			
+			model.addAttribute("citizenDisclaimerAccepted",bpaApplication.isCitizenAccepted());
+		}
+		String enableOrDisablePayOnline=bpaUtils.getAppconfigValueByKeyName(BpaConstants.ENABLEONLINEPAYMENT);
+		model.addAttribute("onlinePaymentEnable", (enableOrDisablePayOnline.equalsIgnoreCase("YES")?Boolean.TRUE:Boolean.FALSE));
+		model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
     }
     
     protected void buildReceiptDetails(final BpaApplication application) {

@@ -42,8 +42,6 @@ package org.egov.bpa.web.controller.application.citizen;
 import static org.egov.bpa.utils.BpaConstants.CHECKLIST_TYPE_NOC;
 import static org.egov.bpa.utils.BpaConstants.CREATE_ADDITIONAL_RULE_CREATE;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -55,7 +53,6 @@ import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.bpa.web.controller.application.BpaGenericApplicationController;
 import org.egov.eis.service.PositionMasterService;
-import org.egov.infra.admin.master.entity.AppConfigValues;
 import org.egov.infra.admin.master.entity.User;
 import org.egov.infra.admin.master.service.AppConfigValueService;
 import org.egov.infra.persistence.entity.PermanentAddress;
@@ -72,7 +69,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping(value = "/application")
@@ -104,40 +100,28 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
     public String updateApplicationForm(final Model model, @PathVariable final String applicationNumber,
             final HttpServletRequest request) {
         final BpaApplication application = getBpaApplication(applicationNumber);
-        model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
-        Boolean citizenUser = bpaUtils.logedInuserIsCitizen();
-        model.addAttribute("isCitizen", citizenUser);
         model.addAttribute("mode", "newappointment");
         model.addAttribute(APPLICATION_HISTORY, bpaThirdPartyService.getHistory(application));
-        List<AppConfigValues> appConfigValueList = appConfigValueService.getConfigValuesByModuleAndKey(
-                BpaConstants.APPLICATION_MODULE_TYPE, BpaConstants.BPA_CITIZENACCEPTANCE_CHECK);
-        String validateCitizenAcceptance = !appConfigValueList.isEmpty() ? appConfigValueList.get(0).getValue() : "";
-        model.addAttribute("validateCitizenAcceptance",
-                (validateCitizenAcceptance.equalsIgnoreCase("YES") ? Boolean.TRUE : Boolean.FALSE));
-        if (validateCitizenAcceptance != null) {
-            model.addAttribute("citizenDisclaimerAccepted", application.isCitizenAccepted());
-        }
+        prepareCommonModelAttribute(model,application);
         loadViewdata(model, application);
+        request.getParameter("isCitizen");
+        Boolean isCitizen = (Boolean)  model.asMap().get("isCitizen");
+        Boolean validateCitizenAcceptance = (Boolean) model.asMap().get("validateCitizenAcceptance");   
         if (application.getStatus() != null
                 && application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_CREATED) && 
-                (!citizenUser || (citizenUser && (validateCitizenAcceptance.equalsIgnoreCase("YES") && !application.isCitizenAccepted()))))
+                (!isCitizen || (isCitizen && (validateCitizenAcceptance && !application.isCitizenAccepted()))))
             return "bpaapp-citizenForm";
         else
             return "citizen-view";
-    }
+    } 
 
     private void loadViewdata(final Model model, final BpaApplication application) {
         buildReceiptDetails(application);
         model.addAttribute("stateType", application.getClass().getSimpleName());
         model.addAttribute(ADDITIONALRULE, CREATE_ADDITIONAL_RULE_CREATE);
         model.addAttribute(BPA_APPLICATION, application);
-        // prepareWorkflow(model, application, workflowContainer);
-        String enableOrDisablePayOnline = bpaUtils.getAppconfigValueByKeyName(BpaConstants.ENABLEONLINEPAYMENT);
-        model.addAttribute("onlinePaymentEnable",
-                (enableOrDisablePayOnline.equalsIgnoreCase("YES") ? Boolean.TRUE : Boolean.FALSE));
         model.addAttribute("currentState",
                 application.getCurrentState() != null ? application.getCurrentState().getValue() : "");
-        model.addAttribute(BPA_APPLICATION, application);
         model.addAttribute("nocCheckListDetails", checkListDetailService
                 .findActiveCheckListByServiceType(application.getServiceType().getId(), CHECKLIST_TYPE_NOC));
         model.addAttribute("checkListDetailList", checkListDetailService
@@ -153,7 +137,7 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
     @RequestMapping(value = "/citizen/update/{applicationNumber}", method = RequestMethod.POST)
     public String updateApplication(@Valid @ModelAttribute("") BpaApplication bpaApplication,
             @PathVariable final String applicationNumber, final BindingResult resultBinder,
-            final RedirectAttributes redirectAttributes, final HttpServletRequest request, final Model model,
+            final HttpServletRequest request, final Model model,
             @RequestParam("files") final MultipartFile[] files, @RequestParam String workFlowAction) {
 
 		if (resultBinder.hasErrors()) {
@@ -228,7 +212,8 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
         }else
         	model.addAttribute("message",
                 "Sucessfully saved with ApplicationNumber " + bpaApplication.getApplicationNumber());
-        bpaUtils.sendSmsEmailOnCitizenSubmit(bpaApplication, workFlowAction);
+        if (workFlowAction != null && workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON))
+        	bpaUtils.sendSmsEmailOnCitizenSubmit(bpaApplication);
         return BPAAPPLICATION_CITIZEN;
     }
 

@@ -544,7 +544,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
 		applicantUser.setMobileNumber(bpaApplication.getOwner().getUser().getMobileNumber());
 		applicantUser.setEmailId(bpaApplication.getOwner().getUser().getEmailId());
 		applicantUser.setGender(bpaApplication.getOwner().getUser().getGender());
-		applicantUser.setUsername(bpaApplication.getOwner().getUser().getEmailId());
+		applicantUser.setUsername(bpaUtils.generateUserName(bpaApplication.getOwner().getUser().getName()));
 		applicantUser.updateNextPwdExpiryDate(applicationProperties.userPasswordExpiryInDays());
 		applicantUser.setPassword(passwordEncoder.encode(bpaApplication.getOwner().getUser().getMobileNumber()));
 		applicantUser.setType(UserType.CITIZEN);
