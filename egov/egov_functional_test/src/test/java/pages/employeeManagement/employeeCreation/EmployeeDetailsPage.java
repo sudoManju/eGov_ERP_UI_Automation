@@ -152,9 +152,6 @@ public class EmployeeDetailsPage extends BasePage {
     @FindBy(id = "dateOfAppointment")
     private WebElement dateOfAppointmentTextBox;
 
-    @FindBy(id = "dateOfJoining")
-    private WebElement dateOfJoiningTextBox;
-
     @FindBy(id = "retirementAge")
     private WebElement retirementAgeTextBox;
 
@@ -197,6 +194,12 @@ public class EmployeeDetailsPage extends BasePage {
     @FindBy(id = "user.permanentCity-error")
     private WebElement permanentCityError;
 
+    @FindBy(css = "select[id='motherTongue']")
+    private WebElement motherTongue;
+
+    @FindBy(css = "input[id='dateOfJoining']")
+    private WebElement dateOfJoiningTextBox;
+
     public EmployeeDetailsPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -231,7 +234,7 @@ public class EmployeeDetailsPage extends BasePage {
         } else {
             userActive.get(1).isSelected();
         }
-        enterText(emailIdTextBox, "mail@mail.com", driver);
+        enterText(emailIdTextBox, employeeCode+"@mail.com", driver);
         enterText(fatherOrHusbandName, "Father.Spouse Name", driver);
         enterText(birthPlaceTextBox, "Native/Birth. Place", driver);
         selectFromDropDown(userBloodGroupBox, "O+", driver);
@@ -245,6 +248,7 @@ public class EmployeeDetailsPage extends BasePage {
         enterText(permanentCityTextBox, employeeDetails.getPermanentCity(), driver);
 //        enterText(permanentPincodeTextBox, employeeDetails.getPermanentPincode(), driver);
         enterText(dateOfAppointmentTextBox, employeeDetails.getDateOfAppointment(), driver);
+        enterDate(dateOfJoiningTextBox, employeeDetails.getDateOfAppointment(), driver);
 
         return employeeCode;
     }

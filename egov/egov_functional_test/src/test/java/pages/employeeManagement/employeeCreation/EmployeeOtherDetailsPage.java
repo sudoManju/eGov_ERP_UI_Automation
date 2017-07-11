@@ -7,11 +7,13 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
 import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class EmployeeOtherDetailsPage extends BasePage {
 
@@ -157,8 +159,9 @@ public class EmployeeOtherDetailsPage extends BasePage {
         jsClick(webDriver.findElement(By.cssSelector("a[href='#jurisdictionList']")), webDriver);
         jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#jurisdictionDetailModal']")), webDriver);
         selectFromDropDown(jurisdictionTypeSelectBox, jurisdictionDetails.getJurisdictionType(), webDriver);
-        selectFromDropDown(jurisdictionListSelectBox, jurisdictionDetails.getJurisdictionList(), webDriver);
-
+//        selectFromDropDown(jurisdictionListSelectBox, jurisdictionListSelectBox.findElements(By.tagName("option")).get(0).getText(), webDriver);
+        await().atMost(10, SECONDS).until(() -> new Select(jurisdictionListSelectBox).getOptions().size() > 1);
+        clickOnButton(new Select(jurisdictionListSelectBox).getOptions().get(1), webDriver);
         clickOnButton(webDriver.findElement(By.id("jurisdictionAddOrUpdate")), webDriver);
 //        for (int i = 1; i <= 3; i++) {
 //            jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#jurisdictionDetailModal']")), webDriver);
@@ -254,7 +257,7 @@ public class EmployeeOtherDetailsPage extends BasePage {
         clickOnButton(webDriver.findElement(By.cssSelector("[id='sub']")), webDriver);
         waitForElementToBeVisible(webDriver.findElement(By.cssSelector("[data-label='code']")), webDriver);
         Assert.assertEquals(webDriver.findElement(By.cssSelector("[data-label='code']")).getText(), applicationNumber);
-        clickOnButton(webDriver.findElement(By.cssSelector(".btn.btn-default.btn-action")), webDriver);
+        clickOnButton(webDriver.findElement(By.id("employeeSearchResultTableBody")).findElements(By.tagName("tr")).get(0), webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 

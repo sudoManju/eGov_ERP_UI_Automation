@@ -53,7 +53,7 @@ public class EmployeeManagementDetailsDataReader extends ExcelReader {
         String mobileNumber = getCellData(employeeDetailsSheet, dataRow, "Mobile").getStringCellValue();
         String permanentAddress = getCellData(employeeDetailsSheet, dataRow, "PermanentAddress").getStringCellValue();
         String permanentCity = getCellData(employeeDetailsSheet, dataRow, "City").getStringCellValue();
-        String permanentPincode = getCellData(employeeDetailsSheet, dataRow, "PinCode").getStringCellValue();
+//        String permanentPincode = getCellData(employeeDetailsSheet, dataRow, "PinCode").getStringCellValue();
         String dataOfJoining = getCellData(employeeDetailsSheet, dataRow, "DateOfAppointment").getStringCellValue();
 
         return new EmployeeDetailsBuilder()
@@ -67,7 +67,6 @@ public class EmployeeManagementDetailsDataReader extends ExcelReader {
                 .withMobileNumber(mobileNumber)
                 .withPermanentAddress(permanentAddress)
                 .withPermanentCity(permanentCity)
-                .withPermanentPincode(permanentPincode)
                 .withDateOfAppointment(dataOfJoining)
                 .build();
     }

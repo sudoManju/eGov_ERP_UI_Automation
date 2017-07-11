@@ -101,10 +101,9 @@ public class AssignmentDetailsPage extends BasePage {
         waitForElementToBeVisible(webDriver.findElement(By.cssSelector("[class='col-sm-6'] [id='assignments.position']")), webDriver);
         waitForElementToBeClickable(webDriver.findElement(By.cssSelector("[class='col-sm-6'] [id='assignments.position']")), webDriver);
 //        webDriver.findElement(By.cssSelector("[class='col-sm-6'] [id='assignments.position']")).click();
-        jsClick(positionSelectBox, webDriver);
-        await().atMost(10, SECONDS).until(() -> positionSelectBox.findElements(By.tagName("option")).size() > 1);
-        clickOnButton(positionSelectBox.findElements(By.tagName("option")).get(1), webDriver);
-
+        enterText(positionSelectBox, "",webDriver);
+        await().atMost(25, SECONDS).until(() -> webDriver.findElements(By.cssSelector("li[class=ui-menu-item]")).size() > 1);
+        clickOnButton(webDriver.findElements(By.cssSelector("li[class=ui-menu-item]")).get(0).findElement(By.tagName("div")),webDriver);
         clickOnButton(addOrEditButton, webDriver);
     }
 
