@@ -28,7 +28,7 @@ import static data.UserData.MANAS;
 public class PropertyCategoryTypeTest extends BaseAPITest {
 
     @Test(groups = {Categories.WCMS, Categories.SANITY})
-    public void propertyCategoryTypeTest() throws IOException {
+    public void createSearchUpdatePropertyCategoryTypeTest() throws IOException {
         LoginAndLogoutHelper.login(MANAS); // Login
         SearchPropertyTypesResponse searchPropertyTypesResponse = new PTISMasterSearchHelper().searchAllPropertyTypes(); // Get PropertyTypes
         CreateCategoryTypeResponse createCategoryTypeResponse = new CategoryTypeTest().createCategoryType(); // Create CategoryType
@@ -37,6 +37,13 @@ public class PropertyCategoryTypeTest extends BaseAPITest {
         CreatePropertyCategoryTypeResponse createPropertyCategoryTypeResponse = createPropertyCategoryType(searchPropertyTypesResponse, searchCategoryTypeResponse); // Create PropertyType - CategoryType
         CreatePropertyCategoryTypeResponse searchPropertyCategoryTypeResponse = searchPropertyCategoryType(createPropertyCategoryTypeResponse); // Search PropertyType - CategoryType
         updatePropertyCategoryType(createPropertyCategoryTypeResponse, searchPropertyCategoryTypeResponse, searchPropertyTypesResponse); // Update PropertyType - CategoryType
+        LoginAndLogoutHelper.logout(); // Logout
+    }
+
+    @Test(groups = {Categories.WCMS, Categories.SANITY})
+    public void SearchPropertyCategoryTypeTest() throws IOException {
+        LoginAndLogoutHelper.login(MANAS); // Login
+        getAllPropertyCategoryTypes(); // Get ALL PropertyTYpe - CategoryTypes
         LoginAndLogoutHelper.logout(); // Logout
     }
 
@@ -77,7 +84,7 @@ public class PropertyCategoryTypeTest extends BaseAPITest {
         CreatePropertyCategoryTypeResponse searchPropertyCategoryTypeResponse = (CreatePropertyCategoryTypeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), CreatePropertyCategoryTypeResponse.class);
 
-        Assert.assertEquals(createPropertyCategoryTypeResponse.getResponseInfo().getStatus(), "201");
+        Assert.assertEquals(searchPropertyCategoryTypeResponse.getResponseInfo().getStatus(), "200");
         Assert.assertEquals(searchPropertyCategoryTypeResponse.getPropertyCategories()[0].getCategoryTypeName(),
                 createPropertyCategoryTypeResponse.getPropertyCategories()[0].getCategoryTypeName());
         new APILogger().log("Search PropertyType - CategoryType Test is Completed ---");
@@ -114,5 +121,21 @@ public class PropertyCategoryTypeTest extends BaseAPITest {
         Assert.assertNotEquals(searchPropertyCategoryTypeResponse.getPropertyCategories()[0].getPropertyTypeId(),
                 updatePropertyCategoryTypeResponse.getPropertyCategories()[0].getPropertyTypeId());
         new APILogger().log("Update PropertyType - CategoryType Test is Completed ---");
+    }
+
+    private void getAllPropertyCategoryTypes() throws IOException {
+        new APILogger().log("Get All PropertyType - CategoryType Test is Started ---");
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
+        SearchPropertyCategoryTypeRequest searchPropertyCategoryTypeRequest = new SearchPropertyCategoryTypeRequestBuilder()
+                .withRequestInfo(requestInfo).build();
+
+        Response response = new WCMSResource()
+                .searchPropertyCategoryTypeResource(RequestHelper.getJsonString(searchPropertyCategoryTypeRequest), "");
+        CreatePropertyCategoryTypeResponse searchPropertyCategoryTypeResponse = (CreatePropertyCategoryTypeResponse)
+                ResponseHelper.getResponseAsObject(response.asString(), CreatePropertyCategoryTypeResponse.class);
+
+        Assert.assertEquals(searchPropertyCategoryTypeResponse.getResponseInfo().getStatus(), "200");
+        Assert.assertTrue(searchPropertyCategoryTypeResponse.getPropertyCategories().length > 0);
+        new APILogger().log("Get All PropertyType - CategoryType Test is Completed ---");
     }
 }

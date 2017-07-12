@@ -25,6 +25,8 @@ import static data.UserData.MANAS;
 
 public class PropertyTypeUsageTypeTest extends BaseAPITest {
 
+    private RequestInfo requestInfo;
+
     /*
     * Search PropertyTypes Test - PropertyTax
     * Search UsageTypes Test - PropertyTax
@@ -35,6 +37,7 @@ public class PropertyTypeUsageTypeTest extends BaseAPITest {
     @Test(groups = {Categories.WCMS, Categories.SANITY})
     public void createPropertyTypeUsageTypeWithUpdateAsUsageTypeTest() throws IOException {
         LoginAndLogoutHelper.login(MANAS); // Login
+        requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
 
         SearchPropertyTypesResponse searchPropertyTypesResponse = new PTISMasterSearchHelper().searchAllPropertyTypes(); // Get PropertyTypes
         SearchUsageMasterResponse searchUsageMasterResponse = new PTISMasterSearchHelper().getAllUsageTypes(); // Get UsageTypes
@@ -56,6 +59,7 @@ public class PropertyTypeUsageTypeTest extends BaseAPITest {
     @Test(groups = {Categories.WCMS, Categories.SANITY})
     public void createPropertyTypeUsageTypeWithUpdateAsPropertyTypeTest() throws IOException {
         LoginAndLogoutHelper.login(MANAS); // Login
+        requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
 
         SearchPropertyTypesResponse searchPropertyTypesResponse = new PTISMasterSearchHelper().searchAllPropertyTypes(); // Get PropertyTypes
         SearchUsageMasterResponse searchUsageMasterResponse = new PTISMasterSearchHelper().getAllUsageTypes(); // Get UsageTypes
@@ -67,9 +71,16 @@ public class PropertyTypeUsageTypeTest extends BaseAPITest {
         LoginAndLogoutHelper.logout(); // Logout
     }
 
+    @Test(groups = {Categories.WCMS, Categories.SANITY})
+    public void searchPropertyTypeUsageType() throws IOException {
+        LoginAndLogoutHelper.login(MANAS); // Login
+        requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
+        getAllPropertyTypeUsageTypes(); // Get All PropertyType - UsageTypes
+        LoginAndLogoutHelper.logout(); // Logout
+    }
+
     private CreatePropertyTypeUsageTypeResponse createPropertyTypeUsageType(SearchPropertyTypesResponse searchPropertyTypesResponse, SearchUsageMasterResponse searchUsageMasterResponse) throws IOException {
         new APILogger().log("Create PropertyType - UsageType Test is Started ---");
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         PropertyTypeUsageType propertyTypeUsageType;
         CreatePropertyTypeUsageTypeRequest createPropertyTypeUsageTypeRequest;
         boolean foundCombination = false;
@@ -110,7 +121,6 @@ public class PropertyTypeUsageTypeTest extends BaseAPITest {
 
     private int searchPropertyTypeUsageType(CreatePropertyTypeUsageTypeResponse createPropertyTypeUsageTypeResponse) throws IOException {
         new APILogger().log("Search PropertyType - UsageType Test is Started ---");
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         SearchPropertyTypeUsageTypeRequest searchPropertyTypeUsageTypeRequest =
                 new SearchPropertyTypeUsageTypeRequestBuilder().withRequestInfo(requestInfo).build();
         String path = "&propertyType=" + createPropertyTypeUsageTypeResponse.getPropertyTypeUsageTypes()[0].getPropertyType() +
@@ -131,7 +141,6 @@ public class PropertyTypeUsageTypeTest extends BaseAPITest {
     private void updatePropertyTypeUsageTypeWithUsageType(CreatePropertyTypeUsageTypeResponse createPropertyTypeUsageTypeResponse,
                                                           SearchUsageMasterResponse searchUsageMasterResponse, int propertyTypeUsageTypeId) throws IOException {
         new APILogger().log("Update PropertyType - UsageType With UsageType Test is Started ---");
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         PropertyTypeUsageType propertyTypeUsageType;
         CreatePropertyTypeUsageTypeRequest updatePropertyTypeUsageTypeRequest;
         boolean foundCombination = false;
@@ -172,7 +181,6 @@ public class PropertyTypeUsageTypeTest extends BaseAPITest {
     private void updatePropertyTypeUsageTypeWithPropertyType(CreatePropertyTypeUsageTypeResponse createPropertyTypeUsageTypeResponse,
                                                              SearchPropertyTypesResponse searchPropertyTypesResponse, int propertyTypeUsageTypeId) throws IOException {
         new APILogger().log("Update PropertyType - UsageType With PropertyType Test is Started ---");
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         PropertyTypeUsageType propertyTypeUsageType;
         CreatePropertyTypeUsageTypeRequest updatePropertyTypeUsageTypeRequest;
         boolean foundCombination = false;
@@ -207,5 +215,20 @@ public class PropertyTypeUsageTypeTest extends BaseAPITest {
             }
         }
         new APILogger().log("Update PropertyType - UsageType With PropertyType Test is Completed ---");
+    }
+
+    private void getAllPropertyTypeUsageTypes() throws IOException {
+        new APILogger().log("Get All PropertyType - UsageType Test is Started ---");
+        SearchPropertyTypeUsageTypeRequest searchPropertyTypeUsageTypeRequest =
+                new SearchPropertyTypeUsageTypeRequestBuilder().withRequestInfo(requestInfo).build();
+
+        Response response = new WCMSResource()
+                .searchPropertyTypeUsageTypeResource(RequestHelper.getJsonString(searchPropertyTypeUsageTypeRequest), "");
+        CreatePropertyTypeUsageTypeResponse searchPropertyTypeUsageTypeResponse = (CreatePropertyTypeUsageTypeResponse)
+                ResponseHelper.getResponseAsObject(response.asString(), CreatePropertyTypeUsageTypeResponse.class);
+
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertTrue(searchPropertyTypeUsageTypeResponse.getPropertyTypeUsageTypes().length > 0);
+        new APILogger().log("Get All PropertyType - UsageType Test is Completed ---");
     }
 }

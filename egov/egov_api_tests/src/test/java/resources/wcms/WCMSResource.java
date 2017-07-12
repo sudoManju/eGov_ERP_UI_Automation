@@ -118,11 +118,6 @@ public class WCMSResource extends Resource {
     public Response createDocumentTypeApplicationTypeResource(String json) {
         new APILogger().log("Create DocumentType - ApplicationType Test Request is Started with --" + json);
         Response response = getPOSTResponseFromDEV(json, Properties.wcmsCreateDocumentTypeApplicationTypeUrl);
-//        Response response = given().request().with()
-//                .header("Content-Type", "application/json")
-//                .body(json)
-//                .when()
-//                .post(Properties.wcmsCreateDocumentTypeApplicationTypeUrl);
         new APILogger().log("Create DocumentType - ApplicationType Test Request is Generated as  --" + response.asString());
         return response;
     }
@@ -130,11 +125,6 @@ public class WCMSResource extends Resource {
     public Response searchDocumentTypeApplicationTypeResource(String json, String queryParameter) {
         new APILogger().log("Search DocumentType - ApplicationType Test Request is Started with --" + json);
         Response response = getPOSTResponseFromDEV(json, Properties.wcmsSearchDocumentTypeApplicationTypeUrl + queryParameter);
-//        Response response = given().request().with()
-//                .header("Content-Type", "application/json")
-//                .body(json)
-//                .when()
-//                .post(Properties.wcmsSearchDocumentTypeApplicationTypeUrl + queryParameter);
         new APILogger().log("Search DocumentType - ApplicationType Test Request is Generated as  --" + response.asString());
         return response;
     }
@@ -142,109 +132,63 @@ public class WCMSResource extends Resource {
     public Response updateDocumentTypeApplicationTypeResource(String json, int code) {
         new APILogger().log("Update DocumentType - ApplicationType Test Request is Started with --" + json);
         Response response = getPOSTResponseFromDEV(json, ResourceHelper.getBaseURL() + "/wcms-masters/documenttype-applicationtype/" + code + "/_update");
-//        Response response = given().request().with()
-//                .header("Content-Type", "application/json")
-//                .body(json)
-//                .when()
-//                .post(ResourceHelper.getBaseURL() + "/wcms-masters/documenttype-applicationtype/" + code + "/_update");
         new APILogger().log("Update DocumentType - ApplicationType Test Request is Generated as  --" + response.asString());
         return response;
     }
 
     public Response createPropertyTypeUsageType(String json) {
-        Response response = given().request().with()
-                .header("Content-Type", "application/json")
-                .body(json)
-                .when()
-                .post(Properties.wcmsCreatePropertyTypeUsageTypeUrl);
-        return response;
+        return getPOSTResponseFromDEV(json, Properties.wcmsCreatePropertyTypeUsageTypeUrl);
     }
 
     public Response searchPropertyTypeUsageTypeResource(String json, String queryParameter) {
         new APILogger().log("Search PropertyType - UsageType Test Request is Started with --" + json);
-        Response response = given().request().with()
-                .header("Content-Type", "application/json")
-                .body(json)
-                .when()
-                .post(Properties.wcmsSearchPropertyTypeUsageTypeUrl + queryParameter);
-
+        Response response = getPOSTResponseFromDEV(json, Properties.wcmsSearchPropertyTypeUsageTypeUrl + queryParameter);
         new APILogger().log("Search PropertyType - UsageType Test Request is Generated as  --" + response.asString());
         return response;
     }
 
     public Response updatePropertyTypeUsageType(String json, int propertyTypeUsageTypeId) {
-        Response response = given().request().with()
-                .header("Content-Type", "application/json")
-                .body(json)
-                .when()
-                .post(ResourceHelper.getBaseURL() + "/wcms-masters/propertytype-usagetype/" + propertyTypeUsageTypeId + "/_update");
-
-        return response;
+        return getPOSTResponseFromDEV(json, ResourceHelper.getBaseURL() + "/wcms-masters/propertytype-usagetype/" + propertyTypeUsageTypeId + "/_update");
     }
 
     public Response createPropertyCategoryTypeResource(String json) {
         new APILogger().log("Create PropertyType - CategoryType Test Request is Started with --" + json);
-        Response response = given().request().with()
-                .header("Content-Type", "application/json")
-                .body(json)
-                .when()
-                .post(Properties.wcmsCreatePropertyCategoryTypeUrl);
+        Response response = getPOSTResponseFromDEV(json, Properties.wcmsCreatePropertyCategoryTypeUrl);
         new APILogger().log("Create PropertyType - CategoryType Test Request is Generated as  --" + response.asString());
         return response;
     }
 
     public Response searchPropertyCategoryTypeResource(String json, String queryParameter) {
         new APILogger().log("Search PropertyType - CategoryType Test Request is Started with --" + json);
-        Response response = given().request().with()
-                .header("Content-Type", "application/json")
-                .body(json)
-                .when()
-                .post(Properties.wcmsSearchPropertyCategoryTypeUrl + queryParameter);
+        Response response = getPOSTResponseFromDEV(json, Properties.wcmsSearchPropertyCategoryTypeUrl + queryParameter);
         new APILogger().log("Search PropertyType - CategoryType Test Request is Generated as  --" + response.asString());
         return response;
     }
 
     public Response updatePropertyCategoryTypeResource(String json, String id) {
         new APILogger().log("Update PropertyType - CategoryType Test Request is Started with --" + json);
-        Response response = given().request().with()
-                .header("Content-Type", "application/json")
-                .body(json)
-                .when()
-                .post(ResourceHelper.getBaseURL() + "/wcms-masters/propertytype-categorytype/" + id + "/_update");
-
+        Response response = getPOSTResponseFromDEV(json, ResourceHelper.getBaseURL() + "/wcms-masters/propertytype-categorytype/" + id + "/_update");
         new APILogger().log("Update PropertyType - CategoryType Test Request is Generated as  --" + response.asString());
         return response;
     }
 
     public Response createPropertyPipeSize(String json) {
         new APILogger().log("Create PropertyType - PipeSize Test Request is Started with --" + json);
-        Response response = given().request().with()
-                .header("Content-Type", "application/json")
-                .body(json)
-                .when()
-                .post(Properties.wcmsCreatePropertyPipeSizeUrl);
+        Response response = getPOSTResponseFromDEV(json, Properties.wcmsCreatePropertyPipeSizeUrl);
         new APILogger().log("Create PropertyType - PipeSize Test Request is Generated as  --" + response.asString());
         return response;
     }
 
     public Response searchPropertyPipeSizeResource(String json, String queryParameter) {
         new APILogger().log("Search PropertyType - PipeSize Test Request is Started with --" + json);
-        Response response = given().request().with()
-                .header("Content-Type", "application/json")
-                .body(json)
-                .when()
-                .post(Properties.wcmsSearchPropertyPipeSizeUrl + queryParameter);
+        Response response = getPOSTResponseFromDEV(json, Properties.wcmsSearchPropertyPipeSizeUrl + queryParameter);
         new APILogger().log("Search PropertyType - PipeSize Test Request is Generated as  --" + response.asString());
         return response;
     }
 
     public Response updatePropertyPipeSizeResource(String json, String id) {
         new APILogger().log("Update PropertyType - PipeSize Test Request is Started with --" + json);
-        Response response = given().request().with()
-                .header("Content-Type", "application/json")
-                .body(json)
-                .when()
-                .post(ResourceHelper.getBaseURL() + "/wcms-masters/propertytype-pipesize/" + id + "/_update");
+        Response response = getPOSTResponseFromDEV(json, ResourceHelper.getBaseURL() + "/wcms-masters/propertytype-pipesize/" + id + "/_update");
         new APILogger().log("Update PropertyType - PipeSize Test Request is Generated as  --" + response.asString());
         return response;
     }

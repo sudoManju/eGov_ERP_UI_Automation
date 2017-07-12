@@ -26,12 +26,10 @@ import static data.UserData.MANAS;
 public class DocumentTypeApplicationTypeTest extends BaseAPITest {
 
     private DocumentTypeTest documentTypeTest = new DocumentTypeTest();
-    private RequestInfo requestInfo;
 
     @Test(groups = {Categories.WCMS, Categories.SANITY})
     public void createSearchUpdateDocumentTypeApplicationTypeTest() throws IOException {
         LoginAndLogoutHelper.login(MANAS); // Login
-        requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         CreateDocumentTypeResponse createDocumentTypeResponse = documentTypeTest.createDocumentType(); // Create DocumentType
         CreateDocumentTypeResponse searchDocumentTypeResponse = documentTypeTest.searchDocumentType(createDocumentTypeResponse, WITH_NAME); // Search DocumentType
 
@@ -44,13 +42,13 @@ public class DocumentTypeApplicationTypeTest extends BaseAPITest {
     @Test(groups = {Categories.WCMS, Categories.SANITY})
     public void searchDocumentTypeApplicationTypeTest() throws IOException {
         LoginAndLogoutHelper.login(MANAS); // Login
-        requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         getAllDocumentTypeApplicationTypes(); // Get ALL DocumentTypeApplicationTypes
         LoginAndLogoutHelper.logout(); // Logout
     }
 
     private CreateDocumentTypeApplicationTypeResponse createDocumentTypeApplicationType(String documentTypeName) throws IOException {
         new APILogger().log("Create DocumentType - ApplicationType Test is Started ---");
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         DocumentTypeApplicationType documentTypeApplicationType = new DocumentTypeApplicationTypeBuilder()
                 .withDocumentType(documentTypeName).build();
         CreateDocumentTypeApplicationTypeRequest createDocumentTypeApplicationTypeRequest =
@@ -72,6 +70,7 @@ public class DocumentTypeApplicationTypeTest extends BaseAPITest {
 
     private CreateDocumentTypeApplicationTypeResponse searchDocumentTypeApplicationType(CreateDocumentTypeApplicationTypeResponse createDocumentTypeApplicationTypeResponse) throws IOException {
         new APILogger().log("Search DocumentType - ApplicationType Test is Started ---");
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         SearchDocumentTypeApplicationTypeRequest searchDocumentTypeApplicationTypeRequest = new SearchDocumentTypeApplicationTypeRequestBuilder()
                 .withRequestInfo(requestInfo).build();
 
@@ -92,6 +91,7 @@ public class DocumentTypeApplicationTypeTest extends BaseAPITest {
 
     private void updateDocumentTypeApplicationType(CreateDocumentTypeApplicationTypeResponse searchDocumentTypeApplicationTypeResponse, CreateDocumentTypeResponse searchDocumentTypeResponse) throws IOException {
         new APILogger().log("Update DocumentType - ApplicationType Test is Started ---");
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
 
         String applicationType = searchDocumentTypeApplicationTypeResponse.getDocumentTypeApplicationType()[0].getApplicationType();
 
@@ -99,7 +99,6 @@ public class DocumentTypeApplicationTypeTest extends BaseAPITest {
             applicationType = new ApplicationTypesData().randomApplicationType();
             break;
         }
-
         DocumentTypeApplicationType documentTypeApplicationType = new DocumentTypeApplicationTypeBuilder()
                 .withDocumentType(searchDocumentTypeApplicationTypeResponse.getDocumentTypeApplicationType()[0].getDocumentType())
                 .withApplicationType(applicationType).build();
@@ -121,6 +120,7 @@ public class DocumentTypeApplicationTypeTest extends BaseAPITest {
 
     private void getAllDocumentTypeApplicationTypes() throws IOException {
         new APILogger().log("Search DocumentType - ApplicationType Test is Started ---");
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         SearchDocumentTypeApplicationTypeRequest searchDocumentTypeApplicationTypeRequest = new SearchDocumentTypeApplicationTypeRequestBuilder()
                 .withRequestInfo(requestInfo).build();
 
