@@ -23,20 +23,29 @@ import static data.SearchParameterData.WITH_NAME;
 import static data.UserData.MANAS;
 
 public class CategoryTypeTest extends BaseAPITest {
+    private RequestInfo requestInfo;
 
     @Test(groups = {Categories.SANITY, Categories.WCMS})
-    public void categoryTypeTest() throws IOException {
+    public void createSearchUpdateCategoryTypeTest() throws IOException {
         LoginAndLogoutHelper.login(MANAS); // Login
+        requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         CreateCategoryTypeResponse createCategoryTypeResponse = createCategoryType(); // Create CategoryType
         CreateCategoryTypeResponse searchCategoryTypeResponse = searchCategoryType(createCategoryTypeResponse, WITH_NAME); // Search CategoryType
         CreateCategoryTypeResponse updateCategoryTypeResponse = updateCategoryType(searchCategoryTypeResponse); // Update CategoryType
-        searchCategoryType(updateCategoryTypeResponse, WITH_CODE); // Search After Update CategoryType
+        searchCategoryType(updateCategoryTypeResponse, WITH_CODE); // Search CategoryType After Update
         LoginAndLogoutHelper.logout(); // Logout
     }
 
-    public CreateCategoryTypeResponse createCategoryType() throws IOException {
+    @Test(groups = {Categories.SANITY, Categories.WCMS})
+    public void searchCategoryTypeTest() throws IOException {
+        LoginAndLogoutHelper.login(MANAS); // Login
+        requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
+        getAllCategoryTypes(); // Get All CategoryTypes
+        LoginAndLogoutHelper.logout(); // Logout
+    }
+
+    CreateCategoryTypeResponse createCategoryType() throws IOException {
         new APILogger().log("Create CategoryType Test is Started ---");
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         CategoryType category = new CategoryTypeBuilder().build();
         CreateCategoryTypeRequest createCategoryTypeRequest = new CreateCategoryTypeRequestBuilder()
                 .withCategory(category).withRequestInfo(requestInfo).build();
@@ -51,9 +60,8 @@ public class CategoryTypeTest extends BaseAPITest {
         return createCategoryTypeResponse;
     }
 
-    public CreateCategoryTypeResponse searchCategoryType(CreateCategoryTypeResponse createCategoryTypeResponse, String parameter) throws IOException {
+    CreateCategoryTypeResponse searchCategoryType(CreateCategoryTypeResponse createCategoryTypeResponse, String parameter) throws IOException {
         new APILogger().log("Search CategoryType Test " + parameter + " is Started ---");
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         SearchCategoryTypeRequest searchCategoryTypeRequest = new SearchCategoryTypeRequestBuilder().withRequestInfo(requestInfo).build();
 
         String path;
@@ -76,7 +84,6 @@ public class CategoryTypeTest extends BaseAPITest {
 
     private CreateCategoryTypeResponse updateCategoryType(CreateCategoryTypeResponse searchCategoryTypeResponse) throws IOException {
         new APILogger().log("Update CategoryType Test is Started ---");
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         CategoryType category = new CategoryTypeBuilder().withName(searchCategoryTypeResponse.getCategory()[0].getName() + "-Updated").build();
         CreateCategoryTypeRequest createCategoryTypeRequest = new CreateCategoryTypeRequestBuilder()
                 .withCategory(category).withRequestInfo(requestInfo).build();
@@ -92,13 +99,12 @@ public class CategoryTypeTest extends BaseAPITest {
         return updateCategoryTypeResponse;
     }
 
-    public CreateCategoryTypeResponse getAllCategoryTypes() throws IOException {
+    private CreateCategoryTypeResponse getAllCategoryTypes() throws IOException {
         new APILogger().log("Search ALL CategoryType Test is Started ---");
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         SearchCategoryTypeRequest searchCategoryTypeRequest = new SearchCategoryTypeRequestBuilder().withRequestInfo(requestInfo).build();
 
         Response response = new WCMSResource().searchCategoryTypeResource(RequestHelper.getJsonString(searchCategoryTypeRequest),
-                null);
+                "");
         CreateCategoryTypeResponse searchCategoryTypeResponse = (CreateCategoryTypeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), CreateCategoryTypeResponse.class);
 

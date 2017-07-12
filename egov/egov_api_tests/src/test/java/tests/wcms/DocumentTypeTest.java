@@ -25,12 +25,19 @@ import static data.UserData.MANAS;
 public class DocumentTypeTest extends BaseAPITest {
 
     @Test(groups = {Categories.WCMS, Categories.SANITY})
-    public void documentType() throws IOException {
+    public void createSearchUpdateDocumentTypeTest() throws IOException {
         LoginAndLogoutHelper.login(MANAS); // Login
         CreateDocumentTypeResponse createDocumentTypeResponse = createDocumentType(); // Create DocumentType
         CreateDocumentTypeResponse searchDocumentTypeResponse = searchDocumentType(createDocumentTypeResponse, WITH_NAME); // Search DocumentType
         CreateDocumentTypeResponse updateDocumentTypeResponse = updateDocumentType(searchDocumentTypeResponse); // Update DocumentType
         searchDocumentType(updateDocumentTypeResponse, WITH_ID); // Search DocumentType After Update
+        LoginAndLogoutHelper.logout(); // Logout
+    }
+
+    @Test(groups = {Categories.WCMS, Categories.SANITY})
+    public void searchDocumentTypeTest() throws IOException {
+        LoginAndLogoutHelper.login(MANAS); // Login
+        getAllDocumentTypes(); // Get All DocumentTypes
         LoginAndLogoutHelper.logout(); // Logout
     }
 
@@ -93,5 +100,19 @@ public class DocumentTypeTest extends BaseAPITest {
         Assert.assertEquals("Updated", updateDocumentTypeResponse.getDocumentTypes()[0].getName().split("-")[1]);
         new APILogger().log("Update DocumentType Test is Completed ---");
         return updateDocumentTypeResponse;
+    }
+
+    private void getAllDocumentTypes() throws IOException {
+        new APILogger().log("Get ALL DocumentType Test Request is Started ---");
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
+        SearchDocumentTypeRequest searchDocumentTypeRequest = new SearchDocumentTypeRequestBuilder().withRequestInfo(requestInfo).build();
+
+        Response response = new WCMSResource().searchDocumentTypeResource(RequestHelper.getJsonString(searchDocumentTypeRequest), "");
+        CreateDocumentTypeResponse searchDocumentTypeResponse = (CreateDocumentTypeResponse)
+                ResponseHelper.getResponseAsObject(response.asString(), CreateDocumentTypeResponse.class);
+
+        Assert.assertEquals(200, response.getStatusCode());
+        Assert.assertTrue(searchDocumentTypeResponse.getDocumentTypes().length >= 1);
+        new APILogger().log("Get ALL DocumentType Test Request is Completed ---");
     }
 }

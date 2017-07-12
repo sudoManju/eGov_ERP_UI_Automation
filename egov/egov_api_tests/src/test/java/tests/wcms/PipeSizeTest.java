@@ -24,9 +24,12 @@ import static data.UserData.MANAS;
 
 public class PipeSizeTest extends BaseAPITest {
 
+    private RequestInfo requestInfo;
+
     @Test(groups = {Categories.WCMS, Categories.SANITY})
-    public void pipeSizeTest() throws IOException {
+    public void createSearchUpdatePipeSizeTest() throws IOException {
         LoginAndLogoutHelper.login(MANAS); // Login
+        requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         CreatePipeSizeResponse createPipeSizeResponse = createPipeSize(); // Create PipeSize
         CreatePipeSizeResponse searchPipeSizeResponse = searchPipeSize(createPipeSizeResponse, WITH_MILLIMETERSIZE); // Search PipeSize
         CreatePipeSizeResponse updatePipeSizeResponse = updatePipeSize(searchPipeSizeResponse); // Update PipeSize
@@ -34,9 +37,16 @@ public class PipeSizeTest extends BaseAPITest {
         LoginAndLogoutHelper.logout(); // Logout
     }
 
-    public CreatePipeSizeResponse createPipeSize() throws IOException {
+    @Test(groups = {Categories.WCMS, Categories.SANITY})
+    public void searchPipeSizeTest() throws IOException {
+        LoginAndLogoutHelper.login(MANAS); // Login
+        requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
+        getAllPipeSizes(); // Get All PipeSize
+        LoginAndLogoutHelper.logout(); // Logout
+    }
+
+    CreatePipeSizeResponse createPipeSize() throws IOException {
         new APILogger().log("Create PipeSize Test is Started ---");
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         PipeSize pipeSize = new PipeSizeBuilder().build();
         CreatePipeSizeRequest createPipeSizeRequest = new CreatePipeSizeRequestBuilder()
                 .withRequestInfo(requestInfo).withPipeSize(pipeSize).build();
@@ -51,9 +61,8 @@ public class PipeSizeTest extends BaseAPITest {
         return createPipeSizeResponse;
     }
 
-    public CreatePipeSizeResponse searchPipeSize(CreatePipeSizeResponse createPipeSizeResponse, String parameter) throws IOException {
+    CreatePipeSizeResponse searchPipeSize(CreatePipeSizeResponse createPipeSizeResponse, String parameter) throws IOException {
         new APILogger().log("Search PipeSize Test with " + parameter + " is Started ---");
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         SearchPipeSizeRequest searchPipeSizeRequest = new SearchPipeSizeRequestBuilder().withRequestInfo(requestInfo).build();
 
         String path;
@@ -75,7 +84,6 @@ public class PipeSizeTest extends BaseAPITest {
 
     private CreatePipeSizeResponse updatePipeSize(CreatePipeSizeResponse searchPipeSizeResponse) throws IOException {
         new APILogger().log("Update PipeSize Test is Started ---");
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         PipeSize pipeSize = new PipeSizeBuilder().build();
         CreatePipeSizeRequest updatePipeSizeRequest = new CreatePipeSizeRequestBuilder()
                 .withRequestInfo(requestInfo).withPipeSize(pipeSize).build();
@@ -90,5 +98,18 @@ public class PipeSizeTest extends BaseAPITest {
         Assert.assertNotEquals(searchPipeSizeResponse.getPipeSize()[0].getSizeInMilimeter(), updatePipeSizeResponse.getPipeSize()[0].getSizeInMilimeter());
         new APILogger().log("Update PipeSize Test is Completed ---");
         return updatePipeSizeResponse;
+    }
+
+    private void getAllPipeSizes() throws IOException {
+        new APILogger().log("Search All PipeSize Test is Started ---");
+        SearchPipeSizeRequest searchPipeSizeRequest = new SearchPipeSizeRequestBuilder().withRequestInfo(requestInfo).build();
+
+        Response response = new WCMSResource().searchPipeSizeResource(RequestHelper.getJsonString(searchPipeSizeRequest), "");
+        CreatePipeSizeResponse searchPipeSizeResponse = (CreatePipeSizeResponse)
+                ResponseHelper.getResponseAsObject(response.asString(), CreatePipeSizeResponse.class);
+
+        Assert.assertEquals(200, response.getStatusCode());
+        Assert.assertTrue(searchPipeSizeResponse.getPipeSize().length >= 1);
+        new APILogger().log("Search All PipeSize Test is Completed ---");
     }
 }

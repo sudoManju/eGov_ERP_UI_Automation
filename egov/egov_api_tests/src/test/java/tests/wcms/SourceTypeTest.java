@@ -24,9 +24,12 @@ import static data.UserData.MANAS;
 
 public class SourceTypeTest extends BaseAPITest {
 
+    private RequestInfo requestInfo;
+
     @Test(groups = {Categories.SANITY, Categories.WCMS})
-    public void sourceTypeTest() throws IOException {
+    public void createSearchUpdateSourceTypeTest() throws IOException {
         LoginAndLogoutHelper.login(MANAS); // Login
+        requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         CreateSourceTypeResponse createSourceTypeResponse = createSourceType(); // Create SourceType
         CreateSourceTypeResponse searchSourceTypeResponse = searchSourceType(createSourceTypeResponse, WITH_NAME); // Search SourceType
         CreateSourceTypeResponse updateSourceTypeResponse = updateSourceType(searchSourceTypeResponse); // Update SourceType
@@ -34,9 +37,16 @@ public class SourceTypeTest extends BaseAPITest {
         LoginAndLogoutHelper.logout(); // Logout
     }
 
+    @Test(groups = {Categories.SANITY, Categories.WCMS})
+    public void searchSourceTypeTest() throws IOException {
+        LoginAndLogoutHelper.login(MANAS); // Login
+        requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
+        getAllSourceTypes(); // Get All SourceTypes
+        LoginAndLogoutHelper.logout(); // Logout
+    }
+
     private CreateSourceTypeResponse createSourceType() throws IOException {
         new APILogger().log("Create SourceType Test is Started ---");
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         SourceType sourceType = new SourceTypeBuilder().build();
         CreateSourceTypeRequest createSourceTypeRequest = new CreateSourceTypeRequestBuilder()
                 .withRequestInfo(requestInfo).withSourceType(sourceType).build();
@@ -53,7 +63,6 @@ public class SourceTypeTest extends BaseAPITest {
 
     private CreateSourceTypeResponse searchSourceType(CreateSourceTypeResponse createSourceTypeResponse, String parameter) throws IOException {
         new APILogger().log("Search SourceType Test With " + parameter + " is Started ---");
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         SearchSourceTypeRequest searchSourceTypeRequest = new SearchSourceTypeRequestBuilder().withRequestInfo(requestInfo).build();
 
         String path;
@@ -75,7 +84,6 @@ public class SourceTypeTest extends BaseAPITest {
 
     private CreateSourceTypeResponse updateSourceType(CreateSourceTypeResponse searchSourceTypeResponse) throws IOException {
         new APILogger().log("Update SourceType Test is Started ---");
-        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         SourceType sourceType = new SourceTypeBuilder().withCode(searchSourceTypeResponse.getWaterSourceType()[0].getCode())
                 .withName(searchSourceTypeResponse.getWaterSourceType()[0].getName() + "-Updated")
                 .build();
@@ -91,5 +99,18 @@ public class SourceTypeTest extends BaseAPITest {
         Assert.assertEquals("Updated", updateSourceTypeResponse.getWaterSourceType()[0].getName().split("-")[1]);
         new APILogger().log("Update SourceType Test is Completed ---");
         return updateSourceTypeResponse;
+    }
+
+    private void getAllSourceTypes() throws IOException {
+        new APILogger().log("Get ALL SourceType Test Request is Started ---");
+        SearchSourceTypeRequest searchSourceTypeRequest = new SearchSourceTypeRequestBuilder().withRequestInfo(requestInfo).build();
+
+        Response response = new WCMSResource().searchSourceTypeResource(RequestHelper.getJsonString(searchSourceTypeRequest), "");
+        CreateSourceTypeResponse searchSourceTypeResponse = (CreateSourceTypeResponse)
+                ResponseHelper.getResponseAsObject(response.asString(), CreateSourceTypeResponse.class);
+
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertTrue(searchSourceTypeResponse.getWaterSourceType().length > 0);
+        new APILogger().log("Get ALL SourceType Test Request is Started ---");
     }
 }
