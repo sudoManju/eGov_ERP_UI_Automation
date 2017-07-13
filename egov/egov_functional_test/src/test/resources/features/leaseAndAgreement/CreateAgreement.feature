@@ -9,14 +9,11 @@ Feature: Create a Agreement based on created asset service from the asset module
 #    //nelloreJA:
 #    //tirupatiJA:
 
-    Given kakinadJA logs in
+    Given pilotJA logs in
     And user will select the required screen as "Create Asset"
     And user will enter the details as <headerDetails> and <locationDetails>
     And user will enter the category details as <categoryDetails> and with asset summary status as <assetStatus>
     And user will be notified the success page with an asset application number
-    And current user logs out
-
-#    Given adoniJA logs in
     And user will select the required screen as "Create Agreement"
     And user will select the required asset service application to create the agreement based on <categoryDetails> with action as "Create"
     And user will enter the allottee details as <allotteeDetails> and agreement details as <agreementDetails>
@@ -51,7 +48,22 @@ Feature: Create a Agreement based on created asset service from the asset module
       | header3       | location1       | CREATED     | Market                   | allotteeDetails1 | agreementDetails1 | veeraswamy       | commissionerLAMS |
       | header4       | location1       | CREATED     | Kalyana_Mandapam         | allotteeDetails1 | agreementDetails1 | veeraswamy       | commissionerLAMS |
       | header5       | location1       | CREATED     | Usufruct                 | allotteeDetails1 | agreementDetails1 | veeraswamy       | commissionerLAMS |
-#      | header6       | location1       | CREATED     | Shopping_Complex        | allotteeDetails1 | agreementDetails1 | veeraswamy       | commissionerLAMS |
-#      | header7       | location1       | CREATED     | Lakes_and_Ponds          | allotteeDetails1 | agreementDetails1 | veeraswamy       | commissionerLAMS |
-#      | header8       | location1       | CREATED     | Roads                    | allotteeDetails1 | agreementDetails1 | veeraswamy       | commissionerLAMS |
-#      | header9       | location1       | CREATED     |l Community_Toilet_Complex | allotteeDetails1 | agreementDetails1 | veeraswamy       | commissionerLAMS |
+
+   Scenario Outline: Create Data Entry Agreement
+
+    Given pilotJA logs in
+    And user will select the required screen as "Create Asset"
+    And user will enter the details as <headerDetails> and <locationDetails>
+    And user will enter the category details as <categoryDetails> and with asset summary status as <assetStatus>
+    And user will be notified the success page with an asset application number
+    And user will select the required screen as "Create Agreement"
+    And user will select the required asset service application to create the agreement based on <categoryDetails> with action as "Data Entry"
+    And user will enter the allottee details as <allotteeDetails> and agreement details as <agreementDetails>
+
+   Examples:
+     | headerDetails | locationDetails | assetStatus | categoryDetails          | allotteeDetails  | agreementDetails|
+     | header1       | location1       | CREATED     | Land                     | allotteeDetails1 | agreementDetails1 |
+     | header2       | location2       | CREATED     | Shop                     | allotteeDetails1 | agreementDetails1 |
+     | header3       | location3       | CREATED     | Market                   | allotteeDetails1 | agreementDetails1 |
+     | header4       | location4       | CREATED     | Kalyana_Mandapam         | allotteeDetails1 | agreementDetails1 |
+     | header5       | location5       | CREATED     | Usufruct                 | allotteeDetails1 | agreementDetails1 |

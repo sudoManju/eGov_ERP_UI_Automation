@@ -199,6 +199,10 @@ public class BasePage {
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
+    protected int getRandomNumber(int min , int max){
+        return new Random().nextInt((max - min) + 1) + min;
+    }
+
     protected void refreshBrowserWindow(WebDriver webDriver) {
         webDriver.navigate().refresh();
     }

@@ -21,6 +21,7 @@ public class LeaseAndAgreementSteps extends BaseSteps implements En {
                     if (categoryType.contains("_"))
                         categoryType = categoryType.replaceAll("_", " ");
                     pageStore.get(LeaseAndAgreementPage.class).searchAssetApplication(scenarioContext.getApplicationNumber(), categoryType, action);
+                    scenarioContext.setAssessmentNumber(action);
                 });
 
         And("^user will enter the allottee details as (\\w+) and agreement details as (\\w+)$", (String allotteeDataId,
@@ -30,7 +31,7 @@ public class LeaseAndAgreementSteps extends BaseSteps implements En {
             LandAgreementDetails landAgreementDetails = new LeaseAndAgreementDataReader(lamsTestDataFileName).
                     getAgreementDetails(agreementDataId);
 
-            pageStore.get(LeaseAndAgreementPage.class).enterAgreementDetails(landAllotteeDetails, landAgreementDetails);
+            pageStore.get(LeaseAndAgreementPage.class).enterAgreementDetails(landAllotteeDetails, landAgreementDetails,scenarioContext.getAssessmentNumber());
         });
 
         And("^user will enter the approval details of (\\w+)$", (String officer) -> {

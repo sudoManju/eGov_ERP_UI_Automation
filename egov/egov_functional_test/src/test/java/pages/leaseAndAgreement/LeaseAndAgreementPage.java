@@ -10,6 +10,7 @@ import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
@@ -75,8 +76,8 @@ public class LeaseAndAgreementPage extends BasePage {
     @FindBy(css = "[id='rent']")
     private WebElement landRentTextBox;
 
-    @FindBy(css = "[id='paymentCycle']")
-    private WebElement paymentCycleDropdown;
+    @FindBy(css = "select[id='paymentCycle'] option")
+    private List<WebElement> paymentCycleDropdown;
 
     @FindBy(css = "[id='bankGuaranteeAmount']")
     private WebElement bankGuaranteeAmountTextBox;
@@ -96,11 +97,11 @@ public class LeaseAndAgreementPage extends BasePage {
     @FindBy(css = "[id='commencementDate']")
     private WebElement commencementDate;
 
-    @FindBy(css = "[id='rentIncrementMethod']")
-    private WebElement rentIncrementMethodDropdown;
+    @FindBy(css = "select[id='rentIncrementMethod'] option")
+    private List<WebElement> rentIncrementMethodDropdown;
 
-    @FindBy(css = "[id='timePeriod']")
-    private WebElement timePeriodDropdown;
+    @FindBy(css = "select[id='timePeriod'] option")
+    private List<WebElement> timePeriodDropdown;
 
     @FindAll({@FindBy(id = "createAgreement"), @FindBy(id = "Forward")})
     private WebElement forwardButton;
@@ -108,8 +109,20 @@ public class LeaseAndAgreementPage extends BasePage {
     @FindBy(css = "[id='registrationFee']")
     private WebElement registrationFeeTextBox;
 
+    @FindBy(css = "input[id='collectedSecurityDeposit']")
+    private WebElement collectedSecurityDepositTextField;
+
     @FindBy(id = "goodWillAmount")
     private WebElement goodWillAmountTextBox;
+
+    @FindBy(css = "input[id='collectedGoodWillAmount']")
+    private WebElement collectedGoodWillAmountTextField;
+
+    @FindBy(css = "select[id='rentIncrementMethod']")
+    private List<WebElement> rentIncrementDropdown;
+
+    @FindBy(css = "[id='createAgreement']")
+    private WebElement submitButton;
 
     @FindBy(css = ".btn.btn-submit")
     private WebElement closeButton;
@@ -134,9 +147,9 @@ public class LeaseAndAgreementPage extends BasePage {
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    public void enterAgreementDetails(LandAllotteeDetails landAllotteeDetails, LandAgreementDetails landAgreementDetails) {
+    public void enterAgreementDetails(LandAllotteeDetails landAllotteeDetails, LandAgreementDetails landAgreementDetails,String action) {
         enterLandAllotteeDetails(landAllotteeDetails);
-        enterLandAgreementDetails(landAgreementDetails);
+        enterLandAgreementDetails(landAgreementDetails,action);
     }
 
     private void enterLandAllotteeDetails(LandAllotteeDetails landAllotteeDetails) {
@@ -151,7 +164,7 @@ public class LeaseAndAgreementPage extends BasePage {
 
     }
 
-    private void enterLandAgreementDetails(LandAgreementDetails landAgreementDetails) {
+    private void enterLandAgreementDetails(LandAgreementDetails landAgreementDetails,String action) {
         enterText(tenderNumberTextBox, "T" + get6DigitRandomInt().substring(0, 3), webDriver);
         enterDate(tenderDate, getCurrentDate(), webDriver);
         selectFromDropDown(natureOfAllotmentDropdown, landAgreementDetails.getNatureOfAllotment(), webDriver);
@@ -159,17 +172,23 @@ public class LeaseAndAgreementPage extends BasePage {
         enterText(councilNumberTextBox, "C" + get6DigitRandomInt().substring(0, 3), webDriver);
         enterDate(councilDate, getCurrentDate(), webDriver);
         enterText(landRentTextBox, landAgreementDetails.getLandRent(), webDriver);
-        selectFromDropDown(paymentCycleDropdown, landAgreementDetails.getPaymentCycle(), webDriver);
+        clickOnButton(paymentCycleDropdown.get(getRandomNumber(1, 4)) , webDriver);
         enterText(bankGuaranteeAmountTextBox, landAgreementDetails.getBankGuaranteeAmount(), webDriver);
         enterDate(bankGuaranteeDate, getCurrentDate(), webDriver);
         enterText(solvencyCertificateNumberTextBox, "S" + get6DigitRandomInt().substring(0, 3), webDriver);
         enterDate(solvencyCertificateDate, getCurrentDate(), webDriver);
         enterDate(securityDepositDate, getCurrentDate(), webDriver);
+        String value = "1"+get6DigitRandomInt();
         enterDate(commencementDate, getCurrentDate(), webDriver);
-//        selectFromDropDown(rentIncrementMethodDropdown, landAgreementDetails.getRentIncrementMethod(), webDriver);
-        enterTextWithoutClearing(goodWillAmountTextBox, "1"+get6DigitRandomInt(), webDriver);
-        selectFromDropDown(timePeriodDropdown, landAgreementDetails.getTimePeriod(), webDriver);
-        enterText(remarksTextBox, "Agreement Created and Forwarded to Revenue Officer", webDriver);
+        clickOnButton(rentIncrementMethodDropdown.get(getRandomNumber(1, 4)), webDriver);
+        enterTextWithoutClearing(goodWillAmountTextBox, value, webDriver);
+        clickOnButton(timePeriodDropdown.get(getRandomNumber(1, 5)), webDriver);
+        enterText(remarksTextBox, "Agreement Created", webDriver);
+        if(action.equals("Data Entry")){
+            enterText(collectedSecurityDepositTextField, get6DigitRandomInt(), webDriver);
+            enterText(collectedGoodWillAmountTextField, value, webDriver);
+            clickOnButton(submitButton, webDriver);
+        }
     }
 
     public void clickOnForwardAndCloseSuccessPage() {
