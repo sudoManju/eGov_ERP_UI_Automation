@@ -104,7 +104,6 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
         model.addAttribute(APPLICATION_HISTORY, bpaThirdPartyService.getHistory(application));
         prepareCommonModelAttribute(model,application);
         loadViewdata(model, application);
-        request.getParameter("isCitizen");
         Boolean isCitizen = (Boolean)  model.asMap().get("isCitizen");
         Boolean validateCitizenAcceptance = (Boolean) model.asMap().get("validateCitizenAcceptance");   
         if (application.getStatus() != null

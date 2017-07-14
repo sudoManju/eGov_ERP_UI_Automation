@@ -46,10 +46,16 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.egov.infra.persistence.entity.AbstractAuditable;
+import org.hibernate.envers.AuditOverride;
+import org.hibernate.envers.AuditOverrides;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "EGBPA_MSTR_BPAFEEDETAIL")
+@AuditOverrides({ @AuditOverride(forClass = AbstractAuditable.class, name = "lastModifiedBy"),
+    @AuditOverride(forClass = AbstractAuditable.class, name = "lastModifiedDate") })
 @SequenceGenerator(name = BpaFeeDetail.SEQ_BPAFEEDETAIL, sequenceName = BpaFeeDetail.SEQ_BPAFEEDETAIL, allocationSize = 1)
 public class BpaFeeDetail extends AbstractAuditable {
 
@@ -57,32 +63,44 @@ public class BpaFeeDetail extends AbstractAuditable {
     public static final String SEQ_BPAFEEDETAIL = "SEQ_EGBPA_MSTR_BPAFEEDETAIL";
     @Id
     @GeneratedValue(generator = SEQ_BPAFEEDETAIL, strategy = GenerationType.SEQUENCE)
+    @Audited
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @NotNull
     @JoinColumn(name = "bpafee")
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     private BpaFee bpafee;
+    @Audited
     private Double fromAreasqmt;
+    @Audited
     private Double toAreasqmt;
     @NotNull
+    @Audited
     private Double amount;
     @Transient
     private Long srlNo;
     @Length(min = 1, max = 128)
+    @Audited
     private String subType;
     @Length(min = 1, max = 128)
+    @Audited
     private String landUseZone;
+    @Audited
     private Long floorNumber;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usageType")
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     private LandBuildingTypes usageType;
     @NotNull
     @Temporal(value = TemporalType.DATE)
+    @Audited
     private Date startDate;
     @Temporal(value = TemporalType.DATE)
+    @Audited
     private Date endDate;
     @Length(min = 1, max = 128)
+    @Audited
     private String additionalType;
 
     @Override

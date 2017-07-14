@@ -2,7 +2,7 @@
  * eGov suite of products aim to improve the internal efficiency,transparency,
  *    accountability and the service delivery of the government  organizations.
  *
- *     Copyright (C) <2015>  eGovernments Foundation
+ *     Copyright (C) <2017>  eGovernments Foundation
  *
  *     The updated version of eGov suite of products as by eGovernments Foundation
  *     is available at http://www.egovernments.org
@@ -37,23 +37,28 @@
  *
  *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
-package org.egov.bpa.masters.repository;
 
-import java.util.List;
+jQuery(document).ready(function($) {
+});
 
-import org.egov.bpa.application.entity.BpaFee;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
+var validator = $("#updateBpaFeeDetailForm").validate({
+	highlight : function(element, errorClass) {
+		$(element).fadeOut(function() {
+			$(element).fadeIn();
+		});
+	}
+});
 
-@Repository
-public interface BpaFeeRepository extends JpaRepository<BpaFee, Long> {
-
-	@Query("select A from BpaFee A where A.serviceType.id=:serviceTypeId and A.feeType=:feeTypee and A.isActive=true  order by A.feeType asc ")
-	List<BpaFee> getAllActiveBpaFeesbyFeeTypeAndServiceTypeId(
-			@Param("serviceTypeId") Long serviceTypeId,
-			@Param("feeTypee") String feeTypee);
-
-	List<BpaFee> findAllByIsActiveOrderByServiceType_IdAsc(Boolean isActive);
+if ($("#updateBpaFeeDetailForm").valid()) {
+	return true;
+} else {
+	$.each(validator.invalidElements(), function(index, elem) {
+		if (!$(elem).is(":visible")
+				&& !$(elem).closest('div.panel-body').is(":visible")) {
+			$(elem).closest('div.panel-body').show();
+			console.log("elem", elem);
+		}
+	});
+	validator.focusInvalid();
+	return false;
 }

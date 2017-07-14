@@ -230,4 +230,12 @@
     	<put-attribute name="page-title" value="title.collect.fee" cascade="true"/>
         <put-attribute name="body" value="/WEB-INF/views/application/search-collect-fee.jsp"/>
     </definition>
+     <definition name="view-fees" extends="base_layout">
+    	<put-attribute name="page-title" value="title.update.fee" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/fees/view-fees.jsp"/>
+    </definition>
+     <definition name="feesDetail-update" extends="base_layout">
+    	<put-attribute name="page-title" value="title.update.fee" cascade="true"/>
+        <put-attribute name="body" value="/WEB-INF/views/fees/fees-update.jsp"/>
+    </definition>
 </tiles-definitions>

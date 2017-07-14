@@ -62,7 +62,7 @@ public class BpaFeeService {
 	private BpaFeeRepository bpaFeeRepository;
 	@PersistenceContext
 	private EntityManager entityManager;
-
+	
 	public List<BpaFee> findAll() {
 		return bpaFeeRepository.findAll();
 	}
@@ -85,5 +85,21 @@ public class BpaFeeService {
 		feeCrit.add(Restrictions.ilike("bpaFeeObj.feeType", BpaConstants.FEETYPE_SANCTIONFEE));
 		return feeCrit.list();
 	}
+	
+	
+	public List<BpaFee> getAllActiveBpaFees(){
+		return bpaFeeRepository.findAllByIsActiveOrderByServiceType_IdAsc(true);  
+	}
+
+	
+	public BpaFee findById(final Long id){
+		return bpaFeeRepository.findOne(id);  
+	}
+	
+	
+	 @Transactional
+	    public BpaFee update(final BpaFee bpaFee) {
+	        return bpaFeeRepository.save(bpaFee);
+	    }
 
 }
