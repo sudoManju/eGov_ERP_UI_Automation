@@ -15,7 +15,7 @@ import utils.ResponseHelper;
 
 import java.io.IOException;
 
-import static data.SearchParameterData.CODE1;
+import static data.SearchParameterData.WITH_CODE1;
 import static data.UserData.ADMIN;
 
 public class EmployeeMasterTest extends BaseAPITest {
@@ -54,7 +54,7 @@ public class EmployeeMasterTest extends BaseAPITest {
     public void searchEmployeeTestMethod(CreateEmployeeResponse create) {
         SearchEmployeeRequest request = new SearchEmployeeRequestBuilder().build();
 
-        Response response = new EGovEISResource().searchEmployee(RequestHelper.getJsonString(request), CODE1 + create.getEmployee().getCode());
+        Response response = new EGovEISResource().searchEmployee(RequestHelper.getJsonString(request), WITH_CODE1 + create.getEmployee().getCode());
 
         Assert.assertEquals(response.getStatusCode(), 200);
     }

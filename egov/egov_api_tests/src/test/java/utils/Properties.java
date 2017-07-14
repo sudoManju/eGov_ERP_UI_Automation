@@ -31,6 +31,8 @@ public class Properties {
     public static final String assetCategoryCreateUrl = propertiesReader.getEndPointUrl("assetCategoryCreateUrl");
     public static final String createAssetServiceUrl = propertiesReader.getEndPointUrl("createAssetServiceUrl");
     public static final String assetCategorySearchUrl = propertiesReader.getEndPointUrl("assetCategorySearchUrl");
+    public static final String createAssetRevaluationUrl = propertiesReader.getEndPointUrl("createAssetRevaluationUrl");
+    public static final String searchAssetRevaluationUrl = propertiesReader.getEndPointUrl("searchAssetRevaluationUrl");
 
     //  eGov EIS Module Url's  //
     public static final String searchAttendanceUrl = propertiesReader.getEndPointUrl("searchAttendanceUrl");

@@ -10,7 +10,7 @@ import entities.requests.assetManagement.assetCategory.SearchAssetCategoryReques
 import entities.responses.assetManagement.assetCategory.createCategory.CreateAssetCategoryResponse;
 import entities.responses.assetManagement.assetCategory.searchCategory.SearchAssetCategoryResponse;
 import org.testng.Assert;
-import resources.AssetCategoryResource;
+import resources.asset.AssetCategoryResource;
 import tests.BaseAPITest;
 import utils.APILogger;
 import utils.RequestHelper;

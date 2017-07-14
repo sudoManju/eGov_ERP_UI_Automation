@@ -1,6 +1,7 @@
-package resources;
+package resources.asset;
 
 import com.jayway.restassured.response.Response;
+import resources.Resource;
 import utils.APILogger;
 import utils.Properties;
 

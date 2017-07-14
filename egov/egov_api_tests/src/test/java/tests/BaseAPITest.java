@@ -24,14 +24,19 @@ public class BaseAPITest {
         RestAssured.baseURI = new ResourceHelper().getBaseURL();
     }
 
-    private static int randBetween(int start, int end) {
-        return start + (int) Math.round(Math.random() * (end - start));
-    }
-
     @BeforeMethod(alwaysRun = true)
     public void testSetup(Method method) {
         scenarioContext = new ScenarioContext();
         Reporter.log("Test Method Name -- " + method.getName(), true);
+    }
+
+    protected void pilotLogoutService() {
+        new LoginAndLogoutHelper();
+        LoginAndLogoutHelper.logoutFromPilotService();
+    }
+
+    private static int randBetween(int start, int end) {
+        return start + (int) Math.round(Math.random() * (end - start));
     }
 
     protected String getRandomDate() {
@@ -41,6 +46,10 @@ public class BaseAPITest {
         int dayOfYear = randBetween(1, gc.getActualMaximum(DAY_OF_YEAR));
         gc.set(DAY_OF_YEAR, dayOfYear);
         return (gc.get(DAY_OF_MONTH) + "/" + (gc.get(MONTH) + 1) + "/" + gc.get(YEAR));
+    }
+
+    protected int getRandomIntFromRange(int min, int max) {
+        return (RandomUtils.nextInt(min, max));
     }
 
     public String get3DigitRandomInt() {
@@ -55,11 +64,6 @@ public class BaseAPITest {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
         return dateFormat.format(date);
-    }
-
-    protected void pilotLogoutService() {
-        new LoginAndLogoutHelper();
-        LoginAndLogoutHelper.logoutFromPilotService();
     }
 
     protected String pathBuilder(String parameterType, String data) {

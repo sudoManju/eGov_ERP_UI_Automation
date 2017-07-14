@@ -29,13 +29,13 @@ public class FetchComplaintTypeTest extends BaseAPITest {
     }
 
     private void fetchComplaintById() {
-        new APILogger().log("Fetch Complaint by IDS Test is Started ---");
+        new APILogger().log("Fetch Complaint by WITH_IDS Test is Started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         FetchComplaintRequest request = new FetchComplaintRequestBuilder().withRequestInfo(requestInfo).build();
 
         Response response = new PGRResource().fetchComplaintByIdResource(RequestHelper.getJsonString(request));
         Assert.assertEquals(response.getStatusCode(), 200);
-        new APILogger().log("Fetch Complaint by IDS Test is Completed ---");
+        new APILogger().log("Fetch Complaint by WITH_IDS Test is Completed ---");
     }
 
     private void fetchAllComplaints() {
