@@ -171,6 +171,7 @@ public class TradeLicensePage extends BasePage {
         await().atMost(10, SECONDS).until(() -> wardSelect.findElements(By.tagName("option")).size() > 1);
         waitForElementToBeClickable(wardSelect, webDriver);
         new Select(wardSelect).selectByIndex(1);
+        new Select(wardSelect).selectByIndex(1);
         selectFromDropDown(OwnershipTypeDropBox, tradelocationDetails.getownershipType(), webDriver);
         enterText(tradeAddress,"Bangalore",webDriver);
     }
