@@ -309,7 +309,7 @@ public class BPASmsAndEmailService {
 					new String[] { applicantName, bpaApplication.getApplicationNumber(),loginUserName, password, getMunicipalityName() }, null);
 			else
 				body = bpaMessageSource.getMessage(code,
-						new String[] { applicantName, bpaApplication.getApplicationNumber(),getMunicipalityName() }, null);
+						new String[] { applicantName, bpaApplication.getApplicationNumber(),loginUserName,getMunicipalityName() }, null);
 		}
 		else if (BpaConstants.SMSEMAILTYPELETTERTOPARTY.equalsIgnoreCase(type)) 
 				body = bpaMessageSource.getMessage(code,
@@ -326,7 +326,7 @@ public class BPASmsAndEmailService {
 						new String[] { applicantName, bpaApplication.getApplicationNumber(),loginUserName, password, getMunicipalityName() }, null);
 			else
 				smsMsg = bpaMessageSource.getMessage(code,
-						new String[] { applicantName, bpaApplication.getApplicationNumber(),getMunicipalityName() }, null);
+						new String[] { applicantName, bpaApplication.getApplicationNumber(),loginUserName,getMunicipalityName() }, null);
 		}
 		else if (BpaConstants.SMSEMAILTYPELETTERTOPARTY.equalsIgnoreCase(type))
 			smsMsg = bpaMessageSource.getMessage(code,

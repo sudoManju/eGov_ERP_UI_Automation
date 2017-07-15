@@ -57,6 +57,7 @@ import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.application.entity.enums.ApplicantMode;
 import org.egov.bpa.application.service.collection.GenericBillGeneratorService;
 import org.egov.bpa.service.BpaUtils;
+import org.egov.bpa.utils.BPASmsAndEmailService;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.commons.entity.Source;
 import org.egov.infra.admin.master.service.UserService;
@@ -88,6 +89,9 @@ public class NewApplicationController extends BpaGenericApplicationController {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+	private BPASmsAndEmailService bpaSmsAndEmailService;
 
     @RequestMapping(value = "/newApplication-newform", method = GET)
     public String showNewApplicationForm(@ModelAttribute final BpaApplication bpaApplication, final Model model,
@@ -143,12 +147,13 @@ public class NewApplicationController extends BpaGenericApplicationController {
 			bpaApplication.getOwner().setUser(applicationBpaService.createApplicantAsUser(bpaApplication));
 		}
         BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication, workFlowAction);
+        bpaSmsAndEmailService.sendSMSAndEmail(bpaApplicationRes);
         bpaUtils.createPortalUserinbox(bpaApplicationRes,Arrays.asList(bpaApplicationRes.getOwner().getUser(),bpaApplicationRes.getStakeHolder().get(0).getStakeHolder()));
         bpaApplicationRes.setCitizenAccepted(true);
         bpaApplicationRes.setArchitectAccepted(true);
         return genericBillGeneratorService.generateBillAndRedirectToCollection(bpaApplicationRes, model);
-    }
-
+    } 
+ 
     private String redirectOnValidationFailure(final Model model) {
         model.addAttribute("noJAORSAMessage", "No Superintendant exists to forward the application.");
         model.addAttribute("mode", "new");
