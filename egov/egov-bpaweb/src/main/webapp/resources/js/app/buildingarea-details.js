@@ -40,16 +40,18 @@
 
 jQuery(document).ready(function() {
 	
-	// on page load to calculate sum of plinth and carpet area
+	// on page load to calculate sum of floor, plinth and carpet area
 	 $( ".plinthArea" ).trigger( "change" );
 	 $( ".carpetArea" ).trigger( "change" );
+	 $( ".floorArea" ).trigger( "change" );
 	  
 	var tbody = $('#buildingAreaDetails').children('tbody');
 	var table = tbody.length ? tbody : $('#buildingAreaDetails');
 	var row = '<tr>'+
 	'<td class="text-center"><span class="serialNo" id="slNoInsp">{{sno}}</span></td>'+
 	'<td ><select name="buildingDetail[0].applicationFloorDetails[{{idx}}].floorDescription" data-first-option="false" id="applicationFloorDetails[{{idx}}]floorDescription" class="form-control" required="required" maxlength="128"> <option value="">Select</option><options items="${buildingFloorList}" /></select></td>'+
-	'<td class="text-right"><input type="text" class="form-control table-input text-right patternvalidation plinthArea" data-pattern="number" name="buildingDetail[0].applicationFloorDetails[{{idx}}].plinthArea" id="applicationFloorDetails[{{idx}}]plinthArea" maxlength="15" onblur="validateFloorDetails(this)"  /></td>'+
+	'<td class="text-right"><input type="text" class="form-control table-input text-right patternvalidation floorArea" data-pattern="number" name="buildingDetail[0].applicationFloorDetails[{{idx}}].floorArea" id="applicationFloorDetails[{{idx}}]floorArea" maxlength="15" onblur="validateFloorDetails(this)"  /></td>'+
+	'<td class="text-right"><input type="text" class="form-control table-input text-right patternvalidation plinthArea" data-pattern="number" name="buildingDetail[0].applicationFloorDetails[{{idx}}].plinthArea" id="applicationFloorDetails[{{idx}}]plinthArea" maxlength="15" /></td>'+
 	'<td class="text-right"><input type="text" class="form-control table-input text-right patternvalidation carpetArea" data-pattern="number" name="buildingDetail[0].applicationFloorDetails[{{idx}}].carpetArea" id="applicationFloorDetails[{{idx}}]carpetArea" maxlength="15" value=""  /></td>'+
 	'<td class="text-center"><a href="javascript:void(0);" class="btn-sm btn-danger" id="deleteBuildAreaRow" data-record-id="${var1.id}"><i class="fa fa-trash"></i></a></td>'+
 	'</tr>';
@@ -93,36 +95,56 @@ jQuery(document).ready(function() {
 						$('select[name="'+selectBoxName+'"]').append($('<option>').val(floorDesc).text(floorDesc));
 					});
 		}
-	
 });
 
 var plinthAreaSum = 0;
 var carpetAreaSum = 0;
+
+$(document).on('change', '.floorArea', function() {
+    var totalFloorArea = 0;
+    $("#buildingAreaDetails tbody tr").each(function () {
+    	 totalFloorArea +=  parseInt($(this).find('td:eq(2) input.floorArea').val());
+    });
+    $("#sumOfFloorArea").val(totalFloorArea);
+    $("#buildingAreaDetails tfoot tr td:eq(2)").html(totalFloorArea);
+});
+
 $(document).on('change', '.plinthArea', function() {
-     var totalPlinth = 0;
-     $("#buildingAreaDetails tbody tr").each(function () {
-    	 totalPlinth +=  parseInt($(this).find('td:eq(2) input.plinthArea').val());
-     });
-     $("#buildingAreaDetails tfoot tr td:eq(2)").html(totalPlinth);
+    var totalPlinth = 0;
+    var rowPlinthArea = 0;
+    var rowFloorArea = 0;
+    $("#buildingAreaDetails tbody tr").each(function () {
+    	rowFloorArea = parseInt($(this).find('td:eq(2) input.floorArea').val());
+    	rowPlinthArea = parseInt($(this).find('td:eq(3) input.plinthArea').val());
+    	 if(rowPlinthArea > rowFloorArea) {
+    		 $('.plinthArea').val('');
+    		 $( ".floorArea" ).trigger( "change" );
+    		 $( ".plinthArea" ).trigger( "change" );
+    		 bootbox.alert("Please enter valid values, Builtup Area should be less than or equal than the Floor Area.");
+    		 return false;
+    	 }
+    	 totalPlinth +=  parseInt(rowPlinthArea);
+    });
+    $("#buildingAreaDetails tfoot tr td:eq(3)").html(totalPlinth);
 });
 	 
 $(document).on('change', '.carpetArea', function() {
      var totalCarpet = 0;
-     var rowPlinthArea;
-     var rowCarpetArea;
+     var rowPlinthArea = 0;
+     var rowCarpetArea = 0;
      $("#buildingAreaDetails tbody tr").each(function () {
-    	 rowPlinthArea = parseInt($(this).find('td:eq(2) input.plinthArea').val());
-    	 rowCarpetArea = parseInt($(this).find('td:eq(3) input.carpetArea').val());
+    	 rowPlinthArea = parseInt($(this).find('td:eq(3) input.plinthArea').val());
+    	 rowCarpetArea = parseInt($(this).find('td:eq(4) input.carpetArea').val());
     	 if(rowCarpetArea > rowPlinthArea) {
     		 $('.carpetArea').val('');
-    		 bootbox.alert("Please enter valid values, Carpet Area should be less than the Plinth Area.");
     		 $( ".plinthArea" ).trigger( "change" );
     		 $( ".carpetArea" ).trigger( "change" );
+    		 bootbox.alert("Please enter valid values, Carpet Area should be less than the Builtup Area.");
     		 return false;
     	 }
-    	 totalCarpet +=  rowCarpetArea;
+    	 totalCarpet += parseInt(rowCarpetArea);
      });
-     $("#buildingAreaDetails tfoot tr td:eq(3)").html(totalCarpet);
+     $("#buildingAreaDetails tfoot tr td:eq(4)").html(totalCarpet);
 });
 	
 function generateSno()
@@ -140,8 +162,9 @@ function validateBuildAreaOnAdd(){
     $('#buildingAreaDetails tbody tr').each(function(index){
     	var floorName  = $(this).find('*[name$="floorDescription"]').val();
 	    var plinthArea = $(this).find('*[name$="plinthArea"]').val();
+	    var floorArea = $(this).find('*[name$="floorArea"]').val();
 	    var carpetArea = $(this).find('*[name$="carpetArea"]').val();    
-	    if(!floorName || !plinthArea || !carpetArea) { 
+	    if(!floorName || !plinthArea || !carpetArea || !floorArea) { 
 	    	bootbox.alert("Enter all values for existing rows before adding. Values cannot be 0 or empty.");
 	    	isValid=false;
 	    	return false;
@@ -179,6 +202,7 @@ $(document).on('click',"#deleteBuildAreaRow",function (){
 			});
 	 });
 	// on delete to re-calculate sum of plinth and carpet area
+	  $( ".floorArea" ).trigger( "change" );
 	  $( ".plinthArea" ).trigger( "change" );
 	  $( ".carpetArea" ).trigger( "change" );
 	
@@ -243,4 +267,3 @@ function postalCodeSelectedEvent(event, data) {
 }
 
 typeaheadWithEventsHandling(postal_typeahead, '#postalAddress', undefined, postalCodeSelectedEvent);
-

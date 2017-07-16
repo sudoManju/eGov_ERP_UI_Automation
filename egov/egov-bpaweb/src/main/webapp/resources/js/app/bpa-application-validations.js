@@ -251,6 +251,7 @@ $(document).ready(function() {
 $('#occupancy').change(function(){
 	$( ".plinthArea" ).trigger( "change" );
 	$( ".carpetArea" ).trigger( "change" );
+	$( ".floorArea" ).trigger( "change" );
 	//$('.clear-values').val('');
 	$('#buildingAreaDetails').find('input').val('');
 	$('#buildingAreaDetails').find('select').val('');
@@ -273,6 +274,7 @@ function arrayGroupByKey(arry, groupByKey){
 }
 var extentOfLand;
 var totalPlintArea;
+var totalFloorArea;
 var extentInSqmts;
 $('#totalPlintArea').blur(function(e) {
 	var occpancyObj = getOccupancyObject();
@@ -283,8 +285,9 @@ $('#totalPlintArea').blur(function(e) {
 		
 		if(areaPermissibleWithAddnlFee == 0) {
 			if(parseInt(totalPlintArea) > areaPermissibleWOAddnlFee){
-				bootbox.alert("For the occupancy type of " +occpancyObj[0].description+", maximum permissible area is "+areaPermissibleWOAddnlFee+" Sq.Mtrs, beyond of permissible area you can't construct construction.");
-				$('#totalPlintArea').val('');
+				 bootbox.alert("For the occupancy type of " +occpancyObj[0].description+", maximum permissible area is "+areaPermissibleWOAddnlFee+" Sq.Mtrs, beyond of permissible area you can't construct construction.");
+				 $('#totalPlintArea').val('');
+				 $( ".floorArea" ).trigger( "change" );
 				 $( ".plinthArea" ).trigger( "change" );
 	    		 $( ".carpetArea" ).trigger( "change" );
 				return false;
@@ -292,8 +295,9 @@ $('#totalPlintArea').blur(function(e) {
 				return true;
 			}
 		} else if(parseInt(totalPlintArea) > areaPermissibleWithAddnlFee) {
-			bootbox.alert("For the occupancy type of " +occpancyObj[0].description+", maximum permissible area allowed with addtional fee is "+areaPermissibleWithAddnlFee+" Sq.Mtrs, beyond of permissible area you can't construct construction.");
-			$('#totalPlintArea').val('');
+			 bootbox.alert("For the occupancy type of " +occpancyObj[0].description+", maximum permissible area allowed with addtional fee is "+areaPermissibleWithAddnlFee+" Sq.Mtrs, beyond of permissible area you can't construct construction.");
+			 $('#totalPlintArea').val('');
+			 $( ".floorArea" ).trigger( "change" );
 			 $( ".plinthArea" ).trigger( "change" );
     		 $( ".carpetArea" ).trigger( "change" );
 			return false;
@@ -316,6 +320,7 @@ $('#totalPlintArea').blur(function(e) {
 						//
 					} else {
 						$('#totalPlintArea').val('');
+						 $( ".floorArea" ).trigger( "change" );
 						 $( ".plinthArea" ).trigger( "change" );
 			    		 $( ".carpetArea" ).trigger( "change" );
 						e.stopPropagation();
@@ -338,7 +343,7 @@ function getOccupancyObject() {
 	return occupancyResponse[occpancyId];
 }
 
-// Floor wise plinth area validations
+// Floor wise floor area validations
 function validateFloorDetails(plinthArea){
 	var occpancyObj = getOccupancyObject();
 	if(!extentOfLand){
@@ -346,7 +351,7 @@ function validateFloorDetails(plinthArea){
 		return false;
 	}
 	if(!totalPlintArea){
-		bootbox.alert("Please enter total plinth area value");
+		bootbox.alert("Please enter total builtup area value");
 		return false;
 	}
 	var inputPlinthArea = $(plinthArea).val();
@@ -354,12 +359,12 @@ function validateFloorDetails(plinthArea){
 	var permissibleAreaForFloor = extentInSqmts * permissibleAreaInPercentage / 100;
 	if(parseInt(inputPlinthArea) > parseInt(permissibleAreaForFloor)){
 		$(plinthArea).val('');
-		bootbox.alert("For type of " +occpancyObj[0].description+", each floor wise maximum permissable plinth area is " +permissibleAreaForFloor+" Sq.Mtrs, so beyond of maximum permissable floor wise area you can't construct your building.");
+		bootbox.alert("For type of " +occpancyObj[0].description+", each floor wise maximum permissable floor area is " +permissibleAreaForFloor+" Sq.Mtrs, so beyond of maximum permissable floor wise area you can't construct your building.");
 		return false;
 	}
-	if(parseInt($("#sumOfPlinthArea").val()) > parseInt(totalPlintArea)){
+	if(parseInt($("#sumOfFloorArea").val()) > parseInt(totalPlintArea)){
 		$(plinthArea).val('');
-		bootbox.alert("Sum of floor wise plinth area is exceeding the total plinth area of you entered, please check and enter valid data.");
+		bootbox.alert("Sum of floor wise floor area "+parseInt($("#sumOfFloorArea").val())+" Sq.Mtrs is exceeding the total builtup area "+parseInt(totalPlintArea)+" Sq.Mtrs of you entered, please check and enter valid data.");
 		return false;
 	}
 	$( ".plinthArea" ).trigger( "change" );
@@ -383,6 +388,5 @@ function convertExtendOfLandToSqmts(extentOfLand,uom){
 	}
 	return extentinsqmts;
 }
-
 
 

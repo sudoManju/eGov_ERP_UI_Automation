@@ -79,6 +79,7 @@ public class ApplicationFloorDetail extends AbstractAuditable {
     private String floorDescription;
     private BigDecimal carpetArea;
     private BigDecimal plinthArea;
+    private BigDecimal floorArea;
 
     @Override
     public Long getId() {
@@ -160,5 +161,13 @@ public class ApplicationFloorDetail extends AbstractAuditable {
 
     public void setFloorDescription(String floorDescription) {
         this.floorDescription = floorDescription;
+    }
+
+    public BigDecimal getFloorArea() {
+        return floorArea;
+    }
+
+    public void setFloorArea(BigDecimal floorArea) {
+        this.floorArea = floorArea;
     }
 }

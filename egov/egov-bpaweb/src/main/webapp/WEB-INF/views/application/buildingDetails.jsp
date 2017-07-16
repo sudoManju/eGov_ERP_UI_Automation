@@ -111,12 +111,15 @@
 		value="${buildingFloorList}"> <input type="hidden"
 		id="occupancyList" value=""> <input type="hidden"
 		id="sumOfPlinthArea" value="">
+		<input type="hidden"
+		id="sumOfFloorArea" value="">
 	<table class="table table-striped table-bordered"
 		id="buildingAreaDetails">
 		<thead>
 			<tr>
 				<th class="text-center"><spring:message code="lbl.srl.no" /></th>
 				<th class="text-center"><spring:message code="lbl.floor.name" /></th>
+				<th class="text-center"><spring:message code="lbl.floor.area" /></th>
 				<th class="text-center"><spring:message code="lbl.plinth.area" /></th>
 				<th class="text-center"><spring:message code="lbl.carpet.area" /></th>
 				<th class="text-center"><spring:message code="lbl.action" /></th>
@@ -139,6 +142,12 @@
 									path="buildingDetail[0].applicationFloorDetails[${counter.index}].floorDescription"
 									id="applicationFloorDetails[${counter.index}]floorDescription"
 									maxlength="128" value="${buildingAreaDetails.floorDescription}" /></td>
+							<td class="text-right"><form:input type="text"
+								class="form-control table-input text-right patternvalidation floorArea"
+								data-pattern="number"
+								path="buildingDetail[0].applicationFloorDetails[${counter.index}].floorArea"
+								id="applicationFloorDetails${counter.index}floorArea" maxlength="15" value=""
+								onblur="validateFloorDetails(this)" /></td>
 							<td class="text-right"><form:input type="text"
 									class="form-control table-input patternvalidation plinthArea text-right"
 									data-pattern="number"
@@ -173,11 +182,16 @@
 								<form:options items="${buildingFloorList}" />
 							</form:select></td>
 						<td class="text-right"><form:input type="text"
+								class="form-control table-input text-right patternvalidation floorArea"
+								data-pattern="number"
+								path="buildingDetail[0].applicationFloorDetails[0].floorArea"
+								id="applicationFloorDetails0floorArea" maxlength="15" value=""
+								onblur="validateFloorDetails(this)" /></td>
+						<td class="text-right"><form:input type="text"
 								class="form-control table-input text-right patternvalidation plinthArea"
 								data-pattern="number"
 								path="buildingDetail[0].applicationFloorDetails[0].plinthArea"
-								id="applicationFloorDetails0plinthArea" maxlength="15" value=""
-								onblur="validateFloorDetails(this)" /></td>
+								id="applicationFloorDetails0plinthArea" maxlength="15" value=""/></td>
 						<td class="text-right"><form:input type="text"
 								class="form-control table-input text-right patternvalidation carpetArea"
 								data-pattern="number"
@@ -195,6 +209,7 @@
 			<tr>
 				<td></td>
 				<td class="text-right">Total</td>
+				<td class="text-right"></td>
 				<td class="text-right"></td>
 				<td class="text-right"></td>
 				<td></td>

@@ -96,16 +96,20 @@
 				<tr>
 					<th class="text-center"><spring:message code="lbl.srl.no" /></th>
 					<th class="text-center"><spring:message code="lbl.floor.name" /></th>
+					<th class="text-center"><spring:message code="lbl.floor.area" /></th>
 					<th class="text-center"><spring:message code="lbl.plinth.area" /></th>
 					<th class="text-center"><spring:message code="lbl.carpet.area" /></th>
 				</tr>
 			</thead>
 			<tbody>
+				<c:set var="floorAreaTotal" value="${0}" />
 				<c:set var="plinthAreaTotal" value="${0}" />
 				<c:set var="carpetAreaTotal" value="${0}" />
 				<c:forEach
 					items="${bpaApplication.buildingDetail[0].applicationFloorDetails}"
 					var="floorDetails" varStatus="counter">
+					<c:set var="floorAreaTotal"
+						value="${ floorAreaTotal + floorDetails.floorArea}" />
 					<c:set var="plinthAreaTotal"
 						value="${plinthAreaTotal + floorDetails.plinthArea}" />
 					<c:set var="carpetAreaTotal"
@@ -118,6 +122,8 @@
 						<td class="text-center"><c:out
 								value="${floorDetails.floorDescription}" default="N/A"></c:out>
 						<td class="text-center"><c:out
+								value="${floorDetails.floorArea}" default="N/A"></c:out>
+						<td class="text-center"><c:out
 								value="${floorDetails.plinthArea}" default="N/A"></c:out>
 						<td class="text-center"><c:out
 								value="${floorDetails.carpetArea}" default="N/A"></c:out>
@@ -128,6 +134,8 @@
 				<tr>
 					<td></td>
 					<td class="text-right">Total</td>
+					<td class="text-center"><c:out value="${floorAreaTotal}"
+							default="0"></c:out></td>
 					<td class="text-center"><c:out value="${plinthAreaTotal}"
 							default="0"></c:out></td>
 					<td class="text-center"><c:out value="${carpetAreaTotal}"
