@@ -3,14 +3,16 @@ package builders.wcms.pipeSize.create;
 import entities.requests.wcms.pipeSize.create.PipeSize;
 import tests.BaseAPITest;
 
+import static data.SearchParameterData.TENANT_DEFAULT;
+
 public class PipeSizeBuilder {
     PipeSize pipeSize = new PipeSize();
 
     public PipeSizeBuilder() {
-        pipeSize.setSizeInMilimeter(new BaseAPITest().get3DigitRandomInt());
+        pipeSize.setSizeInMilimeter(String.valueOf(new BaseAPITest().getRandomIntFromRange(100, 999)));
         pipeSize.setDescription("PipeSizes Description");
         pipeSize.setActive(true);
-        pipeSize.setTenantId("default");
+        pipeSize.setTenantId(TENANT_DEFAULT);
     }
 
 

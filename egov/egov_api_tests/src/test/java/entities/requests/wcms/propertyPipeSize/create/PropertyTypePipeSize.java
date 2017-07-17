@@ -1,6 +1,6 @@
 package entities.requests.wcms.propertyPipeSize.create;
 
-public class PropertyPipeSize {
+public class PropertyTypePipeSize {
     private String propertyTypeName;
     private String pipeSize;
     private String tenantId;

@@ -53,22 +53,21 @@ public class CategoryTypeTest extends BaseAPITest {
                 ResponseHelper.getResponseAsObject(response.asString(), CreateCategoryTypeResponse.class);
 
         Assert.assertEquals(createCategoryTypeResponse.getResponseInfo().getStatus(), "201");
-        System.out.println(createCategoryTypeResponse.getCategory()[0].getName());
         Assert.assertEquals(category.getName(), createCategoryTypeResponse.getCategory()[0].getName());
         new APILogger().log("Create CategoryType Test is Completed ---");
         return createCategoryTypeResponse;
     }
 
-    CreateCategoryTypeResponse searchCategoryType(CreateCategoryTypeResponse createCategoryTypeResponse, String parameter) throws IOException {
+    CreateCategoryTypeResponse searchCategoryType(CreateCategoryTypeResponse createOrUpdateCategoryTypeResponse, String parameter) throws IOException {
         new APILogger().log("Search CategoryType Test " + parameter + " is Started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         SearchCategoryTypeRequest searchCategoryTypeRequest = new SearchCategoryTypeRequestBuilder().withRequestInfo(requestInfo).build();
 
         String path;
         if (parameter.contains("&name="))
-            path = pathBuilder(parameter, createCategoryTypeResponse.getCategory()[0].getName());
+            path = pathBuilder(parameter, createOrUpdateCategoryTypeResponse.getCategory()[0].getName());
         else
-            path = pathBuilder(parameter, createCategoryTypeResponse.getCategory()[0].getCode());
+            path = pathBuilder(parameter, createOrUpdateCategoryTypeResponse.getCategory()[0].getCode());
 
         Response response = new WCMSResource().searchCategoryTypeResource(RequestHelper.getJsonString(searchCategoryTypeRequest),
                 path);
@@ -77,7 +76,7 @@ public class CategoryTypeTest extends BaseAPITest {
 
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertTrue(searchCategoryTypeResponse.getCategory().length == 1);
-        Assert.assertEquals(createCategoryTypeResponse.getCategory()[0].getName(), searchCategoryTypeResponse.getCategory()[0].getName());
+        Assert.assertEquals(createOrUpdateCategoryTypeResponse.getCategory()[0].getName(), searchCategoryTypeResponse.getCategory()[0].getName());
         new APILogger().log("Search CategoryType Test " + parameter + "is Completed ---");
         return searchCategoryTypeResponse;
     }

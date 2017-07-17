@@ -3,6 +3,8 @@ package builders.wcms.documentTypeApplicationType.create;
 import entities.requests.wcms.documentTypeApplicationType.ApplicationTypesData;
 import entities.requests.wcms.documentTypeApplicationType.create.DocumentTypeApplicationType;
 
+import static data.SearchParameterData.TENANT_DEFAULT;
+
 public class DocumentTypeApplicationTypeBuilder {
     DocumentTypeApplicationType documentTypeApplicationType = new DocumentTypeApplicationType();
 
@@ -10,7 +12,7 @@ public class DocumentTypeApplicationTypeBuilder {
         documentTypeApplicationType.setDocumentType("");
         documentTypeApplicationType.setApplicationType(new ApplicationTypesData().randomApplicationType());
         documentTypeApplicationType.setMandatory("true");
-        documentTypeApplicationType.setTenantId("default");
+        documentTypeApplicationType.setTenantId(TENANT_DEFAULT);
         documentTypeApplicationType.setActive("true");
     }
 

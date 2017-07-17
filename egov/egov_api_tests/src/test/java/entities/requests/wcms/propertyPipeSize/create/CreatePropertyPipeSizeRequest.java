@@ -4,16 +4,16 @@ import entities.requests.wcms.RequestInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class CreatePropertyPipeSizeRequest {
-    @JsonProperty("PropertyPipeSize")
-    private PropertyPipeSize PropertyPipeSize;
+    @JsonProperty("propertyTypePipeSize")
+    private PropertyTypePipeSize PropertyTypePipeSize;
     private RequestInfo RequestInfo;
 
-    public PropertyPipeSize getPropertyPipeSize() {
-        return this.PropertyPipeSize;
+    public PropertyTypePipeSize getPropertyTypePipeSize() {
+        return this.PropertyTypePipeSize;
     }
 
-    public void setPropertyPipeSize(PropertyPipeSize PropertyPipeSize) {
-        this.PropertyPipeSize = PropertyPipeSize;
+    public void setPropertyTypePipeSize(PropertyTypePipeSize PropertyTypePipeSize) {
+        this.PropertyTypePipeSize = PropertyTypePipeSize;
     }
 
     public RequestInfo getRequestInfo() {

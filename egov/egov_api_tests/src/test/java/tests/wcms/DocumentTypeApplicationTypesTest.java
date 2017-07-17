@@ -20,7 +20,7 @@ import utils.*;
 
 import java.io.IOException;
 
-import static data.SearchParameterData.WITH_NAME;
+import static data.SearchParameterData.*;
 import static data.UserData.MANAS;
 
 public class DocumentTypeApplicationTypesTest extends BaseAPITest {
@@ -34,8 +34,9 @@ public class DocumentTypeApplicationTypesTest extends BaseAPITest {
         CreateDocumentTypeResponse searchDocumentTypeResponse = documentTypeTest.searchDocumentType(createDocumentTypeResponse, WITH_NAME); // Search DocumentType
 
         CreateDocumentTypeApplicationTypeResponse createDocumentTypeApplicationTypeResponse = createDocumentTypeApplicationType(searchDocumentTypeResponse.getDocumentTypes()[0].getName()); // Create DocumentType - ApplicationType
-        CreateDocumentTypeApplicationTypeResponse searchDocumentTypeApplicationTypeResponse = searchDocumentTypeApplicationType(createDocumentTypeApplicationTypeResponse); // Search DocumentType - ApplicationType
-        updateDocumentTypeApplicationType(searchDocumentTypeApplicationTypeResponse, searchDocumentTypeResponse); // Update DocumentType - ApplicationType
+        CreateDocumentTypeApplicationTypeResponse searchDocumentTypeApplicationTypeResponse = searchDocumentTypeApplicationType(createDocumentTypeApplicationTypeResponse, WITH_PARAMETER); // Search DocumentType - ApplicationType
+        CreateDocumentTypeApplicationTypeResponse updateDocumentTypeApplicationTypeResponse = updateDocumentTypeApplicationType(searchDocumentTypeApplicationTypeResponse, searchDocumentTypeResponse); // Update DocumentType - ApplicationType
+        searchDocumentTypeApplicationType(updateDocumentTypeApplicationTypeResponse, WITH_ID); // Search DocumentType - ApplicationType After UPDATE
         LoginAndLogoutHelper.logout(); // Logout
     }
 
@@ -68,28 +69,33 @@ public class DocumentTypeApplicationTypesTest extends BaseAPITest {
         return createDocumentTypeApplicationTypeResponse;
     }
 
-    private CreateDocumentTypeApplicationTypeResponse searchDocumentTypeApplicationType(CreateDocumentTypeApplicationTypeResponse createDocumentTypeApplicationTypeResponse) throws IOException {
+    private CreateDocumentTypeApplicationTypeResponse searchDocumentTypeApplicationType(CreateDocumentTypeApplicationTypeResponse createOrUpdateDocumentTypeApplicationTypeResponse, String parameter) throws IOException {
         new APILogger().log("Search DocumentType - ApplicationType Test is Started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         SearchDocumentTypeApplicationTypeRequest searchDocumentTypeApplicationTypeRequest = new SearchDocumentTypeApplicationTypeRequestBuilder()
                 .withRequestInfo(requestInfo).build();
 
-        String path = "&applicationType=" + createDocumentTypeApplicationTypeResponse.getDocumentTypeApplicationTypes()[0].getApplicationType() +
-                "&documentType=" + createDocumentTypeApplicationTypeResponse.getDocumentTypeApplicationTypes()[0].getDocumentType();
+        String path;
+        if (parameter.equalsIgnoreCase("")) {
+            path = WITH_APPLICATION_TYPE + createOrUpdateDocumentTypeApplicationTypeResponse.getDocumentTypeApplicationTypes()[0].getApplicationType() +
+                    WITH_DOCUMENT_TYPE + createOrUpdateDocumentTypeApplicationTypeResponse.getDocumentTypeApplicationTypes()[0].getDocumentType();
+        } else
+            path = pathBuilder(WITH_ID, String.valueOf(createOrUpdateDocumentTypeApplicationTypeResponse.getDocumentTypeApplicationTypes()[0].getId()));
+
         Response response = new WCMSResource()
                 .searchDocumentTypeApplicationTypeResource(RequestHelper.getJsonString(searchDocumentTypeApplicationTypeRequest), path);
-
         CreateDocumentTypeApplicationTypeResponse searchDocumentTypeApplicationTypeResponse = (CreateDocumentTypeApplicationTypeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), CreateDocumentTypeApplicationTypeResponse.class);
 
         Assert.assertEquals(searchDocumentTypeApplicationTypeResponse.getResponseInfo().getStatus(), "200");
-        Assert.assertEquals(searchDocumentTypeApplicationTypeResponse.getDocumentTypeApplicationTypes()[0].getDocumentType(),
-                createDocumentTypeApplicationTypeResponse.getDocumentTypeApplicationTypes()[0].getDocumentType());
+        Assert.assertTrue(searchDocumentTypeApplicationTypeResponse.getDocumentTypeApplicationTypes().length == 1);
+        Assert.assertEquals(searchDocumentTypeApplicationTypeResponse.getDocumentTypeApplicationTypes()[0].getApplicationType(),
+                createOrUpdateDocumentTypeApplicationTypeResponse.getDocumentTypeApplicationTypes()[0].getApplicationType());
         new APILogger().log("Search DocumentType - ApplicationType Test is Completed ---");
         return searchDocumentTypeApplicationTypeResponse;
     }
 
-    private void updateDocumentTypeApplicationType(CreateDocumentTypeApplicationTypeResponse searchDocumentTypeApplicationTypeResponse, CreateDocumentTypeResponse searchDocumentTypeResponse) throws IOException {
+    private CreateDocumentTypeApplicationTypeResponse updateDocumentTypeApplicationType(CreateDocumentTypeApplicationTypeResponse searchDocumentTypeApplicationTypeResponse, CreateDocumentTypeResponse searchDocumentTypeResponse) throws IOException {
         new APILogger().log("Update DocumentType - ApplicationType Test is Started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
 
@@ -116,6 +122,27 @@ public class DocumentTypeApplicationTypesTest extends BaseAPITest {
         Assert.assertNotEquals(searchDocumentTypeApplicationTypeResponse.getDocumentTypeApplicationTypes()[0].getApplicationType(),
                 updateDocumentTypeApplicationTypeResponse.getDocumentTypeApplicationTypes()[0].getApplicationType());
         new APILogger().log("Update DocumentType - ApplicationType Test is Completed ---");
+        return updateDocumentTypeApplicationTypeResponse;
+    }
+
+    private void searchDocumentTypeApplicationTypeAfterUpdate(CreateDocumentTypeApplicationTypeResponse updateDocumentTypeApplicationTypeResponse, String withId) throws IOException {
+        new APILogger().log("Search DocumentType - ApplicationType After Update Test is Started ---");
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
+        SearchDocumentTypeApplicationTypeRequest searchDocumentTypeApplicationTypeRequest = new SearchDocumentTypeApplicationTypeRequestBuilder()
+                .withRequestInfo(requestInfo).build();
+
+        String path = withId + updateDocumentTypeApplicationTypeResponse.getDocumentTypeApplicationTypes()[0].getId();
+
+        Response response = new WCMSResource()
+                .searchDocumentTypeApplicationTypeResource(RequestHelper.getJsonString(searchDocumentTypeApplicationTypeRequest), path);
+        CreateDocumentTypeApplicationTypeResponse searchDocumentTypeApplicationTypeAfterUpdateResponse = (CreateDocumentTypeApplicationTypeResponse)
+                ResponseHelper.getResponseAsObject(response.asString(), CreateDocumentTypeApplicationTypeResponse.class);
+
+        Assert.assertEquals(searchDocumentTypeApplicationTypeAfterUpdateResponse.getResponseInfo().getStatus(), "200");
+        Assert.assertTrue(searchDocumentTypeApplicationTypeAfterUpdateResponse.getDocumentTypeApplicationTypes().length == 1);
+        Assert.assertEquals(updateDocumentTypeApplicationTypeResponse.getDocumentTypeApplicationTypes()[0].getDocumentType(),
+                searchDocumentTypeApplicationTypeAfterUpdateResponse.getDocumentTypeApplicationTypes()[0].getDocumentType());
+        new APILogger().log("Search DocumentType - ApplicationType After Update Test is Completed ---");
     }
 
     private void getAllDocumentTypeApplicationTypes() throws IOException {

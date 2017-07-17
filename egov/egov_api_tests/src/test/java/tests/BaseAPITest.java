@@ -48,7 +48,7 @@ public class BaseAPITest {
         return (gc.get(DAY_OF_MONTH) + "/" + (gc.get(MONTH) + 1) + "/" + gc.get(YEAR));
     }
 
-    protected int getRandomIntFromRange(int min, int max) {
+    public int getRandomIntFromRange(int min , int max) {
         return (RandomUtils.nextInt(min, max));
     }
 

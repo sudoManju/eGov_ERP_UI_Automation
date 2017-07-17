@@ -58,23 +58,23 @@ public class PipeSizesTest extends BaseAPITest {
         return createPipeSizeResponse;
     }
 
-    CreatePipeSizeResponse searchPipeSize(CreatePipeSizeResponse createPipeSizeResponse, String parameter) throws IOException {
+    CreatePipeSizeResponse searchPipeSize(CreatePipeSizeResponse createOrUpdatePipeSizeResponse, String parameter) throws IOException {
         new APILogger().log("Search PipeSizes Test with " + parameter + " is Started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         SearchPipeSizeRequest searchPipeSizeRequest = new SearchPipeSizeRequestBuilder().withRequestInfo(requestInfo).build();
 
         String path;
         if (parameter.contains("&sizeInMilimeter"))
-            path = pathBuilder(parameter, String.valueOf(createPipeSizeResponse.getPipeSizes()[0].getSizeInMilimeter()));
+            path = pathBuilder(parameter, String.valueOf(createOrUpdatePipeSizeResponse.getPipeSizes()[0].getSizeInMilimeter()));
         else
-            path = pathBuilder(parameter, createPipeSizeResponse.getPipeSizes()[0].getCode());
+            path = pathBuilder(parameter, createOrUpdatePipeSizeResponse.getPipeSizes()[0].getCode());
 
         Response response = new WCMSResource().searchPipeSizeResource(RequestHelper.getJsonString(searchPipeSizeRequest), path);
         CreatePipeSizeResponse searchPipeSizeResponse = (CreatePipeSizeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), CreatePipeSizeResponse.class);
 
         Assert.assertEquals(200, response.getStatusCode());
-        Assert.assertEquals(createPipeSizeResponse.getPipeSizes()[0].getSizeInMilimeter(), searchPipeSizeResponse.getPipeSizes()[0].getSizeInMilimeter());
+        Assert.assertEquals(createOrUpdatePipeSizeResponse.getPipeSizes()[0].getSizeInMilimeter(), searchPipeSizeResponse.getPipeSizes()[0].getSizeInMilimeter());
         Assert.assertTrue(searchPipeSizeResponse.getPipeSizes().length == 1);
         new APILogger().log("Search PipeSizes Test with " + parameter + " is Completed ---");
         return searchPipeSizeResponse;

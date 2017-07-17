@@ -7,7 +7,7 @@ import builders.wcms.propertyPipeSize.search.SearchPropertyPipeSizeRequestBuilde
 import com.jayway.restassured.response.Response;
 import entities.requests.wcms.RequestInfo;
 import entities.requests.wcms.propertyPipeSize.create.CreatePropertyPipeSizeRequest;
-import entities.requests.wcms.propertyPipeSize.create.PropertyPipeSize;
+import entities.requests.wcms.propertyPipeSize.create.PropertyTypePipeSize;
 import entities.requests.wcms.propertyPipeSize.search.SearchPropertyPipeSizeRequest;
 import entities.responses.propertyTax.masters.propertyTypes.search.SearchPropertyTypesResponse;
 import entities.responses.wcms.pipeSize.CreatePipeSizeResponse;
@@ -25,7 +25,7 @@ import java.io.IOException;
 import static data.SearchParameterData.WITH_MILLIMETERSIZE;
 import static data.UserData.MANAS;
 
-public class PropertyPipeSizesTest extends BaseAPITest {
+public class PropertyTypePipeSizesTest extends BaseAPITest {
 
     @Test(groups = {Categories.SANITY, Categories.WCMS})
     public void createSearchUpdatePropertyPipeSizeTest() throws IOException {
@@ -47,30 +47,17 @@ public class PropertyPipeSizesTest extends BaseAPITest {
         LoginAndLogoutHelper.logout(); // Logout
     }
 
-    @Test(groups = {Categories.SANITY, Categories.WCMS})
-    public void propertyPipeSizeTest() throws IOException {
-        LoginAndLogoutHelper.login(MANAS); // Login
-        SearchPropertyTypesResponse searchPropertyTypesResponse = new PTISMasterSearchHelper().searchAllPropertyTypes(); // Get PropertyTypes
-        CreatePipeSizeResponse createPipeSizeResponse = new PipeSizesTest().createPipeSize(); // Create PipeSizes
-        CreatePipeSizeResponse searchPipeSizeResponse = new PipeSizesTest().searchPipeSize(createPipeSizeResponse, WITH_MILLIMETERSIZE); // Search PipeSizes
-
-        CreatePropertyPipeSizeResponse createPropertyPipeSizeResponse = createPropertyPipeSize(searchPropertyTypesResponse, searchPipeSizeResponse); // Create PropertyType - PipeSizes
-        CreatePropertyPipeSizeResponse searchPropertyPipeSizeResponse = searchPropertyPipeSize(createPropertyPipeSizeResponse); // Search PropertyType - PipeSizes
-        updatePropertyPipeSize(createPropertyPipeSizeResponse, searchPropertyTypesResponse, searchPropertyPipeSizeResponse);
-        LoginAndLogoutHelper.logout(); // Logout
-    }
-
     private CreatePropertyPipeSizeResponse createPropertyPipeSize(SearchPropertyTypesResponse searchPropertyTypesResponse, CreatePipeSizeResponse searchPipeSizeResponse) throws IOException {
         new APILogger().log("Create PropertyType - PipeSizes Test is Started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
-        PropertyPipeSize propertyPipeSize = new PropertyPipeSizeBuilder()
+        PropertyTypePipeSize propertyTypePipeSize = new PropertyPipeSizeBuilder()
                 .withPropertyTypeName(searchPropertyTypesResponse
                         .getPropertyTypes()[RandomUtils.nextInt(0, searchPropertyTypesResponse.getPropertyTypes().length)].getName())
                 .withPipeSize(String.valueOf(searchPipeSizeResponse.getPipeSizes()[0].getSizeInMilimeter()))
                 .build();
         CreatePropertyPipeSizeRequest createPropertyPipeSizeRequest = new CreatePropertyPipeSizeRequestBuilder()
                 .withRequestInfo(requestInfo)
-                .withPropertyPipeSize(propertyPipeSize).build();
+                .withPropertyPipeSize(propertyTypePipeSize).build();
 
         Response response = new WCMSResource().createPropertyPipeSize(RequestHelper.getJsonString(createPropertyPipeSizeRequest));
         CreatePropertyPipeSizeResponse createPropertyPipeSizeResponse = (CreatePropertyPipeSizeResponse)
@@ -117,13 +104,13 @@ public class PropertyPipeSizesTest extends BaseAPITest {
             break;
         }
 
-        PropertyPipeSize propertyPipeSize = new PropertyPipeSizeBuilder()
+        PropertyTypePipeSize propertyTypePipeSize = new PropertyPipeSizeBuilder()
                 .withPropertyTypeName(propertyTypeName)
                 .withPipeSize(String.valueOf(createPropertyPipeSizeResponse.getPropertyPipeSize()[0].getPipeSize()))
                 .build();
         CreatePropertyPipeSizeRequest updatePropertyPipeSizeRequest = new CreatePropertyPipeSizeRequestBuilder()
                 .withRequestInfo(requestInfo)
-                .withPropertyPipeSize(propertyPipeSize).build();
+                .withPropertyPipeSize(propertyTypePipeSize).build();
 
         Response response = new WCMSResource()
                 .updatePropertyPipeSizeResource(RequestHelper.getJsonString(updatePropertyPipeSizeRequest),

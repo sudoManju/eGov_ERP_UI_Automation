@@ -3,6 +3,7 @@ package builders.wcms.categoryType.create;
 import entities.requests.wcms.categoryType.create.CategoryType;
 import tests.BaseAPITest;
 
+import static data.SearchParameterData.TENANT_DEFAULT;
 
 public class CategoryTypeBuilder {
 
@@ -10,10 +11,10 @@ public class CategoryTypeBuilder {
 
     public CategoryTypeBuilder() {
         category.setCode("");
-        category.setName("Category Type" + new BaseAPITest().get3DigitRandomInt());
+        category.setName("Category Type " + new BaseAPITest().getRandomIntFromRange(1000, 9999));
         category.setActive(true);
         category.setDescription("Category Type Description");
-        category.setTenantId("default");
+        category.setTenantId(TENANT_DEFAULT);
     }
 
     public static CategoryTypeBuilder aCategoryType() {

@@ -58,16 +58,16 @@ public class DocumentTypeTest extends BaseAPITest {
         return createDocumentTypeResponse;
     }
 
-    CreateDocumentTypeResponse searchDocumentType(CreateDocumentTypeResponse createDocumentTypeResponse, String parameter) throws IOException {
+    CreateDocumentTypeResponse searchDocumentType(CreateDocumentTypeResponse createOrUpdateDocumentTypeResponse, String parameter) throws IOException {
         new APILogger().log("Search DocumentType Test With" + parameter + " is Started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         SearchDocumentTypeRequest searchDocumentTypeRequest = new SearchDocumentTypeRequestBuilder().withRequestInfo(requestInfo).build();
 
         String path;
         if (parameter.contains("&name="))
-            path = pathBuilder(parameter, createDocumentTypeResponse.getDocumentTypes()[0].getName());
+            path = pathBuilder(parameter, createOrUpdateDocumentTypeResponse.getDocumentTypes()[0].getName());
         else
-            path = pathBuilder(parameter, String.valueOf(createDocumentTypeResponse.getDocumentTypes()[0].getId()));
+            path = pathBuilder(parameter, String.valueOf(createOrUpdateDocumentTypeResponse.getDocumentTypes()[0].getId()));
 
         Response response = new WCMSResource().searchDocumentTypeResource(RequestHelper.getJsonString(searchDocumentTypeRequest), path);
         CreateDocumentTypeResponse searchDocumentTypeResponse = (CreateDocumentTypeResponse)
@@ -75,7 +75,7 @@ public class DocumentTypeTest extends BaseAPITest {
 
         Assert.assertEquals(200, response.getStatusCode());
         Assert.assertTrue(searchDocumentTypeResponse.getDocumentTypes().length == 1);
-        Assert.assertEquals(createDocumentTypeResponse.getDocumentTypes()[0].getName(), searchDocumentTypeResponse.getDocumentTypes()[0].getName());
+        Assert.assertEquals(createOrUpdateDocumentTypeResponse.getDocumentTypes()[0].getName(), searchDocumentTypeResponse.getDocumentTypes()[0].getName());
         new APILogger().log("Search DocumentType Test With" + parameter + " is Completed ---");
         return searchDocumentTypeResponse;
     }
