@@ -56,7 +56,7 @@ public class SourceTypeTest extends BaseAPITest {
                 ResponseHelper.getResponseAsObject(response.asString(), CreateSourceTypeResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals(sourceType.getName(), createSourceTypeResponse.getWaterSourceType()[0].getName());
+        Assert.assertEquals(sourceType.getName(), createSourceTypeResponse.getSourceTypes()[0].getName());
         new APILogger().log("Create SourceType Test is Completed ---");
         return createSourceTypeResponse;
     }
@@ -67,36 +67,36 @@ public class SourceTypeTest extends BaseAPITest {
 
         String path;
         if (parameter.contains("&name="))
-            path = pathBuilder(parameter, createSourceTypeResponse.getWaterSourceType()[0].getName());
+            path = pathBuilder(parameter, createSourceTypeResponse.getSourceTypes()[0].getName());
         else
-            path = pathBuilder(parameter, createSourceTypeResponse.getWaterSourceType()[0].getCode());
+            path = pathBuilder(parameter, createSourceTypeResponse.getSourceTypes()[0].getCode());
 
         Response response = new WCMSResource().searchSourceTypeResource(RequestHelper.getJsonString(searchSourceTypeRequest), path);
         CreateSourceTypeResponse searchSourceTypeResponse = (CreateSourceTypeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), CreateSourceTypeResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals(createSourceTypeResponse.getWaterSourceType()[0].getName(), searchSourceTypeResponse.getWaterSourceType()[0].getName());
-        Assert.assertTrue(searchSourceTypeResponse.getWaterSourceType().length == 1);
+        Assert.assertEquals(createSourceTypeResponse.getSourceTypes()[0].getName(), searchSourceTypeResponse.getSourceTypes()[0].getName());
+        Assert.assertTrue(searchSourceTypeResponse.getSourceTypes().length == 1);
         new APILogger().log("Search SourceType Test With " + parameter + " is Completed ---");
         return searchSourceTypeResponse;
     }
 
     private CreateSourceTypeResponse updateSourceType(CreateSourceTypeResponse searchSourceTypeResponse) throws IOException {
         new APILogger().log("Update SourceType Test is Started ---");
-        SourceType sourceType = new SourceTypeBuilder().withCode(searchSourceTypeResponse.getWaterSourceType()[0].getCode())
-                .withName(searchSourceTypeResponse.getWaterSourceType()[0].getName() + "-Updated")
+        SourceType sourceType = new SourceTypeBuilder().withCode(searchSourceTypeResponse.getSourceTypes()[0].getCode())
+                .withName(searchSourceTypeResponse.getSourceTypes()[0].getName() + "-Updated")
                 .build();
         CreateSourceTypeRequest updateSourceTypeRequest = new CreateSourceTypeRequestBuilder()
                 .withRequestInfo(requestInfo).withSourceType(sourceType).build();
 
         Response response = new WCMSResource().updateSourceTypeResource(RequestHelper.getJsonString(updateSourceTypeRequest),
-                searchSourceTypeResponse.getWaterSourceType()[0].getCode());
+                searchSourceTypeResponse.getSourceTypes()[0].getCode());
         CreateSourceTypeResponse updateSourceTypeResponse = (CreateSourceTypeResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), CreateSourceTypeResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertEquals("Updated", updateSourceTypeResponse.getWaterSourceType()[0].getName().split("-")[1]);
+        Assert.assertEquals("Updated", updateSourceTypeResponse.getSourceTypes()[0].getName().split("-")[1]);
         new APILogger().log("Update SourceType Test is Completed ---");
         return updateSourceTypeResponse;
     }
@@ -110,7 +110,7 @@ public class SourceTypeTest extends BaseAPITest {
                 ResponseHelper.getResponseAsObject(response.asString(), CreateSourceTypeResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
-        Assert.assertTrue(searchSourceTypeResponse.getWaterSourceType().length > 0);
+        Assert.assertTrue(searchSourceTypeResponse.getSourceTypes().length > 0);
         new APILogger().log("Get ALL SourceType Test Request is Started ---");
     }
 }

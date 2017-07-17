@@ -1,6 +1,6 @@
 package entities.requests.wcms.propertyCategoryType.create;
 
-public class PropertyCategory {
+public class PropertyTypeCategoryType {
     private String propertyTypeName;
     private String categoryTypeName;
     private String tenantId;

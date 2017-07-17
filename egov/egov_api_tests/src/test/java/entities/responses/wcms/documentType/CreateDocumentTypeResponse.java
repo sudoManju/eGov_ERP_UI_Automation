@@ -4,9 +4,10 @@ import entities.responses.wcms.ResponseInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class CreateDocumentTypeResponse {
-    private ResponseInfo ResponseInfo;
 
-    @JsonProperty("DocumentTypes")
+    @JsonProperty("responseInfo")
+    private ResponseInfo ResponseInfo;
+    @JsonProperty("documentTypes")
     private DocumentTypes[] documentTypes;
 
     public ResponseInfo getResponseInfo() {

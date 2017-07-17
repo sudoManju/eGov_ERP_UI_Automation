@@ -1,36 +1,36 @@
 package builders.wcms.propertyCategoryType;
 
-import entities.requests.wcms.propertyCategoryType.create.PropertyCategory;
+import entities.requests.wcms.propertyCategoryType.create.PropertyTypeCategoryType;
 
 public class PropertyCategoryBuilder {
-    PropertyCategory propertyCategory = new PropertyCategory();
+    PropertyTypeCategoryType propertyTypeCategoryType = new PropertyTypeCategoryType();
 
     public PropertyCategoryBuilder() {
-        propertyCategory.setActive("true");
-        propertyCategory.setTenantId("default");
+        propertyTypeCategoryType.setActive("true");
+        propertyTypeCategoryType.setTenantId("default");
     }
 
     public PropertyCategoryBuilder withPropertyTypeName(String propertyTypeName) {
-        propertyCategory.setPropertyTypeName(propertyTypeName);
+        propertyTypeCategoryType.setPropertyTypeName(propertyTypeName);
         return this;
     }
 
     public PropertyCategoryBuilder withCategoryTypeName(String categoryTypeName) {
-        propertyCategory.setCategoryTypeName(categoryTypeName);
+        propertyTypeCategoryType.setCategoryTypeName(categoryTypeName);
         return this;
     }
 
     public PropertyCategoryBuilder withTenantId(String tenantId) {
-        propertyCategory.setTenantId(tenantId);
+        propertyTypeCategoryType.setTenantId(tenantId);
         return this;
     }
 
     public PropertyCategoryBuilder withActive(String active) {
-        propertyCategory.setActive(active);
+        propertyTypeCategoryType.setActive(active);
         return this;
     }
 
-    public PropertyCategory build() {
-        return propertyCategory;
+    public PropertyTypeCategoryType build() {
+        return propertyTypeCategoryType;
     }
 }

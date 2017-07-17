@@ -5,7 +5,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class CreatePropertyTypeUsageTypeResponse {
     private ResponseInfo ResponseInfo;
-    @JsonProperty("PropertyTypeUsageTypes")
+    @JsonProperty("propertyTypeUsageTypes")
     private PropertyTypeUsageTypes[] PropertyTypeUsageTypes;
 
     public ResponseInfo getResponseInfo() {

@@ -1,14 +1,13 @@
-package entities.responses.wcms.pipeSize;
+package entities.responses.wcms.sourceType.create;
 
-public class PipeSize {
+public class SourceTypes {
     private String code;
-    private double sizeInInch;
+    private String name;
     private String tenantId;
-    private int sizeInMilimeter;
     private String description;
     private boolean active;
-    private Object id;
-    private Object auditDeatils;
+    private int id;
+    private String auditDeatils;
 
     public String getCode() {
         return this.code;
@@ -18,12 +17,12 @@ public class PipeSize {
         this.code = code;
     }
 
-    public double getSizeInInch() {
-        return this.sizeInInch;
+    public String getName() {
+        return this.name;
     }
 
-    public void setSizeInInch(double sizeInInch) {
-        this.sizeInInch = sizeInInch;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getTenantId() {
@@ -32,14 +31,6 @@ public class PipeSize {
 
     public void setTenantId(String tenantId) {
         this.tenantId = tenantId;
-    }
-
-    public int getSizeInMilimeter() {
-        return this.sizeInMilimeter;
-    }
-
-    public void setSizeInMilimeter(int sizeInMilimeter) {
-        this.sizeInMilimeter = sizeInMilimeter;
     }
 
     public String getDescription() {
@@ -58,19 +49,19 @@ public class PipeSize {
         this.active = active;
     }
 
-    public Object getId() {
+    public int getId() {
         return this.id;
     }
 
-    public void setId(Object id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Object getAuditDeatils() {
+    public String getAuditDeatils() {
         return this.auditDeatils;
     }
 
-    public void setAuditDeatils(Object auditDeatils) {
+    public void setAuditDeatils(String auditDeatils) {
         this.auditDeatils = auditDeatils;
     }
 }

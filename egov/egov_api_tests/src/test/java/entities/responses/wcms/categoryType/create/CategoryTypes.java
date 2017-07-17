@@ -1,5 +1,7 @@
 package entities.responses.wcms.categoryType.create;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 public class CategoryTypes {
     private String code;
     private String name;

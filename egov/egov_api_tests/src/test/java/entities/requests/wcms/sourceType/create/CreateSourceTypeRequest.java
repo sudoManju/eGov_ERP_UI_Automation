@@ -4,10 +4,10 @@ import entities.requests.wcms.RequestInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class CreateSourceTypeRequest {
-    @JsonProperty("SourceType")
+    @JsonProperty("sourceType")
     private SourceType sourceType;
 
-    @JsonProperty("RequestInfo")
+    @JsonProperty("requestInfo")
     private RequestInfo RequestInfo;
 
     public SourceType getSourceType() {

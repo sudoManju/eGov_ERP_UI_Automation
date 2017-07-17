@@ -4,11 +4,11 @@ import entities.responses.wcms.ResponseInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class CreatePropertyCategoryTypeResponse {
-    @JsonProperty("ResponseInfo")
+    @JsonProperty("responseInfo")
     private ResponseInfo ResponseInfo;
 
-    @JsonProperty("PropertyCategories")
-    private PropertyCategories[] propertyCategories;
+    @JsonProperty("propertyTypeCategoryTypes")
+    private PropertyTypeCategoryTypes[] propertyCategories;
 
     public ResponseInfo getResponseInfo() {
         return this.ResponseInfo;
@@ -18,11 +18,11 @@ public class CreatePropertyCategoryTypeResponse {
         this.ResponseInfo = ResponseInfo;
     }
 
-    public PropertyCategories[] getPropertyCategories() {
+    public PropertyTypeCategoryTypes[] getPropertyCategories() {
         return this.propertyCategories;
     }
 
-    public void setPropertyCategories(PropertyCategories[] propertyCategories) {
+    public void setPropertyCategories(PropertyTypeCategoryTypes[] propertyCategories) {
         this.propertyCategories = propertyCategories;
     }
 }

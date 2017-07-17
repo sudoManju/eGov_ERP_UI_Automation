@@ -1,6 +1,6 @@
 package entities.responses.wcms.documentTypeApplicationType;
 
-public class DocumentTypeApplicationType {
+public class DocumentTypeApplicationTypes {
     private String applicationType;
     private String documentType;
     private String auditDetails;

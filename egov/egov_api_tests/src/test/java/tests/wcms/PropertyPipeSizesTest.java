@@ -25,17 +25,17 @@ import java.io.IOException;
 import static data.SearchParameterData.WITH_MILLIMETERSIZE;
 import static data.UserData.MANAS;
 
-public class PropertyPipeSizeTest extends BaseAPITest {
+public class PropertyPipeSizesTest extends BaseAPITest {
 
     @Test(groups = {Categories.SANITY, Categories.WCMS})
     public void createSearchUpdatePropertyPipeSizeTest() throws IOException {
         LoginAndLogoutHelper.login(MANAS); // Login
         SearchPropertyTypesResponse searchPropertyTypesResponse = new PTISMasterSearchHelper().searchAllPropertyTypes(); // Get PropertyTypes
-        CreatePipeSizeResponse createPipeSizeResponse = new PipeSizeTest().createPipeSize(); // Create PipeSize
-        CreatePipeSizeResponse searchPipeSizeResponse = new PipeSizeTest().searchPipeSize(createPipeSizeResponse, WITH_MILLIMETERSIZE); // Search PipeSize
+        CreatePipeSizeResponse createPipeSizeResponse = new PipeSizesTest().createPipeSize(); // Create PipeSizes
+        CreatePipeSizeResponse searchPipeSizeResponse = new PipeSizesTest().searchPipeSize(createPipeSizeResponse, WITH_MILLIMETERSIZE); // Search PipeSizes
 
-        CreatePropertyPipeSizeResponse createPropertyPipeSizeResponse = createPropertyPipeSize(searchPropertyTypesResponse, searchPipeSizeResponse); // Create PropertyType - PipeSize
-        CreatePropertyPipeSizeResponse searchPropertyPipeSizeResponse = searchPropertyPipeSize(createPropertyPipeSizeResponse); // Search PropertyType - PipeSize
+        CreatePropertyPipeSizeResponse createPropertyPipeSizeResponse = createPropertyPipeSize(searchPropertyTypesResponse, searchPipeSizeResponse); // Create PropertyType - PipeSizes
+        CreatePropertyPipeSizeResponse searchPropertyPipeSizeResponse = searchPropertyPipeSize(createPropertyPipeSizeResponse); // Search PropertyType - PipeSizes
         updatePropertyPipeSize(createPropertyPipeSizeResponse, searchPropertyTypesResponse, searchPropertyPipeSizeResponse);
         LoginAndLogoutHelper.logout(); // Logout
     }
@@ -51,22 +51,22 @@ public class PropertyPipeSizeTest extends BaseAPITest {
     public void propertyPipeSizeTest() throws IOException {
         LoginAndLogoutHelper.login(MANAS); // Login
         SearchPropertyTypesResponse searchPropertyTypesResponse = new PTISMasterSearchHelper().searchAllPropertyTypes(); // Get PropertyTypes
-        CreatePipeSizeResponse createPipeSizeResponse = new PipeSizeTest().createPipeSize(); // Create PipeSize
-        CreatePipeSizeResponse searchPipeSizeResponse = new PipeSizeTest().searchPipeSize(createPipeSizeResponse, WITH_MILLIMETERSIZE); // Search PipeSize
+        CreatePipeSizeResponse createPipeSizeResponse = new PipeSizesTest().createPipeSize(); // Create PipeSizes
+        CreatePipeSizeResponse searchPipeSizeResponse = new PipeSizesTest().searchPipeSize(createPipeSizeResponse, WITH_MILLIMETERSIZE); // Search PipeSizes
 
-        CreatePropertyPipeSizeResponse createPropertyPipeSizeResponse = createPropertyPipeSize(searchPropertyTypesResponse, searchPipeSizeResponse); // Create PropertyType - PipeSize
-        CreatePropertyPipeSizeResponse searchPropertyPipeSizeResponse = searchPropertyPipeSize(createPropertyPipeSizeResponse); // Search PropertyType - PipeSize
+        CreatePropertyPipeSizeResponse createPropertyPipeSizeResponse = createPropertyPipeSize(searchPropertyTypesResponse, searchPipeSizeResponse); // Create PropertyType - PipeSizes
+        CreatePropertyPipeSizeResponse searchPropertyPipeSizeResponse = searchPropertyPipeSize(createPropertyPipeSizeResponse); // Search PropertyType - PipeSizes
         updatePropertyPipeSize(createPropertyPipeSizeResponse, searchPropertyTypesResponse, searchPropertyPipeSizeResponse);
         LoginAndLogoutHelper.logout(); // Logout
     }
 
     private CreatePropertyPipeSizeResponse createPropertyPipeSize(SearchPropertyTypesResponse searchPropertyTypesResponse, CreatePipeSizeResponse searchPipeSizeResponse) throws IOException {
-        new APILogger().log("Create PropertyType - PipeSize Test is Started ---");
+        new APILogger().log("Create PropertyType - PipeSizes Test is Started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         PropertyPipeSize propertyPipeSize = new PropertyPipeSizeBuilder()
                 .withPropertyTypeName(searchPropertyTypesResponse
                         .getPropertyTypes()[RandomUtils.nextInt(0, searchPropertyTypesResponse.getPropertyTypes().length)].getName())
-                .withPipeSize(String.valueOf(searchPipeSizeResponse.getPipeSize()[0].getSizeInMilimeter()))
+                .withPipeSize(String.valueOf(searchPipeSizeResponse.getPipeSizes()[0].getSizeInMilimeter()))
                 .build();
         CreatePropertyPipeSizeRequest createPropertyPipeSizeRequest = new CreatePropertyPipeSizeRequestBuilder()
                 .withRequestInfo(requestInfo)
@@ -77,13 +77,13 @@ public class PropertyPipeSizeTest extends BaseAPITest {
                 ResponseHelper.getResponseAsObject(response.asString(), CreatePropertyPipeSizeResponse.class);
 
         Assert.assertEquals(createPropertyPipeSizeResponse.getResponseInfo().getStatus(), "201");
-        Assert.assertEquals(createPropertyPipeSizeResponse.getPropertyPipeSize()[0].getPipeSize(), searchPipeSizeResponse.getPipeSize()[0].getSizeInMilimeter());
-        new APILogger().log("Create PropertyType - PipeSize Test is Completed ---");
+        Assert.assertEquals(createPropertyPipeSizeResponse.getPropertyPipeSize()[0].getPipeSize(), searchPipeSizeResponse.getPipeSizes()[0].getSizeInMilimeter());
+        new APILogger().log("Create PropertyType - PipeSizes Test is Completed ---");
         return createPropertyPipeSizeResponse;
     }
 
     private CreatePropertyPipeSizeResponse searchPropertyPipeSize(CreatePropertyPipeSizeResponse createPropertyPipeSizeResponse) throws IOException {
-        new APILogger().log("Search PropertyType - PipeSize Test is Started ---");
+        new APILogger().log("Search PropertyType - PipeSizes Test is Started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         SearchPropertyPipeSizeRequest searchPropertyPipeSizeRequest = new SearchPropertyPipeSizeRequestBuilder()
                 .withRequestInfo(requestInfo).build();
@@ -99,7 +99,7 @@ public class PropertyPipeSizeTest extends BaseAPITest {
         Assert.assertEquals(searchPropertyPipeSizeResponse.getResponseInfo().getStatus(), "200");
         Assert.assertEquals(searchPropertyPipeSizeResponse.getPropertyPipeSize()[0].getPipeSize(),
                 createPropertyPipeSizeResponse.getPropertyPipeSize()[0].getPipeSize());
-        new APILogger().log("Search PropertyType - PipeSize Test is Completed ---");
+        new APILogger().log("Search PropertyType - PipeSizes Test is Completed ---");
         return searchPropertyPipeSizeResponse;
     }
 
@@ -107,7 +107,7 @@ public class PropertyPipeSizeTest extends BaseAPITest {
                                         SearchPropertyTypesResponse searchPropertyTypesResponse,
                                         CreatePropertyPipeSizeResponse searchPropertyPipeSizeResponse) throws IOException {
 
-        new APILogger().log("Update PropertyType - PipeSize Test is Started ---");
+        new APILogger().log("Update PropertyType - PipeSizes Test is Started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
 
         String propertyTypeName = createPropertyPipeSizeResponse.getPropertyPipeSize()[0].getPropertyTypeName();
@@ -134,11 +134,11 @@ public class PropertyPipeSizeTest extends BaseAPITest {
         Assert.assertEquals(updatePropertyPipeSizeResponse.getResponseInfo().getStatus(), "200");
         Assert.assertNotEquals(updatePropertyPipeSizeResponse.getPropertyPipeSize()[0].getPropertyTypeName(),
                 createPropertyPipeSizeResponse.getPropertyPipeSize()[0].getPropertyTypeName());
-        new APILogger().log("Update PropertyType - PipeSize Test is Completed ---");
+        new APILogger().log("Update PropertyType - PipeSizes Test is Completed ---");
     }
 
     private void getAllPropertyPipeSizes() throws IOException {
-        new APILogger().log("Get All PropertyType - PipeSize Test is Started ---");
+        new APILogger().log("Get All PropertyType - PipeSizes Test is Started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         SearchPropertyPipeSizeRequest searchPropertyPipeSizeRequest = new SearchPropertyPipeSizeRequestBuilder()
                 .withRequestInfo(requestInfo).build();
@@ -150,6 +150,6 @@ public class PropertyPipeSizeTest extends BaseAPITest {
 
         Assert.assertEquals(searchPropertyPipeSizeResponse.getResponseInfo().getStatus(), "200");
         Assert.assertTrue(searchPropertyPipeSizeResponse.getPropertyPipeSize().length > 0);
-        new APILogger().log("Get All PropertyType - PipeSize Test is Completed ---");
+        new APILogger().log("Get All PropertyType - PipeSizes Test is Completed ---");
     }
 }

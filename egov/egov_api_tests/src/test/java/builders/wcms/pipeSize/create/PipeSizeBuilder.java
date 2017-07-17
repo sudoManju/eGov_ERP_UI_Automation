@@ -8,7 +8,7 @@ public class PipeSizeBuilder {
 
     public PipeSizeBuilder() {
         pipeSize.setSizeInMilimeter(new BaseAPITest().get3DigitRandomInt());
-        pipeSize.setDescription("PipeSize Description");
+        pipeSize.setDescription("PipeSizes Description");
         pipeSize.setActive(true);
         pipeSize.setTenantId("default");
     }

@@ -5,16 +5,16 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class CreatePropertyCategoryTypeRequest {
 
-    @JsonProperty("PropertyCategory")
-    private PropertyCategory PropertyCategory;
+    @JsonProperty("propertyTypeCategoryType")
+    private PropertyTypeCategoryType PropertyTypeCategoryType;
     private RequestInfo RequestInfo;
 
-    public PropertyCategory getPropertyCategory() {
-        return this.PropertyCategory;
+    public PropertyTypeCategoryType getPropertyTypeCategoryType() {
+        return this.PropertyTypeCategoryType;
     }
 
-    public void setPropertyCategory(PropertyCategory PropertyCategory) {
-        this.PropertyCategory = PropertyCategory;
+    public void setPropertyTypeCategoryType(PropertyTypeCategoryType PropertyTypeCategoryType) {
+        this.PropertyTypeCategoryType = PropertyTypeCategoryType;
     }
 
     public RequestInfo getRequestInfo() {

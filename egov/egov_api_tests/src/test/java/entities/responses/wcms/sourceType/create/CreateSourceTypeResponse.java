@@ -6,8 +6,8 @@ import org.codehaus.jackson.annotate.JsonProperty;
 public class CreateSourceTypeResponse {
     private ResponseInfo ResponseInfo;
 
-    @JsonProperty("WaterSourceType")
-    private WaterSourceType[] waterSourceType;
+    @JsonProperty("sourceTypes")
+    private SourceTypes[] sourceTypes;
 
     public ResponseInfo getResponseInfo() {
         return this.ResponseInfo;
@@ -17,11 +17,11 @@ public class CreateSourceTypeResponse {
         this.ResponseInfo = ResponseInfo;
     }
 
-    public WaterSourceType[] getWaterSourceType() {
-        return this.waterSourceType;
+    public SourceTypes[] getSourceTypes() {
+        return this.sourceTypes;
     }
 
-    public void setWaterSourceType(WaterSourceType[] waterSourceType) {
-        this.waterSourceType = waterSourceType;
+    public void setSourceTypes(SourceTypes[] sourceTypes) {
+        this.sourceTypes = sourceTypes;
     }
 }

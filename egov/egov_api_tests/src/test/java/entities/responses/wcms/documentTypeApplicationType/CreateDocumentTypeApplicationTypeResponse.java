@@ -4,10 +4,9 @@ import entities.responses.wcms.ResponseInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class CreateDocumentTypeApplicationTypeResponse {
-    @JsonProperty("ResponseInfo")
     private ResponseInfo ResponseInfo;
-    @JsonProperty("DocumentTypeApplicationType")
-    private DocumentTypeApplicationType[] DocumentTypeApplicationType;
+    @JsonProperty("documentTypeApplicationType")
+    private DocumentTypeApplicationTypes[] DocumentTypeApplicationTypes;
 
     public ResponseInfo getResponseInfo() {
         return this.ResponseInfo;
@@ -17,11 +16,11 @@ public class CreateDocumentTypeApplicationTypeResponse {
         this.ResponseInfo = ResponseInfo;
     }
 
-    public DocumentTypeApplicationType[] getDocumentTypeApplicationType() {
-        return this.DocumentTypeApplicationType;
+    public DocumentTypeApplicationTypes[] getDocumentTypeApplicationTypes() {
+        return this.DocumentTypeApplicationTypes;
     }
 
-    public void setDocumentTypeApplicationType(DocumentTypeApplicationType[] DocumentTypeApplicationType) {
-        this.DocumentTypeApplicationType = DocumentTypeApplicationType;
+    public void setDocumentTypeApplicationTypes(DocumentTypeApplicationTypes[] DocumentTypeApplicationTypes) {
+        this.DocumentTypeApplicationTypes = DocumentTypeApplicationTypes;
     }
 }

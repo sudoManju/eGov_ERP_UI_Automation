@@ -6,8 +6,8 @@ import org.codehaus.jackson.annotate.JsonProperty;
 public class CreatePipeSizeResponse {
     private ResponseInfo ResponseInfo;
 
-    @JsonProperty("PipeSize")
-    private PipeSize[] PipeSize;
+    @JsonProperty("pipeSizes")
+    private PipeSizes[] PipeSizes;
 
     public ResponseInfo getResponseInfo() {
         return this.ResponseInfo;
@@ -17,11 +17,11 @@ public class CreatePipeSizeResponse {
         this.ResponseInfo = ResponseInfo;
     }
 
-    public PipeSize[] getPipeSize() {
-        return this.PipeSize;
+    public PipeSizes[] getPipeSizes() {
+        return this.PipeSizes;
     }
 
-    public void setPipeSize(PipeSize[] PipeSize) {
-        this.PipeSize = PipeSize;
+    public void setPipeSizes(PipeSizes[] PipeSizes) {
+        this.PipeSizes = PipeSizes;
     }
 }

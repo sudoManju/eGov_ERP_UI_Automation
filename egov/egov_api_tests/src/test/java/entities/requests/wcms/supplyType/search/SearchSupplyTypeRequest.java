@@ -5,7 +5,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class SearchSupplyTypeRequest {
 
-    @JsonProperty("RequestInfo")
+    @JsonProperty("requestInfo")
     private RequestInfo RequestInfo;
 
     public RequestInfo getRequestInfo() {

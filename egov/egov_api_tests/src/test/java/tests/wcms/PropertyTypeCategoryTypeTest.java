@@ -7,7 +7,7 @@ import builders.wcms.propertyCategoryType.search.SearchPropertyCategoryTypeReque
 import com.jayway.restassured.response.Response;
 import entities.requests.wcms.RequestInfo;
 import entities.requests.wcms.propertyCategoryType.create.CreatePropertyCategoryTypeRequest;
-import entities.requests.wcms.propertyCategoryType.create.PropertyCategory;
+import entities.requests.wcms.propertyCategoryType.create.PropertyTypeCategoryType;
 import entities.requests.wcms.propertyCategoryType.search.SearchPropertyCategoryTypeRequest;
 import entities.responses.propertyTax.masters.propertyTypes.search.SearchPropertyTypesResponse;
 import entities.responses.wcms.categoryType.create.CreateCategoryTypeResponse;
@@ -25,7 +25,7 @@ import java.io.IOException;
 import static data.SearchParameterData.WITH_NAME;
 import static data.UserData.MANAS;
 
-public class PropertyCategoryTypeTest extends BaseAPITest {
+public class PropertyTypeCategoryTypeTest extends BaseAPITest {
 
     @Test(groups = {Categories.WCMS, Categories.SANITY})
     public void createSearchUpdatePropertyCategoryTypeTest() throws IOException {
@@ -50,14 +50,14 @@ public class PropertyCategoryTypeTest extends BaseAPITest {
     private CreatePropertyCategoryTypeResponse createPropertyCategoryType(SearchPropertyTypesResponse searchPropertyTypesResponse, CreateCategoryTypeResponse searchCategoryTypeResponse) throws IOException {
         new APILogger().log("Create PropertyType - CategoryType Test is Started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
-        PropertyCategory propertyCategory = new PropertyCategoryBuilder()
+        PropertyTypeCategoryType propertyTypeCategoryType = new PropertyCategoryBuilder()
                 .withCategoryTypeName(searchCategoryTypeResponse.getCategory()[0].getName())
                 .withPropertyTypeName(searchPropertyTypesResponse
                         .getPropertyTypes()[RandomUtils.nextInt(0, searchPropertyTypesResponse.getPropertyTypes().length)].getName())
                 .build();
         CreatePropertyCategoryTypeRequest createPropertyCategoryTypeRequest = new CreatePropertyCategoryTypeRequestBuilder()
                 .withRequestInfo(requestInfo)
-                .withPropertyCategory(propertyCategory).build();
+                .withPropertyCategory(propertyTypeCategoryType).build();
 
         Response response = new WCMSResource()
                 .createPropertyCategoryTypeResource(RequestHelper.getJsonString(createPropertyCategoryTypeRequest));
@@ -105,12 +105,12 @@ public class PropertyCategoryTypeTest extends BaseAPITest {
             break;
         }
 
-        PropertyCategory propertyCategory = new PropertyCategoryBuilder()
+        PropertyTypeCategoryType propertyTypeCategoryType = new PropertyCategoryBuilder()
                 .withCategoryTypeName(searchPropertyCategoryTypeResponse.getPropertyCategories()[0].getCategoryTypeName())
                 .withPropertyTypeName(propertyTypeName).build();
         CreatePropertyCategoryTypeRequest createPropertyCategoryTypeRequest = new CreatePropertyCategoryTypeRequestBuilder()
                 .withRequestInfo(requestInfo)
-                .withPropertyCategory(propertyCategory).build();
+                .withPropertyCategory(propertyTypeCategoryType).build();
 
         Response response = new WCMSResource().updatePropertyCategoryTypeResource(RequestHelper.getJsonString(createPropertyCategoryTypeRequest),
                 searchPropertyCategoryTypeResponse.getPropertyCategories()[0].getId());

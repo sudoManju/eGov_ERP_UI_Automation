@@ -5,9 +5,9 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class CreateSupplyTypeRequest {
 
-    @JsonProperty("SupplyType")
+    @JsonProperty("supplyType")
     private SupplyType SupplyType;
-    @JsonProperty("RequestInfo")
+    @JsonProperty("requestInfo")
     private RequestInfo RequestInfo;
 
     public SupplyType getSupplyType() {

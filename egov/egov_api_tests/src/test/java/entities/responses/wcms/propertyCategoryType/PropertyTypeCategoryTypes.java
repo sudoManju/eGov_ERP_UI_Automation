@@ -1,6 +1,6 @@
 package entities.responses.wcms.propertyCategoryType;
 
-public class PropertyCategories {
+public class PropertyTypeCategoryTypes {
     private String propertyTypeId;
     private String propertyTypeName;
     private String categoryTypeName;
