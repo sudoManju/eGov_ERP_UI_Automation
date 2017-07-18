@@ -331,7 +331,28 @@ $('#zone').change(function(){
 		
 	});
 });
-
+$('#ward').change(function(){
+	jQuery.ajax({
+		url: "/bpa/boundary/ajaxBoundary-localityByWard",
+		type: "GET",
+		data: {
+			wardId : jQuery('#ward').val()
+		},
+		cache: false,
+		dataType: "json",
+		success: function (response) {
+			jQuery('#localitys').html("");
+			jQuery('#localitys').append("<option value=''>Select</option>");
+			jQuery.each(response, function(index, value) {
+				jQuery('#localitys').append($('<option>').text(value.localityName).attr('value', value.localityId));
+			});
+		}, 
+		error: function (response) {
+			jQuery('#localitys').html("");
+			jQuery('#localitys').append("<option value=''>Select</option>");
+		}
+	});
+});
 jQuery( ".dateval" ).datepicker({ 
   	 format: 'dd/mm/yyyy',
   	 autoclose:true,
@@ -378,6 +399,7 @@ jQuery( ".dateval" ).datepicker({
 	    return retvalue;
 	}
 	$('#zone').trigger('change');	
+	//$('#ward').trigger('change');   
 });
 
 function validateForm(validator) {

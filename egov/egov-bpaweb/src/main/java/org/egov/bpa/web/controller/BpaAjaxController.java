@@ -39,6 +39,7 @@
  */
 package org.egov.bpa.web.controller;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,6 +51,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.egov.bpa.application.entity.Occupancy;
 import org.egov.bpa.application.entity.PostalAddress;
 import org.egov.bpa.application.entity.StakeHolder;
@@ -58,15 +60,19 @@ import org.egov.bpa.application.service.ApplicationBpaService;
 import org.egov.bpa.application.service.PostalAddressService;
 import org.egov.bpa.masters.service.OccupancyService;
 import org.egov.bpa.masters.service.StakeHolderService;
+import org.egov.bpa.utils.BpaConstants;
 import org.egov.eis.entity.Assignment;
 import org.egov.eis.entity.AssignmentAdaptor;
 import org.egov.eis.service.AssignmentService;
 import org.egov.eis.service.DesignationService;
+import org.egov.infra.admin.master.entity.Boundary;
 import org.egov.infra.admin.master.entity.User;
+import org.egov.infra.admin.master.service.CrossHierarchyService;
 import org.egov.infra.admin.master.service.UserService;
 import org.egov.infra.persistence.entity.enums.UserType;
 import org.egov.infra.workflow.matrix.service.CustomizedWorkFlowService;
 import org.egov.pims.commons.Designation;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -102,6 +108,8 @@ public class BpaAjaxController {
     private UserService userService;
     @Autowired
     private PostalAddressService postalAddressService;
+    @Autowired
+    private CrossHierarchyService crossHierarchyService;
 
     @RequestMapping(value = "/ajax/getAdmissionFees", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -196,5 +204,23 @@ public class BpaAjaxController {
     @ResponseBody
     public List<PostalAddress> getPostalAddress(@RequestParam final String pincode) {
         return postalAddressService.getPostalAddressList(pincode);
+    }
+
+    @RequestMapping(value = { "/boundary/ajaxBoundary-localityByWard" }, method = RequestMethod.GET)
+    public void localityByWard(@RequestParam Long wardId, HttpServletResponse response) throws IOException {
+
+        final List<Boundary> blocks = crossHierarchyService
+                .findChildBoundariesByParentBoundaryIdParentBoundaryTypeAndChildBoundaryType(BpaConstants.WARD,
+                        BpaConstants.REVENUE_HIERARCHY_TYPE,
+                        BpaConstants.LOCALITY_BNDRY_TYPE,
+                        wardId);
+        final List<JSONObject> jsonObjects = new ArrayList<>();
+        for (final Boundary block : blocks) {
+            final JSONObject jsonObj = new JSONObject();
+            jsonObj.put("localityId", block.getId());
+            jsonObj.put("localityName", block.getName());
+            jsonObjects.add(jsonObj);
+        }
+        IOUtils.write(jsonObjects.toString(), response.getWriter());
     }
 }
