@@ -4,6 +4,8 @@ import builders.propertyTax.masters.AuditDetailsBuilder;
 import entities.requests.propertyTax.masters.AuditDetails;
 import entities.requests.propertyTax.masters.wallType.WallTypes;
 
+import static data.ConstantData.tenantId;
+
 public class WallTypesBuilder {
 
     WallTypes wallTypes = new WallTypes();
@@ -12,7 +14,7 @@ public class WallTypesBuilder {
 
     public WallTypesBuilder() {
         wallTypes.setId(0);
-        wallTypes.setTenantId("default");
+        wallTypes.setTenantId(tenantId);
         wallTypes.setDescription("Testing the wall type");
         wallTypes.setAuditDetails(auditDetails);
     }

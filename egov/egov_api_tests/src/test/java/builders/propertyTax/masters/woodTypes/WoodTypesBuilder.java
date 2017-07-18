@@ -4,6 +4,8 @@ import builders.propertyTax.masters.AuditDetailsBuilder;
 import entities.requests.propertyTax.masters.AuditDetails;
 import entities.requests.propertyTax.masters.woodType.WoodTypes;
 
+import static data.ConstantData.tenantId;
+
 public class WoodTypesBuilder {
 
     WoodTypes woodTypes = new WoodTypes();
@@ -12,7 +14,7 @@ public class WoodTypesBuilder {
 
     public WoodTypesBuilder() {
         woodTypes.setAuditDetails(auditDetails);
-        woodTypes.setTenantId("default");
+        woodTypes.setTenantId(tenantId);
         woodTypes.setId(0);
         woodTypes.setDescription("Testing the woodTypes Master");
     }

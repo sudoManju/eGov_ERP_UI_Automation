@@ -4,6 +4,8 @@ import builders.propertyTax.masters.AuditDetailsBuilder;
 import entities.requests.propertyTax.masters.AuditDetails;
 import entities.requests.propertyTax.masters.structureClass.StructureClasses;
 
+import static data.ConstantData.tenantId;
+
 public class StructureClassesBuilder {
 
     StructureClasses structureClasses = new StructureClasses();
@@ -14,7 +16,7 @@ public class StructureClassesBuilder {
         structureClasses.setActive(true);
         structureClasses.setDescription("Testing the structureClass Master");
         structureClasses.setId(0);
-        structureClasses.setTenantId("default");
+        structureClasses.setTenantId(tenantId);
         structureClasses.setAuditDetails(auditDetails);
     }
 

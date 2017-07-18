@@ -4,6 +4,8 @@ import entities.requests.propertyTax.services.create.AuditDetails;
 import entities.requests.propertyTax.services.create.Owners;
 import entities.requests.propertyTax.services.create.Roles;
 
+import static data.ConstantData.tenantId;
+
 public class OwnersBuilder {
 
     Owners owners = new Owners();
@@ -26,7 +28,7 @@ public class OwnersBuilder {
         owners.setLocale("en_IN");
         owners.setType("CITIZEN");
         owners.setAccountLocked(false);
-        owners.setTenantId("default");
+        owners.setTenantId(tenantId);
         owners.setAuditDetails(auditDetails);
         roles[0] = role1;
         owners.setRoles(roles);

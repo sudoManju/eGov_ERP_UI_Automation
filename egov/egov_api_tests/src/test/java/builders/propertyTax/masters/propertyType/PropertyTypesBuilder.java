@@ -4,6 +4,8 @@ import builders.propertyTax.masters.AuditDetailsBuilder;
 import entities.requests.propertyTax.masters.AuditDetails;
 import entities.requests.propertyTax.masters.propertyType.PropertyTypes;
 
+import static data.ConstantData.tenantId;
+
 public class PropertyTypesBuilder {
 
     PropertyTypes propertyTypes = new PropertyTypes();
@@ -11,7 +13,7 @@ public class PropertyTypesBuilder {
     AuditDetails auditDetails = new AuditDetailsBuilder().build();
 
     public PropertyTypesBuilder() {
-        propertyTypes.setTenantId("default");
+        propertyTypes.setTenantId(tenantId);
         propertyTypes.setId(0);
         propertyTypes.setDescription("Testing the propertyType master");
         propertyTypes.setActive(true);

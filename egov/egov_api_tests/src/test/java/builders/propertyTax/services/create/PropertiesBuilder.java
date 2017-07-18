@@ -2,6 +2,8 @@ package builders.propertyTax.services.create;
 
 import entities.requests.propertyTax.services.create.*;
 
+import static data.ConstantData.tenantId;
+
 public class PropertiesBuilder {
 
     Properties properties = new Properties();
@@ -21,7 +23,7 @@ public class PropertiesBuilder {
     Owners owners1 = new OwnersBuilder().build();
 
     public PropertiesBuilder(){
-        properties.setTenantId("default");
+        properties.setTenantId(tenantId);
         properties.setOldUpicNumber("");
         properties.setVltUpicNumber("");
         properties.setCreationReason("NEWPROPERTY");

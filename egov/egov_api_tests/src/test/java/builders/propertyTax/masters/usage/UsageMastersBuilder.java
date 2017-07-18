@@ -4,6 +4,8 @@ import builders.propertyTax.masters.AuditDetailsBuilder;
 import entities.requests.propertyTax.masters.AuditDetails;
 import entities.requests.propertyTax.masters.usage.UsageMasters;
 
+import static data.ConstantData.tenantId;
+
 public class UsageMastersBuilder {
 
     UsageMasters usageMasters = new UsageMasters();
@@ -19,7 +21,7 @@ public class UsageMastersBuilder {
         usageMasters.setActive(true);
         usageMasters.setIsResidential(true);
         usageMasters.setOrderNumber(0);
-        usageMasters.setTenantId("default");
+        usageMasters.setTenantId(tenantId);
         usageMasters.setAuditDetails(auditDetails);
     }
 

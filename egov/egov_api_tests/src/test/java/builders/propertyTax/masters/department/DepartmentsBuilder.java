@@ -4,6 +4,8 @@ import builders.propertyTax.masters.AuditDetailsBuilder;
 import entities.requests.propertyTax.masters.AuditDetails;
 import entities.requests.propertyTax.masters.department.Departments;
 
+import static data.ConstantData.tenantId;
+
 public class DepartmentsBuilder {
 
     Departments departments = new Departments();
@@ -12,7 +14,7 @@ public class DepartmentsBuilder {
 
     public DepartmentsBuilder() {
         departments.setId(0);
-        departments.setTenantId("default");
+        departments.setTenantId(tenantId);
         departments.setDescription("Testing the Department Master");
         departments.setAuditDetails(auditDetails);
     }

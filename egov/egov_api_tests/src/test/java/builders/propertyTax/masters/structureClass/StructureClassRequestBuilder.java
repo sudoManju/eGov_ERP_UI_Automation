@@ -4,19 +4,19 @@ import entities.requests.propertyTax.masters.RequestInfo;
 import entities.requests.propertyTax.masters.structureClass.StructureClassRequest;
 import entities.requests.propertyTax.masters.structureClass.StructureClasses;
 
-public class CreateStructureClassRequestBuilder {
+public class StructureClassRequestBuilder {
 
     StructureClassRequest request = new StructureClassRequest();
 
-    public CreateStructureClassRequestBuilder() {
+    public StructureClassRequestBuilder() {
     }
 
-    public CreateStructureClassRequestBuilder withStructureClasses(StructureClasses[] structureClasses) {
+    public StructureClassRequestBuilder withStructureClasses(StructureClasses[] structureClasses) {
         request.setStructureClasses(structureClasses);
         return this;
     }
 
-    public CreateStructureClassRequestBuilder withRequestinfo(RequestInfo requestinfo) {
+    public StructureClassRequestBuilder withRequestinfo(RequestInfo requestinfo) {
         request.setRequestInfo(requestinfo);
         return this;
     }

@@ -1,23 +1,19 @@
 package resources.propertyTax.masters;
 
 import com.jayway.restassured.response.Response;
+import resources.Resource;
 import utils.APILogger;
 import utils.Properties;
 
 import static com.jayway.restassured.RestAssured.given;
+import static data.ConstantData.tenantId;
 
-public class FloorTypesMasterResource {
+public class FloorTypesMasterResource extends Resource {
 
     public Response create(String jsonString) {
 
         new APILogger().log("Create FloorTypes request is started as--" + jsonString);
-
-        Response response = given().request().with()
-                .header("Content-Type", "application/json")
-                .body(jsonString)
-                .when()
-                .post(Properties.createFloorTypesUrl);
-
+        Response response = getPOSTResponseFromDEV(jsonString,Properties.createFloorTypesUrl+tenantId);
         new APILogger().log("Create FloorTypes response is generated as --" + response.asString());
 
         return response;
@@ -26,13 +22,7 @@ public class FloorTypesMasterResource {
     public Response search(String jsonString, String s) {
 
         new APILogger().log("Search FloorTypes request is started as--" + jsonString);
-
-        Response response = given().request().with()
-                .header("Content-Type", "application/json")
-                .body(jsonString)
-                .when()
-                .post(Properties.searchFloorTypesUrl + s);
-
+        Response response = getPOSTResponseFromDEV(jsonString,Properties.searchFloorTypesUrl+tenantId+s);
         new APILogger().log("Search FloorTypes response is generated as --" + response.asString());
 
         return response;
@@ -41,13 +31,7 @@ public class FloorTypesMasterResource {
     public Response update(String jsonString) {
 
         new APILogger().log("Update FloorTypes request is started as--" + jsonString);
-
-        Response response = given().request().with()
-                .header("Content-Type", "application/json")
-                .body(jsonString)
-                .when()
-                .post(Properties.updateFloorTypesUrl);
-
+        Response response = getPOSTResponseFromDEV(jsonString,Properties.updateFloorTypesUrl+tenantId);
         new APILogger().log("Update FloorTypes response is generated as --" + response.asString());
 
         return response;

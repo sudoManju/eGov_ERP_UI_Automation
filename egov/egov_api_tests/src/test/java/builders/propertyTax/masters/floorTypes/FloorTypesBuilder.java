@@ -4,6 +4,8 @@ import builders.propertyTax.masters.AuditDetailsBuilder;
 import entities.requests.propertyTax.masters.AuditDetails;
 import entities.requests.propertyTax.masters.floorType.FloorTypes;
 
+import static data.ConstantData.tenantId;
+
 public class FloorTypesBuilder {
 
     FloorTypes floorTypes = new FloorTypes();
@@ -12,7 +14,7 @@ public class FloorTypesBuilder {
 
     public FloorTypesBuilder() {
         floorTypes.setId(0);
-        floorTypes.setTenantId("default");
+        floorTypes.setTenantId(tenantId);
         floorTypes.setDescription("Testing The floor types Master");
         floorTypes.setAuditDetails(auditDetails);
     }

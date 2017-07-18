@@ -3,6 +3,8 @@ package builders.propertyTax.services.create;
 import entities.requests.propertyTax.services.create.Address;
 import entities.requests.propertyTax.services.create.AuditDetails;
 
+import static data.ConstantData.tenantId;
+
 public class AddressBuilder {
 
     Address address = new Address();
@@ -10,7 +12,7 @@ public class AddressBuilder {
     AuditDetails auditDetails = new AuditDetailsBuilder().build();
 
     public AddressBuilder(){
-        address.setTenantId("default");
+        address.setTenantId(tenantId);
         address.setLatitude(11);
         address.setLongitude(20);
         address.setAddressNumber("Test");

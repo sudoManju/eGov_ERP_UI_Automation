@@ -4,6 +4,8 @@ import builders.propertyTax.masters.AuditDetailsBuilder;
 import entities.requests.propertyTax.masters.AuditDetails;
 import entities.requests.propertyTax.masters.occupancy.OccuapancyMasters;
 
+import static data.ConstantData.tenantId;
+
 public class OccupancyMastersBuilder {
 
     OccuapancyMasters occuapancyMasters = new OccuapancyMasters();
@@ -13,7 +15,7 @@ public class OccupancyMastersBuilder {
     public OccupancyMastersBuilder() {
         occuapancyMasters.setId(0);
         occuapancyMasters.setDescription("Testing the Occupancy Master");
-        occuapancyMasters.setTenantId("default");
+        occuapancyMasters.setTenantId(tenantId);
         occuapancyMasters.setActive(true);
         occuapancyMasters.setAuditDetails(auditDetails);
     }

@@ -4,6 +4,8 @@ import builders.propertyTax.masters.AuditDetailsBuilder;
 import entities.requests.propertyTax.masters.AuditDetails;
 import entities.requests.propertyTax.masters.roofType.RoofTypes;
 
+import static data.ConstantData.tenantId;
+
 public class RoofTypesBuilder {
 
     RoofTypes roofTypes = new RoofTypes();
@@ -11,7 +13,7 @@ public class RoofTypesBuilder {
 
     public RoofTypesBuilder() {
         roofTypes.setId(0);
-        roofTypes.setTenantId("default");
+        roofTypes.setTenantId(tenantId);
         roofTypes.setDescription("Testing the Roof Type Master");
         roofTypes.setAuditDetails(auditDetails);
     }

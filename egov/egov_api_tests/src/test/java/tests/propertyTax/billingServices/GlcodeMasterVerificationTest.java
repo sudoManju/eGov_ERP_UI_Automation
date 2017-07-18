@@ -47,6 +47,7 @@ public class GlcodeMasterVerificationTest extends BaseAPITest{
         GlcodesMasterRequest request = new GlcodesMasterRequestBuilder().withRequestInfo(requestInfo).withGlcodes(glcodes).build();
 
         Response response = new GlcodesMasterResource().create(RequestHelper.getJsonString(request));
+        Assert.assertEquals(response.getStatusCode(),201);
         checkAsserts(request,response);
     }
 
@@ -54,7 +55,6 @@ public class GlcodeMasterVerificationTest extends BaseAPITest{
         GlcodesMasterResponse responseObject = (GlcodesMasterResponse)
                 ResponseHelper.getResponseAsObject(response.asString(),GlcodesMasterResponse.class);
 
-        Assert.assertEquals(response.getStatusCode(),201);
         Assert.assertEquals(responseObject.getResponseInfo().getStatus(),"200");
         for(int i = 0; i<request.getGlcodeMasters().length; i++){
             String name = request.getGlcodeMasters()[i].getTaxHead();

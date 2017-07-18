@@ -1,7 +1,7 @@
 package tests.propertyTax.masters;
 
 import builders.propertyTax.masters.RequestInfoBuilder;
-import builders.propertyTax.masters.structureClass.CreateStructureClassRequestBuilder;
+import builders.propertyTax.masters.structureClass.StructureClassRequestBuilder;
 import builders.propertyTax.masters.structureClass.StructureClassesBuilder;
 import com.jayway.restassured.response.Response;
 import entities.requests.propertyTax.masters.RequestInfo;
@@ -45,7 +45,7 @@ public class StructureClassMasterVerificationTest extends BaseAPITest {
         new APILogger().log("Create StructureClass Master Started");
         structureClasses[0] = new StructureClassesBuilder().withName("Test_" + get5DigitRandomInt()).withCode(get5DigitRandomInt())
                 .withNameLocal("Test_" + get5DigitRandomInt()).withOrderNumber(Integer.parseInt(get5DigitRandomInt())).build();
-        StructureClassRequest request = new CreateStructureClassRequestBuilder().withRequestinfo(requestInfo)
+        StructureClassRequest request = new StructureClassRequestBuilder().withRequestinfo(requestInfo)
                 .withStructureClasses(structureClasses)
                 .build();
 
@@ -72,7 +72,7 @@ public class StructureClassMasterVerificationTest extends BaseAPITest {
         new APILogger().log("Update StructureClass Master Started");
         structureClasses[0] = new StructureClassesBuilder().withId(id).withName("Test_" + get5DigitRandomInt()).withCode(get5DigitRandomInt())
                 .withNameLocal("Test_" + get5DigitRandomInt()).build();
-        StructureClassRequest request = new CreateStructureClassRequestBuilder().withRequestinfo(requestInfo)
+        StructureClassRequest request = new StructureClassRequestBuilder().withRequestinfo(requestInfo)
                 .withStructureClasses(structureClasses)
                 .build();
 

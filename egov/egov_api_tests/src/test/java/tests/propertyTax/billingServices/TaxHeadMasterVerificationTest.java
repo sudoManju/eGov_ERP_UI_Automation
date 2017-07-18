@@ -70,6 +70,7 @@ public class TaxHeadMasterVerificationTest extends BaseAPITest {
         TaxHeadMasterRequest request = new TaxHeadMasterRequestBuilder().withRequestInfo(requestInfo).withTaxHeadMaster(taxHeadMasters).build();
 
         Response response = new TaxHeadMasterResource().create(RequestHelper.getJsonString(request));
+        Assert.assertEquals(response.getStatusCode(),201);
         checkAsserts(request,response);
     }
 
@@ -77,7 +78,6 @@ public class TaxHeadMasterVerificationTest extends BaseAPITest {
         TaxHeadMasterResponse responseObject = (TaxHeadMasterResponse)
                 ResponseHelper.getResponseAsObject(response.asString(),TaxHeadMasterResponse.class);
 
-        Assert.assertEquals(response.getStatusCode(),201);
         Assert.assertEquals(responseObject.getResponseInfo().getStatus(),"200");
         for(int i=0;i<request.getTaxHeadMasters().length;i++){
             String name = request.getTaxHeadMasters()[i].getService();
