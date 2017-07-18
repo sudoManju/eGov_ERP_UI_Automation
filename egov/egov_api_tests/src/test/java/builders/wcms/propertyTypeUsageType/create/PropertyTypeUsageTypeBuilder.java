@@ -2,12 +2,14 @@ package builders.wcms.propertyTypeUsageType.create;
 
 import entities.requests.wcms.propertyTypeUsageType.create.PropertyTypeUsageType;
 
+import static data.SearchParameterData.TENANT_DEFAULT;
+
 public class PropertyTypeUsageTypeBuilder {
     PropertyTypeUsageType propertyTypeUsageType = new PropertyTypeUsageType();
 
     public PropertyTypeUsageTypeBuilder() {
         propertyTypeUsageType.setActive(true);
-        propertyTypeUsageType.setTenantId("default");
+        propertyTypeUsageType.setTenantId(TENANT_DEFAULT);
     }
 
 

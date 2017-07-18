@@ -44,7 +44,8 @@ public class PropertyTypeUsageTypeTest extends BaseAPITest {
 
         CreatePropertyTypeUsageTypeResponse createPropertyTypeUsageTypeResponse = createPropertyTypeUsageType(searchPropertyTypesResponse, searchUsageMasterResponse); // Create PropertyTypeUsageType
         int propertyTypeUsageTypeId = searchPropertyTypeUsageType(createPropertyTypeUsageTypeResponse); // Search PropertyTypeUsageType
-        updatePropertyTypeUsageTypeWithUsageType(createPropertyTypeUsageTypeResponse, searchUsageMasterResponse, propertyTypeUsageTypeId); // Update PropertyTypeUsageType with UsageType
+        CreatePropertyTypeUsageTypeResponse updatePropertyTypeUsageTypeResponse = updatePropertyTypeUsageTypeWithUsageType(createPropertyTypeUsageTypeResponse, searchUsageMasterResponse, propertyTypeUsageTypeId); // Update PropertyTypeUsageType with UsageType
+        searchPropertyTypeUsageType(updatePropertyTypeUsageTypeResponse); // Search PropertyTypeUsageType After Update
 
         LoginAndLogoutHelper.logout(); // Logout
     }
@@ -66,7 +67,8 @@ public class PropertyTypeUsageTypeTest extends BaseAPITest {
 
         CreatePropertyTypeUsageTypeResponse createPropertyTypeUsageTypeResponse = createPropertyTypeUsageType(searchPropertyTypesResponse, searchUsageMasterResponse); // Create PropertyTypeUsageType
         int propertyTypeUsageTypeId = searchPropertyTypeUsageType(createPropertyTypeUsageTypeResponse); // Search PropertyTypeUsageType
-        updatePropertyTypeUsageTypeWithPropertyType(createPropertyTypeUsageTypeResponse, searchPropertyTypesResponse, propertyTypeUsageTypeId); // Update PropertyTypeUsageType with PropertyType
+        CreatePropertyTypeUsageTypeResponse updatePropertyTypeUsageTypeResponse = updatePropertyTypeUsageTypeWithPropertyType(createPropertyTypeUsageTypeResponse, searchPropertyTypesResponse, propertyTypeUsageTypeId); // Update PropertyTypeUsageType with PropertyType
+        searchPropertyTypeUsageType(updatePropertyTypeUsageTypeResponse); // Search PropertyTypeUsageType After Update
 
         LoginAndLogoutHelper.logout(); // Logout
     }
@@ -138,7 +140,7 @@ public class PropertyTypeUsageTypeTest extends BaseAPITest {
     }
 
     // This method will Update only UsageType
-    private void updatePropertyTypeUsageTypeWithUsageType(CreatePropertyTypeUsageTypeResponse createPropertyTypeUsageTypeResponse,
+    private CreatePropertyTypeUsageTypeResponse updatePropertyTypeUsageTypeWithUsageType(CreatePropertyTypeUsageTypeResponse createPropertyTypeUsageTypeResponse,
                                                           SearchUsageMasterResponse searchUsageMasterResponse, int propertyTypeUsageTypeId) throws IOException {
         new APILogger().log("Update PropertyType - UsageType With UsageType Test is Started ---");
         PropertyTypeUsageType propertyTypeUsageType;
@@ -175,10 +177,11 @@ public class PropertyTypeUsageTypeTest extends BaseAPITest {
             }
         }
         new APILogger().log("Update PropertyType - UsageType With UsageType Test is Completed ---");
+        return updatePropertyTypeUsageTypeResponse;
     }
 
     // This method will Update only UsageType
-    private void updatePropertyTypeUsageTypeWithPropertyType(CreatePropertyTypeUsageTypeResponse createPropertyTypeUsageTypeResponse,
+    private CreatePropertyTypeUsageTypeResponse updatePropertyTypeUsageTypeWithPropertyType(CreatePropertyTypeUsageTypeResponse createPropertyTypeUsageTypeResponse,
                                                              SearchPropertyTypesResponse searchPropertyTypesResponse, int propertyTypeUsageTypeId) throws IOException {
         new APILogger().log("Update PropertyType - UsageType With PropertyType Test is Started ---");
         PropertyTypeUsageType propertyTypeUsageType;
@@ -215,6 +218,7 @@ public class PropertyTypeUsageTypeTest extends BaseAPITest {
             }
         }
         new APILogger().log("Update PropertyType - UsageType With PropertyType Test is Completed ---");
+        return updatePropertyTypeUsageTypeResponse;
     }
 
     private void getAllPropertyTypeUsageTypes() throws IOException {

@@ -2,12 +2,14 @@ package builders.wcms.propertyCategoryType;
 
 import entities.requests.wcms.propertyCategoryType.create.PropertyTypeCategoryType;
 
+import static data.SearchParameterData.TENANT_DEFAULT;
+
 public class PropertyCategoryBuilder {
     PropertyTypeCategoryType propertyTypeCategoryType = new PropertyTypeCategoryType();
 
     public PropertyCategoryBuilder() {
         propertyTypeCategoryType.setActive("true");
-        propertyTypeCategoryType.setTenantId("default");
+        propertyTypeCategoryType.setTenantId(TENANT_DEFAULT);
     }
 
     public PropertyCategoryBuilder withPropertyTypeName(String propertyTypeName) {

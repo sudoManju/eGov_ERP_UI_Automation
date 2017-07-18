@@ -1,6 +1,6 @@
 package entities.responses.wcms.propertyPipeSize;
 
-public class PropertyPipeSize {
+public class PropertyTypePipeSizes {
     private String propertyTypeId;
     private String propertyTypeName;
     private String pipeSizeId;

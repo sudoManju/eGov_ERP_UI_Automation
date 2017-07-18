@@ -4,10 +4,10 @@ import entities.responses.wcms.ResponseInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class CreatePropertyPipeSizeResponse {
-    @JsonProperty("ResponseInfo")
+    @JsonProperty("responseInfo")
     private ResponseInfo ResponseInfo;
-    @JsonProperty("PropertyTypePipeSize")
-    private PropertyPipeSize[] PropertyPipeSize;
+    @JsonProperty("propertyTypePipeSizes")
+    private PropertyTypePipeSizes[] PropertyTypePipeSize;
 
     public ResponseInfo getResponseInfo() {
         return this.ResponseInfo;
@@ -17,11 +17,11 @@ public class CreatePropertyPipeSizeResponse {
         this.ResponseInfo = ResponseInfo;
     }
 
-    public PropertyPipeSize[] getPropertyPipeSize() {
-        return this.PropertyPipeSize;
+    public PropertyTypePipeSizes[] getPropertyTypePipeSize() {
+        return this.PropertyTypePipeSize;
     }
 
-    public void setPropertyPipeSize(PropertyPipeSize[] PropertyPipeSize) {
-        this.PropertyPipeSize = PropertyPipeSize;
+    public void setPropertyTypePipeSize(PropertyTypePipeSizes[] PropertyTypePipeSize) {
+        this.PropertyTypePipeSize = PropertyTypePipeSize;
     }
 }

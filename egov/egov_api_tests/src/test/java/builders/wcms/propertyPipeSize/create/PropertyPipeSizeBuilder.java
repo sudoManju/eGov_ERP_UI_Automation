@@ -2,11 +2,13 @@ package builders.wcms.propertyPipeSize.create;
 
 import entities.requests.wcms.propertyPipeSize.create.PropertyTypePipeSize;
 
+import static data.SearchParameterData.TENANT_DEFAULT;
+
 public class PropertyPipeSizeBuilder {
     PropertyTypePipeSize propertyTypePipeSize = new PropertyTypePipeSize();
 
     public PropertyPipeSizeBuilder() {
-        propertyTypePipeSize.setTenantId("default");
+        propertyTypePipeSize.setTenantId(TENANT_DEFAULT);
         propertyTypePipeSize.setActive("true");
     }
 
