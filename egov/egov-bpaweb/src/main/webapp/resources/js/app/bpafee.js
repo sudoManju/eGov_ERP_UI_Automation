@@ -39,26 +39,27 @@
  */
 
 jQuery(document).ready(function($) {
-});
-
-var validator = $("#updateBpaFeeDetailForm").validate({
-	highlight : function(element, errorClass) {
-		$(element).fadeOut(function() {
-			$(element).fadeIn();
+	
+	var validator = $("#updateBpaFeeDetailForm").validate({
+		highlight : function(element, errorClass) {
+			$(element).fadeOut(function() {
+				$(element).fadeIn();
+			});
+		}
+	});
+	
+	if ($("#updateBpaFeeDetailForm").valid()) {
+		return true;
+	} else {
+		$.each(validator.invalidElements(), function(index, elem) {
+			if (!$(elem).is(":visible")
+					&& !$(elem).closest('div.panel-body').is(":visible")) {
+				$(elem).closest('div.panel-body').show();
+				console.log("elem", elem);
+			}
 		});
+		validator.focusInvalid();
+		return false;
 	}
 });
 
-if ($("#updateBpaFeeDetailForm").valid()) {
-	return true;
-} else {
-	$.each(validator.invalidElements(), function(index, elem) {
-		if (!$(elem).is(":visible")
-				&& !$(elem).closest('div.panel-body').is(":visible")) {
-			$(elem).closest('div.panel-body').show();
-			console.log("elem", elem);
-		}
-	});
-	validator.focusInvalid();
-	return false;
-}

@@ -112,16 +112,11 @@
 						<jsp:include page="viewapplication-details.jsp"></jsp:include>
 					</div>
 					<div class="panel panel-primary" data-collapsed="0">
-						<jsp:include page="view-amenities-details.jsp"></jsp:include>
-					</div>
-					<div class="panel panel-primary" data-collapsed="0">
 						<jsp:include page="view-sitedetail.jsp"></jsp:include>
 					</div>
-					<c:if test="${bpaApplication.serviceType.description ne 'Sub-Division of plot/Land Development'}">
-						<div class="panel panel-primary" data-collapsed="0">
-							<jsp:include page="view-building-details.jsp" />
-						</div>
-					</c:if>
+					<div class="panel panel-primary buildingdetails" data-collapsed="0">
+						<jsp:include page="view-building-details.jsp" />
+					</div>
 					<c:if test="${not empty  bpaApplication.receipts}">
 						<div class="panel panel-primary" data-collapsed="0">
 							<jsp:include page="view-bpa-receipt-details.jsp"></jsp:include>

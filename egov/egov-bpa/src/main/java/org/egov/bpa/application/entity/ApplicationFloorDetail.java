@@ -80,6 +80,7 @@ public class ApplicationFloorDetail extends AbstractAuditable {
     private BigDecimal carpetArea;
     private BigDecimal plinthArea;
     private BigDecimal floorArea;
+    private Integer orderOfFloor;
 
     @Override
     public Long getId() {
@@ -170,4 +171,13 @@ public class ApplicationFloorDetail extends AbstractAuditable {
     public void setFloorArea(BigDecimal floorArea) {
         this.floorArea = floorArea;
     }
+
+    public Integer getOrderOfFloor() {
+        return orderOfFloor;
+    }
+
+    public void setOrderOfFloor(Integer orderOfFloor) {
+        this.orderOfFloor = orderOfFloor;
+    }
+    
 }

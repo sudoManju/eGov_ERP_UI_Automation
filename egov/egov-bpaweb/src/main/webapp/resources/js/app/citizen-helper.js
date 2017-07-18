@@ -49,8 +49,9 @@ jQuery(document).ready(function($) {
 		});
 	
 	function validateForm1(button, validator) {
-		if($("#postOffices option:selected" ).val() == "") {
-			bootbox.alert('Please select postoffice')
+		if($("#postalAddressTypeHead" ).val() == "") {
+			bootbox.alert('Please Enter Pincode.');
+			return false;
 		}
 		if ($('#newCitizenApplicationform').valid() && validateUploadFilesMandatory()) {
 			$('#serviceType').prop("disabled", false);

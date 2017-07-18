@@ -46,17 +46,17 @@
 <%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn"%>
 <div class="row">
 	<div class="col-md-12">
-		<div class="text-left error-msg col-sm-6" style="font-size: 14px;">
+		<div class="text-left error-msg col-sm-12" style="font-size: 14px;">
 			<span class="applicantname"> <spring:message
 					code="lbl.applicant.name" /> : <span id="applicantName"></span>
 			</span>
 		</div>
-		<div class="text-right error-msg col-sm-6" style="font-size: 14px;">
+		<%-- <div class="text-right error-msg col-sm-6" style="font-size: 14px;">
 			<spring:message code="lbl.application.date" />
 			:
 			<fmt:formatDate pattern="dd/MM/yyyy"
 				value="${bpaApplication.applicationDate}" />
-		</div>
+		</div> --%>
 		<form:form role="form" action="newApplication-create" method="post"
 			modelAttribute="bpaApplication" id="newApplicationform"
 			cssClass="form-horizontal form-groups-bordered"
@@ -85,9 +85,6 @@
 					</div>
 					<div class="panel panel-primary" data-collapsed="0">
 						<jsp:include page="applicationDetails.jsp"></jsp:include>
-					</div>
-					<div class="panel panel-primary" data-collapsed="0">
-						<jsp:include page="amenityDetails.jsp"></jsp:include>
 					</div>
 					<div class="panel panel-primary" data-collapsed="0">
 						<jsp:include page="siteDetail.jsp"></jsp:include>

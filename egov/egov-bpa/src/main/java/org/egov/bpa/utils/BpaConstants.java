@@ -56,6 +56,8 @@ public class BpaConstants {
     public static final String ST_CODE_07 = "07";
     public static final String ST_CODE_08 = "08"; // Amenities
     public static final String ST_CODE_09 = "09"; // Permission for Temporary hut or shed
+    public static final String ST_CODE_14 = "14"; // Tower Construction
+    public static final String ST_CODE_15 = "15"; // Pole Structures
     public static final String ROLE_BUSINESS_USER = "BUSINESS";
     public static final String AMENITIES = "Amenities";
     public static final String PERM_FOR_HUT_OR_SHED = "Huts and Sheds";
@@ -225,54 +227,9 @@ public class BpaConstants {
 
     private static final List<String> FLOORLIST = new ArrayList<>();
     static {
-        FLOORLIST.add("Basement 6");
-        FLOORLIST.add("Basement 5");
-        FLOORLIST.add("Basement 4");
-        FLOORLIST.add("Basement 3");
-        FLOORLIST.add("Basement 2");
-        FLOORLIST.add("Basement 1");
+        FLOORLIST.add("Cellar Floor");
         FLOORLIST.add("Ground Floor");
-        FLOORLIST.add("Mezzanine Floor");
-        FLOORLIST.add("1st Floor");
-        FLOORLIST.add("2nd Floor");
-        FLOORLIST.add("3rd Floor");
-        FLOORLIST.add("4th Floor");
-        FLOORLIST.add("5th Floor");
-        FLOORLIST.add("6th Floor");
-        FLOORLIST.add("7th Floor");
-        FLOORLIST.add("8th Floor");
-        FLOORLIST.add("9th Floor");
-        FLOORLIST.add("10th Floor");
-        FLOORLIST.add("11th Floor");
-        FLOORLIST.add("12th Floor");
-        FLOORLIST.add("13th Floor");
-        FLOORLIST.add("14th Floor");
-        FLOORLIST.add("15th Floor");
-        FLOORLIST.add("16th Floor");
-        FLOORLIST.add("17th Floor");
-        FLOORLIST.add("18th Floor");
-        FLOORLIST.add("19th Floor");
-        FLOORLIST.add("20th Floor");
-        FLOORLIST.add("21st Floor");
-        FLOORLIST.add("22nd Floor");
-        FLOORLIST.add("23rd Floor");
-        FLOORLIST.add("24th Floor");
-        FLOORLIST.add("25th Floor");
-        FLOORLIST.add("26th Floor");
-        FLOORLIST.add("27th Floor");
-        FLOORLIST.add("28th Floor");
-        FLOORLIST.add("29th Floor");
-        FLOORLIST.add("30th Floor");
-        FLOORLIST.add("31st Floor");
-        FLOORLIST.add("32nd Floor");
-        FLOORLIST.add("33rd Floor");
-        FLOORLIST.add("34th Floor");
-        FLOORLIST.add("35th Floor");
-        FLOORLIST.add("36th Floor");
-        FLOORLIST.add("37th Floor");
-        FLOORLIST.add("38th Floor");
-        FLOORLIST.add("39th Floor");
-        FLOORLIST.add("40th Floor");
+        FLOORLIST.add("Upper Floor");
         FLOORLIST.add("Terrace Floor");
     }
 

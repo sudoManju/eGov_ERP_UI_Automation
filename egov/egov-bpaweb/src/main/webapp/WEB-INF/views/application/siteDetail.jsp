@@ -53,9 +53,12 @@
 	</div>
 </div>
 <div class="panel-body display-hide">
+	
+	<jsp:include page="amenityDetails.jsp"></jsp:include>
+	
 	<div class="form-group">
 		<label class="col-sm-3 control-label text-right"> <spring:message
-				code="lbl.zone" /> <span class="mandatory"></span>
+				code="lbl.zonal.office" /> <span class="mandatory"></span>
 		</label>
 		<div class="col-sm-3 add-margin">
 			<c:if test="${mode =='newappointment'}">
@@ -190,15 +193,6 @@
 
 	<div class="form-group">
 		<label class="col-sm-3 control-label text-right"><spring:message
-				code="lbl.addr.dno" /> </label>
-		<div class="col-sm-3 add-margin">
-			<form:input class="form-control patternvalidation" maxlength="12"
-				data-pattern="alphanumericspecialcharacters" id="plotdoornumber"
-				path="siteDetail[0].plotdoornumber" />
-			<form:errors path="siteDetail[0].plotdoornumber"
-				cssClass="add-margin error-msg" />
-		</div>
-		<label class="col-sm-2 control-label text-right"><spring:message
 				code="lbl.nearest.build.no" /><span class="mandatory"></span> </label>
 		<div class="col-sm-3 add-margin">
 			<form:input class="form-control patternvalidation" maxlength="12"
@@ -208,6 +202,15 @@
 			<form:errors path="siteDetail[0].nearestbuildingnumber"
 				cssClass="add-margin error-msg" />
 		</div>
+		<%-- <label class="col-sm-2 control-label text-right"><spring:message
+				code="lbl.addr.dno" /> </label>
+		<div class="col-sm-3 add-margin">
+			<form:input class="form-control patternvalidation" maxlength="12"
+				data-pattern="alphanumericspecialcharacters" id="plotdoornumber"
+				path="siteDetail[0].plotdoornumber" />
+			<form:errors path="siteDetail[0].plotdoornumber"
+				cssClass="add-margin error-msg" />
+		</div> --%>
 	</div>
 
 	<div class="form-group">

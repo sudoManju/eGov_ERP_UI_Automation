@@ -42,57 +42,49 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="/WEB-INF/taglib/cdn.tld" prefix="cdn" %>
 
-<div class="panel-heading toggle-header custom_form_panel_heading">
-	<div class="panel-title">
-		<spring:message code="lbl.ser.meas.details" />
+
+<input type="hidden" id="serviceType"
+	value="${bpaApplication.serviceType.description}" />
+<input type="hidden" id="applicationAmenity"
+	value="${bpaApplication.amenityName}" />
+
+<div class="row add-border">
+	<div class="col-sm-3 add-margin">
+		<spring:message code="lbl.extent.of.land" />
 	</div>
-	<div class="history-icon toggle-icon">
-		<i class="fa fa-angle-up fa-2x"></i>
+	<div class="col-sm-3 add-margin view-content">
+		<c:out value="${bpaApplication.siteDetail[0].extentOfLand}"
+			default="N/A"></c:out>
+		<c:out value="${bpaApplication.siteDetail[0].unitOfMeasurement}"></c:out>
+	</div>
+	<div class="col-sm-3 add-margin">
+		<spring:message code="lbl.extentin.sqmts" />
+	</div>
+	<div class="col-sm-3 add-margin view-content">
+		<fmt:formatNumber type="number" maxFractionDigits="2"
+			value="${bpaApplication.siteDetail[0].extentinsqmts}" />
 	</div>
 </div>
-<input  type="hidden" id="serviceType" value="${bpaApplication.serviceType.description}" />
-<input type="hidden" id="applicationAmenity" value="${bpaApplication.amenityName}" />
+<div id="amenitiesOuptuts"></div>
 
-<div class="panel-body display-hide">
-	<div class="row add-border">
-		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.extent.of.land" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.siteDetail[0].extentOfLand}"
-				default="N/A"></c:out> <c:out value="${bpaApplication.siteDetail[0].unitOfMeasurement}" ></c:out>
-		</div>
-		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.extentin.sqmts" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.siteDetail[0].extentinsqmts}"
-				default="N/A"></c:out>
-		</div>
-	</div>
-	<div id="amenitiesOuptuts">
-
-	</div>
-	
 <script id="roof-view-template" type="text/egov-template">
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.roof.conv" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.siteDetail[0].roofConversion}"
-				default="N/A"></c:out>
+			<fmt:formatNumber type="number" maxFractionDigits="2" value="${bpaApplication.siteDetail[0].roofConversion}" />
 		</div>
 </script>
-	
+
 <script id="compound-view-template" type="text/egov-template">
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.len.com.wall" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.siteDetail[0].lengthOfCompoundWall}"
-				default="N/A"></c:out>
+			<fmt:formatNumber type="number" maxFractionDigits="2" value="${bpaApplication.siteDetail[0].lengthOfCompoundWall}" />
 		</div>
 </script>
 
@@ -144,4 +136,3 @@
 				default="N/A"></c:out>
 		</div>
 </script>
-</div>

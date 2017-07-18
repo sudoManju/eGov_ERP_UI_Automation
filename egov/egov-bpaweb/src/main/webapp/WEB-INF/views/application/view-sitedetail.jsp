@@ -52,9 +52,12 @@
 	</div>
 </div>
 <div class="panel-body display-hide">
+	
+	<jsp:include page="view-amenities-details.jsp"></jsp:include>
+	
 	<div class="row add-border">
 		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.zone" />
+			<spring:message code="lbl.zonal.office" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
 			<c:out

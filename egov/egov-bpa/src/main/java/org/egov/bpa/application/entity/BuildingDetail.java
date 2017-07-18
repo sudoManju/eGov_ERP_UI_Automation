@@ -43,6 +43,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.Valid;
@@ -95,6 +96,7 @@ public class BuildingDetail extends AbstractAuditable {
     private String townPlanningZone;
     private String crzZone;
     @OneToMany(mappedBy = "buildingDetail", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OrderBy("orderOfFloor")
     private List<ApplicationFloorDetail> applicationFloorDetails = new ArrayList<>(0);
     @Override
     public Long getId() {

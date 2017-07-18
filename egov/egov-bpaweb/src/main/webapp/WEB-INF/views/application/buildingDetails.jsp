@@ -54,7 +54,137 @@
 	</div>
 </div>
 <div class="panel-body display-hide">
-
+	
+	<div class="panel-title header-color">
+		<spring:message code="lbl.plint.carpet.details" />
+	</div>
+	<div class="text-right add-padding">
+		<button type="button" class="btn btn-sm btn-primary"
+			id="addBuildAreaRow">ADD ROW</button>
+	</div>
+	<input type="hidden" id="buildingFloorList"
+		value="${buildingFloorList}"> <input type="hidden"
+		id="occupancyList" value="">
+		<input type="hidden"
+		id="sumOfFloorArea" value="">
+	<table class="table table-striped table-bordered"
+		id="buildingAreaDetails">
+		<thead>
+			<tr>
+				<th class="text-center"><spring:message code="lbl.srl.no" /></th>
+				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message code="lbl.floor.name" /></th>
+				<th class="text-center"><spring:message code="lbl.floor.level" /></th>
+				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message code="lbl.floor.area" /></th>
+				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message code="lbl.plinth.area" /></th>
+				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message code="lbl.carpet.area" /></th>
+				<th class="text-center"><spring:message code="lbl.action" /></th>
+			</tr>
+		</thead>
+		<tbody
+			data-existing-len="${fn:length(bpaApplication.buildingDetail[0].applicationFloorDetails)}">
+			<c:choose>
+				<c:when
+					test="${!bpaApplication.buildingDetail[0].applicationFloorDetails.isEmpty()}">
+					<c:forEach
+						items="${bpaApplication.buildingDetail[0].applicationFloorDetails}"
+						var="buildingAreaDetails" varStatus="counter">
+						<form:hidden id="table_fieldInspections${counter.index}"
+							path="buildingDetail[0].applicationFloorDetails[${counter.index}].id" />
+						<tr class="data-fetched">
+							<td><span class="serialNo text-center" id="slNoInsp">${counter.index+1}</span><form:hidden path="buildingDetail[0].applicationFloorDetails[${counter.index}].orderOfFloor"/></td>
+							<td><form:input type="text"
+									class="form-control table-input patternvalidation"
+									path="buildingDetail[0].applicationFloorDetails[${counter.index}].floorDescription"
+									id="applicationFloorDetails[${counter.index}]floorDescription"
+									maxlength="128" required="required" value="${buildingAreaDetails.floorDescription}" /></td>
+							<td><form:input type="text"
+									class="form-control table-input patternvalidation floorNumber text-center"
+									data-pattern="number"
+									path="buildingDetail[0].applicationFloorDetails[${counter.index}].floorNumber"
+ 									id="applicationFloorDetails${counter.index}floorNumber"
+									maxlength="15" value="${buildingAreaDetails.floorNumber}" /></td>
+							<td><form:input type="text"
+								class="form-control table-input text-right patternvalidation decimalfixed floorArea"
+								data-pattern="decimalvalue"
+								path="buildingDetail[0].applicationFloorDetails[${counter.index}].floorArea"
+								id="applicationFloorDetails${counter.index}floorArea" maxlength="15" required="required" value=""
+								onblur="validateFloorDetails(this)" /></td>
+							<td><form:input type="text"
+									class="form-control table-input patternvalidation decimalfixed plinthArea text-right"
+									data-pattern="decimalvalue"
+									path="buildingDetail[0].applicationFloorDetails[${counter.index}].plinthArea"
+									id="applicationFloorDetails${counter.index}plinthArea"
+									maxlength="15" required="required" value="${buildingAreaDetails.plinthArea}" /></td>
+							<td><form:input type="text"
+									class="form-control table-input text-right patternvalidation decimalfixed carpetArea"
+									data-pattern="decimalvalue"
+									path="buildingDetail[0].applicationFloorDetails[${counter.index}].carpetArea"
+									id="applicationFloorDetails${counter.index}carpetArea"
+									maxlength="15" required="required" value="${buildingAreaDetails.carpetArea}" /></td>
+							<%-- <c:if test="${counter.index!=0}">
+							<td class="text-center"><a href="javascript:void(0);"
+								class="btn-sm btn-danger" id="deleteBuildAreaRow"
+								data-record-id="${var1.id}"><i class="fa fa-trash"></i></a></td>
+						</c:if> --%>
+						</tr>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<tr class="data-fetched">
+						<td class="text-center"><span class="serialNo" id="slNoInsp">1</span><form:hidden path="buildingDetail[0].applicationFloorDetails[0].orderOfFloor" id="orderOfFloor" value="1" /></td>
+						<td><form:select
+								path="buildingDetail[0].applicationFloorDetails[0].floorDescription"
+								data-first-option="false"
+								id="applicationFloorDetails[0]floorDescription"
+								class="form-control floor-details-mandatory" maxlength="128">
+								<form:option value="">
+									<spring:message code="lbl.select" />
+								</form:option>
+								<form:options items="${buildingFloorList}" />
+							</form:select></td>
+						<td><form:input type="text"
+									class="form-control table-input patternvalidation floorNumber text-center"
+									data-pattern="number"
+									path="buildingDetail[0].applicationFloorDetails[0].floorNumber"
+									id="applicationFloorDetails0floorNumber"
+									maxlength="15" value="${buildingAreaDetails.floorNumber}" /></td>
+						<td><form:input type="text"
+								class="form-control table-input text-right patternvalidation decimalfixed floorArea floor-details-mandatory"
+								data-pattern="decimalvalue"
+								path="buildingDetail[0].applicationFloorDetails[0].floorArea"
+								id="applicationFloorDetails0floorArea" maxlength="15" value=""
+								onblur="validateFloorDetails(this)" /></td>
+						<td><form:input type="text"
+								class="form-control table-input text-right patternvalidation decimalfixed plinthArea floor-details-mandatory"
+								data-pattern="decimalvalue"
+								path="buildingDetail[0].applicationFloorDetails[0].plinthArea"
+								id="applicationFloorDetails0plinthArea" maxlength="15" value=""/></td>
+						<td><form:input type="text"
+								class="form-control table-input text-right patternvalidation decimalfixed carpetArea floor-details-mandatory"
+								data-pattern="decimalvalue"
+								path="buildingDetail[0].applicationFloorDetails[0].carpetArea"
+								id="applicationFloorDetails0carpetArea" maxlength="15" value="" /></td>
+						<td class=" text-center"><a href="javascript:void(0);"
+							class="btn-sm btn-danger" id="deleteBuildAreaRow"
+							data-record-id="${buildingAreaDetails.id}"><i
+								class="fa fa-trash"></i></a></td>
+					</tr>
+				</c:otherwise>
+			</c:choose>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td></td>
+				<td></td>
+				<td class="text-right">Total</td>
+				<td class="text-right"></td>
+				<td class="text-right"></td>
+				<td class="text-right"></td>
+				<td></td>
+			</tr>
+		</tfoot>
+	</table>
+	
 	<div class="form-group">
 		<label
 			class="col-sm-3 control-label text-right handle-mandatory show-hide totalPlintArea"><spring:message
@@ -76,6 +206,7 @@
 			<form:errors path="buildingDetail[0].totalPlintArea"
 				cssClass="add-margin error-msg" />
 		</div>
+		 <%-- <form:hidden path="buildingDetail[0].totalPlintArea" id="sumOfPlinthArea" value=""/> --%>
 		<label
 			class="col-sm-2 control-label text-right handle-mandatory floorCount"><spring:message
 				code="lbl.floor.count" /><span class="mandatory"></span></label>
@@ -83,7 +214,7 @@
 			<form:input
 				class="form-control patternvalidation clear-values handle-mandatory floorCount"
 				data-pattern="number" maxlength="5" id="floorCount"
-				path="buildingDetail[0].floorCount" required="required" />
+				path="buildingDetail[0].floorCount" required="required"/>
 			<form:errors path="buildingDetail[0].floorCount"
 				cssClass="add-margin error-msg" />
 		</div>
@@ -94,128 +225,11 @@
 		<form:input
 			class="form-control patternvalidation clear-values handle-mandatory buildingheightGround"
 			maxlength="10" data-pattern="decimalvalue" id="buildingheightGround"
-			path="buildingDetail[0].buildingheightGround" required="required" />
+			path="buildingDetail[0].buildingheightGround" required="required" /> 
 		<form:errors path="buildingDetail[0].buildingheightGround"
 			cssClass="add-margin error-msg" />
 	</div> --%>
 	</div>
-	
-	<div class="panel-title header-color">
-		<spring:message code="lbl.plint.carpet.details" />
-	</div>
-	<div class="text-right add-padding">
-		<button type="button" class="btn btn-sm btn-primary"
-			id="addBuildAreaRow">ADD ROW</button>
-	</div>
-	<input type="hidden" id="buildingFloorList"
-		value="${buildingFloorList}"> <input type="hidden"
-		id="occupancyList" value=""> <input type="hidden"
-		id="sumOfPlinthArea" value="">
-		<input type="hidden"
-		id="sumOfFloorArea" value="">
-	<table class="table table-striped table-bordered"
-		id="buildingAreaDetails">
-		<thead>
-			<tr>
-				<th class="text-center"><spring:message code="lbl.srl.no" /></th>
-				<th class="text-center"><spring:message code="lbl.floor.name" /></th>
-				<th class="text-center"><spring:message code="lbl.floor.area" /></th>
-				<th class="text-center"><spring:message code="lbl.plinth.area" /></th>
-				<th class="text-center"><spring:message code="lbl.carpet.area" /></th>
-				<th class="text-center"><spring:message code="lbl.action" /></th>
-			</tr>
-		</thead>
-		<tbody
-			data-existing-len="${fn:length(bpaApplication.buildingDetail[0].applicationFloorDetails)}">
-			<c:choose>
-				<c:when
-					test="${!bpaApplication.buildingDetail[0].applicationFloorDetails.isEmpty()}">
-					<c:forEach
-						items="${bpaApplication.buildingDetail[0].applicationFloorDetails}"
-						var="buildingAreaDetails" varStatus="counter">
-						<form:hidden id="table_fieldInspections${counter.index}"
-							path="buildingDetail[0].applicationFloorDetails[${counter.index}].id" />
-						<tr class="data-fetched">
-							<td class="text-center"><span class="serialNo" id="slNoInsp">${counter.index+1}</span></td>
-							<td><form:input type="text"
-									class="form-control table-input patternvalidation"
-									path="buildingDetail[0].applicationFloorDetails[${counter.index}].floorDescription"
-									id="applicationFloorDetails[${counter.index}]floorDescription"
-									maxlength="128" value="${buildingAreaDetails.floorDescription}" /></td>
-							<td class="text-right"><form:input type="text"
-								class="form-control table-input text-right patternvalidation floorArea"
-								data-pattern="number"
-								path="buildingDetail[0].applicationFloorDetails[${counter.index}].floorArea"
-								id="applicationFloorDetails${counter.index}floorArea" maxlength="15" value=""
-								onblur="validateFloorDetails(this)" /></td>
-							<td class="text-right"><form:input type="text"
-									class="form-control table-input patternvalidation plinthArea text-right"
-									data-pattern="number"
-									path="buildingDetail[0].applicationFloorDetails[${counter.index}].plinthArea"
-									id="applicationFloorDetails${counter.index}plinthArea"
-									maxlength="15" value="${buildingAreaDetails.plinthArea}" /></td>
-							<td class="text-right"><form:input type="text"
-									class="form-control table-input text-right patternvalidation carpetArea"
-									data-pattern="number"
-									path="buildingDetail[0].applicationFloorDetails[${counter.index}].carpetArea"
-									id="applicationFloorDetails${counter.index}carpetArea"
-									maxlength="8" value="${buildingAreaDetails.carpetArea}" /></td>
-							<%-- <c:if test="${counter.index!=0}">
-							<td class="text-center"><a href="javascript:void(0);"
-								class="btn-sm btn-danger" id="deleteBuildAreaRow"
-								data-record-id="${var1.id}"><i class="fa fa-trash"></i></a></td>
-						</c:if> --%>
-						</tr>
-					</c:forEach>
-				</c:when>
-				<c:otherwise>
-					<tr class="data-fetched">
-						<td class="text-center"><span class="serialNo" id="slNoInsp">1</span></td>
-						<td><form:select
-								path="buildingDetail[0].applicationFloorDetails[0].floorDescription"
-								data-first-option="false"
-								id="applicationFloorDetails[0]floorDescription"
-								cssClass="form-control" maxlength="128">
-								<form:option value="">
-									<spring:message code="lbl.select" />
-								</form:option>
-								<form:options items="${buildingFloorList}" />
-							</form:select></td>
-						<td class="text-right"><form:input type="text"
-								class="form-control table-input text-right patternvalidation floorArea"
-								data-pattern="number"
-								path="buildingDetail[0].applicationFloorDetails[0].floorArea"
-								id="applicationFloorDetails0floorArea" maxlength="15" value=""
-								onblur="validateFloorDetails(this)" /></td>
-						<td class="text-right"><form:input type="text"
-								class="form-control table-input text-right patternvalidation plinthArea"
-								data-pattern="number"
-								path="buildingDetail[0].applicationFloorDetails[0].plinthArea"
-								id="applicationFloorDetails0plinthArea" maxlength="15" value=""/></td>
-						<td class="text-right"><form:input type="text"
-								class="form-control table-input text-right patternvalidation carpetArea"
-								data-pattern="number"
-								path="buildingDetail[0].applicationFloorDetails[0].carpetArea"
-								id="applicationFloorDetails0carpetArea" maxlength="15" value="" /></td>
-						<td class="text-center"><a href="javascript:void(0);"
-							class="btn-sm btn-danger" id="deleteBuildAreaRow"
-							data-record-id="${buildingAreaDetails.id}"><i
-								class="fa fa-trash"></i></a></td>
-					</tr>
-				</c:otherwise>
-			</c:choose>
-		</tbody>
-		<tfoot>
-			<tr>
-				<td></td>
-				<td class="text-right">Total</td>
-				<td class="text-right"></td>
-				<td class="text-right"></td>
-				<td class="text-right"></td>
-				<td></td>
-			</tr>
-		</tfoot>
-	</table>
 	
 	<%-- <div class="form-group">
 	

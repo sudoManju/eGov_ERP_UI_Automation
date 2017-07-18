@@ -66,7 +66,6 @@ import org.egov.bpa.web.controller.application.BpaGenericApplicationController;
 import org.egov.commons.entity.Source;
 import org.egov.eis.service.PositionMasterService;
 import org.egov.infra.admin.master.entity.User;
-import org.egov.infra.admin.master.service.UserService;
 import org.egov.infra.security.utils.SecurityUtils;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
 import org.egov.pims.commons.Position;
@@ -97,8 +96,6 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
     private GenericBillGeneratorService genericBillGeneratorService;
     @Autowired
     private PositionMasterService positionMasterService;
-    @Autowired
-    private UserService userService;
 
     @RequestMapping(value = "/newconstruction-form", method = GET)
     public String showNewApplicationForm(@ModelAttribute final BpaApplication bpaApplication, final Model model,
@@ -174,6 +171,18 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
     public String loadAmenity(@ModelAttribute final BpaApplication bpaApplication, final Model model,
             final HttpServletRequest request) {
         return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_08);
+    }
+    
+    @RequestMapping(value = "/towerconstruction-form", method = GET)
+    public String loadTowerConstruction(@ModelAttribute final BpaApplication bpaApplication, final Model model,
+            final HttpServletRequest request) {
+        return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_14);
+    }
+    
+    @RequestMapping(value = "/polestructures-form", method = GET)
+    public String loadPoleStruture(@ModelAttribute final BpaApplication bpaApplication, final Model model,
+            final HttpServletRequest request) {
+        return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_15);
     }
 
     @RequestMapping(value = "/application-create", method = POST)

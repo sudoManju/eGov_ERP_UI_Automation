@@ -44,7 +44,10 @@ jQuery(document).ready(function() {
 	
 	var seviceTypeName = $("#serviceType").val();
 	$('.show-hide').hide();
-	if('Change in occupancy' == seviceTypeName){
+	if('Tower Construction'.localeCompare(seviceType) == 0 || 'Pole Structures'.localeCompare(seviceType) == 0
+			|| 'Sub-Division of plot/Land Development'.localeCompare(seviceType) == 0){
+		$('.buildingdetails').hide();
+	} else if('Change in occupancy' == seviceTypeName){
 		$('.changeInOccupancyArea').show();
 	} else if('Alteration' == seviceTypeName){
 		$('.alterationInArea').show();

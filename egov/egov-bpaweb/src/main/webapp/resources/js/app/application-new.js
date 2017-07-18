@@ -61,8 +61,9 @@ jQuery(document).ready(
 			});
 
 			function validateForm(validator) {
-				if($("#postOffices option:selected" ).val() == "") {
-					bootbox.alert('Please select postoffice')
+				if($("#postalAddressTypeHead" ).val() == "") {
+					bootbox.alert('Please Enter Pincode.');
+					return false;
 				}
 				if ($('#newApplicationform').valid() && validateUploadFilesMandatory()) {
 					document.getElementById("workFlowAction").value = $(
@@ -85,24 +86,6 @@ jQuery(document).ready(
 				$('.applicantname').show();
 				$( "span#applicantName" ).html( $(this).val() );
 			});
-			
-			$("select.tick-indicator").mousedown(function(e){
-			    e.preventDefault();
-			    
-				var select = this;
-			    var scroll = select.scrollTop;
-			    
-			    e.target.selected = !e.target.selected;
-			    
-			    $(this).trigger('change');
-			    
-			    setTimeout(function(){select.scrollTop = scroll;}, 0);
-			    
-			    $(select).focus();
-
-			}).mousemove(function(e){e.preventDefault()});
-			
-
 		});
 
 var citizenOrBusiness = $('#citizenOrBusinessUser').val();

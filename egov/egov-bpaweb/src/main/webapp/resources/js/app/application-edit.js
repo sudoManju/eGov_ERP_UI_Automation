@@ -172,9 +172,6 @@ jQuery(document).ready(function() {
 						 $('#stateOfConstruction').attr('required', true);
 					}
 				});
-			   
-				
-					  
 		    }
 		   if(!this.checked) // if changed state is "CHECKED"
 		    {
@@ -403,6 +400,10 @@ jQuery( ".dateval" ).datepicker({
 });
 
 function validateForm(validator) {
+	if($("#postalAddressTypeHead" ).val() == "") {
+		bootbox.alert('Please Enter Pincode.');
+		return false;
+	}
 	if ($('#editBpaApplicationForm').valid()) {
 		document.forms[0].submit();
 		return true;

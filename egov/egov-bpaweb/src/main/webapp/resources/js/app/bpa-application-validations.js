@@ -37,12 +37,27 @@
  *
  *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
+
 var reportdatatable;
 var occupancyResponse;
+var extentOfLand;
+var totalPlintArea;
+var totalFloorArea;
+var extentInSqmts;
 $(document).ready(function() {
-	
+	var seviceType = $( "#serviceType option:selected" ).text();
+	if('Tower Construction'.localeCompare(seviceType) == 0 || 'Pole Structures'.localeCompare(seviceType) == 0
+			|| 'Sub-Division of plot/Land Development'.localeCompare(seviceType) == 0){
+		$('.buildingdetails').hide();
+	}
 	$('.show-hide').hide();
 	$('.totalPlintArea').show();
+	
+	$('.decimalfixed').each(function(){
+		if($(this).val()){
+			$(this).val(parseFloat($(this).val()).toFixed(2));
+		}
+	});
 	
 	// For each main service type validations
 	$('.serviceType').change(function(){
@@ -51,7 +66,8 @@ $(document).ready(function() {
 		
 		var seviceTypeName = $( "#serviceType option:selected" ).text();
 		$('.buildingdetails').show();
-		if('Sub-Division of plot/Land Development' == seviceTypeName){
+		if('Sub-Division of plot/Land Development'.localeCompare(seviceTypeName) == 0 || 'Tower Construction'.localeCompare(seviceTypeName) == 0
+				|| 'Pole Structures'.localeCompare(seviceTypeName) == 0){
 			$('.handle-mandatory').removeAttr('required');
 			$('.handle-mandatory').find("span").removeClass( "mandatory" );
 			$('.buildingdetails').hide();
@@ -59,6 +75,8 @@ $(document).ready(function() {
 			$('.handle-mandatory').removeAttr('required');
 			$('.handle-mandatory').find("span").removeClass( "mandatory" );
 		} else if('Huts and Sheds' == seviceTypeName){
+			/*$('.floor-toggle-mandatory').find("span").removeClass( "mandatory" );
+			$('.floor-details-mandatory').removeAttr('required');*/
 			$('.show-hide').hide();
 			$('.noofhutorshed').show();
 			$('.handle-mandatory').removeAttr('required');
@@ -68,6 +86,8 @@ $(document).ready(function() {
 			$('#totalPlintArea').attr('required',true);
 		} else {
 			$('.show-hide').hide();
+			$('.floor-toggle-mandatory').find("span").removeClass( "mandatory" );
+			$('.floor-details-mandatory').removeAttr('required');
 			if('Change in occupancy' == seviceTypeName){
 				$('.changeInOccupancyArea').show();
 			} else if('Alteration' == seviceTypeName){
@@ -76,8 +96,9 @@ $(document).ready(function() {
 				$('.additionInArea').show();
 			} else {
 				$('.totalPlintArea').show();
+				$('.floor-toggle-mandatory').find("span").addClass( "mandatory" );
+				$('.floor-details-mandatory').attr('required',true);
 			}
-			
 			$('.extentOfLand').find("span").addClass( "mandatory" );
 			$('#extentOfLand').attr('required');
 			$('.handle-mandatory').attr('required',true);
@@ -87,7 +108,7 @@ $(document).ready(function() {
 	
 	// Each Amenity type validations
 	
-	$('#applicationAmenity').on('change', function(){ 
+	$(document).on('change',"#applicationAmenity",function (){ 
 		loadAmenities();
 	});
 	
@@ -97,6 +118,10 @@ $(document).ready(function() {
 		
 		if($( "#serviceType option:selected" ).text() == 'Huts and Sheds'){
 			amenities.push('Huts and Sheds');
+		} else if($( "#serviceType option:selected" ).text() == 'Tower Construction'){
+			amenities.push('Tower Construction');
+		} else if($( "#serviceType option:selected" ).text() == 'Pole Structures'){
+			amenities.push('Pole Structures');
 		}
 		
 		$.each($("#applicationAmenity option:selected"), function(idx){     
@@ -115,6 +140,7 @@ $(document).ready(function() {
         });
 		result=result+"</div>";
 		$('#amenitiesInputs').html(result);
+		patternvalidation();
 	}
 	
 	function getTemplateComplie(value, isFirstPosition){
@@ -246,17 +272,110 @@ $(document).ready(function() {
 		}
 	});
 	
+	$('#occupancy').change(function(){
+		$( ".plinthArea" ).trigger( "change" );
+		$( ".carpetArea" ).trigger( "change" );
+		$( ".floorArea" ).trigger( "change" );
+		//$('.clear-values').val('');
+		$('#buildingAreaDetails').find('input').val('');
+		$('#buildingAreaDetails').find('select').val('');
+		getOccupancyObject();
+	});
+	
+	
+	$(document).on('blur', '.floorArea', function(e) {
+		var rowObj = $(this).closest('tr');
+		var occpancyObj = getOccupancyObject();
+		var numOfTimesAreaPermissible = occpancyObj[0].numOfTimesAreaPermissible;
+		var numOfTimesAreaPermWitAddnlFee = occpancyObj[0].numOfTimesAreaPermWitAddnlFee;
+		var areaPermissibleWOAddnlFee = parseFloat(extentInSqmts) * parseFloat(numOfTimesAreaPermissible);
+		var areaPermissibleWithAddnlFee = parseFloat(extentInSqmts) * parseFloat(numOfTimesAreaPermWitAddnlFee);
+		totalPlintArea = $("#totalPlintArea").val();
+			if(areaPermissibleWithAddnlFee == 0) {
+				if(parseFloat(totalPlintArea) > areaPermissibleWOAddnlFee){
+					 bootbox.alert("For the occupancy type of " +occpancyObj[0].description+", maximum permissible area is "+areaPermissibleWOAddnlFee+" Sq.Mtrs, beyond of permissible area you can't construct construction.");
+					 $(rowObj).find('.floorArea').val('');
+					 $( ".floorArea" ).trigger( "change" );
+					 $( ".plinthArea" ).trigger( "change" );
+		    		 $( ".carpetArea" ).trigger( "change" );
+					return false;
+				} else {
+					return true;
+				}
+			} else if(parseFloat(totalPlintArea) > areaPermissibleWithAddnlFee) {
+				 bootbox.alert("For the occupancy type of " +occpancyObj[0].description+", maximum permissible area allowed with addtional fee is "+areaPermissibleWithAddnlFee+" Sq.Mtrs, beyond of permissible area you can't construct construction.");
+				 $(rowObj).find('.floorArea').val('');
+				 $( ".floorArea" ).trigger( "change" );
+				 $( ".plinthArea" ).trigger( "change" );
+	    		 $( ".carpetArea" ).trigger( "change" );
+				return false;
+			} else if(parseFloat(totalPlintArea) > areaPermissibleWOAddnlFee) {
+				bootbox
+				.confirm({
+					message : 'For the occupancy type of ' +occpancyObj[0].description+', maximum permissible area allowed with out addtional fee is '+areaPermissibleWOAddnlFee+' Sq.Mtrs, Do you want continue construction in additional area with addtional cost of Rs.1000 per Sq.Mtr.If you want continue further please select Yes / No ?',
+					buttons : {
+						'cancel' : {
+							label : 'No',
+							className : 'btn-danger'
+						},
+						'confirm' : {
+							label : 'Yes',
+							className : 'btn-primary'
+						}
+					},
+					callback : function(result) {
+						if (result) {
+							//
+						} else {
+							$(rowObj).find('.floorArea').val('');
+							 $( ".floorArea" ).trigger( "change" );
+							 $( ".plinthArea" ).trigger( "change" );
+				    		 $( ".carpetArea" ).trigger( "change" );
+							e.stopPropagation();
+							e.preventDefault();
+						}
+					}
+				});
+			}
+	});
+
+	$('.for-calculation').change(function(){
+		getOccupancyObject();
+		$("#extentinsqmts").val(convertExtendOfLandToSqmts(extentOfLand, $("#unitOfMeasurement").val()));
+		$("#extentinsqmtshdn").val(convertExtendOfLandToSqmts(extentOfLand, $("#unitOfMeasurement").val()));
+	});
+	
+	// multi-select without pressing ctrl key
+	$("select.tick-indicator").mousedown(function(e){
+	    e.preventDefault();
+	    
+		var select = this;
+	    var scroll = select.scrollTop;
+	    
+	    e.target.selected = !e.target.selected;
+	    
+	    $(this).trigger('change');
+	    
+	    setTimeout(function(){select.scrollTop = scroll;}, 0);
+	    
+	    $(select).focus();
+
+	}).mousemove(function(e){e.preventDefault()});
+	
 });
 
-$('#occupancy').change(function(){
-	$( ".plinthArea" ).trigger( "change" );
-	$( ".carpetArea" ).trigger( "change" );
-	$( ".floorArea" ).trigger( "change" );
-	//$('.clear-values').val('');
-	$('#buildingAreaDetails').find('input').val('');
-	$('#buildingAreaDetails').find('select').val('');
-	getOccupancyObject();
-});
+function getOccupancyObject() {
+	extentOfLand = $('#extentOfLand').val();
+	extentInSqmts = $('#extentinsqmts').val();
+	/*totalPlintArea = $('#totalPlintArea').val();*/
+	var occpancyId = $('#occupancy').val();
+		/*if(!occpancyId){
+			bootbox.alert("Please select occpancy type");
+			return false;
+		}*/
+	return occupancyResponse[occpancyId];
+}
+
 
 function arrayGroupByKey(arry, groupByKey){
 	var resultData={};
@@ -272,110 +391,7 @@ function arrayGroupByKey(arry, groupByKey){
 
 	return resultData;
 }
-var extentOfLand;
-var totalPlintArea;
-var totalFloorArea;
-var extentInSqmts;
-$('#totalPlintArea').blur(function(e) {
-	var occpancyObj = getOccupancyObject();
-	var numOfTimesAreaPermissible = occpancyObj[0].numOfTimesAreaPermissible;
-	var numOfTimesAreaPermWitAddnlFee = occpancyObj[0].numOfTimesAreaPermWitAddnlFee;
-	var areaPermissibleWOAddnlFee = parseFloat(extentInSqmts) * parseFloat(numOfTimesAreaPermissible);
-	var areaPermissibleWithAddnlFee = parseFloat(extentInSqmts) * parseFloat(numOfTimesAreaPermWitAddnlFee);
-		
-		if(areaPermissibleWithAddnlFee == 0) {
-			if(parseInt(totalPlintArea) > areaPermissibleWOAddnlFee){
-				 bootbox.alert("For the occupancy type of " +occpancyObj[0].description+", maximum permissible area is "+areaPermissibleWOAddnlFee+" Sq.Mtrs, beyond of permissible area you can't construct construction.");
-				 $('#totalPlintArea').val('');
-				 $( ".floorArea" ).trigger( "change" );
-				 $( ".plinthArea" ).trigger( "change" );
-	    		 $( ".carpetArea" ).trigger( "change" );
-				return false;
-			} else {
-				return true;
-			}
-		} else if(parseInt(totalPlintArea) > areaPermissibleWithAddnlFee) {
-			 bootbox.alert("For the occupancy type of " +occpancyObj[0].description+", maximum permissible area allowed with addtional fee is "+areaPermissibleWithAddnlFee+" Sq.Mtrs, beyond of permissible area you can't construct construction.");
-			 $('#totalPlintArea').val('');
-			 $( ".floorArea" ).trigger( "change" );
-			 $( ".plinthArea" ).trigger( "change" );
-    		 $( ".carpetArea" ).trigger( "change" );
-			return false;
-		} else if(parseInt(totalPlintArea) > areaPermissibleWOAddnlFee) {
-			bootbox
-			.confirm({
-				message : 'For the occupancy type of ' +occpancyObj[0].description+', maximum permissible area allowed with out addtional fee is '+areaPermissibleWOAddnlFee+' Sq.Mtrs, Do you want continue construction in additional area with addtional cost of Rs.1000 per Sq.Mtr.If you want continue further please select Yes / No ?',
-				buttons : {
-					'cancel' : {
-						label : 'No',
-						className : 'btn-danger pull-right'
-					},
-					'confirm' : {
-						label : 'Yes',
-						className : 'btn-danger pull-right'
-					}
-				},
-				callback : function(result) {
-					if (result) {
-						//
-					} else {
-						$('#totalPlintArea').val('');
-						 $( ".floorArea" ).trigger( "change" );
-						 $( ".plinthArea" ).trigger( "change" );
-			    		 $( ".carpetArea" ).trigger( "change" );
-						e.stopPropagation();
-						e.preventDefault();
-					}
-				}
-			});
-		}
-});
 
-function getOccupancyObject() {
-	extentOfLand = $('#extentOfLand').val();
-	extentInSqmts = $('#extentinsqmts').val();
-	totalPlintArea = $('#totalPlintArea').val();
-	var occpancyId = $('#occupancy').val();
-		/*if(!occpancyId){
-			bootbox.alert("Please select occpancy type");
-			return false;
-		}*/
-	return occupancyResponse[occpancyId];
-}
-
-// Floor wise floor area validations
-function validateFloorDetails(plinthArea){
-	var occpancyObj = getOccupancyObject();
-	if(!extentOfLand){
-		bootbox.alert("Please enter extend of land area value");
-		return false;
-	}
-	if(!totalPlintArea){
-		bootbox.alert("Please enter total builtup area value");
-		return false;
-	}
-	var inputPlinthArea = $(plinthArea).val();
-	var permissibleAreaInPercentage = occpancyObj[0].permissibleAreaInPercentage;
-	var permissibleAreaForFloor = extentInSqmts * permissibleAreaInPercentage / 100;
-	if(parseInt(inputPlinthArea) > parseInt(permissibleAreaForFloor)){
-		$(plinthArea).val('');
-		bootbox.alert("For type of " +occpancyObj[0].description+", each floor wise maximum permissable floor area is " +permissibleAreaForFloor+" Sq.Mtrs, so beyond of maximum permissable floor wise area you can't construct your building.");
-		return false;
-	}
-	if(parseInt($("#sumOfFloorArea").val()) > parseInt(totalPlintArea)){
-		$(plinthArea).val('');
-		bootbox.alert("Sum of floor wise floor area "+parseInt($("#sumOfFloorArea").val())+" Sq.Mtrs is exceeding the total builtup area "+parseInt(totalPlintArea)+" Sq.Mtrs of you entered, please check and enter valid data.");
-		return false;
-	}
-	$( ".plinthArea" ).trigger( "change" );
-	$( ".carpetArea" ).trigger( "change" );
-}
-
-$('.for-calculation').change(function(){
-	getOccupancyObject();
-	$("#extentinsqmts").val(convertExtendOfLandToSqmts(extentOfLand, $("#unitOfMeasurement").val()));
-	$("#extentinsqmtshdn").val(convertExtendOfLandToSqmts(extentOfLand, $("#unitOfMeasurement").val()));
-});
 
 function convertExtendOfLandToSqmts(extentOfLand,uom){
 	var extentinsqmts;
@@ -387,6 +403,34 @@ function convertExtendOfLandToSqmts(extentOfLand,uom){
 		extentinsqmts = extentOfLand;
 	}
 	return extentinsqmts;
+}
+
+//Floor wise floor area validations
+function validateFloorDetails(plinthArea){
+	var occpancyObj = getOccupancyObject();
+	if(!extentOfLand){
+		bootbox.alert("Please enter extend of land area value");
+		return false;
+	}
+	/*if(!totalPlintArea){
+		bootbox.alert("Please enter total builtup area value");
+		return false;
+	}*/
+	var inputPlinthArea = $(plinthArea).val();
+	var permissibleAreaInPercentage = occpancyObj[0].permissibleAreaInPercentage;
+	var permissibleAreaForFloor = extentInSqmts * permissibleAreaInPercentage / 100;
+	if(parseFloat(inputPlinthArea) > parseFloat(permissibleAreaForFloor)){
+		$(plinthArea).val('');
+		bootbox.alert("For type of " +occpancyObj[0].description+", each floor wise maximum permissable floor area is " +permissibleAreaForFloor+" Sq.Mtrs, so beyond of maximum permissable floor wise area you can't construct your building.");
+		return false;
+	}
+	if(parseFloat($("#sumOfFloorArea").val()) > parseFloat(totalPlintArea)){
+		$(plinthArea).val('');
+		bootbox.alert("Sum of floor wise floor area "+parseFloat($("#sumOfFloorArea").val())+" Sq.Mtrs is exceeding the total builtup area "+parseFloat(totalPlintArea)+" Sq.Mtrs of you entered, please check and enter valid data.");
+		return false;
+	}
+	$( ".plinthArea" ).trigger( "change" );
+	$( ".carpetArea" ).trigger( "change" );
 }
 
 

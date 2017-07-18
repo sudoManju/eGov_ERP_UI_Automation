@@ -236,3 +236,8 @@ select.tick-indicator[multiple] option:checked {
 
 
 /* search suggestion end */
+
+
+.bootstrap-tagsinput{
+	overflow:auto;
+}

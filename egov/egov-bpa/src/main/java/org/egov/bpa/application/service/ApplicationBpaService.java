@@ -215,16 +215,20 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         List<ApplicationFloorDetail> floorDetailsList = new ArrayList<>();
         if (!application.getBuildingDetail().isEmpty()) {
             application.getBuildingDetail().get(0).setApplication(application);
+            int item = 1;
             for (ApplicationFloorDetail applicationFloorDetails : application.getBuildingDetail().get(0)
                     .getApplicationFloorDetails()) {
                 if (null == applicationFloorDetails.getId() && applicationFloorDetails.getFloorDescription() != null) {
                     ApplicationFloorDetail floorDetails = new ApplicationFloorDetail();
                     floorDetails.setBuildingDetail(application.getBuildingDetail().get(0));
+                    floorDetails.setOrderOfFloor(item);
+                    floorDetails.setFloorNumber(applicationFloorDetails.getFloorNumber());
                     floorDetails.setFloorDescription(applicationFloorDetails.getFloorDescription());
                     floorDetails.setPlinthArea(applicationFloorDetails.getPlinthArea());
                     floorDetails.setCarpetArea(applicationFloorDetails.getCarpetArea());
                     floorDetails.setFloorArea(applicationFloorDetails.getFloorArea());
                     floorDetailsList.add(floorDetails);
+                    item ++ ;
                 } else if (null != applicationFloorDetails.getId()
                         && applicationFloorDetails.getFloorDescription() != null) {
                     floorDetailsList.add(applicationFloorDetails);
