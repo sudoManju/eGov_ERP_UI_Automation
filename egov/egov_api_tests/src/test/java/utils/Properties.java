@@ -110,6 +110,11 @@ public class Properties {
     public static final String createNewPropertyUrl = propertiesReader.getEndPointUrl("createNewPropertyUrl");
 
 
+    // Billing Services Url's //
+    public static final String createTaxHeadMasterUrl = propertiesReader.getEndPointUrl("taxHeadMasterCreateUrl");
+    public static final String createGlcodesMasterUrl = propertiesReader.getEndPointUrl("glcodesMasterCreateUrl");
+
+
     // Water Charge Management Url's //
     public static final String wcmsCreateCategoryTypeUrl = propertiesReader.getEndPointUrl("wcmsCreateCategoryTypeUrl");
     public static final String wcmsSearchCategoryTypeUrl = propertiesReader.getEndPointUrl("wcmsSearchCategoryTypeUrl");
