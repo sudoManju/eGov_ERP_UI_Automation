@@ -16,7 +16,7 @@ public class AssetCategoryBuilder {
     AssetFieldsDefination assetFieldsDefination5 = new AssetFieldsDefinationBuilder("FloorDetails").build();
 
     public AssetCategoryBuilder() {
-        assetCategory.setTenantId("ap.kurnool");
+        assetCategory.setTenantId("default");
         assetCategory.setAssetCategoryType("MOVABLE");
         assetCategory.setDepreciationMethod("STRAIGHT_LINE_METHOD");
         assetCategory.setIsAssetAllow(true);

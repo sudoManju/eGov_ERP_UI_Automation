@@ -9,10 +9,10 @@ Feature: Create/View/Update
 #    //pilotHR: pilotServices
 #    //kurnoolHR: staging
 #    //tirupatiHR: tirupati
-#    //kakinadaHR: kakinada
+#    //kakinadHR: kakinada
 #    //gunturHR: guntur
 
-    Given pilotHR logs in
+    Given gunturHR logs in
     And user will select the required screen as "Create Employee" with condition as "/employee"
     And user enters the employee details as <employeeDetails>
     And user will enter the assignment details as <assignmentDetails>

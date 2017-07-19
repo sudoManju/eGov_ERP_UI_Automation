@@ -11,6 +11,7 @@ import java.io.IOException;
 import static data.SearchParameterData.WITH_CODE;
 import static data.UserData.ADMIN;
 import static data.UserData.AssetServiceUser;
+import static data.UserData.NARASAPPA;
 
 public class AssetCategoryAndServiceTest extends BaseAPITest {
 
@@ -18,22 +19,18 @@ public class AssetCategoryAndServiceTest extends BaseAPITest {
        ==========================
        Create Asset Category and Search the Created One
        Search Asset Category
-       Create Asset Service Along with Create Asset Category and also Search the Created Asset Service
-       Search Asset Service
     */
 
     private AssetCategoryHelper assetCategoryHelper;
-    private AssetServiceHelper assetServiceHelper;
 
     public AssetCategoryAndServiceTest() {
         assetCategoryHelper = new AssetCategoryHelper();
-        assetServiceHelper = new AssetServiceHelper();
     }
 
     // Asset Category Tests
     @Test(groups = {Categories.ASSET, Categories.SANITY, Categories.PILOT})
     public void createAssetCategoryTest() throws IOException {
-        LoginAndLogoutHelper.loginFromPilotService(ADMIN);  // Login
+        LoginAndLogoutHelper.loginFromPilotService(NARASAPPA);  // Login
         CreateAssetCategoryResponse create = assetCategoryHelper.createAssetCategory(); // Create Asset Category
         int id = assetCategoryHelper.searchAssetCategory(create.getAssetCategory()[0].getCode()); // Search Asset Category
         pilotLogoutService(); // Logout
@@ -41,10 +38,11 @@ public class AssetCategoryAndServiceTest extends BaseAPITest {
 
     @Test(groups = {Categories.ASSET, Categories.SANITY, Categories.PILOT})
     public void searchAssetCategoryTest() throws IOException {
-        LoginAndLogoutHelper.loginFromPilotService(ADMIN); // Login
+        LoginAndLogoutHelper.loginFromPilotService(NARASAPPA); // Login
         assetCategoryHelper.searchAssetCategory(null); // Search Asset Category
         pilotLogoutService(); // Logout
     }
+<<<<<<< HEAD
 
     // Asset Service Tests
     @Test(groups = {Categories.ASSET, Categories.SANITY, Categories.PILOT})
@@ -64,4 +62,6 @@ public class AssetCategoryAndServiceTest extends BaseAPITest {
         assetServiceHelper.searchAssetService("", ""); // Search Asset Service
         pilotLogoutService(); // Logout
     }
+=======
+>>>>>>> [EGSVC-35]-UI: Changes updated for Create Employee
 }
