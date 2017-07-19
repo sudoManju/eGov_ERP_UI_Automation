@@ -30,7 +30,7 @@ public class AssetCategoryAndServiceTest extends BaseAPITest {
     // Asset Category Tests
     @Test(groups = {Categories.ASSET, Categories.SANITY, Categories.PILOT})
     public void createAssetCategoryTest() throws IOException {
-        LoginAndLogoutHelper.loginFromPilotService(NARASAPPA);  // Login
+        LoginAndLogoutHelper.login(NARASAPPA);  // Login
         CreateAssetCategoryResponse create = assetCategoryHelper.createAssetCategory(); // Create Asset Category
         int id = assetCategoryHelper.searchAssetCategory(create.getAssetCategory()[0].getCode()); // Search Asset Category
         pilotLogoutService(); // Logout

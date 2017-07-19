@@ -14,7 +14,7 @@ public class RequestInfoBuilder {
         requestInfo.setDid("");
         requestInfo.setKey("");
         requestInfo.setMsgId("");
-        requestInfo.setRequesterId("");
+//        requestInfo.setRequesterId("");
         requestInfo.setAuthToken("aeiou");
     }
 
@@ -53,10 +53,10 @@ public class RequestInfoBuilder {
         return this;
     }
 
-    public RequestInfoBuilder withRequesterId(String requesterId) {
-        requestInfo.setRequesterId(requesterId);
-        return this;
-    }
+//    public RequestInfoBuilder withRequesterId(String requesterId) {
+//        requestInfo.setRequesterId(requesterId);
+//        return this;
+//    }
 
     public RequestInfoBuilder withAuthToken(String authToken) {
         requestInfo.setAuthToken(authToken);
