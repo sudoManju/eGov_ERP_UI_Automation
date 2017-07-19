@@ -74,8 +74,8 @@
 				<th class="text-center"><spring:message code="lbl.srl.no" /></th>
 				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message code="lbl.floor.name" /></th>
 				<th class="text-center"><spring:message code="lbl.floor.level" /></th>
-				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message code="lbl.floor.area" /></th>
 				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message code="lbl.plinth.area" /></th>
+				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message code="lbl.floor.area" /></th>
 				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message code="lbl.carpet.area" /></th>
 				<th class="text-center"><spring:message code="lbl.action" /></th>
 			</tr>
@@ -104,17 +104,17 @@
  									id="applicationFloorDetails${counter.index}floorNumber"
 									maxlength="15" value="${buildingAreaDetails.floorNumber}" /></td>
 							<td><form:input type="text"
-								class="form-control table-input text-right patternvalidation decimalfixed floorArea"
-								data-pattern="decimalvalue"
-								path="buildingDetail[0].applicationFloorDetails[${counter.index}].floorArea"
-								id="applicationFloorDetails${counter.index}floorArea" maxlength="15" required="required" value=""
-								onblur="validateFloorDetails(this)" /></td>
-							<td><form:input type="text"
 									class="form-control table-input patternvalidation decimalfixed plinthArea text-right"
 									data-pattern="decimalvalue"
 									path="buildingDetail[0].applicationFloorDetails[${counter.index}].plinthArea"
 									id="applicationFloorDetails${counter.index}plinthArea"
 									maxlength="15" required="required" value="${buildingAreaDetails.plinthArea}" /></td>
+							<td><form:input type="text"
+								class="form-control table-input text-right patternvalidation decimalfixed floorArea"
+								data-pattern="decimalvalue"
+								path="buildingDetail[0].applicationFloorDetails[${counter.index}].floorArea"
+								id="applicationFloorDetails${counter.index}floorArea" maxlength="15" required="required" value=""
+								onblur="validateFloorDetails(this)" /></td>
 							<td><form:input type="text"
 									class="form-control table-input text-right patternvalidation decimalfixed carpetArea"
 									data-pattern="decimalvalue"
@@ -149,16 +149,16 @@
 									id="applicationFloorDetails0floorNumber"
 									maxlength="15" value="${buildingAreaDetails.floorNumber}" /></td>
 						<td><form:input type="text"
+								class="form-control table-input text-right patternvalidation decimalfixed plinthArea floor-details-mandatory"
+								data-pattern="decimalvalue"
+								path="buildingDetail[0].applicationFloorDetails[0].plinthArea"
+								id="applicationFloorDetails0plinthArea" maxlength="15" value=""/></td>
+						<td><form:input type="text"
 								class="form-control table-input text-right patternvalidation decimalfixed floorArea floor-details-mandatory"
 								data-pattern="decimalvalue"
 								path="buildingDetail[0].applicationFloorDetails[0].floorArea"
 								id="applicationFloorDetails0floorArea" maxlength="15" value=""
 								onblur="validateFloorDetails(this)" /></td>
-						<td><form:input type="text"
-								class="form-control table-input text-right patternvalidation decimalfixed plinthArea floor-details-mandatory"
-								data-pattern="decimalvalue"
-								path="buildingDetail[0].applicationFloorDetails[0].plinthArea"
-								id="applicationFloorDetails0plinthArea" maxlength="15" value=""/></td>
 						<td><form:input type="text"
 								class="form-control table-input text-right patternvalidation decimalfixed carpetArea floor-details-mandatory"
 								data-pattern="decimalvalue"
@@ -189,6 +189,8 @@
 		<label
 			class="col-sm-3 control-label text-right handle-mandatory show-hide totalPlintArea"><spring:message
 				code="lbl.build.total.plinth" /><span class="mandatory"></span> </label> <label
+			class="col-sm-3 control-label text-right handle-mandatory show-hide demolition"><spring:message
+				code="lbl.demolition.area" /> <span class="mandatory"></span> </label><label
 			class="col-sm-3 control-label text-right handle-mandatory show-hide noofhutorshed"><spring:message
 				code="lbl.area.hut.shed" /> <span class="mandatory"></span> </label> <label
 			class="col-sm-3 control-label text-right handle-mandatory show-hide alterationInArea"><spring:message
