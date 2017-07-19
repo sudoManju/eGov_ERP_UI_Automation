@@ -162,6 +162,8 @@ public class TradeLicensePage extends BasePage {
 //        propertyAssessmentNumberTextBox.sendKeys(Keys.TAB);
         Select select = new Select(location);
         select.selectByIndex(6);
+        location.sendKeys(Keys.TAB);
+        new Select(wardSelect).selectByIndex(1);
         await().atMost(20, SECONDS).until(() -> new Select(location).getOptions().size() > 1);
         if (!(wardSelect.findElements(By.tagName("option")).size() > 1)) {
             clickOnButton(location, webDriver);
@@ -170,7 +172,6 @@ public class TradeLicensePage extends BasePage {
         }
         await().atMost(10, SECONDS).until(() -> wardSelect.findElements(By.tagName("option")).size() > 1);
         waitForElementToBeClickable(wardSelect, webDriver);
-        new Select(wardSelect).selectByIndex(1);
         new Select(wardSelect).selectByIndex(1);
         selectFromDropDown(OwnershipTypeDropBox, tradelocationDetails.getownershipType(), webDriver);
         enterText(tradeAddress,"Bangalore",webDriver);

@@ -2,7 +2,7 @@ Feature: Legacy license
 
 
    # CREATE LEGENCY TRADE LICENSE #
-  @Sanity @TradeLicense
+  @Sanity @TradeLicense @New
   Scenario Outline: Register user create legacy trade license
     Given creator logs in
     And user will select the required screen as "Create Legacy License"
