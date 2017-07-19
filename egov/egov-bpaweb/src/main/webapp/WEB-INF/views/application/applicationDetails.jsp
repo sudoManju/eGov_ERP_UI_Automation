@@ -105,7 +105,7 @@
 				<form:input path="applicationDate" class="form-control datepicker"
 					data-date-end-date="0d" id="applicationDate"
 					data-inputmask="'mask': 'd/m/y'" required="required"
-					readonly="true" />
+					disabled="true" />
 				<form:errors path="applicationDate" cssClass="add-margin error-msg" />
 			</div>
 

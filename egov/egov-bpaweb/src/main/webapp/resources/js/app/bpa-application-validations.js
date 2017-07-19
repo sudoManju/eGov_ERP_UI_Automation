@@ -49,6 +49,8 @@ $(document).ready(function() {
 	if('Tower Construction'.localeCompare(seviceType) == 0 || 'Pole Structures'.localeCompare(seviceType) == 0
 			|| 'Sub-Division of plot/Land Development'.localeCompare(seviceType) == 0){
 		$('.buildingdetails').hide();
+	} else if('New Construction'.localeCompare(seviceType) == 0 ){
+		$('.doorNo').hide();
 	}
 	$('.show-hide').hide();
 	$('.totalPlintArea').show();
@@ -66,7 +68,10 @@ $(document).ready(function() {
 		
 		var seviceTypeName = $( "#serviceType option:selected" ).text();
 		$('.buildingdetails').show();
-		if('Sub-Division of plot/Land Development'.localeCompare(seviceTypeName) == 0 || 'Tower Construction'.localeCompare(seviceTypeName) == 0
+		$('.doorNo').show();
+		if('New Construction'.localeCompare(seviceTypeName) == 0 ){
+			$('.doorNo').hide();
+		} else if('Sub-Division of plot/Land Development'.localeCompare(seviceTypeName) == 0 || 'Tower Construction'.localeCompare(seviceTypeName) == 0
 				|| 'Pole Structures'.localeCompare(seviceTypeName) == 0){
 			$('.handle-mandatory').removeAttr('required');
 			$('.handle-mandatory').find("span").removeClass( "mandatory" );
