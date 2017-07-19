@@ -206,7 +206,7 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
 			bpaApplication.setMailPwdRequired(true);
         final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(bpaApplication, BpaConstants.WF_NEW_STATE);
         if (wfmatrix != null)
-            userPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(),
+            userPosition = bpaUtils.getUserPositionIdByZone(wfmatrix.getNextDesignation(),
                     bpaApplication.getSiteDetail().get(0) != null
                             && bpaApplication.getSiteDetail().get(0).getElectionBoundary() != null
                                     ? bpaApplication.getSiteDetail().get(0).getElectionBoundary().getId() : null);
@@ -282,7 +282,8 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
 	            model.addAttribute("message",message);
             }else
             model.addAttribute("message",
-                    "Sucessfully saved with ApplicationNumber " + bpaApplicationRes.getApplicationNumber());
+                    "Sucessfully saved with ApplicationNumber " + bpaApplicationRes.getApplicationNumber()+
+                    BpaConstants.DISCLIMER_MESSAGE_ONSAVE);
             bpaUtils.sendSmsEmailOnCitizenSubmit(bpaApplication);
         }
         return BPAAPPLICATION_CITIZEN;

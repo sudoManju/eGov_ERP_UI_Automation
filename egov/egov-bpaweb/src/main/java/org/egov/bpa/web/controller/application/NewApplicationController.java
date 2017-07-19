@@ -60,10 +60,11 @@ import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BPASmsAndEmailService;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.commons.entity.Source;
-import org.egov.infra.admin.master.service.UserService;
 import org.egov.infra.persistence.entity.enums.Gender;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
+import org.egov.pims.commons.Position;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -80,7 +81,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class NewApplicationController extends BpaGenericApplicationController {
 
     private static final String NEWAPPLICATION_FORM = "newapplication-form";
-
+    private static final String BPA_APPLICATION_RESULT = "bpa-application-result";
+    private static final String MESSAGE = "message";
     @Autowired
     private GenericBillGeneratorService genericBillGeneratorService;
 
@@ -88,10 +90,7 @@ public class NewApplicationController extends BpaGenericApplicationController {
     private BpaUtils bpaUtils;
 
     @Autowired
-    private UserService userService;
-    
-    @Autowired
-	private BPASmsAndEmailService bpaSmsAndEmailService;
+    private BPASmsAndEmailService bpaSmsAndEmailService;
 
     @RequestMapping(value = "/newApplication-newform", method = GET)
     public String showNewApplicationForm(@ModelAttribute final BpaApplication bpaApplication, final Model model,
@@ -110,11 +109,12 @@ public class NewApplicationController extends BpaGenericApplicationController {
             final BindingResult resultBinder, final RedirectAttributes redirectAttributes,
             final HttpServletRequest request, final Model model, @RequestParam String workFlowAction,
             final BindingResult errors) {
-
+        String message;
         Long userPosition = null;
+     
         final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(bpaApplication, BpaConstants.WF_NEW_STATE);
         if (wfmatrix != null)
-            userPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(),
+            userPosition = bpaUtils.getUserPositionIdByZone(wfmatrix.getNextDesignation(),
                     bpaApplication.getSiteDetail().get(0) != null
                             && bpaApplication.getSiteDetail().get(0).getElectionBoundary() != null ? bpaApplication
                             .getSiteDetail().get(0).getElectionBoundary().getId() : null);
@@ -123,14 +123,13 @@ public class NewApplicationController extends BpaGenericApplicationController {
         }
 
         if (!applicationBpaService.checkStakeholderIsValid(bpaApplication)) {
-            String message = applicationBpaService.getValidationMessageForBusinessResgistration(bpaApplication);
+             message = applicationBpaService.getValidationMessageForBusinessResgistration(bpaApplication);
             model.addAttribute("invalidStakeholder", message);
             model.addAttribute("mode", "new");
             return NEWAPPLICATION_FORM;
         }
         if(!(bpaApplication.getOwner().getUser()!=null && bpaApplication.getOwner().getUser().getId()!=null))
 			bpaApplication.setMailPwdRequired(true);
-        workFlowAction = request.getParameter("workFlowAction");
         List<ApplicationStakeHolder> applicationStakeHolders = new ArrayList<>();
         ApplicationStakeHolder applicationStakeHolder = new ApplicationStakeHolder();
         applicationStakeHolder.setApplication(bpaApplication);
@@ -146,13 +145,31 @@ public class NewApplicationController extends BpaGenericApplicationController {
 		}else{
 			bpaApplication.getOwner().setUser(applicationBpaService.createApplicantAsUser(bpaApplication));
 		}
-        BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication, workFlowAction);
+        bpaApplication.setCitizenAccepted(true);
+        bpaApplication.setArchitectAccepted(true);
+
+        BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication,
+                request.getParameter("workFlowAction"));
+        bpaUtils.createPortalUserinbox(bpaApplicationRes, Arrays.asList(bpaApplicationRes.getOwner().getUser(),
+                bpaApplicationRes.getStakeHolder().get(0).getStakeHolder()));
+       
+        // If There is no admission tax required to collect in first stage then forward record to next level user.
+        if (!applicationBpaService.checkAnyTaxIsPendingToCollect(bpaApplicationRes)) {
+            Position pos = null;
+            if (bpaApplicationRes.getCurrentState() != null && bpaApplicationRes.getCurrentState().getOwnerPosition() != null)
+                pos = bpaApplicationRes.getCurrentState().getOwnerPosition();
+
+            message = messageSource.getMessage("msg.update.forward.registration", new String[] {
+                    pos != null && pos.getDeptDesig() != null && pos.getDeptDesig().getDesignation() != null
+                            ? pos.getDeptDesig().getDesignation().getName() : "",
+                    bpaApplicationRes.getApplicationNumber() }, LocaleContextHolder.getLocale());
+            model.addAttribute(MESSAGE, message);
+            bpaSmsAndEmailService.sendSMSAndEmail(bpaApplicationRes);
+            return BPA_APPLICATION_RESULT;
+        }
         bpaSmsAndEmailService.sendSMSAndEmail(bpaApplicationRes);
-        bpaUtils.createPortalUserinbox(bpaApplicationRes,Arrays.asList(bpaApplicationRes.getOwner().getUser(),bpaApplicationRes.getStakeHolder().get(0).getStakeHolder()));
-        bpaApplicationRes.setCitizenAccepted(true);
-        bpaApplicationRes.setArchitectAccepted(true);
-        return genericBillGeneratorService.generateBillAndRedirectToCollection(bpaApplicationRes, model);
-    } 
+     return genericBillGeneratorService.generateBillAndRedirectToCollection(bpaApplicationRes, model);
+    }
  
     private String redirectOnValidationFailure(final Model model) {
         model.addAttribute("noJAORSAMessage", "No Superintendant exists to forward the application.");

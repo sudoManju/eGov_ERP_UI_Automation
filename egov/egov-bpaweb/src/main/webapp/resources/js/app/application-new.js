@@ -91,6 +91,8 @@ jQuery(document).ready(
 var citizenOrBusiness = $('#citizenOrBusinessUser').val();
 if (citizenOrBusiness == 'true') {
 	$('#serviceType').prop("disabled", true);
+	$("#applicationDate").prop("readOnly",true); 
+	$("#applicationDate").removeClass( "form-control datepicker" ).addClass( "form-control" ); 
 }
 function chkNumeric(evt) {
 	evt = (evt) ? evt : window.event;

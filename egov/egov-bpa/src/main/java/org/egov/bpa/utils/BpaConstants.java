@@ -210,6 +210,8 @@ public class BpaConstants {
     public static final String WF_PAY_ONLINE_BUTTON = "Pay Online";
     public static final String ENABLEONLINEPAYMENT = "BPA_ONLINE_PAY";
     public static final String BPA_CITIZENACCEPTANCE_CHECK = "BPA_CITIZENACCEPTANCE_CHECK";
+    public static final String DISCLIMER_MESSAGE_ONSAVE = "\n   Acceptance of building permit application in the system and DCR checking process does not confer a claim for building permit approval";
+    
     private static final List<String> BUILDPERMIT = new ArrayList<>();
     static {
         BUILDPERMIT.add(ST_CODE_02); // Demolition

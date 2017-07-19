@@ -26,6 +26,7 @@ import org.egov.infra.persistence.entity.enums.UserType;
 import org.egov.infra.security.utils.SecurityUtils;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
 import org.egov.infra.workflow.service.SimpleWorkflowService;
+import org.egov.pims.commons.Position;
 import org.egov.portal.entity.PortalInbox;
 import org.egov.portal.entity.PortalInboxBuilder;
 import org.egov.portal.service.PortalInboxService;
@@ -76,7 +77,7 @@ public class BpaUtils {
 	public String getAppconfigValueByKeyName(String code) {
 		List<AppConfigValues> appConfigValueList = appConfigValueService
 				.getConfigValuesByModuleAndKey(BpaConstants.APPLICATION_MODULE_TYPE, code);
-		return (!appConfigValueList.isEmpty() ? appConfigValueList.get(0).getValue() : "");
+		return !appConfigValueList.isEmpty() ? appConfigValueList.get(0).getValue() : "";
 	}
 
 	public Boolean checkAnyTaxIsPendingToCollect(final BpaApplication bpaApplication) {
@@ -106,7 +107,7 @@ public class BpaUtils {
 
 	public Boolean applicationinitiatedByNonEmployee(BpaApplication application) {
 		Boolean initiatedByNonEmployee = false;
-		User applicationInitiator = null;
+		User applicationInitiator;
 		if (application.getCreatedBy() != null)
 			applicationInitiator = userService.getUserById(application.getCreatedBy().getId());
 		else
@@ -146,7 +147,7 @@ public class BpaUtils {
 		String url = "/bpa/application/citizen/update/" + application.getApplicationNumber();
 		if (application.getStatus() != null)
 			portalInboxService.updateInboxMessage(application.getApplicationNumber(), module.getId(),
-					(application.getStatus().getDescription()), isResolved, new Date(), application.getState(),
+					application.getStatus().getDescription(), isResolved, new Date(), application.getState(),
 					additionalPortalInboxUser, application.getPlanPermissionNumber(), url);
 	}
 
@@ -165,7 +166,7 @@ public class BpaUtils {
 	}
 
 	@Transactional(readOnly = true)
-	public Long getUserPositionByZone(final String designation, final Long boundary) {
+	public Long getUserPositionIdByZone(final String designation, final Long boundary) {
 		final Boundary boundaryObj = getBoundaryById(boundary);
 		final String[] designationarr = designation.split(",");
 		List<Assignment> assignment = new ArrayList<>();
@@ -196,7 +197,38 @@ public class BpaUtils {
 		}
 		return !assignment.isEmpty() ? assignment.get(0).getPosition().getId() : 0;
 	}
-
+	@Transactional(readOnly = true)
+        public Position getUserPositionByZone(final String designation, final Long boundary) {
+                final Boundary boundaryObj = getBoundaryById(boundary);
+                final String[] designationarr = designation.split(",");
+                List<Assignment> assignment = new ArrayList<>();
+                for (final String desg : designationarr) {
+                        assignment = assignmentService.findByDepartmentDesignationAndBoundary(null,
+                                        designationService.getDesignationByName(desg).getId(), boundaryObj.getId());
+                        if (assignment.isEmpty()) {
+                                // Ward->Zone
+                                if (boundaryObj.getParent() != null && boundaryObj.getParent().getBoundaryType() != null && boundaryObj
+                                                .getParent().getBoundaryType().getName().equals(BpaConstants.BOUNDARY_TYPE_ZONE)) {
+                                        assignment = assignmentService.findByDeptDesgnAndParentAndActiveChildBoundaries(null,
+                                                        designationService.getDesignationByName(desg).getId(), boundaryObj.getParent().getId());
+                                        if (assignment.isEmpty() && boundaryObj.getParent() != null
+                                                        && boundaryObj.getParent().getParent() != null && boundaryObj.getParent().getParent()
+                                                                        .getBoundaryType().getName().equals(BpaConstants.BOUNDARY_TYPE_CITY))
+                                                assignment = assignmentService.findByDeptDesgnAndParentAndActiveChildBoundaries(null,
+                                                                designationService.getDesignationByName(desg).getId(),
+                                                                boundaryObj.getParent().getParent().getId());
+                                }
+                                // ward->City mapp
+                                if (assignment.isEmpty() && boundaryObj.getParent() != null
+                                                && boundaryObj.getParent().getBoundaryType().getName().equals(BpaConstants.BOUNDARY_TYPE_CITY))
+                                        assignment = assignmentService.findByDeptDesgnAndParentAndActiveChildBoundaries(null,
+                                                        designationService.getDesignationByName(desg).getId(), boundaryObj.getParent().getId());
+                        }
+                        if (!assignment.isEmpty())
+                                break;
+                }
+                return !assignment.isEmpty() ? assignment.get(0).getPosition() : null;
+        }
 	public Boundary getBoundaryById(final Long boundary) {
 
 		return boundaryService.getBoundaryById(boundary);
@@ -221,35 +253,36 @@ public class BpaUtils {
 		return citizen;
 	}
 
-	@Transactional
-	public void redirectToBpaWorkFlow(Long approvalPosition, final BpaApplication application,
-			final String currentState, final String remarks, final String workFlowAction, final BigDecimal amountRule) {
+    @Transactional
+    public void redirectToBpaWorkFlow(Long approvalPosition, final BpaApplication application,
+            final String currentState, final String remarks, final String workFlowAction, final BigDecimal amountRule) {
 
-		final WorkFlowMatrix wfmatrix = getWfMatrixByCurrentState(application, currentState);
-		final BpaApplicationWorkflowCustomDefaultImpl applicationWorkflowCustomDefaultImpl = getInitialisedWorkFlowBean();
-		if (approvalPosition == null) {
-			approvalPosition = getUserPositionByZone(wfmatrix.getNextDesignation(),
-					application.getSiteDetail().get(0) != null
-							? application.getSiteDetail().get(0).getElectionBoundary().getId() : null);
-		}
-		if (currentState.equals(BpaConstants.LETTERTOPARTYINITIATE))
-			applicationWorkflowCustomDefaultImpl.createCommonWorkflowTransition(application, approvalPosition, remarks,
-					BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, BpaConstants.LETTERTOPARTYINITIATE, amountRule);
-		else if (currentState.equals(BpaConstants.LETTERTOPARTYINITIATED))
-			applicationWorkflowCustomDefaultImpl.createCommonWorkflowTransition(application, approvalPosition, remarks,
-					BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, BpaConstants.LETTERTOPARTYINITIATED, amountRule);
-		else
-			applicationWorkflowCustomDefaultImpl.createCommonWorkflowTransition(application, approvalPosition, remarks,
-					BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, workFlowAction, amountRule);
-	}
+        final WorkFlowMatrix wfmatrix = getWfMatrixByCurrentState(application, currentState);
+        final BpaApplicationWorkflowCustomDefaultImpl applicationWorkflowCustomDefaultImpl = getInitialisedWorkFlowBean();
+        Long approvalPositionId = approvalPosition;
+        if (approvalPosition == null) {
+            approvalPositionId = getUserPositionIdByZone(wfmatrix.getNextDesignation(),
+                    application.getSiteDetail().get(0) != null
+                            ? application.getSiteDetail().get(0).getElectionBoundary().getId() : null);
+        }
+        if (currentState.equals(BpaConstants.LETTERTOPARTYINITIATE))
+            applicationWorkflowCustomDefaultImpl.createCommonWorkflowTransition(application, approvalPositionId, remarks,
+                    BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, BpaConstants.LETTERTOPARTYINITIATE, amountRule);
+        else if (currentState.equals(BpaConstants.LETTERTOPARTYINITIATED))
+            applicationWorkflowCustomDefaultImpl.createCommonWorkflowTransition(application, approvalPositionId, remarks,
+                    BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, BpaConstants.LETTERTOPARTYINITIATED, amountRule);
+        else
+            applicationWorkflowCustomDefaultImpl.createCommonWorkflowTransition(application, approvalPositionId, remarks,
+                    BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, workFlowAction, amountRule);
+    }
 
-	public void sendSmsEmailOnCitizenSubmit(BpaApplication bpaApplication) {
-			bpaSmsAndEmailService.sendSMSAndEmail(bpaApplication);
-	}
-	
-	public String generateUserName(final String name) {
+    public void sendSmsEmailOnCitizenSubmit(BpaApplication bpaApplication) {
+        bpaSmsAndEmailService.sendSMSAndEmail(bpaApplication);
+    }
+
+    public String generateUserName(final String name) {
         final StringBuilder userNameBuilder = new StringBuilder();
-        String userName = "";
+        String userName;
         if (name.length() < 6)
             userName = String.format("%-6s", name).replace(' ', '0');
         else

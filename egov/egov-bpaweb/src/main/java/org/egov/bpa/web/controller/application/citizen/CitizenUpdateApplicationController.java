@@ -54,7 +54,6 @@ import org.egov.bpa.utils.BpaConstants;
 import org.egov.bpa.web.controller.application.BpaGenericApplicationController;
 import org.egov.eis.service.PositionMasterService;
 import org.egov.infra.admin.master.entity.User;
-import org.egov.infra.admin.master.service.AppConfigValueService;
 import org.egov.infra.persistence.entity.PermanentAddress;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
 import org.egov.pims.commons.Position;
@@ -85,8 +84,6 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
     LettertoPartyService lettertoPartyService;
     @Autowired
     private InspectionService inspectionService;
-    @Autowired
-    private AppConfigValueService appConfigValueService;
     @Autowired
     private PositionMasterService positionMasterService;
 
@@ -169,7 +166,7 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 				final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(bpaApplication,
 						BpaConstants.WF_NEW_STATE);
 				if (wfmatrix != null)
-					approvalPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(),
+					approvalPosition = bpaUtils.getUserPositionIdByZone(wfmatrix.getNextDesignation(),
 							bpaApplication.getSiteDetail().get(0) != null
 									&& bpaApplication.getSiteDetail().get(0).getElectionBoundary() != null
 											? bpaApplication.getSiteDetail().get(0).getElectionBoundary().getId()

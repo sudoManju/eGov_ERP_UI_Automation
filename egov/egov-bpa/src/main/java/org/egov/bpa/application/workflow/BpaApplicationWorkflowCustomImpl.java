@@ -117,21 +117,23 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
             pos = positionMasterService.getPositionById(approvalPosition);
 
         WorkFlowMatrix wfmatrix;
-        if (null == application.getState()) { 
-        	if(bpaUtils.applicationinitiatedByNonEmployee(application))
-        		 wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null,
-                         null, additionalRule, BpaConstants.WF_NEW_STATE, null);
-        	else
-            wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null,
-                    null, additionalRule, BpaConstants.WF_CREATED_STATE, null);
-            Long userPosition;
+        if (null == application.getState()) {
+            if (bpaUtils.applicationinitiatedByNonEmployee(application) || (application.getAdmissionfeeAmount() != null
+                    && application.getAdmissionfeeAmount().compareTo(BigDecimal.ZERO) == 0))
+                wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null,
+                        null, additionalRule, BpaConstants.WF_NEW_STATE, null);
+            else {
+                wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null,
+                        null, additionalRule, BpaConstants.WF_CREATED_STATE, null);
+            }
+           
             if (wfmatrix != null) {
                 if (pos == null) {
-                    userPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(),
+                    pos = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(),
                             application.getSiteDetail().get(0) != null
                                     && application.getSiteDetail().get(0).getElectionBoundary() != null
                                             ? application.getSiteDetail().get(0).getElectionBoundary().getId() : null);
-                    pos = positionMasterService.getPositionById(userPosition);
+                   
                 }
                 application.setStatus(getStatusByCurrentMatrxiStatus(wfmatrix));
                 application.transition().start()

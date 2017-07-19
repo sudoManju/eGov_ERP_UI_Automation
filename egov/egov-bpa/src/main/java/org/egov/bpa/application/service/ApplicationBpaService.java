@@ -188,25 +188,33 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         Long approvalPosition = null;
         application.setDemand(applicationBpaBillService.createDemand(application));
         if (!bpaUtils.logedInuseCitizenOrBusinessUser()) {
-            final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(application,
+            WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(application,
                     BpaConstants.WF_CREATED_STATE);
+            String curentState = BpaConstants.WF_CREATED_STATE;
+            if (application.getAdmissionfeeAmount() != null
+                    && application.getAdmissionfeeAmount().compareTo(BigDecimal.ZERO) == 0) {
+                wfmatrix = bpaUtils.getWfMatrixByCurrentState(application,
+                        BpaConstants.WF_NEW_STATE);
+                curentState = BpaConstants.WF_NEW_STATE;
+            }
             if (wfmatrix != null)
-                approvalPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(),
+                approvalPosition = bpaUtils.getUserPositionIdByZone(wfmatrix.getNextDesignation(),
                         application.getSiteDetail().get(0) != null
                                 && application.getSiteDetail().get(0).getElectionBoundary() != null
                                         ? application.getSiteDetail().get(0).getElectionBoundary().getId() : null);
-            bpaUtils.redirectToBpaWorkFlow(approvalPosition, application, BpaConstants.WF_CREATED_STATE, null, null,
+            bpaUtils.redirectToBpaWorkFlow(approvalPosition, application, curentState, null, null,
                     null);
         }
         if (workFlowAction != null && workFlowAction.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)
                 && (bpaUtils.logedInuseCitizenOrBusinessUser())) {
             final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(application, BpaConstants.WF_NEW_STATE);
             if (wfmatrix != null)
-                approvalPosition = bpaUtils.getUserPositionByZone(wfmatrix.getNextDesignation(),
+                approvalPosition = bpaUtils.getUserPositionIdByZone(wfmatrix.getNextDesignation(),
                         application.getSiteDetail().get(0) != null
                                 && application.getSiteDetail().get(0).getElectionBoundary() != null
                                         ? application.getSiteDetail().get(0).getElectionBoundary().getId() : null);
-            bpaUtils.redirectToBpaWorkFlow(approvalPosition, application, BpaConstants.WF_NEW_STATE, application.getApprovalComent(), null, null);
+            bpaUtils.redirectToBpaWorkFlow(approvalPosition, application, BpaConstants.WF_NEW_STATE,
+                    application.getApprovalComent(), null, null);
         }
         return applicationBpaRepository.save(application);
     }
