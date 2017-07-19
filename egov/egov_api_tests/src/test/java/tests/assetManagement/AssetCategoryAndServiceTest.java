@@ -42,26 +42,5 @@ public class AssetCategoryAndServiceTest extends BaseAPITest {
         assetCategoryHelper.searchAssetCategory(null); // Search Asset Category
         pilotLogoutService(); // Logout
     }
-<<<<<<< HEAD
 
-    // Asset Service Tests
-    @Test(groups = {Categories.ASSET, Categories.SANITY, Categories.PILOT})
-    public void createAssetService() throws IOException {
-        LoginAndLogoutHelper.loginFromPilotService(ADMIN);  // Login
-        CreateAssetCategoryResponse create = assetCategoryHelper.createAssetCategory(); // Create Asset Category
-        int id = assetCategoryHelper.searchAssetCategory(create.getAssetCategory()[0].getCode()); // Search Asset Category
-        String assetCode = assetServiceHelper.createAssetService(create.getAssetCategory()[0].getCode(), // Create Asset Service
-                create.getAssetCategory()[0].getName(), id);
-        assetServiceHelper.searchAssetService(WITH_CODE, assetCode); // Search Asset Service
-        pilotLogoutService(); // Logout
-    }
-
-    @Test(groups = {Categories.ASSET, Categories.SANITY, Categories.PILOT})
-    public void searchAssetService() throws IOException {
-        LoginAndLogoutHelper.loginFromPilotService(AssetServiceUser); // Login
-        assetServiceHelper.searchAssetService("", ""); // Search Asset Service
-        pilotLogoutService(); // Logout
-    }
-=======
->>>>>>> [EGSVC-35]-UI: Changes updated for Create Employee
 }
