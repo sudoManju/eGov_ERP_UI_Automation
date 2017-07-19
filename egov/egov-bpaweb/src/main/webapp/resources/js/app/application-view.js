@@ -46,9 +46,12 @@ jQuery(document).ready(function() {
 	$('.show-hide').hide();
 	if('New Construction'.localeCompare(seviceTypeName) == 0 ){
 		$('.doorNo').hide();
+		$('.totalPlintArea').show();
 	} else if('Tower Construction'.localeCompare(seviceType) == 0 || 'Pole Structures'.localeCompare(seviceType) == 0
 			|| 'Sub-Division of plot/Land Development'.localeCompare(seviceType) == 0){
 		$('.buildingdetails').hide();
+	} else if('Demolition' == seviceTypeName){
+		$('.demolition').show();
 	} else if('Change in occupancy' == seviceTypeName){
 		$('.changeInOccupancyArea').show();
 	} else if('Alteration' == seviceTypeName){

@@ -142,6 +142,9 @@
 		<div class="col-sm-3 add-margin show-hide totalPlintArea">
 			<spring:message code="lbl.build.total.plinth" />
 		</div>
+		<div class="col-sm-3 add-margin show-hide demolition">
+			<spring:message code="lbl.demolition.area" />
+		</div>
 		<div class="col-sm-3 add-margin show-hide noofhutorshed">
 			<spring:message code="lbl.area.hut.shed" />
 		</div>
