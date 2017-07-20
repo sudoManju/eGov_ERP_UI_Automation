@@ -168,13 +168,6 @@ public class DonationTest extends BaseAPITest {
                 break;
         }
 
-//        if (!isUpdate) {
-//            Assert.assertEquals(response.getDonations()[0].getCategory(), searchDonationResponse.getDonations()[0].getCategory());
-//            Assert.assertEquals(response.getDonations()[0].getMaxPipeSize(), searchDonationResponse.getDonations()[0].getMaxPipeSize());
-//        } else {
-//            Assert.assertNotEquals(response.getDonations()[0].getCategory(), searchDonationResponse.getDonations()[0].getCategory());
-//            Assert.assertNotEquals(response.getDonations()[0].getMaxPipeSize(), searchDonationResponse.getDonations()[0].getMaxPipeSize());
-//        }
         new APILogger().log("Search Donation Test Request is Completed ---");
         return searchDonationResponse;
     }
