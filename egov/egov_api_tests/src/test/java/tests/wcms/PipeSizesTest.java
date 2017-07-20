@@ -99,7 +99,7 @@ public class PipeSizesTest extends BaseAPITest {
         return updatePipeSizeResponse;
     }
 
-    private void getAllPipeSizes() throws IOException {
+    public CreatePipeSizeResponse getAllPipeSizes() throws IOException {
         new APILogger().log("Search All PipeSizes Test is Started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         SearchPipeSizeRequest searchPipeSizeRequest = new SearchPipeSizeRequestBuilder().withRequestInfo(requestInfo).build();
@@ -111,5 +111,6 @@ public class PipeSizesTest extends BaseAPITest {
         Assert.assertEquals(200, response.getStatusCode());
         Assert.assertTrue(searchPipeSizeResponse.getPipeSizes().length >= 1);
         new APILogger().log("Search All PipeSizes Test is Completed ---");
+        return searchPipeSizeResponse;
     }
 }

@@ -6,8 +6,6 @@ import utils.APILogger;
 import utils.Properties;
 import utils.ResourceHelper;
 
-import static com.jayway.restassured.RestAssured.given;
-
 public class WCMSResource extends Resource {
 
     public Response createCategoryTypeResource(String json) {
@@ -190,6 +188,27 @@ public class WCMSResource extends Resource {
         new APILogger().log("Update PropertyType - PipeSizes Test Request is Started with --" + json);
         Response response = getPOSTResponseFromDEV(json, ResourceHelper.getBaseURL() + "/wcms/masters/propertytype-pipesize/" + id + "/_update");
         new APILogger().log("Update PropertyType - PipeSizes Test Request is Generated as  --" + response.asString());
+        return response;
+    }
+
+    public Response createDonationResource(String json) {
+        new APILogger().log("Create Donation Test Request is Started with --" + json);
+        Response response = getPOSTResponseFromDEV(json, Properties.wcmsCreateDonationUrl);
+        new APILogger().log("Create Donation Test Request is Generated as  --" + response.asString());
+        return response;
+    }
+
+    public Response searchDonationResource(String json, String path) {
+        new APILogger().log("Search Donation Test Request is Started with --" + json);
+        Response response = getPOSTResponseFromDEV(json, Properties.wcmsSearchDonationUrl + path);
+        new APILogger().log("Search Donation Test Request is Generated as  --" + response.asString());
+        return response;
+    }
+
+    public Response updateDonationResource(String json, int id) {
+        new APILogger().log("Update Donation Test Request is Started with --" + json);
+        Response response = getPOSTResponseFromDEV(json, ResourceHelper.getBaseURL() + "/wcms/masters/donation/" + id + "/_update");
+        new APILogger().log("Update Donation Test Request is Generated as  --" + response.asString());
         return response;
     }
 }

@@ -136,4 +136,6 @@ public class Properties {
     public static final String wcmsSearchPropertyCategoryTypeUrl = propertiesReader.getEndPointUrl("wcmsSearchPropertyCategoryTypeUrl");
     public static final String wcmsCreatePropertyPipeSizeUrl = propertiesReader.getEndPointUrl("wcmsCreatePropertyPipeSizeUrl");
     public static final String wcmsSearchPropertyPipeSizeUrl = propertiesReader.getEndPointUrl("wcmsSearchPropertyPipeSizeUrl");
+    public static final String wcmsCreateDonationUrl = propertiesReader.getEndPointUrl("wcmsCreateDonationUrl");
+    public static final String wcmsSearchDonationUrl = propertiesReader.getEndPointUrl("wcmsSearchDonationUrl");
 }

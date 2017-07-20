@@ -99,7 +99,7 @@ public class CategoryTypeTest extends BaseAPITest {
         return updateCategoryTypeResponse;
     }
 
-    private CreateCategoryTypeResponse getAllCategoryTypes() throws IOException {
+    public CreateCategoryTypeResponse getAllCategoryTypes() throws IOException {
         new APILogger().log("Search ALL CategoryType Test is Started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         SearchCategoryTypeRequest searchCategoryTypeRequest = new SearchCategoryTypeRequestBuilder().withRequestInfo(requestInfo).build();

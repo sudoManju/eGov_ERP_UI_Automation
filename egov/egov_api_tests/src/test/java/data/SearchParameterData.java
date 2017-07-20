@@ -12,6 +12,7 @@ public interface SearchParameterData {
     String WITH_DOCUMENT_TYPE = "&documentType=";
     String WITH_PROPERTY_TYPE = "&propertyTypeName=";
     String WITH_PIPESIZE = "&pipeSize=";
+    String WITH_USAGE_TYPE = "&usageType=";
     String WITH_CATEGORY_TYPE = "&categoryType=";
     String WITH_NAMELOCAL = "&nameLocal=";
     String WITH_CODE1 = "?code=";
