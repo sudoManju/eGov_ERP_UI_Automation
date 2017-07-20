@@ -68,6 +68,7 @@
 			<form:hidden path="" id="workFlowAction" name="workFlowAction" />
 			<form:hidden path="" id="wfstateDesc"
 				value="${bpaApplication.state.value}" />
+			<form:hidden path="" id="collectFeeValidate" value="${collectFeeValidate}" />
 			<form:hidden path="" id="mode" name="mode" value="${mode}" />
 			<form:hidden  path="" id="amountRule" name="amountRule" value="${amountRule}"/>
 			<form:hidden path="" id="scheduleType" name="scheduleType"

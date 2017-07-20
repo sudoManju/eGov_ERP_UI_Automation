@@ -199,6 +199,9 @@ jQuery(document).ready(function() {
 	// By default to point update noc details tab
 	var mode=$('#mode').val();
 	
+	if(mode == 'view') {
+		$(".show-row").hide();
+	}
 	if(mode == 'captureInspection') {
 		$('#approvalDepartment').removeAttr('required');
 		$('#approvalDesignation').removeAttr('required');

@@ -164,10 +164,11 @@
 								data-pattern="decimalvalue"
 								path="buildingDetail[0].applicationFloorDetails[0].carpetArea"
 								id="applicationFloorDetails0carpetArea" maxlength="15" value="" /></td>
-						<td class=" text-center"><a href="javascript:void(0);"
+						<td></td>
+						<%-- <td class=" text-center"><a href="javascript:void(0);"
 							class="btn-sm btn-danger" id="deleteBuildAreaRow"
 							data-record-id="${buildingAreaDetails.id}"><i
-								class="fa fa-trash"></i></a></td>
+								class="fa fa-trash"></i></a></td> --%>
 					</tr>
 				</c:otherwise>
 			</c:choose>

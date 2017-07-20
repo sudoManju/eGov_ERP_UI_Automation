@@ -75,7 +75,7 @@
 						<form:hidden path="documentScrutiny[0].verifiedBy"
 							id="verifiedById" value="${loginUser.id}" />
 
-						<form:input class="form-control patternvalidation" maxlength="20"
+						<form:input class="form-control patternvalidation" maxlength="120"
 							data-pattern="alphanumeric" required="required"
 							id="reSurveynumber" path="documentScrutiny[0].reSurveynumber"
 							value="${bpaApplication.siteDetail[0].reSurveyNumber}" />
@@ -86,7 +86,7 @@
 					<label class="col-sm-2 control-label text-right"><spring:message
 							code="lbl.subdivision.number" /></label>
 					<div class="col-sm-3 add-margin">
-						<form:input class="form-control patternvalidation" maxlength="12"
+						<form:input class="form-control patternvalidation" maxlength="120"
 							data-pattern="alphanumeric" id="subdivisionNumber"
 							path="documentScrutiny[0].subdivisionNumber"
 							value="${bpaApplication.siteDetail[0].subdivisionNumber}" />
@@ -111,10 +111,10 @@
 							cssClass="add-margin error-msg" />
 					</div>
 					<label class="col-sm-2 control-label text-right"><spring:message
-							code="lbl.extent.of.land" /><span class="mandatory"></span></label>
+							code="lbl.extent.of.land" /></label>
 					<div class="col-sm-3 add-margin">
 						<form:input class="form-control patternvalidation" maxlength="10"
-							data-pattern="number" required="required" id="extentinsqmts"
+							data-pattern="number" id="extentinsqmts"
 							path="documentScrutiny[0].extentinsqmts"
 							value="${bpaApplication.siteDetail[0].extentinsqmts}" />
 						<form:errors path="documentScrutiny[0].extentinsqmts"

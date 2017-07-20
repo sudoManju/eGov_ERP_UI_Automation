@@ -51,6 +51,11 @@ import static org.egov.bpa.utils.BpaConstants.CREATE_ADDITIONAL_RULE_CREATE;
 import static org.egov.bpa.utils.BpaConstants.GENERATEPERMITORDER;
 import static org.egov.bpa.utils.BpaConstants.WF_CANCELAPPLICATION_BUTTON;
 import static org.egov.bpa.utils.BpaConstants.WF_REJECT_BUTTON;
+import static org.egov.bpa.utils.BpaConstants.ST_CODE_14;
+import static org.egov.bpa.utils.BpaConstants.ST_CODE_15;
+import static org.egov.bpa.utils.BpaConstants.ST_CODE_05;
+import static org.egov.bpa.utils.BpaConstants.ST_CODE_08;
+import static org.egov.bpa.utils.BpaConstants.ST_CODE_09;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -92,6 +97,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping(value = "/application")
 public class UpdateBpaApplicationController extends BpaGenericApplicationController {
+    private static final String APPLICATION_VIEW = "application-view";
     private static final String AMOUNT_RULE = "amountRule";
 	private static final String FWD_TO_OVRSR_FOR_FIELD_INS = "Forwarded to Overseer for field inspection";
     private static final String FORWARDED_TO_NOC_UPDATE = "Forwarded to Superintendent for Noc Updation";
@@ -162,22 +168,24 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
             }
         }
         if ("Created".equals(application.getStatus().getCode()) || "Registered".equals(application.getStatus().getCode())) {
-        	if(applicationBpaService.applicationinitiatedByNonEmployee(application) &&applicationBpaService.checkAnyTaxIsPendingToCollect(application)){
-        		model.addAttribute("collectFeeValidate", "Collect Fees to Process Application");
-        	}
-        	else
-        		model.addAttribute("collectFeeValidate","");
-            return BPAAPPLICATION_FORM;
-        } else {
-            return "application-view";
-        }
+            if (applicationBpaService.applicationinitiatedByNonEmployee(application)
+                    && applicationBpaService.checkAnyTaxIsPendingToCollect(application)) {
+                model.addAttribute("collectFeeValidate", "Collect Fees to Process Application");
+            } else
+                model.addAttribute("collectFeeValidate", "");
+        } 
+        return APPLICATION_VIEW;
     }
 
 	private void getModeForUpdateApplication(final Model model, List<String> purposeInsList,
-			List<String> purposeDocList, final BpaApplication application) {
+            List<String> purposeDocList, final BpaApplication application) {
         String mode = null;
-		AppointmentSchedulePurpose scheduleType=null;
-		if (application.getAppointmentSchedule().isEmpty()
+        AppointmentSchedulePurpose scheduleType = null;
+        if (BpaConstants.WF_CREATED_STATE.equalsIgnoreCase(application.getStatus().getCode())) {
+            mode = "view";
+        } else if (!BpaConstants.WF_CREATED_STATE.equalsIgnoreCase(application.getStatus().getCode())
+                && (!"Forwarded to Superintendent"
+                        .equalsIgnoreCase(application.getState().getNextAction()) && application.getAppointmentSchedule().isEmpty())
                 || (APPLN_STATUS_FIELD_INSPECTION_INITIATED.equalsIgnoreCase(application.getStatus().getCode())
                         && FWD_TO_OVRSR_FOR_FIELD_INS
                                 .equalsIgnoreCase(application.getState().getNextAction())
@@ -195,7 +203,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         } else if (FWD_TO_OVRSR_FOR_FIELD_INS.equalsIgnoreCase(application.getState().getNextAction())
                 && APPLN_STATUS_FIELD_INSPECTION_INITIATED.equalsIgnoreCase(application.getStatus().getCode())
                 && !application.getInspections().isEmpty()) {
-            mode = "modifyInspection";            
+            mode = "modifyInspection";
         } else if (FORWARDED_TO_NOC_UPDATE.equalsIgnoreCase(application.getState().getNextAction())
                 && APPLICATION_STATUS_FIELD_INS.equalsIgnoreCase(application.getStatus().getCode())) {
             model.addAttribute("showUpdateNoc", true);
@@ -203,12 +211,13 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 && !application.getInspections().isEmpty()) {
             mode = "initialtedApprove";
         }
+                
         if (mode == null) {
             mode = "edit";
         }
         model.addAttribute("scheduleType", scheduleType);
         model.addAttribute("mode", mode);
-	}
+    }
     @RequestMapping(value = "/documentscrutiny/{applicationNumber}", method = RequestMethod.GET)
     public String documentScrutinyForm(final Model model, @PathVariable final String applicationNumber,
             final HttpServletRequest request) {
@@ -269,18 +278,19 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         model.addAttribute(ADDITIONALRULE, CREATE_ADDITIONAL_RULE_CREATE);
         workflowContainer.setAdditionalRule(CREATE_ADDITIONAL_RULE_CREATE);
         List<LettertoParty> lettertoParties = lettertoPartyService.findByBpaApplicationOrderByIdDesc(application);
-		if (APPLICATION_STATUS_NOCUPDATED.equals(application.getStatus().getCode())
-				|| (!APPLICATION_STATUS_DIGI_SIGNED.equals(application.getStatus().getCode()) && !APPLICATION_STATUS_APPROVED.equals(application.getStatus().getCode()) && !lettertoParties.isEmpty()
-						&& APPLICATION_STATUS_NOCUPDATED
-								.equals(lettertoParties.get(0).getCurrentApplnStatus().getCode()))) {
-			workflowContainer.setAmountRule(!application.getSiteDetail().isEmpty()
-					? application.getDocumentScrutiny().get(0).getExtentinsqmts() : new BigDecimal(1));
-			workflowContainer.setPendingActions(application.getState().getNextAction());
-		} else if (APPLICATION_STATUS_APPROVED.equals(application.getStatus().getCode())
-				&& !APPLICATION_STATUS_RECORD_APPROVED.equalsIgnoreCase(application.getState().getValue())) {
-			workflowContainer.setAmountRule(!application.getSiteDetail().isEmpty()
-					? application.getDocumentScrutiny().get(0).getExtentinsqmts() : new BigDecimal(1));
-		}
+        
+        // Setting AmountRule to decide no. of level approval cycle
+        if (APPLICATION_STATUS_NOCUPDATED.equals(application.getStatus().getCode())
+                || (!APPLICATION_STATUS_DIGI_SIGNED.equals(application.getStatus().getCode())
+                        && !APPLICATION_STATUS_APPROVED.equals(application.getStatus().getCode()) && !lettertoParties.isEmpty()
+                        && APPLICATION_STATUS_NOCUPDATED
+                                .equals(lettertoParties.get(0).getCurrentApplnStatus().getCode()))) {
+            workflowContainer.setAmountRule(getAmountRuleByServiceType(application));
+            workflowContainer.setPendingActions(application.getState().getNextAction());
+        } else if (APPLICATION_STATUS_APPROVED.equals(application.getStatus().getCode())
+                && !APPLICATION_STATUS_RECORD_APPROVED.equalsIgnoreCase(application.getState().getValue())) {
+            workflowContainer.setAmountRule(getAmountRuleByServiceType(application));
+        }
         workflowContainer.setAdditionalRule(CREATE_ADDITIONAL_RULE_CREATE);
         application.getOwner().setPermanentAddress((PermanentAddress) application.getOwner().getUser().getAddress().get(0));
         prepareWorkflow(model, application, workflowContainer);
@@ -292,11 +302,27 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 .findActiveCheckListByServiceType(application.getServiceType().getId(), CHECKLIST_TYPE_NOC));
         model.addAttribute("checkListDetailList", checkListDetailService
                 .findActiveCheckListByServiceType(application.getServiceType().getId(), BpaConstants.CHECKLIST_TYPE));
-        model.addAttribute("applicationDocumentList",application.getApplicationDocument());
+        model.addAttribute("applicationDocumentList", application.getApplicationDocument());
         model.addAttribute("isFeeCollected", bpaDemandService.checkAnyTaxIsPendingToCollect(application));
         model.addAttribute("admissionFee", applicationBpaService.setAdmissionFeeAmountForRegistrationWithAmenities(
                 application.getServiceType().getId(), application.getApplicationAmenity()));
         buildReceiptDetails(application);
+    }
+
+    private BigDecimal getAmountRuleByServiceType(final BpaApplication application) {
+        BigDecimal amountRule = BigDecimal.ONE;
+        if (ST_CODE_14.equalsIgnoreCase(application.getServiceType().getCode())
+                || ST_CODE_15.equalsIgnoreCase(application.getServiceType().getCode())) {
+            amountRule = new BigDecimal(11000);
+        } else if (ST_CODE_05.equalsIgnoreCase(application.getServiceType().getCode())
+                || ST_CODE_08.equalsIgnoreCase(application.getServiceType().getCode())
+                || ST_CODE_09.equalsIgnoreCase(application.getServiceType().getCode())) {
+            amountRule = application.getDocumentScrutiny().get(0).getExtentinsqmts();
+        } else if (!application.getBuildingDetail().isEmpty()
+                && application.getBuildingDetail().get(0).getTotalPlintArea() != null) {
+            amountRule = application.getBuildingDetail().get(0).getTotalPlintArea();
+        }
+        return amountRule;
     }
 
     @RequestMapping(value = "/update/{applicationNumber}", method = RequestMethod.POST)

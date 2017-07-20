@@ -44,6 +44,7 @@ var extentOfLand;
 var totalFloorArea;
 var extentInSqmts;
 $(document).ready(function() {
+	
 	var seviceType = $( "#serviceType option:selected" ).text();
 	if('Tower Construction'.localeCompare(seviceType) == 0 || 'Pole Structures'.localeCompare(seviceType) == 0
 			|| 'Sub-Division of plot/Land Development'.localeCompare(seviceType) == 0){
@@ -69,8 +70,15 @@ $(document).ready(function() {
 		$('.buildingdetails').show();
 		$('.doorNo').show();
 		$('.show-hide').hide();
-		if('Sub-Division of plot/Land Development'.localeCompare(seviceTypeName) == 0 || 'Tower Construction'.localeCompare(seviceTypeName) == 0
-				|| 'Pole Structures'.localeCompare(seviceTypeName) == 0){
+		$('.floor-toggle-mandatory').find("span").removeClass( "mandatory" );
+		$('.floor-details-mandatory').removeAttr('required');
+		if('Sub-Division of plot/Land Development'.localeCompare(seviceTypeName) == 0 ){
+			$('.handle-mandatory').removeAttr('required');
+			$('.handle-mandatory').find("span").removeClass( "mandatory" );
+			$('.buildingdetails').hide();
+		} else if('Tower Construction'.localeCompare(seviceTypeName) == 0 || 'Pole Structures'.localeCompare(seviceTypeName) == 0){
+			$('.extentOfLand').find("span").removeClass( "mandatory" );
+			$('#extentOfLand').removeAttr('required');
 			$('.handle-mandatory').removeAttr('required');
 			$('.handle-mandatory').find("span").removeClass( "mandatory" );
 			$('.buildingdetails').hide();
@@ -78,8 +86,6 @@ $(document).ready(function() {
 			$('.handle-mandatory').removeAttr('required');
 			$('.handle-mandatory').find("span").removeClass( "mandatory" );
 		} else if('Huts and Sheds' == seviceTypeName){
-			$('.floor-toggle-mandatory').find("span").removeClass( "mandatory" );
-			$('.floor-details-mandatory').removeAttr('required');
 			$('.noofhutorshed').show();
 			$('.handle-mandatory').removeAttr('required');
 			$('.handle-mandatory').find("span").removeClass( "mandatory" );
@@ -87,19 +93,15 @@ $(document).ready(function() {
 			$('.noofhutorshed').find("span").addClass( "mandatory" );
 			$('#totalPlintArea').attr('required',true);
 		} else if('Alteration' == seviceTypeName){
-			$('.floor-toggle-mandatory').find("span").removeClass( "mandatory" );
-			$('.floor-details-mandatory').removeAttr('required');
 			$('.handle-mandatory').removeAttr('required');
 			$('.handle-mandatory').find("span").removeClass( "mandatory" );
 			$('.alterationInArea').find("span").addClass( "mandatory" );
 			$('#totalPlintArea').attr('required',true);
 			$('.alterationInArea').show();
 		} else if('Adding of Extension' == seviceTypeName){
-			$('.floor-toggle-mandatory').find("span").removeClass( "mandatory" );
-			$('.floor-details-mandatory').removeAttr('required');
 			$('.handle-mandatory').removeAttr('required');
 			$('.handle-mandatory').find("span").removeClass( "mandatory" );
-			$('#totalFloorArea').attr('required',true);
+			$('#totalPlintArea').attr('required',true);
 			$('.additionInArea').find("span").addClass( "mandatory" );
 			$('.additionInArea').show();
 		} else {
@@ -259,11 +261,6 @@ $(document).ready(function() {
 		}
 	});
 	
-	$( "#isexistingApprovedPlan" ).trigger( "change" );
-	$( "#isappForRegularization" ).trigger( "change" );
-	$( "#constStages" ).trigger( "change" );
-	$( ".serviceType" ).trigger( "change" );
-	$( ".applicationAmenity" ).trigger( "change" );
 	
 	// on form load get occupancy details List
 	$.ajax({
@@ -382,6 +379,13 @@ $(document).ready(function() {
 	    $(select).focus();
 
 	}).mousemove(function(e){e.preventDefault()});
+	
+	// trigger events on pageload
+	$( "#isexistingApprovedPlan" ).trigger( "change" );
+	$( "#isappForRegularization" ).trigger( "change" );
+	$( "#constStages" ).trigger( "change" );
+	$( ".serviceType" ).trigger( "change" );
+	$( ".applicationAmenity" ).trigger( "change" );
 	
 });
 
