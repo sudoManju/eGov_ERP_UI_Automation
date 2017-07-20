@@ -128,8 +128,7 @@ public class NewApplicationController extends BpaGenericApplicationController {
             model.addAttribute("mode", "new");
             return NEWAPPLICATION_FORM;
         }
-        if(!(bpaApplication.getOwner().getUser()!=null && bpaApplication.getOwner().getUser().getId()!=null))
-			bpaApplication.setMailPwdRequired(true);
+       
         List<ApplicationStakeHolder> applicationStakeHolders = new ArrayList<>();
         ApplicationStakeHolder applicationStakeHolder = new ApplicationStakeHolder();
         applicationStakeHolder.setApplication(bpaApplication);
@@ -139,12 +138,9 @@ public class NewApplicationController extends BpaGenericApplicationController {
         applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
         bpaApplication.setAdmissionfeeAmount(applicationBpaService.setAdmissionFeeAmountForRegistrationWithAmenities(
                 bpaApplication.getServiceType().getId(), new ArrayList<ServiceType>()));
-        if(bpaApplication.getOwner().getUser()!=null && bpaApplication.getOwner().getUser().getId()!=null){
-			if(!bpaApplication.getOwner().getUser().isActive())
-				bpaApplication.getOwner().getUser().setActive(true);
-		}else{
-			bpaApplication.getOwner().setUser(applicationBpaService.createApplicantAsUser(bpaApplication));
-		}
+        if(bpaApplication.getOwner().getUser()!=null && bpaApplication.getOwner().getUser().getId()==null)
+            buildOwnerDetails(bpaApplication);
+        
         bpaApplication.setCitizenAccepted(true);
         bpaApplication.setArchitectAccepted(true);
 

@@ -301,7 +301,7 @@ function focusToTabElement(element) {
 			.tab('show');
 }
 
-$('#mobileNumber').change(function(){ 
+/*$('#mobileNumber').change(function(){ 
 	jQuery.ajax({
 		url: "/bpa/getApplicantDetails",
 		type: "GET",
@@ -334,7 +334,7 @@ $('#mobileNumber').change(function(){
 		error: function (response) {
 		}
 	});
-});
+});*/
 
 // Instantiate the stakeholder name Bloodhound suggestion engine
 var stakeholderengine = new Bloodhound({

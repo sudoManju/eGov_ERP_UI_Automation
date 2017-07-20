@@ -78,8 +78,10 @@ import org.egov.eis.web.contract.WorkflowContainer;
 import org.egov.eis.web.controller.workflow.GenericWorkFlowController;
 import org.egov.infra.admin.master.entity.AppConfigValues;
 import org.egov.infra.admin.master.entity.Boundary;
+import org.egov.infra.admin.master.entity.User;
 import org.egov.infra.admin.master.service.AppConfigValueService;
 import org.egov.infra.admin.master.service.BoundaryService;
+import org.egov.infra.admin.master.service.UserService;
 import org.egov.infra.filestore.service.FileStoreService;
 import org.egov.infra.utils.FileStoreUtils;
 import org.egov.infra.workflow.entity.StateAware;
@@ -131,6 +133,8 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     private AppConfigValueService appConfigValueService;
     @Autowired
     private BpaUtils bpaUtils;
+    @Autowired
+    private UserService userService;
     
     @ModelAttribute("occupancyList")
     public List<Occupancy> getOccupancy() {
@@ -268,6 +272,18 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
                     receipt.setReceiptDate(collRecpt.getReceiptDate());
                     receipt.setReceiptAmt(collRecpt.getAmount());
                     application.getReceipts().add(receipt);
+                }
+    }
+    protected void buildOwnerDetails(final BpaApplication bpaApplication) {
+        
+        User user= userService.getUserByNameAndMobileNumberForGender(bpaApplication.getOwner().getUser().getName(),bpaApplication.getOwner().getUser().getMobileNumber(),bpaApplication.getOwner().getUser().getGender());
+                if(user!=null){
+                    bpaApplication.getOwner().setUser(user);
+                    bpaApplication.setMailPwdRequired(true);
+                        if(!bpaApplication.getOwner().getUser().isActive())
+                                bpaApplication.getOwner().getUser().setActive(true);
+                }else{
+                        bpaApplication.getOwner().setUser(applicationBpaService.createApplicantAsUser(bpaApplication));
                 }
     }
    

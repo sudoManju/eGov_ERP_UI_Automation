@@ -201,10 +201,7 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
 		Boolean onlinePaymentEnable =  request.getParameter("onlinePaymentEnable") != null
 				&& request.getParameter("onlinePaymentEnable")
 				.equalsIgnoreCase("TRUE") ? Boolean.TRUE : Boolean.FALSE; 
-       // Boolean isNewUser=true;
-		if(!(bpaApplication.getOwner().getUser()!=null && bpaApplication.getOwner().getUser().getId()!=null))
-			bpaApplication.setMailPwdRequired(true);
-        final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(bpaApplication, BpaConstants.WF_NEW_STATE);
+       final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(bpaApplication, BpaConstants.WF_NEW_STATE);
         if (wfmatrix != null)
             userPosition = bpaUtils.getUserPositionIdByZone(wfmatrix.getNextDesignation(),
                     bpaApplication.getSiteDetail().get(0) != null
@@ -255,12 +252,8 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
 		}
 		bpaApplication.setAdmissionfeeAmount(applicationBpaService.setAdmissionFeeAmountForRegistrationWithAmenities(
 				bpaApplication.getServiceType().getId(), new ArrayList<ServiceType>()));
-		if(bpaApplication.getOwner().getUser()!=null && bpaApplication.getOwner().getUser().getId()!=null){
-			if(!bpaApplication.getOwner().getUser().isActive())
-				bpaApplication.getOwner().getUser().setActive(true);
-		}else{
-			bpaApplication.getOwner().setUser(applicationBpaService.createApplicantAsUser(bpaApplication));
-		}
+		 if(bpaApplication.getOwner().getUser()!=null && bpaApplication.getOwner().getUser().getId()==null)
+		      buildOwnerDetails(bpaApplication);
         BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication, workFlowAction);
         if (citizenOrBusinessUser) {
         	if(isCitizen)
@@ -282,10 +275,11 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
 	            model.addAttribute("message",message);
             }else
             model.addAttribute("message",
-                    "Sucessfully saved with ApplicationNumber " + bpaApplicationRes.getApplicationNumber()+
-                    BpaConstants.DISCLIMER_MESSAGE_ONSAVE);
+                    "Sucessfully saved with ApplicationNumber " + bpaApplicationRes.getApplicationNumber()+".\n"+    BpaConstants.DISCLIMER_MESSAGE_ONSAVE);
             bpaUtils.sendSmsEmailOnCitizenSubmit(bpaApplication);
         }
         return BPAAPPLICATION_CITIZEN;
     }
+
+   
 }

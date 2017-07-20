@@ -55,9 +55,9 @@
 				code="lbl.applicant.name" /> <span class="mandatory"></span> </label>
 		<div class="col-sm-3 add-margin">
 			<form:hidden path="owner.user" id="userId" />
-			<form:input class="form-control patternvalidation"
-				data-pattern="alphabetspecialcharacters" maxlength="128"
-				id="name" path="owner.user.name"
+			<form:textarea class="form-control patternvalidation"
+				data-pattern="alphabetspecialcharacters" maxlength="100"
+				id="name" path="owner.user.name"  cols="5" rows="3"
 				required="required" />
 			<form:errors path="owner.user.name"
 				cssClass="add-margin error-msg" />

@@ -182,12 +182,8 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 
 			}
 		}
-		if(bpaApplication.getOwner().getUser()!=null && bpaApplication.getOwner().getUser().getId()!=null){
-			if(!bpaApplication.getOwner().getUser().isActive())
-				bpaApplication.getOwner().getUser().setActive(true);
-		}else{
-			bpaApplication.getOwner().setUser(applicationBpaService.createApplicantAsUser(bpaApplication));
-		}
+		 if(bpaApplication.getOwner().getUser()!=null && bpaApplication.getOwner().getUser().getId()==null)
+		    buildOwnerDetails(bpaApplication);
         applicationBpaService.saveAndFlushApplication(bpaApplication);
         bpaUtils.updatePortalUserinbox(bpaApplication, null);
         if (workFlowAction != null
