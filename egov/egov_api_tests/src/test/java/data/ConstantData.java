@@ -2,6 +2,6 @@ package data;
 
 public interface ConstantData {
 
-    String serviceName = "PROPERTY TAX";
+    String serviceName = "Property Tax";
     String tenantId = "default";
 }

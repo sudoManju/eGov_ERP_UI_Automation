@@ -1,17 +1,20 @@
 package tests.propertyTax.billingServices;
 
+import builders.propertyTax.billingServices.glcodesMaster.GlcodeMasterSearchRequestBuilder;
 import builders.propertyTax.billingServices.glcodesMaster.GlcodeMastersBuilder;
 import builders.propertyTax.billingServices.glcodesMaster.GlcodesMasterRequestBuilder;
 import builders.propertyTax.billingServices.RequestInfoBuilder;
 import com.jayway.restassured.response.Response;
+import entities.requests.propertyTax.billingServices.glcodesMaster.GlcodeMasterSearchRequest;
 import entities.requests.propertyTax.billingServices.glcodesMaster.GlcodeMasters;
-import entities.requests.propertyTax.billingServices.glcodesMaster.GlcodesMasterRequest;
+import entities.requests.propertyTax.billingServices.glcodesMaster.GlcodeMasterRequest;
 import entities.requests.propertyTax.billingServices.RequestInfo;
 import entities.responses.propertyTax.billingServices.glcodesMaster.GlcodesMasterResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.propertyTax.billingServices.GlcodesMasterResource;
 import tests.BaseAPITest;
+import utils.APILogger;
 import utils.LoginAndLogoutHelper;
 import utils.RequestHelper;
 import utils.ResponseHelper;
@@ -22,11 +25,11 @@ import static data.UserData.NARASAPPA;
 
 public class GlcodeMasterVerificationTest extends BaseAPITest{
 
-    GlcodeMasters[]  glcodes;
-    RequestInfo requestInfo;
+    private GlcodeMasters[]  glcodes;
+    private RequestInfo requestInfo;
 
     public GlcodeMasterVerificationTest(){
-        glcodes = new GlcodeMasters[6];
+        glcodes = new GlcodeMasters[1];
     }
 
     @Test
@@ -34,39 +37,100 @@ public class GlcodeMasterVerificationTest extends BaseAPITest{
         LoginAndLogoutHelper.login(NARASAPPA);       //Login
         requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
 
-        createGlcodesMaster();                      //Create
+        for (int i=0;i<6;i++){
+            GlcodesMasterResponse createObject =  createGlcodesMaster(i);                 //Create
+            searchGlcodesMaster(createObject);                                           //Search
+       }
+
+        LoginAndLogoutHelper.logout();              //Logout
     }
 
-    private void createGlcodesMaster() throws IOException {
-        glcodes[0] = new GlcodeMastersBuilder().withTaxHead("PT_TAX").withGlcode("1100101").build();
-        glcodes[1] = new GlcodeMastersBuilder().withTaxHead("EMP_GUA_TAX").withGlcode("3503001").build();
-        glcodes[2] = new GlcodeMastersBuilder().withTaxHead("EDU_CESS").withGlcode("3503002").build();
-        glcodes[3] = new GlcodeMastersBuilder().withTaxHead("LATE_PENALTY").withGlcode("1402002").build();
-        glcodes[4] = new GlcodeMastersBuilder().withTaxHead("ADVANCE").withGlcode("3504102").build();
-        glcodes[5] = new GlcodeMastersBuilder().withTaxHead("CHQ_BOUNCE_PENALTY").withGlcode("1808002").build();
-        GlcodesMasterRequest request = new GlcodesMasterRequestBuilder().withRequestInfo(requestInfo).withGlcodes(glcodes).build();
+    private void searchGlcodesMaster(GlcodesMasterResponse createObject) throws IOException{
+
+        new APILogger().log("Search Glcode Master is started --");
+        GlcodeMasterSearchRequest request = new GlcodeMasterSearchRequestBuilder().withRequestInfo(requestInfo).build();
+
+        Response responseForId = new GlcodesMasterResource().search(RequestHelper.getJsonString(request),"&id="+createObject.getGlCodeMasters()[0].getId());
+        checkAssertsForSearch(createObject,responseForId);
+
+        Response responseForTaxHead = new GlcodesMasterResource().search(RequestHelper.getJsonString(request),"&taxHead"+createObject.getGlCodeMasters()[0].getTaxHead());
+        checkAssertsForSearch(createObject,responseForTaxHead);
+
+        Response responseForGlcode = new GlcodesMasterResource().search(RequestHelper.getJsonString(request),"&taxHead"+createObject.getGlCodeMasters()[0].getGlCode());
+        checkAssertsForSearch(createObject,responseForGlcode);
+        new APILogger().log("Search Glcode Master is completed");
+    }
+
+    private void checkAssertsForSearch(GlcodesMasterResponse createObject, Response response) throws IOException{
+        GlcodesMasterResponse responseObject = (GlcodesMasterResponse)
+                ResponseHelper.getResponseAsObject(response.asString(),GlcodesMasterResponse.class);
+
+        Assert.assertEquals(response.getStatusCode(),200);
+        Assert.assertEquals(responseObject.getResponseInfo().getStatus(),"200");
+        Assert.assertEquals(responseObject.getGlCodeMasters()[0].getGlCode(),createObject.getGlCodeMasters()[0].getGlCode());
+        Assert.assertEquals(responseObject.getGlCodeMasters()[0].getTaxHead(),createObject.getGlCodeMasters()[0].getTaxHead());
+        Assert.assertEquals(responseObject.getGlCodeMasters()[0].getId(),createObject.getGlCodeMasters()[0].getId());
+    }
+
+    private GlcodesMasterResponse createGlcodesMaster(int i) throws IOException {
+
+        new APILogger().log("Create Glcode Master is started --");
+        GlcodeMasterRequest request = new GlcodesMasterRequestBuilder().withRequestInfo(requestInfo).withGlcodes(getGlcodeMaster(i)).build();
 
         Response response = new GlcodesMasterResource().create(RequestHelper.getJsonString(request));
         Assert.assertEquals(response.getStatusCode(),201);
-        checkAsserts(request,response);
+        GlcodesMasterResponse responseObject = checkAssertsForCreate(request,response);
+        new APILogger().log("Create Glcode Master is completed --");
+
+        return responseObject;
     }
 
-    private void checkAsserts(GlcodesMasterRequest request, Response response) throws IOException {
+    private GlcodeMasters[] getGlcodeMaster(int i){
+
+        switch (i){
+
+            case 0:
+
+                glcodes[0] = new GlcodeMastersBuilder().withTaxHead("PT_TAX").withGlcode("1100101").build();
+                break;
+
+            case 1:
+
+                glcodes[0] = new GlcodeMastersBuilder().withTaxHead("EMP_GUA_TAX").withGlcode("3503001").build();
+                break;
+
+            case 2:
+
+                glcodes[0] = new GlcodeMastersBuilder().withTaxHead("EDU_CESS").withGlcode("3503002").build();
+                break;
+
+            case 3:
+
+                glcodes[0] = new GlcodeMastersBuilder().withTaxHead("LATE_PENALTY").withGlcode("1402002").build();
+                break;
+
+            case 4:
+
+                glcodes[0] = new GlcodeMastersBuilder().withTaxHead("ADVANCE").withGlcode("3504102").build();
+                break;
+
+            case 5:
+
+                glcodes[0] = new GlcodeMastersBuilder().withTaxHead("CHQ_BOUNCE_PENALTY").withGlcode("1808002").build();
+                break;
+        }
+        return glcodes;
+    }
+
+    private GlcodesMasterResponse checkAssertsForCreate(GlcodeMasterRequest request, Response response) throws IOException {
         GlcodesMasterResponse responseObject = (GlcodesMasterResponse)
                 ResponseHelper.getResponseAsObject(response.asString(),GlcodesMasterResponse.class);
 
         Assert.assertEquals(responseObject.getResponseInfo().getStatus(),"200");
-        for(int i = 0; i<request.getGlcodeMasters().length; i++){
-            String name = request.getGlcodeMasters()[i].getTaxHead();
-            for(int j=0;j<responseObject.getGlCodeMasters().length;j++){
-                if(name.equals(responseObject.getGlCodeMasters()[j].getTaxHead())){
-                    Assert.assertEquals(request.getGlcodeMasters()[i].getService(),responseObject.getGlCodeMasters()[j].getService());
-                    Assert.assertEquals(request.getGlcodeMasters()[i].getGlCode(),responseObject.getGlCodeMasters()[j].getGlCode());
-                    Assert.assertEquals(request.getGlcodeMasters()[i].getTaxHead(),responseObject.getGlCodeMasters()[j].getTaxHead());
-                    break;
-                }
-            }
-        }
-    }
+        Assert.assertEquals(request.getGlcodeMasters()[0].getService(),responseObject.getGlCodeMasters()[0].getService());
+        Assert.assertEquals(request.getGlcodeMasters()[0].getGlCode(),responseObject.getGlCodeMasters()[0].getGlCode());
+        Assert.assertEquals(request.getGlcodeMasters()[0].getTaxHead(),responseObject.getGlCodeMasters()[0].getTaxHead());
 
+        return responseObject;
+    }
 }

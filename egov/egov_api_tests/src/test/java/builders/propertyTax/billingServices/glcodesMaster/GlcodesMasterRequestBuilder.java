@@ -1,12 +1,12 @@
 package builders.propertyTax.billingServices.glcodesMaster;
 
 import entities.requests.propertyTax.billingServices.glcodesMaster.GlcodeMasters;
-import entities.requests.propertyTax.billingServices.glcodesMaster.GlcodesMasterRequest;
+import entities.requests.propertyTax.billingServices.glcodesMaster.GlcodeMasterRequest;
 import entities.requests.propertyTax.billingServices.RequestInfo;
 
 public class GlcodesMasterRequestBuilder {
 
-    GlcodesMasterRequest request = new GlcodesMasterRequest();
+    GlcodeMasterRequest request = new GlcodeMasterRequest();
 
     public GlcodesMasterRequestBuilder withRequestInfo(RequestInfo requestInfo){
         request.setRequestInfo(requestInfo);
@@ -18,7 +18,7 @@ public class GlcodesMasterRequestBuilder {
         return this;
     }
 
-    public GlcodesMasterRequest build(){
+    public GlcodeMasterRequest build(){
         return request;
     }
 }

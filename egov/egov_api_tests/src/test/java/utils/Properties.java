@@ -114,6 +114,7 @@ public class Properties {
     public static final String createTaxHeadMasterUrl = propertiesReader.getEndPointUrl("taxHeadMasterCreateUrl");
     public static final String searchTaxHeadMasterUrl = propertiesReader.getEndPointUrl("taxHeadMasterSearchUrl");
     public static final String createGlcodesMasterUrl = propertiesReader.getEndPointUrl("glcodesMasterCreateUrl");
+    public static final String searchGlcodesMasterUrl = propertiesReader.getEndPointUrl("glcodesMasterSearchUrl");
     public static final String createTaxPeriodMasterUrl = propertiesReader.getEndPointUrl("taxPeriodMasterCreateUrl");
     public static final String createBusinessServiceMasterUrl = propertiesReader.getEndPointUrl("businessServiceMasterCreateUrl");
 
