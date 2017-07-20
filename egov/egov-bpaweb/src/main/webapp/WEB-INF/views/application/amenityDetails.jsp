@@ -47,6 +47,8 @@
 	<div class="form-group">
 		<label class="col-sm-3 control-label text-right extentOfLand"><spring:message
 				code="lbl.extent.of.land" /> <span class="mandatory"></span> </label>
+		<label class="col-sm-3 control-label text-right areaOfBase"><spring:message
+				code="lbl.area.base" /> <span class="mandatory"></span> </label>
 		<div class="col-sm-3 add-margin">
 			<form:input
 				class="form-control patternvalidation for-calculation decimalfixed clear-values"

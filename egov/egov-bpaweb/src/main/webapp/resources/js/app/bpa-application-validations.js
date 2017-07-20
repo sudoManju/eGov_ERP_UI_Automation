@@ -72,17 +72,23 @@ $(document).ready(function() {
 		$('.show-hide').hide();
 		$('.floor-toggle-mandatory').find("span").removeClass( "mandatory" );
 		$('.floor-details-mandatory').removeAttr('required');
+		$('.areaOfBase').hide();
+		$('.extentOfLand').show();
 		if('Sub-Division of plot/Land Development'.localeCompare(seviceTypeName) == 0 ){
 			$('.handle-mandatory').removeAttr('required');
 			$('.handle-mandatory').find("span").removeClass( "mandatory" );
 			$('.buildingdetails').hide();
 		} else if('Tower Construction'.localeCompare(seviceTypeName) == 0 || 'Pole Structures'.localeCompare(seviceTypeName) == 0){
+			$('.extentOfLand').hide();
+			$('.areaOfBase').show();
 			$('.extentOfLand').find("span").removeClass( "mandatory" );
 			$('#extentOfLand').removeAttr('required');
 			$('.handle-mandatory').removeAttr('required');
 			$('.handle-mandatory').find("span").removeClass( "mandatory" );
 			$('.buildingdetails').hide();
 		} else if('Amenities' == seviceTypeName){
+			$('.totalPlintArea').show();
+			$('#totalPlintArea').attr('readOnly',false);
 			$('.handle-mandatory').removeAttr('required');
 			$('.handle-mandatory').find("span").removeClass( "mandatory" );
 		} else if('Huts and Sheds' == seviceTypeName){
@@ -92,16 +98,19 @@ $(document).ready(function() {
 			$('.Hut').find("span").addClass( "mandatory" );
 			$('.noofhutorshed').find("span").addClass( "mandatory" );
 			$('#totalPlintArea').attr('required',true);
+			$('#totalPlintArea').attr('readOnly',false);
 		} else if('Alteration' == seviceTypeName){
 			$('.handle-mandatory').removeAttr('required');
 			$('.handle-mandatory').find("span").removeClass( "mandatory" );
 			$('.alterationInArea').find("span").addClass( "mandatory" );
 			$('#totalPlintArea').attr('required',true);
+			$('#totalPlintArea').attr('readOnly',false);
 			$('.alterationInArea').show();
 		} else if('Adding of Extension' == seviceTypeName){
 			$('.handle-mandatory').removeAttr('required');
 			$('.handle-mandatory').find("span").removeClass( "mandatory" );
 			$('#totalPlintArea').attr('required',true);
+			$('#totalPlintArea').attr('readOnly',false);
 			$('.additionInArea').find("span").addClass( "mandatory" );
 			$('.additionInArea').show();
 		} else {
@@ -121,6 +130,7 @@ $(document).ready(function() {
 			$('#extentOfLand').attr('required');
 			$('.handle-mandatory').attr('required',true);
 			$('.handle-mandatory').find("span").addClass( "mandatory" );
+			$('#totalPlintArea').attr('readOnly',true);
 		}
 	});
 	
