@@ -1,7 +1,10 @@
 package entities.requests.propertyTax.billingServices;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 public class BillingServiceSearchRequest {
 
+    @JsonProperty("RequestInfo")
     private RequestInfo requestInfo;
 
     public RequestInfo getRequestInfo() {

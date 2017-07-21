@@ -14,6 +14,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.propertyTax.billingServices.TaxPeriodsMasterResource;
 import tests.BaseAPITest;
+import utils.APILogger;
 import utils.LoginAndLogoutHelper;
 import utils.RequestHelper;
 import utils.ResponseHelper;
@@ -46,7 +47,7 @@ public class TaxPeriodMasterVerificationTest extends BaseAPITest {
         LoginAndLogoutHelper.login(NARASAPPA);                                 //Login
         requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
 
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 2; i++) {
             TaxPeriodsMasterResponse createObject =  createTaxPeriods();      //Create
             searchTaxPeriods(createObject);                                   //Search
         }
@@ -55,6 +56,8 @@ public class TaxPeriodMasterVerificationTest extends BaseAPITest {
     }
 
     private void searchTaxPeriods(TaxPeriodsMasterResponse createObject) throws IOException {
+
+        new APILogger().log("Search TaxPeriods Master is started --");
         BillingServiceSearchRequest request = new BillingServiceSearchRequestBuilder().withRequestInfo(requestInfo).build();
 
         Response responseForId1 = new TaxPeriodsMasterResource().search(RequestHelper.getJsonString(request),"&id="+createObject.getTaxPeriods()[0].getId());
@@ -68,6 +71,7 @@ public class TaxPeriodMasterVerificationTest extends BaseAPITest {
 
         Response responseForCode2 = new TaxPeriodsMasterResource().search(RequestHelper.getJsonString(request),"&code="+createObject.getTaxPeriods()[1].getCode());
         checkAssertsForSearch(createObject,responseForCode2);
+        new APILogger().log("Search TaxPeriods Master is Completed --");
     }
 
     private void checkAssertsForSearch(TaxPeriodsMasterResponse createObject, Response response) throws IOException {
@@ -76,10 +80,21 @@ public class TaxPeriodMasterVerificationTest extends BaseAPITest {
 
         Assert.assertEquals(response.getStatusCode(),200);
         Assert.assertEquals(responseObject.getResponseInfo().getStatus(),"200");
+        String code = responseObject.getTaxPeriods()[0].getCode();
+        for (int i=0;i<createObject.getTaxPeriods().length;i++){
+             if(code.equals(createObject.getTaxPeriods()[i].getCode())){
+                 Assert.assertEquals(createObject.getTaxPeriods()[i].getId(),responseObject.getTaxPeriods()[0].getId());
+                 Assert.assertEquals(createObject.getTaxPeriods()[i].getFinancialYear(),responseObject.getTaxPeriods()[0].getFinancialYear());
+                 Assert.assertEquals(createObject.getTaxPeriods()[i].getCode(),responseObject.getTaxPeriods()[0].getCode());
+                 Assert.assertEquals(createObject.getTaxPeriods()[i].getPeriodCycle(),responseObject.getTaxPeriods()[0].getPeriodCycle());
+                 Assert.assertEquals(createObject.getTaxPeriods()[i].getService(),responseObject.getTaxPeriods()[0].getService());
+             }
+        }
     }
 
     private TaxPeriodsMasterResponse createTaxPeriods() throws IOException, ParseException {
 
+            new APILogger().log("Create TaxPeriods Master is started --");
             taxPeriods[0] = new TaxPeriodsBuilder().withCode(String.valueOf(year)+"-"+String.valueOf(year+1)+"-"+"1")
                                 .withFinancialYear(String.valueOf(year)+"-"+String.valueOf(year1))
                                 .withFromDate(getTime(String.valueOf(year)+date1+" "+time1))
@@ -95,7 +110,7 @@ public class TaxPeriodMasterVerificationTest extends BaseAPITest {
             Response response = new TaxPeriodsMasterResource().create(RequestHelper.getJsonString(request));
             TaxPeriodsMasterResponse responseObject =  checkAssertsForCreate(request,response);
 
-
+            new APILogger().log("Create TaxPeriods Master is completed --");
             year = year +1;
             year1 = year1+1;
 
