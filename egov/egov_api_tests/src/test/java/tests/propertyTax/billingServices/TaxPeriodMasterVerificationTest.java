@@ -31,11 +31,12 @@ public class TaxPeriodMasterVerificationTest extends BaseAPITest {
     private TaxPeriods[] taxPeriods;
     private RequestInfo requestInfo;
 
-    int year = 1960;
-    int year1 = 61;
-    String time1 = "00:00:00"; String time2 = "23:59:59";
-    String date1 = "-04-01"; String date2 = "-10-01";
-    String date3 = "-09-30"; String date4 = "-03-31";
+    private int year = 1960;
+    private int year1 = 61;
+    private String time1 = "00:00:00";
+    private String time2 = "23:59:59";
+    private String date1 = "-04-01"; String date2 = "-10-01";
+    private String date3 = "-09-30"; String date4 = "-03-31";
 
     public TaxPeriodMasterVerificationTest(){
         taxPeriods = new TaxPeriods[2];
@@ -50,8 +51,10 @@ public class TaxPeriodMasterVerificationTest extends BaseAPITest {
         for (int i = 0; i < 2; i++) {
             TaxPeriodsMasterResponse createObject =  createTaxPeriods();      //Create
             searchTaxPeriods(createObject);                                   //Search
-        }
 
+            year = year +1;
+            year1 = year1+1;
+        }
         LoginAndLogoutHelper.logout();                                       //Logout
     }
 
@@ -111,8 +114,6 @@ public class TaxPeriodMasterVerificationTest extends BaseAPITest {
             TaxPeriodsMasterResponse responseObject =  checkAssertsForCreate(request,response);
 
             new APILogger().log("Create TaxPeriods Master is completed --");
-            year = year +1;
-            year1 = year1+1;
 
         return responseObject;
     }

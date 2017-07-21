@@ -4,7 +4,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class TaxHeadMasterResponse {
 
-    @JsonProperty("TaxPeriodsMasterResponse")
+    @JsonProperty("ResponseInfo")
     private ResponseInfo ResponseInfo;
 
     @JsonProperty("TaxHeadMasters")

@@ -28,4 +28,14 @@ public class TaxHeadMasterResource extends Resource {
 
         return response;
     }
+
+    public Response update(String jsonString) {
+
+        new APILogger().log("Update TaxHead Master request is started as --"+jsonString);
+        Response response = getPOSTResponseFromDEV(jsonString,Properties.updateTaxHeadMasterUrl);
+        new APILogger().log("Update TaxHead Master response is generated as --"+response.asString());
+
+        return response;
+
+    }
 }

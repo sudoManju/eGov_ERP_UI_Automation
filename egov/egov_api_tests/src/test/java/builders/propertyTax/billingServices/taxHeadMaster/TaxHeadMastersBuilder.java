@@ -46,6 +46,11 @@ public class TaxHeadMastersBuilder {
         return this;
     }
 
+    public TaxHeadMastersBuilder withId(int id){
+        taxHeadMasters.setId(id);
+        return this;
+    }
+
     public TaxHeadMasters build(){
         return taxHeadMasters;
     }

@@ -34,15 +34,32 @@ public class GlcodeMasterVerificationTest extends BaseAPITest{
 
     @Test
     public void glcodeMasterTest() throws IOException {
-        LoginAndLogoutHelper.login(NARASAPPA);       //Login
+        LoginAndLogoutHelper.login(NARASAPPA);                                                                        //Login
         requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
 
         for (int i=0;i<6;i++){
-            GlcodesMasterResponse createObject =  createGlcodesMaster(i);                 //Create
-            searchGlcodesMaster(createObject);                                           //Search
+            GlcodesMasterResponse createObject =  createGlcodesMaster(i);                                            //Create
+            searchGlcodesMaster(createObject);                                                                      //Search
+
+            GlcodesMasterResponse updateObject = updateGlcodeMaster(createObject.getGlCodeMasters()[0].getId(),i);  //Update
+            searchGlcodesMaster(updateObject);                                                                     //Search
        }
 
-        LoginAndLogoutHelper.logout();              //Logout
+        LoginAndLogoutHelper.logout();                                                                            //Logout
+    }
+
+    private GlcodesMasterResponse updateGlcodeMaster(String id, int i) throws IOException {
+
+        new APILogger().log("Update Glcode Master API is started --");
+        glcodes = getGlcodeMaster(i);
+        glcodes[0].setId(Integer.valueOf(id));
+        GlcodeMasterRequest request = new GlcodesMasterRequestBuilder().withRequestInfo(requestInfo).withGlcodes(glcodes).build();
+
+        Response response = new GlcodesMasterResource().update(RequestHelper.getJsonString(request));
+        GlcodesMasterResponse responseObject = checkAssertsForCreate(request,response);
+        new APILogger().log("Update Glcode Master API is Completed --");
+
+        return responseObject;
     }
 
     private void searchGlcodesMaster(GlcodesMasterResponse createObject) throws IOException{
@@ -117,6 +134,11 @@ public class GlcodeMasterVerificationTest extends BaseAPITest{
             case 5:
 
                 glcodes[0] = new GlcodeMastersBuilder().withTaxHead("CHQ_BOUNCE_PENALTY").withGlcode("1808002").build();
+                break;
+
+            case 6:
+
+                glcodes[0] = new GlcodeMastersBuilder().withTaxHead("LIB_CESS").withGlcode("3503002").build();
                 break;
         }
         return glcodes;

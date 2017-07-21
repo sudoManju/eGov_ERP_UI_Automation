@@ -27,4 +27,13 @@ public class GlcodesMasterResource extends Resource {
 
         return response;
     }
+
+    public Response update(String jsonString) {
+
+       new APILogger().log("Update Glcodes Master Request is started as --"+jsonString);
+       Response response = getPOSTResponseFromDEV(jsonString,Properties.updateGlcodesMasterUrl);
+       new APILogger().log("Update Glcodes Master Response is generated as --"+response.asString());
+
+        return response;
+    }
 }

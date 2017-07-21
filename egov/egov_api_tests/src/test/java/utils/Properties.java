@@ -113,11 +113,14 @@ public class Properties {
     // Billing Services Url's //
     public static final String createTaxHeadMasterUrl = propertiesReader.getEndPointUrl("taxHeadMasterCreateUrl");
     public static final String searchTaxHeadMasterUrl = propertiesReader.getEndPointUrl("taxHeadMasterSearchUrl");
+    public static final String updateTaxHeadMasterUrl = propertiesReader.getEndPointUrl("taxHeadMasterUpdateUrl");
     public static final String createGlcodesMasterUrl = propertiesReader.getEndPointUrl("glcodesMasterCreateUrl");
     public static final String searchGlcodesMasterUrl = propertiesReader.getEndPointUrl("glcodesMasterSearchUrl");
+    public static final String updateGlcodesMasterUrl = propertiesReader.getEndPointUrl("glcodesMasterUpdateUrl");
     public static final String createTaxPeriodMasterUrl = propertiesReader.getEndPointUrl("taxPeriodMasterCreateUrl");
     public static final String searchTaxPeriodMasterUrl = propertiesReader.getEndPointUrl("taxPeriodMasterSearchUrl");
     public static final String createBusinessServiceMasterUrl = propertiesReader.getEndPointUrl("businessServiceMasterCreateUrl");
+    public static final String searchBusinessServiceMasterUrl = propertiesReader.getEndPointUrl("businessServiceMasterSearchUrl");
 
     // Water Charge Management Url's //
     public static final String wcmsCreateCategoryTypeUrl = propertiesReader.getEndPointUrl("wcmsCreateCategoryTypeUrl");

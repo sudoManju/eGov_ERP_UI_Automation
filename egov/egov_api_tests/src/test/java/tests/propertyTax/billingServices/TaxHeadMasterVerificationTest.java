@@ -23,6 +23,7 @@ import utils.ResponseHelper;
 
 import java.io.IOException;
 
+import static data.ConstantData.serviceName;
 import static data.UserData.NARASAPPA;
 
 public class TaxHeadMasterVerificationTest extends BaseAPITest {
@@ -38,15 +39,36 @@ public class TaxHeadMasterVerificationTest extends BaseAPITest {
 
     @Test
     public void taxHeadMasterTest() throws IOException {
-        LoginAndLogoutHelper.login(NARASAPPA);                            //Login
+        LoginAndLogoutHelper.login(NARASAPPA);                                                            //Login
         requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
 
-        for (int i=0;i<6;i++) {
-            TaxHeadMasterResponse createObject = create(i);              // Create
-            search(createObject);                                        // Search
+        for (int i=0;i<7;i++) {
+            TaxHeadMasterResponse createObject = create(i);                                              // Create
+            search(createObject);                                                                        // Search
+
+            TaxHeadMasterResponse updateObject = update(createObject.getTaxHeadMasters()[0].getId(),i);  //Update
+            search(updateObject);                                                                        //Search
         }
 
-        LoginAndLogoutHelper.logout();                                   //Logout
+        LoginAndLogoutHelper.logout();                                                                   //Logout
+    }
+
+    private TaxHeadMasterResponse update(String id, int i) throws IOException {
+
+        new APILogger().log("Update TaxHead Master is started --");
+        taxHeadMasters = getTaxHeadMasters(i);
+        taxHeadMasters[0].setId(Integer.valueOf(id));
+        taxHeadMasters[0].setService(serviceName);
+        taxHeadMasters[0].getGlcodes()[0].setService(serviceName);
+
+        TaxHeadMasterRequest request = new TaxHeadMasterRequestBuilder().withRequestInfo(requestInfo).withTaxHeadMaster(taxHeadMasters).build();
+
+        Response response = new TaxHeadMasterResource().update(RequestHelper.getJsonString(request));
+        Assert.assertEquals(response.getStatusCode(),200);
+        TaxHeadMasterResponse responseObject = checkAssertsForCreate(request,response);
+        new APILogger().log("Update TaxHead Master is completed --");
+
+        return responseObject;
     }
 
     private TaxHeadMasters[] getTaxHeadMasters(int i){
@@ -94,6 +116,11 @@ public class TaxHeadMasterVerificationTest extends BaseAPITest {
                         .withCode("CHQ_BOUNCE_PENALTY").withName("Cheque Bounce Penalty").withCategory("FINES").withGlcode(glcodes).build();
 
                 break;
+
+            case 6 :
+                glcodes[0] = new GlcodesBuilder().withTaxHead("LIB_CESS").withGlcode("3503002").build();
+                taxHeadMasters[0] = new TaxHeadMastersBuilder()
+                        .withCode("LIB_CESS").withName("Library Cess").withCategory("TAX").withGlcode(glcodes).build();
         }
 
         return taxHeadMasters;
@@ -127,8 +154,6 @@ public class TaxHeadMasterVerificationTest extends BaseAPITest {
         Assert.assertEquals(responseObject.getTaxHeadMasters()[0].getCategory(),createObject.getTaxHeadMasters()[0].getCategory());
         Assert.assertEquals(responseObject.getTaxHeadMasters()[0].getName(),createObject.getTaxHeadMasters()[0].getName());
         Assert.assertEquals(responseObject.getTaxHeadMasters()[0].getCode(),createObject.getTaxHeadMasters()[0].getCode());
-//        Assert.assertEquals(responseObject.getTaxHeadMasters()[0].getGlCodes()[0].getGlCode(),createObject.getTaxHeadMasters()[0].getGlCodes()[0].getGlCode());
-//        Assert.assertEquals(responseObject.getTaxHeadMasters()[0].getGlCodes()[0].getTaxHead(),createObject.getTaxHeadMasters()[0].getGlCodes()[0].getTaxHead());
     }
 
     private TaxHeadMasterResponse create(int i) throws IOException {
@@ -137,8 +162,8 @@ public class TaxHeadMasterVerificationTest extends BaseAPITest {
 
         Response response = new TaxHeadMasterResource().create(RequestHelper.getJsonString(request));
 
-        Assert.assertEquals(response.getStatusCode(),201);
         TaxHeadMasterResponse responseObject = checkAssertsForCreate(request,response);
+        Assert.assertEquals(response.getStatusCode(),201);
         new APILogger().log("Create TaxHead Master is completed for "+responseObject.getTaxHeadMasters()[0].getName());
 
         return responseObject;
@@ -152,9 +177,6 @@ public class TaxHeadMasterVerificationTest extends BaseAPITest {
         Assert.assertEquals(request.getTaxHeadMasters()[0].getService(),responseObject.getTaxHeadMasters()[0].getService());
         Assert.assertEquals(request.getTaxHeadMasters()[0].getCode(),responseObject.getTaxHeadMasters()[0].getCode());
         Assert.assertEquals(request.getTaxHeadMasters()[0].getCategory(),responseObject.getTaxHeadMasters()[0].getCategory());
-//        Assert.assertEquals(request.getTaxHeadMasters()[0].getGlcodes()[0].getService(),responseObject.getTaxHeadMasters()[0].getGlCodes()[0].getService());
-//        Assert.assertEquals(request.getTaxHeadMasters()[0].getGlcodes()[0].getTaxHead(),responseObject.getTaxHeadMasters()[0].getGlCodes()[0].getTaxHead());
-//        Assert.assertEquals(request.getTaxHeadMasters()[0].getGlcodes()[0].getGlCode(),responseObject.getTaxHeadMasters()[0].getGlCodes()[0].getGlCode());
         return responseObject;
     }
 }
