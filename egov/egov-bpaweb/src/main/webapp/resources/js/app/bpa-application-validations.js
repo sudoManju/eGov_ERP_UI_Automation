@@ -55,6 +55,28 @@ $(document).ready(function() {
 		}
 	});
 	
+	
+	// Validate input value must be greater than zero using class name
+	$.validator.addMethod("decimalfixed", function(value, element) {
+		return this.optional(element) || (parseFloat(value) > 0);
+		}, '* Value must be greater than zero');
+	
+	// To prevent multiple decimal places in single input
+	$(document).on('keypress', '.decimalfixed', function(evt) {
+		
+		  evt = (evt) ? evt : window.event;
+		  var charCode = (evt.which) ? evt.which : evt.keyCode;
+		  if (charCode == 8 || charCode == 37) {
+		    return true;
+		  } else if (charCode == 46 && $(this).val().indexOf('.') != -1) {
+		    return false;
+		  } else if (charCode > 31 && charCode != 46 && (charCode < 48 || charCode > 57)) {
+		    return false;
+		  }
+		  return true;
+	});
+	
+	
 	// For each main service type validations
 	$('.serviceType').change(function(){
 		
