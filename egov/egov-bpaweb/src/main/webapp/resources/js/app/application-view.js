@@ -44,12 +44,17 @@ jQuery(document).ready(function() {
 	
 	var seviceTypeName = $("#serviceType").val();
 	$('.show-hide').hide();
+	$('.areaOfBase').hide();
+	$('.extentOfLand').show();
 	if('New Construction'.localeCompare(seviceTypeName) == 0 ){
 		$('.doorNo').hide();
 		$('.totalPlintArea').show();
-	} else if('Tower Construction'.localeCompare(seviceTypeName) == 0 || 'Pole Structures'.localeCompare(seviceTypeName) == 0
-			|| 'Sub-Division of plot/Land Development'.localeCompare(seviceTypeName) == 0){
+	} else if('Sub-Division of plot/Land Development'.localeCompare(seviceTypeName) == 0 || 'Amenities'.localeCompare(seviceTypeName) == 0){
 		$('.buildingdetails').hide();
+	}else if('Tower Construction'.localeCompare(seviceTypeName) == 0 || 'Pole Structures'.localeCompare(seviceTypeName) == 0 ){
+		$('.buildingdetails').hide();
+		$('.extentOfLand').hide();
+		$('.areaOfBase').show();
 	} else if('Demolition' == seviceTypeName){
 		$('.demolition').show();
 	} else if('Change in occupancy' == seviceTypeName){
@@ -58,7 +63,8 @@ jQuery(document).ready(function() {
 		$('.alterationInArea').show();
 	} else if('Adding of Extension' == seviceTypeName){
 		$('.additionInArea').show();
-	} else if('Permission for Temporary hut or shed' == seviceTypeName){
+	} else if('Huts and Sheds' == seviceTypeName){
+		$('.buildingdetails').hide();
 		$('.noofhutorshed').show();
 	} else {
 		$('.totalPlintArea').show();
@@ -67,8 +73,8 @@ jQuery(document).ready(function() {
 	loadAmenities();
 function loadAmenities(){
 		var amenities = [];
-		if($( "#serviceType" ).val() == 'Permission for Temporary hut or shed'){
-			amenities.push('Permission for Temporary hut or shed');
+		if($( "#serviceType" ).val() == 'Huts and Sheds'){
+			amenities.push('Huts and Sheds');
 		}
 		var amenityDesc = $("#applicationAmenity").val().split(',');
 		$.each(amenityDesc, function(index, amenityDesc) {
@@ -110,7 +116,7 @@ function loadAmenities(){
 		    case "Pole Structures":
 		    	templateStr=$('#poles-view-template').html();
 		        break;
-		    case "Permission for Temporary hut or shed":
+		    case "Huts and Sheds":
 		    	templateStr=$('#sheds-view-template').html();
 		        break;
 		}

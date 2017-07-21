@@ -151,7 +151,7 @@
 		<label class="col-sm-3 control-label text-right"><spring:message
 				code="lbl.re.survey.no" /><span class="mandatory"></span></label>
 		<div class="col-sm-3 add-margin">
-			<form:input class="form-control patternvalidation" maxlength="24"
+			<form:input class="form-control patternvalidation" maxlength="120"
 				data-pattern="alphanumericspecialcharacters" data-role="tagsinput" id="reSurveyNumber"
 				path="siteDetail[0].reSurveyNumber" required="required" />
 				<small class="error"> (Enter multiple values with comma seperated)</small>

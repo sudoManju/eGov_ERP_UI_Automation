@@ -314,10 +314,11 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         if (ST_CODE_14.equalsIgnoreCase(application.getServiceType().getCode())
                 || ST_CODE_15.equalsIgnoreCase(application.getServiceType().getCode())) {
             amountRule = new BigDecimal(11000);
-        } else if (ST_CODE_05.equalsIgnoreCase(application.getServiceType().getCode())
-                || ST_CODE_08.equalsIgnoreCase(application.getServiceType().getCode())
-                || ST_CODE_09.equalsIgnoreCase(application.getServiceType().getCode())) {
+        } else if (ST_CODE_05.equalsIgnoreCase(application.getServiceType().getCode())) {
             amountRule = application.getDocumentScrutiny().get(0).getExtentinsqmts();
+        } else if (ST_CODE_08.equalsIgnoreCase(application.getServiceType().getCode())
+                || ST_CODE_09.equalsIgnoreCase(application.getServiceType().getCode())) {
+            amountRule = BigDecimal.ONE;
         } else if (!application.getBuildingDetail().isEmpty()
                 && application.getBuildingDetail().get(0).getTotalPlintArea() != null) {
             amountRule = application.getBuildingDetail().get(0).getTotalPlintArea();

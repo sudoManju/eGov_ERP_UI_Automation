@@ -85,7 +85,7 @@
 			code="lbl.no.of.poles" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation dyn-mandatory Pole"
-			data-pattern="number" id="noOfPoles"
+			data-pattern="number" id="noOfPoles" maxlength="2"
 			path="siteDetail[0].noOfPoles" required="required" />
 		<form:errors path="siteDetail[0].noOfPoles"
 			cssClass="add-margin error-msg" />
@@ -97,7 +97,7 @@
 			code="lbl.no.of.shuts.huts" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation noofhutorshed"
-			data-pattern="number" id="noOfHutOrSheds"
+			data-pattern="number" id="noOfHutOrSheds" maxlength="2"
 			path="siteDetail[0].noOfHutOrSheds" required="required" />
 		<form:errors path="siteDetail[0].noOfHutOrSheds"
 			cssClass="add-margin error-msg" />
@@ -108,7 +108,7 @@
 	<label class="{className} control-label text-right toggle-madatory Shut"><spring:message
 			code="lbl.shutter" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation dyn-mandatory Shut"
+		<form:input class="form-control patternvalidation dyn-mandatory Shut" maxlength="2"
 			id="shutter" data-pattern="number" path="siteDetail[0].shutter" required="required"/>
 		<form:errors path="siteDetail[0].shutter"
 			cssClass="add-margin error-msg" />
@@ -120,7 +120,7 @@
 			code="lbl.erection.tower" /> <span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation dyn-mandatory Towe"
-			data-pattern="number" id="erectionoftower"
+			data-pattern="number" id="erectionoftower" maxlength="2"
 			path="siteDetail[0].erectionoftower" required="required" />
 		<form:errors path="siteDetail[0].erectionoftower"
 			cssClass="add-margin error-msg" />
@@ -132,7 +132,7 @@
 			code="lbl.number.well" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation dyn-mandatory Well"
-			data-pattern="number" id="dwellingunitnt"
+			data-pattern="number" id="dwellingunitnt" maxlength="2"
 			path="siteDetail[0].dwellingunitnt" required="required" />
 		<form:errors path="siteDetail[0].dwellingunitnt"
 			cssClass="add-margin error-msg" />
@@ -144,7 +144,7 @@
 			code="lbl.len.com.wall" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation dyn-mandatory decimalfixed Comp"
-			data-pattern="decimalvalue" id="siteDetail[0].lengthOfCompoundWall"
+			data-pattern="decimalvalue" id="siteDetail[0].lengthOfCompoundWall" maxlength="5"
 			path="siteDetail[0].lengthOfCompoundWall" required="required" />
 		<form:errors path="siteDetail[0].lengthOfCompoundWall"
 			cssClass="add-margin error-msg" />
@@ -156,7 +156,7 @@
 			code="lbl.roof.conv" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation dyn-mandatory decimalfixed Roof"
-			data-pattern="decimalvalue" id="roofConversion"
+			data-pattern="decimalvalue" id="roofConversion" maxlength="10"
 			path="siteDetail[0].roofConversion" required="required" />
 		<form:errors path="siteDetail[0].roofConversion"
 			cssClass="add-margin error-msg" />

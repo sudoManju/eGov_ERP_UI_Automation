@@ -64,7 +64,7 @@
 	</div>
 	<input type="hidden" id="buildingFloorList"
 		value="${buildingFloorList}"> <input type="hidden"
-		id="occupancyList" value="">
+		id="occupancyList" value="${occupancyList}">
 		<input type="hidden"
 		id="sumOfFloorArea" value="">
 	<table class="table table-striped table-bordered"
@@ -74,6 +74,7 @@
 				<th class="text-center"><spring:message code="lbl.srl.no" /></th>
 				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message code="lbl.floor.name" /></th>
 				<th class="text-center"><spring:message code="lbl.floor.level" /></th>
+				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message code="lbl.occupancy" /></th>
 				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message code="lbl.plinth.area" /></th>
 				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message code="lbl.floor.area" /></th>
 				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message code="lbl.carpet.area" /></th>
@@ -88,21 +89,35 @@
 					<c:forEach
 						items="${bpaApplication.buildingDetail[0].applicationFloorDetails}"
 						var="buildingAreaDetails" varStatus="counter">
-						<form:hidden id="table_fieldInspections${counter.index}"
-							path="buildingDetail[0].applicationFloorDetails[${counter.index}].id" />
 						<tr class="data-fetched">
-							<td><span class="serialNo text-center" id="slNoInsp">${counter.index+1}</span><form:hidden path="buildingDetail[0].applicationFloorDetails[${counter.index}].orderOfFloor"/></td>
-							<td><form:input type="text"
-									class="form-control table-input patternvalidation"
-									path="buildingDetail[0].applicationFloorDetails[${counter.index}].floorDescription"
-									id="applicationFloorDetails[${counter.index}]floorDescription"
-									maxlength="128" required="required" value="${buildingAreaDetails.floorDescription}" /></td>
+							<td><span class="serialNo text-center" id="slNoInsp">${counter.index+1}</span><form:hidden id="table_fieldInspections${counter.index}"
+							path="buildingDetail[0].applicationFloorDetails[${counter.index}].id" /><form:hidden path="buildingDetail[0].applicationFloorDetails[${counter.index}].orderOfFloor"/></td>
+							<td><form:select
+								path="buildingDetail[0].applicationFloorDetails[${counter.index}].floorDescription"
+								data-first-option="false"
+								id="applicationFloorDetails${counter.index}floorDescription"
+								class="form-control floor-details-mandatory" maxlength="128">
+								<form:option value="">
+									<spring:message code="lbl.select" />
+								</form:option>
+								<form:options items="${buildingFloorList}" />
+							</form:select></td>
 							<td><form:input type="text"
 									class="form-control table-input patternvalidation floorNumber text-center"
 									data-pattern="number"
 									path="buildingDetail[0].applicationFloorDetails[${counter.index}].floorNumber"
  									id="applicationFloorDetails${counter.index}floorNumber"
 									maxlength="15" value="${buildingAreaDetails.floorNumber}" /></td>
+							<td><form:select
+								path="buildingDetail[0].applicationFloorDetails[${counter.index}].occupancy"
+								data-first-option="false"
+								id="applicationFloorDetails${counter.index}occupancy"
+								class="form-control floor-details-mandatory" maxlength="128">
+								<form:option value="">
+									<spring:message code="lbl.select" />
+								</form:option>
+								<form:options items="${occupancyList}" itemValue="id" itemLabel="description" />
+							</form:select></td>
 							<td><form:input type="text"
 									class="form-control table-input patternvalidation decimalfixed plinthArea text-right"
 									data-pattern="decimalvalue"
@@ -147,23 +162,33 @@
 									data-pattern="number"
 									path="buildingDetail[0].applicationFloorDetails[0].floorNumber"
 									id="applicationFloorDetails0floorNumber"
-									maxlength="15" value="${buildingAreaDetails.floorNumber}" /></td>
+									maxlength="3" value="${buildingAreaDetails.floorNumber}" /></td>
+						<td><form:select
+								path="buildingDetail[0].applicationFloorDetails[0].occupancy"
+								data-first-option="false"
+								id="applicationFloorDetails[0]occupancy"
+								class="form-control floor-details-mandatory" maxlength="128">
+								<form:option value="">
+									<spring:message code="lbl.select" />
+								</form:option>
+								<form:options items="${occupancyList}" itemValue="id" itemLabel="description" />
+							</form:select></td>
 						<td><form:input type="text"
 								class="form-control table-input text-right patternvalidation decimalfixed plinthArea floor-details-mandatory"
 								data-pattern="decimalvalue"
 								path="buildingDetail[0].applicationFloorDetails[0].plinthArea"
-								id="applicationFloorDetails0plinthArea" maxlength="15" value=""/></td>
+								id="applicationFloorDetails0plinthArea" maxlength="10" value=""/></td>
 						<td><form:input type="text"
 								class="form-control table-input text-right patternvalidation decimalfixed floorArea floor-details-mandatory"
 								data-pattern="decimalvalue"
 								path="buildingDetail[0].applicationFloorDetails[0].floorArea"
-								id="applicationFloorDetails0floorArea" maxlength="15" value=""
+								id="applicationFloorDetails0floorArea" maxlength="10" value=""
 								onblur="validateFloorDetails(this)" /></td>
 						<td><form:input type="text"
 								class="form-control table-input text-right patternvalidation decimalfixed carpetArea floor-details-mandatory"
 								data-pattern="decimalvalue"
 								path="buildingDetail[0].applicationFloorDetails[0].carpetArea"
-								id="applicationFloorDetails0carpetArea" maxlength="15" value="" /></td>
+								id="applicationFloorDetails0carpetArea" maxlength="10" value="" /></td>
 						<td></td>
 						<%-- <td class=" text-center"><a href="javascript:void(0);"
 							class="btn-sm btn-danger" id="deleteBuildAreaRow"
@@ -175,6 +200,7 @@
 		</tbody>
 		<tfoot>
 			<tr>
+				<td></td>
 				<td></td>
 				<td></td>
 				<td class="text-right">Total</td>
@@ -216,7 +242,7 @@
 		<div class="col-sm-3 add-margin">
 			<form:input
 				class="form-control patternvalidation clear-values handle-mandatory floorCount"
-				data-pattern="number" maxlength="5" id="floorCount"
+				data-pattern="number" maxlength="3" id="floorCount"
 				path="buildingDetail[0].floorCount" required="required"/>
 			<form:errors path="buildingDetail[0].floorCount"
 				cssClass="add-margin error-msg" />
@@ -255,7 +281,7 @@
 		<div class="col-sm-3 add-margin">
 			<form:input
 				class="form-control patternvalidation clear-values  handle-mandatory heightFromGroundWithStairRoom"
-				maxlength="10" data-pattern="decimalvalue"
+				maxlength="6" data-pattern="decimalvalue"
 				id="heightFromGroundWithStairRoom"
 				path="buildingDetail[0].heightFromGroundWithStairRoom"
 				required="required" />
@@ -268,7 +294,7 @@
 		<div class="col-sm-3 add-margin">
 			<form:input
 				class="form-control patternvalidation clear-values  handle-mandatory heightFromGroundWithOutStairRoom"
-				maxlength="10" data-pattern="decimalvalue"
+				maxlength="6" data-pattern="decimalvalue"
 				id="heightFromGroundWithOutStairRoom"
 				path="buildingDetail[0].heightFromGroundWithOutStairRoom"
 				required="required" />
@@ -284,7 +310,7 @@
 		<div class="col-sm-3 add-margin">
 			<form:input
 				class="form-control patternvalidation handle-mandatory clear-values fromStreetLevelWithStairRoom"
-				maxlength="10" data-pattern="decimalvalue"
+				maxlength="6" data-pattern="decimalvalue"
 				id="fromStreetLevelWithStairRoom"
 				path="buildingDetail[0].fromStreetLevelWithStairRoom"
 				required="required" />
@@ -297,7 +323,7 @@
 		<div class="col-sm-3 add-margin">
 			<form:input
 				class="form-control patternvalidation handle-mandatory clear-values fromStreetLevelWithOutStairRoom"
-				maxlength="10" data-pattern="decimalvalue"
+				maxlength="6" data-pattern="decimalvalue"
 				id="fromStreetLevelWithOutStairRoom"
 				path="buildingDetail[0].fromStreetLevelWithOutStairRoom"
 				required="required" />

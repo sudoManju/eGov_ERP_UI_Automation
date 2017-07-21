@@ -75,6 +75,9 @@ public class ApplicationFloorDetail extends AbstractAuditable {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "proposedbuilingusage")
     private BuildingUsage proposedbuilingusage;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "occupancy")
+    private Occupancy occupancy;
     private Integer floorNumber;
     private String floorDescription;
     private BigDecimal carpetArea;
@@ -178,6 +181,14 @@ public class ApplicationFloorDetail extends AbstractAuditable {
 
     public void setOrderOfFloor(Integer orderOfFloor) {
         this.orderOfFloor = orderOfFloor;
+    }
+
+    public Occupancy getOccupancy() {
+        return occupancy;
+    }
+
+    public void setOccupancy(Occupancy occupancy) {
+        this.occupancy = occupancy;
     }
     
 }

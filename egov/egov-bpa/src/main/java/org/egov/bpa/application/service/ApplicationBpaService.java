@@ -229,6 +229,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
                 if (null == applicationFloorDetails.getId() && applicationFloorDetails.getFloorDescription() != null) {
                     ApplicationFloorDetail floorDetails = new ApplicationFloorDetail();
                     floorDetails.setBuildingDetail(application.getBuildingDetail().get(0));
+                    floorDetails.setOccupancy(applicationFloorDetails.getOccupancy());
                     floorDetails.setOrderOfFloor(item);
                     floorDetails.setFloorNumber(applicationFloorDetails.getFloorNumber());
                     floorDetails.setFloorDescription(applicationFloorDetails.getFloorDescription());

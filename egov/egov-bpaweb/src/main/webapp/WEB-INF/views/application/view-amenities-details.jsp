@@ -52,8 +52,11 @@
 	value="${bpaApplication.amenityName}" />
 
 <div class="row add-border">
-	<div class="col-sm-3 add-margin">
+	<div class="col-sm-3 add-margin extentOfLand">
 		<spring:message code="lbl.extent.of.land" />
+	</div>
+	<div class="col-sm-3 add-margin areaOfBase">
+		<spring:message code="lbl.area.base" />
 	</div>
 	<div class="col-sm-3 add-margin view-content">
 		<c:out value="${bpaApplication.siteDetail[0].extentOfLand}"

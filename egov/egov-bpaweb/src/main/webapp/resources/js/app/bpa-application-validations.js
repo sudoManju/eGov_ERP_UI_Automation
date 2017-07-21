@@ -45,13 +45,7 @@ var totalFloorArea;
 var extentInSqmts;
 $(document).ready(function() {
 	
-	var seviceType = $( "#serviceType option:selected" ).text();
-	if('Tower Construction'.localeCompare(seviceType) == 0 || 'Pole Structures'.localeCompare(seviceType) == 0
-			|| 'Sub-Division of plot/Land Development'.localeCompare(seviceType) == 0){
-		$('.buildingdetails').hide();
-	} else if('New Construction'.localeCompare(seviceType) == 0 ){
-		$('.doorNo').hide();
-	}
+	$('.buildingdetails').hide();
 	$('.show-hide').hide();
 	$('.totalPlintArea').show();
 	
@@ -67,7 +61,6 @@ $(document).ready(function() {
 		loadAmenities();
 		
 		var seviceTypeName = $( "#serviceType option:selected" ).text();
-		$('.buildingdetails').show();
 		$('.doorNo').show();
 		$('.show-hide').hide();
 		$('.floor-toggle-mandatory').find("span").removeClass( "mandatory" );
@@ -87,26 +80,26 @@ $(document).ready(function() {
 			$('.handle-mandatory').find("span").removeClass( "mandatory" );
 			$('.buildingdetails').hide();
 		} else if('Amenities' == seviceTypeName){
-			$('.totalPlintArea').show();
-			$('#totalPlintArea').attr('readOnly',false);
+			$('.buildingdetails').hide();
 			$('.handle-mandatory').removeAttr('required');
 			$('.handle-mandatory').find("span").removeClass( "mandatory" );
 		} else if('Huts and Sheds' == seviceTypeName){
+			$('.buildingdetails').hide();
 			$('.noofhutorshed').show();
 			$('.handle-mandatory').removeAttr('required');
 			$('.handle-mandatory').find("span").removeClass( "mandatory" );
 			$('.Hut').find("span").addClass( "mandatory" );
 			$('.noofhutorshed').find("span").addClass( "mandatory" );
-			$('#totalPlintArea').attr('required',true);
-			$('#totalPlintArea').attr('readOnly',false);
 		} else if('Alteration' == seviceTypeName){
+			$('.buildingdetails').show();
 			$('.handle-mandatory').removeAttr('required');
 			$('.handle-mandatory').find("span").removeClass( "mandatory" );
 			$('.alterationInArea').find("span").addClass( "mandatory" );
 			$('#totalPlintArea').attr('required',true);
 			$('#totalPlintArea').attr('readOnly',false);
 			$('.alterationInArea').show();
-		} else if('Adding of Extension' == seviceTypeName){
+		} else if('Adding of Extension' == seviceTypeName){4
+			$('.buildingdetails').show();
 			$('.handle-mandatory').removeAttr('required');
 			$('.handle-mandatory').find("span").removeClass( "mandatory" );
 			$('#totalPlintArea').attr('required',true);
@@ -115,11 +108,14 @@ $(document).ready(function() {
 			$('.additionInArea').show();
 		} else {
 			if('New Construction'.localeCompare(seviceTypeName) == 0 ){
+				$('.buildingdetails').show();
 				$('.totalPlintArea').show();
 				$('.doorNo').hide();
 			} else if('Change in occupancy' == seviceTypeName){
+				$('.buildingdetails').show();
 				$('.changeInOccupancyArea').show();
 			} else if ('Demolition' == seviceTypeName){
+				$('.buildingdetails').show();
 				$('.demolition').show();
 			} else {
 				$('.totalPlintArea').show();
