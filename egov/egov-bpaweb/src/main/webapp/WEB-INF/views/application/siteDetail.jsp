@@ -151,10 +151,10 @@
 		<label class="col-sm-3 control-label text-right"><spring:message
 				code="lbl.re.survey.no" /><span class="mandatory"></span></label>
 		<div class="col-sm-3 add-margin">
-			<form:input class="form-control patternvalidation" maxlength="120"
+			<form:input class="form-control patternvalidation" maxlength="24"
 				data-pattern="alphanumericspecialcharacters" data-role="tagsinput" id="reSurveyNumber"
 				path="siteDetail[0].reSurveyNumber" required="required" />
-				<small class="error-msg"> (Enter multiple values by comma seperated)</small>
+				<small class="error"> (Enter multiple values with comma seperated)</small>
 			<form:errors path="siteDetail[0].reSurveyNumber"
 				cssClass="add-margin error-msg" />
 		</div>
@@ -176,7 +176,7 @@
 			<form:input class="form-control patternvalidation" maxlength="120"
 				data-pattern="alphanumericwithspace" data-role="tagsinput" id="subdivisionNumber"
 				path="siteDetail[0].subdivisionNumber" required="required" />
-				<small class="error-msg"> (Enter multiple values by comma seperated) </small>
+				<small class="error"> (Enter multiple values with comma seperated) </small>
 			<form:errors path="siteDetail[0].subdivisionNumber"
 				cssClass="add-margin error-msg" />
 		</div>
@@ -304,17 +304,29 @@
 			<form:errors path="buildingDetail[0].crzZone"
 				cssClass="add-margin error-msg" />
 		</div>
-		<label class="col-sm-2 control-label text-right"><spring:message
-				code="lbl.town.plan.zone" /> </label>
-		<div class="col-sm-3 add-margin">
-			<form:input class="form-control patternvalidation" maxlength="10"
-				data-pattern="alphanumericwithspace" id="townPlanningZone"
-				path="buildingDetail[0].townPlanningZone" />
-			<form:errors path="buildingDetail[0].townPlanningZone"
-				cssClass="add-margin error-msg" />
-		</div>
 	</div>
 
+<div class="form-group">
+		<label class="col-sm-3 control-label text-right"><spring:message
+				code="lbl.town.plan.zone" /></label>
+		<div class="col-sm-3 add-margin">
+			<form:select name="schemes" id="schemes"
+				path="siteDetail[0].scheme" cssClass="form-control"
+				cssErrorClass="form-control error">
+				<form:option value="">--select--</form:option>
+				<form:options items="${schemesList}" itemValue="id" itemLabel="description" />
+			</form:select>
+		</div>
+		<label class="col-sm-2 control-label text-right"><spring:message
+				code="lbl.proposed.land.use" /> </label>
+		<div class="col-sm-3 add-margin">
+			<select name="landUsage"  id="landUsage" class="form-control ">
+						<option value=""> Selected </option>
+			</select>
+			<form:hidden path="siteDetail[0].landUsage" id="landUsageObjectId" value="${bpaApplication.siteDetail[0].landUsage.id}" />
+			<form:hidden path="siteDetail[0].landUsageId" id="landUsageId" value="" /> 
+		</div>
+	</div>
 	<div class="form-group">
 		<label class="col-sm-3 control-label text-right"><spring:message
 				code="lbl.approved.layout.details" /></label>

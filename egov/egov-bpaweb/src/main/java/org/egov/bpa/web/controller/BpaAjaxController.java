@@ -52,12 +52,15 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.egov.bpa.application.entity.BpaScheme;
+import org.egov.bpa.application.entity.BpaSchemeLandUsage;
 import org.egov.bpa.application.entity.Occupancy;
 import org.egov.bpa.application.entity.PostalAddress;
 import org.egov.bpa.application.entity.StakeHolder;
 import org.egov.bpa.application.entity.enums.StakeHolderType;
 import org.egov.bpa.application.service.ApplicationBpaService;
 import org.egov.bpa.application.service.PostalAddressService;
+import org.egov.bpa.masters.service.BpaSchemeService;
 import org.egov.bpa.masters.service.OccupancyService;
 import org.egov.bpa.masters.service.StakeHolderService;
 import org.egov.bpa.utils.BpaConstants;
@@ -110,6 +113,8 @@ public class BpaAjaxController {
     private PostalAddressService postalAddressService;
     @Autowired
     private CrossHierarchyService crossHierarchyService;
+    @Autowired
+    private  BpaSchemeService bpaSchemeService;
 
     @RequestMapping(value = "/ajax/getAdmissionFees", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -222,5 +227,25 @@ public class BpaAjaxController {
             jsonObjects.add(jsonObj);
         }
         IOUtils.write(jsonObjects.toString(), response.getWriter());
+    }
+    
+    @RequestMapping(value = { "/ajax/getlandusagebyscheme" }, method = RequestMethod.GET)
+    public void landUsageByScheme(@RequestParam Long schemeId, HttpServletResponse response) throws IOException {
+
+        if (schemeId != null) {
+            final BpaScheme scheme = bpaSchemeService
+                    .findById(schemeId);
+
+            final List<JSONObject> jsonObjects = new ArrayList<>();
+            if (scheme != null) {
+                for (final BpaSchemeLandUsage landUsage : scheme.getSchemeLandUsage()) {
+                    final JSONObject jsonObj = new JSONObject();
+                    jsonObj.put("usageId", landUsage.getUsageType().getId());
+                    jsonObj.put("usageDesc", landUsage.getUsageType().getDescription());
+                    jsonObjects.add(jsonObj);
+                }
+            }
+            IOUtils.write(jsonObjects.toString(), response.getWriter());
+        }
     }
 }

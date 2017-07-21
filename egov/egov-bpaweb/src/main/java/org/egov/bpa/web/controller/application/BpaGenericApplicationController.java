@@ -48,6 +48,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.egov.bpa.application.entity.BpaApplication;
+import org.egov.bpa.application.entity.BpaScheme;
 import org.egov.bpa.application.entity.BpaStatus;
 import org.egov.bpa.application.entity.BuildingCategory;
 import org.egov.bpa.application.entity.ConstructionStages;
@@ -61,6 +62,7 @@ import org.egov.bpa.application.entity.enums.StakeHolderType;
 import org.egov.bpa.application.service.ApplicationBpaService;
 import org.egov.bpa.application.service.CheckListDetailService;
 import org.egov.bpa.application.workflow.BpaWorkFlowService;
+import org.egov.bpa.masters.service.BpaSchemeService;
 import org.egov.bpa.masters.service.BuildingCategoryService;
 import org.egov.bpa.masters.service.ConstructionStagesService;
 import org.egov.bpa.masters.service.OccupancyService;
@@ -98,16 +100,16 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     private BoundaryService boundaryService;
     @Autowired
     private ServiceTypeService serviceTypeService;
-    
+
     @Autowired
     private OccupancyService occupancyService;
-    
+
     @Autowired
     private VillageNameService villageNameService;
-    
+
     @Autowired
     private ConstructionStagesService constructionStagesService;
-    
+
     @Autowired
     protected CheckListDetailService checkListDetailService;
     @Autowired
@@ -130,17 +132,19 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     @Autowired
     protected BpaStatusService bpaStatusService;
     @Autowired
+    protected BpaSchemeService bpaSchemeService;
+    @Autowired
     private AppConfigValueService appConfigValueService;
     @Autowired
     private BpaUtils bpaUtils;
     @Autowired
     private UserService userService;
-    
+
     @ModelAttribute("occupancyList")
     public List<Occupancy> getOccupancy() {
         return occupancyService.findAllOrderByOrderNumber();
     }
-    
+
     @ModelAttribute("zones")
     public List<Boundary> zones() {
         return boundaryService.getActiveBoundariesByBndryTypeNameAndHierarchyTypeName(BpaConstants.ZONE,
@@ -156,6 +160,7 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     public List<ServiceType> getAmenityTypeList() {
         return serviceTypeService.getAllActiveAmenities();
     }
+
     @ModelAttribute("buildingCategorYlist")
     public List<BuildingCategory> getAllBuildingCategoryList() {
         return buildingCategoryService.findAll();
@@ -165,7 +170,7 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     public List<StakeHolderType> getStakeHolderType() {
         return Arrays.asList(StakeHolderType.values());
     }
-    
+
     @ModelAttribute("governmentTypeList")
     public List<GovernmentType> getGovernmentType() {
         return Arrays.asList(GovernmentType.values());
@@ -175,7 +180,7 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     public List<VillageName> getVillage() {
         return villageNameService.findAll();
     }
-    
+
     @ModelAttribute("constStages")
     public List<ConstructionStages> getCOnstructionStage() {
         return constructionStagesService.findAll();
@@ -211,34 +216,38 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     public Map<String, String> applicationModes() {
         return getApplicationModeMap();
     }
-    
+
     @ModelAttribute("buildingFloorList")
     public List<String> getBuildingFLoorList() {
         return BpaConstants.getBuildingFloorsList();
     }
-    
+
     @ModelAttribute("uomList")
     public BpaUom[] getUomList() {
         return BpaUom.values();
     }
-    
+
     @ModelAttribute("applnStatusList")
     public List<BpaStatus> getApplnStatusList() {
         return bpaStatusService.findAll();
     }
-    
+
+    @ModelAttribute("schemesList")
+    public List<BpaScheme> getSchemesList() {
+        return bpaSchemeService.findAll();
+    }
+
     public Map<String, String> getApplicationModeMap() {
         final Map<String, String> applicationModeMap = new LinkedHashMap<>(0);
         applicationModeMap.put(ApplicantMode.NEW.toString(), ApplicantMode.NEW.name());
         applicationModeMap.put(ApplicantMode.OTHERS.name(), ApplicantMode.OTHERS.name());
         return applicationModeMap;
     }
-    
+
     /**
      * @param prepareModel
      * @param model
-     * @param container
-     *            This method we are calling In GET Method..
+     * @param container This method we are calling In GET Method..
      */
     @Override
     protected void prepareWorkflow(final Model prepareModel, final StateAware model, final WorkflowContainer container) {
@@ -247,22 +256,24 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
         prepareModel.addAttribute("nextAction", bpaWorkFlowService.getNextAction(model, container));
 
     }
-    
-    protected void prepareCommonModelAttribute(final Model model,final BpaApplication bpaApplication) {
-    	Boolean citizenUser = bpaUtils.logedInuserIsCitizen();
+
+    protected void prepareCommonModelAttribute(final Model model, final BpaApplication bpaApplication) {
+        Boolean citizenUser = bpaUtils.logedInuserIsCitizen();
         model.addAttribute("isCitizen", citizenUser);
-		List<AppConfigValues> appConfigValueList = appConfigValueService.getConfigValuesByModuleAndKey(
-	                BpaConstants.APPLICATION_MODULE_TYPE, BpaConstants.BPA_CITIZENACCEPTANCE_CHECK);
-		String validateCitizenAcceptance = !appConfigValueList.isEmpty() ? appConfigValueList.get(0).getValue() : "";
-		model.addAttribute("validateCitizenAcceptance", (validateCitizenAcceptance.equalsIgnoreCase("YES")?Boolean.TRUE:Boolean.FALSE));
-		if(validateCitizenAcceptance!=null){			
-			model.addAttribute("citizenDisclaimerAccepted",bpaApplication.isCitizenAccepted());
-		}
-		String enableOrDisablePayOnline=bpaUtils.getAppconfigValueByKeyName(BpaConstants.ENABLEONLINEPAYMENT);
-		model.addAttribute("onlinePaymentEnable", (enableOrDisablePayOnline.equalsIgnoreCase("YES")?Boolean.TRUE:Boolean.FALSE));
-		model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
+        List<AppConfigValues> appConfigValueList = appConfigValueService.getConfigValuesByModuleAndKey(
+                BpaConstants.APPLICATION_MODULE_TYPE, BpaConstants.BPA_CITIZENACCEPTANCE_CHECK);
+        String validateCitizenAcceptance = !appConfigValueList.isEmpty() ? appConfigValueList.get(0).getValue() : "";
+        model.addAttribute("validateCitizenAcceptance",
+                (validateCitizenAcceptance.equalsIgnoreCase("YES") ? Boolean.TRUE : Boolean.FALSE));
+        if (validateCitizenAcceptance != null) {
+            model.addAttribute("citizenDisclaimerAccepted", bpaApplication.isCitizenAccepted());
+        }
+        String enableOrDisablePayOnline = bpaUtils.getAppconfigValueByKeyName(BpaConstants.ENABLEONLINEPAYMENT);
+        model.addAttribute("onlinePaymentEnable",
+                (enableOrDisablePayOnline.equalsIgnoreCase("YES") ? Boolean.TRUE : Boolean.FALSE));
+        model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
     }
-    
+
     protected void buildReceiptDetails(final BpaApplication application) {
         for (final EgDemandDetails demandDtl : application.getDemand().getEgDemandDetails())
             for (final EgdmCollectedReceipt collRecpt : demandDtl.getEgdmCollectedReceipts())
@@ -274,17 +285,19 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
                     application.getReceipts().add(receipt);
                 }
     }
+
     protected void buildOwnerDetails(final BpaApplication bpaApplication) {
-        
-        User user= userService.getUserByNameAndMobileNumberForGender(bpaApplication.getOwner().getUser().getName(),bpaApplication.getOwner().getUser().getMobileNumber(),bpaApplication.getOwner().getUser().getGender());
-                if(user!=null){
-                    bpaApplication.getOwner().setUser(user);
-                    bpaApplication.setMailPwdRequired(true);
-                        if(!bpaApplication.getOwner().getUser().isActive())
-                                bpaApplication.getOwner().getUser().setActive(true);
-                }else{
-                        bpaApplication.getOwner().setUser(applicationBpaService.createApplicantAsUser(bpaApplication));
-                }
+
+        User user = userService.getUserByNameAndMobileNumberForGender(bpaApplication.getOwner().getUser().getName(),
+                bpaApplication.getOwner().getUser().getMobileNumber(), bpaApplication.getOwner().getUser().getGender());
+        if (user != null) {
+            bpaApplication.getOwner().setUser(user);
+            bpaApplication.setMailPwdRequired(true);
+            if (!bpaApplication.getOwner().getUser().isActive())
+                bpaApplication.getOwner().getUser().setActive(true);
+        } else {
+            bpaApplication.getOwner().setUser(applicationBpaService.createApplicantAsUser(bpaApplication));
+        }
     }
-   
+
 }

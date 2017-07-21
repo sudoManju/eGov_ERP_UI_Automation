@@ -353,6 +353,33 @@ $('#ward').change(function(){
 		}
 	});
 });
+$('#schemes').change(function(){
+	jQuery.ajax({
+		url: "/bpa/ajax/getlandusagebyscheme",
+		type: "GET",
+		data: {
+			schemeId : jQuery('#schemes').val()
+		},
+		cache: false,
+		dataType: "json",
+		success: function (response) {
+			jQuery('#landUsage').html("");
+			jQuery('#landUsage').append("<option value=''>Select</option>");
+			jQuery.each(response, function(index, value) {
+				jQuery('#landUsage').append($('<option>').text(value.usageDesc).attr('value', value.usageId));
+			});
+			jQuery('#landUsage').val(jQuery('#landUsageObjectId').val());
+		}, 
+		error: function (response) {
+			jQuery('#landUsage').html("");
+			jQuery('#landUsage').append("<option value=''>Select</option>");
+		}
+		
+	});
+});
+$('#landUsage').change(function() {
+	jQuery('#landUsageId').val(jQuery('#landUsage').val());
+});
 jQuery( ".dateval" ).datepicker({ 
   	 format: 'dd/mm/yyyy',
   	 autoclose:true,
@@ -400,6 +427,8 @@ jQuery( ".dateval" ).datepicker({
 	}
 	$('#zone').trigger('change');	
 	//$('#ward').trigger('change');   
+	$('#schemes').trigger('change');   
+	
 });
 
 function validateForm(validator) {

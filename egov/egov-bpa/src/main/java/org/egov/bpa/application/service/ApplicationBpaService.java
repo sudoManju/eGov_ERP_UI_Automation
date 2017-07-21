@@ -75,6 +75,7 @@ import org.egov.bpa.application.entity.CheckListDetail;
 import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.application.repository.ApplicationBpaRepository;
 import org.egov.bpa.application.service.collection.GenericBillGeneratorService;
+import org.egov.bpa.masters.service.ChangeOfUsageService;
 import org.egov.bpa.service.ApplicationFeeService;
 import org.egov.bpa.service.BpaDemandService;
 import org.egov.bpa.service.BpaStatusService;
@@ -164,6 +165,8 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
     private UserService userService;
     @Autowired
     private PostalAddressService postalAddressService;
+    @Autowired
+    private ChangeOfUsageService changeOfUsageService;
 
     public Session getCurrentSession() {
         return entityManager.unwrap(Session.class);
@@ -177,8 +180,13 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         application.getSiteDetail().get(0).setApplication(application);
         application.getBuildingDetail().get(0).setApplication(application);
         application.getBuildingDetail().get(0).setApplicationFloorDetails(buildApplicationFloorDetails(application));
-        application.getSiteDetail().get(0).setPostalAddress(postalAddressService.findById(application.getSiteDetail().get(0).getPostalId()));
+        application.getSiteDetail().get(0)
+                .setPostalAddress(postalAddressService.findById(application.getSiteDetail().get(0).getPostalId()));
         application.setApplicationNumber(applicationNumberGenerator.generate());
+        if (application.getSiteDetail().get(0).getLandUsageId() != null)
+            application.getSiteDetail().get(0)
+                    .setLandUsage((changeOfUsageService.findById(application.getSiteDetail().get(0).getLandUsageId())));
+
         final BpaStatus bpaStatus = getStatusByCodeAndModuleType(BpaConstants.APPLICATION_STATUS_CREATED);
         application.setStatus(bpaStatus);
         if (bpaUtils.logedInuseCitizenOrBusinessUser())
@@ -229,7 +237,6 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
                 if (null == applicationFloorDetails.getId() && applicationFloorDetails.getFloorDescription() != null) {
                     ApplicationFloorDetail floorDetails = new ApplicationFloorDetail();
                     floorDetails.setBuildingDetail(application.getBuildingDetail().get(0));
-                    floorDetails.setOccupancy(applicationFloorDetails.getOccupancy());
                     floorDetails.setOrderOfFloor(item);
                     floorDetails.setFloorNumber(applicationFloorDetails.getFloorNumber());
                     floorDetails.setFloorDescription(applicationFloorDetails.getFloorDescription());
@@ -237,7 +244,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
                     floorDetails.setCarpetArea(applicationFloorDetails.getCarpetArea());
                     floorDetails.setFloorArea(applicationFloorDetails.getFloorArea());
                     floorDetailsList.add(floorDetails);
-                    item ++ ;
+                    item++;
                 } else if (null != applicationFloorDetails.getId()
                         && applicationFloorDetails.getFloorDescription() != null) {
                     floorDetailsList.add(applicationFloorDetails);
@@ -262,12 +269,22 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
     @Transactional
     public void saveAndFlushApplication(final BpaApplication application) {
         persistPostalAddress(application);
+        buildSchemeLandUsage(application);
         applicationBpaRepository.saveAndFlush(application);
     }
 
     private void persistPostalAddress(final BpaApplication application) {
-        if(application.getSiteDetail().get(0).getPostalId() != null) {
-            application.getSiteDetail().get(0).setPostalAddress(postalAddressService.findById(application.getSiteDetail().get(0).getPostalId()));
+        if (application.getSiteDetail().get(0).getPostalId() != null) {
+            application.getSiteDetail().get(0)
+                    .setPostalAddress(postalAddressService.findById(application.getSiteDetail().get(0).getPostalId()));
+        }
+    }
+
+    private void buildSchemeLandUsage(final BpaApplication application) {
+        if (application.getSiteDetail() != null && application.getSiteDetail().get(0) != null
+                && application.getSiteDetail().get(0).getLandUsageId() != null) {
+            application.getSiteDetail().get(0)
+                    .setLandUsage(changeOfUsageService.findById(application.getSiteDetail().get(0).getLandUsageId()));
         }
     }
 
@@ -287,6 +304,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         persistBpaNocDocuments(application);
         application.getBuildingDetail().get(0).setApplicationFloorDetails(buildApplicationFloorDetails(application));
         persistPostalAddress(application);
+        buildSchemeLandUsage(application);
         if (APPLICATION_STATUS_FIELD_INS.equalsIgnoreCase(application.getStatus().getCode())
                 && NOC_UPDATION_IN_PROGRESS.equalsIgnoreCase(application.getState().getValue())) {
             bpaDemandService.generateDemandUsingSanctionFeeList(applicationFeeService
@@ -340,7 +358,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
 
         return totalAmount;
     }
-    
+
     public BigDecimal getTotalFeeAmountByPassingServiceTypeAndAmenities(List<Long> serviceTypeIds) {
         BigDecimal totalAmount = BigDecimal.ZERO;
         if (!serviceTypeIds.isEmpty()) {
@@ -547,24 +565,24 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         }
         return message;
     }
-    
+
     /**
      * @param bpaApplication
      * @return
      */
-    public User createApplicantAsUser(BpaApplication bpaApplication){
-    	User applicantUser = new User();
-		applicantUser.setName(bpaApplication.getOwner().getUser().getName());
-		applicantUser.setMobileNumber(bpaApplication.getOwner().getUser().getMobileNumber());
-		applicantUser.setEmailId(bpaApplication.getOwner().getUser().getEmailId());
-		applicantUser.setGender(bpaApplication.getOwner().getUser().getGender());
-		applicantUser.setUsername(bpaUtils.generateUserName(bpaApplication.getOwner().getUser().getName()));
-		applicantUser.updateNextPwdExpiryDate(applicationProperties.userPasswordExpiryInDays());
-		applicantUser.setPassword(passwordEncoder.encode(bpaApplication.getOwner().getUser().getMobileNumber()));
-		applicantUser.setType(UserType.CITIZEN);
-		applicantUser.setActive(true);
-		applicantUser.addRole(roleService.getRoleByName(BpaConstants.ROLE_CITIZEN));
-		applicantUser.addAddress(bpaApplication.getOwner().getPermanentAddress());
-		return userService.createUser(applicantUser);
+    public User createApplicantAsUser(BpaApplication bpaApplication) {
+        User applicantUser = new User();
+        applicantUser.setName(bpaApplication.getOwner().getUser().getName());
+        applicantUser.setMobileNumber(bpaApplication.getOwner().getUser().getMobileNumber());
+        applicantUser.setEmailId(bpaApplication.getOwner().getUser().getEmailId());
+        applicantUser.setGender(bpaApplication.getOwner().getUser().getGender());
+        applicantUser.setUsername(bpaUtils.generateUserName(bpaApplication.getOwner().getUser().getName()));
+        applicantUser.updateNextPwdExpiryDate(applicationProperties.userPasswordExpiryInDays());
+        applicantUser.setPassword(passwordEncoder.encode(bpaApplication.getOwner().getUser().getMobileNumber()));
+        applicantUser.setType(UserType.CITIZEN);
+        applicantUser.setActive(true);
+        applicantUser.addRole(roleService.getRoleByName(BpaConstants.ROLE_CITIZEN));
+        applicantUser.addAddress(bpaApplication.getOwner().getPermanentAddress());
+        return userService.createUser(applicantUser);
     }
 }

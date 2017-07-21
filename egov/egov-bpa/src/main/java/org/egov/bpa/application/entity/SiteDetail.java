@@ -87,13 +87,13 @@ public class SiteDetail extends AbstractAuditable {
     private String streetaddress2;
     @Length(min = 1, max = 128)
     private String area;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "adminboundary")
     private Boundary adminBoundary;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "locationBoundary")
     private Boundary locationBoundary;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "electionBoundary")
     private Boundary electionBoundary;
     @Length(min = 1, max = 128)
@@ -148,6 +148,14 @@ public class SiteDetail extends AbstractAuditable {
     private String stateOfConstruction;
     private Boolean isappForRegularization;
     private transient Long postalId;
+    private transient Long landUsageId;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "scheme")
+    private BpaScheme scheme;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "landUsage")
+    private ChangeOfUsage landUsage;
 
     @Override
     public Long getId() {
@@ -525,6 +533,30 @@ public class SiteDetail extends AbstractAuditable {
 
     public void setPostalId(Long postalId) {
         this.postalId = postalId;
+    }
+
+    public BpaScheme getScheme() {
+        return scheme;
+    }
+
+    public void setScheme(BpaScheme scheme) {
+        this.scheme = scheme;
+    }
+
+    public ChangeOfUsage getLandUsage() {
+        return landUsage;
+    }
+
+    public void setLandUsage(ChangeOfUsage landUsage) {
+        this.landUsage = landUsage;
+    }
+
+    public Long getLandUsageId() {
+        return landUsageId;
+    }
+
+    public void setLandUsageId(Long landUsageId) {
+        this.landUsageId = landUsageId;
     }
 
 }

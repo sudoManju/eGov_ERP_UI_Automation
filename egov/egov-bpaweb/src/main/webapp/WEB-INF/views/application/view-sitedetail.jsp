@@ -210,17 +210,26 @@
 
 	<div class="row add-border">
 		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.town.plan.zone" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.buildingDetail[0].townPlanningZone}"
-				default="N/A"></c:out>
-		</div>
-		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.crz.zone" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
 			<c:out value="${bpaApplication.buildingDetail[0].crzZone}"
+				default="N/A"></c:out>
+		</div>
+	</div>
+	<div class="row add-border">
+		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.town.plan.zone" />
+		</div>
+		<div class="col-sm-3 add-margin view-content">
+			<c:out value="${bpaApplication.siteDetail[0].scheme.description}"
+				default="N/A"></c:out>
+		</div>
+		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.proposed.land.use" />
+		</div>
+		<div class="col-sm-3 add-margin view-content">
+			<c:out value="${bpaApplication.siteDetail[0].landUsage.description}"
 				default="N/A"></c:out>
 		</div>
 	</div>
