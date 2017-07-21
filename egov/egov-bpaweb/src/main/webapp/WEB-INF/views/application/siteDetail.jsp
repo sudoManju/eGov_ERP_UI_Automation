@@ -154,7 +154,7 @@
 			<form:input class="form-control patternvalidation" maxlength="120"
 				data-pattern="alphanumericspecialcharacters" data-role="tagsinput" id="reSurveyNumber"
 				path="siteDetail[0].reSurveyNumber" required="required" />
-				<small class="error"> (Enter multiple values with comma seperated)</small>
+				<small class="error-msg"> (Enter multiple values by comma seperated)</small>
 			<form:errors path="siteDetail[0].reSurveyNumber"
 				cssClass="add-margin error-msg" />
 		</div>
@@ -176,7 +176,7 @@
 			<form:input class="form-control patternvalidation" maxlength="120"
 				data-pattern="alphanumericwithspace" data-role="tagsinput" id="subdivisionNumber"
 				path="siteDetail[0].subdivisionNumber" required="required" />
-				<small class="error"> (Enter multiple values with comma seperated) </small>
+				<small class="error-msg"> (Enter multiple values by comma seperated) </small>
 			<form:errors path="siteDetail[0].subdivisionNumber"
 				cssClass="add-margin error-msg" />
 		</div>

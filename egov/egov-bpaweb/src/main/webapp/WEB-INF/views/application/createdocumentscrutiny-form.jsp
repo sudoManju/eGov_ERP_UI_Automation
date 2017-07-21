@@ -76,7 +76,7 @@
 							id="verifiedById" value="${loginUser.id}" />
 
 						<form:input class="form-control patternvalidation" maxlength="120"
-							data-pattern="alphanumeric" required="required"
+							data-pattern="alphanumeric" required="required" data-role="tagsinput"
 							id="reSurveynumber" path="documentScrutiny[0].reSurveynumber"
 							value="${bpaApplication.siteDetail[0].reSurveyNumber}" />
 						<form:errors path="documentScrutiny[0].reSurveynumber"
@@ -88,7 +88,7 @@
 					<div class="col-sm-3 add-margin">
 						<form:input class="form-control patternvalidation" maxlength="120"
 							data-pattern="alphanumeric" id="subdivisionNumber"
-							path="documentScrutiny[0].subdivisionNumber"
+							path="documentScrutiny[0].subdivisionNumber" data-role="tagsinput"
 							value="${bpaApplication.siteDetail[0].subdivisionNumber}" />
 						<form:errors path="documentScrutiny[0].subdivisionNumber"
 							cssClass="add-margin error-msg" />
@@ -110,12 +110,14 @@
 						<form:errors path="documentScrutiny[0].isBoundaryDrawingSubmitted"
 							cssClass="add-margin error-msg" />
 					</div>
-					<label class="col-sm-2 control-label text-right"><spring:message
-							code="lbl.extent.of.land" /></label>
+					<label class="col-sm-2 control-label text-right extentOfLand"><spring:message
+							code="lbl.extent.of.land" /><span class="mandatory"></span></label>
+					<label class="col-sm-2 control-label text-right areaOfBase"><spring:message
+							code="lbl.area.base" /> <span class="mandatory"></span> </label>
 					<div class="col-sm-3 add-margin">
 						<form:input class="form-control patternvalidation" maxlength="10"
 							data-pattern="number" id="extentinsqmts"
-							path="documentScrutiny[0].extentinsqmts"
+							path="documentScrutiny[0].extentinsqmts" required="required"
 							value="${bpaApplication.siteDetail[0].extentinsqmts}" />
 						<form:errors path="documentScrutiny[0].extentinsqmts"
 							cssClass="add-margin error-msg" />
@@ -274,5 +276,13 @@
 	</div>
 </div>
 
+<link rel="stylesheet" href="<c:url value='/resources/css/bpa-style.css?rnd=${app_release_no}'/>">
+<link rel="stylesheet"
+	href="<c:url value='/resources/global/css/bootstrap/bootstrap-tagsinput.css?rnd=${app_release_no}' context='/egi'/>">
+<script
+	src="<c:url value='/resources/global/js/bootstrap/bootstrap-tagsinput.min.js?rnd=${app_release_no}' context='/egi'/>"></script>
 <script
 	src="<cdn:url value='/resources/global/js/egov/inbox.js?rnd=${app_release_no}' context='/egi'/>"></script>
+<script
+	src="<cdn:url value='/resources/js/app/application-view.js?rnd=${app_release_no}'/>"></script>
+	

@@ -55,10 +55,11 @@
 				code="lbl.applicant.name" /> <span class="mandatory"></span> </label>
 		<div class="col-sm-3 add-margin">
 			<form:hidden path="owner.user" id="userId" />
-			<form:textarea class="form-control patternvalidation"
-				data-pattern="alphabetspecialcharacters" maxlength="100"
+			<form:input class="form-control patternvalidation"
+				data-pattern="alphabetspecialcharacters" data-role="tagsinput" maxlength="100"
 				id="name" path="owner.user.name"  cols="5" rows="3"
 				required="required" />
+			<small class="error-msg"> (Enter multiple names by comma seperated)</small>
 			<form:errors path="owner.user.name"
 				cssClass="add-margin error-msg" />
 		</div>
