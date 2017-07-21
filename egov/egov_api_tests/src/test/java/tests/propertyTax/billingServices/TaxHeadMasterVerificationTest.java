@@ -1,15 +1,15 @@
 package tests.propertyTax.billingServices;
 
+import builders.propertyTax.billingServices.BillingServiceSearchRequestBuilder;
 import builders.propertyTax.billingServices.taxHeadMaster.GlcodesBuilder;
 import builders.propertyTax.billingServices.RequestInfoBuilder;
 import builders.propertyTax.billingServices.taxHeadMaster.TaxHeadMasterRequestBuilder;
-import builders.propertyTax.billingServices.taxHeadMaster.TaxHeadMasterSearchRequestBuilder;
 import builders.propertyTax.billingServices.taxHeadMaster.TaxHeadMastersBuilder;
 import com.jayway.restassured.response.Response;
+import entities.requests.propertyTax.billingServices.BillingServiceSearchRequest;
 import entities.requests.propertyTax.billingServices.taxHeadMaster.Glcodes;
 import entities.requests.propertyTax.billingServices.RequestInfo;
 import entities.requests.propertyTax.billingServices.taxHeadMaster.TaxHeadMasterRequest;
-import entities.requests.propertyTax.billingServices.taxHeadMaster.TaxHeadMasterSearchRequest;
 import entities.requests.propertyTax.billingServices.taxHeadMaster.TaxHeadMasters;
 import entities.responses.propertyTax.billingServices.TaxHeadMasterResponse;
 import org.testng.Assert;
@@ -102,7 +102,7 @@ public class TaxHeadMasterVerificationTest extends BaseAPITest {
     private void search(TaxHeadMasterResponse createObject) throws IOException {
         new APILogger().log("Search TaxHead Master is started for "+createObject.getTaxHeadMasters()[0].getName());
         requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
-        TaxHeadMasterSearchRequest request = new TaxHeadMasterSearchRequestBuilder().withRequestInfo(requestInfo).build();
+        BillingServiceSearchRequest request = new BillingServiceSearchRequestBuilder().withRequestInfo(requestInfo).build();
 
         Response responseForId = new TaxHeadMasterResource().search(RequestHelper.getJsonString(request),"&id="+createObject.getTaxHeadMasters()[0].getId());
         checkAssertsForSearch(createObject,responseForId);

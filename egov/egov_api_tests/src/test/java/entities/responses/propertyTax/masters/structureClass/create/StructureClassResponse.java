@@ -8,7 +8,7 @@ public class StructureClassResponse {
     @JsonProperty("StructureClasses")
     private StructureClasses[] structureClasses;
 
-    @JsonProperty("ResponseInfo")
+    @JsonProperty("TaxPeriodsMasterResponse")
     private ResponseInfo responseInfo;
 
     public StructureClasses[] getStructureClasses() {

@@ -4,7 +4,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class InvalidLogoutResponse {
 
-    @JsonProperty("ResponseInfo")
+    @JsonProperty("TaxPeriodsMasterResponse")
     private ResponseInfo responseInfo;
 
     @JsonProperty("Error")

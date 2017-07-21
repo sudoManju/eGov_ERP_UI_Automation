@@ -3,7 +3,7 @@ package entities.requests.propertyTax.billingServices.taxPeriodMaster;
 import entities.requests.propertyTax.billingServices.RequestInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class TaxPeriodMasterRequest {
+public class TaxPeriodsMasterRequest {
 
     @JsonProperty("RequestInfo")
     private RequestInfo requestInfo;

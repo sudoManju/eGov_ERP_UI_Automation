@@ -1,8 +1,6 @@
-package entities.requests.propertyTax.billingServices.taxHeadMaster;
+package entities.requests.propertyTax.billingServices;
 
-import entities.requests.propertyTax.billingServices.RequestInfo;
-
-public class TaxHeadMasterSearchRequest {
+public class BillingServiceSearchRequest {
 
     private RequestInfo requestInfo;
 

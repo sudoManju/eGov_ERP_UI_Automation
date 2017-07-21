@@ -17,6 +17,7 @@ public class TaxPeriodsBuilder {
         taxPeriods.setId(0);
         taxPeriods.setService(serviceName);
         taxPeriods.setTenantId(tenantId);
+        taxPeriods.setPeriodCycle("HALFYEAR");
         taxPeriods.setAuditDetails(auditDetails);
     }
 
@@ -25,12 +26,12 @@ public class TaxPeriodsBuilder {
         return this;
     }
 
-    public TaxPeriodsBuilder withFromDate(String fromDate){
+    public TaxPeriodsBuilder withFromDate(long fromDate){
         taxPeriods.setFromDate(fromDate);
         return this;
     }
 
-    public TaxPeriodsBuilder withToDate(String toDate){
+    public TaxPeriodsBuilder withToDate(long toDate){
         taxPeriods.setToDate(toDate);
         return this;
     }

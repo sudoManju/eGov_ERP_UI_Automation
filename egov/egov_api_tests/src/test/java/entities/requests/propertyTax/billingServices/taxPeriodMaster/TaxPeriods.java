@@ -8,10 +8,19 @@ public class TaxPeriods {
     private String tenantId;
     private String service;
     private String code;
-    private String fromDate;
-    private String toDate;
+    private long fromDate;
+    private long toDate;
+    private String periodCycle;
     private String financialYear;
     private AuditDetails auditDetails;
+
+    public String getPeriodCycle() {
+        return periodCycle;
+    }
+
+    public void setPeriodCycle(String periodCycle) {
+        this.periodCycle = periodCycle;
+    }
 
     public int getId() {
         return id;
@@ -45,19 +54,19 @@ public class TaxPeriods {
         this.code = code;
     }
 
-    public String getFromDate() {
+    public long getFromDate() {
         return fromDate;
     }
 
-    public void setFromDate(String fromDate) {
+    public void setFromDate(long fromDate) {
         this.fromDate = fromDate;
     }
 
-    public String getToDate() {
+    public long getToDate() {
         return toDate;
     }
 
-    public void setToDate(String toDate) {
+    public void setToDate(long toDate) {
         this.toDate = toDate;
     }
 

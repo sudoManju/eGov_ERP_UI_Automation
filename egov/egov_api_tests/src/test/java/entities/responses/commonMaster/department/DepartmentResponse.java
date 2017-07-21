@@ -4,7 +4,7 @@ import entities.responses.commonMaster.ResponseInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class DepartmentResponse {
-    @JsonProperty("ResponseInfo")
+    @JsonProperty("TaxPeriodsMasterResponse")
     private ResponseInfo ResponseInfo;
     @JsonProperty("Department")
     private Department[] Department;

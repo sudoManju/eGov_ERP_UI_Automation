@@ -1,11 +1,11 @@
 package tests.propertyTax.billingServices;
 
-import builders.propertyTax.billingServices.glcodesMaster.GlcodeMasterSearchRequestBuilder;
+import builders.propertyTax.billingServices.BillingServiceSearchRequestBuilder;
 import builders.propertyTax.billingServices.glcodesMaster.GlcodeMastersBuilder;
 import builders.propertyTax.billingServices.glcodesMaster.GlcodesMasterRequestBuilder;
 import builders.propertyTax.billingServices.RequestInfoBuilder;
 import com.jayway.restassured.response.Response;
-import entities.requests.propertyTax.billingServices.glcodesMaster.GlcodeMasterSearchRequest;
+import entities.requests.propertyTax.billingServices.BillingServiceSearchRequest;
 import entities.requests.propertyTax.billingServices.glcodesMaster.GlcodeMasters;
 import entities.requests.propertyTax.billingServices.glcodesMaster.GlcodeMasterRequest;
 import entities.requests.propertyTax.billingServices.RequestInfo;
@@ -48,7 +48,7 @@ public class GlcodeMasterVerificationTest extends BaseAPITest{
     private void searchGlcodesMaster(GlcodesMasterResponse createObject) throws IOException{
 
         new APILogger().log("Search Glcode Master is started --");
-        GlcodeMasterSearchRequest request = new GlcodeMasterSearchRequestBuilder().withRequestInfo(requestInfo).build();
+        BillingServiceSearchRequest request = new BillingServiceSearchRequestBuilder().withRequestInfo(requestInfo).build();
 
         Response responseForId = new GlcodesMasterResource().search(RequestHelper.getJsonString(request),"&id="+createObject.getGlCodeMasters()[0].getId());
         checkAssertsForSearch(createObject,responseForId);

@@ -3,7 +3,7 @@ package entities.responses.eGovEIS.searchEmployeeLeave;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class SearchLeaveApplicationsResponse {
-    @JsonProperty("ResponseInfo")
+    @JsonProperty("TaxPeriodsMasterResponse")
     private ResponseInfo ResponseInfo;
 
     @JsonProperty("LeaveApplication")

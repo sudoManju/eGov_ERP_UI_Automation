@@ -8,7 +8,7 @@ public class FloorTypesResponse {
     @JsonProperty("FloorTypes")
     private FloorTypes[] floorTypes;
 
-    @JsonProperty("ResponseInfo")
+    @JsonProperty("TaxPeriodsMasterResponse")
     private ResponseInfo responseInfo;
 
     public FloorTypes[] getFloorTypes() {

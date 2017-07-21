@@ -3,7 +3,7 @@ package entities.responses.eGovEIS.createAttendance;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class CreateAttendanceResponse {
-    @JsonProperty("ResponseInfo")
+    @JsonProperty("TaxPeriodsMasterResponse")
     private ResponseInfo ResponseInfo;
     @JsonProperty("Attendance")
     private Attendance[] Attendance;

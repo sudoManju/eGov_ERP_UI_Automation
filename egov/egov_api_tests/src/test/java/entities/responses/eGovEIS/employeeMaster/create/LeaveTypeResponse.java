@@ -8,7 +8,7 @@ public class LeaveTypeResponse {
     @JsonProperty("LeaveType")
     private LeaveType[] LeaveType;
 
-    @JsonProperty("ResponseInfo")
+    @JsonProperty("TaxPeriodsMasterResponse")
     private ResponseInfo responseInfo;
 
     public LeaveType[] getLeaveType() {
