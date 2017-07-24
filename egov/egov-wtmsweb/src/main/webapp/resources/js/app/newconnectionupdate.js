@@ -64,25 +64,20 @@ $(document)
 							.val();
 					if (currentstate != 'Rejected'
 							&& status == 'ESTIMATIONNOTICEGENERATED') {
-						bootbox.alert("Collect fees to continue application");
-						$('#approvalDepartment').removeAttr('required');
-						$('#approvalDesignation').removeAttr('required');
-						$(".show-row").hide();
-						$("#Forward").hide();
-						//$("#Reject").hide();
-						//$('#approverDetailHeading').hide();
-						return false;
-
+						if(!$('#proceedWithoutDonation').val()) {
+							bootbox.alert("Collect fees to continue application");
+							$('#approvalDepartment').removeAttr('required');
+							$('#approvalDesignation').removeAttr('required');
+							$(".show-row").hide();
+							$("#Forward").hide();
+							return false;
+						}
+						else {
+							$("#Forward").hide();
+							$("#Reject").hide();
+							
+						}
 					}
-					if (currentstate == 'Rejected'
-						&& status == 'ESTIMATIONNOTICEGENERATED') {
-					$('#approvalDepartment').removeAttr('required');
-					$('#approvalDesignation').removeAttr('required');
-					$(".show-row").hide();
-					$("#Forward").hide();
-					return false;
-
-				}
 
 					if (status == 'DIGITALSIGNATUREPENDING' || status=='CLOSUREDIGSIGNPENDING' || status=='RECONNDIGSIGNPENDING') {
 						$("#Approve").hide();
@@ -96,7 +91,6 @@ $(document)
 					if (approvalPositionExist != 0
 							&& ((status == 'CREATED' && wfstate != null)
 									|| status == 'VERIFIED'
-									|| status == 'ESTIMATIONNOTICEGENERATED'
 									|| status == 'WORKORDERGENERATED' || status == 'APPROVED'
 										)) {
 						$(".show-row").hide();
@@ -198,7 +192,11 @@ $(document)
 										var isSanctionedDetailEnable = $(
 												'#isSanctionedDetailEnable')
 												.val();
-
+										if(action=='Reject' && status=='ESTIMATIONNOTICEGENERATED'){
+											$('#approvalDepartment').val('');
+											$('#approvalDesignation').val('');
+											$('#approvalPosition').val('');
+										}
 										if ((action == 'Generate Estimation Notice' && status == 'VERIFIED')
 												|| (action == 'Generate WorkOrder' && status == 'APPROVED')
 												|| (status == 'ESTIMATIONAMOUNTPAID' && action == 'Forward')) {
@@ -439,7 +437,7 @@ $(document)
 							if (validateDateRange(applicationDate,
 									executionDate)) {
 								validateWorkFlowApprover(action);
-								document.forms[0].submit();
+								
 							} else {
 								bootbox
 										.alert("The Execution Date can not be less than the Date of Application.");

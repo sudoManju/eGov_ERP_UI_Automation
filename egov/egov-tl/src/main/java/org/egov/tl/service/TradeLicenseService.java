@@ -45,6 +45,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.egov.commons.CFinancialYear;
 import org.egov.commons.Installment;
 import org.egov.commons.service.CFinancialYearService;
+import org.egov.demand.model.BillReceipt;
 import org.egov.demand.model.EgDemandDetails;
 import org.egov.eis.entity.Assignment;
 import org.egov.eis.service.EisCommonService;
@@ -139,8 +140,6 @@ public class TradeLicenseService extends AbstractLicenseService<TradeLicense> {
     @Autowired
     private EisCommonService eisCommonService;
 
-
-    @Override
     protected NatureOfBusiness getNatureOfBusiness() {
         return natureOfBusinessService.getNatureOfBusinessByName("Permanent");
     }
@@ -181,7 +180,6 @@ public class TradeLicenseService extends AbstractLicenseService<TradeLicense> {
     public void updateStatusInWorkFlowProgress(TradeLicense license, final String workFlowAction) {
 
         List<Position> userPositions = positionMasterService.getPositionsForEmployee(securityUtils.getCurrentUser().getId());
-        final Position wfInitiator = getWorkflowInitiator(license);
         if (BUTTONAPPROVE.equals(workFlowAction)) {
             if (isEmpty(license.getLicenseNumber()) && license.isNewApplication())
                 license.setLicenseNumber(licenseNumberUtils.generateLicenseNumber());
@@ -215,7 +213,7 @@ public class TradeLicenseService extends AbstractLicenseService<TradeLicense> {
                     Constants.APPLICATION_STATUS_GENECERT_CODE);
         }
         if (BUTTONREJECT.equals(workFlowAction))
-            if (license.getLicenseAppType() != null && userPositions.contains(wfInitiator)
+            if (license.getLicenseAppType() != null && userPositions.contains(license.getCurrentState().getInitiatorPosition())
                     && ("Rejected".equals(license.getState().getValue()))
                     || "License Created".equals(license.getState().getValue())) {
                 license.setStatus(licenseStatusService.getLicenseStatusByCode(Constants.STATUS_CANCELLED));
@@ -469,4 +467,10 @@ public class TradeLicenseService extends AbstractLicenseService<TradeLicense> {
     public List<License> getLicenses(Example license) {
         return licenseRepository.findAll(license);
     }
+
+    public List<BillReceipt> getReceipts(License license) {
+        List<BillReceipt> billReceipts = demandGenericDao.getBillReceipts(license.getCurrentDemand());
+        return billReceipts;
+    }
+
 }

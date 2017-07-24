@@ -70,6 +70,7 @@ public class FinancialsDetailsRequest {
     private String aggregationLevel;
     private String currentFinancialYear;
     private String lastFinancialYear;
+    private String financialYear;
 
     public String getRegion() {
         return region;
@@ -239,4 +240,11 @@ public class FinancialsDetailsRequest {
         this.lastFinancialYear = lastFinancialYear;
     }
 
+    public String getFinancialYear() {
+        return financialYear;
+    }
+
+    public void setFinancialYear(String financialYear) {
+        this.financialYear = financialYear;
+    }
 }

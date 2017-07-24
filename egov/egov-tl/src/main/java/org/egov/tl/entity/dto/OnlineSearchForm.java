@@ -44,6 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.egov.tl.entity.License;
+import org.egov.tl.utils.Constants;
 
 import static org.egov.tl.utils.Constants.CLOSURE_LIC_APPTYPE;
 
@@ -59,6 +60,7 @@ public class OnlineSearchForm {
     private BigDecimal arrDmd;
     private BigDecimal currDmd;
     private BigDecimal totColl;
+    private String status;
 
     public OnlineSearchForm() {
         // For form binding
@@ -70,6 +72,7 @@ public class OnlineSearchForm {
         setLicenseNumber(license.getLicenseNumber());
         setTradeOwnerName(license.getLicensee().getApplicantName());
         setMobileNo(license.getLicensee().getMobilePhoneNumber());
+        setStatus(license.getStatus().getName());
         setPropertyAssessmentNo(license.getAssessmentNo() != null ? license.getAssessmentNo() : "");
         setArrDmd(dmdColl[0]);
         setCurrDmd(dmdColl[1]);
@@ -84,6 +87,8 @@ public class OnlineSearchForm {
             actions.add("Closure");
         if (license.isStatusActive() && !license.isLegacy())
             actions.add("Print Certificate");
+        if (!CLOSURE_LIC_APPTYPE.equals(license.getLicenseAppType().getName()) && license.getStatus().getStatusCode().equals(Constants.STATUS_UNDERWORKFLOW))
+            actions.add("Print Provisional Certificate");
     }
 
     public String getApplicationNumber() {
@@ -167,4 +172,11 @@ public class OnlineSearchForm {
         this.totColl = totColl;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

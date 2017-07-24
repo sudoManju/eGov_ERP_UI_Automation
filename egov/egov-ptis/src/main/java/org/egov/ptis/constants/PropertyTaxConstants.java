@@ -1621,6 +1621,8 @@ public interface PropertyTaxConstants {
     public static final String WEEK = "week";
     public static final String MONTH = "month";
     public static final String DAY = "day";
+    
+    public static final String APPCONFIG_REASSIGN = "PTIS_REASSIGN_REQUIRED";
 
     @SuppressWarnings("serial")
     public static final List<String> DASHBOARD_PROPERTY_TYPE_CENTRAL_GOVT_LIST = new ArrayList<String>() {
@@ -1722,4 +1724,8 @@ public interface PropertyTaxConstants {
     public static final String UNDER_WTMS_WF = "isInWorkFlow";
     
     public static final String SUPER_STRUCTURE = "Super Structure";
+
+    public static final ImmutableList DEMAND_REASONS_FOR_REBATE_CALCULATION = ImmutableList.of(DEMANDRSN_CODE_GENERAL_TAX,
+            DEMANDRSN_CODE_VACANT_TAX, DEMANDRSN_CODE_LIBRARY_CESS, DEMANDRSN_CODE_EDUCATIONAL_CESS);
+
 }

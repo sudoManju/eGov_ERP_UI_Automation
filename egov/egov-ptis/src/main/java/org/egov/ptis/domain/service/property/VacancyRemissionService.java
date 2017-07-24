@@ -89,6 +89,7 @@ import java.io.ByteArrayInputStream;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -436,10 +437,14 @@ public class VacancyRemissionService {
         Assignment assignment = new Assignment();
         if (checkIfEmployee(vacancyRemission.getCreatedBy()))
             assignment = assignmentService.getPrimaryAssignmentForUser(vacancyRemission.getCreatedBy().getId());
-        else
-            assignment = assignmentService
-                    .getPrimaryAssignmentForPositon(
-                            vacancyRemission.getStateHistory().get(0).getOwnerPosition().getId());
+        else {
+            if (vacancyRemission.getState().getInitiatorPosition() == null)
+                assignment = assignmentService.getPrimaryAssignmentForPositon(
+                        vacancyRemission.getStateHistory().get(0).getOwnerPosition().getId());
+            else
+                assignment = assignmentService.getPrimaryAssignmentForPositon(
+                        vacancyRemission.getState().getInitiatorPosition().getId());
+        }
         initiatorName = assignment.getEmployee().getName().concat("~").concat(assignment.getPosition().getName());
         return initiatorName;
     }
@@ -452,9 +457,14 @@ public class VacancyRemissionService {
                         vacancyRemission.getCreatedBy(), vacancyRemission.getState().getInitiatorPosition());
             else
                 wfInitiator = assignmentService.getPrimaryAssignmentForUser(vacancyRemission.getCreatedBy().getId());
-        } else if (!vacancyRemission.getStateHistory().isEmpty())
-            wfInitiator = assignmentService.getPrimaryAssignmentForPositon(
-                    vacancyRemission.getStateHistory().get(0).getOwnerPosition().getId());
+        } else if (!vacancyRemission.getStateHistory().isEmpty()) {
+            if (vacancyRemission.getState().getInitiatorPosition() == null)
+                wfInitiator = assignmentService.getPrimaryAssignmentForPositon(
+                        vacancyRemission.getStateHistory().get(0).getOwnerPosition().getId());
+            else
+                wfInitiator = assignmentService.getPrimaryAssignmentForPositon(
+                        vacancyRemission.getState().getInitiatorPosition().getId());
+        }
         else
             wfInitiator = assignmentService
                     .getPrimaryAssignmentForPositon(vacancyRemission.getState().getOwnerPosition().getId());
@@ -515,7 +525,7 @@ public class VacancyRemissionService {
 
         wfInitiator = getInitiatorOnWFAction(vacancyRemissionApproval, workFlowAction);
         if (wfInitiator == null)
-            wfInitiator = getWorkflowInitiatorAssignment(user.getId());
+            wfInitiator = getWorkflowInitiatorAssignment(user.getId(), Arrays.asList(PropertyTaxConstants.REVENUE_INSPECTOR_DESGN));
 
         if (null != approvalPosition && approvalPosition != 0) {
             assignment = assignmentService.getAssignmentsForPosition(approvalPosition, new Date())
@@ -562,7 +572,7 @@ public class VacancyRemissionService {
                     vacancyRemissionApproval.setStatus(VR_STATUS_REJECTED);
                     vacancyRemissionApproval.getVacancyRemission().getBasicProperty().setUnderWorkflow(FALSE);
                 } else {
-                    vacancyRemissionApproval.transition().progress().withSenderName(user.getUsername() + "::" +user.getName()).withComments(approvalComent)
+                    vacancyRemissionApproval.transition().progressWithStateCopy().withSenderName(user.getUsername() + "::" +user.getName()).withComments(approvalComent)
                             .withStateValue(WF_STATE_REJECTED).withDateInfo(currentDate.toDate())
                             .withOwner(wfInitiator.getPosition())
                             .withNextAction(WF_STATE_UD_REVENUE_INSPECTOR_APPROVAL_PENDING);
@@ -741,12 +751,12 @@ public class VacancyRemissionService {
      *
      * @return assignment
      */
-    public Assignment getWorkflowInitiatorAssignment(final Long userId) {
+    public Assignment getWorkflowInitiatorAssignment(final Long userId, final List<String> designations) {
         Assignment wfInitiatorAssignment = null;
         if (userId != null) {
-            final List<Assignment> assignmentList = assignmentService.getAllActiveEmployeeAssignmentsByEmpId(userId);
-            for (final Assignment assignment : assignmentList)
-                if (assignment.getDesignation().getName().equals(PropertyTaxConstants.REVENUE_INSPECTOR_DESGN)
+            final List<Assignment> assignments = assignmentService.getAllActiveEmployeeAssignmentsByEmpId(userId);
+            for (final Assignment assignment : assignments)
+                if (designations.contains(assignment.getDesignation().getName())
                         && assignment.getEmployee().isActive()) {
                     wfInitiatorAssignment = assignment;
                     break;
@@ -878,11 +888,10 @@ public class VacancyRemissionService {
                                               final String wfAction) {
         Assignment wfInitiator = null;
         if (vacancyRemissionApproval.getId() != null && WFLOW_ACTION_STEP_REJECT.equalsIgnoreCase(wfAction))
-            wfInitiator = assignmentService
-                    .getPrimaryAssignmentForUser(vacancyRemissionApproval.getCreatedBy().getId());
+            wfInitiator = getWorkflowInitiatorAssignment(vacancyRemissionApproval.getState().getCreatedBy().getId(), Arrays.asList(PropertyTaxConstants.REVENUE_INSPECTOR_DESGN));
         if (vacancyRemissionApproval.getId() != null && WFLOW_ACTION_STEP_NOTICE_GENERATE.equalsIgnoreCase(wfAction))
             wfInitiator = assignmentService
-                    .getPrimaryAssignmentForUser(vacancyRemissionApproval.getVacancyRemission().getCreatedBy().getId());
+                    .getAssignmentsForPosition(vacancyRemissionApproval.getVacancyRemission().getState().getInitiatorPosition().getId(), new Date()).get(0);
 
         return wfInitiator;
     }

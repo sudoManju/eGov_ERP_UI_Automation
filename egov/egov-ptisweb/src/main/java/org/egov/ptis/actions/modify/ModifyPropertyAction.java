@@ -86,6 +86,7 @@ import static org.egov.ptis.constants.PropertyTaxConstants.PTMODULENAME;
 import static org.egov.ptis.constants.PropertyTaxConstants.QUERY_BASICPROPERTY_BY_UPICNO;
 import static org.egov.ptis.constants.PropertyTaxConstants.QUERY_PROPERTYIMPL_BYID;
 import static org.egov.ptis.constants.PropertyTaxConstants.QUERY_WORKFLOW_PROPERTYIMPL_BYID;
+import static org.egov.ptis.constants.PropertyTaxConstants.REVENUE_HIERARCHY_TYPE;
 import static org.egov.ptis.constants.PropertyTaxConstants.REVENUE_INSPECTOR_DESGN;
 import static org.egov.ptis.constants.PropertyTaxConstants.REVENUE_OFFICER_DESGN;
 import static org.egov.ptis.constants.PropertyTaxConstants.SENIOR_ASSISTANT;
@@ -104,6 +105,7 @@ import static org.egov.ptis.constants.PropertyTaxConstants.WFLOW_ACTION_STEP_REJ
 import static org.egov.ptis.constants.PropertyTaxConstants.WF_STATE_ASSISTANT_APPROVAL_PENDING;
 import static org.egov.ptis.constants.PropertyTaxConstants.WF_STATE_COMMISSIONER_APPROVED;
 import static org.egov.ptis.constants.PropertyTaxConstants.WF_STATE_UD_REVENUE_INSPECTOR_APPROVAL_PENDING;
+import static org.egov.ptis.constants.PropertyTaxConstants.ZONE;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -133,8 +135,10 @@ import org.apache.struts2.interceptor.validation.SkipValidation;
 import org.egov.commons.Area;
 import org.egov.commons.Installment;
 import org.egov.eis.entity.Assignment;
+import org.egov.infra.admin.master.entity.Boundary;
 import org.egov.infra.admin.master.entity.Role;
 import org.egov.infra.admin.master.entity.User;
+import org.egov.infra.admin.master.service.BoundaryService;
 import org.egov.infra.config.core.ApplicationThreadLocals;
 import org.egov.infra.persistence.entity.Address;
 import org.egov.infra.reporting.engine.ReportFormat;
@@ -186,6 +190,7 @@ import org.egov.ptis.domain.repository.master.vacantland.LayoutApprovalAuthority
 import org.egov.ptis.domain.repository.master.vacantland.VacantLandPlotAreaRepository;
 import org.egov.ptis.domain.service.property.PropertyPersistenceService;
 import org.egov.ptis.domain.service.property.PropertyService;
+import org.egov.ptis.domain.service.reassign.ReassignService;
 import org.egov.ptis.exceptions.TaxCalculatorExeption;
 import org.egov.portal.entity.PortalInbox;
 import org.egov.commons.entity.Source;
@@ -237,7 +242,6 @@ public class ModifyPropertyAction extends PropertyTaxBaseAction {
 	private static final String MODIFY_ACK_TEMPLATE = "mainModifyPropertyAck";
 	private static final String GRP_ACK_TEMPLATE = "mainGRPPropertyAck";
 	public static final String PRINT_ACK = "printAck";
-	public static final String MEESEVA_RESULT_ACK = "meesevaAck";
 	public static final String MEESEVA_ERROR = "meesevaError";
 
 	private PersistenceService<Property, Long> propertyImplService;
@@ -333,6 +337,8 @@ public class ModifyPropertyAction extends PropertyTaxBaseAction {
 	private Boolean showAckBtn = Boolean.FALSE;
 	private String applicationSource;
 	private boolean citizenPortalUser;
+	private Long zoneId;
+	private String zoneName;
 
 	@Autowired
 	transient PropertyPersistenceService basicPropertyService;
@@ -352,10 +358,16 @@ public class ModifyPropertyAction extends PropertyTaxBaseAction {
 
 	@Autowired
 	transient LayoutApprovalAuthorityRepository layoutApprovalAuthorityRepository;
+	
+	 @Autowired
+	 private ReassignService reassignmentservice;
 
 	@Autowired
 	@Qualifier("ptaxApplicationTypeService")
 	private PersistenceService<PtApplicationType, Long> ptaxApplicationTypeService;
+	
+	@Autowired
+	private BoundaryService boundaryService;
 
 	public ModifyPropertyAction() {
 		super();
@@ -511,6 +523,8 @@ public class ModifyPropertyAction extends PropertyTaxBaseAction {
 			corrsAddress = PropertyTaxUtil.getOwnerAddress(basicProp.getPropertyOwnerInfo());
 			if (propertyAddr.getHouseNoBldgApt() != null)
 				setHouseNo(propertyAddr.getHouseNoBldgApt().toString());
+			if (basicProp.getPropertyID().getZone() != null)
+				setZoneName(basicProp.getPropertyID().getZone().getName());
 			if (propertyModel.getPropertyDetail().getFloorType() != null)
 				floorTypeId = propertyModel.getPropertyDetail().getFloorType().getId();
 			if (propertyModel.getPropertyDetail().getRoofType() != null)
@@ -566,6 +580,9 @@ public class ModifyPropertyAction extends PropertyTaxBaseAction {
 			setModifyRsn(propertyModel.getPropertyDetail().getPropertyMutationMaster().getCode());
 			if (logger.isDebugEnabled())
 				logger.debug("view: PropertyModel by model id: " + propertyModel);
+			isReassignEnabled = reassignmentservice.isReassignEnabled();
+                        stateAwareId = propertyModel.getId();
+                        transactionType = APPLICATION_TYPE_ALTER_ASSESSENT;
 		}
 		showTaxCalculateButton();
 		final String currWfState = propertyModel.getState().getValue();
@@ -683,6 +700,8 @@ public class ModifyPropertyAction extends PropertyTaxBaseAction {
 		}
 		if (houseNo != null && !houseNo.isEmpty())
 			basicProp.getAddress().setHouseNoBldgApt(houseNo);
+		if(zoneId != null)
+			basicProp.getPropertyID().setZone(boundaryService.getBoundaryById(getZoneId()));
 		if (propTypeId != null && !propTypeId.trim().isEmpty() && !"-1".equals(propTypeId))
 			propTypeMstr = (PropertyTypeMaster) getPersistenceService().find(FROM_PROPERTY_TYPE_MASTER_WHERE_ID,
 					Long.valueOf(propTypeId));
@@ -1091,6 +1110,8 @@ public class ModifyPropertyAction extends PropertyTaxBaseAction {
 		final List<RoofType> roofTypes = getPersistenceService().findAllBy("from RoofType order by name");
 		final List<WallType> wallTypes = getPersistenceService().findAllBy("from WallType order by name");
 		final List<WoodType> woodTypes = getPersistenceService().findAllBy("from WoodType order by name");
+		final List<Boundary> zones = boundaryService
+				.getActiveBoundariesByBndryTypeNameAndHierarchyTypeName(ZONE, REVENUE_HIERARCHY_TYPE);
 		setVacantLandPlotAreaList(vacantLandPlotAreaRepository.findAll());
 		setLayoutApprovalAuthorityList(layoutApprovalAuthorityRepository.findAll());
 		addDropdownData("vacantLandPlotAreaList", vacantLandPlotAreaList);
@@ -1105,6 +1126,7 @@ public class ModifyPropertyAction extends PropertyTaxBaseAction {
 		addDropdownData("AgeFactorList", ageFacList);
 		addDropdownData("apartments", apartmentsList);
 		addDropdownData("taxExemptionReasonList", taxExemptionReasonList);
+		addDropdownData("zones", zones);
 		populatePropertyTypeCategory();
 		setDeviationPercentageMap(DEVIATION_PERCENTAGE);
 	}
@@ -1390,7 +1412,8 @@ public class ModifyPropertyAction extends PropertyTaxBaseAction {
 		}
 		validateProperty(propertyModel, areaOfPlot, dateOfCompletion, eastBoundary, westBoundary, southBoundary,
 				northBoundary, propTypeId,
-				null != basicProp.getPropertyID() ? String.valueOf(basicProp.getPropertyID().getZone().getId()) : "",
+				(null != basicProp.getPropertyID() && null != basicProp.getPropertyID().getZone())
+						? String.valueOf(basicProp.getPropertyID().getZone().getId()) : String.valueOf(zoneId),
 				propOccId, floorTypeId, roofTypeId, wallTypeId, woodTypeId, modifyRsn, propCompletionDate,
 				vacantLandPlotAreaId, layoutApprovalAuthorityId, null);
 		validateApproverDetails();
@@ -2549,5 +2572,21 @@ public class ModifyPropertyAction extends PropertyTaxBaseAction {
 
 	public void setCitizenPortalUser(boolean citizenPortalUser) {
 		this.citizenPortalUser = citizenPortalUser;
+	}
+
+	public String getZoneName() {
+		return zoneName;
+	}
+
+	public void setZoneName(String zoneName) {
+		this.zoneName = zoneName;
+	}
+
+	public Long getZoneId() {
+		return zoneId;
+	}
+
+	public void setZoneId(Long zoneId) {
+		this.zoneId = zoneId;
 	}
 }

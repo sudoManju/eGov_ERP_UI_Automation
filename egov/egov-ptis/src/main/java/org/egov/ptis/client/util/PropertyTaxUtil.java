@@ -100,6 +100,7 @@ import static org.egov.ptis.constants.PropertyTaxConstants.WFLOW_ACTION_NAME_CHA
 import static org.egov.ptis.constants.PropertyTaxConstants.WFLOW_ACTION_NAME_CREATE;
 import static org.egov.ptis.constants.PropertyTaxConstants.WFLOW_ACTION_NAME_DEACTIVATE;
 import static org.egov.ptis.constants.PropertyTaxConstants.WFLOW_ACTION_NAME_MODIFY;
+import static org.egov.ptis.constants.PropertyTaxConstants.DEMAND_REASONS_FOR_REBATE_CALCULATION;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -224,6 +225,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.python.google.common.collect.ImmutableList;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -2250,7 +2252,7 @@ public class PropertyTaxUtil {
     public boolean checkForParentUsedInBifurcation(final String upicNo) {
         boolean isChildUnderWorkflow = false;
         final PropertyStatusValues statusValues = (PropertyStatusValues) persistenceService
-                .find("select psv from PropertyStatusValues psv where psv.referenceBasicProperty.upicNo=? and psv.basicProperty.underWorkflow = 't' and psv.remarks != ? ",
+                .find("select psv from PropertyStatusValues psv where psv.referenceBasicProperty.upicNo=? and psv.basicProperty.underWorkflow = 't' and (psv.remarks is null or psv.remarks != ? )",
                         upicNo, APPURTENANT_PROPERTY);
         if (statusValues != null)
             isChildUnderWorkflow = true;
@@ -2417,15 +2419,14 @@ public class PropertyTaxUtil {
         return currYearInstMap;
     }
 
-    public Date getEffectiveDateForProperty() {
-        final Module module = moduleDao.getModuleByName(PTMODULENAME);
-        final Date currInstToDate = installmentDao.getInsatllmentByModuleForGivenDate(module, new Date()).getToDate();
-        final Date dateBefore6Installments = new Date();
-        dateBefore6Installments.setDate(1);
-        dateBefore6Installments.setMonth(currInstToDate.getMonth() + 1);
-        dateBefore6Installments.setYear(currInstToDate.getYear() - 3);
-        return dateBefore6Installments;
-    }
+	public Date getEffectiveDateForProperty() {
+		final Module module = moduleDao.getModuleByName(PTMODULENAME);
+		final Date currInstToDate = installmentDao.getInsatllmentByModuleForGivenDate(module, new Date()).getToDate();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(currInstToDate);
+		calendar.set(calendar.get(calendar.YEAR) - 3, calendar.get(Calendar.MONTH) + 1, 1, 0, 0, 0);
+		return calendar.getTime();
+	}
 
     /**
      * Returns map containing tax amount for demand reasons other than Penalty and Advance
@@ -2558,4 +2559,25 @@ public class PropertyTaxUtil {
         rebateAmt = qry.uniqueResult();
         return rebateAmt != null ? new BigDecimal((Double) rebateAmt) : BigDecimal.ZERO;
     }
+
+    @SuppressWarnings("unchecked")
+    public BigDecimal getCurrentDemandForRebateCalculation(BasicProperty basicProperty){
+        final EgDemand currentDemand = ptDemandDAO.getNonHistoryCurrDmdForProperty(basicProperty.getProperty());
+        final Map<String, Installment> currInstallments = getInstallmentsForCurrYear(new Date());
+        final Installment currentFirstHalf = currInstallments.get(CURRENTYEAR_FIRST_HALF);
+        final Installment currentSecondHalf = currInstallments.get(CURRENTYEAR_SECOND_HALF);
+
+        final String selectQuery = " select sum(dd.amount) amount from eg_demand_details dd, eg_demand_reason dr,"
+                + " eg_demand_reason_master drm, eg_installment_master inst "
+                + " where dd.id_demand_reason = dr.id and drm.id = dr.id_demand_reason_master "
+                + " and dr.id_installment = inst.id and dd.id_demand =:currentDemandId and inst.id in (:installments) and drm.code in (:codes)";
+
+        final Object amount = persistenceService.getSession().createSQLQuery(selectQuery)
+                .setLong("currentDemandId", currentDemand.getId())
+                .setParameterList("installments", Arrays.asList(currentFirstHalf.getId(), currentSecondHalf.getId()))
+                .setParameterList("codes", DEMAND_REASONS_FOR_REBATE_CALCULATION).uniqueResult();
+
+        return amount != null ? new BigDecimal((Double) amount) : BigDecimal.ZERO;
+    }
+
 }

@@ -175,6 +175,7 @@ import org.egov.ptis.domain.repository.master.vacantland.LayoutApprovalAuthority
 import org.egov.ptis.domain.repository.master.vacantland.VacantLandPlotAreaRepository;
 import org.egov.ptis.domain.service.property.PropertyPersistenceService;
 import org.egov.ptis.domain.service.property.PropertyService;
+import org.egov.ptis.domain.service.reassign.ReassignService;
 import org.egov.ptis.exceptions.TaxCalculatorExeption;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -206,7 +207,6 @@ public class CreatePropertyAction extends PropertyTaxBaseAction {
     private static final String CREATE = "create";
     private static final String RESULT_DATAENTRY = "dataEntry";
     public static final String PRINT_ACK = "printAck";
-    public static final String MEESEVA_RESULT_ACK = "meesevaAck";
     protected static final String EDIT_DATA_ENTRY = "editDataEntry";
     private static final String MEESEVA_SERVICE_CODE_NEWPROPERTY = "PT01";
     private static final String MEESEVA_SERVICE_CODE_SUBDIVISION = "PT04";
@@ -314,7 +314,7 @@ public class CreatePropertyAction extends PropertyTaxBaseAction {
     private boolean eligibleInitiator = Boolean.TRUE;
     private boolean dataEntry = Boolean.FALSE;
     private String applicationSource;
-	private List<String> guardianRelations;
+    private List<String> guardianRelations;
 
     @Autowired
     private transient PropertyDepartmentRepository propertyDepartmentRepository;
@@ -324,6 +324,9 @@ public class CreatePropertyAction extends PropertyTaxBaseAction {
 
     @Autowired
     private transient LayoutApprovalAuthorityRepository layoutApprovalAuthorityRepository;
+    
+    @Autowired
+    private ReassignService reassignmentservice;
 
     @PersistenceContext
     private transient EntityManager entityManager;
@@ -730,6 +733,9 @@ public class CreatePropertyAction extends PropertyTaxBaseAction {
         if (logger.isDebugEnabled())
             logger.debug("Entered into view, BasicProperty: " + basicProp + ", Property: " + property + ", UserDesgn: "
                     + userDesgn);
+        isReassignEnabled = reassignmentservice.isReassignEnabled();
+        stateAwareId = property.getId();
+        transactionType = APPLICATION_TYPE_NEW_ASSESSENT;
         final String currState = property.getState().getValue();
         populateFormData();
         if (currState.endsWith(WF_STATE_REJECTED)
@@ -2381,10 +2387,11 @@ public class CreatePropertyAction extends PropertyTaxBaseAction {
     }
 
     public List<String> getGuardianRelations() {
-		return guardianRelations;
-	}
+        return guardianRelations;
+    }
 
-	public void setGuardianRelations(List<String> guardianRelations) {
-		this.guardianRelations = guardianRelations;
-	} 
+    public void setGuardianRelations(List<String> guardianRelations) {
+        this.guardianRelations = guardianRelations;
+    }
+    
 }

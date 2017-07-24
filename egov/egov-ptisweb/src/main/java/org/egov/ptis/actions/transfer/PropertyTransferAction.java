@@ -84,6 +84,7 @@ import static org.egov.ptis.constants.PropertyTaxConstants.WF_STATE_UD_REVENUE_I
 import static org.egov.ptis.constants.PropertyTaxConstants.ZONAL_COMMISSIONER_DESIGN;
 import static org.egov.ptis.constants.PropertyTaxConstants.ANONYMOUS_USER;
 import static org.egov.ptis.constants.PropertyTaxConstants.TAX_COLLECTOR_DESGN;
+import static org.egov.ptis.constants.PropertyTaxConstants.APPLICATION_TYPE_TRANSFER_OF_OWNERSHIP;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -135,6 +136,7 @@ import org.egov.ptis.domain.entity.property.PropertyMutationMaster;
 import org.egov.ptis.domain.entity.property.PropertyMutationTransferee;
 import org.egov.ptis.domain.service.notice.NoticeService;
 import org.egov.ptis.domain.service.property.PropertyService;
+import org.egov.ptis.domain.service.reassign.ReassignService;
 import org.egov.ptis.domain.service.transfer.PropertyTransferService;
 import org.egov.ptis.notice.PtNotice;
 import org.egov.ptis.service.utils.PropertyTaxCommonUtils;
@@ -217,6 +219,9 @@ public class PropertyTransferAction extends GenericWorkFlowAction {
 
     @Autowired
     private PropertyTaxUtil propertyTaxUtil;
+    
+    @Autowired
+    private ReassignService reassignmentservice;
 
     // Model and View data
     private Long mutationId;
@@ -265,6 +270,10 @@ public class PropertyTransferAction extends GenericWorkFlowAction {
     private List<String> guardianRelations;
     private Boolean citizenPortalUser = Boolean.FALSE;
     private Boolean showAckBtn = Boolean.FALSE;
+    private Boolean isReassignEnabled = Boolean.FALSE;
+    private Long stateAwareId;
+    private String transactionType;
+    private Boolean showPayBtn = Boolean.FALSE;
 
     public PropertyTransferAction() {
         addRelatedEntity("mutationReason", PropertyMutationMaster.class);
@@ -375,6 +384,9 @@ public class PropertyTransferAction extends GenericWorkFlowAction {
         final String currState = propertyMutation.getState().getValue();
         final String nextAction = propertyMutation.getState().getNextAction();
         propertyMutation.getTransfereeInfosProxy().addAll(propertyMutation.getTransfereeInfos());
+        isReassignEnabled = reassignmentservice.isReassignEnabled();
+        stateAwareId = propertyMutation.getId();
+        transactionType = APPLICATION_TYPE_TRANSFER_OF_OWNERSHIP;
         if (currState.endsWith(WF_STATE_REJECTED)
                     || nextAction != null && nextAction.equalsIgnoreCase(WF_STATE_UD_REVENUE_INSPECTOR_APPROVAL_PENDING)
                     || currState.equals(WFLOW_ACTION_NEW)){ 
@@ -416,10 +428,8 @@ public class PropertyTransferAction extends GenericWorkFlowAction {
             addActionError(getText("mutationfee.notexists"));
             target = SEARCH;
         } else {
-            if (ANONYMOUS_USER.equalsIgnoreCase(securityUtils.getCurrentUser().getName())
-                    && ApplicationThreadLocals.getUserId() == null) {
-                ApplicationThreadLocals.setUserId(securityUtils.getCurrentUser().getId());
-                target = COLLECT_ONLINE_FEE;
+            if (ANONYMOUS_USER.equalsIgnoreCase(securityUtils.getCurrentUser().getName()) || citizenPortalUser){
+                  target = COLLECT_ONLINE_FEE;
             }
             collectXML = transferOwnerService.generateReceipt(propertyMutation);
             if (StringUtils.isBlank(target))
@@ -658,6 +668,9 @@ public class PropertyTransferAction extends GenericWorkFlowAction {
             }
         }
         digitalSignEnabled = propertyTaxCommonUtils.isDigitalSignatureEnabled();
+        if (SecurityUtils.userAnonymouslyAuthenticated() || citizenPortalUser){
+            showPayBtn = Boolean.TRUE;
+        }
     }
 
     @Override
@@ -673,10 +686,13 @@ public class PropertyTransferAction extends GenericWorkFlowAction {
                     .equals(propertyMutation.getMutationReason().getMutationName())) {
                 validateDecreeDetails();
             }
-            if (propertyMutation.getDeedDate() == null)
-                addActionError("Registration Document Date should not be empty");
-            if (StringUtils.isBlank(propertyMutation.getDeedNo()))
-                addActionError("Registration Document Number should not be empty");
+            if (!PropertyTaxConstants.MUTATIONRS_DECREE_BY_CIVIL_COURT
+                    .equals(propertyMutation.getMutationReason().getMutationName())) {
+                if (propertyMutation.getDeedDate() == null)
+                    addActionError("Registration Document Date should not be empty");
+                if (StringUtils.isBlank(propertyMutation.getDeedNo()))
+                    addActionError("Registration Document Number should not be empty");
+            }
         }
         if (propertyMutation.getPartyValue() == null || propertyMutation.getPartyValue().equals(""))
             addActionError(getText("mandatory.party.value"));
@@ -1354,4 +1370,38 @@ public class PropertyTransferAction extends GenericWorkFlowAction {
     public void setShowAckBtn(final Boolean showAckBtn) {
         this.showAckBtn = showAckBtn;
     }
+    
+    public Boolean getIsReassignEnabled() {
+        return isReassignEnabled;
+    }
+
+    public void setIsReassignEnabled(Boolean isReassignEnabled) {
+        this.isReassignEnabled = isReassignEnabled;
+    }
+
+    public Long getStateAwareId() {
+        return stateAwareId;
+    }
+
+    public void setStateAwareId(Long stateAwareId) {
+        this.stateAwareId = stateAwareId;
+    }
+
+    public String getTransactionType() {
+        return transactionType;
+    }
+
+    public void setTransactionType(String transactionType) {
+        this.transactionType = transactionType;
+    }
+
+    public Boolean getShowPayBtn() {
+        return showPayBtn;
+    }
+
+    public void setShowPayBtn(final Boolean showPayBtn) {
+        this.showPayBtn = showPayBtn;
+    }
+
+
 }
