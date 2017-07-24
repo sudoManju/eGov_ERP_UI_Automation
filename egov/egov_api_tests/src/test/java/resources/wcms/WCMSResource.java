@@ -211,4 +211,39 @@ public class WCMSResource extends Resource {
         new APILogger().log("Update Donation Test Request is Generated as  --" + response.asString());
         return response;
     }
+
+    public Response getBoundaries(String json, String path) {
+        new APILogger().log("Search Boundaries Test Request is Started with --" + json);
+        Response response = getPOSTResponseFromDEV(json, Properties.searchBoundariesUrl + path);
+        new APILogger().log("Search Boundaries Test Request is Generated as  --" + response.asString());
+        return response;
+    }
+
+    public Response getReservoirTypes(String json) {
+        new APILogger().log("Search ReservoirTypes Test Request is Started with --" + json);
+        Response response = getPOSTResponseFromDEV(json, Properties.wcmsSearchReservoirTypesUrl);
+        new APILogger().log("Search ReservoirTypes Test Request is Generated as  --" + response.asString());
+        return response;
+    }
+
+    public Response createStorageReservoir(String json) {
+        new APILogger().log("Create Storage Reservoir Test Request is Started with --" + json);
+        Response response = getPOSTResponseFromDEV(json, Properties.wcmsCreateStorageReservoirUrl);
+        new APILogger().log("Create Storage Reservoir Test Request is Generated as  --" + response.asString());
+        return response;
+    }
+
+    public Response searchStorageReservoirResource(String json, String path) {
+        new APILogger().log("Search Storage Reservoir Test Request is Started with --" + json);
+        Response response = getPOSTResponseFromDEV(json, Properties.wcmsSearchStorageReservoirUrl);
+        new APILogger().log("Search Storage Reservoir Test Request is Generated as  --" + response.asString());
+        return response;
+    }
+
+    public Response updateStorageReservoirResource(String json, int id) {
+        new APILogger().log("Update Storage Reservoir Test Request is Started with --" + json);
+        Response response = getPOSTResponseFromDEV(json, ResourceHelper.getBaseURL() + "/wcms/masters/storagereservoir/" + id + "/_update");
+        new APILogger().log("Update Storage Reservoir Test Request is Generated as  --" + response.asString());
+        return response;
+    }
 }

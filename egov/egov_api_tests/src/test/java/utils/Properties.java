@@ -143,4 +143,10 @@ public class Properties {
     public static final String wcmsSearchPropertyPipeSizeUrl = propertiesReader.getEndPointUrl("wcmsSearchPropertyPipeSizeUrl");
     public static final String wcmsCreateDonationUrl = propertiesReader.getEndPointUrl("wcmsCreateDonationUrl");
     public static final String wcmsSearchDonationUrl = propertiesReader.getEndPointUrl("wcmsSearchDonationUrl");
+    public static final String wcmsSearchReservoirTypesUrl = propertiesReader.getEndPointUrl("wcmsSearchReservoirTypesUrl");
+    public static final String wcmsCreateStorageReservoirUrl = propertiesReader.getEndPointUrl("wcmsCreateStorageReservoirUrl");
+    public static final String wcmsSearchStorageReservoirUrl = propertiesReader.getEndPointUrl("wcmsSearchStorageReservoirUrl");
+
+    // Search Boundaries
+    public static final String searchBoundariesUrl = propertiesReader.getEndPointUrl("searchBoundariesUrl");
 }

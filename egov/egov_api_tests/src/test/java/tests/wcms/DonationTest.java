@@ -46,6 +46,13 @@ public class DonationTest extends BaseAPITest {
     }
 
     @Test(groups = {Categories.SANITY, Categories.WCMS})
+    public void getAllDonationTest() throws IOException {
+        LoginAndLogoutHelper.login(MANAS); // Login
+        searchDonation(null, "ALL", "ALL"); // Search All Donations
+        LoginAndLogoutHelper.logout(); // Logout
+    }
+
+    @Test(groups = {Categories.SANITY, Categories.WCMS})
     public void createSearchUpdateDonationTestWithPropertyType() throws IOException {
         LoginAndLogoutHelper.login(MANAS); // Login
         CreateDonationResponse createDonationResponse = createDonation(); // Create Donation
@@ -123,16 +130,14 @@ public class DonationTest extends BaseAPITest {
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         SearchDonationRequest searchDonationRequest = new SearchDonationRequestBuilder().withRequestInfo(requestInfo).build();
 
-        String path;
+        String path = "";
         if (parameter.equalsIgnoreCase(""))
             path = WITH_PROPERTY_TYPE + response.getDonations()[0].getPropertyType() +
                     WITH_CATEGORY_TYPE + response.getDonations()[0].getCategory() +
                     WITH_PIPESIZE + response.getDonations()[0].getMaxPipeSize() +
                     WITH_USAGE_TYPE + response.getDonations()[0].getUsageType();
-        else
+        else if (parameter.contains("&id"))
             path = pathBuilder(WITH_ID, String.valueOf(response.getDonations()[0].getId()));
-
-        System.out.println(path);
 
         Response response1 = new WCMSResource().searchDonationResource(RequestHelper.getJsonString(searchDonationRequest), path);
         CreateDonationResponse searchDonationResponse = (CreateDonationResponse)
@@ -141,6 +146,11 @@ public class DonationTest extends BaseAPITest {
         Assert.assertEquals(response1.getStatusCode(), 200);
 
         switch (switchParameter) {
+
+            case "ALL":
+                Assert.assertTrue(searchDonationResponse.getDonations().length > 0);
+                break;
+
             case "BEFORE_UPDATE":
                 Assert.assertEquals(response.getDonations()[0].getCategory(), searchDonationResponse.getDonations()[0].getCategory());
                 Assert.assertEquals(response.getDonations()[0].getMaxPipeSize(), searchDonationResponse.getDonations()[0].getMaxPipeSize());
