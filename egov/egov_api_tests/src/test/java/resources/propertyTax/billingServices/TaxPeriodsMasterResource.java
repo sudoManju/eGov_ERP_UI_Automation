@@ -22,9 +22,18 @@ public class TaxPeriodsMasterResource extends Resource{
 
     public Response search(String json,String s){
 
-        new APILogger().log("Search TaxPerid Master Request is Started as --"+json);
+        new APILogger().log("Search TaxPeriod Master Request is Started as --"+json);
         Response response = getPOSTResponseFromDEV(json,Properties.searchTaxPeriodMasterUrl+tenantId+"&service="+serviceName+s);
-        new APILogger().log("Search TaxPeriod Master Response is generated as --"+response.asString());
+        new APILogger().log("Search TaxPeriod Master Response is Generated as --"+response.asString());
+
+        return response;
+    }
+
+    public Response update(String jsonString) {
+
+        new APILogger().log("Update TaxPeriod Master Request is Started as --"+jsonString);
+        Response response = getPOSTResponseFromDEV(jsonString,Properties.updateTaxPeriodMasterUrl);
+        new APILogger().log("Update TaxPeriod Master Response is Generated as --"+response.asString());
 
         return response;
     }

@@ -27,4 +27,13 @@ public class BusinessServiceMasterResource extends Resource {
 
         return response;
     }
+
+    public Response update(String jsonString) {
+
+        new APILogger().log("Update Business Service Master Request is Started as --"+jsonString);
+        Response response = getPOSTResponseFromDEV(jsonString, Properties.updateBusinessServiceMasterUrl);
+        new APILogger().log("Update Business Service Master Response is generated as --"+response.asString());
+
+        return response;
+    }
 }

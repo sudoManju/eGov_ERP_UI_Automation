@@ -37,12 +37,29 @@ public class BusinessServiceVerificationTest extends BaseAPITest{
         LoginAndLogoutHelper.login(NARASAPPA);                                          //Login
         requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
 
-        BusinessServiceMasterResponse createObject = createBusinessServiceMaster();     //Create
-        searchBusinessServiceMaster(createObject);                                     // Search
+        BusinessServiceMasterResponse createObject = createBusinessServiceMaster();      //Create
+        searchBusinessServiceMaster(createObject);                                      // Search
+
+        BusinessServiceMasterResponse updateObject =                                   //Update
+                updateBusinessServiceMaster(createObject.getBusinessServiceDetails()[0].getId());
+        searchBusinessServiceMaster(updateObject);                                    //Search
 
         LoginAndLogoutHelper.logout();                                                 //Logout
     }
 
+    private BusinessServiceMasterResponse updateBusinessServiceMaster(String id) throws IOException {
+
+        new APILogger().log("Update Business Service Master API is Started --");
+        details[0] = new BusinessServiceDetailsBuilder().withId(Integer.valueOf(id)).build();
+        BusinessServiceMasterRequest request = new BusinessServiceMasterRequestBuilder().withRequestInfo(requestInfo)
+                .withBusinessServiceDetails(details).build();
+
+        Response response = new BusinessServiceMasterResource().update(RequestHelper.getJsonString(request));
+        BusinessServiceMasterResponse responseObject = checkAssertsForCreate(request,response);
+        new APILogger().log("Update Business Service Master API is Completed --");
+
+        return responseObject;
+    }
 
     private void searchBusinessServiceMaster(BusinessServiceMasterResponse createObject) throws IOException {
 

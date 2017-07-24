@@ -35,8 +35,10 @@ public class TaxPeriodMasterVerificationTest extends BaseAPITest {
     private int year1 = 61;
     private String time1 = "00:00:00";
     private String time2 = "23:59:59";
-    private String date1 = "-04-01"; String date2 = "-10-01";
-    private String date3 = "-09-30"; String date4 = "-03-31";
+    private String date1 = "-04-01";
+    private String date2 = "-10-01";
+    private String date3 = "-09-30";
+    private String date4 = "-03-31";
 
     public TaxPeriodMasterVerificationTest(){
         taxPeriods = new TaxPeriods[2];
@@ -48,14 +50,43 @@ public class TaxPeriodMasterVerificationTest extends BaseAPITest {
         LoginAndLogoutHelper.login(NARASAPPA);                                 //Login
         requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 1; i++) {
             TaxPeriodsMasterResponse createObject =  createTaxPeriods();      //Create
             searchTaxPeriods(createObject);                                   //Search
+
+            TaxPeriodsMasterResponse updateObject =                           //Update
+                    updateTaxPeriods(createObject.getTaxPeriods()[0].getId(),createObject.getTaxPeriods()[1].getId());
+            searchTaxPeriods(updateObject);                                  //Search
 
             year = year +1;
             year1 = year1+1;
         }
         LoginAndLogoutHelper.logout();                                       //Logout
+    }
+
+    private TaxPeriodsMasterResponse updateTaxPeriods(String id, String id1) throws ParseException, IOException {
+
+        new APILogger().log("Update TaxPeriods Master is started --");
+        taxPeriods[0] = new TaxPeriodsBuilder().withCode(String.valueOf(year)+"-"+String.valueOf(year+1)+"-"+"1")
+                .withFinancialYear(String.valueOf(year)+"-"+String.valueOf(year1))
+                .withFromDate(getTime(String.valueOf(year)+date1+" "+time1))
+                .withToDate(getTime(String.valueOf(year)+date3+" "+time2)).withId(Integer.valueOf(id)).build();
+
+        taxPeriods[1] = new TaxPeriodsBuilder().withCode(String.valueOf(year)+"-"+String.valueOf(year+1)+"-"+"2")
+                .withFinancialYear(String.valueOf(year)+"-"+String.valueOf(year1))
+                .withFromDate(getTime(String.valueOf(year)+date2+" "+time1))
+                .withToDate(getTime(String.valueOf(year+1)+date4+" "+time2)).withId(Integer.valueOf(id1)).build();
+
+        TaxPeriodsMasterRequest request = new TaxPeriodsMasterRequestBuilder().withRequestInfo(requestInfo).withTaxPeriods(taxPeriods).build();
+
+        Response response = new TaxPeriodsMasterResource().update(RequestHelper.getJsonString(request));
+        TaxPeriodsMasterResponse responseObject =  checkAssertsForCreate(request,response);
+        Assert.assertEquals(response.getStatusCode(),200);
+        Assert.assertEquals(responseObject.getTaxPeriods()[0].getId(),id);
+        Assert.assertEquals(responseObject.getTaxPeriods()[1].getId(),id1);
+        new APILogger().log("Update TaxPeriods Master is completed --");
+
+        return responseObject;
     }
 
     private void searchTaxPeriods(TaxPeriodsMasterResponse createObject) throws IOException {
@@ -97,23 +128,23 @@ public class TaxPeriodMasterVerificationTest extends BaseAPITest {
 
     private TaxPeriodsMasterResponse createTaxPeriods() throws IOException, ParseException {
 
-            new APILogger().log("Create TaxPeriods Master is started --");
-            taxPeriods[0] = new TaxPeriodsBuilder().withCode(String.valueOf(year)+"-"+String.valueOf(year+1)+"-"+"1")
+        new APILogger().log("Create TaxPeriods Master is started --");
+        taxPeriods[0] = new TaxPeriodsBuilder().withCode(String.valueOf(year)+"-"+String.valueOf(year+1)+"-"+"1")
                                 .withFinancialYear(String.valueOf(year)+"-"+String.valueOf(year1))
                                 .withFromDate(getTime(String.valueOf(year)+date1+" "+time1))
                                 .withToDate(getTime(String.valueOf(year)+date3+" "+time2)).build();
 
-            taxPeriods[1] = new TaxPeriodsBuilder().withCode(String.valueOf(year)+"-"+String.valueOf(year+1)+"-"+"2")
+        taxPeriods[1] = new TaxPeriodsBuilder().withCode(String.valueOf(year)+"-"+String.valueOf(year+1)+"-"+"2")
                     .withFinancialYear(String.valueOf(year)+"-"+String.valueOf(year1))
                     .withFromDate(getTime(String.valueOf(year)+date2+" "+time1))
                     .withToDate(getTime(String.valueOf(year+1)+date4+" "+time2)).build();
 
-            TaxPeriodsMasterRequest request = new TaxPeriodsMasterRequestBuilder().withRequestInfo(requestInfo).withTaxPeriods(taxPeriods).build();
+        TaxPeriodsMasterRequest request = new TaxPeriodsMasterRequestBuilder().withRequestInfo(requestInfo).withTaxPeriods(taxPeriods).build();
 
-            Response response = new TaxPeriodsMasterResource().create(RequestHelper.getJsonString(request));
-            TaxPeriodsMasterResponse responseObject =  checkAssertsForCreate(request,response);
-
-            new APILogger().log("Create TaxPeriods Master is completed --");
+        Response response = new TaxPeriodsMasterResource().create(RequestHelper.getJsonString(request));
+        TaxPeriodsMasterResponse responseObject =  checkAssertsForCreate(request,response);
+        Assert.assertEquals(response.getStatusCode(),201);
+        new APILogger().log("Create TaxPeriods Master is completed --");
 
         return responseObject;
     }
@@ -122,7 +153,6 @@ public class TaxPeriodMasterVerificationTest extends BaseAPITest {
         TaxPeriodsMasterResponse responseObject = (TaxPeriodsMasterResponse)
                 ResponseHelper.getResponseAsObject(response.asString(),TaxPeriodsMasterResponse.class);
 
-        Assert.assertEquals(response.getStatusCode(),201);
         Assert.assertEquals(responseObject.getResponseInfo().getStatus(),"200");
         Assert.assertEquals(responseObject.getTaxPeriods()[0].getCode(),request.getTaxPeriods()[0].getCode());
         Assert.assertEquals(responseObject.getTaxPeriods()[1].getCode(),request.getTaxPeriods()[1].getCode());

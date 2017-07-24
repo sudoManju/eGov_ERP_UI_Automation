@@ -26,6 +26,11 @@ public class BusinessServiceDetailsBuilder {
         details.setAuditDetails(auditDetails);
     }
 
+    public BusinessServiceDetailsBuilder withId(int id){
+        details.setId(id);
+        return this;
+    }
+
     public BusinessServiceDetails build(){
         return details;
     }

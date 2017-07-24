@@ -21,6 +21,11 @@ public class TaxPeriodsBuilder {
         taxPeriods.setAuditDetails(auditDetails);
     }
 
+    public TaxPeriodsBuilder withId(int id){
+        taxPeriods.setId(id);
+        return this;
+    }
+
     public TaxPeriodsBuilder withCode(String code){
         taxPeriods.setCode(code);
         return this;
