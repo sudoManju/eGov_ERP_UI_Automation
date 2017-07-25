@@ -241,6 +241,9 @@ public class AssetServicePage extends BasePage {
     @FindBy(css = "[name='Remarks']")
     private WebElement remarksText;
 
+    @FindBy(id = "grossValue")
+    private WebElement grossValueTextField;
+
     private WebDriver webDriver;
 
     public AssetServicePage(WebDriver webDriver) {
@@ -397,6 +400,9 @@ public class AssetServicePage extends BasePage {
 
     public void enterAssetStatusDetails(String assetStatus) {
         selectFromDropDown(statusSelectBox, assetStatus, webDriver);
+        if(assetStatus.equals("CAPITALIZED")){
+            enterText(grossValueTextField, get6DigitRandomInt(), webDriver);
+        }
         clickOnButton(createAssetButton, webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
