@@ -186,9 +186,9 @@ public class ApplicationBpaFeeCalculationService {
                                     && maximumAlloWedArea.compareTo(BigDecimal.ZERO) > 0
                                     && inputArea.compareTo(maximumAlloWedArea) > 0
                                     && beyondPermissibleArea.subtract(maximumAlloWedArea)
-                                            .compareTo(inputArea.subtract(maximumAlloWedArea)) > 0) {
+                                            .compareTo(inputArea.subtract(maximumAlloWedArea)) >= 0) {
                                 // calculate permit fee for maximumAlloWedArea
-                                amount = calculateAdditionalFee(inputArea.subtract(maximumAlloWedArea), BigDecimal.valueOf(1000));
+                                amount = calculateAdditionalFee(inputArea.subtract(maximumAlloWedArea), feeAmount);
 
                             }
 
@@ -279,11 +279,7 @@ public class ApplicationBpaFeeCalculationService {
      * @return is work already started or not ?
      */
     private Boolean checkIsWorkAlreadyStarted(final BpaApplication application) {
-        if (application.getSiteDetail().get(0).getConstStages() != null
-                && "NotStarted".equals(application.getSiteDetail().get(0).getConstStages().getDescription())) {
-            return false;
-        }
-        return true;
+       return application.getSiteDetail().get(0).getIsappForRegularization();
     }
 
     /**
