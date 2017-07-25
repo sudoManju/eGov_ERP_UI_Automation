@@ -6,13 +6,11 @@ public class HeaderDetails {
 
     private String assetCategory;
 
-    private String dateOfCreation;
-
     private String description;
 
-    private String assetName;
-
     private String modeOfAcquisition;
+
+    private String depreciationRate;
 
     public String getDepartment() {
         return department;
@@ -30,14 +28,6 @@ public class HeaderDetails {
         this.assetCategory = assetCategory;
     }
 
-    public String getDateOfCreation() {
-        return dateOfCreation;
-    }
-
-    public void setDateOfCreation(String dateOfCreation) {
-        this.dateOfCreation = dateOfCreation;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -46,19 +36,19 @@ public class HeaderDetails {
         this.description = description;
     }
 
-    public String getAssetName() {
-        return assetName;
-    }
-
-    public void setAssetName(String assetName) {
-        this.assetName = assetName;
-    }
-
     public String getModeOfAcquisition() {
         return modeOfAcquisition;
     }
 
     public void setModeOfAcquisition(String modeOfAcquisition) {
         this.modeOfAcquisition = modeOfAcquisition;
+    }
+
+    public void setDepreciationRate(String depreciationRate) {
+        this.depreciationRate = depreciationRate;
+    }
+
+    public String getDepreciationRate() {
+        return depreciationRate;
     }
 }

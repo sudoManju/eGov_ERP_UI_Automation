@@ -7,7 +7,7 @@ Feature: Create/Search for Asset Service
 
     Given pilotJA logs in
     And user will select the required screen as "Create Asset"
-    And user will enter the details as <headerDetails> and <locationDetails>
+    And user will enter the details as <headerDetails>
     And user will enter the category details as <categoryDetails> and with asset summary status as <assetStatus>
     And user will be notified the success page with an asset application number
 
@@ -18,15 +18,12 @@ Feature: Create/Search for Asset Service
     And current user logs out
 
     Examples:
-      | headerDetails | locationDetails | assetStatus | categoryDetails |
-#      | header1       | location1       | CREATED     | Land            |
-      | header2       | location1       | CAPITALIZED | market          |
-      | header3       | location1       | CAPITALIZED | kalyanaMandapam |
-#      | header4       | location1       | CREATED     | lakesAndPonds   |
-#      | header5       | location1       | CREATED     | roads           |
-      | header6       | location1       | CAPITALIZED | community       |
-      | header7       | location1       | CAPITALIZED | usufruct        |
-      | header8       | location1       | CAPITALIZED | shopping        |
-#      | header9       | location1       | CREATED     | parkingSpace    |
-      | header10      | location1       | CAPITALIZED | slaughterHouse  |
-#      | header11      | location1       | CREATED     | parks           |
+      | headerDetails | assetStatus | categoryDetails  |
+      | header1       | CREATED     | Land             |
+      | header2       | CAPITALIZED | Shop             |
+      | header3       | CAPITALIZED | Market           |
+      | header4       | CAPITALIZED | Kalyana_Mandapam |
+      | header5       | CAPITALIZED | Usufruct         |
+      | header6       | CAPITALIZED | Shopping_Complex |
+      | header7       | CREATED     | Lakes_and_Ponds  |
+      | header8       | CREATED     | Roads            |

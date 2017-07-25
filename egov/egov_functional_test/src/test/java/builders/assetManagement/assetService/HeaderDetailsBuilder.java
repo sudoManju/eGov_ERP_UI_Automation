@@ -16,23 +16,13 @@ public final class HeaderDetailsBuilder {
         return this;
     }
 
-    public HeaderDetailsBuilder withDateOfCreation(String dateOfCreation) {
-        headerDetails.setDateOfCreation(dateOfCreation);
-        return this;
-    }
-
-    public HeaderDetailsBuilder withDescription(String description) {
-        headerDetails.setDescription(description);
-        return this;
-    }
-
-    public HeaderDetailsBuilder withAssetName(String assetName) {
-        headerDetails.setAssetName(assetName);
-        return this;
-    }
-
     public HeaderDetailsBuilder withModeOfAcquisition(String modeOfAcquisition) {
         headerDetails.setModeOfAcquisition(modeOfAcquisition);
+        return this;
+    }
+
+    public HeaderDetailsBuilder withDepreciationRate(String depreciationRate){
+        headerDetails.setDepreciationRate(depreciationRate);
         return this;
     }
 

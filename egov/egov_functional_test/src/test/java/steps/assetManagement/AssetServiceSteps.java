@@ -10,8 +10,7 @@ public class AssetServiceSteps extends BaseSteps implements En {
 
     public AssetServiceSteps() {
 
-        And("^user will enter the details as (\\w+) and (\\w+)$", (String headerDetails
-                , String locationDetails) -> {
+        And("^user will enter the details as (\\w+)$", (String headerDetails) -> {
 
             HeaderDetails headerDetails1 = new AssetServiceDataReader(assetTestDataFileName)
                     .getHeaderDetails(headerDetails);

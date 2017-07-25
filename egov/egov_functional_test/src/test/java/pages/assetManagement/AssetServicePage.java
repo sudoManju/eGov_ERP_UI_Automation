@@ -244,6 +244,9 @@ public class AssetServicePage extends BasePage {
     @FindBy(id = "grossValue")
     private WebElement grossValueTextField;
 
+    @FindBy(id = "depreciationRate")
+    private WebElement depreciationRateField;
+
     private WebDriver webDriver;
 
     public AssetServicePage(WebDriver webDriver) {
@@ -252,7 +255,7 @@ public class AssetServicePage extends BasePage {
 
     public void enterHeaderDetails(HeaderDetails headerDetails) {
         selectFromDropDown(departmentSelectBox, headerDetails.getDepartment(), webDriver);
-        selectFromDropDown(assetCategorySelectBox, headerDetails.getAssetCategory(), webDriver);
+        selectFromDropDown(assetCategorySelectBox, headerDetails.getAssetCategory().replace("_", " "), webDriver);
         enterDate(creationDate, getCurrentDate(), webDriver);
         enterText(descriptionTextBox, "Description for " + headerDetails.getAssetCategory() + " Asset", webDriver);
         enterText(assetNameTextBox, "Asset: " + headerDetails.getAssetCategory(), webDriver);
@@ -260,7 +263,7 @@ public class AssetServicePage extends BasePage {
 
         // Asset Reference Details
         clickOnButton(assetReferenceSearchButton, webDriver);
-        selectFromDropDown(assetReferenceCategorySelectBox, headerDetails.getAssetCategory(), webDriver);
+        selectFromDropDown(assetReferenceCategorySelectBox, headerDetails.getAssetCategory().replace("_", " "), webDriver);
         clickOnButton(assetReferenceSubmitButton, webDriver);
 
         // If there is no reference application for the present category it skips the selection of application and continue the flow.
@@ -281,6 +284,7 @@ public class AssetServicePage extends BasePage {
 //                }
 //            }
         }
+        enterText(depreciationRateField, headerDetails.getDepreciationRate(), webDriver);
     }
 
     private void enterLocationDetails() {
@@ -417,7 +421,7 @@ public class AssetServicePage extends BasePage {
 
     public void searchApplicationBasedOnCategory(String details, String applicationNumber) {
         enterText(applicationCodeTextBox, applicationNumber, webDriver);
-        selectFromDropDown(searchAssetCategorySelect, details, webDriver);
+        selectFromDropDown(searchAssetCategorySelect, details.replace("_", " "), webDriver);
         clickOnButton(searchOrUpdateButton, webDriver);
         await().atMost(10, SECONDS).until(() -> webDriver.findElements(By.cssSelector("[id='agreementSearchResultTableBody'] tr")).size() > 0);
         clickOnButton(assetUpdateActionButton, webDriver);
