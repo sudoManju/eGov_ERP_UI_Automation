@@ -40,6 +40,18 @@
 
 
 jQuery(document).ready(function($) {
+	
+	// toggle between multiple tab
+	//toggle between multiple tab
+	jQuery('form').validate({
+		ignore: ".ignore",
+		invalidHandler: function(e, validator){
+		if(validator.errorList.length)
+		$('#settingstab a[href="#' + jQuery(validator.errorList[0].element).closest(".tab-pane").attr('id') + '"]').tab('show');
+		}
+		});
+	
+	
 	var validator=$("#newCitizenApplicationform").validate({
 		  highlight: function(element, errorClass) {
 		    $(element).fadeOut(function() {
@@ -49,10 +61,7 @@ jQuery(document).ready(function($) {
 		});
 	
 	function validateForm1(button, validator) {
-		if($("#postalAddressTypeHead" ).val() == "") {
-			bootbox.alert('Please Enter Pincode.');
-			return false;
-		}
+
 		if ($('#newCitizenApplicationform').valid() && validateUploadFilesMandatory()) {
 			$('#serviceType').prop("disabled", false);
 			document.getElementById("workFlowAction").value = button;
@@ -72,13 +81,27 @@ jQuery(document).ready(function($) {
 			}
 			return true;
 		} else {
+			
+			$errorInput=undefined;
+			
 			$.each(validator.invalidElements(), function(index, elem){
+				
+				if(!$(elem).is(":visible") && !$(elem).val() && index==0 
+						&& $(elem).closest('div').find('.bootstrap-tagsinput').length > 0){
+					$errorInput=$(elem);
+				}
+				
 				if(!$(elem).is(":visible") && !$(elem).closest('div.panel-body').is(":visible")){
 					$(elem).closest('div.panel-body').show();
-					console.log("elem", elem);
+					console.log("elem", $(elem));
 				}
 			});
+			
+			if($errorInput)
+				$errorInput.tagsinput('focus');
+			
 			validator.focusInvalid();
+			
 			return false;
 		}
 	}

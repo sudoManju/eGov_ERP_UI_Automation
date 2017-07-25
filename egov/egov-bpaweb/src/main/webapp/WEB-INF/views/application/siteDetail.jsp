@@ -250,7 +250,7 @@
 				code="lbl.site.pincode" /><span class="mandatory"></span></label>
 		<div class="col-sm-3 add-margin">
 			<input type="text" id="postalAddressTypeHead" required="required"
-					class="form-control patternvalidation typeahead" placeholder="Search Pincode" autocomplete="off" data-pattern="number"
+					class="form-control searchpincode patternvalidation typeahead" placeholder="Search Pincode" autocomplete="off" data-pattern="number"
 					value="${bpaApplication.siteDetail[0].postalAddress.pincode}" />
 			<form:hidden path="siteDetail[0].postalAddress" value="${bpaApplication.siteDetail[0].postalAddress.id}" />
 			<form:hidden path="siteDetail[0].postalId" id="postalAddress" value="" />
@@ -296,6 +296,15 @@
 
 	<div class="form-group">
 		<label class="col-sm-3 control-label text-right"><spring:message
+				code="lbl.approved.layout.details" /></label>
+		<div class="col-sm-3 add-margin">
+			<form:input class="form-control patternvalidation" maxlength="64"
+				data-pattern="alphanumericwithspace" id="approvedLayoutDetail"
+				path="siteDetail[0].approvedLayoutDetail" />
+			<form:errors path="siteDetail[0].approvedLayoutDetail"
+				cssClass="add-margin error-msg" />
+		</div>
+		<label class="col-sm-2 control-label text-right"><spring:message
 				code="lbl.crz.zone" /></label>
 		<div class="col-sm-3 add-margin">
 			<form:input class="form-control patternvalidation " maxlength="10"
@@ -317,25 +326,14 @@
 				<form:options items="${schemesList}" itemValue="id" itemLabel="description" />
 			</form:select>
 		</div>
-		<label class="col-sm-2 control-label text-right"><spring:message
-				code="lbl.proposed.land.use" /> </label>
+		<label class="col-sm-2 control-label text-right landUsage"><spring:message
+				code="lbl.proposed.land.use" /><span></span> </label>
 		<div class="col-sm-3 add-margin">
 			<select name="landUsage"  id="landUsage" class="form-control ">
 						<option value=""> Selected </option>
 			</select>
 			<form:hidden path="siteDetail[0].landUsage" id="landUsageObjectId" value="${bpaApplication.siteDetail[0].landUsage.id}" />
 			<form:hidden path="siteDetail[0].landUsageId" id="landUsageId" value="" /> 
-		</div>
-	</div>
-	<div class="form-group">
-		<label class="col-sm-3 control-label text-right"><spring:message
-				code="lbl.approved.layout.details" /></label>
-		<div class="col-sm-3 add-margin">
-			<form:input class="form-control patternvalidation" maxlength="64"
-				data-pattern="alphanumericwithspace" id="approvedLayoutDetail"
-				path="siteDetail[0].approvedLayoutDetail" />
-			<form:errors path="siteDetail[0].approvedLayoutDetail"
-				cssClass="add-margin error-msg" />
 		</div>
 	</div>
 	
@@ -353,7 +351,10 @@
 			</form:select>
 			<form:errors path="occupancy" cssClass="add-margin error-msg" />
 		</div>
-		<label class="col-sm-2 control-label text-right"><spring:message
+	</div>
+	<div class="form-group">
+		
+		<label class="col-sm-3 control-label text-right"><spring:message
 				code="lbl.government.type" /></label>
 		<div class="col-sm-3 add-margin">
 			<%-- <form:radiobuttons items="${governmentTypeList}" path="governmentType"/> --%>
@@ -370,6 +371,14 @@
 			</div>
 			</c:forEach>
 			<form:errors path="governmentType" cssClass="add-margin error-msg" />
+		</div>
+		<div id="isEconomicallyWeakerSec">
+			<label class="col-sm-2 control-label text-right"><spring:message
+					code="lbl.is.econ.weaker.sec" /></label>
+			<div class="col-sm-3 add-margin">
+				<form:checkbox path="isEconomicallyWeakerSection"
+					id="isEconomicallyWeakerSection" value="false" />
+			</div>
 		</div>
 	</div>
 

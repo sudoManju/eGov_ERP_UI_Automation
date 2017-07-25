@@ -210,6 +210,13 @@
 
 	<div class="row add-border">
 		<div class="col-sm-3 add-margin">
+			<spring:message code="lbl.approved.layout.details" />
+		</div>
+		<div class="col-sm-3 add-margin view-content">
+			<c:out value="${bpaApplication.siteDetail[0].approvedLayoutDetail}"
+				default="N/A"></c:out>
+		</div>
+		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.crz.zone" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
@@ -234,15 +241,6 @@
 		</div>
 	</div>
 
-	<div class="row add-border">
-		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.approved.layout.details" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out value="${bpaApplication.siteDetail[0].approvedLayoutDetail}"
-				default="N/A"></c:out>
-		</div>
-	</div>
 	
 	<div class="row add-border">
 		<div class="col-sm-3 add-margin">
@@ -251,11 +249,23 @@
 		<div class="col-sm-3 add-margin view-content">
 			<c:out value="${bpaApplication.occupancy.description}" default="N/A"></c:out>
 		</div>
+	</div>
+	
+	<div class="row add-border">
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.government.type" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
+			<input type="hidden" id="governmentType" value="${bpaApplication.governmentType}">
 			<c:out value="${bpaApplication.governmentType}" default="N/A"></c:out>
+		</div>
+		<div id="isEconomicallyWeakerSec">
+			<div class="col-sm-3 add-margin">
+				<spring:message code="lbl.is.econ.weaker.sec" />
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+				<c:out value="${bpaApplication.isEconomicallyWeakerSection ? 'YES' : 'NO'}" default="N/A"></c:out>
+			</div>
 		</div>
 	</div>
 

@@ -147,7 +147,7 @@ public class NewApplicationController extends BpaGenericApplicationController {
         BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication,
                 request.getParameter("workFlowAction"));
         bpaUtils.createPortalUserinbox(bpaApplicationRes, Arrays.asList(bpaApplicationRes.getOwner().getUser(),
-                bpaApplicationRes.getStakeHolder().get(0).getStakeHolder()));
+                bpaApplicationRes.getStakeHolder().get(0).getStakeHolder()), workFlowAction);
        
         // If There is no admission tax required to collect in first stage then forward record to next level user.
         if (!applicationBpaService.checkAnyTaxIsPendingToCollect(bpaApplicationRes)) {

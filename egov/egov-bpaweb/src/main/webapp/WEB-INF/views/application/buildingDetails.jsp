@@ -119,19 +119,19 @@
 								<form:options items="${occupancyList}" itemValue="id" itemLabel="description" />
 							</form:select></td>
 							<td><form:input type="text"
-									class="form-control table-input patternvalidation decimalfixed plinthArea text-right"
+									class="form-control table-input patternvalidation decimalfixed nonzero plinthArea text-right"
 									data-pattern="decimalvalue"
 									path="buildingDetail[0].applicationFloorDetails[${counter.index}].plinthArea"
 									id="applicationFloorDetails${counter.index}plinthArea"
 									maxlength="15" required="required" value="${buildingAreaDetails.plinthArea}" /></td>
 							<td><form:input type="text"
-								class="form-control table-input text-right patternvalidation decimalfixed floorArea"
+								class="form-control table-input text-right patternvalidation decimalfixed nonzero floorArea"
 								data-pattern="decimalvalue"
 								path="buildingDetail[0].applicationFloorDetails[${counter.index}].floorArea"
 								id="applicationFloorDetails${counter.index}floorArea" maxlength="15" required="required" value=""
 								onblur="validateFloorDetails(this)" /></td>
 							<td><form:input type="text"
-									class="form-control table-input text-right patternvalidation decimalfixed carpetArea"
+									class="form-control table-input text-right patternvalidation decimalfixed nonzero carpetArea"
 									data-pattern="decimalvalue"
 									path="buildingDetail[0].applicationFloorDetails[${counter.index}].carpetArea"
 									id="applicationFloorDetails${counter.index}carpetArea"
@@ -174,18 +174,18 @@
 								<form:options items="${occupancyList}" itemValue="id" itemLabel="description" />
 							</form:select></td>
 						<td><form:input type="text"
-								class="form-control table-input text-right patternvalidation decimalfixed plinthArea floor-details-mandatory"
+								class="form-control table-input text-right patternvalidation decimalfixed nonzero plinthArea floor-details-mandatory"
 								data-pattern="decimalvalue"
 								path="buildingDetail[0].applicationFloorDetails[0].plinthArea"
 								id="applicationFloorDetails0plinthArea" maxlength="10" value=""/></td>
 						<td><form:input type="text"
-								class="form-control table-input text-right patternvalidation decimalfixed floorArea floor-details-mandatory"
+								class="form-control table-input text-right patternvalidation decimalfixed nonzero floorArea floor-details-mandatory"
 								data-pattern="decimalvalue"
 								path="buildingDetail[0].applicationFloorDetails[0].floorArea"
 								id="applicationFloorDetails0floorArea" maxlength="10" value=""
 								onblur="validateFloorDetails(this)" /></td>
 						<td><form:input type="text"
-								class="form-control table-input text-right patternvalidation decimalfixed carpetArea floor-details-mandatory"
+								class="form-control table-input text-right patternvalidation decimalfixed nonzero carpetArea floor-details-mandatory"
 								data-pattern="decimalvalue"
 								path="buildingDetail[0].applicationFloorDetails[0].carpetArea"
 								id="applicationFloorDetails0carpetArea" maxlength="10" value="" /></td>
@@ -241,7 +241,7 @@
 				code="lbl.floor.count" /><span class="mandatory"></span></label>
 		<div class="col-sm-3 add-margin">
 			<form:input
-				class="form-control patternvalidation clear-values handle-mandatory floorCount"
+				class="form-control patternvalidation clear-values handle-mandatory nonzero floorCount"
 				data-pattern="number" maxlength="3" id="floorCount"
 				path="buildingDetail[0].floorCount" required="required"/>
 			<form:errors path="buildingDetail[0].floorCount"
@@ -280,7 +280,7 @@
 				code="lbl.grnd.with.stair" /> <span class="mandatory"></span> </label>
 		<div class="col-sm-3 add-margin">
 			<form:input
-				class="form-control patternvalidation clear-values  handle-mandatory heightFromGroundWithStairRoom"
+				class="form-control patternvalidation clear-values  handle-mandatory decimalfixed nonzero heightFromGroundWithStairRoom"
 				maxlength="6" data-pattern="decimalvalue"
 				id="heightFromGroundWithStairRoom"
 				path="buildingDetail[0].heightFromGroundWithStairRoom"
@@ -293,7 +293,7 @@
 				code="lbl.grnd.wo.stair" /> <span class="mandatory"></span> </label>
 		<div class="col-sm-3 add-margin">
 			<form:input
-				class="form-control patternvalidation clear-values  handle-mandatory heightFromGroundWithOutStairRoom"
+				class="form-control patternvalidation clear-values  handle-mandatory decimalfixed nonzero heightFromGroundWithOutStairRoom"
 				maxlength="6" data-pattern="decimalvalue"
 				id="heightFromGroundWithOutStairRoom"
 				path="buildingDetail[0].heightFromGroundWithOutStairRoom"
@@ -309,7 +309,7 @@
 				code="lbl.street.with.stair" /> <span class="mandatory"></span> </label>
 		<div class="col-sm-3 add-margin">
 			<form:input
-				class="form-control patternvalidation handle-mandatory clear-values fromStreetLevelWithStairRoom"
+				class="form-control patternvalidation handle-mandatory clear-values decimalfixed nonzero fromStreetLevelWithStairRoom"
 				maxlength="6" data-pattern="decimalvalue"
 				id="fromStreetLevelWithStairRoom"
 				path="buildingDetail[0].fromStreetLevelWithStairRoom"
@@ -322,7 +322,7 @@
 				code="lbl.street.wo.stair" /> <span class="mandatory"></span> </label>
 		<div class="col-sm-3 add-margin">
 			<form:input
-				class="form-control patternvalidation handle-mandatory clear-values fromStreetLevelWithOutStairRoom"
+				class="form-control patternvalidation handle-mandatory clear-values decimalfixed nonzero fromStreetLevelWithOutStairRoom"
 				maxlength="6" data-pattern="decimalvalue"
 				id="fromStreetLevelWithOutStairRoom"
 				path="buildingDetail[0].fromStreetLevelWithOutStairRoom"

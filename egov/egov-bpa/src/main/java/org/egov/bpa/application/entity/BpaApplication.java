@@ -201,6 +201,7 @@ public class BpaApplication extends StateAware {
     private transient Set<Receipt> receipts = new HashSet<>();
     @Transient
     private boolean mailPwdRequired;
+    private Boolean isEconomicallyWeakerSection;
 
     public boolean isMailPwdRequired() {
 		return mailPwdRequired;
@@ -663,4 +664,13 @@ public class BpaApplication extends StateAware {
     public void setApprovedFeeAmount(BigDecimal approvedFeeAmount) {
         this.approvedFeeAmount = approvedFeeAmount;
     }
+
+    public Boolean getIsEconomicallyWeakerSection() {
+        return isEconomicallyWeakerSection;
+    }
+
+    public void setIsEconomicallyWeakerSection(Boolean isEconomicallyWeakerSection) {
+        this.isEconomicallyWeakerSection = isEconomicallyWeakerSection;
+    }
+    
 }

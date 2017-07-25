@@ -57,9 +57,14 @@ $(document).ready(function() {
 	
 	
 	// Validate input value must be greater than zero using class name
-	$.validator.addMethod("decimalfixed", function(value, element) {
+	$.validator.addMethod("nonzero", function(value, element) {
 		return this.optional(element) || (parseFloat(value) > 0);
 		}, '* Value must be greater than zero');
+	
+	// pincode validation
+	$.validator.addMethod("searchpincode", function(value, element) {
+		return this.optional(element) || value !== '';
+		}, 'required');
 	
 	// To prevent multiple decimal places in single input
 	$(document).on('keypress', '.decimalfixed', function(evt) {
@@ -76,6 +81,29 @@ $(document).ready(function() {
 		  return true;
 	});
 	
+	// government or quasi validation
+	$('#isEconomicallyWeakerSec').hide();
+	$('.governmentType').on('change', function() {
+		 var govType = $("input[name='governmentType']:checked").val();
+	        if(govType == 'NOT_APPLICABLE'){
+	        	$('#isEconomicallyWeakerSec').hide();
+	        } else {
+	        	$('#isEconomicallyWeakerSec').show();
+	        }
+		});
+	
+	$('.governmentType').trigger("change");
+	// TOWN PLANNING SCHEME VALIDATION
+	$('#schemes').change(function(){
+		var scheme = $( "#schemes option:selected" ).val();
+		if(scheme) {
+			$('#landUsage').attr('required',true);
+			$('.landUsage').find("span").addClass( "mandatory" );
+		} else {
+			$('#landUsage').removeAttr('required');
+			$('.landUsage').find("span").removeClass( "mandatory" );
+		}
+	});
 	
 	// For each main service type validations
 	$('.serviceType').change(function(){
@@ -120,7 +148,7 @@ $(document).ready(function() {
 			$('#totalPlintArea').attr('required',true);
 			$('#totalPlintArea').attr('readOnly',false);
 			$('.alterationInArea').show();
-		} else if('Adding of Extension' == seviceTypeName){4
+		} else if('Adding of Extension' == seviceTypeName){
 			$('.buildingdetails').show();
 			$('.handle-mandatory').removeAttr('required');
 			$('.handle-mandatory').find("span").removeClass( "mandatory" );
@@ -133,7 +161,10 @@ $(document).ready(function() {
 				$('.buildingdetails').show();
 				$('.totalPlintArea').show();
 				$('.doorNo').hide();
-			} else if('Change in occupancy' == seviceTypeName){
+			} else if('Reconstruction'.localeCompare(seviceTypeName) == 0 ){
+				$('.buildingdetails').show();
+				$('.totalPlintArea').show();
+			}  else if('Change in occupancy' == seviceTypeName){
 				$('.buildingdetails').show();
 				$('.changeInOccupancyArea').show();
 			} else if ('Demolition' == seviceTypeName){
@@ -220,7 +251,7 @@ $(document).ready(function() {
 	}
 	
 	// making atleast one amenity should be mandatory if service type is selected as amenities 
-	$('#buttonSubmit').click(function(){
+	$('#buttonSubmit, #bpaCreate').click(function(){
 		var seviceTypeName = $( "#serviceType option:selected" ).text();
 		if('Amenities' == seviceTypeName && !$( "#applicationAmenity option:selected" ).val()){
 				bootbox.alert("Please Select Atleast one amenity.");
@@ -229,7 +260,7 @@ $(document).ready(function() {
 	});
 	
 	$('#existingAppPlan').hide();
-	  $('#constDiv').hide();
+	$('#constDiv').hide();
 	$('#isexistingApprovedPlan').on('change', function(){ 
 		   if(this.checked) // if changed state is "CHECKED"
 		    {
@@ -239,16 +270,13 @@ $(document).ready(function() {
 			   $('#approvedReceiptDate').attr('required', true);
 			   $('#approvedFeeAmount').attr('required', true);
 			   $('#revisedPermitNumber').attr('required', true);
-		    }
-		   if(!this.checked) // if changed state is "CHECKED"
-		    {
+		    } else if(!this.checked) { // if changed state is "CHECKED" 
 			  $('.removemandatory').find("span").removeClass( "mandatory" );
 			  $('#feeAmountRecieptNo').attr('required', false);
 			  $('#approvedReceiptDate').attr('required', false);
 			  $('#approvedFeeAmount').attr('required', false);
 			  $('#revisedPermitNumber').attr('required', false);
 			  $('#existingAppPlan').hide();
-
 		    }
 		});
 	
@@ -268,9 +296,8 @@ $(document).ready(function() {
 					} else {
 						 $('#inprogress').hide();
 					}
-					});
-		    }
-		   if(!this.checked) // if changed state is "CHECKED"
+				});
+		    } else if(!this.checked) // if changed state is "CHECKED"
 		    {
 			   	  $('#constStages').attr('required', false);
 				  $('#stateOfConstruction').attr('required', false);
@@ -489,5 +516,4 @@ function validateFloorDetails(plinthArea) {
 		$( ".carpetArea" ).trigger( "change" );
 	}
 }
-
 

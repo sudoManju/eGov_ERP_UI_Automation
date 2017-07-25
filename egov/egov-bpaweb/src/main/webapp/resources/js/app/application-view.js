@@ -39,6 +39,93 @@
  */
 jQuery(document).ready(function() {
 	
+	
+	$("#viewBpaApplicationForm").validate({
+		highlight : function(element, errorClass) {
+			$(element).fadeOut(function() {
+				$(element).fadeIn();
+			});
+		}
+	});
+
+	//To show Validation message if collection fee is pending ?
+	if ($('#collectFeeValidate').val() != ''
+		&& $('#collectFeeValidate').val() != null) {
+		bootbox.alert($('#collectFeeValidate').val());
+		$('#approvalDepartment').removeAttr('required');
+		$('#approvalDesignation').removeAttr('required');
+		$(".show-row").hide();
+		$("#Forward").hide();
+		$(".workAction").hide();
+	return false;
+	}
+	
+	
+	// By default to point update noc details tab
+	var mode=$('#mode').val();
+	
+	if(mode == 'view') {
+		$('#approvalDepartment').removeAttr('required');
+		$('#approvalDesignation').removeAttr('required');
+		$('#approvalPosition').removeAttr('required');
+		$(".show-row").hide();
+	}
+	if(mode == 'captureInspection') {
+		$('#approvalDepartment').removeAttr('required');
+		$('#approvalDesignation').removeAttr('required');
+		$('#approvalPosition').removeAttr('required');
+		$(".show-row").hide();
+		$("#Forward").hide();
+		$("#Reject").hide();
+		return false;
+	}
+	if($('#wfstateDesc').val() != 'Registered' && $('#wfstateDesc').val()  != 'NEW' && mode == 'newappointment') {
+		$(".show-row").hide();
+		$("#Forward").hide();
+	}
+	if( $('#wfstateDesc').val()  == 'NEW' && mode == 'newappointment') {
+		$('#approvalDepartment').removeAttr('required');
+		$('#approvalDesignation').removeAttr('required');
+		$('#approvalPosition').removeAttr('required');
+		$(".show-row").hide();
+	}
+	
+	if($('#currentState').val() == 'LP Initiated'){
+		$('#approvalDepartment').removeAttr('required');
+		$('#approvalDesignation').removeAttr('required');
+		$('#approvalPosition').removeAttr('required');
+		$(".show-row").hide();
+	}
+	
+	var tabfocus;
+	if($('#showUpdateNoc').val()) {
+		tabfocus='#checklist-info';
+	} else {
+		tabfocus='#applicant-info';
+	}
+	
+	var prefix = "tab_";
+	if (tabfocus) {
+	    $('.nav-tabs a[href="'+tabfocus.replace(prefix,"")+'"]').tab('show');
+	}
+
+	
+	//toggle between multiple tab
+	jQuery('form').validate({
+		ignore: ".ignore",
+		invalidHandler: function(e, validator){
+		if(validator.errorList.length)
+		$('#settingstab a[href="#' + jQuery(validator.errorList[0].element).closest(".tab-pane").attr('id') + '"]').tab('show');
+		}
+		});
+	
+	// government or quasi validation
+	        if($("#governmentType").val() == 'NOT_APPLICABLE'){
+	        	$('#isEconomicallyWeakerSec').hide();
+	        } else {
+	        	$('#isEconomicallyWeakerSec').show();
+	        }
+	
 	$( ".serviceType" ).trigger( "change" );
 	$( ".applicationAmenity" ).trigger( "change" );
 	
@@ -126,4 +213,3 @@ function loadAmenities(){
 	
 	
 });
-

@@ -112,6 +112,8 @@
 			<div align="center">
 				<form:button type="submit" id="bpaSave" class="btn btn-primary" 
 					value="Save">Save</form:button>
+				<form:button type="submit" id="bpaCreate" class="btn btn-primary"
+					value="Submit">Submit</form:button>
 				<input type="button" name="button2" id="button2" value="Close"
 					class="btn btn-default" onclick="window.close();" />
 			</div>
@@ -128,7 +130,7 @@
 <script
 	src="<cdn:url value='/resources/global/js/egov/inbox.js?rnd=${app_release_no}' context='/egi'/>"></script>
 <script
-	src="<cdn:url value='/resources/js/app/application-new.js?rnd=${app_release_no}'/>"></script>
+	src="<cdn:url value='/resources/js/app/bpa-ajax-helper.js?rnd=${app_release_no}'/>"></script>
 <script
 	src="<cdn:url value='/resources/js/app/documentsuploadvalidation.js?rnd=${app_release_no}'/>"></script>
 <script

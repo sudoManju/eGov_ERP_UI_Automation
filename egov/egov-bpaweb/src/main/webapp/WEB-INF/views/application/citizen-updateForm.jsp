@@ -107,11 +107,11 @@
 					<c:if test="${citizenOrBusinessUser && bpaApplication.id !=null && bpaApplication.state==null && !isCitizen}">
 						<form:button type="submit" id="buttonSubmit" class="btn btn-primary"
 							value="Submit">Submit</form:button>
-						<form:button type="submit" id="buttonCancel" class="btn btn-primary"
+						<form:button type="button" id="buttonCancel" class="btn btn-danger"
 						value="CANCEL APPLICATION"> CANCEL APPLICATION </form:button>
 					</c:if>
 						<input type="button" name="button2" id="button2" value="Close"
-							class="btn btn-primary" onclick="window.close();" />
+							class="btn btn-default" onclick="window.close();" />
 						</td>
 					</tr>
 				</table>
@@ -120,107 +120,6 @@
 	</div>
 </div>
 
-<script type="text/javascript">
-
-jQuery(document).ready(function() {
-	
-	$('#applicantDiv :input').attr('readOnly', true);
-	$('#gender').attr("style", "pointer-events: none;"); 
-	 
-	if($('#isCitizen').val() == 'true'){
-		$(':input').attr('readOnly', true);  
-		$('#buttonSubmit,#button2').prop("readOnly",false);
-		$('option:not(:selected)').attr('disabled', true);
-		if($('#validateCitizenAcceptance').val() == 'true'){
-			$('#citizenAccepted').prop("readOnly",false);
-			$("input[type=checkbox]:not('#citizenAccepted')") .on("click", function(e) {
-	            e.preventDefault();
-	        });
-		}else{
-			$("input[type=checkbox]") .on("click", function(e) {
-	            e.preventDefault();
-	        });
-		}
-	} else {
-		$("#applicantdet").prop("disabled",true);
-		$("#appDet").prop("disabled",true);
-		$("#serviceType").prop("disabled",true);
-		$("#admissionfeeAmount").prop("disabled",true);
-		if($('#isexistingApprovedPlan').val() == 'true') {
-			$('#existingAppPlan').show();
-		} else {
-			$('#existingAppPlan').hide();
-		}
-	
-		if($('#isappForRegularization').val() == 'true') {
-			$('#constDiv').show();
-		}
-		else {
-			$('#constDiv').hide();
-		}
-	}
-
- $('#buttonSave').click(function() {
-				 if($('#citizenOrBusinessUser').val())
-					{// for citizen login
-					 if($('#validateCitizenAcceptance').val() == 'true' && $('#isCitizen').val() == 'true'){
-						 if(!$('#citizenAccepted').prop('checked')){
-								bootbox.alert("Please accept disclaimer to continue...");
-								return false;
-							}
-					 } else if($('#isCitizen').val() != 'true'){  //for business user login
-						if(!$('#architectAccepted').prop('checked')){
-							bootbox.alert("Please accept disclaimer to continue...");
-							return false;
-						}
-					 }
-					}
-					var button=$('#buttonSave').val();
-					document.getElementById("workFlowAction").value=button;
-					$("#applicantdet").prop("disabled",false);
-					$("#appDet").prop("disabled",false);
-					$("#serviceType").prop("disabled",false);
-					$("#admissionfeeAmount").prop("disabled",false);
-						document.forms[0].submit();
-					
-				});
- $('#buttonSubmit').click(function() {
-	 	if($('#citizenOrBusinessUser').val())
-		{
-			// for citizen login
-	 		 if($('#validateCitizenAcceptance').val() == 'true' && $('#isCitizen').val() == 'true'){
-				 if(!$('#citizenAccepted').prop('checked')){
-						bootbox.alert("Please accept disclaimer to continue...");
-						return false;
-					}
-			 } else if($('#isCitizen').val() != 'true'){  //for business user login
-				if(!$('#architectAccepted').prop('checked')){
-					bootbox.alert("Please accept disclaimer to continue...");
-					return false;
-				}
-				if($('#validateCitizenAcceptance').val() == 'true' && $('#citizenDisclaimerAccepted').val() != 'true'){
-					bootbox.alert("Citizen Disclaimer Acceptance Pending. Cannot Submit Application.");
-					return false;
-				}
-			 }
-		}
-		var button=$('#buttonSubmit').val();
-		document.getElementById("workFlowAction").value=button;
-		$("#applicantdet").prop("disabled",false);
-		$("#appDet").prop("disabled",false);
-		$("#serviceType").prop("disabled",false);
-		$("#admissionfeeAmount").prop("disabled",false);
-			document.forms[0].submit();
-		
-	});
- $('#buttonCancel').click(function() {
-		var button=$('#buttonCancel').val();
-		document.getElementById("workFlowAction").value=button;
-		document.forms[0].submit();
-		
-	});
-});
- </script>
 
 <link rel="stylesheet"
 	href="<c:url value='/resources/global/css/bootstrap/bootstrap-tagsinput.css?rnd=${app_release_no}' context='/egi'/>">
@@ -230,12 +129,14 @@ jQuery(document).ready(function() {
 	src="<c:url value='/resources/global/js/handlebars/handlebars.js?rnd=${app_release_no}' context='/egi'/>"></script>
 <script
 	src="<cdn:url value='/resources/global/js/egov/inbox.js?rnd=${app_release_no}' context='/egi'/>"></script>
-	<script
-	src="<cdn:url value='/resources/js/app/application-edit.js?rnd=${app_release_no}'/>"></script> 
+<script
+	src="<cdn:url value='/resources/js/app/bpa-ajax-helper.js?rnd=${app_release_no}'/>"></script>
+<script
+	src="<cdn:url value='/resources/js/app/documentsuploadvalidation.js?rnd=${app_release_no}'/>"></script>
 <script
 	src="<cdn:url value='/resources/js/app/buildingarea-details.js?rnd=${app_release_no}'/>"></script>
 <script
 	src="<cdn:url value='/resources/js/app/bpa-application-validations.js?rnd=${app_release_no}'/>"></script>
 <script
-	src="<cdn:url value='/resources/js/app/application-new.js?rnd=${app_release_no}'/>"></script>
+	src="<cdn:url value='/resources/js/app/citizen-update-helper.js?rnd=${app_release_no}'/>"></script>
 	

@@ -252,15 +252,16 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
 		}
 		bpaApplication.setAdmissionfeeAmount(applicationBpaService.setAdmissionFeeAmountForRegistrationWithAmenities(
 				bpaApplication.getServiceType().getId(), new ArrayList<ServiceType>()));
-		 if(bpaApplication.getOwner().getUser()!=null && bpaApplication.getOwner().getUser().getId()==null)
+		 if(bpaApplication.getOwner().getUser()!=null && bpaApplication.getOwner().getUser().getId()==null) {
 		      buildOwnerDetails(bpaApplication);
+		 }
         BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication, workFlowAction);
         if (citizenOrBusinessUser) {
         	if(isCitizen)
-        		 bpaUtils.createPortalUserinbox(bpaApplicationRes,Arrays.asList(bpaApplicationRes.getOwner().getUser(),bpaApplicationRes.getStakeHolder().get(0).getStakeHolder()));
+        		 bpaUtils.createPortalUserinbox(bpaApplicationRes,Arrays.asList(bpaApplicationRes.getOwner().getUser(),bpaApplicationRes.getStakeHolder().get(0).getStakeHolder()), workFlowAction);
         	else
         		bpaUtils.createPortalUserinbox(bpaApplicationRes,  
-                    Arrays.asList(bpaApplicationRes.getOwner().getUser(), securityUtils.getCurrentUser()));
+                    Arrays.asList(bpaApplicationRes.getOwner().getUser(), securityUtils.getCurrentUser()), workFlowAction);
             if (workFlowAction != null
     				&& workFlowAction
     						.equals(BpaConstants.WF_SURVEYOR_FORWARD_BUTTON)){

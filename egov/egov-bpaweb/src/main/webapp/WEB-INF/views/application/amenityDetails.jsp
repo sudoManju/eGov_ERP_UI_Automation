@@ -51,7 +51,7 @@
 				code="lbl.area.base" /> <span class="mandatory"></span> </label>
 		<div class="col-sm-3 add-margin">
 			<form:input
-				class="form-control patternvalidation for-calculation decimalfixed clear-values"
+				class="form-control patternvalidation for-calculation decimalfixed nonzero clear-values"
 				maxlength="10" data-pattern="decimalvalue" id="extentOfLand"
 				required="required" path="siteDetail[0].extentOfLand" />
 			<form:errors path="siteDetail[0].extentOfLand"
@@ -84,7 +84,7 @@
 	<label class="{className} control-label text-right toggle-madatory Pole"><spring:message
 			code="lbl.no.of.poles" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation dyn-mandatory Pole"
+		<form:input class="form-control patternvalidation dyn-mandatory nonzero Pole"
 			data-pattern="number" id="noOfPoles" maxlength="2"
 			path="siteDetail[0].noOfPoles" required="required" />
 		<form:errors path="siteDetail[0].noOfPoles"
@@ -96,7 +96,7 @@
 	<label class="{className} control-label text-right noofhutorshed"><spring:message
 			code="lbl.no.of.shuts.huts" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation noofhutorshed"
+		<form:input class="form-control patternvalidation nonzero noofhutorshed"
 			data-pattern="number" id="noOfHutOrSheds" maxlength="2"
 			path="siteDetail[0].noOfHutOrSheds" required="required" />
 		<form:errors path="siteDetail[0].noOfHutOrSheds"
@@ -108,7 +108,7 @@
 	<label class="{className} control-label text-right toggle-madatory Shut"><spring:message
 			code="lbl.shutter" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation dyn-mandatory Shut" maxlength="2"
+		<form:input class="form-control patternvalidation dyn-mandatory nonzero Shut" maxlength="2"
 			id="shutter" data-pattern="number" path="siteDetail[0].shutter" required="required"/>
 		<form:errors path="siteDetail[0].shutter"
 			cssClass="add-margin error-msg" />
@@ -119,7 +119,7 @@
 	<label class="{className} control-label text-right toggle-madatory Towe"><spring:message
 			code="lbl.erection.tower" /> <span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation dyn-mandatory Towe"
+		<form:input class="form-control patternvalidation dyn-mandatory nonzero Towe"
 			data-pattern="number" id="erectionoftower" maxlength="2"
 			path="siteDetail[0].erectionoftower" required="required" />
 		<form:errors path="siteDetail[0].erectionoftower"
@@ -131,8 +131,8 @@
 	<label class="{className} control-label text-right toggle-madatory Well"><spring:message
 			code="lbl.number.well" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation dyn-mandatory Well"
-			data-pattern="number" id="dwellingunitnt" maxlength="2"
+		<form:input class="form-control patternvalidation dyn-mandatory nonzero Well"
+			data-pattern="number" id="dwellingunitnt" maxlength="3"
 			path="siteDetail[0].dwellingunitnt" required="required" />
 		<form:errors path="siteDetail[0].dwellingunitnt"
 			cssClass="add-margin error-msg" />
@@ -143,8 +143,8 @@
 	<label class="{className} control-label text-right toggle-madatory Comp"><spring:message
 			code="lbl.len.com.wall" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation dyn-mandatory decimalfixed Comp"
-			data-pattern="decimalvalue" id="siteDetail[0].lengthOfCompoundWall" maxlength="5"
+		<form:input class="form-control patternvalidation dyn-mandatory decimalfixed nonzero Comp"
+			data-pattern="decimalvalue" id="siteDetail[0].lengthOfCompoundWall" maxlength="8"
 			path="siteDetail[0].lengthOfCompoundWall" required="required" />
 		<form:errors path="siteDetail[0].lengthOfCompoundWall"
 			cssClass="add-margin error-msg" />
@@ -155,7 +155,7 @@
 	<label class="{className} control-label text-right toggle-madatory Roof"><spring:message
 			code="lbl.roof.conv" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation dyn-mandatory decimalfixed Roof"
+		<form:input class="form-control patternvalidation dyn-mandatory decimalfixed nonzero Roof"
 			data-pattern="decimalvalue" id="roofConversion" maxlength="10"
 			path="siteDetail[0].roofConversion" required="required" />
 		<form:errors path="siteDetail[0].roofConversion"

@@ -1,10 +1,13 @@
 package org.egov.bpa.service;
 
+import static org.egov.bpa.utils.BpaConstants.WF_SURVEYOR_FORWARD_BUTTON;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.workflow.BpaApplicationWorkflowCustomDefaultImpl;
@@ -140,7 +143,7 @@ public class BpaUtils {
 	public void updatePortalUserinbox(final BpaApplication application, final User additionalPortalInboxUser) {
 		Module module = moduleService.getModuleByName(BpaConstants.EGMODULE_NAME);
 		boolean isResolved = false;
-		if ((application.getState() != null && application.getState().equals(WF_END_ACTION))
+		if ((application.getState() != null && WF_END_ACTION.equals(application.getState().getValue()))
 				|| (application.getStatus() != null
 						&& application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_CANCELLED)))
 			isResolved = true;
@@ -152,18 +155,25 @@ public class BpaUtils {
 	}
 
 	@Transactional
-	public void createPortalUserinbox(final BpaApplication application, final List<User> portalInboxUser) {
-		Module module = moduleService.getModuleByName(BpaConstants.EGMODULE_NAME);
-		boolean isResolved = false;
-		String url = "/bpa/application/citizen/update/" + application.getApplicationNumber();
-		final PortalInboxBuilder portalInboxBuilder = new PortalInboxBuilder(module,
-				application.getServiceType().getDescription(), application.getApplicationNumber(),
-				application.getPlanPermissionNumber(), application.getId(), "Sucess", "suceess1", url, isResolved,
-				"To be submitted", new Date(), application.getState(), portalInboxUser);
+    public void createPortalUserinbox(final BpaApplication application, final List<User> portalInboxUser,
+            final String workFlowAction) {
+        String status = StringUtils.EMPTY;
+        if ("Save".equalsIgnoreCase(workFlowAction)) {
+            status = "To be submitted";
+        } else if (null != application.getStatus().getDescription() && WF_SURVEYOR_FORWARD_BUTTON.equalsIgnoreCase(workFlowAction)) {
+            status = application.getStatus().getDescription();
+        }
+        Module module = moduleService.getModuleByName(BpaConstants.EGMODULE_NAME);
+        boolean isResolved = false;
+        String url = "/bpa/application/citizen/update/" + application.getApplicationNumber();
+        final PortalInboxBuilder portalInboxBuilder = new PortalInboxBuilder(module,
+                application.getServiceType().getDescription(), application.getApplicationNumber(),
+                application.getPlanPermissionNumber(), application.getId(), "Sucess", "suceess1", url, isResolved,
+                status, new Date(), application.getState(), portalInboxUser);
 
-		final PortalInbox portalInbox = portalInboxBuilder.build();
-		portalInboxService.pushInboxMessage(portalInbox);
-	}
+        final PortalInbox portalInbox = portalInboxBuilder.build();
+        portalInboxService.pushInboxMessage(portalInbox);
+    }
 
 	@Transactional(readOnly = true)
 	public Long getUserPositionIdByZone(final String designation, final Long boundary) {
