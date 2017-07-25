@@ -1,7 +1,7 @@
 package builders.propertyTax.masters.occupancy;
 
-import builders.propertyTax.masters.AuditDetailsBuilder;
-import entities.requests.propertyTax.masters.AuditDetails;
+import builders.propertyTax.AuditDetailsBuilder;
+import entities.requests.propertyTax.AuditDetails;
 import entities.requests.propertyTax.masters.occupancy.OccuapancyMasters;
 
 import static data.ConstantData.tenantId;

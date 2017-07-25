@@ -1,6 +1,6 @@
 package builders.propertyTax.masters.propertyType;
 
-import entities.requests.propertyTax.masters.RequestInfo;
+import entities.requests.propertyTax.RequestInfo;
 import entities.requests.propertyTax.masters.propertyType.PropertyTypeRequest;
 import entities.requests.propertyTax.masters.propertyType.PropertyTypes;
 

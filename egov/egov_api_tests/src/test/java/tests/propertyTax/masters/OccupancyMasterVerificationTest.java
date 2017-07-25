@@ -1,10 +1,10 @@
 package tests.propertyTax.masters;
 
-import builders.propertyTax.masters.RequestInfoBuilder;
+import builders.propertyTax.RequestInfoBuilder;
 import builders.propertyTax.masters.occupancy.OccupancyMasterRequestBuilder;
 import builders.propertyTax.masters.occupancy.OccupancyMastersBuilder;
 import com.jayway.restassured.response.Response;
-import entities.requests.propertyTax.masters.RequestInfo;
+import entities.requests.propertyTax.RequestInfo;
 import entities.requests.propertyTax.masters.occupancy.OccuapancyMasters;
 import entities.requests.propertyTax.masters.occupancy.OccupancyMasterRequest;
 import entities.responses.propertyTax.masters.occupancy.create.OccupancyMasterResponse;

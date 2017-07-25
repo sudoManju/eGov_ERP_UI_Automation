@@ -1,17 +1,17 @@
-package builders.propertyTax.billingServices;
+package builders.propertyTax;
 
-import entities.requests.propertyTax.billingServices.AuditDetails;
+import entities.requests.propertyTax.AuditDetails;
 
 public class AuditDetailsBuilder {
 
     AuditDetails auditDetails = new AuditDetails();
 
-    public AuditDetailsBuilder(){
+    public AuditDetailsBuilder() {
         auditDetails.setCreatedBy("1");
         auditDetails.setLastModifiedBy("1");
     }
 
-    public AuditDetails build(){
+    public AuditDetails build() {
         return auditDetails;
     }
 }

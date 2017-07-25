@@ -1,6 +1,6 @@
 package entities.requests.propertyTax.masters.department;
 
-import entities.requests.propertyTax.masters.RequestInfo;
+import entities.requests.propertyTax.RequestInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class DepartmentMasterRequest {

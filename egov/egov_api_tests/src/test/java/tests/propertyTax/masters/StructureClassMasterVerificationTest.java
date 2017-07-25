@@ -1,10 +1,10 @@
 package tests.propertyTax.masters;
 
-import builders.propertyTax.masters.RequestInfoBuilder;
+import builders.propertyTax.RequestInfoBuilder;
 import builders.propertyTax.masters.structureClass.StructureClassRequestBuilder;
 import builders.propertyTax.masters.structureClass.StructureClassesBuilder;
 import com.jayway.restassured.response.Response;
-import entities.requests.propertyTax.masters.RequestInfo;
+import entities.requests.propertyTax.RequestInfo;
 import entities.requests.propertyTax.masters.structureClass.StructureClassRequest;
 import entities.requests.propertyTax.masters.structureClass.StructureClasses;
 import entities.responses.propertyTax.masters.structureClass.create.StructureClassResponse;

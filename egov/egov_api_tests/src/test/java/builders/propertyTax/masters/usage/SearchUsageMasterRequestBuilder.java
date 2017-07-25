@@ -1,6 +1,6 @@
 package builders.propertyTax.masters.usage;
 
-import entities.requests.propertyTax.masters.RequestInfo;
+import entities.requests.propertyTax.RequestInfo;
 import entities.requests.propertyTax.masters.usage.SearchMasterRequest;
 
 public class SearchUsageMasterRequestBuilder {

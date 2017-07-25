@@ -1,6 +1,6 @@
 package builders.propertyTax.masters.woodTypes;
 
-import entities.requests.propertyTax.masters.RequestInfo;
+import entities.requests.propertyTax.RequestInfo;
 import entities.requests.propertyTax.masters.woodType.WoodTypeMasterRequest;
 import entities.requests.propertyTax.masters.woodType.WoodTypes;
 

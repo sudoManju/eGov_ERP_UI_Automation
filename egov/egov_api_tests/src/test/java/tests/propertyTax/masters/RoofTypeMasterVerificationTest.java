@@ -1,10 +1,10 @@
 package tests.propertyTax.masters;
 
-import builders.propertyTax.masters.RequestInfoBuilder;
+import builders.propertyTax.RequestInfoBuilder;
 import builders.propertyTax.masters.roofTypes.RoofTypeMasterRequestBuilder;
 import builders.propertyTax.masters.roofTypes.RoofTypesBuilder;
 import com.jayway.restassured.response.Response;
-import entities.requests.propertyTax.masters.RequestInfo;
+import entities.requests.propertyTax.RequestInfo;
 import entities.requests.propertyTax.masters.roofType.RoofTypeMasterRequest;
 import entities.requests.propertyTax.masters.roofType.RoofTypes;
 import entities.responses.propertyTax.masters.roofTypes.create.RoofTypeMasterResponse;

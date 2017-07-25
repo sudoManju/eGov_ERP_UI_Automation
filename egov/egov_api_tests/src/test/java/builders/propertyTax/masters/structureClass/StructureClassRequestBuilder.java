@@ -1,6 +1,6 @@
 package builders.propertyTax.masters.structureClass;
 
-import entities.requests.propertyTax.masters.RequestInfo;
+import entities.requests.propertyTax.RequestInfo;
 import entities.requests.propertyTax.masters.structureClass.StructureClassRequest;
 import entities.requests.propertyTax.masters.structureClass.StructureClasses;
 

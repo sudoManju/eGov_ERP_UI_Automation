@@ -1,9 +1,9 @@
 package tests.propertyTax.masters;
 
-import builders.propertyTax.masters.RequestInfoBuilder;
+import builders.propertyTax.RequestInfoBuilder;
 import builders.propertyTax.masters.usage.SearchUsageMasterRequestBuilder;
 import com.jayway.restassured.response.Response;
-import entities.requests.propertyTax.masters.RequestInfo;
+import entities.requests.propertyTax.RequestInfo;
 import entities.requests.propertyTax.masters.usage.SearchMasterRequest;
 import entities.responses.propertyTax.masters.department.create.DepartmentsMasterResponse;
 import entities.responses.propertyTax.masters.department.search.SearchDepartmentsResponse;

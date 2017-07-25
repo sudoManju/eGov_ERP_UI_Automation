@@ -1,6 +1,6 @@
 package entities.requests.propertyTax.masters.structureClass;
 
-import entities.requests.propertyTax.masters.RequestInfo;
+import entities.requests.propertyTax.RequestInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class StructureClassRequest {

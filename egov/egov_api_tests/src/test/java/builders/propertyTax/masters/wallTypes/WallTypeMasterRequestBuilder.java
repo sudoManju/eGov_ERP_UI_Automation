@@ -1,6 +1,6 @@
 package builders.propertyTax.masters.wallTypes;
 
-import entities.requests.propertyTax.masters.RequestInfo;
+import entities.requests.propertyTax.RequestInfo;
 import entities.requests.propertyTax.masters.wallType.WallTypeMasterRequest;
 import entities.requests.propertyTax.masters.wallType.WallTypes;
 

@@ -1,7 +1,7 @@
 package builders.propertyTax.masters.woodTypes;
 
-import builders.propertyTax.masters.AuditDetailsBuilder;
-import entities.requests.propertyTax.masters.AuditDetails;
+import builders.propertyTax.AuditDetailsBuilder;
+import entities.requests.propertyTax.AuditDetails;
 import entities.requests.propertyTax.masters.woodType.WoodTypes;
 
 import static data.ConstantData.tenantId;

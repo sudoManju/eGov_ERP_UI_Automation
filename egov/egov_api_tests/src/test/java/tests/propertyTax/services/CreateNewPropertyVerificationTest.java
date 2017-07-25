@@ -1,14 +1,14 @@
 package tests.propertyTax.services;
 
+import builders.propertyTax.RequestInfoBuilder;
 import builders.propertyTax.services.create.CreateNewPropertyRequestBuilder;
 import builders.propertyTax.services.create.OwnersBuilder;
 import builders.propertyTax.services.create.PropertiesBuilder;
-import builders.propertyTax.services.create.RequestInfoBuilder;
 import com.jayway.restassured.response.Response;
+import entities.requests.propertyTax.RequestInfo;
 import entities.requests.propertyTax.services.create.CreateNewPropertyRequest;
 import entities.requests.propertyTax.services.create.Owners;
 import entities.requests.propertyTax.services.create.Properties;
-import entities.requests.propertyTax.services.create.RequestInfo;
 import entities.responses.propertyTax.services.create.CreateNewPropertyResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;

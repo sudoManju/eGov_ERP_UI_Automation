@@ -1,8 +1,8 @@
 package builders.propertyTax.services.create;
 
+import entities.requests.propertyTax.RequestInfo;
 import entities.requests.propertyTax.services.create.CreateNewPropertyRequest;
 import entities.requests.propertyTax.services.create.Properties;
-import entities.requests.propertyTax.services.create.RequestInfo;
 
 public class CreateNewPropertyRequestBuilder {
 

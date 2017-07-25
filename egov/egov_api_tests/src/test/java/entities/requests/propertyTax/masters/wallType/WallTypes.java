@@ -1,6 +1,6 @@
 package entities.requests.propertyTax.masters.wallType;
 
-import entities.requests.propertyTax.masters.AuditDetails;
+import entities.requests.propertyTax.AuditDetails;
 
 public class WallTypes {
 

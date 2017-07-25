@@ -1,7 +1,7 @@
 package builders.propertyTax.masters.wallTypes;
 
-import builders.propertyTax.masters.AuditDetailsBuilder;
-import entities.requests.propertyTax.masters.AuditDetails;
+import builders.propertyTax.AuditDetailsBuilder;
+import entities.requests.propertyTax.AuditDetails;
 import entities.requests.propertyTax.masters.wallType.WallTypes;
 
 import static data.ConstantData.tenantId;

@@ -1,6 +1,6 @@
 package entities.requests.propertyTax.billingServices.taxPeriodMaster;
 
-import entities.requests.propertyTax.billingServices.AuditDetails;
+import entities.requests.propertyTax.AuditDetails;
 
 public class TaxPeriods {
 

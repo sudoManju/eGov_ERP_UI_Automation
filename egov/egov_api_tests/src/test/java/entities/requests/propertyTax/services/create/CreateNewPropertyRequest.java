@@ -1,5 +1,7 @@
 package entities.requests.propertyTax.services.create;
 
+import entities.requests.propertyTax.RequestInfo;
+
 public class CreateNewPropertyRequest
 {
     private RequestInfo requestInfo;

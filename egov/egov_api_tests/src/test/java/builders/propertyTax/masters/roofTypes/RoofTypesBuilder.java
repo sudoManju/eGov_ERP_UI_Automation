@@ -1,7 +1,7 @@
 package builders.propertyTax.masters.roofTypes;
 
-import builders.propertyTax.masters.AuditDetailsBuilder;
-import entities.requests.propertyTax.masters.AuditDetails;
+import builders.propertyTax.AuditDetailsBuilder;
+import entities.requests.propertyTax.AuditDetails;
 import entities.requests.propertyTax.masters.roofType.RoofTypes;
 
 import static data.ConstantData.tenantId;

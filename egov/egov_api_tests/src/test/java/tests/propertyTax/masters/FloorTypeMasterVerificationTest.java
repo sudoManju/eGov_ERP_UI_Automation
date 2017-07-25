@@ -1,11 +1,11 @@
 package tests.propertyTax.masters;
 
 
-import builders.propertyTax.masters.RequestInfoBuilder;
+import builders.propertyTax.RequestInfoBuilder;
 import builders.propertyTax.masters.floorTypes.FloorTypesBuilder;
 import builders.propertyTax.masters.floorTypes.FloorTypesRequestBuilder;
 import com.jayway.restassured.response.Response;
-import entities.requests.propertyTax.masters.RequestInfo;
+import entities.requests.propertyTax.RequestInfo;
 import entities.requests.propertyTax.masters.floorType.FloorTypes;
 import entities.requests.propertyTax.masters.floorType.FloorTypesRequest;
 import entities.responses.propertyTax.masters.floorTypes.create.FloorTypesResponse;

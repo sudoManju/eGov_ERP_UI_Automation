@@ -1,6 +1,6 @@
 package entities.requests.propertyTax.masters.floorType;
 
-import entities.requests.propertyTax.masters.AuditDetails;
+import entities.requests.propertyTax.AuditDetails;
 
 public class FloorTypes {
     private String tenantId;

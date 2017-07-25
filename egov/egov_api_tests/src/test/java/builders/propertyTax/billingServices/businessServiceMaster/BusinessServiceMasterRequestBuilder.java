@@ -1,6 +1,6 @@
 package builders.propertyTax.billingServices.businessServiceMaster;
 
-import entities.requests.propertyTax.billingServices.RequestInfo;
+import entities.requests.propertyTax.RequestInfo;
 import entities.requests.propertyTax.billingServices.businessServiceMaster.BusinessServiceDetails;
 import entities.requests.propertyTax.billingServices.businessServiceMaster.BusinessServiceMasterRequest;
 

@@ -1,6 +1,6 @@
 package builders.propertyTax.masters.roofTypes;
 
-import entities.requests.propertyTax.masters.RequestInfo;
+import entities.requests.propertyTax.RequestInfo;
 import entities.requests.propertyTax.masters.roofType.RoofTypeMasterRequest;
 import entities.requests.propertyTax.masters.roofType.RoofTypes;
 

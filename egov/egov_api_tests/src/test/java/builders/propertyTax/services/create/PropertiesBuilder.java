@@ -1,5 +1,7 @@
 package builders.propertyTax.services.create;
 
+import builders.propertyTax.AuditDetailsBuilder;
+import entities.requests.propertyTax.AuditDetails;
 import entities.requests.propertyTax.services.create.*;
 
 import static data.ConstantData.tenantId;
@@ -24,8 +26,8 @@ public class PropertiesBuilder {
 
     public PropertiesBuilder(){
         properties.setTenantId(tenantId);
-        properties.setOldUpicNumber("");
-        properties.setVltUpicNumber("");
+        properties.setOldUpicNumber("123456789");
+        properties.setVltUpicNumber("123456789");
         properties.setCreationReason("NEWPROPERTY");
         properties.setAssessmentDate("10/04/2017");
         properties.setOccupancyDate("10/04/2017");

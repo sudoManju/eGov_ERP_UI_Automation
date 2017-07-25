@@ -1,6 +1,6 @@
 package entities.requests.propertyTax.masters.propertyType;
 
-import entities.requests.propertyTax.masters.AuditDetails;
+import entities.requests.propertyTax.AuditDetails;
 
 public class PropertyTypes {
     private String tenantId;

@@ -1,7 +1,7 @@
 package builders.propertyTax.billingServices.glcodesMaster;
 
-import builders.propertyTax.billingServices.AuditDetailsBuilder;
-import entities.requests.propertyTax.billingServices.AuditDetails;
+import builders.propertyTax.AuditDetailsBuilder;
+import entities.requests.propertyTax.AuditDetails;
 import entities.requests.propertyTax.billingServices.glcodesMaster.GlcodeMasters;
 
 import static data.ConstantData.serviceName;

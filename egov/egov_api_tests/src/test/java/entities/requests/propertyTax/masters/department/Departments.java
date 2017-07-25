@@ -1,6 +1,6 @@
 package entities.requests.propertyTax.masters.department;
 
-import entities.requests.propertyTax.masters.AuditDetails;
+import entities.requests.propertyTax.AuditDetails;
 
 public class Departments {
     private String code;

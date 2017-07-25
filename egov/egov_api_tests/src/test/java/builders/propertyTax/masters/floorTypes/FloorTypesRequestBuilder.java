@@ -1,6 +1,6 @@
 package builders.propertyTax.masters.floorTypes;
 
-import entities.requests.propertyTax.masters.RequestInfo;
+import entities.requests.propertyTax.RequestInfo;
 import entities.requests.propertyTax.masters.floorType.FloorTypes;
 import entities.requests.propertyTax.masters.floorType.FloorTypesRequest;
 

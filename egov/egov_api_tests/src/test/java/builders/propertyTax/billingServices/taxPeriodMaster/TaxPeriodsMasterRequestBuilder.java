@@ -1,6 +1,6 @@
 package builders.propertyTax.billingServices.taxPeriodMaster;
 
-import entities.requests.propertyTax.billingServices.RequestInfo;
+import entities.requests.propertyTax.RequestInfo;
 import entities.requests.propertyTax.billingServices.taxPeriodMaster.TaxPeriodsMasterRequest;
 import entities.requests.propertyTax.billingServices.taxPeriodMaster.TaxPeriods;
 

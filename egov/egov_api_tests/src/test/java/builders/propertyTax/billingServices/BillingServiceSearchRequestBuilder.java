@@ -1,7 +1,7 @@
 package builders.propertyTax.billingServices;
 
+import entities.requests.propertyTax.RequestInfo;
 import entities.requests.propertyTax.billingServices.BillingServiceSearchRequest;
-import entities.requests.propertyTax.billingServices.RequestInfo;
 
 public class BillingServiceSearchRequestBuilder {
 

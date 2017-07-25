@@ -1,6 +1,6 @@
 package entities.requests.propertyTax.masters.structureClass;
 
-import entities.requests.propertyTax.masters.AuditDetails;
+import entities.requests.propertyTax.AuditDetails;
 
 public class StructureClasses {
     private String code;

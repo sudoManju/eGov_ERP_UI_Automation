@@ -1,8 +1,8 @@
 package builders.propertyTax.billingServices.glcodesMaster;
 
+import entities.requests.propertyTax.RequestInfo;
 import entities.requests.propertyTax.billingServices.glcodesMaster.GlcodeMasters;
 import entities.requests.propertyTax.billingServices.glcodesMaster.GlcodeMasterRequest;
-import entities.requests.propertyTax.billingServices.RequestInfo;
 
 public class GlcodesMasterRequestBuilder {
 

@@ -1,6 +1,6 @@
 package entities.requests.propertyTax.billingServices.glcodesMaster;
 
-import entities.requests.propertyTax.billingServices.RequestInfo;
+import entities.requests.propertyTax.RequestInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class GlcodeMasterRequest {

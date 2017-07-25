@@ -1,6 +1,6 @@
 package builders.propertyTax.masters.occupancy;
 
-import entities.requests.propertyTax.masters.RequestInfo;
+import entities.requests.propertyTax.RequestInfo;
 import entities.requests.propertyTax.masters.occupancy.OccuapancyMasters;
 import entities.requests.propertyTax.masters.occupancy.OccupancyMasterRequest;
 

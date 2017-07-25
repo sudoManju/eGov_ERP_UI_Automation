@@ -1,6 +1,7 @@
 package builders.propertyTax.services.create;
 
-import entities.requests.propertyTax.services.create.AuditDetails;
+import builders.propertyTax.AuditDetailsBuilder;
+import entities.requests.propertyTax.AuditDetails;
 import entities.requests.propertyTax.services.create.VacantLand;
 
 public class VacantLandBuilder {

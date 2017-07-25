@@ -1,11 +1,12 @@
-package entities.requests.propertyTax.billingServices;
+package entities.requests.propertyTax;
 
 public class AuditDetails {
     private String createdBy;
+
     private String lastModifiedBy;
 
     public String getCreatedBy() {
-        return this.createdBy;
+        return createdBy;
     }
 
     public void setCreatedBy(String createdBy) {
@@ -13,7 +14,7 @@ public class AuditDetails {
     }
 
     public String getLastModifiedBy() {
-        return this.lastModifiedBy;
+        return lastModifiedBy;
     }
 
     public void setLastModifiedBy(String lastModifiedBy) {

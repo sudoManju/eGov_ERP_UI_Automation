@@ -1,6 +1,6 @@
 package builders.propertyTax.masters.department;
 
-import entities.requests.propertyTax.masters.RequestInfo;
+import entities.requests.propertyTax.RequestInfo;
 import entities.requests.propertyTax.masters.department.DepartmentMasterRequest;
 import entities.requests.propertyTax.masters.department.Departments;
 

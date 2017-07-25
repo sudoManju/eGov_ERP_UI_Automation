@@ -1,7 +1,7 @@
 package builders.propertyTax.masters.department;
 
-import builders.propertyTax.masters.AuditDetailsBuilder;
-import entities.requests.propertyTax.masters.AuditDetails;
+import builders.propertyTax.AuditDetailsBuilder;
+import entities.requests.propertyTax.AuditDetails;
 import entities.requests.propertyTax.masters.department.Departments;
 
 import static data.ConstantData.tenantId;

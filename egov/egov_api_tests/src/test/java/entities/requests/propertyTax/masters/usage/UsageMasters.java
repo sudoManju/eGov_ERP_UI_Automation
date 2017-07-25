@@ -1,6 +1,6 @@
 package entities.requests.propertyTax.masters.usage;
 
-import entities.requests.propertyTax.masters.AuditDetails;
+import entities.requests.propertyTax.AuditDetails;
 
 public class UsageMasters {
     private String code;

@@ -1,5 +1,7 @@
 package entities.requests.propertyTax.services.create;
 
+import entities.requests.propertyTax.AuditDetails;
+
 public class Boundary
 {
     private String westBoundedBy;

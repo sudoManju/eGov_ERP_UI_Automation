@@ -1,7 +1,6 @@
-package entities.requests.propertyTax.services.create;
+package entities.requests.propertyTax;
 
-public class RequestInfo
-{
+public class RequestInfo {
     private String apiId;
 
     private String ts;

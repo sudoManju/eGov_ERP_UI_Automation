@@ -1,7 +1,8 @@
 package builders.propertyTax.services.create;
 
+import builders.propertyTax.AuditDetailsBuilder;
+import entities.requests.propertyTax.AuditDetails;
 import entities.requests.propertyTax.services.create.Address;
-import entities.requests.propertyTax.services.create.AuditDetails;
 
 import static data.ConstantData.tenantId;
 

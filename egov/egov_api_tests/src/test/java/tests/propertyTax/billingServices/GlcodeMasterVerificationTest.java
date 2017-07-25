@@ -1,14 +1,14 @@
 package tests.propertyTax.billingServices;
 
+import builders.propertyTax.RequestInfoBuilder;
 import builders.propertyTax.billingServices.BillingServiceSearchRequestBuilder;
 import builders.propertyTax.billingServices.glcodesMaster.GlcodeMastersBuilder;
 import builders.propertyTax.billingServices.glcodesMaster.GlcodesMasterRequestBuilder;
-import builders.propertyTax.billingServices.RequestInfoBuilder;
 import com.jayway.restassured.response.Response;
+import entities.requests.propertyTax.RequestInfo;
 import entities.requests.propertyTax.billingServices.BillingServiceSearchRequest;
 import entities.requests.propertyTax.billingServices.glcodesMaster.GlcodeMasters;
 import entities.requests.propertyTax.billingServices.glcodesMaster.GlcodeMasterRequest;
-import entities.requests.propertyTax.billingServices.RequestInfo;
 import entities.responses.propertyTax.billingServices.glcodesMaster.GlcodesMasterResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;

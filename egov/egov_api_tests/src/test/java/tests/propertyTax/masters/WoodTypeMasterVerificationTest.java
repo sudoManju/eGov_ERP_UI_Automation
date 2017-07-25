@@ -1,10 +1,10 @@
 package tests.propertyTax.masters;
 
-import builders.propertyTax.masters.RequestInfoBuilder;
+import builders.propertyTax.RequestInfoBuilder;
 import builders.propertyTax.masters.woodTypes.WoodTypeMasterRequestBuilder;
 import builders.propertyTax.masters.woodTypes.WoodTypesBuilder;
 import com.jayway.restassured.response.Response;
-import entities.requests.propertyTax.masters.RequestInfo;
+import entities.requests.propertyTax.RequestInfo;
 import entities.requests.propertyTax.masters.woodType.WoodTypeMasterRequest;
 import entities.requests.propertyTax.masters.woodType.WoodTypes;
 import entities.responses.propertyTax.masters.woodTypes.create.WoodTypesResponse;

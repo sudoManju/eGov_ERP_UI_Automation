@@ -1,12 +1,12 @@
 package tests.propertyTax.billingServices;
 
+import builders.propertyTax.RequestInfoBuilder;
 import builders.propertyTax.billingServices.BillingServiceSearchRequestBuilder;
-import builders.propertyTax.billingServices.RequestInfoBuilder;
 import builders.propertyTax.billingServices.taxPeriodMaster.TaxPeriodsMasterRequestBuilder;
 import builders.propertyTax.billingServices.taxPeriodMaster.TaxPeriodsBuilder;
 import com.jayway.restassured.response.Response;
+import entities.requests.propertyTax.RequestInfo;
 import entities.requests.propertyTax.billingServices.BillingServiceSearchRequest;
-import entities.requests.propertyTax.billingServices.RequestInfo;
 import entities.requests.propertyTax.billingServices.taxPeriodMaster.TaxPeriodsMasterRequest;
 import entities.requests.propertyTax.billingServices.taxPeriodMaster.TaxPeriods;
 import entities.responses.propertyTax.billingServices.taxPeriodsMaster.TaxPeriodsMasterResponse;

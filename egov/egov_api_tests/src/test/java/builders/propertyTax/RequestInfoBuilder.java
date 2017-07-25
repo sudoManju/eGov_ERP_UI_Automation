@@ -1,6 +1,6 @@
-package builders.propertyTax.masters;
+package builders.propertyTax;
 
-import entities.requests.propertyTax.masters.RequestInfo;
+import entities.requests.propertyTax.RequestInfo;
 
 public class RequestInfoBuilder {
 
