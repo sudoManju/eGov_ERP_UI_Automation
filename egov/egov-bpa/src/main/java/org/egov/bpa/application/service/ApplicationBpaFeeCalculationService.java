@@ -151,7 +151,7 @@ public class ApplicationBpaFeeCalculationService {
 						} else {
 							occupancy = "Others";
 						}
-                        BigDecimal feeAmount = getBpaFeeObjByOccupancyType(occupancy, bpaFee);
+                        BigDecimal feeAmount = getBpaFeeObjByOccupancyType(bpaFee.getCode(),occupancy, bpaFee);
 
                         if (("101").equals(bpaFee.getCode()) || ("301").equals(bpaFee.getCode())
                                 || ("401").equals(bpaFee.getCode()) || ("601").equals(bpaFee.getCode())
@@ -179,6 +179,7 @@ public class ApplicationBpaFeeCalculationService {
                         } else if (("102").equals(bpaFee.getCode()) || ("302").equals(bpaFee.getCode())
                                 || ("402").equals(bpaFee.getCode()) || ("602").equals(bpaFee.getCode())
                                 || ("702").equals(bpaFee.getCode())) {
+                             
                             // calculate beyondpermissblearea tax for other
                             // If input area greater than maximum allowed area, then calculate penalty rate for remaining area
                             if (inputArea.compareTo(BigDecimal.ZERO) > 0 && beyondPermissibleArea.compareTo(BigDecimal.ZERO) > 0
@@ -300,18 +301,21 @@ public class ApplicationBpaFeeCalculationService {
 
     /**
      * @param occupancyType
+     * @param occupancyType 
      * @param bpaFee
      * @return master rate value for each service type based on occupancy type
      */
-    private BigDecimal getBpaFeeObjByOccupancyType(final String occupancyType, final BpaFee bpaFee) {
+    private BigDecimal getBpaFeeObjByOccupancyType(final String feeCode, String occupancyType, final BpaFee bpaFee) {
         BigDecimal rate = BigDecimal.ZERO;
         for (BpaFeeDetail feeDetail : bpaFee.getFeeDetail()) {
-            if (feeDetail.getAdditionalType() != null
-                    && occupancyType.equalsIgnoreCase(feeDetail.getAdditionalType())) {
-                rate = BigDecimal.valueOf(feeDetail.getAmount());
-                break;
-            } else {
-                rate = BigDecimal.valueOf(feeDetail.getAmount());
+            if(feeCode!=null && feeCode.equalsIgnoreCase(bpaFee.getCode())) {
+                if (feeDetail.getAdditionalType() != null
+                        && occupancyType.equalsIgnoreCase(feeDetail.getAdditionalType())) {
+                    rate = BigDecimal.valueOf(feeDetail.getAmount());
+                    break;
+                } else {
+                    rate = BigDecimal.valueOf(feeDetail.getAmount());
+                }
             }
         }
         return rate;
