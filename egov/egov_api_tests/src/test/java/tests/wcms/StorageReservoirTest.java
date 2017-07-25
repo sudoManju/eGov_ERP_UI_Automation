@@ -22,10 +22,7 @@ import org.junit.Assert;
 import org.testng.annotations.Test;
 import resources.wcms.WCMSResource;
 import tests.BaseAPITest;
-import utils.APILogger;
-import utils.LoginAndLogoutHelper;
-import utils.RequestHelper;
-import utils.ResponseHelper;
+import utils.*;
 
 import java.io.IOException;
 
@@ -39,7 +36,7 @@ public class StorageReservoirTest extends BaseAPITest {
     private SearchBoundaryResponse searchBoundaryResponseWithLocation;
     private SearchReservoirTypesResponse searchReservoirTypesResponse;
 
-    @Test
+    @Test(groups = {Categories.WCMS, Categories.SANITY})
     public void createSearchAndUpdateStorageReservoirTest() throws IOException {
         LoginAndLogoutHelper.login(MANAS); // Login
         searchBoundaryResponseWithZone = searchBoundaryWith(WITH_BOUNDARY_ZONE, WITH_HIERARCHY_REVENUE); // Search Boundary With Zone
@@ -50,6 +47,13 @@ public class StorageReservoirTest extends BaseAPITest {
         CreateStorageReservoirResponse createStorageReservoirResponse = createStorageReservoir(); // Create Storage Reservoir
         CreateStorageReservoirResponse searchStorageReservoirResponse = searchStorageReservoir(createStorageReservoirResponse, WITH_NAME); // Search Storage Reservoir
         updateStorageReservoirWithReservoirType(createStorageReservoirResponse, searchStorageReservoirResponse.getStorageReservoirs()[0].getId()); // Update Storage Reservoir
+        LoginAndLogoutHelper.logout(); // Logout
+    }
+
+    @Test(groups = {Categories.WCMS, Categories.SANITY})
+    public void searchReservoirTypesTest() throws IOException {
+        LoginAndLogoutHelper.login(MANAS); // Login
+        getAllStorageReservoirs(); // Search All Storage Reservoir
         LoginAndLogoutHelper.logout(); // Logout
     }
 
@@ -132,6 +136,7 @@ public class StorageReservoirTest extends BaseAPITest {
                 ResponseHelper.getResponseAsObject(response.asString(), CreateStorageReservoirResponse.class);
 
         Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertTrue(searchStorageReservoirResponse.getStorageReservoirs().length == 1);
         Assert.assertEquals(createStorageReservoirResponse.getStorageReservoirs()[0].getReservoirType(),
                 searchStorageReservoirResponse.getStorageReservoirs()[0].getReservoirType());
         Assert.assertEquals(createStorageReservoirResponse.getStorageReservoirs()[0].getName(),
@@ -180,5 +185,23 @@ public class StorageReservoirTest extends BaseAPITest {
         Assert.assertEquals(updateStorageReservoirResponse.getStorageReservoirs()[0].getZoneName(),
                 storageReservoir.getZoneName());
         new APILogger().log("Update Storage Reservoir Test Request is Completed --");
+    }
+
+    public CreateStorageReservoirResponse getAllStorageReservoirs() throws IOException {
+
+        new APILogger().log("Search All Storage Reservoir's Test Request is Started --");
+        RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
+        SearchStorageReservoirRequest searchStorageReservoirRequest = new SearchStorageReservoirRequestBuilder()
+                .withRequestInfo(requestInfo).build();
+
+        Response response = new WCMSResource()
+                .searchStorageReservoirResource(RequestHelper.getJsonString(searchStorageReservoirRequest), "");
+        CreateStorageReservoirResponse searchStorageReservoirResponse = (CreateStorageReservoirResponse)
+                ResponseHelper.getResponseAsObject(response.asString(), CreateStorageReservoirResponse.class);
+
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertTrue(searchStorageReservoirResponse.getStorageReservoirs().length > 0);
+        new APILogger().log("Search Storage Reservoir Test Request is Completed --");
+        return searchStorageReservoirResponse;
     }
 }

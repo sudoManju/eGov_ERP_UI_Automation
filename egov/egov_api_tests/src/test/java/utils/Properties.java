@@ -146,8 +146,11 @@ public class Properties {
     public static final String wcmsCreateDonationUrl = propertiesReader.getEndPointUrl("wcmsCreateDonationUrl");
     public static final String wcmsSearchDonationUrl = propertiesReader.getEndPointUrl("wcmsSearchDonationUrl");
     public static final String wcmsSearchReservoirTypesUrl = propertiesReader.getEndPointUrl("wcmsSearchReservoirTypesUrl");
+    public static final String wcmsSearchPlantTypesUrl = propertiesReader.getEndPointUrl("wcmsSearchPlantTypesUrl");
     public static final String wcmsCreateStorageReservoirUrl = propertiesReader.getEndPointUrl("wcmsCreateStorageReservoirUrl");
     public static final String wcmsSearchStorageReservoirUrl = propertiesReader.getEndPointUrl("wcmsSearchStorageReservoirUrl");
+    public static final String wcmsCreateTreatmentPlantUrl = propertiesReader.getEndPointUrl("wcmsCreateTreatmentPlantUrl");
+    public static final String wcmsSearchTreatmentPlantUrl = propertiesReader.getEndPointUrl("wcmsSearchTreatmentPlantUrl");
 
     // Search Boundaries
     public static final String searchBoundariesUrl = propertiesReader.getEndPointUrl("searchBoundariesUrl");

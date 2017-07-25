@@ -235,7 +235,7 @@ public class WCMSResource extends Resource {
 
     public Response searchStorageReservoirResource(String json, String path) {
         new APILogger().log("Search Storage Reservoir Test Request is Started with --" + json);
-        Response response = getPOSTResponseFromDEV(json, Properties.wcmsSearchStorageReservoirUrl);
+        Response response = getPOSTResponseFromDEV(json, Properties.wcmsSearchStorageReservoirUrl + path);
         new APILogger().log("Search Storage Reservoir Test Request is Generated as  --" + response.asString());
         return response;
     }
@@ -244,6 +244,34 @@ public class WCMSResource extends Resource {
         new APILogger().log("Update Storage Reservoir Test Request is Started with --" + json);
         Response response = getPOSTResponseFromDEV(json, ResourceHelper.getBaseURL() + "/wcms/masters/storagereservoir/" + id + "/_update");
         new APILogger().log("Update Storage Reservoir Test Request is Generated as  --" + response.asString());
+        return response;
+    }
+
+    public Response getPlantTypesResource(String json) {
+        new APILogger().log("Search PlantTypes Test Request is Started with --" + json);
+        Response response = getPOSTResponseFromDEV(json, Properties.wcmsSearchPlantTypesUrl);
+        new APILogger().log("Search PlantTypes Test Request is Generated as  --" + response.asString());
+        return response;
+    }
+
+    public Response createTreatmentPlantResource(String json) {
+        new APILogger().log("Create TreatmentPlant Test Request is Started with --" + json);
+        Response response = getPOSTResponseFromDEV(json, Properties.wcmsCreateTreatmentPlantUrl);
+        new APILogger().log("Create TreatmentPlant Test Request is Generated as  --" + response.asString());
+        return response;
+    }
+
+    public Response searchTreatmentPlantResource(String json, String path) {
+        new APILogger().log("Search TreatmentPlant Test Request is Started with --" + json);
+        Response response = getPOSTResponseFromDEV(json, Properties.wcmsSearchTreatmentPlantUrl + path);
+        new APILogger().log("Search TreatmentPlant Test Request is Generated as  --" + response.asString());
+        return response;
+    }
+
+    public Response updateTreatmentPlantResource(String json) {
+        new APILogger().log("Update TreatmentPlant Test Request is Started with --" + json);
+        Response response = getPOSTResponseFromDEV(json, ResourceHelper.getBaseURL() + "/wcms/masters/treatmentplant/_update");
+        new APILogger().log("Update TreatmentPlant Test Request is Generated as  --" + response.asString());
         return response;
     }
 }
