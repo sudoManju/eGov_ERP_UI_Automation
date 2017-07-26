@@ -10,6 +10,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
@@ -159,7 +161,6 @@ public class EmployeeOtherDetailsPage extends BasePage {
         jsClick(webDriver.findElement(By.cssSelector("a[href='#jurisdictionList']")), webDriver);
         jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#jurisdictionDetailModal']")), webDriver);
         selectFromDropDown(jurisdictionTypeSelectBox, jurisdictionDetails.getJurisdictionType(), webDriver);
-//        selectFromDropDown(jurisdictionListSelectBox, jurisdictionListSelectBox.findElements(By.tagName("option")).get(0).getText(), webDriver);
         await().atMost(10, SECONDS).until(() -> new Select(jurisdictionListSelectBox).getOptions().size() > 1);
         clickOnButton(new Select(jurisdictionListSelectBox).getOptions().get(1), webDriver);
         clickOnButton(webDriver.findElement(By.id("jurisdictionAddOrUpdate")), webDriver);
@@ -234,8 +235,14 @@ public class EmployeeOtherDetailsPage extends BasePage {
     public void submitCreateEmployee() {
         jsClick(webDriver.findElement(By.id("addEmployee")), webDriver);
         await().atMost(20, TimeUnit.SECONDS).until(() -> webDriver.findElements(By.id("sub")).size() > 0);
+        waitForElementToBeVisible(webDriver.findElement(By.cssSelector(".btn.btn-close")), webDriver);
         clickOnButton(webDriver.findElement(By.cssSelector(".btn.btn-close")), webDriver);
-        switchToPreviouslyOpenedWindow(webDriver);
+        if (webDriver.getWindowHandles().size() > 1) {
+            List<String> windows = new ArrayList<>(webDriver.getWindowHandles());
+            webDriver.switchTo().window(windows.get(1));
+            clickOnButton(webDriver.findElement(By.cssSelector(".btn.btn-close")), webDriver);
+            switchToPreviouslyOpenedWindow(webDriver);
+        } else switchToPreviouslyOpenedWindow(webDriver);
     }
 
     public void closeEmployeeSearch() {
@@ -257,11 +264,13 @@ public class EmployeeOtherDetailsPage extends BasePage {
         clickOnButton(webDriver.findElement(By.cssSelector("[id='sub']")), webDriver);
         waitForElementToBeVisible(webDriver.findElement(By.cssSelector("[data-label='code']")), webDriver);
         Assert.assertEquals(webDriver.findElement(By.cssSelector("[data-label='code']")).getText(), applicationNumber);
+        await().atMost(10, SECONDS).until(() -> webDriver.findElement(By.id("employeeSearchResultTableBody")).findElements(By.tagName("tr")).size() > 0);
         clickOnButton(webDriver.findElement(By.id("employeeSearchResultTableBody")).findElements(By.tagName("tr")).get(0), webDriver);
         switchToNewlyOpenedWindow(webDriver);
     }
 
     public void updateServiceSectionDetails() {
+        await().atMost(15, SECONDS).until(() -> webDriver.findElements(By.cssSelector("a[href='#serviceSection']")).size() == 1);
         clickOnButton(webDriver.findElement(By.cssSelector("a[href='#serviceSection']")), webDriver);
         jsClick(webDriver.findElement(By.cssSelector("[onclick=\"markEditIndex(0,'serviceHistoryDetailModal','serviceHistory')\"]")), webDriver);
         enterText(serviceAreaDescriptionTextBox, "Updated Service Area Description", webDriver);

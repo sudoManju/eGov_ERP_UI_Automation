@@ -156,4 +156,8 @@ public class Properties {
 
     // Search Boundaries
     public static final String searchBoundariesUrl = propertiesReader.getEndPointUrl("searchBoundariesUrl");
+
+    // Collections
+    public static final String collectionsCreateBusinessCategoryUrl = propertiesReader.getEndPointUrl("collectionsCreateBusinessCategoryUrl");
+    public static final String collectionsSearchBusinessCategoryUrl = propertiesReader.getEndPointUrl("collectionsSearchBusinessCategoryUrl");
 }

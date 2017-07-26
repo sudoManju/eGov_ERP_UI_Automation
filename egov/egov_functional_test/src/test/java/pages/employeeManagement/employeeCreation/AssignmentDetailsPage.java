@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
 
+import java.security.Key;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -74,7 +75,7 @@ public class AssignmentDetailsPage extends BasePage {
     @FindBy(id = "assignments.govtOrderNumber-error")
     private WebElement govtOrderNumbererror;
 
-//    @FindBy(xpath = ".//*[@id='agreementTableBody']/td[14]/button[1]")
+    //    @FindBy(xpath = ".//*[@id='agreementTableBody']/td[14]/button[1]")
     @FindBy(css = "td[data-label= 'Action'] button")
     private List<WebElement> editButtons;
 
@@ -98,24 +99,22 @@ public class AssignmentDetailsPage extends BasePage {
         enterDate(toDateTextBox, getCurrentDate(), webDriver);
         selectFromDropDown(departmentSelectBox, assignmentDetails.getDepartment(), webDriver);
         selectFromDropDown(designationSelectBox, assignmentDetails.getDesignation(), webDriver);
-        waitForElementToBeVisible(webDriver.findElement(By.cssSelector("[class='col-sm-6'] [id='assignments.position']")), webDriver);
-        waitForElementToBeClickable(webDriver.findElement(By.cssSelector("[class='col-sm-6'] [id='assignments.position']")), webDriver);
-//        webDriver.findElement(By.cssSelector("[class='col-sm-6'] [id='assignments.position']")).click();
-        enterText(positionSelectBox, "",webDriver);
-        await().atMost(25, SECONDS).until(() -> webDriver.findElements(By.cssSelector("li[class=ui-menu-item]")).size() > 1);
-        clickOnButton(webDriver.findElements(By.cssSelector("li[class=ui-menu-item]")).get(0).findElement(By.tagName("div")),webDriver);
+        await().atMost(10, SECONDS).until(() -> webDriver.findElements(By.cssSelector("[class='col-sm-6'] [id='assignments.position']")).size() == 1);
+        designationSelectBox.sendKeys(Keys.TAB);
+        await().atMost(25, SECONDS).until(() -> webDriver.findElements(By.cssSelector("li[class=ui-menu-item]")).size() >= 1);
+        clickOnButton(webDriver.findElements(By.cssSelector("li[class=ui-menu-item]")).get(0).findElement(By.tagName("div")), webDriver);
         clickOnButton(addOrEditButton, webDriver);
     }
 
 
     public void checkValidationFieldsInAssisgnmentTab() {
-        await().atMost(10 , TimeUnit.SECONDS).until(()-> webDriver.findElements(By.cssSelector("[id='agreementTableBody'] tr")).size() > 0);
-        jsClick(webDriver.findElements(By.cssSelector("td[data-label='Action'] button")).get(0),webDriver);
-        enterText(govtOrderNumberTextBox,"@@@@@",webDriver);
+        await().atMost(10, TimeUnit.SECONDS).until(() -> webDriver.findElements(By.cssSelector("[id='agreementTableBody'] tr")).size() > 0);
+        jsClick(webDriver.findElements(By.cssSelector("td[data-label='Action'] button")).get(0), webDriver);
+        enterText(govtOrderNumberTextBox, "@@@@@", webDriver);
         govtOrderNumberTextBox.sendKeys(Keys.TAB);
-        if(govtOrderNumbererror.getText().equals("Only alphanumeric with -/_ allowed.")){
-            enterText(govtOrderNumberTextBox,"1234",webDriver);
+        if (govtOrderNumbererror.getText().equals("Only alphanumeric with -/_ allowed.")) {
+            enterText(govtOrderNumberTextBox, "1234", webDriver);
         }
-        clickOnButton(addOrEditButton,webDriver);
+        clickOnButton(addOrEditButton, webDriver);
     }
 }
