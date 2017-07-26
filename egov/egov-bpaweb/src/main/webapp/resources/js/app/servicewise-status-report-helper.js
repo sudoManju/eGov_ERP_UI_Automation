@@ -74,7 +74,7 @@ $(document)
 												"dataSrc": function ( json ) {
 													json.data.forEach(function(item){
 														item["rowTotal"] = item.serviceType01 + item.serviceType02 + item.serviceType03 + item.serviceType04 + item.serviceType05 
-															+ item.serviceType06 + item.serviceType07 + item.serviceType08 + item.serviceType09;
+															+ item.serviceType06 + item.serviceType07 + item.serviceType08 + item.serviceType09 + item.serviceType14 + item.serviceType15;
 													});
 									                return json.data;
 									            },   
@@ -375,6 +375,64 @@ $(document)
 														},
 														"sClass" : "text-center"
 													},{
+														"data" : "serviceType14",
+														render : function(data, type, row, meta) {
+															return parseInt(row.serviceType14)!==0 ? '<a onclick="openPopup(\'/bpa/reports/servicewise-statusreport/view?'
+																	+ 'serviceType=Tower Construction'
+																	+ '&'
+																	+ 'applicantName='+applicantName
+																	+ '&'
+																	+ 'applicationNumber='+applicationNumber
+																	+ '&'
+																	+ 'fromDate='+from
+																	+ '&'
+																	+ 'toDate='+to
+																	+ '&'
+																	+ 'ward='+wardId
+																	+ '&'
+																	+ 'electionWard='+electionWardId
+																	+ '&'
+																	+ 'zoneId='+zoneId
+																	+ '&'
+																	+ 'zone='
+																	+ '&'
+																	+ 'status='+row.status
+																	+ '&'
+																	+ 'revenueWard='+wardId
+																	+ '\')" href="javascript:void(0);">'
+																	+ row.serviceType14 + '</a>':row.serviceType14;
+														},
+														"sClass" : "text-center"
+													},{
+														"data" : "serviceType15",
+														render : function(data, type, row, meta) {
+															return parseInt(row.serviceType15)!==0 ? '<a onclick="openPopup(\'/bpa/reports/servicewise-statusreport/view?'
+																	+ 'serviceType=Pole Structures'
+																	+ '&'
+																	+ 'applicantName='+applicantName
+																	+ '&'
+																	+ 'applicationNumber='+applicationNumber
+																	+ '&'
+																	+ 'fromDate='+from
+																	+ '&'
+																	+ 'toDate='+to
+																	+ '&'
+																	+ 'ward='+wardId
+																	+ '&'
+																	+ 'electionWard='+electionWardId
+																	+ '&'
+																	+ 'zoneId='+zoneId
+																	+ '&'
+																	+ 'zone='
+																	+ '&'
+																	+ 'status='+row.status
+																	+ '&'
+																	+ 'revenueWard='+wardId
+																	+ '\')" href="javascript:void(0);">'
+																	+ row.serviceType15 + '</a>':row.serviceType15;
+														},
+														"sClass" : "text-center"
+													},{
 														"data":"rowTotal",
 														"sClass" : "text-center"
 													}],
@@ -397,10 +455,12 @@ $(document)
 															updateTotalFooter(9, api);
 															updateTotalFooter(10, api);
 															updateTotalFooter(11, api);
+															updateTotalFooter(12, api);
+															updateTotalFooter(13, api);
 															}
 													},
 													"aoColumnDefs" : [ {
-														"aTargets" : [2,3,4,5,6,7,8,9,10,11],
+														"aTargets" : [2,3,4,5,6,7,8,9,10,11,12,13],
 														"mRender" : function(data, type, full) {
 															return formatNumberInr(data);    
 														}

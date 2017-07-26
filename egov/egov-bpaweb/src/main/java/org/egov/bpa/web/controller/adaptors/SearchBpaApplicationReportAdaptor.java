@@ -77,6 +77,10 @@ public class SearchBpaApplicationReportAdaptor implements JsonSerializer<SearchB
                     reportResultFormObj.getServiceType08() != null ? reportResultFormObj.getServiceType08() : 0l);
             jsonObject.addProperty("serviceType09",
                     reportResultFormObj.getServiceType09() != null ? reportResultFormObj.getServiceType09() : 0l);
+            jsonObject.addProperty("serviceType14",
+                    reportResultFormObj.getServiceType14() != null ? reportResultFormObj.getServiceType14() : 0l);
+            jsonObject.addProperty("serviceType15",
+                    reportResultFormObj.getServiceType15() != null ? reportResultFormObj.getServiceType15() : 0l);
             jsonObject.addProperty("zone1", reportResultFormObj.getZone1() != null ? reportResultFormObj.getZone1() : 0l);
             jsonObject.addProperty("zone2", reportResultFormObj.getZone2() != null ? reportResultFormObj.getZone2() : 0l);
             jsonObject.addProperty("zone3", reportResultFormObj.getZone3() != null ? reportResultFormObj.getZone3() : 0l);

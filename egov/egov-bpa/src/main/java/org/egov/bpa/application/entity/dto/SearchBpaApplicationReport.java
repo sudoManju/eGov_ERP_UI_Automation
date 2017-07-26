@@ -55,6 +55,8 @@ public class SearchBpaApplicationReport {
     private Long serviceType07;
     private Long serviceType08;
     private Long serviceType09;
+    private Long serviceType14;
+    private Long serviceType15;
     private Long zone1;
     private Long zone2;
     private Long zone3;
@@ -162,6 +164,22 @@ public class SearchBpaApplicationReport {
 
     public void setServiceType09(Long serviceType09) {
         this.serviceType09 = serviceType09;
+    }
+    
+    public Long getServiceType14() {
+        return serviceType14;
+    }
+
+    public void setServiceType14(Long serviceType14) {
+        this.serviceType14 = serviceType14;
+    }
+
+    public Long getServiceType15() {
+        return serviceType15;
+    }
+
+    public void setServiceType15(Long serviceType15) {
+        this.serviceType15 = serviceType15;
     }
 
     public Long getServiceTypeId() {

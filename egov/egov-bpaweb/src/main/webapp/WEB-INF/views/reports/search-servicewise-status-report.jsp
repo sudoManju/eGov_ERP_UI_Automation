@@ -77,6 +77,8 @@
 					<th>Change in Occupancy</th>
 					<th>Amenities</th>
 					<th>Huts and Sheds</th>
+					<th>Tower Construction</th>
+					<th>Pole Structures</th>
 					<th>Total</th>
 				</tr>
 			</thead>
@@ -84,6 +86,8 @@
 				<tr>
 						<td></td>
 						<td>Total</td>
+						<td></td>
+						<td></td>
 						<td></td>
 						<td></td>
 						<td></td>

@@ -69,6 +69,8 @@ public class BpaConstants {
     public static final String RECONSTRUCTION = "Reconstruction";
     public static final String DEMOLITION = "Demolition";
     public static final String NEW_CONSTRUCTION = "New Construction";
+    public static final String TOWER_CONSTRUCTION = "Tower Construction";
+    public static final String POLE_STRUCTURES = "Pole Structures";
     public static final String ZONE = "Zone";
     public static final String WARD = "Ward";
     public static final String BLOCK = "Block";

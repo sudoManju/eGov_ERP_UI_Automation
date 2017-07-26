@@ -47,7 +47,9 @@ import static org.egov.bpa.utils.BpaConstants.DEMOLITION;
 import static org.egov.bpa.utils.BpaConstants.DIVISION_OF_PLOT;
 import static org.egov.bpa.utils.BpaConstants.NEW_CONSTRUCTION;
 import static org.egov.bpa.utils.BpaConstants.PERM_FOR_HUT_OR_SHED;
+import static org.egov.bpa.utils.BpaConstants.POLE_STRUCTURES;
 import static org.egov.bpa.utils.BpaConstants.RECONSTRUCTION;
+import static org.egov.bpa.utils.BpaConstants.TOWER_CONSTRUCTION;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +88,8 @@ public class BpaReportsService {
             Long changeInOccupancy = 0l;
             Long amenities = 0l;
             Long hut = 0l;
+            Long towerConstruction = 0l;
+            Long poleStructure = 0l;
             SearchBpaApplicationReport bpaApplicationReport = new SearchBpaApplicationReport();
             bpaApplicationReport.setStatus(statusCountResMap.getKey());
             for (final Entry<String, Long> statusCountMap : statusCountResMap.getValue().entrySet()) {
@@ -116,6 +120,12 @@ public class BpaReportsService {
                 } else if (PERM_FOR_HUT_OR_SHED.equalsIgnoreCase(statusCountMap.getKey())) {
                     hut = hut + statusCountMap.getValue();
                     bpaApplicationReport.setServiceType09(hut);
+                } else if (TOWER_CONSTRUCTION.equalsIgnoreCase(statusCountMap.getKey())) {
+                    towerConstruction = towerConstruction + statusCountMap.getValue();
+                    bpaApplicationReport.setServiceType14(towerConstruction);
+                } else if (POLE_STRUCTURES.equalsIgnoreCase(statusCountMap.getKey())) {
+                    poleStructure = poleStructure + statusCountMap.getValue();
+                    bpaApplicationReport.setServiceType15(poleStructure);
                 }
             }
             searchBpaApplicationReportList.add(bpaApplicationReport);
