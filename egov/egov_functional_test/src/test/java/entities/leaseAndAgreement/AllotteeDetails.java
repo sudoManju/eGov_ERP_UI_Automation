@@ -1,6 +1,6 @@
 package entities.leaseAndAgreement;
 
-public class LandAllotteeDetails {
+public class AllotteeDetails {
 
     private String aadharNumber;
 

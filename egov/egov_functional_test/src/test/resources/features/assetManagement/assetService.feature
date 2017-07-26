@@ -5,7 +5,7 @@ Feature: Create/Search for Asset Service
 
   Scenario Outline: Create a Asset Service
 
-    Given pilotJA logs in
+    Given kakinadJA logs in
     And user will select the required screen as "Create Asset"
     And user will enter the details as <headerDetails>
     And user will enter the category details as <categoryDetails> and with asset summary status as <assetStatus>

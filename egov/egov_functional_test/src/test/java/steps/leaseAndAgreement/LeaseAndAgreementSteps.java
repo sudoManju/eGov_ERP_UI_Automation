@@ -1,10 +1,9 @@
 package steps.leaseAndAgreement;
 
-import cucumber.api.PendingException;
 import cucumber.api.java8.En;
 import entities.ApprovalDetails;
-import entities.leaseAndAgreement.LandAgreementDetails;
-import entities.leaseAndAgreement.LandAllotteeDetails;
+import entities.leaseAndAgreement.AgreementDetails;
+import entities.leaseAndAgreement.AllotteeDetails;
 import excelDataFiles.ExcelReader;
 import excelDataFiles.LeaseAndAgreementDataReader;
 import pages.ApprovalDetailsPage;
@@ -26,12 +25,12 @@ public class LeaseAndAgreementSteps extends BaseSteps implements En {
 
         And("^user will enter the allottee details as (\\w+) and agreement details as (\\w+)$", (String allotteeDataId,
                                                                                                  String agreementDataId) -> {
-            LandAllotteeDetails landAllotteeDetails = new LeaseAndAgreementDataReader(lamsTestDataFileName).
+            AllotteeDetails allotteeDetails = new LeaseAndAgreementDataReader(lamsTestDataFileName).
                     getAllotteeDetails(allotteeDataId);
-            LandAgreementDetails landAgreementDetails = new LeaseAndAgreementDataReader(lamsTestDataFileName).
+            AgreementDetails agreementDetails = new LeaseAndAgreementDataReader(lamsTestDataFileName).
                     getAgreementDetails(agreementDataId);
 
-            pageStore.get(LeaseAndAgreementPage.class).enterAgreementDetails(landAllotteeDetails, landAgreementDetails,scenarioContext.getAssessmentNumber());
+            pageStore.get(LeaseAndAgreementPage.class).enterAgreementDetails(allotteeDetails, agreementDetails,scenarioContext.getAssessmentNumber());
         });
 
         And("^user will enter the approval details of (\\w+)$", (String officer) -> {

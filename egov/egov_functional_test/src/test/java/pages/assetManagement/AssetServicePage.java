@@ -247,6 +247,12 @@ public class AssetServicePage extends BasePage {
     @FindBy(id = "depreciationRate")
     private WebElement depreciationRateField;
 
+    @FindBy(css = "input[name='Floor Number']")
+    private WebElement floorNumberTextField;
+
+    @FindBy(css = "input[name='Area of the shop']")
+    private WebElement areaOfShopTextField;
+
     private WebDriver webDriver;
 
     public AssetServicePage(WebDriver webDriver) {
@@ -322,6 +328,8 @@ public class AssetServicePage extends BasePage {
                 break;
 
             case "Shop":
+                enterText(floorNumberTextField, get6DigitRandomInt().substring(0, 4), webDriver);
+                enterText(areaOfShopTextField, get6DigitRandomInt(), webDriver);
                 enterText(amenties.get(0), "Shop Number "+get6DigitRandomInt().substring(0, 3), webDriver);
                 enterText(amenties.get(1), get6DigitRandomInt().substring(0, 2), webDriver);
                 clickOnButton(amentiesAddButton, webDriver);

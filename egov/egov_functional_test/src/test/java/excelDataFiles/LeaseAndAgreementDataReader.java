@@ -2,8 +2,8 @@ package excelDataFiles;
 
 import builders.leaseAndAgreement.LandAgreementDetailsBuilder;
 import builders.leaseAndAgreement.LandAllotteeDetailsBuilder;
-import entities.leaseAndAgreement.LandAgreementDetails;
-import entities.leaseAndAgreement.LandAllotteeDetails;
+import entities.leaseAndAgreement.AgreementDetails;
+import entities.leaseAndAgreement.AllotteeDetails;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
@@ -18,7 +18,7 @@ public class LeaseAndAgreementDataReader extends ExcelReader {
         agreementDetailsSheet = workbook.getSheet("landAgreementDetails");
     }
 
-    public LandAllotteeDetails getAllotteeDetails(String dataId) {
+    public AllotteeDetails getAllotteeDetails(String dataId) {
 
         Row dataRow = readDataRow(allotteeDetailsSheet, dataId);
         String nameOfTheAllottee = getCellData(allotteeDetailsSheet, dataRow, "nameOfTheAllottee").getStringCellValue();
@@ -31,7 +31,7 @@ public class LeaseAndAgreementDataReader extends ExcelReader {
 
     }
 
-    public LandAgreementDetails getAgreementDetails(String dataId) {
+    public AgreementDetails getAgreementDetails(String dataId) {
 
         Row dataRow = readDataRow(agreementDetailsSheet, dataId);
 

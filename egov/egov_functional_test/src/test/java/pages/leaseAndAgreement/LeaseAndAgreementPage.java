@@ -1,7 +1,7 @@
 package pages.leaseAndAgreement;
 
-import entities.leaseAndAgreement.LandAgreementDetails;
-import entities.leaseAndAgreement.LandAllotteeDetails;
+import entities.leaseAndAgreement.AgreementDetails;
+import entities.leaseAndAgreement.AllotteeDetails;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -147,45 +147,47 @@ public class LeaseAndAgreementPage extends BasePage {
         switchToNewlyOpenedWindow(webDriver);
     }
 
-    public void enterAgreementDetails(LandAllotteeDetails landAllotteeDetails, LandAgreementDetails landAgreementDetails,String action) {
-        enterLandAllotteeDetails(landAllotteeDetails);
-        enterLandAgreementDetails(landAgreementDetails,action);
+    public void enterAgreementDetails(AllotteeDetails allotteeDetails, AgreementDetails agreementDetails, String action) {
+        enterAllotteeDetails(allotteeDetails);
+        enterAgreementDetails(agreementDetails, action);
     }
 
-    private void enterLandAllotteeDetails(LandAllotteeDetails landAllotteeDetails) {
+    private void enterAllotteeDetails(AllotteeDetails allotteeDetails) {
         enterText(aadharNumberTextBox, get6DigitRandomInt() + get6DigitRandomInt(), webDriver);
         enterText(mobileNumberTextBox, "9" + get6DigitRandomInt() + get6DigitRandomInt().substring(0, 3), webDriver);
-        enterText(nameTextBox,landAllotteeDetails.getName()+getRandomUpperCaseCharacters(2) , webDriver);
-        enterText(emailIdTextBox, landAllotteeDetails.getEmail(), webDriver);
+        enterText(nameTextBox, allotteeDetails.getName() + getRandomUpperCaseCharacters(2), webDriver);
+        enterText(emailIdTextBox, allotteeDetails.getEmail(), webDriver);
         enterText(panTextBox, "ABCDE" + get6DigitRandomInt().substring(0, 4) + "F", webDriver);
-        enterText(tradelicenseNumber, "TL"+get6DigitRandomInt(), webDriver);
-        enterText(tinNumber, "TIN"+get6DigitRandomInt(), webDriver);
+        enterText(tradelicenseNumber, "TL" + get6DigitRandomInt(), webDriver);
+        enterText(tinNumber, "TIN" + get6DigitRandomInt(), webDriver);
         enterText(allotteeAddress, "Kurnool, Adoni, Nellore, Kakinada: AP", webDriver);
 
     }
 
-    private void enterLandAgreementDetails(LandAgreementDetails landAgreementDetails,String action) {
+    private void enterAgreementDetails(AgreementDetails agreementDetails, String action) {
         enterText(tenderNumberTextBox, "T" + get6DigitRandomInt().substring(0, 3), webDriver);
         enterDate(tenderDate, getCurrentDate(), webDriver);
-        selectFromDropDown(natureOfAllotmentDropdown, landAgreementDetails.getNatureOfAllotment(), webDriver);
+        selectFromDropDown(natureOfAllotmentDropdown, agreementDetails.getNatureOfAllotment(), webDriver);
         enterTextWithoutClearing(registrationFeeTextBox, "1000", webDriver);
         enterText(councilNumberTextBox, "C" + get6DigitRandomInt().substring(0, 3), webDriver);
         enterDate(councilDate, getCurrentDate(), webDriver);
-        enterText(landRentTextBox, landAgreementDetails.getLandRent(), webDriver);
-        clickOnButton(paymentCycleDropdown.get(getRandomNumber(1, 4)) , webDriver);
-        enterText(bankGuaranteeAmountTextBox, landAgreementDetails.getBankGuaranteeAmount(), webDriver);
+        enterText(landRentTextBox, agreementDetails.getLandRent(), webDriver);
+        clickOnButton(paymentCycleDropdown.get(getRandomNumber(1, 4)), webDriver);
+        enterText(bankGuaranteeAmountTextBox, agreementDetails.getBankGuaranteeAmount(), webDriver);
         enterDate(bankGuaranteeDate, getCurrentDate(), webDriver);
         enterText(solvencyCertificateNumberTextBox, "S" + get6DigitRandomInt().substring(0, 3), webDriver);
         enterDate(solvencyCertificateDate, getCurrentDate(), webDriver);
         enterDate(securityDepositDate, getCurrentDate(), webDriver);
-        String value = "1"+get6DigitRandomInt();
+        String value = "1" + get6DigitRandomInt();
         enterDate(commencementDate, getCurrentDate(), webDriver);
-        clickOnButton(rentIncrementMethodDropdown.get(getRandomNumber(1, 4)), webDriver);
+        if(webDriver.findElements(By.cssSelector("select[id='rentIncrementMethod'] option")).size() > 0)
+            clickOnButton(webDriver.findElements(By.cssSelector("select[id='rentIncrementMethod'] option")).get(getRandomNumber(1, 4)), webDriver);
+//        clickOnButton(rentIncrementMethodDropdown.get(getRandomNumber(1, 4)), webDriver);
         enterTextWithoutClearing(goodWillAmountTextBox, value, webDriver);
         clickOnButton(timePeriodDropdown.get(getRandomNumber(1, 5)), webDriver);
         enterText(remarksTextBox, "Agreement Created", webDriver);
-        if(action.equals("Data Entry")){
-            enterText(collectedSecurityDepositTextField, get6DigitRandomInt(), webDriver);
+        if (action.equals("Data Entry")) {
+            enterText(collectedSecurityDepositTextField, get6DigitRandomInt().substring(0,3), webDriver);
             enterText(collectedGoodWillAmountTextField, value, webDriver);
             clickOnButton(submitButton, webDriver);
         }

@@ -1,36 +1,36 @@
 package builders.leaseAndAgreement;
 
-import entities.leaseAndAgreement.LandAllotteeDetails;
+import entities.leaseAndAgreement.AllotteeDetails;
 
 public final class LandAllotteeDetailsBuilder {
-    LandAllotteeDetails landAllotteeDetails = new LandAllotteeDetails();
+    AllotteeDetails allotteeDetails = new AllotteeDetails();
 
     public LandAllotteeDetailsBuilder withAadharNumber(String aadharNumber) {
-        landAllotteeDetails.setAadharNumber(aadharNumber);
+        allotteeDetails.setAadharNumber(aadharNumber);
         return this;
     }
 
     public LandAllotteeDetailsBuilder withMobileNumber(String mobileNumber) {
-        landAllotteeDetails.setMobileNumber(mobileNumber);
+        allotteeDetails.setMobileNumber(mobileNumber);
         return this;
     }
 
     public LandAllotteeDetailsBuilder withName(String name) {
-        landAllotteeDetails.setName(name);
+        allotteeDetails.setName(name);
         return this;
     }
 
     public LandAllotteeDetailsBuilder withEmail(String emailIdx) {
-        landAllotteeDetails.setEmail(emailIdx);
+        allotteeDetails.setEmail(emailIdx);
         return this;
     }
 
     public LandAllotteeDetailsBuilder withPan(String pan) {
-        landAllotteeDetails.setPan(pan);
+        allotteeDetails.setPan(pan);
         return this;
     }
 
-    public LandAllotteeDetails build() {
-        return landAllotteeDetails;
+    public AllotteeDetails build() {
+        return allotteeDetails;
     }
 }
