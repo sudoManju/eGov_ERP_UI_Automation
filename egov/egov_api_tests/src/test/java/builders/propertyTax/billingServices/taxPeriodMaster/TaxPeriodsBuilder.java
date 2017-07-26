@@ -21,6 +21,11 @@ public class TaxPeriodsBuilder {
         taxPeriods.setAuditDetails(auditDetails);
     }
 
+    public TaxPeriodsBuilder withService(String s){
+        taxPeriods.setService(s);
+        return this;
+    }
+
     public TaxPeriodsBuilder withId(int id){
         taxPeriods.setId(id);
         return this;

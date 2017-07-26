@@ -9,6 +9,7 @@ import entities.requests.propertyTax.RequestInfo;
 import entities.requests.propertyTax.billingServices.BillingServiceSearchRequest;
 import entities.requests.propertyTax.billingServices.taxPeriodMaster.TaxPeriodsMasterRequest;
 import entities.requests.propertyTax.billingServices.taxPeriodMaster.TaxPeriods;
+import entities.responses.propertyTax.billingServices.TaxHeadMasterResponse;
 import entities.responses.propertyTax.billingServices.taxPeriodsMaster.TaxPeriodsMasterResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -40,13 +41,10 @@ public class TaxPeriodMasterVerificationTest extends BaseAPITest {
     private String date3 = "-09-30";
     private String date4 = "-03-31";
 
-    public TaxPeriodMasterVerificationTest(){
-        taxPeriods = new TaxPeriods[2];
-    }
 
     @Test
     public void taxPeriodsTest() throws IOException, ParseException {
-
+        taxPeriods = new TaxPeriods[2];
         LoginAndLogoutHelper.login(NARASAPPA);                                 //Login
         requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
 
@@ -62,6 +60,31 @@ public class TaxPeriodMasterVerificationTest extends BaseAPITest {
             year1 = year1+1;
         }
         LoginAndLogoutHelper.logout();                                       //Logout
+    }
+
+    public TaxPeriodsMasterResponse getTaxPeriodDetails(String service, TaxHeadMasterResponse taxHeadDetails) throws IOException {
+        taxPeriods = new TaxPeriods[1];
+        requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
+        return createTaxPeriodForDemand(service,taxHeadDetails);
+    }
+
+    private TaxPeriodsMasterResponse createTaxPeriodForDemand(String service, TaxHeadMasterResponse taxHeadDetails) throws IOException {
+
+        taxPeriods[0] = new TaxPeriodsBuilder().withCode(String.valueOf(year)+"-"+String.valueOf(year+1)+"-"+"1")
+                .withFinancialYear(String.valueOf(year)+"-"+String.valueOf(year1))
+                .withService(service)
+                .withFromDate(taxHeadDetails.getTaxHeadMasters()[0].getValidFrom())
+                .withToDate(taxHeadDetails.getTaxHeadMasters()[0].getValidTill()).build();
+        TaxPeriodsMasterRequest request = new TaxPeriodsMasterRequestBuilder().withRequestInfo(requestInfo).withTaxPeriods(taxPeriods).build();
+
+        Response response = new TaxPeriodsMasterResource().create(RequestHelper.getJsonString(request));
+        TaxPeriodsMasterResponse responseObject =  (TaxPeriodsMasterResponse)
+                ResponseHelper.getResponseAsObject(response.asString(),TaxPeriodsMasterResponse.class);
+        Assert.assertEquals(response.getStatusCode(),201);
+        Assert.assertEquals(responseObject.getTaxPeriods()[0].getCode(),request.getTaxPeriods()[0].getCode());
+        Assert.assertEquals(responseObject.getTaxPeriods()[0].getFinancialYear(),request.getTaxPeriods()[0].getFinancialYear());
+
+        return responseObject;
     }
 
     private TaxPeriodsMasterResponse updateTaxPeriods(String id, String id1) throws ParseException, IOException {

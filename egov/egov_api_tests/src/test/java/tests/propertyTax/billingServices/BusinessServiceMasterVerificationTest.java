@@ -23,28 +23,37 @@ import java.io.IOException;
 
 import static data.UserData.NARASAPPA;
 
-public class BusinessServiceVerificationTest extends BaseAPITest{
+public class BusinessServiceMasterVerificationTest extends BaseAPITest{
 
     private BusinessServiceDetails[] details;
     private RequestInfo requestInfo;
 
-    public BusinessServiceVerificationTest(){
+    public BusinessServiceMasterVerificationTest(){
         details = new BusinessServiceDetails[1];
     }
 
     @Test
     public void businessServiceTest() throws IOException{
-        LoginAndLogoutHelper.login(NARASAPPA);                                          //Login
+        LoginAndLogoutHelper.login(NARASAPPA);                                             //Login
         requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
 
-        BusinessServiceMasterResponse createObject = createBusinessServiceMaster();      //Create
-        searchBusinessServiceMaster(createObject);                                      // Search
+        details[0] = new BusinessServiceDetailsBuilder().build();
+        BusinessServiceMasterResponse createObject = createBusinessServiceMaster(details);//Create
+        searchBusinessServiceMaster(createObject);                                       // Search
 
-        BusinessServiceMasterResponse updateObject =                                   //Update
+        BusinessServiceMasterResponse updateObject =                                    //Update
                 updateBusinessServiceMaster(createObject.getBusinessServiceDetails()[0].getId());
-        searchBusinessServiceMaster(updateObject);                                    //Search
+        searchBusinessServiceMaster(updateObject);                                     //Search
 
-        LoginAndLogoutHelper.logout();                                                 //Logout
+        LoginAndLogoutHelper.logout();                                                //Logout
+    }
+
+    public String getBusinessService() throws IOException{
+        requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
+        details[0] = new BusinessServiceDetailsBuilder().withBusinessService("Service_"+get3DigitRandomInt()).build();
+        BusinessServiceMasterResponse createObject = createBusinessServiceMaster(details);      //Create
+
+        return createObject.getBusinessServiceDetails()[0].getBusinessService();
     }
 
     private BusinessServiceMasterResponse updateBusinessServiceMaster(String id) throws IOException {
@@ -82,10 +91,9 @@ public class BusinessServiceVerificationTest extends BaseAPITest{
         Assert.assertEquals(responseObject.getBusinessServiceDetails()[0].getCallBackApportionURL(),createObject.getBusinessServiceDetails()[0].getCallBackApportionURL());
     }
 
-    private BusinessServiceMasterResponse createBusinessServiceMaster() throws IOException {
+    private BusinessServiceMasterResponse createBusinessServiceMaster(BusinessServiceDetails[] details) throws IOException {
 
         new APILogger().log("Create Business Service Master API is Started --");
-        details[0] = new BusinessServiceDetailsBuilder().build();
         BusinessServiceMasterRequest request = new BusinessServiceMasterRequestBuilder().withRequestInfo(requestInfo)
                 .withBusinessServiceDetails(details).build();
 

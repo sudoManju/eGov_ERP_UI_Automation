@@ -21,9 +21,9 @@ public class BusinessServiceMasterResource extends Resource {
 
     public Response search(String json,String s){
 
-        new APILogger().log("Create Business Service Master Request is Started as --"+json);
+        new APILogger().log("Search Business Service Master Request is Started as --"+json);
         Response response = getPOSTResponseFromDEV(json,Properties.searchBusinessServiceMasterUrl+tenantId+"&businessService="+serviceName+s);
-        new APILogger().log("Create Business Service Master Response is generated as --"+response.asString());
+        new APILogger().log("Search Business Service Master Response is generated as --"+response.asString());
 
         return response;
     }

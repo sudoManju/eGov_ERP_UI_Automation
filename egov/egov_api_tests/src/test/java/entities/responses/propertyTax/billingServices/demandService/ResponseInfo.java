@@ -1,4 +1,4 @@
-package entities.responses.propertyTax.billingServices.taxPeriodsMaster;
+package entities.responses.propertyTax.billingServices.demandService;
 
 public class ResponseInfo {
     private String ver;

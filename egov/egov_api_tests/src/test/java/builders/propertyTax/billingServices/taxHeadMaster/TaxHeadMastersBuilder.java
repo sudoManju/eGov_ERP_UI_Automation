@@ -31,6 +31,16 @@ public class TaxHeadMastersBuilder {
         return this;
     }
 
+    public TaxHeadMastersBuilder withValidFrom(String from){
+        taxHeadMasters.setValidFrom(from);
+        return this;
+    }
+
+    public TaxHeadMastersBuilder withValidTill(String till){
+        taxHeadMasters.setValidTill(till);
+        return this;
+    }
+
     public TaxHeadMastersBuilder withCategory(String category){
         taxHeadMasters.setCategory(category);
         return this;

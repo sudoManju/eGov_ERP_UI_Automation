@@ -123,6 +123,8 @@ public class Properties {
     public static final String createBusinessServiceMasterUrl = propertiesReader.getEndPointUrl("businessServiceMasterCreateUrl");
     public static final String searchBusinessServiceMasterUrl = propertiesReader.getEndPointUrl("businessServiceMasterSearchUrl");
     public static final String updateBusinessServiceMasterUrl = propertiesReader.getEndPointUrl("businessServiceMasterUpdateUrl");
+    public static final String createDemandUrl = propertiesReader.getEndPointUrl("demandServiceCreateUrl");
+
 
     // Water Charge Management Url's //
     public static final String wcmsCreateCategoryTypeUrl = propertiesReader.getEndPointUrl("wcmsCreateCategoryTypeUrl");

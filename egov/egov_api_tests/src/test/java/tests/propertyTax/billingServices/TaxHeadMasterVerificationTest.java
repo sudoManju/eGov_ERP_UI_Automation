@@ -53,6 +53,11 @@ public class TaxHeadMasterVerificationTest extends BaseAPITest {
         LoginAndLogoutHelper.logout();                                                                   //Logout
     }
 
+    public TaxHeadMasterResponse getTaxHeadDetails(int i,String service) throws IOException {
+        requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
+        return createForDemand(i,service);         //Create
+    }
+
     private TaxHeadMasterResponse update(String id, int i) throws IOException {
 
         new APILogger().log("Update TaxHead Master is started --");
@@ -159,6 +164,26 @@ public class TaxHeadMasterVerificationTest extends BaseAPITest {
     private TaxHeadMasterResponse create(int i) throws IOException {
         new APILogger().log("Create TaxHead Master is started");
         TaxHeadMasterRequest request = new TaxHeadMasterRequestBuilder().withRequestInfo(requestInfo).withTaxHeadMaster(getTaxHeadMasters(i)).build();
+
+        Response response = new TaxHeadMasterResource().create(RequestHelper.getJsonString(request));
+
+        TaxHeadMasterResponse responseObject = checkAssertsForCreate(request,response);
+        Assert.assertEquals(response.getStatusCode(),201);
+        new APILogger().log("Create TaxHead Master is completed for "+responseObject.getTaxHeadMasters()[0].getName());
+
+        return responseObject;
+    }
+
+    private TaxHeadMasterResponse createForDemand(int i,String service) throws IOException{
+        new APILogger().log("Create TaxHead Master is started");
+        taxHeadMasters = getTaxHeadMasters(i);
+        taxHeadMasters[0].setService(service);
+        String time = get5DigitRandomInt()+get3DigitRandomInt();
+        taxHeadMasters[0].getGlcodes()[0].setService(service);
+        taxHeadMasters[0].setValidFrom(time);
+        taxHeadMasters[0].setValidTill(time);
+        taxHeadMasters[0].setName(service);
+        TaxHeadMasterRequest request = new TaxHeadMasterRequestBuilder().withRequestInfo(requestInfo).withTaxHeadMaster(taxHeadMasters).build();
 
         Response response = new TaxHeadMasterResource().create(RequestHelper.getJsonString(request));
 

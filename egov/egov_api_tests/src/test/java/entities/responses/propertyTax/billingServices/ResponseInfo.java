@@ -5,7 +5,7 @@ public class ResponseInfo {
     private Object resMsgId;
     private String msgId;
     private String apiId;
-    private int ts;
+    private long ts;
     private String status;
 
     public String getVer() {
@@ -40,11 +40,11 @@ public class ResponseInfo {
         this.apiId = apiId;
     }
 
-    public int getTs() {
+    public long getTs() {
         return this.ts;
     }
 
-    public void setTs(int ts) {
+    public void setTs(long ts) {
         this.ts = ts;
     }
 

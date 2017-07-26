@@ -26,6 +26,11 @@ public class BusinessServiceDetailsBuilder {
         details.setAuditDetails(auditDetails);
     }
 
+    public BusinessServiceDetailsBuilder withBusinessService(String service){
+        details.setBusinessService(service);
+        return this;
+    }
+
     public BusinessServiceDetailsBuilder withId(int id){
         details.setId(id);
         return this;

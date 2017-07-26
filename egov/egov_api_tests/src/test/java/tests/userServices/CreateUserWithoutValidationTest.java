@@ -36,6 +36,13 @@ public class CreateUserWithoutValidationTest extends BaseAPITest {
         LoginAndLogoutHelper.logout(); // Logout
     }
 
+    public UserResponse getUserInfo() throws IOException{
+        UserResponse create = createUserWithoutValidation(); // Create User
+        searchCreatedUser(create, "id"); // Get User Details with Id
+        searchCreatedUser(create, "userName"); // Get User Details with UserName
+        return create;
+    }
+
     private UserResponse updateUser(int id) throws IOException {
         new APILogger().log("Update user test is started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
@@ -71,6 +78,7 @@ public class CreateUserWithoutValidationTest extends BaseAPITest {
                 break;
         }
 
+        System.out.println(RequestHelper.getJsonString(request));
         Response response = new UserServiceResource().searchCreatedUserResource(RequestHelper.getJsonString(request));
         GetUserResponse response1 = (GetUserResponse)
                 ResponseHelper.getResponseAsObject(response.asString(), GetUserResponse.class);
@@ -83,7 +91,8 @@ public class CreateUserWithoutValidationTest extends BaseAPITest {
     private UserResponse createUserWithoutValidation() throws IOException {
         new APILogger().log("Create User Test is started ---");
         RequestInfo requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
-        User user = new UserBuilder().withUserName("Test_" + get3DigitRandomInt() + get3DigitRandomInt()).build();
+        User user = new UserBuilder().withUserName("Test_" + get5DigitRandomInt())
+                .withMobileNumber("90000"+get5DigitRandomInt()).build();
         CreateUserRequest request = new CreateUserRequestBuilder().withRequestInfo(requestInfo).withUser(user).build();
 
         Response response = new UserServiceResource().createUserWithoutValidationResource(RequestHelper.getJsonString(request));
