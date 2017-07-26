@@ -532,7 +532,8 @@ public class BpaApplication extends StateAware {
     @Override
     public String getStateDetails() {
         final SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        return String.format("Application Number %s with application date %s for the service type of %s.",
+        return String.format("Applicant Name: %s Application Number %s Dated %s For the service type - %s.",
+                owner != null && owner.getUser()!=null ? owner.getUser().getName() : "Not Specified",
                 applicationNumber != null ? applicationNumber : planPermissionNumber,
                 applicationDate != null ? formatter.format(applicationDate) : formatter.format(new Date()),
                 serviceType.getDescription() != null ? serviceType.getDescription() : "");
