@@ -135,6 +135,7 @@ public class ApplicationBpaFeeCalculationService {
                 for (BpaFee bpaFee : bpaFeeService.getActiveSanctionFeeForListOfServices(serviceTypdId)) {
                     if (bpaFee != null) {
                         BigDecimal amount = BigDecimal.ZERO;
+                     if(!application.getIsEconomicallyWeakerSection()){//In case of economically weaker section, amount will be zero.
                         String occupancy;
 						BigDecimal inputArea = getInputUnitForEachServiceType(application,
 								bpaFee.getServiceType().getCode());
@@ -210,7 +211,7 @@ public class ApplicationBpaFeeCalculationService {
                             amount = calculateTowerConstuctionCharges(inputArea, feeAmount);
                         else if (("1006").equals(bpaFee.getCode()))
                             amount = calculatePoleStructureConstuctionCharges(inputArea, feeAmount);
-
+                        }
                         applicationFee
                                 .addApplicationFeeDetail(buildApplicationFeeDetail(bpaFee, applicationFee, amount));
                     }
