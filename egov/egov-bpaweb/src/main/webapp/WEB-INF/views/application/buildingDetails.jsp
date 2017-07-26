@@ -131,7 +131,7 @@
 								id="applicationFloorDetails${counter.index}floorArea" maxlength="15" required="required" value=""
 								onblur="validateFloorDetails(this)" /></td>
 							<td><form:input type="text"
-									class="form-control table-input text-right patternvalidation decimalfixed nonzero carpetArea"
+									class="form-control table-input text-right patternvalidation decimalfixed carpetArea"
 									data-pattern="decimalvalue"
 									path="buildingDetail[0].applicationFloorDetails[${counter.index}].carpetArea"
 									id="applicationFloorDetails${counter.index}carpetArea"
@@ -185,7 +185,7 @@
 								id="applicationFloorDetails0floorArea" maxlength="10" value=""
 								onblur="validateFloorDetails(this)" /></td>
 						<td><form:input type="text"
-								class="form-control table-input text-right patternvalidation decimalfixed nonzero carpetArea floor-details-mandatory"
+								class="form-control table-input text-right patternvalidation decimalfixed carpetArea floor-details-mandatory"
 								data-pattern="decimalvalue"
 								path="buildingDetail[0].applicationFloorDetails[0].carpetArea"
 								id="applicationFloorDetails0carpetArea" maxlength="10" value="" /></td>

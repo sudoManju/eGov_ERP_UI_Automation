@@ -383,7 +383,7 @@ $(document).ready(function() {
 					} else if(parseFloat(totalFloorArea) > areaPermissibleWOAddnlFee) {
 						bootbox
 						.confirm({
-							message : 'For the occupancy type of ' +occpancyObj[0].description+', maximum permissible area allowed with out addtional fee is '+areaPermissibleWOAddnlFee+' Sq.Mtrs, Do you want continue construction in additional area with addtional cost of Rs.1000 per Sq.Mtr.If you want continue further please select Yes / No ?',
+							message : 'For the occupancy type of ' +occpancyObj[0].description+', maximum permissible area allowed with out addtional fee is '+areaPermissibleWOAddnlFee+' Sq.Mtrs, Do you want continue construction in additional area with addtional cost of Rs.3000 per Sq.Mtr.If you want continue further please select Yes / No ?',
 							buttons : {
 								'cancel' : {
 									label : 'No',

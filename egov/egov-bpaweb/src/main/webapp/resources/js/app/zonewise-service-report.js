@@ -87,8 +87,22 @@ $(document)
 											"sDom" : "<'row'<'col-xs-12 hidden col-right'f>r>t<'row'<'col-xs-3'i><'col-xs-3 col-right'l><'col-xs-3 col-right'<'export-data'T>><'col-xs-3 text-right'p>>",
 											"oTableTools" : {
 												"sSwfPath" : "../../../../../../egi/resources/global/swf/copy_csv_xls_pdf.swf",
-												"aButtons" : [ "xls", "pdf",
-																"print" ]
+												"aButtons" : [ 
+										               {
+												             "sExtends": "pdf",
+										                     "sPdfMessage": "",
+										                     "sTitle": "Zone Wise Service Type Report",
+										                     "sPdfOrientation": "landscape"
+											                },
+											                {
+													             "sExtends": "xls",
+										                         "sPdfMessage": "Zone Wise Service Type Report",
+										                         "sTitle": "Zone Wise Service Type Report"
+												             },
+												             {
+													             "sExtends": "print",
+										                         "sTitle": "Zone Wise Service Type Report"
+												             }]
 											},
 											aaSorting : [],
 											columns : [
