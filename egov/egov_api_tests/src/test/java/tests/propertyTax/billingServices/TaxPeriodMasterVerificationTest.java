@@ -9,7 +9,7 @@ import entities.requests.propertyTax.RequestInfo;
 import entities.requests.propertyTax.billingServices.BillingServiceSearchRequest;
 import entities.requests.propertyTax.billingServices.taxPeriodMaster.TaxPeriodsMasterRequest;
 import entities.requests.propertyTax.billingServices.taxPeriodMaster.TaxPeriods;
-import entities.responses.propertyTax.billingServices.TaxHeadMasterResponse;
+import entities.responses.propertyTax.billingServices.taHeadMaster.TaxHeadMasterResponse;
 import entities.responses.propertyTax.billingServices.taxPeriodsMaster.TaxPeriodsMasterResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;

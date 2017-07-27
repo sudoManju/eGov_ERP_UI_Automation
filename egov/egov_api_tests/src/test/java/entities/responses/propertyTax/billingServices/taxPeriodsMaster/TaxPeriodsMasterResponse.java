@@ -1,21 +1,22 @@
 package entities.responses.propertyTax.billingServices.taxPeriodsMaster;
 
+import entities.responses.propertyTax.billingServices.ResponseInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class TaxPeriodsMasterResponse {
 
-    @JsonProperty("ResponseInfo")
-    private ResponseInfo ResponseInfo;
+    @JsonProperty("responseInfo")
+    private ResponseInfo responseInfo;
 
     @JsonProperty("TaxPeriods")
     private TaxPeriods[] TaxPeriods;
 
     public ResponseInfo getResponseInfo() {
-        return this.ResponseInfo;
+        return this.responseInfo;
     }
 
     public void setResponseInfo(ResponseInfo ResponseInfo) {
-        this.ResponseInfo = ResponseInfo;
+        this.responseInfo = ResponseInfo;
     }
 
     public TaxPeriods[] getTaxPeriods() {

@@ -11,7 +11,7 @@ import entities.requests.propertyTax.billingServices.BillingServiceSearchRequest
 import entities.requests.propertyTax.billingServices.taxHeadMaster.Glcodes;
 import entities.requests.propertyTax.billingServices.taxHeadMaster.TaxHeadMasterRequest;
 import entities.requests.propertyTax.billingServices.taxHeadMaster.TaxHeadMasters;
-import entities.responses.propertyTax.billingServices.TaxHeadMasterResponse;
+import entities.responses.propertyTax.billingServices.taHeadMaster.TaxHeadMasterResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import resources.propertyTax.billingServices.TaxHeadMasterResource;

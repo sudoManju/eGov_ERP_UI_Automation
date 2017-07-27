@@ -1,11 +1,12 @@
-package entities.responses.propertyTax.billingServices;
+package entities.responses.propertyTax.billingServices.taHeadMaster;
 
+import entities.responses.propertyTax.billingServices.ResponseInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class TaxHeadMasterResponse {
 
     @JsonProperty("ResponseInfo")
-    private ResponseInfo ResponseInfo;
+    private entities.responses.propertyTax.billingServices.ResponseInfo ResponseInfo;
 
     @JsonProperty("TaxHeadMasters")
     private TaxHeadMasters[] TaxHeadMasters;

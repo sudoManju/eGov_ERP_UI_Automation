@@ -13,7 +13,7 @@ import entities.requests.propertyTax.billingServices.demandService.DemandDetails
 import entities.requests.propertyTax.billingServices.demandService.DemandServiceRequest;
 import entities.requests.propertyTax.billingServices.demandService.Demands;
 import entities.requests.propertyTax.billingServices.demandService.Owner;
-import entities.responses.propertyTax.billingServices.TaxHeadMasterResponse;
+import entities.responses.propertyTax.billingServices.taHeadMaster.TaxHeadMasterResponse;
 import entities.responses.propertyTax.billingServices.demandService.DemandServiceResponse;
 import entities.responses.propertyTax.billingServices.taxPeriodsMaster.TaxPeriodsMasterResponse;
 import entities.responses.userServices.createUser.UserResponse;
@@ -72,8 +72,8 @@ public class DemandServiceVerificationTest extends BaseAPITest{
         Response responseWithMobileNumber = new DemandServiceResource().search(RequestHelper.getJsonString(request),"&mobileNumber="+create.getDemands()[0].getOwner().getMobileNumber());
         checkAssertsForSearch(create,responseWithMobileNumber);
 
-        Response responseWithEmail = new DemandServiceResource().search(RequestHelper.getJsonString(request),"&email="+create.getDemands()[0].getOwner().getEmailId());
-        checkAssertsForSearch(create,responseWithEmail);
+//        Response responseWithEmail = new DemandServiceResource().search(RequestHelper.getJsonString(request),"&email="+create.getDemands()[0].getOwner().getEmailId());
+//        checkAssertsForSearch(create,responseWithEmail);
         new APILogger().log("Search Demand is started --");
     }
 

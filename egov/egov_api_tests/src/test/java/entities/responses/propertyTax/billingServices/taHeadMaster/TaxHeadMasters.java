@@ -1,4 +1,4 @@
-package entities.responses.propertyTax.billingServices;
+package entities.responses.propertyTax.billingServices.taHeadMaster;
 
 public class TaxHeadMasters {
     private long validTill;

@@ -1,21 +1,22 @@
 package entities.responses.propertyTax.billingServices.businessService;
 
+import entities.responses.propertyTax.billingServices.ResponseInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class BusinessServiceMasterResponse {
 
     @JsonProperty("ResponseInfo")
-    private ResponseInfo ResponseInfo;
+    private ResponseInfo responseInfo;
 
     @JsonProperty("BusinessServiceDetails")
     private BusinessServiceDetails[] BusinessServiceDetails;
 
-    public entities.responses.propertyTax.billingServices.businessService.ResponseInfo getResponseInfo() {
-        return this.ResponseInfo;
+    public ResponseInfo getResponseInfo() {
+        return this.responseInfo;
     }
 
-    public void setResponseInfo(entities.responses.propertyTax.billingServices.businessService.ResponseInfo ResponseInfo) {
-        this.ResponseInfo = ResponseInfo;
+    public void setResponseInfo(ResponseInfo ResponseInfo) {
+        this.responseInfo = ResponseInfo;
     }
 
     public entities.responses.propertyTax.billingServices.businessService.BusinessServiceDetails[] getBusinessServiceDetails() {

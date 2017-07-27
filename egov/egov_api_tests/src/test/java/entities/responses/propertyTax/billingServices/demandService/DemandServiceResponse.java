@@ -1,21 +1,22 @@
 package entities.responses.propertyTax.billingServices.demandService;
 
+import entities.responses.propertyTax.billingServices.ResponseInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class DemandServiceResponse {
 
     @JsonProperty("ResponseInfo")
-    private ResponseInfo ResponseInfo;
+    private ResponseInfo responseInfo;
 
     @JsonProperty("Demands")
     private Demands[] Demands;
 
     public ResponseInfo getResponseInfo() {
-        return this.ResponseInfo;
+        return this.responseInfo;
     }
 
     public void setResponseInfo(ResponseInfo ResponseInfo) {
-        this.ResponseInfo = ResponseInfo;
+        this.responseInfo = ResponseInfo;
     }
 
     public Demands[] getDemands() {

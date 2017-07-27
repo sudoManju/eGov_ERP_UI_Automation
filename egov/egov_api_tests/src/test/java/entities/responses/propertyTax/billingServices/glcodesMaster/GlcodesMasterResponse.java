@@ -1,21 +1,22 @@
 package entities.responses.propertyTax.billingServices.glcodesMaster;
 
+import entities.responses.propertyTax.billingServices.ResponseInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class GlcodesMasterResponse {
 
     @JsonProperty("ResponseInfo")
-    private ResponseInfo ResponseInfo;
+    private ResponseInfo responseInfo;
 
     @JsonProperty("GlCodeMasters")
     private GlCodeMasters[] GlCodeMasters;
 
-    public entities.responses.propertyTax.billingServices.glcodesMaster.ResponseInfo getResponseInfo() {
-        return this.ResponseInfo;
+    public ResponseInfo getResponseInfo() {
+        return this.responseInfo;
     }
 
-    public void setResponseInfo(entities.responses.propertyTax.billingServices.glcodesMaster.ResponseInfo ResponseInfo) {
-        this.ResponseInfo = ResponseInfo;
+    public void setResponseInfo(ResponseInfo ResponseInfo) {
+        this.responseInfo = ResponseInfo;
     }
 
     public entities.responses.propertyTax.billingServices.glcodesMaster.GlCodeMasters[] getGlCodeMasters() {
