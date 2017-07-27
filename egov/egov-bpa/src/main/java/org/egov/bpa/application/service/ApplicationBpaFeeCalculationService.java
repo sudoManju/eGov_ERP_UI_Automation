@@ -140,10 +140,10 @@ public class ApplicationBpaFeeCalculationService {
 						BigDecimal inputArea = getInputUnitForEachServiceType(application,
 								bpaFee.getServiceType().getCode());
 						if (BpaConstants.getBpaFeeCateory2().contains(bpaFee.getServiceType().getCode())
-								&& RESIDENTIAL.equalsIgnoreCase(application.getOccupancy().getDescription())
+								&& ( RESIDENTIAL.equalsIgnoreCase(application.getOccupancy().getDescription())
 								|| INDUSTRIAL.equalsIgnoreCase(application.getOccupancy().getDescription())
 								|| MERCANTILE_COMMERCIAL
-										.equalsIgnoreCase(application.getOccupancy().getDescription())) {
+										.equalsIgnoreCase(application.getOccupancy().getDescription()))) {
 							occupancy = application.getOccupancy().getDescription();
 						} else if (RESIDENTIAL.equalsIgnoreCase(application.getOccupancy().getDescription())
 								|| THATCHED_TILED_HOUSE
