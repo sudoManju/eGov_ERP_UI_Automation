@@ -1,6 +1,6 @@
 package tests.assetManagement;
 
-import entities.responses.assetManagement.assetCategory.createCategory.CreateAssetCategoryResponse;
+import entities.responses.assetManagement.createCategory.CreateAssetCategoryResponse;
 import org.testng.annotations.Test;
 import tests.BaseAPITest;
 import utils.Categories;
@@ -8,9 +8,6 @@ import utils.LoginAndLogoutHelper;
 
 import java.io.IOException;
 
-import static data.SearchParameterData.WITH_CODE;
-import static data.UserData.ADMIN;
-import static data.UserData.AssetServiceUser;
 import static data.UserData.NARASAPPA;
 
 public class AssetCategoryAndServiceTest extends BaseAPITest {

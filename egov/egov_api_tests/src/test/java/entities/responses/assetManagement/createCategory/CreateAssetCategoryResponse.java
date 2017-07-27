@@ -1,20 +1,19 @@
-package entities.responses.assetManagement.assetCategory.searchCategory;
+package entities.responses.assetManagement.createCategory;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class SearchAssetCategoryResponse {
+public class CreateAssetCategoryResponse {
 
-    @JsonProperty("TaxPeriodsMasterResponse")
-    private ResponseInfo ResponseInfo;
+    private Object ResponseInfo;
 
     @JsonProperty("AssetCategory")
     private AssetCategory[] AssetCategory;
 
-    public ResponseInfo getResponseInfo() {
+    public Object getResponseInfo() {
         return this.ResponseInfo;
     }
 
-    public void setResponseInfo(ResponseInfo ResponseInfo) {
+    public void setResponseInfo(Object ResponseInfo) {
         this.ResponseInfo = ResponseInfo;
     }
 

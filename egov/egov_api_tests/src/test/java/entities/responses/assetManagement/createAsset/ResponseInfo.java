@@ -1,12 +1,12 @@
-package entities.responses.assetManagement.assetCategory.searchCategory;
+package entities.responses.assetManagement.createAsset;
 
 public class ResponseInfo {
     private String ver;
-    private String resMsgId;
+    private Object resMsgId;
     private String msgId;
     private String apiId;
     private String ts;
-    private String status;
+    private Object status;
 
     public String getVer() {
         return this.ver;
@@ -16,11 +16,11 @@ public class ResponseInfo {
         this.ver = ver;
     }
 
-    public String getResMsgId() {
+    public Object getResMsgId() {
         return this.resMsgId;
     }
 
-    public void setResMsgId(String resMsgId) {
+    public void setResMsgId(Object resMsgId) {
         this.resMsgId = resMsgId;
     }
 
@@ -48,11 +48,11 @@ public class ResponseInfo {
         this.ts = ts;
     }
 
-    public String getStatus() {
+    public Object getStatus() {
         return this.status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Object status) {
         this.status = status;
     }
 }

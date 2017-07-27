@@ -12,12 +12,25 @@ public AssetAttributesBuilder(int i){
 
         case 0:
 
-            assetAttributes.setKey("EAST");
+            assetAttributes.setKey("North");
             assetAttributes.setType("Text");
 
             break;
 
         case 1:
+
+            assetAttributes.setKey("East");
+            assetAttributes.setType("Text");
+
+            break;
+        case 2:
+
+            assetAttributes.setKey("West");
+            assetAttributes.setType("Text");
+
+            break;
+
+        case 3:
 
             assetAttributes.setKey("South");
             assetAttributes.setType("Text");

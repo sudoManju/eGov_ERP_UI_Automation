@@ -1,8 +1,8 @@
-package entities.responses.assetManagement.assetCategory.createCategory;
+package entities.responses.assetManagement.searchCategory;
 
 public class AssetCategory {
     private int unitOfMeasurement;
-    private int parent;
+    private Object parent;
     private String code;
     private int assetAccount;
     private String depreciationMethod;
@@ -15,7 +15,7 @@ public class AssetCategory {
     private String name;
     private AssetFieldsDefination[] assetFieldsDefination;
     private int id;
-    private int depreciationRate;
+    private Object depreciationRate;
     private int accumulatedDepreciationAccount;
 
     public int getUnitOfMeasurement() {
@@ -26,11 +26,11 @@ public class AssetCategory {
         this.unitOfMeasurement = unitOfMeasurement;
     }
 
-    public int getParent() {
+    public Object getParent() {
         return this.parent;
     }
 
-    public void setParent(int parent) {
+    public void setParent(Object parent) {
         this.parent = parent;
     }
 
@@ -130,11 +130,11 @@ public class AssetCategory {
         this.id = id;
     }
 
-    public int getDepreciationRate() {
+    public Object getDepreciationRate() {
         return this.depreciationRate;
     }
 
-    public void setDepreciationRate(int depreciationRate) {
+    public void setDepreciationRate(Object depreciationRate) {
         this.depreciationRate = depreciationRate;
     }
 

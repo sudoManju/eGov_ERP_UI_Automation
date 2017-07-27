@@ -1,4 +1,4 @@
-package entities.responses.assetManagement.assetCategory.createCategory;
+package entities.responses.assetManagement.createCategory;
 
 public class AssetFieldsDefination {
     private Object localText;

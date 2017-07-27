@@ -19,7 +19,7 @@ public class Asset {
 
     private String remarks;
 
-    private String accumulatedDepreciation;
+    private double accumulatedDepreciation;
 
     private String dateOfCreation;
 
@@ -27,7 +27,7 @@ public class Asset {
 
     private String version;
 
-    private String grossValue;
+    private double grossValue;
 
     private String description;
 
@@ -41,9 +41,9 @@ public class Asset {
 
     private AssetCategory assetCategory;
 
-    private String assetReference;
+    private int assetReference;
 
-    private String enableYearWiseDepreciation;
+    private Boolean enableYearWiseDepreciation;
 
     public String getTenantId() {
         return tenantId;
@@ -117,11 +117,11 @@ public class Asset {
         this.remarks = remarks;
     }
 
-    public String getAccumulatedDepreciation() {
+    public double getAccumulatedDepreciation() {
         return accumulatedDepreciation;
     }
 
-    public void setAccumulatedDepreciation(String accumulatedDepreciation) {
+    public void setAccumulatedDepreciation(double accumulatedDepreciation) {
         this.accumulatedDepreciation = accumulatedDepreciation;
     }
 
@@ -149,11 +149,11 @@ public class Asset {
         this.version = version;
     }
 
-    public String getGrossValue() {
+    public double getGrossValue() {
         return grossValue;
     }
 
-    public void setGrossValue(String grossValue) {
+    public void setGrossValue(double grossValue) {
         this.grossValue = grossValue;
     }
 
@@ -205,19 +205,19 @@ public class Asset {
         this.assetCategory = assetCategory;
     }
 
-    public String getAssetReference() {
+    public int getAssetReference() {
         return assetReference;
     }
 
-    public void setAssetReference(String assetReference) {
+    public void setAssetReference(int assetReference) {
         this.assetReference = assetReference;
     }
 
-    public String getEnableYearWiseDepreciation() {
+    public Boolean getEnableYearWiseDepreciation() {
         return enableYearWiseDepreciation;
     }
 
-    public void setEnableYearWiseDepreciation(String enableYearWiseDepreciation) {
+    public void setEnableYearWiseDepreciation(Boolean enableYearWiseDepreciation) {
         this.enableYearWiseDepreciation = enableYearWiseDepreciation;
     }
 

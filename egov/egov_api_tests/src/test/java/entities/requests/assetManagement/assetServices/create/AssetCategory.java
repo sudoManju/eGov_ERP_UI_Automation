@@ -14,13 +14,13 @@ public class AssetCategory
 
     private String parent;
 
-    private String isAssetAllow;
+    private Boolean isAssetAllow;
 
     private String code;
 
     private String version;
 
-    private String id;
+    private int id;
 
     private String depreciationMethod;
 
@@ -82,11 +82,11 @@ public class AssetCategory
         this.parent = parent;
     }
 
-    public String getIsAssetAllow() {
+    public Boolean getIsAssetAllow() {
         return isAssetAllow;
     }
 
-    public void setIsAssetAllow(String isAssetAllow) {
+    public void setIsAssetAllow(Boolean isAssetAllow) {
         this.isAssetAllow = isAssetAllow;
     }
 
@@ -106,11 +106,11 @@ public class AssetCategory
         this.version = version;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

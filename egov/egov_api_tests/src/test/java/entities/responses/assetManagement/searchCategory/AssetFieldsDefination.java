@@ -1,4 +1,4 @@
-package entities.responses.assetManagement.assetCategory.searchCategory;
+package entities.responses.assetManagement.searchCategory;
 
 public class AssetFieldsDefination {
     private Object localText;
