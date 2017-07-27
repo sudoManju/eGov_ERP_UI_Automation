@@ -292,11 +292,11 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
                 bpaApplication.getOwner().getUser().getMobileNumber(), bpaApplication.getOwner().getUser().getGender());
         if (user != null) {
             bpaApplication.getOwner().setUser(user);
-            bpaApplication.setMailPwdRequired(true);
             if (!bpaApplication.getOwner().getUser().isActive())
                 bpaApplication.getOwner().getUser().setActive(true);
         } else {
             bpaApplication.getOwner().setUser(applicationBpaService.createApplicantAsUser(bpaApplication));
+            bpaApplication.setMailPwdRequired(true);
         }
     }
 

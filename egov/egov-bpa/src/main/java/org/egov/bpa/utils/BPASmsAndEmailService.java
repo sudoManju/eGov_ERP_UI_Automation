@@ -138,14 +138,14 @@ public class BPASmsAndEmailService {
                     	password = "";
                     buildSmsAndEmailForBPANewAppln(bpaApplication, applicantName, mobileNo, email,loginUserName,password);
                 }
-                if (applnStakeHolder.getStakeHolder() != null) {
+                if (applnStakeHolder.getStakeHolder() != null && applnStakeHolder.getStakeHolder().getIsActive()) {
                     applicantName = applnStakeHolder.getStakeHolder().getName();
                     email = applnStakeHolder.getStakeHolder().getEmailId();
                     mobileNo = applnStakeHolder.getStakeHolder().getMobileNumber();
                     loginUserName = applnStakeHolder.getStakeHolder().getUsername();
-                    if(bpaApplication.isMailPwdRequired())
+                   /* if(bpaApplication.isMailPwdRequired()) //Will send password only to citizen.
                     	password = mobileNo;
-                    else
+                    else*/
                     	password = "";
                     buildSmsAndEmailForBPANewAppln(bpaApplication, applicantName, mobileNo, email,loginUserName,password);
                 }
