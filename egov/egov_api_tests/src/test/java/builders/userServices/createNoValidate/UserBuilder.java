@@ -42,6 +42,11 @@ public class UserBuilder {
         return this;
     }
 
+    public UserBuilder withEmailId(String emailId){
+        user.setEmailId(emailId);
+        return this;
+    }
+
     public User build() {
         return user;
     }
