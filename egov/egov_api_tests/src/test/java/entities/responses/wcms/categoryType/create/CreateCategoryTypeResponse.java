@@ -5,8 +5,9 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class CreateCategoryTypeResponse {
 
+    @JsonProperty("ResponseInfo")
     private ResponseInfo ResponseInfo;
-    @JsonProperty("categoryTypes")
+    @JsonProperty("CategoryTypes")
     private CategoryTypes[] Category;
 
     public ResponseInfo getResponseInfo() {

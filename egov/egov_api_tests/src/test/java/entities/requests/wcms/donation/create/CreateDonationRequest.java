@@ -1,8 +1,11 @@
 package entities.requests.wcms.donation.create;
 
 import entities.requests.wcms.RequestInfo;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 public class CreateDonationRequest {
+
+    @JsonProperty("Donation")
     private Donation donation;
     private RequestInfo requestInfo;
 

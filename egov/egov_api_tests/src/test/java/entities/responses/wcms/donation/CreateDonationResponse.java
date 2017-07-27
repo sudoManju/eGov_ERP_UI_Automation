@@ -1,8 +1,11 @@
 package entities.responses.wcms.donation;
 
 import entities.responses.wcms.ResponseInfo;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 public class CreateDonationResponse {
+
+    @JsonProperty("Donations")
     private Donations[] donations;
     private ResponseInfo responseInfo;
 

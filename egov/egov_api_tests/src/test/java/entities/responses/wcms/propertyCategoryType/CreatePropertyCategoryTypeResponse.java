@@ -4,10 +4,10 @@ import entities.responses.wcms.ResponseInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class CreatePropertyCategoryTypeResponse {
-    @JsonProperty("responseInfo")
+    @JsonProperty("ResponseInfo")
     private ResponseInfo ResponseInfo;
 
-    @JsonProperty("propertyTypeCategoryTypes")
+    @JsonProperty("PropertyTypeCategoryTypes")
     private PropertyTypeCategoryTypes[] propertyCategories;
 
     public ResponseInfo getResponseInfo() {

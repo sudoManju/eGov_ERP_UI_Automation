@@ -5,7 +5,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class CreateCategoryTypeRequest {
 
-    @JsonProperty("categoryType")
+    @JsonProperty("CategoryType")
     private CategoryType category;
     private RequestInfo requestInfo;
 

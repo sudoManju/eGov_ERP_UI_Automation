@@ -5,9 +5,10 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class CreateDocumentTypeRequest {
 
-    @JsonProperty("documentType")
+    @JsonProperty("DocumentType")
     private DocumentType DocumentType;
-    @JsonProperty("requestInfo")
+
+    @JsonProperty("RequestInfo")
     private RequestInfo RequestInfo;
 
     public DocumentType getDocumentType() {

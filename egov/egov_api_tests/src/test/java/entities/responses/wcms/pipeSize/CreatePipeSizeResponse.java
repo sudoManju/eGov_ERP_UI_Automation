@@ -6,7 +6,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 public class CreatePipeSizeResponse {
     private ResponseInfo ResponseInfo;
 
-    @JsonProperty("pipeSizes")
+    @JsonProperty("PipeSizes")
     private PipeSizes[] PipeSizes;
 
     public ResponseInfo getResponseInfo() {

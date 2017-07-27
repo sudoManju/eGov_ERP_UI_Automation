@@ -4,9 +4,9 @@ import entities.responses.wcms.ResponseInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class CreatePropertyPipeSizeResponse {
-    @JsonProperty("responseInfo")
+    @JsonProperty("ResponseInfo")
     private ResponseInfo ResponseInfo;
-    @JsonProperty("propertyTypePipeSizes")
+    @JsonProperty("PropertyTypePipeSizes")
     private PropertyTypePipeSizes[] PropertyTypePipeSize;
 
     public ResponseInfo getResponseInfo() {

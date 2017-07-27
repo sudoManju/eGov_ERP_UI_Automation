@@ -4,7 +4,7 @@ import entities.requests.wcms.RequestInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class CreatePropertyPipeSizeRequest {
-    @JsonProperty("propertyTypePipeSize")
+    @JsonProperty("PropertyTypePipeSize")
     private PropertyTypePipeSize PropertyTypePipeSize;
     private RequestInfo RequestInfo;
 

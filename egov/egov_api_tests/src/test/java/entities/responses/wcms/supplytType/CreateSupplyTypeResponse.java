@@ -6,7 +6,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 public class CreateSupplyTypeResponse {
     private ResponseInfo ResponseInfo;
 
-    @JsonProperty("supplyTypes")
+    @JsonProperty("SupplyTypes")
     private SupplyTypes[] supplytypes;
 
     public ResponseInfo getResponseInfo() {
