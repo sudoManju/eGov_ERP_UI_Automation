@@ -55,7 +55,7 @@ import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "EGBPA_MSTR_STAKEHOLDER")
-@Unique(fields = { "code", "businessLicenceNumber", "coaEnrolmentNumber", "tinNumber" }, enableDfltMsg = true)
+@Unique(fields = { "code", "coaEnrolmentNumber", "tinNumber" }, enableDfltMsg = true)
 public class StakeHolder extends User {
 
     private static final long serialVersionUID = 3078684328383202788L;
