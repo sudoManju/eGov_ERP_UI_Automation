@@ -24,4 +24,12 @@ public class DemandServiceResource extends Resource{
 
         return response;
     }
+
+    public Response searchDemandDetails(String jsonString, String s) {
+        new APILogger().log("Search Demand Details Request is started as --"+jsonString);
+        Response response = getPOSTResponseFromDEV(jsonString,Properties.searchDemandDetailsUrl+tenantId+s);
+        new APILogger().log("Search Demand Details Response is generated as --"+response.asString());
+
+        return response;
+    }
 }

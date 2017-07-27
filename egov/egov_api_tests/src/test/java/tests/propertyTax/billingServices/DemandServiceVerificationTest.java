@@ -13,6 +13,7 @@ import entities.requests.propertyTax.billingServices.demandService.DemandDetails
 import entities.requests.propertyTax.billingServices.demandService.DemandServiceRequest;
 import entities.requests.propertyTax.billingServices.demandService.Demands;
 import entities.requests.propertyTax.billingServices.demandService.Owner;
+import entities.responses.propertyTax.billingServices.demandDetails.DemandDetailsResponse;
 import entities.responses.propertyTax.billingServices.taHeadMaster.TaxHeadMasterResponse;
 import entities.responses.propertyTax.billingServices.demandService.DemandServiceResponse;
 import entities.responses.propertyTax.billingServices.taxPeriodsMaster.TaxPeriodsMasterResponse;
@@ -53,7 +54,51 @@ public class DemandServiceVerificationTest extends BaseAPITest{
         LoginAndLogoutHelper.login(NARASAPPA);                      //Login
         requestInfo = new RequestInfoBuilder().withAuthToken(scenarioContext.getAuthToken()).build();
         DemandServiceResponse create = createDemandService();      //Create
-        searchDemandService(create);                               //Search
+        searchDemandService(create);                              //Search Demand
+        searchDemandDetails(create);                             //Search Demand Details
+    }
+
+    private void searchDemandDetails(DemandServiceResponse create) throws IOException {
+        new APILogger().log("Search Demand Details is started --");
+        BillingServiceSearchRequest request = new BillingServiceSearchRequestBuilder().withRequestInfo(requestInfo).build();
+
+        Response responseForTenantId = new DemandServiceResource().searchDemandDetails(RequestHelper.getJsonString(request),null);
+        checkAssertsForSearchDemandDetails(create,responseForTenantId);
+
+        Response responseWithDetailsId = new DemandServiceResource().searchDemandDetails(RequestHelper.getJsonString(request),"&detailsId="+create.getDemands()[0].getDemandDetails()[0].getId());
+        checkAssertsForSearchDemandDetails(create,responseWithDetailsId);
+
+        Response responseWithDemandId = new DemandServiceResource().searchDemandDetails(RequestHelper.getJsonString(request),"&demandId="+create.getDemands()[0].getDemandDetails()[0].getDemandId());
+        checkAssertsForSearchDemandDetails(create,responseWithDemandId);
+
+        Response responseWithPeriodFrom = new DemandServiceResource().searchDemandDetails(RequestHelper.getJsonString(request),"&periodFrom="+create.getDemands()[0].getTaxPeriodFrom());
+        checkAssertsForSearchDemandDetails(create,responseWithPeriodFrom);
+
+        Response responseWithPeriodTo = new DemandServiceResource().searchDemandDetails(RequestHelper.getJsonString(request),"&periodTo="+create.getDemands()[0].getTaxPeriodTo());
+        checkAssertsForSearchDemandDetails(create,responseWithPeriodTo);
+
+        Response responseWithTaxHeadCode = new DemandServiceResource().searchDemandDetails(RequestHelper.getJsonString(request),"&taxHeadCode="+create.getDemands()[0].getDemandDetails()[0].getTaxHeadMasterCode());
+        checkAssertsForSearchDemandDetails(create,responseWithTaxHeadCode);
+        new APILogger().log("Search Demand Details is Completed");
+    }
+
+    private void checkAssertsForSearchDemandDetails(DemandServiceResponse create, Response response) throws IOException {
+        DemandDetailsResponse responseObject = (DemandDetailsResponse)
+                ResponseHelper.getResponseAsObject(response.asString(), DemandDetailsResponse.class);
+
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertEquals(responseObject.getResponseInfo().getStatus(), "200");
+
+        for (int i = 0; i < responseObject.getDemandDetails().length; i++) {
+            if (responseObject.getDemandDetails()[i].getId().equals(create.getDemands()[0].getDemandDetails()[0].getId())) {
+                Assert.assertEquals(responseObject.getDemandDetails()[i].getId(), create.getDemands()[0].getDemandDetails()[0].getId());
+                Assert.assertEquals(responseObject.getDemandDetails()[i].getDemandId(), create.getDemands()[0].getDemandDetails()[0].getDemandId());
+                Assert.assertEquals(responseObject.getDemandDetails()[i].getTaxAmount(), create.getDemands()[0].getDemandDetails()[0].getTaxAmount());
+                Assert.assertEquals(responseObject.getDemandDetails()[i].getCollectionAmount(), create.getDemands()[0].getDemandDetails()[0].getCollectionAmount());
+                Assert.assertEquals(responseObject.getDemandDetails()[i].getTaxHeadMasterCode(), create.getDemands()[0].getDemandDetails()[0].getTaxHeadMasterCode());
+                break;
+            }
+        }
     }
 
     private void searchDemandService(DemandServiceResponse create) throws IOException {
