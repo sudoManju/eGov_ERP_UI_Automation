@@ -186,8 +186,8 @@ public class ApplicationBpaFeeCalculationService {
                             if (inputArea.compareTo(BigDecimal.ZERO) > 0 && beyondPermissibleArea.compareTo(BigDecimal.ZERO) > 0
                                     && maximumAlloWedArea.compareTo(BigDecimal.ZERO) > 0
                                     && inputArea.compareTo(maximumAlloWedArea) > 0
-                                    && beyondPermissibleArea.subtract(maximumAlloWedArea)
-                                            .compareTo(inputArea.subtract(maximumAlloWedArea)) >= 0) {
+                                   /* && beyondPermissibleArea.subtract(maximumAlloWedArea)
+                                            .compareTo(inputArea.subtract(maximumAlloWedArea)) >= 0*/) {
                                 // calculate permit fee for maximumAlloWedArea
                                 amount = calculateAdditionalFee(inputArea.subtract(maximumAlloWedArea), feeAmount);
 
