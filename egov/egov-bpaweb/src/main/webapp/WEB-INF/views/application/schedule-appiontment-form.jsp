@@ -75,10 +75,10 @@
 <c:if test="${bpaAppointmentSchedule.purpose eq 'DOCUMENTSCRUTINY'}">
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right"><spring:message
-			code="lbl.appmnt.location" /></label>
+			code="lbl.appmnt.location" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation"
-			data-pattern="string" maxlength="50" id="appointmentLocation"
+			data-pattern="string" maxlength="50" id="appointmentLocation" required="required" 
 			path="appointmentLocation"/>
 		<form:errors path="appointmentLocation"
 			cssClass="add-margin error-msg" />
