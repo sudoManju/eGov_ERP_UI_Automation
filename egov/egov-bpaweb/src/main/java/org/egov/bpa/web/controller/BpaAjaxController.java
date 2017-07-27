@@ -181,11 +181,11 @@ public class BpaAjaxController {
     public List<Occupancy> getOccupancyDetails() {
         return occupancyService.findAll();
     }
-
+    
     @RequestMapping(value = "/getApplicantDetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Map<String, String> getApplicantDetailsForMobileNumber(@RequestParam final String mobileNumber) {
-        Map<String, String> user = new HashMap<String, String>();
+        Map<String, String> user = new HashMap<>();
         List<User> userList = userService.getUserByMobileNumberAndType(mobileNumber, UserType.CITIZEN);
         if (!userList.isEmpty()) {
             User dbUser = userList.get(0);
@@ -211,7 +211,7 @@ public class BpaAjaxController {
         return postalAddressService.getPostalAddressList(pincode);
     }
 
-    @RequestMapping(value = { "/boundary/ajaxBoundary-localityByWard" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/boundary/ajaxBoundary-localityByWard" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public void localityByWard(@RequestParam Long wardId, HttpServletResponse response) throws IOException {
 
         final List<Boundary> blocks = crossHierarchyService
@@ -229,7 +229,7 @@ public class BpaAjaxController {
         IOUtils.write(jsonObjects.toString(), response.getWriter());
     }
     
-    @RequestMapping(value = { "/ajax/getlandusagebyscheme" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/ajax/getlandusagebyscheme" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public void landUsageByScheme(@RequestParam Long schemeId, HttpServletResponse response) throws IOException {
 
         if (schemeId != null) {

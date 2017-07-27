@@ -115,5 +115,11 @@ jQuery(document).ready(function($) {
 		return validateForm1(button, validator);
 	});
 	
+	$('.applicantname').hide();
+	$('#name').change(function() {
+		$('.applicantname').show();
+		$("span#applicantName").html($(this).val());
+	});
+	
 });
 	

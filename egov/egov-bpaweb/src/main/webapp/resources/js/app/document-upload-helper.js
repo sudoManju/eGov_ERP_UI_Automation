@@ -240,6 +240,12 @@ function validateUploadFilesMandatory(){
 	});
 	return isValid;
 }
+
+function focusToTabElement(element) {
+	$('#settingstab a[href="#'
+					+ jQuery(element).closest(".tab-pane").attr('id') + '"]')
+			.tab('show');
+}
 	
 function initializeTooltips(){
 	try{
