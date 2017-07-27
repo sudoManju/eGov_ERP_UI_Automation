@@ -38,9 +38,6 @@
  *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
 package org.egov.bpa.web.controller.application;
-import org.egov.bpa.application.service.SearchBpaApplicationService;
-import org.egov.bpa.service.BpaUtils;
-
 import static org.egov.bpa.utils.BpaConstants.FILESTORE_MODULECODE;
 import static org.egov.infra.utils.JsonUtils.toJSON;
 
@@ -53,6 +50,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.dto.SearchBpaApplicationForm;
+import org.egov.bpa.application.service.InspectionService;
+import org.egov.bpa.application.service.LettertoPartyService;
+import org.egov.bpa.application.service.SearchBpaApplicationService;
+import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.web.controller.adaptors.SearchBpaApplicationFormAdaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -76,6 +77,10 @@ public class SearchBpaApplicationController extends BpaGenericApplicationControl
     
     @Autowired
     private BpaUtils bpaUtils;
+    @Autowired
+    private InspectionService inspectionService;
+    @Autowired
+    LettertoPartyService lettertoPartyService;
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String showSearchApprovedforFee(final Model model) {
@@ -103,6 +108,8 @@ public class SearchBpaApplicationController extends BpaGenericApplicationControl
         model.addAttribute("citizenOrBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
         model.addAttribute(APPLICATION_HISTORY,
                 bpaThirdPartyService.getHistory(application));
+        model.addAttribute("inspectionList", inspectionService.findByBpaApplicationOrderByIdAsc(application));
+        model.addAttribute("lettertopartylist", lettertoPartyService.findByBpaApplicationOrderByIdDesc(application));
         buildReceiptDetails(application);
         return "viewapplication-form";
     }

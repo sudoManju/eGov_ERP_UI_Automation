@@ -61,7 +61,7 @@ jQuery(document)
 										}
 									});
 
-					var validator = $("#editBpaApplicationForm").validate({
+					var validator = $("#viewBpaApplicationForm").validate({
 						highlight : function(element, errorClass) {
 							$(element).fadeOut(function() {
 								$(element).fadeIn();

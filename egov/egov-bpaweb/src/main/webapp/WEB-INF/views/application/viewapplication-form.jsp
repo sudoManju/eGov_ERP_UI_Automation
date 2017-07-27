@@ -60,16 +60,10 @@
 						<li><a data-toggle="tab" href="#doc-scrnty" data-tabidx=2><spring:message
 									code='lbl.document.scrutiny' /></a></li>
 				</c:if>
-				<c:if test="${showUpdateNoc}">
-					<li><a data-toggle="tab" href="#checklist-info" data-tabidx=3><spring:message
-								code='lbl.noc.doc.details' /></a></li>
-				</c:if>
 
 				<c:if test="${not empty bpaApplication.applicationNOCDocument}">
-					<c:if test="${showNOCDetails}">
 						<li><a data-toggle="tab" href="#noc-info" data-tabidx=3><spring:message
 									code='lbl.noc.details' /></a></li>
-					</c:if>
 				</c:if>
 				
 				<c:if test="${not empty bpaApplication.inspections}">
@@ -118,21 +112,11 @@
 						</div>
 				</c:if>
 				<c:if test="${not empty bpaApplication.applicationNOCDocument}">
-					<c:if test="${showNOCDetails}">
 						<div id="noc-info" class="tab-pane fade">
 							<div class="panel panel-primary" data-collapsed="0">
 								<jsp:include page="view-noc-document.jsp"></jsp:include>
 							</div>
 						</div>
-					</c:if>
-				</c:if>
-				<c:if test="${showUpdateNoc}">
-					<input type="hidden" id="showUpdateNoc" value="${showUpdateNoc}">
-					<div id="checklist-info" class="tab-pane fade">
-						<div class="panel panel-primary" data-collapsed="0">
-							<jsp:include page="noc-document-updation.jsp"></jsp:include>
-						</div>
-					</div>
 				</c:if>
 				<c:if test="${not empty bpaApplication.inspections}">
 						<div id="view-inspection" class="tab-pane fade">
@@ -141,7 +125,8 @@
 							</div>
 						</div>
 				</c:if>
-				<c:if test="${not empty bpaApplication.inspections}">
+				
+				<c:if test="${not empty bpaApplication.applicationFee}">
 						<div id="view-fee" class="tab-pane fade">
 							<div class="panel panel-primary" data-collapsed="0">
 								<jsp:include page="view-bpa-fee-details.jsp"></jsp:include>
