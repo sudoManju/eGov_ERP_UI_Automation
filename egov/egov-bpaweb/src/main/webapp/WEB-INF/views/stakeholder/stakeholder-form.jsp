@@ -44,6 +44,7 @@
 <div class="panel-body">
 <input type="hidden" name="username" value="${stakeHolder.username}">
 <input type="hidden" name="password" value="${stakeHolder.password}">
+<input type="hidden" id="invalidBuildingLicensee" value="${invalidBuildingLicensee}">
 
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right"> <spring:message code="lbl.behalf.org" /><span class="mandatory"></span></label>

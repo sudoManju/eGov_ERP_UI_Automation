@@ -250,4 +250,8 @@ public class StakeHolderService {
     public boolean checkIsEmailAlreadyExists(final StakeHolder stakeHolder) {
         return stakeHolderRepository.findByEmailId(stakeHolder.getEmailId()) != null ? true : false;
     }
+    
+    public boolean checkIsStakeholderCodeAlreadyExists(final StakeHolder stakeHolder) {
+        return stakeHolderRepository.findByCode(stakeHolder.getCode()) != null ? true : false;
+    }
 }

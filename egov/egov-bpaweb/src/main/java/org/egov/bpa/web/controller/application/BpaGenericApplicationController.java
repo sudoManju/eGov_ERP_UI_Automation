@@ -85,6 +85,7 @@ import org.egov.infra.admin.master.service.AppConfigValueService;
 import org.egov.infra.admin.master.service.BoundaryService;
 import org.egov.infra.admin.master.service.UserService;
 import org.egov.infra.filestore.service.FileStoreService;
+import org.egov.infra.persistence.entity.enums.UserType;
 import org.egov.infra.utils.FileStoreUtils;
 import org.egov.infra.workflow.entity.StateAware;
 import org.egov.ptis.constants.PropertyTaxConstants;
@@ -287,9 +288,9 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     }
 
     protected void buildOwnerDetails(final BpaApplication bpaApplication) {
-
-        User user = userService.getUserByNameAndMobileNumberForGender(bpaApplication.getOwner().getUser().getName(),
-                bpaApplication.getOwner().getUser().getMobileNumber(), bpaApplication.getOwner().getUser().getGender());
+        User user = userService.getUserByNameAndMobileNumberAndGenderForUserType(bpaApplication.getOwner().getUser().getName(),
+                bpaApplication.getOwner().getUser().getMobileNumber(), bpaApplication.getOwner().getUser().getGender(),
+                UserType.CITIZEN);
         if (user != null) {
             bpaApplication.getOwner().setUser(user);
             if (!bpaApplication.getOwner().getUser().isActive())

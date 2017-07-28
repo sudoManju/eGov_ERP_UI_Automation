@@ -46,4 +46,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StakeHolderRepository extends JpaRepository<StakeHolder, Long> {
     StakeHolder findByEmailId(String email);
+    StakeHolder findByCode(String code);
 }

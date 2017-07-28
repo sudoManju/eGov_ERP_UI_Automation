@@ -107,6 +107,8 @@ if(isOnbehalfOfOrganization === 'true') {
 	$('.toggle-madatory').find("span").removeClass( "mandatory" );
 }
 });
+if ($('#invalidBuildingLicensee').val())
+	bootbox.alert($('#invalidBuildingLicensee').val());
 
 // email validation
 $('input[id$="emailId"]').blur(function() {

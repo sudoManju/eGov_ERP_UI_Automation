@@ -133,6 +133,10 @@ public class UserService {
         return userRepository.findByNameAndMobileNumberAndGender(name, mobileNumber, gender);
     }
     
+    public User getUserByNameAndMobileNumberAndGenderForUserType(final String name, final String mobileNumber, final Gender gender, final UserType type) {
+        return userRepository.findByNameAndMobileNumberAndGenderAndType(name, mobileNumber, gender, type);
+    }
+    
     public List<User> getUserByMobileNumberAndType(final String mobileNumber,final UserType type) {
         return userRepository.findByMobileNumberAndTypeOrderById(mobileNumber, type);
     }

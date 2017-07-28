@@ -54,13 +54,17 @@ import org.egov.bpa.application.service.BPADocumentService;
 import org.egov.bpa.masters.service.StakeHolderService;
 import org.egov.bpa.utils.BPASmsAndEmailService;
 import org.egov.bpa.web.controller.adaptors.StakeHolderJsonAdaptor;
+import org.egov.infra.admin.master.entity.User;
+import org.egov.infra.admin.master.service.UserService;
 import org.egov.infra.persistence.entity.Address;
 import org.egov.infra.persistence.entity.CorrespondenceAddress;
 import org.egov.infra.persistence.entity.PermanentAddress;
 import org.egov.infra.persistence.entity.enums.AddressType;
 import org.egov.infra.persistence.entity.enums.Gender;
+import org.egov.infra.persistence.entity.enums.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -93,6 +97,8 @@ public class StakeHolderController {
     
     @Autowired
     private BPASmsAndEmailService bpaSmsAndEmailService;
+    @Autowired
+    private UserService userService;
 
     private static final String STAKEHOLDER_NEW = "stakeholder-new";
 
@@ -119,8 +125,16 @@ public class StakeHolderController {
             final Model model,
             final HttpServletRequest request,
             final BindingResult errors, final RedirectAttributes redirectAttributes) {
-        if(stakeHolderService.checkIsEmailAlreadyExists(stakeHolder)) {
-            errors.rejectValue("emailId", "msg.email.exists");
+        validateStakeholder(stakeHolder, errors);
+        User user = userService.getUserByNameAndMobileNumberAndGenderForUserType(stakeHolder.getName(),
+                stakeHolder.getMobileNumber(), stakeHolder.getGender(), UserType.BUSINESS);
+        if (user != null) {
+            String message = messageSource.getMessage("msg.name.mobile.exists",
+                    new String[] { user.getName(), user.getMobileNumber(), user.getGender().name() },
+                    LocaleContextHolder.getLocale());
+            model.addAttribute("invalidBuildingLicensee", message);
+            prepareModel(model);
+            return STAKEHOLDER_NEW;
         }
         if (errors.hasErrors()) {
             prepareModel(model);
@@ -131,6 +145,15 @@ public class StakeHolderController {
         bpaSmsAndEmailService.sendEmailForStakeHolder(stakeHolderRes);
         redirectAttributes.addFlashAttribute("message", messageSource.getMessage("msg.create.stakeholder.success", null, null));
         return "redirect:/stakeholder/result/" + stakeHolderRes.getId();
+    }
+
+    private void validateStakeholder(final StakeHolder stakeHolder, final BindingResult errors) {
+        if(stakeHolderService.checkIsStakeholderCodeAlreadyExists(stakeHolder)) {
+            errors.rejectValue("code", "msg.code.exists");
+        }
+        if(stakeHolderService.checkIsEmailAlreadyExists(stakeHolder)) {
+            errors.rejectValue("emailId", "msg.email.exists");
+        }
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
