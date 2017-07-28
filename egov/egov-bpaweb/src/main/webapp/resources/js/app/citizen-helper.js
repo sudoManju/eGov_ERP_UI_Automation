@@ -60,6 +60,12 @@ jQuery(document).ready(function($) {
 		  }
 		});
 	
+	if ($('#noJAORSAMessage') && $('#noJAORSAMessage').val())
+		bootbox.alert($('#noJAORSAMessage').val());
+
+	if ($('#invalidStakeholder').val())
+		bootbox.alert($('#invalidStakeholder').val());
+	
 	function validateForm1(button, validator) {
 
 		if ($('#newCitizenApplicationform').valid() && validateUploadFilesMandatory()) {
