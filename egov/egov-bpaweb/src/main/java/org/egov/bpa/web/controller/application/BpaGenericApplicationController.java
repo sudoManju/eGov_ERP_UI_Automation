@@ -288,11 +288,11 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     }
 
     protected void buildOwnerDetails(final BpaApplication bpaApplication) {
-        User user = userService.getUserByNameAndMobileNumberAndGenderForUserType(bpaApplication.getOwner().getUser().getName(),
+        List<User> users = userService.getUserByNameAndMobileNumberAndGenderForUserType(bpaApplication.getOwner().getUser().getName(),
                 bpaApplication.getOwner().getUser().getMobileNumber(), bpaApplication.getOwner().getUser().getGender(),
                 UserType.CITIZEN);
-        if (user != null) {
-            bpaApplication.getOwner().setUser(user);
+        if (!users.isEmpty()) {
+            bpaApplication.getOwner().setUser(users.get(0));
             if (!bpaApplication.getOwner().getUser().isActive())
                 bpaApplication.getOwner().getUser().setActive(true);
         } else {

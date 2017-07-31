@@ -126,11 +126,11 @@ public class StakeHolderController {
             final HttpServletRequest request,
             final BindingResult errors, final RedirectAttributes redirectAttributes) {
         validateStakeholder(stakeHolder, errors);
-        User user = userService.getUserByNameAndMobileNumberAndGenderForUserType(stakeHolder.getName(),
+        List<User> users = userService.getUserByNameAndMobileNumberAndGenderForUserType(stakeHolder.getName(),
                 stakeHolder.getMobileNumber(), stakeHolder.getGender(), UserType.BUSINESS);
-        if (user != null) {
+        if (!users.isEmpty()) {
             String message = messageSource.getMessage("msg.name.mobile.exists",
-                    new String[] { user.getName(), user.getMobileNumber(), user.getGender().name() },
+                    new String[] { users.get(0).getName(), users.get(0).getMobileNumber(), users.get(0).getGender().name() },
                     LocaleContextHolder.getLocale());
             model.addAttribute("invalidBuildingLicensee", message);
             prepareModel(model);

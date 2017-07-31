@@ -86,7 +86,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByNameAndMobileNumberAndGender(String name, String mobileNumber, Gender gender);
     
-    User findByNameAndMobileNumberAndGenderAndType(String name, String mobileNumber, Gender gender, UserType type);
+    List<User> findByNameAndMobileNumberAndGenderAndTypeOrderByIdDesc(String name, String mobileNumber, Gender gender, UserType type);
     
     List<User> findByMobileNumberAndTypeOrderById(String mobileNumber, UserType type); 
 }
