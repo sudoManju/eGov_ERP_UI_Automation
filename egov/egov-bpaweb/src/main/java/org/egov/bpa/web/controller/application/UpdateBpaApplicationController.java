@@ -260,6 +260,8 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 bpaApplication.getAppointmentSchedule().add(appointmentSchedule);
             }
             String workFlowAction = request.getParameter("workFlowAction");
+            if (!bpaApplication.getApplicationDocument().isEmpty())
+                applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);  
             BpaApplication bpaAppln = applicationBpaService.updateApplication(bpaApplication, approvalPosition, workFlowAction, amountRule);
             String message = messageSource.getMessage("msg.update.forward.documentscrutiny", new String[] {
                     user != null ? user.getUsername().concat("~")

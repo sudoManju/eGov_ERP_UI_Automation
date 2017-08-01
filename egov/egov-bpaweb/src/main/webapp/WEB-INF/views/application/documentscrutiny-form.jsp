@@ -50,26 +50,43 @@
 			id="documentscrutinyform"
 			cssClass="form-horizontal form-groups-bordered"
 			enctype="multipart/form-data">
-			<div class="panel panel-primary" data-collapsed="0">
-				<jsp:include page="view-applicantdetails.jsp"></jsp:include>
-			</div>
-			<div class="panel panel-primary" data-collapsed="0">
-				<jsp:include page="viewapplication-details.jsp"></jsp:include>
-			</div>
-			<div class="panel panel-primary" data-collapsed="0">
-				<jsp:include page="view-sitedetail.jsp"></jsp:include>
-			</div>
-			<div class="panel panel-primary buildingdetails" data-collapsed="0">
-				<jsp:include page="view-building-details.jsp" />
-			</div>
-			<c:if test="${not empty  bpaApplication.receipts}">
-				<div class="panel panel-primary" data-collapsed="0">
-					<jsp:include page="view-bpa-receipt-details.jsp"></jsp:include>
+			
+			<ul class="nav nav-tabs" id="settingstab">
+				<li class="active"><a data-toggle="tab" href="#applicant-info"
+					data-tabidx=0><spring:message code='lbl.appln.details' /></a></li>
+				<li><a data-toggle="tab" href="#document-info" data-tabidx=1><spring:message
+							code='title.documentdetail' /></a></li>
+				</ul>
+			<div class="tab-content">
+				<div id="applicant-info" class="tab-pane fade in active">
+					<div class="panel panel-primary" data-collapsed="0">
+						<jsp:include page="view-applicantdetails.jsp"></jsp:include>
+					</div>
+					<div class="panel panel-primary" data-collapsed="0">
+						<jsp:include page="viewapplication-details.jsp"></jsp:include>
+					</div>
+					<div class="panel panel-primary" data-collapsed="0">
+						<jsp:include page="view-sitedetail.jsp"></jsp:include>
+					</div>
+					<div class="panel panel-primary buildingdetails" data-collapsed="0">
+						<jsp:include page="view-building-details.jsp" />
+					</div>
+					<c:if test="${not empty  bpaApplication.receipts}">
+						<div class="panel panel-primary" data-collapsed="0">
+							<jsp:include page="view-bpa-receipt-details.jsp"></jsp:include>
+						</div>
+					</c:if>
+					<div class="panel panel-primary" data-collapsed="0">
+						<jsp:include page="applicationhistory-view.jsp"></jsp:include>
+					</div>
 				</div>
-			</c:if>
-			<div class="panel panel-primary" data-collapsed="0">
-				<jsp:include page="applicationhistory-view.jsp"></jsp:include>
+				<div id="document-info" class="tab-pane fade">
+					<div class="panel panel-primary" data-collapsed="0">
+						<jsp:include page="view-bpaDocumentdetails.jsp"></jsp:include>
+					</div>
+				</div>
 			</div>
+
 			<div align="center">
 				<c:if test="${mode eq 'newappointment'}">
 					<a

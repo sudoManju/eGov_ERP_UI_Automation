@@ -56,177 +56,196 @@
 				id="currentDesignation" name="currentDesignation" />
 			<form:hidden path="" value="${isApproveValid}" id="isApproveValid"
 				name="isApproveValid" />
+				<ul class="nav nav-tabs" id="settingstab">
+				<li class="active"><a data-toggle="tab" href="#doc-scrutiny-info"
+					data-tabidx=0><spring:message code='lbl.document.scrutiny' /></a></li>
+				<li><a data-toggle="tab" href="#document-info" data-tabidx=1><spring:message
+							code='title.documentdetail' /></a></li>
+				</ul>
+			<div class="tab-content">
+				<div id="doc-scrutiny-info" class="tab-pane fade in active">
+					<div class="panel panel-primary" data-collapsed="0">
+						<div class="panel-body custom-form ">
+							<jsp:include page="viewapplication-details.jsp"></jsp:include>
+						</div>
+						<div class="panel-heading custom_form_panel_heading">
+							<div class="panel-title">
+								<spring:message code="lbl.document.scrutiny" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label text-right"><spring:message
+									code="lbl.re.survey.no" /><span class="mandatory"></span></label>
+							<div class="col-sm-3 add-margin">
+								<form:hidden path="documentScrutiny[0].application"
+									id="scrutinyapplicationid" value="${bpaApplication.id}" />
+								<form:hidden path="documentScrutiny[0].verifiedBy"
+									id="verifiedById" value="${loginUser.id}" />
 
-			<div class="panel panel-primary" data-collapsed="0">
-				<div class="panel-body custom-form ">
-					<jsp:include page="viewapplication-details.jsp"></jsp:include>
-				</div>
-				<div class="panel-heading custom_form_panel_heading">
-					<div class="panel-title">
-						<spring:message code="lbl.document.scrutiny" />
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label text-right"><spring:message
-							code="lbl.re.survey.no" /><span class="mandatory"></span></label>
-					<div class="col-sm-3 add-margin">
-						<form:hidden path="documentScrutiny[0].application"
-							id="scrutinyapplicationid" value="${bpaApplication.id}" />
-						<form:hidden path="documentScrutiny[0].verifiedBy"
-							id="verifiedById" value="${loginUser.id}" />
+								<form:input class="form-control patternvalidation"
+									maxlength="120" data-pattern="alphanumeric" required="required"
+									data-role="tagsinput" id="reSurveynumber"
+									path="documentScrutiny[0].reSurveynumber"
+									value="${bpaApplication.siteDetail[0].reSurveyNumber}" />
+								<form:errors path="documentScrutiny[0].reSurveynumber"
+									cssClass="add-margin error-msg" />
+							</div>
 
-						<form:input class="form-control patternvalidation" maxlength="120"
-							data-pattern="alphanumeric" required="required" data-role="tagsinput"
-							id="reSurveynumber" path="documentScrutiny[0].reSurveynumber"
-							value="${bpaApplication.siteDetail[0].reSurveyNumber}" />
-						<form:errors path="documentScrutiny[0].reSurveynumber"
-							cssClass="add-margin error-msg" />
-					</div>
+							<label class="col-sm-2 control-label text-right"><spring:message
+									code="lbl.subdivision.number" /></label>
+							<div class="col-sm-3 add-margin">
+								<form:input class="form-control patternvalidation"
+									maxlength="120" data-pattern="alphanumeric"
+									id="subdivisionNumber"
+									path="documentScrutiny[0].subdivisionNumber"
+									data-role="tagsinput"
+									value="${bpaApplication.siteDetail[0].subdivisionNumber}" />
+								<form:errors path="documentScrutiny[0].subdivisionNumber"
+									cssClass="add-margin error-msg" />
+							</div>
+						</div>
 
-					<label class="col-sm-2 control-label text-right"><spring:message
-							code="lbl.subdivision.number" /></label>
-					<div class="col-sm-3 add-margin">
-						<form:input class="form-control patternvalidation" maxlength="120"
-							data-pattern="alphanumeric" id="subdivisionNumber"
-							path="documentScrutiny[0].subdivisionNumber" data-role="tagsinput"
-							value="${bpaApplication.siteDetail[0].subdivisionNumber}" />
-						<form:errors path="documentScrutiny[0].subdivisionNumber"
-							cssClass="add-margin error-msg" />
-					</div>
-				</div>
+						<div class="form-group">
 
-				<div class="form-group">
-					
-					<label class="col-sm-3 control-label text-right extentOfLand"><spring:message
-							code="lbl.extent.of.land" /><span class="mandatory"></span></label>
-					<label class="col-sm-3 control-label text-right areaOfBase"><spring:message
-							code="lbl.area.base" /> <span class="mandatory"></span> </label>
-					<div class="col-sm-3 add-margin">
-						<form:input class="form-control patternvalidation" maxlength="10"
-							data-pattern="number" id="extentinsqmts"
-							path="documentScrutiny[0].extentinsqmts" required="required"
-							value="${bpaApplication.siteDetail[0].extentinsqmts}" />
-						<form:errors path="documentScrutiny[0].extentinsqmts"
-							cssClass="add-margin error-msg" />
-					</div>
-					<label class="col-sm-2 control-label text-right"><spring:message
-							code="lbl.deednumber" /></label>
-					<div class="col-sm-3 add-margin">
-						<form:input class="form-control patternvalidation" maxlength="60"
-							data-pattern="alphanumeric" id="deedNumber"
-							path="documentScrutiny[0].deedNumber" />
-						<form:errors path="documentScrutiny[0].deedNumber"
-							cssClass="add-margin error-msg" />
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label text-right"><spring:message
-							code="lbl.registraroffice" /><span class="mandatory"></span></label>
-					<div class="col-sm-3 add-margin">
-						<form:input class="form-control patternvalidation" maxlength="120"
-							data-pattern="alphanumeric" required="required"
-							id="registrarOffice" path="documentScrutiny[0].registrarOffice"
-							value="${bpaApplication.siteDetail[0].registrarOffice}" />
-						<form:errors path="documentScrutiny[0].registrarOffice"
-							cssClass="add-margin error-msg" />
-					</div>
-					<label class="col-sm-2 control-label text-right"><spring:message
-							code="lbl.nature.of.ownership" /></label>
-					<div class="col-sm-3 add-margin">
-						<form:input class="form-control patternvalidation" maxlength="120"
-							data-pattern="alphanumeric" id="natureofOwnership"
-							path="documentScrutiny[0].natureofOwnership"
-							value="${bpaApplication.siteDetail[0].natureofOwnership}" />
-						<form:errors path="documentScrutiny[0].natureofOwnership"
-							cssClass="add-margin error-msg" />
-					</div>
-				</div>
+							<label class="col-sm-3 control-label text-right extentOfLand"><spring:message
+									code="lbl.extent.of.land" /><span class="mandatory"></span></label> <label
+								class="col-sm-3 control-label text-right areaOfBase"><spring:message
+									code="lbl.area.base" /> <span class="mandatory"></span> </label>
+							<div class="col-sm-3 add-margin">
+								<form:input class="form-control patternvalidation"
+									maxlength="10" data-pattern="number" id="extentinsqmts"
+									path="documentScrutiny[0].extentinsqmts" required="required"
+									value="${bpaApplication.siteDetail[0].extentinsqmts}" />
+								<form:errors path="documentScrutiny[0].extentinsqmts"
+									cssClass="add-margin error-msg" />
+							</div>
+							<label class="col-sm-2 control-label text-right"><spring:message
+									code="lbl.deednumber" /></label>
+							<div class="col-sm-3 add-margin">
+								<form:input class="form-control patternvalidation"
+									maxlength="60" data-pattern="alphanumeric" id="deedNumber"
+									path="documentScrutiny[0].deedNumber" />
+								<form:errors path="documentScrutiny[0].deedNumber"
+									cssClass="add-margin error-msg" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label text-right"><spring:message
+									code="lbl.registraroffice" /><span class="mandatory"></span></label>
+							<div class="col-sm-3 add-margin">
+								<form:input class="form-control patternvalidation"
+									maxlength="120" data-pattern="alphanumeric" required="required"
+									id="registrarOffice" path="documentScrutiny[0].registrarOffice"
+									value="${bpaApplication.siteDetail[0].registrarOffice}" />
+								<form:errors path="documentScrutiny[0].registrarOffice"
+									cssClass="add-margin error-msg" />
+							</div>
+							<label class="col-sm-2 control-label text-right"><spring:message
+									code="lbl.nature.of.ownership" /></label>
+							<div class="col-sm-3 add-margin">
+								<form:input class="form-control patternvalidation"
+									maxlength="120" data-pattern="alphanumeric"
+									id="natureofOwnership"
+									path="documentScrutiny[0].natureofOwnership"
+									value="${bpaApplication.siteDetail[0].natureofOwnership}" />
+								<form:errors path="documentScrutiny[0].natureofOwnership"
+									cssClass="add-margin error-msg" />
+							</div>
+						</div>
 
-				<div class="form-group">
-					
-					
-				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label text-right"><spring:message
-							code="lbl.taluk" /></label>
-					<div class="col-sm-3 add-margin">
-						<form:input class="form-control patternvalidation" maxlength="120"
-							data-pattern="alphanumeric" id="taluk"
-							path="documentScrutiny[0].taluk"
-							value="${bpaApplication.siteDetail[0].postalAddress.taluk}" />
-						<form:errors path="documentScrutiny[0].taluk"
-							cssClass="add-margin error-msg" />
-					</div>
+						<div class="form-group"></div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label text-right"><spring:message
+									code="lbl.taluk" /></label>
+							<div class="col-sm-3 add-margin">
+								<form:input class="form-control patternvalidation"
+									maxlength="120" data-pattern="alphanumeric" id="taluk"
+									path="documentScrutiny[0].taluk"
+									value="${bpaApplication.siteDetail[0].postalAddress.taluk}" />
+								<form:errors path="documentScrutiny[0].taluk"
+									cssClass="add-margin error-msg" />
+							</div>
 
-					<label class="col-sm-2 control-label text-right"><spring:message
-							code="lbl.district" /></label>
-					<div class="col-sm-3 add-margin">
-						<form:input class="form-control patternvalidation" maxlength="120"
-							data-pattern="alphanumeric" id="district"
-							path="documentScrutiny[0].district"
-							value="${bpaApplication.siteDetail[0].postalAddress.district}" />
-						<form:errors path="documentScrutiny[0].district"
-							cssClass="add-margin error-msg" />
+							<label class="col-sm-2 control-label text-right"><spring:message
+									code="lbl.district" /></label>
+							<div class="col-sm-3 add-margin">
+								<form:input class="form-control patternvalidation"
+									maxlength="120" data-pattern="alphanumeric" id="district"
+									path="documentScrutiny[0].district"
+									value="${bpaApplication.siteDetail[0].postalAddress.district}" />
+								<form:errors path="documentScrutiny[0].district"
+									cssClass="add-margin error-msg" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label text-right"><spring:message
+									code="lbl.detailof.neigbour" /></label>
+							<div class="col-sm-3 add-margin">
+								<form:radiobutton
+									path="documentScrutiny[0].neighoutOwnerDtlSubmitted"
+									value="true" checked="checked" />
+								<spring:message code="lbl.yes" />
+								<form:radiobutton
+									path="documentScrutiny[0].neighoutOwnerDtlSubmitted"
+									value="false" />
+								<spring:message code="lbl.no" />
+								<form:errors
+									path="documentScrutiny[0].neighoutOwnerDtlSubmitted"
+									cssClass="add-margin error-msg" />
+							</div>
+							<label class="col-sm-2 control-label text-right"><spring:message
+									code="lbl.various.doc.matching" /></label>
+							<div class="col-sm-3 add-margin">
+								<form:radiobutton
+									path="documentScrutiny[0].whetherdocumentMatch" value="true"
+									checked="checked" />
+								<spring:message code="lbl.yes" />
+								<form:radiobutton
+									path="documentScrutiny[0].whetherdocumentMatch" value="false" />
+								<spring:message code="lbl.no" />
+								<form:errors path="documentScrutiny[0].whetherdocumentMatch"
+									cssClass="add-margin error-msg" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label text-right"><spring:message
+									code="lbl.alldocument.attached" /></label>
+							<div class="col-sm-3 add-margin">
+								<form:radiobutton
+									path="documentScrutiny[0].whetheralldocAttached" value="true"
+									checked="checked" />
+								<spring:message code="lbl.yes" />
+								<form:radiobutton
+									path="documentScrutiny[0].whetheralldocAttached" value="false" />
+								<spring:message code="lbl.no" />
+								<form:errors path="documentScrutiny[0].whetheralldocAttached"
+									cssClass="add-margin error-msg" />
+							</div>
+							<label class="col-sm-2 control-label text-right"><spring:message
+									code="lbl.allpage.attached" /></label>
+							<div class="col-sm-3 add-margin">
+								<form:radiobutton
+									path="documentScrutiny[0].whetherallPageOfdocAttached"
+									value="true" checked="checked" />
+								<spring:message code="lbl.yes" />
+								<form:radiobutton
+									path="documentScrutiny[0].whetherallPageOfdocAttached"
+									value="false" />
+								<spring:message code="lbl.no" />
+								<form:errors
+									path="documentScrutiny[0].whetherallPageOfdocAttached"
+									cssClass="add-margin error-msg" />
+							</div>
+						</div>
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label text-right"><spring:message
-							code="lbl.detailof.neigbour" /></label>
-					<div class="col-sm-3 add-margin">
-						<form:radiobutton
-							path="documentScrutiny[0].neighoutOwnerDtlSubmitted" value="true"
-							checked="checked" />
-						<spring:message code="lbl.yes" />
-						<form:radiobutton
-							path="documentScrutiny[0].neighoutOwnerDtlSubmitted"
-							value="false" />
-						<spring:message code="lbl.no" />
-						<form:errors path="documentScrutiny[0].neighoutOwnerDtlSubmitted"
-							cssClass="add-margin error-msg" />
-					</div>
-					<label class="col-sm-2 control-label text-right"><spring:message
-							code="lbl.various.doc.matching" /></label>
-					<div class="col-sm-3 add-margin">
-						<form:radiobutton path="documentScrutiny[0].whetherdocumentMatch"
-							value="true" checked="checked" />
-						<spring:message code="lbl.yes" />
-						<form:radiobutton path="documentScrutiny[0].whetherdocumentMatch"
-							value="false" />
-						<spring:message code="lbl.no" />
-						<form:errors path="documentScrutiny[0].whetherdocumentMatch"
-							cssClass="add-margin error-msg" />
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label text-right"><spring:message
-							code="lbl.alldocument.attached" /></label>
-					<div class="col-sm-3 add-margin">
-						<form:radiobutton path="documentScrutiny[0].whetheralldocAttached"
-							value="true" checked="checked" />
-						<spring:message code="lbl.yes" />
-						<form:radiobutton path="documentScrutiny[0].whetheralldocAttached"
-							value="false" />
-						<spring:message code="lbl.no" />
-						<form:errors path="documentScrutiny[0].whetheralldocAttached"
-							cssClass="add-margin error-msg" />
-					</div>
-					<label class="col-sm-2 control-label text-right"><spring:message
-							code="lbl.allpage.attached" /></label>
-					<div class="col-sm-3 add-margin">
-						<form:radiobutton
-							path="documentScrutiny[0].whetherallPageOfdocAttached"
-							value="true" checked="checked" />
-						<spring:message code="lbl.yes" />
-						<form:radiobutton
-							path="documentScrutiny[0].whetherallPageOfdocAttached"
-							value="false" />
-						<spring:message code="lbl.no" />
-						<form:errors
-							path="documentScrutiny[0].whetherallPageOfdocAttached"
-							cssClass="add-margin error-msg" />
+				<div id="document-info" class="tab-pane fade">
+					<div class="panel panel-primary" data-collapsed="0">
+						<jsp:include page="bpaDocumentDetails.jsp"></jsp:include>
 					</div>
 				</div>
 			</div>
+
 			<jsp:include page="../common/commonWorkflowMatrix.jsp" />
 			<div class="buttonbottom" align="center">
 				<jsp:include page="../common/commonWorkflowMatrix-button.jsp" />
