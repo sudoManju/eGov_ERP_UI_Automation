@@ -48,19 +48,6 @@ jQuery(document).ready(function() {
 		}
 	});
 
-	//To show Validation message if collection fee is pending ?
-	if ($('#collectFeeValidate').val() != ''
-		&& $('#collectFeeValidate').val() != null) {
-		bootbox.alert($('#collectFeeValidate').val());
-		$('#approvalDepartment').removeAttr('required');
-		$('#approvalDesignation').removeAttr('required');
-		$(".show-row").hide();
-		$("#Forward").hide();
-		$(".workAction").hide();
-	return false;
-	}
-	
-	
 	// By default to point update noc details tab
 	var mode=$('#mode').val();
 	
@@ -211,5 +198,17 @@ function loadAmenities(){
 		return templateStr;
 	}
 	
+	
+	//To show Validation message if collection fee is pending ?
+	if ($('#collectFeeValidate').val() != ''
+		&& $('#collectFeeValidate').val() != null) {
+		bootbox.alert($('#collectFeeValidate').val());
+		$('#approvalDepartment').removeAttr('required');
+		$('#approvalDesignation').removeAttr('required');
+		$(".show-row").hide();
+		$("#Forward").hide();
+		$(".workAction").hide();
+		return false;
+	}
 	
 });
