@@ -14,15 +14,18 @@ public YearWiseDepreciationBuilder(int i){
            yearWiseDepreciation.setDepreciationRate(2);
            yearWiseDepreciation.setFinancialYear("2012");
            yearWiseDepreciation.setUsefulLifeInYears(6);
-
            break;
 
         case 1:
             yearWiseDepreciation.setDepreciationRate(2);
             yearWiseDepreciation.setFinancialYear("2013");
             yearWiseDepreciation.setUsefulLifeInYears(11);
-
             break;
+
+        case 3:
+            yearWiseDepreciation.setDepreciationRate(2);
+            yearWiseDepreciation.setFinancialYear("2014");
+            yearWiseDepreciation.setUsefulLifeInYears(15);
     }
 }
 

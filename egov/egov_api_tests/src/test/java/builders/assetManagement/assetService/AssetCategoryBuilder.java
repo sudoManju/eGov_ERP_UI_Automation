@@ -23,6 +23,12 @@ public AssetCategoryBuilder(String category){
            }
            assetCategory.setAssetFieldsDefination(assetFieldsDefinations);
                break;
+       case "Market" :
+           assetCategory.setName("Market");
+           assetCategory.setId(2);
+           assetCategory.setCode("007");
+           assetCategory.setAssetCategoryType("IMMOVABLE");
+           break;
    }
 
    assetCategory.setVersion("1.0");

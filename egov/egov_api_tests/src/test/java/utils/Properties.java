@@ -27,7 +27,7 @@ public class Properties {
     public static final String getComplaintTypeCategoriesUrl = propertiesReader.getEndPointUrl("complaintTypeCategoriesUrl");
 
     //  Asset Module Url's  //
-    public static final String searchAssetServiceUrl = propertiesReader.getEndPointUrl("searchAssetService");
+    public static final String searchAssetServiceUrl = propertiesReader.getEndPointUrl("searchAssetServiceUrl");
     public static final String assetCategoryCreateUrl = propertiesReader.getEndPointUrl("assetCategoryCreateUrl");
     public static final String createAssetServiceUrl = propertiesReader.getEndPointUrl("createAssetServiceUrl");
     public static final String assetCategorySearchUrl = propertiesReader.getEndPointUrl("assetCategorySearchUrl");

@@ -1,5 +1,6 @@
-package entities.requests.assetManagement;
+package entities.requests.assetManagement.assetServices.search;
 
+import entities.requests.assetManagement.RequestInfo;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class SearchAssetServiceRequest {
