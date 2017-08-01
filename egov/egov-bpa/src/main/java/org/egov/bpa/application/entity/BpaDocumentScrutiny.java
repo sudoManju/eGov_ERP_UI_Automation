@@ -41,12 +41,10 @@ public class BpaDocumentScrutiny extends AbstractAuditable {
     @Length(min = 1, max = 12)
     private String subdivisionNumber;
     private BigDecimal extentinsqmts;
-    private boolean isBoundaryDrawingSubmitted;
     @Length(min = 1, max = 128)
     private String natureofOwnership;
     @Length(min = 1, max = 128)
     private String registrarOffice;
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "village")
     private VillageName village;
@@ -54,15 +52,11 @@ public class BpaDocumentScrutiny extends AbstractAuditable {
     private String taluk;
     @Length(min = 1, max = 128)
     private String district;
-
     private boolean neighoutOwnerDtlSubmitted;
-    private boolean rightToMakeConstruction;
     @Length(min = 1, max = 64)
     private String deedNumber;
     @Temporal(value = TemporalType.DATE)
     private Date deedDate;
-    @Length(min = 1, max = 128)
-    private String typeofLand;
     private boolean whetheralldocAttached;
     private boolean whetherallPageOfdocAttached;
     private boolean whetherdocumentMatch;
@@ -152,30 +146,12 @@ public class BpaDocumentScrutiny extends AbstractAuditable {
         this.district = district;
     }
 
-    
-
-    public boolean getIsBoundaryDrawingSubmitted() {
-        return isBoundaryDrawingSubmitted;
-    }
-
-    public void setIsBoundaryDrawingSubmitted(boolean isBoundaryDrawingSubmitted) {
-        this.isBoundaryDrawingSubmitted = isBoundaryDrawingSubmitted;
-    }
-
     public boolean isNeighoutOwnerDtlSubmitted() {
         return neighoutOwnerDtlSubmitted;
     }
 
     public void setNeighoutOwnerDtlSubmitted(final boolean neighoutOwnerDtlSubmitted) {
         this.neighoutOwnerDtlSubmitted = neighoutOwnerDtlSubmitted;
-    }
-
-    public boolean isRightToMakeConstruction() {
-        return rightToMakeConstruction;
-    }
-
-    public void setRightToMakeConstruction(final boolean rightToMakeConstruction) {
-        this.rightToMakeConstruction = rightToMakeConstruction;
     }
 
     public String getDeedNumber() {
@@ -192,14 +168,6 @@ public class BpaDocumentScrutiny extends AbstractAuditable {
 
     public void setDeedDate(final Date deedDate) {
         this.deedDate = deedDate;
-    }
-
-    public String getTypeofLand() {
-        return typeofLand;
-    }
-
-    public void setTypeofLand(final String typeofLand) {
-        this.typeofLand = typeofLand;
     }
 
     public boolean isWhetheralldocAttached() {

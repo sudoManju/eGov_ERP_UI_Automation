@@ -199,16 +199,16 @@ public class Inspection extends AbstractAuditable {
     private List<DocketDetail> docketDetailShutter = new ArrayList<>();
     @Transient
     private List<DocketDetail> docketDetailRoofConversion = new ArrayList<>();
-
     private transient List<String> deletedDocketDetailsFilestoreIds;
-    
     private transient MultipartFile[] files;
-    
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "egbpa_inspectiondocs", joinColumns = @JoinColumn(name = "inspectionid"), inverseJoinColumns = @JoinColumn(name = "filestoreid"))
     private Set<FileStoreMapper> inspectionSupportDocs = Collections.emptySet();
-    
     private transient Map<Long, String> encodedImages = new HashMap<>() ;
+    private boolean isBoundaryDrawingSubmitted;
+    private boolean rightToMakeConstruction;
+    @Length(min = 1, max = 128)
+    private String typeofLand;
 
     @Override
     public Long getId() {
@@ -796,4 +796,28 @@ public class Inspection extends AbstractAuditable {
         this.files = files;
     }
 
+    public boolean isBoundaryDrawingSubmitted() {
+        return isBoundaryDrawingSubmitted;
+    }
+
+    public void setBoundaryDrawingSubmitted(boolean isBoundaryDrawingSubmitted) {
+        this.isBoundaryDrawingSubmitted = isBoundaryDrawingSubmitted;
+    }
+
+    public boolean isRightToMakeConstruction() {
+        return rightToMakeConstruction;
+    }
+
+    public void setRightToMakeConstruction(boolean rightToMakeConstruction) {
+        this.rightToMakeConstruction = rightToMakeConstruction;
+    }
+
+    public String getTypeofLand() {
+        return typeofLand;
+    }
+
+    public void setTypeofLand(String typeofLand) {
+        this.typeofLand = typeofLand;
+    }
+    
 }

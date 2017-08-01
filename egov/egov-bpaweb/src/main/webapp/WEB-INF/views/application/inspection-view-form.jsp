@@ -88,6 +88,36 @@
 					</div>
 				</div>
 				<div class="row add-border">
+					<div class="col-sm-3 add-margin">
+						<spring:message code="lbl.dimensionofplot" />
+					</div>
+					<div class="col-sm-3 add-margin view-content">
+						<c:out value="${inspection.boundaryDrawingSubmitted ? 'Yes' : 'No'}"
+							default="N/A"></c:out>
+					</div>
+					<div class="col-sm-3 add-margin">
+						<spring:message code="lbl.righttomake.construction" />
+					</div>
+					<div class="col-sm-3 add-margin view-content">
+						<c:out value="${inspection.rightToMakeConstruction ? 'Yes' : 'No'}"
+							default="N/A"></c:out>
+					</div>
+				</div>
+				<div class="row add-border">
+					<div class="col-sm-3 add-margin">
+						<spring:message code="lbl.typeofland" />
+					</div>
+					<div class="col-sm-3 add-margin view-content">
+						<c:out value="${inspection.typeofLand}" default="N/A"></c:out>
+					</div>
+					<div class="col-sm-3 add-margin">
+						<spring:message code="lbl.ins.remarks" />
+					</div>
+					<div class="col-sm-3 add-margin view-content">
+						<c:out value="${inspection.inspectionRemarks}" default="N/A"></c:out>
+					</div>
+				</div>
+				<div class="row add-border">
 					<div class="col-sm-5 add-margin view-content">
 						<div class="panel-title">Inspection Details CheckList</div>
 					</div>
