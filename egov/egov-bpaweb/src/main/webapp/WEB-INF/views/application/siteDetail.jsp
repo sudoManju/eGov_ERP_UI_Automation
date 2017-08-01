@@ -342,7 +342,7 @@
 			class="mandatory"></span></label>
 		<div class="col-sm-3 add-margin">
 			<form:select path="occupancy" data-first-option="false"
-				id="occupancy" cssClass="form-control" required="required">
+				id="occupancyapplnlevel" cssClass="form-control" required="required">
 				<form:option value="">
 					<spring:message code="lbl.select" />
 				</form:option>

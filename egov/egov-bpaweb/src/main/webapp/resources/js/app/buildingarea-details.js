@@ -70,14 +70,17 @@ jQuery(document).ready(function() {
 			   };
 			addRowFromObject(row);
 			loadFloorlist("buildingDetail[0].applicationFloorDetails["+idx+"].floorDescription");
-			loadOccupanctyDetails("buildingDetail[0].applicationFloorDetails["+idx+"].occupancy");
+			if($("#occupancyapplnlevel option:selected" ).text() == 'Mixed') {
+				loadOccupanctyDetails("buildingDetail[0].applicationFloorDetails["+idx+"].occupancy");
+			} else {
+				loadOccupancyDetails1("buildingDetail[0].applicationFloorDetails["+idx+"].occupancy",$("#occupancyapplnlevel option:selected" ).val(),$("#occupancyapplnlevel option:selected" ).text());
+			}
 		}
 	});
 	
 	function addRowFromObject(rowJsonObj)
 	{
 		table.append(row.compose(rowJsonObj));
-		setFloorCount();
 	}
 	
 	String.prototype.compose = (function (){
@@ -118,13 +121,19 @@ jQuery(document).ready(function() {
 			});
 		}
 	
-
+	function loadOccupancyDetails1(selectBoxName,id,value){
+					$('select[name="'+selectBoxName+'"]').empty();
+					$('select[name="'+selectBoxName+'"]').append($('<option>').val(id).text(value));
+		}
+	
 	$(document).on('blur','.floorNumber', function() {
+		setFloorCount();
 		var rowObj = $(this).closest('tr');
 		validateUniqueDetails(rowObj.index(),$(rowObj).find('.floorDescription').val(), $(rowObj).find('.floorNumber').val(), $(rowObj).find('.occupancy').val());
 	}); 
 	
 	$(document).on('change','.floorDescription, .occupancy', function() {
+		setFloorCount();
 		var rowObj = $(this).closest('tr');
 		validateUniqueDetails(rowObj.index(),$(rowObj).find('.floorDescription').val(), $(rowObj).find('.floorNumber').val(), $(rowObj).find('.occupancy').val());
 	});
@@ -144,7 +153,7 @@ function validateUniqueDetails(idx,floorDesc,level,occupancy){
 		    var occupancy1 = $(this).find('*[name$="occupancy"]').val();
 		    if(floorDesc === floorName && level === floorNumber && occupancy ===occupancy1) {
 		    	$('#buildingAreaDetails tbody tr:eq('+idx+')').find('.clear-details').val('');
-		    	bootbox.alert('With combination of Floor Description : '+floorDesc+', Level : '+level+' and Occupancy TYpe : '+$(this).find('*[name$="occupancy"] option:selected').text()+' are already present with existing entered details, please check and enter valid values.');
+		    	bootbox.alert('With combination of Floor Description : '+floorDesc+', Level : '+level+' and Occupancy Type : '+$(this).find('*[name$="occupancy"] option:selected').text()+' are already present with existing entered details, please check and enter valid values.');
 			    return false;
 		    }
 		});
@@ -152,7 +161,37 @@ function validateUniqueDetails(idx,floorDesc,level,occupancy){
 }
 
 function setFloorCount() {
-	$("#floorCount").val($('#buildingAreaDetails tbody tr').length);
+	
+	var floorsObj={};
+	
+	$('#buildingAreaDetails tbody tr').each(function(e){
+		var floorDesc=$(this).find('.floorDescription').val().trim();
+		var floorNo = $(this).find('.floorNumber').val();
+		
+		if(!floorDesc || !floorNo)
+			return;
+		else if(floorDesc == 'Cellar Floor')
+			return;
+		
+		var floorNos= floorsObj[floorDesc] || [];
+		var index = floorNos.indexOf(floorNo);
+		
+		if(floorNos.length > 0 && index ==-1){
+			floorNos.push(floorNo);
+		}
+		else if(index == -1){
+			floorNos.push(floorNo);
+			floorsObj[floorDesc]=floorNos;
+		}
+	});
+	
+	var len=0;
+	
+	for(var key in floorsObj){
+		len += floorsObj[key].length;
+	}
+	
+	$("#floorCount").val(len);
 }
 
 var plinthAreaSum = 0;
@@ -191,10 +230,8 @@ $(document).on('change', '.floorArea', function() {
     	if($(this).find('td:eq(5) input.floorArea').val())
     	 totalFloorArea +=  parseFloat($(this).find('td:eq(5) input.floorArea').val());
     });
-    if(totalFloorArea) {
     	$("#sumOfFloorArea").val(totalFloorArea.toFixed(2));
     	$("#buildingAreaDetails tfoot tr td:eq(5)").html(totalFloorArea.toFixed(2));
-    }
     
 });
 
@@ -216,8 +253,8 @@ $(document).on('change', '.carpetArea', function() {
     	 if($(this).find('td:eq(6) input.carpetArea').val())
     	 totalCarpet += parseFloat($(this).find('td:eq(6) input.carpetArea').val());
      });
-     if(totalCarpet)
-     $("#buildingAreaDetails tfoot tr td:eq(6)").html(totalCarpet.toFixed(2));
+    $("#buildingAreaDetails tfoot tr td:eq(6)").html(totalCarpet.toFixed(2));
+     
 });
 	
 function generateSno()

@@ -96,7 +96,7 @@
 								path="buildingDetail[0].applicationFloorDetails[${counter.index}].floorDescription"
 								data-first-option="false"
 								id="applicationFloorDetails${counter.index}floorDescription"
-								class="form-control floor-details-mandatory" maxlength="128">
+								class="form-control floor-details-mandatory floorDescription" maxlength="128">
 								<form:option value="">
 									<spring:message code="lbl.select" />
 								</form:option>
@@ -112,7 +112,7 @@
 								path="buildingDetail[0].applicationFloorDetails[${counter.index}].occupancy"
 								data-first-option="false"
 								id="applicationFloorDetails${counter.index}occupancy"
-								class="form-control floor-details-mandatory" maxlength="128">
+								class="form-control floor-details-mandatory occupancy" maxlength="128">
 								<form:option value="">
 									<spring:message code="lbl.select" />
 								</form:option>
@@ -151,7 +151,7 @@
 								path="buildingDetail[0].applicationFloorDetails[0].floorDescription"
 								data-first-option="false"
 								id="applicationFloorDetails[0]floorDescription"
-								class="form-control floor-details-mandatory" maxlength="128">
+								class="form-control floor-details-mandatory floorDescription" maxlength="128">
 								<form:option value="">
 									<spring:message code="lbl.select" />
 								</form:option>
@@ -167,7 +167,7 @@
 								path="buildingDetail[0].applicationFloorDetails[0].occupancy"
 								data-first-option="false"
 								id="applicationFloorDetails[0]occupancy"
-								class="form-control floor-details-mandatory" maxlength="128">
+								class="form-control floor-details-mandatory occupancy" maxlength="128">
 								<form:option value="">
 									<spring:message code="lbl.select" />
 								</form:option>
