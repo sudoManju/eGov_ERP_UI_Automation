@@ -404,12 +404,13 @@
 				<form:errors path="revisedPermitNumber"
 					cssClass="add-margin error-msg" />
 			</div>
-			<label class="col-sm-2 control-label text-right removemandatory"><spring:message
-					code="lbl.paid.fee" /><span class="mandatory"></span></label>
+			<label class="col-sm-2 control-label text-right"><spring:message
+					code="lbl.sanction.date" /><span class="mandatory"></span></label>
 			<div class="col-sm-3 add-margin">
-				<form:input class="form-control patternvalidation" data-pattern="number" maxlength="128"
-					id="approvedFeeAmount" path="approvedFeeAmount" />
-				<form:errors path="approvedFeeAmount"
+				<form:input path="approvedReceiptDate"
+					class="form-control datepicker" data-date-end-date="0d"
+					id="approvedReceiptDate" data-inputmask="'mask': 'd/m/y'" />
+				<form:errors path="approvedReceiptDate"
 					cssClass="add-margin error-msg" />
 			</div>
 		</div>
@@ -423,13 +424,12 @@
 				<form:errors path="feeAmountRecieptNo"
 					cssClass="add-margin error-msg" />
 			</div>
-			<label class="col-sm-2 control-label text-right"><spring:message
-					code="lbl.sanction.date" /><span class="mandatory"></span></label>
+			<label class="col-sm-2 control-label text-right removemandatory"><spring:message
+					code="lbl.paid.fee" /><span class="mandatory"></span></label>
 			<div class="col-sm-3 add-margin">
-				<form:input path="approvedReceiptDate"
-					class="form-control datepicker" data-date-end-date="0d"
-					id="approvedReceiptDate" data-inputmask="'mask': 'd/m/y'" />
-				<form:errors path="approvedReceiptDate"
+				<form:input class="form-control patternvalidation" data-pattern="number" maxlength="128"
+					id="approvedFeeAmount" path="approvedFeeAmount" />
+				<form:errors path="approvedFeeAmount"
 					cssClass="add-margin error-msg" />
 			</div>
 		</div>
