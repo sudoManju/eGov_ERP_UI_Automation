@@ -75,7 +75,7 @@ import org.egov.bpa.application.entity.CheckListDetail;
 import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.application.repository.ApplicationBpaRepository;
 import org.egov.bpa.application.service.collection.GenericBillGeneratorService;
-import org.egov.bpa.masters.service.ChangeOfUsageService;
+import org.egov.bpa.masters.service.BpaSchemeLandUsageService;
 import org.egov.bpa.service.ApplicationFeeService;
 import org.egov.bpa.service.BpaDemandService;
 import org.egov.bpa.service.BpaStatusService;
@@ -166,7 +166,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
     @Autowired
     private PostalAddressService postalAddressService;
     @Autowired
-    private ChangeOfUsageService changeOfUsageService;
+    private BpaSchemeLandUsageService bpaSchemeLandUsageService;
 
     public Session getCurrentSession() {
         return entityManager.unwrap(Session.class);
@@ -185,7 +185,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         application.setApplicationNumber(applicationNumberGenerator.generate());
         if (application.getSiteDetail().get(0).getLandUsageId() != null)
             application.getSiteDetail().get(0)
-                    .setLandUsage((changeOfUsageService.findById(application.getSiteDetail().get(0).getLandUsageId())));
+                    .setLandUsage((bpaSchemeLandUsageService.findById(application.getSiteDetail().get(0).getLandUsageId())));
 
         final BpaStatus bpaStatus = getStatusByCodeAndModuleType(BpaConstants.APPLICATION_STATUS_CREATED);
         application.setStatus(bpaStatus);
@@ -285,7 +285,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         if (application.getSiteDetail() != null && application.getSiteDetail().get(0) != null
                 && application.getSiteDetail().get(0).getLandUsageId() != null) {
             application.getSiteDetail().get(0)
-                    .setLandUsage(changeOfUsageService.findById(application.getSiteDetail().get(0).getLandUsageId()));
+                    .setLandUsage(bpaSchemeLandUsageService.findById(application.getSiteDetail().get(0).getLandUsageId()));
         }
     }
 

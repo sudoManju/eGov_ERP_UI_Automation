@@ -155,7 +155,7 @@ public class SiteDetail extends AbstractAuditable {
     private BpaScheme scheme;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "landUsage")
-    private ChangeOfUsage landUsage;
+    private BpaSchemeLandUsage landUsage;
 
     @Override
     public Long getId() {
@@ -543,11 +543,11 @@ public class SiteDetail extends AbstractAuditable {
         this.scheme = scheme;
     }
 
-    public ChangeOfUsage getLandUsage() {
+    public BpaSchemeLandUsage getLandUsage() {
         return landUsage;
     }
 
-    public void setLandUsage(ChangeOfUsage landUsage) {
+    public void setLandUsage(BpaSchemeLandUsage landUsage) {
         this.landUsage = landUsage;
     }
 

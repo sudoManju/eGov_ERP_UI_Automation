@@ -51,13 +51,14 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.egov.infra.persistence.entity.AbstractAuditable;
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "EGBPA_MSTR_SCHEMELANDUSAGE")
 @SequenceGenerator(name = BpaSchemeLandUsage.SEQ_EGBPA_MSTR_SCHEMELANDUSAGE, sequenceName = BpaSchemeLandUsage.SEQ_EGBPA_MSTR_SCHEMELANDUSAGE, allocationSize = 1)
 public class BpaSchemeLandUsage extends AbstractAuditable {
 
-    private static final long serialVersionUID = -7101632580046709916L;
+    private static final long serialVersionUID = -32251211264446802L;
 
     public static final String SEQ_EGBPA_MSTR_SCHEMELANDUSAGE = "SEQ_EGBPA_MSTR_SCHEMELANDUSAGE";
 
@@ -71,9 +72,11 @@ public class BpaSchemeLandUsage extends AbstractAuditable {
     private BpaScheme bpaScheme;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usageType")
-    private ChangeOfUsage usageType;
+    @Length(min = 1, max = 256)
+    private String description;
+
+    @NotNull
+    private Boolean isActive;
 
     public Long getId() {
         return id;
@@ -91,12 +94,20 @@ public class BpaSchemeLandUsage extends AbstractAuditable {
         this.bpaScheme = bpaScheme;
     }
 
-    public ChangeOfUsage getUsageType() {
-        return usageType;
+    public String getDescription() {
+        return description;
     }
 
-    public void setUsageType(ChangeOfUsage usageType) {
-        this.usageType = usageType;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
     }
 
 }

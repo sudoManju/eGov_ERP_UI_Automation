@@ -240,8 +240,8 @@ public class BpaAjaxController {
             if (scheme != null) {
                 for (final BpaSchemeLandUsage landUsage : scheme.getSchemeLandUsage()) {
                     final JSONObject jsonObj = new JSONObject();
-                    jsonObj.put("usageId", landUsage.getUsageType().getId());
-                    jsonObj.put("usageDesc", landUsage.getUsageType().getDescription());
+                    jsonObj.put("usageId", landUsage.getId());
+                    jsonObj.put("usageDesc", landUsage.getDescription());
                     jsonObjects.add(jsonObj);
                 }
             }
