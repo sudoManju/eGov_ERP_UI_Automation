@@ -43,8 +43,9 @@ public class BpaAppointmentSchedule extends AbstractAuditable {
 
     @Length(min = 1, max = 50)
     private String appointmentTime;
-    @Length(min = 1, max = 100)
-    private String appointmentLocation;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "appointmentLocation")
+    private AppointmentLocations appointmentLocation;
 
     @Length(min = 1, max = 256)
     private String remarks;
@@ -97,11 +98,11 @@ public class BpaAppointmentSchedule extends AbstractAuditable {
         this.appointmentTime = appointmentTime;
     }
 
-    public String getAppointmentLocation() {
+    public AppointmentLocations getAppointmentLocation() {
         return appointmentLocation;
     }
 
-    public void setAppointmentLocation(final String appointmentLocation) {
+    public void setAppointmentLocation(AppointmentLocations appointmentLocation) {
         this.appointmentLocation = appointmentLocation;
     }
 

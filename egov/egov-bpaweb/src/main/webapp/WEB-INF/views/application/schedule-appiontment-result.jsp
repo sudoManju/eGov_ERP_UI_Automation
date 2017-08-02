@@ -82,7 +82,7 @@
 							<spring:message code="lbl.appmnt.location" />
 						</div>
 						<div class="col-sm-3 add-margin view-content">
-							<c:out value="${appoimnt.appointmentLocation}" default="N/A"></c:out>
+							<c:out value="${appoimnt.appointmentLocation.description}" default="N/A"></c:out>
 						</div>
 						</c:if>
 						<div class="col-sm-3 add-margin">

@@ -49,10 +49,10 @@ import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaAppointmentSchedule;
 import org.egov.bpa.application.entity.enums.AppointmentSchedulePurpose;
 import org.egov.bpa.application.service.BpaAppointmentScheduleService;
+import org.egov.bpa.masters.service.AppointmentLocationsService;
 import org.egov.bpa.utils.BPASmsAndEmailService;
 import org.egov.bpa.utils.BpaConstants;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -65,6 +65,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping(value = "/application")
 public class ScheduleAppointmentController extends BpaGenericApplicationController {
+
+    private static final String APPOINTMENT_LOCATIONS_LIST = "appointmentLocationsList";
 
     private static final String APPOINTMENT_SCHEDULED_LIST = "appointmentScheduledList";
 
@@ -87,7 +89,7 @@ public class ScheduleAppointmentController extends BpaGenericApplicationControll
     @Autowired
     private BPASmsAndEmailService bpaSmsAndEmailService;
     @Autowired
-    protected ResourceBundleMessageSource messageSource;
+    private AppointmentLocationsService appointmentLocationsService;
 
     @RequestMapping(value = "/scheduleappointment/{applicationNumber}", method = RequestMethod.GET)
     public String newScheduleAppointment(@PathVariable final String applicationNumber, final Model model) {
@@ -98,6 +100,7 @@ public class ScheduleAppointmentController extends BpaGenericApplicationControll
         } else if (APPLN_STATUS_FIELD_INSPECTION_INITIATED.equalsIgnoreCase(bpaApplication.getStatus().getCode())) {
             appointmentSchedule.setPurpose(AppointmentSchedulePurpose.INSPECTION);
         }
+        model.addAttribute(APPOINTMENT_LOCATIONS_LIST, appointmentLocationsService.findAllOrderByOrderNumber());
         model.addAttribute(BPA_APPOINTMENT_SCHEDULE, appointmentSchedule);
         model.addAttribute(APPLICATION_NUMBER, applicationNumber);
         return SCHEDULE_APPIONTMENT_NEW;
@@ -134,6 +137,7 @@ public class ScheduleAppointmentController extends BpaGenericApplicationControll
                 scheduleType);
         BpaAppointmentSchedule appointmentSchedule = new BpaAppointmentSchedule();
         appointmentSchedule.setPurpose(appointmentScheduledList.get(0).getPurpose());
+        model.addAttribute(APPOINTMENT_LOCATIONS_LIST, appointmentLocationsService.findAllOrderByOrderNumber());
         model.addAttribute(BPA_APPOINTMENT_SCHEDULE, appointmentSchedule);
         model.addAttribute(APPLICATION_NUMBER, applicationNumber);
         model.addAttribute(APPOINTMENT_SCHEDULED_LIST, appointmentScheduledList);

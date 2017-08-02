@@ -77,9 +77,14 @@
 	<label class="col-sm-3 control-label text-right"><spring:message
 			code="lbl.appmnt.location" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
-		<form:input class="form-control patternvalidation"
-			data-pattern="string" maxlength="50" id="appointmentLocation" required="required" 
-			path="appointmentLocation"/>
+		<form:select path="appointmentLocation" data-first-option="false"
+							id="appointmentLocation" required="required" cssClass="form-control appointmentLocation">
+							<form:option value="">
+								<spring:message code="lbl.select" />
+							</form:option>
+							<form:options items="${appointmentLocationsList}" itemValue="id"
+								itemLabel="description" />
+						</form:select>
 		<form:errors path="appointmentLocation"
 			cssClass="add-margin error-msg" />
 	</div>
