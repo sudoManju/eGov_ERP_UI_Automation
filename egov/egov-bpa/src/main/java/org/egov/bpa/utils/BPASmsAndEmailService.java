@@ -216,14 +216,14 @@ public class BPASmsAndEmailService {
                         MSG_KEY_SMS_BPA_DOC_SCRUTINY);
                 body = buildMessageDetailsForScheduleAppointment(scheduleDetails, bpaApplication, applicantName,
                         BODY_KEY_EMAIL_BPA_DOC_SCRUTINY);
-                subject = emailSubjectforEmailForScheduleAppointment(scheduleDetails, bpaApplication,
+                subject = emailSubjectforEmailForScheduleAppointmentForScrutiny(scheduleDetails, bpaApplication,
                         SUBJECT_KEY_EMAIL_BPA_DOC_SCRUTINY);
             } else {
                 smsMsg = buildMessageDetailsForScheduleAppointment(scheduleDetails, bpaApplication, applicantName,
                         MSG_KEY_SMS_BPA_DOC_SCRUTINY_RESCHE);
                 body = buildMessageDetailsForScheduleAppointment(scheduleDetails, bpaApplication, applicantName,
                         BODY_KEY_EMAIL_BPA_DOC_SCRUTINY_RESCHE);
-                subject = emailSubjectforEmailForScheduleAppointment(scheduleDetails, bpaApplication,
+                subject = emailSubjectforEmailForScheduleAppointmentForScrutiny(scheduleDetails, bpaApplication,
                         SUBJECT_KEY_EMAIL_BPA_DOC_SCRUTINY_RESCHE);
             }
         } else if (AppointmentSchedulePurpose.INSPECTION.equals(scheduleDetails.getPurpose())) {
@@ -232,14 +232,14 @@ public class BPASmsAndEmailService {
                         MSG_KEY_SMS_BPA_FIELD_INS);
                 body = buildMessageDetailsForScheduleAppointment(scheduleDetails, bpaApplication, applicantName,
                         BODY_KEY_EMAIL_BPA_FIELD_INS);
-                subject = emailSubjectforEmailForScheduleAppointment(scheduleDetails, bpaApplication,
+                subject = emailSubjectforEmailForScheduleAppointmentForInspection(scheduleDetails, bpaApplication,
                         SUBJECT_KEY_EMAIL_BPA_FIELD_INS);
             } else {
                 smsMsg = buildMessageDetailsForScheduleAppointment(scheduleDetails, bpaApplication, applicantName,
                         MSG_KEY_SMS_BPA_FIELD_INS_RESCHE);
                 body = buildMessageDetailsForScheduleAppointment(scheduleDetails, bpaApplication, applicantName,
                         BODY_KEY_EMAIL_BPA_FIELD_INS_RESCHE);
-                subject = emailSubjectforEmailForScheduleAppointment(scheduleDetails, bpaApplication,
+                subject = emailSubjectforEmailForScheduleAppointmentForInspection(scheduleDetails, bpaApplication,
                         SUBJECT_KEY_EMAIL_BPA_FIELD_INS_RESCHE);
             }
         }
@@ -288,13 +288,22 @@ public class BPASmsAndEmailService {
         return mesg;
     }
 
-    private String emailSubjectforEmailForScheduleAppointment(final BpaAppointmentSchedule scheduleDetails,
+    private String emailSubjectforEmailForScheduleAppointmentForScrutiny(final BpaAppointmentSchedule scheduleDetails,
             final BpaApplication bpaApplication, String msgKey) {
         final Locale locale = LocaleContextHolder.getLocale();
         return bpaMessageSource.getMessage(msgKey,
                 new String[] { DateUtils.toDefaultDateFormat(scheduleDetails.getAppointmentDate()),
                         scheduleDetails.getAppointmentTime(), scheduleDetails.getAppointmentLocation().getDescription(),
                         bpaApplication.getApplicationNumber() },
+                locale);
+    }
+    
+    private String emailSubjectforEmailForScheduleAppointmentForInspection(final BpaAppointmentSchedule scheduleDetails,
+            final BpaApplication bpaApplication, String msgKey) {
+        final Locale locale = LocaleContextHolder.getLocale();
+        return bpaMessageSource.getMessage(msgKey,
+                new String[] { DateUtils.toDefaultDateFormat(scheduleDetails.getAppointmentDate()),
+                        scheduleDetails.getAppointmentTime(), bpaApplication.getApplicationNumber() },
                 locale);
     }
 
