@@ -43,124 +43,127 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class BpaUtils {
 
-	private static final String WF_END_ACTION = "END";
-	@Autowired
-	private ApplicationContext context;
+    private static final String CLOSED = "Closed";
+    private static final String WF_END_ACTION = "END";
+    @Autowired
+    private ApplicationContext context;
 
-	@Autowired
-	private SecurityUtils securityUtils;
+    @Autowired
+    private SecurityUtils securityUtils;
 
-	@Autowired
-	private ModuleService moduleService;
+    @Autowired
+    private ModuleService moduleService;
 
-	@Autowired
-	private AssignmentService assignmentService;
+    @Autowired
+    private AssignmentService assignmentService;
 
-	@Autowired
-	private PortalInboxService portalInboxService;
-	@Autowired
-	private BPASmsAndEmailService bpaSmsAndEmailService;
+    @Autowired
+    private PortalInboxService portalInboxService;
+    @Autowired
+    private BPASmsAndEmailService bpaSmsAndEmailService;
 
-	@Autowired
-	private BoundaryService boundaryService;
+    @Autowired
+    private BoundaryService boundaryService;
 
-	@Autowired
-	@Qualifier("workflowService")
-	private SimpleWorkflowService<BpaApplication> bpaApplicationWorkflowService;
+    @Autowired
+    @Qualifier("workflowService")
+    private SimpleWorkflowService<BpaApplication> bpaApplicationWorkflowService;
 
-	@Autowired
-	private DesignationService designationService;
+    @Autowired
+    private DesignationService designationService;
 
-	@Autowired
-	private AppConfigValueService appConfigValueService;
+    @Autowired
+    private AppConfigValueService appConfigValueService;
 
-	@Autowired
-	private UserService userService;
+    @Autowired
+    private UserService userService;
 
-	public String getAppconfigValueByKeyName(String code) {
-		List<AppConfigValues> appConfigValueList = appConfigValueService
-				.getConfigValuesByModuleAndKey(BpaConstants.APPLICATION_MODULE_TYPE, code);
-		return !appConfigValueList.isEmpty() ? appConfigValueList.get(0).getValue() : "";
-	}
+    public String getAppconfigValueByKeyName(String code) {
+        List<AppConfigValues> appConfigValueList = appConfigValueService
+                .getConfigValuesByModuleAndKey(BpaConstants.APPLICATION_MODULE_TYPE, code);
+        return !appConfigValueList.isEmpty() ? appConfigValueList.get(0).getValue() : "";
+    }
 
-	public Boolean checkAnyTaxIsPendingToCollect(final BpaApplication bpaApplication) {
-		Boolean pendingTaxCollection = false;
+    public Boolean checkAnyTaxIsPendingToCollect(final BpaApplication bpaApplication) {
+        Boolean pendingTaxCollection = false;
 
-		if (bpaApplication != null && bpaApplication.getDemand() != null)
-			for (final EgDemandDetails demandDtl : bpaApplication.getDemand().getEgDemandDetails())
-				if (demandDtl.getAmount().subtract(demandDtl.getAmtCollected()).compareTo(BigDecimal.ZERO) > 0) {
-					pendingTaxCollection = true;
-					break;
-				}
-		return pendingTaxCollection;
-	}
+        if (bpaApplication != null && bpaApplication.getDemand() != null)
+            for (final EgDemandDetails demandDtl : bpaApplication.getDemand().getEgDemandDetails())
+                if (demandDtl.getAmount().subtract(demandDtl.getAmtCollected()).compareTo(BigDecimal.ZERO) > 0) {
+                    pendingTaxCollection = true;
+                    break;
+                }
+        return pendingTaxCollection;
+    }
 
-	public String loggedInUserDesignation(final BpaApplication application) {
-		String loggedInUserDesignation = "";
-		final User user = getCurrentUser();
-		List<Assignment> loggedInUserAssign;
-		if (application.getState() != null && application.getState().getOwnerPosition() != null) {
-			loggedInUserAssign = assignmentService.getAssignmentByPositionAndUserAsOnDate(
-					application.getState().getOwnerPosition().getId(), user.getId(), new Date());
-			loggedInUserDesignation = !loggedInUserAssign.isEmpty()
-					? loggedInUserAssign.get(0).getDesignation().getName() : null;
-		}
-		return loggedInUserDesignation;
-	}
+    public String loggedInUserDesignation(final BpaApplication application) {
+        String loggedInUserDesignation = "";
+        final User user = getCurrentUser();
+        List<Assignment> loggedInUserAssign;
+        if (application.getState() != null && application.getState().getOwnerPosition() != null) {
+            loggedInUserAssign = assignmentService.getAssignmentByPositionAndUserAsOnDate(
+                    application.getState().getOwnerPosition().getId(), user.getId(), new Date());
+            loggedInUserDesignation = !loggedInUserAssign.isEmpty()
+                    ? loggedInUserAssign.get(0).getDesignation().getName() : null;
+        }
+        return loggedInUserDesignation;
+    }
 
-	public Boolean applicationinitiatedByNonEmployee(BpaApplication application) {
-		Boolean initiatedByNonEmployee = false;
-		User applicationInitiator;
-		if (application.getCreatedBy() != null)
-			applicationInitiator = userService.getUserById(application.getCreatedBy().getId());
-		else
-			applicationInitiator = getCurrentUser();
-		if (applicationInitiator != null && !applicationInitiator.getType().equals(UserType.EMPLOYEE)) {
-			initiatedByNonEmployee = Boolean.TRUE;
-		}
+    public Boolean applicationinitiatedByNonEmployee(BpaApplication application) {
+        Boolean initiatedByNonEmployee = false;
+        User applicationInitiator;
+        if (application.getCreatedBy() != null)
+            applicationInitiator = userService.getUserById(application.getCreatedBy().getId());
+        else
+            applicationInitiator = getCurrentUser();
+        if (applicationInitiator != null && !applicationInitiator.getType().equals(UserType.EMPLOYEE)) {
+            initiatedByNonEmployee = Boolean.TRUE;
+        }
 
-		return initiatedByNonEmployee;
-	}
+        return initiatedByNonEmployee;
+    }
 
-	public User getCurrentUser() {
-		return securityUtils.getCurrentUser();
-	}
+    public User getCurrentUser() {
+        return securityUtils.getCurrentUser();
+    }
 
-	public BpaApplicationWorkflowCustomDefaultImpl getInitialisedWorkFlowBean() {
-		BpaApplicationWorkflowCustomDefaultImpl applicationWorkflowCustomDefaultImpl = null;
-		if (null != context)
-			applicationWorkflowCustomDefaultImpl = (BpaApplicationWorkflowCustomDefaultImpl) context
-					.getBean("bpaApplicationWorkflowCustomDefaultImpl");
-		return applicationWorkflowCustomDefaultImpl;
-	}
+    public BpaApplicationWorkflowCustomDefaultImpl getInitialisedWorkFlowBean() {
+        BpaApplicationWorkflowCustomDefaultImpl applicationWorkflowCustomDefaultImpl = null;
+        if (null != context)
+            applicationWorkflowCustomDefaultImpl = (BpaApplicationWorkflowCustomDefaultImpl) context
+                    .getBean("bpaApplicationWorkflowCustomDefaultImpl");
+        return applicationWorkflowCustomDefaultImpl;
+    }
 
-	public WorkFlowMatrix getWfMatrixByCurrentState(final BpaApplication application, final String currentState) {
-		return bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null, null,
-				BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, currentState, null);
-	}
+    public WorkFlowMatrix getWfMatrixByCurrentState(final BpaApplication application, final String currentState) {
+        return bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null, null,
+                BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, currentState, null);
+    }
 
-	@Transactional
-	public void updatePortalUserinbox(final BpaApplication application, final User additionalPortalInboxUser) {
-		Module module = moduleService.getModuleByName(BpaConstants.EGMODULE_NAME);
-		boolean isResolved = false;
-		if ((application.getState() != null && WF_END_ACTION.equals(application.getState().getValue()))
-				|| (application.getStatus() != null
-						&& application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_CANCELLED)))
-			isResolved = true;
-		String url = "/bpa/application/citizen/update/" + application.getApplicationNumber();
-		if (application.getStatus() != null)
-			portalInboxService.updateInboxMessage(application.getApplicationNumber(), module.getId(),
-					application.getStatus().getDescription(), isResolved, new Date(), application.getState(),
-					additionalPortalInboxUser, application.getPlanPermissionNumber(), url);
-	}
+    @Transactional
+    public void updatePortalUserinbox(final BpaApplication application, final User additionalPortalInboxUser) {
+        Module module = moduleService.getModuleByName(BpaConstants.EGMODULE_NAME);
+        boolean isResolved = false;
+        if ((application.getState() != null && (CLOSED.equals(application.getState().getValue())
+                || WF_END_ACTION.equals(application.getState().getValue())))
+                || (application.getStatus() != null
+                        && application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_CANCELLED)))
+            isResolved = true;
+        String url = "/bpa/application/citizen/update/" + application.getApplicationNumber();
+        if (application.getStatus() != null)
+            portalInboxService.updateInboxMessage(application.getApplicationNumber(), module.getId(),
+                    application.getStatus().getDescription(), isResolved, new Date(), application.getState(),
+                    additionalPortalInboxUser, application.getPlanPermissionNumber(), url);
+    }
 
-	@Transactional
+    @Transactional
     public void createPortalUserinbox(final BpaApplication application, final List<User> portalInboxUser,
             final String workFlowAction) {
         String status = StringUtils.EMPTY;
         if ("Save".equalsIgnoreCase(workFlowAction)) {
             status = "To be submitted";
-        } else if (null != application.getStatus().getDescription() && WF_SURVEYOR_FORWARD_BUTTON.equalsIgnoreCase(workFlowAction)) {
+        } else if (null != application.getStatus().getDescription()
+                && WF_SURVEYOR_FORWARD_BUTTON.equalsIgnoreCase(workFlowAction)) {
             status = application.getStatus().getDescription();
         }
         Module module = moduleService.getModuleByName(BpaConstants.EGMODULE_NAME);
@@ -175,93 +178,95 @@ public class BpaUtils {
         portalInboxService.pushInboxMessage(portalInbox);
     }
 
-	@Transactional(readOnly = true)
-	public Long getUserPositionIdByZone(final String designation, final Long boundary) {
-		final Boundary boundaryObj = getBoundaryById(boundary);
-		final String[] designationarr = designation.split(",");
-		List<Assignment> assignment = new ArrayList<>();
-		for (final String desg : designationarr) {
-			assignment = assignmentService.findByDepartmentDesignationAndBoundary(null,
-					designationService.getDesignationByName(desg).getId(), boundaryObj.getId());
-			if (assignment.isEmpty()) {
-				// Ward->Zone
-				if (boundaryObj.getParent() != null && boundaryObj.getParent().getBoundaryType() != null && boundaryObj
-						.getParent().getBoundaryType().getName().equals(BpaConstants.BOUNDARY_TYPE_ZONE)) {
-					assignment = assignmentService.findByDeptDesgnAndParentAndActiveChildBoundaries(null,
-							designationService.getDesignationByName(desg).getId(), boundaryObj.getParent().getId());
-					if (assignment.isEmpty() && boundaryObj.getParent() != null
-							&& boundaryObj.getParent().getParent() != null && boundaryObj.getParent().getParent()
-									.getBoundaryType().getName().equals(BpaConstants.BOUNDARY_TYPE_CITY))
-						assignment = assignmentService.findByDeptDesgnAndParentAndActiveChildBoundaries(null,
-								designationService.getDesignationByName(desg).getId(),
-								boundaryObj.getParent().getParent().getId());
-				}
-				// ward->City mapp
-				if (assignment.isEmpty() && boundaryObj.getParent() != null
-						&& boundaryObj.getParent().getBoundaryType().getName().equals(BpaConstants.BOUNDARY_TYPE_CITY))
-					assignment = assignmentService.findByDeptDesgnAndParentAndActiveChildBoundaries(null,
-							designationService.getDesignationByName(desg).getId(), boundaryObj.getParent().getId());
-			}
-			if (!assignment.isEmpty())
-				break;
-		}
-		return !assignment.isEmpty() ? assignment.get(0).getPosition().getId() : 0;
-	}
-	@Transactional(readOnly = true)
-        public Position getUserPositionByZone(final String designation, final Long boundary) {
-                final Boundary boundaryObj = getBoundaryById(boundary);
-                final String[] designationarr = designation.split(",");
-                List<Assignment> assignment = new ArrayList<>();
-                for (final String desg : designationarr) {
-                        assignment = assignmentService.findByDepartmentDesignationAndBoundary(null,
-                                        designationService.getDesignationByName(desg).getId(), boundaryObj.getId());
-                        if (assignment.isEmpty()) {
-                                // Ward->Zone
-                                if (boundaryObj.getParent() != null && boundaryObj.getParent().getBoundaryType() != null && boundaryObj
-                                                .getParent().getBoundaryType().getName().equals(BpaConstants.BOUNDARY_TYPE_ZONE)) {
-                                        assignment = assignmentService.findByDeptDesgnAndParentAndActiveChildBoundaries(null,
-                                                        designationService.getDesignationByName(desg).getId(), boundaryObj.getParent().getId());
-                                        if (assignment.isEmpty() && boundaryObj.getParent() != null
-                                                        && boundaryObj.getParent().getParent() != null && boundaryObj.getParent().getParent()
-                                                                        .getBoundaryType().getName().equals(BpaConstants.BOUNDARY_TYPE_CITY))
-                                                assignment = assignmentService.findByDeptDesgnAndParentAndActiveChildBoundaries(null,
-                                                                designationService.getDesignationByName(desg).getId(),
-                                                                boundaryObj.getParent().getParent().getId());
-                                }
-                                // ward->City mapp
-                                if (assignment.isEmpty() && boundaryObj.getParent() != null
-                                                && boundaryObj.getParent().getBoundaryType().getName().equals(BpaConstants.BOUNDARY_TYPE_CITY))
-                                        assignment = assignmentService.findByDeptDesgnAndParentAndActiveChildBoundaries(null,
-                                                        designationService.getDesignationByName(desg).getId(), boundaryObj.getParent().getId());
-                        }
-                        if (!assignment.isEmpty())
-                                break;
+    @Transactional(readOnly = true)
+    public Long getUserPositionIdByZone(final String designation, final Long boundary) {
+        final Boundary boundaryObj = getBoundaryById(boundary);
+        final String[] designationarr = designation.split(",");
+        List<Assignment> assignment = new ArrayList<>();
+        for (final String desg : designationarr) {
+            assignment = assignmentService.findByDepartmentDesignationAndBoundary(null,
+                    designationService.getDesignationByName(desg).getId(), boundaryObj.getId());
+            if (assignment.isEmpty()) {
+                // Ward->Zone
+                if (boundaryObj.getParent() != null && boundaryObj.getParent().getBoundaryType() != null && boundaryObj
+                        .getParent().getBoundaryType().getName().equals(BpaConstants.BOUNDARY_TYPE_ZONE)) {
+                    assignment = assignmentService.findByDeptDesgnAndParentAndActiveChildBoundaries(null,
+                            designationService.getDesignationByName(desg).getId(), boundaryObj.getParent().getId());
+                    if (assignment.isEmpty() && boundaryObj.getParent() != null
+                            && boundaryObj.getParent().getParent() != null && boundaryObj.getParent().getParent()
+                                    .getBoundaryType().getName().equals(BpaConstants.BOUNDARY_TYPE_CITY))
+                        assignment = assignmentService.findByDeptDesgnAndParentAndActiveChildBoundaries(null,
+                                designationService.getDesignationByName(desg).getId(),
+                                boundaryObj.getParent().getParent().getId());
                 }
-                return !assignment.isEmpty() ? assignment.get(0).getPosition() : null;
+                // ward->City mapp
+                if (assignment.isEmpty() && boundaryObj.getParent() != null
+                        && boundaryObj.getParent().getBoundaryType().getName().equals(BpaConstants.BOUNDARY_TYPE_CITY))
+                    assignment = assignmentService.findByDeptDesgnAndParentAndActiveChildBoundaries(null,
+                            designationService.getDesignationByName(desg).getId(), boundaryObj.getParent().getId());
+            }
+            if (!assignment.isEmpty())
+                break;
         }
-	public Boundary getBoundaryById(final Long boundary) {
+        return !assignment.isEmpty() ? assignment.get(0).getPosition().getId() : 0;
+    }
 
-		return boundaryService.getBoundaryById(boundary);
-	}
+    @Transactional(readOnly = true)
+    public Position getUserPositionByZone(final String designation, final Long boundary) {
+        final Boundary boundaryObj = getBoundaryById(boundary);
+        final String[] designationarr = designation.split(",");
+        List<Assignment> assignment = new ArrayList<>();
+        for (final String desg : designationarr) {
+            assignment = assignmentService.findByDepartmentDesignationAndBoundary(null,
+                    designationService.getDesignationByName(desg).getId(), boundaryObj.getId());
+            if (assignment.isEmpty()) {
+                // Ward->Zone
+                if (boundaryObj.getParent() != null && boundaryObj.getParent().getBoundaryType() != null && boundaryObj
+                        .getParent().getBoundaryType().getName().equals(BpaConstants.BOUNDARY_TYPE_ZONE)) {
+                    assignment = assignmentService.findByDeptDesgnAndParentAndActiveChildBoundaries(null,
+                            designationService.getDesignationByName(desg).getId(), boundaryObj.getParent().getId());
+                    if (assignment.isEmpty() && boundaryObj.getParent() != null
+                            && boundaryObj.getParent().getParent() != null && boundaryObj.getParent().getParent()
+                                    .getBoundaryType().getName().equals(BpaConstants.BOUNDARY_TYPE_CITY))
+                        assignment = assignmentService.findByDeptDesgnAndParentAndActiveChildBoundaries(null,
+                                designationService.getDesignationByName(desg).getId(),
+                                boundaryObj.getParent().getParent().getId());
+                }
+                // ward->City mapp
+                if (assignment.isEmpty() && boundaryObj.getParent() != null
+                        && boundaryObj.getParent().getBoundaryType().getName().equals(BpaConstants.BOUNDARY_TYPE_CITY))
+                    assignment = assignmentService.findByDeptDesgnAndParentAndActiveChildBoundaries(null,
+                            designationService.getDesignationByName(desg).getId(), boundaryObj.getParent().getId());
+            }
+            if (!assignment.isEmpty())
+                break;
+        }
+        return !assignment.isEmpty() ? assignment.get(0).getPosition() : null;
+    }
 
-	public Boolean logedInuseCitizenOrBusinessUser() {
-		Boolean citizenOrbusiness = Boolean.FALSE;
-		User applicationInitiator = getCurrentUser();
-		if (applicationInitiator != null && (applicationInitiator.getType().equals(UserType.CITIZEN)
-				|| applicationInitiator.getType().equals(UserType.BUSINESS))) {
-			citizenOrbusiness = Boolean.TRUE;
-		}
-		return citizenOrbusiness;
-	}
-	
-	public Boolean logedInuserIsCitizen() {
-		Boolean citizen = Boolean.FALSE;
-		User applicationInitiator = getCurrentUser();
-		if (applicationInitiator != null && (applicationInitiator.getType().equals(UserType.CITIZEN))) {
-			citizen = Boolean.TRUE;
-		}
-		return citizen;
-	}
+    public Boundary getBoundaryById(final Long boundary) {
+
+        return boundaryService.getBoundaryById(boundary);
+    }
+
+    public Boolean logedInuseCitizenOrBusinessUser() {
+        Boolean citizenOrbusiness = Boolean.FALSE;
+        User applicationInitiator = getCurrentUser();
+        if (applicationInitiator != null && (applicationInitiator.getType().equals(UserType.CITIZEN)
+                || applicationInitiator.getType().equals(UserType.BUSINESS))) {
+            citizenOrbusiness = Boolean.TRUE;
+        }
+        return citizenOrbusiness;
+    }
+
+    public Boolean logedInuserIsCitizen() {
+        Boolean citizen = Boolean.FALSE;
+        User applicationInitiator = getCurrentUser();
+        if (applicationInitiator != null && (applicationInitiator.getType().equals(UserType.CITIZEN))) {
+            citizen = Boolean.TRUE;
+        }
+        return citizen;
+    }
 
     @Transactional
     public void redirectToBpaWorkFlow(Long approvalPosition, final BpaApplication application,

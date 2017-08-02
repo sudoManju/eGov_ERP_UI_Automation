@@ -317,7 +317,7 @@
 
 			<div class="panel-heading custom_form_panel_heading">
 
-				<div class="panel-title">Area of the Location</div>
+				<div class="panel-title">Extent of Plot</div>
 			</div>
 			<div class="panel-body">
 				<c:forEach items="${docketDetailAreaLoc}" var="doc"
