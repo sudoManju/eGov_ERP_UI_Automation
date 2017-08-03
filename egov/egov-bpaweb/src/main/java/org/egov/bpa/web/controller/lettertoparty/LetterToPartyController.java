@@ -62,6 +62,7 @@ import org.egov.bpa.application.service.LettertoPartyDocumentService;
 import org.egov.bpa.application.service.LettertoPartyService;
 import org.egov.bpa.application.service.LpReasonService;
 import org.egov.bpa.service.BpaThirdPartyService;
+import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.eis.service.PositionMasterService;
 import org.egov.infra.admin.master.entity.User;
@@ -120,6 +121,8 @@ public class LetterToPartyController {
     private PositionMasterService positionMasterService;
     @Autowired
     protected BpaThirdPartyService bpaThirdPartyService;
+    @Autowired
+    private BpaUtils bpaUtils;
 
     @ModelAttribute("lpReasonList")
     public List<LpReason> getLpReasonList() {
@@ -297,7 +300,8 @@ public class LetterToPartyController {
     public String createLettertoPartyReply(@ModelAttribute final LettertoParty lettertoparty, final Model model,
             final HttpServletRequest request, final BindingResult errors, final RedirectAttributes redirectAttributes) {
         processAndStoreLetterToPartyDocuments(lettertoparty);
-        lettertoPartyService.save(lettertoparty);
+        LettertoParty lettertopartyRes = lettertoPartyService.save(lettertoparty);
+        bpaUtils.updatePortalUserinbox(lettertopartyRes.getApplication(),null);
         redirectAttributes.addFlashAttribute(MESSAGE,
                 messageSource.getMessage("msg.lettertoparty.reply.success", null, null));
         return REDIRECT_LETTERTOPARTY_RESULT + lettertoparty.getId();

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-07-10T18:23:14 -->
+<!-- 2017-08-03T14:49:25 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="buildingpermit" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="576a1e58-ecb3-4d56-971a-5d1fe019af29">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="261"/>
+	<property name="ireport.y" value="98"/>
 	<import value="org.egov.infra.reporting.util.*"/>
 	<import value="org.egov.infstr.utils.*"/>
 	<parameter name="landExtent" class="java.math.BigDecimal"/>
@@ -22,6 +22,7 @@
 	<parameter name="certExpryDate" class="java.lang.String"/>
 	<parameter name="isBusinessUser" class="java.lang.Boolean"/>
 	<parameter name="duplicateWatermarkPath" class="java.lang.String"/>
+	<parameter name="designation" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -153,13 +154,13 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{cityName}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="323" y="30" width="232" height="20" uuid="cb6376bc-9b5f-4abc-8873-100c4f1243f4"/>
-				<textElement textAlignment="Right">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="283" y="30" width="272" height="20" uuid="f9b4602e-c446-43e0-bfac-15895daee792"/>
+				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Signature And Name Of Secretary]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA["Signature And Name Of  "+$P{designation}]]></textFieldExpression>
+			</textField>
 		</band>
 		<band height="50">
 			<textField>
