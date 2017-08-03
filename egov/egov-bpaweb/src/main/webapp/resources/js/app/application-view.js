@@ -147,8 +147,12 @@ jQuery(document).ready(function() {
 	loadAmenities();
 function loadAmenities(){
 		var amenities = [];
-		if($( "#serviceType" ).val() == 'Huts and Sheds'){
+		if(seviceTypeName == 'Huts and Sheds'){
 			amenities.push('Huts and Sheds');
+		} else if(seviceTypeName == 'Tower Construction'){
+			amenities.push('Tower Construction');
+		} else if(seviceTypeName == 'Pole Structures'){
+			amenities.push('Pole Structures');
 		}
 		var amenityDesc = $("#applicationAmenity").val().split(',');
 		$.each(amenityDesc, function(index, amenityDesc) {
