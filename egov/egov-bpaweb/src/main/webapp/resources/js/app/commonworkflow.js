@@ -39,6 +39,12 @@
  */
 $(document).ready(function()
 {	
+	
+	// On page load setting default department get selected
+	$('[name=approvalDepartment] option').filter(function() { 
+        return ($(this).text() == $('#defaultDepartment').val());
+    }).prop('selected', true);
+	
 	var currentstate=$('#currentState').val();
 	if(currentstate != 'Rejected')
 		{
@@ -59,11 +65,11 @@ $(document).ready(function()
 				success: function (response) {
 					console.log("success"+response);
 					$('#approvalDesignation').empty();
-					$('#approvalDesignation').append($("<option value=''>Select from below</option>"));
+					//$('#approvalDesignation').append($("<option value=''>Select from below</option>"));
 					$.each(response, function(index, value) {
 						$('#approvalDesignation').append($('<option>').text(value.name).attr('value', value.id));
 					});
-					
+					$('#approvalDesignation').trigger('change');
 				}, 
 				error: function (response) {
 					bootbox.alert('json fail');
@@ -91,11 +97,11 @@ $(document).ready(function()
 				success: function (response) {
 					console.log("success"+response);
 					$('#approvalDesignation').empty();
-					$('#approvalDesignation').append($("<option value=''>Select from below</option>"));
+					//$('#approvalDesignation').append($("<option value=''>Select from below</option>"));
 					$.each(response, function(index, value) {
 						$('#approvalDesignation').append($('<option>').text(value.name).attr('value', value.id));
 					});
-					
+					$('#approvalDesignation').trigger('change');
 				}, 
 				error: function (response) {
 					bootbox.alert('json fail');
@@ -109,17 +115,18 @@ $(document).ready(function()
 	
 	$('#approvalDesignation').change(function(){
 		$.ajax({
-			url: "/eis/ajaxWorkFlow-positionsByDepartmentAndDesignation",     
+			url: "/bpa/bpaajaxWorkFlow-positionsByDepartmentAndDesignationAndBoundary",     
 			type: "GET",
 			data: {
-				approvalDesignation : $('#approvalDesignation').val(),
-				approvalDepartment : $('#approvalDepartment').val()    
+				approvalDesignation : $('#approvalDesignation option:selected').val(),
+				approvalDepartment : $('#approvalDepartment option:selected').val(),
+				boundaryId :$('#electionBoundary').val()
 			},
 			dataType: "json",
 			success: function (response) {
 				console.log("success"+response);
 				$('#approvalPosition').empty();
-				$('#approvalPosition').append($("<option value=''>Select from below</option>"));
+				//$('#approvalPosition').append($("<option value=''>Select from below</option>"));
 				$.each(response, function(index, value) {
 					$('#approvalPosition').append($('<option>').text(value.userName+'/'+value.positionName).attr('value', value.positionId));  
 				});
@@ -130,7 +137,7 @@ $(document).ready(function()
 			}
 		});
 	});
-	
+	$('#approvalDepartment').trigger('change');
 });
 
 function callAlertForDepartment() {

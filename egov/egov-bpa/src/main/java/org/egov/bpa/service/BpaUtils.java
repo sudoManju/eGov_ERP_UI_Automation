@@ -305,4 +305,10 @@ public class BpaUtils {
         userNameBuilder.append(userName).append(RandomStringUtils.randomNumeric(4));
         return userNameBuilder.toString();
     }
+    
+    public String getAppconfigValueByKeyNameForDefaultDept() {
+        List<AppConfigValues> appConfigValueList = appConfigValueService
+                .getConfigValuesByModuleAndKey(BpaConstants.APPLICATION_MODULE_TYPE, "BPAPRIMARYDEPARTMENT");
+        return !appConfigValueList.isEmpty() ? appConfigValueList.get(0).getValue() : "";
+    }
 }

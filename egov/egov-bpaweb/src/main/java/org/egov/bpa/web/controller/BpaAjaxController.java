@@ -152,15 +152,13 @@ public class BpaAjaxController {
         return designations;
     }
 
-    @RequestMapping(value = "/ajax-positionsByDepartmentAndDesignation", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
+    @RequestMapping(value = "/bpaajaxWorkFlow-positionsByDepartmentAndDesignationAndBoundary", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
-    public String getPositionByDepartmentAndDesignation(@RequestParam final Long approvalDepartment,
-            @RequestParam final Long approvalDesignation, final HttpServletResponse response) {
-        List<Assignment> assignmentList = new ArrayList<>();
+    public String getPositionByDepartmentAndDesignationAndBoundary(@RequestParam final Long approvalDepartment,
+            @RequestParam final Long approvalDesignation, @RequestParam final Long boundaryId, final HttpServletResponse response) {
         if (approvalDepartment != null && approvalDepartment != 0 && approvalDepartment != -1
                 && approvalDesignation != null && approvalDesignation != 0 && approvalDesignation != -1) {
-            assignmentList = assignmentService.findAllAssignmentsByDeptDesigAndDates(approvalDepartment,
-                    approvalDesignation, new Date());
+            List<Assignment> assignmentList = assignmentService.findAssignmentByDepartmentDesignationAndBoundary(approvalDepartment, approvalDesignation, boundaryId);
             final Gson jsonCreator = new GsonBuilder().registerTypeAdapter(Assignment.class, new AssignmentAdaptor())
                     .create();
             return jsonCreator.toJson(assignmentList, new TypeToken<Collection<Assignment>>() {

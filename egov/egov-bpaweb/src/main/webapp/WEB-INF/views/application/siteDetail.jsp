@@ -134,7 +134,7 @@
 		</label>
 		<div class="col-sm-3 add-margin">
 			<form:select path="siteDetail[0].electionBoundary"
-				data-first-option="false" id="zone" cssClass="form-control"
+				data-first-option="false" id="electionBoundary" cssClass="form-control"
 				required="required">
 				<form:option value="">
 					<spring:message code="lbl.select" />

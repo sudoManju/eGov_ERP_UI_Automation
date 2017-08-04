@@ -49,13 +49,13 @@ import static org.egov.bpa.utils.BpaConstants.BPA_STATUS_SUPERINDENT_APPROVED;
 import static org.egov.bpa.utils.BpaConstants.CHECKLIST_TYPE_NOC;
 import static org.egov.bpa.utils.BpaConstants.CREATE_ADDITIONAL_RULE_CREATE;
 import static org.egov.bpa.utils.BpaConstants.GENERATEPERMITORDER;
-import static org.egov.bpa.utils.BpaConstants.WF_CANCELAPPLICATION_BUTTON;
-import static org.egov.bpa.utils.BpaConstants.WF_REJECT_BUTTON;
-import static org.egov.bpa.utils.BpaConstants.ST_CODE_14;
-import static org.egov.bpa.utils.BpaConstants.ST_CODE_15;
 import static org.egov.bpa.utils.BpaConstants.ST_CODE_05;
 import static org.egov.bpa.utils.BpaConstants.ST_CODE_08;
 import static org.egov.bpa.utils.BpaConstants.ST_CODE_09;
+import static org.egov.bpa.utils.BpaConstants.ST_CODE_14;
+import static org.egov.bpa.utils.BpaConstants.ST_CODE_15;
+import static org.egov.bpa.utils.BpaConstants.WF_CANCELAPPLICATION_BUTTON;
+import static org.egov.bpa.utils.BpaConstants.WF_REJECT_BUTTON;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -72,13 +72,11 @@ import org.egov.bpa.application.entity.LettertoParty;
 import org.egov.bpa.application.entity.enums.AppointmentSchedulePurpose;
 import org.egov.bpa.application.service.InspectionService;
 import org.egov.bpa.application.service.LettertoPartyService;
-import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.eis.service.PositionMasterService;
 import org.egov.eis.web.contract.WorkflowContainer;
 import org.egov.infra.admin.master.entity.User;
 import org.egov.infra.persistence.entity.PermanentAddress;
-import org.egov.infra.security.utils.SecurityUtils;
 import org.egov.infra.workflow.entity.StateHistory;
 import org.egov.pims.commons.Position;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,15 +118,11 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
     private static final String ADDITIONALRULE = "additionalRule";
 
     @Autowired
-    private SecurityUtils securityUtils;
-    @Autowired
     private InspectionService inspectionService;
     @Autowired
     private PositionMasterService positionMasterService;
     @Autowired
     LettertoPartyService lettertoPartyService;
-    @Autowired
-    private BpaUtils bpaUtils;
 
     @ModelAttribute
     public BpaApplication getBpaApplication(@PathVariable final String applicationNumber) {
@@ -300,6 +294,8 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         model.addAttribute(AMOUNT_RULE, workflowContainer.getAmountRule());
         model.addAttribute("currentState", application.getCurrentState().getValue());
         model.addAttribute(BPA_APPLICATION, application);
+        model.addAttribute("electionBoundary", application.getSiteDetail().get(0).getElectionBoundary().getId());
+        model.addAttribute("bpaPrimaryDept", bpaUtils.getAppconfigValueByKeyNameForDefaultDept());
         model.addAttribute("nocCheckListDetails", checkListDetailService
                 .findActiveCheckListByServiceType(application.getServiceType().getId(), CHECKLIST_TYPE_NOC));
         model.addAttribute("checkListDetailList", checkListDetailService

@@ -86,6 +86,7 @@ import org.egov.infra.admin.master.service.BoundaryService;
 import org.egov.infra.admin.master.service.UserService;
 import org.egov.infra.filestore.service.FileStoreService;
 import org.egov.infra.persistence.entity.enums.UserType;
+import org.egov.infra.security.utils.SecurityUtils;
 import org.egov.infra.utils.FileStoreUtils;
 import org.egov.infra.workflow.entity.StateAware;
 import org.egov.ptis.constants.PropertyTaxConstants;
@@ -137,9 +138,11 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     @Autowired
     private AppConfigValueService appConfigValueService;
     @Autowired
-    private BpaUtils bpaUtils;
+    protected BpaUtils bpaUtils;
     @Autowired
-    private UserService userService;
+    protected UserService userService;
+    @Autowired
+    protected SecurityUtils securityUtils;
 
     @ModelAttribute("occupancyList")
     public List<Occupancy> getOccupancy() {
