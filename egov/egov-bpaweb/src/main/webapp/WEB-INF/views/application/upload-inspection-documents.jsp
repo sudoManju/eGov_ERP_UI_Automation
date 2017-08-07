@@ -54,7 +54,7 @@
 	<label class="col-sm-2 control-label text-right"></label>
 	<div class="col-sm-10">
 		<div class="files-upload-container"
-			data-allowed-extenstion="jpeg,jpg,png,gif">
+			data-allowed-extenstion="jpeg,jpg,png,gif" data-file-max-size="4">
 			<div class="files-viewer"
 				data-existing-files="${fn:length(inspectionSupportDocs)}">
 				<c:forEach var="image" items="${inspection.encodedImages}"

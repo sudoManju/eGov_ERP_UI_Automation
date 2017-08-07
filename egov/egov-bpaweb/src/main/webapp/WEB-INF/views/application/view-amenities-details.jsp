@@ -59,8 +59,8 @@
 		<spring:message code="lbl.area.base" />
 	</div>
 	<div class="col-sm-3 add-margin view-content">
-		<c:out value="${bpaApplication.siteDetail[0].extentOfLand}"
-			default="N/A"></c:out>
+		<fmt:formatNumber type="number" maxFractionDigits="2"
+				value="${bpaApplication.siteDetail[0].extentOfLand}" />
 		<c:out value="${bpaApplication.siteDetail[0].unitOfMeasurement}"></c:out>
 	</div>
 	<div class="col-sm-3 add-margin">

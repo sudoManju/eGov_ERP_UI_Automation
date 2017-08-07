@@ -184,7 +184,7 @@ public class BpaUtils {
         final String[] designationarr = designation.split(",");
         List<Assignment> assignment = new ArrayList<>();
         for (final String desg : designationarr) {
-            assignment = assignmentService.findByDepartmentDesignationAndBoundary(null,
+            assignment = assignmentService.findAssignmentByDepartmentDesignationAndBoundary(null,
                     designationService.getDesignationByName(desg).getId(), boundaryObj.getId());
             if (assignment.isEmpty()) {
                 // Ward->Zone
@@ -217,7 +217,7 @@ public class BpaUtils {
         final String[] designationarr = designation.split(",");
         List<Assignment> assignment = new ArrayList<>();
         for (final String desg : designationarr) {
-            assignment = assignmentService.findByDepartmentDesignationAndBoundary(null,
+            assignment = assignmentService.findAssignmentByDepartmentDesignationAndBoundary(null,
                     designationService.getDesignationByName(desg).getId(), boundaryObj.getId());
             if (assignment.isEmpty()) {
                 // Ward->Zone

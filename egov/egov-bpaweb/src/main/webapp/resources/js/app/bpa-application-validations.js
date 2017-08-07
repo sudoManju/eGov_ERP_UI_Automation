@@ -422,7 +422,7 @@ $(document).ready(function() {
 				totalPlintArea = $("#totalPlintArea").val();
 					if(areaPermissibleWithAddnlFee == 0) {
 						if(parseFloat(totalPlintArea) > areaPermissibleWOAddnlFee){
-							 bootbox.alert("For the occupancy type of " +occpancyObj[0].description+", maximum permissible area is "+areaPermissibleWOAddnlFee+" Sq.Mtrs, beyond of permissible area you are not allowed construct construction.");
+							 bootbox.alert("For the occupancy type of " +occpancyObj[0].description+", maximum permissible area is "+areaPermissibleWOAddnlFee.toFixed(2)+" Sq.Mtrs, beyond of permissible area you are not allowed construct construction.");
 							 $(rowObj).find('.plinthArea').val('');
 							 $( ".floorArea" ).trigger( "change" );
 							 $( ".plinthArea" ).trigger( "change" );
@@ -432,7 +432,7 @@ $(document).ready(function() {
 							return true;
 						}
 					} else if(parseFloat(totalPlintArea) > areaPermissibleWithAddnlFee) {
-						 bootbox.alert("For the occupancy type of " +occpancyObj[0].description+", maximum permissible area allowed with out addtional fee is "+areaPermissibleWOAddnlFee+" Sq.Mtrs and with addtional fee is "+areaPermissibleWithAddnlFee+" Sq.Mtrs, beyond of maximum permissible area of "+areaPermissibleWithAddnlFee+" Sq.Mtrs, you are not allowed construct construction.");
+						 bootbox.alert("For the occupancy type of " +occpancyObj[0].description+", maximum permissible area allowed with out addtional fee is "+areaPermissibleWOAddnlFee.toFixed(2)+" Sq.Mtrs and with addtional fee is "+areaPermissibleWithAddnlFee.toFixed(2)+" Sq.Mtrs, beyond of maximum permissible area of "+areaPermissibleWithAddnlFee.toFixed(2)+" Sq.Mtrs, you are not allowed construct construction.");
 						 $(rowObj).find('.plinthArea').val('');
 						 $( ".floorArea" ).trigger( "change" );
 						 $( ".plinthArea" ).trigger( "change" );
@@ -549,9 +549,14 @@ function validateFloorDetails(plinthArea) {
 	if(seviceTypeName && 'Alteration' != seviceTypeName && 'Adding of Extension' != seviceTypeName 
 			&& 'Huts and Sheds' != seviceTypeName) {	
 		var occpancyObj = getOccupancyObject();
+		var rowObj = $('#buildingAreaDetails tbody tr');
 		if(occpancyObj && $("#occupancyapplnlevel option:selected" ).text() != 'Mixed'){
 			if(!extentOfLand){
 				bootbox.alert("Please enter extend of land area value");
+				$(rowObj).find('.floorArea').val('');
+				$(rowObj).find('.plinthArea').val('');
+				$( ".floorArea" ).trigger( "change" );
+				$( ".plinthArea" ).trigger( "change" );
 				return false;
 			}
 			/*if(!totalPlintArea){
@@ -563,7 +568,7 @@ function validateFloorDetails(plinthArea) {
 			var permissibleAreaForFloor = extentInSqmts * permissibleAreaInPercentage / 100;
 			if(parseFloat(inputPlinthArea) > parseFloat(permissibleAreaForFloor)){
 				$(plinthArea).val('');
-				bootbox.alert("For type of " +occpancyObj[0].description+", each floor wise maximum permissable floor area is " +permissibleAreaForFloor+" Sq.Mtrs, so beyond of maximum permissable floor wise area you you are not allowed construct building.");
+				bootbox.alert("For type of " +occpancyObj[0].description+", each floor wise maximum permissable floor area is " +parseFloat(permissibleAreaForFloor).toFixed(2)+" Sq.Mtrs, so beyond of maximum permissable floor wise area you you are not allowed construct building.");
 				return false;
 			}
 			/*if(parseFloat($("#sumOfFloorArea").val()) > parseFloat(totalPlintArea)){

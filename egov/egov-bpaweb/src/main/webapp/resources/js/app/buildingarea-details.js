@@ -133,8 +133,16 @@ jQuery(document).ready(function() {
 	}); 
 	
 	$(document).on('change','.floorDescription, .occupancy', function() {
+		if(!$("#occupancyapplnlevel").val()) {
+			$('#buildingAreaDetails').find('select').val('');
+			bootbox.alert('Please select main occupancy type.');
+			return false;
+		}
 		setFloorCount();
 		var rowObj = $(this).closest('tr');
+		if(($(rowObj).find('.floorDescription').val() == '' || $(rowObj).find('.floorDescription').val() == 'undefined') && $('#buildingAreaDetails tbody tr').length <= 1) {
+			$("#floorCount").val('');
+		}
 		validateUniqueDetails(rowObj.index(),$(rowObj).find('.floorDescription').val(), $(rowObj).find('.floorNumber').val(), $(rowObj).find('.occupancy').val());
 	});
 	

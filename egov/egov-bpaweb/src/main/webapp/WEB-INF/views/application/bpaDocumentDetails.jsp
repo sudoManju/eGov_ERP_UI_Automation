@@ -111,7 +111,7 @@
 
 				<div class="col-sm-4 add-margin">
 					<div class="files-upload-container"
-					    data-file-max-size="2"
+					    data-file-max-size="5"
 					    <c:if test="${docs.checklistDetail.isMandatory eq true && fn:length(docs.getSupportDocs()) eq 0}">required</c:if>
 						data-allowed-extenstion="doc,docx,xls,xlsx,rtf,pdf,txt,zip,jpeg,jpg,png,gif,tiff">
 						<div class="files-viewer">
@@ -148,7 +148,6 @@
 											<i class="fa fa-file-o" aria-hidden="true"></i>
 										</c:otherwise>
 									</c:choose>
-
 								</div>
 							</c:forEach>
 
