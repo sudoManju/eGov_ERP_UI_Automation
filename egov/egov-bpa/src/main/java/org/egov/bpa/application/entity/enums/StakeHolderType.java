@@ -30,23 +30,24 @@
 package org.egov.bpa.application.entity.enums;
 
 public enum StakeHolderType {
-	ARCHITECT("Architect"), BUILDING_DESIGNER_A("Building Designer - A"), BUILDING_DESIGNER_B(
-			"Building Designer - B"), ENGINEER_A("Engineer - A"), ENGINEER_B("Engineer - B"), TOWN_PLANNER_A(
-					"Town Planner - A"), TOWN_PLANNER_B(
-							"Town Planner - B"), SUPERVISOR_A("Supervisor - A"), SUPERVISOR_B("Supervisor - B");
+    ARCHITECT("Architect"), BUILDING_DESIGNER_A("Building Designer - A"), BUILDING_DESIGNER_B(
+            "Building Designer - B"), ENGINEER_A("Engineer - A"), ENGINEER_B("Engineer - B"), TOWN_PLANNER_A(
+                    "Town Planner - A"), TOWN_PLANNER_B(
+                            "Town Planner - B"), SUPERVISOR_A(
+                                    "Supervisor - A"), SUPERVISOR_B("Supervisor - B"), SUPERVISOR_SENIOR("Supervisor Senior");
 
-	private final String stakeHolderTypeVal;
+    private final String stakeHolderTypeVal;
 
-	private StakeHolderType(String shTypeVal) {
-		this.stakeHolderTypeVal = shTypeVal;
-	}
+    private StakeHolderType(String shTypeVal) {
+        this.stakeHolderTypeVal = shTypeVal;
+    }
 
-	public String getStakeHolderTypeVal() {
-		return stakeHolderTypeVal;
-	}
+    public String getStakeHolderTypeVal() {
+        return stakeHolderTypeVal;
+    }
 
-	@Override
-	public String toString() {
-		return stakeHolderTypeVal.replace("_", "");
-	}
+    @Override
+    public String toString() {
+        return stakeHolderTypeVal.replace("_", "");
+    }
 }
