@@ -218,13 +218,6 @@
 			path="licenceNumber" maxlength="64" id="licenceNumber" required="required" />
 		<form:errors path="licenceNumber" cssClass="error-msg" />
 	</div>
-	<label class="col-sm-2 control-label text-right"><spring:message
-			code="lbl.buil.lic.iss.date" /><span class="mandatory"></span></label>
-	<div class="col-sm-3 add-margin">
-		<form:input type="text" cssClass="form-control datepicker"
-			path="buildingLicenceIssueDate" id="buildingLicenceIssueDate" required="required" />
-		<form:errors path="buildingLicenceIssueDate" cssClass="error-msg" />
-	</div>
 </div>
 
 <%-- <div class="form-group">
@@ -261,11 +254,11 @@
 
 <div class="form-group">
 	<label class="col-sm-3 control-label text-right"><spring:message
-			code="lbl.aadhar" /></label>
+			code="lbl.buil.lic.iss.date" /><span class="mandatory"></span></label>
 	<div class="col-sm-3 add-margin">
-		<form:input type="text" cssClass="form-control patternvalidation"
-			path="aadhaarNumber" data-pattern="number" maxlength="12" id="aadhaarNumber" />
-		<form:errors path="aadhaarNumber"  cssClass="error-msg" />
+		<form:input type="text" cssClass="form-control datepicker"
+			path="buildingLicenceIssueDate" id="buildingLicenceIssueDate" required="required" />
+		<form:errors path="buildingLicenceIssueDate" cssClass="error-msg" />
 	</div>
 	<label class="col-sm-2 control-label text-right"><spring:message
 			code="lbl.build.lic.exp.date" /><span class="mandatory"></span></label>
@@ -276,10 +269,15 @@
 	</div>
 </div>
 <div class="form-group">
-	<label class="col-sm-3 control-label text-left">(or)<span class="mandatory"></span></label>
-</div>
-<div class="form-group">
 	<label class="col-sm-3 control-label text-right"><spring:message
+			code="lbl.aadhar" /><span class="mandatory"></span></label>
+	<div class="col-sm-3 add-margin">
+		<form:input type="text" cssClass="form-control patternvalidation"
+			path="aadhaarNumber" data-pattern="number" maxlength="12" id="aadhaarNumber"
+				required="required" />
+		<form:errors path="aadhaarNumber"  cssClass="error-msg" />
+	</div>
+	<label class="col-sm-2 control-label text-right"><spring:message
 			code="lbl.pan" /></label>
 	<div class="col-sm-3 add-margin">
 		<form:input type="text" cssClass="form-control" path="pan"

@@ -53,9 +53,6 @@ $(document).ready( function () {
 	}
 	//form submit
 	$('#buttonSubmit').click(function(e) {
-		if($('#aadhaarNumber').val() == '' && $('#panNumber').val() == '') {
-			bootbox.alert("Please enter either Aadhar Number or PAN Number is Mandatory");
-		}
 		if ($('form').valid()) {
 			console.log('submitted')
 		} else {

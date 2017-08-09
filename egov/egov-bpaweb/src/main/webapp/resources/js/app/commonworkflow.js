@@ -45,73 +45,35 @@ $(document).ready(function()
         return ($(this).text() == $('#defaultDepartment').val());
     }).prop('selected', true);
 	
-	var currentstate=$('#currentState').val();
-	if(currentstate != 'Rejected')
-		{
-		$('#approvalDepartment').change(function(){
-			$.ajax({
-				url: "/bpa/bpaajaxWorkFlow-getDesignationsByObjectTypeAndDesignation",     
-				type: "GET",
-				data: {
-					approvalDepartment : $('#approvalDepartment').val(),
-					departmentRule : $('#approvalDepartment').find("option:selected").text(),
-					type : $('#stateType').val(),
-					currentState : $('#currentState').val(),
-					amountRule : $('#amountRule').val(),
-					additionalRule : $('#additionalRule').val(),
-					pendingAction : $('#pendingActions').val()
-				},
-				dataType: "json",
-				success: function (response) {
-					console.log("success"+response);
-					$('#approvalDesignation').empty();
-					//$('#approvalDesignation').append($("<option value=''>Select from below</option>"));
-					$.each(response, function(index, value) {
-						$('#approvalDesignation').append($('<option>').text(value.name).attr('value', value.id));
-					});
-					$('#approvalDesignation').trigger('change');
-				}, 
-				error: function (response) {
-					bootbox.alert('json fail');
-					console.log("failed");
-				}
-			});
+	$('#approvalDepartment').change(function(){
+		$.ajax({
+			url: "/bpa/bpaajaxWorkFlow-getDesignationsByObjectTypeAndDesignation",     
+			type: "GET",
+			data: {
+				approvalDepartment : $('#approvalDepartment').val(),
+				departmentRule : $('#approvalDepartment').find("option:selected").text(),
+				type : $('#stateType').val(),
+				currentState : $('#currentState').val(),
+				amountRule : $('#amountRule').val(),
+				additionalRule : $('#additionalRule').val(),
+				pendingAction : $('#pendingActions').val()
+			},
+			dataType: "json",
+			success: function (response) {
+				console.log("success"+response);
+				$('#approvalDesignation').empty();
+				//$('#approvalDesignation').append($("<option value=''>Select from below</option>"));
+				$.each(response, function(index, value) {
+					$('#approvalDesignation').append($('<option>').text(value.name).attr('value', value.id));
+				});
+				$('#approvalDesignation').trigger('change');
+			}, 
+			error: function (response) {
+				bootbox.alert('json fail');
+				console.log("failed");
+			}
 		});
-		}
-	else
-		{
-		$('#approvalDepartment').change(function(){
-			$.ajax({
-				url: "/eis/ajaxWorkFlow-getDesignationsByObjectType",     
-				type: "GET",
-				data: {
-					approvalDepartment : $('#approvalDepartment').val(),
-					departmentRule : $('#approvalDepartment').find("option:selected").text(),
-					type : $('#stateType').val(),
-					currentState : $('#currentState').val(),
-					amountRule : $('#amountRule').val(),
-					additionalRule : $('#additionalRule').val(),
-					pendingAction : $('#pendingActions').val()
-				},
-				dataType: "json",
-				success: function (response) {
-					console.log("success"+response);
-					$('#approvalDesignation').empty();
-					//$('#approvalDesignation').append($("<option value=''>Select from below</option>"));
-					$.each(response, function(index, value) {
-						$('#approvalDesignation').append($('<option>').text(value.name).attr('value', value.id));
-					});
-					$('#approvalDesignation').trigger('change');
-				}, 
-				error: function (response) {
-					bootbox.alert('json fail');
-					console.log("failed");
-				}
-			});
-		});
-		}
-
-	
+	});
 	
 	$('#approvalDesignation').change(function(){
 		$.ajax({
