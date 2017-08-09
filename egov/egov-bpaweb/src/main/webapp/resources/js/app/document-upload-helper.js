@@ -56,7 +56,7 @@ $(document).ready(function(){
 });
 
 function getNewFileViewer(fileName) {
-	return $('<div class="file-viewer" title="'+ fileName +'" data-toggle="tooltip"><a class="delete" href="javascript:void(0);"></a></div>');
+	return $('<div class="file-viewer" title="'+ fileName +'" data-toggle="tooltip"><a class="delete" href="javascript:void(0);"></a><span class="doc-numbering"></span></div>');
 }
 
 $(document).on('change','.files-upload-container input:file',function(e) {
@@ -89,15 +89,14 @@ $(document).on('change','.files-upload-container input:file',function(e) {
 			return;
 		}
 		else if(isMaxLimitReached){
-			bootbox.alert('File size should not exceed 2 MB!');
+			bootbox.alert('File size should not exceed '+maxFileSize+' MB!');
 			$(this).val('');
 			return;
 		}
 		
         reader.onload = function (e) {
         	$fileViewer=getNewFileViewer(fileName);
-        	
-        	
+
         	$addFileBtn.before($fileViewer);
         	//$filesViewerContainer.append($fileViewer);
         	
@@ -130,10 +129,21 @@ $(document).on('change','.files-upload-container input:file',function(e) {
         	}
         	
         	initializeTooltips();
+        	addDocumentNumbering();
         }
         reader.readAsDataURL(input.files[0]);
 	}																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														
 });
+
+function addDocumentNumbering() {
+	$(".files-viewer").each(function(){
+	  var count=1;
+	  $(this).find('.file-viewer').each(function(){
+		$(this).find('.doc-numbering').html(count);
+		count++;
+	  });
+	});
+}
 
 $(document).on('click','.file-add',function() {
 		
@@ -195,6 +205,7 @@ $(document).on('click','.file-viewer a.delete',function(){
 	$(this).closest('.files-upload-container').find('.file-add').show();
 	removeTooltip($(this).parent());
 	$(this).parent().remove();
+	addDocumentNumbering();
 });
 
 $(document).on('click','div.file-viewer',function(e){

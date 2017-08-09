@@ -241,3 +241,20 @@ select.tick-indicator[multiple] option:checked {
 .bootstrap-tagsinput{
 	overflow:auto;
 }
+
+
+/* Upload Documents numbering Start */
+.doc-numbering {
+	 position: absolute;
+    right: 2px;
+    /* padding: 4px; */
+    border-radius: 50%;
+    background: #588fd4;
+    width: 15px;
+    height: 15px;
+    top: 2px;
+    font-size: 11px;
+    color: white;
+    text-align: center;
+}
+/* Upload Documents numbering End */

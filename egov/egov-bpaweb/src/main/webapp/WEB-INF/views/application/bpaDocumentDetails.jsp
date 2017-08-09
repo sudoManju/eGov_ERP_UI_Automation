@@ -116,7 +116,7 @@
 						data-allowed-extenstion="doc,docx,xls,xlsx,rtf,pdf,txt,zip,jpeg,jpg,png,gif,tiff">
 						<div class="files-viewer">
 
-							<c:forEach items="${docs.getSupportDocs()}" var="file">
+							<c:forEach items="${docs.getSupportDocs()}" var="file" varStatus="status1">
 								<div class="file-viewer" data-toggle="tooltip"
 									data-placement="top" title="${file.fileName}">
 									<a class="download" target="_blank"
@@ -148,6 +148,7 @@
 											<i class="fa fa-file-o" aria-hidden="true"></i>
 										</c:otherwise>
 									</c:choose>
+									<span class="doc-numbering">${status1.index+1}</span>
 								</div>
 							</c:forEach>
 

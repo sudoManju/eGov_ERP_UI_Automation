@@ -76,7 +76,7 @@
 								<c:if test="${bpadoc.fileStoreId ne null}">
 									<c:set value="true" var="isDocFound"></c:set>
 									<a target="_blank" href="/bpa/application/downloadfile/${bpadoc.fileStoreId}"
-										data-gallery>${bpadoc.fileName} </a>
+										data-gallery>${loop.index +1}-${bpadoc.fileName} </a>
 									<c:if test="${!loop.last}">,</c:if>&nbsp;
 								</c:if>
 							</c:forEach> <c:if test="${!isDocFound}">
