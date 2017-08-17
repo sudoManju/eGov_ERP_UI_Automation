@@ -98,6 +98,17 @@ public class BuildingDetail extends AbstractAuditable {
     @OneToMany(mappedBy = "buildingDetail", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @OrderBy("orderOfFloor")
     private List<ApplicationFloorDetail> applicationFloorDetails = new ArrayList<>(0);
+    
+    private Boolean additionalFeePaymentAccepted=false;
+    
+    public Boolean getAdditionalFeePaymentAccepted() {
+        return additionalFeePaymentAccepted;
+    }
+
+    public void setAdditionalFeePaymentAccepted(Boolean additionalFeePaymentAccepted) {
+        this.additionalFeePaymentAccepted = additionalFeePaymentAccepted;
+    }
+
     @Override
     public Long getId() {
         return id;

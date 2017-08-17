@@ -44,14 +44,22 @@ import static org.egov.bpa.utils.BpaConstants.RESIDENTIAL;
 import static org.egov.bpa.utils.BpaConstants.THATCHED_TILED_HOUSE;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import org.egov.bpa.application.entity.ApplicationFee;
 import org.egov.bpa.application.entity.ApplicationFeeDetail;
+import org.egov.bpa.application.entity.ApplicationFloorDetail;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaFee;
 import org.egov.bpa.application.entity.BpaFeeDetail;
+import org.egov.bpa.application.entity.BuildingDetail;
+import org.egov.bpa.application.entity.Occupancy;
 import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.masters.service.BpaFeeService;
 import org.egov.bpa.service.ApplicationFeeService;
@@ -355,4 +363,145 @@ public class ApplicationBpaFeeCalculationService {
         }
         return inputUnit;
     }
+    
+   /***
+    * Calculate Area for additional fee calculation.
+    * @param application
+    * @return
+    */
+    
+    private Map<String, BigDecimal> calculateAreaForAdditionalFeeCalculation(final BpaApplication application) {
+        BigDecimal extentOfLand = application.getSiteDetail().get(0).getExtentinsqmts();
+        BigDecimal buildingFloorArea = BigDecimal.ZERO;
+        BigDecimal minimumFARwithoutAdditionalFee = BigDecimal.ZERO;
+        BigDecimal minimumFARwithAdditionalFee = BigDecimal.ZERO;
+        BigDecimal weightage_avg_FAR = BigDecimal.ZERO;
+        BigDecimal maximum_permitted_floor_areaWithAddnFee = BigDecimal.ZERO;
+        BigDecimal maximumPermittedFAR_WithAdditionalFee = BigDecimal.ZERO;
+        BigDecimal maximum_permitted_floor_area = BigDecimal.ZERO;
+        BigDecimal maximumPermittedFAR = BigDecimal.ZERO;
+        Map<String, BigDecimal> feeTypesWithArea = null;
+
+        Map<Occupancy, BigDecimal> occupancywiseFloorArea = getOccupancyWiseSumOfFloorArea(
+                application.getBuildingDetail().get(0));
+        for (Entry<Occupancy, BigDecimal> occupancyWiseArea : occupancywiseFloorArea.entrySet()) {
+            buildingFloorArea = buildingFloorArea.add(occupancyWiseArea.getValue());
+        }
+
+        if (extentOfLand.compareTo(new BigDecimal(5000)) <= 0) {
+
+            minimumFARwithoutAdditionalFee = minimumFARWithoutAdditionalFee(application);
+            minimumFARwithAdditionalFee = minimumFARWithAdditionalFee(application);
+            maximumPermittedFAR = minimumFARwithoutAdditionalFee.multiply(extentOfLand);
+
+            // Mean additional fee has to collect BUT CITIZEN NOT READY TO PAY ADDITIONAL TAX
+            if (buildingFloorArea.compareTo(maximumPermittedFAR) > 1) {
+
+                if (application.getBuildingDetail().get(0).getAdditionalFeePaymentAccepted()) {
+
+                    maximumPermittedFAR_WithAdditionalFee = minimumFARwithAdditionalFee.multiply(extentOfLand);
+
+                    if (buildingFloorArea.compareTo(maximumPermittedFAR_WithAdditionalFee) <= 0) {                    // Calclulate
+                                                                                                                      // additional
+                                                                                                                      // Fee.
+
+                        feeTypesWithArea.put("ADDITIONAL_FEE", buildingFloorArea.subtract(maximumPermittedFAR));
+                    }
+                }
+            }
+        } else // above 5000 case
+        {
+            weightage_avg_FAR = weightageAverageFarWithoutAdditionalFee(occupancywiseFloorArea);
+            maximum_permitted_floor_area = weightage_avg_FAR.multiply(extentOfLand);
+
+            // Mean Aggregate violation of area
+            if (buildingFloorArea.compareTo(maximum_permitted_floor_area) > 1) {
+                if (application.getBuildingDetail().get(0).getAdditionalFeePaymentAccepted())
+
+                    weightage_avg_FAR = weightageAverageFarWithAdditionalFee(occupancywiseFloorArea);
+                maximum_permitted_floor_areaWithAddnFee = weightage_avg_FAR.multiply(extentOfLand);
+                // Mean Aggregate violation of area
+                if (buildingFloorArea.compareTo(maximum_permitted_floor_areaWithAddnFee) <= 0) {
+                    // Calclulate additional Fee.
+                    feeTypesWithArea.put("ADDITIONAL_FEE", buildingFloorArea.subtract(maximum_permitted_floor_area));
+                }
+            }
+
+        }
+
+        return feeTypesWithArea;
+    }
+   
+    /***
+     * Group occupancy wise floor area
+     * @param buildingDetail
+     * @return
+     */
+    // Floor Area considered here.
+    private Map<Occupancy, BigDecimal> getOccupancyWiseSumOfFloorArea(BuildingDetail buildingDetail) {
+        return buildingDetail.getApplicationFloorDetails().stream().collect(
+                Collectors.groupingBy(ApplicationFloorDetail::getOccupancy, Collectors
+                        .mapping(ApplicationFloorDetail::getFloorArea, Collectors.reducing(BigDecimal.ZERO, BigDecimal::add))));
+    }
+
+    /***
+     * Minimum FAR Without Additional Fee
+     * @param application
+     * @return
+     */
+    private BigDecimal minimumFARWithoutAdditionalFee(final BpaApplication application) {
+        List<Double> minimumFARs = new ArrayList<>();
+        for (ApplicationFloorDetail floorDetails : application.getBuildingDetail().get(0).getApplicationFloorDetails()) {
+            minimumFARs.add(floorDetails.getOccupancy().getNumOfTimesAreaPermissible());
+        }
+        return BigDecimal.valueOf(Collections.min(minimumFARs));
+    }
+
+    /***
+     * Minimum FAR with Additional Fee
+     * @param application
+     * @return
+     */
+    private BigDecimal minimumFARWithAdditionalFee(final BpaApplication application) {
+        List<Double> maximumFARs = new ArrayList<>();
+        for (ApplicationFloorDetail floorDetails : application.getBuildingDetail().get(0).getApplicationFloorDetails()) {
+            maximumFARs.add(floorDetails.getOccupancy().getNumOfTimesAreaPermWitAddnlFee());
+        }
+        return BigDecimal.valueOf(Collections.min(maximumFARs));
+    }
+
+    /***
+     * Weightage Average FAR Without Additional Fee
+     * @param occupancywiseFloorArea
+     * @return
+     */
+    private BigDecimal weightageAverageFarWithoutAdditionalFee(Map<Occupancy, BigDecimal> occupancywiseFloorArea) {
+        BigDecimal maxPermitedFloorArea = BigDecimal.ZERO;
+        BigDecimal sumOfFloorArea = BigDecimal.ZERO;
+        for (Entry<Occupancy, BigDecimal> setOfOccupancy : occupancywiseFloorArea.entrySet()) {
+            maxPermitedFloorArea = maxPermitedFloorArea.add(
+                    new BigDecimal(setOfOccupancy.getKey().getNumOfTimesAreaPermissible()).multiply(setOfOccupancy.getValue()));
+            sumOfFloorArea = sumOfFloorArea.add(setOfOccupancy.getValue());
+        }
+        return maxPermitedFloorArea.divide(sumOfFloorArea).setScale(2, RoundingMode.HALF_UP);
+    }
+
+    /***
+     * Weightage Average FAR With Additional Fee
+     * @param occupancywiseFloorArea
+     * @return
+     */
+    private BigDecimal weightageAverageFarWithAdditionalFee(Map<Occupancy, BigDecimal> occupancywiseFloorArea) {
+
+        BigDecimal maxPermitedFloorArea = BigDecimal.ZERO;
+        BigDecimal sumOfFloorArea = BigDecimal.ZERO;
+        for (Entry<Occupancy, BigDecimal> setOfOccupancy : occupancywiseFloorArea.entrySet()) {
+            maxPermitedFloorArea = maxPermitedFloorArea
+                    .add(new BigDecimal(setOfOccupancy.getKey().getNumOfTimesAreaPermWitAddnlFee())
+                            .multiply(setOfOccupancy.getValue()));
+            sumOfFloorArea = sumOfFloorArea.add(setOfOccupancy.getValue());
+        }
+        return maxPermitedFloorArea.divide(sumOfFloorArea).setScale(2, RoundingMode.HALF_UP);
+    }
+
 }
