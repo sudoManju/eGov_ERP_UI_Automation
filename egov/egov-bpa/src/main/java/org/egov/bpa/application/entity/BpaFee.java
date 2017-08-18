@@ -108,7 +108,7 @@ public class BpaFee extends AbstractAuditable {
     private String feeGroup;
 
     @OneToMany(mappedBy = "bpafee", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private final List<BpaFeeDetail> feeDetail = new ArrayList<BpaFeeDetail>(0);
+    private  List<BpaFeeDetail> feeDetail = new ArrayList<BpaFeeDetail>(0);
 
     @Override
     public Long getId() {
@@ -251,5 +251,11 @@ public class BpaFee extends AbstractAuditable {
     public List<BpaFeeDetail> getFeeDetail() {
         return feeDetail;
     }
+
+    public void setFeeDetail(List<BpaFeeDetail> feeDetail) {
+        this.feeDetail = feeDetail;
+    }
+
+    
 
 }

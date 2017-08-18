@@ -207,6 +207,7 @@ public class BpaConstants {
     public static final String MERCANTILE_COMMERCIAL = "Mercantile / Commercial";
     public static final String INDUSTRIAL = "Industrial";
     public static final String RESIDENTIAL = "Residential";
+    public static final String MIXED_OCCUPANCY = "Mixed";    
     public static final String BPAFEECOLLECT = "BPA Application fees collected";
     public static final String WF_SURVEYOR_FORWARD_BUTTON = "Submit";
     public static final String WF_PAY_ONLINE_BUTTON = "Pay Online";
