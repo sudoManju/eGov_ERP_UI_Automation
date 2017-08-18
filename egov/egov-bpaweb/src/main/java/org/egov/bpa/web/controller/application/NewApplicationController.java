@@ -56,7 +56,6 @@ import org.egov.bpa.application.entity.CheckListDetail;
 import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.application.entity.enums.ApplicantMode;
 import org.egov.bpa.application.service.collection.GenericBillGeneratorService;
-import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BPASmsAndEmailService;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.commons.entity.Source;
@@ -85,16 +84,16 @@ public class NewApplicationController extends BpaGenericApplicationController {
     private static final String MESSAGE = "message";
     @Autowired
     private GenericBillGeneratorService genericBillGeneratorService;
-
-    @Autowired
-    private BpaUtils bpaUtils;
-
     @Autowired
     private BPASmsAndEmailService bpaSmsAndEmailService;
 
     @RequestMapping(value = "/newApplication-newform", method = GET)
     public String showNewApplicationForm(@ModelAttribute final BpaApplication bpaApplication, final Model model,
             final HttpServletRequest request) {
+        return loadFormData(bpaApplication, model);
+    }
+
+    private String loadFormData(final BpaApplication bpaApplication, final Model model) {
         bpaApplication.setApplicationDate(new Date());
         bpaApplication.setSource(Source.SYSTEM);
         bpaApplication.setApplicantMode(ApplicantMode.NEW);
@@ -107,28 +106,32 @@ public class NewApplicationController extends BpaGenericApplicationController {
     @RequestMapping(value = "/newApplication-create", method = POST)
     public String createNewConnection(@Valid @ModelAttribute final BpaApplication bpaApplication,
             final BindingResult resultBinder, final RedirectAttributes redirectAttributes,
-            final HttpServletRequest request, final Model model, @RequestParam String workFlowAction,
+            final HttpServletRequest request, final Model model,
             final BindingResult errors) {
         String message;
         Long userPosition = null;
-     
+        String workFlowAction = request.getParameter("workFlowAction");
+        if (bpaApplicationValidationService.validateBuildingDetails(bpaApplication, model)) {
+            applicationBpaService.buildApplicationFloorDetails(bpaApplication);
+            return loadFormData(bpaApplication, model);
+        }
+
         final WorkFlowMatrix wfmatrix = bpaUtils.getWfMatrixByCurrentState(bpaApplication, BpaConstants.WF_NEW_STATE);
         if (wfmatrix != null)
             userPosition = bpaUtils.getUserPositionIdByZone(wfmatrix.getNextDesignation(),
                     bpaApplication.getSiteDetail().get(0) != null
                             && bpaApplication.getSiteDetail().get(0).getElectionBoundary() != null ? bpaApplication
-                            .getSiteDetail().get(0).getElectionBoundary().getId() : null);
+                                    .getSiteDetail().get(0).getElectionBoundary().getId() : null);
         if (userPosition == 0 || userPosition == null) {
             return redirectOnValidationFailure(model);
         }
 
         if (!applicationBpaService.checkStakeholderIsValid(bpaApplication)) {
-             message = applicationBpaService.getValidationMessageForBusinessResgistration(bpaApplication);
+            message = applicationBpaService.getValidationMessageForBusinessResgistration(bpaApplication);
             model.addAttribute("invalidStakeholder", message);
-            model.addAttribute("mode", "new");
-            return NEWAPPLICATION_FORM;
+            return loadFormData(bpaApplication, model);
         }
-       
+
         List<ApplicationStakeHolder> applicationStakeHolders = new ArrayList<>();
         ApplicationStakeHolder applicationStakeHolder = new ApplicationStakeHolder();
         applicationStakeHolder.setApplication(bpaApplication);
@@ -138,17 +141,16 @@ public class NewApplicationController extends BpaGenericApplicationController {
         applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
         bpaApplication.setAdmissionfeeAmount(applicationBpaService.setAdmissionFeeAmountForRegistrationWithAmenities(
                 bpaApplication.getServiceType().getId(), new ArrayList<ServiceType>()));
-        if(bpaApplication.getOwner().getUser()!=null && bpaApplication.getOwner().getUser().getId()==null)
+        if (bpaApplication.getOwner().getUser() != null && bpaApplication.getOwner().getUser().getId() == null)
             buildOwnerDetails(bpaApplication);
-        
+
         bpaApplication.setCitizenAccepted(true);
         bpaApplication.setArchitectAccepted(true);
 
-        BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication,
-                request.getParameter("workFlowAction"));
+        BpaApplication bpaApplicationRes = applicationBpaService.createNewApplication(bpaApplication, workFlowAction);
         bpaUtils.createPortalUserinbox(bpaApplicationRes, Arrays.asList(bpaApplicationRes.getOwner().getUser(),
                 bpaApplicationRes.getStakeHolder().get(0).getStakeHolder()), workFlowAction);
-       
+
         // If There is no admission tax required to collect in first stage then forward record to next level user.
         if (!applicationBpaService.checkAnyTaxIsPendingToCollect(bpaApplicationRes)) {
             Position pos = null;
@@ -164,9 +166,9 @@ public class NewApplicationController extends BpaGenericApplicationController {
             return BPA_APPLICATION_RESULT;
         }
         bpaSmsAndEmailService.sendSMSAndEmail(bpaApplicationRes);
-     return genericBillGeneratorService.generateBillAndRedirectToCollection(bpaApplicationRes, model);
+        return genericBillGeneratorService.generateBillAndRedirectToCollection(bpaApplicationRes, model);
     }
- 
+
     private String redirectOnValidationFailure(final Model model) {
         model.addAttribute("noJAORSAMessage", "No Superintendant exists to forward the application.");
         model.addAttribute("mode", "new");

@@ -208,6 +208,12 @@ public class BpaAjaxController {
     public List<PostalAddress> getPostalAddress(@RequestParam final String pincode) {
         return postalAddressService.getPostalAddressList(pincode);
     }
+    
+    @RequestMapping(value = "/ajax/getpostaladdressbyid", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public PostalAddress getPostalAddressObj(@RequestParam final Long id) {
+        return postalAddressService.findById(id);
+    }
 
     @RequestMapping(value = { "/boundary/ajaxBoundary-localityByWard" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public void localityByWard(@RequestParam Long wardId, HttpServletResponse response) throws IOException {

@@ -120,6 +120,15 @@
 			</tfoot>
 		</table>
 	</c:if>
+	
+	<div class="row add-border">
+		<div class="col-sm-6 add-margin">
+				<spring:message code="lbl.addnl.fee.accept" />
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+				<c:out value="${bpaApplication.buildingDetail[0].additionalFeePaymentAccepted ? 'YES' : 'NO'}" ></c:out>
+			</div>
+	</div>
 
 	<%-- <div class="row add-border">
 		<div class="col-sm-3 add-margin">

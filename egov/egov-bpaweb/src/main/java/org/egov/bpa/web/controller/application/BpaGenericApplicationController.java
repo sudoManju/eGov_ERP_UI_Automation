@@ -47,6 +47,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaScheme;
 import org.egov.bpa.application.entity.BpaStatus;
@@ -60,6 +61,7 @@ import org.egov.bpa.application.entity.enums.BpaUom;
 import org.egov.bpa.application.entity.enums.GovernmentType;
 import org.egov.bpa.application.entity.enums.StakeHolderType;
 import org.egov.bpa.application.service.ApplicationBpaService;
+import org.egov.bpa.application.service.BpaApplicationValidationService;
 import org.egov.bpa.application.service.CheckListDetailService;
 import org.egov.bpa.application.workflow.BpaWorkFlowService;
 import org.egov.bpa.masters.service.BpaSchemeService;
@@ -89,6 +91,7 @@ import org.egov.infra.persistence.entity.enums.UserType;
 import org.egov.infra.security.utils.SecurityUtils;
 import org.egov.infra.utils.FileStoreUtils;
 import org.egov.infra.workflow.entity.StateAware;
+import org.egov.pims.commons.Position;
 import org.egov.ptis.constants.PropertyTaxConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -143,6 +146,8 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     protected UserService userService;
     @Autowired
     protected SecurityUtils securityUtils;
+    @Autowired
+    protected BpaApplicationValidationService bpaApplicationValidationService;
 
     @ModelAttribute("occupancyList")
     public List<Occupancy> getOccupancy() {
@@ -269,7 +274,7 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
         String validateCitizenAcceptance = !appConfigValueList.isEmpty() ? appConfigValueList.get(0).getValue() : "";
         model.addAttribute("validateCitizenAcceptance",
                 (validateCitizenAcceptance.equalsIgnoreCase("YES") ? Boolean.TRUE : Boolean.FALSE));
-        if (validateCitizenAcceptance != null) {
+        if (StringUtils.isNotBlank(validateCitizenAcceptance)) {
             model.addAttribute("citizenDisclaimerAccepted", bpaApplication.isCitizenAccepted());
         }
         String enableOrDisablePayOnline = bpaUtils.getAppconfigValueByKeyName(BpaConstants.ENABLEONLINEPAYMENT);
@@ -302,6 +307,11 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
             bpaApplication.getOwner().setUser(applicationBpaService.createApplicantAsUser(bpaApplication));
             bpaApplication.setMailPwdRequired(true);
         }
+    }
+    
+    protected String getDesinationNameByPosition(Position pos) {
+        return pos.getDeptDesig() != null && pos.getDeptDesig().getDesignation() != null
+                ? pos.getDeptDesig().getDesignation().getName() : "";
     }
 
 }

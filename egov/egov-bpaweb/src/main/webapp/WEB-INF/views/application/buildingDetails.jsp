@@ -54,7 +54,7 @@
 	</div>
 </div>
 <div class="panel-body display-hide">
-	
+	<h3 class="error-msg" id="showViolationMessage"></h3>
 	<div class="panel-title header-color">
 		<spring:message code="lbl.plint.carpet.details" />
 	</div>
@@ -67,13 +67,14 @@
 		id="occupancyList" value="${occupancyList}">
 		<input type="hidden"
 		id="sumOfFloorArea" value="">
+	<input type="hidden" id="violationMessage" value="${violationMessage}">
 	<table class="table table-striped table-bordered"
 		id="buildingAreaDetails">
 		<thead>
 			<tr>
 				<th class="text-center"><spring:message code="lbl.srl.no" /></th>
 				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message code="lbl.floor.name" /></th>
-				<th class="text-center"><spring:message code="lbl.floor.level" /></th>
+				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message code="lbl.floor.level" /></th>
 				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message code="lbl.occupancy" /></th>
 				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message code="lbl.plinth.area" /></th>
 				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message code="lbl.floor.area" /></th>
@@ -103,7 +104,7 @@
 								<form:options items="${buildingFloorList}" />
 							</form:select></td>
 							<td><form:input type="text"
-									class="form-control table-input patternvalidation floorNumber text-center"
+									class="form-control table-input patternvalidation floor-details-mandatory floorNumber text-center"
 									data-pattern="number"
 									path="buildingDetail[0].applicationFloorDetails[${counter.index}].floorNumber"
  									id="applicationFloorDetails${counter.index}floorNumber"
@@ -123,13 +124,15 @@
 									data-pattern="decimalvalue"
 									path="buildingDetail[0].applicationFloorDetails[${counter.index}].plinthArea"
 									id="applicationFloorDetails${counter.index}plinthArea"
-									maxlength="15" required="required" value="${buildingAreaDetails.plinthArea}" /></td>
+									maxlength="15" required="required"
+									value="${buildingAreaDetails.plinthArea}"
+									onblur="validateFloorDetails(this)" /></td>
 							<td><form:input type="text"
-								class="form-control table-input text-right patternvalidation decimalfixed nonzero floorArea"
-								data-pattern="decimalvalue"
-								path="buildingDetail[0].applicationFloorDetails[${counter.index}].floorArea"
-								id="applicationFloorDetails${counter.index}floorArea" maxlength="15" required="required" value=""
-								onblur="validateFloorDetails(this)" /></td>
+									class="form-control table-input text-right patternvalidation decimalfixed nonzero floorArea"
+									data-pattern="decimalvalue"
+									path="buildingDetail[0].applicationFloorDetails[${counter.index}].floorArea"
+									id="applicationFloorDetails${counter.index}floorArea"
+									maxlength="15" required="required" value="" /></td>
 							<td><form:input type="text"
 									class="form-control table-input text-right patternvalidation decimalfixed carpetArea"
 									data-pattern="decimalvalue"
@@ -158,7 +161,7 @@
 								<form:options items="${buildingFloorList}" />
 							</form:select></td>
 						<td><form:input type="text"
-									class="form-control table-input patternvalidation floorNumber text-center"
+									class="form-control table-input patternvalidation floorNumber floor-details-mandatory text-center"
 									data-pattern="number"
 									path="buildingDetail[0].applicationFloorDetails[0].floorNumber"
 									id="applicationFloorDetails0floorNumber"
@@ -176,14 +179,14 @@
 						<td><form:input type="text"
 								class="form-control table-input text-right patternvalidation decimalfixed nonzero plinthArea floor-details-mandatory"
 								data-pattern="decimalvalue"
-								path="buildingDetail[0].applicationFloorDetails[0].plinthArea"
+								path="buildingDetail[0].applicationFloorDetails[0].plinthArea" onblur="validateFloorDetails(this)"
 								id="applicationFloorDetails0plinthArea" maxlength="10" value=""/></td>
 						<td><form:input type="text"
 								class="form-control table-input text-right patternvalidation decimalfixed nonzero floorArea floor-details-mandatory"
 								data-pattern="decimalvalue"
 								path="buildingDetail[0].applicationFloorDetails[0].floorArea"
 								id="applicationFloorDetails0floorArea" maxlength="10" value=""
-								onblur="validateFloorDetails(this)" /></td>
+								/></td>
 						<td><form:input type="text"
 								class="form-control table-input text-right patternvalidation decimalfixed carpetArea floor-details-mandatory"
 								data-pattern="decimalvalue"
@@ -211,7 +214,12 @@
 			</tr>
 		</tfoot>
 	</table>
-	
+	<div class="form-group">
+		<label class="col-sm-12 text-left error-msg"><form:checkbox
+				path="buildingDetail[0].additionalFeePaymentAccepted"
+				id="isCitizenAcceptedForAdditionalFee" />
+			<spring:message code="lbl.addnl.fee.accept" /> </label>
+	</div>
 	<div class="form-group">
 		<label
 			class="col-sm-3 control-label text-right handle-mandatory show-hide totalPlintArea"><spring:message
@@ -235,7 +243,6 @@
 			<form:errors path="buildingDetail[0].totalPlintArea"
 				cssClass="add-margin error-msg" />
 		</div>
-		 <%-- <form:hidden path="buildingDetail[0].totalPlintArea" id="sumOfPlinthArea" value=""/> --%>
 		<label
 			class="col-sm-2 control-label text-right handle-mandatory floorCount"><spring:message
 				code="lbl.floor.count" /><span class="mandatory"></span></label>

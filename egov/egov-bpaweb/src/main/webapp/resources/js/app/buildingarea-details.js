@@ -51,10 +51,10 @@ jQuery(document).ready(function() {
 	var row = '<tr>'+
 	'<td class="text-center"><span class="serialNo text-center" id="slNoInsp">{{sno}}</span><input type="hidden" name="buildingDetail[0].applicationFloorDetails[{{idx}}].orderOfFloor" value"{{sno}}"/></td>'+
 	'<td ><select name="buildingDetail[0].applicationFloorDetails[{{idx}}].floorDescription" data-first-option="false" id="applicationFloorDetails[{{idx}}]floorDescription" class="form-control floor-details-mandatory floorDescription clear-details" required="required" maxlength="128" > <option value="">Select</option><options items="${buildingFloorList}" /></select></td>'+
-	'<td class="text-right"><input type="text" class="form-control table-input text-center patternvalidation floorNumber clear-details" data-pattern="number" name="buildingDetail[0].applicationFloorDetails[{{idx}}].floorNumber" id="applicationFloorDetails[{{idx}}]floorNumber" maxlength="3" /></td>'+
-	'<td ><select name="buildingDetail[0].applicationFloorDetails[{{idx}}].occupancy" data-first-option="false" id="applicationFloorDetails[{{idx}}]occupancy" class="form-control floor-details-mandatory occupancy clear-details" required="required" maxlength="128" > <option value="">Select</option><options items="${occupancyList}" /></select></td>'+
-	'<td class="text-right"><input type="text" class="form-control table-input text-right patternvalidation plinthArea nonzero floor-details-mandatory" data-pattern="decimalvalue" name="buildingDetail[0].applicationFloorDetails[{{idx}}].plinthArea" id="applicationFloorDetails[{{idx}}]plinthArea" required="required" maxlength="10" /></td>'+
-	'<td class="text-right"><input type="text" class="form-control table-input text-right patternvalidation floorArea nonzero floor-details-mandatory" data-pattern="decimalvalue" name="buildingDetail[0].applicationFloorDetails[{{idx}}].floorArea" id="applicationFloorDetails[{{idx}}]floorArea" maxlength="10" required="required" onblur="validateFloorDetails(this)"  /></td>'+
+	'<td class="text-right"><input type="text" class="form-control table-input text-center patternvalidation floorNumber floor-details-mandatory clear-details" data-pattern="number" name="buildingDetail[0].applicationFloorDetails[{{idx}}].floorNumber" required="required" id="applicationFloorDetails[{{idx}}]floorNumber" maxlength="3" /></td>'+
+	'<td ><select name="buildingDetail[0].applicationFloorDetails[{{idx}}].occupancy" data-first-option="false" id="applicationFloorDetails[{{idx}}]occupancy" class="form-control floor-details-mandatory occupancy" required="required" maxlength="128" > <option value="">Select</option><options items="${occupancyList}" /></select></td>'+
+	'<td class="text-right"><input type="text" class="form-control table-input text-right patternvalidation plinthArea nonzero floor-details-mandatory" data-pattern="decimalvalue" name="buildingDetail[0].applicationFloorDetails[{{idx}}].plinthArea" id="applicationFloorDetails[{{idx}}]plinthArea" required="required" maxlength="10" onblur="validateFloorDetails(this)" /></td>'+
+	'<td class="text-right"><input type="text" class="form-control table-input text-right patternvalidation floorArea nonzero floor-details-mandatory" data-pattern="decimalvalue" name="buildingDetail[0].applicationFloorDetails[{{idx}}].floorArea" id="applicationFloorDetails[{{idx}}]floorArea" maxlength="10" required="required" /></td>'+
 	'<td class="text-right"><input type="text" class="form-control table-input text-right patternvalidation carpetArea floor-details-mandatory" data-pattern="decimalvalue" name="buildingDetail[0].applicationFloorDetails[{{idx}}].carpetArea" id="applicationFloorDetails[{{idx}}]carpetArea" maxlength="10" required="required" value=""  /></td>'+
 	'<td class="text-center"><a href="javascript:void(0);" class="btn-sm btn-danger" id="deleteBuildAreaRow" data-record-id="${var1.id}"><i class="fa fa-trash"></i></a></td>'+
 	'</tr>';
@@ -225,17 +225,27 @@ $(document).on('change', '.plinthArea', function() {
     		 totalPlinth +=  parseFloat($(this).find('td:eq(4) input.plinthArea').val());
     });
     var seviceTypeName = $( "#serviceType option:selected" ).text();
-	if(totalPlinth && seviceTypeName && 'Alteration' != seviceTypeName && 'Adding of Extension' != seviceTypeName 
-			&& 'Huts and Sheds' != seviceTypeName) {
+	if(totalPlinth && 'Huts and Sheds' != seviceTypeName) {
 		$("#totalPlintArea").val(totalPlinth.toFixed(2));
 	}
     $("#buildingAreaDetails tfoot tr td:eq(4)").html(totalPlinth.toFixed(2));
 });
 
 $(document).on('change', '.floorArea', function() {
-    var totalFloorArea = 0;
+	var totalFloorArea = 0 ;
+	var rowObj = $(this).closest('tr');
     $("#buildingAreaDetails tbody tr").each(function () {
-    	if($(this).find('td:eq(5) input.floorArea').val())
+    	var rowPlinthArea = parseFloat($(this).find('td:eq(4) input.plinthArea').val());
+    	var rowFloorArea = parseFloat($(this).find('td:eq(5) input.floorArea').val());
+   	 	if(rowFloorArea > rowPlinthArea) {
+   		 $(rowObj).find('.floorArea').val('');
+   		 $( ".plinthArea" ).trigger( "change" );
+   		 $( ".floorArea" ).trigger( "change" );
+   		 $( ".carpetArea" ).trigger( "change" );
+   		 bootbox.alert("Floor Area should be less than or equal to the Builtup Area.");
+   		 return false;
+   	 }
+    	if(rowFloorArea)
     	 totalFloorArea +=  parseFloat($(this).find('td:eq(5) input.floorArea').val());
     });
     	$("#sumOfFloorArea").val(totalFloorArea.toFixed(2));
@@ -244,20 +254,19 @@ $(document).on('change', '.floorArea', function() {
 });
 
 $(document).on('change', '.carpetArea', function() {
+     var rowObj = $(this).closest('tr');
      var totalCarpet = 0;
-    /* var rowPlinthArea = 0;
-     var rowCarpetArea = 0;
-     var rowObj = $(this).closest('tr');*/
      $("#buildingAreaDetails tbody tr").each(function () {
-    	 /*rowPlinthArea = parseFloat($(this).find('td:eq(4) input.plinthArea').val());
-    	 rowCarpetArea = parseFloat($(this).find('td:eq(5) input.carpetArea').val());
-    	 if(rowCarpetArea > rowPlinthArea) {
+    	 var rowFloorArea = parseFloat($(this).find('td:eq(5) input.floorArea').val());
+    	 var rowCarpetArea = parseFloat($(this).find('td:eq(6) input.carpetArea').val());
+    	 if(rowCarpetArea > rowFloorArea) {
     		 $(rowObj).find('.carpetArea').val('');
     		 $( ".plinthArea" ).trigger( "change" );
+    		 $( ".floorArea" ).trigger( "change" );
     		 $( ".carpetArea" ).trigger( "change" );
-    		 bootbox.alert("Please enter valid values, Carpet Area should be less than the Builtup Area.");
+    		 bootbox.alert("Carpet Area should be less than or equal to the Floor Area.");
     		 return false;
-    	 }*/
+    	 }
     	 if($(this).find('td:eq(6) input.carpetArea').val())
     	 totalCarpet += parseFloat($(this).find('td:eq(6) input.carpetArea').val());
      });
@@ -279,12 +288,13 @@ function validateBuildAreaOnAdd(){
 	var isValid=true;
     $('#buildingAreaDetails tbody tr').each(function(index){
     	var floorName  = $(this).find('*[name$="floorDescription"]').val();
+    	var floorNumber  = $(this).find('*[name$="floorNumber"]').val();
 	    var plinthArea = $(this).find('*[name$="plinthArea"]').val();
 	    var floorArea = $(this).find('*[name$="floorArea"]').val();
 	    var carpetArea = $(this).find('*[name$="carpetArea"]').val();
 	    var occupancy  = $(this).find('*[name$="occupancy"]').val();
-	    if(!floorName || !plinthArea || !carpetArea || !floorArea || !occupancy) { 
-	    	bootbox.alert("Please select floor description and occupancy type and enter values of builtup area, floor area and carpet area for existing rows before adding. Values cannot be 0 or empty.");
+	    if(!floorName || !floorNumber || !plinthArea || !carpetArea || !floorArea || !occupancy) { 
+	    	bootbox.alert("Please enter enter or select all values of existing rows before adding. Values cannot empty.");
 	    	isValid=false;
 	    	return false;
 	    } 

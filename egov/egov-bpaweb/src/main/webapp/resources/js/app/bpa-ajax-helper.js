@@ -319,7 +319,6 @@ $(document).ready(
 			});
 			// Initialize the Bloodhound suggestion engine
 			stakeholderengine.initialize();
-
 			var sh_typeahead = $('#stakeHolderTypeHead').typeahead({
 				hint : false,
 				highlight : false,
@@ -337,8 +336,6 @@ $(document).ready(
 			});
 			typeaheadWithEventsHandling(sh_typeahead, '#stakeHolderName');
 			
-			
-
 			//Instantiate the postaladdress name Bloodhound suggestion engine
 			var postaladdressengine = new Bloodhound({
 				datumTokenizer : function(datum) {
@@ -365,10 +362,8 @@ $(document).ready(
 					}
 				}
 			});
-
 			//Initialize the Bloodhound suggestion engine
 			postaladdressengine.initialize();
-
 			var postal_typeahead = $('#postalAddressTypeHead').typeahead({
 				hint: false,
 				highlight: false,
@@ -385,7 +380,6 @@ $(document).ready(
 				    suggestion: Handlebars.compile('<div class="custom-list-item"><h4 class="padding-10">{{name}} <small>{{postOffice}}</small></h4></div>')
 				  }
 			});
-
 			function postalCodeSelectedEvent(event, data) {
 					$('#taluk').val(data.taluk);
 					$('#postalAddress').val(data.value);
@@ -393,7 +387,26 @@ $(document).ready(
 					$('#district').val(data.district);
 					$('#state').val(data.state);
 			}
-
 			typeaheadWithEventsHandling(postal_typeahead, '#postalAddress', undefined, postalCodeSelectedEvent);
+			
+			//while doing server side validations on form fill postal address details
+			if($('#postalAddress').val()) {
+				$.ajax({
+					url : '/bpa/ajax/getpostaladdressbyid?id='+$('#postalAddress').val(),
+					type: "GET",
+					cache: false,
+					dataType: "json",
+					success: function (response) {
+						$('#taluk').val(response.taluk);
+						$('#postalAddressTypeHead').val(response.pincode);
+						$('#postOffices').val(response.postOffice);
+						$('#district').val(response.district);
+						$('#state').val(response.state);
+					}, 
+					error: function (response) {
+						//
+					}
+				});
+			}
 			
 	});
