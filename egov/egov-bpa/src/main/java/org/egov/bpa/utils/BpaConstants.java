@@ -88,6 +88,7 @@ public class BpaConstants {
     public static final String LOCALITY_BNDRY_TYPE = "Locality";
     public static final String LOCATION_HIERARCHY_TYPE = "LOCATION";
     public static final String REVENUE_HIERARCHY_TYPE = "REVENUE";
+    public static final String ADMINISTRATION_HIERARCHY_TYPE = "ADMINISTRATION";
     public static final Character DMD_STATUS_CHEQUE_BOUNCED = 'B';
     public static final String DEMANDISHISTORY = "N";
     public static final String STRING_VALIDATION = "Paid Amount is greater than Total Amount to be paid";

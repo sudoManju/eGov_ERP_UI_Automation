@@ -133,8 +133,8 @@
 				code="lbl.election.ward" /> <span class="mandatory"></span>
 		</label>
 		<div class="col-sm-3 add-margin">
-			<form:select path="siteDetail[0].electionBoundary"
-				data-first-option="false" id="electionBoundary" cssClass="form-control"
+			<form:select path="siteDetail[0].electionBoundary" name="electionBoundary" id="electionBoundary"
+				data-first-option="false" cssClass="form-control"
 				required="required">
 				<form:option value="">
 					<spring:message code="lbl.select" />

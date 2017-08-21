@@ -90,6 +90,8 @@ public class NewApplicationController extends BpaGenericApplicationController {
     @RequestMapping(value = "/newApplication-newform", method = GET)
     public String showNewApplicationForm(@ModelAttribute final BpaApplication bpaApplication, final Model model,
             final HttpServletRequest request) {
+        if (request.getSession().getAttribute("cityname") != null)
+            model.addAttribute("cityName", (String) request.getSession().getAttribute("cityname"));
         return loadFormData(bpaApplication, model);
     }
 

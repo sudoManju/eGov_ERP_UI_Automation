@@ -47,6 +47,8 @@ $(document).ready(
 				$("#applicationDate").prop("readOnly",true); 
 				$("#applicationDate").removeClass( "form-control datepicker" ).addClass( "form-control" ); 
 			}
+			if ($('#bpaApplication').val()=="" &&  $('#citytown') && $('#citytown').val()=="" && $('#cityName') && $('#cityName').val()) 
+				 $('#citytown').val($('#cityName').val());
 			
 			// email validation
 			$('input[id$="emailId"]')
@@ -121,7 +123,34 @@ $(document).ready(
 						jQuery('#localitys').append("<option value=''>Select</option>");
 					}
 				});
+				populateElectionWardByRevenueWard();
+				
 			});
+			
+			function populateElectionWardByRevenueWard(){
+			
+				jQuery.ajax({
+					url: "/bpa/boundary/ajaxBoundary-electionwardbyrevenueward",
+					type: "GET",
+					data: {
+						wardId : jQuery('#ward').val()
+					},
+					cache: false,
+					dataType: "json",
+					success: function (response) {
+						jQuery('#electionBoundary').html("");
+						jQuery('#electionBoundary').append("<option value=''>Select</option>");
+						jQuery.each(response, function(index, value) {
+							jQuery('#electionBoundary').append($('<option>').text(value.electionwardName).attr('value', value.electionwardId));
+						});
+					}, 
+					error: function (response) {
+						jQuery('#electionBoundary').html("");
+						jQuery('#electionBoundary').append("<option value=''>Select</option>");
+					}
+				});
+			}
+			
 
 			$('#schemes').change(function(){
 				jQuery.ajax({

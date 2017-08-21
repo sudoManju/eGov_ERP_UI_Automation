@@ -232,7 +232,23 @@ public class BpaAjaxController {
         }
         IOUtils.write(jsonObjects.toString(), response.getWriter());
     }
-    
+    @RequestMapping(value = { "/boundary/ajaxBoundary-electionwardbyrevenueward" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void electionWardByRevenueWard(@RequestParam Long wardId, HttpServletResponse response) throws IOException {
+               
+        final List<Boundary> blocks = crossHierarchyService
+                .findChildBoundariesByParentBoundaryIdParentBoundaryTypeAndChildBoundaryType(BpaConstants.WARD,
+                        BpaConstants.REVENUE_HIERARCHY_TYPE,
+                        BpaConstants.WARD,
+                        wardId);
+        final List<JSONObject> jsonObjects = new ArrayList<>();
+        for (final Boundary block : blocks) {
+            final JSONObject jsonObj = new JSONObject();
+            jsonObj.put("electionwardId", block.getId());
+            jsonObj.put("electionwardName", block.getName());
+            jsonObjects.add(jsonObj);
+        }
+        IOUtils.write(jsonObjects.toString(), response.getWriter());
+    }
     @RequestMapping(value = { "/ajax/getlandusagebyscheme" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public void landUsageByScheme(@RequestParam Long schemeId, HttpServletResponse response) throws IOException {
 

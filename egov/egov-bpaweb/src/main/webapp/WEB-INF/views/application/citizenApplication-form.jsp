@@ -73,6 +73,7 @@
 			<input type="hidden"  id="validateCitizenAcceptance" name="validateCitizenAcceptance" value="${validateCitizenAcceptance}"/>
 			<input type="hidden"  id="citizenDisclaimerAccepted" name="citizenDisclaimerAccepted" value="${citizenDisclaimerAccepted}"/>
 			<input type="hidden"  id="isCitizen" name="isCitizen" value="${isCitizen}"/>
+			<input type="hidden"  id="cityName" name="cityName" value="${cityName}"/>
 			<form:hidden path="" id="workFlowAction" name="workFlowAction" />
 			<ul class="nav nav-tabs" id="settingstab">
 				<li class="active"><a data-toggle="tab"

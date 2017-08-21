@@ -111,16 +111,24 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
     @RequestMapping(value = "/newconstruction-form", method = GET)
     public String showNewApplicationForm(@ModelAttribute final BpaApplication bpaApplication, final Model model,
             final HttpServletRequest request) {
+        setCityName(model, request);
         return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_01);
+    }
+
+    private void setCityName(final Model model, final HttpServletRequest request) {
+        if (request.getSession().getAttribute("cityname") != null)
+            model.addAttribute("cityName", (String) request.getSession().getAttribute("cityname"));
     }
 
     private String loadNewForm(final BpaApplication bpaApplication, final Model model, String serviceCode) {
         bpaApplication.setApplicationDate(new Date());
         prepareCommonModelAttribute(model, bpaApplication);
         model.addAttribute("mode", "new");
+
         bpaApplication.setSource(Source.CITIZENPORTAL);
         bpaApplication.setApplicantMode(ApplicantMode.NEW);
         bpaApplication.setServiceType(serviceTypeService.getServiceTypeByCode(serviceCode));
+
         model.addAttribute("checkListDetailList",
                 checkListDetailService.findActiveCheckListByServiceType(bpaApplication.getServiceType().getId(),
                         BpaConstants.CHECKLIST_TYPE));
@@ -140,60 +148,70 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
     @RequestMapping(value = "/demolition-form", method = GET)
     public String showDemolition(@ModelAttribute final BpaApplication bpaApplication, final Model model,
             final HttpServletRequest request) {
+        setCityName(model, request);
         return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_02);
     }
 
     @RequestMapping(value = "/reconstruction-form", method = GET)
     public String showReconstruction(@ModelAttribute final BpaApplication bpaApplication, final Model model,
             final HttpServletRequest request) {
+        setCityName(model, request);
         return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_03);
     }
 
     @RequestMapping(value = "/alteration-form", method = GET)
     public String showAlteration(@ModelAttribute final BpaApplication bpaApplication, final Model model,
             final HttpServletRequest request) {
+        setCityName(model, request);
         return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_04);
     }
 
     @RequestMapping(value = "/subdevland-form", method = GET)
     public String showSubDevlisionOfLand(@ModelAttribute final BpaApplication bpaApplication, final Model model,
             final HttpServletRequest request) {
+        setCityName(model, request);
         return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_05);
     }
 
     @RequestMapping(value = "/addextnew-form", method = GET)
     public String loadAddOfExtection(@ModelAttribute final BpaApplication bpaApplication, final Model model,
             final HttpServletRequest request) {
+        setCityName(model, request);
         return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_06);
     }
 
     @RequestMapping(value = "/changeofoccupancy-form", method = GET)
     public String showChangeOfOccupancy(@ModelAttribute final BpaApplication bpaApplication, final Model model,
             final HttpServletRequest request) {
+        setCityName(model, request);
         return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_07);
     }
 
     @RequestMapping(value = "/permissionhutorshud-form", method = GET)
     public String loadPermOfHutOrShud(@ModelAttribute final BpaApplication bpaApplication, final Model model,
             final HttpServletRequest request) {
+        setCityName(model, request);
         return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_09);
     }
 
     @RequestMapping(value = "/amenity-form", method = GET)
     public String loadAmenity(@ModelAttribute final BpaApplication bpaApplication, final Model model,
             final HttpServletRequest request) {
+        setCityName(model, request);
         return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_08);
     }
 
     @RequestMapping(value = "/towerconstruction-form", method = GET)
     public String loadTowerConstruction(@ModelAttribute final BpaApplication bpaApplication, final Model model,
             final HttpServletRequest request) {
+        setCityName(model, request);
         return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_14);
     }
 
     @RequestMapping(value = "/polestructures-form", method = GET)
     public String loadPoleStruture(@ModelAttribute final BpaApplication bpaApplication, final Model model,
             final HttpServletRequest request) {
+        setCityName(model, request);
         return loadNewForm(bpaApplication, model, BpaConstants.ST_CODE_15);
     }
 

@@ -70,6 +70,7 @@
 			<form:hidden path="" id="workFlowAction" name="workFlowAction" />
 			<input type="hidden" id="invalidStakeholder" name="invalidStakeholder"
 				value="${invalidStakeholder}" />
+			<input type="hidden"  id="cityName" name="cityName" value="${cityName}"/>
 			<ul class="nav nav-tabs" id="settingstab">
 				<li class="active"><a data-toggle="tab"
 					href="#appliccation-info" data-tabidx=0><spring:message
