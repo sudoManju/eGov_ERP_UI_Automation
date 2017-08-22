@@ -39,14 +39,14 @@
  */
 package org.egov.bpa.web.controller.application.citizen;
 
+import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_CANCELLED;
 import static org.egov.bpa.utils.BpaConstants.CHECKLIST_TYPE_NOC;
 import static org.egov.bpa.utils.BpaConstants.CREATE_ADDITIONAL_RULE_CREATE;
-import static org.egov.bpa.utils.BpaConstants.WF_SURVEYOR_FORWARD_BUTTON;
-import static org.egov.bpa.utils.BpaConstants.WF_CANCELAPPLICATION_BUTTON;
 import static org.egov.bpa.utils.BpaConstants.DISCLIMER_MESSAGE_ONSAVE;
-import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_CANCELLED;
-import static org.egov.bpa.utils.BpaConstants.WF_NEW_STATE;
 import static org.egov.bpa.utils.BpaConstants.ENABLEONLINEPAYMENT;
+import static org.egov.bpa.utils.BpaConstants.WF_CANCELAPPLICATION_BUTTON;
+import static org.egov.bpa.utils.BpaConstants.WF_NEW_STATE;
+import static org.egov.bpa.utils.BpaConstants.WF_SURVEYOR_FORWARD_BUTTON;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -111,6 +111,9 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 
     private String loadViewdata(final Model model, final BpaApplication application) {
         buildReceiptDetails(application);
+        application.getBuildingDetail().get(0)
+                .setApplicationFloorDetailsForUpdate(application.getBuildingDetail().get(0).getApplicationFloorDetails());
+        applicationBpaService.buildApplicationFloorDetails(application);
         model.addAttribute("stateType", application.getClass().getSimpleName());
         model.addAttribute(ADDITIONALRULE, CREATE_ADDITIONAL_RULE_CREATE);
         model.addAttribute(BPA_APPLICATION, application);
@@ -143,21 +146,18 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
             final HttpServletRequest request, final Model model,
             @RequestParam("files") final MultipartFile[] files) {
         if (resultBinder.hasErrors()) {
-            applicationBpaService.buildApplicationFloorDetails(bpaApplication);
             prepareCommonModelAttribute(model, bpaApplication);
             return loadViewdata(model, bpaApplication);
         }
         if (bpaApplicationValidationService.validateBuildingDetails(bpaApplication, model)) {
-            applicationBpaService.buildApplicationFloorDetails(bpaApplication);
             prepareCommonModelAttribute(model, bpaApplication);
             return loadViewdata(model, bpaApplication);
         }
         String workFlowAction = request.getParameter("workFlowAction");
         Long approvalPosition = null;
         if (!bpaApplication.getApplicationDocument().isEmpty())
-            applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
-        bpaApplication.getBuildingDetail().get(0)
-                .setApplicationFloorDetails(applicationBpaService.buildApplicationFloorDetails(bpaApplication));
+            applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication);
+        applicationBpaService.buildApplicationFloorDetails(bpaApplication);
         String enableOrDisablePayOnline = bpaUtils.getAppconfigValueByKeyName(ENABLEONLINEPAYMENT);
         if (workFlowAction != null
                 && workFlowAction
@@ -187,7 +187,6 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
                 bpaApplication.setStatus(
                         applicationBpaService.getStatusByCodeAndModuleType(APPLICATION_STATUS_CANCELLED));
                 bpaUtils.updatePortalUserinbox(bpaApplication, null);
-
             }
         }
         if (bpaApplication.getOwner().getUser() != null && bpaApplication.getOwner().getUser().getId() == null)

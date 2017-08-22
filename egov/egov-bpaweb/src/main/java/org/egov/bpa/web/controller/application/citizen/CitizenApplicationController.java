@@ -124,7 +124,6 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
         bpaApplication.setApplicationDate(new Date());
         prepareCommonModelAttribute(model, bpaApplication);
         model.addAttribute("mode", "new");
-
         bpaApplication.setSource(Source.CITIZENPORTAL);
         bpaApplication.setApplicantMode(ApplicantMode.NEW);
         bpaApplication.setServiceType(serviceTypeService.getServiceTypeByCode(serviceCode));
@@ -246,6 +245,7 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
         if (citizenOrBusinessUser && workFlowAction != null
                 && workFlowAction.equals(WF_SURVEYOR_FORWARD_BUTTON)
                 && (userPosition == 0 || userPosition == null)) {
+            applicationBpaService.buildApplicationFloorDetails(bpaApplication);
             model.addAttribute("noJAORSAMessage", SUPERINTENDANT_NOT_EXISTS);
             return loadNewForm(bpaApplication, model, bpaApplication.getServiceType().getCode());
         }
@@ -271,12 +271,13 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
                     String message = applicationBpaService
                             .getValidationMessageForBusinessResgistration(bpaApplication);
                     model.addAttribute("invalidStakeholder", message);
+                    applicationBpaService.buildApplicationFloorDetails(bpaApplication);
                     return loadNewForm(bpaApplication, model, bpaApplication
                             .getServiceType().getCode());
                 }
             }
         }
-        applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
+        applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication);
         if (workFlowAction != null
                 && workFlowAction
                         .equals(WF_SURVEYOR_FORWARD_BUTTON)

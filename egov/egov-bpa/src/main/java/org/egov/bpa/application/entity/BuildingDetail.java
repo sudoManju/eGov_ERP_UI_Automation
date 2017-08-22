@@ -98,9 +98,10 @@ public class BuildingDetail extends AbstractAuditable {
     @OneToMany(mappedBy = "buildingDetail", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @OrderBy("orderOfFloor")
     private List<ApplicationFloorDetail> applicationFloorDetails = new ArrayList<>(0);
-    
-    private Boolean additionalFeePaymentAccepted=false;
-    
+    private Boolean additionalFeePaymentAccepted;
+    private transient List<ApplicationFloorDetail> applicationFloorDetailsForUpdate = new ArrayList<>(0);
+    private transient Long[] deletedFloorIds;
+
     public Boolean getAdditionalFeePaymentAccepted() {
         return additionalFeePaymentAccepted;
     }
@@ -266,65 +267,86 @@ public class BuildingDetail extends AbstractAuditable {
     public List<ApplicationFloorDetail> getApplicationFloorDetails() {
         return applicationFloorDetails;
     }
-    
+
     public void setApplicationFloorDetails(List<ApplicationFloorDetail> applicationFloorDetails) {
         this.applicationFloorDetails = applicationFloorDetails;
     }
-    
+
     public BigDecimal getMachineRoom() {
-		return machineRoom;
-	}
+        return machineRoom;
+    }
 
-	public void setMachineRoom(BigDecimal machineRoom) {
-		this.machineRoom = machineRoom;
-	}
+    public void setMachineRoom(BigDecimal machineRoom) {
+        this.machineRoom = machineRoom;
+    }
 
-	public BigDecimal getHeightFromGroundWithStairRoom() {
-		return heightFromGroundWithStairRoom;
-	}
+    public BigDecimal getHeightFromGroundWithStairRoom() {
+        return heightFromGroundWithStairRoom;
+    }
 
-	public void setHeightFromGroundWithStairRoom(BigDecimal heightFromGroundWithStairRoom) {
-		this.heightFromGroundWithStairRoom = heightFromGroundWithStairRoom;
-	}
+    public void setHeightFromGroundWithStairRoom(BigDecimal heightFromGroundWithStairRoom) {
+        this.heightFromGroundWithStairRoom = heightFromGroundWithStairRoom;
+    }
 
-	public BigDecimal getHeightFromGroundWithOutStairRoom() {
-		return heightFromGroundWithOutStairRoom;
-	}
+    public BigDecimal getHeightFromGroundWithOutStairRoom() {
+        return heightFromGroundWithOutStairRoom;
+    }
 
-	public void setHeightFromGroundWithOutStairRoom(BigDecimal heightFromGroundWithOutStairRoom) {
-		this.heightFromGroundWithOutStairRoom = heightFromGroundWithOutStairRoom;
-	}
+    public void setHeightFromGroundWithOutStairRoom(BigDecimal heightFromGroundWithOutStairRoom) {
+        this.heightFromGroundWithOutStairRoom = heightFromGroundWithOutStairRoom;
+    }
 
-	public BigDecimal getFromStreetLevelWithStairRoom() {
-		return fromStreetLevelWithStairRoom;
-	}
+    public BigDecimal getFromStreetLevelWithStairRoom() {
+        return fromStreetLevelWithStairRoom;
+    }
 
-	public void setFromStreetLevelWithStairRoom(BigDecimal fromStreetLevelWithStairRoom) {
-		this.fromStreetLevelWithStairRoom = fromStreetLevelWithStairRoom;
-	}
+    public void setFromStreetLevelWithStairRoom(BigDecimal fromStreetLevelWithStairRoom) {
+        this.fromStreetLevelWithStairRoom = fromStreetLevelWithStairRoom;
+    }
 
-	public BigDecimal getFromStreetLevelWithOutStairRoom() {
-		return fromStreetLevelWithOutStairRoom;
-	}
+    public BigDecimal getFromStreetLevelWithOutStairRoom() {
+        return fromStreetLevelWithOutStairRoom;
+    }
 
-	public void setFromStreetLevelWithOutStairRoom(BigDecimal fromStreetLevelWithOutStairRoom) {
-		this.fromStreetLevelWithOutStairRoom = fromStreetLevelWithOutStairRoom;
-	}
+    public void setFromStreetLevelWithOutStairRoom(BigDecimal fromStreetLevelWithOutStairRoom) {
+        this.fromStreetLevelWithOutStairRoom = fromStreetLevelWithOutStairRoom;
+    }
 
-	public String getTownPlanningZone() {
-		return townPlanningZone;
-	}
+    public String getTownPlanningZone() {
+        return townPlanningZone;
+    }
 
-	public void setTownPlanningZone(String townPlanningZone) {
-		this.townPlanningZone = townPlanningZone;
-	}
+    public void setTownPlanningZone(String townPlanningZone) {
+        this.townPlanningZone = townPlanningZone;
+    }
 
-	public String getCrzZone() {
-		return crzZone;
-	}
+    public String getCrzZone() {
+        return crzZone;
+    }
 
-	public void setCrzZone(String crzZone) {
-		this.crzZone = crzZone;
-	}
+    public void setCrzZone(String crzZone) {
+        this.crzZone = crzZone;
+    }
+    
+    public List<ApplicationFloorDetail> getApplicationFloorDetailsForUpdate() {
+        return applicationFloorDetailsForUpdate;
+    }
+
+    public void setApplicationFloorDetailsForUpdate(List<ApplicationFloorDetail> applicationFloorDetailsForUpdate) {
+        this.applicationFloorDetailsForUpdate = applicationFloorDetailsForUpdate;
+    }
+
+    public Long[] getDeletedFloorIds() {
+        return deletedFloorIds;
+    }
+
+    public void setDeletedFloorIds(Long[] deletedFloorIds) {
+        this.deletedFloorIds = deletedFloorIds;
+    }
+    
+    public void delete(final List<ApplicationFloorDetail> applicationFloorDetail) {
+        if(applicationFloorDetail != null)
+            this.applicationFloorDetails.removeAll(applicationFloorDetail);
+    }
 
 }

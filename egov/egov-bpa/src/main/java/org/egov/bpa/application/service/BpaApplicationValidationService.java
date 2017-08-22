@@ -43,7 +43,8 @@ import static org.egov.bpa.utils.BpaConstants.EGMODULE_NAME;
 import static org.egov.bpa.utils.BpaConstants.getServicesForValidation;
 
 import java.math.BigDecimal;
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -112,11 +113,10 @@ public class BpaApplicationValidationService {
                 floorMap.put(floorDesc, new BigDecimal[] { permissableFloorCoveredArea, floorDetail.getPlinthArea() });
             }
         }
-        Map<String, String> violationCoverage = Collections.emptyMap();
+        Map<String, String> violationCoverage = new HashMap<>();
         StringBuilder floorDescBuilder = new StringBuilder();
         StringBuilder floorAreaBuilder = new StringBuilder();
         for (Entry<String, BigDecimal[]> floorDescSet : floorMap.entrySet()) {
-            violationCoverage = new HashMap<>();
             String floorDesc = floorDescSet.getKey();
             BigDecimal permissableCoveredArea = floorDescSet.getValue()[0];
             BigDecimal floorArea = floorDescSet.getValue()[1];
@@ -153,6 +153,15 @@ public class BpaApplicationValidationService {
     public Boolean validateBuildingDetails(final BpaApplication application, final Model model) {
         if (isBuildingFloorDetailsValidationRequired()
                 && getServicesForValidation().contains(application.getServiceType().getCode())) {
+            List<ApplicationFloorDetail> existingFloorDetails = new ArrayList<>();
+            for (ApplicationFloorDetail applicationFloorDetails : application.getBuildingDetail().get(0)
+                    .getApplicationFloorDetails()) {
+                if (Arrays.asList(application.getBuildingDetail().get(0).getDeletedFloorIds())
+                        .contains(applicationFloorDetails.getId())) {
+                    existingFloorDetails.add(applicationFloorDetails);
+                }
+            }
+            application.getBuildingDetail().get(0).delete(existingFloorDetails);
             Map<String, String> violationCoverage = checkIsViolatingCoverageArea(application);
             if (TRUE.equalsIgnoreCase(violationCoverage.get(IS_VIOLATING))) {
                 model.addAttribute(VIOLATION_MESSAGE, violationCoverage.get(VIOLATION_MESSAGE_FOR_COVERAGE));

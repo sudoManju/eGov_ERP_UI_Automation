@@ -49,14 +49,14 @@ jQuery(document).ready(function() {
 	var tbody = $('#buildingAreaDetails').children('tbody');
 	var table = tbody.length ? tbody : $('#buildingAreaDetails');
 	var row = '<tr>'+
-	'<td class="text-center"><span class="serialNo text-center" id="slNoInsp">{{sno}}</span><input type="hidden" name="buildingDetail[0].applicationFloorDetails[{{idx}}].orderOfFloor" value"{{sno}}"/></td>'+
-	'<td ><select name="buildingDetail[0].applicationFloorDetails[{{idx}}].floorDescription" data-first-option="false" id="applicationFloorDetails[{{idx}}]floorDescription" class="form-control floor-details-mandatory floorDescription clear-details" required="required" maxlength="128" > <option value="">Select</option><options items="${buildingFloorList}" /></select></td>'+
-	'<td class="text-right"><input type="text" class="form-control table-input text-center patternvalidation floorNumber floor-details-mandatory clear-details" data-pattern="number" name="buildingDetail[0].applicationFloorDetails[{{idx}}].floorNumber" required="required" id="applicationFloorDetails[{{idx}}]floorNumber" maxlength="3" /></td>'+
-	'<td ><select name="buildingDetail[0].applicationFloorDetails[{{idx}}].occupancy" data-first-option="false" id="applicationFloorDetails[{{idx}}]occupancy" class="form-control floor-details-mandatory occupancy" required="required" maxlength="128" > <option value="">Select</option><options items="${occupancyList}" /></select></td>'+
-	'<td class="text-right"><input type="text" class="form-control table-input text-right patternvalidation plinthArea nonzero floor-details-mandatory" data-pattern="decimalvalue" name="buildingDetail[0].applicationFloorDetails[{{idx}}].plinthArea" id="applicationFloorDetails[{{idx}}]plinthArea" required="required" maxlength="10" onblur="validateFloorDetails(this)" /></td>'+
-	'<td class="text-right"><input type="text" class="form-control table-input text-right patternvalidation floorArea nonzero floor-details-mandatory" data-pattern="decimalvalue" name="buildingDetail[0].applicationFloorDetails[{{idx}}].floorArea" id="applicationFloorDetails[{{idx}}]floorArea" maxlength="10" required="required" /></td>'+
-	'<td class="text-right"><input type="text" class="form-control table-input text-right patternvalidation carpetArea floor-details-mandatory" data-pattern="decimalvalue" name="buildingDetail[0].applicationFloorDetails[{{idx}}].carpetArea" id="applicationFloorDetails[{{idx}}]carpetArea" maxlength="10" required="required" value=""  /></td>'+
-	'<td class="text-center"><a href="javascript:void(0);" class="btn-sm btn-danger" id="deleteBuildAreaRow" data-record-id="${var1.id}"><i class="fa fa-trash"></i></a></td>'+
+	'<td class="text-center"><span class="serialNo text-center" id="slNoInsp">{{sno}}</span><input type="hidden" class="orderNo" data-sno name="buildingDetail[0].applicationFloorDetailsForUpdate[{{idx}}].orderOfFloor"/></td>'+
+	'<td ><select name="buildingDetail[0].applicationFloorDetailsForUpdate[{{idx}}].floorDescription" data-first-option="false" id="applicationFloorDetailsForUpdate[{{idx}}]floorDescription" class="form-control floor-details-mandatory floorDescription clear-details" required="required" maxlength="128" > <option value="">Select</option><options items="${buildingFloorList}" /></select></td>'+
+	'<td class="text-right"><input type="text" class="form-control table-input text-center patternvalidation floorNumber floor-details-mandatory clear-details" data-pattern="number" name="buildingDetail[0].applicationFloorDetailsForUpdate[{{idx}}].floorNumber" required="required" id="applicationFloorDetailsForUpdate[{{idx}}]floorNumber" maxlength="3" /></td>'+
+	'<td ><select name="buildingDetail[0].applicationFloorDetailsForUpdate[{{idx}}].occupancy" data-first-option="false" id="applicationFloorDetailsForUpdate[{{idx}}]occupancy" class="form-control floor-details-mandatory occupancy" required="required" maxlength="128" > <option value="">Select</option><options items="${occupancyList}" /></select></td>'+
+	'<td class="text-right"><input type="text" class="form-control table-input text-right patternvalidation plinthArea nonzero floor-details-mandatory" data-pattern="decimalvalue" name="buildingDetail[0].applicationFloorDetailsForUpdate[{{idx}}].plinthArea" id="applicationFloorDetailsForUpdate[{{idx}}]plinthArea" required="required" maxlength="10" onblur="validateFloorDetails(this)" /></td>'+
+	'<td class="text-right"><input type="text" class="form-control table-input text-right patternvalidation floorArea nonzero floor-details-mandatory" data-pattern="decimalvalue" name="buildingDetail[0].applicationFloorDetailsForUpdate[{{idx}}].floorArea" id="applicationFloorDetailsForUpdate[{{idx}}]floorArea" maxlength="10" required="required" /></td>'+
+	'<td class="text-right"><input type="text" class="form-control table-input text-right patternvalidation carpetArea floor-details-mandatory" data-pattern="decimalvalue" name="buildingDetail[0].applicationFloorDetailsForUpdate[{{idx}}].carpetArea" id="applicationFloorDetailsForUpdate[{{idx}}]carpetArea" maxlength="10" required="required" value=""  /></td>'+
+	'<td class="text-center"><a href="javascript:void(0);" class="btn-sm btn-danger" id="deleteBuildAreaRow" ><i class="fa fa-trash"></i></a></td>'+
 	'</tr>';
 	
 	$('#addBuildAreaRow').click(function(){
@@ -69,11 +69,12 @@ jQuery(document).ready(function() {
 			       'idx': idx
 			   };
 			addRowFromObject(row);
-			loadFloorlist("buildingDetail[0].applicationFloorDetails["+idx+"].floorDescription");
+			generateSno();
+			loadFloorlist("buildingDetail[0].applicationFloorDetailsForUpdate["+idx+"].floorDescription");
 			if($("#occupancyapplnlevel option:selected" ).text() == 'Mixed') {
-				loadOccupanctyDetails("buildingDetail[0].applicationFloorDetails["+idx+"].occupancy");
+				loadOccupanctyDetails("buildingDetail[0].applicationFloorDetailsForUpdate["+idx+"].occupancy");
 			} else {
-				loadOccupancyDetails1("buildingDetail[0].applicationFloorDetails["+idx+"].occupancy",$("#occupancyapplnlevel option:selected" ).val(),$("#occupancyapplnlevel option:selected" ).text());
+				loadOccupancyDetails1("buildingDetail[0].applicationFloorDetailsForUpdate["+idx+"].occupancy",$("#occupancyapplnlevel option:selected" ).val(),$("#occupancyapplnlevel option:selected" ).text());
 			}
 		}
 	});
@@ -281,6 +282,11 @@ function generateSno()
 		$(this).text(idx);
 		idx++;
 	});
+	
+	$('.orderNo').each(function(i){
+		$(this).val(++i);
+		
+	});
 }
 
 function validateBuildAreaOnAdd(){
@@ -303,10 +309,13 @@ function validateBuildAreaOnAdd(){
     return isValid;
 }
 
-
+var deletedId = [];
 $(document).on('click',"#deleteBuildAreaRow",function (){
-	
     var rowIndex = $(this).closest('td').parent()[0].sectionRowIndex;
+    if($(this).data('record-id'))
+    deletedId.push($(this).data('record-id'));
+    
+    $('#deletedFloorIds').val(deletedId);
 	$(this).closest('tr').remove();	
 	
 	generateSno();

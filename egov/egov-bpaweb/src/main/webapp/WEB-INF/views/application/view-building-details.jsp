@@ -69,8 +69,9 @@
 					<th class="text-center"><spring:message code="lbl.srl.no" /></th>
 					<th class="text-center"><spring:message code="lbl.floor.name" /></th>
 					<th class="text-center"><spring:message code="lbl.floor.level" /></th>
-					<th class="text-center"><spring:message code="lbl.floor.area" /></th>
+					<th class="text-center"><spring:message code="lbl.occupancy" /></th>
 					<th class="text-center"><spring:message code="lbl.plinth.area" /></th>
+					<th class="text-center"><spring:message code="lbl.floor.area" /></th>
 					<th class="text-center"><spring:message code="lbl.carpet.area" /></th>
 				</tr>
 			</thead>
@@ -96,10 +97,12 @@
 								value="${floorDetails.floorDescription}" default="0"></c:out>
 						<td class="text-center"><c:out
 								value="${floorDetails.floorNumber}" default="0"></c:out>
-						<td class="text-center"><fmt:formatNumber type="number"
-								maxFractionDigits="2" value="${floorDetails.floorArea}" />
+						<td class="text-center"><c:out
+								value="${floorDetails.occupancy.description}" default="0"></c:out>
 						<td class="text-center"><fmt:formatNumber type="number"
 								maxFractionDigits="2" value="${floorDetails.plinthArea}" />
+						<td class="text-center"><fmt:formatNumber type="number"
+								maxFractionDigits="2" value="${floorDetails.floorArea}" />
 						<td class="text-center"><fmt:formatNumber type="number"
 								maxFractionDigits="2" value="${floorDetails.carpetArea}" />
 					</tr>
@@ -107,6 +110,7 @@
 			</tbody>
 			<tfoot>
 				<tr>
+					<td></td>
 					<td></td>
 					<td></td>
 					<td class="text-right">Total</td>
@@ -120,15 +124,17 @@
 			</tfoot>
 		</table>
 	</c:if>
-	
-	<div class="row add-border">
-		<div class="col-sm-6 add-margin">
+	<c:if test="${bpaApplication.buildingDetail[0].additionalFeePaymentAccepted}">
+		<div class="row add-border">
+			<div class="col-sm-6 add-margin">
 				<spring:message code="lbl.addnl.fee.accept" />
 			</div>
 			<div class="col-sm-3 add-margin view-content">
-				<c:out value="${bpaApplication.buildingDetail[0].additionalFeePaymentAccepted ? 'YES' : 'NO'}" ></c:out>
+				<c:out
+					value="${bpaApplication.buildingDetail[0].additionalFeePaymentAccepted ? 'YES' : 'NO'}"></c:out>
 			</div>
-	</div>
+		</div>
+	</c:if>
 
 	<%-- <div class="row add-border">
 		<div class="col-sm-3 add-margin">
@@ -212,16 +218,16 @@
 		</div>
 	</div>
 
-	<div class="row add-border">
-		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.if.regularized" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out
-				value="${bpaApplication.siteDetail[0].isappForRegularization ? 'YES' : 'NO'}"></c:out>
-		</div>
-	</div>
 	<c:if test="${bpaApplication.siteDetail[0].isappForRegularization}">
+		<div class="row add-border">
+			<div class="col-sm-3 add-margin">
+				<spring:message code="lbl.if.regularized" />
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+				<c:out
+					value="${bpaApplication.siteDetail[0].isappForRegularization ? 'YES' : 'NO'}"></c:out>
+			</div>
+		</div>
 		<div class="row add-border">
 			<div class="col-sm-3 add-margin">
 				<spring:message code="lbl.cons.stages" />
@@ -242,18 +248,50 @@
 				</div>
 			</c:if>
 		</div>
+		<div class="row add-border">
+			<c:choose>
+				<c:when test="${bpaApplication.siteDetail[0].constStages.description eq 'In Progress'}">
+					<div class="col-sm-3 add-margin">
+				<spring:message code="lbl.work.commence.date" />
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+				<c:out
+					value="${bpaApplication.siteDetail[0].workCommencementDate}"
+					default="N/A"></c:out>
+			</div>
+				</c:when>
+				<c:otherwise>
+					<div class="col-sm-3 add-margin">
+				<spring:message code="lbl.work.commence.date" />
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+				<c:out
+					value="${bpaApplication.siteDetail[0].workCommencementDate}"
+					default="N/A"></c:out>
+			</div>
+			<div class="col-sm-3 add-margin">
+				<spring:message code="lbl.work.completion.date" />
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+				<c:out
+					value="${bpaApplication.siteDetail[0].workCompletionDate}"
+					default="N/A"></c:out>
+			</div>
+				</c:otherwise>
+			</c:choose>
+		</div>
 	</c:if>
 
-	<div class="row add-border">
-		<div class="col-sm-3 add-margin">
-			<spring:message code="lbl.permt.plan.obtain" />
-		</div>
-		<div class="col-sm-3 add-margin view-content">
-			<c:out
-				value="${bpaApplication.isExistingApprovedPlan ? 'YES' : 'NO'}"></c:out>
-		</div>
-	</div>
 	<c:if test="${bpaApplication.isExistingApprovedPlan}">
+		<div class="row add-border">
+			<div class="col-sm-3 add-margin">
+				<spring:message code="lbl.permt.plan.obtain" />
+			</div>
+			<div class="col-sm-3 add-margin view-content">
+				<c:out
+					value="${bpaApplication.isExistingApprovedPlan ? 'YES' : 'NO'}"></c:out>
+			</div>
+		</div>
 		<div class="row add-border">
 			<div class="col-sm-3 add-margin">
 				<spring:message code="lbl.received.permit.no" />

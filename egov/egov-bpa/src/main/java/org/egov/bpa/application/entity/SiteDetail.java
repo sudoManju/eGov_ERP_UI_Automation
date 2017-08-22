@@ -30,6 +30,7 @@
 package org.egov.bpa.application.entity;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -44,6 +45,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import org.egov.bpa.application.entity.enums.BpaUom;
@@ -147,6 +150,10 @@ public class SiteDetail extends AbstractAuditable {
     @Length(min = 1, max = 128)
     private String stateOfConstruction;
     private Boolean isappForRegularization;
+    @Temporal(value = TemporalType.DATE)
+    private Date workCommencementDate;
+    @Temporal(value = TemporalType.DATE)
+    private Date workCompletionDate;
     private transient Long postalId;
     private transient Long landUsageId;
 
@@ -559,4 +566,19 @@ public class SiteDetail extends AbstractAuditable {
         this.landUsageId = landUsageId;
     }
 
+    public Date getWorkCommencementDate() {
+        return workCommencementDate;
+    }
+
+    public void setWorkCommencementDate(Date workCommencementDate) {
+        this.workCommencementDate = workCommencementDate;
+    }
+
+    public Date getWorkCompletionDate() {
+        return workCompletionDate;
+    }
+
+    public void setWorkCompletionDate(Date workCompletionDate) {
+        this.workCompletionDate = workCompletionDate;
+    }
 }

@@ -64,21 +64,29 @@
 	</div>
 	<input type="hidden" id="buildingFloorList"
 		value="${buildingFloorList}"> <input type="hidden"
-		id="occupancyList" value="${occupancyList}">
-		<input type="hidden"
-		id="sumOfFloorArea" value="">
+		id="occupancyList" value="${occupancyList}"> <input
+		type="hidden" id="sumOfFloorArea" value=""> <input
+		type="hidden" id="violationMessage" value="${violationMessage}">
 	<input type="hidden" id="violationMessage" value="${violationMessage}">
+	<form:hidden id="deletedFloorIds"
+		path="buildingDetail[0].deletedFloorIds" value="" />
 	<table class="table table-striped table-bordered"
 		id="buildingAreaDetails">
 		<thead>
 			<tr>
 				<th class="text-center"><spring:message code="lbl.srl.no" /></th>
-				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message code="lbl.floor.name" /></th>
-				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message code="lbl.floor.level" /></th>
-				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message code="lbl.occupancy" /></th>
-				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message code="lbl.plinth.area" /></th>
-				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message code="lbl.floor.area" /></th>
-				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message code="lbl.carpet.area" /></th>
+				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message
+						code="lbl.floor.name" /></th>
+				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message
+						code="lbl.floor.level" /></th>
+				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message
+						code="lbl.occupancy" /></th>
+				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message
+						code="lbl.plinth.area" /></th>
+				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message
+						code="lbl.floor.area" /></th>
+				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message
+						code="lbl.carpet.area" /></th>
 				<th class="text-center"><spring:message code="lbl.action" /></th>
 			</tr>
 		</thead>
@@ -91,34 +99,41 @@
 						items="${bpaApplication.buildingDetail[0].applicationFloorDetails}"
 						var="buildingAreaDetails" varStatus="counter">
 						<tr class="data-fetched">
-							<td><span class="serialNo text-center" id="slNoInsp">${counter.index+1}</span><form:hidden id="table_fieldInspections${counter.index}"
-							path="buildingDetail[0].applicationFloorDetails[${counter.index}].id" /><form:hidden path="buildingDetail[0].applicationFloorDetails[${counter.index}].orderOfFloor"/></td>
+							<td class="text-center"><span class="serialNo text-center"
+								id="slNoInsp">${counter.index+1}</span>
+							<form:hidden id="table_fieldInspections${counter.index}"
+									path="buildingDetail[0].applicationFloorDetails[${counter.index}].id" />
+								<form:hidden class="orderNo"
+									path="buildingDetail[0].applicationFloorDetails[${counter.index}].orderOfFloor" /></td>
 							<td><form:select
-								path="buildingDetail[0].applicationFloorDetails[${counter.index}].floorDescription"
-								data-first-option="false"
-								id="applicationFloorDetails${counter.index}floorDescription"
-								class="form-control floor-details-mandatory floorDescription" maxlength="128">
-								<form:option value="">
-									<spring:message code="lbl.select" />
-								</form:option>
-								<form:options items="${buildingFloorList}" />
-							</form:select></td>
+									path="buildingDetail[0].applicationFloorDetails[${counter.index}].floorDescription"
+									data-first-option="false"
+									id="applicationFloorDetails${counter.index}floorDescription"
+									class="form-control floor-details-mandatory floorDescription"
+									maxlength="128">
+									<form:option value="">
+										<spring:message code="lbl.select" />
+									</form:option>
+									<form:options items="${buildingFloorList}" />
+								</form:select></td>
 							<td><form:input type="text"
 									class="form-control table-input patternvalidation floor-details-mandatory floorNumber text-center"
 									data-pattern="number"
 									path="buildingDetail[0].applicationFloorDetails[${counter.index}].floorNumber"
- 									id="applicationFloorDetails${counter.index}floorNumber"
+									id="applicationFloorDetails${counter.index}floorNumber"
 									maxlength="15" value="${buildingAreaDetails.floorNumber}" /></td>
 							<td><form:select
-								path="buildingDetail[0].applicationFloorDetails[${counter.index}].occupancy"
-								data-first-option="false"
-								id="applicationFloorDetails${counter.index}occupancy"
-								class="form-control floor-details-mandatory occupancy" maxlength="128">
-								<form:option value="">
-									<spring:message code="lbl.select" />
-								</form:option>
-								<form:options items="${occupancyList}" itemValue="id" itemLabel="description" />
-							</form:select></td>
+									path="buildingDetail[0].applicationFloorDetails[${counter.index}].occupancy"
+									data-first-option="false"
+									id="applicationFloorDetails${counter.index}occupancy"
+									class="form-control floor-details-mandatory occupancy"
+									maxlength="128">
+									<form:option value="">
+										<spring:message code="lbl.select" />
+									</form:option>
+									<form:options items="${occupancyList}" itemValue="id"
+										itemLabel="description" />
+								</form:select></td>
 							<td><form:input type="text"
 									class="form-control table-input patternvalidation decimalfixed nonzero plinthArea text-right"
 									data-pattern="decimalvalue"
@@ -138,55 +153,68 @@
 									data-pattern="decimalvalue"
 									path="buildingDetail[0].applicationFloorDetails[${counter.index}].carpetArea"
 									id="applicationFloorDetails${counter.index}carpetArea"
-									maxlength="15" required="required" value="${buildingAreaDetails.carpetArea}" /></td>
-							<%-- <c:if test="${counter.index!=0}">
-							<td class="text-center"><a href="javascript:void(0);"
-								class="btn-sm btn-danger" id="deleteBuildAreaRow"
-								data-record-id="${var1.id}"><i class="fa fa-trash"></i></a></td>
-						</c:if> --%>
+									maxlength="15" required="required"
+									value="${buildingAreaDetails.carpetArea}" /></td>
+							<c:if test="${counter.index!=0}">
+								<td class="text-center"><a href="javascript:void(0);"
+									class="btn-sm btn-danger" id="deleteBuildAreaRow"
+									data-record-id="${buildingAreaDetails.id}"><i
+										class="fa fa-trash"></i></a></td>
+							</c:if>
+
+							<c:if test="${counter.index eq 0}">
+								<td></td>
+							</c:if>
+
 						</tr>
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
 					<tr class="data-fetched">
-						<td class="text-center"><span class="serialNo" id="slNoInsp">1</span><form:hidden path="buildingDetail[0].applicationFloorDetails[0].orderOfFloor" id="orderOfFloor" value="1" /></td>
+						<td class="text-center"><span class="serialNo" id="slNoInsp">1</span>
+						<form:hidden class="orderNo"
+								path="buildingDetail[0].applicationFloorDetails[0].orderOfFloor"
+								id="orderOfFloor" value="1" /></td>
 						<td><form:select
 								path="buildingDetail[0].applicationFloorDetails[0].floorDescription"
 								data-first-option="false"
 								id="applicationFloorDetails[0]floorDescription"
-								class="form-control floor-details-mandatory floorDescription" maxlength="128">
+								class="form-control floor-details-mandatory floorDescription"
+								maxlength="128">
 								<form:option value="">
 									<spring:message code="lbl.select" />
 								</form:option>
 								<form:options items="${buildingFloorList}" />
 							</form:select></td>
 						<td><form:input type="text"
-									class="form-control table-input patternvalidation floorNumber floor-details-mandatory text-center"
-									data-pattern="number"
-									path="buildingDetail[0].applicationFloorDetails[0].floorNumber"
-									id="applicationFloorDetails0floorNumber"
-									maxlength="3" value="${buildingAreaDetails.floorNumber}" /></td>
+								class="form-control table-input patternvalidation floorNumber floor-details-mandatory text-center"
+								data-pattern="number"
+								path="buildingDetail[0].applicationFloorDetails[0].floorNumber"
+								id="applicationFloorDetails0floorNumber" maxlength="3"
+								value="${buildingAreaDetails.floorNumber}" /></td>
 						<td><form:select
 								path="buildingDetail[0].applicationFloorDetails[0].occupancy"
 								data-first-option="false"
 								id="applicationFloorDetails[0]occupancy"
-								class="form-control floor-details-mandatory occupancy" maxlength="128">
+								class="form-control floor-details-mandatory occupancy"
+								maxlength="128">
 								<form:option value="">
 									<spring:message code="lbl.select" />
 								</form:option>
-								<form:options items="${occupancyList}" itemValue="id" itemLabel="description" />
+								<form:options items="${occupancyList}" itemValue="id"
+									itemLabel="description" />
 							</form:select></td>
 						<td><form:input type="text"
 								class="form-control table-input text-right patternvalidation decimalfixed nonzero plinthArea floor-details-mandatory"
 								data-pattern="decimalvalue"
-								path="buildingDetail[0].applicationFloorDetails[0].plinthArea" onblur="validateFloorDetails(this)"
-								id="applicationFloorDetails0plinthArea" maxlength="10" value=""/></td>
+								path="buildingDetail[0].applicationFloorDetails[0].plinthArea"
+								onblur="validateFloorDetails(this)"
+								id="applicationFloorDetails0plinthArea" maxlength="10" value="" /></td>
 						<td><form:input type="text"
 								class="form-control table-input text-right patternvalidation decimalfixed nonzero floorArea floor-details-mandatory"
 								data-pattern="decimalvalue"
 								path="buildingDetail[0].applicationFloorDetails[0].floorArea"
-								id="applicationFloorDetails0floorArea" maxlength="10" value=""
-								/></td>
+								id="applicationFloorDetails0floorArea" maxlength="10" value="" /></td>
 						<td><form:input type="text"
 								class="form-control table-input text-right patternvalidation decimalfixed carpetArea floor-details-mandatory"
 								data-pattern="decimalvalue"
@@ -215,10 +243,13 @@
 		</tfoot>
 	</table>
 	<div class="form-group">
-		<label class="col-sm-12 text-left error-msg"><form:checkbox
-				path="buildingDetail[0].additionalFeePaymentAccepted"
+		<div class="col-sm-12 add-margin">
+			<form:checkbox path="buildingDetail[0].additionalFeePaymentAccepted"
 				id="isCitizenAcceptedForAdditionalFee" />
-			<spring:message code="lbl.addnl.fee.accept" /> </label>
+			<label class=" text-left error-msg"> <spring:message
+					code="lbl.addnl.fee.accept" />
+			</label>
+		</div>
 	</div>
 	<div class="form-group">
 		<label
@@ -250,7 +281,7 @@
 			<form:input
 				class="form-control patternvalidation clear-values handle-mandatory nonzero floorCount"
 				data-pattern="number" maxlength="3" id="floorCount"
-				path="buildingDetail[0].floorCount" required="required"/>
+				path="buildingDetail[0].floorCount" required="required" />
 			<form:errors path="buildingDetail[0].floorCount"
 				cssClass="add-margin error-msg" />
 		</div>
@@ -266,7 +297,7 @@
 			cssClass="add-margin error-msg" />
 	</div> --%>
 	</div>
-	
+
 	<%-- <div class="form-group">
 	
 	<label class="col-sm-2 control-label text-right proposedfloorArea"><spring:message
@@ -352,7 +383,7 @@
 			cssClass="add-margin error-msg" />
 	</div>
 </div> --%>
-	
+
 	<div class="form-group">
 		<label class="col-sm-3 control-label text-right"><spring:message
 				code="lbl.if.regularized" /> </label>
@@ -364,32 +395,61 @@
 		</div>
 	</div>
 	<div class="form-group" id="constDiv">
-		<label class="col-sm-3 control-label text-right constStages"><spring:message
-				code="lbl.cons.stages" /><span></span></label>
-		<div class="col-sm-3 add-margin">
-			<form:select path="siteDetail[0].constStages"
-				data-first-option="false" id="constStages" cssClass="form-control">
-				<form:option value="">
-					<spring:message code="lbl.select" />
-				</form:option>
-				<form:options items="${constStages}" itemValue="id" itemLabel="code" />
-			</form:select>
-			<form:errors path="siteDetail[0].constStages"
-				cssClass="add-margin error-msg" />
-		</div>
-		<div id="inprogress">
-			<label class="col-sm-2 control-label text-right stateOfConstruction"><spring:message
-					code="lbl.if.cons.not.cmplted" /><span></span></label>
+		<div class="form-group">
+			<label class="col-sm-3 control-label text-right constStages"><spring:message
+					code="lbl.cons.stages" /><span></span></label>
 			<div class="col-sm-3 add-margin">
-				<form:input class="form-control patternvalidation"
-					data-pattern="alphanumericwithspace" maxlength="128"
-					id="stateOfConstruction" path="siteDetail[0].stateOfConstruction" />
-				<form:errors path="siteDetail[0].stateOfConstruction"
+				<form:select path="siteDetail[0].constStages"
+					data-first-option="false" id="constStages" cssClass="form-control">
+					<form:option value="">
+						<spring:message code="lbl.select" />
+					</form:option>
+					<form:options items="${constStages}" itemValue="id"
+						itemLabel="code" />
+				</form:select>
+				<form:errors path="siteDetail[0].constStages"
 					cssClass="add-margin error-msg" />
+			</div>
+			<div id="inprogress">
+				<label class="col-sm-2 control-label text-right stateOfConstruction"><spring:message
+						code="lbl.if.cons.not.cmplted" /><span></span></label>
+				<div class="col-sm-3 add-margin">
+					<form:input class="form-control patternvalidation"
+						data-pattern="alphanumericwithspace" maxlength="128"
+						id="stateOfConstruction" path="siteDetail[0].stateOfConstruction" />
+					<form:errors path="siteDetail[0].stateOfConstruction"
+						cssClass="add-margin error-msg" />
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="workCommencementDate1">
+				<label
+					class="col-sm-3 control-label text-right workCommencementDate"><spring:message
+						code="lbl.work.commence.date" /><span></span></label>
+				<div class="col-sm-3 add-margin">
+					<form:input path="siteDetail[0].workCommencementDate"
+						class="form-control datepicker" data-date-end-date="0d"
+						id="workCommencementDate" data-inputmask="'mask': 'd/m/y'" />
+					<form:errors path="siteDetail[0].workCommencementDate"
+						cssClass="add-margin error-msg" />
+				</div>
+			</div>
+			<div class="workCompletionDate1">
+				<label class="col-sm-2 control-label text-right workCompletionDate"><spring:message
+						code="lbl.work.completion.date" /><span></span></label>
+				<div class="col-sm-3 add-margin">
+					<form:input path="siteDetail[0].workCompletionDate"
+						class="form-control datepicker" data-date-end-date="0d"
+						id="workCompletionDate" data-inputmask="'mask': 'd/m/y'" />
+					<form:errors path="siteDetail[0].workCompletionDate"
+						cssClass="add-margin error-msg" />
+				</div>
 			</div>
 		</div>
 	</div>
-	
+
+
 	<div class="form-group">
 		<label class="col-sm-3 control-label text-right"><spring:message
 				code="lbl.permt.plan.obtain" /> </label>
@@ -401,7 +461,7 @@
 		</div>
 	</div>
 	<div class="form-group" id="existingAppPlan">
-	
+
 		<div class="form-group">
 			<label class="col-sm-3 control-label text-right removemandatory"><spring:message
 					code="lbl.received.permit.no" /><span class="mandatory"></span></label>
@@ -421,7 +481,7 @@
 					cssClass="add-margin error-msg" />
 			</div>
 		</div>
-		
+
 		<div class="form-group">
 			<label class="col-sm-3 control-label text-right removemandatory"><spring:message
 					code="lbl.paid.details" /> <span class="mandatory"></span></label>
@@ -434,13 +494,12 @@
 			<label class="col-sm-2 control-label text-right removemandatory"><spring:message
 					code="lbl.paid.fee" /><span class="mandatory"></span></label>
 			<div class="col-sm-3 add-margin">
-				<form:input class="form-control patternvalidation" data-pattern="number" maxlength="128"
-					id="approvedFeeAmount" path="approvedFeeAmount" />
+				<form:input class="form-control patternvalidation"
+					data-pattern="number" maxlength="128" id="approvedFeeAmount"
+					path="approvedFeeAmount" />
 				<form:errors path="approvedFeeAmount"
 					cssClass="add-margin error-msg" />
 			</div>
 		</div>
-
 	</div>
-
 </div>

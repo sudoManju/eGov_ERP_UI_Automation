@@ -268,7 +268,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
             }
             String workFlowAction = request.getParameter(WORK_FLOW_ACTION);
             if (!bpaApplication.getApplicationDocument().isEmpty())
-                applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
+                applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication);
             BpaApplication bpaAppln = applicationBpaService.updateApplication(bpaApplication, approvalPosition, workFlowAction,
                     amountRule);
             String message = messageSource.getMessage("msg.update.forward.documentscrutiny", new String[] {
@@ -282,6 +282,9 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
     }
 
     private void loadViewdata(final Model model, final BpaApplication application) {
+        application.getBuildingDetail().get(0)
+        .setApplicationFloorDetailsForUpdate(application.getBuildingDetail().get(0).getApplicationFloorDetails());
+        applicationBpaService.buildApplicationFloorDetails(application);
         model.addAttribute("stateType", application.getClass().getSimpleName());
         final WorkflowContainer workflowContainer = new WorkflowContainer();
         model.addAttribute(ADDITIONALRULE, CREATE_ADDITIONAL_RULE_CREATE);
@@ -350,7 +353,6 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         }
 
         if (bpaApplicationValidationService.validateBuildingDetails(bpaApplication, model)) {
-            applicationBpaService.buildApplicationFloorDetails(bpaApplication);
             loadViewdata(model, bpaApplication);
             return BPAAPPLICATION_FORM;
         }
@@ -374,7 +376,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
             }
         }
         if (!bpaApplication.getApplicationDocument().isEmpty())
-            applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
+            applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication);
         if (bpaApplication.getCurrentState().getValue().equals(BpaConstants.WF_NEW_STATE)) {
             return applicationBpaService.redirectToCollectionOnForward(bpaApplication, model);
         }

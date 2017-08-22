@@ -125,10 +125,12 @@ public class NewApplicationController extends BpaGenericApplicationController {
                             && bpaApplication.getSiteDetail().get(0).getElectionBoundary() != null ? bpaApplication
                                     .getSiteDetail().get(0).getElectionBoundary().getId() : null);
         if (userPosition == 0 || userPosition == null) {
+            applicationBpaService.buildApplicationFloorDetails(bpaApplication);
             return redirectOnValidationFailure(model);
         }
 
         if (!applicationBpaService.checkStakeholderIsValid(bpaApplication)) {
+            applicationBpaService.buildApplicationFloorDetails(bpaApplication);
             message = applicationBpaService.getValidationMessageForBusinessResgistration(bpaApplication);
             model.addAttribute("invalidStakeholder", message);
             return loadFormData(bpaApplication, model);
@@ -140,7 +142,7 @@ public class NewApplicationController extends BpaGenericApplicationController {
         applicationStakeHolder.setStakeHolder(bpaApplication.getStakeHolder().get(0).getStakeHolder());
         applicationStakeHolders.add(applicationStakeHolder);
         bpaApplication.setStakeHolder(applicationStakeHolders);
-        applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication, resultBinder);
+        applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication);
         bpaApplication.setAdmissionfeeAmount(applicationBpaService.setAdmissionFeeAmountForRegistrationWithAmenities(
                 bpaApplication.getServiceType().getId(), new ArrayList<ServiceType>()));
         if (bpaApplication.getOwner().getUser() != null && bpaApplication.getOwner().getUser().getId() == null)

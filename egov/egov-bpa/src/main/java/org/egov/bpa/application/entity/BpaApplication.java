@@ -674,4 +674,9 @@ public class BpaApplication extends StateAware {
         this.isEconomicallyWeakerSection = isEconomicallyWeakerSection;
     }
     
+    public void deleteBuildingDetails(final BuildingDetail buildingDetail) {
+        if(buildingDetail != null)
+        this.buildingDetail.remove(buildingDetail);
+    }
+    
 }

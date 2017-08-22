@@ -301,13 +301,31 @@ $(document).ready(function() {
 			   $('#constDiv').show();
 			   $('#inprogress').hide();
 			   $('#constStages').attr('required', true);
+			   $('.workCommencementDate1').hide();
+			   $('.workCompletionDate1').hide();
 			   $('#constStages').change(function(){
 					if($('#constStages option:selected').html()=="In Progress" ||  $(this).val()=="-1"){
 						$('#inprogress').show();
+						$('.workCommencementDate1').show();
+						$('.workCompletionDate1').hide();
+						$('.workCompletionDate').find("span").removeClass( "mandatory" );
+						$('#workCompletionDate').removeAttr('required');
+						$('.workCommencementDate').find("span").addClass( "mandatory" );
+						$('#workCommencementDate').attr('required', true);
 						$('.stateOfConstruction').find("span").addClass( "mandatory" );
-						 $('#stateOfConstruction').attr('required', true);
-					} else {
+						$('#stateOfConstruction').attr('required', true);
+					} else if($('#constStages option:selected').html()=="Completed" ||  $(this).val()=="-1") {
+						$('.workCommencementDate1').show();
+						$('.workCompletionDate1').show();
+						$('.workCommencementDate').find("span").addClass( "mandatory" );
+						$('#workCommencementDate').attr('required', true);
+						$('.workCompletionDate').find("span").addClass( "mandatory" );
+						$('#workCompletionDate').attr('required', true);
 						 $('#inprogress').hide();
+					} else {
+						$('#inprogress').hide();
+						$('.workCommencementDate1').hide();
+						$('.workCompletionDate1').hide();
 					}
 				});
 		    } else if(!this.checked) // if changed state is "CHECKED"
@@ -379,7 +397,7 @@ $(document).ready(function() {
 				},
 				callback : function(result) {
 					if (result) {
-						$('#buildingAreaDetails').find('input').val('');
+						$('#buildingAreaDetails').find('input').not('input[type=hidden]').val('');
 						$('#buildingAreaDetails').find('select').val('');
 						resetOccupancyDetails();
 						setFloorCount();

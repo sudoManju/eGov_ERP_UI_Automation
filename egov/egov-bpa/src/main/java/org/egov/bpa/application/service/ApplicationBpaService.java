@@ -53,6 +53,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -63,6 +64,7 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.egov.bpa.application.autonumber.PlanPermissionNumberGenerator;
 import org.egov.bpa.application.entity.ApplicationDocument;
@@ -71,6 +73,7 @@ import org.egov.bpa.application.entity.ApplicationNocDocument;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaFeeDetail;
 import org.egov.bpa.application.entity.BpaStatus;
+import org.egov.bpa.application.entity.BuildingDetail;
 import org.egov.bpa.application.entity.CheckListDetail;
 import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.application.repository.ApplicationBpaRepository;
@@ -106,12 +109,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @Transactional(readOnly = true)
 public class ApplicationBpaService extends GenericBillGeneratorService {
+
+    private static final String TOWN_PLANNER_B = "Town Planner - B";
 
     private static final String FORWARDED_DIGI_SIGN = "Forwarded to Digital Signature";
 
@@ -167,6 +171,8 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
     private PostalAddressService postalAddressService;
     @Autowired
     private BpaSchemeLandUsageService bpaSchemeLandUsageService;
+    @Autowired
+    private BuildingFloorDetailsService buildingFloorDetailsService;
 
     public Session getCurrentSession() {
         return entityManager.unwrap(Session.class);
@@ -175,11 +181,11 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
     @Transactional
     public BpaApplication createNewApplication(final BpaApplication application, String workFlowAction) {
         final Boundary boundaryObj = bpaUtils.getBoundaryById(application.getWardId() != null ? application.getWardId()
-                : (application.getZoneId() != null ? application.getZoneId() : null));
+                : getZone(application));
         application.getSiteDetail().get(0).setAdminBoundary(boundaryObj);
         application.getSiteDetail().get(0).setApplication(application);
         application.getBuildingDetail().get(0).setApplication(application);
-        application.getBuildingDetail().get(0).setApplicationFloorDetails(buildApplicationFloorDetails(application));
+        buildApplicationFloorDetails(application);
         application.getSiteDetail().get(0)
                 .setPostalAddress(postalAddressService.findById(application.getSiteDetail().get(0).getPostalId()));
         application.setApplicationNumber(applicationNumberGenerator.generate());
@@ -227,32 +233,74 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         return applicationBpaRepository.save(application);
     }
 
-    public List<ApplicationFloorDetail> buildApplicationFloorDetails(final BpaApplication application) {
-        List<ApplicationFloorDetail> floorDetailsList = new ArrayList<>();
-        if (!application.getBuildingDetail().isEmpty()) {
+    private Long getZone(final BpaApplication application) {
+        return application.getZoneId() != null ? application.getZoneId() : null;
+    }
+
+    public void buildApplicationFloorDetails(final BpaApplication application) {
+
+        buildAndDeleteFloorDetails(application);
+        buildNewFloorDetails(application);
+
+        if (!application.getBuildingDetail().isEmpty()
+                && !application.getBuildingDetail().get(0).getApplicationFloorDetails().isEmpty()) {
+            List<ApplicationFloorDetail> floorDetailsList = new ArrayList<>();
             application.getBuildingDetail().get(0).setApplication(application);
-            int item = 1;
             for (ApplicationFloorDetail applicationFloorDetails : application.getBuildingDetail().get(0)
                     .getApplicationFloorDetails()) {
-                if (null == applicationFloorDetails.getId() && applicationFloorDetails.getFloorDescription() != null) {
+                if (null != applicationFloorDetails && null == applicationFloorDetails.getId()
+                        && applicationFloorDetails.getFloorDescription() != null) {
                     ApplicationFloorDetail floorDetails = new ApplicationFloorDetail();
                     floorDetails.setBuildingDetail(application.getBuildingDetail().get(0));
                     floorDetails.setOccupancy(applicationFloorDetails.getOccupancy());
-                    floorDetails.setOrderOfFloor(item);
+                    floorDetails.setOrderOfFloor(applicationFloorDetails.getOrderOfFloor());
                     floorDetails.setFloorNumber(applicationFloorDetails.getFloorNumber());
                     floorDetails.setFloorDescription(applicationFloorDetails.getFloorDescription());
                     floorDetails.setPlinthArea(applicationFloorDetails.getPlinthArea());
                     floorDetails.setCarpetArea(applicationFloorDetails.getCarpetArea());
                     floorDetails.setFloorArea(applicationFloorDetails.getFloorArea());
                     floorDetailsList.add(floorDetails);
-                    item++;
-                } else if (null != applicationFloorDetails.getId()
+                } else if (null != applicationFloorDetails && null != applicationFloorDetails.getId()
                         && applicationFloorDetails.getFloorDescription() != null) {
                     floorDetailsList.add(applicationFloorDetails);
                 }
             }
+            application.getBuildingDetail().get(0).getApplicationFloorDetails().clear();
+            application.getBuildingDetail().get(0).setApplicationFloorDetails(floorDetailsList);
         }
-        return floorDetailsList;
+        
+        List<BuildingDetail> newBuildingDetailsList = new ArrayList<>();
+        for (BuildingDetail buildingDetail : application.getBuildingDetail()) {
+            if (buildingDetail != null && null != buildingDetail.getId() && null != buildingDetail.getApplication()) {
+                newBuildingDetailsList.add(buildingDetail);
+            }
+        }
+        application.getBuildingDetail().clear();
+        application.setBuildingDetail(newBuildingDetailsList);
+    }
+
+    private void buildNewFloorDetails(final BpaApplication application) {
+        if (!application.getBuildingDetail().get(0).getApplicationFloorDetailsForUpdate().isEmpty()) {
+            List<ApplicationFloorDetail> newFloorDetails = new ArrayList<>();
+            for (ApplicationFloorDetail applicationFloorDetail : application.getBuildingDetail().get(0)
+                    .getApplicationFloorDetailsForUpdate()) {
+                if (applicationFloorDetail != null && StringUtils.isNotBlank(applicationFloorDetail.getFloorDescription()))
+                    newFloorDetails.add(applicationFloorDetail);
+            }
+            application.getBuildingDetail().get(0).getApplicationFloorDetails().addAll(newFloorDetails);
+        }
+    }
+
+    private void buildAndDeleteFloorDetails(final BpaApplication application) {
+        List<ApplicationFloorDetail> existingFloorDetails = new ArrayList<>();
+        if (application.getBuildingDetail().get(0).getDeletedFloorIds() != null
+                && application.getBuildingDetail().get(0).getDeletedFloorIds().length > 0) {
+                for(Long id : application.getBuildingDetail().get(0).getDeletedFloorIds()) {
+                    existingFloorDetails.add(buildingFloorDetailsService.findById(id));
+                }
+            application.getBuildingDetail().get(0).delete(existingFloorDetails);
+            buildingFloorDetailsService.delete(existingFloorDetails);
+        }
     }
 
     public void persistBpaNocDocuments(final BpaApplication application) {
@@ -292,8 +340,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
     @Transactional
     public String redirectToCollectionOnForward(final BpaApplication application, Model model) {
         persistBpaNocDocuments(application);
-        application.getBuildingDetail().get(0).setApplicationFloorDetails(buildApplicationFloorDetails(application));
-        application.getBuildingDetail().get(0).setApplicationFloorDetails(buildApplicationFloorDetails(application));
+        buildApplicationFloorDetails(application);
         return genericBillGeneratorService.generateBillAndRedirectToCollection(application, model);
     }
 
@@ -303,7 +350,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
 
         application.setSource(Source.SYSTEM);
         persistBpaNocDocuments(application);
-        application.getBuildingDetail().get(0).setApplicationFloorDetails(buildApplicationFloorDetails(application));
+        buildApplicationFloorDetails(application);
         persistPostalAddress(application);
         buildSchemeLandUsage(application);
         if (APPLICATION_STATUS_FIELD_INS.equalsIgnoreCase(application.getStatus().getCode())
@@ -325,8 +372,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         return updatedApplication;
     }
 
-    public void persistOrUpdateApplicationDocument(final BpaApplication bpaApplication,
-            final BindingResult resultBinder) {
+    public void persistOrUpdateApplicationDocument(final BpaApplication bpaApplication) {
         processAndStoreApplicationDocuments(bpaApplication);
     }
 
@@ -439,7 +485,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
                 }
             }).collect(Collectors.toSet());
         else
-            return null;
+            return Collections.emptySet();
     }
 
     public String generatePlanPermissionNumber(final BpaApplication application) {
@@ -487,7 +533,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
                     .get(type.toLowerCase());
             BigDecimal extentinsqmtsInput = stakeHolderType1Restriction.get(EXTENTINSQMTS);
             return extentInArea.compareTo(extentinsqmtsInput) <= 0 ? true : false;
-        } else if ("Town Planner - B".equalsIgnoreCase(type.toLowerCase())
+        } else if (TOWN_PLANNER_B.equalsIgnoreCase(type.toLowerCase())
                 && BpaConstants.getServicesForBuildPermit().contains(serviceType)) {
             return false;
         } else if (getStakeholderType1Restrictions().containsKey(type.toLowerCase())
@@ -526,7 +572,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
 
         if ((getStakeholderType1Restrictions().containsKey(stakeHolderType.toLowerCase())
                 && BpaConstants.getServicesForDevelopPermit().contains(serviceType))
-                || ("Town Planner - B".equalsIgnoreCase(stakeHolderType.toLowerCase())
+                || (TOWN_PLANNER_B.equalsIgnoreCase(stakeHolderType.toLowerCase())
                         && BpaConstants.getServicesForDevelopPermit().contains(serviceType))) {
             Map<String, BigDecimal> stakeHolderType1Restriction = getStakeholderType1Restrictions()
                     .get(stakeHolderType.toLowerCase());
@@ -545,7 +591,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
             floorCountInput = stakeHolderType2Restriction.get(FLOOR_COUNT);
             buildingHeightInput = stakeHolderType2Restriction.get(BUILDINGHEIGHT_GROUND);
         }
-        if ("Town Planner - B".equalsIgnoreCase(stakeHolderType.toLowerCase())
+        if (TOWN_PLANNER_B.equalsIgnoreCase(stakeHolderType.toLowerCase())
                 && BpaConstants.getServicesForBuildPermit().contains(serviceType)) {
             message = messageSource.getMessage("msg.invalid.stakeholder4", new String[] { stakeHolderType },
                     LocaleContextHolder.getLocale());
