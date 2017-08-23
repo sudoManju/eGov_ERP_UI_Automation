@@ -89,6 +89,8 @@ public class BpaApplicationValidationService {
     private ApplicationBpaFeeCalculationService applicationBpaFeeCalculationService;
     @Autowired
     private AppConfigValueService appConfigValuesService;
+    @Autowired
+    private ApplicationBpaService applicationBpaService;
 
     /**
      * checking each floor wise coverage area is violating for all occupancy where ever building details capturing to those
@@ -164,6 +166,7 @@ public class BpaApplicationValidationService {
                 }
             }
             application.getBuildingDetail().get(0).delete(existingFloorDetails);
+            applicationBpaService.buildNewlyAddedFloorDetails(application);
             Map<String, String> violationCoverage = checkIsViolatingCoverageArea(application);
             if (TRUE.equalsIgnoreCase(violationCoverage.get(IS_VIOLATING))) {
                 model.addAttribute(VIOLATION_MESSAGE, violationCoverage.get(VIOLATION_MESSAGE_FOR_COVERAGE));

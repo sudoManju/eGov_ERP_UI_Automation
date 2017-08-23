@@ -270,7 +270,6 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
     public void buildApplicationFloorDetailsForUpdate(final BpaApplication application) {
 
         buildAndDeleteFloorDetails(application);
-        buildNewlyAddedFloorDetails(application);
         
         if (!application.getBuildingDetail().isEmpty()
                 && !application.getBuildingDetail().get(0).getApplicationFloorDetails().isEmpty()) {
@@ -309,7 +308,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         application.setBuildingDetail(newBuildingDetailsList);
     }
 
-    private void buildNewlyAddedFloorDetails(final BpaApplication application) {
+    public void buildNewlyAddedFloorDetails(final BpaApplication application) {
         if (!application.getBuildingDetail().get(0).getApplicationFloorDetailsForUpdate().isEmpty()) {
             List<ApplicationFloorDetail> newFloorDetails = new ArrayList<>();
             for (ApplicationFloorDetail applicationFloorDetail : application.getBuildingDetail().get(0)
