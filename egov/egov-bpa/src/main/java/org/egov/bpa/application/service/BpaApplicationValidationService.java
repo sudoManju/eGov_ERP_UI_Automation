@@ -128,7 +128,7 @@ public class BpaApplicationValidationService {
 
             if (coverageProvided.compareTo(weightedCoverage) > 0) {
                 floorDescBuilder.append(floorDesc).append(",");
-                floorAreaBuilder.append(permitedFloorArea).append(",");
+                floorAreaBuilder.append(permitedFloorArea.setScale(2, BigDecimal.ROUND_HALF_UP)).append(",");
             }
         }
         if (floorDescBuilder.length() > 0) {
@@ -219,7 +219,7 @@ public class BpaApplicationValidationService {
                     .multiply(new BigDecimal(application.getOccupancy().getNumOfTimesAreaPermissible()));
         }
         violation.put(IS_VIOLATING, sumOfFloorArea.compareTo(maximumAllowedAreaWOAddnlFee) > 0 ? TRUE : FALSE);
-        violation.put(MAXIMUM_ALLOWED_AREA_WO_ADDNL_FEE, maximumAllowedAreaWOAddnlFee.toString());
+        violation.put(MAXIMUM_ALLOWED_AREA_WO_ADDNL_FEE, maximumAllowedAreaWOAddnlFee.setScale(2, BigDecimal.ROUND_HALF_UP).toString());
         return violation;
     }
 
@@ -251,7 +251,7 @@ public class BpaApplicationValidationService {
         }
 
         violation.put(IS_VIOLATING, sumOfFloorArea.compareTo(maximumAllowedAreaWithAddnlFee) > 0 ? TRUE : FALSE);
-        violation.put(MAXIMUM_ALLOWED_AREA_WITH_ADDNL_FEE, maximumAllowedAreaWithAddnlFee.toString());
+        violation.put(MAXIMUM_ALLOWED_AREA_WITH_ADDNL_FEE, maximumAllowedAreaWithAddnlFee.setScale(2, BigDecimal.ROUND_HALF_UP).toString());
         return violation;
     }
 
