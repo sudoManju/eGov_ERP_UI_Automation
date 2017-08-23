@@ -156,8 +156,10 @@ public class BpaApplicationValidationService {
             List<ApplicationFloorDetail> existingFloorDetails = new ArrayList<>();
             for (ApplicationFloorDetail applicationFloorDetails : application.getBuildingDetail().get(0)
                     .getApplicationFloorDetails()) {
-                if (Arrays.asList(application.getBuildingDetail().get(0).getDeletedFloorIds())
-                        .contains(applicationFloorDetails.getId())) {
+                if (application.getBuildingDetail().get(0).getDeletedFloorIds() != null
+                        && application.getBuildingDetail().get(0).getDeletedFloorIds().length > 0
+                        && Arrays.asList(application.getBuildingDetail().get(0).getDeletedFloorIds())
+                                .contains(applicationFloorDetails.getId())) {
                     existingFloorDetails.add(applicationFloorDetails);
                 }
             }

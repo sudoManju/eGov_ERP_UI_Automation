@@ -50,12 +50,16 @@ $(document).ready(function() {
 	$('.show-hide').hide();
 	$('.totalPlintArea').show();
 	
-	// Set decimal places of 2
-	$('.decimalfixed').each(function(){
-		if($(this).val()){
-			$(this).val(parseFloat($(this).val()).toFixed(2));
-		}
-	});
+	
+	roundOfDecimalPlaces();
+	function roundOfDecimalPlaces() {
+		// Set decimal places of 2
+		$('.decimalfixed').each(function(){
+			if($(this).val()){
+				$(this).val(parseFloat($(this).val()).toFixed(2));
+			}
+		});
+	}
 	
 	// showing server side validation message in building details section as well as showing same in alert also.
 	if($('#violationMessage').val()) {
@@ -230,6 +234,7 @@ $(document).ready(function() {
         });
 		result=result+"</div>";
 		$('#amenitiesInputs').html(result);
+		roundOfDecimalPlaces();
 		patternvalidation();
 	}
 	

@@ -373,6 +373,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                 }
             }
         }
+        buildReceiptDetails(bpaApplication);
         if (!bpaApplication.getApplicationDocument().isEmpty())
             applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication);
         if (bpaApplication.getCurrentState().getValue().equals(BpaConstants.WF_NEW_STATE)) {
