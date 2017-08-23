@@ -221,7 +221,7 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
             final BindingResult errors) {
 
         if (bpaApplicationValidationService.validateBuildingDetails(bpaApplication, model)) {
-            applicationBpaService.buildApplicationFloorDetails(bpaApplication);
+            applicationBpaService.buildApplicationFloorDetailsForNew(bpaApplication);
             prepareCommonModelAttribute(model, bpaApplication);
             return loadNewForm(bpaApplication, model, bpaApplication.getServiceType().getCode());
         }
@@ -245,7 +245,7 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
         if (citizenOrBusinessUser && workFlowAction != null
                 && workFlowAction.equals(WF_SURVEYOR_FORWARD_BUTTON)
                 && (userPosition == 0 || userPosition == null)) {
-            applicationBpaService.buildApplicationFloorDetails(bpaApplication);
+            applicationBpaService.buildApplicationFloorDetailsForNew(bpaApplication);
             model.addAttribute("noJAORSAMessage", SUPERINTENDANT_NOT_EXISTS);
             return loadNewForm(bpaApplication, model, bpaApplication.getServiceType().getCode());
         }
@@ -271,7 +271,7 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
                     String message = applicationBpaService
                             .getValidationMessageForBusinessResgistration(bpaApplication);
                     model.addAttribute("invalidStakeholder", message);
-                    applicationBpaService.buildApplicationFloorDetails(bpaApplication);
+                    applicationBpaService.buildApplicationFloorDetailsForUpdate(bpaApplication);
                     return loadNewForm(bpaApplication, model, bpaApplication
                             .getServiceType().getCode());
                 }

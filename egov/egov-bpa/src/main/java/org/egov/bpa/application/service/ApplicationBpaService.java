@@ -185,7 +185,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         application.getSiteDetail().get(0).setAdminBoundary(boundaryObj);
         application.getSiteDetail().get(0).setApplication(application);
         application.getBuildingDetail().get(0).setApplication(application);
-        buildApplicationFloorDetails(application);
+        buildApplicationFloorDetailsForNew(application);
         application.getSiteDetail().get(0)
                 .setPostalAddress(postalAddressService.findById(application.getSiteDetail().get(0).getPostalId()));
         application.setApplicationNumber(applicationNumberGenerator.generate());
@@ -236,12 +236,42 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
     private Long getZone(final BpaApplication application) {
         return application.getZoneId() != null ? application.getZoneId() : null;
     }
+    
+    public void buildApplicationFloorDetailsForNew(final BpaApplication application) {
+        buildAndDeleteFloorDetails(application);
+        buildNewlyAddedFloorDetails(application);
+        if (!application.getBuildingDetail().isEmpty()
+                && !application.getBuildingDetail().get(0).getApplicationFloorDetails().isEmpty()) {
+            List<ApplicationFloorDetail> floorDetailsList = new ArrayList<>();
+            application.getBuildingDetail().get(0).setApplication(application);
+            for (ApplicationFloorDetail applicationFloorDetails : application.getBuildingDetail().get(0)
+                    .getApplicationFloorDetails()) {
+                if (null != applicationFloorDetails && null == applicationFloorDetails.getId()
+                        && applicationFloorDetails.getFloorDescription() != null) {
+                    ApplicationFloorDetail floorDetails = new ApplicationFloorDetail();
+                    floorDetails.setBuildingDetail(application.getBuildingDetail().get(0));
+                    floorDetails.setOccupancy(applicationFloorDetails.getOccupancy());
+                    floorDetails.setOrderOfFloor(applicationFloorDetails.getOrderOfFloor());
+                    floorDetails.setFloorNumber(applicationFloorDetails.getFloorNumber());
+                    floorDetails.setFloorDescription(applicationFloorDetails.getFloorDescription());
+                    floorDetails.setPlinthArea(applicationFloorDetails.getPlinthArea());
+                    floorDetails.setCarpetArea(applicationFloorDetails.getCarpetArea());
+                    floorDetails.setFloorArea(applicationFloorDetails.getFloorArea());
+                    floorDetailsList.add(floorDetails);
+                } else if (null != applicationFloorDetails && null != applicationFloorDetails.getId()
+                        && applicationFloorDetails.getFloorDescription() != null) {
+                    floorDetailsList.add(applicationFloorDetails);
+                }
+            }
+            application.getBuildingDetail().get(0).setApplicationFloorDetails(floorDetailsList);
+        }
+    }
 
-    public void buildApplicationFloorDetails(final BpaApplication application) {
+    public void buildApplicationFloorDetailsForUpdate(final BpaApplication application) {
 
         buildAndDeleteFloorDetails(application);
-        buildNewFloorDetails(application);
-
+        buildNewlyAddedFloorDetails(application);
+        
         if (!application.getBuildingDetail().isEmpty()
                 && !application.getBuildingDetail().get(0).getApplicationFloorDetails().isEmpty()) {
             List<ApplicationFloorDetail> floorDetailsList = new ArrayList<>();
@@ -279,7 +309,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         application.setBuildingDetail(newBuildingDetailsList);
     }
 
-    private void buildNewFloorDetails(final BpaApplication application) {
+    private void buildNewlyAddedFloorDetails(final BpaApplication application) {
         if (!application.getBuildingDetail().get(0).getApplicationFloorDetailsForUpdate().isEmpty()) {
             List<ApplicationFloorDetail> newFloorDetails = new ArrayList<>();
             for (ApplicationFloorDetail applicationFloorDetail : application.getBuildingDetail().get(0)
@@ -340,7 +370,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
     @Transactional
     public String redirectToCollectionOnForward(final BpaApplication application, Model model) {
         persistBpaNocDocuments(application);
-        buildApplicationFloorDetails(application);
+        buildApplicationFloorDetailsForUpdate(application);
         return genericBillGeneratorService.generateBillAndRedirectToCollection(application, model);
     }
 
@@ -350,7 +380,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
 
         application.setSource(Source.SYSTEM);
         persistBpaNocDocuments(application);
-        buildApplicationFloorDetails(application);
+        buildApplicationFloorDetailsForUpdate(application);
         persistPostalAddress(application);
         buildSchemeLandUsage(application);
         if (APPLICATION_STATUS_FIELD_INS.equalsIgnoreCase(application.getStatus().getCode())

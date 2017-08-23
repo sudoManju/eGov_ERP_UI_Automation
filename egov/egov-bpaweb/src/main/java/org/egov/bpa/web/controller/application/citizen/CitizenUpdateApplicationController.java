@@ -111,9 +111,7 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
 
     private String loadViewdata(final Model model, final BpaApplication application) {
         buildReceiptDetails(application);
-        application.getBuildingDetail().get(0)
-                .setApplicationFloorDetailsForUpdate(application.getBuildingDetail().get(0).getApplicationFloorDetails());
-        applicationBpaService.buildApplicationFloorDetails(application);
+        applicationBpaService.buildApplicationFloorDetailsForUpdate(application);
         model.addAttribute("stateType", application.getClass().getSimpleName());
         model.addAttribute(ADDITIONALRULE, CREATE_ADDITIONAL_RULE_CREATE);
         model.addAttribute(BPA_APPLICATION, application);
@@ -157,7 +155,7 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
         Long approvalPosition = null;
         if (!bpaApplication.getApplicationDocument().isEmpty())
             applicationBpaService.persistOrUpdateApplicationDocument(bpaApplication);
-        applicationBpaService.buildApplicationFloorDetails(bpaApplication);
+        applicationBpaService.buildApplicationFloorDetailsForUpdate(bpaApplication);
         String enableOrDisablePayOnline = bpaUtils.getAppconfigValueByKeyName(ENABLEONLINEPAYMENT);
         if (workFlowAction != null
                 && workFlowAction
