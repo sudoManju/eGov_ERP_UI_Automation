@@ -239,7 +239,6 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
     
     public void buildApplicationFloorDetailsForNew(final BpaApplication application) {
         buildAndDeleteFloorDetails(application);
-        buildNewlyAddedFloorDetails(application);
         if (!application.getBuildingDetail().isEmpty()
                 && !application.getBuildingDetail().get(0).getApplicationFloorDetails().isEmpty()) {
             List<ApplicationFloorDetail> floorDetailsList = new ArrayList<>();
