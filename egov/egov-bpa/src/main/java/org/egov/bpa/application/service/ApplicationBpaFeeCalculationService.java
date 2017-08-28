@@ -77,6 +77,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 public class ApplicationBpaFeeCalculationService {
+    private static final String OTHERS = "Others";
     @Autowired
     private BpaFeeService bpaFeeService;
     @Autowired
@@ -139,18 +140,14 @@ public class ApplicationBpaFeeCalculationService {
                 for (BpaFee bpaFee : bpaFeeService.getActiveSanctionFeeForListOfServices(serviceTypdId)) {
                     if (bpaFee != null) {
                         BigDecimal amount = BigDecimal.ZERO;
-                        BigDecimal inputArea = BigDecimal.ZERO;
-                        BigDecimal feeAmount = BigDecimal.ZERO;
                         Map<Occupancy, BigDecimal> occupancywisearea = getOccupancyWiseSumOfFloorArea(
                                 application.getBuildingDetail().get(0));
 
                         if (!application.getIsEconomicallyWeakerSection()) {// In case of economically weaker section, amount will
                                                                             // be zero.
                             String occupancy = null;
-
-                            if (!MIXED_OCCUPANCY.equalsIgnoreCase(application.getOccupancy().getDescription())) {
-                                inputArea = getInputUnitForEachServiceType(application,
-                                        bpaFee.getServiceType().getCode());
+                            BigDecimal inputArea = getInputUnitForEachServiceType(application,
+                                    bpaFee.getServiceType().getCode());
                                 if (BpaConstants.getBpaFeeCateory2().contains(bpaFee.getServiceType().getCode())
                                         && (RESIDENTIAL.equalsIgnoreCase(application.getOccupancy().getDescription())
                                                 || INDUSTRIAL.equalsIgnoreCase(application.getOccupancy().getDescription())
@@ -162,29 +159,18 @@ public class ApplicationBpaFeeCalculationService {
                                                 .equalsIgnoreCase(application.getOccupancy().getDescription())) {
                                     occupancy = application.getOccupancy().getDescription();
                                 } else {
-                                    occupancy = "Others";
+                                    occupancy = OTHERS;
                                 }
-                                feeAmount = getBpaFeeObjByOccupancyType(bpaFee.getCode(), occupancy, bpaFee);
-
-                            }
+                                BigDecimal feeAmount = getBpaFeeObjByOccupancyType(bpaFee.getCode(), occupancy, bpaFee);
 
                             if (("101").equals(bpaFee.getCode()) || ("301").equals(bpaFee.getCode())
                                     || ("401").equals(bpaFee.getCode()) || ("601").equals(bpaFee.getCode())
                                     || ("701").equals(bpaFee.getCode())) {
 
                                 if (MIXED_OCCUPANCY.equalsIgnoreCase(application.getOccupancy().getDescription())) {
-
                                     for (Entry<Occupancy, BigDecimal> occupancyWiseArea : occupancywisearea.entrySet()) {
-
-                                        inputArea = inputArea.add(occupancyWiseArea.getValue());
-
-                                        if (RESIDENTIAL.equalsIgnoreCase(occupancyWiseArea.getKey().getDescription())
-                                                || THATCHED_TILED_HOUSE
-                                                        .equalsIgnoreCase(occupancyWiseArea.getKey().getDescription())) {
-                                            occupancy = occupancyWiseArea.getKey().getDescription();
-                                        } else {
-                                            occupancy = "Others";
-                                        }
+                                        inputArea = occupancyWiseArea.getValue();
+                                        occupancy = getOccupancyToGetFeeAmt(occupancyWiseArea);
                                         // set occupancy type and get fee and calculate amount.
                                         feeAmount = getBpaFeeObjByOccupancyType(bpaFee.getCode(), occupancy, bpaFee);
                                         amount = amount.add(calculatePermitFee(occupancyWiseArea.getValue(), feeAmount));
@@ -207,7 +193,7 @@ public class ApplicationBpaFeeCalculationService {
                             } else if (("102").equals(bpaFee.getCode()) || ("302").equals(bpaFee.getCode())
                                     || ("402").equals(bpaFee.getCode()) || ("602").equals(bpaFee.getCode())
                                     || ("702").equals(bpaFee.getCode())) {
-                                feeAmount = getBpaFeeObjByOccupancyType(bpaFee.getCode(), "Others", bpaFee);
+                                feeAmount = getBpaFeeObjByOccupancyType(bpaFee.getCode(), OTHERS, bpaFee);
                                 // calculate beyondpermissblearea tax for other
                                 if (beyondPermissibleArea.compareTo(BigDecimal.ZERO) > 0) {
                                     amount = calculateAdditionalFee(beyondPermissibleArea, feeAmount);
@@ -240,6 +226,18 @@ public class ApplicationBpaFeeCalculationService {
                 }
             }
         }
+    }
+
+    private String getOccupancyToGetFeeAmt(Entry<Occupancy, BigDecimal> occupancyWiseArea) {
+        String occupancy;
+        if (RESIDENTIAL.equalsIgnoreCase(occupancyWiseArea.getKey().getDescription())
+                || THATCHED_TILED_HOUSE
+                        .equalsIgnoreCase(occupancyWiseArea.getKey().getDescription())) {
+            occupancy = occupancyWiseArea.getKey().getDescription();
+        } else {
+            occupancy = OTHERS;
+        }
+        return occupancy;
     }
 
     private ApplicationFeeDetail buildApplicationFeeDetail(final BpaFee bpaFee, final ApplicationFee applicationFee,
