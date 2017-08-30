@@ -221,12 +221,12 @@
 				<c:otherwise>
 					<c:choose>
 						<c:when
-							test="${ (citizenOrBusinessUser && bpaApplication.id !=null) || bpaApplication.state.value eq 'LP Initiated'}">
+							test="${ (citizenOrBusinessUser && bpaApplication.id !=null) || bpaApplication.state.value eq 'LP Created' || bpaApplication.state.value eq 'LP Reply Received'}">
 							<div class="buttonbottom" align="center">
 								<form:button type="submit" id="buttonSubmit"
 									class="btn btn-primary" value="Forward">Forward</form:button>
 								<input type="button" name="button2" id="button2" value="Close"
-								class="btn btn-default" onclick="window.close();" />
+									class="btn btn-default" onclick="window.close();" />
 							</div>
 						</c:when>
 						<c:otherwise>

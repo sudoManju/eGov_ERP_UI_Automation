@@ -76,8 +76,7 @@ jQuery(document).ready(function() {
 		$('#approvalPosition').removeAttr('required');
 		$(".show-row").hide();
 	}
-	
-	if($('#currentState').val() == 'LP Initiated'){
+	if($('#currentState').val() == 'LP Reply Received' || $('#currentState').val() == 'LP Created'){
 		$('#approvalDepartment').removeAttr('required');
 		$('#approvalDesignation').removeAttr('required');
 		$('#approvalPosition').removeAttr('required');

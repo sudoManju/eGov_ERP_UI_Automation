@@ -1,5 +1,15 @@
 package org.egov.bpa.service;
 
+import static org.egov.bpa.utils.BpaConstants.APPLICATION_MODULE_TYPE;
+import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_CANCELLED;
+import static org.egov.bpa.utils.BpaConstants.BOUNDARY_TYPE_CITY;
+import static org.egov.bpa.utils.BpaConstants.BOUNDARY_TYPE_ZONE;
+import static org.egov.bpa.utils.BpaConstants.CREATE_ADDITIONAL_RULE_CREATE;
+import static org.egov.bpa.utils.BpaConstants.EGMODULE_NAME;
+import static org.egov.bpa.utils.BpaConstants.LETTERTOPARTYINITIATE;
+import static org.egov.bpa.utils.BpaConstants.LPCREATED;
+import static org.egov.bpa.utils.BpaConstants.LPREPLIED;
+import static org.egov.bpa.utils.BpaConstants.LPREPLYRECEIVED;
 import static org.egov.bpa.utils.BpaConstants.WF_SURVEYOR_FORWARD_BUTTON;
 
 import java.math.BigDecimal;
@@ -12,7 +22,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.workflow.BpaApplicationWorkflowCustomDefaultImpl;
 import org.egov.bpa.utils.BPASmsAndEmailService;
-import org.egov.bpa.utils.BpaConstants;
 import org.egov.demand.model.EgDemandDetails;
 import org.egov.eis.entity.Assignment;
 import org.egov.eis.service.AssignmentService;
@@ -80,7 +89,7 @@ public class BpaUtils {
 
     public String getAppconfigValueByKeyName(String code) {
         List<AppConfigValues> appConfigValueList = appConfigValueService
-                .getConfigValuesByModuleAndKey(BpaConstants.APPLICATION_MODULE_TYPE, code);
+                .getConfigValuesByModuleAndKey(APPLICATION_MODULE_TYPE, code);
         return !appConfigValueList.isEmpty() ? appConfigValueList.get(0).getValue() : "";
     }
 
@@ -137,17 +146,17 @@ public class BpaUtils {
 
     public WorkFlowMatrix getWfMatrixByCurrentState(final BpaApplication application, final String currentState) {
         return bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null, null,
-                BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, currentState, null);
+                CREATE_ADDITIONAL_RULE_CREATE, currentState, null);
     }
 
     @Transactional
     public void updatePortalUserinbox(final BpaApplication application, final User additionalPortalInboxUser) {
-        Module module = moduleService.getModuleByName(BpaConstants.EGMODULE_NAME);
+        Module module = moduleService.getModuleByName(EGMODULE_NAME);
         boolean isResolved = false;
         if ((application.getState() != null && (CLOSED.equals(application.getState().getValue())
                 || WF_END_ACTION.equals(application.getState().getValue())))
                 || (application.getStatus() != null
-                        && application.getStatus().getCode().equals(BpaConstants.APPLICATION_STATUS_CANCELLED)))
+                        && application.getStatus().getCode().equals(APPLICATION_STATUS_CANCELLED)))
             isResolved = true;
         String url = "/bpa/application/citizen/update/" + application.getApplicationNumber();
         if (application.getStatus() != null)
@@ -166,7 +175,7 @@ public class BpaUtils {
                 && WF_SURVEYOR_FORWARD_BUTTON.equalsIgnoreCase(workFlowAction)) {
             status = application.getStatus().getDescription();
         }
-        Module module = moduleService.getModuleByName(BpaConstants.EGMODULE_NAME);
+        Module module = moduleService.getModuleByName(EGMODULE_NAME);
         boolean isResolved = false;
         String url = "/bpa/application/citizen/update/" + application.getApplicationNumber();
         final PortalInboxBuilder portalInboxBuilder = new PortalInboxBuilder(module,
@@ -189,19 +198,19 @@ public class BpaUtils {
             if (assignment.isEmpty()) {
                 // Ward->Zone
                 if (boundaryObj.getParent() != null && boundaryObj.getParent().getBoundaryType() != null && boundaryObj
-                        .getParent().getBoundaryType().getName().equals(BpaConstants.BOUNDARY_TYPE_ZONE)) {
+                        .getParent().getBoundaryType().getName().equals(BOUNDARY_TYPE_ZONE)) {
                     assignment = assignmentService.findByDeptDesgnAndParentAndActiveChildBoundaries(null,
                             designationService.getDesignationByName(desg).getId(), boundaryObj.getParent().getId());
                     if (assignment.isEmpty() && boundaryObj.getParent() != null
                             && boundaryObj.getParent().getParent() != null && boundaryObj.getParent().getParent()
-                                    .getBoundaryType().getName().equals(BpaConstants.BOUNDARY_TYPE_CITY))
+                                    .getBoundaryType().getName().equals(BOUNDARY_TYPE_CITY))
                         assignment = assignmentService.findByDeptDesgnAndParentAndActiveChildBoundaries(null,
                                 designationService.getDesignationByName(desg).getId(),
                                 boundaryObj.getParent().getParent().getId());
                 }
                 // ward->City mapp
                 if (assignment.isEmpty() && boundaryObj.getParent() != null
-                        && boundaryObj.getParent().getBoundaryType().getName().equals(BpaConstants.BOUNDARY_TYPE_CITY))
+                        && boundaryObj.getParent().getBoundaryType().getName().equals(BOUNDARY_TYPE_CITY))
                     assignment = assignmentService.findByDeptDesgnAndParentAndActiveChildBoundaries(null,
                             designationService.getDesignationByName(desg).getId(), boundaryObj.getParent().getId());
             }
@@ -222,19 +231,19 @@ public class BpaUtils {
             if (assignment.isEmpty()) {
                 // Ward->Zone
                 if (boundaryObj.getParent() != null && boundaryObj.getParent().getBoundaryType() != null && boundaryObj
-                        .getParent().getBoundaryType().getName().equals(BpaConstants.BOUNDARY_TYPE_ZONE)) {
+                        .getParent().getBoundaryType().getName().equals(BOUNDARY_TYPE_ZONE)) {
                     assignment = assignmentService.findByDeptDesgnAndParentAndActiveChildBoundaries(null,
                             designationService.getDesignationByName(desg).getId(), boundaryObj.getParent().getId());
                     if (assignment.isEmpty() && boundaryObj.getParent() != null
                             && boundaryObj.getParent().getParent() != null && boundaryObj.getParent().getParent()
-                                    .getBoundaryType().getName().equals(BpaConstants.BOUNDARY_TYPE_CITY))
+                                    .getBoundaryType().getName().equals(BOUNDARY_TYPE_CITY))
                         assignment = assignmentService.findByDeptDesgnAndParentAndActiveChildBoundaries(null,
                                 designationService.getDesignationByName(desg).getId(),
                                 boundaryObj.getParent().getParent().getId());
                 }
                 // ward->City mapp
                 if (assignment.isEmpty() && boundaryObj.getParent() != null
-                        && boundaryObj.getParent().getBoundaryType().getName().equals(BpaConstants.BOUNDARY_TYPE_CITY))
+                        && boundaryObj.getParent().getBoundaryType().getName().equals(BOUNDARY_TYPE_CITY))
                     assignment = assignmentService.findByDeptDesgnAndParentAndActiveChildBoundaries(null,
                             designationService.getDesignationByName(desg).getId(), boundaryObj.getParent().getId());
             }
@@ -280,15 +289,18 @@ public class BpaUtils {
                     application.getSiteDetail().get(0) != null
                             ? application.getSiteDetail().get(0).getElectionBoundary().getId() : null);
         }
-        if (currentState.equals(BpaConstants.LETTERTOPARTYINITIATE))
+        if (LETTERTOPARTYINITIATE.equals(currentState))
             applicationWorkflowCustomDefaultImpl.createCommonWorkflowTransition(application, approvalPositionId, remarks,
-                    BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, BpaConstants.LETTERTOPARTYINITIATE, amountRule);
-        else if (currentState.equals(BpaConstants.LETTERTOPARTYINITIATED))
+                    CREATE_ADDITIONAL_RULE_CREATE, LETTERTOPARTYINITIATE, amountRule);
+        else if (LPCREATED.equals(currentState))
             applicationWorkflowCustomDefaultImpl.createCommonWorkflowTransition(application, approvalPositionId, remarks,
-                    BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, BpaConstants.LETTERTOPARTYINITIATED, amountRule);
+                    CREATE_ADDITIONAL_RULE_CREATE, LPCREATED, amountRule);
+        else if (LPREPLIED.equals(currentState))
+            applicationWorkflowCustomDefaultImpl.createCommonWorkflowTransition(application, approvalPositionId, remarks,
+                    CREATE_ADDITIONAL_RULE_CREATE, LPREPLYRECEIVED, amountRule);
         else
             applicationWorkflowCustomDefaultImpl.createCommonWorkflowTransition(application, approvalPositionId, remarks,
-                    BpaConstants.CREATE_ADDITIONAL_RULE_CREATE, workFlowAction, amountRule);
+                    CREATE_ADDITIONAL_RULE_CREATE, workFlowAction, amountRule);
     }
 
     public void sendSmsEmailOnCitizenSubmit(BpaApplication bpaApplication) {
@@ -308,7 +320,7 @@ public class BpaUtils {
     
     public String getAppconfigValueByKeyNameForDefaultDept() {
         List<AppConfigValues> appConfigValueList = appConfigValueService
-                .getConfigValuesByModuleAndKey(BpaConstants.APPLICATION_MODULE_TYPE, "BPAPRIMARYDEPARTMENT");
+                .getConfigValuesByModuleAndKey(APPLICATION_MODULE_TYPE, "BPAPRIMARYDEPARTMENT");
         return !appConfigValueList.isEmpty() ? appConfigValueList.get(0).getValue() : "";
     }
 }

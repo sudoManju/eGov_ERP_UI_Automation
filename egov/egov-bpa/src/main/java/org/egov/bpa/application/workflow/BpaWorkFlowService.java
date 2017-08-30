@@ -41,17 +41,18 @@
 package org.egov.bpa.application.workflow;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import org.egov.bpa.application.entity.BpaApplication;
+import org.egov.bpa.application.entity.LettertoParty;
 import org.egov.eis.entity.Assignment;
 import org.egov.eis.service.AssignmentService;
 import org.egov.eis.web.contract.WorkflowContainer;
 import org.egov.infra.admin.master.entity.User;
 import org.egov.infra.workflow.entity.State;
 import org.egov.infra.workflow.entity.StateAware;
+import org.egov.infra.workflow.entity.StateHistory;
 import org.egov.infra.workflow.matrix.entity.WorkFlowMatrix;
 import org.egov.infra.workflow.matrix.service.CustomizedWorkFlowService;
 import org.egov.pims.commons.Position;
@@ -152,7 +153,7 @@ public class BpaWorkFlowService {
      * @return List of WorkFlow Buttons From Matrix By Passing parametres Type,CurrentState,CreatedDate
      */
     public List<String> getValidActions(final StateAware model, final WorkflowContainer container) {
-        List<String> validActions = Collections.emptyList();
+        List<String> validActions;
         if (null == model
                 || null == model.getId() || (model.getCurrentState() == null)
                 || (model != null && model.getCurrentState() != null ? model.getCurrentState().getValue()
@@ -169,5 +170,11 @@ public class BpaWorkFlowService {
                     container.getWorkFlowDepartment(), container.getAmountRule(), container.getAdditionalRule(),
                     State.DEFAULT_STATE_VALUE_CREATED, container.getPendingActions(), model.getCreatedDate());
         return validActions;
+    }
+
+    public StateHistory getStateHistoryToGetLPInitiator(BpaApplication bpaApplication, List<LettertoParty> lettertoParties) {
+        return bpaApplication.getStateHistory().stream()
+                .filter(history -> history.getValue().equalsIgnoreCase(lettertoParties.get(0).getStateForOwnerPosition()))
+                .findAny().orElse(null);
     }
 }

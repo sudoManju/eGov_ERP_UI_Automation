@@ -47,6 +47,7 @@ import java.util.List;
 import java.util.Map;
 
 public class BpaConstants {
+    private static final String APPROVED = "Approved";
     public static final String ST_CODE_01 = "01";
     public static final String ST_CODE_02 = "02";
     public static final String ST_CODE_03 = "03";
@@ -102,7 +103,7 @@ public class BpaConstants {
     public static final String WF_CREATED_STATE = "Created";
     public static final String WF_REJECT_STATE = "Rejected";
     public static final String WF_END_STATE = "END";
-    public static final String APPLICATION_STATUS_APPROVED = "Approved";
+    public static final String APPLICATION_STATUS_APPROVED = APPROVED;
     public static final String APPLICATION_STATUS_FIELD_INS = "Field Inspected";
     public static final String APPLICATION_STATUS_ORDER_ISSUED = "Order Issued to Applicant";
     public static final String APPLICATION_STATUS_DIGI_SIGNED = "Digitally signed";
@@ -140,6 +141,10 @@ public class BpaConstants {
     public static final String CREATEDLETTERTOPARTY = "Letter To Party Created";
     public static final String LETTERTOPARTYSENT = "LP Sent to Applicant";
     public static final String LETTERTOPARTYINITIATED = "LP Initiated";
+    public static final String LPREPLYRECEIVED = "Letter To Party Reply Received";
+    public static final String FWDINGTOLPINITIATORPENDING = "Forward to LP Initiator pending";
+    public static final String LPCREATED = "LP Created";
+    public static final String LPREPLIED ="LP Reply Received";
     public static final String LETTERTOPARTYINITIATE = "LP Initiate";
     public static final String LETTERTOPARTYDETAILS = "lettertoparty";
     public static final String CHECKLIST_TYPE_NOC = "NOC";
@@ -170,11 +175,11 @@ public class BpaConstants {
 
     public static final String INSPECTIONHGTBUILDABUTROAD = "INSPECTIONHGTBUILDABUTROAD";
     public static final String BPASTATUS_APPLICATIONFEE_MODULE = "APPLICATIONFEE";
-    public static final String BPASTATUS_APPLICATIONFEE_APPROVED = "Approved";
+    public static final String BPASTATUS_APPLICATIONFEE_APPROVED = APPROVED;
     public static final String FEETYPE_SANCTIONFEE = "SanctionFee";
     public static final String AUTOCALCULATEFEEBYINSPECTION = "BPA_AUTOCALCULATE_FEE";
     public static final String BPASTATUS_MODULETYPE_REGISTRATIONFEE = "APPLICATIONFEE";
-    public static final String BPASTATUS_REGISTRATIONFEE_APPROVED = "Approved";
+    public static final String BPASTATUS_REGISTRATIONFEE_APPROVED = APPROVED;
 
     public static final String APPLN_STATUS_FIELD_INSPECTION_INITIATED = "Field Inspection initiated";
     public static final String BPA_ADM_FEE = "Application Fee";
@@ -259,12 +264,29 @@ public class BpaConstants {
         STAKEHOLDERTYPE2RESTRICTIONS.put("building designer - b", stakeHolderType2Restrictions);
         STAKEHOLDERTYPE2RESTRICTIONS.put("engineer - b", stakeHolderType2Restrictions);
     }
-    private static final Map<String, Map<String, String>> STAKEHOLDERTYPE3RESTRICTIONS = new HashMap<>();
+    private static final Map<String, Map<String, BigDecimal>> STAKEHOLDERTYPE3RESTRICTIONS = new HashMap<>();
     static {
-        Map<String, String> stakeHolderType3Restrictions = new HashMap<>();
-        stakeHolderType3Restrictions.put("restriction", "norole");
+        Map<String, BigDecimal> stakeHolderType3Restrictions = new HashMap<>();
+        stakeHolderType3Restrictions.put(TOTAL_PLINT_AREA, BigDecimal.valueOf(750));
+        stakeHolderType3Restrictions.put(FLOOR_COUNT, BigDecimal.valueOf(3));
+        stakeHolderType3Restrictions.put(BUILDINGHEIGHT_GROUND, BigDecimal.valueOf(11));
         STAKEHOLDERTYPE3RESTRICTIONS.put("supervisor - a", stakeHolderType3Restrictions);
-        STAKEHOLDERTYPE3RESTRICTIONS.put("supervisor - b", stakeHolderType3Restrictions);
+    }
+    private static final Map<String, Map<String, BigDecimal>> STAKEHOLDERTYPE4RESTRICTIONS = new HashMap<>();
+    static {
+        Map<String, BigDecimal> stakeHolderType4Restrictions = new HashMap<>();
+        stakeHolderType4Restrictions.put(TOTAL_PLINT_AREA, BigDecimal.valueOf(300));
+        stakeHolderType4Restrictions.put(FLOOR_COUNT, BigDecimal.valueOf(3));
+        stakeHolderType4Restrictions.put(BUILDINGHEIGHT_GROUND, BigDecimal.valueOf(3));
+        STAKEHOLDERTYPE4RESTRICTIONS.put("supervisor - b", stakeHolderType4Restrictions);
+    }
+    private static final Map<String, Map<String, BigDecimal>> STAKEHOLDERTYPE5RESTRICTIONS = new HashMap<>();
+    static {
+        Map<String, BigDecimal> stakeHolderType5Restrictions = new HashMap<>();
+        stakeHolderType5Restrictions.put(EXTENTINSQMTS, BigDecimal.valueOf(10000));
+        stakeHolderType5Restrictions.put(TOTAL_PLINT_AREA, BigDecimal.valueOf(1000));
+        stakeHolderType5Restrictions.put(FLOOR_COUNT, BigDecimal.valueOf(4));
+        STAKEHOLDERTYPE5RESTRICTIONS.put("supervisor senior", stakeHolderType5Restrictions);
     }
 
     private static final List<String> BPAFEECATEGORY1 = new ArrayList<>();
@@ -304,8 +326,16 @@ public class BpaConstants {
         return Collections.unmodifiableMap(STAKEHOLDERTYPE2RESTRICTIONS);
     }
 
-    public static Map<String, Map<String, String>> getStakeholderType3Restrictions() {
+    public static Map<String, Map<String, BigDecimal>> getStakeholderType3Restrictions() {
         return Collections.unmodifiableMap(STAKEHOLDERTYPE3RESTRICTIONS);
+    }
+    
+    public static Map<String, Map<String, BigDecimal>> getStakeholderType4Restrictions() {
+        return Collections.unmodifiableMap(STAKEHOLDERTYPE4RESTRICTIONS);
+    }
+    
+    public static Map<String, Map<String, BigDecimal>> getStakeholderType5Restrictions() {
+        return Collections.unmodifiableMap(STAKEHOLDERTYPE5RESTRICTIONS);
     }
 
     public static List<String> getBuildingFloorsList() {

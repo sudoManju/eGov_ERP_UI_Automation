@@ -65,8 +65,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 public class LettertoPartyService {
-	static final String LPCHK = "lp";
-	static final String LPREPLYCHK = "lpreply";
+    
+    private static final String LETTER_TO_PARTY_INITIATE = "Letter to party initiate";
+    static final String LPCHK = "lp";
+    static final String LPREPLYCHK = "lpreply";
 
     private final LettertoPartyRepository lettertoPartyRepository;
     @Autowired
@@ -80,7 +82,7 @@ public class LettertoPartyService {
     @Autowired
     private BPASmsAndEmailService bpaSmsAndEmailService;
     @Autowired
-	private ReportService reportService;
+    private ReportService reportService;
 
     @Autowired
     public LettertoPartyService(final LettertoPartyRepository lettertoPartyRepository) {
@@ -95,12 +97,15 @@ public class LettertoPartyService {
             lettertoParty.setLpNumber(generateLettertpPartyNumber());
             approverPosition = getDocScutinyUser(lettertoParty.getApplication());
             bpaUtils.redirectToBpaWorkFlow(approverPosition, lettertoParty.getApplication(), BpaConstants.LETTERTOPARTYINITIATE,
-                    "Letter to party initiate", BpaConstants.LETTERTOPARTYINITIATE, null);
+                    LETTER_TO_PARTY_INITIATE, BpaConstants.LETTERTOPARTYINITIATE, null);
             bpaSmsAndEmailService.sendSMSAndEmailToApplicantForLettertoparty(lettertoParty.getApplication());
         }
 
         if (lettertoParty.getReplyDate() != null) {
             lettertoParty.setAcknowledgementNumber(generateLettertpPartyReplyAck());
+            bpaUtils.redirectToBpaWorkFlow(lettertoParty.getApplication().getState().getOwnerPosition().getId(),
+                    lettertoParty.getApplication(), BpaConstants.LPCREATED,
+                    BpaConstants.LPREPLYRECEIVED, BpaConstants.LPCREATED, null);
             lettertoParty.getApplication().setStatus(bpaStatusService
                     .findByModuleTypeAndCode(BpaConstants.BPASTATUS_MODULETYPE, BpaConstants.LETTERTOPARTY_REPLY_RECEIVED));
         }
@@ -143,32 +148,34 @@ public class LettertoPartyService {
                 .getAutoNumberServiceFor(LettertoPartyReplyAckNumberGenerator.class);
         return lettertoPartyReplyAckNumberGenerator.generateLettertoPartyReplyAckNumber(financialYearRange);
     }
-    
-    public ResponseEntity<byte[]> generateReport(final LettertoParty lettertoParty, String type, final HttpServletRequest request) {
-		ReportRequest reportInput = null;
-		ReportOutput reportOutput;
-		if (lettertoParty != null) {
-			if (LPCHK.equals(type))
-				reportInput = new ReportRequest("lettertoparty", lettertoParty, buildReportParameters(lettertoParty, request));
-			else if (LPREPLYCHK.equals(type))
-				reportInput = new ReportRequest("lettertopartyreply", lettertoParty, buildReportParameters(lettertoParty, request));
-			reportInput.setPrintDialogOnOpenReport(true);
-		}
-		final HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.parseMediaType("application/pdf"));
-		if (LPCHK.equals(type))
-			headers.add("content-disposition", "inline;filename=lettertoparty.pdf");
-		else if (LPREPLYCHK.equals(type))
-			headers.add("content-disposition", "inline;filename=lettertopartyreply.pdf");
-		reportOutput = reportService.createReport(reportInput);
-		return new ResponseEntity<>(reportOutput.getReportOutputData(), headers, HttpStatus.CREATED);
-	}
+
+    public ResponseEntity<byte[]> generateReport(final LettertoParty lettertoParty, String type,
+            final HttpServletRequest request) {
+        ReportRequest reportInput = null;
+        ReportOutput reportOutput;
+        if (lettertoParty != null) {
+            if (LPCHK.equals(type))
+                reportInput = new ReportRequest("lettertoparty", lettertoParty, buildReportParameters(lettertoParty, request));
+            else if (LPREPLYCHK.equals(type))
+                reportInput = new ReportRequest("lettertopartyreply", lettertoParty,
+                        buildReportParameters(lettertoParty, request));
+            reportInput.setPrintDialogOnOpenReport(true);
+        }
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType("application/pdf"));
+        if (LPCHK.equals(type))
+            headers.add("content-disposition", "inline;filename=lettertoparty.pdf");
+        else if (LPREPLYCHK.equals(type))
+            headers.add("content-disposition", "inline;filename=lettertopartyreply.pdf");
+        reportOutput = reportService.createReport(reportInput);
+        return new ResponseEntity<>(reportOutput.getReportOutputData(), headers, HttpStatus.CREATED);
+    }
 
     public Map<String, Object> buildReportParameters(final LettertoParty lettertoParty, HttpServletRequest request) {
         final Map<String, Object> reportParams = new HashMap<>();
         final String url = WebUtils.extractRequestDomainURL(request, false);
         final String cityLogo = url.concat(BpaConstants.IMAGE_CONTEXT_PATH)
-                        .concat((String) request.getSession().getAttribute("citylogo"));
+                .concat((String) request.getSession().getAttribute("citylogo"));
         reportParams.put("logoPath", cityLogo);
         reportParams.put("cityName", request.getSession().getAttribute("cityname").toString());
         reportParams.put("ulbName", request.getSession().getAttribute("citymunicipalityname").toString());

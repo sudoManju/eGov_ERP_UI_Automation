@@ -50,6 +50,7 @@ import static org.egov.bpa.utils.BpaConstants.APPLN_STATUS_FIELD_INSPECTION_INIT
 import static org.egov.bpa.utils.BpaConstants.BPA_STATUS_SUPERINDENT_APPROVED;
 import static org.egov.bpa.utils.BpaConstants.CHECKLIST_TYPE_NOC;
 import static org.egov.bpa.utils.BpaConstants.CREATE_ADDITIONAL_RULE_CREATE;
+import static org.egov.bpa.utils.BpaConstants.FWDINGTOLPINITIATORPENDING;
 import static org.egov.bpa.utils.BpaConstants.GENERATEPERMITORDER;
 import static org.egov.bpa.utils.BpaConstants.ST_CODE_05;
 import static org.egov.bpa.utils.BpaConstants.ST_CODE_08;
@@ -360,9 +361,11 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
         String message;
         Long approvalPosition = null;
         Position pos = null;
-        if (BpaConstants.LETTERTOPARTYSENT.equalsIgnoreCase(bpaApplication.getState().getNextAction()))
-            approvalPosition = bpaApplication.getState().getPreviousOwner().getId();
-        else if (null != request.getParameter(APPRIVALPOSITION) && !"".equals(request.getParameter(APPRIVALPOSITION))
+        if (FWDINGTOLPINITIATORPENDING.equalsIgnoreCase(bpaApplication.getState().getNextAction())) {
+            List<LettertoParty> lettertoParties = lettertoPartyService.findByBpaApplicationOrderByIdDesc(bpaApplication);
+            StateHistory stateHistory = bpaWorkFlowService.getStateHistoryToGetLPInitiator(bpaApplication, lettertoParties);
+            approvalPosition = stateHistory.getOwnerPosition().getId();
+        } else if (null != request.getParameter(APPRIVALPOSITION) && !"".equals(request.getParameter(APPRIVALPOSITION))
                 && !WF_REJECT_BUTTON.equalsIgnoreCase(workFlowAction)
                 && !WF_CANCELAPPLICATION_BUTTON.equalsIgnoreCase(workFlowAction)) {
             approvalPosition = Long.valueOf(request.getParameter(APPRIVALPOSITION));
