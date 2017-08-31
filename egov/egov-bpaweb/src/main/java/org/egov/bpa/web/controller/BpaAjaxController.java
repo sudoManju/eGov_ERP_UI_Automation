@@ -2,7 +2,7 @@
  * eGov suite of products aim to improve the internal efficiency,transparency,
  *    accountability and the service delivery of the government  organizations.
  *
- *     Copyright (C) <2015>  eGovernments Foundation
+ *     Copyright (C) <2017>  eGovernments Foundation
  *
  *     The updated version of eGov suite of products as by eGovernments Foundation
  *     is available at http://www.egovernments.org
@@ -56,10 +56,12 @@ import org.egov.bpa.application.entity.BpaScheme;
 import org.egov.bpa.application.entity.BpaSchemeLandUsage;
 import org.egov.bpa.application.entity.Occupancy;
 import org.egov.bpa.application.entity.PostalAddress;
+import org.egov.bpa.application.entity.RegistrarOfficeVillage;
 import org.egov.bpa.application.entity.StakeHolder;
 import org.egov.bpa.application.entity.enums.StakeHolderType;
 import org.egov.bpa.application.service.ApplicationBpaService;
 import org.egov.bpa.application.service.PostalAddressService;
+import org.egov.bpa.application.service.RegistrarOfficeVillageService;
 import org.egov.bpa.masters.service.BpaSchemeService;
 import org.egov.bpa.masters.service.OccupancyService;
 import org.egov.bpa.masters.service.StakeHolderService;
@@ -115,6 +117,8 @@ public class BpaAjaxController {
     private CrossHierarchyService crossHierarchyService;
     @Autowired
     private  BpaSchemeService bpaSchemeService;
+    @Autowired
+    private RegistrarOfficeVillageService registrarOfficeService;
 
     @RequestMapping(value = "/ajax/getAdmissionFees", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -262,6 +266,25 @@ public class BpaAjaxController {
                     final JSONObject jsonObj = new JSONObject();
                     jsonObj.put("usageId", landUsage.getId());
                     jsonObj.put("usageDesc", landUsage.getDescription());
+                    jsonObjects.add(jsonObj);
+                }
+            }
+            IOUtils.write(jsonObjects.toString(), response.getWriter());
+        }
+    }
+    
+    @RequestMapping(value = { "/ajax/registraroffice" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void registrarOfficeVillageMapping(@RequestParam Long villageId, HttpServletResponse response) throws IOException {
+
+        if (villageId != null) {
+            final List<RegistrarOfficeVillage> registrarOfficeList = registrarOfficeService.getRegistrarOfficeByVillage(villageId);
+
+            final List<JSONObject> jsonObjects = new ArrayList<>();
+            if (!registrarOfficeList.isEmpty()) {
+                for (final RegistrarOfficeVillage office : registrarOfficeList) {
+                    final JSONObject jsonObj = new JSONObject();
+                    jsonObj.put("registrarVillageId", office.getId());
+                    jsonObj.put("registrarOfficeName", office.getRegistrarOffice().getName());
                     jsonObjects.add(jsonObj);
                 }
             }

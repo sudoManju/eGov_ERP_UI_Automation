@@ -120,9 +120,9 @@
 		</form:select>
 	</div> --%>
 		<label for="field-1" class="col-sm-3 control-label"><spring:message
-				code="lbl.locality" /></label>
+				code="lbl.locality" /> <span class="mandatory"></span></label>
 		<div class="col-sm-3 add-margin">
-			<form:select name="localitys" id="localitys"
+			<form:select name="localitys" id="localitys" required="required"
 				path="siteDetail[0].locationBoundary" cssClass="form-control"
 				cssErrorClass="form-control error">
 				<form:option value="">--select--</form:option>
@@ -184,9 +184,15 @@
 		<label class="col-sm-2 control-label text-right"><spring:message
 				code="lbl.registrar.office" /> <span class="mandatory"></span> </label>
 		<div class="col-sm-3 add-margin">
-			<form:input class="form-control patternvalidation" maxlength="32"
-				data-pattern="alphanumericwithspace" id="registrarOffice"
-				path="siteDetail[0].registrarOffice" required="required" />
+			<form:hidden path="siteDetail[0].registrarVillageId" id="registrarVillageIdHdn"/>
+			<form:hidden path="siteDetail[0].registrarOffice"
+				id="registrarOfficeObjId"
+				value="${bpaApplication.siteDetail[0].registrarOffice.id}" />
+			<select class="form-control patternvalidation"
+				name="registrarOffice" id="registrarOffice"
+				required="required" class="form-control ">
+				<option value="">Selected</option>
+			</select>
 			<form:errors path="siteDetail[0].registrarOffice"
 				cssClass="add-margin error-msg" />
 		</div>

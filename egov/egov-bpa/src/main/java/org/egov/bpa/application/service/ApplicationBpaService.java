@@ -173,7 +173,8 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
     private BpaSchemeLandUsageService bpaSchemeLandUsageService;
     @Autowired
     private BuildingFloorDetailsService buildingFloorDetailsService;
-
+    @Autowired
+    private RegistrarOfficeVillageService registrarOfficeVillageService;
     public Session getCurrentSession() {
         return entityManager.unwrap(Session.class);
     }
@@ -192,7 +193,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         if (application.getSiteDetail().get(0).getLandUsageId() != null)
             application.getSiteDetail().get(0)
                     .setLandUsage((bpaSchemeLandUsageService.findById(application.getSiteDetail().get(0).getLandUsageId())));
-
+        buildRegistrarOfficeForVillage(application);
         final BpaStatus bpaStatus = getStatusByCodeAndModuleType(BpaConstants.APPLICATION_STATUS_CREATED);
         application.setStatus(bpaStatus);
         if (bpaUtils.logedInuseCitizenOrBusinessUser())
@@ -231,6 +232,12 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
                     application.getApprovalComent(), null, null);
         }
         return applicationBpaRepository.save(application);
+    }
+
+    private void buildRegistrarOfficeForVillage(final BpaApplication application) {
+        if (application.getSiteDetail().get(0).getRegistrarVillageId() != null)
+            application.getSiteDetail().get(0).setRegistrarOffice(
+                    registrarOfficeVillageService.findById(application.getSiteDetail().get(0).getRegistrarVillageId()));
     }
 
     private Long getZone(final BpaApplication application) {
@@ -346,6 +353,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
     @Transactional
     public void saveAndFlushApplication(final BpaApplication application) {
         persistPostalAddress(application);
+        buildRegistrarOfficeForVillage(application);
         buildSchemeLandUsage(application);
         applicationBpaRepository.saveAndFlush(application);
     }

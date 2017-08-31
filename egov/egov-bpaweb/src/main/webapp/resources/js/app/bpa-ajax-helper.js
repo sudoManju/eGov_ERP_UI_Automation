@@ -79,48 +79,48 @@ $(document).ready(
 			});
 			$('#zone').change(
 					function() {
-						jQuery.ajax({
+						$.ajax({
 							url : "/egi/public/boundary/ajaxBoundary-blockByWard.action",
 							type : "GET",
 							data : {
-								wardId : jQuery('#zone').val()
+								wardId : $('#zone').val()
 							},
 							cache : false,
 							dataType : "json",
 							success : function(response) {
-								jQuery('#ward').html("");
-								jQuery('#ward').append("<option value=''>Select</option>");
-								jQuery.each(response, function(index, value) {
-									jQuery('#ward').append(
+								$('#ward').html("");
+								$('#ward').append("<option value=''>Select</option>");
+								$.each(response, function(index, value) {
+									$('#ward').append(
 											$('<option>').text(value.blockName).attr(
 													'value', value.blockId));
 								});
 							},
 							error : function(response) {
-								jQuery('#ward').html("");
-								jQuery('#ward').append("<option value=''>Select</option>");
+								$('#ward').html("");
+								$('#ward').append("<option value=''>Select</option>");
 							}
 						});
 					});
 			$('#ward').change(function(){
-				jQuery.ajax({
+				$.ajax({
 					url: "/bpa/boundary/ajaxBoundary-localityByWard",
 					type: "GET",
 					data: {
-						wardId : jQuery('#ward').val()
+						wardId : $('#ward').val()
 					},
 					cache: false,
 					dataType: "json",
 					success: function (response) {
-						jQuery('#localitys').html("");
-						jQuery('#localitys').append("<option value=''>Select</option>");
-						jQuery.each(response, function(index, value) {
-							jQuery('#localitys').append($('<option>').text(value.localityName).attr('value', value.localityId));
+						$('#localitys').html("");
+						$('#localitys').append("<option value=''>Select</option>");
+						$.each(response, function(index, value) {
+							$('#localitys').append($('<option>').text(value.localityName).attr('value', value.localityId));
 						});
 					}, 
 					error: function (response) {
-						jQuery('#localitys').html("");
-						jQuery('#localitys').append("<option value=''>Select</option>");
+						$('#localitys').html("");
+						$('#localitys').append("<option value=''>Select</option>");
 					}
 				});
 				populateElectionWardByRevenueWard();
@@ -129,55 +129,55 @@ $(document).ready(
 			
 			function populateElectionWardByRevenueWard(){
 			
-				jQuery.ajax({
+				$.ajax({
 					url: "/bpa/boundary/ajaxBoundary-electionwardbyrevenueward",
 					type: "GET",
 					data: {
-						wardId : jQuery('#ward').val()
+						wardId : $('#ward').val()
 					},
 					cache: false,
 					dataType: "json",
 					success: function (response) {
-						jQuery('#electionBoundary').html("");
-						jQuery('#electionBoundary').append("<option value=''>Select</option>");
-						jQuery.each(response, function(index, value) {
-							jQuery('#electionBoundary').append($('<option>').text(value.electionwardName).attr('value', value.electionwardId));
+						$('#electionBoundary').html("");
+						$('#electionBoundary').append("<option value=''>Select</option>");
+						$.each(response, function(index, value) {
+							$('#electionBoundary').append($('<option>').text(value.electionwardName).attr('value', value.electionwardId));
 						});
 					}, 
 					error: function (response) {
-						jQuery('#electionBoundary').html("");
-						jQuery('#electionBoundary').append("<option value=''>Select</option>");
+						$('#electionBoundary').html("");
+						$('#electionBoundary').append("<option value=''>Select</option>");
 					}
 				});
 			}
 			
 
 			$('#schemes').change(function(){
-				jQuery.ajax({
+				$.ajax({
 					url: "/bpa/ajax/getlandusagebyscheme",
 					type: "GET",
 					data: {
-						schemeId : jQuery('#schemes').val()
+						schemeId : $('#schemes').val()
 					},
 					cache: false,
 					dataType: "json",
 					success: function (response) {
-						jQuery('#landUsage').html("");
-						jQuery('#landUsage').append("<option value=''>Select</option>");
-						jQuery.each(response, function(index, value) {
-							jQuery('#landUsage').append($('<option>').text(value.usageDesc).attr('value', value.usageId));
+						$('#landUsage').html("");
+						$('#landUsage').append("<option value=''>Select</option>");
+						$.each(response, function(index, value) {
+							$('#landUsage').append($('<option>').text(value.usageDesc).attr('value', value.usageId));
 						});
-						jQuery('#landUsage').val(jQuery('#landUsageObjectId').val());
+						$('#landUsage').val($('#landUsageObjectId').val());
 					}, 
 					error: function (response) {
-						jQuery('#landUsage').html("");
-						jQuery('#landUsage').append("<option value=''>Select</option>");
+						$('#landUsage').html("");
+						$('#landUsage').append("<option value=''>Select</option>");
 					}
 					
 				});
 			});
 			$('#landUsage').change(function() {
-				jQuery('#landUsageId').val(jQuery('#landUsage').val());
+				$('#landUsageId').val($('#landUsage').val());
 			});
 			$('#schemes').trigger("change");
 			$('#serviceType,.applicationAmenity').change(function() {
@@ -197,17 +197,46 @@ $(document).ready(
 					cache : false,
 					dataType: "json",
 					success : function(response) {
-						jQuery('#admissionfee').val(response);
+						$('#admissionfee').val(response);
 					},
 					error : function(response) {
 					}
 				});
 				
 			});
+			
+			$('#localitys').change(function(){
+				$.ajax({
+					url: "/bpa/ajax/registraroffice",
+					type: "GET",
+					data: {
+						villageId : $("#localitys option:selected").val()
+					},
+					cache: false,
+					dataType: "json",
+					success: function (response) {
+						$('#registrarOffice').html("");
+						$('#registrarOffice').append("<option value=''>Select</option>");
+						$.each(response, function(index, value) {
+							$('#registrarOffice').append($('<option>').text(value.registrarOfficeName).attr('value', value.registrarVillageId));
+						});
+						$('#registrarOffice').val($('#registrarOfficeObjId').val());
+					}, 
+					error: function (response) {
+						$('#registrarOffice').html("");
+						$('#registrarOffice').append("<option value=''>Select</option>");
+					}
+				});
+			});
+			$('#localitys').trigger("change");
+			$('#registrarOffice').change(function() {
+				$('#registrarVillageIdHdn').val($('#registrarOffice').val());
+			});
+			
 			$('#serviceType')
 					.change(
 							function() {
-								jQuery
+								$
 										.ajax({
 											url : "/bpa/application/getdocumentlistbyservicetype",
 											type : "GET",
@@ -274,7 +303,7 @@ $(document).ready(
 							});
 
 			// toggle between multiple tab
-			jQuery('form').validate({
+			$('form').validate({
 				ignore : ".ignore",
 				invalidHandler : function(e, validator) {
 					if (validator.errorList.length)
@@ -284,12 +313,12 @@ $(document).ready(
 
 			function focusToTabElement(element) {
 				$('#settingstab a[href="#'
-								+ jQuery(element).closest(".tab-pane").attr('id') + '"]')
+								+ $(element).closest(".tab-pane").attr('id') + '"]')
 						.tab('show');
 			}
 
 			/*$('#mobileNumber').change(function(){ 
-				jQuery.ajax({
+				$.ajax({
 					url: "/bpa/getApplicantDetails",
 					type: "GET",
 					data: {
@@ -299,11 +328,11 @@ $(document).ready(
 					dataType: "json",
 					success: function (response) {
 							if(response.id!=undefined){
-								jQuery('#name').val(response.name);
-								jQuery('#emailId').val(response.emailId);
-								jQuery('#gender').val(response.gender);
-								jQuery('#address').val(response.address);
-								jQuery('#userId').val(response.id); 
+								$('#name').val(response.name);
+								$('#emailId').val(response.emailId);
+								$('#gender').val(response.gender);
+								$('#address').val(response.address);
+								$('#userId').val(response.id); 
 								$('.applicantname').show();
 								$( "span#applicantName" ).html(response.name);
 								$("#name").prop("readOnly", true);
@@ -315,7 +344,7 @@ $(document).ready(
 								$("#emailId").prop("readOnly", false);
 								$('#gender').attr("style", "pointer-events:");
 								$("#address").prop("readOnly", false);
-								jQuery('#userId').val("");
+								$('#userId').val("");
 							}
 					}, 
 					error: function (response) {
