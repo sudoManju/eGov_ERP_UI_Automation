@@ -115,6 +115,8 @@ public class SearchBpaApplicationService {
                     bpaApplication.getServiceType() != null ? bpaApplication.getServiceType().getCode() : "");
             searchBpaApplicationForm.setServiceType(
                     bpaApplication.getServiceType() != null ? bpaApplication.getServiceType().getDescription() : "");
+            searchBpaApplicationForm
+                    .setOccupancy(bpaApplication.getOccupancy() != null ? bpaApplication.getOccupancy().getDescription() : "");
             searchBpaApplicationForm.setStatus(bpaApplication.getStatus().getDescription());
             searchBpaApplicationForm.setPlanPermissionNumber(bpaApplication.getPlanPermissionNumber());
             searchBpaApplicationForm
@@ -127,8 +129,7 @@ public class SearchBpaApplicationService {
                         .getUserPositionByPassingPosition(bpaApplication.getState().getOwnerPosition().getId()).getName());
                 searchBpaApplicationForm.setPendingAction(bpaApplication.getState().getNextAction());
             }
-            if (bpaApplication.getSiteDetail() != null && bpaApplication.getSiteDetail().size() > 0
-                    && bpaApplication.getSiteDetail().get(0) != null) {
+            if (!bpaApplication.getSiteDetail().isEmpty() && bpaApplication.getSiteDetail().get(0) != null) {
                 searchBpaApplicationForm.setElectionWard(bpaApplication.getSiteDetail().get(0).getElectionBoundary() != null
                         ? bpaApplication.getSiteDetail().get(0).getElectionBoundary().getName() : "");
                 searchBpaApplicationForm.setWard(bpaApplication.getSiteDetail().get(0).getAdminBoundary() != null

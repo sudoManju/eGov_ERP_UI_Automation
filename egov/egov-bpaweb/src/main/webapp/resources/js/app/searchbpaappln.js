@@ -92,7 +92,19 @@ $(document)
 														"sClass" : "text-left"
 													},
 													{
+														"data" : "serviceType",
+														"sClass" : "text-left"
+													},
+													{
+														"data" : "occupancy",
+														"sClass" : "text-left"
+													},
+													{
 														"data" : "electionWard",
+														"sClass" : "text-left"
+													},
+													{
+														"data" : "status",
 														"sClass" : "text-left"
 													},
 													{

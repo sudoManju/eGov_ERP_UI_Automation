@@ -42,13 +42,14 @@ package org.egov.bpa.application.entity.dto;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class SearchBpaApplicationForm{
+public class SearchBpaApplicationForm {
     private Long id;
     private String applicationNumber;
     private String buildingplanapprovalnumber;
     private Date applicationDate;
     private String applicantType;
     private String serviceType;
+    private String occupancy;
     private Long serviceTypeId;
     private String serviceCode;
     private String status;
@@ -61,7 +62,7 @@ public class SearchBpaApplicationForm{
     private String pendingAction;
     private String ward;
     private Long wardId;
-    private String electionWard ;
+    private String electionWard;
     private Long electionWardId;
     private String zone;
     private Long zoneId;
@@ -71,173 +72,235 @@ public class SearchBpaApplicationForm{
     private String address;
     private String locality;
     private String reSurveyNumber;
-    
+
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getApplicationNumber() {
         return applicationNumber;
     }
+
     public void setApplicationNumber(String applicationNumber) {
         this.applicationNumber = applicationNumber;
     }
+
     public String getBuildingplanapprovalnumber() {
         return buildingplanapprovalnumber;
     }
+
     public void setBuildingplanapprovalnumber(String buildingplanapprovalnumber) {
         this.buildingplanapprovalnumber = buildingplanapprovalnumber;
     }
+
     public Date getApplicationDate() {
         return applicationDate;
     }
+
     public void setApplicationDate(Date applicationDate) {
         this.applicationDate = applicationDate;
     }
-    
+
+    public String getOccupancy() {
+        return occupancy;
+    }
+
+    public void setOccupancy(String occupancy) {
+        this.occupancy = occupancy;
+    }
+
     public String getAddress() {
         return address;
     }
+
     public void setAddress(String address) {
         this.address = address;
     }
+
     public String getApplicantType() {
         return applicantType;
     }
+
     public void setApplicantType(String applicantType) {
         this.applicantType = applicantType;
     }
+
     public String getServiceType() {
         return serviceType;
     }
+
     public void setServiceType(String serviceType) {
         this.serviceType = serviceType;
     }
+
     public String getStatus() {
         return status;
     }
+
     public void setStatus(String status) {
         this.status = status;
     }
+
     public String getPlanPermissionNumber() {
         return planPermissionNumber;
     }
+
     public void setPlanPermissionNumber(String planPermissionNumber) {
         this.planPermissionNumber = planPermissionNumber;
     }
+
     public BigDecimal getAdmissionfeeAmount() {
         return admissionfeeAmount;
     }
+
     public void setAdmissionfeeAmount(BigDecimal admissionfeeAmount) {
         this.admissionfeeAmount = admissionfeeAmount;
     }
+
     public String getApplicantName() {
         return applicantName;
     }
+
     public void setApplicantName(String applicantName) {
         this.applicantName = applicantName;
     }
+
     public String getStakeHolderName() {
         return stakeHolderName;
     }
+
     public void setStakeHolderName(String stakeHolderName) {
         this.stakeHolderName = stakeHolderName;
     }
+
     public String getCurrentOwner() {
         return currentOwner;
     }
+
     public void setCurrentOwner(String currentOwner) {
         this.currentOwner = currentOwner;
     }
+
     public String getPendingAction() {
         return pendingAction;
     }
+
     public void setPendingAction(String pendingAction) {
         this.pendingAction = pendingAction;
     }
+
     public String getWard() {
         return ward;
     }
+
     public void setWard(String ward) {
         this.ward = ward;
     }
+
     public String getElectionWard() {
         return electionWard;
     }
+
     public void setElectionWard(String electionWard) {
         this.electionWard = electionWard;
     }
+
     public String getZone() {
         return zone;
     }
+
     public void setZone(String zone) {
         this.zone = zone;
     }
+
     public Long getWardId() {
         return wardId;
     }
+
     public void setWardId(Long wardId) {
         this.wardId = wardId;
     }
+
     public Long getElectionWardId() {
         return electionWardId;
     }
+
     public void setElectionWardId(Long electionWardId) {
         this.electionWardId = electionWardId;
     }
+
     public Long getZoneId() {
         return zoneId;
     }
+
     public void setZoneId(Long zoneId) {
         this.zoneId = zoneId;
     }
+
     public boolean isFeeCollected() {
         return isFeeCollected;
     }
+
     public void setFeeCollected(boolean isFeeCollected) {
         this.isFeeCollected = isFeeCollected;
     }
+
     public String getServiceCode() {
         return serviceCode;
     }
+
     public void setServiceCode(String serviceCode) {
         this.serviceCode = serviceCode;
     }
+
     public Long getServiceTypeId() {
         return serviceTypeId;
     }
+
     public void setServiceTypeId(Long serviceTypeId) {
         this.serviceTypeId = serviceTypeId;
     }
+
     public Long getStatusId() {
         return statusId;
     }
+
     public void setStatusId(Long statusId) {
         this.statusId = statusId;
     }
+
     public Date getFromDate() {
         return fromDate;
     }
+
     public void setFromDate(Date fromDate) {
         this.fromDate = fromDate;
     }
+
     public Date getToDate() {
         return toDate;
     }
+
     public void setToDate(Date toDate) {
         this.toDate = toDate;
     }
+
     public String getLocality() {
         return locality;
     }
+
     public void setLocality(String locality) {
         this.locality = locality;
     }
+
     public String getReSurveyNumber() {
         return reSurveyNumber;
     }
+
     public void setReSurveyNumber(String reSurveyNumber) {
         this.reSurveyNumber = reSurveyNumber;
     }

@@ -1,4 +1,10 @@
-update egbpa_sitedetail set registraroffice =1;
+ALTER TABLE egbpa_sitedetail DROP CONSTRAINT fk_egbpa_sitedetail_registrar_village;
+
+delete from eg_roleaction where actionid in (select i dfrom eg_action where name='get registrar offices for village');
+
+delete from eg_action where name = 'get registrar offices for village';
+
+update egbpa_sitedetail set registraroffice = null;
 
 alter table egbpa_sitedetail alter column registraroffice type bigint USING registraroffice::bigint;
 
