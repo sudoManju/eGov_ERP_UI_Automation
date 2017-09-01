@@ -1,4 +1,3 @@
-ALTER TABLE egbpa_sitedetail DROP CONSTRAINT fk_egbpa_sitedetail_registrar_village;
 
 delete from eg_roleaction where actionid in (select id from eg_action where name='get registrar offices for village');
 
