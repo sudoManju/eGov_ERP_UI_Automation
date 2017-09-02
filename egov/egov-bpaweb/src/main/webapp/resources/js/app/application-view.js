@@ -106,11 +106,11 @@ jQuery(document).ready(function() {
 		});
 	
 	// government or quasi validation
-	        if($("#governmentType").val() == 'NOT_APPLICABLE'){
-	        	$('#isEconomicallyWeakerSec').hide();
-	        } else {
-	        	$('#isEconomicallyWeakerSec').show();
-	        }
+    if($("#governmentType").val() == 'NOT_APPLICABLE'){
+    	$('#isEconomicallyWeakerSec').hide();
+    } else {
+    	$('#isEconomicallyWeakerSec').show();
+    }
 	
 	$( ".serviceType" ).trigger( "change" );
 	$( ".applicationAmenity" ).trigger( "change" );
@@ -144,7 +144,8 @@ jQuery(document).ready(function() {
 	}
 	
 	loadAmenities();
-function loadAmenities(){
+
+	function loadAmenities(){
 		var amenities = [];
 		if(seviceTypeName == 'Huts and Sheds'){
 			amenities.push('Huts and Sheds');
@@ -153,10 +154,12 @@ function loadAmenities(){
 		} else if(seviceTypeName == 'Pole Structures'){
 			amenities.push('Pole Structures');
 		}
-		var amenityDesc = $("#applicationAmenity").val().split(',');
-		$.each(amenityDesc, function(index, amenityDesc) {
-			amenities.push(amenityDesc);
-		});
+		if($("#applicationAmenity").val()) {
+			var amenityDesc = $("#applicationAmenity").val().split(',');
+			$.each(amenityDesc, function(index, amenityDesc) {
+				amenities.push(amenityDesc);
+			});
+		}
 		
 		var result="";
 		$.each(amenities, function(idx, value){            

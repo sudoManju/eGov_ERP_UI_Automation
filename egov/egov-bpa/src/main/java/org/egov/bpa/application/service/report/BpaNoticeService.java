@@ -66,6 +66,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.Response;
+import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.service.BpaUtils;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.commons.Installment;
@@ -189,7 +190,7 @@ public class BpaNoticeService {
         reportParams.put("applicantName", bpaApplication.getOwner().getUser().getName());
         reportParams.put("applicantAddress", bpaApplication.getOwner() != null && !bpaApplication.getOwner().getUser().getAddress().isEmpty() ? bpaApplication.getOwner().getUser().getAddress().get(0).getStreetRoadLine() : "");
         reportParams.put("applicationDate", formatter.format(bpaApplication.getApplicationDate()));
-        String amenities = bpaApplication.getApplicationAmenity().stream().map(am -> am.getDescription())
+        String amenities = bpaApplication.getApplicationAmenity().stream().map(ServiceType :: getDescription)
                 .collect(Collectors.joining(", "));
         if (bpaApplication.getApplicationAmenity().isEmpty()) {
             serviceTypeDesc.append(bpaApplication.getServiceType().getDescription());
@@ -212,10 +213,10 @@ public class BpaNoticeService {
             reportParams.put("nearestBuildingNo",
                     bpaApplication.getSiteDetail().get(0).getNearestbuildingnumber() != null
                             ? bpaApplication.getSiteDetail().get(0).getNearestbuildingnumber() : "");
-            reportParams.put("surveyNo", bpaApplication.getSiteDetail().get(0).getPlotsurveynumber() != null
-                    ? bpaApplication.getSiteDetail().get(0).getPlotsurveynumber() : "");
-            reportParams.put("village", bpaApplication.getSiteDetail().get(0).getVillage() != null
-                    ? bpaApplication.getSiteDetail().get(0).getVillage().getName() : "");
+            reportParams.put("surveyNo", bpaApplication.getSiteDetail().get(0).getReSurveyNumber() != null
+                    ? bpaApplication.getSiteDetail().get(0).getReSurveyNumber() : "");
+            reportParams.put("village", bpaApplication.getSiteDetail().get(0).getLocationBoundary() != null
+                    ? bpaApplication.getSiteDetail().get(0).getLocationBoundary().getName() : "");
             reportParams.put("taluk", bpaApplication.getSiteDetail().get(0).getPostalAddress().getTaluk() != null
                     ? bpaApplication.getSiteDetail().get(0).getPostalAddress().getTaluk() : "");
             reportParams.put("district", bpaApplication.getSiteDetail().get(0).getPostalAddress() != null

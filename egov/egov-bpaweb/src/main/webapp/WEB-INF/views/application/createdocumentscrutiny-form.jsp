@@ -136,7 +136,7 @@
 								<form:input class="form-control patternvalidation"
 									maxlength="120" data-pattern="alphanumeric" required="required"
 									id="registrarOffice" path="documentScrutiny[0].registrarOffice"
-									value="${bpaApplication.siteDetail[0].registrarOffice}" />
+									value="${bpaApplication.siteDetail[0].registrarOffice.registrarOffice.name}" />
 								<form:errors path="documentScrutiny[0].registrarOffice"
 									cssClass="add-margin error-msg" />
 							</div>
