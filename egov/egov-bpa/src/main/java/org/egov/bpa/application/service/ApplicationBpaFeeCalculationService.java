@@ -41,8 +41,8 @@ package org.egov.bpa.application.service;
 
 import static org.egov.bpa.utils.BpaConstants.INDUSTRIAL;
 import static org.egov.bpa.utils.BpaConstants.MERCANTILE_COMMERCIAL;
-import static org.egov.bpa.utils.BpaConstants.RESIDENTIAL;
 import static org.egov.bpa.utils.BpaConstants.MIXED_OCCUPANCY;
+import static org.egov.bpa.utils.BpaConstants.RESIDENTIAL;
 import static org.egov.bpa.utils.BpaConstants.THATCHED_TILED_HOUSE;
 
 import java.math.BigDecimal;
@@ -169,7 +169,7 @@ public class ApplicationBpaFeeCalculationService {
 
                                 if (MIXED_OCCUPANCY.equalsIgnoreCase(application.getOccupancy().getDescription())) {
                                     for (Entry<Occupancy, BigDecimal> occupancyWiseArea : occupancywisearea.entrySet()) {
-                                        inputArea = occupancyWiseArea.getValue();
+                                        inputArea = inputArea.add(occupancyWiseArea.getValue());
                                         occupancy = getOccupancyToGetFeeAmt(occupancyWiseArea);
                                         // set occupancy type and get fee and calculate amount.
                                         feeAmount = getBpaFeeObjByOccupancyType(bpaFee.getCode(), occupancy, bpaFee);
@@ -308,11 +308,8 @@ public class ApplicationBpaFeeCalculationService {
      * @return is eligible for permit fee 50% waive off ?
      */
     private Boolean checkIsEligibleForDiscountOnPermitFee(final BigDecimal inputUnit, final String serviceTypeCode) {
-        if (BpaConstants.getServicesForValidation().contains(serviceTypeCode)
-                && inputUnit.compareTo(BigDecimal.valueOf(150)) <= 0) {
-            return true;
-        }
-        return false;
+        return BpaConstants.getServicesForValidation().contains(serviceTypeCode)
+                && inputUnit.compareTo(BigDecimal.valueOf(150)) <= 0 ? true : false;
     }
 
     /**
@@ -407,18 +404,12 @@ public class ApplicationBpaFeeCalculationService {
                 maximumPermittedFAR = minimumFARwithoutAdditionalFee.multiply(extentOfLand);
 
                 // Mean additional fee has to collect BUT CITIZEN NOT READY TO PAY ADDITIONAL TAX
-                if (buildingFloorArea.compareTo(maximumPermittedFAR) > 0) {
-
-                    if (application.getBuildingDetail().get(0).getAdditionalFeePaymentAccepted()) {
-
-                        maximumPermittedFARWithAdditionalFee = minimumFARwithAdditionalFee.multiply(extentOfLand);
-
-                        if (buildingFloorArea.compareTo(maximumPermittedFARWithAdditionalFee) <= 0) {                    // Calclulate
-                                                                                                                         // additional
-                                                                                                                         // Fee.
-                            additionalFeeCalculationArea = buildingFloorArea.subtract(maximumPermittedFAR);
-
-                        }
+                if (buildingFloorArea.compareTo(maximumPermittedFAR) > 0
+                        && application.getBuildingDetail().get(0).getAdditionalFeePaymentAccepted()) {
+                    maximumPermittedFARWithAdditionalFee = minimumFARwithAdditionalFee.multiply(extentOfLand);
+                    // Calclulate additional Fee.
+                    if (buildingFloorArea.compareTo(maximumPermittedFARWithAdditionalFee) <= 0) {
+                        additionalFeeCalculationArea = buildingFloorArea.subtract(maximumPermittedFAR);
                     }
                 }
             } else // above area greater than 5000sq.mt.
