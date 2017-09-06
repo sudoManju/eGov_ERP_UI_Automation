@@ -62,7 +62,9 @@ import org.egov.bpa.application.entity.enums.GovernmentType;
 import org.egov.bpa.application.entity.enums.StakeHolderType;
 import org.egov.bpa.application.service.ApplicationBpaService;
 import org.egov.bpa.application.service.BpaApplicationValidationService;
+import org.egov.bpa.application.service.BuildingFloorDetailsService;
 import org.egov.bpa.application.service.CheckListDetailService;
+import org.egov.bpa.application.service.ExistingBuildingFloorDetailsService;
 import org.egov.bpa.application.workflow.BpaWorkFlowService;
 import org.egov.bpa.masters.service.BpaSchemeService;
 import org.egov.bpa.masters.service.BuildingCategoryService;
@@ -148,6 +150,10 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     protected SecurityUtils securityUtils;
     @Autowired
     protected BpaApplicationValidationService bpaApplicationValidationService;
+    @Autowired
+    protected BuildingFloorDetailsService proposedBuildingFloorDetailsService;
+    @Autowired
+    protected ExistingBuildingFloorDetailsService existingBuildingFloorDetailsService;
 
     @ModelAttribute("occupancyList")
     public List<Occupancy> getOccupancy() {

@@ -65,8 +65,7 @@
 	<input type="hidden" id="buildingFloorList"
 		value="${buildingFloorList}"> <input type="hidden"
 		id="occupancyList" value="${occupancyList}"> <input
-		type="hidden" id="sumOfFloorArea" value=""> <input
-		type="hidden" id="violationMessage" value="${violationMessage}">
+		type="hidden" id="sumOfFloorArea" value=""> 
 	<input type="hidden" id="violationMessage" value="${violationMessage}">
 	<form:hidden id="deletedFloorIds"
 		path="buildingDetail[0].deletedFloorIds" value="" />

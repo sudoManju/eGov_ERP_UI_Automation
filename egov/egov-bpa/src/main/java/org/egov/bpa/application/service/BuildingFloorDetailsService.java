@@ -39,9 +39,13 @@
  */
 package org.egov.bpa.application.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.egov.bpa.application.entity.ApplicationFloorDetail;
+import org.egov.bpa.application.entity.BpaApplication;
+import org.egov.bpa.application.entity.BuildingDetail;
 import org.egov.bpa.application.repository.BuildingFloorDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,5 +65,75 @@ public class BuildingFloorDetailsService {
     @Transactional
     public ApplicationFloorDetail findById(final Long id) {
         return buildingFloorDetailsRepository.findOne(id);
+    }
+
+    public void buildProposedBuildingFloorDetails(final BpaApplication application) {
+
+        if (!application.getBuildingDetail().isEmpty()
+                && null != application.getBuildingDetail().get(0).getTotalPlintArea()
+                && !application.getBuildingDetail().get(0).getApplicationFloorDetails().isEmpty()) {
+            buildAndDeleteFloorDetails(application);
+            List<ApplicationFloorDetail> floorDetailsList = new ArrayList<>();
+            application.getBuildingDetail().get(0).setApplication(application);
+            for (ApplicationFloorDetail applicationFloorDetails : application.getBuildingDetail().get(0)
+                    .getApplicationFloorDetails()) {
+                if (null != applicationFloorDetails && null == applicationFloorDetails.getId()
+                        && applicationFloorDetails.getFloorDescription() != null) {
+                    ApplicationFloorDetail floorDetails = new ApplicationFloorDetail();
+                    floorDetails.setBuildingDetail(application.getBuildingDetail().get(0));
+                    floorDetails.setOccupancy(applicationFloorDetails.getOccupancy());
+                    floorDetails.setOrderOfFloor(applicationFloorDetails.getOrderOfFloor());
+                    floorDetails.setFloorNumber(applicationFloorDetails.getFloorNumber());
+                    floorDetails.setFloorDescription(applicationFloorDetails.getFloorDescription());
+                    floorDetails.setPlinthArea(applicationFloorDetails.getPlinthArea());
+                    floorDetails.setCarpetArea(applicationFloorDetails.getCarpetArea());
+                    floorDetails.setFloorArea(applicationFloorDetails.getFloorArea());
+                    floorDetailsList.add(floorDetails);
+                } else if (null != applicationFloorDetails && null != applicationFloorDetails.getId()
+                        && applicationFloorDetails.getFloorDescription() != null) {
+                    floorDetailsList.add(applicationFloorDetails);
+                }
+            }
+            application.getBuildingDetail().get(0).getApplicationFloorDetails().clear();
+            application.getBuildingDetail().get(0).setApplicationFloorDetails(floorDetailsList);
+        }
+
+        validateAndBuildBuildingDetails(application);
+    }
+
+    private void validateAndBuildBuildingDetails(final BpaApplication application) {
+        List<BuildingDetail> newBuildingDetailsList = new ArrayList<>();
+        for (BuildingDetail buildingDetail : application.getBuildingDetail()) {
+            if (buildingDetail != null && null != buildingDetail.getApplication()) {
+                newBuildingDetailsList.add(buildingDetail);
+            }
+        }
+        application.getBuildingDetail().clear();
+        if (!newBuildingDetailsList.isEmpty())
+            application.setBuildingDetail(newBuildingDetailsList);
+    }
+
+    public void buildNewlyAddedFloorDetails(final BpaApplication application) {
+        if (!application.getBuildingDetail().get(0).getApplicationFloorDetailsForUpdate().isEmpty()) {
+            List<ApplicationFloorDetail> newFloorDetails = new ArrayList<>();
+            for (ApplicationFloorDetail applicationFloorDetail : application.getBuildingDetail().get(0)
+                    .getApplicationFloorDetailsForUpdate()) {
+                if (applicationFloorDetail != null && StringUtils.isNotBlank(applicationFloorDetail.getFloorDescription()))
+                    newFloorDetails.add(applicationFloorDetail);
+            }
+            application.getBuildingDetail().get(0).getApplicationFloorDetails().addAll(newFloorDetails);
+        }
+    }
+
+    private void buildAndDeleteFloorDetails(final BpaApplication application) {
+        List<ApplicationFloorDetail> existingFloorDetails = new ArrayList<>();
+        if (application.getBuildingDetail().get(0).getDeletedFloorIds() != null
+                && application.getBuildingDetail().get(0).getDeletedFloorIds().length > 0) {
+            for (Long id : application.getBuildingDetail().get(0).getDeletedFloorIds()) {
+                existingFloorDetails.add(findById(id));
+            }
+            application.getBuildingDetail().get(0).delete(existingFloorDetails);
+            delete(existingFloorDetails);
+        }
     }
 }

@@ -114,7 +114,7 @@ public class NewApplicationController extends BpaGenericApplicationController {
         Long userPosition = null;
         String workFlowAction = request.getParameter("workFlowAction");
         if (bpaApplicationValidationService.validateBuildingDetails(bpaApplication, model)) {
-            applicationBpaService.buildApplicationFloorDetailsForNew(bpaApplication);
+            applicationBpaService.buildExistingAndProposedBuildingDetails(bpaApplication);
             return loadFormData(bpaApplication, model);
         }
 
@@ -125,13 +125,13 @@ public class NewApplicationController extends BpaGenericApplicationController {
                             && bpaApplication.getSiteDetail().get(0).getElectionBoundary() != null ? bpaApplication
                                     .getSiteDetail().get(0).getElectionBoundary().getId() : null);
         if (userPosition == 0 || userPosition == null) {
-            applicationBpaService.buildApplicationFloorDetailsForNew(bpaApplication);
+            applicationBpaService.buildExistingAndProposedBuildingDetails(bpaApplication);
             return redirectOnValidationFailure(model);
         }
 
-        if (!applicationBpaService.checkStakeholderIsValid(bpaApplication)) {
-            applicationBpaService.buildApplicationFloorDetailsForNew(bpaApplication);
-            message = applicationBpaService.getValidationMessageForBusinessResgistration(bpaApplication);
+        if (!bpaApplicationValidationService.checkStakeholderIsValid(bpaApplication)) {
+            applicationBpaService.buildExistingAndProposedBuildingDetails(bpaApplication);
+            message = bpaApplicationValidationService.getValidationMessageForBusinessResgistration(bpaApplication);
             model.addAttribute("invalidStakeholder", message);
             return loadFormData(bpaApplication, model);
         }

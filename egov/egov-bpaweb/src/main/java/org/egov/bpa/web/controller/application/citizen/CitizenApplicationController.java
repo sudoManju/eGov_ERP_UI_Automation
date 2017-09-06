@@ -221,7 +221,7 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
             final BindingResult errors) {
 
         if (bpaApplicationValidationService.validateBuildingDetails(bpaApplication, model)) {
-            applicationBpaService.buildApplicationFloorDetailsForNew(bpaApplication);
+            applicationBpaService.buildExistingAndProposedBuildingDetails(bpaApplication);
             prepareCommonModelAttribute(model, bpaApplication);
             return loadNewForm(bpaApplication, model, bpaApplication.getServiceType().getCode());
         }
@@ -245,7 +245,7 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
         if (citizenOrBusinessUser && workFlowAction != null
                 && workFlowAction.equals(WF_SURVEYOR_FORWARD_BUTTON)
                 && (userPosition == 0 || userPosition == null)) {
-            applicationBpaService.buildApplicationFloorDetailsForNew(bpaApplication);
+            applicationBpaService.buildExistingAndProposedBuildingDetails(bpaApplication);
             model.addAttribute("noJAORSAMessage", SUPERINTENDANT_NOT_EXISTS);
             return loadNewForm(bpaApplication, model, bpaApplication.getServiceType().getCode());
         }
@@ -266,12 +266,12 @@ public class CitizenApplicationController extends BpaGenericApplicationControlle
                 applicationStakeHolder.setApplication(bpaApplication);
                 applicationStakeHolder.setStakeHolder(stakeHolder);
                 bpaApplication.getStakeHolder().add(applicationStakeHolder);
-                if (!applicationBpaService
+                if (!bpaApplicationValidationService
                         .checkStakeholderIsValid(bpaApplication)) {
-                    String message = applicationBpaService
+                    String message = bpaApplicationValidationService
                             .getValidationMessageForBusinessResgistration(bpaApplication);
                     model.addAttribute("invalidStakeholder", message);
-                    applicationBpaService.buildApplicationFloorDetailsForUpdate(bpaApplication);
+                    applicationBpaService.buildExistingAndProposedBuildingDetails(bpaApplication);
                     return loadNewForm(bpaApplication, model, bpaApplication
                             .getServiceType().getCode());
                 }

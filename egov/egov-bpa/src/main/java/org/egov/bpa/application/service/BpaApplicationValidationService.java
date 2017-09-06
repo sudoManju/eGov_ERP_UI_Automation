@@ -39,8 +39,17 @@
  */
 package org.egov.bpa.application.service;
 
+import static org.egov.bpa.utils.BpaConstants.BUILDINGHEIGHT_GROUND;
 import static org.egov.bpa.utils.BpaConstants.EGMODULE_NAME;
+import static org.egov.bpa.utils.BpaConstants.EXTENTINSQMTS;
+import static org.egov.bpa.utils.BpaConstants.FLOOR_COUNT;
+import static org.egov.bpa.utils.BpaConstants.TOTAL_PLINT_AREA;
 import static org.egov.bpa.utils.BpaConstants.getServicesForValidation;
+import static org.egov.bpa.utils.BpaConstants.getStakeholderType1Restrictions;
+import static org.egov.bpa.utils.BpaConstants.getStakeholderType2Restrictions;
+import static org.egov.bpa.utils.BpaConstants.getStakeholderType3Restrictions;
+import static org.egov.bpa.utils.BpaConstants.getStakeholderType4Restrictions;
+import static org.egov.bpa.utils.BpaConstants.getStakeholderType5Restrictions;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -53,11 +62,13 @@ import java.util.Map.Entry;
 import org.egov.bpa.application.entity.ApplicationFloorDetail;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.Occupancy;
+import org.egov.bpa.utils.BpaConstants;
 import org.egov.infra.admin.master.entity.AppConfigValues;
 import org.egov.infra.admin.master.service.AppConfigValueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -71,6 +82,8 @@ import org.springframework.ui.Model;
 @Transactional(readOnly = true)
 public class BpaApplicationValidationService {
 
+    private static final String TOWN_PLANNER_A = "Town Planner - A";
+    private static final String TOWN_PLANNER_B = "Town Planner - B";
     private static final String BUILDINGDETAILSVALIDATIONREQUIRED = "BUILDINGDETAILSVALIDATIONREQUIRED";
     private static final String MSG_VIOLATION_WO_ADDNL_FEE = "msg.violation.wo.addnl.fee";
     private static final String MSG_VIOLATION_WITH_ADDNL_FEE = "msg.violation.with.addnl.fee";
@@ -90,7 +103,202 @@ public class BpaApplicationValidationService {
     @Autowired
     private AppConfigValueService appConfigValuesService;
     @Autowired
-    private ApplicationBpaService applicationBpaService;
+    private BuildingFloorDetailsService buildingFloorDetailsService;
+
+    /**
+     * @param bpaApplication
+     * @return
+     */
+    public boolean checkStakeholderIsValid(final BpaApplication bpaApplication) {
+        return validateStakeholder(bpaApplication.getServiceType().getCode(),
+                bpaApplication.getStakeHolder().get(0).getStakeHolder().getStakeHolderType().getStakeHolderTypeVal(),
+                bpaApplication.getSiteDetail().get(0).getExtentinsqmts(),
+                bpaApplication.getBuildingDetail().get(0).getFloorCount(),
+                bpaApplication.getBuildingDetail().get(0).getHeightFromGroundWithOutStairRoom(),
+                bpaApplication.getBuildingDetail().get(0).getTotalPlintArea());
+    }
+
+    /**
+     * Validation building licensee eligible criteria to submit application.
+     * @param serviceType
+     * @param type
+     * @param extentInArea
+     * @param floorCount
+     * @param buildingHeight
+     * @param totalPlinthArea
+     * @return isEligible ? true :false;
+     */
+    private boolean validateStakeholder(final String serviceType, final String type, final BigDecimal extentInArea,
+            final Integer floorCount,
+            final BigDecimal buildingHeight, final BigDecimal totalPlinthArea) {
+        if (BpaConstants.ST_CODE_08.equalsIgnoreCase(serviceType)
+                || BpaConstants.ST_CODE_09.equalsIgnoreCase(serviceType)) {
+            // For service type of Amenities and Permission for Temporary hut or
+            // shed any registered business user can apply and no validations.
+            return true;
+        } else if (TOWN_PLANNER_A.equalsIgnoreCase(type.toLowerCase())) {
+            // For Town Planner - A there is no restrictions to submit
+            // applications
+            return true;
+        } else if ((getStakeholderType1Restrictions().containsKey(type.toLowerCase())
+                && BpaConstants.getServicesForDevelopPermit().contains(serviceType))) {
+            Map<String, BigDecimal> stakeHolderType1Restriction = getStakeholderType1Restrictions()
+                    .get(type.toLowerCase());
+            BigDecimal extentinsqmtsInput = stakeHolderType1Restriction.get(EXTENTINSQMTS);
+            return extentInArea.compareTo(extentinsqmtsInput) <= 0 ? true : false;
+        } else if (TOWN_PLANNER_B.equalsIgnoreCase(type.toLowerCase())
+                && BpaConstants.getServicesForBuildPermit().contains(serviceType)) {
+            return false;
+        } else if (getStakeholderType1Restrictions().containsKey(type.toLowerCase())
+                && BpaConstants.getServicesForBuildPermit().contains(serviceType)) {
+            return true;
+        } else if (getStakeholderType2Restrictions().containsKey(type.toLowerCase())
+                && BpaConstants.getServicesForDevelopPermit().contains(serviceType)) {
+            Map<String, BigDecimal> stakeHolderType2Restriction = getStakeholderType2Restrictions()
+                    .get(type.toLowerCase());
+            BigDecimal extentinsqmtsInput = stakeHolderType2Restriction.get(EXTENTINSQMTS);
+            return extentInArea.compareTo(extentinsqmtsInput) <= 0 ? true : false;
+        } else if (getStakeholderType2Restrictions().containsKey(type.toLowerCase())
+                && BpaConstants.getServicesForBuildPermit().contains(serviceType)) {
+            Map<String, BigDecimal> stakeHolderType2Restriction = getStakeholderType2Restrictions()
+                    .get(type.toLowerCase());
+            BigDecimal extentinsqmtsInput = stakeHolderType2Restriction.get(EXTENTINSQMTS);
+            BigDecimal plinthAreaInput = stakeHolderType2Restriction.get(TOTAL_PLINT_AREA);
+            BigDecimal floorCountInput = stakeHolderType2Restriction.get(FLOOR_COUNT);
+            BigDecimal buildingHeightInput = stakeHolderType2Restriction.get(BUILDINGHEIGHT_GROUND);
+            return (extentInArea.compareTo(extentinsqmtsInput) <= 0 && totalPlinthArea.compareTo(plinthAreaInput) <= 0
+                    && buildingHeight.compareTo(buildingHeightInput) <= 0
+                    && BigDecimal.valueOf(floorCount).compareTo(floorCountInput) <= 0) ? true : false;
+        } else if ((getStakeholderType3Restrictions().containsKey(type.toLowerCase())
+                || getStakeholderType4Restrictions().containsKey(type.toLowerCase()))
+                && BpaConstants.getServicesForDevelopPermit().contains(serviceType)) {
+            return false;
+        } else if (getStakeholderType3Restrictions().containsKey(type.toLowerCase())
+                && BpaConstants.getServicesForBuildPermit().contains(serviceType)) {
+            Map<String, BigDecimal> stakeHolderType3Restriction = getStakeholderType3Restrictions()
+                    .get(type.toLowerCase());
+            BigDecimal plinthAreaInput = stakeHolderType3Restriction.get(TOTAL_PLINT_AREA);
+            BigDecimal floorCountInput = stakeHolderType3Restriction.get(FLOOR_COUNT);
+            BigDecimal buildingHeightInput = stakeHolderType3Restriction.get(BUILDINGHEIGHT_GROUND);
+            return (totalPlinthArea.compareTo(plinthAreaInput) <= 0
+                    && buildingHeight.compareTo(buildingHeightInput) <= 0
+                    && BigDecimal.valueOf(floorCount).compareTo(floorCountInput) <= 0) ? true : false;
+        } else if (getStakeholderType4Restrictions().containsKey(type.toLowerCase())
+                && BpaConstants.getServicesForBuildPermit().contains(serviceType)) {
+            Map<String, BigDecimal> stakeHolderType4Restriction = getStakeholderType4Restrictions()
+                    .get(type.toLowerCase());
+            BigDecimal plinthAreaInput = stakeHolderType4Restriction.get(TOTAL_PLINT_AREA);
+            BigDecimal floorCountInput = stakeHolderType4Restriction.get(FLOOR_COUNT);
+            BigDecimal buildingHeightInput = stakeHolderType4Restriction.get(BUILDINGHEIGHT_GROUND);
+            return (totalPlinthArea.compareTo(plinthAreaInput) <= 0
+                    && buildingHeight.compareTo(buildingHeightInput) <= 0
+                    && BigDecimal.valueOf(floorCount).compareTo(floorCountInput) <= 0) ? true : false;
+        } else if ((getStakeholderType5Restrictions().containsKey(type.toLowerCase())
+                && BpaConstants.getServicesForDevelopPermit().contains(serviceType))) {
+            Map<String, BigDecimal> stakeHolderType5Restriction = getStakeholderType5Restrictions()
+                    .get(type.toLowerCase());
+            BigDecimal extentinsqmtsInput = stakeHolderType5Restriction.get(EXTENTINSQMTS);
+            return extentInArea.compareTo(extentinsqmtsInput) <= 0 ? true : false;
+        } else if (getStakeholderType5Restrictions().containsKey(type.toLowerCase())
+                && BpaConstants.getServicesForBuildPermit().contains(serviceType)) {
+            Map<String, BigDecimal> stakeHolderType5Restriction = getStakeholderType5Restrictions()
+                    .get(type.toLowerCase());
+            BigDecimal plinthAreaInput = stakeHolderType5Restriction.get(TOTAL_PLINT_AREA);
+            BigDecimal floorCountInput = stakeHolderType5Restriction.get(FLOOR_COUNT);
+            return (totalPlinthArea.compareTo(plinthAreaInput) <= 0
+                    && BigDecimal.valueOf(floorCount).compareTo(floorCountInput) <= 0) ? true : false;
+        }
+        return true;
+    }
+
+    /**
+     * @param bpaApplication
+     * @return error message if building licensee is not meeting eligible criteria.
+     */
+    public String getValidationMessageForBusinessResgistration(final BpaApplication bpaApplication) {
+        String stakeHolderType = bpaApplication.getStakeHolder().get(0).getStakeHolder().getStakeHolderType()
+                .getStakeHolderTypeVal();
+        String serviceType = bpaApplication.getServiceType().getCode();
+        BigDecimal extentinsqmtsInput = BigDecimal.ZERO;
+        BigDecimal plinthAreaInput = BigDecimal.ZERO;
+        BigDecimal floorCountInput = BigDecimal.ZERO;
+        BigDecimal buildingHeightInput = BigDecimal.ZERO;
+        String message;
+
+        if ((getStakeholderType1Restrictions().containsKey(stakeHolderType.toLowerCase())
+                && BpaConstants.getServicesForDevelopPermit().contains(serviceType))
+                || (TOWN_PLANNER_B.equalsIgnoreCase(stakeHolderType.toLowerCase())
+                        && BpaConstants.getServicesForDevelopPermit().contains(serviceType))) {
+            Map<String, BigDecimal> stakeHolderType1Restriction = getStakeholderType1Restrictions()
+                    .get(stakeHolderType.toLowerCase());
+            extentinsqmtsInput = stakeHolderType1Restriction.get(EXTENTINSQMTS);
+        } else if (getStakeholderType2Restrictions().containsKey(stakeHolderType.toLowerCase())
+                && BpaConstants.getServicesForDevelopPermit().contains(serviceType)) {
+            Map<String, BigDecimal> stakeHolderType2Restriction = getStakeholderType2Restrictions()
+                    .get(stakeHolderType.toLowerCase());
+            extentinsqmtsInput = stakeHolderType2Restriction.get(EXTENTINSQMTS);
+        } else if (getStakeholderType2Restrictions().containsKey(stakeHolderType.toLowerCase())
+                && BpaConstants.getServicesForBuildPermit().contains(serviceType)) {
+            Map<String, BigDecimal> stakeHolderType2Restriction = getStakeholderType2Restrictions()
+                    .get(stakeHolderType.toLowerCase());
+            extentinsqmtsInput = stakeHolderType2Restriction.get(EXTENTINSQMTS);
+            plinthAreaInput = stakeHolderType2Restriction.get(TOTAL_PLINT_AREA);
+            floorCountInput = stakeHolderType2Restriction.get(FLOOR_COUNT);
+            buildingHeightInput = stakeHolderType2Restriction.get(BUILDINGHEIGHT_GROUND);
+        } else if (getStakeholderType3Restrictions().containsKey(stakeHolderType.toLowerCase())
+                && BpaConstants.getServicesForBuildPermit().contains(serviceType)) {
+            Map<String, BigDecimal> stakeHolderType3Restriction = getStakeholderType3Restrictions()
+                    .get(stakeHolderType.toLowerCase());
+            plinthAreaInput = stakeHolderType3Restriction.get(TOTAL_PLINT_AREA);
+            floorCountInput = stakeHolderType3Restriction.get(FLOOR_COUNT);
+            buildingHeightInput = stakeHolderType3Restriction.get(BUILDINGHEIGHT_GROUND);
+        } else if (getStakeholderType4Restrictions().containsKey(stakeHolderType.toLowerCase())
+                && BpaConstants.getServicesForBuildPermit().contains(serviceType)) {
+            Map<String, BigDecimal> stakeHolderType4Restriction = getStakeholderType4Restrictions()
+                    .get(stakeHolderType.toLowerCase());
+            plinthAreaInput = stakeHolderType4Restriction.get(TOTAL_PLINT_AREA);
+            floorCountInput = stakeHolderType4Restriction.get(FLOOR_COUNT);
+            buildingHeightInput = stakeHolderType4Restriction.get(BUILDINGHEIGHT_GROUND);
+        } else if (getStakeholderType5Restrictions().containsKey(stakeHolderType.toLowerCase())
+                && BpaConstants.getServicesForBuildPermit().contains(serviceType)) {
+            Map<String, BigDecimal> stakeHolderType5Restriction = getStakeholderType5Restrictions()
+                    .get(stakeHolderType.toLowerCase());
+            plinthAreaInput = stakeHolderType5Restriction.get(TOTAL_PLINT_AREA);
+            floorCountInput = stakeHolderType5Restriction.get(FLOOR_COUNT);
+        } else if ((getStakeholderType5Restrictions().containsKey(stakeHolderType.toLowerCase())
+                && BpaConstants.getServicesForDevelopPermit().contains(serviceType))) {
+            Map<String, BigDecimal> stakeHolderType5Restriction = getStakeholderType5Restrictions()
+                    .get(stakeHolderType.toLowerCase());
+            extentinsqmtsInput = stakeHolderType5Restriction.get(EXTENTINSQMTS);
+        }
+        if (TOWN_PLANNER_B.equalsIgnoreCase(stakeHolderType.toLowerCase())
+                && BpaConstants.getServicesForBuildPermit().contains(serviceType)) {
+            message = bpaMessageSource.getMessage("msg.invalid.stakeholder4", new String[] { stakeHolderType },
+                    LocaleContextHolder.getLocale());
+        } else if ((getStakeholderType3Restrictions().containsKey(stakeHolderType.toLowerCase())
+                || getStakeholderType4Restrictions().containsKey(stakeHolderType.toLowerCase()))
+                && BpaConstants.getServicesForDevelopPermit().contains(serviceType)) {
+            message = bpaMessageSource.getMessage("msg.invalid.stakeholder5",
+                    new String[] { stakeHolderType }, LocaleContextHolder.getLocale());
+        } else if (!extentinsqmtsInput.equals(BigDecimal.ZERO) && plinthAreaInput.equals(BigDecimal.ZERO)) {
+            message = bpaMessageSource.getMessage("msg.invalid.stakeholder2",
+                    new String[] { stakeHolderType, extentinsqmtsInput.toString(),
+                            bpaApplication.getServiceType().getDescription() },
+                    LocaleContextHolder.getLocale());
+        } else if (BpaConstants.getStakeholderType5Restrictions().containsKey(stakeHolderType.toLowerCase())) {
+            message = bpaMessageSource.getMessage("msg.invalid.stakeholder6",
+                    new String[] { stakeHolderType, extentinsqmtsInput.toString(), plinthAreaInput.toString(),
+                            floorCountInput.toString(), bpaApplication.getServiceType().getDescription() },
+                    LocaleContextHolder.getLocale());
+        } else {
+            message = bpaMessageSource.getMessage("msg.invalid.stakeholder1",
+                    new String[] { stakeHolderType, extentinsqmtsInput.toString(), plinthAreaInput.toString(),
+                            floorCountInput.toString(), buildingHeightInput.toString(),
+                            bpaApplication.getServiceType().getDescription() },
+                    LocaleContextHolder.getLocale());
+        }
+        return message;
+    }
 
     /**
      * checking each floor wise coverage area is violating for all occupancy where ever building details capturing to those
@@ -166,7 +374,7 @@ public class BpaApplicationValidationService {
                 }
             }
             application.getBuildingDetail().get(0).delete(existingFloorDetails);
-            applicationBpaService.buildNewlyAddedFloorDetails(application);
+            buildingFloorDetailsService.buildNewlyAddedFloorDetails(application);
             Map<String, String> violationCoverage = checkIsViolatingCoverageArea(application);
             if (TRUE.equalsIgnoreCase(violationCoverage.get(IS_VIOLATING))) {
                 model.addAttribute(VIOLATION_MESSAGE, violationCoverage.get(VIOLATION_MESSAGE_FOR_COVERAGE));
@@ -175,16 +383,26 @@ public class BpaApplicationValidationService {
 
             Map<String, String> violationWOAddnlFee = checkIsViolatingMaximumPermissableWOAddnlFee(application);
             Map<String, String> violationWithAddnlFee = checkIsViolatingMaximumPermissableWithAddnlFee(application);
-            if (TRUE.equalsIgnoreCase(violationWOAddnlFee.get(IS_VIOLATING))
+            if(new BigDecimal(violationWithAddnlFee.get(MAXIMUM_ALLOWED_AREA_WITH_ADDNL_FEE)).compareTo(BigDecimal.ZERO) == 0) {
+                BigDecimal sumOfFloorArea = applicationBpaFeeCalculationService
+                        .getOccupancyWiseSumOfFloorArea(application.getBuildingDetail().get(0)).entrySet().stream()
+                        .map(Entry<Occupancy, BigDecimal>::getValue).reduce(BigDecimal.ZERO, BigDecimal::add);
+                if(sumOfFloorArea.compareTo(new BigDecimal(violationWOAddnlFee.get(MAXIMUM_ALLOWED_AREA_WO_ADDNL_FEE))) > 0) {
+                    String message = bpaMessageSource.getMessage("msg.violation.max.with.wo.addnl.fee", new String[] {
+                            application.getOccupancy().getDescription(), violationWOAddnlFee.get(MAXIMUM_ALLOWED_AREA_WO_ADDNL_FEE) },
+                            null);
+                    model.addAttribute(VIOLATION_MESSAGE, message);
+                    return true;
+                }
+                return false;
+            } else if (TRUE.equalsIgnoreCase(violationWOAddnlFee.get(IS_VIOLATING))
                     && !application.getBuildingDetail().get(0).getAdditionalFeePaymentAccepted()) {
                 String message = bpaMessageSource.getMessage(MSG_VIOLATION_WO_ADDNL_FEE, new String[] {
                         application.getOccupancy().getDescription(), violationWOAddnlFee.get(MAXIMUM_ALLOWED_AREA_WO_ADDNL_FEE) },
                         null);
                 model.addAttribute(VIOLATION_MESSAGE, message);
                 return true;
-            }
-
-            if (TRUE.equalsIgnoreCase(violationWithAddnlFee.get(IS_VIOLATING))
+            } else if (TRUE.equalsIgnoreCase(violationWithAddnlFee.get(IS_VIOLATING))
                     && application.getBuildingDetail().get(0).getAdditionalFeePaymentAccepted()) {
                 String message = bpaMessageSource.getMessage(MSG_VIOLATION_WITH_ADDNL_FEE, new String[] {
                         application.getOccupancy().getDescription(),
@@ -224,7 +442,8 @@ public class BpaApplicationValidationService {
                     .multiply(new BigDecimal(application.getOccupancy().getNumOfTimesAreaPermissible()));
         }
         violation.put(IS_VIOLATING, sumOfFloorArea.compareTo(maximumAllowedAreaWOAddnlFee) > 0 ? TRUE : FALSE);
-        violation.put(MAXIMUM_ALLOWED_AREA_WO_ADDNL_FEE, maximumAllowedAreaWOAddnlFee.setScale(2, BigDecimal.ROUND_HALF_UP).toString());
+        violation.put(MAXIMUM_ALLOWED_AREA_WO_ADDNL_FEE,
+                maximumAllowedAreaWOAddnlFee.setScale(2, BigDecimal.ROUND_HALF_UP).toString());
         return violation;
     }
 
@@ -256,7 +475,8 @@ public class BpaApplicationValidationService {
         }
 
         violation.put(IS_VIOLATING, sumOfFloorArea.compareTo(maximumAllowedAreaWithAddnlFee) > 0 ? TRUE : FALSE);
-        violation.put(MAXIMUM_ALLOWED_AREA_WITH_ADDNL_FEE, maximumAllowedAreaWithAddnlFee.setScale(2, BigDecimal.ROUND_HALF_UP).toString());
+        violation.put(MAXIMUM_ALLOWED_AREA_WITH_ADDNL_FEE,
+                maximumAllowedAreaWithAddnlFee.setScale(2, BigDecimal.ROUND_HALF_UP).toString());
         return violation;
     }
 

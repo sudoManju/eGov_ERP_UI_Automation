@@ -283,7 +283,7 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
     }
 
     private void loadViewdata(final Model model, final BpaApplication application) {
-        applicationBpaService.buildApplicationFloorDetailsForUpdate(application);
+        applicationBpaService.buildExistingAndProposedBuildingDetails(application);
         model.addAttribute("stateType", application.getClass().getSimpleName());
         final WorkflowContainer workflowContainer = new WorkflowContainer();
         model.addAttribute(ADDITIONALRULE, CREATE_ADDITIONAL_RULE_CREATE);

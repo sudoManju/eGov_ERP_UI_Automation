@@ -188,6 +188,8 @@ public class BpaApplication extends StateAware {
     private List<BpaAppointmentSchedule> appointmentSchedule = new ArrayList<>();
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ApplicationStakeHolder> stakeHolder = new ArrayList<>(0);
+    @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ExistingBuildingDetail> existingBuildingDetails = new ArrayList<>(0);
     @Transient
     private Long approvalDepartment;
     @Transient
@@ -561,6 +563,14 @@ public class BpaApplication extends StateAware {
 
     public void setAppointmentSchedule(final List<BpaAppointmentSchedule> appointmentSchedule) {
         this.appointmentSchedule = appointmentSchedule;
+    }
+
+    public List<ExistingBuildingDetail> getExistingBuildingDetails() {
+        return existingBuildingDetails;
+    }
+
+    public void setExistingBuildingDetails(List<ExistingBuildingDetail> existingBuildingDetails) {
+        this.existingBuildingDetails = existingBuildingDetails;
     }
 
     public Long getZoneId() {

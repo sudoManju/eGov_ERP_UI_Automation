@@ -80,6 +80,10 @@
 					<div class="panel panel-primary" data-collapsed="0">
 						<jsp:include page="siteDetail.jsp"></jsp:include>
 					</div>
+					<div class="panel panel-primary existingbuildingdetails"
+						data-collapsed="0">
+						<jsp:include page="existing-buildingdetails.jsp" />
+					</div>
 					<div class="panel panel-primary buildingdetails" data-collapsed="0">
 						<jsp:include page="buildingDetails.jsp" />
 					</div>

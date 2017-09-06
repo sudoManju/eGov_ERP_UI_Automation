@@ -47,6 +47,8 @@ var mixedOccupancyResponse;
 $(document).ready(function() {
 	
 	$('.buildingdetails').hide();
+	$('.existingbuildingdetails').hide();
+	removeMandatoryForExistingBuildingDetails();
 	$('.show-hide').hide();
 	$('.totalPlintArea').show();
 	
@@ -133,43 +135,39 @@ $(document).ready(function() {
 		$('.areaOfBase').hide();
 		$('.extentOfLand').show();
 		if('Sub-Division of plot/Land Development'.localeCompare(seviceTypeName) == 0 ){
-			$('.handle-mandatory').removeAttr('required');
-			$('.handle-mandatory').find("span").removeClass( "mandatory" );
-			$('.buildingdetails').hide();
+			hideNewAndExistingBuildingDetails();
 		} else if('Tower Construction'.localeCompare(seviceTypeName) == 0 || 'Pole Structures'.localeCompare(seviceTypeName) == 0){
 			$('.extentOfLand').hide();
 			$('.areaOfBase').show();
 			$('.extentOfLand').find("span").removeClass( "mandatory" );
 			$('#extentOfLand').removeAttr('required');
-			$('.handle-mandatory').removeAttr('required');
-			$('.handle-mandatory').find("span").removeClass( "mandatory" );
-			$('.buildingdetails').hide();
+			hideNewAndExistingBuildingDetails();
 		} else if('Amenities' == seviceTypeName){
-			$('.buildingdetails').hide();
-			$('.handle-mandatory').removeAttr('required');
-			$('.handle-mandatory').find("span").removeClass( "mandatory" );
+			hideNewAndExistingBuildingDetails();
 		} else if('Huts and Sheds' == seviceTypeName){
-			$('.buildingdetails').hide();
+			hideNewAndExistingBuildingDetails();
 			$('.noofhutorshed').show();
-			$('.handle-mandatory').removeAttr('required');
-			$('.handle-mandatory').find("span").removeClass( "mandatory" );
 			$('.Hut').find("span").addClass( "mandatory" );
 			$('.noofhutorshed').find("span").addClass( "mandatory" );
 		} else if('Alteration' == seviceTypeName){
-			$('.buildingdetails').show();
-			handleMandatoryBuildingDetails();
+			addMandatoryForExistingBuildingDetails();
+			showNewAndExistingBuildingDetails();
+			addMandatoryForNewBuildingDetails();
 			$('.alterationInArea').find("span").addClass( "mandatory" );
 			$('#totalPlintArea').attr('required',true);
 			$('#totalPlintArea').attr('readOnly',false);
 			$('.alterationInArea').show();
 		} else if('Adding of Extension' == seviceTypeName){
-			$('.buildingdetails').show();
-			handleMandatoryBuildingDetails();
+			addMandatoryForExistingBuildingDetails();
+			showNewAndExistingBuildingDetails();
+			addMandatoryForNewBuildingDetails();
 			$('#totalPlintArea').attr('required',true);
 			$('#totalPlintArea').attr('readOnly',false);
 			$('.additionInArea').find("span").addClass( "mandatory" );
 			$('.additionInArea').show();
 		} else {
+			removeMandatoryForExistingBuildingDetails();
+			$('.existingbuildingdetails').hide();
 			if('New Construction'.localeCompare(seviceTypeName) == 0 ){
 				$('.buildingdetails').show();
 				$('.totalPlintArea').show();
@@ -178,7 +176,8 @@ $(document).ready(function() {
 				$('.buildingdetails').show();
 				$('.totalPlintArea').show();
 			}  else if('Change in occupancy' == seviceTypeName){
-				$('.buildingdetails').show();
+				addMandatoryForExistingBuildingDetails();
+				showNewAndExistingBuildingDetails();
 				$('.changeInOccupancyArea').show();
 			} else if ('Demolition' == seviceTypeName){
 				$('.buildingdetails').show();
@@ -186,18 +185,44 @@ $(document).ready(function() {
 			} else {
 				$('.totalPlintArea').show();
 			}
-			handleMandatoryBuildingDetails();
+			addMandatoryForNewBuildingDetails();
 			$('.extentOfLand').find("span").addClass( "mandatory" );
 			$('#extentOfLand').attr('required');
 			$('#totalPlintArea').attr('readOnly',true);
 		}
 	});
 	
-	function handleMandatoryBuildingDetails() {
+	function showNewAndExistingBuildingDetails() {
+		$('.existingbuildingdetails').show();
+		$('.buildingdetails').show();
+	}
+	function hideNewAndExistingBuildingDetails() {
+		$('.handle-mandatory').removeAttr('required');
+		$('.handle-mandatory').find("span").removeClass( "mandatory" );
+		$('.buildingdetails').hide();
+		removeMandatoryForExistingBuildingDetails();
+		$('.existingbuildingdetails').hide();
+	}
+	
+	function addMandatoryForNewBuildingDetails() {
 		$('.handle-mandatory').attr('required',true);
 		$('.handle-mandatory').find("span").addClass( "mandatory" );
 		$('.floor-toggle-mandatory').find("span").addClass( "mandatory" );
 		$('.floor-details-mandatory').attr('required',true);
+	}
+	
+	function addMandatoryForExistingBuildingDetails() {
+		$('.exist-handle-mandatory').attr('required',true);
+		$('.exist-handle-mandatory').find("span").addClass( "mandatory" );
+		$('.exist-floor-toggle-mandatory').find("span").addClass( "mandatory" );
+		$('.exist-floor-details-mandatory').attr('required',true);
+	}
+	
+	function removeMandatoryForExistingBuildingDetails() {
+		$('.exist-handle-mandatory').removeAttr('required');
+		$('.exist-handle-mandatory').find("span").removeClass( "mandatory" );
+		$('.exist-floor-details-mandatory').find("span").removeClass( "mandatory" );
+		$('.exist-floor-details-mandatory').removeAttr('required');
 	}
 	
 	// Each Amenity type validations
