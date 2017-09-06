@@ -69,6 +69,7 @@ jQuery(document).ready(function() {
 			       'idx': idx
 			   };
 			addRowFromObject(row);
+			patternvalidation();
 			generateSno();
 			loadFloorlist("buildingDetail[0].applicationFloorDetailsForUpdate["+idx+"].floorDescription");
 			if($("#occupancyapplnlevel option:selected" ).text() == 'Mixed') {
@@ -114,6 +115,7 @@ jQuery(document).ready(function() {
 					$('select[name="'+selectBoxName+'"]').empty();
 					$('select[name="'+selectBoxName+'"]').append($("<option value=''>Select </option>"));
 					$.each(response, function(index, occupancy) {
+						if(occupancy.description != 'Mixed')
 						$('select[name="'+selectBoxName+'"]').append($('<option>').val(occupancy.id).text(occupancy.description));
 					});
 				}, 
