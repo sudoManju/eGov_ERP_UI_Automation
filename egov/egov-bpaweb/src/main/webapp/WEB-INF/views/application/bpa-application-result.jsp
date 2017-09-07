@@ -71,7 +71,7 @@
 					<div class="panel panel-primary" data-collapsed="0">
 						<jsp:include page="view-sitedetail.jsp"></jsp:include>
 					</div>
-					<c:if test="${not empty  bpaApplication.existingBuildingDetail}">
+					<c:if test="${not empty bpaApplication.existingBuildingDetails}">
 						<div class="panel panel-primary buildingdetails" data-collapsed="0">
 							<jsp:include page="view-existing-building-details.jsp" />
 						</div>
