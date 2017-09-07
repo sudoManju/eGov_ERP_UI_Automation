@@ -104,7 +104,7 @@ public class BuildingFloorDetailsService {
     private void validateAndBuildBuildingDetails(final BpaApplication application) {
         List<BuildingDetail> newBuildingDetailsList = new ArrayList<>();
         for (BuildingDetail buildingDetail : application.getBuildingDetail()) {
-            if (buildingDetail != null && null != buildingDetail.getApplication()) {
+            if (buildingDetail != null && null != buildingDetail.getApplication() && null != buildingDetail.getTotalPlintArea()) {
                 newBuildingDetailsList.add(buildingDetail);
             }
         }

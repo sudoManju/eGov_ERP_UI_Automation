@@ -103,7 +103,8 @@ public class ExistingBuildingFloorDetailsService {
     private void validateAndBuildBuildingDetails(final BpaApplication application) {
         List<ExistingBuildingDetail> newBuildingDetailsList = new ArrayList<>();
         for (ExistingBuildingDetail existingBuildingDetail : application.getExistingBuildingDetails()) {
-            if (existingBuildingDetail != null && null != existingBuildingDetail.getApplication()) {
+            if (existingBuildingDetail != null && null != existingBuildingDetail.getApplication()
+                    && null != existingBuildingDetail.getTotalPlintArea()) {
                 newBuildingDetailsList.add(existingBuildingDetail);
             }
         }

@@ -169,7 +169,6 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
                 : getZone(application));
         application.getSiteDetail().get(0).setAdminBoundary(boundaryObj);
         application.getSiteDetail().get(0).setApplication(application);
-        application.getBuildingDetail().get(0).setApplication(application);
         buildExistingAndProposedBuildingDetails(application);
         application.getSiteDetail().get(0)
                 .setPostalAddress(postalAddressService.findById(application.getSiteDetail().get(0).getPostalId()));
