@@ -40,6 +40,7 @@
 package org.egov.bpa.web.controller.application;
 
 import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_APPROVED;
+import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_CANCELLED;
 import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_CREATED;
 import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_DIGI_SIGNED;
 import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_FIELD_INS;
@@ -409,7 +410,9 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
                     bpaAppln.getApplicationNumber() }, LocaleContextHolder.getLocale());
         }
         model.addAttribute(MESSAGE, message);
-
+        if (APPLICATION_STATUS_CANCELLED.equalsIgnoreCase(bpaApplication.getStatus().getCode())) {
+            bpaSmsAndEmailService.sendSMSAndEmail(bpaAppln);
+        }
         if (workFlowAction != null && workFlowAction.equalsIgnoreCase(GENERATEPERMITORDER)) {
             return "redirect:/application/generatepermitorder/" + bpaAppln.getApplicationNumber();
         }

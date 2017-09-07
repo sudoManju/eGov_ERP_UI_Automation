@@ -39,14 +39,22 @@
  */
 package org.egov.bpa.utils;
 
+import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_CANCELLED;
+import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_CREATED;
+import static org.egov.bpa.utils.BpaConstants.APPLICATION_STATUS_REGISTERED;
+import static org.egov.bpa.utils.BpaConstants.CREATEDLETTERTOPARTY;
 import static org.egov.bpa.utils.BpaConstants.EGMODULE_NAME;
+import static org.egov.bpa.utils.BpaConstants.NO;
 import static org.egov.bpa.utils.BpaConstants.SENDEMAILFORBPA;
 import static org.egov.bpa.utils.BpaConstants.SENDSMSFORBPA;
+import static org.egov.bpa.utils.BpaConstants.SMSEMAILTYPELETTERTOPARTY;
 import static org.egov.bpa.utils.BpaConstants.SMSEMAILTYPENEWBPAREGISTERED;
+import static org.egov.bpa.utils.BpaConstants.YES;
 
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.commons.lang.StringUtils;
 import org.egov.bpa.application.entity.ApplicationStakeHolder;
 import org.egov.bpa.application.entity.BpaApplication;
 import org.egov.bpa.application.entity.BpaAppointmentSchedule;
@@ -90,6 +98,9 @@ public class BPASmsAndEmailService {
     private static final String MSG_KEY_SMS_LETTERTOPARTY = "msg.bpa.lettertoparty.sms";
     private static final String SUBJECT_KEY_EMAIL_LETTERTOPARTY = "msg.bpa.lettertoparty.email.subject";
     private static final String BODY_KEY_EMAIL_LETTERTOPARTY = "msg.bpa.lettertoparty.email.body";
+    private static final String MSG_KEY_SMS_CANCELL_APPLN = "msg.bpa.cancel.appln.sms";
+    private static final String SUBJECT_KEY_EMAIL_CANCELL_APPLN = "msg.bpa.cancel.appln.email.subject";
+    private static final String BODY_KEY_EMAIL_CANCELL_APPLN = "msg.bpa.cancel.appln.email.body";
     @Autowired
     private MessagingService messagingService;
     @Autowired
@@ -136,7 +147,7 @@ public class BPASmsAndEmailService {
                     if (bpaApplication.isMailPwdRequired())
                         password = mobileNo;
                     else
-                        password = "";
+                        password = StringUtils.EMPTY;
                     buildSmsAndEmailForBPANewAppln(bpaApplication, applicantName, mobileNo, email, loginUserName, password);
                 }
                 if (applnStakeHolder.getStakeHolder() != null && applnStakeHolder.getStakeHolder().getIsActive()) {
@@ -144,10 +155,7 @@ public class BPASmsAndEmailService {
                     email = applnStakeHolder.getStakeHolder().getEmailId();
                     mobileNo = applnStakeHolder.getStakeHolder().getMobileNumber();
                     loginUserName = applnStakeHolder.getStakeHolder().getUsername();
-                    /*
-                     * if(bpaApplication.isMailPwdRequired()) //Will send password only to citizen. password = mobileNo; else
-                     */
-                    password = "";
+                    password = StringUtils.EMPTY;
                     buildSmsAndEmailForBPANewAppln(bpaApplication, applicantName, mobileNo, email, loginUserName, password);
                 }
             }
@@ -177,9 +185,9 @@ public class BPASmsAndEmailService {
         String subject = "";
         String smsCode = "";
         String mailCode = "";
-        if ((BpaConstants.APPLICATION_STATUS_CREATED).equalsIgnoreCase(bpaApplication.getStatus().getCode()) ||
-                "Registered".equalsIgnoreCase(bpaApplication.getStatus().getCode())) {
-            if (password != "") {
+        if ((APPLICATION_STATUS_CREATED).equalsIgnoreCase(bpaApplication.getStatus().getCode()) ||
+                APPLICATION_STATUS_REGISTERED.equalsIgnoreCase(bpaApplication.getStatus().getCode())) {
+            if (StringUtils.isNotEmpty(password)) {
                 smsCode = MSG_KEY_SMS_BPA_APPLN_NEW_PWD;
                 mailCode = BODY_KEY_EMAIL_BPA_APPLN_NEW_PWD;
             } else {
@@ -191,12 +199,18 @@ public class BPASmsAndEmailService {
             body = emailBodyByCodeAndArgsWithType(mailCode, applicantName,
                     bpaApplication, SMSEMAILTYPENEWBPAREGISTERED, loginUserName, password);
             subject = emailSubjectforEmailByCodeAndArgs(SUBJECT_KEY_EMAIL_BPA_APPLN_NEW, bpaApplication.getApplicationNumber());
-        } else if (BpaConstants.CREATEDLETTERTOPARTY.equalsIgnoreCase(bpaApplication.getStatus().getCode())) {
+        } else if (CREATEDLETTERTOPARTY.equalsIgnoreCase(bpaApplication.getStatus().getCode())) {
             smsMsg = smsBodyByCodeAndArgsWithType(MSG_KEY_SMS_LETTERTOPARTY, applicantName,
-                    bpaApplication, BpaConstants.SMSEMAILTYPELETTERTOPARTY, "", "");
+                    bpaApplication, SMSEMAILTYPELETTERTOPARTY, "", "");
             body = emailBodyByCodeAndArgsWithType(BODY_KEY_EMAIL_LETTERTOPARTY, applicantName,
-                    bpaApplication, BpaConstants.SMSEMAILTYPELETTERTOPARTY, "", "");
+                    bpaApplication, SMSEMAILTYPELETTERTOPARTY, "", "");
             subject = emailSubjectforEmailByCodeAndArgs(SUBJECT_KEY_EMAIL_LETTERTOPARTY, bpaApplication.getApplicationNumber());
+        } else if (APPLICATION_STATUS_CANCELLED.equalsIgnoreCase(bpaApplication.getStatus().getCode())) {
+            smsMsg = smsBodyByCodeAndArgsWithType(MSG_KEY_SMS_CANCELL_APPLN, applicantName,
+                    bpaApplication, APPLICATION_STATUS_CANCELLED, "", "");
+            body = emailBodyByCodeAndArgsWithType(BODY_KEY_EMAIL_CANCELL_APPLN, applicantName,
+                    bpaApplication, APPLICATION_STATUS_CANCELLED, "", "");
+            subject = emailSubjectforEmailByCodeAndArgs(SUBJECT_KEY_EMAIL_CANCELL_APPLN, bpaApplication.getApplicationNumber());
         }
 
         if (mobileNo != null && smsMsg != null)
@@ -297,7 +311,7 @@ public class BPASmsAndEmailService {
                         bpaApplication.getApplicationNumber() },
                 locale);
     }
-    
+
     private String emailSubjectforEmailForScheduleAppointmentForInspection(final BpaAppointmentSchedule scheduleDetails,
             final BpaApplication bpaApplication, String msgKey) {
         final Locale locale = LocaleContextHolder.getLocale();
@@ -326,9 +340,14 @@ public class BPASmsAndEmailService {
                         new String[] { applicantName, bpaApplication.getApplicationNumber(), loginUserName,
                                 getMunicipalityName() },
                         null);
-        } else if (BpaConstants.SMSEMAILTYPELETTERTOPARTY.equalsIgnoreCase(type))
+        } else if (SMSEMAILTYPELETTERTOPARTY.equalsIgnoreCase(type))
             body = bpaMessageSource.getMessage(code,
                     new String[] { applicantName, bpaApplication.getApplicationNumber(), getMunicipalityName() }, null);
+        else if (APPLICATION_STATUS_CANCELLED.equalsIgnoreCase(type))
+            body = bpaMessageSource.getMessage(code,
+                    new String[] { applicantName, bpaApplication.getApplicationNumber(), bpaApplication.getApprovalComent(),
+                            getMunicipalityName() },
+                    null);
         return body;
     }
 
@@ -346,9 +365,14 @@ public class BPASmsAndEmailService {
                         new String[] { applicantName, bpaApplication.getApplicationNumber(), loginUserName,
                                 getMunicipalityName() },
                         null);
-        } else if (BpaConstants.SMSEMAILTYPELETTERTOPARTY.equalsIgnoreCase(type))
+        } else if (SMSEMAILTYPELETTERTOPARTY.equalsIgnoreCase(type))
             smsMsg = bpaMessageSource.getMessage(code,
                     new String[] { applicantName, bpaApplication.getApplicationNumber(), getMunicipalityName() }, null);
+        else if (APPLICATION_STATUS_CANCELLED.equalsIgnoreCase(type))
+            smsMsg = bpaMessageSource.getMessage(code,
+                    new String[] { applicantName, bpaApplication.getApplicationNumber(), bpaApplication.getApprovalComent(),
+                            getMunicipalityName() },
+                    null);
         return smsMsg;
     }
 
@@ -364,8 +388,8 @@ public class BPASmsAndEmailService {
     public Boolean getAppConfigValueByPassingModuleAndType(String moduleName, String sendsmsoremail) {
         final List<AppConfigValues> appConfigValue = appConfigValuesService.getConfigValuesByModuleAndKey(moduleName,
                 sendsmsoremail);
-        return "YES".equalsIgnoreCase(
-                appConfigValue != null && !appConfigValue.isEmpty() ? appConfigValue.get(0).getValue() : "NO");
+        return YES.equalsIgnoreCase(
+                appConfigValue != null && !appConfigValue.isEmpty() ? appConfigValue.get(0).getValue() : NO);
     }
 
     public Boolean isEmailEnabled() {

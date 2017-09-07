@@ -76,6 +76,7 @@ import org.egov.bpa.service.BpaDemandService;
 import org.egov.bpa.service.BpaStatusService;
 import org.egov.bpa.service.BpaThirdPartyService;
 import org.egov.bpa.service.BpaUtils;
+import org.egov.bpa.utils.BPASmsAndEmailService;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.dcb.bean.Receipt;
 import org.egov.demand.model.EgDemandDetails;
@@ -154,6 +155,8 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
     protected BuildingFloorDetailsService proposedBuildingFloorDetailsService;
     @Autowired
     protected ExistingBuildingFloorDetailsService existingBuildingFloorDetailsService;
+    @Autowired
+    protected BPASmsAndEmailService bpaSmsAndEmailService;
 
     @ModelAttribute("occupancyList")
     public List<Occupancy> getOccupancy() {

@@ -56,7 +56,6 @@ import org.egov.bpa.application.entity.CheckListDetail;
 import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.application.entity.enums.ApplicantMode;
 import org.egov.bpa.application.service.collection.GenericBillGeneratorService;
-import org.egov.bpa.utils.BPASmsAndEmailService;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.commons.entity.Source;
 import org.egov.infra.persistence.entity.enums.Gender;
@@ -84,8 +83,6 @@ public class NewApplicationController extends BpaGenericApplicationController {
     private static final String MESSAGE = "message";
     @Autowired
     private GenericBillGeneratorService genericBillGeneratorService;
-    @Autowired
-    private BPASmsAndEmailService bpaSmsAndEmailService;
 
     @RequestMapping(value = "/newApplication-newform", method = GET)
     public String showNewApplicationForm(@ModelAttribute final BpaApplication bpaApplication, final Model model,
