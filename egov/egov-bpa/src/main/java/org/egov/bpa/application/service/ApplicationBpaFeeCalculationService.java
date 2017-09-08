@@ -132,8 +132,9 @@ public class ApplicationBpaFeeCalculationService {
                 BigDecimal beyondPermissibleArea = BigDecimal.ZERO;
 
                 // RESTRICT TO FEW SERVICES
-                if (application.getOccupancy() != null && application.getSiteDetail() != null &&
-                        !application.getSiteDetail().isEmpty() && application.getSiteDetail().get(0).getExtentinsqmts() != null) {
+                if (!application.getBuildingDetail().isEmpty() && application.getOccupancy() != null
+                        && !application.getSiteDetail().isEmpty()
+                        && application.getSiteDetail().get(0).getExtentinsqmts() != null) {
                     beyondPermissibleArea = calculateAreaForAdditionalFeeCalculation(application).setScale(2,
                             BigDecimal.ROUND_HALF_UP);
                 }
