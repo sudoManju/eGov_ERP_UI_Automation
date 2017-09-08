@@ -65,6 +65,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.egov.bpa.application.entity.BpaApplication;
+import org.egov.bpa.application.entity.BuildingDetail;
 import org.egov.bpa.application.entity.Response;
 import org.egov.bpa.application.entity.ServiceType;
 import org.egov.bpa.service.BpaUtils;
@@ -131,7 +132,7 @@ public class BpaNoticeService {
                 reportFileName = BUILDINGPERMITFILENAME;
             }
             final Map<String, Object> reportParams = buildParametersForReport(request, bpaApplication);
-            reportInput = new ReportRequest(reportFileName, bpaApplication.getBuildingDetail().get(0), reportParams);
+            reportInput = new ReportRequest(reportFileName, !bpaApplication.getBuildingDetail().isEmpty() ? bpaApplication.getBuildingDetail().get(0) : new BuildingDetail(), reportParams);
         }
 
         final HttpHeaders headers = new HttpHeaders();
