@@ -141,9 +141,6 @@ public class ApplicationBpaFeeCalculationService {
                 for (BpaFee bpaFee : bpaFeeService.getActiveSanctionFeeForListOfServices(serviceTypdId)) {
                     if (bpaFee != null) {
                         BigDecimal amount = BigDecimal.ZERO;
-                        Map<Occupancy, BigDecimal> occupancywisearea = getOccupancyWiseSumOfFloorArea(
-                                application.getBuildingDetail().get(0));
-
                         if (!application.getIsEconomicallyWeakerSection()) {// In case of economically weaker section, amount will
                                                                             // be zero.
                             String occupancy = null;
@@ -169,7 +166,8 @@ public class ApplicationBpaFeeCalculationService {
                                     || ("701").equals(bpaFee.getCode())) {
 
                                 if (MIXED_OCCUPANCY.equalsIgnoreCase(application.getOccupancy().getDescription())) {
-                                    for (Entry<Occupancy, BigDecimal> occupancyWiseArea : occupancywisearea.entrySet()) {
+                                    for (Entry<Occupancy, BigDecimal> occupancyWiseArea : getOccupancyWiseSumOfFloorArea(
+                                            application.getBuildingDetail().get(0)).entrySet()) {
                                         inputArea = inputArea.add(occupancyWiseArea.getValue());
                                         occupancy = getOccupancyToGetFeeAmt(occupancyWiseArea);
                                         // set occupancy type and get fee and calculate amount.
@@ -198,7 +196,6 @@ public class ApplicationBpaFeeCalculationService {
                                 // calculate beyondpermissblearea tax for other
                                 if (beyondPermissibleArea.compareTo(BigDecimal.ZERO) > 0) {
                                     amount = calculateAdditionalFee(beyondPermissibleArea, feeAmount);
-
                                 }
 
                             } else if (("201").equals(bpaFee.getCode()))
@@ -223,7 +220,6 @@ public class ApplicationBpaFeeCalculationService {
                         applicationFee
                                 .addApplicationFeeDetail(buildApplicationFeeDetail(bpaFee, applicationFee, amount));
                     }
-
                 }
             }
         }
