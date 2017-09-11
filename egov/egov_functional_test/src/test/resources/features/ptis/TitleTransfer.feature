@@ -65,13 +65,13 @@ Feature: Title transfer of a Property
     And he chooses to act upon above assessment number
     And he does a digital signature
 
-    When commissioner closes acknowledgement
-    And current user logs out
+#    When commissioner closes acknowledgement
+#    And current user logs out
 
-    And juniorAssistant logs in
-    And he chooses to act upon above assessment number
-    And he generate title transfer notice
-    And current user logs out
+#    And juniorAssistant logs in
+#    And he chooses to act upon above assessment number
+#    And he generate title transfer notice
+#    And current user logs out
 
     Examples:
       | registrationDetails |

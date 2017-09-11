@@ -6,7 +6,7 @@ Feature: Create New Property
 
   # CREATE NEW PROPERTY SCREEN #
 
-  @Sanity @PropertyTax
+  @Sanity @PropertyTax @new
   Scenario Outline: Registered user creating a new property in the system
 
     Given juniorAssistant logs in
@@ -54,11 +54,6 @@ Feature: Create New Property
     And he chooses to act upon above assessment number
     And he does a digital signature
     When commissioner closes acknowledgement
-    And current user logs out
-
-    And juniorAssistant logs in
-    And he chooses to act upon above assessment number
-    And he generates a notice
     And current user logs out
 
     Examples:

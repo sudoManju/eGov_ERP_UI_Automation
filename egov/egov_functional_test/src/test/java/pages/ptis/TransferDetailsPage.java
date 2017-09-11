@@ -80,7 +80,7 @@ public class TransferDetailsPage extends BasePage {
 
     public void enterRegistrationDetails(RegistrationDetails registrationDetails) {
 
-        enterText(transferMobileNumber, "2299087661", webdriver);
+        enterText(transferMobileNumber, "9071254913", webdriver);
         enterText(sellerExecutantNameTextBox, registrationDetails.getSellerExecutantName(), webdriver);
         enterText(buyerClaimantNameTextBox, registrationDetails.getBuyerClaimantName(), webdriver);
         enterText(doorNoTextBox, registrationDetails.getDoorNo(), webdriver);

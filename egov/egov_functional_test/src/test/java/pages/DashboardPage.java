@@ -92,7 +92,12 @@ public class DashboardPage extends BasePage {
 
     public void openApplication(String number) {
         driver.navigate().refresh();
-        getApplicationRow(number).click();
+        WebElement element = getApplicationRow(number);
+        try{
+            clickOnButton(element , driver);
+        }catch (Exception e){
+            jsClick(element,driver);
+        }
         switchToNewlyOpenedWindow(driver);
     }
 
