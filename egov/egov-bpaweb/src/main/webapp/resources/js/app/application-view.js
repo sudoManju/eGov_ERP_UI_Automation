@@ -52,16 +52,10 @@ jQuery(document).ready(function() {
 	var mode=$('#mode').val();
 	
 	if(mode == 'view') {
-		$('#approvalDepartment').removeAttr('required');
-		$('#approvalDesignation').removeAttr('required');
-		$('#approvalPosition').removeAttr('required');
-		$(".show-row").hide();
+		removeWorkFlowMandatoryAndHideDepartmentDetails();
 	}
 	if(mode == 'captureInspection') {
-		$('#approvalDepartment').removeAttr('required');
-		$('#approvalDesignation').removeAttr('required');
-		$('#approvalPosition').removeAttr('required');
-		$(".show-row").hide();
+		removeWorkFlowMandatoryAndHideDepartmentDetails();
 		$("#Forward").hide();
 		$("#Reject").hide();
 		return false;
@@ -71,12 +65,17 @@ jQuery(document).ready(function() {
 		$("#Forward").hide();
 	}
 	if( $('#wfstateDesc').val()  == 'NEW' && mode == 'newappointment') {
-		$('#approvalDepartment').removeAttr('required');
-		$('#approvalDesignation').removeAttr('required');
-		$('#approvalPosition').removeAttr('required');
-		$(".show-row").hide();
+		removeWorkFlowMandatoryAndHideDepartmentDetails();
 	}
-	if($('#currentState').val() == 'LP Reply Received' || $('#currentState').val() == 'LP Created'){
+	if($('#wfstateDesc').val() == 'LP Created'){
+		removeWorkFlowMandatoryAndHideDepartmentDetails();
+		$("#buttonSubmit").hide();
+	} else if($('#wfstateDesc').val() == 'LP Reply Received'){
+		removeWorkFlowMandatoryAndHideDepartmentDetails();
+		$("#buttonSubmit").show();
+	}
+	
+	function removeWorkFlowMandatoryAndHideDepartmentDetails() {
 		$('#approvalDepartment').removeAttr('required');
 		$('#approvalDesignation').removeAttr('required');
 		$('#approvalPosition').removeAttr('required');
@@ -209,9 +208,7 @@ jQuery(document).ready(function() {
 	if ($('#collectFeeValidate').val() != ''
 		&& $('#collectFeeValidate').val() != null) {
 		bootbox.alert($('#collectFeeValidate').val());
-		$('#approvalDepartment').removeAttr('required');
-		$('#approvalDesignation').removeAttr('required');
-		$(".show-row").hide();
+		removeWorkFlowMandatoryAndHideDepartmentDetails();
 		$("#Forward").hide();
 		$(".workAction").hide();
 		return false;

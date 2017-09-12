@@ -206,8 +206,11 @@ public abstract class BpaApplicationWorkflowCustomImpl implements BpaApplication
         } else if (BpaConstants.LPREPLYRECEIVED.equalsIgnoreCase(workFlowAction)) {
             List<LettertoParty> lettertoParties = lettertoPartyService.findByBpaApplicationOrderByIdDesc(application);
             StateHistory stateHistory = bpaWorkFlowService.getStateHistoryToGetLPInitiator(application, lettertoParties);
-            wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null, null, additionalRule,
-                    lettertoParties.get(0).getCurrentStateValueOfLP(), null);
+            wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null, amountRule, additionalRule,
+                    lettertoParties.get(0).getCurrentStateValueOfLP(), lettertoParties.get(0).getPendingAction());
+            if(null == wfmatrix)
+                wfmatrix = bpaApplicationWorkflowService.getWfMatrix(application.getStateType(), null, null, additionalRule,
+                        lettertoParties.get(0).getCurrentStateValueOfLP(), null);
             application.setStatus(lettertoParties.get(0).getCurrentApplnStatus());
             application.transition().progressWithStateCopy()
                     .withSenderName(user.getUsername() + BpaConstants.COLON_CONCATE + user.getName())

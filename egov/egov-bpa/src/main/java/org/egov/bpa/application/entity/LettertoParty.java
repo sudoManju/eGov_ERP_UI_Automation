@@ -115,6 +115,7 @@ public class LettertoParty extends AbstractAuditable {
     @JoinColumn(name = "currentapplnstatus")
     private BpaStatus currentApplnStatus;
     private String stateForOwnerPosition;
+    private String pendingAction;
     
     @Override
     public Long getId() {
@@ -306,4 +307,12 @@ public class LettertoParty extends AbstractAuditable {
         this.stateForOwnerPosition = stateForOwnerPosition;
     }
 
+    public String getPendingAction() {
+        return pendingAction;
+    }
+
+    public void setPendingAction(String pendingAction) {
+        this.pendingAction = pendingAction;
+    }
+    
 }

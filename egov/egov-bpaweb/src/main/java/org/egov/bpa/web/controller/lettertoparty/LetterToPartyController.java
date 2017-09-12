@@ -42,6 +42,7 @@ package org.egov.bpa.web.controller.lettertoparty;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
@@ -91,6 +92,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping(value = "/lettertoparty")
 public class LetterToPartyController {
+    private static final String MSG_LETTERTOPARTY_REPLY_SUCCESS = "msg.lettertoparty.reply.success";
+    private static final String MSG_LP_FORWARD_CREATE = "msg.lp.forward.create";
+    private static final String MSG_LETTERTOPARTY_UPDATE_SUCCESS = "msg.lettertoparty.update.success";
+    private static final String LETTERTOPARTY_LPREPLY = "lettertoparty-lpreply";
+    private static final String LETTERTOPARTY_CAPTURESENTDATE = "lettertoparty-capturesentdate";
+    private static final String LETTERTOPARTY_VIEW = "lettertoparty-view";
+    private static final String LETTERTOPARTYLIST = "lettertopartylist";
+    private static final String LETTERTOPARTY_RESULT = "lettertoparty-result";
+    private static final String LETTERTOPARTY_UPDATE = "lettertoparty-update";
+    private static final String LETTERTOPARTY_CREATE = "lettertoparty-create";
     private static final String REDIRECT_LETTERTOPARTY_RESULT = "redirect:/lettertoparty/result/";
     private static final String CHECK_LIST_DETAIL_LIST = "checkListDetailList";
     private static final String LETTERTOPARTYDOC_LIST = "lettertopartydocList";
@@ -137,7 +148,7 @@ public class LetterToPartyController {
     public String createLetterToParty(@ModelAttribute final LettertoParty lettertoParty,
             @PathVariable final String applicationNumber, final Model model, final HttpServletRequest request) {
         prepareData(lettertoParty, applicationNumber, model);
-        return "lettertoparty-create";
+        return LETTERTOPARTY_CREATE;
     }
 
     private void prepareData(final LettertoParty lettertoParty, final String applicationNumber, final Model model) {
@@ -160,14 +171,13 @@ public class LetterToPartyController {
         validateCreateLetterToParty(lettertoParty, errors);
         if (errors.hasErrors()) {
             prepareData(lettertoParty, lettertoParty.getApplication().getApplicationNumber(), model);
-            return "lettertoparty-create";
+            return LETTERTOPARTY_CREATE;
         }
         processAndStoreLetterToPartyDocuments(lettertoParty);
         lettertoParty.setCurrentApplnStatus(lettertoParty.getApplication().getStatus());
-        lettertoParty.setCurrentStateValueOfLP(lettertoParty.getApplication().getStateHistory().stream()
-                .sorted(Comparator.comparing(StateHistory::getId).reversed()).collect(Collectors.toList()).get(0)
-                .getValue());
+        lettertoParty.setCurrentStateValueOfLP(getStateHistoryObjByDesc(lettertoParty).getValue());
         lettertoParty.setStateForOwnerPosition(lettertoParty.getApplication().getState().getValue());
+        lettertoParty.setPendingAction(getStateHistoryObjByDesc(lettertoParty).getNextAction());
         List<LettertoParty> existingLettertoParties = lettertoPartyService
                 .findByBpaApplicationOrderByIdDesc(lettertoParty.getApplication());
         if (!existingLettertoParties.isEmpty()) {
@@ -176,6 +186,7 @@ public class LetterToPartyController {
                     && existingLpParty.getCurrentApplnStatus().equals(lettertoParty.getCurrentApplnStatus())) {
                 lettertoParty.setCurrentStateValueOfLP(existingLpParty.getCurrentStateValueOfLP());
                 lettertoParty.setStateForOwnerPosition(existingLpParty.getStateForOwnerPosition());
+                lettertoParty.setPendingAction(existingLpParty.getPendingAction());
             }
         }
 
@@ -183,10 +194,9 @@ public class LetterToPartyController {
         Long approverPosition = lettertoPartyService.getDocScutinyUser(lettertoParty.getApplication());
         Position pos = positionMasterService.getPositionById(approverPosition);
         User user = bpaThirdPartyService.getUserPositionByPassingPosition(approverPosition);
-        String message = messageSource.getMessage("msg.lp.forward.create", new String[] {
+        String message = messageSource.getMessage(MSG_LP_FORWARD_CREATE, new String[] {
                 user != null ? user.getUsername().concat("~")
-                        .concat(pos.getDeptDesig() != null && pos.getDeptDesig().getDesignation() != null
-                                ? pos.getDeptDesig().getDesignation().getName() : "")
+                        .concat(getApproverDesigName(pos))
                         : "",
                 lettertoParty.getLpNumber(), lettertoParty.getApplication().getApplicationNumber() },
                 LocaleContextHolder.getLocale());
@@ -194,10 +204,20 @@ public class LetterToPartyController {
         return REDIRECT_LETTERTOPARTY_RESULT + lettertoParty.getId();
     }
 
+    private String getApproverDesigName(Position pos) {
+        return pos.getDeptDesig() != null && pos.getDeptDesig().getDesignation() != null
+                ? pos.getDeptDesig().getDesignation().getName() : "";
+    }
+
+    private StateHistory getStateHistoryObjByDesc(final LettertoParty lettertoParty) {
+        return lettertoParty.getApplication().getStateHistory().stream()
+                .sorted(Comparator.comparing(StateHistory::getId).reversed()).collect(Collectors.toList()).get(0);
+    }
+
     @RequestMapping(value = "/update/{applicationNumber}", method = RequestMethod.GET)
     public String editLetterToParty(@PathVariable final String applicationNumber, final Model model) {
         prepareLetterToParty(applicationNumber, model);
-        return "lettertoparty-update";
+        return LETTERTOPARTY_UPDATE;
     }
 
     private void prepareLetterToParty(String applicationNumber, Model model) {
@@ -221,7 +241,7 @@ public class LetterToPartyController {
         processAndStoreLetterToPartyDocuments(lettertoparty);
         lettertoPartyService.save(lettertoparty);
         redirectAttributes.addFlashAttribute(MESSAGE,
-                messageSource.getMessage("msg.lettertoparty.update.success", null, null));
+                messageSource.getMessage(MSG_LETTERTOPARTY_UPDATE_SUCCESS, null, null));
         return REDIRECT_LETTERTOPARTY_RESULT + lettertoparty.getId();
     }
 
@@ -230,9 +250,9 @@ public class LetterToPartyController {
         model.addAttribute(LETTERTO_PARTY, lettertoPartyService.findById(id));
         LettertoParty lettertoParty = lettertoPartyService.findById(id);
         model.addAttribute(LETTERTOPARTYDOC_LIST, lettertoParty.getLettertoPartyDocument());
-        model.addAttribute("lettertopartylist",
+        model.addAttribute(LETTERTOPARTYLIST,
                 lettertoPartyService.findByBpaApplicationOrderByIdDesc(lettertoParty.getApplication()));
-        return "lettertoparty-result";
+        return LETTERTOPARTY_RESULT;
     }
 
     protected Set<FileStoreMapper> addToFileStore(final MultipartFile[] files) {
@@ -246,7 +266,7 @@ public class LetterToPartyController {
                 }
             }).collect(Collectors.toSet());
         else
-            return null;
+            return Collections.emptySet();
     }
 
     protected void processAndStoreLetterToPartyDocuments(final LettertoParty lettertoParty) {
@@ -271,9 +291,9 @@ public class LetterToPartyController {
     public String viewchecklist(@PathVariable final Long id, @PathVariable final String type, final Model model) {
         LettertoParty lettertoParty = lettertoPartyService.findById(id);
         model.addAttribute(LETTERTOPARTYDOC_LIST, lettertoPartyDocumentService
-                    .findByIsrequestedTrueAndLettertoPartyOrderByIdAsc(lettertoPartyService.findById(id)));
+                .findByIsrequestedTrueAndLettertoPartyOrderByIdAsc(lettertoPartyService.findById(id)));
         model.addAttribute(LETTERTO_PARTY, lettertoParty);
-        return "lettertoparty-view";
+        return LETTERTOPARTY_VIEW;
     }
 
     @RequestMapping(value = "/capturesentdate/{id}", method = RequestMethod.GET)
@@ -282,7 +302,7 @@ public class LetterToPartyController {
         model.addAttribute(LETTERTO_PARTY, lettertoParty);
         model.addAttribute(LETTERTOPARTYDOC_LIST, lettertoParty.getLettertoPartyDocument());
         model.addAttribute(BPA_APPLICATION, lettertoParty.getApplication());
-        return "lettertoparty-capturesentdate";
+        return LETTERTOPARTY_CAPTURESENTDATE;
     }
 
     @RequestMapping(value = "/lettertopartyreply/{id}", method = RequestMethod.GET)
@@ -293,7 +313,7 @@ public class LetterToPartyController {
         model.addAttribute(BPA_APPLICATION, lettertoParty.getApplication());
         model.addAttribute(CHECK_LIST_DETAIL_LIST,
                 getCheckListDetailList(lettertoParty.getApplication().getServiceType().getId()));
-        return "lettertoparty-lpreply";
+        return LETTERTOPARTY_LPREPLY;
     }
 
     @RequestMapping(value = "/lettertopartyreply", method = RequestMethod.POST)
@@ -301,9 +321,9 @@ public class LetterToPartyController {
             final HttpServletRequest request, final BindingResult errors, final RedirectAttributes redirectAttributes) {
         processAndStoreLetterToPartyDocuments(lettertoparty);
         LettertoParty lettertopartyRes = lettertoPartyService.save(lettertoparty);
-        bpaUtils.updatePortalUserinbox(lettertopartyRes.getApplication(),null);
+        bpaUtils.updatePortalUserinbox(lettertopartyRes.getApplication(), null);
         redirectAttributes.addFlashAttribute(MESSAGE,
-                messageSource.getMessage("msg.lettertoparty.reply.success", null, null));
+                messageSource.getMessage(MSG_LETTERTOPARTY_REPLY_SUCCESS, null, null));
         return REDIRECT_LETTERTOPARTY_RESULT + lettertoparty.getId();
     }
 }

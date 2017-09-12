@@ -107,7 +107,7 @@
 
 					<div class="form-group">
 						<div class="col-sm-3 add-margin">
-							<spring:message code="lbl.lpreplydate" />
+							<spring:message code="lbl.lpreplydate" /><span class="mandatory"></span>
 						</div>
 						<div class="col-sm-3 add-margin">
 							<form:input path="replyDate" class="form-control datepicker"
