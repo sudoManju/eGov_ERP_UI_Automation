@@ -48,7 +48,7 @@ jQuery(document).ready(function($) {
 	$("#buttonCreateSubmit").click(function(e){ 
 		validateDate();
 		return true;
-});  
+	});  
 	
 	$('#sentDate').on('changeDate', function(e) {
 		validateDate();
@@ -56,15 +56,33 @@ jQuery(document).ready(function($) {
 	$('#replyDate').on('changeDate', function(e) {
 		validateReplyDate();
 	});
+	
+	// multi-select without holding ctrl key
+	$("select.tick-indicator").mousedown(function(e){
+	    e.preventDefault();
+	    
+		var select = this;
+	    var scroll = select.scrollTop;
+	    
+	    e.target.selected = !e.target.selected;
+	    
+	    $(this).trigger('change');
+	    
+	    setTimeout(function(){select.scrollTop = scroll;}, 0);
+	    
+	    $(select).focus();
 
+	}).mousemove(function(e){e.preventDefault()});
 	
 });
+
 	function getUrlToPring() {
 		var url = '/bpa/lettertoparty/lettertopartyprint/lp?pathVar='+$('#lettertoParty').val();
 		$('#lettertoPartyform').attr('method', 'get');
 		$('#lettertoPartyform').attr('action', url);
 		window.location = url;
 	}
+	
 	function validateReplyDate() {   
 		if ($('#sentDate') && $('#sentDate').val() && $('#replyDate') && $('#replyDate').val()) {
 			var sentdateStr = $('#sentDate').val();
