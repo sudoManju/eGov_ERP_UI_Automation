@@ -72,7 +72,7 @@
 							<c:out	value="${lp.lpNumber}" /></span></td>
 						<td align="center"><span class="bold">
 								<c:out value="${lp.letterDate}" default="N/A" /></span></td>
-							<td align="center"><span class="bold"> <c:forEach
+							<td><span class="bold"> <c:forEach
 										items="${lp.lpReason}" var="lpReason" varStatus="status">
 										<c:out value="${lpReason.description}" default="N/A"/>
 										<c:if test="${!status.last}">,</c:if>

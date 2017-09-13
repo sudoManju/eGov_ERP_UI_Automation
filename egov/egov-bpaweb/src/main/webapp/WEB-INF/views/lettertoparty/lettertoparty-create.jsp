@@ -66,11 +66,10 @@
 									code="lbl.lpreason" /><span class="mandatory"></span> </label>
 							<div class="col-sm-3 add-margin">
 								<form:select path="lpReason" data-first-option="false"
-									id="lpReason" cssClass="form-control" multiple="true" required="required">
+									id="lpReason" cssClass="form-control tick-indicator" multiple="true" required="required">
 									<form:options items="${lpReasonList}" itemValue="id"
 										itemLabel="description" />
 								</form:select>
-								( Hold the CTRL key to select multiple reasons)
 								<form:errors path="lpReason" cssClass="error-msg" />
 							</div>
 
@@ -173,6 +172,7 @@
 	</div>
 </form:form>
 
+<link rel="stylesheet" href="<c:url value='/resources/css/bpa-style.css?rnd=${app_release_no}'/>">
 <script
 	src="<cdn:url value='/resources/global/js/bootstrap/bootstrap-datepicker.js' context='/egi'/>"></script>
 <link rel="stylesheet"
