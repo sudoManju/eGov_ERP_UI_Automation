@@ -108,13 +108,13 @@
 	</div>
 
 	<div class="row add-border">
-		<div class="col-sm-3 add-margin">
+		<%-- <div class="col-sm-3 add-margin">
 			<spring:message code="lbl.subdiv.no" />
 		</div>
 		<div class="col-sm-3 add-margin view-content">
 			<c:out value="${bpaApplication.siteDetail[0].subdivisionNumber}"
 				default="N/A"></c:out>
-		</div>
+		</div> --%>
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.registrar.office" />
 		</div>
@@ -122,9 +122,6 @@
 			<c:out value="${bpaApplication.siteDetail[0].registrarOffice.registrarOffice.name}"
 				default="N/A"></c:out>
 		</div>
-	</div>
-
-	<div class="row add-border">
 		<div class="col-sm-3 add-margin">
 			<spring:message code="lbl.nearest.build.no" />
 		</div>
@@ -132,6 +129,9 @@
 			<c:out value="${bpaApplication.siteDetail[0].nearestbuildingnumber}"
 				default="N/A"></c:out>
 		</div>
+	</div>
+
+	<div class="row add-border">
 		<div class="doorNo">
 			<div class="col-sm-3 add-margin">
 				<spring:message code="lbl.addr.dno" />

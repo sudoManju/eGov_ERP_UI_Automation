@@ -157,7 +157,7 @@
 				</c:when>
 			</c:choose>
 			<div class="panel-heading custom_form_panel_heading">
-				<div class="panel-title">Measurement of the PlotCC</div>
+				<div class="panel-title">Measurement of the Plot</div>
 			</div>
 			<div class="panel-body">
 				<c:forEach items="${docketDetailMeasumentList}" var="doc"
@@ -293,8 +293,7 @@
 
 
 			<div class="panel-heading custom_form_panel_heading">
-				<div class="panel-title">Height of building from the abutting
-					road</div>
+				<div class="panel-title">General Provisions regarding Site & Building Requirements</div>
 			</div>
 			<div class="panel-body">
 				<c:forEach items="${docketDetailHgtAbuttRoadList}" var="doc"

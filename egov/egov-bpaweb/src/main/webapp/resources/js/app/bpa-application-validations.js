@@ -157,7 +157,7 @@ $(document).ready(function() {
 			$('#totalPlintArea').attr('required',true);
 			$('#totalPlintArea').attr('readOnly',false);
 			$('.alterationInArea').show();
-		} else if('Adding of Extension' == seviceTypeName){
+		} else if('Addition or Extension' == seviceTypeName){
 			addMandatoryForExistingBuildingDetails();
 			showNewAndExistingBuildingDetails();
 			addMandatoryForNewBuildingDetails();
@@ -467,7 +467,7 @@ $(document).ready(function() {
 	$(document).on('blur', '.floorArea', function(e) {
 		var isCitizenAcceptedForAdditionalFee = $('#isCitizenAcceptedForAdditionalFee').is(':checked');
 		var seviceTypeName = $( "#serviceType option:selected" ).text();
-		if(seviceTypeName && 'Alteration' != seviceTypeName && 'Adding of Extension' != seviceTypeName 
+		if(seviceTypeName && 'Alteration' != seviceTypeName && 'Addition or Extension' != seviceTypeName 
 				&& 'Huts and Sheds' != seviceTypeName) {
 			var rowObj = $(this).closest('tr');
 			var occpancyObj = getOccupancyObject();

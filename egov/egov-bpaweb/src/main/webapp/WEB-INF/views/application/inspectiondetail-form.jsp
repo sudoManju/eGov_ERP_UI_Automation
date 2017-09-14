@@ -121,7 +121,7 @@
 <c:choose>
 	<c:when test="${!docketDetailMeasumentList.isEmpty()}">
 		<div class="panel-heading custom_form_panel_heading">
-			<div class="panel-title">Measurement of the PlotCC</div>
+			<div class="panel-title">Measurement of the Plot</div>
 		</div>
 		<div class="form-group view-content header-color hidden-xs">
 			<div class="col-sm-5 text-center">Documents</div>
@@ -587,8 +587,7 @@
 <c:choose>
 	<c:when test="${!docketDetailHgtAbuttRoadList.isEmpty()}">
 		<div class="panel-heading custom_form_panel_heading">
-			<div class="panel-title">Height of building from the abutting
-				road</div>
+			<div class="panel-title">General Provisions regarding Site & Building Requirements</div>
 		</div>
 		<div class="form-group view-content header-color hidden-xs">
 			<div class="col-sm-5 text-center">Documents</div>
@@ -1058,16 +1057,16 @@
 </div>
 
 <div class="form-group">
-	<label class="col-sm-3 control-label text-right"><spring:message
+	<%-- <label class="col-sm-3 control-label text-right"><spring:message
 			code="lbl.typeofland" /></label>
 	<div class="col-sm-3 add-margin">
 		<form:input class="form-control patternvalidation" maxlength="120"
 			data-pattern="alphanumeric" id="typeofLand" path="typeofLand" />
 		<form:errors path="typeofLand" cssClass="add-margin error-msg" />
-	</div>
-	<label class="col-sm-2 control-label text-right"><spring:message
+	</div> --%>
+	<label class="col-sm-3 control-label text-right"><spring:message
 			code="lbl.ins.remarks" /></label>
-	<div class="col-sm-3 add-margin text-center">
+	<div class="col-sm-6 add-margin text-center">
 		<form:textarea class="form-control patternvalidation"
 			data-pattern="alphanumericwithspace" maxlength="256"
 			id="inspectionRemarks" path="inspectionRemarks" />

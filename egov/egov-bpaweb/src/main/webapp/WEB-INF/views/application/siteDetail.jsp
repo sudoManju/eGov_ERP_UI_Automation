@@ -171,7 +171,7 @@
 	</div>
 
 	<div class="form-group">
-		<label class="col-sm-3 control-label text-right"><spring:message
+		<%-- <label class="col-sm-3 control-label text-right"><spring:message
 				code="lbl.subdiv.no" /><span class="mandatory"></span> </label>
 		<div class="col-sm-3 add-margin">
 			<form:input class="form-control patternvalidation" maxlength="120"
@@ -180,8 +180,8 @@
 				<small class="error"> (Enter multiple values by comma seperated) </small>
 			<form:errors path="siteDetail[0].subdivisionNumber"
 				cssClass="add-margin error-msg" />
-		</div>
-		<label class="col-sm-2 control-label text-right"><spring:message
+		</div> --%>
+		<label class="col-sm-3 control-label text-right"><spring:message
 				code="lbl.registrar.office" /> <span class="mandatory"></span> </label>
 		<div class="col-sm-3 add-margin">
 			<form:hidden path="siteDetail[0].registrarVillageId" id="registrarVillageIdHdn"/>
@@ -196,10 +196,7 @@
 			<form:errors path="siteDetail[0].registrarOffice"
 				cssClass="add-margin error-msg" />
 		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label text-right"><spring:message
+		<label class="col-sm-2 control-label text-right"><spring:message
 				code="lbl.nearest.build.no" /><span class="mandatory"></span> </label>
 		<div class="col-sm-3 add-margin">
 			<form:input class="form-control patternvalidation" maxlength="12"
@@ -209,8 +206,11 @@
 			<form:errors path="siteDetail[0].nearestbuildingnumber"
 				cssClass="add-margin error-msg" />
 		</div>
+	</div>
+
+	<div class="form-group">
 		<div class="doorNo">
-			<label class="col-sm-2 control-label text-right"><spring:message
+			<label class="col-sm-3 control-label text-right"><spring:message
 					code="lbl.addr.dno" /> </label>
 			<div class="col-sm-3 add-margin">
 				<form:input class="form-control patternvalidation" maxlength="12"
