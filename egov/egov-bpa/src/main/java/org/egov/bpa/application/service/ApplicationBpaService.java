@@ -81,7 +81,7 @@ import org.egov.infra.admin.master.entity.Boundary;
 import org.egov.infra.admin.master.entity.User;
 import org.egov.infra.admin.master.service.RoleService;
 import org.egov.infra.admin.master.service.UserService;
-import org.egov.infra.config.properties.ApplicationProperties;
+import org.egov.infra.config.core.EnvironmentSettings;
 import org.egov.infra.exception.ApplicationRuntimeException;
 import org.egov.infra.filestore.entity.FileStoreMapper;
 import org.egov.infra.filestore.service.FileStoreService;
@@ -141,7 +141,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
     @Autowired
     protected BpaDemandService bpaDemandService;
     @Autowired
-    private ApplicationProperties applicationProperties;
+    private EnvironmentSettings environmentSettings;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
@@ -446,7 +446,7 @@ public class ApplicationBpaService extends GenericBillGeneratorService {
         applicantUser.setEmailId(bpaApplication.getOwner().getUser().getEmailId());
         applicantUser.setGender(bpaApplication.getOwner().getUser().getGender());
         applicantUser.setUsername(bpaUtils.generateUserName(bpaApplication.getOwner().getUser().getName()));
-        applicantUser.updateNextPwdExpiryDate(applicationProperties.userPasswordExpiryInDays());
+        applicantUser.updateNextPwdExpiryDate(environmentSettings.userPasswordExpiryInDays());
         applicantUser.setPassword(passwordEncoder.encode(bpaApplication.getOwner().getUser().getMobileNumber()));
         applicantUser.setType(UserType.CITIZEN);
         applicantUser.setActive(true);

@@ -63,7 +63,7 @@ import org.egov.bpa.application.entity.enums.AppointmentSchedulePurpose;
 import org.egov.infra.admin.master.entity.AppConfigValues;
 import org.egov.infra.admin.master.service.AppConfigValueService;
 import org.egov.infra.config.core.ApplicationThreadLocals;
-import org.egov.infra.messaging.MessagingService;
+import org.egov.infra.notification.service.NotificationService;
 import org.egov.infra.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -102,7 +102,7 @@ public class BPASmsAndEmailService {
     private static final String SUBJECT_KEY_EMAIL_CANCELL_APPLN = "msg.bpa.cancel.appln.email.subject";
     private static final String BODY_KEY_EMAIL_CANCELL_APPLN = "msg.bpa.cancel.appln.email.body";
     @Autowired
-    private MessagingService messagingService;
+    private NotificationService notificationService;
     @Autowired
     @Qualifier("parentMessageSource")
     private MessageSource bpaMessageSource;
@@ -117,7 +117,7 @@ public class BPASmsAndEmailService {
         String msgKey = MSG_KEY_SMS_STAKEHOLDER_NEW;
         if (isSmsEnabled() && stakeHolder.getMobileNumber() != null) {
             String message = buildMessageDetails(stakeHolder, msgKey);
-            messagingService.sendSMS(stakeHolder.getMobileNumber(), message);
+            notificationService.sendSMS(stakeHolder.getMobileNumber(), message);
         }
     }
 
@@ -127,7 +127,7 @@ public class BPASmsAndEmailService {
         if (isEmailEnabled() && stakeHolder.getEmailId() != null) {
             final String message = buildMessageDetails(stakeHolder, msgKeyMail);
             final String subject = bpaMessageSource.getMessage(msgKeyMailSubject, null, null);
-            messagingService.sendEmail(stakeHolder.getEmailId(), subject, message);
+            notificationService.sendEmail(stakeHolder.getEmailId(), subject, message);
         }
     }
 
@@ -214,9 +214,9 @@ public class BPASmsAndEmailService {
         }
 
         if (mobileNo != null && smsMsg != null)
-            messagingService.sendSMS(mobileNo, smsMsg);
+            notificationService.sendSMS(mobileNo, smsMsg);
         if (email != null && body != null)
-            messagingService.sendEmail(email, subject, body);
+            notificationService.sendEmail(email, subject, body);
     }
 
     private void buildSmsAndEmailForScheduleAppointment(final BpaAppointmentSchedule scheduleDetails,
@@ -258,9 +258,9 @@ public class BPASmsAndEmailService {
             }
         }
         if (mobileNo != null && smsMsg != null)
-            messagingService.sendSMS(mobileNo, smsMsg);
+            notificationService.sendSMS(mobileNo, smsMsg);
         if (email != null && body != null)
-            messagingService.sendEmail(email, subject, body);
+            notificationService.sendEmail(email, subject, body);
     }
 
     private String buildMessageDetailsForScheduleAppointment(final BpaAppointmentSchedule scheduleDetails,

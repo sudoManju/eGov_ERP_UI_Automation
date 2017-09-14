@@ -41,6 +41,7 @@ package org.egov.bpa.masters.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -58,7 +59,7 @@ import org.egov.bpa.masters.repository.StakeHolderAddressRepository;
 import org.egov.bpa.masters.repository.StakeHolderRepository;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.infra.admin.master.service.RoleService;
-import org.egov.infra.config.properties.ApplicationProperties;
+import org.egov.infra.config.core.EnvironmentSettings;
 import org.egov.infra.exception.ApplicationRuntimeException;
 import org.egov.infra.filestore.entity.FileStoreMapper;
 import org.egov.infra.filestore.service.FileStoreService;
@@ -95,7 +96,7 @@ public class StakeHolderService {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    private ApplicationProperties applicationProperties;
+    private EnvironmentSettings environmentSettings;
     @Autowired
     private RoleService roleService;
 
@@ -117,7 +118,7 @@ public class StakeHolderService {
         addressList.add(setPermanentAddress(stakeHolder));
         stakeHolder.setAddress(addressList);
         stakeHolder.setUsername(stakeHolder.getEmailId());
-        stakeHolder.updateNextPwdExpiryDate(applicationProperties.userPasswordExpiryInDays());
+        stakeHolder.updateNextPwdExpiryDate(environmentSettings.userPasswordExpiryInDays());
         stakeHolder.setPassword(passwordEncoder.encode(stakeHolder.getMobileNumber()));
         stakeHolder.addRole(roleService.getRoleByName(BpaConstants.ROLE_BUSINESS_USER));
         stakeHolder.setActive(stakeHolder.getIsActive());
@@ -155,7 +156,7 @@ public class StakeHolderService {
                 }
             }).collect(Collectors.toSet());
         else
-            return null;
+            return Collections.emptySet();
     }
     @Transactional
     public StakeHolder update(final StakeHolder stakeHolder) {

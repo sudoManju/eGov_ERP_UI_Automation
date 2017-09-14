@@ -154,4 +154,11 @@ public class CrossHierarchyService {
         }
         return boundaryTypes;
     }
+    
+    public List<Boundary> findChildBoundariesByParentBoundaryIdParentBoundaryTypeAndChildBoundaryType(
+            String parentBoundaryTypeName,
+            String parentHierarchyTypeName, String childBoundaryTypeName, Long parentId) {
+        return crossHierarchyRepository.findChildBoundariesByParentBoundaryIdParentBoundaryTypeAndChildBoundaryType(
+                parentBoundaryTypeName, parentHierarchyTypeName, childBoundaryTypeName, parentId);
+    }
 }
