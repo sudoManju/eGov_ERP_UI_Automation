@@ -46,9 +46,6 @@ import static org.egov.ptis.constants.PropertyTaxConstants.ANONYMOUS_USER;
 import static org.egov.ptis.constants.PropertyTaxConstants.APPLICATION_TYPE_NEW_ASSESSENT;
 import static org.egov.ptis.constants.PropertyTaxConstants.APPURTENANT_PROPERTY;
 import static org.egov.ptis.constants.PropertyTaxConstants.CATEGORY_CENTRAL_GOVT;
-import static org.egov.ptis.constants.PropertyTaxConstants.CATEGORY_MIXED;
-import static org.egov.ptis.constants.PropertyTaxConstants.CATEGORY_NON_RESIDENTIAL;
-import static org.egov.ptis.constants.PropertyTaxConstants.CATEGORY_RESIDENTIAL;
 import static org.egov.ptis.constants.PropertyTaxConstants.CATEGORY_STATE_GOVT;
 import static org.egov.ptis.constants.PropertyTaxConstants.CATEGORY_VACANT_LAND;
 import static org.egov.ptis.constants.PropertyTaxConstants.DEVIATION_PERCENTAGE;
@@ -223,7 +220,7 @@ public class CreatePropertyAction extends PropertyTaxBaseAction {
     transient PropertyPersistenceService basicPropertyService;
     @Autowired
     transient APTaxCalculator taxCalculator;
-
+    
     private Long zoneId;
     private Long wardId;
     private Long blockId;
@@ -418,12 +415,12 @@ public class CreatePropertyAction extends PropertyTaxBaseAction {
                 property.getPropertyDetail().setPropertyType(VACANT_PROPERTY);
             else
                 property.getPropertyDetail().setPropertyType(PropertyTaxConstants.BUILT_UP_PROPERTY);
-            return createAppurTenantProperties(STATUS_DEMAND_INACTIVE);
+            return createAppurTenantProperties(STATUS_WORKFLOW);
         }
 
-        final BasicProperty basicProperty = createBasicProp(STATUS_DEMAND_INACTIVE);
+        final BasicProperty basicProperty = createBasicProp(STATUS_WORKFLOW);
         try {
-            addDemandAndCompleteDate(STATUS_DEMAND_INACTIVE, basicProperty, basicProperty.getPropertyMutationMaster());
+            addDemandAndCompleteDate(STATUS_WORKFLOW, basicProperty, basicProperty.getPropertyMutationMaster());
         } catch (final TaxCalculatorExeption e) {
             basicProperty.setPropertyOwnerInfoProxy(basicProperty.getPropertyOwnerInfo());
             addActionError(getText(UNIT_RATE_ERROR));
@@ -1057,7 +1054,12 @@ public class CreatePropertyAction extends PropertyTaxBaseAction {
                 preparePropertyTaxDetails(property);
             historyMap = propService.populateHistory(property);
         }
-
+        if (property.getState() != null) {
+        endorsementRequired = propertyTaxCommonUtils.getEndorsementGenerate(securityUtils.getCurrentUser().getId(), property.getCurrentState());
+        ownersName = property.getBasicProperty().getFullOwnerName();
+        applicationNumber =  property.getApplicationNo();
+        endorsementNotices = propertyTaxCommonUtils.getEndorsementNotices(applicationNumber);
+    }
         documentTypes = propService.getDocumentTypesForTransactionType(TransactionType.CREATE);
         assessmentDocumentTypes = propService.getDocumentTypesForTransactionType(TransactionType.CREATE_ASMT_DOC);
         final List<FloorType> floorTypeList = getPersistenceService().findAllBy("from FloorType order by name");
@@ -1081,9 +1083,6 @@ public class CreatePropertyAction extends PropertyTaxBaseAction {
             if (property.getMeesevaServiceCode().equalsIgnoreCase(MEESEVA_SERVICE_CODE_SUBDIVISION))
                 getMutationListByCode(PROP_CREATE_RSN_NEWPROPERTY_BIFURCATION_CODE);
         }
-        List<PropertyUsage> usageList = getPersistenceService()
-                .findAllBy("from PropertyUsage where isActive = true order by usageName");
-
         final List<String> ageFacList = getPersistenceService().findAllBy("from DepreciationMaster");
         final List<String> structureList = getPersistenceService()
                 .findAllBy("from StructureClassification where isActive = true order by typeName ");
@@ -1133,24 +1132,14 @@ public class CreatePropertyAction extends PropertyTaxBaseAction {
                 setPropTypeCategoryMap(NON_VAC_LAND_PROPERTY_TYPE_CATEGORY);
         } else
             setPropTypeCategoryMap(Collections.emptyMap());
-
-        // Loading property usages based on property category
-        if (StringUtils.isNoneBlank(propertyCategory))
-            if (propertyCategory.equals(CATEGORY_MIXED))
-                usageList = getPersistenceService().findAllBy("From PropertyUsage order by usageName");
-            else if (propertyCategory.equals(CATEGORY_RESIDENTIAL))
-                usageList = getPersistenceService()
-                        .findAllBy("From PropertyUsage where isResidential = true order by usageName");
-            else if (propertyCategory.equals(CATEGORY_NON_RESIDENTIAL))
-                usageList = getPersistenceService()
-                        .findAllBy("From PropertyUsage where isResidential = false order by usageName");
-
-        addDropdownData(USAGE_LIST, usageList);
-        // tax exempted properties
+       if(property!=null)
+           populateUsages(isNotBlank(propertyCategory) ? propertyCategory : property.getPropertyDetail().getCategoryType());
+       else
+           populateUsages(propertyCategory);
+       // tax exempted properties
         addDropdownData(EXEMPTED_REASON_LIST, CommonServices.getTaxExemptedList());
 
         // Loading Property Department based on ownership of property
-
         if (propTypeId != null && !propTypeId.trim().isEmpty() && !"-1".equals(propTypeId)) {
             propTypeMstr = (PropertyTypeMaster) getPersistenceService().find(PROPTYPEMASTER_QUERY,
                     Long.valueOf(propTypeId));
@@ -1282,7 +1271,8 @@ public class CreatePropertyAction extends PropertyTaxBaseAction {
                 propertyDetail.isAttachedBathRoom(), propertyDetail.isWaterHarvesting(), propertyDetail.isCable(),
                 propertyDetail.getSiteOwner(), propertyDetail.getPattaNumber(), propertyDetail.getCurrentCapitalValue(),
                 propertyDetail.getMarketValue(), propertyDetail.getCategoryType(),
-                propertyDetail.getOccupancyCertificationNo(), propertyDetail.isAppurtenantLandChecked(),
+				propertyDetail.getOccupancyCertificationNo(), propertyDetail.getOccupancyCertificationDate(),
+				propertyDetail.isAppurtenantLandChecked(),
                 propertyDetail.isCorrAddressDiff(), propertyDetail.getPropertyDepartment(),
                 propertyDetail.getVacantLandPlotArea(), propertyDetail.getLayoutApprovalAuthority(),
                 propertyDetail.getLayoutPermitNo(), propertyDetail.getLayoutPermitDate());
@@ -1485,9 +1475,7 @@ public class CreatePropertyAction extends PropertyTaxBaseAction {
                 if (StringUtils.isNotBlank(parentIndex)) {
                     final BasicProperty basicProperty = basicPropertyService
                             .find("From BasicPropertyImpl where upicNo = ? ", parentIndex);
-                    if (basicProperty != null && basicProperty.isUnderWorkflow())
-                        addActionError(getText("error.parent.underworkflow"));
-                    else if (areaOfPlot != null && !areaOfPlot.isEmpty()) {
+                    if (areaOfPlot != null && !areaOfPlot.isEmpty()) {
                         final Area area = new Area();
                         area.setArea(new Float(areaOfPlot));
                         property.getPropertyDetail().setSitalArea(area);

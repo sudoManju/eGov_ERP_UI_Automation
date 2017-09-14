@@ -113,7 +113,7 @@ import org.egov.eis.service.AssignmentService;
 import org.egov.eis.web.actions.workflow.GenericWorkFlowAction;
 import org.egov.infra.admin.master.entity.User;
 import org.egov.infra.config.core.ApplicationThreadLocals;
-import org.egov.infra.messaging.MessagingService;
+import org.egov.infra.notification.service.NotificationService;
 import org.egov.infra.reporting.engine.ReportOutput;
 import org.egov.infra.reporting.viewer.ReportViewerUtil;
 import org.egov.infra.security.utils.SecurityUtils;
@@ -203,7 +203,7 @@ public class PropertyTransferAction extends GenericWorkFlowAction {
     private PropertyService propertyService;
 
     @Autowired
-    private MessagingService messagingService;
+    private NotificationService notificationService;
 
     @Autowired
     private SecurityUtils securityUtils;
@@ -274,6 +274,12 @@ public class PropertyTransferAction extends GenericWorkFlowAction {
     private Long stateAwareId;
     private String transactionType;
     private Boolean showPayBtn = Boolean.FALSE;
+    private String ownersName;
+    private List<PtNotice> endorsementNotices;
+    private Boolean endorsementRequired = Boolean.FALSE;
+    private String assessmentNumber;
+    private String applicationNumber;
+    
 
     public PropertyTransferAction() {
         addRelatedEntity("mutationReason", PropertyMutationMaster.class);
@@ -387,6 +393,14 @@ public class PropertyTransferAction extends GenericWorkFlowAction {
         isReassignEnabled = reassignmentservice.isReassignEnabled();
         stateAwareId = propertyMutation.getId();
         transactionType = APPLICATION_TYPE_TRANSFER_OF_OWNERSHIP;
+        if (propertyMutation.getState() != null) {
+            ownersName = propertyMutation.getBasicProperty().getFullOwnerName();
+            applicationNumber = propertyMutation.getApplicationNo();
+            endorsementNotices = propertyTaxCommonUtils.getEndorsementNotices(applicationNumber);
+            endorsementRequired = propertyTaxCommonUtils.getEndorsementGenerate(securityUtils.getCurrentUser().getId(),
+                    propertyMutation.getCurrentState());
+            assessmentNumber = propertyMutation.getBasicProperty().getUpicNo();
+        }
         if (currState.endsWith(WF_STATE_REJECTED)
                     || nextAction != null && nextAction.equalsIgnoreCase(WF_STATE_UD_REVENUE_INSPECTOR_APPROVAL_PENDING)
                     || currState.equals(WFLOW_ACTION_NEW)){ 
@@ -717,8 +731,8 @@ public class PropertyTransferAction extends GenericWorkFlowAction {
         if (propertyMutation.getState() != null && propertyMutation.getState().getValue() != null
                 && (propertyMutation.getState().getValue().equalsIgnoreCase(WF_STATE_REVENUE_OFFICER_APPROVED)
                         || propertyMutation.getState().getValue().equalsIgnoreCase(WF_STATE_REGISTRATION_COMPLETED)
-                        || propertyMutation.getState().getNextAction()
-                                .equalsIgnoreCase(PropertyTaxConstants.WF_STATE_COMMISSIONER_APPROVAL_PENDING)))
+                        || propertyMutation.getState().getNextAction().toLowerCase()
+                                .endsWith(PropertyTaxConstants.WF_STATE_COMMISSIONER_APPROVAL_PENDING.toLowerCase())))
             propertyMutation.getTransfereeInfosProxy().addAll(propertyMutation.getTransfereeInfos());
 
         if (propertyMutation.getTransfereeInfosProxy().isEmpty())
@@ -833,7 +847,7 @@ public class PropertyTransferAction extends GenericWorkFlowAction {
             if (wfInitiator.getPosition().equals(propertyMutation.getState().getOwnerPosition())
                     || propertyMutation.getType().equalsIgnoreCase(ADDTIONAL_RULE_FULL_TRANSFER)) {
                 propertyMutation.transition().end().withSenderName(user.getUsername() + "::" + user.getName())
-                        .withComments(approverComments).withDateInfo(currentDate.toDate()).withNextAction(null);
+                        .withComments(approverComments).withDateInfo(currentDate.toDate()).withNextAction(null).withOwner((Position)null);
                 propertyMutation.getBasicProperty().setUnderWorkflow(Boolean.FALSE);
             } else {
                 if (loggedInUserDesignation.equalsIgnoreCase(REVENUE_OFFICER_DESGN)
@@ -877,7 +891,7 @@ public class PropertyTransferAction extends GenericWorkFlowAction {
                         .withInitiator(wfInitiator != null ? wfInitiator.getPosition() : null);
             } else if (propertyMutation.getCurrentState().getNextAction().equalsIgnoreCase("END"))
                 propertyMutation.transition().end().withSenderName(user.getUsername() + "::" + user.getName())
-                        .withComments(approverComments).withDateInfo(currentDate.toDate()).withNextAction(null);
+                        .withComments(approverComments).withDateInfo(currentDate.toDate()).withNextAction(null).withOwner((Position)null);
             else {
                 final WorkFlowMatrix wfmatrix = transferWorkflowService.getWfMatrix(propertyMutation.getStateType(), null, null,
                         getAdditionalRule(), propertyMutation.getCurrentState().getValue(),
@@ -943,11 +957,11 @@ public class PropertyTransferAction extends GenericWorkFlowAction {
         }
         for (final User transferor : propertyMutation.getTransferorInfos())
             if (StringUtils.isNotBlank(transferor.getMobileNumber()) && StringUtils.isNotBlank(smsMsgForTransferor))
-                messagingService.sendSMS(transferor.getMobileNumber(), smsMsgForTransferor);
+                notificationService.sendSMS(transferor.getMobileNumber(), smsMsgForTransferor);
         for (final PropertyMutationTransferee transferee : propertyMutation.getTransfereeInfos())
             if (StringUtils.isNotBlank(transferee.getTransferee().getMobileNumber())
                     && StringUtils.isNotBlank(smsMsgForTransferee))
-                messagingService.sendSMS(transferee.getTransferee().getMobileNumber(), smsMsgForTransferee);
+                notificationService.sendSMS(transferee.getTransferee().getMobileNumber(), smsMsgForTransferee);
     }
 
     public void buildEmail(final PropertyMutation propertyMutation) {
@@ -1007,11 +1021,11 @@ public class PropertyTransferAction extends GenericWorkFlowAction {
         for (final User transferor : propertyMutation.getTransferorInfos())
             if (StringUtils.isNotBlank(transferor.getEmailId()) && StringUtils.isNotBlank(subject)
                     && StringUtils.isNotBlank(emailBodyTransferor))
-                messagingService.sendEmail(transferor.getEmailId(), subject, emailBodyTransferor);
+                notificationService.sendEmail(transferor.getEmailId(), subject, emailBodyTransferor);
         for (final PropertyMutationTransferee transferee : propertyMutation.getTransfereeInfos())
             if (StringUtils.isNotBlank(transferee.getTransferee().getEmailId()) && StringUtils.isNotBlank(subject)
                     && StringUtils.isNotBlank(emailBodyTransferee))
-                messagingService.sendEmail(transferee.getTransferee().getEmailId(), subject, emailBodyTransferee);
+                notificationService.sendEmail(transferee.getTransferee().getEmailId(), subject, emailBodyTransferee);
     }
 
     private String getNatureOfTask() {
@@ -1403,5 +1417,44 @@ public class PropertyTransferAction extends GenericWorkFlowAction {
         this.showPayBtn = showPayBtn;
     }
 
+    public List<PtNotice> getEndorsementNotices() {
+        return endorsementNotices;
+    }
 
+    public void setEndorsementNotices(List<PtNotice> endorsementNotices) {
+        this.endorsementNotices = endorsementNotices;
+    }
+
+    public Boolean getEndorsementRequired() {
+        return endorsementRequired;
+    }
+
+    public void setEndorsementRequired(Boolean endorsementRequired) {
+        this.endorsementRequired = endorsementRequired;
+    }
+
+    public String getAssessmentNumber() {
+        return assessmentNumber;
+    }
+
+    public void setAssessmentNumber(String assessmentNumber) {
+        this.assessmentNumber = assessmentNumber;
+    }
+
+    public String getApplicationNumber() {
+        return applicationNumber;
+    }
+
+    public void setApplicationNumber(String applicationNumber) {
+        this.applicationNumber = applicationNumber;
+    }
+
+    public String getOwnersName() {
+        return ownersName;
+    }
+
+    public void setOwnersName(String ownersName) {
+        this.ownersName = ownersName;
+    }
+    
 }

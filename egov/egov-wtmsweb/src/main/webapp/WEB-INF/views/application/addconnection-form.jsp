@@ -1,8 +1,8 @@
 <%--
-  ~ eGov suite of products aim to improve the internal efficiency,transparency,
+  ~ eGov SmartCity eGovernance suite aims to improve the internal efficiency,transparency,
   ~    accountability and the service delivery of the government  organizations.
   ~
-  ~     Copyright (C) <2015>  eGovernments Foundation
+  ~     Copyright (C) <2017>  eGovernments Foundation
   ~
   ~     The updated version of eGov suite of products as by eGovernments Foundation
   ~     is available at http://www.egovernments.org
@@ -59,7 +59,8 @@
 					</div>
 				</div>
 				<div class="panel-body custom-form ">
-				<input type="hidden" id="currentUser" name="currentUser" value="${currentUser}"/>  
+				<input type="hidden" id="currentUser" name="currentUser" value="${currentUser}"/> 
+				<input type="hidden" id="isAnonymousUser" name="isAnonymousUser" value="${isAnonymousUser}"/> 
 				<input type="hidden" name="validateIfPTDueExists" id="validateIfPTDueExists" value="${validateIfPTDueExists}"> 
 				<form:hidden id="mode" path=""  value="${mode}"/>
 				<input type="hidden" name="noJAORSAMessage" id="noJAORSAMessage" value="${noJAORSAMessage}">
@@ -68,12 +69,15 @@
 				<form:hidden path="applicationType" id="applicationType.id" value="${addConnection.applicationType.id}"/>
 				<form:hidden path="connectionStatus" id="connectionStatus" value="${addConnection.connectionStatus}"/>
 				<form:hidden path="connection.parentConnection" value="${parentConnection.id}"/>
+				<form:hidden path="meesevaApplicationNumber" value="${addConnection.meesevaApplicationNumber}"/>
 				<input type="hidden" id="waterTaxDueforParent" value="${waterTaxDueforParent}" name="waterTaxDueforParent"/>
 				<form:hidden path="connection.propertyIdentifier" value="${waterConnectionDetails.connection.propertyIdentifier}"/>
 					<jsp:include page="commonappdetails-view.jsp"></jsp:include>
 				<c:if test="${validationMessage==''}">	
 					<jsp:include page="connectiondetails.jsp"></jsp:include>	
-					<jsp:include page="documentdetails.jsp"></jsp:include>	
+					<c:if test="${!documentNamesList.isEmpty()}">
+						<jsp:include page="documentdetails.jsp"></jsp:include>
+					</c:if>	
 				</c:if>
 				</div>
 			</div>			

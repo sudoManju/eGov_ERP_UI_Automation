@@ -48,7 +48,7 @@ $('#baseRegisterReportSearch').click(function(e){
 		$('#baseRegister-header').show();
 		oTable.dataTable({
 			"sDom": "<'row'<'col-xs-12 hidden col-right'f>r>t<'row'<'col-md-3 col-xs-12'i><'col-md-3 col-xs-6 col-right'l><'col-xs-12 col-md-3 col-right'<'export-data'T>><'col-md-3 col-xs-6 text-right'p>>",
-			"aLengthMenu": [[20, 50, 100, -1], [20, 50, 100, "All"]],
+			"aLengthMenu": [[20, 50, 100], [20, 50, 100]],
 			"autoWidth": false,
 			"bDestroy": true,
 			processing: true,
@@ -107,6 +107,8 @@ $('#baseRegisterReportSearch').click(function(e){
 						  { "data" : "generalTax", "title": "Current property tax"},
 						  { "data" : "libraryCessTax", "title": "Current library cess"},
 						  { "data" : "eduCessTax", "title": "Current Educational tax"},
+						  { "data" : "arrearUACPenalty", "title": "Arrear UAC Penalty"},
+						  { "data" : "UACpenalty", "title": "Current UAC Penalty"},
 						  { "data" : "currTotal", "title": "Current Total"},
 						  { "data" : "penaltyFinesTax", "title": "Penalty on current tax"},
 						  { "data" : "arrearColl", "title": "Arrear Collection"},

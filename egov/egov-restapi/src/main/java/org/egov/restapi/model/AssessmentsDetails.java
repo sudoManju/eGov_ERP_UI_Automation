@@ -47,63 +47,52 @@ public class AssessmentsDetails implements Serializable {
 	private String mutationReasonCode;
 	private String parentPropertyAssessmentNo;
 	private String extentOfSite;
-	private Boolean isExtentAppurtenantLand;
 	private String occupancyCertificationNo;
 	private String extentAppartenauntLand;
-	private String regdDocNo;
-	private String regdDocDate;
-	public String getMutationReasonCode() {
-		return mutationReasonCode;
-	}
-	public void setMutationReasonCode(String mutationReasonCode) {
-		this.mutationReasonCode = mutationReasonCode;
-	}
-	public String getParentPropertyAssessmentNo() {
-		return parentPropertyAssessmentNo;
-	}
-	public void setParentPropertyAssessmentNo(String parentPropertyAssessmentNo) {
-		this.parentPropertyAssessmentNo = parentPropertyAssessmentNo;
-	}
-	public String getExtentOfSite() {
-		return extentOfSite;
-	}
-	public void setExtentOfSite(String extentOfSite) {
-		this.extentOfSite = extentOfSite;
-	}
-	public Boolean getIsExtentAppurtenantLand() {
-		return isExtentAppurtenantLand;
-	}
-	public void setIsExtentAppurtenantLand(Boolean isExtentAppurtenantLand) {
-		this.isExtentAppurtenantLand = isExtentAppurtenantLand;
-	}
-	public String getOccupancyCertificationNo() {
-		return occupancyCertificationNo;
-	}
-	public void setOccupancyCertificationNo(String occupancyCertificationNo) {
-		this.occupancyCertificationNo = occupancyCertificationNo;
-	}
-	public String getRegdDocNo() {
-		return regdDocNo;
-	}
-	public void setRegdDocNo(String regdDocNo) {
-		this.regdDocNo = regdDocNo;
-	}
-	public String getRegdDocDate() {
-		return regdDocDate;
-	}
-	public void setRegdDocDate(String regdDocDate) {
-		this.regdDocDate = regdDocDate;
-	}
+
 	@Override
 	public String toString() {
 		return "AssessmentsDetails [mutationReasonCode=" + mutationReasonCode + ", parentPropertyAssessmentNo="
-				+ parentPropertyAssessmentNo + ", extentOfSite=" + extentOfSite + ", isExtentAppurtenantLand="
-				+ isExtentAppurtenantLand + ", occupancyCertificationNo=" + occupancyCertificationNo
-				+ ", regdDocNo=" + regdDocNo + ", regdDocDate=" + regdDocDate + "]";
+				+ parentPropertyAssessmentNo + ", extentOfSite=" + extentOfSite + ", occupancyCertificationNo="
+				+ occupancyCertificationNo + ", occupancyCertificationNo=" + occupancyCertificationNo + "]";
 	}
+
+	public String getMutationReasonCode() {
+		return mutationReasonCode;
+	}
+
+	public void setMutationReasonCode(String mutationReasonCode) {
+		this.mutationReasonCode = mutationReasonCode;
+	}
+
+	public String getParentPropertyAssessmentNo() {
+		return parentPropertyAssessmentNo;
+	}
+
+	public void setParentPropertyAssessmentNo(String parentPropertyAssessmentNo) {
+		this.parentPropertyAssessmentNo = parentPropertyAssessmentNo;
+	}
+
+	public String getExtentOfSite() {
+		return extentOfSite;
+	}
+
+	public void setExtentOfSite(String extentOfSite) {
+		this.extentOfSite = extentOfSite;
+	}
+
+	public String getOccupancyCertificationNo() {
+		return occupancyCertificationNo;
+	}
+
+	public void setOccupancyCertificationNo(String occupancyCertificationNo) {
+		this.occupancyCertificationNo = occupancyCertificationNo;
+	}
+
 	public String getExtentAppartenauntLand() {
 		return extentAppartenauntLand;
 	}
+
 	public void setExtentAppartenauntLand(String extentAppartenauntLand) {
 		this.extentAppartenauntLand = extentAppartenauntLand;
 	}

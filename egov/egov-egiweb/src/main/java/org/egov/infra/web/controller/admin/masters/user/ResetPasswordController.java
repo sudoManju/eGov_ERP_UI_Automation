@@ -42,20 +42,18 @@ package org.egov.infra.web.controller.admin.masters.user;
 
 import org.egov.infra.admin.master.entity.User;
 import org.egov.infra.admin.master.service.UserService;
-import org.egov.infra.config.properties.ApplicationProperties;
+import org.egov.infra.config.core.EnvironmentSettings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
-
 @Controller
-@RequestMapping("/user")
+@RequestMapping("user")
 public class ResetPasswordController {
 
     @Autowired
@@ -65,23 +63,18 @@ public class ResetPasswordController {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private ApplicationProperties applicationProperties;
+    private EnvironmentSettings environmentSettings;
 
-    @ModelAttribute("users")
-    public List<User> users() {
-        return userService.getAllEmployeeUsers();
-    }
-
-    @RequestMapping(value = "/reset-password")
+    @GetMapping("reset-password")
     public String showResetPassword() {
         return "reset-password";
     }
 
-    @RequestMapping(value = "/reset-password", method = RequestMethod.POST)
-    public String resetPassword(@RequestParam final String username, @RequestParam final String password, final RedirectAttributes redirAttrib) {
-        final User user = userService.getUserByUsername(username);
+    @PostMapping("reset-password")
+    public String resetPassword(@RequestParam Long userId, @RequestParam String password, RedirectAttributes redirAttrib) {
+        User user = userService.getUserById(userId);
         user.setPassword(passwordEncoder.encode(password));
-        user.updateNextPwdExpiryDate(applicationProperties.userPasswordExpiryInDays());
+        user.updateNextPwdExpiryDate(environmentSettings.userPasswordExpiryInDays());
         userService.updateUser(user);
         redirAttrib.addFlashAttribute("message", "lbl.pwd.reset.success");
         redirAttrib.addFlashAttribute("name", user.getName());

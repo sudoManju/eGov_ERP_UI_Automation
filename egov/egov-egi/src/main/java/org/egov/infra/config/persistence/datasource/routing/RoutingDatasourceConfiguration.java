@@ -44,7 +44,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.jndi.JndiObjectFactoryBean;
 
@@ -56,7 +55,6 @@ import static org.egov.infra.config.persistence.datasource.routing.DatasourceTyp
 import static org.egov.infra.config.persistence.datasource.routing.DatasourceType.READWRITE;
 
 @Configuration
-@Profile("production")
 @Conditional(RoutingDatasourceConfigCondition.class)
 public class RoutingDatasourceConfiguration {
     @Autowired

@@ -56,7 +56,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -127,11 +126,11 @@ public class GenericComplaintAjaxController {
         crossHierarchyService
                 .getChildBoundaryNameAndBndryTypeAndHierarchyType("Locality", "Location", "Administration", "%" + locationName + "%")
                 .stream()
-                .forEach(location -> {
-                    locationJSONData.append("{\"name\":\"")
-                            .append(location.getChild().getName()).append(" - ").append(location.getParent().getName())
-                            .append("\",\"id\":").append(location.getId()).append("},");
-                });
+                .forEach(location ->
+                        locationJSONData.append("{\"name\":\"")
+                                .append(location.getChild().getName()).append(" - ").append(location.getParent().getName())
+                                .append("\",\"id\":").append(location.getId()).append("},")
+                );
 
         if (locationJSONData.lastIndexOf(",") != -1)
             locationJSONData.deleteCharAt(locationJSONData.lastIndexOf(","));
@@ -142,19 +141,19 @@ public class GenericComplaintAjaxController {
 
     @GetMapping(value = {"/complaint/router/position", "/complaint/escalation/position"}, produces = TEXT_PLAIN_VALUE)
     @ResponseBody
-    public String getAllPositionByNameLike(@RequestParam String positionName) throws IOException {
+    public String getAllPositionByNameLike(@RequestParam String positionName) {
         StringBuilder positionUser = new StringBuilder();
         positionUser.append("[");
         String likePositionName = "%" + positionName.toUpperCase() + "%";
         employeeViewService
-                .findByUserNameLikeOrCodeLikeOrPosition_NameLike(likePositionName, likePositionName, likePositionName, new Date())
+                .getEmployeeByNameOrCodeOrPositionLike(likePositionName, likePositionName, likePositionName, new Date())
                 .stream()
-                .forEach(position -> {
-                    positionUser.append("{\"name\":\"")
-                            .append(position.getPosition().getName()).append('-')
-                            .append(position.getName()).append('-').append(position.getCode())
-                            .append("\",\"id\":").append(position.getPosition().getId()).append("},");
-                });
+                .forEach(position ->
+                        positionUser.append("{\"name\":\"")
+                                .append(position.getPosition().getName()).append('-')
+                                .append(position.getName()).append('-').append(position.getCode())
+                                .append("\",\"id\":").append(position.getPosition().getId()).append("},")
+                );
         if (positionUser.lastIndexOf(",") != -1)
             positionUser.deleteCharAt(positionUser.lastIndexOf(","));
         positionUser.append("]");

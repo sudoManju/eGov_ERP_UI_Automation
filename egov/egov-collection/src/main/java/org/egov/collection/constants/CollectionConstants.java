@@ -282,7 +282,6 @@ public final class CollectionConstants {
     public static final String FINANCIAL_CONTRATVOUCHER_VOUCHERNAME = FinancialConstants.CONTRAVOUCHER_NAME_PAYIN;
 
     public static final String SESSION_VAR_RECEIPT_IDS = "EGOV_RECEIPT_IDS";
-    public static final String SUPER_USER_NAME = "egovernments";
     public static final String SESSION_VAR_LOGIN_USER_LOCATIONID = "locationId";
 
     // Separators
@@ -508,6 +507,8 @@ public final class CollectionConstants {
     public static final String AXIS_TXN_NO = "vpc_TransactionNo";
     public static final String AXIS_BATCH_NO = "vpc_BatchNo";
     public static final String AXIS_ORDER_INFO = "vpc_OrderInfo";
+    public static final String AXIS_SECURE_HASHTYPE = "vpc_SecureHashType";
+    public static final String AXIS_SECURE_HASHTYPE_VALUE = "SHA256";
 
     public static final String MESSAGEKEY_AXIS_PAYMENT_CLIENT = "axis.payment.client";
     public static final String MESSAGEKEY_AXIS_VERSION = "axis.version";

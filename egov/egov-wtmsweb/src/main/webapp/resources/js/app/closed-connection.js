@@ -1,8 +1,8 @@
 /*
- * eGov suite of products aim to improve the internal efficiency,transparency,
+ * eGov SmartCity eGovernance suite aims to improve the internal efficiency,transparency,
  *    accountability and the service delivery of the government  organizations.
  *
- *     Copyright (C) <2015>  eGovernments Foundation
+ *     Copyright (C) <2017>  eGovernments Foundation
  *
  *     The updated version of eGov suite of products as by eGovernments Foundation
  *     is available at http://www.egovernments.org
@@ -39,12 +39,26 @@
  */
 $(document).ready(function(){
 	
-	  $('#buttonid').click(function() {
-		  if ($( "#closedConnectionformform" ).valid())
-			  {
-			  document.forms[0].submit();
-			  }
-		  		});
+	var currentloggedInUser=$('#currentUser').val();
+    var citizenPortal=$('#citizenPortalUser').val();
+    var isAnonymousUser = $('#isAnonymousUser').val();
+	if((currentloggedInUser=='true' && mode=='closureConnection') ||(currentloggedInUser=='true')
+	|| (citizenPortal=='true' && mode=='closureConnection') ||(citizenPortal=='true')
+	|| (isAnonymousUser=='true' && mode=='closureConnection') ||(isAnonymousUser=='true'))
+		{
+			$(".show-row").hide(); 
+			$('#approvalDepartment').removeAttr('required');
+			$('#approvalDesignation').removeAttr('required');
+			$('#approvalPosition').removeAttr('required');
+			$('#approvalPosition').val('');
+		}
+	
+	$('#buttonid').click(function() {
+		if ($( "#closedConnectionformform" ).valid())
+		{
+			document.forms[0].submit();
+		}
+	});
 
 	$("#consumerNo").attr('disabled','disabled');
 	

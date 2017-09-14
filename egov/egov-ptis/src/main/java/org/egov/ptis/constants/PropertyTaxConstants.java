@@ -705,7 +705,8 @@ public interface PropertyTaxConstants {
     public static final List<String> modifyReasons = Arrays.asList(PROPERTY_MODIFY_REASON_AMALG,
             PROPERTY_MODIFY_REASON_BIFURCATE, PROPERTY_MODIFY_REASON_OBJ, PROPERTY_MODIFY_REASON_DATA_ENTRY,
             PROPERTY_MODIFY_REASON_DATA_UPDATE, PROPERTY_MODIFY_REASON_MODIFY);
-
+    public static final String PROPERTY_MODIFY_REASON_BULK_BOUNDARY = "BULK BOUNDARY UPDATION";
+    
     // Constants for Government Properties
     public static final Double STATEGOVT_BUILDING_ALV_PERCENTAGE = new Double(8.25d);
     public static final Double CENTRALGOVT_BUILDING_ALV_PERCENTAGE = new Double(9d);
@@ -1341,6 +1342,7 @@ public interface PropertyTaxConstants {
     public static final String APPLICATION_TYPE_TAX_EXEMTION = "Tax_Exemption";
     public static final String APPLICATION_TYPE_DEMOLITION = "Demolition";
     public static final String APPLICATION_TYPE_VACANCY_REMISSION = "Vacancy_Remission";
+    public static final String APPLICATION_TYPE_VACANCY_REMISSION_APPROVAL = "Vacancy_Remission_Approval";
     public static final String APPLICATION_TYPE_MEESEVA_TRANSFER_OF_OWNERSHIP = "Meeseva_Transfer_of_Ownership";
     public static final String APPLICATION_TYPE_GRP = "General_Revision_Petition";
     public static final String APPLICATION_TYPE_EDIT_DEMAND = "Edit_demand";
@@ -1443,6 +1445,7 @@ public interface PropertyTaxConstants {
     public static final String NATURE_DEMOLITION = "Demolition";
     public static final String NATURE_TAX_EXEMPTION = "Tax Exemption";
     public static final String NATURE_VACANCY_REMISSION = "Vacany Remission";
+    public static final String NATURE_VACANCY_REMISSION_APPROVAL = "Vacancy Remission Approval";
     public static final String NATURE_GENERAL_REVISION_PETITION = "General Revision Petition";
     public static final String NATURE_REGISTERED_TRANSFER = "Registered Transfer";
     public static final String NATURE_FULL_TRANSFER = "Full Transfer";
@@ -1623,6 +1626,7 @@ public interface PropertyTaxConstants {
     public static final String DAY = "day";
     
     public static final String APPCONFIG_REASSIGN = "PTIS_REASSIGN_REQUIRED";
+    public static final String APPCONFIG_ENDORSEMENT = "PTIS_ENDORSEMENT_REQUIRED";
 
     @SuppressWarnings("serial")
     public static final List<String> DASHBOARD_PROPERTY_TYPE_CENTRAL_GOVT_LIST = new ArrayList<String>() {
@@ -1657,6 +1661,7 @@ public interface PropertyTaxConstants {
     public static final String VALUATION_CERTIFICATE_CORPORATION  = "ValuationCertificate_Corporation";
     public static final String VALUATION_CERTIFICATE_MUNICIPALITY = "ValuationCertificate_Municipality";
     public static final String NOTICE_TYPE_OC = "Ownership Certificate";
+    public static final String NOTICE_TYPE_ENDORSEMENT = "Endorsement Notice";  
     //esd notice section act and distress section act for corporation use the same constant
     public static final String CORPORATION_ESD_NOTICE_SECTION_ACT = "(Issued under Section 269(2) of Municipal Corporations Act,1955 (formerly GHMC Act, 1955)";
     
@@ -1717,6 +1722,7 @@ public interface PropertyTaxConstants {
     public static final String SOURCE_MOBILE = "MOBILE";
     public static final String SOURCE_SYSTEM = "SYSTEM";
     public static final String SOURCE_ONLINE = "ONLINE";
+    public static final String SOURCE_SURVEY = "SURVEY";
     
     public static final String APPURTENANT_PROPERTY = "AppurTenantProperty";
     public static final String ANONYMOUS_USER= "Anonymous";

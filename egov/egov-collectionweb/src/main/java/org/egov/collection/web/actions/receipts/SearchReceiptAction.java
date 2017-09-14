@@ -54,7 +54,8 @@ import org.apache.struts2.convention.annotation.Results;
 import org.egov.collection.constants.CollectionConstants;
 import org.egov.collection.entity.ReceiptHeader;
 import org.egov.collection.utils.CollectionsUtil;
-import org.egov.eis.service.EisCommonService;
+import org.egov.eis.entity.Assignment;
+import org.egov.eis.service.AssignmentService;
 import org.egov.infra.utils.DateUtils;
 import org.egov.infra.web.struts.actions.SearchFormAction;
 import org.egov.infstr.search.SearchQuery;
@@ -84,7 +85,7 @@ public class SearchReceiptAction extends SearchFormAction {
     private Integer branchId;
 
     @Autowired
-    private EisCommonService eisCommonService;
+    private AssignmentService assignmentService;
 
     @Override
     public Object getModel() {
@@ -181,15 +182,16 @@ public class SearchReceiptAction extends SearchFormAction {
         ArrayList<ReceiptHeader> receiptList = new ArrayList<ReceiptHeader>(0);
         receiptList.addAll(searchResult.getList());
         searchResult.getList().clear();
-        if (getServiceClass() != "-1")
+        if (!getServiceClass().equals("-1"))
             addDropdownData("serviceTypeList",
                     getPersistenceService().findAllByNamedQuery(CollectionConstants.QUERY_SERVICES_BY_TYPE, getServiceClass()));
 
         for (ReceiptHeader receiptHeader : receiptList) {
             if (receiptHeader.getState() != null && receiptHeader.getState().getOwnerPosition() != null) {
-                Long posId = receiptHeader.getState().getOwnerPosition().getId();
-                receiptHeader.setWorkflowUserName(
-                        eisCommonService.getUserForPosition(posId, receiptHeader.getCreatedDate()).getUsername());
+                List<Assignment> assignments = assignmentService.getAssignmentsForPosition(
+                        receiptHeader.getState().getOwnerPosition().getId(), receiptHeader.getCreatedDate());
+                if (!assignments.isEmpty())
+                    receiptHeader.setWorkflowUserName(assignments.get(0).getEmployee().getUsername());
             }
             searchResult.getList().add(receiptHeader);
         }
@@ -255,7 +257,7 @@ public class SearchReceiptAction extends SearchFormAction {
             params.add(Long.valueOf(getServiceTypeId()));
         }
 
-        if (getServiceClass() != "-1") {
+        if (!getServiceClass().equals("-1")) {
             criteriaString.append(" and receipt.service.serviceType = ? ");
             params.add(getServiceClass());
         }

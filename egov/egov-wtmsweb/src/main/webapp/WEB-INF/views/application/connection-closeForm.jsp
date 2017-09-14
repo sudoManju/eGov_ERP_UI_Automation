@@ -58,12 +58,14 @@
 				</div>
 			</div>
 			<form:hidden id="mode" path=""  value="${mode}"/>
+			<input type="hidden" id="currentUser" name="currentUser" value="${currentUser}"/> 
+			<input type="hidden" id="isAnonymousUser" name="isAnonymousUser" value="${isAnonymousUser}"/> 
 			<input type="hidden" id="waterTaxDueforParent" value="${waterTaxDueforParent}" name="waterTaxDueforParent"/>
 			<input type="hidden" name="validationMessage" id="validationMessage" value="${validationMessage}">
 			<input type="hidden" name="loggedInCSCUser" id="loggedInCSCUser" value="${loggedInCSCUser}">
             <input type="hidden" name="citizenPortalUser" id="citizenPortalUser" value="${citizenPortalUser}">
 			<input type="hidden" name="noJAORSAMessage" id="noJAORSAMessage" value="${noJAORSAMessage}">
-			
+			<form:hidden path="meesevaApplicationNumber" value="${addConnection.meesevaApplicationNumber}"/>
 			<input type="hidden" id="previousApplicationType" value="${previousApplicationType}" name="previousApplicationType"/>
 			<input id="applicationCode" type="hidden" value="<c:out value="${waterConnectionDetails.applicationNumber}" />" />  						
 				<jsp:include page="commonappdetails-view.jsp"></jsp:include>
@@ -127,9 +129,7 @@
 </div>			
 				
 				<c:if test="${validationMessage==''}">
-				<c:if test="${(!loggedInCSCUser || loggedInCSCUser=='false') && (!citizenPortalUser || citizenPortalUser=='false')}">
-						<jsp:include page="../common/commonWorkflowMatrix.jsp"/>
-						</c:if>
+					<jsp:include page="../common/commonWorkflowMatrix.jsp"/>
 					<div class="buttonbottom" align="center">
 							<jsp:include page="../common/commonWorkflowMatrix-button.jsp" />
 					</div>
@@ -159,6 +159,7 @@ function validate(){
 }
 </script>
 
+<script src="<cdn:url value='/resources/js/app/closed-connection.js?rnd=${app_release_no}'/>"></script>
 <script src="<cdn:url  value='/resources/js/app/applicationsuccess.js?rnd=${app_release_no}'/>"></script>
 <script src="<cdn:url  value='/resources/js/app/documentsupload.js?rnd=${app_release_no}'/>"></script>
 <script src="<cdn:url  value='/resources/global/js/egov/inbox.js?rnd=${app_release_no}' context='/egi'/>"></script>

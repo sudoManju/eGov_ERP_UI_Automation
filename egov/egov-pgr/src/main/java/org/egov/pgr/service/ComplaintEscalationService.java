@@ -52,14 +52,14 @@ import org.egov.infra.admin.master.entity.User;
 import org.egov.infra.admin.master.service.AppConfigValueService;
 import org.egov.infra.admin.master.service.UserService;
 import org.egov.infra.security.utils.SecurityUtils;
+import org.egov.pgr.elasticsearch.service.ComplaintIndexService;
 import org.egov.pgr.entity.Complaint;
 import org.egov.pgr.entity.ComplaintType;
 import org.egov.pgr.entity.Escalation;
-import org.egov.pgr.entity.dto.EscalationTimeSearchRequest;
+import org.egov.pgr.entity.contract.EscalationTimeSearchRequest;
 import org.egov.pgr.repository.ComplaintRepository;
 import org.egov.pgr.repository.EscalationRepository;
 import org.egov.pgr.repository.specs.EscalationTimeSpec;
-import org.egov.pgr.service.es.ComplaintIndexService;
 import org.egov.pgr.utils.constants.PGRConstants;
 import org.egov.pims.commons.Designation;
 import org.egov.pims.commons.Position;
@@ -134,7 +134,7 @@ public class ComplaintEscalationService {
     private ComplaintIndexService complaintIndexService;
 
     @Autowired
-    private ComplaintMessagingService complaintCommunicationService;
+    private ComplaintNotificationService complaintNotificationService;
 
     @Transactional
     public void create(Escalation escalation) {
@@ -220,7 +220,7 @@ public class ComplaintEscalationService {
             complaintRepository.saveAndFlush(complaint);
             complaintIndexService.updateComplaintEscalationIndexValues(complaint);
             if (sendMessage)
-                complaintCommunicationService.sendEscalationMessage(complaint, nextOwner, previousAssignee);
+                complaintNotificationService.sendEscalationMessage(complaint, nextOwner, previousAssignee);
 
         }
     }

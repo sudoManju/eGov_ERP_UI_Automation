@@ -480,10 +480,8 @@
 	<div class="panel-heading">
 		<div class="panel-title">Tax Details</div>
 	</div>
-	<%@ include file="../common/taxDetails.jsp"%>
-	
+	<%@ include file="../common/taxDetails.jsp"%>	
 </div>
-
 <script type="text/javascript">
 	function showDocumentManagerView(indexNum) {
 		var url = "../view/viewProperty!viewDoc.action?propertyId=" + indexNum;

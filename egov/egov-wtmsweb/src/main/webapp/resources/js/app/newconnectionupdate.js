@@ -83,6 +83,7 @@ $(document)
 						$("#Approve").hide();
 
 					}
+					
 					if (status == 'ESTIMATIONAMOUNTPAID' || status=='CLOSERINPROGRESS' || status=='RECONNECTIONINPROGRESS') {
 						$("#Sign").hide();
 						$("#Preview").hide();
@@ -376,13 +377,16 @@ $(document)
 														}
 													}
 												}
-											} else {
+											} else if (action=='' && (status=='CREATED' || status=='CLOSERINITIATED' || status=='RECONNECTIONINITIATED')) {
+												return false;
+											}
+											else {
 												validateWorkFlowApprover(action);
 												if ($('form').valid())
 													document.forms[0].submit();
+												return true;
 											}
 										}
-										return;
 									});
 
 					changeCategory();

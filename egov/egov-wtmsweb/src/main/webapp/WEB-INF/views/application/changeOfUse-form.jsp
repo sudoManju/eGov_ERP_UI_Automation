@@ -1,8 +1,8 @@
 <%--
-  ~ eGov suite of products aim to improve the internal efficiency,transparency,
+  ~ eGov SmartCity eGovernance suite aims to improve the internal efficiency,transparency,
   ~      accountability and the service delivery of the government  organizations.
   ~
-  ~       Copyright (C) 2016  eGovernments Foundation
+  ~       Copyright (C) <2017>  eGovernments Foundation
   ~
   ~       The updated version of eGov suite of products as by eGovernments Foundation
   ~       is available at http://www.egovernments.org
@@ -60,6 +60,7 @@
 				<input type="hidden" name="validateIfPTDueExists" id="validateIfPTDueExists" value="${validateIfPTDueExists}"> 
 				<form:hidden path="connection" id="connection" value="${changeOfUse.connection.id}"/>
 				<input type="hidden" name="noJAORSAMessage" id="noJAORSAMessage" value="${noJAORSAMessage}">
+				<input type="hidden" id="isAnonymousUser" name="isAnonymousUser" value="${isAnonymousUser}"/>
 				<form:hidden path="" name="approvalPosOnValidate" id="approvalPosOnValidate" value="${approvalPosOnValidate}"/> 
 				<input type="hidden" name="validationMessage" id="validationMessage" value="${validationMessage}">
 				<input type="hidden" id="currentUser" value="${currentUser}" name="currentUser"/>  
@@ -71,21 +72,24 @@
 				<form:hidden path="connection.propertyIdentifier" value="${changeOfUse.connection.propertyIdentifier}"/>
 				<form:hidden path="waterSource" value="${changeOfUse.waterSource.id}"/>
 				<form:hidden path="category" value="${changeOfUse.category.id}"/>
+				<form:hidden path="meesevaApplicationNumber" value="${changeOfUse.meesevaApplicationNumber}" />
 				<input type="hidden" id="citizenPortalUser" name="citizenPortalUser" value="${citizenPortalUser}"/>
 					<jsp:include page="commonappdetails-view.jsp"></jsp:include>
 			</div>	
 			<c:if test="${validationMessage==''}">
 					<jsp:include page="connectiondetails-changeofuse.jsp"></jsp:include>	
 			</c:if>
-			<div class="panel panel-primary" data-collapsed="0">
+			<c:if test="${!documentNamesList.isEmpty()}">
+				<div class="panel panel-primary" data-collapsed="0">
 					<jsp:include page="documentdetails.jsp"></jsp:include>	
-			</div>
+				</div>
+			</c:if>
 			<c:if test="${validationMessage==''}">
-						<jsp:include page="../common/commonWorkflowMatrix.jsp"/>
-							<div class="buttonbottom" align="center">
-							<jsp:include page="../common/commonWorkflowMatrix-button.jsp" />
-					</div>
-				</c:if>	
+				<jsp:include page="../common/commonWorkflowMatrix.jsp"/>
+				<div class="buttonbottom" align="center">
+					<jsp:include page="../common/commonWorkflowMatrix-button.jsp" />
+				</div>
+			</c:if>	
 		</form:form>
 	</div>
 </div>
