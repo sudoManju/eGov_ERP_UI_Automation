@@ -80,7 +80,7 @@ $(document).ready(
 			$('#zone').change(
 					function() {
 						$.ajax({
-							url : "/egi/public/boundary/ajaxBoundary-blockByWard.action",
+							url : "/bpa/boundary/ajaxBoundary-blockByWard",
 							type : "GET",
 							data : {
 								wardId : $('#zone').val()

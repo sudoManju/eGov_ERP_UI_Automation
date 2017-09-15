@@ -206,15 +206,18 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
 
     @ModelAttribute("electionwards")
     public List<Boundary> wards() {
-
-        return boundaryService
+         List<Boundary> boundaries = boundaryService
                 .getActiveBoundariesByBndryTypeNameAndHierarchyTypeName(WARD, ADMIN_HIERARCHY_TYPE);
+         sortBoundaryByBndryNumberAsc(boundaries);
+         return boundaries;
     }
 
     @ModelAttribute("wards")
     public List<Boundary> adminWards() {
-        return boundaryService.getActiveBoundariesByBndryTypeNameAndHierarchyTypeName(WARD,
+        List<Boundary> boundaries =  boundaryService.getActiveBoundariesByBndryTypeNameAndHierarchyTypeName(WARD,
                 BpaConstants.REVENUE_HIERARCHY_TYPE);
+        sortBoundaryByBndryNumberAsc(boundaries);
+        return boundaries;
     }
 
     @ModelAttribute("street")
@@ -228,6 +231,10 @@ public abstract class BpaGenericApplicationController extends GenericWorkFlowCon
         return boundaryService
                 .getActiveBoundariesByBndryTypeNameAndHierarchyTypeName(BpaConstants.LOCALITY,
                         BpaConstants.LOCATION_HIERARCHY_TYPE);
+    }
+    
+    private void sortBoundaryByBndryNumberAsc(List<Boundary> boundaries) {
+        boundaries.sort((Boundary b1, Boundary b2) -> b1.getBoundaryNum().compareTo(b2.getBoundaryNum()));
     }
 
     @ModelAttribute("applicationModes")

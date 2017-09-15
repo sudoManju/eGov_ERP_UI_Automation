@@ -72,6 +72,7 @@ import org.egov.eis.service.AssignmentService;
 import org.egov.eis.service.DesignationService;
 import org.egov.infra.admin.master.entity.Boundary;
 import org.egov.infra.admin.master.entity.User;
+import org.egov.infra.admin.master.service.BoundaryService;
 import org.egov.infra.admin.master.service.CrossHierarchyService;
 import org.egov.infra.admin.master.service.UserService;
 import org.egov.infra.persistence.entity.enums.UserType;
@@ -89,10 +90,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 @Controller
 public class BpaAjaxController {
+
+    private static final String BLOCK_NAME = "blockName";
+
+    private static final String BLOCK_ID = "blockId";
 
     @Autowired
     private DesignationService designationService;
@@ -116,9 +122,11 @@ public class BpaAjaxController {
     @Autowired
     private CrossHierarchyService crossHierarchyService;
     @Autowired
-    private  BpaSchemeService bpaSchemeService;
+    private BpaSchemeService bpaSchemeService;
     @Autowired
     private RegistrarOfficeVillageService registrarOfficeService;
+    @Autowired
+    private BoundaryService boundaryService;
 
     @RequestMapping(value = "/ajax/getAdmissionFees", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -159,10 +167,12 @@ public class BpaAjaxController {
     @RequestMapping(value = "/bpaajaxWorkFlow-positionsByDepartmentAndDesignationAndBoundary", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
     public String getPositionByDepartmentAndDesignationAndBoundary(@RequestParam final Long approvalDepartment,
-            @RequestParam final Long approvalDesignation, @RequestParam final Long boundaryId, final HttpServletResponse response) {
+            @RequestParam final Long approvalDesignation, @RequestParam final Long boundaryId,
+            final HttpServletResponse response) {
         if (approvalDepartment != null && approvalDepartment != 0 && approvalDepartment != -1
                 && approvalDesignation != null && approvalDesignation != 0 && approvalDesignation != -1) {
-            List<Assignment> assignmentList = assignmentService.findAssignmentByDepartmentDesignationAndBoundary(approvalDepartment, approvalDesignation, boundaryId);
+            List<Assignment> assignmentList = assignmentService
+                    .findAssignmentByDepartmentDesignationAndBoundary(approvalDepartment, approvalDesignation, boundaryId);
             final Gson jsonCreator = new GsonBuilder().registerTypeAdapter(Assignment.class, new AssignmentAdaptor())
                     .create();
             return jsonCreator.toJson(assignmentList, new TypeToken<Collection<Assignment>>() {
@@ -183,7 +193,7 @@ public class BpaAjaxController {
     public List<Occupancy> getOccupancyDetails() {
         return occupancyService.findAll();
     }
-    
+
     @RequestMapping(value = "/getApplicantDetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Map<String, String> getApplicantDetailsForMobileNumber(@RequestParam final String mobileNumber) {
@@ -212,14 +222,15 @@ public class BpaAjaxController {
     public List<PostalAddress> getPostalAddress(@RequestParam final String pincode) {
         return postalAddressService.getPostalAddressList(pincode);
     }
-    
+
     @RequestMapping(value = "/ajax/getpostaladdressbyid", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public PostalAddress getPostalAddressObj(@RequestParam final Long id) {
         return postalAddressService.findById(id);
     }
 
-    @RequestMapping(value = { "/boundary/ajaxBoundary-localityByWard" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = {
+            "/boundary/ajaxBoundary-localityByWard" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public void localityByWard(@RequestParam Long wardId, HttpServletResponse response) throws IOException {
 
         final List<Boundary> blocks = crossHierarchyService
@@ -236,14 +247,17 @@ public class BpaAjaxController {
         }
         IOUtils.write(jsonObjects.toString(), response.getWriter());
     }
-    @RequestMapping(value = { "/boundary/ajaxBoundary-electionwardbyrevenueward" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @RequestMapping(value = {
+            "/boundary/ajaxBoundary-electionwardbyrevenueward" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public void electionWardByRevenueWard(@RequestParam Long wardId, HttpServletResponse response) throws IOException {
-               
+
         final List<Boundary> blocks = crossHierarchyService
                 .findChildBoundariesByParentBoundaryIdParentBoundaryTypeAndChildBoundaryType(BpaConstants.WARD,
                         BpaConstants.REVENUE_HIERARCHY_TYPE,
                         BpaConstants.WARD,
                         wardId);
+        sortBoundaryByBndryNumberAsc(blocks);
         final List<JSONObject> jsonObjects = new ArrayList<>();
         for (final Boundary block : blocks) {
             final JSONObject jsonObj = new JSONObject();
@@ -253,7 +267,9 @@ public class BpaAjaxController {
         }
         IOUtils.write(jsonObjects.toString(), response.getWriter());
     }
-    @RequestMapping(value = { "/ajax/getlandusagebyscheme" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @RequestMapping(value = {
+            "/ajax/getlandusagebyscheme" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public void landUsageByScheme(@RequestParam Long schemeId, HttpServletResponse response) throws IOException {
 
         if (schemeId != null) {
@@ -272,12 +288,13 @@ public class BpaAjaxController {
             IOUtils.write(jsonObjects.toString(), response.getWriter());
         }
     }
-    
+
     @RequestMapping(value = { "/ajax/registraroffice" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public void registrarOfficeVillageMapping(@RequestParam Long villageId, HttpServletResponse response) throws IOException {
 
         if (villageId != null) {
-            final List<RegistrarOfficeVillage> registrarOfficeList = registrarOfficeService.getRegistrarOfficeByVillage(villageId);
+            final List<RegistrarOfficeVillage> registrarOfficeList = registrarOfficeService
+                    .getRegistrarOfficeByVillage(villageId);
 
             final List<JSONObject> jsonObjects = new ArrayList<>();
             if (!registrarOfficeList.isEmpty()) {
@@ -290,5 +307,23 @@ public class BpaAjaxController {
             }
             IOUtils.write(jsonObjects.toString(), response.getWriter());
         }
+    }
+
+    @RequestMapping(value = { "/boundary/ajaxBoundary-blockByWard" }, method = RequestMethod.GET)
+    public void blockByWard(@RequestParam Long wardId, HttpServletResponse response) throws IOException {
+        List<Boundary> revenueWards = boundaryService.getActiveChildBoundariesByBoundaryId(wardId);
+        sortBoundaryByBndryNumberAsc(revenueWards);
+        final List<JsonObject> jsonObjects = new ArrayList<>();
+        revenueWards.stream().forEach(block -> {
+            final JsonObject jsonObj = new JsonObject();
+            jsonObj.addProperty(BLOCK_ID, block.getId());
+            jsonObj.addProperty(BLOCK_NAME, block.getName());
+            jsonObjects.add(jsonObj);
+        });
+        IOUtils.write(jsonObjects.toString(), response.getWriter());
+    }
+
+    private void sortBoundaryByBndryNumberAsc(List<Boundary> boundaries) {
+        boundaries.sort((Boundary b1, Boundary b2) -> b1.getBoundaryNum().compareTo(b2.getBoundaryNum()));
     }
 }
