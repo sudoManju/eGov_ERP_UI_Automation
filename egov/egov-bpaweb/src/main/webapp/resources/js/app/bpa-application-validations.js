@@ -139,8 +139,6 @@ $(document).ready(function() {
 		} else if('Tower Construction'.localeCompare(seviceTypeName) == 0 || 'Pole Structures'.localeCompare(seviceTypeName) == 0){
 			$('.extentOfLand').hide();
 			$('.areaOfBase').show();
-			$('.extentOfLand').find("span").removeClass( "mandatory" );
-			$('#extentOfLand').removeAttr('required');
 			hideNewAndExistingBuildingDetails();
 		} else if('Amenities' == seviceTypeName){
 			hideNewAndExistingBuildingDetails();
@@ -186,8 +184,6 @@ $(document).ready(function() {
 				$('.totalPlintArea').show();
 			}
 			addMandatoryForNewBuildingDetails();
-			$('.extentOfLand').find("span").addClass( "mandatory" );
-			$('#extentOfLand').attr('required');
 			$('#totalPlintArea').attr('readOnly',true);
 		}
 	});

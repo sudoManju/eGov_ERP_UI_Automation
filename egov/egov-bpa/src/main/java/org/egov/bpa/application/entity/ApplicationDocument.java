@@ -40,8 +40,10 @@
 package org.egov.bpa.application.entity;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -174,6 +176,13 @@ public class ApplicationDocument extends AbstractAuditable {
 
     public void setSupportDocs(final Set<FileStoreMapper> supportDocs) {
         this.supportDocs = supportDocs;
+    }
+    
+    public Set<FileStoreMapper> getOrderedSupportDocs() {
+        return this.supportDocs
+                .stream()
+                .sorted(Comparator.comparing(FileStoreMapper::getId))
+                .collect(Collectors.toSet());
     }
 
 }

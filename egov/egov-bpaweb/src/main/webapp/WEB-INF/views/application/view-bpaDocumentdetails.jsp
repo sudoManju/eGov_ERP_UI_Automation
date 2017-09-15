@@ -72,7 +72,7 @@
 								default="N/A"></c:out></td>
 						<td><c:out value="${docs.remarks}" default="N/A" /></td>
 						<td><c:set value="false" var="isDocFound"></c:set> <c:forEach
-								var="bpadoc" items="${docs.getSupportDocs()}" varStatus="loop">
+								var="bpadoc" items="${docs.getOrderedSupportDocs()}" varStatus="loop">
 								<c:if test="${bpadoc.fileStoreId ne null}">
 									<c:set value="true" var="isDocFound"></c:set>
 									<a target="_blank" href="/bpa/application/downloadfile/${bpadoc.fileStoreId}"

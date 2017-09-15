@@ -112,11 +112,11 @@
 				<div class="col-sm-4 add-margin">
 					<div class="files-upload-container"
 					    data-file-max-size="5"
-					    <c:if test="${docs.checklistDetail.isMandatory eq true && fn:length(docs.getSupportDocs()) eq 0}">required</c:if>
+					    <c:if test="${docs.checklistDetail.isMandatory eq true && fn:length(docs.getOrderedSupportDocs()) eq 0}">required</c:if>
 						data-allowed-extenstion="doc,docx,xls,xlsx,rtf,pdf,txt,zip,jpeg,jpg,png,gif,tiff">
 						<div class="files-viewer">
 
-							<c:forEach items="${docs.getSupportDocs()}" var="file" varStatus="status1">
+							<c:forEach items="${docs.getOrderedSupportDocs()}" var="file" varStatus="status1">
 								<div class="file-viewer" data-toggle="tooltip"
 									data-placement="top" title="${file.fileName}">
 									<a class="download" target="_blank"
