@@ -115,6 +115,7 @@
 								</form:select></td>
 							<td><form:input type="text"
 									class="form-control table-input patternvalidation exist-floor-details-mandatory existFloorNumber text-center"
+									data-pattern="number"
 									path="existingBuildingDetails[0].existingBuildingFloorDetails[${counter.index}].floorNumber"
 									id="existingBuildingFloorDetails${counter.index}floorNumber"
 									maxlength="15" value="${buildingAreaDetails.floorNumber}" /></td>
@@ -184,6 +185,7 @@
 							</form:select></td>
 						<td><form:input type="text"
 								class="form-control table-input patternvalidation existFloorNumber exist-floor-details-mandatory text-center"
+								data-pattern="number"
 								path="existingBuildingDetails[0].existingBuildingFloorDetails[0].floorNumber"
 								id="existingBuildingFloorDetails0floorNumber" maxlength="3"
 								value="${buildingAreaDetails.floorNumber}" /></td>

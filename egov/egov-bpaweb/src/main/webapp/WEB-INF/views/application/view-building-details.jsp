@@ -218,7 +218,7 @@
 		</div>
 	</div>
 
-	<c:if test="${bpaApplication.siteDetail[0].isappForRegularization}">
+	<%-- <c:if test="${bpaApplication.siteDetail[0].isappForRegularization}">
 		<div class="row add-border">
 			<div class="col-sm-3 add-margin">
 				<spring:message code="lbl.if.regularized" />
@@ -320,5 +320,5 @@
 				<c:out value="${bpaApplication.approvedReceiptDate}" default="N/A"></c:out>
 			</div>
 		</div>
-	</c:if>
+	</c:if> --%>
 </div>

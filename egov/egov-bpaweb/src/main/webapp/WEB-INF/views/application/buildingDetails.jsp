@@ -117,6 +117,7 @@
 								</form:select></td>
 							<td><form:input type="text"
 									class="form-control table-input patternvalidation floor-details-mandatory floorNumber text-center"
+									data-pattern="number"
 									path="buildingDetail[0].applicationFloorDetails[${counter.index}].floorNumber"
 									id="applicationFloorDetails${counter.index}floorNumber"
 									maxlength="15" value="${buildingAreaDetails.floorNumber}" /></td>
@@ -186,6 +187,7 @@
 							</form:select></td>
 						<td><form:input type="text"
 								class="form-control table-input patternvalidation floorNumber floor-details-mandatory text-center"
+								data-pattern="number"
 								path="buildingDetail[0].applicationFloorDetails[0].floorNumber"
 								id="applicationFloorDetails0floorNumber" maxlength="3"
 								value="${buildingAreaDetails.floorNumber}" /></td>
@@ -381,7 +383,7 @@
 	</div>
 </div> --%>
 
-	<div class="form-group">
+	<%-- <div class="form-group">
 		<label class="col-sm-3 control-label text-right"><spring:message
 				code="lbl.if.regularized" /> </label>
 		<div class="col-sm-3 add-margin">
@@ -498,5 +500,5 @@
 					cssClass="add-margin error-msg" />
 			</div>
 		</div>
-	</div>
+	</div> --%>
 </div>
