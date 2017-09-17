@@ -54,19 +54,26 @@
 		<div class="panel-body">
 			<div class="row add-border">
 				<div class="col-sm-3 add-margin">
-					<spring:message code="lbl.plotsurvey.number" />
+					<spring:message code="lbl.re.survey.no" />
 				</div>
 				<div class="col-sm-3 add-margin view-content">
-					<c:out value="${bpaApplication.documentScrutiny[0].plotsurveynumber}"
+					<c:out value="${bpaApplication.documentScrutiny[0].reSurveynumber}"
 						default="N/A"></c:out>
 				</div>
 				<div class="col-sm-3 add-margin">
+					<spring:message code="lbl.nature.of.ownership" />
+				</div>
+				<div class="col-sm-3 add-margin view-content">
+					<c:out value="${bpaApplication.documentScrutiny[0].natureofOwnership}"
+						default="N/A"></c:out>
+				</div>
+				<%-- <div class="col-sm-3 add-margin">
 					<spring:message code="lbl.subdivision.number" />
 				</div>
 				<div class="col-sm-3 add-margin view-content">
 					<c:out value="${bpaApplication.documentScrutiny[0].subdivisionNumber}"
 						default="N/A"></c:out>
-				</div>
+				</div> --%>
 			</div>
 			<div class="row add-border">
 				<div class="col-sm-3 add-margin">
@@ -80,23 +87,6 @@
 				</div>
 				<div class="col-sm-3 add-margin view-content">
 					<c:out value="${bpaApplication.documentScrutiny[0].registrarOffice}" default="N/A"></c:out>
-				</div>
-			</div>
-			<div class="row add-border">
-				<div class="col-sm-3 add-margin">
-					<spring:message code="lbl.detailof.neigbour" />
-				</div>
-				<div class="col-sm-3 add-margin view-content">
-					<c:out
-						value="${bpaApplication.documentScrutiny[0].neighoutOwnerDtlSubmitted ? 'Yes' : 'No'}"
-						default="N/A"></c:out>
-				</div>
-				<div class="col-sm-3 add-margin">
-					<spring:message code="lbl.nature.of.ownership" />
-				</div>
-				<div class="col-sm-3 add-margin view-content">
-					<c:out value="${bpaApplication.documentScrutiny[0].natureofOwnership}"
-						default="N/A"></c:out>
 				</div>
 			</div>
 			<div class="row add-border">
@@ -141,6 +131,14 @@
 				</div>
 			</div>
 			<div class="row add-border">
+				<div class="col-sm-3 add-margin">
+					<spring:message code="lbl.detailof.neigbour" />
+				</div>
+				<div class="col-sm-3 add-margin view-content">
+					<c:out
+						value="${bpaApplication.documentScrutiny[0].neighoutOwnerDtlSubmitted ? 'Yes' : 'No'}"
+						default="N/A"></c:out>
+				</div>
 				<div class="col-sm-3 add-margin">
 					<spring:message code="lbl.various.doc.matching" />
 				</div>

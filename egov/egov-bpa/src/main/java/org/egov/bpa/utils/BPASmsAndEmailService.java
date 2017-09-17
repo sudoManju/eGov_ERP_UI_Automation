@@ -173,8 +173,8 @@ public class BPASmsAndEmailService {
     public void sendSMSAndEmailToApplicantForLettertoparty(final BpaApplication bpaApplication) {
         if (isSmsEnabled() || isEmailEnabled()) {
             buildSmsAndEmailForBPANewAppln(bpaApplication, bpaApplication.getOwner().getUser().getName(),
-                    bpaApplication.getOwner().getUser().getEmailId(),
-                    bpaApplication.getOwner().getUser().getMobileNumber(), "", "");
+                    bpaApplication.getOwner().getUser().getMobileNumber(),
+                    bpaApplication.getOwner().getUser().getEmailId(), "", "");
         }
     }
 

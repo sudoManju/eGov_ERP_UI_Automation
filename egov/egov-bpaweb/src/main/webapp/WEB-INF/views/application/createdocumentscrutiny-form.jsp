@@ -91,7 +91,7 @@
 									cssClass="add-margin error-msg" />
 							</div>
 
-							<label class="col-sm-2 control-label text-right"><spring:message
+							<%-- <label class="col-sm-2 control-label text-right"><spring:message
 									code="lbl.subdivision.number" /></label>
 							<div class="col-sm-3 add-margin">
 								<form:input class="form-control patternvalidation"
@@ -102,7 +102,7 @@
 									value="${bpaApplication.siteDetail[0].subdivisionNumber}" />
 								<form:errors path="documentScrutiny[0].subdivisionNumber"
 									cssClass="add-margin error-msg" />
-							</div>
+							</div> --%>
 						</div>
 
 						<div class="form-group">
