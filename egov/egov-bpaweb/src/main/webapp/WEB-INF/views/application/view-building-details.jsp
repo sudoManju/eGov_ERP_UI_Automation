@@ -115,9 +115,9 @@
 					<td></td>
 					<td class="text-right view-content">Total</td>
 					<td class="text-right view-content"><fmt:formatNumber type="number"
-								maxFractionDigits="2" value="${floorAreaTotal}" /></td>
-					<td class="text-right view-content"><fmt:formatNumber type="number"
 								maxFractionDigits="2" value="${plinthAreaTotal}" /></td>
+					<td class="text-right view-content"><fmt:formatNumber type="number"
+								maxFractionDigits="2" value="${floorAreaTotal}" /></td>
 					<td class="text-right view-content"><fmt:formatNumber type="number"
 								maxFractionDigits="2" value="${carpetAreaTotal}" /></td>
 				</tr>

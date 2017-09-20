@@ -153,7 +153,7 @@ public class BpaApplication extends StateAware {
     private String revisedApplicationNumber;
     @Length(min = 1, max = 128)
     private String revisedPermitNumber;
-    private Boolean isExistingApprovedPlan;
+    private Boolean isExistingApprovedPlan = false;
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<SiteDetail> siteDetail = new ArrayList<>(0);
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

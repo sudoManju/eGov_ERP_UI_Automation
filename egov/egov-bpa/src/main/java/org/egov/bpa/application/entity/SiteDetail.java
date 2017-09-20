@@ -160,7 +160,7 @@ public class SiteDetail extends AbstractAuditable {
     private ConstructionStages constStages;
     @Length(min = 1, max = 128)
     private String stateOfConstruction;
-    private Boolean isappForRegularization;
+    private Boolean isappForRegularization = false;
     @Temporal(value = TemporalType.DATE)
     private Date workCommencementDate;
     @Temporal(value = TemporalType.DATE)
