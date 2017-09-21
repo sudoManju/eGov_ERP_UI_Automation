@@ -328,13 +328,14 @@ $(document).on('click',"#deleteBuildAreaRow",function (){
 					var increment = index++;
 					$(this).attr({
 						'name': function(_, name){
-							return name.replace(/\d+/g,+increment);
+							var idxWithNameStr = name.match(/\d+(\D*)$/g)[0].replace(/\d+\]/g, increment+"]");
+							return name.replace(/\d+(\D*)$/g, idxWithNameStr);
 						},
 						'id': function(_, id){
 							if(id==undefined){
 								return "";
 							}
-							return id.replace(/\d+/g, +increment);
+							return id.replace(/\d+(\D*)$/g, +increment);
 						}
 					});
 				}

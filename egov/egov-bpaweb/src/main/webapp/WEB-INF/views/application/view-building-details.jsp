@@ -93,11 +93,11 @@
 						name="bpaApplication.buildingDetail[0].applicationFloorDetails[${counter.index}].id" />
 					<tr class="data-fetched">
 						<td class="text-center view-content"><span class="serialNo" id="slNoInsp">${counter.index+1}</span></td>
-						<td class="text-center view-content"><c:out
+						<td class="view-content"><c:out
 								value="${floorDetails.floorDescription}" default="0"></c:out>
 						<td class="text-center view-content"><c:out
 								value="${floorDetails.floorNumber}" default="0"></c:out>
-						<td class="text-center view-content"><c:out
+						<td class="view-content"><c:out
 								value="${floorDetails.occupancy.description}" default="0"></c:out>
 						<td class="text-right view-content"><fmt:formatNumber type="number"
 								maxFractionDigits="2" value="${floorDetails.plinthArea}" />
