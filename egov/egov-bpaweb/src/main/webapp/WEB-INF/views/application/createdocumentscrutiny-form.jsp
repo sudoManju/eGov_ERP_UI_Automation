@@ -112,7 +112,7 @@
 								class="col-sm-3 control-label text-right areaOfBase"><spring:message
 									code="lbl.area.base" /> <span class="mandatory"></span> </label>
 							<div class="col-sm-3 add-margin">
-								<form:input class="form-control patternvalidation"
+								<form:input class="form-control patternvalidation decimalfixed"
 									maxlength="10" data-pattern="number" id="extentinsqmts"
 									path="documentScrutiny[0].extentinsqmts" required="required"
 									value="${bpaApplication.siteDetail[0].extentinsqmts}" />

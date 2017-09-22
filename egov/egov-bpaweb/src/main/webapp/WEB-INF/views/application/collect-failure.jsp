@@ -57,7 +57,7 @@
 	<table>
 		<tr>
 			<td><input type="button" name="button2" id="button2"
-				value="Close" class="btn btn-primary" onclick="window.close();" />
+				value="Close" class="btn btn-default" onclick="window.close();" />
 			</td>
 		</tr>
 	</table>

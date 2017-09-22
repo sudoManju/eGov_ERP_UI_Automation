@@ -30,7 +30,7 @@
 	<context:component-scan base-package="org.egov.bpa" />
 
 	<bean id="bpaApplicationBillable"
-		class="org.egov.bpa.application.service.collection.BpaApplicationBillable"
+		class="org.egov.bpa.transaction.service.collection.BpaApplicationBillable"
 		scope="prototype" />
 
 	<bean id="BpaApplicationInboxRenderService"
@@ -41,17 +41,17 @@
 
 	<bean id="BpaApplicationPersistenceService" parent="abstractPersistenceService">
 		<constructor-arg name="type"
-			value="org.egov.bpa.application.entity.BpaApplication" />
+			value="org.egov.bpa.transaction.entity.BpaApplication" />
 	</bean>
 	<!-- <bean id="RegistartionInboxRenderService" class="org.egov.infra.workflow.inbox.DefaultInboxRenderServiceImpl"> 
 		<constructor-arg index="0" ref="registartionInboxRenderService" /> </bean> -->
 
 
 	<bean id="BPACollectionsInterface"
-		class="org.egov.bpa.application.service.collection.BpaTaxCollection" />
+		class="org.egov.bpa.transaction.service.collection.BpaTaxCollection" />
 
 	<bean id="bpaApplicationWorkflowCustomDefaultImpl"
-		class="org.egov.bpa.application.workflow.BpaApplicationWorkflowCustomDefaultImpl" />
+		class="org.egov.bpa.transaction.workflow.BpaApplicationWorkflowCustomDefaultImpl" />
 
 
 </beans>

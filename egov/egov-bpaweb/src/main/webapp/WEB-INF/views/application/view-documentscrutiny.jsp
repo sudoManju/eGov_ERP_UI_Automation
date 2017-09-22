@@ -80,7 +80,7 @@
 					<spring:message code="lbl.extent.of.land" />
 				</div>
 				<div class="col-sm-3 add-margin view-content">
-					<c:out value="${bpaApplication.documentScrutiny[0].extentinsqmts}" default="N/A"></c:out>
+					<fmt:formatNumber type="number" maxFractionDigits="2" value="${bpaApplication.documentScrutiny[0].extentinsqmts}" />
 				</div>
 				<div class="col-sm-3 add-margin">
 					<spring:message code="lbl.registraroffice" />

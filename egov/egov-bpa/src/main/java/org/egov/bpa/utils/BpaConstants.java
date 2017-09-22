@@ -63,7 +63,7 @@ public class BpaConstants {
     public static final String PERM_FOR_HUT_OR_SHED = "Huts and Sheds";
     public static final String REGULARIZATION = "Regularization";
     public static final String CHANGE_IN_OCCUPANCY = "Change in Occupancy";
-    public static final String ADDING_OF_EXTENSION = "Adding of Extension";
+    public static final String ADDING_OF_EXTENSION = "Addition or Extension";
     public static final String ALTERATION = "Alteration";
     public static final String DIVISION_OF_PLOT = "Sub-Division of plot/Land Development";
     public static final String RECONSTRUCTION = "Reconstruction";

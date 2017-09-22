@@ -137,7 +137,7 @@ $(document)
 																	+ '&'
 																	+ 'electionWard='+electionWardId
 																	+ '&'
-																	+ 'zone=ZONE-1'
+																	+ 'zone=ZONE-1 (MAIN OFFICE)'
 																	+ '&'
 																	+ 'zoneId='+zoneId
 																	+ '&'
@@ -167,7 +167,7 @@ $(document)
 																	+ '&'
 																	+ 'electionWard='+electionWardId
 																	+ '&'
-																	+ 'zone=ZONE-2'
+																	+ 'zone=ZONE-2 (ELATHUR ZONAL OFFICE)'
 																	+ '&'
 																	+ 'zoneId='+zoneId
 																	+ '&'
@@ -197,7 +197,7 @@ $(document)
 																	+ '&'
 																	+ 'electionWard='+electionWardId
 																	+ '&'
-																	+ 'zone=ZONE-3'
+																	+ 'zone=ZONE-3 (BEYPORE ZONAL OFFICE)'
 																	+ '&'
 																	+ 'zoneId='+zoneId
 																	+ '&'
@@ -227,7 +227,7 @@ $(document)
 																	+ '&'
 																	+ 'electionWard='+electionWardId
 																	+ '&'
-																	+ 'zone=ZONE-4'
+																	+ 'zone=ZONE-4 (CHERUVANNURE NALLALAM ZONAL OFFICE)'
 																	+ '&'
 																	+ 'zoneId='+zoneId
 																	+ '&'

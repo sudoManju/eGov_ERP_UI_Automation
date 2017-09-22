@@ -41,7 +41,7 @@ package org.egov.bpa.autonumber.impl;
 
 import java.io.Serializable;
 
-import org.egov.bpa.application.autonumber.BpaBillReferenceNumberGenerator;
+import org.egov.bpa.autonumber.BpaBillReferenceNumberGenerator;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.infra.persistence.utils.ApplicationSequenceNumberGenerator;
 import org.springframework.beans.factory.annotation.Autowired;

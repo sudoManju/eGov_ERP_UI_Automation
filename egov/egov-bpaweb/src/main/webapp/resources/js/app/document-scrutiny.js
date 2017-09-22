@@ -38,6 +38,17 @@
  *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
 $(document).ready(function() {
+	
+	roundOfDecimalPlaces();
+	function roundOfDecimalPlaces() {
+		// Set decimal places of 2
+		$('.decimalfixed').each(function(){
+			if($(this).val()){
+				$(this).val(parseFloat($(this).val()).toFixed(2));
+			}
+		});
+	}
+	
 	var validator = $("#documentscrutinyform").validate({
 		highlight : function(element, errorClass) {
 			$(element).fadeOut(function() {

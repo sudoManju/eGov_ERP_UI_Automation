@@ -84,7 +84,7 @@
         <put-attribute name="body" value="/WEB-INF/views/application/application-Edit.jsp"/>
     </definition>
         <definition name="citizen-view" extends="base_layout">
-        <put-attribute name="page-title" value="title.viewApplication" cascade="true"/>
+        <put-attribute name="page-title" value="title.view.appln.details" cascade="true"/>
         <put-attribute name="body" value="/WEB-INF/views/application/citizen-viewForm.jsp"/>
     </definition>
         <definition name="bpaapp-citizenForm" extends="base_layout">
@@ -92,11 +92,11 @@
         <put-attribute name="body" value="/WEB-INF/views/application/citizen-updateForm.jsp"/>
     </definition>
     <definition name="viewapplication-form" extends="base_layout">
-        <put-attribute name="page-title" value="title.viewApplication" cascade="true"/>
+        <put-attribute name="page-title" value="title.view.appln.details" cascade="true"/>
         <put-attribute name="body" value="/WEB-INF/views/application/viewapplication-form.jsp"/>
     </definition>
     <definition name="application-view" extends="base_layout">
-        <put-attribute name="page-title" value="title.viewApplication" cascade="true"/>
+        <put-attribute name="page-title" value="title.view.appln.details" cascade="true"/>
         <put-attribute name="body" value="/WEB-INF/views/application/application-view.jsp"/>
     </definition>
     <definition name="documentscrutiny-form" extends="base_layout">
