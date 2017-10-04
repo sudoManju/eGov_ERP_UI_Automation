@@ -2,10 +2,7 @@ package pages.financial;
 
 import entities.ApprovalDetails;
 import entities.financial.FinancialBankDetails;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -385,6 +382,7 @@ public class FinancialPage extends BasePage {
 
     public void clickOnCreateAndApprove() {
 
+        ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView(true);", createAndApproveButton);
         clickOnButton(createAndApproveButton, webDriver);
         // This method is required on bank details page if there is any less balance
         // in bank it will open the alert and accepts it and it is not required for other screens
@@ -480,6 +478,7 @@ public class FinancialPage extends BasePage {
     }
 
     public void approvalPage() {
+        ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView(true);", approveButton);
         clickOnButton(approveButton, webDriver);
     }
 

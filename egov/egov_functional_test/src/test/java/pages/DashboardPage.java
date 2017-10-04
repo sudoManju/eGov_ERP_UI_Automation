@@ -104,7 +104,7 @@ public class DashboardPage extends BasePage {
     private WebElement getApplicationRow(String number) {
         List<WebElement> totalRows;
         try {
-            await().atMost(40, SECONDS).until(() -> driver.findElements(By.cssSelector("[id='official_inbox'] tr td")).size() > 1);
+            await().atMost(130, SECONDS).until(() -> driver.findElements(By.cssSelector("[id='official_inbox'] tr td")).size() > 1);
             totalRows = driver.findElement(By.id("official_inbox")).findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
             for (WebElement applicationRow : totalRows) {
                 if (applicationRow.findElements(By.tagName("td")).get(4).getText().contains(number)) {
@@ -114,7 +114,7 @@ public class DashboardPage extends BasePage {
             throw new RuntimeException("No application row found in Inbox -- " + number);
         } catch (Exception e) {
             clickOnButton(officialDraftsTable, driver);
-            await().atMost(40, SECONDS).until(() -> driver.findElements(By.cssSelector("[id='official_drafts'] tr td")).size() > 1);
+            await().atMost(130, SECONDS).until(() -> driver.findElements(By.cssSelector("[id='official_drafts'] tr td")).size() > 1);
             totalRows = driver.findElement(By.id("official_drafts")).findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
             for (WebElement applicationRow : totalRows) {
                 if (applicationRow.findElements(By.tagName("td")).get(4).getText().contains(number))

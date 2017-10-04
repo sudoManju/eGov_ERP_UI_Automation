@@ -35,7 +35,7 @@ Feature: To create a Financial Transactions
     Examples:
       | voucherDetails          | approvalOfficer1 | approvalOfficer2 | approvalOfficer3 | isPresent |
       | voucher1                | accountOfficer1a | accountOfficer2  | commissioner     | yes       |
-      | voucherWithOutSubledger | accountOfficer1a | accountOfficer2  | commissioner     | no        |
+#      | voucherWithOutSubledger | accountOfficer1a | accountOfficer2  | commissioner     | no        |
 
 
   @Sanity @Finance
@@ -273,7 +273,7 @@ Feature: To create a Financial Transactions
 
     Examples:
       | voucherDetails     | approvalOfficer1 | approvalOfficer2 | approvalOfficer3 | paymentMode | assignment | isPresent | singleOrMultiple |
-      | voucherBillPayment | accountOfficer1  | accountOfficer2  | commissioner     | cheque      | cheque     | yes       | single           |
+#      | voucherBillPayment | accountOfficer1  | accountOfficer2  | commissioner     | cheque      | cheque     | yes       | single           |
       | voucherBillPayment | accountOfficer1  | accountOfficer2  | commissioner     | RTGS        | RTGS       | yes       | single           |
 
 
