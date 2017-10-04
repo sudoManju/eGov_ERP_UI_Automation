@@ -45,20 +45,62 @@
  *  In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
 
-package org.egov.bpa.transaction.repository;
+package org.egov.bpa.master.entity;
 
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
-import org.egov.bpa.transaction.entity.BpaStatus;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.egov.infra.persistence.entity.AbstractAuditable;
 
-@Repository
-public interface BpaStatusRepository extends JpaRepository<BpaStatus, Long> {
+@Entity
+@Table(name = "egbpa_mstr_permit_conditions")
+@SequenceGenerator(name = PermitConditions.SEQ_PERMIT_CONDITIONS, sequenceName = PermitConditions.SEQ_PERMIT_CONDITIONS, allocationSize = 1)
+public class PermitConditions extends AbstractAuditable {
 
-    BpaStatus findByCode(String code);
+    private static final long serialVersionUID = 3078684328383202788L;
+    public static final String SEQ_PERMIT_CONDITIONS = "seq_egbpa_mstr_permit_conditions";
 
-    BpaStatus findByModuleTypeContainingIgnoreCaseAndCode(String moduleType, String code);
-    
-    List<BpaStatus> findByModuleTypeAndIsActiveTrueOrderByCodeAsc(String moduleType);
+    @Id
+    @GeneratedValue(generator = SEQ_PERMIT_CONDITIONS, strategy = GenerationType.SEQUENCE)
+    private Long id;
+    private String code;
+    private String description;
+    private String ordernumber;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getOrdernumber() {
+        return ordernumber;
+    }
+
+    public void setOrdernumber(String ordernumber) {
+        this.ordernumber = ordernumber;
+    }
+
 }

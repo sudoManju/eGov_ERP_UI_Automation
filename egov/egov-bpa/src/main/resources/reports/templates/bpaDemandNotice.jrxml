@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-06-09T13:34:14 -->
+<!-- 2017-10-03T19:04:01 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bpaDemandNotice1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="020c52d2-8151-4206-9f0e-c68a0e78927a">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="74"/>
+	<property name="ireport.y" value="107"/>
 	<import value="org.egov.infra.reporting.util.*"/>
 	<import value="org.egov.infstr.utils.*"/>
 	<parameter name="ulbName" class="java.lang.String"/>
@@ -38,14 +38,14 @@
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="66" y="11" width="471" height="27" uuid="9f9627aa-1cec-4a2d-82e5-9ed165d012db"/>
 				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
+					<font fontName="SansSerif" size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ulbName}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="66" y="38" width="471" height="27" uuid="6bd43f99-43e2-47ee-8cca-0359885d2a3d"/>
 				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
+					<font fontName="SansSerif" size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{bpademandtitle}]]></textFieldExpression>
 			</textField>
@@ -60,7 +60,7 @@
 			<textField>
 				<reportElement x="66" y="1" width="471" height="22" uuid="9defcb94-01aa-4732-82ef-8dbee4c6906f"/>
 				<textElement textAlignment="Center">
-					<font size="11" isBold="true"/>
+					<font fontName="SansSerif" size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Building Plan Approval Demand Bill for  "+ $P{installmentDesc}]]></textFieldExpression>
 			</textField>
@@ -71,122 +71,147 @@
 			<staticText>
 				<reportElement x="0" y="12" width="122" height="32" uuid="fdcd1a2d-bb63-40f0-b32c-2ce25585cad0"/>
 				<textElement>
-					<font isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Application No          :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="43" width="122" height="36" uuid="5b19e0f8-aee9-4fad-941a-51fb09b195b6"/>
 				<textElement>
-					<font isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Service Type             :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="78" width="122" height="38" uuid="f4c33ffc-22ac-4c35-a7c6-327b3c230673"/>
 				<textElement>
-					<font isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Applicant Name        :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="115" width="122" height="38" uuid="a6e1b4f4-1309-454c-8a82-c6e89f7098a0"/>
 				<textElement>
-					<font isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Address                    :]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="122" y="12" width="155" height="32" uuid="9a709839-fe9d-42c0-b86c-56ab6e8eb631"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{applicationNumber}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="122" y="43" width="155" height="36" uuid="b895f389-8e77-4c2b-9430-8446a9f226be"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{serviceTypeForDmd}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="122" y="78" width="155" height="37" uuid="fc08b0ed-e678-48c7-93f3-4253575e15b6"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{applicantName}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="122" y="114" width="433" height="39" uuid="4fa9c2fb-453d-4ac5-acb2-57f1c0943634"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{applicantAddress}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="277" y="78" width="109" height="36" uuid="faef8051-c5a7-4633-8664-cf3dc556bfc6"/>
 				<textElement>
-					<font isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Occupancy            :]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="386" y="78" width="169" height="36" uuid="d95e47d3-7266-4fe4-a48f-eecb901a0b47"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{occupancy}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="277" y="12" width="109" height="32" uuid="e434a02e-85e1-42bf-ba61-0a0386a29f72"/>
 				<textElement>
-					<font isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Application Date  :]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="386" y="153" width="169" height="38" uuid="d6083598-2853-4a96-85c4-189a485cd6a3"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{revenueWard}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="386" y="12" width="169" height="32" uuid="461ed4e1-af60-4767-974d-d4052ddd6932"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{applicationDate}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="386" y="43" width="169" height="36" uuid="8997a4a5-02e0-429c-a3a0-2c897a7847c7"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{amenities}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="277" y="153" width="109" height="38" uuid="4088323a-2941-442f-b975-f79e45a04c43"/>
 				<textElement>
-					<font isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Revenue Ward      :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="277" y="43" width="109" height="36" uuid="fa23873c-be3c-4634-9bf4-c85347ec987c"/>
 				<textElement>
-					<font isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Amenities             :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="153" width="122" height="38" uuid="23295dd1-7b9b-4cd3-829a-130751f89b8e"/>
 				<textElement>
-					<font isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Election Ward           :]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="122" y="153" width="155" height="37" uuid="926d338f-3024-484c-a37b-b025670b2d4c"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{electionWard}]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="52">
 			<subreport>
-				<reportElement x="0" y="0" width="555" height="52" uuid="5e9c6b63-6d2f-4b32-a8d7-3b036e5f52e4">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="555" height="52" isRemoveLineWhenBlank="true" uuid="5e9c6b63-6d2f-4b32-a8d7-3b036e5f52e4">
 					<printWhenExpression><![CDATA[new Boolean($P{demandResponseList}.size()!= 0)]]></printWhenExpression>
 				</reportElement>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{demandResponseList},false)]]></dataSourceExpression>
 				<subreportExpression><![CDATA[ReportUtil.getTemplateAsStream("demanddetailssubreport.jasper")]]></subreportExpression>
 			</subreport>
 		</band>
-	</detail>
-	<pageFooter>
-		<band height="50">
+		<band height="44">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="555" height="37" uuid="5466279e-e65e-49c5-8d68-4e5b82f20680"/>
+				<reportElement x="0" y="7" width="555" height="37" uuid="5466279e-e65e-49c5-8d68-4e5b82f20680"/>
 				<textElement textAlignment="Justified">
-					<font isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Note: Dear Mr/Mrs "+ $P{applicantName} +" please pay building plan approval sanction fee Rs."+$P{totalPendingAmt}+" as soon as possible for further approval process."]]></textFieldExpression>
 			</textField>
 		</band>
-	</pageFooter>
+	</detail>
 </jasperReport>

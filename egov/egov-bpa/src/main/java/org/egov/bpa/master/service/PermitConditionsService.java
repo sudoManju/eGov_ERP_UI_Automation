@@ -45,20 +45,26 @@
  *  In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
 
-package org.egov.bpa.transaction.repository;
+package org.egov.bpa.master.service;
 
 import java.util.List;
 
-import org.egov.bpa.transaction.entity.BpaStatus;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.egov.bpa.master.entity.PermitConditions;
+import org.egov.bpa.master.repository.PermitConditionsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@Repository
-public interface BpaStatusRepository extends JpaRepository<BpaStatus, Long> {
+@Service
+@Transactional(readOnly = true)
+public class PermitConditionsService {
 
-    BpaStatus findByCode(String code);
+    @Autowired
+    private PermitConditionsRepository permitConditionsRepository;
 
-    BpaStatus findByModuleTypeContainingIgnoreCaseAndCode(String moduleType, String code);
-    
-    List<BpaStatus> findByModuleTypeAndIsActiveTrueOrderByCodeAsc(String moduleType);
+    public List<PermitConditions> findAll() {
+        return permitConditionsRepository.findAll(new Sort(Sort.Direction.ASC, "ordernumber"));
+    }
+
 }

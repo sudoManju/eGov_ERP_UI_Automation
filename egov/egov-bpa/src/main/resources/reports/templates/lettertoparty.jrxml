@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
-<!-- 2017-06-30T16:58:00 -->
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-10-04T12:21:34 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="lettertoparty" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="19a6b87f-b0aa-4611-908a-14a81b44cdbb">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="148"/>
 	<import value="org.egov.infra.reporting.util.ReportUtil"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["/work/collections/reports/templates/"]]></defaultValueExpression>
@@ -23,7 +23,7 @@
 	</queryString>
 	<field name="lpNumber" class="java.lang.String"/>
 	<field name="letterDate" class="java.util.Date"/>
-	<field name="application" class="org.egov.bpa.application.entity.BpaApplication">
+	<field name="application" class="org.egov.bpa.transaction.entity.BpaApplication">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="sentDate" class="java.util.Date"/>
@@ -38,14 +38,14 @@
 			<staticText>
 				<reportElement x="119" y="24" width="342" height="16" uuid="58e1974e-c738-46d8-8c58-f5f6a4e1b962"/>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="11" isBold="true"/>
+					<font fontName="SansSerif" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Letter To Party]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="119" y="5" width="342" height="15" uuid="01431d36-b938-4dc4-b9ea-1ceef1169192"/>
 				<textElement textAlignment="Center" markup="none">
-					<font fontName="Times New Roman" size="11" isBold="true"/>
+					<font fontName="SansSerif" size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ulbName}]]></textFieldExpression>
 			</textField>
@@ -63,7 +63,7 @@
 			<staticText>
 				<reportElement x="119" y="-22" width="342" height="16" uuid="a49e10c9-5f51-45ad-9a73-414622e37c9c"/>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="11" isBold="true"/>
+					<font fontName="SansSerif" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Town Planning Section-Works Department]]></text>
 			</staticText>
@@ -72,106 +72,116 @@
 	<detail>
 		<band height="164" splitType="Stretch">
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="0" y="3" width="29" height="18" uuid="0c1b13e2-4cb9-4fa8-815a-3b633560734d"/>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="3" width="37" height="18" uuid="0c1b13e2-4cb9-4fa8-815a-3b633560734d"/>
 				<textElement>
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[From,]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="353" y="1" width="22" height="20" uuid="eb212b4e-d87a-4da9-aed3-79a80c65da0e"/>
 				<textElement>
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[To,]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="2" y="96" width="65" height="20" uuid="f449bd83-bfe3-4a84-a000-a20e1d98a13b"/>
+				<reportElement positionType="Float" x="2" y="96" width="83" height="20" uuid="f449bd83-bfe3-4a84-a000-a20e1d98a13b"/>
 				<textElement>
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Sir / Madam,]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="Float" x="68" y="111" width="487" height="31" uuid="72a62876-be77-4d58-bbec-65439c36daf9"/>
+				<reportElement positionType="Float" x="68" y="116" width="487" height="26" uuid="72a62876-be77-4d58-bbec-65439c36daf9"/>
 				<textElement verticalAlignment="Middle" markup="none">
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Sub:  Letter To Party raised for "+$P{lpReason}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="368" y="23" width="187" height="47" uuid="3497ef93-a84e-4a9d-b4e6-348c82f896e6"/>
 				<textElement textAlignment="Justified" markup="none">
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Mr/Mrs. "+$F{application}.getOwner().getUser().getName() +",\n"+$F{application}.getOwner().getUser().getAddress().get(0).getStreetRoadLine()+"."]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="67" y="144" width="488" height="20" uuid="7bc85097-f1bd-4220-a5bd-d987c1c92a87"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Ref No. : "+$F{application}.getStateDetails()]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement positionType="FixRelativeToBottom" x="461" y="74" width="94" height="20" uuid="0bbbcfff-be18-46be-b41d-2289ad5ce893"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{letterDate}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="422" y="74" width="39" height="20" uuid="3375e27e-24ab-47dd-9c94-0c07f9b84e8a"/>
+				<reportElement positionType="FixRelativeToBottom" x="410" y="74" width="51" height="20" uuid="3375e27e-24ab-47dd-9c94-0c07f9b84e8a"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA["Date : "]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="25" y="23" width="184" height="47" uuid="4f0901c1-e5e5-4570-8d19-b432c078c3fe"/>
 				<textElement textAlignment="Justified" markup="none">
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Asst. Executive Engineer (T.P.),\n"+$P{ulbName}+",\n"+$P{cityName}+"."]]></textFieldExpression>
 			</textField>
 		</band>
-		<band height="44">
+		<band height="40">
 			<subreport>
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="4" width="555" height="40" uuid="e35ce559-f063-49b8-9b8f-0d0ce3d42788"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="40" isRemoveLineWhenBlank="true" uuid="e35ce559-f063-49b8-9b8f-0d0ce3d42788">
+					<printWhenExpression><![CDATA[new Boolean($F{lettertoPartyDocument}.size()!= 0)]]></printWhenExpression>
+				</reportElement>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{lettertoPartyDocument}, false)]]></dataSourceExpression>
 				<subreportExpression><![CDATA[ReportUtil.getTemplateAsStream("lp_checklist.jasper")]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="60">
+		<band height="61">
 			<staticText>
-				<reportElement x="1" y="7" width="144" height="20" uuid="464461c9-e9f8-4401-9242-a1b7667c4423"/>
+				<reportElement x="1" y="9" width="144" height="20" uuid="464461c9-e9f8-4401-9242-a1b7667c4423"/>
 				<textElement>
-					<font isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Description : ]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="0" y="30" width="544" height="30" uuid="2eedb3d2-1c7c-4079-8463-a240d747544c"/>
-				<textElement textAlignment="Justified"/>
+				<reportElement x="0" y="31" width="544" height="30" uuid="2eedb3d2-1c7c-4079-8463-a240d747544c"/>
+				<textElement textAlignment="Justified">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA["	"+$F{lpDesc}]]></textFieldExpression>
 			</textField>
 		</band>
-		<band height="103">
+		<band height="97">
 			<textField isStretchWithOverflow="true">
-				<reportElement x="0" y="16" width="544" height="46" uuid="169be3a7-3d60-4d60-9ed1-815067b41d80">
+				<reportElement x="0" y="7" width="544" height="46" uuid="169be3a7-3d60-4d60-9ed1-815067b41d80">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<textElement textAlignment="Justified">
-					<font fontName="Times New Roman" isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Failure to comply with the above requirements within "+$F{lastReplyDate}+ " will lead to disposal of the above application on its merits without further intimation."]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="2" y="83" width="172" height="20" uuid="55c16c50-7e31-4887-801f-f25af859a0d7"/>
+				<reportElement x="0" y="77" width="174" height="20" uuid="55c16c50-7e31-4887-801f-f25af859a0d7"/>
 				<textElement markup="none">
-					<font fontName="Times New Roman" isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["LP No :"+$F{lpNumber}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["LP No : "+$F{lpNumber}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="377" y="84" width="175" height="19" uuid="a93bb901-4fd1-4826-8a28-e43449d401ad"/>
+				<reportElement x="353" y="76" width="202" height="19" uuid="a93bb901-4fd1-4826-8a28-e43449d401ad"/>
 				<textElement>
-					<font fontName="Times New Roman" isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ Asst. Executive Engineer (T.P.)]]></text>
 			</staticText>

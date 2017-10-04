@@ -44,21 +44,13 @@
  *
  *  In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
+package org.egov.bpa.master.repository;
 
-package org.egov.bpa.transaction.repository;
-
-import java.util.List;
-
-import org.egov.bpa.transaction.entity.BpaStatus;
+import org.egov.bpa.master.entity.PermitConditions;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BpaStatusRepository extends JpaRepository<BpaStatus, Long> {
+public interface PermitConditionsRepository extends JpaRepository<PermitConditions, Long> {
 
-    BpaStatus findByCode(String code);
-
-    BpaStatus findByModuleTypeContainingIgnoreCaseAndCode(String moduleType, String code);
-    
-    List<BpaStatus> findByModuleTypeAndIsActiveTrueOrderByCodeAsc(String moduleType);
 }

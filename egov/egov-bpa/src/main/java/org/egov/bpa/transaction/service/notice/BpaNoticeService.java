@@ -53,8 +53,8 @@ import static org.egov.bpa.utils.BpaConstants.ST_CODE_15;
 import static org.egov.infra.utils.DateUtils.currentDateToDefaultDateFormat;
 
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,6 +64,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
+import org.egov.bpa.master.entity.PermitConditions;
 import org.egov.bpa.master.entity.ServiceType;
 import org.egov.bpa.transaction.entity.BpaApplication;
 import org.egov.bpa.transaction.entity.BuildingDetail;
@@ -77,12 +78,13 @@ import org.egov.infra.reporting.engine.ReportOutput;
 import org.egov.infra.reporting.engine.ReportRequest;
 import org.egov.infra.reporting.engine.ReportService;
 import org.egov.infra.reporting.util.ReportUtil;
+import org.egov.infra.utils.DateUtils;
 import org.egov.infra.web.utils.WebUtils;
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -100,6 +102,9 @@ public class BpaNoticeService {
     protected FileStoreService fileStoreService;
     @Autowired
     private BpaUtils bpaUtils;
+    @Autowired
+    @Qualifier("parentMessageSource")
+    private MessageSource bpaMessageSource;
 
     public ResponseEntity<byte[]> generateDemandNotice(HttpServletRequest request,
             final BpaApplication bpaApplication) {
@@ -182,8 +187,6 @@ public class BpaNoticeService {
         reportParams.put("ulbName", ulbName);
         reportParams.put("duplicateWatermarkPath", ReportUtil.duplicateWatermarkAbsolutePath(request));
         reportParams.put("bpademandtitle", WordUtils.capitalize(BPADEMANDNOTICETITLE));
-
-        final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         reportParams.put("currentDate", currentDateToDefaultDateFormat());
         reportParams.put("lawAct", "[See Rule 11 (3)]");
         reportParams.put("applicationNumber", bpaApplication.getApplicationNumber());
@@ -193,7 +196,8 @@ public class BpaNoticeService {
         reportParams.put("applicantAddress",
                 bpaApplication.getOwner() != null && !bpaApplication.getOwner().getUser().getAddress().isEmpty()
                         ? bpaApplication.getOwner().getUser().getAddress().get(0).getStreetRoadLine() : "");
-        reportParams.put("applicationDate", formatter.format(bpaApplication.getApplicationDate()));
+        reportParams.put("applicationDate", DateUtils.getDefaultFormattedDate(bpaApplication.getApplicationDate()));
+        reportParams.put("permitConditions", buildPermitConditions(bpaApplication));
         String amenities = bpaApplication.getApplicationAmenity().stream().map(ServiceType::getDescription)
                 .collect(Collectors.joining(", "));
         if (bpaApplication.getApplicationAmenity().isEmpty()) {
@@ -226,16 +230,78 @@ public class BpaNoticeService {
             reportParams.put("district", bpaApplication.getSiteDetail().get(0).getPostalAddress() != null
                     ? bpaApplication.getSiteDetail().get(0).getPostalAddress().getDistrict() : "");
         }
-        reportParams.put("certExpryDate", calculateCertExpryDate());
+        reportParams.put("certificateValidity",
+                getValidityDescription(bpaApplication.getServiceType().getCode(), bpaApplication.getPlanPermissionDate()));
         reportParams.put("isBusinessUser", bpaUtils.logedInuseCitizenOrBusinessUser());
         reportParams.put("designation", getApproverDesignation(getAmountRuleByServiceType(bpaApplication)));
         return reportParams;
     }
 
-    private String calculateCertExpryDate() {
-        DateTime dt = new DateTime();
-        DateTimeFormatter fmt = DateTimeFormat.forPattern("dd/MM/yyyy");
-        return fmt.print(dt.plusYears(3));
+    private String getValidityDescription(final String serviceTypeCode, final Date planPermissionDate) {
+        StringBuilder certificateValidatiy = new StringBuilder();
+        String validityExpiryDate;
+        if (serviceTypeCode.equals(ST_CODE_14) || serviceTypeCode.equals(ST_CODE_15)) {
+            validityExpiryDate = calculateCertExpryDate(new DateTime(planPermissionDate),
+                    getMessageFromPropertyFile("tower.pole.certificate.expiry"));
+        } else {
+            validityExpiryDate = calculateCertExpryDate(new DateTime(planPermissionDate),
+                    getMessageFromPropertyFile("common.services.certificate.expiry"));
+        }
+        certificateValidatiy.append("\n\nNote : This certificate is valid upto ").append(validityExpiryDate).append(" Only.");
+        return certificateValidatiy.toString();
+    }
+
+    private String buildPermitConditions(final BpaApplication bpaApplication) {
+        int order = 1;
+        StringBuilder permitConditions = new StringBuilder();
+        if (bpaApplication.getServiceType().getCode().equals(ST_CODE_14)
+                || bpaApplication.getServiceType().getCode().equals(ST_CODE_15)) {
+            permitConditions.append(getMessageFromPropertyFile("tower.pole.permit.condition1"))
+                    .append(getMessageFromPropertyFile("tower.pole.permit.condition2"))
+                    .append(getMessageFromPropertyFile("tower.pole.permit.condition3"))
+                    .append(getMessageFromPropertyFile("tower.pole.permit.condition4"))
+                    .append(getMessageFromPropertyFile("tower.pole.permit.condition5"))
+                    .append(getMessageFromPropertyFile("tower.pole.permit.condition6"))
+                    .append(getMessageFromPropertyFile("tower.pole.permit.condition7"))
+                    .append(getMessageFromPropertyFileWithParameters("tower.pole.permit.condition8",
+                            bpaApplication.getOwner().getUser().getName()))
+                    .append(getMessageFromPropertyFile("tower.pole.permit.condition9"))
+                    .append(getMessageFromPropertyFileWithParameters("tower.pole.permit.condition10",
+                            bpaApplication.getPlanPermissionDate().toString()))
+                    .append(getMessageFromPropertyFile("tower.pole.permit.condition11"));
+            if (StringUtils.isNotBlank(bpaApplication.getAdditionalPermitConditions())) {
+                permitConditions
+                        .append(String.valueOf("\n\n12").concat(") ").concat(bpaApplication.getAdditionalPermitConditions()));
+            }
+        } else {
+            for (PermitConditions pc : bpaApplication.getPermitConditions()) {
+                if (bpaApplication.getPermitConditions().size() - 1 == order - 1
+                        && StringUtils.isBlank(bpaApplication.getAdditionalPermitConditions())) {
+                    permitConditions.append(String.valueOf(order).concat(") ").concat(pc.getDescription()));
+                } else {
+                    permitConditions.append(String.valueOf(order).concat(") ").concat(pc.getDescription()).concat("\n\n"));
+                }
+                order++;
+            }
+            if (StringUtils.isNotBlank(bpaApplication.getAdditionalPermitConditions())) {
+                permitConditions.append(
+                        String.valueOf(order).concat(") ").concat(bpaApplication.getAdditionalPermitConditions()));
+            }
+        }
+        return permitConditions.toString();
+    }
+
+    private String getMessageFromPropertyFile(String key) {
+        return bpaMessageSource.getMessage(key, null, null);
+    }
+
+    private String getMessageFromPropertyFileWithParameters(String key, String value) {
+        return bpaMessageSource.getMessage(key, new String[] { value }, null);
+    }
+
+    private String calculateCertExpryDate(DateTime permissionDate, String noOfYears) {
+        DateTimeFormatter fmt = DateUtils.defaultDateFormatter();
+        return fmt.print(permissionDate.plusYears(Integer.valueOf(noOfYears)));
     }
 
     private Integer getAmountRuleByServiceType(final BpaApplication application) {

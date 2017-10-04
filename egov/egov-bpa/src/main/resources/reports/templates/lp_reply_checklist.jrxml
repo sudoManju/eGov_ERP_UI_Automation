@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-06-02T15:31:06 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="lp_reply_checklist" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Empty" uuid="09de4100-d968-4594-9dd7-d694ab788a91">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<field name="issubmitted" class="java.lang.Boolean"/>
 	<field name="remarks" class="java.lang.String"/>
-	<field name="checklistDetail" class="org.egov.bpa.application.entity.CheckListDetail"/>
+	<field name="checklistDetail" class="org.egov.bpa.master.entity.CheckListDetail"/>
 	<field name="isrequested" class="java.lang.Boolean"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="50"/>
+		<band height="38"/>
 	</pageHeader>
 	<columnHeader>
 		<band height="21">
@@ -27,7 +25,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" isPdfEmbedded="false"/>
+					<font fontName="Times New Roman" isBold="true" isPdfEmbedded="false"/>
 				</textElement>
 				<text><![CDATA[Description]]></text>
 			</staticText>
@@ -41,13 +39,15 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman"/>
+					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Remarks]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="-17" width="504" height="15" uuid="5bf11cb4-3d4d-41c1-a3fd-e3bfa3d2d81c"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<reportElement x="0" y="-21" width="504" height="15" uuid="5bf11cb4-3d4d-41c1-a3fd-e3bfa3d2d81c"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[The following particulars are furnished for the application,]]></text>
 			</staticText>
 		</band>
@@ -66,7 +66,9 @@
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="0.25"/>
 				</box>
-				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<paragraph leftIndent="3"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{checklistDetail}.getDescription()]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
@@ -80,7 +82,9 @@
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="0.25"/>
 				</box>
-				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<paragraph leftIndent="3"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{issubmitted}==true?"Replied":"Not Replied"]]></textFieldExpression>
 			</textField>
 		</band>

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-10-04T12:43:30 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="buildingpermit" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="576a1e58-ecb3-4d56-971a-5d1fe019af29">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="52"/>
+	<property name="ireport.y" value="96"/>
 	<import value="org.egov.infra.reporting.util.*"/>
 	<import value="org.egov.infstr.utils.*"/>
 	<parameter name="landExtent" class="java.math.BigDecimal"/>
@@ -17,11 +19,12 @@
 	<parameter name="district" class="java.lang.String"/>
 	<parameter name="cityName" class="java.lang.String"/>
 	<parameter name="buildingPermitNumber" class="java.lang.String"/>
-	<parameter name="certExpryDate" class="java.lang.String"/>
 	<parameter name="isBusinessUser" class="java.lang.Boolean"/>
 	<parameter name="duplicateWatermarkPath" class="java.lang.String"/>
 	<parameter name="designation" class="java.lang.String"/>
 	<parameter name="serviceTypeDesc" class="java.lang.String"/>
+	<parameter name="permitConditions" class="java.lang.String"/>
+	<parameter name="certificateValidity" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -36,138 +39,137 @@
 		</band>
 	</background>
 	<title>
-		<band height="71" splitType="Stretch">
+		<band height="142" splitType="Stretch">
 			<textField>
 				<reportElement x="64" y="11" width="452" height="20" uuid="0c350090-2eb2-4cb8-a172-f52fdc4324ba"/>
 				<textElement textAlignment="Center">
-					<font size="12" isBold="true"/>
+					<font fontName="SansSerif" size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["APPENDIX C"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="64" y="31" width="452" height="20" uuid="860ffd1a-527b-4be5-aeaf-3e6dab016dad"/>
 				<textElement textAlignment="Center">
-					<font size="12" isBold="true"/>
+					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["[See Rule 6 (7)]"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="64" y="51" width="452" height="20" uuid="13d1ee09-016a-44b3-a70c-eeaa9b66affd"/>
 				<textElement textAlignment="Center">
-					<font size="12" isBold="true"/>
+					<font fontName="SansSerif" size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["DEVELOPMENT PERMIT"]]></textFieldExpression>
 			</textField>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="87" splitType="Stretch">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="0" y="7" width="555" height="20" uuid="5dfe528d-792c-4b15-8716-5ce4671fb539"/>
+				<reportElement x="1" y="71" width="555" height="20" uuid="5dfe528d-792c-4b15-8716-5ce4671fb539"/>
 				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
+					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ulbName}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="29" width="29" height="20" uuid="8c132a85-9329-402b-9b9f-e6a7ed50d5a7"/>
-				<textElement>
-					<font isBold="true"/>
+				<reportElement x="0" y="92" width="29" height="20" uuid="8c132a85-9329-402b-9b9f-e6a7ed50d5a7"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[No : ]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="29" y="29" width="275" height="20" uuid="d32664c0-b2ba-4011-a881-fefd4925c5ee"/>
-				<textElement>
-					<font isBold="true"/>
+				<reportElement x="29" y="92" width="275" height="20" uuid="d32664c0-b2ba-4011-a881-fefd4925c5ee"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{buildingPermitNumber}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="350" y="29" width="100" height="20" uuid="38791aa3-d66d-4c38-bb6c-99c92dd7659c"/>
+				<reportElement x="350" y="92" width="100" height="20" uuid="38791aa3-d66d-4c38-bb6c-99c92dd7659c"/>
 				<textElement textAlignment="Right">
-					<font isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Dated : ]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="450" y="29" width="105" height="20" uuid="c9a26c74-1b40-4ffb-b03c-3e4e887c3b9a"/>
-				<textElement textAlignment="Right">
-					<font isBold="true"/>
+				<reportElement x="450" y="92" width="105" height="20" uuid="c9a26c74-1b40-4ffb-b03c-3e4e887c3b9a"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{currentDate}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="0" y="58" width="555" height="20" uuid="96accbd0-87e6-4d36-a4dc-796edc809cdb"/>
-				<textElement>
-					<font isBold="true"/>
+				<reportElement x="0" y="122" width="555" height="20" uuid="96accbd0-87e6-4d36-a4dc-796edc809cdb"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Ref:-  Application Dated "+$P{applicationDate}+" from smt/sri "+$P{applicantName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Ref :-  Application Dated "+$P{applicationDate}+" from smt/sri "+$P{applicantName}]]></textFieldExpression>
 			</textField>
 		</band>
-	</pageHeader>
+	</title>
 	<detail>
-		<band height="112" splitType="Stretch">
-			<textField>
-				<reportElement x="0" y="4" width="555" height="44" uuid="cfd11764-e10d-43b9-9f31-2192c95e330b"/>
-				<textElement textAlignment="Justified"/>
+		<band height="52" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" isPrintRepeatedValues="false" x="0" y="8" width="555" height="44" uuid="cfd11764-e10d-43b9-9f31-2192c95e330b"/>
+				<textElement textAlignment="Justified">
+					<font fontName="SansSerif" isPdfEmbedded="false"/>
+				</textElement>
 				<textFieldExpression><![CDATA["	Permission is hereby granted for the "+$P{serviceTypeDesc}+" to extent of "+$P{landExtent}+" area/hectares comprised in survey No. "+$P{surveyNo}+" village "+$P{village}+" taluk "+$P{taluk}+" district "+$P{district}+" subject to the following conditions :- "]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="0" y="86" width="555" height="26" uuid="3486b608-b1c7-4eb2-a55d-17c19f433f8b"/>
-				<textElement textAlignment="Justified"/>
-				<text><![CDATA[ 2).   The Permit is subject to satisfication of the provisions in the land utilisation order and permit issued thereunder.]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="60" width="555" height="26" uuid="22b911bc-189f-40d8-bb19-a6b4365873be"/>
-				<textElement textAlignment="Justified"/>
-				<text><![CDATA[ 1).   Existing trees should be retained as far as possible and more number of trees  planted on available space after development.]]></text>
-			</staticText>
 		</band>
-		<band height="50">
+		<band height="41">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="11" y="10" width="545" height="31" uuid="6e7d6ed7-ce1e-4478-92ad-3d431554548b">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Justified">
+					<font fontName="SansSerif" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{permitConditions}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="49">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="255" y="29" width="301" height="20" uuid="f9b4602e-c446-43e0-bfac-15895daee792"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Signature And Name Of  "+$P{designation}]]></textFieldExpression>
+			</textField>
 			<staticText>
-				<reportElement x="0" y="30" width="64" height="20" uuid="88c253a2-442f-42a8-9afe-f04c263186c9"/>
-				<textElement>
-					<font isBold="true"/>
+				<reportElement x="0" y="29" width="64" height="20" uuid="88c253a2-442f-42a8-9afe-f04c263186c9"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Date        : ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="9" width="64" height="20" uuid="6c96b9c6-b85d-4e84-af29-c5487095c25a"/>
-				<textElement>
-					<font isBold="true"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Place        : ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="64" y="10" width="133" height="20" uuid="5fe18618-e612-4fd2-b48f-af737f6fbef0"/>
-				<textElement>
-					<font isBold="true"/>
+				<reportElement x="64" y="8" width="133" height="20" uuid="5fe18618-e612-4fd2-b48f-af737f6fbef0"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{currentDate}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="64" y="30" width="133" height="20" uuid="1a71a025-e5b0-4afd-8eb8-7783f75cee86"/>
-				<textElement>
-					<font isBold="true"/>
+				<reportElement x="64" y="28" width="133" height="21" uuid="1a71a025-e5b0-4afd-8eb8-7783f75cee86"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{cityName}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="283" y="30" width="272" height="20" uuid="f9b4602e-c446-43e0-bfac-15895daee792"/>
-				<textElement textAlignment="Center">
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Signature And Name Of  "+$P{designation}]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="50">
 			<textField>
-				<reportElement x="0" y="0" width="555" height="50" uuid="0224923c-0648-474c-aba2-159a55bd9c42"/>
-				<textElement>
-					<font size="10" isBold="true" isItalic="false"/>
+				<reportElement x="1" y="0" width="555" height="50" uuid="324377c1-bc50-463e-8afd-a77c55f7384f"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["\n\nNote : This certificate is valid upto "+$P{certExpryDate}+" Only."]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{certificateValidity}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

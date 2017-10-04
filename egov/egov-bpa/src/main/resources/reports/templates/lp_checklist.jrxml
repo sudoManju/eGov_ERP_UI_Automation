@@ -1,42 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-10-04T12:21:16 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="lp_checklist" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Empty" uuid="09de4100-d968-4594-9dd7-d694ab788a91">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<field name="issubmitted" class="java.lang.Boolean"/>
 	<field name="remarks" class="java.lang.String"/>
-	<field name="checklistDetail" class="org.egov.bpa.application.entity.CheckListDetail"/>
+	<field name="checklistDetail" class="org.egov.bpa.master.entity.CheckListDetail"/>
 	<field name="isrequested" class="java.lang.Boolean"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="50">
+		<band height="36">
 			<staticText>
-				<reportElement positionType="Float" x="0" y="35" width="457" height="15" uuid="16a9e931-fdc7-45d0-8605-f99965a5e9c9"/>
+				<reportElement positionType="Float" x="0" y="15" width="540" height="15" uuid="16a9e931-fdc7-45d0-8605-f99965a5e9c9"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif" isBold="true"/>
 				</textElement>
 				<text><![CDATA[You are requested to furnish the following particulars for consideration of your application,]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="21">
-			<staticText>
-				<reportElement mode="Transparent" x="277" y="0" width="263" height="20" backcolor="#CCCCCC" uuid="db4dc61e-44e3-4c5d-a267-80ae13f8e521"/>
-				<box>
-					<pen lineWidth="0.25"/>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.25"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman"/>
-				</textElement>
-				<text><![CDATA[Remarks]]></text>
-			</staticText>
+		<band height="20">
 			<staticText>
 				<reportElement mode="Transparent" x="0" y="0" width="277" height="20" backcolor="#CCCCCC" uuid="595da1b5-d893-494e-be0f-3f04a410e97a"/>
 				<box>
@@ -47,9 +35,23 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" isPdfEmbedded="false"/>
+					<font fontName="SansSerif" isBold="true" isPdfEmbedded="false"/>
 				</textElement>
 				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="277" y="0" width="263" height="20" backcolor="#CCCCCC" uuid="db4dc61e-44e3-4c5d-a267-80ae13f8e521"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Remarks]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -68,7 +70,8 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif"/>
+					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{checklistDetail}.getDescription()]]></textFieldExpression>
 			</textField>
@@ -84,7 +87,8 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif"/>
+					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{remarks}]]></textFieldExpression>
 			</textField>

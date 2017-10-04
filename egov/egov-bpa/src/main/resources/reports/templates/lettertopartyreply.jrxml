@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
-<!-- 2017-06-30T16:58:02 -->
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-10-03T22:57:52 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reply" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="19a6b87f-b0aa-4611-908a-14a81b44cdbb">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="6"/>
 	<import value="org.egov.infra.reporting.util.ReportUtil"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["/work/collections/reports/templates/"]]></defaultValueExpression>
@@ -22,12 +22,12 @@
 	</queryString>
 	<field name="lpNumber" class="java.lang.String"/>
 	<field name="letterDate" class="java.util.Date"/>
-	<field name="application" class="org.egov.bpa.application.entity.BpaApplication">
+	<field name="application" class="org.egov.bpa.transaction.entity.BpaApplication">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="sentDate" class="java.util.Date"/>
 	<field name="lpDesc" class="java.lang.String"/>
-	<field name="lpReason" class="org.egov.bpa.application.entity.LpReason"/>
+	<field name="lpReason" class="org.egov.bpa.master.entity.LpReason"/>
 	<field name="replyDate" class="java.util.Date"/>
 	<field name="acknowledgementNumber" class="java.lang.String"/>
 	<field name="lettertoPartyDocument" class="java.util.Collection"/>
@@ -40,14 +40,14 @@
 			<staticText>
 				<reportElement x="129" y="46" width="342" height="20" uuid="58e1974e-c738-46d8-8c58-f5f6a4e1b962"/>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="11" isBold="true"/>
+					<font fontName="SansSerif" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Letter to the Party Reply Acknowledgement]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="129" y="27" width="342" height="18" uuid="67ea5c35-8b79-4289-9647-3815a7b81375"/>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="11" isBold="true"/>
+					<font fontName="SansSerif" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Town Planning Section-Works Department]]></text>
 			</staticText>
@@ -58,7 +58,7 @@
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="129" y="6" width="342" height="20" uuid="fb0fe1f0-6a41-4333-b2e3-6af102647660"/>
 				<textElement textAlignment="Center" markup="none">
-					<font fontName="Times New Roman" size="11" isBold="true"/>
+					<font fontName="SansSerif" size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ulbName}]]></textFieldExpression>
 			</textField>
@@ -82,7 +82,8 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Times New Roman" isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
+					<paragraph leftIndent="3"/>
 				</textElement>
 				<text><![CDATA[Acknowledgement No.   ]]></text>
 			</staticText>
@@ -96,7 +97,8 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Times New Roman" isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
+					<paragraph leftIndent="3"/>
 				</textElement>
 				<text><![CDATA[Letter to Party Date      ]]></text>
 			</staticText>
@@ -110,7 +112,8 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Times New Roman" isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
+					<paragraph leftIndent="3"/>
 				</textElement>
 				<text><![CDATA[Applicant Name           ]]></text>
 			</staticText>
@@ -124,7 +127,8 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Times New Roman" isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
+					<paragraph leftIndent="3"/>
 				</textElement>
 				<text><![CDATA[Letter to Party Reason]]></text>
 			</staticText>
@@ -138,7 +142,8 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Times New Roman" isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
+					<paragraph leftIndent="3"/>
 				</textElement>
 				<text><![CDATA[Date                            ]]></text>
 			</staticText>
@@ -152,7 +157,8 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Times New Roman" isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
+					<paragraph leftIndent="3"/>
 				</textElement>
 				<text><![CDATA[Letter to Party Number ]]></text>
 			</staticText>
@@ -166,7 +172,8 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif"/>
+					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{replyDate}]]></textFieldExpression>
 			</textField>
@@ -180,7 +187,8 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif"/>
+					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{lpNumber}]]></textFieldExpression>
 			</textField>
@@ -194,7 +202,8 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif"/>
+					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{acknowledgementNumber}]]></textFieldExpression>
 			</textField>
@@ -208,7 +217,8 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif"/>
+					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{sentDate}]]></textFieldExpression>
 			</textField>
@@ -222,7 +232,8 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif"/>
+					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{application}.getOwner().getUser().getName()]]></textFieldExpression>
 			</textField>
@@ -236,7 +247,8 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif"/>
+					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{lpReason}]]></textFieldExpression>
 			</textField>
@@ -249,7 +261,8 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Justified">
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif"/>
+					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{lpReplyRemarks}]]></textFieldExpression>
 			</textField>
@@ -262,7 +275,8 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font fontName="Times New Roman" isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
+					<paragraph leftIndent="3"/>
 				</textElement>
 				<text><![CDATA[Remarks]]></text>
 			</staticText>
@@ -275,7 +289,8 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement>
-					<font fontName="Times New Roman" isBold="true"/>
+					<font fontName="SansSerif" isBold="true"/>
+					<paragraph leftIndent="3"/>
 				</textElement>
 				<text><![CDATA[Description]]></text>
 			</staticText>
@@ -288,24 +303,27 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Justified">
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif"/>
+					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{lpDesc}]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="54">
 			<subreport>
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="3" width="555" height="51" uuid="488747bf-e344-4532-8f25-d6e603f717ea"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="3" width="555" height="51" isRemoveLineWhenBlank="true" uuid="488747bf-e344-4532-8f25-d6e603f717ea">
+					<printWhenExpression><![CDATA[new Boolean($F{lettertoPartyDocument}.size()!= 0)]]></printWhenExpression>
+				</reportElement>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{lettertoPartyDocument}, false)]]></dataSourceExpression>
 				<subreportExpression><![CDATA[ReportUtil.getTemplateAsStream("lp_reply_checklist.jasper")]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="37">
+		<band height="30">
 			<staticText>
 				<reportElement x="0" y="10" width="496" height="20" uuid="1e0f2bc1-2b7f-493b-b90f-87a31a9a06a5"/>
 				<box leftPadding="1"/>
 				<textElement>
-					<font fontName="Times New Roman" size="11" isBold="true"/>
+					<font fontName="SansSerif" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Note: This is computer generated acknowledgment. Seal & signature not necessary.]]></text>
 			</staticText>

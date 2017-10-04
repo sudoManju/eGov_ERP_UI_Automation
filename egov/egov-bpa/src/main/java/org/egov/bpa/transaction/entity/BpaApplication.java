@@ -1,41 +1,48 @@
 /*
- * eGov suite of products aim to improve the internal efficiency,transparency,
- *    accountability and the service delivery of the government  organizations.
+ * eGov  SmartCity eGovernance suite aims to improve the internal efficiency,transparency,
+ * accountability and the service delivery of the government  organizations.
  *
- *     Copyright (C) <2015>  eGovernments Foundation
+ *  Copyright (C) <2017>  eGovernments Foundation
  *
- *     The updated version of eGov suite of products as by eGovernments Foundation
- *     is available at http://www.egovernments.org
+ *  The updated version of eGov suite of products as by eGovernments Foundation
+ *  is available at http://www.egovernments.org
  *
- *     This program is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or
- *     any later version.
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  any later version.
  *
- *     This program is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU General Public License for more details.
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- *     You should have received a copy of the GNU General Public License
- *     along with this program. If not, see http://www.gnu.org/licenses/ or
- *     http://www.gnu.org/licenses/gpl.html .
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program. If not, see http://www.gnu.org/licenses/ or
+ *  http://www.gnu.org/licenses/gpl.html .
  *
- *     In addition to the terms of the GPL license to be adhered to in using this
- *     program, the following additional terms are to be complied with:
+ *  In addition to the terms of the GPL license to be adhered to in using this
+ *  program, the following additional terms are to be complied with:
  *
- *         1) All versions of this program, verbatim or modified must carry this
- *            Legal Notice.
+ *      1) All versions of this program, verbatim or modified must carry this
+ *         Legal Notice.
+ *      Further, all user interfaces, including but not limited to citizen facing interfaces,
+ *         Urban Local Bodies interfaces, dashboards, mobile applications, of the program and any
+ *         derived works should carry eGovernments Foundation logo on the top right corner.
  *
- *         2) Any misrepresentation of the origin of the material is prohibited. It
- *            is required that all modified versions of this material be marked in
- *            reasonable ways as different from the original version.
+ *      For the logo, please refer http://egovernments.org/html/logo/egov_logo.png.
+ *      For any further queries on attribution, including queries on brand guidelines,
+ *         please contact contact@egovernments.org
  *
- *         3) This license does not grant any rights to any user of the program
- *            with regards to rights under trademark law for use of the trade names
- *            or trademarks of eGovernments Foundation.
+ *      2) Any misrepresentation of the origin of the material is prohibited. It
+ *         is required that all modified versions of this material be marked in
+ *         reasonable ways as different from the original version.
  *
- *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
+ *      3) This license does not grant any rights to any user of the program
+ *         with regards to rights under trademark law for use of the trade names
+ *         or trademarks of eGovernments Foundation.
+ *
+ *  In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
 package org.egov.bpa.transaction.entity;
 
@@ -71,6 +78,7 @@ import javax.validation.constraints.NotNull;
 
 import org.egov.bpa.master.entity.CheckListDetail;
 import org.egov.bpa.master.entity.Occupancy;
+import org.egov.bpa.master.entity.PermitConditions;
 import org.egov.bpa.master.entity.ServiceType;
 import org.egov.bpa.transaction.entity.enums.ApplicantMode;
 import org.egov.bpa.transaction.entity.enums.GovernmentType;
@@ -207,16 +215,12 @@ public class BpaApplication extends StateAware {
     @Transient
     private boolean mailPwdRequired;
     private Boolean isEconomicallyWeakerSection;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "egbpa_application_permit_conditions", joinColumns = @JoinColumn(name = "application"), inverseJoinColumns = @JoinColumn(name = "permitcondition"))
+    private List<PermitConditions> permitConditions = new ArrayList<>(0);
+    private String additionalPermitConditions;
 
-    public boolean isMailPwdRequired() {
-		return mailPwdRequired;
-	}
-
-	public void setMailPwdRequired(boolean mailPwdRequired) {
-		this.mailPwdRequired = mailPwdRequired;
-	}
-
-	@Override
+    @Override
     public Long getId() {
         return id;
     }
@@ -538,7 +542,7 @@ public class BpaApplication extends StateAware {
     public String getStateDetails() {
         final SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         return String.format("Applicant Name: %s Application Number %s Dated %s For the service type - %s.",
-                owner != null && owner.getUser()!=null ? owner.getUser().getName() : "Not Specified",
+                owner != null && owner.getUser() != null ? owner.getUser().getName() : "Not Specified",
                 applicationNumber != null ? applicationNumber : planPermissionNumber,
                 applicationDate != null ? formatter.format(applicationDate) : formatter.format(new Date()),
                 serviceType.getDescription() != null ? serviceType.getDescription() : "");
@@ -686,10 +690,34 @@ public class BpaApplication extends StateAware {
     public void setIsEconomicallyWeakerSection(Boolean isEconomicallyWeakerSection) {
         this.isEconomicallyWeakerSection = isEconomicallyWeakerSection;
     }
-    
+
     public void deleteBuildingDetails(final BuildingDetail buildingDetail) {
-        if(buildingDetail != null)
-        this.buildingDetail.remove(buildingDetail);
+        if (buildingDetail != null)
+            this.buildingDetail.remove(buildingDetail);
+    }
+
+    public List<PermitConditions> getPermitConditions() {
+        return permitConditions;
+    }
+
+    public void setPermitConditions(List<PermitConditions> permitConditions) {
+        this.permitConditions = permitConditions;
     }
     
+    public String getAdditionalPermitConditions() {
+        return additionalPermitConditions;
+    }
+
+    public void setAdditionalPermitConditions(String additionalPermitConditions) {
+        this.additionalPermitConditions = additionalPermitConditions;
+    }
+
+    public boolean isMailPwdRequired() {
+        return mailPwdRequired;
+    }
+
+    public void setMailPwdRequired(boolean mailPwdRequired) {
+        this.mailPwdRequired = mailPwdRequired;
+    }
+
 }
