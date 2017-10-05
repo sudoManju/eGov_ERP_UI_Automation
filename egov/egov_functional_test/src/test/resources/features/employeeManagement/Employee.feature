@@ -12,22 +12,22 @@ Feature: Create/View/Update
 #    //kakinadHR: kakinada
 #    //gunturHR: guntur
 
-    Given gunturHR logs in
+    Given kurnoolHR logs in
     And user will select the required screen as "Create Employee" with condition as "/employee"
     And user enters the employee details as <employeeDetails>
     And user will enter the assignment details as <assignmentDetails>
     And user will enter the jurisdiction details as <jurisdictionDetails>
     And user will enter the service section and other details
-    Then user clicks on submit button
-
-    And user will select the required screen as "View Employee"
-    And user will enter the employee search details
-
-    And user will select the required screen as "Update Employee"
-    And user will enter the employee search details for updating the employee information
-    And user will update the employee details
-    Then user clicks on submit button
-    And current user logs out
+#    Then user clicks on submit button
+#
+#    And user will select the required screen as "View Employee"
+#    And user will enter the employee search details
+#
+#    And user will select the required screen as "Update Employee"
+#    And user will enter the employee search details for updating the employee information
+#    And user will update the employee details
+#    Then user clicks on submit button
+#    And current user logs out
 
 #    Then user close the employee search
 #    And user will select the required screen as "Create LeaveBalance"

@@ -216,7 +216,7 @@ public class EmployeeOtherDetailsPage extends BasePage {
         jsClick(webDriver.findElement(By.cssSelector("a[href='#otherDetails']")), webDriver);
         jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#educationDetailModal']")), webDriver);
         enterText(qualificationTextBox, "B.Tech", webDriver);
-        selectFromDropDown(yearOfPassingSelectBox, getCurrentYear(), webDriver);
+        enterText(yearOfPassingSelectBox, getCurrentYear(), webDriver);
         clickOnButton(webDriver.findElement(By.id("educationAddOrUpdate")), webDriver);
     }
 
@@ -229,7 +229,7 @@ public class EmployeeOtherDetailsPage extends BasePage {
     public void enterDepartmentalTestDetails() {
         jsClick(webDriver.findElement(By.cssSelector("a[href='#'][data-target='#testDetailModal']")), webDriver);
         enterText(departmentalTestNameTextBox, "departmentalTestNameTextBox", webDriver);
-        selectFromDropDown(departmentalYearOfPassingTextBox, getCurrentYear(), webDriver);
+        enterText(departmentalYearOfPassingTextBox, getCurrentYear(), webDriver);
     }
 
     public void submitCreateEmployee() {
