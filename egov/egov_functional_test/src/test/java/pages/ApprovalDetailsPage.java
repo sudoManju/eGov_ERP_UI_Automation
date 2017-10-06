@@ -63,6 +63,7 @@ public class ApprovalDetailsPage extends BasePage {
     }
 
     public void enterApproverDetails(ApprovalDetails approvalDetails) {
+        maximizeBrowserWindow(webDriver);
 
         selectFromDropDown(approverDepartmentSelection, approvalDetails.getApproverDepartment(), webDriver);
 
@@ -78,7 +79,7 @@ public class ApprovalDetailsPage extends BasePage {
     }
 
     public void enterApprovalDetails(ApprovalDetails approvalDetails) {
-
+        maximizeBrowserWindow(webDriver);
         selectFromDropDown(approvalDepartmentSelection, approvalDetails.getApproverDepartment(), webDriver);
         await().atMost(10, SECONDS).until(() -> new Select(approvalDesignationSelection).getOptions().size() > 1);
 

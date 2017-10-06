@@ -17,24 +17,21 @@ Feature: To create a new remittance recovery
     Then user will be notified by "Created"
     And current user logs out
 
-#    And assistantExaminer logs in
-    And the next user will be logged in
+    Given assistantExaminer logs in
     And he chooses to act upon above application number
     And officer will enter the approval details as <approvalOfficer2>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
-#    And examiner logs in
-    And the next user will be logged in
+    Given examiner logs in
     And he chooses to act upon above application number
     And officer will enter the approval details as <approvalOfficer3>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
-#    And commissioner logs in
-    And the next user will be logged in
+    Given commissioner logs in
     And he chooses to act upon above application number
     And officer click on approval of the voucher
     And officer will closes the acknowledgement page
@@ -77,7 +74,7 @@ Feature: To create a new remittance recovery
     And current user logs out
 
     Examples:
-      | voucherDetails | isPresent | approvalOfficer1 | approvalOfficer2 | approvalOfficer3 | glCode  | assignment | singleOrMultiple |
-      | remittance     | yes       | accountOfficer1  | accountOfficer2  | commissioner     | 3502002 | remittance | single           |
+      | voucherDetails | isPresent | approvalOfficer1      | approvalOfficer2   | approvalOfficer3 | glCode  | assignment | singleOrMultiple |
+      | remittance     | yes       | assExaminerOfAccounts | examinerOfAccounts | commissioner     | 3502002 | remittance | single           |
 
 

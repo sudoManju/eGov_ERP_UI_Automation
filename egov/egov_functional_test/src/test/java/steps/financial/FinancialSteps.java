@@ -6,10 +6,12 @@ import entities.financial.*;
 import excelDataFiles.ExcelReader;
 import excelDataFiles.FinanceDataReader;
 import org.junit.Assert;
+import pages.ApprovalDetailsPage;
 import pages.financial.*;
 import steps.BaseSteps;
 
 import java.text.ParseException;
+import java.util.concurrent.TimeUnit;
 
 public class FinancialSteps extends BaseSteps implements En {
 
@@ -21,10 +23,10 @@ public class FinancialSteps extends BaseSteps implements En {
         });
 
         And("^officer will enter the approval details as (\\w+)$", (String approveOfficer) -> {
-            ApprovalDetails approvalDetails = new ExcelReader(approvalDetailsTestDataFileName).getFinanceApprovalDetails(approveOfficer);
+            ApprovalDetails approvalDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetails(approveOfficer);
+            pageStore.get(ApprovalDetailsPage.class).enterApproverDetails(approvalDetails);
             try {
-                String userName = pageStore.get(FinancialPage.class).enterFinanceApprovalDetails(approvalDetails);
-                scenarioContext.setUser(userName);
+                pageStore.get(FinancialPage.class).clickOnForward();
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -85,9 +87,15 @@ public class FinancialSteps extends BaseSteps implements En {
         });
 
         And("^officer will enter the expense approval details as (\\w+)$", (String approveOfficer) -> {
-            ApprovalDetails approvalDetails = new ExcelReader(approvalDetailsTestDataFileName).getFinanceApprovalDetails(approveOfficer);
-            String userName = pageStore.get(ExpenseDetailsPage.class).enterExpenseApprovalDetails(approvalDetails);
-            scenarioContext.setUser(userName);
+            ApprovalDetails approvalDetails = new ExcelReader(approvalDetailsTestDataFileName).getApprovalDetails(approveOfficer);
+            pageStore.get(ApprovalDetailsPage.class).enterApprovalDetails(approvalDetails);
+            try {
+                pageStore.get(FinancialPage.class).clickOnForward();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+//            String userName = pageStore.get(ExpenseDetailsPage.class).enterExpenseApprovalDetails(approvalDetails);
+//            scenarioContext.setUser(userName);
         });
 
         And("^officer will closes the expense acknowledgement page$", () -> {

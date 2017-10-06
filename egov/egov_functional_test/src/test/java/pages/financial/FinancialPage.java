@@ -186,24 +186,24 @@ public class FinancialPage extends BasePage {
         this.webDriver = webDriver;
     }
 
-    public String enterFinanceApprovalDetails(ApprovalDetails approvalDetails) throws ParseException {
+    public String clickOnForward() throws ParseException {
 
-        maximizeBrowserWindow(webDriver);
-
-        selectFromDropDown(approverDepartment, approvalDetails.getApproverDepartment(), webDriver);
-        selectFromDropDown(approverDesignation, approvalDetails.getApproverDesignation(), webDriver);
-
-        Select approverPos = new Select(approverPosition);
-        approverPosition.click();
-        await().atMost(10, SECONDS).until(() -> approverPos.getOptions().size() > 1);
-        checkApprovalPositionIsLoadedOrNot(approverPosition);
-
-        if (approverPos.getOptions().get(1).getText().split("\\ ")[0].length() == 1) {
-            userName = approverPos.getOptions().get(1).getText().split("\\ ")[0] + " " + approverPos.getOptions().get(1).getText().split("\\ ")[1];
-        } else {
-            userName = approverPos.getOptions().get(1).getText().split("\\ ")[0];
-        }
-        clickOnButton(approverPos.getOptions().get(1), webDriver);
+//        maximizeBrowserWindow(webDriver);
+//
+//        selectFromDropDown(approverDepartment, approvalDetails.getApproverDepartment(), webDriver);
+//        selectFromDropDown(approverDesignation, approvalDetails.getApproverDesignation(), webDriver);
+//
+//        Select approverPos = new Select(approverPosition);
+//        approverPosition.click();
+//        await().atMost(10, SECONDS).until(() -> approverPos.getOptions().size() > 1);
+//        checkApprovalPositionIsLoadedOrNot(approverPosition);
+//
+//        if (approverPos.getOptions().get(1).getText().split("\\ ")[0].length() == 1) {
+//            userName = approverPos.getOptions().get(1).getText().split("\\ ")[0] + " " + approverPos.getOptions().get(1).getText().split("\\ ")[1];
+//        } else {
+//            userName = approverPos.getOptions().get(1).getText().split("\\ ")[0];
+//        }
+//        clickOnButton(approverPos.getOptions().get(1), webDriver);
 
         clickOnForwardButton();
 

@@ -57,6 +57,9 @@ public class JournalVoucherDetailsPage extends FinancialPage {
     @FindBy(id = "billDetailslist[2].creditAmountDetail")
     private WebElement creditAmount3;
 
+    @FindBy(id = "billDetailslist[2].debitAmountDetail")
+    private WebElement debitAmount3;
+
     @FindBy(id = "subLedgerlist[0].glcode.id")
     private WebElement ledgerAccount1;
 
@@ -130,6 +133,7 @@ public class JournalVoucherDetailsPage extends FinancialPage {
 
             enterText(accountCode3, financialJournalVoucherDetails.getAccountCode3(), webDriver);
             clickOnButton(accountCodeDropdown, webDriver);
+            enterText(debitAmount3, "0", webDriver);
             enterText(creditAmount3, financialJournalVoucherDetails.getCreditAmount3(), webDriver);
             m1.put(financialJournalVoucherDetails.getAccountCode3(), financialJournalVoucherDetails.getCreditAmount3());
         }

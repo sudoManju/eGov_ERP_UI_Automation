@@ -2,6 +2,7 @@ package pages.lcms;
 
 import entities.lcms.CreateLegalCase;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -212,6 +213,8 @@ public class LegalCaseManagementPage extends BasePage {
             selectFromDropDown(petitionTypeSelect, createLegalCase.getPetitionType(), webDriver);
         }
 
+
+        ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView(true);", saveButton);
         clickOnButton(saveButton, webDriver);
 
         switchToNewlyOpenedWindow(webDriver);
@@ -372,6 +375,7 @@ public class LegalCaseManagementPage extends BasePage {
 
         enterText(petitonerNameTextBox, "Good Tester", webDriver);
 
+        ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView(true);", updateButton);
         clickOnButton(updateButton, webDriver);
 
         switchToNewlyOpenedWindow(webDriver);

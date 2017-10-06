@@ -11,21 +11,21 @@ Feature: To create a Financial Transactions
     Then user will be notified by "Created"
     And current user logs out
 
-    And the next user will be logged in
+    Given assistantExaminer logs in
     And he chooses to act upon above application number
     And officer will enter the approval details as <approvalOfficer2>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
-    And the next user will be logged in
+    Given examiner logs in
     And he chooses to act upon above application number
     And officer will enter the approval details as <approvalOfficer3>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
-    And the next user will be logged in
+    Given commissioner logs in
     And he chooses to act upon above application number
     And officer click on approval of the voucher
     And officer will closes the acknowledgement page
@@ -33,9 +33,9 @@ Feature: To create a Financial Transactions
     And current user logs out
 
     Examples:
-      | voucherDetails          | approvalOfficer1 | approvalOfficer2 | approvalOfficer3 | isPresent |
-      | voucher1                | accountOfficer1a | accountOfficer2  | commissioner     | yes       |
-#      | voucherWithOutSubledger | accountOfficer1a | accountOfficer2  | commissioner     | no        |
+      | voucherDetails          | approvalOfficer1      | approvalOfficer2   | approvalOfficer3 | isPresent |
+      | voucher1                | assExaminerOfAccounts | examinerOfAccounts | commissioner     | yes       |
+      | voucherWithOutSubledger | assExaminerOfAccounts | examinerOfAccounts | commissioner     | no        |
 
 
   @Sanity @Finance
@@ -49,24 +49,21 @@ Feature: To create a Financial Transactions
     Then user will be notified by "Created"
     And current user logs out
 
-#    And assistantExaminer logs in
-    And the next user will be logged in
+    Given assistantExaminer logs in
     And he chooses to act upon above application number
     And officer will enter the approval details as <approvalOfficer2>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
-#    And examiner logs in
-    And the next user will be logged in
+    Given examiner logs in
     And he chooses to act upon above application number
     And officer will enter the approval details as <approvalOfficer3>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
-#    And commissioner logs in
-    And the next user will be logged in
+    Given commissioner logs in
     And he chooses to act upon above application number
     And officer click on approval of the voucher
     And officer will closes the acknowledgement page
@@ -74,9 +71,9 @@ Feature: To create a Financial Transactions
     And current user logs out
 
     Examples:
-      | voucherDetails          | approvalOfficer1 | approvalOfficer2 | approvalOfficer3 | isPresent |
-      | voucher2                | accountOfficer1a | accountOfficer2  | commissioner     | yes       |
-      | voucherWithOutSubledger | accountOfficer1a | accountOfficer2  | commissioner     | no        |
+      | voucherDetails          | approvalOfficer1      | approvalOfficer2   | approvalOfficer3 | isPresent |
+      | voucher2                | assExaminerOfAccounts | examinerOfAccounts | commissioner     | yes       |
+      | voucherWithOutSubledger | assExaminerOfAccounts | examinerOfAccounts | commissioner     | no        |
 
   @Sanity @Finance
   Scenario Outline: To create a journal voucher as well as payment with different modes
@@ -89,21 +86,21 @@ Feature: To create a Financial Transactions
     Then user will be notified by "Created"
     And current user logs out
 
-    And the next user will be logged in
+    Given assistantExaminer logs in
     And he chooses to act upon above application number
     And officer will enter the approval details as <approvalOfficer2>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
-    And the next user will be logged in
+    Given examiner logs in
     And he chooses to act upon above application number
     And officer will enter the approval details as <approvalOfficer3>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
-    And the next user will be logged in
+    Given commissioner logs in
     And he chooses to act upon above application number
     And officer click on approval of the voucher
     And officer will closes the acknowledgement page
@@ -120,14 +117,14 @@ Feature: To create a Financial Transactions
     And officer will closes the successfull payment page
     And current user logs out
 
-    And the next user will be logged in
+    Given examiner logs in
     And he chooses to act upon above application number
     And officer will enter the approval details as <approvalOfficer3>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
-    And the next user will be logged in
+    And commissioner logs in
     And he chooses to act upon above application number
     And officer click on approval of the voucher
     And officer will closes the acknowledgement page
@@ -135,10 +132,10 @@ Feature: To create a Financial Transactions
     And current user logs out
 
     Examples:
-      | voucherDetails     | approvalOfficer1 | approvalOfficer2 | approvalOfficer3 | paymentMode | isPresent |
-      | voucherBillPayment | accountOfficer1  | accountOfficer2  | commissioner     | cheque      | yes       |
-      | voucherBillPayment | accountOfficer1  | accountOfficer2  | commissioner     | cash        | yes       |
-      | voucherBillPayment | accountOfficer1  | accountOfficer2  | commissioner     | RTGS        | yes       |
+      | voucherDetails     | approvalOfficer1      | approvalOfficer2   | approvalOfficer3 | paymentMode | isPresent |
+      | voucherBillPayment | assExaminerOfAccounts | examinerOfAccounts | commissioner     | cheque      | yes       |
+      | voucherBillPayment | assExaminerOfAccounts | examinerOfAccounts | commissioner     | cash        | yes       |
+      | voucherBillPayment | assExaminerOfAccounts | examinerOfAccounts | commissioner     | RTGS        | yes       |
 
 
   @Sanity @Finance
@@ -152,16 +149,14 @@ Feature: To create a Financial Transactions
     Then user will be notified by "created"
     And current user logs out
 
-#    Then examiner logs in
-    And the next user will be logged in
+    Given examiner logs in
     And he chooses to act upon above application number
     And officer will enter the expense approval details as <approvalOfficer2>
     And officer will closes the expense acknowledgement page
     Then user will be notified by "created"
     And current user logs out
 
-#    And commissioner logs in
-    And the next user will be logged in
+    Given commissioner logs in
     And he chooses to act upon above application number
     And officer click on approval of the voucher
     And officer will closes the expense acknowledgement page
@@ -176,24 +171,21 @@ Feature: To create a Financial Transactions
     Then user will be notified by "forwarded"
     And current user logs out
 
-#    And assistantExaminer logs in
-    And the next user will be logged in
+    Given assistantExaminer logs in
     And he chooses to act upon above application number
     And officer will enter the approval details as <approvalOfficer4>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
-#    And examiner logs in
-    And the next user will be logged in
+    Given examiner logs in
     And he chooses to act upon above application number
     And officer will enter the approval details as <approvalOfficer5>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
-#    And commissioner logs in
-    And the next user will be logged in
+    Given commissioner logs in
     And he chooses to act upon above application number
     And officer click on approval of the voucher
     And officer will closes the acknowledgement page
@@ -201,8 +193,8 @@ Feature: To create a Financial Transactions
     And current user logs out
 
     Examples:
-      | billDetails | approvalOfficer1 | approvalOfficer2 | approvalOfficer3 | approvalOfficer4 | approvalOfficer5 |
-      | expenseBill | accountOfficer3  | commissioner1    | accountOfficer1  | accountOfficer2  | commissioner     |
+      | billDetails | approvalOfficer1    | approvalOfficer2 | approvalOfficer3      | approvalOfficer4   | approvalOfficer5 |
+      | expenseBill | examinerOfAccounts1 | commissioner1    | assExaminerOfAccounts | examinerOfAccounts | commissioner     |
 
 
   @Sanity @Finance
@@ -216,21 +208,21 @@ Feature: To create a Financial Transactions
     Then user will be notified by "Created"
     And current user logs out
 
-    And the next user will be logged in
+    Given assistantExaminer logs in
     And he chooses to act upon above application number
     And officer will enter the approval details as <approvalOfficer2>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
-    And the next user will be logged in
+    Given examiner logs in
     And he chooses to act upon above application number
     And officer will enter the approval details as <approvalOfficer3>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
-    And the next user will be logged in
+    Given commissioner logs in
     And he chooses to act upon above application number
     And officer click on approval of the voucher
     And officer will closes the acknowledgement page
@@ -247,16 +239,14 @@ Feature: To create a Financial Transactions
     And officer will closes the successfull payment page
     And current user logs out
 
-#    And examiner logs in
-    And the next user will be logged in
+    Given examiner logs in
     And he chooses to act upon above application number
     And officer will enter the approval details as <approvalOfficer3>
     And officer will closes the acknowledgement page
     Then user will be notified by "forwarded"
     And current user logs out
 
-#    And commissioner logs in
-    And the next user will be logged in
+    Given commissioner logs in
     And he chooses to act upon above application number
     And officer click on approval of the voucher
     And officer will closes the acknowledgement page
@@ -272,8 +262,8 @@ Feature: To create a Financial Transactions
     And current user logs out
 
     Examples:
-      | voucherDetails     | approvalOfficer1 | approvalOfficer2 | approvalOfficer3 | paymentMode | assignment | isPresent | singleOrMultiple |
-#      | voucherBillPayment | accountOfficer1  | accountOfficer2  | commissioner     | cheque      | cheque     | yes       | single           |
-      | voucherBillPayment | accountOfficer1  | accountOfficer2  | commissioner     | RTGS        | RTGS       | yes       | single           |
+      | voucherDetails     | approvalOfficer1      | approvalOfficer2   | approvalOfficer3 | paymentMode | assignment | isPresent | singleOrMultiple |
+      | voucherBillPayment | assExaminerOfAccounts | examinerOfAccounts | commissioner     | cheque      | cheque     | yes       | single           |
+      | voucherBillPayment | assExaminerOfAccounts | examinerOfAccounts | commissioner     | RTGS        | RTGS       | yes       | single           |
 
 

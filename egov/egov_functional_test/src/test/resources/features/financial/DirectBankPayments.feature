@@ -11,16 +11,14 @@ Feature: To create a voucher through direct bank payments
     Then user will be notified by "Successful"
     And current user logs out
 
-#    And examiner logs in
-    And the next user will be logged in
+    Given examiner logs in
     And he chooses to act upon above application number
     And officer will enter the approval details as <approvalOfficer2>
     And officer will see the successful voucher creation page and closes it
     Then user will be notified by "forwarded"
     And current user logs out
 
-#    And commissioner logs in
-    And the next user will be logged in
+    Given commissioner logs in
     And he chooses to act upon above application number
     And officer click on approval of the voucher
     And officer will see the successful voucher creation page and closes it
@@ -36,13 +34,13 @@ Feature: To create a voucher through direct bank payments
     And current user logs out
 
     Examples:
-    | bankDetails       |paymentMode | approvalOfficer1  | approvalOfficer2  | assignment | singleOrMultiple |
-    | directBankDetails |cheque      | accountOfficer2   | commissioner      | cheque     | single           |
-    | directBankDetails |RTGS        | accountOfficer2   | commissioner      | RTGS       | single           |
+      | bankDetails       | paymentMode | approvalOfficer1   | approvalOfficer2 | assignment | singleOrMultiple |
+      | directBankDetails | cheque      | examinerOfAccounts | commissioner     | cheque     | single           |
+      | directBankDetails | RTGS        | examinerOfAccounts | commissioner     | RTGS       | single           |
 
 
-    @Sanity @Finance
-    Scenario Outline: To create a voucher through direct bank payments with cash mode
+  @Sanity @Finance
+  Scenario Outline: To create a voucher through direct bank payments with cash mode
 
     Given accountsOfficer logs in
     And user will select the required screen as "Direct Bank Payments"
@@ -52,16 +50,14 @@ Feature: To create a voucher through direct bank payments
     Then user will be notified by "Successful"
     And current user logs out
 
-#    And examiner logs in
-    And the next user will be logged in
+    Given examiner logs in
     And he chooses to act upon above application number
     And officer will enter the approval details as <approvalOfficer2>
     And officer will see the successful voucher creation page and closes it
     Then user will be notified by "forwarded"
     And current user logs out
 
-#    And commissioner logs in
-    And the next user will be logged in
+    And commissioner logs in
     And he chooses to act upon above application number
     And officer click on approval of the voucher
     And officer will see the successful voucher creation page and closes it
@@ -69,5 +65,5 @@ Feature: To create a voucher through direct bank payments
     And current user logs out
 
     Examples:
-    | bankDetails       |paymentMode | approvalOfficer1  | approvalOfficer2  |
-    | directBankDetails |cash        | accountOfficer2   | commissioner      |
+      | bankDetails       | paymentMode | approvalOfficer1   | approvalOfficer2 |
+      | directBankDetails | cash        | examinerOfAccounts | commissioner     |

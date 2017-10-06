@@ -92,8 +92,14 @@ public class BasePage {
     protected void selectFromDropDown(WebElement webElement, String value, WebDriver driver) {
         waitForElementToBeVisible(webElement, driver);
         waitForElementToBeClickable(webElement, driver);
-        await().atMost(40, SECONDS).until(() -> new Select(webElement).getOptions().size() > 1);
-        new Select(webElement).selectByVisibleText(value);
+        try {
+            await().atMost(40, SECONDS).until(() -> new Select(webElement).getOptions().size() > 1);
+            new Select(webElement).selectByVisibleText(value);
+        } catch (Exception e) {
+            webElement.click();
+            await().atMost(40, SECONDS).until(() -> new Select(webElement).getOptions().size() > 1);
+            new Select(webElement).selectByVisibleText(value);
+        }
     }
 
     protected void selectAParticularFromDropDown(WebElement webElement, int i, WebDriver driver) {
@@ -106,7 +112,12 @@ public class BasePage {
     protected void clickOnButton(WebElement webElement, WebDriver driver) {
         waitForElementToBeVisible(webElement, driver);
         waitForElementToBeClickable(webElement, driver);
-        webElement.click();
+        try {
+            webElement.click();
+        } catch (Exception e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", webElement);
+            webElement.click();
+        }
     }
 
     protected String getTextFromWeb(WebElement webElement, WebDriver driver) {
@@ -181,13 +192,13 @@ public class BasePage {
         return dateFormat.format(cal.getTime());
     }
 
-    protected String getCurrentTime(){
+    protected String getCurrentTime() {
         DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
         Date date = new Date();
         return dateFormat.format(date);
     }
 
-    protected String getParticularMonthName(int monthId){
+    protected String getParticularMonthName(int monthId) {
         DateFormat fmt = new SimpleDateFormat("MMMM");
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MONTH, -monthId);
@@ -199,7 +210,7 @@ public class BasePage {
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
-    protected int getRandomNumber(int min , int max){
+    protected int getRandomNumber(int min, int max) {
         return new Random().nextInt((max - min) + 1) + min;
     }
 
