@@ -32,17 +32,20 @@ public class EmployeeManagementDetailsDataReader extends ExcelReader {
         String isPrimary = getCellData(assignmentDetailsSheet, dataRow, "IsPrimary").getStringCellValue();
         String mainDepartment = getCellData(assignmentDetailsSheet, dataRow, "MainDepartment").getStringCellValue();
         String designation = getCellData(assignmentDetailsSheet, dataRow, "Designation").getStringCellValue();
+        String position = getCellData(assignmentDetailsSheet, dataRow, "Position").getStringCellValue();
 
         return new AssignmentDetailsBuilder()
                 .withIsPrimary(isPrimary)
                 .withDepartment(mainDepartment)
                 .withDesignation(designation)
+                .withPosition(position)
                 .build();
     }
 
     public EmployeeDetails getEmployeeDetails(String dataName) {
         Row dataRow = readDataRow(employeeDetailsSheet, dataName);
 
+        String employeeName = getCellData(employeeDetailsSheet, dataRow, "EmployeeName").getStringCellValue();
         String employeeType = getCellData(employeeDetailsSheet, dataRow, "EmployeeType").getStringCellValue();
         String status = getCellData(employeeDetailsSheet, dataRow, "Status").getStringCellValue();
         String dateOfBirth = getCellData(employeeDetailsSheet, dataRow, "DateOfBirth").getStringCellValue();
@@ -57,6 +60,8 @@ public class EmployeeManagementDetailsDataReader extends ExcelReader {
         String dataOfJoining = getCellData(employeeDetailsSheet, dataRow, "DateOfAppointment").getStringCellValue();
 
         return new EmployeeDetailsBuilder()
+
+                .withEMployeeName(employeeName)
                 .withEmployeeType(employeeType)
                 .withStatus(status)
                 .withDateOfBirth(dateOfBirth)

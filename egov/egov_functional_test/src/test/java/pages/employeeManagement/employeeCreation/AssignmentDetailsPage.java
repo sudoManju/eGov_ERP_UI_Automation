@@ -85,7 +85,7 @@ public class AssignmentDetailsPage extends BasePage {
         this.webDriver = webDriver;
     }
 
-    public void enterAssignmentDetails(AssignmentDetails assignmentDetails) {
+    public void enterAssignmentDetails(AssignmentDetails assignmentDetails, String readFrom) {
         webDriver.manage().window().maximize();
         jsClick(webDriver.findElement(By.cssSelector("a[href='#assignmentDetails']")), webDriver);
         jsClick(addImageButton, webDriver);
@@ -94,14 +94,19 @@ public class AssignmentDetailsPage extends BasePage {
         } else {
             clickOnButton(isPrimaryFalseRadio, webDriver);
         }
-
         enterDate(fromDateTextBox, getCurrentDate(), webDriver);
-        enterDate(toDateTextBox, getCurrentDate(), webDriver);
+        enterDate(toDateTextBox, getFutureDate(30), webDriver);
         selectFromDropDown(departmentSelectBox, assignmentDetails.getDepartment(), webDriver);
         selectFromDropDown(designationSelectBox, assignmentDetails.getDesignation(), webDriver);
+
+        if(readFrom.equalsIgnoreCase("TRUE")){
+            enterDate(toDateTextBox, getFutureDate(300), webDriver);
+            enterText(positionSelectBox, assignmentDetails.getPosition(), webDriver);
+        }else
         await().atMost(10, SECONDS).until(() -> webDriver.findElements(By.cssSelector("[class='col-sm-6'] [id='assignments.position']")).size() == 1);
         designationSelectBox.sendKeys(Keys.TAB);
         await().atMost(25, SECONDS).until(() -> webDriver.findElements(By.cssSelector("li[class=ui-menu-item]")).size() >= 1);
+
         clickOnButton(webDriver.findElements(By.cssSelector("li[class=ui-menu-item]")).get(0).findElement(By.tagName("div")), webDriver);
         clickOnButton(addOrEditButton, webDriver);
     }

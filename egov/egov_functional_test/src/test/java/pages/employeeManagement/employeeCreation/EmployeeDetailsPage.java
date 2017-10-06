@@ -204,7 +204,7 @@ public class EmployeeDetailsPage extends BasePage {
         this.driver = driver;
     }
 
-    public String enterEmployeeDetails(EmployeeDetails employeeDetails) {
+    public String enterEmployeeDetails(EmployeeDetails employeeDetails,String isReadFrom) {
 
         await().atMost(60, TimeUnit.SECONDS).until(() -> driver.findElements(By.cssSelector("[class='blockUI']")).size() == 0);
 
@@ -213,8 +213,11 @@ public class EmployeeDetailsPage extends BasePage {
             await().atMost(20, TimeUnit.SECONDS).until(() -> driver.findElements(By.cssSelector("[class='blockUI']")).size() == 0);
         }
 
-//        enterText(employeeNameTextBox, "TestUser ", driver);
-        enterText(employeeNameTextBox, "TestUser " + getRandomUpperCaseCharacters(5), driver);
+        if(isReadFrom.equalsIgnoreCase("TRUE"))
+            enterText(employeeNameTextBox, employeeDetails.getEmployeeName(), driver);
+        else
+            enterText(employeeNameTextBox, "TestUser " + getRandomUpperCaseCharacters(5), driver);
+
         String employeeCode = "EMP" + get6DigitRandomInt();
         enterText(employeeCodeTextBox, employeeCode, driver);
         selectFromDropDown(employeeTypeBox, employeeDetails.getEmployeeType(), driver);

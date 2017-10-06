@@ -14,10 +14,13 @@ public class EmployeeDetails {
     private String permanentCity;
     private String permanentPincode;
     private String dateOfAppointment;
+    private String employeeName;
 
-    public String getEmployeeType() {
-        return employeeType;
-    }
+    public String getEmployeeType() { return employeeType; }
+
+    public String getEmployeeName() { return employeeName; }
+
+    public void setEmployeeName(String employeeName) { this.employeeName = employeeName; }
 
     public void setEmployeeType(String employeeType) {
         this.employeeType = employeeType;

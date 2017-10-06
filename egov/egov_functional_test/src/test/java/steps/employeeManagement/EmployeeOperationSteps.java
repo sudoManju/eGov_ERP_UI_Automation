@@ -14,15 +14,15 @@ public class EmployeeOperationSteps extends BaseSteps implements En {
 
     public EmployeeOperationSteps() {
 
-        And("^user enters the employee details as (\\w+)$", (String employeeDetailsDataId) -> {
+        And("^user enters the employee details as (\\w+) and is read from (\\w+)$", (String employeeDetailsDataId, String readFrom) -> {
             EmployeeDetails employeeDetails = new EmployeeManagementDetailsDataReader(eisTestDataFileName).getEmployeeDetails(employeeDetailsDataId);
-            scenarioContext.setApplicationNumber(pageStore.get(EmployeeDetailsPage.class).enterEmployeeDetails(employeeDetails));
+            scenarioContext.setApplicationNumber(pageStore.get(EmployeeDetailsPage.class).enterEmployeeDetails(employeeDetails,readFrom));
 //            System.out.println("===EMP==="+scenarioContext.getApplicationNumber());
         });
 
-        And("^user will enter the assignment details as (\\w+)$", (String dataId) -> {
+        And("^user will enter the assignment details as (\\w+) and is read from (\\w+)$", (String dataId, String readFrom) -> {
             AssignmentDetails assignmentDetails = new EmployeeManagementDetailsDataReader(eisTestDataFileName).getAssignmentDetails(dataId);
-            pageStore.get(AssignmentDetailsPage.class).enterAssignmentDetails(assignmentDetails);
+            pageStore.get(AssignmentDetailsPage.class).enterAssignmentDetails(assignmentDetails, readFrom);
         });
 
         And("^user will enter the jurisdiction details as (\\w+)$", (String dataId) -> {

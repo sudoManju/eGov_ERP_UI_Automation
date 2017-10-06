@@ -1,12 +1,15 @@
 package builders.employeeManagement.createEmployee;
-
 import entities.employeeManagement.createEmployee.EmployeeDetails;
 
 public final class EmployeeDetailsBuilder {
 
     EmployeeDetails employeeDetails = new EmployeeDetails();
 
-    public EmployeeDetailsBuilder() {
+    public EmployeeDetailsBuilder() {  }
+
+    public EmployeeDetailsBuilder withEMployeeName(String employeeName) {
+        employeeDetails.setEmployeeName(employeeName);
+        return this;
     }
 
     public EmployeeDetailsBuilder withEmployeeType(String employeeType) {

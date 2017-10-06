@@ -5,51 +5,48 @@ Feature: Create/View/Update
 
   Scenario Outline: Create an employee
 
-#    //for create employee login with:
-#    //pilotHR: pilotServices
-#    //kurnoolHR: staging
-#    //tirupatiHR: tirupati
-#    //kakinadHR: kakinada
-#    //gunturHR: guntur
+      ###For create employee login with:
+#    //pilotHR: pilotServices; //kurnoolHR: staging; //tirupatiHR: tirupati
+#    //kakinadHR: kakinada; //gunturHR: guntur;###
 
-    Given kurnoolHR logs in
+    Given admin logs in
     And user will select the required screen as "Create Employee" with condition as "/employee"
-    And user enters the employee details as <employeeDetails>
-    And user will enter the assignment details as <assignmentDetails>
+    And user enters the employee details as <employeeDetails> and is read from <isReadFrom>
+    And user will enter the assignment details as <assignmentDetails> and is read from <isReadFrom>
     And user will enter the jurisdiction details as <jurisdictionDetails>
     And user will enter the service section and other details
-#    Then user clicks on submit button
-#
-#    And user will select the required screen as "View Employee"
-#    And user will enter the employee search details
-#
-#    And user will select the required screen as "Update Employee"
-#    And user will enter the employee search details for updating the employee information
-#    And user will update the employee details
-#    Then user clicks on submit button
-#    And current user logs out
+    Then user clicks on submit button
+
+    And user will select the required screen as "View Employee"
+    And user will enter the employee search details
+
+    And user will select the required screen as "Update Employee"
+    And user will enter the employee search details for updating the employee information
+    And user will update the employee details
+    Then user clicks on submit button
+    And current user logs out
 
 #    Then user close the employee search
 #    And user will select the required screen as "Create LeaveBalance"
 
     Examples:
-      | employeeDetails | assignmentDetails | jurisdictionDetails |
-      | employee1       | assignment1       | JurisdictionList1   |
-      | employee2       | assignment2       | JurisdictionList2   |
-      | employee3       | assignment3       | JurisdictionList3   |
-      | employee4       | assignment4       | JurisdictionList4   |
-      | employee5       | assignment5       | JurisdictionList5   |
+      | employeeDetails | assignmentDetails | jurisdictionDetails | isReadFrom | isReadFrom |
+      | employee1       | assignment1       | JurisdictionList1   | FALSE      | FALSE      |
+      | employee2       | assignment2       | JurisdictionList2   | FALSE      | FALSE      |
+      | employee3       | assignment3       | JurisdictionList3   | FALSE      | FALSE      |
+      | employee4       | assignment4       | JurisdictionList4   | FALSE      | FALSE      |
+      | employee5       | assignment5       | JurisdictionList5   | FALSE      | FALSE      |
 
   Scenario Outline: Create employee fields validation test
 
     Given admin logs in
     And user will select the required screen as "Create Employee" with condition as "/employee"
     And user test the fields validation for employee details
-    And user will enter the assignment details as <assignmentDetails>
+    And user will enter the assignment details as <assignmentDetails> and is read from <isReadFrom>
     And user test the fields validation for assisgnment details
     And user will enter the jurisdiction details as <jurisdictionDetails>
     And user test the fields validation for service and other details
 
     Examples:
-      | assignmentDetails | jurisdictionDetails |
-      | assignment3       | JurisdictionList3   |
+      | assignmentDetails | jurisdictionDetails | isReadFrom |
+      | assignment3       | JurisdictionList3   | FALSE      |
