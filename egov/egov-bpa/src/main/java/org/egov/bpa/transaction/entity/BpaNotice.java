@@ -45,41 +45,82 @@
  *  In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
 
-package org.egov.bpa.web.controller.notice;
+package org.egov.bpa.transaction.entity;
 
-import java.io.IOException;
+import java.io.Serializable;
+import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
-import org.egov.bpa.transaction.service.ApplicationBpaService;
-import org.egov.bpa.transaction.service.notice.BpaNoticeService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.egov.infra.filestore.entity.FileStoreMapper;
 
-@Controller
-public class BpaNoticeController {
+@Entity
+@Table(name = "egbpa_notice")
+@SequenceGenerator(name = BpaNotice.SEQ_BPA_NOTICE, sequenceName = BpaNotice.SEQ_BPA_NOTICE, allocationSize = 1)
+public class BpaNotice implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
+    public static final String SEQ_BPA_NOTICE = "SEQ_EGBPA_NOTICE";
 
-    @Autowired
-    private ApplicationBpaService applicationBpaService;
-    @Autowired
-    private BpaNoticeService bpaReportService;
+    @Id
+    @GeneratedValue(generator = SEQ_BPA_NOTICE, strategy = GenerationType.SEQUENCE)
+    private Long id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "application")
+    private BpaApplication application;
+    private Date noticeGeneratedDate;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "noticeFileStore")
+    private FileStoreMapper noticeFileStore;
+    private String noticeType;
 
-    @RequestMapping(value = "/application/demandnotice/{applicationNumber}", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<byte[]> viewDemandNoticeReport(@PathVariable final String applicationNumber, HttpServletRequest request)
-            throws IOException {
-        return bpaReportService.generateDemandNotice(request, applicationBpaService.findByApplicationNumber(applicationNumber));
+    public Long getId() {
+        return id;
     }
 
-    @RequestMapping(value = "/application/generatepermitorder/{applicationNumber}", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<byte[]> generateBuildingPermitOrder(@PathVariable final String applicationNumber,
-            HttpServletRequest request) throws IOException {
-        return bpaReportService.generatePermitOrder(request, applicationBpaService.findByApplicationNumber(applicationNumber));
+    public void setId(Long id) {
+        this.id = id;
     }
+
+    public BpaApplication getApplication() {
+        return application;
+    }
+
+    public void setApplication(BpaApplication application) {
+        this.application = application;
+    }
+
+    public FileStoreMapper getNoticeFileStore() {
+        return noticeFileStore;
+    }
+
+    public void setNoticeFileStore(FileStoreMapper noticeFileStore) {
+        this.noticeFileStore = noticeFileStore;
+    }
+
+    public Date getNoticeGeneratedDate() {
+        return noticeGeneratedDate;
+    }
+
+    public void setNoticeGeneratedDate(Date noticeGeneratedDate) {
+        this.noticeGeneratedDate = noticeGeneratedDate;
+    }
+
+    public String getNoticeType() {
+        return noticeType;
+    }
+
+    public void setNoticeType(String noticeType) {
+        this.noticeType = noticeType;
+    }
+
 }

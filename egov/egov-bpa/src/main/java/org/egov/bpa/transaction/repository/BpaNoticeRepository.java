@@ -44,42 +44,14 @@
  *
  *  In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
+package org.egov.bpa.transaction.repository;
 
-package org.egov.bpa.web.controller.notice;
+import org.egov.bpa.transaction.entity.BpaApplication;
+import org.egov.bpa.transaction.entity.BpaNotice;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.egov.bpa.transaction.service.ApplicationBpaService;
-import org.egov.bpa.transaction.service.notice.BpaNoticeService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-@Controller
-public class BpaNoticeController {
-
-    @Autowired
-    private ApplicationBpaService applicationBpaService;
-    @Autowired
-    private BpaNoticeService bpaReportService;
-
-    @RequestMapping(value = "/application/demandnotice/{applicationNumber}", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<byte[]> viewDemandNoticeReport(@PathVariable final String applicationNumber, HttpServletRequest request)
-            throws IOException {
-        return bpaReportService.generateDemandNotice(request, applicationBpaService.findByApplicationNumber(applicationNumber));
-    }
-
-    @RequestMapping(value = "/application/generatepermitorder/{applicationNumber}", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<byte[]> generateBuildingPermitOrder(@PathVariable final String applicationNumber,
-            HttpServletRequest request) throws IOException {
-        return bpaReportService.generatePermitOrder(request, applicationBpaService.findByApplicationNumber(applicationNumber));
-    }
+@Repository
+public interface BpaNoticeRepository extends JpaRepository<BpaNotice, Long> {
+    BpaNotice findByApplicationAndNoticeType(BpaApplication application, String type);
 }

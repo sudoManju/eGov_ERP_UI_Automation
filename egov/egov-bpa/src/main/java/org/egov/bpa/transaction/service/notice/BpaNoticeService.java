@@ -1,50 +1,59 @@
 /*
- * eGov suite of products aim to improve the internal efficiency,transparency,
- *    accountability and the service delivery of the government  organizations.
+ * eGov  SmartCity eGovernance suite aims to improve the internal efficiency,transparency,
+ * accountability and the service delivery of the government  organizations.
  *
- *     Copyright (C) <2017>  eGovernments Foundation
+ *  Copyright (C) <2017>  eGovernments Foundation
  *
- *     The updated version of eGov suite of products as by eGovernments Foundation
- *     is available at http://www.egovernments.org
+ *  The updated version of eGov suite of products as by eGovernments Foundation
+ *  is available at http://www.egovernments.org
  *
- *     This program is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or
- *     any later version.
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  any later version.
  *
- *     This program is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU General Public License for more details.
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- *     You should have received a copy of the GNU General Public License
- *     along with this program. If not, see http://www.gnu.org/licenses/ or
- *     http://www.gnu.org/licenses/gpl.html .
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program. If not, see http://www.gnu.org/licenses/ or
+ *  http://www.gnu.org/licenses/gpl.html .
  *
- *     In addition to the terms of the GPL license to be adhered to in using this
- *     program, the following additional terms are to be complied with:
+ *  In addition to the terms of the GPL license to be adhered to in using this
+ *  program, the following additional terms are to be complied with:
  *
- *         1) All versions of this program, verbatim or modified must carry this
- *            Legal Notice.
+ *      1) All versions of this program, verbatim or modified must carry this
+ *         Legal Notice.
+ *      Further, all user interfaces, including but not limited to citizen facing interfaces,
+ *         Urban Local Bodies interfaces, dashboards, mobile applications, of the program and any
+ *         derived works should carry eGovernments Foundation logo on the top right corner.
  *
- *         2) Any misrepresentation of the origin of the material is prohibited. It
- *            is required that all modified versions of this material be marked in
- *            reasonable ways as different from the original version.
+ *      For the logo, please refer http://egovernments.org/html/logo/egov_logo.png.
+ *      For any further queries on attribution, including queries on brand guidelines,
+ *         please contact contact@egovernments.org
  *
- *         3) This license does not grant any rights to any user of the program
- *            with regards to rights under trademark law for use of the trade names
- *            or trademarks of eGovernments Foundation.
+ *      2) Any misrepresentation of the origin of the material is prohibited. It
+ *         is required that all modified versions of this material be marked in
+ *         reasonable ways as different from the original version.
  *
- *   In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
+ *      3) This license does not grant any rights to any user of the program
+ *         with regards to rights under trademark law for use of the trade names
+ *         or trademarks of eGovernments Foundation.
+ *
+ *  In case of any queries, you can reach eGovernments Foundation at contact@egovernments.org.
  */
 package org.egov.bpa.transaction.service.notice;
 
+import static org.egov.bpa.utils.BpaConstants.APPLICATION_MODULE_TYPE;
 import static org.egov.bpa.utils.BpaConstants.BPADEMANDNOTICETITLE;
-import 
-static org.egov.bpa.utils.BpaConstants.BPA_ADM_FEE;
+import static org.egov.bpa.utils.BpaConstants.BPA_ADM_FEE;
+import static org.egov.bpa.utils.BpaConstants.BPA_DEMAND_NOTICE_TYPE;
 import static org.egov.bpa.utils.BpaConstants.BUILDINGDEVELOPPERMITFILENAME;
 import static org.egov.bpa.utils.BpaConstants.BUILDINGPERMITFILENAME;
 import static org.egov.bpa.utils.BpaConstants.DEMANDNOCFILENAME;
+import static org.egov.bpa.utils.BpaConstants.PERMIT_ORDER_NOTICE_TYPE;
 import static org.egov.bpa.utils.BpaConstants.ST_CODE_05;
 import static org.egov.bpa.utils.BpaConstants.ST_CODE_08;
 import static org.egov.bpa.utils.BpaConstants.ST_CODE_09;
@@ -52,6 +61,9 @@ import static org.egov.bpa.utils.BpaConstants.ST_CODE_14;
 import static org.egov.bpa.utils.BpaConstants.ST_CODE_15;
 import static org.egov.infra.utils.DateUtils.currentDateToDefaultDateFormat;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -62,18 +74,24 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.egov.bpa.master.entity.PermitConditions;
 import org.egov.bpa.master.entity.ServiceType;
 import org.egov.bpa.transaction.entity.BpaApplication;
+import org.egov.bpa.transaction.entity.BpaNotice;
 import org.egov.bpa.transaction.entity.BuildingDetail;
 import org.egov.bpa.transaction.entity.Response;
+import org.egov.bpa.transaction.repository.BpaNoticeRepository;
+import org.egov.bpa.transaction.service.ApplicationBpaService;
 import org.egov.bpa.utils.BpaConstants;
 import org.egov.bpa.utils.BpaUtils;
 import org.egov.commons.Installment;
 import org.egov.demand.model.EgDemandDetails;
+import org.egov.infra.filestore.entity.FileStoreMapper;
 import org.egov.infra.filestore.service.FileStoreService;
+import org.egov.infra.reporting.engine.ReportFormat;
 import org.egov.infra.reporting.engine.ReportOutput;
 import org.egov.infra.reporting.engine.ReportRequest;
 import org.egov.infra.reporting.engine.ReportService;
@@ -95,6 +113,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 public class BpaNoticeService {
+    
+    private static final String APPLICATION_PDF = "application/pdf";
     @Autowired
     private ReportService reportService;
     @Autowired
@@ -105,28 +125,49 @@ public class BpaNoticeService {
     @Autowired
     @Qualifier("parentMessageSource")
     private MessageSource bpaMessageSource;
+    @Autowired
+    private BpaNoticeRepository bpaNoticeRepository;
+    @Autowired
+    private ApplicationBpaService applicationBpaService;
 
-    public ResponseEntity<byte[]> generateDemandNotice(HttpServletRequest request,
+    public BpaNotice findByApplicationAndNoticeType(final BpaApplication application, final String noticeType) {
+        return bpaNoticeRepository.findByApplicationAndNoticeType(application, noticeType);
+    }
+
+    public ReportOutput generateDemandNoticeReportOutput(HttpServletRequest request,
             final BpaApplication bpaApplication) {
         ReportRequest reportInput = null;
-        ReportOutput reportOutput;
         if (null != bpaApplication) {
             final Map<String, Object> reportParams = buildParametersForReport(request, bpaApplication);
             reportParams.putAll(buildParametersForDemandDetails(bpaApplication));
             reportInput = new ReportRequest(DEMANDNOCFILENAME, bpaApplication, reportParams);
         }
+        return reportService.createReport(reportInput);
+    }
 
+    public ResponseEntity<byte[]> generateDemandNotice(final HttpServletRequest request, final BpaApplication application)
+            throws IOException {
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.parseMediaType("application/pdf"));
-        headers.add("content-disposition", "inline;filename=Demand Notice.pdf");
-        reportOutput = reportService.createReport(reportInput);
+        ReportOutput reportOutput = new ReportOutput();
+        String fileName = "bpa-demand-notice".concat(String.valueOf(application.getApplicationNumber()));
+        BpaNotice bpaNotice = findByApplicationAndNoticeType(application, BPA_DEMAND_NOTICE_TYPE);
+        if (bpaNotice != null && bpaNotice.getNoticeFileStore() != null) {
+            final FileStoreMapper fmp = application.getBpaNotice().get(0).getNoticeFileStore();
+            final File file = fileStoreService.fetch(fmp, APPLICATION_MODULE_TYPE);
+            reportOutput.setReportOutputData(FileUtils.readFileToByteArray(file));
+            reportOutput.setReportFormat(ReportFormat.PDF);
+        } else {
+            reportOutput = generateDemandNoticeReportOutput(request, application);
+            saveBpaNotices(application, reportOutput, fileName, BPA_DEMAND_NOTICE_TYPE);
+        }
+        headers.setContentType(MediaType.parseMediaType(APPLICATION_PDF));
+        headers.add("content-disposition", "inline;filename=" + fileName + ".pdf");
         return new ResponseEntity<>(reportOutput.getReportOutputData(), headers, HttpStatus.CREATED);
     }
 
-    public ResponseEntity<byte[]> generateBuildingPermit(HttpServletRequest request,
+    public ReportOutput generateBuildingPermitReportOutput(HttpServletRequest request,
             final BpaApplication bpaApplication) {
         ReportRequest reportInput = null;
-        ReportOutput reportOutput;
         String reportFileName = null;
         if (null != bpaApplication) {
             if (BpaConstants.getServicesForBuildPermit().contains(bpaApplication.getServiceType().getCode())) {
@@ -140,12 +181,7 @@ public class BpaNoticeService {
             reportInput = new ReportRequest(reportFileName, !bpaApplication.getBuildingDetail().isEmpty()
                     ? bpaApplication.getBuildingDetail().get(0) : new BuildingDetail(), reportParams);
         }
-
-        final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.parseMediaType("application/pdf"));
-        headers.add("content-disposition", "inline;filename=" + reportFileName + ".pdf");
-        reportOutput = reportService.createReport(reportInput);
-        return new ResponseEntity<>(reportOutput.getReportOutputData(), headers, HttpStatus.CREATED);
+        return reportService.createReport(reportInput);
     }
 
     private Map<String, Object> buildParametersForDemandDetails(final BpaApplication bpaApplication) {
@@ -164,13 +200,47 @@ public class BpaNoticeService {
                 demandResponseList.add(response);
             }
         }
-
         reportParams.put("installmentDesc",
                 currentInstallemnt.getDescription() != null ? currentInstallemnt.getDescription() : "");
         reportParams.put("demandResponseList", demandResponseList);
         reportParams.put("totalPendingAmt", totalPendingAmt.setScale(2, BigDecimal.ROUND_HALF_EVEN));
-
         return reportParams;
+    }
+
+    public ResponseEntity<byte[]> generatePermitOrder(final HttpServletRequest request, final BpaApplication application)
+            throws IOException {
+        final HttpHeaders headers = new HttpHeaders();
+        ReportOutput reportOutput = new ReportOutput();
+        String fileName;
+        BpaNotice bpaNotice = findByApplicationAndNoticeType(application, PERMIT_ORDER_NOTICE_TYPE);
+        if (bpaNotice != null && bpaNotice.getNoticeFileStore() != null) {
+            final FileStoreMapper fmp = application.getBpaNotice().get(0).getNoticeFileStore();
+            final File file = fileStoreService.fetch(fmp, APPLICATION_MODULE_TYPE);
+            fileName = file.getName();
+            reportOutput.setReportOutputData(FileUtils.readFileToByteArray(file));
+            reportOutput.setReportFormat(ReportFormat.PDF);
+        } else {
+            fileName = application.getPlanPermissionNumber();
+            reportOutput = generateBuildingPermitReportOutput(request, application);
+            saveBpaNotices(application, reportOutput, fileName, PERMIT_ORDER_NOTICE_TYPE);
+        }
+        headers.setContentType(MediaType.parseMediaType(APPLICATION_PDF));
+        headers.add("content-disposition", "inline;filename=" + fileName + ".pdf");
+        return new ResponseEntity<>(reportOutput.getReportOutputData(), headers, HttpStatus.CREATED);
+    }
+
+    private BpaNotice saveBpaNotices(final BpaApplication application, ReportOutput reportOutput, String fileName,
+            String noticeType) {
+        BpaNotice bpaNotice1 = new BpaNotice();
+        bpaNotice1.setApplication(application);
+        bpaNotice1.setNoticeFileStore(
+                fileStoreService.store(new ByteArrayInputStream(reportOutput.getReportOutputData()), fileName, APPLICATION_PDF,
+                        APPLICATION_MODULE_TYPE));
+        bpaNotice1.setNoticeGeneratedDate(new Date());
+        bpaNotice1.setNoticeType(noticeType);
+        application.addNotice(bpaNotice1);
+        applicationBpaService.saveAndFlushApplication(application);
+        return bpaNotice1;
     }
 
     private Map<String, Object> buildParametersForReport(HttpServletRequest request,

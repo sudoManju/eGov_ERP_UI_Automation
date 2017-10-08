@@ -219,6 +219,8 @@ public class BpaApplication extends StateAware {
     @JoinTable(name = "egbpa_application_permit_conditions", joinColumns = @JoinColumn(name = "application"), inverseJoinColumns = @JoinColumn(name = "permitcondition"))
     private List<PermitConditions> permitConditions = new ArrayList<>(0);
     private String additionalPermitConditions;
+    @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<BpaNotice> bpaNotice = new ArrayList<>(0);
 
     @Override
     public Long getId() {
@@ -718,6 +720,17 @@ public class BpaApplication extends StateAware {
 
     public void setMailPwdRequired(boolean mailPwdRequired) {
         this.mailPwdRequired = mailPwdRequired;
+    }
+
+    public List<BpaNotice> getBpaNotice() {
+        return bpaNotice;
+    }
+
+    public void setBpaNotice(List<BpaNotice> bpaNotice) {
+        this.bpaNotice = bpaNotice;
+    }
+    public void addNotice(final BpaNotice bpaNotice) {
+        getBpaNotice().add(bpaNotice);
     }
 
 }
