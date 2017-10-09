@@ -72,8 +72,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
@@ -95,25 +93,19 @@ import org.egov.infra.reporting.engine.ReportFormat;
 import org.egov.infra.reporting.engine.ReportOutput;
 import org.egov.infra.reporting.engine.ReportRequest;
 import org.egov.infra.reporting.engine.ReportService;
-import org.egov.infra.reporting.util.ReportUtil;
 import org.egov.infra.utils.DateUtils;
-import org.egov.infra.web.utils.WebUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(readOnly = true)
 public class BpaNoticeService {
-    
+
     private static final String APPLICATION_PDF = "application/pdf";
     @Autowired
     private ReportService reportService;
@@ -134,54 +126,27 @@ public class BpaNoticeService {
         return bpaNoticeRepository.findByApplicationAndNoticeType(application, noticeType);
     }
 
-    public ReportOutput generateDemandNoticeReportOutput(HttpServletRequest request,
-            final BpaApplication bpaApplication) {
-        ReportRequest reportInput = null;
-        if (null != bpaApplication) {
-            final Map<String, Object> reportParams = buildParametersForReport(request, bpaApplication);
-            reportParams.putAll(buildParametersForDemandDetails(bpaApplication));
-            reportInput = new ReportRequest(DEMANDNOCFILENAME, bpaApplication, reportParams);
-        }
-        return reportService.createReport(reportInput);
-    }
-
-    public ResponseEntity<byte[]> generateDemandNotice(final HttpServletRequest request, final BpaApplication application)
+    public ReportOutput generateDemandNotice(final BpaApplication bpaApplication,
+            final Map<String, Object> ulbDetailsReportParams)
             throws IOException {
-        final HttpHeaders headers = new HttpHeaders();
+        ReportRequest reportInput = null;
         ReportOutput reportOutput = new ReportOutput();
-        String fileName = "bpa-demand-notice".concat(String.valueOf(application.getApplicationNumber()));
-        BpaNotice bpaNotice = findByApplicationAndNoticeType(application, BPA_DEMAND_NOTICE_TYPE);
+        String fileName = "bpa-demand-notice".concat(String.valueOf(bpaApplication.getApplicationNumber()));
+        BpaNotice bpaNotice = findByApplicationAndNoticeType(bpaApplication, BPA_DEMAND_NOTICE_TYPE);
         if (bpaNotice != null && bpaNotice.getNoticeFileStore() != null) {
-            final FileStoreMapper fmp = application.getBpaNotice().get(0).getNoticeFileStore();
+            final FileStoreMapper fmp = bpaNotice.getNoticeFileStore();
             final File file = fileStoreService.fetch(fmp, APPLICATION_MODULE_TYPE);
             reportOutput.setReportOutputData(FileUtils.readFileToByteArray(file));
-            reportOutput.setReportFormat(ReportFormat.PDF);
         } else {
-            reportOutput = generateDemandNoticeReportOutput(request, application);
-            saveBpaNotices(application, reportOutput, fileName, BPA_DEMAND_NOTICE_TYPE);
+            final Map<String, Object> reportParams = buildParametersForReport(bpaApplication);
+            reportParams.putAll(ulbDetailsReportParams);
+            reportParams.putAll(buildParametersForDemandDetails(bpaApplication));
+            reportInput = new ReportRequest(DEMANDNOCFILENAME, bpaApplication, reportParams);
+            reportOutput = reportService.createReport(reportInput);
+            saveBpaNotices(bpaApplication, reportOutput, fileName, BPA_DEMAND_NOTICE_TYPE);
         }
-        headers.setContentType(MediaType.parseMediaType(APPLICATION_PDF));
-        headers.add("content-disposition", "inline;filename=" + fileName + ".pdf");
-        return new ResponseEntity<>(reportOutput.getReportOutputData(), headers, HttpStatus.CREATED);
-    }
-
-    public ReportOutput generateBuildingPermitReportOutput(HttpServletRequest request,
-            final BpaApplication bpaApplication) {
-        ReportRequest reportInput = null;
-        String reportFileName = null;
-        if (null != bpaApplication) {
-            if (BpaConstants.getServicesForBuildPermit().contains(bpaApplication.getServiceType().getCode())) {
-                reportFileName = BUILDINGPERMITFILENAME;
-            } else if (BpaConstants.getServicesForDevelopPermit().contains(bpaApplication.getServiceType().getCode())) {
-                reportFileName = BUILDINGDEVELOPPERMITFILENAME;
-            } else {
-                reportFileName = BUILDINGPERMITFILENAME;
-            }
-            final Map<String, Object> reportParams = buildParametersForReport(request, bpaApplication);
-            reportInput = new ReportRequest(reportFileName, !bpaApplication.getBuildingDetail().isEmpty()
-                    ? bpaApplication.getBuildingDetail().get(0) : new BuildingDetail(), reportParams);
-        }
-        return reportService.createReport(reportInput);
+        reportOutput.setReportFormat(ReportFormat.PDF);
+        return reportOutput;
     }
 
     private Map<String, Object> buildParametersForDemandDetails(final BpaApplication bpaApplication) {
@@ -207,55 +172,53 @@ public class BpaNoticeService {
         return reportParams;
     }
 
-    public ResponseEntity<byte[]> generatePermitOrder(final HttpServletRequest request, final BpaApplication application)
+    public ReportOutput generatePermitOrder(final BpaApplication bpaApplication, final Map<String, Object> ulbDetailsReportParams)
             throws IOException {
-        final HttpHeaders headers = new HttpHeaders();
         ReportOutput reportOutput = new ReportOutput();
-        String fileName;
-        BpaNotice bpaNotice = findByApplicationAndNoticeType(application, PERMIT_ORDER_NOTICE_TYPE);
+        ReportRequest reportInput = null;
+        BpaNotice bpaNotice = findByApplicationAndNoticeType(bpaApplication, PERMIT_ORDER_NOTICE_TYPE);
         if (bpaNotice != null && bpaNotice.getNoticeFileStore() != null) {
-            final FileStoreMapper fmp = application.getBpaNotice().get(0).getNoticeFileStore();
+            final FileStoreMapper fmp = bpaNotice.getNoticeFileStore();
             final File file = fileStoreService.fetch(fmp, APPLICATION_MODULE_TYPE);
-            fileName = file.getName();
             reportOutput.setReportOutputData(FileUtils.readFileToByteArray(file));
-            reportOutput.setReportFormat(ReportFormat.PDF);
         } else {
-            fileName = application.getPlanPermissionNumber();
-            reportOutput = generateBuildingPermitReportOutput(request, application);
-            saveBpaNotices(application, reportOutput, fileName, PERMIT_ORDER_NOTICE_TYPE);
+            String reportFileName;
+            if (BpaConstants.getServicesForBuildPermit().contains(bpaApplication.getServiceType().getCode())) {
+                reportFileName = BUILDINGPERMITFILENAME;
+            } else if (BpaConstants.getServicesForDevelopPermit().contains(bpaApplication.getServiceType().getCode())) {
+                reportFileName = BUILDINGDEVELOPPERMITFILENAME;
+            } else {
+                reportFileName = BUILDINGPERMITFILENAME;
+            }
+            final Map<String, Object> reportParams = buildParametersForReport(bpaApplication);
+            reportParams.putAll(ulbDetailsReportParams);
+            reportInput = new ReportRequest(reportFileName, !bpaApplication.getBuildingDetail().isEmpty()
+                    ? bpaApplication.getBuildingDetail().get(0) : new BuildingDetail(), reportParams);
+            reportOutput = reportService.createReport(reportInput);
+            saveBpaNotices(bpaApplication, reportOutput, bpaApplication.getPlanPermissionNumber(),
+                    PERMIT_ORDER_NOTICE_TYPE);
         }
-        headers.setContentType(MediaType.parseMediaType(APPLICATION_PDF));
-        headers.add("content-disposition", "inline;filename=" + fileName + ".pdf");
-        return new ResponseEntity<>(reportOutput.getReportOutputData(), headers, HttpStatus.CREATED);
+        reportOutput.setReportFormat(ReportFormat.PDF);
+        return reportOutput;
     }
 
     private BpaNotice saveBpaNotices(final BpaApplication application, ReportOutput reportOutput, String fileName,
             String noticeType) {
-        BpaNotice bpaNotice1 = new BpaNotice();
-        bpaNotice1.setApplication(application);
-        bpaNotice1.setNoticeFileStore(
+        BpaNotice bpaNotice = new BpaNotice();
+        bpaNotice.setApplication(application);
+        bpaNotice.setNoticeFileStore(
                 fileStoreService.store(new ByteArrayInputStream(reportOutput.getReportOutputData()), fileName, APPLICATION_PDF,
                         APPLICATION_MODULE_TYPE));
-        bpaNotice1.setNoticeGeneratedDate(new Date());
-        bpaNotice1.setNoticeType(noticeType);
-        application.addNotice(bpaNotice1);
+        bpaNotice.setNoticeGeneratedDate(new Date());
+        bpaNotice.setNoticeType(noticeType);
+        application.addNotice(bpaNotice);
         applicationBpaService.saveAndFlushApplication(application);
-        return bpaNotice1;
+        return bpaNotice;
     }
 
-    private Map<String, Object> buildParametersForReport(HttpServletRequest request,
-            final BpaApplication bpaApplication) {
-        final Map<String, Object> reportParams = new HashMap<>();
+    private Map<String, Object> buildParametersForReport(final BpaApplication bpaApplication) {
         StringBuilder serviceTypeDesc = new StringBuilder();
-        final String url = WebUtils.extractRequestDomainURL(request, false);
-        final String cityLogo = url.concat(BpaConstants.IMAGE_CONTEXT_PATH)
-                .concat((String) request.getSession().getAttribute("citylogo"));
-        final String ulbName = request.getSession().getAttribute("citymunicipalityname").toString();
-        final String cityName = request.getSession().getAttribute("cityname").toString();
-        reportParams.put("cityName", cityName);
-        reportParams.put("logoPath", cityLogo);
-        reportParams.put("ulbName", ulbName);
-        reportParams.put("duplicateWatermarkPath", ReportUtil.duplicateWatermarkAbsolutePath(request));
+        final Map<String, Object> reportParams = new HashMap<>();
         reportParams.put("bpademandtitle", WordUtils.capitalize(BPADEMANDNOTICETITLE));
         reportParams.put("currentDate", currentDateToDefaultDateFormat());
         reportParams.put("lawAct", "[See Rule 11 (3)]");

@@ -47,13 +47,25 @@
 
 package org.egov.bpa.web.controller.notice;
 
+import static org.egov.bpa.utils.BpaConstants.BUILDINGPERMITFILENAME;
+import static org.egov.bpa.utils.BpaConstants.DEMANDNOCFILENAME;
+
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.egov.bpa.transaction.service.ApplicationBpaService;
 import org.egov.bpa.transaction.service.notice.BpaNoticeService;
+import org.egov.bpa.utils.BpaConstants;
+import org.egov.infra.reporting.engine.ReportOutput;
+import org.egov.infra.reporting.util.ReportUtil;
+import org.egov.infra.web.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -64,6 +76,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class BpaNoticeController {
 
+    private static final String PDFEXTN = ".pdf";
+    private static final String INLINE_FILENAME = "inline;filename=";
+    private static final String CONTENT_DISPOSITION = "content-disposition";
+    private static final String APPLICATION_PDF = "application/pdf";
+
     @Autowired
     private ApplicationBpaService applicationBpaService;
     @Autowired
@@ -73,13 +90,37 @@ public class BpaNoticeController {
     @ResponseBody
     public ResponseEntity<byte[]> viewDemandNoticeReport(@PathVariable final String applicationNumber, HttpServletRequest request)
             throws IOException {
-        return bpaReportService.generateDemandNotice(request, applicationBpaService.findByApplicationNumber(applicationNumber));
+        Map<String, Object> ulbDetailsReportParams = buildUlbDetails(request);
+        ReportOutput reportOutput = bpaReportService
+                .generateDemandNotice(applicationBpaService.findByApplicationNumber(applicationNumber), ulbDetailsReportParams);
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType(APPLICATION_PDF));
+        headers.add(CONTENT_DISPOSITION, INLINE_FILENAME + DEMANDNOCFILENAME + PDFEXTN);
+        return new ResponseEntity<>(reportOutput.getReportOutputData(), headers, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/application/generatepermitorder/{applicationNumber}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<byte[]> generateBuildingPermitOrder(@PathVariable final String applicationNumber,
             HttpServletRequest request) throws IOException {
-        return bpaReportService.generatePermitOrder(request, applicationBpaService.findByApplicationNumber(applicationNumber));
+        Map<String, Object> ulbDetailsReportParams = buildUlbDetails(request);
+        ReportOutput reportOutput = bpaReportService
+                .generatePermitOrder(applicationBpaService.findByApplicationNumber(applicationNumber), ulbDetailsReportParams);
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType(APPLICATION_PDF));
+        headers.add(CONTENT_DISPOSITION, INLINE_FILENAME + BUILDINGPERMITFILENAME + "order" + PDFEXTN);
+        return new ResponseEntity<>(reportOutput.getReportOutputData(), headers, HttpStatus.CREATED);
+    }
+
+    private Map<String, Object> buildUlbDetails(HttpServletRequest request) {
+        final Map<String, Object> ulbDetailsReportParams = new HashMap<>();
+        final String url = WebUtils.extractRequestDomainURL(request, false);
+        final String cityLogo = url.concat(BpaConstants.IMAGE_CONTEXT_PATH)
+                .concat((String) request.getSession().getAttribute("citylogo"));
+        ulbDetailsReportParams.put("cityName", request.getSession().getAttribute("cityname").toString());
+        ulbDetailsReportParams.put("logoPath", cityLogo);
+        ulbDetailsReportParams.put("ulbName", request.getSession().getAttribute("citymunicipalityname").toString());
+        ulbDetailsReportParams.put("duplicateWatermarkPath", ReportUtil.duplicateWatermarkAbsolutePath(request));
+        return ulbDetailsReportParams;
     }
 }
