@@ -75,7 +75,7 @@ Feature: To collect water charges in different mode payments
       | New_connection    | inspectionInfo    | engineer         | deputyExecutiveEngineer | commissioner1    | dd          |
 
 
-  @Sanity @WaterCharges @Smoke1 @Experiment
+#  @Sanity @WaterCharges @Smoke1 @Experiment
   Scenario Outline: This Scenario Includes creation of New Connection and collecting the charges through online link
 
     Given creator logs in
