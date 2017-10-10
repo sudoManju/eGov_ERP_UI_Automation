@@ -23,7 +23,6 @@ public class HomePage extends BasePage {
     @FindBy(css = ".form-control.style-form.valid")
     private WebElement zoneSelect;
 
-
     @FindBy(xpath = "html/body/div[1]/div/div[2]/header/nav/div[2]/span[1]/a/i")
     private WebElement profileLink;
 
@@ -35,19 +34,16 @@ public class HomePage extends BasePage {
     }
 
     public void loginAs(LoginDetails loginDetails) {
-
         enterText(userNameTextBox, loginDetails.getLoginId(), driver);
         enterText(passwordTextBox, loginDetails.getPassword(), driver);
-//        if (loginDetails.getHasZone()) {
+        driver.manage().deleteCookieNamed("JSESSIONID");
         try {
             TimeUnit.SECONDS.sleep(2);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-//        }
         WebElement signForm = driver.findElement(By.id("signin-action"));
         waitForElementToBeClickable(signForm, driver);
-//        clickOnButton(signForm, driver);
         signForm.submit();
     }
 
@@ -57,7 +53,5 @@ public class HomePage extends BasePage {
 
     public void signOut() {
         clickOnButton(profileLink, driver);
-//        clickOnButton(profileLink, driver);
-//        clickOnButton(signOutLink, driver);
     }
 }

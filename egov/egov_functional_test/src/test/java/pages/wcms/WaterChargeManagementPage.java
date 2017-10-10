@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -203,22 +204,28 @@ public class WaterChargeManagementPage extends BasePage {
 
         jsClick(button2, webDriver);
         switchToNewlyOpenedWindow(webDriver);
+        await().atMost(20, TimeUnit.SECONDS).until(() -> webDriver.findElements(By.id("instrHeaderCash.instrumentAmount")).size() == 0);
     }
 
     public void closeSuccessfulPaymentReceiptPage() {
-
-        clickOnButton(closeReceiptButton, webDriver);
+//        if (webDriver.findElements(By.id("buttonClose")).size() == 0)
+//            webDriver.close();
+//        else
+            webDriver.close();
+//            clickOnButton(closeReceiptButton, webDriver);
     }
 
     public void closeSearchApplicationPage() {
 
+
         for (String winHandle : webDriver.getWindowHandles()) {
             String title = webDriver.switchTo().window(winHandle).getCurrentUrl();
-            if (title.equals("http://kurnool-uat.egovernments.org/wtms/elastic/appSearch/")) {
+            if (title.equals(getEnvironmentURL() + "/wtms/elastic/appSearch/")) {
                 break;
             }
         }
 
+        await().atMost(20, TimeUnit.SECONDS).until(() -> webDriver.findElements(By.xpath("//*[text()='The Search result is']")).size() == 1);
         clickOnButton(closeSearchApplication, webDriver);
         switchToPreviouslyOpenedWindow(webDriver);
     }
