@@ -98,8 +98,7 @@
 						<tr class="data-fetched">
 							<td class="text-center"><span class="serialNoForExistBuild text-center"
 								id="slNoInsp">${counter.index+1}</span>
-							<form:hidden id="table_fieldInspections${counter.index}"
-									path="existingBuildingDetails[0].existingBuildingFloorDetails[${counter.index}].id" />
+							<form:hidden path="existingBuildingDetails[0].existingBuildingFloorDetails[${counter.index}]" />
 								<form:hidden class="orderNoForExistBuild"
 									path="existingBuildingDetails[0].existingBuildingFloorDetails[${counter.index}].orderOfFloor" /></td>
 							<td><form:select

@@ -100,8 +100,7 @@
 						<tr class="data-fetched">
 							<td class="text-center"><span class="serialNo text-center"
 								id="slNoInsp">${counter.index+1}</span>
-							<form:hidden id="table_fieldInspections${counter.index}"
-									path="buildingDetail[0].applicationFloorDetails[${counter.index}].id" />
+							<form:hidden path="buildingDetail[0].applicationFloorDetails[${counter.index}]" />
 								<form:hidden class="orderNo"
 									path="buildingDetail[0].applicationFloorDetails[${counter.index}].orderOfFloor" /></td>
 							<td><form:select
