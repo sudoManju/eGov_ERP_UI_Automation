@@ -181,7 +181,7 @@ Feature: Create/renewal/closure of sewerage connection
       | cash        | creation2         | change2         |
       | cash        | creation3         | change3         |
 
-  @SewerageTax @Sanity
+#  @SewerageTax @Sanity
   Scenario: Generate demand bill for legacy sewerage connection
 
     Given commissioner logs in
