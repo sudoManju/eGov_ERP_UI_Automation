@@ -122,33 +122,33 @@
 									<a class="download" target="_blank"
 										href="/bpa/application/downloadfile/${file.fileStoreId}"></a>
 
-									<c:choose>
-										<c:when test="${file.contentType eq 'application/pdf'}">
-											<i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-										</c:when>
-										<c:when test="${file.contentType eq 'application/txt'}">
-											<i class="fa fa-file-text-o" aria-hidden="true"></i>
-										</c:when>
-										<c:when
-											test="${file.contentType eq 'application/rtf' || file.contentType eq 'application/doc' || file.contentType eq 'application/docx'}">
-											<i class="fa fa-file-word-o" aria-hidden="true"></i>
-										</c:when>
-										<c:when test="${file.contentType eq 'application/zip'}">
-											<i class="fa fa-file-archive-o" aria-hidden="true"></i>
-										</c:when>
-										<c:when
-											test="${file.contentType eq 'image/jpg' || file.contentType eq 'image/jpeg' || file.contentType eq 'image/png' || file.contentType eq 'image/gif' || file.contentType eq 'image/tiff'}">
-											<i class="fa fa-picture-o" aria-hidden="true"></i>
-										</c:when>
-										<c:when
-											test="${file.contentType eq 'application/xls' || file.contentType eq 'application/xlsx'}">
-											<i class="fa fa-file-excel-o" aria-hidden="true"></i>
-										</c:when>
-										<c:otherwise>
-											<i class="fa fa-file-o" aria-hidden="true"></i>
-										</c:otherwise>
-									</c:choose>
-									<span class="doc-numbering">${status1.index+1}</span>
+										<c:choose>
+											<c:when test="${file.contentType eq 'application/pdf'}">
+												<i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+											</c:when>
+											<c:when test="${file.contentType eq 'application/txt'}">
+												<i class="fa fa-file-text-o" aria-hidden="true"></i>
+											</c:when>
+											<c:when
+												test="${file.contentType eq 'application/rtf' || file.contentType eq 'application/doc' || file.contentType eq 'application/docx' || file.contentType eq 'application/msword' || file.contentType eq 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'}">
+												<i class="fa fa-file-word-o" aria-hidden="true"></i>
+											</c:when>
+											<c:when test="${file.contentType eq 'application/zip'}">
+												<i class="fa fa-file-archive-o" aria-hidden="true"></i>
+											</c:when>
+											<c:when
+												test="${file.contentType eq 'image/jpg' || file.contentType eq 'image/jpeg' || file.contentType eq 'image/png' || file.contentType eq 'image/gif' || file.contentType eq 'image/tiff'}">
+												<i class="fa fa-picture-o" aria-hidden="true"></i>
+											</c:when>
+											<c:when
+												test="${file.contentType eq 'application/xls' || file.contentType eq 'application/xlsx' || file.contentType eq 'application/vnd.ms-excel'}">
+												<i class="fa fa-file-excel-o" aria-hidden="true"></i>
+											</c:when>
+											<c:otherwise>
+												<i class="fa fa-file-o" aria-hidden="true"></i>
+											</c:otherwise>
+										</c:choose>
+										<span class="doc-numbering">${status1.index+1}</span>
 								</div>
 							</c:forEach>
 

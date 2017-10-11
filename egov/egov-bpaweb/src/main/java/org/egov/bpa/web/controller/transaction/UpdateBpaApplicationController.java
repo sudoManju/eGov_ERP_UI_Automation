@@ -351,7 +351,12 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
             amountRule = BigDecimal.ONE;
         } else if (!application.getBuildingDetail().isEmpty()
                 && application.getBuildingDetail().get(0).getTotalPlintArea() != null) {
-            amountRule = application.getBuildingDetail().get(0).getTotalPlintArea();
+            if (!application.getExistingBuildingDetails().isEmpty()
+                    && application.getExistingBuildingDetails().get(0).getTotalPlintArea() != null)
+                amountRule = application.getBuildingDetail().get(0).getTotalPlintArea()
+                        .add(application.getExistingBuildingDetails().get(0).getTotalPlintArea());
+            else
+                amountRule = application.getBuildingDetail().get(0).getTotalPlintArea();
         }
         return amountRule;
     }
