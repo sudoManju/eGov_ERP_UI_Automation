@@ -53,11 +53,10 @@ public class GrievancesSteps extends BaseSteps implements En {
             pageStore.get(GrievancesPage.class).withdrawComplaint(complaintStatus);
         });
         And("^he search complaint with all parameters$", () -> {
-            String[] parameters = {"appNum","location","today","allDates","last7Days","last30Days","last90Days","status"};
-            for (int i=0;i<parameters.length;i++) {
-                String type = parameters[i];
-                pageStore.get(GrievancesPage.class).searchComplaint(scenarioContext.getApplicationNumber(),type);
-            }
+            String[] parameters = {"appNum", "location", "today", "allDates", "last7Days", "last30Days", "last90Days", "status"};
+//            for (String type : parameters) {
+            pageStore.get(GrievancesPage.class).searchComplaint(scenarioContext.getApplicationNumber(), "appNum");
+//            }
             pageStore.get(GrievancesPage.class).close();
         });
     }

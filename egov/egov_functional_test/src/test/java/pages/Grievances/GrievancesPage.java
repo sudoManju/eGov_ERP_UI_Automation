@@ -11,6 +11,7 @@ import pages.BasePage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -131,17 +132,18 @@ public class GrievancesPage extends BasePage {
     public String enterGrievanceDetails(CreateComplaintDetails createComplaintDetails, String user) {
         if (user.equals("citizen")) {
             enterText(complaintTypeTextBox, createComplaintDetails.getGrievanceType(), webDriver);
-            WebElement dropdown1 = webDriver.findElement(By.className("tt-highlight"));
-            dropdown1.click();
+            await().atMost(10, TimeUnit.SECONDS).until(() -> webDriver.findElements(By.cssSelector("[class='tt-dropdown-menu'] div span div p strong")).size() == 1);
+            WebElement dropdown = webDriver.findElement(By.cssSelector("[class='tt-dropdown-menu'] div span div p strong"));
+            dropdown.click();
         } else {
             selectFromDropDown(complaintTypeCategorySelect, createComplaintDetails.getGrievanceCategory(), webDriver);
             selectFromDropDown(complaintTypeSelect, createComplaintDetails.getGrievanceType(), webDriver);
         }
         enterText(grievanceDetailsText, createComplaintDetails.getGrievanceDetails(), webDriver);
         enterText(grievanceLocationText, createComplaintDetails.getGrievanceLocation(), webDriver);
-        WebElement dropdown = webDriver.findElement(By.className("tt-highlight"));
+        await().atMost(10, TimeUnit.SECONDS).until(() -> webDriver.findElements(By.cssSelector("[class='tt-dropdown-menu'] div span div p strong")).size() == 1);
+        WebElement dropdown = webDriver.findElement(By.cssSelector("[class='tt-dropdown-menu'] div span div p strong"));
         dropdown.click();
-        grievanceLocationText.sendKeys(Keys.TAB);
         enterText(locationLandmarkText, createComplaintDetails.getLocationLandmark(), webDriver);
         clickOnButton(createGrievanceButton, webDriver);
         return successMsg.getText();
@@ -200,42 +202,47 @@ public class GrievancesPage extends BasePage {
                 break;
 
             case "location":
-                enterText(locationTextBox,"Election Ward No. 44",webDriver);
+                enterText(locationTextBox, "Election Ward No. 44", webDriver);
                 break;
 
             case "today":
-                selectFromDropDown(searchComplaintByDateBox,"Today",webDriver);
+                selectFromDropDown(searchComplaintByDateBox, "Today", webDriver);
                 break;
 
             case "allDates":
-                selectFromDropDown(searchComplaintByDateBox,"All",webDriver);
+                selectFromDropDown(searchComplaintByDateBox, "All", webDriver);
                 break;
 
             case "last7Days":
-                selectFromDropDown(searchComplaintByDateBox,"In Last 7 days",webDriver);
+                selectFromDropDown(searchComplaintByDateBox, "In Last 7 days", webDriver);
                 break;
 
             case "last30Days":
-                selectFromDropDown(searchComplaintByDateBox,"In Last 30 days",webDriver);
+                selectFromDropDown(searchComplaintByDateBox, "In Last 30 days", webDriver);
                 break;
 
             case "last90Days":
-                selectFromDropDown(searchComplaintByDateBox,"In Last 90 days",webDriver);
+                selectFromDropDown(searchComplaintByDateBox, "In Last 90 days", webDriver);
                 break;
 
             case "status":
-                clickOnButton(advanceSearchButton,webDriver);
-                selectFromDropDown(webDriver.findElement(By.name("complaintStatus")),"REGISTERED",webDriver);
+                clickOnButton(advanceSearchButton, webDriver);
+                selectFromDropDown(webDriver.findElement(By.name("complaintStatus")), "REGISTERED", webDriver);
                 break;
 
         }
         clickOnButton(searchComplaints, webDriver);
-        selectFromDropDown(webDriver.findElement(By.xpath(".//*[@id='complaintSearchResults_length']/label/select")),"All",webDriver);
-        List<WebElement> numOfComplaints = webDriver.findElements(By.className("sorting_1"));
-        int complaintRow = checkComplaint(numOfComplaints, applicationNumber);
-        numOfComplaints.get(complaintRow).click();
+//        clickOnButton(webDriver.findElement(By.cssSelector("button[type='reset']")),webDriver);
+//        selectFromDropDown(webDriver.findElement(By.name("complaintDate")), "All", webDriver);
+//        clickOnButton(searchComplaints, webDriver);
+//        List<WebElement> numOfComplaints = webDriver.findElements(By.className("sorting_1"));
+//        int complaintRow = checkComplaint(numOfComplaints, applicationNumber);
+//        numOfComplaints.get(complaintRow).click();
+        String e = "//*[text()='" + applicationNumber + "']";
+        await().atMost(10, TimeUnit.SECONDS).until(() -> webDriver.findElements(By.xpath(e)).size() == 1);
+        webDriver.findElement(By.xpath(e)).click();
         switchToNewlyOpenedWindow(webDriver);
-        clickOnButton(webDriver.findElement(By.cssSelector("[type='button'][onclick]")),webDriver);
+        clickOnButton(webDriver.findElement(By.cssSelector("[type='button'][onclick]")), webDriver);
         List<String> webPages = new ArrayList<>(webDriver.getWindowHandles());
         webDriver.switchTo().window(webPages.get(1));
     }
@@ -257,7 +264,7 @@ public class GrievancesPage extends BasePage {
     }
 
     public void close() {
-       clickOnButton(closeButton1,webDriver);
-       switchToPreviouslyOpenedWindow(webDriver);
+        clickOnButton(closeButton1, webDriver);
+        switchToPreviouslyOpenedWindow(webDriver);
     }
 }
