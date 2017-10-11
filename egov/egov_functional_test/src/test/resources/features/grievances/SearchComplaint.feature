@@ -1,5 +1,6 @@
 Feature: Registered user search the complaint with various parameters
 
+  @Sanity @Grievance
   Scenario Outline: Employee search for complaints filed by citizen
 
     Given citizen logs in
