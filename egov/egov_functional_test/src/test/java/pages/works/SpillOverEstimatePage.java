@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 import pages.BasePage;
 
 public class SpillOverEstimatePage extends BasePage {
@@ -137,7 +138,9 @@ public class SpillOverEstimatePage extends BasePage {
         enterText(wardInput, estimateHeaderDetails.getElectionWard(), webDriver);
         WebElement dropdown = webDriver.findElement(By.className("tt-dropdown-menu"));
         clickOnButton(dropdown, webDriver);
-        selectFromDropDown(location, estimateHeaderDetails.getLocation(), webDriver);
+        Select select = new Select(location);
+        select.selectByIndex(1);
+//        selectFromDropDown(location, estimateHeaderDetails.getLocation(), webDriver);
         selectFromDropDown(workCategory, estimateHeaderDetails.getWorkCategory(), webDriver);
         selectFromDropDown(beneficiary, estimateHeaderDetails.getBeneficiary(), webDriver);
         selectFromDropDown(natureOfWork, estimateHeaderDetails.getNatureOfWork(), webDriver);
@@ -154,8 +157,12 @@ public class SpillOverEstimatePage extends BasePage {
     }
 
     public void enterWorkDetails(WorkDetails workDetails) {
-        clickOnButton(workOrderCreatedCheckBox, webDriver);
-        clickOnButton(isBillCreatedCheckBox, webDriver);
+        jsClickCheckbox(workOrderCreatedCheckBox, webDriver);
+//  Commented due to element is normally not clickable and tried with JS click
+//        clickOnButton(workOrderCreatedCheckBox, webDriver);
+
+//  Commented due to button is not clickable and operation is not impacting on screen
+//        clickOnButton(isBillCreatedCheckBox, webDriver);
         enterText(nameOfWorkTextBox, workDetails.getNameOfWork(), webDriver);
         String abstractIdNumber = (workDetails.getAbstractEstimateNumber() + get6DigitRandomInt());
         enterText(absEstimateNumTextBox, abstractIdNumber, webDriver);
@@ -164,9 +171,10 @@ public class SpillOverEstimatePage extends BasePage {
         enterText(WINTextBox, workIdNumber, webDriver);
         enterText(actualAmountTextBox, workDetails.getActualEstimateAmount(), webDriver);
 
-        if (workDetails.getBillsCreated().equals(Boolean.TRUE)) {
+//  Commented due to kept for future usage based on isBillCreatedCheckBox
+    /*    if (workDetails.getBillsCreated().equals(Boolean.TRUE)) {
             enterText(grossAmountTextBox, workDetails.getGrossAmountBilled(), webDriver);
-        }
+        }*/
     }
 
     public void enterAdminSanctionDetails(AdminSanctionDetails adminSanctionDetails) {

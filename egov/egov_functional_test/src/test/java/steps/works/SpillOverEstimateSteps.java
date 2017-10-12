@@ -84,7 +84,7 @@ public class SpillOverEstimateSteps extends BaseSteps implements En {
 
             pageStore.get(SpillOverEstimatePage.class).close();
         });
-        And("^he submit the application to assis_Engineer$", () -> {
+        And("^he submit the application to engineer", () -> {
             pageStore.get(SpillOverEstimatePage.class).submit();
 
             String actualMsg = pageStore.get(SpillOverEstimatePage.class).successMessage();

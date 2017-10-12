@@ -202,7 +202,8 @@ public class MilestoneTrackPage extends BasePage {
         jsClick(radioButton, driver);
 
         waitForElementToBeClickable(trackMilestoneButton, driver);
-        trackMilestoneButton.click();
+//        trackMilestoneButton.click();
+        jsClick(trackMilestoneButton, driver);
     }
 
     public void enterTrackMilestoneDetails() {

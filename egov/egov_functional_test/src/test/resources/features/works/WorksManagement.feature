@@ -6,7 +6,7 @@ Feature: Create regular estimate/Create LOA for estimate/Create-Track milestone/
   @Works
   Scenario Outline: Create Regular Estimate
 
-    Given assis_Engineer logs in
+    Given assistantEngineer logs in
     And user will select the required screen as "create estimate"
     And he enters estimate header details as <estimateHeaderDetails>
     And he enters financial details as <financialDetails>
@@ -34,11 +34,11 @@ Feature: Create regular estimate/Create LOA for estimate/Create-Track milestone/
     And he chooses to act upon above application number
     And he enters the AdminSanctionNumber
     And he enters approver details as <approverDetails4>
-    And he submit the application to assis_Engineer
+    And he submit the application to engineer
     Then user will be notified by "forwarded"
     And current user logs out
 
-    And assis_Engineer logs in
+    And assistantEngineer logs in
     And he chooses to act upon above application number
     And he enters the details for approve
     And he approves the application
@@ -47,13 +47,13 @@ Feature: Create regular estimate/Create LOA for estimate/Create-Track milestone/
 
     Examples:
       | estimateHeaderDetails | financialDetails    | workDetails    | approverDetails1        | approverDetails2 | approverDetails3 | approverDetails4 |
-      | Estimate_1            | EstimateFinancial_1 | EstimateWork_1 | deputyExecutiveEngineer | SuperIntendent   | commissioner1    | assis_Engineer   |
-      | Estimate_2            | EstimateFinancial_2 | EstimateWork_2 | deputyExecutiveEngineer | SuperIntendent   | commissioner1    | assis_Engineer   |
+      | Estimate_1            | EstimateFinancial_1 | EstimateWork_1 | deputyExecutiveEngineer | superIntendent   | commissioner1    | engineer         |
+      | Estimate_2            | EstimateFinancial_2 | EstimateWork_2 | deputyExecutiveEngineer | superIntendent   | commissioner1    | engineer         |
 
   @Works
   Scenario Outline: Create Letter of Acceptance/ Create,Track Milestone/Generate Contractor Bill
 
-    When assis_Engineer logs in
+    When assistantEngineer logs in
     And user will select the required screen as "Create Letter of Acceptance"
     And he select the required application
     And he enters the mandatory details
@@ -93,7 +93,7 @@ Feature: Create regular estimate/Create LOA for estimate/Create-Track milestone/
     Then user will be notified by "approved"
     And current user logs out
 
-    And assis_Engineer logs in
+    And assistantEngineer logs in
     And user will select the required screen as "create contractor bill"
     And he search application using loa number
     And he select the required file

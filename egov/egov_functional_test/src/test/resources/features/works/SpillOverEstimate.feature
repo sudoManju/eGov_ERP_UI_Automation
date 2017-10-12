@@ -5,7 +5,7 @@ Feature: Create Spillover Estimate/Create LOA for Spillover
   @Works
   Scenario Outline: Create Spillover Line Estimate
 
-    Given assis_Engineer logs in
+    Given assistantEngineer logs in
     And user will select the required screen as "Create Spillover Estimate"
     And he enters estimate header details as <estimateHeaderDetails>
     And he enters financial details as <financialDetails>
@@ -19,14 +19,13 @@ Feature: Create Spillover Estimate/Create LOA for Spillover
     Examples:
       | estimateHeaderDetails | financialDetails     | workDetails | adminSanctionDetails | technicalSanctionDetails |
       | SpilloverEstimate_1   | SpillOverFinancial_1 | SpillWork_1 | admin                | technical                |
-#      | SpilloverEstimate_2   | SpillOverFinancial_2 | SpillWork_2 | admin                | technical                |
+      | SpilloverEstimate_2   | SpillOverFinancial_2 | SpillWork_2 | admin                | technical                |
       | SpilloverEstimate_3   | SpillOverFinancial_3 | SpillWork_3 | admin                | technical                |
-
 
   @Works
   Scenario: Letter of Acceptance for Spillover work
 
-    Given assis_Engineer logs in
+    Given assistantEngineer logs in
     And user will select the required screen as "Create Letter of Acceptance"
     And he select the required spillover estimate from search results
     And he enters the mandatory details for creating LOA
