@@ -49,7 +49,7 @@ Feature: In this feature the transactions are related to create and direct appro
 
     Examples:
       | bankDetails       | paymentMode | assignment | singleOrMultiple |
-      | directBankDetails | cheque      | cheque     | single           |
+#      | directBankDetails | cheque      | cheque     | single           |
       | directBankDetails | RTGS        | RTGS       | single           |
 
   @Sanity @Finance

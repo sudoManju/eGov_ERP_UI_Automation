@@ -10,7 +10,7 @@ Feature: To collect water charges in different mode payments
     And he choose to close the dataentry acknowledgement screen
     And current user logs out
 
-  @Sanity @WaterCharges @Smoke1 @Experiment
+  @Sanity @WaterCharges @Smoke1
   Scenario Outline: This Scenario Includes creation of New Connection and collecting the charges with different mode of payment
 
     Given creator logs in
@@ -75,7 +75,7 @@ Feature: To collect water charges in different mode payments
       | New_connection    | inspectionInfo    | engineer         | deputyExecutiveEngineer | commissioner1    | dd          |
 
 
-#  @Sanity @WaterCharges @Smoke1 @Experiment
+  @Sanity @WaterCharges @Smoke1
   Scenario Outline: This Scenario Includes creation of New Connection and collecting the charges through online link
 
     Given creator logs in

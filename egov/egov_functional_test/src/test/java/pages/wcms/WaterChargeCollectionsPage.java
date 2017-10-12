@@ -44,13 +44,13 @@ public class WaterChargeCollectionsPage extends WaterChargeManagementPage {
     @FindBy(css = "input[type='submit'][id='button2']")
     private WebElement button2;
 
-    @FindBy(name = "consumerCode")
+    @FindBy(name = "assessmentNum")
     private WebElement onlineConsumerCode;
 
-    @FindBy(id = "searchapprvedapplication")
+    @FindBy(id = "assessmentform_search")
     private WebElement onlineSearchApplication;
 
-    @FindBy(css = ".btn.btn-xs.btn-secondary.collect-hoardingWiseFee")
+    @FindBy(css = "[name='action']")
     private WebElement onlinePayButton;
 
     @FindBy(className = "justbold")
@@ -154,17 +154,22 @@ public class WaterChargeCollectionsPage extends WaterChargeManagementPage {
     }
 
     public void onlinePaymentLink() {
-        webDriver.navigate().to("http://kurnool-uat.egovernments.org/wtms/search/waterSearch/");
+        webDriver.navigate().to(getEnvironmentURL() + "/ptis/citizen/search/search-searchForm.action#no-back-button");
     }
 
     public void enterOnlineConsumerNumber(String consumerNumber) {
-
         enterText(onlineConsumerCode, consumerNumber, webDriver);
         clickOnButton(onlineSearchApplication, webDriver);
     }
 
     public void clickOnOnlinePayButton() {
         clickOnButton(onlinePayButton, webDriver);
+        await().atMost(20, TimeUnit.SECONDS).until(() -> webDriver.findElements(By.id("updatePaytax")).size() == 1);
+        if (webDriver.findElements(By.id("updatePaytax")).size() == 1) {
+            enterText(webDriver.findElement(By.cssSelector("[name='mobileNumber']")), 1000 + get6DigitRandomInt(), webDriver);
+            waitForElementToBeClickable(webDriver.findElement(By.id("updatePaytax")), webDriver);
+            webDriver.findElement(By.id("updatePaytax")).click();
+        }
     }
 
     public void selectBankDetails() {
