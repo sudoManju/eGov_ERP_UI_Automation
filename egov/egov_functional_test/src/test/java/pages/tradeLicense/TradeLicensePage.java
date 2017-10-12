@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.BasePage;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -44,7 +45,7 @@ public class TradeLicensePage extends BasePage {
     @FindBy(id = "nameOfEstablishment")
     private WebElement tradeTitleTextBox;
 
-//    @FindBy(id = "buildingType")
+    //    @FindBy(id = "buildingType")
     @FindBy(css = "select[name=natureOfBusiness]")
     private WebElement TradeTypeDropBox;
 
@@ -174,7 +175,7 @@ public class TradeLicensePage extends BasePage {
         waitForElementToBeClickable(wardSelect, webDriver);
         new Select(wardSelect).selectByIndex(1);
         selectFromDropDown(OwnershipTypeDropBox, tradelocationDetails.getownershipType(), webDriver);
-        enterText(tradeAddress,"Bangalore",webDriver);
+        enterText(tradeAddress, "Bangalore", webDriver);
     }
 
     public void entertradeDetails(TradeDetails tradedetails) {
@@ -183,12 +184,19 @@ public class TradeLicensePage extends BasePage {
         selectFromDropDown(TradeCategoryDropBox, tradedetails.getTradeCategory(), webDriver);
         try {
             clickOnButton(tradeSubCategoryDropBox, webDriver);
-        } catch (StaleElementReferenceException e) {
+        } catch (Exception e) {
             WebElement element = webDriver.findElement(By.id("select2-subCategory-container"));
             clickOnButton(element, webDriver);
         }
-        waitForElementToBeVisible(searchBox, webDriver);
-        searchBox.sendKeys(tradedetails.gettradeSubCategory());
+
+        if (webDriver.findElements(By.id("select2-subCategory-container")).size() == 0) {
+            WebElement element = webDriver.findElement(By.id("select2-subCategory-container"));
+            clickOnButton(element, webDriver);
+        }
+        await().atMost(10, TimeUnit.SECONDS).until(() -> webDriver.findElements(By.cssSelector("input[class='select2-search__field']")).size() == 1);
+        WebElement search = webDriver.findElement(By.cssSelector("input[class='select2-search__field']"));
+        search.sendKeys(tradedetails.gettradeSubCategory());
+        await().atMost(10, TimeUnit.SECONDS).until(() -> webDriver.findElements(By.xpath(".//*[@id='select2-subCategory-results']/li[1]")).size() == 1);
         WebElement element = webDriver.findElement(By.xpath(".//*[@id='select2-subCategory-results']/li[1]"));
         clickOnButton(element, webDriver);
 
