@@ -6,7 +6,8 @@ Feature: create preamble
 
   # Create Preamble #
 
-  @Sanity @CouncilManagement
+#  @Sanity @CouncilManagement
+  @WIP
   Scenario Outline: Register user choose to create Preamble, agenda,meeting invitation,attendance and MOM
 
     Given councilCreator logs in

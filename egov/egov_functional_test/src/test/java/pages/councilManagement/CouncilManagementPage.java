@@ -122,7 +122,7 @@ public class CouncilManagementPage extends BasePage {
     }
 
     public String approve() {
-        approve.click();
+        clickOnButton(approve ,webDriver);
         List<WebElement> elements = webDriver.findElements(By.cssSelector(".col-sm-3.add-margin.view-content"));
         String ele = elements.get(1).getText();
         clickOnButton(CloseButton, webDriver);
