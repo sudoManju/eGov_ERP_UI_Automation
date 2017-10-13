@@ -1,12 +1,12 @@
 Feature: Addition Alteration of a property
 
-  As a regsistered user of the system
+  As a registered user of the system
   I should able to create addition alteration of a property
 
+   ### ADDITION ALTERATION SCREEN ###
 
-   # ADDITION ALTERATION SCREEN #
-
-  @Sanity @PropertyTax
+#  @Sanity @PropertyTax
+  @WIP
   Scenario Outline: Registered user Update existing property
 
     Given commissioner logs in

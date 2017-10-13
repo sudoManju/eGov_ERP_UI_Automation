@@ -1,6 +1,6 @@
 Feature: Amalgamation Of Property
 
-  As a regsistered user of system
+  As a registered user of system
   I should be able to create a amalgamation of property
 
   # AMALGAMATION OF PROPERTY #

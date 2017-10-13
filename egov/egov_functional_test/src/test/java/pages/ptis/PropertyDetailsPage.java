@@ -7,6 +7,9 @@ import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import static com.jayway.awaitility.Awaitility.await;
 
 public class PropertyDetailsPage extends BasePage {
 
@@ -472,7 +475,7 @@ public class PropertyDetailsPage extends BasePage {
     public void enterEditFloorDetails(EditFloorDetails floorDetails) {
         selectFromDropDown(floorNumberSelection, floorDetails.getEditfloorNumber(), webDriver);
         selectFromDropDown(classificationOfBuildingSelection, floorDetails.getEditclassificationOfBuilding(), webDriver);
-        selectFromDropDown(natureOfUsageSelection, floorDetails.getEditnatureOfUsage(), webDriver);
+//        selectFromDropDown(natureOfUsageSelection, floorDetails.getEditnatureOfUsage(), webDriver);
         selectFromDropDown(occupancySelection, floorDetails.getEditoccupancy(), webDriver);
         enterText(editoccupantNameTextBox, floorDetails.getEditoccupantName(), webDriver);
         enterDate(editconstructionDateTextBox, floorDetails.getEditconstructionDate(), webDriver);
@@ -553,6 +556,10 @@ public class PropertyDetailsPage extends BasePage {
     public void searchAmalgamatedProperties() {
         enterText(AmalgamatedPropertiesTextBox, "1016071673", webDriver);
         AmalgamatedPropertiesTextBox.sendKeys(Keys.TAB);
+        if(webDriver.findElements(By.xpath("//*[text()='OK']")).size() == 1) {
+            switchToNewlyOpenedWindow(webDriver);
+            webDriver.findElement(By.xpath("//*[text()='OK']")).click();
+        }
         enterDate(constructionDate, getPastDate(184), webDriver);
     }
 
