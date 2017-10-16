@@ -2,7 +2,7 @@ Feature: Create/search Advertisement
   As a registered user of the system
   I am able to create/search Advertisements
 
-  @AdvertisementTax @Sanity
+  @AdvertisementTax @WIP
   Scenario Outline: Create/Search/Collect Tax Agency wise
 
     # Create Agency
@@ -53,7 +53,7 @@ Feature: Create/search Advertisement
       | advertisement2       | permission2       | locality2       | structure2       | commissioner1   |
       | advertisement3       | permission3       | locality3       | structure3       | commissioner1   |
 
-  @AdvertisementTax @Sanity
+  @AdvertisementTax @WIP
   Scenario Outline: Create/Search/CollectTax/Deactivate AdvertisementWise
 
 #  Create Advertisements

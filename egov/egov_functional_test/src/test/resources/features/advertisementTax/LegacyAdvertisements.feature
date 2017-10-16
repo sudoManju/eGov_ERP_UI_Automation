@@ -2,7 +2,7 @@ Feature: Create/Update LegacyAdvertisements
   As a registered user of system
   I am able to create/update legacyAdvertisements
 
-  @AdvertisementTax  @Sanity
+  @AdvertisementTax  @WIP
   Scenario Outline: Create/Update LegacyAdvertisements
 
     When admin logs in
@@ -27,7 +27,7 @@ Feature: Create/Update LegacyAdvertisements
       | advertisement2       | permission2       | locality2       | structure2       |
       | advertisement3       | permission3       | locality3       | structure3       |
 
-  @AdvertisementTax  @Sanity
+  @AdvertisementTax  @WIP
   Scenario Outline: Create/Renewal LegacyAdvertisements
 
     When admin logs in
