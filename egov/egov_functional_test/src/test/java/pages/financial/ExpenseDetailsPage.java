@@ -2,10 +2,7 @@ package pages.financial;
 
 import entities.ApprovalDetails;
 import entities.financial.FinancialExpenseBillDetails;
-import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
@@ -103,7 +100,8 @@ public class ExpenseDetailsPage extends FinancialPage {
         selectFromDropDown(expenseSubLedgerType, "Contigent Bill", webDriver);
         enterText(webDriver.findElement(By.id("subLedgerCode")), "ADMN0009", webDriver);
 
-        clickOnButton(webDriver.findElement(By.className("tt-dataset-3")), webDriver);
+        waitForElementToBeVisible(webDriver.findElement(By.className("tt-dataset-3")) ,webDriver);
+        webDriver.findElement(By.id("subLedgerCode")).sendKeys(Keys.ARROW_DOWN , Keys.ENTER);
         enterText(expensePayTo, "tester", webDriver);
         enterText(expenseAccountCodeDebit, financialExpenseBillDetails.getExpenseAccountCodeDebit(), webDriver);
 
