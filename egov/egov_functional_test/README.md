@@ -23,7 +23,9 @@ You should be all set.
 #### Running tests
 1. You can run the test from IntelliJ directly, by right clicking and **Run feature file**.This will require you to set the VM configurations before trying to run the tests. Add the following VM params before running tests.
 ```-Dbrowser=chrome -Denv=staging``` This will run the tests using chrome browser and against the staging environment.
-2. You can run directly from command line. Use the following command to run the tests
+2. <i> For Linux user: You can run directly from command line. Use the following command to run the tests
 ```gradle clean build runInSequence -Dbrowser=chrome -Denv=staging -Ptags=@Sanity```
+   <ii> For Linux user: You can run directly from command line. Use the following command to run the tests
+```gradlew clean build runInSequence -Dbrowser=chrome -Denv=staging -Ptags=@Sanity```
 This will run all tests that are tagged as @Sanity. 
 
