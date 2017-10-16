@@ -5,7 +5,7 @@ Feature: Upload/View estimate photographs
   @Works
   Scenario: Upload/View estimate photographs
 
-    Given assis_Engineer logs in
+    Given assistantEngineer logs in
     And user will select the required screen as "Upload Estimate Photographs"
     And he search for estimate in estimate search result
     And he upload the estimate photos for physical progress track

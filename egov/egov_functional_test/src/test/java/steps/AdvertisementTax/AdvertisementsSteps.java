@@ -28,7 +28,7 @@ public class AdvertisementsSteps extends BaseSteps implements En {
         });
 
         And("^he approves the advertisement application$", () -> {
-            pageStore.get(AdvertisementsPage.class).approverComment();
+//            pageStore.get(AdvertisementsPage.class).approverComment();
             pageStore.get(AdvertisementsPage.class).approve();
 
             String advertisementNumber = pageStore.get(AdvertisementsPage.class).getAdvertisementNumber();

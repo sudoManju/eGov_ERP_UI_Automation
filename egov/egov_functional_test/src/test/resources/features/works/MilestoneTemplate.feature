@@ -7,7 +7,7 @@ Feature: Create/view/modify Milestone template
   @Works
   Scenario: Create milestone template
 
-    Given assis_Engineer logs in
+    Given assistantEngineer logs in
     And user will select the required screen as "Create milestone template"
     And he enters the milestone template creation details
     And he save the file and closes the acknowledgement
@@ -20,7 +20,7 @@ Feature: Create/view/modify Milestone template
   @Works
   Scenario: view milestone template
 
-    Given assis_Engineer logs in
+    Given assistantEngineer logs in
     And user will select the required screen as "View milestone template"
     And he enters the details for search
     And he selects the required template
@@ -32,7 +32,7 @@ Feature: Create/view/modify Milestone template
   @Works
   Scenario: modify milestone template
 
-    Given assis_Engineer logs in
+    Given assistantEngineer logs in
     And user will select the required screen as "Modify milestone template"
     And he enters the details for search
     And he select the required template for modification
