@@ -16,7 +16,7 @@ Setup your machine.
 4. Install gradle
 
 Once setup, checkout the egov project from here ```https://github.com/egovernments/eGov.git```
-Switch to branch **egov_functional_test**
+Switch to branch '**egov-functional-test-automation**', 
 Create a new project using existing source from eGov/egov/egov_functional_test using build.gradle
 You should be all set.
 
