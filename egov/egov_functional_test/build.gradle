@@ -33,9 +33,6 @@ repositories {
     }
 }
 
-
-
-
 tasks.withType(JavaExec) {
     systemProperty "env", System.getProperty("env")
     systemProperty "browser", System.getProperty("browser")
@@ -88,6 +85,45 @@ task writeNewPom << {
     }.writeTo("$buildDir/newpom.xml")
 }
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.4' //version required
+}
+
+static def getTags(tags) {
+    if (tags.isEmpty()) {
+        return "~@Wip"
+    } else {
+        return tags
+    }
+}
+
+task runInParallel() {
+    doLast {
+        runCucumberTests()
+    }
+}
+
+def runCucumberTests() {
+    def features = fileTree(dir: "${project.projectDir}/src/test/resources/features/").include '**/*.feature'
+
+
+    GParsPool.withPool(4) {
+        features.eachParallel { File file ->
+            javaexec {
+                ignoreExitValue = true
+                main = "cucumber.api.cli.Main"
+                classpath = sourceSets.test.runtimeClasspath
+                args = ["-p", "pretty", "-p", "json:${reporting.baseDir}/cucumber/${file.name}.json", "--glue", "steps", "-t", getTags("$tags"),
+                        file.getAbsolutePath()]
+                systemProperties = [
+                        "env"    : System.getProperty("env"),
+                        "browser": System.getProperty("browser")
+                ]
+            }
+        }
+    }
+}
+
 task generateReport() {
     doLast {
         def jsonReports = fileTree(dir: "${reporting.baseDir}/cucumber/").include '**/*.json'.toString()
@@ -119,47 +155,7 @@ task generateReport() {
     }
 }
 
-task runInParallel() {
-    doLast {
-        runCucumberTests()
-    }
-}
-
 runInParallel.finalizedBy(generateReport)
-
-
-def runCucumberTests() {
-    def features = fileTree(dir: "${project.projectDir}/src/test/resources/features/").include '**/*.feature'
-
-    GParsPool.withPool(4) {
-        features.eachParallel { File file ->
-            javaexec {
-                ignoreExitValue = true
-                main = "cucumber.api.cli.Main"
-                classpath = sourceSets.test.runtimeClasspath
-                args = ["-p", "pretty", "-p", "json:${reporting.baseDir}/cucumber/${file.name}.json", "--glue", "steps", "-t", getTags("$tags"),
-                        "${project.projectDir}/src/test/resources/features/${file.name}"]
-                systemProperties = [
-                        "env"    : System.getProperty("env"),
-                        "browser": System.getProperty("browser")
-                ]
-            }
-        }
-    }
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.4' //version required
-}
-
-def getTags(tags) {
-    if (tags.isEmpty()) {
-        return "~@Wip"
-    } else {
-        return tags
-    }
-}
-
 
 task runInSequence() {
     doLast {
