@@ -117,8 +117,6 @@
 						</div>
 					</div>
 
-
-
 					<c:choose>
 						<c:when test="${!applicationFeeDetail.isEmpty()}">
 							<div class="form-group view-content header-color hidden-xs">
@@ -162,6 +160,17 @@
 						</c:when>
 					</c:choose>
 
+					<div class="form-group">
+						<label class="col-sm-3 control-label text-right"><spring:message
+								code="lbl.modify.fee.reason" /><span class="mandatory"></span></label>
+						<div class="col-sm-7 add-margin text-center">
+							<form:textarea class="form-control patternvalidation"
+								data-pattern="alphanumericwithspace" rows="3" maxlength="512"
+								id="modifyFeeReason" path="modifyFeeReason" required="required" />
+							<form:errors path="modifyFeeReason"
+								cssClass="add-margin error-msg" />
+						</div>
+					</div>
 
 				</div>
 			</div>

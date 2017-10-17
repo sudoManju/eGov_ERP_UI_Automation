@@ -76,4 +76,15 @@
 			</c:forEach>
 		</c:when>
 	</c:choose>
+	<c:if
+		test="${bpaApplication.applicationFee[0].modifyFeeReason ne null}">
+		<div class="row add-border">
+			<div class="col-sm-5 text-right add-margin">
+				<spring:message code="lbl.modify.fee.reason" />
+			</div>
+			<div class="col-sm-7 add-margin view-content">
+				<c:out value="${bpaApplication.applicationFee[0].modifyFeeReason}" />
+			</div>
+		</div>
+	</c:if>
 </div>

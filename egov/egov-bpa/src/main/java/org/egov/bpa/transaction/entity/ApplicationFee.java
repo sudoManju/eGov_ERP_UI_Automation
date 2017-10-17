@@ -46,6 +46,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang3.StringUtils;
 import org.egov.infra.workflow.entity.StateAware;
 import org.hibernate.validator.constraints.Length;
 
@@ -60,27 +61,23 @@ public class ApplicationFee extends StateAware {
     @Id
     @GeneratedValue(generator = SEQ_APPLICATIONFEE, strategy = GenerationType.SEQUENCE)
     private Long id;
-    
     private Date feeDate;
     @Length(min = 1, max = 1024)
     private String feeRemarks;
-  
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "status")
     private BpaStatus status;
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="application")
+    @JoinColumn(name = "application")
     private BpaApplication application;
     @Length(min = 1, max = 128)
     private String challanNumber;
-    
-    private Boolean isRevised=false;
-    
+    private Boolean isRevised = false;
     @OneToMany(mappedBy = "applicationFee", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ApplicationFeeDetail> applicationFeeDetail = new ArrayList<ApplicationFeeDetail>(0);
+    private List<ApplicationFeeDetail> applicationFeeDetail = new ArrayList<>();
+    private String modifyFeeReason;
 
-    
     public Boolean getIsRevised() {
         return isRevised;
     }
@@ -141,8 +138,7 @@ public class ApplicationFee extends StateAware {
 
     @Override
     public String getStateDetails() {
-        // TODO Auto-generated method stub
-        return null;
+        return StringUtils.EMPTY;
     }
 
     public List<ApplicationFeeDetail> getApplicationFeeDetail() {
@@ -152,11 +148,18 @@ public class ApplicationFee extends StateAware {
     public void setApplicationFeeDetail(final List<ApplicationFeeDetail> applicationFeeDetail) {
         this.applicationFeeDetail = applicationFeeDetail;
     }
-    
-    public void addApplicationFeeDetail (ApplicationFeeDetail applicationFeeDtl)
-    {
-        if(this.applicationFeeDetail!=null)
+
+    public void addApplicationFeeDetail(ApplicationFeeDetail applicationFeeDtl) {
+        if (this.applicationFeeDetail != null)
             this.applicationFeeDetail.add(applicationFeeDtl);
+    }
+
+    public String getModifyFeeReason() {
+        return modifyFeeReason;
+    }
+
+    public void setModifyFeeReason(String modifyFeeReason) {
+        this.modifyFeeReason = modifyFeeReason;
     }
 
 }
