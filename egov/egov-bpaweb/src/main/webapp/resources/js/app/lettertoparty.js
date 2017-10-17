@@ -84,20 +84,23 @@ jQuery(document).ready(function($) {
 	}
 	
 	function validateReplyDate() {   
-		if ($('#sentDate') && $('#sentDate').val() && $('#replyDate') && $('#replyDate').val()) {
+		if ($('#sentDate').val() && $('#replyDate').val()) {
 			var sentdateStr = $('#sentDate').val();
 			var sentdateDateTime = moment(sentdateStr,["DD/MM/YYYY"]);
 			var replyDateStr = $('#replyDate').val();
 			var replyDateTime = moment(replyDateStr,["DD/MM/YYYY"]);
-			if ( sentdateDateTime > replyDateTime) {
+			if (sentdateDateTime > replyDateTime) {
 				bootbox.alert('LP Reply Date should be greater than the Letter to party sent Date');
 				$('#replyDate').val('');
 			}
-		}   
+		} else {
+			bootbox.alert('Please update LP sent Date before updating LP reply details.');
+			$('#replyDate').val('');
+		}
 	}	
 	
 	function validateDate() {   
-		if ($('#sentDate') && $('#sentDate').val() && $('#letterDate') && $('#letterDate').val()) {
+		if ($('#sentDate').val() && $('#letterDate').val()) {
 			var sentdateStr = $('#sentDate').val();
 			var sentdateDateTime = moment(sentdateStr,["DD/MM/YYYY"]);
 			var letterDateStr = $('#letterDate').val();
