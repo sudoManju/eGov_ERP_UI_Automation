@@ -53,12 +53,10 @@ jQuery(document).ready(function() {
 	
 	if(mode == 'view') {
 		removeWorkFlowMandatoryAndHideDepartmentDetails();
-	}
-	if(mode == 'captureInspection') {
+	} else if(mode == 'captureInspection') {
 		removeWorkFlowMandatoryAndHideDepartmentDetails();
 		$("#Forward").hide();
 		$("#Reject").hide();
-		return false;
 	}
 	if($('#wfstateDesc').val() != 'Registered' && $('#wfstateDesc').val()  != 'NEW' && mode == 'newappointment') {
 		$(".show-row").hide();
@@ -123,7 +121,7 @@ jQuery(document).ready(function() {
 		$('.totalPlintArea').show();
 	} else if('Sub-Division of plot/Land Development'.localeCompare(seviceTypeName) == 0 || 'Amenities'.localeCompare(seviceTypeName) == 0){
 		$('.buildingdetails').hide();
-	}else if('Tower Construction'.localeCompare(seviceTypeName) == 0 || 'Pole Structures'.localeCompare(seviceTypeName) == 0 ){
+	} else if('Tower Construction'.localeCompare(seviceTypeName) == 0 || 'Pole Structures'.localeCompare(seviceTypeName) == 0 ){
 		$('.buildingdetails').hide();
 		$('.extentOfLand').hide();
 		$('.areaOfBase').show();
@@ -133,7 +131,7 @@ jQuery(document).ready(function() {
 		$('.changeInOccupancyArea').show();
 	} else if('Alteration' == seviceTypeName){
 		$('.alterationInArea').show();
-	} else if('Adding of Extension' == seviceTypeName){
+	} else if('Addition or Extension' == seviceTypeName){
 		$('.additionInArea').show();
 	} else if('Huts and Sheds' == seviceTypeName){
 		$('.buildingdetails').hide();

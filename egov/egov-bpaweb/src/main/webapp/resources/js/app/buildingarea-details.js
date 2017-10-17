@@ -158,12 +158,12 @@ function validateUniqueDetails(idx,floorDesc,level,occupancy){
 			if(idx===index)
 				return;
 			
-			var floorName  = $(this).find('*[name$="floorDescription"]').val();
-		    var floorNumber = $(this).find('*[name$="floorNumber"]').val();
-		    var occupancy1 = $(this).find('*[name$="occupancy"]').val();
-		    if(floorDesc === floorName && level === floorNumber && occupancy ===occupancy1) {
+			var floorName  = $(this).find('*[name$="floorDescription"]').val().trim();
+		    var floorNumber = $(this).find('*[name$="floorNumber"]').val().trim();
+		    var occupancy1 = $(this).find('*[name$="occupancy"]').val().trim();
+		    if(floorDesc.trim() === floorName && level.trim() === floorNumber && occupancy.trim() === occupancy1) {
 		    	$('#buildingAreaDetails tbody tr:eq('+idx+')').find('.clear-details').val('');
-		    	bootbox.alert('With combination of Floor Description : '+floorDesc+', Level : '+level+' and Occupancy Type : '+$(this).find('*[name$="occupancy"] option:selected').text()+' are already present with existing entered details, please check and enter valid values.');
+		    	bootbox.alert('With combination of Floor Description : '+floorDesc+', Level : '+level+' and Occupancy Type : '+$(this).find('*[name$="occupancy"] option:selected').text()+' floor details are already present, please check and enter valid details.');
 			    return false;
 		    }
 		});
