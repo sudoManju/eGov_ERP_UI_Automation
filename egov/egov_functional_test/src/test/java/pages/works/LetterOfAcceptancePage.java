@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import pages.BasePage;
 
 public class LetterOfAcceptancePage extends BasePage {
-    String RandomString = RandomStringUtils.randomAlphanumeric(3).toUpperCase();
+    private String RandomString = RandomStringUtils.randomAlphanumeric(3).toUpperCase();
     private WebDriver driver;
     @FindBy(id = "fileNumber")
     private WebElement fileNumber;
@@ -113,8 +113,7 @@ public class LetterOfAcceptancePage extends BasePage {
         jsClick(saveButton, driver);
         waitForElementToBeVisible(loaNumber, driver);
         String loaText = getTextFromWeb(loaNumber, driver);
-        String workNumber = (loaText.split("\\ ")[5]);
-        return workNumber;
+        return (loaText.split("\\ ")[5]);
     }
 
     public void searchForLOA(String number) {
@@ -127,7 +126,7 @@ public class LetterOfAcceptancePage extends BasePage {
 
         for (String winHandle : driver.getWindowHandles()) {
             String title = driver.switchTo().window(winHandle).getCurrentUrl();
-            if (title.equals("http://kurnool-uat.egovernments.org/egworks/searchletterofacceptance/searchform")) {
+            if (title.equals(getEnvironmentURL() + "egworks/searchletterofacceptance/searchform")) {
                 break;
             }
         }
@@ -156,8 +155,7 @@ public class LetterOfAcceptancePage extends BasePage {
     }
 
     public String successMessage() {
-        String msg = getTextFromWeb(loaNumber, driver);
-        return msg;
+        return getTextFromWeb(loaNumber, driver);
     }
 
     public void searchForSpilloverEstimate() {

@@ -25,7 +25,8 @@ You should be all set.
 ```-Dbrowser=chrome -Denv=staging``` This will run the tests using chrome browser and against the staging environment.
 2. <i> For Linux user: You can run directly from command line. Use the following command to run the tests
 ```gradle clean build runInSequence -Dbrowser=chrome -Denv=staging -Ptags=@Sanity```
-   <ii> For Linux user: You can run directly from command line. Use the following command to run the tests
+   <ii> For Windows user: You can run directly from command line. Use the following command to run the tests
 ```gradlew clean build runInSequence -Dbrowser=chrome -Denv=staging -Ptags=@Sanity```
-This will run all tests that are tagged as @Sanity. 
-
+    This will run all tests that are tagged as @Sanity.
+3. You can get your test Report available on link provided after successful build, can find in the link which is pointing your local where project is cloned:
+    "egov_functional_test\build\reports/cucumber/report-name.html"
