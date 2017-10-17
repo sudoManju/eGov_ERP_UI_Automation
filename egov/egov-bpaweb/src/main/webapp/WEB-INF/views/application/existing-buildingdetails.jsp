@@ -94,11 +94,11 @@
 					test="${!bpaApplication.existingBuildingDetails[0].existingBuildingFloorDetails.isEmpty()}">
 					<c:forEach
 						items="${bpaApplication.existingBuildingDetails[0].existingBuildingFloorDetails}"
-						var="buildingAreaDetails" varStatus="counter">
+						var="existingBuildFloorDetail" varStatus="counter">
 						<tr class="data-fetched">
 							<td class="text-center"><span class="serialNoForExistBuild text-center"
 								id="slNoInsp">${counter.index+1}</span>
-							<form:hidden path="existingBuildingDetails[0].existingBuildingFloorDetails[${counter.index}]" />
+							<form:hidden path="existingBuildingDetails[0].existingBuildingFloorDetails[${counter.index}]" value="${existingBuildFloorDetail.id}" />
 								<form:hidden class="orderNoForExistBuild"
 									path="existingBuildingDetails[0].existingBuildingFloorDetails[${counter.index}].orderOfFloor" /></td>
 							<td><form:select
@@ -117,7 +117,7 @@
 									data-pattern="number"
 									path="existingBuildingDetails[0].existingBuildingFloorDetails[${counter.index}].floorNumber"
 									id="existingBuildingFloorDetails${counter.index}floorNumber"
-									maxlength="15" value="${buildingAreaDetails.floorNumber}" /></td>
+									maxlength="15" value="${existingBuildFloorDetail.floorNumber}" /></td>
 							<td><form:select
 									path="existingBuildingDetails[0].existingBuildingFloorDetails[${counter.index}].occupancy"
 									data-first-option="false"
@@ -136,25 +136,24 @@
 									path="existingBuildingDetails[0].existingBuildingFloorDetails[${counter.index}].plinthArea"
 									id="existingBuildingFloorDetails${counter.index}plinthArea"
 									maxlength="15" required="required"
-									value="${buildingAreaDetails.plinthArea}"
-									onblur="validateFloorDetails(this)" /></td>
+									value="${existingBuildFloorDetail.plinthArea}" /></td>
 							<td><form:input type="text"
 									class="form-control table-input text-right patternvalidation exist-floor-details-mandatory decimalfixed nonzero existFloorArea"
 									data-pattern="decimalvalue"
 									path="existingBuildingDetails[0].existingBuildingFloorDetails[${counter.index}].floorArea"
 									id="existingBuildingFloorDetails${counter.index}floorArea"
-									maxlength="15" required="required" value="" /></td>
+									maxlength="15" required="required" value="${existingBuildFloorDetail.floorArea}" /></td>
 							<td><form:input type="text"
 									class="form-control table-input text-right patternvalidation exist-floor-details-mandatory decimalfixed existCarpetArea"
 									data-pattern="decimalvalue"
 									path="existingBuildingDetails[0].existingBuildingFloorDetails[${counter.index}].carpetArea"
 									id="existingBuildingFloorDetails${counter.index}carpetArea"
 									maxlength="15" required="required"
-									value="${buildingAreaDetails.carpetArea}" /></td>
+									value="${existingBuildFloorDetail.carpetArea}" /></td>
 							<c:if test="${counter.index!=0}">
 								<td class="text-center"><a href="javascript:void(0);"
 									class="btn-sm btn-danger" id="deleteExistBuildFloorRow"
-									data-record-id="${buildingAreaDetails.id}"><i
+									data-record-id="${existingBuildFloorDetail.id}"><i
 										class="fa fa-trash"></i></a></td>
 							</c:if>
 
@@ -187,7 +186,7 @@
 								data-pattern="number"
 								path="existingBuildingDetails[0].existingBuildingFloorDetails[0].floorNumber"
 								id="existingBuildingFloorDetails0floorNumber" maxlength="3"
-								value="${buildingAreaDetails.floorNumber}" /></td>
+								value="${existingBuildFloorDetail.floorNumber}" /></td>
 						<td><form:select
 								path="existingBuildingDetails[0].existingBuildingFloorDetails[0].occupancy"
 								data-first-option="false"
@@ -204,18 +203,17 @@
 								class="form-control table-input text-right patternvalidation decimalfixed nonzero existPlinthArea exist-floor-details-mandatory"
 								data-pattern="decimalvalue"
 								path="existingBuildingDetails[0].existingBuildingFloorDetails[0].plinthArea"
-								onblur="validateFloorDetails(this)"
-								id="existingBuildingFloorDetails0plinthArea" maxlength="10" value="" /></td>
+								id="existingBuildingFloorDetails0plinthArea" maxlength="10" value="${existingBuildFloorDetail.plinthArea}" /></td>
 						<td><form:input type="text"
 								class="form-control table-input text-right patternvalidation decimalfixed nonzero existFloorArea exist-floor-details-mandatory"
 								data-pattern="decimalvalue"
 								path="existingBuildingDetails[0].existingBuildingFloorDetails[0].floorArea"
-								id="existingBuildingFloorDetails0floorArea" maxlength="10" value="" /></td>
+								id="existingBuildingFloorDetails0floorArea" maxlength="10" value="${existingBuildFloorDetail.floorArea}" /></td>
 						<td><form:input type="text"
 								class="form-control table-input text-right patternvalidation decimalfixed existCarpetArea exist-floor-details-mandatory"
 								data-pattern="decimalvalue"
 								path="existingBuildingDetails[0].existingBuildingFloorDetails[0].carpetArea"
-								id="existingBuildingFloorDetails0carpetArea" maxlength="10" value="" /></td>
+								id="existingBuildingFloorDetails0carpetArea" maxlength="10" value="${existingBuildFloorDetail.carpetArea}" /></td>
 						<td></td>
 					</tr>
 				</c:otherwise>

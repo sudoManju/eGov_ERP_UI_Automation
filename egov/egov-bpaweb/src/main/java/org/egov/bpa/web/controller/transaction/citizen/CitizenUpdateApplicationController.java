@@ -143,6 +143,8 @@ public class CitizenUpdateApplicationController extends BpaGenericApplicationCon
             @PathVariable final String applicationNumber, final BindingResult resultBinder,
             final HttpServletRequest request, final Model model,
             @RequestParam("files") final MultipartFile[] files) {
+        proposedBuildingFloorDetailsService.removeDuplicateProposedBuildFloorDetails(bpaApplication);
+        existingBuildingFloorDetailsService.removeDuplicateExistingBuildFloorDetails(bpaApplication);
         if (resultBinder.hasErrors()) {
             prepareCommonModelAttribute(model, bpaApplication);
             return loadViewdata(model, bpaApplication);

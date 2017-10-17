@@ -367,7 +367,8 @@ public class UpdateBpaApplicationController extends BpaGenericApplicationControl
             final BindingResult resultBinder, final RedirectAttributes redirectAttributes,
             final HttpServletRequest request, final Model model,
             @RequestParam final BigDecimal amountRule, @RequestParam("files") final MultipartFile[] files) {
-
+        proposedBuildingFloorDetailsService.removeDuplicateProposedBuildFloorDetails(bpaApplication);
+        existingBuildingFloorDetailsService.removeDuplicateExistingBuildFloorDetails(bpaApplication);
         if (resultBinder.hasErrors()) {
             loadViewdata(model, bpaApplication);
             return BPAAPPLICATION_FORM;

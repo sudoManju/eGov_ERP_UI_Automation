@@ -48,11 +48,11 @@ jQuery(document).ready(function() {
 	var tbody = $('#existingBuildingAreaDetails').children('tbody');
 	var table = tbody.length ? tbody : $('#existingBuildingAreaDetails');
 	var row = '<tr>'+
-	'<td class="text-center"><span class="serialNoForExistBuild text-center" id="slNoInsp">{{sno}}</span><input type="hidden" class="orderNoForExistBuild" data-sno name="existingBuildingDetails[0].existingBuildingFloorDetailsUpdate[{{idx}}].orderOfFloor"/></td>'+
+	'<td class="text-center"><span class="serialNoForExistBuild text-center">{{sno}}</span><input type="hidden" class="orderNoForExistBuild" data-sno name="existingBuildingDetails[0].existingBuildingFloorDetailsUpdate[{{idx}}].orderOfFloor"/></td>'+
 	'<td ><select name="existingBuildingDetails[0].existingBuildingFloorDetailsUpdate[{{idx}}].floorDescription" data-first-option="false" id="existingBuildingFloorDetailsUpdate[{{idx}}]floorDescription" class="form-control exist-floor-details-mandatory existFloorDescription clear-details" required="required" maxlength="128" > <option value="">Select</option><options items="${buildingFloorList}" /></select></td>'+
 	'<td class="text-right"><input type="text" class="form-control table-input text-center patternvalidation existFloorNumber exist-floor-details-mandatory clear-details" name="existingBuildingDetails[0].existingBuildingFloorDetailsUpdate[{{idx}}].floorNumber" data-pattern="number" required="required" id="existingBuildingFloorDetailsUpdate[{{idx}}]floorNumber" maxlength="3" /></td>'+
 	'<td ><select name="existingBuildingDetails[0].existingBuildingFloorDetailsUpdate[{{idx}}].occupancy" data-first-option="false" id="existingBuildingFloorDetailsUpdate[{{idx}}]occupancy" class="form-control exist-floor-details-mandatory existOccupancy" required="required" maxlength="128" > <option value="">Select</option><options items="${occupancyList}" /></select></td>'+
-	'<td class="text-right"><input type="text" class="form-control table-input text-right patternvalidation existPlinthArea nonzero exist-floor-details-mandatory decimalfixed" data-pattern="decimalvalue" name="existingBuildingDetails[0].existingBuildingFloorDetailsUpdate[{{idx}}].plinthArea" id="existingBuildingFloorDetailsUpdate[{{idx}}]plinthArea" required="required" maxlength="10" onblur="validateFloorDetails(this)" /></td>'+
+	'<td class="text-right"><input type="text" class="form-control table-input text-right patternvalidation existPlinthArea nonzero exist-floor-details-mandatory decimalfixed" data-pattern="decimalvalue" name="existingBuildingDetails[0].existingBuildingFloorDetailsUpdate[{{idx}}].plinthArea" id="existingBuildingFloorDetailsUpdate[{{idx}}]plinthArea" required="required" maxlength="10" /></td>'+
 	'<td class="text-right"><input type="text" class="form-control table-input text-right patternvalidation existFloorArea nonzero exist-floor-details-mandatory decimalfixed" data-pattern="decimalvalue" name="existingBuildingDetails[0].existingBuildingFloorDetailsUpdate[{{idx}}].floorArea" id="existingBuildingFloorDetailsUpdate[{{idx}}]floorArea" maxlength="10" required="required" /></td>'+
 	'<td class="text-right"><input type="text" class="form-control table-input text-right patternvalidation existCarpetArea exist-floor-details-mandatory decimalfixed" data-pattern="decimalvalue" name="existingBuildingDetails[0].existingBuildingFloorDetailsUpdate[{{idx}}].carpetArea" id="existingBuildingFloorDetailsUpdate[{{idx}}]carpetArea" maxlength="10" required="required" value=""  /></td>'+
 	'<td class="text-center"><a href="javascript:void(0);" class="btn-sm btn-danger" id="deleteExistBuildFloorRow" ><i class="fa fa-trash"></i></a></td>'+
@@ -69,7 +69,7 @@ jQuery(document).ready(function() {
 			   };
 			addRowFromObject1(row);
 			patternvalidation();
-			generateSno();
+			generateSnoForExistingBuilding();
 			loadFloorlist("existingBuildingDetails[0].existingBuildingFloorDetailsUpdate["+idx+"].floorDescription");
 			loadOccupanctyDetails("existingBuildingDetails[0].existingBuildingFloorDetailsUpdate["+idx+"].occupancy");
 		}
@@ -119,7 +119,7 @@ jQuery(document).ready(function() {
 	
 	$(document).on('blur','.existFloorNumber', function() {
 		var rowObj = $(this).closest('tr');
-		validateUniqueDetailsForExistBuild(rowObj.index(),$(rowObj).find('.existFloorDescription').val(), $(rowObj).find('.existFloorNumber').val(), $(rowObj).find('.occupancy').val());
+		validateUniqueDetailsForExistBuild(rowObj.index(),$(rowObj).find('.existFloorDescription').val(), $(rowObj).find('.existFloorNumber').val(), $(rowObj).find('.existOccupancy').val());
 	}); 
 	
 	$(document).on('change','.existFloorDescription, .existOccupancy', function() {
@@ -129,7 +129,7 @@ jQuery(document).ready(function() {
 			return false;
 		}
 		var rowObj = $(this).closest('tr');
-		validateUniqueDetailsForExistBuild(rowObj.index(),$(rowObj).find('.existFloorDescription').val(), $(rowObj).find('.existFloorNumber').val(), $(rowObj).find('.occupancy').val());
+		validateUniqueDetailsForExistBuild(rowObj.index(),$(rowObj).find('.existFloorDescription').val(), $(rowObj).find('.existFloorNumber').val(), $(rowObj).find('.existOccupancy').val());
 	});
 	
 });
@@ -142,12 +142,12 @@ function validateUniqueDetailsForExistBuild(idx,floorDesc,level,occupancy){
 			if(idx===index)
 				return;
 			
-			var floorName  = $(this).find('*[name$="floorDescription"]').val();
-		    var floorNumber = $(this).find('*[name$="floorNumber"]').val();
-		    var occupancy1 = $(this).find('*[name$="occupancy"]').val();
+			var floorName  = $(this).find('*[name$="floorDescription"]').val().trim();
+		    var floorNumber = $(this).find('*[name$="floorNumber"]').val().trim();
+		    var occupancy1 = $(this).find('*[name$="occupancy"]').val().trim();
 		    if(floorDesc === floorName && level === floorNumber && occupancy ===occupancy1) {
 		    	$('#existingBuildingAreaDetails tbody tr:eq('+idx+')').find('.clear-details').val('');
-		    	bootbox.alert('With combination of Floor Description : '+floorDesc+', Level : '+level+' and Occupancy Type : '+$(this).find('*[name$="occupancy"] option:selected').text()+' are already present with existing entered details, please check and enter valid values.');
+		    	bootbox.alert('With combination of Floor Description : '+floorDesc+', Level : '+level+' and Occupancy Type : '+$(this).find('*[name$="occupancy"] option:selected').text()+' floor details are already present, please check and enter valid details.');
 			    return false;
 		    }
 		});
@@ -211,17 +211,16 @@ $(document).on('change', '.existCarpetArea', function() {
      
 });
 	
-function generateSno()
+function generateSnoForExistingBuilding()
 {
 	var idx=1;
-	$(".serialNoForExistBuild").each(function(){
+	$('.serialNoForExistBuild').each(function(){
 		$(this).text(idx);
 		idx++;
 	});
 	
 	$('.orderNoForExistBuild').each(function(i){
 		$(this).val(++i);
-		
 	});
 }
 
@@ -254,7 +253,7 @@ $(document).on('click',"#deleteExistBuildFloorRow",function (){
     $('#existDeletedFloorIds').val(deletedId);
 	$(this).closest('tr').remove();	
 	
-	generateSno();
+	generateSnoForExistingBuilding();
 	
 	$("#existingBuildingAreaDetails tbody tr").each(function() {
 			$(this).find("input, select, hidden,textarea").each(function() {

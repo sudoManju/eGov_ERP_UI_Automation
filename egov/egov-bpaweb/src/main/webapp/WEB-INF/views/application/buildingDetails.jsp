@@ -86,7 +86,7 @@
 						code="lbl.floor.area" /></th>
 				<th class="text-center floor-toggle-mandatory"><span></span>&nbsp;<spring:message
 						code="lbl.carpet.area" /></th>
-				<th class="text-center"><spring:message code="lbl.action" /></th>
+				<th class="text-center"><spring:message code="lbl.action" /><input type="hidden" id="debug" value="${bpaApplication.buildingDetail[0].applicationFloorDetails}"></th>
 			</tr>
 		</thead>
 		<tbody
@@ -96,11 +96,11 @@
 					test="${!bpaApplication.buildingDetail[0].applicationFloorDetails.isEmpty()}">
 					<c:forEach
 						items="${bpaApplication.buildingDetail[0].applicationFloorDetails}"
-						var="buildingAreaDetails" varStatus="counter">
+						var="proposedBuildFloorDetail" varStatus="counter">
 						<tr class="data-fetched">
 							<td class="text-center"><span class="serialNo text-center"
 								id="slNoInsp">${counter.index+1}</span>
-							<form:hidden path="buildingDetail[0].applicationFloorDetails[${counter.index}]" />
+								<form:hidden path="buildingDetail[0].applicationFloorDetails[${counter.index}]" value="${proposedBuildFloorDetail.id}" />
 								<form:hidden class="orderNo"
 									path="buildingDetail[0].applicationFloorDetails[${counter.index}].orderOfFloor" /></td>
 							<td><form:select
@@ -119,7 +119,7 @@
 									data-pattern="number"
 									path="buildingDetail[0].applicationFloorDetails[${counter.index}].floorNumber"
 									id="applicationFloorDetails${counter.index}floorNumber"
-									maxlength="15" value="${buildingAreaDetails.floorNumber}" /></td>
+									maxlength="15" value="${proposedBuildFloorDetail.floorNumber}" /></td>
 							<td><form:select
 									path="buildingDetail[0].applicationFloorDetails[${counter.index}].occupancy"
 									data-first-option="false"
@@ -138,25 +138,25 @@
 									path="buildingDetail[0].applicationFloorDetails[${counter.index}].plinthArea"
 									id="applicationFloorDetails${counter.index}plinthArea"
 									maxlength="15" required="required"
-									value="${buildingAreaDetails.plinthArea}"
+									value="${proposedBuildFloorDetail.plinthArea}"
 									onblur="validateFloorDetails(this)" /></td>
 							<td><form:input type="text"
 									class="form-control table-input text-right patternvalidation decimalfixed nonzero floorArea"
 									data-pattern="decimalvalue"
 									path="buildingDetail[0].applicationFloorDetails[${counter.index}].floorArea"
 									id="applicationFloorDetails${counter.index}floorArea"
-									maxlength="15" required="required" value="" /></td>
+									maxlength="15" required="required" value="${proposedBuildFloorDetail.floorArea}" /></td>
 							<td><form:input type="text"
 									class="form-control table-input text-right patternvalidation decimalfixed carpetArea"
 									data-pattern="decimalvalue"
 									path="buildingDetail[0].applicationFloorDetails[${counter.index}].carpetArea"
 									id="applicationFloorDetails${counter.index}carpetArea"
 									maxlength="15" required="required"
-									value="${buildingAreaDetails.carpetArea}" /></td>
+									value="${proposedBuildFloorDetail.carpetArea}" /></td>
 							<c:if test="${counter.index!=0}">
 								<td class="text-center"><a href="javascript:void(0);"
 									class="btn-sm btn-danger" id="deleteBuildAreaRow"
-									data-record-id="${buildingAreaDetails.id}"><i
+									data-record-id="${proposedBuildFloorDetail.id}"><i
 										class="fa fa-trash"></i></a></td>
 							</c:if>
 
@@ -189,7 +189,7 @@
 								data-pattern="number"
 								path="buildingDetail[0].applicationFloorDetails[0].floorNumber"
 								id="applicationFloorDetails0floorNumber" maxlength="3"
-								value="${buildingAreaDetails.floorNumber}" /></td>
+								value="${proposedBuildFloorDetail.floorNumber}" /></td>
 						<td><form:select
 								path="buildingDetail[0].applicationFloorDetails[0].occupancy"
 								data-first-option="false"
@@ -207,21 +207,21 @@
 								data-pattern="decimalvalue"
 								path="buildingDetail[0].applicationFloorDetails[0].plinthArea"
 								onblur="validateFloorDetails(this)"
-								id="applicationFloorDetails0plinthArea" maxlength="10" value="" /></td>
+								id="applicationFloorDetails0plinthArea" maxlength="10" value="${proposedBuildFloorDetail.plinthArea}" /></td>
 						<td><form:input type="text"
 								class="form-control table-input text-right patternvalidation decimalfixed nonzero floorArea floor-details-mandatory"
 								data-pattern="decimalvalue"
 								path="buildingDetail[0].applicationFloorDetails[0].floorArea"
-								id="applicationFloorDetails0floorArea" maxlength="10" value="" /></td>
+								id="applicationFloorDetails0floorArea" maxlength="10" value="${proposedBuildFloorDetail.floorArea}" /></td>
 						<td><form:input type="text"
 								class="form-control table-input text-right patternvalidation decimalfixed carpetArea floor-details-mandatory"
 								data-pattern="decimalvalue"
 								path="buildingDetail[0].applicationFloorDetails[0].carpetArea"
-								id="applicationFloorDetails0carpetArea" maxlength="10" value="" /></td>
+								id="applicationFloorDetails0carpetArea" maxlength="10" value="${proposedBuildFloorDetail.carpetArea}" /></td>
 						<td></td>
 						<%-- <td class=" text-center"><a href="javascript:void(0);"
 							class="btn-sm btn-danger" id="deleteBuildAreaRow"
-							data-record-id="${buildingAreaDetails.id}"><i
+							data-record-id="${proposedBuildFloorDetail.id}"><i
 								class="fa fa-trash"></i></a></td> --%>
 					</tr>
 				</c:otherwise>

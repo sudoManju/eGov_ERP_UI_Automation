@@ -40,6 +40,7 @@
 package org.egov.bpa.transaction.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -134,6 +135,15 @@ public class BuildingFloorDetailsService {
             }
             application.getBuildingDetail().get(0).delete(existingFloorDetails);
             delete(existingFloorDetails);
+        }
+    }
+
+    public void removeDuplicateProposedBuildFloorDetails(final BpaApplication application) {
+        if (!application.getBuildingDetail().isEmpty() && application.getBuildingDetail().get(0) != null
+                && !application.getBuildingDetail().get(0).getApplicationFloorDetails().isEmpty()
+                && application.getBuildingDetail().get(0).getTotalPlintArea() != null) {
+            application.getBuildingDetail().get(0).setApplicationFloorDetails(
+                    new ArrayList<>(new HashSet<>(application.getBuildingDetail().get(0).getApplicationFloorDetails())));
         }
     }
 }
